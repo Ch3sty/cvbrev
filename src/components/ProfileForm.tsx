@@ -1,92 +1,49 @@
 'use client';
 
-import { useState, useEffect, ChangeEvent, FormEvent, useCallback } from 'react';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { db, auth } from '../firebase';
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import { supabase } from '@/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'react-hot-toast';
-import api from '@/api';
 
 interface ProfileFormProps {
-  user: User | null;
+  user: any | null;
   initialData?: {
-    fullName?: string;
+    full_name?: string;
     phone?: string;
-    preferredTonality?: string;
+    preferred_tonality?: string;
     email?: string;
-    [key: string]: string | number | boolean | object | null | undefined;
+    [key: string]: any;
   };
+  onSubmit?: (formData: any) => Promise<void>;
 }
 
 interface FormDataType {
-  fullName: string;
+  full_name: string;
   phone: string;
-  preferredTonality: string;
+  preferred_tonality: string;
 }
 
-export default function ProfileForm({ user, initialData = {} }: ProfileFormProps) {
+export default function ProfileForm({ user, initialData = {}, onSubmit }: ProfileFormProps) {
   const [formData, setFormData] = useState<FormDataType>({
-    fullName: initialData?.fullName || '',
+    full_name: initialData?.full_name || '',
     phone: initialData?.phone || '',
-    preferredTonality: initialData?.preferredTonality || 'professional',
+    preferred_tonality: initialData?.preferred_tonality || 'professional',
   });
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [userId, setUserId] = useState<string | null>(null);
+  const { refreshUserProfile } = useAuth();
 
-  const fetchUserData = useCallback(async (uid: string): Promise<void> => {
-    try {
-      setLoading(true);
-      
-      if (!db) {
-        console.error('Firestore-databasen är inte initierad');
-        toast.error('Databasanslutning misslyckades');
-        return;
-      }
-
-      const userDoc = await getDoc(doc(db, 'users', uid));
-      
-      if (userDoc.exists()) {
-        const userData = userDoc.data() as FormDataType;
-        setFormData({
-          fullName: userData.fullName || '',
-          phone: userData.phone || '',
-          preferredTonality: userData.preferredTonality || 'professional'
-        });
-      }
-    } catch (error) {
-      console.error('Fel vid hämtning av användardata:', error);
-      toast.error('Kunde inte hämta användardata');
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
+  // Update form when initialData changes
   useEffect(() => {
     if (initialData && Object.keys(initialData).length > 0) {
       console.log('Uppdaterar formulär med initialData:', initialData);
       setFormData({
-        fullName: initialData.fullName || '',
+        full_name: initialData.full_name || '',
         phone: initialData.phone || '',
-        preferredTonality: initialData.preferredTonality || 'professional',
+        preferred_tonality: initialData.preferred_tonality || 'professional',
       });
     }
   }, [initialData]);
-
-  useEffect(() => {
-  if (!auth) return; // 💡 Förhindra att null skickas
-
-  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-    if (currentUser) {
-      setUserId(currentUser.uid);
-      if (!initialData || Object.keys(initialData).length === 0) {
-        fetchUserData(currentUser.uid);
-      }
-    }
-  });
-
-  return () => unsubscribe();
-}, [initialData, fetchUserData]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
     const { name, value } = e.target;
@@ -99,45 +56,40 @@ export default function ProfileForm({ user, initialData = {} }: ProfileFormProps
   const handleSubmit = async (e: FormEvent): Promise<void> => {
     e.preventDefault();
     
-    if (!userId || !db) {
-      toast.error('Autentisering eller databasanslutning misslyckades');
+    if (!user) {
+      toast.error('Du måste vara inloggad för att uppdatera din profil');
       return;
     }
     
     try {
       setLoading(true);
       
-      let success = false;
-      
-      try {
-        await api.user.updateProfile(formData);
-        success = true;
-        console.log('Profil uppdaterad via API');
-      } catch (apiError) {
-        console.log('API-anrop misslyckades, försöker med Firestore:', apiError);
-      }
-      
-      if (!success) {
-        try {
-          await setDoc(doc(db, 'users', userId), formData, { merge: true });
-          success = true;
-          console.log('Profil uppdaterad via Firestore');
-        } catch (firestoreError) {
-          console.error('Firestore-anrop misslyckades:', firestoreError);
-          if (firestoreError instanceof Error && 'code' in firestoreError) {
-            console.error('Firestore error code:', (firestoreError as { code: string }).code);
-          }
-        }
-      }
-      
-      if (success) {
-        toast.success('Profilen har sparats!');
-        console.log('Profil uppdaterad:', formData);
+      // Use the provided onSubmit function if available
+      if (onSubmit) {
+        await onSubmit(formData);
       } else {
-        toast.error('Kunde inte spara profiländringar. Försök igen senare.');
+        // Default implementation using Supabase
+        const { error } = await supabase
+          .from('profiles')
+          .upsert({
+            id: user.id,
+            full_name: formData.full_name,
+            phone: formData.phone,
+            preferred_tonality: formData.preferred_tonality,
+            updated_at: new Date().toISOString()
+          });
+
+        if (error) {
+          console.error('Supabase error details:', error);
+          throw error;
+        }
+
+        // Refresh user profile in context
+        await refreshUserProfile();
+        toast.success('Profilen har sparats!');
       }
     } catch (error) {
-      console.error('Fel vid sparande av profil:', error);
+      console.error('Fel vid uppdatering av profil:', error);
       toast.error('Kunde inte spara profiländringar');
     } finally {
       setLoading(false);
@@ -163,14 +115,14 @@ export default function ProfileForm({ user, initialData = {} }: ProfileFormProps
       </div>
 
       <div>
-        <label htmlFor="fullName" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label htmlFor="full_name" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
           Fullständigt namn
         </label>
         <input
           type="text"
-          id="fullName"
-          name="fullName"
-          value={formData.fullName}
+          id="full_name"
+          name="full_name"
+          value={formData.full_name}
           onChange={handleChange}
           className="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md w-full p-2"
           placeholder="Ditt namn"
@@ -193,13 +145,13 @@ export default function ProfileForm({ user, initialData = {} }: ProfileFormProps
       </div>
       
       <div>
-        <label htmlFor="preferredTonality" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label htmlFor="preferred_tonality" className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
           Föredragen tonalitet
         </label>
         <select
-          id="preferredTonality"
-          name="preferredTonality"
-          value={formData.preferredTonality}
+          id="preferred_tonality"
+          name="preferred_tonality"
+          value={formData.preferred_tonality}
           onChange={handleChange}
           className="bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md w-full p-2"
         >

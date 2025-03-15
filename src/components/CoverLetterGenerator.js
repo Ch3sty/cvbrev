@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { auth } from '../firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { supabase } from '@/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
 import {
   FiDownload,
   FiCopy,
@@ -17,7 +17,9 @@ import TonalitySelector from './TonalitySelector';
 import { toast, Toaster } from 'react-hot-toast';
 
 const CoverLetterGenerator = () => {
-  const [user] = useAuthState(auth);
+  // Use AuthContext instead of Firebase auth
+  const { user, userProfile } = useAuth();
+  
   const [cv, setCv] = useState('');
   const [jobDescription, setJobDescription] = useState('');
   const [coverLetter, setCoverLetter] = useState('');
@@ -33,44 +35,21 @@ const CoverLetterGenerator = () => {
   const [jobTitle, setJobTitle] = useState('');
   const [generatedLetterId, setGeneratedLetterId] = useState(null);
 
-  // Försök att hämta användarens prefererade tonalitet vid laddning
+  // Set preferred tonality from user profile
   useEffect(() => {
-    const fetchUserProfile = async () => {
-      if (user) {
-        try {
-          const apiModule = await import('../api');
-          const api = apiModule.default;
+    if (userProfile && userProfile.preferred_tonality) {
+      setTonality(userProfile.preferred_tonality);
+    }
+  }, [userProfile]);
 
-          // Wrap i try-catch för att fånga eventuella fel som uppstår vid API-anropet
-          try {
-            const result = await api.user.getProfile();
-            if (result.success && result.profile.preferredTonality) {
-              setTonality(result.profile.preferredTonality);
-            }
-          } catch (profileError) {
-            console.log(
-              'Kunde inte hämta profilpreferenser, använder standard:',
-              profileError
-            );
-            // Misslyckas tyst och använd standard-tonalitet - logga bara
-          }
-        } catch (error) {
-          console.error('Kunde inte importera API-klienten:', error);
-        }
-      }
-    };
-
-    fetchUserProfile();
-  }, [user]);
-
-  // Rensa felmeddelanden när användaren börjar göra ändringar
+  // Clear errors when user makes changes
   useEffect(() => {
     if (error) {
       setError('');
     }
   }, [cv, jobDescription, error]);
 
-  // Om user är null, visa ett meddelande istället
+  // If user is null, show a message instead
   if (!user) {
     return (
       <div className="text-center text-gray-400 py-6">
@@ -87,7 +66,7 @@ const CoverLetterGenerator = () => {
     setFileLoading(true);
     setError('');
 
-    // Verifiera filtyp
+    // Verify file type
     const fileType = file.name.split('.').pop().toLowerCase();
     if (fileType !== 'docx' && fileType !== 'pdf' && fileType !== 'txt') {
       setError('Endast .txt, .docx och .pdf-filer stöds');
@@ -96,29 +75,30 @@ const CoverLetterGenerator = () => {
     }
 
     try {
-      // För .txt-filer kan vi läsa direkt i browsern
+      // For .txt files, we can read directly in the browser
       if (fileType === 'txt') {
         handleTextFile(file);
         return;
       }
 
-      // För .docx och .pdf använder vi backend-API
-      const API_URL =
-        process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
+      // For .docx and .pdf, use backend API
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
 
-      // Skapa en FormData-objekt för filuppladdning
+      // Create FormData for file upload
       const formData = new FormData();
       formData.append('file', file);
 
-      // Hämta auth token
-      let token = '';
-      if (user) {
-        token = await user.getIdToken();
+      // Get auth token from Supabase
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError) {
+        throw new Error('Kunde inte hämta autentiseringstoken');
       }
+      
+      const token = sessionData?.session?.access_token || '';
 
       console.log(`Laddar upp fil: ${file.name} (${file.size} bytes)`);
 
-      // Skicka filen till backend
+      // Send file to backend
       const response = await fetch(`${API_URL}/files/extract-text`, {
         method: 'POST',
         headers: {
@@ -134,11 +114,9 @@ const CoverLetterGenerator = () => {
 
       const data = await response.json();
 
-      // Sätt extraherad text som CV
+      // Set extracted text as CV
       setCv(data.text);
-      console.log(
-        `Extraherad text från ${file.name}: ${data.text.length} tecken`
-      );
+      console.log(`Extraherad text från ${file.name}: ${data.text.length} tecken`);
     } catch (error) {
       console.error('Fel vid filuppladdning:', error);
       setError(`Filuppladdning misslyckades: ${error.message}`);
@@ -186,57 +164,68 @@ const CoverLetterGenerator = () => {
     setGeneratedLetterId(null);
 
     try {
-      // Logga vad vi skickar till API
+      // Log what we're sending to the API
       console.log('Skickar CV längd:', cv.length);
       console.log('Skickar jobbannons längd:', jobDescription.length);
       console.log('Vald tonalitet:', tonality);
 
-      // Dynamisk import av API-klienten
-      const apiModule = await import('../api');
-      const api = apiModule.default;
+      // Call the API to generate a letter
+      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
+      
+      // Get auth token from Supabase
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError) {
+        throw new Error('Kunde inte hämta autentiseringstoken');
+      }
+      
+      const token = sessionData?.session?.access_token || '';
 
-      try {
-        const result = await api.letters.generate(
+      const response = await fetch(`${API_URL}/letters/generate`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token ? `Bearer ${token}` : ''
+        },
+        body: JSON.stringify({
           cv,
           jobDescription,
-          'swedish',
+          language: 'swedish',
           tonality
-        );
-        setCoverLetter(result.content);
+        })
+      });
 
-        // Spara ID för det genererade brevet om det finns
-        if (result.id) {
-          setGeneratedLetterId(result.id);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Ett fel uppstod vid generering av brev');
+      }
 
-          // Försök extrahera företag och jobb från annonsen
-          const companyMatch = jobDescription.match(
-            /(?:företag|bolag|organisation):\s*([^\n.]+)/i
-          );
-          const jobMatch = jobDescription.match(
-            /(?:tjänst|roll|position|jobb):\s*([^\n.]+)/i
-          );
+      const result = await response.json();
+      setCoverLetter(result.content);
 
-          if (companyMatch && companyMatch[1]) {
-            setCompany(companyMatch[1].trim());
-          }
+      // Save ID for the generated letter if it exists
+      if (result.id) {
+        setGeneratedLetterId(result.id);
 
-          if (jobMatch && jobMatch[1]) {
-            setJobTitle(jobMatch[1].trim());
-            setLetterTitle(`Ansökan: ${jobMatch[1].trim()}`);
-          }
+        // Try to extract company and job from the ad
+        const companyMatch = jobDescription.match(/(?:företag|bolag|organisation):\s*([^\n.]+)/i);
+        const jobMatch = jobDescription.match(/(?:tjänst|roll|position|jobb):\s*([^\n.]+)/i);
+
+        if (companyMatch && companyMatch[1]) {
+          setCompany(companyMatch[1].trim());
         }
 
-        toast.success('Brevet har genererats!');
-      } catch (error) {
-        console.error('Error generating letter:', error);
-        setError(`Fel vid generering av brev: ${error.message || 'Okänt fel'}`);
-        toast.error('Kunde inte generera brev');
-      } finally {
-        setIsGenerating(false);
+        if (jobMatch && jobMatch[1]) {
+          setJobTitle(jobMatch[1].trim());
+          setLetterTitle(`Ansökan: ${jobMatch[1].trim()}`);
+        }
       }
+
+      toast.success('Brevet har genererats!');
     } catch (error) {
-      console.error('Error importing API client:', error);
-      setError('Ett fel uppstod. Försök igen senare.');
+      console.error('Error generating letter:', error);
+      setError(`Fel vid generering av brev: ${error.message || 'Okänt fel'}`);
+      toast.error('Kunde inte generera brev');
+    } finally {
       setIsGenerating(false);
     }
   };
@@ -250,29 +239,46 @@ const CoverLetterGenerator = () => {
     setIsSaving(true);
 
     try {
-      const apiModule = await import('../api');
-      const api = apiModule.default;
-
+      // Create letter object
       const letterData = {
+        user_id: user.id,
         content: coverLetter,
         title: letterTitle || 'Namnlöst brev',
         company: company || '',
-        jobTitle: jobTitle || '',
+        job_title: jobTitle || '',
         tonality: tonality,
-        jobDescription: jobDescription,
-        cvText: cv,
-        letterId: generatedLetterId // Om vi uppdaterar ett befintligt brev
+        job_description: jobDescription,
+        cv_text: cv,
+        is_saved: true,
+        created_at: new Date().toISOString()
       };
 
-      const result = await api.letters.save(letterData);
+      // If we're updating an existing letter
+      if (generatedLetterId) {
+        const { error } = await supabase
+          .from('letters')
+          .update(letterData)
+          .eq('id', generatedLetterId);
+
+        if (error) throw error;
+      } 
+      // Create new letter
+      else {
+        const { data, error } = await supabase
+          .from('letters')
+          .insert(letterData)
+          .select();
+
+        if (error) throw error;
+        
+        // Update generatedLetterId if it's a new letter
+        if (data && data.length > 0) {
+          setGeneratedLetterId(data[0].id);
+        }
+      }
 
       toast.success('Brevet har sparats!');
       setShowSaveForm(false);
-
-      // Uppdatera generatedLetterId om det är ett nytt brev
-      if (result.id && !generatedLetterId) {
-        setGeneratedLetterId(result.id);
-      }
     } catch (error) {
       console.error('Error saving letter:', error);
       toast.error(`Kunde inte spara brevet: ${error.message || 'Okänt fel'}`);
@@ -287,8 +293,8 @@ const CoverLetterGenerator = () => {
   };
 
   const downloadAsDocx = () => {
-    // Detta skulle egentligen konvertera till DOCX med en riktig DOCX-generator
-    // För nu använder vi enkel text
+    // This would actually convert to DOCX with a real DOCX generator
+    // For now we use simple text
     const blob = new Blob([coverLetter], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');

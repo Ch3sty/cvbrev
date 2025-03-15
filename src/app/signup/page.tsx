@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/supabase/client';
@@ -16,29 +16,12 @@ export default function SignUpPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [forceShowForm, setForceShowForm] = useState(false);
 
-  const { user, loading: authLoading } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
 
-  // Timeout för att tvinga visa formuläret
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setForceShowForm(true);
-    }, 3000);
-    
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Omdirigera om användaren är inloggad
-  useEffect(() => {
-    if ((!authLoading || forceShowForm) && user) {
-      router.push('/');
-    }
-  }, [user, authLoading, router, forceShowForm]);
-
   // Validera formulär
-  const validateForm = () => {
+  const validateForm = useCallback(() => {
     if (password !== confirmPassword) {
       setErrorMessage('Lösenorden matchar inte.');
       return false;
@@ -50,7 +33,7 @@ export default function SignUpPage() {
     }
     
     return true;
-  };
+  }, [password, confirmPassword]);
 
   // Hantera registrering med email och lösenord
   const handleSignUp = async (e: React.FormEvent) => {
@@ -70,13 +53,21 @@ export default function SignUpPage() {
         password,
         options: {
           data: {
-            full_name: name
+            full_name: name  // Använder snake_case för att matcha din databas/metadata
           }
         }
       });
 
+      // Omfattande loggning
+      console.log('COMPLETE REGISTRATION RESPONSE:', {
+        user: data?.user,
+        session: data?.session,
+        error: error
+      });
+
       if (error) {
         // Hantera specifika Supabase-felmeddelanden
+        console.error('SIGNUP ERROR DETAILS:', error);
         switch (error.message) {
           case 'User already exists':
             setErrorMessage('En användare med denna e-post finns redan.');
@@ -91,27 +82,17 @@ export default function SignUpPage() {
         return;
       }
 
-      // Skapa användarprofil i profiles-tabellen
-      if (data.user) {
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .upsert({
-            id: data.user.id,
-            email: data.user.email,
-            full_name: name,
-            created_at: new Date().toISOString(),
-            preferred_tonality: 'professional'
-          })
-          .select();
+      // OBS! Vi tar bort manuell profilskapning här och förlitar oss på en DB-trigger
+      // som automatiskt skapar en rad i "profiles" när en ny användare läggs till i auth.users.
+      // 
+      // Om du vill behålla loggningen av att en profil skapas
+      // kan du istället lägga en console.log här, men själva insert-raden är borttagen.
 
-        if (profileError) {
-          console.error('Fel vid skapande av användarprofil:', profileError);
-        }
-      }
+      // Klart! Om inloggning är direkt (auto-confirm = avstängd) hanteras omdirigering av AuthContext
+      setIsLoading(false);
 
-      // Inloggning lyckades, omdirigering hanteras av AuthContext
     } catch (error) {
-      console.error('Oväntat registreringsfel:', error);
+      console.error('UNEXPECTED SIGNUP ERROR:', error);
       setErrorMessage('Ett oväntat fel uppstod. Försök igen.');
       setIsLoading(false);
     }
@@ -141,21 +122,12 @@ export default function SignUpPage() {
     }
   };
 
-  // Visa laddningsskärm
-  if (authLoading && !forceShowForm) {
-    return (
-      <div className="min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center">
-        <div className="w-12 h-12 border-t-2 border-pink-500 border-solid rounded-full animate-spin"></div>
-        <p className="mt-4 text-gray-400">Kontrollerar autentiseringsstatus...</p>
-        <button 
-          onClick={() => setForceShowForm(true)}
-          className="mt-4 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded text-white"
-        >
-          Fortsätt utan att vänta
-        </button>
-      </div>
-    );
-  }
+  // Omdirigera om användaren är inloggad
+  React.useEffect(() => {
+    if (user) {
+      router.push('/');
+    }
+  }, [user, router]);
 
   return (
     <div className="min-h-screen bg-gray-950 text-white">

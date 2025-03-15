@@ -1,18 +1,24 @@
-// API-klient för att kommunicera med backend
-import { auth } from '../firebase';
+// API client for communicating with backend
+import { supabase } from '@/supabase/client';
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
 
-// Hjälpfunktion för att hantera API-anrop
+// Helper function to handle API calls
 async function fetchWithAuth(endpoint, options = {}) {
   try {
-    const user = auth.currentUser;
-    if (!user) {
-      // Om ingen användare är inloggad, kasta ett tydligt fel
-      throw new Error("Användare ej inloggad. Vänligen logga in för att fortsätta.");
+    // Get session from Supabase
+    const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+    
+    if (sessionError) {
+      throw new Error("Authentication error. Please sign in again.");
     }
     
-    // Hämta token från den inloggade användaren
-    const token = await user.getIdToken();
+    if (!sessionData.session) {
+      throw new Error("No authenticated user. Please sign in.");
+    }
+    
+    // Get token from the session
+    const token = sessionData.session.access_token;
     
     const response = await fetch(`${API_URL}${endpoint}`, {
       ...options,
@@ -23,20 +29,20 @@ async function fetchWithAuth(endpoint, options = {}) {
       },
     });
     
-    // Om vi begär en blob (t.ex. filnedladdning), returnera response direkt
+    // If requesting a blob (e.g., file download), return response directly
     if (options.responseType === 'blob') {
       if (!response.ok) {
         const errorText = await response.text();
-        throw new Error(errorText || 'Något gick fel vid begäran.');
+        throw new Error(errorText || 'Something went wrong with the request.');
       }
       return response;
     }
     
-    // Hämta response-data som JSON
+    // Get response data as JSON
     const data = await response.json();
     
     if (!response.ok) {
-      throw new Error(data.error?.message || data.message || 'Något gick fel.');
+      throw new Error(data.error?.message || data.message || 'Something went wrong.');
     }
     
     return data;
@@ -46,20 +52,27 @@ async function fetchWithAuth(endpoint, options = {}) {
   }
 }
 
-// Hjälpfunktion för att hantera filuppladdningar
+// Helper function to handle file uploads
 async function uploadFile(endpoint, file, additionalData = {}) {
   try {
-    const user = auth.currentUser;
-    if (!user) {
-      throw new Error('Du måste vara inloggad för att ladda upp filer');
+    // Get session from Supabase
+    const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+    
+    if (sessionError) {
+      throw new Error("Authentication error. Please sign in again.");
     }
     
-    const token = await user.getIdToken();
+    if (!sessionData.session) {
+      throw new Error("No authenticated user. Please sign in.");
+    }
+    
+    // Get token from the session
+    const token = sessionData.session.access_token;
     
     const formData = new FormData();
     formData.append('file', file);
     
-    // Lägg till ytterligare data om det finns
+    // Add additional data if provided
     Object.keys(additionalData).forEach(key => {
       formData.append(key, additionalData[key]);
     });
@@ -75,7 +88,7 @@ async function uploadFile(endpoint, file, additionalData = {}) {
     const data = await response.json();
     
     if (!response.ok) {
-      throw new Error(data.error?.message || data.message || 'Något gick fel vid uppladdningen');
+      throw new Error(data.error?.message || data.message || 'Something went wrong with the upload');
     }
     
     return data;
@@ -85,18 +98,17 @@ async function uploadFile(endpoint, file, additionalData = {}) {
   }
 }
 
-// API-funktioner
+// API functions
 const api = {
-  // Auth-relaterade funktioner
+  // Auth-related functions
   auth: {
     validateToken: async () => {
-      const user = auth.currentUser;
-      if (!user) return null;
+      const { data: session } = await supabase.auth.getSession();
+      if (!session) return null;
       
-      const token = await user.getIdToken();
       return fetchWithAuth('/auth/validate-token', {
         method: 'POST',
-        body: JSON.stringify({ token }),
+        body: JSON.stringify({ token: session.access_token }),
       });
     },
     
@@ -105,18 +117,18 @@ const api = {
     },
   },
   
-  // Brevgenerering
+  // Letter generation
   letters: {
     generate: async (cv, jobDescription, language = 'swedish', tonality = 'professional') => {
       if (!cv || typeof cv !== 'string') {
-        throw new Error('CV måste tillhandahållas som text');
+        throw new Error('CV must be provided as text');
       }
       
       if (!jobDescription || typeof jobDescription !== 'string') {
-        throw new Error('Jobbannons måste tillhandahållas som text');
+        throw new Error('Job description must be provided as text');
       }
       
-      console.log(`API Client: Skickar CV (${cv.length} tecken), jobbannons (${jobDescription.length} tecken), tonalitet: ${tonality}`);
+      console.log(`API Client: Sending CV (${cv.length} chars), job description (${jobDescription.length} chars), tonality: ${tonality}`);
       
       return fetchWithAuth('/letters/generate', {
         method: 'POST',
@@ -125,71 +137,226 @@ const api = {
     },
     
     getHistory: async () => {
-      return fetchWithAuth('/letters/history');
+      // This can now be done directly with Supabase
+      const { data, error } = await supabase
+        .from('letters')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      return data;
     },
     
     get: async (id) => {
-      return fetchWithAuth(`/letters/${id}`);
+      // This can now be done directly with Supabase
+      const { data, error } = await supabase
+        .from('letters')
+        .select('*')
+        .eq('id', id)
+        .single();
+      
+      if (error) throw error;
+      return { letter: data };
     },
     
     delete: async (id) => {
-      return fetchWithAuth(`/letters/${id}`, {
-        method: 'DELETE',
-      });
+      // This can now be done directly with Supabase
+      const { error } = await supabase
+        .from('letters')
+        .delete()
+        .eq('id', id);
+      
+      if (error) throw error;
+      return { success: true };
     },
     
     save: async (letterData) => {
-      return fetchWithAuth('/letters/save', {
-        method: 'POST',
-        body: JSON.stringify(letterData),
-      });
+      // Get user_id from Supabase session
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError) throw sessionError;
+      if (!sessionData.session) throw new Error("No authenticated user");
+      
+      const user_id = sessionData.session.user.id;
+      
+      // Prepare data for Supabase
+      const dbLetterData = {
+        user_id,
+        content: letterData.content,
+        title: letterData.title || 'Namnlöst brev',
+        company: letterData.company || '',
+        job_title: letterData.jobTitle || '',
+        tonality: letterData.tonality,
+        cv_text: letterData.cvText || '',
+        job_description: letterData.jobDescription || '',
+        is_saved: true,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      };
+      
+      let result;
+      
+      if (letterData.letterId) {
+        // Update existing letter
+        const { data, error } = await supabase
+          .from('letters')
+          .update(dbLetterData)
+          .eq('id', letterData.letterId)
+          .select();
+        
+        if (error) throw error;
+        result = data?.[0];
+      } else {
+        // Insert new letter
+        const { data, error } = await supabase
+          .from('letters')
+          .insert(dbLetterData)
+          .select();
+        
+        if (error) throw error;
+        result = data?.[0];
+      }
+      
+      return result;
     },
     
     update: async (id, letterData) => {
-      return fetchWithAuth(`/letters/${id}`, {
-        method: 'PUT',
-        body: JSON.stringify(letterData),
-      });
+      // Prepare data for Supabase
+      const dbLetterData = {
+        content: letterData.content,
+        title: letterData.title || '',
+        company: letterData.company || '',
+        job_title: letterData.jobTitle || '',
+        tonality: letterData.tonality || 'professional',
+        updated_at: new Date().toISOString()
+      };
+      
+      const { data, error } = await supabase
+        .from('letters')
+        .update(dbLetterData)
+        .eq('id', id)
+        .select();
+      
+      if (error) throw error;
+      return data?.[0];
     },
   },
   
-  // Användarprofil-funktioner
+  // User profile functions
   user: {
     getProfile: async () => {
-      return fetchWithAuth('/user/profile');
+      // Get user_id from Supabase session
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError) throw sessionError;
+      if (!sessionData.session) throw new Error("No authenticated user");
+      
+      const user_id = sessionData.session.user.id;
+      
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user_id)
+        .single();
+      
+      if (error) throw error;
+      return data;
     },
     
     updateProfile: async (profileData) => {
-      return fetchWithAuth('/user/profile', {
-        method: 'PUT',
-        body: JSON.stringify(profileData),
-      });
+      // Get user_id from Supabase session
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError) throw sessionError;
+      if (!sessionData.session) throw new Error("No authenticated user");
+      
+      const user_id = sessionData.session.user.id;
+      
+      // Prepare data for Supabase
+      const dbProfileData = {
+        id: user_id,
+        full_name: profileData.full_name || profileData.fullName || '',
+        phone: profileData.phone || '',
+        preferred_tonality: profileData.preferred_tonality || profileData.preferredTonality || 'professional',
+        updated_at: new Date().toISOString()
+      };
+      
+      const { data, error } = await supabase
+        .from('profiles')
+        .upsert(dbProfileData)
+        .select();
+      
+      if (error) throw error;
+      return data?.[0];
     },
     
     uploadCV: async (file) => {
-      return uploadFile('/user/profile/cv', file);
+      // Get user_id from Supabase session
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError) throw sessionError;
+      if (!sessionData.session) throw new Error("No authenticated user");
+      
+      const user_id = sessionData.session.user.id;
+      
+      // Upload file to Supabase Storage
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${user_id}/cv.${fileExt}`;
+      
+      const { error: uploadError } = await supabase.storage
+        .from('cvs')
+        .upload(fileName, file, { 
+          upsert: true,
+          contentType: file.type 
+        });
+      
+      if (uploadError) throw uploadError;
+      
+      // Update profile with CV information
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .upsert({
+          id: user_id,
+          cv: {
+            name: file.name,
+            last_updated: new Date().toISOString()
+          },
+          updated_at: new Date().toISOString()
+        });
+      
+      if (profileError) throw profileError;
+      
+      return { success: true, filename: file.name };
     },
     
     getCV: async () => {
-      return fetchWithAuth('/user/profile/cv', {
-        responseType: 'blob',
-      }).then(response => {
-        // Extrahera filnamn från Content-Disposition header
-        const contentDisposition = response.headers.get('content-disposition');
-        let filename = 'cv.pdf';
-        
-        if (contentDisposition) {
-          const filenameMatch = contentDisposition.match(/filename="(.+)"/);
-          if (filenameMatch) {
-            filename = filenameMatch[1];
-          }
-        }
-        
-        return response.blob().then(blob => ({
-          blob,
-          filename,
-        }));
-      });
+      // Get user_id from Supabase session
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError) throw sessionError;
+      if (!sessionData.session) throw new Error("No authenticated user");
+      
+      const user_id = sessionData.session.user.id;
+      
+      // Get profile to find CV information
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('cv')
+        .eq('id', user_id)
+        .single();
+      
+      if (profileError) throw profileError;
+      if (!profile?.cv) throw new Error("No CV found");
+      
+      const fileExt = profile.cv.name.split('.').pop();
+      const fileName = `${user_id}/cv.${fileExt}`;
+      
+      // Download file from Supabase Storage
+      const { data: fileData, error: downloadError } = await supabase.storage
+        .from('cvs')
+        .download(fileName);
+      
+      if (downloadError) throw downloadError;
+      
+      return {
+        blob: fileData,
+        filename: profile.cv.name,
+      };
     },
   },
 };

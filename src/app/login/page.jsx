@@ -30,22 +30,30 @@ export default function LoginPage() {
 
   // Omdirigera om användaren är inloggad
   useEffect(() => {
+    console.log('=== useEffect ===');
+    console.log('authLoading:', authLoading);
+    console.log('user:', user);
+    console.log('forceShowForm:', forceShowForm);
+
     if ((!authLoading || forceShowForm) && user) {
       router.push('/');
     }
   }, [user, authLoading, router, forceShowForm]);
 
   // Hantera email/lösenord-inloggning
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setErrorMessage('');
     setIsLoading(true);
 
     try {
+      console.log('Attempting signInWithPassword', { email, password });
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password
       });
+
+      console.log('Sign in result, error:', error);
 
       if (error) {
         // Hantera specifika Supabase-felmeddelanden
@@ -57,13 +65,15 @@ export default function LoginPage() {
             setErrorMessage('E-post ej bekräftad. Kontrollera din inkorg.');
             break;
           default:
-            setErrorMessage('Ett fel uppstod vid inloggning. Försök igen.');
+            setErrorMessage('Ett fel uppstod vid inloggning: ' + error.message);
         }
         setIsLoading(false);
         return;
       }
 
       // Inloggning lyckades, omdirigering hanteras av AuthContext
+      setIsLoading(false);
+
     } catch (error) {
       console.error('Oväntat inloggningsfel:', error);
       setErrorMessage('Ett oväntat fel uppstod. Försök igen.');
@@ -77,12 +87,14 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
+      console.log('Attempting Google login');
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
           redirectTo: `${window.location.origin}/`
         }
       });
+      console.log('Google sign in result, error:', error);
 
       if (error) {
         setErrorMessage('Kunde inte logga in med Google: ' + error.message);

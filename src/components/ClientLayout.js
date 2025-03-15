@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import PropTypes from 'prop-types';
 import dynamic from 'next/dynamic';
 import { AuthProvider } from '@/contexts/AuthContext';
 
@@ -10,10 +11,6 @@ const ClientLayout = ({
   children, 
   fullWidth = false, 
   showHeader = false 
-}: { 
-  children: React.ReactNode, 
-  fullWidth?: boolean, 
-  showHeader?: boolean 
 }) => {
   return (
     <AuthProvider>
@@ -27,6 +24,12 @@ const ClientLayout = ({
       </div>
     </AuthProvider>
   );
+};
+
+ClientLayout.propTypes = {
+  children: PropTypes.node.isRequired,
+  fullWidth: PropTypes.bool,
+  showHeader: PropTypes.bool
 };
 
 export default ClientLayout;

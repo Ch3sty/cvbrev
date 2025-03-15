@@ -2,20 +2,24 @@
 
 import { useState, useRef, ChangeEvent } from 'react';
 import { toast } from 'react-hot-toast';
-import api from '@/api';
+import { supabase } from '@/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface CVUploadProps {
   savedCV?: {
     name: string;
-    lastUpdated?: string;
+    last_updated?: string;
   } | null;
+  onUpload?: (file: File) => Promise<void>;
+  onDownload?: () => Promise<void>;
 }
 
-export default function CVUpload({ savedCV }: CVUploadProps) { // 🔥 Tog bort userId eftersom den inte används
+export default function CVUpload({ savedCV, onUpload, onDownload }: CVUploadProps) {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [currentCV, setCurrentCV] = useState<CVUploadProps['savedCV']>(savedCV);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const { user } = useAuth();
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -41,16 +45,56 @@ export default function CVUpload({ savedCV }: CVUploadProps) { // 🔥 Tog bort 
       toast.error('Välj en fil först');
       return;
     }
+
+    if (!user) {
+      toast.error('Du måste vara inloggad för att ladda upp CV');
+      return;
+    }
     
     setLoading(true);
     
     try {
-      // 🔥 Tog bort 'response' eftersom den inte används
-      await api.user.uploadCV(file);
+      if (onUpload) {
+        // Use the provided onUpload function if available
+        await onUpload(file);
+      } else {
+        // Default implementation using Supabase
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${user.id}/cv.${fileExt}`;
+        
+        // Upload to Supabase Storage
+        const { error: uploadError } = await supabase.storage
+          .from('cvs')
+          .upload(fileName, file, { 
+            upsert: true,
+            contentType: file.type 
+          });
+  
+        if (uploadError) {
+          console.error('Error uploading CV:', uploadError);
+          throw new Error('Kunde inte ladda upp filen');
+        }
+  
+        // Update profile with CV information
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .upsert({
+            id: user.id,
+            cv: {
+              name: file.name,
+              last_updated: new Date().toISOString()
+            }
+          });
+  
+        if (profileError) {
+          console.error('Error updating profile with CV info:', profileError);
+          throw new Error('Kunde inte uppdatera profilinformation');
+        }
+      }
       
       setCurrentCV({
         name: file.name,
-        lastUpdated: new Date().toISOString(),
+        last_updated: new Date().toISOString(),
       });
       
       setFile(null);
@@ -76,25 +120,50 @@ export default function CVUpload({ savedCV }: CVUploadProps) { // 🔥 Tog bort 
       toast.error('Du har inget CV att ladda ner');
       return;
     }
+
+    if (!user) {
+      toast.error('Du måste vara inloggad för att ladda ner CV');
+      return;
+    }
     
     try {
-      const loadingToast = toast.loading('Laddar ner CV...');
-      
-      const { blob, filename } = await api.user.getCV();
-      
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.style.display = 'none';
-      a.href = url;
-      a.download = filename;
-      
-      document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-      
-      toast.dismiss(loadingToast);
-      toast.success('CV nedladdat!');
+      if (onDownload) {
+        // Use the provided onDownload function if available
+        await onDownload();
+      } else {
+        // Default implementation using Supabase
+        const loadingToast = toast.loading('Laddar ner CV...');
+        
+        const fileExt = currentCV.name.split('.').pop();
+        const fileName = `${user.id}/cv.${fileExt}`;
+        
+        // Get download URL from Supabase Storage
+        const { data, error } = await supabase.storage
+          .from('cvs')
+          .download(fileName);
+        
+        if (error) {
+          console.error('Error downloading CV:', error);
+          toast.dismiss(loadingToast);
+          toast.error('Kunde inte ladda ner CV');
+          return;
+        }
+        
+        // Create download link
+        const url = window.URL.createObjectURL(data);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = currentCV.name;
+        
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        
+        toast.dismiss(loadingToast);
+        toast.success('CV nedladdat!');
+      }
     } catch (error) {
       console.error('Error downloading CV:', error);
       toast.error('Kunde inte ladda ner CV. Försök igen senare.');
@@ -130,7 +199,7 @@ export default function CVUpload({ savedCV }: CVUploadProps) { // 🔥 Tog bort 
               <div className="ml-3">
                 <p className="text-sm font-medium">{currentCV.name}</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
-                  Senast uppdaterad: {formatDate(currentCV.lastUpdated)}
+                  Senast uppdaterad: {formatDate(currentCV.last_updated)}
                 </p>
               </div>
             </div>
