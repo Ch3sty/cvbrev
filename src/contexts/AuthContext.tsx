@@ -1,5 +1,4 @@
 'use client'
-
 import React, { 
   createContext, 
   useContext, 
@@ -47,13 +46,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         .single()
 
       if (error) {
-        console.error('Error fetching user profile:', error)
+        console.error('Detaljerat fel vid hämtning av användarprofil:', {
+          code: error.code,
+          details: error.details,
+          message: error.message
+        })
         return null
       }
 
       return data
     } catch (error) {
-      console.error('Unexpected error fetching profile:', error)
+      console.error('Oväntat fel vid hämtning av användarprofil:', error)
       return null
     }
   }
@@ -61,8 +64,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Uppdatera användarprofil
   const refreshUserProfile = async () => {
     if (user) {
-      const profile = await fetchUserProfile(user.id)
-      setUserProfile(profile)
+      try {
+        const profile = await fetchUserProfile(user.id)
+        setUserProfile(profile)
+      } catch (error) {
+        console.error('Fel vid uppdatering av användarprofil:', error)
+        setUserProfile(null)
+      }
     }
   }
 
@@ -71,10 +79,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const { error } = await supabase.auth.signOut()
       if (error) {
-        console.error('Error signing out:', error)
+        console.error('Detaljerat fel vid utloggning:', {
+          code: error.code,
+          details: error.details,
+          message: error.message
+        })
       }
     } catch (error) {
-      console.error('Unexpected error during sign out:', error)
+      console.error('Oväntat fel under utloggning:', error)
     }
   }
 
@@ -82,15 +94,39 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Hämta aktuell session
     const checkSession = async () => {
-      const { data } = await supabase.auth.getSession()
-      setSession(data.session)
-      setUser(data.session?.user || null)
-      setLoading(false)
+      try {
+        setLoading(true)
+        const { data, error } = await supabase.auth.getSession()
+        
+        if (error) {
+          console.error('Detaljerat sessionshämtningsfel:', {
+            code: error.code,
+            details: error.details,
+            message: error.message
+          })
+          setSession(null)
+          setUser(null)
+          return
+        }
 
-      // Hämta användarprofil om session finns
-      if (data.session?.user) {
-        const profile = await fetchUserProfile(data.session.user.id)
-        setUserProfile(profile)
+        setSession(data.session)
+        setUser(data.session?.user || null)
+
+        if (data.session?.user) {
+          try {
+            const profile = await fetchUserProfile(data.session.user.id)
+            setUserProfile(profile)
+          } catch (profileError) {
+            console.error('Fel vid hämtning av användarprofil:', profileError)
+            setUserProfile(null)
+          }
+        }
+      } catch (unexpectedError) {
+        console.error('Oväntat fel vid sessionskontroll:', unexpectedError)
+        setSession(null)
+        setUser(null)
+      } finally {
+        setLoading(false)
       }
     }
 
@@ -99,13 +135,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Lyssna på autentiseringsändringar
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        setSession(session)
-        setUser(session?.user || null)
-        
-        if (session?.user) {
-          const profile = await fetchUserProfile(session.user.id)
-          setUserProfile(profile)
-        } else {
+        try {
+          setSession(session)
+          setUser(session?.user || null)
+          
+          if (session?.user) {
+            try {
+              const profile = await fetchUserProfile(session.user.id)
+              setUserProfile(profile)
+            } catch (profileError) {
+              console.error('Fel vid hämtning av användarprofil under autentiseringstillståndsändring:', profileError)
+              setUserProfile(null)
+            }
+          } else {
+            setUserProfile(null)
+          }
+        } catch (unexpectedError) {
+          console.error('Oväntat fel under autentiseringstillståndsändring:', unexpectedError)
+          setSession(null)
+          setUser(null)
           setUserProfile(null)
         }
       }

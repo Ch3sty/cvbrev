@@ -18,6 +18,7 @@ export default function CVUpload({ savedCV, onUpload, onDownload }: CVUploadProp
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [currentCV, setCurrentCV] = useState<CVUploadProps['savedCV']>(savedCV);
+  const [uploadProgress, setUploadProgress] = useState<number>(0);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const { user } = useAuth();
 
@@ -31,13 +32,19 @@ export default function CVUpload({ savedCV, onUpload, onDownload }: CVUploadProp
       return;
     }
     
-    const allowedTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain'];
+    const allowedTypes = [
+      'application/pdf', 
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 
+      'text/plain'
+    ];
+    
     if (!allowedTypes.includes(selectedFile.type)) {
       toast.error('Endast PDF, DOCX och TXT-filer är tillåtna.');
       return;
     }
     
     setFile(selectedFile);
+    toast.success('Fil vald: ' + selectedFile.name);
   };
 
   const handleUpload = async () => {
@@ -52,8 +59,11 @@ export default function CVUpload({ savedCV, onUpload, onDownload }: CVUploadProp
     }
     
     setLoading(true);
+    setUploadProgress(10); // Start progress
     
     try {
+      console.log('Laddar upp fil:', file.name, file.type, file.size);
+      
       if (onUpload) {
         // Use the provided onUpload function if available
         await onUpload(file);
@@ -62,8 +72,11 @@ export default function CVUpload({ savedCV, onUpload, onDownload }: CVUploadProp
         const fileExt = file.name.split('.').pop();
         const fileName = `${user.id}/cv.${fileExt}`;
         
+        console.log('Laddar upp till Supabase:', fileName);
+        setUploadProgress(30);
+        
         // Upload to Supabase Storage
-        const { error: uploadError } = await supabase.storage
+        const { error: uploadError, data: uploadData } = await supabase.storage
           .from('cvs')
           .upload(fileName, file, { 
             upsert: true,
@@ -72,8 +85,11 @@ export default function CVUpload({ savedCV, onUpload, onDownload }: CVUploadProp
   
         if (uploadError) {
           console.error('Error uploading CV:', uploadError);
-          throw new Error('Kunde inte ladda upp filen');
+          throw new Error('Kunde inte ladda upp filen: ' + uploadError.message);
         }
+        
+        console.log('Uppladdning klar, updaterar profil', uploadData);
+        setUploadProgress(70);
   
         // Update profile with CV information
         const { error: profileError } = await supabase
@@ -83,13 +99,17 @@ export default function CVUpload({ savedCV, onUpload, onDownload }: CVUploadProp
             cv: {
               name: file.name,
               last_updated: new Date().toISOString()
-            }
+            },
+            updated_at: new Date().toISOString()
           });
   
         if (profileError) {
           console.error('Error updating profile with CV info:', profileError);
-          throw new Error('Kunde inte uppdatera profilinformation');
+          throw new Error('Kunde inte uppdatera profilinformation: ' + profileError.message);
         }
+        
+        setUploadProgress(100);
+        console.log('Profiluppdatering klar');
       }
       
       setCurrentCV({
@@ -112,6 +132,7 @@ export default function CVUpload({ savedCV, onUpload, onDownload }: CVUploadProp
       }
     } finally {
       setLoading(false);
+      setUploadProgress(0);
     }
   };
   
@@ -137,6 +158,8 @@ export default function CVUpload({ savedCV, onUpload, onDownload }: CVUploadProp
         const fileExt = currentCV.name.split('.').pop();
         const fileName = `${user.id}/cv.${fileExt}`;
         
+        console.log('Laddar ner från Supabase:', fileName);
+        
         // Get download URL from Supabase Storage
         const { data, error } = await supabase.storage
           .from('cvs')
@@ -145,7 +168,7 @@ export default function CVUpload({ savedCV, onUpload, onDownload }: CVUploadProp
         if (error) {
           console.error('Error downloading CV:', error);
           toast.dismiss(loadingToast);
-          toast.error('Kunde inte ladda ner CV');
+          toast.error('Kunde inte ladda ner CV: ' + error.message);
           return;
         }
         
@@ -183,12 +206,12 @@ export default function CVUpload({ savedCV, onUpload, onDownload }: CVUploadProp
   return (
     <div className="space-y-4">
       {currentCV && (
-        <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-md">
-          <h3 className="font-medium text-gray-800 dark:text-gray-200">Nuvarande CV</h3>
+        <div className="bg-gray-700 p-4 rounded-md">
+          <h3 className="font-medium text-white">Nuvarande CV</h3>
           <div className="flex items-center justify-between mt-2">
             <div className="flex items-center">
               <svg 
-                className="h-8 w-8 text-gray-500 dark:text-gray-400" 
+                className="h-8 w-8 text-gray-400" 
                 xmlns="http://www.w3.org/2000/svg" 
                 fill="none" 
                 viewBox="0 0 24 24" 
@@ -197,15 +220,15 @@ export default function CVUpload({ savedCV, onUpload, onDownload }: CVUploadProp
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
               <div className="ml-3">
-                <p className="text-sm font-medium">{currentCV.name}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-sm font-medium text-white">{currentCV.name}</p>
+                <p className="text-xs text-gray-400">
                   Senast uppdaterad: {formatDate(currentCV.last_updated)}
                 </p>
               </div>
             </div>
             <button
               onClick={handleDownloadCV}
-              className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+              className="text-blue-400 hover:text-blue-300"
             >
               <svg 
                 className="h-5 w-5" 
@@ -221,7 +244,7 @@ export default function CVUpload({ savedCV, onUpload, onDownload }: CVUploadProp
         </div>
       )}
 
-      <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-md px-6 py-8 text-center">
+      <div className="border-2 border-dashed border-gray-600 rounded-md px-6 py-8 text-center">
         <input
           ref={fileInputRef}
           type="file"
@@ -241,31 +264,40 @@ export default function CVUpload({ savedCV, onUpload, onDownload }: CVUploadProp
             />
           </svg>
           
-          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-1 text-sm text-gray-400">
             <span className="font-medium text-blue-500 hover:text-blue-400">
               Klicka för att ladda upp
             </span>{' '}
             eller dra och släpp
           </p>
-          <p className="mt-1 text-xs text-gray-500 dark:text-gray-500">
+          <p className="mt-1 text-xs text-gray-500">
             PDF, DOCX eller TXT (max 5MB)
           </p>
         </label>
 
         {file && (
           <div className="mt-4 text-center">
-            <span className="text-sm text-gray-500 dark:text-gray-400">
-              Vald fil: <span className="font-medium">{file.name}</span>
+            <span className="text-sm text-gray-400">
+              Vald fil: <span className="font-medium text-white">{file.name}</span>
             </span>
           </div>
         )}
       </div>
 
+      {uploadProgress > 0 && (
+        <div className="w-full bg-gray-700 rounded-full h-2.5">
+          <div 
+            className="bg-blue-600 h-2.5 rounded-full transition-all duration-300" 
+            style={{width: `${uploadProgress}%`}} 
+          />
+        </div>
+      )}
+
       <button
         onClick={handleUpload}
         disabled={!file || loading}
         className={`w-full py-2 px-4 rounded-md text-white font-medium ${
-          !file || loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'
+          !file || loading ? 'bg-gray-600 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'
         }`}
       >
         {loading ? 'Laddar upp...' : 'Ladda upp CV'}

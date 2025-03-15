@@ -59,71 +59,102 @@ const CoverLetterGenerator = () => {
   }
 
   const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  const file = e.target.files[0];
+  if (!file) return;
 
-    setFileName(file.name);
-    setFileLoading(true);
-    setError('');
+  setFileName(file.name);
+  setFileLoading(true);
+  setError('');
 
-    // Verify file type
-    const fileType = file.name.split('.').pop().toLowerCase();
-    if (fileType !== 'docx' && fileType !== 'pdf' && fileType !== 'txt') {
-      setError('Endast .txt, .docx och .pdf-filer stöds');
-      setFileLoading(false);
+  // Verify file type
+  const fileType = file.name.split('.').pop().toLowerCase();
+  if (fileType !== 'docx' && fileType !== 'pdf' && fileType !== 'txt') {
+    setError('Endast .txt, .docx och .pdf-filer stöds');
+    setFileLoading(false);
+    return;
+  }
+
+  try {
+    // For .txt files, we can read directly in the browser
+    if (fileType === 'txt') {
+      handleTextFile(file);
       return;
     }
 
+    // For .docx and .pdf, use backend API
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
+
+    // Create FormData for file upload
+    const formData = new FormData();
+    formData.append('file', file);
+
+    // Get auth token from Supabase
+    const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+    if (sessionError) {
+      console.error('Auth session error:', sessionError);
+      throw new Error('Kunde inte hämta autentiseringstoken');
+    }
+    
+    const token = sessionData?.session?.access_token || '';
+    if (!token) {
+      console.error('No authentication token available');
+      throw new Error('Ingen autentiseringstoken tillgänglig. Försök logga in igen.');
+    }
+
+    console.log(`Laddar upp fil: ${file.name} (${file.size} bytes) till ${API_URL}/files/extract-text`);
+
+    // Send file to backend with explicit timeout and logging
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+    
     try {
-      // For .txt files, we can read directly in the browser
-      if (fileType === 'txt') {
-        handleTextFile(file);
-        return;
-      }
-
-      // For .docx and .pdf, use backend API
-      const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
-
-      // Create FormData for file upload
-      const formData = new FormData();
-      formData.append('file', file);
-
-      // Get auth token from Supabase
-      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
-      if (sessionError) {
-        throw new Error('Kunde inte hämta autentiseringstoken');
-      }
-      
-      const token = sessionData?.session?.access_token || '';
-
-      console.log(`Laddar upp fil: ${file.name} (${file.size} bytes)`);
-
-      // Send file to backend
       const response = await fetch(`${API_URL}/files/extract-text`, {
         method: 'POST',
         headers: {
-          Authorization: token ? `Bearer ${token}` : ''
+          Authorization: `Bearer ${token}`
         },
-        body: formData
+        body: formData,
+        signal: controller.signal
       });
-
+      
+      clearTimeout(timeoutId);
+      
+      console.log('Response status:', response.status);
+      console.log('Response headers:', Object.fromEntries([...response.headers]));
+      
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Ett fel uppstod vid uppladdning');
+        const errorText = await response.text();
+        console.error('Server error response:', errorText);
+        try {
+          const errorData = JSON.parse(errorText);
+          throw new Error(errorData.message || `Serverfel: ${response.status}`);
+        } catch (e) {
+          throw new Error(`Serverfel: ${response.status}. ${errorText.substring(0, 100)}`);
+        }
       }
 
       const data = await response.json();
+      console.log('Server response data:', data);
 
       // Set extracted text as CV
       setCv(data.text);
       console.log(`Extraherad text från ${file.name}: ${data.text.length} tecken`);
-    } catch (error) {
-      console.error('Fel vid filuppladdning:', error);
-      setError(`Filuppladdning misslyckades: ${error.message}`);
-    } finally {
-      setFileLoading(false);
+      toast.success('CV har laddats upp och texten har extraherats');
+    } catch (fetchError) {
+      if (fetchError.name === 'AbortError') {
+        console.error('Request timed out after 30 seconds');
+        throw new Error('Uppladdningen tog för lång tid. Försök igen med en mindre fil.');
+      }
+      throw fetchError;
     }
-  };
+  } catch (error) {
+    console.error('Fel vid filuppladdning:', error);
+    setError(`Filuppladdning misslyckades: ${error.message}`);
+    toast.error(`Filuppladdning misslyckades: ${error.message}`);
+  } finally {
+    setFileLoading(false);
+  }
+};
 
   const handleTextFile = (file) => {
     const reader = new FileReader();
