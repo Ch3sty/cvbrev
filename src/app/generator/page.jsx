@@ -1,27 +1,14 @@
 "use client";
-export const dynamic = "force-dynamic";
-// ↑ Hindrar statisk generering. Next.js försöker inte längre 
-// att SSR:a denna sida (vilket orsakar null i currentUser).
 
 import React from "react";
-import nextDynamic from "next/dynamic";
-import { useAuth } from "@/contexts/AuthContext"; // Uppdaterad import för Supabase
-
-// Dynamisk import av Header och CoverLetterGenerator
-// så att de inte SSR:as. De är "use client" inuti, men
-// Next måste förhindras från att pre-rendera dem på servern.
-const Header = nextDynamic(() => import("../../components/Header"), {
-  ssr: false,
-});
-const CoverLetterGenerator = nextDynamic(
-  () => import("../../components/CoverLetterGenerator"),
-  { ssr: false }
-);
+import { useAuth } from "@/contexts/AuthContext"; 
+import Header from "@/components/Header";
+import SimpleCoverLetterGenerator from "@/components/SimpleCoverLetterGenerator";
 
 export default function GeneratorPage() {
-  const { user } = useAuth(); // Lägg till autentiseringskontext för att hantera inloggningsstatus
+  const { user } = useAuth();
 
-  // Om ingen användare är inloggad, kan du lägga till en omdirigering eller ett meddelande
+  // If no user is logged in, show login message
   if (!user) {
     return (
       <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center">
@@ -47,10 +34,9 @@ export default function GeneratorPage() {
             Skapa ditt personliga <span className="text-pink-500">ansökningsbrev</span>
           </h1>
           <p className="text-gray-400 mb-8">
-            Ladda upp ditt CV och klistra in jobbannonsen för att generera ett personligt brev
+            Välj ditt CV och klistra in jobbannonsen för att generera ett personligt brev
           </p>
-          {/* Själva generatorn */}
-          <CoverLetterGenerator />
+          <SimpleCoverLetterGenerator />
         </div>
       </main>
     </div>

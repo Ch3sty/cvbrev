@@ -7,33 +7,47 @@ import {
   FiDownload,
   FiCopy,
   FiFileText,
-  FiUpload,
   FiRefreshCw,
   FiEdit,
   FiAlertCircle,
-  FiSave
+  FiSave,
+  FiList
 } from 'react-icons/fi';
 import TonalitySelector from './TonalitySelector';
 import { toast, Toaster } from 'react-hot-toast';
 
-const CoverLetterGenerator = () => {
-  // Use AuthContext instead of Firebase auth
+const SimpleCoverLetterGenerator = () => {
   const { user, userProfile } = useAuth();
   
-  const [cv, setCv] = useState('');
+  // CV selection state
+  const [userCVs, setUserCVs] = useState([]);
+  const [selectedCVId, setSelectedCVId] = useState('');
+  const [selectedCVContent, setSelectedCVContent] = useState('');
+  
+  // Job description and cover letter states
   const [jobDescription, setJobDescription] = useState('');
   const [coverLetter, setCoverLetter] = useState('');
+  
+  // Processing states
+  const [isLoading, setIsLoading] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const [fileName, setFileName] = useState('');
   const [error, setError] = useState('');
-  const [fileLoading, setFileLoading] = useState(false);
+  
+  // Tonality and metadata
   const [tonality, setTonality] = useState('professional');
   const [showSaveForm, setShowSaveForm] = useState(false);
   const [letterTitle, setLetterTitle] = useState('');
   const [company, setCompany] = useState('');
   const [jobTitle, setJobTitle] = useState('');
   const [generatedLetterId, setGeneratedLetterId] = useState(null);
+
+  // Load user's CVs on component mount
+  useEffect(() => {
+    if (user) {
+      fetchUserCVs();
+    }
+  }, [user]);
 
   // Set preferred tonality from user profile
   useEffect(() => {
@@ -47,146 +61,107 @@ const CoverLetterGenerator = () => {
     if (error) {
       setError('');
     }
-  }, [cv, jobDescription, error]);
+  }, [selectedCVId, jobDescription, error]);
 
-  // If user is null, show a message instead
-  if (!user) {
-    return (
-      <div className="text-center text-gray-400 py-6">
-        <p>Du måste vara inloggad för att generera ett ansökningsbrev.</p>
-      </div>
-    );
-  }
-
-  const handleFileUpload = async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  setFileName(file.name);
-  setFileLoading(true);
-  setError('');
-
-  // Verify file type
-  const fileType = file.name.split('.').pop().toLowerCase();
-  if (fileType !== 'docx' && fileType !== 'pdf' && fileType !== 'txt') {
-    setError('Endast .txt, .docx och .pdf-filer stöds');
-    setFileLoading(false);
-    return;
-  }
-
-  try {
-    // For .txt files, we can read directly in the browser
-    if (fileType === 'txt') {
-      handleTextFile(file);
-      return;
-    }
-
-    // For .docx and .pdf, use backend API
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
-
-    // Create FormData for file upload
-    const formData = new FormData();
-    formData.append('file', file);
-
-    // Get auth token from Supabase
-    const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
-    if (sessionError) {
-      console.error('Auth session error:', sessionError);
-      throw new Error('Kunde inte hämta autentiseringstoken');
-    }
-    
-    const token = sessionData?.session?.access_token || '';
-    if (!token) {
-      console.error('No authentication token available');
-      throw new Error('Ingen autentiseringstoken tillgänglig. Försök logga in igen.');
-    }
-
-    console.log(`Laddar upp fil: ${file.name} (${file.size} bytes) till ${API_URL}/files/extract-text`);
-
-    // Send file to backend with explicit timeout and logging
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
-    
+  // Fetch user's CVs directly from Storage
+  const fetchUserCVs = async () => {
     try {
-      const response = await fetch(`${API_URL}/files/extract-text`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
-        body: formData,
-        signal: controller.signal
-      });
+      setIsLoading(true);
       
-      clearTimeout(timeoutId);
+      // Lista alla filer i användarens CV-mapp direkt från storage
+      const { data, error } = await supabase
+        .storage
+        .from('cvs')
+        .list(`${user.id}`, {
+          sortBy: { column: 'updated_at', order: 'desc' }
+        });
+        
+      if (error) throw error;
       
-      console.log('Response status:', response.status);
-      console.log('Response headers:', Object.fromEntries([...response.headers]));
+      console.log('Hämtade CV från storage:', data);
       
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Server error response:', errorText);
-        try {
-          const errorData = JSON.parse(errorText);
-          throw new Error(errorData.message || `Serverfel: ${response.status}`);
-        } catch (e) {
-          throw new Error(`Serverfel: ${response.status}. ${errorText.substring(0, 100)}`);
-        }
+      // Filtrera bort mappar om sådana finns
+      const files = data.filter(item => !item.metadata?.mimetype?.includes('directory'));
+      
+      setUserCVs(files || []);
+      
+      // Om user har CV:n, välj det senaste som standard
+      if (files && files.length > 0) {
+        setSelectedCVId(files[0].id);
+        await loadCVContent(files[0]);
       }
-
-      const data = await response.json();
-      console.log('Server response data:', data);
-
-      // Set extracted text as CV
-      setCv(data.text);
-      console.log(`Extraherad text från ${file.name}: ${data.text.length} tecken`);
-      toast.success('CV har laddats upp och texten har extraherats');
-    } catch (fetchError) {
-      if (fetchError.name === 'AbortError') {
-        console.error('Request timed out after 30 seconds');
-        throw new Error('Uppladdningen tog för lång tid. Försök igen med en mindre fil.');
-      }
-      throw fetchError;
+    } catch (error) {
+      console.error('Error fetching CVs from storage:', error);
+      setError('Kunde inte hämta dina CV:n från storage');
+    } finally {
+      setIsLoading(false);
     }
-  } catch (error) {
-    console.error('Fel vid filuppladdning:', error);
-    setError(`Filuppladdning misslyckades: ${error.message}`);
-    toast.error(`Filuppladdning misslyckades: ${error.message}`);
-  } finally {
-    setFileLoading(false);
-  }
-};
-
-  const handleTextFile = (file) => {
-    const reader = new FileReader();
-
-    reader.onload = (event) => {
-      try {
-        const fileContent = event.target.result;
-        if (typeof fileContent === 'string' && fileContent.trim()) {
-          setCv(fileContent);
-          setFileLoading(false);
-        } else {
-          setError('Kunde inte läsa filinnehållet som text');
-          setFileLoading(false);
-        }
-      } catch (err) {
-        console.error('Error parsing text file:', err);
-        setError('Ett fel uppstod vid inläsning av filen');
-        setFileLoading(false);
-      }
-    };
-
-    reader.onerror = () => {
-      setError('Kunde inte läsa filen');
-      setFileLoading(false);
-    };
-
-    reader.readAsText(file);
   };
 
+  // Load the content of a selected CV
+  const loadCVContent = async (cv) => {
+    if (!cv) return;
+    
+    try {
+      setIsLoading(true);
+      console.log('Försöker ladda CV:', cv);
+      
+      // Full sökväg till filen
+      const filePath = `${user.id}/${cv.name}`;
+      console.log('Använder filsökväg:', filePath);
+      
+      // Ladda ned filen från storage
+      const { data, error } = await supabase
+        .storage
+        .from('cvs')
+        .download(filePath);
+      
+      if (error) {
+        console.error('Fel vid nedladdning från storage:', error);
+        throw error;
+      }
+      
+      // Hantera olika filtyper
+      const fileType = cv.name.split('.').pop().toLowerCase();
+      if (fileType === 'txt') {
+        const text = await data.text();
+        setSelectedCVContent(text);
+      } else {
+        // För andra filtyper - använd en platshållare
+        setSelectedCVContent(`[Innehållet från ${cv.name} kommer att användas för att generera ditt brev]`);
+        
+        // I en framtida implementation kan du skicka PDF/DOCX till en textextraktions-API
+        // För nu anger vi endast att vi kommer använda filen
+      }
+      
+      // Update selected CV ID
+      setSelectedCVId(cv.id);
+    } catch (error) {
+      console.error('Error loading CV content:', error);
+      setError(`Kunde inte ladda CV-innehållet: ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Handle CV selection change
+  const handleCVChange = async (e) => {
+    const cvId = e.target.value;
+    setSelectedCVId(cvId);
+    if (cvId) {
+      const selectedCV = userCVs.find(cv => cv.id === cvId);
+      if (selectedCV) {
+        await loadCVContent(selectedCV);
+      }
+    } else {
+      setSelectedCVContent('');
+    }
+  };
+
+  // Generate cover letter
   const generateCoverLetter = async () => {
-    if (!cv || !jobDescription) {
-      setError('Vänligen ladda upp ditt CV och ange en jobbannons');
+    if (!selectedCVContent || !jobDescription) {
+      setError('Vänligen välj ett CV och ange en jobbannons');
       return;
     }
 
@@ -195,11 +170,6 @@ const CoverLetterGenerator = () => {
     setGeneratedLetterId(null);
 
     try {
-      // Log what we're sending to the API
-      console.log('Skickar CV längd:', cv.length);
-      console.log('Skickar jobbannons längd:', jobDescription.length);
-      console.log('Vald tonalitet:', tonality);
-
       // Call the API to generate a letter
       const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api';
       
@@ -211,14 +181,14 @@ const CoverLetterGenerator = () => {
       
       const token = sessionData?.session?.access_token || '';
 
-      const response = await fetch(`${API_URL}/letters/generate`, {
+      const response = await fetch(`${API_URL}/api/letters/generate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: token ? `Bearer ${token}` : ''
         },
         body: JSON.stringify({
-          cv,
+          cv: selectedCVContent,
           jobDescription,
           language: 'swedish',
           tonality
@@ -261,6 +231,7 @@ const CoverLetterGenerator = () => {
     }
   };
 
+  // Save letter to Supabase
   const saveLetter = async () => {
     if (!coverLetter) {
       setError('Det finns inget brev att spara');
@@ -279,7 +250,8 @@ const CoverLetterGenerator = () => {
         job_title: jobTitle || '',
         tonality: tonality,
         job_description: jobDescription,
-        cv_text: cv,
+        cv_path: selectedCVId ? 
+          userCVs.find(cv => cv.id === selectedCVId)?.name : null,
         is_saved: true,
         created_at: new Date().toISOString()
       };
@@ -318,25 +290,34 @@ const CoverLetterGenerator = () => {
     }
   };
 
+  // Copy letter to clipboard
   const copyToClipboard = () => {
     navigator.clipboard.writeText(coverLetter);
     toast.success('Kopierat till urklipp!');
   };
 
-  const downloadAsDocx = () => {
-    // This would actually convert to DOCX with a real DOCX generator
-    // For now we use simple text
+  // Download letter as text file
+  const downloadAsText = () => {
     const blob = new Blob([coverLetter], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'ansokningsbrev.txt';
+    a.download = letterTitle ? `${letterTitle}.txt` : 'ansokningsbrev.txt';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     toast.success('Brevet har laddats ner!');
   };
+
+  // If user is null, show a message instead
+  if (!user) {
+    return (
+      <div className="text-center text-gray-400 py-6">
+        <p>Du måste vara inloggad för att generera ett ansökningsbrev.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-900 rounded-xl border border-gray-800 shadow-xl overflow-hidden">
@@ -354,42 +335,56 @@ const CoverLetterGenerator = () => {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-xl font-medium flex items-center">
-                <FiFileText className="mr-2 text-pink-500" /> Ditt CV
+                <FiFileText className="mr-2 text-pink-500" /> Välj ditt CV
               </h3>
-              <label
-                className={`bg-indigo-900 hover:bg-indigo-800 text-white px-4 py-2 rounded-lg cursor-pointer transition-colors flex items-center ${
-                  fileLoading ? 'opacity-50 pointer-events-none' : ''
-                }`}
+              <a
+                href="/profile"
+                className="text-sm text-indigo-400 hover:text-indigo-300"
               >
-                {fileLoading ? (
-                  <>
-                    <FiRefreshCw className="mr-2 animate-spin" /> Läser in...
-                  </>
-                ) : (
-                  <>
-                    <FiUpload className="mr-2" /> Ladda upp
-                  </>
-                )}
-                <input
-                  type="file"
-                  className="hidden"
-                  onChange={handleFileUpload}
-                  disabled={fileLoading}
-                  accept=".txt,.doc,.docx,.pdf"
-                />
-              </label>
+                Hantera dina CV:n
+              </a>
             </div>
-            {fileName && (
-              <div className="text-sm text-gray-400 bg-gray-800 px-3 py-2 rounded-md">
-                {fileName}
+            
+            {isLoading ? (
+              <div className="flex items-center space-x-2 text-gray-400">
+                <FiRefreshCw className="animate-spin" />
+                <span>Laddar dina CV:n...</span>
+              </div>
+            ) : userCVs.length === 0 ? (
+              <div className="bg-indigo-900/30 border border-indigo-800 text-indigo-200 px-4 py-3 rounded-lg">
+                <p>Du har inga sparade CV:n ännu. Gå till din profil för att ladda upp ditt första CV.</p>
+                <a
+                  href="/profile"
+                  className="inline-block mt-2 text-white bg-indigo-700 hover:bg-indigo-600 px-3 py-1 rounded-md text-sm"
+                >
+                  Gå till Profil
+                </a>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                <select
+                  value={selectedCVId}
+                  onChange={handleCVChange}
+                  className="w-full p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-pink-500 focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 transition-all"
+                >
+                  <option value="">Välj ett CV</option>
+                  {userCVs.map(cv => (
+                    <option key={cv.id} value={cv.id}>
+                      {cv.name.replace(/(_\d+)?\.[^.]+$/, '').replace(/_/g, ' ')}
+                    </option>
+                  ))}
+                </select>
+                
+                {selectedCVContent && (
+                  <div className="bg-gray-800 border border-gray-700 rounded-lg p-3 h-32 overflow-y-auto">
+                    <div className="text-sm text-gray-300 whitespace-pre-line">
+                      {selectedCVContent.slice(0, 500)}
+                      {selectedCVContent.length > 500 && '...'}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
-            <textarea
-              value={cv}
-              onChange={(e) => setCv(e.target.value)}
-              placeholder="Klistra in ditt CV här eller ladda upp en fil..."
-              className="w-full h-48 p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:border-pink-500 focus:ring-2 focus:ring-pink-500 focus:ring-opacity-50 transition-all"
-            />
           </div>
 
           <div className="space-y-4">
@@ -408,9 +403,9 @@ const CoverLetterGenerator = () => {
 
           <button
             onClick={generateCoverLetter}
-            disabled={isGenerating || !cv || !jobDescription}
+            disabled={isGenerating || !selectedCVContent || !jobDescription}
             className={`w-full py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center ${
-              isGenerating || !cv || !jobDescription
+              isGenerating || !selectedCVContent || !jobDescription
                 ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
                 : 'bg-pink-500 hover:bg-pink-600 text-white'
             }`}
@@ -440,7 +435,7 @@ const CoverLetterGenerator = () => {
                   <FiCopy />
                 </button>
                 <button
-                  onClick={downloadAsDocx}
+                  onClick={downloadAsText}
                   className="bg-indigo-900 hover:bg-indigo-800 text-white p-2 rounded-lg transition-colors"
                   title="Ladda ner"
                 >
@@ -541,4 +536,4 @@ const CoverLetterGenerator = () => {
   );
 };
 
-export default CoverLetterGenerator;
+export default SimpleCoverLetterGenerator;
