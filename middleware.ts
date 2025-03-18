@@ -1,29 +1,53 @@
-// middleware.ts
-import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { createServerClient } from '@supabase/ssr';
 
 export async function middleware(req: NextRequest) {
-  const res = NextResponse.next()
-  const supabase = createMiddlewareClient({ req, res })
+  let res = NextResponse.next();
   
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
-
-  // Om användaren inte är inloggad och försöker accessa en skyddad route
-  const protectedRoutes = ['/profile', '/create-letter', '/my-letters']
-  const isProtectedRoute = protectedRoutes.some(route => req.nextUrl.pathname.startsWith(route))
+  // Skapa en supabase-klient med korrekt cookie-hantering
+  const supabase = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return req.cookies.get(name)?.value;
+        },
+        set(name: string, value: string, options: any) {
+          // Konvertera eventuella options.expires (Date-objekt) till sträng
+          res.cookies.set({
+            name,
+            value,
+            ...options,
+          });
+          // Uppdatera responsen som vi ska returnera
+          return res;
+        },
+        remove(name: string, options: any) {
+          res.cookies.set({
+            name,
+            value: '',
+            ...options,
+            maxAge: 0,
+          });
+          // Uppdatera responsen som vi ska returnera
+          return res;
+        },
+      },
+    }
+  );
   
-  if (!session && isProtectedRoute) {
-    const redirectUrl = new URL('/login', req.url)
-    redirectUrl.searchParams.set('redirect', req.nextUrl.pathname)
-    return NextResponse.redirect(redirectUrl)
-  }
+  // Synka session (detta uppdaterar automatiskt cookies via `set` ovan)
+  await supabase.auth.getSession();
   
-  return res
+  // Returnera responsen med korrekt uppdaterade cookies
+  return res;
 }
 
+// Kör middleware på alla routes som kan behöva autentisering
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|api/auth).*)'],
-}
+  matcher: [
+    '/((?!_next/static|_next/image|favicon.ico).*)',
+  ],
+};

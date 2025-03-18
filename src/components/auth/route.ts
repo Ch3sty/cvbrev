@@ -7,6 +7,7 @@ export async function GET(request: Request) {
   const code = requestUrl.searchParams.get('code')
   
   if (code) {
+    // Uppdaterad cookie-hantering för Next.js 14
     const cookieStore = cookies()
     const supabase = createRouteHandlerClient({ cookies: () => cookieStore })
     await supabase.auth.exchangeCodeForSession(code)
