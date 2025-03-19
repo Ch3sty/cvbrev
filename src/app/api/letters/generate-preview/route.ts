@@ -5,14 +5,10 @@ import { generateCoverLetter } from '@/lib/openai/api';
 
 // Enkel cache för att spåra pågående genereringar och förhindra dubbletter
 // Denna cache finns på serversidan och delas mellan alla användare
-// Det är därför vi använder en kombinerad nyckel av användare-id och cv-id
 const activeGenerations = new Map<string, { startTime: number, promise: Promise<any> }>();
-const completedGenerations = new Map<string, { timestamp: number, letterId: string, content: any }>();
 
 // Tidsperioder
-const DUPLICATE_THRESHOLD_MS = 10000; // 10 sekunder mellan tillåtna genereringar för samma kombination
 const GENERATION_TIMEOUT_MS = 60000; // 60 sekunder max för en generering
-const COMPLETED_RETENTION_MS = 60000; // 60 sekunder spara information om slutförda genereringar
 
 // Hjälpfunktion för att rensa gamla cache-poster
 function cleanupCache() {
@@ -23,13 +19,6 @@ function cleanupCache() {
     if (now - startTime > GENERATION_TIMEOUT_MS) {
       console.log(`Rensning av timeouted generering: ${key}`);
       activeGenerations.delete(key);
-    }
-  }
-  
-  // Rensa gamla slutförda genereringar
-  for (const [key, { timestamp }] of completedGenerations.entries()) {
-    if (now - timestamp > COMPLETED_RETENTION_MS) {
-      completedGenerations.delete(key);
     }
   }
 }
@@ -51,8 +40,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Ej autentiserad' }, { status: 401 });
     }
 
-    // Hämta begäransdata (CV-ID, jobbannons, tonalitet, språk och om vi ska spara)
-    const { cv_id, job_description, tonality, language = 'sv', save = false } = await request.json();
+    // Hämta begäransdata (CV-ID, jobbannons, tonalitet och språk)
+    const { cv_id, job_description, tonality, language = 'sv' } = await request.json();
     
     if (!cv_id || !job_description) {
       return NextResponse.json(
@@ -62,91 +51,8 @@ export async function POST(request: Request) {
     }
     
     // Skapa en unik nyckel för denna specifika kombination
-    // Inkludera språket i nyckeln för att hålla isär olika språkversioner
+    // Inkludera språket i nyckeln för att hålla isär genereringar på olika språk
     const requestKey = `${user.id}:${cv_id}:${job_description.length}:${language}`;
-    
-    // Om detta är en förfrågan med "save=true" och vi har en cachad version, spara den
-    if (save && completedGenerations.has(requestKey)) {
-      const cachedResult = completedGenerations.get(requestKey);
-      if (cachedResult && cachedResult.content) {
-        console.log(`Använder cachad version för att spara: ${requestKey}`);
-        
-        // Kolla om vi redan har ett sparat brev med detta ID
-        if (cachedResult.letterId) {
-          const { data: existingLetter } = await supabase
-            .from('letters')
-            .select('*')
-            .eq('id', cachedResult.letterId)
-            .single();
-            
-          if (existingLetter) {
-            return NextResponse.json({ 
-              success: true, 
-              data: existingLetter,
-              reused: true
-            });
-          }
-        }
-        
-        // Annars spara den cachade versionen
-        const { data: letterData, error: letterError } = await supabase
-          .from('letters')
-          .insert({
-            ...cachedResult.content,
-            user_id: user.id,
-            is_saved: true
-          })
-          .select();
-          
-        if (letterError) {
-          console.error('Fel vid sparande av brev:', letterError);
-          return NextResponse.json({ error: 'Kunde inte spara brevet' }, { status: 500 });
-        }
-        
-        // Uppdatera cachen med det nya brev-ID:t
-        completedGenerations.set(requestKey, {
-          ...cachedResult,
-          letterId: letterData[0].id
-        });
-        
-        return NextResponse.json({ 
-          success: true, 
-          data: letterData[0]
-        });
-      }
-    }
-    
-    // Kontrollera om vi nyligen slutfört en generering för denna kombination
-    const recentCompletion = completedGenerations.get(requestKey);
-    if (recentCompletion) {
-      console.log(`Återanvänder nyligen genererat innehåll för: ${requestKey}`);
-      
-      // Om 'save' är true och vi har ett letterID, hämta det befintliga brevet
-      if (save && recentCompletion.letterId) {
-        const { data: existingLetter } = await supabase
-          .from('letters')
-          .select('*')
-          .eq('id', recentCompletion.letterId)
-          .single();
-          
-        if (existingLetter) {
-          return NextResponse.json({ 
-            success: true, 
-            data: existingLetter,
-            reused: true
-          });
-        }
-      } 
-      // Annars returnera den cachade innehållet utan att spara
-      else if (!save && recentCompletion.content) {
-        return NextResponse.json({ 
-          success: true, 
-          data: recentCompletion.content,
-          reused: true,
-          is_saved: false
-        });
-      }
-    }
     
     // Kontrollera om en generering redan pågår för denna kombination
     if (activeGenerations.has(requestKey)) {
@@ -160,8 +66,7 @@ export async function POST(request: Request) {
           return NextResponse.json({ 
             success: true, 
             data: result,
-            shared: true,
-            is_saved: save // Indikera om brevet sparades
+            shared: true
           });
         }
       } catch (error) {
@@ -186,10 +91,10 @@ export async function POST(request: Request) {
         throw new Error('Kunde inte hitta CV');
       }
 
-      // Extrahera jobbinformation från jobbannonsen, skicka med språk
+      // Extrahera jobbinformation från jobbannonsen
       const jobInfo = extractJobInfo(job_description, language);
 
-      // Generera personligt brev med OpenAI, skicka med språk
+      // Generera personligt brev med OpenAI, skicka med språket
       const coverLetterContent = await generateCoverLetter(
         cvData.cv_text,
         job_description,
@@ -197,55 +102,21 @@ export async function POST(request: Request) {
         language || 'sv'
       );
 
-      // Skapa brevdata-objektet
-      const letterObject = {
-        user_id: user.id,
+      // Returnera det genererade brevet utan att spara i databasen
+      return {
         title: jobInfo.title || (language === 'en' ? 'Job Application' : 'Ansökningsbrev'),
         company: jobInfo.company,
         job_title: jobInfo.position,
         content: coverLetterContent,
         tonality: tonality || 'professional',
-        language: language || 'sv', // Spara språkvalet
+        language: language || 'sv',
         job_description: job_description,
         cv_text: cvData.cv_text,
-        is_saved: save, // Spara endast om save=true
+        is_saved: false,
         cv_path: cvData.original_file_path,
-        cv_id: cv_id
+        cv_id: cv_id,
+        user_id: user.id
       };
-      
-      // Spara brevet i cachen
-      completedGenerations.set(requestKey, {
-        timestamp: Date.now(),
-        letterId: null, // Kommer sättas om vi sparar
-        content: letterObject
-      });
-
-      // Om save=true, spara i databasen
-      if (save) {
-        const { data: letterData, error: letterError } = await supabase
-          .from('letters')
-          .insert(letterObject)
-          .select();
-
-        if (letterError) {
-          console.error('Fel vid sparande av brev:', letterError);
-          throw new Error('Kunde inte spara brevet');
-        }
-        
-        // Uppdatera cachen med det sparade brevets ID
-        if (letterData && letterData[0]) {
-          completedGenerations.set(requestKey, {
-            timestamp: Date.now(),
-            letterId: letterData[0].id,
-            content: letterObject
-          });
-          
-          return letterData[0];
-        }
-      }
-      
-      // Om vi inte sparade, returnera bara objektet
-      return letterObject;
     })();
     
     // Registrera generering i aktiva genereringar
@@ -263,8 +134,7 @@ export async function POST(request: Request) {
       
       return NextResponse.json({ 
         success: true, 
-        data: letterData,
-        is_saved: save
+        data: letterData
       });
     } catch (error: any) {
       // Ta bort från aktiva genereringar vid fel
@@ -293,10 +163,10 @@ function extractJobInfo(jobDescription: string, language: string = 'sv'): {
   if (language === 'en') {
     // Engelska regexes
     const companyRegex = /(?:company|firm|organization|at|with)\s+([A-Za-z][A-Za-z\s&]+)(?:\s+Inc\.?|\s+Ltd\.?)?/i;
-    const positionRegex = /(?:seeking\s+(?:an?)?|position\s+(?:as|for)|role\s+(?:as|for)|applying\s+for)\s+([A-Za-z][A-Za-z\s]+?)(?:\s+for|\s+in|\s+at|\.)/i;
+	const positionRegex = /(?:seeking\s+(?:an?)?|position\s+(?:as|for)|role\s+(?:as|for)|applying\s+for)\s+([A-Za-z][A-Za-z\s]+?)(?:\s+for|\s+in|\s+at|\.)/i;
     
-    const companyMatch = jobDescription.match(companyRegex);
-    const positionMatch = jobDescription.match(positionRegex);
+	const companyMatch = jobDescription.match(companyRegex);
+	const positionMatch = jobDescription.match(positionRegex);
     
     // Skapa en titel för brevet på engelska
     const title = positionMatch 

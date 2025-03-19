@@ -5,6 +5,10 @@ import { create } from 'zustand';
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minuter
 const REQUEST_TIMEOUT = 30 * 1000; // 30 sekunder
 
+// Spåra om ett genereringsanrop pågår
+let isGenerationInProgress = false;
+let generationTimeoutId: NodeJS.Timeout | null = null;
+
 /**
  * Säker fetch-funktion med timeout och felhantering
  */
@@ -128,9 +132,27 @@ export const useLetterStore = create<LetterState>((set, get) => ({
     }
   },
   
-  // Generera ett nytt brev med AI
+  // Generera ett nytt brev med AI - med förbättrad hantering för att förhindra dubblettanrop
   generateLetter: async (params: LetterGenerationParams) => {
+    // Kontrollera om generering redan pågår för att förhindra dubblettanrop
+    if (isGenerationInProgress || get().isGenerating) {
+      console.log('Brevgenerering pågår redan, avbryter dubblett-begäran');
+      return null;
+    }
+    
+    // Sätt globala flaggor för att förhindra ytterligare anrop
+    isGenerationInProgress = true;
     set({ isGenerating: true, error: null });
+    
+    // Sätt en säkerhetstimer för att återställa flaggor vid timeout
+    if (generationTimeoutId) {
+      clearTimeout(generationTimeoutId);
+    }
+    generationTimeoutId = setTimeout(() => {
+      isGenerationInProgress = false;
+      set({ isGenerating: false });
+      console.log('Brevgenerering timed out, återställer status');
+    }, REQUEST_TIMEOUT);
     
     try {
       const response = await fetchWithRetry('/api/letters/generate', {
@@ -160,6 +182,13 @@ export const useLetterStore = create<LetterState>((set, get) => ({
       console.error('Error generating letter:', error);
       set({ error: error.message, isGenerating: false });
       return null;
+    } finally {
+      // Återställ flaggor oavsett resultat
+      isGenerationInProgress = false;
+      if (generationTimeoutId) {
+        clearTimeout(generationTimeoutId);
+        generationTimeoutId = null;
+      }
     }
   },
   

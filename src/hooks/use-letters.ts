@@ -6,6 +6,8 @@ interface GenerateLetterParams {
   cv_id: string;
   job_description: string;
   tonality: string;
+  language?: string; // Ny parameter för språkval
+  save?: boolean; // Parameter för att ange om brevet ska sparas direkt
 }
 
 interface UpdateLetterParams {
@@ -18,6 +20,9 @@ interface UpdateLetterParams {
 
 // Cache-system för att förhindra dubblettanrop
 const requestCache = new Map<string, { timestamp: number, promise: Promise<any> }>();
+
+// För att spåra pågående genereringar
+const activeGenerations = new Map<string, Promise<any>>();
 
 // Tid i millisekunder innan en cachad förfrågan anses vara gammal (5 minuter)
 const CACHE_MAX_AGE = 5 * 60 * 1000;
@@ -77,6 +82,7 @@ export const useLetters = () => {
   // Refs för att spåra pågående förfrågningar
   const fetchingLettersRef = useRef(false);
   const fetchingLetterRef = useRef<Record<string, boolean>>({});
+  const generatingLetterRef = useRef(false);
   
   // Skapa cachelagring för API-anrop
   const cachedFetchLetters = createCachedFetcher(
@@ -118,18 +124,112 @@ export const useLetters = () => {
       });
   }, [currentLetter, cachedFetchLetter]);
   
-  // Funktion för att generera ett nytt brev - kan inte vara cachad eftersom den har sidoeffekter
+  // Uppdaterad createLetter-funktion med språkstöd
   const createLetter = useCallback(async (params: GenerateLetterParams) => {
     if (!isMountedRef.current) return null;
     
+    // Förhindra dubblettanrop om generering redan pågår
+    if (generatingLetterRef.current || isGenerating) {
+      console.log('Förhindrar dubblett brevgenerering, en generering pågår redan');
+      return null;
+    }
+    
+    // Skapa en unik nyckel för denna genereringsförfrågan (inkludera språk)
+    const requestKey = `generate:${params.cv_id}:${params.language || 'sv'}:${Date.now()}`;
+    
+    // Markera att generering pågår
+    generatingLetterRef.current = true;
+    
     try {
-      const generatedLetter = await storeGenerateLetter(params);
+      console.log('Genererar brev med parametrar:', params);
+      
+      // Om save-parametern är false, använd en anpassad funktion för att bara generera innehållet
+      if (params.save === false) {
+        // Detta API-anrop skulle generera brevet utan att spara det i databasen
+        const response = await fetch('/api/letters/generate-preview', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            cv_id: params.cv_id,
+            job_description: params.job_description,
+            tonality: params.tonality,
+            language: params.language || 'sv' // Skicka med språket
+          }),
+        });
+        
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Kunde inte generera brevförhandsvisning');
+        }
+        
+        const data = await response.json();
+        console.log('API svar:', data);
+        return data.data;
+      }
+      
+      // Annars, använd det befintliga API-anropet för att spara direkt
+      // Skapa ett löfte och spara det i aktiva genereringar
+      const generationPromise = storeGenerateLetter({
+        cv_id: params.cv_id,
+        job_description: params.job_description,
+        tonality: params.tonality,
+        language: params.language || 'sv' // Skicka med språket
+      }).finally(() => {
+        // Rensa status när genereringen är klar, oavsett resultat
+        generatingLetterRef.current = false;
+        activeGenerations.delete(requestKey);
+      });
+      
+      // Registrera denna generering
+      activeGenerations.set(requestKey, generationPromise);
+      
+      // Vänta på resultatet och returnera det
+      const generatedLetter = await generationPromise;
       return generatedLetter;
     } catch (error) {
       console.error('Error generating letter:', error);
+      generatingLetterRef.current = false;
+      return null;
+    } finally {
+      // Säkerställ att genereringsflaggan återställs
+      generatingLetterRef.current = false;
+    }
+  }, [storeGenerateLetter, isGenerating]);
+  
+  // Ny funktion för att spara ett tidigare genererat brev
+  const saveLetter = useCallback(async (letterData: any) => {
+    if (!isMountedRef.current) return null;
+    
+    try {
+      const response = await fetch('/api/letters', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...letterData,
+          is_saved: true
+        }),
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Kunde inte spara brevet');
+      }
+      
+      const data = await response.json();
+      
+      // Uppdatera brevlistan om sparandet lyckades
+      await memoizedFetchLetters(true);
+      
+      return data.data;
+    } catch (error) {
+      console.error('Error saving letter:', error);
       return null;
     }
-  }, [storeGenerateLetter]);
+  }, [memoizedFetchLetters]);
   
   // Funktion för att uppdatera ett brev - kan inte vara cachad eftersom den har sidoeffekter
   const editLetter = useCallback(async (id: string, updates: UpdateLetterParams) => {
@@ -198,6 +298,7 @@ export const useLetters = () => {
     fetchLetters: memoizedFetchLetters,
     fetchLetter: memoizedGetLetter,
     createLetter,
+    saveLetter, // Ny funktion för att spara ett genererat brev
     getLetter: memoizedGetLetter,
     editLetter,
     removeLetter,
