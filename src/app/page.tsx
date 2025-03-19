@@ -1,13 +1,10 @@
-// src/app/page.tsx
 import Link from 'next/link'
-import { headers } from 'next/headers'
+import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
 
 export default async function Home() {
-  const headersList = headers()
-  const cookieStore = headersList.get('cookie')
-  
-  const supabase = createServerClient()
+  const cookieStore = await cookies();
+  const supabase = createServerClient({ cookies: cookieStore })
   const { data: { session } } = await supabase.auth.getSession()
   
   return (

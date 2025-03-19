@@ -5,8 +5,8 @@ import { createServerClient } from '@/lib/supabase/server';
 export async function GET() {
   try {
     // Uppdaterad cookie-hantering för Next.js 14
-    const cookieStore = cookies();
-    const supabase = createServerClient({ cookies: () => cookieStore });
+    const cookieStore = await cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
 
     const { data: { user }, error: authError } = await supabase.auth.getUser();
 
@@ -34,8 +34,8 @@ export async function GET() {
 export async function PUT(request: Request) {
   try {
     // Uppdaterad cookie-hantering för Next.js 14
-    const cookieStore = cookies();
-    const supabase = createServerClient({ cookies: () => cookieStore });
+    const cookieStore = await cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
 
     const { data: { user }, error: authError } = await supabase.auth.getUser();
 

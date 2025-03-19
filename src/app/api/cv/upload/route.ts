@@ -6,8 +6,8 @@ import { parseCV } from '@/lib/cv-parser';
 export async function POST(request: Request) {
   try {
     // Uppdaterad cookie-hantering för Next.js 14
-    const cookieStore = cookies();
-    const supabase = createServerClient({ cookies: () => cookieStore });
+    const cookieStore = await cookies();
+const supabase = createServerClient({ cookies: cookieStore });
     
     const formData = await request.formData();
     const file = formData.get('file') as File;

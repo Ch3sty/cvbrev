@@ -5,8 +5,8 @@ import { createServerClient } from '@/lib/supabase/server';
 export async function GET() {
   try {
     // Hämta cookies korrekt med Next.js 14 pattern
-    const cookieStore = cookies();
-    const supabase = createServerClient({ cookies: () => cookieStore });
+    const cookieStore = await cookies();
+const supabase = createServerClient({ cookies: cookieStore });
 
     // Verifiera att användaren är autentiserad
     const { data: { user } } = await supabase.auth.getUser();
