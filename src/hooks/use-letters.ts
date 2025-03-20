@@ -84,45 +84,51 @@ export const useLetters = () => {
   const fetchingLetterRef = useRef<Record<string, boolean>>({});
   const generatingLetterRef = useRef(false);
   
-  // Skapa cachelagring för API-anrop
-  const cachedFetchLetters = createCachedFetcher(
-    storeFetchLetters,
-    (savedOnly) => `fetchLetters:${savedOnly ? 'saved' : 'all'}`
-  );
+  // Force-fetch state
+  const [forceUpdate, setForceUpdate] = useState(0);
   
-  const cachedFetchLetter = createCachedFetcher(
-    storeFetchLetter,
-    (id) => `fetchLetter:${id}`
-  );
-  
-  // Memoizera funktionerna för att förhindra oändliga rerenderingar
-  const memoizedFetchLetters = useCallback((savedOnly = false) => {
-    // Förhindra anrop om komponenten avmonterats eller redan hämtar
-    if (!isMountedRef.current || fetchingLettersRef.current || isLoading) return Promise.resolve();
+  // Skapa cachelagring för API-anrop med cache=false option
+  const fetchLettersWithOptions = async (savedOnly = false, useCache = true) => {
+    // Om laddning redan pågår och vi inte tvingar uppdatering, avbryt
+    if (fetchingLettersRef.current && useCache) return;
     
     fetchingLettersRef.current = true;
     
-    return cachedFetchLetters(savedOnly).finally(() => {
-      if (isMountedRef.current) {
-        fetchingLettersRef.current = false;
-      }
-    });
-  }, [isLoading, cachedFetchLetters]);
+    try {
+      // Direkt anrop utan caching om useCache=false
+      await storeFetchLetters(savedOnly);
+      return letters;
+    } catch (error) {
+      console.error('Error fetching letters:', error);
+      throw error;
+    } finally {
+      fetchingLettersRef.current = false;
+    }
+  };
   
-  const memoizedGetLetter = useCallback((id: string) => {
+  // Memoizera funktionerna för att förhindra oändliga rerenderingar
+  const memoizedFetchLetters = useCallback(async (savedOnly = false, useCache = true) => {
+    // Förhindra anrop om komponenten avmonterats
+    if (!isMountedRef.current) return Promise.resolve();
+    
+    return fetchLettersWithOptions(savedOnly, useCache);
+  }, [letters, forceUpdate]);
+  
+  const memoizedGetLetter = useCallback(async (id: string) => {
     // Förhindra anrop om komponenten avmonterats eller redan hämtar detta ID
     if (!isMountedRef.current || fetchingLetterRef.current[id] || !id) return Promise.resolve(null);
     
     fetchingLetterRef.current[id] = true;
     
-    return cachedFetchLetter(id)
-      .then(() => currentLetter)
-      .finally(() => {
-        if (isMountedRef.current) {
-          fetchingLetterRef.current[id] = false;
-        }
-      });
-  }, [currentLetter, cachedFetchLetter]);
+    try {
+      await storeFetchLetter(id);
+      return currentLetter;
+    } finally {
+      if (isMountedRef.current) {
+        fetchingLetterRef.current[id] = false;
+      }
+    }
+  }, [currentLetter, storeFetchLetter]);
   
   // Uppdaterad createLetter-funktion med språkstöd
   const createLetter = useCallback(async (params: GenerateLetterParams) => {
@@ -133,9 +139,6 @@ export const useLetters = () => {
       console.log('Förhindrar dubblett brevgenerering, en generering pågår redan');
       return null;
     }
-    
-    // Skapa en unik nyckel för denna genereringsförfrågan (inkludera språk)
-    const requestKey = `generate:${params.cv_id}:${params.language || 'sv'}:${Date.now()}`;
     
     // Markera att generering pågår
     generatingLetterRef.current = true;
@@ -170,33 +173,25 @@ export const useLetters = () => {
       }
       
       // Annars, använd det befintliga API-anropet för att spara direkt
-      // Skapa ett löfte och spara det i aktiva genereringar
-      const generationPromise = storeGenerateLetter({
+      const generatedLetter = await storeGenerateLetter({
         cv_id: params.cv_id,
         job_description: params.job_description,
         tonality: params.tonality,
         language: params.language || 'sv' // Skicka med språket
-      }).finally(() => {
-        // Rensa status när genereringen är klar, oavsett resultat
-        generatingLetterRef.current = false;
-        activeGenerations.delete(requestKey);
       });
       
-      // Registrera denna generering
-      activeGenerations.set(requestKey, generationPromise);
+      // Efter framgångsrik generering, uppdatera brevlistan
+      await memoizedFetchLetters(true, false);
       
-      // Vänta på resultatet och returnera det
-      const generatedLetter = await generationPromise;
       return generatedLetter;
     } catch (error) {
       console.error('Error generating letter:', error);
-      generatingLetterRef.current = false;
       return null;
     } finally {
       // Säkerställ att genereringsflaggan återställs
       generatingLetterRef.current = false;
     }
-  }, [storeGenerateLetter, isGenerating]);
+  }, [storeGenerateLetter, isGenerating, memoizedFetchLetters]);
   
   // Ny funktion för att spara ett tidigare genererat brev
   const saveLetter = useCallback(async (letterData: any) => {
@@ -221,8 +216,8 @@ export const useLetters = () => {
       
       const data = await response.json();
       
-      // Uppdatera brevlistan om sparandet lyckades
-      await memoizedFetchLetters(true);
+      // Uppdatera brevlistan om sparandet lyckades - tvinga refresh
+      await memoizedFetchLetters(true, false);
       
       return data.data;
     } catch (error) {
@@ -237,12 +232,18 @@ export const useLetters = () => {
     
     try {
       const success = await storeUpdateLetter(id, updates);
+      
+      // Uppdatera brevlistan vid framgång
+      if (success) {
+        await memoizedFetchLetters(true, false);
+      }
+      
       return success;
     } catch (error) {
       console.error('Error updating letter:', error);
       return false;
     }
-  }, [storeUpdateLetter]);
+  }, [storeUpdateLetter, memoizedFetchLetters]);
   
   // Funktion för att ta bort ett brev - kan inte vara cachad eftersom den har sidoeffekter
   const removeLetter = useCallback(async (id: string) => {
@@ -250,32 +251,30 @@ export const useLetters = () => {
     
     try {
       const success = await storeDeleteLetter(id);
+      
+      // Uppdatera brevlistan vid framgång
+      if (success) {
+        await memoizedFetchLetters(true, false);
+      }
+      
       return success;
     } catch (error) {
       console.error('Error deleting letter:', error);
       return false;
     }
-  }, [storeDeleteLetter]);
+  }, [storeDeleteLetter, memoizedFetchLetters]);
   
-  // Funktion för att hämta sparade brev - kan vara cachad
-  const getSavedLetters = useCallback(async () => {
-    if (!isMountedRef.current) return [];
-    
-    try {
-      await memoizedFetchLetters(true);
-      return letters;
-    } catch (error) {
-      console.error('Error fetching saved letters:', error);
-      return [];
-    }
-  }, [letters, memoizedFetchLetters]);
+  // Funktion för att förnya brevlistan
+  const refreshLetters = useCallback(async () => {
+    setForceUpdate(prev => prev + 1);
+    return memoizedFetchLetters(true, false);
+  }, [memoizedFetchLetters]);
   
   // Ladda brev automatiskt första gången hooken används
   useEffect(() => {
-    // Om det inte redan finns några brev, hämta dem
-    if (letters.length === 0 && !isLoading && !fetchingLettersRef.current) {
-      memoizedFetchLetters();
-    }
+    // Tvinga en förnyad laddning direkt när komponenten monteras
+    memoizedFetchLetters(true, false);
+    
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
@@ -298,10 +297,10 @@ export const useLetters = () => {
     fetchLetters: memoizedFetchLetters,
     fetchLetter: memoizedGetLetter,
     createLetter,
-    saveLetter, // Ny funktion för att spara ett genererat brev
+    saveLetter, 
     getLetter: memoizedGetLetter,
     editLetter,
     removeLetter,
-    getSavedLetters
+    refreshLetters
   };
 };

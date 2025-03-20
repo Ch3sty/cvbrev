@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
-import { generateCoverLetter } from '@/lib/openai/api';
+import { generateCoverLetter, extractJobInfo } from '@/lib/openai/api';
 
 // Enkel cache för att spåra pågående genereringar och förhindra dubbletter
 // Denna cache finns på serversidan och delas mellan alla användare
@@ -91,8 +91,8 @@ export async function POST(request: Request) {
         throw new Error('Kunde inte hitta CV');
       }
 
-      // Extrahera jobbinformation från jobbannonsen
-      const jobInfo = extractJobInfo(job_description, language);
+      // Använd AI för att extrahera jobbinformation från jobbannonsen
+      const jobInfo = await extractJobInfo(job_description, language);
 
       // Generera personligt brev med OpenAI, skicka med språket
       const coverLetterContent = await generateCoverLetter(
@@ -147,54 +147,5 @@ export async function POST(request: Request) {
       { error: 'Serverfel vid generering av brev: ' + error.message }, 
       { status: 500 }
     );
-  }
-}
-
-/**
- * Hjälpfunktion för att extrahera jobbinformation från jobbannonsen
- * med stöd för olika språk
- */
-function extractJobInfo(jobDescription: string, language: string = 'sv'): { 
-  title?: string, 
-  company?: string, 
-  position?: string 
-} {
-  // Anpassa regexes baserat på språk
-  if (language === 'en') {
-    // Engelska regexes
-    const companyRegex = /(?:company|firm|organization|at|with)\s+([A-Za-z][A-Za-z\s&]+)(?:\s+Inc\.?|\s+Ltd\.?)?/i;
-	const positionRegex = /(?:seeking\s+(?:an?)?|position\s+(?:as|for)|role\s+(?:as|for)|applying\s+for)\s+([A-Za-z][A-Za-z\s]+?)(?:\s+for|\s+in|\s+at|\.)/i;
-    
-	const companyMatch = jobDescription.match(companyRegex);
-	const positionMatch = jobDescription.match(positionRegex);
-    
-    // Skapa en titel för brevet på engelska
-    const title = positionMatch 
-      ? `Application: ${positionMatch[1].trim()}` 
-      : 'Job Application';
-    
-    return {
-      title: title,
-      company: companyMatch ? companyMatch[1].trim() : undefined,
-      position: positionMatch ? positionMatch[1].trim() : undefined
-    };
-  } else {
-    // Svenska regexes (default)
-    const companyRegex = /(?:företag|firma|bolag|AB|företaget|hos|på)\s+([A-ZÅÄÖa-zåäö][A-ZÅÄÖa-zåäö\s&]+)(?:\s+AB)?/i;
-    const positionRegex = /(?:söker\s+(?:en)?|tjänst\s+som|roll\s+som|position\s+som)\s+([A-ZÅÄÖa-zåäö][A-ZÅÄÖa-zåäö\s]+?)(?:\s+till|\s+för|\s+i|\s+på|\.)/i;
-    
-    const companyMatch = jobDescription.match(companyRegex);
-    const positionMatch = jobDescription.match(positionRegex);
-    
-    // Skapa en titel för brevet på svenska
-    const title = positionMatch 
-      ? `Ansökan: ${positionMatch[1].trim()}` 
-      : 'Ansökningsbrev';
-    
-    return {
-      title: title,
-      company: companyMatch ? companyMatch[1].trim() : undefined,
-      position: positionMatch ? positionMatch[1].trim() : undefined
-    };
   }
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Profile, ProfileUpdateParams, CV } from '@/types/user.types';
 
@@ -11,8 +11,9 @@ export const useProfile = () => {
   const supabase = createClient();
   
   // Funktion för att hämta CV-information från API
-  const fetchCvInfo = async () => {
+  const fetchCvInfo = useCallback(async () => {
     try {
+      setLoading(true);
       const response = await fetch('/api/cv');
       
       if (!response.ok) {
@@ -27,9 +28,13 @@ export const useProfile = () => {
       
       const data = await response.json();
       
-      if (data.success && data.cv) {
-        setCv(data.cv);
-        return data.cv;
+      if (data.success && data.data) {
+        setCv({
+          name: data.data.file_name || 'CV',
+          url: data.data.publicUrl || null,
+          lastUpdated: data.data.updated_at || data.data.created_at || null
+        });
+        return data.data;
       } else {
         setCv(null);
         return null;
@@ -38,11 +43,13 @@ export const useProfile = () => {
       console.error('Fel vid hämtning av CV-information:', error);
       setCv(null);
       return null;
+    } finally {
+      setLoading(false);
     }
-  };
+  }, []);
   
-  // Hämta profil
-  const fetchProfile = async () => {
+  // Hämta profil - gjord memoizable med useCallback för att undvika onödiga renders
+  const fetchProfile = useCallback(async () => {
     try {
       setLoading(true);
       
@@ -83,7 +90,7 @@ export const useProfile = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [supabase, fetchCvInfo]);
   
   // Uppdatera profil
   const updateProfile = async (profileData: ProfileUpdateParams) => {
@@ -166,8 +173,6 @@ export const useProfile = () => {
       if (data.success) {
         // Uppdatera CV-informationen genom att hämta den från API
         await fetchCvInfo();
-        // Uppdatera även profilen
-        await fetchProfile();
         return true;
       }
       
@@ -178,30 +183,38 @@ export const useProfile = () => {
     }
   };
   
-  // Ladda ner CV
-  const downloadCV = async () => {
+  // Ta bort CV
+  const deleteCV = async () => {
     try {
-      if (!cv?.url) {
-        console.error('Inget CV hittat');
-        return null;
-      }
+      const response = await fetch('/api/cv', {
+        method: 'DELETE'
+      });
       
-      const response = await fetch(cv.url);
       if (!response.ok) {
-        throw new Error('Kunde inte ladda ner CV');
+        const errorData = await response.json();
+        console.error('Fel vid borttagning:', errorData.error || 'Okänt fel');
+        return false;
       }
       
-      return await response.blob();
+      const data = await response.json();
+      
+      if (data.success) {
+        // Återställ CV-tillståndet
+        setCv(null);
+        return true;
+      }
+      
+      return false;
     } catch (error: any) {
-      console.error('Fel vid nedladdning av CV:', error);
-      return null;
+      console.error('Fel vid borttagning av CV:', error);
+      return false;
     }
   };
   
   // Hämta profildata vid komponentmontering
   useEffect(() => {
     fetchProfile();
-  }, []);
+  }, [fetchProfile]);
   
   return { 
     profile, 
@@ -209,7 +222,7 @@ export const useProfile = () => {
     loading, 
     updateProfile, 
     uploadCV,
-    downloadCV,
+    deleteCV,
     refreshProfile: fetchProfile 
   };
 };

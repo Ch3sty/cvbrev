@@ -12,23 +12,35 @@ export default function MyLettersPage() {
   const { letters, fetchLetters, isLoading, error, removeLetter } = useLetters();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [isPageMounted, setIsPageMounted] = useState(false);
   
   // Använd en referensvariabel för att hålla reda på om initial laddning har skett
   const initialLoadedRef = useRef(false);
   
-  // Hämta brev när sidan laddas
+  // När sidan renderas första gången, sätt isPageMounted till true
   useEffect(() => {
-    // Förhindra dubblettanrop
-    if (initialLoadedRef.current) return;
+    setIsPageMounted(true);
     
-    // Markera att laddningen har startats
-    initialLoadedRef.current = true;
-    
-    // Hämta brev
-    fetchLetters(true);
-    
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // Städa upp vid avmontering
+    return () => {
+      initialLoadedRef.current = false;
+    };
   }, []);
+  
+  // Hämta brev när sidan laddas - körs EFTER komponenten är monterad
+  useEffect(() => {
+    if (!isPageMounted) return;
+    
+    // Direkt hämta breven, oavsett om vi har gjort det tidigare eller inte
+    // Detta säkerställer att listan alltid är uppdaterad
+    const loadLetters = async () => {
+      console.log('Laddar brev...');
+      initialLoadedRef.current = true;
+      await fetchLetters(true);
+    };
+    
+    loadLetters();
+  }, [fetchLetters, isPageMounted]);
   
   // Formatera datum relativt (t.ex. "för 3 dagar sedan")
   const formatRelativeDate = (dateString: string | null) => {

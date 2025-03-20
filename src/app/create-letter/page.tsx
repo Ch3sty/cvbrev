@@ -6,37 +6,69 @@ import { useCVStore } from '@/store/cv-store'
 import { useLetters } from '@/hooks/use-letters'
 import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-// Import bibliotek för PDF-generering när de är installerade
-// import jsPDF from 'jspdf'
-// import html2canvas from 'html2canvas'
+import { 
+  FileText, 
+  Upload, 
+  MessageSquare, 
+  ChevronDown, 
+  Info, 
+  Building2, 
+  Sparkles, 
+  Lightbulb, 
+  Trophy, 
+  Scale, 
+  Bot
+} from 'lucide-react'
 
-type Tonality = 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced'
+type Tonality = 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced' | 'auto'
 type Language = 'sv' | 'en'
 
-const tonalityLabels: Record<Tonality, string> = {
-  'professional': 'Professionell',
-  'enthusiastic': 'Entusiastisk',
-  'creative': 'Kreativ',
-  'confident': 'Självsäker',
-  'balanced': 'Balanserad'
-};
-
-// En debounce-funktion för att förhindra snabba dubbelklick
-function debounce<T extends (...args: any[]) => any>(
-  func: T,
-  wait: number
-): (...args: Parameters<T>) => void {
-  let timeout: NodeJS.Timeout | null = null;
-  
-  return function(...args: Parameters<T>) {
-    if (timeout) clearTimeout(timeout);
-    
-    timeout = setTimeout(() => {
-      func(...args);
-      timeout = null;
-    }, wait);
-  };
+interface TonalityInfo {
+  label: string;
+  description: string;
+  icon: React.ReactNode;
+  recommendedFor: string;
 }
+
+// Tonalitetsbeskrivningar med mer utförlig information och Lucide-ikoner
+const tonalityInfo: Record<Tonality, TonalityInfo> = {
+  'professional': {
+    label: 'Professionell',
+    description: 'Formell och saklig ton som lägger fokus på kompetens och erfarenhet.',
+    icon: <Building2 className="w-5 h-5 text-blue-400" />,
+    recommendedFor: 'Traditionella branscher som bank, juridik och offentlig sektor.'
+  },
+  'enthusiastic': {
+    label: 'Entusiastisk',
+    description: 'Energisk och passionerad ton som visar stort intresse för tjänsten.',
+    icon: <Sparkles className="w-5 h-5 text-pink-400" />,
+    recommendedFor: 'Kreativa yrken, startups och kundorienterade roller.'
+  },
+  'creative': {
+    label: 'Kreativ',
+    description: 'Innovativ och nytänkande ton som framhäver din kreativa sida.',
+    icon: <Lightbulb className="w-5 h-5 text-yellow-400" />,
+    recommendedFor: 'Design, marknadsföring och kulturella sektorer.'
+  },
+  'confident': {
+    label: 'Självsäker',
+    description: 'Stark och bestämd ton som betonar prestationer och resultat.',
+    icon: <Trophy className="w-5 h-5 text-amber-400" />,
+    recommendedFor: 'Chefsroller, sälj och konsultroller.'
+  },
+  'balanced': {
+    label: 'Balanserad',
+    description: 'En harmonisk blandning av professionalitet och personlighet.',
+    icon: <Scale className="w-5 h-5 text-emerald-400" />,
+    recommendedFor: 'De flesta tjänster när du är osäker.'
+  },
+  'auto': {
+    label: 'AI-val (Rekommenderas)',
+    description: 'Låt AI analysera jobbannonsen och välja den bästa anpassade tonen baserat på bransch, företagskultur och tjänst.',
+    icon: <Bot className="w-5 h-5 text-purple-400" />,
+    recommendedFor: 'Alla ansökningar för att maximera dina chanser att få jobbet.'
+  }
+};
 
 // Dynamisk import av PDF bibliotek (för att undvika server-side rendering problem)
 const loadPdfLibs = async () => {
@@ -55,7 +87,7 @@ export default function CreateLetterPage() {
   
   const [selectedCV, setSelectedCV] = useState<string | null>(null)
   const [jobDescription, setJobDescription] = useState('')
-  const [tonality, setTonality] = useState<Tonality>('professional')
+  const [tonality, setTonality] = useState<Tonality>('auto') // Default är nu 'auto'
   const [language, setLanguage] = useState<Language>('sv')
   const [generatedLetter, setGeneratedLetter] = useState<string | null>(null)
   const [letterData, setLetterData] = useState<any | null>(null)
@@ -67,6 +99,7 @@ export default function CreateLetterPage() {
   
   // Ref till brevinnehållet för PDF-generering
   const letterContentRef = useRef<HTMLDivElement>(null);
+  const tonalityDropdownRef = useRef<HTMLDivElement>(null);
   
   const router = useRouter()
   
@@ -80,8 +113,7 @@ export default function CreateLetterPage() {
   // Stäng dropdownmenyn för tonalitet när användaren klickar utanför
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as HTMLElement;
-      if (isTonalityOpen && !target.closest('.tonality-dropdown')) {
+      if (tonalityDropdownRef.current && !tonalityDropdownRef.current.contains(event.target as Node)) {
         setIsTonalityOpen(false);
       }
     };
@@ -90,7 +122,7 @@ export default function CreateLetterPage() {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isTonalityOpen]);
+  }, []);
   
   // Hämta användarens CV:n vid sidladdning, men bara en gång
   useEffect(() => {
@@ -385,17 +417,6 @@ export default function CreateLetterPage() {
     }
   }, [generatedLetter, letterData]);
   
-  // Använd en debounced version av handleGenerateLetter för att förhindra snabba dubbelklick
-  const handleGenerateLetter = useCallback(
-    debounce((e: React.MouseEvent) => {
-      // Förhindra eventuell bubblings
-      e.preventDefault();
-      e.stopPropagation();
-      generateLetter();
-    }, 300),
-    [generateLetter]
-  );
-  
   // Beräkna om knappen ska vara inaktiverad
   const isButtonDisabled = isGenerating || isSubmitting || !selectedCV || !jobDescription;
   
@@ -412,7 +433,10 @@ export default function CreateLetterPage() {
         <div className="space-y-6">
           {/* CV-val */}
           <div>
-            <h2 className="mb-2 text-xl font-semibold text-white">Välj ditt CV</h2>
+            <h2 className="mb-2 text-xl font-semibold text-white flex items-center">
+              <FileText className="w-5 h-5 mr-2 text-blue-400" />
+              Välj ditt CV
+            </h2>
             {cvsLoading ? (
               <div className="flex items-center justify-center h-20">
                 <div className="w-6 h-6 border-t-2 border-b-2 border-pink-500 rounded-full animate-spin"></div>
@@ -449,7 +473,10 @@ export default function CreateLetterPage() {
           
           {/* Jobbannons */}
           <div>
-            <h2 className="mb-2 text-xl font-semibold text-white">Jobbannons</h2>
+            <h2 className="mb-2 text-xl font-semibold text-white flex items-center">
+              <MessageSquare className="w-5 h-5 mr-2 text-purple-400" />
+              Jobbannons
+            </h2>
             <textarea
               value={jobDescription}
               onChange={(e) => setJobDescription(e.target.value)}
@@ -461,67 +488,112 @@ export default function CreateLetterPage() {
           
           {/* Inställningar (Tonalitet och Språk) */}
           <div className="flex flex-wrap gap-4">
-            {/* Tonalitet - Dropdown format */}
-            <div className="relative z-20 w-full sm:w-auto tonality-dropdown">
-              <h2 className="mb-2 text-xl font-semibold text-white">Tonalitet</h2>
-              <div className="relative">
+            {/* Tonalitet - Med modern dropdown och infokort */}
+            <div className="relative w-full" ref={tonalityDropdownRef}>
+              <div className="flex items-center mb-2">
+                <h2 className="text-xl font-semibold text-white flex items-center">
+                  <Sparkles className="w-5 h-5 mr-2 text-pink-400" />
+                  Tonalitet 
+                </h2>
+                <div className="ml-2 text-gray-400 flex items-center text-sm">
+                  <Info className="w-4 h-4 mr-1" />
+                  <span>Välj hur ditt brev ska låta</span>
+                </div>
+              </div>
+              
+              {/* Tonalitetsväljare */}
+              <div className="mb-4">
                 <button
                   type="button"
                   onClick={() => setIsTonalityOpen(!isTonalityOpen)}
                   disabled={isGenerating || isSubmitting}
-                  className="flex items-center justify-between w-full px-4 py-2 text-white bg-navy-800 border border-gray-700 rounded-md sm:w-48"
+                  className="flex items-center justify-between w-full px-4 py-3 text-white bg-navy-800 border border-gray-700 rounded-md"
                 >
-                  <span>{tonalityLabels[tonality]}</span>
-                  <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
+                  <div className="flex items-center">
+                    {tonalityInfo[tonality].icon}
+                    <span className="ml-2">{tonalityInfo[tonality].label}</span>
+                  </div>
+                  <ChevronDown className={`w-5 h-5 transition-transform ${isTonalityOpen ? 'transform rotate-180' : ''}`} />
                 </button>
                 
                 {isTonalityOpen && (
-                  <div className="absolute z-30 w-full mt-1 bg-navy-700 border border-gray-600 rounded-md shadow-lg sm:w-48">
-                    {(Object.entries(tonalityLabels) as [Tonality, string][]).map(([value, label]) => (
-                      <button
-                        key={value}
-                        onClick={() => {
-                          setTonality(value);
-                          setIsTonalityOpen(false);
-                        }}
-                        className={`block w-full px-4 py-2 text-left hover:bg-navy-600 ${
-                          tonality === value ? 'bg-navy-600 text-pink-400' : 'text-white'
-                        }`}
-                      >
-                        {label}
-                      </button>
+                  <div className="absolute z-30 w-full mt-1 bg-navy-700 border border-gray-600 rounded-md shadow-lg">
+                    {(Object.entries(tonalityInfo) as [Tonality, TonalityInfo][]).map(([value, info]) => (
+                      <div key={value} className="border-b border-gray-700 last:border-0">
+                        <button
+                          onClick={() => {
+                            setTonality(value);
+                            setIsTonalityOpen(false);
+                          }}
+                          className={`flex items-center w-full p-3 text-left hover:bg-navy-600 ${
+                            tonality === value ? 'bg-navy-600' : ''
+                          }`}
+                        >
+                          <div className="flex-shrink-0">{info.icon}</div>
+                          <div className="ml-3">
+                            <p className={`font-medium ${tonality === value ? 'text-pink-400' : 'text-white'}`}>
+                              {info.label}
+                            </p>
+                            <p className="text-sm text-gray-400 mt-1">{info.description}</p>
+                          </div>
+                        </button>
+                      </div>
                     ))}
                   </div>
                 )}
               </div>
+              
+              {/* Tonalitets-info */}
+              <div className="p-4 bg-navy-800/50 rounded-md border border-gray-700">
+                <div className="flex items-start">
+                  <div className="flex-shrink-0 mt-1">{tonalityInfo[tonality].icon}</div>
+                  <div className="ml-3">
+                    <p className="text-white font-medium">{tonalityInfo[tonality].label}</p>
+                    <p className="text-sm text-gray-400 mt-1">{tonalityInfo[tonality].description}</p>
+                    <p className="text-sm text-gray-400 mt-2">
+                      <span className="text-pink-400 font-medium">Rekommenderas för:</span> {tonalityInfo[tonality].recommendedFor}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
             
             {/* Språkval */}
-            <div className="w-full sm:w-auto">
-              <h2 className="mb-2 text-xl font-semibold text-white">Språk</h2>
+            <div className="w-full">
+              <h2 className="mb-2 text-xl font-semibold text-white flex items-center">
+                <svg className="w-5 h-5 mr-2 text-green-400" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 5H12M2 5V19C2 20.1046 2.89543 21 4 21H20C21.1046 21 22 20.1046 22 19V9C22 7.89543 21.1046 7 20 7H4C2.89543 7 2 6.10457 2 5ZM2 5C2 3.89543 2.89543 3 4 3H8C9.10457 3 10 3.89543 10 5V7" 
+                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M9 13L8 16.5M8 16.5L7 20M8 16.5L5 16.5M8 16.5L11 16.5" 
+                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M17 12L15 17L19 17" 
+                    stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                Språk
+              </h2>
               <div className="flex p-1 bg-navy-800 border border-gray-700 rounded-md">
                 <button
                   onClick={() => setLanguage('sv')}
                   disabled={isGenerating || isSubmitting}
-                  className={`px-4 py-1 rounded-md ${
+                  className={`flex-1 px-4 py-2 rounded-md font-medium flex items-center justify-center ${
                     language === 'sv' 
-                      ? 'bg-pink-600 text-white font-medium' 
+                      ? 'bg-pink-600/80 text-white' 
                       : 'text-gray-300 hover:bg-navy-700'
                   }`}
                 >
+                  <span className="mr-2">🇸🇪</span>
                   Svenska
                 </button>
                 <button
                   onClick={() => setLanguage('en')}
                   disabled={isGenerating || isSubmitting}
-                  className={`px-4 py-1 rounded-md ${
+                  className={`flex-1 px-4 py-2 rounded-md font-medium flex items-center justify-center ${
                     language === 'en' 
-                      ? 'bg-pink-600 text-white font-medium' 
+                      ? 'bg-pink-600/80 text-white' 
                       : 'text-gray-300 hover:bg-navy-700'
                   }`}
                 >
+                  <span className="mr-2">🇬🇧</span>
                   English
                 </button>
               </div>
@@ -535,27 +607,36 @@ export default function CreateLetterPage() {
             </div>
           )}
           
-          {/* Genereringsknapp - Använda onMouseDown istället för onClick för bättre responsivitet */}
+          {/* Genereringsknapp */}
           <button
-            onMouseDown={handleGenerateLetter}
+            onClick={generateLetter}
             disabled={isButtonDisabled}
-            className="w-full py-3 font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 disabled:bg-gray-600 disabled:cursor-not-allowed"
+            className="w-full py-3 font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 disabled:bg-gray-600 disabled:cursor-not-allowed transition-all"
             aria-label={isGenerating || isSubmitting ? "Genererar brev..." : "Skapa ansökningsbrev"}
           >
             {isGenerating || isSubmitting ? (
               <span className="flex items-center justify-center">
-                <span className="w-5 h-5 mr-2 border-t-2 border-b-2 border-white rounded-full animate-spin"></span>
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
                 Genererar...
               </span>
             ) : (
-              'Skapa ansökningsbrev'
+              <span className="flex items-center justify-center">
+                <Upload className="w-5 h-5 mr-2" />
+                Skapa ansökningsbrev
+              </span>
             )}
           </button>
         </div>
         
         {/* Förhandsvisning - Gjord bredare */}
         <div className="p-6 overflow-auto bg-navy-800 rounded-lg" style={{ maxHeight: '80vh' }}>
-          <h2 className="mb-4 text-xl font-semibold text-white">Ditt ansökningsbrev</h2>
+          <h2 className="mb-4 text-xl font-semibold text-white flex items-center">
+            <FileText className="w-5 h-5 mr-2 text-green-400" />
+            Ditt ansökningsbrev
+          </h2>
           
           {isGenerating || isSubmitting ? (
             <div className="flex flex-col items-center justify-center h-64 space-y-4">
@@ -579,17 +660,30 @@ export default function CreateLetterPage() {
                 <button
                   onClick={handleSaveLetter}
                   disabled={isSaving || (letterData && letterData.is_saved)}
-                  className="px-4 py-2 font-medium text-white bg-green-600 rounded-md hover:bg-green-700 disabled:bg-gray-600 disabled:cursor-not-allowed"
+                  className="px-4 py-2 font-medium text-white bg-green-600 rounded-md hover:bg-green-700 disabled:bg-gray-600 disabled:cursor-not-allowed flex items-center"
                 >
                   {isSaving ? (
-                    <span className="flex items-center">
-                      <span className="w-4 h-4 mr-2 border-t-2 border-b-2 border-white rounded-full animate-spin"></span>
+                    <>
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
                       Sparar...
-                    </span>
+                    </>
                   ) : letterData && letterData.is_saved ? (
-                    'Sparat'
+                    <>
+                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Sparat
+                    </>
                   ) : (
-                    'Spara brev'
+                    <>
+                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                      </svg>
+                      Spara brev
+                    </>
                   )}
                 </button>
                 
@@ -597,8 +691,11 @@ export default function CreateLetterPage() {
                 {letterData && letterData.is_saved && letterData.id && (
                   <button
                     onClick={handleEdit}
-                    className="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
+                    className="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 flex items-center"
                   >
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
                     Redigera
                   </button>
                 )}
@@ -607,17 +704,47 @@ export default function CreateLetterPage() {
                 <button
                   onClick={handleDownloadAsDocx}
                   disabled={isDownloading}
-                  className="px-4 py-2 font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700 disabled:bg-purple-800 disabled:cursor-not-allowed"
+                  className="px-4 py-2 font-medium text-white bg-purple-600 rounded-md hover:bg-purple-700 disabled:bg-purple-800 disabled:cursor-not-allowed flex items-center"
                 >
-                  {isDownloading ? 'Laddar ner...' : 'Ladda ner som DOCX'}
+                  {isDownloading ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Laddar ner...
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                      DOCX
+                    </>
+                  )}
                 </button>
                 
                 <button
                   onClick={handleDownloadAsPdf}
                   disabled={isDownloading}
-                  className="px-4 py-2 font-medium text-white bg-orange-600 rounded-md hover:bg-orange-700 disabled:bg-orange-800 disabled:cursor-not-allowed"
+                  className="px-4 py-2 font-medium text-white bg-orange-600 rounded-md hover:bg-orange-700 disabled:bg-orange-800 disabled:cursor-not-allowed flex items-center"
                 >
-                  {isDownloading ? 'Laddar ner...' : 'Ladda ner som PDF'}
+                  {isDownloading ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Laddar ner...
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                      </svg>
+                      PDF
+                    </>
+                  )}
                 </button>
               </div>
             </div>
