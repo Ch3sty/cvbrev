@@ -4,33 +4,44 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useProfile } from '@/hooks/use-profile';
+import { useCVStore } from '@/store/cv-store';
+import { useCallback } from 'react';
 
-// Import nya komponenter
+// Import components
 import CVUploader from '@/components/cv/cv-uploader';
-import CVList from '@/components/cv/cv-list';
+import Notification from '@/components/ui/notification';
 
-// Importera ikoner från Lucide
+// Import icons from Lucide
 import { 
   User, 
   FileText, 
   Settings, 
   Save, 
   LogOut,
-  AlertTriangle 
+  AlertTriangle,
+  Upload,
+  Trash,
+  ExternalLink,
+  Info,
+  Sparkles,
+  Building2,
+  Lightbulb,
+  Trophy,
+  Scale,
+  Bot
 } from 'lucide-react';
-
-// Importera din Notification-komponent
-import Notification from '@/components/ui/notification';
 
 export default function ProfilePage() {
   const router = useRouter();
   const supabase = createClientComponentClient();
-  const { profile, cv, loading, updateProfile, deleteCV } = useProfile();
+  const { profile, loading: profileLoading, updateProfile } = useProfile();
+  const { cvs, fetchCVs, loading: cvsLoading, isLoading: cvListLoading } = useCVStore();
   
   const [activeTab, setActiveTab] = useState('profile');
   const [saving, setSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [deleteId, setDeleteId] = useState('');
   const [notification, setNotification] = useState<{
     message: string;
     type: 'loading' | 'success' | 'error' | 'info';
@@ -44,36 +55,42 @@ export default function ProfilePage() {
     preferred_tonality: 'professional'
   });
   
-  // Tonalitet options med ikoner
+  // Tonalitet options with icons (matching the ones from create-letter page)
   const tonalityOptions = [
+    { 
+      value: 'auto', 
+      label: 'AI-val (Rekommenderas)',
+      icon: <Bot className="w-5 h-5 text-purple-400" />,
+      description: 'Låt AI analysera jobbannonsen och välja den bästa anpassade tonen baserat på bransch, företagskultur och tjänst.'
+    },
     { 
       value: 'professional', 
       label: 'Professionell',
-      icon: '🏢',
-      description: 'Formell och affärsmässig ton som passar traditionella företag och branscher.'
+      icon: <Building2 className="w-5 h-5 text-blue-400" />,
+      description: 'Formell och saklig ton som lägger fokus på kompetens och erfarenhet.'
     },
     { 
       value: 'enthusiastic', 
       label: 'Entusiastisk',
-      icon: '🔥',
+      icon: <Sparkles className="w-5 h-5 text-pink-400" />,
       description: 'Energisk och passionerad ton som visar stort intresse för rollen.'
     },
     { 
       value: 'creative', 
       label: 'Kreativ',
-      icon: '💡',
+      icon: <Lightbulb className="w-5 h-5 text-yellow-400" />,
       description: 'Innovativ och nytänkande ton som framhäver din kreativa sida.'
     },
     { 
       value: 'confident', 
       label: 'Självsäker',
-      icon: '🏆',
-      description: 'Stark och bestämd ton som betonar dina prestationer och förmågor.'
+      icon: <Trophy className="w-5 h-5 text-amber-400" />,
+      description: 'Stark och bestämd ton som betonar prestationer och resultat.'
     },
     { 
       value: 'balanced', 
       label: 'Balanserad',
-      icon: '⚖️',
+      icon: <Scale className="w-5 h-5 text-emerald-400" />,
       description: 'En harmonisk blandning av professionalitet och personlighet.'
     }
   ];
@@ -88,6 +105,11 @@ export default function ProfilePage() {
       });
     }
   }, [profile]);
+  
+  // Fetch CVs when component mounts
+  useEffect(() => {
+    fetchCVs();
+  }, [fetchCVs]);
   
   // Handle form input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -106,7 +128,7 @@ export default function ProfilePage() {
     }));
   };
 
-  // Visa notifikation
+  // Show notification
   const showNotificationMessage = (message: string, type: 'loading' | 'success' | 'error' | 'info', progress?: number) => {
     setNotification({ 
       message, 
@@ -116,47 +138,60 @@ export default function ProfilePage() {
     });
     
     if (type !== 'loading') {
-      // Autostäng notifikationen efter 5 sekunder
+      // Auto-close notification after 5 seconds
       setTimeout(() => {
         setNotification(prev => prev ? { ...prev, isVisible: false } : null);
-        setTimeout(() => setNotification(null), 300); // Ta bort från DOM efter fade-out
+        setTimeout(() => setNotification(null), 300); // Remove from DOM after fade-out
       }, 5000);
     }
   };
   
-  // Stäng notifikation
+  // Close notification
   const handleCloseNotification = () => {
     setNotification(prev => prev ? { ...prev, isVisible: false } : null);
-    setTimeout(() => setNotification(null), 300); // Ta bort från DOM efter fade-out
+    setTimeout(() => setNotification(null), 300); // Remove from DOM after fade-out
   };
   
-  // Hantera CV-uppladdningsframgång
+  // Handle CV upload success
   const handleUploadSuccess = () => {
     showNotificationMessage('CV uppladdad framgångsrikt!', 'success');
+    fetchCVs(); // Refresh the CV list
   };
   
-  // Hantera CV-uppladdningsfel
+  // Handle CV upload error
   const handleUploadError = (error: Error) => {
     showNotificationMessage(error.message || 'Ett fel uppstod vid uppladdning', 'error');
   };
   
-  // Hantera begäran om att ta bort CV
-  const handleDeleteCV = () => {
+  // Handle request to delete CV
+  const handleDeleteCV = (id: string) => {
+    setDeleteId(id);
     setShowDeleteConfirm(true);
   };
   
-  // Bekräfta borttagning av CV
+  // Confirm CV deletion with the specific CV ID
   const confirmDeleteCV = async () => {
     try {
+      if (!deleteId) return;
+      
       setIsDeleting(true);
       showNotificationMessage('Tar bort CV...', 'loading');
       
-      const success = await deleteCV();
+      // Anropa deleteCV för det specifika CV-ID:t
+      const response = await fetch(`/api/cv/delete`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: deleteId }),
+      });
       
-      if (success) {
+      if (response.ok) {
+        fetchCVs(); // Refresh CV list after successful deletion
         showNotificationMessage('CV har tagits bort', 'success');
       } else {
-        showNotificationMessage('Kunde inte ta bort CV', 'error');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Kunde inte ta bort CV');
       }
     } catch (error: any) {
       showNotificationMessage(error.message || 'Ett fel uppstod vid borttagning', 'error');
@@ -175,6 +210,7 @@ export default function ProfilePage() {
       // Validate input
       if (formData.full_name.trim() === '') {
         showNotificationMessage('Ange ditt namn', 'error');
+        setSaving(false);
         return;
       }
       
@@ -196,7 +232,10 @@ export default function ProfilePage() {
     }
   };
   
-  if (loading) {
+  // Check if maximum CV count reached
+  const isMaxCVsReached = cvs.length >= 5;
+  
+  if (profileLoading) {
     return (
       <div className="flex justify-center items-center min-h-[300px]">
         <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-pink-500"></div>
@@ -206,7 +245,7 @@ export default function ProfilePage() {
 
   return (
     <div className="max-w-screen-lg mx-auto pt-8 pb-16 px-4">
-      {/* Notifikation */}
+      {/* Notification */}
       {notification?.isVisible && (
         <Notification 
           message={notification.message} 
@@ -336,7 +375,7 @@ export default function ProfilePage() {
                       }
                     `}
                   >
-                    <span className="text-2xl mb-1">{option.icon}</span>
+                    <div className="mb-1">{option.icon}</div>
                     <span className="text-sm font-medium">{option.label}</span>
                   </button>
                 ))}
@@ -373,20 +412,106 @@ export default function ProfilePage() {
       {/* CV Tab */}
       {activeTab === 'cv' && (
         <div className="space-y-6">
-          {/* CV-lista med existerande/tomma CV-slots */}
+          {/* CV List */}
           <div className="bg-navy-800 rounded-lg p-6">
-            <CVList 
-              onDeleteClick={handleDeleteCV}
-              maxSlots={5}
-            />
+            <h2 className="text-xl font-semibold mb-4 text-white flex items-center">
+              <FileText className="w-5 h-5 mr-2 text-pink-500" />
+              Dina CV:n ({cvs.length}/5)
+            </h2>
+            
+            {cvListLoading ? (
+              <div className="flex justify-center items-center h-40">
+                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-pink-500"></div>
+              </div>
+            ) : cvs.length === 0 ? (
+              <div className="border border-gray-700 border-dashed rounded-lg p-4 bg-navy-900/50">
+                <div className="flex flex-col items-center justify-center h-20 text-gray-400">
+                  <div className="text-2xl mb-2">📄</div>
+                  <p className="text-sm">Ingen CV uppladdad</p>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {cvs.map((cv) => (
+                  <div 
+                    key={cv.id} 
+                    className="border border-gray-700 bg-navy-800 rounded-lg p-4 transition-all hover:border-pink-500 hover:shadow-lg"
+                  >
+                    <div className="flex items-start">
+                      <div className="p-2 bg-pink-600 rounded-md mr-4 flex-shrink-0">
+                        <FileText className="w-5 h-5 text-white" />
+                      </div>
+                      
+                      <div className="flex-grow">
+                        <h3 className="font-medium mb-1 text-white">{cv.file_name}</h3>
+                        
+                        {cv.created_at && (
+                          <p className="text-xs text-gray-400 mb-3">
+                            Uppdaterad: {new Date(cv.created_at).toLocaleDateString('sv-SE')}
+                          </p>
+                        )}
+                        
+                        <div className="flex space-x-3 mt-2">
+                          <a
+                            href={cv.original_file_path}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center px-3 py-1 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
+                          >
+                            <ExternalLink className="w-4 h-4 mr-1" />
+                            Visa CV
+                          </a>
+                          <button
+                            onClick={() => handleDeleteCV(cv.id)}
+                            className="inline-flex items-center px-3 py-1 text-sm bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"
+                          >
+                            <Trash className="w-4 h-4 mr-1" />
+                            Ta bort
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+                
+                {/* Snyggare tomma platser */}
+                {Array.from({ length: Math.max(0, 5 - cvs.length) }).map((_, index) => (
+                  <div 
+                    key={`empty-slot-${index}`} 
+                    className="border border-gray-700 border-dashed rounded-lg p-4 bg-navy-900/30 hover:bg-navy-900/50 transition-colors"
+                  >
+                    <div className="flex items-center">
+                      <div className="p-2 bg-gray-700/50 rounded-md mr-4 flex-shrink-0">
+                        <FileText className="w-5 h-5 text-gray-400" />
+                      </div>
+                      <div>
+                        <p className="text-gray-400 font-medium">Ledig plats</p>
+                        <p className="text-xs text-gray-500">Plats {cvs.length + index + 1} av 5</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
           
-          {/* CV-uppladdare */}
-          <CVUploader 
-            onSuccess={handleUploadSuccess}
-            onError={handleUploadError}
-            showNotification={showNotificationMessage}
-          />
+          {/* CV Uploader */}
+          {isMaxCVsReached ? (
+            <div className="p-6 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-lg">
+              <div className="flex items-start">
+                <Info className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0 mt-0.5" />
+                <p className="text-yellow-200">
+                  Du har nått maxgränsen på 5 CV:n. För att ladda upp ett nytt CV, ta först bort ett befintligt.
+                </p>
+              </div>
+            </div>
+          ) : (
+            <CVUploader 
+              onSuccess={handleUploadSuccess}
+              onError={handleUploadError}
+              showNotification={showNotificationMessage}
+            />
+          )}
         </div>
       )}
       
@@ -425,7 +550,7 @@ export default function ProfilePage() {
             </div>
             
             <p className="mb-6 text-gray-300">
-              Är du säker på att du vill ta bort ditt CV? Detta kan inte ångras.
+              Är du säker på att du vill ta bort detta CV? Detta kan inte ångras.
             </p>
             
             <div className="flex justify-end space-x-3">

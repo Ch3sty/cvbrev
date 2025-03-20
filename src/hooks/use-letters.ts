@@ -24,6 +24,12 @@ const requestCache = new Map<string, { timestamp: number, promise: Promise<any> 
 // För att spåra pågående genereringar
 const activeGenerations = new Map<string, Promise<any>>();
 
+// För att spåra aktiva operationer
+const activeOperations = {
+  fetching: false,
+  deleting: false
+};
+
 // Tid i millisekunder innan en cachad förfrågan anses vara gammal (5 minuter)
 const CACHE_MAX_AGE = 5 * 60 * 1000;
 
@@ -80,19 +86,27 @@ export const useLetters = () => {
   const isMountedRef = useRef(true);
   
   // Refs för att spåra pågående förfrågningar
-  const fetchingLettersRef = useRef(false);
   const fetchingLetterRef = useRef<Record<string, boolean>>({});
   const generatingLetterRef = useRef(false);
+  
+  // Lokala tillstånd för att hantera operationer
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [localIsLoading, setLocalIsLoading] = useState(false);
   
   // Force-fetch state
   const [forceUpdate, setForceUpdate] = useState(0);
   
+  // Förhindra oönskade anrop vid monteringsskedet
+  const initialLoadingDoneRef = useRef(false);
+  
   // Skapa cachelagring för API-anrop med cache=false option
   const fetchLettersWithOptions = async (savedOnly = false, useCache = true) => {
-    // Om laddning redan pågår och vi inte tvingar uppdatering, avbryt
-    if (fetchingLettersRef.current && useCache) return;
+    // Förhindra samtidiga anrop
+    if (activeOperations.fetching && useCache) return letters;
     
-    fetchingLettersRef.current = true;
+    // Markera att hämtning pågår
+    activeOperations.fetching = true;
+    setLocalIsLoading(true);
     
     try {
       // Direkt anrop utan caching om useCache=false
@@ -102,21 +116,26 @@ export const useLetters = () => {
       console.error('Error fetching letters:', error);
       throw error;
     } finally {
-      fetchingLettersRef.current = false;
+      activeOperations.fetching = false;
+      setLocalIsLoading(false);
     }
   };
   
   // Memoizera funktionerna för att förhindra oändliga rerenderingar
   const memoizedFetchLetters = useCallback(async (savedOnly = false, useCache = true) => {
-    // Förhindra anrop om komponenten avmonterats
-    if (!isMountedRef.current) return Promise.resolve();
+    // Förhindra anrop om komponenten avmonterats eller om en borttagningsoperation pågår
+    if (!isMountedRef.current || activeOperations.deleting) {
+      return Promise.resolve(letters);
+    }
     
     return fetchLettersWithOptions(savedOnly, useCache);
   }, [letters, forceUpdate]);
   
   const memoizedGetLetter = useCallback(async (id: string) => {
     // Förhindra anrop om komponenten avmonterats eller redan hämtar detta ID
-    if (!isMountedRef.current || fetchingLetterRef.current[id] || !id) return Promise.resolve(null);
+    if (!isMountedRef.current || fetchingLetterRef.current[id] || !id) {
+      return Promise.resolve(currentLetter);
+    }
     
     fetchingLetterRef.current[id] = true;
     
@@ -180,8 +199,10 @@ export const useLetters = () => {
         language: params.language || 'sv' // Skicka med språket
       });
       
-      // Efter framgångsrik generering, uppdatera brevlistan
-      await memoizedFetchLetters(true, false);
+      // Efter framgångsrik generering, uppdatera brevlistan - men bara om inget borttagningsanrop pågår
+      if (!activeOperations.deleting) {
+        await memoizedFetchLetters(true, false);
+      }
       
       return generatedLetter;
     } catch (error) {
@@ -216,8 +237,10 @@ export const useLetters = () => {
       
       const data = await response.json();
       
-      // Uppdatera brevlistan om sparandet lyckades - tvinga refresh
-      await memoizedFetchLetters(true, false);
+      // Uppdatera brevlistan om sparandet lyckades - tvinga refresh - men bara om inget borttagningsanrop pågår
+      if (!activeOperations.deleting) {
+        await memoizedFetchLetters(true, false);
+      }
       
       return data.data;
     } catch (error) {
@@ -233,8 +256,8 @@ export const useLetters = () => {
     try {
       const success = await storeUpdateLetter(id, updates);
       
-      // Uppdatera brevlistan vid framgång
-      if (success) {
+      // Uppdatera brevlistan vid framgång - men bara om inget borttagningsanrop pågår
+      if (success && !activeOperations.deleting) {
         await memoizedFetchLetters(true, false);
       }
       
@@ -245,24 +268,48 @@ export const useLetters = () => {
     }
   }, [storeUpdateLetter, memoizedFetchLetters]);
   
-  // Funktion för att ta bort ett brev - kan inte vara cachad eftersom den har sidoeffekter
+  // Förbättrad funktion för att ta bort ett brev - kan inte vara cachad eftersom den har sidoeffekter
   const removeLetter = useCallback(async (id: string) => {
     if (!isMountedRef.current) return false;
     
-    try {
-      const success = await storeDeleteLetter(id);
-      
-      // Uppdatera brevlistan vid framgång
-      if (success) {
-        await memoizedFetchLetters(true, false);
-      }
-      
-      return success;
-    } catch (error) {
-      console.error('Error deleting letter:', error);
+    // Förhindra samtidiga borttagningar
+    if (activeOperations.deleting || isDeleting) {
+      console.log('En borttagningsoperation pågår redan');
       return false;
     }
-  }, [storeDeleteLetter, memoizedFetchLetters]);
+    
+    activeOperations.deleting = true;
+    setIsDeleting(true);
+    
+    try {
+      // Uppdatera client-side state optimistiskt
+      // Spara en lokal kopia av den aktuella brevlistan
+      const updatedLetters = letters.filter(letter => letter.id !== id);
+      
+      // Anropa server för att ta bort brevet
+      const success = await storeDeleteLetter(id);
+      
+      if (success) {
+        // Inget behov av att hämta brev igen om vi redan har uppdaterat lokalt
+        // Vi förlitar oss på att store:n har uppdaterats korrekt
+        
+        return true;
+      } else {
+        // Om borttagningen misslyckades, tvinga en ny hämtning för att återställa korrekt läge
+        await memoizedFetchLetters(true, false);
+        return false;
+      }
+    } catch (error) {
+      console.error('Error deleting letter:', error);
+      // Vid fel, tvinga en ny hämtning för att återställa korrekt läge
+      await memoizedFetchLetters(true, false);
+      return false;
+    } finally {
+      // Återställ flaggor
+      activeOperations.deleting = false;
+      setIsDeleting(false);
+    }
+  }, [storeDeleteLetter, memoizedFetchLetters, letters, isDeleting]);
   
   // Funktion för att förnya brevlistan
   const refreshLetters = useCallback(async () => {
@@ -272,8 +319,13 @@ export const useLetters = () => {
   
   // Ladda brev automatiskt första gången hooken används
   useEffect(() => {
-    // Tvinga en förnyad laddning direkt när komponenten monteras
-    memoizedFetchLetters(true, false);
+    // Undvik att ladda brev flera gånger vid initialt läge
+    if (!initialLoadingDoneRef.current) {
+      initialLoadingDoneRef.current = true;
+      
+      // Tvinga en förnyad laddning direkt när komponenten monteras
+      memoizedFetchLetters(true, false);
+    }
     
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -282,6 +334,9 @@ export const useLetters = () => {
   useEffect(() => {
     return () => {
       isMountedRef.current = false;
+      // Återställ också alla globala flaggor
+      activeOperations.fetching = false;
+      activeOperations.deleting = false;
     };
   }, []);
   
@@ -289,7 +344,8 @@ export const useLetters = () => {
     // State
     letters,
     currentLetter,
-    isLoading,
+    isLoading: isLoading || localIsLoading,
+    isDeleting,
     isGenerating,
     error,
     

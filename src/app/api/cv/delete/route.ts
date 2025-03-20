@@ -1,9 +1,9 @@
-// Route handler for /api/cv - supports GET and DELETE methods
+// src/app/api/cv/delete/route.ts
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 
-export async function DELETE() {
+export async function DELETE(request: Request) {
   try {
     // Hämta cookies korrekt med Next.js pattern
     const cookieStore = await cookies();
@@ -15,20 +15,30 @@ export async function DELETE() {
       return NextResponse.json({ error: 'Ej autentiserad' }, { status: 401 });
     }
 
-    // Hämta CV-data först för att få filsökvägen
+    // Hämta CV-ID från begäran
+    const requestData = await request.json().catch(() => ({}));
+    const cvId = requestData.id;
+
+    if (!cvId) {
+      return NextResponse.json({ 
+        error: 'CV-ID saknas i begäran', 
+        code: 'MISSING_CV_ID' 
+      }, { status: 400 });
+    }
+
+    // Hämta CV-data för det specifika ID:t, kontrollera att användaren äger det
     const { data: cvData, error: cvFetchError } = await supabase
       .from('cv_texts')
       .select('original_file_path')
+      .eq('id', cvId)
       .eq('user_id', user.id)
-      .order('created_at', { ascending: false })
-      .limit(1)
       .single();
 
     if (cvFetchError) {
       // Om det är ett "ingen data hittades"-fel, returnera ett anpassat svar
       if (cvFetchError.code === 'PGRST116') {
         return NextResponse.json({ 
-          error: 'Inget CV hittades att ta bort', 
+          error: 'Inget CV hittades med detta ID eller du har inte behörighet', 
           code: 'NO_CV_FOUND' 
         }, { status: 404 });
       }
@@ -51,11 +61,12 @@ export async function DELETE() {
       }
     }
 
-    // Ta bort CV-data från databasen
+    // Ta bort CV-data från databasen - VIKTIGT: Nu använder vi ID för att ta bort ett specifikt CV
     const { error: deleteError } = await supabase
       .from('cv_texts')
       .delete()
-      .eq('user_id', user.id);
+      .eq('id', cvId)
+      .eq('user_id', user.id); // Extra säkerhet: se till att användaren äger CV:t
 
     if (deleteError) {
       return NextResponse.json({ error: deleteError.message }, { status: 500 });
@@ -63,8 +74,10 @@ export async function DELETE() {
 
     return NextResponse.json({ 
       success: true, 
-      message: 'CV borttaget' 
+      message: 'CV borttaget',
+      id: cvId // Returnera ID:t för det borttagna CV:t för klientens bekräftelse
     });
+    
   } catch (error: any) {
     console.error('CV borttagning error:', error);
     return NextResponse.json({ 
