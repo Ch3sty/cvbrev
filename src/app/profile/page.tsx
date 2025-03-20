@@ -1,85 +1,48 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useProfile } from '@/hooks/use-profile';
-import { Tab } from '@/components/ui/tab';
 
-// Ikon-komponenter
-const UserIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-    <circle cx="12" cy="7" r="4"></circle>
-  </svg>
-);
+// Import nya komponenter
+import CVUploader from '@/components/cv/cv-uploader';
+import CVList from '@/components/cv/cv-list';
 
-const DocumentIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-    <polyline points="14 2 14 8 20 8"></polyline>
-    <line x1="16" y1="13" x2="8" y2="13"></line>
-    <line x1="16" y1="17" x2="8" y2="17"></line>
-    <polyline points="10 9 9 9 8 9"></polyline>
-  </svg>
-);
+// Importera ikoner från Lucide
+import { 
+  User, 
+  FileText, 
+  Settings, 
+  Save, 
+  LogOut,
+  AlertTriangle 
+} from 'lucide-react';
 
-const SettingsIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="3"></circle>
-    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-  </svg>
-);
-
-const SaveIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
-    <polyline points="17 21 17 13 7 13 7 21"></polyline>
-    <polyline points="7 3 7 8 15 8"></polyline>
-  </svg>
-);
-
-const TrashIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="3 6 5 6 21 6"></polyline>
-    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-    <line x1="10" y1="11" x2="10" y2="17"></line>
-    <line x1="14" y1="11" x2="14" y2="17"></line>
-  </svg>
-);
+// Importera din Notification-komponent
+import Notification from '@/components/ui/notification';
 
 export default function ProfilePage() {
-  // Använd createClientComponentClient för klient-sidan
-  // Denna behöver inte ändras eftersom den används i en klient-komponent
-  // och inte i en route handler eller middleware
-  const supabase = createClientComponentClient();
-  const { profile, cv, loading, updateProfile, uploadCV, refreshProfile } = useProfile();
   const router = useRouter();
+  const supabase = createClientComponentClient();
+  const { profile, cv, loading, updateProfile, deleteCV } = useProfile();
   
   const [activeTab, setActiveTab] = useState('profile');
   const [saving, setSaving] = useState(false);
-  const [uploading, setUploading] = useState(false);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [notification, setNotification] = useState<{
+    message: string;
+    type: 'loading' | 'success' | 'error' | 'info';
+    progress?: number;
+    isVisible: boolean;
+  } | null>(null);
+  
   const [formData, setFormData] = useState({
     full_name: '',
     phone: '',
     preferred_tonality: 'professional'
   });
-  
-  // Ref för om komponenten är monterad
-  const isMountedRef = useRef(true);
-  
-  // Uppdaterad useEffect hook som kör refreshProfile på rätt sätt
-  useEffect(() => {
-    // Kör refreshProfile vid första renderingen
-    refreshProfile();
-    
-    // Städa upp
-    return () => {
-      isMountedRef.current = false;
-    };
-  }, [refreshProfile]);
   
   // Tonalitet options med ikoner
   const tonalityOptions = [
@@ -142,55 +105,64 @@ export default function ProfilePage() {
       preferred_tonality: value
     }));
   };
-  
-  // Handle CV file selection
-  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      
-      // Validate file type
-      const validTypes = ['.pdf', '.docx', '.txt'];
-      const fileExt = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
-      
-      if (!validTypes.some(type => fileExt.endsWith(type))) {
-        alert('Ogiltig filtyp. Endast PDF, DOCX och TXT är tillåtna.');
-        return;
-      }
-      
-      // Validate file size (5MB max)
-      if (file.size > 5 * 1024 * 1024) {
-        alert('Filen är för stor. Maximal storlek är 5MB.');
-        return;
-      }
-      
-      setSelectedFile(file);
+
+  // Visa notifikation
+  const showNotificationMessage = (message: string, type: 'loading' | 'success' | 'error' | 'info', progress?: number) => {
+    setNotification({ 
+      message, 
+      type, 
+      progress,
+      isVisible: true 
+    });
+    
+    if (type !== 'loading') {
+      // Autostäng notifikationen efter 5 sekunder
+      setTimeout(() => {
+        setNotification(prev => prev ? { ...prev, isVisible: false } : null);
+        setTimeout(() => setNotification(null), 300); // Ta bort från DOM efter fade-out
+      }, 5000);
     }
   };
   
-  // Upload CV
-  const handleUploadCV = async () => {
-    if (!selectedFile) {
-      alert('Välj en CV-fil först');
-      return;
-    }
-    
+  // Stäng notifikation
+  const handleCloseNotification = () => {
+    setNotification(prev => prev ? { ...prev, isVisible: false } : null);
+    setTimeout(() => setNotification(null), 300); // Ta bort från DOM efter fade-out
+  };
+  
+  // Hantera CV-uppladdningsframgång
+  const handleUploadSuccess = () => {
+    showNotificationMessage('CV uppladdad framgångsrikt!', 'success');
+  };
+  
+  // Hantera CV-uppladdningsfel
+  const handleUploadError = (error: Error) => {
+    showNotificationMessage(error.message || 'Ett fel uppstod vid uppladdning', 'error');
+  };
+  
+  // Hantera begäran om att ta bort CV
+  const handleDeleteCV = () => {
+    setShowDeleteConfirm(true);
+  };
+  
+  // Bekräfta borttagning av CV
+  const confirmDeleteCV = async () => {
     try {
-      setUploading(true);
-      const success = await uploadCV(selectedFile);
+      setIsDeleting(true);
+      showNotificationMessage('Tar bort CV...', 'loading');
+      
+      const success = await deleteCV();
       
       if (success) {
-        // Uppdatera CV-informationen
-        await refreshProfile();
-        setSelectedFile(null);
-        
-        if (isMountedRef.current) {
-          alert('CV uppladdad!');
-        }
+        showNotificationMessage('CV har tagits bort', 'success');
+      } else {
+        showNotificationMessage('Kunde inte ta bort CV', 'error');
       }
+    } catch (error: any) {
+      showNotificationMessage(error.message || 'Ett fel uppstod vid borttagning', 'error');
     } finally {
-      if (isMountedRef.current) {
-        setUploading(false);
-      }
+      setIsDeleting(false);
+      setShowDeleteConfirm(false);
     }
   };
   
@@ -198,10 +170,11 @@ export default function ProfilePage() {
   const handleSaveProfile = async () => {
     try {
       setSaving(true);
+      showNotificationMessage('Sparar profiländringar...', 'loading');
       
       // Validate input
       if (formData.full_name.trim() === '') {
-        alert('Ange ditt namn');
+        showNotificationMessage('Ange ditt namn', 'error');
         return;
       }
       
@@ -211,93 +184,16 @@ export default function ProfilePage() {
         preferred_tonality: formData.preferred_tonality as any
       });
       
-      if (success && isMountedRef.current) {
-        alert('Profil uppdaterad');
+      if (success) {
+        showNotificationMessage('Profil uppdaterad', 'success');
+      } else {
+        showNotificationMessage('Kunde inte uppdatera profil', 'error');
       }
+    } catch (error: any) {
+      showNotificationMessage(error.message || 'Ett fel uppstod vid uppdatering', 'error');
     } finally {
-      if (isMountedRef.current) {
-        setSaving(false);
-      }
+      setSaving(false);
     }
-  };
-  
-  // Hantera borttagning av CV
-  const handleDeleteCV = async () => {
-    if (deleteConfirm !== 'delete-cv') return;
-    
-    try {
-      // Implementera borttagning här
-      // Kan behöva implementeras på backend om det inte redan finns
-      alert('CV borttaget');
-      
-      // Uppdatera med ny data
-      await refreshProfile();
-    } finally {
-      setDeleteConfirm(null);
-    }
-  };
-  
-  // Visa maximalt 5 CV-platser (tomma eller fyllda)
-  const renderCVSlots = () => {
-    const maxSlots = 5;
-    const slots = [];
-    
-    // Om CV finns, lägg till det som första slot
-    if (cv && cv.url) {
-      slots.push(
-        <div key="current-cv" className="border border-gray-700 rounded-lg p-4 mb-4">
-          <div className="flex items-start">
-            <div className="p-2 bg-gray-700 rounded-md mr-4">
-              <DocumentIcon />
-            </div>
-            
-            <div className="flex-grow">
-              <h3 className="font-medium mb-1">CV: {cv.name}</h3>
-              
-              {cv.lastUpdated && (
-                <p className="text-xs text-gray-400 mb-3">
-                  Uppdaterad: {new Date(cv.lastUpdated).toLocaleDateString('sv-SE')}
-                </p>
-              )}
-              
-              <div className="flex space-x-3 mt-2">
-                <a
-                  href={cv.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block px-3 py-1 text-sm bg-gray-700 hover:bg-gray-600 text-white rounded-md transition-colors"
-                >
-                  Visa CV
-                </a>
-                <button
-                  onClick={() => setDeleteConfirm('delete-cv')}
-                  className="inline-block px-3 py-1 text-sm bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"
-                >
-                  Ta bort
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
-    
-    // Lägg till tomma slots upp till maxSlots
-    const emptySlots = maxSlots - slots.length;
-    for (let i = 0; i < emptySlots; i++) {
-      slots.push(
-        <div key={`empty-slot-${i}`} className="border border-gray-700 border-dashed rounded-lg p-4 mb-4">
-          <div className="flex items-center justify-center h-20 text-gray-400">
-            {slots.length === 0 && i === 0 ? 
-              "Ingen CV uppladdad ännu" : 
-              `CV plats ${slots.length + i + 1}`
-            }
-          </div>
-        </div>
-      );
-    }
-    
-    return slots;
   };
   
   if (loading) {
@@ -310,8 +206,19 @@ export default function ProfilePage() {
 
   return (
     <div className="max-w-screen-lg mx-auto pt-8 pb-16 px-4">
-      <h1 className="text-3xl font-bold text-pink-500 mb-2">Min profil</h1>
-      <p className="text-gray-200 mb-8">Hantera din profil, dina CV och inställningar</p>
+      {/* Notifikation */}
+      {notification?.isVisible && (
+        <Notification 
+          message={notification.message} 
+          type={notification.type} 
+          progress={notification.progress}
+          isVisible={notification.isVisible}
+          onClose={handleCloseNotification} 
+        />
+      )}
+      
+      <h1 className="text-3xl font-bold text-white mb-2">Min profil</h1>
+      <p className="text-gray-300 mb-8">Hantera din profil, dina CV:n och inställningar</p>
       
       {/* Tabs */}
       <div className="mb-8 border-b border-gray-700">
@@ -324,8 +231,8 @@ export default function ProfilePage() {
                 : 'text-gray-400 hover:text-white'
             }`}
           >
-            <UserIcon />
-            <span className="ml-2">Profilinformation</span>
+            <User className="w-5 h-5 mr-2" />
+            <span>Profilinformation</span>
           </button>
           
           <button
@@ -336,8 +243,8 @@ export default function ProfilePage() {
                 : 'text-gray-400 hover:text-white'
             }`}
           >
-            <DocumentIcon />
-            <span className="ml-2">Mitt CV</span>
+            <FileText className="w-5 h-5 mr-2" />
+            <span>Mina CV:n</span>
           </button>
           
           <button
@@ -348,16 +255,19 @@ export default function ProfilePage() {
                 : 'text-gray-400 hover:text-white'
             }`}
           >
-            <SettingsIcon />
-            <span className="ml-2">Inställningar</span>
+            <Settings className="w-5 h-5 mr-2" />
+            <span>Inställningar</span>
           </button>
         </div>
       </div>
       
       {/* Profile Information Tab */}
       {activeTab === 'profile' && (
-        <div className="bg-gray-800 rounded-lg p-6 mb-8">
-          <h2 className="text-xl font-bold mb-6">Profilinformation</h2>
+        <div className="bg-navy-800 rounded-lg p-6 mb-8">
+          <h2 className="text-xl font-bold mb-6 text-white flex items-center">
+            <User className="w-5 h-5 mr-2 text-pink-500" />
+            Profilinformation
+          </h2>
           
           <div className="space-y-6">
             <div>
@@ -369,7 +279,7 @@ export default function ProfilePage() {
                 id="email"
                 value={profile?.email || ''}
                 disabled
-                className="w-full px-3 py-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full px-3 py-2 rounded-md bg-navy-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500"
               />
               <p className="mt-1 text-xs text-gray-400">Din e-postadress kan inte ändras</p>
             </div>
@@ -385,7 +295,7 @@ export default function ProfilePage() {
                 value={formData.full_name}
                 onChange={handleChange}
                 placeholder="Ditt namn"
-                className="w-full px-3 py-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full px-3 py-2 rounded-md bg-navy-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500"
               />
             </div>
             
@@ -400,7 +310,7 @@ export default function ProfilePage() {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="Ditt telefonnummer"
-                className="w-full px-3 py-2 rounded-md bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full px-3 py-2 rounded-md bg-navy-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500"
               />
             </div>
             
@@ -443,105 +353,100 @@ export default function ProfilePage() {
                 disabled={saving}
                 className="flex items-center justify-center w-full md:w-auto px-6 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700 font-medium transition-colors disabled:bg-gray-700 disabled:text-gray-400"
               >
-                <SaveIcon />
-                <span className="ml-2">{saving ? 'Sparar ändringar...' : 'Spara ändringar'}</span>
+                {saving ? (
+                  <>
+                    <div className="w-5 h-5 mr-2 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>
+                    Sparar ändringar...
+                  </>
+                ) : (
+                  <>
+                    <Save className="w-5 h-5 mr-2" />
+                    Spara ändringar
+                  </>
+                )}
               </button>
             </div>
           </div>
         </div>
       )}
       
-      {/* CV Tab - uppdaterad med nya CV-slots */}
+      {/* CV Tab */}
       {activeTab === 'cv' && (
-        <div className="bg-gray-800 rounded-lg p-6">
-          <h2 className="text-xl font-bold mb-6">Mitt CV</h2>
-          
-          {/* CV Slots - visar antingen befintligt CV eller tomma platser */}
-          <div className="mb-6">
-            {renderCVSlots()}
-          </div>
-          
-          <h3 className="font-medium mb-3">Ladda upp CV</h3>
-          
-          <div className="bg-blue-900/30 border-l-4 border-blue-500 p-4 mb-4 text-sm text-blue-200">
-            <p>För bästa resultat, ladda upp en CV i PDF eller DOCX-format.</p>
-          </div>
-          
-          <div className="mb-4">
-            <input
-              type="file"
-              accept=".pdf,.docx,.txt"
-              id="cv-upload"
-              onChange={handleFileSelect}
-              className="hidden"
+        <div className="space-y-6">
+          {/* CV-lista med existerande/tomma CV-slots */}
+          <div className="bg-navy-800 rounded-lg p-6">
+            <CVList 
+              onDeleteClick={handleDeleteCV}
+              maxSlots={5}
             />
-            
-            <div className="flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-3">
-              <label htmlFor="cv-upload" className="inline-block">
-                <span className="inline-block px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-md cursor-pointer transition-colors">
-                  Välj fil
-                </span>
-              </label>
-              
-              {selectedFile && (
-                <span className="inline-flex items-center px-3 py-2 bg-gray-700 text-white rounded-md">
-                  <span className="truncate max-w-[200px]">{selectedFile.name}</span>
-                </span>
-              )}
-              
-              <button
-                onClick={handleUploadCV}
-                disabled={!selectedFile || uploading}
-                className="px-4 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700 transition-colors disabled:bg-gray-700 disabled:text-gray-400"
-              >
-                {uploading ? 'Laddar upp...' : 'Ladda upp CV'}
-              </button>
-            </div>
           </div>
+          
+          {/* CV-uppladdare */}
+          <CVUploader 
+            onSuccess={handleUploadSuccess}
+            onError={handleUploadError}
+            showNotification={showNotificationMessage}
+          />
         </div>
       )}
       
       {/* Settings Tab */}
       {activeTab === 'settings' && (
-        <div className="bg-gray-800 rounded-lg p-6">
-          <h2 className="text-xl font-bold mb-6">Inställningar</h2>
+        <div className="bg-navy-800 rounded-lg p-6">
+          <h2 className="text-xl font-bold mb-6 text-white flex items-center">
+            <Settings className="w-5 h-5 mr-2 text-pink-500" />
+            Inställningar
+          </h2>
           
           <div className="border border-gray-700 rounded-lg p-4">
-            <h3 className="font-medium mb-3">Kontoinställningar</h3>
+            <h3 className="font-medium mb-3 text-white">Kontoinställningar</h3>
             
             <button
               onClick={async () => {
                 await supabase.auth.signOut();
                 router.push('/');
               }}
-              className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+              className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors flex items-center"
             >
+              <LogOut className="w-5 h-5 mr-2" />
               Logga ut
             </button>
           </div>
         </div>
       )}
       
-      {/* Delete confirmation modal */}
-      {deleteConfirm === 'delete-cv' && (
+      {/* Delete confirmation dialog */}
+      {showDeleteConfirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-navy-800 p-6 rounded-lg max-w-md">
-            <h3 className="text-xl font-semibold mb-4">Bekräfta borttagning</h3>
-            <p className="mb-6">
+            <div className="flex items-start mb-4">
+              <AlertTriangle className="w-6 h-6 text-red-500 mr-3 flex-shrink-0" />
+              <h3 className="text-xl font-semibold text-white">Bekräfta borttagning</h3>
+            </div>
+            
+            <p className="mb-6 text-gray-300">
               Är du säker på att du vill ta bort ditt CV? Detta kan inte ångras.
             </p>
+            
             <div className="flex justify-end space-x-3">
               <button
-                onClick={() => setDeleteConfirm(null)}
+                onClick={() => setShowDeleteConfirm(false)}
+                disabled={isDeleting}
                 className="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600"
               >
                 Avbryt
               </button>
               <button
-                onClick={handleDeleteCV}
-                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                onClick={confirmDeleteCV}
+                disabled={isDeleting}
+                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center"
               >
-                Ta bort
+                {isDeleting ? (
+                  <>
+                    <div className="w-4 h-4 mr-2 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>
+                    Tar bort...
+                  </>
+                ) : 'Ta bort'}
               </button>
             </div>
           </div>

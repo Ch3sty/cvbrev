@@ -4,8 +4,6 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCVStore } from '@/store/cv-store'
 import { useLetters } from '@/hooks/use-letters'
-import { toast, ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import { 
   FileText, 
   Upload, 
@@ -19,6 +17,7 @@ import {
   Scale, 
   Bot
 } from 'lucide-react'
+import Notification from '@/components/ui/notification' // Importera notifikationskomponenten
 
 type Tonality = 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced' | 'auto'
 type Language = 'sv' | 'en'
@@ -97,6 +96,14 @@ export default function CreateLetterPage() {
   const [isDownloading, setIsDownloading] = useState(false)
   const [isTonalityOpen, setIsTonalityOpen] = useState(false)
   
+  // Notifikationsstate
+  const [notification, setNotification] = useState({
+    isVisible: false,
+    message: '',
+    type: 'loading' as 'loading' | 'success' | 'error' | 'info',
+    progress: 0
+  })
+  
   // Ref till brevinnehållet för PDF-generering
   const letterContentRef = useRef<HTMLDivElement>(null);
   const tonalityDropdownRef = useRef<HTMLDivElement>(null);
@@ -148,11 +155,31 @@ export default function CreateLetterPage() {
     }
   }, [isGenerating, isSubmitting]);
   
+  // Stäng notifikationen
+  const closeNotification = () => {
+    setNotification(prev => ({ ...prev, isVisible: false }));
+  };
+  
+  // Visa notifikation med typ och meddelande
+  const showNotification = (type: 'loading' | 'success' | 'error' | 'info', message: string, duration?: number) => {
+    setNotification({
+      isVisible: true,
+      message,
+      type,
+      progress: type === 'loading' ? 0 : 100
+    });
+    
+    // Auto-close för success och error notifikationer
+    if (type !== 'loading' && duration) {
+      setTimeout(closeNotification, duration);
+    }
+  };
+  
   // Funktion för att generera brev
   const generateLetter = useCallback(async () => {
     if (!selectedCV || !jobDescription) {
       setError('Välj ett CV och lägg till en jobbannons.');
-      toast.error('Välj ett CV och lägg till en jobbannons');
+      showNotification('error', 'Välj ett CV och lägg till en jobbannons', 3000);
       return;
     }
     
@@ -179,7 +206,8 @@ export default function CreateLetterPage() {
     generationInProgressRef.current = true;
     lastGenerationAttemptRef.current = now;
     
-    toast.info('Genererar ditt brev...', { autoClose: false, toastId: 'generating' });
+    // Visa notifikation för användaren
+    showNotification('loading', 'Genererar ditt brev...');
     
     try {
       // Skapa en säkerhetstimer som återställer UI efter 45 sekunder
@@ -189,8 +217,8 @@ export default function CreateLetterPage() {
           console.log('Säkerhetsåterställning av UI efter timeout');
           generationInProgressRef.current = false;
           setIsSubmitting(false);
-          toast.dismiss('generating');
-          toast.error('Genereringen tog för lång tid, försök igen');
+          closeNotification();
+          showNotification('error', 'Genereringen tog för lång tid, försök igen', 5000);
         }
       }, 45000);
       
@@ -206,13 +234,13 @@ export default function CreateLetterPage() {
       // Rensa säkerhetstimern
       clearTimeout(safetyTimer);
       
-      toast.dismiss('generating');
+      closeNotification();
       
       // Om resultatet är null, kan det vara för att ett anrop redan pågår
       if (!result) {
         console.log('Inget resultat från createLetter - kan bero på ett pågående anrop');
         setError('Kunde inte generera brev. Försök igen om en stund.');
-        toast.error('Kunde inte generera brevet');
+        showNotification('error', 'Kunde inte generera brevet', 5000);
         return;
       }
       
@@ -220,10 +248,10 @@ export default function CreateLetterPage() {
       setGeneratedLetter(result.content);
       setLetterData(result);
       
-      toast.success('Brevet har genererats!');
+      showNotification('success', 'Brevet har genererats!', 3000);
     } catch (error: any) {
-      toast.dismiss('generating');
-      toast.error('Ett fel uppstod vid generering av brevet');
+      closeNotification();
+      showNotification('error', 'Ett fel uppstod vid generering av brevet', 5000);
       setError(error.message || 'Ett fel uppstod vid generering av brevet.');
     } finally {
       // Återställ lokala flaggor, oavsett resultat
@@ -238,12 +266,12 @@ export default function CreateLetterPage() {
     
     try {
       setIsSaving(true);
-      toast.info('Sparar brevet...', { autoClose: false, toastId: 'saving' });
+      showNotification('loading', 'Sparar brevet...');
       
       // Anropa API:et för att spara brevet
       const savedLetter = await saveLetter(letterData);
       
-      toast.dismiss('saving');
+      closeNotification();
       
       if (savedLetter) {
         // Uppdatera lokalt letterData för att reflektera att det nu är sparat
@@ -253,11 +281,11 @@ export default function CreateLetterPage() {
           is_saved: true
         });
         
-        toast.success('Brevet har sparats! Du hittar det under "Mina brev".');
+        showNotification('success', 'Brevet har sparats! Du hittar det under "Mina brev".', 3000);
       }
     } catch (error: any) {
-      toast.dismiss('saving');
-      toast.error('Kunde inte spara brevet');
+      closeNotification();
+      showNotification('error', 'Kunde inte spara brevet', 5000);
       setError(error.message || 'Kunde inte spara brevet.');
     } finally {
       setIsSaving(false);
@@ -269,7 +297,7 @@ export default function CreateLetterPage() {
     if (letterData && letterData.id) {
       router.push(`/my-letters/${letterData.id}/edit`);
     } else {
-      toast.warning('Brevet måste sparas innan det kan redigeras');
+      showNotification('warning', 'Brevet måste sparas innan det kan redigeras', 3000);
       setError('Brevet måste sparas innan det kan redigeras.');
     }
   }, [letterData, router]);
@@ -280,7 +308,7 @@ export default function CreateLetterPage() {
     
     try {
       setIsDownloading(true);
-      toast.info('Förbereder PDF-nedladdning...', { autoClose: false, toastId: 'pdf-download' });
+      showNotification('loading', 'Förbereder PDF-nedladdning...');
       
       // Dynamiskt ladda PDF-bibliotek
       try {
@@ -307,8 +335,8 @@ export default function CreateLetterPage() {
         // Spara PDF
         pdf.save(`${letterData?.title || 'Ansökningsbrev'}.pdf`);
         
-        toast.dismiss('pdf-download');
-        toast.success('Brevet har laddats ned som PDF!');
+        closeNotification();
+        showNotification('success', 'Brevet har laddats ned som PDF!', 3000);
       } catch (error) {
         console.error('Fel vid laddning av PDF-bibliotek:', error);
         
@@ -342,13 +370,13 @@ export default function CreateLetterPage() {
         window.URL.revokeObjectURL(url);
         document.body.removeChild(a);
         
-        toast.dismiss('pdf-download');
-        toast.success('Brevet har laddats ned som PDF!');
+        closeNotification();
+        showNotification('success', 'Brevet har laddats ned som PDF!', 3000);
       }
     } catch (error) {
       console.error('PDF nedladdningsfel:', error);
-      toast.dismiss('pdf-download');
-      toast.error('Kunde inte ladda ner brevet som PDF');
+      closeNotification();
+      showNotification('error', 'Kunde inte ladda ner brevet som PDF', 5000);
       setError('Kunde inte ladda ner brevet som PDF. Försök igen.');
     } finally {
       setIsDownloading(false);
@@ -362,7 +390,7 @@ export default function CreateLetterPage() {
     try {
       // Sätt loading state
       setIsDownloading(true);
-      toast.info('Förbereder DOCX-nedladdning...', { autoClose: false, toastId: 'docx-download' });
+      showNotification('loading', 'Förbereder DOCX-nedladdning...');
       
       // Skapa metadata för dokumentet
       const metadata = {
@@ -385,7 +413,7 @@ export default function CreateLetterPage() {
         }),
       });
       
-      toast.dismiss('docx-download');
+      closeNotification();
       
       if (!response.ok) {
         throw new Error('Kunde inte generera DOCX-filen');
@@ -407,11 +435,11 @@ export default function CreateLetterPage() {
       document.body.removeChild(a);
       
       // Visa notifikation
-      toast.success('Brevet har laddats ned som DOCX!');
+      showNotification('success', 'Brevet har laddats ned som DOCX!', 3000);
     } catch (error) {
       console.error('DOCX nedladdningsfel:', error);
       setError('Kunde inte ladda ner brevet som DOCX. Försök igen.');
-      toast.error('Nedladdning misslyckades');
+      showNotification('error', 'Nedladdning misslyckades', 5000);
     } finally {
       setIsDownloading(false);
     }
@@ -422,7 +450,14 @@ export default function CreateLetterPage() {
   
   return (
     <div className="container max-w-6xl px-4 py-8 mx-auto">
-      <ToastContainer position="top-right" theme="dark" />
+      {/* Notifikationskomponent */}
+      <Notification 
+        isVisible={notification.isVisible}
+        message={notification.message}
+        type={notification.type}
+        progress={notification.progress}
+        onClose={closeNotification}
+      />
       
       <h1 className="mb-6 text-3xl font-bold text-white">Skapa ditt personliga ansökningsbrev</h1>
       <p className="mb-8 text-gray-300">

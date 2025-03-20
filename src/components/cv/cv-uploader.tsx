@@ -1,15 +1,22 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { useCVStore } from '@/store/cv-store'
+import { useProfile } from '@/hooks/use-profile'
+import { FileText, Upload, Info } from 'lucide-react'
 
-export default function CVUploader() {
+interface CVUploaderProps {
+  onSuccess?: () => void;
+  onError?: (error: Error) => void;
+  showNotification?: (message: string, type: 'loading' | 'success' | 'error' | 'info', progress?: number) => void;
+}
+
+export default function CVUploader({ onSuccess, onError, showNotification }: CVUploaderProps) {
   const [title, setTitle] = useState('')
   const [file, setFile] = useState<File | null>(null)
   const [isDragging, setIsDragging] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   
-  const { uploadCV, isLoading, error } = useCVStore()
+  const { uploadCV, gdprConsent, setGdprConsent, loading } = useProfile()
   
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -18,13 +25,13 @@ export default function CVUploader() {
       // Kontrollera filtyp
       const validTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain']
       if (!validTypes.includes(selectedFile.type)) {
-        alert('Endast PDF, DOCX och TXT-filer stöds')
+        showNotification?.('Endast PDF, DOCX och TXT-filer stöds', 'error');
         return
       }
       
       // Kontrollera filstorlek (max 5MB)
       if (selectedFile.size > 5 * 1024 * 1024) {
-        alert('Filen är för stor. Maximal filstorlek är 5MB')
+        showNotification?.('Filen är för stor. Maximal filstorlek är 5MB', 'error');
         return
       }
       
@@ -57,12 +64,12 @@ export default function CVUploader() {
       // Samma kontroller som i handleFileChange
       const validTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain']
       if (!validTypes.includes(droppedFile.type)) {
-        alert('Endast PDF, DOCX och TXT-filer stöds')
+        showNotification?.('Endast PDF, DOCX och TXT-filer stöds', 'error');
         return
       }
       
       if (droppedFile.size > 5 * 1024 * 1024) {
-        alert('Filen är för stor. Maximal filstorlek är 5MB')
+        showNotification?.('Filen är för stor. Maximal filstorlek är 5MB', 'error');
         return
       }
       
@@ -76,17 +83,36 @@ export default function CVUploader() {
   }
   
   const handleUpload = async () => {
-    if (!file) return
+    if (!file) {
+      showNotification?.('Välj en CV-fil först', 'error');
+      return;
+    }
     
-    const success = await uploadCV(file, title)
+    if (!gdprConsent) {
+      showNotification?.('Du måste godkänna GDPR-samtycket för att ladda upp CV', 'error');
+      return;
+    }
     
-    if (success) {
-      // Återställ formuläret
-      setTitle('')
-      setFile(null)
-      if (fileInputRef.current) {
-        fileInputRef.current.value = ''
+    try {
+      showNotification?.('Laddar upp ditt CV...', 'loading');
+      
+      const success = await uploadCV(file, title)
+      
+      if (success) {
+        // Återställ formuläret
+        setTitle('')
+        setFile(null)
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ''
+        }
+        
+        showNotification?.('CV uppladdad framgångsrikt!', 'success');
+        onSuccess?.()
       }
+    } catch (error: any) {
+      console.error('CV upload error:', error)
+      showNotification?.(error.message || 'Ett fel uppstod vid uppladdning', 'error');
+      onError?.(error instanceof Error ? error : new Error(error.message || 'Ett fel uppstod vid uppladdning'))
     }
   }
   
@@ -98,7 +124,10 @@ export default function CVUploader() {
   
   return (
     <div className="p-6 bg-navy-800 rounded-lg">
-      <h2 className="mb-4 text-xl font-semibold text-white">Lägg till nytt CV</h2>
+      <h2 className="mb-4 text-xl font-semibold text-white flex items-center">
+        <Upload className="w-5 h-5 mr-2 text-pink-500" />
+        Ladda upp CV
+      </h2>
       
       {/* Titel input */}
       <div className="mb-4">
@@ -113,6 +142,18 @@ export default function CVUploader() {
           placeholder="Ge ditt CV ett namn..."
           className="w-full p-2 text-white bg-navy-700 border border-gray-700 rounded-md"
         />
+      </div>
+      
+      {/* GDPR info */}
+      <div className="bg-blue-900/30 border-l-4 border-blue-500 p-4 mb-4 text-sm text-blue-200">
+        <div className="flex items-start">
+          <Info className="w-5 h-5 mr-2 flex-shrink-0 mt-0.5" />
+          <p>
+            För bästa resultat, ladda upp en CV i PDF eller DOCX-format. 
+            Vänligen se till att ditt CV inte innehåller personuppgifter så 
+            som hemadress, personlig e-post eller telefonnummer.
+          </p>
+        </div>
       </div>
       
       {/* Fil-dropp area */}
@@ -157,20 +198,40 @@ export default function CVUploader() {
         )}
       </div>
       
-      {/* Felmeddelande */}
-      {error && (
-        <div className="p-3 mb-4 text-white bg-red-500 rounded-md">
-          {error}
+      {/* GDPR-samtycke */}
+      <div className="flex items-start mb-4 space-x-2">
+        <div className="flex items-center h-5 mt-1">
+          <input
+            id="gdpr-consent"
+            type="checkbox"
+            checked={gdprConsent}
+            onChange={(e) => setGdprConsent(e.target.checked)}
+            className="w-4 h-4 border border-gray-600 rounded bg-navy-700 focus:ring-pink-500 text-pink-600"
+          />
         </div>
-      )}
+        <label htmlFor="gdpr-consent" className="text-sm text-gray-300">
+          Jag bekräftar att mitt CV inte innehåller personliga uppgifter såsom hemadress, 
+          personlig e-post eller telefonnummer (GDPR-samtycke).
+        </label>
+      </div>
       
       {/* Uppladdningsknapp */}
       <button
         onClick={handleUpload}
-        disabled={isLoading || !file}
-        className="w-full py-2 font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 disabled:bg-gray-600 disabled:cursor-not-allowed"
+        disabled={loading || !file || !gdprConsent}
+        className="w-full py-2 font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 disabled:bg-gray-600 disabled:cursor-not-allowed flex items-center justify-center"
       >
-        {isLoading ? 'Laddar upp...' : 'Spara CV'}
+        {loading ? (
+          <>
+            <div className="w-5 h-5 mr-2 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>
+            Laddar upp...
+          </>
+        ) : (
+          <>
+            <Upload className="w-5 h-5 mr-2" />
+            Spara CV
+          </>
+        )}
       </button>
     </div>
   )

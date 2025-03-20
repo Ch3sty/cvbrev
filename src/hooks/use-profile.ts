@@ -6,6 +6,7 @@ export const useProfile = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [cv, setCv] = useState<CV | null>(null);
+  const [gdprConsent, setGdprConsent] = useState<boolean>(false);
   
   // Använder din skapade klientkonfiguration
   const supabase = createClient();
@@ -134,28 +135,36 @@ export const useProfile = () => {
     }
   };
   
+  // Uppdatera GDPR-samtycke
+  const setGdprConsentValue = (value: boolean) => {
+    setGdprConsent(value);
+  };
+  
   // Ladda upp CV via API
-  const uploadCV = async (file: File) => {
+  const uploadCV = async (file: File, title?: string) => {
     try {
+      // Kontrollera GDPR-samtycke
+      if (!gdprConsent) {
+        throw new Error('Du måste godkänna GDPR-samtycket för att ladda upp CV');
+      }
+      
       // Validera filtyp
       const validTypes = ['.pdf', '.docx', '.txt'];
       const fileExt = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
       
       if (!validTypes.some(type => fileExt.endsWith(type))) {
-        console.error('Ogiltig filtyp. Endast PDF, DOCX och TXT är tillåtna.');
-        return false;
+        throw new Error('Ogiltig filtyp. Endast PDF, DOCX och TXT är tillåtna.');
       }
       
       // Validera filstorlek (5MB max)
       if (file.size > 5 * 1024 * 1024) {
-        console.error('Filen är för stor. Maximal storlek är 5MB.');
-        return false;
+        throw new Error('Filen är för stor. Maximal storlek är 5MB.');
       }
       
       // Använd API-rutt för uppladdning
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('title', file.name); // Lägg till titel baserat på filnamn
+      formData.append('title', title || file.name); // Lägg till titel baserat på filnamn
       
       const response = await fetch('/api/cv/upload', {
         method: 'POST',
@@ -164,8 +173,7 @@ export const useProfile = () => {
       
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('Fel vid uppladdning:', errorData.error || 'Okänt fel');
-        return false;
+        throw new Error(errorData.error || 'Okänt fel vid uppladdning');
       }
       
       const data = await response.json();
@@ -173,13 +181,15 @@ export const useProfile = () => {
       if (data.success) {
         // Uppdatera CV-informationen genom att hämta den från API
         await fetchCvInfo();
+        // Återställ GDPR-samtycket
+        setGdprConsent(false);
         return true;
       }
       
       return false;
     } catch (error: any) {
       console.error('Fel vid uppladdning av CV:', error);
-      return false;
+      throw error; // Kasta vidare felet för hantering i UI
     }
   };
   
@@ -192,8 +202,7 @@ export const useProfile = () => {
       
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('Fel vid borttagning:', errorData.error || 'Okänt fel');
-        return false;
+        throw new Error(errorData.error || 'Okänt fel vid borttagning');
       }
       
       const data = await response.json();
@@ -207,7 +216,7 @@ export const useProfile = () => {
       return false;
     } catch (error: any) {
       console.error('Fel vid borttagning av CV:', error);
-      return false;
+      throw error; // Kasta vidare felet för hantering i UI
     }
   };
   
@@ -219,10 +228,12 @@ export const useProfile = () => {
   return { 
     profile, 
     cv, 
+    gdprConsent,
     loading, 
     updateProfile, 
     uploadCV,
     deleteCV,
+    setGdprConsent: setGdprConsentValue,
     refreshProfile: fetchProfile 
   };
 };
