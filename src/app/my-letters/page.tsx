@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { formatDistanceToNow } from 'date-fns';
 import { sv } from 'date-fns/locale';
 import { AlertTriangle, FileText } from 'lucide-react';
+import Notification from '@/components/ui/notification'; // Importera notifikationskomponenten
 
 export default function MyLettersPage() {
   const router = useRouter();
@@ -23,6 +24,19 @@ export default function MyLettersPage() {
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [isPageMounted, setIsPageMounted] = useState(false);
   
+  // Lägg till notifikationsstate
+  const [notification, setNotification] = useState<{
+    isVisible: boolean;
+    message: string;
+    type: 'loading' | 'success' | 'error' | 'info';
+    progress: number;
+  }>({
+    isVisible: false,
+    message: '',
+    type: 'loading',
+    progress: 0
+  });
+  
   // När sidan renderas första gången, sätt isPageMounted till true
   useEffect(() => {
     setIsPageMounted(true);
@@ -38,12 +52,41 @@ export default function MyLettersPage() {
     if (!isPageMounted) return;
     
     const loadLetters = async () => {
-      // Använd cache=true för att undvika att trigga oändliga omladdningar
-      await fetchLetters(true, true);
+      try {
+        // Vid första laddningen - använd bara isLoading state som redan finns
+        // men visa ingen explicit notifikation för normal laddning
+        await fetchLetters(true, true);
+        
+        // Visa ingen success-notifikation vid normal laddning
+        // Detta håller UI:t rent och minskar störningar för användaren
+      } catch (err) {
+        // Visa felnotifikation endast om något gick fel
+        showNotification('error', 'Kunde inte hämta dina brev', 5000);
+      }
     };
     
     loadLetters();
   }, [fetchLetters, isPageMounted]);
+  
+  // Stäng notifikationen
+  const closeNotification = () => {
+    setNotification(prev => ({ ...prev, isVisible: false }));
+  };
+  
+  // Visa notifikation med typ och meddelande
+  const showNotification = (type: 'loading' | 'success' | 'error' | 'info', message: string, duration?: number) => {
+    setNotification({
+      isVisible: true,
+      message,
+      type,
+      progress: type === 'loading' ? 0 : 100
+    });
+    
+    // Auto-close för success och error notifikationer
+    if (type !== 'loading' && duration) {
+      setTimeout(closeNotification, duration);
+    }
+  };
   
   // Formatera datum relativt (t.ex. "för 3 dagar sedan")
   const formatRelativeDate = (dateString: string | null) => {
@@ -70,6 +113,17 @@ export default function MyLettersPage() {
       : plainText;
   };
   
+  // Hantera navigering till skapa brev-sidan med kontroll för maxgräns
+  const handleCreateLetter = () => {
+    // Kontrollera om användaren har nått maxantalet brev
+    if (letters.length >= 10) {
+      showNotification('info', 'Du har nått maxgränsen på 10 sparade brev. Ta bort något brev först.', 5000);
+      return;
+    }
+    
+    router.push('/create-letter');
+  };
+  
   // Bekräfta och radera brev
   const handleDelete = (id: string) => {
     // Förhindra att visa bekräftelsedialog om borttagning redan pågår
@@ -83,14 +137,24 @@ export default function MyLettersPage() {
     if (!deleteId || isDeleting) return;
     
     try {
+      // Visa laddningsnotifikation
+      showNotification('loading', 'Tar bort brevet...');
+      
       const success = await removeLetter(deleteId);
       
       if (success) {
+        // Visa framgångsnotifikation
+        showNotification('success', 'Brevet har tagits bort', 3000);
         setShowDeleteConfirm(false);
         setDeleteId(null);
+      } else {
+        // Visa felnotifikation
+        showNotification('error', 'Kunde inte ta bort brevet', 5000);
       }
     } catch (error) {
       console.error('Error deleting letter:', error);
+      // Visa felnotifikation
+      showNotification('error', 'Ett fel uppstod vid borttagning av brevet', 5000);
     }
   };
   
@@ -100,41 +164,26 @@ export default function MyLettersPage() {
     setDeleteId(null);
   };
   
-  // Hantera laddningsläge
-  if (isLoading) {
-    return (
-      <div className="container max-w-5xl px-4 py-8 mx-auto">
-        <h1 className="mb-6 text-3xl font-bold text-white">Mina sparade brev</h1>
-        <div className="flex items-center justify-center h-64">
-          <div className="w-12 h-12 border-t-2 border-b-2 border-pink-500 rounded-full animate-spin"></div>
-        </div>
-      </div>
-    );
-  }
-  
-  // Hantera fel
-  if (error) {
-    return (
-      <div className="container max-w-5xl px-4 py-8 mx-auto">
-        <h1 className="mb-6 text-3xl font-bold text-white">Mina sparade brev</h1>
-        <div className="p-4 bg-red-500 rounded-md">
-          <h2 className="mb-2 text-xl font-bold text-white">Ett fel uppstod</h2>
-          <p className="text-white">{error}</p>
-          <button
-            onClick={() => fetchLetters(true, false)}
-            className="px-4 py-2 mt-4 text-white bg-red-700 rounded-md hover:bg-red-800"
-          >
-            Försök igen
-          </button>
-        </div>
-      </div>
-    );
-  }
+  // Hantera felmeddelande som kommer från hook
+  useEffect(() => {
+    if (error) {
+      showNotification('error', error, 5000);
+    }
+  }, [error]);
   
   return (
     <div className="container max-w-5xl px-4 py-8 mx-auto">
+      {/* Notifikationskomponent */}
+      <Notification 
+        isVisible={notification.isVisible}
+        message={notification.message}
+        type={notification.type}
+        progress={notification.progress}
+        onClose={closeNotification}
+      />
+      
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold text-white">Mina sparade brev</h1>
+        <h1 className="text-3xl font-bold text-white">Mina sparade brev ({letters.length}/10)</h1>
         <Link
           href="/create-letter"
           className="px-4 py-2 text-white bg-pink-600 rounded-md hover:bg-pink-700"
@@ -143,7 +192,30 @@ export default function MyLettersPage() {
         </Link>
       </div>
       
-      {letters.length === 0 ? (
+      {/* Informationsmeddelande när det börjar bli många brev */}
+      {letters.length >= 8 && (
+        <div className="p-4 mb-6 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-lg">
+          <div className="flex items-start">
+            <svg className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+            </svg>
+            <p className="text-yellow-200">
+              {letters.length >= 10 
+                ? "Du har nått maxgränsen på 10 sparade brev. För att skapa ett nytt brev, ta först bort ett befintligt."
+                : `Du närmar dig maxgränsen på 10 sparade brev. Du kan spara ytterligare ${10 - letters.length} brev.`}
+            </p>
+          </div>
+        </div>
+      )}
+      
+      {/* Laddningsindikator - visa inte separat laddning om vi har notifikation */}
+      {isLoading && !notification.isVisible && (
+        <div className="flex justify-center items-center h-64">
+          <div className="w-12 h-12 border-t-2 border-b-2 border-pink-500 rounded-full animate-spin"></div>
+        </div>
+      )}
+      
+      {!isLoading && letters.length === 0 ? (
         <div className="p-8 text-center bg-navy-800 rounded-lg">
           <div className="flex justify-center mb-4">
             <FileText className="w-20 h-20 text-gray-500" />
@@ -158,6 +230,9 @@ export default function MyLettersPage() {
           >
             Skapa ditt första brev
           </Link>
+          <div className="mt-4 text-sm text-gray-400">
+            <span className="font-medium">0</span> av <span className="font-medium">10</span> platser använda
+          </div>
         </div>
       ) : (
         <div className="space-y-6">
