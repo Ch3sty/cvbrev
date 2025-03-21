@@ -46,7 +46,7 @@ export async function GET(request: Request) {
   }
 }
 
-// Skapa ett nytt brev manuellt
+// Skapa ett nytt brev manuellt med kontroll för maxantalet brev
 export async function POST(request: Request) {
   try {
     // Hämta cookies korrekt med Next.js 15.2 pattern
@@ -67,6 +67,29 @@ export async function POST(request: Request) {
       return NextResponse.json(
         { error: 'Brevinnehåll krävs' }, 
         { status: 400 }
+      );
+    }
+
+    // Kontrollera om användaren har nått maxantalet brev
+    const { count, error: countError } = await supabase
+      .from('letters')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', user.id)
+      .eq('is_saved', true);
+    
+    if (countError) {
+      console.error('Fel vid räkning av brev:', countError);
+      return NextResponse.json(
+        { error: 'Kunde inte verifiera antal brev' }, 
+        { status: 500 }
+      );
+    }
+    
+    // Om användaren redan har max antal brev, neka begäran
+    if (count !== null && count >= 10) {
+      return NextResponse.json(
+        { error: 'Du har nått maximal gräns på 10 sparade brev. Ta bort något brev först.' }, 
+        { status: 403 }
       );
     }
 

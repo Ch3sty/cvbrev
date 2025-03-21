@@ -61,6 +61,30 @@ export async function POST(request: Request) {
       );
     }
     
+    // *** KONTROLLERA MAXANTALET BREV ***
+    // Räkna användarens sparade brev för att säkerställa att gränsen inte överskridits
+    const { count, error: countError } = await supabase
+      .from('letters')
+      .select('id', { count: 'exact', head: true })
+      .eq('user_id', user.id)
+      .eq('is_saved', true); // Räkna bara sparade brev
+    
+    if (countError) {
+      console.error('Fel vid räkning av brev:', countError);
+      return NextResponse.json(
+        { error: 'Kunde inte verifiera antal brev' }, 
+        { status: 500 }
+      );
+    }
+    
+    // Om save=true och användaren redan har max antal brev, neka begäran
+    if (save && count !== null && count >= 10) {
+      return NextResponse.json(
+        { error: 'Du har nått maximal gräns på 10 sparade brev. Ta bort något brev först.' }, 
+        { status: 403 }
+      );
+    }
+    
     // Skapa en unik nyckel för denna specifika kombination
     // Inkludera språket i nyckeln för att hålla isär olika språkversioner
     const requestKey = `${user.id}:${cv_id}:${job_description.length}:${language}`;
@@ -220,8 +244,23 @@ export async function POST(request: Request) {
         content: letterObject
       });
 
-      // Om save=true, spara i databasen
+      // Om save=true, spara i databasen om antal brev inte överstiger max
       if (save) {
+        // Kontrollera igen antalet brev för säkerhets skull
+        const { count: currentCount, error: currentCountError } = await supabase
+          .from('letters')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', user.id)
+          .eq('is_saved', true);
+        
+        if (currentCountError) {
+          throw new Error('Kunde inte verifiera antal brev innan sparande');
+        }
+        
+        if (currentCount !== null && currentCount >= 10) {
+          throw new Error('Du har nått maximal gräns på 10 sparade brev. Ta bort något brev först.');
+        }
+        
         const { data: letterData, error: letterError } = await supabase
           .from('letters')
           .insert(letterObject)
