@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react'
 import { useProfile } from '@/hooks/use-profile'
 import { FileText, Upload, Info } from 'lucide-react'
+import CVCounter from '@/components/cv/cv-counter'
 
 interface CVUploaderProps {
   onSuccess?: () => void;
@@ -16,7 +17,15 @@ export default function CVUploader({ onSuccess, onError, showNotification }: CVU
   const [isDragging, setIsDragging] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   
-  const { uploadCV, gdprConsent, setGdprConsent, loading } = useProfile()
+  const { 
+    uploadCV, 
+    gdprConsent, 
+    setGdprConsent, 
+    loading, 
+    cvCount,
+    maxCvCount,
+    hasReachedCvLimit
+  } = useProfile()
   
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -122,12 +131,43 @@ export default function CVUploader({ onSuccess, onError, showNotification }: CVU
     }
   }
   
+  // Om maximalt antal CV har uppnåtts visar vi en annan vy
+  if (hasReachedCvLimit) {
+    return (
+      <div className="p-6 bg-navy-800 rounded-lg">
+        <h2 className="mb-4 text-xl font-semibold text-white flex items-center">
+          <Upload className="w-5 h-5 mr-2 text-pink-500" />
+          CV-utrymme
+        </h2>
+        
+        {/* CV räknare för att visa status */}
+        <div className="mb-6">
+          <CVCounter current={cvCount} max={maxCvCount} />
+        </div>
+        
+        <div className="p-6 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-lg">
+          <div className="flex items-start">
+            <Info className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0 mt-0.5" />
+            <p className="text-yellow-200">
+              Du har nått maxgränsen på {maxCvCount} CV:n. För att ladda upp ett nytt CV, ta först bort ett befintligt.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
   return (
     <div className="p-6 bg-navy-800 rounded-lg">
       <h2 className="mb-4 text-xl font-semibold text-white flex items-center">
         <Upload className="w-5 h-5 mr-2 text-pink-500" />
         Ladda upp CV
       </h2>
+      
+      {/* CV räknare för att visa status */}
+      <div className="mb-6">
+        <CVCounter current={cvCount} max={maxCvCount} />
+      </div>
       
       {/* Titel input */}
       <div className="mb-4">

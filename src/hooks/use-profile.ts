@@ -8,8 +8,47 @@ export const useProfile = () => {
   const [cv, setCv] = useState<CV | null>(null);
   const [gdprConsent, setGdprConsent] = useState<boolean>(false);
   
+  // Max antal CVs
+  const MAX_CV_COUNT = 5;
+  // Räknare för antal CVs
+  const [cvCount, setCvCount] = useState(0);
+  // Flagga för om max antal CVs är uppnått
+  const [hasReachedCvLimit, setHasReachedCvLimit] = useState(false);
+  
   // Använder din skapade klientkonfiguration
   const supabase = createClient();
+  
+  // Funktion för att hämta antalet CV för användaren
+  const fetchCvCount = useCallback(async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        console.error('Du måste vara inloggad för att se dina CV:n');
+        return 0;
+      }
+      
+      const { count, error } = await supabase
+        .from('cv_texts')
+        .select('*', { count: 'exact', head: true })
+        .eq('user_id', session.user.id);
+      
+      if (error) {
+        console.error('Fel vid hämtning av CV-antal:', error);
+        return 0;
+      }
+      
+      // Uppdatera CV-räknaren och maxgräns-flaggan
+      const currentCount = count || 0;
+      setCvCount(currentCount);
+      setHasReachedCvLimit(currentCount >= MAX_CV_COUNT);
+      
+      return currentCount;
+    } catch (error) {
+      console.error('Fel vid hämtning av CV-antal:', error);
+      return 0;
+    }
+  }, [supabase]);
   
   // Funktion för att hämta CV-information från API
   const fetchCvInfo = useCallback(async () => {
@@ -81,6 +120,9 @@ export const useProfile = () => {
         // Hämta CV-information från API
         await fetchCvInfo();
         
+        // Hämta CV-antal för att uppdatera räknaren
+        await fetchCvCount();
+        
         return data;
       }
       
@@ -91,7 +133,7 @@ export const useProfile = () => {
     } finally {
       setLoading(false);
     }
-  }, [supabase, fetchCvInfo]);
+  }, [supabase, fetchCvInfo, fetchCvCount]);
   
   // Uppdatera profil
   const updateProfile = async (profileData: ProfileUpdateParams) => {
@@ -143,6 +185,11 @@ export const useProfile = () => {
   // Ladda upp CV via API
   const uploadCV = async (file: File, title?: string) => {
     try {
+      // Kontrollera om vi har nått maximalt antal CV
+      if (hasReachedCvLimit) {
+        throw new Error(`Du har nått maxgränsen på ${MAX_CV_COUNT} CV. Ta bort ett befintligt CV först.`);
+      }
+      
       // Kontrollera GDPR-samtycke
       if (!gdprConsent) {
         throw new Error('Du måste godkänna GDPR-samtycket för att ladda upp CV');
@@ -181,6 +228,8 @@ export const useProfile = () => {
       if (data.success) {
         // Uppdatera CV-informationen genom att hämta den från API
         await fetchCvInfo();
+        // Uppdatera CV-räkningen
+        await fetchCvCount();
         // Återställ GDPR-samtycket
         setGdprConsent(false);
         return true;
@@ -210,6 +259,8 @@ export const useProfile = () => {
       if (data.success) {
         // Återställ CV-tillståndet
         setCv(null);
+        // Uppdatera CV-räkningen
+        await fetchCvCount();
         return true;
       }
       
@@ -230,6 +281,9 @@ export const useProfile = () => {
     cv, 
     gdprConsent,
     loading, 
+    cvCount,
+    maxCvCount: MAX_CV_COUNT,
+    hasReachedCvLimit,
     updateProfile, 
     uploadCV,
     deleteCV,

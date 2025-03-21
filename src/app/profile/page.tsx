@@ -37,6 +37,11 @@ export default function ProfilePage() {
   const { profile, loading: profileLoading, updateProfile } = useProfile();
   const { cvs, fetchCVs, loading: cvsLoading, isLoading: cvListLoading } = useCVStore();
   
+  // Definiera cvCount och maxCvCount variablerna
+  const cvCount = cvs.length;
+  const maxCvCount = 5;
+  const hasReachedCvLimit = cvCount >= maxCvCount;
+  
   const [activeTab, setActiveTab] = useState('profile');
   const [saving, setSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -54,6 +59,7 @@ export default function ProfilePage() {
     phone: '',
     preferred_tonality: 'professional'
   });
+  
   
   // Tonalitet options with icons (matching the ones from create-letter page)
   const tonalityOptions = [
@@ -409,111 +415,93 @@ export default function ProfilePage() {
         </div>
       )}
       
-      {/* CV Tab */}
-      {activeTab === 'cv' && (
-        <div className="space-y-6">
-          {/* CV List */}
-          <div className="bg-navy-800 rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4 text-white flex items-center">
-              <FileText className="w-5 h-5 mr-2 text-pink-500" />
-              Dina CV:n ({cvs.length}/5)
-            </h2>
-            
-            {cvListLoading ? (
-              <div className="flex justify-center items-center h-40">
-                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-pink-500"></div>
-              </div>
-            ) : cvs.length === 0 ? (
-              <div className="border border-gray-700 border-dashed rounded-lg p-4 bg-navy-900/50">
-                <div className="flex flex-col items-center justify-center h-20 text-gray-400">
-                  <div className="text-2xl mb-2">📄</div>
-                  <p className="text-sm">Ingen CV uppladdad</p>
+     {/* CV Tab */}
+{activeTab === 'cv' && (
+  <div className="space-y-6">
+    {/* CV List */}
+    <div className="bg-navy-800 rounded-lg p-6">
+      <h2 className="text-xl font-semibold mb-4 text-white flex items-center">
+        <FileText className="w-5 h-5 mr-2 text-pink-500" />
+        Dina CV:n
+      </h2>
+      
+      {cvListLoading ? (
+        <div className="flex justify-center items-center h-40">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-pink-500"></div>
+        </div>
+      ) : cvs.length === 0 ? (
+        <div className="border border-gray-700 border-dashed rounded-lg p-4 bg-navy-900/50">
+          <div className="flex flex-col items-center justify-center h-20 text-gray-400">
+            <div className="text-2xl mb-2">📄</div>
+            <p className="text-sm">Ingen CV uppladdad</p>
+          </div>
+        </div>
+      ) : (
+        <div className="space-y-4">
+          {cvs.map((cv) => (
+            <div 
+              key={cv.id} 
+              className="border border-gray-700 bg-navy-800 rounded-lg p-4 transition-all hover:border-pink-500 hover:shadow-lg"
+            >
+              <div className="flex items-start">
+                <div className="p-2 bg-pink-600 rounded-md mr-4 flex-shrink-0">
+                  <FileText className="w-5 h-5 text-white" />
+                </div>
+                
+                <div className="flex-grow">
+                  <h3 className="font-medium mb-1 text-white">{cv.file_name}</h3>
+                  
+                  {cv.created_at && (
+                    <p className="text-xs text-gray-400 mb-3">
+                      Uppdaterad: {new Date(cv.created_at).toLocaleDateString('sv-SE')}
+                    </p>
+                  )}
+                  
+                  <div className="flex space-x-3 mt-2">
+  <a
+    href={cv.original_file_path}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-flex items-center px-3 py-1 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
+  >
+    <ExternalLink className="w-4 h-4 mr-1" />
+    Visa CV
+  </a>
+  <button
+    onClick={() => handleDeleteCV(cv.id)}
+    className="inline-flex items-center px-3 py-1 text-sm bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"
+  >
+    <Trash className="w-4 h-4 mr-1" />
+    Ta bort
+  </button>
+</div>
                 </div>
               </div>
-            ) : (
-              <div className="space-y-4">
-                {cvs.map((cv) => (
-                  <div 
-                    key={cv.id} 
-                    className="border border-gray-700 bg-navy-800 rounded-lg p-4 transition-all hover:border-pink-500 hover:shadow-lg"
-                  >
-                    <div className="flex items-start">
-                      <div className="p-2 bg-pink-600 rounded-md mr-4 flex-shrink-0">
-                        <FileText className="w-5 h-5 text-white" />
-                      </div>
-                      
-                      <div className="flex-grow">
-                        <h3 className="font-medium mb-1 text-white">{cv.file_name}</h3>
-                        
-                        {cv.created_at && (
-                          <p className="text-xs text-gray-400 mb-3">
-                            Uppdaterad: {new Date(cv.created_at).toLocaleDateString('sv-SE')}
-                          </p>
-                        )}
-                        
-                        <div className="flex space-x-3 mt-2">
-                          <a
-                            href={cv.original_file_path}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center px-3 py-1 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
-                          >
-                            <ExternalLink className="w-4 h-4 mr-1" />
-                            Visa CV
-                          </a>
-                          <button
-                            onClick={() => handleDeleteCV(cv.id)}
-                            className="inline-flex items-center px-3 py-1 text-sm bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"
-                          >
-                            <Trash className="w-4 h-4 mr-1" />
-                            Ta bort
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                
-                {/* Snyggare tomma platser */}
-                {Array.from({ length: Math.max(0, 5 - cvs.length) }).map((_, index) => (
-                  <div 
-                    key={`empty-slot-${index}`} 
-                    className="border border-gray-700 border-dashed rounded-lg p-4 bg-navy-900/30 hover:bg-navy-900/50 transition-colors"
-                  >
-                    <div className="flex items-center">
-                      <div className="p-2 bg-gray-700/50 rounded-md mr-4 flex-shrink-0">
-                        <FileText className="w-5 h-5 text-gray-400" />
-                      </div>
-                      <div>
-                        <p className="text-gray-400 font-medium">Ledig plats</p>
-                        <p className="text-xs text-gray-500">Plats {cvs.length + index + 1} av 5</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-          
-          {/* CV Uploader */}
-          {isMaxCVsReached ? (
-            <div className="p-6 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-lg">
-              <div className="flex items-start">
-                <Info className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0 mt-0.5" />
-                <p className="text-yellow-200">
-                  Du har nått maxgränsen på 5 CV:n. För att ladda upp ett nytt CV, ta först bort ett befintligt.
-                </p>
-              </div>
             </div>
-          ) : (
-            <CVUploader 
-              onSuccess={handleUploadSuccess}
-              onError={handleUploadError}
-              showNotification={showNotificationMessage}
-            />
-          )}
+          ))}
         </div>
       )}
+    </div>
+    
+    {/* CV Uploader - visas bara om maxgränsen inte har nåtts */}
+    {hasReachedCvLimit ? (
+      <div className="p-6 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-lg">
+        <div className="flex items-start">
+          <Info className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0 mt-0.5" />
+          <p className="text-yellow-200">
+            Du har nått maxgränsen på {maxCvCount} CV:n. För att ladda upp ett nytt CV, ta först bort ett befintligt.
+          </p>
+        </div>
+      </div>
+    ) : (
+      <CVUploader 
+        onSuccess={handleUploadSuccess}
+        onError={handleUploadError}
+        showNotification={showNotificationMessage}
+      />
+    )}
+  </div>
+)}
       
       {/* Settings Tab */}
       {activeTab === 'settings' && (
