@@ -459,15 +459,16 @@ export default function ProfilePage() {
                   
                   {/* Knapparna för att Visa, Redigera och Ta bort CV */}
 <div className="flex flex-wrap gap-2 mt-2">
-  {/* Visa CV-text */}
-  <Link
-  href={`/profile/cv/${cv.id}/view`}
+  {/* Visa CV */}
+<Link
+  href={`/profile/cv/${cv.id}`}
   className="inline-flex items-center px-3 py-1 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
 >
   <ExternalLink className="w-4 h-4 mr-1" />
   Visa CV
 </Link>
 
+{/* Redigera CV */}
 <Link
   href={`/profile/cv/${cv.id}/edit`}
   className="inline-flex items-center px-3 py-1 text-sm bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors"
@@ -476,6 +477,7 @@ export default function ProfilePage() {
   Redigera
 </Link>
 
+{/* Ta bort CV */}
 <button
   onClick={() => handleDeleteCV(cv.id)}
   className="inline-flex items-center px-3 py-1 text-sm bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"

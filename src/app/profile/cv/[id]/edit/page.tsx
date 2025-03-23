@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import Link from 'next/link';
@@ -17,9 +17,12 @@ export default function CVEditPage({ params }: { params: Promise<{ id: string }>
   const [successMessage, setSuccessMessage] = useState('');
   const supabase = createClientComponentClient();
 
-  // Unwrap params med React.use()
+  // Med Next.js 15 ska vi unwrappa params med use()
   const resolvedParams = use(params);
   const id = resolvedParams.id;
+  
+  // Ref för att förhindra dubbla anrop
+  const initialLoadRef = useRef(false);
 
   // Function to format date
   const formatDate = (dateString: string | null | undefined): string => {
@@ -50,43 +53,47 @@ export default function CVEditPage({ params }: { params: Promise<{ id: string }>
   // Fetch CV data from the database
   useEffect(() => {
     async function fetchCVData() {
-      try {
-        setLoading(true);
-        setError(null);
-        
-        // Get current user session
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        if (!session) {
-          router.push('/login');
-          return;
-        }
-        
-        // Fetch CV data
-        const { data, error } = await supabase
-          .from('cv_texts')
-          .select('*')
-          .eq('id', id)
-          .eq('user_id', session.user.id)
-          .single();
-        
-        if (error) {
+      if (!initialLoadRef.current) {
+        try {
+          setLoading(true);
+          setError(null);
+          
+          // Get current user session
+          const { data: { session } } = await supabase.auth.getSession();
+          
+          if (!session) {
+            router.push('/login');
+            return;
+          }
+          
+          // Fetch CV data
+          const { data, error } = await supabase
+            .from('cv_texts')
+            .select('*')
+            .eq('id', id)
+            .eq('user_id', session.user.id)
+            .single();
+          
+          if (error) {
+            console.error('Fel vid hämtning av CV:', error);
+            setError('Kunde inte hitta det begärda CV:t');
+            return;
+          }
+          
+          if (data) {
+            setCvData(data);
+            setCvText(data.cv_text || '');
+          } else {
+            setError('Inget CV hittades');
+          }
+        } catch (error) {
           console.error('Fel vid hämtning av CV:', error);
-          setError('Kunde inte hitta det begärda CV:t');
-          return;
+          setError('Ett fel uppstod vid hämtning av CV');
+        } finally {
+          setLoading(false);
         }
         
-        if (data) {
-          setCvData(data);
-          setCvText(data.cv_text || '');
-        } else {
-          setError('Inget CV hittades');
-        }
-      } catch (error) {
-        console.error('Fel vid hämtning av CV:', error);
-        setError('Ett fel uppstod vid hämtning av CV');
-      } finally {
-        setLoading(false);
+        initialLoadRef.current = true;
       }
     }
     
@@ -108,31 +115,35 @@ export default function CVEditPage({ params }: { params: Promise<{ id: string }>
         return;
       }
       
-      // Update CV text in database
-      const { data, error } = await supabase
-        .from('cv_texts')
-        .update({
-          cv_text: cvText,
-          updated_at: new Date().toISOString()
-        })
-        .eq('id', id)
-        .eq('user_id', session.user.id)
-        .select();
+      // Använd API-rutten för att uppdatera CV-texten
+      const response = await fetch('/api/cv/update', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id: id,
+          cv_text: cvText
+        }),
+      });
       
-      if (error) {
-        console.error('Fel vid uppdatering av CV:', error);
-        setError('Kunde inte spara ändringar: ' + error.message);
-        return;
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Kunde inte uppdatera CV-texten');
       }
       
-      if (data && data[0]) {
-        setCvData(data[0]);
+      const result = await response.json();
+      
+      if (result.success) {
+        setCvData(result.data);
         setSuccessMessage('CV-texten har sparats');
         
         // Hide message after a few seconds
         setTimeout(() => {
           setSuccessMessage('');
         }, 3000);
+      } else {
+        throw new Error('Kunde inte uppdatera CV-texten');
       }
     } catch (error: any) {
       setError('Ett fel uppstod: ' + (error.message || 'Okänt fel'));
@@ -143,7 +154,7 @@ export default function CVEditPage({ params }: { params: Promise<{ id: string }>
   };
 
   const handleBack = () => {
-    router.push('/profile');
+    router.push(`/profile/cv/${id}`);
   };
 
   if (loading) {
@@ -176,7 +187,7 @@ export default function CVEditPage({ params }: { params: Promise<{ id: string }>
         
         {cvData && (
           <Link 
-            href={`/profile/cv/${cvData.id}/view`}
+            href={`/profile/cv/${id}`}
             className="inline-flex items-center px-3 py-2 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
           >
             <ExternalLink className="w-4 h-4 mr-2" />
@@ -218,7 +229,14 @@ export default function CVEditPage({ params }: { params: Promise<{ id: string }>
             />
           </div>
           
-          <div className="flex justify-end">
+          <div className="flex justify-between">
+            <Link
+              href={`/profile/cv/${id}`}
+              className="px-4 py-2 text-white bg-gray-600 rounded-md hover:bg-gray-700"
+            >
+              Avbryt
+            </Link>
+            
             <button
               onClick={handleSave}
               disabled={saving}
