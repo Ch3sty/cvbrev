@@ -7,7 +7,7 @@ import { generateCoverLetter, extractJobInfo } from '@/lib/openai/api';
 // Denna cache finns på serversidan och delas mellan alla användare
 // Det är därför vi använder en kombinerad nyckel av användare-id och cv-id
 const activeGenerations = new Map<string, { startTime: number, promise: Promise<any> }>();
-const completedGenerations = new Map<string, { timestamp: number, letterId: string, content: any }>();
+const completedGenerations = new Map<string, { timestamp: number, letterId: string | null, content: any }>();
 
 // Tidsperioder
 const DUPLICATE_THRESHOLD_MS = 10000; // 10 sekunder mellan tillåtna genereringar för samma kombination
@@ -237,10 +237,10 @@ export async function POST(request: Request) {
         cv_id: cv_id
       };
       
-      // Spara brevet i cachen
+      // Spara brevet i cachen - ändra typen på letterId för att acceptera null
       completedGenerations.set(requestKey, {
         timestamp: Date.now(),
-        letterId: null, // Kommer sättas om vi sparar
+        letterId: '', // Använd en tom sträng istället för null
         content: letterObject
       });
 

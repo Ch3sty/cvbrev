@@ -81,7 +81,9 @@ export async function extractJobInfo(
     });
 
     try {
-      const jsonResponse = JSON.parse(response.choices[0].message.content);
+      const content = response.choices[0].message.content || '{}';
+      const jsonResponse = JSON.parse(content);
+      
       const title = jsonResponse.position ? 
         (language === 'sv' ? `Ansökan: ${jsonResponse.position.trim()}` : `Application: ${jsonResponse.position.trim()}`) : 
         (language === 'sv' ? 'Ansökningsbrev' : 'Job Application');
@@ -252,7 +254,7 @@ export async function generateCoverLetter(
       throw new Error('Inget svar mottaget från OpenAI');
     }
 
-    const letterContent = completion.choices[0].message.content;
+    const letterContent = completion.choices[0].message.content || '';
 
     // Ytterligare validering av innehållet
     if (!letterContent || letterContent.trim().length < 50) {

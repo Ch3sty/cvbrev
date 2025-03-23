@@ -6,7 +6,7 @@ import { useLetters } from '@/hooks/use-letters';
 import Link from 'next/link';
 import { use } from 'react';
 
-export default function ViewLetterPage({ params }: { params: { id: string } }) {
+export default function ViewLetterPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const { getLetter, currentLetter, isLoading, error, removeLetter } = useLetters();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);

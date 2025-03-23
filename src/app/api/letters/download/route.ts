@@ -6,7 +6,7 @@ import { createServerClient } from '@/lib/supabase/server';
 /**
  * Hjälpfunktion för att skapa ett simpelt DOCX-dokument från HTML
  */
-async function createDocxFromHtml(content: string, metadata: any): Promise<Buffer> {
+async function createDocxFromHtml(content: string, metadata: any): Promise<Uint8Array> {
   // Skapa en HTML-struktur med korrekt formatering för brevmallar
   const htmlContent = `
     <!DOCTYPE html>
@@ -49,7 +49,7 @@ async function createDocxFromHtml(content: string, metadata: any): Promise<Buffe
     </html>
   `;
 
-  // Returnera HTML som en buffer
+  // Returnera HTML som en Uint8Array istället för Buffer
   const encoder = new TextEncoder();
   return encoder.encode(htmlContent);
 }
@@ -57,7 +57,7 @@ async function createDocxFromHtml(content: string, metadata: any): Promise<Buffe
 /**
  * Skapar en enkel PDF-fil från HTML-innehåll
  */
-async function createPdfFromHtml(content: string, metadata: any): Promise<Buffer> {
+async function createPdfFromHtml(content: string, metadata: any): Promise<Uint8Array> {
   // Denna funktion skulle idealt använda ett bibliotek som puppeteer för att generera
   // en riktig PDF från HTML. För enkelhetens skull använder vi samma HTML som
   // för DOCX-filen och låter klienten göra konverteringen.
@@ -104,7 +104,7 @@ async function createPdfFromHtml(content: string, metadata: any): Promise<Buffer
     </html>
   `;
   
-  // Returnera HTML som en buffer
+  // Returnera HTML som en Uint8Array istället för Buffer
   const encoder = new TextEncoder();
   return encoder.encode(htmlContent);
 }
@@ -127,17 +127,17 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Inget innehåll angivet' }, { status: 400 });
     }
     
-    let fileBuffer: Buffer;
+    let fileData: Uint8Array;
     let fileType: string;
     let fileName: string = (metadata?.title || 'Ansökningsbrev').replace(/[^a-zA-Z0-9åäöÅÄÖ]/g, '_');
     
     // Generera fil baserat på önskat format
     if (format === 'docx') {
-      fileBuffer = await createDocxFromHtml(content, metadata);
+      fileData = await createDocxFromHtml(content, metadata);
       fileType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
       fileName += '.docx';
     } else if (format === 'pdf') {
-      fileBuffer = await createPdfFromHtml(content, metadata);
+      fileData = await createPdfFromHtml(content, metadata);
       fileType = 'application/pdf';
       fileName += '.pdf';
     } else {
@@ -145,7 +145,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Returnera filen som en nedladdningsbar blob
-    const response = new NextResponse(fileBuffer);
+    const response = new NextResponse(fileData);
     response.headers.set('Content-Type', fileType);
     response.headers.set('Content-Disposition', `attachment; filename="${fileName}"`);
     

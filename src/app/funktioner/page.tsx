@@ -120,7 +120,7 @@ function FeatureUsageChart() {
 }
 
 export default function FunktionerPage() {
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
@@ -133,6 +133,8 @@ export default function FunktionerPage() {
           const { createClient } = await import('@/lib/supabase/client');
           const supabase = createClient();
           const { data } = await supabase.auth.getSession();
+          
+          // Fixa typfelet genom att tillämpa en explicit typning
           setSession(data.session);
         } catch (error) {
           console.error('Kunde inte hämta session:', error);

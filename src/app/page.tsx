@@ -51,7 +51,7 @@ function CVBrevEffectivenessChart() {
 }
 
 export default function Home() {
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {

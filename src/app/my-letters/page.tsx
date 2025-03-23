@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLetters } from '@/hooks/use-letters';
 import Link from 'next/link';
@@ -10,7 +10,7 @@ import { AlertTriangle, FileText, CheckCircle } from 'lucide-react';
 import Notification from '@/components/ui/notification';
 
 // Brevräknare-komponent
-const LetterCounter = ({ current, max }) => {
+const LetterCounter = ({ current, max }: { current: number; max: number }) => {
   // Beräkna procentvärde för progressbaren
   const percentage = (current / max) * 100;
   
@@ -148,6 +148,26 @@ export default function MyLettersPage() {
     };
   }, []);
   
+  // Stäng notifikationen - wrappat i useCallback för att förhindra oändlig rendering
+  const closeNotification = useCallback(() => {
+    setNotification(prev => ({ ...prev, isVisible: false }));
+  }, []);
+  
+ // Visa notifikation med typ och meddelande - wrappat i useCallback för att förhindra oändlig rendering
+  const showNotification = useCallback((type: 'loading' | 'success' | 'error' | 'info', message: string, duration?: number) => {
+    setNotification({
+      isVisible: true,
+      message,
+      type,
+      progress: type === 'loading' ? 0 : 100
+    });
+    
+    // Auto-close för success och error notifikationer
+    if (type !== 'loading' && duration) {
+      setTimeout(closeNotification, duration);
+    }
+  }, [closeNotification]);
+  
   // Hämta brev när sidan laddas - körs EFTER komponenten är monterad
   // Kontrollera att vi bara anropar fetchLetters en gång vid sidladdning
   useEffect(() => {
@@ -166,30 +186,10 @@ export default function MyLettersPage() {
     };
     
     loadLetters();
-  }, [fetchLetters, isPageMounted]);
-  
-  // Stäng notifikationen
-  const closeNotification = () => {
-    setNotification(prev => ({ ...prev, isVisible: false }));
-  };
-  
-  // Visa notifikation med typ och meddelande
-  const showNotification = (type: 'loading' | 'success' | 'error' | 'info', message: string, duration?: number) => {
-    setNotification({
-      isVisible: true,
-      message,
-      type,
-      progress: type === 'loading' ? 0 : 100
-    });
-    
-    // Auto-close för success och error notifikationer
-    if (type !== 'loading' && duration) {
-      setTimeout(closeNotification, duration);
-    }
-  };
+  }, [fetchLetters, isPageMounted, showNotification]);
   
   // Formatera datum relativt (t.ex. "för 3 dagar sedan")
-  const formatRelativeDate = (dateString: string | null) => {
+  const formatRelativeDate = useCallback((dateString: string | null) => {
     if (!dateString) return 'Okänt datum';
     
     try {
@@ -200,10 +200,10 @@ export default function MyLettersPage() {
     } catch (error) {
       return 'Okänt datum';
     }
-  };
+  }, []);
   
   // Förhandsvisning av brevinnehåll
-  const getPreview = (content: string) => {
+  const getPreview = useCallback((content: string) => {
     if (!content) return '';
     
     // Ta bort HTML-taggar och begränsa längden
@@ -211,18 +211,18 @@ export default function MyLettersPage() {
     return plainText.length > 150
       ? plainText.substring(0, 150) + '...'
       : plainText;
-  };
+  }, []);
   
   // Bekräfta och radera brev
-  const handleDelete = (id: string) => {
+  const handleDelete = useCallback((id: string) => {
     // Förhindra att visa bekräftelsedialog om borttagning redan pågår
     if (isDeleting) return;
     
     setDeleteId(id);
     setShowDeleteConfirm(true);
-  };
+  }, [isDeleting]);
   
-  const confirmDelete = async () => {
+  const confirmDelete = useCallback(async () => {
     if (!deleteId || isDeleting) return;
     
     try {
@@ -245,20 +245,20 @@ export default function MyLettersPage() {
       // Visa felnotifikation
       showNotification('error', 'Ett fel uppstod vid borttagning av brevet', 5000);
     }
-  };
+  }, [deleteId, isDeleting, removeLetter, showNotification]);
   
-  const cancelDelete = () => {
+  const cancelDelete = useCallback(() => {
     if (isDeleting) return;
     setShowDeleteConfirm(false);
     setDeleteId(null);
-  };
+  }, [isDeleting]);
   
   // Hantera felmeddelande som kommer från hook
   useEffect(() => {
     if (error) {
       showNotification('error', error, 5000);
     }
-  }, [error]);
+  }, [error, showNotification]);
   
   return (
     <div className="container max-w-5xl px-4 py-8 mx-auto">

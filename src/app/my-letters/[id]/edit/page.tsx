@@ -6,7 +6,7 @@ import { useLetters } from '@/hooks/use-letters';
 import Link from 'next/link';
 import { use } from 'react';
 
-export default function EditLetterPage({ params }: { params: { id: string } }) {
+export default function EditLetterPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const { getLetter, currentLetter, isLoading, error, editLetter } = useLetters();
   

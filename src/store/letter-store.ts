@@ -56,6 +56,7 @@ interface LetterGenerationParams {
   cv_id: string;
   job_description: string;
   tonality: string;
+  language?: string; // Lägg till språkparameter här
 }
 
 interface LetterUpdateParams {

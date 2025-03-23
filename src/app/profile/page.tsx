@@ -35,7 +35,8 @@ export default function ProfilePage() {
   const router = useRouter();
   const supabase = createClientComponentClient();
   const { profile, loading: profileLoading, updateProfile } = useProfile();
-  const { cvs, fetchCVs, loading: cvsLoading, isLoading: cvListLoading } = useCVStore();
+  // Korrigera användningen av useCVStore för att matcha det faktiska interfacet
+  const { cvs, fetchCVs, isLoading: cvListLoading } = useCVStore();
   
   // Definiera cvCount och maxCvCount variablerna
   const cvCount = cvs.length;
@@ -237,9 +238,6 @@ export default function ProfilePage() {
       setSaving(false);
     }
   };
-  
-  // Check if maximum CV count reached
-  const isMaxCVsReached = cvs.length >= 5;
   
   if (profileLoading) {
     return (

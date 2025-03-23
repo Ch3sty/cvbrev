@@ -156,12 +156,12 @@ export default function CreateLetterPage() {
   }, [isGenerating, isSubmitting]);
   
   // Stäng notifikationen
-  const closeNotification = () => {
+  const closeNotification = useCallback(() => {
     setNotification(prev => ({ ...prev, isVisible: false }));
-  };
+  }, []);
   
-  // Visa notifikation med typ och meddelande
-  const showNotification = (type: 'loading' | 'success' | 'error' | 'info', message: string, duration?: number) => {
+ // Visa notifikation med typ och meddelande - wrappat i useCallback för att förhindra oändlig rendering
+  const showNotification = useCallback((type: 'loading' | 'success' | 'error' | 'info', message: string, duration?: number) => {
     setNotification({
       isVisible: true,
       message,
@@ -173,7 +173,7 @@ export default function CreateLetterPage() {
     if (type !== 'loading' && duration) {
       setTimeout(closeNotification, duration);
     }
-  };
+  }, [closeNotification]);
   
   // Funktion för att generera brev
   const generateLetter = useCallback(async () => {
@@ -258,7 +258,7 @@ export default function CreateLetterPage() {
       generationInProgressRef.current = false;
       setIsSubmitting(false);
     }
-  }, [selectedCV, jobDescription, tonality, language, isGenerating, isSubmitting, createLetter]);
+  }, [selectedCV, jobDescription, tonality, language, isGenerating, isSubmitting, createLetter, showNotification, closeNotification]);
   
   // Funktion för att spara brevet till databasen
   const handleSaveLetter = useCallback(async () => {
@@ -290,17 +290,17 @@ export default function CreateLetterPage() {
     } finally {
       setIsSaving(false);
     }
-  }, [letterData, saveLetter]);
+  }, [letterData, saveLetter, showNotification, closeNotification]);
   
   // Funktion för att navigera till redigeringssidan efter att brevet sparats
   const handleEdit = useCallback(() => {
     if (letterData && letterData.id) {
       router.push(`/my-letters/${letterData.id}/edit`);
     } else {
-      showNotification('warning', 'Brevet måste sparas innan det kan redigeras', 3000);
+      showNotification('error', 'Brevet måste sparas innan det kan redigeras', 3000);
       setError('Brevet måste sparas innan det kan redigeras.');
     }
-  }, [letterData, router]);
+  }, [letterData, router, showNotification]);
   
   // Funktion för att ladda ner brevet som PDF
   const handleDownloadAsPdf = useCallback(async () => {
@@ -381,7 +381,7 @@ export default function CreateLetterPage() {
     } finally {
       setIsDownloading(false);
     }
-  }, [generatedLetter, letterData]);
+  }, [generatedLetter, letterData, showNotification, closeNotification]);
   
   // Funktion för att hantera nerladdning av brevet som docx
   const handleDownloadAsDocx = useCallback(async () => {
@@ -443,7 +443,7 @@ export default function CreateLetterPage() {
     } finally {
       setIsDownloading(false);
     }
-  }, [generatedLetter, letterData]);
+  }, [generatedLetter, letterData, showNotification, closeNotification]);
   
   // Beräkna om knappen ska vara inaktiverad
   const isButtonDisabled = isGenerating || isSubmitting || !selectedCV || !jobDescription;

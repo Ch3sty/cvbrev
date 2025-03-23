@@ -102,8 +102,8 @@ export const useLetters = () => {
   // Kontroll för max antal brev (10)
   const [hasReachedLimit, setHasReachedLimit] = useState(false);
   
-  // Skapa cachelagring för API-anrop med cache=false option
-  const fetchLettersWithOptions = async (savedOnly = false, useCache = true) => {
+  // Memoizera fetchLettersWithOptions för att kunna använda den i andra useCallback
+  const memoizedFetchLettersWithOptions = useCallback(async (savedOnly = false, useCache = true) => {
     // Förhindra samtidiga anrop
     if (activeOperations.fetching && useCache) return letters;
     
@@ -126,17 +126,18 @@ export const useLetters = () => {
       activeOperations.fetching = false;
       setLocalIsLoading(false);
     }
-  };
+  }, [letters, storeFetchLetters]);
   
   // Memoizera funktionerna för att förhindra oändliga rerenderingar
+  // Ta bort forceUpdate från beroendelistan eftersom det ger en onödig/oanvänd beroendeparameter
   const memoizedFetchLetters = useCallback(async (savedOnly = false, useCache = true) => {
     // Förhindra anrop om komponenten avmonterats eller om en borttagningsoperation pågår
     if (!isMountedRef.current || activeOperations.deleting) {
       return Promise.resolve(letters);
     }
     
-    return fetchLettersWithOptions(savedOnly, useCache);
-  }, [letters, forceUpdate]);
+    return memoizedFetchLettersWithOptions(savedOnly, useCache);
+  }, [letters, memoizedFetchLettersWithOptions]); // Ta bort forceUpdate härifrån
   
   const memoizedGetLetter = useCallback(async (id: string) => {
     // Förhindra anrop om komponenten avmonterats eller redan hämtar detta ID

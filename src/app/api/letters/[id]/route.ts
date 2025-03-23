@@ -1,3 +1,4 @@
+// src/app/api/letters/[id]/route.ts
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
@@ -5,7 +6,7 @@ import { createServerClient } from '@/lib/supabase/server';
 // Hämta ett specifikt brev med ID
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // I Next.js 15.2 måste params awaitadas innan man använder dess egenskaper
@@ -51,7 +52,7 @@ export async function GET(
 // Uppdatera ett befintligt brev
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // I Next.js 15.2 måste params awaitadas innan man använder dess egenskaper
@@ -123,7 +124,7 @@ export async function PUT(
 // Ta bort ett brev
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // I Next.js 15.2 måste params awaitadas innan man använder dess egenskaper

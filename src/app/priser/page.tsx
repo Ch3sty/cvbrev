@@ -71,7 +71,7 @@ function ROIChart() {
 }
 
 export default function PriserPage() {
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [billingPeriod, setBillingPeriod] = useState('monthly'); // 'monthly' eller 'yearly'
   
