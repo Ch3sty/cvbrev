@@ -6,6 +6,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useProfile } from '@/hooks/use-profile';
 import { useCVStore } from '@/store/cv-store';
 import { useCallback } from 'react';
+import Link from 'next/link';
 
 // Import components
 import CVUploader from '@/components/cv/cv-uploader';
@@ -456,15 +457,14 @@ export default function ProfilePage() {
                   )}
                   
                   <div className="flex space-x-3 mt-2">
-  <a
-    href={cv.original_file_path}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-flex items-center px-3 py-1 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
-  >
-    <ExternalLink className="w-4 h-4 mr-1" />
-    Visa CV
-  </a>
+  
+<Link
+  href={`/profile/cv/${cv.id}/view`}
+  className="inline-flex items-center px-3 py-1 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
+>
+  <ExternalLink className="w-4 h-4 mr-1" />
+  Visa CV
+</Link>
   <button
     onClick={() => handleDeleteCV(cv.id)}
     className="inline-flex items-center px-3 py-1 text-sm bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"

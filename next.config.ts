@@ -6,10 +6,20 @@ const nextConfig: NextConfig = {
   
   // Anpassa webpack för att bättre hantera vissa moduler
   webpack: (config, { isServer, dev }) => {
-    // Specifik hantering för PDF.js
+    // Specifik hantering för PDF.js och pdf-parse
     if (isServer) {
       // @ts-ignore - config.externals kan vara undefined
-      config.externals = [...(config.externals || []), 'pdfjs-dist', 'mammoth'];
+      config.externals = [...(config.externals || []), 'pdfjs-dist', 'mammoth', 'canvas', 'pdf-parse'];
+    }
+    
+    // Lägg till node-polyfills
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false,
+        stream: false,
+      };
     }
     
     // Optimera watchOptions för utveckling för att förhindra onödiga rebuilds

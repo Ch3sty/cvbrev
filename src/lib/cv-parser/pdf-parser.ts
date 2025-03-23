@@ -1,146 +1,83 @@
-// pdf-parser.ts - med fixad typning för lastY
-import type { getDocument as GetDocumentType, GlobalWorkerOptions as WorkerOptionsType } from 'pdfjs-dist';
+import { cleanExtractedText } from './text-utils';
 
-let pdfjsLib: { getDocument: typeof GetDocumentType, GlobalWorkerOptions: typeof WorkerOptionsType };
-
-// Load PDF.js only on client side
-export async function loadPdfJs() {
+// Dynamisk import för att undvika klientside-problem
+async function getPdfParser() {
+  // Kontrollera om vi är på serversidan
   if (typeof window === 'undefined') {
-    return null;
+    // Serverside: använd pdf-parse
+    try {
+      const pdfParse = await import('pdf-parse');
+      return pdfParse.default || pdfParse;
+    } catch (error) {
+      console.error('Failed to import pdf-parse:', error);
+      return null;
+    }
   }
-  
-  if (!pdfjsLib) {
-    pdfjsLib = await import('pdfjs-dist');
-    
-    // Set worker path to CDN to avoid build issues
-    pdfjsLib.GlobalWorkerOptions.workerSrc = 
-      `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${(pdfjsLib as any).version}/pdf.worker.min.js`;
-  }
-  
-  return pdfjsLib;
+  // Klientside: returnera null
+  return null;
 }
 
 export async function extractTextFromPdf(pdfData: Uint8Array): Promise<string> {
   try {
-    const pdfjs = await loadPdfJs();
-    if (!pdfjs) {
-      throw new Error('PDF.js could not be loaded');
+    // Få pdf-parser om vi är på serversidan
+    const pdfParse = await getPdfParser();
+    
+    if (!pdfParse) {
+      return "PDF-texten kunde inte extraheras - inget serverside PDF-bibliotek tillgängligt.";
     }
     
-    const pdfDoc = await pdfjs.getDocument({ data: pdfData }).promise;
-    console.log("📄 PDF har", pdfDoc.numPages, "sidor");
+    // Använd pdf-parse för att extrahera text
+    const result = await pdfParse(Buffer.from(pdfData));
     
-    if (!pdfDoc.numPages) {
-      return "PDF-filen verkar sakna läsbar text.";
+    console.log(`📄 PDF text extraherad, längd: ${result.text.length}, sidor: ${result.numpages}`);
+    
+    if (!result.text || result.text.trim() === '') {
+      return "PDF-filen verkar sakna läsbar text eller sidor.";
     }
     
-    let allText = "";
-    
-    for (let i = 1; i <= pdfDoc.numPages; i++) {
-      const page = await pdfDoc.getPage(i);
-      const content = await page.getTextContent();
-      
-      // Sortera textelement efter y-position (nedåtgående) och sedan x-position
-      const items = [...content.items].sort((a: any, b: any) => {
-        // Jämför y-positioner först (med en liten tolerans)
-        const yDiff = Math.abs(a.transform[5] - b.transform[5]);
-        if (yDiff < 2) {
-          // Om y-positionerna är ungefär samma, sortera på x-position 
-          return a.transform[4] - b.transform[4];
-        }
-        // Annars sortera på y-position (högre värden först)
-        return b.transform[5] - a.transform[5];
-      });
-      
-      // Gruppera textelement efter y-position
-      const lines: any[][] = [];
-      let currentLine: any[] = [];
-      let lastY: number | null = null; // Explicit typannotering här!
-      
-      items.forEach((item: any) => {
-        const y = item.transform[5];
-        
-        if (lastY === null || Math.abs(y - lastY) < 2) {
-          // Samma rad (ungefär samma y-position)
-          currentLine.push(item);
-        } else {
-          // Ny rad
-          if (currentLine.length > 0) {
-            lines.push([...currentLine]);
-          }
-          currentLine = [item];
-        }
-        
-        lastY = y;
-      });
-      
-      // Lägg till den sista raden
-      if (currentLine.length > 0) {
-        lines.push(currentLine);
-      }
-      
-      // Bygg ihop texten från varje rad
-      let pageText = '';
-      
-      for (const line of lines) {
-        // Sortera objekten i raden efter x-position
-        line.sort((a: any, b: any) => a.transform[4] - b.transform[4]);
-        
-        let lineText = '';
-        let lastItem: any = null; // Explicit typannotering här också
-        
-        for (const item of line) {
-          if (lastItem) {
-            // Beräkna avstånd mellan nuvarande och föregående element
-            const lastEndX = lastItem.transform[4] + (lastItem.width || 0);
-            const currentStartX = item.transform[4];
-            const gap = currentStartX - lastEndX;
-            
-            // Lägg till mellanslag baserat på avståndet
-            if (gap > 1) {
-              // Normalt mellanslag om avståndet är lagom
-              lineText += ' ';
-            } else if (gap < -1) {
-              // Överlappande tecken, troligen fel avstavning
-              // Hantera möjliga bindestrecksfall
-              if (lastItem.str.endsWith('-')) {
-                // Ta bort bindestrecket och slå ihop orden
-                lineText = lineText.slice(0, -1) + item.str;
-                lastItem = item;
-                continue;
-              }
-            }
-          }
-          
-          lineText += item.str;
-          lastItem = item;
-        }
-        
-        pageText += lineText.trim() + '\n';
-      }
-      
-      allText += pageText;
-      console.log(`📄 Sida ${i} processerad.`);
-    }
-    
-    // Avancerad efterbehandling
-    return allText
-      .replace(/(\w)-\s*\n\s*(\w)/g, '$1$2')  // Hantera avstavningar mellan rader
-      .replace(/\s+\n/g, '\n')                // Ta bort mellanslag före radbrytningar
-      .replace(/\n{3,}/g, '\n\n')             // Begränsa antal radbrytningar
-      .replace(/\s{2,}/g, ' ')                // Normalisera mellanslag
-      .replace(/\n\s+/g, '\n')                // Ta bort mellanslag i början av rader
-      .replace(/(.)\n(.)/g, (match, p1, p2) => {
-        // Lägg inte till mellanslag om tecknen indikerar en formatering
-        if (/[.,;:!?)]/.test(p1) || /[\[(]/.test(p2)) {
-          return `${p1}\n${p2}`;
-        }
-        return `${p1}\n${p2}`; 
-      })
-      .trim();
+    // Använd befintlig rengöringsfunktion
+    const cleanedText = cleanExtractedText(result.text);
+    return cleanedText;
       
   } catch (error: any) {
-    console.error('⚠️ PDF-extrahering misslyckades:', error);
-    return 'Misslyckades med att läsa PDF';
+    console.error('⚠️ PDF extraction failed:', error);
+    return 'Misslyckades med att läsa PDF. Kontrollera att filen inte är lösenordsskyddad eller skadad.';
+  }
+}
+
+/**
+ * Clean and normalize the extracted PDF text
+ */
+function cleanPdfText(text: string): string {
+  return text
+    // Fix hyphenation and line breaks
+    .replace(/(\w)-\s*\n\s*(\w)/g, '$1$2')
+    // Remove excessive whitespace
+    .replace(/\s+/g, ' ')
+    // Normalize newlines
+    .replace(/\n{3,}/g, '\n\n')
+    // Fix spacing around punctuation
+    .replace(/\s+([.,;:!?)])/g, '$1')
+    // Fix spacing for opening brackets/parentheses
+    .replace(/([([])\s+/g, '$1')
+    // Ensure space after periods and commas (except in numbers)
+    .replace(/([.,;:!?)])(?=\w)/g, '$1 ')
+    // Fix common OCR/PDF text issues
+    .replace(/ﬁ/g, 'fi')
+    .replace(/ﬂ/g, 'fl')
+    .trim();
+}
+
+// Fallback function when PDF parsing fails
+export async function extractTextFallback(file: File): Promise<string> {
+  try {
+    if (file.type === 'application/pdf') {
+      return "PDF-texten kunde inte extraheras direkt. Vänligen använd ett alternativt format om möjligt (DOCX/TXT).";
+    } else {
+      return await file.text();
+    }
+  } catch (error) {
+    console.error('Fallback text extraction failed:', error);
+    return "Textextrahering misslyckades. Prova med en annan filtyp.";
   }
 }
