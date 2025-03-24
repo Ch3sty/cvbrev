@@ -15,10 +15,12 @@ import {
   Lightbulb, 
   Trophy, 
   Scale, 
-  Bot
+  Bot,
+  Pencil, // För redigeringsknappen
+  Save,   // För sparaknappen
+  Check   // För "Sparat"-ikonen
 } from 'lucide-react'
-import Notification from '@/components/ui/notification' // Importera notifikationskomponenten
-import DownloadButton from '@/components/letters/download-button'
+import Notification from '@/components/ui/notification'
 
 type Tonality = 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced' | 'auto'
 type Language = 'sv' | 'en'
@@ -70,16 +72,6 @@ const tonalityInfo: Record<Tonality, TonalityInfo> = {
   }
 };
 
-// Dynamisk import av PDF bibliotek (för att undvika server-side rendering problem)
-const loadPdfLibs = async () => {
-  const jsPDFModule = await import('jspdf');
-  const html2canvasModule = await import('html2canvas');
-  return {
-    jsPDF: jsPDFModule.default,
-    html2canvas: html2canvasModule.default
-  };
-};
-
 export default function CreateLetterPage() {
   // Använd de anpassade hooks
   const { cvs, fetchCVs, isLoading: cvsLoading } = useCVStore();
@@ -94,7 +86,6 @@ export default function CreateLetterPage() {
   const [error, setError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
-  const [isDownloading, setIsDownloading] = useState(false)
   const [isTonalityOpen, setIsTonalityOpen] = useState(false)
   
   // Notifikationsstate
@@ -105,7 +96,7 @@ export default function CreateLetterPage() {
     progress: 0
   })
   
-  // Ref till brevinnehållet för PDF-generering
+  // Ref till brevinnehållet
   const letterContentRef = useRef<HTMLDivElement>(null);
   const tonalityDropdownRef = useRef<HTMLDivElement>(null);
   
@@ -302,149 +293,6 @@ export default function CreateLetterPage() {
       setError('Brevet måste sparas innan det kan redigeras.');
     }
   }, [letterData, router, showNotification]);
-  
-  // Funktion för att ladda ner brevet som PDF
-  const handleDownloadAsPdf = useCallback(async () => {
-    if (!generatedLetter || !letterContentRef.current) return;
-    
-    try {
-      setIsDownloading(true);
-      showNotification('loading', 'Förbereder PDF-nedladdning...');
-      
-      // Dynamiskt ladda PDF-bibliotek
-      try {
-        const { jsPDF, html2canvas } = await loadPdfLibs();
-        
-        // Skapa PDF från HTML-elementet
-        const contentElement = letterContentRef.current;
-        const canvas = await html2canvas(contentElement, {
-          scale: 2, // Högre upplösning
-          useCORS: true,
-          logging: false
-        });
-        
-        const imgData = canvas.toDataURL('image/jpeg', 0.95);
-        const pdf = new jsPDF('p', 'mm', 'a4');
-        
-        // Beräkna rätt dimensions för att passa A4
-        const imgProps = pdf.getImageProperties(imgData);
-        const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-        
-        pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
-        
-        // Spara PDF
-        pdf.save(`${letterData?.title || 'Ansökningsbrev'}.pdf`);
-        
-        closeNotification();
-        showNotification('success', 'Brevet har laddats ned som PDF!', 3000);
-      } catch (error) {
-        console.error('Fel vid laddning av PDF-bibliotek:', error);
-        
-        // Fallback till server-side nedladdning
-        const response = await fetch('/api/letters/download', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            content: generatedLetter,
-            format: 'pdf',
-            metadata: {
-              title: letterData?.title || 'Ansökningsbrev',
-              company: letterData?.company || '',
-              position: letterData?.job_title || '',
-              date: new Date().toLocaleDateString('sv-SE')
-            }
-          }),
-        });
-        
-        if (!response.ok) {
-          throw new Error('Kunde inte generera PDF-filen');
-        }
-        
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${letterData?.title || 'Ansökningsbrev'}.pdf`;
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-        
-        closeNotification();
-        showNotification('success', 'Brevet har laddats ned som PDF!', 3000);
-      }
-    } catch (error) {
-      console.error('PDF nedladdningsfel:', error);
-      closeNotification();
-      showNotification('error', 'Kunde inte ladda ner brevet som PDF', 5000);
-      setError('Kunde inte ladda ner brevet som PDF. Försök igen.');
-    } finally {
-      setIsDownloading(false);
-    }
-  }, [generatedLetter, letterData, showNotification, closeNotification]);
-  
-  // Funktion för att hantera nerladdning av brevet som docx
-  const handleDownloadAsDocx = useCallback(async () => {
-    if (!generatedLetter || !letterData) return;
-    
-    try {
-      // Sätt loading state
-      setIsDownloading(true);
-      showNotification('loading', 'Förbereder DOCX-nedladdning...');
-      
-      // Skapa metadata för dokumentet
-      const metadata = {
-        title: letterData.title || 'Ansökningsbrev',
-        company: letterData.company || '',
-        position: letterData.job_title || '',
-        date: new Date().toLocaleDateString('sv-SE')
-      };
-      
-      // Skapa en förfrågan till server-side API
-      const response = await fetch('/api/letters/download', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          content: generatedLetter,
-          format: 'docx',
-          metadata
-        }),
-      });
-      
-      closeNotification();
-      
-      if (!response.ok) {
-        throw new Error('Kunde inte generera DOCX-filen');
-      }
-      
-      // Få blob från svaret
-      const blob = await response.blob();
-      
-      // Skapa en nedladdningslänk
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${metadata.title.replace(/[^a-zA-Z0-9åäöÅÄÖ]/g, '_')}.docx`;
-      document.body.appendChild(a);
-      a.click();
-      
-      // Rensa upp
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-      
-      // Visa notifikation
-      showNotification('success', 'Brevet har laddats ned som DOCX!', 3000);
-    } catch (error) {
-      console.error('DOCX nedladdningsfel:', error);
-      setError('Kunde inte ladda ner brevet som DOCX. Försök igen.');
-      showNotification('error', 'Nedladdning misslyckades', 5000);
-    } finally {
-      setIsDownloading(false);
-    }
-  }, [generatedLetter, letterData, showNotification, closeNotification]);
   
   // Beräkna om knappen ska vara inaktiverad
   const isButtonDisabled = isGenerating || isSubmitting || !selectedCV || !jobDescription;
@@ -690,7 +538,7 @@ export default function CreateLetterPage() {
                 <div className="prose max-w-none text-gray-800" dangerouslySetInnerHTML={{ __html: generatedLetter.replace(/\n/g, '<br />') }} />
               </div>
               
-              {/* Åtgärdsknappar för att spara/redigera/ladda ner brevet */}
+              {/* Åtgärdsknappar för att spara/redigera brevet - Nedladdningsknappar borttagna */}
               <div className="flex flex-wrap gap-2">
                 {/* Spara-knapp */}
                 <button
@@ -708,55 +556,27 @@ export default function CreateLetterPage() {
                     </>
                   ) : letterData && letterData.is_saved ? (
                     <>
-                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
+                      <Check className="w-4 h-4 mr-2" />
                       Sparat
                     </>
                   ) : (
                     <>
-                      <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
-                      </svg>
+                      <Save className="w-4 h-4 mr-2" />
                       Spara brev
                     </>
                   )}
                 </button>
                 
-                {/* Redigera-knapp - visas endast om brevet har sparats */}
-                {letterData && letterData.is_saved && letterData.id && (
-                  <button
-                    onClick={handleEdit}
-                    className="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 flex items-center"
-                  >
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                    </svg>
-                    Redigera
-                  </button>
-                )}
-                
-                {/* Nedladdningsknappar */}
-<DownloadButton
-  format="docx"
-  letterContent={generatedLetter}
-  metadata={{
-    title: letterData?.title || 'Ansökningsbrev',
-    company: letterData?.company || '',
-    position: letterData?.job_title || ''
-  }}
-/>
-
-<DownloadButton
-  format="pdf"
-  letterContent={generatedLetter}
-  metadata={{
-    title: letterData?.title || 'Ansökningsbrev',
-    company: letterData?.company || '',
-    position: letterData?.job_title || ''
-  }}
-/>
-</div>
+                {/* Redigera-knapp - visas alltid men är inaktiverad tills brevet sparats */}
+                <button
+                  onClick={handleEdit}
+                  disabled={!letterData || !letterData.is_saved || !letterData.id}
+                  className="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed flex items-center"
+                >
+                  <Pencil className="w-4 h-4 mr-2" />
+                  Redigera
+                </button>
+              </div>
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center h-64 text-center">
