@@ -7,7 +7,7 @@ export async function PATCH(request: Request) {
   try {
     // Hämta cookies korrekt med Next.js pattern
     const cookieStore = cookies();
-    const supabase = createServerClient({ cookies: () => cookieStore });
+    const supabase = createServerClient({ cookies: cookieStore });
 
     // Verifiera att användaren är autentiserad
     const { data: { user } } = await supabase.auth.getUser();

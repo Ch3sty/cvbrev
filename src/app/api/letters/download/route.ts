@@ -1,13 +1,12 @@
 // src/app/api/letters/download/route.ts
-import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 
 /**
- * Hjälpfunktion för att skapa ett simpelt DOCX-dokument från HTML
+ * Hjälpfunktion för att skapa ett DOCX-dokument (egentligen HTML som fungerar i Word)
  */
 async function createDocxFromHtml(content: string, metadata: any): Promise<Uint8Array> {
-  // Skapa en HTML-struktur med korrekt formatering för brevmallar
   const htmlContent = `
     <!DOCTYPE html>
     <html>
@@ -15,53 +14,39 @@ async function createDocxFromHtml(content: string, metadata: any): Promise<Uint8
       <meta charset="utf-8">
       <title>${metadata.title || 'Ansökningsbrev'}</title>
       <style>
-        body { font-family: Calibri, Arial, sans-serif; margin: 2cm; line-height: 1.5; }
-        .header { margin-bottom: 1cm; }
-        .date { margin-bottom: 1cm; }
-        .title { font-weight: bold; margin-bottom: 0.5cm; }
-        .content { text-align: justify; }
-        .footer { margin-top: 1cm; }
+        body { font-family: 'Calibri', 'Arial', sans-serif; margin: 2cm; line-height: 1.5; }
+        p { margin-bottom: 10px; }
       </style>
     </head>
     <body>
-      <div class="header">
-        ${metadata.company ? `<p>${metadata.company}</p>` : ''}
-        ${metadata.position ? `<p>Ansökan: ${metadata.position}</p>` : ''}
+      ${metadata.author ? `<p>${metadata.author}</p>` : ''}
+      ${metadata.email ? `<p>${metadata.email}</p>` : ''}
+      ${metadata.phone ? `<p>${metadata.phone}</p>` : ''}
+      <p>${new Date().toLocaleDateString('sv-SE')}</p>
+      
+      ${metadata.company ? `<p>${metadata.company}</p>` : ''}
+      ${metadata.position ? `<p>Ansökan: ${metadata.position}</p>` : ''}
+      
+      <h2>${metadata.title || 'Ansökningsbrev'}</h2>
+      
+      <div>
+        ${content.replace(/\n/g, '<br>')}
       </div>
       
-      <div class="date">
-        <p>${metadata.date || new Date().toLocaleDateString('sv-SE')}</p>
-      </div>
-      
-      <div class="title">
-        <h2>${metadata.title || 'Ansökningsbrev'}</h2>
-      </div>
-      
-      <div class="content">
-        ${content.replace(/\n/g, '<br />')}
-      </div>
-      
-      <div class="footer">
-        <p>Med vänliga hälsningar,</p>
-        <p>[Ditt namn]</p>
-      </div>
+      <p style="margin-top: 20px;">Med vänliga hälsningar,</p>
+      <p>${metadata.author || '[Ditt namn]'}</p>
     </body>
     </html>
   `;
 
-  // Returnera HTML som en Uint8Array istället för Buffer
   const encoder = new TextEncoder();
   return encoder.encode(htmlContent);
 }
 
 /**
- * Skapar en enkel PDF-fil från HTML-innehåll
+ * Skapar en PDF med samma innehåll
  */
 async function createPdfFromHtml(content: string, metadata: any): Promise<Uint8Array> {
-  // Denna funktion skulle idealt använda ett bibliotek som puppeteer för att generera
-  // en riktig PDF från HTML. För enkelhetens skull använder vi samma HTML som
-  // för DOCX-filen och låter klienten göra konverteringen.
-  
   const htmlContent = `
     <!DOCTYPE html>
     <html>
@@ -69,50 +54,41 @@ async function createPdfFromHtml(content: string, metadata: any): Promise<Uint8A
       <meta charset="utf-8">
       <title>${metadata.title || 'Ansökningsbrev'}</title>
       <style>
-        body { font-family: Calibri, Arial, sans-serif; margin: 2cm; line-height: 1.5; }
-        .header { margin-bottom: 1cm; }
-        .date { margin-bottom: 1cm; }
-        .title { font-weight: bold; margin-bottom: 0.5cm; }
-        .content { text-align: justify; }
-        .footer { margin-top: 1cm; }
-        @page { size: A4; margin: 2cm; }
+        @page { margin: 2cm; }
+        body { font-family: 'Arial', sans-serif; margin: 0; line-height: 1.5; }
+        p { margin-bottom: 10px; }
+        h2 { margin-top: 20px; margin-bottom: 20px; }
       </style>
     </head>
     <body>
-      <div class="header">
-        ${metadata.company ? `<p>${metadata.company}</p>` : ''}
-        ${metadata.position ? `<p>Ansökan: ${metadata.position}</p>` : ''}
+      ${metadata.author ? `<p>${metadata.author}</p>` : ''}
+      ${metadata.email ? `<p>${metadata.email}</p>` : ''}
+      ${metadata.phone ? `<p>${metadata.phone}</p>` : ''}
+      <p>${new Date().toLocaleDateString('sv-SE')}</p>
+      
+      ${metadata.company ? `<p>${metadata.company}</p>` : ''}
+      ${metadata.position ? `<p>Ansökan: ${metadata.position}</p>` : ''}
+      
+      <h2>${metadata.title || 'Ansökningsbrev'}</h2>
+      
+      <div>
+        ${content.replace(/\n/g, '<br>')}
       </div>
       
-      <div class="date">
-        <p>${metadata.date || new Date().toLocaleDateString('sv-SE')}</p>
-      </div>
-      
-      <div class="title">
-        <h2>${metadata.title || 'Ansökningsbrev'}</h2>
-      </div>
-      
-      <div class="content">
-        ${content.replace(/\n/g, '<br />')}
-      </div>
-      
-      <div class="footer">
-        <p>Med vänliga hälsningar,</p>
-        <p>[Ditt namn]</p>
-      </div>
+      <p style="margin-top: 20px;">Med vänliga hälsningar,</p>
+      <p>${metadata.author || '[Ditt namn]'}</p>
     </body>
     </html>
   `;
   
-  // Returnera HTML som en Uint8Array istället för Buffer
   const encoder = new TextEncoder();
   return encoder.encode(htmlContent);
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
     // Verifiera autentisering
-    const cookieStore = await cookies();
+    const cookieStore = cookies();
     const supabase = createServerClient({ cookies: cookieStore });
     
     const { data: { user } } = await supabase.auth.getUser();
@@ -120,12 +96,38 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Ej autentiserad' }, { status: 401 });
     }
     
-    // Läs begäran
-    const { content, format, metadata } = await request.json();
+    // Läs begäransdata
+    const body = await request.text();
+    let parsedBody;
+    
+    try {
+      parsedBody = JSON.parse(body);
+    } catch (e) {
+      console.error('JSON parse error:', e);
+      return NextResponse.json({ error: 'Ogiltig JSON i begäran' }, { status: 400 });
+    }
+    
+    const { content, format, metadata } = parsedBody;
     
     if (!content) {
       return NextResponse.json({ error: 'Inget innehåll angivet' }, { status: 400 });
     }
+    
+    // Hämta användarens profil för att lägga till namn m.m.
+    const { data: profileData } = await supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', user.id)
+      .single();
+      
+    // Förbered metadata med användarens information
+    const enhancedMetadata = {
+      ...metadata,
+      author: profileData?.full_name || '',
+      email: user.email || '',
+      phone: profileData?.phone || '',
+      date: new Date().toLocaleDateString('sv-SE')
+    };
     
     let fileData: Uint8Array;
     let fileType: string;
@@ -133,11 +135,11 @@ export async function POST(request: NextRequest) {
     
     // Generera fil baserat på önskat format
     if (format === 'docx') {
-      fileData = await createDocxFromHtml(content, metadata);
+      fileData = await createDocxFromHtml(content, enhancedMetadata);
       fileType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
       fileName += '.docx';
     } else if (format === 'pdf') {
-      fileData = await createPdfFromHtml(content, metadata);
+      fileData = await createPdfFromHtml(content, enhancedMetadata);
       fileType = 'application/pdf';
       fileName += '.pdf';
     } else {

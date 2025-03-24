@@ -2,9 +2,9 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import Link from 'next/link';
 import { ArrowLeft, Pencil, AlertTriangle } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
 import { use } from 'react';
 
 export default function ViewCVPage({ params }: { params: Promise<{ id: string }> }) {
@@ -12,9 +12,9 @@ export default function ViewCVPage({ params }: { params: Promise<{ id: string }>
   const [loading, setLoading] = useState(true);
   const [cvData, setCvData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
   
-  // Med Next.js 15 ska vi unwrappa params med use()
+  // Unwrap params med React.use()
   const resolvedParams = use(params);
   const id = resolvedParams.id;
   
