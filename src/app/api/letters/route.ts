@@ -59,6 +59,21 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Ej autentiserad' }, { status: 401 });
     }
 
+    // Hämta användarens prenumerationsnivå
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('subscription_tier')
+      .eq('id', user.id)
+      .single();
+
+    if (profileError) {
+      console.error('Fel vid hämtning av användarprofil:', profileError);
+      return NextResponse.json(
+        { error: 'Kunde inte hämta användarprofil' }, 
+        { status: 500 }
+      );
+    }
+
     // Hämta begäransdata
     const letterData = await request.json();
     
@@ -70,27 +85,31 @@ export async function POST(request: Request) {
       );
     }
 
-    // Kontrollera om användaren har nått maxantalet brev
-    const { count, error: countError } = await supabase
-      .from('letters')
-      .select('id', { count: 'exact', head: true })
-      .eq('user_id', user.id)
-      .eq('is_saved', true);
-    
-    if (countError) {
-      console.error('Fel vid räkning av brev:', countError);
-      return NextResponse.json(
-        { error: 'Kunde inte verifiera antal brev' }, 
-        { status: 500 }
-      );
-    }
-    
-    // Om användaren redan har max antal brev, neka begäran
-    if (count !== null && count >= 10) {
-      return NextResponse.json(
-        { error: 'Du har nått maximal gräns på 10 sparade brev. Ta bort något brev först.' }, 
-        { status: 403 }
-      );
+    // För gratisanvändare: kontrollera om användaren har nått maxantalet brev (2)
+    if (profile.subscription_tier === 'free') {
+      const { count, error: countError } = await supabase
+        .from('letters')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user.id)
+        .eq('is_saved', true);
+      
+      if (countError) {
+        console.error('Fel vid räkning av brev:', countError);
+        return NextResponse.json(
+          { error: 'Kunde inte verifiera antal brev' }, 
+          { status: 500 }
+        );
+      }
+      
+      if (count !== null && count >= 2) {
+        return NextResponse.json(
+          { 
+            error: 'Som gratisanvändare kan du spara max 2 brev. Uppgradera till premium för obegränsad lagring.', 
+            code: 'SAVED_LETTERS_LIMIT'
+          }, 
+          { status: 403 }
+        );
+      }
     }
 
     // Spara brevet i databasen

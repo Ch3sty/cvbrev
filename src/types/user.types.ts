@@ -5,6 +5,9 @@ export interface Profile {
   phone?: string;
   preferred_tonality?: 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced';
   cv_path?: string;
+  subscription_tier?: 'free' | 'premium'; // Nytt fält för användartyp
+  weekly_letter_count?: number; // Nytt fält för veckogränsräknare
+  last_count_reset?: string; // Nytt fält för tidsstämpel av senaste återställning
   created_at?: string;
   updated_at?: string;
 }
@@ -19,4 +22,5 @@ export interface ProfileUpdateParams {
   full_name?: string;
   phone?: string;
   preferred_tonality?: 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced';
+  subscription_tier?: 'free' | 'premium'; // Möjlighet att uppdatera prenumerationsnivå
 }

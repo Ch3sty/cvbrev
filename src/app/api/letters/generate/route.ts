@@ -51,6 +51,40 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Ej autentiserad' }, { status: 401 });
     }
 
+    // Hämta användarprofil för att kontrollera prenumerationsnivå
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('subscription_tier, weekly_letter_count, last_count_reset')
+      .eq('id', user.id)
+      .single();
+
+    if (profileError) {
+      console.error('Fel vid hämtning av användarprofil:', profileError);
+      return NextResponse.json({ error: 'Kunde inte hämta användarprofil' }, { status: 500 });
+    }
+
+    // Återställ räknaren om det har gått mer än en vecka
+    const lastReset = profile.last_count_reset ? new Date(profile.last_count_reset) : new Date(0);
+    const now = new Date();
+    const oneWeek = 7 * 24 * 60 * 60 * 1000; // En vecka i millisekunder
+
+    let weeklyCount = profile.weekly_letter_count || 0;
+    let shouldResetCounter = false;
+
+    if (now.getTime() - lastReset.getTime() > oneWeek) {
+      // Mer än en vecka har gått, återställ räknaren
+      weeklyCount = 0;
+      shouldResetCounter = true;
+    }
+
+    // Kontrollera om användaren har nått sin veckogräns (endast för gratisanvändare)
+    if (profile.subscription_tier === 'free' && weeklyCount >= 5) {
+      return NextResponse.json({ 
+        error: 'Du har nått din veckogräns på 5 brev. Uppgradera till premium för obegränsad åtkomst.', 
+        code: 'WEEKLY_LIMIT_REACHED'
+      }, { status: 403 });
+    }
+
     // Hämta begäransdata (CV-ID, jobbannons, tonalitet, språk och om vi ska spara)
     const { cv_id, job_description, tonality, language = 'sv', save = false } = await request.json();
     
@@ -77,8 +111,18 @@ export async function POST(request: Request) {
       );
     }
     
-    // Om save=true och användaren redan har max antal brev, neka begäran
-    if (save && count !== null && count >= 10) {
+    // Om save=true och användaren är gratis och redan har max 2 brev, neka begäran
+    if (save && profile.subscription_tier === 'free' && count !== null && count >= 2) {
+      return NextResponse.json(
+        { 
+          error: 'Som gratisanvändare kan du spara max 2 brev. Uppgradera till premium för obegränsad lagring.', 
+          code: 'SAVED_LETTERS_LIMIT'
+        }, 
+        { status: 403 }
+      );
+    } 
+    // Om save=true och premium-användaren har max 10 brev, neka begäran
+    else if (save && count !== null && count >= 10) {
       return NextResponse.json(
         { error: 'Du har nått maximal gräns på 10 sparade brev. Ta bort något brev först.' }, 
         { status: 403 }
@@ -257,7 +301,10 @@ export async function POST(request: Request) {
           throw new Error('Kunde inte verifiera antal brev innan sparande');
         }
         
-        if (currentCount !== null && currentCount >= 10) {
+        // Kontrollera begränsningarna igen baserat på användartyp
+        if (profile.subscription_tier === 'free' && currentCount !== null && currentCount >= 2) {
+          throw new Error('Som gratisanvändare kan du spara max 2 brev. Uppgradera till premium för obegränsad lagring.');
+        } else if (currentCount !== null && currentCount >= 10) {
           throw new Error('Du har nått maximal gräns på 10 sparade brev. Ta bort något brev först.');
         }
         
@@ -293,12 +340,44 @@ export async function POST(request: Request) {
       promise: generationPromise
     });
     
+    // Öka brevräknaren och uppdatera senaste återställningstiden om det behövs för gratisanvändare
+    if (profile.subscription_tier === 'free') {
+      const updates: any = {
+        weekly_letter_count: shouldResetCounter ? 1 : weeklyCount + 1
+      };
+      
+      if (shouldResetCounter) {
+        updates.last_count_reset = new Date().toISOString();
+      }
+      
+      // Uppdatera räknaren
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update(updates)
+        .eq('id', user.id);
+      
+      if (updateError) {
+        console.error('Fel vid uppdatering av brevräknare:', updateError);
+      }
+    }
+    
     // Vänta på att genereringen slutförs
     try {
       const letterData = await generationPromise;
       
       // Ta bort från aktiva genereringar när den är klar
       activeGenerations.delete(requestKey);
+      
+      // För gratisanvändare, returnera också antalet återstående brev för veckan
+      if (profile.subscription_tier === 'free') {
+        const remainingLetters = 5 - (shouldResetCounter ? 1 : weeklyCount + 1);
+        return NextResponse.json({ 
+          success: true, 
+          data: letterData,
+          is_saved: save,
+          remainingLetters: remainingLetters >= 0 ? remainingLetters : 0
+        });
+      }
       
       return NextResponse.json({ 
         success: true, 
