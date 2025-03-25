@@ -11,6 +11,7 @@ import Link from 'next/link';
 // Import components
 import CVUploader from '@/components/cv/cv-uploader';
 import Notification from '@/components/ui/notification';
+import SubscriptionInfo from '@/components/subscription/subscription-info';
 
 // Import icons from Lucide
 import { 
@@ -30,13 +31,14 @@ import {
   Trophy,
   Scale,
   Bot,
-  Pencil
+  Pencil,
+  Crown // För prenumerationsfliken
 } from 'lucide-react';
 
 export default function ProfilePage() {
   const router = useRouter();
   const supabase = createClientComponentClient();
-  const { profile, loading: profileLoading, updateProfile } = useProfile();
+  const { profile, loading: profileLoading, updateProfile, subscriptionTier } = useProfile();
   // Korrigera användningen av useCVStore för att matcha det faktiska interfacet
   const { cvs, fetchCVs, isLoading: cvListLoading } = useCVStore();
   
@@ -45,6 +47,7 @@ export default function ProfilePage() {
   const maxCvCount = 5;
   const hasReachedCvLimit = cvCount >= maxCvCount;
   
+  // Lägg till 'subscription' som ett nytt tab-alternativ
   const [activeTab, setActiveTab] = useState('profile');
   const [saving, setSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -265,7 +268,7 @@ export default function ProfilePage() {
       <h1 className="text-3xl font-bold text-white mb-2">Min profil</h1>
       <p className="text-gray-300 mb-8">Hantera din profil, dina CV:n och inställningar</p>
       
-      {/* Tabs */}
+      {/* Tabs - Lägg till prenumerationstab */}
       <div className="mb-8 border-b border-gray-700">
         <div className="flex space-x-2">
           <button
@@ -290,6 +293,26 @@ export default function ProfilePage() {
           >
             <FileText className="w-5 h-5 mr-2" />
             <span>Mina CV:n</span>
+          </button>
+          
+          {/* Ny tab för prenumeration */}
+          <button
+            onClick={() => setActiveTab('subscription')}
+            className={`flex items-center px-4 py-2 rounded-t-lg ${
+              activeTab === 'subscription' 
+                ? 'text-pink-500 border-b-2 border-pink-500 font-medium' 
+                : 'text-gray-400 hover:text-white'
+            }`}
+          >
+            <Crown className="w-5 h-5 mr-2" />
+            <span>Prenumeration</span>
+            
+            {/* Visa en badge för Premium-användare */}
+            {subscriptionTier === 'premium' && (
+              <span className="ml-2 px-2 py-0.5 text-xs bg-yellow-500 text-gray-900 rounded-full font-medium">
+                Premium
+              </span>
+            )}
           </button>
           
           <button
@@ -367,8 +390,11 @@ export default function ProfilePage() {
                 Detta är din standard när du genererar nya brev
               </p>
               
-              <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-4">
-                {tonalityOptions.map((option) => (
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+                {tonalityOptions
+                  // Filtrera bort "auto" om användaren inte har premium
+                  .filter(option => !(option.value === 'auto' && subscriptionTier !== 'premium'))
+                  .map((option) => (
                   <button
                     key={option.value}
                     type="button"
@@ -379,13 +405,38 @@ export default function ProfilePage() {
                         ? 'border-pink-500 bg-pink-500/10 text-white'
                         : 'border-gray-700 bg-gray-700/50 text-gray-300 hover:bg-gray-700'
                       }
+                      ${option.value === 'auto' && subscriptionTier !== 'premium' ? 'opacity-50 cursor-not-allowed' : ''}
                     `}
+                    disabled={option.value === 'auto' && subscriptionTier !== 'premium'}
                   >
                     <div className="mb-1">{option.icon}</div>
-                    <span className="text-sm font-medium">{option.label}</span>
+                    <span className="text-sm font-medium">
+                      {option.label}
+                      {option.value === 'auto' && (
+                        <span className="ml-1 text-xs text-pink-400">(Premium)</span>
+                      )}
+                    </span>
                   </button>
                 ))}
               </div>
+              
+              {/* Om användaren väljer auto men inte har premium, visa en varning */}
+              {formData.preferred_tonality === 'auto' && subscriptionTier !== 'premium' && (
+                <div className="p-3 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-r mb-4">
+                  <div className="flex items-start">
+                    <AlertTriangle className="w-4 h-4 text-yellow-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <p className="text-yellow-200 text-sm">
+                      AI-optimerad tonalitet är endast tillgänglig för Premium-medlemmar. 
+                      <button 
+                        onClick={() => setActiveTab('subscription')}
+                        className="ml-1 text-pink-400 hover:text-pink-300"
+                      >
+                        Uppgradera nu
+                      </button>
+                    </p>
+                  </div>
+                </div>
+              )}
               
               <div className="p-4 border border-gray-700 rounded-md text-sm text-gray-300">
                 {tonalityOptions.find(opt => opt.value === formData.preferred_tonality)?.description || 'Välj en tonalitet ovan.'}
@@ -396,7 +447,7 @@ export default function ProfilePage() {
               <button
                 onClick={handleSaveProfile}
                 disabled={saving}
-                className="flex items-center justify-center w-full md:w-auto px-6 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700 font-medium transition-colors disabled:bg-gray-700 disabled:text-gray-400"
+                className="flex items-center justify-center w-full md:w-auto px-6 py-3 bg-pink-600 text-white rounded-md hover:bg-pink-700 font-medium transition-colors disabled:bg-gray-700 disabled:text-gray-400"
               >
                 {saving ? (
                   <>
@@ -423,6 +474,11 @@ export default function ProfilePage() {
       <h2 className="text-xl font-semibold mb-4 text-white flex items-center">
         <FileText className="w-5 h-5 mr-2 text-pink-500" />
         Dina CV:n
+        
+        {/* Visa prenumerationsinformation */}
+        <span className="ml-2 text-sm font-normal text-gray-400">
+          ({cvCount} / {subscriptionTier === 'premium' ? '∞' : '1'})
+        </span>
       </h2>
       
       {cvListLoading ? (
@@ -492,16 +548,48 @@ export default function ProfilePage() {
           ))}
         </div>
       )}
+      
+      {/* Visa information om prenumerationsbegränsningar */}
+      {subscriptionTier === 'free' && cvCount >= 1 && (
+        <div className="mt-4 p-4 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-r">
+          <div className="flex items-start">
+            <AlertTriangle className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0 mt-0.5" />
+            <div>
+              <p className="text-yellow-200">
+                Du har nått din gräns för antal CV:n som gratisanvändare.
+              </p>
+              <button 
+                onClick={() => setActiveTab('subscription')}
+                className="mt-2 text-pink-400 hover:text-pink-300 font-medium"
+              >
+                Uppgradera till Premium för obegränsat antal CV:n →
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
     
-    {/* CV Uploader - visas bara om maxgränsen inte har nåtts */}
-    {hasReachedCvLimit ? (
+    {/* CV Uploader - filtrera max antal baserat på prenumerationsnivå */}
+    {cvCount >= (subscriptionTier === 'premium' ? 999 : 1) ? (
       <div className="p-6 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-lg">
         <div className="flex items-start">
           <Info className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0 mt-0.5" />
-          <p className="text-yellow-200">
-            Du har nått maxgränsen på {maxCvCount} CV:n. För att ladda upp ett nytt CV, ta först bort ett befintligt.
-          </p>
+          <div>
+            <p className="text-yellow-200">
+              {subscriptionTier === 'premium' 
+                ? 'Du har nått max antal CV-uppladdningar. Ta bort något CV först.'
+                : 'Som gratisanvändare kan du bara ha 1 CV. För att ladda upp ett nytt CV, ta först bort det befintliga eller uppgradera till Premium.'}
+            </p>
+            {subscriptionTier === 'free' && (
+              <button 
+                onClick={() => setActiveTab('subscription')}
+                className="mt-2 text-pink-400 hover:text-pink-300 font-medium"
+              >
+                Uppgradera till Premium →
+              </button>
+            )}
+          </div>
         </div>
       </div>
     ) : (
@@ -513,69 +601,3 @@ export default function ProfilePage() {
     )}
   </div>
 )}
-      
-      {/* Settings Tab */}
-      {activeTab === 'settings' && (
-        <div className="bg-navy-800 rounded-lg p-6">
-          <h2 className="text-xl font-bold mb-6 text-white flex items-center">
-            <Settings className="w-5 h-5 mr-2 text-pink-500" />
-            Inställningar
-          </h2>
-          
-          <div className="border border-gray-700 rounded-lg p-4">
-            <h3 className="font-medium mb-3 text-white">Kontoinställningar</h3>
-            
-            <button
-              onClick={async () => {
-                await supabase.auth.signOut();
-                router.push('/');
-              }}
-              className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors flex items-center"
-            >
-              <LogOut className="w-5 h-5 mr-2" />
-              Logga ut
-            </button>
-          </div>
-        </div>
-      )}
-      
-      {/* Delete confirmation dialog */}
-      {showDeleteConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-navy-800 p-6 rounded-lg max-w-md">
-            <div className="flex items-start mb-4">
-              <AlertTriangle className="w-6 h-6 text-red-500 mr-3 flex-shrink-0" />
-              <h3 className="text-xl font-semibold text-white">Bekräfta borttagning</h3>
-            </div>
-            
-            <p className="mb-6 text-gray-300">
-              Är du säker på att du vill ta bort detta CV? Detta kan inte ångras.
-            </p>
-            
-            <div className="flex justify-end space-x-3">
-              <button
-                onClick={() => setShowDeleteConfirm(false)}
-                disabled={isDeleting}
-                className="px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600"
-              >
-                Avbryt
-              </button>
-              <button
-                onClick={confirmDeleteCV}
-                disabled={isDeleting}
-                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center"
-              >
-                {isDeleting ? (
-                  <>
-                    <div className="w-4 h-4 mr-2 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>
-                    Tar bort...
-                  </>
-                ) : 'Ta bort'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
