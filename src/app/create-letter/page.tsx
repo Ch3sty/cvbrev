@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCVStore } from '@/store/cv-store'
 import { useLetters } from '@/hooks/use-letters'
+import { useProfile } from '@/hooks/use-profile' // Ny import för prenumerationsdata
 import { 
   FileText, 
   Upload, 
@@ -16,9 +17,11 @@ import {
   Trophy, 
   Scale, 
   Bot,
-  Pencil, // För redigeringsknappen
-  Save,   // För sparaknappen
-  Check   // För "Sparat"-ikonen
+  Pencil,
+  Save,
+  Check,
+  AlertTriangle, // För varningsmeddelanden om begränsningar
+  Crown          // För premium-indikator
 } from 'lucide-react'
 import Notification from '@/components/ui/notification'
 
@@ -30,6 +33,7 @@ interface TonalityInfo {
   description: string;
   icon: React.ReactNode;
   recommendedFor: string;
+  premiumOnly?: boolean; // Ny flagga för premium-funktioner
 }
 
 // Tonalitetsbeskrivningar med mer utförlig information och Lucide-ikoner
@@ -68,7 +72,8 @@ const tonalityInfo: Record<Tonality, TonalityInfo> = {
     label: 'AI-val (Rekommenderas)',
     description: 'Låt AI analysera jobbannonsen och välja den bästa anpassade tonen baserat på bransch, företagskultur och tjänst.',
     icon: <Bot className="w-5 h-5 text-purple-400" />,
-    recommendedFor: 'Alla ansökningar för att maximera dina chanser att få jobbet.'
+    recommendedFor: 'Alla ansökningar för att maximera dina chanser att få jobbet.',
+    premiumOnly: true // Markera denna tonalitet som premium-exklusiv
   }
 };
 
@@ -76,10 +81,18 @@ export default function CreateLetterPage() {
   // Använd de anpassade hooks
   const { cvs, fetchCVs, isLoading: cvsLoading } = useCVStore();
   const { createLetter, saveLetter, isGenerating } = useLetters();
+  // Ny hook för prenumerationsinformation
+  const { 
+    subscriptionTier, 
+    remainingWeeklyLetters,
+    hasReachedLetterLimit, 
+    savedLettersCount,
+    maxSavedLetters
+  } = useProfile();
   
   const [selectedCV, setSelectedCV] = useState<string | null>(null)
   const [jobDescription, setJobDescription] = useState('')
-  const [tonality, setTonality] = useState<Tonality>('auto') // Default är nu 'auto'
+  const [tonality, setTonality] = useState<Tonality>('balanced') // Ändrat default till 'balanced' istället för 'auto'
   const [language, setLanguage] = useState<Language>('sv')
   const [generatedLetter, setGeneratedLetter] = useState<string | null>(null)
   const [letterData, setLetterData] = useState<any | null>(null)
@@ -122,6 +135,13 @@ export default function CreateLetterPage() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+  
+  // Om användaren har valt auto tonalitet men inte är premium, ändra till balanced
+  useEffect(() => {
+    if (tonality === 'auto' && subscriptionTier === 'free') {
+      setTonality('balanced');
+    }
+  }, [tonality, subscriptionTier]);
   
   // Hämta användarens CV:n vid sidladdning, men bara en gång
   useEffect(() => {
@@ -175,6 +195,13 @@ export default function CreateLetterPage() {
       return;
     }
     
+    // För gratisanvändare, kontrollera om de har nått sin veckogräns
+    if (subscriptionTier === 'free' && remainingWeeklyLetters <= 0) {
+      setError('Du har nått din veckogräns för brevgenerering. Uppgradera till premium för obegränsad användning.');
+      showNotification('error', 'Veckogräns nådd. Uppgradera till premium för obegränsad användning.', 5000);
+      return;
+    }
+    
     // Förhindra genereringar som sker för nära varandra i tid (3 sekunder)
     const now = Date.now();
     if (now - lastGenerationAttemptRef.current < 3000) {
@@ -200,8 +227,7 @@ export default function CreateLetterPage() {
     
     // Visa notifikation för användaren
     showNotification('loading', 'Genererar ditt brev...');
-    
-    try {
+	try {
       // Skapa en säkerhetstimer som återställer UI efter 45 sekunder
       // om något går fel och flaggorna inte återställs
       const safetyTimer = setTimeout(() => {
@@ -240,7 +266,16 @@ export default function CreateLetterPage() {
       setGeneratedLetter(result.content);
       setLetterData(result);
       
-      showNotification('success', 'Brevet har genererats!', 3000);
+      // Visa återstående brev om det är en gratisanvändare
+      if (subscriptionTier === 'free' && result.remainingLetters !== undefined) {
+        const remainingText = result.remainingLetters === 0 
+          ? 'Du har nått din gräns för denna vecka.' 
+          : `Du har ${result.remainingLetters} genererade brev kvar denna vecka.`;
+        
+        showNotification('success', `Brevet har genererats! ${remainingText}`, 5000);
+      } else {
+        showNotification('success', 'Brevet har genererats!', 3000);
+      }
     } catch (error: any) {
       closeNotification();
       showNotification('error', 'Ett fel uppstod vid generering av brevet', 5000);
@@ -250,11 +285,18 @@ export default function CreateLetterPage() {
       generationInProgressRef.current = false;
       setIsSubmitting(false);
     }
-  }, [selectedCV, jobDescription, tonality, language, isGenerating, isSubmitting, createLetter, showNotification, closeNotification]);
+  }, [selectedCV, jobDescription, tonality, language, isGenerating, isSubmitting, createLetter, showNotification, closeNotification, subscriptionTier, remainingWeeklyLetters]);
   
   // Funktion för att spara brevet till databasen
   const handleSaveLetter = useCallback(async () => {
     if (!letterData) return;
+    
+    // Kontrollera om användaren har nått sin gräns för sparade brev
+    if (hasReachedLetterLimit || (subscriptionTier === 'free' && savedLettersCount >= maxSavedLetters)) {
+      showNotification('error', `Som ${subscriptionTier === 'free' ? 'gratisanvändare' : 'användare'} kan du max spara ${maxSavedLetters} brev. Radera något brev eller uppgradera till premium.`, 5000);
+      setError(`Du har nått maxgränsen på ${maxSavedLetters} sparade brev. Radera ett brev eller uppgradera.`);
+      return;
+    }
     
     try {
       setIsSaving(true);
@@ -277,12 +319,17 @@ export default function CreateLetterPage() {
       }
     } catch (error: any) {
       closeNotification();
-      showNotification('error', 'Kunde inte spara brevet', 5000);
+      // Kontrollera om felet är gränsrelaterat
+      if (error.message && error.message.includes('maximal gräns')) {
+        showNotification('error', error.message, 5000);
+      } else {
+        showNotification('error', 'Kunde inte spara brevet', 5000);
+      }
       setError(error.message || 'Kunde inte spara brevet.');
     } finally {
       setIsSaving(false);
     }
-  }, [letterData, saveLetter, showNotification, closeNotification]);
+  }, [letterData, saveLetter, showNotification, closeNotification, hasReachedLetterLimit, subscriptionTier, savedLettersCount, maxSavedLetters]);
   
   // Funktion för att navigera till redigeringssidan efter att brevet sparats
   const handleEdit = useCallback(() => {
@@ -293,6 +340,11 @@ export default function CreateLetterPage() {
       setError('Brevet måste sparas innan det kan redigeras.');
     }
   }, [letterData, router, showNotification]);
+  
+  // Funktion för navigering till uppgraderingssidan
+  const handleUpgrade = useCallback(() => {
+    router.push('/profile?tab=subscription');
+  }, [router]);
   
   // Beräkna om knappen ska vara inaktiverad
   const isButtonDisabled = isGenerating || isSubmitting || !selectedCV || !jobDescription;
@@ -312,6 +364,49 @@ export default function CreateLetterPage() {
       <p className="mb-8 text-gray-300">
         Välj ditt CV och klistra in jobbannonsen för att generera ett personligt brev
       </p>
+      
+      {/* Visa återstående brev för gratisanvändare */}
+      {subscriptionTier === 'free' && (
+        <div className="mb-6 p-4 bg-navy-800 rounded-lg border border-gray-700">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <MessageSquare className="w-5 h-5 mr-2 text-pink-500" />
+              <span className="text-white font-medium">Genererade brev denna vecka</span>
+            </div>
+            <div className="flex items-center">
+              <span className="text-white">
+                <span className={remainingWeeklyLetters <= 1 ? 'text-red-400' : ''}>
+                  {5 - remainingWeeklyLetters}
+                </span> / 5
+              </span>
+              {remainingWeeklyLetters <= 1 && (
+                <button 
+                  onClick={handleUpgrade}
+                  className="ml-3 px-3 py-1 bg-pink-600 hover:bg-pink-700 text-white text-sm rounded-md flex items-center"
+                >
+                  <Crown className="w-3 h-3 mr-1" />
+                  Uppgradera
+                </button>
+              )}
+            </div>
+          </div>
+          
+          {remainingWeeklyLetters <= 2 && (
+            <div className="mt-3 text-sm text-yellow-400 flex items-start">
+              <AlertTriangle className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
+              <span>
+                Du har endast {remainingWeeklyLetters} {remainingWeeklyLetters === 1 ? 'brev' : 'brev'} kvar denna vecka. 
+                <button 
+                  onClick={handleUpgrade}
+                  className="ml-1 text-pink-400 hover:text-pink-300 underline"
+                >
+                  Uppgradera till premium
+                </button> för obegränsad användning.
+              </span>
+            </div>
+          )}
+        </div>
+      )}
       
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         <div className="space-y-6">
@@ -406,18 +501,32 @@ export default function CreateLetterPage() {
                       <div key={value} className="border-b border-gray-700 last:border-0">
                         <button
                           onClick={() => {
-                            setTonality(value);
-                            setIsTonalityOpen(false);
+                            // Om detta är en premium-funktion och användaren inte har premium, visa en varning
+                            if (info.premiumOnly && subscriptionTier === 'free') {
+                              showNotification('info', 'Den här tonaliteten är endast tillgänglig för premium-användare', 3000);
+                            } else {
+                              setTonality(value);
+                              setIsTonalityOpen(false);
+                            }
                           }}
-                          className={`flex items-center w-full p-3 text-left hover:bg-navy-600 ${
-                            tonality === value ? 'bg-navy-600' : ''
-                          }`}
+                          disabled={info.premiumOnly && subscriptionTier === 'free'}
+                          className={`flex items-center w-full p-3 text-left hover:bg-navy-600 
+                            ${tonality === value ? 'bg-navy-600' : ''}
+                            ${info.premiumOnly && subscriptionTier === 'free' ? 'opacity-70 cursor-not-allowed' : ''}
+                          `}
                         >
                           <div className="flex-shrink-0">{info.icon}</div>
-                          <div className="ml-3">
-                            <p className={`font-medium ${tonality === value ? 'text-pink-400' : 'text-white'}`}>
-                              {info.label}
-                            </p>
+                          <div className="ml-3 flex-1">
+                            <div className="flex items-center">
+                              <p className={`font-medium ${tonality === value ? 'text-pink-400' : 'text-white'}`}>
+                                {info.label}
+                              </p>
+                              {info.premiumOnly && (
+                                <span className="ml-2 px-2 py-0.5 text-xs bg-yellow-500 text-black rounded-full font-medium">
+                                  Premium
+                                </span>
+                              )}
+                            </div>
                             <p className="text-sm text-gray-400 mt-1">{info.description}</p>
                           </div>
                         </button>
@@ -491,10 +600,31 @@ export default function CreateLetterPage() {
             </div>
           )}
           
+          {/* Visa premium-uppgraderingsnotis för gratisanvändare */}
+          {subscriptionTier === 'free' && (
+            <div className="p-4 bg-navy-700 rounded-lg border border-yellow-500/30">
+              <div className="flex items-start">
+                <Crown className="w-5 h-5 text-yellow-400 mr-3 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-white text-sm">
+                    Uppgradera till Premium för obegränsad användning och alla funktioner, inklusive AI-optimerad tonalitet.
+                  </p>
+                  <button 
+                    onClick={handleUpgrade}
+                    className="mt-2 px-3 py-1 bg-pink-600 hover:bg-pink-700 text-white text-sm rounded-md flex items-center"
+                  >
+                    <Crown className="w-3 h-3 mr-1" />
+                    Uppgradera nu
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+          
           {/* Genereringsknapp */}
           <button
             onClick={generateLetter}
-            disabled={isButtonDisabled}
+            disabled={isButtonDisabled || (subscriptionTier === 'free' && remainingWeeklyLetters <= 0)}
             className="w-full py-3 font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 disabled:bg-gray-600 disabled:cursor-not-allowed transition-all"
             aria-label={isGenerating || isSubmitting ? "Genererar brev..." : "Skapa ansökningsbrev"}
           >
@@ -505,6 +635,11 @@ export default function CreateLetterPage() {
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
                 Genererar...
+              </span>
+            ) : subscriptionTier === 'free' && remainingWeeklyLetters <= 0 ? (
+              <span className="flex items-center justify-center">
+                <AlertTriangle className="w-5 h-5 mr-2" />
+                Veckogräns nådd
               </span>
             ) : (
               <span className="flex items-center justify-center">
@@ -538,12 +673,12 @@ export default function CreateLetterPage() {
                 <div className="prose max-w-none text-gray-800" dangerouslySetInnerHTML={{ __html: generatedLetter.replace(/\n/g, '<br />') }} />
               </div>
               
-              {/* Åtgärdsknappar för att spara/redigera brevet - Nedladdningsknappar borttagna */}
+              {/* Åtgärdsknappar för att spara/redigera brevet */}
               <div className="flex flex-wrap gap-2">
                 {/* Spara-knapp */}
                 <button
                   onClick={handleSaveLetter}
-                  disabled={isSaving || (letterData && letterData.is_saved)}
+                  disabled={isSaving || (letterData && letterData.is_saved) || hasReachedLetterLimit}
                   className="px-4 py-2 font-medium text-white bg-green-600 rounded-md hover:bg-green-700 disabled:bg-gray-600 disabled:cursor-not-allowed flex items-center"
                 >
                   {isSaving ? (
@@ -558,6 +693,11 @@ export default function CreateLetterPage() {
                     <>
                       <Check className="w-4 h-4 mr-2" />
                       Sparat
+                    </>
+                  ) : hasReachedLetterLimit ? (
+                    <>
+                      <AlertTriangle className="w-4 h-4 mr-2" />
+                      Brev gräns nådd
                     </>
                   ) : (
                     <>
@@ -576,7 +716,32 @@ export default function CreateLetterPage() {
                   <Pencil className="w-4 h-4 mr-2" />
                   Redigera
                 </button>
+                
+                {/* Om användaren har nått sin brevgräns, visa en uppgraderingsknapp */}
+                {hasReachedLetterLimit && subscriptionTier === 'free' && (
+                  <button
+                    onClick={handleUpgrade}
+                    className="px-4 py-2 font-medium text-white bg-yellow-600 rounded-md hover:bg-yellow-700 flex items-center"
+                  >
+                    <Crown className="w-4 h-4 mr-2" />
+                    Uppgradera till Premium
+                  </button>
+                )}
               </div>
+              
+              {/* Om användaren har nått sin gräns, visa en notis */}
+              {hasReachedLetterLimit && (
+                <div className="mt-4 p-3 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-r text-sm">
+                  <div className="flex items-start">
+                    <AlertTriangle className="w-4 h-4 text-yellow-500 mr-2 flex-shrink-0 mt-0.5" />
+                    <p className="text-yellow-200">
+                      {subscriptionTier === 'free' 
+                        ? `Som gratisanvändare kan du spara max ${maxSavedLetters} brev. Uppgradera till premium för obegränsad lagring eller radera något brev.` 
+                        : `Du har nått maxgränsen på ${maxSavedLetters} sparade brev. Radera något brev för att frigöra plats.`}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center h-64 text-center">

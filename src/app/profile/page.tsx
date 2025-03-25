@@ -66,7 +66,6 @@ export default function ProfilePage() {
     preferred_tonality: 'professional'
   });
   
-  
   // Tonalitet options with icons (matching the ones from create-letter page)
   const tonalityOptions = [
     { 
@@ -466,138 +465,206 @@ export default function ProfilePage() {
         </div>
       )}
       
-     {/* CV Tab */}
-{activeTab === 'cv' && (
-  <div className="space-y-6">
-    {/* CV List */}
-    <div className="bg-navy-800 rounded-lg p-6">
-      <h2 className="text-xl font-semibold mb-4 text-white flex items-center">
-        <FileText className="w-5 h-5 mr-2 text-pink-500" />
-        Dina CV:n
-        
-        {/* Visa prenumerationsinformation */}
-        <span className="ml-2 text-sm font-normal text-gray-400">
-          ({cvCount} / {subscriptionTier === 'premium' ? '∞' : '1'})
-        </span>
-      </h2>
-      
-      {cvListLoading ? (
-        <div className="flex justify-center items-center h-40">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-pink-500"></div>
-        </div>
-      ) : cvs.length === 0 ? (
-        <div className="border border-gray-700 border-dashed rounded-lg p-4 bg-navy-900/50">
-          <div className="flex flex-col items-center justify-center h-20 text-gray-400">
-            <div className="text-2xl mb-2">📄</div>
-            <p className="text-sm">Ingen CV uppladdad</p>
-          </div>
-        </div>
-      ) : (
-        <div className="space-y-4">
-          {cvs.map((cv) => (
-            <div 
-              key={cv.id} 
-              className="border border-gray-700 bg-navy-800 rounded-lg p-4 transition-all hover:border-pink-500 hover:shadow-lg"
-            >
-              <div className="flex items-start">
-                <div className="p-2 bg-pink-600 rounded-md mr-4 flex-shrink-0">
-                  <FileText className="w-5 h-5 text-white" />
+      {/* CV Tab */}
+      {activeTab === 'cv' && (
+        <div className="space-y-6">
+          {/* CV List */}
+          <div className="bg-navy-800 rounded-lg p-6">
+            <h2 className="text-xl font-semibold mb-4 text-white flex items-center">
+              <FileText className="w-5 h-5 mr-2 text-pink-500" />
+              Dina CV:n
+              
+              {/* Visa prenumerationsinformation */}
+              <span className="ml-2 text-sm font-normal text-gray-400">
+                ({cvCount} / {subscriptionTier === 'premium' ? '∞' : '1'})
+              </span>
+            </h2>
+            
+            {cvListLoading ? (
+              <div className="flex justify-center items-center h-40">
+                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-pink-500"></div>
+              </div>
+            ) : cvs.length === 0 ? (
+              <div className="border border-gray-700 border-dashed rounded-lg p-4 bg-navy-900/50">
+                <div className="flex flex-col items-center justify-center h-20 text-gray-400">
+                  <div className="text-2xl mb-2">📄</div>
+                  <p className="text-sm">Ingen CV uppladdad</p>
                 </div>
-                
-                <div className="flex-grow">
-                  <h3 className="font-medium mb-1 text-white">{cv.file_name}</h3>
-                  
-                  {cv.created_at && (
-                    <p className="text-xs text-gray-400 mb-3">
-                      Uppdaterad: {new Date(cv.created_at).toLocaleDateString('sv-SE')}
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {cvs.map((cv) => (
+                  <div 
+                    key={cv.id} 
+                    className="border border-gray-700 bg-navy-800 rounded-lg p-4 transition-all hover:border-pink-500 hover:shadow-lg"
+                  >
+                    <div className="flex items-start">
+                      <div className="p-2 bg-pink-600 rounded-md mr-4 flex-shrink-0">
+                        <FileText className="w-5 h-5 text-white" />
+                      </div>
+                      
+                      <div className="flex-grow">
+                        <h3 className="font-medium mb-1 text-white">{cv.file_name}</h3>
+                        
+                        {cv.created_at && (
+                          <p className="text-xs text-gray-400 mb-3">
+                            Uppdaterad: {new Date(cv.created_at).toLocaleDateString('sv-SE')}
+                          </p>
+                        )}
+                        
+                        {/* Knapparna för att Visa, Redigera och Ta bort CV */}
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {/* Visa CV */}
+                          <Link
+                            href={`/profile/cv/${cv.id}`}
+                            className="inline-flex items-center px-3 py-1 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
+                          >
+                            <ExternalLink className="w-4 h-4 mr-1" />
+                            Visa CV
+                          </Link>
+
+                          {/* Redigera CV */}
+                          <Link
+                            href={`/profile/cv/${cv.id}/edit`}
+                            className="inline-flex items-center px-3 py-1 text-sm bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors"
+                          >
+                            <Pencil className="w-4 h-4 mr-1" />
+                            Redigera
+                          </Link>
+
+                          {/* Ta bort CV */}
+                          <button
+                            onClick={() => handleDeleteCV(cv.id)}
+                            className="inline-flex items-center px-3 py-1 text-sm bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"
+                          >
+                            <Trash className="w-4 h-4 mr-1" />
+                            Ta bort
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+            
+            {/* Visa information om prenumerationsbegränsningar */}
+            {subscriptionTier === 'free' && cvCount >= 1 && (
+              <div className="mt-4 p-4 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-r">
+                <div className="flex items-start">
+                  <AlertTriangle className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-yellow-200">
+                      Du har nått din gräns för antal CV:n som gratisanvändare.
                     </p>
+                    <button 
+                      onClick={() => setActiveTab('subscription')}
+                      className="mt-2 text-pink-400 hover:text-pink-300 font-medium"
+                    >
+                      Uppgradera till Premium för obegränsat antal CV:n →
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+          
+          {/* CV Uploader - filtrera max antal baserat på prenumerationsnivå */}
+          {cvCount >= (subscriptionTier === 'premium' ? 999 : 1) ? (
+            <div className="p-6 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-lg">
+              <div className="flex items-start">
+                <Info className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-yellow-200">
+                    {subscriptionTier === 'premium' 
+                      ? 'Du har nått max antal CV-uppladdningar. Ta bort något CV först.'
+                      : 'Som gratisanvändare kan du bara ha 1 CV. För att ladda upp ett nytt CV, ta först bort det befintliga eller uppgradera till Premium.'}
+                  </p>
+                  {subscriptionTier === 'free' && (
+                    <button 
+                      onClick={() => setActiveTab('subscription')}
+                      className="mt-2 text-pink-400 hover:text-pink-300 font-medium"
+                    >
+                      Uppgradera till Premium →
+                    </button>
                   )}
-                  
-                  {/* Knapparna för att Visa, Redigera och Ta bort CV */}
-<div className="flex flex-wrap gap-2 mt-2">
-  {/* Visa CV */}
-<Link
-  href={`/profile/cv/${cv.id}`}
-  className="inline-flex items-center px-3 py-1 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
->
-  <ExternalLink className="w-4 h-4 mr-1" />
-  Visa CV
-</Link>
-
-{/* Redigera CV */}
-<Link
-  href={`/profile/cv/${cv.id}/edit`}
-  className="inline-flex items-center px-3 py-1 text-sm bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors"
->
-  <Pencil className="w-4 h-4 mr-1" />
-  Redigera
-</Link>
-
-{/* Ta bort CV */}
-<button
-  onClick={() => handleDeleteCV(cv.id)}
-  className="inline-flex items-center px-3 py-1 text-sm bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"
->
-  <Trash className="w-4 h-4 mr-1" />
-  Ta bort
-</button>
-</div>
                 </div>
               </div>
             </div>
-          ))}
+          ) : (
+            <CVUploader 
+              onSuccess={handleUploadSuccess}
+              onError={handleUploadError}
+              showNotification={showNotificationMessage}
+            />
+          )}
+        </div>
+      )}
+
+      {/* Subscription Tab */}
+      {activeTab === 'subscription' && (
+        <SubscriptionInfo />
+      )}
+      
+      {/* Settings Tab */}
+      {activeTab === 'settings' && (
+        <div className="bg-navy-800 rounded-lg p-6">
+          <h2 className="text-xl font-bold mb-6 text-white flex items-center">
+            <Settings className="w-5 h-5 mr-2 text-pink-500" />
+            Inställningar
+          </h2>
+          
+          <div className="space-y-6">
+            <div className="border-t border-gray-700 pt-6">
+              <button
+                onClick={async () => {
+                  await supabase.auth.signOut();
+                  router.push('/login');
+                }}
+                className="flex items-center px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+              >
+                <LogOut className="w-5 h-5 mr-2" />
+                Logga ut
+              </button>
+            </div>
+          </div>
         </div>
       )}
       
-      {/* Visa information om prenumerationsbegränsningar */}
-      {subscriptionTier === 'free' && cvCount >= 1 && (
-        <div className="mt-4 p-4 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-r">
-          <div className="flex items-start">
-            <AlertTriangle className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0 mt-0.5" />
-            <div>
-              <p className="text-yellow-200">
-                Du har nått din gräns för antal CV:n som gratisanvändare.
-              </p>
-              <button 
-                onClick={() => setActiveTab('subscription')}
-                className="mt-2 text-pink-400 hover:text-pink-300 font-medium"
+      {/* Delete confirmation modal */}
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-navy-800 rounded-lg p-6 max-w-md w-full">
+            <h3 className="text-xl font-semibold text-white mb-4">Bekräfta borttagning</h3>
+            <p className="text-gray-300 mb-6">
+              Är du säker på att du vill ta bort detta CV? Detta kan inte ångras.
+            </p>
+            <div className="flex justify-end space-x-3">
+              <button
+                onClick={() => setShowDeleteConfirm(false)}
+                className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700"
+                disabled={isDeleting}
               >
-                Uppgradera till Premium för obegränsat antal CV:n →
+                Avbryt
+              </button>
+              <button
+                onClick={confirmDeleteCV}
+                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center"
+                disabled={isDeleting}
+              >
+                {isDeleting ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white mr-2"></div>
+                    Tar bort...
+                  </>
+                ) : (
+                  'Ta bort'
+                )}
               </button>
             </div>
           </div>
         </div>
       )}
     </div>
-    
-    {/* CV Uploader - filtrera max antal baserat på prenumerationsnivå */}
-    {cvCount >= (subscriptionTier === 'premium' ? 999 : 1) ? (
-      <div className="p-6 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-lg">
-        <div className="flex items-start">
-          <Info className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0 mt-0.5" />
-          <div>
-            <p className="text-yellow-200">
-              {subscriptionTier === 'premium' 
-                ? 'Du har nått max antal CV-uppladdningar. Ta bort något CV först.'
-                : 'Som gratisanvändare kan du bara ha 1 CV. För att ladda upp ett nytt CV, ta först bort det befintliga eller uppgradera till Premium.'}
-            </p>
-            {subscriptionTier === 'free' && (
-              <button 
-                onClick={() => setActiveTab('subscription')}
-                className="mt-2 text-pink-400 hover:text-pink-300 font-medium"
-              >
-                Uppgradera till Premium →
-              </button>
-            )}
-          </div>
-        </div>
-      </div>
-    ) : (
-      <CVUploader 
-        onSuccess={handleUploadSuccess}
-        onError={handleUploadError}
-        showNotification={showNotificationMessage}
-      />
-    )}
-  </div>
-)}
+  );
+}
