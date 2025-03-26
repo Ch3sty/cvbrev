@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Profile, ProfileUpdateParams, CV } from '@/types/user.types';
 
@@ -31,6 +31,11 @@ export const useProfile = () => {
   const [lastCountReset, setLastCountReset] = useState<string | null>(null);
   const [remainingWeeklyLetters, setRemainingWeeklyLetters] = useState<number>(5);
   const [isUpgrading, setIsUpgrading] = useState<boolean>(false);
+  
+  // Ny state för återställningsdatum och nedräkning
+  const [nextResetDate, setNextResetDate] = useState<Date | null>(null);
+  const [timeUntilReset, setTimeUntilReset] = useState<string>('');
+  const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
   
   // CV-relaterad state
   const [cvCount, setCvCount] = useState(0);
@@ -83,6 +88,83 @@ export const useProfile = () => {
       setWeeklyLetterCount(newCount);
     }
   }, [subscriptionTier]);
+  
+  // NY FUNKTION: Beräkna nästa återställningsdatum baserat på senaste återställningen
+  const calculateNextResetDate = useCallback((lastResetTimestamp: string | null): Date => {
+    // Om det inte finns någon senaste återställning, använd nuvarande tid som bas
+    const lastReset = lastResetTimestamp ? new Date(lastResetTimestamp) : new Date();
+    
+    // Beräkna nästa återställningsdatum (7 dagar från senaste återställning)
+    const nextReset = new Date(lastReset);
+    nextReset.setDate(nextReset.getDate() + 7);
+    
+    return nextReset;
+  }, []);
+  
+  // NY FUNKTION: Formatera kvarvarande tid till nästa återställning på ett läsbart sätt
+  const formatTimeRemaining = useCallback((targetDate: Date): string => {
+    const now = new Date();
+    const diffMs = targetDate.getTime() - now.getTime();
+    
+    // Om datumet är i det förflutna, returnera ett meddelande
+    if (diffMs <= 0) return 'nu';
+    
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const diffHours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+    
+    if (diffDays > 0) {
+      return `${diffDays} dag${diffDays > 1 ? 'ar' : ''} ${diffHours} tim`;
+    } else if (diffHours > 0) {
+      return `${diffHours} tim ${diffMinutes} min`;
+    } else {
+      return `${diffMinutes} min`;
+    }
+  }, []);
+  
+  // NY FUNKTION: Uppdatera timern för nedräkning
+  const startResetTimer = useCallback(() => {
+    if (!nextResetDate) return;
+    
+    // Uppdatera kvarvarande tid omedelbart
+    setTimeUntilReset(formatTimeRemaining(nextResetDate));
+    
+    // Rensa eventuell befintlig timer
+    if (timerIntervalRef.current) {
+      clearInterval(timerIntervalRef.current);
+    }
+    
+    // Sätt upp intervall för att uppdatera varje minut
+    const interval = setInterval(() => {
+      const now = new Date();
+      
+      // Om vi har passerat återställningsdatumet, bör vi uppdatera profilen
+      if (now >= nextResetDate) {
+        clearInterval(interval);
+        fetchProfile(); // Uppdatera profil för att få aktuella värden
+      } else {
+        setTimeUntilReset(formatTimeRemaining(nextResetDate));
+      }
+    }, 60000); // Uppdatera varje minut
+    
+    timerIntervalRef.current = interval;
+    
+    // Städa upp intervallet när komponenten avmonteras
+    return () => {
+      if (timerIntervalRef.current) {
+        clearInterval(timerIntervalRef.current);
+      }
+    };
+  }, [nextResetDate, formatTimeRemaining, fetchProfile]);
+  
+  // NY FUNKTION: Uppdatera nästa återställningsdatum
+  const updateNextResetDate = useCallback((newResetDate: Date) => {
+    setNextResetDate(newResetDate);
+    setTimeUntilReset(formatTimeRemaining(newResetDate));
+    
+    // Starta om timern med nytt datum
+    startResetTimer();
+  }, [formatTimeRemaining, startResetTimer]);
   
   // Funktion för att hämta sparade brev för användaren
   const fetchSavedLettersCount = useCallback(async () => {
@@ -234,6 +316,14 @@ export const useProfile = () => {
           calculateRemainingLetters(tier, data.weekly_letter_count || 0)
         );
         
+        // Beräkna och sätt nästa återställningsdatum
+        const nextReset = calculateNextResetDate(data.last_count_reset);
+        setNextResetDate(nextReset);
+        setTimeUntilReset(formatTimeRemaining(nextReset));
+        
+        // Starta timer för att uppdatera kvarvarande tid
+        startResetTimer();
+        
         // Hämta CV-information från API
         await fetchCvInfo();
         
@@ -253,7 +343,7 @@ export const useProfile = () => {
     } finally {
       setLoading(false);
     }
-  }, [supabase, fetchCvInfo, fetchCvCount, fetchSavedLettersCount, calculateRemainingLetters]);
+  }, [supabase, fetchCvInfo, fetchCvCount, fetchSavedLettersCount, calculateRemainingLetters, calculateNextResetDate, formatTimeRemaining, startResetTimer]);
   
   // Uppdatera profil
   const updateProfile = async (profileData: ProfileUpdateParams) => {
@@ -302,6 +392,17 @@ export const useProfile = () => {
           setRemainingWeeklyLetters(calculateRemainingLetters(profileData.subscription_tier, weeklyLetterCount));
         }
         
+        // Om next_reset_date eller last_count_reset uppdateras, uppdatera timer
+        if (profileData.next_reset_date || profileData.last_count_reset) {
+          const newResetDate = profileData.next_reset_date 
+            ? new Date(profileData.next_reset_date)
+            : calculateNextResetDate(profileData.last_count_reset || data[0].last_count_reset);
+          
+          setNextResetDate(newResetDate);
+          setTimeUntilReset(formatTimeRemaining(newResetDate));
+          startResetTimer();
+        }
+        
         return true;
       }
       
@@ -311,6 +412,22 @@ export const useProfile = () => {
       return false;
     }
   };
+  
+  // Stäng av timer när komponenten avmonteras
+  useEffect(() => {
+    return () => {
+      if (timerIntervalRef.current) {
+        clearInterval(timerIntervalRef.current);
+      }
+    };
+  }, []);
+  
+  // Starta timer när nextResetDate ändras
+  useEffect(() => {
+    if (nextResetDate) {
+      startResetTimer();
+    }
+  }, [nextResetDate, startResetTimer]);
   
   // Uppdatera prenumerationsnivå
   const upgradeSubscription = async (newTier: 'premium') => {
@@ -546,6 +663,10 @@ return {
   subscriptionLimits: SUBSCRIPTION_LIMITS,
   formatLimit,
   
+  // Timer-relaterad information
+  nextResetDate,
+  timeUntilReset,
+  
   // Funktioner
   updateProfile, 
   uploadCV,
@@ -553,6 +674,7 @@ return {
   deleteCVById,
   setGdprConsent: setGdprConsentValue,
   refreshProfile: fetchProfile,
+  updateNextResetDate,
   
   // Prenumerationsuppgraderingsfunktioner
   upgradeSubscription,

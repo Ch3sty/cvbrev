@@ -10,6 +10,53 @@ const activeGenerations = new Map<string, { startTime: number, promise: Promise<
 // Tidsperioder
 const GENERATION_TIMEOUT_MS = 60000; // 60 sekunder max för en generering
 
+/**
+ * Kontrollerar om veckogränsen behöver nollställas och beräknar nästa nollställningsdatum
+ */
+function checkWeeklyReset(lastResetStr: string | null, currentCount: number): { 
+  shouldReset: boolean, 
+  newCount: number, 
+  nextResetDate: Date 
+} {
+  const now = new Date();
+  
+  // Om det inte finns något senaste återställningsdatum, behöver vi återställa
+  if (!lastResetStr) {
+    const nextReset = new Date(now);
+    nextReset.setDate(nextReset.getDate() + 7); // Nästa återställning om 7 dagar
+    return { 
+      shouldReset: true, 
+      newCount: 1, // Börja med 1 eftersom vi håller på att generera ett brev
+      nextResetDate: nextReset
+    };
+  }
+  
+  const lastReset = new Date(lastResetStr);
+  // Beräkna tidsskillnaden i millisekunder
+  const timeDiff = now.getTime() - lastReset.getTime();
+  const daysDiff = timeDiff / (1000 * 3600 * 24);
+  
+  // Om det har gått 7 dagar eller mer sedan senaste återställning
+  if (daysDiff >= 7) {
+    const nextReset = new Date(now);
+    nextReset.setDate(nextReset.getDate() + 7); // Nästa återställning om 7 dagar från idag
+    return { 
+      shouldReset: true, 
+      newCount: 1, // Börja med 1 för detta nya brev
+      nextResetDate: nextReset 
+    };
+  }
+  
+  // Ingen återställning behövs, öka bara räknaren
+  const nextReset = new Date(lastReset);
+  nextReset.setDate(nextReset.getDate() + 7); // Nästa återställning är 7 dagar från senaste återställning
+  return { 
+    shouldReset: false, 
+    newCount: currentCount + 1,
+    nextResetDate: nextReset
+  };
+}
+
 // Hjälpfunktion för att rensa gamla cache-poster
 function cleanupCache() {
   const now = Date.now();
@@ -43,7 +90,7 @@ export async function POST(request: Request) {
     // Hämta användarprofil för att kontrollera prenumerationsnivå
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
-      .select('subscription_tier, weekly_letter_count, last_count_reset')
+      .select('subscription_tier, weekly_letter_count, last_count_reset, next_reset_date')
       .eq('id', user.id)
       .single();
 
@@ -52,25 +99,18 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Kunde inte hämta användarprofil' }, { status: 500 });
     }
 
-    // Återställ räknaren om det har gått mer än en vecka
-    const lastReset = profile.last_count_reset ? new Date(profile.last_count_reset) : new Date(0);
-    const now = new Date();
-    const oneWeek = 7 * 24 * 60 * 60 * 1000; // En vecka i millisekunder
-
-    let weeklyCount = profile.weekly_letter_count || 0;
-    let shouldResetCounter = false;
-
-    if (now.getTime() - lastReset.getTime() > oneWeek) {
-      // Mer än en vecka har gått, återställ räknaren
-      weeklyCount = 0;
-      shouldResetCounter = true;
-    }
+    // Kontrollera om veckogränsen behöver nollställas med den nya hjälpfunktionen
+    const { shouldReset, newCount, nextResetDate } = checkWeeklyReset(
+      profile.last_count_reset,
+      profile.weekly_letter_count || 0
+    );
 
     // Kontrollera om användaren har nått sin veckogräns (endast för gratisanvändare)
-    if (profile.subscription_tier === 'free' && weeklyCount >= 5) {
+    if (profile.subscription_tier === 'free' && !shouldReset && newCount > 5) {
       return NextResponse.json({ 
         error: 'Du har nått din veckogräns på 5 brev. Uppgradera till premium för obegränsad åtkomst.', 
-        code: 'WEEKLY_LIMIT_REACHED'
+        code: 'WEEKLY_LIMIT_REACHED',
+        nextResetDate: nextResetDate.toISOString()
       }, { status: 403 });
     }
 
@@ -100,7 +140,8 @@ export async function POST(request: Request) {
           return NextResponse.json({ 
             success: true, 
             data: result,
-            shared: true
+            shared: true,
+            nextResetDate: nextResetDate.toISOString()
           });
         }
       } catch (error) {
@@ -161,12 +202,13 @@ export async function POST(request: Request) {
     
     // Öka brevräknaren och uppdatera senaste återställningstiden om det behövs för gratisanvändare
     if (profile.subscription_tier === 'free') {
-      const updates: any = {
-        weekly_letter_count: shouldResetCounter ? 1 : weeklyCount + 1
+      const updates = {
+        weekly_letter_count: newCount,
+        next_reset_date: nextResetDate.toISOString()
       };
       
-      if (shouldResetCounter) {
-        updates.last_count_reset = new Date().toISOString();
+      if (shouldReset) {
+        updates['last_count_reset'] = new Date().toISOString();
       }
       
       // Uppdatera räknaren
@@ -189,17 +231,19 @@ export async function POST(request: Request) {
       
       // För gratisanvändare, returnera också antalet återstående brev för veckan
       if (profile.subscription_tier === 'free') {
-        const remainingLetters = 5 - (shouldResetCounter ? 1 : weeklyCount + 1);
+        const remainingLetters = Math.max(0, 5 - newCount);
         return NextResponse.json({ 
           success: true, 
           data: letterData,
-          remainingLetters: remainingLetters >= 0 ? remainingLetters : 0
+          remainingLetters: remainingLetters,
+          nextResetDate: nextResetDate.toISOString()
         });
       }
       
       return NextResponse.json({ 
         success: true, 
-        data: letterData
+        data: letterData,
+        nextResetDate: nextResetDate.toISOString()
       });
     } catch (error: any) {
       // Ta bort från aktiva genereringar vid fel
