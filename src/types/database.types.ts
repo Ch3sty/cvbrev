@@ -18,6 +18,10 @@ export interface Database {
           phone: string | null
           preferred_tonality: string | null
           updated_at: string | null
+          subscription_tier: string | null
+          weekly_letter_count: number | null
+          last_count_reset: string | null
+          next_reset_date: string | null
         }
         Insert: {
           id: string
@@ -27,6 +31,10 @@ export interface Database {
           phone?: string | null
           preferred_tonality?: string | null
           updated_at?: string | null
+          subscription_tier?: string | null
+          weekly_letter_count?: number | null
+          last_count_reset?: string | null
+          next_reset_date?: string | null
         }
         Update: {
           id?: string
@@ -36,6 +44,10 @@ export interface Database {
           phone?: string | null
           preferred_tonality?: string | null
           updated_at?: string | null
+          subscription_tier?: string | null
+          weekly_letter_count?: number | null
+          last_count_reset?: string | null
+          next_reset_date?: string | null
         }
       }
       cv_texts: {

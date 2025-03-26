@@ -8,6 +8,7 @@ export interface Profile {
   subscription_tier?: 'free' | 'premium'; // Nytt fält för användartyp
   weekly_letter_count?: number; // Nytt fält för veckogränsräknare
   last_count_reset?: string; // Nytt fält för tidsstämpel av senaste återställning
+  next_reset_date?: string; // Nytt fält för när nästa nollställning sker
   created_at?: string;
   updated_at?: string;
 }
@@ -23,4 +24,7 @@ export interface ProfileUpdateParams {
   phone?: string;
   preferred_tonality?: 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced';
   subscription_tier?: 'free' | 'premium'; // Möjlighet att uppdatera prenumerationsnivå
+  weekly_letter_count?: number; // Möjlighet att uppdatera antal brev
+  last_count_reset?: string; // Möjlighet att uppdatera tidpunkt för senaste nollställning
+  next_reset_date?: string; // Möjlighet att uppdatera datum för nästa nollställning
 }

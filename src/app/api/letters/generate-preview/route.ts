@@ -202,13 +202,19 @@ export async function POST(request: Request) {
     
     // Öka brevräknaren och uppdatera senaste återställningstiden om det behövs för gratisanvändare
     if (profile.subscription_tier === 'free') {
-      const updates = {
+      // Definiera uppdateringsobjektet med tydlig typning för att lösa TypeScript-felet
+      const updates: {
+        weekly_letter_count: number;
+        next_reset_date: string;
+        last_count_reset?: string;
+      } = {
         weekly_letter_count: newCount,
         next_reset_date: nextResetDate.toISOString()
       };
       
+      // Om vi ska återställa räknaren, lägg till last_count_reset
       if (shouldReset) {
-        updates['last_count_reset'] = new Date().toISOString();
+        updates.last_count_reset = new Date().toISOString();
       }
       
       // Uppdatera räknaren

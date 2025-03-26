@@ -122,32 +122,32 @@ export const useProfile = () => {
     }
   }, []);
   
-  // NY FUNKTION: Uppdatera timern för nedräkning
-  const startResetTimer = useCallback(() => {
-    if (!nextResetDate) return;
+ // NY FUNKTION: Uppdatera timern för nedräkning
+const startResetTimer: () => void = useCallback(() => {
+  if (!nextResetDate) return;
+  
+  // Uppdatera kvarvarande tid omedelbart
+  setTimeUntilReset(formatTimeRemaining(nextResetDate));
+  
+  // Rensa eventuell befintlig timer
+  if (timerIntervalRef.current) {
+    clearInterval(timerIntervalRef.current);
+  }
+  
+  // Sätt upp intervall för att uppdatera varje minut
+  const interval = setInterval(() => {
+    const now = new Date();
     
-    // Uppdatera kvarvarande tid omedelbart
-    setTimeUntilReset(formatTimeRemaining(nextResetDate));
-    
-    // Rensa eventuell befintlig timer
-    if (timerIntervalRef.current) {
-      clearInterval(timerIntervalRef.current);
+    // Om vi har passerat återställningsdatumet, bör vi uppdatera profilen
+    if (now >= nextResetDate) {
+      clearInterval(interval);
+      fetchProfile(); // Uppdatera profil för att få aktuella värden
+    } else {
+      setTimeUntilReset(formatTimeRemaining(nextResetDate));
     }
-    
-    // Sätt upp intervall för att uppdatera varje minut
-    const interval = setInterval(() => {
-      const now = new Date();
-      
-      // Om vi har passerat återställningsdatumet, bör vi uppdatera profilen
-      if (now >= nextResetDate) {
-        clearInterval(interval);
-        fetchProfile(); // Uppdatera profil för att få aktuella värden
-      } else {
-        setTimeUntilReset(formatTimeRemaining(nextResetDate));
-      }
-    }, 60000); // Uppdatera varje minut
-    
-    timerIntervalRef.current = interval;
+  }, 60000); // Uppdatera varje minut
+  
+  timerIntervalRef.current = interval;
     
     // Städa upp intervallet när komponenten avmonteras
     return () => {

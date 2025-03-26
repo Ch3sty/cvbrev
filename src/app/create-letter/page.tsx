@@ -21,7 +21,8 @@ import {
   Save,
   Check,
   AlertTriangle, // För varningsmeddelanden om begränsningar
-  Crown          // För premium-indikator
+  Crown,         // För premium-indikator
+  Clock         // För reset-timer
 } from 'lucide-react'
 import Notification from '@/components/ui/notification'
 
@@ -88,7 +89,10 @@ export default function CreateLetterPage() {
     hasReachedLetterLimit, 
     savedLettersCount,
     maxSavedLetters,
-    updateRemainingLetters // Ny funktion för att uppdatera återstående brev
+    updateRemainingLetters, // Ny funktion för att uppdatera återstående brev
+    nextResetDate,          // Nytt fält för nästa nollställningsdatum
+    timeUntilReset,         // Nytt fält för tid tills nästa nollställning
+    updateNextResetDate     // Ny funktion för att uppdatera nollställningsdatum
   } = useProfile();
   
   const [selectedCV, setSelectedCV] = useState<string | null>(null)
@@ -188,6 +192,24 @@ export default function CreateLetterPage() {
     }
   }, [closeNotification]);
   
+  // Funktion för att formatera datum på ett användarvänligt sätt
+  const formatDate = useCallback((dateString: string | Date) => {
+    if (!dateString) return '';
+    
+    const date = typeof dateString === 'string' ? new Date(dateString) : dateString;
+    
+    // Kontrollera att datumet är giltigt
+    if (isNaN(date.getTime())) return '';
+    
+    return date.toLocaleDateString('sv-SE', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  }, []);
+  
   // Funktion för att generera brev
   const generateLetter = useCallback(async () => {
     if (!selectedCV || !jobDescription) {
@@ -267,6 +289,12 @@ export default function CreateLetterPage() {
       setGeneratedLetter(result.content);
       setLetterData(result);
       
+      // Uppdatera nextResetDate om det finns i svaret
+      if (result.nextResetDate) {
+        const newResetDate = new Date(result.nextResetDate);
+        updateNextResetDate(newResetDate);
+      }
+      
       // Visa återstående brev om det är en gratisanvändare
       if (subscriptionTier === 'free' && result.remainingLetters !== undefined) {
         // Uppdatera det lokala tillståndet med det nya värdet
@@ -289,7 +317,7 @@ export default function CreateLetterPage() {
       generationInProgressRef.current = false;
       setIsSubmitting(false);
     }
-  }, [selectedCV, jobDescription, tonality, language, isGenerating, isSubmitting, createLetter, showNotification, closeNotification, subscriptionTier, remainingWeeklyLetters, updateRemainingLetters]);
+  }, [selectedCV, jobDescription, tonality, language, isGenerating, isSubmitting, createLetter, showNotification, closeNotification, subscriptionTier, remainingWeeklyLetters, updateRemainingLetters, updateNextResetDate]);
   
 // Funktion för att spara brevet till databasen
   const handleSaveLetter = useCallback(async () => {
@@ -372,7 +400,7 @@ export default function CreateLetterPage() {
       {/* Visa återstående brev för gratisanvändare */}
       {subscriptionTier === 'free' && (
         <div className="mb-6 p-4 bg-navy-800 rounded-lg border border-gray-700">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mb-2">
             <div className="flex items-center">
               <MessageSquare className="w-5 h-5 mr-2 text-pink-500" />
               <span className="text-white font-medium">Genererade brev denna vecka</span>
@@ -395,11 +423,22 @@ export default function CreateLetterPage() {
             </div>
           </div>
           
+          {/* Visa info om nästa nollställning */}
+          {nextResetDate && (
+            <div className="flex items-center mt-1 mb-1 text-xs text-gray-400">
+              <Clock className="w-3 h-3 mr-1" />
+              <span>Nollställs {timeUntilReset ? `om ${timeUntilReset}` : formatDate(nextResetDate)}</span>
+            </div>
+          )}
+          
           {remainingWeeklyLetters <= 2 && (
-            <div className="mt-3 text-sm text-yellow-400 flex items-start">
+            <div className="mt-2 text-sm text-yellow-400 flex items-start">
               <AlertTriangle className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
               <span>
                 Du har endast {remainingWeeklyLetters} {remainingWeeklyLetters === 1 ? 'brev' : 'brev'} kvar denna vecka. 
+                {nextResetDate && (
+                  <span> Räknaren nollställs {timeUntilReset ? `om ${timeUntilReset}` : formatDate(nextResetDate)}. </span>
+                )}
                 <button 
                   onClick={handleUpgrade}
                   className="ml-1 text-pink-400 hover:text-pink-300 underline"
@@ -407,6 +446,27 @@ export default function CreateLetterPage() {
                   Uppgradera till premium
                 </button> för obegränsad användning.
               </span>
+            </div>
+          )}
+          
+          {/* Om användaren har nått gränsen, visa tydlig information om när återställning sker */}
+          {remainingWeeklyLetters <= 0 && nextResetDate && (
+            <div className="mt-2 p-3 bg-navy-700 rounded-lg border border-pink-500/30">
+              <div className="flex items-start">
+                <Clock className="w-5 h-5 text-pink-500 mr-2 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-white text-sm">
+                    <span className="font-medium">Du har nått din veckogräns.</span> Du kan generera fler brev igen {timeUntilReset ? `om ${timeUntilReset}` : formatDate(nextResetDate)}.
+                  </p>
+                  <button 
+                    onClick={handleUpgrade}
+                    className="mt-2 px-3 py-1 bg-pink-600 hover:bg-pink-700 text-white text-sm rounded-md flex items-center"
+                  >
+                    <Crown className="w-3 h-3 mr-1" />
+                    Uppgradera för obegränsad användning
+                  </button>
+                </div>
+              </div>
             </div>
           )}
         </div>
