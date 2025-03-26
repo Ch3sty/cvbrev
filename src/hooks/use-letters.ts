@@ -201,7 +201,15 @@ export const useLetters = () => {
         
         const data = await response.json();
         console.log('API svar:', data);
-        return data.data;
+        
+        // Här tilldelar vi remainingLetters från data direkt till resultatet som returneras
+        // Detta gör att värdet blir tillgängligt i create-letter/page.tsx
+        const result = data.data;
+        if (data.remainingLetters !== undefined) {
+          result.remainingLetters = data.remainingLetters;
+        }
+        
+        return result;
       }
       
       // Annars, använd det befintliga API-anropet för att spara direkt
@@ -338,7 +346,7 @@ export const useLetters = () => {
     return memoizedFetchLetters(true, false);
   }, [memoizedFetchLetters]);
   
-  // Ladda brev automatiskt första gången hooken används
+// Ladda brev automatiskt första gången hooken används
   useEffect(() => {
     // Undvik att ladda brev flera gånger vid initialt läge
     if (!initialLoadingDoneRef.current) {

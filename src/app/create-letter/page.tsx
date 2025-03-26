@@ -87,7 +87,8 @@ export default function CreateLetterPage() {
     remainingWeeklyLetters,
     hasReachedLetterLimit, 
     savedLettersCount,
-    maxSavedLetters
+    maxSavedLetters,
+    updateRemainingLetters // Ny funktion för att uppdatera återstående brev
   } = useProfile();
   
   const [selectedCV, setSelectedCV] = useState<string | null>(null)
@@ -268,6 +269,9 @@ export default function CreateLetterPage() {
       
       // Visa återstående brev om det är en gratisanvändare
       if (subscriptionTier === 'free' && result.remainingLetters !== undefined) {
+        // Uppdatera det lokala tillståndet med det nya värdet
+        updateRemainingLetters(result.remainingLetters);
+        
         const remainingText = result.remainingLetters === 0 
           ? 'Du har nått din gräns för denna vecka.' 
           : `Du har ${result.remainingLetters} genererade brev kvar denna vecka.`;
@@ -285,9 +289,9 @@ export default function CreateLetterPage() {
       generationInProgressRef.current = false;
       setIsSubmitting(false);
     }
-  }, [selectedCV, jobDescription, tonality, language, isGenerating, isSubmitting, createLetter, showNotification, closeNotification, subscriptionTier, remainingWeeklyLetters]);
+  }, [selectedCV, jobDescription, tonality, language, isGenerating, isSubmitting, createLetter, showNotification, closeNotification, subscriptionTier, remainingWeeklyLetters, updateRemainingLetters]);
   
-  // Funktion för att spara brevet till databasen
+// Funktion för att spara brevet till databasen
   const handleSaveLetter = useCallback(async () => {
     if (!letterData) return;
     

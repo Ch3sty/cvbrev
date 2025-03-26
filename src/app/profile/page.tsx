@@ -547,26 +547,6 @@ export default function ProfilePage() {
                 ))}
               </div>
             )}
-            
-            {/* Visa information om prenumerationsbegränsningar */}
-            {subscriptionTier === 'free' && cvCount >= 1 && (
-              <div className="mt-4 p-4 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-r">
-                <div className="flex items-start">
-                  <AlertTriangle className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0 mt-0.5" />
-                  <div>
-                    <p className="text-yellow-200">
-                      Du har nått din gräns för antal CV:n som gratisanvändare.
-                    </p>
-                    <button 
-                      onClick={() => setActiveTab('subscription')}
-                      className="mt-2 text-pink-400 hover:text-pink-300 font-medium"
-                    >
-                      Uppgradera till Premium för obegränsat antal CV:n →
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
           
           {/* CV Uploader - filtrera max antal baserat på prenumerationsnivå */}

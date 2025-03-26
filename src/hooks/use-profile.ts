@@ -73,6 +73,17 @@ export const useProfile = () => {
     return value.toString();
   }, []);
   
+  // NY FUNKTION: Uppdatera återstående brevantal direkt
+  const updateRemainingLetters = useCallback((newRemainingCount: number) => {
+    setRemainingWeeklyLetters(newRemainingCount);
+    
+    // Uppdatera även weeklyLetterCount baserat på nytt återstående antal
+    if (subscriptionTier === 'free') {
+      const newCount = SUBSCRIPTION_LIMITS.free.weeklyLetterLimit - newRemainingCount;
+      setWeeklyLetterCount(newCount);
+    }
+  }, [subscriptionTier]);
+  
   // Funktion för att hämta sparade brev för användaren
   const fetchSavedLettersCount = useCallback(async () => {
     try {
@@ -207,7 +218,7 @@ export const useProfile = () => {
         
         // Uppdatera prenumerationsrelaterade states
         const tier = (data.subscription_tier || 'free') as 'free' | 'premium';
-setSubscriptionTier(tier);
+		setSubscriptionTier(tier);
         
         // Uppdatera max-värden baserat på prenumerationsnivå
         setMaxCvCount(SUBSCRIPTION_LIMITS[tier].maxCVCount);
@@ -338,213 +349,216 @@ setSubscriptionTier(tier);
   };
   
   // Downgrade-funktion (för testning - i en riktig app skulle detta hantera avbokning)
-  const downgradeSubscription = async () => {
-    try {
-      const success = await updateProfile({
-        subscription_tier: 'free'
-      });
+ const downgradeSubscription = async () => {
+   try {
+     const success = await updateProfile({
+       subscription_tier: 'free'
+     });
+     
+     if (success) {
+       // Uppdatera lokalt state tillbaka till gratisnivå
+      setSubscriptionTier('free');
+      setMaxCvCount(SUBSCRIPTION_LIMITS.free.maxCVCount);
+      setMaxSavedLetters(SUBSCRIPTION_LIMITS.free.maxSavedLetters);
+      setWeeklyLetterLimit(SUBSCRIPTION_LIMITS.free.weeklyLetterLimit);
       
-      if (success) {
-        // Uppdatera lokalt state tillbaka till gratisnivå
-       setSubscriptionTier('free');
-       setMaxCvCount(SUBSCRIPTION_LIMITS.free.maxCVCount);
-       setMaxSavedLetters(SUBSCRIPTION_LIMITS.free.maxSavedLetters);
-       setWeeklyLetterLimit(SUBSCRIPTION_LIMITS.free.weeklyLetterLimit);
-       
-       // Uppdatera flaggor för gränser - dessa kan nu vara true om användare överskrider gratisbegränsningar
-       setHasReachedCvLimit(calculateCvLimitReached('free', cvCount));
-       setHasReachedLetterLimit(calculateLetterLimitReached('free', savedLettersCount));
-       setRemainingWeeklyLetters(calculateRemainingLetters('free', weeklyLetterCount));
-       
-       return true;
-     }
-     
-     return false;
-   } catch (error: any) {
-     console.error('Fel vid nedgradering av prenumeration:', error);
-     return false;
-   }
- };
- 
- // Uppdatera GDPR-samtycke
- const setGdprConsentValue = (value: boolean) => {
-   setGdprConsent(value);
- };
- 
- // Ladda upp CV via API
- const uploadCV = async (file: File, title?: string) => {
-   try {
-     // Kontrollera om användaren har nått sin CV-gräns (baserat på prenumerationsnivå)
-     if (hasReachedCvLimit) {
-       if (subscriptionTier === 'free') {
-         throw new Error(`Som gratisanvändare kan du bara ha ${maxCvCount} CV. Uppgradera till premium för att hantera flera CV:n.`);
-       } else {
-         throw new Error(`Du har nått maxgränsen på ${maxCvCount} CV. Ta bort ett befintligt CV först.`);
-       }
-     }
-     
-     // Kontrollera GDPR-samtycke
-     if (!gdprConsent) {
-       throw new Error('Du måste godkänna GDPR-samtycket för att ladda upp CV');
-     }
-     
-     // Validera filtyp
-     const validTypes = ['.pdf', '.docx', '.txt'];
-     const fileExt = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
-     
-     if (!validTypes.some(type => fileExt.endsWith(type))) {
-       throw new Error('Ogiltig filtyp. Endast PDF, DOCX och TXT är tillåtna.');
-     }
-     
-     // Validera filstorlek (5MB max)
-     if (file.size > 5 * 1024 * 1024) {
-       throw new Error('Filen är för stor. Maximal storlek är 5MB.');
-     }
-     
-     // Använd API-rutt för uppladdning
-     const formData = new FormData();
-     formData.append('file', file);
-     formData.append('title', title || file.name); // Lägg till titel baserat på filnamn
-     
-     const response = await fetch('/api/cv/upload', {
-       method: 'POST',
-       body: formData
-     });
-     
-     // Hantera specifika felkoder från backend
-     if (!response.ok) {
-       const errorData = await response.json();
-       
-       // Om användare har nått CV-gräns på backend, ge specifikt felmeddelande
-       if (errorData.code === 'CV_LIMIT_REACHED') {
-         throw new Error('Som gratisanvändare kan du bara ha 1 CV. Uppgradera till premium för att hantera flera CV:n.');
-       }
-       
-       throw new Error(errorData.error || 'Okänt fel vid uppladdning');
-     }
-     
-     const data = await response.json();
-     
-     if (data.success) {
-       // Uppdatera CV-informationen genom att hämta den från API
-       await fetchCvInfo();
-       // Uppdatera CV-räkningen
-       await fetchCvCount();
-       // Återställ GDPR-samtycket
-       setGdprConsent(false);
-       return true;
-     }
-     
-     return false;
-   } catch (error: any) {
-     console.error('Fel vid uppladdning av CV:', error);
-     throw error; // Kasta vidare felet för hantering i UI
-   }
- };
- 
- // Ta bort CV
- const deleteCV = async () => {
-   try {
-     const response = await fetch('/api/cv', {
-       method: 'DELETE'
-     });
-     
-     if (!response.ok) {
-       const errorData = await response.json();
-       throw new Error(errorData.error || 'Okänt fel vid borttagning');
-     }
-     
-     const data = await response.json();
-     
-     if (data.success) {
-       // Återställ CV-tillståndet
-       setCv(null);
-       // Uppdatera CV-räkningen
-       await fetchCvCount();
-       return true;
-     }
-     
-     return false;
-   } catch (error: any) {
-     console.error('Fel vid borttagning av CV:', error);
-     throw error; // Kasta vidare felet för hantering i UI
-   }
- };
- 
- // Ta bort specifikt CV via ID
- const deleteCVById = async (id: string) => {
-   try {
-     const response = await fetch('/api/cv/delete', {
-       method: 'DELETE',
-       headers: {
-         'Content-Type': 'application/json',
-       },
-       body: JSON.stringify({ id }),
-     });
-     
-     if (!response.ok) {
-       const errorData = await response.json();
-       throw new Error(errorData.error || 'Okänt fel vid borttagning');
-     }
-     
-     const data = await response.json();
-     
-     if (data.success) {
-       // Uppdatera CV-räkningen och refresh cv-infon om aktuellt CV togs bort
-       await fetchCvCount();
-       await fetchCvInfo();
-       return true;
-     }
-     
-     return false;
-   } catch (error: any) {
-     console.error('Fel vid borttagning av CV:', error);
-     throw error; // Kasta vidare felet för hantering i UI
-   }
- };
- 
- // Hämta profildata vid komponentmontering
- useEffect(() => {
-   fetchProfile();
- }, [fetchProfile]);
- 
- // Returnera allt som behövs från hooken
- return { 
-   // Grundläggande profildata
-   profile, 
-   cv, 
-   gdprConsent,
-   loading, 
-   
-   // Prenumerationsrelaterad data
-   subscriptionTier,
-   isUpgrading,
-   weeklyLetterCount,
-   remainingWeeklyLetters,
-   weeklyLetterLimit,
-   
-   // Gränser och antal baserade på prenumerationsnivå
-   cvCount,
-   maxCvCount,
-   hasReachedCvLimit,
-   savedLettersCount,
-   maxSavedLetters,
-   hasReachedLetterLimit,
-   
-   // Gränsinformationsobjekt för lättare användning
-   subscriptionLimits: SUBSCRIPTION_LIMITS,
-   formatLimit,
-   
-   // Funktioner
-   updateProfile, 
-   uploadCV,
-   deleteCV,
-   deleteCVById,
-   setGdprConsent: setGdprConsentValue,
-   refreshProfile: fetchProfile,
-   
-   // Prenumerationsuppgraderingsfunktioner
-   upgradeSubscription,
-   downgradeSubscription  // För testning
- };
+      // Uppdatera flaggor för gränser - dessa kan nu vara true om användare överskrider gratisbegränsningar
+      setHasReachedCvLimit(calculateCvLimitReached('free', cvCount));
+      setHasReachedLetterLimit(calculateLetterLimitReached('free', savedLettersCount));
+      setRemainingWeeklyLetters(calculateRemainingLetters('free', weeklyLetterCount));
+      
+      return true;
+    }
+    
+    return false;
+  } catch (error: any) {
+    console.error('Fel vid nedgradering av prenumeration:', error);
+    return false;
+  }
+};
+
+// Uppdatera GDPR-samtycke
+const setGdprConsentValue = (value: boolean) => {
+  setGdprConsent(value);
+};
+
+// Ladda upp CV via API
+const uploadCV = async (file: File, title?: string) => {
+  try {
+    // Kontrollera om användaren har nått sin CV-gräns (baserat på prenumerationsnivå)
+    if (hasReachedCvLimit) {
+      if (subscriptionTier === 'free') {
+        throw new Error(`Som gratisanvändare kan du bara ha ${maxCvCount} CV. Uppgradera till premium för att hantera flera CV:n.`);
+      } else {
+        throw new Error(`Du har nått maxgränsen på ${maxCvCount} CV. Ta bort ett befintligt CV först.`);
+      }
+    }
+    
+    // Kontrollera GDPR-samtycke
+    if (!gdprConsent) {
+      throw new Error('Du måste godkänna GDPR-samtycket för att ladda upp CV');
+    }
+    
+    // Validera filtyp
+    const validTypes = ['.pdf', '.docx', '.txt'];
+    const fileExt = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+    
+    if (!validTypes.some(type => fileExt.endsWith(type))) {
+      throw new Error('Ogiltig filtyp. Endast PDF, DOCX och TXT är tillåtna.');
+    }
+    
+    // Validera filstorlek (5MB max)
+    if (file.size > 5 * 1024 * 1024) {
+      throw new Error('Filen är för stor. Maximal storlek är 5MB.');
+    }
+    
+    // Använd API-rutt för uppladdning
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('title', title || file.name); // Lägg till titel baserat på filnamn
+    
+    const response = await fetch('/api/cv/upload', {
+      method: 'POST',
+      body: formData
+    });
+    
+    // Hantera specifika felkoder från backend
+    if (!response.ok) {
+      const errorData = await response.json();
+      
+      // Om användare har nått CV-gräns på backend, ge specifikt felmeddelande
+      if (errorData.code === 'CV_LIMIT_REACHED') {
+        throw new Error('Som gratisanvändare kan du bara ha 1 CV. Uppgradera till premium för att hantera flera CV:n.');
+      }
+      
+      throw new Error(errorData.error || 'Okänt fel vid uppladdning');
+    }
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      // Uppdatera CV-informationen genom att hämta den från API
+      await fetchCvInfo();
+      // Uppdatera CV-räkningen
+      await fetchCvCount();
+      // Återställ GDPR-samtycket
+      setGdprConsent(false);
+      return true;
+    }
+    
+    return false;
+  } catch (error: any) {
+    console.error('Fel vid uppladdning av CV:', error);
+    throw error; // Kasta vidare felet för hantering i UI
+  }
+};
+
+// Ta bort CV
+const deleteCV = async () => {
+  try {
+    const response = await fetch('/api/cv', {
+      method: 'DELETE'
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Okänt fel vid borttagning');
+    }
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      // Återställ CV-tillståndet
+      setCv(null);
+      // Uppdatera CV-räkningen
+      await fetchCvCount();
+      return true;
+    }
+    
+    return false;
+  } catch (error: any) {
+    console.error('Fel vid borttagning av CV:', error);
+    throw error; // Kasta vidare felet för hantering i UI
+  }
+};
+
+// Ta bort specifikt CV via ID
+const deleteCVById = async (id: string) => {
+  try {
+    const response = await fetch('/api/cv/delete', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id }),
+    });
+    
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Okänt fel vid borttagning');
+    }
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      // Uppdatera CV-räkningen och refresh cv-infon om aktuellt CV togs bort
+      await fetchCvCount();
+      await fetchCvInfo();
+      return true;
+    }
+    
+    return false;
+  } catch (error: any) {
+    console.error('Fel vid borttagning av CV:', error);
+    throw error; // Kasta vidare felet för hantering i UI
+  }
+};
+
+// Hämta profildata vid komponentmontering
+useEffect(() => {
+  fetchProfile();
+}, [fetchProfile]);
+
+// Returnera allt som behövs från hooken
+return { 
+  // Grundläggande profildata
+  profile, 
+  cv, 
+  gdprConsent,
+  loading, 
+  
+  // Prenumerationsrelaterad data
+  subscriptionTier,
+  isUpgrading,
+  weeklyLetterCount,
+  remainingWeeklyLetters,
+  weeklyLetterLimit,
+  
+  // Gränser och antal baserade på prenumerationsnivå
+  cvCount,
+  maxCvCount,
+  hasReachedCvLimit,
+  savedLettersCount,
+  maxSavedLetters,
+  hasReachedLetterLimit,
+  
+  // Gränsinformationsobjekt för lättare användning
+  subscriptionLimits: SUBSCRIPTION_LIMITS,
+  formatLimit,
+  
+  // Funktioner
+  updateProfile, 
+  uploadCV,
+  deleteCV,
+  deleteCVById,
+  setGdprConsent: setGdprConsentValue,
+  refreshProfile: fetchProfile,
+  
+  // Prenumerationsuppgraderingsfunktioner
+  upgradeSubscription,
+  downgradeSubscription,  // För testning
+  
+  // NY FUNKTION exporterad
+  updateRemainingLetters
+};
 };
