@@ -1,8 +1,16 @@
 // middleware.ts (i projektets rotmapp)
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
+import { adminAuthMiddleware } from '@/middleware/admin-auth'
 
 export async function middleware(request: NextRequest) {
+  // Kontrollera om detta är en admin-route
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    // Använd admin auth middleware för admin-routes
+    return adminAuthMiddleware(request);
+  }
+  
+  // För alla andra routes, använd den vanliga session middleware
   return await updateSession(request)
 }
 
