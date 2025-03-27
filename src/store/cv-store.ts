@@ -1,6 +1,6 @@
 // src/store/cv-store.ts
 import { create } from 'zustand'
-import { createClient } from '@/lib/supabase/client'
+import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { parseCV } from '@/lib/cv-parser'
 
 interface CV {
@@ -34,7 +34,7 @@ export const useCVStore = create<CVStore>((set, get) => ({
     set({ isLoading: true, error: null })
     
     try {
-      const supabase = createClient()
+      const supabase = getSupabaseClient()
       
       const { data: { user } } = await supabase.auth.getUser()
       
@@ -66,7 +66,7 @@ export const useCVStore = create<CVStore>((set, get) => ({
     set({ isLoading: true, error: null })
     
     try {
-      const supabase = createClient()
+      const supabase = getSupabaseClient()
       
       const { data: { user } } = await supabase.auth.getUser()
       
@@ -127,7 +127,7 @@ export const useCVStore = create<CVStore>((set, get) => ({
     set({ isLoading: true, error: null })
     
     try {
-      const supabase = createClient()
+      const supabase = getSupabaseClient()
       
       // Ta bort från databasen
       const { error } = await supabase

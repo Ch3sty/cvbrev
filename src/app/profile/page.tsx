@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useProfile } from '@/hooks/use-profile';
 import { useCVStore } from '@/store/cv-store';
+import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { useCallback } from 'react';
 import Link from 'next/link';
 
@@ -37,7 +38,7 @@ import {
 
 export default function ProfilePage() {
   const router = useRouter();
-  const supabase = createClientComponentClient();
+  const supabase = getSupabaseClient();
   const { profile, loading: profileLoading, updateProfile, subscriptionTier } = useProfile();
   // Korrigera användningen av useCVStore för att matcha det faktiska interfacet
   const { cvs, fetchCVs, isLoading: cvListLoading } = useCVStore();

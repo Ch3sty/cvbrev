@@ -76,26 +76,27 @@ export default function PriserPage() {
   const [billingPeriod, setBillingPeriod] = useState('monthly'); // 'monthly' eller 'yearly'
   
   useEffect(() => {
-    async function getSession() {
+  async function getSession() {
+    try {
+      setIsLoading(true);
+      
       try {
-        setIsLoading(true);
-        
-        try {
-          const { createClient } = await import('@/lib/supabase/client');
-          const supabase = createClient();
-          const { data } = await supabase.auth.getSession();
-          setSession(data.session);
-        } catch (error) {
-          console.error('Kunde inte hämta session:', error);
-          setSession(null);
-        } finally {
-          setIsLoading(false);
-        }
+        // Ersätt den dynamiska importen med din client-manager
+        const { getSupabaseClient } = await import('@/lib/supabase/client-manager');
+        const supabase = getSupabaseClient();
+        const { data } = await supabase.auth.getSession();
+        setSession(data.session);
       } catch (error) {
-        console.error('Allmänt fel i getSession:', error);
+        console.error('Kunde inte hämta session:', error);
+        setSession(null);
+      } finally {
         setIsLoading(false);
       }
+    } catch (error) {
+      console.error('Allmänt fel i getSession:', error);
+      setIsLoading(false);
     }
+  }
     
     getSession();
   }, []);

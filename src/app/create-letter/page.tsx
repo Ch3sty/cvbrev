@@ -435,7 +435,7 @@ export default function CreateLetterPage() {
             <div className="mt-2 text-sm text-yellow-400 flex items-start">
               <AlertTriangle className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
               <span>
-                Du har endast {remainingWeeklyLetters} {remainingWeeklyLetters === 1 ? 'brev' : 'brev'} kvar denna vecka. 
+                Du har {remainingWeeklyLetters} {remainingWeeklyLetters === 1 ? 'brev' : 'brev'} kvar denna vecka. 
                 {nextResetDate && (
                   <span> Räknaren nollställs {timeUntilReset ? `om ${timeUntilReset}` : formatDate(nextResetDate)}. </span>
                 )}
@@ -449,26 +449,6 @@ export default function CreateLetterPage() {
             </div>
           )}
           
-          {/* Om användaren har nått gränsen, visa tydlig information om när återställning sker */}
-          {remainingWeeklyLetters <= 0 && nextResetDate && (
-            <div className="mt-2 p-3 bg-navy-700 rounded-lg border border-pink-500/30">
-              <div className="flex items-start">
-                <Clock className="w-5 h-5 text-pink-500 mr-2 flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-white text-sm">
-                    <span className="font-medium">Du har nått din veckogräns.</span> Du kan generera fler brev igen {timeUntilReset ? `om ${timeUntilReset}` : formatDate(nextResetDate)}.
-                  </p>
-                  <button 
-                    onClick={handleUpgrade}
-                    className="mt-2 px-3 py-1 bg-pink-600 hover:bg-pink-700 text-white text-sm rounded-md flex items-center"
-                  >
-                    <Crown className="w-3 h-3 mr-1" />
-                    Uppgradera för obegränsad användning
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       )}
       
@@ -664,26 +644,6 @@ export default function CreateLetterPage() {
             </div>
           )}
           
-          {/* Visa premium-uppgraderingsnotis för gratisanvändare */}
-          {subscriptionTier === 'free' && (
-            <div className="p-4 bg-navy-700 rounded-lg border border-yellow-500/30">
-              <div className="flex items-start">
-                <Crown className="w-5 h-5 text-yellow-400 mr-3 flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-white text-sm">
-                    Uppgradera till Premium för obegränsad användning och alla funktioner, inklusive AI-optimerad tonalitet.
-                  </p>
-                  <button 
-                    onClick={handleUpgrade}
-                    className="mt-2 px-3 py-1 bg-pink-600 hover:bg-pink-700 text-white text-sm rounded-md flex items-center"
-                  >
-                    <Crown className="w-3 h-3 mr-1" />
-                    Uppgradera nu
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
           
           {/* Genereringsknapp */}
           <button

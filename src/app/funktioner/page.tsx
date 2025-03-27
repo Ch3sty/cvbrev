@@ -124,29 +124,29 @@ export default function FunktionerPage() {
   const [isLoading, setIsLoading] = useState(true);
   
   useEffect(() => {
-    async function getSession() {
+  async function getSession() {
+    try {
+      setIsLoading(true);
+      
       try {
-        setIsLoading(true);
+        // Använd getSupabaseClient från client-manager istället
+        const { getSupabaseClient } = await import('@/lib/supabase/client-manager');
+        const supabase = getSupabaseClient();
+        const { data } = await supabase.auth.getSession();
         
-        try {
-          // Använd den korrekta funktionen createClient från din fil
-          const { createClient } = await import('@/lib/supabase/client');
-          const supabase = createClient();
-          const { data } = await supabase.auth.getSession();
-          
-          // Fixa typfelet genom att tillämpa en explicit typning
-          setSession(data.session);
-        } catch (error) {
-          console.error('Kunde inte hämta session:', error);
-          setSession(null);
-        } finally {
-          setIsLoading(false);
-        }
+        // Explicit typning bevaras
+        setSession(data.session);
       } catch (error) {
-        console.error('Allmänt fel i getSession:', error);
+        console.error('Kunde inte hämta session:', error);
+        setSession(null);
+      } finally {
         setIsLoading(false);
       }
+    } catch (error) {
+      console.error('Allmänt fel i getSession:', error);
+      setIsLoading(false);
     }
+  }
     
     getSession();
   }, []);
