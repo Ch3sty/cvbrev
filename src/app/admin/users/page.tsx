@@ -63,8 +63,8 @@ export default function AdminUsersPage() {
   // Referens till Supabase-klienten
   const supabase = getSupabaseClient();
   
-  // Applicera filtrering och sortering (nu med useCallback)
-  const applyFiltersAndSort = useCallback((userList = users) => {
+  // Funktion för att få filtrerade och sorterade användare utan att uppdatera state
+  const getFilteredAndSortedUsers = useCallback((userList = users) => {
     let result = [...userList];
     
     // Applicera sökning
@@ -104,17 +104,8 @@ export default function AdminUsersPage() {
         : (fieldB as number) - (fieldA as number);
     });
     
-    // Uppdatera totalPages baserat på filtrerad data
-    setTotalPages(Math.max(1, Math.ceil(result.length / pageSize)));
-    
-    // Begränsa currentPage om den är utanför giltigt intervall efter filtrering
-    if (currentPage > Math.ceil(result.length / pageSize)) {
-      setCurrentPage(1);
-    }
-    
-    // Spara filtrerad och sorterad data
-    setFilteredUsers(result);
-  }, [users, searchTerm, subscriptionFilter, sortField, sortDirection, currentPage, pageSize]);
+    return result;
+  }, [users, searchTerm, subscriptionFilter, sortField, sortDirection]);
   
   // Hämta användare från databasen
   useEffect(() => {
@@ -167,7 +158,6 @@ export default function AdminUsersPage() {
         })) || [];
         
         setUsers(enrichedProfiles);
-        applyFiltersAndSort(enrichedProfiles);
       } catch (err: any) {
         console.error('Fel vid hämtning av användare:', err);
         setError(err.message || 'Ett fel uppstod vid hämtning av användare');
@@ -177,12 +167,22 @@ export default function AdminUsersPage() {
     }
     
     fetchUsers();
-  }, [supabase, applyFiltersAndSort]);
+  }, [supabase]);
   
-  // Uppdatera filtrering/sortering när relevanta tillstånd ändras
+  // Uppdatera filtrerade användare och pagination när relevanta tillstånd ändras
   useEffect(() => {
-    applyFiltersAndSort();
-  }, [applyFiltersAndSort]);
+    const filteredResults = getFilteredAndSortedUsers();
+    setFilteredUsers(filteredResults);
+    
+    // Beräkna totalt antal sidor
+    const newTotalPages = Math.max(1, Math.ceil(filteredResults.length / pageSize));
+    setTotalPages(newTotalPages);
+    
+    // Justera currentPage om den är utanför giltigt intervall efter filtrering
+    if (currentPage > newTotalPages) {
+      setCurrentPage(1);
+    }
+  }, [getFilteredAndSortedUsers, pageSize]);
   
   // Hantera sortering
   const handleSort = (field: string) => {
@@ -237,13 +237,6 @@ export default function AdminUsersPage() {
           : user
       ));
       
-      // Uppdatera filtrerad data
-      setFilteredUsers(prevUsers => prevUsers.map(user => 
-        user.id === selectedUser.id 
-          ? { ...user, subscription_tier: 'premium' } 
-          : user
-      ));
-      
       setUpdateSuccess(`${selectedUser.full_name || selectedUser.email} har uppgraderats till Premium!`);
       
       // Återställ efter en kort stund
@@ -282,13 +275,6 @@ export default function AdminUsersPage() {
       
       // Uppdatera lokal data
       setUsers(prevUsers => prevUsers.map(user => 
-        user.id === selectedUser.id 
-          ? { ...user, subscription_tier: 'free' } 
-          : user
-      ));
-      
-      // Uppdatera filtrerad data
-      setFilteredUsers(prevUsers => prevUsers.map(user => 
         user.id === selectedUser.id 
           ? { ...user, subscription_tier: 'free' } 
           : user
