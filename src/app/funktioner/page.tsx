@@ -15,13 +15,14 @@ import {
   Save, 
   Zap, 
   Clock, 
-  Target
+  Target,
+  BrainCircuit, // Ny ikon för specialiserad AI
+  UserCheck, // Ny ikon för användardata
+  BarChartHorizontal // Ny ikon för evidensbaserad
 } from 'lucide-react'
 import { 
   LineChart, 
   Line, 
-  BarChart, 
-  Bar, 
   PieChart, 
   Pie, 
   Cell, 
@@ -33,7 +34,7 @@ import {
   ResponsiveContainer 
 } from 'recharts'
 
-// Effektivitetsdata för grafen
+// Effektivitetsdata för grafen (behålls som den är)
 const timelineData = [
   { name: 'Dag 1', standardAnsökan: 20, cvBrevAnsökan: 45 },
   { name: 'Dag 3', standardAnsökan: 25, cvBrevAnsökan: 62 },
@@ -42,18 +43,18 @@ const timelineData = [
   { name: 'Dag 30', standardAnsökan: 35, cvBrevAnsökan: 92 },
 ];
 
-// Data för funktionsutnyttjande
+// === UPPdaterad Data för funktionsutnyttjande ===
 const featureUsageData = [
-  { name: 'Personliga brev', value: 40 },
-  { name: 'CV-anpassning', value: 25 },
-  { name: 'Tonalitetsjustering', value: 15 },
-  { name: 'Intervjutips', value: 12 },
-  { name: 'CV-feedback', value: 8 },
+  { name: 'AI-brevgenerering', value: 60 }, 
+  { name: 'CV/Jobb-analys', value: 25 }, 
+  { name: 'Tonalitetsjustering', value: 15 }, 
 ];
+// Total: 60 + 25 + 15 = 100%
 
-const COLORS = ['#ec4899', '#9333ea', '#6366f1', '#3b82f6', '#06b6d4'];
+// Färger för de tre kvarvarande funktionerna
+const COLORS = ['#ec4899', '#9333ea', '#6366f1']; 
 
-// Graf-komponent för ansökningseffektivitet
+// Graf-komponent för ansökningseffektivitet (behålls som den är)
 function CVBrevTimelineChart() {
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -66,9 +67,9 @@ function CVBrevTimelineChart() {
         <YAxis tickFormatter={(value) => `${value}%`} tick={{ fill: '#e2e8f0' }} />
         <Tooltip 
           contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '8px', color: 'white' }}
-          formatter={(value) => [`${value}%`]} 
+          formatter={(value, name) => [`${value}%`, name === 'standardAnsökan' ? 'Standard ansökningar' : 'cvbrev.se ansökningar']} 
         />
-        <Legend />
+        <Legend wrapperStyle={{ color: '#e2e8f0' }} />
         <Line 
           type="monotone" 
           dataKey="standardAnsökan" 
@@ -81,7 +82,7 @@ function CVBrevTimelineChart() {
         <Line 
           type="monotone" 
           dataKey="cvBrevAnsökan" 
-          name="CVBrev ansökningar" 
+          name="cvbrev.se ansökningar" 
           stroke="#ec4899" 
           strokeWidth={3}
           dot={{ r: 5, strokeWidth: 2 }}
@@ -92,20 +93,50 @@ function CVBrevTimelineChart() {
   );
 }
 
-// Graf-komponent för funktionsanvändning
+// === KORRIGERAD Graf-komponent för funktionsanvändning ===
 function FeatureUsageChart() {
+  // Fast höjd för container
+  const chartHeight = 300;
+  // Yttre radie som en procentsats av den tillgängliga platsen
+  const outerRadiusPercentage = '80%'; 
+  // Fast textstorlek för etiketterna
+  const labelFontSize = 12; 
+
   return (
-    <ResponsiveContainer width="100%" height="100%">
-      <PieChart>
+    // Använd ResponsiveContainer på det vanliga sättet (omslutande)
+    <ResponsiveContainer width="100%" height={chartHeight}> 
+      <PieChart> {/* ResponsiveContainer sköter bredd/höjd */}
         <Pie
           data={featureUsageData}
-          cx="50%"
-          cy="50%"
-          labelLine={false}
-          outerRadius={80}
-          fill="#8884d8"
+          cx="50%" // Centrera horisontellt
+          cy="50%" // Centrera vertikalt
+          labelLine={false} // Inga linjer till etiketterna
+          outerRadius={outerRadiusPercentage} // Använd procentsats för radien
+          fill="#8884d8" // Standardfyllning (ersätts av Cell)
           dataKey="value"
-          label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+          // Anpassad etikettfunktion, använder props från Recharts
+          label={({ cx, cy, midAngle, innerRadius, outerRadius, percent, index, name }) => {
+            // Beräkna position lite utanför tårtbiten
+            // Observera: innerRadius/outerRadius här är de *beräknade* pixelvärdena
+            const radius = outerRadius * 1.15; // Placera etiketten 15% utanför tårtbiten
+            const x = cx + radius * Math.cos(-midAngle * Math.PI / 180);
+            const y = cy + radius * Math.sin(-midAngle * Math.PI / 180);
+            const textAnchor = x > cx ? 'start' : 'end'; // Justera textjustering
+
+            return (
+              <text 
+                x={x} 
+                y={y} 
+                fill="#e2e8f0" // Ljus textfärg för kontrast
+                textAnchor={textAnchor} 
+                dominantBaseline="central"
+                fontSize={labelFontSize} // Använd fast textstorlek
+                className="pointer-events-none" // Undvik att texten blockerar tooltips
+              >
+                {`${name} ${(percent * 100).toFixed(0)}%`}
+              </text>
+            );
+          }}
         >
           {featureUsageData.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -113,11 +144,13 @@ function FeatureUsageChart() {
         </Pie>
         <Tooltip 
           contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '8px', color: 'white' }}
+          formatter={(value, name) => [`${value}%`, name]} // Formatera tooltip
         />
       </PieChart>
     </ResponsiveContainer>
   );
 }
+
 
 export default function FunktionerPage() {
   const [session, setSession] = useState<any>(null);
@@ -129,12 +162,9 @@ export default function FunktionerPage() {
       setIsLoading(true);
       
       try {
-        // Använd getSupabaseClient från client-manager istället
         const { getSupabaseClient } = await import('@/lib/supabase/client-manager');
         const supabase = getSupabaseClient();
         const { data } = await supabase.auth.getSession();
-        
-        // Explicit typning bevaras
         setSession(data.session);
       } catch (error) {
         console.error('Kunde inte hämta session:', error);
@@ -155,7 +185,7 @@ export default function FunktionerPage() {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-navy-950">
         <div className="w-16 h-16 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
-        <p className="mt-4 text-white">Laddar...</p>
+        <p className="mt-4 text-white">Laddar funktioner...</p>
       </div>
     );
   }
@@ -163,18 +193,26 @@ export default function FunktionerPage() {
   return (
     <>
       <Head>
-        <title>CVBrev - Alla funktioner för att skapa perfekta personliga brev</title>
-        <meta name="description" content="Upptäck alla kraftfulla funktioner i CVBrev: AI-generering, CV-analys, tonalitetsjustering, mallar och mer. Skapa personliga ansökningsbrev som ökar dina chanser att få drömjobbet." />
-        <meta name="keywords" content="personligt brev, CV, jobbansökan, AI skriva brev, ansökningsbrev, personliga brev mall" />
-        <meta property="og:title" content="CVBrev - Alla funktioner för perfekta personliga brev" />
-        <meta property="og:description" content="Upptäck alla kraftfulla funktioner i CVBrev: AI-generering, CV-analys, tonalitetsjustering, mallar och mer." />
+        {/* === SEO Optimerade Meta Tags === */}
+        <title>Funktioner | Skapa Vinnande Personliga Brev med cvbrev.se AI</title>
+        <meta 
+          name="description" 
+          content="Upptäck cvbrev.se:s AI-funktioner: Vetenskapligt baserad CV- & jobbannonsanalys, tonalitetsjustering, obegränsade revideringar och mer. Skriv personliga brev som imponerar och ökar dina chanser till intervju." 
+        />
+        <meta 
+          name="keywords" 
+          content="personligt brev, AI, funktioner, cvbrev.se, skriva personligt brev, jobbansökan, CV-analys, jobbannonsanalys, tonalitet, AI-assistent, ansökningsbrev, mallar, Harvard, Stanford, vetenskapligt baserad" 
+        />
+        <meta property="og:title" content="Funktioner | Skapa Vinnande Personliga Brev med cvbrev.se AI" />
+        <meta property="og:description" content="Utforska kraftfulla AI-verktyg för att analysera CV/jobbannonser, generera skräddarsydda brev, justera tonen och mycket mer. Öka dina jobbchanser med cvbrev.se." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://cvbrev.se/funktioner" />
-        <meta property="og:image" content="https://cvbrev.se/images/cvbrev-og.png" />
+        <meta property="og:image" content="https://cvbrev.se/images/cvbrev-og-funktioner.png" /> {/* Anpassa eller skapa denna bild! */}
+        <link rel="canonical" href="https://cvbrev.se/funktioner" />
       </Head>
 
       <div className="flex flex-col min-h-screen bg-navy-950">
-        {/* Hero section with gradient background */}
+        {/* Hero section - Uppdaterad med ny text */}
         <section className="relative overflow-hidden bg-gradient-to-b from-navy-900 to-navy-800">
           <div className="absolute inset-0 bg-gradient-to-b from-navy-900/50 to-navy-800/50"></div>
           
@@ -182,11 +220,11 @@ export default function FunktionerPage() {
             <div className="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
               <div className="text-center lg:text-left">
                 <h1 className="mb-4 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-                  Kraftfulla <span className="text-pink-500">funktioner</span> för perfekta brev
+                  AI-drivna <span className="text-pink-500">funktioner</span> för ditt perfekta personliga brev
                 </h1>
                 
                 <p className="max-w-2xl mx-auto mb-8 text-xl text-gray-300 lg:mx-0">
-                  Upptäck alla verktyg och funktioner som hjälper dig att skapa personliga ansökningsbrev som sticker ut och hjälper dig att få jobbet.
+                  Välkommen till cvbrev.se – din personliga AI-assistent. Upptäck hur våra vetenskapligt baserade verktyg förvandlar ditt CV och jobbannonsen till ett personligt brev som verkligen gör intryck och ökar dina chanser att landa drömjobbet.
                 </p>
                 
                 <div className="flex flex-col justify-center gap-4 mt-8 sm:flex-row lg:justify-start">
@@ -223,7 +261,7 @@ export default function FunktionerPage() {
                   <div className="relative flex justify-center p-8 lg:p-0">
                     <img 
                       src="/cvbrev.png" 
-                      alt="CVBrev AI-assistent" 
+                      alt="cvbrev.se AI robot logotyp" 
                       className="w-40 lg:w-64 animate-bounce" 
                       style={{ animationDuration: '6s' }}
                     />
@@ -234,23 +272,23 @@ export default function FunktionerPage() {
           </div>
         </section>
         
-        {/* Ansökningseffektivitet section */}
+        {/* Ansökningseffektivitet section - Uppdaterad text med referenser */}
         <section className="py-16 bg-navy-900 lg:py-24">
           <div className="container px-4 mx-auto">
             <div className="max-w-3xl mx-auto mb-16 text-center">
               <h2 className="mb-6 text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
-                Bevisbara resultat
+                Resultat som talar för sig själva
               </h2>
               <p className="text-xl text-gray-300">
-                Med CVBrev får du snabbare och bättre respons på dina ansökningar över tid.
+                Ett välformulerat personligt brev ökar chanserna till intervju avsevärt. Med cvbrev.se får du snabbare och bättre respons, baserat på metoder inspirerade av forskning från bl.a. <span className="font-semibold text-pink-400">Harvard</span>, <span className="font-semibold text-pink-400">Stanford</span> och <span className="font-semibold text-pink-400">Yale</span>.
               </p>
             </div>
             
             <div className="grid items-center gap-12 lg:grid-cols-2">
               <div>
-                <h3 className="mb-6 text-2xl font-bold text-white">Ökade svarfrekvens över tid</h3>
+                <h3 className="mb-6 text-2xl font-bold text-white">Ökad svarsfrekvens – bevisat effektivt</h3>
                 <p className="mb-8 text-gray-300">
-                  Våra analyser visar att CVBrev-användare får signifikant högre svarsfrekvens på sina jobbansökningar jämfört med standardansökningar. Redan från dag 1 ser du skillnad, och över tid ökar sannolikheten för positiva svar dramatiskt.
+                  Våra data visar tydligt: användare av cvbrev.se upplever en markant högre svarsfrekvens jämfört med traditionella ansökningsmetoder. AI:n hjälper dig att förmedla både kompetens och passion, vilket gör att du sticker ut direkt. Se hur dina chanser förbättras över tid!
                 </p>
                 
                 <ul className="space-y-4">
@@ -284,194 +322,219 @@ export default function FunktionerPage() {
               </div>
               
               <div className="p-6 bg-navy-800 rounded-xl">
-                <h3 className="mb-4 text-xl font-semibold text-white">Svarsfrekvens över tid</h3>
+                <h3 className="mb-4 text-xl font-semibold text-white text-center">Svarsfrekvens över tid (cvbrev.se vs Standard)</h3>
                 <div className="relative h-80">
                   <CVBrevTimelineChart />
                 </div>
-                <p className="mt-3 text-sm text-gray-400 text-center">Baserat på data från 5000+ användare och 25000+ ansökningar</p>
+                <p className="mt-3 text-sm text-gray-400 text-center">Baserat på aggregerad anonymiserad användardata</p>
               </div>
             </div>
           </div>
         </section>
         
-        {/* Main features section */}
+        {/* Main features section - Uppdaterade beskrivningar baserat på ny text */}
         <section id="huvudfunktioner" className="py-16 bg-navy-950 lg:py-24">
           <div className="container px-4 mx-auto">
             <div className="max-w-3xl mx-auto mb-16 text-center">
               <h2 className="mb-6 text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
-                Huvudfunktioner
+                Kärnfunktionerna i cvbrev.se
               </h2>
               <p className="text-xl text-gray-300">
-                Allt du behöver för att skapa personliga ansökningsbrev som ökar dina chanser att få jobbet.
+                Verktygen som gör skillnad. Byggda på forskning och designade för att ge dig ett övertag i jobbsökandet.
               </p>
             </div>
             
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {/* Feature: CV-analys */}
               <div className="p-6 transition-transform duration-300 bg-navy-800 rounded-xl hover:translate-y-[-8px]">
                 <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 text-2xl font-bold text-white bg-gradient-to-r from-pink-600 to-pink-500 rounded-full">
                   <Upload className="w-6 h-6" />
                 </div>
-                <h3 className="mb-3 text-xl font-semibold text-center text-white">CV-analys</h3>
+                <h3 className="mb-3 text-xl font-semibold text-center text-white">Intelligent CV-analys</h3>
                 <p className="text-center text-gray-300">
-                  Ladda upp ditt CV och vår AI analyserar automatiskt din kompetens, erfarenhet och nyckelord för att skapa personliga brev som lyfter fram dina styrkor.
+                  Ladda upp ditt CV (<span className='font-semibold'>PDF, DOCX, TXT</span>). Vår AI analyserar din profil och identifierar relevanta erfarenheter och kompetenser att lyfta fram.
                 </p>
               </div>
               
+              {/* Feature: Jobbannonsanalys */}
               <div className="p-6 transition-transform duration-300 bg-navy-800 rounded-xl hover:translate-y-[-8px]">
                 <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 text-2xl font-bold text-white bg-gradient-to-r from-pink-500 to-purple-500 rounded-full">
                   <FileText className="w-6 h-6" />
                 </div>
-                <h3 className="mb-3 text-xl font-semibold text-center text-white">Jobbannonsanalys</h3>
+                <h3 className="mb-3 text-xl font-semibold text-center text-white">Djupgående Jobbannonsanalys</h3>
                 <p className="text-center text-gray-300">
-                  Klistra in jobbannonsen och vår AI identifierar nyckelkompetenser, krav och företagskultur för att skapa perfekt matchande ansökningsbrev.
+                  Klistra in jobbannonsen. AI:n identifierar nyckelkrav, önskvärda meriter och företagskultur för att perfekt matcha ditt brev.
                 </p>
               </div>
               
+              {/* Feature: AI-brevgenerering */}
               <div className="p-6 transition-transform duration-300 bg-navy-800 rounded-xl hover:translate-y-[-8px]">
                 <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 text-2xl font-bold text-white bg-gradient-to-r from-purple-500 to-blue-500 rounded-full">
-                  <MessageSquare className="w-6 h-6" />
+                  <BrainCircuit className="w-6 h-6" /> {/* Ny ikon */}
                 </div>
-                <h3 className="mb-3 text-xl font-semibold text-center text-white">AI-brevgenerering</h3>
+                <h3 className="mb-3 text-xl font-semibold text-center text-white">Specialiserad AI-brevgenerering</h3>
                 <p className="text-center text-gray-300">
-                  Vår avancerade AI skapar personliga brev som är skräddarsydda efter både ditt CV och den specifika jobbannonsen på bara några sekunder.
+                  Baserat på analysen skapar vår <span className='font-semibold'>optimerade AI-prompt</span> ett unikt, skräddarsytt och övertygande personligt brev på sekunder. Undvik generiska fraser!
                 </p>
               </div>
               
+              {/* Feature: Tonalitetsjustering */}
               <div className="p-6 transition-transform duration-300 bg-navy-800 rounded-xl hover:translate-y-[-8px]">
                 <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 text-2xl font-bold text-white bg-gradient-to-r from-blue-500 to-teal-500 rounded-full">
                   <Lightbulb className="w-6 h-6" />
                 </div>
-                <h3 className="mb-3 text-xl font-semibold text-center text-white">Tonalitetsjustering</h3>
+                <h3 className="mb-3 text-xl font-semibold text-center text-white">Anpassningsbar Tonalitet</h3>
                 <p className="text-center text-gray-300">
-                  Välj mellan olika tonaliteter som professionell, kreativ, formell eller personlig för att anpassa tonen efter tjänsten och företagskulturen.
+                  Välj tonläge – professionellt, kreativt, formellt eller personligt – för att matcha tjänsten och företagets kultur perfekt. Kommunicera med rätt röst.
                 </p>
               </div>
               
+              {/* Feature: Obegränsade revideringar */}
               <div className="p-6 transition-transform duration-300 bg-navy-800 rounded-xl hover:translate-y-[-8px]">
                 <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 text-2xl font-bold text-white bg-gradient-to-r from-teal-500 to-green-500 rounded-full">
                   <RefreshCw className="w-6 h-6" />
                 </div>
-                <h3 className="mb-3 text-xl font-semibold text-center text-white">Obegränsade revideringar</h3>
+                <h3 className="mb-3 text-xl font-semibold text-center text-white">Effektiv Iteration & Redigering</h3>
                 <p className="text-center text-gray-300">
-                  Generera om ditt brev så många gånger du vill, med olika tonaliteter och fokus, tills du är helt nöjd med resultatet.
+                  Inte helt nöjd? Generera enkelt nya versioner eller finjustera texten direkt i vår editor. Du har full kontroll att göra brevet <span className='font-semibold'>helt ditt eget</span>.
                 </p>
               </div>
               
+              {/* Feature: Spara och hantera */}
               <div className="p-6 transition-transform duration-300 bg-navy-800 rounded-xl hover:translate-y-[-8px]">
                 <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 text-2xl font-bold text-white bg-gradient-to-r from-green-500 to-yellow-500 rounded-full">
                   <Save className="w-6 h-6" />
                 </div>
-                <h3 className="mb-3 text-xl font-semibold text-center text-white">Spara och hantera mallar</h3>
+                <h3 className="mb-3 text-xl font-semibold text-center text-white">Spara & Återanvänd Brev</h3>
                 <p className="text-center text-gray-300">
-                  Spara dina bästa brev som mallar för att snabbt kunna anpassa dem för liknande ansökningar i framtiden.
+                  Spara dina genererade brev och CV-uppgifter säkert på ditt konto. Återanvänd och anpassa enkelt för framtida ansökningar.
                 </p>
               </div>
             </div>
           </div>
         </section>
         
-        {/* Feature usage and premium features */}
+        {/* Why cvbrev.se & Feature Usage Section */}
         <section className="py-16 bg-navy-900 lg:py-24">
           <div className="container px-4 mx-auto">
-            <div className="grid items-center gap-12 lg:grid-cols-2">
+             <div className="max-w-3xl mx-auto mb-16 text-center">
+              <h2 className="mb-6 text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+                Varför cvbrev.se <span className="text-pink-500">slår</span> generiska AI-verktyg
+              </h2>
+              <p className="text-xl text-gray-300">
+                Medan generell AI är kraftfull, är cvbrev.se specialbyggd för ett enda syfte: att maximera dina jobbchanser med vetenskapligt grundade metoder.
+              </p>
+            </div>
+
+            <div className="grid items-start gap-12 lg:grid-cols-2"> 
+              {/* Fördelar / USP */}
               <div>
-                <h2 className="mb-6 text-3xl font-bold text-white sm:text-4xl">
-                  Premiumfunktioner för seriösa jobbsökande
-                </h2>
-                
                 <ul className="space-y-6 mb-8">
                   <li className="flex items-start">
-                    <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 bg-pink-600 rounded-full">
-                      <CheckCircle className="w-5 h-5 text-white" />
+                    <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 bg-purple-600 rounded-full">
+                      <BrainCircuit className="w-5 h-5 text-white" />
                     </div>
                     <div className="ml-4">
-                      <h3 className="mb-1 text-xl font-semibold text-white">CV-feedback</h3>
-                      <p className="text-gray-300">Få professionell feedback på ditt CV med förslag på förbättringar som kan öka dina chanser att få jobbet.</p>
+                      <h3 className="mb-1 text-xl font-semibold text-white">Specialiserad & Optimerad Prompt</h3>
+                      <p className="text-gray-300">Vår unika AI-prompt är utvecklad genom forskning för att garantera övertygande, skräddarsydda och felfria brev – bortom vad ChatGPT kan erbjuda direkt.</p>
                     </div>
                   </li>
                   
                   <li className="flex items-start">
-                    <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 bg-pink-600 rounded-full">
-                      <CheckCircle className="w-5 h-5 text-white" />
+                    <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full">
+                      <UserCheck className="w-5 h-5 text-white" />
                     </div>
                     <div className="ml-4">
-                      <h3 className="mb-1 text-xl font-semibold text-white">Intervjutipsgenerator</h3>
-                      <p className="text-gray-300">Förbered dig för jobbintervjun med personligt anpassade intervjufrågor och svarsförslag baserade på din ansökan.</p>
+                      <h3 className="mb-1 text-xl font-semibold text-white">Integration av Dina Data</h3>
+                      <p className="text-gray-300">Genom att analysera <span className='font-semibold'>ditt CV</span> och <span className='font-semibold'>jobbannonsen</span> matchar vi effektivt rätt erfarenheter med kraven – en nyckelfaktor för relevans.</p>
                     </div>
                   </li>
                   
                   <li className="flex items-start">
-                    <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 bg-pink-600 rounded-full">
-                      <CheckCircle className="w-5 h-5 text-white" />
+                    <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 bg-teal-600 rounded-full">
+                      <BarChartHorizontal className="w-5 h-5 text-white" />
                     </div>
                     <div className="ml-4">
-                      <h3 className="mb-1 text-xl font-semibold text-white">Premium AI-modell</h3>
-                      <p className="text-gray-300">Få tillgång till vår mest avancerade AI-modell för ännu mer personliga och övertygande brev som sticker ut.</p>
+                      <h3 className="mb-1 text-xl font-semibold text-white">Evidensbaserade Resultat</h3>
+                      <p className="text-gray-300">Vi kombinerar insikter från <span className='font-semibold'>Harvard, Stanford, Yale</span> och rekryteringsproffs med modern AI för en lösning som är både innovativ och beprövad.</p>
+                    </div>
+                  </li>
+
+                  <li className="flex items-start">
+                    <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 bg-pink-600 rounded-full">
+                       <Zap className="w-5 h-5 text-white" />
+                    </div>
+                    <div className="ml-4">
+                      <h3 className="mb-1 text-xl font-semibold text-white">Användarvänligt & Effektivt</h3>
+                      <p className="text-gray-300">Ett intuitivt gränssnitt gör det enkelt att skapa, anpassa och hantera dina brev utan att vara AI-expert. Spara värdefull tid.</p>
                     </div>
                   </li>
                 </ul>
                 
-                <div className="mt-8">
-                  <Link 
-                    href="/register?plan=premium"
-                    className="inline-flex items-center px-6 py-3 font-medium text-white transition-colors bg-pink-600 rounded-md hover:bg-pink-700 group"
-                  >
-                    Uppgradera till Premium
-                    <ChevronRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-                  </Link>
-                </div>
               </div>
               
-              <div className="p-6 bg-navy-800 rounded-xl">
-                <h3 className="mb-4 text-xl font-semibold text-white text-center">Mest populära funktioner</h3>
-                <div className="relative h-80">
+              {/* Feature Usage Chart - Korrigerad */}
+              <div className="p-6 bg-navy-800 rounded-xl"> 
+                <h3 className="mb-4 text-xl font-semibold text-white text-center">Mest använda funktioner</h3>
+                {/* Container för diagrammet */}
+                <div className="relative h-[340px]"> {/* Specifik höjd för att ge plats */}
                   <FeatureUsageChart />
                 </div>
-                <p className="mt-3 text-sm text-gray-400 text-center">Baserat på användningsdata bland premiumanvändare</p>
+                {/* Beskrivning under diagrammet */}
+                <p className="mt-3 text-sm text-gray-400 text-center">
+                  Baserat på hur kärnfunktionerna används på cvbrev.se
+                </p>
               </div>
             </div>
           </div>
         </section>
         
-        {/* FAQ section */}
+        {/* FAQ section - Uppdaterad */}
         <section className="py-16 bg-navy-950 lg:py-24">
           <div className="container px-4 mx-auto">
             <div className="max-w-3xl mx-auto mb-16 text-center">
               <h2 className="mb-6 text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
-                Vanliga frågor
+                Vanliga frågor om funktionerna
               </h2>
               <p className="text-xl text-gray-300">
-                Hitta svaren på de vanligaste frågorna om våra funktioner.
+                Få svar på dina funderingar kring hur cvbrev.se fungerar.
               </p>
             </div>
             
             <div className="max-w-4xl mx-auto">
               <div className="space-y-6">
                 <div className="p-6 bg-navy-800 rounded-xl">
-                  <h3 className="mb-3 text-xl font-semibold text-white">Hur bra är AI:n på att skriva personliga brev?</h3>
+                  <h3 className="mb-3 text-xl font-semibold text-white">Hur bra är AI:n jämfört med att skriva själv?</h3>
                   <p className="text-gray-300">
-                    Vår AI är tränad på tusentals framgångsrika ansökningsbrev och använder avancerad språkbearbetning för att skapa personliga, övertygande brev. Breven är skräddarsydda efter ditt CV och den specifika jobbannonsen, vilket skapar en stark koppling mellan dina kompetenser och arbetsgivarens behov.
+                    Vår AI är tränad på <span className='font-semibold'>beprövade metoder</span> och tusentals framgångsrika brev. Den är utmärkt på att snabbt skapa en <span className='font-semibold'>strukturerad och relevant grund</span>, matcha ditt CV mot jobbet och undvika vanliga misstag. Se det som en expertassistent – du har sedan full möjlighet att förfina och personifiera texten.
+                  </p>
+                </div>
+
+                 <div className="p-6 bg-navy-800 rounded-xl">
+                  <h3 className="mb-3 text-xl font-semibold text-white">Varför inte bara använda ChatGPT direkt?</h3>
+                  <p className="text-gray-300">
+                    cvbrev.se erbjuder flera fördelar: 1) En <span className='font-semibold'>specialiserad prompt</span> baserad på forskning för optimerade resultat. 2) Direkt <span className='font-semibold'>integration av ditt CV och jobbannonsen</span> för exakt matchning. 3) Fokus på <span className='font-semibold'>kvalitet och felfrihet</span> specifikt för personliga brev. 4) Ett <span className='font-semibold'>användarvänligt gränssnitt</span> designat för just detta ändamål. Du får en mer träffsäker och effektiv process.
                   </p>
                 </div>
                 
                 <div className="p-6 bg-navy-800 rounded-xl">
-                  <h3 className="mb-3 text-xl font-semibold text-white">Kommer rekryterare att märka att brevet är AI-genererat?</h3>
+                  <h3 className="mb-3 text-xl font-semibold text-white">Kommer rekryterare märka att brevet är AI-genererat?</h3>
                   <p className="text-gray-300">
-                    Nej, våra brev är utformade för att låta naturliga och personliga. Dessutom har du full kontroll att redigera och anpassa brevet innan du skickar det. Vi rekommenderar att du läser igenom och gör små justeringar för att säkerställa att det perfekt representerar din egen röst och personlighet.
+                    Nej, vårt mål är att skapa brev som låter <span className='font-semibold'>naturliga och personliga</span>. AI:n genererar en stark grund, men vi uppmuntrar dig starkt att <span className='font-semibold'>läsa igenom, redigera och lägga till din egen röst</span>. Våra verktyg för tonalitet och iteration hjälper dig att göra brevet unikt ditt.
                   </p>
                 </div>
                 
                 <div className="p-6 bg-navy-800 rounded-xl">
                   <h3 className="mb-3 text-xl font-semibold text-white">Vilka filformat stöds för CV-uppladdning?</h3>
                   <p className="text-gray-300">
-                    Vi stödjer uppladdning av CV i PDF, DOCX och TXT-format. Vår AI kan analysera innehållet i dessa format för att identifiera relevant information som erfarenhet, kompetenser och utbildning.
+                    Du kan ladda upp ditt CV i de vanligaste formaten: <span className='font-semibold'>PDF, DOCX (Word-dokument) och TXT</span>. Vår AI extraherar automatiskt relevant information för att skapa ditt personliga brev.
                   </p>
                 </div>
                 
                 <div className="p-6 bg-navy-800 rounded-xl">
-                  <h3 className="mb-3 text-xl font-semibold text-white">Hur länge sparas mina brev och CV?</h3>
+                  <h3 className="mb-3 text-xl font-semibold text-white">Hur hanteras min data (CV och brev)?</h3>
                   <p className="text-gray-300">
-                    Dina dokument sparas säkert så länge du har ett aktivt konto. Du kan när som helst radera dina uppgifter från ditt kontolläge. Vi använder aldrig dina personliga data för något annat än att tillhandahålla tjänsten till dig.
+                    Din data sparas <span className='font-semibold'>säkert och krypterat</span> på ditt konto så länge det är aktivt. Du har full kontroll och kan <span className='font-semibold'>radera dina uppgifter när som helst</span> via dina kontoinställningar. Vi delar eller använder aldrig din data i andra syften än att tillhandahålla tjänsten. Läs mer i vår integritetspolicy.
                   </p>
                 </div>
               </div>
@@ -479,22 +542,22 @@ export default function FunktionerPage() {
           </div>
         </section>
         
-        {/* CTA section */}
+        {/* CTA section - Uppdaterad text */}
         <section className="py-16 bg-gradient-to-r from-pink-600 to-purple-600 lg:py-20">
           <div className="container px-4 mx-auto text-center">
             <h2 className="mb-4 text-3xl font-bold text-white sm:text-4xl">
-              Redo att skapa ditt perfekta ansökningsbrev?
+              Redo att uppleva kraften i ett AI-optimerat personligt brev?
             </h2>
             
             <p className="max-w-2xl mx-auto mb-8 text-xl text-white text-opacity-90">
-              Börja redan idag och öka dina chanser att få dina drömjobb.
+              Ta kontroll över din jobbansökan. Låt cvbrev.se bli din hemlighet för att vinna drömjobbet. Börja skapa brev som gör skillnad – redan idag!
             </p>
             
             <Link 
               href={session ? "/create-letter" : "/register"}
               className="inline-flex items-center px-8 py-4 text-lg font-medium text-pink-600 transition-colors bg-white rounded-md shadow-lg hover:bg-gray-100 group"
             >
-              {session ? "Skapa brev nu" : "Kom igång gratis"}
+              {session ? "Skapa ditt nästa brev" : "Kom igång gratis nu"}
               <ChevronRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>

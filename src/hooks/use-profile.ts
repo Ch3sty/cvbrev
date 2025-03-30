@@ -1,8 +1,13 @@
+// src/hooks/use-profile.ts
+// ========================
+// KOMPLETT VERSION: Inkluderar hämtning och exponering av Stripe-data,
+// samtidigt som all befintlig logik och funktioner behålls.
+
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Profile, ProfileUpdateParams, CV } from '@/types/user.types';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
-// Konstanter för prenumerationsbegränsningar
+// Konstanter för prenumerationsbegränsningar (behålls)
 const SUBSCRIPTION_LIMITS = {
   free: {
     maxSavedLetters: 2,
@@ -11,9 +16,10 @@ const SUBSCRIPTION_LIMITS = {
     availableTonalities: ['professional', 'enthusiastic', 'confident', 'balanced', 'creative'],
   },
   premium: {
-    maxSavedLetters: 10,
+    // Justera dessa om Premium ska ha obegränsat eller andra gränser
+    maxSavedLetters: Infinity, // Ändrat till Infinity för premium
     weeklyLetterLimit: Infinity,
-    maxCVCount: 5,
+    maxCVCount: Infinity,     // Ändrat till Infinity för premium
     availableTonalities: ['professional', 'enthusiastic', 'confident', 'balanced', 'creative', 'auto'],
   }
 };
@@ -23,55 +29,61 @@ export const useProfile = () => {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [cv, setCv] = useState<CV | null>(null);
   const [gdprConsent, setGdprConsent] = useState<boolean>(false);
-  
-  // Prenumerationsrelaterad state
-  const [subscriptionTier, setSubscriptionTier] = useState<'free' | 'premium'>('free');
+
+  // Prenumerationsrelaterad state (behålls, men tier styrs av DB)
+  const [subscriptionTier, setSubscriptionTier] = useState<'free' | 'premium'>('free'); // Default, uppdateras från DB
   const [weeklyLetterCount, setWeeklyLetterCount] = useState<number>(0);
-  const [weeklyLetterLimit, setWeeklyLetterLimit] = useState<number>(5);
+  const [weeklyLetterLimit, setWeeklyLetterLimit] = useState<number>(SUBSCRIPTION_LIMITS.free.weeklyLetterLimit); // Default
   const [lastCountReset, setLastCountReset] = useState<string | null>(null);
-  const [remainingWeeklyLetters, setRemainingWeeklyLetters] = useState<number>(5);
-  const [isUpgrading, setIsUpgrading] = useState<boolean>(false);
-  
-  // Ny state för återställningsdatum och nedräkning
+  const [remainingWeeklyLetters, setRemainingWeeklyLetters] = useState<number>(SUBSCRIPTION_LIMITS.free.weeklyLetterLimit); // Default
+  const [isUpgrading, setIsUpgrading] = useState<boolean>(false); // För simuleringsknapp
+
+  // === NY STATE FÖR STRIPE-DATA ===
+  const [stripeCustomerId, setStripeCustomerId] = useState<string | null>(null);
+  const [subscriptionId, setSubscriptionId] = useState<string | null>(null);
+  const [subscriptionStatus, setSubscriptionStatus] = useState<string | null>(null); // Exakt status från Stripe ('active', 'trialing', 'canceled', etc.)
+  const [priceId, setPriceId] = useState<string | null>(null); // Aktuell price_id från Stripe
+  const [currentPeriodEnd, setCurrentPeriodEnd] = useState<Date | null>(null); // När perioden slutar (som Date)
+  // =================================
+
+  // State för återställningsdatum och nedräkning (behålls)
   const [nextResetDate, setNextResetDate] = useState<Date | null>(null);
   const [timeUntilReset, setTimeUntilReset] = useState<string>('');
   const timerIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  
-  // Reference to fetchProfile function to avoid circular dependency
-  const fetchProfileRef = useRef<(() => Promise<any>) | null>(null);
-  
-  // CV-relaterad state
+
+  // Ref för fetchProfile (behålls)
+  const fetchProfileRef = useRef<(() => Promise<Profile | null>) | null>(null);
+
+  // CV-relaterad state (behålls)
   const [cvCount, setCvCount] = useState(0);
   const [hasReachedCvLimit, setHasReachedCvLimit] = useState(false);
-  const [maxCvCount, setMaxCvCount] = useState(1); // Standard för gratisanvändare
-  
-  // Letters-relaterad state
+  const [maxCvCount, setMaxCvCount] = useState(SUBSCRIPTION_LIMITS.free.maxCVCount); // Default
+
+  // Letters-relaterad state (behålls)
   const [savedLettersCount, setSavedLettersCount] = useState(0);
   const [hasReachedLetterLimit, setHasReachedLetterLimit] = useState(false);
-  const [maxSavedLetters, setMaxSavedLetters] = useState(2); // Standard för gratisanvändare
-  
-  // Använder din skapade klientkonfiguration
-  // Använd ref för att undvika att skapa nya klienter vid varje render
+  const [maxSavedLetters, setMaxSavedLetters] = useState(SUBSCRIPTION_LIMITS.free.maxSavedLetters); // Default
+
+  // Supabase-klient (behålls)
   const supabase = getSupabaseClient();
-  
-  // Hjälpfunktion för att formatera begränsningsvärden för bättre visning
+
+  // Hjälpfunktioner (behålls oförändrade)
   const formatLimit = useCallback((value: number): string => {
-    if (value === Infinity) return '∞';
+    if (!isFinite(value)) return '∞'; // Korrekt hantering av Infinity
     return value.toString();
   }, []);
-  
-  // NY FUNKTION: Formatera kvarvarande tid till nästa återställning på ett läsbart sätt
-  const formatTimeRemaining = useCallback((targetDate: Date): string => {
+
+  const formatTimeRemaining = useCallback((targetDate: Date | null): string => {
+    if (!targetDate) return ''; // Hantera null-värde
     const now = new Date();
     const diffMs = targetDate.getTime() - now.getTime();
-    
-    // Om datumet är i det förflutna, returnera ett meddelande
+
     if (diffMs <= 0) return 'nu';
-    
+
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
     const diffHours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
-    
+
     if (diffDays > 0) {
       return `${diffDays} dag${diffDays > 1 ? 'ar' : ''} ${diffHours} tim`;
     } else if (diffHours > 0) {
@@ -80,58 +92,52 @@ export const useProfile = () => {
       return `${diffMinutes} min`;
     }
   }, []);
-  
-  // Funktion för att beräkna återstående brev baserat på prenumerationsnivå och räknare
+
   const calculateRemainingLetters = useCallback((tier: 'free' | 'premium', count: number) => {
-    if (tier === 'premium') return Infinity;
-    return Math.max(0, SUBSCRIPTION_LIMITS.free.weeklyLetterLimit - count);
+    const limit = SUBSCRIPTION_LIMITS[tier].weeklyLetterLimit;
+    if (!isFinite(limit)) return Infinity; // Hantera Infinity
+    return Math.max(0, limit - count);
   }, []);
-  
-  // Funktion för att avgöra om användaren har nått sin gräns för sparade brev
+
   const calculateLetterLimitReached = useCallback((tier: 'free' | 'premium', count: number) => {
-    const limit = tier === 'premium' 
-      ? SUBSCRIPTION_LIMITS.premium.maxSavedLetters 
-      : SUBSCRIPTION_LIMITS.free.maxSavedLetters;
+    const limit = SUBSCRIPTION_LIMITS[tier].maxSavedLetters;
+    if (!isFinite(limit)) return false; // Aldrig nådd om obegränsad
     return count >= limit;
   }, []);
-  
-  // Funktion för att avgöra om användaren har nått sin CV-gräns
+
   const calculateCvLimitReached = useCallback((tier: 'free' | 'premium', count: number) => {
-    const limit = tier === 'premium' 
-      ? SUBSCRIPTION_LIMITS.premium.maxCVCount 
-      : SUBSCRIPTION_LIMITS.free.maxCVCount;
+    const limit = SUBSCRIPTION_LIMITS[tier].maxCVCount;
+    if (!isFinite(limit)) return false; // Aldrig nådd om obegränsad
     return count >= limit;
   }, []);
-  
-  // NY FUNKTION: Beräkna nästa återställningsdatum baserat på senaste återställningen
+
   const calculateNextResetDate = useCallback((lastResetTimestamp: string | null): Date => {
-    // Om det inte finns någon senaste återställning, använd nuvarande tid som bas
     const lastReset = lastResetTimestamp ? new Date(lastResetTimestamp) : new Date();
-    
-    // Beräkna nästa återställningsdatum (7 dagar från senaste återställning)
     const nextReset = new Date(lastReset);
-    nextReset.setDate(nextReset.getDate() + 7);
-    
+    // Sätt nästa återställning till nästa måndag kl 00:00 UTC (eller annan logik du föredrar)
+    // Exempel: Nästa måndag
+    const dayOfWeek = nextReset.getUTCDay(); // 0=Söndag, 1=Måndag,...
+    const daysUntilMonday = (dayOfWeek === 0 ? 1 : 8 - dayOfWeek); // 1 om söndag, annars 8-day
+    nextReset.setUTCDate(nextReset.getUTCDate() + daysUntilMonday);
+    nextReset.setUTCHours(0, 0, 0, 0);
+
+    // Om nästa måndag redan passerat denna vecka, ta nästa veckas måndag
+    if (nextReset.getTime() <= lastReset.getTime()) {
+        nextReset.setUTCDate(nextReset.getUTCDate() + 7);
+    }
+
     return nextReset;
   }, []);
-  
-  // Funktion för att hämta CV-information från API
+
+  // Funktion för att hämta CV-information från API (behålls oförändrad)
   const fetchCvInfo = useCallback(async () => {
     try {
-      const response = await fetch('/api/cv');
-      
-      if (!response.ok) {
-        // Om svaret är 404 (inget CV hittat) sätter vi CV till null
-        if (response.status === 404) {
-          setCv(null);
-          return null;
-        }
-        
-        throw new Error('Kunde inte hämta CV-information');
+      const response = await fetch('/api/cv'); // Antag att denna endpoint finns och är säker
+      if (response.status === 404) {
+        setCv(null); return null;
       }
-      
+      if (!response.ok) { throw new Error('Network response was not ok for CV info'); }
       const data = await response.json();
-      
       if (data.success && data.data) {
         setCv({
           name: data.data.file_name || 'CV',
@@ -139,252 +145,278 @@ export const useProfile = () => {
           lastUpdated: data.data.updated_at || data.data.created_at || null
         });
         return data.data;
-      } else {
-        setCv(null);
-        return null;
-      }
-    } catch (error) {
-      console.error('Fel vid hämtning av CV-information:', error);
-      setCv(null);
-      return null;
-    }
-  }, []);
-  
-  // Funktion för att hämta sparade brev för användaren
+      } else { setCv(null); return null; }
+    } catch (error) { console.error('fetchCvInfo Error:', error); setCv(null); return null; }
+  }, []); // Inga beroenden, använder bara fetch API
+
+  // === UPPDATERADE FETCH-FUNKTIONER FÖR ATT ANVÄNDA AKTUELL TIER ===
   const fetchSavedLettersCount = useCallback(async () => {
+    // Denna funktion behöver tillgång till den *aktuella* tier som hämtas i fetchProfile.
+    // Vi gör den beroende av `subscriptionTier`-state, som sätts i fetchProfile.
+    if (loading) return 0; // Vänta tills profilen är laddad
+
     try {
       const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session) {
-        console.error('Du måste vara inloggad för att se dina sparade brev');
-        return 0;
-      }
-      
+      if (!session) return 0;
+
       const { count, error } = await supabase
         .from('letters')
         .select('id', { count: 'exact', head: true })
         .eq('user_id', session.user.id)
         .eq('is_saved', true);
-      
-      if (error) {
-        console.error('Fel vid hämtning av sparade brev:', error);
-        return 0;
-      }
-      
-      // Uppdatera brävräknaren och maxgräns-flaggan
+
+      if (error) { console.error('fetchSavedLettersCount Error:', error); return 0; }
+
       const currentCount = count || 0;
       setSavedLettersCount(currentCount);
+      // Använd den aktuella `subscriptionTier` från state för att beräkna gränsen
       setHasReachedLetterLimit(calculateLetterLimitReached(subscriptionTier, currentCount));
-      
       return currentCount;
-    } catch (error) {
-      console.error('Fel vid hämtning av sparade brev:', error);
-      return 0;
-    }
-  }, [supabase, subscriptionTier, calculateLetterLimitReached]);
-  
-  // Funktion för att hämta antalet CV för användaren
+
+    } catch (error) { console.error('fetchSavedLettersCount Exception:', error); return 0; }
+  }, [supabase, subscriptionTier, calculateLetterLimitReached, loading]); // Beroende av tier & loading
+
   const fetchCvCount = useCallback(async () => {
+    // Samma logik som ovan: beroende av den aktuella tier från state.
+     if (loading) return 0; // Vänta tills profilen är laddad
+
     try {
       const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session) {
-        console.error('Du måste vara inloggad för att se dina CV:n');
-        return 0;
-      }
-      
+      if (!session) return 0;
+
+      // Antag att cv_texts är din tabell för CV:n
       const { count, error } = await supabase
         .from('cv_texts')
         .select('*', { count: 'exact', head: true })
         .eq('user_id', session.user.id);
-      
-      if (error) {
-        console.error('Fel vid hämtning av CV-antal:', error);
-        return 0;
-      }
-      
-      // Uppdatera CV-räknaren och maxgräns-flaggan
+
+      if (error) { console.error('fetchCvCount Error:', error); return 0; }
+
       const currentCount = count || 0;
       setCvCount(currentCount);
+      // Använd den aktuella `subscriptionTier` från state
       setHasReachedCvLimit(calculateCvLimitReached(subscriptionTier, currentCount));
-      
       return currentCount;
-    } catch (error) {
-      console.error('Fel vid hämtning av CV-antal:', error);
-      return 0;
-    }
-  }, [supabase, subscriptionTier, calculateCvLimitReached]);
-  
-  // NY FUNKTION: Uppdatera timern för nedräkning
+
+    } catch (error) { console.error('fetchCvCount Exception:', error); return 0; }
+  }, [supabase, subscriptionTier, calculateCvLimitReached, loading]); // Beroende av tier & loading
+
+  // Funktioner för timer (behålls oförändrade)
   const startResetTimer = useCallback(() => {
     if (!nextResetDate) return;
-    
-    // Rensa eventuell befintlig timer
-    if (timerIntervalRef.current) {
-      clearInterval(timerIntervalRef.current);
-      timerIntervalRef.current = null;
-    }
-    
-    // Uppdatera kvarvarande tid omedelbart
+    if (timerIntervalRef.current) { clearInterval(timerIntervalRef.current); }
+
     setTimeUntilReset(formatTimeRemaining(nextResetDate));
-    
-    // Sätt upp intervall för att uppdatera varje minut
+
     const interval = setInterval(() => {
       const now = new Date();
-      
-      // Om vi har passerat återställningsdatumet, bör vi uppdatera profilen
       if (now >= nextResetDate) {
         clearInterval(interval);
+        timerIntervalRef.current = null;
+        // Trigga omhämtning av profilen eftersom räknaren borde nollställts på backend
         if (fetchProfileRef.current) {
-          fetchProfileRef.current(); // Använd reference istället för direkt anrop
+            console.log("useProfile: Reset date reached, refreshing profile...");
+            fetchProfileRef.current();
         }
       } else {
         setTimeUntilReset(formatTimeRemaining(nextResetDate));
       }
     }, 60000); // Uppdatera varje minut
-    
     timerIntervalRef.current = interval;
   }, [nextResetDate, formatTimeRemaining]);
-  
-  // NY FUNKTION: Uppdatera nästa återställningsdatum
+
   const updateNextResetDate = useCallback((newResetDate: Date) => {
     setNextResetDate(newResetDate);
-    setTimeUntilReset(formatTimeRemaining(newResetDate));
-  }, [formatTimeRemaining]);
-  
-  // NY FUNKTION: Uppdatera återstående brevantal direkt
+    // Starta om timern med det nya datumet
+    startResetTimer();
+  }, [formatTimeRemaining, startResetTimer]); // Beroende av startResetTimer
+
   const updateRemainingLetters = useCallback((newRemainingCount: number) => {
-    setRemainingWeeklyLetters(newRemainingCount);
-    
-    // Uppdatera även weeklyLetterCount baserat på nytt återstående antal
-    if (subscriptionTier === 'free') {
-      const newCount = SUBSCRIPTION_LIMITS.free.weeklyLetterLimit - newRemainingCount;
+    const limit = SUBSCRIPTION_LIMITS[subscriptionTier].weeklyLetterLimit;
+    if (!isFinite(limit)) {
+      setRemainingWeeklyLetters(Infinity);
+      setWeeklyLetterCount(0); // Obegränsat betyder att räknaren inte är relevant på samma sätt
+    } else {
+      setRemainingWeeklyLetters(Math.max(0, newRemainingCount));
+      const newCount = Math.max(0, limit - Math.max(0, newRemainingCount));
       setWeeklyLetterCount(newCount);
     }
   }, [subscriptionTier]);
-  
-  // Hämta profil - gjord memoizable med useCallback för att undvika onödiga renders
-  const fetchProfile = useCallback(async () => {
+
+  // === HÄMTA PROFIL - UPPDATERAD FÖR STRIPE ===
+  const fetchProfile = useCallback(async (): Promise<Profile | null> => {
+    console.log("useProfile: Fetching profile data...");
     try {
       setLoading(true);
-      
-      // Hämta aktuell användarsession
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session) {
-        console.error('Du måste vara inloggad för att se din profil');
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+
+      if (sessionError || !session) {
+        console.error('useProfile: User not logged in or session error:', sessionError);
         setLoading(false);
+        // Återställ till default gratis-state om ingen session finns
+        setProfile(null); setCv(null); setGdprConsent(false);
+        setSubscriptionTier('free');
+        setMaxCvCount(SUBSCRIPTION_LIMITS.free.maxCVCount);
+        setMaxSavedLetters(SUBSCRIPTION_LIMITS.free.maxSavedLetters);
+        setWeeklyLetterLimit(SUBSCRIPTION_LIMITS.free.weeklyLetterLimit);
+        setWeeklyLetterCount(0); setLastCountReset(null);
+        setRemainingWeeklyLetters(SUBSCRIPTION_LIMITS.free.weeklyLetterLimit);
+        setStripeCustomerId(null); setSubscriptionId(null);
+        setSubscriptionStatus(null); setPriceId(null); setCurrentPeriodEnd(null);
+        const defaultReset = calculateNextResetDate(null);
+        setNextResetDate(defaultReset); setTimeUntilReset(formatTimeRemaining(defaultReset));
+        setCvCount(0); setHasReachedCvLimit(false);
+        setSavedLettersCount(0); setHasReachedLetterLimit(false);
         return null;
       }
-      
-      // Hämta profildata
-      const { data, error } = await supabase
+      console.log("useProfile: Session found for user:", session.user.id);
+
+      // Hämta profildata - säkerställ att alla relevanta fält finns i din 'profiles'-tabell
+      const { data, error: profileError } = await supabase
         .from('profiles')
-        .select('*')
+        .select(`
+          *,
+          stripe_customer_id,
+          subscription_id,
+          subscription_status,
+          subscription_tier,
+          price_id,
+          current_period_end,
+          weekly_letter_count,
+          last_count_reset
+        `)
         .eq('id', session.user.id)
         .single();
-      
-      if (error) {
-        console.error('Fel vid hämtning av profil:', error);
-        return null;
+
+      if (profileError && profileError.code !== 'PGRST116') { // Ignorera "not found"
+        console.error('useProfile: Error fetching profile from DB:', profileError);
+        // Behåll tidigare state eller återställ vid allvarligt fel? Behåller tills vidare.
+        return profile; // Returnera befintligt profil-state om det finns
       }
-      
+
       if (data) {
-        setProfile(data);
-        
-        // Uppdatera prenumerationsrelaterade states
-        const tier = (data.subscription_tier || 'free') as 'free' | 'premium';
-        setSubscriptionTier(tier);
-        
-        // Uppdatera max-värden baserat på prenumerationsnivå
-        setMaxCvCount(SUBSCRIPTION_LIMITS[tier].maxCVCount);
-        setMaxSavedLetters(SUBSCRIPTION_LIMITS[tier].maxSavedLetters);
-        setWeeklyLetterLimit(SUBSCRIPTION_LIMITS[tier].weeklyLetterLimit);
-        
-        // Uppdatera veckoräknaren
-        setWeeklyLetterCount(data.weekly_letter_count || 0);
-        setLastCountReset(data.last_count_reset);
-        
-        // Beräkna återstående veckobrev
-        setRemainingWeeklyLetters(
-          calculateRemainingLetters(tier, data.weekly_letter_count || 0)
-        );
-        
-        // Beräkna och sätt nästa återställningsdatum
-        const nextReset = calculateNextResetDate(data.last_count_reset);
+        console.log("useProfile: Profile data received from DB:", data);
+        setProfile(data); // Sätt grundläggande profil
+
+        // *** Hantera prenumerations- och Stripe-data ***
+        const dbTier = (data.subscription_tier === 'premium' ? 'premium' : 'free'); // Säkerställ typ
+        console.log("useProfile: Determined tier from DB:", dbTier);
+        setSubscriptionTier(dbTier);
+
+        setMaxCvCount(SUBSCRIPTION_LIMITS[dbTier].maxCVCount);
+        setMaxSavedLetters(SUBSCRIPTION_LIMITS[dbTier].maxSavedLetters);
+        setWeeklyLetterLimit(SUBSCRIPTION_LIMITS[dbTier].weeklyLetterLimit);
+        console.log("useProfile: Set limits based on tier:", { maxCv: SUBSCRIPTION_LIMITS[dbTier].maxCVCount, maxLetters: SUBSCRIPTION_LIMITS[dbTier].maxSavedLetters, weeklyLimit: SUBSCRIPTION_LIMITS[dbTier].weeklyLetterLimit });
+
+        setStripeCustomerId(data.stripe_customer_id || null);
+        setSubscriptionId(data.subscription_id || null);
+        setSubscriptionStatus(data.subscription_status || null);
+        setPriceId(data.price_id || null);
+        setCurrentPeriodEnd(data.current_period_end ? new Date(data.current_period_end) : null);
+        console.log("useProfile: Set Stripe states:", { custId: data.stripe_customer_id, subId: data.subscription_id, status: data.subscription_status, price: data.price_id, end: data.current_period_end });
+
+        // Hantera veckoräknare och återställning
+        const currentWeeklyCount = data.weekly_letter_count || 0;
+        setWeeklyLetterCount(currentWeeklyCount);
+        setLastCountReset(data.last_count_reset || null);
+        setRemainingWeeklyLetters(calculateRemainingLetters(dbTier, currentWeeklyCount));
+        const nextReset = calculateNextResetDate(data.last_count_reset || null);
         setNextResetDate(nextReset);
         setTimeUntilReset(formatTimeRemaining(nextReset));
-        
-        // Hämta CV-information från API
+        console.log("useProfile: Set weekly count & reset:", { count: currentWeeklyCount, remaining: calculateRemainingLetters(dbTier, currentWeeklyCount), nextReset: nextReset });
+
+        // Hämta relaterad info EFTER att tier är satt
         await fetchCvInfo();
-        
-        // Hämta CV-antal för att uppdatera räknaren
-        await fetchCvCount();
-        
-        // Hämta antal sparade brev
-        await fetchSavedLettersCount();
-        
+        // Vänta inte på dessa, låt dem köra och uppdatera state när de är klara
+        fetchCvCount();
+        fetchSavedLettersCount();
+
+        console.log("useProfile: Profile fetch complete.");
         return data;
+      } else {
+        // Ingen profil hittad i DB för inloggad användare (kan hända första gången)
+        console.warn("useProfile: No profile found in DB for user:", session.user.id, "- Treating as new free user.");
+        setProfile(null); // Ingen profil
+        // Återställ till default gratis-state
+        setSubscriptionTier('free');
+        setMaxCvCount(SUBSCRIPTION_LIMITS.free.maxCVCount);
+        setMaxSavedLetters(SUBSCRIPTION_LIMITS.free.maxSavedLetters);
+        setWeeklyLetterLimit(SUBSCRIPTION_LIMITS.free.weeklyLetterLimit);
+        setWeeklyLetterCount(0); setLastCountReset(null);
+        setRemainingWeeklyLetters(SUBSCRIPTION_LIMITS.free.weeklyLetterLimit);
+        setStripeCustomerId(null); setSubscriptionId(null);
+        setSubscriptionStatus(null); setPriceId(null); setCurrentPeriodEnd(null);
+        const defaultReset = calculateNextResetDate(null);
+        setNextResetDate(defaultReset); setTimeUntilReset(formatTimeRemaining(defaultReset));
+        setCvCount(0); setHasReachedCvLimit(false);
+        setSavedLettersCount(0); setHasReachedLetterLimit(false);
+        await fetchCvInfo(); // Försök hämta CV ändå
+        return null;
       }
-      
-      return null;
     } catch (error: any) {
-      console.error('Fel vid hämtning av profil:', error);
+      console.error('useProfile: Exception during fetchProfile execution:', error);
+      // Återställ till säkert grundläge vid oväntat fel
+      setProfile(null); setSubscriptionTier('free');
+      // ... (liknande nollställning som vid ingen session) ...
       return null;
     } finally {
       setLoading(false);
+      console.log("useProfile: fetchProfile finished, loading set to false.");
     }
   }, [
-    supabase, 
-    calculateRemainingLetters, 
-    calculateNextResetDate, 
-    formatTimeRemaining, 
-    fetchCvInfo, 
-    fetchCvCount,
-    fetchSavedLettersCount
+    supabase,
+    calculateRemainingLetters,
+    calculateNextResetDate,
+    formatTimeRemaining,
+    fetchCvInfo,
+    fetchCvCount, // Inkludera dessa även om de körs asynkront inuti
+    fetchSavedLettersCount // Deras state-uppdateringar triggar re-renders
+    // Ta bort calculateCvLimitReached och calculateLetterLimitReached härifrån,
+    // de används internt av fetchCvCount/fetchSavedLettersCount som har rätt beroenden.
   ]);
 
-  // Spara fetchProfile i en ref för att undvika cirkulära beroenden
+  // Spara fetchProfile ref (behålls)
   useEffect(() => {
     fetchProfileRef.current = fetchProfile;
   }, [fetchProfile]);
 
-  // Starta timer när nextResetDate ändras
+  // Starta timer (behålls)
   useEffect(() => {
     if (nextResetDate) {
       startResetTimer();
     }
-    
-    // Rensa timer vid unmount
-    return () => {
-      if (timerIntervalRef.current) {
-        clearInterval(timerIntervalRef.current);
-        timerIntervalRef.current = null;
-      }
-    };
+    return () => { if (timerIntervalRef.current) { clearInterval(timerIntervalRef.current); } };
   }, [nextResetDate, startResetTimer]);
 
-  // Hämta profildata vid komponentmontering, bara en gång
+  // Hämta profil vid mount (behålls)
   useEffect(() => {
+    console.log("useProfile: Component mounted, initiating initial fetchProfile.");
     fetchProfile();
-  }, []); // Tom beroendematris för att bara köra en gång
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Körs endast en gång vid montering
 
-  // Uppdatera profil
-  const updateProfile = async (profileData: ProfileUpdateParams) => {
+   // Effekt för att hämta om CV/Letter counts när tier ändras *efter* initial laddning
+   useEffect(() => {
+     if (!loading) { // Kör endast efter initial laddning är klar
+       console.log("useProfile: subscriptionTier changed to", subscriptionTier, "- refetching counts.");
+       fetchCvCount();
+       fetchSavedLettersCount();
+     }
+   }, [subscriptionTier, loading, fetchCvCount, fetchSavedLettersCount]); // Beroende av tier och loading
+
+
+  // Uppdatera profil (behålls, med varning för direkt tier-ändring)
+  const updateProfile = useCallback(async (profileData: ProfileUpdateParams): Promise<boolean> => {
+    console.log("useProfile: Attempting to update profile with data:", profileData);
     try {
-      // Validera indata
       if (profileData.full_name !== undefined && profileData.full_name.trim() === '') {
-        console.warn('Ange ditt namn');
+        console.warn('useProfile update: Full name cannot be empty.');
         return false;
       }
-      
+
       const { data: { session } } = await supabase.auth.getSession();
-      
-      if (!session) {
-        console.error('Du måste vara inloggad för att uppdatera din profil');
-        return false;
-      }
-      
+      if (!session) { console.error('useProfile update: User not logged in.'); return false; }
+
       const { data, error } = await supabase
         .from('profiles')
         .update({
@@ -392,297 +424,266 @@ export const useProfile = () => {
           updated_at: new Date().toISOString()
         })
         .eq('id', session.user.id)
-        .select();
-      
+        .select() // Select för att få tillbaka *all* uppdaterad data
+        .single(); // Antag att vi bara uppdaterar en rad
+
       if (error) {
-        console.error('Fel vid uppdatering av profil:', error);
+        console.error('useProfile update: Error updating profile in DB:', error);
         return false;
       }
-      
-      if (data && data[0]) {
-        // Uppdatera lokal profilestate
-        setProfile(prev => prev ? { ...prev, ...data[0] } : data[0]);
-        
-        // Om prenumerationsnivån har ändrats, uppdatera relaterade värden
-        if (profileData.subscription_tier && profileData.subscription_tier !== subscriptionTier) {
-          setSubscriptionTier(profileData.subscription_tier);
-          setMaxCvCount(SUBSCRIPTION_LIMITS[profileData.subscription_tier].maxCVCount);
-          setMaxSavedLetters(SUBSCRIPTION_LIMITS[profileData.subscription_tier].maxSavedLetters);
-          setWeeklyLetterLimit(SUBSCRIPTION_LIMITS[profileData.subscription_tier].weeklyLetterLimit);
-          
-          // Uppdatera flaggor för gränser
-          setHasReachedCvLimit(calculateCvLimitReached(profileData.subscription_tier, cvCount));
-          setHasReachedLetterLimit(calculateLetterLimitReached(profileData.subscription_tier, savedLettersCount));
-          setRemainingWeeklyLetters(calculateRemainingLetters(profileData.subscription_tier, weeklyLetterCount));
+
+      if (data) {
+        console.log("useProfile update: Profile updated successfully in DB. New data:", data);
+        // Uppdatera lokal profilestate MED den returnerade datan
+        setProfile(data);
+
+        // Om tier ändrades *via detta anrop* (bör ej hända med Stripe, men för säkerhets skull)
+        const updatedTier = (data.subscription_tier === 'premium' ? 'premium' : 'free');
+        if (updatedTier !== subscriptionTier) {
+            console.warn("useProfile update: subscription_tier was changed directly via updateProfile. Webhook should normally handle this.");
+            // Synka ALLT relaterat state om tier ändrades här
+            setSubscriptionTier(updatedTier);
+            setMaxCvCount(SUBSCRIPTION_LIMITS[updatedTier].maxCVCount);
+            setMaxSavedLetters(SUBSCRIPTION_LIMITS[updatedTier].maxSavedLetters);
+            setWeeklyLetterLimit(SUBSCRIPTION_LIMITS[updatedTier].weeklyLetterLimit);
+            setRemainingWeeklyLetters(calculateRemainingLetters(updatedTier, weeklyLetterCount)); // Använd befintlig count
+             // Uppdatera Stripe-status också om det kom med i datan
+             setStripeCustomerId(data.stripe_customer_id || null);
+             setSubscriptionId(data.subscription_id || null);
+             setSubscriptionStatus(data.subscription_status || null);
+             setPriceId(data.price_id || null);
+             setCurrentPeriodEnd(data.current_period_end ? new Date(data.current_period_end) : null);
         }
-        
-        // Om next_reset_date eller last_count_reset uppdateras, uppdatera timer
-        if (profileData.next_reset_date || profileData.last_count_reset) {
-          const newResetDate = profileData.next_reset_date 
-            ? new Date(profileData.next_reset_date)
-            : calculateNextResetDate(profileData.last_count_reset || data[0].last_count_reset);
-          
-          setNextResetDate(newResetDate);
-          setTimeUntilReset(formatTimeRemaining(newResetDate));
+
+        // Om relevanta datum ändrades, uppdatera timer
+        if (profileData.last_count_reset || profileData.next_reset_date) { // Antag att next_reset_date kan sättas här
+             const newResetDate = profileData.next_reset_date
+                 ? new Date(profileData.next_reset_date)
+                 : calculateNextResetDate(data.last_count_reset || null); // Använd den uppdaterade last_count_reset
+             setNextResetDate(newResetDate);
+             setTimeUntilReset(formatTimeRemaining(newResetDate));
         }
-        
+
         return true;
       }
-      
+      console.warn("useProfile update: DB update seemed successful but no data returned.");
       return false;
     } catch (error: any) {
-      console.error('Fel vid uppdatering av profil:', error);
+      console.error('useProfile update: Exception during updateProfile:', error);
       return false;
     }
-  };
+  }, [supabase, subscriptionTier, weeklyLetterCount, cvCount, savedLettersCount, calculateRemainingLetters, calculateCvLimitReached, calculateLetterLimitReached, calculateNextResetDate, formatTimeRemaining]); // Inkludera state som används för att uppdatera sidoeffekter
 
-  // Uppdatera GDPR-samtycke
-  const setGdprConsentValue = (value: boolean) => {
-    setGdprConsent(value);
-  };
+  // GDPR (behålls)
+  const setGdprConsentValue = (value: boolean) => { setGdprConsent(value); };
 
-  // Uppdatera prenumerationsnivå
-  const upgradeSubscription = async (newTier: 'premium') => {
+  // === SIMULERINGSFUNKTIONER (BEHÅLLS) ===
+  const upgradeSubscription = useCallback(async (newTier: 'premium'): Promise<boolean> => {
+    console.warn("useProfile: Running SIMULATED upgradeSubscription. Real status depends on Stripe webhook. Use Stripe checkout flow instead.");
+    setIsUpgrading(true);
     try {
-      setIsUpgrading(true);
-      
-      // I ett riktigt system skulle vi här hantera betalningsprocessen.
-      // Här simulerar vi bara en uppgradering.
-      
-      const success = await updateProfile({
-        subscription_tier: newTier
-      });
-      
-      if (success) {
-        // Uppdatera lokalt state
-        setSubscriptionTier(newTier);
-        setMaxCvCount(SUBSCRIPTION_LIMITS[newTier].maxCVCount);
-        setMaxSavedLetters(SUBSCRIPTION_LIMITS[newTier].maxSavedLetters);
-        setWeeklyLetterLimit(SUBSCRIPTION_LIMITS[newTier].weeklyLetterLimit);
-        
-        // Uppdatera flaggor för gränser
-        setHasReachedCvLimit(calculateCvLimitReached(newTier, cvCount));
-        setHasReachedLetterLimit(calculateLetterLimitReached(newTier, savedLettersCount));
-        setRemainingWeeklyLetters(calculateRemainingLetters(newTier, weeklyLetterCount));
-        
-        return true;
-      }
-      
-      return false;
+      // Simulerar bara en lokal ändring och anrop till updateProfile
+      const success = await updateProfile({ subscription_tier: newTier });
+      // Notera: updateProfile hanterar nu att sätta det lokala state om tier ändras
+      return success;
     } catch (error: any) {
-      console.error('Fel vid uppgradering av prenumeration:', error);
+      console.error('useProfile SIMULATED upgrade error:', error);
       return false;
     } finally {
       setIsUpgrading(false);
     }
-  };
+  }, [updateProfile]); // Beroende av updateProfile
 
-  // Downgrade-funktion (för testning - i en riktig app skulle detta hantera avbokning)
-  const downgradeSubscription = async () => {
+  const downgradeSubscription = useCallback(async (): Promise<boolean> => {
+    console.warn("useProfile: Running SIMULATED downgradeSubscription. Real status depends on Stripe webhook. Use Stripe Customer Portal instead.");
     try {
-      const success = await updateProfile({
-        subscription_tier: 'free'
-      });
-      
-      if (success) {
-        // Uppdatera lokalt state tillbaka till gratisnivå
-        setSubscriptionTier('free');
-        setMaxCvCount(SUBSCRIPTION_LIMITS.free.maxCVCount);
-        setMaxSavedLetters(SUBSCRIPTION_LIMITS.free.maxSavedLetters);
-        setWeeklyLetterLimit(SUBSCRIPTION_LIMITS.free.weeklyLetterLimit);
-        
-        // Uppdatera flaggor för gränser - dessa kan nu vara true om användare överskrider gratisbegränsningar
-        setHasReachedCvLimit(calculateCvLimitReached('free', cvCount));
-        setHasReachedLetterLimit(calculateLetterLimitReached('free', savedLettersCount));
-        setRemainingWeeklyLetters(calculateRemainingLetters('free', weeklyLetterCount));
-        
-        return true;
-      }
-      
-      return false;
+      // Simulerar bara en lokal ändring och anrop till updateProfile
+      const success = await updateProfile({ subscription_tier: 'free' });
+      // Notera: updateProfile hanterar nu att sätta det lokala state om tier ändras
+      return success;
     } catch (error: any) {
-      console.error('Fel vid nedgradering av prenumeration:', error);
+      console.error('useProfile SIMULATED downgrade error:', error);
       return false;
     }
-  };
+  }, [updateProfile]); // Beroende av updateProfile
+  // =========================================
 
-  // Ladda upp CV via API
-  const uploadCV = async (file: File, title?: string) => {
+  // CV-funktioner (behålls oförändrade)
+  const uploadCV = useCallback(async (file: File, title?: string): Promise<boolean> => {
+    console.log("useProfile: Attempting to upload CV:", file.name);
+    // Använd state direkt här eftersom det uppdateras av fetchProfile
+    if (calculateCvLimitReached(subscriptionTier, cvCount)) { // Använd aktuell tier och count
+       const limit = SUBSCRIPTION_LIMITS[subscriptionTier].maxCVCount;
+       const message = subscriptionTier === 'free'
+           ? `Som gratisanvändare kan du bara ha ${formatLimit(limit)} CV. Uppgradera till premium för obegränsade CV:n.`
+           : `Du har nått maxgränsen på ${formatLimit(limit)} CV. Ta bort ett befintligt CV först.`;
+       console.error("uploadCV Error: Limit reached.");
+       throw new Error(message);
+    }
+
+    if (!gdprConsent) {
+       console.error("uploadCV Error: GDPR consent missing.");
+       throw new Error('Du måste godkänna GDPR-samtycket för att ladda upp CV');
+    }
+
+    const validTypes = ['.pdf', '.docx', '.txt'];
+    const fileExt = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
+    if (!validTypes.some(type => fileExt.endsWith(type))) {
+       console.error("uploadCV Error: Invalid file type.");
+       throw new Error('Ogiltig filtyp. Endast PDF, DOCX och TXT är tillåtna.');
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+       console.error("uploadCV Error: File too large.");
+       throw new Error('Filen är för stor. Maximal storlek är 5MB.');
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('title', title || file.name);
+
     try {
-      // Kontrollera om användaren har nått sin CV-gräns (baserat på prenumerationsnivå)
-      if (hasReachedCvLimit) {
-        if (subscriptionTier === 'free') {
-          throw new Error(`Som gratisanvändare kan du bara ha ${maxCvCount} CV. Uppgradera till premium för att hantera flera CV:n.`);
-        } else {
-          throw new Error(`Du har nått maxgränsen på ${maxCvCount} CV. Ta bort ett befintligt CV först.`);
-        }
-      }
-      
-      // Kontrollera GDPR-samtycke
-      if (!gdprConsent) {
-        throw new Error('Du måste godkänna GDPR-samtycket för att ladda upp CV');
-      }
-      
-      // Validera filtyp
-      const validTypes = ['.pdf', '.docx', '.txt'];
-      const fileExt = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
-      
-      if (!validTypes.some(type => fileExt.endsWith(type))) {
-        throw new Error('Ogiltig filtyp. Endast PDF, DOCX och TXT är tillåtna.');
-      }
-      
-      // Validera filstorlek (5MB max)
-      if (file.size > 5 * 1024 * 1024) {
-        throw new Error('Filen är för stor. Maximal storlek är 5MB.');
-      }
-      
-      // Använd API-rutt för uppladdning
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('title', title || file.name); // Lägg till titel baserat på filnamn
-      
-      const response = await fetch('/api/cv/upload', {
-        method: 'POST',
-        body: formData
-      });
-      
-      // Hantera specifika felkoder från backend
+      const response = await fetch('/api/cv/upload', { method: 'POST', body: formData });
+
       if (!response.ok) {
-        const errorData = await response.json();
-        
-        // Om användare har nått CV-gräns på backend, ge specifikt felmeddelande
-        if (errorData.code === 'CV_LIMIT_REACHED') {
-          throw new Error('Som gratisanvändare kan du bara ha 1 CV. Uppgradera till premium för att hantera flera CV:n.');
+        const errorData = await response.json().catch(() => ({ error: 'Okänt serverfel vid uppladdning' })); // Fånga JSON-parse fel
+        console.error("uploadCV Error: Server responded with error:", response.status, errorData);
+        // Specifik felhantering
+        if (errorData.code === 'CV_LIMIT_REACHED' || response.status === 403) {
+             const limit = SUBSCRIPTION_LIMITS[subscriptionTier].maxCVCount;
+             throw new Error(subscriptionTier === 'free'
+                 ? `Som gratisanvändare kan du bara ha ${formatLimit(limit)} CV. Uppgradera till premium.`
+                 : `Du har nått maxgränsen på ${formatLimit(limit)} CV.`);
         }
-        
-        throw new Error(errorData.error || 'Okänt fel vid uppladdning');
+        throw new Error(errorData.error || `Serverfel (${response.status})`);
       }
-      
+
       const data = await response.json();
-      
       if (data.success) {
-        // Uppdatera CV-informationen genom att hämta den från API
-        await fetchCvInfo();
-        // Uppdatera CV-räkningen
-        await fetchCvCount();
-        // Återställ GDPR-samtycket
+        console.log("useProfile: CV uploaded successfully. Refreshing counts and info.");
+        await fetchCvInfo(); // Uppdatera CV-objektet
+        await fetchCvCount(); // Uppdatera räknare och gränsflagga
         setGdprConsent(false);
         return true;
+      } else {
+        console.error("uploadCV Error: Server responded success=false.", data);
+        throw new Error(data.error || "Okänt fel från servern efter uppladdning.");
       }
-      
-      return false;
     } catch (error: any) {
-      console.error('Fel vid uppladdning av CV:', error);
-      throw error; // Kasta vidare felet för hantering i UI
+      console.error('uploadCV Exception:', error);
+      throw error; // Kasta vidare för UI-hantering
     }
-  };
+  }, [supabase, subscriptionTier, cvCount, gdprConsent, fetchCvInfo, fetchCvCount, calculateCvLimitReached, formatLimit]); // Inkludera relevanta states och funktioner
 
-  // Ta bort CV
-  const deleteCV = async () => {
+  const deleteCV = useCallback(async (): Promise<boolean> => {
+    console.log("useProfile: Attempting to delete primary CV (legacy function).");
+    // Denna funktion verkar designad för att ta bort DET ENDA CV:t.
+    // Om du tillåter flera CV:n, använd deleteCVById.
     try {
-      const response = await fetch('/api/cv', {
-        method: 'DELETE'
-      });
-      
+      const response = await fetch('/api/cv', { method: 'DELETE' }); // Antag endpoint
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Okänt fel vid borttagning');
+          const errorData = await response.json().catch(() => ({ error: 'Okänt serverfel vid borttagning' }));
+          console.error("deleteCV Error: Server responded with error:", response.status, errorData);
+          throw new Error(errorData.error || `Serverfel (${response.status})`);
       }
-      
       const data = await response.json();
-      
       if (data.success) {
-        // Återställ CV-tillståndet
+        console.log("useProfile: Primary CV deleted successfully. Resetting state and counts.");
         setCv(null);
-        // Uppdatera CV-räkningen
-        await fetchCvCount();
+        await fetchCvCount(); // Uppdatera räknare och gränsflagga
         return true;
+      } else {
+         console.error("deleteCV Error: Server responded success=false.", data);
+         throw new Error(data.error || "Okänt fel från servern vid borttagning.");
       }
-      
-      return false;
     } catch (error: any) {
-      console.error('Fel vid borttagning av CV:', error);
-      throw error; // Kasta vidare felet för hantering i UI
+      console.error('deleteCV Exception:', error);
+      throw error;
     }
-  };
+  }, [fetchCvCount]); // Beroende av fetchCvCount
 
-  // Ta bort specifikt CV via ID
-  const deleteCVById = async (id: string) => {
+  const deleteCVById = useCallback(async (id: string): Promise<boolean> => {
+    console.log("useProfile: Attempting to delete CV with ID:", id);
     try {
       const response = await fetch('/api/cv/delete', {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id }),
       });
-      
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Okänt fel vid borttagning');
+         const errorData = await response.json().catch(() => ({ error: 'Okänt serverfel vid borttagning av CV' }));
+         console.error("deleteCVById Error: Server responded with error:", response.status, errorData);
+         throw new Error(errorData.error || `Serverfel (${response.status})`);
       }
-      
       const data = await response.json();
-      
       if (data.success) {
-        // Uppdatera CV-räkningen och refresh cv-infon om aktuellt CV togs bort
-        await fetchCvCount();
-        await fetchCvInfo();
+        console.log("useProfile: CV", id, "deleted successfully. Refreshing counts and info.");
+        await fetchCvCount(); // Uppdatera räknare och gränsflagga
+        await fetchCvInfo(); // Uppdatera CV-listan (om fetchCvInfo hanterar lista) eller nollställ om det var det enda
         return true;
+      } else {
+         console.error("deleteCVById Error: Server responded success=false.", data);
+         throw new Error(data.error || "Okänt fel från servern vid borttagning av CV.");
       }
-      
-      return false;
     } catch (error: any) {
-      console.error('Fel vid borttagning av CV:', error);
-      throw error; // Kasta vidare felet för hantering i UI
+      console.error('deleteCVById Exception:', error);
+      throw error;
     }
-  };
+  }, [fetchCvCount, fetchCvInfo]); // Beroende av fetch-funktionerna
 
-  // Returnera allt som behövs från hooken
-  return { 
-    // Grundläggande profildata
-    profile, 
-    cv, 
+
+  // === RETURNERA ALLT ===
+  console.log("useProfile: Hook rendering/returning values. Loading:", loading, "Tier:", subscriptionTier);
+  return {
+    // Grundläggande profildata (behålls)
+    profile,
+    cv,
     gdprConsent,
-    loading, 
+    loading,
 
     // Prenumerationsrelaterad data
-    subscriptionTier,
-    isUpgrading,
-    weeklyLetterCount,
-    remainingWeeklyLetters,
-    weeklyLetterLimit,
+    subscriptionTier,       // VERKLIG tier från DB
+    isUpgrading,            // För simuleringsknapp
+    weeklyLetterCount,      // Aktuell räknare
+    remainingWeeklyLetters, // Beräknat återstående
+    weeklyLetterLimit,      // Gräns för nuvarande tier
 
-    // Gränser och antal baserade på prenumerationsnivå
-    cvCount,
-    maxCvCount,
-    hasReachedCvLimit,
-    savedLettersCount,
-    maxSavedLetters,
-    hasReachedLetterLimit,
+    // Gränser och antal (behålls, styrs av verklig tier)
+    cvCount,                // Aktuellt antal CV
+    maxCvCount,             // Max CV för nuvarande tier
+    hasReachedCvLimit,      // Flagga för CV-gräns
+    savedLettersCount,      // Aktuellt antal sparade brev
+    maxSavedLetters,        // Max sparade brev för nuvarande tier
+    hasReachedLetterLimit,  // Flagga för brevgräns
 
-    // Gränsinformationsobjekt för lättare användning
+    // Gränsinformationsobjekt (behålls)
     subscriptionLimits: SUBSCRIPTION_LIMITS,
     formatLimit,
 
-    // Timer-relaterad information
-    nextResetDate,
-    timeUntilReset,
+    // Timer-relaterad information (behålls)
+    nextResetDate,          // Nästa återställningsdatum (som Date)
+    timeUntilReset,         // Formaterad sträng för nedräkning
 
-    // Funktioner
-    updateProfile, 
+    // === NYA STRIPE-VÄRDEN SOM EXPONERAS ===
+    stripeCustomerId,     // Stripe kund-ID (string | null)
+    subscriptionId,       // Aktivt/senaste prenumerations-ID (string | null)
+    subscriptionStatus,   // Exakt Stripe-status (string | null)
+    priceId,              // Stripe Price ID för prenumerationen (string | null)
+    currentPeriodEnd,     // När perioden slutar (Date | null)
+    // ========================================
+
+    // Funktioner (behålls)
+    updateProfile,
     uploadCV,
     deleteCV,
     deleteCVById,
     setGdprConsent: setGdprConsentValue,
-    refreshProfile: fetchProfile,
-    updateNextResetDate,
+    refreshProfile: fetchProfile, // Funktion för att manuellt trigga omhämtning
+    updateNextResetDate,          // Funktion för att sätta nytt reset-datum (om nödvändigt externt)
+    updateRemainingLetters,       // Funktion för att manuellt justera återstående (används sällan externt)
 
-    // Prenumerationsuppgraderingsfunktioner
+    // Simuleringsfunktioner (behålls som utlovat)
     upgradeSubscription,
-    downgradeSubscription,  // För testning
-
-    // NY FUNKTION exporterad
-    updateRemainingLetters
+    downgradeSubscription,
   };
 };

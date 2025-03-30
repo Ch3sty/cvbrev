@@ -1,194 +1,265 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react' // Importera useRef
 import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation' // Importera usePathname
+import { User, LogOut, LayoutGrid, FileText, Tag, Edit3, Menu, X } from 'lucide-react' // Importera ikoner
 
 export default function Navbar() {
   const [user, setUser] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false) // State för användarmeny
+  const dropdownRef = useRef<HTMLDivElement>(null); // Ref för att stänga vid klick utanför
+
   const router = useRouter()
+  const pathname = usePathname() // Hämta aktuell sökväg
   const supabase = createClient()
-  
+
+  // Effekt för att hämta användare och lyssna på auth-ändringar
   useEffect(() => {
     const getUser = async () => {
+      setIsLoading(true); // Starta laddning
       const { data: { user } } = await supabase.auth.getUser()
       setUser(user)
-      setIsLoading(false)
+      setIsLoading(false) // Avsluta laddning
     }
-    
+
     getUser()
-    
+
     const { data: authListener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setUser(session?.user || null)
+      (_event, session) => {
+        const currentUser = session?.user ?? null;
+        setUser(currentUser);
+        // Om användaren loggar ut/in medan menyn är öppen, stäng den
+        if (!currentUser) {
+            setIsUserDropdownOpen(false);
+            setIsMobileMenuOpen(false);
+        }
       }
     )
-    
+
     return () => {
       authListener.subscription.unsubscribe()
     }
   }, [supabase])
-  
+
+   // Effekt för att stänga dropdown vid klick utanför
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsUserDropdownOpen(false);
+      }
+    }
+    // Bind eventlyssnaren
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Avbind eventlyssnaren vid cleanup
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
+
+
   const handleSignOut = async () => {
     await supabase.auth.signOut()
-    router.push('/')
-    router.refresh()
+    setIsUserDropdownOpen(false) // Stäng dropdown vid utloggning
+    setIsMobileMenuOpen(false) // Stäng mobilmeny
+    router.push('/') // Omdirigera till startsidan
+    // router.refresh() behövs oftast inte med App Router, men kan lämnas om specifik anledning finns
   }
-  
+
+  // Funktion för att stänga båda menyerna
+  const closeMenus = () => {
+    setIsMobileMenuOpen(false);
+    setIsUserDropdownOpen(false);
+  }
+
+  // Funktion för att rendera länkar (för att undvika upprepning)
+  const renderNavLinks = (isMobile = false) => {
+    const linkClass = isMobile
+        ? "block px-3 py-2 rounded-md text-base font-medium"
+        : "text-sm font-medium transition-colors";
+    const activeClass = isMobile
+        ? "bg-navy-800 text-white"
+        : "text-pink-500";
+    const inactiveClass = isMobile
+        ? "text-gray-300 hover:bg-navy-700 hover:text-white"
+        : "text-gray-300 hover:text-pink-400";
+
+    return (
+      <>
+        <Link href="/" className={`${linkClass} ${pathname === '/' ? activeClass : inactiveClass}`} onClick={closeMenus}>Hem</Link>
+        <Link href="/funktioner" className={`${linkClass} ${pathname === '/funktioner' ? activeClass : inactiveClass}`} onClick={closeMenus}>Funktioner</Link>
+        <Link href="/priser" className={`${linkClass} ${pathname === '/priser' ? activeClass : inactiveClass}`} onClick={closeMenus}>Priser</Link>
+        {user && (
+           <>
+             <Link href="/create-letter" className={`${linkClass} ${pathname === '/create-letter' ? activeClass : inactiveClass}`} onClick={closeMenus}>Skapa brev</Link>
+             <Link href="/my-letters" className={`${linkClass} ${pathname === '/my-letters' ? activeClass : inactiveClass}`} onClick={closeMenus}>Mina brev</Link>
+           </>
+        )}
+      </>
+    );
+  }
+
   return (
-    <nav className="bg-navy-950 text-white">
-      <div className="container flex items-center justify-between px-4 py-4 mx-auto">
-        <Link href="/" className="flex items-center">
+    <nav className="bg-navy-950 text-white shadow-md sticky top-0 z-40"> {/* Sticky och högre z-index */}
+      <div className="container flex items-center justify-between h-16 px-4 mx-auto sm:px-6 lg:px-8">
+        {/* Logo */}
+        <Link href="/" className="flex items-center flex-shrink-0" onClick={closeMenus}>
           <span className="text-xl font-bold">cv<span className="text-pink-500">brev</span></span>
-          <span className="px-1 ml-1 text-xs bg-pink-500 rounded">BETA</span>
+          {/* Behåll BETA-taggen om den fortfarande är relevant */}
+          <span className="ml-1.5 px-1.5 py-0.5 text-xs font-semibold bg-pink-500 rounded-sm uppercase tracking-wider">BETA</span>
         </Link>
-        
-        <div className="hidden md:flex items-center space-x-8">
-          <Link href="/" className="hover:text-pink-500">Hem</Link>
-          <Link href="/funktioner" className="hover:text-pink-500">Funktioner</Link>
-          <Link href="/priser" className="hover:text-pink-500">Priser</Link>
-          
-          {!isLoading && (
-            <>
-              {user ? (
-                <>
-                  <Link href="/create-letter" className="hover:text-pink-500">Skapa brev</Link>
-                  <Link href="/my-letters" className="hover:text-pink-500">Mina brev</Link>
-                  <div className="relative group">
-                    <button className="flex items-center hover:text-pink-500">
-                      <span className="w-8 h-8 mr-2 text-center text-white bg-pink-500 rounded-full">
-                        {user.email.charAt(0).toUpperCase()}
-                      </span>
-                      <span className="hidden lg:inline">{user.email}</span>
-                    </button>
-                    
-                    <div className="absolute right-0 hidden p-2 bg-navy-800 rounded-md shadow-lg group-hover:block">
-                      <Link href="/profile" className="block px-4 py-2 hover:bg-navy-700">
-                        Min profil
-                      </Link>
-                      <button 
-                        onClick={handleSignOut}
-                        className="block w-full px-4 py-2 text-left text-red-500 hover:bg-navy-700"
-                      >
-                        Logga ut
-                      </button>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <Link 
-                    href="/login" 
-                    className="text-white hover:text-pink-500"
+
+        {/* Desktop Navigation Links */}
+        <div className="hidden md:flex items-center space-x-6">
+          {renderNavLinks()}
+        </div>
+
+        {/* Desktop User/Auth Area */}
+        <div className="hidden md:flex items-center space-x-4">
+          {isLoading ? (
+             <div className="h-8 w-24 bg-navy-800 rounded animate-pulse"></div> // Enkel laddningsindikator
+          ) : user ? (
+            <div className="relative" ref={dropdownRef}> {/* Lägg till ref här */}
+              <button
+                onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)} // Toggle dropdown on click
+                className="flex items-center text-sm font-medium text-gray-300 rounded-full hover:text-pink-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-navy-900 focus:ring-pink-500"
+                aria-expanded={isUserDropdownOpen}
+                aria-haspopup="true"
+              >
+                <span className="sr-only">Öppna användarmeny</span>
+                <span className="flex items-center justify-center w-8 h-8 text-base font-semibold text-white bg-pink-600 rounded-full">
+                  {user.email?.charAt(0).toUpperCase() ?? '?'}
+                </span>
+                <span className="hidden lg:inline ml-2">{user.email}</span>
+                 {/* Chevron kan läggas till för att indikera dropdown */}
+                 {/* <ChevronDown className={`w-4 h-4 ml-1 transition-transform ${isUserDropdownOpen ? 'rotate-180' : ''}`} /> */}
+              </button>
+
+              {/* Dropdown Menu */}
+              {isUserDropdownOpen && (
+                <div
+                  className="absolute right-0 w-48 mt-2 origin-top-right bg-navy-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none py-1 z-50" // HÖGRE Z-INDEX
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="user-menu-button"
+                >
+                  <Link
+                    href="/profile"
+                    className="flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-navy-700 hover:text-white"
+                    role="menuitem"
+                    onClick={closeMenus} // Stäng vid klick
                   >
-                    Logga in
+                    <User className="w-4 h-4 mr-2" />
+                    Min profil
                   </Link>
-                  <Link 
-                    href="/register" 
-                    className="px-4 py-2 font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700"
+                  <button
+                    onClick={handleSignOut}
+                    className="flex items-center w-full px-4 py-2 text-sm text-red-400 hover:bg-navy-700 hover:text-red-300"
+                    role="menuitem"
                   >
-                    Kom igång
-                  </Link>
-                </>
+                    <LogOut className="w-4 h-4 mr-2" />
+                    Logga ut
+                  </button>
+                </div>
               )}
+            </div>
+          ) : (
+            // Logged out state
+            <>
+              <Link
+                href="/login"
+                className={`text-sm font-medium transition-colors ${pathname === '/login' ? 'text-pink-500' : 'text-gray-300 hover:text-pink-400'}`}
+              >
+                Logga in
+              </Link>
+              <Link
+                href="/register"
+                className="px-4 py-2 text-sm font-medium text-white transition-colors bg-pink-600 rounded-md shadow-sm hover:bg-pink-700"
+              >
+                Kom igång
+              </Link>
             </>
           )}
         </div>
-        
-        <button 
-          className="md:hidden"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            {isMenuOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+
+        {/* Mobile Menu Button */}
+        <div className="flex items-center md:hidden">
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:text-white hover:bg-navy-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            aria-controls="mobile-menu"
+            aria-expanded={isMobileMenuOpen}
+          >
+            <span className="sr-only">Öppna huvudmeny</span>
+            {isMobileMenuOpen ? (
+              <X className="block w-6 h-6" aria-hidden="true" />
             ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              <Menu className="block w-6 h-6" aria-hidden="true" />
             )}
-          </svg>
-        </button>
+          </button>
+        </div>
       </div>
-      
-      {/* Mobile menu */}
-      {isMenuOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            <Link 
-              href="/"
-              className="block px-3 py-2 hover:bg-navy-800"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Hem
-            </Link>
-            <Link 
-              href="/funktioner"
-              className="block px-3 py-2 hover:bg-navy-800"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Funktioner
-            </Link>
-            <Link 
-              href="/priser"
-              className="block px-3 py-2 hover:bg-navy-800"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Priser
-            </Link>
-            
-            {user ? (
-              <>
-                <Link 
-                  href="/create-letter"
-                  className="block px-3 py-2 hover:bg-navy-800"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Skapa brev
-                </Link>
-                <Link 
-                  href="/my-letters"
-                  className="block px-3 py-2 hover:bg-navy-800"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Mina brev
-                </Link>
-                <Link 
-                  href="/profile"
-                  className="block px-3 py-2 hover:bg-navy-800"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  Min profil
-                </Link>
-                <button 
-                  onClick={() => {
-                    handleSignOut()
-                    setIsMenuOpen(false)
-                  }}
-                  className="block w-full px-3 py-2 text-left text-red-500 hover:bg-navy-800"
-                >
-                  Logga ut
-                </button>
-              </>
+
+      {/* Mobile menu, show/hide based on menu state. */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden border-t border-navy-700" id="mobile-menu">
+          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            {renderNavLinks(true)}
+          </div>
+          {/* Mobile User/Auth Area */}
+          <div className="pt-4 pb-3 border-t border-navy-700">
+             {isLoading ? (
+               <div className="px-5">
+                 <div className="h-8 w-32 bg-navy-800 rounded animate-pulse"></div>
+               </div>
+             ) : user ? (
+              <div className="px-5">
+                <div className="flex items-center mb-3">
+                   <span className="flex items-center justify-center w-8 h-8 text-base font-semibold text-white bg-pink-600 rounded-full flex-shrink-0">
+                     {user.email?.charAt(0).toUpperCase() ?? '?'}
+                   </span>
+                  <div className="ml-3">
+                    <div className="text-sm font-medium text-white truncate">{user.email}</div>
+                  </div>
+                </div>
+                <div className="mt-3 space-y-1">
+                   <Link
+                    href="/profile"
+                    className="flex items-center px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-navy-700 hover:text-white"
+                    onClick={closeMenus}
+                  >
+                     <User className="w-5 h-5 mr-2" />
+                    Min profil
+                  </Link>
+                  <button
+                    onClick={handleSignOut}
+                    className="flex items-center w-full px-3 py-2 text-base font-medium text-red-400 rounded-md hover:bg-navy-700 hover:text-red-300"
+                  >
+                     <LogOut className="w-5 h-5 mr-2" />
+                    Logga ut
+                  </button>
+                </div>
+              </div>
             ) : (
-              <>
-                <Link 
+              <div className="px-2 space-y-1 sm:px-3">
+                 <Link
                   href="/login"
-                  className="block px-3 py-2 hover:bg-navy-800"
-                  onClick={() => setIsMenuOpen(false)}
+                  className="block px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-navy-700 hover:text-white"
+                  onClick={closeMenus}
                 >
                   Logga in
                 </Link>
-                <Link 
+                <Link
                   href="/register"
-                  className="block px-3 py-2 font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700"
-                  onClick={() => setIsMenuOpen(false)}
+                  className="block w-full px-3 py-2 text-base font-medium text-white transition-colors bg-pink-600 rounded-md shadow-sm hover:bg-pink-700" // Anpassa ev.
+                  onClick={closeMenus}
                 >
                   Kom igång
                 </Link>
-              </>
+              </div>
             )}
           </div>
         </div>
