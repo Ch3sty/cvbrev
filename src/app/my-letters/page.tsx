@@ -1,6 +1,7 @@
 // src/app/my-letters/page.tsx
 // UPPDATERAD: Hämtar maxSavedLetters från useProfile och skickar till LetterCounter
 // KORRIGERAD: Fixat 'void' is not assignable to type 'ReactNode' i formatRelativeDate
+// KORRIGERAD: Åtgärdat onödiga useCallback-beroenden enligt ESLint-varningar.
 
 'use client';
 
@@ -45,12 +46,14 @@ const LetterCounter = ({ current, max }: { current: number; max: number }) => {
         message: "Maxgräns nådd"
       };
     }
+    // Visa bara "X platser kvar" om det inte är oändligt och inte fullt
     if (current >= max * 0.8) {
       return {
         icon: <AlertTriangle className="w-5 h-5 text-yellow-500" />,
-        message: `${max - current} platser kvar`
+        message: `${max - current} ${max - current === 1 ? 'plats' : 'platser'} kvar`
       };
     }
+    // Default för icke-oändligt och ej nära/fullt
     return {
       icon: <CheckCircle className="w-5 h-5 text-green-500" />,
       message: "Gott om plats"
@@ -76,7 +79,7 @@ const LetterCounter = ({ current, max }: { current: number; max: number }) => {
 
       {/* Räknardisplay */}
       <div className="flex items-center justify-center bg-navy-900 rounded-xl p-4 mb-3">
-        {/* Cirkel med procent (visas inte tydligt vid Infinity, men ofarlig) */}
+        {/* Cirkel med procent */}
         <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-navy-950 shadow-inner">
           <svg className="w-full h-full" viewBox="0 0 36 36">
             <circle cx="18" cy="18" r="16" fill="none" stroke="#293548" strokeWidth="2" />
@@ -84,7 +87,7 @@ const LetterCounter = ({ current, max }: { current: number; max: number }) => {
                 <circle
                   cx="18" cy="18" r="16"
                   fill="none"
-                  stroke="url(#pink-gradient)"
+                  stroke="url(#myletters-page-pink-gradient)" // Unikt ID
                   strokeWidth="2.5"
                   strokeDasharray={`${percentage}, 100`}
                   strokeLinecap="round"
@@ -92,7 +95,7 @@ const LetterCounter = ({ current, max }: { current: number; max: number }) => {
                 />
             )}
             <defs>
-              <linearGradient id="pink-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <linearGradient id="myletters-page-pink-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#ec4899" />
                 <stop offset="100%" stopColor="#db2777" />
               </linearGradient>
@@ -111,19 +114,25 @@ const LetterCounter = ({ current, max }: { current: number; max: number }) => {
         </div>
       </div>
 
-      {/* Progressbar (visar 0% vid Infinity) */}
-      <div className="h-2 bg-navy-700 rounded-full overflow-hidden">
-        <div
-          className={`h-full bg-gradient-to-r ${getColorClass()} transition-all duration-500 ease-out`}
-          style={{ width: `${percentage}%` }}
-        />
-      </div>
-
-      {/* Text under progressbar */}
-      <div className="mt-2 flex justify-between text-xs text-gray-400">
-        <span>{current} brev sparade</span>
-        <span>{remainingDisplayValue} platser lediga</span>
-      </div>
+       {/* Progressbar (visas endast om inte oändligt) */}
+       {!isInfinite && (
+         <>
+          <div className="h-1.5 bg-navy-700 rounded-full overflow-hidden mb-1">
+             <div
+               className={`h-full bg-gradient-to-r ${getColorClass()} transition-all duration-500 ease-out`}
+               style={{ width: `${percentage}%` }}
+             />
+           </div>
+           <div className="flex justify-end text-xs text-gray-400">
+              <span>{remainingDisplayValue} {remainingDisplayValue === 1 ? 'plats' : 'platser'} lediga</span>
+           </div>
+         </>
+       )}
+       {isInfinite && ( // Visa text istället för progressbar vid oändligt
+           <div className="text-center text-xs text-gray-400 mt-1">
+                Obegränsat antal platser lediga
+           </div>
+       )}
     </div>
   );
 };
@@ -239,7 +248,7 @@ export default function MyLettersPage() {
     setDeleteId(id);
     setShowDeleteConfirm(true);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDeleting]); // ESLint hade rätt, isDeleting är det enda relevanta beroendet här
+  }, [isDeleting]); // Korrekt beroende
 
 
   // *** KORRIGERAD IMPLEMENTATION AV confirmDelete ***
@@ -269,7 +278,7 @@ export default function MyLettersPage() {
       showNotification('error', message, 5000);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deleteId, removeLetter, showNotification]); // ESLint hade rätt, isDeleting behövs inte här
+  }, [deleteId, removeLetter, showNotification]); // Korrekta beroenden
 
 
   // *** KORRIGERAD IMPLEMENTATION AV cancelDelete ***
@@ -282,7 +291,7 @@ export default function MyLettersPage() {
     setShowDeleteConfirm(false);
     setDeleteId(null);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDeleting]); // ESLint hade rätt
+  }, [isDeleting]); // Korrekt beroende
 
 
   // Hantera fel från useLetters hook
@@ -295,6 +304,9 @@ export default function MyLettersPage() {
 
   // Kombinera laddningsstatus
   const isLoading = lettersLoading || profileLoading;
+
+  // Beräkna återstående brev endast om gränsen är ett nummer
+  const remainingLetters = !isFinite(maxSavedLetters) ? Infinity : maxSavedLetters - (letters?.length ?? 0);
 
   return (
     <div className="container max-w-5xl px-4 py-8 mx-auto">
@@ -325,33 +337,19 @@ export default function MyLettersPage() {
             </Link>
           </div>
 
-          {/* Varningsmeddelanden */}
-          {!isFinite(maxSavedLetters) ? null : (
+          {/* Varningsmeddelanden (visas endast när laddning är klar) */}
+          {!isLoading && (
             <>
-             {subscriptionTier === 'free' && hasReachedLetterLimit && (
+              {subscriptionTier === 'free' && hasReachedLetterLimit && isFinite(maxSavedLetters) && (
                 <div className="p-4 mb-6 bg-red-900/30 border-l-4 border-red-500 rounded-lg">
-                    <div className="flex items-start">
-                      <AlertTriangle className="w-5 h-5 text-red-500 mr-3 flex-shrink-0" />
-                      <div>
-                          <h4 className="font-semibold text-red-300 mb-1">Maxgräns nådd</h4>
-                          <p className="text-red-200 text-sm">
-                              Du har nått maxgränsen på {maxSavedLetters} sparade brev. För att skapa ett nytt brev, ta först bort ett befintligt eller
-                              <Link href="/profile#subscription" className="ml-1 text-pink-400 hover:text-pink-300 underline">uppgradera till Premium</Link> för obegränsat utrymme.
-                          </p>
-                      </div>
-                    </div>
+                  <div className="flex items-start"> <AlertTriangle className="w-5 h-5 text-red-500 mr-3 flex-shrink-0" /> <div> <h4 className="font-semibold text-red-300 mb-1">Maxgräns nådd</h4> <p className="text-red-200 text-sm"> Du har nått maxgränsen på {maxSavedLetters} sparade brev. För att skapa ett nytt brev, ta först bort ett befintligt eller <Link href="/profile#subscription" className="ml-1 text-pink-400 hover:text-pink-300 underline">uppgradera till Premium</Link> för obegränsat utrymme. </p> </div> </div>
                 </div>
-             )}
-             {subscriptionTier === 'free' && !hasReachedLetterLimit && letters.length >= maxSavedLetters * 0.8 && (
-                <div className="p-4 mb-6 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-lg">
-                    <div className="flex items-start">
-                      <Info className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0" />
-                      <p className="text-yellow-200 text-sm">
-                        Du närmar dig maxgränsen på {maxSavedLetters} sparade brev. Du kan spara ytterligare {maxSavedLetters - letters.length} brev.
-                      </p>
-                    </div>
-                </div>
-             )}
+              )}
+              {subscriptionTier === 'free' && !hasReachedLetterLimit && isFinite(maxSavedLetters) && letters.length >= maxSavedLetters * 0.8 && (
+                 <div className="p-4 mb-6 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-lg">
+                   <div className="flex items-start"> <Info className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0" /> <p className="text-yellow-200 text-sm"> Du närmar dig maxgränsen på {maxSavedLetters} sparade brev. Du kan spara ytterligare {remainingLetters} {remainingLetters === 1 ? 'brev' : 'brev'}. </p> </div> {/* Lade till plural */}
+                 </div>
+              )}
             </>
           )}
 
@@ -366,7 +364,7 @@ export default function MyLettersPage() {
                 <p className="mb-6 text-gray-300">Du har inte sparat några brev ännu. Skapa ditt första personliga ansökningsbrev!</p>
                 <Link href="/create-letter" className="px-6 py-3 text-white bg-pink-600 rounded-md hover:bg-pink-700">Skapa ditt första brev</Link>
                 <div className="mt-4 text-sm text-gray-400">
-                  <span className="font-medium">0</span> av <span className="font-medium">{!isFinite(maxSavedLetters) ? '∞' : maxSavedLetters}</span> platser använda
+                  <span className="font-medium">0</span> av <span className="font-medium">{!isFinite(maxSavedLetters) ? <InfinityIcon className="w-3 h-3 inline" /> : maxSavedLetters}</span> platser använda
                 </div>
              </div>
           ) : (
@@ -393,7 +391,9 @@ export default function MyLettersPage() {
                   <div className="flex flex-wrap gap-2">
                      <Link href={`/my-letters/${letter.id}`} className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">Visa</Link>
                      <Link href={`/my-letters/${letter.id}/edit`} className="px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-md hover:bg-gray-700">Redigera</Link>
-                     <button onClick={() => handleDelete(letter.id)} disabled={isDeleting} className={`px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 ${isDeleting ? 'opacity-50 cursor-not-allowed' : ''}`}> {isDeleting && deleteId === letter.id ? 'Tar bort...' : 'Ta bort'} </button>
+                     <button onClick={() => handleDelete(letter.id)} disabled={isDeleting} className={`px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 ${isDeleting && deleteId === letter.id ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                       {isDeleting && deleteId === letter.id ? (<><div className="w-4 h-4 mr-2 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>Tar bort...</>) : 'Ta bort'}
+                     </button>
                   </div>
                 </div>
               ))}
@@ -404,8 +404,7 @@ export default function MyLettersPage() {
         {/* Sidofältet */}
         <div className="md:w-64 flex-shrink-0">
           {!profileLoading && (
-            // Ge default 0 om maxSavedLetters är undefined under laddning
-            <LetterCounter current={letters.length} max={maxSavedLetters ?? 0} />
+            <LetterCounter current={letters?.length ?? 0} max={maxSavedLetters ?? 0} /> // Säkerställ att letters finns
           )}
           {profileLoading && ( <div className="bg-navy-800 rounded-lg p-4 shadow-lg border border-gray-700 w-full animate-pulse"><div className="h-5 bg-gray-700 rounded w-3/4 mb-3"></div><div className="flex items-center justify-center bg-navy-900 rounded-xl p-4 mb-3"><div className="w-16 h-16 rounded-full bg-navy-950"></div><div className="ml-5 space-y-2"><div className="h-3 bg-gray-700 rounded w-16"></div><div className="h-4 bg-gray-700 rounded w-12"></div></div></div><div className="h-2 bg-navy-700 rounded-full mb-2"></div><div className="flex justify-between"><div className="h-3 bg-gray-700 rounded w-1/3"></div><div className="h-3 bg-gray-700 rounded w-1/3"></div></div></div> )}
           <div className="bg-navy-800 rounded-lg p-4 shadow-lg border border-gray-700 mt-6">
@@ -416,18 +415,7 @@ export default function MyLettersPage() {
       </div>
 
       {/* Delete confirmation modal */}
-      {showDeleteConfirm && (
-         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm">
-             <div className="p-6 bg-navy-800 rounded-lg max-w-md w-full shadow-xl border border-gray-700">
-                <div className="flex items-start mb-4"><AlertTriangle className="w-6 h-6 text-red-500 mr-3 flex-shrink-0" /><h3 className="text-xl font-semibold text-white">Bekräfta borttagning</h3></div>
-                <p className="mb-6 text-gray-300">Är du säker på att du vill ta bort detta brev? Detta kan inte ångras.</p>
-                <div className="flex justify-end space-x-3">
-                    <button onClick={cancelDelete} disabled={isDeleting} className={`px-4 py-2 text-white bg-gray-600 rounded-md hover:bg-gray-700 ${isDeleting ? 'opacity-50 cursor-not-allowed' : ''}`}>Avbryt</button>
-                    <button onClick={confirmDelete} disabled={isDeleting} className={`px-4 py-2 text-white bg-red-600 rounded-md hover:bg-red-700 flex items-center ${isDeleting ? 'opacity-50 cursor-not-allowed' : ''}`}>{isDeleting ? (<><div className="w-4 h-4 mr-2 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>Tar bort...</>) : 'Ta bort'}</button>
-                </div>
-             </div>
-         </div>
-      )}
+      {showDeleteConfirm && ( <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm"> <div className="p-6 bg-navy-800 rounded-lg max-w-md w-full shadow-xl border border-gray-700"> <div className="flex items-start mb-4"><AlertTriangle className="w-6 h-6 text-red-500 mr-3 flex-shrink-0" /><h3 className="text-xl font-semibold text-white">Bekräfta borttagning</h3></div> <p className="mb-6 text-gray-300">Är du säker på att du vill ta bort detta brev? Detta kan inte ångras.</p> <div className="flex justify-end space-x-3"> <button onClick={cancelDelete} disabled={isDeleting} className={`px-4 py-2 text-white bg-gray-600 rounded-md hover:bg-gray-700 ${isDeleting ? 'opacity-50 cursor-not-allowed' : ''}`}>Avbryt</button> <button onClick={confirmDelete} disabled={isDeleting} className={`px-4 py-2 text-white bg-red-600 rounded-md hover:bg-red-700 flex items-center ${isDeleting ? 'opacity-50 cursor-not-allowed' : ''}`}>{isDeleting ? (<><div className="w-4 h-4 mr-2 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>Tar bort...</>) : 'Ta bort'}</button> </div> </div> </div> )}
     </div>
   );
 }
