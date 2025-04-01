@@ -1,45 +1,50 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useEffect, useRef } from 'react' // Importera useRef
-import { createClient } from '@/lib/supabase/client'
-import { useRouter, usePathname } from 'next/navigation' // Importera usePathname
-import { User, LogOut, LayoutGrid, FileText, Tag, Edit3, Menu, X, BookOpen } from 'lucide-react' // Importera ikoner (Lade till BookOpen för Artiklar)
+import { useState, useEffect, useRef } from 'react'
+import { createClient } from '@/lib/supabase/client' // Justera sökväg vid behov
+import { useRouter, usePathname } from 'next/navigation'
+import {
+  User,
+  LogOut,
+  FileText,
+  Edit3,
+  Menu,
+  X,
+  // BookOpen, // Oanvänd
+  SearchCheck
+} from 'lucide-react'
 
 export default function Navbar() {
   const [user, setUser] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false) // State för användarmeny
-  const dropdownRef = useRef<HTMLDivElement>(null); // Ref för att stänga vid klick utanför
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter()
-  const pathname = usePathname() // Hämta aktuell sökväg
+  const pathname = usePathname()
   const supabase = createClient()
 
   // Effekt för att hämta användare och lyssna på auth-ändringar
   useEffect(() => {
     const getUser = async () => {
-      setIsLoading(true); // Starta laddning
+      setIsLoading(true);
       const { data: { user } } = await supabase.auth.getUser()
       setUser(user)
-      setIsLoading(false) // Avsluta laddning
+      setIsLoading(false)
     }
-
     getUser()
-
     const { data: authListener } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         const currentUser = session?.user ?? null;
         setUser(currentUser);
-        // Om användaren loggar ut/in medan menyn är öppen, stäng den
         if (!currentUser) {
             setIsUserDropdownOpen(false);
             setIsMobileMenuOpen(false);
         }
       }
     )
-
     return () => {
       authListener.subscription.unsubscribe()
     }
@@ -48,24 +53,23 @@ export default function Navbar() {
    // Effekt för att stänga dropdown vid klick utanför
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (isUserDropdownOpen && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsUserDropdownOpen(false);
       }
     }
-    // Bind eventlyssnaren
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      // Avbind eventlyssnaren vid cleanup
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dropdownRef]);
+  }, [dropdownRef, isUserDropdownOpen]);
 
-
+  // Utloggningsfunktion
   const handleSignOut = async () => {
     await supabase.auth.signOut()
-    setIsUserDropdownOpen(false) // Stäng dropdown vid utloggning
-    setIsMobileMenuOpen(false) // Stäng mobilmeny
-    router.push('/') // Omdirigera till startsidan
+    setIsUserDropdownOpen(false)
+    setIsMobileMenuOpen(false)
+    router.push('/')
+    router.refresh()
   }
 
   // Funktion för att stänga båda menyerna
@@ -74,41 +78,83 @@ export default function Navbar() {
     setIsUserDropdownOpen(false);
   }
 
-  // Funktion för att rendera länkar (för att undvika upprepning)
+  // --- Funktion för att rendera navigeringslänkar ---
   const renderNavLinks = (isMobile = false) => {
-    const linkClass = isMobile
-        ? "block px-3 py-2 rounded-md text-base font-medium"
-        : "text-sm font-medium transition-colors";
+    const linkBaseClass = isMobile
+        ? "flex items-center px-3 py-2 rounded-md text-base font-medium"
+        : "flex items-center text-sm font-medium transition-colors";
+
     const activeClass = isMobile
-        ? "bg-navy-800 text-white"
-        : "text-pink-500";
+        ? "bg-navy-800 text-white font-semibold"
+        : "text-pink-500 font-semibold";
+
     const inactiveClass = isMobile
         ? "text-gray-300 hover:bg-navy-700 hover:text-white"
         : "text-gray-300 hover:text-pink-400";
 
-    // Funktion för att kolla om länken ska vara aktiv (inkluderar underliggande sidor)
+    const specialInactiveClass = isMobile
+        ? "text-pink-400 hover:bg-navy-700 hover:text-pink-300 font-medium"
+        : "text-pink-400 hover:text-pink-300 font-semibold";
+
+    // --- ÄNDRING HÄR ---
+    // Ikonstorlek och marginal (anpassad för mobil/desktop) - JUSTERAD STORLEK
+    const iconSize = isMobile ? 20 : 16; // Ökade storleken (20px mobil, 16px desktop)
+    const iconMargin = "mr-2"; // Ökade marginalen till 0.5rem (8px)
+    // --- SLUT ÄNDRING ---
+
     const isActive = (path: string) => pathname === path || pathname.startsWith(path + '/');
 
     return (
       <>
-        <Link href="/" className={`${linkClass} ${isActive('/') ? activeClass : inactiveClass}`} onClick={closeMenus}>Hem</Link>
-        <Link href="/funktioner" className={`${linkClass} ${isActive('/funktioner') ? activeClass : inactiveClass}`} onClick={closeMenus}>Funktioner</Link>
-        <Link href="/priser" className={`${linkClass} ${isActive('/priser') ? activeClass : inactiveClass}`} onClick={closeMenus}>Priser</Link>
-        {/* *** LADE TILL LÄNK TILL ARTIKLAR HÄR *** */}
-        <Link href="/artiklar" className={`${linkClass} ${isActive('/artiklar') ? activeClass : inactiveClass}`} onClick={closeMenus}>Artiklar</Link>
-        {/* **************************************** */}
+        {/* Statiska länkar */}
+        <Link href="/" className={`${linkBaseClass} ${isActive('/') ? activeClass : inactiveClass}`} onClick={closeMenus}>Hem</Link>
+        <Link href="/funktioner" className={`${linkBaseClass} ${isActive('/funktioner') ? activeClass : inactiveClass}`} onClick={closeMenus}>Funktioner</Link>
+        <Link href="/priser" className={`${linkBaseClass} ${isActive('/priser') ? activeClass : inactiveClass}`} onClick={closeMenus}>Priser</Link>
+        <Link href="/artiklar" className={`${linkBaseClass} ${isActive('/artiklar') ? activeClass : inactiveClass}`} onClick={closeMenus}>
+          Artiklar
+        </Link>
+
+        {/* Länkar för inloggade användare */}
         {user && (
            <>
-             <Link href="/create-letter" className={`${linkClass} ${isActive('/create-letter') ? activeClass : inactiveClass}`} onClick={closeMenus}>Skapa brev</Link>
-             <Link href="/my-letters" className={`${linkClass} ${isActive('/my-letters') ? activeClass : inactiveClass}`} onClick={closeMenus}>Mina brev</Link>
+             {/* Skapa brev */}
+             <Link
+                href="/create-letter"
+                className={`${linkBaseClass} ${isActive('/create-letter') ? activeClass : specialInactiveClass}`}
+                onClick={closeMenus}
+             >
+               <Edit3 size={iconSize} className={`${iconMargin} text-current`} aria-hidden="true" />
+               Skapa brev
+             </Link>
+
+             {/* Analysera CV */}
+             <Link
+               href="/analysera-cv"
+               className={`${linkBaseClass} ${isActive('/analysera-cv') ? activeClass : specialInactiveClass}`}
+               onClick={closeMenus}
+             >
+               <SearchCheck size={iconSize} className={`${iconMargin} text-current`} aria-hidden="true" />
+               Analysera CV
+             </Link>
+
+             {/* Mina brev */}
+             <Link
+                href="/my-letters"
+                className={`${linkBaseClass} ${isActive('/my-letters') ? activeClass : inactiveClass}`}
+                onClick={closeMenus}
+             >
+               <FileText size={iconSize} className={`${iconMargin} text-current`} aria-hidden="true" />
+               Mina brev
+             </Link>
            </>
         )}
       </>
     );
   }
+  // --- Slut på renderNavLinks ---
 
   return (
-    <nav className="bg-navy-950 text-white shadow-md sticky top-0 z-40"> {/* Sticky och högre z-index */}
+    <nav className="bg-navy-950 text-white shadow-md sticky top-0 z-40">
       <div className="container flex items-center justify-between h-16 px-4 mx-auto sm:px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center flex-shrink-0" onClick={closeMenus}>
@@ -118,20 +164,21 @@ export default function Navbar() {
 
         {/* Desktop Navigation Links */}
         <div className="hidden md:flex items-center space-x-6">
-          {renderNavLinks()} {/* Anropar den uppdaterade funktionen */}
+          {renderNavLinks(false)}
         </div>
 
         {/* Desktop User/Auth Area */}
         <div className="hidden md:flex items-center space-x-4">
           {isLoading ? (
-             <div className="h-8 w-24 bg-navy-800 rounded animate-pulse"></div> // Enkel laddningsindikator
+             <div className="h-8 w-24 bg-navy-800 rounded animate-pulse"></div>
           ) : user ? (
-            <div className="relative" ref={dropdownRef}> {/* Lägg till ref här */}
+            <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
                 className="flex items-center text-sm font-medium text-gray-300 rounded-full hover:text-pink-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-navy-900 focus:ring-pink-500"
                 aria-expanded={isUserDropdownOpen}
                 aria-haspopup="true"
+                id="user-menu-button"
               >
                 <span className="sr-only">Öppna användarmeny</span>
                 <span className="flex items-center justify-center w-8 h-8 text-base font-semibold text-white bg-pink-600 rounded-full">
@@ -139,11 +186,9 @@ export default function Navbar() {
                 </span>
                 <span className="hidden lg:inline ml-2">{user.email}</span>
               </button>
-
-              {/* Dropdown Menu */}
               {isUserDropdownOpen && (
                 <div
-                  className="absolute right-0 w-48 mt-2 origin-top-right bg-navy-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none py-1 z-50" // HÖGRE Z-INDEX
+                  className="absolute right-0 w-48 mt-2 origin-top-right bg-navy-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none py-1 z-50"
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="user-menu-button"
@@ -152,9 +197,9 @@ export default function Navbar() {
                     href="/profile"
                     className="flex items-center px-4 py-2 text-sm text-gray-200 hover:bg-navy-700 hover:text-white"
                     role="menuitem"
-                    onClick={closeMenus} // Stäng vid klick
+                    onClick={closeMenus}
                   >
-                    <User className="w-4 h-4 mr-2" />
+                    <User className="w-4 h-4 mr-2" aria-hidden="true" />
                     Min profil
                   </Link>
                   <button
@@ -162,24 +207,25 @@ export default function Navbar() {
                     className="flex items-center w-full px-4 py-2 text-sm text-red-400 hover:bg-navy-700 hover:text-red-300"
                     role="menuitem"
                   >
-                    <LogOut className="w-4 h-4 mr-2" />
+                    <LogOut className="w-4 h-4 mr-2" aria-hidden="true" />
                     Logga ut
                   </button>
                 </div>
               )}
             </div>
           ) : (
-            // Logged out state
             <>
               <Link
                 href="/login"
                 className={`text-sm font-medium transition-colors ${pathname === '/login' ? 'text-pink-500' : 'text-gray-300 hover:text-pink-400'}`}
+                onClick={closeMenus}
               >
                 Logga in
               </Link>
               <Link
                 href="/register"
                 className="px-4 py-2 text-sm font-medium text-white transition-colors bg-pink-600 rounded-md shadow-sm hover:bg-pink-700"
+                onClick={closeMenus}
               >
                 Kom igång
               </Link>
@@ -205,11 +251,12 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile menu, show/hide based on menu state. */}
+      {/* Mobile menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-navy-700" id="mobile-menu">
+          {/* Mobile Nav Links */}
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {renderNavLinks(true)} {/* Anropar den uppdaterade funktionen */}
+            {renderNavLinks(true)}
           </div>
           {/* Mobile User/Auth Area */}
           <div className="pt-4 pb-3 border-t border-navy-700">
@@ -233,14 +280,16 @@ export default function Navbar() {
                     className="flex items-center px-3 py-2 text-base font-medium text-gray-300 rounded-md hover:bg-navy-700 hover:text-white"
                     onClick={closeMenus}
                   >
-                     <User className="w-5 h-5 mr-2" />
+                     {/* Denna använder redan w-5 h-5 (20px), vilket är bra */}
+                     <User className="w-5 h-5 mr-2" aria-hidden="true"/>
                     Min profil
                   </Link>
                   <button
                     onClick={handleSignOut}
                     className="flex items-center w-full px-3 py-2 text-base font-medium text-red-400 rounded-md hover:bg-navy-700 hover:text-red-300"
                   >
-                     <LogOut className="w-5 h-5 mr-2" />
+                     {/* Denna använder redan w-5 h-5 (20px), vilket är bra */}
+                     <LogOut className="w-5 h-5 mr-2" aria-hidden="true"/>
                     Logga ut
                   </button>
                 </div>
@@ -256,7 +305,7 @@ export default function Navbar() {
                 </Link>
                 <Link
                   href="/register"
-                  className="block w-full px-3 py-2 text-base font-medium text-white transition-colors bg-pink-600 rounded-md shadow-sm hover:bg-pink-700"
+                  className="block w-full px-3 py-2 text-base font-medium text-center text-white transition-colors bg-pink-600 rounded-md shadow-sm hover:bg-pink-700"
                   onClick={closeMenus}
                 >
                   Kom igång
