@@ -25,7 +25,9 @@ module.exports = {
   },
   // *** ÄNDRING HÄR ***
   plugins: [
-    require('@tailwindcss/typography'), // Lägg till pluginet här
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/aspect-ratio'),
+    // require('@tailwindcss/line-clamp'), // <-- Borttagen eftersom den ingår i Tailwind CSS v3.3+
   ],
-  // *******************
+  // *********************
 }

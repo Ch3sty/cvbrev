@@ -3,13 +3,22 @@ title: "Skriv Personliga Brev Som Fångar Intresset – Direkt"
 date: "2024-05-21" # Ändra till dagens datum om du vill
 description: "Lär dig grunderna i att skriva ett personligt brev som sticker ut från mängden och ökar dina chanser att landa drömjobbet. Upptäck hur AI kan hjälpa dig på vägen."
 author: "Christian Karlsson på cvbrev.se" # Ändra till ditt namn/företag
-image: "/images/og/artikel-personligt-brev-intro.png" # Exempel: Skapa en bild och lägg i public/images/og/
+image: "/images/artiklar/mitt-forsta-inlagg.png" # KORREKT SÖKVÄG
 tags: ["personligt brev", "jobbsökande", "karriärtips", "AI"]
 ---
+
+{/* Importera din bildkomponent */}
 
 ## Ditt Personliga Brev: Mer Än Bara Formalia
 
 I jakten på nästa karriärsteg är ditt CV oumbärligt för att lista dina meriter. Men det är ofta det **personliga brevet** som ger din ansökan liv och särskiljer dig från andra kandidater med liknande kvalifikationer. Att skriva ett brev som verkligen fångar rekryterarens intresse kan dock kännas som en utmaning.
+
+{/* Använd CustomImage-komponenten med korrekt sökväg och alt-text */}
+<CustomImage
+  src="/images/artiklar/mitt forsta inlagg.png"
+  alt="Person som skriver i ett block bredvid en laptop"
+  priority={true} 
+/>
 
 Varför är det så viktigt? Ett bra personligt brev:
 
@@ -42,19 +51,36 @@ Att skriva skräddarsydda brev för varje ansökan tar tid. Det är här verktyg
 
 ```typescript
 // Exempel på hur AI kan strukturera information (förenklat)
-const cvHighlights = ["Ledde projekt X, resulterade i Y% effektivitetsökning."];
-const jobRequirements = ["projektledning", "kundansvar"];
+const cvHighlights: string[] = ["Ledde projekt X, resulterade i Y% effektivitetsökning."];
+const jobRequirements: string[] = ["projektledning", "kundansvar"];
 
-function generateRelevantSentence(cvPoint, reqs) {
-  // Antag att Y% finns i strängen cvHighlights[0]
-  const efficiencyMatch = cvHighlights[0].match(/(\d+%)/); // Hitta procenttalet
+function generateRelevantSentence(cvPoint: string, reqs: string[]): string | null {
+  // Försök hitta ett procenttal i CV-punkten
+  const efficiencyMatch = cvPoint.match(/(\d+%)/);
   const efficiencyIncrease = efficiencyMatch ? efficiencyMatch[0] : "en betydande"; // Fallback
 
-  if (cvPoint.includes("projekt") && reqs.includes("projektledning")) {
+  // Kontrollera om både CV-punkt och krav matchar 'projektledning'
+  if (cvPoint.toLowerCase().includes("projekt") && reqs.includes("projektledning")) {
     return `Min erfarenhet av att leda projekt, som när jag framgångsrikt slutförde projekt X med ${efficiencyIncrease} effektivitetsökning, matchar väl ert behov av stark projektledning.`;
   }
-  // ... fler matchningar ...
-  return null;
+
+  // Lägg till fler potentiella matchningar här...
+  // Exempel: Om CV nämner kundansvar och det krävs
+  if (cvPoint.toLowerCase().includes("kund") && reqs.includes("kundansvar")) {
+     return `Jag har även erfarenhet av ${reqs.includes("kundansvar") ? 'kundansvar' : 'kundrelationer'}, vilket jag ser fram emot att utveckla hos er.`;
+  }
+
+  return null; // Ingen relevant matchning hittades för denna punkt
+}
+
+// Använd funktionen
+const firstHighlight = cvHighlights[0];
+const relevantSentence = generateRelevantSentence(firstHighlight, jobRequirements);
+
+if (relevantSentence) {
+  console.log(relevantSentence);
+} else {
+  console.log("Ingen direkt matchning för första punkten, men andra delar av CV:t kan vara relevanta.");
 }
 ```
 

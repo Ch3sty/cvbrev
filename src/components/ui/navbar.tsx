@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useState, useEffect, useRef } from 'react' // Importera useRef
 import { createClient } from '@/lib/supabase/client'
 import { useRouter, usePathname } from 'next/navigation' // Importera usePathname
-import { User, LogOut, LayoutGrid, FileText, Tag, Edit3, Menu, X } from 'lucide-react' // Importera ikoner
+import { User, LogOut, LayoutGrid, FileText, Tag, Edit3, Menu, X, BookOpen } from 'lucide-react' // Importera ikoner (Lade till BookOpen för Artiklar)
 
 export default function Navbar() {
   const [user, setUser] = useState<any>(null)
@@ -66,7 +66,6 @@ export default function Navbar() {
     setIsUserDropdownOpen(false) // Stäng dropdown vid utloggning
     setIsMobileMenuOpen(false) // Stäng mobilmeny
     router.push('/') // Omdirigera till startsidan
-    // router.refresh() behövs oftast inte med App Router, men kan lämnas om specifik anledning finns
   }
 
   // Funktion för att stänga båda menyerna
@@ -87,15 +86,21 @@ export default function Navbar() {
         ? "text-gray-300 hover:bg-navy-700 hover:text-white"
         : "text-gray-300 hover:text-pink-400";
 
+    // Funktion för att kolla om länken ska vara aktiv (inkluderar underliggande sidor)
+    const isActive = (path: string) => pathname === path || pathname.startsWith(path + '/');
+
     return (
       <>
-        <Link href="/" className={`${linkClass} ${pathname === '/' ? activeClass : inactiveClass}`} onClick={closeMenus}>Hem</Link>
-        <Link href="/funktioner" className={`${linkClass} ${pathname === '/funktioner' ? activeClass : inactiveClass}`} onClick={closeMenus}>Funktioner</Link>
-        <Link href="/priser" className={`${linkClass} ${pathname === '/priser' ? activeClass : inactiveClass}`} onClick={closeMenus}>Priser</Link>
+        <Link href="/" className={`${linkClass} ${isActive('/') ? activeClass : inactiveClass}`} onClick={closeMenus}>Hem</Link>
+        <Link href="/funktioner" className={`${linkClass} ${isActive('/funktioner') ? activeClass : inactiveClass}`} onClick={closeMenus}>Funktioner</Link>
+        <Link href="/priser" className={`${linkClass} ${isActive('/priser') ? activeClass : inactiveClass}`} onClick={closeMenus}>Priser</Link>
+        {/* *** LADE TILL LÄNK TILL ARTIKLAR HÄR *** */}
+        <Link href="/artiklar" className={`${linkClass} ${isActive('/artiklar') ? activeClass : inactiveClass}`} onClick={closeMenus}>Artiklar</Link>
+        {/* **************************************** */}
         {user && (
            <>
-             <Link href="/create-letter" className={`${linkClass} ${pathname === '/create-letter' ? activeClass : inactiveClass}`} onClick={closeMenus}>Skapa brev</Link>
-             <Link href="/my-letters" className={`${linkClass} ${pathname === '/my-letters' ? activeClass : inactiveClass}`} onClick={closeMenus}>Mina brev</Link>
+             <Link href="/create-letter" className={`${linkClass} ${isActive('/create-letter') ? activeClass : inactiveClass}`} onClick={closeMenus}>Skapa brev</Link>
+             <Link href="/my-letters" className={`${linkClass} ${isActive('/my-letters') ? activeClass : inactiveClass}`} onClick={closeMenus}>Mina brev</Link>
            </>
         )}
       </>
@@ -108,13 +113,12 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center flex-shrink-0" onClick={closeMenus}>
           <span className="text-xl font-bold">cv<span className="text-pink-500">brev</span></span>
-          {/* Behåll BETA-taggen om den fortfarande är relevant */}
           <span className="ml-1.5 px-1.5 py-0.5 text-xs font-semibold bg-pink-500 rounded-sm uppercase tracking-wider">BETA</span>
         </Link>
 
         {/* Desktop Navigation Links */}
         <div className="hidden md:flex items-center space-x-6">
-          {renderNavLinks()}
+          {renderNavLinks()} {/* Anropar den uppdaterade funktionen */}
         </div>
 
         {/* Desktop User/Auth Area */}
@@ -124,7 +128,7 @@ export default function Navbar() {
           ) : user ? (
             <div className="relative" ref={dropdownRef}> {/* Lägg till ref här */}
               <button
-                onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)} // Toggle dropdown on click
+                onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
                 className="flex items-center text-sm font-medium text-gray-300 rounded-full hover:text-pink-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-navy-900 focus:ring-pink-500"
                 aria-expanded={isUserDropdownOpen}
                 aria-haspopup="true"
@@ -134,8 +138,6 @@ export default function Navbar() {
                   {user.email?.charAt(0).toUpperCase() ?? '?'}
                 </span>
                 <span className="hidden lg:inline ml-2">{user.email}</span>
-                 {/* Chevron kan läggas till för att indikera dropdown */}
-                 {/* <ChevronDown className={`w-4 h-4 ml-1 transition-transform ${isUserDropdownOpen ? 'rotate-180' : ''}`} /> */}
               </button>
 
               {/* Dropdown Menu */}
@@ -207,7 +209,7 @@ export default function Navbar() {
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-navy-700" id="mobile-menu">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {renderNavLinks(true)}
+            {renderNavLinks(true)} {/* Anropar den uppdaterade funktionen */}
           </div>
           {/* Mobile User/Auth Area */}
           <div className="pt-4 pb-3 border-t border-navy-700">
@@ -254,7 +256,7 @@ export default function Navbar() {
                 </Link>
                 <Link
                   href="/register"
-                  className="block w-full px-3 py-2 text-base font-medium text-white transition-colors bg-pink-600 rounded-md shadow-sm hover:bg-pink-700" // Anpassa ev.
+                  className="block w-full px-3 py-2 text-base font-medium text-white transition-colors bg-pink-600 rounded-md shadow-sm hover:bg-pink-700"
                   onClick={closeMenus}
                 >
                   Kom igång
