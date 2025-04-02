@@ -13,7 +13,8 @@ import {
   Sparkles,
   Lock,
   Infinity as InfinityIcon,
-  Info
+  Info,
+  SearchCheck // Importera SearchCheck för CV-analys
 } from 'lucide-react';
 
 export default function SubscriptionInfo() {
@@ -26,6 +27,9 @@ export default function SubscriptionInfo() {
     maxCvCount,           // Kan också hämtas direkt
     savedLettersCount,
     maxSavedLetters,      // Kan också hämtas direkt
+    // CV-analys värden
+    remainingWeeklyAnalyses,
+    weeklyAnalysisLimit,
     // subscriptionLimits, // Kan tas bort om vi använder direkta props
     loading: profileLoading // För att visa laddningsstatus
   } = useProfile();
@@ -35,6 +39,7 @@ export default function SubscriptionInfo() {
   const currentWeeklyLimit = !isFinite(weeklyLetterLimit) ? Infinity : weeklyLetterLimit ?? 0;
   const currentCvLimit = !isFinite(maxCvCount) ? Infinity : maxCvCount ?? 0;
   const currentSavedLettersLimit = !isFinite(maxSavedLetters) ? Infinity : maxSavedLetters ?? 0;
+  const currentAnalysisLimit = !isFinite(weeklyAnalysisLimit) ? Infinity : weeklyAnalysisLimit ?? 0;
 
 
   // Visa laddningsindikator om profildata fortfarande hämtas
@@ -96,6 +101,28 @@ export default function SubscriptionInfo() {
                 </span> / {currentWeeklyLimit} {/* Visa Y (gränsen) */}
               </div>
               // *************************************
+            )}
+          </div>
+        </div>
+
+        {/* CV-analyser per vecka - NY! */}
+        <div className="flex items-center justify-between py-2 border-b border-gray-700/50 last:border-b-0">
+          <div className="flex items-center text-sm">
+            <SearchCheck className="w-4 h-4 mr-2 text-pink-400 flex-shrink-0" />
+            <span className="text-gray-300">CV-analyser per vecka</span>
+          </div>
+          <div className="text-sm font-medium">
+            {subscriptionTier === 'premium' || !isFinite(currentAnalysisLimit) ? (
+              <div className="text-white flex items-center">
+                <InfinityIcon className="w-4 h-4 mr-1 text-pink-400" />
+                <span>Obegränsat</span>
+              </div>
+            ) : (
+              <div className="text-white">
+                <span className={(currentAnalysisLimit - (remainingWeeklyAnalyses ?? 0) >= currentAnalysisLimit) ? 'text-red-400 font-semibold' : ''}>
+                  {currentAnalysisLimit - (remainingWeeklyAnalyses ?? 0)} {/* Visa X (aktuellt antal) */}
+                </span> / {currentAnalysisLimit} {/* Visa Y (gränsen) */}
+              </div>
             )}
           </div>
         </div>

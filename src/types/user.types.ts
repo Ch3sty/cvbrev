@@ -9,6 +9,8 @@ export interface Profile {
   weekly_letter_count?: number; // Nytt fält för veckogränsräknare
   last_count_reset?: string; // Nytt fält för tidsstämpel av senaste återställning
   next_reset_date?: string; // Nytt fält för när nästa nollställning sker
+  weekly_analysis_count?: number; // Nytt fält för analys-räknare
+  last_analysis_reset?: string; // Nytt fält för analys-återställning
   created_at?: string;
   updated_at?: string;
 }
@@ -27,4 +29,9 @@ export interface ProfileUpdateParams {
   weekly_letter_count?: number; // Möjlighet att uppdatera antal brev
   last_count_reset?: string; // Möjlighet att uppdatera tidpunkt för senaste nollställning
   next_reset_date?: string; // Möjlighet att uppdatera datum för nästa nollställning
+  
+  // Nya fält för CV-analys
+  weekly_analysis_count?: number; // Möjlighet att uppdatera antal analyser
+  last_analysis_reset?: string; // Möjlighet att uppdatera tidpunkt för senaste analys-nollställning
+  next_analysis_reset_date?: string; // Möjlighet att uppdatera datum för nästa analys-nollställning
 }

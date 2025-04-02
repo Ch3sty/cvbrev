@@ -10,6 +10,7 @@
     "tailwind": "tailwindcss -i ./src/input.css -o ./src/output.css --watch"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
     "@stripe/stripe-js": "^6.1.0",
     "@supabase/auth-helpers-nextjs": "^0.10.0",
     "@supabase/ssr": "^0.6.1",

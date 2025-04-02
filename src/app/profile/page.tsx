@@ -40,14 +40,23 @@ import {
   Scale,
   Bot,
   Pencil,
-  Crown // För prenumerationsfliken
+  Crown, // För prenumerationsfliken
+  SearchCheck // För CV-analys
 } from 'lucide-react';
 
 export default function ProfilePage() {
   const router = useRouter();
   const supabase = getSupabaseClient();
-  // Hämta subscriptionTier från useProfile
-  const { profile, loading: profileLoading, updateProfile, subscriptionTier } = useProfile();
+  // Hämta subscriptionTier från useProfile och lägg till CV-analys relaterade värden
+  const {
+    profile,
+    loading: profileLoading,
+    updateProfile,
+    subscriptionTier,
+    // Nya värden för CV-analys
+    remainingWeeklyAnalyses,
+    weeklyAnalysisLimit
+  } = useProfile();
   const { cvs, fetchCVs, isLoading: cvListLoading } = useCVStore();
 
   // Definiera cvCount och maxCvCount variablerna
@@ -588,7 +597,7 @@ export default function ProfilePage() {
         </div>
       )}
 
-      {/* === Subscription Tab - UPPDATERAD MED STRIPE-KNAPPAR === */}
+      {/* === Subscription Tab === */}
       {activeTab === 'subscription' && (
         <div className="space-y-6">
           {/* 1. Visa aktuell prenumerationsinformation */}
@@ -604,7 +613,7 @@ export default function ProfilePage() {
             <div className="bg-navy-800 rounded-lg p-6 border border-pink-500/30 shadow-lg">
               <h3 className="text-lg font-semibold text-white mb-3">Uppgradera till Premium</h3>
               <p className="text-gray-300 mb-5 text-sm">
-                Lås upp obegränsad tillgång till brevgenerering, sparade brev, CV-uppladdningar och AI-optimerad tonalitet för att maximera dina jobbchanser.
+                Lås upp obegränsad tillgång till brevgenerering, sparade brev, CV-uppladdningar, CV-analyser och AI-optimerad tonalitet för att maximera dina jobbchanser.
               </p>
               <SubscribeButton
                 priceId={premiumMonthlyPriceId}
@@ -635,7 +644,6 @@ export default function ProfilePage() {
           )}
         </div>
       )}
-      {/* === SLUT PÅ UPPDATERAD SUBSCRIPTION TAB === */}
 
       {/* Settings Tab (oförändrad) */}
       {activeTab === 'settings' && (

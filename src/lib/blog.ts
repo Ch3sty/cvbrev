@@ -3,43 +3,55 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-// Definiera sökvägen till bloggmappen relativt till projektets rot
+// --- TYPDEFINITIONER ---
+export type FaqItemData = {
+  question: string;
+  answer: string;
+};
+
+export type Frontmatter = {
+  title: string;
+  date: string;
+  description: string;
+  author?: string;
+  tags?: string[];
+  image?: string;
+  faq?: FaqItemData[]; // <-- FAQ-fältet är nu inkluderat
+};
+
+export type PostMeta = {
+  slug: string;
+} & Frontmatter;
+
+export type Post = {
+  slug: string;
+  frontmatter: Frontmatter;
+  content: string;
+};
+// --- SLUT PÅ TYPDEFINITIONER ---
+
+
 const postsDirectory = path.join(process.cwd(), 'content/artiklar');
 
 // Funktion för att hämta metadata och slug för ALLA blogginlägg
-export function getAllPostsMeta() {
+export function getAllPostsMeta(): PostMeta[] { // Uppdaterad returtyp
   try {
-    // Läs alla filnamn i bloggmappen
     const fileNames = fs.readdirSync(postsDirectory);
 
     const allPostsData = fileNames
-      // Filtrera bort allt som inte är .mdx-filer
       .filter((fileName) => fileName.endsWith('.mdx'))
-      // Mappa över varje filnamn
       .map((fileName) => {
-        // Ta bort ".mdx" från filnamnet för att få slugen
         const slug = fileName.replace(/\.mdx$/, '');
-
-        // Skapa den fullständiga sökvägen till filen
         const fullPath = path.join(postsDirectory, fileName);
-        // Läs innehållet i filen
         const fileContents = fs.readFileSync(fullPath, 'utf8');
-
-        // Använd gray-matter för att parsa postens metadata (frontmatter)
         const matterResult = matter(fileContents);
 
-        // Kombinera metadata och slug
-        return {
+        // Kombinera metadata och slug med korrekt typ
+        const postMetaData: PostMeta = {
           slug,
-          ...(matterResult.data as {
-            title: string;
-            date: string;
-            description: string;
-            author?: string;
-            tags?: string[];
-            image?: string;
-          }), // Type assertion för bättre auto-completion
+          ...(matterResult.data as Frontmatter), // Använd Frontmatter-typen
         };
+        return postMetaData;
       });
 
     // Sortera inläggen efter datum (nyast först)
@@ -52,40 +64,31 @@ export function getAllPostsMeta() {
     });
   } catch (error) {
     console.error("Error reading blog posts metadata:", error);
-    return []; // Returnera en tom array vid fel
+    return [];
   }
 }
 
 // Funktion för att hämta data för ETT specifikt inlägg baserat på slug
-export function getPostBySlug(slug: string) {
+export function getPostBySlug(slug: string): Post | null { // Uppdaterad returtyp
   try {
     const fullPath = path.join(postsDirectory, `${slug}.mdx`);
-    // Kontrollera om filen existerar
     if (!fs.existsSync(fullPath)) {
       console.warn(`Blog post not found for slug: ${slug}`);
-      return null; // Eller kasta ett fel om du föredrar det
+      return null;
     }
 
     const fileContents = fs.readFileSync(fullPath, 'utf8');
-
-    // Använd gray-matter för att parsa metadata och innehåll
     const matterResult = matter(fileContents);
 
-    // Returnera allt: slug, metadata (frontmatter) och innehållssträngen
-    return {
+    // Returnera allt med korrekt typ
+    const postData: Post = {
       slug,
-      frontmatter: matterResult.data as {
-        title: string;
-        date: string;
-        description: string;
-        author?: string;
-        tags?: string[];
-        image?: string;
-       }, // Type assertion
+      frontmatter: matterResult.data as Frontmatter, // Använd Frontmatter-typen
       content: matterResult.content,
     };
+    return postData;
   } catch (error) {
      console.error(`Error reading blog post with slug "${slug}":`, error);
-     return null; // Returnera null vid läsfel
+     return null;
   }
 }

@@ -4,6 +4,10 @@ import { Inter } from 'next/font/google'
 import Navbar from '@/components/ui/navbar'
 import Link from 'next/link' // *** Importera Link ***
 import { Facebook, Instagram } from 'lucide-react' // *** Importera sociala ikoner ***
+import Script from 'next/script'
+import { GA_MEASUREMENT_ID } from '@/lib/gtag'
+import GoogleAnalytics from '@/components/GoogleAnalytics'
+import { Suspense } from 'react' // <-- *** IMPORTERAD Suspense ***
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,6 +26,12 @@ export default function RootLayout({
     <html lang="sv" className="h-full"> {/* Säkerställ att html tar full höjd */}
       <body className={`${inter.className} bg-navy-900 text-white flex flex-col min-h-full`}> {/* Använd flexbox för att trycka ner footer */}
         <Navbar />
+
+        {/* *** GoogleAnalytics inlindad i Suspense *** */}
+        <Suspense fallback={null}>
+          <GoogleAnalytics />
+        </Suspense>
+
         <main className="flex-grow"> {/* Låt main växa och ta upp plats */}
           {children}
         </main>
@@ -63,6 +73,7 @@ export default function RootLayout({
               <div>
                 <h3 className="mb-4 text-lg font-semibold text-white">Följ Oss</h3>
                 <div className="flex justify-center mb-6 space-x-4 md:justify-start">
+                  {/* FIX: Added missing <a> tag */}
                   <a
                     href="https://www.facebook.com/CVbrev/"
                     target="_blank"
@@ -72,6 +83,7 @@ export default function RootLayout({
                   >
                     <Facebook size={24} />
                   </a>
+                  {/* FIX: Added missing <a> tag */}
                   <a
                     href="https://www.instagram.com/cvbrev.se/"
                     target="_blank"
@@ -102,6 +114,25 @@ export default function RootLayout({
         </footer>
         {/* === NY FOTER SLUT === */}
 
+        {/* Google Analytics Script-taggar */}
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_MEASUREMENT_ID}', {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        />
       </body>
     </html>
   )
