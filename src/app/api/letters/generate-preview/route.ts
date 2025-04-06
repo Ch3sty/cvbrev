@@ -170,19 +170,24 @@ export async function POST(request: Request) {
       const jobInfo = await extractJobInfo(job_description, language);
 
       // Generera personligt brev med OpenAI, skicka med språket
-      const coverLetterContent = await generateCoverLetter(
+      // *** UPPDATERING START *** - Hantera den nya returtypen från generateCoverLetter
+      const coverLetterResult = await generateCoverLetter(
         cvData.cv_text,
         job_description,
         tonality || 'professional',
         language || 'sv'
       );
 
+      // Extrahera innehållet från returvärdet
+      const coverLetterContent = coverLetterResult.content;
+      // *** UPPDATERING SLUT ***
+
       // Returnera det genererade brevet utan att spara i databasen
       return {
         title: jobInfo.title || (language === 'en' ? 'Job Application' : 'Ansökningsbrev'),
         company: jobInfo.company,
         job_title: jobInfo.position,
-        content: coverLetterContent,
+        content: coverLetterContent, // Använd innehållet från resultatobjektet
         tonality: tonality || 'professional',
         language: language || 'sv',
         job_description: job_description,
@@ -190,7 +195,14 @@ export async function POST(request: Request) {
         is_saved: false,
         cv_path: cvData.original_file_path,
         cv_id: cv_id,
-        user_id: user.id
+        user_id: user.id,
+        // *** UPPDATERING START *** - Lägg till metadata från AI för loggning och analys
+        ai_metadata: {
+          model: coverLetterResult.model,
+          tokens: coverLetterResult.tokens,
+          cost: coverLetterResult.cost
+        }
+        // *** UPPDATERING SLUT ***
       };
     })();
     

@@ -31,11 +31,9 @@ import {
 } from 'lucide-react'
 import Notification from '@/components/ui/notification'
 
-// Typer (från gamla)
 type Tonality = 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced' | 'auto'
 type Language = 'sv' | 'en'
 
-// Interface (från gamla)
 interface TonalityInfo {
   label: string;
   description: string;
@@ -44,7 +42,6 @@ interface TonalityInfo {
   premiumOnly?: boolean; // Ny flagga för premium-funktioner
 }
 
-// Konstant (från gamla - med RÄTT data)
 const tonalityInfo: Record<Tonality, TonalityInfo> = {
   'professional': {
     label: 'Professionell',
@@ -284,60 +281,140 @@ export default function CreateLetterPage() {
 
       closeNotification(); // Stäng "Genererar..." notisen
 
-      // <<< ÄNDRING START >>>
-      // Hantera resultat - KORRIGERAD FÖR ATT HANTERA { success: boolean, data: object, ... }
-      if (result && result.data && typeof result.data.content === 'string') {
-        // Lyckat fall: Spara brevinnehåll och data
-        setGeneratedLetter(result.data.content); // Hämta innehållet från 'data'
-        setLetterData(result.data);             // Spara hela brevobjektet från 'data'
-      } else {
-        // Om svaret är oväntat, null, eller saknar content-sträng
-        console.error("Ogiltigt eller felaktigt format på svar från createLetter:", result);
-        // Sätt generellt felmeddelande som i den gamla koden, men logga det specifika felet
-        setError('Kunde inte generera brevet. Försök igen om en stund.'); // Gammalt felmeddelande
-        showNotification('error', 'Kunde inte tolka svaret från servern.', 5000); // Tydligare fel till användaren
-        setGeneratedLetter(null); // Återställ vid fel
-        setLetterData(null);      // Återställ vid fel
+      // *** KRITISK FÖRÄNDRING: HANTERA OLIKA SVARSSTRUKTURER ***
+      console.log("API-svar från createLetter:", result);
+      
+      // Om API returnerar ett objekt med success-flagga och data-objekt (ny API-struktur)
+      if (result && typeof result === 'object' && 'success' in result && result.data) {
+        const letterContent = result.data.content || '';
+        
+        if (letterContent && typeof letterContent === 'string' && letterContent.trim().length > 0) {
+          // Spara brevinnehåll och data
+          setGeneratedLetter(letterContent);
+          setLetterData(result.data);
+          
+          // Fortsätt med success-hantering...
+        } else {
+          console.error("Tomt eller ogiltigt brevinnehåll från API:", letterContent);
+          setError('Det genererade brevinnehållet är tomt eller ogiltigt. Försök igen.');
+          showNotification('error', 'Kunde inte tolka det genererade brevet.', 5000);
+          setGeneratedLetter(null);
+          setLetterData(null);
+          
+          // Logga felet
+          if (profile?.id) {
+            logUserActivity(
+              profile.id,
+              'letter_generation_failed',
+              'Tomt eller ogiltigt brevinnehåll (data.content) trots success=true från API',
+              { 
+                cv_id: selectedCV, 
+                language, 
+                tonality,
+                response_received: JSON.stringify(result.data).substring(0, 500) // Begränsa loggad data
+              }
+            );
+          }
+          
+          // Gå ändå vidare för att uppdatera räknare om de finns
+        }
+      } 
+      // Om API returnerar direkt data-objekt (äldre API-struktur)
+      else if (result && typeof result === 'object') {
+        // Kontrollera om svaret innehåller antingen content direkt eller i data.content
+        const letterContent = result.content || (result.data && result.data.content);
+        
+        if (letterContent && typeof letterContent === 'string' && letterContent.trim().length > 0) {
+          // Spara brevinnehåll och data
+          setGeneratedLetter(letterContent);
+          setLetterData(result);
+        } else {
+          console.error("Kunde inte hitta content i API-svaret:", result);
+          setError('Kunde inte hitta brevinnehållet i API-svaret. Försök igen.');
+          showNotification('error', 'Något gick fel vid generering av brevet.', 5000);
+          setGeneratedLetter(null);
+          setLetterData(null);
+          
+          // Logga felet
+          if (profile?.id) {
+            logUserActivity(
+              profile.id,
+              'letter_generation_failed',
+              'Kunde inte hitta content i API-svaret',
+              { 
+                cv_id: selectedCV, 
+                language, 
+                tonality,
+                response_structure: Object.keys(result).join(','),
+                response_preview: JSON.stringify(result).substring(0, 300) 
+              }
+            );
+          }
+        }
+      } 
+      // Om inget resultat eller oväntat format
+      else {
+        console.error("Oväntat eller tomt svar från API:", result);
+        setError('Fick ett oväntat svar från servern. Försök igen.');
+        showNotification('error', 'Servern svarade i ett oväntat format.', 5000);
+        setGeneratedLetter(null);
+        setLetterData(null);
+        
         // Logga felet
         if (profile?.id) {
-            logUserActivity(
-                profile.id,
-                'letter_generation_failed',
-                'Felaktigt format eller innehåll saknades i API-svar (klient)',
-                { cv_id: selectedCV, language: language, tonality: tonality, response_received: JSON.stringify(result) } // Logga vad som faktiskt mottogs (kan vara stort)
-            );
+          logUserActivity(
+            profile.id,
+            'letter_generation_failed',
+            'Oväntat eller tomt svar från API (createLetter)',
+            { 
+              cv_id: selectedCV, 
+              language, 
+              tonality,
+              response_type: typeof result,
+              response_preview: result ? JSON.stringify(result).substring(0, 200) : 'null/undefined' 
+            }
+          );
         }
-        // Gå vidare för att uppdatera räknare etc. om `result` finns, men visa inte brevet.
+        
+        // Avbryt här eftersom vi inte har data för att fortsätta
+        return;
       }
-      // <<< ÄNDRING SLUT >>>
+      // *** SLUT PÅ KRITISK FÖRÄNDRING ***
 
-
-      // Uppdatera återställningsdatum (Korrekt, använder result direkt)
-      if (result && result.nextResetDate) {
-        const newResetDate = new Date(result.nextResetDate);
-        if (!isNaN(newResetDate.getTime())) {
-           updateNextResetDate(newResetDate);
+      // Uppdatera återställningsdatum (Måste fungera med olika svarsstrukturer)
+      const nextResetDateString = result?.nextResetDate || 
+                                 (result?.data && result.data.nextResetDate);
+                                 
+      if (nextResetDateString) {
+        try {
+          const newResetDate = new Date(nextResetDateString);
+          if (!isNaN(newResetDate.getTime())) {
+            updateNextResetDate(newResetDate);
+          } else {
+            console.warn("Mottog ogiltigt nextResetDate från API:", nextResetDateString);
+          }
+        } catch (e) {
+          console.warn("Fel vid parsning av nextResetDate:", e);
+        }
+      }
+	  // Visa framgångsmeddelande (Måste fungera med olika svarsstrukturer)
+      if (generatedLetter) {
+        // Om det finns återstående brev (gratisanvändare)
+        const remainingLetters = result?.remainingLetters || 
+                               (result?.data && result.data.remainingLetters);
+                               
+        if (subscriptionTier === 'free' && remainingLetters !== undefined) {
+          updateRemainingLetters(remainingLetters);
+          const remainingText = remainingLetters === 0
+            ? 'Du har nått din gräns för denna vecka.'
+            : `Du har ${remainingLetters} genererade brev kvar denna vecka.`;
+            
+          showNotification('success', `Brevet har genererats! ${remainingText}`, 5000);
         } else {
-            console.warn("Mottog ogiltigt nextResetDate från API:", result.nextResetDate);
+          // Premium eller inget remaining info
+          showNotification('success', 'Brevet har genererats!', 3000);
         }
       }
-
-      // Visa framgångsmeddelande (Korrekt, använder result direkt)
-      // Modifierad för att endast visa om genereringen faktiskt lyckades (dvs. generatedLetter är satt)
-      if (result && subscriptionTier === 'free' && result.remainingLetters !== undefined) {
-        updateRemainingLetters(result.remainingLetters);
-        const remainingText = result.remainingLetters === 0
-          ? 'Du har nått din gräns för denna vecka.'
-          : `Du har ${result.remainingLetters} genererade brev kvar denna vecka.`;
-        // Visa bara om brevet faktiskt genererades OK
-        if (generatedLetter) { // <<< KONTROLL LADES TILL
-            showNotification('success', `Brevet har genererats! ${remainingText}`, 5000);
-        }
-      } else if (generatedLetter) { // <<< KONTROLL LADES TILL
-         // Visa bara om brevet faktiskt genererades OK
-        showNotification('success', 'Brevet har genererats!', 3000);
-      }
-      // *** Servern bör logga 'letter_created' ***
 
     } catch (error: any) {
       if (safetyTimer) clearTimeout(safetyTimer); // Rensa timer vid fel
@@ -364,7 +441,7 @@ export default function CreateLetterPage() {
       generationInProgressRef.current = false;
       setIsSubmitting(false);
     }
-  }, [selectedCV, jobDescription, tonality, language, isGenerating, isSubmitting, createLetter, showNotification, closeNotification, subscriptionTier, remainingWeeklyLetters, updateRemainingLetters, updateNextResetDate, profile, generatedLetter]); // <<< ADDED generatedLetter to dependencies for the success message check
+  }, [selectedCV, jobDescription, tonality, language, isGenerating, isSubmitting, createLetter, showNotification, closeNotification, subscriptionTier, remainingWeeklyLetters, updateRemainingLetters, updateNextResetDate, profile]);
 
 // Funktion för att spara brevet (från gamla, med loggning tillagd)
   const handleSaveLetter = useCallback(async () => {
@@ -558,7 +635,6 @@ export default function CreateLetterPage() {
         </div>
       )}
 
-      {/* Layout Grid (från gamla) */}
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         <div className="space-y-6">
           {/* CV-val (från gamla) */}
@@ -849,8 +925,8 @@ export default function CreateLetterPage() {
               <p className="text-sm text-gray-400">Detta kan ta upp till 30 sekunder</p>
             </div>
           // <<< ÄNDRING START >>>
-          // *** KORRIGERAD KONTROLL HÄR ***
-          ) : generatedLetter && typeof generatedLetter === 'string' ? ( // <<< Lägg till typeof check
+          // *** FÖRBÄTTRAD KONTROLL HÄR - Accepterar både om generatedLetter är en string direkt, eller finns i letterData.content ***
+          ) : generatedLetter ? (
           // <<< ÄNDRING SLUT >>>
             // Brevet visas endast om generatedLetter är en icke-tom sträng
             <div>
@@ -860,8 +936,7 @@ export default function CreateLetterPage() {
                 className="p-6 mb-4 overflow-auto bg-white rounded-md"
                 style={{ maxHeight: '60vh' }}
               >
-                 {/* Rendering från gamla */}
-                 {/* Nu är detta anrop säkrare */}
+                 {/* Rendering från gamla, nu med bättre kontroll */}
                 <div className="prose max-w-none text-gray-800" dangerouslySetInnerHTML={{ __html: generatedLetter.replace(/\n/g, '<br />') }} />
               </div>
 
@@ -940,19 +1015,13 @@ export default function CreateLetterPage() {
               )}
             </div>
           ) : (
-             // Placeholder (från gamla) - Visas om generatedLetter är null, undefined, tom, eller inte en sträng
+             // Placeholder (från gamla) - Visas om generatedLetter är null, undefined, tom
             <div className="flex flex-col items-center justify-center h-64 text-center">
                {/* Ikon från gamla */}
               <div className="p-4 mb-4 text-6xl">📝</div>
               {/* Texter från gamla */}
               <p className="mb-2 text-lg text-gray-300">Ditt ansökningsbrev kommer att visas här</p>
               <p className="text-sm text-gray-400">Välj ett CV och klistra in en jobbannons för att generera ett personligt brev</p>
-               {/* <<< ÄNDRING START >>> */}
-               {/* Valfri extra felinfo om generatedLetter har ett värde men inte är en sträng */}
-               {generatedLetter && typeof generatedLetter !== 'string' && (
-                 <p className="mt-4 text-red-500 font-medium">Internt fel: Brevets format är ogiltigt.</p>
-               )}
-               {/* <<< ÄNDRING SLUT >>> */}
             </div>
           )}
         </div> {/* Slut på höger kolumn */}
