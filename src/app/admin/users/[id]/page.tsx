@@ -4,14 +4,14 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { use } from 'react'; // Ny import för att hantera Promise params
-import { 
-  User, 
-  ChevronLeft, 
-  Mail, 
-  Phone, 
-  FileText, 
-  Clock, 
-  Crown, 
+import {
+  User,
+  ChevronLeft,
+  Mail,
+  Phone,
+  FileText,
+  Clock,
+  Crown,
   Settings,
   Calendar,
   Check,
@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
-// Typer för användardata
+// Typer för användardata (Oförändrad)
 interface UserProfile {
   id: string;
   email: string;
@@ -50,12 +50,13 @@ interface UserLetter {
   is_saved: boolean;
 }
 
-// Uppdaterad interface för PageProps som hanterar Promise params
-interface PageProps {
+// *** ÄNDRING 1: Byt namn på interfacet för att undvika namnkollision ***
+interface AdminUserDetailsPageProps { // Tidigare: PageProps
   params: Promise<{ id: string }>;
 }
 
-export default function AdminUserDetailsPage({ params }: PageProps) {
+// *** ÄNDRING 2: Använd det nya interfacenamnet i komponentsignaturen ***
+export default function AdminUserDetailsPage({ params }: AdminUserDetailsPageProps) { // Tidigare: PageProps
   const router = useRouter();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [cvs, setCvs] = useState<UserCV[]>([]);
@@ -64,19 +65,19 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
   const [error, setError] = useState<string | null>(null);
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateSuccess, setUpdateSuccess] = useState<string | null>(null);
-  
-  // Unwrappa params med React.use()
+
+  // Unwrappa params med React.use() (Oförändrad)
   const resolvedParams = use(params);
   const userId = resolvedParams.id;
-  
+
   const supabase = getSupabaseClient();
-  
-  // Hämta användardata
+
+  // Hämta användardata (Oförändrad)
   useEffect(() => {
     async function fetchUserData() {
       setIsLoading(true);
       setError(null);
-      
+
       try {
         // Hämta profil
         const { data: profileData, error: profileError } = await supabase
@@ -84,33 +85,33 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
           .select('*')
           .eq('id', userId)
           .single();
-          
+
         if (profileError) throw profileError;
-        
+
         setProfile(profileData);
-        
+
         // Hämta användarens CV
         const { data: cvData, error: cvError } = await supabase
           .from('cv_texts')
           .select('id, file_name, created_at')
           .eq('user_id', userId)
           .order('created_at', { ascending: false });
-          
+
         if (cvError) throw cvError;
-        
+
         setCvs(cvData || []);
-        
+
         // Hämta användarens brev
         const { data: letterData, error: letterError } = await supabase
           .from('letters')
           .select('id, title, company, job_title, created_at, is_saved')
           .eq('user_id', userId)
           .order('created_at', { ascending: false });
-          
+
         if (letterError) throw letterError;
-        
+
         setLetters(letterData || []);
-        
+
       } catch (err: any) {
         console.error('Fel vid hämtning av användardata:', err);
         setError(err.message || 'Ett fel uppstod vid hämtning av användardata');
@@ -118,39 +119,39 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
         setIsLoading(false);
       }
     }
-    
+
     fetchUserData();
   }, [userId, supabase]);
-  
-  // Uppgradera användare till premium
+
+  // Uppgradera användare till premium (Oförändrad)
   const handleUpgradeUser = async () => {
     if (!profile) return;
-    
+
     setIsUpdating(true);
     setUpdateSuccess(null);
-    
+
     try {
       // Uppdatera användarens prenumerationsnivå i databasen
       const { error } = await supabase
         .from('profiles')
-        .update({ 
+        .update({
           subscription_tier: 'premium',
           updated_at: new Date().toISOString()
         })
         .eq('id', userId);
-      
+
       if (error) throw error;
-      
+
       // Uppdatera lokalt state
       setProfile(prev => prev ? { ...prev, subscription_tier: 'premium' } : null);
-      
+
       setUpdateSuccess('Användaren har uppgraderats till Premium!');
-      
+
       // Dölj meddelandet efter några sekunder
       setTimeout(() => {
         setUpdateSuccess(null);
       }, 5000);
-      
+
     } catch (err: any) {
       console.error('Fel vid uppgradering av användare:', err);
       setError(err.message || 'Ett fel uppstod vid uppgradering av användaren');
@@ -158,36 +159,36 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
       setIsUpdating(false);
     }
   };
-  
-  // Nedgradera användare till free
+
+  // Nedgradera användare till free (Oförändrad)
   const handleDowngradeUser = async () => {
     if (!profile) return;
-    
+
     setIsUpdating(true);
     setUpdateSuccess(null);
-    
+
     try {
       // Uppdatera användarens prenumerationsnivå i databasen
       const { error } = await supabase
         .from('profiles')
-        .update({ 
+        .update({
           subscription_tier: 'free',
           updated_at: new Date().toISOString()
         })
         .eq('id', userId);
-      
+
       if (error) throw error;
-      
+
       // Uppdatera lokalt state
       setProfile(prev => prev ? { ...prev, subscription_tier: 'free' } : null);
-      
+
       setUpdateSuccess('Användaren har nedgraderats till Free!');
-      
+
       // Dölj meddelandet efter några sekunder
       setTimeout(() => {
         setUpdateSuccess(null);
       }, 5000);
-      
+
     } catch (err: any) {
       console.error('Fel vid nedgradering av användare:', err);
       setError(err.message || 'Ett fel uppstod vid nedgradering av användaren');
@@ -195,11 +196,11 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
       setIsUpdating(false);
     }
   };
-  
-  // Formatera datum
+
+  // Formatera datum (Oförändrad)
   const formatDate = (dateStr: string | null) => {
     if (!dateStr) return '-';
-    
+
     return new Date(dateStr).toLocaleDateString('sv-SE', {
       year: 'numeric',
       month: 'long',
@@ -208,7 +209,8 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
       minute: '2-digit'
     });
   };
-  
+
+  // Laddnings- och felhantering (Oförändrad)
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-full">
@@ -219,12 +221,12 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
       </div>
     );
   }
-  
+
   if (error || !profile) {
     return (
       <div className="space-y-6">
         <div className="flex items-center">
-          <button 
+          <button
             onClick={() => router.push('/admin/users')}
             className="mr-4 p-2 bg-navy-700 rounded-md text-white hover:bg-navy-600 transition-colors"
           >
@@ -232,7 +234,7 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
           </button>
           <h1 className="text-2xl font-bold text-white">Användare hittades inte</h1>
         </div>
-        
+
         <div className="bg-red-900/30 border-l-4 border-red-500 p-4 rounded-r">
           <h2 className="text-lg font-semibold text-white mb-2">Ett fel uppstod</h2>
           <p className="text-red-200">{error || 'Användaren kunde inte hittas'}</p>
@@ -243,12 +245,13 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
       </div>
     );
   }
-  
+
+  // JSX-rendering (Oförändrad)
   return (
     <div className="space-y-6">
       {/* Page header */}
       <div className="flex items-center">
-        <button 
+        <button
           onClick={() => router.push('/admin/users')}
           className="mr-4 p-2 bg-navy-700 rounded-md text-white hover:bg-navy-600 transition-colors"
         >
@@ -258,20 +261,20 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
           {profile.full_name || profile.email}
         </h1>
       </div>
-      
+
       {updateSuccess && (
         <div className="bg-green-600/20 border-l-4 border-green-500 p-3 rounded-r">
           <p className="text-green-400">{updateSuccess}</p>
         </div>
       )}
-      
+
       {/* User profile */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Profile card */}
         <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
           <div className="flex items-center mb-6">
             <div className="h-16 w-16 rounded-full bg-navy-600 flex items-center justify-center text-white text-2xl">
-              {profile.full_name 
+              {profile.full_name
                 ? profile.full_name.charAt(0).toUpperCase()
                 : profile.email.charAt(0).toUpperCase()}
             </div>
@@ -293,7 +296,7 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
               </div>
             </div>
           </div>
-          
+
           <div className="space-y-3">
             <div className="flex items-start">
               <Mail className="w-5 h-5 text-gray-400 mr-3 mt-0.5" />
@@ -302,7 +305,7 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
                 <p className="text-white">{profile.email}</p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <Phone className="w-5 h-5 text-gray-400 mr-3 mt-0.5" />
               <div>
@@ -310,7 +313,7 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
                 <p className="text-white">{profile.phone || 'Ej angivet'}</p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <Settings className="w-5 h-5 text-gray-400 mr-3 mt-0.5" />
               <div>
@@ -318,7 +321,7 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
                 <p className="text-white capitalize">{profile.preferred_tonality || 'Ej angivet'}</p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <Calendar className="w-5 h-5 text-gray-400 mr-3 mt-0.5" />
               <div>
@@ -326,7 +329,7 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
                 <p className="text-white">{formatDate(profile.created_at)}</p>
               </div>
             </div>
-            
+
             <div className="flex items-start">
               <Clock className="w-5 h-5 text-gray-400 mr-3 mt-0.5" />
               <div>
@@ -335,7 +338,7 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
               </div>
             </div>
           </div>
-          
+
           <div className="mt-6 pt-6 border-t border-gray-700">
             {profile.subscription_tier !== 'premium' ? (
               <button
@@ -366,7 +369,7 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
             )}
           </div>
         </div>
-        
+
         {/* Usage statistics */}
         <div className="lg:col-span-2">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -375,12 +378,12 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
                 <FileText className="w-5 h-5 mr-2 text-blue-400" />
                 CV-information
               </h3>
-              
+
               <div className="text-center">
                 <div className="text-3xl font-bold text-white mb-1">{cvs.length}</div>
                 <p className="text-gray-400">Uppladdade CV:n</p>
               </div>
-              
+
               {cvs.length > 0 && (
                 <div className="mt-4">
                   <h4 className="text-sm font-medium text-gray-400 uppercase mb-2">Senaste CV</h4>
@@ -397,20 +400,20 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
                 </div>
               )}
             </div>
-            
+
             <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
               <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
                 <FileText className="w-5 h-5 mr-2 text-pink-400" />
                 Brevstatistik
               </h3>
-              
+
               <div className="text-center">
                 <div className="text-3xl font-bold text-white mb-1">
                   {letters.filter(l => l.is_saved).length} / {letters.length}
                 </div>
                 <p className="text-gray-400">Sparade brev / Totalt genererade</p>
               </div>
-              
+
               {letters.length > 0 && (
                 <div className="mt-4">
                   <h4 className="text-sm font-medium text-gray-400 uppercase mb-2">Senaste brev</h4>
@@ -440,7 +443,7 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
               )}
             </div>
           </div>
-          
+
           {/* Weekly letter usage for free users */}
           {profile.subscription_tier === 'free' && (
             <div className="mt-4 bg-navy-800 rounded-lg p-6 border border-gray-700">
@@ -448,7 +451,7 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
                 <Clock className="w-5 h-5 mr-2 text-green-400" />
                 Veckovis brevgenerering
               </h3>
-              
+
               <div className="flex items-center justify-between">
                 <div>
                   <div className="text-3xl font-bold text-white mb-1">
@@ -456,10 +459,10 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
                   </div>
                   <p className="text-gray-400">Genererade brev denna vecka</p>
                 </div>
-                
+
                 <div>
                   <div className="relative w-64 h-4 bg-navy-700 rounded-full overflow-hidden">
-                    <div 
+                    <div
                       className="absolute top-0 left-0 h-full bg-green-500 rounded-full"
                       style={{ width: `${Math.min(100, ((profile.weekly_letter_count || 0) / 5) * 100)}%` }}
                     />
@@ -475,13 +478,13 @@ export default function AdminUserDetailsPage({ params }: PageProps) {
           )}
         </div>
       </div>
-      
+
       {/* Letters list */}
       <div className="bg-navy-800 rounded-lg overflow-hidden border border-gray-700">
         <div className="px-6 py-4 border-b border-gray-700">
           <h3 className="font-semibold text-white">Alla brev</h3>
         </div>
-        
+
         {letters.length === 0 ? (
           <div className="p-6 text-center">
             <FileText className="w-12 h-12 mx-auto text-gray-500 mb-3" />

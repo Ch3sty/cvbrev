@@ -1,36 +1,44 @@
-'use client'; // Denna komponent behöver vara en Client Component för useState
+'use client';
 
 import React, { useState } from 'react';
-import { ChevronDownIcon } from '@heroicons/react/24/solid'; // Installera: npm install @heroicons/react
+import { ChevronDownIcon } from '@heroicons/react/24/solid';
 
 interface FAQItemProps {
-  question: string; // Vi skickar frågan som en prop
-  children: React.ReactNode; // Svaret blir children, kan innehålla MDX-element
+  question: string;
+  children: React.ReactNode;
 }
 
 const FAQItem: React.FC<FAQItemProps> = ({ question, children }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="border border-navy-600 rounded-lg overflow-hidden bg-navy-800/30 faq-item">
+    // Behåller border-bottom för separation
+    <div className="border-b border-navy-700 last:border-b-0 faq-item">
+      {/* --- ÄNDRING: Tog bort h2-wrappen runt knappen --- */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex justify-between items-center w-full px-5 py-4 text-left font-semibold text-white hover:bg-navy-700/50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-opacity-75"
+        // --- ÄNDRING: Ökat padding px-4, justerat textstorlek/vikt explicit ---
+        className="flex justify-between items-center w-full px-4 py-4 text-left text-base font-medium text-gray-200 hover:text-white focus:outline-none focus-visible:ring focus-visible:ring-pink-500 focus-visible:ring-opacity-75 transition-colors"
         aria-expanded={isOpen}
       >
-        <span>{question}</span>
+        <span className="flex-1 pr-4">{question}</span>
         <ChevronDownIcon
-          className={`w-5 h-5 text-pink-400 transform transition-transform duration-200 ${
+          className={`w-5 h-5 text-pink-500 transform transition-transform duration-300 ease-in-out ${
             isOpen ? 'rotate-180' : ''
           }`}
         />
       </button>
-      {isOpen && (
-        <div className="px-5 pt-2 pb-4 text-gray-300 prose prose-invert prose-sm max-w-none prose-p:my-2 prose-ul:my-2 faq-answer">
-          {/* Children (svaret) renderas här */}
+      <div
+        className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${
+          isOpen ? 'max-h-[1000px]' : 'max-h-0'
+        }`}
+      >
+        {/* --- ÄNDRING: Ökat padding px-4, satt explicit text-sm --- */}
+        {/* --- VIKTIGT: Behåller prose här för att styla svaret, men det är nu isolerat från förälderns prose tack vare not-prose i containern --- */}
+        <div className="px-4 pt-2 pb-5 text-sm text-gray-300 prose prose-invert prose-sm max-w-none prose-p:my-2 prose-ul:my-2 faq-answer">
           {children}
         </div>
-      )}
+      </div>
     </div>
   );
 };

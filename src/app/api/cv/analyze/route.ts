@@ -1,11 +1,8 @@
 import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-// --- ÄNDRAD IMPORT ---
-// import { createServerClient, type CookieOptions } from '@supabase/ssr' // <-- Ta bort denna
-import { createServerClient } from '@/lib/supabase/server'; // <-- Lägg till denna
-// --- SLUT PÅ ÄNDRING ---
+import { createServerClient } from '@/lib/supabase/server'; // Korrekt import
 import { openai } from '@/lib/openai/api'
-import { Database } from '@/types/database.types' // Importera dina Supabase-typer
+import { Database } from '@/types/database.types'
 
 // Definiera gränsen centralt i API-rutten
 const WEEKLY_ANALYSIS_LIMIT_FREE = 2;
@@ -33,27 +30,7 @@ const calculateNextResetDate = (lastResetTimestamp: string | null): Date => {
 
 export async function POST(request: Request) {
   const cookieStore = cookies()
-
-  // --- ÄNDRAD INITIALISERING ---
-  // Ta bort den gamla @supabase/ssr-initialiseringen:
-  /*
-  const supabase = createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value
-        },
-        // ...
-      },
-    }
-  )
-  */
-  // Lägg till den som används i din andra API-rutt:
-  const supabase = createServerClient({ cookies: cookieStore });
-  // --- SLUT PÅ ÄNDRING ---
-
+  const supabase = createServerClient({ cookies: cookieStore }); // Korrekt initialisering
 
   // 1. Autentisering (ingen ändring)
   const { data: { user }, error: authError } = await supabase.auth.getUser()
@@ -79,8 +56,7 @@ export async function POST(request: Request) {
   // --- Logik för profil, reset och gränskontroll (ingen ändring) ---
   let currentAnalysisCount: number = 0;
   let lastAnalysisResetTimestamp: string | null = null;
-  let subscriptionTier: 'free' | 'premium' = 'free'; // Default till free
-  let needsReset = false;
+  let subscriptionTier: 'free' | 'premium' = 'free';
   let nextResetDate: Date;
 
   try {
@@ -101,9 +77,9 @@ export async function POST(request: Request) {
     nextResetDate = calculateNextResetDate(lastAnalysisResetTimestamp);
     const now = new Date();
 
+    // Nollställning av räknare om det är dags
     if (now.getTime() >= nextResetDate.getTime()) {
         console.log(`Analysera CV - Användare ${user.id}: Räknaren behöver nollställas.`);
-        needsReset = true;
         currentAnalysisCount = 0;
         lastAnalysisResetTimestamp = now.toISOString();
 
@@ -117,11 +93,12 @@ export async function POST(request: Request) {
         } else {
             console.log(`Analysera CV - Användare ${user.id}: Databas uppdaterad med nollställd räknare.`);
         }
-        nextResetDate = calculateNextResetDate(lastAnalysisResetTimestamp);
+        nextResetDate = calculateNextResetDate(lastAnalysisResetTimestamp); // Beräkna om efter reset
     } else {
         console.log(`Analysera CV - Användare ${user.id}: Ingen nollställning behövs.`);
     }
 
+    // Gränskontroll för gratisanvändare
     if (subscriptionTier === 'free') {
       if (currentAnalysisCount >= WEEKLY_ANALYSIS_LIMIT_FREE) {
         console.log(`Analysera CV - Användare ${user.id} (Free): Gräns nådd.`);
@@ -135,7 +112,7 @@ export async function POST(request: Request) {
           { status: 429 }
         );
       } else {
-        console.log(`Analysera CV - Användare ${user.id} (Free): Inom gräns.`);
+        console.log(`Analysera CV - Användare ${user.id} (Free): ${WEEKLY_ANALYSIS_LIMIT_FREE - currentAnalysisCount} analyser kvar.`);
       }
     } else {
       console.log(`Analysera CV - Användare ${user.id} (Premium): Tillåter analys.`);
@@ -165,11 +142,12 @@ export async function POST(request: Request) {
 
     const cvText = cvData.cv_text
 
-    // 5. Förbered OpenAI Prompt (ingen ändring)
+    // 5. Förbered OpenAI Prompt (Fortfarande uppdaterad för svenska)
     const prompt = `
-Du är en expert på rekrytering och CV-granskning i Sverige. Analysera följande CV-text noggrant.
-Identifiera styrkor, svagheter/förbättringsområden, och extrahera relevanta nyckelord.
-Ge också en kort sammanfattning och en bedömning av tydlighet och användning av handlingsverb.
+Du är en expert på rekrytering och CV-granskning specialiserad på den svenska arbetsmarknaden. Analysera följande CV-text noggrant.
+**VIKTIGT: All text i ditt JSON-svar (i värdena för nycklarna) MÅSTE vara på SVENSKA.**
+
+Identifiera styrkor, svagheter/förbättringsområden, och extrahera relevanta nyckelord. Ge också en kort sammanfattning och en bedömning av tydlighet och användning av handlingskraftiga verb.
 
 **CV-Text:**
 \`\`\`
@@ -179,23 +157,23 @@ ${cvText}
 **Instruktioner för ditt svar:**
 Returnera ditt svar **endast** som ett JSON-objekt med följande exakta struktur och nycklar (på engelska för enkelhet i koden):
 {
-  "summary": "En kort (1-2 meningar) övergripande bedömning av CV:t.",
-  "strengths": ["Lista med 3-5 tydliga styrkor identifierade i CV:t (specifika färdigheter, erfarenheter, prestationer)."],
-  "improvement_areas": ["Lista med 2-4 konkreta och konstruktiva förslag på förbättringar (t.ex. kvantifiera resultat, förtydliga ansvar, lägg till sektion X, åtgärda otydligheter). Var specifik!"],
-  "keywords": ["Lista med 5-10 relevanta nyckelord extraherade från CV:t (tekniska färdigheter, mjuka färdigheter, branschspecifika termer, verktyg)."],
+  "summary": "En kort (1-2 meningar) övergripande bedömning av CV:t. **Texten ska vara på svenska.**",
+  "strengths": ["Lista med 3-5 tydliga styrkor identifierade i CV:t (specifika färdigheter, erfarenheter, prestationer). **Texten i listan ska vara på svenska.**"],
+  "improvement_areas": ["Lista med 2-4 konkreta och konstruktiva förslag på förbättringar (t.ex. kvantifiera resultat, förtydliga ansvar, lägg till sektion X, åtgärda otydligheter). Var specifik! **Texten i listan ska vara på svenska.**"],
+  "keywords": ["Lista med 5-10 relevanta nyckelord extraherade från CV:t (tekniska färdigheter, mjuka färdigheter, branschspecifika termer, verktyg). **Listan ska endast innehålla orden/termerna på svenska.**"],
   "clarity_score": Siffra mellan 1 (mycket otydligt) och 10 (mycket tydligt) som bedömer CV:ts struktur och läsbarhet.,
-  "action_verbs_usage": "En kort bedömning (t.ex. 'Bra', 'Kan förbättras', 'Varierad') av användningen av starka handlingsverb för att beskriva erfarenheter."
+  "action_verbs_usage": "En kort bedömning (t.ex. 'Bra', 'Kan förbättras', 'Varierad') av användningen av starka handlingsverb för att beskriva erfarenheter. **Bedömningen ska vara på svenska.**"
 }
 
-Se till att JSON-objektet är korrekt formaterat och komplett. Inkludera ingen annan text före eller efter JSON-objektet. Använd svenska i textvärdena inuti JSON (summary, strengths, improvement_areas, keywords, action_verbs_usage).
+Se till att JSON-objektet är korrekt formaterat och komplett. Inkludera ingen annan text före eller efter JSON-objektet. **Dubbelkolla att all text i värdena för "summary", "strengths", "improvement_areas", "keywords" och "action_verbs_usage" är på SVENSKA.**
 `
 
-    // 6. Anropa OpenAI API (ingen ändring)
+    // 6. Anropa OpenAI API ( *** UPPDATERAD MODELL OCH TOKENS *** )
     const completion = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo", // Eller annan modell
+      model: "gpt-4o",                 // <<< ÄNDRAD MODELL
       messages: [{ role: "user", content: prompt }],
       temperature: 0.3,
-      max_tokens: 600, // Justera vid behov
+      max_tokens: 800,                 // <<< ÄNDRAD MAX_TOKENS
       response_format: { type: "json_object" },
     });
 
@@ -251,6 +229,9 @@ Se till att JSON-objektet är korrekt formaterat och komplett. Inkludera ingen a
 
   } catch (error: any) {
     console.error(`Analysera CV - Oväntat fel (CV ID: ${cvId}, User ID: ${user.id}):`, error)
-    return NextResponse.json({ message: error.message || 'Ett internt fel uppstod vid analys av CV.' }, { status: 500 })
+    const message = error.message.includes("AI-svaret saknar") || error.message.includes("tolka svaret")
+      ? "AI-analysen kunde inte slutföras korrekt. Försök igen om en liten stund."
+      : error.message || 'Ett internt fel uppstod vid analys av CV.';
+    return NextResponse.json({ message: message }, { status: 500 })
   }
 }

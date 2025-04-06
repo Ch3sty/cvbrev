@@ -6,10 +6,14 @@ interface FAQContainerProps {
 
 const FAQContainer: React.FC<FAQContainerProps> = ({ children }) => {
   return (
-    <div className="my-8 space-y-4 faq-container">
-        {/* Titel kan läggas här eller i MDX */}
-         <h2 className="text-2xl font-semibold border-t border-gray-700 pt-6">Vanliga Frågor (FAQ)</h2>
-        {children}
+    // --- VIKTIGT: Lägg till "not-prose" för att isolera från artikelns prose-stilar ---
+    <div className="my-12 not-prose faq-container">
+      {/* --- ÄNDRING: Justerat titelns styling --- */}
+      <h2 className="text-2xl font-semibold mb-6 text-white">Vanliga Frågor (FAQ)</h2>
+      {/* flow-root är fortfarande bra för att hantera sista border */}
+      <div className="flow-root">
+         {children}
+      </div>
     </div>
   );
 };
