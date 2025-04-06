@@ -4,18 +4,29 @@ import { useState, useRef } from 'react'
 import { useProfile } from '@/hooks/use-profile'
 import { FileText, Upload, Info } from 'lucide-react'
 import CVCounter from '@/components/cv/cv-counter'
+import { useNotification } from '@/context/notificationcontext' // Lägg till denna import
 
 interface CVUploaderProps {
   onSuccess?: () => void;
   onError?: (error: Error) => void;
-  showNotification?: (message: string, type: 'loading' | 'success' | 'error' | 'info', progress?: number) => void;
+  // Ta bort showNotification prop eftersom vi nu använder useNotification-hook
 }
 
-export default function CVUploader({ onSuccess, onError, showNotification }: CVUploaderProps) {
+export default function CVUploader({ onSuccess, onError }: CVUploaderProps) {
   const [title, setTitle] = useState('')
   const [file, setFile] = useState<File | null>(null)
   const [isDragging, setIsDragging] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  
+  // Använd notifikationskontext istället för prop
+  const { 
+    loading: notificationLoading, 
+    success, 
+    error: showError, 
+    loadingWithActivity, 
+    successWithActivity,
+    errorWithActivity
+  } = useNotification()
   
   const { 
     uploadCV, 
@@ -34,13 +45,13 @@ export default function CVUploader({ onSuccess, onError, showNotification }: CVU
       // Kontrollera filtyp
       const validTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain']
       if (!validTypes.includes(selectedFile.type)) {
-        showNotification?.('Endast PDF, DOCX och TXT-filer stöds', 'error');
+        showError('Endast PDF, DOCX och TXT-filer stöds');
         return
       }
       
       // Kontrollera filstorlek (max 5MB)
       if (selectedFile.size > 5 * 1024 * 1024) {
-        showNotification?.('Filen är för stor. Maximal filstorlek är 5MB', 'error');
+        showError('Filen är för stor. Maximal filstorlek är 5MB');
         return
       }
       
@@ -73,12 +84,12 @@ export default function CVUploader({ onSuccess, onError, showNotification }: CVU
       // Samma kontroller som i handleFileChange
       const validTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain']
       if (!validTypes.includes(droppedFile.type)) {
-        showNotification?.('Endast PDF, DOCX och TXT-filer stöds', 'error');
+        showError('Endast PDF, DOCX och TXT-filer stöds');
         return
       }
       
       if (droppedFile.size > 5 * 1024 * 1024) {
-        showNotification?.('Filen är för stor. Maximal filstorlek är 5MB', 'error');
+        showError('Filen är för stor. Maximal filstorlek är 5MB');
         return
       }
       
@@ -93,17 +104,28 @@ export default function CVUploader({ onSuccess, onError, showNotification }: CVU
   
   const handleUpload = async () => {
     if (!file) {
-      showNotification?.('Välj en CV-fil först', 'error');
+      showError('Välj en CV-fil först');
       return;
     }
     
     if (!gdprConsent) {
-      showNotification?.('Du måste godkänna GDPR-samtycket för att ladda upp CV', 'error');
+      showError('Du måste godkänna GDPR-samtycket för att ladda upp CV');
       return;
     }
     
     try {
-      showNotification?.('Laddar upp ditt CV...', 'loading');
+      // Visa loading-notifikation och logga att uppladdningen startas
+      loadingWithActivity(
+        'Laddar upp ditt CV...',
+        'cv_uploaded',
+        'påbörjade uppladdning av CV',
+        {
+          file_name: file.name,
+          file_size: file.size,
+          file_type: file.type,
+          title: title
+        }
+      );
       
       const success = await uploadCV(file, title)
       
@@ -115,12 +137,36 @@ export default function CVUploader({ onSuccess, onError, showNotification }: CVU
           fileInputRef.current.value = ''
         }
         
-        showNotification?.('CV uppladdad framgångsrikt!', 'success');
+        // Visa success-notifikation och logga framgångsrik uppladdning
+        successWithActivity(
+          'CV uppladdad framgångsrikt!',
+          'cv_uploaded',
+          'laddade upp ett CV',
+          {
+            file_name: file.name,
+            file_size: file.size,
+            file_type: file.type,
+            title: title
+          }
+        );
+        
         onSuccess?.()
       }
     } catch (error: any) {
       console.error('CV upload error:', error)
-      showNotification?.(error.message || 'Ett fel uppstod vid uppladdning', 'error');
+      
+      // Visa error-notifikation och logga felet
+      errorWithActivity(
+        error.message || 'Ett fel uppstod vid uppladdning',
+        'cv_uploaded',
+        'fick ett fel vid uppladdning av CV',
+        {
+          file_name: file?.name,
+          error_message: error.message,
+          error_type: error.name || 'UnknownError'
+        }
+      );
+      
       onError?.(error instanceof Error ? error : new Error(error.message || 'Ett fel uppstod vid uppladdning'))
     }
   }

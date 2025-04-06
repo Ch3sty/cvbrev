@@ -1,8 +1,7 @@
-// src/lib/openai/api.ts - Uppdaterad med direkt AI-anpassad tonalitet
+// src/lib/openai/api.ts - Uppdaterad för att returnera kostnad och tokens
 import OpenAI from 'openai';
 
-// Skapa OpenAI-klient med API-nyckel från miljövariabel
-// **** ENDAST ÄNDRING: Lade till 'export' här ****
+// Skapa OpenAI-klient med API-nyckel från miljövariabel (oförändrad)
 export const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -35,6 +34,50 @@ const tonalityDescriptions: { [key: string]: { sv: string, en: string } } = {
   }
 };
 
+// *** NY HJÄLPFUNKTION FÖR KOSTNADSBERÄKNING ***
+/**
+ * Beräknar kostnaden för ett OpenAI API-anrop.
+ * Priser är per 1 miljon tokens (Kolla aktuell prislista!).
+ * @param model - Modellen som användes (t.ex. "gpt-4o").
+ * @param promptTokens - Antal input tokens.
+ * @param completionTokens - Antal output tokens.
+ * @returns Beräknad kostnad i USD, eller null om pris saknas.
+ */
+function calculateOpenAICost(model: string, promptTokens: number, completionTokens: number): number | null {
+    // Priser per 1 MILJON tokens (Exempelvärden - VERIFIERA OCH UPPDATERA REGELBUNDET!)
+    // Hämta från https://openai.com/pricing
+    const prices: { [key: string]: { input: number; output: number } } = {
+        "gpt-4o":               { input: 5.00,  output: 15.00 },
+        "gpt-4-turbo":          { input: 10.00, output: 30.00 },
+        "gpt-4":                { input: 30.00, output: 60.00 },
+        "gpt-3.5-turbo-0125":   { input: 0.50,  output: 1.50 },
+        "gpt-3.5-turbo-instruct": { input: 1.50,  output: 2.00 },
+        // Lägg till fler modeller vid behov
+    };
+
+    let modelPrice = prices[model];
+    if (!modelPrice) {
+        const baseModel = model.split('-').slice(0, 2).join('-');
+        modelPrice = prices[baseModel];
+    }
+    if (!modelPrice && model.startsWith('gpt-3.5-turbo')) {
+        modelPrice = prices["gpt-3.5-turbo-0125"];
+    }
+
+    if (!modelPrice) {
+        console.warn(`Prisinformation saknas för OpenAI-modell: ${model}. Kan inte beräkna kostnad.`);
+        return null;
+    }
+
+    const inputCost = (promptTokens / 1_000_000) * modelPrice.input;
+    const outputCost = (completionTokens / 1_000_000) * modelPrice.output;
+    const totalCost = inputCost + outputCost;
+
+    return parseFloat(totalCost.toFixed(6));
+}
+// **************************************************
+
+
 /**
  * Extraherar jobbinformation från jobbannonsen med AI (Oförändrad)
  */
@@ -42,6 +85,7 @@ export async function extractJobInfo(
   jobDescription: string,
   language: string = 'sv'
 ): Promise<{ title?: string, company?: string, position?: string }> {
+  // ---- Hela koden för extractJobInfo är oförändrad här ----
   try {
     const systemPrompt = language === 'sv' ?
       `Du är en expert på att analysera jobbannonser. Din uppgift är att extrahera följande information från en jobbannons:
@@ -71,10 +115,10 @@ export async function extractJobInfo(
        However, always try your best to identify the information.`;
 
     const response = await openai.chat.completions.create({
-      model: "gpt-4o",
+      model: "gpt-4o", // Eller annan modell om du föredrar för denna uppgift
       messages: [
         { role: "system", content: systemPrompt },
-        { role: "user", content: jobDescription }
+        { role: "user", content: jobDescription.substring(0, 4000) } // Begränsa input
       ],
       temperature: 0.3,
       max_tokens: 150,
@@ -95,7 +139,7 @@ export async function extractJobInfo(
         position: jsonResponse.position?.trim() || undefined
       };
     } catch (error) {
-      console.error('Fel vid parsning av JSON-svar:', error);
+      console.error('Fel vid parsning av JSON-svar i extractJobInfo:', error);
       return {
         title: language === 'sv' ? 'Ansökningsbrev' : 'Job Application'
       };
@@ -106,35 +150,51 @@ export async function extractJobInfo(
       title: language === 'sv' ? 'Ansökningsbrev' : 'Job Application'
     };
   }
+  // ---- Slut på oförändrad kod för extractJobInfo ----
 }
 
+
+// *** DEFINIERA NY RETURTYP FÖR generateCoverLetter ***
+export interface GenerateLetterResult {
+  content: string; // Det genererade brevet
+  model: string;   // Modellen som användes
+  tokens: {        // Token-information
+    prompt: number;
+    completion: number;
+    total: number;
+  } | null;        // Kan vara null om usage saknas
+  cost: number | null; // Beräknad kostnad (kan vara null)
+}
+// ***************************************************
+
 /**
- * Genererar ett personligt brev baserat på CV och jobbannons (Oförändrad)
+ * Genererar ett personligt brev baserat på CV och jobbannons
+ * --- UPPDATERAD ATT RETURNERA GenerateLetterResult ---
  */
 export async function generateCoverLetter(
   cvText: string,
   jobDescription: string,
   tonality: string = 'professional',
   language: string = 'sv'
-): Promise<string> {
+): Promise<GenerateLetterResult> { // <<< ÄNDRAD RETURTYP HÄR
   try {
-    // Validera indata
+    // Validera indata (oförändrat)
     if (!cvText || !jobDescription) {
       throw new Error('CV och jobbannons måste innehålla text');
     }
 
-    // Begränsa storleken på texten för att förhindra token-överskridning
-    const truncatedCV = cvText.substring(0, 3000); // Begränsa CV till 3000 tecken
-    const truncatedJobDesc = jobDescription.substring(0, 2000); // Begränsa jobbannons till 2000 tecken
+    // Begränsa storleken på texten (oförändrat)
+    const truncatedCV = cvText.substring(0, 3000);
+    const truncatedJobDesc = jobDescription.substring(0, 2000);
 
-    // Skapa en prompt som instruerar AI:n hur brevet ska genereras
+    // Skapa en prompt som instruerar AI:n (oförändrat)
     const tonalityInstruction = tonality === 'auto'
       ? (language === 'sv'
           ? 'Analysera jobbannonsen och anpassa tonen så den passar optimalt för tjänsten, företagskulturen och branschen'
           : 'Analyze the job posting and adapt the tone to optimally fit the position, company culture and industry')
       : `Använd en ${tonalityDescriptions[tonality]?.[language as 'sv' | 'en'] || tonalityDescriptions.balanced[language as 'sv' | 'en']}`;
 
-    // Språkspecifika instruktioner
+    // Språkspecifika instruktioner (oförändrat)
     const languageSpecificInstructions = {
       sv: {
         title: 'svenska',
@@ -152,7 +212,7 @@ export async function generateCoverLetter(
 
     const langInst = languageSpecificInstructions[language as 'sv' | 'en'] || languageSpecificInstructions.sv;
 
-    // Skapa systemprompten baserat på språket
+    // Skapa systemprompten baserat på språket (oförändrat - behåller dina detaljerade prompts)
     const systemPrompt = language === 'sv' ?
     `Du har fått tillgång till användarens CV och den aktuella jobbannonsen. Din uppgift är att skriva ett personligt brev på svenska som är helt anpassat efter den sökta tjänsten och företaget. Följ dessa riktlinjer:
     1. **Målgruppsanpassning:**
@@ -214,7 +274,7 @@ export async function generateCoverLetter(
 
     Write a cover letter according to the above guidelines that integrates and matches the relevant parts from both the CV and the job posting. Adapt the text to clearly show why the candidate is perfect for the role.`;
 
-    // Skapa användarprompten med CV och jobbannons
+    // Skapa användarprompten med CV och jobbannons (oförändrat)
     const userPrompt = language === 'sv' ? `
     Skriv ett personligt brev baserat på följande CV och jobbannons:
 
@@ -233,53 +293,67 @@ export async function generateCoverLetter(
     ${truncatedJobDesc}
     `;
 
-    // Anropa ChatGPT API för att generera brev
+    const modelToUse = "gpt-4o"; // Behåller din valda modell
+
+    // Anropa ChatGPT API för att generera brev (oförändrat)
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o",  // Använd den senaste GPT-4 modellen för bästa resultat
+      model: modelToUse,
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: userPrompt }
       ],
-      temperature: 0.7,  // Balans mellan kreativitet och konsekvens
-      max_tokens: 1500,  // Begränsa svarets längd
+      temperature: 0.7,
+      max_tokens: 1500,
     });
 
-    // Mer robust hantering av svaret
+    // Hantering av svar (oförändrat)
     if (!completion.choices || completion.choices.length === 0) {
-      console.error('Inget svar från OpenAI', {
-        completion,
-        systemPrompt: systemPrompt.substring(0, 500),
-        userPrompt: userPrompt.substring(0, 500)
-      });
-
+      console.error('Inget svar från OpenAI', { completion });
       throw new Error('Inget svar mottaget från OpenAI');
     }
-
     const letterContent = completion.choices[0].message.content || '';
-
-    // Ytterligare validering av innehållet
     if (!letterContent || letterContent.trim().length < 50) {
-      console.error('Genererat brev är för kort eller tomt', {
-        letterContent,
-        contentLength: letterContent?.length
-      });
-
+      console.error('Genererat brev är för kort eller tomt', { letterContent });
       throw new Error('Det genererade brevet är ogiltigt');
     }
 
-    // Returnera den genererade texten
-    return letterContent;
+    // *** NY KOD: EXTRAHERA USAGE OCH BERÄKNA KOSTNAD ***
+    const usage = completion.usage;
+    let tokensInfo: GenerateLetterResult['tokens'] = null;
+    let calculatedCost: number | null = null;
+
+    if (usage) {
+        const promptTokens = usage.prompt_tokens ?? 0;
+        const completionTokens = usage.completion_tokens ?? 0;
+        tokensInfo = {
+            prompt: promptTokens,
+            completion: completionTokens,
+            total: usage.total_tokens ?? (promptTokens + completionTokens)
+        };
+        calculatedCost = calculateOpenAICost(modelToUse, promptTokens, completionTokens);
+    } else {
+        console.warn("OpenAI response did not include usage data for generateCoverLetter.");
+    }
+    // ***************************************************
+
+    // *** UPPDATERAD RETURVÄRDE ***
+    // Returnera det nya objektet istället för bara strängen
+    return {
+      content: letterContent,
+      model: modelToUse,
+      tokens: tokensInfo,
+      cost: calculatedCost
+    };
+    // ****************************
 
   } catch (error: any) {
-    // Mer detaljerad och informativ felhantering
+    // Felhantering (oförändrat)
     console.error('Fullständigt OpenAI API-fel:', {
       errorMessage: error.message,
       errorName: error.name,
       errorCode: error.code,
       errorDetails: error.response?.data || 'Ingen ytterligare information'
     });
-
-    // Kasta ett mer informativt fel
     throw new Error(
       language === 'sv'
         ? `Misslyckades med att generera brev: ${error.message || 'Okänt fel'}`

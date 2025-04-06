@@ -14,7 +14,7 @@ import Link from 'next/link';
 
 // Import components
 import CVUploader from '@/components/cv/cv-uploader';
-import Notification from '@/components/ui/notification';
+import Notification from '@/components/ui/notification'; // Denna behövs fortfarande för andra notiser på sidan
 import SubscriptionInfo from '@/components/subscription/subscription-info'; // Behåll för visning
 // *** NYA IMPORTER FÖR STRIPE ***
 import { SubscribeButton } from '@/components/subscription/SubscribeButton';
@@ -71,6 +71,7 @@ export default function ProfilePage() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleteId, setDeleteId] = useState('');
+  // Behåll state och funktioner för sidans egna notifikationer
   const [notification, setNotification] = useState<{
     message: string;
     type: 'loading' | 'success' | 'error' | 'info';
@@ -162,7 +163,7 @@ export default function ProfilePage() {
     }));
   };
 
-  // Show notification (oförändrad)
+  // Show notification (behålls för andra åtgärder på sidan)
   const showNotificationMessage = (message: string, type: 'loading' | 'success' | 'error' | 'info', progress?: number) => {
     setNotification({
       message,
@@ -171,6 +172,7 @@ export default function ProfilePage() {
       isVisible: true
     });
 
+    // Auto-hide logic remains the same
     if (type !== 'loading') {
       setTimeout(() => {
         setNotification(prev => prev ? { ...prev, isVisible: false } : null);
@@ -185,15 +187,21 @@ export default function ProfilePage() {
     setTimeout(() => setNotification(null), 300);
   };
 
-  // Handle CV upload success (oförändrad)
+  // Handle CV upload success (Använder fortfarande sidans notifikation)
+  // ÄVEN OM CVUploader nu visar sin *egen* notis via context,
+  // kan vi behålla denna för att t.ex. visa en extra bekräftelse
+  // eller om vi vill trigga något annat på sidan. Om du *bara*
+  // vill ha notisen från CVUploader kan denna funktion tömmas eller tas bort.
   const handleUploadSuccess = () => {
-    showNotificationMessage('CV uppladdad framgångsrikt!', 'success');
-    fetchCVs();
+    // showNotificationMessage('CV uppladdad framgångsrikt!', 'success'); // Kan tas bort om context-notisen räcker
+    fetchCVs(); // Denna är viktig att behålla för att uppdatera listan
   };
 
-  // Handle CV upload error (oförändrad)
+  // Handle CV upload error (Samma logik som ovan)
   const handleUploadError = (error: Error) => {
-    showNotificationMessage(error.message || 'Ett fel uppstod vid uppladdning', 'error');
+    // Visa ett fel här om det behövs utöver det som CVUploader visar via context
+    // showNotificationMessage(error.message || 'Ett fel uppstod vid uppladdning', 'error');
+    console.error("Fel från CVUploader:", error); // Bra att logga felet
   };
 
   // Handle request to delete CV (oförändrad)
@@ -202,12 +210,12 @@ export default function ProfilePage() {
     setShowDeleteConfirm(true);
   };
 
-  // Confirm CV deletion with the specific CV ID (oförändrad)
+  // Confirm CV deletion with the specific CV ID (oförändrad, använder sidans notifikation)
   const confirmDeleteCV = async () => {
     try {
       if (!deleteId) return;
       setIsDeleting(true);
-      showNotificationMessage('Tar bort CV...', 'loading');
+      showNotificationMessage('Tar bort CV...', 'loading'); // Använder sidans notifikation
       const response = await fetch(`/api/cv/delete`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
@@ -215,13 +223,13 @@ export default function ProfilePage() {
       });
       if (response.ok) {
         fetchCVs();
-        showNotificationMessage('CV har tagits bort', 'success');
+        showNotificationMessage('CV har tagits bort', 'success'); // Använder sidans notifikation
       } else {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Kunde inte ta bort CV');
       }
     } catch (error: any) {
-      showNotificationMessage(error.message || 'Ett fel uppstod vid borttagning', 'error');
+      showNotificationMessage(error.message || 'Ett fel uppstod vid borttagning', 'error'); // Använder sidans notifikation
     } finally {
       setIsDeleting(false);
       setShowDeleteConfirm(false);
@@ -229,13 +237,13 @@ export default function ProfilePage() {
     }
   };
 
-  // Save profile changes (oförändrad)
+  // Save profile changes (oförändrad, använder sidans notifikation)
   const handleSaveProfile = async () => {
     try {
       setSaving(true);
-      showNotificationMessage('Sparar profiländringar...', 'loading');
+      showNotificationMessage('Sparar profiländringar...', 'loading'); // Använder sidans notifikation
       if (formData.full_name.trim() === '') {
-        showNotificationMessage('Ange ditt namn', 'error');
+        showNotificationMessage('Ange ditt namn', 'error'); // Använder sidans notifikation
         setSaving(false);
         return;
       }
@@ -245,12 +253,12 @@ export default function ProfilePage() {
         preferred_tonality: formData.preferred_tonality as any
       });
       if (success) {
-        showNotificationMessage('Profil uppdaterad', 'success');
+        showNotificationMessage('Profil uppdaterad', 'success'); // Använder sidans notifikation
       } else {
-        showNotificationMessage('Kunde inte uppdatera profil', 'error');
+        showNotificationMessage('Kunde inte uppdatera profil', 'error'); // Använder sidans notifikation
       }
     } catch (error: any) {
-      showNotificationMessage(error.message || 'Ett fel uppstod vid uppdatering', 'error');
+      showNotificationMessage(error.message || 'Ett fel uppstod vid uppdatering', 'error'); // Använder sidans notifikation
     } finally {
       setSaving(false);
     }
@@ -268,7 +276,7 @@ export default function ProfilePage() {
   // === RENDER ===
   return (
     <div className="max-w-screen-lg mx-auto pt-8 pb-16 px-4">
-      {/* Notification (oförändrad) */}
+      {/* Notification (renderas fortfarande för sidans egna notiser) */}
       {notification?.isVisible && (
         <Notification
           message={notification.message}
@@ -491,7 +499,7 @@ export default function ProfilePage() {
         </div>
       )}
 
-      {/* CV Tab (lätt uppdaterad för att använda subscriptionTier för gräns) */}
+      {/* CV Tab (uppdaterad för att inte skicka showNotification) */}
       {activeTab === 'cv' && (
         <div className="space-y-6">
           {/* CV List */}
@@ -588,16 +596,18 @@ export default function ProfilePage() {
               </div>
             </div>
           ) : (
+            // *** DENNA RAD ÄR ÄNDRAD ***
             <CVUploader
               onSuccess={handleUploadSuccess}
               onError={handleUploadError}
-              showNotification={showNotificationMessage}
+              // showNotification={showNotificationMessage} // <-- BORTTAGEN PROP
             />
+            // *************************
           )}
         </div>
       )}
 
-      {/* === Subscription Tab === */}
+      {/* === Subscription Tab (oförändrad) === */}
       {activeTab === 'subscription' && (
         <div className="space-y-6">
           {/* 1. Visa aktuell prenumerationsinformation */}
@@ -662,7 +672,7 @@ export default function ProfilePage() {
               <p className="text-sm text-gray-400 mb-3">Avslutar din nuvarande session.</p>
               <button
                 onClick={async () => {
-                  showNotificationMessage('Loggar ut...', 'loading');
+                  showNotificationMessage('Loggar ut...', 'loading'); // Använder sidans notifikation
                   await supabase.auth.signOut();
                   router.push('/login'); // Omdirigera till inloggningssidan
                 }}
