@@ -296,10 +296,26 @@ export default function CreateLetterPage() {
         // Extrahera AI-metadata och kostnad för loggning
         const aiMetadata = result.ai_metadata ||
                          (result.data && result.data.ai_metadata) || {};
+        
+        // Extrahera ai-metadata från resultatet och lägg det på toppnivå
+        const aiModel = result.ai_model || (result.data && result.data.ai_model) || aiMetadata.model;
+        const aiTokens = result.ai_tokens || (result.data && result.data.ai_tokens) || aiMetadata.tokens?.total;
+        const aiCost = result.ai_cost || (result.data && result.data.ai_cost) || aiMetadata.cost;
+        const generationTimeMs = result.generation_time_ms || (result.data && result.data.generation_time_ms);
 
         if (letterContent && typeof letterContent === 'string' && letterContent.trim().length > 0) {
           setGeneratedLetter(letterContent);
-          setLetterData(result.data || result);
+          
+          // Slå ihop data med ai-metadata direkt på toppnivå
+          const updatedData = result.data || result;
+          setLetterData({
+            ...updatedData,
+            ai_model: aiModel,
+            ai_tokens: aiTokens,
+            ai_cost: aiCost,
+            generation_time_ms: generationTimeMs,
+            ai_metadata: aiMetadata
+          });
 
           // *** VIKTIG LOGGNING #2: Logga lyckad generering MED KOSTNAD ***
           if (profile?.id) {
@@ -312,9 +328,9 @@ export default function CreateLetterPage() {
                 language,
                 tonality,
                 // Extrahera kostnad och modell för att spåra AI-användning
-                model: aiMetadata.model || 'unknown',
-                cost: aiMetadata.cost || null,
-                tokens: aiMetadata.tokens?.total || null
+                model: aiModel || 'unknown',
+                cost: aiCost || null,
+                tokens: aiTokens || null
               }
             );
           }
@@ -396,8 +412,17 @@ export default function CreateLetterPage() {
       setIsSaving(true);
       showNotification('loading', 'Sparar brevet...');
 
-      // Anropa saveLetter
-      const savedLetter = await saveLetter(letterData);
+      // Extrahera AI-metadata från letterData
+      const letterToSave = {
+        ...letterData,
+        // Se till att ai_metadata också inkluderas
+        ai_model: letterData.ai_model || letterData.ai_metadata?.model,
+        ai_tokens: letterData.ai_tokens || letterData.ai_metadata?.tokens?.total,
+        ai_cost: letterData.ai_cost || letterData.ai_metadata?.cost
+      };
+
+      // Anropa saveLetter med den uppförberedda letterData-objektet
+      const savedLetter = await saveLetter(letterToSave);
 
       closeNotification();
 

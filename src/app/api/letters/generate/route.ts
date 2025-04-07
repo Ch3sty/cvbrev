@@ -177,8 +177,12 @@ export async function POST(request: Request) {
         cv_text: cvData.cv_text,
         is_saved: save,
         cv_path: cvData.original_file_path || null,
-        cv_id: cv_id
-        // Du behöver INTE spara AI-metadata i letters-tabellen om du inte vill
+        cv_id: cv_id,
+        // Lägger till AI-metadata i letterObject
+        ai_model: generationResult.model,
+        ai_tokens: generationResult.tokens?.total || null,
+        ai_cost: generationResult.cost,
+        generation_time_ms: generationTimeMs
       };
 
       // Cachelagring (oförändrat, använder letterObject)

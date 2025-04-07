@@ -112,6 +112,16 @@ export async function POST(request: Request) {
       }
     }
 
+    // Extrahera AI-metadata från letterData eller ai_metadata objekt
+    const aiModel = letterData.ai_model || 
+                  (letterData.ai_metadata && letterData.ai_metadata.model);
+    const aiTokens = letterData.ai_tokens || 
+                   (letterData.ai_metadata && letterData.ai_metadata.tokens?.total) ||
+                   (letterData.ai_metadata && letterData.ai_metadata.tokens);
+    const aiCost = letterData.ai_cost ||
+                 (letterData.ai_metadata && letterData.ai_metadata.cost);
+    const generationTimeMs = letterData.generation_time_ms;
+
     // Spara brevet i databasen
     const { data, error } = await supabase
       .from('letters')
@@ -125,7 +135,14 @@ export async function POST(request: Request) {
         job_description: letterData.job_description,
         cv_text: letterData.cv_text,
         is_saved: letterData.is_saved !== undefined ? letterData.is_saved : true,
-        cv_path: letterData.cv_path
+        cv_path: letterData.cv_path,
+        // Tar bort cv_id: letterData.cv_id, eftersom kolumnen inte existerar
+        language: letterData.language || 'sv',
+        // Lägg till AI-metadata
+        ai_model: aiModel,
+        ai_tokens: aiTokens,
+        ai_cost: aiCost,
+        generation_time_ms: generationTimeMs
       })
       .select();
 

@@ -1,5 +1,4 @@
 'use client';
-
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -12,7 +11,8 @@ import {
   Settings,
   ChevronRight,
   ChevronLeft,
-  LogOut
+  LogOut,
+  Database // Ny ikon för underhåll
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
@@ -21,7 +21,7 @@ export default function AdminSidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const supabase = getSupabaseClient();
   
-  // Navigationslänkar
+  // Navigationslänkar - Lagt till underhållssidan
   const navItems = [
     { path: '/admin', label: 'Dashboard', icon: <Home className="w-5 h-5" /> },
     { path: '/admin/users', label: 'Användare', icon: <Users className="w-5 h-5" /> },
@@ -29,6 +29,7 @@ export default function AdminSidebar() {
     { path: '/admin/cvs', label: 'CV:n', icon: <FileText className="w-5 h-5" /> },
     { path: '/admin/subscriptions', label: 'Prenumerationer', icon: <CreditCard className="w-5 h-5" /> },
     { path: '/admin/statistics', label: 'Statistik', icon: <BarChart2 className="w-5 h-5" /> },
+    { path: '/admin/maintenance', label: 'Underhåll', icon: <Database className="w-5 h-5" /> }, // Ny!
     { path: '/admin/settings', label: 'Inställningar', icon: <Settings className="w-5 h-5" /> },
   ];
   

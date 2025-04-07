@@ -39,6 +39,11 @@ interface Letter {
   tonality: string;
   language: string;
   content: string; // Vi använder det fullständiga innehållet 
+  // Nya AI-metadata fält
+  ai_model?: string | null;
+  ai_tokens?: number | null;
+  ai_cost?: number | null;
+  generation_time_ms?: number | null;
   metadata?: {
     cost?: number | null;
     model?: string;
@@ -170,7 +175,7 @@ export default function AdminLettersPage() {
 
       // Transformera brevdata med användarinformation
       const transformedData = (lettersData || []).map((letter: any) => {
-        // Försök hitta matchande kostnadsinformation
+        // Försök hitta matchande kostnadsinformation från aktivitetsloggen som fallback
         const dateStr = new Date(letter.created_at).toISOString().split('T')[0];
         const costKey = `${letter.user_id}_${letter.cv_id}_${dateStr}`;
         const costInfo = costLookup[costKey] || {};
@@ -192,11 +197,16 @@ export default function AdminLettersPage() {
           tonality: letter.tonality || 'balanced',
           language: letter.language || 'sv',
           content: letter.content || '',
-          // Kostnadsdata från aktivitetsloggen
+          // Använd de nya direkt lagrade fälten
+          ai_model: letter.ai_model || null,
+          ai_tokens: letter.ai_tokens || null,
+          ai_cost: letter.ai_cost || null,
+          generation_time_ms: letter.generation_time_ms || null,
+          // Kostnadsdata från aktivitetsloggen som fallback
           metadata: {
-            cost: costInfo.cost || null,
-            model: costInfo.model || 'unknown',
-            tokens: costInfo.tokens || null
+            cost: letter.ai_cost || costInfo.cost || null,
+            model: letter.ai_model || costInfo.model || 'unknown',
+            tokens: letter.ai_tokens || costInfo.tokens || null
           }
         };
       });
@@ -238,7 +248,11 @@ export default function AdminLettersPage() {
     let lettersWithCost = 0;
     
     data.forEach(letter => {
-      const cost = letter.metadata?.cost;
+      // Prioritera det direkta ai_cost-fältet framför metadata
+      const cost = letter.ai_cost !== null && letter.ai_cost !== undefined 
+        ? letter.ai_cost 
+        : letter.metadata?.cost;
+        
       if (cost !== null && cost !== undefined) {
         totalCost += cost;
         lettersWithCost++;
@@ -262,14 +276,16 @@ export default function AdminLettersPage() {
     return [...data].sort((a, b) => {
       // För specialfält som är i metadata 
       if (field === 'cost') {
-        const costA = a.metadata?.cost || 0;
-        const costB = b.metadata?.cost || 0;
+        // Prioritera ai_cost fältet, fallback till metadata
+        const costA = a.ai_cost !== null && a.ai_cost !== undefined ? a.ai_cost : (a.metadata?.cost || 0);
+        const costB = b.ai_cost !== null && b.ai_cost !== undefined ? b.ai_cost : (b.metadata?.cost || 0);
         return direction === 'asc' ? costA - costB : costB - costA;
       }
       
       if (field === 'tokens') {
-        const tokensA = a.metadata?.tokens || 0;
-        const tokensB = b.metadata?.tokens || 0;
+        // Prioritera ai_tokens fältet, fallback till metadata
+        const tokensA = a.ai_tokens !== null && a.ai_tokens !== undefined ? a.ai_tokens : (a.metadata?.tokens || 0);
+        const tokensB = b.ai_tokens !== null && b.ai_tokens !== undefined ? b.ai_tokens : (b.metadata?.tokens || 0);
         return direction === 'asc' ? tokensA - tokensB : tokensB - tokensA;
       }
       
@@ -723,12 +739,12 @@ export default function AdminLettersPage() {
                       <div className="flex items-center">
                         <CreditCard className="h-4 w-4 text-pink-400 mr-1.5" />
                         <span className="text-sm text-white">
-                          {letter.metadata?.cost ? formatCost(letter.metadata.cost) : '-'}
+                          {letter.ai_cost ? formatCost(letter.ai_cost) : (letter.metadata?.cost ? formatCost(letter.metadata.cost) : '-')}
                         </span>
                       </div>
-                      {letter.metadata?.model && (
+                      {(letter.ai_model || letter.metadata?.model) && (
                         <div className="text-xs text-gray-400 mt-1">
-                          {letter.metadata.model} {letter.metadata.tokens ? `(${letter.metadata.tokens} tokens)` : ''}
+                          {letter.ai_model || letter.metadata?.model} {letter.ai_tokens || letter.metadata?.tokens ? `(${letter.ai_tokens || letter.metadata?.tokens} tokens)` : ''}
                         </div>
                       )}
                     </td>
@@ -830,20 +846,30 @@ export default function AdminLettersPage() {
                   <div className="bg-navy-700 rounded-md p-4 space-y-2">
                     <div className="flex justify-between">
                       <span className="text-gray-300">Modell:</span>
-                      <span className="text-white font-medium">{selectedLetter.metadata?.model || 'Okänd'}</span>
+                      <span className="text-white font-medium">{selectedLetter.ai_model || selectedLetter.metadata?.model || 'Okänd'}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-300">Tokens:</span>
-                      <span className="text-white font-medium">{selectedLetter.metadata?.tokens || '-'}</span>
+                      <span className="text-white font-medium">{selectedLetter.ai_tokens || selectedLetter.metadata?.tokens || '-'}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-300">Kostnad (USD):</span>
-                      <span className="text-white font-medium">${selectedLetter.metadata?.cost?.toFixed(4) || '-'}</span>
+                      <span className="text-white font-medium">
+                        ${(selectedLetter.ai_cost || selectedLetter.metadata?.cost || 0).toFixed(4) || '-'}
+                      </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-300">Kostnad (SEK):</span>
-                      <span className="text-white font-medium">{formatCost(selectedLetter.metadata?.cost)}</span>
+                      <span className="text-white font-medium">
+                        {formatCost(selectedLetter.ai_cost || selectedLetter.metadata?.cost)}
+                      </span>
                     </div>
+                    {selectedLetter.generation_time_ms && (
+                      <div className="flex justify-between">
+                        <span className="text-gray-300">Generingstid:</span>
+                        <span className="text-white font-medium">{(selectedLetter.generation_time_ms / 1000).toFixed(2)} sek</span>
+                      </div>
+                    )}
                     <div className="flex justify-between">
                       <span className="text-gray-300">Företag:</span>
                       <span className="text-white font-medium">{selectedLetter.company || '-'}</span>
