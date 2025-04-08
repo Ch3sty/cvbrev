@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   Trash,
   AlertTriangle,
@@ -25,7 +25,7 @@ export default function MaintenancePage() {
   // Gör fetchDatabaseStats till en useCallback för att kunna använda den i useEffect dependency array
   // och undvika onödiga anrop om 'days' ändras snabbt.
   // Lägg till 'days' som dependency eftersom frågan beror på det.
-  const fetchDatabaseStats = React.useCallback(async () => {
+  const fetchDatabaseStats = useCallback(async () => {
     setStatsLoading(true);
     setError(null); // Rensa tidigare fel
     try {
@@ -142,6 +142,42 @@ export default function MaintenancePage() {
       setDays(30);
     }
   };
+
+  // SQL-exempeltext utan problematiska tecken
+  const sqlExample = `-- 1. Aktivera pg_cron extensionen (om inte redan gjord)
+-- Gå till Database > Extensions i Supabase Dashboard och aktivera pg_cron.
+
+-- 2. Skapa en funktion för att ta bort äldre data
+CREATE OR REPLACE FUNCTION cleanup_old_activities(retention_days integer DEFAULT 30)
+RETURNS void AS $$
+BEGIN
+  RAISE LOG 'Cron Job: cleanup_old_activities starting. Removing activities older than % days.', retention_days;
+  DELETE FROM public.user_activities
+  WHERE created_at /* mindre än */ (NOW() - (retention_days::text || ' days')::interval);
+
+  -- Logga hur många rader som togs bort (valfritt)
+  -- GET DIAGNOSTICS row_count = ROW_COUNT;
+  -- RAISE LOG 'Cron Job: cleanup_old_activities finished. Removed % rows.', row_count;
+
+EXCEPTION WHEN OTHERS THEN
+    RAISE WARNING 'Cron Job: cleanup_old_activities failed: %', SQLERRM;
+END;
+$$ LANGUAGE plpgsql;
+
+-- 3. Schemalägg funktionen att köras varje natt kl 03:00 UTC
+--    (välj en tidpunkt med låg belastning)
+--    '0 3 * * *' betyder: minut 0, timme 3, varje dag, varje månad, varje veckodag.
+SELECT cron.schedule(
+  'nightly-activity-cleanup', -- Ge jobbet ett unikt namn
+  '0 3 * * *',                -- Cron-schemat (t.ex. 03:00 UTC)
+  $$SELECT public.cleanup_old_activities(60);$$ -- Anropa funktionen, anpassa antal dagar (här 60)
+);
+
+-- (Valfritt) För att se schemalagda jobb:
+-- SELECT * FROM cron.job;
+
+-- (Valfritt) För att ta bort ett schemalagt jobb:
+-- SELECT cron.unschedule('nightly-activity-cleanup');`;
 
 
   return (
@@ -335,44 +371,10 @@ export default function MaintenancePage() {
             Exempel SQL för Cron Jobb (via Supabase SQL Editor):
           </h3>
           <pre className="bg-black/50 p-3 rounded text-gray-300 text-sm overflow-x-auto custom-scrollbar">
-{`-- 1. Aktivera pg_cron extensionen (om inte redan gjord)
--- Gå till Database > Extensions i Supabase Dashboard och aktivera pg_cron.
-
--- 2. Skapa en funktion för att ta bort äldre data
-CREATE OR REPLACE FUNCTION cleanup_old_activities(retention_days integer DEFAULT 30)
-RETURNS void AS $$
-BEGIN
-  RAISE LOG 'Cron Job: cleanup_old_activities starting. Removing activities older than % days.', retention_days;
-  DELETE FROM public.user_activities
-  WHERE created_at ${'<'} (NOW() - (retention_days::text || ' days')::interval);
-
-  -- Logga hur många rader som togs bort (valfritt)
-  -- GET DIAGNOSTICS row_count = ROW_COUNT;
-  -- RAISE LOG 'Cron Job: cleanup_old_activities finished. Removed % rows.', row_count;
-
-EXCEPTION WHEN OTHERS THEN
-    RAISE WARNING 'Cron Job: cleanup_old_activities failed: %', SQLERRM;
-END;
-$$ LANGUAGE plpgsql;
-
--- 3. Schemalägg funktionen att köras varje natt kl 03:00 UTC
---    (välj en tidpunkt med låg belastning)
---    '0 3 * * *' betyder: minut 0, timme 3, varje dag, varje månad, varje veckodag.
-SELECT cron.schedule(
-  'nightly-activity-cleanup', -- Ge jobbet ett unikt namn
-  '0 3 * * *',                -- Cron-schemat (t.ex. 03:00 UTC)
-  $$SELECT public.cleanup_old_activities(60);$$ -- Anropa funktionen, anpassa antal dagar (här 60)
-);
-
--- (Valfritt) För att se schemalagda jobb:
--- SELECT * FROM cron.job;
-
--- (Valfritt) För att ta bort ett schemalagt jobb:
--- SELECT cron.unschedule('nightly-activity-cleanup');
-`}
+            {sqlExample}
           </pre>
           <p className="text-gray-400 mt-3 text-xs">
-            Kör detta SQL-skript i Supabase SQL-editor (under Database -> SQL Editor). Anpassa `retention_days` (antal dagar att behålla) i `cron.schedule`-anropet efter behov. Säkerställ att `pg_cron` är aktiverat.
+            Kör detta SQL-skript i Supabase SQL-editor (under Database -&gt; SQL Editor). Anpassa `retention_days` (antal dagar att behålla) i `cron.schedule`-anropet efter behov. Säkerställ att `pg_cron` är aktiverat.
           </p>
         </div>
       </div>
