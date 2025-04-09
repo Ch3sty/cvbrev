@@ -10,32 +10,47 @@ import { getSupabaseAdmin } from '@/lib/supabase/admin';
  * Kontrollerar specifikt efter super_admin-rollen
  */
 export async function adminAuthMiddleware(request: NextRequest) {
-  const cookieStore = cookies();
-  const supabase = createServerClient({ cookies: cookieStore });
+  console.log("Admin middleware körs för:", request.nextUrl.pathname);
   
-  // Hämta aktuell användare
-  const { data: { user } } = await supabase.auth.getUser();
-  
-  // Om det inte finns någon inloggad användare, omdirigera till login
-  if (!user) {
-    return NextResponse.redirect(new URL('/login', request.url));
-  }
-  
-  // Kontrollera om användaren är super_admin
-  const { data: adminData, error: adminError } = await supabase
-    .from('admin_users')
-    .select('role')
-    .eq('id', user.id)
-    .eq('role', 'super_admin')  // Endast tillåt super_admin-rollen
-    .single();
-  
-  // Om det är något fel eller användaren inte är super_admin, omdirigera till startsidan
-  if (adminError || !adminData) {
+  try {
+    const cookieStore = cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
+    
+    // Hämta aktuell användare
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    console.log("Användare i middleware:", user?.id || "ingen inloggad");
+    
+    // Om det inte finns någon inloggad användare, omdirigera till login
+    if (!user) {
+      console.log("Ingen användare, omdirigerar till /login");
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+    
+    // Kontrollera om användaren är super_admin
+    const { data: adminData, error: adminError } = await supabase
+      .from('admin_users')
+      .select('role')
+      .eq('id', user.id)
+      .eq('role', 'super_admin')  // Endast tillåt super_admin-rollen
+      .single();
+    
+    console.log("Admin-kontroll resultat:", { data: adminData, error: adminError?.message });
+    
+    // Om det är något fel eller användaren inte är super_admin, omdirigera till startsidan
+    if (adminError || !adminData) {
+      console.log("Användaren är inte admin, omdirigerar till /");
+      return NextResponse.redirect(new URL('/', request.url));
+    }
+    
+    console.log("Användaren är admin, fortsätter till admin-sidan");
+    // Användaren är super_admin, skicka vidare till admin-route
+    return NextResponse.next();
+  } catch (error) {
+    console.error("Oväntat fel i admin middleware:", error);
+    // Vid oväntat fel, omdirigera till startsidan för säkerhets skull
     return NextResponse.redirect(new URL('/', request.url));
   }
-  
-  // Användaren är super_admin, skicka vidare till admin-route
-  return NextResponse.next();
 }
 
 /**
