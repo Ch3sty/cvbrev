@@ -3,30 +3,37 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { parseCV, createPlaceholderText } from '@/lib/cv-parser';
-// Importera pdf-parse direkt här för serverside-användning
 import pdfParse from 'pdf-parse';
+import { sanitizeStorageKey } from '@/utils/helpers'; // Importera rensning för storage key
+
+// --- HJÄLPFUNKTION FÖR ATT SANERA TEXT FÖR DATABAS (Enkel version) ---
+// Tar bort vissa kontrolltecken som *kan* orsaka problem.
+function escapeDatabasePlaceholder(text: string): string {
+    // Tar bort de flesta kontrolltecken utom vanliga whitespace (tab, newline, etc.)
+    // Anpassa vid behov om specifika tecken orsakar problem.
+    return text.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '');
+}
+// --- ---
 
 export async function POST(request: Request) {
   try {
-    // Get cookies correctly for Next.js
     const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
-    
+
     const formData = await request.formData();
     const file = formData.get('file') as File;
     const title = formData.get('title') as string;
-    
+
     if (!file) {
       return NextResponse.json({ error: 'Ingen fil hittades' }, { status: 400 });
     }
-    
-    // Verify user authentication
+
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
       return NextResponse.json({ error: 'Ej autentiserad' }, { status: 401 });
     }
 
-    // Hämta användarens prenumerationsnivå
+    // --- (Kod för prenumerationskontroll - oförändrad) ---
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
       .select('subscription_tier')
@@ -38,139 +45,169 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Kunde inte hämta användarprofil' }, { status: 500 });
     }
 
-    // För gratisanvändare: kontrollera om de redan har ett CV
     if (profile.subscription_tier === 'free') {
       const { count, error: countError } = await supabase
         .from('cv_texts')
         .select('id', { count: 'exact', head: true })
         .eq('user_id', user.id);
-      
+
       if (countError) {
         console.error('Fel vid räkning av CV:n:', countError);
-        return NextResponse.json(
-          { error: 'Kunde inte verifiera antal CV:n' }, 
-          { status: 500 }
-        );
+        return NextResponse.json({ error: 'Kunde inte verifiera antal CV:n' }, { status: 500 });
       }
-      
+
       if (count !== null && count >= 1) {
         return NextResponse.json(
-          { 
-            error: 'Som gratisanvändare kan du bara ha 1 CV. Uppgradera till premium för att hantera flera CV:n.', 
-            code: 'CV_LIMIT_REACHED'
-          }, 
+          { error: 'Som gratisanvändare kan du bara ha 1 CV. Uppgradera till premium för att hantera flera CV:n.', code: 'CV_LIMIT_REACHED' },
           { status: 403 }
         );
       }
     }
-    
-    // Förbättra filstrukturen - skapa användarspecifik mapp
+    // --- ---
+
     const fileExt = file.name.split('.').pop()?.toLowerCase();
-    // Skapa en användarmapp med användar-ID
     const userFolder = `users/${user.id}`;
-    // Behåll användarens valda filnamn
-    const fileName = file.name;
-    const filePath = `${userFolder}/${fileName}`;
-    
-    // Säkerställ att användarmappen finns
+    const originalFileName = file.name;
+    const sanitizedFileName = sanitizeStorageKey(originalFileName);
+    const storageFilePath = `${userFolder}/${sanitizedFileName}`;
+
+    console.log(`ℹ️ Original filename: ${originalFileName}`);
+    console.log(`🔒 Sanitized storage key: ${storageFilePath}`);
+
     try {
-      const { data: folderExists } = await supabase
-        .storage
-        .from('cvs')
-        .list(userFolder);
-        
-      if (!folderExists) {
-        // Om mappen inte finns, kan vi skapa en tom .folder-fil
-        await supabase
-          .storage
-          .from('cvs')
-          .upload(`${userFolder}/.folder`, new Blob([''], { type: 'text/plain' }));
+      const { data: folderExists } = await supabase.storage.from('cvs').list(userFolder);
+      if (!folderExists || folderExists.length === 0) {
+        console.log(`Creating folder placeholder for ${userFolder}`);
+        await supabase.storage.from('cvs').upload(`${userFolder}/.placeholder`, new Blob([''], { type: 'text/plain' }));
       }
     } catch (folderError) {
-      // Ignorera fel - försöker ladda upp filen ändå
-      console.log('Mapperror (kan ignoreras):', folderError);
+      console.log('Mappkontroll/-skapande fel (kan ignoreras om uppladdning lyckas):', folderError);
     }
-    
-    // Upload file to Supabase Storage
+
     const { data: uploadData, error: uploadError } = await supabase.storage
       .from('cvs')
-      .upload(filePath, file);
-      
+      .upload(storageFilePath, file, { upsert: true });
+
     if (uploadError) {
-      return NextResponse.json({ error: uploadError.message }, { status: 500 });
+      console.error(`❌ Storage upload error for key ${storageFilePath}:`, uploadError);
+      if (uploadError.message.includes('Invalid Input') || uploadError.message.includes('invalid key')) {
+         return NextResponse.json({ error: `Ogiltigt filnamn för lagring: ${originalFileName}` }, { status: 400 });
+      }
+      return NextResponse.json({ error: `Storagefel: ${uploadError.message}` }, { status: 500 });
     }
-    
-    // Extract text with error handling and fallbacks
+
     let extractedText = '';
     let textExtractionFailed = false;
-    
+    let placeholderUsed = false; // Flagga för att veta om placeholder användes
+
     try {
-      console.log(`📄 Starting text extraction for ${file.name}...`);
-      
-      // För PDF-filer, använd direkt pdf-parse här eftersom vi vet att detta är serversidan
+      console.log(`📄 Starting text extraction for ${originalFileName}...`);
       if (fileExt === 'pdf') {
         const arrayBuffer = await file.arrayBuffer();
         const pdfData = Buffer.from(arrayBuffer);
-        
         try {
           const result = await pdfParse(pdfData);
           extractedText = result.text;
           console.log(`📄 PDF text extracted, length: ${extractedText.length}`);
-        } catch (pdfError) {
-          console.error('PDF parsing error:', pdfError);
+        } catch (pdfError: any) {
+          console.error(`❌ PDF parsing failed for ${originalFileName}:`, pdfError.message || pdfError);
           textExtractionFailed = true;
           extractedText = createPlaceholderText(file);
+          placeholderUsed = true; // Markera att placeholder skapades här
         }
       } else {
-        // För andra filtyper, använd parseCV från lib
         extractedText = await parseCV(file);
+        const knownErrorMessages = [
+            "Kunde inte läsa", "Misslyckades med att läsa", "PDF-texten kunde inte",
+            "Filformatet stöds inte", 'Kunde inte ladda DOCX-parsningsbiblioteket',
+            'Kunde inte extrahera text från DOCX-filen (tom fil)'
+         ];
+         if (knownErrorMessages.some(msg => extractedText.startsWith(msg))) {
+            console.warn(`⚠️ Parsing function returned an error for ${originalFileName}: ${extractedText}`);
+            textExtractionFailed = true;
+            extractedText = createPlaceholderText(file); // Skapa placeholder
+            placeholderUsed = true; // Markera att placeholder skapades här
+         }
       }
-      
-      // Check if we got meaningful text
-      if (!extractedText || extractedText.length < 50) {
-        console.warn('Extracted text is too short or empty, using placeholder');
-        extractedText = createPlaceholderText(file);
+
+      // Längdkontroll som fallback
+      if (!textExtractionFailed && (!extractedText || extractedText.length < 50)) {
+        console.warn(`⚠️ Extracted text for ${originalFileName} is too short or empty (< 50 chars), using placeholder.`);
+        extractedText = createPlaceholderText(file); // Skapa placeholder
         textExtractionFailed = true;
+        placeholderUsed = true; // Markera att placeholder skapades här
       }
-    } catch (error) {
-      console.error('CV parsing failed:', error);
-      // Use placeholder text as fallback
-      extractedText = createPlaceholderText(file);
+    } catch (error: any) {
+      console.error(`❌ Unexpected CV parsing error for ${originalFileName}:`, error.message || error);
+      extractedText = createPlaceholderText(file); // Skapa placeholder
       textExtractionFailed = true;
+      placeholderUsed = true; // Markera att placeholder skapades här
     }
-    
-    // Get public URL for the uploaded file
-    const { data: { publicUrl } } = supabase.storage
-      .from('cvs')
-      .getPublicUrl(filePath);
-    
-    // Save metadata and extracted text in the database
+
+    // --- SANERING AV TEXTEN SOM SKA SPARAS ---
+    // Om placeholder användes (pga fel eller kort text), sanera den.
+    // Annars kan du överväga att sanera den vanliga extraherade texten också,
+    // men det kan potentiellt ta bort legitima tecken från ett CV.
+    // Här väljer vi att *endast* sanera om vi vet att det är placeholder-texten.
+    let textToSave = extractedText;
+    if (placeholderUsed) {
+        console.log("Sanitizing placeholder text before DB insert.");
+        textToSave = escapeDatabasePlaceholder(extractedText);
+    }
+    // --- ---
+
+    let publicUrl = null;
+    let urlError: any = null;
+    if (storageFilePath) {
+      try {
+        const { data: urlData } = supabase.storage.from('cvs').getPublicUrl(storageFilePath);
+        if (urlData && urlData.publicUrl) {
+          publicUrl = urlData.publicUrl;
+          console.log(`✅ Successfully retrieved public URL: ${publicUrl}`);
+        } else {
+          console.warn(`⚠️ Kunde inte hämta publicUrl för storage path: ${storageFilePath}. urlData:`, urlData);
+        }
+      } catch (storageError: any) {
+          console.error(`❌ Oväntat fel vid getPublicUrl för ${storageFilePath}:`, storageError.message || storageError);
+          urlError = storageError;
+      }
+    } else {
+        console.warn("⚠️ storageFilePath var tom, kan inte hämta public URL.");
+    }
+
+    // Spara metadata i databasen
     const { data: cvData, error: cvError } = await supabase
       .from('cv_texts')
       .insert({
         user_id: user.id,
-        file_name: title || file.name,
-        original_file_path: filePath,
-        cv_text: extractedText // Store the extracted or placeholder text
+        file_name: title || originalFileName,
+        original_file_path: storageFilePath,
+        cv_text: textToSave // Använd den (potentiellt) sanerade texten
       })
-      .select();
-      
+      .select()
+      .single();
+
     if (cvError) {
-      return NextResponse.json({ error: cvError.message }, { status: 500 });
+      console.error(`❌ DB insert error:`, cvError);
+      // Här loggar vi den *osanerade* texten om DB-insert misslyckas,
+      // för att se om saneringen tog bort något som orsakade problemet,
+      // eller om felet ligger någon annanstans (t.ex. databasschema).
+      console.error("Text that caused DB error (original extracted/placeholder):", extractedText);
+      return NextResponse.json({ error: `Databasfel: ${cvError.message}` }, { status: 500 });
     }
-    
-    return NextResponse.json({ 
-      success: true, 
+
+    return NextResponse.json({
+      success: true,
       data: {
-        ...cvData[0],
-        publicUrl,
-        textExtractionFailed // Let the client know if we're using a placeholder
+        ...cvData,
+        publicUrl: publicUrl,
+        textExtractionFailed // Skicka med flaggan som den var
       }
     });
   } catch (error: any) {
-    console.error('CV upload error:', error);
-    return NextResponse.json({ 
-      error: 'Serverfel vid uppladdning: ' + (error.message || 'Okänt fel') 
+    console.error('💥 Top-level CV upload error:', error);
+    return NextResponse.json({
+      error: 'Serverfel vid uppladdning: ' + (error.message || 'Okänt fel')
     }, { status: 500 });
   }
 }

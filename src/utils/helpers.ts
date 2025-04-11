@@ -31,4 +31,40 @@ export const getURL = (path: string = ''): string => {
   return url;
 };
 
+
+/**
+ * Rensar ett filnamn för att skapa en säker nyckel för molnlagring (t.ex. Supabase Storage).
+ * Ersätter svenska tecken, mellanslag och andra osäkra tecken med bindestreck,
+ * konverterar till gemener och tar bort multipla/ledande/avslutande bindestreck.
+ * Behåller filändelsen.
+ * @param filename - Det ursprungliga filnamnet.
+ * @returns En rensad version av filnamnet som är säker att använda som lagringsnyckel.
+ */
+export function sanitizeStorageKey(filename: string): string {
+    // Separera filnamn och filändelse
+    const lastDotIndex = filename.lastIndexOf('.');
+    const nameWithoutExt = lastDotIndex === -1 ? filename : filename.substring(0, lastDotIndex);
+    const extension = lastDotIndex === -1 ? '' : filename.substring(lastDotIndex); // Behåll punkten
+
+    const sanitized = nameWithoutExt
+      .toLowerCase()
+      // Ersätt svenska tecken
+      .replace(/å/g, 'a')
+      .replace(/ä/g, 'a')
+      .replace(/ö/g, 'o')
+      // Ersätt allt som inte är bokstav (a-z), siffra (0-9), _, . eller - med ett bindestreck
+      .replace(/[^a-z0-9_.\-]/g, '-')
+      // Ersätt multipla bindestreck med ett enda
+      .replace(/-+/g, '-')
+      // Ta bort bindestreck i början eller slutet av namnet
+      .replace(/^-+|-+$/g, '');
+
+    // Säkerställ att namnet inte är tomt efter rensning, ge fallback "fil"
+    const finalName = sanitized || 'fil';
+
+    // Lägg tillbaka filändelsen
+    return `${finalName}${extension}`;
+  }
+
+
 // Du kan lägga till fler hjälpfunktioner här i framtiden om det behövs.

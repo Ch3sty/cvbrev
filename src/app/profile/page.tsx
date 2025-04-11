@@ -34,6 +34,7 @@ import {
   ExternalLink,
   Info,
   Sparkles,
+  Trash2,
   Building2,
   Lightbulb,
   Trophy,
@@ -499,7 +500,7 @@ export default function ProfilePage() {
         </div>
       )}
 
-      {/* CV Tab (uppdaterad för att inte skicka showNotification) */}
+        {/* CV Tab (lätt uppdaterad för att använda subscriptionTier för gräns) */}
       {activeTab === 'cv' && (
         <div className="space-y-6">
           {/* CV List */}
@@ -571,17 +572,19 @@ export default function ProfilePage() {
             )}
           </div>
 
-          {/* CV Uploader - villkor baserat på prenumerationsnivå */}
-          {/* Använd ett stort nummer för premium för att simulera obegränsat */}
+
+          {/* CV Uploader (fortfarande under listan) */}
+          {/* ... din befintliga kod för CVUploader och gräns-meddelande ... */}
           {cvCount >= (subscriptionTier === 'premium' ? 999 : 1) ? (
             <div className="p-4 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-lg">
-              <div className="flex items-start">
+              {/* ... Gräns nådd meddelande ... */}
+               <div className="flex items-start">
                 <Info className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0 mt-0.5" />
                 <div>
                   <h4 className="font-semibold text-yellow-300 mb-1">CV-gräns nådd</h4>
                   <p className="text-yellow-200 text-sm">
                     {subscriptionTier === 'premium'
-                      ? 'Du har nått gränsen för antal CV:n. Ta bort ett befintligt CV för att ladda upp ett nytt.' // Justera om gränsen är > 1
+                      ? 'Du har nått gränsen för antal CV:n. Ta bort ett befintligt CV för att ladda upp ett nytt.'
                       : 'Som gratisanvändare kan du ha 1 CV. Ta bort ditt nuvarande CV för att ladda upp ett nytt, eller uppgradera till Premium för obegränsade uppladdningar.'}
                   </p>
                   {subscriptionTier === 'free' && (
@@ -596,14 +599,12 @@ export default function ProfilePage() {
               </div>
             </div>
           ) : (
-            // *** DENNA RAD ÄR ÄNDRAD ***
             <CVUploader
               onSuccess={handleUploadSuccess}
               onError={handleUploadError}
-              // showNotification={showNotificationMessage} // <-- BORTTAGEN PROP
+              // showNotification prop är korrekt borttagen
             />
-            // *************************
-          )}
+          )
         </div>
       )}
 
