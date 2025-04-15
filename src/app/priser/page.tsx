@@ -1,544 +1,405 @@
-// src/app/priser/page.tsx
-
+/**
+ * Fil: src/app/priser/page.tsx
+ *
+ * Beskrivning:
+ * Prissidan för Jobbcoach.ai. Visar de tillgängliga planerna (Gratis och Premium),
+ * deras funktioner och priser. Inkluderar även argument för att uppgradera,
+ * information om vad som alltid ingår, samt en FAQ för prisrelaterade frågor.
+ * Använder Stripe för prenumerationshantering via SubscribeButton-komponenten.
+ */
 'use client'
 
-import { useState, useEffect } from 'react'
+// --- Core Imports ---
+import { useState, useEffect, FC } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
-import {
-  ChevronRight,
-  CheckCircle,
-  Lock, // För låsta funktioner (Gratis)
-  Zap, // För obegränsat/premium & fördelar
-  Save, // För sparade brev
-  Upload, // För CV-uppladdning
-  Lightbulb, // För tonalitet & fördelar
-  Gift, // För allmänna förmåner (ingen bindningstid)
-  Repeat, // För allmänna förmåner (revisioner)
-  Shield, // För allmänna förmåner (datasäkerhet)
-  Target, // För fördelar (matchning)
-  BrainCircuit, // För fördelar (vetenskap)
-  MessageSquare, // För gratisplanens gräns
-  Bot, // För AI-val tonalitet & fördelar
-  X, // För FAQ eller ej inkluderat (om det skulle behövas)
-  CreditCard // För FAQ betalning
-} from 'lucide-react'
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer
-} from 'recharts'
-// *** NY IMPORT: Importera din prenumerationsknapp ***
-import { SubscribeButton } from '@/components/subscription/SubscribeButton'; 
 
-// === Data för LINJEdiagram (från startsidan) ===
-const timelineData = [
-  { name: 'Dag 1', standardAnsökan: 20, cvBrevAnsökan: 45 },
-  { name: 'Dag 3', standardAnsökan: 25, cvBrevAnsökan: 62 },
-  { name: 'Dag 7', standardAnsökan: 30, cvBrevAnsökan: 75 },
-  { name: 'Dag 14', standardAnsökan: 32, cvBrevAnsökan: 85 },
-  { name: 'Dag 30', standardAnsökan: 35, cvBrevAnsökan: 92 },
+// --- Component Imports ---
+// *** VERIFIERA SÖKVÄGEN TILL SubscribeButton ***
+import { SubscribeButton } from '@/components/subscription/SubscribeButton';
+
+// --- Icon Imports (Lucide React) ---
+import {
+  ChevronRight, CheckCircle, Lock, Zap, Save, Upload, Lightbulb, Gift,
+  Repeat, Shield, Target, BrainCircuit, Bot, CreditCard, BarChartHorizontal,
+  FileSearch, ChevronDown, ChevronUp, ArrowRight // Lade till ArrowRight
+} from 'lucide-react'
+
+// --- Data Definitions ---
+
+/**
+ * Typdefinition för ett FAQ-item.
+ */
+interface FaqItem { question: string; answer: string; }
+
+/**
+ * Data för FAQ-sektionen på prissidan.
+ */
+const pricingFaqItems: FaqItem[] = [
+    {
+        question: "Kan jag byta plan senare?",
+        answer: "Ja, absolut! Du kan enkelt uppgradera från Gratis till Premium, eller byta mellan månads- och årsbetalning för Premium, direkt från dina kontoinställningar."
+    },
+    {
+        question: "Vad händer när jag avslutar min Premium-prenumeration?",
+        answer: "Du behåller tillgång till alla Premium-funktioner under den period du redan betalat för (månad eller år). Därefter återgår ditt konto automatiskt till Gratis-planen, och dina sparade dokument finns kvar (inom Gratis-planens gränser)."
+    },
+    {
+        question: "Erbjuder ni någon prova-på-period för Premium?",
+        answer: "Vi erbjuder för närvarande ingen specifik gratis provperiod för Premium, men vår generösa Gratis-plan låter dig testa kärnfunktionerna, inklusive AI-generering och grundläggande CV-analys, helt utan kostnad."
+    },
+    {
+        question: "Vilka betalningsmetoder accepteras?",
+        answer: "Vi accepterar säkra kortbetalningar (Visa, Mastercard, American Express m.fl.) via vår betalpartner Stripe."
+    },
+    {
+        question: "Är årsplanen en engångsbetalning?",
+        answer: "Ja, när du väljer årsplanen betalar du hela årsavgiften på en gång och får då 20% rabatt jämfört med månadspriset. Prenumerationen förnyas automatiskt efter ett år om du inte väljer att avsluta den."
+    },
 ];
 
-// === Graf-komponent: LINJEdiagram (från startsidan) ===
-function CVBrevTimelineChart() {
-  // (Behåll grafkomponenten som den är)
-  return (
-    <ResponsiveContainer width="100%" height="100%">
-      <LineChart data={timelineData} margin={{ top: 20, right: 30, left: 0, bottom: 5 }}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#475569" />
-        <XAxis dataKey="name" tick={{ fill: '#e2e8f0' }} />
-        <YAxis tickFormatter={(value) => `${value}%`} tick={{ fill: '#e2e8f0' }} />
-        <Tooltip
-          contentStyle={{ backgroundColor: '#1e293b', border: 'none', borderRadius: '8px', color: 'white' }}
-          formatter={(value, name) => [`${value}%`, name === 'standardAnsökan' ? 'Standard ansökningar' : 'cvbrev.se ansökningar']}
-        />
-        <Legend wrapperStyle={{ color: '#e2e8f0' }} />
-        <Line type="monotone" dataKey="standardAnsökan" name="Standard ansökningar" stroke="#94a3b8" strokeWidth={2} dot={{ r: 5 }} activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="cvBrevAnsökan" name="cvbrev.se ansökningar" stroke="#ec4899" strokeWidth={3} dot={{ r: 5, strokeWidth: 2 }} activeDot={{ r: 8 }} />
-      </LineChart>
-    </ResponsiveContainer>
-  );
-}
+// --- Sub-Components ---
 
+/**
+ * FaqAccordion Component
+ * Renderar en expanderbar FAQ-lista.
+ */
+const FaqAccordion: FC<{ items: FaqItem[] }> = ({ items }) => {
+    const [openIndex, setOpenIndex] = useState<number | null>(null);
+    const handleClick = (index: number) => { setOpenIndex(openIndex === index ? null : index); };
+
+    return (
+        <div className="space-y-4">
+            {items.map((item, index) => (
+                <div key={index} className="bg-navy-800 border border-navy-700 rounded-lg overflow-hidden">
+                    <button
+                        onClick={() => handleClick(index)}
+                        className="flex justify-between items-center w-full px-6 py-4 text-left text-white hover:bg-navy-700/50 focus:outline-none focus-visible:ring focus-visible:ring-pink-500 focus-visible:ring-opacity-75 transition-colors duration-200"
+                        aria-expanded={openIndex === index}
+                        aria-controls={`faq-answer-${index}`}
+                    >
+                        <span className="font-medium text-base">{item.question}</span>
+                        {openIndex === index ? <ChevronUp className="w-5 h-5 text-pink-400 flex-shrink-0" /> : <ChevronDown className="w-5 h-5 text-gray-400 flex-shrink-0" />}
+                    </button>
+                    {openIndex === index && (
+                        <div id={`faq-answer-${index}`} className="px-6 pb-4 pt-2 border-t border-navy-700" role="region">
+                            <p className="text-gray-300 text-sm leading-relaxed">{item.answer}</p>
+                        </div>
+                    )}
+                </div>
+            ))}
+        </div>
+    );
+};
+
+
+// --- Main Page Component: PriserPage ---
 
 export default function PriserPage() {
-  const [session, setSession] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [billingPeriod, setBillingPeriod] = useState('monthly'); // 'monthly' eller 'yearly'
+    // --- State ---
+    const [session, setSession] = useState<any>(null); // Ersätt 'any' med specifik typ om möjligt
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+    const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('monthly');
 
-  // *** NYA KONSTANTER: Dina Stripe Price IDs ***
-  const premiumMonthlyPriceId = "price_1R7eyuAB6xHzwmWvtzFJdaOU"; // MÅNADS-ID
-  const premiumYearlyPriceId = "price_1R7ezXAB6xHzwmWvDGpuLw2m";   // ÅRS-ID
-  // *****************************************
+    // --- Stripe Price IDs (Verifiera dessa!) ---
+    const premiumMonthlyPriceId = "price_1R7eyuAB6xHzwmWvtzFJdaOU";
+    const premiumYearlyPriceId = "price_1R7ezXAB6xHzwmWvDGpuLw2m";
 
-  // --- Priser (Oförändrat) ---
-  const premiumMonthlyPrice = 149;
-  const premiumYearlyPriceMonthly = Math.round(premiumMonthlyPrice * 0.8); // 20% rabatt
-  const premiumYearlyPriceTotal = premiumYearlyPriceMonthly * 12;
+    // --- Prisberäkningar ---
+    const premiumMonthlyPrice = 149;
+    const premiumYearlyPriceMonthly = Math.round(premiumMonthlyPrice * 12 * 0.8 / 12); // Ca 20% rabatt
+    const premiumYearlyPriceTotal = premiumYearlyPriceMonthly * 12;
 
-  // --- useEffect för att hämta session (Oförändrat) ---
-  useEffect(() => {
-    async function getSession() {
-      try {
-        setIsLoading(true);
-        // Använder dynamisk import här, ok
-        const { getSupabaseClient } = await import('@/lib/supabase/client-manager');
-        const supabase = getSupabaseClient();
-        const { data } = await supabase.auth.getSession();
-        setSession(data.session);
-      } catch (error) {
-        console.error('Kunde inte hämta session:', error);
-        setSession(null);
-      } finally {
-        setIsLoading(false);
-      }
+    // --- Effects ---
+    useEffect(() => {
+        // Hämtar session vid sidladdning
+        async function getSession() {
+            try {
+                setIsLoading(true);
+                const { getSupabaseClient } = await import('@/lib/supabase/client-manager');
+                const supabase = getSupabaseClient();
+                const { data, error } = await supabase.auth.getSession();
+                if (error) {
+                    console.error('Fel vid hämtning av session:', error.message);
+                    setSession(null);
+                } else {
+                    setSession(data.session);
+                }
+            } catch (error) {
+                console.error('Oväntat fel i getSession:', error);
+                setSession(null);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+        getSession();
+    }, []);
+
+    // --- Render Logic ---
+
+    // Laddningsvy
+    if (isLoading) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-screen bg-navy-950">
+                <div className="w-16 h-16 border-4 border-pink-500 border-t-transparent rounded-full animate-spin" role="status" aria-label="Laddar innehåll">
+                    <span className="sr-only">Laddar...</span>
+                </div>
+                <p className="mt-4 text-white">Laddar priser...</p>
+            </div>
+        );
     }
-    getSession();
-  }, []);
 
-  // --- Laddningsindikator (Oförändrat) ---
-  if (isLoading) {
-     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-navy-950">
-        <div className="w-16 h-16 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
-        <p className="mt-4 text-white">Laddar...</p>
-      </div>
+    // Huvudsida
+    return (
+        <>
+            {/* Sidhuvud och Metadata */}
+            <Head>
+                <title>Priser | Jobbcoach.ai - Gratis och Premium AI-verktyg</title>
+                <meta name="description" content="Utforska prisplanerna för Jobbcoach.ai. Välj mellan Gratis för att testa grunderna eller Premium för obegränsad tillgång till AI-genererade brev, CV-analys och mer. Starta din resa mot drömjobbet!" />
+                <meta name="keywords" content="priser jobbcoach.ai, kostnad AI jobbansökan, premium jobbcoach, gratis personligt brev AI, CV-analys pris, prenumeration jobbverktyg" />
+                <meta property="og:title" content="Priser | Jobbcoach.ai - Gratis och Premium AI-verktyg" />
+                <meta property="og:description" content="Se våra transparenta prisplaner och välj det alternativ som bäst passar ditt jobbsökande. Skapa imponerande ansökningar och få värdefulla insikter med AI." />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://jobbcoach.ai/priser" />
+                <meta property="og:image" content="https://jobbcoach.ai/images/jobbcoach-og-pricing.png" /> {/* Uppdatera bild */}
+                <link rel="canonical" href="https://jobbcoach.ai/priser" />
+            </Head>
+
+            {/* Sidbehållare */}
+            <div className="flex flex-col min-h-screen bg-gradient-to-b from-navy-950 via-navy-900 to-navy-950 text-white">
+
+                {/* === Hero Section === */}
+                <section className="relative overflow-hidden pt-20 pb-12 lg:pt-32 lg:pb-20 bg-gradient-to-b from-navy-900 to-navy-950">
+                    <div className="absolute inset-0 opacity-30" aria-hidden="true">
+                        <div className="absolute bottom-0 left-0 -translate-x-1/4 translate-y-1/4 w-96 h-96 bg-pink-600 rounded-full filter blur-3xl"></div>
+                        <div className="absolute top-0 right-0 translate-x-1/4 -translate-y-1/4 w-96 h-96 bg-blue-600 rounded-full filter blur-3xl"></div>
+                    </div>
+                    <div className="container relative px-4 mx-auto">
+                        <div className="max-w-3xl mx-auto text-center">
+                            <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+                                Välj din väg till <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">nästa jobb</span>
+                            </h1>
+                            <p className="max-w-2xl mx-auto mb-8 text-xl text-gray-300">
+                                Starta gratis för att utforska grunderna, eller lås upp obegränsad AI-kraft och avancerade insikter med Premium.
+                            </p>
+                            {/* Toggle för Månad/År */}
+                            <div className="inline-flex p-1 space-x-1 bg-navy-800 border border-navy-700 rounded-lg mb-10">
+                                <button
+                                    className={`px-5 py-2 text-sm font-medium transition-colors rounded-md ${billingPeriod === 'monthly' ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md' : 'text-gray-400 hover:text-white'}`}
+                                    onClick={() => setBillingPeriod('monthly')}
+                                    aria-pressed={billingPeriod === 'monthly'}
+                                >
+                                    Månadsvis
+                                </button>
+                                <button
+                                    className={`px-5 py-2 text-sm font-medium transition-colors rounded-md flex items-center ${billingPeriod === 'yearly' ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-md' : 'text-gray-400 hover:text-white'}`}
+                                    onClick={() => setBillingPeriod('yearly')}
+                                    aria-pressed={billingPeriod === 'yearly'}
+                                >
+                                    Årsvis
+                                    <span className="ml-2 ml-auto px-2 py-0.5 text-xs bg-green-600 text-white rounded-full">Spara 20%</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* === Pricing Plans Section === */}
+                <section id="pricing-plans" aria-labelledby="pricing-plans-heading" className="py-16 lg:py-20 bg-navy-950">
+                    <div className="container px-4 mx-auto">
+                        <h2 id="pricing-plans-heading" className="sr-only">Prisplaner</h2>
+                        <div className="grid max-w-4xl gap-8 mx-auto lg:grid-cols-2 items-stretch">
+                            {/* Kort: Gratis plan */}
+                            <div className="flex flex-col overflow-hidden bg-navy-800 border border-gray-700 rounded-2xl transition-all duration-300 hover:border-gray-500 hover:shadow-xl hover:shadow-gray-700/10">
+                                <div className="p-8 pb-6 flex-grow">
+                                    <h3 className="mb-2 text-2xl font-semibold text-white">Gratis</h3>
+                                    <p className="mb-6 text-gray-400 h-12">Testa grundläggande funktioner och upplev AI-kraften.</p>
+                                    <div className="mb-6"> <span className="text-4xl font-bold text-white">0 kr</span> <span className="text-gray-400"> / för alltid</span> </div>
+                                    <p className="mb-4 text-sm font-semibold text-gray-300">Detta ingår:</p>
+                                    <ul className="space-y-3 text-sm">
+                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-500 shrink-0" /> <span className="text-gray-300"><span className="font-medium text-white">5</span> AI-genererade personliga brev / vecka</span> </li>
+                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-500 shrink-0" /> <span className="text-gray-300"><span className="font-medium text-white">1</span> CV-analys / vecka (grundläggande)</span> </li>
+                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-500 shrink-0" /> <span className="text-gray-300"><span className="font-medium text-white">2</span> sparade ansökningar</span> </li>
+                                        <li className="flex items-center opacity-60"> <Lock className="w-5 h-5 mr-3 text-gray-500 shrink-0" /> <span className="text-gray-400">Djupgående CV-analys (Premium)</span> </li>
+                                        <li className="flex items-center opacity-60"> <Lock className="w-5 h-5 mr-3 text-gray-500 shrink-0" /> <span className="text-gray-400">Anpassningsbar tonalitet (Premium)</span> </li>
+                                        <li className="flex items-center opacity-60"> <Lock className="w-5 h-5 mr-3 text-gray-500 shrink-0" /> <span className="text-gray-400">Obegränsad användning (Premium)</span> </li>
+                                    </ul>
+                                </div>
+                                <div className="p-6 mt-auto bg-navy-800 border-t border-navy-700 rounded-b-2xl">
+                                    <Link href="/register" className="flex items-center justify-center w-full px-6 py-3 font-medium text-white transition-colors bg-gray-600 rounded-lg hover:bg-gray-500 text-center">
+                                        Registrera gratiskonto <ArrowRight className="w-4 h-4 ml-2"/>
+                                    </Link>
+                                </div>
+                            </div>
+
+                            {/* Kort: Premium plan */}
+                            <div className="relative flex flex-col overflow-hidden bg-navy-800 border-2 border-pink-500 rounded-2xl shadow-xl shadow-pink-500/15 transition-all duration-300 hover:shadow-pink-500/25">
+                                <div className="absolute top-0 right-0 px-4 py-1 text-xs font-bold tracking-wider text-white uppercase bg-gradient-to-r from-pink-600 to-purple-600 rounded-bl-lg rounded-tr-lg z-10"> Mest populär </div>
+                                <div className="absolute inset-0 opacity-10 bg-gradient-to-br from-pink-500/50 via-transparent to-purple-500/50 rounded-2xl" aria-hidden="true"></div>
+                                <div className="p-8 pb-6 flex-grow relative z-10">
+                                    <h3 className="mb-2 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Premium</h3>
+                                    <p className="mb-6 text-gray-400 h-12">Lås upp full potential och maximera dina chanser med obegränsad tillgång.</p>
+                                    <div className="mb-6">
+                                        <span className="text-4xl font-bold text-white"> {billingPeriod === 'monthly' ? `${premiumMonthlyPrice} kr` : `${premiumYearlyPriceMonthly} kr`} </span>
+                                        <span className="text-gray-400"> / månad</span>
+                                        {billingPeriod === 'yearly' && <p className="text-sm text-green-400 mt-1">(Faktureras {premiumYearlyPriceTotal} kr årligen – spara 20%!) </p>}
+                                    </div>
+                                    <p className="mb-4 text-sm font-semibold text-gray-300">Allt i Gratis, plus:</p>
+                                    <ul className="space-y-3 text-sm">
+                                        <li className="flex items-center"> <Zap className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsad AI-generering</span> </li>
+                                        <li className="flex items-center"> <FileSearch className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsad & djupgående CV-analys</span> </li>
+                                        <li className="flex items-center"> <Save className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsat antal sparade ansökningar</span> </li>
+                                        <li className="flex items-center"> <Lightbulb className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">AI-optimerad & anpassningsbar tonalitet</span> </li>
+                                        <li className="flex items-center"> <BrainCircuit className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Avancerade matchningsinsikter</span> </li>
+                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Prioriterad support</span> </li>
+                                    </ul>
+                                </div>
+                                <div className="p-6 mt-auto relative z-10 bg-gradient-to-t from-navy-800 via-navy-800 to-transparent border-t-2 border-pink-500 rounded-b-2xl">
+                                    {session ? (
+                                        <SubscribeButton
+                                            priceId={billingPeriod === 'monthly' ? premiumMonthlyPriceId : premiumYearlyPriceId}
+                                            planName={billingPeriod === 'monthly' ? 'Månad' : 'År'}
+                                        />
+                                    ) : (
+                                        <Link
+                                            href={`/register?plan=premium&billing=${billingPeriod}`}
+                                            className="flex items-center justify-center w-full px-6 py-3 font-medium text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg hover:from-pink-700 hover:to-purple-700 hover:shadow-lg text-center"
+                                        >
+                                            Välj Premium ({billingPeriod === 'monthly' ? 'Månad' : 'År'}) <ArrowRight className="w-4 h-4 ml-2"/>
+                                        </Link>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                         <p className="mt-12 text-center text-sm text-gray-400"> Alla priser är inklusive moms. Ingen bindningstid för månadsplanen. </p>
+                    </div>
+                </section>
+
+                 {/* === Why Upgrade Section === */}
+                 <section id="why-upgrade" aria-labelledby="why-upgrade-heading" className="py-16 lg:py-24 bg-navy-950">
+                    <div className="container px-4 mx-auto">
+                         <div className="max-w-3xl mx-auto mb-16 text-center">
+                             <h2 id="why-upgrade-heading" className="mb-6 text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+                                 Varför uppgradera till <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Premium?</span>
+                             </h2>
+                             <p className="text-xl text-gray-300">
+                                 Lås upp den fulla potentialen hos Jobbcoach.ai och få verktygen som verkligen accelererar din jobbsökning.
+                             </p>
+                         </div>
+                         {/* Grid med Premium-fördelar */}
+                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                             <div className="p-6 bg-navy-800 border border-navy-700 rounded-xl text-center">
+                                 <Zap className="w-10 h-10 mx-auto mb-4 text-pink-400" aria-hidden="true"/>
+                                 <h3 className="mb-2 text-xl font-semibold text-white">Obegränsad AI-kraft</h3>
+                                 <p className="text-gray-300 text-sm">Skapa så många personliga brev och gör så många CV-analyser du behöver – utan begränsningar.</p>
+                             </div>
+                             <div className="p-6 bg-navy-800 border border-navy-700 rounded-xl text-center">
+                                 <FileSearch className="w-10 h-10 mx-auto mb-4 text-purple-400" aria-hidden="true"/>
+                                 <h3 className="mb-2 text-xl font-semibold text-white">Djupgående CV-analys</h3>
+                                 <p className="text-gray-300 text-sm">Få detaljerad feedback på allt från nyckelord till prestationer för att verkligen optimera ditt CV.</p>
+                             </div>
+                             <div className="p-6 bg-navy-800 border border-navy-700 rounded-xl text-center">
+                                 <Lightbulb className="w-10 h-10 mx-auto mb-4 text-yellow-400" aria-hidden="true"/>
+                                 <h3 className="mb-2 text-xl font-semibold text-white">Avancerad anpassning</h3>
+                                 <p className="text-gray-300 text-sm">Använd AI-optimerad tonalitet och få tillgång till fler insikter för att skräddarsy varje ansökan perfekt.</p>
+                             </div>
+                         </div>
+                    </div>
+                 </section>
+
+                {/* === Alltid Inkluderat Section === */}
+                <section aria-labelledby="always-included-heading" className="py-16 lg:py-20 bg-navy-900">
+                    <div className="container px-4 mx-auto">
+                        <div className="max-w-3xl mx-auto mb-12 text-center">
+                            <h2 id="always-included-heading" className="text-3xl font-bold text-white sm:text-4xl mb-4">
+                                Trygghet & flexibilitet ingår alltid
+                            </h2>
+                            <p className="text-xl text-gray-300">
+                                Oavsett om du väljer Gratis eller Premium får du dessa förmåner.
+                            </p>
+                        </div>
+                        {/* Grid med förmåner */}
+                        <div className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
+                            <div className="flex items-center p-4 bg-navy-800/50 rounded-lg border border-navy-700">
+                                <Gift className="w-8 h-8 mr-4 text-pink-400 shrink-0" aria-hidden="true"/>
+                                <div> <h3 className="text-lg font-semibold text-white">Ingen bindningstid</h3> <p className="text-gray-300 text-sm">Avsluta när som helst.</p> </div>
+                            </div>
+                            <div className="flex items-center p-4 bg-navy-800/50 rounded-lg border border-navy-700">
+                                <Repeat className="w-8 h-8 mr-4 text-purple-400 shrink-0" aria-hidden="true"/>
+                                <div> <h3 className="text-lg font-semibold text-white">Fria revisioner</h3> <p className="text-gray-300 text-sm">Justera AI-utkast obegränsat.</p> </div>
+                            </div>
+                            <div className="flex items-center p-4 bg-navy-800/50 rounded-lg border border-navy-700">
+                                <Shield className="w-8 h-8 mr-4 text-blue-400 shrink-0" aria-hidden="true"/>
+                                <div> <h3 className="text-lg font-semibold text-white">Datasäkerhet</h3> <p className="text-gray-300 text-sm">Dina uppgifter skyddas.</p> </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                {/* === FAQ Section === */}
+                <section id="faq-pricing" aria-labelledby="faq-heading-pricing" className="py-16 lg:py-24 bg-navy-950">
+                    <div className="container px-4 mx-auto">
+                        <div className="max-w-3xl mx-auto mb-12 text-center">
+                            <h2 id="faq-heading-pricing" className="text-3xl font-bold text-white sm:text-4xl mb-4">
+                                Frågor om priser & planer?
+                            </h2>
+                            <p className="text-xl text-gray-300">
+                                Här är svar på några vanliga funderingar kring våra prenumerationer.
+                            </p>
+                        </div>
+                        <div className="max-w-3xl mx-auto">
+                            <FaqAccordion items={pricingFaqItems} />
+                        </div>
+                    </div>
+                </section>
+
+                {/* === Final CTA Section === */}
+                <section aria-labelledby="cta-heading-pricing" className="py-16 lg:py-20 bg-gradient-to-r from-pink-600 to-purple-600">
+                     <div className="container px-4 mx-auto text-center">
+                        <h2 id="cta-heading-pricing" className="mb-4 text-3xl font-bold text-white sm:text-4xl">
+                            Redo att investera i din karriär?
+                        </h2>
+                        <p className="max-w-2xl mx-auto mb-8 text-xl text-white text-opacity-90">
+                            Välj den plan som passar dig bäst och börja skapa ansökningar som öppnar dörrar.
+                        </p>
+                        {/* CTA-knappar */}
+                        <div className="flex flex-col justify-center gap-4 mt-8 sm:flex-row">
+                             {/* Logik för att visa rätt knapp(ar) */}
+                            {!session ? (
+                                // Oinloggad: Visa både Premium-länk och Gratis-länk
+                                <>
+                                    <Link
+                                        href={`/register?plan=premium&billing=${billingPeriod}`}
+                                        className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-pink-600 transition-colors bg-white rounded-lg shadow-lg hover:bg-gray-100 group"
+                                    >
+                                        Välj Premium ({billingPeriod === 'monthly' ? 'Månad' : 'År'})
+                                        <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
+                                    </Link>
+                                    <Link
+                                        href="/register"
+                                        className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white transition-colors border-2 border-white rounded-lg hover:bg-white hover:bg-opacity-10"
+                                    >
+                                        Starta Gratis
+                                    </Link>
+                                </>
+                            ) : (
+                                // Inloggad: Visa antingen Subscribe-knapp (om inte premium) eller länk till dashboard/skapa
+                                // Här krävs egentligen information om användarens nuvarande prenumeration
+                                // Förenklad version: Visa alltid Subscribe-knappen om inloggad
+                                <SubscribeButton
+                                    priceId={billingPeriod === 'monthly' ? premiumMonthlyPriceId : premiumYearlyPriceId}
+                                    planName={billingPeriod === 'monthly' ? 'Månad' : 'År'}
+                                    // Du behöver antagligen lägga till en className här för att matcha den andra knappen
+                                    // ex: className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium ..."
+                                />
+                                // Alternativt, om du vill ha en länk till skapa-sidan för inloggade:
+                                // <Link href="/create-letter" className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium ...">Börja Skapa</Link>
+                            )}
+                        </div>
+                    </div>
+                </section>
+
+            </div> {/* Stänger main container div */}
+        </>
     );
-  }
-
-  // --- JSX Render (Resten är oförändrat förutom knappen i Premium-kortet) ---
-  return (
-    <>
-      <Head>
-        {/* SEO Meta Tags (Oförändrat) */}
-        <title>Priser | cvbrev.se - AI-drivna Personliga Brev som Ger Resultat</title>
-        <meta name="description" content="Utforska prisplanerna för cvbrev.se. Välj mellan Gratis för att testa eller Premium för obegränsad tillgång till AI-genererade, skräddarsydda personliga brev. Öka dina jobbchanser idag!" />
-        <meta name="keywords" content="priser personligt brev, kostnad AI brev, cvbrev priser, premium personligt brev, gratis personligt brev AI, jobbansökan verktyg pris" />
-        <meta property="og:title" content="Priser | cvbrev.se - AI-drivna Personliga Brev som Ger Resultat" />
-        <meta property="og:description" content="Se våra prisplaner och välj det alternativ som bäst passar ditt jobbsökande. Skapa imponerande personliga brev med AI." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://cvbrev.se/priser" />
-        <meta property="og:image" content="https://cvbrev.se/images/cvbrev-og-pricing.png" />
-        <link rel="canonical" href="https://cvbrev.se/priser" />
-      </Head>
-
-      <div className="flex flex-col min-h-screen bg-navy-950 text-white">
-        {/* Hero section (Oförändrat) */}
-        <section className="relative overflow-hidden pt-20 pb-12 lg:pt-32 lg:pb-20 bg-gradient-to-b from-navy-900 to-navy-950">
-          <div className="container relative px-4 mx-auto">
-            <div className="max-w-3xl mx-auto text-center">
-              <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-                Välj din väg till <span className="text-pink-500">nästa jobb</span>
-              </h1>
-              <p className="max-w-2xl mx-auto mb-8 text-xl text-gray-300">
-                Starta gratis eller lås upp obegränsad AI-kraft med Premium för att skapa personliga brev som sticker ut.
-              </p>
-              {/* Månad/År Toggle (Oförändrat) */}
-              <div className="flex justify-center mb-10 gap-3">
-                <button
-                  className={`px-6 py-2.5 text-sm font-medium transition-colors rounded-md ${ 
-                    billingPeriod === 'monthly'
-                      ? 'bg-pink-600 text-white'
-                      : 'bg-navy-800 text-gray-300 hover:bg-navy-700'
-                  }`}
-                  onClick={() => setBillingPeriod('monthly')}
-                >
-                  Månadsvis
-                </button>
-                <button
-                  className={`px-6 py-2.5 text-sm font-medium transition-colors rounded-md flex items-center ${ 
-                    billingPeriod === 'yearly'
-                      ? 'bg-pink-600 text-white'
-                      : 'bg-navy-800 text-gray-300 hover:bg-navy-700'
-                  }`}
-                  onClick={() => setBillingPeriod('yearly')}
-                >
-                  Årsvis <span className="ml-2 px-2 py-0.5 text-xs bg-green-500 text-white rounded-full">Spara 20%</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* === PRICING PLANS (Oförändrat FÖRUTOM KNAPPEN I PREMIUM) === */}
-        <section className="py-16 lg:py-20 bg-navy-950">
-          <div className="container px-4 mx-auto">
-            <div className="grid max-w-4xl gap-8 mx-auto lg:grid-cols-2">
-              {/* Free plan (Oförändrat) */}
-              <div className="flex flex-col overflow-hidden bg-navy-800 border border-gray-700 rounded-xl transition-shadow hover:shadow-xl hover:shadow-gray-700/10">
-                <div className="p-8 flex-grow">
-                  <h3 className="mb-2 text-2xl font-semibold text-white">Gratis</h3>
-                  <p className="mb-6 text-gray-400">Testa vår AI-assistent</p>
-                  <div className="mb-6">
-                    <span className="text-4xl font-bold text-white">0 kr</span>
-                  </div>
-                  <p className="mb-6 text-gray-300 text-sm">Perfekt för att komma igång och skriva dina första AI-genererade brev.</p>
-                  <ul className="mb-8 space-y-3 text-gray-300">
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 mr-3 mt-0.5 text-pink-400 shrink-0" />
-                      <span><span className="font-medium text-white">5</span> Brevgenereringar / vecka</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 mr-3 mt-0.5 text-pink-400 shrink-0" />
-                      <span><span className="font-medium text-white">2</span> Sparade brev</span>
-                    </li>
-                     <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 mr-3 mt-0.5 text-pink-400 shrink-0" />
-                      <span><span className="font-medium text-white">1</span> CV-uppladdning</span>
-                    </li>
-                     <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 mr-3 mt-0.5 text-pink-400 shrink-0" />
-                      <span>Standard tonalitetsval</span>
-                    </li>
-                    <li className="flex items-start">
-                      <Lock className="w-5 h-5 mr-3 mt-0.5 text-gray-500 shrink-0" />
-                      <span className="text-gray-500">AI-optimerad tonalitet</span>
-                    </li>
-                  </ul>
-                </div>
-                <div className="p-8 pt-0">
-                  <Link
-                    href="/register"
-                    className="flex items-center justify-center w-full px-6 py-3 font-medium text-white transition-colors bg-gray-600 rounded-md hover:bg-gray-500"
-                  >
-                    Kom igång gratis <ChevronRight className="w-4 h-4 ml-2" />
-                  </Link>
-                </div>
-              </div>
-
-              {/* Premium plan */}
-              <div className="relative flex flex-col overflow-hidden bg-navy-800 border-2 border-pink-500 rounded-xl transition-shadow hover:shadow-xl hover:shadow-pink-500/10">
-                {/* Premium Badge (Oförändrat) */}
-                <div className="absolute top-0 right-0 px-3 py-1 text-xs font-semibold tracking-wider text-white uppercase bg-pink-600 rounded-bl-lg">
-                  Premium
-                </div>
-                {/* Innehåll (Oförändrat) */}
-                <div className="p-8 flex-grow">
-                  <h3 className="mb-2 text-2xl font-semibold text-pink-400">Premium</h3>
-                  <p className="mb-6 text-gray-400">Obegränsad AI-kraft</p>
-                  <div className="mb-6">
-                    <span className="text-4xl font-bold text-white">
-                      {billingPeriod === 'monthly' ? `${premiumMonthlyPrice} kr` : `${premiumYearlyPriceMonthly} kr`}
-                    </span>
-                    <span className="text-gray-400"> / månad</span>
-                    {billingPeriod === 'yearly' && <p className="text-sm text-gray-400 mt-1">Faktureras årligen som {premiumYearlyPriceTotal} kr</p>}
-                  </div>
-                   <p className="mb-6 text-gray-300 text-sm">För dig som aktivt söker jobb och vill maximera dina chanser med alla verktyg.</p>
-                  <ul className="mb-8 space-y-3 text-gray-300">
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 mr-3 mt-0.5 text-pink-400 shrink-0" />
-                      <span><span className="font-medium text-white">Obegränsad</span> brevgenerering</span>
-                    </li>
-                     <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 mr-3 mt-0.5 text-pink-400 shrink-0" />
-                      <span><span className="font-medium text-white">Obegränsade</span> sparade brev</span>
-                    </li>
-                     <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 mr-3 mt-0.5 text-pink-400 shrink-0" />
-                      <span><span className="font-medium text-white">Obegränsade</span> CV-uppladdningar</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 mr-3 mt-0.5 text-pink-400 shrink-0" />
-                      <span>AI-optimerad tonalitet <Bot className="inline w-4 h-4 ml-1 text-purple-400"/></span>
-                    </li>
-                     <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 mr-3 mt-0.5 text-pink-400 shrink-0" />
-                      <span>Alla tonalitetsval</span>
-                    </li>
-                     {/* Supportkommentar (Oförändrat) */}
-                     {/* <li className="flex items-start">
-                       <CheckCircle className="w-5 h-5 mr-3 text-pink-400 shrink-0" />
-                       <span>Prioriterad support</span>
-                     </li> */}
-                  </ul>
-                </div>
-
-                {/* *** HÄR ÄR ÄNDRINGEN *** */}
-                <div className="p-8 pt-0">
-                  {session ? (
-                    // ANVÄNDAREN ÄR INLOGGAD: Visa SubscribeButton
-                    <SubscribeButton
-                      // Välj rätt Price ID baserat på vald period
-                      priceId={billingPeriod === 'monthly' ? premiumMonthlyPriceId : premiumYearlyPriceId}
-                      // Visa rätt namn på knappen
-                      planName={billingPeriod === 'monthly' ? 'Månad' : 'År'}
-                      // Lägger till samma klasser som Link hade för konsekvent utseende (valfritt)
-                      // className="w-full" // SubscribeButton har redan w-full internt, men du kan lägga till mer här
-                      // disabled={false} // Lägg till logik här om användaren redan har premium?
-                    />
-                  ) : (
-                    // ANVÄNDAREN ÄR INTE INLOGGAD: Visa den gamla länken till registrering
-                    <Link
-                      href={`/register?plan=premium&billing=${billingPeriod}`}
-                      className="flex items-center justify-center w-full px-6 py-3 font-medium text-white transition-colors bg-pink-600 rounded-md hover:bg-pink-700"
-                    >
-                      Välj Premium <ChevronRight className="w-4 h-4 ml-2" />
-                    </Link>
-                  )}
-                </div>
-                {/* *** SLUT PÅ ÄNDRINGEN *** */}
-
-              </div> {/* Slut på Premium-kortet */}
-            </div> {/* Slut på grid */}
-          </div> {/* Slut på container */}
-        </section>
-
-        {/* === Övriga sektioner (Oförändrat) === */}
-        {/* VARFÖR ETT BRA BREV? + AI FÖRDELAR */}
-        <section className="py-16 lg:py-24 bg-navy-900">
-          {/* ... innehåll oförändrat ... */}
-             <div className="container px-4 mx-auto">
-                <div className="grid lg:grid-cols-2 lg:gap-16 items-center">
-                  {/* Vänster kolumn: Text */}
-                  <div>
-                    <h2 className="text-3xl font-bold mb-6 leading-tight sm:text-4xl">Varför ett <span className="text-pink-400">skräddarsytt</span> personligt brev spelar roll</h2>
-                    <p className="text-lg text-gray-300 mb-8">
-                      I dagens konkurrensutsatta arbetsmarknad är ett generiskt brev sällan tillräckligt. Ett personligt brev är din chans att visa <span className="text-white font-medium">initiativ</span>, <span className="text-white font-medium">förståelse</span> för rollen och <span className="text-white font-medium">motivation</span>. Det handlar om att:
-                    </p>
-                    <ul className="space-y-4 mb-8">
-                      <li className="flex items-center">
-                        <CheckCircle className="w-5 h-5 mr-3 text-green-400 shrink-0" />
-                        <span className="text-gray-200">Koppla din unika profil till arbetsgivarens behov.</span>
-                      </li>
-                       <li className="flex items-center">
-                        <CheckCircle className="w-5 h-5 mr-3 text-green-400 shrink-0" />
-                        <span className="text-gray-200">Berätta en övertygande historia om dina prestationer.</span>
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="w-5 h-5 mr-3 text-green-400 shrink-0" />
-                        <span className="text-gray-200">Kommunicera professionellt med rätt tonalitet.</span>
-                      </li>
-                    </ul>
-                     <p className="text-sm text-gray-400">
-                      Insikter från <span className="font-medium text-gray-300">Harvard</span>, <span className="font-medium text-gray-300">Stanford</span> och rekryteringsproffs visar att detta markant ökar dina chanser att nå intervjusteget.
-                    </p>
-                  </div>
-
-                  {/* Höger kolumn: AI Fördelar */}
-                  <div className="mt-12 lg:mt-0 p-8 bg-navy-800 border border-gray-700 rounded-xl">
-                     <h3 className="text-2xl font-semibold mb-6 text-white">Så hjälper vår AI dig att lyckas:</h3>
-                     <ul className="space-y-5">
-                        <li className="flex items-start">
-                          <Target className="w-6 h-6 mr-4 text-blue-400 shrink-0 mt-1" />
-                          <div>
-                            <h4 className="font-semibold text-white mb-1">Perfekt matchning</h4>
-                            <p className="text-gray-300 text-sm">Analyserar ditt CV och annonsen för maximal relevans.</p>
-                          </div>
-                        </li>
-                         <li className="flex items-start">
-                          <BrainCircuit className="w-6 h-6 mr-4 text-purple-400 shrink-0 mt-1" />
-                          <div>
-                            <h4 className="font-semibold text-white mb-1">Vetenskapligt grundad</h4>
-                            <p className="text-gray-300 text-sm">Bygger på beprövade metoder för att fånga intresse.</p>
-                          </div>
-                        </li>
-                         <li className="flex items-start">
-                          <Zap className="w-6 h-6 mr-4 text-pink-400 shrink-0 mt-1" />
-                          <div>
-                            <h4 className="font-semibold text-white mb-1">Snabbt & effektivt</h4>
-                            <p className="text-gray-300 text-sm">Frigör tid från skrivkramp till intervjufokus.</p>
-                          </div>
-                        </li>
-                        <li className="flex items-start">
-                          <Bot className="w-6 h-6 mr-4 text-yellow-400 shrink-0 mt-1" />
-                          <div>
-                            <h4 className="font-semibold text-white mb-1">Optimerad för resultat</h4>
-                            <p className="text-gray-300 text-sm">Vår specialiserade AI överträffar generiska verktyg.</p>
-                          </div>
-                        </li>
-                     </ul>
-                  </div>
-                </div>
-              </div>
-        </section>
-
-        {/* RESULTAT MED GRAF */}
-        <section className="py-16 lg:py-24 bg-navy-950">
-           {/* ... innehåll oförändrat ... */}
-           <div className="container px-4 mx-auto">
-             <div className="max-w-3xl mx-auto mb-16 text-center">
-              <h2 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl mb-6">
-                Resultat som talar för sig själva
-              </h2>
-              <p className="text-xl text-gray-300">
-                Se hur ett AI-optimerat, skräddarsytt personligt brev kan öka din svarsfrekvens jämfört med standardmetoder.
-              </p>
-            </div>
-
-            <div className="grid items-center gap-12 lg:grid-cols-2">
-              {/* Graf */}
-              <div className="p-6 bg-navy-800 rounded-xl border border-gray-700">
-                <h3 className="mb-4 text-xl font-semibold text-white text-center">Ökad svarsfrekvens över tid</h3>
-                <div className="relative h-80">
-                  <CVBrevTimelineChart />
-                </div>
-                <p className="mt-3 text-xs text-gray-400 text-center">Baserat på aggregerad anonymiserad användardata.</p>
-              </div>
-
-              {/* Fördelar/Bevis */}
-              <div className="space-y-6">
-                 <h3 className="text-2xl font-semibold text-white">Bevisad effektivitet:</h3>
-                 <div className="flex items-start p-4 bg-navy-800 rounded-lg border border-gray-700">
-                   <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 mr-4 bg-pink-600 rounded-full text-white font-bold text-lg">
-                     <Zap className="w-5 h-5"/>
-                   </div>
-                   <div>
-                     <p className="font-semibold text-white">Snabbare svar</p>
-                     <p className="text-gray-300 text-sm">Användare rapporterar markant högre svarsfrekvens inom de första veckorna.</p>
-                   </div>
-                 </div>
-                 <div className="flex items-start p-4 bg-navy-800 rounded-lg border border-gray-700">
-                   <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 mr-4 bg-purple-600 rounded-full text-white font-bold text-lg">
-                     <Target className="w-5 h-5"/>
-                   </div>
-                   <div>
-                     <p className="font-semibold text-white">Fler intervjuer</p>
-                     <p className="text-gray-300 text-sm">Över 2.5x högre chans att kallas till intervju jämfört med standardansökningar.</p>
-                   </div>
-                 </div>
-                 <div className="flex items-start p-4 bg-navy-800 rounded-lg border border-gray-700">
-                   <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 mr-4 bg-blue-600 rounded-full text-white font-bold text-lg">
-                     <BrainCircuit className="w-5 h-5"/>
-                   </div>
-                   <div>
-                     <p className="font-semibold text-white">Smartare ansökningsprocess</p>
-                     <p className="text-gray-300 text-sm">Vår AI hjälper dig fokusera på rätt saker för att maximera dina chanser.</p>
-                   </div>
-                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ALLTID INKLUDERAT */}
-        <section className="py-16 lg:py-24 bg-navy-900">
-          {/* ... innehåll oförändrat ... */}
-          <div className="container px-4 mx-auto">
-            <div className="max-w-3xl mx-auto mb-12 text-center">
-              <h2 className="text-3xl font-bold text-white sm:text-4xl mb-4">
-                Trygghet & flexibilitet ingår
-              </h2>
-              <p className="text-xl text-gray-300">
-                Oavsett plan får du alltid dessa fördelar hos oss.
-              </p>
-            </div>
-            {/* Grid med 3 kolumner */}
-            <div className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
-              <div className="text-center px-4">
-                <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full">
-                  <Gift className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="mb-2 text-xl font-semibold text-white">Ingen bindningstid</h3>
-                <p className="text-gray-300 text-sm">Avsluta Premium när du vill, utan krångel.</p>
-              </div>
-              <div className="text-center px-4">
-                <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full">
-                  <Repeat className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="mb-2 text-xl font-semibold text-white">Obegränsade revisioner</h3>
-                <p className="text-gray-300 text-sm">Justera dina AI-brev tills de är perfekta.</p>
-              </div>
-              <div className="text-center px-4">
-                <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-gradient-to-r from-blue-600 to-teal-600 rounded-full">
-                  <Shield className="w-6 h-6 text-white" />
-                </div>
-                <h3 className="mb-2 text-xl font-semibold text-white">Datasäkerhet</h3>
-                <p className="text-gray-300 text-sm">Dina uppgifter är skyddade och delas aldrig.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section className="py-16 lg:py-24 bg-navy-950">
-           {/* ... innehåll oförändrat ... */}
-            <div className="container px-4 mx-auto">
-            <div className="max-w-3xl mx-auto mb-12 text-center">
-              <h2 className="text-3xl font-bold text-white sm:text-4xl mb-4">
-                Vanliga frågor
-              </h2>
-               <p className="text-xl text-gray-300">
-                Svar på funderingar kring våra planer och betalning.
-              </p>
-            </div>
-            <div className="max-w-3xl mx-auto space-y-4">
-               {/* FAQ Items - lite renare styling */}
-              <details className="p-6 bg-navy-800 rounded-lg border border-gray-700 group cursor-pointer">
-                  <summary className="flex items-center justify-between font-semibold text-white list-none">
-                      Kan jag uppgradera eller nedgradera min plan?
-                      <ChevronRight className="w-5 h-5 transition-transform duration-200 rotate-0 group-open:rotate-90" />
-                  </summary>
-                  <p className="mt-3 text-gray-300 text-sm">
-                      Ja, du kan enkelt byta mellan Gratis och Premium när som helst från din profilsida. Uppgraderingar till Premium träder i kraft direkt. Nedgraderingar till Gratis gäller från nästa förnyelsedatum.
-                  </p>
-              </details>
-              <details className="p-6 bg-navy-800 rounded-lg border border-gray-700 group cursor-pointer">
-                  <summary className="flex items-center justify-between font-semibold text-white list-none">
-                      Vilka betalningsmetoder accepteras för Premium?
-                       <ChevronRight className="w-5 h-5 transition-transform duration-200 rotate-0 group-open:rotate-90" />
-                  </summary>
-                  <p className="mt-3 text-gray-300 text-sm">
-                      Vi accepterar alla större kreditkort (Visa, Mastercard, American Express) via vår säkra betalpartner Stripe.
-                  </p>
-              </details>
-               <details className="p-6 bg-navy-800 rounded-lg border border-gray-700 group cursor-pointer">
-                  <summary className="flex items-center justify-between font-semibold text-white list-none">
-                      Vad händer om jag väljer årsbetalning?
-                       <ChevronRight className="w-5 h-5 transition-transform duration-200 rotate-0 group-open:rotate-90" />
-                  </summary>
-                  <p className="mt-3 text-gray-300 text-sm">
-                    Du betalar för 12 månader i förskott och får 20% rabatt jämfört med månadspriset. Prenumerationen gäller i ett år från betalningsdatumet och förnyas automatiskt om du inte säger upp den innan periodens slut.
-                  </p>
-              </details>
-               <details className="p-6 bg-navy-800 rounded-lg border border-gray-700 group cursor-pointer">
-                  <summary className="flex items-center justify-between font-semibold text-white list-none">
-                      Hur avbryter jag min Premium-prenumeration?
-                       <ChevronRight className="w-5 h-5 transition-transform duration-200 rotate-0 group-open:rotate-90" />
-                  </summary>
-                  <p className="mt-3 text-gray-300 text-sm">
-                    Du kan när som helst avbryta din prenumeration via din profilsida under "Prenumeration". Din Premium-åtkomst fortsätter till slutet av den aktuella faktureringsperioden, därefter återgår ditt konto automatiskt till Gratis-planen.
-                  </p>
-              </details>
-            </div>
-          </div>
-        </section>
-
-        {/* CTA */}
-        <section className="py-16 lg:py-20 bg-gradient-to-r from-pink-600 to-purple-600">
-          {/* ... innehåll oförändrat ... */}
-           <div className="container px-4 mx-auto text-center">
-            <h2 className="mb-4 text-3xl font-bold text-white sm:text-4xl">
-              Redo att skapa brev som imponerar?
-            </h2>
-            <p className="max-w-2xl mx-auto mb-8 text-xl text-white text-opacity-90">
-              Starta gratis och upplev skillnaden, eller gå direkt till Premium för full AI-potential.
-            </p>
-            <div className="flex flex-col justify-center gap-4 mt-8 sm:flex-row">
-              <Link
-                href={session ? "/create-letter" : "/register"}
-                className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-pink-600 transition-colors bg-white rounded-md shadow-lg hover:bg-gray-100 group"
-              >
-                {session ? "Skapa Brev Nu" : "Testa Gratis"}
-                <ChevronRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-              </Link>
-              {!session && (
-                <Link
-                  href="/register?plan=premium"
-                  className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-white transition-colors border-2 border-white rounded-md hover:bg-white hover:bg-opacity-10"
-                >
-                  Välj Premium Direkt
-                </Link>
-              )}
-            </div>
-          </div>
-        </section>
-      </div> {/* Slut på yttre div */}
-    </>
-  );
 }

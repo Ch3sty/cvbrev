@@ -2,8 +2,8 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Integritetspolicy | CVbrev.se',
-  description: 'Läs vår integritetspolicy för att förstå hur CVbrev.se samlar in, använder och skyddar dina personuppgifter när du använder vår tjänst.',
+  title: 'Integritetspolicy | jobbcoach.ai',
+  description: 'Läs vår integritetspolicy för att förstå hur jobbcoach.ai samlar in, använder och skyddar dina personuppgifter när du använder vår tjänst.',
   alternates: {
     canonical: '/integritetspolicy',
   },
@@ -16,7 +16,7 @@ export default function PrivacyPolicyPage() {
     <div className="bg-navy-900 py-16 lg:py-24">
       <div className="container mx-auto max-w-3xl px-4">
         <h1 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center">
-          Integritetspolicy för CVbrev.se
+          Integritetspolicy för jobbcoach.ai
         </h1>
         <p className="text-center text-gray-400 mb-10 text-sm">
           Senast uppdaterad: {lastUpdatedDate}
@@ -26,7 +26,7 @@ export default function PrivacyPolicyPage() {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-white mb-4">1. Introduktion</h2>
           <p className="text-gray-300 leading-relaxed mb-4">
-            Välkommen till CVbrev.se ("vi", "oss", "vår"). Vi värnar om din integritet och är måna om att skydda dina personuppgifter. Denna integritetspolicy förklarar hur vi samlar in, använder, lagrar, delar och skyddar dina personuppgifter när du besöker vår webbplats (www.cvbrev.se) och använder våra tjänster (Tjänsten).
+            Välkommen till jobbcoach.ai ("vi", "oss", "vår"). Vi värnar om din integritet och är måna om att skydda dina personuppgifter. Denna integritetspolicy förklarar hur vi samlar in, använder, lagrar, delar och skyddar dina personuppgifter när du besöker vår webbplats (www.jobbcoach.ai) och använder våra tjänster (Tjänsten).
           </p>
           <p className="text-gray-300 leading-relaxed">
             Genom att använda Tjänsten godkänner du insamling och användning av information i enlighet med denna policy. Om du inte godkänner villkoren i denna policy, vänligen använd inte Tjänsten.
@@ -114,7 +114,7 @@ export default function PrivacyPolicyPage() {
               <strong className="font-semibold text-white">Legala krav:</strong> Om det krävs enligt lag eller som svar på giltiga förfrågningar från myndigheter.
             </li>
             <li>
-              <strong className="font-semibold text-white">Affärsöverlåtelse:</strong> Vid en eventuell fusion, förvärv eller försäljning av CVbrev.se kan dina uppgifter överföras. Vi meddelar dig i så fall innan detta sker.
+              <strong className="font-semibold text-white">Affärsöverlåtelse:</strong> Vid en eventuell fusion, förvärv eller försäljning av jobbcoach.ai kan dina uppgifter överföras. Vi meddelar dig i så fall innan detta sker.
             </li>
              <li>
               <strong className="font-semibold text-white">Med ditt samtycke:</strong> För andra ändamål endast om vi har ditt uttryckliga samtycke.
@@ -189,7 +189,7 @@ export default function PrivacyPolicyPage() {
             Om du har frågor om denna integritetspolicy, vänligen kontakta oss:
           </p>
           <ul className="list-none space-y-2 mt-4 text-gray-300">
-            <li>Via e-post: <a href="mailto:support@cvbrev.se" className="text-pink-500 hover:text-pink-400 underline">support@cvbrev.se</a></li>
+            <li>Via e-post: <a href="mailto:support@jobbcoach.ai" className="text-pink-500 hover:text-pink-400 underline">support@jobbcoach.ai</a></li>
           </ul>
         </section>
 

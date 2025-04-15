@@ -4,7 +4,7 @@ import { getAllPostsMeta } from '@/lib/blog'; // Din befintliga funktion för at
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Din webbplats bas-URL
-  const baseUrl = 'https://www.cvbrev.se'; // *** UPPDATERA VID BEHOV ***
+  const baseUrl = 'https://www.jobbcoach.ai'; // *** UPPDATERA VID BEHOV ***
 
   // 1. Lägg till dina statiska sidor manuellt
   const staticPages: MetadataRoute.Sitemap = [

@@ -3,7 +3,6 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { parseCV, createPlaceholderText } from '@/lib/cv-parser';
-import pdfParse from 'pdf-parse';
 import { sanitizeStorageKey } from '@/utils/helpers'; // Importera rensning för storage key
 
 // --- HJÄLPFUNKTION FÖR ATT SANERA TEXT FÖR DATABAS (Enkel version) ---
@@ -101,54 +100,41 @@ export async function POST(request: Request) {
     let placeholderUsed = false; // Flagga för att veta om placeholder användes
 
     try {
-      console.log(`📄 Starting text extraction for ${originalFileName}...`);
-      if (fileExt === 'pdf') {
-        const arrayBuffer = await file.arrayBuffer();
-        const pdfData = Buffer.from(arrayBuffer);
-        try {
-          const result = await pdfParse(pdfData);
-          extractedText = result.text;
-          console.log(`📄 PDF text extracted, length: ${extractedText.length}`);
-        } catch (pdfError: any) {
-          console.error(`❌ PDF parsing failed for ${originalFileName}:`, pdfError.message || pdfError);
-          textExtractionFailed = true;
-          extractedText = createPlaceholderText(file);
-          placeholderUsed = true; // Markera att placeholder skapades här
-        }
-      } else {
-        extractedText = await parseCV(file);
-        const knownErrorMessages = [
-            "Kunde inte läsa", "Misslyckades med att läsa", "PDF-texten kunde inte",
-            "Filformatet stöds inte", 'Kunde inte ladda DOCX-parsningsbiblioteket',
-            'Kunde inte extrahera text från DOCX-filen (tom fil)'
-         ];
-         if (knownErrorMessages.some(msg => extractedText.startsWith(msg))) {
-            console.warn(`⚠️ Parsing function returned an error for ${originalFileName}: ${extractedText}`);
-            textExtractionFailed = true;
-            extractedText = createPlaceholderText(file); // Skapa placeholder
-            placeholderUsed = true; // Markera att placeholder skapades här
-         }
+      console.log(`📄 Starting text extraction for ${originalFileName} using parseCV...`);
+      
+      // Använd parseCV från lib för alla filtyper istället för egen logik
+      extractedText = await parseCV(file);
+      
+      // Kontrollera om vi fick felmeddelande från parseCV
+      const knownErrorMessages = [
+        "Kunde inte läsa", "Misslyckades med att läsa", "PDF-texten kunde inte",
+        "Filformatet stöds inte", 'Kunde inte ladda DOCX-parsningsbiblioteket',
+        'Kunde inte extrahera text från DOCX-filen (tom fil)'
+      ];
+      
+      if (knownErrorMessages.some(msg => extractedText.startsWith(msg))) {
+        console.warn(`⚠️ parseCV returned an error for ${originalFileName}: ${extractedText}`);
+        textExtractionFailed = true;
+        extractedText = createPlaceholderText(file);
+        placeholderUsed = true;
       }
 
       // Längdkontroll som fallback
       if (!textExtractionFailed && (!extractedText || extractedText.length < 50)) {
         console.warn(`⚠️ Extracted text for ${originalFileName} is too short or empty (< 50 chars), using placeholder.`);
-        extractedText = createPlaceholderText(file); // Skapa placeholder
+        extractedText = createPlaceholderText(file);
         textExtractionFailed = true;
-        placeholderUsed = true; // Markera att placeholder skapades här
+        placeholderUsed = true;
       }
+      
     } catch (error: any) {
       console.error(`❌ Unexpected CV parsing error for ${originalFileName}:`, error.message || error);
-      extractedText = createPlaceholderText(file); // Skapa placeholder
+      extractedText = createPlaceholderText(file);
       textExtractionFailed = true;
-      placeholderUsed = true; // Markera att placeholder skapades här
+      placeholderUsed = true;
     }
 
     // --- SANERING AV TEXTEN SOM SKA SPARAS ---
-    // Om placeholder användes (pga fel eller kort text), sanera den.
-    // Annars kan du överväga att sanera den vanliga extraherade texten också,
-    // men det kan potentiellt ta bort legitima tecken från ett CV.
-    // Här väljer vi att *endast* sanera om vi vet att det är placeholder-texten.
     let textToSave = extractedText;
     if (placeholderUsed) {
         console.log("Sanitizing placeholder text before DB insert.");

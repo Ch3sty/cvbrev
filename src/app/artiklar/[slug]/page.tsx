@@ -43,13 +43,13 @@ export async function generateMetadata(
     const pageTitle = post.frontmatter.title;
     const publishedDate = post.frontmatter.date ? new Date(post.frontmatter.date).toISOString() : undefined;
 
-    const siteBaseUrl = "https://www.cvbrev.se";
+    const siteBaseUrl = "https://www.jobbcoach.ai";
     const imageUrl = post.frontmatter.image
         ? (post.frontmatter.image.startsWith('http') ? post.frontmatter.image : `${siteBaseUrl}${post.frontmatter.image}`)
         : undefined;
 
     return {
-        title: `${pageTitle} | cvbrev.se`,
+        title: `${pageTitle} | jobbcoach.ai`,
         description: post.frontmatter.description,
         alternates: { canonical: `${siteBaseUrl}/artiklar/${slug}` },
         openGraph: {
@@ -90,10 +90,10 @@ function generateArticleSchema(post: Post, slug: string): React.ReactNode | null
         console.warn("generateArticleSchema: Saknar nödvändig data (post, titel, datum eller slug).");
         return null;
     }
-    const siteBaseUrl = "https://www.cvbrev.se";
-    const publisherName = "cvbrev.se";
+    const siteBaseUrl = "https://www.jobbcoach.ai";
+    const publisherName = "jobbcoach.ai";
     const publisherLogoUrl = `${siteBaseUrl}/images/logo-cvbrev-600x60.png`;
-    const defaultAuthorName = "Teamet på cvbrev.se";
+    const defaultAuthorName = "Teamet på jobbcoach.ai";
     const canonicalUrl = `${siteBaseUrl}/artiklar/${slug}`;
     const publisher = { "@type": "Organization", "name": publisherName, "logo": { "@type": "ImageObject", "url": publisherLogoUrl } };
     const authorName = post.frontmatter.author || defaultAuthorName;

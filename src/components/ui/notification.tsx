@@ -1,146 +1,158 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { Bot, X } from 'lucide-react'
+// Importera relevanta ikoner från Lucide
+import { Bot, X, CheckCircle, AlertTriangle, Info, Loader2 } from 'lucide-react'
 
 export interface NotificationProps {
   isVisible: boolean
   message: string
-  progress?: number
-  type?: 'loading' | 'success' | 'error' | 'info'
-  onClose?: () => void
-  duration?: number // Auto-close duration in ms (if provided)
+  progress?: number // För laddningsindikator
+  type?: 'loading' | 'success' | 'error' | 'info' // Typer av notiser
+  onClose?: () => void // Funktion för att stänga
+  duration?: number // Auto-stängningstid i ms
 }
 
 export default function Notification({
   isVisible,
   message,
   progress = 0,
-  type = 'loading',
+  type = 'info', // Ändrade default till 'info' istället för 'loading'
   onClose,
   duration
 }: NotificationProps) {
+  // State för synlighet och intern progress (oförändrad logik)
   const [visible, setVisible] = useState(isVisible)
   const [internalProgress, setInternalProgress] = useState(progress)
-  
-  // When isVisible prop changes, update internal state
+
+  // Synka intern synlighet med prop (oförändrad logik)
   useEffect(() => {
     setVisible(isVisible)
-    
-    // Reset progress when notification becomes visible
     if (isVisible) {
-      setInternalProgress(0)
+      setInternalProgress(0) // Nollställ progress när den visas
     }
   }, [isVisible])
-  
-  // Auto-close functionality
+
+  // Hantera auto-stängning (oförändrad logik)
   useEffect(() => {
     if (!visible || !duration) return
-    
     const timer = setTimeout(() => {
       setVisible(false)
       if (onClose) onClose()
     }, duration)
-    
     return () => clearTimeout(timer)
   }, [visible, duration, onClose])
-  
-  // Simulate progress if loading
+
+  // Simulera progress för 'loading' (oförändrad logik)
   useEffect(() => {
     if (!visible || type !== 'loading') return
-    
     const interval = setInterval(() => {
       setInternalProgress(prev => {
-        // Slow down progress as it approaches 90%
         const increment = prev < 30 ? 5 : prev < 60 ? 3 : prev < 85 ? 1 : 0.5
-        const newProgress = Math.min(prev + increment, 95)
+        const newProgress = Math.min(prev + increment, 95) // Går upp till 95%
         return newProgress
       })
     }, 300)
-    
     return () => clearInterval(interval)
   }, [visible, type])
-  
-  // When external progress is updated, update internal state
+
+  // Uppdatera intern progress när extern prop ändras (oförändrad logik)
   useEffect(() => {
     if (progress > 0) {
       setInternalProgress(progress)
     }
   }, [progress])
-  
+
+  // Rendera inte om den inte är synlig
   if (!visible) return null
-  
-  const getTypeStyles = () => {
+
+  // --- Funktioner för Styling och Ikoner (Uppdaterade) ---
+
+  // Returnerar Tailwind-klasser för bakgrund och vänster border baserat på typ
+  const getTypeContainerStyles = (): string => {
     switch (type) {
       case 'success':
-        return 'bg-green-600'
+        return 'bg-green-900/30 border-l-4 border-green-500'
       case 'error':
-        return 'bg-red-600'
+        return 'bg-red-900/30 border-l-4 border-red-500'
       case 'info':
-        return 'bg-blue-600'
+        return 'bg-blue-900/30 border-l-4 border-blue-500'
       case 'loading':
       default:
-        return 'bg-pink-600'
+        return 'bg-pink-900/30 border-l-4 border-pink-500'
     }
   }
-  
-  const getIcon = () => {
+
+  // Returnerar Lucide-ikonkomponent baserat på typ
+  const getIcon = (): React.ReactNode => {
     switch (type) {
       case 'success':
-        return (
-          <svg className="w-5 h-5 text-white" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-          </svg>
-        )
+        return <CheckCircle className="w-5 h-5 text-green-400" />
       case 'error':
-        return (
-          <svg className="w-5 h-5 text-white" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-          </svg>
-        )
+        return <AlertTriangle className="w-5 h-5 text-red-400" />
       case 'info':
-        return (
-          <svg className="w-5 h-5 text-white" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-          </svg>
-        )
+        return <Info className="w-5 h-5 text-blue-400" />
       case 'loading':
       default:
-        return <Bot className="w-5 h-5 text-white animate-pulse" />
+        // Använd Loader2 för en snurrande ikon
+        return <Loader2 className="w-5 h-5 text-pink-400 animate-spin" />
     }
   }
-  
+
+  // --- JSX Render (Uppdaterad med nya klasser) ---
   return (
-    <div className="fixed top-4 right-4 z-50 max-w-sm w-full shadow-lg rounded-lg overflow-hidden">
-      <div className={`${getTypeStyles()} px-4 py-3 text-white`}>
+    // Yttre container: Positionering, storlek, skugga, rundning, border, bakgrund
+    <div
+        className={`fixed top-5 right-5 z-[100] max-w-sm w-full 
+                   bg-navy-800 border border-navy-700/50 rounded-xl shadow-xl 
+                   overflow-hidden backdrop-blur-sm animate-fadeIn`} // Använd fade-in animation
+        role="alert" // För skärmläsare
+        aria-live={type === 'error' ? 'assertive' : 'polite'} // Viktighet för skärmläsare
+    >
+      {/* Inre container med typspecifik vänsterborder och subtil bakgrund */}
+      <div className={`px-4 py-3 ${getTypeContainerStyles()}`}>
         <div className="flex items-center">
+          {/* Ikon */}
           <div className="flex-shrink-0 mr-3">
             {getIcon()}
           </div>
+          {/* Meddelande */}
           <div className="flex-1 ml-1">
-            <p className="text-sm font-medium">{message}</p>
+            <p className="text-sm font-medium text-gray-100">{message}</p> {/* Ljusare text */}
           </div>
+          {/* Stängningsknapp */}
           {onClose && (
-            <div>
-              <button 
-                type="button" 
-                className="flex rounded-md p-1 hover:bg-pink-500 focus:outline-none" 
+            <div className="ml-3 flex-shrink-0">
+              <button
+                type="button"
+                // Uppdaterad styling för stängningsknapp
+                className="inline-flex rounded-md p-1.5 text-gray-400 hover:text-white hover:bg-navy-700/60 
+                           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-navy-800 focus:ring-pink-500 
+                           transition-colors duration-150"
                 onClick={() => {
-                  setVisible(false)
-                  onClose()
+                  setVisible(false) // Stäng direkt UI-mässigt
+                  onClose() // Anropa callback
                 }}
+                aria-label="Stäng notifikation"
               >
-                <X className="h-5 w-5 text-white" />
+                <X className="h-5 w-5" />
               </button>
             </div>
           )}
         </div>
-        
+
+        {/* Progressbar (visas endast vid 'loading') */}
         {type === 'loading' && (
-          <div className="w-full bg-white/20 rounded-full h-1.5 mt-2">
-            <div 
-              className="bg-white h-1.5 rounded-full transition-all duration-300 ease-out"
+          // Uppdaterad styling för progressbar
+          <div className="w-full bg-navy-900/50 rounded-full h-1 mt-2.5 overflow-hidden"> {/* Ändrade h-1.5 till h-1 */}
+            <div
+              className="bg-gradient-to-r from-pink-500 to-purple-500 h-1 rounded-full transition-all duration-300 ease-linear" // Använd gradient, ease-linear
               style={{ width: `${internalProgress}%` }}
+              role="progressbar"
+              aria-valuenow={internalProgress}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label="Laddar..."
             />
           </div>
         )}

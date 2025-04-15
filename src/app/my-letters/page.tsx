@@ -1,59 +1,112 @@
 // src/app/my-letters/page.tsx
-// UPPDATERAD: Hämtar maxSavedLetters från useProfile och skickar till LetterCounter
+// UPPDATERAD: Anpassad design för att likna ProfilePage, Inklusive knappstilar (navy-700 för Visa/Redigera)
 // KORRIGERAD: Fixat 'void' is not assignable to type 'ReactNode' i formatRelativeDate
 // KORRIGERAD: Åtgärdat onödiga useCallback-beroenden enligt ESLint-varningar.
 
 'use client';
 
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLetters } from '@/hooks/use-letters';
-import { useProfile } from '@/hooks/use-profile'; // *** NY IMPORT ***
+import { useProfile } from '@/hooks/use-profile';
 import Link from 'next/link';
 import { formatDistanceToNow } from 'date-fns';
 import { sv } from 'date-fns/locale';
-import { AlertTriangle, FileText, CheckCircle, Info } from 'lucide-react'; // Lade till Info
+import {
+  AlertTriangle,
+  FileText,
+  CheckCircle,
+  Info,
+  Eye,
+  Pencil,
+  Trash2,
+  Loader2,
+  Plus,
+  Building2,
+  Briefcase,
+  MessageSquare,
+  Clock,
+  Infinity as InfinityIcon, // Importera och döp om för att undvika namnkonflikt
+} from 'lucide-react';
 import Notification from '@/components/ui/notification';
-import { Infinity as InfinityIcon } from 'lucide-react'; // *** NY IMPORT FÖR OÄNDLIGHETSIKON ***
 
-// Brevräknare-komponent (Uppdaterad för att hantera Infinity)
-const LetterCounter = ({ current, max }: { current: number; max: number }) => {
-  // Hantera fallet med oändligt maxvärde
-  const isInfinite = !isFinite(max);
-  // Sätt procent till 0 om max är oändligt eller 0 för att undvika division med noll
-  const percentage = isInfinite || max === 0 ? 0 : Math.min(100, (current / max) * 100);
+// Taggkomponent - Anpassad stil för att passa in bättre
+const LetterTag = ({
+  label,
+  value,
+  type
+}: {
+  label: string;
+  value: string | null;
+  type: 'company' | 'job' | 'tone'
+}) => {
+  if (!value) return null;
 
-  // Bestäm färg baserat på antalet brev (anpassa logik för oändligt)
-  const getColorClass = () => {
-    if (isInfinite) return "from-green-500 to-emerald-600"; // Alltid gott om plats
-    if (current >= max) return "from-red-500 to-red-600"; // Full
-    if (current >= max * 0.8) return "from-yellow-500 to-orange-500"; // Nästan full
-    if (current >= max * 0.5) return "from-blue-500 to-purple-500"; // Halvfull
-    return "from-green-500 to-emerald-600"; // Gott om plats
+  // Ikoner och färger baserade på typ (tonade för att passa navy-temat)
+  const iconAndColor = {
+    company: {
+      icon: <Building2 className="w-4 h-4 mr-1.5 text-blue-400" />,
+      bgClass: "bg-blue-900/30 text-blue-200 border-blue-700/50" // Mörkare blå
+    },
+    job: {
+      icon: <Briefcase className="w-4 h-4 mr-1.5 text-purple-400" />,
+      bgClass: "bg-purple-900/30 text-purple-200 border-purple-700/50" // Mörkare lila
+    },
+    tone: {
+      icon: <MessageSquare className="w-4 h-4 mr-1.5 text-pink-400" />,
+      bgClass: "bg-pink-900/30 text-pink-200 border-pink-700/50" // Mörkare rosa
+    }
   };
 
-  // Bestäm ikon och meddelande baserat på antalet brev (anpassa logik för oändligt)
+  const { icon, bgClass } = iconAndColor[type];
+  const displayValue = type === 'tone' ? value.charAt(0).toUpperCase() + value.slice(1) : value;
+
+  return (
+    <span
+      className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium border ${bgClass}`}
+      title={`${label}: ${displayValue}`} // Lägg till tooltip för fullständig info
+      style={{maxWidth: '180px'}} // Begränsa bredden lite
+    >
+      {icon}
+      <span className="truncate">
+        {displayValue}
+      </span>
+    </span>
+  );
+};
+
+// Brevräknare-komponent (Behållen struktur, små stiljusteringar)
+const LetterCounter = ({ current, max }: { current: number; max: number }) => {
+  const isInfinite = !isFinite(max);
+  const percentage = isInfinite || max === 0 ? 0 : Math.min(100, (current / max) * 100);
+
+  // Färger (anpassade för att matcha ProfilePage-temat bättre)
+  const getColorClass = () => {
+    if (isInfinite) return "from-emerald-500 to-green-600"; // Konsekvent grön för oändligt
+    if (current >= max) return "from-red-500 to-red-600";
+    if (current >= max * 0.8) return "from-yellow-500 to-orange-500";
+    return "from-emerald-500 to-green-600"; // Standardgrön
+  };
+
   const getStatusInfo = () => {
-    if (isInfinite) {
+     if (isInfinite) {
        return {
          icon: <CheckCircle className="w-5 h-5 text-green-500" />,
          message: "Obegränsat utrymme"
        };
-    }
+     }
     if (current >= max) {
       return {
         icon: <AlertTriangle className="w-5 h-5 text-red-500" />,
         message: "Maxgräns nådd"
       };
     }
-    // Visa bara "X platser kvar" om det inte är oändligt och inte fullt
     if (current >= max * 0.8) {
       return {
         icon: <AlertTriangle className="w-5 h-5 text-yellow-500" />,
         message: `${max - current} ${max - current === 1 ? 'plats' : 'platser'} kvar`
       };
     }
-    // Default för icke-oändligt och ej nära/fullt
     return {
       icon: <CheckCircle className="w-5 h-5 text-green-500" />,
       message: "Gott om plats"
@@ -61,33 +114,35 @@ const LetterCounter = ({ current, max }: { current: number; max: number }) => {
   };
 
   const statusInfo = getStatusInfo();
-  const maxDisplayValue = isInfinite ? <InfinityIcon className="w-4 h-4 text-pink-500 inline-block" /> : max;
+  const maxDisplayValue = isInfinite ? <InfinityIcon className="w-4 h-4 text-pink-400 inline-block" /> : max;
   const remainingDisplayValue = isInfinite ? "∞" : max - current;
 
   return (
-    <div className="bg-navy-800 rounded-lg p-4 shadow-lg border border-gray-700 w-full">
-      <div className="flex items-center justify-between mb-3">
+    // Använder navy-800 och gränser likt ProfilePage-komponenter
+    <div className="bg-navy-800 rounded-lg p-5 shadow-md border border-gray-700 w-full">
+      <div className="flex items-center justify-between mb-4">
         <div className="flex items-center">
           <FileText className="w-5 h-5 text-pink-500 mr-2" />
-          <h3 className="font-semibold text-white">Brevutrymme</h3>
+          <h3 className="font-semibold text-white text-lg">Brevutrymme</h3>
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center" title={statusInfo.message}>
           {statusInfo.icon}
-          <span className="text-xs ml-1 text-gray-300">{statusInfo.message}</span>
+          {/* <span className="text-xs ml-1.5 text-gray-400">{statusInfo.message}</span> */}
         </div>
       </div>
 
-      {/* Räknardisplay */}
-      <div className="flex items-center justify-center bg-navy-900 rounded-xl p-4 mb-3">
+      {/* Räknardisplay med navy-900 bakgrund */}
+      <div className="flex items-center justify-center bg-navy-900 rounded-xl p-4 mb-4 border border-gray-700/50">
         {/* Cirkel med procent */}
         <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-navy-950 shadow-inner">
           <svg className="w-full h-full" viewBox="0 0 36 36">
-            <circle cx="18" cy="18" r="16" fill="none" stroke="#293548" strokeWidth="2" />
-            {!isInfinite && ( // Rita bara progress-cirkeln om max inte är oändligt
+            {/* Mörkare bakgrundscirkel */}
+            <circle cx="18" cy="18" r="16" fill="none" stroke="#374151" strokeWidth="2.5" />
+            {!isInfinite && (
                 <circle
                   cx="18" cy="18" r="16"
                   fill="none"
-                  stroke="url(#myletters-page-pink-gradient)" // Unikt ID
+                  stroke="url(#myletters-page-pink-gradient-v2)" // Unikt ID
                   strokeWidth="2.5"
                   strokeDasharray={`${percentage}, 100`}
                   strokeLinecap="round"
@@ -95,9 +150,10 @@ const LetterCounter = ({ current, max }: { current: number; max: number }) => {
                 />
             )}
             <defs>
-              <linearGradient id="myletters-page-pink-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#ec4899" />
-                <stop offset="100%" stopColor="#db2777" />
+              {/* Använd samma gradient som i ProfilePage om möjligt, annars definiera här */}
+              <linearGradient id="myletters-page-pink-gradient-v2" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#ec4899" /> {/* pink-500 */}
+                <stop offset="100%" stopColor="#d946ef" /> {/* fuchsia-500 */}
               </linearGradient>
             </defs>
           </svg>
@@ -117,20 +173,20 @@ const LetterCounter = ({ current, max }: { current: number; max: number }) => {
        {/* Progressbar (visas endast om inte oändligt) */}
        {!isInfinite && (
          <>
-          <div className="h-1.5 bg-navy-700 rounded-full overflow-hidden mb-1">
+          <div className="h-2 bg-navy-700 rounded-full overflow-hidden mb-1 border border-gray-600/50">
              <div
-               className={`h-full bg-gradient-to-r ${getColorClass()} transition-all duration-500 ease-out`}
+               className={`h-full bg-gradient-to-r ${getColorClass()} transition-all duration-500 ease-out rounded-full`}
                style={{ width: `${percentage}%` }}
              />
            </div>
-           <div className="flex justify-end text-xs text-gray-400">
+           <div className="flex justify-end text-xs text-gray-400 mt-1">
               <span>{remainingDisplayValue} {remainingDisplayValue === 1 ? 'plats' : 'platser'} lediga</span>
            </div>
          </>
        )}
        {isInfinite && ( // Visa text istället för progressbar vid oändligt
-           <div className="text-center text-xs text-gray-400 mt-1">
-                Obegränsat antal platser lediga
+           <div className="text-center text-xs text-gray-400 mt-2 p-2 bg-navy-900 rounded-md border border-gray-700/50">
+                Obegränsat antal platser tillgängliga.
            </div>
        )}
     </div>
@@ -143,21 +199,19 @@ export default function MyLettersPage() {
   const {
     letters,
     fetchLetters,
-    isLoading: lettersLoading, // Byt namn för att undvika konflikt
+    isLoading: lettersLoading,
     isDeleting,
     error,
     removeLetter
   } = useLetters();
 
-  // *** HÄMTA PROFILINFORMATION ***
   const {
-      maxSavedLetters = 0, // Ge default 0 tills laddat
+      maxSavedLetters = 0,
       subscriptionTier,
-      loading: profileLoading, // Byt namn för att undvika konflikt
-      hasReachedLetterLimit,   // Kan användas för att visa varning
-      refreshProfile            // Kan användas för att uppdatera vid behov
+      loading: profileLoading,
+      hasReachedLetterLimit,
+      // refreshProfile // Kanske inte behövs här
   } = useProfile();
-  // *****************************
 
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
@@ -167,255 +221,466 @@ export default function MyLettersPage() {
     isVisible: boolean;
     message: string;
     type: 'loading' | 'success' | 'error' | 'info';
-    progress: number;
-  }>({ isVisible: false, message: '', type: 'loading', progress: 0 });
+    progress?: number; // Behåll progress som optionell
+  } | null>(null); // Initiera som null
 
   useEffect(() => { setIsPageMounted(true); return () => { setIsPageMounted(false); }; }, []);
 
-  const closeNotification = useCallback(() => { setNotification(prev => ({ ...prev, isVisible: false })); }, []);
+  // Uppdaterad showNotificationMessage för att matcha ProfilePage
+  const showNotificationMessage = useCallback((message: string, type: 'loading' | 'success' | 'error' | 'info', duration: number = 5000, progress?: number) => {
+    setNotification({
+      message,
+      type,
+      progress,
+      isVisible: true
+    });
 
-  const showNotification = useCallback((type: 'loading' | 'success' | 'error' | 'info', message: string, duration?: number) => {
-    setNotification({ isVisible: true, message, type, progress: type === 'loading' ? 0 : 100 });
-    if (type !== 'loading' && duration) { setTimeout(closeNotification, duration); }
-  }, [closeNotification]);
+    if (type !== 'loading') {
+      setTimeout(() => {
+        setNotification(prev => prev ? { ...prev, isVisible: false } : null);
+        // Låt notificationen försvinna helt innan den sätts till null
+        setTimeout(() => setNotification(null), 300);
+      }, duration);
+    }
+  }, []);
 
-  // Hämta brev när sidan laddas och är monterad
+  // Uppdaterad closeNotification för att matcha ProfilePage
+  const closeNotification = useCallback(() => {
+    setNotification(prev => prev ? { ...prev, isVisible: false } : null);
+    setTimeout(() => setNotification(null), 300);
+  }, []);
+
+  // Hämta brev
   useEffect(() => {
     if (!isPageMounted) return;
     const loadLetters = async () => {
       try {
-        await fetchLetters(true, true); // Cache = true
+        // Visa ingen laddningsnotis här, använd global laddningsindikator
+        await fetchLetters(true, true);
       } catch (err) {
-        showNotification('error', 'Kunde inte hämta dina brev', 5000);
+        showNotificationMessage('Kunde inte hämta dina brev', 'error');
       }
     };
     loadLetters();
-  }, [fetchLetters, isPageMounted, showNotification]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [fetchLetters, isPageMounted]); // Ta bort showNotificationMessage från deps
 
-
-  // *** KORRIGERAD IMPLEMENTATION AV formatRelativeDate ***
-  const formatRelativeDate = useCallback((dateString: string | null): string => { // Ange returtyp : string
-    if (!dateString) {
-        return 'Okänt datum'; // Returnera sträng om null
-    }
+  // Formatera datum (Inga ändringar behövs, funktionen är korrekt)
+  const formatRelativeDate = useCallback((dateString: string | null): string => {
+    if (!dateString) return 'Okänt datum';
     try {
-      // Försök skapa ett Date-objekt
       const date = new Date(dateString);
-      // Kontrollera om datumet är giltigt
       if (isNaN(date.getTime())) {
         console.warn("Invalid date string passed to formatRelativeDate:", dateString);
-        return 'Okänt datum'; // Returnera sträng om ogiltigt datum
+        return 'Okänt datum';
       }
-      // Formatera om giltigt
-      return formatDistanceToNow(date, {
-        addSuffix: true,
-        locale: sv
-      });
+      return formatDistanceToNow(date, { addSuffix: true, locale: sv });
     } catch (error) {
-      console.error("Error formatting date in formatRelativeDate:", error); // Logga felet
-      return 'Okänt datum'; // *** Returnera sträng även vid oväntat fel ***
+      console.error("Error formatting date:", error);
+      return 'Okänt datum';
     }
-  }, []); // Tomt beroende är ok här
+  }, []);
 
-
-  // *** KORRIGERAD IMPLEMENTATION AV getPreview ***
-  const getPreview = useCallback((content: string | null) => { // Hantera null för content
-    if (!content) {
-        return ''; // Returnera tom sträng om null
-    }
+  // Förhandsvisning (Inga ändringar behövs, funktionen är korrekt)
+  const getPreview = useCallback((content: string | null) => {
+    if (!content) return '';
     try {
-        // Ta bort HTML-taggar och trimma extra whitespace
         const plainText = content.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-        // Begränsa längden
         return plainText.length > 150
           ? plainText.substring(0, 150) + '...'
           : plainText;
     } catch (error) {
-        console.error("Error generating preview in getPreview:", error);
-        return ''; // Returnera tom sträng vid fel
+        console.error("Error generating preview:", error);
+        return '';
     }
   }, []);
 
-
-  // *** KORRIGERAD IMPLEMENTATION AV handleDelete ***
+  // Hantera borttagning
   const handleDelete = useCallback((id: string) => {
-    // Förhindra att visa bekräftelsedialog om borttagning redan pågår
-    if (isDeleting) {
-        console.log("Delete already in progress, ignoring new request.");
-        return;
-    }
-    console.log("Requesting delete for letter ID:", id);
+    if (isDeleting) return;
     setDeleteId(id);
     setShowDeleteConfirm(true);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDeleting]); // Korrekt beroende
+  }, [isDeleting]);
 
-
-  // *** KORRIGERAD IMPLEMENTATION AV confirmDelete ***
+  // Bekräfta borttagning
   const confirmDelete = useCallback(async () => {
-    if (!deleteId) {
-        console.warn("confirmDelete called without deleteId set.");
-        return;
-    }
-     // isDeleting kollas implicit av useLetters' removeLetter
-     console.log("Confirming delete for letter ID:", deleteId);
+    if (!deleteId) return;
+    let loadingNotificationShown = false;
     try {
-      showNotification('loading', 'Tar bort brevet...');
+      showNotificationMessage('Tar bort brevet...', 'loading');
+      loadingNotificationShown = true;
       const success = await removeLetter(deleteId);
       if (success) {
-        console.log("Letter", deleteId, "deleted successfully.");
-        showNotification('success', 'Brevet har tagits bort', 3000);
-        setShowDeleteConfirm(false); // Stäng modal
-        setDeleteId(null);      // Rensa ID
-        // Ingen manuell fetchLetters behövs, useLetters uppdaterar sin state
+        showNotificationMessage('Brevet har tagits bort', 'success', 3000);
+        setShowDeleteConfirm(false);
+        setDeleteId(null);
       } else {
-        console.warn("removeLetter returned false for ID:", deleteId);
-        showNotification('error', 'Kunde inte ta bort brevet (servern nekade?)', 5000);
+        showNotificationMessage('Kunde inte ta bort brevet', 'error', 5000);
       }
     } catch (err) {
-      console.error('Exception during confirmDelete for ID:', deleteId, err);
-      const message = err instanceof Error ? err.message : 'Ett okänt fel uppstod vid borttagning.';
-      showNotification('error', message, 5000);
+      const message = err instanceof Error ? err.message : 'Ett okänt fel uppstod.';
+      showNotificationMessage(message, 'error', 5000);
+    } finally {
+      if (loadingNotificationShown && notification?.type === 'loading') {
+           closeNotification();
+       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [deleteId, removeLetter, showNotification]); // Korrekta beroenden
+  }, [deleteId, removeLetter, showNotificationMessage, notification, closeNotification]);
 
-
-  // *** KORRIGERAD IMPLEMENTATION AV cancelDelete ***
+  // Avbryt borttagning
   const cancelDelete = useCallback(() => {
-    if (isDeleting) {
-        console.log("Cannot cancel delete, already in progress.");
-        return;
-    }
-    console.log("Cancelling delete.");
+    if (isDeleting) return;
     setShowDeleteConfirm(false);
     setDeleteId(null);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDeleting]); // Korrekt beroende
-
+  }, [isDeleting]);
 
   // Hantera fel från useLetters hook
   useEffect(() => {
       if (error) {
-        console.error("Error received from useLetters hook:", error);
-        showNotification('error', error, 5000);
+        showNotificationMessage(error, 'error', 5000);
       }
-  }, [error, showNotification]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [error]); // Ta bort showNotificationMessage
 
   // Kombinera laddningsstatus
   const isLoading = lettersLoading || profileLoading;
 
-  // Beräkna återstående brev endast om gränsen är ett nummer
   const remainingLetters = !isFinite(maxSavedLetters) ? Infinity : maxSavedLetters - (letters?.length ?? 0);
 
-  return (
-    <div className="container max-w-5xl px-4 py-8 mx-auto">
-      {/* Notifikationskomponent */}
-      <Notification
-        isVisible={notification.isVisible} message={notification.message} type={notification.type}
-        progress={notification.progress} onClose={closeNotification}
-      />
+  // Funktion för att kontrollera om ett brev ändrats nyligen (senaste 24h)
+  const isRecentlyUpdated = (updated: string | null, created: string | null): boolean => {
+    if (!updated || !created) return false;
+    const now = new Date();
+    const updateDate = new Date(updated);
+    const createDate = new Date(created);
+    return updateDate > createDate &&
+           (now.getTime() - updateDate.getTime()) < 24 * 60 * 60 * 1000;
+  };
 
-      <div className="flex flex-col md:flex-row gap-8">
+  // Hjälpfunktion för att gruppera brev efter datum
+  const groupLettersByDate = (letters: any[]) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    return {
+      recent: letters.filter(letter => new Date(letter.updated_at || letter.created_at) >= yesterday),
+      older: letters.filter(letter => new Date(letter.updated_at || letter.created_at) < yesterday)
+    };
+  };
+
+  // Gruppera brev om det finns några
+  const groupedLetters = letters.length > 0 ? groupLettersByDate(letters) : null;
+
+  return (
+    // Använd ProfilePage container-stil
+    <div className="max-w-screen-lg mx-auto pt-8 pb-16 px-4">
+      {/* Notification - Matchar ProfilePage */}
+      {notification?.isVisible && (
+        <Notification
+          message={notification.message}
+          type={notification.type}
+          progress={notification.progress}
+          isVisible={notification.isVisible}
+          onClose={closeNotification}
+        />
+      )}
+
+      {/* Header - Matchar ProfilePage */}
+      <h1 className="text-3xl font-bold text-white mb-2">Mina sparade brev</h1>
+      <p className="text-gray-300 mb-8">
+        Här hittar du alla dina sparade ansökningsbrev som du kan visa, redigera eller ta bort.
+      </p>
+
+      <div className="flex flex-col md:flex-row gap-6"> {/* Minskad gap */}
         {/* Huvudsektionen med brev */}
-        <div className="flex-1">
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="text-3xl font-bold text-white">Mina sparade brev</h1>
-            {/* Knapp för att skapa nytt brev (med gränskontroll) */}
+        <div className="flex-1 space-y-6"> {/* Använd space-y för avstånd */}
+
+          {/* Åtgärdsraden - Matchar ProfilePage (navy-800, p-5) */}
+          <div className="flex flex-col sm:flex-row items-center justify-between bg-navy-800 p-5 rounded-lg border border-gray-700 shadow-md">
+            <div className="flex items-center mb-3 sm:mb-0">
+              <FileText className="w-5 h-5 text-pink-500 mr-2" />
+              <span className="text-white font-medium">
+                {letters.length} {letters.length === 1 ? 'brev' : 'brev'} sparade
+              </span>
+            </div>
+
             <Link href="/create-letter"
-               className={`px-4 py-2 text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-opacity ${
-                 subscriptionTier === 'free' && hasReachedLetterLimit ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''
-               }`}
-               aria-disabled={subscriptionTier === 'free' && hasReachedLetterLimit}
-               onClick={(e) => {
-                 if (subscriptionTier === 'free' && hasReachedLetterLimit) {
-                   e.preventDefault();
-                   showNotification('info', `Du har nått maxgränsen på ${maxSavedLetters} sparade brev. Ta bort ett brev för att skapa ett nytt, eller uppgradera.`, 5000);
-                 }
-               }}>
+              className={`inline-flex items-center px-4 py-2 text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors font-medium ${subscriptionTier === 'free' && hasReachedLetterLimit ? 'opacity-50 cursor-not-allowed' : ''}`} // ProfilePage knappstil
+              aria-disabled={subscriptionTier === 'free' && hasReachedLetterLimit}
+              onClick={(e) => {
+                if (subscriptionTier === 'free' && hasReachedLetterLimit) {
+                  e.preventDefault();
+                  showNotificationMessage(`Du har nått maxgränsen på ${maxSavedLetters} sparade brev. Ta bort ett brev för att skapa ett nytt, eller uppgradera.`, 'info', 7000);
+                }
+              }}>
+              <Plus className="w-4 h-4 mr-2" />
               Skapa nytt brev
             </Link>
           </div>
 
-          {/* Varningsmeddelanden (visas endast när laddning är klar) */}
+          {/* Varningsmeddelanden - Matchar ProfilePage */}
           {!isLoading && (
             <>
               {subscriptionTier === 'free' && hasReachedLetterLimit && isFinite(maxSavedLetters) && (
-                <div className="p-4 mb-6 bg-red-900/30 border-l-4 border-red-500 rounded-lg">
-                  <div className="flex items-start"> <AlertTriangle className="w-5 h-5 text-red-500 mr-3 flex-shrink-0" /> <div> <h4 className="font-semibold text-red-300 mb-1">Maxgräns nådd</h4> <p className="text-red-200 text-sm"> Du har nått maxgränsen på {maxSavedLetters} sparade brev. För att skapa ett nytt brev, ta först bort ett befintligt eller <Link href="/profile#subscription" className="ml-1 text-pink-400 hover:text-pink-300 underline">uppgradera till Premium</Link> för obegränsat utrymme. </p> </div> </div>
+                <div className="p-4 bg-red-900/30 border-l-4 border-red-500 rounded-r-lg animate-fadeIn">
+                  <div className="flex items-start">
+                    <AlertTriangle className="w-5 h-5 text-red-400 mr-3 flex-shrink-0" />
+                    <div>
+                      <h4 className="font-semibold text-red-200 mb-1">Maxgräns nådd</h4>
+                      <p className="text-red-200 text-sm">
+                        Du har nått maxgränsen ({maxSavedLetters}). Ta bort ett brev eller
+                        <Link href="/profile#subscription" className="ml-1 text-pink-400 hover:text-pink-300 underline">
+                          uppgradera till Premium
+                        </Link>.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               )}
               {subscriptionTier === 'free' && !hasReachedLetterLimit && isFinite(maxSavedLetters) && letters.length >= maxSavedLetters * 0.8 && (
-                 <div className="p-4 mb-6 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-lg">
-                   <div className="flex items-start"> <Info className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0" /> <p className="text-yellow-200 text-sm"> Du närmar dig maxgränsen på {maxSavedLetters} sparade brev. Du kan spara ytterligare {remainingLetters} {remainingLetters === 1 ? 'brev' : 'brev'}. </p> </div> {/* Lade till plural */}
+                 <div className="p-4 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-r-lg animate-fadeIn">
+                   <div className="flex items-start">
+                     <Info className="w-5 h-5 text-yellow-400 mr-3 flex-shrink-0" />
+                     <p className="text-yellow-200 text-sm">
+                       Du närmar dig maxgränsen ({maxSavedLetters}). {remainingLetters} {remainingLetters === 1 ? 'plats' : 'platser'} kvar.
+                     </p>
+                   </div>
                  </div>
               )}
             </>
           )}
 
-          {/* Laddningsindikator */}
-          {isLoading && ( <div className="flex justify-center items-center h-64"><div className="w-12 h-12 border-t-2 border-b-2 border-pink-500 rounded-full animate-spin"></div></div> )}
-
-          {/* Ingen brev-vy */}
-          {!isLoading && letters.length === 0 ? (
-             <div className="p-8 text-center bg-navy-800 rounded-lg">
-                <div className="flex justify-center mb-4"><FileText className="w-20 h-20 text-gray-500" /></div>
-                <h2 className="mb-4 text-2xl font-bold text-white">Inga sparade brev ännu</h2>
-                <p className="mb-6 text-gray-300">Du har inte sparat några brev ännu. Skapa ditt första personliga ansökningsbrev!</p>
-                <Link href="/create-letter" className="px-6 py-3 text-white bg-pink-600 rounded-md hover:bg-pink-700">Skapa ditt första brev</Link>
-                <div className="mt-4 text-sm text-gray-400">
-                  <span className="font-medium">0</span> av <span className="font-medium">{!isFinite(maxSavedLetters) ? <InfinityIcon className="w-3 h-3 inline" /> : maxSavedLetters}</span> platser använda
-                </div>
-             </div>
-          ) : (
-             // Lista med brev
-            <div className="space-y-6">
-              {!isLoading && letters.map((letter) => (
-                <div key={letter.id} className="p-6 transition-shadow bg-navy-800 rounded-lg hover:shadow-lg border border-gray-700/50">
-                  <div className="flex flex-col justify-between mb-4 md:flex-row md:items-center">
-                    <div>
-                      <h2 className="text-xl font-semibold text-white">{letter.title || 'Ansökningsbrev'}</h2>
-                      <div className="flex flex-wrap mt-2 space-x-2">
-                         {letter.company && (<span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-900/50 text-blue-300 border border-blue-700/50">{letter.company}</span>)}
-                         {letter.job_title && (<span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-900/50 text-purple-300 border border-purple-700/50">{letter.job_title}</span>)}
-                         {letter.tonality && (<span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-pink-900/50 text-pink-300 border border-pink-700/50">{letter.tonality.charAt(0).toUpperCase() + letter.tonality.slice(1)}</span>)}
-                      </div>
-                    </div>
-                    <div className="mt-4 text-sm text-gray-400 md:mt-0">
-                      {/* Använder korrigerad funktion */}
-                      Sparad {formatRelativeDate(letter.updated_at || letter.created_at)}
-                    </div>
-                  </div>
-                  {/* Använder korrigerad funktion */}
-                  <p className="mb-6 text-gray-300">{getPreview(letter.content)}</p>
-                  <div className="flex flex-wrap gap-2">
-                     <Link href={`/my-letters/${letter.id}`} className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">Visa</Link>
-                     <Link href={`/my-letters/${letter.id}/edit`} className="px-4 py-2 text-sm font-medium text-white bg-gray-600 rounded-md hover:bg-gray-700">Redigera</Link>
-                     <button onClick={() => handleDelete(letter.id)} disabled={isDeleting} className={`px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-md hover:bg-red-700 ${isDeleting && deleteId === letter.id ? 'opacity-50 cursor-not-allowed' : ''}`}>
-                       {isDeleting && deleteId === letter.id ? (<><div className="w-4 h-4 mr-2 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>Tar bort...</>) : 'Ta bort'}
-                     </button>
-                  </div>
-                </div>
-              ))}
+          {/* Laddningsindikator - Matchar ProfilePage */}
+          {isLoading && (
+            <div className="flex justify-center items-center py-16">
+              <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-pink-500"></div>
             </div>
           )}
-        </div>
+
+          {/* Ingen brev-vy - Anpassad till ProfilePage-stil */}
+          {!isLoading && letters.length === 0 && (
+             <div className="border border-gray-700 border-dashed rounded-lg p-8 bg-navy-900/50 animate-fadeIn">
+                <div className="flex flex-col items-center justify-center text-gray-400 py-8 text-center">
+                  <FileText className="w-16 h-16 mb-4 text-gray-600" />
+                  <h2 className="mb-2 text-xl font-semibold text-white">Inga sparade brev ännu</h2>
+                  <p className="mb-6 text-gray-400 text-sm max-w-md">
+                    Det ser lite tomt ut här. Klicka nedan för att skapa ditt första AI-genererade personliga brev!
+                  </p>
+                  <Link
+                    href="/create-letter"
+                    className="inline-flex items-center px-6 py-3 text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors font-medium" // ProfilePage knappstil
+                    >
+                    <Plus className="w-5 h-5 mr-2" />
+                    Skapa ditt första brev
+                  </Link>
+                   <div className="mt-5 text-sm text-gray-500">
+                     0 av {!isFinite(maxSavedLetters) ? <InfinityIcon className="w-3 h-3 inline" /> : maxSavedLetters} platser använda
+                   </div>
+                </div>
+             </div>
+          )}
+
+          {/* Lista med brev - Grupperad */}
+          {!isLoading && letters.length > 0 && (
+            <div className="space-y-8">
+              {/* Nyligen uppdaterade */}
+              {groupedLetters && groupedLetters.recent.length > 0 && (
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-200 mb-3 flex items-center px-1">
+                     <Clock className="w-4 h-4 mr-2 text-pink-400" />
+                     Nyligen uppdaterade
+                  </h2>
+                  <div className="space-y-4">
+                    {groupedLetters.recent.map((letter) => (
+                      <div
+                        key={letter.id}
+                        className="letter-card bg-navy-800 rounded-lg border border-gray-700 transition-all hover:border-pink-500/50 hover:shadow-lg cv-card animate-slideUp"
+                      >
+                        {/* Kortets innehåll */}
+                        <div className="p-5">
+                          <div className="flex flex-col sm:flex-row justify-between sm:items-start mb-3">
+                             <h2 className="text-lg font-semibold text-white mb-2 sm:mb-0 flex items-center">
+                                <FileText className="w-5 h-5 mr-2 text-pink-500" />
+                                {letter.title || 'Ansökningsbrev'}
+                                {isRecentlyUpdated(letter.updated_at, letter.created_at) && (
+                                  <span className="ml-2 px-1.5 py-0.5 text-xs bg-green-900/50 text-green-300 rounded-md border border-green-700/50">
+                                    Nyligen uppdaterad
+                                  </span>
+                                )}
+                             </h2>
+                            <div className="text-xs bg-navy-700/60 px-2.5 py-1 rounded-md flex items-center self-start sm:self-auto">
+                              <Clock className="w-3.5 h-3.5 mr-1.5 text-gray-400" />
+                              <span className="text-gray-300">
+                                {formatRelativeDate(letter.updated_at || letter.created_at)}
+                              </span>
+                            </div>
+                          </div>
+                          <div className="flex flex-row flex-wrap gap-2 mb-4">
+                            <LetterTag label="Företag" value={letter.company} type="company" />
+                            <LetterTag label="Tjänst" value={letter.job_title} type="job" />
+                            <LetterTag label="Tonalitet" value={letter.tonality} type="tone" />
+                          </div>
+                        </div>
+                        {/* Förhandsvisning */}
+                        <div className="border-t border-gray-700 p-4 bg-navy-900/30">
+                           <div className="text-sm text-gray-300 bg-navy-950/50 p-3 rounded-md border border-gray-700/50 elegant-scrollbar max-h-28 overflow-auto" style={{ lineHeight: '1.5', fontStyle: 'italic' }}>
+                             {getPreview(letter.content) || <span className="text-gray-500">Ingen förhandsvisning</span>}
+                           </div>
+                        </div>
+                        {/* Åtgärdsknappar */}
+                        <div className="border-t border-gray-700 p-4 bg-navy-900/30 flex flex-wrap gap-2 justify-end">
+                           {/* ÄNDRAD KNAPPSTIL */}
+                           <Link href={`/my-letters/${letter.id}`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Eye className="w-4 h-4 mr-1.5" /> Visa </Link>
+                           {/* ÄNDRAD KNAPPSTIL */}
+                           <Link href={`/my-letters/${letter.id}/edit`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Pencil className="w-4 h-4 mr-1.5" /> Redigera </Link>
+                           {/* BEHÅLLEN KNAPPSTIL */}
+                           <button onClick={() => handleDelete(letter.id)} disabled={isDeleting} className={`inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors ${isDeleting && deleteId === letter.id ? 'opacity-50 cursor-not-allowed' : ''}`}> {isDeleting && deleteId === letter.id ? ( <> <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> Tar bort... </> ) : ( <> <Trash2 className="w-4 h-4 mr-1.5" /> Ta bort </> )} </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Tidigare brev */}
+              {groupedLetters && groupedLetters.older.length > 0 && (
+                 <div>
+                    {groupedLetters.recent.length > 0 && <hr className="border-gray-700 my-6" />}
+                    <h2 className="text-lg font-semibold text-gray-200 mb-3 flex items-center px-1">
+                       <FileText className="w-4 h-4 mr-2 text-blue-400" />
+                       Tidigare brev
+                    </h2>
+                   <div className="space-y-4">
+                     {groupedLetters.older.map((letter) => (
+                       <div
+                         key={letter.id}
+                         className="letter-card bg-navy-800 rounded-lg border border-gray-700 transition-all hover:border-blue-500/50 hover:shadow-lg cv-card animate-slideUp" // Ändrat hover-border till blå
+                       >
+                         {/* Kortets innehåll */}
+                         <div className="p-5">
+                           <div className="flex flex-col sm:flex-row justify-between sm:items-start mb-3">
+                              <h2 className="text-lg font-semibold text-white mb-2 sm:mb-0 flex items-center">
+                                 <FileText className="w-5 h-5 mr-2 text-blue-500" /> {/* Ändrat ikonfärg till blå */}
+                                 {letter.title || 'Ansökningsbrev'}
+                              </h2>
+                             <div className="text-xs bg-navy-700/60 px-2.5 py-1 rounded-md flex items-center self-start sm:self-auto">
+                               <Clock className="w-3.5 h-3.5 mr-1.5 text-gray-400" />
+                               <span className="text-gray-300">
+                                 {formatRelativeDate(letter.updated_at || letter.created_at)}
+                               </span>
+                             </div>
+                           </div>
+                           <div className="flex flex-row flex-wrap gap-2 mb-4">
+                             <LetterTag label="Företag" value={letter.company} type="company" />
+                             <LetterTag label="Tjänst" value={letter.job_title} type="job" />
+                             <LetterTag label="Tonalitet" value={letter.tonality} type="tone" />
+                           </div>
+                         </div>
+                         {/* Förhandsvisning */}
+                         <div className="border-t border-gray-700 p-4 bg-navy-900/30">
+                            <div className="text-sm text-gray-300 bg-navy-950/50 p-3 rounded-md border border-gray-700/50 elegant-scrollbar max-h-28 overflow-auto" style={{ lineHeight: '1.5', fontStyle: 'italic' }}>
+                              {getPreview(letter.content) || <span className="text-gray-500">Ingen förhandsvisning</span>}
+                            </div>
+                         </div>
+                         {/* Åtgärdsknappar */}
+                         <div className="border-t border-gray-700 p-4 bg-navy-900/30 flex flex-wrap gap-2 justify-end">
+                            {/* ÄNDRAD KNAPPSTIL */}
+                           <Link href={`/my-letters/${letter.id}`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Eye className="w-4 h-4 mr-1.5" /> Visa </Link>
+                           {/* ÄNDRAD KNAPPSTIL */}
+                           <Link href={`/my-letters/${letter.id}/edit`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Pencil className="w-4 h-4 mr-1.5" /> Redigera </Link>
+                           {/* BEHÅLLEN KNAPPSTIL */}
+                           <button onClick={() => handleDelete(letter.id)} disabled={isDeleting} className={`inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors ${isDeleting && deleteId === letter.id ? 'opacity-50 cursor-not-allowed' : ''}`}> {isDeleting && deleteId === letter.id ? ( <> <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> Tar bort... </> ) : ( <> <Trash2 className="w-4 h-4 mr-1.5" /> Ta bort </> )} </button>
+                         </div>
+                       </div>
+                     ))}
+                   </div>
+                 </div>
+              )}
+
+              {/* Fallback om det fortfarande inte finns några grupperade brev (fallback, sällsynt) */}
+              {!isLoading && (!groupedLetters || (groupedLetters.recent.length === 0 && groupedLetters.older.length === 0)) && letters.length > 0 && (
+                <div className="space-y-4">
+                  {letters.map((letter) => (
+                    <div
+                      key={letter.id}
+                      className="letter-card bg-navy-800 rounded-lg border border-gray-700 transition-all hover:border-pink-500/50 hover:shadow-lg cv-card animate-slideUp"
+                    >
+                      {/* Kortets innehåll */}
+                      <div className="p-5">
+                        <div className="flex flex-col sm:flex-row justify-between sm:items-start mb-3">
+                           <h2 className="text-lg font-semibold text-white mb-2 sm:mb-0 flex items-center">
+                              <FileText className="w-5 h-5 mr-2 text-pink-500" />
+                              {letter.title || 'Ansökningsbrev'}
+                           </h2>
+                          <div className="text-xs bg-navy-700/60 px-2.5 py-1 rounded-md flex items-center self-start sm:self-auto">
+                            <Clock className="w-3.5 h-3.5 mr-1.5 text-gray-400" />
+                            <span className="text-gray-300">
+                              {formatRelativeDate(letter.updated_at || letter.created_at)}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex flex-row flex-wrap gap-2 mb-4">
+                          <LetterTag label="Företag" value={letter.company} type="company" />
+                          <LetterTag label="Tjänst" value={letter.job_title} type="job" />
+                          <LetterTag label="Tonalitet" value={letter.tonality} type="tone" />
+                        </div>
+                      </div>
+                      {/* Förhandsvisning */}
+                      <div className="border-t border-gray-700 p-4 bg-navy-900/30">
+                         <div className="text-sm text-gray-300 bg-navy-950/50 p-3 rounded-md border border-gray-700/50 elegant-scrollbar max-h-28 overflow-auto" style={{ lineHeight: '1.5', fontStyle: 'italic' }}>
+                           {getPreview(letter.content) || <span className="text-gray-500">Ingen förhandsvisning</span>}
+                         </div>
+                      </div>
+                      {/* Åtgärdsknappar */}
+                      <div className="border-t border-gray-700 p-4 bg-navy-900/30 flex flex-wrap gap-2 justify-end">
+                         {/* ÄNDRAD KNAPPSTIL */}
+                         <Link href={`/my-letters/${letter.id}`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Eye className="w-4 h-4 mr-1.5" /> Visa </Link>
+                         {/* ÄNDRAD KNAPPSTIL */}
+                         <Link href={`/my-letters/${letter.id}/edit`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Pencil className="w-4 h-4 mr-1.5" /> Redigera </Link>
+                         {/* BEHÅLLEN KNAPPSTIL */}
+                         <button onClick={() => handleDelete(letter.id)} disabled={isDeleting} className={`inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors ${isDeleting && deleteId === letter.id ? 'opacity-50 cursor-not-allowed' : ''}`}> {isDeleting && deleteId === letter.id ? ( <> <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> Tar bort... </> ) : ( <> <Trash2 className="w-4 h-4 mr-1.5" /> Ta bort </> )} </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div> {/* Slut på huvudsektion */}
 
         {/* Sidofältet */}
-        <div className="md:w-64 flex-shrink-0">
-          {!profileLoading && (
-            <LetterCounter current={letters?.length ?? 0} max={maxSavedLetters ?? 0} /> // Säkerställ att letters finns
+        <div className="md:w-72 flex-shrink-0 space-y-6">
+          {!profileLoading ? (
+            <LetterCounter current={letters?.length ?? 0} max={maxSavedLetters ?? 0} />
+          ) : (
+            // Skeleton loader för LetterCounter
+            <div className="bg-navy-800 rounded-lg p-5 shadow-md border border-gray-700 w-full animate-pulse"> <div className="h-5 bg-gray-700 rounded w-3/4 mb-4"></div> <div className="flex items-center justify-center bg-navy-900 rounded-xl p-4 mb-4 border border-gray-700/50"> <div className="w-16 h-16 rounded-full bg-navy-950"></div> <div className="ml-5 space-y-2 flex-1"> <div className="h-4 bg-gray-700 rounded w-20"></div> <div className="h-5 bg-gray-700 rounded w-16"></div> </div> </div> <div className="h-2 bg-navy-700 rounded-full mb-2 border border-gray-600/50"></div> <div className="h-3 bg-gray-700 rounded w-1/2 ml-auto"></div> </div>
           )}
-          {profileLoading && ( <div className="bg-navy-800 rounded-lg p-4 shadow-lg border border-gray-700 w-full animate-pulse"><div className="h-5 bg-gray-700 rounded w-3/4 mb-3"></div><div className="flex items-center justify-center bg-navy-900 rounded-xl p-4 mb-3"><div className="w-16 h-16 rounded-full bg-navy-950"></div><div className="ml-5 space-y-2"><div className="h-3 bg-gray-700 rounded w-16"></div><div className="h-4 bg-gray-700 rounded w-12"></div></div></div><div className="h-2 bg-navy-700 rounded-full mb-2"></div><div className="flex justify-between"><div className="h-3 bg-gray-700 rounded w-1/3"></div><div className="h-3 bg-gray-700 rounded w-1/3"></div></div></div> )}
-          <div className="bg-navy-800 rounded-lg p-4 shadow-lg border border-gray-700 mt-6">
-             <h3 className="font-semibold text-white flex items-center mb-3"><Info className="h-5 w-5 text-blue-400 mr-2 flex-shrink-0" />Tips</h3>
-             <div className="text-sm text-gray-300"><p className="mb-2">Brev du inte längre behöver kan tas bort för att frigöra plats för nya.</p><p>Använd "Redigera" för att göra förbättringar baserat på feedback från rekryterare.</p></div>
+          <div className="bg-navy-800 rounded-lg p-5 shadow-md border border-gray-700">
+             <h3 className="font-semibold text-white flex items-center mb-3 text-lg"> <Info className="h-5 w-5 text-blue-400 mr-2 flex-shrink-0" /> Tips & Trix </h3>
+             <div className="text-sm text-gray-300 space-y-2"> <p>Behåll dina bästa brev och ta bort de du inte längre behöver för att hålla listan relevant.</p> <p>Använd "Redigera" för att finjustera ett befintligt brev istället för att skapa ett helt nytt varje gång.</p> </div>
+          </div>
+        </div> {/* Slut på sidofältet */}
+      </div> {/* Slut på flex-row */}
+
+      {/* Delete confirmation modal - Anpassad till ProfilePage-stil */}
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-navy-900/80 backdrop-blur-sm transition-opacity animate-fadeIn">
+          <div className="bg-navy-800 rounded-lg max-w-md w-full shadow-xl border border-gray-700">
+            {/* Modal Header */}
+            <div className="p-5 border-b border-gray-700"> <h3 className="text-xl font-semibold text-white flex items-center"> <AlertTriangle className="w-5 h-5 mr-2 text-pink-500" /> Bekräfta borttagning </h3> </div>
+            {/* Modal Body */}
+            <div className="p-5"> <p className="text-gray-300 mb-4"> Är du säker på att du vill ta bort brevet <span className="font-medium text-white mx-1">"{letters.find(l => l.id === deleteId)?.title || 'detta brev'}"</span>? </p> <div className="bg-navy-900/50 p-3 border border-gray-700 rounded-md flex items-start"> <AlertTriangle className="w-4 h-4 text-yellow-400 mr-2 flex-shrink-0 mt-0.5" /> <p className="text-yellow-200 text-sm"> Denna åtgärd kan inte ångras och brevet raderas permanent. </p> </div> </div>
+            {/* Modal Footer */}
+            <div className="p-5 border-t border-gray-700 flex justify-end space-x-3 bg-navy-900/30">
+              <button onClick={cancelDelete} disabled={isDeleting} className="px-4 py-2 bg-navy-700 text-white rounded-md hover:bg-navy-600 transition-colors disabled:opacity-50"> Avbryt </button>
+              <button onClick={confirmDelete} disabled={isDeleting} className={`px-4 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700 flex items-center transition-colors disabled:opacity-50 disabled:cursor-not-allowed`}> {isDeleting ? ( <> <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Tar bort... </> ) : ( <> <Trash2 className="w-4 h-4 mr-1.5" /> Ta bort brevet </> )} </button>
+            </div>
           </div>
         </div>
-      </div>
-
-      {/* Delete confirmation modal */}
-      {showDeleteConfirm && ( <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm"> <div className="p-6 bg-navy-800 rounded-lg max-w-md w-full shadow-xl border border-gray-700"> <div className="flex items-start mb-4"><AlertTriangle className="w-6 h-6 text-red-500 mr-3 flex-shrink-0" /><h3 className="text-xl font-semibold text-white">Bekräfta borttagning</h3></div> <p className="mb-6 text-gray-300">Är du säker på att du vill ta bort detta brev? Detta kan inte ångras.</p> <div className="flex justify-end space-x-3"> <button onClick={cancelDelete} disabled={isDeleting} className={`px-4 py-2 text-white bg-gray-600 rounded-md hover:bg-gray-700 ${isDeleting ? 'opacity-50 cursor-not-allowed' : ''}`}>Avbryt</button> <button onClick={confirmDelete} disabled={isDeleting} className={`px-4 py-2 text-white bg-red-600 rounded-md hover:bg-red-700 flex items-center ${isDeleting ? 'opacity-50 cursor-not-allowed' : ''}`}>{isDeleting ? (<><div className="w-4 h-4 mr-2 border-t-2 border-b-2 border-white rounded-full animate-spin"></div>Tar bort...</>) : 'Ta bort'}</button> </div> </div> </div> )}
-    </div>
+      )}
+    </div> // Slut på container
   );
 }

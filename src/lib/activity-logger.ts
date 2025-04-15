@@ -1,7 +1,7 @@
 // src/lib/activity-logger.ts
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
-// Aktivitetstyper (Uppdaterad med alla typer från create-letter/page.tsx)
+// Aktivitetstyper
 export type ActivityType =
   | 'login'                     // Inloggning
   | 'logout'                    // Utloggning
@@ -10,22 +10,25 @@ export type ActivityType =
   | 'letter_created'            // Brev skapades (används för lyckad generering)
   | 'letter_generation_failed'  // Generering misslyckades
   | 'letter_saved'              // Brev sparades
-  | 'letter_save_failed'        // <<< TILLAGD: Misslyckades spara brev
-  | 'save_limit_reached'        // <<< TILLAGD: Försökte spara över gränsen
+  | 'letter_save_failed'        // Misslyckades spara brev
+  | 'save_limit_reached'        // Försökte spara över gränsen
   | 'letter_exported'           // Brev exporterades (PDF, DOCX)
-  | 'letter_edit_initiated'     // <<< TILLAGD: Påbörjade redigering av sparat brev
-  | 'letter_edit_attempt_unsaved' // <<< TILLAGD: Försökte redigera osparat brev
+  | 'letter_edit_initiated'     // Påbörjade redigering av sparat brev
+  | 'letter_edit_attempt_unsaved' // Försökte redigera osparat brev
   | 'cv_uploaded'               // Ny CV laddades upp
   | 'cv_deleted'                // CV togs bort
+  | 'cv_analysis_completed'     // <-- NYTT: CV-analys slutfördes framgångsrikt
   | 'subscription_upgraded'     // Uppgraderade till premium
   | 'subscription_downgraded'   // Nedgraderade från premium
   | 'password_reset'            // Återställning av lösenord
   | 'profile_updated'           // Profiluppdatering
   | 'email_verified'            // E-post verifierad
   | 'password_changed'          // Lösenord ändrat
-  | 'upgrade_clicked'           // <<< TILLAGD: Klickade på uppgraderingsknapp
-  | 'premium_feature_attempt'   // <<< TILLAGD: Försökte använda premium-funktion (som gratis)
-  | 'setting_changed';          // <<< TILLAGD: Ändrade inställning (t.ex. språk, tonalitet)
+  | 'upgrade_clicked'           // Klickade på uppgraderingsknapp
+  | 'premium_feature_attempt'   // Försökte använda premium-funktion (som gratis)
+  | 'setting_changed'          // Ändrade inställning (t.ex. språk, tonalitet)
+  | 'competence_analysis_completed' // <-- NYTT: Kompetensanalys slutfördes
+  | 'competence_analysis_failed';    // <-- NYTT: Kompetensanalys misslyckades
   // Lägg till fler typer vid behov
 
 /**
@@ -39,7 +42,7 @@ export type ActivityType =
  */
 export async function logUserActivity(
   userId: string,
-  activityType: ActivityType, // Typen är korrekt, men värdet som skickas in ska vara en sträng
+  activityType: ActivityType,
   description: string,
   metadata: Record<string, any> = {}
 ): Promise<boolean> {
@@ -50,10 +53,9 @@ export async function logUserActivity(
       .from('user_activities')
       .insert({
         user_id: userId,
-        activity_type: activityType, // Här skickas den faktiska strängen
+        activity_type: activityType,
         description,
         metadata,
-        // created_at hanteras av databasen (DEFAULT now())
       });
 
     if (error) {

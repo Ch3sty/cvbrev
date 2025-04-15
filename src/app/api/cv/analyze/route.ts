@@ -1,237 +1,229 @@
-import { NextResponse } from 'next/server'
-import { cookies } from 'next/headers'
-import { createServerClient } from '@/lib/supabase/server'; // Korrekt import
-import { openai } from '@/lib/openai/api'
-import { Database } from '@/types/database.types'
+// /src/app/api/cv/analyze/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
+import { createServerClient } from '@/lib/supabase/server'; // Importerar bara funktionen
+import { SupabaseClient } from '@supabase/supabase-js';   // <<<--- KORREKT IMPORT HÄR
+import { analyzeCvBasic, analyzeCvPremium } from '@/lib/openai/cv-analysis';
+import { Database } from '@/types/database.types';
 
-// Definiera gränsen centralt i API-rutten
-const WEEKLY_ANALYSIS_LIMIT_FREE = 2;
+// ============================================================================
+//  Constants & Configuration
+// ============================================================================
 
-// Hjälpfunktion för att beräkna nästa reset-datum (samma logik som i useProfile)
+const WEEKLY_ANALYSIS_LIMIT_FREE = 1; // Definiera gräns för gratisanvändare
+
+// ============================================================================
+//  Helper Functions
+// ============================================================================
+
+/**
+ * Calculates the next reset date (next Monday 00:00 UTC) based on the last reset timestamp.
+ * Ensures the calculated reset date is always in the future relative to the current time.
+ * @param lastResetTimestamp - ISO string of the last reset or null.
+ * @returns Date object representing the next reset timestamp.
+ */
 const calculateNextResetDate = (lastResetTimestamp: string | null): Date => {
-  const now = new Date();
-  const lastReset = lastResetTimestamp ? new Date(lastResetTimestamp) : now; // Använd nu om null
-
-  const nextReset = new Date(lastReset);
-  nextReset.setUTCHours(0, 0, 0, 0); // Nollställ tid till början av dagen (UTC)
-
-  // Hitta nästa måndag
-  const dayOfWeek = nextReset.getUTCDay(); // 0=Söndag, 1=Måndag,...
-  const daysUntilMonday = (dayOfWeek === 1) ? 7 : (dayOfWeek === 0 ? 1 : 8 - dayOfWeek);
-  nextReset.setUTCDate(nextReset.getUTCDate() + daysUntilMonday);
-
-  // Säkerställ att reset alltid är i framtiden jämfört med 'nu'
-  if (nextReset.getTime() <= now.getTime()) {
-    nextReset.setUTCDate(nextReset.getUTCDate() + 7);
-  }
-  return nextReset;
+    // ... (funktionens kod oförändrad) ...
+    const now = new Date();
+    const lastReset = lastResetTimestamp ? new Date(lastResetTimestamp) : now;
+    const nextReset = new Date(lastReset);
+    nextReset.setUTCHours(0, 0, 0, 0);
+    const currentDayOfWeek = nextReset.getUTCDay();
+    const daysUntilMonday = (currentDayOfWeek === 1) ? 7 : (8 - currentDayOfWeek) % 7;
+    if (daysUntilMonday === 0 && lastResetTimestamp === null) {
+         nextReset.setUTCDate(nextReset.getUTCDate() + 7);
+    } else if (daysUntilMonday > 0) {
+        nextReset.setUTCDate(nextReset.getUTCDate() + daysUntilMonday);
+    }
+    while (nextReset.getTime() <= now.getTime()) {
+        console.warn(`Calculated reset date ${nextReset.toISOString()} was not in the future compared to ${now.toISOString()}. Adding 7 days.`);
+        nextReset.setUTCDate(nextReset.getUTCDate() + 7);
+    }
+    return nextReset;
 };
 
-
-export async function POST(request: Request) {
-  const cookieStore = cookies()
-  const supabase = createServerClient({ cookies: cookieStore }); // Korrekt initialisering
-
-  // 1. Autentisering (ingen ändring)
-  const { data: { user }, error: authError } = await supabase.auth.getUser()
-
-  if (authError || !user) {
-    console.error('Analysera CV - Auth Error:', authError)
-    return NextResponse.json({ message: 'Åtkomst nekad: Användaren är inte autentiserad.' }, { status: 401 })
-  }
-
-  // 2. Hämta CV ID (ingen ändring)
-  let cvId: string
-  try {
-    const body = await request.json()
-    if (!body.cvId) {
-      return NextResponse.json({ message: 'Saknar CV ID i förfrågan.' }, { status: 400 })
+/**
+ * Fetches user profile data relevant for analysis limits.
+ * @param supabase - Initialized Supabase server client.
+ * @param userId - The ID of the user.
+ * @returns Profile data or throws an error.
+ */
+// Använd den importerade SupabaseClient-typen här
+async function getUserProfileData(supabase: SupabaseClient<Database>, userId: string) {
+    // ... (funktionens kod oförändrad) ...
+     const { data: profileData, error: profileError } = await supabase
+        .from('profiles')
+        .select('subscription_tier, weekly_analysis_count, last_analysis_reset, next_reset_date')
+        .eq('id', userId)
+        .single();
+    if (profileError) {
+        const errorMessage = profileError.code === 'PGRST116' ? 'Användarprofil kunde inte hittas.' : `Databasfel vid hämtning av profil: ${profileError.message}`;
+        console.error(`API analyzeCv: Error fetching profile for user ${userId}:`, profileError);
+        throw new Error(errorMessage);
     }
-    cvId = body.cvId
-  } catch (error) {
-    console.error('Analysera CV - Parse body error:', error)
-    return NextResponse.json({ message: 'Kunde inte läsa förfrågan.' }, { status: 400 })
-  }
-
-  // --- Logik för profil, reset och gränskontroll (ingen ändring) ---
-  let currentAnalysisCount: number = 0;
-  let lastAnalysisResetTimestamp: string | null = null;
-  let subscriptionTier: 'free' | 'premium' = 'free';
-  let nextResetDate: Date;
-
-  try {
-    const { data: profileData, error: profileError } = await supabase
-      .from('profiles')
-      .select('subscription_tier, weekly_analysis_count, last_analysis_reset')
-      .eq('id', user.id)
-      .single();
-
-     if (profileError && profileError.code !== 'PGRST116') {
-        throw profileError;
-     } else if (profileData) {
-      subscriptionTier = (profileData.subscription_tier === 'premium' ? 'premium' : 'free');
-      currentAnalysisCount = profileData.weekly_analysis_count ?? 0;
-      lastAnalysisResetTimestamp = profileData.last_analysis_reset;
-     }
-
-    nextResetDate = calculateNextResetDate(lastAnalysisResetTimestamp);
-    const now = new Date();
-
-    // Nollställning av räknare om det är dags
-    if (now.getTime() >= nextResetDate.getTime()) {
-        console.log(`Analysera CV - Användare ${user.id}: Räknaren behöver nollställas.`);
-        currentAnalysisCount = 0;
-        lastAnalysisResetTimestamp = now.toISOString();
-
-        const { error: resetError } = await supabase
-            .from('profiles')
-            .update({ weekly_analysis_count: 0, last_analysis_reset: lastAnalysisResetTimestamp })
-            .eq('id', user.id);
-
-        if (resetError) {
-            console.error(`Analysera CV - Användare ${user.id}: Kunde inte uppdatera DB vid nollställning:`, resetError);
-        } else {
-            console.log(`Analysera CV - Användare ${user.id}: Databas uppdaterad med nollställd räknare.`);
-        }
-        nextResetDate = calculateNextResetDate(lastAnalysisResetTimestamp); // Beräkna om efter reset
-    } else {
-        console.log(`Analysera CV - Användare ${user.id}: Ingen nollställning behövs.`);
+     if (!profileData) {
+        console.error(`API analyzeCv: Profile data is null for user ${userId} despite no error.`);
+        throw new Error('Användarprofil saknas.');
     }
-
-    // Gränskontroll för gratisanvändare
-    if (subscriptionTier === 'free') {
-      if (currentAnalysisCount >= WEEKLY_ANALYSIS_LIMIT_FREE) {
-        console.log(`Analysera CV - Användare ${user.id} (Free): Gräns nådd.`);
-        return NextResponse.json(
-          {
-            message: `Du har nått din veckogräns på ${WEEKLY_ANALYSIS_LIMIT_FREE} CV-analyser.`,
-            remainingAnalyses: 0,
-            limitReached: true,
-            nextResetDate: nextResetDate.toISOString()
-          },
-          { status: 429 }
-        );
-      } else {
-        console.log(`Analysera CV - Användare ${user.id} (Free): ${WEEKLY_ANALYSIS_LIMIT_FREE - currentAnalysisCount} analyser kvar.`);
-      }
-    } else {
-      console.log(`Analysera CV - Användare ${user.id} (Premium): Tillåter analys.`);
-    }
-
-  } catch (error: any) {
-    console.error(`Analysera CV - Fel vid profilhämtning/gränskontroll (User ID: ${user.id}):`, error);
-    return NextResponse.json({ message: 'Kunde inte verifiera användarstatus eller gränser.' }, { status: 500 });
-  }
-  // --- SLUT PÅ Logik för profil, reset och gränskontroll ---
-
-
-  try {
-    // 4. Hämta CV-text från databasen (ingen ändring)
-    const { data: cvData, error: dbError } = await supabase
-      .from('cv_texts')
-      .select('cv_text')
-      .eq('id', cvId)
-      .eq('user_id', user.id)
-      .single()
-
-    if (dbError || !cvData || !cvData.cv_text) {
-      console.error(`Analysera CV - DB Error (CV ID: ${cvId}, User ID: ${user.id}):`, dbError)
-      const message = dbError?.code === 'PGRST116' ? 'Kunde inte hitta angivet CV eller så tillhör det inte dig.' : 'Kunde inte hämta CV-text från databasen.'
-      return NextResponse.json({ message }, { status: dbError?.code === 'PGRST116' ? 404 : 500 })
-    }
-
-    const cvText = cvData.cv_text
-
-    // 5. Förbered OpenAI Prompt (Fortfarande uppdaterad för svenska)
-    const prompt = `
-Du är en expert på rekrytering och CV-granskning specialiserad på den svenska arbetsmarknaden. Analysera följande CV-text noggrant.
-**VIKTIGT: All text i ditt JSON-svar (i värdena för nycklarna) MÅSTE vara på SVENSKA.**
-
-Identifiera styrkor, svagheter/förbättringsområden, och extrahera relevanta nyckelord. Ge också en kort sammanfattning och en bedömning av tydlighet och användning av handlingskraftiga verb.
-
-**CV-Text:**
-\`\`\`
-${cvText}
-\`\`\`
-
-**Instruktioner för ditt svar:**
-Returnera ditt svar **endast** som ett JSON-objekt med följande exakta struktur och nycklar (på engelska för enkelhet i koden):
-{
-  "summary": "En kort (1-2 meningar) övergripande bedömning av CV:t. **Texten ska vara på svenska.**",
-  "strengths": ["Lista med 3-5 tydliga styrkor identifierade i CV:t (specifika färdigheter, erfarenheter, prestationer). **Texten i listan ska vara på svenska.**"],
-  "improvement_areas": ["Lista med 2-4 konkreta och konstruktiva förslag på förbättringar (t.ex. kvantifiera resultat, förtydliga ansvar, lägg till sektion X, åtgärda otydligheter). Var specifik! **Texten i listan ska vara på svenska.**"],
-  "keywords": ["Lista med 5-10 relevanta nyckelord extraherade från CV:t (tekniska färdigheter, mjuka färdigheter, branschspecifika termer, verktyg). **Listan ska endast innehålla orden/termerna på svenska.**"],
-  "clarity_score": Siffra mellan 1 (mycket otydligt) och 10 (mycket tydligt) som bedömer CV:ts struktur och läsbarhet.,
-  "action_verbs_usage": "En kort bedömning (t.ex. 'Bra', 'Kan förbättras', 'Varierad') av användningen av starka handlingsverb för att beskriva erfarenheter. **Bedömningen ska vara på svenska.**"
+    return {
+        subscriptionTier: (profileData.subscription_tier === 'premium' ? 'premium' : 'free') as 'free' | 'premium',
+        currentAnalysisCount: profileData.weekly_analysis_count ?? 0,
+        lastAnalysisResetTimestamp: profileData.last_analysis_reset,
+        dbNextResetDate: profileData.next_reset_date ? new Date(profileData.next_reset_date) : null
+    };
 }
 
-Se till att JSON-objektet är korrekt formaterat och komplett. Inkludera ingen annan text före eller efter JSON-objektet. **Dubbelkolla att all text i värdena för "summary", "strengths", "improvement_areas", "keywords" och "action_verbs_usage" är på SVENSKA.**
-`
-
-    // 6. Anropa OpenAI API ( *** UPPDATERAD MODELL OCH TOKENS *** )
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o",                 // <<< ÄNDRAD MODELL
-      messages: [{ role: "user", content: prompt }],
-      temperature: 0.3,
-      max_tokens: 800,                 // <<< ÄNDRAD MAX_TOKENS
-      response_format: { type: "json_object" },
-    });
-
-    const aiResponseContent = completion.choices[0]?.message?.content
-
-    if (!aiResponseContent) {
-      throw new Error('OpenAI returnerade inget innehåll.')
+/**
+ * Resets the weekly analysis count for a user if the reset date has passed.
+ * @param supabase - Initialized Supabase server client.
+ * @param userId - The ID of the user.
+ * @param dbNextResetDate - The next reset date stored in the database (or null).
+ * @param lastAnalysisResetTimestamp - The timestamp of the last reset.
+ * @returns Object containing the reset count, new last reset timestamp, and new next reset date.
+ */
+// Använd den importerade SupabaseClient-typen här
+async function checkAndResetAnalysisCount(
+    supabase: SupabaseClient<Database>,
+    userId: string,
+    currentCount: number,
+    dbNextResetDate: Date | null,
+    lastAnalysisResetTimestamp: string | null
+): Promise<{ count: number; lastReset: string; nextReset: Date }> {
+    // ... (funktionens kod oförändrad) ...
+     const now = new Date();
+    let nextResetDate = (dbNextResetDate && dbNextResetDate > now) ? dbNextResetDate : calculateNextResetDate(lastAnalysisResetTimestamp);
+    let count = currentCount;
+    let lastReset = lastAnalysisResetTimestamp ?? now.toISOString();
+    if (now.getTime() >= nextResetDate.getTime()) {
+        console.log(`API analyzeCv: User ${userId}: Resetting analysis count.`);
+        count = 0;
+        lastReset = now.toISOString();
+        nextResetDate = calculateNextResetDate(lastReset);
+        const { error: resetError } = await supabase
+            .from('profiles')
+            .update({ weekly_analysis_count: 0, last_analysis_reset: lastReset, next_reset_date: nextResetDate.toISOString() })
+            .eq('id', userId);
+        if (resetError) { console.error(`API analyzeCv: User ${userId}: Failed to update DB on count reset:`, resetError); }
+        else { console.log(`API analyzeCv: User ${userId}: Database updated with reset count and new reset date.`); }
     }
+    return { count, lastReset, nextReset: nextResetDate };
+}
 
-    // 7. Parsa OpenAI Svar (ingen ändring)
-    let analysisResult: any;
-    try {
-      analysisResult = JSON.parse(aiResponseContent);
-      if (!analysisResult.summary || !analysisResult.strengths || !analysisResult.improvement_areas || !analysisResult.keywords) {
-          throw new Error("AI-svaret saknar nödvändiga fält.");
-      }
-    } catch (parseError) {
-      console.error('Analysera CV - OpenAI JSON Parse Error:', parseError)
-      console.error('--- Mottaget från OpenAI ---'); console.error(aiResponseContent); console.error('--- Slut på OpenAI-svar ---')
-      throw new Error('Kunde inte tolka svaret från AI-analysen.')
+
+/**
+ * Fetches the CV text for a given user and CV ID.
+ * @param supabase - Initialized Supabase server client.
+ * @param userId - The ID of the user.
+ * @param cvId - The ID of the CV.
+ * @returns The CV text or throws an error.
+ */
+// Använd den importerade SupabaseClient-typen här
+async function getCvText(supabase: SupabaseClient<Database>, userId: string, cvId: string): Promise<string> {
+    // ... (funktionens kod oförändrad) ...
+    const { data: cvData, error: dbError } = await supabase
+        .from('cv_texts')
+        .select('cv_text')
+        .eq('id', cvId)
+        .eq('user_id', userId)
+        .single();
+    if (dbError || !cvData?.cv_text) {
+        const isNotFoundError = dbError?.code === 'PGRST116';
+        const errorMessage = isNotFoundError ? 'Kunde inte hitta angivet CV eller så tillhör det inte dig.' : `Databasfel vid hämtning av CV: ${dbError?.message || 'Okänt DB-fel'}`;
+        console.error(`API analyzeCv: Error fetching CV text (CV ID: ${cvId}, User ID: ${userId}):`, dbError);
+        const error = new Error(errorMessage);
+        (error as any).statusCode = isNotFoundError ? 404 : 500;
+        throw error;
     }
+    return cvData.cv_text;
+}
 
-    // --- Logik för uppdatering av räknare (ingen ändring) ---
-    let remainingAnalysesAfterUpdate = Infinity;
-
-    if (subscriptionTier === 'free') {
-      const newCount = currentAnalysisCount + 1;
-      const { error: updateError } = await supabase
+/**
+ * Updates the analysis count for a free user after a successful analysis.
+ * @param supabase - Initialized Supabase server client.
+ * @param userId - The ID of the user.
+ * @param currentCount - The count *before* this analysis.
+ * @returns The remaining analysis count after decrementing.
+ */
+// Använd den importerade SupabaseClient-typen här
+async function decrementFreeUserCount(supabase: SupabaseClient<Database>, userId: string, currentCount: number): Promise<number> {
+     // ... (funktionens kod oförändrad) ...
+      const newCount = currentCount + 1;
+    const { error: updateError } = await supabase
         .from('profiles')
         .update({ weekly_analysis_count: newCount })
-        .eq('id', user.id);
+        .eq('id', userId);
+    if (updateError) { console.error(`API analyzeCv: User ${userId}: Failed to update analysis count after successful analysis:`, updateError); }
+    return Math.max(0, WEEKLY_ANALYSIS_LIMIT_FREE - newCount);
+}
 
-      if (updateError) {
-        console.error(`Analysera CV - Användare ${user.id}: Kunde inte uppdatera räknare efter analys:`, updateError);
-      } else {
-        console.log(`Analysera CV - Användare ${user.id}: Räknare uppdaterad till ${newCount}.`);
-      }
-      remainingAnalysesAfterUpdate = Math.max(0, WEEKLY_ANALYSIS_LIMIT_FREE - newCount);
+
+// ============================================================================
+//  API Route Handler (POST)
+// ============================================================================
+export async function POST(request: NextRequest) {
+    const cookieStore = cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
+
+    let userId: string | undefined;
+
+    try {
+        // --- 1. Authentication ---
+        const { data: { user }, error: authError } = await supabase.auth.getUser();
+        if (authError || !user) {
+            console.error('API analyzeCv: Authentication failed.', authError);
+            return NextResponse.json({ message: 'Autentisering krävs.' }, { status: 401 });
+        }
+        userId = user.id;
+
+        // --- 2. Request Body Parsing ---
+        let cvId: string;
+        try {
+            const body = await request.json();
+            cvId = body.cvId;
+            if (!cvId || typeof cvId !== 'string') { throw new Error('cvId saknas eller är ogiltigt i request body.'); }
+        } catch (error) {
+            console.error('API analyzeCv: Failed to parse request body:', error);
+            return NextResponse.json({ message: 'Ogiltig förfrågan.' }, { status: 400 });
+        }
+
+        // --- 3. Fetch Profile & Handle Limits/Resets ---
+        const profileData = await getUserProfileData(supabase, userId);
+        const resetInfo = await checkAndResetAnalysisCount( supabase, userId, profileData.currentAnalysisCount, profileData.dbNextResetDate, profileData.lastAnalysisResetTimestamp );
+        let currentRemainingAnalyses = WEEKLY_ANALYSIS_LIMIT_FREE - resetInfo.count;
+        const nextResetDate = resetInfo.nextReset;
+        if (profileData.subscriptionTier === 'free' && resetInfo.count >= WEEKLY_ANALYSIS_LIMIT_FREE) {
+            console.log(`API analyzeCv: User ${userId} (Free): Limit reached after reset check.`);
+            return NextResponse.json( { message: `Du har nått din veckogräns på ${WEEKLY_ANALYSIS_LIMIT_FREE} CV-analyser.`, remainingAnalyses: 0, limitReached: true, nextResetDate: nextResetDate.toISOString() }, { status: 429 } );
+        }
+
+        // --- 4. Fetch CV Text ---
+        const cvText = await getCvText(supabase, userId, cvId);
+
+        // --- 5. Perform AI Analysis ---
+        console.log(`API analyzeCv: User ${userId} (${profileData.subscriptionTier}): Performing analysis for CV ${cvId}...`);
+        let analysisResult;
+        if (profileData.subscriptionTier === 'premium') {
+            analysisResult = await analyzeCvPremium(cvText);
+        } else {
+            analysisResult = await analyzeCvBasic(cvText);
+        }
+        console.log(`API analyzeCv: User ${userId}: Analysis successful.`);
+
+        // --- 6. Update Count for Free Users (Post-Analysis) ---
+        if (profileData.subscriptionTier === 'free') {
+            currentRemainingAnalyses = await decrementFreeUserCount(supabase, userId, resetInfo.count);
+        } else {
+             currentRemainingAnalyses = Infinity;
+        }
+
+        // --- 7. Construct and Return Success Response ---
+        return NextResponse.json( { ...analysisResult, remainingAnalyses: currentRemainingAnalyses, nextResetDate: nextResetDate.toISOString(), limitReached: profileData.subscriptionTier === 'free' && currentRemainingAnalyses <= 0, }, { status: 200 } );
+
+    } catch (error: any) {
+        // --- Global Error Handling ---
+        console.error(`API analyzeCv: Unhandled error for user ${userId ?? 'unknown'}:`, error);
+        const statusCode = error.statusCode || 500;
+        const message = statusCode === 404 ? error.message : error.message || 'Ett internt serverfel inträffade.';
+        return NextResponse.json({ message: message }, { status: statusCode });
     }
-    // --- SLUT PÅ Logik för uppdatering av räknare ---
-
-
-    // 9. Returnera framgångsrikt svar (ingen ändring)
-    return NextResponse.json(
-      {
-        ...analysisResult,
-        remainingAnalyses: remainingAnalysesAfterUpdate,
-        nextResetDate: nextResetDate.toISOString(),
-        limitReached: subscriptionTier === 'free' && remainingAnalysesAfterUpdate <= 0,
-      },
-      { status: 200 }
-    )
-
-  } catch (error: any) {
-    console.error(`Analysera CV - Oväntat fel (CV ID: ${cvId}, User ID: ${user.id}):`, error)
-    const message = error.message.includes("AI-svaret saknar") || error.message.includes("tolka svaret")
-      ? "AI-analysen kunde inte slutföras korrekt. Försök igen om en liten stund."
-      : error.message || 'Ett internt fel uppstod vid analys av CV.';
-    return NextResponse.json({ message: message }, { status: 500 })
-  }
 }

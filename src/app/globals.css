@@ -4,8 +4,9 @@
 
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 19, 24, 42;
-  --background-end-rgb: 10, 15, 30;
+  /* Lite justerad bakgrund för djupare känsla */
+  --background-start-rgb: 10, 15, 30; /* Mörkare start */
+  --background-end-rgb: 19, 24, 42; /* Något ljusare slut */
 }
 
 body {
@@ -16,4 +17,93 @@ body {
       rgb(var(--background-end-rgb))
     )
     fixed;
+  /* Smidigare scrollning */
+  scroll-behavior: smooth;
 }
+
+/* Befintliga animationer (Behåll) */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); } /* Lite mindre scale */
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(15px); } /* Lite mer translateY */
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4); } /* Något starkare start-glow */
+  70% { box-shadow: 0 0 0 12px rgba(236, 72, 153, 0); } /* Lite större spridning */
+  100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out forwards; /* Något längre duration */
+}
+.animate-slideUp {
+  animation: slideUp 0.4s ease-out forwards; /* Något längre duration */
+}
+.animate-pulse-pink {
+  /* Tillämpas direkt i klassen för CTA-knappar */
+  animation: pulse 1.8s infinite cubic-bezier(0.66, 0, 0, 1); /* Annan timing function */
+}
+
+/* Card hover effects (Behåll och ev. finjustera) */
+/* Generell card hover (kan appliceras på funktionskort, prisplaner etc.) */
+.card-hover-effect {
+  @apply transition-all duration-300 ease-in-out;
+}
+.card-hover-effect:hover {
+   @apply transform -translate-y-1 shadow-lg;
+   /* Du kan lägga till specifika border-färger i komponentens klasser, t.ex. hover:border-pink-500 */
+}
+
+
+/* Elegant scrollbar (Behåll) */
+.elegant-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.elegant-scrollbar::-webkit-scrollbar-track {
+  background: rgba(30, 41, 59, 0.5); /* Mörkare track */
+  border-radius: 10px;
+}
+.elegant-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(236, 72, 153, 0.4); /* Lite mer genomskinlig thumb */
+  border-radius: 10px;
+}
+.elegant-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(236, 72, 153, 0.6); /* Tydligare hover */
+}
+
+/* Ta bort gamla .cv-card och .letter-card specifika regler om de inte används någon annanstans */
+/* .cv-card { ... } */
+/* .letter-card { ... } */
+
+/* Modal animation (Behåll om ni använder modaler) */
+.modal-container {
+  animation: modalFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+/* Backdrop blur (Behåll om ni använder modaler) */
+.backdrop-blur-sm {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* NYTT: För textgradienter (om webkit behövs för äldre browsers) */
+.bg-clip-text {
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* NYTT: Subtil bakgrundspattern (optionellt) */
+/* body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.5;
+  z-index: -1;
+} */

@@ -3,19 +3,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-// createClientComponentClient behövs inte om vi bara använder getSupabaseClient
-// import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useProfile } from '@/hooks/use-profile';
 import { useCVStore } from '@/store/cv-store';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
-// useCallback behövs inte längre här om vi inte har komplexa callbacks
-// import { useCallback } from 'react';
 import Link from 'next/link';
+import { logUserActivity } from '@/lib/activity-logger';
 
 // Import components
 import CVUploader from '@/components/cv/cv-uploader';
-import Notification from '@/components/ui/notification'; // Denna behövs fortfarande för andra notiser på sidan
-import SubscriptionInfo from '@/components/subscription/subscription-info'; // Behåll för visning
+import Notification from '@/components/ui/notification';
+import SubscriptionInfo from '@/components/subscription/subscription-info';
 // *** NYA IMPORTER FÖR STRIPE ***
 import { SubscribeButton } from '@/components/subscription/SubscribeButton';
 import { ManageSubscriptionButton } from '@/components/subscription/ManageSubscriptionButton';
@@ -41,44 +38,43 @@ import {
   Scale,
   Bot,
   Pencil,
-  Crown, // För prenumerationsfliken
-  SearchCheck // För CV-analys
+  Crown,
+  SearchCheck,
+  Check
 } from 'lucide-react';
 
 export default function ProfilePage() {
   const router = useRouter();
   const supabase = getSupabaseClient();
-  // Hämta subscriptionTier från useProfile och lägg till CV-analys relaterade värden
   const {
     profile,
     loading: profileLoading,
     updateProfile,
     subscriptionTier,
-    // Nya värden för CV-analys
     remainingWeeklyAnalyses,
     weeklyAnalysisLimit
   } = useProfile();
   const { cvs, fetchCVs, isLoading: cvListLoading } = useCVStore();
 
-  // Definiera cvCount och maxCvCount variablerna
   const cvCount = cvs.length;
-  // maxCvCount hämtas nu rimligen från useProfile's subscriptionLimits
-  // const maxCvCount = 5; // Ta bort hårdkodad gräns
-  // hasReachedCvLimit beror nu på subscriptionTier
-  // const hasReachedCvLimit = cvCount >= maxCvCount; // Ta bort denna
 
   const [activeTab, setActiveTab] = useState('profile');
   const [saving, setSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleteId, setDeleteId] = useState('');
-  // Behåll state och funktioner för sidans egna notifikationer
   const [notification, setNotification] = useState<{
     message: string;
     type: 'loading' | 'success' | 'error' | 'info';
     progress?: number;
     isVisible: boolean;
   } | null>(null);
+
+  // State för kontoborttagning
+  const [showDeleteAccountConfirm, setShowDeleteAccountConfirm] = useState(false);
+  const [deleteAccountConfirmText, setDeleteAccountConfirmText] = useState('');
+  const [deleteAccountLoading, setDeleteAccountLoading] = useState(false);
+  const [deleteAccountError, setDeleteAccountError] = useState('');
 
   const [formData, setFormData] = useState({
     full_name: '',
@@ -87,12 +83,10 @@ export default function ProfilePage() {
   });
 
   // *** STRIPE PRICE ID (Månad) ***
-  // Hämta samma ID som används på prissidan
   const premiumMonthlyPriceId = "price_1R7eyuAB6xHzwmWvtzFJdaOU";
   // ******************************
 
   const tonalityOptions = [
-    // ... (tonalityOptions oförändrad)
     {
       value: 'auto',
       label: 'AI-val (Rekommenderas)',
@@ -131,6 +125,86 @@ export default function ProfilePage() {
     }
   ];
 
+  // Funktion för att radera konto
+  const confirmDeleteAccount = async () => {
+    if (deleteAccountConfirmText !== 'radera mitt konto') {
+      return;
+    }
+    
+    try {
+      setDeleteAccountLoading(true);
+      setDeleteAccountError('');
+      
+      // 1. Logga aktiviteten först (så den inte försvinner om kontot raderas)
+      if (profile) {
+        await logUserActivity(
+          profile.id,
+          'registered', // Använd motsatt aktivitet från 'registered'
+          'Användaren raderade sitt konto',
+          { 
+            email: profile.email,
+            subscription_tier: subscriptionTier,
+            timestamp: new Date().toISOString()
+          }
+        );
+      }
+      
+      // 2. Ta bort alla CV-filer och relaterad data
+      const cvDeleteResponse = await fetch('/api/cv', {
+        method: 'DELETE'
+      });
+      
+      if (!cvDeleteResponse.ok) {
+        console.warn('Kunde inte ta bort alla CV-data, men fortsätter med kontoborttagning');
+      }
+      
+      // 3. Ta bort alla sparade brev om sådan API finns
+      try {
+        const letterDeleteResponse = await fetch('/api/letters', {
+          method: 'DELETE'
+        });
+        
+        if (!letterDeleteResponse.ok) {
+          console.warn('Kunde inte ta bort alla brev, men fortsätter med kontoborttagning');
+        }
+      } catch (err) {
+        console.warn('API-rutt för borttagning av brev saknas eller är otillgänglig');
+      }
+      
+      // 4. Ta bort kontot via Supabase Auth API
+      const { error: deleteError } = await supabase.auth.admin.deleteUser(
+        profile?.id || ''
+      );
+      
+      if (deleteError) {
+        if (deleteError.message.includes('permissions')) {
+          // Fallback: Om vi inte har admin-rättigheter, försök med klient-API
+          try {
+            await supabase.auth.signOut();
+            const { error: clientDeleteError } = await supabase.rpc('delete_user_account');
+            
+            if (clientDeleteError) {
+              throw clientDeleteError;
+            }
+          } catch (rpcError: any) {
+            throw new Error(`Kontoborttagning via RPC misslyckades: ${rpcError.message}`);
+          }
+        } else {
+          throw deleteError;
+        }
+      }
+      
+      // 5. Videbefordra till en bekräftelsesida
+      showNotificationMessage('Ditt konto har raderats', 'success');
+      router.push('/'); // Eller till en speciell sida för borttaget konto om du skapar en sådan
+      
+    } catch (error: any) {
+      console.error('Fel vid borttagning av konto:', error);
+      setDeleteAccountError('Ett fel uppstod vid borttagning av kontot: ' + (error.message || 'Okänt fel'));
+      setDeleteAccountLoading(false);
+    }
+  };
+
   // Update form data when profile data is loaded
   useEffect(() => {
     if (profile) {
@@ -147,7 +221,7 @@ export default function ProfilePage() {
     fetchCVs();
   }, [fetchCVs]);
 
-  // Handle form input changes (oförändrad)
+  // Handle form input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -156,7 +230,7 @@ export default function ProfilePage() {
     }));
   };
 
-  // Handle tonality selection (oförändrad)
+  // Handle tonality selection
   const handleTonalitySelect = (value: string) => {
     setFormData(prev => ({
       ...prev,
@@ -164,7 +238,7 @@ export default function ProfilePage() {
     }));
   };
 
-  // Show notification (behålls för andra åtgärder på sidan)
+  // Show notification
   const showNotificationMessage = (message: string, type: 'loading' | 'success' | 'error' | 'info', progress?: number) => {
     setNotification({
       message,
@@ -173,7 +247,6 @@ export default function ProfilePage() {
       isVisible: true
     });
 
-    // Auto-hide logic remains the same
     if (type !== 'loading') {
       setTimeout(() => {
         setNotification(prev => prev ? { ...prev, isVisible: false } : null);
@@ -182,41 +255,34 @@ export default function ProfilePage() {
     }
   };
 
-  // Close notification (oförändrad)
+  // Close notification
   const handleCloseNotification = () => {
     setNotification(prev => prev ? { ...prev, isVisible: false } : null);
     setTimeout(() => setNotification(null), 300);
   };
 
-  // Handle CV upload success (Använder fortfarande sidans notifikation)
-  // ÄVEN OM CVUploader nu visar sin *egen* notis via context,
-  // kan vi behålla denna för att t.ex. visa en extra bekräftelse
-  // eller om vi vill trigga något annat på sidan. Om du *bara*
-  // vill ha notisen från CVUploader kan denna funktion tömmas eller tas bort.
+  // Handle CV upload success
   const handleUploadSuccess = () => {
-    // showNotificationMessage('CV uppladdad framgångsrikt!', 'success'); // Kan tas bort om context-notisen räcker
-    fetchCVs(); // Denna är viktig att behålla för att uppdatera listan
+    fetchCVs();
   };
 
-  // Handle CV upload error (Samma logik som ovan)
+  // Handle CV upload error
   const handleUploadError = (error: Error) => {
-    // Visa ett fel här om det behövs utöver det som CVUploader visar via context
-    // showNotificationMessage(error.message || 'Ett fel uppstod vid uppladdning', 'error');
-    console.error("Fel från CVUploader:", error); // Bra att logga felet
+    console.error("Fel från CVUploader:", error);
   };
 
-  // Handle request to delete CV (oförändrad)
+  // Handle request to delete CV
   const handleDeleteCV = (id: string) => {
     setDeleteId(id);
     setShowDeleteConfirm(true);
   };
 
-  // Confirm CV deletion with the specific CV ID (oförändrad, använder sidans notifikation)
+  // Confirm CV deletion with the specific CV ID
   const confirmDeleteCV = async () => {
     try {
       if (!deleteId) return;
       setIsDeleting(true);
-      showNotificationMessage('Tar bort CV...', 'loading'); // Använder sidans notifikation
+      showNotificationMessage('Tar bort CV...', 'loading');
       const response = await fetch(`/api/cv/delete`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
@@ -224,27 +290,37 @@ export default function ProfilePage() {
       });
       if (response.ok) {
         fetchCVs();
-        showNotificationMessage('CV har tagits bort', 'success'); // Använder sidans notifikation
+        showNotificationMessage('CV har tagits bort', 'success');
+        
+        // Logga aktiviteten med activity-logger
+        if (profile) {
+          logUserActivity(
+            profile.id,
+            'cv_deleted',
+            'Användaren raderade ett CV',
+            { cv_id: deleteId }
+          ).catch(e => console.error('Loggningsfel:', e));
+        }
       } else {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Kunde inte ta bort CV');
       }
     } catch (error: any) {
-      showNotificationMessage(error.message || 'Ett fel uppstod vid borttagning', 'error'); // Använder sidans notifikation
+      showNotificationMessage(error.message || 'Ett fel uppstod vid borttagning', 'error');
     } finally {
       setIsDeleting(false);
       setShowDeleteConfirm(false);
-      setDeleteId(''); // Rensa ID efteråt
+      setDeleteId('');
     }
   };
 
-  // Save profile changes (oförändrad, använder sidans notifikation)
+  // Save profile changes
   const handleSaveProfile = async () => {
     try {
       setSaving(true);
-      showNotificationMessage('Sparar profiländringar...', 'loading'); // Använder sidans notifikation
+      showNotificationMessage('Sparar profiländringar...', 'loading');
       if (formData.full_name.trim() === '') {
-        showNotificationMessage('Ange ditt namn', 'error'); // Använder sidans notifikation
+        showNotificationMessage('Ange ditt namn', 'error');
         setSaving(false);
         return;
       }
@@ -254,18 +330,31 @@ export default function ProfilePage() {
         preferred_tonality: formData.preferred_tonality as any
       });
       if (success) {
-        showNotificationMessage('Profil uppdaterad', 'success'); // Använder sidans notifikation
+        showNotificationMessage('Profil uppdaterad', 'success');
+        
+        // Logga aktiviteten med activity-logger
+        if (profile) {
+          logUserActivity(
+            profile.id,
+            'profile_updated',
+            'Användaren uppdaterade sin profil',
+            { 
+              updated_fields: ['full_name', 'phone', 'preferred_tonality'],
+              preferred_tonality: formData.preferred_tonality
+            }
+          ).catch(e => console.error('Loggningsfel:', e));
+        }
       } else {
-        showNotificationMessage('Kunde inte uppdatera profil', 'error'); // Använder sidans notifikation
+        showNotificationMessage('Kunde inte uppdatera profil', 'error');
       }
     } catch (error: any) {
-      showNotificationMessage(error.message || 'Ett fel uppstod vid uppdatering', 'error'); // Använder sidans notifikation
+      showNotificationMessage(error.message || 'Ett fel uppstod vid uppdatering', 'error');
     } finally {
       setSaving(false);
     }
   };
 
-  // Loading state (oförändrad)
+  // Loading state
   if (profileLoading) {
     return (
       <div className="flex justify-center items-center min-h-[300px]">
@@ -277,7 +366,7 @@ export default function ProfilePage() {
   // === RENDER ===
   return (
     <div className="max-w-screen-lg mx-auto pt-8 pb-16 px-4">
-      {/* Notification (renderas fortfarande för sidans egna notiser) */}
+      {/* Notification */}
       {notification?.isVisible && (
         <Notification
           message={notification.message}
@@ -288,11 +377,11 @@ export default function ProfilePage() {
         />
       )}
 
-      {/* Header (oförändrad) */}
+      {/* Header */}
       <h1 className="text-3xl font-bold text-white mb-2">Min profil</h1>
       <p className="text-gray-300 mb-8">Hantera din profil, dina CV:n och inställningar</p>
 
-      {/* Tabs (oförändrad struktur, men innehållet i subscription-tabben ändras nedan) */}
+      {/* Tabs */}
       <div className="mb-8 border-b border-gray-700">
         <div className="flex flex-wrap gap-2">
           {/* Profil-tab */}
@@ -356,11 +445,10 @@ export default function ProfilePage() {
 
       {/* === TAB CONTENT === */}
 
-      {/* Profile Information Tab (oförändrad) */}
+      {/* Profile Information Tab */}
       {activeTab === 'profile' && (
         <div className="bg-navy-800 rounded-lg p-6 mb-8">
-          {/* ... innehåll för profilinformation ... */}
-           <h2 className="text-xl font-bold mb-6 text-white flex items-center">
+          <h2 className="text-xl font-bold mb-6 text-white flex items-center">
             <User className="w-5 h-5 mr-2 text-pink-500" />
             Profilinformation
           </h2>
@@ -397,7 +485,7 @@ export default function ProfilePage() {
               />
             </div>
 
-             {/* Telefon */}
+            {/* Telefon */}
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-1">
                 Telefonnummer
@@ -500,12 +588,12 @@ export default function ProfilePage() {
         </div>
       )}
 
-        {/* CV Tab (lätt uppdaterad för att använda subscriptionTier för gräns) */}
+      {/* CV Tab */}
       {activeTab === 'cv' && (
         <div className="space-y-6">
           {/* CV List */}
           <div className="bg-navy-800 rounded-lg p-6">
-            <h2 className="text-xl font-semibold mb-4 text-white flex items-center">
+            <h2 className="text-xl font-semibold mb-6 text-white flex items-center">
               <FileText className="w-5 h-5 mr-2 text-pink-500" />
               Dina CV:n
               {/* Dynamisk räknare */}
@@ -519,10 +607,11 @@ export default function ProfilePage() {
                 <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-pink-500"></div>
               </div>
             ) : cvs.length === 0 ? (
-              <div className="border border-gray-700 border-dashed rounded-lg p-4 bg-navy-900/50">
-                <div className="flex flex-col items-center justify-center h-20 text-gray-400">
-                  <div className="text-2xl mb-2">📄</div>
-                  <p className="text-sm">Inga CV:n uppladdade än</p>
+              <div className="border border-gray-700 border-dashed rounded-lg p-6 bg-navy-900/50">
+                <div className="flex flex-col items-center justify-center text-gray-400 py-8">
+                  <FileText className="w-12 h-12 mb-3 text-gray-600" />
+                  <p className="text-lg mb-1">Inga CV:n uppladdade än</p>
+                  <p className="text-sm text-gray-500">Ladda upp ditt första CV för att komma igång</p>
                 </div>
               </div>
             ) : (
@@ -530,59 +619,131 @@ export default function ProfilePage() {
                 {cvs.map((cv) => (
                   <div
                     key={cv.id}
-                    className="border border-gray-700 bg-navy-900/30 rounded-lg p-4 transition-all hover:border-pink-500/50 hover:shadow-lg"
+                    className="border border-gray-700 bg-navy-900/30 rounded-lg overflow-hidden transition-all hover:border-pink-500/30 hover:shadow-lg cv-card animate-slideUp"
                   >
-                    <div className="flex items-start">
-                      <div className="p-2 bg-pink-600/80 rounded-md mr-4 flex-shrink-0">
-                        <FileText className="w-5 h-5 text-white" />
+                    <div className="p-4 flex items-start">
+                      <div className="p-3 bg-pink-600/20 rounded-md mr-4 flex-shrink-0">
+                        <FileText className="w-6 h-6 text-pink-500" />
                       </div>
                       <div className="flex-grow">
-                        <h3 className="font-medium mb-1 text-white">{cv.file_name}</h3>
+                        <h3 className="font-medium mb-1 text-white text-lg">{cv.file_name}</h3>
                         {cv.created_at && (
-                          <p className="text-xs text-gray-400 mb-3">
+                          <p className="text-xs text-gray-400">
                             Uppladdad: {new Date(cv.created_at).toLocaleDateString('sv-SE')}
                           </p>
                         )}
-                        <div className="flex flex-wrap gap-2 mt-2">
-                          <Link
-                            href={`/api/cv/download/${cv.id}`} // Antagande att du har en sådan route
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center px-3 py-1 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors"
-                          >
-                            <ExternalLink className="w-4 h-4 mr-1" />
-                            Visa/Ladda ner
-                          </Link>
-                          {/* Ta bort Redigera för nu, om det inte är implementerat */}
-                          {/* <Link href={`/profile/cv/${cv.id}/edit`} ...> ... </Link> */}
-                          <button
-                            onClick={() => handleDeleteCV(cv.id)}
-                            className="inline-flex items-center px-3 py-1 text-sm bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"
-                            disabled={isDeleting && deleteId === cv.id} // Inaktivera bara den som raderas
-                          >
-                            <Trash className="w-4 h-4 mr-1" />
-                            {isDeleting && deleteId === cv.id ? 'Tar bort...' : 'Ta bort'}
-                          </button>
-                        </div>
                       </div>
+                      <button
+                        onClick={() => handleDeleteCV(cv.id)}
+                        className="p-2 text-gray-400 hover:text-pink-400 transition-colors rounded-full hover:bg-pink-500/10"
+                        disabled={isDeleting && deleteId === cv.id}
+                        title="Ta bort CV"
+                      >
+                        {isDeleting && deleteId === cv.id ? (
+                          <div className="w-5 h-5 border-t-2 border-b-2 border-pink-300 rounded-full animate-spin"></div>
+                        ) : (
+                          <Trash2 className="w-5 h-5" />
+                        )}
+                      </button>
+                    </div>
+                    
+                    {/* CV Preview Section */}
+                    <div className="border-t border-gray-700 p-4 bg-navy-950/50">
+                      <div className="bg-white/95 rounded-md p-5 shadow-inner max-h-56 overflow-auto elegant-scrollbar text-gray-800 text-sm relative">
+                        {/* Preview Content */}
+                        <div className="prose prose-sm max-w-none" style={{ whiteSpace: 'pre-line' }}>
+                          {cv.cv_text && cv.cv_text.length > 500 
+                            ? cv.cv_text.slice(0, 500) + '...' 
+                            : cv.cv_text || 'Ingen förhandsgranskning tillgänglig'}
+                        </div>
+                        
+                        {/* Gradient Overlay */}
+                        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent"></div>
+                      </div>
+                      
+                      {/* Actions Bar */}
+<div className="flex justify-end mt-3 space-x-2">
+  <button
+    onClick={() => {
+      // Skapa ett popup-fönster med CV-innehållet istället för att försöka ladda ned det
+      const newWindow = window.open('', '_blank', 'width=800,height=600');
+      if (newWindow) {
+        newWindow.document.write(`
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <title>${cv.file_name || 'CV'}</title>
+              <style>
+                body { 
+                  font-family: Arial, sans-serif; 
+                  padding: 20px; 
+                  line-height: 1.6;
+                  background-color: white;
+                  color: #333;
+                }
+                h1 { color: #333; }
+                .cv-container {
+                  max-width: 800px;
+                  margin: 0 auto;
+                  white-space: pre-line;
+                  background: white;
+                  padding: 30px;
+                  border-radius: 8px;
+                  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                }
+                .meta {
+                  color: #666;
+                  font-size: 14px;
+                  margin-bottom: 20px;
+                }
+              </style>
+            </head>
+            <body>
+              <div class="cv-container">
+                <h1>${cv.file_name || 'CV'}</h1>
+                <div class="meta">
+                  Uppladdad: ${cv.created_at ? new Date(cv.created_at).toLocaleDateString('sv-SE') : 'okänt datum'}
+                </div>
+                <div>${cv.cv_text ? cv.cv_text.replace(/\n/g, '<br />') : 'Inget CV-innehåll tillgängligt'}</div>
+              </div>
+            </body>
+          </html>
+        `);
+        newWindow.document.close();
+      }
+    }}
+    className="flex items-center px-3 py-1.5 text-sm bg-navy-700 hover:bg-navy-600 text-white rounded-md transition-colors border border-gray-700"
+  >
+    <ExternalLink className="w-4 h-4 mr-1.5" />
+    Visa fullständigt CV
+  </button>
+  
+  {/* CV-analys knapp för Premium-användare */}
+  {subscriptionTier === 'premium' && (
+    <button
+      className="flex items-center px-3 py-1.5 text-sm bg-pink-600/20 hover:bg-pink-600/30 text-pink-300 rounded-md transition-colors"
+      onClick={() => router.push(`/analysera-cv?id=${cv.id}`)}
+    >
+      <SearchCheck className="w-4 h-4 mr-1.5" />
+      Analysera CV
+    </button>
+  )}
+</div>
                     </div>
                   </div>
                 ))}
               </div>
             )}
           </div>
-
-
-          {/* CV Uploader (fortfarande under listan) */}
-          {/* ... din befintliga kod för CVUploader och gräns-meddelande ... */}
+          
+          {/* CV Uploader */}
           {cvCount >= (subscriptionTier === 'premium' ? 999 : 1) ? (
-            <div className="p-4 bg-yellow-900/30 border-l-4 border-yellow-500 rounded-lg">
-              {/* ... Gräns nådd meddelande ... */}
-               <div className="flex items-start">
+            <div className="p-5 bg-navy-800 border-l-4 border-yellow-500 rounded-lg">
+              <div className="flex items-start">
                 <Info className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-semibold text-yellow-300 mb-1">CV-gräns nådd</h4>
-                  <p className="text-yellow-200 text-sm">
+                  <h4 className="font-semibold text-white mb-1">CV-gräns nådd</h4>
+                  <p className="text-gray-300 text-sm">
                     {subscriptionTier === 'premium'
                       ? 'Du har nått gränsen för antal CV:n. Ta bort ett befintligt CV för att ladda upp ett nytt.'
                       : 'Som gratisanvändare kan du ha 1 CV. Ta bort ditt nuvarande CV för att ladda upp ett nytt, eller uppgradera till Premium för obegränsade uppladdningar.'}
@@ -590,9 +751,10 @@ export default function ProfilePage() {
                   {subscriptionTier === 'free' && (
                     <button
                       onClick={() => setActiveTab('subscription')}
-                      className="mt-2 text-pink-400 hover:text-pink-300 font-medium underline"
+                      className="mt-2 text-pink-400 hover:text-pink-300 font-medium flex items-center"
                     >
-                      Uppgradera till Premium →
+                      <Crown className="w-4 h-4 mr-1" />
+                      Uppgradera till Premium
                     </button>
                   )}
                 </div>
@@ -602,13 +764,12 @@ export default function ProfilePage() {
             <CVUploader
               onSuccess={handleUploadSuccess}
               onError={handleUploadError}
-              // showNotification prop är korrekt borttagen
             />
-          )
+          )}
         </div>
       )}
 
-      {/* === Subscription Tab (oförändrad) === */}
+      {/* Subscription Tab */}
       {activeTab === 'subscription' && (
         <div className="space-y-6">
           {/* 1. Visa aktuell prenumerationsinformation */}
@@ -628,8 +789,8 @@ export default function ProfilePage() {
               </p>
               <SubscribeButton
                 priceId={premiumMonthlyPriceId}
-                planName="Premium Månad" // Används inte i knapptexten längre, men behålls som prop
-                className="w-full" // Knappen har w-full internt, men detta skadar inte
+                planName="Premium Månad"
+                className="w-full"
               />
               <p className="text-center text-xs text-gray-400 mt-3">
                 149 kr/månad. Ingen bindningstid. Avsluta när du vill.
@@ -638,25 +799,25 @@ export default function ProfilePage() {
           ) : subscriptionTier === 'premium' ? (
             // ANVÄNDAREN HAR PREMIUM
             <div className="bg-navy-800 rounded-lg p-6 border border-yellow-500/30 shadow-lg">
-               <h3 className="text-lg font-semibold text-white mb-3 flex items-center">
-                 <Crown className="w-5 h-5 mr-2 text-yellow-400" />
-                 Hantera din Premium-prenumeration
-               </h3>
-               <p className="text-gray-300 mb-5 text-sm">
-                 Via Stripes kundportal kan du se dina fakturor, uppdatera din betalningsmetod eller avsluta din prenumeration.
-               </p>
-               <ManageSubscriptionButton className="w-full" />
-             </div>
+              <h3 className="text-lg font-semibold text-white mb-3 flex items-center">
+                <Crown className="w-5 h-5 mr-2 text-yellow-400" />
+                Hantera din Premium-prenumeration
+              </h3>
+              <p className="text-gray-300 mb-5 text-sm">
+                Via Stripes kundportal kan du se dina fakturor, uppdatera din betalningsmetod eller avsluta din prenumeration.
+              </p>
+              <ManageSubscriptionButton className="w-full" />
+            </div>
           ) : (
-             // Fallback om status är okänd (bör inte hända normalt)
-             <div className="bg-navy-800 rounded-lg p-6">
-                <p className="text-gray-400 text-center">Kunde inte ladda prenumerationsstatus.</p>
-             </div>
+            // Fallback om status är okänd
+            <div className="bg-navy-800 rounded-lg p-6">
+              <p className="text-gray-400 text-center">Kunde inte ladda prenumerationsstatus.</p>
+            </div>
           )}
         </div>
       )}
 
-      {/* Settings Tab (oförändrad) */}
+      {/* Settings Tab */}
       {activeTab === 'settings' && (
         <div className="bg-navy-800 rounded-lg p-6">
           <h2 className="text-xl font-bold mb-6 text-white flex items-center">
@@ -664,64 +825,118 @@ export default function ProfilePage() {
             Kontoinställningar
           </h2>
 
-          <div className="space-y-6">
-             {/* Fler inställningar kan läggas till här */}
-
-            {/* Logga ut */}
+          <div className="space-y-8">
+            {/* Sessionshantering */}
             <div className="border-t border-gray-700 pt-6">
-              <h3 className="text-md font-semibold text-red-400 mb-2">Logga ut</h3>
-              <p className="text-sm text-gray-400 mb-3">Avslutar din nuvarande session.</p>
+              <h3 className="text-md font-semibold text-gray-200 mb-2 flex items-center">
+                <LogOut className="w-4 h-4 mr-2 text-blue-400" />
+                Sessionshantering
+              </h3>
+              <p className="text-sm text-gray-400 mb-3">
+                Hantera aktiva sessioner och inloggningsstatus för ditt konto.
+              </p>
               <button
                 onClick={async () => {
-                  showNotificationMessage('Loggar ut...', 'loading'); // Använder sidans notifikation
+                  showNotificationMessage('Loggar ut...', 'loading');
+                  
+                  // Logga aktiviteten
+                  if (profile) {
+                    logUserActivity(
+                      profile.id,
+                      'logout',
+                      'Användaren loggade ut',
+                      { from_page: 'profile_settings' }
+                    ).catch(e => console.error('Loggningsfel:', e));
+                  }
+                  
                   await supabase.auth.signOut();
-                  router.push('/login'); // Omdirigera till inloggningssidan
+                  router.push('/login');
                 }}
-                className="flex items-center px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+                className="flex items-center px-4 py-2 bg-navy-600 text-white rounded-md hover:bg-navy-500 transition-colors border border-gray-700"
               >
                 <LogOut className="w-5 h-5 mr-2" />
                 Logga ut
               </button>
             </div>
 
-             {/* Ta bort konto (Framtida funktion?) */}
-             {/* <div className="border-t border-gray-700 pt-6">
-              <h3 className="text-md font-semibold text-red-500 mb-2">Ta bort konto</h3>
-              <p className="text-sm text-gray-400 mb-3">Tar permanent bort ditt konto och all data. Detta kan inte ångras.</p>
+            {/* Kontoborttagning */}
+            <div className="border-t border-gray-700 pt-6">
+              <h3 className="text-md font-semibold text-pink-400 mb-2 flex items-center">
+                <Trash2 className="w-4 h-4 mr-2" />
+                Radera konto
+              </h3>
+              <p className="text-sm text-gray-400 mb-5">
+                Om du raderar ditt konto tas all din data, CV:n och personliga brev bort permanent. 
+                Denna åtgärd kan inte ångras.
+              </p>
+              
+              <div className="bg-navy-900/50 p-4 border border-gray-700 rounded-md mb-4">
+                <div className="flex items-start">
+                  <AlertTriangle className="w-5 h-5 text-yellow-400 mr-3 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-yellow-200 font-medium mb-1">Viktigt att tänka på</h4>
+                    <ul className="text-xs text-gray-300 list-disc pl-4 space-y-1">
+                      <li>All din personliga information kommer att raderas</li>
+                      <li>Dina uppladdade CV:n och sparade brev förloras</li>
+                      <li>Du kan inte återställa ditt konto efter borttagning</li>
+                      {subscriptionTier === 'premium' && (
+                        <li className="text-yellow-300">Din premium-prenumeration kommer <b>inte</b> att avslutas automatiskt. Du måste separat avsluta den via Stripe kundportal.</li>
+                      )}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
               <button
-                 className="flex items-center px-4 py-2 bg-red-800 text-red-200 rounded-md hover:bg-red-700 transition-colors"
-                 // onClick={handleDeleteAccount} // Kräver implementering
+                onClick={() => setShowDeleteAccountConfirm(true)}
+                className="flex items-center px-4 py-2.5 bg-navy-700 hover:bg-pink-900/30 text-pink-400 hover:text-pink-300 rounded-md transition-colors border border-pink-900/50"
               >
-                 <Trash className="w-5 h-5 mr-2" />
-                 Ta bort mitt konto
+                <Trash2 className="w-5 h-5 mr-2" />
+                Radera mitt konto
               </button>
-            </div> */}
+            </div>
           </div>
         </div>
       )}
 
-      {/* Delete confirmation modal (oförändrad) */}
+      {/* Delete confirmation modal */}
       {showDeleteConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 backdrop-blur-sm">
-          <div className="bg-navy-800 rounded-lg p-6 max-w-md w-full shadow-xl border border-gray-700">
-            <h3 className="text-xl font-semibold text-white mb-4 flex items-center">
-              <AlertTriangle className="w-5 h-5 mr-2 text-yellow-400" />
-              Bekräfta borttagning
-            </h3>
-            <p className="text-gray-300 mb-6">
-              Är du säker på att du vill ta bort CV:t "{cvs.find(cv => cv.id === deleteId)?.file_name || 'detta CV'}"? Detta kan inte ångras.
-            </p>
-            <div className="flex justify-end space-x-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-navy-900/80 backdrop-blur-sm transition-all">
+          <div className="bg-navy-800 rounded-lg max-w-md w-full shadow-xl border border-gray-700">
+            <div className="p-5 border-b border-gray-700">
+              <h3 className="text-xl font-semibold text-white flex items-center">
+                <AlertTriangle className="w-5 h-5 mr-2 text-yellow-400" />
+                Bekräfta borttagning
+              </h3>
+            </div>
+            
+            <div className="p-5">
+              <p className="text-gray-300 mb-2">
+                Är du säker på att du vill ta bort detta CV?
+              </p>
+              <div className="bg-navy-900/50 p-3 rounded-md border border-gray-700 flex items-center mb-5">
+                <FileText className="text-pink-400 w-5 h-5 mr-3 flex-shrink-0" />
+                <span className="text-white font-medium">
+                  {cvs.find(cv => cv.id === deleteId)?.file_name || 'CV'}
+                </span>
+              </div>
+              <p className="text-yellow-300 text-sm flex items-start">
+                <AlertTriangle className="w-4 h-4 mr-2 flex-shrink-0 mt-0.5" />
+                Detta kan inte ångras och all data kommer att raderas permanent.
+              </p>
+            </div>
+            
+            <div className="p-5 border-t border-gray-700 flex justify-end space-x-3 bg-navy-900/30">
               <button
                 onClick={() => setShowDeleteConfirm(false)}
-                className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
+                className="px-4 py-2 bg-navy-700 text-white rounded-md hover:bg-navy-600 transition-colors"
                 disabled={isDeleting}
               >
                 Avbryt
               </button>
               <button
                 onClick={confirmDeleteCV}
-                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center transition-colors disabled:bg-red-800"
+                className="px-4 py-2 bg-pink-600 text-white rounded-md hover:bg-pink-700 flex items-center transition-colors"
                 disabled={isDeleting}
               >
                 {isDeleting ? (
@@ -731,8 +946,79 @@ export default function ProfilePage() {
                   </>
                 ) : (
                   <>
-                  <Trash className="w-4 h-4 mr-1"/>
-                  Ja, ta bort
+                    <Trash2 className="w-4 h-4 mr-1.5"/>
+                    Ta bort CV
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Account confirmation modal */}
+      {showDeleteAccountConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-navy-900/80 backdrop-blur-sm transition-all">
+          <div className="bg-navy-800 rounded-lg max-w-md w-full shadow-xl border border-gray-700 animate-fadeIn">
+            <div className="p-5 border-b border-gray-700">
+              <h3 className="text-xl font-semibold text-white flex items-center">
+                <AlertTriangle className="w-5 h-5 mr-2 text-pink-500" />
+                Radera konto
+              </h3>
+            </div>
+            
+            <div className="p-5">
+              <p className="text-gray-300 mb-4">
+                Är du absolut säker på att du vill radera ditt konto? Denna åtgärd kan <span className="text-pink-400 font-bold">inte ångras</span>.
+              </p>
+              
+              <div className="mb-5">
+                <label htmlFor="delete-confirm" className="text-sm font-medium text-gray-300 mb-2 block">
+                  Skriv "<span className="text-white">radera mitt konto</span>" för att bekräfta:
+                </label>
+                <input
+                  id="delete-confirm"
+                  type="text"
+                  value={deleteAccountConfirmText}
+                  onChange={(e) => setDeleteAccountConfirmText(e.target.value)}
+                  placeholder="radera mitt konto"
+                  className="w-full px-3 py-2 rounded-md bg-navy-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500"
+                />
+              </div>
+              
+              {deleteAccountError && (
+                <div className="mb-4 p-3 bg-red-900/30 border-l-4 border-red-500 rounded-r">
+                  <p className="text-red-300 text-sm">{deleteAccountError}</p>
+                </div>
+              )}
+            </div>
+            
+            <div className="p-5 border-t border-gray-700 flex justify-end space-x-3 bg-navy-900/30">
+              <button
+                onClick={() => {
+                  setShowDeleteAccountConfirm(false);
+                  setDeleteAccountConfirmText('');
+                  setDeleteAccountError('');
+                }}
+                className="px-4 py-2 bg-navy-700 text-white rounded-md hover:bg-navy-600 transition-colors"
+              >
+                Avbryt
+              </button>
+              <button
+                onClick={confirmDeleteAccount}
+                disabled={deleteAccountConfirmText !== 'radera mitt konto' || deleteAccountLoading}
+                className={`px-4 py-2 bg-pink-600 text-white rounded-md flex items-center transition-colors
+                  ${deleteAccountConfirmText !== 'radera mitt konto' ? 'opacity-50 cursor-not-allowed' : 'hover:bg-pink-700'}`}
+              >
+                {deleteAccountLoading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-white mr-2"></div>
+                    Tar bort...
+                  </>
+                ) : (
+                  <>
+                    <Trash2 className="w-4 h-4 mr-1.5"/>
+                    Radera permanent
                   </>
                 )}
               </button>

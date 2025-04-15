@@ -2,8 +2,8 @@ import { Metadata } from 'next';
 import Link from 'next/link'; // Kan behövas för länkar i texten
 
 export const metadata: Metadata = {
-  title: 'Användarvillkor | CVbrev.se',
-  description: 'Läs användarvillkoren för CVbrev.se innan du använder vår tjänst för att skapa personliga brev och CV:n med AI.',
+  title: 'Användarvillkor | jobbcoach.ai',
+  description: 'Läs användarvillkoren för jobbcoach.ai innan du använder vår tjänst för att skapa personliga brev och CV:n med AI.',
   alternates: {
     canonical: '/anvandarvillkor',
   },
@@ -16,7 +16,7 @@ export default function TermsOfServicePage() {
     <div className="bg-navy-900 py-16 lg:py-24">
       <div className="container mx-auto max-w-3xl px-4">
         <h1 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center">
-          Användarvillkor för CVbrev.se
+          Användarvillkor för jobbcoach.ai
         </h1>
         <p className="text-center text-gray-400 mb-10 text-sm">
           Senast uppdaterad: {lastUpdatedDate}
@@ -27,7 +27,7 @@ export default function TermsOfServicePage() {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-white mb-4">1. Godkännande av Villkoren</h2>
           <p className="text-gray-300 leading-relaxed mb-4">
-            Välkommen till CVbrev.se ("Tjänsten"), som drivs av CVbrev.se ("vi", "oss", "vår"). Dessa Användarvillkor ("Villkoren") styr din åtkomst till och användning av vår webbplats (www.cvbrev.se) och de tjänster vi erbjuder, inklusive generering av personliga brev och CV-relaterade funktioner med hjälp av artificiell intelligens (AI).
+            Välkommen till jobbcoach.ai ("Tjänsten"), som drivs av jobbcoach.ai ("vi", "oss", "vår"). Dessa Användarvillkor ("Villkoren") styr din åtkomst till och användning av vår webbplats (www.jobbcoach.ai) och de tjänster vi erbjuder, inklusive generering av personliga brev och CV-relaterade funktioner med hjälp av artificiell intelligens (AI).
           </p>
           <p className="text-gray-300 leading-relaxed mb-4">
             Genom att registrera ett konto, få åtkomst till eller använda Tjänsten, bekräftar du att du har läst, förstått och godkänner att vara bunden av dessa Villkor samt vår <Link href="/integritetspolicy" className="text-pink-500 hover:text-pink-400 underline">Integritetspolicy</Link>. Om du inte godkänner dessa Villkor, får du inte använda Tjänsten.
@@ -40,7 +40,7 @@ export default function TermsOfServicePage() {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-white mb-4">2. Beskrivning av Tjänsten</h2>
           <p className="text-gray-300 leading-relaxed mb-4">
-            CVbrev.se tillhandahåller en plattform där användare kan ladda upp sitt CV, klistra in jobbannonser och använda vår AI-teknologi för att generera utkast till personliga brev. Tjänsten kan erbjudas i olika nivåer, inklusive en gratisversion med begränsad funktionalitet och en eller flera betalda prenumerationsnivåer ("Premium") med utökade funktioner och/eller högre användningsgränser.
+            jobbcoach.ai tillhandahåller en plattform där användare kan ladda upp sitt CV, klistra in jobbannonser och använda vår AI-teknologi för att generera utkast till personliga brev. Tjänsten kan erbjudas i olika nivåer, inklusive en gratisversion med begränsad funktionalitet och en eller flera betalda prenumerationsnivåer ("Premium") med utökade funktioner och/eller högre användningsgränser.
           </p>
           <p className="text-gray-300 leading-relaxed">
             Vi strävar efter att Tjänsten ska vara tillgänglig och funktionell, men vi garanterar inte oavbruten eller felfri drift. Vi förbehåller oss rätten att ändra, uppdatera, avbryta eller begränsa Tjänsten eller dess funktioner när som helst, med eller utan förvarning.
@@ -57,7 +57,7 @@ export default function TermsOfServicePage() {
             <li>Tillhandahålla korrekt, aktuell och fullständig information under registreringsprocessen.</li>
             <li>Uppdatera din kontoinformation vid behov för att hålla den korrekt.</li>
             <li>Skydda ditt lösenord och hålla det konfidentiellt. Du är ensam ansvarig för all aktivitet som sker under ditt konto.</li>
-            <li>Omedelbart meddela oss om du misstänker obehörig åtkomst till ditt konto via <a href="mailto:[support@cvbrev.se]" className="text-pink-500 hover:text-pink-400 underline">support@cvbrev.se</a>.</li>
+            <li>Omedelbart meddela oss om du misstänker obehörig åtkomst till ditt konto via <a href="mailto:[support@jobbcoach.ai]" className="text-pink-500 hover:text-pink-400 underline">support@jobbcoach.ai</a>.</li>
           </ul>
           <p className="text-gray-300 leading-relaxed">
              Vi förbehåller oss rätten att stänga av eller avsluta konton som bryter mot dessa Villkor eller som vi anser vara inaktiva under en längre period [Specificera eventuell tidsram].
@@ -101,7 +101,7 @@ export default function TermsOfServicePage() {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-white mb-4">6. Immateriella Rättigheter</h2>
           <p className="text-gray-300 leading-relaxed mb-4">
-            Tjänsten och dess ursprungliga innehåll (exklusive Användarinnehåll), funktioner och funktionalitet (inklusive men inte begränsat till all mjukvara, text, grafik, logotyper, ikoner och den underliggande AI-metodiken) är och förblir den exklusiva egendomen tillhörande CVbrev.se och dess licensgivare. Tjänsten är skyddad av upphovsrätt, varumärkesrätt och andra lagar i både Sverige och andra länder.
+            Tjänsten och dess ursprungliga innehåll (exklusive Användarinnehåll), funktioner och funktionalitet (inklusive men inte begränsat till all mjukvara, text, grafik, logotyper, ikoner och den underliggande AI-metodiken) är och förblir den exklusiva egendomen tillhörande jobbcoach.ai och dess licensgivare. Tjänsten är skyddad av upphovsrätt, varumärkesrätt och andra lagar i både Sverige och andra länder.
           </p>
           <p className="text-gray-300 leading-relaxed">
             Du beviljas en begränsad, icke-exklusiv, icke-överlåtbar licens att få åtkomst till och använda Tjänsten för dina personliga, icke-kommersiella jobbsökarändamål i enlighet med dessa Villkor.
@@ -151,7 +151,7 @@ export default function TermsOfServicePage() {
         <section className="mb-8">
           <h2 className="text-2xl font-semibold text-white mb-4">9. Ansvarsbegränsning</h2>
           <p className="text-gray-300 leading-relaxed mb-4">
-            I DEN UTSTRÄCKNING DET ÄR TILLÅTET ENLIGT LAG SKA CVbrev.se, DESS ANSTÄLLDA, STYRELSELEDAMÖTER ELLER PARTNERS UNDER INGA OMSTÄNDIGHETER VARA ANSVARIGA FÖR NÅGRA INDIREKTA, OFÖRUTSEDDA, SÄRSKILDA, FÖLJDSKADOR ELLER STRAFFSKADOR, INKLUSIVE MEN INTE BEGRÄNSAT TILL, FÖRLUST AV VINST, DATA, ANVÄNDNING, GOODWILL ELLER ANDRA IMMATERIELLA FÖRLUSTER, SOM RESULTAT AV:
+            I DEN UTSTRÄCKNING DET ÄR TILLÅTET ENLIGT LAG SKA jobbcoach.ai, DESS ANSTÄLLDA, STYRELSELEDAMÖTER ELLER PARTNERS UNDER INGA OMSTÄNDIGHETER VARA ANSVARIGA FÖR NÅGRA INDIREKTA, OFÖRUTSEDDA, SÄRSKILDA, FÖLJDSKADOR ELLER STRAFFSKADOR, INKLUSIVE MEN INTE BEGRÄNSAT TILL, FÖRLUST AV VINST, DATA, ANVÄNDNING, GOODWILL ELLER ANDRA IMMATERIELLA FÖRLUSTER, SOM RESULTAT AV:
           </p>
            <ul className="list-disc list-inside space-y-2 mb-4 text-gray-300 pl-4">
                <li>Din åtkomst till eller användning av, eller oförmåga att få åtkomst till eller använda Tjänsten.</li>
@@ -168,7 +168,7 @@ export default function TermsOfServicePage() {
          <section className="mb-8">
            <h2 className="text-2xl font-semibold text-white mb-4">10. Skadeslöshållande</h2>
            <p className="text-gray-300 leading-relaxed mb-4">
-             Du samtycker till att försvara, gottgöra och hålla CVbrev.se och dess licensgivare och licenstagare, samt deras respektive anställda, entreprenörer, agenter, tjänstemän och styrelseledamöter, skadeslösa från och mot alla anspråk, skador, skyldigheter, förluster, ansvar, kostnader eller skulder och utgifter (inklusive men inte begränsat till advokatarvoden), som härrör från eller uppstår ur a) din användning och åtkomst av Tjänsten, av dig eller någon person som använder ditt konto och lösenord; b) ett brott mot dessa Villkor, eller c) Användarinnehåll som du publicerar på Tjänsten.
+             Du samtycker till att försvara, gottgöra och hålla jobbcoach.ai och dess licensgivare och licenstagare, samt deras respektive anställda, entreprenörer, agenter, tjänstemän och styrelseledamöter, skadeslösa från och mot alla anspråk, skador, skyldigheter, förluster, ansvar, kostnader eller skulder och utgifter (inklusive men inte begränsat till advokatarvoden), som härrör från eller uppstår ur a) din användning och åtkomst av Tjänsten, av dig eller någon person som använder ditt konto och lösenord; b) ett brott mot dessa Villkor, eller c) Användarinnehåll som du publicerar på Tjänsten.
            </p>
          </section>
 
@@ -215,7 +215,7 @@ export default function TermsOfServicePage() {
             Om du har några frågor om dessa Användarvillkor, vänligen kontakta oss:
           </p>
           <ul className="list-none space-y-2 mt-4 text-gray-300">
-            <li>Via e-post: <a href="mailto:[support@cvbrev.se]" className="text-pink-500 hover:text-pink-400 underline">support@cvbrev.se</a></li>
+            <li>Via e-post: <a href="mailto:[support@jobbcoach.ai]" className="text-pink-500 hover:text-pink-400 underline">support@jobbcoach.ai</a></li>
           </ul>
         </section>
 

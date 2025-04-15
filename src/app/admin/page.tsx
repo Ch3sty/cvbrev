@@ -300,7 +300,7 @@ export default function AdminDashboardPage() {
           {
             id: '1',
             user_id: '1',
-            email: 'exempelanvandare@cvbrev.se',
+            email: 'exempelanvandare@jobbcoach.ai',
             full_name: 'Exempel Användare',
             activity_type: 'login',
             description: 'loggade in på plattformen',
@@ -309,7 +309,7 @@ export default function AdminDashboardPage() {
           {
             id: '2',
             user_id: '2',
-            email: 'annanvandare@cvbrev.se',
+            email: 'annanvandare@jobbcoach.ai',
             full_name: 'Anna Användare',
             activity_type: 'letter_created',
             description: 'skapade ett nytt brev',
@@ -318,7 +318,7 @@ export default function AdminDashboardPage() {
           {
             id: '3',
             user_id: '3',
-            email: 'kalle@cvbrev.se',
+            email: 'kalle@jobbcoach.ai',
             full_name: 'Kalle Karlsson',
             activity_type: 'cv_uploaded',
             description: 'laddade upp ett nytt CV',
@@ -327,7 +327,7 @@ export default function AdminDashboardPage() {
           {
             id: '4',
             user_id: '4',
-            email: 'lisa@cvbrev.se',
+            email: 'lisa@jobbcoach.ai',
             full_name: 'Lisa Linderoth',
             activity_type: 'registered',
             description: 'registrerade sig på plattformen',
@@ -336,7 +336,7 @@ export default function AdminDashboardPage() {
           {
             id: '5',
             user_id: '5',
-            email: 'johan@cvbrev.se',
+            email: 'johan@jobbcoach.ai',
             full_name: 'Johan Jansson',
             activity_type: 'letter_saved',
             description: 'sparade ett brev',

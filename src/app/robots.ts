@@ -3,7 +3,7 @@ import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
   // Din webbplats bas-URL
-  const baseUrl = 'https://www.cvbrev.se'; // *** UPPDATERA VID BEHOV ***
+  const baseUrl = 'https://www.jobbcoach.ai'; // *** UPPDATERA VID BEHOV ***
 
   return {
     rules: [ // Du kan ha flera regler för olika user-agents, eller en generell

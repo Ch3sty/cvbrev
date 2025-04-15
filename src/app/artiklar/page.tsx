@@ -9,8 +9,8 @@ import ArticleCategoriesServer from '@/components/artiklar/ArticleCategoriesServ
 import PaginationControls from '@/components/artiklar/PaginationControls'; // Importera den nya komponenten
 
 export const metadata: Metadata = {
-  title: 'Artiklar | cvbrev.se - Tips och Råd för Jobbsökande',
-  description: 'Läs de senaste artiklarna om personliga brev, CV-skrivning, AI i jobbsökandet och karriärtips från cvbrev.se.',
+  title: 'Artiklar | jobbcoach.ai - Tips och Råd för Jobbsökande',
+  description: 'Läs de senaste artiklarna om personliga brev, CV-skrivning, AI i jobbsökandet och karriärtips från jobbcoach.ai.',
   alternates: {
     canonical: '/artiklar',
   },

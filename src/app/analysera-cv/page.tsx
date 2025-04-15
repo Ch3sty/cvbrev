@@ -1,410 +1,230 @@
+/**
+ * AnalyzeCvPage Component
+ * Handles CV selection, initiates AI analysis, displays results,
+ * and manages analysis limits based on user subscription tier.
+ * Uses Zustand for global CV state and a custom hook for profile/subscription info.
+ */
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
-import { useRouter } from 'next/navigation'
-import { useCVStore } from '@/store/cv-store'
-import { useProfile } from '@/hooks/use-profile' // Behövs för prenumerationsinfo och gränser
-import Notification from '@/components/ui/notification'
-import CvAnalysisResults from '@/components/cv/CvAnalysisResults' // Komponenten för att visa resultat
+// --- Core React/Next Imports ---
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+
+// --- State Management & Hooks ---
+import { useCVStore } from '@/store/cv-store';
+import { useProfile } from '@/hooks/use-profile';
+
+// --- UI Components ---
+import Notification from '@/components/ui/notification';
+import CvAnalysisResults from '@/components/cv/CvAnalysisResults';
+
+// --- Utility Functions ---
+import { logUserActivity } from '@/lib/activity-logger';
+
+// --- Icons ---
 import {
-  FileText,
-  Upload,
-  SearchCheck, // Ikon för analys
-  ClipboardList, // Ikon för resultat/placeholder
-  AlertTriangle,
-  Crown,
-  Clock,
-  Pencil, // För redigera-knapp
-  Loader2, // En annan spinner-ikon från Lucide
-  Info,
-  MessageSquare // För "Skapa brev"-knapp
-} from 'lucide-react'
+  FileText, Upload, SearchCheck, ClipboardList, AlertTriangle,
+  Crown, Clock, Pencil, Loader2, MessageSquare, ChevronRight, Check
+} from 'lucide-react';
 
+// --- Constants ---
+const PROFILE_CV_ROUTE = '/profile?tab=cv';
+const CREATE_LETTER_ROUTE_BASE = '/create-letter';
+const UPGRADE_ROUTE = '/profile?tab=subscription';
+const API_ANALYZE_ROUTE = '/api/cv/analyze';
+const NOTIFICATION_DURATION_MS = 5000;
+
+// --- Types ---
+type NotificationType = 'loading' | 'success' | 'error' | 'info';
+interface NotificationState {
+  isVisible: boolean;
+  message: string;
+  type: NotificationType;
+}
+
+// ============================================================================
+//  Component Definition
+// ============================================================================
 export default function AnalyzeCvPage() {
-  // Hooks
-  const router = useRouter()
-  const { cvs, fetchCVs, isLoading: cvsLoading } = useCVStore()
+  // --- Hooks ---
+  const router = useRouter();
+  const { cvs, fetchCVs, isLoading: cvsLoading } = useCVStore();
   const {
-    subscriptionTier,
-    // --- Nya värden från useProfile (Steg 1: Destrukturera) ---
-    remainingWeeklyAnalyses,
-    weeklyAnalysisLimit,    // Total gräns för tier
-    nextAnalysisResetDate,  // Datum för nästa reset
-    timeUntilAnalysisReset, // Formaterad tid till reset
-    updateRemainingAnalyses, // Funktion för att uppdatera state
-    updateNextAnalysisResetDate, // Funktion för att uppdatera state
-    // --- Slut på nya värden ---
-  } = useProfile()
+    profile, subscriptionTier, remainingWeeklyAnalyses, weeklyAnalysisLimit,
+    nextAnalysisResetDate, timeUntilAnalysisReset, updateRemainingAnalyses,
+    updateNextAnalysisResetDate, loading: profileLoading
+  } = useProfile();
 
-  // State för sidan
-  const [selectedCV, setSelectedCV] = useState<string | null>(null)
-  const [analysisResult, setAnalysisResult] = useState<any | null>(null) // För att lagra resultatet från API:et
-  const [isAnalyzing, setIsAnalyzing] = useState(false) // Laddningsstate för analys
-  const [error, setError] = useState<string | null>(null)
-  const [notification, setNotification] = useState({
-    isVisible: false,
-    message: '',
-    type: 'loading' as 'loading' | 'success' | 'error' | 'info',
-  })
+  // --- State ---
+  const [selectedCV, setSelectedCV] = useState<string | null>(null);
+  const [analysisResult, setAnalysisResult] = useState<any | null>(null); // Consider using a more specific type if defined globally
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [notification, setNotification] = useState<NotificationState>({
+    isVisible: false, message: '', type: 'loading',
+  });
 
-  // Refs
-  const initialLoadRef = useRef(false)
+  // --- Refs ---
+  const initialLoadRef = useRef(false);
 
-  // --- Funktioner ---
-
-  // Stäng notifikation
-  const closeNotification = useCallback(() => {
-    setNotification(prev => ({ ...prev, isVisible: false }))
-  }, [])
-
-  // Visa notifikation
-  const showNotification = useCallback((type: 'loading' | 'success' | 'error' | 'info', message: string, duration?: number) => {
-    setNotification({
-      isVisible: true,
-      message,
-      type,
-    });
-
-    if (type !== 'loading' && duration) {
-      setTimeout(closeNotification, duration);
-    }
-  }, [closeNotification])
-
-  // Formatera datum (från create-letter)
-   const formatDate = useCallback((dateString: string | Date) => {
-    if (!dateString) return '';
-    const date = typeof dateString === 'string' ? new Date(dateString) : dateString;
-    if (isNaN(date.getTime())) return '';
-    return date.toLocaleDateString('sv-SE', {
-      year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
-    });
-  }, []);
-
-  // Hämta CVn vid sidladdning
+  // --- Effects ---
   useEffect(() => {
     if (!initialLoadRef.current) {
-      initialLoadRef.current = true
-      fetchCVs()
+      initialLoadRef.current = true;
+      fetchCVs();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []); // fetchCVs identity is stable
 
-  // Välj första CV:t som standard
   useEffect(() => {
-    if (cvs.length > 0 && !selectedCV) {
-      setSelectedCV(cvs[0].id)
+    if (!selectedCV && cvs && cvs.length > 0) {
+      setSelectedCV(cvs[0].id);
     }
-  }, [cvs, selectedCV])
+  }, [cvs, selectedCV]);
 
-  // ** Huvudfunktion för att starta analysen (Steg 3: Uppdaterad) **
+  // --- Helper Functions ---
+  const formatDate = useCallback((dateString: string | Date | null | undefined): string => {
+    if (!dateString) return '';
+    try {
+      const date = typeof dateString === 'string' ? new Date(dateString) : dateString;
+      if (isNaN(date.getTime())) return '';
+      return date.toLocaleDateString('sv-SE', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+    } catch (e) { console.error("Error formatting date:", e); return ''; }
+  }, []);
+
+  const closeNotification = useCallback(() => {
+    setNotification(prev => ({ ...prev, isVisible: false }));
+    setTimeout(() => setNotification(prev => prev && !prev.isVisible ? { ...prev, message: '', type: 'loading' } : prev), 300);
+  }, []);
+
+  const showNotification = useCallback((type: NotificationType, message: string, duration: number = NOTIFICATION_DURATION_MS) => {
+    setNotification({ isVisible: true, message, type });
+    if (type !== 'loading') { setTimeout(closeNotification, duration); }
+  }, [closeNotification]);
+
+  // --- Event Handlers ---
   const handleAnalyzeCv = useCallback(async () => {
-    if (!selectedCV) {
-      showNotification('error', 'Välj ett CV att analysera.', 3000)
-      return
-    }
+    if (!selectedCV) { showNotification('error', 'Välj ett CV att analysera.', 3000); return; }
+    const isFreeTier = subscriptionTier === 'free';
+    const hasReachedLimit = isFreeTier && remainingWeeklyAnalyses !== null && remainingWeeklyAnalyses <= 0;
+    if (hasReachedLimit) { showNotification('error', 'Du har nått din veckogräns för CV-analyser. Uppgradera till premium för obegränsad användning.', NOTIFICATION_DURATION_MS); setError('Veckogräns nådd. Uppgradera till premium.'); return; }
 
-    // --- NYTT: Kontrollera analysgräns för gratisanvändare --- (Steg 3a)
-    if (subscriptionTier === 'free' && remainingWeeklyAnalyses <= 0) {
-      showNotification('error', 'Du har nått din veckogräns för CV-analyser. Uppgradera till premium för obegränsad användning.', 5000);
-      setError('Veckogräns nådd. Uppgradera till premium för obegränsad användning.'); // Optionellt felmeddelande
-      return; // Stoppa funktionen
-    }
-    // --- SLUT PÅ GRÄNSKONTROLL ---
-
-    setIsAnalyzing(true)
-    setError(null)
-    setAnalysisResult(null) // Rensa gamla resultat
-    showNotification('loading', 'Analyserar ditt CV...')
+    setIsAnalyzing(true); setError(null); setAnalysisResult(null); showNotification('loading', 'Analyserar ditt CV...');
 
     try {
-      const response = await fetch('/api/cv/analyze', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', },
-        body: JSON.stringify({ cvId: selectedCV }),
-      });
-
+      const response = await fetch(API_ANALYZE_ROUTE, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ cvId: selectedCV }) });
       const result = await response.json();
+      closeNotification();
+      if (!response.ok) { if (response.status === 429) { showNotification('error', result.message || 'Du har nått din gräns för CV-analyser denna vecka.', NOTIFICATION_DURATION_MS); if (typeof updateRemainingAnalyses === 'function') updateRemainingAnalyses(0); } throw new Error(result.message || `Serverfel ${response.status}: Något gick fel vid analysen.`); }
 
-      closeNotification()
-
-      if (!response.ok) {
-        // Hantera specifika felkoder om API:et skickar dem
-        if (response.status === 429) { // Too Many Requests (t.ex. gräns nådd på serversidan)
-             showNotification('error', result.message || 'Du har nått din gräns för CV-analyser denna vecka.', 5000);
-             // Uppdatera state även om serversidan säger ifrån (för konsekvens)
-             if (typeof updateRemainingAnalyses === 'function') updateRemainingAnalyses(0);
-             if (result.nextResetDate && typeof updateNextAnalysisResetDate === 'function') {
-                 updateNextAnalysisResetDate(new Date(result.nextResetDate));
-             }
-        }
-        throw new Error(result.message || `Fel ${response.status}: Något gick fel vid analysen`);
-      }
-
-      // Spara det riktiga resultatet från API:et
       setAnalysisResult(result);
 
-      // --- NYTT: Uppdatera räknare i useProfile (Steg 3b) ---
-      // Antag att API:et returnerar { success: true, ..., remainingAnalyses: X, nextResetDate: Y }
       if (result.remainingAnalyses !== undefined && typeof updateRemainingAnalyses === 'function') {
-          updateRemainingAnalyses(result.remainingAnalyses);
+        updateRemainingAnalyses(result.remainingAnalyses);
+        if (isFreeTier) { const remainingCount = result.remainingAnalyses; const limitText = remainingCount === 0 ? 'Du har nu nått din veckogräns.' : `Du har ${remainingCount} ${remainingCount === 1 ? 'analys' : 'analyser'} kvar denna vecka.`; showNotification('success', `CV-analysen är klar! ${limitText}`, NOTIFICATION_DURATION_MS + 1000); } else { showNotification('success', 'CV-analysen är klar!', NOTIFICATION_DURATION_MS - 1000); }
+      } else { showNotification('success', 'CV-analysen är klar!', NOTIFICATION_DURATION_MS - 1000); }
+      if (result.nextResetDate && typeof updateNextAnalysisResetDate === 'function') { updateNextAnalysisResetDate(new Date(result.nextResetDate)); }
 
-          // Visa uppdaterat meddelande till användaren (likt create-letter)
-          if (subscriptionTier === 'free') {
-              const remainingText = result.remainingAnalyses === 0
-                  ? 'Du har nu nått din veckogräns.'
-                  : `Du har ${result.remainingAnalyses} ${result.remainingAnalyses === 1 ? 'analys' : 'analyser'} kvar denna vecka.`;
-              showNotification('success', `CV-analysen är klar! ${remainingText}`, 5000);
-          } else {
-              showNotification('success', 'CV-analysen är klar!', 3000);
-          }
-      } else {
-          // Fallback om API:et inte returnerar räknare
-          showNotification('success', 'CV-analysen är klar!', 3000);
-      }
-
-      // Uppdatera reset-datum om det kommer från API:et
-      if (result.nextResetDate && typeof updateNextAnalysisResetDate === 'function') {
-          updateNextAnalysisResetDate(new Date(result.nextResetDate));
-      }
-      // --- SLUT PÅ UPPDATERING ---
+      if (profile?.id && selectedCV) { const cvFileName = cvs?.find(cv => cv.id === selectedCV)?.file_name || selectedCV; logUserActivity(profile.id, 'cv_analysis_completed', `Successfully analyzed CV: ${cvFileName}`, { cvId: selectedCV, tier: subscriptionTier }).catch(e => console.error("Activity logging failed:", e)); }
 
     } catch (error: any) {
-      console.error("Fel vid CV-analys:", error);
-      closeNotification()
-      const errorMessage = error.message.includes('Failed to fetch')
-        ? 'Kunde inte ansluta till servern. Kontrollera din internetanslutning.'
-        : error.message || 'Ett oväntat fel inträffade vid analysen.'
-      setError(errorMessage)
-      showNotification('error', errorMessage, 5000)
-    } finally {
-      setIsAnalyzing(false)
-    }
-    // --- NYTT: Uppdatera dependency array (Steg 3c) ---
-  }, [
-      selectedCV,
-      showNotification,
-      closeNotification,
-      subscriptionTier, // Behövs för gränskontroll
-      remainingWeeklyAnalyses, // Behövs för gränskontroll
-      updateRemainingAnalyses, // Behövs för att uppdatera state
-      updateNextAnalysisResetDate // Behövs för att uppdatera state
-    ]);
-  // --- SLUT PÅ UPPDATERING ---
+      console.error("Fel vid CV-analys:", error); closeNotification();
+      const errorMessage = error.message?.includes('Failed to fetch') ? 'Nätverksfel. Kontrollera din anslutning och försök igen.' : error.message || 'Ett oväntat fel inträffade vid analysen.';
+      setError(errorMessage); showNotification('error', errorMessage, NOTIFICATION_DURATION_MS);
+    } finally { setIsAnalyzing(false); }
+  }, [ selectedCV, showNotification, closeNotification, subscriptionTier, remainingWeeklyAnalyses, updateRemainingAnalyses, updateNextAnalysisResetDate, profile, cvs ]);
 
+  const handleNavigateToCvManagement = useCallback(() => { router.push(PROFILE_CV_ROUTE); }, [router]);
+  const handleUpgrade = useCallback(() => { router.push(UPGRADE_ROUTE); }, [router]);
 
-  // Funktion för att navigera till redigering
-  const handleEditCv = useCallback(() => {
-    if (selectedCV) {
-      router.push(`/profile/cv/${selectedCV}/edit`) // Dubbelkolla denna sökväg!
-    }
-  }, [selectedCV, router])
+  // --- Derived State ---
+  const isFreeTier = subscriptionTier === 'free';
+  const hasReachedLimit = isFreeTier && remainingWeeklyAnalyses !== null && remainingWeeklyAnalyses <= 0;
+  const isAnalyzeButtonDisabled = isAnalyzing || !selectedCV || cvsLoading || profileLoading || hasReachedLimit; // Added profileLoading check
+  const analyzeButtonAriaLabel = isAnalyzing ? "Analyserar CV..." : hasReachedLimit ? "Veckogräns för analyser nådd" : "Starta CV-analys";
 
-  // Funktion för att navigera till uppgradering (från create-letter)
-  const handleUpgrade = useCallback(() => {
-    router.push('/profile?tab=subscription'); // Antagande om fliknamn
-  }, [router]);
-
-  // Avgör om analysknappen ska vara inaktiverad (Steg 4: Uppdaterad)
-  const isAnalyzeButtonDisabled = isAnalyzing || !selectedCV || cvsLoading || (subscriptionTier === 'free' && remainingWeeklyAnalyses <= 0);
-
+  // ============================================================================
+  //  JSX Rendering
+  // ============================================================================
   return (
-    <div className="container max-w-6xl px-4 py-8 mx-auto">
-      <Notification
-        isVisible={notification.isVisible}
-        message={notification.message}
-        type={notification.type as any}
-        onClose={closeNotification}
-      />
+    <div className="max-w-screen-xl mx-auto pt-8 pb-16 px-4"> {/* Kept wider max-width */}
+      {/* --- Notification Area --- */}
+      {notification.isVisible && ( <Notification isVisible={notification.isVisible} message={notification.message} type={notification.type} onClose={closeNotification} /> )}
 
-      <h1 className="mb-6 text-3xl font-bold text-white">Analysera ditt CV med AI</h1>
-      <p className="mb-8 text-gray-300">
-        Få insikter om styrkor, svagheter och förbättringsområden i ditt uppladdade CV.
-      </p>
+      {/* --- Page Header --- */}
+      <header className="mb-8">
+        <h1 className="text-3xl font-bold text-white mb-2">Analysera CV</h1>
+        <p className="text-gray-300">Få AI-drivna insikter och förbättringsförslag för ditt uppladdade CV.</p>
+      </header>
 
-      {/* --- NYTT: Sektion för att visa analysgränser (Steg 2) --- */}
-      {subscriptionTier === 'free' && weeklyAnalysisLimit > 0 && weeklyAnalysisLimit !== Infinity && ( // Visa bara om gräns finns och inte är oändlig
-        <div className="mb-6 p-4 bg-navy-800 rounded-lg border border-gray-700">
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center">
-              <SearchCheck className="w-5 h-5 mr-2 text-pink-500" /> {/* Anpassad ikon */}
-              <span className="text-white font-medium">CV-analyser denna vecka</span>
-            </div>
-            <div className="flex items-center">
-              <span className="text-white">
-                {/* Visa (Limit - Återstående) / Limit */}
-                <span className={remainingWeeklyAnalyses <= 1 ? 'text-red-400' : ''}>
-                  {weeklyAnalysisLimit - remainingWeeklyAnalyses}
-                </span> / {weeklyAnalysisLimit}
-              </span>
-              {/* Visa uppgraderingsknapp om användaren är nära gränsen */}
-              {remainingWeeklyAnalyses <= 1 && (
-                <button
-                  onClick={handleUpgrade}
-                  className="ml-3 px-3 py-1 bg-pink-600 hover:bg-pink-700 text-white text-sm rounded-md flex items-center"
-                >
-                  <Crown className="w-3 h-3 mr-1" />
-                  Uppgradera
-                </button>
+      {/* --- Analysis Limits Info (Free Tier Only) --- */}
+      {isFreeTier && weeklyAnalysisLimit > 0 && weeklyAnalysisLimit !== Infinity && (
+        <section aria-labelledby="analysis-limit-heading" className="mb-8 p-5 bg-navy-800 rounded-lg border border-navy-700">
+          {/* ... (Innehåll oförändrat) ... */}
+           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"> <div> <h2 id="analysis-limit-heading" className="flex items-center mb-1 font-medium text-white"> <SearchCheck className="w-5 h-5 mr-2 text-pink-400" /> Veckans CV-analyser </h2> <p className="text-xs text-gray-400 pl-7"> Gratisanvändare kan göra {weeklyAnalysisLimit} analys{weeklyAnalysisLimit === 1 ? '' : 'er'} per vecka. </p> </div> <div className="flex items-center space-x-3 w-full sm:w-auto justify-end sm:justify-start"> <span className={`text-sm font-semibold px-2 py-0.5 rounded ${ hasReachedLimit ? 'bg-red-500/20 text-red-300' : 'bg-green-500/20 text-green-300' }`}> {remainingWeeklyAnalyses ?? '-'} / {weeklyAnalysisLimit} kvar </span> {hasReachedLimit && ( <button onClick={handleUpgrade} className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-purple-600 rounded-md shadow-md hover:shadow-lg hover:from-pink-700 hover:to-purple-700 group" aria-label="Uppgradera till Premium för fler analyser"> <Crown className="w-3 h-3 mr-1" /> Uppgradera <ChevronRight className="w-3 h-3 ml-1 transition-transform duration-300 group-hover:translate-x-0.5" /> </button> )} </div> </div> {nextAnalysisResetDate && ( <div className="flex items-center mt-3 text-xs text-gray-400 border-t border-navy-700 pt-3"> <Clock className="w-3 h-3 mr-1.5" /> <span>Nollställs {timeUntilAnalysisReset ? `om ${timeUntilAnalysisReset}` : formatDate(nextAnalysisResetDate)}</span> </div> )}
+        </section>
+      )}
+
+      {/* --- Main Content Grid (Layout Justerad) --- */}
+      {/* Changed to lg:grid-cols-3. Left takes lg:col-span-1, Right takes lg:col-span-2 */}
+      <main className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        {/* --- Left Column: CV Selection & Actions --- */}
+        {/* Changed to lg:col-span-1 */}
+        <section aria-labelledby="cv-selection-heading" className="space-y-6 lg:col-span-1">
+          <div className="bg-navy-800 rounded-lg p-6 border border-navy-700">
+            <h2 id="cv-selection-heading" className="text-xl font-semibold mb-5 text-white flex items-center">
+              <FileText className="w-5 h-5 mr-2 text-blue-400" />
+              Välj CV
+            </h2>
+            <div className="min-h-[10rem]">
+              {cvsLoading || profileLoading ? (
+                <div className="flex items-center justify-center h-32"><Loader2 className="w-8 h-8 text-pink-500 animate-spin" aria-label="Laddar CV-lista..." /></div>
+              ) : cvs.length === 0 ? (
+                <div className="border border-navy-700 border-dashed rounded-lg p-6 bg-navy-900/50 text-center flex flex-col items-center justify-center h-full"> <FileText className="w-10 h-10 mx-auto mb-3 text-gray-600" /> <p className="text-lg mb-1 text-gray-300">Inga CV:n uppladdade</p> <p className="text-sm text-gray-500 mb-4">Ladda upp ditt CV för att kunna analysera det.</p> <Link href={PROFILE_CV_ROUTE} className="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors bg-pink-600 rounded-md hover:bg-pink-700"> <Upload className="w-4 h-4 mr-2" /> Gå till CV-hantering </Link> </div>
+              ) : (
+                <ul className="space-y-3 max-h-80 overflow-y-auto elegant-scrollbar pr-1">
+                  {cvs.map((cv) => ( <li key={cv.id}> <button type="button" onClick={() => !isAnalyzing && setSelectedCV(cv.id)} disabled={isAnalyzing} className={`w-full text-left p-4 rounded-md border transition-all duration-200 flex items-start gap-3 ${ selectedCV === cv.id ? 'bg-navy-700 border-pink-500 ring-1 ring-pink-500 shadow-md' : 'bg-navy-900/50 border-navy-700 hover:bg-navy-700 hover:border-navy-600' } ${isAnalyzing ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`} aria-pressed={selectedCV === cv.id} > <FileText className={`w-5 h-5 mt-0.5 flex-shrink-0 ${selectedCV === cv.id ? 'text-pink-400' : 'text-blue-400'}`} /> <div className="flex-grow overflow-hidden"> <p className={`font-medium truncate ${selectedCV === cv.id ? 'text-white' : 'text-gray-200'}`}>{cv.file_name}</p> <p className="text-xs text-gray-400 truncate"> {cv.cv_text ? `Innehåll: ${cv.cv_text.substring(0, 60)}...` : 'Förhandsgranskning saknas'} </p> </div> {selectedCV === cv.id && <Check className="w-5 h-5 text-pink-400 flex-shrink-0" aria-hidden="true" />} </button> </li> ))}
+                </ul>
               )}
             </div>
           </div>
+          {error && ( <div role="alert" className="p-3 text-sm text-red-100 bg-red-900/50 border border-red-500/50 rounded-md"> {error} </div> )}
+          <button onClick={handleAnalyzeCv} disabled={isAnalyzeButtonDisabled} className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-navy-900 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed disabled:from-gray-600 disabled:to-gray-700 transition-all duration-300" aria-label={analyzeButtonAriaLabel} aria-live="polite" >
+            {isAnalyzing ? ( <> <Loader2 className="animate-spin -ml-1 mr-3 h-5 w-5" aria-hidden="true" /> Analyserar... </> ) : hasReachedLimit ? ( <> <AlertTriangle className="w-5 h-5 mr-2" aria-hidden="true" /> Veckogräns nådd </> ) : ( <> <SearchCheck className="w-5 h-5 mr-2" aria-hidden="true" /> Analysera valt CV </> )}
+          </button>
+        </section>
 
-          {/* Visa info om nästa nollställning */}
-          {nextAnalysisResetDate && (
-            <div className="flex items-center mt-1 mb-1 text-xs text-gray-400">
-              <Clock className="w-3 h-3 mr-1" />
-              <span>Nollställs {timeUntilAnalysisReset ? `om ${timeUntilAnalysisReset}` : formatDate(nextAnalysisResetDate)}</span>
-            </div>
-          )}
-
-          {/* Visa varning om användaren har få analyser kvar */}
-          {remainingWeeklyAnalyses <= 1 && ( // Kan justera detta tröskelvärde
-            <div className="mt-2 text-sm text-yellow-400 flex items-start">
-              <AlertTriangle className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
-              <span>
-                Du har {remainingWeeklyAnalyses} {remainingWeeklyAnalyses === 1 ? 'analys' : 'analyser'} kvar denna vecka.
-                {nextAnalysisResetDate && (
-                  <span> Räknaren nollställs {timeUntilAnalysisReset ? `om ${timeUntilAnalysisReset}` : formatDate(nextAnalysisResetDate)}. </span>
-                )}
-                <button
-                  onClick={handleUpgrade}
-                  className="ml-1 text-pink-400 hover:text-pink-300 underline"
-                >
-                  Uppgradera till premium
-                </button> för obegränsad användning.
-              </span>
-            </div>
-          )}
-
-        </div>
-      )}
-      {/* --- SLUT PÅ NY SEKTION --- */}
-
-
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        {/* --- Vänster kolumn (Input) --- */}
-        <div className="space-y-6">
-          {/* CV-val */}
-          <div>
-            <h2 className="mb-2 text-xl font-semibold text-white flex items-center">
-              <FileText className="w-5 h-5 mr-2 text-blue-400" />
-              Välj CV att analysera
-            </h2>
-            {cvsLoading ? (
-              <div className="flex items-center justify-center h-20 bg-navy-800 rounded-md">
-                <Loader2 className="w-6 h-6 text-pink-500 animate-spin" />
-              </div>
-            ) : cvs.length === 0 ? (
-              <div className="p-4 text-white bg-navy-800 rounded-md border border-gray-700">
-                <p className="mb-3">Du har inte laddat upp något CV ännu.</p>
-                <button
-                  onClick={() => router.push('/profile/cv')} // Dubbelkolla sökväg
-                  className="px-4 py-2 font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 flex items-center"
-                >
-                  <Upload className="w-4 h-4 mr-2" />
-                  Ladda upp CV
-                </button>
-              </div>
+        {/* --- Right Column: Analysis Results --- */}
+        {/* Changed to lg:col-span-2 */}
+        <section aria-labelledby="analysis-results-heading" className="bg-navy-800 rounded-lg p-6 border border-navy-700 lg:col-span-2 flex flex-col" style={{ minHeight: '400px' }}>
+          <h2 id="analysis-results-heading" className="text-xl font-semibold mb-6 text-white flex items-center flex-shrink-0">
+            <ClipboardList className="w-5 h-5 mr-2 text-green-400" />
+            Resultat från analys
+          </h2>
+          <div className="flex-grow flex flex-col">
+            {isAnalyzing ? (
+              <div className="flex flex-col items-center justify-center text-center flex-grow"> <Loader2 className="w-10 h-10 text-pink-500 animate-spin mb-4" aria-label="Analys pågår"/> <p className="text-lg text-gray-300 mb-1">Analyserar ditt CV...</p> <p className="text-sm text-gray-400">Ett ögonblick, AI:n jobbar.</p> </div>
+            ) : analysisResult ? (
+              <>
+                {/* Pass the analysis result to the dedicated display component */}
+                <div className="prose prose-sm prose-invert max-w-none elegant-scrollbar flex-grow mb-6" style={{ overflowY: 'auto' }}>
+                  <CvAnalysisResults data={analysisResult} />
+                </div>
+                {/* Action buttons appear below the results */}
+                <div className="mt-auto pt-4 border-t border-navy-700 flex flex-wrap gap-3 flex-shrink-0">
+                  <button onClick={handleNavigateToCvManagement} className="inline-flex items-center px-4 py-2 border border-navy-600 text-sm font-medium rounded-md shadow-sm text-gray-300 bg-navy-700 hover:bg-navy-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-navy-800 focus:ring-pink-500 transition-colors" aria-label="Hantera dina uppladdade CVn"> <Pencil className="w-4 h-4 mr-2" /> Hantera CV:n </button>
+                  <button onClick={() => router.push(`${CREATE_LETTER_ROUTE_BASE}?cvId=${selectedCV}`)} disabled={!selectedCV} title={!selectedCV ? "Välj ett CV först" : "Skapa personligt brev med detta CV"} className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-navy-800 focus:ring-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all" aria-label={selectedCV ? "Skapa personligt brev baserat på det valda CV:t" : "Välj ett CV för att skapa brev"}> <MessageSquare className="w-4 h-4 mr-2" /> Skapa brev med CV </button>
+                </div>
+              </>
             ) : (
-              <div className="space-y-2">
-                {cvs.map((cv) => (
-                  <div
-                    key={cv.id}
-                    onClick={() => !isAnalyzing && setSelectedCV(cv.id)}
-                    className={`p-4 cursor-pointer rounded-md border ${
-                      selectedCV === cv.id
-                        ? 'bg-navy-700 border-pink-500'
-                        : 'bg-navy-800 border-gray-700 hover:bg-navy-700 hover:border-gray-600'
-                    } ${isAnalyzing ? 'opacity-70 cursor-not-allowed' : ''}`}
-                  >
-                    <p className="font-medium text-white">{cv.file_name}</p>
-                    <p className="text-sm text-gray-400 line-clamp-1">
-                      {cv.cv_text ? `${cv.cv_text.substring(0, 80)}...` : cv.file_name}
-                    </p>
-                  </div>
-                ))}
-              </div>
+              <div className="flex flex-col items-center justify-center text-center flex-grow"> <SearchCheck className="w-16 h-16 mb-4 text-gray-600" /> <p className="text-lg mb-1 text-gray-300">Analysen visas här</p> <p className="text-sm text-gray-400 max-w-xs"> Välj ett av dina uppladdade CV:n och klicka sedan på knappen "Analysera valt CV". </p> </div>
             )}
           </div>
+        </section>
 
-          {/* Felmeddelande */}
-          {error && (
-            <div className="p-3 text-white bg-red-600 rounded-md border border-red-800">
-              {error}
-            </div>
-          )}
-
-          {/* Analysknapp (Steg 4: Uppdaterad) */}
-          <button
-            onClick={handleAnalyzeCv}
-            disabled={isAnalyzeButtonDisabled}
-            className="w-full py-3 font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 disabled:bg-gray-600 disabled:cursor-not-allowed transition-all flex items-center justify-center"
-            aria-label={isAnalyzing ? "Analyserar CV..." : (subscriptionTier === 'free' && remainingWeeklyAnalyses <= 0) ? "Veckogräns nådd" : "Analysera CV"}
-          >
-            {isAnalyzing ? (
-              <>
-                <Loader2 className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" />
-                Analyserar...
-              </>
-            ) : (subscriptionTier === 'free' && remainingWeeklyAnalyses <= 0) ? ( // --- NYTT VILLKOR FÖR KNAPPTEXT ---
-              <>
-                <AlertTriangle className="w-5 h-5 mr-2" />
-                Veckogräns nådd
-              </>
-            ) : (
-                <>
-                  <SearchCheck className="w-5 h-5 mr-2" />
-                  Analysera CV
-                </>
-              )
-            }
-          </button>
-        </div>
-
-        {/* --- Höger kolumn (Output) --- */}
-        <div className="p-6 bg-navy-800 rounded-lg border border-gray-700" style={{ minHeight: '400px' }}>
-          <h2 className="mb-4 text-xl font-semibold text-white flex items-center">
-            <ClipboardList className="w-5 h-5 mr-2 text-green-400" />
-            CV-Analys Resultat
-          </h2>
-
-          {isAnalyzing ? (
-            <div className="flex flex-col items-center justify-center h-64 space-y-4 text-center">
-              <Loader2 className="w-10 h-10 text-pink-500 animate-spin" />
-              <p className="text-gray-300">Analyserar ditt CV...</p>
-              <p className="text-sm text-gray-400">Detta kan ta några sekunder.</p>
-            </div>
-          ) : analysisResult ? (
-            <>
-             <CvAnalysisResults data={analysisResult} /> {/* Använder resultatkomponenten */}
-             <div className="mt-6 flex flex-wrap gap-3">
-                <button
-                    onClick={handleEditCv}
-                    disabled={!selectedCV}
-                    className="px-4 py-2 font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed flex items-center"
-                >
-                    <Pencil className="w-4 h-4 mr-2" />
-                    Redigera CV
-                </button>
-                <button
-                    onClick={() => router.push(`/skapa-brev?cvId=${selectedCV}`)} // Dubbelkolla sökväg
-                    disabled={!selectedCV}
-                    className="px-4 py-2 font-medium text-white bg-teal-600 rounded-md hover:bg-teal-700 disabled:bg-gray-600 disabled:cursor-not-allowed flex items-center"
-                >
-                    <MessageSquare className="w-4 h-4 mr-2" />
-                    Skapa brev med detta CV
-                </button>
-             </div>
-            </>
-          ) : (
-            <div className="flex flex-col items-center justify-center h-64 text-center">
-              <SearchCheck className="w-16 h-16 mb-4 text-gray-600" />
-              <p className="mb-2 text-lg text-gray-300">Din CV-analys kommer att visas här</p>
-              <p className="text-sm text-gray-400">Välj ett CV från listan och klicka på "Analysera CV".</p>
-            </div>
-          )}
-        </div>
-      </div>
+      </main>
     </div>
-  )
+  );
 }
