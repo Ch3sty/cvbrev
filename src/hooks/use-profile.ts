@@ -335,7 +335,7 @@ export const useProfile = () => {
       }
       console.log("useProfile: Session found for user:", session.user.id);
 
-      // Hämta profildata med de nya analys-fälten
+      // Hämta profildata med de nya analys-fälten - ÄNDRAT KOLUMNNAMN HÄR
       const { data, error: profileError } = await supabase
         .from('profiles')
         .select(`
@@ -348,8 +348,8 @@ export const useProfile = () => {
           current_period_end,
           weekly_letter_count,
           last_count_reset,
-          weekly_analysis_count,
-          last_analysis_reset
+          weekly_competence_analysis_count,
+          last_competence_analysis_reset
         `)
         .eq('id', session.user.id)
         .single();
@@ -397,12 +397,12 @@ export const useProfile = () => {
         setNextResetDate(nextReset);
         setTimeUntilReset(formatTimeRemaining(nextReset));
         
-        // --- NY HANTERING FÖR ANALYS RÄKNARE ---
-        const currentAnalysisCount = data.weekly_analysis_count || 0;
+        // --- NY HANTERING FÖR ANALYS RÄKNARE - ÄNDRAT KOLUMNNAMN HÄR ---
+        const currentAnalysisCount = data.weekly_competence_analysis_count || 0;
         setWeeklyAnalysisCount(currentAnalysisCount);
-        setLastAnalysisReset(data.last_analysis_reset || null);
+        setLastAnalysisReset(data.last_competence_analysis_reset || null);
         setRemainingWeeklyAnalyses(calculateRemainingAnalyses(dbTier, currentAnalysisCount));
-        const nextAnalysisReset = calculateNextResetDate(data.last_analysis_reset || null);
+        const nextAnalysisReset = calculateNextResetDate(data.last_competence_analysis_reset || null);
         setNextAnalysisResetDate(nextAnalysisReset);
         setTimeUntilAnalysisReset(formatTimeRemaining(nextAnalysisReset));
         console.log("useProfile: Set analysis count & reset:", { 
@@ -571,11 +571,11 @@ export const useProfile = () => {
         }
         
         
-        // --- NYA UPPDATERINGAR FÖR ANALYSDATUM ---
-        if (profileData.last_analysis_reset || profileData.next_analysis_reset_date) {
+        // --- NYA UPPDATERINGAR FÖR ANALYSDATUM - ÄNDRAT KOLUMNNAMN HÄR ---
+        if (profileData.last_competence_analysis_reset || profileData.next_analysis_reset_date) {
             const newAnalysisResetDate = profileData.next_analysis_reset_date
                 ? new Date(profileData.next_analysis_reset_date)
-                : calculateNextResetDate(data.last_analysis_reset || null);
+                : calculateNextResetDate(data.last_competence_analysis_reset || null);
             setNextAnalysisResetDate(newAnalysisResetDate);
             setTimeUntilAnalysisReset(formatTimeRemaining(newAnalysisResetDate));
         }

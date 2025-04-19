@@ -5,7 +5,7 @@
 
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLetters } from '@/hooks/use-letters';
 import { useProfile } from '@/hooks/use-profile';
@@ -210,6 +210,7 @@ export default function MyLettersPage() {
       subscriptionTier,
       loading: profileLoading,
       hasReachedLetterLimit,
+      profile,
       // refreshProfile // Kanske inte behövs här
   } = useProfile();
 
@@ -223,6 +224,20 @@ export default function MyLettersPage() {
     type: 'loading' | 'success' | 'error' | 'info';
     progress?: number; // Behåll progress som optionell
   } | null>(null); // Initiera som null
+
+  // Auth check ref
+  const authCheckedRef = useRef(false);
+
+  // Auth check effect
+  useEffect(() => {
+    if (!authCheckedRef.current && !profileLoading) {
+      authCheckedRef.current = true;
+      if (!profile) {
+        console.log('Användare ej inloggad, omdirigerar till /login');
+        router.push('/login');
+      }
+    }
+  }, [profile, profileLoading, router]);
 
   useEffect(() => { setIsPageMounted(true); return () => { setIsPageMounted(false); }; }, []);
 
@@ -372,6 +387,11 @@ export default function MyLettersPage() {
 
   // Gruppera brev om det finns några
   const groupedLetters = letters.length > 0 ? groupLettersByDate(letters) : null;
+
+  // Om sidan håller på att omdirigeras eller användaren inte är inloggad, visa ingenting
+  if (profileLoading || !profile) {
+    return null;
+  }
 
   return (
     // Använd ProfilePage container-stil

@@ -1,12 +1,12 @@
 // src/components/artiklar/ArticleCategories.tsx
-// Uppdaterad med färre taggar (via server), infoboxar för CTA och registreringsknapp.
+// Uppdaterad med FÖRNYAD stil för CTA-boxar för mer djup och liv.
 
 'use client';
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 // Importera alla nödvändiga ikoner
-import { Tag, X, TrendingUp, Filter, Sparkles, ScanSearch, ArrowRight } from 'lucide-react';
+import { Tag, X, TrendingUp, Filter, Sparkles, ScanSearch, ArrowRight, BrainCircuit } from 'lucide-react';
 import Link from 'next/link';
 
 interface CategoryProps {
@@ -41,11 +41,11 @@ const ArticleCategories: React.FC<ArticleCategoriesProps> = ({ categories = [] }
     const params = new URLSearchParams(searchParams.toString());
     if (selectedTag === tag) {
       params.delete('tag');
-      params.delete('page'); // Nollställ sida vid filterändring/rensning
+      params.delete('page');
       setSelectedTag(null);
     } else {
       params.set('tag', tag);
-      params.delete('page'); // Nollställ sida vid nytt filter
+      params.delete('page');
       setSelectedTag(tag);
     }
     router.push(`/artiklar?${params.toString()}`);
@@ -54,32 +54,46 @@ const ArticleCategories: React.FC<ArticleCategoriesProps> = ({ categories = [] }
   const clearFilter = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.delete('tag');
-    params.delete('page'); // Nollställ sida vid rensning
+    params.delete('page');
     setSelectedTag(null);
     router.push(`/artiklar?${params.toString()}`);
   };
 
+  // --- Styling för CTA-länkarna (NY STIL) ---
+  const ctaLinkClasses = `
+    group relative block overflow-hidden p-4 rounded-lg border
+    bg-navy-800      /* Solid bakgrund, lite ljusare än sidbaren */
+    border-navy-700  /* Tydligare default border */
+    transition-all duration-300 ease-in-out
+    shadow-md         /* Subtil default skugga */
+    hover:shadow-xl hover:shadow-pink-900/30 /* Tydligare hover-skugga med färg */
+    hover:border-pink-500                  /* Tydlig rosa border på hover */
+    hover:bg-navy-700/50                   /* Lite ljusare/genomskinlig bakgrund på hover */
+    hover:-translate-y-1                   /* Behåll lyft-effekt */
+    focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-navy-900
+  `;
+
   return (
-    // Behåller sticky, justerar padding lite
+    // Sidebar container (oförändrad)
     <div className={`sticky top-24 bg-navy-900 p-5 md:p-6 rounded-lg border border-navy-700/70 shadow-xl shadow-navy-950/30 transform transition-all duration-500 ease-out ${isAnimated ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}>
 
       {/* Rubrik och Rensa-knapp (oförändrat) */}
-      <div className="flex justify-between items-center mb-5 pb-4 border-b border-navy-700/50">
-        <h2 className="text-lg md:text-xl font-semibold text-white flex items-center">
-          <TrendingUp className="w-5 h-5 mr-2 text-pink-500 flex-shrink-0" />
-          Populära ämnen
-        </h2>
-        {selectedTag && (
-          <button
-            onClick={clearFilter}
-            className="text-xs text-gray-400 hover:text-pink-400 flex items-center transition-colors duration-200 px-2 py-1 rounded hover:bg-navy-800/60 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-navy-900"
-            aria-label="Rensa filter"
-          >
-            <X className="w-3.5 h-3.5 mr-1" />
-            Rensa
-          </button>
-        )}
-      </div>
+       <div className="flex justify-between items-center mb-5 pb-4 border-b border-navy-700/50">
+         <h2 className="text-lg md:text-xl font-semibold text-white flex items-center">
+           <TrendingUp className="w-5 h-5 mr-2 text-pink-500 flex-shrink-0" />
+           Populära ämnen
+         </h2>
+         {selectedTag && (
+           <button
+             onClick={clearFilter}
+             className="text-xs text-gray-400 hover:text-pink-400 flex items-center transition-colors duration-200 px-2 py-1 rounded hover:bg-navy-800/60 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-navy-900"
+             aria-label="Rensa filter"
+           >
+             <X className="w-3.5 h-3.5 mr-1" />
+             Rensa
+           </button>
+         )}
+       </div>
 
       {/* Info om valt filter (oförändrat) */}
       {selectedTag && (
@@ -93,31 +107,36 @@ const ArticleCategories: React.FC<ArticleCategoriesProps> = ({ categories = [] }
         </div>
       )}
 
-      {/* Taggar/Kategorier (visar nu färre) */}
-      <div className="flex flex-wrap gap-2 mb-6">
+      {/* Taggar/Kategorier (oförändrat från förra uppdateringen) */}
+      <div className="flex flex-wrap gap-3 mb-6">
         {categories.length > 0 ? (
           categories.map(({ tag, count }) => (
             <button
               key={tag}
               onClick={() => handleTagClick(tag)}
-              className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs md:text-sm font-medium transition-all duration-200 ease-in-out group focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-navy-900 ${
-                selectedTag === tag
-                  ? 'bg-pink-600/20 text-pink-300 border border-pink-500 shadow-sm shadow-pink-900/30'
-                  : 'bg-navy-800 text-gray-300 border border-navy-600/80 hover:bg-navy-700/70 hover:border-pink-500/50 hover:text-pink-400'
-              }`}
+              className={`
+                inline-flex items-center px-4 py-2 rounded-lg text-xs md:text-sm font-medium
+                transition-all duration-300 ease-in-out group shadow-md border
+                focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-navy-900
+                ${ selectedTag === tag
+                    ? 'bg-gradient-to-r from-pink-600/80 to-purple-600/70 text-white border-pink-500 shadow-lg shadow-pink-900/30 hover:shadow-xl hover:shadow-pink-800/40'
+                    : 'bg-navy-800 border-navy-600 text-gray-300 shadow-sm shadow-navy-950/20 hover:bg-navy-700 hover:border-pink-500/50 hover:text-pink-300 hover:shadow-lg hover:-translate-y-0.5'
+                }
+              `}
             >
               {tag}
-              <span className={`ml-1.5 text-[10px] md:text-xs px-1.5 py-0.5 rounded-full transition-colors duration-200 ${
-                selectedTag === tag
-                  ? 'bg-pink-500/30 text-pink-300'
-                  : 'bg-navy-700 text-gray-400 group-hover:bg-navy-600 group-hover:text-gray-300'
-              }`}>
+              <span className={`
+                ml-2 text-[10px] md:text-xs px-1.5 py-0.5 rounded-full transition-colors duration-300
+                ${ selectedTag === tag
+                    ? 'bg-white/10 text-pink-100'
+                    : 'bg-navy-600/80 text-gray-400 group-hover:bg-pink-700/50 group-hover:text-pink-200'
+                 }
+              `}>
                 {count}
               </span>
             </button>
           ))
         ) : (
-          // Behåll fallback om inga kategorier finns
           <div className="text-center py-6 w-full">
             <Tag className="w-10 h-10 text-navy-700 mx-auto mb-2" />
             <p className="text-gray-500 text-sm">Inga ämnen att visa.</p>
@@ -125,27 +144,13 @@ const ArticleCategories: React.FC<ArticleCategoriesProps> = ({ categories = [] }
         )}
       </div>
 
-       {/* --- CTA Infobox Sektion (ERSÄTTER KNAPPARNA) --- */}
+       {/* --- CTA Infobox Sektion (ANVÄNDER NYA ctaLinkClasses) --- */}
       <div className="mt-auto pt-5 border-t border-navy-700/50 flex flex-col gap-4">
-         {/* Box 1: Skapa Personligt Brev (Liknar ArticleSidebar) */}
-         <Link
-            href="/skapa-brev"
-            className={
-              `group relative block overflow-hidden p-4 rounded-lg border
-               bg-gradient-to-br from-navy-800/80 to-navy-800/50 border-navy-600/80
-               transition-all duration-300 ease-in-out
-               shadow-lg hover:shadow-xl hover:shadow-pink-900/40
-               hover:border-pink-500/90
-               hover:bg-gradient-to-br hover:from-navy-700/80 hover:to-navy-700/50
-               hover:-translate-y-1
-               focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-navy-900
-               before:content-[''] before:absolute before:top-0 before:left-0 before:h-1 before:w-full
-               before:bg-pink-600 before:scale-x-0 group-hover:before:scale-x-100
-               before:transition-transform before:duration-300 before:origin-left`
-            }
-          >
+         {/* Box 1: Skapa Personligt Brev */}
+         <Link href="/skapa-brev" className={ctaLinkClasses} >
             <div className="flex items-start space-x-3">
-              <Sparkles className="flex-shrink-0 w-6 h-6 text-pink-500 mt-0.5 group-hover:text-pink-400 transition-colors duration-200 group-hover:scale-110" />
+              {/* Ikon: Lite subtil glow på hover */}
+              <Sparkles className="flex-shrink-0 w-6 h-6 text-pink-500 mt-0.5 transition-all duration-300 group-hover:text-pink-400 group-hover:scale-110 group-hover:drop-shadow-[0_0_3px_rgba(236,72,153,0.6)]" />
               <div>
                 <h4 className="font-semibold text-white mb-1">
                   Skapa personligt brev
@@ -158,25 +163,11 @@ const ArticleCategories: React.FC<ArticleCategoriesProps> = ({ categories = [] }
             </div>
           </Link>
 
-          {/* Box 2: Analysera CV (Liknar ArticleSidebar) */}
-          <Link
-             href="/analysera-cv"
-            className={
-              `group relative block overflow-hidden p-4 rounded-lg border
-               bg-gradient-to-br from-navy-800/80 to-navy-800/50 border-navy-600/80
-               transition-all duration-300 ease-in-out
-               shadow-lg hover:shadow-xl hover:shadow-pink-900/40
-               hover:border-pink-500/90
-               hover:bg-gradient-to-br hover:from-navy-700/80 hover:to-navy-700/50
-               hover:-translate-y-1
-               focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-navy-900
-               before:content-[''] before:absolute before:top-0 before:left-0 before:h-1 before:w-full
-               before:bg-pink-600 before:scale-x-0 group-hover:before:scale-x-100
-               before:transition-transform before:duration-300 before:origin-left`
-            }
-          >
+          {/* Box 2: Analysera CV */}
+          <Link href="/analysera-cv" className={ctaLinkClasses} >
             <div className="flex items-start space-x-3">
-              <ScanSearch className="flex-shrink-0 w-6 h-6 text-pink-500 mt-0.5 group-hover:text-pink-400 transition-colors duration-200 group-hover:scale-110" />
+              {/* Ikon: Lite subtil glow på hover */}
+              <ScanSearch className="flex-shrink-0 w-6 h-6 text-pink-500 mt-0.5 transition-all duration-300 group-hover:text-pink-400 group-hover:scale-110 group-hover:drop-shadow-[0_0_3px_rgba(236,72,153,0.6)]" />
               <div>
                 <h4 className="font-semibold text-white mb-1">
                   Analysera ditt CV
@@ -189,8 +180,25 @@ const ArticleCategories: React.FC<ArticleCategoriesProps> = ({ categories = [] }
             </div>
           </Link>
 
-          {/* --- NY KNAPP TILLAGD --- */}
-          <div className="mt-2"> {/* Lite mindre marginal här än i ArticleSidebar */}
+          {/* Box 3: Kompetensutveckling */}
+           <Link href="/kompetensutveckling" className={ctaLinkClasses} >
+             <div className="flex items-start space-x-3">
+               {/* Ikon: Lite subtil glow på hover */}
+               <BrainCircuit className="flex-shrink-0 w-6 h-6 text-pink-500 mt-0.5 transition-all duration-300 group-hover:text-pink-400 group-hover:scale-110 group-hover:drop-shadow-[0_0_3px_rgba(236,72,153,0.6)]" />
+               <div>
+                 <h4 className="font-semibold text-white mb-1">
+                   Kompetensutveckling
+                 </h4>
+                 <p className="text-sm text-gray-300 leading-snug">
+                   Se vilka kompetenser som krävs och få förslag på hur du kan utvecklas vidare.
+                 </p>
+               </div>
+                <ArrowRight className="w-5 h-5 text-gray-500 ml-auto opacity-70 group-hover:opacity-100 group-hover:text-pink-400 group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 mt-0.5" />
+             </div>
+           </Link>
+
+          {/* Knapp för Registrering (oförändrad) */}
+          <div className="mt-2">
               <Link
                 href="/register"
                 className="block w-full bg-gradient-to-r from-pink-600 to-pink-700 hover:from-pink-500 hover:to-pink-600 text-white font-semibold py-2.5 px-4 rounded-md text-center transition-all duration-200 shadow-md hover:shadow-lg hover:shadow-pink-900/40 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-navy-900"
@@ -198,10 +206,8 @@ const ArticleCategories: React.FC<ArticleCategoriesProps> = ({ categories = [] }
                 Prova gratis nu
               </Link>
           </div>
-          {/* --- SLUT PÅ NY KNAPP --- */}
 
       </div>
-      {/* --- Slut på CTA Infobox Sektion --- */}
 
     </div>
   );

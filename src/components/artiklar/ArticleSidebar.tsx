@@ -1,10 +1,11 @@
 // src/components/artiklar/ArticleSidebar.tsx
-// Uppdaterad med mer framträdande initial styling för infoboxar och en ny registreringsknapp.
+// Uppdaterad med FÖRNYAD stil för CTA-boxar, inspirerad av funktionskorten.
 
 import React from 'react';
 import Link from 'next/link';
 import { PostMeta } from '@/lib/blog';
-import { Sparkles, ScanSearch, ArrowRight, FileText } from 'lucide-react';
+// Importera ikoner
+import { Sparkles, ScanSearch, ArrowRight, FileText, BrainCircuit } from 'lucide-react'; // Lade till BrainCircuit här också
 import { format, parseISO } from 'date-fns';
 import { sv } from 'date-fns/locale';
 
@@ -42,36 +43,35 @@ const ArticleSidebar: React.FC<ArticleSidebarProps> = ({
   }
   // --- Slut på Logik för Relaterade Artiklar ---
 
+  // --- Styling för CTA-länkarna (NY, inspirerad av funktionskort) ---
+  const ctaLinkClasses = `
+    group block p-4 rounded-xl border          /* Ökad rundning till xl */
+    bg-navy-800                              /* Solid mörkblå bas, samma som funktionskort */
+    border-navy-700                          /* Tydlig basborder */
+    transition-all duration-300 ease-in-out
+    shadow-lg                                /* Lite mer startskugga */
+    hover:shadow-xl hover:shadow-pink-900/40 /* Starkare, färgad hover-skugga */
+    hover:border-pink-500/80                 /* Tydlig rosa hover-border */
+    hover:bg-navy-700/60                     /* Lätt uppljusad hover-bakgrund */
+    hover:-translate-y-1                     /* Behåll lyft */
+    focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-navy-900
+  `;
 
   return (
     <aside className="sticky top-24 space-y-8">
 
-      {/* --- CTA Infobox Sektion (UPPDATERAD INITIAL STYLING & KNAPP TILLAGD) --- */}
+      {/* --- CTA Infobox Sektion (Använder NYA ctaLinkClasses) --- */}
       <div className="bg-navy-900 p-5 rounded-lg border border-navy-700/70 shadow-lg shadow-navy-950/30">
         <h3 className="text-lg font-semibold text-white mb-4 border-b border-navy-700/50 pb-3">
           Testa våra AI-verktyg
         </h3>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4"> {/* Behåll gap */}
 
-          {/* Box 1: Skapa Personligt Brev (Justerad initial styling) */}
-          <Link
-            href="/create-letter"
-            className={
-              `group relative block overflow-hidden p-4 rounded-lg border
-               bg-gradient-to-br from-navy-800/80 to-navy-800/50 border-navy-600/80  // Ljusare start
-               transition-all duration-300 ease-in-out
-               shadow-lg hover:shadow-xl hover:shadow-pink-900/40                   // Tydligare startskugga
-               hover:border-pink-500/90                                            // Tydligare hover-border
-               hover:bg-gradient-to-br hover:from-navy-700/80 hover:to-navy-700/50 // Tydligare hover-bakgrund
-               hover:-translate-y-1                                                // Behåll lyft
-               focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-navy-900
-               before:content-[''] before:absolute before:top-0 before:left-0 before:h-1 before:w-full
-               before:bg-pink-600 before:scale-x-0 group-hover:before:scale-x-100 // Behåll animerad topp-border
-               before:transition-transform before:duration-300 before:origin-left`
-            }
-          >
+          {/* Box 1: Skapa Personligt Brev */}
+          <Link href="/skapa-brev" className={ctaLinkClasses}>
             <div className="flex items-start space-x-3">
-              <Sparkles className="flex-shrink-0 w-6 h-6 text-pink-500 mt-0.5 group-hover:text-pink-400 transition-colors duration-200 group-hover:scale-110" />
+              {/* Uppdaterad ikon-styling */}
+              <Sparkles className="flex-shrink-0 w-6 h-6 text-pink-500 mt-0.5 transition-all duration-300 group-hover:text-pink-400 group-hover:scale-110 group-hover:drop-shadow-[0_0_4px_rgba(236,72,153,0.7)]" />
               <div>
                 <h4 className="font-semibold text-white mb-1">
                   Skapa personligt brev
@@ -80,29 +80,15 @@ const ArticleSidebar: React.FC<ArticleSidebarProps> = ({
                   Skapa ett vinnande brev på sekunder. Vår AI matchar ditt CV mot jobbannonsen och lyfter fram dina mest relevanta erfarenheter och kompetenser.
                 </p>
               </div>
-               <ArrowRight className="w-5 h-5 text-gray-500 ml-auto opacity-70 group-hover:opacity-100 group-hover:text-pink-400 group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 mt-0.5" /> {/* Lite mer synlig pil */}
+               <ArrowRight className="w-5 h-5 text-gray-500 ml-auto opacity-70 transition-all duration-300 group-hover:opacity-100 group-hover:text-pink-400 group-hover:translate-x-1 flex-shrink-0 mt-0.5" />
             </div>
           </Link>
 
-          {/* Box 2: Analysera CV (Justerad initial styling) */}
-          <Link
-             href="/analysera-cv"
-            className={
-              `group relative block overflow-hidden p-4 rounded-lg border
-               bg-gradient-to-br from-navy-800/80 to-navy-800/50 border-navy-600/80  // Ljusare start
-               transition-all duration-300 ease-in-out
-               shadow-lg hover:shadow-xl hover:shadow-pink-900/40                   // Tydligare startskugga
-               hover:border-pink-500/90                                            // Tydligare hover-border
-               hover:bg-gradient-to-br hover:from-navy-700/80 hover:to-navy-700/50 // Tydligare hover-bakgrund
-               hover:-translate-y-1                                                // Behåll lyft
-               focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-navy-900
-               before:content-[''] before:absolute before:top-0 before:left-0 before:h-1 before:w-full
-               before:bg-pink-600 before:scale-x-0 group-hover:before:scale-x-100 // Behåll animerad topp-border
-               before:transition-transform before:duration-300 before:origin-left`
-            }
-          >
+          {/* Box 2: Analysera CV */}
+          <Link href="/analysera-cv" className={ctaLinkClasses}>
             <div className="flex items-start space-x-3">
-              <ScanSearch className="flex-shrink-0 w-6 h-6 text-pink-500 mt-0.5 group-hover:text-pink-400 transition-colors duration-200 group-hover:scale-110" />
+               {/* Uppdaterad ikon-styling */}
+              <ScanSearch className="flex-shrink-0 w-6 h-6 text-pink-500 mt-0.5 transition-all duration-300 group-hover:text-pink-400 group-hover:scale-110 group-hover:drop-shadow-[0_0_4px_rgba(236,72,153,0.7)]" />
               <div>
                 <h4 className="font-semibold text-white mb-1">
                   Analysera ditt CV
@@ -111,12 +97,30 @@ const ArticleSidebar: React.FC<ArticleSidebarProps> = ({
                   Få djupgående AI-feedback. Identifiera styrkor, se konkreta förbättringsområden (struktur, tydlighet, starka verb) och finslipa ditt viktigaste karriärdokument.
                 </p>
               </div>
-               <ArrowRight className="w-5 h-5 text-gray-500 ml-auto opacity-70 group-hover:opacity-100 group-hover:text-pink-400 group-hover:translate-x-1 transition-all duration-200 flex-shrink-0 mt-0.5" /> {/* Lite mer synlig pil */}
+               <ArrowRight className="w-5 h-5 text-gray-500 ml-auto opacity-70 transition-all duration-300 group-hover:opacity-100 group-hover:text-pink-400 group-hover:translate-x-1 flex-shrink-0 mt-0.5" />
             </div>
           </Link>
+
+          {/* Box 3: Kompetensutveckling (Lades till igen för säkerhets skull) */}
+          <Link href="/kompetensutveckling" className={ctaLinkClasses}>
+             <div className="flex items-start space-x-3">
+               {/* Uppdaterad ikon-styling */}
+               <BrainCircuit className="flex-shrink-0 w-6 h-6 text-pink-500 mt-0.5 transition-all duration-300 group-hover:text-pink-400 group-hover:scale-110 group-hover:drop-shadow-[0_0_4px_rgba(236,72,153,0.7)]" />
+               <div>
+                 <h4 className="font-semibold text-white mb-1">
+                   Kompetensutveckling
+                 </h4>
+                 <p className="text-sm text-gray-300 leading-snug">
+                   Se vilka kompetenser som krävs och få förslag på hur du kan utvecklas vidare.
+                 </p>
+               </div>
+                <ArrowRight className="w-5 h-5 text-gray-500 ml-auto opacity-70 transition-all duration-300 group-hover:opacity-100 group-hover:text-pink-400 group-hover:translate-x-1 flex-shrink-0 mt-0.5" />
+             </div>
+           </Link>
+
         </div>
 
-        {/* --- NY KNAPP TILLAGD --- */}
+        {/* Knapp för Registrering (Oförändrad) */}
         <div className="mt-6 pt-5 border-t border-navy-700/50">
           <Link
             href="/register"
@@ -125,7 +129,6 @@ const ArticleSidebar: React.FC<ArticleSidebarProps> = ({
             Prova gratis nu
           </Link>
         </div>
-         {/* --- SLUT PÅ NY KNAPP --- */}
 
       </div>
       {/* --- Slut på CTA Infobox Sektion --- */}

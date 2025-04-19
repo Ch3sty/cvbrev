@@ -1,7 +1,7 @@
 // src/app/profile/page.tsx
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useProfile } from '@/hooks/use-profile';
 import { useCVStore } from '@/store/cv-store';
@@ -82,6 +82,9 @@ export default function ProfilePage() {
     preferred_tonality: 'professional'
   });
 
+  // Auth check ref
+  const authCheckedRef = useRef(false);
+
   // *** STRIPE PRICE ID (Månad) ***
   const premiumMonthlyPriceId = "price_1R7eyuAB6xHzwmWvtzFJdaOU";
   // ******************************
@@ -124,6 +127,17 @@ export default function ProfilePage() {
       description: 'En harmonisk blandning av professionalitet och personlighet.'
     }
   ];
+
+  // Auth check effect
+  useEffect(() => {
+    if (!authCheckedRef.current && !profileLoading) {
+      authCheckedRef.current = true;
+      if (!profile) {
+        console.log('Användare ej inloggad, omdirigerar till /login');
+        router.push('/login');
+      }
+    }
+  }, [profile, profileLoading, router]);
 
   // Funktion för att radera konto
   const confirmDeleteAccount = async () => {
@@ -354,13 +368,9 @@ export default function ProfilePage() {
     }
   };
 
-  // Loading state
-  if (profileLoading) {
-    return (
-      <div className="flex justify-center items-center min-h-[300px]">
-        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-pink-500"></div>
-      </div>
-    );
+  // Om sidan håller på att omdirigeras eller användaren inte är inloggad, visa ingenting
+  if (profileLoading || !profile) {
+    return null;
   }
 
   // === RENDER ===

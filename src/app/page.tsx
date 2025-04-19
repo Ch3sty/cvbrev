@@ -16,7 +16,7 @@ import {
   X,
   PlayCircle,
   ChevronRight, Star, CheckCircle, FileText, FileSearch, Lock, Zap, Save,
-  Clock, Target, Lightbulb, BrainCircuit, Sparkles, Upload, ArrowRight,
+  Clock, Target, Lightbulb, BrainCircuit, Sparkles, Upload, ArrowRight, // <<< Lade till Sparkles här
   TrendingUp, ChevronDown, ChevronUp, GraduationCap, Repeat, Briefcase,
 } from 'lucide-react'
 
@@ -60,7 +60,7 @@ const features: Feature[] = [
         href: "/create-letter#tonalitet",
     },
     {
-        icon: BrainCircuit,
+        icon: BrainCircuit, // Behåller BrainCircuit för Feature-kortet, använder Sparkles i prisplanen
         title: "Smarta insikter & matchning",
         description: "Förstå hur väl din profil matchar kraven i jobbannonsen. Få datadrivna insikter för att vässa din ansökan ytterligare.",
         benefit: "Ger dig ett övertag.",
@@ -115,7 +115,7 @@ interface FaqItem {
 const faqItems: FaqItem[] = [
     {
         question: "Hur skiljer sig gratis CV-analys från Premium?",
-        answer: "Gratisversionen ger dig en grundläggande översikt och identifierar uppenbara förbättringspunkter (1 analys/vecka). Premium ger en djupgående analys med specifika förslag på nyckelord, kvantifiering av prestationer, strukturförbättringar och obegränsade analyser."
+        answer: "Gratisversionen ger dig en grundläggande översikt och identifierar uppenbara förbättringspunkter (2 analyser totalt). Premium ger en djupgående analys med specifika förslag på nyckelord, kvantifiering av prestationer, strukturförbättringar och obegränsade analyser." // Uppdaterad text
     },
     {
         question: "Är min uppladdade data säker?",
@@ -452,19 +452,18 @@ export default function Home() {
                                            poster={demo.posterSrc}
                                            width="100%"
                                            height="auto"
-                                           loop         // <<< ÅTERSTÄLLD
-                                           muted        // <<< ÅTERSTÄLLD
-                                           autoPlay     // <<< ÅTERSTÄLLD
+                                           loop
+                                           muted
+                                           autoPlay
                                            playsInline
                                            preload="metadata"
                                            className="block object-cover w-full h-full rounded-t-xl"
-                                           // Uppdaterad aria-label för att reflektera båda funktionerna
                                            aria-label={`Autospelande demonstration av ${demo.title}. Klicka för att se större version med kontroller.`}
                                        >
                                            {/* Fallback text mindre kritisk när poster finns */}
                                        </video>
                                        {/* Play-ikon overlay visas vid hover */}
-                                       <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 pointer-events-none"> {/* Added pointer-events-none */}
+                                       <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 pointer-events-none">
                                            <PlayCircle className="w-16 h-16 text-white opacity-70" />
                                        </div>
                                    </div>
@@ -480,7 +479,7 @@ export default function Home() {
                {/* === SLUT Utforska Kärnfunktionerna === */}
 
 
-                {/* === Prisplaner === */}
+                {/* === Prisplaner (UPPDATERAD 2024-07-16) === */}
                 <section id="priser" aria-labelledby="pricing-heading" className="py-16 bg-navy-900 lg:py-24">
                      <div className="container px-4 mx-auto">
                          <div className="max-w-3xl mx-auto mb-16 text-center">
@@ -492,29 +491,35 @@ export default function Home() {
                              </p>
                          </div>
                          <div className="grid max-w-4xl gap-8 mx-auto lg:grid-cols-2 items-stretch">
-                            {/* Gratis plan */}
+                            {/* --- UPDATED Gratis plan --- */}
                             <div className="flex flex-col overflow-hidden bg-navy-800 border border-gray-700 rounded-2xl transition-all duration-300 hover:border-gray-500 hover:shadow-lg">
                                 <div className="p-8 pb-6 flex-grow">
                                     <h3 className="mb-2 text-2xl font-semibold text-white">Gratis</h3>
-                                    <p className="mb-6 text-gray-400 h-12">Perfekt för att testa plattformen och skriva dina första ansökningar.</p>
+                                    {/* Uppdaterad beskrivning */}
+                                    <p className="mb-6 text-gray-400 h-12">Testa grundläggande funktioner och upplev AI-kraften.</p>
                                     <div className="mb-6"> <span className="text-4xl font-bold text-white">0 kr</span> <span className="text-gray-400"> / för alltid</span> </div>
                                     <p className="mb-4 text-sm font-semibold text-gray-300">Detta ingår:</p>
                                     <ul className="space-y-3 text-sm">
-                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-500 shrink-0" /> <span className="text-gray-300">5 AI-genererade personliga brev / vecka</span> </li>
-                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-500 shrink-0" /> <span className="text-gray-300">1 CV-analys / vecka</span> </li>
-                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-500 shrink-0" /> <span className="text-gray-300">Spara upp till 2 ansökningar</span> </li>
+                                        {/* Uppdaterade gratis-features */}
+                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-500 shrink-0" /> <span className="text-gray-300">2 AI-genererade personliga brev</span> </li>
+                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-500 shrink-0" /> <span className="text-gray-300">2 CV-analyser (grundläggande)</span> </li>
+                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-500 shrink-0" /> <span className="text-gray-300">2 Kompetensanalyser (grundläggande)</span> </li>
+                                        {/* Uppdaterade låsta features */}
+                                        <li className="flex items-center opacity-60"> <Lock className="w-5 h-5 mr-3 text-gray-500 shrink-0" /> <span className="text-gray-400">Djupgående CV-analys (Premium)</span> </li>
+                                        <li className="flex items-center opacity-60"> <Lock className="w-5 h-5 mr-3 text-gray-500 shrink-0" /> <span className="text-gray-400">Djupgående kompetensanalys (Premium)</span> </li>
                                         <li className="flex items-center opacity-60"> <Lock className="w-5 h-5 mr-3 text-gray-500 shrink-0" /> <span className="text-gray-400">Anpassningsbar tonalitet (Premium)</span> </li>
                                         <li className="flex items-center opacity-60"> <Lock className="w-5 h-5 mr-3 text-gray-500 shrink-0" /> <span className="text-gray-400">Obegränsad användning (Premium)</span> </li>
                                     </ul>
                                 </div>
                                 <div className="p-6 mt-auto bg-navy-800 border-t border-navy-700 rounded-b-2xl">
+                                    {/* Uppdaterad knapptext */}
                                     <Link href="/register" className="flex items-center justify-center w-full px-6 py-3 font-medium text-white transition-colors bg-gray-600 rounded-lg hover:bg-gray-500 text-center">
                                         Registrera gratiskonto
                                         <ArrowRight className="w-4 h-4 ml-2"/>
                                     </Link>
                                 </div>
                             </div>
-                            {/* Premium plan */}
+                            {/* --- UPDATED Premium plan --- */}
                              <div className="relative flex flex-col overflow-hidden bg-navy-800 border-2 border-pink-500 rounded-2xl shadow-xl shadow-pink-500/10 transition-all duration-300 hover:shadow-pink-500/20">
                                 <div className="absolute top-0 right-0 px-4 py-1 text-xs font-bold tracking-wider text-white uppercase bg-gradient-to-r from-pink-600 to-purple-600 rounded-bl-lg rounded-tr-lg z-10">
                                     Mest populär
@@ -522,20 +527,25 @@ export default function Home() {
                                 <div className="absolute inset-0 opacity-10 bg-gradient-to-br from-pink-500/50 via-transparent to-purple-500/50 rounded-2xl" aria-hidden="true"></div>
                                 <div className="p-8 pb-6 flex-grow relative z-10">
                                     <h3 className="mb-2 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Premium</h3>
+                                    {/* Uppdaterad beskrivning */}
                                     <p className="mb-6 text-gray-400 h-12">Lås upp full potential och maximera dina chanser med obegränsad tillgång.</p>
                                     <div className="mb-6"> <span className="text-4xl font-bold text-white">149 kr</span> <span className="text-gray-400"> / månad</span> </div>
                                     <p className="mb-4 text-sm font-semibold text-gray-300">Allt i Gratis, plus:</p>
                                     <ul className="space-y-3 text-sm">
-                                        <li className="flex items-center"> <Zap className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsad AI-generering & CV-analys</span> </li>
+                                        {/* Uppdaterade premium-features med nya ikoner & text */}
+                                        <li className="flex items-center"> <Zap className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsad AI-generering</span> </li>
+                                        <li className="flex items-center"> <FileSearch className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsad & djupgående CV-analys</span> </li>
+                                        <li className="flex items-center"> <FileSearch className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsad & djupgående kompetensanalys</span> </li>
                                         <li className="flex items-center"> <Save className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsat antal sparade ansökningar</span> </li>
-                                        <li className="flex items-center"> <Lightbulb className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">AI-optimerad tonalitet</span> </li>
-                                        <li className="flex items-center"> <BrainCircuit className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Avancerade matchningsinsikter</span> </li>
+                                        <li className="flex items-center"> <Lightbulb className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">AI-optimerad & anpassningsbar tonalitet</span> </li>
+                                        <li className="flex items-center"> <Sparkles className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Avancerade matchningsinsikter</span> </li>
                                         <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Prioriterad support</span> </li>
                                     </ul>
                                 </div>
                                 <div className="p-6 mt-auto relative z-10 bg-gradient-to-t from-navy-800 via-navy-800 to-transparent border-t-2 border-pink-500 rounded-b-2xl">
-                                    <Link href="/register?plan=premium" className="flex items-center justify-center w-full px-6 py-3 font-medium text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg hover:from-pink-700 hover:to-purple-700 hover:shadow-lg text-center">
-                                        Starta premium
+                                    {/* Uppdaterad knapptext & stil */}
+                                    <Link href="/register?plan=premium" className="flex items-center justify-center w-full px-6 py-3 font-medium text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-fuchsia-600 rounded-lg hover:from-pink-700 hover:to-fuchsia-700 hover:shadow-lg text-center">
+                                        Uppgradera till Premium
                                         <ArrowRight className="w-4 h-4 ml-2"/>
                                     </Link>
                                 </div>
@@ -546,6 +556,7 @@ export default function Home() {
                          </p>
                     </div>
                 </section>
+                 {/* === SLUT Prisplaner === */}
 
                 {/* === Varför Välja Oss & Omdömen (Med konkretisering) === */}
                 <section aria-labelledby="why-choose-us-heading" className="py-16 bg-navy-950 lg:py-24">

@@ -19,7 +19,7 @@ import {
   FileText, Upload, MessageSquare, ChevronDown, Info, Building2, Sparkles,
   Lightbulb, Trophy, Scale, Bot, Pencil, Save, Check, AlertTriangle,
   Crown, Clock, ExternalLink, Languages, SlidersHorizontal, Eye,
-  Loader2
+  Loader2, ChevronRight
 } from 'lucide-react'
 
 // --- Types ---
@@ -46,6 +46,7 @@ const tonalityInfo: Record<Tonality, TonalityInfo> = {
 
 const GENERATION_TIMEOUT = 45000; // ms
 const GENERATION_DEBOUNCE = 3000; // ms
+const UPGRADE_ROUTE = '/profile?tab=subscription';
 
 // --- Main Page Component ---
 export default function CreateLetterPage() {
@@ -57,6 +58,7 @@ export default function CreateLetterPage() {
   const { createLetter, saveLetter, isGenerating } = useLetters();
   const {
     profile,
+    loading: profileLoading,
     subscriptionTier,
     remainingWeeklyLetters,
     hasReachedLetterLimit, // Gräns för *sparade* brev
@@ -65,7 +67,8 @@ export default function CreateLetterPage() {
     updateRemainingLetters,
     nextResetDate,
     timeUntilReset,
-    updateNextResetDate
+    updateNextResetDate,
+    weeklyLetterLimit
   } = useProfile();
 
   // ========================================================================
@@ -93,6 +96,20 @@ export default function CreateLetterPage() {
   const initialLoadRef = useRef(false); // För att bara köra initial datahämtning en gång
   const generationInProgressRef = useRef(false); // För att förhindra samtidiga genereringsanrop
   const lastGenerationAttemptRef = useRef(0); // För rate limiting på klienten
+  const authCheckedRef = useRef(false); // För att bara kontrollera auth en gång
+
+  // ========================================================================
+  // Authentication Check Effect (Tidigt i effekt-kedjan)
+  // ========================================================================
+  useEffect(() => {
+    if (!authCheckedRef.current && !profileLoading) {
+      authCheckedRef.current = true;
+      if (!profile) {
+        console.log('Användare ej inloggad, omdirigerar till /login');
+        router.push('/login');
+      }
+    }
+  }, [profile, profileLoading, router]);
 
   // ========================================================================
   // Effects
@@ -410,7 +427,7 @@ export default function CreateLetterPage() {
     if (profile?.id) {
       logUserActivity(profile.id, 'upgrade_clicked', 'Klick på uppgradering', { source: 'create-letter', current_tier: subscriptionTier });
     }
-    router.push('/priser'); // Gå till prissidan
+    router.push(UPGRADE_ROUTE); // Gå till prissidan
   }, [router, profile, subscriptionTier, logUserActivity]);
 
   // --- Funktioner för inställningar ---
@@ -430,11 +447,18 @@ export default function CreateLetterPage() {
   const isGenerateButtonDisabled = isSubmitting || !selectedCV || !jobDescription || cvsLoading || (subscriptionTier === 'free' && remainingWeeklyLetters <= 0);
   const isSaveButtonDisabled = isSaving || letterData?.is_saved || hasReachedLetterLimit || !generatedLetter;
   const isEditButtonDisabled = !letterData?.id || !letterData?.is_saved || !generatedLetter;
+  const isFreeTier = subscriptionTier === 'free';
+  const hasReachedLimit = isFreeTier && remainingWeeklyLetters !== null && remainingWeeklyLetters <= 0;
 
 
   // ========================================================================
   // JSX Render
   // ========================================================================
+  // Om sidan håller på att omdirigeras eller användaren inte är inloggad, visa ingenting
+  if (profileLoading || !profile) {
+    return null;
+  }
+
   return (
     <>
       {/* --- SEO Head --- */}
@@ -467,43 +491,58 @@ export default function CreateLetterPage() {
                   </p>
               </div>
 
-              {/* --- Veckogräns Info (Free Tier) --- */}
-              {subscriptionTier === 'free' && (
-                  <div className="mb-8 p-4 bg-navy-800/60 rounded-lg border border-navy-700 shadow-md">
-                      {/* Innehåll för veckogräns (oförändrat från förra versionen) */}
-                      <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-                          <div className="flex items-center">
-                              <MessageSquare className="w-5 h-5 mr-2 text-pink-400 flex-shrink-0" />
-                              <span className="text-white font-medium">Genereringar denna vecka:</span>
-                              <span className={`ml-2 font-semibold ${remainingWeeklyLetters <= 1 ? 'text-red-400' : 'text-white'}`}>
-                                  {5 - remainingWeeklyLetters} / 5
-                              </span>
-                          </div>
-                          <div className="flex items-center text-sm text-gray-400">
-                              <Clock className="w-4 h-4 mr-1.5" />
-                              <span>Nollställs {timeUntilReset ? `om ca. ${timeUntilReset}` : formatDate(nextResetDate)}</span>
-                          </div>
-                          {remainingWeeklyLetters <= 0 && (
-                              <button
-                                  onClick={handleUpgrade}
-                                  className="ml-auto sm:ml-4 px-4 py-1.5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white text-sm font-medium rounded-md flex items-center transition-all shadow-sm hover:shadow-md"
-                              >
-                                  <Crown className="w-4 h-4 mr-1.5" />
-                                  Uppgradera
-                              </button>
-                          )}
-                      </div>
-                      {remainingWeeklyLetters <= 1 && remainingWeeklyLetters > 0 && (
-                          <div className="mt-3 text-sm text-yellow-300 flex items-start">
-                              <AlertTriangle className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
-                              <span>
-                                  Du har {remainingWeeklyLetters} {remainingWeeklyLetters === 1 ? 'generering' : 'genereringar'} kvar denna vecka.
-                                  <button onClick={handleUpgrade} className="ml-1 text-pink-400 hover:text-pink-300 underline font-medium"> Uppgradera </button> för obegränsad användning.
-                              </span>
-                          </div>
+              {/* --- Veckogräns Info (Free Tier) - UPPDATERAD SEKTION --- */}
+              {isFreeTier && weeklyLetterLimit > 0 && weeklyLetterLimit !== Infinity && (
+                <section aria-labelledby="letter-limit-heading" className="mb-8 p-5 bg-navy-800 rounded-lg border border-navy-700">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                    <div>
+                      <h2 id="letter-limit-heading" className="flex items-center mb-1 font-medium text-white">
+                        <MessageSquare className="w-5 h-5 mr-2 text-pink-400" /> Veckans brevgenereringar
+                      </h2>
+                      <p className="text-xs text-gray-400 pl-7">
+                        Gratisanvändare kan göra {weeklyLetterLimit} {weeklyLetterLimit === 1 ? 'brevgenerering' : 'brevgenereringar'} per vecka.
+                      </p>
+                    </div>
+                    
+                    <div className="flex items-center space-x-3 w-full sm:w-auto justify-end sm:justify-start">
+                      <span className={`text-sm font-semibold px-2 py-0.5 rounded ${
+                        hasReachedLimit ? 'bg-red-500/20 text-red-300' : 'bg-green-500/20 text-green-300'
+                      }`}>
+                        {remainingWeeklyLetters ?? '-'} / {weeklyLetterLimit} kvar
+                      </span>
+                      {hasReachedLimit && (
+                        <button
+                          onClick={handleUpgrade}
+                          className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-purple-600 rounded-md shadow-md hover:shadow-lg hover:from-pink-700 hover:to-purple-700 group"
+                          aria-label="Uppgradera till Premium för fler brevgenereringar"
+                        >
+                          <Crown className="w-3 h-3 mr-1" /> Uppgradera
+                          <ChevronRight className="w-3 h-3 ml-1 transition-transform duration-300 group-hover:translate-x-0.5" />
+                        </button>
                       )}
+                    </div>
                   </div>
+                  
+                  {nextResetDate && (
+                    <div className="flex items-center mt-3 text-xs text-gray-400 border-t border-navy-700 pt-3">
+                      <Clock className="w-3 h-3 mr-1.5" />
+                      <span>Nollställs {timeUntilReset ? `om ${timeUntilReset}` : formatDate(nextResetDate)}</span>
+                    </div>
+                  )}
+                  
+                  {hasReachedLimit && (
+                    <div className="mt-3 text-sm text-yellow-300 flex items-start">
+                      <AlertTriangle className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
+                      <span>
+                        Du har nått din veckogräns för brevgenereringar. 
+                        <button onClick={handleUpgrade} className="ml-1 text-pink-400 hover:text-pink-300 underline font-medium">Uppgradera</button>
+                        för obegränsad användning.
+                      </span>
+                    </div>
+                  )}
+                </section>
               )}
+              {/* --- SLUT PÅ UPPDATERAD SEKTION --- */}
 
               {/* --- Huvudlayout (Grid) --- */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">

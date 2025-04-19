@@ -8,6 +8,13 @@ import { logUserActivity } from '@/lib/activity-logger';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { openai } from '@/lib/openai/api';
 
+// ============================================================================
+//  Constants & Configuration
+// ============================================================================
+
+// Konstant för att definiera veckobegränsning för gratisanvändare
+const WEEKLY_COMPETENCE_ANALYSIS_LIMIT_FREE = 2; // Endast 2 analys per vecka för gratisanvändare
+
 // --- TYPDEFINITION MED SÖKTERMER ISTÄLLET FÖR URL ---
 // Denna typ används internt i denna fil och för API-svaret.
 export interface LearningSuggestion {
@@ -22,15 +29,113 @@ export interface LearningSuggestion {
 // --- SLUT TYPDEFINITION ---
 
 // ============================================================================
-//  Helper Function: getCvText
+//  Helper Functions
 // ============================================================================
+
 /**
- * Hämtar CV-text från databasen för en given användare och CV-ID.
+ * Beräknar nästa återställningsdatum (nästa måndag 00:00 UTC) baserat på det senaste återställningstidsstämpeln.
+ */
+const calculateNextResetDate = (lastResetTimestamp: string | null): Date => {
+    const now = new Date();
+    const lastReset = lastResetTimestamp ? new Date(lastResetTimestamp) : now;
+    const nextReset = new Date(lastReset);
+    nextReset.setUTCHours(0, 0, 0, 0);
+    const currentDayOfWeek = nextReset.getUTCDay();
+    const daysUntilMonday = (currentDayOfWeek === 1) ? 7 : (8 - currentDayOfWeek) % 7;
+    if (daysUntilMonday === 0 && lastResetTimestamp === null) {
+         nextReset.setUTCDate(nextReset.getUTCDate() + 7);
+    } else if (daysUntilMonday > 0) {
+        nextReset.setUTCDate(nextReset.getUTCDate() + daysUntilMonday);
+    }
+    while (nextReset.getTime() <= now.getTime()) {
+        console.warn(`Calculated reset date ${nextReset.toISOString()} was not in the future compared to ${now.toISOString()}. Adding 7 days.`);
+        nextReset.setUTCDate(nextReset.getUTCDate() + 7);
+    }
+    return nextReset;
+};
+
+/**
+ * Hämtar användarprofildata relevant för analysgränser.
+ */
+async function getUserProfileData(supabase: SupabaseClient<Database>, userId: string) {
+    const { data: profileData, error: profileError } = await supabase
+        .from('profiles')
+        .select('subscription_tier, weekly_competence_analysis_count, last_competence_analysis_reset, next_reset_date')
+        .eq('id', userId)
+        .single();
+    
+    if (profileError) {
+        const errorMessage = profileError.code === 'PGRST116' 
+            ? 'Användarprofil kunde inte hittas.' 
+            : `Databasfel vid hämtning av profil: ${profileError.message}`;
+        console.error(`API competenceAnalysis: Error fetching profile for user ${userId}:`, profileError);
+        throw new Error(errorMessage);
+    }
+    
+    if (!profileData) {
+        console.error(`API competenceAnalysis: Profile data is null for user ${userId} despite no error.`);
+        throw new Error('Användarprofil saknas.');
+    }
+    
+    return {
+        subscriptionTier: (profileData.subscription_tier === 'premium' ? 'premium' : 'free') as 'free' | 'premium',
+        currentAnalysisCount: profileData.weekly_competence_analysis_count ?? 0,
+        lastAnalysisResetTimestamp: profileData.last_competence_analysis_reset,
+        dbNextResetDate: profileData.next_reset_date ? new Date(profileData.next_reset_date) : null
+    };
+}
+
+/**
+ * Återställer veckoräknaren för en användare om återställningsdatumet har passerat.
+ */
+async function checkAndResetAnalysisCount(
+    supabase: SupabaseClient<Database>,
+    userId: string,
+    currentCount: number,
+    dbNextResetDate: Date | null,
+    lastAnalysisResetTimestamp: string | null
+): Promise<{ count: number; lastReset: string; nextReset: Date }> {
+    const now = new Date();
+    let nextResetDate = (dbNextResetDate && dbNextResetDate > now) 
+        ? dbNextResetDate 
+        : calculateNextResetDate(lastAnalysisResetTimestamp);
+    
+    let count = currentCount;
+    let lastReset = lastAnalysisResetTimestamp ?? now.toISOString();
+    
+    // Om det är dags för återställning
+    if (now.getTime() >= nextResetDate.getTime()) {
+        console.log(`API competenceAnalysis: User ${userId}: Resetting analysis count.`);
+        count = 0;
+        lastReset = now.toISOString();
+        nextResetDate = calculateNextResetDate(lastReset);
+        
+        const { error: resetError } = await supabase
+            .from('profiles')
+            .update({ 
+                weekly_competence_analysis_count: 0, 
+                last_competence_analysis_reset: lastReset, 
+                next_reset_date: nextResetDate.toISOString() 
+            })
+            .eq('id', userId);
+        
+        if (resetError) { 
+            console.error(`API competenceAnalysis: User ${userId}: Failed to update DB on count reset:`, resetError); 
+        } else { 
+            console.log(`API competenceAnalysis: User ${userId}: Database updated with reset count and new reset date.`); 
+        }
+    }
+    
+    return { count, lastReset, nextReset: nextResetDate };
+}
+
+/**
+ * Hämtar CV-text för en given användare och CV-ID.
  */
 async function getCvText(supabase: SupabaseClient<Database>, userId: string, cvId: string): Promise<string> {
     console.log(`--- DEBUG getCvText: Fetching CV text for CV ID: ${cvId}, User ID: ${userId}`);
     const { data: cvData, error: dbError } = await supabase
-        .from('cv_texts') // <<<--- KONTROLLERA TABELLNAMN!
+        .from('cv_texts')
         .select('cv_text')
         .eq('id', cvId)
         .eq('user_id', userId)
@@ -50,15 +155,28 @@ async function getCvText(supabase: SupabaseClient<Database>, userId: string, cvI
     return cvData.cv_text;
 }
 
-// ============================================================================
-//  Helper Function: findLearningResourcesForGap
-// ============================================================================
+/**
+ * Ökar räknaren för en gratisanvändare efter en lyckad analys.
+ */
+async function incrementFreeUserCount(supabase: SupabaseClient<Database>, userId: string, currentCount: number): Promise<number> {
+    const newCount = currentCount + 1;
+    const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ weekly_competence_analysis_count: newCount })
+        .eq('id', userId);
+    
+    if (updateError) { 
+        console.error(`API competenceAnalysis: User ${userId}: Failed to update analysis count after successful analysis:`, updateError); 
+    }
+    
+    return Math.max(0, WEEKLY_COMPETENCE_ANALYSIS_LIMIT_FREE - newCount);
+}
+
 /**
  * Använder OpenAI för att hitta läranderesurser och generera söktermer för ett specifikt kompetensgap.
- * Fokuserar på svenska marknaden och undviker direkta URL:er.
  */
 async function findLearningResourcesForGap(gap: MissingSkill, language: string = 'sv'): Promise<LearningSuggestion[]> {
-    const modelToUse = "gpt-4o";
+    const modelToUse = "gpt-4.1";
     const maxSuggestionsPerGap = 2; // Max antal förslag per identifierat gap
 
     const systemPrompt = `
@@ -147,9 +265,6 @@ async function findLearningResourcesForGap(gap: MissingSkill, language: string =
 // ============================================================================
 //  API Route Handler (POST)
 // ============================================================================
-/**
- * Hanterar POST-förfrågningar för att utföra en kompetensanalys i två steg.
- */
 export async function POST(request: NextRequest) {
     const cookieStore = cookies();
     const supabase = createServerClient({ cookies: cookieStore });
@@ -206,17 +321,43 @@ export async function POST(request: NextRequest) {
             throw new Error(`Ogiltig förfrågan: ${error.message}`);
         }
 
-        // --- 3. Hämta CV-text ---
+        // --- 3. Hämta användardata och hantera begränsningar ---
+        const profileData = await getUserProfileData(supabase, userId);
+        const resetInfo = await checkAndResetAnalysisCount(
+            supabase, 
+            userId, 
+            profileData.currentAnalysisCount, 
+            profileData.dbNextResetDate, 
+            profileData.lastAnalysisResetTimestamp
+        );
+        
+        // Kontrollera om användaren har nått sin veckogräns
+        let currentRemainingAnalyses = WEEKLY_COMPETENCE_ANALYSIS_LIMIT_FREE - resetInfo.count;
+        const nextResetDate = resetInfo.nextReset;
+        
+        if (profileData.subscriptionTier === 'free' && resetInfo.count >= WEEKLY_COMPETENCE_ANALYSIS_LIMIT_FREE) {
+            console.log(`API competenceAnalysis: User ${userId} (Free): Limit reached after reset check.`);
+            return NextResponse.json( 
+                { 
+                    message: `Du har nått din veckogräns på ${WEEKLY_COMPETENCE_ANALYSIS_LIMIT_FREE} kompetensanalys(er).`, 
+                    remainingAnalyses: 0, 
+                    limitReached: true, 
+                    nextResetDate: nextResetDate.toISOString() 
+                }, 
+                { status: 429 }
+            );
+        }
+
+        // --- 4. Hämta CV-text ---
         const cvText = await getCvText(supabase, userId, analysisInputForStep1.cvId);
         analysisInputForStep1.cvText = cvText; // Lägg till CV-texten för analysen
 
-        // --- 4. Steg 1: Utför initial kompetensanalys (identifiera gap) ---
+        // --- 5. Steg 1: Utför initial kompetensanalys (identifiera gap) ---
         console.log(`--- DEBUG POST (Step 1): Performing initial analysis for target: ${errorTargetDesc}`);
-        // VIKTIGT: analyzeCompetenceGap FÖRVÄNTAS nu vara uppdaterad med bättre prompt för svenska krav!
         initialAnalysisResult = await analyzeCompetenceGap(analysisInputForStep1);
         console.log(`--- DEBUG POST (Step 1): Initial analysis successful. Score: ${initialAnalysisResult?.matchScore ?? 'N/A'}%`);
 
-        // --- 5. Steg 2: Hitta läranderesurser/söktermer för identifierade gap ---
+        // --- 6. Steg 2: Hitta läranderesurser/söktermer för identifierade gap ---
         let allGeneratedSuggestions: LearningSuggestion[] = [];
         const gapsToProcess = initialAnalysisResult?.identifiedSkillGaps || [];
         const modelToUseStep2 = "gpt-4.1"; // Modell för detta steg
@@ -248,7 +389,14 @@ export async function POST(request: NextRequest) {
              console.log(`--- DEBUG POST (Step 2): No gaps identified in Step 1. Skipping resource finding.`);
         }
 
-        // --- 6. Kombinera Resultat ---
+        // --- 7. Uppdatera räknaren för gratisanvändare ---
+        if (profileData.subscriptionTier === 'free') {
+            currentRemainingAnalyses = await incrementFreeUserCount(supabase, userId, resetInfo.count);
+        } else {
+            currentRemainingAnalyses = Infinity;
+        }
+
+        // --- 8. Kombinera Resultat ---
         // Skapa det slutliga objektet som ska returneras till klienten
         const finalResultData = {
             ...(initialAnalysisResult ?? { // Fallback om Steg 1 misslyckades oväntat
@@ -260,11 +408,14 @@ export async function POST(request: NextRequest) {
                 identifiedSkillGaps: [],
                 model: 'unknown', tokens: null, cost: null
             }),
-            suggestedLearningPath: allGeneratedSuggestions // Lägg till listan med förslag (nu med söktermer)
+            suggestedLearningPath: allGeneratedSuggestions, // Lägg till listan med förslag (nu med söktermer)
+            remainingAnalyses: currentRemainingAnalyses,
+            nextResetDate: nextResetDate.toISOString(),
+            limitReached: profileData.subscriptionTier === 'free' && currentRemainingAnalyses <= 0,
         };
         console.log(`--- DEBUG POST: Final result prepared with ${finalResultData.suggestedLearningPath.length} learning suggestions.`);
 
-        // --- 7. Logga Lyckad Aktivitet ---
+        // --- 9. Logga Lyckad Aktivitet ---
         await logUserActivity(userId, 'competence_analysis_completed',
             `Kompetensanalys slutförd mot ${finalResultData.targetDescription}. Match: ${finalResultData.matchScore ?? 'N/A'}%. Genererade förslag: ${finalResultData.suggestedLearningPath.length}`,
             {
@@ -277,11 +428,12 @@ export async function POST(request: NextRequest) {
                  cost_step1: finalResultData.cost,
                  suggestions_count: finalResultData.suggestedLearningPath.length,
                  tokens_total_step1: finalResultData.tokens?.total ?? 0,
+                 remaining_analyses: currentRemainingAnalyses
             }
         );
         console.log(`--- DEBUG POST: Success activity logged for user ${userId}.`);
 
-        // --- 8. Returnera Svar ---
+        // --- 10. Returnera Svar ---
         return NextResponse.json(finalResultData, { status: 200 });
 
     } catch (error: any) {

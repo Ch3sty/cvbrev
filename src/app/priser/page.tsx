@@ -22,7 +22,7 @@ import { SubscribeButton } from '@/components/subscription/SubscribeButton';
 import {
   ChevronRight, CheckCircle, Lock, Zap, Save, Upload, Lightbulb, Gift,
   Repeat, Shield, Target, BrainCircuit, Bot, CreditCard, BarChartHorizontal,
-  FileSearch, ChevronDown, ChevronUp, ArrowRight // Lade till ArrowRight
+  FileSearch, ChevronDown, ChevronUp, ArrowRight, Sparkles // <<< Lade till Sparkles
 } from 'lucide-react'
 
 // --- Data Definitions ---
@@ -46,7 +46,7 @@ const pricingFaqItems: FaqItem[] = [
     },
     {
         question: "Erbjuder ni någon prova-på-period för Premium?",
-        answer: "Vi erbjuder för närvarande ingen specifik gratis provperiod för Premium, men vår generösa Gratis-plan låter dig testa kärnfunktionerna, inklusive AI-generering och grundläggande CV-analys, helt utan kostnad."
+        answer: "Vi erbjuder för närvarande ingen specifik gratis provperiod för Premium, men vår generösa Gratis-plan låter dig testa kärnfunktionerna, inklusive AI-generering och grundläggande analyser, helt utan kostnad." // Uppdaterad text lite
     },
     {
         question: "Vilka betalningsmetoder accepteras?",
@@ -204,40 +204,46 @@ export default function PriserPage() {
                     </div>
                 </section>
 
-                {/* === Pricing Plans Section === */}
+                {/* === Pricing Plans Section (UPPDATERAD 2024-07-16) === */}
                 <section id="pricing-plans" aria-labelledby="pricing-plans-heading" className="py-16 lg:py-20 bg-navy-950">
                     <div className="container px-4 mx-auto">
                         <h2 id="pricing-plans-heading" className="sr-only">Prisplaner</h2>
                         <div className="grid max-w-4xl gap-8 mx-auto lg:grid-cols-2 items-stretch">
-                            {/* Kort: Gratis plan */}
+                            {/* --- UPDATED Gratis plan --- */}
                             <div className="flex flex-col overflow-hidden bg-navy-800 border border-gray-700 rounded-2xl transition-all duration-300 hover:border-gray-500 hover:shadow-xl hover:shadow-gray-700/10">
                                 <div className="p-8 pb-6 flex-grow">
                                     <h3 className="mb-2 text-2xl font-semibold text-white">Gratis</h3>
+                                    {/* Uppdaterad beskrivning */}
                                     <p className="mb-6 text-gray-400 h-12">Testa grundläggande funktioner och upplev AI-kraften.</p>
                                     <div className="mb-6"> <span className="text-4xl font-bold text-white">0 kr</span> <span className="text-gray-400"> / för alltid</span> </div>
                                     <p className="mb-4 text-sm font-semibold text-gray-300">Detta ingår:</p>
                                     <ul className="space-y-3 text-sm">
-                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-500 shrink-0" /> <span className="text-gray-300"><span className="font-medium text-white">5</span> AI-genererade personliga brev / vecka</span> </li>
-                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-500 shrink-0" /> <span className="text-gray-300"><span className="font-medium text-white">1</span> CV-analys / vecka (grundläggande)</span> </li>
-                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-500 shrink-0" /> <span className="text-gray-300"><span className="font-medium text-white">2</span> sparade ansökningar</span> </li>
+                                        {/* Uppdaterade gratis-features */}
+                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-500 shrink-0" /> <span className="text-gray-300">2 AI-genererade personliga brev</span> </li>
+                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-500 shrink-0" /> <span className="text-gray-300">2 CV-analyser (grundläggande)</span> </li>
+                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-500 shrink-0" /> <span className="text-gray-300">2 Kompetensanalyser (grundläggande)</span> </li>
+                                        {/* Uppdaterade låsta features */}
                                         <li className="flex items-center opacity-60"> <Lock className="w-5 h-5 mr-3 text-gray-500 shrink-0" /> <span className="text-gray-400">Djupgående CV-analys (Premium)</span> </li>
+                                        <li className="flex items-center opacity-60"> <Lock className="w-5 h-5 mr-3 text-gray-500 shrink-0" /> <span className="text-gray-400">Djupgående kompetensanalys (Premium)</span> </li>
                                         <li className="flex items-center opacity-60"> <Lock className="w-5 h-5 mr-3 text-gray-500 shrink-0" /> <span className="text-gray-400">Anpassningsbar tonalitet (Premium)</span> </li>
                                         <li className="flex items-center opacity-60"> <Lock className="w-5 h-5 mr-3 text-gray-500 shrink-0" /> <span className="text-gray-400">Obegränsad användning (Premium)</span> </li>
                                     </ul>
                                 </div>
                                 <div className="p-6 mt-auto bg-navy-800 border-t border-navy-700 rounded-b-2xl">
+                                    {/* Uppdaterad knapptext */}
                                     <Link href="/register" className="flex items-center justify-center w-full px-6 py-3 font-medium text-white transition-colors bg-gray-600 rounded-lg hover:bg-gray-500 text-center">
                                         Registrera gratiskonto <ArrowRight className="w-4 h-4 ml-2"/>
                                     </Link>
                                 </div>
                             </div>
 
-                            {/* Kort: Premium plan */}
+                            {/* --- UPDATED Premium plan --- */}
                             <div className="relative flex flex-col overflow-hidden bg-navy-800 border-2 border-pink-500 rounded-2xl shadow-xl shadow-pink-500/15 transition-all duration-300 hover:shadow-pink-500/25">
                                 <div className="absolute top-0 right-0 px-4 py-1 text-xs font-bold tracking-wider text-white uppercase bg-gradient-to-r from-pink-600 to-purple-600 rounded-bl-lg rounded-tr-lg z-10"> Mest populär </div>
                                 <div className="absolute inset-0 opacity-10 bg-gradient-to-br from-pink-500/50 via-transparent to-purple-500/50 rounded-2xl" aria-hidden="true"></div>
                                 <div className="p-8 pb-6 flex-grow relative z-10">
                                     <h3 className="mb-2 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Premium</h3>
+                                    {/* Uppdaterad beskrivning */}
                                     <p className="mb-6 text-gray-400 h-12">Lås upp full potential och maximera dina chanser med obegränsad tillgång.</p>
                                     <div className="mb-6">
                                         <span className="text-4xl font-bold text-white"> {billingPeriod === 'monthly' ? `${premiumMonthlyPrice} kr` : `${premiumYearlyPriceMonthly} kr`} </span>
@@ -246,12 +252,14 @@ export default function PriserPage() {
                                     </div>
                                     <p className="mb-4 text-sm font-semibold text-gray-300">Allt i Gratis, plus:</p>
                                     <ul className="space-y-3 text-sm">
-                                        <li className="flex items-center"> <Zap className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsad AI-generering</span> </li>
-                                        <li className="flex items-center"> <FileSearch className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsad & djupgående CV-analys</span> </li>
-                                        <li className="flex items-center"> <Save className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsat antal sparade ansökningar</span> </li>
-                                        <li className="flex items-center"> <Lightbulb className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">AI-optimerad & anpassningsbar tonalitet</span> </li>
-                                        <li className="flex items-center"> <BrainCircuit className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Avancerade matchningsinsikter</span> </li>
-                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Prioriterad support</span> </li>
+                                         {/* Uppdaterade premium-features med nya ikoner & text */}
+                                         <li className="flex items-center"> <Zap className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsad AI-generering</span> </li>
+                                         <li className="flex items-center"> <FileSearch className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsad & djupgående CV-analys</span> </li>
+                                         <li className="flex items-center"> <FileSearch className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsad & djupgående kompetensanalys</span> </li>
+                                         <li className="flex items-center"> <Save className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsat antal sparade ansökningar</span> </li>
+                                         <li className="flex items-center"> <Lightbulb className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">AI-optimerad & anpassningsbar tonalitet</span> </li>
+                                         <li className="flex items-center"> <Sparkles className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Avancerade matchningsinsikter</span> </li>
+                                         <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Prioriterad support</span> </li>
                                     </ul>
                                 </div>
                                 <div className="p-6 mt-auto relative z-10 bg-gradient-to-t from-navy-800 via-navy-800 to-transparent border-t-2 border-pink-500 rounded-b-2xl">
@@ -259,13 +267,16 @@ export default function PriserPage() {
                                         <SubscribeButton
                                             priceId={billingPeriod === 'monthly' ? premiumMonthlyPriceId : premiumYearlyPriceId}
                                             planName={billingPeriod === 'monthly' ? 'Månad' : 'År'}
+                                            // Applicerar liknande klasser som registreringslänken nedan för enhetlighet
+                                            className="flex items-center justify-center w-full px-6 py-3 font-medium text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-fuchsia-600 rounded-lg hover:from-pink-700 hover:to-fuchsia-700 hover:shadow-lg text-center"
                                         />
                                     ) : (
                                         <Link
                                             href={`/register?plan=premium&billing=${billingPeriod}`}
-                                            className="flex items-center justify-center w-full px-6 py-3 font-medium text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg hover:from-pink-700 hover:to-purple-700 hover:shadow-lg text-center"
+                                            // Uppdaterad stil och text för oinloggad länk
+                                            className="flex items-center justify-center w-full px-6 py-3 font-medium text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-fuchsia-600 rounded-lg hover:from-pink-700 hover:to-fuchsia-700 hover:shadow-lg text-center"
                                         >
-                                            Välj Premium ({billingPeriod === 'monthly' ? 'Månad' : 'År'}) <ArrowRight className="w-4 h-4 ml-2"/>
+                                            Uppgradera till Premium ({billingPeriod === 'monthly' ? 'Månad' : 'År'}) <ArrowRight className="w-4 h-4 ml-2"/>
                                         </Link>
                                     )}
                                 </div>
@@ -295,8 +306,8 @@ export default function PriserPage() {
                              </div>
                              <div className="p-6 bg-navy-800 border border-navy-700 rounded-xl text-center">
                                  <FileSearch className="w-10 h-10 mx-auto mb-4 text-purple-400" aria-hidden="true"/>
-                                 <h3 className="mb-2 text-xl font-semibold text-white">Djupgående CV-analys</h3>
-                                 <p className="text-gray-300 text-sm">Få detaljerad feedback på allt från nyckelord till prestationer för att verkligen optimera ditt CV.</p>
+                                 <h3 className="mb-2 text-xl font-semibold text-white">Djupgående Analyser</h3> {/* Uppdaterad titel */}
+                                 <p className="text-gray-300 text-sm">Få detaljerad feedback på allt från nyckelord till prestationer i både CV och kompetensanalys.</p> {/* Uppdaterad text */}
                              </div>
                              <div className="p-6 bg-navy-800 border border-navy-700 rounded-xl text-center">
                                  <Lightbulb className="w-10 h-10 mx-auto mb-4 text-yellow-400" aria-hidden="true"/>
@@ -370,9 +381,10 @@ export default function PriserPage() {
                                 <>
                                     <Link
                                         href={`/register?plan=premium&billing=${billingPeriod}`}
+                                        // Uppdaterad stil och text för oinloggad premium-länk
                                         className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-pink-600 transition-colors bg-white rounded-lg shadow-lg hover:bg-gray-100 group"
                                     >
-                                        Välj Premium ({billingPeriod === 'monthly' ? 'Månad' : 'År'})
+                                        Uppgradera till Premium ({billingPeriod === 'monthly' ? 'Månad' : 'År'})
                                         <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
                                     </Link>
                                     <Link
@@ -383,17 +395,15 @@ export default function PriserPage() {
                                     </Link>
                                 </>
                             ) : (
-                                // Inloggad: Visa antingen Subscribe-knapp (om inte premium) eller länk till dashboard/skapa
-                                // Här krävs egentligen information om användarens nuvarande prenumeration
-                                // Förenklad version: Visa alltid Subscribe-knappen om inloggad
+                                // Inloggad: Visa Subscribe-knappen
                                 <SubscribeButton
                                     priceId={billingPeriod === 'monthly' ? premiumMonthlyPriceId : premiumYearlyPriceId}
                                     planName={billingPeriod === 'monthly' ? 'Månad' : 'År'}
-                                    // Du behöver antagligen lägga till en className här för att matcha den andra knappen
-                                    // ex: className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium ..."
+                                    // Applicerar liknande klasser som registreringslänken ovan för enhetlighet
+                                    className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium text-pink-600 transition-colors bg-white rounded-lg shadow-lg hover:bg-gray-100" // Matchar den vita knappen
                                 />
-                                // Alternativt, om du vill ha en länk till skapa-sidan för inloggade:
-                                // <Link href="/create-letter" className="inline-flex items-center justify-center px-8 py-3 text-lg font-medium ...">Börja Skapa</Link>
+                                // Lägg till en länk till dashboard om användaren *redan* är premium?
+                                // Det kräver dock logik för att veta användarens nuvarande status.
                             )}
                         </div>
                     </div>

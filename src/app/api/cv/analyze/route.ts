@@ -10,7 +10,7 @@ import { Database } from '@/types/database.types';
 //  Constants & Configuration
 // ============================================================================
 
-const WEEKLY_ANALYSIS_LIMIT_FREE = 1; // Definiera gräns för gratisanvändare
+const WEEKLY_ANALYSIS_LIMIT_FREE = 2; // Definiera gräns för gratisanvändare
 
 // ============================================================================
 //  Helper Functions

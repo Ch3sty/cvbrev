@@ -67,6 +67,20 @@ export default function AnalyzeCvPage() {
 
   // --- Refs ---
   const initialLoadRef = useRef(false);
+  const authCheckedRef = useRef(false); // För att bara kontrollera auth en gång
+
+  // ========================================================================
+  // Authentication Check Effect (Tidigt i effekt-kedjan)
+  // ========================================================================
+  useEffect(() => {
+    if (!authCheckedRef.current && !profileLoading) {
+      authCheckedRef.current = true;
+      if (!profile) {
+        console.log('Användare ej inloggad, omdirigerar till /login');
+        router.push('/login');
+      }
+    }
+  }, [profile, profileLoading, router]);
 
   // --- Effects ---
   useEffect(() => {
@@ -147,6 +161,11 @@ export default function AnalyzeCvPage() {
   // ============================================================================
   //  JSX Rendering
   // ============================================================================
+  // Om sidan håller på att omdirigeras eller användaren inte är inloggad, visa ingenting
+  if (profileLoading || !profile) {
+    return null;
+  }
+  
   return (
     <div className="max-w-screen-xl mx-auto pt-8 pb-16 px-4"> {/* Kept wider max-width */}
       {/* --- Notification Area --- */}
@@ -158,13 +177,58 @@ export default function AnalyzeCvPage() {
         <p className="text-gray-300">Få AI-drivna insikter och förbättringsförslag för ditt uppladdade CV.</p>
       </header>
 
-      {/* --- Analysis Limits Info (Free Tier Only) --- */}
+      {/* --- Analysis Limits Info (Free Tier Only) - UPPDATERAD SEKTION --- */}
       {isFreeTier && weeklyAnalysisLimit > 0 && weeklyAnalysisLimit !== Infinity && (
         <section aria-labelledby="analysis-limit-heading" className="mb-8 p-5 bg-navy-800 rounded-lg border border-navy-700">
-          {/* ... (Innehåll oförändrat) ... */}
-           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"> <div> <h2 id="analysis-limit-heading" className="flex items-center mb-1 font-medium text-white"> <SearchCheck className="w-5 h-5 mr-2 text-pink-400" /> Veckans CV-analyser </h2> <p className="text-xs text-gray-400 pl-7"> Gratisanvändare kan göra {weeklyAnalysisLimit} analys{weeklyAnalysisLimit === 1 ? '' : 'er'} per vecka. </p> </div> <div className="flex items-center space-x-3 w-full sm:w-auto justify-end sm:justify-start"> <span className={`text-sm font-semibold px-2 py-0.5 rounded ${ hasReachedLimit ? 'bg-red-500/20 text-red-300' : 'bg-green-500/20 text-green-300' }`}> {remainingWeeklyAnalyses ?? '-'} / {weeklyAnalysisLimit} kvar </span> {hasReachedLimit && ( <button onClick={handleUpgrade} className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-purple-600 rounded-md shadow-md hover:shadow-lg hover:from-pink-700 hover:to-purple-700 group" aria-label="Uppgradera till Premium för fler analyser"> <Crown className="w-3 h-3 mr-1" /> Uppgradera <ChevronRight className="w-3 h-3 ml-1 transition-transform duration-300 group-hover:translate-x-0.5" /> </button> )} </div> </div> {nextAnalysisResetDate && ( <div className="flex items-center mt-3 text-xs text-gray-400 border-t border-navy-700 pt-3"> <Clock className="w-3 h-3 mr-1.5" /> <span>Nollställs {timeUntilAnalysisReset ? `om ${timeUntilAnalysisReset}` : formatDate(nextAnalysisResetDate)}</span> </div> )}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div>
+              <h2 id="analysis-limit-heading" className="flex items-center mb-1 font-medium text-white">
+                <SearchCheck className="w-5 h-5 mr-2 text-pink-400" /> Veckans CV-analyser
+              </h2>
+              <p className="text-xs text-gray-400 pl-7">
+                Gratisanvändare kan göra {weeklyAnalysisLimit} {weeklyAnalysisLimit === 1 ? 'analys' : 'analyser'} per vecka.
+              </p>
+            </div>
+            
+            <div className="flex items-center space-x-3 w-full sm:w-auto justify-end sm:justify-start">
+              <span className={`text-sm font-semibold px-2 py-0.5 rounded ${
+                hasReachedLimit ? 'bg-red-500/20 text-red-300' : 'bg-green-500/20 text-green-300'
+              }`}>
+                {remainingWeeklyAnalyses ?? '-'} / {weeklyAnalysisLimit} kvar
+              </span>
+              {hasReachedLimit && (
+                <button
+                  onClick={handleUpgrade}
+                  className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-purple-600 rounded-md shadow-md hover:shadow-lg hover:from-pink-700 hover:to-purple-700 group"
+                  aria-label="Uppgradera till Premium för fler analyser"
+                >
+                  <Crown className="w-3 h-3 mr-1" /> Uppgradera
+                  <ChevronRight className="w-3 h-3 ml-1 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </button>
+              )}
+            </div>
+          </div>
+          
+          {nextAnalysisResetDate && (
+            <div className="flex items-center mt-3 text-xs text-gray-400 border-t border-navy-700 pt-3">
+              <Clock className="w-3 h-3 mr-1.5" />
+              <span>Nollställs {timeUntilAnalysisReset ? `om ${timeUntilAnalysisReset}` : formatDate(nextAnalysisResetDate)}</span>
+            </div>
+          )}
+          
+          {hasReachedLimit && (
+            <div className="mt-3 text-sm text-yellow-300 flex items-start">
+              <AlertTriangle className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
+              <span>
+                Du har nått din veckogräns för CV-analyser. 
+                <button onClick={handleUpgrade} className="ml-1 text-pink-400 hover:text-pink-300 underline font-medium">Uppgradera</button>
+                 för obegränsad användning.
+              </span>
+            </div>
+          )}
         </section>
       )}
+      {/* --- SLUT PÅ UPPDATERAD SEKTION --- */}
 
       {/* --- Main Content Grid (Layout Justerad) --- */}
       {/* Changed to lg:grid-cols-3. Left takes lg:col-span-1, Right takes lg:col-span-2 */}
