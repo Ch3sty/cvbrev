@@ -78,10 +78,10 @@ async function getUserProfileData(supabase: SupabaseClient<Database>, userId: st
     }
     
     return {
-        subscriptionTier: (profileData.subscription_tier === 'premium' ? 'premium' : 'free') as 'free' | 'premium',
-        currentAnalysisCount: profileData.weekly_competence_analysis_count ?? 0,
-        lastAnalysisResetTimestamp: profileData.last_competence_analysis_reset,
-        dbNextResetDate: profileData.next_reset_date ? new Date(profileData.next_reset_date) : null
+        subscriptionTier: ((profileData as any).subscription_tier === 'premium' ? 'premium' : 'free') as 'free' | 'premium',
+        currentAnalysisCount: (profileData as any).weekly_competence_analysis_count ?? 0,
+        lastAnalysisResetTimestamp: (profileData as any).last_competence_analysis_reset,
+        dbNextResetDate: (profileData as any).next_reset_date ? new Date((profileData as any).next_reset_date) : null
     };
 }
 
@@ -110,7 +110,7 @@ async function checkAndResetAnalysisCount(
         lastReset = now.toISOString();
         nextResetDate = calculateNextResetDate(lastReset);
         
-        const { error: resetError } = await supabase
+        const { error: resetError } = await (supabase as any)
             .from('profiles')
             .update({ 
                 weekly_competence_analysis_count: 0, 
@@ -141,7 +141,7 @@ async function getCvText(supabase: SupabaseClient<Database>, userId: string, cvI
         .eq('user_id', userId)
         .single();
 
-    if (dbError || !cvData?.cv_text) {
+    if (dbError || !(cvData as any)?.cv_text) {
         const isNotFoundError = dbError?.code === 'PGRST116';
         const errorMessage = isNotFoundError
             ? 'Kunde inte hitta angivet CV eller så tillhör det inte dig.'
@@ -151,8 +151,8 @@ async function getCvText(supabase: SupabaseClient<Database>, userId: string, cvI
         (error as any).statusCode = isNotFoundError ? 404 : 500;
         throw error;
     }
-    console.log(`--- DEBUG getCvText: CV Text fetched successfully (length: ${cvData.cv_text.length})`);
-    return cvData.cv_text;
+    console.log(`--- DEBUG getCvText: CV Text fetched successfully (length: ${(cvData as any).cv_text.length})`);
+    return (cvData as any).cv_text;
 }
 
 /**
@@ -160,7 +160,7 @@ async function getCvText(supabase: SupabaseClient<Database>, userId: string, cvI
  */
 async function incrementFreeUserCount(supabase: SupabaseClient<Database>, userId: string, currentCount: number): Promise<number> {
     const newCount = currentCount + 1;
-    const { error: updateError } = await supabase
+    const { error: updateError } = await (supabase as any)
         .from('profiles')
         .update({ weekly_competence_analysis_count: newCount })
         .eq('id', userId);

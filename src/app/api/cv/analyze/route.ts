@@ -66,10 +66,10 @@ async function getUserProfileData(supabase: SupabaseClient<Database>, userId: st
         throw new Error('Användarprofil saknas.');
     }
     return {
-        subscriptionTier: (profileData.subscription_tier === 'premium' ? 'premium' : 'free') as 'free' | 'premium',
-        currentAnalysisCount: profileData.weekly_analysis_count ?? 0,
-        lastAnalysisResetTimestamp: profileData.last_analysis_reset,
-        dbNextResetDate: profileData.next_reset_date ? new Date(profileData.next_reset_date) : null
+        subscriptionTier: ((profileData as any).subscription_tier === 'premium' ? 'premium' : 'free') as 'free' | 'premium',
+        currentAnalysisCount: (profileData as any).weekly_analysis_count ?? 0,
+        lastAnalysisResetTimestamp: (profileData as any).last_analysis_reset,
+        dbNextResetDate: (profileData as any).next_reset_date ? new Date((profileData as any).next_reset_date) : null
     };
 }
 
@@ -99,9 +99,13 @@ async function checkAndResetAnalysisCount(
         count = 0;
         lastReset = now.toISOString();
         nextResetDate = calculateNextResetDate(lastReset);
-        const { error: resetError } = await supabase
+        const { error: resetError } = await (supabase as any)
             .from('profiles')
-            .update({ weekly_analysis_count: 0, last_analysis_reset: lastReset, next_reset_date: nextResetDate.toISOString() })
+            .update({ 
+                weekly_analysis_count: 0, 
+                last_analysis_reset: lastReset, 
+                next_reset_date: nextResetDate.toISOString() 
+            })
             .eq('id', userId);
         if (resetError) { console.error(`API analyzeCv: User ${userId}: Failed to update DB on count reset:`, resetError); }
         else { console.log(`API analyzeCv: User ${userId}: Database updated with reset count and new reset date.`); }
@@ -126,7 +130,7 @@ async function getCvText(supabase: SupabaseClient<Database>, userId: string, cvI
         .eq('id', cvId)
         .eq('user_id', userId)
         .single();
-    if (dbError || !cvData?.cv_text) {
+    if (dbError || !(cvData as any)?.cv_text) {
         const isNotFoundError = dbError?.code === 'PGRST116';
         const errorMessage = isNotFoundError ? 'Kunde inte hitta angivet CV eller så tillhör det inte dig.' : `Databasfel vid hämtning av CV: ${dbError?.message || 'Okänt DB-fel'}`;
         console.error(`API analyzeCv: Error fetching CV text (CV ID: ${cvId}, User ID: ${userId}):`, dbError);
@@ -134,7 +138,7 @@ async function getCvText(supabase: SupabaseClient<Database>, userId: string, cvI
         (error as any).statusCode = isNotFoundError ? 404 : 500;
         throw error;
     }
-    return cvData.cv_text;
+    return (cvData as any).cv_text;
 }
 
 /**
@@ -148,7 +152,7 @@ async function getCvText(supabase: SupabaseClient<Database>, userId: string, cvI
 async function decrementFreeUserCount(supabase: SupabaseClient<Database>, userId: string, currentCount: number): Promise<number> {
      // ... (funktionens kod oförändrad) ...
       const newCount = currentCount + 1;
-    const { error: updateError } = await supabase
+    const { error: updateError } = await (supabase as any)
         .from('profiles')
         .update({ weekly_analysis_count: newCount })
         .eq('id', userId);
