@@ -49,7 +49,10 @@
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-post.html\")",
       "Bash(node:*)",
       "Bash(del \"test-post.html\")",
-      "Bash(del \"test-post-endpoint.js\")"
+      "Bash(del \"test-post-endpoint.js\")",
+      "mcp__supabase__search_docs",
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-cv-generation.html\")",
+      "Bash(del \"C:\\Users\\chris\\cvbrev\\test-cv-generation.html\")"
     ],
     "deny": [],
     "ask": []

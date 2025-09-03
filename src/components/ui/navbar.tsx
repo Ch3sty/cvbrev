@@ -19,6 +19,7 @@ import {
   X,
   SearchCheck, // För CV-Analys
   GraduationCap, // För Kompetensutveckling
+  Palette, // För CV-Mallar
   Wrench,      // För Verktyg Dropdown
   Users,       // För Om Oss (mobil)
   HelpCircle,  // För Kontakt (mobil)
@@ -53,6 +54,7 @@ const primaryNavLinks: NavLinkItem[] = [
 
 const toolLinks: NavLinkItem[] = [
   { href: '/create-letter', label: 'Skapa personligt brev', icon: Edit3, requireLogin: true, isSpecial: true },
+  { href: '/cv-mallar', label: 'CV-Mallar', icon: Palette, requireLogin: false, isSpecial: true },
   { href: '/analysera-cv', label: 'CV-Analys', icon: SearchCheck, requireLogin: true, isSpecial: true },
   { href: '/kompetensutveckling', label: 'Kompetensutveckling', icon: GraduationCap, requireLogin: true, isSpecial: true },
 ];
