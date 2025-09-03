@@ -308,9 +308,9 @@ export default function StatisticsPage() {
       }, {} as { [key: string]: { count: number; user_id: string } }) || {};
 
       const mostActiveUsers = Object.values(userActivityCount)
-        .sort((a, b) => b.count - a.count)
+        .sort((a, b) => (b as any).count - (a as any).count)
         .slice(0, 10)
-        .map(user => {
+        .map((user: any) => {
           const profile = profiles?.find(p => p.id === user.user_id);
           return {
             user_id: user.user_id,
@@ -327,7 +327,7 @@ export default function StatisticsPage() {
       }, {} as { [key: string]: number }) || {};
 
       const popularFeatures = Object.entries(featureCount)
-        .map(([feature, count]) => ({ feature, usage_count: count }))
+        .map(([feature, count]) => ({ feature, usage_count: count as number }))
         .sort((a, b) => b.usage_count - a.usage_count)
         .slice(0, 10);
 
