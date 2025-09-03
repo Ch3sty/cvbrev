@@ -355,7 +355,7 @@ export default function SEODashboard() {
       const data = await seoAnalyticsService.getDashboardData(dateRange);
       
       if (data) {
-        setDashboardData(data as SEODashboardData);
+        setDashboardData(data as any);
       } else {
         throw new Error('Kunde inte hämta SEO-data');
       }

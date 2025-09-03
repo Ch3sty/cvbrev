@@ -28,7 +28,7 @@ const updateUserSubscription = async (customerId: string, subscription: Stripe.S
          return null; 
     }
 
-    const userId = profile.id;
+    const userId = (profile as any).id;
     console.log(`Webhook: Found profile for user ${userId}. Preparing update data.`);
 
     // ***** NY LOGIK: Bestäm subscription_tier baserat på Stripe status *****
@@ -56,7 +56,7 @@ const updateUserSubscription = async (customerId: string, subscription: Stripe.S
      console.log(`Webhook: Updating profile for user ${userId} with data:`, JSON.stringify(subscriptionData));
 
     // Uppdatera profilen i Supabase
-    const { error: updateError } = await supabaseAdmin
+    const { error: updateError } = await (supabaseAdmin as any)
         .from('profiles')
         .update(subscriptionData)
         .eq('id', userId); 

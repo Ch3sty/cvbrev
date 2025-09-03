@@ -432,10 +432,15 @@ export class ResourceOptimizer {
 
   private async optimizeDatabaseUsage(): Promise<ResourceOptimization | null> {
     // Check for unused indexes and optimization opportunities
-    const { data: tableStats } = await this.supabase
-      .rpc('get_table_statistics')
-      .single()
-      .catch(() => ({ data: null }));
+    let tableStats = null;
+    try {
+      const { data } = await this.supabase
+        .rpc('get_table_statistics')
+        .single();
+      tableStats = data;
+    } catch (error) {
+      tableStats = null;
+    }
 
     // Simplified optimization check
     const recommendations: string[] = [];

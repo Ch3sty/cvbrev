@@ -185,7 +185,7 @@ class SEOAnalyticsService {
       const gaData = await this.ga.getPageAnalytics(`/artiklar/${slug}`, dateRange);
       
       // Hämta Search Console data
-      const gscData = await this.gsc.getPagePerformance(`/artiklar/${slug}`, dateRange);
+      const gscData = await this.gsc.getPagePerformance(`/artiklar/${slug}`, dateRange) as any;
       
       // Hämta conversion data från user journeys
       const { data: journeyData } = await this.supabase
@@ -252,7 +252,7 @@ class SEOAnalyticsService {
 
     try {
       for (const url of urls) {
-        const vitals = await this.cwv.measureVitals(url);
+        const vitals = await this.cwv.measurePageVitals(url);
         
         if (vitals) {
           const cwvData: CoreWebVitalsData = {

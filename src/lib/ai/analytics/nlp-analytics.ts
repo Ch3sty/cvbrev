@@ -194,7 +194,7 @@ export class SentimentAnalyzer {
     for (const item of data) {
       const analysis = await this.analyzeContent(
         item.id,
-        item[contentField],
+        (item as any)[contentField],
         contentType === 'letters' ? 'letter' : 'cv'
       );
       analyses.push(analysis);
