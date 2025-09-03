@@ -210,6 +210,8 @@ export const useProfile = () => {
   // Timer-funktioner
   const startResetTimer = useCallback(() => {
     if (!nextResetDate) return;
+    // Skippa timer för premium-användare med infinity limits
+    if (!isFinite(weeklyLetterLimit)) return;
     if (timerIntervalRef.current) { clearInterval(timerIntervalRef.current); }
 
     setTimeUntilReset(formatTimeRemaining(nextResetDate));
@@ -220,7 +222,7 @@ export const useProfile = () => {
         clearInterval(interval);
         timerIntervalRef.current = null;
         if (fetchProfileRef.current) {
-            console.log("useProfile: Reset date reached, refreshing profile...");
+            console.log("useProfile: Letter reset date reached, refreshing profile...");
             fetchProfileRef.current();
         }
       } else {
@@ -228,11 +230,13 @@ export const useProfile = () => {
       }
     }, 60000); // Uppdatera varje minut
     timerIntervalRef.current = interval;
-  }, [nextResetDate, formatTimeRemaining]);
+  }, [nextResetDate, formatTimeRemaining, weeklyLetterLimit]);
 
   // --- NY TIMER-FUNKTION FÖR ANALYS ---
   const startAnalysisResetTimer = useCallback(() => {
     if (!nextAnalysisResetDate) return;
+    // Skippa timer för premium-användare med infinity limits
+    if (!isFinite(weeklyAnalysisLimit)) return;
     if (analysisTimerIntervalRef.current) { clearInterval(analysisTimerIntervalRef.current); }
 
     setTimeUntilAnalysisReset(formatTimeRemaining(nextAnalysisResetDate));
@@ -251,7 +255,7 @@ export const useProfile = () => {
       }
     }, 60000); // Uppdatera varje minut
     analysisTimerIntervalRef.current = interval;
-  }, [nextAnalysisResetDate, formatTimeRemaining]);
+  }, [nextAnalysisResetDate, formatTimeRemaining, weeklyAnalysisLimit]);
   // --- SLUT PÅ NY TIMER-FUNKTION ---
 
   const updateNextResetDate = useCallback((newResetDate: Date) => {
@@ -478,19 +482,27 @@ export const useProfile = () => {
 
   // Starta timer
   useEffect(() => {
-    if (nextResetDate) {
+    if (nextResetDate && isFinite(weeklyLetterLimit)) {
       startResetTimer();
+    } else if (timerIntervalRef.current) {
+      // Rensa timer för premium-användare
+      clearInterval(timerIntervalRef.current);
+      timerIntervalRef.current = null;
     }
     return () => { if (timerIntervalRef.current) { clearInterval(timerIntervalRef.current); } };
-  }, [nextResetDate, startResetTimer]);
+  }, [nextResetDate, startResetTimer, weeklyLetterLimit]);
   
   // --- NY EFFEKT FÖR ANALYS TIMER ---
   useEffect(() => {
-    if (nextAnalysisResetDate) {
+    if (nextAnalysisResetDate && isFinite(weeklyAnalysisLimit)) {
       startAnalysisResetTimer();
+    } else if (analysisTimerIntervalRef.current) {
+      // Rensa timer för premium-användare
+      clearInterval(analysisTimerIntervalRef.current);
+      analysisTimerIntervalRef.current = null;
     }
     return () => { if (analysisTimerIntervalRef.current) { clearInterval(analysisTimerIntervalRef.current); } };
-  }, [nextAnalysisResetDate, startAnalysisResetTimer]);
+  }, [nextAnalysisResetDate, startAnalysisResetTimer, weeklyAnalysisLimit]);
   // --- SLUT PÅ NY EFFEKT ---
 
   // Hämta profil vid mount
