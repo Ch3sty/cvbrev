@@ -74,7 +74,7 @@ function createDocxFromHtml(content: string, metadata: LetterMetadata): Buffer {
 export async function POST(request: Request) {
   try {
     // Verifiera autentisering och hantera PDF/DOCX generering
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
     
     const { data: { user } } = await supabase.auth.getUser();
@@ -127,16 +127,20 @@ export async function POST(request: Request) {
     const templateType = (template as TemplateType) || 'formal';
     
     // Generera fil baserat på önskat format
+    console.log(`Starting file generation: format=${format}, template=${templateType}, contentLength=${content.length}`);
+    
     if (format === 'docx') {
       console.log('Generating DOCX');
       fileData = createDocxFromHtml(content, enhancedMetadata);
       fileType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
       fileName += '.docx';
+      console.log(`DOCX generated successfully, size: ${fileData.byteLength} bytes`);
     } else if (format === 'pdf') {
-      console.log('Generating PDF with Puppeteer');
+      console.log('Generating PDF with Puppeteer, metadata:', JSON.stringify(enhancedMetadata, null, 2));
       fileData = await createProfessionalPDF(content, enhancedMetadata, templateType);
       fileType = 'application/pdf';
       fileName += '.pdf';
+      console.log(`PDF generated successfully, size: ${fileData.byteLength} bytes`);
     } else {
       return NextResponse.json({ error: 'Ogiltigt filformat' }, { status: 400 });
     }
@@ -148,9 +152,29 @@ export async function POST(request: Request) {
     
     return response;
   } catch (error: any) {
-    console.error('Error generating document:', error);
+    console.error('Error generating document:', {
+      error: error.message,
+      stack: error.stack,
+      type: error.constructor.name
+    });
+    
+    // Mer specifika felmeddelanden för debugging
+    let errorMessage = 'Serverfel vid generering av dokument';
+    if (error.message.includes('Puppeteer')) {
+      errorMessage = 'PDF-generering misslyckades: ' + error.message;
+    } else if (error.message.includes('PDF generation failed')) {
+      errorMessage = error.message;
+    } else if (error.message.includes('JSON')) {
+      errorMessage = 'Ogiltigt JSON-format i begäran';
+    } else {
+      errorMessage = 'Serverfel vid generering av dokument: ' + error.message;
+    }
+    
     return NextResponse.json(
-      { error: 'Serverfel vid generering av dokument: ' + error.message }, 
+      { 
+        error: errorMessage,
+        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      }, 
       { status: 500 }
     );
   }
