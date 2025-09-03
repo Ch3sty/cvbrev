@@ -6,6 +6,7 @@ import {
   Home, 
   Users, 
   FileText, 
+  File, 
   CreditCard, 
   BarChart2, 
   Settings,
@@ -28,7 +29,7 @@ export default function AdminSidebar() {
     { path: '/admin', label: 'Dashboard', icon: <Home className="w-5 h-5" /> },
     { path: '/admin/users', label: 'Användare', icon: <Users className="w-5 h-5" /> },
     { path: '/admin/letters', label: 'Brev', icon: <FileText className="w-5 h-5" /> },
-    { path: '/admin/cvs', label: 'CV:n', icon: <FileText className="w-5 h-5" /> },
+    { path: '/admin/cvs', label: 'CV:n', icon: <File className="w-5 h-5" /> },
     { path: '/admin/subscriptions', label: 'Prenumerationer', icon: <CreditCard className="w-5 h-5" /> },
     { path: '/admin/statistics', label: 'Statistik', icon: <BarChart2 className="w-5 h-5" /> },
     { path: '/admin/seo', label: 'SEO & Content', icon: <Search className="w-5 h-5" /> }, // Ny SEO dashboard

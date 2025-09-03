@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import Link from 'next/link';
 import {
@@ -112,27 +112,17 @@ export default function AdminLettersPage() {
   const fetchLetters = async () => {
     setIsLoading(true);
     try {
-      // Först behöver vi hämta alla users och deras profiler
-      // för att vi kan länka med breven senare
-      const { data: profiles, error: profilesError } = await supabase
-        .from('profiles')
-        .select('id, email, full_name');
-
-      if (profilesError) {
-        console.error('Fel vid hämtning av profiler:', profilesError);
-        throw new Error('Kunde inte hämta användarinformation');
-      }
-      
-      // Skapa en lookup-tabell för profiler
-      const profileLookup = (profiles || []).reduce((acc, profile) => {
-        acc[profile.id] = profile;
-        return acc;
-      }, {} as Record<string, any>);
-
-      // Nu hämtar vi alla brev
+      // Hämta brev med användarprofiler i en enda query med join
       const { data: lettersData, error: lettersError } = await supabase
         .from('letters')
-        .select('*')
+        .select(`
+          *,
+          profiles:user_id (
+            id,
+            email,
+            full_name
+          )
+        `)
         .order('created_at', { ascending: false });
 
       if (lettersError) {
@@ -140,48 +130,10 @@ export default function AdminLettersPage() {
         throw new Error('Kunde inte hämta brevdata');
       }
 
-      // Hämta även användaraktiviteter för att få kostnadsinformation
-      const { data: activities, error: activitiesError } = await supabase
-        .from('user_activities')
-        .select('*')
-        .in('activity_type', ['letter_created', 'letter_generation_started'])
-        .order('created_at', { ascending: false });
-
-      if (activitiesError) {
-        console.warn('Kunde inte hämta aktivitetsdata för kostnader:', activitiesError);
-      }
-
-      // Skapa en lookup-tabell för kostnader från aktivitetsloggen
-      const costLookup = {} as Record<string, any>;
-      
-      if (activities && activities.length > 0) {
-        activities.forEach(activity => {
-          if (activity.metadata && activity.metadata.cv_id) {
-            // Använd cv_id som en nyckel för att hitta kostnadsdata
-            // eftersom vi inte har letter_id i aktivitetsloggning
-            const key = `${activity.user_id}_${activity.metadata.cv_id}_${activity.created_at.split('T')[0]}`;
-            
-            if (activity.activity_type === 'letter_created' && 
-                activity.metadata.cost !== undefined) {
-              costLookup[key] = {
-                cost: activity.metadata.cost,
-                model: activity.metadata.model || 'unknown',
-                tokens: activity.metadata.tokens || null
-              };
-            }
-          }
-        });
-      }
-
       // Transformera brevdata med användarinformation
       const transformedData = (lettersData || []).map((letter: any) => {
-        // Försök hitta matchande kostnadsinformation från aktivitetsloggen som fallback
-        const dateStr = new Date(letter.created_at).toISOString().split('T')[0];
-        const costKey = `${letter.user_id}_${letter.cv_id}_${dateStr}`;
-        const costInfo = costLookup[costKey] || {};
-        
-        // Hämta profilinformation
-        const profile = profileLookup[letter.user_id] || {};
+        // Profiles kommer som ett objekt från join
+        const profile = letter.profiles || {};
         
         return {
           id: letter.id,
@@ -202,11 +154,11 @@ export default function AdminLettersPage() {
           ai_tokens: letter.ai_tokens || null,
           ai_cost: letter.ai_cost || null,
           generation_time_ms: letter.generation_time_ms || null,
-          // Kostnadsdata från aktivitetsloggen som fallback
+          // Metadata för bakåtkompatibilitet
           metadata: {
-            cost: letter.ai_cost || costInfo.cost || null,
-            model: letter.ai_model || costInfo.model || 'unknown',
-            tokens: letter.ai_tokens || costInfo.tokens || null
+            cost: letter.ai_cost || null,
+            model: letter.ai_model || 'unknown',
+            tokens: letter.ai_tokens || null
           }
         };
       });
@@ -361,15 +313,14 @@ export default function AdminLettersPage() {
   // Hämta brev när komponenten laddas
   useEffect(() => {
     fetchLetters();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Uppdatera filtrerade brev när sökterm, filter eller sortering ändras
   useEffect(() => {
     const filtered = filterLetters();
     setFilteredLetters(filtered);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchTerm, filters, sortField, sortDirection, letters]);
+    calculateStats(filtered); // Uppdatera statistik baserat på filtrerade resultat
+  }, [searchTerm, filters, sortField, sortDirection, letters]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Formatera tid "sedan"
   const formatTimeAgo = (dateStr: string): string => {
@@ -404,11 +355,11 @@ export default function AdminLettersPage() {
     });
   };
   
-  // Kort innehållsförhandsvisning
-  const getContentPreview = (content: string | undefined, length: number = 100): string => {
+  // Kort innehållsförhandsvisning (memoized för prestanda)
+  const getContentPreview = useCallback((content: string | undefined, length: number = 100): string => {
     if (!content) return 'Inget innehåll';
     return content.length > length ? content.substring(0, length) + '...' : content;
-  };
+  }, []);
 
   // Formatera språk
   const formatLanguage = (lang: string): string => {
