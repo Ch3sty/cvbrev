@@ -83,9 +83,8 @@ export default function CVMallarPage() {
     showNotification('loading', 'Genererar CV-PDF...');
     
     try {
-      const cvData = cvs.find(cv => cv.id === selectedCV);
-      if (!cvData) {
-        throw new Error('Kunde inte hitta valt CV');
+      if (!selectedCV) {
+        throw new Error('Inget CV valt');
       }
       
       const response = await fetch('/api/cv/generate-formatted', {
@@ -93,7 +92,7 @@ export default function CVMallarPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           template: selectedTemplate,
-          cvText: cvData.cv_text,
+          cvText: selectedCV.cv_text,
           format: 'pdf'
         })
       });
@@ -103,7 +102,7 @@ export default function CVMallarPage() {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `cv-${selectedTemplate}-${cvData.file_name.replace(/\.[^/.]+$/, '')}.pdf`;
+        a.download = `cv-${selectedTemplate}-${selectedCV.file_name.replace(/\.[^/.]+$/, '')}.pdf`;
         a.click();
         URL.revokeObjectURL(url);
         
@@ -122,12 +121,10 @@ export default function CVMallarPage() {
     }
   };
   
-  const handlePreviewTemplate = async () => {
+  const handlePreviewTemplate = useCallback(async () => {
     if (!selectedTemplate || !selectedCV) return;
     
     try {
-      const cvData = cvs.find(cv => cv.id === selectedCV);
-      if (!cvData) return;
       
       const template = getAllCVTemplates().find(t => t.id === selectedTemplate);
       if (!template) return;
@@ -180,14 +177,14 @@ export default function CVMallarPage() {
     } catch (error) {
       console.error('Fel vid förhandsvisning:', error);
     }
-  };
+  }, [selectedTemplate, selectedCV]);
   
   // Generate preview when template or CV changes
   useEffect(() => {
     if (selectedTemplate && selectedCV) {
       handlePreviewTemplate();
     }
-  }, [selectedTemplate, selectedCV]);
+  }, [selectedTemplate, selectedCV, handlePreviewTemplate]);
 
   const getTemplateIcon = (templateId: CVTemplateType) => {
     const icons = {
@@ -259,18 +256,18 @@ export default function CVMallarPage() {
                         onClick={() => selectCV(cv.id)}
                         disabled={isGenerating}
                         className={`w-full text-left p-4 rounded-md border transition-all duration-200 flex items-start gap-3 ${
-                          selectedCV === cv.id
+                          selectedCV?.id === cv.id
                             ? 'bg-navy-700 border-pink-500 ring-1 ring-pink-500 shadow-md'
                             : 'bg-navy-900/50 border-navy-700 hover:bg-navy-700 hover:border-navy-600'
                         } ${isGenerating ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
-                        aria-pressed={selectedCV === cv.id}
+                        aria-pressed={selectedCV?.id === cv.id}
                       >
                         <FileText className={`w-5 h-5 mt-0.5 flex-shrink-0 ${
-                          selectedCV === cv.id ? 'text-pink-400' : 'text-blue-400'
+                          selectedCV?.id === cv.id ? 'text-pink-400' : 'text-blue-400'
                         }`} />
                         <div className="flex-grow overflow-hidden">
                           <p className={`font-medium truncate ${
-                            selectedCV === cv.id ? 'text-white' : 'text-gray-200'
+                            selectedCV?.id === cv.id ? 'text-white' : 'text-gray-200'
                           }`}>
                             {cv.file_name}
                           </p>
@@ -278,7 +275,7 @@ export default function CVMallarPage() {
                             {cv.cv_text ? `Innehåll: ${cv.cv_text.substring(0, 60)}...` : 'Förhandsgranskning saknas'}
                           </p>
                         </div>
-                        {selectedCV === cv.id && (
+                        {selectedCV?.id === cv.id && (
                           <Check className="w-5 h-5 text-pink-400 flex-shrink-0" />
                         )}
                       </button>
