@@ -7,7 +7,7 @@ import { LetterMetadata, TemplateType } from '@/lib/pdf/letter-templates';
 
 
 /**
- * Genererar PDF med Puppeteer
+ * Genererar PDF med Puppeteer - Force deployment trigger
  */
 async function createProfessionalPDF(content: string, metadata: LetterMetadata, templateType: TemplateType = 'formal'): Promise<Buffer> {
   try {

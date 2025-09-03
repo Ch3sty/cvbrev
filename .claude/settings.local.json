@@ -40,7 +40,10 @@
       "mcp__supabase__get_project_url",
       "mcp__supabase__get_anon_key",
       "WebFetch(domain:localhost)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-download.html\")",
+      "Bash(curl:*)",
+      "Bash(del \"C:\\Users\\chris\\cvbrev\\test-download.html\")"
     ],
     "deny": [],
     "ask": []
