@@ -45,7 +45,11 @@
       "Bash(curl:*)",
       "Bash(del \"C:\\Users\\chris\\cvbrev\\test-download.html\")",
       "Bash(find:*)",
-      "WebFetch(domain:jobbcoach.ai)"
+      "WebFetch(domain:jobbcoach.ai)",
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-post.html\")",
+      "Bash(node:*)",
+      "Bash(del \"test-post.html\")",
+      "Bash(del \"test-post-endpoint.js\")"
     ],
     "deny": [],
     "ask": []

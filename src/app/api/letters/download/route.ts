@@ -7,7 +7,7 @@ import { LetterMetadata, TemplateType } from '@/lib/pdf/letter-templates';
 
 
 /**
- * Genererar PDF med Puppeteer - Force deployment trigger
+ * Genererar PDF med Puppeteer
  */
 async function createProfessionalPDF(content: string, metadata: LetterMetadata, templateType: TemplateType = 'formal'): Promise<Buffer> {
   try {
@@ -70,16 +70,6 @@ function createDocxFromHtml(content: string, metadata: LetterMetadata): Buffer {
   return Buffer.from(encoder.encode(htmlContent));
 }
 
-
-// Debug GET endpoint
-export async function GET() {
-  return NextResponse.json({
-    message: 'Download route är aktiv',
-    methods: ['POST'],
-    timestamp: new Date().toISOString(),
-    deployment: 'latest'
-  });
-}
 
 export async function POST(request: Request) {
   try {
