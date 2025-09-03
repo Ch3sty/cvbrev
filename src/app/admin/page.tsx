@@ -109,13 +109,13 @@ function UserCard({ user }: { user: LatestUser }) {
       <div className="w-9 h-9 rounded-full bg-navy-600 flex items-center justify-center text-white font-medium flex-shrink-0">
         {user.full_name 
           ? user.full_name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase()
-          : user.email.charAt(0).toUpperCase()}
+          : (user.email ? user.email.charAt(0).toUpperCase() : '?')}
       </div>
       <div className="min-w-0 flex-1">
         <p className="text-white font-medium truncate">
           {user.full_name || 'Namnlös användare'}
         </p>
-        <p className="text-gray-400 text-sm truncate">{user.email}</p>
+        <p className="text-gray-400 text-sm truncate">{user.email || 'Ingen e-post'}</p>
       </div>
       {user.subscription_tier === 'premium' && (
         <div className="px-2 py-0.5 bg-gradient-to-r from-yellow-500 to-amber-500 text-white text-xs rounded-full font-medium">
@@ -190,7 +190,7 @@ function ActivityCard({ activity }: { activity: UserActivity }) {
       <div className="flex-1 min-w-0">
         <p className="text-white">
           <span className="font-medium">
-            {activity.full_name || activity.email.split('@')[0]}
+            {activity.full_name || (activity.email ? activity.email.split('@')[0] : 'Okänd användare')}
           </span>
           {" "}{activity.description}
         </p>

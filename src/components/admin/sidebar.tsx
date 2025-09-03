@@ -24,18 +24,16 @@ export default function AdminSidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const supabase = getSupabaseClient();
   
-  // Navigationslänkar - Lagt till SEO och underhållssidan
+  // Navigationslänkar - Bara befintliga sidor
   const navItems = [
     { path: '/admin', label: 'Dashboard', icon: <Home className="w-5 h-5" /> },
     { path: '/admin/users', label: 'Användare', icon: <Users className="w-5 h-5" /> },
     { path: '/admin/letters', label: 'Brev', icon: <FileText className="w-5 h-5" /> },
     { path: '/admin/cvs', label: 'CV:n', icon: <File className="w-5 h-5" /> },
-    { path: '/admin/subscriptions', label: 'Prenumerationer', icon: <CreditCard className="w-5 h-5" /> },
     { path: '/admin/statistics', label: 'Statistik', icon: <BarChart2 className="w-5 h-5" /> },
-    { path: '/admin/seo', label: 'SEO & Content', icon: <Search className="w-5 h-5" /> }, // Ny SEO dashboard
-    { path: '/admin/analytics', label: 'Analytics', icon: <TrendingUp className="w-5 h-5" /> }, // Ny analytics dashboard
+    { path: '/admin/seo', label: 'SEO & Content', icon: <Search className="w-5 h-5" /> },
+    { path: '/admin/analytics', label: 'Analytics', icon: <TrendingUp className="w-5 h-5" /> },
     { path: '/admin/maintenance', label: 'Underhåll', icon: <Database className="w-5 h-5" /> },
-    { path: '/admin/settings', label: 'Inställningar', icon: <Settings className="w-5 h-5" /> },
   ];
   
   // Logga ut funktion
