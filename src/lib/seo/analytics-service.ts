@@ -1,8 +1,8 @@
 // src/lib/seo/analytics-service.ts
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
-import { GoogleAnalytics } from './google-analytics';
-import { GoogleSearchConsole } from './search-console';
-import { CoreWebVitalsTracker } from './core-web-vitals';
+import { googleAnalytics } from './mock-google-analytics';
+import { searchConsole } from './mock-search-console';
+import { CoreWebVitals } from './mock-core-web-vitals';
 
 // Type definitions för SEO Analytics
 export interface SEOPerformance {
@@ -89,9 +89,9 @@ export interface TechnicalSEOIssue {
 
 class SEOAnalyticsService {
   private supabase = getSupabaseClient();
-  private ga = new GoogleAnalytics();
-  private gsc = new GoogleSearchConsole();
-  private cwv = new CoreWebVitalsTracker();
+  private ga = googleAnalytics;
+  private gsc = searchConsole;
+  private cwv = new CoreWebVitals();
 
   // 1. SEO Performance Tracking
   async updateSEOPerformance(date: string): Promise<SEOPerformance | null> {

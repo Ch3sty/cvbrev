@@ -4,12 +4,11 @@ import { useState, useEffect } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { 
   LightBulbIcon,
-  TrendingUpIcon,
+  ArrowTrendingUpIcon as TrendingUpIcon,
   UserGroupIcon,
   ChartBarIcon,
   ExclamationTriangleIcon,
   SparklesIcon,
-  ArrowTrendingUpIcon,
   CurrencyDollarIcon
 } from '@heroicons/react/24/outline';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';

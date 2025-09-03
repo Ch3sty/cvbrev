@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
-import { ArrowUpIcon, ArrowDownIcon, CreditCardIcon, UsersIcon, ChartBarIcon, TrendingUpIcon } from '@heroicons/react/24/outline';
+import { ArrowUpIcon, ArrowDownIcon, CreditCardIcon, UsersIcon, ChartBarIcon, ArrowTrendingUpIcon as TrendingUpIcon } from '@heroicons/react/24/outline';
 import { LineChart, Line, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 interface RevenueData {
