@@ -502,7 +502,7 @@ export default function MyLettersPage() {
     const older: any[] = [];
     
     for (const letter of filteredLetters) {
-      const letterDate = new Date(letter.updated_at || letter.created_at);
+      const letterDate = new Date(letter.updated_at || letter.created_at || new Date());
       if (letterDate >= yesterday) {
         recent.push(letter);
       } else {
