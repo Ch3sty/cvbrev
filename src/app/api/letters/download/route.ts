@@ -158,7 +158,7 @@ async function createProfessionalDocx(content: string, metadata: LetterMetadata)
                     size: 22,
                   }),
                 ],
-                spacing: { after: 300 },
+                spacing: { after: 480 }, // Mer luft mellan rubrik och brödtext
               })
             ] : []),
             
@@ -173,7 +173,7 @@ async function createProfessionalDocx(content: string, metadata: LetterMetadata)
                   size: 28, // 14pt
                 }),
               ],
-              spacing: { after: 400 },
+              spacing: { after: 600 }, // Mer luft mellan titel och brödtext
             }),
             
             // Brevinnehåll - varje paragraf blir en paragraph
@@ -188,7 +188,7 @@ async function createProfessionalDocx(content: string, metadata: LetterMetadata)
                 ],
                 spacing: { 
                   after: 240, // Avstånd efter paragraf
-                  line: 360, // Radavstånd 1.5
+                  line: 288, // Radavstånd 1.2 (240*1.2=288)
                   lineRule: "auto"
                 },
               })

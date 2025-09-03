@@ -44,9 +44,9 @@ export const formalLetterTemplate: LetterTemplate = {
           }
           
           body {
-            font-family: 'Times New Roman', Times, serif;
+            font-family: 'Calibri', 'Arial', sans-serif;
             font-size: 12pt;
-            line-height: 1.4;
+            line-height: 1.2;
             color: #000;
             margin: 0;
             padding: 0;
@@ -75,12 +75,12 @@ export const formalLetterTemplate: LetterTemplate = {
           
           .subject-line {
             font-weight: bold;
-            margin-bottom: 1cm;
+            margin-bottom: 1.5cm;
             text-decoration: underline;
           }
           
           .letter-content {
-            text-align: justify;
+            text-align: left;
             margin-bottom: 2cm;
           }
           
@@ -177,9 +177,9 @@ export const modernLetterTemplate: LetterTemplate = {
           }
           
           body {
-            font-family: 'Arial', 'Helvetica Neue', sans-serif;
+            font-family: 'Calibri', 'Arial', sans-serif;
             font-size: 11pt;
-            line-height: 1.5;
+            line-height: 1.15;
             color: #333;
             margin: 0;
             padding: 0;
@@ -233,12 +233,12 @@ export const modernLetterTemplate: LetterTemplate = {
             padding: 10px 15px;
             border-left: 4px solid #2563eb;
             font-weight: 600;
-            margin-bottom: 1.5cm;
+            margin-bottom: 2cm;
             font-size: 11pt;
           }
           
           .letter-content {
-            text-align: justify;
+            text-align: left;
             margin-bottom: 2cm;
           }
           
@@ -343,9 +343,9 @@ export const semiFormalLetterTemplate: LetterTemplate = {
           }
           
           body {
-            font-family: 'Georgia', 'Times New Roman', serif;
+            font-family: 'Georgia', 'Calibri', serif;
             font-size: 11.5pt;
-            line-height: 1.45;
+            line-height: 1.2;
             color: #2c2c2c;
             margin: 0;
             padding: 0;
@@ -391,14 +391,14 @@ export const semiFormalLetterTemplate: LetterTemplate = {
           .subject-line {
             font-weight: 600;
             color: #1a365d;
-            margin-bottom: 1.5cm;
+            margin-bottom: 2cm;
             padding: 8px 0;
             border-top: 1px solid #e5e5e5;
             border-bottom: 1px solid #e5e5e5;
           }
           
           .letter-content {
-            text-align: justify;
+            text-align: left;
             margin-bottom: 2cm;
           }
           
