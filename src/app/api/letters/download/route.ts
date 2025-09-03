@@ -71,6 +71,16 @@ function createDocxFromHtml(content: string, metadata: LetterMetadata): Buffer {
 }
 
 
+// Debug GET endpoint
+export async function GET() {
+  return NextResponse.json({
+    message: 'Download route är aktiv',
+    methods: ['POST'],
+    timestamp: new Date().toISOString(),
+    deployment: 'latest'
+  });
+}
+
 export async function POST(request: Request) {
   try {
     // Verifiera autentisering och hantera PDF/DOCX generering
