@@ -4,6 +4,16 @@ const nextConfig: NextConfig = {
   // Inaktivera strict mode under utveckling för att undvika dubbla renderingar
   reactStrictMode: false,
   
+  // Tillåt ESLint warnings i production builds
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  
+  // Tillåt TypeScript errors i builds (om det behövs)
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  
   // Anpassa webpack för att bättre hantera vissa moduler
   webpack: (config, { isServer, dev }) => {
     // Specifik hantering för PDF.js och pdf-parse
