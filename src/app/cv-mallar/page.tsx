@@ -23,6 +23,7 @@ export default function CVMallarPage() {
   const [selectedTemplate, setSelectedTemplate] = useState<CVTemplateType | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [previewHtml, setPreviewHtml] = useState<string | null>(null);
+  const [isGeneratingPreview, setIsGeneratingPreview] = useState(false);
   const [notification, setNotification] = useState({
     isVisible: false, message: '', type: 'loading' as 'loading' | 'success' | 'error' | 'info'
   });
@@ -71,6 +72,7 @@ export default function CVMallarPage() {
   const handleTemplateSelect = (templateId: CVTemplateType) => {
     setSelectedTemplate(templateId);
     setPreviewHtml(null); // Clear preview when template changes
+    setIsGeneratingPreview(false); // Reset preview loading state
   };
 
   const handleGenerateCV = async () => {
@@ -124,10 +126,13 @@ export default function CVMallarPage() {
   const handlePreviewTemplate = useCallback(async () => {
     if (!selectedTemplate || !selectedCV) return;
     
+    setIsGeneratingPreview(true);
     try {
-      
       const template = getAllCVTemplates().find(t => t.id === selectedTemplate);
-      if (!template) return;
+      if (!template) {
+        console.warn('Template not found:', selectedTemplate);
+        return;
+      }
       
       // Generate preview HTML (simplified for preview)
       const mockCvMetadata: CVMetadata = {
@@ -176,6 +181,9 @@ export default function CVMallarPage() {
       setPreviewHtml(html);
     } catch (error) {
       console.error('Fel vid förhandsvisning:', error);
+      setPreviewHtml(null);
+    } finally {
+      setIsGeneratingPreview(false);
     }
   }, [selectedTemplate, selectedCV]);
   
@@ -399,16 +407,31 @@ export default function CVMallarPage() {
                 </h3>
                 <div className="bg-navy-900/50 rounded-lg p-4 border border-navy-600">
                   {previewHtml ? (
-                    <div 
-                      className="bg-white rounded border max-h-96 overflow-auto text-xs"
-                      dangerouslySetInnerHTML={{ __html: previewHtml }}
-                      style={{ transform: 'scale(0.5)', transformOrigin: 'top left', width: '200%', height: '200%' }}
-                    />
+                    <div className="bg-white rounded border max-h-96 overflow-auto relative">
+                      <iframe
+                        srcDoc={previewHtml}
+                        className="w-full h-96 border-0"
+                        style={{ 
+                          transform: 'scale(0.7)', 
+                          transformOrigin: 'top left',
+                          width: '142.857%', // 100% / 0.7 to compensate for scale
+                          height: '142.857%' // 100% / 0.7 to compensate for scale
+                        }}
+                        sandbox="allow-same-origin"
+                      />
+                    </div>
+                  ) : isGeneratingPreview ? (
+                    <div className="flex items-center justify-center h-48 text-gray-400">
+                      <div className="text-center">
+                        <Loader2 className="w-12 h-12 mx-auto mb-2 animate-spin" />
+                        <p>Genererar förhandsvisning...</p>
+                      </div>
+                    </div>
                   ) : (
                     <div className="flex items-center justify-center h-48 text-gray-400">
                       <div className="text-center">
                         <Eye className="w-12 h-12 mx-auto mb-2" />
-                        <p>Förhandsvisning laddas...</p>
+                        <p>Välj en mall för förhandsvisning</p>
                       </div>
                     </div>
                   )}
