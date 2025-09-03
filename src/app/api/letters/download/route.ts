@@ -87,7 +87,7 @@ async function createBasicPDF(content: string, metadata: LetterMetadata, templat
 
 export async function POST(request: Request) {
   try {
-    // Verifiera autentisering
+    // Verifiera autentisering och hantera PDF/DOCX generering
     const cookieStore = cookies();
     const supabase = createServerClient({ cookies: cookieStore });
     
