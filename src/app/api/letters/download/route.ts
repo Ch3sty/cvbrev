@@ -5,33 +5,6 @@ import { createServerClient } from '@/lib/supabase/server';
 import { generateLetterPDF } from '@/lib/pdf/puppeteer-pdf';
 import { LetterMetadata, TemplateType } from '@/lib/pdf/letter-templates';
 
-// Basic OPTIONS handler for CORS
-export async function OPTIONS(request: Request) {
-  console.log('=== PDF DOWNLOAD OPTIONS REQUEST ===');
-  console.log('OPTIONS request received for:', request.url);
-  
-  return new NextResponse(null, {
-    status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS, GET',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    },
-  });
-}
-
-// Debug GET route
-export async function GET(request: Request) {
-  console.log('=== PDF DOWNLOAD GET REQUEST (DEBUG) ===');
-  console.log('GET request received for:', request.url);
-  
-  return NextResponse.json({ 
-    message: 'PDF Download API is working',
-    method: 'GET',
-    timestamp: new Date().toISOString(),
-    url: request.url
-  });
-}
 
 
 /**
@@ -100,27 +73,13 @@ function createDocxFromHtml(content: string, metadata: LetterMetadata): Buffer {
 
 
 export async function POST(request: Request) {
-  console.log('=== PDF DOWNLOAD API START ===');
-  console.log('Request method:', request.method);
-  console.log('Request URL:', request.url);
-  console.log('Request headers:', Object.fromEntries(request.headers.entries()));
-  
   try {
-    console.log('Attempting to get cookies...');
     // Verifiera autentisering och hantera PDF/DOCX generering
     const cookieStore = await cookies();
-    console.log('Cookies retrieved successfully');
-    
-    console.log('Creating Supabase client...');
     const supabase = createServerClient({ cookies: cookieStore });
-    console.log('Supabase client created successfully');
     
-    console.log('Getting user from Supabase...');
     const { data: { user } } = await supabase.auth.getUser();
-    console.log('User from Supabase:', user ? `User ID: ${user.id}` : 'No user found');
-    
     if (!user) {
-      console.log('No authenticated user, returning 401');
       return NextResponse.json({ error: 'Ej autentiserad' }, { status: 401 });
     }
     
@@ -162,27 +121,24 @@ export async function POST(request: Request) {
     
     let fileData: Buffer | Uint8Array;
     let fileType: string;
-    let fileName: string = (enhancedMetadata.title || 'Ansökningsbrev')
-      .replace(/[^a-zA-Z0-9åäöÅÄÖ\s]/g, '')
+    let fileName: string = (enhancedMetadata.title || 'Ansokningsbrev')
+      .replace(/å/g, 'a').replace(/Å/g, 'A')
+      .replace(/ä/g, 'a').replace(/Ä/g, 'A')  
+      .replace(/ö/g, 'o').replace(/Ö/g, 'O')
+      .replace(/[^a-zA-Z0-9\s]/g, '')
       .replace(/\s+/g, '_');
     
     const templateType = (template as TemplateType) || 'formal';
     
     // Generera fil baserat på önskat format
-    console.log(`Starting file generation: format=${format}, template=${templateType}, contentLength=${content.length}`);
-    
     if (format === 'docx') {
-      console.log('Generating DOCX');
       fileData = createDocxFromHtml(content, enhancedMetadata);
       fileType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
       fileName += '.docx';
-      console.log(`DOCX generated successfully, size: ${fileData.byteLength} bytes`);
     } else if (format === 'pdf') {
-      console.log('Generating PDF with Puppeteer, metadata:', JSON.stringify(enhancedMetadata, null, 2));
       fileData = await createProfessionalPDF(content, enhancedMetadata, templateType);
       fileType = 'application/pdf';
       fileName += '.pdf';
-      console.log(`PDF generated successfully, size: ${fileData.byteLength} bytes`);
     } else {
       return NextResponse.json({ error: 'Ogiltigt filformat' }, { status: 400 });
     }
@@ -194,31 +150,9 @@ export async function POST(request: Request) {
     
     return response;
   } catch (error: any) {
-    console.error('=== PDF DOWNLOAD API ERROR ===');
-    console.error('Error generating document:', {
-      error: error.message,
-      stack: error.stack,
-      type: error.constructor.name
-    });
-    console.error('Full error object:', error);
-    
-    // Mer specifika felmeddelanden för debugging
-    let errorMessage = 'Serverfel vid generering av dokument';
-    if (error.message.includes('Puppeteer')) {
-      errorMessage = 'PDF-generering misslyckades: ' + error.message;
-    } else if (error.message.includes('PDF generation failed')) {
-      errorMessage = error.message;
-    } else if (error.message.includes('JSON')) {
-      errorMessage = 'Ogiltigt JSON-format i begäran';
-    } else {
-      errorMessage = 'Serverfel vid generering av dokument: ' + error.message;
-    }
-    
+    console.error('Error generating document:', error);
     return NextResponse.json(
-      { 
-        error: errorMessage,
-        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
-      }, 
+      { error: 'Serverfel vid generering av dokument: ' + error.message }, 
       { status: 500 }
     );
   }
