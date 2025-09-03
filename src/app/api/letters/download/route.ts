@@ -2,11 +2,13 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
+import { generateLetterPDF } from '@/lib/pdf/puppeteer-pdf';
+import { LetterMetadata, TemplateType } from '@/lib/pdf/letter-templates';
 
 /**
  * Hjälpfunktion för att skapa ett DOCX-dokument (egentligen HTML som fungerar i Word)
  */
-async function createDocxFromHtml(content: string, metadata: any): Promise<Uint8Array> {
+async function createDocxFromHtml(content: string, metadata: LetterMetadata): Promise<Uint8Array> {
   const htmlContent = `
     <!DOCTYPE html>
     <html>
@@ -44,45 +46,26 @@ async function createDocxFromHtml(content: string, metadata: any): Promise<Uint8
 }
 
 /**
- * Skapar en PDF med samma innehåll
+ * Skapar en professionell PDF med Puppeteer
  */
-async function createPdfFromHtml(content: string, metadata: any): Promise<Uint8Array> {
-  const htmlContent = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <meta charset="utf-8">
-      <title>${metadata.title || 'Ansökningsbrev'}</title>
-      <style>
-        @page { margin: 2cm; }
-        body { font-family: 'Arial', sans-serif; margin: 0; line-height: 1.5; }
-        p { margin-bottom: 10px; }
-        h2 { margin-top: 20px; margin-bottom: 20px; }
-      </style>
-    </head>
-    <body>
-      ${metadata.author ? `<p>${metadata.author}</p>` : ''}
-      ${metadata.email ? `<p>${metadata.email}</p>` : ''}
-      ${metadata.phone ? `<p>${metadata.phone}</p>` : ''}
-      <p>${new Date().toLocaleDateString('sv-SE')}</p>
-      
-      ${metadata.company ? `<p>${metadata.company}</p>` : ''}
-      ${metadata.position ? `<p>Ansökan: ${metadata.position}</p>` : ''}
-      
-      <h2>${metadata.title || 'Ansökningsbrev'}</h2>
-      
-      <div>
-        ${content.replace(/\n/g, '<br>')}
-      </div>
-      
-      <p style="margin-top: 20px;">Med vänliga hälsningar,</p>
-      <p>${metadata.author || '[Ditt namn]'}</p>
-    </body>
-    </html>
-  `;
-  
-  const encoder = new TextEncoder();
-  return encoder.encode(htmlContent);
+async function createProfessionalPDF(content: string, metadata: LetterMetadata, templateType: TemplateType = 'formal'): Promise<Buffer> {
+  try {
+    const pdfBuffer = await generateLetterPDF(content, metadata, {
+      template: templateType,
+      format: 'A4',
+      margins: {
+        top: '2.5cm',
+        right: '2cm',
+        bottom: '2cm',
+        left: '2cm'
+      }
+    });
+    
+    return pdfBuffer;
+  } catch (error) {
+    console.error('Professional PDF generation error:', error);
+    throw error;
+  }
 }
 
 export async function POST(request: Request) {
@@ -107,7 +90,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Ogiltig JSON i begäran' }, { status: 400 });
     }
     
-    const { content, format, metadata } = parsedBody;
+    const { content, format, metadata, template } = parsedBody;
     
     if (!content) {
       return NextResponse.json({ error: 'Inget innehåll angivet' }, { status: 400 });
@@ -121,17 +104,24 @@ export async function POST(request: Request) {
       .single();
       
     // Förbered metadata med användarens information
-    const enhancedMetadata = {
-      ...metadata,
-      author: profileData?.full_name || '',
+    const enhancedMetadata: LetterMetadata = {
+      title: metadata?.title || 'Ansökningsbrev',
+      company: metadata?.company || '',
+      position: metadata?.position || metadata?.job_title || '',
+      author: profileData?.full_name || user.email?.split('@')[0] || 'Användare',
       email: user.email || '',
       phone: profileData?.phone || '',
+      address: profileData?.address || '',
       date: new Date().toLocaleDateString('sv-SE')
     };
     
-    let fileData: Uint8Array;
+    let fileData: Buffer | Uint8Array;
     let fileType: string;
-    let fileName: string = (metadata?.title || 'Ansökningsbrev').replace(/[^a-zA-Z0-9åäöÅÄÖ]/g, '_');
+    let fileName: string = (enhancedMetadata.title || 'Ansökningsbrev')
+      .replace(/[^a-zA-Z0-9åäöÅÄÖ\s]/g, '')
+      .replace(/\s+/g, '_');
+    
+    const templateType = (template as TemplateType) || 'formal';
     
     // Generera fil baserat på önskat format
     if (format === 'docx') {
@@ -139,7 +129,7 @@ export async function POST(request: Request) {
       fileType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
       fileName += '.docx';
     } else if (format === 'pdf') {
-      fileData = await createPdfFromHtml(content, enhancedMetadata);
+      fileData = await createProfessionalPDF(content, enhancedMetadata, templateType);
       fileType = 'application/pdf';
       fileName += '.pdf';
     } else {

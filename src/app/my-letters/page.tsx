@@ -5,7 +5,7 @@
 
 'use client';
 
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, useCallback, useRef, useMemo, memo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLetters } from '@/hooks/use-letters';
 import { useProfile } from '@/hooks/use-profile';
@@ -27,6 +27,13 @@ import {
   MessageSquare,
   Clock,
   Infinity as InfinityIcon, // Importera och döp om för att undvika namnkonflikt
+  Search,
+  Filter,
+  X,
+  ChevronDown,
+  Calendar,
+  SortAsc,
+  SortDesc
 } from 'lucide-react';
 import Notification from '@/components/ui/notification';
 
@@ -225,6 +232,14 @@ export default function MyLettersPage() {
     progress?: number; // Behåll progress som optionell
   } | null>(null); // Initiera som null
 
+  // Search and filter state
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCompany, setSelectedCompany] = useState<string>('');
+  const [selectedTone, setSelectedTone] = useState<string>('');
+  const [sortBy, setSortBy] = useState<'date' | 'title' | 'company'>('date');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+  const [showFilters, setShowFilters] = useState(false);
+
   // Auth check ref
   const authCheckedRef = useRef(false);
 
@@ -280,7 +295,7 @@ export default function MyLettersPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchLetters, isPageMounted]); // Ta bort showNotificationMessage från deps
 
-  // Formatera datum (Inga ändringar behövs, funktionen är korrekt)
+  // Formatera datum med memoization för bättre prestanda
   const formatRelativeDate = useCallback((dateString: string | null): string => {
     if (!dateString) return 'Okänt datum';
     try {
@@ -296,7 +311,7 @@ export default function MyLettersPage() {
     }
   }, []);
 
-  // Förhandsvisning (Inga ändringar behövs, funktionen är korrekt)
+  // Förhandsvisning med memoization för bättre prestanda
   const getPreview = useCallback((content: string | null) => {
     if (!content) return '';
     try {
@@ -373,6 +388,71 @@ export default function MyLettersPage() {
            (now.getTime() - updateDate.getTime()) < 24 * 60 * 60 * 1000;
   };
 
+  // Filter and search logic
+  const filteredLetters = useMemo(() => {
+    if (!letters) return [];
+    
+    let filtered = [...letters];
+    
+    // Apply search filter
+    if (searchTerm.trim()) {
+      const search = searchTerm.toLowerCase();
+      filtered = filtered.filter(letter => 
+        (letter.title?.toLowerCase().includes(search)) ||
+        (letter.company?.toLowerCase().includes(search)) ||
+        (letter.job_title?.toLowerCase().includes(search)) ||
+        (letter.content?.toLowerCase().includes(search))
+      );
+    }
+    
+    // Apply company filter
+    if (selectedCompany) {
+      filtered = filtered.filter(letter => letter.company === selectedCompany);
+    }
+    
+    // Apply tone filter  
+    if (selectedTone) {
+      filtered = filtered.filter(letter => letter.tonality === selectedTone);
+    }
+    
+    // Apply sorting
+    filtered.sort((a, b) => {
+      let aValue: string | Date, bValue: string | Date;
+      
+      switch (sortBy) {
+        case 'title':
+          aValue = a.title || '';
+          bValue = b.title || '';
+          break;
+        case 'company':
+          aValue = a.company || '';
+          bValue = b.company || '';
+          break;
+        case 'date':
+        default:
+          aValue = new Date(a.updated_at || a.created_at);
+          bValue = new Date(b.updated_at || b.created_at);
+          break;
+      }
+      
+      if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+      if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+      return 0;
+    });
+    
+    return filtered;
+  }, [letters, searchTerm, selectedCompany, selectedTone, sortBy, sortOrder]);
+
+  // Get unique companies and tones for filter options
+  const filterOptions = useMemo(() => {
+    if (!letters) return { companies: [], tones: [] };
+    
+    const companies = [...new Set(letters.map(l => l.company).filter(Boolean))].sort();
+    const tones = [...new Set(letters.map(l => l.tonality).filter(Boolean))].sort();
+    
+    return { companies, tones };
+  }, [letters]);
+
   // Hjälpfunktion för att gruppera brev efter datum
   const groupLettersByDate = (letters: any[]) => {
     const today = new Date();
@@ -385,8 +465,20 @@ export default function MyLettersPage() {
     };
   };
 
-  // Gruppera brev om det finns några
-  const groupedLetters = letters.length > 0 ? groupLettersByDate(letters) : null;
+  // Gruppera filtrerade brev om det finns några
+  const groupedLetters = filteredLetters.length > 0 ? groupLettersByDate(filteredLetters) : null;
+
+  // Clear all filters
+  const clearFilters = () => {
+    setSearchTerm('');
+    setSelectedCompany('');
+    setSelectedTone('');
+    setSortBy('date');
+    setSortOrder('desc');
+  };
+
+  // Check if any filters are active
+  const hasActiveFilters = searchTerm || selectedCompany || selectedTone || sortBy !== 'date' || sortOrder !== 'desc';
 
   // Om sidan håller på att omdirigeras eller användaren inte är inloggad, visa ingenting
   if (profileLoading || !profile) {
@@ -417,27 +509,147 @@ export default function MyLettersPage() {
         {/* Huvudsektionen med brev */}
         <div className="flex-1 space-y-6"> {/* Använd space-y för avstånd */}
 
-          {/* Åtgärdsraden - Matchar ProfilePage (navy-800, p-5) */}
-          <div className="flex flex-col sm:flex-row items-center justify-between bg-navy-800 p-5 rounded-lg border border-gray-700 shadow-md">
-            <div className="flex items-center mb-3 sm:mb-0">
-              <FileText className="w-5 h-5 text-pink-500 mr-2" />
-              <span className="text-white font-medium">
-                {letters.length} {letters.length === 1 ? 'brev' : 'brev'} sparade
-              </span>
+          {/* Search and Filter Bar */}
+          <div className="bg-navy-800 p-5 rounded-lg border border-gray-700 shadow-md space-y-4">
+            {/* Top row: Stats and actions */}
+            <div className="flex flex-col sm:flex-row items-center justify-between">
+              <div className="flex items-center mb-3 sm:mb-0">
+                <FileText className="w-5 h-5 text-pink-500 mr-2" />
+                <span className="text-white font-medium">
+                  {filteredLetters.length} av {letters.length} brev
+                  {hasActiveFilters && (
+                    <span className="ml-2 px-2 py-1 text-xs bg-blue-600 text-white rounded-md">
+                      Filtrerade
+                    </span>
+                  )}
+                </span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setShowFilters(!showFilters)}
+                  className="inline-flex items-center px-3 py-2 text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-600"
+                >
+                  <Filter className="w-4 h-4 mr-2" />
+                  Filter
+                  {hasActiveFilters && (
+                    <span className="ml-2 w-2 h-2 bg-blue-500 rounded-full"></span>
+                  )}
+                </button>
+                
+                <Link href="/create-letter"
+                  className={`inline-flex items-center px-4 py-2 text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors font-medium ${subscriptionTier === 'free' && hasReachedLetterLimit ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  aria-disabled={subscriptionTier === 'free' && hasReachedLetterLimit}
+                  onClick={(e) => {
+                    if (subscriptionTier === 'free' && hasReachedLetterLimit) {
+                      e.preventDefault();
+                      showNotificationMessage(`Du har nått maxgränsen på ${maxSavedLetters} sparade brev. Ta bort ett brev för att skapa ett nytt, eller uppgradera.`, 'info', 7000);
+                    }
+                  }}>
+                  <Plus className="w-4 h-4 mr-2" />
+                  Skapa nytt brev
+                </Link>
+              </div>
             </div>
 
-            <Link href="/create-letter"
-              className={`inline-flex items-center px-4 py-2 text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors font-medium ${subscriptionTier === 'free' && hasReachedLetterLimit ? 'opacity-50 cursor-not-allowed' : ''}`} // ProfilePage knappstil
-              aria-disabled={subscriptionTier === 'free' && hasReachedLetterLimit}
-              onClick={(e) => {
-                if (subscriptionTier === 'free' && hasReachedLetterLimit) {
-                  e.preventDefault();
-                  showNotificationMessage(`Du har nått maxgränsen på ${maxSavedLetters} sparade brev. Ta bort ett brev för att skapa ett nytt, eller uppgradera.`, 'info', 7000);
-                }
-              }}>
-              <Plus className="w-4 h-4 mr-2" />
-              Skapa nytt brev
-            </Link>
+            {/* Search Bar */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Sök i brev, företag, tjänster..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 bg-navy-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500"
+              />
+              {searchTerm && (
+                <button
+                  onClick={() => setSearchTerm('')}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+
+            {/* Filter Panel */}
+            {showFilters && (
+              <div className="border-t border-gray-700 pt-4 space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                  {/* Company Filter */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Företag</label>
+                    <select
+                      value={selectedCompany}
+                      onChange={(e) => setSelectedCompany(e.target.value)}
+                      className="w-full px-3 py-2 bg-navy-700 border border-gray-600 rounded-md text-white focus:outline-none focus:border-pink-500"
+                    >
+                      <option value="">Alla företag</option>
+                      {filterOptions.companies.map(company => (
+                        <option key={company} value={company}>{company}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Tone Filter */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Tonalitet</label>
+                    <select
+                      value={selectedTone}
+                      onChange={(e) => setSelectedTone(e.target.value)}
+                      className="w-full px-3 py-2 bg-navy-700 border border-gray-600 rounded-md text-white focus:outline-none focus:border-pink-500"
+                    >
+                      <option value="">Alla tonaliteter</option>
+                      {filterOptions.tones.map(tone => (
+                        <option key={tone} value={tone}>{tone.charAt(0).toUpperCase() + tone.slice(1)}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Sort By */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Sortera efter</label>
+                    <select
+                      value={sortBy}
+                      onChange={(e) => setSortBy(e.target.value as 'date' | 'title' | 'company')}
+                      className="w-full px-3 py-2 bg-navy-700 border border-gray-600 rounded-md text-white focus:outline-none focus:border-pink-500"
+                    >
+                      <option value="date">Datum</option>
+                      <option value="title">Titel</option>
+                      <option value="company">Företag</option>
+                    </select>
+                  </div>
+
+                  {/* Sort Order */}
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Ordning</label>
+                    <button
+                      onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+                      className="w-full px-3 py-2 bg-navy-700 border border-gray-600 rounded-md text-white hover:bg-navy-600 transition-colors flex items-center justify-center"
+                    >
+                      {sortOrder === 'asc' ? (
+                        <><SortAsc className="w-4 h-4 mr-2" /> Stigande</>
+                      ) : (
+                        <><SortDesc className="w-4 h-4 mr-2" /> Fallande</>
+                      )}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Clear Filters */}
+                {hasActiveFilters && (
+                  <div className="flex justify-end">
+                    <button
+                      onClick={clearFilters}
+                      className="px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors flex items-center"
+                    >
+                      <X className="w-4 h-4 mr-1" />
+                      Rensa alla filter
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Varningsmeddelanden - Matchar ProfilePage */}
@@ -502,8 +714,28 @@ export default function MyLettersPage() {
              </div>
           )}
 
+          {/* No results after filtering */}
+          {!isLoading && letters.length > 0 && filteredLetters.length === 0 && (
+            <div className="border border-gray-700 border-dashed rounded-lg p-8 bg-navy-900/50 animate-fadeIn">
+              <div className="flex flex-col items-center justify-center text-gray-400 py-8 text-center">
+                <Search className="w-16 h-16 mb-4 text-gray-600" />
+                <h2 className="mb-2 text-xl font-semibold text-white">Inga brev matchade din sökning</h2>
+                <p className="mb-6 text-gray-400 text-sm max-w-md">
+                  Prova att ändra söktermer eller ta bort filter för att se fler resultat.
+                </p>
+                <button
+                  onClick={clearFilters}
+                  className="inline-flex items-center px-4 py-2 text-white bg-navy-700 rounded-md hover:bg-navy-600 transition-colors"
+                >
+                  <X className="w-4 h-4 mr-2" />
+                  Rensa alla filter
+                </button>
+              </div>
+            </div>
+          )}
+
           {/* Lista med brev - Grupperad */}
-          {!isLoading && letters.length > 0 && (
+          {!isLoading && filteredLetters.length > 0 && (
             <div className="space-y-8">
               {/* Nyligen uppdaterade */}
               {groupedLetters && groupedLetters.recent.length > 0 && (
