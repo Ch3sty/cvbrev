@@ -1,6 +1,8 @@
 // src/lib/pdf/letter-templates.ts
 // Professionella brevmallar för svenska personliga brev
 
+import { cleanLetterContent } from './clean-letter-content';
+
 export interface LetterMetadata {
   title: string;
   company: string;
@@ -24,6 +26,7 @@ export const formalLetterTemplate: LetterTemplate = {
   name: 'Formell',
   description: 'Klassisk formell brevmall enligt svenska standarder',
   generateHTML: (content: string, metadata: LetterMetadata) => {
+    const cleanedContent = cleanLetterContent(content, metadata);
     const currentDate = metadata.date || new Date().toLocaleDateString('sv-SE', {
       year: 'numeric',
       month: 'long', 
@@ -137,7 +140,7 @@ export const formalLetterTemplate: LetterTemplate = {
         </div>
         
         <div class="letter-content">
-          ${content.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}
+          ${cleanedContent.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}
         </div>
         
         <div class="closing">
@@ -157,6 +160,7 @@ export const modernLetterTemplate: LetterTemplate = {
   name: 'Modern',
   description: 'Modern och ren brevmall med elegant typografi',
   generateHTML: (content: string, metadata: LetterMetadata) => {
+    const cleanedContent = cleanLetterContent(content, metadata);
     const currentDate = metadata.date || new Date().toLocaleDateString('sv-SE', {
       year: 'numeric',
       month: 'long', 
@@ -301,7 +305,7 @@ export const modernLetterTemplate: LetterTemplate = {
         ` : ''}
         
         <div class="letter-content">
-          ${content.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}
+          ${cleanedContent.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}
         </div>
         
         <div class="closing">
@@ -323,6 +327,7 @@ export const semiFormalLetterTemplate: LetterTemplate = {
   name: 'Semi-formell',
   description: 'Balanserad brevmall mellan formell och modern stil',
   generateHTML: (content: string, metadata: LetterMetadata) => {
+    const cleanedContent = cleanLetterContent(content, metadata);
     const currentDate = metadata.date || new Date().toLocaleDateString('sv-SE', {
       year: 'numeric',
       month: 'long', 
@@ -460,7 +465,7 @@ export const semiFormalLetterTemplate: LetterTemplate = {
         ` : ''}
         
         <div class="letter-content">
-          ${content.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}
+          ${cleanedContent.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>')}
         </div>
         
         <div class="closing">

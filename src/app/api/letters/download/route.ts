@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { generateLetterPDF } from '@/lib/pdf/puppeteer-pdf';
 import { LetterMetadata, TemplateType } from '@/lib/pdf/letter-templates';
+import { cleanLetterContent } from '@/lib/pdf/clean-letter-content';
 import { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } from 'docx';
 
 
@@ -39,8 +40,11 @@ async function createProfessionalDocx(content: string, metadata: LetterMetadata)
   try {
     console.log('Generating DOCX with docx library');
     
+    // Rensa dubblerat innehåll innan HTML-rensning
+    const cleanedContent = cleanLetterContent(content, metadata);
+    
     // Förbered text innehållet genom att ta bort HTML-taggar och formatera paragrafer
-    const cleanContent = content
+    const cleanContent = cleanedContent
       .replace(/<[^>]*>/g, '') // Ta bort HTML-taggar
       .replace(/&nbsp;/g, ' ') // Ersätt HTML-entiteter
       .replace(/&amp;/g, '&')
