@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { FileText, Download, Loader, Eye, X, ChevronDown } from 'lucide-react';
 import { TemplateType } from '@/lib/pdf/letter-templates';
 
@@ -293,8 +294,8 @@ export default function DownloadButton({
       )}
       
       {/* Preview Modal - Förbättrad modal med bättre design */}
-      {showPreviewModal && previewImage && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-navy-900/80 backdrop-blur-sm animate-fadeIn">
+      {showPreviewModal && previewImage && typeof document !== 'undefined' && createPortal(
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-navy-900/80 backdrop-blur-sm animate-fadeIn">
           <div className="bg-navy-800 rounded-lg max-w-5xl max-h-[95vh] overflow-hidden shadow-2xl border border-gray-700 mx-4">
             {/* Modal Header */}
             <div className="flex items-center justify-between p-5 border-b border-gray-700">
@@ -348,7 +349,8 @@ export default function DownloadButton({
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
