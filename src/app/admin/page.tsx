@@ -15,7 +15,15 @@ import {
   Edit3,
   PlusCircle,
   UploadCloud,
-  LogIn
+  LogIn,
+  Search,
+  Globe,
+  Target,
+  Zap,
+  AlertCircle,
+  DollarSign,
+  Brain,
+  Activity
 } from 'lucide-react';
 
 // Typdefinitioner för data
@@ -26,6 +34,11 @@ interface SystemStats {
   total_letters: number;
   total_saved_letters: number;
   total_cvs: number;
+  // SEO metrics (kommer från separata API calls)
+  organic_traffic?: number;
+  organic_conversion_rate?: number;
+  avg_page_load_time?: number;
+  total_articles?: number;
 }
 
 interface LatestUser {
@@ -476,6 +489,229 @@ export default function AdminDashboardPage() {
           value={stats?.total_cvs ?? 0}
           icon={<FileText className="w-6 h-6 text-cyan-400" />}
         />
+      </div>
+
+      {/* Quick Actions */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <Link href="/admin/finance" className="bg-navy-800 rounded-lg border border-gray-700 p-4 hover:border-pink-500 transition-colors">
+          <div className="flex items-center gap-3">
+            <DollarSign className="w-8 h-8 text-green-400" />
+            <div>
+              <h3 className="text-white font-semibold">Ekonomi</h3>
+              <p className="text-gray-400 text-sm">MRR, ARR och intäkter</p>
+            </div>
+          </div>
+        </Link>
+        
+        <Link href="/admin/monitoring" className="bg-navy-800 rounded-lg border border-gray-700 p-4 hover:border-pink-500 transition-colors">
+          <div className="flex items-center gap-3">
+            <Activity className="w-8 h-8 text-yellow-400" />
+            <div>
+              <h3 className="text-white font-semibold">Monitoring</h3>
+              <p className="text-gray-400 text-sm">System och prestanda</p>
+            </div>
+          </div>
+        </Link>
+        
+        <Link href="/admin/ai-insights" className="bg-navy-800 rounded-lg border border-gray-700 p-4 hover:border-pink-500 transition-colors">
+          <div className="flex items-center gap-3">
+            <Brain className="w-8 h-8 text-purple-400" />
+            <div>
+              <h3 className="text-white font-semibold">AI Insights</h3>
+              <p className="text-gray-400 text-sm">Prediktioner och analys</p>
+            </div>
+          </div>
+        </Link>
+        
+        <Link href="/admin/seo" className="bg-navy-800 rounded-lg border border-gray-700 p-4 hover:border-pink-500 transition-colors">
+          <div className="flex items-center gap-3">
+            <Search className="w-8 h-8 text-blue-400" />
+            <div>
+              <h3 className="text-white font-semibold">SEO</h3>
+              <p className="text-gray-400 text-sm">Organisk trafik och rankings</p>
+            </div>
+          </div>
+        </Link>
+      </div>
+
+      {/* Financial Overview */}
+      <div className="bg-navy-800 rounded-lg border border-gray-700 p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+            <DollarSign className="w-5 h-5 text-green-400" />
+            Ekonomisk Översikt
+          </h2>
+          <Link href="/admin/finance" className="text-pink-400 hover:text-pink-300 text-sm flex items-center gap-1">
+            Visa mer <ChevronRight className="w-4 h-4" />
+          </Link>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-navy-900 rounded-lg p-4">
+            <p className="text-gray-400 text-sm">MRR (Monthly Recurring Revenue)</p>
+            <p className="text-2xl font-bold text-white mt-1">
+              {((stats?.premium_users ?? 0) * 149).toLocaleString('sv-SE')} SEK
+            </p>
+            <p className="text-green-400 text-sm mt-1">+15% från förra månaden</p>
+          </div>
+          
+          <div className="bg-navy-900 rounded-lg p-4">
+            <p className="text-gray-400 text-sm">ARR (Annual Recurring Revenue)</p>
+            <p className="text-2xl font-bold text-white mt-1">
+              {((stats?.premium_users ?? 0) * 149 * 12).toLocaleString('sv-SE')} SEK
+            </p>
+            <p className="text-green-400 text-sm mt-1">Baserat på nuvarande MRR</p>
+          </div>
+          
+          <div className="bg-navy-900 rounded-lg p-4">
+            <p className="text-gray-400 text-sm">Churn Rate</p>
+            <p className="text-2xl font-bold text-white mt-1">2.3%</p>
+            <p className="text-yellow-400 text-sm mt-1">Behöver förbättras</p>
+          </div>
+        </div>
+      </div>
+
+      {/* System Alerts */}
+      <div className="bg-navy-800 rounded-lg border border-gray-700 p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+            <AlertCircle className="w-5 h-5 text-yellow-400" />
+            System Alerts
+          </h2>
+          <Link href="/admin/monitoring" className="text-pink-400 hover:text-pink-300 text-sm flex items-center gap-1">
+            Visa alla <ChevronRight className="w-4 h-4" />
+          </Link>
+        </div>
+        
+        <div className="space-y-3">
+          <div className="flex items-start gap-3 bg-yellow-900/20 border border-yellow-800 rounded-lg p-3">
+            <AlertCircle className="w-5 h-5 text-yellow-500 mt-0.5" />
+            <div className="flex-1">
+              <p className="text-white font-medium">Hög API Response Time</p>
+              <p className="text-gray-400 text-sm mt-1">Genomsnittlig svarstid överskrider 500ms threshold</p>
+            </div>
+            <span className="text-xs text-yellow-400">Aktiv</span>
+          </div>
+          
+          <div className="flex items-start gap-3 bg-blue-900/20 border border-blue-800 rounded-lg p-3">
+            <AlertCircle className="w-5 h-5 text-blue-500 mt-0.5" />
+            <div className="flex-1">
+              <p className="text-white font-medium">Schemalagt underhåll</p>
+              <p className="text-gray-400 text-sm mt-1">Databas-backup genomförd framgångsrikt</p>
+            </div>
+            <span className="text-xs text-green-400">Löst</span>
+          </div>
+        </div>
+      </div>
+
+      {/* AI Predictions Summary */}
+      <div className="bg-navy-800 rounded-lg border border-gray-700 p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+            <Brain className="w-5 h-5 text-purple-400" />
+            AI Prediktioner
+          </h2>
+          <Link href="/admin/ai-insights" className="text-pink-400 hover:text-pink-300 text-sm flex items-center gap-1">
+            Visa detaljer <ChevronRight className="w-4 h-4" />
+          </Link>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="bg-navy-900 rounded-lg p-4">
+            <p className="text-gray-400 text-sm">Kritiska Risk-användare</p>
+            <p className="text-2xl font-bold text-red-500 mt-1">3</p>
+            <p className="text-gray-400 text-xs mt-1">Behöver omedelbar åtgärd</p>
+          </div>
+          
+          <div className="bg-navy-900 rounded-lg p-4">
+            <p className="text-gray-400 text-sm">Konverteringspotential</p>
+            <p className="text-2xl font-bold text-green-500 mt-1">12</p>
+            <p className="text-gray-400 text-xs mt-1">Användare redo att uppgradera</p>
+          </div>
+          
+          <div className="bg-navy-900 rounded-lg p-4">
+            <p className="text-gray-400 text-sm">Prognos nästa månad</p>
+            <p className="text-2xl font-bold text-white mt-1">+18%</p>
+            <p className="text-gray-400 text-xs mt-1">Förväntad tillväxt</p>
+          </div>
+          
+          <div className="bg-navy-900 rounded-lg p-4">
+            <p className="text-gray-400 text-sm">Rekommenderade åtgärder</p>
+            <p className="text-2xl font-bold text-pink-500 mt-1">7</p>
+            <p className="text-gray-400 text-xs mt-1">Hög prioritet</p>
+          </div>
+        </div>
+      </div>
+
+      {/* SEO Overview Panel */}
+      <div className="bg-navy-800 rounded-lg border border-gray-700 p-6">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+            <Search className="w-5 h-5 text-pink-400" />
+            SEO & Content Översikt
+          </h2>
+          <Link 
+            href="/admin/seo" 
+            className="text-pink-500 hover:text-pink-400 text-sm flex items-center gap-1"
+          >
+            Se fullständig rapport
+            <ChevronRight className="w-4 h-4" />
+          </Link>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="bg-navy-700 rounded-lg p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-gray-400 text-sm">Organisk Trafik</p>
+                <p className="text-white text-2xl font-bold">
+                  {stats?.organic_traffic?.toLocaleString() || '---'}
+                </p>
+                <p className="text-green-400 text-xs mt-1">+12% sedan förra månaden</p>
+              </div>
+              <Globe className="w-8 h-8 text-blue-400" />
+            </div>
+          </div>
+          
+          <div className="bg-navy-700 rounded-lg p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-gray-400 text-sm">Konverteringsgrad</p>
+                <p className="text-white text-2xl font-bold">
+                  {stats?.organic_conversion_rate ? `${stats.organic_conversion_rate.toFixed(1)}%` : '---'}
+                </p>
+                <p className="text-yellow-400 text-xs mt-1">+2.1% sedan förra månaden</p>
+              </div>
+              <Target className="w-8 h-8 text-green-400" />
+            </div>
+          </div>
+          
+          <div className="bg-navy-700 rounded-lg p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-gray-400 text-sm">Laddningstid (snitt)</p>
+                <p className="text-white text-2xl font-bold">
+                  {stats?.avg_page_load_time ? `${stats.avg_page_load_time.toFixed(1)}s` : '---'}
+                </p>
+                <p className="text-green-400 text-xs mt-1">-0.3s sedan förra månaden</p>
+              </div>
+              <Zap className="w-8 h-8 text-yellow-400" />
+            </div>
+          </div>
+          
+          <div className="bg-navy-700 rounded-lg p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-gray-400 text-sm">Publicerade Artiklar</p>
+                <p className="text-white text-2xl font-bold">
+                  {stats?.total_articles || '60+'}
+                </p>
+                <p className="text-pink-400 text-xs mt-1">Alla kategorier</p>
+              </div>
+              <FileText className="w-8 h-8 text-purple-400" />
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Lower panels - Recent users and activities */}

@@ -12,7 +12,9 @@ import {
   ChevronRight,
   ChevronLeft,
   LogOut,
-  Database // Ny ikon för underhåll
+  Database, // Ikon för underhåll
+  Search, // Ny ikon för SEO
+  TrendingUp // Ytterligare ikon för analytics
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
@@ -21,7 +23,7 @@ export default function AdminSidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const supabase = getSupabaseClient();
   
-  // Navigationslänkar - Lagt till underhållssidan
+  // Navigationslänkar - Lagt till SEO och underhållssidan
   const navItems = [
     { path: '/admin', label: 'Dashboard', icon: <Home className="w-5 h-5" /> },
     { path: '/admin/users', label: 'Användare', icon: <Users className="w-5 h-5" /> },
@@ -29,7 +31,9 @@ export default function AdminSidebar() {
     { path: '/admin/cvs', label: 'CV:n', icon: <FileText className="w-5 h-5" /> },
     { path: '/admin/subscriptions', label: 'Prenumerationer', icon: <CreditCard className="w-5 h-5" /> },
     { path: '/admin/statistics', label: 'Statistik', icon: <BarChart2 className="w-5 h-5" /> },
-    { path: '/admin/maintenance', label: 'Underhåll', icon: <Database className="w-5 h-5" /> }, // Ny!
+    { path: '/admin/seo', label: 'SEO & Content', icon: <Search className="w-5 h-5" /> }, // Ny SEO dashboard
+    { path: '/admin/analytics', label: 'Analytics', icon: <TrendingUp className="w-5 h-5" /> }, // Ny analytics dashboard
+    { path: '/admin/maintenance', label: 'Underhåll', icon: <Database className="w-5 h-5" /> },
     { path: '/admin/settings', label: 'Inställningar', icon: <Settings className="w-5 h-5" /> },
   ];
   

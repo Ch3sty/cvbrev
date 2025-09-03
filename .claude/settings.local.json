@@ -1,0 +1,50 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree:*)",
+      "Bash(git add:*)",
+      "Bash(git push:*)",
+      "Bash(git config:*)",
+      "Bash(ssh:*)",
+      "Bash(gh auth:*)",
+      "Bash(git commit:*)",
+      "Bash(git rm:*)",
+      "Bash(npx supabase:*)",
+      "Bash(env)",
+      "WebSearch",
+      "WebFetch(domain:code.visualstudio.com)",
+      "Bash(mkdir:*)",
+      "Bash(code .)",
+      "Bash(npx @modelcontextprotocol/server-supabase:*)",
+      "Bash(npm install:*)",
+      "Read(\\/**)",
+      "Bash(npx @supabase/mcp-server-supabase@latest:*)",
+      "Bash(supabase:*)",
+      "Bash(npx:*)",
+      "Bash(npm config:*)",
+      "Bash(setx:*)",
+      "mcp__supabase__list_tables",
+      "mcp__supabase__get_advisors",
+      "mcp__supabase__execute_sql",
+      "mcp__supabase__generate_typescript_types",
+      "mcp__supabase__get_logs",
+      "Bash(grep:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm run build:*)",
+      "Bash(dir \"C:\\Users\\chris\\cvbrev\\src\\hooks\" /B)",
+      "Bash(dir:*)",
+      "WebFetch(domain:www.jobbcoach.ai)",
+      "mcp__supabase__list_extensions",
+      "mcp__supabase__apply_migration",
+      "mcp__supabase__deploy_edge_function",
+      "mcp__supabase__get_project_url",
+      "mcp__supabase__get_anon_key"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "supabase"
+  ]
+}
