@@ -36,6 +36,7 @@ import {
   SortDesc
 } from 'lucide-react';
 import Notification from '@/components/ui/notification';
+import DownloadButton from '@/components/letters/download-button';
 
 // Taggkomponent - Anpassad stil för att passa in bättre
 const LetterTag = ({
@@ -782,13 +783,53 @@ export default function MyLettersPage() {
                            </div>
                         </div>
                         {/* Åtgärdsknappar */}
-                        <div className="border-t border-gray-700 p-4 bg-navy-900/30 flex flex-wrap gap-2 justify-end">
-                           {/* ÄNDRAD KNAPPSTIL */}
-                           <Link href={`/my-letters/${letter.id}`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Eye className="w-4 h-4 mr-1.5" /> Visa </Link>
-                           {/* ÄNDRAD KNAPPSTIL */}
-                           <Link href={`/my-letters/${letter.id}/edit`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Pencil className="w-4 h-4 mr-1.5" /> Redigera </Link>
-                           {/* BEHÅLLEN KNAPPSTIL */}
-                           <button onClick={() => handleDelete(letter.id)} disabled={isDeleting} className={`inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors ${isDeleting && deleteId === letter.id ? 'opacity-50 cursor-not-allowed' : ''}`}> {isDeleting && deleteId === letter.id ? ( <> <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> Tar bort... </> ) : ( <> <Trash2 className="w-4 h-4 mr-1.5" /> Ta bort </> )} </button>
+                        <div className="border-t border-gray-700 p-4 bg-navy-900/30 space-y-3">
+                          {/* Top row: Visa, Redigera, Ta bort */}
+                          <div className="flex flex-wrap gap-2 justify-end">
+                            {/* ÄNDRAD KNAPPSTIL */}
+                            <Link href={`/my-letters/${letter.id}`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Eye className="w-4 h-4 mr-1.5" /> Visa </Link>
+                            {/* ÄNDRAD KNAPPSTIL */}
+                            <Link href={`/my-letters/${letter.id}/edit`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Pencil className="w-4 h-4 mr-1.5" /> Redigera </Link>
+                            {/* BEHÅLLEN KNAPPSTIL */}
+                            <button onClick={() => handleDelete(letter.id)} disabled={isDeleting} className={`inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors ${isDeleting && deleteId === letter.id ? 'opacity-50 cursor-not-allowed' : ''}`}> {isDeleting && deleteId === letter.id ? ( <> <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> Tar bort... </> ) : ( <> <Trash2 className="w-4 h-4 mr-1.5" /> Ta bort </> )} </button>
+                          </div>
+                          
+                          {/* Bottom row: Download buttons */}
+                          <div className="border-t border-gray-700 pt-3 space-y-2">
+                            <div className="text-xs text-gray-400 mb-2">Ladda ned som:</div>
+                            <div className="flex flex-col sm:flex-row gap-2">
+                              <div className="flex-1">
+                                <DownloadButton
+                                  format="pdf"
+                                  letterContent={letter.content || ''}
+                                  metadata={{
+                                    title: letter.title,
+                                    company: letter.company,
+                                    position: letter.job_title,
+                                    job_title: letter.job_title
+                                  }}
+                                  className="w-full"
+                                  showTemplateSelector={false}
+                                  showPreview={true}
+                                />
+                              </div>
+                              <div className="flex-1">
+                                <DownloadButton
+                                  format="docx"
+                                  letterContent={letter.content || ''}
+                                  metadata={{
+                                    title: letter.title,
+                                    company: letter.company,
+                                    position: letter.job_title,
+                                    job_title: letter.job_title
+                                  }}
+                                  className="w-full"
+                                  showTemplateSelector={false}
+                                  showPreview={false}
+                                />
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -837,13 +878,53 @@ export default function MyLettersPage() {
                             </div>
                          </div>
                          {/* Åtgärdsknappar */}
-                         <div className="border-t border-gray-700 p-4 bg-navy-900/30 flex flex-wrap gap-2 justify-end">
-                            {/* ÄNDRAD KNAPPSTIL */}
-                           <Link href={`/my-letters/${letter.id}`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Eye className="w-4 h-4 mr-1.5" /> Visa </Link>
-                           {/* ÄNDRAD KNAPPSTIL */}
-                           <Link href={`/my-letters/${letter.id}/edit`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Pencil className="w-4 h-4 mr-1.5" /> Redigera </Link>
-                           {/* BEHÅLLEN KNAPPSTIL */}
-                           <button onClick={() => handleDelete(letter.id)} disabled={isDeleting} className={`inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors ${isDeleting && deleteId === letter.id ? 'opacity-50 cursor-not-allowed' : ''}`}> {isDeleting && deleteId === letter.id ? ( <> <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> Tar bort... </> ) : ( <> <Trash2 className="w-4 h-4 mr-1.5" /> Ta bort </> )} </button>
+                         <div className="border-t border-gray-700 p-4 bg-navy-900/30 space-y-3">
+                           {/* Top row: Visa, Redigera, Ta bort */}
+                           <div className="flex flex-wrap gap-2 justify-end">
+                             {/* ÄNDRAD KNAPPSTIL */}
+                             <Link href={`/my-letters/${letter.id}`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Eye className="w-4 h-4 mr-1.5" /> Visa </Link>
+                             {/* ÄNDRAD KNAPPSTIL */}
+                             <Link href={`/my-letters/${letter.id}/edit`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Pencil className="w-4 h-4 mr-1.5" /> Redigera </Link>
+                             {/* BEHÅLLEN KNAPPSTIL */}
+                             <button onClick={() => handleDelete(letter.id)} disabled={isDeleting} className={`inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors ${isDeleting && deleteId === letter.id ? 'opacity-50 cursor-not-allowed' : ''}`}> {isDeleting && deleteId === letter.id ? ( <> <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> Tar bort... </> ) : ( <> <Trash2 className="w-4 h-4 mr-1.5" /> Ta bort </> )} </button>
+                           </div>
+                           
+                           {/* Bottom row: Download buttons */}
+                           <div className="border-t border-gray-700 pt-3 space-y-2">
+                             <div className="text-xs text-gray-400 mb-2">Ladda ned som:</div>
+                             <div className="flex flex-col sm:flex-row gap-2">
+                               <div className="flex-1">
+                                 <DownloadButton
+                                   format="pdf"
+                                   letterContent={letter.content || ''}
+                                   metadata={{
+                                     title: letter.title || undefined,
+                                     company: letter.company || undefined,
+                                     position: letter.job_title || undefined,
+                                     job_title: letter.job_title || undefined
+                                   }}
+                                   className="w-full"
+                                   showTemplateSelector={false}
+                                   showPreview={true}
+                                 />
+                               </div>
+                               <div className="flex-1">
+                                 <DownloadButton
+                                   format="docx"
+                                   letterContent={letter.content || ''}
+                                   metadata={{
+                                     title: letter.title || undefined,
+                                     company: letter.company || undefined,
+                                     position: letter.job_title || undefined,
+                                     job_title: letter.job_title || undefined
+                                   }}
+                                   className="w-full"
+                                   showTemplateSelector={false}
+                                   showPreview={false}
+                                 />
+                               </div>
+                             </div>
+                           </div>
                          </div>
                        </div>
                      ))}
@@ -886,13 +967,53 @@ export default function MyLettersPage() {
                          </div>
                       </div>
                       {/* Åtgärdsknappar */}
-                      <div className="border-t border-gray-700 p-4 bg-navy-900/30 flex flex-wrap gap-2 justify-end">
-                         {/* ÄNDRAD KNAPPSTIL */}
-                         <Link href={`/my-letters/${letter.id}`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Eye className="w-4 h-4 mr-1.5" /> Visa </Link>
-                         {/* ÄNDRAD KNAPPSTIL */}
-                         <Link href={`/my-letters/${letter.id}/edit`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Pencil className="w-4 h-4 mr-1.5" /> Redigera </Link>
-                         {/* BEHÅLLEN KNAPPSTIL */}
-                         <button onClick={() => handleDelete(letter.id)} disabled={isDeleting} className={`inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors ${isDeleting && deleteId === letter.id ? 'opacity-50 cursor-not-allowed' : ''}`}> {isDeleting && deleteId === letter.id ? ( <> <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> Tar bort... </> ) : ( <> <Trash2 className="w-4 h-4 mr-1.5" /> Ta bort </> )} </button>
+                      <div className="border-t border-gray-700 p-4 bg-navy-900/30 space-y-3">
+                        {/* Top row: Visa, Redigera, Ta bort */}
+                        <div className="flex flex-wrap gap-2 justify-end">
+                          {/* ÄNDRAD KNAPPSTIL */}
+                          <Link href={`/my-letters/${letter.id}`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Eye className="w-4 h-4 mr-1.5" /> Visa </Link>
+                          {/* ÄNDRAD KNAPPSTIL */}
+                          <Link href={`/my-letters/${letter.id}/edit`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Pencil className="w-4 h-4 mr-1.5" /> Redigera </Link>
+                          {/* BEHÅLLEN KNAPPSTIL */}
+                          <button onClick={() => handleDelete(letter.id)} disabled={isDeleting} className={`inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors ${isDeleting && deleteId === letter.id ? 'opacity-50 cursor-not-allowed' : ''}`}> {isDeleting && deleteId === letter.id ? ( <> <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> Tar bort... </> ) : ( <> <Trash2 className="w-4 h-4 mr-1.5" /> Ta bort </> )} </button>
+                        </div>
+                        
+                        {/* Bottom row: Download buttons */}
+                        <div className="border-t border-gray-700 pt-3 space-y-2">
+                          <div className="text-xs text-gray-400 mb-2">Ladda ned som:</div>
+                          <div className="flex flex-col sm:flex-row gap-2">
+                            <div className="flex-1">
+                              <DownloadButton
+                                format="pdf"
+                                letterContent={letter.content || ''}
+                                metadata={{
+                                  title: letter.title || undefined,
+                                  company: letter.company || undefined,
+                                  position: letter.job_title || undefined,
+                                  job_title: letter.job_title || undefined
+                                }}
+                                className="w-full"
+                                showTemplateSelector={false}
+                                showPreview={true}
+                              />
+                            </div>
+                            <div className="flex-1">
+                              <DownloadButton
+                                format="docx"
+                                letterContent={letter.content || ''}
+                                metadata={{
+                                  title: letter.title || undefined,
+                                  company: letter.company || undefined,
+                                  position: letter.job_title || undefined,
+                                  job_title: letter.job_title || undefined
+                                }}
+                                className="w-full"
+                                showTemplateSelector={false}
+                                showPreview={false}
+                              />
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   ))}
