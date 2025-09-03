@@ -38,8 +38,8 @@ import {
 import Notification from '@/components/ui/notification';
 import DownloadButton from '@/components/letters/download-button';
 
-// Taggkomponent - Anpassad stil för att passa in bättre
-const LetterTag = ({
+// Taggkomponent - Anpassad stil för att passa in bättre - memoizerad för prestanda
+const LetterTag = memo(({
   label,
   value,
   type
@@ -81,10 +81,11 @@ const LetterTag = ({
       </span>
     </span>
   );
-};
+});
+LetterTag.displayName = 'LetterTag';
 
-// Brevräknare-komponent (Behållen struktur, små stiljusteringar)
-const LetterCounter = ({ current, max }: { current: number; max: number }) => {
+// Brevräknare-komponent (Behållen struktur, små stiljusteringar) - memoizerad för prestanda
+const LetterCounter = memo(({ current, max }: { current: number; max: number }) => {
   const isInfinite = !isFinite(max);
   const percentage = isInfinite || max === 0 ? 0 : Math.min(100, (current / max) * 100);
 
@@ -199,7 +200,8 @@ const LetterCounter = ({ current, max }: { current: number; max: number }) => {
        )}
     </div>
   );
-};
+});
+LetterCounter.displayName = 'LetterCounter';
 
 
 export default function MyLettersPage() {
@@ -300,14 +302,16 @@ export default function MyLettersPage() {
 
   // Hämta brev - endast vid initial mount för att undvika re-rendering
   useEffect(() => {
-    if (!isPageMounted) return;
+    if (!isPageMounted || !profile) return;
     
     let isStillMounted = true;
+    let hasInitiallyLoaded = false;
     
     const loadLetters = async () => {
       try {
         // Visa ingen laddningsnotis här, använd global laddningsindikator
         await fetchLetters(true, true);
+        hasInitiallyLoaded = true;
       } catch (err) {
         if (isStillMounted) {
           showNotificationMessage('Kunde inte hämta dina brev', 'error');
@@ -315,8 +319,8 @@ export default function MyLettersPage() {
       }
     };
     
-    // Kör endast om vi inte redan har brev för att undvika onödiga anrop
-    if (!letters || letters.length === 0) {
+    // Kör endast en gång när komponenten först mountas och profil finns
+    if (!hasInitiallyLoaded) {
       loadLetters();
     }
     
@@ -324,7 +328,7 @@ export default function MyLettersPage() {
       isStillMounted = false;
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPageMounted]); // Ta bort fetchLetters från deps för att undvika re-rendering
+  }, [isPageMounted, !!profile]); // Bara beroende av mount-status och profil existens
 
   // Formatera datum med memoization för bättre prestanda
   const formatRelativeDate = useCallback((dateString: string | null): string => {
@@ -363,7 +367,7 @@ export default function MyLettersPage() {
     setShowDeleteConfirm(true);
   }, [isDeleting]);
 
-  // Bekräfta borttagning
+  // Bekräfta borttagning - stabiliserad
   const confirmDelete = useCallback(async () => {
     if (!deleteId) return;
     let loadingNotificationShown = false;
@@ -382,11 +386,11 @@ export default function MyLettersPage() {
       const message = err instanceof Error ? err.message : 'Ett okänt fel uppstod.';
       showNotificationMessage(message, 'error', 5000);
     } finally {
-      if (loadingNotificationShown && notification?.type === 'loading') {
+      if (loadingNotificationShown) {
            closeNotification();
        }
     }
-  }, [deleteId, removeLetter, showNotificationMessage, notification, closeNotification]);
+  }, [deleteId, removeLetter, showNotificationMessage, closeNotification]);
 
   // Avbryt borttagning
   const cancelDelete = useCallback(() => {
@@ -395,13 +399,16 @@ export default function MyLettersPage() {
     setDeleteId(null);
   }, [isDeleting]);
 
-  // Hantera fel från useLetters hook
+  // Hantera fel från useLetters hook - memoizerad för prestanda
+  const stableShowError = useCallback((errorMsg: string) => {
+    showNotificationMessage(errorMsg, 'error', 5000);
+  }, [showNotificationMessage]);
+
   useEffect(() => {
       if (error) {
-        showNotificationMessage(error, 'error', 5000);
+        stableShowError(error);
       }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error]); // Ta bort showNotificationMessage
+  }, [error, stableShowError]);
 
   // Kombinera laddningsstatus
   const isLoading = lettersLoading || profileLoading;
@@ -418,20 +425,22 @@ export default function MyLettersPage() {
            (now.getTime() - updateDate.getTime()) < 24 * 60 * 60 * 1000;
   };
 
-  // Filter and search logic
+  // Filter and search logic - Optimized to reduce re-calculations
   const filteredLetters = useMemo(() => {
-    if (!letters) return [];
+    if (!letters || letters.length === 0) return [];
     
-    let filtered = [...letters];
+    // Use a more efficient filtering approach
+    let filtered = letters;
     
     // Apply search filter
-    if (searchTerm.trim()) {
-      const search = searchTerm.toLowerCase();
+    const trimmedSearch = searchTerm.trim();
+    if (trimmedSearch) {
+      const search = trimmedSearch.toLowerCase();
       filtered = filtered.filter(letter => 
-        (letter.title?.toLowerCase().includes(search)) ||
-        (letter.company?.toLowerCase().includes(search)) ||
-        (letter.job_title?.toLowerCase().includes(search)) ||
-        (letter.content?.toLowerCase().includes(search))
+        letter.title?.toLowerCase().includes(search) ||
+        letter.company?.toLowerCase().includes(search) ||
+        letter.job_title?.toLowerCase().includes(search) ||
+        letter.content?.toLowerCase().includes(search)
       );
     }
     
@@ -445,32 +454,29 @@ export default function MyLettersPage() {
       filtered = filtered.filter(letter => letter.tonality === selectedTone);
     }
     
-    // Apply sorting
-    filtered.sort((a, b) => {
-      let aValue: string | Date, bValue: string | Date;
+    // Apply sorting - avoid creating new arrays unnecessarily
+    if (filtered.length <= 1) return filtered;
+    
+    return [...filtered].sort((a, b) => {
+      let comparison = 0;
       
       switch (sortBy) {
         case 'title':
-          aValue = a.title || '';
-          bValue = b.title || '';
+          comparison = (a.title || '').localeCompare(b.title || '');
           break;
         case 'company':
-          aValue = a.company || '';
-          bValue = b.company || '';
+          comparison = (a.company || '').localeCompare(b.company || '');
           break;
         case 'date':
         default:
-          aValue = new Date(a.updated_at || a.created_at || '');
-          bValue = new Date(b.updated_at || b.created_at || '');
+          const dateA = new Date(a.updated_at || a.created_at || 0).getTime();
+          const dateB = new Date(b.updated_at || b.created_at || 0).getTime();
+          comparison = dateA - dateB;
           break;
       }
       
-      if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
-      if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
-      return 0;
+      return sortOrder === 'asc' ? comparison : -comparison;
     });
-    
-    return filtered;
   }, [letters, searchTerm, selectedCompany, selectedTone, sortBy, sortOrder]);
 
   // Get unique companies and tones for filter options
@@ -483,32 +489,43 @@ export default function MyLettersPage() {
     return { companies, tones };
   }, [letters]);
 
-  // Hjälpfunktion för att gruppera brev efter datum
-  const groupLettersByDate = (letters: any[]) => {
+  // Hjälpfunktion för att gruppera brev efter datum - memoizerad
+  const groupedLetters = useMemo(() => {
+    if (!filteredLetters || filteredLetters.length === 0) return null;
+    
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
-    return {
-      recent: letters.filter(letter => new Date(letter.updated_at || letter.created_at) >= yesterday),
-      older: letters.filter(letter => new Date(letter.updated_at || letter.created_at) < yesterday)
-    };
-  };
+    
+    const recent: any[] = [];
+    const older: any[] = [];
+    
+    for (const letter of filteredLetters) {
+      const letterDate = new Date(letter.updated_at || letter.created_at);
+      if (letterDate >= yesterday) {
+        recent.push(letter);
+      } else {
+        older.push(letter);
+      }
+    }
+    
+    return { recent, older };
+  }, [filteredLetters]);
 
-  // Gruppera filtrerade brev om det finns några
-  const groupedLetters = filteredLetters.length > 0 ? groupLettersByDate(filteredLetters) : null;
-
-  // Clear all filters
-  const clearFilters = () => {
+  // Clear all filters - memoizerad
+  const clearFilters = useCallback(() => {
     setSearchTerm('');
     setSelectedCompany('');
     setSelectedTone('');
     setSortBy('date');
     setSortOrder('desc');
-  };
+  }, []);
 
-  // Check if any filters are active
-  const hasActiveFilters = searchTerm || selectedCompany || selectedTone || sortBy !== 'date' || sortOrder !== 'desc';
+  // Check if any filters are active - memoizerad
+  const hasActiveFilters = useMemo(() => {
+    return searchTerm || selectedCompany || selectedTone || sortBy !== 'date' || sortOrder !== 'desc';
+  }, [searchTerm, selectedCompany, selectedTone, sortBy, sortOrder]);
 
   // Om sidan håller på att omdirigeras eller användaren inte är inloggad, visa ingenting
   if (profileLoading || !profile) {

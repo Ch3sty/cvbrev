@@ -195,12 +195,13 @@ export default function DownloadButton({
   };
 
   const getButtonStyle = () => {
-    const baseStyle = "px-4 py-2 text-white rounded-md flex items-center justify-center transition-colors border";
+    const baseStyle = "px-3 py-2 text-sm font-medium text-white rounded-md flex items-center justify-center transition-colors border";
     
     if (format === 'pdf') {
-      return `${baseStyle} bg-pink-600 hover:bg-pink-700 border-pink-700 hover:border-pink-600 ${className}`;
+      return `${baseStyle} bg-pink-600 hover:bg-pink-700 border-pink-500 hover:border-pink-400 shadow-sm ${className}`;
     } else if (format === 'docx') {
-      return `${baseStyle} bg-navy-600 hover:bg-navy-700 border-navy-700 hover:border-navy-600 ${className}`;
+      // Förbättrad DOCX-knapp med synligare border och bättre kontrast
+      return `${baseStyle} bg-blue-600 hover:bg-blue-700 border-blue-400 hover:border-blue-300 shadow-sm ${className}`;
     }
     
     return baseStyle;
@@ -253,7 +254,7 @@ export default function DownloadButton({
           <button
             onClick={handlePreview}
             disabled={isGeneratingPreview}
-            className="px-3 py-2 text-white bg-navy-700 hover:bg-navy-600 rounded-md border border-gray-600 hover:border-gray-500 transition-colors flex items-center justify-center"
+            className="px-3 py-2 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md border border-gray-500 hover:border-gray-400 transition-colors flex items-center justify-center shadow-sm"
             title="Förhandsgranska PDF"
           >
             {isGeneratingPreview ? (
@@ -277,12 +278,8 @@ export default function DownloadButton({
             </>
           ) : (
             <>
-              {format === 'pdf' ? (
-                <FileText className="w-4 h-4 mr-2" />
-              ) : (
-                <Download className="w-4 h-4 mr-2" />
-              )}
-              {format.toUpperCase()}
+              <Download className="w-4 h-4 mr-2" />
+              {format === 'pdf' ? 'Ladda ned PDF' : 'Ladda ned DOCX'}
             </>
           )}
         </button>
