@@ -430,8 +430,8 @@ export default function MyLettersPage() {
           break;
         case 'date':
         default:
-          aValue = new Date(a.updated_at || a.created_at);
-          bValue = new Date(b.updated_at || b.created_at);
+          aValue = new Date(a.updated_at || a.created_at || '');
+          bValue = new Date(b.updated_at || b.created_at || '');
           break;
       }
       
