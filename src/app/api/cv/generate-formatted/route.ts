@@ -183,13 +183,17 @@ export async function POST(request: NextRequest) {
     // Starta Puppeteer
     console.log('Startar Puppeteer...');
     const browser = await puppeteer.launch({
-      args: isProd ? chromium.args : [],
-      defaultViewport: chromium.defaultViewport,
+      args: isProd ? chromium.args : [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage'
+      ],
       executablePath: isProd ? await chromium.executablePath() : undefined,
-      headless: chromium.headless,
+      headless: isProd ? chromium.headless : true,
     });
     
     const page = await browser.newPage();
+    await page.setViewport({ width: 794, height: 1123 }); // A4 dimensioner
     await page.setContent(html, { waitUntil: 'networkidle0' });
     
     // Generera PDF
