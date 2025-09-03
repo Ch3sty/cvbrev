@@ -4,9 +4,9 @@ const nextConfig: NextConfig = {
   // Inaktivera strict mode under utveckling för att undvika dubbla renderingar
   reactStrictMode: false,
   
-  // Tillåt ESLint warnings i production builds
+  // Aktivera ESLint för att diagnostisera build-problem
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
   
   // Tillåt TypeScript errors i builds (om det behövs)
