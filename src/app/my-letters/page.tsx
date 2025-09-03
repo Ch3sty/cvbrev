@@ -274,6 +274,23 @@ export default function MyLettersPage() {
       }, duration);
     }
   }, []);
+  
+  // Callback för att hantera loading-feedback från DownloadButton
+  const handleDownloadLoadingChange = useCallback((isLoading: boolean, message?: string) => {
+    if (isLoading && message) {
+      showNotificationMessage(message, 'loading');
+    } else if (!isLoading && message) {
+      // Stäng loading notification och visa framgång/fel
+      closeNotification();
+      const isError = message.toLowerCase().includes('kunde inte') || message.toLowerCase().includes('fel');
+      setTimeout(() => {
+        showNotificationMessage(message, isError ? 'error' : 'success', 3000);
+      }, 100);
+    } else if (!isLoading) {
+      // Stäng loading notification utan meddelande
+      closeNotification();
+    }
+  }, [showNotificationMessage, closeNotification]);
 
   // Uppdaterad closeNotification för att matcha ProfilePage
   const closeNotification = useCallback(() => {
@@ -281,20 +298,33 @@ export default function MyLettersPage() {
     setTimeout(() => setNotification(null), 300);
   }, []);
 
-  // Hämta brev
+  // Hämta brev - endast vid initial mount för att undvika re-rendering
   useEffect(() => {
     if (!isPageMounted) return;
+    
+    let isStillMounted = true;
+    
     const loadLetters = async () => {
       try {
         // Visa ingen laddningsnotis här, använd global laddningsindikator
         await fetchLetters(true, true);
       } catch (err) {
-        showNotificationMessage('Kunde inte hämta dina brev', 'error');
+        if (isStillMounted) {
+          showNotificationMessage('Kunde inte hämta dina brev', 'error');
+        }
       }
     };
-    loadLetters();
+    
+    // Kör endast om vi inte redan har brev för att undvika onödiga anrop
+    if (!letters || letters.length === 0) {
+      loadLetters();
+    }
+    
+    return () => {
+      isStillMounted = false;
+    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetchLetters, isPageMounted]); // Ta bort showNotificationMessage från deps
+  }, [isPageMounted]); // Ta bort fetchLetters från deps för att undvika re-rendering
 
   // Formatera datum med memoization för bättre prestanda
   const formatRelativeDate = useCallback((dateString: string | null): string => {
@@ -811,6 +841,7 @@ export default function MyLettersPage() {
                                   className="w-full"
                                   showTemplateSelector={false}
                                   showPreview={true}
+                                  onLoadingChange={handleDownloadLoadingChange}
                                 />
                               </div>
                               <div className="flex-1">
@@ -826,6 +857,7 @@ export default function MyLettersPage() {
                                   className="w-full"
                                   showTemplateSelector={false}
                                   showPreview={false}
+                                  onLoadingChange={handleDownloadLoadingChange}
                                 />
                               </div>
                             </div>
@@ -906,6 +938,7 @@ export default function MyLettersPage() {
                                    className="w-full"
                                    showTemplateSelector={false}
                                    showPreview={true}
+                                   onLoadingChange={handleDownloadLoadingChange}
                                  />
                                </div>
                                <div className="flex-1">
@@ -921,6 +954,7 @@ export default function MyLettersPage() {
                                    className="w-full"
                                    showTemplateSelector={false}
                                    showPreview={false}
+                                   onLoadingChange={handleDownloadLoadingChange}
                                  />
                                </div>
                              </div>
@@ -995,6 +1029,7 @@ export default function MyLettersPage() {
                                 className="w-full"
                                 showTemplateSelector={false}
                                 showPreview={true}
+                                onLoadingChange={handleDownloadLoadingChange}
                               />
                             </div>
                             <div className="flex-1">
@@ -1010,6 +1045,7 @@ export default function MyLettersPage() {
                                 className="w-full"
                                 showTemplateSelector={false}
                                 showPreview={false}
+                                onLoadingChange={handleDownloadLoadingChange}
                               />
                             </div>
                           </div>
