@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import puppeteer from 'puppeteer';
 import chromium from '@sparticuz/chromium';
-import { cvTemplates } from '@/lib/cv/cv-templates';
+import { getAllCVTemplates } from '@/lib/cv/cv-templates';
 import type { CVTemplateType, CVMetadata, CVGenerationOptions } from '@/lib/cv/cv-metadata';
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -157,7 +157,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Hitta vald mall
-    const selectedTemplate = cvTemplates.find(t => t.id === template);
+    const selectedTemplate = getAllCVTemplates().find(t => t.id === template);
     if (!selectedTemplate) {
       return NextResponse.json(
         { error: 'Okänd mall' },
