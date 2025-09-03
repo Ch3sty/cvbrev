@@ -55,6 +55,7 @@ export async function POST(request: Request) {
     const templateType = (template as TemplateType) || 'formal';
     
     try {
+      console.log('Generating preview with Puppeteer');
       // Generera förhandsvisning som PNG
       const previewBuffer = await generateLetterPreview(content, enhancedMetadata, {
         template: templateType,

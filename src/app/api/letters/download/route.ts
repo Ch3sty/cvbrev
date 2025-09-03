@@ -5,10 +5,35 @@ import { createServerClient } from '@/lib/supabase/server';
 import { generateLetterPDF } from '@/lib/pdf/puppeteer-pdf';
 import { LetterMetadata, TemplateType } from '@/lib/pdf/letter-templates';
 
+
 /**
- * Hjälpfunktion för att skapa ett DOCX-dokument (egentligen HTML som fungerar i Word)
+ * Genererar PDF med Puppeteer
  */
-async function createDocxFromHtml(content: string, metadata: LetterMetadata): Promise<Uint8Array> {
+async function createProfessionalPDF(content: string, metadata: LetterMetadata, templateType: TemplateType = 'formal'): Promise<Buffer> {
+  try {
+    console.log('Generating PDF with Puppeteer');
+    const pdfBuffer = await generateLetterPDF(content, metadata, {
+      template: templateType,
+      format: 'A4',
+      margins: {
+        top: '2.5cm',
+        right: '2cm',
+        bottom: '2cm',
+        left: '2cm'
+      }
+    });
+    
+    return pdfBuffer;
+  } catch (error) {
+    console.error('Puppeteer PDF generation error:', error);
+    throw new Error(`PDF generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
+
+/**
+ * Genererar DOCX med HTML
+ */
+function createDocxFromHtml(content: string, metadata: LetterMetadata): Buffer {
   const htmlContent = `
     <!DOCTYPE html>
     <html>
@@ -42,48 +67,9 @@ async function createDocxFromHtml(content: string, metadata: LetterMetadata): Pr
   `;
 
   const encoder = new TextEncoder();
-  return encoder.encode(htmlContent);
-}
-
-/**
- * Skapar en professionell PDF med Puppeteer, med fallback
- */
-async function createProfessionalPDF(content: string, metadata: LetterMetadata, templateType: TemplateType = 'formal'): Promise<Buffer> {
-  try {
-    const pdfBuffer = await generateLetterPDF(content, metadata, {
-      template: templateType,
-      format: 'A4',
-      margins: {
-        top: '2.5cm',
-        right: '2cm',
-        bottom: '2cm',
-        left: '2cm'
-      }
-    });
-    
-    return pdfBuffer;
-  } catch (error) {
-    console.error('Professional PDF generation error:', error);
-    console.log('Falling back to basic HTML PDF generation');
-    
-    // Fallback till grundläggande HTML-baserad PDF
-    return await createBasicPDF(content, metadata, templateType);
-  }
-}
-
-/**
- * Fallback PDF-generering med HTML (för deployment-miljöer där Puppeteer inte fungerar)
- */
-async function createBasicPDF(content: string, metadata: LetterMetadata, templateType: TemplateType = 'formal'): Promise<Buffer> {
-  // Importera template och generera HTML
-  const { getLetterTemplate } = await import('@/lib/pdf/letter-templates');
-  const template = getLetterTemplate(templateType);
-  const htmlContent = template.generateHTML(content, metadata);
-  
-  // Returnera HTML som PDF-liknande format
-  const encoder = new TextEncoder();
   return Buffer.from(encoder.encode(htmlContent));
 }
+
 
 export async function POST(request: Request) {
   try {
@@ -142,10 +128,12 @@ export async function POST(request: Request) {
     
     // Generera fil baserat på önskat format
     if (format === 'docx') {
-      fileData = await createDocxFromHtml(content, enhancedMetadata);
+      console.log('Generating DOCX');
+      fileData = createDocxFromHtml(content, enhancedMetadata);
       fileType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
       fileName += '.docx';
     } else if (format === 'pdf') {
+      console.log('Generating PDF with Puppeteer');
       fileData = await createProfessionalPDF(content, enhancedMetadata, templateType);
       fileType = 'application/pdf';
       fileName += '.pdf';
