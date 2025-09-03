@@ -117,7 +117,7 @@ export default function AdminLettersPage() {
         .from('letters')
         .select(`
           *,
-          profiles:user_id (
+          profiles!fk_letters_user_id (
             id,
             email,
             full_name

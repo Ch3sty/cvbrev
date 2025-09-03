@@ -164,7 +164,7 @@ export default function AdminCVsPage() {
           .from('cv_texts')
           .select(`
             *,
-            profiles:user_id (
+            profiles!fk_cv_texts_user_id (
               id,
               email,
               full_name

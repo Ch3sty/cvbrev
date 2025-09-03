@@ -284,7 +284,7 @@ export default function AdminDashboardPage() {
             .from('user_activities')
             .select(`
               id, user_id, activity_type, description, created_at,
-              profiles:user_id (email, full_name)
+              profiles!fk_user_activities_user_id (email, full_name)
             `)
             .order('created_at', { ascending: false })
             .limit(5);
