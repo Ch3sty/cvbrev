@@ -5,6 +5,34 @@ import { createServerClient } from '@/lib/supabase/server';
 import { generateLetterPDF } from '@/lib/pdf/puppeteer-pdf';
 import { LetterMetadata, TemplateType } from '@/lib/pdf/letter-templates';
 
+// Basic OPTIONS handler for CORS
+export async function OPTIONS(request: Request) {
+  console.log('=== PDF DOWNLOAD OPTIONS REQUEST ===');
+  console.log('OPTIONS request received for:', request.url);
+  
+  return new NextResponse(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, OPTIONS, GET',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    },
+  });
+}
+
+// Debug GET route
+export async function GET(request: Request) {
+  console.log('=== PDF DOWNLOAD GET REQUEST (DEBUG) ===');
+  console.log('GET request received for:', request.url);
+  
+  return NextResponse.json({ 
+    message: 'PDF Download API is working',
+    method: 'GET',
+    timestamp: new Date().toISOString(),
+    url: request.url
+  });
+}
+
 
 /**
  * Genererar PDF med Puppeteer
@@ -72,13 +100,27 @@ function createDocxFromHtml(content: string, metadata: LetterMetadata): Buffer {
 
 
 export async function POST(request: Request) {
+  console.log('=== PDF DOWNLOAD API START ===');
+  console.log('Request method:', request.method);
+  console.log('Request URL:', request.url);
+  console.log('Request headers:', Object.fromEntries(request.headers.entries()));
+  
   try {
+    console.log('Attempting to get cookies...');
     // Verifiera autentisering och hantera PDF/DOCX generering
     const cookieStore = await cookies();
-    const supabase = createServerClient({ cookies: cookieStore });
+    console.log('Cookies retrieved successfully');
     
+    console.log('Creating Supabase client...');
+    const supabase = createServerClient({ cookies: cookieStore });
+    console.log('Supabase client created successfully');
+    
+    console.log('Getting user from Supabase...');
     const { data: { user } } = await supabase.auth.getUser();
+    console.log('User from Supabase:', user ? `User ID: ${user.id}` : 'No user found');
+    
     if (!user) {
+      console.log('No authenticated user, returning 401');
       return NextResponse.json({ error: 'Ej autentiserad' }, { status: 401 });
     }
     
@@ -152,11 +194,13 @@ export async function POST(request: Request) {
     
     return response;
   } catch (error: any) {
+    console.error('=== PDF DOWNLOAD API ERROR ===');
     console.error('Error generating document:', {
       error: error.message,
       stack: error.stack,
       type: error.constructor.name
     });
+    console.error('Full error object:', error);
     
     // Mer specifika felmeddelanden för debugging
     let errorMessage = 'Serverfel vid generering av dokument';
