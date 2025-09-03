@@ -447,8 +447,8 @@ export default function MyLettersPage() {
   const filterOptions = useMemo(() => {
     if (!letters) return { companies: [], tones: [] };
     
-    const companies = [...new Set(letters.map(l => l.company).filter(Boolean))].sort();
-    const tones = [...new Set(letters.map(l => l.tonality).filter(Boolean))].sort();
+    const companies = [...new Set(letters.map(l => l.company).filter(Boolean))].sort() as string[];
+    const tones = [...new Set(letters.map(l => l.tonality).filter(Boolean))].sort() as string[];
     
     return { companies, tones };
   }, [letters]);
