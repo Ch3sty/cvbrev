@@ -1,7 +1,8 @@
 // src/lib/pdf/puppeteer-pdf.ts
 // Puppeteer-baserad PDF-generering för professionella personliga brev
 
-import puppeteer, { Browser, Page } from 'puppeteer';
+// Dynamisk import av Puppeteer för att undvika byggfel
+let puppeteer: any = null;
 import { getLetterTemplate, LetterMetadata, TemplateType } from './letter-templates';
 
 export interface PDFGenerationOptions {
@@ -19,17 +20,35 @@ export interface PDFGenerationOptions {
 }
 
 export class PuppeteerPDFGenerator {
-  private browser: Browser | null = null;
+  private browser: any = null;
+  
+  /**
+   * Laddar Puppeteer dynamiskt för att undvika byggfel
+   */
+  private async loadPuppeteer(): Promise<any> {
+    if (!puppeteer) {
+      try {
+        puppeteer = await import('puppeteer');
+        return puppeteer.default || puppeteer;
+      } catch (error) {
+        console.warn('Puppeteer could not be loaded:', error);
+        throw new Error('Puppeteer inte tillgängligt i denna miljö');
+      }
+    }
+    return puppeteer.default || puppeteer;
+  }
   
   /**
    * Initialiserar Puppeteer browser instance
    */
-  private async initBrowser(): Promise<Browser> {
+  private async initBrowser(): Promise<any> {
     if (!this.browser) {
+      const puppeteerModule = await this.loadPuppeteer();
+      
       // Check if we're in a serverless environment
       const isServerless = process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.VERCEL;
       
-      this.browser = await puppeteer.launch({
+      this.browser = await puppeteerModule.launch({
         headless: 'new',
         args: [
           '--no-sandbox',
@@ -69,49 +88,51 @@ export class PuppeteerPDFGenerator {
     metadata: LetterMetadata,
     options: PDFGenerationOptions = {}
   ): Promise<Buffer> {
-    const browser = await this.initBrowser();
-    const page = await browser.newPage();
-    
     try {
-      // Sätt viewport för konsekvent rendering
-      await page.setViewport({ width: 794, height: 1123 }); // A4 dimensioner i pixels
+      const browser = await this.initBrowser();
+      const page = await browser.newPage();
       
-      // Välj och generera HTML från mall
-      const template = getLetterTemplate(options.template || 'formal');
-      const html = template.generateHTML(content, metadata);
-      
-      // Sätt HTML innehåll
-      await page.setContent(html, { 
-        waitUntil: 'networkidle0',
-        timeout: 30000 
-      });
-      
-      // Konfigurera PDF-inställningar
-      const pdfOptions = {
-        format: options.format || 'A4' as const,
-        printBackground: true,
-        margin: options.margins || {
-          top: '2.5cm',
-          right: '2cm', 
-          bottom: '2cm',
-          left: '2cm'
-        },
-        displayHeaderFooter: options.displayHeaderFooter || false,
-        headerTemplate: options.headerTemplate || '',
-        footerTemplate: options.footerTemplate || '',
-        preferCSSPageSize: true
-      };
-      
-      // Generera PDF
-      const pdfBuffer = await page.pdf(pdfOptions);
-      
-      return Buffer.from(pdfBuffer);
-      
+      try {
+        // Sätt viewport för konsekvent rendering
+        await page.setViewport({ width: 794, height: 1123 }); // A4 dimensioner i pixels
+        
+        // Välj och generera HTML från mall
+        const template = getLetterTemplate(options.template || 'formal');
+        const html = template.generateHTML(content, metadata);
+        
+        // Sätt HTML innehåll
+        await page.setContent(html, { 
+          waitUntil: 'networkidle0',
+          timeout: 30000 
+        });
+        
+        // Konfigurera PDF-inställningar
+        const pdfOptions = {
+          format: options.format || 'A4' as const,
+          printBackground: true,
+          margin: options.margins || {
+            top: '2.5cm',
+            right: '2cm', 
+            bottom: '2cm',
+            left: '2cm'
+          },
+          displayHeaderFooter: options.displayHeaderFooter || false,
+          headerTemplate: options.headerTemplate || '',
+          footerTemplate: options.footerTemplate || '',
+          preferCSSPageSize: true
+        };
+        
+        // Generera PDF
+        const pdfBuffer = await page.pdf(pdfOptions);
+        
+        return Buffer.from(pdfBuffer);
+        
+      } finally {
+        await page.close();
+      }
     } catch (error) {
       console.error('PDF generation error:', error);
       throw new Error(`PDF generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
-    } finally {
-      await page.close();
     }
   }
   
