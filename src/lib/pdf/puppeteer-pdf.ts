@@ -48,7 +48,7 @@ export class PuppeteerPDFGenerator {
       // Check if we're in a serverless environment
       const isServerless = process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.VERCEL;
       
-      let launchOptions: any = {
+      const launchOptions: any = {
         headless: 'new',
         args: [
           '--no-sandbox',
