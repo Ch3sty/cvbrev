@@ -1,10 +1,73 @@
 import { NextRequest, NextResponse } from 'next/server';
-import puppeteer from 'puppeteer';
-import chromium from '@sparticuz/chromium';
 import { getAllCVTemplates } from '@/lib/cv/cv-templates';
 import type { CVTemplateType, CVMetadata, CVGenerationOptions } from '@/lib/cv/cv-metadata';
 
-const isProd = process.env.NODE_ENV === 'production';
+// Använder samma approach som letters API - dynamisk import av Puppeteer
+async function createCVPDF(html: string): Promise<Buffer> {
+  try {
+    console.log('Generating CV PDF with Puppeteer');
+    
+    // Dynamisk import precis som puppeteer-pdf.ts gör
+    const puppeteer = await import('puppeteer');
+    const puppeteerModule = puppeteer.default || puppeteer;
+    
+    // Serverless-detection samma som letters API
+    const isServerless = process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.VERCEL;
+    
+    const launchOptions: any = {
+      headless: 'new',
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-accelerated-2d-canvas',
+        '--no-first-run',
+        '--no-zygote',
+        '--disable-gpu'
+      ]
+    };
+
+    if (isServerless) {
+      try {
+        const chromium = await import('@sparticuz/chromium');
+        launchOptions.executablePath = await chromium.default.executablePath();
+        launchOptions.args = [
+          ...launchOptions.args,
+          ...chromium.default.args
+        ];
+      } catch (error) {
+        console.warn('Sparticuz Chromium not available, falling back');
+      }
+    }
+    
+    const browser = await puppeteerModule.launch(launchOptions);
+    const page = await browser.newPage();
+    
+    try {
+      await page.setViewport({ width: 794, height: 1123 }); // A4
+      await page.setContent(html, { waitUntil: 'networkidle0', timeout: 30000 });
+      
+      const pdfBuffer = await page.pdf({
+        format: 'A4',
+        printBackground: true,
+        margin: {
+          top: '20mm',
+          right: '15mm',
+          bottom: '20mm',
+          left: '15mm'
+        }
+      });
+      
+      return Buffer.from(pdfBuffer);
+    } finally {
+      await page.close();
+      await browser.close();
+    }
+  } catch (error) {
+    console.error('CV PDF generation error:', error);
+    throw new Error(`PDF generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
+}
 
 // AI-powered content extraction function
 async function extractCVContent(rawText: string): Promise<CVMetadata> {
@@ -180,36 +243,9 @@ export async function POST(request: NextRequest) {
     console.log('Genererar HTML med mall:', template);
     const html = selectedTemplate.generateHTML(cvData, options);
     
-    // Starta Puppeteer
-    console.log('Startar Puppeteer...');
-    const browser = await puppeteer.launch({
-      args: isProd ? chromium.args : [
-        '--no-sandbox',
-        '--disable-setuid-sandbox',
-        '--disable-dev-shm-usage'
-      ],
-      executablePath: isProd ? await chromium.executablePath() : undefined,
-      headless: isProd ? chromium.headless : true,
-    });
-    
-    const page = await browser.newPage();
-    await page.setViewport({ width: 794, height: 1123 }); // A4 dimensioner
-    await page.setContent(html, { waitUntil: 'networkidle0' });
-    
-    // Generera PDF
+    // Generera PDF med samma approach som letters API
     console.log('Genererar PDF...');
-    const pdfBuffer = await page.pdf({
-      format: 'A4',
-      printBackground: true,
-      margin: {
-        top: '20mm',
-        right: '15mm',
-        bottom: '20mm',
-        left: '15mm'
-      }
-    });
-    
-    await browser.close();
+    const pdfBuffer = await createCVPDF(html);
     
     // Sanitera filnamn (ta bort svenska tecken för att undvika header-fel)
     const sanitizedTemplate = template
