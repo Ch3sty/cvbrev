@@ -274,6 +274,12 @@ export default function MyLettersPage() {
       }, duration);
     }
   }, []);
+
+  // Uppdaterad closeNotification för att matcha ProfilePage
+  const closeNotification = useCallback(() => {
+    setNotification(prev => prev ? { ...prev, isVisible: false } : null);
+    setTimeout(() => setNotification(null), 300);
+  }, []);
   
   // Callback för att hantera loading-feedback från DownloadButton
   const handleDownloadLoadingChange = useCallback((isLoading: boolean, message?: string) => {
@@ -291,12 +297,6 @@ export default function MyLettersPage() {
       closeNotification();
     }
   }, [showNotificationMessage, closeNotification]);
-
-  // Uppdaterad closeNotification för att matcha ProfilePage
-  const closeNotification = useCallback(() => {
-    setNotification(prev => prev ? { ...prev, isVisible: false } : null);
-    setTimeout(() => setNotification(null), 300);
-  }, []);
 
   // Hämta brev - endast vid initial mount för att undvika re-rendering
   useEffect(() => {
@@ -386,7 +386,6 @@ export default function MyLettersPage() {
            closeNotification();
        }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deleteId, removeLetter, showNotificationMessage, notification, closeNotification]);
 
   // Avbryt borttagning
