@@ -54,20 +54,32 @@ export async function POST(request: Request) {
     
     const templateType = (template as TemplateType) || 'formal';
     
-    // Generera förhandsvisning som PNG
-    const previewBuffer = await generateLetterPreview(content, enhancedMetadata, {
-      template: templateType,
-      format: 'A4'
-    });
-    
-    // Returnera bilden som base64 för direkt visning i frontend
-    const base64Image = previewBuffer.toString('base64');
-    
-    return NextResponse.json({
-      preview: `data:image/png;base64,${base64Image}`,
-      template: templateType,
-      metadata: enhancedMetadata
-    });
+    try {
+      // Generera förhandsvisning som PNG
+      const previewBuffer = await generateLetterPreview(content, enhancedMetadata, {
+        template: templateType,
+        format: 'A4'
+      });
+      
+      // Returnera bilden som base64 för direkt visning i frontend
+      const base64Image = previewBuffer.toString('base64');
+      
+      return NextResponse.json({
+        preview: `data:image/png;base64,${base64Image}`,
+        template: templateType,
+        metadata: enhancedMetadata
+      });
+    } catch (puppeteerError) {
+      console.error('Puppeteer preview error:', puppeteerError);
+      
+      // Returnera fallback meddelande istället för förhandsvisning
+      return NextResponse.json({
+        error: 'Förhandsvisning inte tillgänglig i denna miljö',
+        fallback: true,
+        template: templateType,
+        metadata: enhancedMetadata
+      });
+    }
     
   } catch (error: any) {
     console.error('Error generating preview:', error);

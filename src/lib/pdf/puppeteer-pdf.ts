@@ -26,6 +26,9 @@ export class PuppeteerPDFGenerator {
    */
   private async initBrowser(): Promise<Browser> {
     if (!this.browser) {
+      // Check if we're in a serverless environment
+      const isServerless = process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.VERCEL;
+      
       this.browser = await puppeteer.launch({
         headless: 'new',
         args: [
@@ -35,8 +38,14 @@ export class PuppeteerPDFGenerator {
           '--disable-accelerated-2d-canvas',
           '--no-first-run',
           '--no-zygote',
-          '--disable-gpu'
-        ]
+          '--disable-gpu',
+          '--disable-background-timer-throttling',
+          '--disable-backgrounding-occluded-windows',
+          '--disable-renderer-backgrounding',
+          ...(isServerless ? ['--single-process'] : [])
+        ],
+        // Use system Chrome in production/serverless environments
+        ...(isServerless && { executablePath: '/usr/bin/google-chrome-stable' })
       });
     }
     return this.browser;

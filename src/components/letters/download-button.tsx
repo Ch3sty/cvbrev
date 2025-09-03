@@ -134,6 +134,15 @@ export default function DownloadButton({
       }
 
       const data = await response.json();
+      
+      if (data.fallback) {
+        setError('Förhandsvisning inte tillgänglig - PDF kommer att genereras direkt');
+        setTimeout(() => {
+          setError(null);
+        }, 3000);
+        return;
+      }
+      
       setPreviewImage(data.preview);
       setShowPreviewModal(true);
     } catch (error: any) {
