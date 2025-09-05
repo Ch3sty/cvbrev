@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllCVTemplates, optimizeContentForTemplate } from '@/lib/cv/cv-templates';
+import { getAllCVTemplates, optimizeContentForTemplate, generateHTMLSafely } from '@/lib/cv/cv-templates';
 import type { CVTemplateType, CVMetadata, CVGenerationOptions } from '@/lib/cv/cv-metadata';
 import { parseCVWithAI, validateCVData } from '@/lib/openai/cv-parser-ai';
 
@@ -269,7 +269,7 @@ export async function POST(request: NextRequest) {
     };
     
     console.log('Genererar HTML med optimerat innehåll för mall:', template);
-    const html = selectedTemplate.generateHTML(cvData, options);
+    const html = await generateHTMLSafely(selectedTemplate, cvData, options);
     
     // Generera PDF med samma approach som letters API
     console.log('Genererar PDF...');

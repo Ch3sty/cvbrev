@@ -1771,6 +1771,19 @@ export function getAllCVTemplates(): CVTemplate[] {
 }
 
 /**
+ * Utility function to safely handle both sync and async template HTML generation
+ * This ensures type safety and consistent handling across all template usages
+ */
+export async function generateHTMLSafely(
+  template: CVTemplate, 
+  cvData: CVMetadata, 
+  options: CVGenerationOptions
+): Promise<string> {
+  const htmlResult = template.generateHTML(cvData, options);
+  return typeof htmlResult === 'string' ? htmlResult : await htmlResult;
+}
+
+/**
  * Mallspecifik innehållsoptimering - Anpassar CV-data för varje specifik mall
  * Detta säkerställer att innehållet placeras optimalt baserat på mallens design och fokus
  */

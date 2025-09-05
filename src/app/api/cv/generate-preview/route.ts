@@ -168,7 +168,10 @@ export async function POST(request: NextRequest) {
       ...options
     };
 
-    const html = templateObj.generateHTML(cvData as CVMetadata, generationOptions);
+    const htmlResult = templateObj.generateHTML(cvData as CVMetadata, generationOptions);
+    
+    // Hantera både sync och async template generation med type-safe approach
+    const html: string = typeof htmlResult === 'string' ? htmlResult : await htmlResult;
     
     // Generera PNG
     const previewOptions = {
