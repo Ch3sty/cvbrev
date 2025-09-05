@@ -11,19 +11,25 @@ let clientInstance: ReturnType<typeof createClient> | null = null;
  * för att undvika "Multiple GoTrueClient instances" varningen.
  */
 export const getSupabaseClient = () => {
-  // Kontrollera om vi är på serversidan (för att undvika problem med SSR)
-  if (typeof window === 'undefined') {
-    // På serversidan skapar vi alltid en ny instans
-    // eftersom varje request bör ha sin egen klient
-    return createClient();
-  }
+  try {
+    // Kontrollera om vi är på serversidan (för att undvika problem med SSR)
+    if (typeof window === 'undefined') {
+      // På serversidan skapar vi alltid en ny instans
+      // eftersom varje request bör ha sin egen klient
+      return createClient();
+    }
 
-  // På klientsidan - återanvänd befintlig instans eller skapa en ny om ingen finns
-  if (!clientInstance) {
-    clientInstance = createClient();
-  }
+    // På klientsidan - återanvänd befintlig instans eller skapa en ny om ingen finns
+    if (!clientInstance) {
+      clientInstance = createClient();
+    }
 
-  return clientInstance;
+    return clientInstance;
+  } catch (error) {
+    console.error('Failed to create Supabase client:', error);
+    // Return a mock client to prevent app crashes
+    throw new Error('Supabase client initialization failed');
+  }
 };
 
 /**

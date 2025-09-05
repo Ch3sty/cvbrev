@@ -370,6 +370,11 @@ export const useCVStore = create<CVStore>()(
         return acc;
       }, {} as Record<CVTemplateType, number>);
       
+      // Tillfälligt avaktiverat för att undvika NetworkError-fel
+      console.log('AI recommendations disabled to prevent NetworkError');
+      return [];
+      
+      /* COMMENTED OUT TO FIX NETWORKERROR:
       // Kör AI-analys
       const aiRecommendations = await getAITemplateRecommendations(
         targetCV.cv_text,
@@ -377,6 +382,7 @@ export const useCVStore = create<CVStore>()(
       );
       
       return aiRecommendations;
+      */
     } catch (error) {
       console.error('AI recommendations failed:', error);
       return [];
