@@ -44,7 +44,6 @@ function generateCacheKey(templateId: string, options: any): string {
 async function generatePreviewPNG(html: string, options: {
   width: number;
   height: number;
-  quality?: number;
 }): Promise<Buffer> {
   try {
     // Dynamisk import av Puppeteer (samma approach som CV PDF generation)
@@ -100,11 +99,10 @@ async function generatePreviewPNG(html: string, options: {
       // Vänta lite extra för fonter att ladda
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Ta screenshot
+      // Ta screenshot (PNG stöder inte quality-parameter)
       const buffer = Buffer.from(await page.screenshot({
         type: 'png',
         fullPage: true,
-        quality: Math.round((options.quality || 0.8) * 100),
         optimizeForSpeed: true
       }));
       
@@ -176,8 +174,7 @@ export async function POST(request: NextRequest) {
     // Generera PNG
     const previewOptions = {
       width: options.width || 794,
-      height: options.height || 1123,
-      quality: options.quality || 0.8
+      height: options.height || 1123
     };
 
     const buffer = await generatePreviewPNG(html, previewOptions);

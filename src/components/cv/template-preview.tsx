@@ -131,8 +131,7 @@ export default function TemplatePreview({
           options: {
             width: PREVIEW_WIDTH,
             height: PREVIEW_HEIGHT,
-            format: 'png',
-            quality: 0.8
+            format: 'png'
           }
         }),
         signal: abortControllerRef.current.signal
