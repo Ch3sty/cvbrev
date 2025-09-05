@@ -126,11 +126,13 @@ export const klassiskCVTemplate: CVTemplate = {
             width: 16px;
             height: 16px;
             background: ${colors.primary};
+            color: white;
             border-radius: 2px;
             margin-left: 0.3cm;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 8pt;
           }
           
           /* SOPHISTICATED SECTIONS */
@@ -344,9 +346,9 @@ export const klassiskCVTemplate: CVTemplate = {
             <div class="header-grid">
               <div class="header-content">
                 <h1 class="name">${cvData.personalInfo.fullName}</h1>
-                <div class="professional-title">${cvData.targetRole || 'Senior Professional'}</div>
+                <div class="professional-title">${cvData.targetRole || 'Yrkesprofessionell'}</div>
                 <div class="executive-summary">
-                  ${cvData.summary || 'Erfaren ledare med stark track record inom resultatdriven verksamhetsutveckling och strategisk affärstillväxt.'}
+                  ${cvData.summary || 'Erfaren yrkesperson med gedigen kompetens och måldriven fokus på att leverera resultat och värde.'}
                 </div>
               </div>
               <div class="contact-elegant">
@@ -601,6 +603,7 @@ export const modernCVTemplate: CVTemplate = {
           /* SECTION STYLING */
           .section {
             margin-bottom: 2cm;
+            break-inside: avoid;
           }
           
           .section-title {
@@ -635,6 +638,7 @@ export const modernCVTemplate: CVTemplate = {
             box-shadow: 0 2px 12px rgba(0,0,0,0.08);
             border-left: 4px solid ${primaryColor};
             position: relative;
+            break-inside: avoid;
           }
           
           .job-header {
@@ -1097,6 +1101,7 @@ export const atsOptimeradCVTemplate: CVTemplate = {
           
           .section {
             margin-bottom: 1.2cm;
+            break-inside: avoid;
           }
           
           .section-title {
@@ -1530,7 +1535,8 @@ export const kreativCVTemplate: CVTemplate = {
           @media print {
             .header::before { display: none; }
             .sidebar { box-shadow: none; }
-            .timeline-item { box-shadow: none; }
+            .timeline-item { box-shadow: none; break-inside: avoid; }
+            .section { break-inside: avoid; }
           }
         </style>
       </head>
@@ -1598,30 +1604,30 @@ export const kreativCVTemplate: CVTemplate = {
               <section class="section">
                 <h2 class="section-title">Kontakt</h2>
                 <div class="contact-item">
-                  <div class="contact-icon">${generateSectionIcon('email', 'white')}</div>
+                  <div class="contact-icon">${generateSectionIcon('email', primaryColor)}</div>
                   <span>${cvData.personalInfo.email}</span>
                 </div>
                 ${cvData.personalInfo.phone ? `
                 <div class="contact-item">
-                  <div class="contact-icon">${generateSectionIcon('phone', 'white')}</div>
+                  <div class="contact-icon">${generateSectionIcon('phone', primaryColor)}</div>
                   <span>${cvData.personalInfo.phone}</span>
                 </div>
                 ` : ''}
                 ${cvData.personalInfo.linkedIn ? `
                 <div class="contact-item">
-                  <div class="contact-icon">${generateSectionIcon('linkedin', 'white')}</div>
+                  <div class="contact-icon">${generateSectionIcon('linkedin', primaryColor)}</div>
                   <span>LinkedIn Profil</span>
                 </div>
                 ` : ''}
                 ${cvData.personalInfo.github ? `
                 <div class="contact-item">
-                  <div class="contact-icon">${generateSectionIcon('github', 'white')}</div>
+                  <div class="contact-icon">${generateSectionIcon('github', primaryColor)}</div>
                   <span>GitHub Portfolio</span>
                 </div>
                 ` : ''}
                 ${cvData.personalInfo.address ? `
                 <div class="contact-item">
-                  <div class="contact-icon">${generateSectionIcon('location', 'white')}</div>
+                  <div class="contact-icon">${generateSectionIcon('location', primaryColor)}</div>
                   <span>${cvData.personalInfo.address}</span>
                 </div>
                 ` : ''}
@@ -1767,6 +1773,7 @@ export const akademiskCVTemplate: CVTemplate = {
           
           .section {
             margin-bottom: 1.8cm;
+            break-inside: avoid;
           }
           
           .section-title {
@@ -1789,6 +1796,7 @@ export const akademiskCVTemplate: CVTemplate = {
           
           .experience-item, .education-item {
             margin-bottom: 1.2cm;
+            break-inside: avoid;
           }
           
           .position-title, .degree {
@@ -1871,7 +1879,7 @@ export const akademiskCVTemplate: CVTemplate = {
           <!-- Header -->
           <header class="header">
             <h1 class="name">${cvData.personalInfo.fullName}</h1>
-            <div class="title">${cvData.targetRole || 'Forskare & Akademiker'}</div>
+            <div class="title">${cvData.targetRole || 'Yrkesperson'}</div>
             <div class="contact-info">
               <span>${cvData.personalInfo.email}</span>
               ${cvData.personalInfo.phone ? `<span>${cvData.personalInfo.phone}</span>` : ''}
@@ -2147,6 +2155,7 @@ export const modernTechCVTemplate: CVTemplate = {
           /* SECTION HEADERS */
           .section {
             margin-bottom: 1.5cm;
+            break-inside: avoid;
           }
           
           .section-title {
@@ -2169,6 +2178,7 @@ export const modernTechCVTemplate: CVTemplate = {
             border: 1px solid ${colors.primary}20;
             border-radius: 6px;
             padding: 1cm;
+            break-inside: avoid;
           }
           
           .exp-header {
@@ -2238,6 +2248,7 @@ export const modernTechCVTemplate: CVTemplate = {
           /* SIDEBAR SECTIONS */
           .sidebar-section {
             margin-bottom: 1.2cm;
+            break-inside: avoid;
           }
           
           .sidebar-title {
@@ -2251,6 +2262,7 @@ export const modernTechCVTemplate: CVTemplate = {
           
           .skill-category {
             margin-bottom: 0.8cm;
+            break-inside: avoid;
           }
           
           .skill-cat-title {
@@ -2301,6 +2313,7 @@ export const modernTechCVTemplate: CVTemplate = {
             background: ${colors.bg};
             border: 1px solid ${colors.primary}20;
             border-radius: 4px;
+            break-inside: avoid;
           }
           
           .degree {
@@ -2319,11 +2332,36 @@ export const modernTechCVTemplate: CVTemplate = {
           @media print {
             body { 
               background: white !important; 
-              color: #000 !important;
+              color: #333 !important;
             }
             .tech-header, .main-content, .sidebar, .tech-experience, .education-item {
               background: white !important;
               border-color: #ccc !important;
+            }
+            .name {
+              color: #0066cc !important;
+              text-shadow: none !important;
+            }
+            .tech-role {
+              color: #666 !important;
+            }
+            .section-title {
+              color: #0066cc !important;
+              background: #f0f8ff !important;
+            }
+            .sidebar-title {
+              color: #0066cc !important;
+            }
+            .contact-icon {
+              background: #0066cc !important;
+              color: white !important;
+            }
+            .duration {
+              background: #0066cc !important;
+              color: white !important;
+            }
+            .stat-value {
+              color: #0066cc !important;
             }
           }
         </style>
@@ -2334,9 +2372,9 @@ export const modernTechCVTemplate: CVTemplate = {
           <div class="header-layout">
             <div class="header-info">
               <h1 class="name">${cvData.personalInfo.fullName}</h1>
-              <div class="tech-role">${cvData.targetRole || 'Senior Developer'}</div>
+              <div class="tech-role">${cvData.targetRole || 'Yrkesperson'}</div>
               <p class="tech-summary">
-                ${cvData.summary || 'Passionate technologist driving innovation through clean code, scalable architecture, and continuous learning in modern development ecosystems.'}
+                ${cvData.summary || 'Resultatorienterad professionell med stark teknisk grund och passion för att leverera värde genom innovation och kontinuerlig utveckling.'}
               </p>
             </div>
             <div class="github-section">
