@@ -43,7 +43,7 @@ export default function TemplatePreview({
 
   // Generate cache key for template and CV combination
   const generateCacheKey = useCallback((templateId: string, cvId: string): string => {
-    return `${templateId}_${cvId}_${Date.now().toString(36)}`;
+    return `${templateId}_${cvId}`;
   }, []);
 
   // Clean expired cache entries
@@ -65,7 +65,7 @@ export default function TemplatePreview({
     templateId: CVTemplateType, 
     cvData: any
   ): Promise<string> => {
-    const cacheKey = generateCacheKey(templateId, cvData?.id || 'default');
+    const cacheKey = generateCacheKey(templateId, 'preview');
     
     // Check cache first
     cleanCache();
@@ -194,7 +194,7 @@ export default function TemplatePreview({
     } finally {
       setIsGenerating(false);
     }
-  }, [templateId, cvData, generatePreviewImage, onPreviewReady]);
+  }, [templateId, cvData?.id, generatePreviewImage, onPreviewReady]);
 
   // Generate preview when template or CV changes
   useEffect(() => {
