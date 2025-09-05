@@ -1001,17 +1001,6 @@ export const kreativCVTemplate: CVTemplate = {
   colorSchemes: ['purple', 'red', 'green', 'blue'],
   previewImage: '/images/cv-templates/kreativ-preview.png',
   generateHTML: (cvData: CVMetadata, options: CVGenerationOptions) => {
-    // Import visual elements
-    const { 
-      generateQRCodeDataURLSync, 
-      generateSkillProgressCSS, 
-      generateSectionIcon, 
-      generateTimelineCSS,
-      calculateSkillLevel,
-      extractAchievements,
-      generatePortfolioSection,
-      getPortfolioCSS
-    } = require('./visual-elements');
 
     const primaryColor = options.colorScheme === 'purple' ? '#8b5cf6' : 
                         options.colorScheme === 'red' ? '#ef4444' : 

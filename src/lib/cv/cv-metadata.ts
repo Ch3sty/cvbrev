@@ -94,7 +94,7 @@ export interface CVTemplate {
   features: string[];
   colorSchemes: string[];
   previewImage: string;
-  generateHTML: (cvData: CVMetadata, options: CVGenerationOptions) => string;
+  generateHTML: (cvData: CVMetadata, options: CVGenerationOptions) => string | Promise<string>;
 }
 
 // Utility functions för CV-datahantering
