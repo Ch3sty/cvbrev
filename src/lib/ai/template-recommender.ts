@@ -26,70 +26,80 @@ const INDUSTRY_TEMPLATE_MAPPING = {
     'kreativ': 70,
     'klassisk': 60,
     'ats-optimerad': 90,
-    'akademisk': 45
+    'akademisk': 45,
+    'modern-tech': 95
   },
   'finansiering': {
     'klassisk': 95,
     'modern': 75,
     'kreativ': 30,
     'ats-optimerad': 85,
-    'akademisk': 40
+    'akademisk': 40,
+    'modern-tech': 60
   },
   'kreativ': {
     'kreativ': 95,
     'modern': 80,
     'klassisk': 45,
     'ats-optimerad': 65,
-    'akademisk': 35
+    'akademisk': 35,
+    'modern-tech': 70
   },
   'akademisk': {
     'akademisk': 95,
     'klassisk': 80,
     'modern': 60,
     'ats-optimerad': 75,
-    'kreativ': 40
+    'kreativ': 40,
+    'modern-tech': 50
   },
   'konsulting': {
     'klassisk': 85,
     'modern': 80,
     'ats-optimerad': 90,
     'kreativ': 50,
-    'akademisk': 60
+    'akademisk': 60,
+    'modern-tech': 75
   },
   'sjukvård': {
     'klassisk': 90,
     'ats-optimerad': 85,
     'modern': 70,
     'akademisk': 75,
-    'kreativ': 35
+    'kreativ': 35,
+    'modern-tech': 45
   },
   'ingenjörsvetenskap': {
     'modern': 80,
     'klassisk': 85,
     'ats-optimerad': 90,
     'akademisk': 70,
-    'kreativ': 45
+    'kreativ': 45,
+    'modern-tech': 85
   },
   'marknadsföring': {
     'modern': 85,
     'kreativ': 90,
     'klassisk': 60,
     'ats-optimerad': 80,
-    'akademisk': 40
+    'akademisk': 40,
+    'modern-tech': 70
   },
   'försäljning': {
     'modern': 80,
     'klassisk': 75,
     'ats-optimerad': 85,
     'kreativ': 65,
-    'akademisk': 35
+    'akademisk': 35,
+    'modern-tech': 60
   },
   'default': {
     'klassisk': 70,
     'modern': 75,
     'ats-optimerad': 80,
     'kreativ': 60,
-    'akademisk': 55
+    'akademisk': 55,
+    'modern-tech': 65
   }
 } as const;
 
@@ -100,28 +110,32 @@ const EXPERIENCE_MODIFIERS = {
     'kreativ': 1.15,
     'klassisk': 0.9,
     'ats-optimerad': 1.2,
-    'akademisk': 0.8
+    'akademisk': 0.8,
+    'modern-tech': 1.25
   },
   'mid': {
     'modern': 1.0,
     'kreativ': 1.0,
     'klassisk': 1.0,
     'ats-optimerad': 1.1,
-    'akademisk': 0.95
+    'akademisk': 0.95,
+    'modern-tech': 1.15
   },
   'senior': {
     'modern': 0.95,
     'kreativ': 0.9,
     'klassisk': 1.1,
     'ats-optimerad': 1.0,
-    'akademisk': 1.05
+    'akademisk': 1.05,
+    'modern-tech': 1.1
   },
   'executive': {
     'modern': 0.9,
     'kreativ': 0.8,
     'klassisk': 1.2,
     'ats-optimerad': 0.9,
-    'akademisk': 1.1
+    'akademisk': 1.1,
+    'modern-tech': 1.0
   }
 } as const;
 
@@ -164,7 +178,7 @@ export async function getAITemplateRecommendations(
     // 3. Beräkna rekommendationer för varje template
     const recommendations: TemplateRecommendation[] = [];
     
-    const templateTypes: CVTemplateType[] = ['klassisk', 'modern', 'kreativ', 'ats-optimerad', 'akademisk'];
+    const templateTypes: CVTemplateType[] = ['klassisk', 'modern', 'kreativ', 'ats-optimerad', 'akademisk', 'modern-tech'];
     
     for (const templateId of templateTypes) {
       const recommendation = calculateTemplateScore(
@@ -395,7 +409,8 @@ function getVisualPreferenceScore(templateId: CVTemplateType, cvData: any): numb
     'modern': 80,
     'kreativ': 95,
     'ats-optimerad': 70,
-    'akademisk': 65
+    'akademisk': 65,
+    'modern-tech': 90
   };
   
   return baseScores[templateId] || 60;
@@ -416,7 +431,8 @@ function generateRecommendationReasoning(
     'modern': 'Moderna mallen',
     'kreativ': 'Kreativa mallen',
     'ats-optimerad': 'ATS-optimerade mallen',
-    'akademisk': 'Akademiska mallen'
+    'akademisk': 'Akademiska mallen',
+    'modern-tech': 'Modern Tech-mallen'
   };
   
   const templateName = templateNames[templateId];

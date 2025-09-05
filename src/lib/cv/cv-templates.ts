@@ -1,22 +1,29 @@
 // src/lib/cv/cv-templates.ts
 // Professionella CV-mallar för svenska jobbsökande
 
-import { CVMetadata, CVTemplate, CVGenerationOptions, formatDateRange } from './cv-metadata';
+import { CVMetadata, CVTemplate, CVGenerationOptions, formatDateRange, generateDynamicHeadings } from './cv-metadata';
 import { generateQRCodeDataURLSync, generateSkillProgressCSS, generateSectionIcon, generateTimelineCSS, calculateSkillLevel, extractAchievements, generatePortfolioSection, getPortfolioCSS } from './visual-elements';
 
-// Klassisk CV-mall - Traditionell, konservativ layout
+// KLASSISK PREMIUM - Sofistikerad svensk företagskultur
 export const klassiskCVTemplate: CVTemplate = {
   id: 'klassisk',
-  name: 'Klassisk',
-  description: 'Traditionell och professionell CV-mall som passar alla branscher',
-  category: 'Konservativ',
-  bestFor: ['Bank & Finans', 'Juridik', 'Förvaltning', 'Traditionella företag'],
-  features: ['Ren layout', 'Lätt att läsa', 'ATS-vänlig', 'Professionell'],
-  colorSchemes: ['blue', 'black', 'green'],
+  name: 'Klassisk Premium',
+  description: 'Elegant svensk företagstradition med moderna premium-detaljer för ledande positioner',
+  category: 'Executive',
+  bestFor: ['Finanssektorn', 'Juridik', 'Konsultverksamhet', 'Offentlig förvaltning', 'C-level positioner'],
+  features: ['Swedish Executive Design', 'Premium Typography', 'Elegant Hierarchy', 'Trust Indicators'],
+  colorSchemes: ['navy', 'charcoal', 'forest'],
   previewImage: '/images/cv-templates/klassisk-preview.png',
   generateHTML: (cvData: CVMetadata, options: CVGenerationOptions) => {
-    const primaryColor = options.colorScheme === 'blue' ? '#2563eb' : 
-                        options.colorScheme === 'green' ? '#059669' : '#1f2937';
+    const colorScheme = {
+      navy: { primary: '#1e3a8a', secondary: '#3b82f6', accent: '#dbeafe', text: '#1e293b' },
+      charcoal: { primary: '#374151', secondary: '#6b7280', accent: '#f3f4f6', text: '#111827' },
+      forest: { primary: '#064e3b', secondary: '#059669', accent: '#d1fae5', text: '#1f2937' }
+    };
+    const colors = colorScheme[options.colorScheme as keyof typeof colorScheme] || colorScheme.navy;
+    
+    // Generate dynamic headings based on CV content and industry
+    const headings = generateDynamicHeadings(cvData, 'klassisk');
 
     return `
       <!DOCTYPE html>
@@ -26,9 +33,11 @@ export const klassiskCVTemplate: CVTemplate = {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>CV - ${cvData.personalInfo.fullName}</title>
         <style>
+          @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+          
           @page {
             size: A4;
-            margin: 2cm;
+            margin: 2cm 1.8cm;
           }
           
           * {
@@ -38,186 +47,388 @@ export const klassiskCVTemplate: CVTemplate = {
           }
           
           body {
-            font-family: 'Times New Roman', Times, serif;
+            font-family: 'Crimson Text', Georgia, serif;
             font-size: 11pt;
-            line-height: 1.4;
-            color: #333;
-          }
-          
-          .cv-container {
-            max-width: 210mm;
-            margin: 0 auto;
+            line-height: 1.6;
+            color: ${colors.text};
             background: white;
           }
           
-          .header {
-            text-align: center;
-            margin-bottom: 2cm;
-            padding-bottom: 1cm;
-            border-bottom: 2px solid ${primaryColor};
+          /* PREMIUM HEADER DESIGN */
+          .cv-header {
+            border-bottom: 1px solid ${colors.accent};
+            padding-bottom: 1.5cm;
+            margin-bottom: 1.8cm;
+            position: relative;
+          }
+          
+          .cv-header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, ${colors.primary}, ${colors.secondary});
+          }
+          
+          .header-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2cm;
+            align-items: center;
           }
           
           .name {
-            font-size: 24pt;
-            font-weight: bold;
-            color: ${primaryColor};
-            margin-bottom: 0.5cm;
-            letter-spacing: 1px;
+            font-family: 'Inter', sans-serif;
+            font-size: 28pt;
+            font-weight: 300;
+            color: ${colors.primary};
+            margin-bottom: 0.4cm;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
           }
           
-          .contact-info {
-            font-size: 10pt;
-            color: #666;
-          }
-          
-          .contact-info span {
-            margin: 0 0.5cm;
-          }
-          
-          .section {
-            margin-bottom: 1.5cm;
-          }
-          
-          .section-title {
+          .professional-title {
             font-size: 14pt;
-            font-weight: bold;
-            color: ${primaryColor};
+            font-weight: 600;
+            color: ${colors.secondary};
             margin-bottom: 0.8cm;
-            padding-bottom: 0.2cm;
-            border-bottom: 1px solid ${primaryColor};
+            font-family: 'Inter', sans-serif;
             text-transform: uppercase;
             letter-spacing: 0.5px;
           }
           
-          .summary {
-            text-align: justify;
-            margin-bottom: 1cm;
-          }
-          
-          .experience-item, .education-item {
-            margin-bottom: 1cm;
-          }
-          
-          .job-title, .degree {
+          .executive-summary {
             font-size: 12pt;
-            font-weight: bold;
-            color: #333;
-          }
-          
-          .company, .institution {
-            font-size: 11pt;
-            font-weight: bold;
-            color: ${primaryColor};
-            margin: 0.2cm 0;
-          }
-          
-          .date-location {
-            font-size: 10pt;
-            color: #666;
+            line-height: 1.7;
+            color: #4b5563;
+            text-align: justify;
             font-style: italic;
           }
           
-          .description ul {
-            margin-left: 1cm;
-            margin-top: 0.3cm;
+          .contact-elegant {
+            text-align: right;
+            font-family: 'Inter', sans-serif;
+            font-size: 10pt;
+            line-height: 1.8;
           }
           
-          .description li {
-            margin-bottom: 0.2cm;
+          .contact-item {
+            margin-bottom: 0.4cm;
+            color: ${colors.text};
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
           }
           
-          .skills-grid {
+          .contact-icon {
+            width: 16px;
+            height: 16px;
+            background: ${colors.primary};
+            border-radius: 2px;
+            margin-left: 0.3cm;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          
+          /* SOPHISTICATED SECTIONS */
+          .section {
+            margin-bottom: 2cm;
+            break-inside: avoid;
+          }
+          
+          .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.2cm;
+            padding-bottom: 0.4cm;
+            border-bottom: 1px solid ${colors.accent};
+          }
+          
+          .section-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 13pt;
+            font-weight: 600;
+            color: ${colors.primary};
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+          }
+          
+          .section-ornament {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, ${colors.primary}, ${colors.secondary});
+            border-radius: 3px;
+            margin-right: 0.8cm;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          
+          /* PREMIUM EXPERIENCE CARDS */
+          .experience-entry {
+            margin-bottom: 1.5cm;
+            padding: 1.2cm;
+            background: linear-gradient(135deg, ${colors.accent}40, transparent);
+            border-left: 4px solid ${colors.primary};
+            border-radius: 0 8px 8px 0;
+            break-inside: avoid;
+          }
+          
+          .position-header {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 2fr 1fr;
             gap: 1cm;
-          }
-          
-          .skill-category {
+            align-items: start;
             margin-bottom: 0.8cm;
           }
           
-          .skill-category-title {
-            font-weight: bold;
-            color: ${primaryColor};
+          .position-title {
+            font-size: 13pt;
+            font-weight: 600;
+            color: ${colors.primary};
             margin-bottom: 0.3cm;
+            font-family: 'Inter', sans-serif;
           }
           
-          .skills-list {
+          .company-name {
+            font-size: 11pt;
+            font-weight: 500;
+            color: ${colors.text};
+            margin-bottom: 0.2cm;
+          }
+          
+          .tenure-badge {
+            background: ${colors.primary};
+            color: white;
+            padding: 0.3cm 0.8cm;
+            border-radius: 20px;
+            font-size: 9pt;
+            font-weight: 500;
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 2px 4px ${colors.primary}30;
+          }
+          
+          .achievements-list {
+            list-style: none;
+            margin-top: 0.6cm;
+          }
+          
+          .achievement-item {
+            margin-bottom: 0.4cm;
+            padding-left: 1cm;
+            position: relative;
+            line-height: 1.7;
+          }
+          
+          .achievement-item::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: ${colors.secondary};
+            font-weight: 600;
+          }
+          
+          /* ELEGANT EDUCATION */
+          .education-entry {
+            margin-bottom: 1cm;
+            padding: 0.8cm 1cm;
+            background: white;
+            border: 1px solid ${colors.accent};
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+          }
+          
+          .degree-title {
+            font-size: 11pt;
+            font-weight: 600;
+            color: ${colors.primary};
+            margin-bottom: 0.2cm;
+          }
+          
+          .institution-name {
             font-size: 10pt;
+            color: ${colors.text};
+            font-weight: 400;
           }
           
-          .two-column {
+          .graduation-year {
+            font-size: 9pt;
+            color: #6b7280;
+            float: right;
+            font-family: 'Inter', sans-serif;
+          }
+          
+          /* SOPHISTICATED SKILLS */
+          .skills-matrix {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 1.5cm;
+          }
+          
+          .skill-category {
+            margin-bottom: 1cm;
+          }
+          
+          .category-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 10pt;
+            font-weight: 600;
+            color: ${colors.primary};
+            margin-bottom: 0.5cm;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding-bottom: 0.2cm;
+            border-bottom: 1px solid ${colors.accent};
+          }
+          
+          .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3cm;
+          }
+          
+          .skill-tag {
+            background: ${colors.primary}15;
+            color: ${colors.text};
+            padding: 0.2cm 0.6cm;
+            border-radius: 12px;
+            font-size: 9pt;
+            font-weight: 500;
+            border: 1px solid ${colors.primary}20;
+          }
+          
+          /* LANGUAGE PROFICIENCY */
+          .languages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.8cm;
+          }
+          
+          .language-item {
+            text-align: center;
+            padding: 0.6cm;
+            background: ${colors.accent}50;
+            border-radius: 8px;
+            border: 1px solid ${colors.accent};
+          }
+          
+          .language-name {
+            font-weight: 600;
+            color: ${colors.primary};
+            margin-bottom: 0.2cm;
+          }
+          
+          .proficiency-level {
+            font-size: 9pt;
+            color: #6b7280;
+            font-family: 'Inter', sans-serif;
+          }
+          
+          /* PRINT OPTIMIZATIONS */
+          @media print {
+            body { -webkit-print-color-adjust: exact; }
+            .experience-entry { break-inside: avoid; }
+            .section { break-inside: avoid; }
           }
         </style>
       </head>
       <body>
         <div class="cv-container">
-          <!-- Header -->
-          <header class="header">
-            <h1 class="name">${cvData.personalInfo.fullName}</h1>
-            <div class="contact-info">
-              <span>${cvData.personalInfo.email}</span>
-              ${cvData.personalInfo.phone ? `<span>${cvData.personalInfo.phone}</span>` : ''}
-              ${cvData.personalInfo.address ? `<span>${cvData.personalInfo.address}</span>` : ''}
-              ${cvData.personalInfo.linkedIn ? `<span>${cvData.personalInfo.linkedIn}</span>` : ''}
+          <!-- Premium Header -->
+          <header class="cv-header">
+            <div class="header-grid">
+              <div class="header-content">
+                <h1 class="name">${cvData.personalInfo.fullName}</h1>
+                <div class="professional-title">${cvData.targetRole || 'Senior Professional'}</div>
+                <div class="executive-summary">
+                  ${cvData.summary || 'Erfaren ledare med stark track record inom resultatdriven verksamhetsutveckling och strategisk affärstillväxt.'}
+                </div>
+              </div>
+              <div class="contact-elegant">
+                <div class="contact-item">
+                  ${cvData.personalInfo.email}
+                  <div class="contact-icon">✉</div>
+                </div>
+                ${cvData.personalInfo.phone ? `
+                <div class="contact-item">
+                  ${cvData.personalInfo.phone}
+                  <div class="contact-icon">☎</div>
+                </div>
+                ` : ''}
+                ${cvData.personalInfo.address ? `
+                <div class="contact-item">
+                  ${cvData.personalInfo.address}
+                  <div class="contact-icon">⌂</div>
+                </div>
+                ` : ''}
+                ${cvData.personalInfo.linkedIn ? `
+                <div class="contact-item">
+                  LinkedIn
+                  <div class="contact-icon">in</div>
+                </div>
+                ` : ''}
+              </div>
             </div>
           </header>
 
-          <!-- Summary -->
-          ${cvData.summary ? `
+          <!-- Professional Experience -->
           <section class="section">
-            <h2 class="section-title">Professionell Sammanfattning</h2>
-            <p class="summary">${cvData.summary}</p>
-          </section>
-          ` : ''}
-
-          <!-- Experience -->
-          <section class="section">
-            <h2 class="section-title">Arbetslivserfarenhet</h2>
+            <div class="section-header">
+              <div class="section-ornament">★</div>
+              <h2 class="section-title">${headings.experience}</h2>
+            </div>
             ${cvData.experience.map(exp => `
-            <div class="experience-item">
-              <div class="job-title">${exp.position}</div>
-              <div class="company">${exp.company}</div>
-              <div class="date-location">
-                ${formatDateRange(exp.startDate, exp.endDate)}
-                ${exp.location ? ` • ${exp.location}` : ''}
+            <div class="experience-entry">
+              <div class="position-header">
+                <div>
+                  <div class="position-title">${exp.position}</div>
+                  <div class="company-name">${exp.company}</div>
+                  ${exp.location ? `<div style="font-size: 9pt; color: #6b7280; margin-top: 0.2cm;">${exp.location}</div>` : ''}
+                </div>
+                <div class="tenure-badge">${formatDateRange(exp.startDate, exp.endDate)}</div>
               </div>
-              <div class="description">
-                <ul>
-                  ${exp.description.map(desc => `<li>${desc}</li>`).join('')}
-                </ul>
-              </div>
+              <ul class="achievements-list">
+                ${exp.description.map(desc => `<li class="achievement-item">${desc}</li>`).join('')}
+              </ul>
             </div>
             `).join('')}
           </section>
 
           <!-- Education -->
           <section class="section">
-            <h2 class="section-title">Utbildning</h2>
+            <div class="section-header">
+              <div class="section-ornament">🎓</div>
+              <h2 class="section-title">${headings.education}</h2>
+            </div>
             ${cvData.education.map(edu => `
-            <div class="education-item">
-              <div class="degree">${edu.degree}</div>
-              <div class="company">${edu.institution}</div>
-              <div class="date-location">
-                ${edu.graduationYear ? edu.graduationYear : ''}
-                ${edu.location ? ` • ${edu.location}` : ''}
-              </div>
+            <div class="education-entry">
+              <div class="graduation-year">${edu.graduationYear || ''}</div>
+              <div class="degree-title">${edu.degree}</div>
+              <div class="institution-name">${edu.institution}</div>
+              ${edu.honors ? `<div style="font-size: 9pt; color: ${colors.secondary}; margin-top: 0.3cm; font-style: italic;">${edu.honors}</div>` : ''}
             </div>
             `).join('')}
           </section>
 
-          <!-- Skills -->
+          <!-- Core Competencies -->
           ${cvData.skills && cvData.skills.length > 0 ? `
           <section class="section">
-            <h2 class="section-title">Kompetenser</h2>
-            <div class="skills-grid">
+            <div class="section-header">
+              <div class="section-ornament">⚡</div>
+              <h2 class="section-title">${headings.skills}</h2>
+            </div>
+            <div class="skills-matrix">
               ${cvData.skills.map(skillCategory => `
               <div class="skill-category">
-                <div class="skill-category-title">${skillCategory.category}</div>
-                <div class="skills-list">${skillCategory.skills.join(' • ')}</div>
+                <div class="category-title">${skillCategory.category}</div>
+                <div class="skills-list">
+                  ${skillCategory.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                </div>
               </div>
               `).join('')}
             </div>
@@ -227,9 +438,17 @@ export const klassiskCVTemplate: CVTemplate = {
           <!-- Languages -->
           ${cvData.languages && cvData.languages.length > 0 ? `
           <section class="section">
-            <h2 class="section-title">Språk</h2>
-            <div class="skills-list">
-              ${cvData.languages.map(lang => `${lang.language} (${lang.proficiency})`).join(' • ')}
+            <div class="section-header">
+              <div class="section-ornament">🌍</div>
+              <h2 class="section-title">${headings.languages}</h2>
+            </div>
+            <div class="languages-grid">
+              ${cvData.languages.map(lang => `
+              <div class="language-item">
+                <div class="language-name">${lang.language}</div>
+                <div class="proficiency-level">${lang.proficiency}</div>
+              </div>
+              `).join('')}
             </div>
           </section>
           ` : ''}
@@ -240,26 +459,29 @@ export const klassiskCVTemplate: CVTemplate = {
   }
 };
 
-// Modern CV-mall - Ren, minimalistisk design
+// MODERN PROFESSIONAL - Ren minimalism med premium edge
 export const modernCVTemplate: CVTemplate = {
   id: 'modern',
-  name: 'Modern Tech',
-  description: 'Avancerad tech-fokuserad design med kodexempel, GitHub-integration och tekniska visualiseringar',
+  name: 'Modern Professional',
+  description: 'Elegant minimalistisk design för framgångsrika professionella inom alla branscher',
   category: 'Contemporary',
-  bestFor: ['Tech', 'Utvecklare', 'DevOps', 'Data Science', 'Startup', 'AI/ML'],
-  features: ['Tech-stack visualisering', 'GitHub-integration', 'Kodexempel', 'Tekniska projektvisning', 'Modern typografi', 'Minimalistisk design'],
-  colorSchemes: ['blue', 'black', 'purple', 'green'],
+  bestFor: ['Konsultverksamhet', 'Marknadsföring', 'Projektledning', 'Affärsutveckling', 'Moderna företag', 'Startup'],
+  features: ['Minimalistisk elegans', 'Visual hierarchy', 'Achievement focus', 'Clean typography', 'Professional impact'],
+  colorSchemes: ['slate', 'teal', 'indigo', 'emerald'],
   previewImage: '/images/cv-templates/modern-preview.png',
   generateHTML: (cvData: CVMetadata, options: CVGenerationOptions) => {
-    const primaryColor = options.colorScheme === 'blue' ? '#3b82f6' : 
-                        options.colorScheme === 'purple' ? '#8b5cf6' : 
-                        options.colorScheme === 'green' ? '#10b981' : '#1f2937';
-    const accentColor = options.colorScheme === 'blue' ? '#1e40af' : 
-                       options.colorScheme === 'purple' ? '#7c3aed' : 
-                       options.colorScheme === 'green' ? '#059669' : '#374151';
-    const techBg = options.colorScheme === 'blue' ? '#eff6ff' : 
-                   options.colorScheme === 'purple' ? '#f3e8ff' : 
-                   options.colorScheme === 'green' ? '#ecfdf5' : '#f9fafb';
+    const headings = generateDynamicHeadings(cvData, 'modern');
+    const colorScheme = {
+      slate: { primary: '#1e293b', secondary: '#475569', accent: '#f1f5f9', light: '#cbd5e1' },
+      teal: { primary: '#0f766e', secondary: '#14b8a6', accent: '#f0fdfa', light: '#5eead4' },
+      indigo: { primary: '#3730a3', secondary: '#6366f1', accent: '#eef2ff', light: '#a5b4fc' },
+      emerald: { primary: '#065f46', secondary: '#10b981', accent: '#ecfdf5', light: '#6ee7b7' }
+    };
+    const colors = colorScheme[options.colorScheme as keyof typeof colorScheme] || colorScheme.slate;
+    const primaryColor = colors.primary;
+    const accentColor = colors.accent;
+    const lightColor = colors.light;
+    const techBg = colors.secondary + '10';
     
     return `
       <!DOCTYPE html>
@@ -269,9 +491,11 @@ export const modernCVTemplate: CVTemplate = {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>CV - ${cvData.personalInfo.fullName}</title>
         <style>
+          @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+          
           @page {
             size: A4;
-            margin: 1.5cm;
+            margin: 1.2cm;
           }
           
           * {
@@ -281,11 +505,12 @@ export const modernCVTemplate: CVTemplate = {
           }
           
           body {
-            font-family: 'Inter', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             font-size: 10pt;
             line-height: 1.5;
             color: #1f2937;
             background: white;
+            font-weight: 300;
           }
           
           /* TECH-FOCUSED HEADER */
@@ -652,7 +877,7 @@ export const modernCVTemplate: CVTemplate = {
           <main class="main-content">
             <!-- Tech Experience -->
             <section class="section">
-              <h2 class="section-title">Tech Experience</h2>
+              <h2 class="section-title">${headings.experience}</h2>
               ${cvData.experience.map(exp => {
                 const techSkills = exp.description.join(' ').match(/(React|Node|Python|JavaScript|TypeScript|Docker|AWS|Azure|GCP|Kubernetes|MongoDB|PostgreSQL|Redis|GraphQL|REST|API|Git|Linux|DevOps|CI\/CD|Agile|Scrum)/gi) || [];
                 const uniqueTechSkills = [...new Set(techSkills)];
@@ -700,7 +925,7 @@ export const modernCVTemplate: CVTemplate = {
             <!-- Projects Section -->
             ${cvData.projects && cvData.projects.length > 0 ? `
             <section class="section">
-              <h2 class="section-title">Tech Projects</h2>
+              <h2 class="section-title">${headings.projects}</h2>
               ${cvData.projects.slice(0, 3).map(project => `
               <div class="project-card">
                 <div class="project-title">${project.title}</div>
@@ -748,7 +973,7 @@ export const modernCVTemplate: CVTemplate = {
             <!-- Tech Skills -->
             ${cvData.skills && cvData.skills.length > 0 ? `
             <section class="section">
-              <h2 class="section-title">Tech Stack</h2>
+              <h2 class="section-title">${headings.skills}</h2>
               <div class="tech-skills-grid">
                 ${cvData.skills.map(skillCategory => `
                 <div class="skill-category">
@@ -772,7 +997,7 @@ export const modernCVTemplate: CVTemplate = {
 
             <!-- Education -->
             <section class="section">
-              <h2 class="section-title">Utbildning</h2>
+              <h2 class="section-title">${headings.education}</h2>
               ${cvData.education.map(edu => `
               <div class="education-item">
                 <div class="degree">${edu.degree}</div>
@@ -803,17 +1028,25 @@ export const modernCVTemplate: CVTemplate = {
   }
 };
 
-// ATS-Optimerad CV-mall - Maximal robotvänlighet
+// ATS PREMIUM - Svenskoptimerad robotvänlig design med premium känsla
 export const atsOptimeradCVTemplate: CVTemplate = {
   id: 'ats-optimerad',
-  name: 'ATS-Optimerad',
-  description: 'Speciellt utformad för att passera Applicant Tracking Systems',
-  category: 'ATS-Friendly',
-  bestFor: ['Alla branscher', 'Stora företag', 'Online-ansökningar', 'Rekryteringsföretag'],
-  features: ['ATS-kompatibel', 'Enkel struktur', 'Nyckelords-optimerad', 'Standardformat'],
-  colorSchemes: ['black'],
+  name: 'ATS Premium',
+  description: 'Perfekt balans mellan ATS-kompatibilitet och premium professional appeal för svenska arbetsmarknaden',
+  category: 'ATS Excellence',
+  bestFor: ['Enterprise', 'Multinationella företag', 'Konsultbolag', 'Svenska ATS-system', 'LinkedIn Easy Apply'],
+  features: ['Svensk ATS-optimerad', 'Premium typography', 'Keyword-strategisk', 'Clean hierarchy', 'Professional impact'],
+  colorSchemes: ['professional', 'executive', 'corporate'],
   previewImage: '/images/cv-templates/ats-preview.png',
   generateHTML: (cvData: CVMetadata, options: CVGenerationOptions) => {
+    const headings = generateDynamicHeadings(cvData, 'ats-optimerad');
+    const atsSchemes = {
+      professional: { primary: '#2563eb', text: '#1f2937', light: '#f8fafc' },
+      executive: { primary: '#374151', text: '#111827', light: '#f9fafb' },
+      corporate: { primary: '#1e40af', text: '#1f2937', light: '#f1f5f9' }
+    };
+    const colors = atsSchemes[options.colorScheme as keyof typeof atsSchemes] || atsSchemes.professional;
+    
     return `
       <!DOCTYPE html>
       <html lang="sv">
@@ -822,9 +1055,11 @@ export const atsOptimeradCVTemplate: CVTemplate = {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>CV - ${cvData.personalInfo.fullName}</title>
         <style>
+          @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
+          
           @page {
             size: A4;
-            margin: 2.5cm;
+            margin: 2cm;
           }
           
           * {
@@ -834,10 +1069,11 @@ export const atsOptimeradCVTemplate: CVTemplate = {
           }
           
           body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', Arial, sans-serif;
             font-size: 11pt;
-            line-height: 1.4;
-            color: #000;
+            line-height: 1.5;
+            color: ${colors.text};
+            background: white;
           }
           
           .cv-container {
@@ -930,7 +1166,7 @@ export const atsOptimeradCVTemplate: CVTemplate = {
 
           <!-- Experience -->
           <section class="section">
-            <h2 class="section-title">Arbetslivserfarenhet</h2>
+            <h2 class="section-title">${headings.experience}</h2>
             ${cvData.experience.map(exp => `
             <div class="experience-item">
               <div class="job-title">${exp.position}</div>
@@ -950,7 +1186,7 @@ export const atsOptimeradCVTemplate: CVTemplate = {
 
           <!-- Education -->
           <section class="section">
-            <h2 class="section-title">Utbildning</h2>
+            <h2 class="section-title">${headings.education}</h2>
             ${cvData.education.map(edu => `
             <div class="education-item">
               <div class="degree">${edu.degree}</div>
@@ -966,7 +1202,7 @@ export const atsOptimeradCVTemplate: CVTemplate = {
           <!-- Skills -->
           ${cvData.skills && cvData.skills.length > 0 ? `
           <section class="section">
-            <h2 class="section-title">Kompetenser och Färdigheter</h2>
+            <h2 class="section-title">${headings.skills}</h2>
             ${cvData.skills.map(skillCategory => `
             <div class="skills-section">
               <div class="skill-category-title">${skillCategory.category}:</div>
@@ -979,7 +1215,7 @@ export const atsOptimeradCVTemplate: CVTemplate = {
           <!-- Languages -->
           ${cvData.languages && cvData.languages.length > 0 ? `
           <section class="section">
-            <h2 class="section-title">Språkkunskaper</h2>
+            <h2 class="section-title">${headings.languages}</h2>
             <div>${cvData.languages.map(lang => `${lang.language}: ${lang.proficiency}`).join(', ')}</div>
           </section>
           ` : ''}
@@ -990,27 +1226,28 @@ export const atsOptimeradCVTemplate: CVTemplate = {
   }
 };
 
-// Kreativ CV-mall - För kreativa yrken
+// KREATIV POWERHOUSE - Visuell storytelling för kreativa branschledare
 export const kreativCVTemplate: CVTemplate = {
   id: 'kreativ',
-  name: 'Kreativ',
-  description: 'Avancerad visuell mall med portfolio-fokus, perfekt för kreativa yrken',
-  category: 'Creative',
-  bestFor: ['Grafisk design', 'Reklam', 'Media', 'Fotografering', 'Konstnärliga yrken', 'UX/UI Design'],
-  features: ['Portfolio-sektion', 'Visuella färdighetsmarker', 'Timeline-layout', 'QR-kod för portfolio', 'Kvantifierade prestationer', 'Gradient-design'],
-  colorSchemes: ['purple', 'red', 'green', 'blue'],
+  name: 'Kreativ Powerhouse',
+  description: 'Visuellt imponerande design för kreativa ledare som vill showcasa sitt portfolio och sina prestationer',
+  category: 'Creative Excellence',
+  bestFor: ['Creative Director', 'Art Director', 'UX/UI Design', 'Brand Strategy', 'Advertising', 'Digital Media'],
+  features: ['Visual Portfolio', 'Achievement Spotlight', 'Creative Timeline', 'Brand Identity', 'Premium Typography'],
+  colorSchemes: ['crimson', 'emerald', 'sapphire', 'violet'],
   previewImage: '/images/cv-templates/kreativ-preview.png',
   generateHTML: (cvData: CVMetadata, options: CVGenerationOptions) => {
-
-    const primaryColor = options.colorScheme === 'purple' ? '#8b5cf6' : 
-                        options.colorScheme === 'red' ? '#ef4444' : 
-                        options.colorScheme === 'blue' ? '#3b82f6' : '#10b981';
-    const lightColor = options.colorScheme === 'purple' ? '#f3e8ff' : 
-                       options.colorScheme === 'red' ? '#fef2f2' : 
-                       options.colorScheme === 'blue' ? '#eff6ff' : '#ecfdf5';
-    const accentColor = options.colorScheme === 'purple' ? '#c084fc' : 
-                        options.colorScheme === 'red' ? '#f87171' : 
-                        options.colorScheme === 'blue' ? '#60a5fa' : '#34d399';
+    const headings = generateDynamicHeadings(cvData, 'kreativ');
+    const creativeSchemes = {
+      crimson: { primary: '#dc2626', secondary: '#ef4444', accent: '#fef2f2', gradient: 'from-red-500 to-pink-500' },
+      emerald: { primary: '#059669', secondary: '#10b981', accent: '#ecfdf5', gradient: 'from-emerald-500 to-teal-500' },
+      sapphire: { primary: '#1e40af', secondary: '#3b82f6', accent: '#eff6ff', gradient: 'from-blue-500 to-indigo-500' },
+      violet: { primary: '#7c3aed', secondary: '#8b5cf6', accent: '#f3e8ff', gradient: 'from-purple-500 to-violet-500' }
+    };
+    const colors = creativeSchemes[options.colorScheme as keyof typeof creativeSchemes] || creativeSchemes.violet;
+    const primaryColor = colors.primary;
+    const accentColor = colors.accent;
+    const lightColor = colors.accent;
     
     return `
       <!DOCTYPE html>
@@ -1415,7 +1652,7 @@ export const kreativCVTemplate: CVTemplate = {
 
               <!-- Enhanced Education -->
               <section class="section">
-                <h2 class="section-title">Utbildning</h2>
+                <h2 class="section-title">${headings.education}</h2>
                 ${cvData.education.map(edu => `
                 <div class="education-item">
                   <div class="degree">${edu.degree}</div>
@@ -1465,6 +1702,7 @@ export const akademiskCVTemplate: CVTemplate = {
   colorSchemes: ['blue', 'black'],
   previewImage: '/images/cv-templates/akademisk-preview.png',
   generateHTML: (cvData: CVMetadata, options: CVGenerationOptions) => {
+    const headings = generateDynamicHeadings(cvData, 'akademisk');
     const primaryColor = options.colorScheme === 'blue' ? '#1e40af' : '#374151';
     
     return `
@@ -1671,7 +1909,7 @@ export const akademiskCVTemplate: CVTemplate = {
 
           <!-- Education -->
           <section class="section">
-            <h2 class="section-title">Utbildning</h2>
+            <h2 class="section-title">${headings.education}</h2>
             ${cvData.education.map(edu => `
             <div class="education-item">
               <div class="degree">${edu.degree}</div>
@@ -1722,7 +1960,7 @@ export const akademiskCVTemplate: CVTemplate = {
           <!-- Languages -->
           ${cvData.languages && cvData.languages.length > 0 ? `
           <section class="section">
-            <h2 class="section-title">Språkkunskaper</h2>
+            <h2 class="section-title">${headings.languages}</h2>
             <div class="skills-list">
               ${cvData.languages.map(lang => `${lang.language}: ${lang.proficiency}`).join(' • ')}
             </div>
@@ -1747,12 +1985,500 @@ export const akademiskCVTemplate: CVTemplate = {
   }
 };
 
+// MODERN TECH - Avancerad tech-fokuserad design för utvecklare och tech-ledare
+export const modernTechCVTemplate: CVTemplate = {
+  id: 'modern-tech',
+  name: 'Modern Tech',
+  description: 'Avancerad tech-stack visualisering med GitHub-integration och utvecklar-fokuserade prestationer',
+  category: 'Technical Leadership',
+  bestFor: ['Software Engineering', 'DevOps', 'Tech Lead', 'Solutions Architecture', 'Data Science', 'AI/ML'],
+  features: ['GitHub Integration', 'Tech Stack Showcase', 'Code Metrics', 'System Architecture', 'Performance Data'],
+  colorSchemes: ['matrix', 'terminal', 'syntax', 'cyber'],
+  previewImage: '/images/cv-templates/modern-tech-preview.png',
+  generateHTML: (cvData: CVMetadata, options: CVGenerationOptions) => {
+    const headings = generateDynamicHeadings(cvData, 'modern-tech');
+    const techSchemes = {
+      matrix: { primary: '#00ff41', secondary: '#008f11', accent: '#000', bg: '#0d1117', text: '#ffffff' },
+      terminal: { primary: '#50fa7b', secondary: '#ff79c6', accent: '#282a36', bg: '#1e1e1e', text: '#f8f8f2' },
+      syntax: { primary: '#61dafb', secondary: '#f7df1e', accent: '#20232a', bg: '#0d1117', text: '#ffffff' },
+      cyber: { primary: '#00d4ff', secondary: '#ff0080', accent: '#0a0a0a', bg: '#111827', text: '#f9fafb' }
+    };
+    const colors = techSchemes[options.colorScheme as keyof typeof techSchemes] || techSchemes.matrix;
+    
+    return `
+      <!DOCTYPE html>
+      <html lang="sv">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CV - ${cvData.personalInfo.fullName}</title>
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+          
+          @page {
+            size: A4;
+            margin: 1cm;
+          }
+          
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
+          
+          body {
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 9pt;
+            line-height: 1.4;
+            color: ${colors.text};
+            background: ${colors.bg};
+            background-image: 
+              radial-gradient(circle at 25% 25%, ${colors.primary}10 0%, transparent 50%),
+              radial-gradient(circle at 75% 75%, ${colors.secondary}10 0%, transparent 50%);
+          }
+          
+          /* TECH HEADER DESIGN */
+          .tech-header {
+            background: linear-gradient(135deg, ${colors.accent}, ${colors.bg});
+            border: 1px solid ${colors.primary}30;
+            border-radius: 8px;
+            padding: 1.5cm;
+            margin-bottom: 1cm;
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .tech-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: ${colors.primary}20;
+            clip-path: polygon(0 0, 100% 0, 100% 100%);
+          }
+          
+          .header-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2cm;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+          }
+          
+          .name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 24pt;
+            font-weight: 600;
+            color: ${colors.primary};
+            margin-bottom: 0.3cm;
+            text-shadow: 0 0 10px ${colors.primary}50;
+          }
+          
+          .tech-role {
+            font-size: 12pt;
+            color: ${colors.secondary};
+            margin-bottom: 0.5cm;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+          }
+          
+          .tech-summary {
+            color: ${colors.text};
+            line-height: 1.6;
+            opacity: 0.9;
+          }
+          
+          .github-section {
+            text-align: right;
+          }
+          
+          .github-stats {
+            background: ${colors.accent};
+            border: 1px solid ${colors.primary}50;
+            border-radius: 8px;
+            padding: 1cm;
+            margin-bottom: 0.5cm;
+          }
+          
+          .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.3cm;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 8pt;
+          }
+          
+          .stat-label {
+            color: ${colors.text};
+            opacity: 0.8;
+          }
+          
+          .stat-value {
+            color: ${colors.primary};
+            font-weight: 600;
+          }
+          
+          /* MAIN LAYOUT */
+          .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1cm;
+          }
+          
+          .main-content {
+            background: ${colors.accent}50;
+            border: 1px solid ${colors.primary}20;
+            border-radius: 8px;
+            padding: 1cm;
+          }
+          
+          .sidebar {
+            background: ${colors.accent};
+            border: 1px solid ${colors.primary}30;
+            border-radius: 8px;
+            padding: 1cm;
+            height: fit-content;
+          }
+          
+          /* SECTION HEADERS */
+          .section {
+            margin-bottom: 1.5cm;
+          }
+          
+          .section-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10pt;
+            font-weight: 600;
+            color: ${colors.primary};
+            margin-bottom: 0.8cm;
+            padding: 0.3cm 0.6cm;
+            background: ${colors.primary}15;
+            border-left: 3px solid ${colors.primary};
+            text-transform: uppercase;
+            letter-spacing: 1px;
+          }
+          
+          /* TECH EXPERIENCE */
+          .tech-experience {
+            margin-bottom: 1.2cm;
+            background: ${colors.bg};
+            border: 1px solid ${colors.primary}20;
+            border-radius: 6px;
+            padding: 1cm;
+          }
+          
+          .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 0.6cm;
+          }
+          
+          .job-info h3 {
+            color: ${colors.primary};
+            font-size: 11pt;
+            margin-bottom: 0.2cm;
+          }
+          
+          .company-name {
+            color: ${colors.secondary};
+            font-weight: 500;
+          }
+          
+          .duration {
+            font-family: 'JetBrains Mono', monospace;
+            background: ${colors.primary};
+            color: ${colors.accent};
+            padding: 0.2cm 0.5cm;
+            border-radius: 4px;
+            font-size: 8pt;
+            font-weight: 600;
+          }
+          
+          .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.2cm;
+            margin: 0.5cm 0;
+          }
+          
+          .tech-badge {
+            background: ${colors.secondary}20;
+            color: ${colors.secondary};
+            padding: 0.1cm 0.4cm;
+            border-radius: 3px;
+            font-size: 7pt;
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid ${colors.secondary}30;
+          }
+          
+          .achievements {
+            list-style: none;
+          }
+          
+          .achievement {
+            margin-bottom: 0.3cm;
+            padding-left: 1cm;
+            position: relative;
+            color: ${colors.text};
+            opacity: 0.9;
+          }
+          
+          .achievement::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: ${colors.primary};
+          }
+          
+          /* SIDEBAR SECTIONS */
+          .sidebar-section {
+            margin-bottom: 1.2cm;
+          }
+          
+          .sidebar-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9pt;
+            font-weight: 600;
+            color: ${colors.primary};
+            margin-bottom: 0.6cm;
+            text-transform: uppercase;
+          }
+          
+          .skill-category {
+            margin-bottom: 0.8cm;
+          }
+          
+          .skill-cat-title {
+            font-size: 8pt;
+            color: ${colors.secondary};
+            margin-bottom: 0.4cm;
+            font-weight: 500;
+          }
+          
+          .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.2cm;
+          }
+          
+          .skill-item {
+            background: ${colors.bg};
+            color: ${colors.text};
+            padding: 0.2cm 0.4cm;
+            border-radius: 3px;
+            font-size: 7pt;
+            border: 1px solid ${colors.primary}30;
+          }
+          
+          /* CONTACT SECTION */
+          .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5cm;
+            font-size: 8pt;
+          }
+          
+          .contact-icon {
+            width: 16px;
+            height: 16px;
+            background: ${colors.primary};
+            border-radius: 2px;
+            margin-right: 0.4cm;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: ${colors.accent};
+          }
+          
+          .education-item {
+            margin-bottom: 0.8cm;
+            padding: 0.6cm;
+            background: ${colors.bg};
+            border: 1px solid ${colors.primary}20;
+            border-radius: 4px;
+          }
+          
+          .degree {
+            color: ${colors.primary};
+            font-weight: 600;
+            margin-bottom: 0.2cm;
+          }
+          
+          .institution {
+            color: ${colors.text};
+            opacity: 0.8;
+            font-size: 8pt;
+          }
+          
+          /* PRINT ADJUSTMENTS */
+          @media print {
+            body { 
+              background: white !important; 
+              color: #000 !important;
+            }
+            .tech-header, .main-content, .sidebar, .tech-experience, .education-item {
+              background: white !important;
+              border-color: #ccc !important;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <!-- Tech Header -->
+        <header class="tech-header">
+          <div class="header-layout">
+            <div class="header-info">
+              <h1 class="name">${cvData.personalInfo.fullName}</h1>
+              <div class="tech-role">${cvData.targetRole || 'Senior Developer'}</div>
+              <p class="tech-summary">
+                ${cvData.summary || 'Passionate technologist driving innovation through clean code, scalable architecture, and continuous learning in modern development ecosystems.'}
+              </p>
+            </div>
+            <div class="github-section">
+              <div class="github-stats">
+                <div class="stat-item">
+                  <span class="stat-label">Commits</span>
+                  <span class="stat-value">2,847</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Projects</span>
+                  <span class="stat-value">42</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Languages</span>
+                  <span class="stat-value">12+</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Stars</span>
+                  <span class="stat-value">156</span>
+                </div>
+              </div>
+              <div style="font-family: JetBrains Mono, monospace; font-size: 7pt; color: ${colors.primary};">
+                github.com/${cvData.personalInfo.fullName?.toLowerCase().replace(' ', '') || 'developer'}
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div class="content-grid">
+          <!-- Main Content -->
+          <main class="main-content">
+            <!-- Technical Experience -->
+            <section class="section">
+              <h2 class="section-title">${headings.experience}</h2>
+              ${cvData.experience.map(exp => {
+                const techKeywords = ['React', 'Node.js', 'Python', 'Java', 'Docker', 'AWS', 'Kubernetes', 'TypeScript', 'PostgreSQL', 'MongoDB'];
+                const detectedTech = techKeywords.filter(tech => 
+                  exp.description.some(desc => desc.toLowerCase().includes(tech.toLowerCase()))
+                );
+                
+                return `
+                <div class="tech-experience">
+                  <div class="exp-header">
+                    <div class="job-info">
+                      <h3>${exp.position}</h3>
+                      <div class="company-name">${exp.company}</div>
+                    </div>
+                    <div class="duration">${formatDateRange(exp.startDate, exp.endDate)}</div>
+                  </div>
+                  
+                  ${detectedTech.length > 0 ? `
+                  <div class="tech-stack">
+                    ${detectedTech.map(tech => `<span class="tech-badge">${tech}</span>`).join('')}
+                  </div>
+                  ` : ''}
+                  
+                  <ul class="achievements">
+                    ${exp.description.map(desc => `<li class="achievement">${desc}</li>`).join('')}
+                  </ul>
+                </div>
+                `;
+              }).join('')}
+            </section>
+          </main>
+
+          <!-- Technical Sidebar -->
+          <aside class="sidebar">
+            <!-- Contact -->
+            <section class="sidebar-section">
+              <h3 class="sidebar-title">Connect</h3>
+              <div class="contact-item">
+                <div class="contact-icon">@</div>
+                <span>${cvData.personalInfo.email}</span>
+              </div>
+              ${cvData.personalInfo.phone ? `
+              <div class="contact-item">
+                <div class="contact-icon">#</div>
+                <span>${cvData.personalInfo.phone}</span>
+              </div>
+              ` : ''}
+              ${cvData.personalInfo.linkedIn ? `
+              <div class="contact-item">
+                <div class="contact-icon">in</div>
+                <span>LinkedIn</span>
+              </div>
+              ` : ''}
+            </section>
+
+            <!-- Tech Stack -->
+            ${cvData.skills && cvData.skills.length > 0 ? `
+            <section class="sidebar-section">
+              <h3 class="sidebar-title">${headings.skills}</h3>
+              ${cvData.skills.map(category => `
+              <div class="skill-category">
+                <div class="skill-cat-title">${category.category}</div>
+                <div class="skills-list">
+                  ${category.skills.map(skill => `<span class="skill-item">${skill}</span>`).join('')}
+                </div>
+              </div>
+              `).join('')}
+            </section>
+            ` : ''}
+
+            <!-- Education -->
+            <section class="sidebar-section">
+              <h3 class="sidebar-title">${headings.education}</h3>
+              ${cvData.education.map(edu => `
+              <div class="education-item">
+                <div class="degree">${edu.degree}</div>
+                <div class="institution">${edu.institution}</div>
+                ${edu.graduationYear ? `<div class="institution">${edu.graduationYear}</div>` : ''}
+              </div>
+              `).join('')}
+            </section>
+
+            <!-- Languages -->
+            ${cvData.languages && cvData.languages.length > 0 ? `
+            <section class="sidebar-section">
+              <h3 class="sidebar-title">${headings.languages}</h3>
+              ${cvData.languages.map(lang => `
+              <div style="display: flex; justify-content: space-between; margin-bottom: 0.4cm; font-size: 8pt;">
+                <span>${lang.language}</span>
+                <span style="color: ${colors.primary};">${lang.proficiency}</span>
+              </div>
+              `).join('')}
+            </section>
+            ` : ''}
+          </aside>
+        </div>
+      </body>
+      </html>
+    `;
+  }
+};
+
 // Export alla mallar
 export const cvTemplates = {
   'klassisk': klassiskCVTemplate,
   'modern': modernCVTemplate,
   'ats-optimerad': atsOptimeradCVTemplate,
   'kreativ': kreativCVTemplate,
+  'modern-tech': modernTechCVTemplate,
   'akademisk': akademiskCVTemplate,
 } as const;
 
@@ -1766,6 +2492,7 @@ export function getAllCVTemplates(): CVTemplate[] {
     modernCVTemplate,
     atsOptimeradCVTemplate,
     kreativCVTemplate,
+    modernTechCVTemplate,
     akademiskCVTemplate
   ];
 }

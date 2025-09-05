@@ -14,7 +14,6 @@ import { useProfile } from '@/hooks/use-profile';
 import Notification from '@/components/ui/notification';
 import TemplatePreview from '@/components/cv/template-preview';
 import { CVMallarErrorBoundary } from '@/components/cv/cv-mallar-error-boundary';
-import AIRecommendations from '@/components/cv/ai-recommendations';
 import ATSOptimizer from '@/components/cv/ats-optimizer';
 import TemplateCustomizer, { type TemplateCustomization } from '@/components/cv/template-customizer';
 import SuccessCelebration from '@/components/cv/success-celebration';
@@ -30,10 +29,7 @@ export default function CVMallarPage() {
     selectedCV, 
     selectCV,
     trackTemplateUsage,
-    getTemplateRecommendations,
-    getMostUsedTemplates,
-    getAIRecommendations,
-    getQuickSmartRecommendations
+    getMostUsedTemplates
   } = useCVStore();
   const { profile, loading: profileLoading } = useProfile();
   
@@ -80,14 +76,9 @@ export default function CVMallarPage() {
           selectCV(currentCVs[0].id);
         }
         
-        // Auto-select recommended template
+        // Auto-select default template
         if (!selectedTemplate) {
-          const recommendations = getTemplateRecommendations();
-          if (recommendations.length > 0) {
-            setSelectedTemplate(recommendations[0]);
-          } else {
-            setSelectedTemplate('modern'); // Default fallback
-          }
+          setSelectedTemplate('modern'); // Default template
         }
         
         setIsInitialized(true);
@@ -97,7 +88,7 @@ export default function CVMallarPage() {
     };
     
     initialize();
-  }, [profile, profileLoading, router, fetchCVs, selectCV, selectedCV, selectedTemplate, getTemplateRecommendations, isInitialized]);
+  }, [profile, profileLoading, router, fetchCVs, selectCV, selectedCV, selectedTemplate, isInitialized]);
   
   // Notification helpers
   const showNotification = useCallback((type: 'loading' | 'success' | 'error' | 'info', message: string, duration: number = 5000) => {
@@ -187,22 +178,12 @@ export default function CVMallarPage() {
     }
   }, [selectedTemplate, selectedCV, trackTemplateUsage, showNotification, closeNotification]);
   
-  // Get template recommendations and analytics
-  const templateRecommendations = getTemplateRecommendations();
+  // Get analytics data
   const mostUsedTemplates = getMostUsedTemplates();
-  const quickSmartRecommendations = selectedCV ? getQuickSmartRecommendations(selectedCV.id) : [];
-  
-  const isTemplateRecommended = useCallback((templateId: CVTemplateType) => {
-    return templateRecommendations.includes(templateId);
-  }, [templateRecommendations]);
   
   const isTemplatePopular = useCallback((templateId: CVTemplateType) => {
     return mostUsedTemplates.some(usage => usage.templateId === templateId);
   }, [mostUsedTemplates]);
-  
-  const isSmartRecommended = useCallback((templateId: CVTemplateType) => {
-    return quickSmartRecommendations.includes(templateId);
-  }, [quickSmartRecommendations]);
 
   const getTemplateIcon = (templateId: CVTemplateType) => {
     const icons = {
@@ -210,7 +191,8 @@ export default function CVMallarPage() {
       'modern': Palette,
       'kreativ': Zap,
       'ats-optimerad': Users,
-      'akademisk': BookOpen
+      'akademisk': BookOpen,
+      'modern-tech': Zap
     };
     return icons[templateId] || FileText;
   };
@@ -346,15 +328,6 @@ export default function CVMallarPage() {
             </div>
           </div>
           
-          {/* AI-Powered Recommendations */}
-          <AIRecommendations
-            selectedCV={selectedCV}
-            onSelectTemplate={handleTemplateSelect}
-            getAIRecommendations={getAIRecommendations}
-            getQuickSmartRecommendations={getQuickSmartRecommendations}
-            selectedTemplate={selectedTemplate}
-            className="mt-6"
-          />
           
           {/* Template Customizer */}
           <TemplateCustomizer
@@ -492,27 +465,10 @@ export default function CVMallarPage() {
                     <CardContent className="space-y-4">
                       {/* Swedish context badges */}
                       <div className="flex flex-wrap gap-2 mb-3">
-                        {isSmartRecommended(template.id) && (
-                          <Badge className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-xs">
-                            <Star className="w-3 h-3 mr-1" />
-                            AI-Rekommenderad
-                          </Badge>
-                        )}
-                        {isTemplateRecommended(template.id) && !isSmartRecommended(template.id) && (
-                          <Badge className="bg-gradient-to-r from-pink-500 to-purple-500 text-white text-xs">
-                            <Star className="w-3 h-3 mr-1" />
-                            Rekommenderad för dig
-                          </Badge>
-                        )}
                         {isTemplatePopular(template.id) && (
                           <Badge className="bg-green-600 text-white text-xs">
                             <TrendingUp className="w-3 h-3 mr-1" />
                             Populär
-                          </Badge>
-                        )}
-                        {quickSmartRecommendations.indexOf(template.id) === 0 && (
-                          <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs">
-                            #1 Val för dig
                           </Badge>
                         )}
                       </div>
