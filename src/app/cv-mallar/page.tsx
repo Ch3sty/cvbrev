@@ -14,7 +14,6 @@ import { useProfile } from '@/hooks/use-profile';
 import Notification from '@/components/ui/notification';
 import TemplatePreview from '@/components/cv/template-preview';
 import { CVMallarErrorBoundary } from '@/components/cv/cv-mallar-error-boundary';
-import ATSOptimizer from '@/components/cv/ats-optimizer';
 import TemplateCustomizer, { type TemplateCustomization } from '@/components/cv/template-customizer';
 import SuccessCelebration from '@/components/cv/success-celebration';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -49,6 +48,15 @@ export default function CVMallarPage() {
   } | null>(null);
   const [notification, setNotification] = useState({
     isVisible: false, message: '', type: 'loading' as 'loading' | 'success' | 'error' | 'info'
+  });
+  
+  // Modal state for template preview
+  const [previewModal, setPreviewModal] = useState<{
+    isOpen: boolean;
+    templateId: CVTemplateType | null;
+  }>({
+    isOpen: false,
+    templateId: null
   });
   
   // Single initialization effect (eliminates useEffect chains)
@@ -119,6 +127,21 @@ export default function CVMallarPage() {
   
   const handlePreviewUpdate = useCallback((shouldUpdate: boolean) => {
     setShouldUpdatePreview(shouldUpdate);
+  }, []);
+  
+  // Modal functions
+  const openPreviewModal = useCallback((templateId: CVTemplateType) => {
+    setPreviewModal({
+      isOpen: true,
+      templateId
+    });
+  }, []);
+  
+  const closePreviewModal = useCallback(() => {
+    setPreviewModal({
+      isOpen: false,
+      templateId: null
+    });
   }, []);
 
   const handleGenerateCV = useCallback(async () => {
@@ -462,51 +485,31 @@ export default function CVMallarPage() {
                       </CardDescription>
                     </CardHeader>
 
-                    <CardContent className="space-y-4">
-                      {/* Swedish context badges */}
-                      <div className="flex flex-wrap gap-2 mb-3">
-                        {isTemplatePopular(template.id) && (
-                          <Badge className="bg-green-600 text-white text-xs">
-                            <TrendingUp className="w-3 h-3 mr-1" />
-                            Populär
-                          </Badge>
-                        )}
-                      </div>
-
-                      <div>
-                        <h4 className="font-medium text-sm mb-2 text-white">Optimerad för svenska företag:</h4>
+                    <CardContent className="space-y-3">
+                      <div className="flex items-center justify-between">
                         <div className="flex flex-wrap gap-1">
-                          {template.bestFor.map((item, index) => (
-                            <Badge key={index} variant="secondary" className="text-xs bg-navy-600 text-gray-300">
-                              {item}
+                          {isTemplatePopular(template.id) && (
+                            <Badge className="bg-green-600 text-white text-xs">
+                              <TrendingUp className="w-3 h-3 mr-1" />
+                              Populär
                             </Badge>
-                          ))}
+                          )}
+                          <Badge variant="outline" className="text-xs border-green-500 text-green-400">
+                            ATS-kompatibel
+                          </Badge>
                         </div>
-                      </div>
-
-                      <div>
-                        <h4 className="font-medium text-sm mb-2 text-white">Premiumfunktioner:</h4>
-                        <ul className="text-sm text-gray-300 space-y-1">
-                          {template.features.map((feature, index) => (
-                            <li key={index} className="flex items-center gap-2">
-                              <Check className="w-3 h-3 text-green-400 flex-shrink-0" />
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div className="pt-3 border-t border-navy-600">
-                        <div className="grid grid-cols-2 gap-4 text-xs">
-                          <div>
-                            <span className="text-gray-400">ATS-kompatibilitet:</span>
-                            <div className="text-green-400 font-medium">100%</div>
-                          </div>
-                          <div>
-                            <span className="text-gray-400">Svenska standarder:</span>
-                            <div className="text-blue-400 font-medium">Godkänd</div>
-                          </div>
-                        </div>
+                        
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="text-pink-400 hover:text-pink-300 hover:bg-navy-600"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            openPreviewModal(template.id);
+                          }}
+                        >
+                          <Eye className="w-4 h-4" />
+                        </Button>
                       </div>
                     </CardContent>
                   </Card>
@@ -515,38 +518,7 @@ export default function CVMallarPage() {
               })}
             </div>
             
-            {/* Enhanced Preview Area with new component */}
-            {selectedTemplate && (
-              <div className="mt-6">
-                <h3 className="text-lg font-semibold text-white mb-4 flex items-center">
-                  <Eye className="w-5 h-5 mr-2 text-pink-400" />
-                  Förhandsvisning: {getAllCVTemplates().find(t => t.id === selectedTemplate)?.name}
-                  {isPreviewReady && (
-                    <Badge variant="outline" className="ml-2 border-green-500 text-green-400 text-xs">
-                      <Check className="w-3 h-3 mr-1" />
-                      Redo
-                    </Badge>
-                  )}
-                </h3>
-                <TemplatePreview
-                  templateId={selectedTemplate}
-                  cvData={selectedCV}
-                  onPreviewReady={setIsPreviewReady}
-                  className="mb-6"
-                />
-              </div>
-            )}
             
-            {/* ATS Optimization Analysis */}
-            {selectedTemplate && selectedCV && (
-              <div className="mt-6">
-                <ATSOptimizer
-                  selectedCV={selectedCV}
-                  selectedTemplate={selectedTemplate}
-                  className="mb-6"
-                />
-              </div>
-            )}
             
             {/* Enhanced Instructions with Swedish context */}
             <div className="mt-8 space-y-6">
@@ -664,48 +636,86 @@ export default function CVMallarPage() {
             </div>
           </div>
           
-          {/* Swedish companies testimonials */}
-          <div className="bg-navy-900/50 rounded-lg p-6 border border-navy-700">
-            <h3 className="text-lg font-semibold text-white mb-4 text-center">
-              Använt av kandidater på ledande svenska företag
-            </h3>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 items-center opacity-60">
-              <div className="text-center">
-                <div className="text-gray-400 font-bold text-lg">H&M</div>
-                <div className="text-xs text-gray-500">Mode & Retail</div>
-              </div>
-              <div className="text-center">
-                <div className="text-gray-400 font-bold text-lg">Spotify</div>
-                <div className="text-xs text-gray-500">Musik & Tech</div>
-              </div>
-              <div className="text-center">
-                <div className="text-gray-400 font-bold text-lg">Volvo</div>
-                <div className="text-xs text-gray-500">Industri & Teknik</div>
-              </div>
-              <div className="text-center">
-                <div className="text-gray-400 font-bold text-lg">Klarna</div>
-                <div className="text-xs text-gray-500">Fintech</div>
-              </div>
-              <div className="text-center">
-                <div className="text-gray-400 font-bold text-lg">Ericsson</div>
-                <div className="text-xs text-gray-500">Telekom</div>
-              </div>
-            </div>
-            
-            <div className="mt-6 pt-6 border-t border-navy-700">
-              <blockquote className="text-center">
-                <p className="text-gray-300 italic mb-3">
-                  "Jobbcoach.ai hjälpte mig skapa ett CV som verkligen sticker ut på svenska jobbportaler. 
-                  Fick 3 intervjuer första veckan!"
-                </p>
-                <footer className="text-gray-400 text-sm">
-                  — Anna L., Marketing Manager, Stockholm
-                </footer>
-              </blockquote>
-            </div>
-          </div>
         </div>
       </section>
+      
+      {/* Template Preview Modal */}
+      <AnimatePresence>
+        {previewModal.isOpen && previewModal.templateId && (
+          <motion.div
+            className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closePreviewModal}
+          >
+            <motion.div
+              className="bg-navy-800 rounded-lg border border-navy-600 max-w-4xl max-h-[90vh] overflow-auto relative"
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-6 border-b border-navy-600">
+                <div>
+                  <h3 className="text-xl font-semibold text-white flex items-center">
+                    <Eye className="w-5 h-5 mr-2 text-pink-400" />
+                    Förhandsvisning: {getAllCVTemplates().find(t => t.id === previewModal.templateId)?.name}
+                  </h3>
+                  <p className="text-gray-400 text-sm mt-1">
+                    Se hur din CV kommer att se ut med denna mall
+                  </p>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={closePreviewModal}
+                  className="text-gray-400 hover:text-white hover:bg-navy-700"
+                >
+                  ✕
+                </Button>
+              </div>
+              
+              {/* Modal Content */}
+              <div className="p-6">
+                <TemplatePreview
+                  templateId={previewModal.templateId}
+                  cvData={selectedCV}
+                  onPreviewReady={() => {}}
+                />
+              </div>
+              
+              {/* Modal Footer */}
+              <div className="flex items-center justify-between p-6 border-t border-navy-600">
+                <div className="text-sm text-gray-400">
+                  Klicka på mallen för att välja den
+                </div>
+                <div className="flex gap-3">
+                  <Button
+                    variant="outline"
+                    onClick={closePreviewModal}
+                    className="border-navy-600 text-gray-300 hover:bg-navy-700"
+                  >
+                    Stäng
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      if (previewModal.templateId) {
+                        handleTemplateSelect(previewModal.templateId);
+                        closePreviewModal();
+                      }
+                    }}
+                    className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700"
+                  >
+                    Välj denna mall
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       
       {/* Success Celebration Modal */}
       <SuccessCelebration
