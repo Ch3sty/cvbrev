@@ -370,7 +370,7 @@ function extractBasicExperience(rawText: string) {
               company: parts[1].trim(),
               location: '',
               startDate: '2020-01-01',
-              endDate: null,
+              endDate: undefined,
               description: [`Arbetade som ${parts[0].toLowerCase().trim()}`],
               achievements: []
             });
@@ -398,7 +398,7 @@ function extractBasicExperience(rawText: string) {
         company: job,
         location: '',
         startDate: `${2022 - index}-01-01`,
-        endDate: index === 0 ? null : `${2023 - index}-01-01`,
+        endDate: index === 0 ? undefined : `${2023 - index}-01-01`,
         description: ['Relevant arbetslivserfarenhet'],
         achievements: []
       });
@@ -410,7 +410,7 @@ function extractBasicExperience(rawText: string) {
     company: 'Se bifogad information',
     location: '',
     startDate: '2020-01-01',
-    endDate: null,
+    endDate: undefined,
     description: ['Detaljerad information finns i originaltext'],
     achievements: []
   }];
@@ -441,7 +441,7 @@ function extractBasicEducation(rawText: string) {
               location: '',
               graduationYear: '2020',
               field: '',
-              honors: []
+              honors: undefined
             });
           } else {
             education.push({
@@ -450,7 +450,7 @@ function extractBasicEducation(rawText: string) {
               location: '',
               graduationYear: '2020',
               field: '',
-              honors: []
+              honors: undefined
             });
           }
         }
@@ -465,7 +465,7 @@ function extractBasicEducation(rawText: string) {
     location: '',
     graduationYear: '2020',
     field: '',
-    honors: []
+    honors: undefined
   }];
 }
 
@@ -477,9 +477,9 @@ function extractBasicSkills(rawText: string) {
   const commonTechSkills = ['javascript', 'python', 'java', 'react', 'node', 'sql', 'html', 'css', 'git', 'docker', 'aws', 'azure'];
   const commonSoftSkills = ['kommunikation', 'ledarskap', 'problemlösning', 'teamwork', 'projektledning'];
   
-  const foundTechSkills = [];
-  const foundSoftSkills = [];
-  const foundLanguages = [];
+  const foundTechSkills: string[] = [];
+  const foundSoftSkills: string[] = [];
+  const foundLanguages: string[] = [];
   
   const lowerText = rawText.toLowerCase();
   
@@ -534,7 +534,7 @@ function extractBasicSkills(rawText: string) {
  * Extrahera grundläggande språkkunskaper
  */
 function extractBasicLanguages(rawText: string) {
-  const languages = [];
+  const languages: { language: string; proficiency: 'Nybörjare' | 'Konversation' | 'Flyt' | 'Modersmål' | 'Tvåspråkig' }[] = [];
   const lowerText = rawText.toLowerCase();
   
   const languagePatterns = {
@@ -547,14 +547,16 @@ function extractBasicLanguages(rawText: string) {
   
   Object.entries(languagePatterns).forEach(([lang, patterns]) => {
     if (patterns.some(pattern => lowerText.includes(pattern))) {
-      let level = 'Grundläggande';
+      let level: 'Nybörjare' | 'Konversation' | 'Flyt' | 'Modersmål' | 'Tvåspråkig' = 'Nybörjare';
       if (lowerText.includes('modersmål') || lowerText.includes('native')) {
         level = 'Modersmål';
       } else if (lowerText.includes('flyt') || lowerText.includes('fluent')) {
-        level = 'Flytande';
+        level = 'Flyt';
+      } else if (lowerText.includes('konversation')) {
+        level = 'Konversation';
       }
       
-      languages.push({ name: lang, level });
+      languages.push({ language: lang, proficiency: level });
     }
   });
   
