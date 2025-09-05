@@ -74,9 +74,9 @@ export async function POST(request: NextRequest) {
 }
 
 /**
- * Server-side CV parsing funktion (flyttad från cv-parser-ai.ts)
+ * Server-side CV parsing funktion (exporterad för intern användning)
  */
-async function parseCVWithAIServerSide(cvText: string): Promise<AIParseResult> {
+export async function parseCVWithAIServerSide(cvText: string): Promise<AIParseResult> {
   const startTime = Date.now();
   
   // Begränsa input för att hålla kostnader nere
@@ -286,7 +286,7 @@ VIKTIGA INSTRUKTIONER:
 /**
  * Förbättrad fallback-extraktion för grundläggande personlig info
  */
-function extractBasicPersonalInfo(rawText: string) {
+export function extractBasicPersonalInfo(rawText: string) {
   const emailRegex = /[\w.-]+@[\w.-]+\.\w+/;
   const phoneRegex = /(\+46|0)[\s-]?[\d\s-]{8,}/;
   const linkedInRegex = /linkedin\.com\/in\/[\w-]+/i;
@@ -322,7 +322,7 @@ function extractBasicPersonalInfo(rawText: string) {
 /**
  * Extrahera grundläggande sammanfattning från CV-text
  */
-function extractBasicSummary(rawText: string): string {
+export function extractBasicSummary(rawText: string): string {
   const lines = rawText.split('\n').filter(line => line.trim());
   
   // Leta efter sammanfattnings-sektioner
@@ -350,7 +350,7 @@ function extractBasicSummary(rawText: string): string {
 /**
  * Extrahera grundläggande arbetslivserfarenhet
  */
-function extractBasicExperience(rawText: string) {
+export function extractBasicExperience(rawText: string) {
   const lines = rawText.split('\n').filter(line => line.trim());
   const experienceKeywords = ['arbetslivserfarenhet', 'experience', 'anställning', 'tjänst', 'position', 'work'];
   const experiences = [];
@@ -419,7 +419,7 @@ function extractBasicExperience(rawText: string) {
 /**
  * Extrahera grundläggande utbildning
  */
-function extractBasicEducation(rawText: string) {
+export function extractBasicEducation(rawText: string) {
   const lines = rawText.split('\n').filter(line => line.trim());
   const educationKeywords = ['utbildning', 'education', 'examen', 'universitet', 'högskola', 'degree'];
   const education = [];
@@ -472,7 +472,7 @@ function extractBasicEducation(rawText: string) {
 /**
  * Extrahera grundläggande färdigheter
  */
-function extractBasicSkills(rawText: string) {
+export function extractBasicSkills(rawText: string) {
   const skillsKeywords = ['kompetenser', 'skills', 'färdigheter', 'kunskaper', 'teknisk', 'technical'];
   const commonTechSkills = ['javascript', 'python', 'java', 'react', 'node', 'sql', 'html', 'css', 'git', 'docker', 'aws', 'azure'];
   const commonSoftSkills = ['kommunikation', 'ledarskap', 'problemlösning', 'teamwork', 'projektledning'];
@@ -533,7 +533,7 @@ function extractBasicSkills(rawText: string) {
 /**
  * Extrahera grundläggande språkkunskaper
  */
-function extractBasicLanguages(rawText: string) {
+export function extractBasicLanguages(rawText: string) {
   const languages: { language: string; proficiency: 'Nybörjare' | 'Konversation' | 'Flyt' | 'Modersmål' | 'Tvåspråkig' }[] = [];
   const lowerText = rawText.toLowerCase();
   

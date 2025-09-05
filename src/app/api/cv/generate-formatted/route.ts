@@ -1,7 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAllCVTemplates, optimizeContentForTemplate, generateHTMLSafely } from '@/lib/cv/cv-templates';
 import type { CVTemplateType, CVMetadata, CVGenerationOptions } from '@/lib/cv/cv-metadata';
-import { parseCVWithAI, validateCVData } from '@/lib/openai/cv-parser-ai';
+import { validateCVData } from '@/lib/openai/cv-parser-ai';
+import { 
+  parseCVWithAIServerSide,
+  extractBasicPersonalInfo,
+  extractBasicSummary,
+  extractBasicExperience,
+  extractBasicEducation,
+  extractBasicSkills,
+  extractBasicLanguages
+} from '../parse/route';
 
 // Använder samma approach som letters API - dynamisk import av Puppeteer
 async function createCVPDF(html: string): Promise<Buffer> {
@@ -76,8 +85,8 @@ async function extractCVContent(rawText: string): Promise<CVMetadata> {
   console.log('Använder AI-driven CV-parsing...');
   
   try {
-    // Använd AI-baserad parsing för bästa resultat
-    const aiResult = await parseCVWithAI(rawText);
+    // Använd server-side AI-baserad parsing för bästa resultat
+    const aiResult = await parseCVWithAIServerSide(rawText);
     
     // Logga metadata för insikter och debugging
     console.log('AI CV Parsing SUCCESS - metadata:', {
@@ -100,9 +109,27 @@ async function extractCVContent(rawText: string): Promise<CVMetadata> {
   }
 }
 
-// Behåll ursprunglig logik som fallback
+// Förbättrad fallback som använder server-side extraktionsfunktioner
 async function extractCVContentFallback(rawText: string): Promise<CVMetadata> {
-  console.log('Använder fallback regex-baserad parsing...');
+  console.log('Använder förbättrad fallback-parsing...');
+  
+  return {
+    personalInfo: extractBasicPersonalInfo(rawText),
+    summary: extractBasicSummary(rawText),
+    experience: extractBasicExperience(rawText),
+    education: extractBasicEducation(rawText),
+    skills: extractBasicSkills(rawText),
+    projects: [],
+    certifications: [],
+    languages: extractBasicLanguages(rawText),
+    interests: [],
+    references: 'Referenser lämnas på begäran'
+  };
+}
+
+// Gammal fallback-logik (behållen som backup)
+async function extractCVContentOldFallback(rawText: string): Promise<CVMetadata> {
+  console.log('Använder gammal fallback regex-baserad parsing...');
   
   const lines = rawText.split('\n').filter(line => line.trim());
   
