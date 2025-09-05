@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllCVTemplates } from '@/lib/cv/cv-templates';
+import { getAllCVTemplates, optimizeContentForTemplate } from '@/lib/cv/cv-templates';
 import type { CVTemplateType, CVMetadata, CVGenerationOptions } from '@/lib/cv/cv-metadata';
+import { parseCVWithAI, validateCVData } from '@/lib/openai/cv-parser-ai';
 
 // Använder samma approach som letters API - dynamisk import av Puppeteer
 async function createCVPDF(html: string): Promise<Buffer> {
@@ -69,14 +70,41 @@ async function createCVPDF(html: string): Promise<Buffer> {
   }
 }
 
-// AI-powered content extraction function
+
+// AI-powered content extraction function - UPPGRADERAD!
 async function extractCVContent(rawText: string): Promise<CVMetadata> {
-  // TODO: Implementera OpenAI API för intelligent CV-parsing
-  // För nu använder vi en enkel regex-baserad parser
+  console.log('Använder AI-driven CV-parsing...');
+  
+  try {
+    // Använd AI-baserad parsing för bästa resultat
+    const aiResult = await parseCVWithAI(rawText);
+    
+    // Logga metadata för insikter
+    console.log('AI CV Parsing metadata:', {
+      model: aiResult.metadata.model,
+      cost: aiResult.metadata.cost,
+      processingTime: aiResult.metadata.processingTime,
+      detectedIndustry: aiResult.metadata.detectedIndustry,
+      confidenceScore: aiResult.metadata.confidenceScore
+    });
+    
+    // Validera och returnera strukturerad data
+    return validateCVData(aiResult.cvData);
+    
+  } catch (error) {
+    console.error('AI CV-parsing misslyckades, använder fallback:', error);
+    
+    // Fallback till enkel regex-baserad parsing vid AI-fel
+    return extractCVContentFallback(rawText);
+  }
+}
+
+// Behåll ursprunglig logik som fallback
+async function extractCVContentFallback(rawText: string): Promise<CVMetadata> {
+  console.log('Använder fallback regex-baserad parsing...');
   
   const lines = rawText.split('\n').filter(line => line.trim());
   
-  // Grundläggande parsing - detta kommer förbättras med AI
   const extractPersonalInfo = () => {
     const emailRegex = /[\w.-]+@[\w.-]+\.\w+/;
     const phoneRegex = /(\+46|0)[\s-]?[\d\s-]{8,}/;
@@ -84,7 +112,6 @@ async function extractCVContent(rawText: string): Promise<CVMetadata> {
     const email = rawText.match(emailRegex)?.[0] || '';
     const phone = rawText.match(phoneRegex)?.[0] || '';
     
-    // Hitta namn (vanligtvis första icke-tomma raden eller före email)
     const nameCandidate = lines.find(line => 
       line.trim().length > 5 && 
       !line.includes('@') && 
@@ -104,14 +131,12 @@ async function extractCVContent(rawText: string): Promise<CVMetadata> {
   };
   
   const extractExperience = () => {
-    // Enkel parsing av arbetslivserfarenhet
     const experienceKeywords = ['arbetslivserfarenhet', 'experience', 'anställning', 'tjänst', 'position'];
     const experiences = [];
     
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i].toLowerCase();
       if (experienceKeywords.some(keyword => line.includes(keyword))) {
-        // Hitta nästa sektion med arbetslivserfarenhet
         for (let j = i + 1; j < lines.length; j++) {
           const expLine = lines[j];
           if (expLine.includes(' - ') && expLine.length > 10) {
@@ -174,7 +199,6 @@ async function extractCVContent(rawText: string): Promise<CVMetadata> {
     
     for (const line of lines) {
       if (skillsKeywords.some(keyword => line.toLowerCase().includes(keyword))) {
-        // Enkel kommaseparerad skills parsing
         const skillsText = line.replace(/kompetenser:|skills:|färdigheter:|kunskaper:/gi, '').trim();
         if (skillsText) {
           const skillArray = skillsText.split(',').map(s => s.trim()).filter(s => s.length > 0);
@@ -230,7 +254,11 @@ export async function POST(request: NextRequest) {
     
     // Extrahera CV-innehåll med AI
     console.log('Extraherar CV-innehåll...');
-    const cvData = await extractCVContent(cvText);
+    const extractedCVData = await extractCVContent(cvText);
+    
+    // Optimera innehåll för vald mall
+    console.log('Optimerar innehåll för mall:', template);
+    const cvData = optimizeContentForTemplate(extractedCVData, template);
     
     // Generera HTML med vald mall
     const options: CVGenerationOptions = {
@@ -240,7 +268,7 @@ export async function POST(request: NextRequest) {
       includePhoto: false
     };
     
-    console.log('Genererar HTML med mall:', template);
+    console.log('Genererar HTML med optimerat innehåll för mall:', template);
     const html = selectedTemplate.generateHTML(cvData, options);
     
     // Generera PDF med samma approach som letters API
