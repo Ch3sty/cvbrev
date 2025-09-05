@@ -79,13 +79,14 @@ async function extractCVContent(rawText: string): Promise<CVMetadata> {
     // Använd AI-baserad parsing för bästa resultat
     const aiResult = await parseCVWithAI(rawText);
     
-    // Logga metadata för insikter
-    console.log('AI CV Parsing metadata:', {
+    // Logga metadata för insikter och debugging
+    console.log('AI CV Parsing SUCCESS - metadata:', {
       model: aiResult.metadata.model,
       cost: aiResult.metadata.cost,
       processingTime: aiResult.metadata.processingTime,
       detectedIndustry: aiResult.metadata.detectedIndustry,
-      confidenceScore: aiResult.metadata.confidenceScore
+      confidenceScore: aiResult.metadata.confidenceScore,
+      tokensUsed: aiResult.metadata.tokens
     });
     
     // Validera och returnera strukturerad data

@@ -49,6 +49,7 @@ export default function CVMallarPage() {
     fileName: string;
     generationTime: number;
     atsScore?: number;
+    downloadUrl?: string;
   } | null>(null);
   const [notification, setNotification] = useState({
     isVisible: false, message: '', type: 'loading' as 'loading' | 'success' | 'error' | 'info'
@@ -154,23 +155,21 @@ export default function CVMallarPage() {
       if (response.ok) {
         const blob = await response.blob();
         const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `cv-${selectedTemplate}-${selectedCV.file_name.replace(/\.[^/.]+$/, '')}.pdf`;
-        a.click();
-        URL.revokeObjectURL(url);
+        
+        // Spara nedladdnings-URL istället för att ladda ned automatiskt
+        const fileName = `cv-${selectedTemplate}-${selectedCV.file_name.replace(/\.[^/.]+$/, '')}.pdf`;
         
         // Track successful template usage
         const generationTime = performance.now() - startTime;
         trackTemplateUsage(selectedTemplate, generationTime);
         
-        // Set up celebration data
-        const fileName = `cv-${selectedTemplate}-${selectedCV.file_name.replace(/\.[^/.]+$/, '')}.pdf`;
+        // Set up celebration data med nedladdnings-URL
         setLastGenerationData({
           templateName: selectedTemplate,
           fileName: fileName,
           generationTime: generationTime,
-          atsScore: selectedTemplate === 'ats-optimerad' ? 92 : Math.floor(Math.random() * 20) + 70
+          atsScore: selectedTemplate === 'ats-optimerad' ? 92 : Math.floor(Math.random() * 20) + 70,
+          downloadUrl: url
         });
         
         closeNotification();
@@ -760,6 +759,7 @@ export default function CVMallarPage() {
         fileName={lastGenerationData?.fileName || ''}
         generationTime={lastGenerationData?.generationTime}
         atsScore={lastGenerationData?.atsScore}
+        downloadUrl={lastGenerationData?.downloadUrl}
       />
       
       </motion.div>

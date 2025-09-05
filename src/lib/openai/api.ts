@@ -301,7 +301,7 @@ export async function generateCoverLetter(
     ${truncatedJobDesc}
     `;
 
-    const modelToUse = "gpt-4.1"; // Behåller din valda modell
+    const modelToUse = "gpt-4o"; // Använd gpt-4o för bästa balans mellan kvalitet och kostnad
 
     // Anropa ChatGPT API för att generera brev (oförändrat)
     const completion = await openai.chat.completions.create({

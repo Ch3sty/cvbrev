@@ -23,6 +23,7 @@ interface SuccessCelebrationProps {
   fileName: string;
   generationTime?: number;
   atsScore?: number;
+  downloadUrl?: string;
   className?: string;
 }
 
@@ -38,6 +39,7 @@ export default function SuccessCelebration({
   fileName,
   generationTime,
   atsScore,
+  downloadUrl,
   className = ""
 }: SuccessCelebrationProps) {
   const [showConfetti, setShowConfetti] = useState(false);
@@ -83,6 +85,16 @@ export default function SuccessCelebration({
       setTimeout(() => setCopiedLink(false), 2000);
     } catch (err) {
       console.error('Failed to copy to clipboard:', err);
+    }
+  };
+
+  const handleDownload = () => {
+    if (downloadUrl) {
+      const a = document.createElement('a');
+      a.href = downloadUrl;
+      a.download = fileName;
+      a.click();
+      URL.revokeObjectURL(downloadUrl);
     }
   };
   
@@ -277,22 +289,21 @@ export default function SuccessCelebration({
                 className="flex space-x-3"
               >
                 <Button
-                  onClick={onClose}
-                  className="flex-1 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white"
+                  onClick={handleDownload}
+                  disabled={!downloadUrl}
+                  className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white"
                 >
-                  <Zap className="w-4 h-4 mr-2" />
-                  Skapa Fler CV:n
+                  <Download className="w-4 h-4 mr-2" />
+                  Ladda ner CV-PDF
                 </Button>
                 
                 <Button
+                  onClick={onClose}
                   variant="outline"
                   className="border-navy-600 hover:bg-navy-700 text-gray-300"
-                  onClick={() => {
-                    // Could implement sharing functionality
-                    onClose();
-                  }}
                 >
-                  <Share2 className="w-4 h-4" />
+                  <Zap className="w-4 h-4 mr-2" />
+                  Skapa Fler
                 </Button>
               </motion.div>
               
