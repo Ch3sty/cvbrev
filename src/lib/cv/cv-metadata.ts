@@ -6,9 +6,12 @@ export interface CVPersonalInfo {
   email: string;
   phone?: string;
   address?: string;
+  location?: string; // Alternative to address
   linkedIn?: string;
+  linkedin?: string; // Alternative spelling
   website?: string;
   github?: string;
+  title?: string; // Professional title
 }
 
 export interface CVExperience {
@@ -26,9 +29,13 @@ export interface CVEducation {
   institution: string;
   location?: string;
   graduationYear?: string;
+  startDate?: string;
+  endDate?: string;
   gpa?: string;
   honors?: string;
   relevantCourses?: string[];
+  description?: string;
+  thesis?: string; // For academic CVs
 }
 
 export interface CVSkill {
@@ -50,6 +57,7 @@ export interface CVCertification {
   name: string;
   issuer: string;
   issueDate?: string;
+  date?: string; // Alternative date field
   expiryDate?: string;
   credentialId?: string;
 }
