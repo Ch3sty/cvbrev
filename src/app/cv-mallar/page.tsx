@@ -242,12 +242,12 @@ export default function CVMallarPage() {
     }
   }, [selectedTemplate, selectedCV, trackTemplateUsage, showNotification, closeNotification, templateCustomization]);
   
-  // Get analytics data with explicit TemplateUsage typing
-  const rawMostUsedTemplates: TemplateUsage[] = getMostUsedTemplates();
+  // Get analytics data
+  const rawMostUsedTemplates = getMostUsedTemplates();
   
   // Map TemplateUsage to expected format for gallery component
   const mostUsedTemplates: Array<{ templateId: CVTemplateType; count: number }> = 
-    rawMostUsedTemplates.map((usage: TemplateUsage) => ({
+    rawMostUsedTemplates.map((usage) => ({
       templateId: usage.templateId,
       count: usage.count
     }));
