@@ -45,13 +45,13 @@ export default function TemplatePreviewLive({
   // Refs
   const cacheRef = useRef<PreviewCache>({});
   const abortControllerRef = useRef<AbortController | null>(null);
-  const updateTimeoutRef = useRef<NodeJS.Timeout>();
+  const updateTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   // Generate enhanced cache key including customization
   const cacheKey = useMemo(() => {
     if (!templateId || !cvData?.id) return null;
     const customHash = customization ? JSON.stringify(customization) : 'default';
-    return `${templateId}_${cvData.id}_${btoa(customHash).slice(0, 10)}`;
+    return `${templateId}_${cvData.id}_${btoa(customHash ?? '').slice(0, 10)}`;
   }, [templateId, cvData?.id, customization]);
 
   // Clean expired cache entries
