@@ -1,5 +1,5 @@
 import { CVTemplate, CVMetadata, CVGenerationOptions } from '../cv-metadata';
-import { generateDynamicHeadings, formatDateRange, shouldShowSection } from '../cv-metadata';
+import { generateDynamicHeadings, formatDateRange, shouldShowSection, extractProfessionalTitle } from '../cv-metadata';
 import { extractAchievements } from '../visual-elements';
 
 export const atsOptimeradCVTemplate: CVTemplate = {
@@ -67,14 +67,8 @@ export const atsOptimeradCVTemplate: CVTemplate = {
           @page {
             size: A4;
             margin: 2cm 1.8cm;
-            @top-center {
-              content: "${cvData.personalInfo.fullName} - ${cvData.personalInfo.title || 'Professionellt CV'}";
-              font-family: var(--font-primary);
-              font-size: 8pt;
-              color: #6b7280;
-            }
             @bottom-center {
-              content: "Sida " counter(page) " av " counter(pages);
+              content: "Sida " counter(page);
               font-family: var(--font-primary);
               font-size: 8pt;
               color: #6b7280;
@@ -359,11 +353,13 @@ export const atsOptimeradCVTemplate: CVTemplate = {
             line-height: var(--line-height-relaxed);
             color: #4b5563;
             margin-bottom: 0.6cm;
+            break-inside: avoid;
           }
           
           .ats-achievements-list {
             list-style-type: disc;
             margin-left: 1cm;
+            break-inside: avoid;
           }
           
           .ats-achievements-list li {
@@ -584,12 +580,13 @@ export const atsOptimeradCVTemplate: CVTemplate = {
         <div class="ats-container">
           <!-- ATS-OPTIMIZED HEADER -->
           <header class="ats-header no-page-break">
-            <div class="ats-trust-indicator">Svenska Premium</div>
             <h1 class="ats-name">${cvData.personalInfo.fullName}</h1>
-            <div class="ats-professional-title">${cvData.personalInfo.title || 'Professionell Kandidat'}</div>
+            ${extractProfessionalTitle(cvData) ? `<div class="ats-professional-title">${extractProfessionalTitle(cvData)}</div>` : ''}
+            ${cvData.summary ? `
             <div class="ats-summary">
-              ${cvData.summary || 'Erfaren professionell med stark kompetens och fokus på resultat inom svensk affärskultur.'}
+              ${cvData.summary}
             </div>
+            ` : ''}
             
             <!-- ATS-FRIENDLY CONTACT INFORMATION -->
             <div class="ats-contact">

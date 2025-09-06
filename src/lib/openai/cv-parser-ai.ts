@@ -149,7 +149,7 @@ function extractBasicSummary(rawText: string): string {
     }
   }
   
-  return 'Erfaren professionell med bred branschkunskap och proven track record.';
+  return ''; // Return empty string instead of generic text
 }
 
 /**
@@ -211,12 +211,12 @@ function extractBasicExperience(rawText: string) {
   }
   
   return experiences.length > 0 ? experiences : [{
-    position: 'Tidigare roller',
-    company: 'Se bifogad information',
+    position: '',
+    company: '',
     location: '',
     startDate: '2020-01-01',
     endDate: undefined,
-    description: ['Detaljerad information finns i originaltext'],
+    description: [],
     achievements: []
   }];
 }
@@ -264,14 +264,7 @@ function extractBasicEducation(rawText: string) {
     }
   }
   
-  return education.length > 0 ? education : [{
-    degree: 'Högskoleutbildning',
-    institution: 'Se bifogad information för detaljer',
-    location: '',
-    graduationYear: '2020',
-    field: '',
-    honors: undefined
-  }];
+  return education; // Return only actual education found, no fallback
 }
 
 /**
@@ -324,13 +317,7 @@ function extractBasicSkills(rawText: string) {
     skills.push({ category: 'Språk', skills: foundLanguages });
   }
   
-  // Fallback om inga färdigheter hittades
-  if (skills.length === 0) {
-    skills.push({ 
-      category: 'Kompetenser', 
-      skills: ['Se bifogad information för detaljerad kompetenslista'] 
-    });
-  }
+  // No fallback - return only actual skills found to avoid placeholder text
   
   return skills;
 }
@@ -372,24 +359,32 @@ function extractBasicLanguages(rawText: string) {
  * Hjälpfunktion för att validera och säkerställa komplett CV-data
  */
 export function validateCVData(cvData: CVMetadata): CVMetadata {
+  // Validate and clean CV data without adding fallback placeholder text
   return {
     personalInfo: {
-      fullName: cvData.personalInfo?.fullName || 'Namn saknas',
+      fullName: cvData.personalInfo?.fullName || '',
       email: cvData.personalInfo?.email || '',
       phone: cvData.personalInfo?.phone || '',
       address: cvData.personalInfo?.address || '',
       linkedIn: cvData.personalInfo?.linkedIn || '',
       website: cvData.personalInfo?.website || '',
-      github: cvData.personalInfo?.github || ''
+      github: cvData.personalInfo?.github || '',
+      title: cvData.personalInfo?.title || ''
     },
-    summary: cvData.summary || 'Professionell bakgrund finns tillgänglig.',
-    experience: cvData.experience || [],
-    education: cvData.education || [],
-    skills: cvData.skills || [{ category: 'Färdigheter', skills: ['Finns specificerade i CV'] }],
+    summary: cvData.summary || '',
+    experience: (cvData.experience || []).filter(exp => 
+      exp.position && exp.position.trim() && exp.company && exp.company.trim()),
+    education: (cvData.education || []).filter(edu => 
+      edu.degree && edu.degree.trim() && edu.institution && edu.institution.trim()),
+    skills: (cvData.skills || []).filter(skill => 
+      skill.category && skill.skills && skill.skills.length > 0),
     projects: cvData.projects || [],
-    certifications: cvData.certifications || [],
-    languages: cvData.languages || [],
-    interests: cvData.interests || [],
-    references: cvData.references || 'Referenser lämnas på begäran'
+    certifications: (cvData.certifications || []).filter(cert => 
+      cert.name && cert.name.trim()),
+    languages: (cvData.languages || []).filter(lang => 
+      lang.language && lang.language.trim() && lang.proficiency && lang.proficiency.trim()),
+    interests: (cvData.interests || []).filter(interest => 
+      interest && typeof interest === 'string' && interest.trim()),
+    references: cvData.references && cvData.references.trim() ? cvData.references : ''
   };
 }

@@ -35,6 +35,12 @@ export const akademiskCVTemplate: CVTemplate = {
           @page {
             size: A4;
             margin: 2.5cm 2cm;
+            @bottom-center {
+              content: "Sida " counter(page);
+              font-family: 'Source Serif Pro', serif;
+              font-size: 8pt;
+              color: #6b7280;
+            }
           }
           
           * {
@@ -155,6 +161,7 @@ export const akademiskCVTemplate: CVTemplate = {
           .experience-item, .education-item {
             margin-bottom: 1.2cm;
             break-inside: avoid;
+            page-break-inside: avoid;
           }
           
           .position-title, .degree {
@@ -179,16 +186,19 @@ export const akademiskCVTemplate: CVTemplate = {
           
           .description {
             margin-left: 1cm;
+            break-inside: avoid;
           }
           
           .description ul {
             margin-left: 1.5cm;
             margin-top: 0.3cm;
+            break-inside: avoid;
           }
           
           .description li {
             margin-bottom: 0.3cm;
             text-align: justify;
+            break-inside: avoid;
           }
           
           .publication-item {

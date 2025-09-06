@@ -123,7 +123,7 @@ async function extractCVContentFallback(rawText: string): Promise<CVMetadata> {
     certifications: [],
     languages: extractBasicLanguages(rawText),
     interests: [],
-    references: 'Referenser lämnas på begäran'
+    references: ''
   };
 }
 
@@ -185,14 +185,7 @@ async function extractCVContentOldFallback(rawText: string): Promise<CVMetadata>
       }
     }
     
-    return experiences.length > 0 ? experiences : [{
-      position: 'Tidigare roller',
-      company: 'Se bifogad information',
-      location: '',
-      startDate: '2020-01-01',
-      description: ['Detaljerad information finns i originaltext'],
-      achievements: []
-    }];
+    return experiences; // Return only actual experiences found
   };
   
   const extractEducation = () => {
@@ -213,12 +206,7 @@ async function extractCVContentOldFallback(rawText: string): Promise<CVMetadata>
       }
     }
     
-    return education.length > 0 ? education : [{
-      degree: 'Utbildningsbakgrund',
-      institution: 'Se bifogad information',
-      location: '',
-      graduationYear: '2020'
-    }];
+    return education; // Return only actual education found
   };
   
   const extractSkills = () => {
@@ -240,15 +228,12 @@ async function extractCVContentOldFallback(rawText: string): Promise<CVMetadata>
       }
     }
     
-    return skills.length > 0 ? skills : [{
-      category: 'Kompetenser',
-      skills: ['Se bifogad information för detaljerade färdigheter']
-    }];
+    return skills; // Return only actual skills found
   };
   
   return {
     personalInfo: extractPersonalInfo(),
-    summary: 'Se bifogad detaljerad information om kandidaten',
+    summary: '',
     experience: extractExperience(),
     education: extractEducation(),
     skills: extractSkills(),

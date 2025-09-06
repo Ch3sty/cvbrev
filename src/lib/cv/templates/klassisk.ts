@@ -1,5 +1,5 @@
 import { CVTemplate, CVMetadata, CVGenerationOptions } from '../cv-metadata';
-import { generateDynamicHeadings, formatDateRange, shouldShowSection } from '../cv-metadata';
+import { generateDynamicHeadings, formatDateRange, shouldShowSection, extractProfessionalTitle } from '../cv-metadata';
 import { extractAchievements } from '../visual-elements';
 
 export const klassiskCVTemplate: CVTemplate = {
@@ -64,16 +64,8 @@ export const klassiskCVTemplate: CVTemplate = {
           @page {
             size: A4;
             margin: 20mm 18mm;
-            @top-center {
-              content: "${cvData.personalInfo.fullName} | Curriculum Vitae";
-              font-family: 'Inter', sans-serif;
-              font-size: 8pt;
-              color: #6b7280;
-              border-bottom: 1px solid #e5e7eb;
-              padding-bottom: 2mm;
-            }
             @bottom-center {
-              content: "Sida " counter(page) " av " counter(pages);
+              content: "Sida " counter(page);
               font-family: 'Inter', sans-serif;
               font-size: 8pt;
               color: #6b7280;
@@ -408,6 +400,8 @@ export const klassiskCVTemplate: CVTemplate = {
             border-radius: 6px;
             border: 1px solid ${colors.accent};
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            break-inside: avoid;
+            page-break-inside: avoid;
           }
           
           .experience-item::before {
@@ -488,10 +482,12 @@ export const klassiskCVTemplate: CVTemplate = {
             line-height: 1.7;
             color: #4b5563;
             margin-bottom: 0.8cm;
+            break-inside: avoid;
           }
           
           .achievements-list {
             list-style: none;
+            break-inside: avoid;
           }
           
           .achievements-list li {
@@ -912,27 +908,6 @@ export const klassiskCVTemplate: CVTemplate = {
             padding: 0 0.5cm;
           }
           
-          /* SWEDISH TRUST INDICATORS */
-          .swedish-trust-badge {
-            position: absolute;
-            top: 1cm;
-            right: 1cm;
-            background: linear-gradient(135deg, ${colors.primary}, ${colors.gold});
-            color: white;
-            padding: 0.3cm 0.6cm;
-            border-radius: 20px;
-            font-size: 8pt;
-            font-weight: var(--font-weight-semibold);
-            font-family: var(--font-technical);
-            text-transform: uppercase;
-            letter-spacing: var(--letter-spacing-wide);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-          }
-          
-          .swedish-trust-badge::before {
-            content: '🇸🇪';
-            margin-right: 0.2cm;
-          }
           
           /* PREMIUM MICRO-INTERACTIONS */
           @keyframes fadeInUp {
@@ -984,12 +959,16 @@ export const klassiskCVTemplate: CVTemplate = {
       <body>
         <!-- PREMIUM SWEDISH EXECUTIVE HEADER -->
         <header class="executive-header no-page-break">
-          <div class="swedish-trust-badge">Svenska Standards</div>
           <h1 class="name">${cvData.personalInfo.fullName}</h1>
-          <div class="executive-title">${cvData.personalInfo.title || 'Professionell Kandidat'}</div>
+          ${(() => {
+            const title = extractProfessionalTitle(cvData);
+            return title ? `<div class="executive-title">${title}</div>` : '';
+          })()}
+          ${cvData.summary ? `
           <div class="executive-summary">
-            ${cvData.summary || 'Erfaren professionell med stark kompetens inom svensk företagskultur och internationell affärsutveckling.'}
+            ${cvData.summary}
           </div>
+          ` : ''}
           
           <!-- CONTACT GRID -->
           <div class="contact-grid">
@@ -1011,16 +990,16 @@ export const klassiskCVTemplate: CVTemplate = {
               </div>
             ` : ''}
             
-            ${cvData.personalInfo.location ? `
+            ${(cvData.personalInfo.location || cvData.personalInfo.address) ? `
               <div class="contact-item">
                 <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22S19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9S10.62 6.5 12 6.5 14.5 7.62 14.5 9 13.38 11.5 12 11.5Z"/>
                 </svg>
-                ${cvData.personalInfo.location}
+                ${cvData.personalInfo.location || cvData.personalInfo.address}
               </div>
             ` : ''}
             
-            ${cvData.personalInfo.linkedin ? `
+            ${(cvData.personalInfo.linkedin || cvData.personalInfo.linkedIn) ? `
               <div class="contact-item">
                 <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M19 3C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19ZM8.5 18.5V9.5H6V18.5H8.5ZM7.25 8.5C7.66421 8.5 8.06116 8.33589 8.35355 8.04351C8.64594 7.75112 8.81 7.35417 8.81 6.94C8.81 6.52583 8.64594 6.12888 8.35355 5.83649C8.06116 5.54411 7.66421 5.38 7.25 5.38C6.83579 5.38 6.43884 5.54411 6.14645 5.83649C5.85406 6.12888 5.69 6.52583 5.69 6.94C5.69 7.35417 5.85406 7.75112 6.14645 8.04351C6.43884 8.33589 6.83579 8.5 7.25 8.5ZM18.5 18.5V13.8C18.5 11.67 18.03 9.9 15.61 9.9C14.45 9.9 13.69 10.53 13.39 11.12H13.36V9.5H11.03V18.5H13.53V14.25C13.53 13.22 13.72 12.23 15.05 12.23C16.36 12.23 16.38 13.4 16.38 14.32V18.5H18.5Z"/>
@@ -1056,7 +1035,12 @@ export const klassiskCVTemplate: CVTemplate = {
           </div>
           
           <div class="experience-timeline">
-            ${(cvData.experience || []).map((exp, index) => `
+            ${(cvData.experience || [])
+              .filter(exp => exp.position && exp.position.trim() && 
+                           exp.company && exp.company.trim() &&
+                           !exp.position.toLowerCase().includes('tidigare') &&
+                           !exp.company.toLowerCase().includes('se bifogad'))
+              .map((exp, index) => `
               <div class="experience-item ${index === 0 ? 'no-page-break' : ''}">
                 <div class="experience-header">
                   <div>
@@ -1067,7 +1051,11 @@ export const klassiskCVTemplate: CVTemplate = {
                 </div>
                 
                 ${exp.description ? `
-                  <div class="job-description">${exp.description}</div>
+                  <div class="job-description">${
+                    Array.isArray(exp.description) 
+                      ? exp.description.filter(Boolean).join(' ') 
+                      : exp.description
+                  }</div>
                 ` : ''}
                 
                 ${(exp.achievements || []).length > 0 ? `
@@ -1094,23 +1082,37 @@ export const klassiskCVTemplate: CVTemplate = {
             ${Object.entries(
               (cvData.skills || []).filter(Boolean).reduce((acc: any, skill: any) => {
                 if (!skill) return acc;
+                
+                // Get category name, default to 'Kärnkompetenser'
                 const category = skill.category || 'Kärnkompetenser';
                 if (!acc[category]) acc[category] = [];
-                // Handle both individual skills and skill objects with skills array
+                
+                // Handle different skill data structures
                 if (skill.skills && Array.isArray(skill.skills)) {
-                  const skillItems = skill.skills.filter(Boolean).map((s: string) => ({ name: s }));
+                  // Skill category with skills array
+                  const skillItems = skill.skills.filter(Boolean).map((s: string) => ({ name: s.toString().trim() }));
                   acc[category].push(...skillItems);
-                } else if (skill) {
-                  acc[category].push(skill);
+                } else if (skill.name && skill.name.trim()) {
+                  // Individual skill item
+                  acc[category].push({ name: skill.name.trim() });
+                } else if (typeof skill === 'string' && skill.trim()) {
+                  // String skill
+                  acc[category].push({ name: skill.trim() });
                 }
+                
                 return acc;
               }, {})
+            ).filter(([category, skills]) => 
+              // Only show categories that have actual skills
+              (skills as any[]).length > 0 && (skills as any[]).some(skill => skill.name && skill.name.trim())
             ).map(([category, skills]) => `
               <div class="skill-category-executive">
                 <h4 class="skill-category-title">${category}</h4>
                 <div class="skills-list">
-                  ${((skills as any[]) || []).filter(Boolean).map((skill: any) => `
-                    <div class="skill-item">${skill?.name || skill || ''}</div>
+                  ${((skills as any[]) || [])
+                    .filter(skill => skill && skill.name && skill.name.trim())
+                    .map((skill: any) => `
+                    <div class="skill-item">${skill.name}</div>
                   `).join('')}
                 </div>
               </div>
@@ -1126,7 +1128,12 @@ export const klassiskCVTemplate: CVTemplate = {
             <h2 class="section-title">${headings.education}</h2>
           </div>
           
-          ${(cvData.education || []).map(edu => `
+          ${(cvData.education || [])
+            .filter(edu => edu.degree && edu.degree.trim() && 
+                          edu.institution && edu.institution.trim() &&
+                          !edu.degree.toLowerCase().includes('se bifogad') &&
+                          !edu.institution.toLowerCase().includes('se bifogad'))
+            .map(edu => `
             <div class="education-item no-page-break">
               <div>
                 <div class="degree-title">${edu.degree}</div>
@@ -1167,14 +1174,17 @@ export const klassiskCVTemplate: CVTemplate = {
             <h2 class="section-title">Professionella Certifieringar</h2>
           </div>
           
-          ${(cvData.certifications || []).map(cert => `
+          ${(cvData.certifications || [])
+            .filter(cert => cert.name && cert.name.trim() && 
+                           cert.issuer && cert.issuer.trim())
+            .map(cert => `
             <div class="certification-item no-page-break">
               <div>
                 <div class="certification-name">${cert.name}</div>
                 <div class="certification-issuer">${cert.issuer}</div>
               </div>
               <div class="certification-date">
-                ${cert.date}
+                ${cert.date || cert.issueDate || ''}
                 ${cert.credentialId ? `<br><small>Credential ID: ${cert.credentialId}</small>` : ''}
               </div>
             </div>

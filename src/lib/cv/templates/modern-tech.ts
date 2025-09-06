@@ -36,6 +36,12 @@ export const modernTechCVTemplate: CVTemplate = {
           @page {
             size: A4;
             margin: 15mm;
+            @bottom-center {
+              content: "Sida " counter(page);
+              font-family: 'Inter', sans-serif;
+              font-size: 8pt;
+              color: #6b7280;
+            }
           }
           
           * {
@@ -223,6 +229,7 @@ export const modernTechCVTemplate: CVTemplate = {
             border-radius: 10px;
             padding: 5mm;
             break-inside: avoid;
+            page-break-inside: avoid;
             position: relative;
             overflow: hidden;
           }
@@ -295,6 +302,7 @@ export const modernTechCVTemplate: CVTemplate = {
           
           .achievements {
             list-style: none;
+            break-inside: avoid;
           }
           
           .achievement {
@@ -304,6 +312,7 @@ export const modernTechCVTemplate: CVTemplate = {
             color: ${colors.text};
             font-size: 9pt;
             line-height: 1.4;
+            break-inside: avoid;
           }
           
           .achievement::before {

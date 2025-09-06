@@ -96,7 +96,8 @@ Analysera CV:t och returnera ALLTID data i exakt detta JSON-format:
     "address": "Adress/ort om tillgänglig",
     "linkedIn": "LinkedIn URL om den finns",
     "website": "Personlig webbsida om den finns",
-    "github": "GitHub URL om den finns"
+    "github": "GitHub URL om den finns",
+    "title": "Professionell titel/roll (t.ex. 'Senior Utvecklare', 'Projektledare')"
   },
   "summary": "En kort sammanfattning av personens professionella profil baserat på CV:t (2-3 meningar)",
   "experience": [
@@ -152,8 +153,8 @@ Analysera CV:t och returnera ALLTID data i exakt detta JSON-format:
   ],
   "languages": [
     {
-      "name": "Språknamn",
-      "level": "Nivå (modersmål/flyt/grundläggande/etc)"
+      "language": "Språknamn",
+      "proficiency": "Modersmål/Flyt/Konversation/Grundläggande"
     }
   ],
   "interests": ["Lista med intressen och hobbyer"],
@@ -167,13 +168,15 @@ Analysera CV:t och returnera ALLTID data i exakt detta JSON-format:
 }
 
 VIKTIGA INSTRUKTIONER:
-- Extrahera ALL tillgänglig information, även om vissa fält blir tomma
+- Extrahera ALL tillgänglig information från CV:t
+- ALDRIG använd generisk placeholder-text som "PROFESSIONELL KANDIDAT" - extrahera verklig titel från CV:t eller lämna tomt
+- Om information saknas helt, använd tom array [] eller tom sträng "", ALDRIG hardkodad text
 - Gissa rimliga datum om bara år anges (använd 01-01 för startdatum, 12-31 för slutdatum)
 - Kategorisera färdigheter intelligent (tekniska vs mjuka)
 - Identifiera kvantifierbara prestationer (siffror, procent, belopp)
 - Branschanalys baserad på arbetslivserfarenhet och kompetenser
-- Om information saknas, använd tom array [] eller tom sträng "", ALDRIG null
 - Var noggrann med datumformat: YYYY-MM-DD
+- Använd 'language' och 'proficiency' för språk, inte 'name' och 'level'
 `;
 
   try {
@@ -218,9 +221,10 @@ VIKTIGA INSTRUKTIONER:
         address: '',
         linkedIn: '',
         website: '',
-        github: ''
+        github: '',
+        title: ''
       },
-      summary: parsedData.summary || 'Professionell med bred erfarenhet.',
+      summary: parsedData.summary || '',
       experience: parsedData.experience || [],
       education: parsedData.education || [],
       skills: parsedData.skills || [],
@@ -344,7 +348,7 @@ export function extractBasicSummary(rawText: string): string {
     }
   }
   
-  return 'Erfaren professionell med bred branschkunskap och proven track record.';
+  return ''; // Return empty string instead of generic text
 }
 
 /**
@@ -406,12 +410,12 @@ export function extractBasicExperience(rawText: string) {
   }
   
   return experiences.length > 0 ? experiences : [{
-    position: 'Tidigare roller',
-    company: 'Se bifogad information',
+    position: '',
+    company: '',
     location: '',
     startDate: '2020-01-01',
     endDate: undefined,
-    description: ['Detaljerad information finns i originaltext'],
+    description: [],
     achievements: []
   }];
 }
@@ -459,14 +463,7 @@ export function extractBasicEducation(rawText: string) {
     }
   }
   
-  return education.length > 0 ? education : [{
-    degree: 'Högskoleutbildning',
-    institution: 'Se bifogad information för detaljer',
-    location: '',
-    graduationYear: '2020',
-    field: '',
-    honors: undefined
-  }];
+  return education; // Return only actual education found, no fallback
 }
 
 /**
@@ -519,13 +516,7 @@ export function extractBasicSkills(rawText: string) {
     skills.push({ category: 'Språk', skills: foundLanguages });
   }
   
-  // Fallback om inga färdigheter hittades
-  if (skills.length === 0) {
-    skills.push({ 
-      category: 'Kompetenser', 
-      skills: ['Se bifogad information för detaljerad kompetenslista'] 
-    });
-  }
+  // No fallback - return only actual skills found to avoid placeholder text
   
   return skills;
 }

@@ -1,5 +1,5 @@
 import { CVTemplate, CVMetadata, CVGenerationOptions } from '../cv-metadata';
-import { generateDynamicHeadings, formatDateRange, shouldShowSection } from '../cv-metadata';
+import { generateDynamicHeadings, formatDateRange, shouldShowSection, extractProfessionalTitle } from '../cv-metadata';
 import { extractAchievements } from '../visual-elements';
 
 export const modernCVTemplate: CVTemplate = {
@@ -64,16 +64,8 @@ export const modernCVTemplate: CVTemplate = {
           @page {
             size: A4;
             margin: 20mm 18mm;
-            @top-center {
-              content: "${cvData.personalInfo.fullName} | Curriculum Vitae";
-              font-family: 'Inter', sans-serif;
-              font-size: 8pt;
-              color: #6b7280;
-              border-bottom: 1px solid #e5e7eb;
-              padding-bottom: 2mm;
-            }
             @bottom-center {
-              content: "Sida " counter(page) " av " counter(pages);
+              content: "Sida " counter(page);
               font-family: 'Inter', sans-serif;
               font-size: 8pt;
               color: #6b7280;
@@ -510,10 +502,12 @@ export const modernCVTemplate: CVTemplate = {
             line-height: 1.7;
             color: #4b5563;
             margin-bottom: 0.8cm;
+            break-inside: avoid;
           }
           
           .achievements {
             list-style: none;
+            break-inside: avoid;
           }
           
           .achievements li {
@@ -878,12 +872,13 @@ export const modernCVTemplate: CVTemplate = {
       <body>
         <!-- PREMIUM MODERN HEADER -->
         <header class="modern-header no-page-break">
-          <div class="swedish-trust-badge">Svenska Standards</div>
           <h1 class="name">${cvData.personalInfo.fullName}</h1>
-          <div class="professional-title">${cvData.personalInfo.title || 'Professionell Kandidat'}</div>
+          ${extractProfessionalTitle(cvData) ? `<div class="professional-title">${extractProfessionalTitle(cvData)}</div>` : ''}
+          ${cvData.summary ? `
           <div class="professional-summary">
-            ${cvData.summary || 'Erfaren professionell med stark kompetens inom svensk företagskultur och internationell affärsutveckling.'}
+            ${cvData.summary}
           </div>
+          ` : ''}
           
           <!-- PREMIUM CONTACT GRID -->
           <div class="contact-grid">
@@ -988,23 +983,37 @@ export const modernCVTemplate: CVTemplate = {
             ${Object.entries(
               (cvData.skills || []).filter(Boolean).reduce((acc: any, skill: any) => {
                 if (!skill) return acc;
+                
+                // Get category name, default to 'Kärnkompetenser'
                 const category = skill.category || 'Kärnkompetenser';
                 if (!acc[category]) acc[category] = [];
-                // Handle both individual skills and skill objects with skills array
+                
+                // Handle different skill data structures
                 if (skill.skills && Array.isArray(skill.skills)) {
-                  const skillItems = skill.skills.filter(Boolean).map((s: string) => ({ name: s }));
+                  // Skill category with skills array
+                  const skillItems = skill.skills.filter(Boolean).map((s: string) => ({ name: s.toString().trim() }));
                   acc[category].push(...skillItems);
-                } else if (skill) {
-                  acc[category].push(skill);
+                } else if (skill.name && skill.name.trim()) {
+                  // Individual skill item
+                  acc[category].push({ name: skill.name.trim() });
+                } else if (typeof skill === 'string' && skill.trim()) {
+                  // String skill
+                  acc[category].push({ name: skill.trim() });
                 }
+                
                 return acc;
               }, {})
+            ).filter(([category, skills]) => 
+              // Only show categories that have actual skills
+              (skills as any[]).length > 0 && (skills as any[]).some(skill => skill.name && skill.name.trim())
             ).map(([category, skills]) => `
               <div class="skill-category-executive">
                 <h4 class="skill-category-title">${category}</h4>
                 <div class="skills-list">
-                  ${((skills as any[]) || []).filter(Boolean).map((skill: any) => `
-                    <div class="skill-item">${skill?.name || skill || ''}</div>
+                  ${((skills as any[]) || [])
+                    .filter(skill => skill && skill.name && skill.name.trim())
+                    .map((skill: any) => `
+                    <div class="skill-item">${skill.name}</div>
                   `).join('')}
                 </div>
               </div>

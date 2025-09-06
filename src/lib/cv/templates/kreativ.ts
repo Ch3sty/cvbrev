@@ -65,16 +65,8 @@ export const kreativCVTemplate: CVTemplate = {
           @page {
             size: A4;
             margin: 20mm 18mm;
-            @top-center {
-              content: "${cvData.personalInfo.fullName} | Kreativt CV";
-              font-family: 'Poppins', sans-serif;
-              font-size: 8pt;
-              color: #6b7280;
-              border-bottom: 1px solid #e5e7eb;
-              padding-bottom: 2mm;
-            }
             @bottom-center {
-              content: "Sida " counter(page) " av " counter(pages);
+              content: "Sida " counter(page);
               font-family: 'Poppins', sans-serif;
               font-size: 8pt;
               color: #6b7280;
@@ -632,10 +624,12 @@ export const kreativCVTemplate: CVTemplate = {
             color: #4b5563;
             margin-bottom: 1cm;
             font-family: var(--font-body);
+            break-inside: avoid;
           }
           
           .creative-achievements-list {
             list-style: none;
+            break-inside: avoid;
           }
           
           .creative-achievements-list li {

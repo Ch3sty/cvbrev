@@ -129,6 +129,30 @@ export const calculateExperienceYears = (experiences: CVExperience[]): number =>
   return Math.round(totalMonths / 12 * 10) / 10; // Round to 1 decimal
 };
 
+// Extract professional title from experience if not provided in personalInfo
+export const extractProfessionalTitle = (cvData: CVMetadata): string => {
+  // Return existing title if provided
+  if (cvData.personalInfo.title && cvData.personalInfo.title.trim()) {
+    return cvData.personalInfo.title.trim();
+  }
+  
+  // Try to extract from most recent experience
+  const mostRecentExp = (cvData.experience || [])
+    .filter(exp => exp.position && exp.position.trim())
+    .sort((a, b) => {
+      const dateA = a.endDate ? new Date(a.endDate) : new Date();
+      const dateB = b.endDate ? new Date(b.endDate) : new Date();
+      return dateB.getTime() - dateA.getTime();
+    })[0];
+  
+  if (mostRecentExp) {
+    return mostRecentExp.position;
+  }
+  
+  // No title found - return empty string to avoid placeholder text
+  return '';
+};
+
 export const extractKeywords = (cvData: CVMetadata): string[] => {
   const keywords = new Set<string>();
   
@@ -201,11 +225,51 @@ export const detectIndustry = (cvData: CVMetadata): string => {
 export const shouldShowSection = (sectionType: string, cvData: CVMetadata): boolean => {
   switch (sectionType) {
     case 'languages':
-      return (cvData.languages?.length || 0) > 0;
+      return (cvData.languages?.length || 0) > 0 && cvData.languages?.some(lang => 
+        lang.language && lang.language.trim() !== '' && lang.proficiency && lang.proficiency.trim() !== ''
+      );
     case 'certifications':
-      return (cvData.certifications?.length || 0) > 0;
+      return (cvData.certifications?.length || 0) > 0 && cvData.certifications?.some(cert => 
+        cert.name && cert.name.trim() !== ''
+      );
     case 'projects':
-      return (cvData.projects?.length || 0) > 0;
+      return (cvData.projects?.length || 0) > 0 && cvData.projects?.some(proj => 
+        (proj.name || proj.title) && (proj.name || proj.title)?.trim() !== ''
+      );
+    case 'skills':
+      // Enhanced skills validation - check if skills data has actual content
+      const hasSkills = (cvData.skills?.length || 0) > 0;
+      if (!hasSkills) return false;
+      
+      return cvData.skills?.some(skillCategory => {
+        // Check if category has name and skills
+        if (!skillCategory) return false;
+        
+        // Handle different skill data structures
+        if (skillCategory.skills && Array.isArray(skillCategory.skills)) {
+          return skillCategory.skills.some(skill => 
+            skill && skill.trim() !== '' && 
+            !skill.toLowerCase().includes('se bifogad') &&
+            !skill.toLowerCase().includes('finns specificerade')
+          );
+        }
+        
+        // Handle individual skill items
+        if (skillCategory.name && skillCategory.name.trim() !== '' && 
+            !skillCategory.name.toLowerCase().includes('se bifogad')) {
+          return true;
+        }
+        
+        return false;
+      });
+    case 'experience':
+      return (cvData.experience?.length || 0) > 0 && cvData.experience?.some(exp => 
+        exp.position && exp.position.trim() !== '' && exp.company && exp.company.trim() !== ''
+      );
+    case 'education':
+      return (cvData.education?.length || 0) > 0 && cvData.education?.some(edu => 
+        edu.degree && edu.degree.trim() !== '' && edu.institution && edu.institution.trim() !== ''
+      );
     case 'publications':
       // Show if academic background or research experience detected
       const industry = detectIndustry(cvData);
@@ -219,11 +283,12 @@ export const shouldShowSection = (sectionType: string, cvData: CVMetadata): bool
     case 'awards':
       return (cvData.certifications?.length || 0) > 0; // Use certifications as awards proxy
     case 'interests':
-      return Boolean(cvData.interests && cvData.interests.length > 0);
+      return Boolean(cvData.interests && cvData.interests.length > 0 && 
+        cvData.interests.some(interest => interest && interest.trim() !== ''));
     case 'references':
       return Boolean(cvData.references && cvData.references.trim().length > 0);
     default:
-      return true; // Core sections (experience, education, skills) always shown
+      return true; // Core sections always shown if they have basic data
   }
 };
 
