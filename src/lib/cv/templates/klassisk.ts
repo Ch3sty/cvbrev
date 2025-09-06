@@ -25,7 +25,10 @@ export const klassiskCVTemplate: CVTemplate = {
     // Generate dynamic headings based on CV content and industry
     const headings = generateDynamicHeadings(cvData, 'klassisk');
     const achievements = extractAchievements(
-      (cvData.experience || []).flatMap(exp => (Array.isArray(exp.description) ? exp.description : [exp.description]).filter(Boolean)).join(' ') + ' ' +
+      (cvData.experience || []).flatMap(exp => {
+        const description = Array.isArray(exp.description) ? exp.description : (exp.description ? [exp.description] : []);
+        return description.filter(Boolean);
+      }).join(' ') + ' ' +
       (cvData.summary || '')
     );
 
@@ -702,13 +705,15 @@ export const klassiskCVTemplate: CVTemplate = {
           
           <div class="skills-executive">
             ${Object.entries(
-              (cvData.skills || []).reduce((acc: any, skill: any) => {
+              (cvData.skills || []).filter(Boolean).reduce((acc: any, skill: any) => {
+                if (!skill) return acc;
                 const category = skill.category || 'Kärnkompetenser';
                 if (!acc[category]) acc[category] = [];
                 // Handle both individual skills and skill objects with skills array
                 if (skill.skills && Array.isArray(skill.skills)) {
-                  acc[category].push(...skill.skills.map((s: string) => ({ name: s })));
-                } else {
+                  const skillItems = skill.skills.filter(Boolean).map((s: string) => ({ name: s }));
+                  acc[category].push(...skillItems);
+                } else if (skill) {
                   acc[category].push(skill);
                 }
                 return acc;
@@ -717,8 +722,8 @@ export const klassiskCVTemplate: CVTemplate = {
               <div class="skill-category-executive">
                 <h4 class="skill-category-title">${category}</h4>
                 <div class="skills-list">
-                  ${((skills as any[]) || []).map((skill: any) => `
-                    <div class="skill-item">${skill.name || skill}</div>
+                  ${((skills as any[]) || []).filter(Boolean).map((skill: any) => `
+                    <div class="skill-item">${skill?.name || skill || ''}</div>
                   `).join('')}
                 </div>
               </div>

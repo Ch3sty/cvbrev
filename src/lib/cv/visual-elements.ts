@@ -236,18 +236,22 @@ export function calculateSkillLevel(skill: string, experience: any[], projects: 
   let score = 50; // Baseline
   
   // Kolla erfarenhet
-  const experienceText = experience.map(exp => 
-    [...exp.description, ...exp.achievements].join(' ')
-  ).join(' ').toLowerCase();
+  const experienceText = (experience || []).map(exp => {
+    const description = Array.isArray(exp.description) ? exp.description : (exp.description ? [exp.description] : []);
+    const achievements = Array.isArray(exp.achievements) ? exp.achievements : [];
+    return [...description, ...(achievements || [])].filter(Boolean).join(' ');
+  }).join(' ').toLowerCase();
   
   if (experienceText.includes(skill.toLowerCase())) {
     score += 20;
   }
   
   // Kolla projekt
-  const projectText = projects.map(proj => 
-    [proj.description, ...(proj.technologies || [])].join(' ')
-  ).join(' ').toLowerCase();
+  const projectText = (projects || []).map(proj => {
+    const description = proj.description || '';
+    const technologies = Array.isArray(proj.technologies) ? proj.technologies : [];
+    return [description, ...(technologies || [])].filter(Boolean).join(' ');
+  }).join(' ').toLowerCase();
   
   if (projectText.includes(skill.toLowerCase())) {
     score += 15;

@@ -164,8 +164,8 @@ export interface DynamicHeadings {
 // Detect industry/field based on CV content
 export const detectIndustry = (cvData: CVMetadata): string => {
   const keywords = extractKeywords(cvData);
-  const positions = cvData.experience.map(exp => exp.position.toLowerCase()).join(' ');
-  const skillText = cvData.skills.map(s => s.skills.join(' ')).join(' ').toLowerCase();
+  const positions = (cvData.experience || []).map(exp => exp.position.toLowerCase()).join(' ');
+  const skillText = (cvData.skills || []).map(s => (s.skills || []).join(' ')).join(' ').toLowerCase();
   const combinedText = `${positions} ${skillText} ${keywords.join(' ')}`;
   
   // Technology keywords

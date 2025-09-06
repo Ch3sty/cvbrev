@@ -512,7 +512,7 @@ export const kreativCVTemplate: CVTemplate = {
                 <h2 class="section-title">${headings.experience}</h2>
                 <div class="experience-timeline">
                   ${(cvData.experience || []).map(exp => {
-                    const achievements = extractAchievements((Array.isArray(exp.description) ? exp.description : [exp.description]).filter(Boolean).join(' ') + ' ' + ((exp.achievements || []).join(' ') || ''));
+                    const achievements = extractAchievements((Array.isArray(exp.description) ? exp.description : [exp.description]).filter(Boolean).join(' ') + ' ' + (exp.achievements ? (exp.achievements || []).join(' ') : ''));
                     return `
                     <div class="timeline-item">
                       <div class="timeline-duration">${formatDateRange(exp.startDate, exp.endDate)}</div>
