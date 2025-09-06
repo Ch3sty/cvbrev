@@ -17,7 +17,7 @@ interface TemplatPreviewLazyProps {
 
 // Intersection Observer för att endast ladda när komponenten är synlig
 function useIntersectionObserver(
-  elementRef: React.RefObject<Element>,
+  elementRef: React.RefObject<Element | null>,
   options: IntersectionObserverInit = {}
 ) {
   const [isIntersecting, setIsIntersecting] = useState(false);
@@ -48,7 +48,7 @@ export default function TemplatePreviewLazy({
   className = ""
 }: TemplatPreviewLazyProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const isInViewport = useIntersectionObserver(containerRef, {
+  const isInViewport = useIntersectionObserver(containerRef as React.RefObject<Element>, {
     threshold: 0.1,
     rootMargin: '50px'
   });
