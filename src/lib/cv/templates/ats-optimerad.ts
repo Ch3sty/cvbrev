@@ -12,7 +12,7 @@ export const atsOptimeradCVTemplate: CVTemplate = {
   colorSchemes: ['professional', 'corporate', 'trust', 'stability', 'success', 'premium'],
   previewImage: '/images/cv-templates/ats-preview.png',
   generateHTML: (cvData: CVMetadata, options: CVGenerationOptions) => {
-    const headings = generateDynamicHeadings(cvData, 'ats');
+    const headings = generateDynamicHeadings(cvData, 'ats-optimerad');
     const atsSchemes = {
       professional: { primary: '#1e40af', secondary: '#3b82f6', accent: '#eff6ff', light: '#f8fafc', text: '#1e293b', gold: '#d97706' },
       corporate: { primary: '#374151', secondary: '#6b7280', accent: '#f9fafb', light: '#f8fafc', text: '#111827', gold: '#f59e0b' },
@@ -34,7 +34,7 @@ export const atsOptimeradCVTemplate: CVTemplate = {
     
     // Extract key skills for ATS keyword optimization
     const allSkills = (cvData.skills || []).flatMap(category => 
-      category.skills ? category.skills : [category]
+      category.skills ? category.skills : [category.category || '']
     ).filter(Boolean);
     
     return `

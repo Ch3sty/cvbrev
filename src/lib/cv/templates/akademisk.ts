@@ -166,7 +166,7 @@ export const akademiskCVTemplate: CVTemplate = {
           .institution, .company {
             font-size: 11pt;
             font-weight: bold;
-            color: ${primaryColor};
+            color: ${colors.primary};
             margin: 0.2cm 0;
           }
           
@@ -217,7 +217,7 @@ export const akademiskCVTemplate: CVTemplate = {
           
           .skill-category-title {
             font-weight: bold;
-            color: ${primaryColor};
+            color: ${colors.primary};
             margin-bottom: 0.3cm;
           }
           
