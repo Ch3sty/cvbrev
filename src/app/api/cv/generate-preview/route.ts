@@ -134,10 +134,21 @@ export async function POST(request: NextRequest) {
     // Ladda template dynamiskt
     let templateObj;
     try {
+      console.log(`Attempting to load template: ${template}`);
       templateObj = await loadTemplate(template as CVTemplateType);
+      console.log(`Template loaded successfully: ${template}`);
     } catch (error) {
       console.error('Failed to load template:', error);
-      return NextResponse.json({ error: 'Template kunde inte laddas' }, { status: 404 });
+      console.error('Template load error details:', {
+        template,
+        errorMessage: error instanceof Error ? error.message : 'Unknown error',
+        errorStack: error instanceof Error ? error.stack : undefined
+      });
+      return NextResponse.json({ 
+        error: 'Template kunde inte laddas', 
+        details: error instanceof Error ? error.message : 'Unknown error',
+        template 
+      }, { status: 404 });
     }
 
     // Generera cache-nyckel
@@ -169,10 +180,29 @@ export async function POST(request: NextRequest) {
       ...options
     };
 
-    const htmlResult = templateObj.generateHTML(cvData as CVMetadata, generationOptions);
-    
-    // Hantera både sync och async template generation med type-safe approach
-    const html: string = typeof htmlResult === 'string' ? htmlResult : await htmlResult;
+    let html: string;
+    try {
+      console.log(`Generating HTML for template: ${template}`);
+      const htmlResult = templateObj.generateHTML(cvData as CVMetadata, generationOptions);
+      
+      // Hantera både sync och async template generation med type-safe approach
+      html = typeof htmlResult === 'string' ? htmlResult : await htmlResult;
+      console.log(`HTML generated successfully, length: ${html.length} characters`);
+    } catch (error) {
+      console.error('HTML generation error:', error);
+      console.error('HTML generation error details:', {
+        template,
+        errorMessage: error instanceof Error ? error.message : 'Unknown error',
+        errorStack: error instanceof Error ? error.stack : undefined,
+        cvDataKeys: Object.keys(cvData || {}),
+        options: generationOptions
+      });
+      return NextResponse.json({
+        error: 'HTML-generering misslyckades',
+        details: error instanceof Error ? error.message : 'Unknown error',
+        template
+      }, { status: 500 });
+    }
     
     // Generera PNG
     const previewOptions = {

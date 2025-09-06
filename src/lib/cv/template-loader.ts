@@ -163,6 +163,14 @@ export async function loadTemplate(templateId: CVTemplateType): Promise<CVTempla
       
       // Fallback till metadata-only template för graceful degradation
       const metadata = templateMetadata[templateId];
+      if (!metadata) {
+        throw new TemplateError(
+          TemplateErrorCode.TEMPLATE_NOT_FOUND,
+          `Template metadata not found for ${templateId}`,
+          { templateId, retriable: false }
+        );
+      }
+      
       const fallbackTemplate: CVTemplate = {
         ...metadata,
         generateHTML: () => {

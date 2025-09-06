@@ -34,7 +34,19 @@ export async function generateQRCodeDataURL(url: string): Promise<string> {
       </svg>
     `;
     
-    return `data:image/svg+xml;base64,${Buffer.from(placeholderSvg).toString('base64')}`;
+    // Safe Buffer usage with fallback
+    try {
+      if (typeof Buffer !== 'undefined') {
+        return `data:image/svg+xml;base64,${Buffer.from(placeholderSvg).toString('base64')}`;
+      } else if (typeof btoa !== 'undefined') {
+        return `data:image/svg+xml;base64,${btoa(placeholderSvg)}`;
+      } else {
+        return `data:image/svg+xml,${encodeURIComponent(placeholderSvg)}`;
+      }
+    } catch (bufferError) {
+      console.warn('Buffer encoding failed in QR fallback, using URL encoding:', bufferError);
+      return `data:image/svg+xml,${encodeURIComponent(placeholderSvg)}`;
+    }
   }
 }
 
@@ -63,7 +75,22 @@ export function generateQRCodeDataURLSync(url: string): string {
     </svg>
   `;
   
-  return `data:image/svg+xml;base64,${Buffer.from(placeholderSvg).toString('base64')}`;
+  // Safe Buffer usage with fallback for environments where Buffer is not available
+  try {
+    if (typeof Buffer !== 'undefined') {
+      return `data:image/svg+xml;base64,${Buffer.from(placeholderSvg).toString('base64')}`;
+    } else {
+      // Fallback for environments without Buffer - use btoa if available
+      if (typeof btoa !== 'undefined') {
+        return `data:image/svg+xml;base64,${btoa(placeholderSvg)}`;
+      }
+      // Last resort: return inline SVG
+      return `data:image/svg+xml,${encodeURIComponent(placeholderSvg)}`;
+    }
+  } catch (error) {
+    console.warn('Buffer encoding failed, using URL encoding fallback:', error);
+    return `data:image/svg+xml,${encodeURIComponent(placeholderSvg)}`;
+  }
 }
 
 /**
