@@ -705,14 +705,19 @@ export const klassiskCVTemplate: CVTemplate = {
               (cvData.skills || []).reduce((acc: any, skill: any) => {
                 const category = skill.category || 'Kärnkompetenser';
                 if (!acc[category]) acc[category] = [];
-                acc[category].push(skill);
+                // Handle both individual skills and skill objects with skills array
+                if (skill.skills && Array.isArray(skill.skills)) {
+                  acc[category].push(...skill.skills.map(s => ({ name: s })));
+                } else {
+                  acc[category].push(skill);
+                }
                 return acc;
               }, {})
             ).map(([category, skills]) => `
               <div class="skill-category-executive">
                 <h4 class="skill-category-title">${category}</h4>
                 <div class="skills-list">
-                  ${(skills as any[]).map((skill: any) => `
+                  ${((skills as any[]) || []).map((skill: any) => `
                     <div class="skill-item">${skill.name || skill}</div>
                   `).join('')}
                 </div>

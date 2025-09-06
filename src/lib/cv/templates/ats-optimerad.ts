@@ -259,8 +259,8 @@ export const atsOptimeradCVTemplate: CVTemplate = {
           <!-- ATS Keywords (hidden but parseable) -->
           <div class="keyword-optimized" aria-hidden="true">
             CV Curriculum Vitae Resume Meritförteckning ${cvData.personalInfo.fullName} 
-            ${cvData.skills?.map(cat => (cat.skills || []).join(' ')).join(' ') || ''}
-            ${cvData.experience?.map(exp => exp.position + ' ' + exp.company).join(' ') || ''}
+            ${(cvData.skills || []).map(cat => ((cat?.skills || []).join(' '))).join(' ') || ''}
+            ${(cvData.experience || []).map(exp => exp.position + ' ' + exp.company).join(' ') || ''}
           </div>
 
           <!-- Summary -->
