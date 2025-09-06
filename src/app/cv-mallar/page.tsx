@@ -247,9 +247,9 @@ export default function CVMallarPage() {
   
   // Map TemplateUsage to expected format for gallery component
   const mostUsedTemplates: Array<{ templateId: CVTemplateType; count: number }> = 
-    rawMostUsedTemplates.map((usage) => ({
+    rawMostUsedTemplates.map((usage: any) => ({
       templateId: usage.templateId,
-      count: usage.count
+      count: usage.count || 0
     }));
   
   const isTemplatePopular = useCallback((templateId: CVTemplateType) => {
