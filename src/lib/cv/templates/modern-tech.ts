@@ -3,24 +3,25 @@ import { generateDynamicHeadings, formatDateRange } from '../cv-metadata';
 
 export const modernTechCVTemplate: CVTemplate = {
   id: 'modern-tech',
-  name: 'Modern Tech',
-  description: 'Teknisk excellens med modern design för utvecklare och IT-proffs med fokus på kod och innovation',
+  name: 'Modern Tech Premium',
+  description: 'Premium teknisk excellens för svenska tech-ledare - avancerad design som demonstrerar innovativ kompetens och teknisk expertis',
   category: 'Technical',
-  bestFor: ['Mjukvaruutveckling', 'IT', 'Tekniska roller', 'Startup', 'Tech-företag', 'Systemadministration', 'DevOps'],
-  features: ['Tech-focused', 'Skills visualization', 'Project showcase', 'Code-friendly', 'Innovation ready'],
-  colorSchemes: ['tech', 'digital', 'innovation', 'modern', 'cyber', 'matrix'],
+  bestFor: ['Tech Leadership', 'Mjukvaruarkitektur', 'Digital Innovation', 'AI/ML Engineering', 'Cloud Architecture', 'Tech Startup', 'CTO/VP Engineering'],
+  features: ['Innovation-driven', 'Premium tech design', 'Svensk tech-standard', 'Advanced visualizations', 'Future-ready aesthetics'],
+  colorSchemes: ['swedish-tech', 'digital-blue', 'innovation-green', 'cyber-purple', 'nordic-slate', 'startup-orange'],
   previewImage: '/images/cv-templates/modern-tech-preview.png',
   generateHTML: (cvData: CVMetadata, options: CVGenerationOptions) => {
     const headings = generateDynamicHeadings(cvData, 'modern-tech');
+    // Premium Swedish Tech Color Schemes
     const techSchemes = {
-      tech: { primary: '#0ea5e9', secondary: '#3b82f6', accent: '#f1f5f9', bg: '#ffffff', text: '#1e293b', light: '#f0f9ff' },
-      digital: { primary: '#8b5cf6', secondary: '#a855f7', accent: '#faf5ff', bg: '#ffffff', text: '#1e1b4b', light: '#f3e8ff' },
-      innovation: { primary: '#10b981', secondary: '#059669', accent: '#f0fdf4', bg: '#ffffff', text: '#064e3b', light: '#ecfdf5' },
-      modern: { primary: '#6366f1', secondary: '#4f46e5', accent: '#f8fafc', bg: '#ffffff', text: '#1e293b', light: '#eef2ff' },
-      cyber: { primary: '#06b6d4', secondary: '#0891b2', accent: '#f0fdfa', bg: '#ffffff', text: '#164e63', light: '#cffafe' },
-      matrix: { primary: '#22c55e', secondary: '#16a34a', accent: '#f7fee7', bg: '#ffffff', text: '#14532d', light: '#dcfce7' }
+      'swedish-tech': { primary: '#0052CC', secondary: '#2563eb', accent: '#eff6ff', bg: '#ffffff', text: '#1e293b', light: '#dbeafe', gradient: 'linear-gradient(135deg, #0052CC 0%, #2563eb 100%)' },
+      'digital-blue': { primary: '#1e40af', secondary: '#3b82f6', accent: '#eff6ff', bg: '#ffffff', text: '#1e293b', light: '#dbeafe', gradient: 'linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)' },
+      'innovation-green': { primary: '#059669', secondary: '#10b981', accent: '#ecfdf5', bg: '#ffffff', text: '#064e3b', light: '#a7f3d0', gradient: 'linear-gradient(135deg, #059669 0%, #10b981 100%)' },
+      'cyber-purple': { primary: '#7c3aed', secondary: '#a855f7', accent: '#f3e8ff', bg: '#ffffff', text: '#581c87', light: '#c4b5fd', gradient: 'linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)' },
+      'nordic-slate': { primary: '#475569', secondary: '#64748b', accent: '#f1f5f9', bg: '#ffffff', text: '#0f172a', light: '#cbd5e1', gradient: 'linear-gradient(135deg, #475569 0%, #64748b 100%)' },
+      'startup-orange': { primary: '#ea580c', secondary: '#f97316', accent: '#fff7ed', bg: '#ffffff', text: '#9a3412', light: '#fed7aa', gradient: 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)' }
     };
-    const colors = techSchemes[options.colorScheme as keyof typeof techSchemes] || techSchemes.tech;
+    const colors = techSchemes[options.colorScheme as keyof typeof techSchemes] || techSchemes['swedish-tech'];
     
     return `
       <!DOCTYPE html>
@@ -56,15 +57,17 @@ export const modernTechCVTemplate: CVTemplate = {
               radial-gradient(circle at 80% 80%, ${colors.accent} 0%, transparent 50%);
           }
           
-          /* MODERN TECH HEADER */
+          /* PREMIUM TECH HEADER */
           .tech-header {
-            background: linear-gradient(135deg, ${colors.primary} 0%, ${colors.secondary} 100%);
-            border-radius: 12px;
-            padding: 8mm 6mm;
-            margin-bottom: 6mm;
+            background: ${colors.gradient};
+            border-radius: 16px;
+            padding: 10mm 8mm;
+            margin-bottom: 8mm;
             position: relative;
             overflow: hidden;
             color: white;
+            box-shadow: 0 8px 32px ${colors.primary}30;
+            border: 1px solid ${colors.primary}20;
           }
           
           .tech-header::before {
@@ -426,6 +429,75 @@ export const modernTechCVTemplate: CVTemplate = {
             font-weight: 400;
           }
           
+          /* Tech Excellence Grid */
+          .tech-excellence-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4mm;
+            margin-top: 2mm;
+          }
+          
+          .excellence-card {
+            background: linear-gradient(135deg, ${colors.light}40 0%, white 100%);
+            border: 1px solid ${colors.accent};
+            border-radius: 12px;
+            padding: 4mm;
+            display: flex;
+            align-items: flex-start;
+            gap: 3mm;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .excellence-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: ${colors.gradient};
+          }
+          
+          .excellence-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, ${colors.light}60 0%, white 100%);
+          }
+          
+          .excellence-card .excellence-icon {
+            font-size: 16pt;
+            width: 40px;
+            height: 40px;
+            background: ${colors.gradient};
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px ${colors.primary}30;
+          }
+          
+          .excellence-card .excellence-content {
+            flex: 1;
+          }
+          
+          .excellence-card .excellence-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 10pt;
+            font-weight: 600;
+            color: ${colors.primary};
+            margin-bottom: 2mm;
+          }
+          
+          .excellence-card .excellence-desc {
+            font-size: 8pt;
+            color: ${colors.text};
+            line-height: 1.4;
+          }
+
           /* PRINT ADJUSTMENTS */
           @media print {
             body { 
@@ -461,6 +533,9 @@ export const modernTechCVTemplate: CVTemplate = {
             .stat-value {
               color: #0066cc !important;
             }
+            .excellence-card .excellence-icon {
+              background: #0066cc !important;
+            }
           }
         </style>
       </head>
@@ -478,20 +553,20 @@ export const modernTechCVTemplate: CVTemplate = {
             <div class="github-section">
               <div class="tech-stats">
                 <div class="stat-item">
-                  <span class="stat-label">Projects</span>
-                  <span class="stat-value">25+</span>
+                  <span class="stat-label">Expertis År</span>
+                  <span class="stat-value">${(cvData.experience || []).length}+</span>
                 </div>
                 <div class="stat-item">
-                  <span class="stat-label">Languages</span>
-                  <span class="stat-value">8+</span>
+                  <span class="stat-label">Tech Impact</span>
+                  <span class="stat-value">Hög</span>
                 </div>
                 <div class="stat-item">
-                  <span class="stat-label">Experience</span>
-                  <span class="stat-value">${(cvData.experience || []).length}+ years</span>
+                  <span class="stat-label">Innovation</span>
+                  <span class="stat-value">Premium</span>
                 </div>
                 <div class="stat-item">
-                  <span class="stat-label">Impact</span>
-                  <span class="stat-value">High</span>
+                  <span class="stat-label">Standard</span>
+                  <span class="stat-value">Svensk</span>
                 </div>
               </div>
               <div class="github-link">
@@ -535,6 +610,41 @@ export const modernTechCVTemplate: CVTemplate = {
                 </div>
                 `;
               }).join('')}
+            </section>
+
+            <!-- Swedish Tech Excellence & Trust Indicators -->
+            <section class="section">
+              <h2 class="section-title">Tech Excellens & Innovation</h2>
+              <div class="tech-excellence-grid">
+                <div class="excellence-card">
+                  <div class="excellence-icon">🇸🇪</div>
+                  <div class="excellence-content">
+                    <div class="excellence-title">Svensk Tech Standard</div>
+                    <div class="excellence-desc">Högkvalitativ utveckling enligt svensk branschpraxis</div>
+                  </div>
+                </div>
+                <div class="excellence-card">
+                  <div class="excellence-icon">⚡</div>
+                  <div class="excellence-content">
+                    <div class="excellence-title">Innovation Leadership</div>
+                    <div class="excellence-desc">Drivkraft för teknisk innovation och digital transformation</div>
+                  </div>
+                </div>
+                <div class="excellence-card">
+                  <div class="excellence-icon">🔧</div>
+                  <div class="excellence-content">
+                    <div class="excellence-title">Technical Mastery</div>
+                    <div class="excellence-desc">Djup expertis inom moderna teknologier och arkitekturer</div>
+                  </div>
+                </div>
+                <div class="excellence-card">
+                  <div class="excellence-icon">🎯</div>
+                  <div class="excellence-content">
+                    <div class="excellence-title">Delivery Excellence</div>
+                    <div class="excellence-desc">Proven track record av framgångsrika tech-implementationer</div>
+                  </div>
+                </div>
+              </div>
             </section>
           </main>
 

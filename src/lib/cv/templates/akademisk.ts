@@ -3,16 +3,24 @@ import { generateDynamicHeadings, formatDateRange } from '../cv-metadata';
 
 export const akademiskCVTemplate: CVTemplate = {
   id: 'akademisk',
-  name: 'Akademisk',
-  description: 'Specialiserad för forskare, doktorander och akademiska positioner',
+  name: 'Akademisk Premium',
+  description: 'Exklusiv mall för svenska forskare och akademiska ledare - omfattande forskningsprofil med vetenskaplig excellens',
   category: 'Academic',
-  bestFor: ['Forskning', 'Universitet', 'Vetenskapliga positioner', 'Doktorander'],
-  features: ['Publikationsfokus', 'Detaljerad struktur', 'Akademisk tradition', 'Forskning-centrerad'],
-  colorSchemes: ['blue', 'black'],
+  bestFor: ['Forskning & Innovation', 'Universitetspositioner', 'Vetenskapligt ledarskap', 'Internationell akademi', 'Forskningsfinansiering'],
+  features: ['Publikationsfokus', 'Forskningsmeriter', 'Svensk akademisk standard', 'Internationell credibilitet', 'Premium akademisk design'],
+  colorSchemes: ['academic-blue', 'scholarly-navy', 'research-burgundy', 'classic-black'],
   previewImage: '/images/cv-templates/akademisk-preview.png',
   generateHTML: (cvData: CVMetadata, options: CVGenerationOptions) => {
     const headings = generateDynamicHeadings(cvData, 'akademisk');
-    const primaryColor = options.colorScheme === 'blue' ? '#1e40af' : '#374151';
+    
+    // Premium Swedish Academic Color Schemes
+    const academicSchemes = {
+      'academic-blue': { primary: '#1e3a8a', secondary: '#3730a3', accent: '#dbeafe', light: '#f0f9ff', text: '#1e293b' },
+      'scholarly-navy': { primary: '#1e293b', secondary: '#334155', accent: '#e2e8f0', light: '#f8fafc', text: '#0f172a' },
+      'research-burgundy': { primary: '#7c2d12', secondary: '#991b1b', accent: '#fef2f2', light: '#fef7ed', text: '#1f2937' },
+      'classic-black': { primary: '#374151', secondary: '#4b5563', accent: '#f3f4f6', light: '#f9fafb', text: '#111827' }
+    };
+    const colors = academicSchemes[options.colorScheme as keyof typeof academicSchemes] || academicSchemes['academic-blue'];
     
     return `
       <!DOCTYPE html>
@@ -22,6 +30,8 @@ export const akademiskCVTemplate: CVTemplate = {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>CV - ${cvData.personalInfo.fullName}</title>
         <style>
+          @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400;1,600&family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:wght@400;500;600;700&display=swap');
+          
           @page {
             size: A4;
             margin: 2.5cm 2cm;
@@ -34,60 +44,105 @@ export const akademiskCVTemplate: CVTemplate = {
           }
           
           body {
-            font-family: 'Times New Roman', Georgia, serif;
+            font-family: 'Crimson Text', 'Times New Roman', Georgia, serif;
             font-size: 11pt;
-            line-height: 1.5;
-            color: #1a202c;
+            line-height: 1.6;
+            color: ${colors.text};
+            background: ${colors.light};
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
           }
           
           .cv-container {
             max-width: 100%;
           }
           
+          /* Premium Academic Header */
           .header {
             text-align: center;
             margin-bottom: 2cm;
-            padding-bottom: 1cm;
-            border-bottom: 1px solid ${primaryColor};
+            padding: 2cm 0;
+            background: linear-gradient(135deg, ${colors.light} 0%, white 50%, ${colors.accent} 100%);
+            border: 2px solid ${colors.accent};
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, ${colors.primary} 0%, ${colors.secondary} 100%);
           }
           
           .name {
-            font-size: 20pt;
-            font-weight: bold;
-            color: ${primaryColor};
-            margin-bottom: 0.3cm;
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            font-size: 24pt;
+            font-weight: 700;
+            color: ${colors.primary};
+            margin-bottom: 0.4cm;
+            letter-spacing: 0.5px;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.1);
           }
           
           .title {
-            font-size: 12pt;
+            font-family: 'Source Serif Pro', Georgia, serif;
+            font-size: 13pt;
             font-style: italic;
-            color: #4a5568;
-            margin-bottom: 0.8cm;
+            color: ${colors.secondary};
+            margin-bottom: 1cm;
+            font-weight: 500;
           }
           
           .contact-info {
             font-size: 10pt;
-            color: #2d3748;
+            color: ${colors.secondary};
+            background: rgba(255,255,255,0.8);
+            padding: 0.5cm 1cm;
+            border-radius: 20px;
+            display: inline-block;
           }
           
           .contact-info span {
             margin: 0 0.8cm;
           }
           
+          /* Premium Academic Sections */
           .section {
-            margin-bottom: 1.8cm;
+            margin-bottom: 2cm;
             break-inside: avoid;
+            background: white;
+            padding: 1.5cm;
+            border-radius: 10px;
+            border: 1px solid ${colors.accent};
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
           }
           
           .section-title {
-            font-size: 13pt;
-            font-weight: bold;
-            color: ${primaryColor};
-            margin-bottom: 0.8cm;
+            font-family: 'Playfair Display', serif;
+            font-size: 14pt;
+            font-weight: 600;
+            color: ${colors.primary};
+            margin-bottom: 1cm;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 1px solid #e2e8f0;
-            padding-bottom: 0.3cm;
+            letter-spacing: 1.5px;
+            position: relative;
+            padding-bottom: 0.5cm;
+          }
+          
+          .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, ${colors.primary} 0%, ${colors.secondary} 100%);
+            border-radius: 2px;
           }
           
           .subsection-title {
@@ -175,6 +230,103 @@ export const akademiskCVTemplate: CVTemplate = {
             grid-template-columns: 1fr 1fr;
             gap: 2cm;
           }
+          
+          /* Academic Excellence Section */
+          .academic-excellence {
+            display: grid;
+            gap: 1cm;
+          }
+          
+          .excellence-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8cm;
+            padding: 1cm;
+            background: linear-gradient(135deg, ${colors.light} 0%, white 100%);
+            border-radius: 8px;
+            border-left: 4px solid ${colors.primary};
+            transition: all 0.2s ease;
+          }
+          
+          .excellence-item:hover {
+            transform: translateX(3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+          }
+          
+          .excellence-icon {
+            font-size: 18pt;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: ${colors.primary};
+            color: white;
+            border-radius: 50%;
+            flex-shrink: 0;
+          }
+          
+          .excellence-content {
+            flex: 1;
+          }
+          
+          .excellence-title {
+            font-family: 'Source Serif Pro', serif;
+            font-size: 12pt;
+            font-weight: 600;
+            color: ${colors.primary};
+            margin-bottom: 0.3cm;
+          }
+          
+          .excellence-desc {
+            font-size: 10pt;
+            color: ${colors.text};
+            line-height: 1.5;
+          }
+          
+          /* Trust Indicators */
+          .trust-indicators {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8cm;
+          }
+          
+          .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5cm;
+            padding: 0.8cm 1cm;
+            background: linear-gradient(135deg, ${colors.primary}10 0%, ${colors.accent} 100%);
+            border: 2px solid ${colors.primary}20;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+          }
+          
+          .trust-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, ${colors.primary}20 0%, ${colors.light} 100%);
+          }
+          
+          .trust-icon {
+            font-size: 14pt;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: ${colors.primary};
+            color: white;
+            border-radius: 50%;
+            flex-shrink: 0;
+          }
+          
+          .trust-text {
+            font-family: 'Source Serif Pro', serif;
+            font-size: 9pt;
+            font-weight: 500;
+            color: ${colors.primary};
+          }
         </style>
       </head>
       <body>
@@ -249,21 +401,31 @@ export const akademiskCVTemplate: CVTemplate = {
             `).join('')}
           </section>
 
-          <!-- Publications (simulated) -->
+          <!-- Swedish Academic Excellence Indicators -->
           <section class="section">
-            <h2 class="section-title">Publikationer</h2>
-            <div class="subsection-title">Peer-reviewed artiklar</div>
-            <div class="publication-item">
-              <span class="publication-authors">${cvData.personalInfo.fullName}</span>
-              <span class="publication-title">"Forskningsområden och metodologi inom [specialiseringsområde]"</span>
-              <span class="publication-venue">Journal of Academic Research</span> (2024).
-            </div>
-            
-            <div class="subsection-title">Konferenspresentationer</div>
-            <div class="publication-item">
-              <span class="publication-authors">${cvData.personalInfo.fullName}</span>
-              <span class="publication-title">"Aktuell forskning och framtida utveckling"</span>
-              Presenterat vid Svenska Forskningskonferensen (2024).
+            <h2 class="section-title">Forskningsutmärkelser & Erkännanden</h2>
+            <div class="academic-excellence">
+              <div class="excellence-item">
+                <div class="excellence-icon">🏆</div>
+                <div class="excellence-content">
+                  <div class="excellence-title">Forskarexcellens</div>
+                  <div class="excellence-desc">Erkänd expertis inom ${cvData.targetRole || 'specialiseringsområdet'} med internationell impact</div>
+                </div>
+              </div>
+              <div class="excellence-item">
+                <div class="excellence-icon">📚</div>
+                <div class="excellence-content">
+                  <div class="excellence-title">Publikationsmeriter</div>
+                  <div class="excellence-desc">Omfattande forskningsportfölj med peer-review publikationer</div>
+                </div>
+              </div>
+              <div class="excellence-item">
+                <div class="excellence-icon">🎓</div>
+                <div class="excellence-content">
+                  <div class="excellence-title">Akademiskt Ledarskap</div>
+                  <div class="excellence-desc">Bevisad förmåga att leda forskningsprojekt och handleda doktorander</div>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -292,15 +454,26 @@ export const akademiskCVTemplate: CVTemplate = {
           </section>
           ` : ''}
 
-          <!-- Professional Service -->
+          <!-- Swedish Academic Trust Indicators -->
           <section class="section">
-            <h2 class="section-title">Professionellt Engagemang</h2>
-            <div class="description">
-              <ul>
-                <li>Medlem i Svenska Forskningsrådet</li>
-                <li>Reviewer för internationella tidskrifter</li>
-                <li>Organisatör för akademiska konferenser</li>
-              </ul>
+            <h2 class="section-title">Akademisk Excellens & Trovärdighet</h2>
+            <div class="trust-indicators">
+              <div class="trust-badge">
+                <span class="trust-icon">🇸🇪</span>
+                <span class="trust-text">Svensk Forskningsstandard</span>
+              </div>
+              <div class="trust-badge">
+                <span class="trust-icon">🌍</span>
+                <span class="trust-text">Internationell Credibilitet</span>
+              </div>
+              <div class="trust-badge">
+                <span class="trust-icon">⚡</span>
+                <span class="trust-text">Forskningsinnovation</span>
+              </div>
+              <div class="trust-badge">
+                <span class="trust-icon">🎯</span>
+                <span class="trust-text">Vetenskaplig Rigor</span>
+              </div>
             </div>
           </section>
         </div>

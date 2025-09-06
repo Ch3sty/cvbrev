@@ -6,9 +6,9 @@ export const klassiskCVTemplate: CVTemplate = {
   id: 'klassisk',
   name: 'Klassisk Premium',
   description: 'Elegant svensk företagstradition med moderna premium-detaljer för ledande positioner',
-  category: 'Executive',
+  category: 'Professionell',
   bestFor: ['Finanssektorn', 'Juridik', 'Konsultverksamhet', 'Offentlig förvaltning', 'C-level positioner'],
-  features: ['Swedish Executive Design', 'Premium Typography', 'Elegant Hierarchy', 'Trust Indicators'],
+  features: ['Svensk Professionell Design', 'Premium Typografi', 'Elegant Hierarki', 'Förtroendesignaler'],
   colorSchemes: ['navy', 'charcoal', 'forest', 'burgundy', 'royal', 'classic'],
   previewImage: '/images/cv-templates/klassisk-preview.png',
   generateHTML: (cvData: CVMetadata, options: CVGenerationOptions) => {
@@ -40,7 +40,26 @@ export const klassiskCVTemplate: CVTemplate = {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Curriculum Vitae - ${cvData.personalInfo.fullName}</title>
         <style>
-          @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Source+Serif+Pro:ital,wght@0,400;0,600;1,400&display=swap');
+          
+          /* PREMIUM SWEDISH TYPOGRAPHY SYSTEM */
+          :root {
+            --font-display: 'Playfair Display', 'Source Serif Pro', 'Times New Roman', serif;
+            --font-body: 'Crimson Text', 'Source Serif Pro', Georgia, serif;
+            --font-technical: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-weight-light: 300;
+            --font-weight-normal: 400;
+            --font-weight-medium: 500;
+            --font-weight-semibold: 600;
+            --font-weight-bold: 700;
+            --letter-spacing-tight: -0.025em;
+            --letter-spacing-normal: 0;
+            --letter-spacing-wide: 0.05em;
+            --letter-spacing-wider: 0.1em;
+            --line-height-tight: 1.2;
+            --line-height-normal: 1.6;
+            --line-height-relaxed: 1.8;
+          }
           
           @page {
             size: A4;
@@ -68,12 +87,32 @@ export const klassiskCVTemplate: CVTemplate = {
           }
           
           body {
-            font-family: 'Crimson Text', Georgia, 'Times New Roman', serif;
+            font-family: var(--font-body);
             font-size: 11pt;
-            line-height: 1.6;
+            line-height: var(--line-height-normal);
             color: ${colors.text};
             background: white;
-            font-weight: 400;
+            font-weight: var(--font-weight-normal);
+            letter-spacing: var(--letter-spacing-normal);
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+          }
+          
+          /* PREMIUM BACKGROUND TEXTURE */
+          body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+              radial-gradient(circle at 25% 25%, ${colors.accent}15 0%, transparent 50%),
+              radial-gradient(circle at 75% 75%, ${colors.accent}10 0%, transparent 50%);
+            background-size: 200px 200px;
+            pointer-events: none;
+            z-index: -1;
           }
           
           /* PREMIUM EXECUTIVE HEADER */
@@ -112,23 +151,56 @@ export const klassiskCVTemplate: CVTemplate = {
           }
           
           .name {
-            font-family: 'Playfair Display', 'Times New Roman', serif;
+            font-family: var(--font-display);
             font-size: 36pt;
-            font-weight: 600;
+            font-weight: var(--font-weight-semibold);
             color: ${colors.primary};
             margin-bottom: 0.5cm;
-            letter-spacing: -0.02em;
-            line-height: 1.1;
+            letter-spacing: var(--letter-spacing-tight);
+            line-height: var(--line-height-tight);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            position: relative;
+          }
+          
+          .name::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, ${colors.gold}, ${colors.primary});
+            border-radius: 1px;
           }
           
           .executive-title {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-technical);
             font-size: 16pt;
-            font-weight: 500;
+            font-weight: var(--font-weight-medium);
             color: ${colors.secondary};
             margin-bottom: 1cm;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: var(--letter-spacing-wider);
+            position: relative;
+          }
+          
+          .executive-title::before,
+          .executive-title::after {
+            content: '◆';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: ${colors.gold};
+            font-size: 12pt;
+          }
+          
+          .executive-title::before {
+            left: -2cm;
+          }
+          
+          .executive-title::after {
+            right: -2cm;
           }
           
           .executive-summary {
@@ -167,38 +239,65 @@ export const klassiskCVTemplate: CVTemplate = {
             color: ${colors.secondary};
           }
           
-          /* SECTION STYLING */
+          /* PREMIUM SECTION STYLING */
           .section {
             margin-bottom: 2cm;
             page-break-inside: avoid;
+            position: relative;
+          }
+          
+          .section::before {
+            content: '';
+            position: absolute;
+            top: -0.5cm;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, ${colors.primary}20, transparent);
           }
           
           .section-header {
             position: relative;
-            margin-bottom: 1.2cm;
+            margin-bottom: 1.5cm;
             text-align: center;
-            padding-bottom: 0.8cm;
+            padding: 1cm 0;
+            background: linear-gradient(135deg, ${colors.accent}08, transparent, ${colors.accent}08);
+            border-radius: 8px;
+          }
+          
+          .section-header::before {
+            content: '❖';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            color: ${colors.gold};
+            font-size: 20pt;
+            padding: 0 0.5cm;
           }
           
           .section-header::after {
             content: '';
             position: absolute;
-            bottom: 0;
+            bottom: 0.2cm;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, ${colors.primary}, transparent);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, ${colors.primary}, ${colors.gold}, ${colors.primary}, transparent);
+            border-radius: 2px;
           }
           
           .section-title {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-display);
             font-size: 18pt;
-            font-weight: 600;
+            font-weight: var(--font-weight-semibold);
             color: ${colors.primary};
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: var(--letter-spacing-wider);
             position: relative;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.05);
           }
           
           /* EXECUTIVE ACHIEVEMENTS BOX */
@@ -265,20 +364,40 @@ export const klassiskCVTemplate: CVTemplate = {
             line-height: 1.4;
           }
           
-          /* EXPERIENCE - ELEGANT TIMELINE */
+          /* PREMIUM SWEDISH TIMELINE DESIGN */
           .experience-timeline {
             position: relative;
-            padding-left: 2cm;
+            padding-left: 2.5cm;
           }
           
           .experience-timeline::before {
             content: '';
             position: absolute;
-            left: 0.8cm;
+            left: 1cm;
             top: 0;
             bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, ${colors.primary}, ${colors.secondary}, ${colors.primary});
+            width: 3px;
+            background: linear-gradient(to bottom, 
+              ${colors.primary} 0%,
+              ${colors.gold} 25%,
+              ${colors.secondary} 50%,
+              ${colors.gold} 75%,
+              ${colors.primary} 100%);
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+          }
+          
+          .experience-timeline::after {
+            content: '⚡';
+            position: absolute;
+            left: 0.85cm;
+            bottom: -20px;
+            font-size: 16pt;
+            color: ${colors.gold};
+            background: white;
+            padding: 0.2cm;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
           }
           
           .experience-item {
@@ -292,16 +411,22 @@ export const klassiskCVTemplate: CVTemplate = {
           }
           
           .experience-item::before {
-            content: '';
+            content: '◆';
             position: absolute;
-            left: -1.3cm;
+            left: -1.45cm;
             top: 1cm;
-            width: 16px;
-            height: 16px;
-            background: ${colors.primary};
-            border: 4px solid white;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, ${colors.primary}, ${colors.gold});
+            border: 3px solid white;
             border-radius: 50%;
-            box-shadow: 0 0 0 2px ${colors.accent};
+            box-shadow: 0 0 0 3px ${colors.accent}, 0 4px 12px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 8pt;
+            font-weight: bold;
           }
           
           .experience-header {
@@ -313,20 +438,36 @@ export const klassiskCVTemplate: CVTemplate = {
           }
           
           .position-title {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-display);
             font-size: 14pt;
-            font-weight: 600;
+            font-weight: var(--font-weight-semibold);
             color: ${colors.primary};
             margin-bottom: 0.3cm;
-            line-height: 1.2;
+            line-height: var(--line-height-tight);
+            letter-spacing: var(--letter-spacing-normal);
+            position: relative;
+          }
+          
+          .position-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, ${colors.gold}, transparent);
+            border-radius: 1px;
           }
           
           .company-name {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-technical);
             font-size: 12pt;
-            font-weight: 500;
+            font-weight: var(--font-weight-medium);
             color: ${colors.secondary};
             margin-bottom: 0.3cm;
+            letter-spacing: var(--letter-spacing-wide);
+            text-transform: uppercase;
+            font-variant: small-caps;
           }
           
           .date-range {
@@ -370,41 +511,71 @@ export const klassiskCVTemplate: CVTemplate = {
             font-weight: bold;
           }
           
-          /* SKILLS - PROFESSIONAL CATEGORIES */
+          /* PREMIUM SWEDISH SKILLS SHOWCASE */
           .skills-executive {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1.5cm;
           }
           
           .skill-category-executive {
-            background: linear-gradient(135deg, ${colors.accent}, white);
-            border: 1px solid ${colors.primary};
-            border-radius: 8px;
-            padding: 1.2cm;
+            background: linear-gradient(135deg, ${colors.accent}05, white, ${colors.accent}10);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            border-radius: 12px;
+            padding: 1.5cm;
             position: relative;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
           }
           
           .skill-category-executive::before {
             content: '';
             position: absolute;
-            top: -1px;
-            left: 20%;
-            right: 20%;
-            height: 3px;
-            background: ${colors.gold};
-            border-radius: 2px;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, ${colors.primary}, ${colors.gold}, ${colors.secondary});
+            border-radius: 12px;
+            z-index: -1;
+          }
+          
+          .skill-category-executive::after {
+            content: '❖';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            color: ${colors.gold};
+            font-size: 16pt;
+            padding: 0 0.5cm;
+            border-radius: 50%;
           }
           
           .skill-category-title {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-display);
             font-size: 13pt;
-            font-weight: 600;
+            font-weight: var(--font-weight-semibold);
             color: ${colors.primary};
-            margin-bottom: 0.8cm;
+            margin-bottom: 1cm;
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: var(--letter-spacing-wide);
+            position: relative;
+            padding-bottom: 0.5cm;
+          }
+          
+          .skill-category-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, ${colors.gold}, transparent);
+            border-radius: 1px;
           }
           
           .skills-list {
@@ -414,68 +585,135 @@ export const klassiskCVTemplate: CVTemplate = {
           }
           
           .skill-item {
-            background: white;
+            background: linear-gradient(135deg, white, ${colors.accent}08);
             color: ${colors.text};
-            padding: 0.4cm 0.8cm;
-            border-radius: 20px;
+            padding: 0.5cm 1cm;
+            border-radius: 25px;
             font-size: 10pt;
-            font-weight: 500;
+            font-weight: var(--font-weight-medium);
             text-align: center;
-            border: 1px solid ${colors.accent};
-            font-family: 'Inter', sans-serif;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            font-family: var(--font-technical);
+            position: relative;
+            transition: all 0.2s ease;
           }
           
-          /* EDUCATION - PRESTIGIOUS STYLING */
+          .skill-item::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, ${colors.primary}30, ${colors.gold}30);
+            border-radius: 25px;
+            z-index: -1;
+          }
+          
+          .skill-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+          }
+          
+          /* PREMIUM SWEDISH EDUCATION SHOWCASE */
           .education-item {
             display: grid;
             grid-template-columns: 1fr auto;
             gap: 2cm;
             margin-bottom: 1.5cm;
-            padding: 1.2cm;
-            background: linear-gradient(135deg, white, ${colors.accent});
-            border-left: 4px solid ${colors.primary};
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding: 1.5cm;
+            background: linear-gradient(135deg, white, ${colors.accent}10, white);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            position: relative;
+          }
+          
+          .education-item::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, ${colors.primary}, ${colors.gold});
+            border-radius: 10px;
+            z-index: -1;
+          }
+          
+          .education-item::after {
+            content: '🎓';
+            position: absolute;
+            top: -10px;
+            right: 1cm;
+            font-size: 20pt;
+            background: white;
+            padding: 0.2cm;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
           }
           
           .degree-title {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-display);
             font-size: 13pt;
-            font-weight: 600;
+            font-weight: var(--font-weight-semibold);
             color: ${colors.primary};
             margin-bottom: 0.3cm;
+            letter-spacing: var(--letter-spacing-normal);
+            position: relative;
+          }
+          
+          .degree-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, ${colors.gold}, transparent);
+            border-radius: 1px;
           }
           
           .institution-name {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-technical);
             font-size: 11pt;
-            font-weight: 500;
+            font-weight: var(--font-weight-medium);
             color: ${colors.secondary};
             margin-bottom: 0.5cm;
+            letter-spacing: var(--letter-spacing-wide);
+            text-transform: uppercase;
+            font-variant: small-caps;
           }
           
           .education-details {
             text-align: right;
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-technical);
           }
           
           .education-date {
             font-size: 10pt;
             color: #6b7280;
-            font-weight: 500;
+            font-weight: var(--font-weight-medium);
+            letter-spacing: var(--letter-spacing-wide);
           }
           
           .education-grade {
             font-size: 11pt;
-            font-weight: 600;
+            font-weight: var(--font-weight-semibold);
             color: ${colors.primary};
             margin-top: 0.3cm;
+            background: ${colors.gold}20;
+            padding: 0.2cm 0.5cm;
+            border-radius: 15px;
+            border: 1px solid ${colors.gold};
           }
           
-          /* LANGUAGES - INTERNATIONAL EXECUTIVE */
+          /* PREMIUM SWEDISH LANGUAGE SHOWCASE */
           .languages-executive {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 1cm;
           }
           
@@ -483,63 +721,123 @@ export const klassiskCVTemplate: CVTemplate = {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.8cm;
-            background: linear-gradient(135deg, white, ${colors.accent});
-            border-radius: 8px;
-            border: 1px solid ${colors.primary};
+            padding: 1cm;
+            background: linear-gradient(135deg, white, ${colors.accent}08, white);
+            border-radius: 12px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+          }
+          
+          .language-item::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, ${colors.primary}40, ${colors.gold}40);
+            border-radius: 12px;
+            z-index: -1;
+          }
+          
+          .language-item::after {
+            content: '🌐';
+            position: absolute;
+            top: -8px;
+            left: 0.5cm;
+            font-size: 16pt;
+            background: white;
+            padding: 0.1cm;
+            border-radius: 50%;
           }
           
           .language-name {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-display);
             font-size: 12pt;
-            font-weight: 600;
+            font-weight: var(--font-weight-semibold);
             color: ${colors.text};
+            letter-spacing: var(--letter-spacing-normal);
           }
           
           .language-level {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-technical);
             font-size: 10pt;
-            font-weight: 600;
-            color: ${colors.primary};
-            background: ${colors.gold};
+            font-weight: var(--font-weight-semibold);
+            background: linear-gradient(135deg, ${colors.gold}, ${colors.primary});
             color: white;
-            padding: 0.3cm 0.6cm;
-            border-radius: 12px;
+            padding: 0.4cm 0.8cm;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: var(--letter-spacing-wide);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
           }
           
-          /* CERTIFICATIONS - PROFESSIONAL CREDENTIALS */
+          /* PREMIUM SWEDISH CERTIFICATIONS */
           .certification-item {
             margin-bottom: 1cm;
-            padding: 1cm;
-            background: linear-gradient(135deg, ${colors.accent}, white);
-            border-radius: 6px;
-            border: 1px solid ${colors.primary};
+            padding: 1.2cm;
+            background: linear-gradient(135deg, ${colors.accent}05, white, ${colors.accent}10);
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
             display: grid;
             grid-template-columns: 1fr auto;
             gap: 1cm;
             align-items: center;
+            position: relative;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+          }
+          
+          .certification-item::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, ${colors.primary}30, ${colors.gold}30);
+            border-radius: 10px;
+            z-index: -1;
+          }
+          
+          .certification-item::after {
+            content: '🏆';
+            position: absolute;
+            top: -8px;
+            left: 1cm;
+            font-size: 16pt;
+            background: white;
+            padding: 0.1cm;
+            border-radius: 50%;
           }
           
           .certification-name {
-            font-family: 'Playfair Display', serif;
+            font-family: var(--font-display);
             font-size: 12pt;
-            font-weight: 600;
+            font-weight: var(--font-weight-semibold);
             color: ${colors.primary};
-            margin-bottom: 0.2cm;
+            margin-bottom: 0.3cm;
+            letter-spacing: var(--letter-spacing-normal);
           }
           
           .certification-issuer {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-technical);
             font-size: 10pt;
             color: ${colors.secondary};
-            font-weight: 500;
+            font-weight: var(--font-weight-medium);
+            letter-spacing: var(--letter-spacing-wide);
+            text-transform: uppercase;
+            font-variant: small-caps;
           }
           
           .certification-date {
-            font-family: 'Inter', sans-serif;
+            font-family: var(--font-technical);
             font-size: 9pt;
             color: #6b7280;
             text-align: right;
+            font-weight: var(--font-weight-medium);
           }
           
           /* PRINT OPTIMIZATIONS */
@@ -586,22 +884,111 @@ export const klassiskCVTemplate: CVTemplate = {
           .mb-medium { margin-bottom: 1cm; }
           .mb-large { margin-bottom: 1.5cm; }
           
-          /* EXECUTIVE SEPARATOR */
+          /* PREMIUM SWEDISH SEPARATORS & DECORATIVE ELEMENTS */
           .executive-separator {
-            height: 2px;
-            background: linear-gradient(90deg, transparent, ${colors.primary}, ${colors.gold}, ${colors.primary}, transparent);
-            margin: 1.5cm 0;
-            border-radius: 1px;
+            height: 3px;
+            background: linear-gradient(90deg, 
+              transparent, 
+              ${colors.primary}40, 
+              ${colors.gold}, 
+              ${colors.primary}, 
+              ${colors.gold}, 
+              ${colors.primary}40, 
+              transparent);
+            margin: 2cm 0;
+            border-radius: 2px;
+            position: relative;
+          }
+          
+          .executive-separator::before {
+            content: '❖';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            color: ${colors.gold};
+            font-size: 16pt;
+            padding: 0 0.5cm;
+          }
+          
+          /* SWEDISH TRUST INDICATORS */
+          .swedish-trust-badge {
+            position: absolute;
+            top: 1cm;
+            right: 1cm;
+            background: linear-gradient(135deg, ${colors.primary}, ${colors.gold});
+            color: white;
+            padding: 0.3cm 0.6cm;
+            border-radius: 20px;
+            font-size: 8pt;
+            font-weight: var(--font-weight-semibold);
+            font-family: var(--font-technical);
+            text-transform: uppercase;
+            letter-spacing: var(--letter-spacing-wide);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+          }
+          
+          .swedish-trust-badge::before {
+            content: '🇸🇪';
+            margin-right: 0.2cm;
+          }
+          
+          /* PREMIUM MICRO-INTERACTIONS */
+          @keyframes fadeInUp {
+            from {
+              opacity: 0;
+              transform: translateY(20px);
+            }
+            to {
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+          
+          @keyframes shimmer {
+            0% { background-position: -200px 0; }
+            100% { background-position: 200px 0; }
+          }
+          
+          .shimmer-effect {
+            animation: shimmer 2s infinite;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            background-size: 200px 100%;
+          }
+          
+          .section {
+            animation: fadeInUp 0.6s ease-out;
+          }
+          
+          /* PREMIUM CONTACT ENHANCEMENTS */
+          .contact-item {
+            transition: all 0.2s ease;
+          }
+          
+          .contact-item:hover {
+            transform: translateX(3px);
+            color: ${colors.primary};
+          }
+          
+          .contact-icon {
+            transition: all 0.2s ease;
+          }
+          
+          .contact-item:hover .contact-icon {
+            color: ${colors.gold};
+            transform: scale(1.1);
           }
         </style>
       </head>
       <body>
-        <!-- EXECUTIVE HEADER -->
+        <!-- PREMIUM SWEDISH EXECUTIVE HEADER -->
         <header class="executive-header no-page-break">
+          <div class="swedish-trust-badge">Svenska Standards</div>
           <h1 class="name">${cvData.personalInfo.fullName}</h1>
-          <div class="executive-title">${cvData.personalInfo.title || 'Senior Executive'}</div>
+          <div class="executive-title">${cvData.personalInfo.title || 'Professionell Kandidat'}</div>
           <div class="executive-summary">
-            ${cvData.summary || 'Distinguished professional with extensive leadership experience and proven track record of delivering exceptional results in challenging business environments.'}
+            ${cvData.summary || 'Erfaren professionell med stark kompetens inom svensk företagskultur och internationell affärsutveckling.'}
           </div>
           
           <!-- CONTACT GRID -->
