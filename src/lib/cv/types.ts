@@ -61,7 +61,7 @@ export interface TemplateComparison {
   };
   strengths: string[];
   weaknesses: string[];
-  bestFor: string[];
+  visualFeatures: string[];
   recommendedFor: 'entry-level' | 'experienced' | 'senior' | 'executive';
 }
 

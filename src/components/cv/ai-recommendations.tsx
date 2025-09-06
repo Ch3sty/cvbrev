@@ -117,7 +117,7 @@ export default function AIRecommendations({
                   </div>
                   <div>
                     <div className="text-white font-medium">{template.name}</div>
-                    <div className="text-gray-400 text-sm">{template.bestFor.slice(0, 2).join(', ')}</div>
+                    <div className="text-gray-400 text-sm">{template.visualFeatures.slice(0, 2).join(', ')}</div>
                   </div>
                 </div>
                 

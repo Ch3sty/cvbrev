@@ -58,7 +58,8 @@
       "Bash(powershell:*)",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-cv-preview.html\")",
       "Bash(del \"C:\\Users\\chris\\cvbrev\\test-cv-preview.html\")",
-      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-premium-templates.html\")"
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-premium-templates.html\")",
+      "Bash(git grep:*)"
     ],
     "deny": [],
     "ask": []

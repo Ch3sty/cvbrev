@@ -101,7 +101,7 @@ export default function TemplateComparison({
       ...template,
       scores: scores[templateId] || { atsCompatible: 80, visualImpact: 80, industryFocus: 80, readability: 80 },
       strengths: template.features?.slice(0, 3) || [],
-      bestFor: template.bestFor?.slice(0, 2) || []
+      visualFeatures: template.visualFeatures?.slice(0, 2) || []
     };
   }, [getTemplateInfo]);
 
@@ -148,7 +148,7 @@ export default function TemplateComparison({
                   >
                     <div>
                       <div className="font-medium text-white">{template.name}</div>
-                      <div className="text-sm text-gray-400 mt-1">{template.category}</div>
+                      <div className="text-sm text-gray-400 mt-1">{template.designStyle}</div>
                     </div>
                   </Button>
                 ) : null;
@@ -282,7 +282,7 @@ export default function TemplateComparison({
                     <div>
                       <h4 className="font-medium text-white mb-2">Bäst för</h4>
                       <div className="flex flex-wrap gap-1">
-                        {comparisonData.bestFor.map(industry => (
+                        {comparisonData.visualFeatures.map(industry => (
                           <Badge key={industry} variant="outline" className="text-xs border-navy-600 text-gray-300">
                             {industry}
                           </Badge>
