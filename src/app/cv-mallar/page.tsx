@@ -9,6 +9,7 @@ import { Download, Eye, FileText, Palette, Zap, Users, BookOpen, Loader2, Upload
 import Link from 'next/link';
 import { getAllCVTemplates, preloadPopularTemplates, loadTemplate } from '@/lib/cv/cv-templates';
 import type { CVTemplateType, CVMetadata } from '@/lib/cv/cv-metadata';
+import type { TemplateUsage } from '@/lib/cv/types';
 import { useCVStore } from '@/store/cv-store';
 import { useProfile } from '@/hooks/use-profile';
 import Notification from '@/components/ui/notification';
@@ -241,12 +242,12 @@ export default function CVMallarPage() {
     }
   }, [selectedTemplate, selectedCV, trackTemplateUsage, showNotification, closeNotification, templateCustomization]);
   
-  // Get analytics data - explicitly type and map to required format
-  const rawMostUsedTemplates = getMostUsedTemplates();
+  // Get analytics data with explicit TemplateUsage typing
+  const rawMostUsedTemplates: TemplateUsage[] = getMostUsedTemplates();
   
   // Map TemplateUsage to expected format for gallery component
   const mostUsedTemplates: Array<{ templateId: CVTemplateType; count: number }> = 
-    rawMostUsedTemplates.map((usage) => ({
+    rawMostUsedTemplates.map((usage: TemplateUsage) => ({
       templateId: usage.templateId,
       count: usage.count
     }));
