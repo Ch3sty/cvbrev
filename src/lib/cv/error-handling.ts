@@ -1,4 +1,5 @@
 // Centralized error handling for CV template system
+import { useState, useEffect, useCallback } from 'react';
 import type { CVTemplateType, TemplateEvent } from './types';
 
 export enum TemplateErrorCode {
@@ -348,9 +349,9 @@ export async function withErrorHandling<T>(
 
 // React hook for error handling (om du använder React)
 export function useTemplateErrorHandler() {
-  const [errors, setErrors] = React.useState<TemplateError[]>([]);
+  const [errors, setErrors] = useState<TemplateError[]>([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const unsubscribe = errorHandler.onError((error) => {
       setErrors(prev => [...prev.slice(-9), error]); // Keep last 10 errors
     });
@@ -358,7 +359,7 @@ export function useTemplateErrorHandler() {
     return unsubscribe;
   }, []);
 
-  const clearErrors = React.useCallback(() => {
+  const clearErrors = useCallback(() => {
     setErrors([]);
   }, []);
 
