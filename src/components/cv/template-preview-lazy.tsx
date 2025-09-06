@@ -35,7 +35,7 @@ function useIntersectionObserver(
 
     observer.observe(element);
     return () => observer.unobserve(element);
-  }, [options]);
+  }, [options, elementRef]);
 
   return isIntersecting;
 }

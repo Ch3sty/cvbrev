@@ -239,10 +239,16 @@ export default function CVMallarPage() {
     } finally {
       setIsGenerating(false);
     }
-  }, [selectedTemplate, selectedCV, trackTemplateUsage, showNotification, closeNotification]);
+  }, [selectedTemplate, selectedCV, trackTemplateUsage, showNotification, closeNotification, templateCustomization]);
   
   // Get analytics data
-  const mostUsedTemplates = getMostUsedTemplates();
+  const rawMostUsedTemplates = getMostUsedTemplates();
+  
+  // Map TemplateUsage to the expected format
+  const mostUsedTemplates = rawMostUsedTemplates.map(usage => ({
+    templateId: usage.templateId,
+    count: usage.count
+  }));
   
   const isTemplatePopular = useCallback((templateId: CVTemplateType) => {
     return mostUsedTemplates.some(usage => usage.templateId === templateId);
