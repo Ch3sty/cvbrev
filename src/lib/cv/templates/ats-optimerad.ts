@@ -1,13 +1,13 @@
 import { CVTemplate, CVMetadata, CVGenerationOptions } from '../cv-metadata';
-import { generateDynamicHeadings, formatDateRange } from '../cv-metadata';
+import { generateDynamicHeadings, formatDateRange, shouldShowSection } from '../cv-metadata';
 import { extractAchievements } from '../visual-elements';
 
 export const atsOptimeradCVTemplate: CVTemplate = {
   id: 'ats-optimerad',
   name: 'ATS-Optimerad Premium',
-  description: 'Premium ATS-kompatibel design som säkerställer maximal läsbarhet för både ATS-system och svenska rekryterare',
-  category: 'ATS Excellence',
-  bestFor: ['Stora företag', 'Multinationella', 'HR-system', 'Rekryteringsbyråer', 'Tech-företag', 'Automatisk screening'],
+  description: 'Premium ATS-kompatibel design som säkerställer maximal läsbarhet för alla automatiska system och HR-professioner',
+  designStyle: 'ATS-Optimerad Premium',
+  visualFeatures: ['100% ATS-Kompatibel', 'Strukturerad Layout', 'HR-Vänlig Design', 'Premium Finish'],
   features: ['100% ATS-kompatibel', 'Premium design', 'Keyword-optimerad', 'Svenska standarder', 'HR-vänlig'],
   colorSchemes: ['professional', 'corporate', 'trust', 'stability', 'success', 'premium'],
   previewImage: '/images/cv-templates/ats-preview.png',
@@ -746,7 +746,7 @@ export const atsOptimeradCVTemplate: CVTemplate = {
           ` : ''}
 
           <!-- LANGUAGES -->
-          ${(cvData.languages || []).length > 0 ? `
+          ${shouldShowSection('languages', cvData) ? `
           <section class="ats-section">
             <div class="ats-section-header">
               <h2 class="ats-section-title">${headings.languages}</h2>
@@ -764,7 +764,7 @@ export const atsOptimeradCVTemplate: CVTemplate = {
           ` : ''}
 
           <!-- CERTIFICATIONS -->
-          ${(cvData.certifications || []).length > 0 ? `
+          ${shouldShowSection('certifications', cvData) ? `
           <section class="ats-section">
             <div class="ats-section-header">
               <h2 class="ats-section-title">Professionella Certifieringar</h2>

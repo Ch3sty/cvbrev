@@ -1,13 +1,13 @@
 import { CVTemplate, CVMetadata, CVGenerationOptions } from '../cv-metadata';
-import { generateDynamicHeadings, formatDateRange } from '../cv-metadata';
+import { generateDynamicHeadings, formatDateRange, shouldShowSection } from '../cv-metadata';
 import { extractAchievements } from '../visual-elements';
 
 export const modernCVTemplate: CVTemplate = {
   id: 'modern',
   name: 'Modern Premium Professional',
-  description: 'Elegant minimalistisk design med premium svenska designprinciper för moderna professionella',
-  category: 'Contemporary Excellence',
-  bestFor: ['Konsultverksamhet', 'Marknadsföring', 'Projektledning', 'Affärsutveckling', 'Moderna företag', 'Innovation'],
+  description: 'Elegant minimalistisk design med premium svenska designprinciper och clean layout som framhäver alla typer av professionell bakgrund',
+  designStyle: 'Minimalistisk Modern',
+  visualFeatures: ['Premium Minimalism', 'Clean Layout', 'Visual Excellence', 'Modern Typografi'],
   features: ['Premium minimalism', 'Svenska designprinciper', 'Visual excellence', 'Professional impact', 'Achievement focus'],
   colorSchemes: ['slate', 'teal', 'indigo', 'emerald', 'purple', 'amber'],
   previewImage: '/images/cv-templates/modern-preview.png',
@@ -1037,7 +1037,7 @@ export const modernCVTemplate: CVTemplate = {
         ` : ''}
 
         <!-- LANGUAGES -->
-        ${(cvData.languages || []).length > 0 ? `
+        ${shouldShowSection('languages', cvData) ? `
         <section class="section">
           <div class="section-header">
             <h2 class="section-title">${headings.languages}</h2>
@@ -1055,7 +1055,7 @@ export const modernCVTemplate: CVTemplate = {
         ` : ''}
 
         <!-- CERTIFICATIONS -->
-        ${(cvData.certifications || []).length > 0 ? `
+        ${shouldShowSection('certifications', cvData) ? `
         <section class="section">
           <div class="section-header">
             <h2 class="section-title">Professionella Certifieringar</h2>

@@ -1,13 +1,13 @@
 import { CVTemplate, CVMetadata, CVGenerationOptions } from '../cv-metadata';
-import { generateDynamicHeadings, formatDateRange } from '../cv-metadata';
+import { generateDynamicHeadings, formatDateRange, shouldShowSection } from '../cv-metadata';
 import { extractAchievements } from '../visual-elements';
 
 export const klassiskCVTemplate: CVTemplate = {
   id: 'klassisk',
   name: 'Klassisk Premium',
-  description: 'Elegant svensk företagstradition med moderna premium-detaljer för ledande positioner',
-  category: 'Professionell',
-  bestFor: ['Finanssektorn', 'Juridik', 'Konsultverksamhet', 'Offentlig förvaltning', 'C-level positioner'],
+  description: 'Elegant design som speglar svensk professionell tradition med moderna premium-detaljer och sofistikerad typografi',
+  designStyle: 'Klassisk Elegans',
+  visualFeatures: ['Traditionell Layout', 'Premium Typografi', 'Elegant Hierarki', 'Professionell Finish'],
   features: ['Svensk Professionell Design', 'Premium Typografi', 'Elegant Hierarki', 'Förtroendesignaler'],
   colorSchemes: ['navy', 'charcoal', 'forest', 'burgundy', 'royal', 'classic'],
   previewImage: '/images/cv-templates/klassisk-preview.png',
@@ -1049,7 +1049,7 @@ export const klassiskCVTemplate: CVTemplate = {
         ` : ''}
 
         <!-- PROFESSIONAL EXPERIENCE -->
-        ${(cvData.experience || []).length > 0 ? `
+        ${shouldShowSection('experience', cvData) ? `
         <section class="section">
           <div class="section-header">
             <h2 class="section-title">${headings.experience}</h2>
@@ -1084,7 +1084,7 @@ export const klassiskCVTemplate: CVTemplate = {
         ` : ''}
 
         <!-- CORE COMPETENCIES -->
-        ${(cvData.skills || []).length > 0 ? `
+        ${shouldShowSection('skills', cvData) ? `
         <section class="section">
           <div class="section-header">
             <h2 class="section-title">${headings.skills}</h2>
@@ -1120,7 +1120,7 @@ export const klassiskCVTemplate: CVTemplate = {
         ` : ''}
 
         <!-- EDUCATION & QUALIFICATIONS -->
-        ${(cvData.education || []).length > 0 ? `
+        ${shouldShowSection('education', cvData) ? `
         <section class="section">
           <div class="section-header">
             <h2 class="section-title">${headings.education}</h2>
@@ -1143,7 +1143,7 @@ export const klassiskCVTemplate: CVTemplate = {
         ` : ''}
 
         <!-- LANGUAGES -->
-        ${(cvData.languages || []).length > 0 ? `
+        ${shouldShowSection('languages', cvData) ? `
         <section class="section">
           <div class="section-header">
             <h2 class="section-title">${headings.languages}</h2>
@@ -1161,7 +1161,7 @@ export const klassiskCVTemplate: CVTemplate = {
         ` : ''}
 
         <!-- PROFESSIONAL CERTIFICATIONS -->
-        ${(cvData.certifications || []).length > 0 ? `
+        ${shouldShowSection('certifications', cvData) ? `
         <section class="section">
           <div class="section-header">
             <h2 class="section-title">Professionella Certifieringar</h2>

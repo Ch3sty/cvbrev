@@ -1,12 +1,12 @@
 import { CVTemplate, CVMetadata, CVGenerationOptions } from '../cv-metadata';
-import { generateDynamicHeadings, formatDateRange } from '../cv-metadata';
+import { generateDynamicHeadings, formatDateRange, shouldShowSection } from '../cv-metadata';
 
 export const modernTechCVTemplate: CVTemplate = {
   id: 'modern-tech',
   name: 'Modern Tech Premium',
-  description: 'Premium teknisk excellens för svenska tech-ledare - avancerad design som demonstrerar innovativ kompetens och teknisk expertis',
-  category: 'Technical',
-  bestFor: ['Tech Leadership', 'Mjukvaruarkitektur', 'Digital Innovation', 'AI/ML Engineering', 'Cloud Architecture', 'Tech Startup', 'CTO/VP Engineering'],
+  description: 'Premium avancerad design som demonstrerar innovativ kompetens och framtidsinriktad estetik för alla som vill framstå som progressiva',
+  designStyle: 'Futuristisk Modern',
+  visualFeatures: ['Innovation-Driven Design', 'Premium Tech-Estetik', 'Avancerade Visualiseringar', 'Framtidsinriktad Känsla'],
   features: ['Innovation-driven', 'Premium tech design', 'Svensk tech-standard', 'Advanced visualizations', 'Future-ready aesthetics'],
   colorSchemes: ['swedish-tech', 'digital-blue', 'innovation-green', 'cyber-purple', 'nordic-slate', 'startup-orange'],
   previewImage: '/images/cv-templates/modern-tech-preview.png',
@@ -107,7 +107,7 @@ export const modernTechCVTemplate: CVTemplate = {
           
           .tech-role {
             font-size: 12pt;
-            color: rgba(255,255,255,0.9);
+            color: white;
             margin-bottom: 3mm;
             font-weight: 500;
             text-transform: uppercase;
@@ -115,7 +115,7 @@ export const modernTechCVTemplate: CVTemplate = {
           }
           
           .tech-summary {
-            color: rgba(255,255,255,0.85);
+            color: rgba(255,255,255,0.95);
             line-height: 1.5;
             font-size: 10pt;
           }
@@ -142,7 +142,7 @@ export const modernTechCVTemplate: CVTemplate = {
           }
           
           .stat-label {
-            color: rgba(255,255,255,0.8);
+            color: rgba(255,255,255,0.9);
           }
           
           .stat-value {
@@ -153,11 +153,11 @@ export const modernTechCVTemplate: CVTemplate = {
           .github-link {
             font-family: 'JetBrains Mono', monospace;
             font-size: 7pt;
-            color: rgba(255,255,255,0.7);
-            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.15);
             padding: 1mm 3mm;
             border-radius: 5px;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
           }
           
           /* MODERN LAYOUT */
@@ -699,7 +699,7 @@ export const modernTechCVTemplate: CVTemplate = {
             </section>
 
             <!-- Languages -->
-            ${(cvData.languages || []).length > 0 ? `
+            ${shouldShowSection('languages', cvData) ? `
             <section class="sidebar-section">
               <h3 class="sidebar-title">${headings.languages}</h3>
               ${(cvData.languages || []).map(lang => `

@@ -54,7 +54,11 @@
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-cv-generation.html\")",
       "Bash(del \"C:\\Users\\chris\\cvbrev\\test-cv-generation.html\")",
       "Bash(sed:*)",
-      "mcp__ide__getDiagnostics"
+      "mcp__ide__getDiagnostics",
+      "Bash(powershell:*)",
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-cv-preview.html\")",
+      "Bash(del \"C:\\Users\\chris\\cvbrev\\test-cv-preview.html\")",
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-premium-templates.html\")"
     ],
     "deny": [],
     "ask": []

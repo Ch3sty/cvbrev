@@ -101,8 +101,8 @@ export interface CVTemplate {
   id: CVTemplateType;
   name: string;
   description: string;
-  category: string;
-  bestFor: string[];
+  designStyle: string; // Visual style instead of profession category
+  visualFeatures: string[]; // Design features instead of profession restrictions
   features: string[];
   colorSchemes: string[];
   previewImage: string;
@@ -195,6 +195,108 @@ export const detectIndustry = (cvData: CVMetadata): string => {
   if (educationScore >= 2) return 'education';
   
   return 'general';
+};
+
+// Smart section visibility - hide sections with no relevant data
+export const shouldShowSection = (sectionType: string, cvData: CVMetadata): boolean => {
+  switch (sectionType) {
+    case 'languages':
+      return (cvData.languages?.length || 0) > 0;
+    case 'certifications':
+      return (cvData.certifications?.length || 0) > 0;
+    case 'projects':
+      return (cvData.projects?.length || 0) > 0;
+    case 'publications':
+      // Show if academic background or research experience detected
+      const industry = detectIndustry(cvData);
+      const hasAcademicContent = industry === 'education' || 
+        (cvData.experience || []).some(exp => 
+          exp.position.toLowerCase().includes('research') ||
+          exp.position.toLowerCase().includes('professor') ||
+          exp.company.toLowerCase().includes('university')
+        );
+      return hasAcademicContent && (cvData.projects?.length || 0) > 0;
+    case 'awards':
+      return (cvData.certifications?.length || 0) > 0; // Use certifications as awards proxy
+    case 'interests':
+      return Boolean(cvData.interests && cvData.interests.length > 0);
+    case 'references':
+      return Boolean(cvData.references && cvData.references.trim().length > 0);
+    default:
+      return true; // Core sections (experience, education, skills) always shown
+  }
+};
+
+// Enhanced industry detection with profession-specific terminology adaptation
+export const detectProfessionContext = (cvData: CVMetadata): {
+  industry: string;
+  professionLevel: 'entry' | 'mid' | 'senior' | 'executive';
+  terminology: Record<string, string>;
+} => {
+  const industry = detectIndustry(cvData);
+  const experience = cvData.experience || [];
+  
+  // Detect profession level
+  const totalYears = calculateExperienceYears(experience);
+  const hasLeadershipTerms = experience.some(exp => 
+    exp.position.toLowerCase().includes('lead') ||
+    exp.position.toLowerCase().includes('manager') ||
+    exp.position.toLowerCase().includes('director') ||
+    exp.position.toLowerCase().includes('chef') ||
+    exp.position.toLowerCase().includes('ansvarig')
+  );
+  
+  let professionLevel: 'entry' | 'mid' | 'senior' | 'executive';
+  if (totalYears < 2) professionLevel = 'entry';
+  else if (totalYears < 5) professionLevel = 'mid';
+  else if (totalYears < 10 || hasLeadershipTerms) professionLevel = 'senior';
+  else professionLevel = 'executive';
+
+  // Profession-specific terminology that works for ALL professions
+  const terminologyMaps = {
+    tech: {
+      skills: 'Tekniska Kompetenser',
+      experience: 'Teknisk Erfarenhet',
+      projects: 'Tekniska Projekt',
+      achievements: 'Tekniska Prestationer'
+    },
+    creative: {
+      skills: 'Kreativa Färdigheter',
+      experience: 'Kreativ Erfarenhet',
+      projects: 'Portfolio & Projekt',
+      achievements: 'Kreativa Prestationer'
+    },
+    business: {
+      skills: 'Affärscompetenser',
+      experience: 'Affärserfarenhet',
+      projects: 'Affärsprojekt',
+      achievements: 'Affärsprestationer'
+    },
+    healthcare: {
+      skills: 'Vårdkompetenser',
+      experience: 'Vårderfarenhet',
+      projects: 'Vårdprojekt',
+      achievements: 'Vårdprestationer'
+    },
+    education: {
+      skills: 'Pedagogiska Färdigheter',
+      experience: 'Undervisningserfarenhet',
+      projects: 'Utbildningsprojekt',
+      achievements: 'Pedagogiska Prestationer'
+    },
+    general: {
+      skills: 'Professionella Kompetenser',
+      experience: 'Yrkeserfarenhet',
+      projects: 'Projekt & Uppdrag',
+      achievements: 'Professionella Prestationer'
+    }
+  };
+
+  return {
+    industry,
+    professionLevel,
+    terminology: terminologyMaps[industry as keyof typeof terminologyMaps] || terminologyMaps.general
+  };
 };
 
 // Generate dynamic headings based on industry and content

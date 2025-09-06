@@ -1,12 +1,12 @@
 import { CVTemplate, CVMetadata, CVGenerationOptions } from '../cv-metadata';
-import { generateDynamicHeadings, formatDateRange } from '../cv-metadata';
+import { generateDynamicHeadings, formatDateRange, shouldShowSection } from '../cv-metadata';
 
 export const akademiskCVTemplate: CVTemplate = {
   id: 'akademisk',
   name: 'Akademisk Premium',
-  description: 'Exklusiv mall för svenska forskare och akademiska ledare - omfattande forskningsprofil med vetenskaplig excellens',
-  category: 'Academic',
-  bestFor: ['Forskning & Innovation', 'Universitetspositioner', 'Vetenskapligt ledarskap', 'Internationell akademi', 'Forskningsfinansiering'],
+  description: 'Sofistikerad design som framhäver djup expertis och prestationer med klassisk elegans och professionell trovärdighet',
+  designStyle: 'Akademisk Elegans',
+  visualFeatures: ['Sofistikerad Layout', 'Expertis-Fokus', 'Klassisk Elegans', 'Professionell Trovärdighet'],
   features: ['Publikationsfokus', 'Forskningsmeriter', 'Svensk akademisk standard', 'Internationell credibilitet', 'Premium akademisk design'],
   colorSchemes: ['academic-blue', 'scholarly-navy', 'research-burgundy', 'classic-black'],
   previewImage: '/images/cv-templates/akademisk-preview.png',
@@ -172,7 +172,7 @@ export const akademiskCVTemplate: CVTemplate = {
           
           .date-location {
             font-size: 10pt;
-            color: #718096;
+            color: #4a5568;
             margin-bottom: 0.4cm;
             font-style: italic;
           }
@@ -445,7 +445,7 @@ export const akademiskCVTemplate: CVTemplate = {
           ` : ''}
 
           <!-- Languages -->
-          ${(cvData.languages || []).length > 0 ? `
+          ${shouldShowSection('languages', cvData) ? `
           <section class="section">
             <h2 class="section-title">${headings.languages}</h2>
             <div class="skills-list">

@@ -291,9 +291,9 @@ export default function CVMallarPage() {
               </Badge>
             </h1>
             <p className="text-gray-300 text-lg leading-relaxed">
-              Professionella CV-mallar anpassade för svenska arbetsgivare och ATS-system. 
+              Universella premium CV-mallar som fungerar för alla yrkesområden. 
               <br />
-              <span className="text-pink-300 font-medium">Utvecklade av karriärexperter</span> med 10+ års branschexpertis.
+              <span className="text-pink-300 font-medium">Välj baserat på design</span> - inte bransch eller yrke.
             </p>
           </div>
           <div className="hidden lg:flex flex-col items-end space-y-2">
@@ -441,9 +441,9 @@ export default function CVMallarPage() {
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold text-white flex items-center">
                 <Palette className="w-5 h-5 mr-2 text-green-400" />
-                Premiummallarna
+                Välj din design
                 <Badge className="ml-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs">
-                  Exklusiv
+                  Universell
                 </Badge>
               </h2>
               <div className="flex items-center space-x-4">
@@ -480,8 +480,8 @@ export default function CVMallarPage() {
             </div>
             
             <p className="text-gray-300">
-              Varje mall är skapad för att maximera dina chanser på svenska arbetsmarknaden. 
-              Klicka på en mall för förhandsvisning.
+              Alla våra mallar är universellt användbara - oavsett om du är chef, lastbilschaufför, städare eller forskare. 
+              Välj den design som speglar din personlighet bäst.
             </p>
           </div>
 
@@ -520,9 +520,9 @@ export default function CVMallarPage() {
                   <div className="flex items-start gap-4">
                     <span className="bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold flex-shrink-0">2</span>
                     <div>
-                      <p className="text-white font-medium mb-1">Välj expertvaliderad mall</p>
+                      <p className="text-white font-medium mb-1">Välj din design-stil</p>
                       <p className="text-gray-300 text-sm">
-                        Alla mallar är testade med svenska rekryterare och ATS-system. Se rekommendationer baserat på din profil.
+                        Alla mallar fungerar för alla yrken. Välj den visuella stil som passar dig bäst - klassisk, modern, kreativ eller teknisk.
                       </p>
                     </div>
                   </div>
@@ -569,10 +569,10 @@ export default function CVMallarPage() {
         <div className="bg-gradient-to-r from-navy-800 to-navy-700 rounded-xl p-8 border border-navy-600">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-white mb-3">
-              Utvecklat för svenska företag och arbetsgivare
+              För alla yrken och branscher
             </h2>
             <p className="text-gray-300 max-w-3xl mx-auto">
-              Våra CV-mallar följer svenska arbetsmarknadsstandarder och är testade med ledande rekryteringsföretag
+              Våra universella mallar fungerar lika bra för VD:ar som lastbilschaufförer. Välj design baserat på personlig stil.
             </p>
           </div>
           

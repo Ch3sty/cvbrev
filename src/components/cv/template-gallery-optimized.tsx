@@ -178,8 +178,8 @@ export default function TemplateGalleryOptimized({
                   {/* Visa preloading status subtilt */}
                   <div className="flex items-center justify-between text-xs text-gray-500">
                     <span>
-                      {template.bestFor?.slice(0, 2).join(', ')}
-                      {template.bestFor && template.bestFor.length > 2 && '...'}
+                      {template.visualFeatures?.slice(0, 2).join(', ')}
+                      {template.visualFeatures && template.visualFeatures.length > 2 && '...'}
                     </span>
                     {preloadedTemplates.has(template.id) ? (
                       <span className="text-green-400">Redo</span>

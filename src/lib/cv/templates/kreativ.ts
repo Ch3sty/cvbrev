@@ -1,13 +1,13 @@
 import { CVTemplate, CVMetadata, CVGenerationOptions } from '../cv-metadata';
-import { generateDynamicHeadings, formatDateRange } from '../cv-metadata';
+import { generateDynamicHeadings, formatDateRange, shouldShowSection } from '../cv-metadata';
 import { extractAchievements } from '../visual-elements';
 
 export const kreativCVTemplate: CVTemplate = {
   id: 'kreativ',
   name: 'Kreativ Premium Professional',
-  description: 'Balanserad premium kreativitet för designbranschen med svensk elegans och visuell impact',
-  category: 'Creative Excellence',
-  bestFor: ['Grafisk design', 'Marknadsföring', 'Reklam', 'Webbdesign', 'UX/UI', 'Kreativa byråer', 'Art Direction'],
+  description: 'Balanserad premium kreativitet med svensk elegans och visuell impact som passar alla som vill sticka ut',
+  designStyle: 'Kreativ Premium',
+  visualFeatures: ['Visuell Impact', 'Premium Kreativitet', 'Balanserad Elegans', 'Svensk Design'],
   features: ['Premium kreativitet', 'Portfolio integration', 'Visual storytelling', 'Svenska designprinciper', 'Creative excellence'],
   colorSchemes: ['creative', 'brand', 'vibrant', 'artistic', 'modern', 'elegant'],
   previewImage: '/images/cv-templates/kreativ-preview.png',
@@ -205,9 +205,7 @@ export const kreativCVTemplate: CVTemplate = {
             letter-spacing: var(--letter-spacing-tight);
             line-height: var(--line-height-tight);
             position: relative;
-            background: linear-gradient(45deg, #fff, rgba(255,255,255,0.8));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: white;
           }
           
           .creative-name::after {
@@ -378,9 +376,7 @@ export const kreativCVTemplate: CVTemplate = {
             font-family: var(--font-display);
             font-size: 20pt;
             font-weight: var(--font-weight-bold);
-            background: linear-gradient(135deg, ${colors.primary}, ${colors.secondary});
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: ${colors.primary};
             text-transform: uppercase;
             letter-spacing: var(--letter-spacing-wider);
             position: relative;
@@ -431,9 +427,7 @@ export const kreativCVTemplate: CVTemplate = {
             font-family: var(--font-display);
             font-size: 18pt;
             font-weight: var(--font-weight-bold);
-            background: linear-gradient(135deg, ${colors.primary}, ${colors.secondary});
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: ${colors.primary};
             text-align: center;
             margin-bottom: 1.5cm;
             text-transform: uppercase;
@@ -477,9 +471,7 @@ export const kreativCVTemplate: CVTemplate = {
             font-family: var(--font-display);
             font-size: 28pt;
             font-weight: var(--font-weight-bold);
-            background: linear-gradient(135deg, ${colors.primary}, ${colors.secondary});
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: ${colors.primary};
             line-height: 1;
             margin-bottom: 0.5cm;
           }
@@ -593,9 +585,7 @@ export const kreativCVTemplate: CVTemplate = {
             font-family: var(--font-display);
             font-size: 16pt;
             font-weight: var(--font-weight-bold);
-            background: linear-gradient(135deg, ${colors.primary}, ${colors.secondary});
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: ${colors.primary};
             margin-bottom: 0.3cm;
             line-height: var(--line-height-tight);
             position: relative;
@@ -716,9 +706,7 @@ export const kreativCVTemplate: CVTemplate = {
             font-family: var(--font-display);
             font-size: 15pt;
             font-weight: var(--font-weight-bold);
-            background: linear-gradient(135deg, ${colors.primary}, ${colors.secondary});
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: ${colors.primary};
             margin-bottom: 1.5cm;
             text-align: center;
             text-transform: uppercase;
@@ -828,9 +816,7 @@ export const kreativCVTemplate: CVTemplate = {
             font-family: var(--font-display);
             font-size: 15pt;
             font-weight: var(--font-weight-bold);
-            background: linear-gradient(135deg, ${colors.primary}, ${colors.secondary});
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: ${colors.primary};
             margin-bottom: 0.5cm;
             line-height: var(--line-height-tight);
             position: relative;
@@ -924,9 +910,7 @@ export const kreativCVTemplate: CVTemplate = {
             font-family: var(--font-display);
             font-size: 13pt;
             font-weight: var(--font-weight-bold);
-            background: linear-gradient(135deg, ${colors.primary}, ${colors.secondary});
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: ${colors.primary};
             letter-spacing: var(--letter-spacing-normal);
           }
           
@@ -1193,7 +1177,7 @@ export const kreativCVTemplate: CVTemplate = {
           ` : ''}
 
           <!-- LANGUAGES -->
-          ${(cvData.languages || []).length > 0 ? `
+          ${shouldShowSection('languages', cvData) ? `
           <section class="creative-section">
             <div class="creative-section-header">
               <h2 class="creative-section-title">${headings.languages}</h2>
@@ -1211,7 +1195,7 @@ export const kreativCVTemplate: CVTemplate = {
           ` : ''}
 
           <!-- CERTIFICATIONS -->
-          ${(cvData.certifications || []).length > 0 ? `
+          ${shouldShowSection('certifications', cvData) ? `
           <section class="creative-section">
             <div class="creative-section-header">
               <h2 class="creative-section-title">Kreativa Certifieringar</h2>
