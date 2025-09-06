@@ -487,7 +487,7 @@ export const modernTechCVTemplate: CVTemplate = {
                 </div>
                 <div class="stat-item">
                   <span class="stat-label">Experience</span>
-                  <span class="stat-value">${cvData.experience.length}+ years</span>
+                  <span class="stat-value">${(cvData.experience || []).length}+ years</span>
                 </div>
                 <div class="stat-item">
                   <span class="stat-label">Impact</span>
@@ -507,10 +507,10 @@ export const modernTechCVTemplate: CVTemplate = {
             <!-- Technical Experience -->
             <section class="section">
               <h2 class="section-title">${headings.experience}</h2>
-              ${cvData.experience.map(exp => {
+              ${(cvData.experience || []).map(exp => {
                 const techKeywords = ['React', 'Node.js', 'Python', 'Java', 'Docker', 'AWS', 'Kubernetes', 'TypeScript', 'PostgreSQL', 'MongoDB'];
                 const detectedTech = techKeywords.filter(tech => 
-                  exp.description.some(desc => desc.toLowerCase().includes(tech.toLowerCase()))
+                  (Array.isArray(exp.description) ? exp.description : [exp.description]).filter(Boolean).some(desc => desc.toLowerCase().includes(tech.toLowerCase()))
                 );
                 
                 return `
@@ -530,7 +530,7 @@ export const modernTechCVTemplate: CVTemplate = {
                   ` : ''}
                   
                   <ul class="achievements">
-                    ${exp.description.map(desc => `<li class="achievement">${desc}</li>`).join('')}
+                    ${(Array.isArray(exp.description) ? exp.description : [exp.description]).filter(Boolean).map(desc => `<li class="achievement">${desc}</li>`).join('')}
                   </ul>
                 </div>
                 `;
@@ -562,14 +562,14 @@ export const modernTechCVTemplate: CVTemplate = {
             </section>
 
             <!-- Tech Stack -->
-            ${cvData.skills && cvData.skills.length > 0 ? `
+            ${(cvData.skills || []).length > 0 ? `
             <section class="sidebar-section">
               <h3 class="sidebar-title">${headings.skills}</h3>
-              ${cvData.skills.map(category => `
+              ${(cvData.skills || []).map(category => `
               <div class="skill-category">
                 <div class="skill-cat-title">${category.category}</div>
                 <div class="skills-list">
-                  ${category.skills.map(skill => `<span class="skill-item">${skill}</span>`).join('')}
+                  ${(category.skills || []).map(skill => `<span class="skill-item">${skill}</span>`).join('')}
                 </div>
               </div>
               `).join('')}
@@ -579,7 +579,7 @@ export const modernTechCVTemplate: CVTemplate = {
             <!-- Education -->
             <section class="sidebar-section">
               <h3 class="sidebar-title">${headings.education}</h3>
-              ${cvData.education.map(edu => `
+              ${(cvData.education || []).map(edu => `
               <div class="education-item">
                 <div class="degree">${edu.degree}</div>
                 <div class="institution">${edu.institution}</div>
@@ -589,10 +589,10 @@ export const modernTechCVTemplate: CVTemplate = {
             </section>
 
             <!-- Languages -->
-            ${cvData.languages && cvData.languages.length > 0 ? `
+            ${(cvData.languages || []).length > 0 ? `
             <section class="sidebar-section">
               <h3 class="sidebar-title">${headings.languages}</h3>
-              ${cvData.languages.map(lang => `
+              ${(cvData.languages || []).map(lang => `
               <div style="display: flex; justify-content: space-between; margin-bottom: 0.4cm; font-size: 8pt;">
                 <span>${lang.language}</span>
                 <span style="color: ${colors.primary};">${lang.proficiency}</span>

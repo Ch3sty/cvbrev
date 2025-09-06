@@ -25,7 +25,7 @@ export const modernCVTemplate: CVTemplate = {
     
     // Extract key information
     const achievements = extractAchievements(
-      cvData.experience.flatMap(exp => exp.description).join(' ') + ' ' +
+      (cvData.experience || []).flatMap(exp => (Array.isArray(exp.description) ? exp.description : [exp.description]).filter(Boolean)).join(' ') + ' ' +
       (cvData.summary || '')
     );
     const keySkills = cvData.skills?.slice(0, 6) || [];
@@ -560,13 +560,13 @@ export const modernCVTemplate: CVTemplate = {
         ` : ''}
 
         <!-- EXPERIENCE SECTION -->
-        ${cvData.experience && cvData.experience.length > 0 ? `
+        ${(cvData.experience || []).length > 0 ? `
         <section class="section">
           <div class="section-header">
             <h2 class="section-title">${headings.experience}</h2>
           </div>
           
-          ${cvData.experience.map((exp, index) => `
+          ${(cvData.experience || []).map((exp, index) => `
             <div class="experience-item ${index === 0 ? 'no-page-break' : ''}">
               <div class="experience-header">
                 <div>
@@ -580,9 +580,9 @@ export const modernCVTemplate: CVTemplate = {
                 <div class="job-description">${exp.description}</div>
               ` : ''}
               
-              ${exp.achievements && exp.achievements.length > 0 ? `
+              ${(exp.achievements || []).length > 0 ? `
                 <ul class="achievements">
-                  ${exp.achievements.map(achievement => `
+                  ${(exp.achievements || []).map(achievement => `
                     <li>${achievement}</li>
                   `).join('')}
                 </ul>
@@ -593,7 +593,7 @@ export const modernCVTemplate: CVTemplate = {
         ` : ''}
 
         <!-- SKILLS SECTION -->
-        ${cvData.skills && cvData.skills.length > 0 ? `
+        ${(cvData.skills || []).length > 0 ? `
         <section class="section">
           <div class="section-header">
             <h2 class="section-title">${headings.skills}</h2>
@@ -601,7 +601,7 @@ export const modernCVTemplate: CVTemplate = {
           
           <div class="skills-grid">
             ${Object.entries(
-              cvData.skills.reduce((acc: any, skill: any) => {
+              (cvData.skills || []).reduce((acc: any, skill: any) => {
                 const category = skill.category || 'Övrigt';
                 if (!acc[category]) acc[category] = [];
                 acc[category].push(skill);
@@ -627,13 +627,13 @@ export const modernCVTemplate: CVTemplate = {
         ` : ''}
 
         <!-- EDUCATION SECTION -->
-        ${cvData.education && cvData.education.length > 0 ? `
+        ${(cvData.education || []).length > 0 ? `
         <section class="section">
           <div class="section-header">
             <h2 class="section-title">${headings.education}</h2>
           </div>
           
-          ${cvData.education.map(edu => `
+          ${(cvData.education || []).map(edu => `
             <div class="education-item no-page-break">
               <div>
                 <div class="degree-title">${edu.degree}</div>
@@ -650,14 +650,14 @@ export const modernCVTemplate: CVTemplate = {
         ` : ''}
 
         <!-- LANGUAGES SECTION -->
-        ${cvData.languages && cvData.languages.length > 0 ? `
+        ${(cvData.languages || []).length > 0 ? `
         <section class="section">
           <div class="section-header">
             <h2 class="section-title">${headings.languages}</h2>
           </div>
           
           <div class="languages-grid">
-            ${cvData.languages.map(lang => `
+            ${(cvData.languages || []).map(lang => `
               <div class="language-item">
                 <span class="language-name">${lang.language}</span>
                 <span class="language-level">${lang.proficiency}</span>
@@ -668,13 +668,13 @@ export const modernCVTemplate: CVTemplate = {
         ` : ''}
 
         <!-- ADDITIONAL SECTIONS -->
-        ${cvData.certifications && cvData.certifications.length > 0 ? `
+        ${(cvData.certifications || []).length > 0 ? `
         <section class="section">
           <div class="section-header">
             <h2 class="section-title">Certifieringar</h2>
           </div>
           
-          ${cvData.certifications.map(cert => `
+          ${(cvData.certifications || []).map(cert => `
             <div class="education-item no-page-break">
               <div>
                 <div class="degree-title">${cert.name}</div>

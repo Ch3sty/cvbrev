@@ -201,7 +201,7 @@ export const akademiskCVTemplate: CVTemplate = {
           <!-- Academic Positions -->
           <section class="section">
             <h2 class="section-title">Akademiska Positioner</h2>
-            ${cvData.experience.map(exp => `
+            ${(cvData.experience || []).map(exp => `
             <div class="experience-item">
               <div class="position-title">${exp.position}</div>
               <div class="institution">${exp.company}</div>
@@ -211,7 +211,7 @@ export const akademiskCVTemplate: CVTemplate = {
               </div>
               <div class="description">
                 <ul>
-                  ${exp.description.map(desc => `<li>${desc}</li>`).join('')}
+                  ${(Array.isArray(exp.description) ? exp.description : [exp.description]).filter(Boolean).map(desc => `<li>${desc}</li>`).join('')}
                 </ul>
               </div>
             </div>
@@ -221,7 +221,7 @@ export const akademiskCVTemplate: CVTemplate = {
           <!-- Education -->
           <section class="section">
             <h2 class="section-title">${headings.education}</h2>
-            ${cvData.education.map(edu => `
+            ${(cvData.education || []).map(edu => `
             <div class="education-item">
               <div class="degree">${edu.degree}</div>
               <div class="institution">${edu.institution}</div>
@@ -235,9 +235,9 @@ export const akademiskCVTemplate: CVTemplate = {
                 <div class="honors-description">${edu.honors}</div>
               </div>
               ` : ''}
-              ${edu.relevantCourses && edu.relevantCourses.length > 0 ? `
+              ${(edu.relevantCourses || []).length > 0 ? `
               <div class="description">
-                <strong>Relevanta kurser:</strong> ${edu.relevantCourses.join(', ')}
+                <strong>Relevanta kurser:</strong> ${(edu.relevantCourses || []).join(', ')}
               </div>
               ` : ''}
               ${edu.thesis ? `
@@ -268,14 +268,14 @@ export const akademiskCVTemplate: CVTemplate = {
           </section>
 
           <!-- Research Skills & Competencies -->
-          ${cvData.skills && cvData.skills.length > 0 ? `
+          ${(cvData.skills || []).length > 0 ? `
           <section class="section">
             <h2 class="section-title">Forskningskompetenser</h2>
             <div class="two-column">
-              ${cvData.skills.map(skillCategory => `
+              ${(cvData.skills || []).map(skillCategory => `
               <div class="skills-category">
                 <div class="skill-category-title">${skillCategory.category}</div>
-                <div class="skills-list">${skillCategory.skills.join(', ')}</div>
+                <div class="skills-list">${(skillCategory.skills || []).join(', ')}</div>
               </div>
               `).join('')}
             </div>
@@ -283,11 +283,11 @@ export const akademiskCVTemplate: CVTemplate = {
           ` : ''}
 
           <!-- Languages -->
-          ${cvData.languages && cvData.languages.length > 0 ? `
+          ${(cvData.languages || []).length > 0 ? `
           <section class="section">
             <h2 class="section-title">${headings.languages}</h2>
             <div class="skills-list">
-              ${cvData.languages.map(lang => `${lang.language}: ${lang.proficiency}`).join(' • ')}
+              ${(cvData.languages || []).map(lang => `${lang.language}: ${lang.proficiency}`).join(' • ')}
             </div>
           </section>
           ` : ''}

@@ -511,8 +511,8 @@ export const kreativCVTemplate: CVTemplate = {
               <section class="section">
                 <h2 class="section-title">${headings.experience}</h2>
                 <div class="experience-timeline">
-                  ${cvData.experience.map(exp => {
-                    const achievements = extractAchievements(exp.description.join(' ') + ' ' + (exp.achievements?.join(' ') || ''));
+                  ${(cvData.experience || []).map(exp => {
+                    const achievements = extractAchievements((Array.isArray(exp.description) ? exp.description : [exp.description]).filter(Boolean).join(' ') + ' ' + ((exp.achievements || []).join(' ') || ''));
                     return `
                     <div class="timeline-item">
                       <div class="timeline-duration">${formatDateRange(exp.startDate, exp.endDate)}</div>
@@ -520,7 +520,7 @@ export const kreativCVTemplate: CVTemplate = {
                       <div class="company">${exp.company}</div>
                       <div class="description">
                         <ul>
-                          ${exp.description.map(desc => `<li>${desc}</li>`).join('')}
+                          ${(Array.isArray(exp.description) ? exp.description : [exp.description]).filter(Boolean).map(desc => `<li>${desc}</li>`).join('')}
                         </ul>
                       </div>
                       ${achievements.length > 0 ? `
@@ -580,14 +580,14 @@ export const kreativCVTemplate: CVTemplate = {
               </section>
 
               <!-- Creative Skills Visualization -->
-              ${cvData.skills && cvData.skills.length > 0 ? `
+              ${(cvData.skills || []).length > 0 ? `
               <section class="section">
                 <h2 class="section-title">${headings.skills}</h2>
-                ${cvData.skills.map(skillCategory => `
+                ${(cvData.skills || []).map(skillCategory => `
                 <div class="skill-item">
                   <div class="skill-category-title">${skillCategory.category}</div>
                   <div class="skills-visual">
-                    ${skillCategory.skills.map(skill => `
+                    ${(skillCategory.skills || []).map(skill => `
                     <span class="skill-bubble">${skill}</span>
                     `).join('')}
                   </div>
@@ -599,7 +599,7 @@ export const kreativCVTemplate: CVTemplate = {
               <!-- Enhanced Education -->
               <section class="section">
                 <h2 class="section-title">${headings.education}</h2>
-                ${cvData.education.map(edu => `
+                ${(cvData.education || []).map(edu => `
                 <div class="education-item">
                   <div class="degree">${edu.degree}</div>
                   <div class="institution">${edu.institution}</div>
@@ -610,21 +610,21 @@ export const kreativCVTemplate: CVTemplate = {
               </section>
 
               <!-- Languages -->
-              ${cvData.languages && cvData.languages.length > 0 ? `
+              ${(cvData.languages || []).length > 0 ? `
               <section class="section">
                 <h2 class="section-title">${headings.languages}</h2>
                 <div class="skills-tags">
-                  ${cvData.languages.map(lang => `<span class="skill-tag">${lang.language} (${lang.proficiency})</span>`).join('')}
+                  ${(cvData.languages || []).map(lang => `<span class="skill-tag">${lang.language} (${lang.proficiency})</span>`).join('')}
                 </div>
               </section>
               ` : ''}
 
               <!-- Interests as Visual Tags -->
-              ${cvData.interests && cvData.interests.length > 0 ? `
+              ${(cvData.interests || []).length > 0 ? `
               <section class="section">
                 <h2 class="section-title">Intressen</h2>
                 <div class="interests-container">
-                  ${cvData.interests.map(interest => `<span class="interest-tag">${interest}</span>`).join('')}
+                  ${(cvData.interests || []).map(interest => `<span class="interest-tag">${interest}</span>`).join('')}
                 </div>
               </section>
               ` : ''}

@@ -259,7 +259,7 @@ export const atsOptimeradCVTemplate: CVTemplate = {
           <!-- ATS Keywords (hidden but parseable) -->
           <div class="keyword-optimized" aria-hidden="true">
             CV Curriculum Vitae Resume Meritförteckning ${cvData.personalInfo.fullName} 
-            ${cvData.skills?.map(cat => cat.skills.join(' ')).join(' ') || ''}
+            ${cvData.skills?.map(cat => (cat.skills || []).join(' ')).join(' ') || ''}
             ${cvData.experience?.map(exp => exp.position + ' ' + exp.company).join(' ') || ''}
           </div>
 
@@ -274,7 +274,7 @@ export const atsOptimeradCVTemplate: CVTemplate = {
           <!-- Experience -->
           <section class="section">
             <h2 class="section-title">${headings.experience}</h2>
-            ${cvData.experience.map(exp => `
+            ${(cvData.experience || []).map(exp => `
             <div class="experience-item">
               <div class="job-title">${exp.position}</div>
               <div class="company">${exp.company}</div>
@@ -284,7 +284,7 @@ export const atsOptimeradCVTemplate: CVTemplate = {
               </div>
               <div class="description">
                 <ul>
-                  ${exp.description.map(desc => `<li>${desc}</li>`).join('')}
+                  ${(Array.isArray(exp.description) ? exp.description : [exp.description]).filter(Boolean).map(desc => `<li>${desc}</li>`).join('')}
                 </ul>
               </div>
             </div>
@@ -294,7 +294,7 @@ export const atsOptimeradCVTemplate: CVTemplate = {
           <!-- Education -->
           <section class="section">
             <h2 class="section-title">${headings.education}</h2>
-            ${cvData.education.map(edu => `
+            ${(cvData.education || []).map(edu => `
             <div class="education-item">
               <div class="degree">${edu.degree}</div>
               <div class="institution">${edu.institution}</div>
@@ -311,10 +311,10 @@ export const atsOptimeradCVTemplate: CVTemplate = {
           <section class="section">
             <h2 class="section-title">${headings.skills}</h2>
             <div class="skills-grid">
-              ${cvData.skills.map(skillCategory => `
+              ${(cvData.skills || []).map(skillCategory => `
               <div class="skills-category">
                 <div class="skill-category-title">${skillCategory.category}</div>
-                <div class="skill-list">${skillCategory.skills.join(' • ')}</div>
+                <div class="skill-list">${(skillCategory.skills || []).join(' • ')}</div>
               </div>
               `).join('')}
             </div>
@@ -325,7 +325,7 @@ export const atsOptimeradCVTemplate: CVTemplate = {
           ${cvData.certifications && cvData.certifications.length > 0 ? `
           <section class="section">
             <h2 class="section-title">Certifieringar</h2>
-            ${cvData.certifications.map(cert => `
+            ${(cvData.certifications || []).map(cert => `
             <div class="certifications-item">
               <div class="cert-name">${cert.name}</div>
               <div class="cert-issuer">${cert.issuer}</div>
@@ -339,7 +339,7 @@ export const atsOptimeradCVTemplate: CVTemplate = {
           ${cvData.languages && cvData.languages.length > 0 ? `
           <section class="section">
             <h2 class="section-title">${headings.languages}</h2>
-            <div class="languages-list">${cvData.languages.map(lang => `${lang.language}: ${lang.proficiency}`).join(' • ')}</div>
+            <div class="languages-list">${(cvData.languages || []).map(lang => `${lang.language}: ${lang.proficiency}`).join(' • ')}</div>
           </section>
           ` : ''}
         </div>
