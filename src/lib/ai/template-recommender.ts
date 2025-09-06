@@ -19,87 +19,16 @@ export interface TemplateRecommendation {
   swedishMarketFit: number;
 }
 
-// Bransch-till-mall mapping baserad på svenska marknaden
-const INDUSTRY_TEMPLATE_MAPPING = {
-  'teknologi': {
-    'modern': 85,
-    'kreativ': 70,
-    'klassisk': 60,
-    'ats-optimerad': 90,
-    'akademisk': 45,
-    'modern-tech': 95
-  },
-  'finansiering': {
-    'klassisk': 95,
-    'modern': 75,
-    'kreativ': 30,
-    'ats-optimerad': 85,
-    'akademisk': 40,
-    'modern-tech': 60
-  },
-  'kreativ': {
-    'kreativ': 95,
-    'modern': 80,
-    'klassisk': 45,
-    'ats-optimerad': 65,
-    'akademisk': 35,
-    'modern-tech': 70
-  },
-  'akademisk': {
-    'akademisk': 95,
-    'klassisk': 80,
-    'modern': 60,
-    'ats-optimerad': 75,
-    'kreativ': 40,
-    'modern-tech': 50
-  },
-  'konsulting': {
-    'klassisk': 85,
-    'modern': 80,
-    'ats-optimerad': 90,
-    'kreativ': 50,
-    'akademisk': 60,
-    'modern-tech': 75
-  },
-  'sjukvård': {
-    'klassisk': 90,
-    'ats-optimerad': 85,
-    'modern': 70,
-    'akademisk': 75,
-    'kreativ': 35,
-    'modern-tech': 45
-  },
-  'ingenjörsvetenskap': {
-    'modern': 80,
-    'klassisk': 85,
-    'ats-optimerad': 90,
-    'akademisk': 70,
-    'kreativ': 45,
-    'modern-tech': 85
-  },
-  'marknadsföring': {
-    'modern': 85,
-    'kreativ': 90,
-    'klassisk': 60,
-    'ats-optimerad': 80,
-    'akademisk': 40,
-    'modern-tech': 70
-  },
-  'försäljning': {
-    'modern': 80,
-    'klassisk': 75,
-    'ats-optimerad': 85,
-    'kreativ': 65,
-    'akademisk': 35,
-    'modern-tech': 60
-  },
-  'default': {
-    'klassisk': 70,
-    'modern': 75,
-    'ats-optimerad': 80,
-    'kreativ': 60,
-    'akademisk': 55,
-    'modern-tech': 65
+// Universell design-baserad template rekommendation - alla mallar är tillgängliga för alla
+const DESIGN_PREFERENCE_MAPPING = {
+  // Alla mallar får höga base scores - val baseras på designpreferens, inte yrke
+  'universal': {
+    'klassisk': 85,     // Elegant, traditionell design
+    'modern': 85,       // Balanserad, nutida design  
+    'kreativ': 85,      // Visuellt uttrycksfull design
+    'ats-optimerad': 85, // Strukturerad, systemoptimerad design
+    'akademisk': 85,    // Sofistikerad, forskningsorienterad design
+    'modern-tech': 85   // Tekniskt avancerad, minimal design
   }
 } as const;
 
@@ -213,10 +142,9 @@ function calculateTemplateScore(
   currentUsage?: Record<CVTemplateType, number>
 ): TemplateRecommendation {
   
-  // Base score från bransch-mapping
-  const industry = normalizeIndustry(cvData.detectedIndustry);
-  const industryMapping = INDUSTRY_TEMPLATE_MAPPING[industry] || INDUSTRY_TEMPLATE_MAPPING.default;
-  let baseScore = industryMapping[templateId] || 50;
+  // Base score från universell design-mapping - alla templates är tillgängliga
+  const designMapping = DESIGN_PREFERENCE_MAPPING.universal;
+  let baseScore = designMapping[templateId] || 85;
   
   // Erfarenhetsnivå-modifiering
   const experienceModifier = (EXPERIENCE_MODIFIERS as any)[cvData.experienceLevel]?.[templateId] || 1.0;
@@ -256,10 +184,10 @@ function calculateTemplateScore(
     score: finalScore,
     reasoning,
     suitabilityFactors: {
-      industryMatch: Math.min(100, industryMapping[templateId] || 50),
+      industryMatch: 90, // Alla templates passar alla branscher
       experienceLevel: Math.round(experienceModifier * 100),
-      roleType: Math.min(100, Math.max(0, 50 + roleAdjustment)),
-      atsOptimization: templateId === 'ats-optimerad' ? 95 : 70,
+      roleType: 90, // Alla templates passar alla roller  
+      atsOptimization: templateId === 'ats-optimerad' ? 95 : 85,
       visualPreference: getVisualPreferenceScore(templateId, cvData)
     },
     swedishMarketFit: Math.min(100, Math.max(0, 75 + swedishBonus))
@@ -349,29 +277,24 @@ function calculateRoleBasedAdjustment(templateId: CVTemplateType, cvData: any): 
   
   const content = cvContent.toLowerCase();
   
-  // Tech/IT roller
+  // Universell innehållsanalys - inga yrkesbegränsningar
+  // Alla templates är tillgängliga för alla, justeringar baseras på designpreferens
+  
+  // Ge små bonusar baserat på innehåll men utan att begränsa tillgång
   if (content.includes('utvecklar') || content.includes('programmerare') || 
       content.includes('tech') || content.includes('systemutvecklare')) {
-    if (templateId === 'modern' || templateId === 'ats-optimerad') adjustment += 8;
+    // Tech-innehåll - alla templates fortfarande tillgängliga, liten bonus för tech-vänliga
+    if (templateId === 'modern' || templateId === 'modern-tech') adjustment += 3;
   }
   
-  // Kreativa roller
-  if (content.includes('designer') || content.includes('marknadsförare') || 
-      content.includes('kreativ') || content.includes('reklam')) {
-    if (templateId === 'kreativ' || templateId === 'modern') adjustment += 10;
-  }
-  
-  // Ledningsroller
   if (content.includes('chef') || content.includes('ledare') || 
       content.includes('director') || content.includes('vd')) {
-    if (templateId === 'klassisk') adjustment += 12;
+    // Ledarskapserfarenhet - liten bonus för strukturerade designs
+    if (templateId === 'klassisk' || templateId === 'ats-optimerad') adjustment += 3;
   }
   
-  // Akademiska roller
-  if (content.includes('forskare') || content.includes('doktor') || 
-      content.includes('professor') || content.includes('forskning')) {
-    if (templateId === 'akademisk') adjustment += 15;
-  }
+  // VIKTIGT: Alla andra yrkesgrupper (städare, lastbilschaufför, etc) får samma tillgång
+  // Inga negativa justeringar eller begränsningar för någon yrkesgrupp
   
   return adjustment;
 }
@@ -439,13 +362,19 @@ function generateRecommendationReasoning(
   
   let reasoning = `${templateName} passar dig väl `;
   
-  // Branschspecifik motivering
-  if (industry === 'teknologi' && (templateId === 'modern' || templateId === 'ats-optimerad')) {
-    reasoning += `eftersom du arbetar inom tech-sektorn där moderna, ATS-vänliga CV:n är standard. `;
-  } else if (industry === 'kreativ' && templateId === 'kreativ') {
-    reasoning += `eftersom din kreativa bakgrund kräver ett CV som visar din designkänsla. `;
-  } else if (templateId === 'klassisk') {
-    reasoning += `eftersom den traditionella layouten bygger förtroende hos svenska rekryterare. `;
+  // Universell design-baserad motivering - ingen yrkesbegränsning
+  if (templateId === 'klassisk') {
+    reasoning += `med sin eleganta, traditionella design som bygger förtroende hos alla typer av arbetsgivare. `;
+  } else if (templateId === 'modern') {
+    reasoning += `med sin balanserade, nutida design som fungerar perfekt för alla branscher. `;
+  } else if (templateId === 'kreativ') {
+    reasoning += `med sin visuellt uttrycksfulla design som hjälper dig att sticka ut, oavsett yrke. `;
+  } else if (templateId === 'ats-optimerad') {
+    reasoning += `med sin strukturerade design som fungerar optimalt med svenska ATS-system. `;
+  } else if (templateId === 'akademisk') {
+    reasoning += `med sin sofistikerade design som förmedlar seriositet och djupgående expertis. `;
+  } else if (templateId === 'modern-tech') {
+    reasoning += `med sin tekniskt avancerade, minimala design som signalerar innovation. `;
   }
   
   // Erfarenhetsnivå-motivering
@@ -475,28 +404,10 @@ function generateRecommendationReasoning(
 /**
  * Normaliserar branschnamn till våra kategorier
  */
-function normalizeIndustry(detectedIndustry: string): keyof typeof INDUSTRY_TEMPLATE_MAPPING {
-  const industry = detectedIndustry?.toLowerCase() || '';
-  
-  if (industry.includes('tech') || industry.includes('it') || industry.includes('software')) {
-    return 'teknologi';
-  } else if (industry.includes('finans') || industry.includes('bank') || industry.includes('försäkring')) {
-    return 'finansiering';
-  } else if (industry.includes('kreativ') || industry.includes('design') || industry.includes('marknadsför')) {
-    return 'kreativ';
-  } else if (industry.includes('akademisk') || industry.includes('forskning') || industry.includes('universitet')) {
-    return 'akademisk';
-  } else if (industry.includes('konsult') || industry.includes('rådgivning')) {
-    return 'konsulting';
-  } else if (industry.includes('sjukvård') || industry.includes('vård') || industry.includes('medicin')) {
-    return 'sjukvård';
-  } else if (industry.includes('ingenjör') || industry.includes('teknik') || industry.includes('industri')) {
-    return 'ingenjörsvetenskap';
-  } else if (industry.includes('försäljning') || industry.includes('sales')) {
-    return 'försäljning';
-  }
-  
-  return 'default';
+function analyzeDesignPreference(detectedIndustry: string, cvContent: string): string {
+  // Analysera användares designpreferens utan yrkesbegränsningar
+  // Alla bransch-detektioner leder till universell tillgång
+  return 'universal'; // Alla användare får tillgång till alla templates
 }
 
 /**
@@ -551,30 +462,14 @@ function getFallbackRecommendations(cvText: string): TemplateRecommendation[] {
 }
 
 /**
- * Detekterar bransch från CV-text
+ * Analyserar CV-innehåll för designpreferenser (ersätter branschbegränsningar)
  */
 function detectIndustryFromText(cvText: string): string {
-  const text = cvText.toLowerCase();
+  // UNIVERSELL FUNKTION: Alla användare får samma tillgång oavsett innehåll
+  // Returnerar 'universal' för att säkerställa att alla templates är tillgängliga
+  // Detta inkluderar lastbilschaufförer, städare, VD:ar, forskare - alla får samma rättigheter
   
-  if (text.includes('utvecklar') || text.includes('programmerare') || text.includes('tech') || text.includes('it') || text.includes('software')) {
-    return 'teknologi';
-  } else if (text.includes('designer') || text.includes('kreativ') || text.includes('marknadsför') || text.includes('reklam')) {
-    return 'kreativ';
-  } else if (text.includes('bank') || text.includes('finans') || text.includes('försäkring')) {
-    return 'finansiering';
-  } else if (text.includes('forskare') || text.includes('universitetet') || text.includes('akademisk')) {
-    return 'akademisk';
-  } else if (text.includes('konsult') || text.includes('rådgivning')) {
-    return 'konsulting';
-  } else if (text.includes('sjukvård') || text.includes('medicin') || text.includes('vård')) {
-    return 'sjukvård';
-  } else if (text.includes('ingenjör') || text.includes('industri') || text.includes('teknik')) {
-    return 'ingenjörsvetenskap';
-  } else if (text.includes('försäljning') || text.includes('sales')) {
-    return 'försäljning';
-  }
-  
-  return 'default';
+  return 'universal';
 }
 
 /**
@@ -611,17 +506,24 @@ export function getQuickRecommendations(
   const text = selectedCV.cv_text.toLowerCase();
   const recommendations: CVTemplateType[] = [];
   
-  // Snabb branschdetektering
-  if (text.includes('utvecklar') || text.includes('tech') || text.includes('it')) {
-    recommendations.push('modern', 'ats-optimerad', 'kreativ');
-  } else if (text.includes('designer') || text.includes('kreativ') || text.includes('marknadsför')) {
-    recommendations.push('kreativ', 'modern', 'ats-optimerad');  
-  } else if (text.includes('chef') || text.includes('ledare') || text.includes('bank') || text.includes('finans')) {
-    recommendations.push('klassisk', 'modern', 'ats-optimerad');
-  } else if (text.includes('forskare') || text.includes('doktor') || text.includes('universitet')) {
-    recommendations.push('akademisk', 'klassisk', 'modern');
-  } else {
-    // Default rekommendationer
+  // Universell rekommendationslogik - alla mallar tillgängliga för alla
+  // Rotera rekommendationer baserat på popularitet och diversitet istället för yrke
+  
+  // Ge alla användare tillgång till alla mallar, oavsett bakgrund
+  const allTemplates: CVTemplateType[] = ['klassisk', 'modern', 'kreativ', 'ats-optimerad', 'akademisk', 'modern-tech'];
+  
+  // Välj 3 mallar baserat på usage diversity istället för yrkesbegränsningar
+  const sortedByUsage = allTemplates.sort((a, b) => {
+    const usageA = templateUsage[a] || 0;
+    const usageB = templateUsage[b] || 0;
+    return usageA - usageB; // Sortera med minst använda först
+  });
+  
+  // Rekommendera de 3 minst använda mallarna för att uppmuntra diversitet
+  recommendations.push(...sortedByUsage.slice(0, 3));
+  
+  // Om ingen usage-data finns, ge balanserade rekommendationer
+  if (recommendations.length === 0) {
     recommendations.push('ats-optimerad', 'klassisk', 'modern');
   }
   

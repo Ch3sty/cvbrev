@@ -480,8 +480,8 @@ export default function CVMallarPage() {
             </div>
             
             <p className="text-gray-300">
-              Alla våra mallar är universellt användbara - oavsett om du är chef, lastbilschaufför, städare eller forskare. 
-              Välj den design som speglar din personlighet bäst.
+              <strong className="text-white">Revolutionerande universell tillgång:</strong> Alla våra mallar fungerar för alla yrken - från CEO till städare, från forskare till lastbilschaufför. 
+              <span className="text-pink-300">Välj baserat på vilken design du gillar bäst, inte vad du jobbar med!</span>
             </p>
           </div>
 
