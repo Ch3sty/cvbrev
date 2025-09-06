@@ -24,7 +24,10 @@ export const klassiskCVTemplate: CVTemplate = {
     
     // Generate dynamic headings based on CV content and industry
     const headings = generateDynamicHeadings(cvData, 'klassisk');
-    const achievements = extractAchievements(cvData);
+    const achievements = extractAchievements(
+      cvData.experience.flatMap(exp => exp.description).join(' ') + ' ' +
+      (cvData.summary || '')
+    );
 
     return `
       <!DOCTYPE html>
@@ -646,7 +649,7 @@ export const klassiskCVTemplate: CVTemplate = {
             ${achievements.slice(0, 4).map(achievement => `
               <div class="achievement-executive-item">
                 <div class="achievement-metric">${achievement.metric || '★'}</div>
-                <div class="achievement-description">${achievement.description}</div>
+                <div class="achievement-description">${achievement.context}</div>
               </div>
             `).join('')}
           </div>
@@ -705,11 +708,11 @@ export const klassiskCVTemplate: CVTemplate = {
                 acc[category].push(skill);
                 return acc;
               }, {})
-            ).map(([category, skills]: [string, any[]]) => `
+            ).map(([category, skills]) => `
               <div class="skill-category-executive">
                 <h4 class="skill-category-title">${category}</h4>
                 <div class="skills-list">
-                  ${skills.map((skill: any) => `
+                  ${(skills as any[]).map((skill: any) => `
                     <div class="skill-item">${skill.name || skill}</div>
                   `).join('')}
                 </div>
@@ -734,7 +737,7 @@ export const klassiskCVTemplate: CVTemplate = {
                 ${edu.description ? `<div class="job-description">${edu.description}</div>` : ''}
               </div>
               <div class="education-details">
-                <div class="education-date">${formatDateRange(edu.startDate, edu.endDate)}</div>
+                <div class="education-date">${edu.startDate ? formatDateRange(edu.startDate, edu.endDate) : (edu.graduationYear || '')}</div>
                 ${edu.gpa ? `<div class="education-grade">Betyg: ${edu.gpa}</div>` : ''}
               </div>
             </div>
