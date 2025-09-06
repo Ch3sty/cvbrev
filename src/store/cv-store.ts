@@ -25,13 +25,8 @@ interface TemplatePreviewCache {
   }
 }
 
-// Template usage analytics
-interface TemplateUsage {
-  templateId: CVTemplateType
-  usageCount: number
-  lastUsed: string
-  avgGenerationTime: number
-}
+// Template usage analytics - Import from types.ts
+import type { TemplateUsage } from '@/lib/cv/types'
 
 interface CVStore {
   cvs: CV[]
@@ -299,14 +294,15 @@ export const useCVStore = create<CVStore>()(
     if (existingIndex >= 0) {
       // Update existing usage
       const existing = currentUsage[existingIndex];
-      const newAvgTime = (existing.avgGenerationTime * existing.usageCount + generationTime) / (existing.usageCount + 1);
+      const newAvgTime = (existing.averageGenerationTime * existing.count + generationTime) / (existing.count + 1);
       
       const updatedUsage = [...currentUsage];
       updatedUsage[existingIndex] = {
         ...existing,
-        usageCount: existing.usageCount + 1,
-        lastUsed: new Date().toISOString(),
-        avgGenerationTime: newAvgTime
+        count: existing.count + 1,
+        lastUsed: new Date(),
+        averageGenerationTime: newAvgTime,
+        successRate: existing.successRate
       };
       
       set({ templateUsage: updatedUsage });
@@ -317,9 +313,10 @@ export const useCVStore = create<CVStore>()(
           ...currentUsage,
           {
             templateId,
-            usageCount: 1,
-            lastUsed: new Date().toISOString(),
-            avgGenerationTime: generationTime
+            count: 1,
+            lastUsed: new Date(),
+            averageGenerationTime: generationTime,
+            successRate: 1.0
           }
         ]
       });
@@ -328,7 +325,7 @@ export const useCVStore = create<CVStore>()(
   
   getMostUsedTemplates: () => {
     return get().templateUsage
-      .sort((a, b) => b.usageCount - a.usageCount)
+      .sort((a, b) => b.count - a.count)
       .slice(0, 5);
   },
   
@@ -366,7 +363,7 @@ export const useCVStore = create<CVStore>()(
     try {
       // Konvertera template usage till rätt format
       const usageRecord = templateUsage.reduce((acc, usage) => {
-        acc[usage.templateId] = usage.usageCount;
+        acc[usage.templateId] = usage.count;
         return acc;
       }, {} as Record<CVTemplateType, number>);
       
@@ -401,7 +398,7 @@ export const useCVStore = create<CVStore>()(
     
     // Konvertera template usage
     const usageRecord = templateUsage.reduce((acc, usage) => {
-      acc[usage.templateId] = usage.usageCount;
+      acc[usage.templateId] = usage.count;
       return acc;
     }, {} as Record<CVTemplateType, number>);
     

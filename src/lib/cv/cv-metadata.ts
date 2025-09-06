@@ -41,16 +41,20 @@ export interface CVEducation {
 export interface CVSkill {
   category: string;
   skills: string[];
-  level?: 'Nybörjare' | 'Medel' | 'Avancerad' | 'Expert';
+  name?: string; // For individual skill names
+  level?: 'Nybörjare' | 'Medel' | 'Avancerad' | 'Expert' | number;
 }
 
 export interface CVProject {
-  title: string;
+  name: string; // Primary name property
+  title?: string; // Alternative title property for backwards compatibility
   description: string;
   technologies?: string[];
   link?: string;
+  url?: string; // Alternative URL property
   startDate?: string;
   endDate?: string;
+  achievements?: string[]; // For project achievements
 }
 
 export interface CVCertification {

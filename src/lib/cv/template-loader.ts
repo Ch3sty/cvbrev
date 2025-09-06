@@ -110,16 +110,39 @@ export async function loadTemplate(templateId: CVTemplateType): Promise<CVTempla
           throw new Error(`Unknown template: ${templateId}`);
       }
 
-      // Hitta rätt export (vanligtvis första objektet som matcher templateId)
-      const templateKey = Object.keys(templateModule).find(key => 
-        key.toLowerCase().includes(templateId.replace('-', '').toLowerCase())
-      );
+      // Hitta rätt export med förbättrad matchning
+      let template: CVTemplate | undefined;
       
-      if (!templateKey) {
-        throw new Error(`Template export not found for: ${templateId}`);
+      // Specifika mappningar för template exports
+      const exportMappings: Record<string, string> = {
+        'modern': 'modernCVTemplate',
+        'klassisk': 'klassiskCVTemplate', 
+        'ats-optimerad': 'atsOptimeradCVTemplate',
+        'kreativ': 'kreativCVTemplate',
+        'akademisk': 'akademiskCVTemplate',
+        'modern-tech': 'modernTechCVTemplate'
+      };
+      
+      // Försök med specifik mappning först
+      const expectedExportName = exportMappings[templateId];
+      if (expectedExportName && (templateModule as any)[expectedExportName]) {
+        template = (templateModule as any)[expectedExportName] as CVTemplate;
+      } else {
+        // Fallback: hitta första export som matchar
+        const templateKey = Object.keys(templateModule).find(key => {
+          const normalizedKey = key.toLowerCase().replace('cvtemplate', '');
+          const normalizedId = templateId.replace('-', '').toLowerCase();
+          return normalizedKey.includes(normalizedId) || normalizedId.includes(normalizedKey.replace(/template$/, ''));
+        });
+        
+        if (templateKey) {
+          template = (templateModule as any)[templateKey] as CVTemplate;
+        }
       }
-
-      const template = (templateModule as any)[templateKey] as CVTemplate;
+      
+      if (!template) {
+        throw new Error(`Template export not found for: ${templateId}. Available exports: ${Object.keys(templateModule).join(', ')}`);
+      }
       
       // Cacha template
       templateCache.set(templateId, template);

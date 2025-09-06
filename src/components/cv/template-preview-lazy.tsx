@@ -7,7 +7,7 @@ import type { CVTemplateType } from '@/lib/cv/cv-metadata';
 // Lazy load TemplatePreview endast när den verkligen behövs
 const TemplatePreview = lazy(() => import('./template-preview'));
 
-interface TemplatPreviewLazyProps {
+interface TemplatePreviewLazyProps {
   templateId: CVTemplateType;
   cvData?: any;
   isVisible?: boolean;
@@ -46,7 +46,7 @@ export default function TemplatePreviewLazy({
   isVisible = false,
   onPreviewReady,
   className = ""
-}: TemplatPreviewLazyProps) {
+}: TemplatePreviewLazyProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInViewport = useIntersectionObserver(containerRef as React.RefObject<Element>, {
     threshold: 0.1,
@@ -115,7 +115,7 @@ export function TemplatePreviewPriority({
   cvData,
   onPreviewReady,
   className = ""
-}: TemplatPreviewLazyProps) {
+}: TemplatePreviewLazyProps) {
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (

@@ -24,7 +24,10 @@ export const modernCVTemplate: CVTemplate = {
     const colors = colorScheme[options.colorScheme as keyof typeof colorScheme] || colorScheme.slate;
     
     // Extract key information
-    const achievements = extractAchievements(cvData);
+    const achievements = extractAchievements(
+      cvData.experience.flatMap(exp => exp.description).join(' ') + ' ' +
+      (cvData.summary || '')
+    );
     const keySkills = cvData.skills?.slice(0, 6) || [];
     
     return `
@@ -549,7 +552,7 @@ export const modernCVTemplate: CVTemplate = {
             ${achievements.slice(0, 3).map(achievement => `
               <div class="achievement-item">
                 <div class="achievement-number">${achievement.metric || '+'}</div>
-                <div class="achievement-label">${achievement.description}</div>
+                <div class="achievement-label">${achievement.context}</div>
               </div>
             `).join('')}
           </div>
@@ -604,7 +607,7 @@ export const modernCVTemplate: CVTemplate = {
                 acc[category].push(skill);
                 return acc;
               }, {})
-            ).map(([category, skills]: [string, any[]]) => `
+            ).map(([category, skills]) => `
               <div class="skill-category">
                 <h4>
                   <svg style="width: 16px; height: 16px; margin-right: 0.4cm;" viewBox="0 0 24 24" fill="currentColor">
@@ -613,7 +616,7 @@ export const modernCVTemplate: CVTemplate = {
                   ${category}
                 </h4>
                 <div class="skill-list">
-                  ${skills.map((skill: any) => `
+                  ${(skills as any[]).map((skill: any) => `
                     <span class="skill-tag">${skill.name || skill}</span>
                   `).join('')}
                 </div>
@@ -638,7 +641,7 @@ export const modernCVTemplate: CVTemplate = {
                 ${edu.description ? `<div class="job-description">${edu.description}</div>` : ''}
               </div>
               <div class="education-details">
-                <div class="date-range">${formatDateRange(edu.startDate, edu.endDate)}</div>
+                <div class="date-range">${edu.startDate ? formatDateRange(edu.startDate, edu.endDate) : (edu.graduationYear || '')}</div>
                 ${edu.gpa ? `<div style="margin-top: 0.2cm; font-weight: 600;">GPA: ${edu.gpa}</div>` : ''}
               </div>
             </div>

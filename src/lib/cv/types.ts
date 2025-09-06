@@ -1,14 +1,26 @@
 // Enhanced TypeScript types for CV templates system
+import type {
+  CVTemplate,
+  CVTemplateType,
+  CVMetadata,
+  CVGenerationOptions,
+  CVPersonalInfo,
+  CVExperience,
+  CVEducation,
+  CVSkill,
+  CVLanguage
+} from './cv-metadata';
+
 export type {
   CVTemplate,
   CVTemplateType,
   CVMetadata,
   CVGenerationOptions,
-  PersonalInfo,
-  Experience,
-  Education,
-  Skill,
-  Language
+  CVPersonalInfo,
+  CVExperience,
+  CVEducation,
+  CVSkill,
+  CVLanguage
 } from './cv-metadata';
 
 // Template loading and caching types

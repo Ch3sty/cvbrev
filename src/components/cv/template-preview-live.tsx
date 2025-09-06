@@ -45,7 +45,7 @@ export default function TemplatePreviewLive({
   // Refs
   const cacheRef = useRef<PreviewCache>({});
   const abortControllerRef = useRef<AbortController | null>(null);
-  const updateTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
+  const updateTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   // Generate enhanced cache key including customization
   const cacheKey = useMemo(() => {
