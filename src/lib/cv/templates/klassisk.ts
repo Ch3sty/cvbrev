@@ -707,7 +707,7 @@ export const klassiskCVTemplate: CVTemplate = {
                 if (!acc[category]) acc[category] = [];
                 // Handle both individual skills and skill objects with skills array
                 if (skill.skills && Array.isArray(skill.skills)) {
-                  acc[category].push(...skill.skills.map(s => ({ name: s })));
+                  acc[category].push(...skill.skills.map((s: string) => ({ name: s })));
                 } else {
                   acc[category].push(skill);
                 }
