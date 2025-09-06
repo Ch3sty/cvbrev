@@ -119,7 +119,7 @@ export async function loadTemplate(templateId: CVTemplateType): Promise<CVTempla
         throw new Error(`Template export not found for: ${templateId}`);
       }
 
-      const template = templateModule[templateKey] as CVTemplate;
+      const template = (templateModule as any)[templateKey] as CVTemplate;
       
       // Cacha template
       templateCache.set(templateId, template);
