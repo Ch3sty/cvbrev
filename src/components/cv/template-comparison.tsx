@@ -24,7 +24,7 @@ interface TemplateComparisonProps {
 
 interface ComparisonFeature {
   name: string;
-  key: keyof any;
+  key: string;
   icon: React.ComponentType<{ className?: string }>;
   description: string;
 }
@@ -47,6 +47,12 @@ const comparisonFeatures: ComparisonFeature[] = [
     key: 'industryFocus',
     icon: Info,
     description: 'Vilka branscher mallen är optimerad för'
+  },
+  {
+    name: 'Läsbarhet',
+    key: 'readability',
+    icon: CheckCircle,
+    description: 'Hur lätt det är att läsa och förstå innehållet'
   }
 ];
 
@@ -82,18 +88,18 @@ export default function TemplateComparison({
     if (!template) return null;
 
     // Simulera jämförelsedata baserat på template type
-    const scores: Record<string, number> = {
-      'ats-optimerad': { atsCompatible: 95, visualImpact: 70, industryFocus: 85 },
-      'klassisk': { atsCompatible: 90, visualImpact: 85, industryFocus: 95 },
-      'modern': { atsCompatible: 85, visualImpact: 90, industryFocus: 80 },
-      'kreativ': { atsCompatible: 75, visualImpact: 95, industryFocus: 70 },
-      'akademisk': { atsCompatible: 88, visualImpact: 75, industryFocus: 90 },
-      'modern-tech': { atsCompatible: 88, visualImpact: 85, industryFocus: 85 }
+    const scores = {
+      'ats-optimerad': { atsCompatible: 95, visualImpact: 70, industryFocus: 85, readability: 90 },
+      'klassisk': { atsCompatible: 90, visualImpact: 85, industryFocus: 95, readability: 95 },
+      'modern': { atsCompatible: 85, visualImpact: 90, industryFocus: 80, readability: 85 },
+      'kreativ': { atsCompatible: 75, visualImpact: 95, industryFocus: 70, readability: 80 },
+      'akademisk': { atsCompatible: 88, visualImpact: 75, industryFocus: 90, readability: 92 },
+      'modern-tech': { atsCompatible: 88, visualImpact: 85, industryFocus: 85, readability: 88 }
     };
 
     return {
       ...template,
-      scores: scores[templateId] || { atsCompatible: 80, visualImpact: 80, industryFocus: 80 },
+      scores: scores[templateId] || { atsCompatible: 80, visualImpact: 80, industryFocus: 80, readability: 80 },
       strengths: template.features?.slice(0, 3) || [],
       bestFor: template.bestFor?.slice(0, 2) || []
     };
@@ -262,7 +268,7 @@ export default function TemplateComparison({
                     <div className="space-y-2">
                       <h4 className="font-medium text-white">Betyg</h4>
                       {comparisonFeatures.map(feature => {
-                        const score = comparisonData.scores[feature.key];
+                        const score = (comparisonData.scores as any)[feature.key];
                         return (
                           <div key={feature.key} className="flex items-center justify-between">
                             <span className="text-sm text-gray-300">{feature.name}</span>
@@ -366,7 +372,7 @@ export default function TemplateComparison({
                       <div className="space-y-4">
                         {comparisonFeatures.map(feature => {
                           const Icon = feature.icon;
-                          const score = comparisonData.scores[feature.key];
+                          const score = (comparisonData.scores as any)[feature.key];
                           return (
                             <div key={feature.key} className="flex items-start space-x-3">
                               <Icon className="w-5 h-5 text-blue-400 mt-0.5" />
