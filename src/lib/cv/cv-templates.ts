@@ -50,3 +50,6 @@ export function isValidTemplateType(type: string): type is CVTemplateType {
 
 // Export alla template typer för TypeScript
 export type { CVTemplateType } from './cv-metadata';
+
+// Export hjälpfunktioner från cv-helpers för att behålla backward compatibility
+export { optimizeContentForTemplate, generateHTMLSafely } from './cv-helpers';
