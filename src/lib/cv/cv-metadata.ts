@@ -119,7 +119,7 @@ export const formatDateRange = (startDate: string, endDate?: string): string => 
 export const calculateExperienceYears = (experiences: CVExperience[]): number => {
   let totalMonths = 0;
   
-  experiences.forEach(exp => {
+  (experiences || []).forEach(exp => {
     const start = new Date(exp.startDate);
     const end = exp.endDate ? new Date(exp.endDate) : new Date();
     const months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
@@ -133,13 +133,14 @@ export const extractKeywords = (cvData: CVMetadata): string[] => {
   const keywords = new Set<string>();
   
   // Extract from skills
-  cvData.skills.forEach(skillCategory => {
-    skillCategory.skills.forEach(skill => keywords.add(skill.toLowerCase()));
+  (cvData.skills || []).forEach(skillCategory => {
+    (skillCategory.skills || []).forEach(skill => keywords.add(skill.toLowerCase()));
   });
   
   // Extract from experience descriptions
-  cvData.experience.forEach(exp => {
-    exp.description.forEach(desc => {
+  (cvData.experience || []).forEach(exp => {
+    const descriptions = Array.isArray(exp.description) ? exp.description : [exp.description];
+    descriptions.filter(Boolean).forEach(desc => {
       // Simple keyword extraction - could be enhanced with NLP
       const words = desc.toLowerCase().match(/\b\w{3,}\b/g) || [];
       words.forEach(word => keywords.add(word));

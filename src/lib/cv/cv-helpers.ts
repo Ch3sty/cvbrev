@@ -66,7 +66,7 @@ function optimizeForTechTemplate(cvData: CVMetadata): CVMetadata {
   
   // Förstärk tekniska projekt
   if (cvData.projects) {
-    cvData.projects = cvData.projects.map(project => ({
+    cvData.projects = (cvData.projects || []).map(project => ({
       ...project,
       // Säkerställ att tekniska projekt har tydliga tech stacks
       technologies: project.technologies || extractTechFromDescription(project.description)
@@ -74,11 +74,11 @@ function optimizeForTechTemplate(cvData: CVMetadata): CVMetadata {
   }
   
   // Optimera erfarenheter för tech-fokus
-  cvData.experience = cvData.experience.map(exp => ({
+  cvData.experience = (cvData.experience || []).map(exp => ({
     ...exp,
     // Framhäv tekniska prestationer i beskrivningar
-    description: exp.description.map(desc => enhanceTechDescription(desc)),
-    achievements: exp.achievements?.map(ach => enhanceTechAchievement(ach)) || []
+    description: (Array.isArray(exp.description) ? exp.description : [exp.description]).filter(Boolean).map(desc => enhanceTechDescription(desc)),
+    achievements: (exp.achievements || []).map(ach => enhanceTechAchievement(ach))
   }));
   
   return cvData;
@@ -103,7 +103,7 @@ function optimizeForCreativeTemplate(cvData: CVMetadata): CVMetadata {
   
   // Framhäv visuella och kreativa projekt
   if (cvData.projects) {
-    cvData.projects = cvData.projects.map(project => ({
+    cvData.projects = (cvData.projects || []).map(project => ({
       ...project,
       // Lägg till kreativa nyckelord om de saknas
       description: enhanceCreativeDescription(project.description)
@@ -111,10 +111,10 @@ function optimizeForCreativeTemplate(cvData: CVMetadata): CVMetadata {
   }
   
   // Optimera erfarenheter för kreativt fokus
-  cvData.experience = cvData.experience.map(exp => ({
+  cvData.experience = (cvData.experience || []).map(exp => ({
     ...exp,
-    description: exp.description.map(desc => enhanceCreativeExperience(desc)),
-    achievements: exp.achievements?.map(ach => enhanceCreativeAchievement(ach)) || []
+    description: (Array.isArray(exp.description) ? exp.description : [exp.description]).filter(Boolean).map(desc => enhanceCreativeExperience(desc)),
+    achievements: (exp.achievements || []).map(ach => enhanceCreativeAchievement(ach))
   }));
   
   return cvData;
@@ -129,17 +129,17 @@ function optimizeForATSTemplate(cvData: CVMetadata): CVMetadata {
   
   // Optimera färdigheter för ATS-läsning
   if (cvData.skills) {
-    cvData.skills = cvData.skills.map(skillCategory => ({
+    cvData.skills = (cvData.skills || []).map(skillCategory => ({
       ...skillCategory,
-      skills: skillCategory.skills.map(skill => expandSkillForATS(skill))
+      skills: (skillCategory.skills || []).map(skill => expandSkillForATS(skill))
     }));
   }
   
   // Förtydliga jobbtitlar och företagsnamn
-  cvData.experience = cvData.experience.map(exp => ({
+  cvData.experience = (cvData.experience || []).map(exp => ({
     ...exp,
     position: clarifyJobTitle(exp.position),
-    description: exp.description.map(desc => optimizeForATS(desc))
+    description: (Array.isArray(exp.description) ? exp.description : [exp.description]).filter(Boolean).map(desc => optimizeForATS(desc))
   }));
   
   return cvData;
@@ -150,17 +150,17 @@ function optimizeForATSTemplate(cvData: CVMetadata): CVMetadata {
  */
 function optimizeForAcademicTemplate(cvData: CVMetadata): CVMetadata {
   // Prioritera akademiska meriter i education
-  cvData.education = cvData.education.map(edu => ({
+  cvData.education = (cvData.education || []).map(edu => ({
     ...edu,
     // Framhäv akademiska utmärkelser
     honors: edu.honors || extractAcademicHonors(edu.degree).join(', ')
   }));
   
   // Omstrukturera erfarenhet för akademisk miljö
-  cvData.experience = cvData.experience.map(exp => ({
+  cvData.experience = (cvData.experience || []).map(exp => ({
     ...exp,
-    description: exp.description.map(desc => enhanceAcademicDescription(desc)),
-    achievements: exp.achievements?.map(ach => enhanceAcademicAchievement(ach)) || []
+    description: (Array.isArray(exp.description) ? exp.description : [exp.description]).filter(Boolean).map(desc => enhanceAcademicDescription(desc)),
+    achievements: (exp.achievements || []).map(ach => enhanceAcademicAchievement(ach))
   }));
   
   return cvData;
@@ -174,9 +174,9 @@ function optimizeForClassicTemplate(cvData: CVMetadata): CVMetadata {
   // Klassisk mall behöver minimal optimering - behåller struktur som den är
   
   // Förbättra språk i beskrivningar för mer formell ton
-  cvData.experience = cvData.experience.map(exp => ({
+  cvData.experience = (cvData.experience || []).map(exp => ({
     ...exp,
-    description: exp.description.map(desc => enhanceForFormalTone(desc))
+    description: (Array.isArray(exp.description) ? exp.description : [exp.description]).filter(Boolean).map(desc => enhanceForFormalTone(desc))
   }));
   
   return cvData;
