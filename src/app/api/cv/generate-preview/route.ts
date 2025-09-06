@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllCVTemplates } from '@/lib/cv/cv-templates';
+import { loadTemplate } from '@/lib/cv/cv-templates';
 import type { CVTemplateType, CVMetadata, CVGenerationOptions } from '@/lib/cv/cv-metadata';
 
 // Cache för preview-generering
@@ -131,10 +131,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'CV data krävs' }, { status: 400 });
     }
 
-    // Hitta template
-    const templateObj = getAllCVTemplates().find(t => t.id === template);
-    if (!templateObj) {
-      return NextResponse.json({ error: 'Template hittades inte' }, { status: 404 });
+    // Ladda template dynamiskt
+    let templateObj;
+    try {
+      templateObj = await loadTemplate(template as CVTemplateType);
+    } catch (error) {
+      console.error('Failed to load template:', error);
+      return NextResponse.json({ error: 'Template kunde inte laddas' }, { status: 404 });
     }
 
     // Generera cache-nyckel

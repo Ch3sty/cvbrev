@@ -1,52 +1,47 @@
-// CV Templates Index - Importerar alla separata mallar för bättre prestanda och hantering
+// CV Templates Index - Optimerad med lazy loading för bättre prestanda
 import { CVTemplate, CVTemplateType } from './cv-metadata';
+import { loadTemplate, loadTemplates, getAllTemplateMetadata, preloadPopularTemplates, templateMetadata } from './template-loader';
 
-// Import alla separata mallar
-import { klassiskCVTemplate } from './templates/klassisk';
-import { modernCVTemplate } from './templates/modern';
-import { atsOptimeradCVTemplate } from './templates/ats-optimerad';
-import { kreativCVTemplate } from './templates/kreativ';
-import { akademiskCVTemplate } from './templates/akademisk';
-import { modernTechCVTemplate } from './templates/modern-tech';
+// Legacy support - Async versioner av gamla funktioner
+export async function getCVTemplate(templateType: CVTemplateType): Promise<CVTemplate> {
+  return loadTemplate(templateType);
+}
 
-// Export mallarna individuellt för tree-shaking
-export {
-  klassiskCVTemplate,
-  modernCVTemplate,
-  atsOptimeradCVTemplate,
-  kreativCVTemplate,
-  akademiskCVTemplate,
-  modernTechCVTemplate
-};
-
-// Sammanställd mall-objekt för backward compatibility
-export const cvTemplates = {
-  'klassisk': klassiskCVTemplate,
-  'modern': modernCVTemplate,
-  'ats-optimerad': atsOptimeradCVTemplate,
-  'kreativ': kreativCVTemplate,
-  'akademisk': akademiskCVTemplate,
-  'modern-tech': modernTechCVTemplate,
-} as const;
-
-// Funktion för att hämta en specifik mall
-export function getCVTemplate(templateType: CVTemplateType): CVTemplate {
-  const template = cvTemplates[templateType];
+// Ny synkron version som returnerar metadata + lazy loading
+export function getCVTemplateMetadata(templateType: CVTemplateType): Omit<CVTemplate, 'generateHTML'> {
+  const template = templateMetadata[templateType];
   if (!template) {
     throw new Error(`CV template "${templateType}" not found`);
   }
   return template;
 }
 
-// Funktion för att få alla tillgängliga mallar
-export function getAllCVTemplates(): CVTemplate[] {
-  return Object.values(cvTemplates);
+// Få alla tillgängliga mallar (endast metadata för initial rendering)
+export function getAllCVTemplates(): Array<Omit<CVTemplate, 'generateHTML'>> {
+  return getAllTemplateMetadata();
+}
+
+// Async version för att ladda fullständiga mallar
+export async function getAllCVTemplatesAsync(): Promise<CVTemplate[]> {
+  const templateIds = Object.keys(templateMetadata) as CVTemplateType[];
+  return loadTemplates(templateIds);
+}
+
+// Batch loading för specifika mallar
+export async function loadSpecificTemplates(templateIds: CVTemplateType[]): Promise<CVTemplate[]> {
+  return loadTemplates(templateIds);
 }
 
 // Hjälpfunktion för att validera mall-typ
 export function isValidTemplateType(type: string): type is CVTemplateType {
-  return type in cvTemplates;
+  return type in templateMetadata;
 }
+
+// Preload populära mallar för bättre UX
+export { preloadPopularTemplates };
+
+// Export loader functions för direktanvändning
+export { loadTemplate, loadTemplates } from './template-loader';
 
 // Export alla template typer för TypeScript
 export type { CVTemplateType } from './cv-metadata';

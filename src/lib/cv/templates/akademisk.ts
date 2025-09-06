@@ -229,8 +229,22 @@ export const akademiskCVTemplate: CVTemplate = {
                 ${edu.graduationYear ? edu.graduationYear : ''}
                 ${edu.location ? ` • ${edu.location}` : ''}
               </div>
-              ${edu.honors ? `<div class="description">Utmärkelser: ${edu.honors}</div>` : ''}
-              ${edu.relevantCourses && edu.relevantCourses.length > 0 ? `<div class="description">Relevanta kurser: ${edu.relevantCourses.join(', ')}</div>` : ''}
+              ${edu.honors ? `
+              <div class="honors-awards">
+                <div class="honors-title">Utmärkelser och Hedersutmärkelser</div>
+                <div class="honors-description">${edu.honors}</div>
+              </div>
+              ` : ''}
+              ${edu.relevantCourses && edu.relevantCourses.length > 0 ? `
+              <div class="description">
+                <strong>Relevanta kurser:</strong> ${edu.relevantCourses.join(', ')}
+              </div>
+              ` : ''}
+              ${edu.thesis ? `
+              <div class="description">
+                <strong>Avhandling:</strong> "${edu.thesis}"
+              </div>
+              ` : ''}
             </div>
             `).join('')}
           </section>

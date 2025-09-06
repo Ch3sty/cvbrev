@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllCVTemplates, optimizeContentForTemplate, generateHTMLSafely } from '@/lib/cv/cv-templates';
+import { loadTemplate, optimizeContentForTemplate, generateHTMLSafely } from '@/lib/cv/cv-templates';
 import type { CVTemplateType, CVMetadata, CVGenerationOptions } from '@/lib/cv/cv-metadata';
 import { validateCVData } from '@/lib/openai/cv-parser-ai';
 import { 
@@ -271,11 +271,14 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Hitta vald mall
-    const selectedTemplate = getAllCVTemplates().find(t => t.id === template);
-    if (!selectedTemplate) {
+    // Ladda vald mall dynamiskt
+    let selectedTemplate;
+    try {
+      selectedTemplate = await loadTemplate(template as CVTemplateType);
+    } catch (error) {
+      console.error('Failed to load template:', error);
       return NextResponse.json(
-        { error: 'Okänd mall' },
+        { error: 'Kunde inte ladda mall' },
         { status: 400 }
       );
     }

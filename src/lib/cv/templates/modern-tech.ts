@@ -4,21 +4,23 @@ import { generateDynamicHeadings, formatDateRange } from '../cv-metadata';
 export const modernTechCVTemplate: CVTemplate = {
   id: 'modern-tech',
   name: 'Modern Tech',
-  description: 'Avancerad tech-stack visualisering med GitHub-integration och utvecklar-fokuserade prestationer',
-  category: 'Technical Leadership',
-  bestFor: ['Software Engineering', 'DevOps', 'Tech Lead', 'Solutions Architecture', 'Data Science', 'AI/ML'],
-  features: ['GitHub Integration', 'Tech Stack Showcase', 'Code Metrics', 'System Architecture', 'Performance Data'],
-  colorSchemes: ['matrix', 'terminal', 'syntax', 'cyber'],
+  description: 'Teknisk excellens med modern design för utvecklare och IT-proffs med fokus på kod och innovation',
+  category: 'Technical',
+  bestFor: ['Mjukvaruutveckling', 'IT', 'Tekniska roller', 'Startup', 'Tech-företag', 'Systemadministration', 'DevOps'],
+  features: ['Tech-focused', 'Skills visualization', 'Project showcase', 'Code-friendly', 'Innovation ready'],
+  colorSchemes: ['tech', 'digital', 'innovation', 'modern', 'cyber', 'matrix'],
   previewImage: '/images/cv-templates/modern-tech-preview.png',
   generateHTML: (cvData: CVMetadata, options: CVGenerationOptions) => {
     const headings = generateDynamicHeadings(cvData, 'modern-tech');
     const techSchemes = {
-      matrix: { primary: '#00ff41', secondary: '#008f11', accent: '#000', bg: '#0d1117', text: '#ffffff' },
-      terminal: { primary: '#50fa7b', secondary: '#ff79c6', accent: '#282a36', bg: '#1e1e1e', text: '#f8f8f2' },
-      syntax: { primary: '#61dafb', secondary: '#f7df1e', accent: '#20232a', bg: '#0d1117', text: '#ffffff' },
-      cyber: { primary: '#00d4ff', secondary: '#ff0080', accent: '#0a0a0a', bg: '#111827', text: '#f9fafb' }
+      tech: { primary: '#0ea5e9', secondary: '#3b82f6', accent: '#f1f5f9', bg: '#ffffff', text: '#1e293b', light: '#f0f9ff' },
+      digital: { primary: '#8b5cf6', secondary: '#a855f7', accent: '#faf5ff', bg: '#ffffff', text: '#1e1b4b', light: '#f3e8ff' },
+      innovation: { primary: '#10b981', secondary: '#059669', accent: '#f0fdf4', bg: '#ffffff', text: '#064e3b', light: '#ecfdf5' },
+      modern: { primary: '#6366f1', secondary: '#4f46e5', accent: '#f8fafc', bg: '#ffffff', text: '#1e293b', light: '#eef2ff' },
+      cyber: { primary: '#06b6d4', secondary: '#0891b2', accent: '#f0fdfa', bg: '#ffffff', text: '#164e63', light: '#cffafe' },
+      matrix: { primary: '#22c55e', secondary: '#16a34a', accent: '#f7fee7', bg: '#ffffff', text: '#14532d', light: '#dcfce7' }
     };
-    const colors = techSchemes[options.colorScheme as keyof typeof techSchemes] || techSchemes.matrix;
+    const colors = techSchemes[options.colorScheme as keyof typeof techSchemes] || techSchemes.tech;
     
     return `
       <!DOCTYPE html>
@@ -28,11 +30,11 @@ export const modernTechCVTemplate: CVTemplate = {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>CV - ${cvData.personalInfo.fullName}</title>
         <style>
-          @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
           
           @page {
             size: A4;
-            margin: 1cm;
+            margin: 15mm;
           }
           
           * {
@@ -42,195 +44,250 @@ export const modernTechCVTemplate: CVTemplate = {
           }
           
           body {
-            font-family: 'Inter', system-ui, sans-serif;
-            font-size: 9pt;
-            line-height: 1.4;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            font-size: 10pt;
+            line-height: 1.5;
             color: ${colors.text};
             background: ${colors.bg};
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
             background-image: 
-              radial-gradient(circle at 25% 25%, ${colors.primary}10 0%, transparent 50%),
-              radial-gradient(circle at 75% 75%, ${colors.secondary}10 0%, transparent 50%);
+              radial-gradient(circle at 10% 20%, ${colors.light} 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, ${colors.accent} 0%, transparent 50%);
           }
           
-          /* TECH HEADER DESIGN */
+          /* MODERN TECH HEADER */
           .tech-header {
-            background: linear-gradient(135deg, ${colors.accent}, ${colors.bg});
-            border: 1px solid ${colors.primary}30;
-            border-radius: 8px;
-            padding: 1.5cm;
-            margin-bottom: 1cm;
+            background: linear-gradient(135deg, ${colors.primary} 0%, ${colors.secondary} 100%);
+            border-radius: 12px;
+            padding: 8mm 6mm;
+            margin-bottom: 6mm;
             position: relative;
             overflow: hidden;
+            color: white;
           }
           
           .tech-header::before {
             content: '';
             position: absolute;
-            top: 0;
-            right: 0;
-            width: 100px;
-            height: 100px;
-            background: ${colors.primary}20;
-            clip-path: polygon(0 0, 100% 0, 100% 100%);
+            top: -50%;
+            right: -50%;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+          }
+          
+          @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.3; }
           }
           
           .header-layout {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 2cm;
+            gap: 8mm;
             align-items: center;
             position: relative;
             z-index: 2;
           }
           
           .name {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 24pt;
-            font-weight: 600;
-            color: ${colors.primary};
-            margin-bottom: 0.3cm;
-            text-shadow: 0 0 10px ${colors.primary}50;
+            font-family: 'Space Grotesk', 'JetBrains Mono', monospace;
+            font-size: 26pt;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 2mm;
+            letter-spacing: -0.5px;
           }
           
           .tech-role {
             font-size: 12pt;
-            color: ${colors.secondary};
-            margin-bottom: 0.5cm;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 3mm;
             font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px;
           }
           
           .tech-summary {
-            color: ${colors.text};
-            line-height: 1.6;
-            opacity: 0.9;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.5;
+            font-size: 10pt;
           }
           
           .github-section {
-            text-align: right;
+            text-align: center;
           }
           
-          .github-stats {
-            background: ${colors.accent};
-            border: 1px solid ${colors.primary}50;
-            border-radius: 8px;
-            padding: 1cm;
-            margin-bottom: 0.5cm;
+          .tech-stats {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            padding: 4mm;
+            margin-bottom: 3mm;
           }
           
           .stat-item {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 0.3cm;
+            margin-bottom: 2mm;
             font-family: 'JetBrains Mono', monospace;
             font-size: 8pt;
           }
           
           .stat-label {
-            color: ${colors.text};
-            opacity: 0.8;
+            color: rgba(255,255,255,0.8);
           }
           
           .stat-value {
-            color: ${colors.primary};
+            color: white;
             font-weight: 600;
           }
           
-          /* MAIN LAYOUT */
+          .github-link {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 7pt;
+            color: rgba(255,255,255,0.7);
+            background: rgba(255,255,255,0.1);
+            padding: 1mm 3mm;
+            border-radius: 5px;
+            border: 1px solid rgba(255,255,255,0.2);
+          }
+          
+          /* MODERN LAYOUT */
           .content-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 1cm;
+            grid-template-columns: 2.2fr 1fr;
+            gap: 6mm;
           }
           
           .main-content {
-            background: ${colors.accent}50;
-            border: 1px solid ${colors.primary}20;
-            border-radius: 8px;
-            padding: 1cm;
+            background: white;
+            border: 1px solid ${colors.accent};
+            border-radius: 10px;
+            padding: 6mm;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
           }
           
           .sidebar {
-            background: ${colors.accent};
-            border: 1px solid ${colors.primary}30;
-            border-radius: 8px;
-            padding: 1cm;
+            background: linear-gradient(135deg, ${colors.light} 0%, white 100%);
+            border: 1px solid ${colors.accent};
+            border-radius: 10px;
+            padding: 6mm;
             height: fit-content;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
           }
           
-          /* SECTION HEADERS */
+          /* TECH SECTION HEADERS */
           .section {
-            margin-bottom: 1.5cm;
+            margin-bottom: 8mm;
             break-inside: avoid;
           }
           
           .section-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 10pt;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12pt;
             font-weight: 600;
             color: ${colors.primary};
-            margin-bottom: 0.8cm;
-            padding: 0.3cm 0.6cm;
-            background: ${colors.primary}15;
-            border-left: 3px solid ${colors.primary};
+            margin-bottom: 5mm;
+            padding: 3mm 5mm;
+            background: linear-gradient(135deg, ${colors.light} 0%, ${colors.accent} 100%);
+            border-left: 4px solid ${colors.primary};
+            border-radius: 0 8px 8px 0;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            position: relative;
           }
           
-          /* TECH EXPERIENCE */
+          .section-title::before {
+            content: '▶';
+            position: absolute;
+            left: -2px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: ${colors.primary};
+            font-size: 8pt;
+          }
+          
+          /* MODERN TECH EXPERIENCE */
           .tech-experience {
-            margin-bottom: 1.2cm;
-            background: ${colors.bg};
-            border: 1px solid ${colors.primary}20;
-            border-radius: 6px;
-            padding: 1cm;
+            margin-bottom: 6mm;
+            background: linear-gradient(135deg, ${colors.light}40 0%, white 100%);
+            border: 1px solid ${colors.accent};
+            border-radius: 10px;
+            padding: 5mm;
             break-inside: avoid;
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .tech-experience::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, ${colors.primary}, ${colors.secondary});
           }
           
           .exp-header {
             display: flex;
             justify-content: space-between;
-            align-items: start;
-            margin-bottom: 0.6cm;
+            align-items: flex-start;
+            margin-bottom: 4mm;
           }
           
           .job-info h3 {
+            font-family: 'Space Grotesk', sans-serif;
             color: ${colors.primary};
-            font-size: 11pt;
-            margin-bottom: 0.2cm;
+            font-size: 12pt;
+            margin-bottom: 1mm;
+            font-weight: 600;
           }
           
           .company-name {
-            color: ${colors.secondary};
+            color: ${colors.text};
             font-weight: 500;
+            font-size: 10pt;
           }
           
           .duration {
             font-family: 'JetBrains Mono', monospace;
             background: ${colors.primary};
-            color: ${colors.accent};
-            padding: 0.2cm 0.5cm;
-            border-radius: 4px;
+            color: white;
+            padding: 2mm 4mm;
+            border-radius: 15px;
             font-size: 8pt;
             font-weight: 600;
+            box-shadow: 0 2px 6px ${colors.primary}30;
           }
           
           .tech-stack {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.2cm;
-            margin: 0.5cm 0;
+            gap: 2mm;
+            margin: 3mm 0 4mm 0;
           }
           
           .tech-badge {
-            background: ${colors.secondary}20;
+            background: linear-gradient(135deg, ${colors.secondary}15, ${colors.primary}10);
             color: ${colors.secondary};
-            padding: 0.1cm 0.4cm;
-            border-radius: 3px;
+            padding: 1mm 3mm;
+            border-radius: 12px;
             font-size: 7pt;
             font-family: 'JetBrains Mono', monospace;
             border: 1px solid ${colors.secondary}30;
+            font-weight: 500;
+            transition: all 0.2s ease;
+          }
+          
+          .tech-badge:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px ${colors.secondary}20;
           }
           
           .achievements {
@@ -238,101 +295,135 @@ export const modernTechCVTemplate: CVTemplate = {
           }
           
           .achievement {
-            margin-bottom: 0.3cm;
-            padding-left: 1cm;
+            margin-bottom: 2mm;
+            padding-left: 5mm;
             position: relative;
             color: ${colors.text};
-            opacity: 0.9;
+            font-size: 9pt;
+            line-height: 1.4;
           }
           
           .achievement::before {
-            content: '▶';
+            content: '✓';
             position: absolute;
             left: 0;
             color: ${colors.primary};
+            font-weight: 600;
+            top: 1px;
           }
           
-          /* SIDEBAR SECTIONS */
+          /* MODERN SIDEBAR SECTIONS */
           .sidebar-section {
-            margin-bottom: 1.2cm;
+            margin-bottom: 6mm;
             break-inside: avoid;
           }
           
           .sidebar-title {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 9pt;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 10pt;
             font-weight: 600;
             color: ${colors.primary};
-            margin-bottom: 0.6cm;
+            margin-bottom: 4mm;
             text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border-bottom: 2px solid ${colors.accent};
+            padding-bottom: 1mm;
           }
           
           .skill-category {
-            margin-bottom: 0.8cm;
+            margin-bottom: 4mm;
             break-inside: avoid;
+            background: white;
+            padding: 3mm;
+            border-radius: 8px;
+            border: 1px solid ${colors.accent};
           }
           
           .skill-cat-title {
-            font-size: 8pt;
+            font-size: 9pt;
             color: ${colors.secondary};
-            margin-bottom: 0.4cm;
-            font-weight: 500;
+            margin-bottom: 2mm;
+            font-weight: 600;
+            text-transform: capitalize;
           }
           
           .skills-list {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.2cm;
+            gap: 2mm;
           }
           
           .skill-item {
-            background: ${colors.bg};
+            background: linear-gradient(135deg, ${colors.light}, ${colors.accent});
             color: ${colors.text};
-            padding: 0.2cm 0.4cm;
-            border-radius: 3px;
+            padding: 1mm 3mm;
+            border-radius: 10px;
             font-size: 7pt;
-            border: 1px solid ${colors.primary}30;
+            border: 1px solid ${colors.primary}20;
+            font-weight: 500;
+            transition: all 0.2s ease;
           }
           
-          /* CONTACT SECTION */
+          .skill-item:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, ${colors.primary}20, ${colors.secondary}15);
+          }
+          
+          /* MODERN CONTACT SECTION */
           .contact-item {
             display: flex;
             align-items: center;
-            margin-bottom: 0.5cm;
-            font-size: 8pt;
+            margin-bottom: 3mm;
+            font-size: 9pt;
+            padding: 2mm;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid ${colors.accent};
+            transition: all 0.2s ease;
+          }
+          
+          .contact-item:hover {
+            background: ${colors.light};
+            transform: translateX(2px);
           }
           
           .contact-icon {
-            width: 16px;
-            height: 16px;
-            background: ${colors.primary};
-            border-radius: 2px;
-            margin-right: 0.4cm;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, ${colors.primary}, ${colors.secondary});
+            border-radius: 50%;
+            margin-right: 3mm;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: ${colors.accent};
+            color: white;
+            font-weight: 600;
+            font-size: 7pt;
+            box-shadow: 0 2px 4px ${colors.primary}30;
           }
           
           .education-item {
-            margin-bottom: 0.8cm;
-            padding: 0.6cm;
-            background: ${colors.bg};
-            border: 1px solid ${colors.primary}20;
-            border-radius: 4px;
+            margin-bottom: 4mm;
+            padding: 4mm;
+            background: white;
+            border: 1px solid ${colors.accent};
+            border-radius: 8px;
             break-inside: avoid;
+            border-left: 4px solid ${colors.primary};
           }
           
           .degree {
+            font-family: 'Space Grotesk', sans-serif;
             color: ${colors.primary};
             font-weight: 600;
-            margin-bottom: 0.2cm;
+            margin-bottom: 1mm;
+            font-size: 10pt;
           }
           
           .institution {
             color: ${colors.text};
-            opacity: 0.8;
             font-size: 8pt;
+            font-weight: 400;
           }
           
           /* PRINT ADJUSTMENTS */
@@ -379,32 +470,32 @@ export const modernTechCVTemplate: CVTemplate = {
           <div class="header-layout">
             <div class="header-info">
               <h1 class="name">${cvData.personalInfo.fullName}</h1>
-              <div class="tech-role">${cvData.targetRole || 'Yrkesperson'}</div>
+              <div class="tech-role">${cvData.personalInfo.title || cvData.targetRole || 'Tech Professional'}</div>
               <p class="tech-summary">
                 ${cvData.summary || 'Resultatorienterad professionell med stark teknisk grund och passion för att leverera värde genom innovation och kontinuerlig utveckling.'}
               </p>
             </div>
             <div class="github-section">
-              <div class="github-stats">
-                <div class="stat-item">
-                  <span class="stat-label">Commits</span>
-                  <span class="stat-value">2,847</span>
-                </div>
+              <div class="tech-stats">
                 <div class="stat-item">
                   <span class="stat-label">Projects</span>
-                  <span class="stat-value">42</span>
+                  <span class="stat-value">25+</span>
                 </div>
                 <div class="stat-item">
                   <span class="stat-label">Languages</span>
-                  <span class="stat-value">12+</span>
+                  <span class="stat-value">8+</span>
                 </div>
                 <div class="stat-item">
-                  <span class="stat-label">Stars</span>
-                  <span class="stat-value">156</span>
+                  <span class="stat-label">Experience</span>
+                  <span class="stat-value">${cvData.experience.length}+ years</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-label">Impact</span>
+                  <span class="stat-value">High</span>
                 </div>
               </div>
-              <div style="font-family: JetBrains Mono, monospace; font-size: 7pt; color: ${colors.primary};">
-                github.com/${cvData.personalInfo.fullName?.toLowerCase().replace(' ', '') || 'developer'}
+              <div class="github-link">
+                ${cvData.personalInfo.github || 'github.com/developer'}
               </div>
             </div>
           </div>

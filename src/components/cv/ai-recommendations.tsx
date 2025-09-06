@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Sparkles, Brain, TrendingUp, Target, Loader2, ChevronRight, Info } from 'lucide-react';
 import type { TemplateRecommendation } from '@/lib/ai/template-recommender';
 import type { CVTemplateType } from '@/lib/cv/cv-metadata';
-import { getAllCVTemplates } from '@/lib/cv/cv-templates';
+import { getAllCVTemplates, loadTemplate } from '@/lib/cv/cv-templates';
 
 interface AIRecommendationsProps {
   selectedCV: any;
@@ -34,7 +34,7 @@ export default function AIRecommendations({
   // Quick recommendations (utan AI)
   const quickRecommendations = selectedCV ? getQuickSmartRecommendations(selectedCV.id) : [];
   
-  // Template lookup
+  // Template lookup (använder metadata för snabbare rendering)
   const getTemplateInfo = (templateId: CVTemplateType) => {
     return getAllCVTemplates().find(t => t.id === templateId);
   };

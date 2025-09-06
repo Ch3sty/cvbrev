@@ -7,14 +7,18 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Download, Eye, FileText, Palette, Zap, Users, BookOpen, Loader2, Upload, Check, Star, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
-import { getAllCVTemplates } from '@/lib/cv/cv-templates';
+import { getAllCVTemplates, preloadPopularTemplates, loadTemplate } from '@/lib/cv/cv-templates';
 import type { CVTemplateType, CVMetadata } from '@/lib/cv/cv-metadata';
 import { useCVStore } from '@/store/cv-store';
 import { useProfile } from '@/hooks/use-profile';
 import Notification from '@/components/ui/notification';
 import TemplatePreview from '@/components/cv/template-preview';
+import TemplatePreviewLive from '@/components/cv/template-preview-live';
 import { CVMallarErrorBoundary } from '@/components/cv/cv-mallar-error-boundary';
+import TemplateGalleryOptimized from '@/components/cv/template-gallery-optimized';
 import TemplateCustomizer, { type TemplateCustomization } from '@/components/cv/template-customizer';
+import TemplateCustomizerEnhanced, { type EnhancedTemplateCustomization } from '@/components/cv/template-customizer-enhanced';
+import TemplateComparison from '@/components/cv/template-comparison';
 import SuccessCelebration from '@/components/cv/success-celebration';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -36,7 +40,7 @@ export default function CVMallarPage() {
   const [selectedTemplate, setSelectedTemplate] = useState<CVTemplateType | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isPreviewReady, setIsPreviewReady] = useState(false);
-  const [templateCustomization, setTemplateCustomization] = useState<TemplateCustomization | null>(null);
+  const [templateCustomization, setTemplateCustomization] = useState<EnhancedTemplateCustomization | null>(null);
   const [shouldUpdatePreview, setShouldUpdatePreview] = useState(false);
   const [showSuccessCelebration, setShowSuccessCelebration] = useState(false);
   const [lastGenerationData, setLastGenerationData] = useState<{
@@ -58,6 +62,10 @@ export default function CVMallarPage() {
     isOpen: false,
     templateId: null
   });
+  
+  // Template comparison state
+  const [showComparison, setShowComparison] = useState(false);
+  const [comparisonTemplates, setComparisonTemplates] = useState<CVTemplateType[]>([]);
   
   // Single initialization effect (eliminates useEffect chains)
   const [isInitialized, setIsInitialized] = useState(false);
@@ -88,6 +96,9 @@ export default function CVMallarPage() {
         if (!selectedTemplate) {
           setSelectedTemplate('modern'); // Default template
         }
+        
+        // Preload populära mallar för bättre UX
+        preloadPopularTemplates().catch(console.error);
         
         setIsInitialized(true);
       } catch (error) {
@@ -120,7 +131,13 @@ export default function CVMallarPage() {
     // We'll track completion time when PDF is generated
   }, []);
   
-  const handleCustomizationChange = useCallback((customization: TemplateCustomization) => {
+  // Preload template when user hovers (smart preloading)
+  const handleTemplateHover = useCallback((templateId: CVTemplateType) => {
+    // Preload template in background för snabbare respons
+    loadTemplate(templateId).catch(console.error);
+  }, []);
+  
+  const handleCustomizationChange = useCallback((customization: EnhancedTemplateCustomization) => {
     setTemplateCustomization(customization);
     setShouldUpdatePreview(true);
   }, []);
@@ -142,6 +159,29 @@ export default function CVMallarPage() {
       isOpen: false,
       templateId: null
     });
+  }, []);
+  
+  // Comparison functions
+  const openComparison = useCallback(() => {
+    // Start med nuvarande vald mall om tillgänglig
+    const initial = selectedTemplate ? [selectedTemplate] : [];
+    setComparisonTemplates(initial);
+    setShowComparison(true);
+  }, [selectedTemplate]);
+  
+  const closeComparison = useCallback(() => {
+    setShowComparison(false);
+    setComparisonTemplates([]);
+  }, []);
+  
+  const addToComparison = useCallback((templateId: CVTemplateType) => {
+    if (!comparisonTemplates.includes(templateId) && comparisonTemplates.length < 3) {
+      setComparisonTemplates(prev => [...prev, templateId]);
+    }
+  }, [comparisonTemplates]);
+  
+  const removeFromComparison = useCallback((templateId: CVTemplateType) => {
+    setComparisonTemplates(prev => prev.filter(id => id !== templateId));
   }, []);
 
   const handleGenerateCV = useCallback(async () => {
@@ -208,17 +248,6 @@ export default function CVMallarPage() {
     return mostUsedTemplates.some(usage => usage.templateId === templateId);
   }, [mostUsedTemplates]);
 
-  const getTemplateIcon = (templateId: CVTemplateType) => {
-    const icons = {
-      'klassisk': FileText,
-      'modern': Palette,
-      'kreativ': Zap,
-      'ats-optimerad': Users,
-      'akademisk': BookOpen,
-      'modern-tech': Zap
-    };
-    return icons[templateId] || FileText;
-  };
 
   // Don't render if not authenticated
   if (profileLoading || !profile) {
@@ -352,8 +381,8 @@ export default function CVMallarPage() {
           </div>
           
           
-          {/* Template Customizer */}
-          <TemplateCustomizer
+          {/* Enhanced Template Customizer */}
+          <TemplateCustomizerEnhanced
             selectedTemplate={selectedTemplate}
             selectedCV={selectedCV}
             onCustomizationChange={handleCustomizationChange}
@@ -409,9 +438,19 @@ export default function CVMallarPage() {
                   Exklusiv
                 </Badge>
               </h2>
-              <div className="text-right">
-                <div className="text-sm text-gray-400">Genomsnittlig förbättring</div>
-                <div className="text-lg font-bold text-green-400">+67% fler intervjuer</div>
+              <div className="flex items-center space-x-4">
+                <Button
+                  onClick={openComparison}
+                  variant="outline"
+                  size="sm"
+                  className="border-blue-600 text-blue-400 hover:bg-blue-600/10"
+                >
+                  Jämför mallar
+                </Button>
+                <div className="text-right">
+                  <div className="text-sm text-gray-400">Genomsnittlig förbättring</div>
+                  <div className="text-lg font-bold text-green-400">+67% fler intervjuer</div>
+                </div>
               </div>
             </div>
             
@@ -439,84 +478,12 @@ export default function CVMallarPage() {
           </div>
 
           <div className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-4">
-              {getAllCVTemplates().map((template, index) => {
-                const Icon = getTemplateIcon(template.id);
-                const isSelected = selectedTemplate === template.id;
-
-                return (
-                  <motion.div
-                    key={template.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ 
-                      duration: 0.5, 
-                      delay: index * 0.1,
-                      ease: "easeOut"
-                    }}
-                    whileHover={{ 
-                      scale: 1.02,
-                      transition: { duration: 0.2 }
-                    }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <Card
-                    className={`cursor-pointer transition-all duration-200 hover:shadow-lg bg-navy-700 border-navy-600 ${
-                      isSelected 
-                        ? 'ring-2 ring-pink-500 shadow-lg' 
-                        : 'hover:shadow-md hover:border-navy-500'
-                    }`}
-                    onClick={() => handleTemplateSelect(template.id)}
-                  >
-                    <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <CardTitle className="flex items-center gap-2 text-white">
-                          <Icon className="h-5 w-5" />
-                          {template.name}
-                        </CardTitle>
-                        {isSelected && (
-                          <Badge variant="default" className="bg-pink-500">
-                            Vald
-                          </Badge>
-                        )}
-                      </div>
-                      <CardDescription className="text-gray-300">
-                        {template.description}
-                      </CardDescription>
-                    </CardHeader>
-
-                    <CardContent className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <div className="flex flex-wrap gap-1">
-                          {isTemplatePopular(template.id) && (
-                            <Badge className="bg-green-600 text-white text-xs">
-                              <TrendingUp className="w-3 h-3 mr-1" />
-                              Populär
-                            </Badge>
-                          )}
-                          <Badge variant="outline" className="text-xs border-green-500 text-green-400">
-                            ATS-kompatibel
-                          </Badge>
-                        </div>
-                        
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="text-pink-400 hover:text-pink-300 hover:bg-navy-600"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            openPreviewModal(template.id);
-                          }}
-                        >
-                          <Eye className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                  </motion.div>
-                );
-              })}
-            </div>
+            <TemplateGalleryOptimized
+              selectedTemplate={selectedTemplate}
+              onTemplateSelect={handleTemplateSelect}
+              onPreviewModal={openPreviewModal}
+              mostUsedTemplates={mostUsedTemplates}
+            />
             
             
             
@@ -679,9 +646,11 @@ export default function CVMallarPage() {
               
               {/* Modal Content */}
               <div className="p-6">
-                <TemplatePreview
+                <TemplatePreviewLive
                   templateId={previewModal.templateId}
                   cvData={selectedCV}
+                  customization={templateCustomization}
+                  autoUpdate={false}
                   onPreviewReady={() => {}}
                 />
               </div>
@@ -711,6 +680,43 @@ export default function CVMallarPage() {
                     Välj denna mall
                   </Button>
                 </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+      {/* Template Comparison Modal */}
+      <AnimatePresence>
+        {showComparison && (
+          <motion.div
+            className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={closeComparison}
+          >
+            <motion.div
+              className="bg-navy-800 rounded-lg border border-navy-600 max-w-7xl max-h-[90vh] overflow-auto relative w-full"
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-6">
+                <TemplateComparison
+                  selectedTemplates={comparisonTemplates}
+                  availableTemplates={getAllCVTemplates().map(t => t.id)}
+                  cvData={selectedCV}
+                  customization={templateCustomization}
+                  onTemplateSelect={(templateId) => {
+                    handleTemplateSelect(templateId);
+                    closeComparison();
+                  }}
+                  onRemoveTemplate={removeFromComparison}
+                  onAddTemplate={addToComparison}
+                  onClose={closeComparison}
+                />
               </div>
             </motion.div>
           </motion.div>
