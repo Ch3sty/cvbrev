@@ -1104,7 +1104,7 @@ export const klassiskCVTemplate: CVTemplate = {
               }, {})
             ).filter(([category, skills]) => 
               // Only show categories that have actual skills
-              (skills as any[]).length > 0 && (skills as any[]).some(skill => skill.name && skill.name.trim())
+              (skills as any[]).length > 0 && Boolean((skills as any[]).some(skill => skill.name && skill.name.trim()))
             ).map(([category, skills]) => `
               <div class="skill-category-executive">
                 <h4 class="skill-category-title">${category}</h4>

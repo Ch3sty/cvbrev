@@ -225,23 +225,23 @@ export const detectIndustry = (cvData: CVMetadata): string => {
 export const shouldShowSection = (sectionType: string, cvData: CVMetadata): boolean => {
   switch (sectionType) {
     case 'languages':
-      return (cvData.languages?.length || 0) > 0 && cvData.languages?.some(lang => 
+      return (cvData.languages?.length || 0) > 0 && Boolean(cvData.languages?.some(lang => 
         lang.language && lang.language.trim() !== '' && lang.proficiency && lang.proficiency.trim() !== ''
-      );
+      ));
     case 'certifications':
-      return (cvData.certifications?.length || 0) > 0 && cvData.certifications?.some(cert => 
+      return (cvData.certifications?.length || 0) > 0 && Boolean(cvData.certifications?.some(cert => 
         cert.name && cert.name.trim() !== ''
-      );
+      ));
     case 'projects':
-      return (cvData.projects?.length || 0) > 0 && cvData.projects?.some(proj => 
+      return (cvData.projects?.length || 0) > 0 && Boolean(cvData.projects?.some(proj => 
         (proj.name || proj.title) && (proj.name || proj.title)?.trim() !== ''
-      );
+      ));
     case 'skills':
       // Enhanced skills validation - check if skills data has actual content
       const hasSkills = (cvData.skills?.length || 0) > 0;
       if (!hasSkills) return false;
       
-      return cvData.skills?.some(skillCategory => {
+      return Boolean(cvData.skills?.some(skillCategory => {
         // Check if category has name and skills
         if (!skillCategory) return false;
         
@@ -261,30 +261,30 @@ export const shouldShowSection = (sectionType: string, cvData: CVMetadata): bool
         }
         
         return false;
-      });
+      }));
     case 'experience':
-      return (cvData.experience?.length || 0) > 0 && cvData.experience?.some(exp => 
+      return (cvData.experience?.length || 0) > 0 && Boolean(cvData.experience?.some(exp => 
         exp.position && exp.position.trim() !== '' && exp.company && exp.company.trim() !== ''
-      );
+      ));
     case 'education':
-      return (cvData.education?.length || 0) > 0 && cvData.education?.some(edu => 
+      return (cvData.education?.length || 0) > 0 && Boolean(cvData.education?.some(edu => 
         edu.degree && edu.degree.trim() !== '' && edu.institution && edu.institution.trim() !== ''
-      );
+      ));
     case 'publications':
       // Show if academic background or research experience detected
       const industry = detectIndustry(cvData);
       const hasAcademicContent = industry === 'education' || 
-        (cvData.experience || []).some(exp => 
+        Boolean((cvData.experience || []).some(exp => 
           exp.position.toLowerCase().includes('research') ||
           exp.position.toLowerCase().includes('professor') ||
           exp.company.toLowerCase().includes('university')
-        );
+        ));
       return hasAcademicContent && (cvData.projects?.length || 0) > 0;
     case 'awards':
       return (cvData.certifications?.length || 0) > 0; // Use certifications as awards proxy
     case 'interests':
       return Boolean(cvData.interests && cvData.interests.length > 0 && 
-        cvData.interests.some(interest => interest && interest.trim() !== ''));
+        Boolean(cvData.interests.some(interest => interest && interest.trim() !== '')));
     case 'references':
       return Boolean(cvData.references && cvData.references.trim().length > 0);
     default:
@@ -303,13 +303,13 @@ export const detectProfessionContext = (cvData: CVMetadata): {
   
   // Detect profession level
   const totalYears = calculateExperienceYears(experience);
-  const hasLeadershipTerms = experience.some(exp => 
+  const hasLeadershipTerms = Boolean(experience.some(exp => 
     exp.position.toLowerCase().includes('lead') ||
     exp.position.toLowerCase().includes('manager') ||
     exp.position.toLowerCase().includes('director') ||
     exp.position.toLowerCase().includes('chef') ||
     exp.position.toLowerCase().includes('ansvarig')
-  );
+  ));
   
   let professionLevel: 'entry' | 'mid' | 'senior' | 'executive';
   if (totalYears < 2) professionLevel = 'entry';
