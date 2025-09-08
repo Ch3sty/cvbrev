@@ -4,6 +4,16 @@ const nextConfig: NextConfig = {
   // Inaktivera strict mode under utveckling för att undvika dubbla renderingar
   reactStrictMode: false,
   
+  // Turbopack konfiguration för att undvika workspace root varningar
+  experimental: {
+    turbo: {
+      root: './src',
+    },
+  },
+  
+  // Output file tracing root för att undvika lockfile varningar
+  outputFileTracingRoot: process.cwd(),
+  
   // Aktivera ESLint för att diagnostisera build-problem
   eslint: {
     ignoreDuringBuilds: false,
