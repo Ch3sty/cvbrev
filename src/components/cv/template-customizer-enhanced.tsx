@@ -53,6 +53,7 @@ export default function TemplateCustomizerEnhanced({
   const templateSchemes = {
     'klassisk': ['navy', 'charcoal', 'forest', 'burgundy', 'royal', 'emerald'],
     'modern': ['slate', 'teal', 'indigo', 'emerald', 'navy', 'charcoal'],
+    'minimalistisk': ['navy', 'charcoal', 'neutral', 'elegant', 'clean', 'sophisticated'],
     'ats-optimerad': ['professional', 'corporate', 'neutral', 'executive', 'digital', 'clean'],
     'kreativ': ['creative', 'brand', 'vibrant', 'artistic', 'modern', 'elegant'],
     'akademisk': ['academic', 'institution', 'scholarly', 'traditional', 'research', 'university'],

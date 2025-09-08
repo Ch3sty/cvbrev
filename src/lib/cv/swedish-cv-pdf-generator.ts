@@ -329,6 +329,11 @@ export class SwedishCVPDFGenerator {
         primary: '#2563EB', // Blue-600
         accent: '#EC4899',  // Pink-500
         text: '#374151'     // Gray-700
+      },
+      custom: {
+        primary: '#131B32', // Navy-900 as default
+        accent: '#EC4899',  // Pink-500 as default
+        text: '#374151'     // Gray-700 as default
       }
     };
     

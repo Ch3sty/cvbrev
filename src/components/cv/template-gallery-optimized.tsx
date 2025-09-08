@@ -75,6 +75,7 @@ export default function TemplateGalleryOptimized({
     const icons = {
       'klassisk': FileText,
       'modern': Palette,
+      'minimalistisk': TrendingUp,
       'kreativ': Zap,
       'ats-optimerad': Users,
       'akademisk': BookOpen,

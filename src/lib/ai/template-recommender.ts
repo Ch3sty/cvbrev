@@ -24,7 +24,8 @@ const DESIGN_PREFERENCE_MAPPING = {
   // Alla mallar får höga base scores - val baseras på designpreferens, inte yrke
   'universal': {
     'klassisk': 85,     // Elegant, traditionell design
-    'modern': 85,       // Balanserad, nutida design  
+    'modern': 85,       // Balanserad, nutida design
+    'minimalistisk': 88, // Sofistikerad enkelhet med premiumkänsla
     'kreativ': 85,      // Visuellt uttrycksfull design
     'ats-optimerad': 85, // Strukturerad, systemoptimerad design
     'akademisk': 85,    // Sofistikerad, forskningsorienterad design
@@ -36,6 +37,7 @@ const DESIGN_PREFERENCE_MAPPING = {
 const EXPERIENCE_MODIFIERS = {
   'junior': {
     'modern': 1.1,
+    'minimalistisk': 1.05,
     'kreativ': 1.15,
     'klassisk': 0.9,
     'ats-optimerad': 1.2,
@@ -44,6 +46,7 @@ const EXPERIENCE_MODIFIERS = {
   },
   'mid': {
     'modern': 1.0,
+    'minimalistisk': 1.1,
     'kreativ': 1.0,
     'klassisk': 1.0,
     'ats-optimerad': 1.1,
@@ -52,6 +55,7 @@ const EXPERIENCE_MODIFIERS = {
   },
   'senior': {
     'modern': 0.95,
+    'minimalistisk': 1.15,
     'kreativ': 0.9,
     'klassisk': 1.1,
     'ats-optimerad': 1.0,
@@ -60,6 +64,7 @@ const EXPERIENCE_MODIFIERS = {
   },
   'executive': {
     'modern': 0.9,
+    'minimalistisk': 1.2,
     'kreativ': 0.8,
     'klassisk': 1.2,
     'ats-optimerad': 0.9,
@@ -107,7 +112,7 @@ export async function getAITemplateRecommendations(
     // 3. Beräkna rekommendationer för varje template
     const recommendations: TemplateRecommendation[] = [];
     
-    const templateTypes: CVTemplateType[] = ['klassisk', 'modern', 'kreativ', 'ats-optimerad', 'akademisk', 'modern-tech'];
+    const templateTypes: CVTemplateType[] = ['klassisk', 'modern', 'minimalistisk', 'kreativ', 'ats-optimerad', 'akademisk', 'modern-tech'];
     
     for (const templateId of templateTypes) {
       const recommendation = calculateTemplateScore(
@@ -330,6 +335,7 @@ function getVisualPreferenceScore(templateId: CVTemplateType, cvData: any): numb
   const baseScores = {
     'klassisk': 60,
     'modern': 80,
+    'minimalistisk': 85,
     'kreativ': 95,
     'ats-optimerad': 70,
     'akademisk': 65,
@@ -352,6 +358,7 @@ function generateRecommendationReasoning(
   const templateNames = {
     'klassisk': 'Klassiska mallen',
     'modern': 'Moderna mallen',
+    'minimalistisk': 'Minimalistiska mallen',
     'kreativ': 'Kreativa mallen',
     'ats-optimerad': 'ATS-optimerade mallen',
     'akademisk': 'Akademiska mallen',
@@ -367,6 +374,8 @@ function generateRecommendationReasoning(
     reasoning += `med sin eleganta, traditionella design som bygger förtroende hos alla typer av arbetsgivare. `;
   } else if (templateId === 'modern') {
     reasoning += `med sin balanserade, nutida design som fungerar perfekt för alla branscher. `;
+  } else if (templateId === 'minimalistisk') {
+    reasoning += `med sin sofistikerade enkelhet och premiumkänsla som fungerar utmärkt för alla yrkesnivåer. `;
   } else if (templateId === 'kreativ') {
     reasoning += `med sin visuellt uttrycksfulla design som hjälper dig att sticka ut, oavsett yrke. `;
   } else if (templateId === 'ats-optimerad') {

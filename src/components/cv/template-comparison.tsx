@@ -92,6 +92,7 @@ export default function TemplateComparison({
       'ats-optimerad': { atsCompatible: 95, visualImpact: 70, industryFocus: 85, readability: 90 },
       'klassisk': { atsCompatible: 90, visualImpact: 85, industryFocus: 95, readability: 95 },
       'modern': { atsCompatible: 85, visualImpact: 90, industryFocus: 80, readability: 85 },
+      'minimalistisk': { atsCompatible: 92, visualImpact: 88, industryFocus: 90, readability: 95 },
       'kreativ': { atsCompatible: 75, visualImpact: 95, industryFocus: 70, readability: 80 },
       'akademisk': { atsCompatible: 88, visualImpact: 75, industryFocus: 90, readability: 92 },
       'modern-tech': { atsCompatible: 88, visualImpact: 85, industryFocus: 85, readability: 88 }
