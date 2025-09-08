@@ -71,11 +71,11 @@ export const templateMetadata: Record<CVTemplateType, Omit<CVTemplate, 'generate
   'modern-tech': {
     id: 'modern-tech',
     name: 'Modern Tech',
-    description: 'Teknisk excellens med modern design för utvecklare och IT-proffs',
-    designStyle: 'Futuristisk Modern',
-    visualFeatures: ['Innovation-Driven Design', 'Premium Tech-Estetik', 'Avancerade Visualiseringar', 'Framtidsinriktad Känsla'],
-    features: ['Tech-focused', 'Skills visualization', 'Project showcase', 'Code-friendly', 'Innovation ready'],
-    colorSchemes: ['tech', 'digital', 'innovation', 'modern'],
+    description: 'Professionell och ren design optimerad för tekniska roller. Balanserar modern estetik med svensk formell standard.',
+    designStyle: 'Modern Professionalism',
+    visualFeatures: ['Ren tvåkolumns layout', 'Diskret färgaccent', 'Professionell typografi', 'PDF-optimerad struktur'],
+    features: ['Tech-optimerad', 'ATS-kompatibel', 'Svenska standarder', 'PDF-vänlig', 'Mobil-responsiv'],
+    colorSchemes: ['tech-blue', 'professional-navy', 'modern-slate', 'innovation-purple'],
     previewImage: '/images/cv-templates/modern-tech-preview.png'
   }
 };
