@@ -10,23 +10,33 @@ const loadingPromises = new Map<CVTemplateType, Promise<CVTemplate>>();
 export const templateMetadata: Record<CVTemplateType, Omit<CVTemplate, 'generateHTML'>> = {
   'klassisk': {
     id: 'klassisk',
-    name: 'Klassisk Premium',
-    description: 'Elegant svensk företagstradition med moderna premium-detaljer för ledande positioner',
-    designStyle: 'Klassisk Elegans',
-    visualFeatures: ['Traditionell Layout', 'Premium Typografi', 'Elegant Hierarki', 'Professionell Finish'],
-    features: ['Swedish Executive Design', 'Premium Typography', 'Elegant Hierarchy', 'Trust Indicators'],
-    colorSchemes: ['navy', 'charcoal', 'forest'],
+    name: 'Klassisk Svensk',
+    description: 'Traditionell kronologisk layout som följer svenska CV-standarder. Perfekt för konservativa branscher och erfarna yrkespersoner.',
+    designStyle: 'Tidlös professionalitet med högre trovärdighet',
+    visualFeatures: ['Enspaltig layout med klassisk hierarki', 'Diskret pink-accent för elegant touch', 'Standardiserade svenska rubriker', 'Optimal läsbarhet med Helvetica', 'ATS-kompatibel struktur'],
+    features: ['Följer Arbetsförmedlingens riktlinjer', '1-2 sidor enligt svenska normer', 'Kronologisk erfarenhetsstruktur', 'Professionell sammanfattning', 'Svenska datumformat', 'Referenser på begäran', 'GDPR-kompatibel'],
+    colorSchemes: ['Navy-900', 'Pink-500', 'Gray-700'],
     previewImage: '/images/cv-templates/klassisk-preview.png'
   },
   'modern': {
     id: 'modern',
-    name: 'Modern Professional',
-    description: 'Elegant minimalistisk design för framgångsrika professionella inom alla branscher',
-    designStyle: 'Minimalistisk Modern',
-    visualFeatures: ['Premium Minimalism', 'Clean Layout', 'Visual Excellence', 'Modern Typografi'],
-    features: ['Minimalistisk elegans', 'Visual hierarchy', 'Achievement focus', 'Clean typography', 'Professional impact'],
-    colorSchemes: ['slate', 'teal', 'indigo', 'emerald'],
+    name: 'Modern Tvåkolumns',
+    description: '70/30 split layout med sidokolumn för kontaktuppgifter och kompetenser. Perfekt balans mellan innovation och professionalitet.',
+    designStyle: 'Dynamisk professionalism med visuell effektivitet',
+    visualFeatures: ['70/30 split med huvudinnehåll och accent-kolumn', 'Gradient header för modern känsla', 'Progress bars för kompetensvisualisering', 'Diskret navy-50 bakgrund i sidokolumn', 'Ikoner för snabb visuell igenkänning'],
+    features: ['Optimerad för moderna branscher', 'Visuell hierarki med färgkodning', 'Kompakt informationspresentation', 'Skalbar för olika innehållsmängder', 'Mobile-responsive struktur', 'ATS-kompatibel trots avancerad design'],
+    colorSchemes: ['Navy-900', 'Pink-500', 'Purple-600', 'Blue-600'],
     previewImage: '/images/cv-templates/modern-preview.png'
+  },
+  'minimalistisk': {
+    id: 'minimalistisk',
+    name: 'Minimalistisk Premium',
+    description: 'Sofistikerad enkelhet med maximal visuell impact. Perfect för senior roller och konservativa branscher som kräver elegans.',
+    designStyle: 'Less-is-more luxury med maximal läsbarhet',
+    visualFeatures: ['Generösa 20mm marginaler för luftighet', 'Endast Navy-900, Navy-600 och Pink-500', 'Helvetica Neue Light/Regular mix', 'Större punktstorlekar för premium-känsla', 'Strategiska indrag utan störande element'],
+    features: ['Maximal läsbarhet och professionalism', 'Snabbare att uppdatera och anpassa', 'Fungerar perfekt i alla branscher', 'Aldrig går ur stil - tidlös design', 'Fokuserar på innehåll över form', 'Premium utan att verka överdrivet', 'ATS-vänlig genom enkelhet'],
+    colorSchemes: ['Navy-900', 'Navy-600', 'Pink-500'],
+    previewImage: '/images/cv-templates/minimalist-preview.png'
   },
   'ats-optimerad': {
     id: 'ats-optimerad',
@@ -89,10 +99,13 @@ export async function loadTemplate(templateId: CVTemplateType): Promise<CVTempla
       
       switch (templateId) {
         case 'klassisk':
-          templateModule = await import('./templates/klassisk');
+          templateModule = await import('./templates/klassisk-svenska');
           break;
         case 'modern':
-          templateModule = await import('./templates/modern');
+          templateModule = await import('./templates/modern-svenska');
+          break;
+        case 'minimalistisk':
+          templateModule = await import('./templates/minimalist-svenska');
           break;
         case 'ats-optimerad':
           templateModule = await import('./templates/ats-optimerad');
@@ -115,8 +128,9 @@ export async function loadTemplate(templateId: CVTemplateType): Promise<CVTempla
       
       // Specifika mappningar för template exports
       const exportMappings: Record<string, string> = {
-        'modern': 'modernCVTemplate',
-        'klassisk': 'klassiskCVTemplate', 
+        'modern': 'modernSvenskaTemplate',
+        'klassisk': 'klassiskSvenskaTemplate',
+        'minimalistisk': 'minimalistSvenskaTemplate',
         'ats-optimerad': 'atsOptimeradCVTemplate',
         'kreativ': 'kreativCVTemplate',
         'akademisk': 'akademiskCVTemplate',

@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { loadTemplate, optimizeContentForTemplate, generateHTMLSafely } from '@/lib/cv/cv-templates';
 import type { CVTemplateType, CVMetadata, CVGenerationOptions } from '@/lib/cv/cv-metadata';
 import { validateCVData } from '@/lib/openai/cv-parser-ai';
+import { parseSwedishCVContent } from '@/lib/cv/swedish-cv-content-parser';
+import { generateSwedishCVPDF, SwedishCVPDFOptions } from '@/lib/cv/swedish-cv-pdf-generator';
 import { 
   parseCVWithAIServerSide,
   extractBasicPersonalInfo,
@@ -12,16 +14,46 @@ import {
   extractBasicLanguages
 } from '../parse/route';
 
-// Använder samma approach som letters API - dynamisk import av Puppeteer
-async function createCVPDF(html: string): Promise<Buffer> {
+// Svenska CV PDF-generering med premium kvalitet
+async function createSwedishCVPDF(html: string, cvData: CVMetadata, templateId: CVTemplateType): Promise<Buffer> {
+  console.log(`Generating Swedish CV PDF with template: ${templateId}`);
+  
+  const swedishPDFOptions: SwedishCVPDFOptions = {
+    template: templateId,
+    format: 'A4',
+    margins: {
+      top: '20mm',
+      right: '15mm', 
+      bottom: '20mm',
+      left: '15mm'
+    },
+    colorScheme: 'navy', // Default till navy färgschema
+    swedishSettings: {
+      dateFormat: 'YYYY-MM',
+      phoneFormat: 'international',
+      pageLimit: 2, // Arbetsförmedlingens rekommendation
+      includePhoto: false
+    }
+  };
+  
   try {
-    console.log('Generating CV PDF with Puppeteer');
+    return await generateSwedishCVPDF(html, cvData, swedishPDFOptions);
+  } catch (error) {
+    console.error('Swedish CV PDF generation failed, using fallback:', error);
     
-    // Dynamisk import precis som puppeteer-pdf.ts gör
+    // Fallback till enklare PDF-generering
+    return await createBasicCVPDF(html);
+  }
+}
+
+// Fallback PDF-generering (enklare version)
+async function createBasicCVPDF(html: string): Promise<Buffer> {
+  try {
+    console.log('Using basic PDF generation fallback');
+    
     const puppeteer = await import('puppeteer');
     const puppeteerModule = puppeteer.default || puppeteer;
     
-    // Serverless-detection samma som letters API
     const isServerless = process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.VERCEL;
     
     const launchOptions: any = {
@@ -74,21 +106,22 @@ async function createCVPDF(html: string): Promise<Buffer> {
       await browser.close();
     }
   } catch (error) {
-    console.error('CV PDF generation error:', error);
+    console.error('Basic CV PDF generation error:', error);
     throw new Error(`PDF generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
 
 
-// AI-powered content extraction function - UPPGRADERAD!
-async function extractCVContent(rawText: string): Promise<CVMetadata> {
-  console.log('Använder AI-driven CV-parsing...');
+// Svenska CV-innehåll extraction med förbättrad parsing
+async function extractSwedishCVContent(rawText: string): Promise<CVMetadata> {
+  console.log('Använder förbättrad svensk CV-parsing...');
   
   try {
-    // Använd server-side AI-baserad parsing för bästa resultat
+    // Försök med svenska AI-driven parsing först
+    console.log('Försöker med AI-driven CV-parsing...');
     const aiResult = await parseCVWithAIServerSide(rawText);
     
-    // Logga metadata för insikter och debugging
+    // Logga metadata för insikter
     console.log('AI CV Parsing SUCCESS - metadata:', {
       model: aiResult.metadata.model,
       cost: aiResult.metadata.cost,
@@ -102,10 +135,10 @@ async function extractCVContent(rawText: string): Promise<CVMetadata> {
     return validateCVData(aiResult.cvData);
     
   } catch (error) {
-    console.error('AI CV-parsing misslyckades, använder fallback:', error);
+    console.error('AI CV-parsing misslyckades, använder svenska fallback:', error);
     
-    // Fallback till enkel regex-baserad parsing vid AI-fel
-    return extractCVContentFallback(rawText);
+    // Fallback till avancerad svensk regex-baserad parsing
+    return await parseSwedishCVContent(rawText);
   }
 }
 
@@ -268,9 +301,9 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Extrahera CV-innehåll med AI
-    console.log('Extraherar CV-innehåll...');
-    const extractedCVData = await extractCVContent(cvText);
+    // Extrahera CV-innehåll med förbättrad svensk parsing
+    console.log('Extraherar svenskt CV-innehåll...');
+    const extractedCVData = await extractSwedishCVContent(cvText);
     
     // Optimera innehåll för vald mall
     console.log('Optimerar innehåll för mall:', template);
@@ -287,9 +320,9 @@ export async function POST(request: NextRequest) {
     console.log('Genererar HTML med optimerat innehåll för mall:', template);
     const html = await generateHTMLSafely(selectedTemplate, cvData, options);
     
-    // Generera PDF med samma approach som letters API
-    console.log('Genererar PDF...');
-    const pdfBuffer = await createCVPDF(html);
+    // Generera PDF med svenska premium-kvalitet
+    console.log('Genererar svenskt premium-CV PDF...');
+    const pdfBuffer = await createSwedishCVPDF(html, cvData, template as CVTemplateType);
     
     // Sanitera filnamn (ta bort svenska tecken för att undvika header-fel)
     const sanitizedTemplate = template
