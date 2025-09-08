@@ -183,6 +183,7 @@ export async function POST(request: NextRequest) {
     let html: string;
     try {
       console.log(`Generating HTML for template: ${template}`);
+      
       const htmlResult = templateObj.generateHTML(cvData as CVMetadata, generationOptions);
       
       // Hantera både sync och async template generation med type-safe approach

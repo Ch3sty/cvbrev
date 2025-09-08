@@ -31,7 +31,7 @@ export const klassiskSvenskaTemplate: CVTemplate = {
     'Referenser på begäran',
     'GDPR-kompatibel'
   ],
-  colorSchemes: ['Navy-900', 'Pink-500', 'Gray-700'],
+  colorSchemes: ['blue', 'navy', 'purple'],
   previewImage: '/images/cv-templates/klassisk-preview.jpg',
   
   generateHTML: (cvData: CVMetadata, options: CVGenerationOptions): string => {

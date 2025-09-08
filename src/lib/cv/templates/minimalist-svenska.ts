@@ -31,7 +31,7 @@ export const minimalistSvenskaTemplate: CVTemplate = {
     'Premium utan att verka överdrivet',
     'ATS-vänlig genom enkelhet'
   ],
-  colorSchemes: ['Navy-900', 'Navy-600', 'Pink-500'],
+  colorSchemes: ['minimalist'],
   previewImage: '/images/cv-templates/minimalist-preview.jpg',
   
   generateHTML: (cvData: CVMetadata, options: CVGenerationOptions): string => {

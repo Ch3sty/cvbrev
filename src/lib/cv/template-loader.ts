@@ -15,8 +15,8 @@ export const templateMetadata: Record<CVTemplateType, Omit<CVTemplate, 'generate
     designStyle: 'Tidlös professionalitet med högre trovärdighet',
     visualFeatures: ['Enspaltig layout med klassisk hierarki', 'Diskret pink-accent för elegant touch', 'Standardiserade svenska rubriker', 'Optimal läsbarhet med Helvetica', 'ATS-kompatibel struktur'],
     features: ['Följer Arbetsförmedlingens riktlinjer', '1-2 sidor enligt svenska normer', 'Kronologisk erfarenhetsstruktur', 'Professionell sammanfattning', 'Svenska datumformat', 'Referenser på begäran', 'GDPR-kompatibel'],
-    colorSchemes: ['Navy-900', 'Pink-500', 'Gray-700'],
-    previewImage: '/images/cv-templates/klassisk-preview.png'
+    colorSchemes: ['blue', 'navy', 'purple'],
+    previewImage: '/images/cv-templates/klassisk-preview.jpg'
   },
   'modern': {
     id: 'modern',
@@ -25,8 +25,8 @@ export const templateMetadata: Record<CVTemplateType, Omit<CVTemplate, 'generate
     designStyle: 'Dynamisk professionalism med visuell effektivitet',
     visualFeatures: ['70/30 split med huvudinnehåll och accent-kolumn', 'Gradient header för modern känsla', 'Progress bars för kompetensvisualisering', 'Diskret navy-50 bakgrund i sidokolumn', 'Ikoner för snabb visuell igenkänning'],
     features: ['Optimerad för moderna branscher', 'Visuell hierarki med färgkodning', 'Kompakt informationspresentation', 'Skalbar för olika innehållsmängder', 'Mobile-responsive struktur', 'ATS-kompatibel trots avancerad design'],
-    colorSchemes: ['Navy-900', 'Pink-500', 'Purple-600', 'Blue-600'],
-    previewImage: '/images/cv-templates/modern-preview.png'
+    colorSchemes: ['blue', 'navy', 'purple'],
+    previewImage: '/images/cv-templates/modern-preview.jpg'
   },
   'minimalistisk': {
     id: 'minimalistisk',
@@ -35,8 +35,8 @@ export const templateMetadata: Record<CVTemplateType, Omit<CVTemplate, 'generate
     designStyle: 'Less-is-more luxury med maximal läsbarhet',
     visualFeatures: ['Generösa 20mm marginaler för luftighet', 'Endast Navy-900, Navy-600 och Pink-500', 'Helvetica Neue Light/Regular mix', 'Större punktstorlekar för premium-känsla', 'Strategiska indrag utan störande element'],
     features: ['Maximal läsbarhet och professionalism', 'Snabbare att uppdatera och anpassa', 'Fungerar perfekt i alla branscher', 'Aldrig går ur stil - tidlös design', 'Fokuserar på innehåll över form', 'Premium utan att verka överdrivet', 'ATS-vänlig genom enkelhet'],
-    colorSchemes: ['Navy-900', 'Navy-600', 'Pink-500'],
-    previewImage: '/images/cv-templates/minimalist-preview.png'
+    colorSchemes: ['minimalist'],
+    previewImage: '/images/cv-templates/minimalist-preview.jpg'
   },
   'ats-optimerad': {
     id: 'ats-optimerad',

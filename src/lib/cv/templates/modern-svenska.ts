@@ -30,7 +30,7 @@ export const modernSvenskaTemplate: CVTemplate = {
     'Mobile-responsive struktur',
     'ATS-kompatibel trots avancerad design'
   ],
-  colorSchemes: ['Navy-900', 'Pink-500', 'Purple-600', 'Blue-600'],
+  colorSchemes: ['blue', 'navy', 'purple'],
   previewImage: '/images/cv-templates/modern-preview.jpg',
   
   generateHTML: (cvData: CVMetadata, options: CVGenerationOptions): string => {
