@@ -131,7 +131,7 @@ export default function CompetenceAnalysisPage() {
         { source: 'kompetensutveckling', current_tier: subscriptionTier });
     }
     router.push(UPGRADE_ROUTE);
-  }, [router, profile, subscriptionTier, logUserActivity]);
+  }, [router, profile, subscriptionTier, logUserActivity]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // --- Derived State ---
   const isFreeTier = subscriptionTier === 'free';

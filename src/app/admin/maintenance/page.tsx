@@ -72,8 +72,7 @@ export default function MaintenancePage() {
     } finally {
        setStatsLoading(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [days]); // Lägg till 'days' som dependency
+  }, [days]);
 
   // Rensa gamla aktiviteter
   const handleCleanup = async () => {

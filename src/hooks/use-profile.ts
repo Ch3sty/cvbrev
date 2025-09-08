@@ -472,7 +472,8 @@ export const useProfile = () => {
     fetchCvInfo,
     fetchCvCount,
     fetchSavedLettersCount,
-    calculateRemainingAnalyses, // Ny beroende
+    calculateRemainingAnalyses,
+    profile, // Add profile dependency
   ]);
 
   // Spara fetchProfile ref
@@ -605,11 +606,9 @@ export const useProfile = () => {
     supabase, 
     subscriptionTier, 
     weeklyLetterCount, 
-    weeklyAnalysisCount, // Ny beroende för analys
+    weeklyAnalysisCount,
     calculateRemainingLetters, 
-    calculateRemainingAnalyses, // Ny beroende för analys
-    calculateCvLimitReached, 
-    calculateLetterLimitReached, 
+    calculateRemainingAnalyses,
     calculateNextResetDate, 
     formatTimeRemaining
   ]);
@@ -707,7 +706,7 @@ export const useProfile = () => {
       console.error('uploadCV Exception:', error);
       throw error;
     }
-  }, [supabase, subscriptionTier, cvCount, gdprConsent, fetchCvInfo, fetchCvCount, calculateCvLimitReached, formatLimit]);
+  }, [subscriptionTier, cvCount, gdprConsent, fetchCvInfo, fetchCvCount, calculateCvLimitReached, formatLimit]);
 
   const deleteCV = useCallback(async (): Promise<boolean> => {
     console.log("useProfile: Attempting to delete primary CV (legacy function).");

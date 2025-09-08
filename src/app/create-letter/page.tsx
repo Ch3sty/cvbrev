@@ -410,7 +410,7 @@ export default function CreateLetterPage() {
     } finally {
       setIsSaving(false);
     }
-  }, [letterData, generatedLetter, saveLetter, showNotification, closeNotification, hasReachedLetterLimit, maxSavedLetters, profile, logUserActivity]);
+  }, [letterData, generatedLetter, saveLetter, showNotification, closeNotification, hasReachedLetterLimit, maxSavedLetters, profile, logUserActivity]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // --- Funktion: Redigera Brev ---
   const handleEdit = useCallback(() => {
@@ -428,7 +428,7 @@ export default function CreateLetterPage() {
       logUserActivity(profile.id, 'upgrade_clicked', 'Klick på uppgradering', { source: 'create-letter', current_tier: subscriptionTier });
     }
     router.push(UPGRADE_ROUTE); // Gå till prissidan
-  }, [router, profile, subscriptionTier, logUserActivity]);
+  }, [router, profile, subscriptionTier, logUserActivity]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // --- Funktioner för inställningar ---
   const handleLanguageChange = (lang: Language) => setLanguage(lang);

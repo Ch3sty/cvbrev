@@ -194,7 +194,7 @@ export default function TemplatePreview({
     } finally {
       setIsGenerating(false);
     }
-  }, [templateId, cvData?.id, generatePreviewImage, onPreviewReady]);
+  }, [templateId, cvData, generatePreviewImage, onPreviewReady]);
 
   // Generate preview when template or CV changes
   useEffect(() => {

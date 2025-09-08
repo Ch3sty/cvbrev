@@ -59,7 +59,10 @@
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-cv-preview.html\")",
       "Bash(del \"C:\\Users\\chris\\cvbrev\\test-cv-preview.html\")",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-premium-templates.html\")",
-      "Bash(git grep:*)"
+      "Bash(git grep:*)",
+      "Bash(npm run lint)",
+      "Bash(npm run lint:*)",
+      "Bash(timeout 30 npm run dev)"
     ],
     "deny": [],
     "ask": []
