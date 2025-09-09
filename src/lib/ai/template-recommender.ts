@@ -29,7 +29,12 @@ const DESIGN_PREFERENCE_MAPPING = {
     'kreativ': 85,      // Visuellt uttrycksfull design
     'ats-optimerad': 85, // Strukturerad, systemoptimerad design
     'akademisk': 85,    // Sofistikerad, forskningsorienterad design
-    'modern-tech': 85   // Tekniskt avancerad, minimal design
+    'modern-tech': 85,  // Tekniskt avancerad, minimal design
+    'creative-edge': 85, // Kreativ profil med subtil design-touch
+    'modern-minimal': 85, // Modern minimal design
+    'classic-professional': 85, // Klassisk professionell design
+    'clean-corporate': 85, // Ren företagsstil
+    'executive-premium': 85  // Executive premium design
   }
 } as const;
 
@@ -42,7 +47,12 @@ const EXPERIENCE_MODIFIERS = {
     'klassisk': 0.9,
     'ats-optimerad': 1.2,
     'akademisk': 0.8,
-    'modern-tech': 1.25
+    'modern-tech': 1.25,
+    'creative-edge': 1.1,
+    'modern-minimal': 1.05,
+    'classic-professional': 0.9,
+    'clean-corporate': 1.0,
+    'executive-premium': 0.8
   },
   'mid': {
     'modern': 1.0,
@@ -51,7 +61,12 @@ const EXPERIENCE_MODIFIERS = {
     'klassisk': 1.0,
     'ats-optimerad': 1.1,
     'akademisk': 0.95,
-    'modern-tech': 1.15
+    'modern-tech': 1.15,
+    'creative-edge': 1.05,
+    'modern-minimal': 1.1,
+    'classic-professional': 1.0,
+    'clean-corporate': 1.05,
+    'executive-premium': 0.95
   },
   'senior': {
     'modern': 0.95,
@@ -60,7 +75,12 @@ const EXPERIENCE_MODIFIERS = {
     'klassisk': 1.1,
     'ats-optimerad': 1.0,
     'akademisk': 1.05,
-    'modern-tech': 1.1
+    'modern-tech': 1.1,
+    'creative-edge': 1.0,
+    'modern-minimal': 1.15,
+    'classic-professional': 1.1,
+    'clean-corporate': 1.1,
+    'executive-premium': 1.05
   },
   'executive': {
     'modern': 0.9,
@@ -69,7 +89,12 @@ const EXPERIENCE_MODIFIERS = {
     'klassisk': 1.2,
     'ats-optimerad': 0.9,
     'akademisk': 1.1,
-    'modern-tech': 1.0
+    'modern-tech': 1.0,
+    'creative-edge': 0.85,
+    'modern-minimal': 1.2,
+    'classic-professional': 1.2,
+    'clean-corporate': 1.15,
+    'executive-premium': 1.25
   }
 } as const;
 
@@ -112,7 +137,7 @@ export async function getAITemplateRecommendations(
     // 3. Beräkna rekommendationer för varje template
     const recommendations: TemplateRecommendation[] = [];
     
-    const templateTypes: CVTemplateType[] = ['klassisk', 'modern', 'minimalistisk', 'kreativ', 'ats-optimerad', 'akademisk', 'modern-tech'];
+    const templateTypes: CVTemplateType[] = ['klassisk', 'modern', 'minimalistisk', 'kreativ', 'ats-optimerad', 'akademisk', 'modern-tech', 'creative-edge', 'modern-minimal', 'classic-professional', 'clean-corporate', 'executive-premium'];
     
     for (const templateId of templateTypes) {
       const recommendation = calculateTemplateScore(
@@ -339,7 +364,12 @@ function getVisualPreferenceScore(templateId: CVTemplateType, cvData: any): numb
     'kreativ': 95,
     'ats-optimerad': 70,
     'akademisk': 65,
-    'modern-tech': 90
+    'modern-tech': 90,
+    'creative-edge': 88,
+    'modern-minimal': 85,
+    'classic-professional': 60,
+    'clean-corporate': 75,
+    'executive-premium': 80
   };
   
   return baseScores[templateId] || 60;
@@ -362,7 +392,12 @@ function generateRecommendationReasoning(
     'kreativ': 'Kreativa mallen',
     'ats-optimerad': 'ATS-optimerade mallen',
     'akademisk': 'Akademiska mallen',
-    'modern-tech': 'Modern Tech-mallen'
+    'modern-tech': 'Modern Tech-mallen',
+    'creative-edge': 'Kreativ Profil-mallen',
+    'modern-minimal': 'Modern Minimal-mallen',
+    'classic-professional': 'Klassisk Professionell-mallen',
+    'clean-corporate': 'Ren Företagsstil-mallen',
+    'executive-premium': 'Executive Premium-mallen'
   };
   
   const templateName = templateNames[templateId];
@@ -384,6 +419,16 @@ function generateRecommendationReasoning(
     reasoning += `med sin sofistikerade design som förmedlar seriositet och djupgående expertis. `;
   } else if (templateId === 'modern-tech') {
     reasoning += `med sin tekniskt avancerade, minimala design som signalerar innovation. `;
+  } else if (templateId === 'creative-edge') {
+    reasoning += `med sin kreativa profil och subtila design-touch som skapar en personlig men professionell profil. `;
+  } else if (templateId === 'modern-minimal') {
+    reasoning += `med sin rena, moderna design som förmedlar professionalitet och elegans. `;
+  } else if (templateId === 'classic-professional') {
+    reasoning += `med sin traditionella svenska CV-stil som fungerar utmärkt för etablerade branscher. `;
+  } else if (templateId === 'clean-corporate') {
+    reasoning += `med sin företagsorienterade design som passar perfekt för affärsroller. `;
+  } else if (templateId === 'executive-premium') {
+    reasoning += `med sin exklusiva design som signalerar ledarskap och hög professionalitet. `;
   }
   
   // Erfarenhetsnivå-motivering
@@ -519,7 +564,7 @@ export function getQuickRecommendations(
   // Rotera rekommendationer baserat på popularitet och diversitet istället för yrke
   
   // Ge alla användare tillgång till alla mallar, oavsett bakgrund
-  const allTemplates: CVTemplateType[] = ['klassisk', 'modern', 'kreativ', 'ats-optimerad', 'akademisk', 'modern-tech'];
+  const allTemplates: CVTemplateType[] = ['klassisk', 'modern', 'kreativ', 'ats-optimerad', 'akademisk', 'modern-tech', 'creative-edge', 'modern-minimal', 'classic-professional', 'clean-corporate', 'executive-premium'];
   
   // Välj 3 mallar baserat på usage diversity istället för yrkesbegränsningar
   const sortedByUsage = allTemplates.sort((a, b) => {
