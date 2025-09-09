@@ -208,7 +208,7 @@ export default function TemplatePreviewFast({
   // Auto-generate on mount
   useEffect(() => {
     generatePreview(false);
-  }, [templateId, cvData?.id]);
+  }, [templateId, cvData?.id, generatePreview]);
 
   // Force refresh
   const handleRefresh = useCallback(() => {
@@ -223,7 +223,8 @@ export default function TemplatePreviewFast({
       }
       
       // Cleanup blob URLs
-      cacheRef.current.forEach(url => {
+      const currentCache = cacheRef.current;
+      currentCache.forEach(url => {
         if (url.startsWith('blob:')) {
           URL.revokeObjectURL(url);
         }
