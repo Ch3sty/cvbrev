@@ -5,9 +5,9 @@ const nextConfig: NextConfig = {
   reactStrictMode: false,
   
   // Turbopack konfiguration för att undvika workspace root varningar
-  experimental: {
-    turbo: {
-      root: './src',
+  turbopack: {
+    resolveAlias: {
+      '@': './src',
     },
   },
   
