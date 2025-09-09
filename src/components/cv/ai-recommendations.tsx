@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Sparkles, Brain, TrendingUp, Target, Loader2, ChevronRight, Info } from 'lucide-react';
 import type { TemplateRecommendation } from '@/lib/ai/template-recommender';
 import type { CVTemplateType } from '@/lib/cv/cv-metadata';
-import { getAllCVTemplates, loadTemplate } from '@/lib/cv/cv-templates';
+import { SIMPLE_TEMPLATES, getTemplateById } from '@/lib/cv/simple-templates';
 
 interface AIRecommendationsProps {
   selectedCV: any;
@@ -36,7 +36,7 @@ export default function AIRecommendations({
   
   // Template lookup (använder metadata för snabbare rendering)
   const getTemplateInfo = (templateId: CVTemplateType) => {
-    return getAllCVTemplates().find(t => t.id === templateId);
+    return getTemplateById(templateId);
   };
   
   // Kör AI-analys
@@ -65,7 +65,7 @@ export default function AIRecommendations({
       
       return () => clearTimeout(timer);
     }
-  }, [selectedCV, hasRunAIAnalysis, isLoadingAI]);
+  }, [selectedCV, hasRunAIAnalysis, isLoadingAI]); // eslint-disable-line react-hooks/exhaustive-deps
   
   if (!selectedCV) {
     return (
@@ -117,7 +117,7 @@ export default function AIRecommendations({
                   </div>
                   <div>
                     <div className="text-white font-medium">{template.name}</div>
-                    <div className="text-gray-400 text-sm">{template.visualFeatures.slice(0, 2).join(', ')}</div>
+                    <div className="text-gray-400 text-sm">{template.description}</div>
                   </div>
                 </div>
                 

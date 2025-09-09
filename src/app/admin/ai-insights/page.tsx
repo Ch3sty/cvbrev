@@ -54,7 +54,7 @@ export default function AIInsightsDashboard() {
     fetchAIInsights();
     const interval = setInterval(fetchAIInsights, 300000); // Update every 5 minutes
     return () => clearInterval(interval);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchAIInsights = async () => {
     try {

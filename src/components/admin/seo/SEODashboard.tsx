@@ -345,7 +345,7 @@ export default function SEODashboard() {
 
   useEffect(() => {
     fetchDashboardData();
-  }, [dateRange]);
+  }, [dateRange]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchDashboardData = async () => {
     try {

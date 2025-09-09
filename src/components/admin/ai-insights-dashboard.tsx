@@ -115,7 +115,7 @@ export default function AIInsightsDashboard() {
     loadAnalytics();
     const interval = setInterval(loadAnalytics, 5 * 60 * 1000);
     return () => clearInterval(interval);
-  }, [state.timeRange]);
+  }, [state.timeRange, loadAnalytics]);
 
   // Tab navigation
   const tabs = [

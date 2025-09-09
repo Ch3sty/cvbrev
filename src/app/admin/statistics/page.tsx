@@ -538,7 +538,7 @@ export default function StatisticsPage() {
     fetchStatistics();
     const interval = setInterval(fetchStatistics, 60000); // Uppdatera varje minut
     return () => clearInterval(interval);
-  }, [dateRange]);
+  }, [dateRange, fetchStatistics]);
 
   // Chart.js konfiguration
   const chartOptions = {

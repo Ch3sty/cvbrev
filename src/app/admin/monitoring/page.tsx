@@ -69,7 +69,7 @@ export default function MonitoringDashboard() {
       clearInterval(interval);
       channel.unsubscribe();
     };
-  }, []);
+  }, [supabase]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchMonitoringData = async () => {
     await Promise.all([

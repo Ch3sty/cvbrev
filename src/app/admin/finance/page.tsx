@@ -32,7 +32,7 @@ export default function FinanceDashboard() {
     fetchFinancialData();
     const interval = setInterval(fetchFinancialData, 60000); // Update every minute
     return () => clearInterval(interval);
-  }, [dateRange]);
+  }, [dateRange]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchFinancialData = async () => {
     try {

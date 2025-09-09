@@ -340,7 +340,8 @@ export default function CreateLetterPage() {
     // Inkludera alla dependencies som används i callbacken
     selectedCV, jobDescription, tonality, language, isGenerating, isSubmitting, profile,
     subscriptionTier, remainingWeeklyLetters, createLetter, showNotification,
-    closeNotification, updateRemainingLetters, updateNextResetDate, logUserActivity
+    closeNotification, updateRemainingLetters, updateNextResetDate
+    // logUserActivity removed as it's not a valid dependency (outer scope function)
   ]);
 
   // --- Funktion: Spara Brev ---
