@@ -104,7 +104,7 @@ export default function CVMallarPage() {
   const selectedTemplateData = selectedTemplate ? getTemplateById(selectedTemplate) : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-navy-900 to-navy-800">
       {/* Notification */}
       {notification.isVisible && (
         <Notification
@@ -124,24 +124,24 @@ export default function CVMallarPage() {
           transition={{ duration: 0.5 }}
         >
           <div className="text-center mb-6">
-            <h1 className="text-4xl font-bold text-slate-800 mb-3">
+            <h1 className="text-4xl font-bold text-white mb-3">
               CV-mallar
             </h1>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
               Välj en professionell CV-mall och skapa ditt CV på mindre än en minut.
             </p>
           </div>
           
           <div className="flex justify-center gap-4 text-sm">
-            <div className="flex items-center text-green-600">
+            <div className="flex items-center text-green-400">
               <Check className="w-4 h-4 mr-2" />
               ATS-kompatibel
             </div>
-            <div className="flex items-center text-blue-600">
+            <div className="flex items-center text-blue-400">
               <Check className="w-4 h-4 mr-2" />
               Snabb nedladdning
             </div>
-            <div className="flex items-center text-purple-600">
+            <div className="flex items-center text-purple-400">
               <Check className="w-4 h-4 mr-2" />
               Alla branscher
             </div>
@@ -156,13 +156,13 @@ export default function CVMallarPage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <Card className="bg-white shadow-lg border-0">
+            <Card className="bg-navy-800 shadow-lg border border-navy-700">
               <CardHeader>
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-blue-600" />
+                <CardTitle className="text-lg flex items-center gap-2 text-white">
+                  <FileText className="w-5 h-5 text-blue-400" />
                   Ditt CV
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-gray-300">
                   Välj det CV du vill använda som grund
                 </CardDescription>
               </CardHeader>
@@ -170,14 +170,14 @@ export default function CVMallarPage() {
               <CardContent>
                 {cvsLoading || profileLoading ? (
                   <div className="flex items-center justify-center h-32">
-                    <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-600 border-t-transparent"></div>
+                    <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-400 border-t-transparent"></div>
                   </div>
                 ) : cvs.length === 0 ? (
                   <div className="text-center py-6">
                     <Upload className="w-12 h-12 mx-auto mb-3 text-gray-400" />
-                    <p className="text-gray-600 mb-4">Inga CV uppladdade</p>
+                    <p className="text-gray-300 mb-4">Inga CV uppladdade</p>
                     <Link href="/profile?tab=cv">
-                      <Button size="sm" className="w-full">
+                      <Button size="sm" className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700">
                         Ladda upp CV
                       </Button>
                     </Link>
@@ -191,26 +191,26 @@ export default function CVMallarPage() {
                         onClick={() => selectCV(cv.id)}
                         className={`w-full text-left p-3 rounded-lg border transition-all ${
                           selectedCV?.id === cv.id
-                            ? 'bg-blue-50 border-blue-200 ring-1 ring-blue-200'
-                            : 'bg-gray-50 border-gray-200 hover:bg-gray-100'
+                            ? 'bg-navy-700 border-pink-500 ring-1 ring-pink-400'
+                            : 'bg-navy-900/60 border-navy-600 hover:bg-navy-700/50 hover:border-navy-500'
                         }`}
                       >
                         <div className="flex items-start gap-3">
                           <FileText className={`w-4 h-4 mt-0.5 ${
-                            selectedCV?.id === cv.id ? 'text-blue-600' : 'text-gray-500'
+                            selectedCV?.id === cv.id ? 'text-pink-400' : 'text-gray-400'
                           }`} />
                           <div className="flex-1 min-w-0">
                             <p className={`font-medium truncate ${
-                              selectedCV?.id === cv.id ? 'text-blue-900' : 'text-gray-900'
+                              selectedCV?.id === cv.id ? 'text-white' : 'text-gray-200'
                             }`}>
                               {cv.file_name}
                             </p>
-                            <p className="text-xs text-gray-500 mt-1 line-clamp-2">
+                            <p className="text-xs text-gray-400 mt-1 line-clamp-2">
                               {cv.cv_text ? cv.cv_text.substring(0, 80) + '...' : 'Ingen förhandsgranskning'}
                             </p>
                           </div>
                           {selectedCV?.id === cv.id && (
-                            <Check className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                            <Check className="w-4 h-4 text-pink-400 flex-shrink-0" />
                           )}
                         </div>
                       </button>
@@ -228,7 +228,7 @@ export default function CVMallarPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                <Card className="bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">
+                <Card className="bg-gradient-to-r from-pink-600 to-purple-600 text-white border-0">
                   <CardContent className="p-4">
                     <div className="text-center mb-3">
                       <h3 className="font-semibold">
@@ -272,10 +272,10 @@ export default function CVMallarPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Card className="bg-white shadow-lg border-0">
+            <Card className="bg-navy-800 shadow-lg border border-navy-700">
               <CardHeader>
-                <CardTitle className="text-xl">Välj din design</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-xl text-white">Välj din design</CardTitle>
+                <CardDescription className="text-gray-300">
                   Alla mallar fungerar för alla yrken - välj den design som passar dig bäst.
                 </CardDescription>
               </CardHeader>

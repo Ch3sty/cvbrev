@@ -50,7 +50,11 @@ export default function SimpleTemplateGallery({
           variant={selectedCategory === 'all' ? 'default' : 'outline'}
           size="sm"
           onClick={() => setSelectedCategory('all')}
-          className="text-sm"
+          className={`text-sm ${
+            selectedCategory === 'all' 
+              ? 'bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white border-0' 
+              : 'bg-navy-900/60 border-navy-600 text-gray-300 hover:bg-navy-700/50 hover:text-white'
+          }`}
         >
           Alla mallar
         </Button>
@@ -60,7 +64,11 @@ export default function SimpleTemplateGallery({
             variant={selectedCategory === category ? 'default' : 'outline'}
             size="sm"
             onClick={() => setSelectedCategory(category as SimpleTemplate['category'])}
-            className="text-sm"
+            className={`text-sm ${
+              selectedCategory === category 
+                ? 'bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white border-0' 
+                : 'bg-navy-900/60 border-navy-600 text-gray-300 hover:bg-navy-700/50 hover:text-white'
+            }`}
           >
             {label}
           </Button>
@@ -76,31 +84,31 @@ export default function SimpleTemplateGallery({
           return (
             <Card
               key={template.id}
-              className={`cursor-pointer transition-all duration-200 hover:shadow-md ${
+              className={`cursor-pointer transition-all duration-200 hover:shadow-md border ${
                 isSelected 
-                  ? 'ring-2 ring-pink-500 shadow-lg bg-pink-50/50' 
-                  : 'hover:shadow-lg hover:scale-[1.02] bg-white'
+                  ? 'ring-2 ring-pink-500 shadow-lg bg-navy-700 border-pink-500' 
+                  : 'hover:shadow-lg hover:scale-[1.02] bg-navy-900/60 border-navy-600 hover:border-navy-500'
               }`}
               onClick={() => onTemplateSelect(template.id)}
             >
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg font-semibold text-gray-800 flex items-center gap-2">
+                  <CardTitle className="text-lg font-semibold text-white flex items-center gap-2">
                     {isPremium && <Crown className="h-4 w-4 text-amber-500" />}
                     {template.name}
                   </CardTitle>
                   {isSelected && (
-                    <Check className="h-5 w-5 text-pink-500" />
+                    <Check className="h-5 w-5 text-pink-400" />
                   )}
                 </div>
-                <CardDescription className="text-sm text-gray-600">
+                <CardDescription className="text-sm text-gray-300">
                   {template.description}
                 </CardDescription>
               </CardHeader>
 
               <CardContent className="space-y-4">
                 {/* Template Preview Image */}
-                <div className="relative aspect-[3/4] bg-gray-50 rounded-lg overflow-hidden">
+                <div className="relative aspect-[3/4] bg-gray-100 rounded-lg overflow-hidden">
                   <Image
                     src={template.imagePath}
                     alt={`${template.name} CV-mall`}
@@ -115,7 +123,7 @@ export default function SimpleTemplateGallery({
                   <div className="flex gap-2">
                     <Badge 
                       variant="outline" 
-                      className={`text-xs ${getCategoryColor(template.category)}`}
+                      className={`text-xs border-navy-500 ${getCategoryColor(template.category)}`}
                     >
                       {CATEGORY_LABELS[template.category]}
                     </Badge>
@@ -125,7 +133,7 @@ export default function SimpleTemplateGallery({
                         Premium
                       </Badge>
                     ) : (
-                      <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200 text-xs">
+                      <Badge variant="outline" className="bg-green-900/30 text-green-400 border-green-600 text-xs">
                         Gratis
                       </Badge>
                     )}
@@ -144,7 +152,7 @@ export default function SimpleTemplateGallery({
       </div>
 
       {filteredTemplates.length === 0 && (
-        <div className="text-center py-8 text-gray-500">
+        <div className="text-center py-8 text-gray-400">
           <p>Inga mallar hittades i denna kategori.</p>
         </div>
       )}
