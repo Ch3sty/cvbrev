@@ -79,14 +79,37 @@ export default function CVMallarPage() {
       const template = getTemplateById(selectedTemplate);
       const fileName = `cv-${template?.name.toLowerCase().replace(/\s+/g, '-')}-${selectedCV.file_name.replace(/\.[^/.]+$/, '')}.pdf`;
       
-      // Simulate PDF generation (replace with actual implementation)
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Anropa generate-formatted API med AI-parsad CV-data
+      const response = await fetch('/api/cv/generate-formatted', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          template: selectedTemplate,
+          cvText: selectedCV.cv_text,
+          format: 'pdf'
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Kunde inte generera CV');
+      }
+
+      // Ladda ner PDF:en
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
       
       closeNotification();
       showNotification('success', `CV skapat! Nedladdning startar automatiskt.`);
-      
-      // Here you would implement actual PDF generation
-      // For now, just show success
       
     } catch (error: any) {
       console.error('Fel vid CV-skapande:', error);

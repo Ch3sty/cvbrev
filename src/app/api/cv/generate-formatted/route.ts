@@ -14,6 +14,398 @@ import {
   extractBasicLanguages
 } from '../parse/route';
 
+// Generera template-specifik HTML baserat på vald mall
+function generateTemplateHTML(cvData: CVMetadata, templateId: CVTemplateType): string {
+  // Se till att referenser alltid är standard svenska frasen
+  const standardizedCVData = {
+    ...cvData,
+    references: 'Referenser lämnas på begäran'
+  };
+
+  switch (templateId) {
+    case 'creative-edge':
+      return generateCreativeEdgeHTML(standardizedCVData);
+    default:
+      return generateDefaultHTML(standardizedCVData);
+  }
+}
+
+// Creative Edge HTML-template som matchar SVG-förhandsgranskningen exakt
+function generateCreativeEdgeHTML(cvData: CVMetadata): string {
+  return `
+    <!DOCTYPE html>
+    <html lang="sv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CV - ${cvData.personalInfo.fullName}</title>
+        <style>
+            body { 
+                font-family: 'Arial', sans-serif; 
+                margin: 0; 
+                padding: 0; 
+                color: #333; 
+                background: white;
+                font-size: 14px;
+                line-height: 1.4;
+            }
+            .cv-container {
+                width: 210mm;
+                min-height: 297mm;
+                margin: 0 auto;
+                background: white;
+                position: relative;
+                padding: 0;
+            }
+            
+            /* Creative header med angled design som matchar SVG */
+            .header {
+                background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+                height: 120px;
+                position: relative;
+                clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+                padding: 35px 30px;
+                box-sizing: border-box;
+            }
+            
+            .header h1 {
+                color: white;
+                font-size: 28px;
+                font-weight: bold;
+                margin: 0 0 8px 0;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            
+            .header .title {
+                color: rgba(255,255,255,0.9);
+                font-size: 16px;
+                margin: 5px 0;
+            }
+            
+            .header .contact {
+                color: rgba(255,255,255,0.8);
+                font-size: 14px;
+                margin: 3px 0;
+            }
+            
+            /* Main content area */
+            .content {
+                padding: 40px 30px 30px;
+            }
+            
+            /* Section styling med kreativa accenter */
+            .section {
+                margin-bottom: 30px;
+                position: relative;
+            }
+            
+            .section h2 {
+                color: #7c3aed;
+                font-size: 18px;
+                font-weight: bold;
+                margin: 0 0 15px 0;
+                padding-left: 20px;
+                position: relative;
+            }
+            
+            /* Creative accent bars */
+            .section h2:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 5px;
+                height: 30px;
+                background: linear-gradient(135deg, #ec4899, #8b5cf6);
+                border-radius: 2px;
+            }
+            
+            .summary-section h2:before {
+                height: 25px;
+            }
+            
+            /* Experience med kreativa cirklar */
+            .experience-section h2:before {
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                background: #ec4899;
+                top: 2px;
+                left: -8px;
+            }
+            
+            /* Education med geometrisk accent */
+            .education-section h2:before {
+                width: 12px;
+                height: 12px;
+                background: #8b5cf6;
+                border-radius: 2px;
+                transform: rotate(45deg);
+                top: 4px;
+                left: -6px;
+            }
+            
+            .section p {
+                margin: 0 0 10px 20px;
+                color: #374151;
+                line-height: 1.5;
+            }
+            
+            /* Experience items */
+            .experience-item {
+                margin: 20px 0 25px 20px;
+                padding-bottom: 15px;
+            }
+            
+            .job-title {
+                font-weight: bold;
+                color: #1e293b;
+                font-size: 16px;
+                margin-bottom: 5px;
+            }
+            
+            .company {
+                color: #64748b;
+                font-size: 14px;
+                margin-bottom: 8px;
+            }
+            
+            .description {
+                color: #94a3b8;
+                font-size: 13px;
+                line-height: 1.4;
+                margin: 3px 0;
+            }
+            
+            /* Education items */
+            .education-item {
+                margin: 15px 0 20px 20px;
+            }
+            
+            .degree {
+                font-weight: bold;
+                color: #1e293b;
+                font-size: 16px;
+                margin-bottom: 5px;
+            }
+            
+            .institution {
+                color: #64748b;
+                font-size: 14px;
+            }
+            
+            /* Skills med kreativ layout */
+            .skills-section .skills-container {
+                margin-left: 20px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-top: 15px;
+            }
+            
+            .skill-tag {
+                background: #f3e8ff;
+                color: #7c3aed;
+                padding: 8px 15px;
+                border-radius: 20px;
+                font-size: 13px;
+                font-weight: 500;
+                border: 1px solid #e9d5ff;
+            }
+            
+            /* References */
+            .references-section {
+                margin-top: 40px;
+                text-align: center;
+            }
+            
+            .references-section p {
+                color: #64748b;
+                font-style: italic;
+                margin-left: 0;
+            }
+            
+            /* Creative decorative elements som matchar SVG */
+            .decorative-circles {
+                position: absolute;
+                top: 180px;
+                right: 30px;
+                z-index: 1;
+            }
+            
+            .circle-1 {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: rgba(252, 231, 243, 0.5);
+                position: absolute;
+                top: 0;
+                right: 0;
+            }
+            
+            .circle-2 {
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background: rgba(237, 233, 254, 0.7);
+                position: absolute;
+                top: 80px;
+                right: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="cv-container">
+            <!-- Creative header med angled design -->
+            <div class="header">
+                <h1>${cvData.personalInfo.fullName}</h1>
+                ${cvData.summary ? `<div class="title">${cvData.summary.substring(0, 80)}...</div>` : ''}
+                <div class="contact">
+                    ${cvData.personalInfo.email || ''} ${cvData.personalInfo.phone ? '• ' + cvData.personalInfo.phone : ''}
+                </div>
+            </div>
+            
+            <!-- Decorative elements -->
+            <div class="decorative-circles">
+                <div class="circle-1"></div>
+                <div class="circle-2"></div>
+            </div>
+            
+            <div class="content">
+                ${cvData.summary ? `
+                <div class="section summary-section">
+                    <h2>Professionell Sammanfattning</h2>
+                    <p>${cvData.summary}</p>
+                </div>
+                ` : ''}
+                
+                ${cvData.experience.length > 0 ? `
+                <div class="section experience-section">
+                    <h2>Arbetslivserfarenhet</h2>
+                    ${cvData.experience.map(exp => `
+                        <div class="experience-item">
+                            <div class="job-title">${exp.position}</div>
+                            <div class="company">${exp.company}</div>
+                            ${exp.description.map(desc => `<div class="description">${desc}</div>`).join('')}
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+                
+                ${cvData.education.length > 0 ? `
+                <div class="section education-section">
+                    <h2>Utbildning</h2>
+                    ${cvData.education.map(edu => `
+                        <div class="education-item">
+                            <div class="degree">${edu.degree}</div>
+                            <div class="institution">${edu.institution}</div>
+                        </div>
+                    `).join('')}
+                </div>
+                ` : ''}
+                
+                ${cvData.skills.length > 0 ? `
+                <div class="section skills-section">
+                    <h2>Kompetenser</h2>
+                    <div class="skills-container">
+                        ${cvData.skills.flatMap(skillGroup => 
+                            skillGroup.skills.map(skill => `<span class="skill-tag">${skill}</span>`)
+                        ).join('')}
+                    </div>
+                </div>
+                ` : ''}
+                
+                <div class="section references-section">
+                    <p>${cvData.references}</p>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
+  `;
+}
+
+// Default/fallback HTML-template
+function generateDefaultHTML(cvData: CVMetadata): string {
+  return `
+    <!DOCTYPE html>
+    <html lang="sv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CV - ${cvData.personalInfo.fullName}</title>
+        <style>
+            body { font-family: 'Arial', sans-serif; margin: 0; padding: 20px; color: #333; }
+            h1 { color: #1e40af; margin-bottom: 10px; }
+            h2 { color: #1e40af; border-bottom: 2px solid #e5e7eb; padding-bottom: 5px; margin-top: 25px; }
+            .contact-info { margin-bottom: 20px; color: #666; }
+            .section { margin-bottom: 25px; }
+            .experience-item, .education-item { margin-bottom: 15px; }
+            .job-title { font-weight: bold; color: #1e40af; }
+            .company { color: #666; margin-bottom: 5px; }
+            .skills-list { display: flex; flex-wrap: wrap; gap: 10px; }
+            .skill-item { background: #f3f4f6; padding: 5px 10px; border-radius: 5px; font-size: 14px; }
+        </style>
+    </head>
+    <body>
+        <h1>${cvData.personalInfo.fullName}</h1>
+        <div class="contact-info">
+            ${cvData.personalInfo.email && `📧 ${cvData.personalInfo.email}`}
+            ${cvData.personalInfo.phone && `📱 ${cvData.personalInfo.phone}`}
+        </div>
+        
+        ${cvData.summary ? `
+        <div class="section">
+            <h2>Professionell sammanfattning</h2>
+            <p>${cvData.summary}</p>
+        </div>
+        ` : ''}
+        
+        ${cvData.experience.length > 0 ? `
+        <div class="section">
+            <h2>Arbetslivserfarenhet</h2>
+            ${cvData.experience.map(exp => `
+                <div class="experience-item">
+                    <div class="job-title">${exp.position}</div>
+                    <div class="company">${exp.company}</div>
+                    ${exp.description.map(desc => `<p>${desc}</p>`).join('')}
+                </div>
+            `).join('')}
+        </div>
+        ` : ''}
+        
+        ${cvData.education.length > 0 ? `
+        <div class="section">
+            <h2>Utbildning</h2>
+            ${cvData.education.map(edu => `
+                <div class="education-item">
+                    <div class="job-title">${edu.degree}</div>
+                    <div class="company">${edu.institution}</div>
+                </div>
+            `).join('')}
+        </div>
+        ` : ''}
+        
+        ${cvData.skills.length > 0 ? `
+        <div class="section">
+            <h2>Kompetenser</h2>
+            ${cvData.skills.map(skillGroup => `
+                <h3>${skillGroup.category}</h3>
+                <div class="skills-list">
+                    ${skillGroup.skills.map(skill => `<span class="skill-item">${skill}</span>`).join('')}
+                </div>
+            `).join('')}
+        </div>
+        ` : ''}
+        
+        <div class="section">
+            <p style="text-align: center; color: #666; font-style: italic;">${cvData.references}</p>
+        </div>
+    </body>
+    </html>
+  `;
+}
+
 // Svenska CV PDF-generering med premium kvalitet
 async function createSwedishCVPDF(html: string, cvData: CVMetadata, templateId: CVTemplateType): Promise<Buffer> {
   console.log(`Generating Swedish CV PDF with template: ${templateId}`);
@@ -302,80 +694,8 @@ export async function POST(request: NextRequest) {
     console.log('Extraherar svenskt CV-innehåll...');
     const extractedCVData = await extractSwedishCVContent(cvText);
     
-    // För nu använder vi enkel HTML-generering istället för komplexa mallar
-    const html = `
-    <!DOCTYPE html>
-    <html lang="sv">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CV - ${extractedCVData.personalInfo.fullName}</title>
-        <style>
-            body { font-family: 'Arial', sans-serif; margin: 0; padding: 20px; color: #333; }
-            h1 { color: #1e40af; margin-bottom: 10px; }
-            h2 { color: #1e40af; border-bottom: 2px solid #e5e7eb; padding-bottom: 5px; margin-top: 25px; }
-            .contact-info { margin-bottom: 20px; color: #666; }
-            .section { margin-bottom: 25px; }
-            .experience-item, .education-item { margin-bottom: 15px; }
-            .job-title { font-weight: bold; color: #1e40af; }
-            .company { color: #666; margin-bottom: 5px; }
-            .skills-list { display: flex; flex-wrap: wrap; gap: 10px; }
-            .skill-item { background: #f3f4f6; padding: 5px 10px; border-radius: 5px; font-size: 14px; }
-        </style>
-    </head>
-    <body>
-        <h1>${extractedCVData.personalInfo.fullName}</h1>
-        <div class="contact-info">
-            ${extractedCVData.personalInfo.email && `📧 ${extractedCVData.personalInfo.email}`}
-            ${extractedCVData.personalInfo.phone && `📱 ${extractedCVData.personalInfo.phone}`}
-        </div>
-        
-        ${extractedCVData.summary ? `
-        <div class="section">
-            <h2>Professionell sammanfattning</h2>
-            <p>${extractedCVData.summary}</p>
-        </div>
-        ` : ''}
-        
-        ${extractedCVData.experience.length > 0 ? `
-        <div class="section">
-            <h2>Arbetslivserfarenhet</h2>
-            ${extractedCVData.experience.map(exp => `
-                <div class="experience-item">
-                    <div class="job-title">${exp.position}</div>
-                    <div class="company">${exp.company}</div>
-                    ${exp.description.map(desc => `<p>${desc}</p>`).join('')}
-                </div>
-            `).join('')}
-        </div>
-        ` : ''}
-        
-        ${extractedCVData.education.length > 0 ? `
-        <div class="section">
-            <h2>Utbildning</h2>
-            ${extractedCVData.education.map(edu => `
-                <div class="education-item">
-                    <div class="job-title">${edu.degree}</div>
-                    <div class="company">${edu.institution}</div>
-                </div>
-            `).join('')}
-        </div>
-        ` : ''}
-        
-        ${extractedCVData.skills.length > 0 ? `
-        <div class="section">
-            <h2>Kompetenser</h2>
-            ${extractedCVData.skills.map(skillGroup => `
-                <h3>${skillGroup.category}</h3>
-                <div class="skills-list">
-                    ${skillGroup.skills.map(skill => `<span class="skill-item">${skill}</span>`).join('')}
-                </div>
-            `).join('')}
-        </div>
-        ` : ''}
-    </body>
-    </html>
-    `;
+    // Generera template-specifik HTML baserat på vald mall
+    const html = generateTemplateHTML(extractedCVData, template as CVTemplateType);
     
     // Generera PDF med svenska premium-kvalitet
     console.log('Genererar svenskt premium-CV PDF...');
