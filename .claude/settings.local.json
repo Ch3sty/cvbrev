@@ -62,7 +62,16 @@
       "Bash(git grep:*)",
       "Bash(npm run lint)",
       "Bash(npm run lint:*)",
-      "Bash(timeout 30 npm run dev)"
+      "Bash(timeout 30 npm run dev)",
+      "Bash(PORT=3003 npm run dev --turbo)",
+      "Bash(tasklist)",
+      "Bash(tasklist:*)",
+      "Bash(PORT=3001 npm run dev)",
+      "Bash(start \"http://localhost:3002/cv-mallar\")",
+      "Bash(taskkill:*)",
+      "Bash(start \"http://localhost:3000/cv-mallar\")",
+      "Bash(chmod:*)",
+      "Bash(bash:*)"
     ],
     "deny": [],
     "ask": []

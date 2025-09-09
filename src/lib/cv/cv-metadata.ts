@@ -88,9 +88,9 @@ export interface CVMetadata {
 
 export interface CVGenerationOptions {
   template: CVTemplateType;
-  format: 'pdf' | 'docx' | 'both';
+  format: 'pdf' | 'docx' | 'both' | 'png';
   industry?: string;
-  colorScheme?: 'blue' | 'black' | 'green' | 'purple' | 'red';
+  colorScheme?: 'blue' | 'black' | 'green' | 'purple' | 'red' | 'navy' | 'minimalist' | 'tech-blue' | 'professional-navy' | 'modern-slate' | 'innovation-purple' | 'academic-blue' | 'scholarly-navy' | 'research-burgundy' | 'classic-black' | 'professional' | 'corporate' | 'trust' | 'stability' | 'success' | 'premium' | 'creative' | 'brand' | 'vibrant' | 'artistic' | 'modern' | 'elegant' | 'charcoal' | 'forest' | 'burgundy' | 'royal' | 'classic' | 'slate' | 'teal' | 'indigo' | 'emerald' | 'amber' | 'academic' | 'institution' | 'scholarly' | 'traditional';
   includePhoto?: boolean;
   photoUrl?: string;
 }

@@ -16,7 +16,7 @@ import Notification from '@/components/ui/notification';
 import TemplatePreview from '@/components/cv/template-preview';
 import TemplatePreviewLive from '@/components/cv/template-preview-live';
 import { CVMallarErrorBoundary } from '@/components/cv/cv-mallar-error-boundary';
-import TemplateGalleryOptimized from '@/components/cv/template-gallery-optimized';
+import TemplateGalleryFast from '@/components/cv/template-gallery-fast';
 import TemplateCustomizer, { type TemplateCustomization } from '@/components/cv/template-customizer';
 import TemplateCustomizerEnhanced, { type EnhancedTemplateCustomization } from '@/components/cv/template-customizer-enhanced';
 import TemplateComparison from '@/components/cv/template-comparison';
@@ -486,11 +486,12 @@ export default function CVMallarPage() {
           </div>
 
           <div className="space-y-6">
-            <TemplateGalleryOptimized
+            <TemplateGalleryFast
               selectedTemplate={selectedTemplate}
               onTemplateSelect={handleTemplateSelect}
               onPreviewModal={openPreviewModal}
               mostUsedTemplates={mostUsedTemplates}
+              cvData={selectedCV}
             />
             
             

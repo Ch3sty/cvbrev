@@ -36,7 +36,7 @@ export const minimalistSvenskaTemplate: CVTemplate = {
   
   generateHTML: (cvData: CVMetadata, options: CVGenerationOptions): string => {
     const headings = generateDynamicHeadings(cvData, 'minimalistisk');
-    const colors = getMinimalistColorScheme();
+    const colors = getMinimalistColorScheme(options.colorScheme || 'minimalist');
     
     return `
 <!DOCTYPE html>
@@ -73,15 +73,18 @@ export const minimalistSvenskaTemplate: CVTemplate = {
   }
 };
 
-function getMinimalistColorScheme() {
-  return {
-    primary: '#131B32',      // Navy-900 - endast för rubriker och namn
-    secondary: '#6B7280',    // Navy-600 - för sekundär text
-    accent: '#EC4899',       // Pink-500 - endast för accent-linjer
-    text: '#374151',         // Gray-700 - huvudtext
-    white: '#FFFFFF',        // Ren vit bakgrund
-    background: '#FAFAFA'    // Mycket subtil bakgrund om behövs
+function getMinimalistColorScheme(scheme: string = 'minimalist') {
+  const schemes = {
+    minimalist: {
+      primary: '#131B32',      // Navy-900 - endast för rubriker och namn
+      secondary: '#6B7280',    // Navy-600 - för sekundär text
+      accent: '#EC4899',       // Pink-500 - endast för accent-linjer
+      text: '#374151',         // Gray-700 - huvudtext
+      white: '#FFFFFF',        // Ren vit bakgrund
+      background: '#FAFAFA'    // Mycket subtil bakgrund om behövs
+    }
   };
+  return schemes[scheme as keyof typeof schemes] || schemes.minimalist;
 }
 
 function getMinimalistCSS(colors: any): string {
