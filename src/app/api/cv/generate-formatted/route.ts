@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { loadTemplate, optimizeContentForTemplate, generateHTMLSafely } from '@/lib/cv/cv-templates';
+import { getTemplateById } from '@/lib/cv/simple-templates';
 import type { CVTemplateType, CVMetadata, CVGenerationOptions } from '@/lib/cv/cv-metadata';
 import { validateCVData } from '@/lib/openai/cv-parser-ai';
 import { parseSwedishCVContent } from '@/lib/cv/swedish-cv-content-parser';
@@ -289,14 +289,11 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Ladda vald mall dynamiskt
-    let selectedTemplate;
-    try {
-      selectedTemplate = await loadTemplate(template as CVTemplateType);
-    } catch (error) {
-      console.error('Failed to load template:', error);
+    // Kontrollera att mallen finns
+    const selectedTemplate = getTemplateById(template);
+    if (!selectedTemplate) {
       return NextResponse.json(
-        { error: 'Kunde inte ladda mall' },
+        { error: 'Mall hittades inte' },
         { status: 400 }
       );
     }
@@ -305,24 +302,84 @@ export async function POST(request: NextRequest) {
     console.log('Extraherar svenskt CV-innehåll...');
     const extractedCVData = await extractSwedishCVContent(cvText);
     
-    // Optimera innehåll för vald mall
-    console.log('Optimerar innehåll för mall:', template);
-    const cvData = optimizeContentForTemplate(extractedCVData, template);
-    
-    // Generera HTML med vald mall
-    const options: CVGenerationOptions = {
-      template: template as CVTemplateType,
-      format: format as 'pdf' | 'docx' | 'both',
-      colorScheme: colorScheme as any,
-      includePhoto: false
-    };
-    
-    console.log('Genererar HTML med optimerat innehåll för mall:', template);
-    const html = await generateHTMLSafely(selectedTemplate, cvData, options);
+    // För nu använder vi enkel HTML-generering istället för komplexa mallar
+    const html = `
+    <!DOCTYPE html>
+    <html lang="sv">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CV - ${extractedCVData.personalInfo.fullName}</title>
+        <style>
+            body { font-family: 'Arial', sans-serif; margin: 0; padding: 20px; color: #333; }
+            h1 { color: #1e40af; margin-bottom: 10px; }
+            h2 { color: #1e40af; border-bottom: 2px solid #e5e7eb; padding-bottom: 5px; margin-top: 25px; }
+            .contact-info { margin-bottom: 20px; color: #666; }
+            .section { margin-bottom: 25px; }
+            .experience-item, .education-item { margin-bottom: 15px; }
+            .job-title { font-weight: bold; color: #1e40af; }
+            .company { color: #666; margin-bottom: 5px; }
+            .skills-list { display: flex; flex-wrap: wrap; gap: 10px; }
+            .skill-item { background: #f3f4f6; padding: 5px 10px; border-radius: 5px; font-size: 14px; }
+        </style>
+    </head>
+    <body>
+        <h1>${extractedCVData.personalInfo.fullName}</h1>
+        <div class="contact-info">
+            ${extractedCVData.personalInfo.email && `📧 ${extractedCVData.personalInfo.email}`}
+            ${extractedCVData.personalInfo.phone && `📱 ${extractedCVData.personalInfo.phone}`}
+        </div>
+        
+        ${extractedCVData.summary ? `
+        <div class="section">
+            <h2>Professionell sammanfattning</h2>
+            <p>${extractedCVData.summary}</p>
+        </div>
+        ` : ''}
+        
+        ${extractedCVData.experience.length > 0 ? `
+        <div class="section">
+            <h2>Arbetslivserfarenhet</h2>
+            ${extractedCVData.experience.map(exp => `
+                <div class="experience-item">
+                    <div class="job-title">${exp.position}</div>
+                    <div class="company">${exp.company}</div>
+                    ${exp.description.map(desc => `<p>${desc}</p>`).join('')}
+                </div>
+            `).join('')}
+        </div>
+        ` : ''}
+        
+        ${extractedCVData.education.length > 0 ? `
+        <div class="section">
+            <h2>Utbildning</h2>
+            ${extractedCVData.education.map(edu => `
+                <div class="education-item">
+                    <div class="job-title">${edu.degree}</div>
+                    <div class="company">${edu.institution}</div>
+                </div>
+            `).join('')}
+        </div>
+        ` : ''}
+        
+        ${extractedCVData.skills.length > 0 ? `
+        <div class="section">
+            <h2>Kompetenser</h2>
+            ${extractedCVData.skills.map(skillGroup => `
+                <h3>${skillGroup.category}</h3>
+                <div class="skills-list">
+                    ${skillGroup.skills.map(skill => `<span class="skill-item">${skill}</span>`).join('')}
+                </div>
+            `).join('')}
+        </div>
+        ` : ''}
+    </body>
+    </html>
+    `;
     
     // Generera PDF med svenska premium-kvalitet
     console.log('Genererar svenskt premium-CV PDF...');
-    const pdfBuffer = await createSwedishCVPDF(html, cvData, template as CVTemplateType);
+    const pdfBuffer = await createSwedishCVPDF(html, extractedCVData, template as CVTemplateType);
     
     // Sanitera filnamn (ta bort svenska tecken för att undvika header-fel)
     const sanitizedTemplate = template
