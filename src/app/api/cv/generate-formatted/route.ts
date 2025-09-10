@@ -1065,8 +1065,8 @@ function generateModernMinimalHTML(cvData: CVMetadata): string {
                 <h2>Arbetslivserfarenhet</h2>
                 ${cvData.experience
                     .sort((a, b) => {
-                        const dateA = a.endDate === null ? new Date() : new Date(a.endDate);
-                        const dateB = b.endDate === null ? new Date() : new Date(b.endDate);
+                        const dateA = a.endDate ? new Date(a.endDate) : new Date(); // Pågående jobb = nuvarande datum
+                        const dateB = b.endDate ? new Date(b.endDate) : new Date();
                         return dateB.getTime() - dateA.getTime();
                     })
                     .map(exp => `
