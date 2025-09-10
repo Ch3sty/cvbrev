@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Sidebar Fix - Clean Corporate</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 8px; }
+        button { padding: 10px 15px; margin: 5px; background: #1e293b; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #334155; }
+        #result { margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 5px; }
+        .success { color: green; } .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Test Sidebar Width Fix</h1>
+    
+    <div class="test-section">
+        <h3>Test med problematisk text som tidigare bröt:</h3>
+        <button onclick="testSidebarFix()">Test Sidebar Width Fix</button>
+        <p>Testar samma data som orsakade textbryning: långa emailadresser, komplexa kompetenser, långa språknamn.</p>
+    </div>
+    
+    <div id="result"></div>
+    
+    <script>
+        async function testSidebarFix() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testar sidebar width fix...';
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/cv/generate-formatted', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        template: 'clean-corporate',
+                        cvText: `Christian Karlsson
+christian.karlsson@hotmail.se
+070 449 92 97
+Vällistavägen 7, 141 32 Huddinge
+
+PROFESSIONELL SAMMANFATTNING
+Personlig tränare och idrottslärare med gedigen erfarenhet inom träning och coaching.
+
+ARBETSLIVSERFARENHET
+
+Personlig Tränare - Friskis&Svettis
+2020-01-01 - Pågående
+Hjälper klienter att nå sina träningsmål genom individuella träningsplaner.
+
+Idrottslärare - Huddinge Gymnasium  
+2018-08-15 - 2019-12-31
+Undervisade i idrott och hälsa för gymnasieelever.
+
+UTBILDNING
+
+Lic Personlig Tränare - DS Personal Training School
+2015-08-20 - 2016-06-15
+
+Byggprogrammet - Södertörns Hantverksgymnasium
+2012-08-15 - 2015-06-10
+
+Teknik/Försäljning - Sjödalsgymnasiet
+2009-08-20 - 2012-06-15
+
+SPRÅKKUNSKAPER
+Svenska (modersmål), Engelska (flytande), Spanska (flytande), Hebreiska (behjälpligt)
+
+KOMPETENSER
+Officepaketet, Windows, Photoshop, Outlook, Wordpress, Html/CSS, Novamedelssystem, Teamarbete, Driven, Social`
+                    })
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'clean-corporate-sidebar-fix-test.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                    
+                    resultDiv.innerHTML = '<div class="success">✅ Sidebar fix test framgångsrik!<br><br><strong>Kontrollera i PDF:</strong><br>• Sidebar är nu 140px bred (istället för 90px)<br>• Textbryning är fixad för email, telefon, adress<br>• Kompetenser bryts snyggt<br>• Språknamn får plats ordentligt<br>• Amber accenter behållna</div>';
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = '<div class="error">❌ Fel: ' + response.status + ' - ' + errorText + '</div>';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = '<div class="error">❌ Fel: ' + error.message + '</div>';
+            }
+        }
+    </script>
+</body>
+</html>

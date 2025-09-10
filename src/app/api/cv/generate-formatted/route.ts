@@ -421,9 +421,9 @@ function generateCleanCorporateHTML(cvData: CVMetadata): string {
             
             /* Left sidebar - Clean Corporate style */
             .sidebar {
-                width: 90px;
+                width: 140px;
                 background: #1e293b;
-                padding: 25px 15px;
+                padding: 25px 20px;
                 box-sizing: border-box;
                 color: white;
                 position: relative;
@@ -441,7 +441,7 @@ function generateCleanCorporateHTML(cvData: CVMetadata): string {
             
             .sidebar h3 {
                 color: #f59e0b;
-                font-size: 14px;
+                font-size: 13px;
                 font-weight: 700;
                 margin: 25px 0 12px 0;
                 text-transform: uppercase;
@@ -457,29 +457,40 @@ function generateCleanCorporateHTML(cvData: CVMetadata): string {
                 font-size: 12px;
                 margin: 6px 0;
                 word-break: break-word;
+                line-height: 1.3;
             }
             
             .sidebar .contact-item {
                 margin-bottom: 8px;
                 font-size: 11px;
                 line-height: 1.3;
+                word-break: break-word;
             }
             
             .sidebar .skill-item {
                 background: rgba(148, 163, 184, 0.1);
-                padding: 4px 8px;
+                padding: 6px 10px;
                 border-radius: 4px;
                 margin: 4px 0;
                 font-size: 11px;
                 border-left: 2px solid #f59e0b;
+                word-break: break-word;
+                line-height: 1.4;
             }
             
             .sidebar .language-item {
                 display: flex;
                 justify-content: space-between;
-                align-items: center;
+                align-items: flex-start;
                 margin: 6px 0;
                 font-size: 11px;
+                line-height: 1.3;
+            }
+            
+            .sidebar .language-name {
+                word-break: break-word;
+                flex: 1;
+                margin-right: 6px;
             }
             
             .sidebar .language-level {
@@ -489,6 +500,8 @@ function generateCleanCorporateHTML(cvData: CVMetadata): string {
                 border-radius: 8px;
                 font-size: 9px;
                 font-weight: 600;
+                white-space: nowrap;
+                flex-shrink: 0;
             }
             
             /* Main content area */
