@@ -12,15 +12,61 @@ import { executivePremiumTemplate } from './executive-premium/generator';
 export { formatSwedishAddress } from './base/address-formatter';
 export type { CVTemplateGenerator } from './base/template-base';
 
+// Create a default fallback template generator
+const createDefaultTemplate = (templateId: CVTemplateType): CVTemplateGenerator => ({
+  templateId,
+  generate: (cvData) => {
+    // Fallback to a simple default template
+    return `
+      <!DOCTYPE html>
+      <html lang="sv">
+      <head>
+          <meta charset="UTF-8">
+          <title>CV - ${cvData.personalInfo.fullName}</title>
+          <style>
+              body { font-family: Arial, sans-serif; margin: 40px; color: #333; }
+              h1 { color: #2c3e50; }
+              .section { margin: 20px 0; }
+              .section h2 { color: #34495e; border-bottom: 1px solid #bdc3c7; }
+          </style>
+      </head>
+      <body>
+          <h1>${cvData.personalInfo.fullName}</h1>
+          <p>Email: ${cvData.personalInfo.email || ''}</p>
+          <p>Telefon: ${cvData.personalInfo.phone || ''}</p>
+          ${cvData.summary ? `<div class="section"><h2>Professionell sammanfattning</h2><p>${cvData.summary}</p></div>` : ''}
+          <div class="section"><p><em>Detta är en standard-mall. Template "${templateId}" är inte implementerad ännu.</em></p></div>
+      </body>
+      </html>
+    `;
+  },
+  metadata: {
+    name: 'Standard Mall',
+    description: 'Grundläggande CV-mall',
+    category: 'modern',
+    tier: 'free'
+  }
+});
+
 /**
  * Registry of all available template generators
  */
 export const TEMPLATE_GENERATORS: Record<CVTemplateType, CVTemplateGenerator> = {
+  // Implemented templates
   'modern-minimal': modernMinimalTemplate,
   'classic-professional': classicProfessionalTemplate,
   'clean-corporate': cleanCorporateTemplate,
   'creative-edge': creativeEdgeTemplate,
-  'executive-premium': executivePremiumTemplate
+  'executive-premium': executivePremiumTemplate,
+  
+  // Legacy templates (fallback to default)
+  'klassisk': createDefaultTemplate('klassisk'),
+  'modern': createDefaultTemplate('modern'),
+  'minimalistisk': createDefaultTemplate('minimalistisk'),
+  'kreativ': createDefaultTemplate('kreativ'),
+  'ats-optimerad': createDefaultTemplate('ats-optimerad'),
+  'akademisk': createDefaultTemplate('akademisk'),
+  'modern-tech': createDefaultTemplate('modern-tech')
 } as const;
 
 /**

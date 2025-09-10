@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Fixed CV Templates</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; margin-bottom: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 6px; }
+        button { width: 100%; padding: 12px; margin: 5px 0; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; }
+        button:hover { background: #218838; }
+        #result { margin-top: 20px; padding: 15px; background: #e9ecef; border-radius: 6px; }
+        .success { color: #28a745; font-weight: bold; }
+        .error { color: #dc3545; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Test: Fixed Template System</h1>
+        
+        <div class="test-section">
+            <h3>✅ Test Alla Implementerade Mallar</h3>
+            <button onclick="testTemplate('modern-minimal')">Modern Minimal</button>
+            <button onclick="testTemplate('classic-professional')">Classic Professional</button>
+            <button onclick="testTemplate('clean-corporate')">Clean Corporate</button>
+            <button onclick="testTemplate('creative-edge')">Creative Edge</button>
+            <button onclick="testTemplate('executive-premium')">Executive Premium</button>
+        </div>
+
+        <div class="test-section">
+            <h3>🔄 Test Legacy/Fallback Mallar</h3>
+            <button onclick="testTemplate('klassisk')">Klassisk (Fallback)</button>
+            <button onclick="testTemplate('modern')">Modern (Fallback)</button>
+            <button onclick="testTemplate('minimalistisk')">Minimalistisk (Fallback)</button>
+        </div>
+        
+        <div id="result"></div>
+    </div>
+    
+    <script>
+        async function testTemplate(templateId) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `<p>🔄 Testar ${templateId}...</p>`;
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/cv/generate-formatted', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        template: templateId,
+                        cvText: `Test Person
+test@email.com
+123-456-789
+123 Test St, Stockholm
+
+PROFESSIONELL SAMMANFATTNING
+En erfaren utvecklare med passion för att skapa innovativa lösningar.
+
+ARBETSLIVSERFARENHET
+
+Senior Utvecklare - Test AB
+2020-01-15 - Pågående
+Utvecklar webb-applikationer med moderna teknologier.`
+                    })
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `test-${templateId}-fixed.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                    
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            ✅ <strong>${templateId} fungerar!</strong>
+                            <br>PDF genererad och nedladdad framgångsrikt.
+                        </div>
+                    `;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `<div class="error">❌ Fel med ${templateId}: ${response.status}<br>${errorText}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Fel med ${templateId}: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>

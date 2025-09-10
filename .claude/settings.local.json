@@ -90,7 +90,8 @@
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-classic-professional.html\")",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-executive-premium.html\")",
       "Bash(git restore:*)",
-      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-refactored-templates.html\")"
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-refactored-templates.html\")",
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-fixed-templates.html\")"
     ],
     "deny": [],
     "ask": []
