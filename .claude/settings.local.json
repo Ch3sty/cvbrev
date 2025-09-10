@@ -85,7 +85,8 @@
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-creative-address.html\")",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-sidebar-improvements.html\")",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-clean-corporate-fixes.html\")",
-      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-first-person-references.html\")"
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-first-person-references.html\")",
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-modern-minimal.html\")"
     ],
     "deny": [],
     "ask": []
