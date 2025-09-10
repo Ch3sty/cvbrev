@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Sidebar Improvements - Clean Corporate</title>
+    <style>
+        body { font-family: 'Segoe UI', system-ui, sans-serif; margin: 20px; background: #f8fafc; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        h1 { color: #1e293b; text-align: center; margin-bottom: 30px; }
+        .improvement-section { background: #f8fafc; padding: 20px; border-radius: 12px; margin: 20px 0; border-left: 4px solid #f59e0b; }
+        .improvement-section h3 { color: #1e293b; margin: 0 0 15px 0; }
+        .improvement-list { list-style: none; padding: 0; }
+        .improvement-list li { background: white; margin: 8px 0; padding: 12px 15px; border-radius: 8px; border-left: 3px solid #10b981; }
+        .improvement-list li::before { content: "✨"; margin-right: 8px; }
+        button { 
+            width: 100%; padding: 15px; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); 
+            color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; 
+            margin: 20px 0; transition: all 0.3s ease; font-size: 16px;
+        }
+        button:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(30, 41, 59, 0.3); }
+        #result { margin-top: 30px; padding: 20px; background: #f1f5f9; border-radius: 12px; border-left: 4px solid #f59e0b; }
+        .success { color: #059669; font-weight: 600; } 
+        .error { color: #dc2626; font-weight: 600; }
+        .test-details { background: #e0f2fe; padding: 15px; border-radius: 8px; margin: 15px 0; }
+        .test-details h4 { color: #0369a1; margin: 0 0 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Test: Förbättrad Sidebar - Clean Corporate</h1>
+        
+        <div class="improvement-section">
+            <h3>🚀 Sidebar-förbättringar som testas:</h3>
+            <ul class="improvement-list">
+                <li><strong>Bredare sidebar:</strong> 180px istället för 160px för ännu bättre läsbarhet</li>
+                <li><strong>Smart höjd:</strong> Sidebar matchar innehållets höjd (inte hela PDF:en)</li>
+                <li><strong>Elegant avslutning:</strong> Rundade hörn och gradient-fade för professionell look</li>
+                <li><strong>Förbättrad accent:</strong> Orange accent-linje fade ut gradvis</li>
+                <li><strong>Extra padding:</strong> Mer utrymme i botten för bättre balans</li>
+            </ul>
+        </div>
+        
+        <div class="test-details">
+            <h4>📋 Vad som kontrolleras i PDF:</h4>
+            <ul>
+                <li>Sidebar-bredd är nu 180px (bredare än tidigare 160px)</li>
+                <li>Sidebar slutar snyggt efter innehåll (inte vid sidbryt)</li>
+                <li>Rundade hörn i botten av sidebar</li>
+                <li>Orange accent-linje fade ut elegant</li>
+                <li>Bättre textbalans med bredare sidebar</li>
+                <li>Alla funktioner från tidigare behållna</li>
+            </ul>
+        </div>
+        
+        <button onclick="testSidebarImprovements()">🧪 Test Förbättrad Sidebar</button>
+        
+        <div id="result"></div>
+    </div>
+    
+    <script>
+        async function testSidebarImprovements() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>🔄 Testar förbättrad sidebar...</p>';
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/cv/generate-formatted', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        template: 'clean-corporate',
+                        cvText: `Jessica Nordström
+jessica.nordstrom@email.com
+070-987 65 43
+Storgatan 42, 111 20 Stockholm
+
+PROFESSIONELL SAMMANFATTNING
+Erfaren digital marknadsföringschef med specialisering inom e-handel och varumärkesbyggande. Stark bakgrund inom datadrivet beslutsfattande och internationell expansion.
+
+ARBETSLIVSERFARENHET
+
+Digital Marketing Manager - H&M Group
+2020-02-01 - Pågående
+Leder globala digitala kampanjer över 20+ marknader med fokus på omnichannel-strategier och kundengagemang.
+
+E-commerce Manager - Klarna AB
+2018-06-15 - 2020-01-31
+Ansvarig för användarupplevelse och konverteringsoptimering för Klarnas konsumentplattform.
+
+Marketing Specialist - Spotify AB
+2016-09-01 - 2018-05-31
+Utvecklade content marketing-strategier för nordiska marknader och podcasting-initiativ.
+
+UTBILDNING
+
+Master of Science in Marketing - Stockholm School of Economics
+2014-08-20 - 2016-06-15
+Specialisering inom digital marknadsföring och konsumentbeteende.
+
+SPRÅKKUNSKAPER
+Svenska (modersmål), Engelska (flyt), Tyska (flyt), Spanska (konversation)
+
+KOMPETENSER
+Google Analytics, Adobe Creative Suite, Salesforce, HubSpot, A/B-testning, SEO/SEM, Social Media Marketing, Content Strategy, Project Management, Data Analysis, E-commerce Platforms, Marketing Automation`
+                    })
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'clean-corporate-sidebar-improvements.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                    
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            ✅ <strong>Sidebar-förbättringar test framgångsrik!</strong>
+                            <br><br><strong>Kontrollera i PDF:</strong>
+                            <ul style="margin: 15px 0; padding-left: 25px;">
+                                <li><strong>Sidebar-bredd:</strong> Nu 180px för ännu bättre läsbarhet</li>
+                                <li><strong>Smart höjd:</strong> Sidebar slutar efter sitt innehåll</li>
+                                <li><strong>Elegant avslutning:</strong> Rundade hörn och gradient i botten</li>
+                                <li><strong>Orange accent:</strong> Fade-out effekt för professionell touch</li>
+                                <li><strong>Förbättrad balans:</strong> Mer utrymme, snyggare proportioner</li>
+                                <li><strong>Bibehållen funktionalitet:</strong> Alla tidigare features kvar</li>
+                            </ul>
+                        </div>
+                    `;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `<div class="error">❌ Fel: ${response.status}<br>${errorText}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Fel: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>

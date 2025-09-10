@@ -525,12 +525,16 @@ function generateCleanCorporateHTML(cvData: CVMetadata): string {
             
             /* Left sidebar - Clean Corporate style */
             .sidebar {
-                width: 160px;
+                width: 180px;
                 background: #1e293b;
-                padding: 25px 22px;
+                padding: 25px 22px 40px 22px;
                 box-sizing: border-box;
                 color: white;
                 position: relative;
+                min-height: fit-content;
+                align-self: flex-start;
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
             }
             
             .sidebar::after {
@@ -540,7 +544,19 @@ function generateCleanCorporateHTML(cvData: CVMetadata): string {
                 top: 0;
                 bottom: 0;
                 width: 3px;
-                background: #f59e0b;
+                background: linear-gradient(to bottom, #f59e0b 0%, #f59e0b 85%, transparent 100%);
+            }
+            
+            .sidebar::before {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20px;
+                background: linear-gradient(to bottom, #1e293b 0%, rgba(30, 41, 59, 0.8) 100%);
+                border-bottom-left-radius: 8px;
+                border-bottom-right-radius: 8px;
             }
             
             .sidebar h3 {
