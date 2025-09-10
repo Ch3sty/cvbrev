@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Address Formatting & 160px Sidebar</title>
+    <style>
+        body { font-family: 'Segoe UI', system-ui, sans-serif; margin: 20px; background: #f8fafc; }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        h1 { color: #1e293b; text-align: center; margin-bottom: 30px; }
+        .test-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 30px 0; }
+        .test-card { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 20px; }
+        .test-card:hover { border-color: #f59e0b; }
+        .test-title { font-weight: 700; color: #f59e0b; margin-bottom: 15px; font-size: 16px; }
+        .address-example { background: #f1f5f9; padding: 12px; border-radius: 8px; margin: 10px 0; font-family: monospace; }
+        .before { color: #dc2626; }
+        .after { color: #059669; }
+        button { 
+            width: 100%; padding: 12px; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); 
+            color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; 
+            margin-top: 15px; transition: all 0.3s ease;
+        }
+        button:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(30, 41, 59, 0.3); }
+        #result { margin-top: 30px; padding: 20px; background: #f1f5f9; border-radius: 12px; border-left: 4px solid #f59e0b; }
+        .success { color: #059669; font-weight: 600; } 
+        .error { color: #dc2626; font-weight: 600; }
+        .feature-list { background: #f8fafc; padding: 15px; border-radius: 8px; margin: 20px 0; }
+        .feature-list h3 { color: #1e293b; margin: 0 0 10px 0; }
+        .feature-list ul { margin: 5px 0; padding-left: 20px; }
+        .improvement { background: #dbeafe; border-left: 4px solid #3b82f6; padding: 12px; margin: 10px 0; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏢 Test: 160px Sidebar + Smart Adressformatering</h1>
+        
+        <div class="feature-list">
+            <h3>Förbättringar som testas:</h3>
+            <ul>
+                <li><strong>Sidebar-bredd:</strong> Utökad till 160px för ännu bättre textflöde</li>
+                <li><strong>Smart adressformatering:</strong> Konverterar svenska adresser till CV-format</li>
+                <li><strong>Kommun-mappning:</strong> Huddinge → Stockholm, Partille → Göteborg etc.</li>
+                <li><strong>Gatuadress-rensning:</strong> Tar bort gatunamn, behåller bara postnummer + stad</li>
+            </ul>
+        </div>
+        
+        <div class="test-grid">
+            <div class="test-card">
+                <div class="test-title">📍 Stockholms-förort (Huddinge)</div>
+                <div class="address-example before">INNAN: Vällistavägen 7, 141 32 Huddinge</div>
+                <div class="address-example after">EFTER: 141 32 Stockholm, Sverige</div>
+                <button onclick="testStockholmSuburb()">Test Stockholm-förort</button>
+            </div>
+            
+            <div class="test-card">
+                <div class="test-title">🏙️ Göteborg-förort (Partille)</div>
+                <div class="address-example before">INNAN: Sätersgatan 15, 433 30 Partille</div>
+                <div class="address-example after">EFTER: 433 30 Göteborg, Sverige</div>
+                <button onclick="testGothenburgSuburb()">Test Göteborg-förort</button>
+            </div>
+            
+            <div class="test-card">
+                <div class="test-title">🌆 Central Stockholm</div>
+                <div class="address-example before">INNAN: Drottninggatan 50, 111 21 Stockholm</div>
+                <div class="address-example after">EFTER: 111 21 Stockholm, Sverige</div>
+                <button onclick="testCentralStockholm()">Test Central Stockholm</button>
+            </div>
+            
+            <div class="test-card">
+                <div class="test-title">🏘️ Mindre stad (Uppsala)</div>
+                <div class="address-example before">INNAN: Kungsgatan 25, 753 21 Uppsala</div>
+                <div class="address-example after">EFTER: 753 21 Uppsala, Sverige</div>
+                <button onclick="testUppsala()">Test Uppsala</button>
+            </div>
+        </div>
+        
+        <div class="improvement">
+            <strong>💡 Förväntade förbättringar:</strong>
+            <ul>
+                <li>Sidebar på 160px ger ännu mer utrymme för text</li>
+                <li>Adresser blir mer professionella och CV-vänliga</li>
+                <li>Gatuadresser tas bort för integritetsskäl</li>
+                <li>Kommuner konverteras till kända städer/regioner</li>
+            </ul>
+        </div>
+        
+        <div id="result"></div>
+    </div>
+    
+    <script>
+        async function testStockholmSuburb() {
+            await runTest('Stockholm Suburb', `Anna Karlsson
+anna.karlsson@email.com
+070-123 45 67
+Vällistavägen 7, 141 32 Huddinge
+
+PROFESSIONELL SAMMANFATTNING
+Senior projektledare med bred erfarenhet från telekom och fintech.
+
+ARBETSLIVSERFARENHET
+
+Projektledare - Ericsson AB
+2020-01-01 - Pågående
+Leder stora infrastrukturprojekt med fokus på 5G-implementering.
+
+UTBILDNING
+
+Civilingenjör - KTH
+2016-08-20 - 2020-06-15
+
+SPRÅKKUNSKAPER
+Svenska (modersmål), Engelska (flyt)
+
+KOMPETENSER
+Projektledning, Agile, Scrum, Stakeholder management, Risk analysis`);
+        }
+        
+        async function testGothenburgSuburb() {
+            await runTest('Gothenburg Suburb', `Marcus Lindberg
+marcus.lindberg@company.se
+031-456 78 90
+Sätersgatan 15, 433 30 Partille
+
+PROFESSIONELL SAMMANFATTNING
+Erfaren säljledare inom automotive-branschen med dokumenterad framgång.
+
+ARBETSLIVSERFARENHET
+
+Säljchef - Volvo Cars
+2018-03-01 - Pågående
+Ansvarar för försäljning på västkustregionen.
+
+UTBILDNING
+
+Ekonomiprogrammet - Handelshögskolan
+2014-08-15 - 2018-01-30
+
+KOMPETENSER
+Försäljning, Teamledning, CRM-system, Kundrelationer`);
+        }
+        
+        async function testCentralStockholm() {
+            await runTest('Central Stockholm', `Petra Andersson
+petra.andersson@consulting.se
+08-765 43 21
+Drottninggatan 50, 111 21 Stockholm
+
+PROFESSIONELL SAMMANFATTNING
+Managementkonsult med specialisering inom digital transformation.
+
+ARBETSLIVSERFARENHET
+
+Senior Consultant - McKinsey & Company
+2019-09-01 - Pågående
+Strategisk rådgivning till svenska och nordiska klienter.
+
+UTBILDNING
+
+MBA - Stockholm School of Economics
+2017-08-20 - 2019-06-15
+
+SPRÅKKUNSKAPER
+Svenska (modersmål), Engelska (flyt), Tyska (konversation)
+
+KOMPETENSER
+Strategy development, Change management, Digital transformation, Workshop facilitation`);
+        }
+        
+        async function testUppsala() {
+            await runTest('Uppsala', `Erik Johansson
+erik.johansson@university.se
+018-123 45 67
+Kungsgatan 25, 753 21 Uppsala
+
+PROFESSIONELL SAMMANFATTNING
+Universitetslektor inom datavetenskap med forskningsfokus på AI.
+
+ARBETSLIVSERFARENHET
+
+Universitetslektor - Uppsala Universitet
+2017-01-15 - Pågående
+Undervisning och forskning inom maskininlärning och AI.
+
+UTBILDNING
+
+PhD Computer Science - Uppsala Universitet
+2012-08-20 - 2016-12-15
+
+SPRÅKKUNSKAPER
+Svenska (modersmål), Engelska (flyt)
+
+KOMPETENSER
+Machine Learning, Python, Research, Academic writing, Teaching`);
+        }
+        
+        async function runTest(scenario, cvText) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = \`<p>🔄 Testar <strong>\${scenario}</strong>...</p>\`;
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/cv/generate-formatted', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        template: 'clean-corporate',
+                        cvText: cvText
+                    })
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = \`clean-corporate-\${scenario.toLowerCase().replace(/\\s+/g, '-')}.pdf\`;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                    
+                    resultDiv.innerHTML = \`
+                        <div class="success">
+                            ✅ <strong>\${scenario}</strong> test framgångsrik!
+                            <br><br><strong>Kontrollera i PDF:</strong>
+                            <ul style="margin: 10px 0; padding-left: 25px;">
+                                <li><strong>Sidebar-bredd:</strong> 160px för bättre textflöde</li>
+                                <li><strong>Adressformat:</strong> Postnummer + Stad, Sverige (utan gatuadress)</li>
+                                <li><strong>Kommun-mappning:</strong> Rätt större stad/region</li>
+                                <li><strong>Design:</strong> Amber accenter och professional layout bibehållen</li>
+                            </ul>
+                        </div>
+                    \`;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = \`<div class="error">❌ Fel för <strong>\${scenario}</strong>: \${response.status}<br>\${errorText}</div>\`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = \`<div class="error">❌ Fel för <strong>\${scenario}</strong>: \${error.message}</div>\`;
+            }
+        }
+    </script>
+</body>
+</html>
