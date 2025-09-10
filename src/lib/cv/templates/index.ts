@@ -52,21 +52,12 @@ const createDefaultTemplate = (templateId: CVTemplateType): CVTemplateGenerator 
  * Registry of all available template generators
  */
 export const TEMPLATE_GENERATORS: Record<CVTemplateType, CVTemplateGenerator> = {
-  // Implemented templates
   'modern-minimal': modernMinimalTemplate,
   'classic-professional': classicProfessionalTemplate,
   'clean-corporate': cleanCorporateTemplate,
   'creative-edge': creativeEdgeTemplate,
   'executive-premium': executivePremiumTemplate,
-  
-  // Legacy templates (fallback to default)
-  'klassisk': createDefaultTemplate('klassisk'),
-  'modern': createDefaultTemplate('modern'),
-  'minimalistisk': createDefaultTemplate('minimalistisk'),
-  'kreativ': createDefaultTemplate('kreativ'),
-  'ats-optimerad': createDefaultTemplate('ats-optimerad'),
-  'akademisk': createDefaultTemplate('akademisk'),
-  'modern-tech': createDefaultTemplate('modern-tech')
+  'nordic-professional': createDefaultTemplate('nordic-professional') // TODO: Implement Nordic Professional template
 } as const;
 
 /**

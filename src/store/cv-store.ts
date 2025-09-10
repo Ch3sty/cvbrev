@@ -334,7 +334,7 @@ export const useCVStore = create<CVStore>()(
     const mostUsed = usage.map(u => u.templateId);
     
     // If user hasn't used many templates, recommend popular defaults
-    const defaultRecommendations: CVTemplateType[] = ['modern', 'klassisk', 'ats-optimerad'];
+    const defaultRecommendations: CVTemplateType[] = ['modern-minimal', 'classic-professional', 'clean-corporate'];
     
     // Combine user preferences with defaults, removing duplicates
     const recommendations = [

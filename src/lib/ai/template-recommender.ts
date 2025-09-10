@@ -19,94 +19,64 @@ export interface TemplateRecommendation {
   swedishMarketFit: number;
 }
 
-// Universell design-baserad template rekommendation - alla mallar är tillgängliga för alla
+// Modern template rekommendation - alla mallar är tillgängliga för alla
 const DESIGN_PREFERENCE_MAPPING = {
-  // Alla mallar får höga base scores - val baseras på designpreferens, inte yrke
+  // Alla mallar får höga base scores - val baseras på designpreferens
   'universal': {
-    'klassisk': 85,     // Elegant, traditionell design
-    'modern': 85,       // Balanserad, nutida design
-    'minimalistisk': 88, // Sofistikerad enkelhet med premiumkänsla
-    'kreativ': 85,      // Visuellt uttrycksfull design
-    'ats-optimerad': 85, // Strukturerad, systemoptimerad design
-    'akademisk': 85,    // Sofistikerad, forskningsorienterad design
-    'modern-tech': 85,  // Tekniskt avancerad, minimal design
-    'creative-edge': 85, // Kreativ profil med subtil design-touch
-    'modern-minimal': 85, // Modern minimal design
-    'classic-professional': 85, // Klassisk professionell design
-    'clean-corporate': 85, // Ren företagsstil
-    'executive-premium': 85  // Executive premium design
+    'modern-minimal': 88,        // Modern minimal design
+    'classic-professional': 85,  // Klassisk professionell design  
+    'clean-corporate': 85,       // Ren företagsstil
+    'creative-edge': 85,         // Kreativ profil med subtil design-touch
+    'executive-premium': 85,     // Executive premium design
+    'nordic-professional': 88   // Skandinavisk elegans
   }
 } as const;
 
-// Erfarenhetsnivå-modifieringar
+// Erfarenhetsnivå-modifieringar för moderna mallar
 const EXPERIENCE_MODIFIERS = {
   'junior': {
-    'modern': 1.1,
-    'minimalistisk': 1.05,
-    'kreativ': 1.15,
-    'klassisk': 0.9,
-    'ats-optimerad': 1.2,
-    'akademisk': 0.8,
-    'modern-tech': 1.25,
-    'creative-edge': 1.1,
-    'modern-minimal': 1.05,
+    'modern-minimal': 1.1,
     'classic-professional': 0.9,
     'clean-corporate': 1.0,
-    'executive-premium': 0.8
+    'creative-edge': 1.15,
+    'executive-premium': 0.8,
+    'nordic-professional': 1.05
   },
   'mid': {
-    'modern': 1.0,
-    'minimalistisk': 1.1,
-    'kreativ': 1.0,
-    'klassisk': 1.0,
-    'ats-optimerad': 1.1,
-    'akademisk': 0.95,
-    'modern-tech': 1.15,
-    'creative-edge': 1.05,
     'modern-minimal': 1.1,
     'classic-professional': 1.0,
-    'clean-corporate': 1.05,
-    'executive-premium': 0.95
+    'clean-corporate': 1.1,
+    'creative-edge': 1.05,
+    'executive-premium': 0.95,
+    'nordic-professional': 1.1
   },
   'senior': {
-    'modern': 0.95,
-    'minimalistisk': 1.15,
-    'kreativ': 0.9,
-    'klassisk': 1.1,
-    'ats-optimerad': 1.0,
-    'akademisk': 1.05,
-    'modern-tech': 1.1,
-    'creative-edge': 1.0,
     'modern-minimal': 1.15,
     'classic-professional': 1.1,
     'clean-corporate': 1.1,
-    'executive-premium': 1.05
+    'creative-edge': 1.0,
+    'executive-premium': 1.05,
+    'nordic-professional': 1.15
   },
   'executive': {
-    'modern': 0.9,
-    'minimalistisk': 1.2,
-    'kreativ': 0.8,
-    'klassisk': 1.2,
-    'ats-optimerad': 0.9,
-    'akademisk': 1.1,
-    'modern-tech': 1.0,
-    'creative-edge': 0.85,
     'modern-minimal': 1.2,
     'classic-professional': 1.2,
     'clean-corporate': 1.15,
-    'executive-premium': 1.25
+    'creative-edge': 0.85,
+    'executive-premium': 1.25,
+    'nordic-professional': 1.2
   }
 } as const;
 
 // Svenska företagsstorlek och kultur preferenser
 const SWEDISH_COMPANY_PREFERENCES = {
-  'startup': ['modern', 'kreativ'],
-  'scale-up': ['modern', 'ats-optimerad'],
-  'enterprise': ['klassisk', 'ats-optimerad'],
-  'consulting': ['klassisk', 'modern'],
-  'government': ['klassisk', 'ats-optimerad'],
-  'academia': ['akademisk', 'klassisk'],
-  'creative-agency': ['kreativ', 'modern']
+  'startup': ['modern-minimal', 'creative-edge'],
+  'scale-up': ['modern-minimal', 'clean-corporate'],
+  'enterprise': ['classic-professional', 'clean-corporate'],
+  'consulting': ['classic-professional', 'modern-minimal'],
+  'government': ['classic-professional', 'clean-corporate'],
+  'academia': ['classic-professional', 'nordic-professional'],
+  'creative-agency': ['creative-edge', 'modern-minimal']
 };
 
 /**
@@ -137,7 +107,7 @@ export async function getAITemplateRecommendations(
     // 3. Beräkna rekommendationer för varje template
     const recommendations: TemplateRecommendation[] = [];
     
-    const templateTypes: CVTemplateType[] = ['klassisk', 'modern', 'minimalistisk', 'kreativ', 'ats-optimerad', 'akademisk', 'modern-tech', 'creative-edge', 'modern-minimal', 'classic-professional', 'clean-corporate', 'executive-premium'];
+    const templateTypes: CVTemplateType[] = ['modern-minimal', 'classic-professional', 'clean-corporate', 'creative-edge', 'executive-premium', 'nordic-professional'];
     
     for (const templateId of templateTypes) {
       const recommendation = calculateTemplateScore(
@@ -185,7 +155,7 @@ function calculateTemplateScore(
   baseScore += swedishBonus;
   
   // ATS-optimering bonus för svenska företag
-  if (templateId === 'ats-optimerad' && swedishContext.likelyATSCompany) {
+  if (templateId === 'clean-corporate' && swedishContext.likelyATSCompany) {
     baseScore += 15;
   }
   
@@ -217,7 +187,7 @@ function calculateTemplateScore(
       industryMatch: 90, // Alla templates passar alla branscher
       experienceLevel: Math.round(experienceModifier * 100),
       roleType: 90, // Alla templates passar alla roller  
-      atsOptimization: templateId === 'ats-optimerad' ? 95 : 85,
+      atsOptimization: templateId === 'clean-corporate' ? 95 : 85,
       visualPreference: getVisualPreferenceScore(templateId, cvData)
     },
     swedishMarketFit: Math.min(100, Math.max(0, 75 + swedishBonus))
@@ -280,10 +250,10 @@ function calculateSwedishMarketBonus(templateId: CVTemplateType, context: Swedis
   // Geografiska bonusar
   if (context.locationContext === 'stockholm') {
     // Stockholm = mer modern/tech-fokuserat
-    if (templateId === 'modern' || templateId === 'kreativ') bonus += 5;
+    if (templateId === 'modern-minimal' || templateId === 'creative-edge') bonus += 5;
   } else if (context.locationContext === 'göteborg') {
     // Göteborg = industri/ingenjör-fokus
-    if (templateId === 'klassisk' || templateId === 'modern') bonus += 5;
+    if (templateId === 'classic-professional' || templateId === 'modern-minimal') bonus += 5;
   }
   
   // Företagsstorlek-baserade bonusar
@@ -314,13 +284,13 @@ function calculateRoleBasedAdjustment(templateId: CVTemplateType, cvData: any): 
   if (content.includes('utvecklar') || content.includes('programmerare') || 
       content.includes('tech') || content.includes('systemutvecklare')) {
     // Tech-innehåll - alla templates fortfarande tillgängliga, liten bonus för tech-vänliga
-    if (templateId === 'modern' || templateId === 'modern-tech') adjustment += 3;
+    if (templateId === 'modern-minimal' || templateId === 'executive-premium') adjustment += 3;
   }
   
   if (content.includes('chef') || content.includes('ledare') || 
       content.includes('director') || content.includes('vd')) {
     // Ledarskapserfarenhet - liten bonus för strukturerade designs
-    if (templateId === 'klassisk' || templateId === 'ats-optimerad') adjustment += 3;
+    if (templateId === 'classic-professional' || templateId === 'clean-corporate') adjustment += 3;
   }
   
   // VIKTIGT: Alla andra yrkesgrupper (städare, lastbilschaufför, etc) får samma tillgång
@@ -358,13 +328,6 @@ function calculateUsageDiversityBonus(
 function getVisualPreferenceScore(templateId: CVTemplateType, cvData: any): number {
   // Baserat på bransch och roll, ge visuella preferenspoäng
   const baseScores = {
-    'klassisk': 60,
-    'modern': 80,
-    'minimalistisk': 85,
-    'kreativ': 95,
-    'ats-optimerad': 70,
-    'akademisk': 65,
-    'modern-tech': 90,
     'creative-edge': 88,
     'modern-minimal': 85,
     'classic-professional': 60,
@@ -386,13 +349,6 @@ function generateRecommendationReasoning(
   score: number
 ): string {
   const templateNames = {
-    'klassisk': 'Klassiska mallen',
-    'modern': 'Moderna mallen',
-    'minimalistisk': 'Minimalistiska mallen',
-    'kreativ': 'Kreativa mallen',
-    'ats-optimerad': 'ATS-optimerade mallen',
-    'akademisk': 'Akademiska mallen',
-    'modern-tech': 'Modern Tech-mallen',
     'creative-edge': 'Kreativ Profil-mallen',
     'modern-minimal': 'Modern Minimal-mallen',
     'classic-professional': 'Klassisk Professionell-mallen',
@@ -405,20 +361,16 @@ function generateRecommendationReasoning(
   let reasoning = `${templateName} passar dig väl `;
   
   // Universell design-baserad motivering - ingen yrkesbegränsning
-  if (templateId === 'klassisk') {
+  if (templateId === 'classic-professional') {
     reasoning += `med sin eleganta, traditionella design som bygger förtroende hos alla typer av arbetsgivare. `;
-  } else if (templateId === 'modern') {
+  } else if (templateId === 'modern-minimal') {
     reasoning += `med sin balanserade, nutida design som fungerar perfekt för alla branscher. `;
-  } else if (templateId === 'minimalistisk') {
-    reasoning += `med sin sofistikerade enkelhet och premiumkänsla som fungerar utmärkt för alla yrkesnivåer. `;
-  } else if (templateId === 'kreativ') {
+  } else if (templateId === 'creative-edge') {
     reasoning += `med sin visuellt uttrycksfulla design som hjälper dig att sticka ut, oavsett yrke. `;
-  } else if (templateId === 'ats-optimerad') {
+  } else if (templateId === 'clean-corporate') {
     reasoning += `med sin strukturerade design som fungerar optimalt med svenska ATS-system. `;
-  } else if (templateId === 'akademisk') {
+  } else if (templateId === 'executive-premium') {
     reasoning += `med sin sofistikerade design som förmedlar seriositet och djupgående expertis. `;
-  } else if (templateId === 'modern-tech') {
-    reasoning += `med sin tekniskt avancerade, minimala design som signalerar innovation. `;
   } else if (templateId === 'creative-edge') {
     reasoning += `med sin kreativa profil och subtila design-touch som skapar en personlig men professionell profil. `;
   } else if (templateId === 'modern-minimal') {
@@ -432,14 +384,14 @@ function generateRecommendationReasoning(
   }
   
   // Erfarenhetsnivå-motivering
-  if (experienceLevel === 'junior' && (templateId === 'modern' || templateId === 'ats-optimerad')) {
+  if (experienceLevel === 'junior' && (templateId === 'modern-minimal' || templateId === 'clean-corporate')) {
     reasoning += `Som ${experienceLevel} får du bäst genomslagskraft med denna moderna approach. `;
-  } else if (experienceLevel === 'senior' && templateId === 'klassisk') {
+  } else if (experienceLevel === 'senior' && templateId === 'classic-professional') {
     reasoning += `Din seniora erfarenhet framhävs bäst i en professionell, klassisk design. `;
   }
   
   // Svenska marknadskontext
-  if (swedishContext.likelyATSCompany && templateId === 'ats-optimerad') {
+  if (swedishContext.likelyATSCompany && templateId === 'clean-corporate') {
     reasoning += `Perfekt för stora svenska företag som använder ATS-system. `;
   }
   
@@ -472,7 +424,7 @@ function getFallbackRecommendations(cvText: string): TemplateRecommendation[] {
   
   const fallbackRecommendations: TemplateRecommendation[] = [
     {
-      templateId: 'ats-optimerad',
+      templateId: 'clean-corporate',
       score: 80,
       reasoning: 'ATS-optimerade mallen är säker för svenska jobbportaler och stora företag.',
       suitabilityFactors: {
@@ -485,7 +437,7 @@ function getFallbackRecommendations(cvText: string): TemplateRecommendation[] {
       swedishMarketFit: 85
     },
     {
-      templateId: 'klassisk',
+      templateId: 'classic-professional',
       score: 75,
       reasoning: 'Klassiska mallen bygger förtroende och fungerar för alla branscher.',
       suitabilityFactors: {
@@ -498,7 +450,7 @@ function getFallbackRecommendations(cvText: string): TemplateRecommendation[] {
       swedishMarketFit: 80
     },
     {
-      templateId: 'modern',
+      templateId: 'modern-minimal',
       score: 70,
       reasoning: 'Moderna mallen balanserar professionalism med nutida design.',
       suitabilityFactors: {
@@ -554,7 +506,7 @@ export function getQuickRecommendations(
 ): CVTemplateType[] {
   
   if (!selectedCV?.cv_text) {
-    return ['ats-optimerad', 'modern', 'klassisk'];
+    return ['clean-corporate', 'modern-minimal', 'classic-professional'];
   }
   
   const text = selectedCV.cv_text.toLowerCase();
@@ -564,7 +516,7 @@ export function getQuickRecommendations(
   // Rotera rekommendationer baserat på popularitet och diversitet istället för yrke
   
   // Ge alla användare tillgång till alla mallar, oavsett bakgrund
-  const allTemplates: CVTemplateType[] = ['klassisk', 'modern', 'kreativ', 'ats-optimerad', 'akademisk', 'modern-tech', 'creative-edge', 'modern-minimal', 'classic-professional', 'clean-corporate', 'executive-premium'];
+  const allTemplates: CVTemplateType[] = ['creative-edge', 'modern-minimal', 'classic-professional', 'clean-corporate', 'executive-premium'];
   
   // Välj 3 mallar baserat på usage diversity istället för yrkesbegränsningar
   const sortedByUsage = allTemplates.sort((a, b) => {
@@ -578,7 +530,7 @@ export function getQuickRecommendations(
   
   // Om ingen usage-data finns, ge balanserade rekommendationer
   if (recommendations.length === 0) {
-    recommendations.push('ats-optimerad', 'klassisk', 'modern');
+    recommendations.push('clean-corporate', 'classic-professional', 'modern-minimal');
   }
   
   // Filtrera bort överanvända mallar

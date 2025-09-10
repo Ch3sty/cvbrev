@@ -126,23 +126,23 @@
         <div class="test-grid">
             <div class="template-test">
                 <div class="template-title">
-                    Klassisk Svensk
-                    <span id="klassisk-status" class="status-badge status-warning">Ej testad</span>
+                    Classic Professional
+                    <span id="classic-professional-status" class="status-badge status-warning">Ej testad</span>
                 </div>
                 <p><strong>Design:</strong> Tidlös professionalitet med högre trovärdighet</p>
                 <p><strong>För:</strong> Konservativa branscher, senior roller</p>
                 
-                <button class="test-button" onclick="testTemplate('klassisk')">
-                    🧪 Testa Klassisk Mall
+                <button class="test-button" onclick="testTemplate('classic-professional')">
+                    🧪 Testa Classic Professional Mall
                 </button>
-                <button class="test-button" onclick="generatePDF('klassisk')">
+                <button class="test-button" onclick="generatePDF('classic-professional')">
                     📄 Generera PDF
                 </button>
-                <button class="test-button" onclick="validateATS('klassisk')">
+                <button class="test-button" onclick="validateATS('classic-professional')">
                     🤖 ATS Validering
                 </button>
                 
-                <div id="klassisk-results" class="test-results"></div>
+                <div id="classic-professional-results" class="test-results"></div>
             </div>
             
             <div class="template-test">
@@ -153,13 +153,13 @@
                 <p><strong>Design:</strong> Dynamisk professionalism med visuell effektivitet</p>
                 <p><strong>För:</strong> Moderna branscher, tech, innovation</p>
                 
-                <button class="test-button" onclick="testTemplate('modern')">
-                    🧪 Testa Modern Mall
+                <button class="test-button" onclick="testTemplate('modern-minimal')">
+                    🧪 Testa Modern Minimal Mall
                 </button>
-                <button class="test-button" onclick="generatePDF('modern')">
+                <button class="test-button" onclick="generatePDF('modern-minimal')">
                     📄 Generera PDF
                 </button>
-                <button class="test-button" onclick="validateATS('modern')">
+                <button class="test-button" onclick="validateATS('modern-minimal')">
                     🤖 ATS Validering
                 </button>
                 
@@ -174,13 +174,13 @@
                 <p><strong>Design:</strong> Less-is-more luxury med maximal läsbarhet</p>
                 <p><strong>För:</strong> Senior roller, premium positioner</p>
                 
-                <button class="test-button" onclick="testTemplate('minimalistisk')">
-                    🧪 Testa Minimalistisk Mall
+                <button class="test-button" onclick="testTemplate('creative-edge')">
+                    🧪 Testa Creative Edge Mall
                 </button>
-                <button class="test-button" onclick="generatePDF('minimalistisk')">
+                <button class="test-button" onclick="generatePDF('creative-edge')">
                     📄 Generera PDF
                 </button>
-                <button class="test-button" onclick="validateATS('minimalistisk')">
+                <button class="test-button" onclick="validateATS('creative-edge')">
                     🤖 ATS Validering
                 </button>
                 
@@ -374,7 +374,7 @@
         }
 
         async function testAllTemplates() {
-            const templates = ['klassisk', 'modern', 'minimalistisk'];
+            const templates = ['classic-professional', 'modern-minimal', 'creative-edge'];
             const overallResults = document.getElementById('overall-results');
             const summaryContent = document.getElementById('summary-content');
             

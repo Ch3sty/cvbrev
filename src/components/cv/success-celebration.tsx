@@ -63,10 +63,10 @@ export default function SuccessCelebration({
       if (generationTime && generationTime < 5000) {
         newAchievements.push('⚡ Snabb Generering');
       }
-      if (templateName === 'ats-optimerad') {
+      if (templateName === 'clean-corporate') {
         newAchievements.push('🎯 Smart Val för Svenska Marknaden');
       }
-      if (templateName === 'modern' || templateName === 'kreativ') {
+      if (templateName === 'modern-minimal' || templateName === 'creative-edge') {
         newAchievements.push('🎨 Kreativ Profil');
       }
       

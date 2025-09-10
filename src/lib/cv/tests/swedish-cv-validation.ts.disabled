@@ -478,14 +478,14 @@ export class SwedishCVValidator {
     
     // Template-specifika rekommendationer
     switch (templateId) {
-      case 'klassisk':
-        recommendations.push('Klassisk mall - perfekt för konservativa branscher och senior roller');
+      case 'classic-professional':
+        recommendations.push('Classic Professional mall - perfekt för konservativa branscher och senior roller');
         break;
-      case 'modern':
-        recommendations.push('Modern mall - bra för tech/innovation, se till att sidokolumn fungerar i ATS');
+      case 'modern-minimal':
+        recommendations.push('Modern Minimal mall - bra för tech/innovation, se till att sidokolumn fungerar i ATS');
         break;
-      case 'minimalistisk':
-        recommendations.push('Minimalistisk mall - utmärkt för premium-positioner, fokusera på innehållskvalitet');
+      case 'creative-edge':
+        recommendations.push('Creative Edge mall - utmärkt för premium-positioner, fokusera på innehållskvalitet');
         break;
     }
     
@@ -502,7 +502,7 @@ export class SwedishCVValidator {
  */
 export async function validateAllSwedishTemplates(): Promise<Record<CVTemplateType, SwedishCVValidationResult>> {
   const validator = new SwedishCVValidator();
-  const templates: CVTemplateType[] = ['klassisk', 'modern', 'minimalistisk'];
+  const templates: CVTemplateType[] = ['classic-professional', 'modern-minimal', 'creative-edge'];
   
   const results: Record<string, SwedishCVValidationResult> = {};
   

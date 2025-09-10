@@ -464,7 +464,7 @@ function analyzeKeywords(cvText: string, analysis: ATSOptimization) {
 }
 
 function analyzeFormat(selectedTemplate: string | null, analysis: ATSOptimization) {
-  if (selectedTemplate === 'ats-optimerad') {
+  if (selectedTemplate === 'clean-corporate') {
     analysis.suggestions.push({
       type: 'format',
       title: 'Perfekt mallval för ATS',
@@ -472,7 +472,7 @@ function analyzeFormat(selectedTemplate: string | null, analysis: ATSOptimizatio
       impact: 'high',
       swedishRelevance: 95
     });
-  } else if (selectedTemplate === 'kreativ') {
+  } else if (selectedTemplate === 'creative-edge') {
     analysis.issues.push({
       type: 'warning',
       category: 'format',

@@ -95,7 +95,7 @@ export interface CVGenerationOptions {
   photoUrl?: string;
 }
 
-export type CVTemplateType = 'klassisk' | 'modern' | 'minimalistisk' | 'kreativ' | 'ats-optimerad' | 'akademisk' | 'modern-tech' | 'creative-edge' | 'modern-minimal' | 'classic-professional' | 'clean-corporate' | 'executive-premium';
+export type CVTemplateType = 'modern-minimal' | 'classic-professional' | 'clean-corporate' | 'creative-edge' | 'executive-premium' | 'nordic-professional';
 
 export interface CVTemplate {
   id: CVTemplateType;
@@ -432,22 +432,13 @@ export const generateDynamicHeadings = (cvData: CVMetadata, templateId: CVTempla
   // Adjust headings based on template style
   const baseHeadings = headingMap[industry] || headingMap.general;
   
-  // Template-specific adjustments
-  if (templateId === 'klassisk') {
+  // Template-specific adjustments for modern templates
+  if (templateId === 'classic-professional') {
     return {
       ...baseHeadings,
       experience: 'Professionell Bakgrund',
       education: 'Utbildning & Kvalifikationer',
       skills: 'Kärnkompetenser'
-    };
-  }
-  
-  if (templateId === 'ats-optimerad') {
-    return {
-      ...baseHeadings,
-      experience: 'Relevant Arbetslivserfarenhet', 
-      skills: 'Tekniska & Professionella Färdigheter',
-      education: 'Utbildningsbakgrund'
     };
   }
   
