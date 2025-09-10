@@ -48,6 +48,14 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     imagePath: '/mallar/executive-premium.svg',
     category: 'traditional',
     tier: 'premium'
+  },
+  {
+    id: 'nordic-professional',
+    name: 'Nordic Professional',
+    description: 'Skandinavisk elegans med naturinspirerade accenter',
+    imagePath: '/mallar/nordic-professional.svg',
+    category: 'modern',
+    tier: 'premium'
   }
 ];
 

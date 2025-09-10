@@ -1,0 +1,107 @@
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Nordic Professional Template -->
+  <defs>
+    <linearGradient id="forestGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d5016;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3d6b1f;stop-opacity:0.95" />
+    </linearGradient>
+    <linearGradient id="stoneAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#8b7355" />
+      <stop offset="100%" style="stop-color:#a68b5b" />
+    </linearGradient>
+    <linearGradient id="arcticBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a90a4" />
+      <stop offset="100%" style="stop-color:#6ba3b5" />
+    </linearGradient>
+    <filter id="paperTexture">
+      <feTurbulence baseFrequency="0.9" numOctaves="1" result="noise" />
+      <feColorMatrix values="0 0 0 0 0.98 0 0 0 0 0.98 0 0 0 0 0.98 0 0 0 0.05 0"/>
+      <feComposite in2="SourceGraphic" operator="multiply"/>
+    </filter>
+  </defs>
+  
+  <!-- Paper texture background -->
+  <rect width="300" height="400" fill="#fafafa" filter="url(#paperTexture)"/>
+  
+  <!-- Left sidebar with forest green -->
+  <rect x="0" y="0" width="90" height="400" fill="url(#forestGradient)"/>
+  
+  <!-- Organic stone accent line -->
+  <path d="M90 0 L95 0 Q98 20 96 40 Q94 60 97 80 Q95 100 98 120 Q96 140 94 160 Q97 180 95 200 Q98 220 96 240 Q94 260 97 280 Q95 300 98 320 Q96 340 94 360 Q97 380 95 400 L90 400 Z" fill="url(#stoneAccent)"/>
+  
+  <!-- Contact section in sidebar -->
+  <circle cx="45" cy="40" r="15" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+  <rect x="25" y="70" width="40" height="2" fill="rgba(255,255,255,0.7)" rx="1"/>
+  <rect x="25" y="78" width="35" height="2" fill="rgba(255,255,255,0.7)" rx="1"/>
+  <rect x="25" y="86" width="38" height="2" fill="rgba(255,255,255,0.7)" rx="1"/>
+  <rect x="25" y="94" width="32" height="2" fill="rgba(255,255,255,0.7)" rx="1"/>
+  
+  <!-- Skills in sidebar with organic grouping -->
+  <rect x="25" y="130" width="40" height="8" fill="#8b7355" rx="2"/>
+  <rect x="25" y="145" width="35" height="6" fill="rgba(139,115,85,0.8)" rx="2"/>
+  <rect x="25" y="157" width="42" height="6" fill="rgba(139,115,85,0.8)" rx="2"/>
+  <rect x="25" y="169" width="30" height="6" fill="rgba(139,115,85,0.8)" rx="2"/>
+  <rect x="25" y="181" width="38" height="6" fill="rgba(139,115,85,0.8)" rx="2"/>
+  
+  <!-- Language badges -->
+  <ellipse cx="35" cy="220" rx="20" ry="8" fill="rgba(255,255,255,0.1)" stroke="#a68b5b" stroke-width="1"/>
+  <ellipse cx="35" cy="240" rx="18" ry="8" fill="rgba(255,255,255,0.1)" stroke="#a68b5b" stroke-width="1"/>
+  <ellipse cx="35" cy="260" rx="22" ry="8" fill="rgba(255,255,255,0.1)" stroke="#a68b5b" stroke-width="1"/>
+  
+  <!-- Subtle leaf decoration -->
+  <path d="M45 320 Q50 315 55 320 Q50 325 45 320 Q40 315 45 320" fill="#a68b5b" opacity="0.6"/>
+  <path d="M35 340 Q42 335 48 340 Q42 345 35 340 Q28 335 35 340" fill="#8b7355" opacity="0.4"/>
+  
+  <!-- Main content area -->
+  <!-- Asymmetric header with name -->
+  <rect x="120" y="35" width="140" height="12" fill="#2c2c2c" rx="6"/>
+  <rect x="120" y="52" width="100" height="4" fill="#4a4a4a" rx="2"/>
+  
+  <!-- Arctic blue accent under name -->
+  <rect x="120" y="65" width="60" height="3" fill="url(#arcticBlue)" rx="2"/>
+  
+  <!-- Professional summary with organic shape -->
+  <rect x="120" y="90" width="70" height="6" fill="#2d5016" rx="3"/>
+  <rect x="120" y="105" width="150" height="2" fill="#4a4a4a" rx="1"/>
+  <rect x="120" y="112" width="145" height="2" fill="#4a4a4a" rx="1"/>
+  <rect x="120" y="119" width="140" height="2" fill="#4a4a4a" rx="1"/>
+  <rect x="120" y="126" width="135" height="2" fill="#4a4a4a" rx="1"/>
+  
+  <!-- Experience section -->
+  <rect x="120" y="150" width="85" height="6" fill="#2d5016" rx="3"/>
+  
+  <!-- Stone accent line under section title -->
+  <rect x="120" y="162" width="120" height="1.5" fill="url(#stoneAccent)" rx="1"/>
+  
+  <!-- Job entries with Nordic spacing -->
+  <rect x="120" y="175" width="90" height="5" fill="#2c2c2c" rx="2"/>
+  <rect x="120" y="185" width="70" height="3" fill="#6ba3b5" rx="1"/>
+  <rect x="120" y="193" width="130" height="2" fill="#4a4a4a" rx="1"/>
+  <rect x="120" y="199" width="125" height="2" fill="#4a4a4a" rx="1"/>
+  <rect x="120" y="205" width="120" height="2" fill="#4a4a4a" rx="1"/>
+  
+  <!-- Second job with organic separation -->
+  <circle cx="125" cy="225" r="2" fill="#a68b5b" opacity="0.3"/>
+  <rect x="120" y="235" width="85" height="5" fill="#2c2c2c" rx="2"/>
+  <rect x="120" y="245" width="65" height="3" fill="#6ba3b5" rx="1"/>
+  <rect x="120" y="253" width="125" height="2" fill="#4a4a4a" rx="1"/>
+  <rect x="120" y="259" width="130" height="2" fill="#4a4a4a" rx="1"/>
+  
+  <!-- Education section -->
+  <rect x="120" y="285" width="60" height="6" fill="#2d5016" rx="3"/>
+  <rect x="120" y="297" width="100" height="1.5" fill="url(#stoneAccent)" rx="1"/>
+  
+  <rect x="120" y="310" width="95" height="5" fill="#2c2c2c" rx="2"/>
+  <rect x="120" y="320" width="75" height="3" fill="#6ba3b5" rx="1"/>
+  
+  <!-- Organic decorative elements -->
+  <ellipse cx="260" cy="150" rx="8" ry="12" fill="rgba(74,144,164,0.1)" transform="rotate(15 260 150)"/>
+  <ellipse cx="270" cy="280" rx="6" ry="10" fill="rgba(139,115,85,0.1)" transform="rotate(-20 270 280)"/>
+  
+  <!-- Nordic Professional branding -->
+  <text x="150" y="385" text-anchor="middle" font-family="system-ui, -apple-system" font-size="11" fill="#2d5016" font-weight="600">Nordic Professional</text>
+  
+  <!-- Subtle sustainability icon -->
+  <circle cx="50" cy="375" r="8" fill="none" stroke="#3d6b1f" stroke-width="1.5" opacity="0.6"/>
+  <path d="M45 375 Q50 370 55 375 Q50 380 45 375" fill="#3d6b1f" opacity="0.4"/>
+</svg>
