@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Executive Premium CV-mall</title>
+    <style>
+        body { font-family: 'Georgia', 'Times New Roman', serif; margin: 20px; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
+        .container { max-width: 1000px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); border: 1px solid #e2e8f0; }
+        h1 { 
+            color: transparent; 
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%); 
+            -webkit-background-clip: text; 
+            background-clip: text;
+            text-align: center; 
+            margin-bottom: 20px; 
+            font-size: 32px; 
+            font-weight: 700; 
+        }
+        .premium-badge { 
+            text-align: center; 
+            margin: 20px 0; 
+            padding: 12px 20px; 
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); 
+            color: white; 
+            border-radius: 25px; 
+            display: inline-block; 
+            font-weight: 700; 
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3); 
+        }
+        .design-section { 
+            background: linear-gradient(135deg, #fef3c7 0%, #fef7cd 100%); 
+            padding: 25px; 
+            border-radius: 12px; 
+            margin: 25px 0; 
+            border-left: 5px solid #f59e0b; 
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.1); 
+        }
+        .design-section h3 { 
+            color: #92400e; 
+            margin: 0 0 20px 0; 
+            font-size: 20px; 
+            font-weight: 700;
+        }
+        .feature-list { list-style: none; padding: 0; }
+        .feature-list li { 
+            background: white; 
+            margin: 10px 0; 
+            padding: 15px 20px; 
+            border-radius: 10px; 
+            border-left: 4px solid #d97706; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .feature-list li::before { content: "👑"; margin-right: 12px; font-size: 16px; }
+        button { 
+            width: 100%; 
+            padding: 18px; 
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%); 
+            color: white; 
+            border: none; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            font-weight: 700; 
+            margin: 25px 0; 
+            transition: all 0.3s ease; 
+            font-size: 18px;
+            font-family: 'Georgia', serif;
+            box-shadow: 0 6px 20px rgba(30, 41, 59, 0.3);
+        }
+        button:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 25px rgba(30, 41, 59, 0.4); 
+            background: linear-gradient(135deg, #334155 0%, #475569 100%);
+        }
+        #result { 
+            margin-top: 30px; 
+            padding: 25px; 
+            background: linear-gradient(135deg, #f1f5f9 0%, #f8fafc 100%); 
+            border-radius: 12px; 
+            border-left: 5px solid #1e293b; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        .success { color: #059669; font-weight: 700; } 
+        .error { color: #dc2626; font-weight: 700; }
+        .comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 25px 0; }
+        .vs-item { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 12px; 
+            border: 2px solid #e2e8f0; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+        }
+        .vs-item:hover { 
+            border-color: #f59e0b; 
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.15); 
+            transform: translateY(-2px); 
+        }
+        .vs-item h4 { color: #1e293b; margin: 0 0 15px 0; font-size: 16px; font-weight: 700; }
+        .color-demo { display: flex; gap: 12px; margin: 15px 0; }
+        .color-swatch { 
+            width: 35px; 
+            height: 35px; 
+            border-radius: 50%; 
+            border: 3px solid white; 
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15); 
+            transition: all 0.3s ease;
+        }
+        .color-swatch:hover { transform: scale(1.1); }
+        .executive-highlight { 
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%); 
+            color: white; 
+            padding: 20px; 
+            border-radius: 12px; 
+            margin: 20px 0; 
+            text-align: center;
+        }
+        .executive-highlight h3 { 
+            color: #f59e0b; 
+            font-size: 18px; 
+            margin-bottom: 10px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👑 Test: Executive Premium CV-mall</h1>
+        
+        <div style="text-align: center;">
+            <span class="premium-badge">🏆 Premium Tier • Exklusiv Design • C-Level Executives</span>
+        </div>
+        
+        <div class="executive-highlight">
+            <h3>🎯 För Verkställande Direktörer & Senior Ledare</h3>
+            <p style="font-style: italic; opacity: 0.9;">Exklusiv design som speglar auktoritet och professionalism på högsta nivå</p>
+        </div>
+        
+        <div class="design-section">
+            <h3>👑 Executive Premium Design Filosofi:</h3>
+            <ul class="feature-list">
+                <li><strong>Premium mörk header:</strong> Gradient #1e293b → #334155 för executive auktoritet</li>
+                <li><strong>Guld-accenter:</strong> #f59e0b → #d97706 för lyxig premium-känsla</li>
+                <li><strong>Serif typografi:</strong> Georgia för traditionell corporate elegance</li>
+                <li><strong>Dekorativa guld-element:</strong> Vertikala accenter för exklusiv touch</li>
+                <li><strong>Premium box-shadows:</strong> Subtila skuggor för djup och dimension</li>
+                <li><strong>Executive layout:</strong> Full-width header med elegant kontakt-placering</li>
+            </ul>
+        </div>
+        
+        <div class="comparison">
+            <div class="vs-item">
+                <h4>🎨 Premium Färgschema</h4>
+                <div class="color-demo">
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%);" title="Executive Header Gradient"></div>
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);" title="Gold Premium Accents"></div>
+                    <div class="color-swatch" style="background: linear-gradient(135deg, #fef3c7 0%, #fcd34d 100%);" title="Gold Skills Gradient"></div>
+                    <div class="color-swatch" style="background: #94a3b8;" title="Elegant Light Gray"></div>
+                </div>
+            </div>
+            
+            <div class="vs-item">
+                <h4>📐 Executive Layout</h4>
+                <ul style="margin: 0; padding-left: 20px; font-size: 14px; line-height: 1.8;">
+                    <li>Full-width premium header</li>
+                    <li>Kontakt elegant höger-placerad</li>
+                    <li>Guld separator-linjer</li>
+                    <li>Vertikala guld-accenter</li>
+                    <li>Serif för rubriker, Sans-serif för text</li>
+                    <li>Premium box-shadows på alla element</li>
+                </ul>
+            </div>
+        </div>
+        
+        <button onclick="testExecutivePremium()">🧪 Test Executive Premium Mall</button>
+        
+        <div id="result"></div>
+    </div>
+    
+    <script>
+        async function testExecutivePremium() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '<p>🔄 Testar Executive Premium med C-level profil...</p>';
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/cv/generate-formatted', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        template: 'executive-premium',
+                        cvText: \`Anna-Karin Stjernfeldt
+anna-karin.stjernfeldt@company.se
+08-545 123 45
+Strandvägen 7A, 114 56 Stockholm
+
+PROFESSIONELL SAMMANFATTNING
+Jag är en erfaren verkställande direktör med över 20 års erfarenhet av att leda multinationella företag genom strategiska transformationer och tillväxtinitiativ. Specializerad inom M&A, internationell expansion och digital transformation med dokumenterad framgång inom både traditionella industrier och tech-sektorn.
+
+ARBETSLIVSERFARENHET
+
+Verkställande Direktör - Investor AB
+2018-01-15 - Pågående
+Leder strategisk portföljutveckling och kapitalallokering för Investors publika innehav värderat till över 500 miljarder SEK. Ansvarig för styrelsearbete i portfoliobolag och globala investeringsbeslut.
+
+Verkställande Direktör - Tele2 AB
+2014-03-01 - 2017-12-31
+Ledde telekombolagets transformation till digital tjänsteleverantör med fokus på B2B-segment. Genomförde framgångsrik försäljning av Tower-verksamheten för 9,2 miljarder SEK.
+
+Verkställande Vice President - Ericsson AB
+2010-09-15 - 2014-02-28
+Ansvarig för Global Services division med över 25,000 medarbetare i 40+ länder. Ledde omstrukturering som resulterade i förbättrad lönsamhet med 15% och ökad marknadsandel inom 5G-infrastruktur.
+
+Partner & Managing Director - McKinsey & Company
+2005-08-01 - 2010-08-31
+Ledde strategisk rådgivning för nordeuropeiska Fortune 500-klienter inom telekom, media och teknologi. Specialist inom post-merger integration och operativ excellens.
+
+UTBILDNING
+
+Executive MBA - INSEAD
+2003-08-20 - 2005-06-15
+Graduated with Distinction. Thesis on "Digital Transformation in Traditional Industries" awarded Dean's Prize for Academic Excellence.
+
+Master of Science in Engineering Physics - KTH Royal Institute of Technology
+1995-08-15 - 2000-06-10
+Specialisering inom Applied Physics och Technology Management. Summa Cum Laude.
+
+STYRELSEUPPDRAG & CERTIFIERINGAR
+Styrelseordförande - Tech for Good Foundation, Styrelseledamot - Nordic Capital Fund VIII, Certified Board Director - Institute of Directors
+
+SPRÅKKUNSKAPER
+Svenska (modersmål), Engelska (flyt), Tyska (flyt), Franska (konversation), Mandarin (grundläggande)
+
+KOMPETENSER
+Strategic Leadership, M&A Strategy, Digital Transformation, International Business Development, Corporate Governance, Stakeholder Management, Capital Markets, Private Equity, Venture Capital, Board Leadership, Crisis Management, Organizational Transformation\`
+                    })
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'executive-premium-test.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                    
+                    resultDiv.innerHTML = \`
+                        <div class="success">
+                            ✅ <strong>Executive Premium test framgångsrik!</strong>
+                            <br><br><strong>Kontrollera premium-funktionerna i PDF:</strong>
+                            <ul style="margin: 15px 0; padding-left: 25px; line-height: 1.8;">
+                                <li><strong>Premium header:</strong> Mörk gradient (#1e293b → #334155) med vit text</li>
+                                <li><strong>Guld-accenter:</strong> #f59e0b → #d97706 för lyxig känsla</li>
+                                <li><strong>Kontakt elegant placerad:</strong> Höger i header för executive-layout</li>
+                                <li><strong>Serif typografi:</strong> Georgia för rubriker, auktoritativ känsla</li>
+                                <li><strong>Guld separator-linjer:</strong> Gradient separatorer mellan sektioner</li>
+                                <li><strong>Dekorativa accenter:</strong> Vertikal guld-linje på vänster sida</li>
+                                <li><strong>Premium skills:</strong> Guld-gradient badges med box-shadows</li>
+                                <li><strong>Executive languages:</strong> Eleganta chips med premium styling</li>
+                                <li><strong>Premium referenser:</strong> Guld border-top med center accent</li>
+                                <li><strong>Samma funktioner:</strong> AI första person, smart adresser, språk-separation</li>
+                            </ul>
+                        </div>
+                    \`;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = \`<div class="error">❌ Fel: \${response.status}<br>\${errorText}</div>\`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = \`<div class="error">❌ Fel: \${error.message}</div>\`;
+            }
+        }
+    </script>
+</body>
+</html>
