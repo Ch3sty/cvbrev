@@ -94,7 +94,7 @@ function generateNordicProfessionalHTML(cvData: CVMetadata): string {
                 color: #2d5016;
                 padding: 3px 0;
                 margin: 2px 0;
-                border-radius: 1.5px;
+                border-radius: 6px;
                 font-size: 11px;
                 font-weight: 500;
                 text-indent: 2px;
@@ -263,6 +263,7 @@ function generateNordicProfessionalHTML(cvData: CVMetadata): string {
                 font-weight: 600;
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
+                color: white;
             }
             
             .section-separator {
