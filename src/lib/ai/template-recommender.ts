@@ -332,7 +332,8 @@ function getVisualPreferenceScore(templateId: CVTemplateType, cvData: any): numb
     'modern-minimal': 85,
     'classic-professional': 60,
     'clean-corporate': 75,
-    'executive-premium': 80
+    'executive-premium': 80,
+    'nordic-professional': 85
   };
   
   return baseScores[templateId] || 60;
