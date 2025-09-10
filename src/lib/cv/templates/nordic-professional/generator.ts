@@ -31,16 +31,16 @@ function generateNordicProfessionalHTML(cvData: CVMetadata): string {
                 margin: 0 auto;
                 background: #fafafa;
                 position: relative;
-                display: flex;
             }
             
             /* Forest Green Sidebar - Nordic Style */
             .sidebar {
                 width: 85mm;
                 background: linear-gradient(180deg, #2d5016 0%, #3d6b1f 100%);
-                position: relative;
+                position: absolute;
                 padding: 25px 18px;
                 color: white;
+                min-height: 200mm; /* Begränsar höjden istället för hela PDF:en */
             }
             
             .sidebar::after {
@@ -60,7 +60,7 @@ function generateNordicProfessionalHTML(cvData: CVMetadata): string {
             
             .contact-header {
                 background: rgba(255, 255, 255, 0.3);
-                border-radius: 4px;
+                border-radius: 8px;
                 padding: 8px 12px;
                 margin-bottom: 20px;
                 position: relative;
@@ -115,7 +115,7 @@ function generateNordicProfessionalHTML(cvData: CVMetadata): string {
             
             .section-header {
                 background: rgba(255, 255, 255, 0.3);
-                border-radius: 4px;
+                border-radius: 8px;
                 padding: 8px 12px;
                 margin-bottom: 15px;
                 position: relative;
@@ -140,23 +140,14 @@ function generateNordicProfessionalHTML(cvData: CVMetadata): string {
                 color: rgba(255, 255, 255, 0.9);
             }
             
-            .skill-item {
-                background: rgba(74, 144, 164, 0.8);
-                border-radius: 2.5px;
-                height: 5px;
-                margin: 10px 0;
-                position: relative;
-            }
-            
-            .skill-item::after {
-                content: '';
-                position: absolute;
-                top: 1px;
-                left: 2px;
-                right: 4px;
-                height: 2px;
-                background: rgba(255, 255, 255, 0.25);
-                border-radius: 1px;
+            .skill-text {
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 6px;
+                padding: 4px 8px;
+                margin: 4px 0;
+                font-size: 11px;
+                font-weight: 500;
+                color: rgba(255, 255, 255, 0.9);
             }
             
             /* Languages Section */
@@ -169,7 +160,7 @@ function generateNordicProfessionalHTML(cvData: CVMetadata): string {
                 justify-content: space-between;
                 align-items: center;
                 background: rgba(255, 255, 255, 0.3);
-                border-radius: 2px;
+                border-radius: 6px;
                 padding: 4px 6px;
                 margin: 5px 0;
                 font-size: 11px;
@@ -191,9 +182,10 @@ function generateNordicProfessionalHTML(cvData: CVMetadata): string {
             
             /* Main Content Area */
             .main-content {
-                flex: 1;
+                margin-left: 85mm;
                 padding: 35px 30px;
                 background: #fafafa;
+                min-height: 297mm;
             }
             
             /* Header Section */
@@ -437,7 +429,7 @@ function generateNordicProfessionalHTML(cvData: CVMetadata): string {
                         skillGroup.skills
                             .filter(skill => !cvData.languages?.some(lang => skill.toLowerCase().includes(lang.language.toLowerCase())))
                             .slice(0, 8) // Limit skills in sidebar for clean design
-                            .map(skill => `<div class="skill-item" title="${skill}"></div>`)
+                            .map(skill => `<div class="skill-text">${skill}</div>`)
                     ).join('')}
                 </div>
                 ` : ''}
@@ -466,19 +458,9 @@ function generateNordicProfessionalHTML(cvData: CVMetadata): string {
                 <!-- Header -->
                 <div class="header">
                     <h1>${cvData.personalInfo.fullName}</h1>
-                    ${cvData.summary ? `<div class="title">Professionell Profil</div>` : ''}
+                    ${cvData.summary ? `<div class="title">${cvData.summary}</div>` : ''}
                     <div class="header-accent"></div>
                 </div>
-                
-                ${cvData.summary ? `
-                <!-- Summary Section -->
-                <div class="summary-section">
-                    <div class="summary-header">
-                        <h2>Sammanfattning</h2>
-                    </div>
-                    <div class="summary-text">${cvData.summary}</div>
-                </div>
-                ` : ''}
                 
                 ${cvData.experience.length > 0 ? `
                 <!-- Experience Section -->
@@ -527,22 +509,6 @@ function generateNordicProfessionalHTML(cvData: CVMetadata): string {
                 </div>
                 ` : ''}
                 
-                ${cvData.skills.length > 0 ? `
-                <!-- Additional Skills in Main Content -->
-                <div class="section">
-                    <div class="section-title">
-                        <h2>Tekniska Färdigheter</h2>
-                    </div>
-                    <div class="section-separator"></div>
-                    <div class="main-skills-container">
-                        ${cvData.skills.flatMap(skillGroup => 
-                            skillGroup.skills
-                                .filter(skill => !cvData.languages?.some(lang => skill.toLowerCase().includes(lang.language.toLowerCase())))
-                                .map(skill => `<span class="main-skill-tag">${skill}</span>`)
-                        ).join('')}
-                    </div>
-                </div>
-                ` : ''}
                 
                 <!-- References -->
                 <div class="references-section">
