@@ -3,6 +3,7 @@ import { getTemplateById } from '@/lib/cv/simple-templates';
 import type { CVTemplateType, CVMetadata, CVGenerationOptions } from '@/lib/cv/cv-metadata';
 import { shouldShowSection } from '@/lib/cv/cv-metadata';
 import { validateCVData } from '@/lib/openai/cv-parser-ai';
+import { getTemplateGenerator } from '@/lib/cv/templates';
 
 // Svensk kommun-till-region mapping för CV-vänliga adresser
 const SWEDISH_MUNICIPALITY_MAPPING: { [key: string]: string } = {
@@ -126,20 +127,14 @@ function generateTemplateHTML(cvData: CVMetadata, templateId: CVTemplateType): s
     references: 'Referenser lämnas på begäran'
   };
 
-  switch (templateId) {
-    case 'creative-edge':
-      return generateCreativeEdgeHTML(standardizedCVData);
-    case 'clean-corporate':
-      return generateCleanCorporateHTML(standardizedCVData);
-    case 'modern-minimal':
-      return generateModernMinimalHTML(standardizedCVData);
-    case 'classic-professional':
-      return generateClassicProfessionalHTML(standardizedCVData);
-    case 'executive-premium':
-      return generateExecutivePremiumHTML(standardizedCVData);
-    default:
-      return generateDefaultHTML(standardizedCVData);
+  // Use the new modular template system
+  const templateGenerator = getTemplateGenerator(templateId);
+  if (templateGenerator) {
+    return templateGenerator.generate(standardizedCVData);
   }
+
+  // Fallback to default template if template not found
+  return generateDefaultHTML(standardizedCVData);
 }
 
 // Creative Edge HTML-template som matchar SVG-förhandsgranskningen exakt
