@@ -61,10 +61,10 @@ function generateCreativeEdgeHTML(cvData: CVMetadata): string {
             /* Creative header med angled design som matchar SVG */
             .header {
                 background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
-                height: 140px;
+                height: 200px;
                 position: relative;
-                clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
-                padding: 35px 30px 25px 30px;
+                clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+                padding: 35px 30px 40px 30px;
                 box-sizing: border-box;
             }
             
@@ -228,7 +228,7 @@ function generateCreativeEdgeHTML(cvData: CVMetadata): string {
             /* Creative decorative elements som matchar SVG */
             .decorative-circles {
                 position: absolute;
-                top: 180px;
+                top: 240px;
                 right: 30px;
                 z-index: 1;
             }
@@ -272,13 +272,6 @@ function generateCreativeEdgeHTML(cvData: CVMetadata): string {
             </div>
             
             <div class="content">
-                ${cvData.summary ? `
-                <div class="section summary-section">
-                    <h2>Professionell Sammanfattning</h2>
-                    <p>${cvData.summary}</p>
-                </div>
-                ` : ''}
-                
                 ${cvData.experience.length > 0 ? `
                 <div class="section experience-section">
                     <h2>Arbetslivserfarenhet</h2>
