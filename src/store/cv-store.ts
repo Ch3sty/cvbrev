@@ -53,10 +53,7 @@ interface CVStore {
   // Template analytics
   trackTemplateUsage: (templateId: CVTemplateType, generationTime: number) => void
   getMostUsedTemplates: () => TemplateUsage[]
-  getTemplateRecommendations: () => CVTemplateType[]
-  
-  // Simple static recommendations (AI system removed)
-  getQuickSmartRecommendations: (cvId?: string) => CVTemplateType[]
+  // User choice only - no recommendations
 }
 
 const CACHE_DURATION = 30 * 60 * 1000; // 30 minuter
@@ -328,27 +325,7 @@ export const useCVStore = create<CVStore>()(
       .slice(0, 5);
   },
   
-  getTemplateRecommendations: () => {
-    const usage = get().getMostUsedTemplates();
-    const mostUsed = usage.map(u => u.templateId);
-    
-    // If user hasn't used many templates, recommend popular defaults
-    const defaultRecommendations: CVTemplateType[] = ['modern-minimal', 'classic-professional', 'clean-corporate'];
-    
-    // Combine user preferences with defaults, removing duplicates
-    const recommendations = [
-      ...mostUsed,
-      ...defaultRecommendations.filter(template => !mostUsed.includes(template))
-    ].slice(0, 3);
-    
-    return recommendations;
-  },
-  
-  // Simple template recommendations (AI system removed)
-  getQuickSmartRecommendations: (cvId?: string) => {
-    const defaultRecommendations: CVTemplateType[] = ['modern-minimal', 'classic-professional', 'clean-corporate'];
-    return defaultRecommendations;
-  }
+  // All recommendation functions removed - users choose freely
 }),
 {
   name: 'cv-store',
