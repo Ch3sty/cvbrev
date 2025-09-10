@@ -362,21 +362,17 @@ function generateRecommendationReasoning(
   
   let reasoning = `${templateName} passar dig väl `;
   
-  // Universell design-baserad motivering - ingen yrkesbegränsning
-  if (templateId === 'classic-professional') {
-    reasoning += `med sin eleganta, traditionella design som bygger förtroende hos alla typer av arbetsgivare. `;
-  } else if (templateId === 'modern-minimal') {
-    reasoning += `med sin balanserade, nutida design som fungerar perfekt för alla branscher. `;
-  } else if (templateId === 'creative-edge') {
-    reasoning += `med sin visuellt uttrycksfulla design som hjälper dig att sticka ut, oavsett yrke. `;
-  } else if (templateId === 'clean-corporate') {
-    reasoning += `med sin strukturerade design som fungerar optimalt med svenska ATS-system. `;
-  } else if (templateId === 'executive-premium') {
-    reasoning += `med sin sofistikerade design som förmedlar seriositet och djupgående expertis. `;
-  } else if (templateId === 'modern-minimal') {
+  // Design-baserad motivering för alla moderna mallar
+  if (templateId === 'modern-minimal') {
     reasoning += `med sin rena, moderna design som förmedlar professionalitet och elegans. `;
   } else if (templateId === 'classic-professional') {
-    reasoning += `med sin traditionella svenska CV-stil som fungerar utmärkt för etablerade branscher. `;
+    reasoning += `med sin eleganta, traditionella design som bygger förtroende hos alla typer av arbetsgivare. `;
+  } else if (templateId === 'clean-corporate') {
+    reasoning += `med sin strukturerade design som fungerar optimalt med svenska ATS-system. `;
+  } else if (templateId === 'creative-edge') {
+    reasoning += `med sin visuellt uttrycksfulla design som hjälper dig att sticka ut, oavsett yrke. `;
+  } else if (templateId === 'executive-premium') {
+    reasoning += `med sin sofistikerade design som förmedlar seriositet och djupgående expertis. `;
   } else if (templateId === 'nordic-professional') {
     reasoning += `med sin skandinaviska elegans och naturinspirerade design som förmedlar nordisk professionalitet. `;
   }
