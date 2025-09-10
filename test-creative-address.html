@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Creative Edge - Address Formatting</title>
+    <style>
+        body { font-family: 'Segoe UI', system-ui, sans-serif; margin: 20px; background: #f8fafc; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        h1 { color: #8b5cf6; text-align: center; margin-bottom: 30px; }
+        .test-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 30px 0; }
+        .template-test { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 25px; }
+        .creative { border-color: #8b5cf6; }
+        .corporate { border-color: #f59e0b; }
+        .template-title { font-weight: 700; margin-bottom: 20px; font-size: 20px; text-align: center; }
+        .creative .template-title { color: #8b5cf6; }
+        .corporate .template-title { color: #f59e0b; }
+        .address-demo { background: #f1f5f9; padding: 15px; border-radius: 8px; margin: 15px 0; }
+        .before { color: #dc2626; font-family: monospace; font-size: 14px; }
+        .after { color: #059669; font-family: monospace; font-size: 14px; font-weight: 600; }
+        button { 
+            width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; 
+            margin: 10px 0; transition: all 0.3s ease; font-size: 14px;
+        }
+        .creative button { background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%); color: white; }
+        .creative button:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3); }
+        .corporate button { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); color: white; }
+        .corporate button:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(30, 41, 59, 0.3); }
+        #result { margin-top: 30px; padding: 20px; background: #f1f5f9; border-radius: 12px; }
+        .success { color: #059669; font-weight: 600; } 
+        .error { color: #dc2626; font-weight: 600; }
+        .feature-highlight { background: linear-gradient(135deg, #ddd6fe 0%, #e0e7ff 100%); padding: 20px; border-radius: 12px; margin: 20px 0; }
+        .feature-highlight h3 { color: #6366f1; margin: 0 0 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Test: Smart Adressformatering i Båda Mallar</h1>
+        
+        <div class="feature-highlight">
+            <h3>🎯 Vad som testas:</h3>
+            <p><strong>Båda mallarna ska nu ha samma smarta svenska adressformatering:</strong></p>
+            <ul>
+                <li><strong>Creative Edge:</strong> Visar adress i lila headern (ny funktion!)</li>
+                <li><strong>Clean Corporate:</strong> Visar adress i mörka sidebar:en</li>
+                <li><strong>Smart formatering:</strong> Gatuadresser tas bort, kommuner konverteras till större städer</li>
+            </ul>
+        </div>
+        
+        <div class="address-demo">
+            <div class="before">INPUT: Vällistavägen 7, 141 32 Huddinge</div>
+            <div class="after">OUTPUT: 141 32 Stockholm, Sverige</div>
+        </div>
+        
+        <div class="test-comparison">
+            <div class="template-test creative">
+                <div class="template-title">🎨 Creative Edge</div>
+                <p><strong>Adress visas:</strong> I lila header tillsammans med email/telefon</p>
+                <p><strong>Design:</strong> Modern gradients med angled header-design</p>
+                <p><strong>Perfect för:</strong> Kreativa yrken, design, marknadsföring</p>
+                <button onclick="testCreativeEdge()">Test Creative Edge med Adress</button>
+            </div>
+            
+            <div class="template-test corporate">
+                <div class="template-title">🏢 Clean Corporate</div>
+                <p><strong>Adress visas:</strong> I mörk sidebar med kontaktinfo</p>
+                <p><strong>Design:</strong> Professionell sidebar-layout med amber accenter</p>
+                <p><strong>Perfect för:</strong> Företagsledare, konsulter, finance</p>
+                <button onclick="testCleanCorporate()">Test Clean Corporate med Adress</button>
+            </div>
+        </div>
+        
+        <div id="result"></div>
+    </div>
+    
+    <script>
+        async function testCreativeEdge() {
+            await runTest('Creative Edge', 'creative-edge', `Sofia Andersson
+sofia.andersson@creative.se
+070-555 12 34
+Vällistavägen 7, 141 32 Huddinge
+
+PROFESSIONELL SAMMANFATTNING
+Kreativ art director med passion för visuell kommunikation och varumärkesbyggande.
+
+ARBETSLIVSERFARENHET
+
+Senior Art Director - Forsman & Bodenfors
+2019-03-01 - Pågående
+Leder kreativa kampanjer för stora svenska och internationella kunder.
+
+Grafisk Designer - King Digital Entertainment
+2016-08-15 - 2019-02-28
+Designade grafiska element för mobilspel med miljontals spelare.
+
+UTBILDNING
+
+Master of Fine Arts - Konstfack
+2014-08-20 - 2016-06-15
+Specialisering inom visuell kommunikation och digital design.
+
+SPRÅKKUNSKAPER
+Svenska (modersmål), Engelska (flyt), Spanska (konversation)
+
+KOMPETENSER
+Adobe Creative Suite, Figma, Sketch, Prototyping, Brand design, Campaign development`);
+        }
+        
+        async function testCleanCorporate() {
+            await runTest('Clean Corporate', 'clean-corporate', `Marcus Lindqvist
+marcus.lindqvist@corporate.se
+08-123 45 67
+Storgatan 15, 111 21 Stockholm
+
+PROFESSIONELL SAMMANFATTNING
+Senior managementkonsult med specialisering inom strategisk utveckling och digital transformation.
+
+ARBETSLIVSERFARENHET
+
+Partner - McKinsey & Company
+2018-01-15 - Pågående
+Leder strategiska initiativ för Fortune 500-företag inom Norden.
+
+Principal - Boston Consulting Group
+2015-09-01 - 2017-12-31
+Ansvarig för teknologi- och fintech-sektorn i Sverige.
+
+UTBILDNING
+
+MBA - INSEAD
+2013-08-20 - 2015-06-30
+Specializering inom strategi och innovation. Dean's List.
+
+SPRÅKKUNSKAPER
+Svenska (modersmål), Engelska (flyt), Tyska (flyt)
+
+KOMPETENSER
+Strategy development, Digital transformation, Change management, M&A, Financial modeling`);
+        }
+        
+        async function runTest(templateName, templateId, cvText) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = \`<p>🔄 Testar <strong>\${templateName}</strong> med smart adressformatering...</p>\`;
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/cv/generate-formatted', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        template: templateId,
+                        cvText: cvText
+                    })
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = \`\${templateId}-address-test.pdf\`;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                    
+                    resultDiv.innerHTML = \`
+                        <div class="success">
+                            ✅ <strong>\${templateName}</strong> test framgångsrik!
+                            <br><br><strong>Kontrollera i PDF:</strong>
+                            <ul style="margin: 10px 0; padding-left: 25px;">
+                                <li><strong>Adressformat:</strong> "141 32 Stockholm, Sverige" (utan gatuadress)</li>
+                                <li><strong>Placering:</strong> \${templateName === 'Creative Edge' ? 'I lila header med email/telefon' : 'I mörk sidebar under kontakt'}</li>
+                                <li><strong>Design:</strong> Konsistent med mallens övriga styling</li>
+                                <li><strong>Smart formatering:</strong> Huddinge automatiskt konverterat till Stockholm</li>
+                            </ul>
+                        </div>
+                    \`;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = \`<div class="error">❌ Fel för <strong>\${templateName}</strong>: \${response.status}<br>\${errorText}</div>\`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = \`<div class="error">❌ Fel för <strong>\${templateName}</strong>: \${error.message}</div>\`;
+            }
+        }
+    </script>
+</body>
+</html>

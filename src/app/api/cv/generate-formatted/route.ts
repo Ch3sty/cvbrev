@@ -41,7 +41,6 @@ const SWEDISH_MUNICIPALITY_MAPPING: { [key: string]: string } = {
   // Malmö
   'malmö': 'Malmö',
   'lund': 'Malmö',
-  'helsingborg': 'Malmö',
   'landskrona': 'Malmö',
   'trelleborg': 'Malmö',
   'vellinge': 'Malmö',
@@ -410,6 +409,7 @@ function generateCreativeEdgeHTML(cvData: CVMetadata): string {
                 ${cvData.summary ? `<div class="title">${cvData.summary}</div>` : ''}
                 <div class="contact">
                     ${cvData.personalInfo.email || ''} ${cvData.personalInfo.phone ? '• ' + cvData.personalInfo.phone : ''}
+                    ${cvData.personalInfo.address ? '<br>' + formatSwedishAddress(cvData.personalInfo.address) : ''}
                 </div>
             </div>
             
