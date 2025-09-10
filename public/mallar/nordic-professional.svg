@@ -24,75 +24,121 @@
   <rect width="300" height="400" fill="#fafafa" filter="url(#paperTexture)"/>
   
   <!-- Left sidebar with forest green -->
-  <rect x="0" y="0" width="90" height="400" fill="url(#forestGradient)"/>
+  <rect x="0" y="0" width="85" height="400" fill="url(#forestGradient)"/>
   
-  <!-- Organic stone accent line -->
-  <path d="M90 0 L95 0 Q98 20 96 40 Q94 60 97 80 Q95 100 98 120 Q96 140 94 160 Q97 180 95 200 Q98 220 96 240 Q94 260 97 280 Q95 300 98 320 Q96 340 94 360 Q97 380 95 400 L90 400 Z" fill="url(#stoneAccent)"/>
+  <!-- Enhanced stone accent transition with organic curves -->
+  <path d="M85 0 Q92 15 90 35 Q88 55 91 75 Q89 95 92 115 Q90 135 88 155 Q91 175 89 195 Q92 215 90 235 Q88 255 91 275 Q89 295 92 315 Q90 335 88 355 Q91 375 89 395 Q87 400 85 400 L85 0 Z" fill="url(#stoneAccent)"/>
   
-  <!-- Contact section in sidebar -->
-  <circle cx="45" cy="40" r="15" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
-  <rect x="25" y="70" width="40" height="2" fill="rgba(255,255,255,0.7)" rx="1"/>
-  <rect x="25" y="78" width="35" height="2" fill="rgba(255,255,255,0.7)" rx="1"/>
-  <rect x="25" y="86" width="38" height="2" fill="rgba(255,255,255,0.7)" rx="1"/>
-  <rect x="25" y="94" width="32" height="2" fill="rgba(255,255,255,0.7)" rx="1"/>
+  <!-- Additional stone texture overlay -->
+  <path d="M88 20 Q90 40 89 60 Q87 80 90 100 Q88 120 89 140 Q87 160 90 180 Q88 200 89 220 Q87 240 90 260 Q88 280 89 300 Q87 320 90 340 Q88 360 89 380 L85 380 Q87 360 86 340 Q88 320 85 300 Q87 280 86 260 Q88 240 85 220 Q87 200 86 180 Q88 160 85 140 Q87 120 86 100 Q88 80 85 60 Q87 40 86 20 Z" fill="rgba(160,140,95,0.3)"/>
   
-  <!-- Skills in sidebar with organic grouping -->
-  <rect x="25" y="130" width="40" height="8" fill="#8b7355" rx="2"/>
-  <rect x="25" y="145" width="35" height="6" fill="rgba(139,115,85,0.8)" rx="2"/>
-  <rect x="25" y="157" width="42" height="6" fill="rgba(139,115,85,0.8)" rx="2"/>
-  <rect x="25" y="169" width="30" height="6" fill="rgba(139,115,85,0.8)" rx="2"/>
-  <rect x="25" y="181" width="38" height="6" fill="rgba(139,115,85,0.8)" rx="2"/>
+  <!-- Modern contact section with elegant design -->
+  <g id="contact-section">
+    <!-- Profile circle with gradient -->
+    <circle cx="42" cy="35" r="18" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <circle cx="42" cy="35" r="12" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
+    <circle cx="42" cy="35" r="6" fill="rgba(255,255,255,0.2)"/>
+    
+    <!-- Elegant contact info bars -->
+    <rect x="18" y="65" width="48" height="2.5" fill="rgba(255,255,255,0.85)" rx="1.25"/>
+    <rect x="18" y="73" width="42" height="2.5" fill="rgba(255,255,255,0.75)" rx="1.25"/>
+    <rect x="18" y="81" width="45" height="2.5" fill="rgba(255,255,255,0.75)" rx="1.25"/>
+    <rect x="18" y="89" width="38" height="2.5" fill="rgba(255,255,255,0.7)" rx="1.25"/>
+  </g>
   
-  <!-- Language badges -->
-  <ellipse cx="35" cy="220" rx="20" ry="8" fill="rgba(255,255,255,0.1)" stroke="#a68b5b" stroke-width="1"/>
-  <ellipse cx="35" cy="240" rx="18" ry="8" fill="rgba(255,255,255,0.1)" stroke="#a68b5b" stroke-width="1"/>
-  <ellipse cx="35" cy="260" rx="22" ry="8" fill="rgba(255,255,255,0.1)" stroke="#a68b5b" stroke-width="1"/>
+  <!-- Premium skills section with sophisticated design -->
+  <g id="skills-section">
+    <!-- Section header -->
+    <rect x="18" y="120" width="48" height="8" fill="#8b7355" rx="4"/>
+    <rect x="20" y="122" width="44" height="4" fill="rgba(255,255,255,0.2)" rx="2"/>
+    
+    <!-- Elegant skill pills -->
+    <rect x="18" y="140" width="42" height="7" fill="rgba(160,140,95,0.9)" rx="3.5"/>
+    <rect x="18" y="152" width="38" height="7" fill="rgba(160,140,95,0.8)" rx="3.5"/>
+    <rect x="18" y="164" width="45" height="7" fill="rgba(160,140,95,0.8)" rx="3.5"/>
+    <rect x="18" y="176" width="35" height="7" fill="rgba(160,140,95,0.7)" rx="3.5"/>
+    <rect x="18" y="188" width="41" height="7" fill="rgba(160,140,95,0.7)" rx="3.5"/>
+    
+    <!-- Subtle highlights on skills -->
+    <rect x="20" y="142" width="38" height="3" fill="rgba(255,255,255,0.15)" rx="1.5"/>
+    <rect x="20" y="154" width="34" height="3" fill="rgba(255,255,255,0.15)" rx="1.5"/>
+    <rect x="20" y="166" width="41" height="3" fill="rgba(255,255,255,0.15)" rx="1.5"/>
+  </g>
   
-  <!-- Subtle leaf decoration -->
-  <path d="M45 320 Q50 315 55 320 Q50 325 45 320 Q40 315 45 320" fill="#a68b5b" opacity="0.6"/>
-  <path d="M35 340 Q42 335 48 340 Q42 345 35 340 Q28 335 35 340" fill="#8b7355" opacity="0.4"/>
+  <!-- Sophisticated language section -->
+  <g id="language-section">
+    <!-- Language badges with modern design -->
+    <g id="lang1">
+      <rect x="15" y="220" width="54" height="16" fill="rgba(255,255,255,0.08)" rx="8" stroke="rgba(160,140,95,0.6)" stroke-width="1"/>
+      <rect x="17" y="222" width="50" height="12" fill="rgba(160,140,95,0.15)" rx="6"/>
+      <rect x="45" y="224" width="20" height="8" fill="#a68b5b" rx="4"/>
+    </g>
+    <g id="lang2">
+      <rect x="15" y="245" width="54" height="16" fill="rgba(255,255,255,0.08)" rx="8" stroke="rgba(160,140,95,0.6)" stroke-width="1"/>
+      <rect x="17" y="247" width="50" height="12" fill="rgba(160,140,95,0.15)" rx="6"/>
+      <rect x="45" y="249" width="20" height="8" fill="#8b7355" rx="4"/>
+    </g>
+    <g id="lang3">
+      <rect x="15" y="270" width="54" height="16" fill="rgba(255,255,255,0.08)" rx="8" stroke="rgba(160,140,95,0.6)" stroke-width="1"/>
+      <rect x="17" y="272" width="50" height="12" fill="rgba(160,140,95,0.15)" rx="6"/>
+      <rect x="45" y="274" width="20" height="8" fill="#4a90a4" rx="4"/>
+    </g>
+  </g>
   
-  <!-- Main content area -->
+  <!-- Elegant Nordic decorative elements -->
+  <g id="nordic-decoration">
+    <!-- Sophisticated leaf pattern -->
+    <path d="M42 320 Q48 315 52 320 Q48 328 42 325 Q36 318 42 320" fill="#a68b5b" opacity="0.7"/>
+    <path d="M45 323 Q49 320 51 323 Q49 326 45 325 Q41 322 45 323" fill="rgba(255,255,255,0.2)"/>
+    
+    <!-- Organic crystal-like shapes -->
+    <path d="M35 350 L40 345 L48 348 L45 355 L38 358 Z" fill="rgba(139,115,85,0.4)"/>
+    <path d="M37 352 L40 349 L45 350 L43 354 L39 355 Z" fill="rgba(255,255,255,0.1)"/>
+  </g>
+  
+  <!-- Main content area with improved layout -->
   <!-- Asymmetric header with name -->
-  <rect x="120" y="35" width="140" height="12" fill="#2c2c2c" rx="6"/>
-  <rect x="120" y="52" width="100" height="4" fill="#4a4a4a" rx="2"/>
+  <rect x="110" y="35" width="145" height="12" fill="#2c2c2c" rx="6"/>
+  <rect x="110" y="52" width="105" height="4" fill="#4a4a4a" rx="2"/>
   
   <!-- Arctic blue accent under name -->
-  <rect x="120" y="65" width="60" height="3" fill="url(#arcticBlue)" rx="2"/>
+  <rect x="110" y="65" width="65" height="3" fill="url(#arcticBlue)" rx="2"/>
   
   <!-- Professional summary with organic shape -->
-  <rect x="120" y="90" width="70" height="6" fill="#2d5016" rx="3"/>
-  <rect x="120" y="105" width="150" height="2" fill="#4a4a4a" rx="1"/>
-  <rect x="120" y="112" width="145" height="2" fill="#4a4a4a" rx="1"/>
-  <rect x="120" y="119" width="140" height="2" fill="#4a4a4a" rx="1"/>
-  <rect x="120" y="126" width="135" height="2" fill="#4a4a4a" rx="1"/>
+  <rect x="110" y="90" width="75" height="6" fill="#2d5016" rx="3"/>
+  <rect x="110" y="105" width="160" height="2.5" fill="#4a4a4a" rx="1.25"/>
+  <rect x="110" y="112" width="155" height="2.5" fill="#4a4a4a" rx="1.25"/>
+  <rect x="110" y="119" width="150" height="2.5" fill="#4a4a4a" rx="1.25"/>
+  <rect x="110" y="126" width="145" height="2.5" fill="#4a4a4a" rx="1.25"/>
   
   <!-- Experience section -->
-  <rect x="120" y="150" width="85" height="6" fill="#2d5016" rx="3"/>
+  <rect x="110" y="150" width="85" height="6" fill="#2d5016" rx="3"/>
   
-  <!-- Stone accent line under section title -->
-  <rect x="120" y="162" width="120" height="1.5" fill="url(#stoneAccent)" rx="1"/>
+  <!-- Enhanced stone accent line under section title -->
+  <rect x="110" y="162" width="130" height="2" fill="url(#stoneAccent)" rx="1"/>
+  <rect x="110" y="163.5" width="100" height="0.5" fill="rgba(160,140,95,0.5)" rx="0.25"/>
   
   <!-- Job entries with Nordic spacing -->
-  <rect x="120" y="175" width="90" height="5" fill="#2c2c2c" rx="2"/>
-  <rect x="120" y="185" width="70" height="3" fill="#6ba3b5" rx="1"/>
-  <rect x="120" y="193" width="130" height="2" fill="#4a4a4a" rx="1"/>
-  <rect x="120" y="199" width="125" height="2" fill="#4a4a4a" rx="1"/>
-  <rect x="120" y="205" width="120" height="2" fill="#4a4a4a" rx="1"/>
+  <rect x="110" y="175" width="95" height="5" fill="#2c2c2c" rx="2"/>
+  <rect x="110" y="185" width="75" height="3" fill="#6ba3b5" rx="1"/>
+  <rect x="110" y="193" width="140" height="2.5" fill="#4a4a4a" rx="1.25"/>
+  <rect x="110" y="199" width="135" height="2.5" fill="#4a4a4a" rx="1.25"/>
+  <rect x="110" y="205" width="130" height="2.5" fill="#4a4a4a" rx="1.25"/>
   
   <!-- Second job with organic separation -->
-  <circle cx="125" cy="225" r="2" fill="#a68b5b" opacity="0.3"/>
-  <rect x="120" y="235" width="85" height="5" fill="#2c2c2c" rx="2"/>
-  <rect x="120" y="245" width="65" height="3" fill="#6ba3b5" rx="1"/>
-  <rect x="120" y="253" width="125" height="2" fill="#4a4a4a" rx="1"/>
-  <rect x="120" y="259" width="130" height="2" fill="#4a4a4a" rx="1"/>
+  <path d="M115 225 Q120 223 125 225 Q120 227 115 225" fill="#a68b5b" opacity="0.4"/>
+  <rect x="110" y="235" width="90" height="5" fill="#2c2c2c" rx="2"/>
+  <rect x="110" y="245" width="70" height="3" fill="#6ba3b5" rx="1"/>
+  <rect x="110" y="253" width="135" height="2.5" fill="#4a4a4a" rx="1.25"/>
+  <rect x="110" y="259" width="140" height="2.5" fill="#4a4a4a" rx="1.25"/>
   
   <!-- Education section -->
-  <rect x="120" y="285" width="60" height="6" fill="#2d5016" rx="3"/>
-  <rect x="120" y="297" width="100" height="1.5" fill="url(#stoneAccent)" rx="1"/>
+  <rect x="110" y="285" width="65" height="6" fill="#2d5016" rx="3"/>
+  <rect x="110" y="297" width="110" height="2" fill="url(#stoneAccent)" rx="1"/>
+  <rect x="110" y="298.5" width="85" height="0.5" fill="rgba(160,140,95,0.5)" rx="0.25"/>
   
-  <rect x="120" y="310" width="95" height="5" fill="#2c2c2c" rx="2"/>
-  <rect x="120" y="320" width="75" height="3" fill="#6ba3b5" rx="1"/>
+  <rect x="110" y="310" width="100" height="5" fill="#2c2c2c" rx="2"/>
+  <rect x="110" y="320" width="80" height="3" fill="#6ba3b5" rx="1"/>
   
   <!-- Organic decorative elements -->
   <ellipse cx="260" cy="150" rx="8" ry="12" fill="rgba(74,144,164,0.1)" transform="rotate(15 260 150)"/>
