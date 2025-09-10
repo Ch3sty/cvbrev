@@ -61,10 +61,10 @@ function generateCreativeEdgeHTML(cvData: CVMetadata): string {
             /* Creative header med angled design som matchar SVG */
             .header {
                 background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
-                height: 120px;
+                height: 140px;
                 position: relative;
-                clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
-                padding: 35px 30px;
+                clip-path: polygon(0 0, 100% 0, 100% 75%, 0 100%);
+                padding: 35px 30px 25px 30px;
                 box-sizing: border-box;
             }
             
@@ -259,7 +259,7 @@ function generateCreativeEdgeHTML(cvData: CVMetadata): string {
             <!-- Creative header med angled design -->
             <div class="header">
                 <h1>${cvData.personalInfo.fullName}</h1>
-                ${cvData.summary ? `<div class="title">${cvData.summary.substring(0, 80)}...</div>` : ''}
+                ${cvData.summary ? `<div class="title">${cvData.summary}</div>` : ''}
                 <div class="contact">
                     ${cvData.personalInfo.email || ''} ${cvData.personalInfo.phone ? '• ' + cvData.personalInfo.phone : ''}
                 </div>
@@ -285,7 +285,7 @@ function generateCreativeEdgeHTML(cvData: CVMetadata): string {
                     ${cvData.experience.map(exp => `
                         <div class="experience-item">
                             <div class="job-title">${exp.position}</div>
-                            <div class="company">${exp.company}</div>
+                            <div class="company">${exp.company} ${exp.startDate ? '• ' + exp.startDate : ''} ${exp.endDate ? '- ' + exp.endDate : exp.startDate ? '- Pågående' : ''}</div>
                             ${exp.description.map(desc => `<div class="description">${desc}</div>`).join('')}
                         </div>
                     `).join('')}
@@ -298,7 +298,7 @@ function generateCreativeEdgeHTML(cvData: CVMetadata): string {
                     ${cvData.education.map(edu => `
                         <div class="education-item">
                             <div class="degree">${edu.degree}</div>
-                            <div class="institution">${edu.institution}</div>
+                            <div class="institution">${edu.institution} ${edu.graduationYear ? '• ' + edu.graduationYear : (edu.startDate ? '• ' + edu.startDate : '')} ${edu.endDate ? '- ' + edu.endDate : ''}</div>
                         </div>
                     `).join('')}
                 </div>

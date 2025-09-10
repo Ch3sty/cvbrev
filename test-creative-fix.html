@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Kreativ Profil CV Fix</title>
+</head>
+<body>
+    <h1>Test av Kreativ Profil CV Fix</h1>
+    <button onclick="testCreativeEdgeCV()">Test Kreativ Profil med årtal</button>
+    <div id="result"></div>
+    
+    <script>
+        async function testCreativeEdgeCV() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testar...';
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/cv/generate-formatted', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        template: 'creative-edge',
+                        cvText: `Anna Andersson
+anna.andersson@example.com
+070-123 45 67
+
+PROFESSIONELL SAMMANFATTNING
+Entusiastisk och pålitlig expedit med stor erfarenhet av att hantera ömtåliga produkter och leverera enastående kundservice.
+
+ARBETSLIVSERFARENHET
+
+Senior Utvecklare - Tech Innovations AB
+2022-01-01 - Pågående
+Leder utvecklingsteam och ansvarar för arkitektur av webbapplikationer. Implementerat effektiva lösningar som ökat prestanda med 40%.
+
+Frontend Utvecklare - Digital Solutions
+2020-03-15 - 2021-12-31  
+Utvecklade responsiva webbsidor och mobilapplikationer. Samarbetade med designers och backend-team för att leverera högkvalitativa produkter.
+
+Junior Utvecklare - StartUp Tech
+2018-06-01 - 2020-02-29
+Första utvecklarroll där jag lärde mig modern JavaScript, React och agila arbetsmetoder.
+
+UTBILDNING
+
+Civilingenjör Datateknik - KTH Kungliga Tekniska Högskolan
+2014-08-25 - 2018-06-15
+Fokus på mjukvaruutveckling och systemarkitektur. Examensarbete inom maskininlärning.
+
+Gymnasieexamen Teknik - Teknikprogrammet
+2011-08-20 - 2014-06-10
+Inriktning mot programmering och datorteknik.
+
+TEKNISKA FÄRDIGHETER
+JavaScript, React, Node.js, Python, PostgreSQL, Docker, AWS, Git
+
+SPRÅKKUNSKAPER
+Svenska (modersmål), Engelska (flyt), Tyska (konversation)
+`
+                    })
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'test-kreativ-profil-fixed.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                    
+                    resultDiv.innerHTML = '<p style="color: green;">✅ CV genererat framgångsrikt! Kontrollera att header-texten inte klipps av och att årtal visas.</p>';
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = '<p style="color: red;">❌ Fel: ' + response.status + ' - ' + errorText + '</p>';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = '<p style="color: red;">❌ Fel: ' + error.message + '</p>';
+            }
+        }
+    </script>
+</body>
+</html>
