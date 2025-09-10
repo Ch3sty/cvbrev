@@ -93,7 +93,8 @@
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-refactored-templates.html\")",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-fixed-templates.html\")",
       "mcp__supabase__list_migrations",
-      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-legacy-cleanup.html\")"
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-legacy-cleanup.html\")",
+      "Bash(del \"C:\\Users\\chris\\cvbrev\\test-legacy-cleanup.html\")"
     ],
     "deny": [],
     "ask": []

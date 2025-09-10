@@ -4,7 +4,7 @@ import { persist } from 'zustand/middleware'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { parseCV } from '@/lib/cv-parser'
 import type { CVTemplateType } from '@/lib/cv/cv-metadata'
-import { getQuickRecommendations, getAITemplateRecommendations, type TemplateRecommendation } from '@/lib/ai/template-recommender'
+// AI recommendations removed - using simple static recommendations instead
 
 interface CV {
   id: string
@@ -55,8 +55,7 @@ interface CVStore {
   getMostUsedTemplates: () => TemplateUsage[]
   getTemplateRecommendations: () => CVTemplateType[]
   
-  // AI-powered recommendations
-  getAIRecommendations: (cvId?: string) => Promise<TemplateRecommendation[]>
+  // Simple static recommendations (AI system removed)
   getQuickSmartRecommendations: (cvId?: string) => CVTemplateType[]
 }
 
@@ -345,65 +344,10 @@ export const useCVStore = create<CVStore>()(
     return recommendations;
   },
   
-  // AI-powered recommendations med full analys
-  getAIRecommendations: async (cvId?: string) => {
-    const { cvs, selectedCV, templateUsage } = get();
-    
-    // Hitta CV att analysera
-    let targetCV = selectedCV;
-    if (cvId) {
-      targetCV = cvs.find(cv => cv.id === cvId) || selectedCV;
-    }
-    
-    if (!targetCV?.cv_text) {
-      // Fallback till quick recommendations
-      return [];
-    }
-    
-    try {
-      // Konvertera template usage till rätt format
-      const usageRecord = templateUsage.reduce((acc, usage) => {
-        acc[usage.templateId] = usage.count;
-        return acc;
-      }, {} as Record<CVTemplateType, number>);
-      
-      // Tillfälligt avaktiverat för att undvika NetworkError-fel
-      console.log('AI recommendations disabled to prevent NetworkError');
-      return [];
-      
-      /* COMMENTED OUT TO FIX NETWORKERROR:
-      // Kör AI-analys
-      const aiRecommendations = await getAITemplateRecommendations(
-        targetCV.cv_text,
-        usageRecord
-      );
-      
-      return aiRecommendations;
-      */
-    } catch (error) {
-      console.error('AI recommendations failed:', error);
-      return [];
-    }
-  },
-  
-  // Snabba smarta rekommendationer utan AI-anrop
+  // Simple template recommendations (AI system removed)
   getQuickSmartRecommendations: (cvId?: string) => {
-    const { cvs, selectedCV, templateUsage } = get();
-    
-    // Hitta CV att analysera
-    let targetCV = selectedCV;
-    if (cvId) {
-      targetCV = cvs.find(cv => cv.id === cvId) || selectedCV;
-    }
-    
-    // Konvertera template usage
-    const usageRecord = templateUsage.reduce((acc, usage) => {
-      acc[usage.templateId] = usage.count;
-      return acc;
-    }, {} as Record<CVTemplateType, number>);
-    
-    // Använd quick recommendations
-    return getQuickRecommendations(targetCV, usageRecord);
+    const defaultRecommendations: CVTemplateType[] = ['modern-minimal', 'classic-professional', 'clean-corporate'];
+    return defaultRecommendations;
   }
 }),
 {
