@@ -23,14 +23,11 @@
   <!-- Paper texture background -->
   <rect width="300" height="400" fill="#fafafa" filter="url(#paperTexture)"/>
   
-  <!-- Left sidebar with forest green -->
+  <!-- Left sidebar with forest green - clean design -->
   <rect x="0" y="0" width="85" height="400" fill="url(#forestGradient)"/>
   
-  <!-- Enhanced stone accent transition with organic curves -->
-  <path d="M85 0 Q92 15 90 35 Q88 55 91 75 Q89 95 92 115 Q90 135 88 155 Q91 175 89 195 Q92 215 90 235 Q88 255 91 275 Q89 295 92 315 Q90 335 88 355 Q91 375 89 395 Q87 400 85 400 L85 0 Z" fill="url(#stoneAccent)"/>
-  
-  <!-- Additional stone texture overlay -->
-  <path d="M88 20 Q90 40 89 60 Q87 80 90 100 Q88 120 89 140 Q87 160 90 180 Q88 200 89 220 Q87 240 90 260 Q88 280 89 300 Q87 320 90 340 Q88 360 89 380 L85 380 Q87 360 86 340 Q88 320 85 300 Q87 280 86 260 Q88 240 85 220 Q87 200 86 180 Q88 160 85 140 Q87 120 86 100 Q88 80 85 60 Q87 40 86 20 Z" fill="rgba(160,140,95,0.3)"/>
+  <!-- Simple, clean vertical accent line -->
+  <rect x="85" y="0" width="2" height="400" fill="rgba(74,144,164,0.3)"/>
   
   <!-- Modern contact section with elegant design -->
   <g id="contact-section">
@@ -65,35 +62,17 @@
     <rect x="20" y="166" width="41" height="3" fill="rgba(255,255,255,0.15)" rx="1.5"/>
   </g>
   
-  <!-- Sophisticated language section -->
+  <!-- Clean language section -->
   <g id="language-section">
-    <!-- Language badges with modern design -->
-    <g id="lang1">
-      <rect x="15" y="220" width="54" height="16" fill="rgba(255,255,255,0.08)" rx="8" stroke="rgba(160,140,95,0.6)" stroke-width="1"/>
-      <rect x="17" y="222" width="50" height="12" fill="rgba(160,140,95,0.15)" rx="6"/>
-      <rect x="45" y="224" width="20" height="8" fill="#a68b5b" rx="4"/>
-    </g>
-    <g id="lang2">
-      <rect x="15" y="245" width="54" height="16" fill="rgba(255,255,255,0.08)" rx="8" stroke="rgba(160,140,95,0.6)" stroke-width="1"/>
-      <rect x="17" y="247" width="50" height="12" fill="rgba(160,140,95,0.15)" rx="6"/>
-      <rect x="45" y="249" width="20" height="8" fill="#8b7355" rx="4"/>
-    </g>
-    <g id="lang3">
-      <rect x="15" y="270" width="54" height="16" fill="rgba(255,255,255,0.08)" rx="8" stroke="rgba(160,140,95,0.6)" stroke-width="1"/>
-      <rect x="17" y="272" width="50" height="12" fill="rgba(160,140,95,0.15)" rx="6"/>
-      <rect x="45" y="274" width="20" height="8" fill="#4a90a4" rx="4"/>
-    </g>
-  </g>
-  
-  <!-- Elegant Nordic decorative elements -->
-  <g id="nordic-decoration">
-    <!-- Sophisticated leaf pattern -->
-    <path d="M42 320 Q48 315 52 320 Q48 328 42 325 Q36 318 42 320" fill="#a68b5b" opacity="0.7"/>
-    <path d="M45 323 Q49 320 51 323 Q49 326 45 325 Q41 322 45 323" fill="rgba(255,255,255,0.2)"/>
+    <!-- Simple language indicators -->
+    <rect x="18" y="225" width="48" height="6" fill="rgba(255,255,255,0.25)" rx="3"/>
+    <rect x="18" y="238" width="42" height="6" fill="rgba(255,255,255,0.25)" rx="3"/>
+    <rect x="18" y="251" width="45" height="6" fill="rgba(255,255,255,0.25)" rx="3"/>
     
-    <!-- Organic crystal-like shapes -->
-    <path d="M35 350 L40 345 L48 348 L45 355 L38 358 Z" fill="rgba(139,115,85,0.4)"/>
-    <path d="M37 352 L40 349 L45 350 L43 354 L39 355 Z" fill="rgba(255,255,255,0.1)"/>
+    <!-- Level indicators -->
+    <rect x="50" y="227" width="12" height="2" fill="#4a90a4" rx="1"/>
+    <rect x="50" y="240" width="10" height="2" fill="#4a90a4" rx="1"/>
+    <rect x="50" y="253" width="8" height="2" fill="#4a90a4" rx="1"/>
   </g>
   
   <!-- Main content area with improved layout -->
@@ -114,9 +93,8 @@
   <!-- Experience section -->
   <rect x="110" y="150" width="85" height="6" fill="#2d5016" rx="3"/>
   
-  <!-- Enhanced stone accent line under section title -->
-  <rect x="110" y="162" width="130" height="2" fill="url(#stoneAccent)" rx="1"/>
-  <rect x="110" y="163.5" width="100" height="0.5" fill="rgba(160,140,95,0.5)" rx="0.25"/>
+  <!-- Clean section separator -->
+  <rect x="110" y="162" width="130" height="1.5" fill="rgba(74,144,164,0.4)" rx="1"/>
   
   <!-- Job entries with Nordic spacing -->
   <rect x="110" y="175" width="95" height="5" fill="#2c2c2c" rx="2"/>
@@ -125,8 +103,8 @@
   <rect x="110" y="199" width="135" height="2.5" fill="#4a4a4a" rx="1.25"/>
   <rect x="110" y="205" width="130" height="2.5" fill="#4a4a4a" rx="1.25"/>
   
-  <!-- Second job with organic separation -->
-  <path d="M115 225 Q120 223 125 225 Q120 227 115 225" fill="#a68b5b" opacity="0.4"/>
+  <!-- Second job with clean separation -->
+  <circle cx="115" cy="225" r="1.5" fill="rgba(74,144,164,0.4)"/>
   <rect x="110" y="235" width="90" height="5" fill="#2c2c2c" rx="2"/>
   <rect x="110" y="245" width="70" height="3" fill="#6ba3b5" rx="1"/>
   <rect x="110" y="253" width="135" height="2.5" fill="#4a4a4a" rx="1.25"/>
@@ -140,14 +118,9 @@
   <rect x="110" y="310" width="100" height="5" fill="#2c2c2c" rx="2"/>
   <rect x="110" y="320" width="80" height="3" fill="#6ba3b5" rx="1"/>
   
-  <!-- Organic decorative elements -->
-  <ellipse cx="260" cy="150" rx="8" ry="12" fill="rgba(74,144,164,0.1)" transform="rotate(15 260 150)"/>
-  <ellipse cx="270" cy="280" rx="6" ry="10" fill="rgba(139,115,85,0.1)" transform="rotate(-20 270 280)"/>
+  <!-- Subtle decorative elements -->
+  <ellipse cx="260" cy="150" rx="8" ry="12" fill="rgba(74,144,164,0.08)" transform="rotate(15 260 150)"/>
   
   <!-- Nordic Professional branding -->
   <text x="150" y="385" text-anchor="middle" font-family="system-ui, -apple-system" font-size="11" fill="#2d5016" font-weight="600">Nordic Professional</text>
-  
-  <!-- Subtle sustainability icon -->
-  <circle cx="50" cy="375" r="8" fill="none" stroke="#3d6b1f" stroke-width="1.5" opacity="0.6"/>
-  <path d="M45 375 Q50 370 55 375 Q50 380 45 375" fill="#3d6b1f" opacity="0.4"/>
 </svg>
