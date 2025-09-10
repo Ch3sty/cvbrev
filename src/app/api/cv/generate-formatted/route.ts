@@ -275,7 +275,14 @@ function generateCreativeEdgeHTML(cvData: CVMetadata): string {
                 ${cvData.experience.length > 0 ? `
                 <div class="section experience-section">
                     <h2>Arbetslivserfarenhet</h2>
-                    ${cvData.experience.map(exp => `
+                    ${cvData.experience
+                        .sort((a, b) => {
+                            // Sortera i omvänd kronologisk ordning (nyast först)
+                            const dateA = a.endDate ? new Date(a.endDate) : new Date(); // Pågående jobb = nuvarande datum
+                            const dateB = b.endDate ? new Date(b.endDate) : new Date();
+                            return dateB.getTime() - dateA.getTime();
+                        })
+                        .map(exp => `
                         <div class="experience-item">
                             <div class="job-title">${exp.position}</div>
                             <div class="company">${exp.company} ${exp.startDate ? '• ' + exp.startDate : ''} ${exp.endDate ? '- ' + exp.endDate : exp.startDate ? '- Pågående' : ''}</div>
@@ -288,7 +295,14 @@ function generateCreativeEdgeHTML(cvData: CVMetadata): string {
                 ${cvData.education.length > 0 ? `
                 <div class="section education-section">
                     <h2>Utbildning</h2>
-                    ${cvData.education.map(edu => `
+                    ${cvData.education
+                        .sort((a, b) => {
+                            // Sortera i omvänd kronologisk ordning (nyast först)
+                            const yearA = a.graduationYear ? parseInt(a.graduationYear) : (a.endDate ? new Date(a.endDate).getFullYear() : (a.startDate ? new Date(a.startDate).getFullYear() : 0));
+                            const yearB = b.graduationYear ? parseInt(b.graduationYear) : (b.endDate ? new Date(b.endDate).getFullYear() : (b.startDate ? new Date(b.startDate).getFullYear() : 0));
+                            return yearB - yearA;
+                        })
+                        .map(edu => `
                         <div class="education-item">
                             <div class="degree">${edu.degree}</div>
                             <div class="institution">${edu.institution} ${edu.graduationYear ? '• ' + edu.graduationYear : (edu.startDate ? '• ' + edu.startDate : '')} ${edu.endDate ? '- ' + edu.endDate : ''}</div>

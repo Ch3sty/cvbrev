@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Kronologisk Sortering - Kreativ Profil</title>
+</head>
+<body>
+    <h1>Test av kronologisk sortering (nyast först)</h1>
+    <button onclick="testSortingFix()">Test Kreativ Profil - Korrekt sortering</button>
+    <div id="result"></div>
+    
+    <script>
+        async function testSortingFix() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Testar...';
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/cv/generate-formatted', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        template: 'creative-edge',
+                        cvText: `Christian Karlsson
+christian.karlsson@example.com
+070-123 45 67
+
+PROFESSIONELL SAMMANFATTNING
+Senior utvecklare med över 8 års erfarenhet inom fullstack-utveckling och teamledning.
+
+ARBETSLIVSERFARENHET
+
+Senior Utvecklare - Tech Innovations AB
+2022-01-01 - Pågående
+Leder utvecklingsteam och ansvarar för arkitektur av webbapplikationer.
+
+Frontend Utvecklare - Digital Solutions
+2020-03-15 - 2021-12-31  
+Utvecklade responsiva webbsidor och mobilapplikationer.
+
+Junior Utvecklare - StartUp Tech
+2018-06-01 - 2020-02-29
+Första utvecklarroll där jag lärde mig modern JavaScript och React.
+
+Praktikant - Web Agency
+2017-08-01 - 2018-05-30
+Praktikplats under studietiden med fokus på frontend-utveckling.
+
+UTBILDNING
+
+Civilingenjör Datateknik - KTH Kungliga Tekniska Högskolan
+2014-08-25 - 2018-06-15
+Fokus på mjukvaruutveckling och systemarkitektur. Examensarbete inom maskininlärning.
+
+Gymnasieexamen Teknik - Teknikgymnasiet Stockholm
+2011-08-20 - 2014-06-10
+Inriktning mot programmering och datorteknik.
+
+KOMPETENSER
+JavaScript, React, Node.js, Python, PostgreSQL, Docker, AWS, Git, TypeScript
+
+SPRÅKKUNSKAPER
+Svenska (modersmål), Engelska (flyt), Tyska (konversation)
+`
+                    })
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'test-sorting-fix.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                    
+                    resultDiv.innerHTML = '<p style="color: green;">✅ CV genererat! Kontrollera att:<br>1. <strong>Arbetslivserfarenhet</strong> sorteras: Senior Utvecklare (2022-Pågående) först, sedan Frontend (2020-2021), Junior (2018-2020), Praktikant (2017-2018)<br>2. <strong>Utbildning</strong> sorteras: KTH (2014-2018) först, sedan Gymnasium (2011-2014)</p>';
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = '<p style="color: red;">❌ Fel: ' + response.status + ' - ' + errorText + '</p>';
+                }
+            } catch (error) {
+                resultDiv.innerHTML = '<p style="color: red;">❌ Fel: ' + error.message + '</p>';
+            }
+        }
+    </script>
+</body>
+</html>
