@@ -29,50 +29,58 @@
   <!-- Simple, clean vertical accent line -->
   <rect x="85" y="0" width="2" height="400" fill="rgba(74,144,164,0.3)"/>
   
-  <!-- Modern contact section with elegant design -->
+  <!-- Elegant contact section without profile image -->
   <g id="contact-section">
-    <!-- Profile circle with gradient -->
-    <circle cx="42" cy="35" r="18" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-    <circle cx="42" cy="35" r="12" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1"/>
-    <circle cx="42" cy="35" r="6" fill="rgba(255,255,255,0.2)"/>
+    <!-- Contact header indicator -->
+    <rect x="18" y="25" width="48" height="8" fill="rgba(255,255,255,0.3)" rx="4"/>
+    <rect x="20" y="27" width="44" height="4" fill="rgba(255,255,255,0.15)" rx="2"/>
     
-    <!-- Elegant contact info bars -->
-    <rect x="18" y="65" width="48" height="2.5" fill="rgba(255,255,255,0.85)" rx="1.25"/>
-    <rect x="18" y="73" width="42" height="2.5" fill="rgba(255,255,255,0.75)" rx="1.25"/>
-    <rect x="18" y="81" width="45" height="2.5" fill="rgba(255,255,255,0.75)" rx="1.25"/>
-    <rect x="18" y="89" width="38" height="2.5" fill="rgba(255,255,255,0.7)" rx="1.25"/>
+    <!-- Contact info lines with sophisticated spacing -->
+    <rect x="18" y="45" width="52" height="3" fill="rgba(255,255,255,0.9)" rx="1.5"/>
+    <rect x="18" y="52" width="46" height="3" fill="rgba(255,255,255,0.85)" rx="1.5"/>
+    <rect x="18" y="59" width="49" height="3" fill="rgba(255,255,255,0.85)" rx="1.5"/>
+    <rect x="18" y="66" width="42" height="3" fill="rgba(255,255,255,0.8)" rx="1.5"/>
+    
+    <!-- Elegant Nordic design accent -->
+    <rect x="22" y="75" width="40" height="1" fill="url(#arcticBlue)" rx="0.5"/>
   </g>
   
   <!-- Premium skills section with sophisticated design -->
   <g id="skills-section">
     <!-- Section header -->
-    <rect x="18" y="120" width="48" height="8" fill="#8b7355" rx="4"/>
-    <rect x="20" y="122" width="44" height="4" fill="rgba(255,255,255,0.2)" rx="2"/>
+    <rect x="18" y="95" width="48" height="8" fill="rgba(255,255,255,0.3)" rx="4"/>
+    <rect x="20" y="97" width="44" height="4" fill="rgba(255,255,255,0.15)" rx="2"/>
     
-    <!-- Elegant skill pills -->
-    <rect x="18" y="140" width="42" height="7" fill="rgba(160,140,95,0.9)" rx="3.5"/>
-    <rect x="18" y="152" width="38" height="7" fill="rgba(160,140,95,0.8)" rx="3.5"/>
-    <rect x="18" y="164" width="45" height="7" fill="rgba(160,140,95,0.8)" rx="3.5"/>
-    <rect x="18" y="176" width="35" height="7" fill="rgba(160,140,95,0.7)" rx="3.5"/>
-    <rect x="18" y="188" width="41" height="7" fill="rgba(160,140,95,0.7)" rx="3.5"/>
+    <!-- Elegant skill indicators with Nordic blue accent -->
+    <rect x="18" y="115" width="46" height="5" fill="rgba(74,144,164,0.8)" rx="2.5"/>
+    <rect x="18" y="125" width="42" height="5" fill="rgba(74,144,164,0.75)" rx="2.5"/>
+    <rect x="18" y="135" width="49" height="5" fill="rgba(74,144,164,0.75)" rx="2.5"/>
+    <rect x="18" y="145" width="38" height="5" fill="rgba(74,144,164,0.7)" rx="2.5"/>
+    <rect x="18" y="155" width="44" height="5" fill="rgba(74,144,164,0.7)" rx="2.5"/>
     
-    <!-- Subtle highlights on skills -->
-    <rect x="20" y="142" width="38" height="3" fill="rgba(255,255,255,0.15)" rx="1.5"/>
-    <rect x="20" y="154" width="34" height="3" fill="rgba(255,255,255,0.15)" rx="1.5"/>
-    <rect x="20" y="166" width="41" height="3" fill="rgba(255,255,255,0.15)" rx="1.5"/>
+    <!-- Subtle white highlights for premium feel -->
+    <rect x="20" y="116" width="42" height="2" fill="rgba(255,255,255,0.25)" rx="1"/>
+    <rect x="20" y="126" width="38" height="2" fill="rgba(255,255,255,0.25)" rx="1"/>
+    <rect x="20" y="136" width="45" height="2" fill="rgba(255,255,255,0.25)" rx="1"/>
+    <rect x="20" y="146" width="34" height="2" fill="rgba(255,255,255,0.25)" rx="1"/>
+    <rect x="20" y="156" width="40" height="2" fill="rgba(255,255,255,0.25)" rx="1"/>
   </g>
   
   <!-- Clean language section -->
   <g id="language-section">
-    <!-- Simple language indicators -->
-    <rect x="18" y="225" width="48" height="6" fill="rgba(255,255,255,0.25)" rx="3"/>
-    <rect x="18" y="238" width="42" height="6" fill="rgba(255,255,255,0.25)" rx="3"/>
-    <rect x="18" y="251" width="45" height="6" fill="rgba(255,255,255,0.25)" rx="3"/>
+    <!-- Language section header -->
+    <rect x="18" y="180" width="48" height="8" fill="rgba(255,255,255,0.3)" rx="4"/>
+    <rect x="20" y="182" width="44" height="4" fill="rgba(255,255,255,0.15)" rx="2"/>
     
-    <!-- Level indicators -->
-    <rect x="50" y="227" width="12" height="2" fill="#4a90a4" rx="1"/>
-    <rect x="50" y="240" width="10" height="2" fill="#4a90a4" rx="1"/>
-    <rect x="50" y="253" width="8" height="2" fill="#4a90a4" rx="1"/>
+    <!-- Language indicators with modern Nordic style -->
+    <rect x="18" y="200" width="48" height="4" fill="rgba(255,255,255,0.3)" rx="2"/>
+    <rect x="18" y="209" width="42" height="4" fill="rgba(255,255,255,0.3)" rx="2"/>
+    <rect x="18" y="218" width="45" height="4" fill="rgba(255,255,255,0.3)" rx="2"/>
+    
+    <!-- Proficiency level bars -->
+    <rect x="50" y="201" width="14" height="2" fill="#4a90a4" rx="1"/>
+    <rect x="50" y="210" width="11" height="2" fill="#4a90a4" rx="1"/>
+    <rect x="50" y="219" width="9" height="2" fill="#4a90a4" rx="1"/>
   </g>
   
   <!-- Main content area with improved layout -->
