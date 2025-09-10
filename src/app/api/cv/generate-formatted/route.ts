@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getTemplateById } from '@/lib/cv/simple-templates';
 import type { CVTemplateType, CVMetadata, CVGenerationOptions } from '@/lib/cv/cv-metadata';
+import { shouldShowSection } from '@/lib/cv/cv-metadata';
 import { validateCVData } from '@/lib/openai/cv-parser-ai';
 import { parseSwedishCVContent } from '@/lib/cv/swedish-cv-content-parser';
 import { generateSwedishCVPDF, SwedishCVPDFOptions } from '@/lib/cv/swedish-cv-pdf-generator';
@@ -213,6 +214,47 @@ function generateCreativeEdgeHTML(cvData: CVMetadata): string {
                 border: 1px solid #e9d5ff;
             }
             
+            /* Languages med elegant design */
+            .languages-section .languages-container {
+                margin-left: 20px;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 10px;
+                margin-top: 15px;
+            }
+            
+            .language-item {
+                background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+                border: 1px solid #e2e8f0;
+                padding: 12px 16px;
+                border-radius: 8px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                transition: all 0.2s ease;
+            }
+            
+            .language-item:hover {
+                border-color: #8b5cf6;
+                box-shadow: 0 2px 8px rgba(139, 92, 246, 0.1);
+            }
+            
+            .language-name {
+                font-weight: 600;
+                color: #1e293b;
+                font-size: 14px;
+            }
+            
+            .language-level {
+                background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+                color: white;
+                padding: 4px 10px;
+                border-radius: 12px;
+                font-size: 12px;
+                font-weight: 500;
+                text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            }
+            
             /* References */
             .references-section {
                 margin-top: 40px;
@@ -318,6 +360,20 @@ function generateCreativeEdgeHTML(cvData: CVMetadata): string {
                         ${cvData.skills.flatMap(skillGroup => 
                             skillGroup.skills.map(skill => `<span class="skill-tag">${skill}</span>`)
                         ).join('')}
+                    </div>
+                </div>
+                ` : ''}
+                
+                ${shouldShowSection('languages', cvData) ? `
+                <div class="section languages-section">
+                    <h2>Språkkunskaper</h2>
+                    <div class="languages-container">
+                        ${cvData.languages?.map(lang => `
+                            <div class="language-item">
+                                <span class="language-name">${lang.language}</span>
+                                <span class="language-level">${lang.proficiency}</span>
+                            </div>
+                        `).join('')}
                     </div>
                 </div>
                 ` : ''}

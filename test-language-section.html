@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Språksektion - Kreativ Profil</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 8px; }
+        .test-title { font-weight: bold; color: #7c3aed; margin-bottom: 10px; }
+        button { padding: 10px 15px; margin: 5px; background: #8b5cf6; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #7c3aed; }
+        #result { margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 5px; }
+        .success { color: green; } .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Test av Språksektion i Kreativ Profil</h1>
+    
+    <div class="test-section">
+        <div class="test-title">Scenario 1: Med språkinformation</div>
+        <button onclick="testWithLanguages()">Test CV med språk (Svenska, Engelska, Tyska)</button>
+    </div>
+    
+    <div class="test-section">
+        <div class="test-title">Scenario 2: Utan språkinformation</div>
+        <button onclick="testWithoutLanguages()">Test CV utan språk (ska ej visa sektion)</button>
+    </div>
+    
+    <div class="test-section">
+        <div class="test-title">Scenario 3: Många språk</div>
+        <button onclick="testManyLanguages()">Test CV med många språk</button>
+    </div>
+    
+    <div id="result"></div>
+    
+    <script>
+        async function testWithLanguages() {
+            await runTest('Med språk', `Anna Andersson
+anna.andersson@example.com
+070-123 45 67
+
+PROFESSIONELL SAMMANFATTNING
+Erfaren projektledare med stark bakgrund inom internationell verksamhet.
+
+ARBETSLIVSERFARENHET
+
+Projektledare - Global Tech AB
+2021-01-01 - Pågående
+Leder internationella utvecklingsprojekt med team i flera länder.
+
+UTBILDNING
+
+Civilingenjör - KTH
+2017-01-01 - 2021-06-15
+Masterexamen inom industriell ekonomi.
+
+SPRÅKKUNSKAPER
+Svenska (modersmål), Engelska (flyt), Tyska (konversation)
+
+KOMPETENSER
+Projektledning, Teamledning, Agile, Scrum`);
+        }
+        
+        async function testWithoutLanguages() {
+            await runTest('Utan språk', `John Smith
+john@example.com
+070-555 12 34
+
+PROFESSIONELL SAMMANFATTNING
+Utvecklare med fokus på backend-system.
+
+ARBETSLIVSERFARENHET
+
+Backend Utvecklare - TechCorp
+2020-01-01 - Pågående
+Utvecklar och underhåller API:er och databaser.
+
+UTBILDNING
+
+Kandidatexamen Datavetenskap - Stockholms Universitet
+2016-01-01 - 2020-06-15
+
+KOMPETENSER
+Python, Java, PostgreSQL, Docker`);
+        }
+        
+        async function testManyLanguages() {
+            await runTest('Många språk', `Maria Rodriguez
+maria@example.com
+070-999 88 77
+
+PROFESSIONELL SAMMANFATTNING
+Flerspråkig översättare och projektkoordinator.
+
+ARBETSLIVSERFARENHET
+
+Språkkoordinator - International Corp
+2019-01-01 - Pågående
+Koordinerar flerspråkiga projekt och översättningar.
+
+UTBILDNING
+
+Masterexamen Språkvetenskap - Uppsala Universitet
+2015-01-01 - 2019-06-15
+
+SPRÅKKUNSKAPER
+Svenska (modersmål), Engelska (flyt), Spanska (flyt), Franska (konversation), Tyska (grundläggande), Italienska (grundläggande)
+
+KOMPETENSER
+Översättning, Projektledning, Kulturell kommunikation`);
+        }
+        
+        async function runTest(scenarioName, cvText) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `<p>Testar ${scenarioName}...</p>`;
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/cv/generate-formatted', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        template: 'creative-edge',
+                        cvText: cvText
+                    })
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `test-language-${scenarioName.toLowerCase().replace(' ', '-')}.pdf`;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                    
+                    resultDiv.innerHTML = \`<div class="success">✅ <strong>\${scenarioName}</strong> CV genererat framgångsrikt!<br>
+                    <strong>Kontrollera:</strong><br>
+                    • Språksektion visas/döljs korrekt<br>
+                    • Design matchar mallens stil<br>
+                    • Språk och nivåer visas tydligt</div>\`;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = \`<div class="error">❌ Fel för \${scenarioName}: \${response.status} - \${errorText}</div>\`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = \`<div class="error">❌ Fel för \${scenarioName}: \${error.message}</div>\`;
+            }
+        }
+    </script>
+</body>
+</html>

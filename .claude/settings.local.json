@@ -77,7 +77,8 @@
       "Bash(git reset:*)",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-creative-fix.html\")",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-header-fix.html\")",
-      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-sorting-fix.html\")"
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-sorting-fix.html\")",
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-language-section.html\")"
     ],
     "deny": [],
     "ask": []
