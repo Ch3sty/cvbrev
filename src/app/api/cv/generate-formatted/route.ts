@@ -533,8 +533,6 @@ function generateCleanCorporateHTML(cvData: CVMetadata): string {
                 position: relative;
                 min-height: fit-content;
                 align-self: flex-start;
-                border-bottom-left-radius: 8px;
-                border-bottom-right-radius: 8px;
             }
             
             .sidebar::after {
@@ -555,8 +553,6 @@ function generateCleanCorporateHTML(cvData: CVMetadata): string {
                 right: 0;
                 height: 20px;
                 background: linear-gradient(to bottom, #1e293b 0%, rgba(30, 41, 59, 0.8) 100%);
-                border-bottom-left-radius: 8px;
-                border-bottom-right-radius: 8px;
             }
             
             .sidebar h3 {
@@ -763,7 +759,7 @@ function generateCleanCorporateHTML(cvData: CVMetadata): string {
                 ${cvData.skills.length > 0 ? `
                 <h3>Kompetenser</h3>
                 ${cvData.skills.flatMap(skillGroup => 
-                    skillGroup.skills.map(skill => `<div class="skill-item">${skill}</div>`)
+                    skillGroup.skills.filter(skill => !cvData.languages?.some(lang => skill.toLowerCase().includes(lang.language.toLowerCase()))).map(skill => `<div class="skill-item">${skill}</div>`)
                 ).join('')}
                 ` : ''}
                 
@@ -783,7 +779,6 @@ function generateCleanCorporateHTML(cvData: CVMetadata): string {
                 <!-- Header -->
                 <div class="header">
                     <h1>${cvData.personalInfo.fullName}</h1>
-                    ${cvData.personalInfo.title ? `<div class="title">${cvData.personalInfo.title}</div>` : ''}
                     ${cvData.summary ? `<div class="summary">${cvData.summary}</div>` : ''}
                 </div>
                 

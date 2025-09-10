@@ -83,7 +83,8 @@
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-sidebar-fix.html\")",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-address-formatting.html\")",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-creative-address.html\")",
-      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-sidebar-improvements.html\")"
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-sidebar-improvements.html\")",
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-clean-corporate-fixes.html\")"
     ],
     "deny": [],
     "ask": []
