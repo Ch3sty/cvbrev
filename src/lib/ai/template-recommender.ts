@@ -373,16 +373,12 @@ function generateRecommendationReasoning(
     reasoning += `med sin strukturerade design som fungerar optimalt med svenska ATS-system. `;
   } else if (templateId === 'executive-premium') {
     reasoning += `med sin sofistikerade design som förmedlar seriositet och djupgående expertis. `;
-  } else if (templateId === 'creative-edge') {
-    reasoning += `med sin kreativa profil och subtila design-touch som skapar en personlig men professionell profil. `;
   } else if (templateId === 'modern-minimal') {
     reasoning += `med sin rena, moderna design som förmedlar professionalitet och elegans. `;
   } else if (templateId === 'classic-professional') {
     reasoning += `med sin traditionella svenska CV-stil som fungerar utmärkt för etablerade branscher. `;
-  } else if (templateId === 'clean-corporate') {
-    reasoning += `med sin företagsorienterade design som passar perfekt för affärsroller. `;
-  } else if (templateId === 'executive-premium') {
-    reasoning += `med sin exklusiva design som signalerar ledarskap och hög professionalitet. `;
+  } else if (templateId === 'nordic-professional') {
+    reasoning += `med sin skandinaviska elegans och naturinspirerade design som förmedlar nordisk professionalitet. `;
   }
   
   // Erfarenhetsnivå-motivering
