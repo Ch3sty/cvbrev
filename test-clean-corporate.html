@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Clean Corporate CV-mall</title>
+    <style>
+        body { font-family: 'Segoe UI', system-ui, sans-serif; margin: 20px; background: #f8fafc; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        h1 { color: #1e293b; text-align: center; margin-bottom: 30px; font-size: 32px; }
+        .test-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; margin: 30px 0; }
+        .test-card { background: white; border: 2px solid #e2e8f0; border-radius: 12px; padding: 20px; transition: all 0.3s ease; }
+        .test-card:hover { border-color: #f59e0b; box-shadow: 0 8px 25px rgba(245, 158, 11, 0.15); transform: translateY(-2px); }
+        .test-title { font-weight: 700; color: #f59e0b; margin-bottom: 15px; font-size: 18px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .test-desc { color: #64748b; margin-bottom: 20px; line-height: 1.6; }
+        button { 
+            width: 100%; padding: 12px 20px; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); 
+            color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; 
+            font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s ease;
+        }
+        button:hover { background: linear-gradient(135deg, #334155 0%, #475569 100%); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(30, 41, 59, 0.3); }
+        #result { margin-top: 30px; padding: 20px; background: #f1f5f9; border-radius: 12px; border-left: 4px solid #f59e0b; }
+        .success { color: #059669; font-weight: 600; } 
+        .error { color: #dc2626; font-weight: 600; }
+        .feature-list { background: #f8fafc; padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #f59e0b; }
+        .feature-list h3 { color: #1e293b; margin: 0 0 10px 0; font-size: 16px; }
+        .feature-list ul { color: #64748b; margin: 0; padding-left: 20px; }
+        .feature-list li { margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏢 Clean Corporate CV-mall Testning</h1>
+        
+        <div class="feature-list">
+            <h3>Design-funktioner som testas:</h3>
+            <ul>
+                <li><strong>Sidebar-layout:</strong> Mörk vänsterkolumn med kontakt, skills och språk</li>
+                <li><strong>Amber accent:</strong> Premium gul/orange färg (#f59e0b) för rubriker och accenter</li>
+                <li><strong>Corporate färgschema:</strong> Slate (#1e293b) huvudfärg, vit bakgrund</li>
+                <li><strong>Typografi:</strong> Modern hierarki med varierande grå-nyanser</li>
+                <li><strong>Kronologisk sortering:</strong> Nyaste erfarenhet och utbildning först</li>
+                <li><strong>Smart sektioner:</strong> Språk visas bara om data finns</li>
+            </ul>
+        </div>
+        
+        <div class="test-grid">
+            <div class="test-card">
+                <div class="test-title">🎯 Företagsledare</div>
+                <div class="test-desc">
+                    Testar mallen med executive-profil: lång erfarenhet, MBA, flerspråkig, 
+                    ledarskapserfarenhet. Perfekt för att visa hur mallen hanterar seniora roller.
+                </div>
+                <button onclick="testExecutiveProfile()">Test Executive Profile</button>
+            </div>
+            
+            <div class="test-card">
+                <div class="test-title">💼 Konsult</div>
+                <div class="test-desc">
+                    Testar med consulting-bakgrund: strategiska projekt, klientarbete, 
+                    MBA-utbildning. Visar mallens professionella känsla för rådgivningsroller.
+                </div>
+                <button onclick="testConsultantProfile()">Test Consultant Profile</button>
+            </div>
+            
+            <div class="test-card">
+                <div class="test-title">📊 Finance Professional</div>
+                <div class="test-desc">
+                    Testar finansprofil: CFA, ekonomiutbildning, analytisk erfarenhet. 
+                    Kontrollerar hur mallen presenterar finanskompetenser.
+                </div>
+                <button onclick="testFinanceProfile()">Test Finance Profile</button>
+            </div>
+            
+            <div class="test-card">
+                <div class="test-title">🌐 Utan språk</div>
+                <div class="test-desc">
+                    Testar profil utan språkinformation för att verifiera att språksektionen 
+                    döljs automatiskt och layouten förblir snygg.
+                </div>
+                <button onclick="testNoLanguageProfile()">Test No Language Data</button>
+            </div>
+            
+            <div class="test-card">
+                <div class="test-title">🚀 Minimal Data</div>
+                <div class="test-desc">
+                    Testar med minimal information: grundläggande kontakt, en anställning, 
+                    en utbildning. Kontrollerar hur mallen hanterar mindre datavolymer.
+                </div>
+                <button onclick="testMinimalProfile()">Test Minimal Data</button>
+            </div>
+            
+            <div class="test-card">
+                <div class="test-title">📈 Projektledare</div>
+                <div class="test-desc">
+                    Testar projektledarprofil: certifieringar, agila metoder, teamledning. 
+                    Visar hur mallen presenterar projektledningskompetenser.
+                </div>
+                <button onclick="testProjectManagerProfile()">Test Project Manager</button>
+            </div>
+        </div>
+        
+        <div id="result"></div>
+    </div>
+    
+    <script>
+        async function testExecutiveProfile() {
+            await runTest('Executive Profile', `Christina Andersson
+christina.andersson@globalcorp.se
++46 70 123 45 67
+Stockholm, Sverige
+
+PROFESSIONELL SAMMANFATTNING
+Erfaren företagsledare med 15+ års erfarenhet inom strategisk utveckling, M&A och internationell expansion. Dokumenterad framgång inom att leda stora organisationsförändringar och leverera tillväxt i konkurrensutsatta marknader.
+
+ARBETSLIVSERFARENHET
+
+VD - TechFlow International AB
+2020-01-01 - Pågående  
+Leder teknologiföretag med 200+ anställda och omsättning 450 MSEK. Genomförde framgångsrik expansion till Norge och Danmark, ökade omsättningen med 85% under perioden.
+
+Operativ Chef - Digital Solutions Nordic
+2016-03-15 - 2019-12-31
+Ansvarade för operativa verksamheten inom Skandinavien. Ledde integrationsprojekt efter förvärv av tre konkurrenter, realiserade synergier om 25 MSEK årligen.
+
+Senior Konsult - McKinsey & Company
+2012-08-01 - 2016-02-28
+Strategisk rådgivning till Fortune 500-företag inom telekom och fintech. Specialiserade mig på digital transformation och organisationsdesign.
+
+Business Analyst - Boston Consulting Group
+2010-06-15 - 2012-07-31
+Första konsultroll efter MBA. Arbetade med retailklienter på strategiska initiativ och marknadsanalys.
+
+UTBILDNING
+
+Master of Business Administration - INSEAD
+2008-09-01 - 2010-06-01
+Specializering inom strategi och finans. Studerade i Fontainebleau och Singapore campus.
+
+Civilingenjör Industriell Ekonomi - KTH
+2003-08-25 - 2008-06-15
+Masterexamen med fokus på operations management och finansiell analys.
+
+SPRÅKKUNSKAPER
+Svenska (modersmål), Engelska (flyt), Tyska (flyt), Franska (konversation), Mandarin (grundläggande)
+
+KOMPETENSER
+Strategisk planering, M&A, Organisationsutveckling, P&L-ansvar, Internationell expansion, Digital transformation, Agile transformation, Styrelsearbete`);
+        }
+        
+        async function testConsultantProfile() {
+            await runTest('Consultant Profile', `Marcus Lindqvist
+marcus.lindqvist@strategy-partners.com  
+070-987 65 43
+
+PROFESSIONELL SAMMANFATTNING
+Senior managementkonsult med specialisering inom verksamhetsoptimering och digitala transformationer. 8 års erfarenhet från ledande konsultbolag med fokus på tillverkningsindustrin.
+
+ARBETSLIVSERFARENHET
+
+Senior Manager - Deloitte Consulting
+2019-01-15 - Pågående
+Leder transformationsprojekt för industriella klienter. Genomfört 15+ projekt inom supply chain optimization och Industry 4.0 implementationer.
+
+Manager - Accenture Strategy  
+2016-09-01 - 2018-12-31
+Ansvarig för strategiska initiativ inom automotive och aerospace. Utvecklade go-to-market strategier för nya teknologier.
+
+Senior Consultant - PwC Advisory
+2014-06-01 - 2016-08-31
+Specialiserat på operational excellence och lean manufacturing. Realiserade kostnadsbesparingar om 50+ MSEK för klienter.
+
+UTBILDNING
+
+Master of Science in Management - Stockholm School of Economics
+2012-08-20 - 2014-05-30
+Inriktning strategi och innovation. Thesis om digital disruption inom manufacturing.
+
+SPRÅKKUNSKAPER  
+Svenska (modersmål), Engelska (flyt), Tyska (konversation)
+
+KOMPETENSER
+Strategy development, Process optimization, Change management, Lean Six Sigma, Digital transformation, Client relationship management, Workshop facilitation`);
+        }
+        
+        async function testFinanceProfile() {
+            await runTest('Finance Profile', `Anna Bergström
+anna.bergstrom@nordea.se
++46 8 123 456 78
+
+PROFESSIONELL SAMMANFATTNING
+CFA-charterholder med djup expertis inom equity research och portföljförvaltning. 10 års erfarenhet från investment banking och asset management med fokus på nordiska marknader.
+
+ARBETSLIVSERFARENHET
+
+Senior Portfolio Manager - Nordea Asset Management  
+2020-03-01 - Pågående
+Förvaltar nordisk aktiefond med AUM 12 miljarder SEK. Överträffat benchmark med 2.1% årligen under perioden.
+
+Equity Research Analyst - SEB Investment Banking
+2017-01-15 - 2020-02-28  
+Täckte industriella bolag inom Nordics. Publicerade 40+ research rapporter, rankad som #1 analyst inom machinery sector av Institutional Investor.
+
+Investment Analyst - Carnegie Investment Bank
+2014-08-01 - 2016-12-31
+Junior analyst inom equity research. Stöttade seniora analytiker med finansiell modellering och sektoranalys.
+
+UTBILDNING
+
+Master of Science in Finance - Handelshögskolan i Stockholm
+2012-08-15 - 2014-06-30
+Masterexamen med inriktning mot capital markets och corporate finance. Magna Cum Laude.
+
+CERTIFIERINGAR
+CFA Charter - CFA Institute (2018)
+FRM Certificate - GARP (2019)
+
+SPRÅKKUNSKAPER
+Svenska (modersmål), Engelska (flyt), Norska (flyt)
+
+KOMPETENSER  
+Equity research, Financial modeling, Valuation, Portfolio management, Risk management, Bloomberg Terminal, FactSet, Capital IQ, Quantitative analysis`);
+        }
+        
+        async function testNoLanguageProfile() {
+            await runTest('No Language Profile', `Johan Svensson
+johan.svensson@company.com
+073-555 12 34
+
+PROFESSIONELL SAMMANFATTNING
+Produktledare med passion för användarupplevelse och agil utveckling.
+
+ARBETSLIVSERFARENHET
+
+Produktchef - TechStart AB
+2021-01-01 - Pågående
+Leder produktutveckling för SaaS-plattform med 10000+ användare.
+
+UTBILDNING
+
+Kandidatexamen Systemvetenskap - Linnéuniversitetet  
+2017-08-25 - 2020-06-15
+
+KOMPETENSER
+Produktstrategi, Agile, Scrum, User research, A/B testing, SQL`);
+        }
+        
+        async function testMinimalProfile() {
+            await runTest('Minimal Profile', `Lisa Chen
+lisa@email.com
+
+ARBETSLIVSERFARENHET
+
+Säljare - Retail Store
+2022-01-01 - Pågående
+Kundservice och försäljning.
+
+UTBILDNING
+
+Gymnasieexamen - Ekonomiprogrammet
+2018-06-15`);
+        }
+        
+        async function testProjectManagerProfile() {
+            await runTest('Project Manager Profile', `Peter Johansson
+peter.johansson@projectcorp.se
+070-111 22 33
+Göteborg
+
+PROFESSIONELL SAMMANFATTNING  
+Certifierad projektledare med 12 års erfarenhet inom IT och infrastruktur. Specialist på stora transformationsprojekt och agila arbetsmetoder.
+
+ARBETSLIVSERFARENHET
+
+Senior Projektledare - Volvo IT
+2018-01-01 - Pågående
+Leder digitala transformationsprojekt för globala team. Budget-ansvar 50+ MSEK, team-storlek 25-40 personer.
+
+Projektledare - Ericsson  
+2015-03-01 - 2017-12-31
+Ansvarig för 5G-infrastrukturprojekt. Levererade 15 projekt i tid och budget.
+
+Scrum Master - Spotify
+2012-06-01 - 2015-02-28  
+Faciliterade agila team och coachat organisation i agila arbetssätt.
+
+UTBILDNING
+
+Civilingenjör Datateknik - Chalmers
+2008-08-20 - 2012-06-01
+
+CERTIFIERINGAR
+PMP - Project Management Institute  
+PSM I - Scrum.org
+SAFe Agilist - Scaled Agile
+
+SPRÅKKUNSKAPER
+Svenska (modersmål), Engelska (flyt)
+
+KOMPETENSER
+Projektledning, Agile coaching, Risk management, Stakeholder management, Budget planning, Microsoft Project, Jira, Confluence, SAFe`);
+        }
+        
+        async function runTest(profileName, cvText) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = \`<p>🔄 Testar <strong>\${profileName}</strong>...</p>\`;
+            
+            try {
+                const response = await fetch('http://localhost:3000/api/cv/generate-formatted', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        template: 'clean-corporate',
+                        cvText: cvText
+                    })
+                });
+                
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = \`clean-corporate-\${profileName.toLowerCase().replace(/\\s+/g, '-')}.pdf\`;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                    
+                    resultDiv.innerHTML = \`
+                        <div class="success">
+                            ✅ <strong>\${profileName}</strong> CV genererat framgångsrikt!
+                            <br><br><strong>Kontrollera följande i PDF:en:</strong>
+                            <ul style="margin: 10px 0; padding-left: 25px; color: #374151;">
+                                <li>Vänster sidebar med mörk bakgrund (#1e293b)</li>
+                                <li>Amber accenter (#f59e0b) på rubriker och separatorer</li>
+                                <li>Kontakt, kompetenser och språk i sidebar</li>
+                                <li>Professionell huvudsektion med namn och summary</li>
+                                <li>Kronologisk sortering (nyast först)</li>
+                                <li>Premium typografi och spacing</li>
+                            </ul>
+                        </div>
+                    \`;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = \`<div class="error">❌ Fel för <strong>\${profileName}</strong>: \${response.status}<br>\${errorText}</div>\`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = \`<div class="error">❌ Fel för <strong>\${profileName}</strong>: \${error.message}</div>\`;
+            }
+        }
+    </script>
+</body>
+</html>
