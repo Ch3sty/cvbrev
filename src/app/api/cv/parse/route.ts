@@ -99,7 +99,7 @@ Analysera CV:t och returnera ALLTID data i exakt detta JSON-format:
     "github": "GitHub URL om den finns",
     "title": "Professionell titel/roll (t.ex. 'Senior Utvecklare', 'Projektledare')"
   },
-  "summary": "En kort sammanfattning av personens professionella profil baserat på CV:t (2-3 meningar)",
+  "summary": "En kort professionell sammanfattning skriven i FÖRSTA PERSON (jag/min/mitt) baserat på CV:t (2-3 meningar). Undvik tredje person som 'Christian är...' - skriv istället 'Jag är...' eller liknande",
   "experience": [
     {
       "position": "Jobbtitel/position",

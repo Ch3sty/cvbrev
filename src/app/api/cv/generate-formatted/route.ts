@@ -744,6 +744,22 @@ function generateCleanCorporateHTML(cvData: CVMetadata): string {
                 font-size: 13px;
                 font-weight: 500;
             }
+            
+            /* Referenser sektion */
+            .references-section {
+                margin-top: 40px;
+                padding-top: 25px;
+                border-top: 1px solid #e2e8f0;
+            }
+            
+            .references-text p {
+                text-align: center;
+                color: #64748b;
+                font-size: 13px;
+                font-style: italic;
+                margin: 0;
+                letter-spacing: 0.5px;
+            }
         </style>
     </head>
     <body>
@@ -820,6 +836,13 @@ function generateCleanCorporateHTML(cvData: CVMetadata): string {
                     `).join('')}
                 </div>
                 ` : ''}
+                
+                <!-- Referenser -->
+                <div class="section references-section">
+                    <div class="references-text">
+                        <p>Referenser lämnas på begäran</p>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
