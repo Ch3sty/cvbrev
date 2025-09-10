@@ -27,5 +27,5 @@
   <line x1="30" y1="160" x2="270" y2="160" stroke="#e2e8f0" stroke-width="1"/>
   <line x1="30" y1="210" x2="270" y2="210" stroke="#e2e8f0" stroke-width="1"/>
   
-  <text x="150" y="390" text-anchor="middle" font-family="system-ui" font-size="12" fill="#94a3b8">Modern Minimal</text>
+  <!-- Clean template without branding text -->
 </svg>

@@ -49,5 +49,5 @@
   <rect x="140" y="340" width="40" height="12" fill="#dbeafe" rx="6"/>
   <rect x="190" y="340" width="50" height="12" fill="#dbeafe" rx="6"/>
   
-  <text x="150" y="390" text-anchor="middle" font-family="system-ui" font-size="12" fill="#64748b">Classic Professional</text>
+  <!-- Clean template without branding text -->
 </svg>

@@ -21,5 +21,5 @@
   <rect x="170" y="190" width="90" height="4" fill="#64748b" rx="2"/>
   <rect x="170" y="200" width="85" height="4" fill="#64748b" rx="2"/>
   
-  <text x="150" y="395" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#16a34a">ATS-Optimerad</text>
+  <!-- Clean template without branding text -->
 </svg>

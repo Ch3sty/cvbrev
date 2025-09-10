@@ -62,5 +62,5 @@
   <!-- Premium accent line -->
   <line x1="90" y1="0" x2="90" y2="400" stroke="#f59e0b" stroke-width="3"/>
   
-  <text x="150" y="390" text-anchor="middle" font-family="system-ui" font-size="12" fill="#64748b">Clean Corporate</text>
+  <!-- Clean template without branding text -->
 </svg>

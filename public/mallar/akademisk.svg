@@ -26,5 +26,5 @@
   <rect x="30" y="340" width="140" height="4" fill="#64748b" rx="2"/>
   <rect x="30" y="350" width="150" height="4" fill="#64748b" rx="2"/>
   
-  <text x="150" y="395" text-anchor="middle" font-family="Times, serif" font-size="10" fill="#64748b">Akademisk</text>
+  <!-- Clean template without branding text -->
 </svg>

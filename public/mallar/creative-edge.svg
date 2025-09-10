@@ -63,5 +63,5 @@
   <circle cx="250" cy="150" r="20" fill="#fce7f3" opacity="0.5"/>
   <circle cx="270" cy="200" r="15" fill="#ede9fe" opacity="0.7"/>
   
-  <text x="150" y="390" text-anchor="middle" font-family="system-ui" font-size="12" fill="#7c3aed">Creative Edge</text>
+  <!-- Clean template without branding text -->
 </svg>

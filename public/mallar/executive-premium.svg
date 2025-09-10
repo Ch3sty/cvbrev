@@ -71,5 +71,5 @@
   <rect x="20" y="185" width="3" height="50" fill="url(#goldAccent)" rx="1"/>
   <rect x="20" y="310" width="3" height="30" fill="url(#goldAccent)" rx="1"/>
   
-  <text x="150" y="390" text-anchor="middle" font-family="serif" font-size="12" fill="#1e293b" font-weight="bold">Executive Premium</text>
+  <!-- Clean template without branding text -->
 </svg>
