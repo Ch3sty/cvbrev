@@ -354,7 +354,8 @@ function generateRecommendationReasoning(
     'modern-minimal': 'Modern Minimal-mallen',
     'classic-professional': 'Klassisk Professionell-mallen',
     'clean-corporate': 'Ren Företagsstil-mallen',
-    'executive-premium': 'Executive Premium-mallen'
+    'executive-premium': 'Executive Premium-mallen',
+    'nordic-professional': 'Nordic Professional-mallen'
   };
   
   const templateName = templateNames[templateId];
