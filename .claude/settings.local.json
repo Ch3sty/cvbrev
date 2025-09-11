@@ -101,7 +101,8 @@
       "Bash(del nul)",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-platinum-executive.html\")",
       "Bash(del \"C:\\Users\\chris\\cvbrev\\test-platinum-executive.html\")",
-      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-platinum-fixes.html\")"
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-platinum-fixes.html\")",
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-platinum-final.html\")"
     ],
     "deny": [],
     "ask": []

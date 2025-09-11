@@ -49,7 +49,7 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
             /* Executive Header Section */
             .executive-header {
                 background: linear-gradient(135deg, #1a365d 0%, #2d5a87 50%, #1e3a5f 100%);
-                height: ${includePhoto ? '160px' : '140px'};
+                height: ${includePhoto ? '180px' : '160px'};
                 position: relative;
                 overflow: hidden;
             }
@@ -207,22 +207,9 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
                 position: relative;
             }
             
-            .section-header::after {
-                content: '';
-                position: absolute;
-                left: 0;
-                right: 0;
-                bottom: -4px;
-                height: 2px;
-                background: linear-gradient(90deg, #f6ad55, #ed8936);
-                border-radius: 1px;
-            }
             
             .section-separator {
-                width: 100%;
-                height: 1px;
-                background: linear-gradient(90deg, #f6ad55, transparent);
-                margin-bottom: 25px;
+                display: none;
             }
             
             /* Executive Summary */
