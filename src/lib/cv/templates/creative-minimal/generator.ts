@@ -76,12 +76,12 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
             .vertical-accent::after {
                 content: '';
                 position: absolute;
-                left: 10px; /* Direkt bredvid, justerat för bredare lila */
+                left: 7px; /* Inuti den lila delen */
                 top: 0;
-                width: 5px; /* Bredare orange del */
+                width: 4px; /* Orange accent inuti */
                 height: 100%;
                 background: linear-gradient(135deg, #f97316, #fb923c);
-                border-radius: 0 3px 3px 0;
+                border-radius: 0 2px 2px 0;
                 opacity: 0.6;
             }
             
