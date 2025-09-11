@@ -347,6 +347,8 @@ export default function ProfilePage() {
       const success = await updateProfile({
         full_name: formData.full_name,
         phone: formData.phone,
+        linkedin_url: formData.linkedin_url,
+        profile_photo_url: formData.profile_photo_url,
         preferred_tonality: formData.preferred_tonality as any
       });
       if (success) {
