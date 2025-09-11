@@ -64,6 +64,14 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     imagePath: '/mallar/platinum-executive.svg',
     category: 'traditional',
     tier: 'premium'
+  },
+  {
+    id: 'creative-minimal',
+    name: 'Creative Minimal',
+    description: 'Modern asymmetrisk design med horisontell header och clean estetik',
+    imagePath: '/mallar/creative-minimal.svg',
+    category: 'creative',
+    tier: 'premium'
   }
 ];
 

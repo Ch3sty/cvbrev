@@ -96,7 +96,7 @@ export interface CVGenerationOptions {
   photoUrl?: string;
 }
 
-export type CVTemplateType = 'modern-minimal' | 'classic-professional' | 'clean-corporate' | 'creative-edge' | 'executive-premium' | 'nordic-professional' | 'platinum-executive';
+export type CVTemplateType = 'modern-minimal' | 'classic-professional' | 'clean-corporate' | 'creative-edge' | 'executive-premium' | 'nordic-professional' | 'platinum-executive' | 'creative-minimal';
 
 export interface CVTemplate {
   id: CVTemplateType;

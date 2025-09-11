@@ -9,6 +9,7 @@ import { creativeEdgeTemplate } from './creative-edge/generator';
 import { executivePremiumTemplate } from './executive-premium/generator';
 import { nordicProfessionalTemplate } from './nordic-professional/generator';
 import { platinumExecutiveTemplate } from './platinum-executive/generator';
+import { creativeMinimalTemplate } from './creative-minimal/generator';
 
 // Export shared utilities
 export { formatSwedishAddress } from './base/address-formatter';
@@ -60,7 +61,8 @@ export const TEMPLATE_GENERATORS: Record<CVTemplateType, CVTemplateGenerator> = 
   'creative-edge': creativeEdgeTemplate,
   'executive-premium': executivePremiumTemplate,
   'nordic-professional': nordicProfessionalTemplate,
-  'platinum-executive': platinumExecutiveTemplate
+  'platinum-executive': platinumExecutiveTemplate,
+  'creative-minimal': creativeMinimalTemplate
 } as const;
 
 /**
