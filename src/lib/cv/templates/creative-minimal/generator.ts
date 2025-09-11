@@ -82,7 +82,6 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
                 height: 100%;
                 background: linear-gradient(135deg, #f97316, #fb923c);
                 border-radius: 0 2px 2px 0;
-                opacity: 0.6;
             }
             
             /* Header Section - Större för mer innehåll */
@@ -148,7 +147,7 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
                 line-height: 1.5;
                 margin-bottom: 8px;
                 max-width: 100%;
-                font-weight: 600; /* Samma font-weight som title */
+                font-weight: 400; /* Normal weight, inte fetstil */
             }
             
             .header-accent {
