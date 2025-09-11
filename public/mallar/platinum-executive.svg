@@ -1,0 +1,170 @@
+<svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Platinum Executive Template -->
+  <defs>
+    <!-- Premium Navy Gradient -->
+    <linearGradient id="executiveHeader" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a365d;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2d5a87;stop-opacity:0.98" />
+      <stop offset="100%" style="stop-color:#1e3a5f;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Gold Premium Accent -->
+    <linearGradient id="goldAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#f6ad55" />
+      <stop offset="50%" style="stop-color:#ed8936" />
+      <stop offset="100%" style="stop-color:#f6ad55" />
+    </linearGradient>
+    
+    <!-- Platinum Silver -->
+    <linearGradient id="platinumSilver" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f7fafc" />
+      <stop offset="100%" style="stop-color:#e2e8f0" />
+    </linearGradient>
+    
+    <!-- Subtle Paper Texture -->
+    <filter id="premiumTexture">
+      <feTurbulence baseFrequency="0.8" numOctaves="2" result="noise" />
+      <feColorMatrix values="0 0 0 0 0.99 0 0 0 0 0.99 0 0 0 0 0.99 0 0 0 0.03 0"/>
+      <feComposite in2="SourceGraphic" operator="multiply"/>
+    </filter>
+    
+    <!-- Profile Photo Shadow -->
+    <filter id="photoShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1a365d" flood-opacity="0.15"/>
+    </filter>
+    
+    <!-- LinkedIn Blue -->
+    <linearGradient id="linkedInBlue">
+      <stop offset="0%" style="stop-color:#0077b5" />
+      <stop offset="100%" style="stop-color:#005885" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Premium Paper Background -->
+  <rect width="300" height="400" fill="url(#platinumSilver)" filter="url(#premiumTexture)"/>
+  
+  <!-- Executive Header Section -->
+  <rect x="0" y="0" width="300" height="110" fill="url(#executiveHeader)"/>
+  
+  <!-- Gold Premium Accent Line -->
+  <rect x="0" y="110" width="300" height="3" fill="url(#goldAccent)"/>
+  <rect x="0" y="113" width="300" height="1" fill="rgba(246,173,85,0.3)"/>
+  
+  <!-- Profile Photo Circle with Premium Frame -->
+  <g id="profile-photo-area">
+    <!-- Profile photo background circle -->
+    <circle cx="45" cy="55" r="32" fill="rgba(255,255,255,0.1)" stroke="rgba(242,243,244,0.8)" stroke-width="2" filter="url(#photoShadow)"/>
+    <!-- Inner photo area -->
+    <circle cx="45" cy="55" r="28" fill="rgba(255,255,255,0.08)"/>
+    <!-- Elegant profile indicator -->
+    <circle cx="45" cy="48" r="8" fill="rgba(255,255,255,0.3)"/>
+    <rect x="37" y="60" width="16" height="8" fill="rgba(255,255,255,0.3)" rx="4"/>
+  </g>
+  
+  <!-- Executive Name and Title Area -->
+  <g id="name-title-area">
+    <!-- Executive Name -->
+    <rect x="90" y="30" width="140" height="12" fill="white" rx="2"/>
+    <rect x="90" y="45" width="100" height="8" fill="rgba(255,255,255,0.9)" rx="2"/>
+    
+    <!-- Professional Title -->
+    <rect x="90" y="60" width="120" height="6" fill="rgba(255,255,255,0.8)" rx="2"/>
+    <rect x="90" y="70" width="90" height="6" fill="rgba(255,255,255,0.7)" rx="2"/>
+  </g>
+  
+  <!-- Premium Contact Section with LinkedIn -->
+  <g id="contact-linkedin-area">
+    <!-- Contact Background -->
+    <rect x="240" y="25" width="55" height="75" fill="rgba(255,255,255,0.08)" rx="6"/>
+    
+    <!-- Contact Items -->
+    <rect x="245" y="32" width="45" height="3" fill="rgba(255,255,255,0.9)" rx="1"/>
+    <rect x="245" y="39" width="40" height="3" fill="rgba(255,255,255,0.85)" rx="1"/>
+    <rect x="245" y="46" width="42" height="3" fill="rgba(255,255,255,0.85)" rx="1"/>
+    
+    <!-- LinkedIn Integration -->
+    <rect x="245" y="56" width="45" height="8" fill="rgba(0,119,181,0.15)" rx="4"/>
+    <!-- LinkedIn Icon -->
+    <rect x="247" y="58" width="4" height="4" fill="url(#linkedInBlue)" rx="1"/>
+    <!-- LinkedIn URL -->
+    <rect x="253" y="59" width="25" height="2" fill="url(#linkedInBlue)" rx="1"/>
+    
+    <!-- Contact separator -->
+    <rect x="248" y="70" width="35" height="1" fill="url(#goldAccent)" rx="0.5"/>
+  </g>
+  
+  <!-- Main Content Area with Executive Styling -->
+  
+  <!-- Executive Summary Section -->
+  <g id="executive-summary">
+    <rect x="25" y="135" width="120" height="8" fill="#1a365d" rx="4"/>
+    <rect x="25" y="148" width="250" height="2" fill="url(#goldAccent)" rx="1"/>
+    
+    <!-- Summary content lines -->
+    <rect x="25" y="160" width="240" height="3" fill="#4a5568" rx="1"/>
+    <rect x="25" y="167" width="230" height="3" fill="#4a5568" rx="1"/>
+    <rect x="25" y="174" width="220" height="3" fill="#4a5568" rx="1"/>
+    <rect x="25" y="181" width="235" height="3" fill="#4a5568" rx="1"/>
+  </g>
+  
+  <!-- Professional Experience with Timeline -->
+  <g id="experience-section">
+    <rect x="25" y="200" width="140" height="8" fill="#1a365d" rx="4"/>
+    <rect x="25" y="213" width="250" height="2" fill="url(#goldAccent)" rx="1"/>
+    
+    <!-- Executive Position 1 -->
+    <rect x="25" y="225" width="120" height="6" fill="#1a365d" rx="3"/>
+    <rect x="25" y="235" width="90" height="4" fill="#718096" rx="2"/>
+    <rect x="25" y="243" width="200" height="2" fill="#a0aec0" rx="1"/>
+    <rect x="25" y="248" width="190" height="2" fill="#a0aec0" rx="1"/>
+    <rect x="25" y="253" width="180" height="2" fill="#a0aec0" rx="1"/>
+    
+    <!-- Timeline indicator -->
+    <circle cx="255" cy="235" r="3" fill="url(#goldAccent)"/>
+    <rect x="253" y="240" width="4" height="25" fill="rgba(246,173,85,0.3)"/>
+    
+    <!-- Executive Position 2 -->
+    <rect x="25" y="270" width="110" height="6" fill="#1a365d" rx="3"/>
+    <rect x="25" y="280" width="85" height="4" fill="#718096" rx="2"/>
+    <rect x="25" y="288" width="180" height="2" fill="#a0aec0" rx="1"/>
+    <rect x="25" y="293" width="170" height="2" fill="#a0aec0" rx="1"/>
+    
+    <circle cx="255" cy="280" r="3" fill="url(#goldAccent)"/>
+  </g>
+  
+  <!-- Education with Academic Excellence -->
+  <g id="education-section">
+    <rect x="25" y="315" width="100" height="8" fill="#1a365d" rx="4"/>
+    <rect x="25" y="328" width="200" height="2" fill="url(#goldAccent)" rx="1"/>
+    
+    <!-- Executive Education -->
+    <rect x="25" y="340" width="130" height="5" fill="#1a365d" rx="2"/>
+    <rect x="25" y="349" width="110" height="4" fill="#718096" rx="2"/>
+    <rect x="25" y="356" width="95" height="3" fill="#a0aec0" rx="1"/>
+  </g>
+  
+  <!-- Executive Skills Grid -->
+  <g id="skills-grid">
+    <!-- Skills arranged in elegant grid -->
+    <rect x="180" y="340" width="35" height="6" fill="rgba(26,54,93,0.1)" stroke="#1a365d" stroke-width="0.5" rx="3"/>
+    <rect x="220" y="340" width="40" height="6" fill="rgba(26,54,93,0.1)" stroke="#1a365d" stroke-width="0.5" rx="3"/>
+    <rect x="180" y="350" width="45" height="6" fill="rgba(26,54,93,0.1)" stroke="#1a365d" stroke-width="0.5" rx="3"/>
+    <rect x="230" y="350" width="30" height="6" fill="rgba(26,54,93,0.1)" stroke="#1a365d" stroke-width="0.5" rx="3"/>
+  </g>
+  
+  <!-- Premium Footer Elements -->
+  <g id="premium-footer">
+    <!-- Elegant decorative line -->
+    <rect x="50" y="385" width="200" height="1" fill="url(#goldAccent)" opacity="0.6" rx="0.5"/>
+    
+    <!-- Professional reference note -->
+    <rect x="120" y="390" width="60" height="3" fill="#a0aec0" rx="1"/>
+  </g>
+  
+  <!-- Subtle Premium Watermark Elements -->
+  <g id="premium-details" opacity="0.03">
+    <circle cx="280" cy="30" r="8" fill="#f6ad55"/>
+    <circle cx="270" cy="380" r="6" fill="#1a365d"/>
+    <rect x="15" y="120" width="2" height="20" fill="#f6ad55" rx="1"/>
+  </g>
+</svg>
