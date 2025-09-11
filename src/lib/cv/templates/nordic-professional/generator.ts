@@ -3,7 +3,19 @@ import { shouldShowSection } from '@/lib/cv/cv-metadata';
 import { formatSwedishAddress } from '../base/address-formatter';
 import type { CVTemplateGenerator } from '../base/template-base';
 
-function generateNordicProfessionalHTML(cvData: CVMetadata, options: any = {}): string {
+interface NordicProfessionalOptions {
+  includePhoto?: boolean;
+  includeLinkedIn?: boolean;
+}
+
+function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfessionalOptions = {}): string {
+  // Smart defaults - inkludera om data finns
+  const hasProfilePhoto = Boolean(cvData.personalInfo.profilePhotoUrl);
+  const hasLinkedIn = Boolean(cvData.personalInfo.linkedIn || cvData.personalInfo.linkedin);
+  
+  const includePhoto = options.includePhoto !== false && hasProfilePhoto;
+  const includeLinkedIn = options.includeLinkedIn !== false && hasLinkedIn;
+  
   return `
     <!DOCTYPE html>
     <html lang="sv">
@@ -19,478 +31,590 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: any = {}): 
             }
             
             body {
-                font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'sans-serif';
+                font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
                 line-height: 1.6;
-                color: #2c2c2c;
-                background: #fafafa;
+                color: #2d3748;
+                background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             }
             
             .cv-container {
                 width: 210mm;
                 min-height: 297mm;
                 margin: 0 auto;
-                background: #fafafa;
+                background: white;
+                position: relative;
+                box-shadow: 0 8px 32px rgba(6, 78, 59, 0.15);
+                overflow: hidden;
+            }
+            
+            /* Subtle Background Texture */
+            .cv-container::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: 
+                    radial-gradient(circle at 20% 30%, rgba(6, 78, 59, 0.02) 0%, transparent 50%),
+                    radial-gradient(circle at 80% 70%, rgba(217, 119, 6, 0.02) 0%, transparent 50%);
+                pointer-events: none;
+            }
+            
+            /* Angular Sidebar Design */
+            .angular-sidebar {
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 140px;
+                background: linear-gradient(135deg, #064e3b 0%, #047857 50%, #065f46 100%);
+                clip-path: polygon(0 0, 85px 0, 100px 25px, 100px calc(100% - 25px), 85px 100%, 0 100%);
+                z-index: 1;
+            }
+            
+            .angular-sidebar::after {
+                content: '';
+                position: absolute;
+                right: -15px;
+                top: 0;
+                bottom: 0;
+                width: 15px;
+                background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.1));
+                clip-path: polygon(0 25px, 15px 0, 15px 100%, 0 calc(100% - 25px));
+            }
+            
+            /* Profile Photo Section */
+            .profile-photo-section {
+                position: absolute;
+                left: 30px;
+                top: 60px;
+                z-index: 2;
+            }
+            
+            .profile-photo {
+                width: 90px;
+                height: 90px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 3px solid rgba(255, 255, 255, 0.9);
+                box-shadow: 
+                    0 8px 25px rgba(6, 78, 59, 0.25),
+                    0 3px 8px rgba(6, 78, 59, 0.15);
+                background: rgba(255, 255, 255, 0.1);
                 position: relative;
             }
             
-            /* Forest Green Sidebar - Nordic Style */
-            .sidebar {
-                width: 85mm;
-                background: linear-gradient(180deg, #2d5016 0%, #3d6b1f 100%);
-                position: absolute;
-                padding: 25px 18px;
-                color: white;
-                min-height: 200mm; /* Begränsar höjden istället för hela PDF:en */
-            }
-            
-            .sidebar::after {
+            .profile-photo::before {
                 content: '';
                 position: absolute;
-                right: 0;
-                top: 0;
-                width: 2px;
-                height: 100%;
-                background: rgba(74, 144, 164, 0.3);
+                top: -5px;
+                left: -5px;
+                right: -5px;
+                bottom: -5px;
+                border-radius: 50%;
+                border: 1px solid rgba(217, 119, 6, 0.3);
+                z-index: -1;
             }
             
-            /* Contact Section */
-            .contact-section {
+            /* Sidebar Content */
+            .sidebar-content {
+                position: absolute;
+                left: 20px;
+                top: ${includePhoto ? '170px' : '60px'};
+                width: 100px;
+                z-index: 2;
+            }
+            
+            .sidebar-section {
                 margin-bottom: 30px;
             }
             
-            /* Profile Photo */
-            .profile-photo {
-                width: 80px;
-                height: 80px;
-                border-radius: 50%;
-                object-fit: cover;
-                border: 3px solid rgba(255, 255, 255, 0.3);
-                margin-bottom: 15px;
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            
-            .contact-header {
-                background: rgba(255, 255, 255, 0.3);
-                border-radius: 8px;
-                padding: 8px 12px;
-                margin-bottom: 20px;
+            .sidebar-header {
+                color: rgba(255, 255, 255, 0.9);
+                font-size: 12px;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                margin-bottom: 12px;
+                padding-bottom: 4px;
+                border-bottom: 2px solid rgba(217, 119, 6, 0.6);
                 position: relative;
             }
             
-            .contact-header::after {
+            .sidebar-header::after {
                 content: '';
                 position: absolute;
-                bottom: 2px;
-                left: 12px;
-                right: 12px;
-                height: 4px;
-                background: rgba(255, 255, 255, 0.15);
-                border-radius: 2px;
-            }
-            
-            .contact-header h3 {
-                font-size: 11px;
-                font-weight: 600;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-                color: rgba(255, 255, 255, 0.9);
-            }
-            
-            .contact-info {
-                line-height: 1.7;
+                bottom: -2px;
+                left: 0;
+                width: 60%;
+                height: 1px;
+                background: rgba(217, 119, 6, 0.4);
             }
             
             .contact-item {
-                background: rgba(255, 255, 255, 0.9);
-                color: #2d5016;
-                padding: 3px 0;
-                margin: 2px 0;
-                border-radius: 6px;
+                color: rgba(255, 255, 255, 0.85);
+                font-size: 11px;
+                margin-bottom: 8px;
+                padding-left: 15px;
+                position: relative;
+                font-weight: 500;
+                line-height: 1.4;
+            }
+            
+            .contact-item::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 6px;
+                width: 4px;
+                height: 4px;
+                background: rgba(255, 255, 255, 0.7);
+                border-radius: 50%;
+            }
+            
+            /* LinkedIn Section */
+            .linkedin-section {
+                background: rgba(0, 119, 181, 0.15);
+                border: 1px solid rgba(0, 119, 181, 0.3);
+                border-radius: 8px;
+                padding: 8px;
+                margin: 15px 0;
+            }
+            
+            .linkedin-link {
+                color: #0077b5;
+                text-decoration: none;
+                font-size: 10px;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                background: rgba(255, 255, 255, 0.95);
+                padding: 4px 6px;
+                border-radius: 4px;
+                transition: all 0.3s ease;
+            }
+            
+            .linkedin-link:hover {
+                background: white;
+                transform: translateY(-1px);
+                box-shadow: 0 2px 8px rgba(0, 119, 181, 0.2);
+            }
+            
+            .linkedin-icon {
+                width: 12px;
+                height: 12px;
+                margin-right: 4px;
+                fill: #0077b5;
+            }
+            
+            /* Sidebar Skills */
+            .skill-item {
+                background: rgba(255, 255, 255, 0.1);
+                color: rgba(255, 255, 255, 0.9);
+                padding: 6px 8px;
+                margin: 6px 0;
+                border-radius: 4px;
                 font-size: 11px;
                 font-weight: 500;
-                text-indent: 2px;
-            }
-            
-            .contact-accent {
-                width: 40px;
-                height: 1px;
-                background: linear-gradient(90deg, #4a90a4, #6ba3b5);
-                border-radius: 0.5px;
-                margin: 8px auto;
-            }
-            
-            /* Skills Section */
-            .skills-section {
-                margin-bottom: 30px;
-            }
-            
-            .section-header {
-                background: rgba(255, 255, 255, 0.3);
-                border-radius: 8px;
-                padding: 8px 12px;
-                margin-bottom: 15px;
+                border-left: 3px solid rgba(217, 119, 6, 0.6);
                 position: relative;
             }
             
-            .section-header::after {
+            .skill-item::before {
                 content: '';
                 position: absolute;
-                bottom: 2px;
-                left: 12px;
-                right: 12px;
-                height: 4px;
-                background: rgba(255, 255, 255, 0.15);
-                border-radius: 2px;
+                left: -8px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 6px;
+                height: 6px;
+                background: rgba(217, 119, 6, 0.8);
+                clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
             }
             
-            .section-header h3 {
-                font-size: 11px;
-                font-weight: 600;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-                color: rgba(255, 255, 255, 0.9);
-            }
-            
-            .skill-text {
-                background: rgba(255, 255, 255, 0.2);
-                border-radius: 6px;
-                padding: 4px 8px;
-                margin: 4px 0;
-                font-size: 11px;
-                font-weight: 500;
-                color: rgba(255, 255, 255, 0.9);
-            }
-            
-            /* Languages Section */
-            .languages-section {
-                margin-bottom: 30px;
-            }
-            
+            /* Language Items */
             .language-item {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                background: rgba(255, 255, 255, 0.3);
-                border-radius: 6px;
-                padding: 4px 6px;
-                margin: 5px 0;
+                background: rgba(255, 255, 255, 0.1);
+                color: rgba(255, 255, 255, 0.9);
+                padding: 6px 8px;
+                margin: 6px 0;
+                border-radius: 4px;
                 font-size: 11px;
-            }
-            
-            .language-name {
-                color: rgba(255, 255, 255, 0.95);
                 font-weight: 500;
+                position: relative;
             }
             
-            .language-level {
-                background: #4a90a4;
-                color: white;
-                padding: 1px 6px;
-                border-radius: 1px;
-                font-size: 9px;
-                font-weight: 600;
+            .language-item::before {
+                content: '';
+                position: absolute;
+                left: -5px;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 8px;
+                height: 8px;
+                background: rgba(217, 119, 6, 0.7);
+                border-radius: 50%;
             }
             
-            /* Main Content Area */
+            /* Main Content */
             .main-content {
-                margin-left: 85mm;
-                padding: 35px 30px;
-                background: #fafafa;
-                min-height: 297mm;
+                margin-left: 160px;
+                padding: 40px 40px 40px 20px;
+                position: relative;
+                z-index: 1;
             }
             
             /* Header Section */
-            .header {
+            .header-section {
                 margin-bottom: 35px;
+                position: relative;
             }
             
-            .header h1 {
+            .name {
                 font-size: 32px;
                 font-weight: 700;
-                color: #2c2c2c;
-                margin-bottom: 8px;
+                color: #064e3b;
+                margin-bottom: 12px;
                 line-height: 1.2;
+                background: linear-gradient(135deg, #064e3b, #047857);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                position: relative;
             }
             
-            .header .title {
-                font-size: 16px;
-                color: #4a4a4a;
-                margin-bottom: 15px;
-                font-weight: 500;
-            }
-            
-            .header-accent {
-                width: 65px;
+            .name::after {
+                content: '';
+                position: absolute;
+                bottom: -8px;
+                left: 0;
+                width: 80px;
                 height: 3px;
-                background: linear-gradient(90deg, #4a90a4, #6ba3b5);
+                background: linear-gradient(90deg, #d97706, #f59e0b);
                 border-radius: 2px;
+            }
+            
+            .title {
+                font-size: 16px;
+                color: rgba(6, 78, 59, 0.8);
+                font-weight: 600;
                 margin-bottom: 20px;
             }
             
-            /* Summary Section */
-            .summary-section {
-                margin-bottom: 35px;
-            }
-            
-            .summary-header {
-                background: #2d5016;
-                color: white;
-                padding: 6px 16px;
-                border-radius: 3px;
-                margin-bottom: 15px;
-                display: inline-block;
-            }
-            
-            .summary-header h2 {
+            .summary {
                 font-size: 14px;
-                font-weight: 600;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-            }
-            
-            .summary-text {
-                color: #4a4a4a;
-                font-size: 14px;
-                line-height: 1.6;
+                color: #4a5568;
+                line-height: 1.7;
                 text-align: justify;
+                font-weight: 500;
+                max-width: 450px;
             }
             
             /* Section Styling */
             .section {
                 margin-bottom: 35px;
+                position: relative;
             }
             
-            .section-title {
-                background: #2d5016;
+            .section-header {
+                background: linear-gradient(135deg, #064e3b, #047857);
                 color: white;
-                padding: 6px 16px;
-                border-radius: 3px;
-                margin-bottom: 15px;
-                display: inline-block;
-            }
-            
-            .section-title h2 {
-                font-size: 14px;
-                font-weight: 600;
+                padding: 10px 20px;
+                border-radius: 25px;
+                font-size: 16px;
+                font-weight: 700;
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
-                color: white;
+                margin-bottom: 8px;
+                display: inline-block;
+                position: relative;
+                box-shadow: 0 4px 15px rgba(6, 78, 59, 0.2);
             }
             
-            .section-separator {
-                width: 130px;
-                height: 1.5px;
-                background: rgba(74, 144, 164, 0.4);
+            .section-header::after {
+                content: '';
+                position: absolute;
+                bottom: -4px;
+                left: 20px;
+                right: 20px;
+                height: 2px;
+                background: linear-gradient(90deg, #d97706, #f59e0b);
                 border-radius: 1px;
-                margin-bottom: 20px;
             }
             
             /* Experience Items */
             .experience-item {
-                margin-bottom: 25px;
+                margin-bottom: 30px;
                 position: relative;
+                padding-left: 25px;
+                border-left: 2px solid #e2e8f0;
             }
             
-            .experience-item:not(:last-child)::after {
+            .experience-item::before {
                 content: '';
                 position: absolute;
-                left: 0;
-                bottom: -12px;
-                width: 3px;
-                height: 3px;
-                background: rgba(74, 144, 164, 0.4);
+                left: -8px;
+                top: 8px;
+                width: 12px;
+                height: 12px;
+                background: linear-gradient(45deg, #d97706, #f59e0b);
                 border-radius: 50%;
+                border: 2px solid white;
+                box-shadow: 0 0 0 2px #d97706;
             }
             
             .job-title {
                 font-weight: 700;
-                color: #2c2c2c;
-                font-size: 16px;
-                margin-bottom: 5px;
+                color: #064e3b;
+                font-size: 18px;
+                margin-bottom: 6px;
                 line-height: 1.3;
             }
             
             .company-info {
-                color: #6ba3b5;
+                color: #718096;
                 font-size: 14px;
-                margin-bottom: 8px;
-                font-weight: 500;
+                margin-bottom: 12px;
+                font-weight: 600;
             }
             
             .job-description {
-                color: #4a4a4a;
-                font-size: 13px;
+                color: #4a5568;
+                font-size: 14px;
                 line-height: 1.6;
-                margin: 3px 0;
+                margin: 4px 0;
                 text-align: justify;
             }
             
             /* Education Items */
             .education-item {
                 margin-bottom: 20px;
+                padding: 20px;
+                background: linear-gradient(135deg, #f7fafc, #edf2f7);
+                border-radius: 8px;
+                border-left: 4px solid #064e3b;
+                position: relative;
             }
             
-            .education-item:last-child {
-                margin-bottom: 0;
+            .education-item::before {
+                content: '';
+                position: absolute;
+                left: -8px;
+                top: 20px;
+                width: 6px;
+                height: 6px;
+                background: #d97706;
+                clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
             }
             
             .degree {
                 font-weight: 700;
-                color: #2c2c2c;
+                color: #064e3b;
                 font-size: 16px;
-                margin-bottom: 4px;
-                line-height: 1.3;
+                margin-bottom: 6px;
             }
             
             .institution {
-                color: #6ba3b5;
+                color: #718096;
                 font-size: 14px;
-                font-weight: 500;
+                font-weight: 600;
             }
             
-            .education-separator {
-                width: 110px;
-                height: 2px;
-                background: linear-gradient(90deg, #8b7355, #a68b5b);
-                border-radius: 1px;
-                margin: 8px 0;
+            /* Skills Grid */
+            .skills-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 15px;
+                margin-top: 20px;
+            }
+            
+            .skill-tag {
+                background: linear-gradient(135deg, rgba(6, 78, 59, 0.05), rgba(6, 78, 59, 0.08));
+                color: #064e3b;
+                padding: 8px 12px;
+                border-radius: 20px;
+                font-size: 13px;
+                font-weight: 500;
+                border: 1px solid rgba(217, 119, 6, 0.3);
+                text-align: center;
+                transition: all 0.3s ease;
                 position: relative;
             }
             
-            .education-separator::after {
-                content: '';
-                position: absolute;
-                top: 1.5px;
-                left: 0;
-                width: 85px;
-                height: 0.5px;
-                background: rgba(160, 140, 95, 0.5);
-                border-radius: 0.25px;
+            .skill-tag:hover {
+                transform: translateY(-2px);
+                border-color: #d97706;
+                background: linear-gradient(135deg, rgba(217, 119, 6, 0.1), rgba(217, 119, 6, 0.15));
+                box-shadow: 0 4px 15px rgba(217, 119, 6, 0.2);
             }
             
-            /* Main Content Skills */
-            .main-skills-container {
+            /* Languages */
+            .language-grid {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 8px;
-                margin-top: 15px;
+                gap: 12px;
+                margin-top: 20px;
             }
             
-            .main-skill-tag {
-                background: rgba(74, 144, 164, 0.1);
-                border: 1px solid rgba(74, 144, 164, 0.3);
-                color: #2d5016;
-                padding: 6px 12px;
-                border-radius: 12px;
-                font-size: 12px;
+            .language-tag {
+                background: linear-gradient(135deg, #064e3b, #047857);
+                color: white;
+                padding: 8px 16px;
+                border-radius: 20px;
+                font-size: 13px;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                box-shadow: 0 4px 15px rgba(6, 78, 59, 0.2);
+            }
+            
+            .language-level {
+                background: rgba(217, 119, 6, 0.2);
+                color: #d97706;
+                padding: 2px 8px;
+                border-radius: 10px;
+                font-size: 11px;
+                font-weight: 700;
+            }
+            
+            /* Footer */
+            .footer {
+                text-align: center;
+                margin-top: 40px;
+                padding-top: 25px;
+                border-top: 1px solid #e2e8f0;
+                position: relative;
+            }
+            
+            .footer::before {
+                content: '';
+                position: absolute;
+                top: -1px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100px;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, #d97706, transparent);
+            }
+            
+            .references-note {
+                color: #718096;
+                font-size: 13px;
+                font-style: italic;
                 font-weight: 500;
             }
             
             /* Decorative Elements */
-            .decorative-element {
+            .decorative-elements {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                pointer-events: none;
+                z-index: 0;
+            }
+            
+            .decorative-elements::before {
+                content: '';
                 position: absolute;
                 right: 40px;
-                top: 150px;
-                width: 8px;
+                top: 40px;
+                width: 12px;
                 height: 12px;
-                background: rgba(74, 144, 164, 0.08);
+                background: rgba(217, 119, 6, 0.3);
                 border-radius: 50%;
-                transform: rotate(15deg);
             }
             
-            /* References */
-            .references-section {
-                margin-top: 40px;
-                text-align: center;
-                border-top: 1px solid rgba(74, 144, 164, 0.2);
-                padding-top: 20px;
-            }
-            
-            .references-section p {
-                color: #6ba3b5;
-                font-size: 12px;
-                font-style: italic;
-                letter-spacing: 0.3px;
+            .decorative-elements::after {
+                content: '';
+                position: absolute;
+                right: 40px;
+                bottom: 40px;
+                width: 8px;
+                height: 8px;
+                background: rgba(6, 78, 59, 0.3);
+                clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
             }
         </style>
     </head>
     <body>
         <div class="cv-container">
-            <!-- Forest Green Sidebar -->
-            <div class="sidebar">
-                <!-- Profile Photo -->
-                ${cvData.personalInfo.profilePhotoUrl ? `
-                <div style="text-align: center; margin-bottom: 25px;">
-                    <img src="${cvData.personalInfo.profilePhotoUrl}" alt="Profilbild" class="profile-photo" />
+            <!-- Angular Sidebar -->
+            <div class="angular-sidebar"></div>
+            
+            <!-- Profile Photo Section -->
+            ${includePhoto ? `
+            <div class="profile-photo-section">
+                <img src="${cvData.personalInfo.profilePhotoUrl}" alt="Profilbild" class="profile-photo" />
+            </div>
+            ` : ''}
+            
+            <!-- Sidebar Content -->
+            <div class="sidebar-content">
+                <!-- Contact Information -->
+                ${(cvData.personalInfo.email || cvData.personalInfo.phone || cvData.personalInfo.address) ? `
+                <div class="sidebar-section">
+                    <div class="sidebar-header">Kontakt</div>
+                    ${cvData.personalInfo.email ? `<div class="contact-item">${cvData.personalInfo.email}</div>` : ''}
+                    ${cvData.personalInfo.phone ? `<div class="contact-item">${cvData.personalInfo.phone}</div>` : ''}
+                    ${cvData.personalInfo.address ? `<div class="contact-item">${formatSwedishAddress(cvData.personalInfo.address)}</div>` : ''}
                 </div>
                 ` : ''}
                 
-                <!-- Contact Section -->
-                <div class="contact-section">
-                    <div class="contact-header">
-                        <h3>Kontakt</h3>
-                    </div>
-                    <div class="contact-info">
-                        ${cvData.personalInfo.email ? `<div class="contact-item">${cvData.personalInfo.email}</div>` : ''}
-                        ${cvData.personalInfo.phone ? `<div class="contact-item">${cvData.personalInfo.phone}</div>` : ''}
-                        ${cvData.personalInfo.address ? `<div class="contact-item">${formatSwedishAddress(cvData.personalInfo.address)}</div>` : ''}
-                        ${(cvData.personalInfo.linkedIn || cvData.personalInfo.linkedin) ? `<div class="contact-item">${cvData.personalInfo.linkedIn || cvData.personalInfo.linkedin}</div>` : ''}
-                    </div>
-                    <div class="contact-accent"></div>
+                <!-- LinkedIn Section -->
+                ${includeLinkedIn ? `
+                <div class="linkedin-section">
+                    <a href="${cvData.personalInfo.linkedIn || cvData.personalInfo.linkedin}" class="linkedin-link" target="_blank">
+                        <svg class="linkedin-icon" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                        LinkedIn
+                    </a>
                 </div>
+                ` : ''}
                 
+                <!-- Skills in Sidebar -->
                 ${cvData.skills.length > 0 ? `
-                <!-- Skills Section -->
-                <div class="skills-section">
-                    <div class="section-header">
-                        <h3>Kompetenser</h3>
-                    </div>
-                    ${cvData.skills.flatMap(skillGroup => 
-                        skillGroup.skills
-                            .filter(skill => !cvData.languages?.some(lang => skill.toLowerCase().includes(lang.language.toLowerCase())))
-                            .slice(0, 8) // Limit skills in sidebar for clean design
-                            .map(skill => `<div class="skill-text">${skill}</div>`)
-                    ).join('')}
+                <div class="sidebar-section">
+                    <div class="sidebar-header">Färdigheter</div>
+                    ${cvData.skills
+                        .flatMap(skillGroup => skillGroup.skills)
+                        .filter(skill => !cvData.languages?.some(lang => skill.toLowerCase().includes(lang.language.toLowerCase())))
+                        .slice(0, 6)
+                        .map(skill => `<div class="skill-item">${skill}</div>`)
+                        .join('')}
                 </div>
                 ` : ''}
                 
+                <!-- Languages in Sidebar -->
                 ${shouldShowSection('languages', cvData) ? `
-                <!-- Languages Section -->
-                <div class="languages-section">
-                    <div class="section-header">
-                        <h3>Språk</h3>
-                    </div>
+                <div class="sidebar-section">
+                    <div class="sidebar-header">Språk</div>
                     ${cvData.languages?.map(lang => `
-                        <div class="language-item">
-                            <span class="language-name">${lang.language}</span>
-                            <span class="language-level">${lang.proficiency}</span>
-                        </div>
-                    `).join('') || ''}
+                        <div class="language-item">${lang.language}</div>
+                    `).join('') || '<div class="language-item">Svenska</div>'}
                 </div>
                 ` : ''}
             </div>
             
-            <!-- Main Content Area -->
+            <!-- Main Content -->
             <div class="main-content">
-                <!-- Decorative Element -->
-                <div class="decorative-element"></div>
+                <!-- Decorative Elements -->
+                <div class="decorative-elements"></div>
                 
-                <!-- Header -->
-                <div class="header">
-                    <h1>${cvData.personalInfo.fullName}</h1>
-                    ${cvData.summary ? `<div class="title">${cvData.summary}</div>` : ''}
-                    <div class="header-accent"></div>
+                <!-- Header Section -->
+                <div class="header-section">
+                    <h1 class="name">${cvData.personalInfo.fullName}</h1>
+                    ${cvData.summary ? `<div class="summary">${cvData.summary}</div>` : ''}
                 </div>
                 
                 ${cvData.experience.length > 0 ? `
-                <!-- Experience Section -->
+                <!-- Professional Experience -->
                 <div class="section">
-                    <div class="section-title">
-                        <h2>Arbetslivserfarenhet</h2>
-                    </div>
-                    <div class="section-separator"></div>
+                    <div class="section-header">Arbetslivserfarenhet</div>
                     ${cvData.experience
                         .sort((a, b) => {
                             const dateA = a.endDate ? new Date(a.endDate) : new Date();
@@ -503,19 +627,16 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: any = {}): 
                             <div class="company-info">
                                 ${exp.company}${exp.startDate || exp.endDate ? ' • ' : ''}${exp.startDate ? exp.startDate : ''}${exp.endDate ? ' - ' + exp.endDate : (exp.startDate ? ' - Pågående' : '')}
                             </div>
-                            ${exp.description?.map(desc => `<div class="job-description">${desc}</div>`).join('') || ''}
+                            ${exp.description?.map(desc => `<div class="job-description">• ${desc}</div>`).join('') || ''}
                         </div>
                     `).join('')}
                 </div>
                 ` : ''}
                 
                 ${cvData.education.length > 0 ? `
-                <!-- Education Section -->
+                <!-- Education -->
                 <div class="section">
-                    <div class="section-title">
-                        <h2>Utbildning</h2>
-                    </div>
-                    <div class="education-separator"></div>
+                    <div class="section-header">Utbildning</div>
                     ${cvData.education
                         .sort((a, b) => {
                             const dateA = a.endDate ? new Date(a.endDate) : (a.graduationYear ? new Date(a.graduationYear + '-12-31') : new Date());
@@ -531,10 +652,42 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: any = {}): 
                 </div>
                 ` : ''}
                 
+                ${cvData.skills.length > 0 ? `
+                <!-- Skills -->
+                <div class="section">
+                    <div class="section-header">Kompetenser</div>
+                    <div class="skills-grid">
+                        ${cvData.skills
+                            .flatMap(skillGroup => skillGroup.skills)
+                            .filter(skill => !cvData.languages?.some(lang => skill.toLowerCase().includes(lang.language.toLowerCase())))
+                            .map(skill => `<span class="skill-tag">${skill}</span>`)
+                            .join('')}
+                    </div>
+                </div>
+                ` : ''}
                 
-                <!-- References -->
-                <div class="references-section">
-                    <p>Referenser lämnas på begäran</p>
+                ${shouldShowSection('languages', cvData) ? `
+                <!-- Languages -->
+                <div class="section">
+                    <div class="section-header">Språk</div>
+                    <div class="language-grid">
+                        ${cvData.languages?.map(lang => `
+                            <div class="language-tag">
+                                <span>${lang.language}</span>
+                                <span class="language-level">${lang.proficiency}</span>
+                            </div>
+                        `).join('') || 
+                            `<div class="language-tag">
+                                <span>Svenska</span>
+                                <span class="language-level">Modersmål</span>
+                            </div>`}
+                    </div>
+                </div>
+                ` : ''}
+                
+                <!-- Footer -->
+                <div class="footer">
+                    <div class="references-note">Referenser lämnas på begäran</div>
                 </div>
             </div>
         </div>
@@ -545,10 +698,10 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: any = {}): 
 
 export const nordicProfessionalTemplate: CVTemplateGenerator = {
   templateId: 'nordic-professional',
-  generate: generateNordicProfessionalHTML,
+  generate: (cvData: CVMetadata, options?: any) => generateNordicProfessionalHTML(cvData, options),
   metadata: {
     name: 'Nordic Professional',
-    description: 'Elegant nordisk design med forest green sidebar och clean layout',
+    description: 'Elegant nordisk design med angular sidebar, profilbild och LinkedIn integration',
     category: 'modern',
     tier: 'premium'
   }

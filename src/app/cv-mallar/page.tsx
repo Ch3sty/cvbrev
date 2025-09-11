@@ -83,8 +83,8 @@ export default function CVMallarPage() {
       const template = getTemplateById(selectedTemplate);
       const fileName = `cv-${template?.name.toLowerCase().replace(/\s+/g, '-')}-${selectedCV.file_name.replace(/\.[^/.]+$/, '')}.pdf`;
       
-      // Prepare options for Platinum Executive template
-      const templateOptions = selectedTemplate === 'platinum-executive' ? {
+      // Prepare options for templates that support photo and LinkedIn
+      const templateOptions = (selectedTemplate === 'platinum-executive' || selectedTemplate === 'nordic-professional') ? {
         includePhoto,
         includeLinkedIn
       } : {};
@@ -276,8 +276,8 @@ export default function CVMallarPage() {
                       )}
                     </div>
 
-                    {/* Toggle options for Platinum Executive template */}
-                    {selectedTemplate === 'platinum-executive' && (
+                    {/* Toggle options for templates with photo and LinkedIn support */}
+                    {(selectedTemplate === 'platinum-executive' || selectedTemplate === 'nordic-professional') && (
                       <div className="space-y-4 mb-4 p-3 bg-white/10 rounded-lg backdrop-blur-sm">
                         <h4 className="text-sm font-medium text-white/90">Anpassningsalternativ</h4>
                         

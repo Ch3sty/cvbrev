@@ -1,133 +1,272 @@
 <svg width="300" height="400" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Nordic Professional Template -->
+  <!-- Nordic Professional Template - PREMIUM WOW DESIGN -->
   <defs>
-    <linearGradient id="forestGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#2d5016;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#3d6b1f;stop-opacity:0.95" />
+    <!-- Deep Emerald Gradient -->
+    <linearGradient id="emeraldDeep" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#064e3b;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#047857;stop-opacity:0.98" />
+      <stop offset="100%" style="stop-color:#065f46;stop-opacity:1" />
     </linearGradient>
-    <linearGradient id="stoneAccent" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#8b7355" />
-      <stop offset="100%" style="stop-color:#a68b5b" />
+    
+    <!-- Premium Gold Accent -->
+    <linearGradient id="premiumGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#d97706" />
+      <stop offset="50%" style="stop-color:#f59e0b" />
+      <stop offset="100%" style="stop-color:#d97706" />
     </linearGradient>
-    <linearGradient id="arcticBlue" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#4a90a4" />
-      <stop offset="100%" style="stop-color:#6ba3b5" />
+    
+    <!-- Sophisticated Background -->
+    <linearGradient id="sophisticatedBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff" />
+      <stop offset="100%" style="stop-color:#f8fafc" />
     </linearGradient>
-    <filter id="paperTexture">
-      <feTurbulence baseFrequency="0.9" numOctaves="1" result="noise" />
-      <feColorMatrix values="0 0 0 0 0.98 0 0 0 0 0.98 0 0 0 0 0.98 0 0 0 0.05 0"/>
-      <feComposite in2="SourceGraphic" operator="multiply"/>
+    
+    <!-- Enhanced Photo Shadow -->
+    <filter id="premiumPhotoShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#064e3b" flood-opacity="0.25"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#064e3b" flood-opacity="0.15"/>
     </filter>
+    
+    <!-- LinkedIn Professional -->
+    <linearGradient id="linkedInElite">
+      <stop offset="0%" style="stop-color:#0077b5" />
+      <stop offset="100%" style="stop-color:#005885" />
+    </linearGradient>
+
+    <!-- Premium Texture -->
+    <pattern id="premiumTexture" patternUnits="userSpaceOnUse" width="2" height="2">
+      <rect width="2" height="2" fill="rgba(6,78,59,0.02)"/>
+      <circle cx="1" cy="1" r="0.2" fill="rgba(6,78,59,0.05)"/>
+    </pattern>
+
+    <!-- Hexagon Pattern -->
+    <pattern id="hexPattern" patternUnits="userSpaceOnUse" width="8" height="8">
+      <polygon points="4,1 6.5,2.5 6.5,5.5 4,7 1.5,5.5 1.5,2.5" fill="none" stroke="rgba(6,78,59,0.08)" stroke-width="0.3"/>
+    </pattern>
   </defs>
   
-  <!-- Paper texture background -->
-  <rect width="300" height="400" fill="#fafafa" filter="url(#paperTexture)"/>
+  <!-- Sophisticated Background with Subtle Texture -->
+  <rect width="300" height="400" fill="url(#sophisticatedBg)"/>
+  <rect width="300" height="400" fill="url(#premiumTexture)" opacity="0.3"/>
   
-  <!-- Left sidebar with forest green - clean design -->
-  <rect x="0" y="0" width="85" height="400" fill="url(#forestGradient)"/>
+  <!-- Dynamic Angular Sidebar -->
+  <polygon points="0,0 95,0 110,25 110,375 95,400 0,400" fill="url(#emeraldDeep)"/>
+  <polygon points="95,0 105,0 115,25 115,375 105,400 95,400" fill="rgba(217,119,6,0.1)"/>
   
-  <!-- Simple, clean vertical accent line -->
-  <rect x="85" y="0" width="2" height="400" fill="rgba(74,144,164,0.3)"/>
-  
-  <!-- Elegant contact section without profile image -->
-  <g id="contact-section">
-    <!-- Contact header indicator -->
-    <rect x="18" y="25" width="48" height="8" fill="rgba(255,255,255,0.3)" rx="4"/>
-    <rect x="20" y="27" width="44" height="4" fill="rgba(255,255,255,0.15)" rx="2"/>
+  <!-- Premium Photo Section with Professional Styling -->
+  <g id="elite-photo-section">
+    <!-- Outer premium ring -->
+    <circle cx="52.5" cy="70" r="32" fill="none" stroke="url(#premiumGold)" stroke-width="1" opacity="0.6" filter="url(#premiumPhotoShadow)"/>
+    <!-- Main photo container -->
+    <circle cx="52.5" cy="70" r="29" fill="white" stroke="rgba(255,255,255,0.9)" stroke-width="2" filter="url(#premiumPhotoShadow)"/>
+    <circle cx="52.5" cy="70" r="26" fill="url(#hexPattern)" stroke="rgba(6,78,59,0.1)" stroke-width="1"/>
     
-    <!-- Contact info lines with sophisticated spacing -->
-    <rect x="18" y="45" width="52" height="3" fill="rgba(255,255,255,0.9)" rx="1.5"/>
-    <rect x="18" y="52" width="46" height="3" fill="rgba(255,255,255,0.85)" rx="1.5"/>
-    <rect x="18" y="59" width="49" height="3" fill="rgba(255,255,255,0.85)" rx="1.5"/>
-    <rect x="18" y="66" width="42" height="3" fill="rgba(255,255,255,0.8)" rx="1.5"/>
-    
-    <!-- Elegant Nordic design accent -->
-    <rect x="22" y="75" width="40" height="1" fill="url(#arcticBlue)" rx="0.5"/>
+    <!-- Realistic Professional Silhouette -->
+    <g opacity="0.8">
+      <!-- Head with proper proportions -->
+      <circle cx="52.5" cy="62" r="8.5" fill="rgba(6,78,59,0.45)"/>
+      <!-- Neck -->
+      <rect x="50" y="69" width="5" height="3" fill="rgba(6,78,59,0.45)" rx="2"/>
+      <!-- Shoulders/torso with suit -->
+      <ellipse cx="52.5" cy="82" rx="13" ry="8" fill="rgba(6,78,59,0.45)"/>
+      <!-- Suit jacket lapels -->
+      <polygon points="42,78 47,74 50,78 50,85 42,85" fill="rgba(6,78,59,0.35)"/>
+      <polygon points="58,78 55,74 63,78 63,85 55,85" fill="rgba(6,78,59,0.35)"/>
+      <!-- Tie/shirt detail -->
+      <rect x="50.5" y="74" width="4" height="12" fill="rgba(6,78,59,0.3)" rx="1"/>
+      <polygon points="51.5,74 50.5,76 52.5,78 54.5,76 53.5,74" fill="rgba(217,119,6,0.4)"/>
+    </g>
   </g>
   
-  <!-- Premium skills section with sophisticated design -->
-  <g id="skills-section">
+  <!-- Elite Contact Information -->
+  <g id="elite-contact-section">
+    <rect x="18" y="125" width="65" height="5" fill="rgba(255,255,255,0.25)" rx="2"/>
+    <rect x="20" y="127" width="61" height="1" fill="rgba(217,119,6,0.8)" rx="0.5"/>
+    
+    <!-- Elegant contact items -->
+    <circle cx="25" cy="140" r="1.5" fill="rgba(255,255,255,0.7)"/>
+    <rect x="30" y="138" width="50" height="3" fill="rgba(255,255,255,0.9)" rx="1"/>
+    
+    <circle cx="25" cy="150" r="1.5" fill="rgba(255,255,255,0.7)"/>
+    <rect x="30" y="148" width="45" height="3" fill="rgba(255,255,255,0.85)" rx="1"/>
+    
+    <circle cx="25" cy="160" r="1.5" fill="rgba(255,255,255,0.7)"/>
+    <rect x="30" y="158" width="52" height="3" fill="rgba(255,255,255,0.85)" rx="1"/>
+    
+    <circle cx="25" cy="170" r="1.5" fill="rgba(255,255,255,0.7)"/>
+    <rect x="30" y="168" width="40" height="3" fill="rgba(255,255,255,0.8)" rx="1"/>
+  </g>
+  
+  <!-- Premium LinkedIn Integration -->
+  <g id="premium-linkedin-section">
+    <rect x="18" y="185" width="70" height="14" fill="rgba(0,119,181,0.12)" rx="7" stroke="rgba(0,119,181,0.3)" stroke-width="1"/>
+    
+    <!-- LinkedIn premium icon -->
+    <rect x="23" y="190" width="5" height="4" fill="url(#linkedInElite)" rx="1"/>
+    <!-- LinkedIn URL representation -->
+    <rect x="31" y="191" width="32" height="2" fill="url(#linkedInElite)" rx="1"/>
+  </g>
+  
+  <!-- Elegant Skills Section (NO PROGRESS BARS) -->
+  <g id="sophisticated-skills">
+    <rect x="18" y="215" width="55" height="5" fill="rgba(255,255,255,0.25)" rx="2"/>
+    <rect x="20" y="217" width="51" height="1" fill="rgba(217,119,6,0.8)" rx="0.5"/>
+    
+    <!-- Clean skill items -->
+    <g opacity="0.9">
+      <polygon points="22,230 24,228 26,230 24,232" fill="rgba(217,119,6,0.6)"/>
+      <rect x="28" y="228" width="35" height="4" fill="rgba(255,255,255,0.8)" rx="2"/>
+    </g>
+    
+    <g opacity="0.9">
+      <polygon points="22,240 24,238 26,240 24,242" fill="rgba(217,119,6,0.6)"/>
+      <rect x="28" y="238" width="40" height="4" fill="rgba(255,255,255,0.8)" rx="2"/>
+    </g>
+    
+    <g opacity="0.9">
+      <polygon points="22,250 24,248 26,250 24,252" fill="rgba(217,119,6,0.6)"/>
+      <rect x="28" y="248" width="32" height="4" fill="rgba(255,255,255,0.8)" rx="2"/>
+    </g>
+    
+    <g opacity="0.9">
+      <polygon points="22,260 24,258 26,260 24,262" fill="rgba(217,119,6,0.6)"/>
+      <rect x="28" y="258" width="38" height="4" fill="rgba(255,255,255,0.8)" rx="2"/>
+    </g>
+  </g>
+  
+  <!-- Refined Languages Section (NO PROGRESS BARS) -->
+  <g id="refined-languages">
+    <rect x="18" y="285" width="50" height="5" fill="rgba(255,255,255,0.25)" rx="2"/>
+    <rect x="20" y="287" width="46" height="1" fill="rgba(217,119,6,0.8)" rx="0.5"/>
+    
+    <!-- Language entries with elegant styling -->
+    <circle cx="25" cy="305" r="2" fill="rgba(217,119,6,0.7)"/>
+    <rect x="30" y="302" width="45" height="4" fill="rgba(255,255,255,0.85)" rx="2"/>
+    
+    <circle cx="25" cy="315" r="2" fill="rgba(217,119,6,0.7)"/>
+    <rect x="30" y="312" width="40" height="4" fill="rgba(255,255,255,0.85)" rx="2"/>
+    
+    <circle cx="25" cy="325" r="2" fill="rgba(217,119,6,0.7)"/>
+    <rect x="30" y="322" width="42" height="4" fill="rgba(255,255,255,0.85)" rx="2"/>
+  </g>
+  
+  <!-- PREMIUM MAIN CONTENT - WOW DESIGN -->
+  <!-- Executive Name Header -->
+  <g id="executive-header">
+    <!-- Name with premium styling -->
+    <rect x="130" y="25" width="150" height="14" fill="url(#emeraldDeep)" rx="3"/>
+    <rect x="132" y="27" width="146" height="10" fill="rgba(255,255,255,0.05)" rx="2"/>
+    
+    <!-- Professional title -->
+    <rect x="130" y="45" width="120" height="9" fill="rgba(6,78,59,0.8)" rx="2"/>
+    
+    <!-- Elegant gold accent line -->
+    <rect x="130" y="60" width="80" height="2" fill="url(#premiumGold)" rx="1"/>
+  </g>
+  
+  <!-- Premium Summary Section -->
+  <g id="premium-summary">
+    <!-- Summary with sophisticated spacing -->
+    <rect x="130" y="75" width="160" height="3" fill="rgba(45,55,72,0.9)" rx="1"/>
+    <rect x="130" y="82" width="155" height="3" fill="rgba(45,55,72,0.85)" rx="1"/>
+    <rect x="130" y="89" width="150" height="3" fill="rgba(45,55,72,0.8)" rx="1"/>
+    <rect x="130" y="96" width="145" height="3" fill="rgba(45,55,72,0.75)" rx="1"/>
+    
+    <!-- Decorative element -->
+    <polygon points="285,85 290,80 295,85 290,90" fill="rgba(217,119,6,0.3)"/>
+  </g>
+  
+  <!-- Elite Experience Section -->
+  <g id="elite-experience">
+    <!-- Section header with premium design -->
+    <rect x="130" y="115" width="110" height="7" fill="url(#emeraldDeep)" rx="3"/>
+    <rect x="130" y="125" width="160" height="1.5" fill="url(#premiumGold)" rx="0.5"/>
+    <rect x="132" y="127" width="100" height="0.5" fill="rgba(217,119,6,0.5)" rx="0.25"/>
+    
+    <!-- Executive Position 1 -->
+    <g transform="translate(130, 140)">
+      <rect x="0" y="0" width="130" height="6" fill="rgba(6,78,59,0.9)" rx="2"/>
+      <rect x="0" y="9" width="100" height="4" fill="rgba(74,85,104,0.9)" rx="1"/>
+      <rect x="0" y="16" width="155" height="2.5" fill="rgba(113,128,150,0.8)" rx="1"/>
+      <rect x="0" y="21" width="150" height="2.5" fill="rgba(113,128,150,0.75)" rx="1"/>
+      <rect x="0" y="26" width="145" height="2.5" fill="rgba(113,128,150,0.7)" rx="1"/>
+      <!-- Premium bullet point -->
+      <circle cx="-8" cy="3" r="2" fill="url(#premiumGold)"/>
+    </g>
+    
+    <!-- Executive Position 2 -->
+    <g transform="translate(130, 175)">
+      <rect x="0" y="0" width="120" height="6" fill="rgba(6,78,59,0.9)" rx="2"/>
+      <rect x="0" y="9" width="95" height="4" fill="rgba(74,85,104,0.9)" rx="1"/>
+      <rect x="0" y="16" width="145" height="2.5" fill="rgba(113,128,150,0.8)" rx="1"/>
+      <rect x="0" y="21" width="140" height="2.5" fill="rgba(113,128,150,0.75)" rx="1"/>
+      <!-- Premium bullet point -->
+      <circle cx="-8" cy="3" r="2" fill="url(#premiumGold)"/>
+    </g>
+    
+    <!-- Executive Position 3 -->
+    <g transform="translate(130, 205)">
+      <rect x="0" y="0" width="110" height="6" fill="rgba(6,78,59,0.9)" rx="2"/>
+      <rect x="0" y="9" width="85" height="4" fill="rgba(74,85,104,0.9)" rx="1"/>
+      <rect x="0" y="16" width="135" height="2.5" fill="rgba(113,128,150,0.8)" rx="1"/>
+      <!-- Premium bullet point -->
+      <circle cx="-8" cy="3" r="2" fill="url(#premiumGold)"/>
+    </g>
+  </g>
+  
+  <!-- Distinguished Education Section -->
+  <g id="distinguished-education">
     <!-- Section header -->
-    <rect x="18" y="95" width="48" height="8" fill="rgba(255,255,255,0.3)" rx="4"/>
-    <rect x="20" y="97" width="44" height="4" fill="rgba(255,255,255,0.15)" rx="2"/>
+    <rect x="130" y="240" width="90" height="7" fill="url(#emeraldDeep)" rx="3"/>
+    <rect x="130" y="250" width="160" height="1.5" fill="url(#premiumGold)" rx="0.5"/>
     
-    <!-- Elegant skill indicators with Nordic blue accent -->
-    <rect x="18" y="115" width="46" height="5" fill="rgba(74,144,164,0.8)" rx="2.5"/>
-    <rect x="18" y="125" width="42" height="5" fill="rgba(74,144,164,0.75)" rx="2.5"/>
-    <rect x="18" y="135" width="49" height="5" fill="rgba(74,144,164,0.75)" rx="2.5"/>
-    <rect x="18" y="145" width="38" height="5" fill="rgba(74,144,164,0.7)" rx="2.5"/>
-    <rect x="18" y="155" width="44" height="5" fill="rgba(74,144,164,0.7)" rx="2.5"/>
+    <!-- Education entries with premium styling -->
+    <g transform="translate(130, 265)">
+      <rect x="0" y="0" width="120" height="6" fill="rgba(6,78,59,0.9)" rx="2"/>
+      <rect x="0" y="9" width="105" height="4" fill="rgba(74,85,104,0.9)" rx="1"/>
+      <rect x="0" y="16" width="85" height="2.5" fill="rgba(113,128,150,0.8)" rx="1"/>
+      <!-- Academic icon -->
+      <polygon points="-8,3 -6,1 -4,3 -6,5" fill="url(#premiumGold)"/>
+    </g>
     
-    <!-- Subtle white highlights for premium feel -->
-    <rect x="20" y="116" width="42" height="2" fill="rgba(255,255,255,0.25)" rx="1"/>
-    <rect x="20" y="126" width="38" height="2" fill="rgba(255,255,255,0.25)" rx="1"/>
-    <rect x="20" y="136" width="45" height="2" fill="rgba(255,255,255,0.25)" rx="1"/>
-    <rect x="20" y="146" width="34" height="2" fill="rgba(255,255,255,0.25)" rx="1"/>
-    <rect x="20" y="156" width="40" height="2" fill="rgba(255,255,255,0.25)" rx="1"/>
+    <g transform="translate(130, 290)">
+      <rect x="0" y="0" width="110" height="6" fill="rgba(6,78,59,0.9)" rx="2"/>
+      <rect x="0" y="9" width="95" height="4" fill="rgba(74,85,104,0.9)" rx="1"/>
+      <!-- Academic icon -->
+      <polygon points="-8,3 -6,1 -4,3 -6,5" fill="url(#premiumGold)"/>
+    </g>
   </g>
   
-  <!-- Clean language section -->
-  <g id="language-section">
-    <!-- Language section header -->
-    <rect x="18" y="180" width="48" height="8" fill="rgba(255,255,255,0.3)" rx="4"/>
-    <rect x="20" y="182" width="44" height="4" fill="rgba(255,255,255,0.15)" rx="2"/>
+  <!-- Premium Achievements Section -->
+  <g id="premium-achievements">
+    <rect x="130" y="320" width="100" height="7" fill="url(#emeraldDeep)" rx="3"/>
+    <rect x="130" y="330" width="160" height="1.5" fill="url(#premiumGold)" rx="0.5"/>
     
-    <!-- Language indicators with modern Nordic style -->
-    <rect x="18" y="200" width="48" height="4" fill="rgba(255,255,255,0.3)" rx="2"/>
-    <rect x="18" y="209" width="42" height="4" fill="rgba(255,255,255,0.3)" rx="2"/>
-    <rect x="18" y="218" width="45" height="4" fill="rgba(255,255,255,0.3)" rx="2"/>
+    <!-- Achievement items -->
+    <g transform="translate(130, 345)">
+      <rect x="0" y="0" width="110" height="5" fill="rgba(6,78,59,0.9)" rx="2"/>
+      <rect x="0" y="8" width="95" height="4" fill="rgba(74,85,104,0.9)" rx="1"/>
+      <!-- Star icon -->
+      <polygon points="-8,2 -6,0 -4,2 -6,4" fill="url(#premiumGold)"/>
+    </g>
     
-    <!-- Proficiency level bars -->
-    <rect x="50" y="201" width="14" height="2" fill="#4a90a4" rx="1"/>
-    <rect x="50" y="210" width="11" height="2" fill="#4a90a4" rx="1"/>
-    <rect x="50" y="219" width="9" height="2" fill="#4a90a4" rx="1"/>
+    <g transform="translate(130, 365)">
+      <rect x="0" y="0" width="105" height="5" fill="rgba(6,78,59,0.9)" rx="2"/>
+      <rect x="0" y="8" width="90" height="4" fill="rgba(74,85,104,0.9)" rx="1"/>
+      <!-- Star icon -->
+      <polygon points="-8,2 -6,0 -4,2 -6,4" fill="url(#premiumGold)"/>
+    </g>
   </g>
   
-  <!-- Main content area with improved layout -->
-  <!-- Asymmetric header with name -->
-  <rect x="110" y="35" width="145" height="12" fill="#2c2c2c" rx="6"/>
-  <rect x="110" y="52" width="105" height="4" fill="#4a4a4a" rx="2"/>
-  
-  <!-- Arctic blue accent under name -->
-  <rect x="110" y="65" width="65" height="3" fill="url(#arcticBlue)" rx="2"/>
-  
-  <!-- Professional summary with organic shape -->
-  <rect x="110" y="90" width="75" height="6" fill="#2d5016" rx="3"/>
-  <rect x="110" y="105" width="160" height="2.5" fill="#4a4a4a" rx="1.25"/>
-  <rect x="110" y="112" width="155" height="2.5" fill="#4a4a4a" rx="1.25"/>
-  <rect x="110" y="119" width="150" height="2.5" fill="#4a4a4a" rx="1.25"/>
-  <rect x="110" y="126" width="145" height="2.5" fill="#4a4a4a" rx="1.25"/>
-  
-  <!-- Experience section -->
-  <rect x="110" y="150" width="85" height="6" fill="#2d5016" rx="3"/>
-  
-  <!-- Clean section separator -->
-  <rect x="110" y="162" width="130" height="1.5" fill="rgba(74,144,164,0.4)" rx="1"/>
-  
-  <!-- Job entries with Nordic spacing -->
-  <rect x="110" y="175" width="95" height="5" fill="#2c2c2c" rx="2"/>
-  <rect x="110" y="185" width="75" height="3" fill="#6ba3b5" rx="1"/>
-  <rect x="110" y="193" width="140" height="2.5" fill="#4a4a4a" rx="1.25"/>
-  <rect x="110" y="199" width="135" height="2.5" fill="#4a4a4a" rx="1.25"/>
-  <rect x="110" y="205" width="130" height="2.5" fill="#4a4a4a" rx="1.25"/>
-  
-  <!-- Second job with clean separation -->
-  <circle cx="115" cy="225" r="1.5" fill="rgba(74,144,164,0.4)"/>
-  <rect x="110" y="235" width="90" height="5" fill="#2c2c2c" rx="2"/>
-  <rect x="110" y="245" width="70" height="3" fill="#6ba3b5" rx="1"/>
-  <rect x="110" y="253" width="135" height="2.5" fill="#4a4a4a" rx="1.25"/>
-  <rect x="110" y="259" width="140" height="2.5" fill="#4a4a4a" rx="1.25"/>
-  
-  <!-- Education section -->
-  <rect x="110" y="285" width="65" height="6" fill="#2d5016" rx="3"/>
-  <rect x="110" y="297" width="110" height="2" fill="url(#stoneAccent)" rx="1"/>
-  <rect x="110" y="298.5" width="85" height="0.5" fill="rgba(160,140,95,0.5)" rx="0.25"/>
-  
-  <rect x="110" y="310" width="100" height="5" fill="#2c2c2c" rx="2"/>
-  <rect x="110" y="320" width="80" height="3" fill="#6ba3b5" rx="1"/>
-  
-  <!-- Subtle decorative elements -->
-  <ellipse cx="260" cy="150" rx="8" ry="12" fill="rgba(74,144,164,0.08)" transform="rotate(15 260 150)"/>
-  
-  <!-- Clean template without branding text -->
+  <!-- WOW Design Elements -->
+  <g id="wow-elements" opacity="0.08">
+    <!-- Sophisticated geometric patterns -->
+    <circle cx="285" cy="35" r="6" fill="url(#premiumGold)"/>
+    <polygon points="280,380 285,375 290,380 285,385" fill="url(#emeraldDeep)"/>
+    <rect x="115" y="120" width="1.5" height="30" fill="url(#premiumGold)" rx="0.75"/>
+    <rect x="115" y="250" width="1.5" height="25" fill="url(#premiumGold)" rx="0.75"/>
+    
+    <!-- Subtle hexagonal accent -->
+    <polygon points="275,200 278,197 281,200 278,203" fill="none" stroke="url(#premiumGold)" stroke-width="0.8"/>
+  </g>
 </svg>
