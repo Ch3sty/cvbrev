@@ -47,6 +47,18 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 overflow: hidden;
             }
             
+            /* Ensure entire page below content is white */
+            .cv-container::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 120px; /* Match sidebar cutoff */
+                background: white;
+                z-index: 0;
+            }
+            
             /* Subtle Background Texture */
             .cv-container::before {
                 content: '';
@@ -61,33 +73,33 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 pointer-events: none;
             }
             
-            /* Angular Sidebar Design */
+            /* Angular Sidebar Design - Much Wider */
             .angular-sidebar {
                 position: absolute;
                 left: 0;
                 top: 0;
-                bottom: 0;
-                width: 140px;
+                height: calc(100% - 120px); /* Stop before content ends */
+                width: 180px; /* Much wider sidebar */
                 background: linear-gradient(135deg, #064e3b 0%, #047857 50%, #065f46 100%);
-                clip-path: polygon(0 0, 85px 0, 100px 25px, 100px calc(100% - 25px), 85px 100%, 0 100%);
+                clip-path: polygon(0 0, 120px 0, 140px 25px, 140px calc(100% - 25px), 120px 100%, 0 100%);
                 z-index: 1;
             }
             
             .angular-sidebar::after {
                 content: '';
                 position: absolute;
-                right: -15px;
+                right: -20px;
                 top: 0;
-                bottom: 0;
-                width: 15px;
+                height: 100%;
+                width: 20px;
                 background: linear-gradient(90deg, transparent, rgba(217, 119, 6, 0.1));
-                clip-path: polygon(0 25px, 15px 0, 15px 100%, 0 calc(100% - 25px));
+                clip-path: polygon(0 25px, 20px 0, 20px 100%, 0 calc(100% - 25px));
             }
             
             /* Profile Photo Section */
             .profile-photo-section {
                 position: absolute;
-                left: 30px;
+                left: 45px; /* Centered in wider sidebar */
                 top: 60px;
                 z-index: 2;
             }
@@ -120,9 +132,9 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
             /* Sidebar Content */
             .sidebar-content {
                 position: absolute;
-                left: 20px;
+                left: 25px;
                 top: ${includePhoto ? '170px' : '60px'};
-                width: 100px;
+                width: 130px; /* Wider content area to match wider sidebar */
                 z-index: 2;
             }
             
@@ -259,10 +271,11 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
             
             /* Main Content */
             .main-content {
-                margin-left: 160px;
+                margin-left: 200px; /* Adjusted for wider sidebar */
                 padding: 40px 40px 40px 20px;
                 position: relative;
                 z-index: 1;
+                background: white; /* Ensure clean white background */
             }
             
             /* Header Section */
@@ -397,16 +410,6 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 position: relative;
             }
             
-            .education-item::before {
-                content: '';
-                position: absolute;
-                left: -8px;
-                top: 20px;
-                width: 6px;
-                height: 6px;
-                background: #d97706;
-                clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            }
             
             .degree {
                 font-weight: 700;
@@ -484,8 +487,10 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 text-align: center;
                 margin-top: 40px;
                 padding-top: 25px;
+                padding-bottom: 40px; /* Extra padding to ensure clean white space */
                 border-top: 1px solid #e2e8f0;
                 position: relative;
+                background: white; /* Ensure clean white background */
             }
             
             .footer::before {
