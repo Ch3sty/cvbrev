@@ -34,7 +34,7 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
                 line-height: 1.6;
                 color: #2d3748;
-                background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+                background: white;
             }
             
             .cv-container {
@@ -58,19 +58,6 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 z-index: -1;
             }
             
-            /* Subtle Background Texture */
-            .cv-container::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: 
-                    radial-gradient(circle at 20% 30%, rgba(6, 78, 59, 0.02) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 70%, rgba(217, 119, 6, 0.02) 0%, transparent 50%);
-                pointer-events: none;
-            }
             
             /* Angular Sidebar Design - Extra Wide for Email */
             .angular-sidebar {
