@@ -73,15 +73,16 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 pointer-events: none;
             }
             
-            /* Angular Sidebar Design - Match SVG exactly */
+            /* Angular Sidebar Design - Much Wider */
             .angular-sidebar {
                 position: absolute;
                 left: 0;
                 top: 0;
-                width: 110px; /* Match SVG main sidebar width */
-                height: calc(100% - 80px); /* Stop before content ends */
+                width: 200px; /* Much wider sidebar to fit content properly */
+                height: auto; /* Dynamic height based on content */
+                min-height: 60%; /* Minimum height to cover main content */
                 background: linear-gradient(135deg, #064e3b 0%, #047857 50%, #065f46 100%);
-                clip-path: polygon(0 0, 95px 0, 110px 25px, 110px calc(100% - 25px), 95px 100%, 0 100%);
+                clip-path: polygon(0 0, 160px 0, 180px 25px, 180px calc(100% - 25px), 160px 100%, 0 100%);
                 z-index: 1;
             }
             
@@ -89,12 +90,31 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
             .angular-sidebar::after {
                 content: '';
                 position: absolute;
-                left: 95px;
+                left: 160px;
                 top: 0;
-                width: 20px;
+                width: 25px;
                 height: 100%;
                 background: rgba(217, 119, 6, 0.1);
-                clip-path: polygon(0 0, 10px 0, 20px 25px, 20px calc(100% - 25px), 10px 100%, 0 100%);
+                clip-path: polygon(0 0, 15px 0, 25px 25px, 25px calc(100% - 25px), 15px 100%, 0 100%);
+            }
+            
+            /* Beige Pattern Element */
+            .beige-pattern {
+                position: absolute;
+                left: 185px;
+                top: 0;
+                width: 40px;
+                height: 60%;
+                background: 
+                    repeating-linear-gradient(
+                        45deg,
+                        rgba(245, 238, 208, 0.3) 0px,
+                        rgba(245, 238, 208, 0.3) 2px,
+                        transparent 2px,
+                        transparent 6px
+                    ),
+                    linear-gradient(135deg, rgba(217, 119, 6, 0.05), rgba(245, 238, 208, 0.1));
+                z-index: 0;
             }
             
             /* Profile Photo Section - Match SVG position */
@@ -131,12 +151,12 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 z-index: -1;
             }
             
-            /* Sidebar Content - Match SVG layout */
+            /* Sidebar Content - Wider layout */
             .sidebar-content {
                 position: absolute;
-                left: 18px; /* Match SVG positioning */
-                top: ${includePhoto ? '155px' : '110px'}; /* Match SVG contact section start after photo */
-                width: 75px; /* Match SVG content width */
+                left: 25px; /* More space for wider sidebar */
+                top: ${includePhoto ? '155px' : '110px'}; 
+                width: 150px; /* Much wider content area */
                 z-index: 2;
             }
             
@@ -271,14 +291,14 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 border-radius: 50%;
             }
             
-            /* Main Content - Match SVG layout */
+            /* Main Content - Adjusted for wider sidebar */
             .main-content {
-                margin-left: 125px; /* Match SVG main content start position */
-                padding: 25px 25px 40px 20px; /* More compact padding to match SVG */
+                margin-left: 220px; /* Adjusted for wider sidebar */
+                padding: 25px 25px 40px 20px; 
                 position: relative;
                 z-index: 1;
                 background: white;
-                max-width: 450px; /* Limit width to match SVG proportions */
+                max-width: 400px; 
             }
             
             /* Header Section */
@@ -543,6 +563,9 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
             <!-- Angular Sidebar -->
             <div class="angular-sidebar"></div>
             
+            <!-- Beige Pattern Element -->
+            <div class="beige-pattern"></div>
+            
             <!-- Profile Photo Section -->
             ${includePhoto ? `
             <div class="profile-photo-section">
@@ -574,6 +597,28 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 </div>
                 ` : ''}
                 
+                <!-- Skills in Sidebar -->
+                ${cvData.skills.length > 0 ? `
+                <div class="sidebar-section">
+                    <div class="sidebar-header">Kompetenser</div>
+                    ${cvData.skills
+                        .flatMap(skillGroup => skillGroup.skills)
+                        .filter(skill => !cvData.languages?.some(lang => skill.toLowerCase().includes(lang.language.toLowerCase())))
+                        .slice(0, 8)
+                        .map(skill => `<div class="skill-item">${skill}</div>`)
+                        .join('')}
+                </div>
+                ` : ''}
+                
+                <!-- Languages in Sidebar -->
+                ${shouldShowSection('languages', cvData) ? `
+                <div class="sidebar-section">
+                    <div class="sidebar-header">Språk</div>
+                    ${cvData.languages?.map(lang => `
+                        <div class="language-item">${lang.language} - ${lang.proficiency}</div>
+                    `).join('') || '<div class="language-item">Svenska - Modersmål</div>'}
+                </div>
+                ` : ''}
             </div>
             
             <!-- Main Content -->
@@ -625,39 +670,6 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                             <div class="institution">${edu.institution} ${edu.graduationYear ? '• ' + edu.graduationYear : (edu.startDate ? '• ' + edu.startDate : '')} ${edu.endDate ? '- ' + edu.endDate : ''}</div>
                         </div>
                     `).join('')}
-                </div>
-                ` : ''}
-                
-                ${cvData.skills.length > 0 ? `
-                <!-- Skills -->
-                <div class="section">
-                    <div class="section-header">Kompetenser</div>
-                    <div class="skills-grid">
-                        ${cvData.skills
-                            .flatMap(skillGroup => skillGroup.skills)
-                            .filter(skill => !cvData.languages?.some(lang => skill.toLowerCase().includes(lang.language.toLowerCase())))
-                            .map(skill => `<span class="skill-tag">${skill}</span>`)
-                            .join('')}
-                    </div>
-                </div>
-                ` : ''}
-                
-                ${shouldShowSection('languages', cvData) ? `
-                <!-- Languages -->
-                <div class="section">
-                    <div class="section-header">Språk</div>
-                    <div class="language-grid">
-                        ${cvData.languages?.map(lang => `
-                            <div class="language-tag">
-                                <span>${lang.language}</span>
-                                <span class="language-level">${lang.proficiency}</span>
-                            </div>
-                        `).join('') || 
-                            `<div class="language-tag">
-                                <span>Svenska</span>
-                                <span class="language-level">Modersmål</span>
-                            </div>`}
-                    </div>
                 </div>
                 ` : ''}
                 
