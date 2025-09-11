@@ -65,9 +65,9 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
             .vertical-accent {
                 position: absolute;
                 left: 0;
-                top: 0;
+                top: 25px; /* Börjar i samma höjd som header */
                 width: 12px; /* Bredare lila del */
-                height: 100%;
+                height: calc(100% - 25px); /* Justerad höjd */
                 background: linear-gradient(135deg, #7c3aed, #a855f7);
                 border-radius: 0 6px 6px 0;
                 z-index: 1;
@@ -78,10 +78,10 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
                 position: absolute;
                 left: 7px; /* Inuti den lila delen */
                 top: 0;
-                width: 4px; /* Orange accent inuti */
+                width: 3px; /* Smalare orange accent */
                 height: 100%;
                 background: linear-gradient(135deg, #f97316, #fb923c);
-                border-radius: 0 2px 2px 0;
+                border-radius: 0 1.5px 1.5px 0;
             }
             
             /* Header Section - Större för mer innehåll */
@@ -132,13 +132,6 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
                 margin-bottom: 6px;
                 display: inline-block;
                 box-shadow: 0 4px 12px rgba(124,58,237,0.2);
-            }
-            
-            .title {
-                font-size: 14px;
-                color: rgba(124,58,237,0.8);
-                font-weight: 600;
-                margin-bottom: 6px;
             }
             
             .header-description {
@@ -466,8 +459,7 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
                 <div class="name-title-container">
                     <h1 class="name">${cvData.personalInfo.fullName}</h1>
                     ${cvData.summary ? `
-                    <div class="title">${cvData.summary.split('.')[0]}.</div>
-                    <div class="header-description">${cvData.summary.split('.').slice(1, 3).join('.').trim()}${cvData.summary.split('.').length > 2 ? '.' : ''}</div>
+                    <div class="header-description">${cvData.summary}</div>
                     ` : ''}
                     <div class="header-accent"></div>
                 </div>
