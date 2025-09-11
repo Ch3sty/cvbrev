@@ -43,7 +43,6 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 margin: 0 auto;
                 background: white;
                 position: relative;
-                box-shadow: 0 8px 32px rgba(6, 78, 59, 0.15);
                 overflow: hidden;
             }
             
@@ -98,22 +97,14 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 clip-path: polygon(0 0, 15px 0, 25px 25px, 25px calc(100% - 25px), 15px 100%, 0 100%);
             }
             
-            /* Beige Pattern Element */
+            /* Simple Beige Stripe - Match SVG */
             .beige-pattern {
                 position: absolute;
-                left: 185px;
+                left: 200px;
                 top: 0;
-                width: 40px;
-                height: 60%;
-                background: 
-                    repeating-linear-gradient(
-                        45deg,
-                        rgba(245, 238, 208, 0.3) 0px,
-                        rgba(245, 238, 208, 0.3) 2px,
-                        transparent 2px,
-                        transparent 6px
-                    ),
-                    linear-gradient(135deg, rgba(217, 119, 6, 0.05), rgba(245, 238, 208, 0.1));
+                width: 10px;
+                height: 75%;
+                background: rgba(217, 119, 6, 0.1);
                 z-index: 0;
             }
             
@@ -291,14 +282,15 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 border-radius: 50%;
             }
             
-            /* Main Content - Adjusted for wider sidebar */
+            /* Main Content - Full width after sidebar */
             .main-content {
-                margin-left: 220px; /* Adjusted for wider sidebar */
-                padding: 25px 25px 40px 20px; 
+                margin-left: 220px; /* After sidebar */
+                margin-right: 0; /* No right margin */
+                padding: 25px 40px 40px 20px; /* More right padding to use full width */
                 position: relative;
                 z-index: 1;
                 background: white;
-                max-width: 400px; 
+                width: calc(100% - 220px); /* Fill remaining width */
             }
             
             /* Header Section */
