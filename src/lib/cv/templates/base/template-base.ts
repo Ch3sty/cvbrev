@@ -7,7 +7,7 @@ export interface CVTemplateGenerator {
   /**
    * Genererar HTML för template
    */
-  generate: (cvData: CVMetadata) => string;
+  generate: (cvData: CVMetadata, options?: any) => string;
   
   /**
    * Template ID för identifiering

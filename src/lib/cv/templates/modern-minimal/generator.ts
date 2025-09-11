@@ -3,7 +3,7 @@ import { shouldShowSection } from '@/lib/cv/cv-metadata';
 import { formatSwedishAddress } from '../base/address-formatter';
 import type { CVTemplateGenerator } from '../base/template-base';
 
-function generateModernMinimalHTML(cvData: CVMetadata): string {
+function generateModernMinimalHTML(cvData: CVMetadata, options: any = {}): string {
   return `
     <!DOCTYPE html>
     <html lang="sv">

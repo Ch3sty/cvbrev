@@ -3,7 +3,7 @@ import { shouldShowSection } from '@/lib/cv/cv-metadata';
 import { formatSwedishAddress } from '../base/address-formatter';
 import type { CVTemplateGenerator } from '../base/template-base';
 
-function generateCleanCorporateHTML(cvData: CVMetadata): string {
+function generateCleanCorporateHTML(cvData: CVMetadata, options: any = {}): string {
   return `
     <!DOCTYPE html>
     <html lang="sv">
