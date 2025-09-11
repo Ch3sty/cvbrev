@@ -58,6 +58,19 @@ function generateNordicProfessionalHTML(cvData: CVMetadata): string {
                 margin-bottom: 30px;
             }
             
+            /* Profile Photo */
+            .profile-photo {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                object-fit: cover;
+                border: 3px solid rgba(255, 255, 255, 0.3);
+                margin-bottom: 15px;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
             .contact-header {
                 background: rgba(255, 255, 255, 0.3);
                 border-radius: 8px;
@@ -407,6 +420,13 @@ function generateNordicProfessionalHTML(cvData: CVMetadata): string {
         <div class="cv-container">
             <!-- Forest Green Sidebar -->
             <div class="sidebar">
+                <!-- Profile Photo -->
+                ${cvData.personalInfo.profilePhotoUrl ? `
+                <div style="text-align: center; margin-bottom: 25px;">
+                    <img src="${cvData.personalInfo.profilePhotoUrl}" alt="Profilbild" class="profile-photo" />
+                </div>
+                ` : ''}
+                
                 <!-- Contact Section -->
                 <div class="contact-section">
                     <div class="contact-header">
@@ -416,6 +436,7 @@ function generateNordicProfessionalHTML(cvData: CVMetadata): string {
                         ${cvData.personalInfo.email ? `<div class="contact-item">${cvData.personalInfo.email}</div>` : ''}
                         ${cvData.personalInfo.phone ? `<div class="contact-item">${cvData.personalInfo.phone}</div>` : ''}
                         ${cvData.personalInfo.address ? `<div class="contact-item">${formatSwedishAddress(cvData.personalInfo.address)}</div>` : ''}
+                        ${(cvData.personalInfo.linkedIn || cvData.personalInfo.linkedin) ? `<div class="contact-item">${cvData.personalInfo.linkedIn || cvData.personalInfo.linkedin}</div>` : ''}
                     </div>
                     <div class="contact-accent"></div>
                 </div>

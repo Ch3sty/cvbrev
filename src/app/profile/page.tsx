@@ -13,6 +13,8 @@ import { logUserActivity } from '@/lib/activity-logger';
 import CVUploader from '@/components/cv/cv-uploader';
 import Notification from '@/components/ui/notification';
 import SubscriptionInfo from '@/components/subscription/subscription-info';
+import { ProfilePhotoUpload } from '@/components/profile/ProfilePhotoUpload';
+import { LinkedInInput } from '@/components/profile/LinkedInInput';
 // *** NYA IMPORTER FÖR STRIPE ***
 import { SubscribeButton } from '@/components/subscription/SubscribeButton';
 import { ManageSubscriptionButton } from '@/components/subscription/ManageSubscriptionButton';
@@ -79,6 +81,8 @@ export default function ProfilePage() {
   const [formData, setFormData] = useState({
     full_name: '',
     phone: '',
+    linkedin_url: '',
+    profile_photo_url: '',
     preferred_tonality: 'professional'
   });
 
@@ -225,6 +229,8 @@ export default function ProfilePage() {
       setFormData({
         full_name: profile.full_name || '',
         phone: profile.phone || '',
+        linkedin_url: profile.linkedin_url || '',
+        profile_photo_url: profile.profile_photo_url || '',
         preferred_tonality: profile.preferred_tonality || 'professional'
       });
     }
@@ -510,6 +516,27 @@ export default function ProfilePage() {
                 className="w-full px-3 py-2 rounded-md bg-navy-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-500"
               />
             </div>
+
+            {/* Profilbild */}
+            <ProfilePhotoUpload
+              currentPhotoUrl={formData.profile_photo_url}
+              onUploadComplete={(photoUrl) => {
+                setFormData(prev => ({ ...prev, profile_photo_url: photoUrl }));
+              }}
+              onRemovePhoto={() => {
+                setFormData(prev => ({ ...prev, profile_photo_url: '' }));
+              }}
+              isUploading={saving}
+            />
+
+            {/* LinkedIn URL */}
+            <LinkedInInput
+              value={formData.linkedin_url}
+              onChange={(url) => {
+                setFormData(prev => ({ ...prev, linkedin_url: url }));
+              }}
+              disabled={saving}
+            />
 
             {/* Föredragen tonalitet */}
             <div>

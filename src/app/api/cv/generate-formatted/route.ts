@@ -4,6 +4,8 @@ import type { CVTemplateType, CVMetadata, CVGenerationOptions } from '@/lib/cv/c
 import { shouldShowSection } from '@/lib/cv/cv-metadata';
 import { validateCVData } from '@/lib/openai/cv-parser-ai';
 import { getTemplateGenerator } from '@/lib/cv/templates';
+import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
 
 // Svensk kommun-till-region mapping för CV-vänliga adresser
 const SWEDISH_MUNICIPALITY_MAPPING: { [key: string]: string } = {
@@ -2140,6 +2142,35 @@ export async function POST(request: NextRequest) {
       );
     }
     
+    // Get user profile data for photo and LinkedIn
+    let userProfile = null;
+    try {
+      const cookieStore = cookies();
+      const supabase = createServerClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.SUPABASE_SERVICE_ROLE_KEY!,
+        {
+          cookies: {
+            get: (name: string) => cookieStore.get(name)?.value,
+          },
+        }
+      );
+
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('profile_photo_url, linkedin_url')
+          .eq('id', user.id)
+          .single();
+        
+        userProfile = profile;
+      }
+    } catch (error) {
+      console.log('Could not fetch user profile data:', error);
+      // Continue without profile data - not critical for CV generation
+    }
+    
     // Kontrollera att mallen finns
     const selectedTemplate = getTemplateById(template);
     if (!selectedTemplate) {
@@ -2152,6 +2183,19 @@ export async function POST(request: NextRequest) {
     // Extrahera CV-innehåll med förbättrad svensk parsing
     console.log('Extraherar svenskt CV-innehåll...');
     const extractedCVData = await extractSwedishCVContent(cvText);
+    
+    // Enhance CV data with user profile information
+    if (userProfile) {
+      if (userProfile.profile_photo_url) {
+        extractedCVData.personalInfo.profilePhotoUrl = userProfile.profile_photo_url;
+      }
+      if (userProfile.linkedin_url) {
+        // Use profile LinkedIn URL if not already present in CV text
+        if (!extractedCVData.personalInfo.linkedIn && !extractedCVData.personalInfo.linkedin) {
+          extractedCVData.personalInfo.linkedin = userProfile.linkedin_url;
+        }
+      }
+    }
     
     // Generera template-specifik HTML baserat på vald mall
     const html = generateTemplateHTML(extractedCVData, template as CVTemplateType);

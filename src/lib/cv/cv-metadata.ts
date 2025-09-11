@@ -12,6 +12,7 @@ export interface CVPersonalInfo {
   website?: string;
   github?: string;
   title?: string; // Professional title
+  profilePhotoUrl?: string; // Profile photo for CV templates
 }
 
 export interface CVExperience {
