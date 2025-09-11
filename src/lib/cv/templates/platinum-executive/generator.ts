@@ -559,7 +559,7 @@ export const platinumExecutiveTemplate: CVTemplateGenerator = {
   metadata: {
     name: 'Platinum Executive',
     description: 'Premium executive mall med profilbild och LinkedIn integration',
-    category: 'executive',
+    category: 'traditional',
     tier: 'premium'
   }
 };
