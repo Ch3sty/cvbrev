@@ -526,6 +526,20 @@ export default function ProfilePage() {
               onRemovePhoto={() => {
                 setFormData(prev => ({ ...prev, profile_photo_url: '' }));
               }}
+              onError={(message) => {
+                setNotification({
+                  message,
+                  type: 'error',
+                  isVisible: true
+                });
+              }}
+              onSuccess={(message) => {
+                setNotification({
+                  message,
+                  type: 'success',
+                  isVisible: true
+                });
+              }}
               isUploading={saving}
             />
 

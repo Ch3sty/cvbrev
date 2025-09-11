@@ -2,13 +2,13 @@
 
 import { useState, useRef } from 'react';
 import { Upload, User, Trash2, Crown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { useToast } from '@/hooks/use-toast';
 
 interface ProfilePhotoUploadProps {
   currentPhotoUrl?: string;
   onUploadComplete: (photoUrl: string) => void;
   onRemovePhoto: () => void;
+  onError: (message: string) => void;
+  onSuccess: (message: string) => void;
   maxSizeBytes?: number;
   isUploading?: boolean;
 }
@@ -17,12 +17,13 @@ export function ProfilePhotoUpload({
   currentPhotoUrl,
   onUploadComplete,
   onRemovePhoto,
+  onError,
+  onSuccess,
   maxSizeBytes = 2 * 1024 * 1024, // 2MB
   isUploading = false
 }: ProfilePhotoUploadProps) {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const { toast } = useToast();
 
   const validateFile = (file: File): string | null => {
     if (!file.type.startsWith('image/')) {
@@ -45,11 +46,7 @@ export function ProfilePhotoUpload({
   const handleFileUpload = async (file: File) => {
     const error = validateFile(file);
     if (error) {
-      toast({
-        title: 'Fel vid uppladdning',
-        description: error,
-        variant: 'destructive'
-      });
+      onError(error);
       return;
     }
 
@@ -69,18 +66,10 @@ export function ProfilePhotoUpload({
 
       const { photoUrl } = await response.json();
       onUploadComplete(photoUrl);
-      
-      toast({
-        title: 'Profilbild uppladdad',
-        description: 'Din profilbild har sparats framgångsrikt',
-      });
+      onSuccess('Profilbild uppladdad framgångsrikt');
     } catch (error) {
       console.error('Upload error:', error);
-      toast({
-        title: 'Uppladdning misslyckades',
-        description: error instanceof Error ? error.message : 'Ett fel uppstod',
-        variant: 'destructive'
-      });
+      onError(error instanceof Error ? error.message : 'Ett fel uppstod vid uppladdning');
     }
   };
 
@@ -123,16 +112,9 @@ export function ProfilePhotoUpload({
       }
 
       onRemovePhoto();
-      toast({
-        title: 'Profilbild borttagen',
-        description: 'Din profilbild har tagits bort',
-      });
+      onSuccess('Profilbild borttagen framgångsrikt');
     } catch (error) {
-      toast({
-        title: 'Fel vid borttagning',
-        description: 'Kunde inte ta bort profilbild',
-        variant: 'destructive'
-      });
+      onError('Kunde inte ta bort profilbild');
     }
   };
 
@@ -179,27 +161,24 @@ export function ProfilePhotoUpload({
         {/* Upload Controls */}
         <div className="flex-1">
           <div className="flex items-center space-x-2">
-            <Button 
-              variant="secondary" 
-              size="sm" 
-              className="relative overflow-hidden"
+            <button 
+              className="flex items-center justify-center px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 font-medium transition-colors disabled:bg-gray-800 disabled:text-gray-400 disabled:cursor-not-allowed"
               disabled={isUploading}
               onClick={() => fileInputRef.current?.click()}
             >
               <Upload className="w-4 h-4 mr-2" />
               {isUploading ? 'Laddar upp...' : 'Ladda upp bild'}
-            </Button>
+            </button>
             
             {currentPhotoUrl && (
-              <Button 
-                variant="ghost" 
-                size="sm" 
+              <button 
+                className="flex items-center justify-center px-4 py-2 bg-transparent text-gray-400 rounded-md hover:bg-gray-700 hover:text-white font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 onClick={handleRemovePhoto}
                 disabled={isUploading}
               >
                 <Trash2 className="w-4 h-4 mr-1" />
                 Ta bort
-              </Button>
+              </button>
             )}
           </div>
           
