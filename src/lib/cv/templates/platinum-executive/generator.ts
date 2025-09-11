@@ -34,7 +34,7 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
                 font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
                 line-height: 1.6;
                 color: #2d3748;
-                background: linear-gradient(135deg, #f7fafc 0%, #e2e8f0 100%);
+                background: white;
             }
             
             .cv-container {
@@ -49,7 +49,7 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
             /* Executive Header Section */
             .executive-header {
                 background: linear-gradient(135deg, #1a365d 0%, #2d5a87 50%, #1e3a5f 100%);
-                height: ${includePhoto ? '120px' : '100px'};
+                height: ${includePhoto ? '160px' : '140px'};
                 position: relative;
                 overflow: hidden;
             }
@@ -91,19 +91,19 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
                 left: 30px;
                 top: 50%;
                 transform: translateY(-50%);
-                width: 70px;
-                height: 70px;
+                width: 100px;
+                height: 100px;
                 border-radius: 50%;
                 object-fit: cover;
-                border: 3px solid rgba(242, 243, 244, 0.8);
-                box-shadow: 0 4px 12px rgba(26, 54, 93, 0.25);
+                border: 4px solid rgba(242, 243, 244, 0.9);
+                box-shadow: 0 6px 20px rgba(26, 54, 93, 0.3);
                 background: rgba(255, 255, 255, 0.1);
             }
             
             /* Name and Title Area */
             .name-title-area {
                 position: absolute;
-                left: ${includePhoto ? '120px' : '40px'};
+                left: ${includePhoto ? '150px' : '40px'};
                 top: 50%;
                 transform: translateY(-50%);
                 right: ${includeLinkedIn ? '200px' : '40px'};
@@ -309,11 +309,11 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
                 font-weight: 600;
             }
             
-            /* Executive Skills Grid */
+            /* Executive Skills Columns */
             .executive-skills {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                gap: 12px;
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 25px;
                 margin-top: 20px;
             }
             
@@ -334,26 +334,60 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
             .skill-category-title {
                 font-weight: 700;
                 color: #1a365d;
-                font-size: 14px;
-                margin-bottom: 8px;
+                font-size: 13px;
+                margin-bottom: 15px;
                 text-transform: uppercase;
                 letter-spacing: 0.5px;
+                text-align: center;
+                border-bottom: 2px solid #f6ad55;
+                padding-bottom: 8px;
             }
             
             .skills-list {
                 display: flex;
-                flex-wrap: wrap;
-                gap: 6px;
+                flex-direction: column;
+                gap: 8px;
             }
             
             .skill-tag {
                 background: white;
                 color: #1a365d;
-                padding: 4px 8px;
-                border-radius: 12px;
-                font-size: 12px;
+                padding: 8px 12px;
+                border-radius: 6px;
+                font-size: 13px;
+                font-weight: 500;
+                border: 1px solid rgba(246, 173, 85, 0.3);
+                text-align: center;
+                transition: all 0.2s ease;
+            }
+            
+            .skill-tag:hover {
+                border-color: #f6ad55;
+                background: rgba(246, 173, 85, 0.05);
+            }
+            
+            .language-item-column {
+                background: white;
+                color: #1a365d;
+                padding: 8px 12px;
+                border-radius: 6px;
+                font-size: 13px;
+                font-weight: 500;
+                border: 1px solid rgba(246, 173, 85, 0.3);
+                text-align: center;
+                margin-bottom: 8px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .language-level {
+                background: linear-gradient(45deg, #f6ad55, #ed8936);
+                color: white;
+                padding: 2px 8px;
+                border-radius: 10px;
+                font-size: 11px;
                 font-weight: 600;
-                border: 1px solid rgba(26, 54, 93, 0.2);
             }
             
             /* Languages */
@@ -419,11 +453,10 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
                 <img src="${cvData.personalInfo.profilePhotoUrl}" alt="Profilbild" class="profile-photo" />
                 ` : ''}
                 
-                <!-- Name and Title Area -->
+                <!-- Name and Summary Area -->
                 <div class="name-title-area">
                     <h1 class="executive-name">${cvData.personalInfo.fullName}</h1>
-                    ${cvData.personalInfo.title ? `<div class="executive-title">${cvData.personalInfo.title}</div>` : ''}
-                    ${cvData.summary ? `<div class="executive-summary-brief">${cvData.summary.length > 120 ? cvData.summary.substring(0, 120) + '...' : cvData.summary}</div>` : ''}
+                    ${cvData.summary ? `<div class="executive-summary-brief">${cvData.summary}</div>` : ''}
                 </div>
                 
                 <!-- Contact & LinkedIn Area (conditional LinkedIn) -->
@@ -453,16 +486,6 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
                 <!-- Decorative Accent -->
                 <div class="decorative-accent"></div>
                 
-                ${cvData.summary && cvData.summary.length > 120 ? `
-                <!-- Executive Summary -->
-                <div class="section">
-                    <div class="section-header">Sammanfattning</div>
-                    <div class="section-separator"></div>
-                    <div class="executive-summary">
-                        <div class="summary-text">${cvData.summary}</div>
-                    </div>
-                </div>
-                ` : ''}
                 
                 ${cvData.experience.length > 0 ? `
                 <!-- Professional Experience -->
@@ -507,38 +530,95 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
                 </div>
                 ` : ''}
                 
-                ${cvData.skills.length > 0 ? `
-                <!-- Executive Skills -->
+                ${cvData.skills.length > 0 || shouldShowSection('languages', cvData) ? `
+                <!-- Executive Skills & Languages Columns -->
                 <div class="section">
                     <div class="section-header">Kompetenser</div>
                     <div class="section-separator"></div>
                     <div class="executive-skills">
-                        ${cvData.skills.map(skillGroup => `
-                            <div class="skill-category">
-                                <div class="skill-category-title">${skillGroup.category}</div>
-                                <div class="skills-list">
-                                    ${skillGroup.skills
-                                        .filter(skill => !cvData.languages?.some(lang => skill.toLowerCase().includes(lang.language.toLowerCase())))
-                                        .map(skill => `<span class="skill-tag">${skill}</span>`)
-                                        .join('')}
-                                </div>
+                        <!-- Technical Skills Column -->
+                        <div class="skill-category">
+                            <div class="skill-category-title">TEKNISKA FÄRDIGHETER</div>
+                            <div class="skills-list">
+                                ${cvData.skills
+                                    .filter(skillGroup => 
+                                        skillGroup.category.toLowerCase().includes('teknisk') || 
+                                        skillGroup.category.toLowerCase().includes('technical') ||
+                                        skillGroup.category.toLowerCase().includes('programm') ||
+                                        skillGroup.category.toLowerCase().includes('system') ||
+                                        skillGroup.category.toLowerCase().includes('verktyg') ||
+                                        skillGroup.category.toLowerCase().includes('tool')
+                                    )
+                                    .flatMap(skillGroup => skillGroup.skills)
+                                    .filter(skill => !cvData.languages?.some(lang => skill.toLowerCase().includes(lang.language.toLowerCase())))
+                                    .slice(0, 8)
+                                    .map(skill => `<span class="skill-tag">${skill}</span>`)
+                                    .join('')}
+                                ${cvData.skills
+                                    .filter(skillGroup => 
+                                        !skillGroup.category.toLowerCase().includes('teknisk') && 
+                                        !skillGroup.category.toLowerCase().includes('technical') &&
+                                        !skillGroup.category.toLowerCase().includes('programm') &&
+                                        !skillGroup.category.toLowerCase().includes('system') &&
+                                        !skillGroup.category.toLowerCase().includes('verktyg') &&
+                                        !skillGroup.category.toLowerCase().includes('tool') &&
+                                        !skillGroup.category.toLowerCase().includes('mjuk') &&
+                                        !skillGroup.category.toLowerCase().includes('soft') &&
+                                        !skillGroup.category.toLowerCase().includes('personal')
+                                    )
+                                    .flatMap(skillGroup => skillGroup.skills)
+                                    .filter(skill => !cvData.languages?.some(lang => skill.toLowerCase().includes(lang.language.toLowerCase())))
+                                    .slice(0, 6)
+                                    .map(skill => `<span class="skill-tag">${skill}</span>`)
+                                    .join('')}
                             </div>
-                        `).join('')}
-                    </div>
-                </div>
-                ` : ''}
-                
-                ${shouldShowSection('languages', cvData) ? `
-                <!-- Languages -->
-                <div class="section">
-                    <div class="section-header">Språkkunskaper</div>
-                    <div class="section-separator"></div>
-                    ${cvData.languages?.map(lang => `
-                        <div class="language-item">
-                            <span class="language-name">${lang.language}</span>
-                            <span class="language-level">${lang.proficiency}</span>
                         </div>
-                    `).join('') || ''}
+                        
+                        <!-- Soft Skills Column -->
+                        <div class="skill-category">
+                            <div class="skill-category-title">MJUKA FÄRDIGHETER</div>
+                            <div class="skills-list">
+                                ${cvData.skills
+                                    .filter(skillGroup => 
+                                        skillGroup.category.toLowerCase().includes('mjuk') || 
+                                        skillGroup.category.toLowerCase().includes('soft') ||
+                                        skillGroup.category.toLowerCase().includes('personal') ||
+                                        skillGroup.category.toLowerCase().includes('social') ||
+                                        skillGroup.category.toLowerCase().includes('ledarskap') ||
+                                        skillGroup.category.toLowerCase().includes('kommunikation')
+                                    )
+                                    .flatMap(skillGroup => skillGroup.skills)
+                                    .slice(0, 8)
+                                    .map(skill => `<span class="skill-tag">${skill}</span>`)
+                                    .join('')}
+                                ${cvData.skills.length === 0 || cvData.skills.every(skillGroup => 
+                                    !skillGroup.category.toLowerCase().includes('mjuk') && 
+                                    !skillGroup.category.toLowerCase().includes('soft') &&
+                                    !skillGroup.category.toLowerCase().includes('personal')
+                                ) ? 
+                                    ['Problemlösning', 'Teamarbete', 'Kommunikation', 'Ledarskap', 'Analytiskt tänkande', 'Kreativitet']
+                                        .map(skill => `<span class="skill-tag">${skill}</span>`)
+                                        .join('') : ''}
+                            </div>
+                        </div>
+                        
+                        <!-- Languages Column -->
+                        <div class="skill-category">
+                            <div class="skill-category-title">SPRÅK</div>
+                            <div class="skills-list">
+                                ${cvData.languages?.map(lang => `
+                                    <div class="language-item-column">
+                                        <span class="language-name">${lang.language}</span>
+                                        <span class="language-level">${lang.proficiency}</span>
+                                    </div>
+                                `).join('') || 
+                                    `<div class="language-item-column">
+                                        <span class="language-name">Svenska</span>
+                                        <span class="language-level">Modersmål</span>
+                                    </div>`}
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 ` : ''}
                 
