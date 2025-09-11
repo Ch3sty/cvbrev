@@ -2145,7 +2145,7 @@ export async function POST(request: NextRequest) {
     // Get user profile data for photo and LinkedIn
     let userProfile = null;
     try {
-      const cookieStore = cookies();
+      const cookieStore = await cookies();
       const supabase = createServerClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
         process.env.SUPABASE_SERVICE_ROLE_KEY!,
