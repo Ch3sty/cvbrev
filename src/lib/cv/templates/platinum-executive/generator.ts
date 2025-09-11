@@ -52,6 +52,7 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
                 height: ${includePhoto ? '180px' : '160px'};
                 position: relative;
                 overflow: hidden;
+                border-radius: 8px 8px 0 0;
             }
             
             .executive-header::before {
