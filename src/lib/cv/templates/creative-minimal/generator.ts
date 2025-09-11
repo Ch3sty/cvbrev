@@ -61,24 +61,24 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
                 opacity: 0.4;
             }
             
-            /* Vertical Accent Line - Tjockare och rundad som SVG */
+            /* Vertical Accent Line - Sammanhängande som SVG */
             .vertical-accent {
                 position: absolute;
                 left: 0;
                 top: 0;
-                width: 12px;
+                width: 8px;
                 height: 100%;
                 background: linear-gradient(135deg, #7c3aed, #a855f7);
-                border-radius: 0 6px 6px 0;
+                border-radius: 0 4px 4px 0;
                 z-index: 1;
             }
             
             .vertical-accent::after {
                 content: '';
                 position: absolute;
-                left: 12px;
+                left: 6px; /* Direkt bredvid, inte gap */
                 top: 0;
-                width: 4px;
+                width: 3px;
                 height: 100%;
                 background: linear-gradient(135deg, #f97316, #fb923c);
                 border-radius: 0 2px 2px 0;
@@ -87,7 +87,7 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
             
             /* Header Section - Större för mer innehåll */
             .header-section {
-                margin: 25px 20px 30px 30px; /* Mer marginal från vänster border */
+                margin: 25px 20px 30px 25px; /* Justerad marginal för smalare border */
                 padding: 25px 30px;
                 background: rgba(124,58,237,0.02);
                 border: 1px solid rgba(124,58,237,0.08);
@@ -144,10 +144,11 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
             
             .header-description {
                 font-size: 12px;
-                color: #4a5568;
+                color: rgba(124,58,237,0.7); /* Lila färg som matchar titeln */
                 line-height: 1.5;
                 margin-bottom: 8px;
                 max-width: 100%;
+                font-weight: 500;
             }
             
             .header-accent {
@@ -223,7 +224,7 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
             
             /* Main Content */
             .main-content {
-                margin-left: 30px; /* Mer marginal för tjockare vänster border */
+                margin-left: 25px; /* Justerad för smalare vänster border */
                 margin-right: 20px;
                 position: relative;
                 z-index: 1;
