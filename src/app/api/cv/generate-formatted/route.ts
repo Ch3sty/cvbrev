@@ -122,7 +122,7 @@ import {
 } from '../parse/route';
 
 // Generera template-specifik HTML baserat på vald mall
-function generateTemplateHTML(cvData: CVMetadata, templateId: CVTemplateType): string {
+function generateTemplateHTML(cvData: CVMetadata, templateId: CVTemplateType, options: any = {}): string {
   // Se till att referenser alltid är standard svenska frasen
   const standardizedCVData = {
     ...cvData,
@@ -132,7 +132,7 @@ function generateTemplateHTML(cvData: CVMetadata, templateId: CVTemplateType): s
   // Use the new modular template system
   const templateGenerator = getTemplateGenerator(templateId);
   if (templateGenerator) {
-    return templateGenerator.generate(standardizedCVData);
+    return templateGenerator.generate(standardizedCVData, options);
   }
 
   // Fallback to default template if template not found
@@ -2133,7 +2133,7 @@ async function extractCVContentOldFallback(rawText: string): Promise<CVMetadata>
 
 export async function POST(request: NextRequest) {
   try {
-    const { template, cvText, format = 'pdf', colorScheme = 'blue' } = await request.json();
+    const { template, cvText, format = 'pdf', colorScheme = 'blue', templateOptions = {} } = await request.json();
     
     if (!template || !cvText) {
       return NextResponse.json(
@@ -2198,7 +2198,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Generera template-specifik HTML baserat på vald mall
-    const html = generateTemplateHTML(extractedCVData, template as CVTemplateType);
+    const html = generateTemplateHTML(extractedCVData, template as CVTemplateType, templateOptions);
     
     // Generera PDF med svenska premium-kvalitet
     console.log('Genererar svenskt premium-CV PDF...');

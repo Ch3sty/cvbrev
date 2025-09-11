@@ -56,6 +56,14 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     imagePath: '/mallar/nordic-professional.svg',
     category: 'modern',
     tier: 'premium'
+  },
+  {
+    id: 'platinum-executive',
+    name: 'Platinum Executive',
+    description: 'Otroligt polerad design med LinkedIn-integration och flexibla layoutalternativ',
+    imagePath: '/mallar/platinum-executive.svg',
+    category: 'traditional',
+    tier: 'premium'
   }
 ];
 
