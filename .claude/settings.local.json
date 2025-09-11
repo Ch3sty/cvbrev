@@ -97,7 +97,10 @@
       "Bash(del \"C:\\Users\\chris\\cvbrev\\test-legacy-cleanup.html\")",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-nordic-professional.html\")",
       "Bash(del \"C:\\Users\\chris\\cvbrev\\test-nordic-professional.html\")",
-      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-nordic-fixed.html\")"
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-nordic-fixed.html\")",
+      "Bash(del nul)",
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-platinum-executive.html\")",
+      "Bash(del \"C:\\Users\\chris\\cvbrev\\test-platinum-executive.html\")"
     ],
     "deny": [],
     "ask": []
