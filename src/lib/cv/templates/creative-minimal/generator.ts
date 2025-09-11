@@ -61,40 +61,43 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
                 opacity: 0.4;
             }
             
-            /* Vertical Accent Line */
+            /* Vertical Accent Line - Tjockare och rundad som SVG */
             .vertical-accent {
                 position: absolute;
                 left: 0;
                 top: 0;
-                width: 8px;
+                width: 12px;
                 height: 100%;
                 background: linear-gradient(135deg, #7c3aed, #a855f7);
+                border-radius: 0 6px 6px 0;
                 z-index: 1;
             }
             
             .vertical-accent::after {
                 content: '';
                 position: absolute;
-                left: 8px;
+                left: 12px;
                 top: 0;
-                width: 3px;
+                width: 4px;
                 height: 100%;
                 background: linear-gradient(135deg, #f97316, #fb923c);
+                border-radius: 0 2px 2px 0;
                 opacity: 0.6;
             }
             
-            /* Header Section */
+            /* Header Section - Större för mer innehåll */
             .header-section {
-                margin: 25px 20px 30px 25px;
-                padding: 20px 25px;
+                margin: 25px 20px 30px 30px; /* Mer marginal från vänster border */
+                padding: 25px 30px;
                 background: rgba(124,58,237,0.02);
                 border: 1px solid rgba(124,58,237,0.08);
                 border-radius: 12px;
                 display: flex;
-                align-items: center;
-                gap: 20px;
+                align-items: flex-start; /* Align till toppen för längre innehåll */
+                gap: 25px;
                 position: relative;
                 z-index: 2;
+                min-height: 120px; /* Minimum höjd för större header */
             }
             
             /* Profile Photo */
@@ -104,14 +107,14 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
             }
             
             .profile-photo {
-                width: 70px;
-                height: 70px;
+                width: 85px; /* Större foto */
+                height: 85px;
                 border-radius: 50%;
                 object-fit: cover;
                 border: 3px solid rgba(124,58,237,0.15);
                 box-shadow: 
-                    0 4px 12px rgba(124,58,237,0.15),
-                    0 1px 3px rgba(124,58,237,0.08);
+                    0 6px 16px rgba(124,58,237,0.15),
+                    0 2px 6px rgba(124,58,237,0.08);
                 background: white;
             }
             
@@ -121,22 +124,30 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
             }
             
             .name {
-                font-size: 28px;
+                font-size: 22px; /* Mindre namn */
                 font-weight: 700;
                 color: white;
                 background: linear-gradient(135deg, #7c3aed, #a855f7);
-                padding: 8px 16px;
+                padding: 6px 14px;
                 border-radius: 6px;
-                margin-bottom: 8px;
+                margin-bottom: 6px;
                 display: inline-block;
                 box-shadow: 0 4px 12px rgba(124,58,237,0.2);
             }
             
             .title {
-                font-size: 16px;
+                font-size: 14px;
                 color: rgba(124,58,237,0.8);
                 font-weight: 600;
+                margin-bottom: 6px;
+            }
+            
+            .header-description {
+                font-size: 12px;
+                color: #4a5568;
+                line-height: 1.5;
                 margin-bottom: 8px;
+                max-width: 100%;
             }
             
             .header-accent {
@@ -156,6 +167,14 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
                 align-items: center;
                 gap: 8px;
                 flex-shrink: 0;
+                text-decoration: none;
+                transition: all 0.3s ease;
+            }
+            
+            .linkedin-header-badge:hover {
+                background: rgba(0,119,181,0.15);
+                transform: translateY(-1px);
+                box-shadow: 0 4px 12px rgba(0,119,181,0.2);
             }
             
             .linkedin-icon {
@@ -204,7 +223,7 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
             
             /* Main Content */
             .main-content {
-                margin-left: 25px;
+                margin-left: 30px; /* Mer marginal för tjockare vänster border */
                 margin-right: 20px;
                 position: relative;
                 z-index: 1;
@@ -446,15 +465,18 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
                 
                 <div class="name-title-container">
                     <h1 class="name">${cvData.personalInfo.fullName}</h1>
-                    ${cvData.summary ? `<div class="title">${cvData.summary.split('.')[0]}.</div>` : ''}
+                    ${cvData.summary ? `
+                    <div class="title">${cvData.summary.split('.')[0]}.</div>
+                    <div class="header-description">${cvData.summary.split('.').slice(1, 3).join('.').trim()}${cvData.summary.split('.').length > 2 ? '.' : ''}</div>
+                    ` : ''}
                     <div class="header-accent"></div>
                 </div>
                 
                 ${includeLinkedIn ? `
-                <div class="linkedin-header-badge">
+                <a href="${cvData.personalInfo.linkedIn || cvData.personalInfo.linkedin}" class="linkedin-header-badge" target="_blank" rel="noopener noreferrer">
                     <div class="linkedin-icon"></div>
                     <span class="linkedin-text">LinkedIn</span>
-                </div>
+                </a>
                 ` : ''}
             </div>
             
@@ -486,12 +508,6 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
             
             <!-- Main Content -->
             <div class="main-content">
-                ${cvData.summary ? `
-                <!-- Summary -->
-                <div class="section">
-                    <div class="summary">${cvData.summary}</div>
-                </div>
-                ` : ''}
                 
                 ${cvData.experience.length > 0 ? `
                 <!-- Professional Experience -->
