@@ -46,16 +46,16 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 overflow: hidden;
             }
             
-            /* Ensure entire page below content is white */
+            /* Clean white background below sidebar */
             .cv-container::after {
                 content: '';
                 position: absolute;
                 bottom: 0;
                 left: 0;
                 right: 0;
-                height: 120px; /* Match sidebar cutoff */
+                height: 100%;
                 background: white;
-                z-index: 0;
+                z-index: -1;
             }
             
             /* Subtle Background Texture */
@@ -72,39 +72,28 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 pointer-events: none;
             }
             
-            /* Angular Sidebar Design - Much Wider */
+            /* Angular Sidebar Design - Extra Wide for Email */
             .angular-sidebar {
                 position: absolute;
                 left: 0;
                 top: 0;
-                width: 200px; /* Much wider sidebar to fit content properly */
+                width: 240px; /* Extra wide sidebar to fit full email addresses */
                 height: auto; /* Dynamic height based on content */
-                min-height: 60%; /* Minimum height to cover main content */
+                min-height: 65%; /* Cover main content area */
                 background: linear-gradient(135deg, #064e3b 0%, #047857 50%, #065f46 100%);
-                clip-path: polygon(0 0, 160px 0, 180px 25px, 180px calc(100% - 25px), 160px 100%, 0 100%);
+                clip-path: polygon(0 0, 200px 0, 220px 25px, 220px calc(100% - 25px), 200px 100%, 0 100%);
                 z-index: 1;
             }
             
-            /* Angular accent strip */
-            .angular-sidebar::after {
-                content: '';
-                position: absolute;
-                left: 160px;
-                top: 0;
-                width: 25px;
-                height: 100%;
-                background: rgba(217, 119, 6, 0.1);
-                clip-path: polygon(0 0, 15px 0, 25px 25px, 25px calc(100% - 25px), 15px 100%, 0 100%);
-            }
-            
-            /* Simple Beige Stripe - Match SVG */
+            /* Angular Beige Extension - Snygg förlängning av sidebaren */
             .beige-pattern {
                 position: absolute;
                 left: 200px;
                 top: 0;
-                width: 10px;
-                height: 75%;
-                background: rgba(217, 119, 6, 0.1);
+                width: 25px;
+                height: 65%; /* Matcha sidebar höjd */
+                background: rgba(217, 119, 6, 0.15);
+                clip-path: polygon(0 0, 15px 0, 25px 25px, 25px calc(100% - 25px), 15px 100%, 0 100%);
                 z-index: 0;
             }
             
@@ -118,14 +107,14 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
             }
             
             .profile-photo {
-                width: 60px; /* Smaller to match SVG better */
-                height: 60px;
+                width: 80px; /* Större foto för bredare sidebar */
+                height: 80px;
                 border-radius: 50%;
                 object-fit: cover;
-                border: 2px solid rgba(255, 255, 255, 0.9);
+                border: 3px solid rgba(255, 255, 255, 0.9);
                 box-shadow: 
-                    0 6px 16px rgba(6, 78, 59, 0.25),
-                    0 2px 6px rgba(6, 78, 59, 0.15);
+                    0 8px 20px rgba(6, 78, 59, 0.25),
+                    0 3px 8px rgba(6, 78, 59, 0.15);
                 background: rgba(255, 255, 255, 0.1);
                 position: relative;
             }
@@ -142,12 +131,12 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 z-index: -1;
             }
             
-            /* Sidebar Content - Wider layout */
+            /* Sidebar Content - Extra Wide layout */
             .sidebar-content {
                 position: absolute;
                 left: 25px; /* More space for wider sidebar */
-                top: ${includePhoto ? '155px' : '110px'}; 
-                width: 150px; /* Much wider content area */
+                top: ${includePhoto ? '165px' : '120px'}; /* Adjust for larger photo */
+                width: 190px; /* Extra wide content area for full emails */
                 z-index: 2;
             }
             
@@ -185,6 +174,9 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 position: relative;
                 font-weight: 500;
                 line-height: 1.4;
+                word-wrap: break-word;
+                word-break: break-all;
+                max-width: 100%;
             }
             
             .contact-item::before {
@@ -282,15 +274,15 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 border-radius: 50%;
             }
             
-            /* Main Content - Full width after sidebar */
+            /* Main Content - Full width after wider sidebar */
             .main-content {
-                margin-left: 220px; /* After sidebar */
+                margin-left: 265px; /* After wider sidebar + beige extension */
                 margin-right: 0; /* No right margin */
                 padding: 25px 40px 40px 20px; /* More right padding to use full width */
                 position: relative;
                 z-index: 1;
                 background: white;
-                width: calc(100% - 220px); /* Fill remaining width */
+                width: calc(100% - 265px); /* Fill remaining width */
             }
             
             /* Header Section */
