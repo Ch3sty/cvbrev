@@ -3,6 +3,10 @@ export interface Profile {
   email: string;
   full_name?: string;
   phone?: string;
+  linkedin_url?: string; // LinkedIn profile URL
+  profile_photo_url?: string; // Profile photo URL
+  profile_photo_path?: string; // Profile photo storage path
+  profile_photo_uploaded_at?: string; // Profile photo upload timestamp
   preferred_tonality?: 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced';
   cv_path?: string;
   subscription_tier?: 'free' | 'premium'; // Nytt fält för användartyp
@@ -31,6 +35,10 @@ export interface CV {
 export interface ProfileUpdateParams {
   full_name?: string;
   phone?: string;
+  linkedin_url?: string; // LinkedIn profile URL
+  profile_photo_url?: string; // Profile photo URL
+  profile_photo_path?: string; // Profile photo storage path
+  profile_photo_uploaded_at?: string; // Profile photo upload timestamp
   preferred_tonality?: 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced';
   subscription_tier?: 'free' | 'premium'; // Möjlighet att uppdatera prenumerationsnivå
   weekly_letter_count?: number; // Möjlighet att uppdatera antal brev
