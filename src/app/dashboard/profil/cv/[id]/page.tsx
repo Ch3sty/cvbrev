@@ -97,7 +97,7 @@ export default function ViewCVPage({ params }: { params: Promise<{ id: string }>
   }, [id, router, supabase]);
 
   const handleBack = () => {
-    router.push('/profile');
+    router.push('/dashboard/profil');
   };
 
   if (loading) {

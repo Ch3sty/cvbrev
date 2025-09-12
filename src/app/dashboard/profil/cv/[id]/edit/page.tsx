@@ -154,7 +154,7 @@ export default function CVEditPage({ params }: { params: Promise<{ id: string }>
   };
 
   const handleBack = () => {
-    router.push(`/profile/cv/${id}`);
+    router.push(`/dashboard/profil/cv/${id}`);
   };
 
   if (loading) {
