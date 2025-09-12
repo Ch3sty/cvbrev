@@ -49,8 +49,8 @@ export default function LoginForm() {
         console.warn("Login successful but user data not immediately available for logging.");
       }
 
-      // 4. Omdirigera som tidigare (justerade till /profile som du nämnde)
-      router.push('/profile')
+      // 4. Omdirigera till dashboard istället för profile
+      router.push('/dashboard')
       router.refresh() // Uppdatera serverkomponenter om nödvändigt
     } catch (error: any) {
       setError(error.message || 'Ett fel uppstod vid inloggning');
