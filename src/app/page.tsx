@@ -232,6 +232,13 @@ export default function Home() {
                  const supabase = getSupabaseClient();
                  const { data } = await supabase.auth.getSession();
                  setSession(data.session);
+                 
+                 // Redirect inloggade användare till dashboard
+                 if (data.session) {
+                     console.log('Användare inloggad, omdirigerar till dashboard...');
+                     window.location.href = '/dashboard';
+                     return;
+                 }
              } catch (error) {
                  console.error('Kunde inte hämta session:', error);
                  setSession(null);
