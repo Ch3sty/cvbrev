@@ -159,7 +159,7 @@ export async function POST(request: Request) {
            // AI-specifik metadata
            model: generationResult.model,
            cost: generationResult.cost,
-           cost_sek: generationResult.cost * 10.5, // Konvertera till SEK
+           cost_sek: generationResult.cost ? generationResult.cost * 10.5 : 0, // Konvertera till SEK med null-check
            tokens_prompt: generationResult.tokens?.prompt,
            tokens_completion: generationResult.tokens?.completion,
            tokens_total: generationResult.tokens?.total,
@@ -173,13 +173,13 @@ export async function POST(request: Request) {
         feature_type: 'letter_generation',
         model: generationResult.model,
         tokens: generationResult.tokens?.total || 0,
-        cost: generationResult.cost,
+        cost: generationResult.cost || 0,
         metadata: {
           is_saved: save,
           language: language,
           tonality: tonality,
           generation_time_ms: generationTimeMs,
-          cost_sek: generationResult.cost * 10.5
+          cost_sek: generationResult.cost ? generationResult.cost * 10.5 : 0
         }
       });
       // ***********************************

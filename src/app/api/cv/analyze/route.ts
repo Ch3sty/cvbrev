@@ -224,7 +224,7 @@ export async function POST(request: NextRequest) {
                 metadata: {
                     cv_id: cvId,
                     analysis_type: profileData.subscriptionTier,
-                    cost_sek: analysisResult.cost * 10.5
+                    cost_sek: analysisResult.cost ? analysisResult.cost * 10.5 : 0
                 }
             });
             console.log(`API analyzeCv: Logged AI cost for user ${userId}: $${analysisResult.cost}`);
