@@ -42,28 +42,26 @@ export default function DashboardPage() {
         // Hämta användarens brev
         const { data: letters } = await supabase
           .from('letters')
-          .select('*')
+          .select('id, user_id, title, company, job_title, created_at')
           .eq('user_id', user.id)
           .order('created_at', { ascending: false });
 
-        // Hämta användarens CV-analyser
-        const { data: analyses } = await supabase
-          .from('cv_analyses')
-          .select('*')
-          .eq('user_id', user.id);
-
-        // Hämta användarens prenumeration
-        const { data: subscription } = await supabase
-          .from('user_subscriptions')
-          .select('*')
-          .eq('user_id', user.id)
+        // Hämta användarens profil med prenumerationsinfo
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('subscription_tier, weekly_analysis_count')
+          .eq('id', user.id)
           .single();
 
         setStats({
           totalLetters: letters?.length || 0,
-          totalAnalyses: analyses?.length || 0,
-          subscriptionTier: subscription?.tier || 'free',
-          recentLetters: letters?.slice(0, 3) || []
+          totalAnalyses: profile?.weekly_analysis_count || 0,
+          subscriptionTier: profile?.subscription_tier || 'free',
+          recentLetters: letters?.slice(0, 3).map(letter => ({
+            ...letter,
+            company_name: letter.company,
+            position: letter.job_title
+          })) || []
         });
       } catch (error) {
         console.error('Fel vid hämtning av dashboard-data:', error);
@@ -130,17 +128,19 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-gray-400 text-sm">CV-Analyser</p>
-              <p className="text-3xl font-bold text-white">{stats.totalAnalyses}</p>
-            </div>
-            <div className="bg-blue-500/10 p-3 rounded-lg">
-              <Brain className="w-6 h-6 text-blue-500" />
+        {stats.subscriptionTier !== 'premium' && (
+          <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-gray-400 text-sm">CV-Analyser</p>
+                <p className="text-3xl font-bold text-white">{stats.totalAnalyses}</p>
+              </div>
+              <div className="bg-blue-500/10 p-3 rounded-lg">
+                <Brain className="w-6 h-6 text-blue-500" />
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
           <div className="flex items-center justify-between">

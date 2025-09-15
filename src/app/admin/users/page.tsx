@@ -2,21 +2,24 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
-import { 
-  Users, 
-  Search, 
+import {
+  Users,
+  Search,
   Filter, // Not used directly, but kept for potential future use
-  ChevronDown, 
+  ChevronDown,
   ChevronUp,
   ChevronLeft,
   ChevronRight,
-  Crown, 
+  Crown,
   MoreHorizontal,
   UserCheck, // Not used directly, but kept for potential future use
   UserX,
   Eye,
   Trash,
-  Edit // Not used directly, but kept for potential future use
+  Edit, // Not used directly, but kept for potential future use
+  FileText,
+  ScrollText,
+  AlertCircle
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -125,60 +128,91 @@ export default function AdminUsersPage() {
     async function fetchUsers() {
       setIsLoading(true);
       setError(null);
-      
+
       try {
         // Hämta användarprofiler
         const { data: profiles, error: profilesError } = await supabase
           .from('profiles')
-          .select('*');
-        
+          .select('*')
+          .order('created_at', { ascending: false });
+
         if (profilesError) {
+          console.error('Fel vid hämtning av profiler:', profilesError);
           throw profilesError;
         }
-        
+
+        console.log(`Hämtade ${profiles?.length || 0} användarprofiler`);
+
         // Hämta antal sparade brev per användare med hjälp av den skapade funktionen
         const { data: letterCounts, error: letterError } = await supabase
           .rpc('get_letter_counts_by_user', { is_saved_param: true });
-        
+
         if (letterError) {
           console.error('Fel vid hämtning av brevantal:', letterError);
-          // Fortsätt ändå, men visa 0
+          console.error('Detaljer:', letterError.message, letterError.details, letterError.hint);
+        } else {
+          console.log(`Hämtade brevantal för ${letterCounts?.length || 0} användare`);
         }
-        
+
         // Hämta antal CV per användare med hjälp av den skapade funktionen
         const { data: cvCounts, error: cvError } = await supabase
           .rpc('get_cv_counts_by_user');
-        
+
         if (cvError) {
           console.error('Fel vid hämtning av CV-antal:', cvError);
-          // Fortsätt ändå, men visa 0
+          console.error('Detaljer:', cvError.message, cvError.details, cvError.hint);
+        } else {
+          console.log(`Hämtade CV-antal för ${cvCounts?.length || 0} användare`);
         }
-        
+
         // Kombinera data
         const letterCountMap = new Map<string, number>();
-        letterCounts?.forEach((item: { user_id: string, count: number }) => {
-          letterCountMap.set(item.user_id, item.count);
-        });
-        
+        if (letterCounts && Array.isArray(letterCounts)) {
+          letterCounts.forEach((item: { user_id: string, count: number | string }) => {
+            // Konvertera count till number om det kommer som string
+            const count = typeof item.count === 'string' ? parseInt(item.count, 10) : item.count;
+            letterCountMap.set(item.user_id, count || 0);
+          });
+        }
+
         const cvCountMap = new Map<string, number>();
-        cvCounts?.forEach((item: { user_id: string, count: number }) => {
-          cvCountMap.set(item.user_id, item.count);
-        });
-        
+        if (cvCounts && Array.isArray(cvCounts)) {
+          cvCounts.forEach((item: { user_id: string, count: number | string }) => {
+            // Konvertera count till number om det kommer som string
+            const count = typeof item.count === 'string' ? parseInt(item.count, 10) : item.count;
+            cvCountMap.set(item.user_id, count || 0);
+          });
+        }
+
+        console.log('Letter count map storlek:', letterCountMap.size);
+        console.log('CV count map storlek:', cvCountMap.size);
+
         // Berika profildata med antal brev och CV
-        const enrichedProfiles = profiles?.map((profile): User => ({
-          id: profile.id,
-          email: profile.email,
-          full_name: profile.full_name,
-          subscription_tier: profile.subscription_tier,
-          created_at: profile.created_at,
-          last_active: profile.last_active,
-          phone: profile.phone,
-          preferred_tonality: profile.preferred_tonality,
-          saved_letters_count: letterCountMap.get(profile.id) || 0,
-          cv_count: cvCountMap.get(profile.id) || 0
-        })) || [];
-        
+        const enrichedProfiles = profiles?.map((profile): User => {
+          const letterCount = letterCountMap.get(profile.id) || 0;
+          const cvCount = cvCountMap.get(profile.id) || 0;
+
+          return {
+            id: profile.id,
+            email: profile.email,
+            full_name: profile.full_name,
+            subscription_tier: profile.subscription_tier || 'free',
+            created_at: profile.created_at,
+            last_active: profile.last_active,
+            phone: profile.phone,
+            preferred_tonality: profile.preferred_tonality,
+            saved_letters_count: letterCount,
+            cv_count: cvCount
+          };
+        }) || [];
+
+        console.log(`Totalt ${enrichedProfiles.length} användare med berikad data`);
+        console.log('Exempel på användardata:', enrichedProfiles.slice(0, 3).map(u => ({
+          email: u.email,
+          letters: u.saved_letters_count,
+          cvs: u.cv_count
+        })));
+
         setUsers(enrichedProfiles);
       } catch (err: any) {
         console.error('Fel vid hämtning av användare:', err);
@@ -187,7 +221,7 @@ export default function AdminUsersPage() {
         setIsLoading(false);
       }
     }
-    
+
     fetchUsers();
   }, [supabase]); // Dependency array includes supabase
   
@@ -390,8 +424,62 @@ export default function AdminUsersPage() {
   };
 
   
+  // Beräkna totalstatistik
+  const totalStats = {
+    totalUsers: users.length,
+    premiumUsers: users.filter(u => u.subscription_tier === 'premium').length,
+    freeUsers: users.filter(u => u.subscription_tier === 'free' || !u.subscription_tier).length,
+    totalLetters: users.reduce((sum, u) => sum + (u.saved_letters_count || 0), 0),
+    totalCVs: users.reduce((sum, u) => sum + (u.cv_count || 0), 0),
+    usersWithLetters: users.filter(u => (u.saved_letters_count || 0) > 0).length,
+    usersWithCVs: users.filter(u => (u.cv_count || 0) > 0).length,
+    usersWithoutName: users.filter(u => !u.full_name).length
+  };
+
   return (
     <div className="space-y-6 p-4 md:p-6 lg:p-8 bg-navy-900 min-h-screen"> {/* Lägg till padding och bakgrund */}
+      {/* Statistikkort */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div className="bg-navy-800 p-4 rounded-lg border border-gray-700 relative overflow-hidden">
+          <Users className="absolute right-2 top-2 w-8 h-8 text-gray-600 opacity-20" />
+          <div className="text-2xl font-bold text-white">{totalStats.totalUsers}</div>
+          <div className="text-sm text-gray-400">Totalt antal användare</div>
+          <div className="text-xs text-gray-500 mt-1">
+            {totalStats.premiumUsers} premium, {totalStats.freeUsers} free
+          </div>
+        </div>
+        <div className="bg-navy-800 p-4 rounded-lg border border-gray-700 relative overflow-hidden">
+          <FileText className="absolute right-2 top-2 w-8 h-8 text-gray-600 opacity-20" />
+          <div className="text-2xl font-bold text-white">{totalStats.totalLetters}</div>
+          <div className="text-sm text-gray-400">Sparade brev</div>
+          <div className="text-xs text-gray-500 mt-1">
+            från {totalStats.usersWithLetters} användare
+          </div>
+        </div>
+        <div className="bg-navy-800 p-4 rounded-lg border border-gray-700 relative overflow-hidden">
+          <ScrollText className="absolute right-2 top-2 w-8 h-8 text-gray-600 opacity-20" />
+          <div className="text-2xl font-bold text-white">{totalStats.totalCVs}</div>
+          <div className="text-sm text-gray-400">Skapade CV:n</div>
+          <div className="text-xs text-gray-500 mt-1">
+            från {totalStats.usersWithCVs} användare
+          </div>
+        </div>
+        <div className="bg-navy-800 p-4 rounded-lg border border-gray-700 relative overflow-hidden">
+          <AlertCircle className="absolute right-2 top-2 w-8 h-8 text-gray-600 opacity-20" />
+          <div className="text-2xl font-bold text-white">
+            {totalStats.usersWithoutName > 0 ? (
+              <span className="text-yellow-400">{totalStats.usersWithoutName}</span>
+            ) : (
+              <span className="text-green-400">0</span>
+            )}
+          </div>
+          <div className="text-sm text-gray-400">Ofullständiga profiler</div>
+          <div className="text-xs text-gray-500 mt-1">
+            saknar namn
+          </div>
+        </div>
+      </div>
+
       {/* Page header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>

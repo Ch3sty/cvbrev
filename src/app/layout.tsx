@@ -11,6 +11,7 @@ import Script from 'next/script'
 import { Suspense, useState, useEffect } from 'react';
 import CookieConsent, { Cookies, getCookieConsentValue, OPTIONS } from "react-cookie-consent";
 import { NotificationProvider } from '@/context/notificationcontext';
+import { usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -50,6 +51,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const pathname = usePathname();
+  const isDashboard = pathname?.startsWith('/dashboard');
 
   // Körs EN gång när komponenten monteras (Oförändrad)
   useEffect(() => {
@@ -161,13 +164,14 @@ export default function RootLayout({
         {/* === GTM BODY SNIPPET (NOSCRIPT) SLUT === */}
 
         <NotificationProvider>
-          <Navbar />
+          {!isDashboard && <Navbar />}
 
           <main className="flex-grow">
             {children}
           </main>
 
           {/* ================= FOOTER START (UPPDATERAD MED NY TEXT) ================= */}
+          {!isDashboard && (
           <footer className="bg-navy-950 border-t border-navy-700/50 mt-auto">
              <div className="container px-4 py-12 mx-auto">
                <div className="grid grid-cols-1 gap-10 text-center md:grid-cols-3 md:text-left">
@@ -234,6 +238,7 @@ export default function RootLayout({
                </div>
              </div>
           </footer>
+          )}
           {/* ================= FOOTER SLUT ================= */}
 
           {/* === COOKIE BANNER (Oförändrad) === */}
