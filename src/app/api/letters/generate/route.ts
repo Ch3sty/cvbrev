@@ -146,7 +146,7 @@ export async function POST(request: Request) {
       // Logga till user_activities för händelsehistorik
       logUserActivity(
         user.id,
-        save ? 'letter_saved' : 'letter_generated', // Skilj på sparade och preview
+        save ? 'letter_saved' : 'letter_created', // Använd letter_created för preview, letter_saved för sparade
         save ? 'Sparade ett personligt brev' : 'Genererade brevförhandsvisning',
         { // Metadata för admin/analys
            cv_id: cv_id,
@@ -154,7 +154,8 @@ export async function POST(request: Request) {
            tonality: tonality || 'professional',
            job_title: jobInfo.position,
            company: jobInfo.company,
-           is_saved: save,
+           is_saved: save, // Detta anger om det är preview eller sparat
+           is_preview: !save, // Tydlig flagga för preview
            // AI-specifik metadata
            model: generationResult.model,
            cost: generationResult.cost,
