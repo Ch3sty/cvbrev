@@ -213,6 +213,23 @@ export async function POST(request: NextRequest) {
         }
         console.log(`API analyzeCv: User ${userId}: Analysis successful.`);
 
+        // Logga AI-kostnad till usage_log för ekonomisk spårning
+        if (analysisResult.cost && analysisResult.model) {
+            await supabase.from('usage_log').insert({
+                user_id: userId,
+                feature_type: 'cv_analysis',
+                model: analysisResult.model,
+                tokens: analysisResult.tokens?.total || 0,
+                cost: analysisResult.cost,
+                metadata: {
+                    cv_id: cvId,
+                    analysis_type: profileData.subscriptionTier,
+                    cost_sek: analysisResult.cost * 10.5
+                }
+            });
+            console.log(`API analyzeCv: Logged AI cost for user ${userId}: $${analysisResult.cost}`);
+        }
+
         // --- 6. Update Count for Free Users (Post-Analysis) ---
         if (profileData.subscriptionTier === 'free') {
             currentRemainingAnalyses = await decrementFreeUserCount(supabase, userId, resetInfo.count);

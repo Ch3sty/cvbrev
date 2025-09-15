@@ -142,30 +142,78 @@ export async function GET(request: NextRequest) {
 
     // AI-kostnadsstatistik
     if (metric === 'all' || metric === 'ai') {
+      // Hämta från usage_log tabellen
       const { data: usageLogs } = await supabase
         .from('usage_log')
         .select('*')
         .gte('created_at', startDate.toISOString());
 
+      // Hämta även från letters tabellen för historisk data
+      const { data: letters } = await supabase
+        .from('letters')
+        .select('ai_model, ai_tokens, ai_cost, created_at')
+        .gte('created_at', startDate.toISOString())
+        .not('ai_cost', 'is', null);
+
       let totalCost = 0;
       let totalTokens = 0;
       const modelUsage: Record<string, number> = {};
+      const featureUsage: Record<string, { count: number; cost: number }> = {};
 
+      // Bearbeta usage_log data
       if (usageLogs) {
         usageLogs.forEach(log => {
-          totalCost += parseFloat(log.cost?.toString() || '0');
+          const cost = parseFloat(log.cost?.toString() || '0');
+          totalCost += cost;
           totalTokens += log.tokens || 0;
+
           if (log.model) {
             modelUsage[log.model] = (modelUsage[log.model] || 0) + 1;
+          }
+
+          // Gruppera per feature_type
+          if (log.feature_type) {
+            if (!featureUsage[log.feature_type]) {
+              featureUsage[log.feature_type] = { count: 0, cost: 0 };
+            }
+            featureUsage[log.feature_type].count++;
+            featureUsage[log.feature_type].cost += cost;
           }
         });
       }
 
+      // Lägg till historisk data från letters
+      if (letters) {
+        letters.forEach(letter => {
+          const cost = parseFloat(letter.ai_cost?.toString() || '0');
+          if (cost > 0) {
+            totalCost += cost;
+            totalTokens += letter.ai_tokens || 0;
+
+            if (letter.ai_model) {
+              modelUsage[letter.ai_model] = (modelUsage[letter.ai_model] || 0) + 1;
+            }
+
+            // Lägg till som letter_generation i feature usage
+            if (!featureUsage['letter_generation']) {
+              featureUsage['letter_generation'] = { count: 0, cost: 0 };
+            }
+            featureUsage['letter_generation'].count++;
+            featureUsage['letter_generation'].cost += cost;
+          }
+        });
+      }
+
+      const totalRequests = (usageLogs?.length || 0) + (letters?.filter(l => l.ai_cost).length || 0);
+
       statistics.ai = {
         totalCost: totalCost,
+        totalCostSEK: totalCost * 10.5, // Konvertera till SEK
         totalTokens: totalTokens,
         modelUsage: modelUsage,
-        averageCostPerRequest: usageLogs && usageLogs.length > 0 ? totalCost / usageLogs.length : 0
+        featureUsage: featureUsage,
+        averageCostPerRequest: totalRequests > 0 ? totalCost / totalRequests : 0,
+        totalRequests: totalRequests
       };
     }
 

@@ -46,13 +46,17 @@ const tonalityDescriptions: { [key: string]: { sv: string, en: string } } = {
  * @returns Beräknad kostnad i USD, eller null om pris saknas.
  */
 export function calculateOpenAICost(model: string, promptTokens: number, completionTokens: number): number | null { // <<<--- EXPORT TILLAGD HÄR
-    // Priser per 1 MILJON tokens (Exempelvärden - VERIFIERA OCH UPPDATERA REGELBUNDET!)
+    // Priser per 1 MILJON tokens (Uppdaterad 2025-09-15)
     // Hämta från https://openai.com/pricing
     const prices: { [key: string]: { input: number; output: number } } = {
         "gpt-4o":               { input: 5.00,  output: 15.00 },
+        "gpt-4o-mini":          { input: 0.15,  output: 0.60 },
         "gpt-4-turbo":          { input: 10.00, output: 30.00 },
         "gpt-4":                { input: 30.00, output: 60.00 },
+        "gpt-4.1":              { input: 10.00, output: 30.00 }, // Antar samma som gpt-4-turbo
+        "gpt-3.5-turbo":        { input: 0.50,  output: 1.50 },
         "gpt-3.5-turbo-0125":   { input: 0.50,  output: 1.50 },
+        "gpt-3.5-turbo-1106":   { input: 1.00,  output: 2.00 },
         "gpt-3.5-turbo-instruct": { input: 1.50,  output: 2.00 },
         // Lägg till fler modeller vid behov
     };

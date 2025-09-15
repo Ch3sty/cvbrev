@@ -1,7 +1,7 @@
 // src/lib/openai/cv-analysis.ts
 import OpenAI from 'openai';
 import { openai } from './api'; // Importera den konfigurerade klienten
-// Importera eventuellt calculateOpenAICost om du vill ha det här också
+import { calculateOpenAICost } from './cost-calculator'; // Importera kostnadskalkylator
 
 // --- Typer för Analysresultat ---
 interface Score {
@@ -83,6 +83,13 @@ export async function analyzeCvBasic(cvText: string): Promise<BasicAnalysisResul
         });
         const content = completion.choices[0].message.content || '{}';
         const parsedResult = JSON.parse(content);
+
+        // Beräkna kostnad och tokens
+        const promptTokens = completion.usage?.prompt_tokens || 0;
+        const completionTokens = completion.usage?.completion_tokens || 0;
+        const totalTokens = completion.usage?.total_tokens || 0;
+        const cost = calculateOpenAICost(modelToUse, promptTokens, completionTokens);
+
         // Säkerställ att alla obligatoriska basic-fält finns
         return {
             analysisType: 'basic',
@@ -93,6 +100,13 @@ export async function analyzeCvBasic(cvText: string): Promise<BasicAnalysisResul
             scores: parsedResult.scores || {
                 clarityAndStructure: { rating: 0, feedback: "Poäng saknas." },
                 strongVerbs: { rating: 0, feedback: "Poäng saknas." }
+            },
+            model: modelToUse,
+            cost: cost,
+            tokens: {
+                prompt: promptTokens,
+                completion: completionTokens,
+                total: totalTokens
             }
         };
     } catch (error: any) {
@@ -130,6 +144,12 @@ export async function analyzeCvPremium(cvText: string): Promise<PremiumAnalysisR
         const content = completion.choices[0].message.content || '{}';
         const parsedResult = JSON.parse(content);
 
+        // Beräkna kostnad och tokens
+        const promptTokens = completion.usage?.prompt_tokens || 0;
+        const completionTokens = completion.usage?.completion_tokens || 0;
+        const totalTokens = completion.usage?.total_tokens || 0;
+        const cost = calculateOpenAICost(modelToUse, promptTokens, completionTokens);
+
         // *** UPPDATERAT finalResult-OBJEKT ***
         const finalResult: PremiumAnalysisResult = {
           analysisType: 'premium',
@@ -162,9 +182,14 @@ export async function analyzeCvPremium(cvText: string): Promise<PremiumAnalysisR
           identifiedStrengths: [], // Sätt till tom array som standard
           improvementAreas: [],   // Sätt till tom array som standard
 
-          // model: modelToUse, // (Eventuell kostnads/token info)
-          // cost: calculatedCost,
-          // tokens: tokensInfo
+          // Lägg till kostnads- och tokeninformation
+          model: modelToUse,
+          cost: cost,
+          tokens: {
+              prompt: promptTokens,
+              completion: completionTokens,
+              total: totalTokens
+          }
         };
         // *** SLUT PÅ UPPDATERING ***
 

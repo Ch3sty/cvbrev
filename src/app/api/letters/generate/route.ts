@@ -143,25 +143,44 @@ export async function POST(request: Request) {
       const generationTimeMs = Date.now() - startTime; // Beräkna tid
 
       // *** LOGGA LYCKAD GENERERING HÄR ***
+      // Logga till user_activities för händelsehistorik
       logUserActivity(
         user.id,
-        'letter_created', // Använd den typ du definierat för lyckad generering
-        'Genererade ett personligt brev', // Beskrivning
+        save ? 'letter_saved' : 'letter_generated', // Skilj på sparade och preview
+        save ? 'Sparade ett personligt brev' : 'Genererade brevförhandsvisning',
         { // Metadata för admin/analys
            cv_id: cv_id,
            language: language,
            tonality: tonality || 'professional',
            job_title: jobInfo.position,
            company: jobInfo.company,
+           is_saved: save,
            // AI-specifik metadata
            model: generationResult.model,
            cost: generationResult.cost,
+           cost_sek: generationResult.cost * 10.5, // Konvertera till SEK
            tokens_prompt: generationResult.tokens?.prompt,
            tokens_completion: generationResult.tokens?.completion,
            tokens_total: generationResult.tokens?.total,
            generation_time_ms: generationTimeMs
         }
       );
+
+      // Logga AI-kostnad till usage_log för ekonomisk spårning
+      await supabase.from('usage_log').insert({
+        user_id: user.id,
+        feature_type: 'letter_generation',
+        model: generationResult.model,
+        tokens: generationResult.tokens?.total || 0,
+        cost: generationResult.cost,
+        metadata: {
+          is_saved: save,
+          language: language,
+          tonality: tonality,
+          generation_time_ms: generationTimeMs,
+          cost_sek: generationResult.cost * 10.5
+        }
+      });
       // ***********************************
 
       // Skapa brevdata-objektet med innehållet från resultatet
