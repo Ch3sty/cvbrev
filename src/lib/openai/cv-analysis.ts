@@ -1,7 +1,6 @@
 // src/lib/openai/cv-analysis.ts
 import OpenAI from 'openai';
-import { openai } from './api'; // Importera den konfigurerade klienten
-import { calculateOpenAICost } from './cost-calculator'; // Importera kostnadskalkylator
+import { openai, calculateOpenAICost } from './api'; // Importera både klient och kostnadskalkylator från api.ts
 
 // --- Typer för Analysresultat ---
 interface Score {
