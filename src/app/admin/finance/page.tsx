@@ -86,14 +86,26 @@ export default function FinanceDashboard() {
       // Beräkna AI-kostnader
       // OpenAI API returnerar USD, letters innehåller redan USD
       let totalAICost = 0;
-      if (openaiUsage?.data?.totalCost) {
-        // Faktisk kostnad från OpenAI API (redan i USD)
+      let aiCostSource = 'Ingen data';
+
+      // Alltid beräkna från letters först
+      const lettersCost = letters?.reduce((sum: number, l: any) =>
+        sum + (parseFloat(l.ai_cost?.toString() || '0') || 0), 0) || 0;
+
+      if (openaiUsage?.data?.totalCost && openaiUsage.data.totalCost > 0) {
+        // Använd faktisk kostnad från OpenAI API om den finns och är större än 0
         totalAICost = openaiUsage.data.totalCost;
-      } else {
-        // Fallback till estimat från letters (ai_cost är i USD)
-        totalAICost = letters?.reduce((sum: number, l: any) =>
-          sum + (parseFloat(l.ai_cost?.toString() || '0') || 0), 0) || 0;
+        aiCostSource = 'Faktisk kostnad (OpenAI API)';
+      } else if (lettersCost > 0) {
+        // Fallback till estimat från letters
+        totalAICost = lettersCost;
+        aiCostSource = 'Estimat från genererade brev';
+      } else if (openaiUsage?.estimatedOnly) {
+        // Om vi bara har estimat från OpenAI endpoint
+        totalAICost = openaiUsage.data?.totalCost || 0;
+        aiCostSource = 'Estimat';
       }
+
       const totalAICostSEK = totalAICost * 10.5;
 
       // Beräkna vinst
@@ -145,7 +157,7 @@ export default function FinanceDashboard() {
           change: 0,
           trend: 'neutral',
           icon: ChartBarIcon,
-          subtitle: openaiUsage?.success ? 'Faktisk kostnad' : 'Estimat'
+          subtitle: aiCostSource
         },
         {
           title: 'Bruttovinst',
@@ -418,35 +430,50 @@ export default function FinanceDashboard() {
         {/* Subscription Distribution */}
         <div className="bg-navy-800 rounded-lg p-6 border border-navy-700">
           <h2 className="text-xl font-bold text-white mb-4">Prenumerationsfördelning</h2>
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={subscriptionData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={({ name, percentage }) => `${name} ${percentage.toFixed(0)}%`}
-                outerRadius={80}
-                fill="#8884d8"
-                dataKey="value"
-              >
-                {subscriptionData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
+          {subscriptionData.some(d => d.value > 0) ? (
+            <>
+              <ResponsiveContainer width="100%" height={250}>
+                <PieChart>
+                  <Pie
+                    data={subscriptionData.filter(d => d.value > 0)}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={({ name, value }) => value > 0 ? `${name}` : ''}
+                    outerRadius={80}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {subscriptionData.filter(d => d.value > 0).map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip
+                    contentStyle={{ backgroundColor: '#1e1b4b', border: '1px solid #4c1d95' }}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+              <div className="mt-4 space-y-2">
+                {subscriptionData.map((item, index) => (
+                  <div key={index} className="flex justify-between items-center text-sm">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}></div>
+                      <span className="text-gray-400">{item.name}:</span>
+                    </div>
+                    <span className="text-white font-semibold">
+                      {item.value} användare ({item.percentage.toFixed(0)}%)
+                    </span>
+                  </div>
                 ))}
-              </Pie>
-              <Tooltip
-                contentStyle={{ backgroundColor: '#1e1b4b', border: '1px solid #4c1d95' }}
-              />
-            </PieChart>
-          </ResponsiveContainer>
-          <div className="mt-4 space-y-2">
-            {subscriptionData.map((item, index) => (
-              <div key={index} className="flex justify-between text-sm">
-                <span className="text-gray-400">{item.name}:</span>
-                <span className="text-white font-semibold">{item.value} användare</span>
               </div>
-            ))}
-          </div>
+            </>
+          ) : (
+            <div className="flex items-center justify-center h-[250px]">
+              <p className="text-gray-400 text-center">
+                Ingen prenumerationsdata tillgänglig
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Profit Trend */}
@@ -538,31 +565,50 @@ export default function FinanceDashboard() {
 
         <div className="bg-navy-800 rounded-lg p-6 border border-navy-700">
           <h2 className="text-xl font-bold text-white mb-4">OpenAI API Status</h2>
-          {openaiData ? (
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-400">Total kostnad:</span>
-                <span className="text-white font-semibold">${(openaiData.data?.totalCost || 0).toFixed(2)}</span>
-              </div>
+          <div className="space-y-3">
+            <div className="flex justify-between">
+              <span className="text-gray-400">Total kostnad (USD):</span>
+              <span className="text-white font-semibold">
+                ${totalAICost.toFixed(4)}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-400">Total kostnad (SEK):</span>
+              <span className="text-white font-semibold">
+                {Math.round(totalAICostSEK).toLocaleString('sv-SE')} kr
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-gray-400">Datakälla:</span>
+              <span className={`font-semibold ${
+                aiCostSource.includes('OpenAI API') ? 'text-green-500' :
+                aiCostSource.includes('brev') ? 'text-blue-500' :
+                'text-yellow-500'
+              }`}>
+                {aiCostSource}
+              </span>
+            </div>
+            {openaiData?.data?.totalTokens > 0 && (
               <div className="flex justify-between">
                 <span className="text-gray-400">Total tokens:</span>
-                <span className="text-white font-semibold">{(openaiData.data?.totalTokens || 0).toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-400">Status:</span>
-                <span className={`font-semibold ${openaiData.success ? 'text-green-500' : 'text-yellow-500'}`}>
-                  {openaiData.success ? 'Faktisk data' : 'Endast estimat'}
+                <span className="text-white font-semibold">
+                  {openaiData.data.totalTokens.toLocaleString()}
                 </span>
               </div>
-              {openaiData.estimatedOnly && (
-                <p className="text-yellow-500 text-xs mt-2">
-                  Admin API-nyckel saknas eller ogiltig
-                </p>
-              )}
-            </div>
-          ) : (
-            <p className="text-gray-400">Ingen OpenAI-data tillgänglig</p>
-          )}
+            )}
+            {letters && letters.length > 0 && (
+              <div className="flex justify-between">
+                <span className="text-gray-400">Genererade brev:</span>
+                <span className="text-white font-semibold">{letters.length}</span>
+              </div>
+            )}
+            {(!openaiData || openaiData.estimatedOnly) && (
+              <p className="text-yellow-500 text-xs mt-2">
+                OpenAI Admin API-nyckel saknas eller returnerar ingen data.
+                Använder estimat från genererade brev.
+              </p>
+            )}
+          </div>
         </div>
       </div>
 
