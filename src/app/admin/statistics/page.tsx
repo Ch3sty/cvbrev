@@ -34,7 +34,8 @@ import {
   CreditCard,
   BarChart3,
   PieChart,
-  ChevronDown
+  ChevronDown,
+  CloudDownload
 } from 'lucide-react';
 import { format, subDays, startOfWeek, endOfWeek, startOfMonth, endOfMonth, eachDayOfInterval } from 'date-fns';
 import { sv } from 'date-fns/locale';
@@ -194,6 +195,8 @@ export default function StatisticsPage() {
   const [dateRange, setDateRange] = useState('week'); // week, month, year, all
   const [selectedMetric, setSelectedMetric] = useState('users'); // users, revenue, ai, activity
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [openaiUsage, setOpenaiUsage] = useState<any>(null); // Faktisk OpenAI-data
+  const [costComparison, setCostComparison] = useState<any>(null); // Jämförelse faktisk vs estimat
 
   const supabase = getSupabaseClient();
 
@@ -285,9 +288,13 @@ export default function StatisticsPage() {
       const letterTokens = letters?.reduce((acc, letter) => acc + (letter.ai_tokens || 0), 0) || 0;
       const letterCost = letters?.reduce((acc, letter) => acc + parseFloat(letter.ai_cost?.toString() || '0'), 0) || 0;
 
-      // Kombinera totaler
-      const totalTokens = usageLogTokens + letterTokens;
-      const totalCost = usageLogCost + letterCost;
+      // Kombinera totaler (estimat)
+      const totalEstimatedTokens = usageLogTokens + letterTokens;
+      const totalEstimatedCost = usageLogCost + letterCost;
+
+      // Använd faktisk data om tillgänglig, annars estimat
+      const totalTokens = openaiUsage?.data?.totalTokens || totalEstimatedTokens;
+      const totalCost = openaiUsage?.data?.totalCost || totalEstimatedCost;
 
       // Månadskostnader
       const thisMonthLogs = usageLogs?.filter(log => new Date(log.created_at) > monthAgo) || [];
@@ -431,6 +438,34 @@ export default function StatisticsPage() {
     }
   };
 
+  // Hämta faktisk OpenAI-användningsdata
+  const fetchOpenAIUsage = async () => {
+    try {
+      // Beräkna dagar baserat på dateRange
+      let days = 30;
+      switch (dateRange) {
+        case 'day': days = 1; break;
+        case 'week': days = 7; break;
+        case 'month': days = 30; break;
+        case 'year': days = 365; break;
+        case 'all': days = 730; break; // 2 år
+      }
+
+      const response = await fetch(`/api/admin/openai-usage?days=${days}`);
+      const result = await response.json();
+
+      if (result.success && result.data) {
+        setOpenaiUsage(result);
+        setCostComparison(result.data.comparison);
+      } else if (result.estimatedOnly) {
+        // Om vi bara har estimat, visa det
+        console.log('Endast estimerade kostnader tillgängliga');
+      }
+    } catch (error) {
+      console.error('Fel vid hämtning av OpenAI-användning:', error);
+    }
+  };
+
   // Generera tidsseriedata för grafer
   const generateTimeSeriesData = async (range: string) => {
     try {
@@ -560,7 +595,11 @@ export default function StatisticsPage() {
   // Uppdatera data vid montering och intervall
   useEffect(() => {
     fetchStatistics();
-    const interval = setInterval(fetchStatistics, 60000); // Uppdatera varje minut
+    fetchOpenAIUsage();
+    const interval = setInterval(() => {
+      fetchStatistics();
+      fetchOpenAIUsage();
+    }, 60000); // Uppdatera varje minut
     return () => clearInterval(interval);
   }, [dateRange, fetchStatistics]);
 
@@ -914,10 +953,32 @@ export default function StatisticsPage() {
 
       {/* AI-modelldistribution */}
       <div className="bg-navy-800 rounded-lg border border-gray-700 p-6">
-        <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
-          <Brain className="w-5 h-5 text-pink-400" />
-          AI-användning och kostnader
-        </h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+            <Brain className="w-5 h-5 text-pink-400" />
+            AI-användning och kostnader
+          </h2>
+          <button
+            onClick={async () => {
+              const response = await fetch('/api/admin/openai-usage', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ days: 30 })
+              });
+              const result = await response.json();
+              if (result.success) {
+                alert(`Synkade ${result.syncedRecords} poster från OpenAI`);
+                fetchOpenAIUsage();
+              } else {
+                alert('Synkronisering misslyckades. Kontrollera Admin API-nyckel.');
+              }
+            }}
+            className="px-3 py-1 bg-pink-600 hover:bg-pink-700 text-white rounded-lg flex items-center gap-2 text-sm transition-colors"
+          >
+            <CloudDownload className="w-4 h-4" />
+            Synka OpenAI-data
+          </button>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <h3 className="text-lg font-medium text-white mb-3">Modelldistribution</h3>
@@ -935,16 +996,30 @@ export default function StatisticsPage() {
             <h3 className="text-lg font-medium text-white mb-3">Kostnadsöversikt</h3>
             <div className="space-y-3">
               <div className="flex items-center justify-between p-3 bg-navy-900 rounded-lg">
-                <span className="text-gray-400">Total kostnad</span>
-                <span className="text-white font-semibold">{statistics.ai.total_cost.toFixed(2)} SEK</span>
+                <span className="text-gray-400">Estimerad kostnad</span>
+                <span className="text-white font-semibold">{(statistics.ai.total_cost * 10.5).toFixed(2)} SEK</span>
               </div>
+              {costComparison && (
+                <>
+                  <div className="flex items-center justify-between p-3 bg-navy-900 rounded-lg border-l-4 border-green-500">
+                    <span className="text-gray-400">Faktisk kostnad</span>
+                    <span className="text-white font-semibold">{costComparison.actualCostSEK.toFixed(2)} SEK</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 bg-navy-900 rounded-lg">
+                    <span className="text-gray-400">Skillnad</span>
+                    <span className={`font-semibold ${costComparison.difference > 0 ? 'text-red-400' : 'text-green-400'}`}>
+                      {costComparison.differenceSEK > 0 ? '+' : ''}{costComparison.differenceSEK.toFixed(2)} SEK ({costComparison.differencePercent > 0 ? '+' : ''}{costComparison.differencePercent.toFixed(1)}%)
+                    </span>
+                  </div>
+                </>
+              )}
               <div className="flex items-center justify-between p-3 bg-navy-900 rounded-lg">
                 <span className="text-gray-400">Tokens använt</span>
                 <span className="text-white font-semibold">{statistics.ai.total_tokens.toLocaleString()}</span>
               </div>
               <div className="flex items-center justify-between p-3 bg-navy-900 rounded-lg">
                 <span className="text-gray-400">Genomsnitt per generation</span>
-                <span className="text-white font-semibold">{statistics.ai.average_cost_per_generation.toFixed(2)} SEK</span>
+                <span className="text-white font-semibold">{(statistics.ai.average_cost_per_generation * 10.5).toFixed(2)} SEK</span>
               </div>
             </div>
           </div>
