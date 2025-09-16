@@ -173,12 +173,23 @@ export async function POST(request: Request) {
         feature_type: 'letter_generation',
         model: generationResult.model,
         tokens: generationResult.tokens?.total || 0,
-        cost: generationResult.cost || 0
-        // Note: metadata column doesn't exist in usage_log table
+        cost: generationResult.cost || 0,
+        metadata: {
+          is_saved: save,
+          is_preview: !save,
+          language: language,
+          tonality: tonality,
+          generation_time_ms: generationTimeMs,
+          cost_sek: generationResult.cost ? generationResult.cost * 10.5 : 0,
+          job_title: jobInfo.position,
+          company: jobInfo.company
+        }
       });
 
       if (usageLogError) {
         console.error('Failed to insert into usage_log:', usageLogError);
+      } else {
+        console.log(`Logged AI cost to usage_log: $${generationResult.cost} for user ${user.id}`);
       }
       // ***********************************
 

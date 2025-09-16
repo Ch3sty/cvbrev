@@ -221,14 +221,20 @@ export async function POST(request: NextRequest) {
                 model: analysisResult.model,
                 tokens: analysisResult.tokens?.total || 0,
                 cost: analysisResult.cost,
-                related_id: cvId  // Use related_id for the CV ID
-                // Note: metadata column doesn't exist in usage_log table
+                related_id: cvId,  // Use related_id for the CV ID
+                metadata: {
+                    cv_id: cvId,
+                    analysis_type: profileData.subscriptionTier,
+                    cost_sek: analysisResult.cost * 10.5,
+                    prompt_tokens: analysisResult.tokens?.prompt,
+                    completion_tokens: analysisResult.tokens?.completion
+                }
             });
 
             if (usageLogError) {
                 console.error('Failed to insert into usage_log:', usageLogError);
             } else {
-                console.log(`API analyzeCv: Logged AI cost for user ${userId}: $${analysisResult.cost}`);
+                console.log(`API analyzeCv: Logged AI cost to usage_log: $${analysisResult.cost} for user ${userId}`);
             }
         }
 
