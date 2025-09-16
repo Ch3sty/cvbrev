@@ -239,7 +239,13 @@ export default function FinanceDashboard() {
       setSubscriptionData(subscriptionDist);
 
       // Hämta senaste transaktioner från Stripe eller databas
-      const transactions = [];
+      const transactions: Array<{
+        date: string;
+        type: string;
+        amount: number;
+        status: string;
+        customer: string;
+      }> = [];
 
       // Försök först hämta faktiska transaktioner från revenue_tracking tabellen
       if (revenues && revenues.length > 0) {
@@ -278,7 +284,7 @@ export default function FinanceDashboard() {
     fetchFinancialData();
     const interval = setInterval(fetchFinancialData, 60000); // Uppdatera varje minut
     return () => clearInterval(interval);
-  }, [dateRange]);
+  }, [dateRange]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Custom Tooltip för charts
   const CustomTooltip = ({ active, payload, label }: any) => {

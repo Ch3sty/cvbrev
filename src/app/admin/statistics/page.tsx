@@ -476,14 +476,14 @@ export default function StatisticsPage() {
     }, 120000);
 
     return () => clearInterval(interval);
-  }, [dateRange]); // Kör om när dateRange ändras
+  }, [dateRange]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Uppdatera statistik när Stripe-data ändras
   useEffect(() => {
     if (stripeRevenue) {
       fetchStatistics();
     }
-  }, [stripeRevenue]);
+  }, [stripeRevenue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (isLoading) {
     return (
