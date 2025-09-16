@@ -215,19 +215,21 @@ export async function POST(request: NextRequest) {
 
         // Logga AI-kostnad till usage_log för ekonomisk spårning
         if (analysisResult.cost && analysisResult.model) {
-            await supabase.from('usage_log').insert({
+            const { error: usageLogError } = await supabase.from('usage_log').insert({
                 user_id: userId,
                 feature_type: 'cv_analysis',
                 model: analysisResult.model,
                 tokens: analysisResult.tokens?.total || 0,
                 cost: analysisResult.cost,
-                metadata: {
-                    cv_id: cvId,
-                    analysis_type: profileData.subscriptionTier,
-                    cost_sek: analysisResult.cost ? analysisResult.cost * 10.5 : 0
-                }
+                related_id: cvId  // Use related_id for the CV ID
+                // Note: metadata column doesn't exist in usage_log table
             });
-            console.log(`API analyzeCv: Logged AI cost for user ${userId}: $${analysisResult.cost}`);
+
+            if (usageLogError) {
+                console.error('Failed to insert into usage_log:', usageLogError);
+            } else {
+                console.log(`API analyzeCv: Logged AI cost for user ${userId}: $${analysisResult.cost}`);
+            }
         }
 
         // --- 6. Update Count for Free Users (Post-Analysis) ---

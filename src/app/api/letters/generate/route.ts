@@ -168,20 +168,18 @@ export async function POST(request: Request) {
       );
 
       // Logga AI-kostnad till usage_log för ekonomisk spårning
-      await supabase.from('usage_log').insert({
+      const { error: usageLogError } = await supabase.from('usage_log').insert({
         user_id: user.id,
         feature_type: 'letter_generation',
         model: generationResult.model,
         tokens: generationResult.tokens?.total || 0,
-        cost: generationResult.cost || 0,
-        metadata: {
-          is_saved: save,
-          language: language,
-          tonality: tonality,
-          generation_time_ms: generationTimeMs,
-          cost_sek: generationResult.cost ? generationResult.cost * 10.5 : 0
-        }
+        cost: generationResult.cost || 0
+        // Note: metadata column doesn't exist in usage_log table
       });
+
+      if (usageLogError) {
+        console.error('Failed to insert into usage_log:', usageLogError);
+      }
       // ***********************************
 
       // Skapa brevdata-objektet med innehållet från resultatet
