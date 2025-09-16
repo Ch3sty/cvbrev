@@ -276,20 +276,44 @@ export default function StatisticsPage() {
         ? letters.reduce((acc, l) => acc + (l.generation_time_ms || 0), 0) / letters.length / 1000
         : 0;
 
-      // AI-kostnader
-      const totalTokens = usageLogs?.reduce((acc, log) => acc + (log.tokens || 0), 0) || 0;
-      const totalCost = usageLogs?.reduce((acc, log) => acc + parseFloat(log.cost?.toString() || '0'), 0) || 0;
+      // AI-kostnader - kombinera från både usage_log och letters tabellerna
+      // Från usage_log
+      const usageLogTokens = usageLogs?.reduce((acc, log) => acc + (log.tokens || 0), 0) || 0;
+      const usageLogCost = usageLogs?.reduce((acc, log) => acc + parseFloat(log.cost?.toString() || '0'), 0) || 0;
+
+      // Från letters tabell (historisk data med ai_cost)
+      const letterTokens = letters?.reduce((acc, letter) => acc + (letter.ai_tokens || 0), 0) || 0;
+      const letterCost = letters?.reduce((acc, letter) => acc + parseFloat(letter.ai_cost?.toString() || '0'), 0) || 0;
+
+      // Kombinera totaler
+      const totalTokens = usageLogTokens + letterTokens;
+      const totalCost = usageLogCost + letterCost;
+
+      // Månadskostnader
       const thisMonthLogs = usageLogs?.filter(log => new Date(log.created_at) > monthAgo) || [];
-      const tokensThisMonth = thisMonthLogs.reduce((acc, log) => acc + (log.tokens || 0), 0);
-      const costThisMonth = thisMonthLogs.reduce((acc, log) => acc + parseFloat(log.cost?.toString() || '0'), 0);
-      
-      // Modelldistribution
-      const modelDistribution = usageLogs?.reduce((acc, log) => {
+      const thisMonthLetters = letters?.filter(l => new Date(l.created_at) > monthAgo && l.ai_cost) || [];
+
+      const tokensThisMonth = thisMonthLogs.reduce((acc, log) => acc + (log.tokens || 0), 0) +
+                              thisMonthLetters.reduce((acc, l) => acc + (l.ai_tokens || 0), 0);
+      const costThisMonth = thisMonthLogs.reduce((acc, log) => acc + parseFloat(log.cost?.toString() || '0'), 0) +
+                           thisMonthLetters.reduce((acc, l) => acc + parseFloat(l.ai_cost?.toString() || '0'), 0);
+
+      // Modelldistribution - kombinera från båda källor
+      const modelDistribution: { [key: string]: number } = {};
+
+      // Från usage_log
+      usageLogs?.forEach(log => {
         if (log.model) {
-          acc[log.model] = (acc[log.model] || 0) + 1;
+          modelDistribution[log.model] = (modelDistribution[log.model] || 0) + 1;
         }
-        return acc;
-      }, {} as { [key: string]: number }) || {};
+      });
+
+      // Från letters
+      letters?.forEach(letter => {
+        if (letter.ai_model) {
+          modelDistribution[letter.ai_model] = (modelDistribution[letter.ai_model] || 0) + 1;
+        }
+      });
 
       // Aktivitetsstatistik
       const activitiesToday = activities?.filter(a => 
