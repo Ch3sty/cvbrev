@@ -601,7 +601,8 @@ export default function StatisticsPage() {
       fetchOpenAIUsage();
     }, 60000); // Uppdatera varje minut
     return () => clearInterval(interval);
-  }, [dateRange, fetchStatistics]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dateRange]);
 
   // Chart.js konfiguration
   const chartOptions = {

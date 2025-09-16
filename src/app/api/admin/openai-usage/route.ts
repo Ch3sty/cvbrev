@@ -10,6 +10,10 @@ import {
 
 // GET - Hämta OpenAI usage data
 export async function GET(request: NextRequest) {
+  // Deklarera variabler utanför inner try-catch för att de ska vara tillgängliga i hela funktionen
+  let totalEstimatedCost = 0;
+  let totalEstimatedTokens = 0;
+
   try {
     const supabase = createRouteHandlerClient({ cookies });
 
@@ -40,6 +44,35 @@ export async function GET(request: NextRequest) {
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);
 
+    // Hämta estimerad data från usage_log och letters först (behövs i båda fallen)
+    const { data: estimatedData } = await supabase
+      .from('usage_log')
+      .select('*')
+      .gte('created_at', startDate.toISOString())
+      .lte('created_at', endDate.toISOString());
+
+    const { data: lettersData } = await supabase
+      .from('letters')
+      .select('ai_cost, ai_tokens, ai_model, created_at')
+      .not('ai_cost', 'is', null)
+      .gte('created_at', startDate.toISOString())
+      .lte('created_at', endDate.toISOString());
+
+    // Beräkna totala estimerade kostnader
+    if (estimatedData) {
+      estimatedData.forEach(log => {
+        totalEstimatedCost += parseFloat(log.cost?.toString() || '0');
+        totalEstimatedTokens += log.tokens || 0;
+      });
+    }
+
+    if (lettersData) {
+      lettersData.forEach(letter => {
+        totalEstimatedCost += parseFloat(letter.ai_cost?.toString() || '0');
+        totalEstimatedTokens += letter.ai_tokens || 0;
+      });
+    }
+
     try {
       // Hämta data (använd cache om möjligt)
       const usageData = useCache
@@ -53,38 +86,6 @@ export async function GET(request: NextRequest) {
         .gte('sync_date', startDate.toISOString().split('T')[0])
         .lte('sync_date', endDate.toISOString().split('T')[0])
         .order('sync_date', { ascending: false });
-
-      // Hämta estimerad data från usage_log och letters
-      const { data: estimatedData } = await supabase
-        .from('usage_log')
-        .select('*')
-        .gte('created_at', startDate.toISOString())
-        .lte('created_at', endDate.toISOString());
-
-      const { data: lettersData } = await supabase
-        .from('letters')
-        .select('ai_cost, ai_tokens, ai_model, created_at')
-        .not('ai_cost', 'is', null)
-        .gte('created_at', startDate.toISOString())
-        .lte('created_at', endDate.toISOString());
-
-      // Beräkna totala estimerade kostnader
-      let totalEstimatedCost = 0;
-      let totalEstimatedTokens = 0;
-
-      if (estimatedData) {
-        estimatedData.forEach(log => {
-          totalEstimatedCost += parseFloat(log.cost?.toString() || '0');
-          totalEstimatedTokens += log.tokens || 0;
-        });
-      }
-
-      if (lettersData) {
-        lettersData.forEach(letter => {
-          totalEstimatedCost += parseFloat(letter.ai_cost?.toString() || '0');
-          totalEstimatedTokens += letter.ai_tokens || 0;
-        });
-      }
 
       // Jämför faktiska vs estimerade kostnader
       const comparison = {
