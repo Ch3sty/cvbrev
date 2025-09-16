@@ -201,14 +201,20 @@ export default function StatisticsPage() {
       const mrr = stripeRevenue ? stripeRevenue.subscriptions.mrr : premiumUsers.length * monthlyPrice;
       const arr = stripeRevenue ? stripeRevenue.subscriptions.arr : mrr * 12;
 
-      // Beräkna AI-kostnader
-      const totalAICost = usageLogs?.reduce((sum, log) => sum + (log.cost || 0), 0) || 0;
-      const aiCostToday = usageLogs?.filter(log => new Date(log.created_at) >= today)
-        .reduce((sum, log) => sum + (log.cost || 0), 0) || 0;
-      const aiCostWeek = usageLogs?.filter(log => new Date(log.created_at) >= weekAgo)
-        .reduce((sum, log) => sum + (log.cost || 0), 0) || 0;
-      const aiCostMonth = usageLogs?.filter(log => new Date(log.created_at) >= monthAgo)
-        .reduce((sum, log) => sum + (log.cost || 0), 0) || 0;
+      // Beräkna AI-kostnader från både usage_log och letters tabellen
+      const usageLogCost = usageLogs?.reduce((sum, log) => sum + (log.cost || 0), 0) || 0;
+      const lettersCost = letters?.reduce((sum, letter) =>
+        sum + (parseFloat(letter.ai_cost?.toString() || '0') || 0), 0) || 0;
+
+      // Använd det högsta värdet (letters har troligen mer komplett data)
+      const totalAICost = Math.max(usageLogCost, lettersCost);
+
+      const aiCostToday = letters?.filter(l => new Date(l.created_at) >= today)
+        .reduce((sum, l) => sum + (parseFloat(l.ai_cost?.toString() || '0') || 0), 0) || 0;
+      const aiCostWeek = letters?.filter(l => new Date(l.created_at) >= weekAgo)
+        .reduce((sum, l) => sum + (parseFloat(l.ai_cost?.toString() || '0') || 0), 0) || 0;
+      const aiCostMonth = letters?.filter(l => new Date(l.created_at) >= monthAgo)
+        .reduce((sum, l) => sum + (parseFloat(l.ai_cost?.toString() || '0') || 0), 0) || 0;
 
       const infrastructureCost = 100; // Estimerad infrastrukturkostnad
 
@@ -272,10 +278,11 @@ export default function StatisticsPage() {
           return format(revDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
         }).reduce((sum, r) => sum + (r.amount || 0), 0) || 0;
 
-        const dayCost = usageLogs?.filter(log => {
-          const logDate = new Date(log.created_at);
-          return format(logDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
-        }).reduce((sum, log) => sum + (log.cost || 0) * 10.5, 0) || 0;
+        // Beräkna dagskostnader från letters (där vi har faktisk data)
+        const dayCost = letters?.filter(letter => {
+          const letterDate = new Date(letter.created_at);
+          return format(letterDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
+        }).reduce((sum, letter) => sum + (parseFloat(letter.ai_cost?.toString() || '0') || 0) * 10.5, 0) || 0;
 
         return {
           date: dateStr,
@@ -376,18 +383,15 @@ export default function StatisticsPage() {
   // Hämta OpenAI-användning
   const fetchOpenAIUsage = async () => {
     try {
-      let days = 30;
-      switch (dateRange) {
-        case 'day': days = 1; break;
-        case 'week': days = 7; break;
-        case 'month': days = 30; break;
-        case 'year': days = 365; break;
-      }
-
-      const response = await fetch(`/api/admin/openai-usage?days=${days}`);
+      // Alltid försök hämta för 30 dagar först (där vi troligen har data)
+      // OpenAI Admin API kanske inte har historisk data för hela året
+      const response = await fetch(`/api/admin/openai-usage?days=30`);
       const result = await response.json();
 
       if (result.success && result.data) {
+        setOpenaiUsage(result);
+      } else if (result.estimatedOnly) {
+        // Om vi bara får estimat, använd det
         setOpenaiUsage(result);
       }
     } catch (error) {
@@ -758,14 +762,15 @@ export default function StatisticsPage() {
                   <Bar dataKey="value" fill={COLORS.danger} name="Kostnader (kr)" />
                 </BarChart>
               </ResponsiveContainer>
-              {openaiUsage && (
-                <div className="mt-4 p-4 bg-navy-900 rounded-lg">
-                  <p className="text-sm text-red-400">
-                    Total AI-kostnad: {(openaiUsage.data?.totalCost * 10.5 || 0).toFixed(2)} kr |
-                    Tokens: {openaiUsage.data?.totalTokens?.toLocaleString() || 0}
-                  </p>
-                </div>
-              )}
+              <div className="mt-4 p-4 bg-navy-900 rounded-lg">
+                <p className="text-sm text-red-400">
+                  Total AI-kostnad: {stats.costs.total_ai_cost.toFixed(2)} kr |
+                  {openaiUsage?.data?.totalCost && (
+                    <>Faktisk från OpenAI: {(openaiUsage.data.totalCost * 10.5).toFixed(2)} kr | </>
+                  )}
+                  Tokens: {openaiUsage?.data?.totalTokens?.toLocaleString() || 'N/A'}
+                </p>
+              </div>
             </div>
           )}
 
