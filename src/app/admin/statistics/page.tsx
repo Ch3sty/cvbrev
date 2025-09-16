@@ -263,21 +263,46 @@ export default function StatisticsPage() {
       const avgCustomerLifespan = churnRate > 0 ? 100 / churnRate : 12;
       const lifetimeValue = monthlyPrice * avgCustomerLifespan;
 
-      // Förbered grafdata - alltid visa de senaste 30 dagarna för att få med all data
-      const daysToShow = 30; // Visa 30 dagar för att säkerställa att vi har data
-      const chartDays = Array.from({ length: Math.min(daysToShow, 30) }, (_, i) => {
-        const date = subDays(now, Math.min(daysToShow, 30) - 1 - i);
-        const dateStr = format(date, 'MMM dd', { locale: sv });
+      // Förbered grafdata baserat på vald period
+      let daysToShow = 7;
+      switch (dateRange) {
+        case 'day': daysToShow = 1; break;
+        case 'week': daysToShow = 7; break;
+        case 'month': daysToShow = 30; break;
+        case 'year': daysToShow = 365; break;
+      }
+
+      // Begränsa till max 365 dagar för prestanda
+      daysToShow = Math.min(daysToShow, 365);
+
+      const chartDays = Array.from({ length: daysToShow }, (_, i) => {
+        const date = subDays(now, daysToShow - 1 - i);
+        const dateStr = daysToShow <= 30 ?
+          format(date, 'MMM dd', { locale: sv }) :
+          format(date, 'MMM', { locale: sv }); // Visa bara månad för längre perioder
 
         const dayActivities = activities?.filter(a => {
           const actDate = new Date(a.created_at);
           return format(actDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
         }) || [];
 
-        const dayRevenue = revenues?.filter(r => {
+        // Beräkna intäkter - använd Stripe-data om tillgänglig
+        const dbRevenue = revenues?.filter(r => {
           const revDate = new Date(r.created_at);
           return format(revDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
         }).reduce((sum, r) => sum + (r.amount || 0), 0) || 0;
+
+        // Om vi har Stripe-data, använd den för dagens intäkter
+        let dayRevenue = dbRevenue;
+        if (stripeRevenue && stripeRevenue.revenue && stripeRevenue.revenue.byDate) {
+          const dateFormatted = format(date, 'yyyy-MM-dd');
+          const stripeDay = stripeRevenue.revenue.byDate.find((d: any) =>
+            d.date === dateFormatted
+          );
+          if (stripeDay) {
+            dayRevenue = stripeDay.amount || dbRevenue;
+          }
+        }
 
         // Beräkna dagskostnader från letters (där vi har faktisk data)
         // ai_cost är redan numeriskt, multiplicera direkt med 10.5 för SEK
@@ -594,6 +619,46 @@ export default function StatisticsPage() {
           </div>
         </div>
 
+        {/* Main Overview Chart - Always visible */}
+        <div className="bg-navy-800 rounded-lg p-6 border border-gray-700 mb-8">
+          <h2 className="text-xl font-semibold text-white mb-4">
+            Trendöversikt {dateRange === 'day' && 'idag'}
+            {dateRange === 'week' && 'senaste veckan'}
+            {dateRange === 'month' && 'senaste månaden'}
+            {dateRange === 'year' && 'senaste året'}
+          </h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={chartData.combined}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+              <XAxis dataKey="date" stroke="#9ca3af" />
+              <YAxis stroke="#9ca3af" />
+              <Tooltip content={<CustomTooltip />} />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="revenue"
+                stroke={COLORS.primary}
+                name="Intäkter (kr)"
+                strokeWidth={2}
+              />
+              <Line
+                type="monotone"
+                dataKey="cost"
+                stroke={COLORS.danger}
+                name="Kostnader (kr)"
+                strokeWidth={2}
+              />
+              <Line
+                type="monotone"
+                dataKey="profit"
+                stroke={COLORS.secondary}
+                name="Vinst (kr)"
+                strokeWidth={2}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+
         {/* Tabs */}
         <div className="flex gap-1 mb-6 bg-navy-900 rounded-lg p-1">
           {tabs.map((tab) => {
@@ -619,50 +684,6 @@ export default function StatisticsPage() {
         <div className="space-y-6">
           {selectedTab === 'overview' && (
             <>
-              {/* Combined Chart */}
-              <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-                <h2 className="text-xl font-semibold text-white mb-4">Översikt senaste 30 dagarna</h2>
-                <ResponsiveContainer width="100%" height={400}>
-                  <LineChart data={chartData.combined}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-                    <XAxis dataKey="date" stroke="#9ca3af" />
-                    <YAxis stroke="#9ca3af" />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="revenue"
-                      stroke={COLORS.primary}
-                      name="Intäkter (kr)"
-                      strokeWidth={2}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="cost"
-                      stroke={COLORS.danger}
-                      name="Kostnader (kr)"
-                      strokeWidth={2}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="profit"
-                      stroke={COLORS.secondary}
-                      name="Vinst (kr)"
-                      strokeWidth={2}
-                    />
-                    <Line
-                      type="monotone"
-                      dataKey="activities"
-                      stroke={COLORS.purple}
-                      name="Aktiviteter"
-                      strokeWidth={2}
-                      yAxisId="right"
-                    />
-                    <YAxis yAxisId="right" orientation="right" stroke="#9ca3af" />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-
               {/* Feature Adoption Pie Chart */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
