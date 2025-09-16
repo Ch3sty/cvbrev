@@ -68,9 +68,12 @@ export default function FinanceDashboard() {
       }
 
       // Beräkna metrics baserat på faktisk data
-      const activeSubscribers = profiles?.filter(p => p.subscription_status === 'active').length || 0;
+      // Använd Stripe-data om tillgänglig för prenumeranter
+      const activeSubscribers = stripeRevenue?.subscriptions?.active ||
+        profiles?.filter(p => p.subscription_status === 'active' || p.subscription_status === 'trialing').length || 0;
       const premiumSubscribers = profiles?.filter(p => p.subscription_tier === 'premium').length || 0;
-      const trialSubscribers = profiles?.filter(p => p.subscription_status === 'trialing').length || 0;
+      const trialSubscribers = stripeRevenue?.subscriptions?.trialing ||
+        profiles?.filter(p => p.subscription_status === 'trialing').length || 0;
 
       // Använd Stripe-data om tillgänglig, annars beräkna från databas
       const mrr = stripeRevenue?.subscriptions?.mrr || (premiumSubscribers * 149);
@@ -81,8 +84,16 @@ export default function FinanceDashboard() {
       const netRevenue = stripeRevenue?.revenue?.net || totalRevenue;
 
       // Beräkna AI-kostnader
-      const totalAICost = openaiUsage?.data?.totalCost ||
-        letters?.reduce((sum: number, l: any) => sum + (parseFloat(l.ai_cost?.toString() || '0') || 0), 0) || 0;
+      // OpenAI API returnerar USD, letters innehåller redan USD
+      let totalAICost = 0;
+      if (openaiUsage?.data?.totalCost) {
+        // Faktisk kostnad från OpenAI API (redan i USD)
+        totalAICost = openaiUsage.data.totalCost;
+      } else {
+        // Fallback till estimat från letters (ai_cost är i USD)
+        totalAICost = letters?.reduce((sum: number, l: any) =>
+          sum + (parseFloat(l.ai_cost?.toString() || '0') || 0), 0) || 0;
+      }
       const totalAICostSEK = totalAICost * 10.5;
 
       // Beräkna vinst
@@ -96,8 +107,8 @@ export default function FinanceDashboard() {
         new Date(p.created_at) > lastMonthDate && p.subscription_tier === 'premium'
       ).length || 0;
 
-      const growthRate = premiumSubscribers > 0 ? (newSubscribers / premiumSubscribers) * 100 : 0;
-      const churnRate = stripeRevenue?.subscriptions?.canceled ?
+      const growthRate = activeSubscribers > 5 ? (newSubscribers / activeSubscribers) * 100 : 0;
+      const churnRate = stripeRevenue?.subscriptions?.canceled && activeSubscribers > 0 ?
         (stripeRevenue.subscriptions.canceled / (activeSubscribers + stripeRevenue.subscriptions.canceled)) * 100 : 0;
 
       // Sätt metrics
@@ -116,7 +127,9 @@ export default function FinanceDashboard() {
           change: growthRate,
           trend: growthRate > 0 ? 'up' : growthRate < 0 ? 'down' : 'neutral',
           icon: CreditCardIcon,
-          subtitle: `${activeSubscribers} aktiva prenumeranter`
+          subtitle: stripeRevenue?.subscriptions?.active ?
+            `${stripeRevenue.subscriptions.active} aktiva prenumeranter (från Stripe)` :
+            `${activeSubscribers} aktiva prenumeranter`
         },
         {
           title: 'ARR (Årlig återkommande intäkt)',
@@ -198,42 +211,38 @@ export default function FinanceDashboard() {
       setChartData(chartDays);
 
       // Förbered subscription distribution
+      // Använd Stripe-data för korrekt antal premium användare
+      const actualPremiumUsers = stripeRevenue?.subscriptions?.active || premiumSubscribers;
+      const totalUsers = profiles?.length || 0;
+      const freeUsers = Math.max(0, totalUsers - actualPremiumUsers - trialSubscribers);
+
       const subscriptionDist = [
         {
           name: 'Premium',
-          value: premiumSubscribers,
+          value: actualPremiumUsers,
           color: '#ec4899',
-          percentage: profiles?.length ? (premiumSubscribers / profiles.length) * 100 : 0
+          percentage: totalUsers ? (actualPremiumUsers / totalUsers) * 100 : 0
         },
         {
           name: 'Prov',
           value: trialSubscribers,
           color: '#8b5cf6',
-          percentage: profiles?.length ? (trialSubscribers / profiles.length) * 100 : 0
+          percentage: totalUsers ? (trialSubscribers / totalUsers) * 100 : 0
         },
         {
           name: 'Gratis',
-          value: (profiles?.length || 0) - premiumSubscribers - trialSubscribers,
+          value: freeUsers,
           color: '#64748b',
-          percentage: profiles?.length ? ((profiles.length - premiumSubscribers - trialSubscribers) / profiles.length) * 100 : 0
+          percentage: totalUsers ? (freeUsers / totalUsers) * 100 : 0
         }
       ];
       setSubscriptionData(subscriptionDist);
 
       // Hämta senaste transaktioner från Stripe eller databas
       const transactions = [];
-      if (stripeRevenue?.charges) {
-        // Använd Stripe-data om tillgänglig
-        for (let i = 0; i < Math.min(10, stripeRevenue.charges.successful); i++) {
-          transactions.push({
-            date: format(subDays(now, i), 'yyyy-MM-dd'),
-            type: 'Prenumeration',
-            amount: 149,
-            status: 'completed',
-            customer: `Premium användare ${i + 1}`
-          });
-        }
-      } else if (revenues && revenues.length > 0) {
+
+      // Försök först hämta faktiska transaktioner från revenue_tracking tabellen
+      if (revenues && revenues.length > 0) {
         // Använd databas-data
         revenues.slice(0, 10).forEach((rev: any) => {
           transactions.push({
@@ -242,6 +251,17 @@ export default function FinanceDashboard() {
             amount: rev.amount,
             status: rev.status,
             customer: rev.user_id || 'Okänd'
+          });
+        });
+      } else if (stripeRevenue?.customers?.topCustomers) {
+        // Om vi har Stripe top customers, använd dem
+        stripeRevenue.customers.topCustomers.slice(0, 10).forEach((customer: any, i: number) => {
+          transactions.push({
+            date: format(subDays(now, i), 'yyyy-MM-dd'),
+            type: 'Prenumeration',
+            amount: Math.round(customer.totalSpent || 149),
+            status: 'completed',
+            customer: customer.email || `Kund ${customer.customerId}`
           });
         });
       }
