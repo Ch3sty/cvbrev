@@ -172,41 +172,58 @@ export async function getAggregatedCosts(
     const dailyCosts: Array<{ date: string; cost: number; tokens: number }> = [];
 
     // Processa användningsdata
-    for (const point of usageData.data) {
-      const model = point.model;
-      const tokens = point.n_context_tokens_total + point.n_generated_tokens_total;
+    if (usageData && usageData.data && Array.isArray(usageData.data)) {
+      for (const point of usageData.data) {
+        const model = point.model;
+        const tokens = (point.n_context_tokens_total || 0) + (point.n_generated_tokens_total || 0);
 
-      totalTokens += tokens;
+        totalTokens += tokens;
 
-      if (!byModel[model]) {
-        byModel[model] = { cost: 0, tokens: 0, requests: 0 };
+        if (!byModel[model]) {
+          byModel[model] = { cost: 0, tokens: 0, requests: 0 };
+        }
+
+        byModel[model].tokens += tokens;
+        byModel[model].requests += point.n_requests || 0;
       }
-
-      byModel[model].tokens += tokens;
-      byModel[model].requests += point.n_requests;
     }
 
     // Processa kostnadsdata
-    for (const point of costData.data) {
-      totalCost += point.cost;
+    if (costData && costData.data && Array.isArray(costData.data)) {
+      for (const point of costData.data) {
+        totalCost += point.cost || 0;
 
-      // Lägg till i daglig kostnad
-      const date = new Date(point.timestamp * 1000).toISOString().split('T')[0];
-      const existing = dailyCosts.find(d => d.date === date);
+        // Lägg till i daglig kostnad - hantera saknad timestamp
+        let date: string;
+        if (point.timestamp) {
+          try {
+            date = new Date(point.timestamp * 1000).toISOString().split('T')[0];
+          } catch (dateError) {
+            console.error('Fel vid datumkonvertering:', point.timestamp, dateError);
+            // Använd dagens datum som fallback
+            date = new Date().toISOString().split('T')[0];
+          }
+        } else {
+          // Om timestamp saknas, använd dagens datum
+          date = new Date().toISOString().split('T')[0];
+        }
 
-      if (existing) {
-        existing.cost += point.cost;
-      } else {
-        dailyCosts.push({
-          date,
-          cost: point.cost,
-          tokens: 0 // Tokens fylls i från usage data
-        });
-      }
+        const existing = dailyCosts.find(d => d.date === date);
 
-      // Uppdatera model-specifik kostnad om model finns
-      if (point.model && byModel[point.model]) {
-        byModel[point.model].cost += point.cost;
+        if (existing) {
+          existing.cost += point.cost || 0;
+        } else {
+          dailyCosts.push({
+            date,
+            cost: point.cost || 0,
+            tokens: 0 // Tokens fylls i från usage data
+          });
+        }
+
+        // Uppdatera model-specifik kostnad om model finns
+        if (point.model && byModel[point.model]) {
+          byModel[point.model].cost += point.cost || 0;
+        }
       }
     }
 
