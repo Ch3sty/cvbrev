@@ -147,6 +147,7 @@ export default function StatisticsPage() {
   const [selectedView, setSelectedView] = useState('overview'); // overview, users, revenue, usage, performance
   const [openaiUsage, setOpenaiUsage] = useState<any>(null);
   const [costComparison, setCostComparison] = useState<any>(null);
+  const [stripeRevenue, setStripeRevenue] = useState<any>(null);
   const [refreshing, setRefreshing] = useState(false);
 
   const supabase = getSupabaseClient();
@@ -235,11 +236,12 @@ export default function StatisticsPage() {
       // Beräkna totala kostnader
       const totalCosts = (totalAICost * 10.5) + infrastructureCost; // AI-kostnader är i USD
 
-      // Beräkna vinst
-      const grossProfit = totalRevenue - (totalAICost * 10.5);
-      const grossMargin = totalRevenue > 0 ? (grossProfit / totalRevenue) * 100 : 0;
+      // Beräkna vinst (använd faktiska Stripe-intäkter om tillgängliga)
+      const actualRevenue = stripeRevenue ? stripeRevenue.revenue.total : totalRevenue;
+      const grossProfit = actualRevenue - (totalAICost * 10.5);
+      const grossMargin = actualRevenue > 0 ? (grossProfit / actualRevenue) * 100 : 0;
       const netProfit = grossProfit - infrastructureCost;
-      const netMargin = totalRevenue > 0 ? (netProfit / totalRevenue) * 100 : 0;
+      const netMargin = actualRevenue > 0 ? (netProfit / actualRevenue) * 100 : 0;
 
       // Beräkna användningsstatistik
       const cvsToday = cvs?.filter(c => new Date(c.created_at) >= today) || [];
@@ -406,8 +408,30 @@ export default function StatisticsPage() {
   // Uppdatera data
   const handleRefresh = async () => {
     setRefreshing(true);
-    await Promise.all([fetchStatistics(), fetchOpenAIUsage()]);
+    await Promise.all([fetchStatistics(), fetchOpenAIUsage(), fetchStripeRevenue()]);
     setRefreshing(false);
+  };
+
+  // Hämta Stripe-intäkter
+  const fetchStripeRevenue = async () => {
+    try {
+      let days = 30;
+      switch (dateRange) {
+        case 'day': days = 1; break;
+        case 'week': days = 7; break;
+        case 'month': days = 30; break;
+        case 'year': days = 365; break;
+      }
+
+      const response = await fetch(`/api/admin/stripe-revenue?days=${days}`);
+      const result = await response.json();
+
+      if (result.success) {
+        setStripeRevenue(result);
+      }
+    } catch (error) {
+      console.error('Fel vid hämtning av Stripe-intäkter:', error);
+    }
   };
 
   // Synkronisera OpenAI-data
@@ -431,12 +455,36 @@ export default function StatisticsPage() {
     }
   };
 
+  // Synkronisera Stripe-data
+  const syncStripeData = async () => {
+    try {
+      const response = await fetch('/api/admin/stripe-revenue', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ days: 30 })
+      });
+      const result = await response.json();
+      if (result.success) {
+        alert(`Synkade Stripe-intäkter för ${result.period.days} dagar`);
+        fetchStripeRevenue();
+        fetchStatistics(); // Uppdatera även huvudstatistiken
+      } else {
+        alert('Synkronisering misslyckades.');
+      }
+    } catch (error) {
+      console.error('Fel vid synkronisering:', error);
+      alert('Ett fel uppstod vid synkronisering');
+    }
+  };
+
   useEffect(() => {
     fetchStatistics();
     fetchOpenAIUsage();
+    fetchStripeRevenue();
     const interval = setInterval(() => {
       fetchStatistics();
       fetchOpenAIUsage();
+      fetchStripeRevenue();
     }, 60000); // Uppdatera varje minut
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -509,8 +557,15 @@ export default function StatisticsPage() {
             <Euro className="w-8 h-8 text-green-400" />
             <span className="text-sm text-gray-400">Total intäkt</span>
           </div>
-          <div className="text-2xl font-bold text-white">{stats.revenue.total_revenue.toLocaleString('sv-SE')} kr</div>
-          <div className="text-sm text-green-400 mt-2">MRR: {stats.revenue.mrr.toLocaleString('sv-SE')} kr</div>
+          <div className="text-2xl font-bold text-white">
+            {stripeRevenue ? stripeRevenue.revenue.total.toLocaleString('sv-SE') : stats.revenue.total_revenue.toLocaleString('sv-SE')} kr
+          </div>
+          {stripeRevenue && (
+            <div className="text-xs text-green-400 mt-1">Faktisk från Stripe</div>
+          )}
+          <div className="text-sm text-green-400 mt-2">
+            MRR: {stripeRevenue ? stripeRevenue.subscriptions.mrr.toLocaleString('sv-SE') : stats.revenue.mrr.toLocaleString('sv-SE')} kr
+          </div>
         </div>
 
         {/* Net Profit */}
@@ -621,17 +676,32 @@ export default function StatisticsPage() {
 
         {/* Revenue & Costs */}
         <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-          <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
-            <DollarSign className="w-5 h-5 text-green-400" />
-            Ekonomi & Lönsamhet
-          </h2>
+          <div className="flex justify-between items-start mb-4">
+            <h2 className="text-xl font-semibold text-white flex items-center gap-2">
+              <DollarSign className="w-5 h-5 text-green-400" />
+              Ekonomi & Lönsamhet
+            </h2>
+            <button
+              onClick={syncStripeData}
+              className="px-3 py-1 text-sm bg-green-600 hover:bg-green-700 text-white rounded flex items-center gap-2 transition-colors"
+              title="Synka Stripe-intäkter"
+            >
+              <RefreshCw className="w-4 h-4" />
+              Synka Stripe
+            </button>
+          </div>
           <div className="space-y-4">
             <div className="bg-navy-900 rounded-lg p-4">
-              <div className="text-sm text-gray-400 mb-2">Intäkter</div>
+              <div className="text-sm text-gray-400 mb-2 flex items-center justify-between">
+                <span>Intäkter</span>
+                {stripeRevenue && <span className="text-xs text-green-400">Faktisk data från Stripe</span>}
+              </div>
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-gray-300">Total intäkt</span>
-                  <span className="text-green-400 font-semibold">{stats.revenue.total_revenue.toLocaleString('sv-SE')} kr</span>
+                  <span className="text-green-400 font-semibold">
+                    {stripeRevenue ? stripeRevenue.revenue.total.toLocaleString('sv-SE') : stats.revenue.total_revenue.toLocaleString('sv-SE')} kr
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-300">Denna månad</span>
@@ -639,12 +709,28 @@ export default function StatisticsPage() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-300">MRR</span>
-                  <span className="text-green-400 font-semibold">{stats.revenue.mrr.toLocaleString('sv-SE')} kr</span>
+                  <span className="text-green-400 font-semibold">
+                    {stripeRevenue ? stripeRevenue.subscriptions.mrr.toLocaleString('sv-SE') : stats.revenue.mrr.toLocaleString('sv-SE')} kr
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-300">ARR</span>
-                  <span className="text-green-400 font-semibold">{stats.revenue.arr.toLocaleString('sv-SE')} kr</span>
+                  <span className="text-green-400 font-semibold">
+                    {stripeRevenue ? stripeRevenue.subscriptions.arr.toLocaleString('sv-SE') : stats.revenue.arr.toLocaleString('sv-SE')} kr
+                  </span>
                 </div>
+                {stripeRevenue && (
+                  <>
+                    <div className="flex justify-between">
+                      <span className="text-gray-300">Aktiva prenumerationer</span>
+                      <span className="text-blue-400 font-semibold">{stripeRevenue.subscriptions.active}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-300">Återbetalningar</span>
+                      <span className="text-red-400 font-semibold">-{stripeRevenue.revenue.refunded.toLocaleString('sv-SE')} kr</span>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 
