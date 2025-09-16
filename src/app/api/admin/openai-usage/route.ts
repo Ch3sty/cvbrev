@@ -1,7 +1,7 @@
 // src/app/api/admin/openai-usage/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+import { createServerClient } from '@/lib/supabase/server';
 import {
   getCachedUsageData,
   syncOpenAICostsToDatabase,
@@ -15,11 +15,12 @@ export async function GET(request: NextRequest) {
   let totalEstimatedTokens = 0;
 
   try {
-    const supabase = createRouteHandlerClient({ cookies });
+    const cookieStore = await cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
 
     // Kontrollera autentisering och admin-behörighet
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -27,7 +28,7 @@ export async function GET(request: NextRequest) {
     const { data: adminUser } = await supabase
       .from('admin_users')
       .select('role')
-      .eq('id', session.user.id)
+      .eq('id', user.id)
       .single();
 
     if (!adminUser) {
@@ -144,11 +145,12 @@ export async function GET(request: NextRequest) {
 // POST - Synkronisera OpenAI kostnader till databasen
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createRouteHandlerClient({ cookies });
+    const cookieStore = await cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
 
     // Kontrollera autentisering och admin-behörighet
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -156,7 +158,7 @@ export async function POST(request: NextRequest) {
     const { data: adminUser } = await supabase
       .from('admin_users')
       .select('role')
-      .eq('id', session.user.id)
+      .eq('id', user.id)
       .single();
 
     if (!adminUser) {
