@@ -454,8 +454,7 @@ export default function StatisticsPage() {
 
       if (result.success) {
         setStripeRevenue(result);
-        // Uppdatera statistiken igen med nya Stripe-data
-        fetchStatistics();
+        // fetchStatistics kommer att köras automatiskt via useEffect när stripeRevenue uppdateras
       }
     } catch (error) {
       console.error('Fel vid hämtning av Stripe-intäkter:', error);
@@ -465,23 +464,26 @@ export default function StatisticsPage() {
   // Automatisk synkning vid sidladdning och datumändring
   useEffect(() => {
     // Initial laddning
-    Promise.all([
-      fetchStatistics(),
-      fetchOpenAIUsage(),
-      fetchStripeRevenue()
-    ]);
+    fetchStatistics();
+    fetchOpenAIUsage();
+    fetchStripeRevenue();
 
     // Uppdatera var 2:e minut
     const interval = setInterval(() => {
-      Promise.all([
-        fetchStatistics(),
-        fetchOpenAIUsage(),
-        fetchStripeRevenue()
-      ]);
+      fetchStatistics();
+      fetchOpenAIUsage();
+      fetchStripeRevenue();
     }, 120000);
 
     return () => clearInterval(interval);
   }, [dateRange]); // Kör om när dateRange ändras
+
+  // Uppdatera statistik när Stripe-data ändras
+  useEffect(() => {
+    if (stripeRevenue) {
+      fetchStatistics();
+    }
+  }, [stripeRevenue]);
 
   if (isLoading) {
     return (
