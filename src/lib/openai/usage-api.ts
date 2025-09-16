@@ -263,12 +263,10 @@ export async function syncOpenAICostsToDatabase(
     }
 
     // Infoga i databasen med upsert (uppdatera om finns, annars skapa ny)
+    // Använd upsert utan onConflict parameter eftersom Supabase hanterar det automatiskt med unique index
     const { error } = await supabase
       .from('openai_usage_sync')
-      .upsert(records, {
-        onConflict: 'sync_date,model',
-        ignoreDuplicates: false
-      });
+      .upsert(records);
 
     if (error) {
       console.error('Databas-fel vid synkronisering:', error);

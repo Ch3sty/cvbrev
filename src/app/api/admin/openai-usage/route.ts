@@ -184,18 +184,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Logga synkroniseringen
-    await supabase.from('system_alerts').insert({
-      alert_type: 'info',
-      title: 'OpenAI Usage Sync',
-      message: `Successfully synced ${result.syncedRecords} records from OpenAI API`,
-      metadata: {
-        start_date: startDate.toISOString(),
-        end_date: endDate.toISOString(),
-        records_synced: result.syncedRecords
-      },
-      status: 'resolved'
-    });
+    // Logga synkroniseringen (ignorera fel här så att sync inte misslyckas)
+    try {
+      await supabase.from('system_alerts').insert({
+        alert_type: 'info',
+        title: 'OpenAI Usage Sync',
+        message: `Successfully synced ${result.syncedRecords} records from OpenAI API`,
+        metadata: {
+          start_date: startDate.toISOString(),
+          end_date: endDate.toISOString(),
+          records_synced: result.syncedRecords
+        },
+        status: 'resolved'
+      });
+    } catch (alertError) {
+      console.log('Could not log sync to system_alerts:', alertError);
+    }
 
     return NextResponse.json({
       success: true,
