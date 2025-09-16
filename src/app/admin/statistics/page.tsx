@@ -263,9 +263,10 @@ export default function StatisticsPage() {
       const avgCustomerLifespan = churnRate > 0 ? 100 / churnRate : 12;
       const lifetimeValue = monthlyPrice * avgCustomerLifespan;
 
-      // Förbered grafdata
-      const last7Days = Array.from({ length: 7 }, (_, i) => {
-        const date = subDays(now, 6 - i);
+      // Förbered grafdata - alltid visa de senaste 30 dagarna för att få med all data
+      const daysToShow = 30; // Visa 30 dagar för att säkerställa att vi har data
+      const chartDays = Array.from({ length: Math.min(daysToShow, 30) }, (_, i) => {
+        const date = subDays(now, Math.min(daysToShow, 30) - 1 - i);
         const dateStr = format(date, 'MMM dd', { locale: sv });
 
         const dayActivities = activities?.filter(a => {
@@ -279,17 +280,30 @@ export default function StatisticsPage() {
         }).reduce((sum, r) => sum + (r.amount || 0), 0) || 0;
 
         // Beräkna dagskostnader från letters (där vi har faktisk data)
+        // ai_cost är redan numeriskt, multiplicera direkt med 10.5 för SEK
         const dayCost = letters?.filter(letter => {
           const letterDate = new Date(letter.created_at);
           return format(letterDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
-        }).reduce((sum, letter) => sum + (parseFloat(letter.ai_cost?.toString() || '0') || 0) * 10.5, 0) || 0;
+        }).reduce((sum, letter) => {
+          const cost = letter.ai_cost || 0;
+          return sum + (typeof cost === 'number' ? cost * 10.5 : 0);
+        }, 0) || 0;
+
+        // Beräkna även från usage_log om det finns data där
+        const usageLogDayCost = usageLogs?.filter(log => {
+          const logDate = new Date(log.created_at);
+          return format(logDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
+        }).reduce((sum, log) => sum + (log.cost || 0) * 10.5, 0) || 0;
+
+        // Använd det högsta värdet
+        const totalDayCost = Math.max(dayCost, usageLogDayCost);
 
         return {
           date: dateStr,
           activities: dayActivities.length,
           revenue: dayRevenue,
-          cost: dayCost,
-          profit: dayRevenue - dayCost,
+          cost: totalDayCost,
+          profit: dayRevenue - totalDayCost,
           users: profiles?.filter(p => {
             const createdDate = new Date(p.created_at);
             return format(createdDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
@@ -298,12 +312,12 @@ export default function StatisticsPage() {
       });
 
       setChartData({
-        activity: last7Days.map(d => ({ date: d.date, value: d.activities })),
-        revenue: last7Days.map(d => ({ date: d.date, value: d.revenue })),
-        costs: last7Days.map(d => ({ date: d.date, value: d.cost })),
-        profit: last7Days.map(d => ({ date: d.date, value: d.profit })),
-        users: last7Days.map(d => ({ date: d.date, value: d.users })),
-        combined: last7Days
+        activity: chartDays.map(d => ({ date: d.date, value: d.activities })),
+        revenue: chartDays.map(d => ({ date: d.date, value: d.revenue })),
+        costs: chartDays.map(d => ({ date: d.date, value: d.cost })),
+        profit: chartDays.map(d => ({ date: d.date, value: d.profit })),
+        users: chartDays.map(d => ({ date: d.date, value: d.users })),
+        combined: chartDays
       });
 
       // Sätt statistik
@@ -607,7 +621,7 @@ export default function StatisticsPage() {
             <>
               {/* Combined Chart */}
               <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-                <h2 className="text-xl font-semibold text-white mb-4">Översikt senaste 7 dagarna</h2>
+                <h2 className="text-xl font-semibold text-white mb-4">Översikt senaste 30 dagarna</h2>
                 <ResponsiveContainer width="100%" height={400}>
                   <LineChart data={chartData.combined}>
                     <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
