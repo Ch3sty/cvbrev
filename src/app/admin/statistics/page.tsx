@@ -3,19 +3,22 @@
 import { useState, useEffect } from 'react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
-  Title,
+  LineChart,
+  Line,
+  AreaChart,
+  Area,
+  BarChart,
+  Bar,
+  PieChart,
+  Pie,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
   Tooltip,
   Legend,
-  Filler
-} from 'chart.js';
-import { Line, Bar, Doughnut } from 'react-chartjs-2';
+  ResponsiveContainer
+} from 'recharts';
 import {
   Users,
   FileText,
@@ -23,43 +26,20 @@ import {
   DollarSign,
   Activity,
   Calendar,
-  Download,
   RefreshCw,
   Brain,
   Zap,
-  Clock,
-  CreditCard,
-  BarChart3,
-  AlertTriangle,
-  CheckCircle,
-  XCircle,
-  CloudDownload,
   Euro,
   TrendingDown,
   UserCheck,
-  UserX,
   FileCheck,
-  FileX,
   Globe,
-  Monitor,
-  Smartphone
+  ChartBar,
+  ChartLine,
+  ChartPie
 } from 'lucide-react';
-import { format, subDays, subMonths, startOfDay, endOfDay } from 'date-fns';
+import { format, subDays, subMonths, startOfDay } from 'date-fns';
 import { sv } from 'date-fns/locale';
-
-// Registrera Chart.js komponenter
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  ArcElement,
-  Title,
-  Tooltip,
-  Legend,
-  Filler
-);
 
 interface DashboardStats {
   users: {
@@ -94,7 +74,7 @@ interface DashboardStats {
     ai_cost_month: number;
     cost_per_user: number;
     cost_per_generation: number;
-    infrastructure_cost: number; // Estimat baserat på användning
+    infrastructure_cost: number;
   };
   profit: {
     gross_profit: number;
@@ -122,33 +102,44 @@ interface DashboardStats {
     daily_active_users: number;
     weekly_active_users: number;
     monthly_active_users: number;
-    average_session_duration: number;
-    pages_per_session: number;
-    bounce_rate: number;
     feature_adoption: { [key: string]: number };
-    user_satisfaction: number;
-  };
-  performance: {
-    average_response_time: number;
-    uptime_percentage: number;
-    error_rate: number;
-    api_calls_today: number;
-    api_calls_month: number;
-    database_size_mb: number;
-    storage_used_gb: number;
   };
 }
+
+// Custom tooltip för grafer
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-navy-900 p-3 rounded-lg border border-gray-700 shadow-lg">
+        <p className="text-gray-300 text-sm">{label}</p>
+        {payload.map((entry: any, index: number) => (
+          <p key={index} className="text-sm" style={{ color: entry.color }}>
+            {entry.name}: {typeof entry.value === 'number' ?
+              entry.value.toLocaleString('sv-SE') : entry.value}
+            {entry.dataKey.includes('revenue') || entry.dataKey.includes('cost') || entry.dataKey.includes('profit') ? ' kr' : ''}
+          </p>
+        ))}
+      </div>
+    );
+  }
+  return null;
+};
 
 export default function StatisticsPage() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [dateRange, setDateRange] = useState('week'); // day, week, month, year
-  const [selectedView, setSelectedView] = useState('overview'); // overview, users, revenue, usage, performance
+  const [dateRange, setDateRange] = useState('week');
+  const [selectedTab, setSelectedTab] = useState('overview');
   const [openaiUsage, setOpenaiUsage] = useState<any>(null);
-  const [costComparison, setCostComparison] = useState<any>(null);
   const [stripeRevenue, setStripeRevenue] = useState<any>(null);
-  const [refreshing, setRefreshing] = useState(false);
+  const [chartData, setChartData] = useState<any>({
+    activity: [],
+    revenue: [],
+    costs: [],
+    profit: [],
+    users: []
+  });
 
   const supabase = getSupabaseClient();
 
@@ -157,13 +148,12 @@ export default function StatisticsPage() {
     try {
       setError(null);
 
-      // Datumintervall
       const now = new Date();
       const today = startOfDay(now);
       const weekAgo = subDays(now, 7);
       const monthAgo = subMonths(now, 1);
 
-      // Parallella queries för bättre prestanda
+      // Hämta data parallellt
       const [
         { data: profiles },
         { data: cvs },
@@ -192,23 +182,14 @@ export default function StatisticsPage() {
       const newWeek = profiles?.filter(p => new Date(p.created_at) >= weekAgo) || [];
       const newMonth = profiles?.filter(p => new Date(p.created_at) >= monthAgo) || [];
 
-      // Beräkna conversion rate (free to premium)
-      const conversionRate = profiles && profiles.length > 0
-        ? (premiumUsers.length / profiles.length) * 100
-        : 0;
+      const conversionRate = profiles?.length ? (premiumUsers.length / profiles.length) * 100 : 0;
+      const retentionRate = activeMonth.length > 0 && profiles?.length ?
+        (activeMonth.length / profiles.length) * 100 : 0;
 
-      // Beräkna retention (aktiva senaste månaden / totalt)
-      const retentionRate = profiles && profiles.length > 0
-        ? (activeMonth.length / profiles.length) * 100
-        : 0;
+      // Beräkna intäkter (använd Stripe-data om tillgänglig)
+      const actualRevenue = stripeRevenue ? stripeRevenue.revenue.total :
+        revenues?.reduce((sum, r) => sum + (r.amount || 0), 0) || 0;
 
-      // Beräkna intäkter
-      const monthlyPrice = 149; // SEK per månad
-      const mrr = premiumUsers.length * monthlyPrice;
-      const arr = mrr * 12;
-
-      // Beräkna faktiska intäkter från revenue_tracking
-      const totalRevenue = revenues?.reduce((sum, r) => sum + (r.amount || 0), 0) || 0;
       const revenueToday = revenues?.filter(r => new Date(r.created_at) >= today)
         .reduce((sum, r) => sum + (r.amount || 0), 0) || 0;
       const revenueWeek = revenues?.filter(r => new Date(r.created_at) >= weekAgo)
@@ -216,28 +197,22 @@ export default function StatisticsPage() {
       const revenueMonth = revenues?.filter(r => new Date(r.created_at) >= monthAgo)
         .reduce((sum, r) => sum + (r.amount || 0), 0) || 0;
 
+      const monthlyPrice = 149;
+      const mrr = stripeRevenue ? stripeRevenue.subscriptions.mrr : premiumUsers.length * monthlyPrice;
+      const arr = stripeRevenue ? stripeRevenue.subscriptions.arr : mrr * 12;
+
       // Beräkna AI-kostnader
-      const letterCosts = letters?.reduce((sum, l) => sum + parseFloat(l.ai_cost?.toString() || '0'), 0) || 0;
-      const usageLogCosts = usageLogs?.reduce((sum, l) => sum + parseFloat(l.cost?.toString() || '0'), 0) || 0;
-      const totalAICost = letterCosts + usageLogCosts;
+      const totalAICost = usageLogs?.reduce((sum, log) => sum + (log.cost || 0), 0) || 0;
+      const aiCostToday = usageLogs?.filter(log => new Date(log.created_at) >= today)
+        .reduce((sum, log) => sum + (log.cost || 0), 0) || 0;
+      const aiCostWeek = usageLogs?.filter(log => new Date(log.created_at) >= weekAgo)
+        .reduce((sum, log) => sum + (log.cost || 0), 0) || 0;
+      const aiCostMonth = usageLogs?.filter(log => new Date(log.created_at) >= monthAgo)
+        .reduce((sum, log) => sum + (log.cost || 0), 0) || 0;
 
-      const aiCostToday = letters?.filter(l => new Date(l.created_at) >= today)
-        .reduce((sum, l) => sum + parseFloat(l.ai_cost?.toString() || '0'), 0) || 0;
-      const aiCostWeek = letters?.filter(l => new Date(l.created_at) >= weekAgo)
-        .reduce((sum, l) => sum + parseFloat(l.ai_cost?.toString() || '0'), 0) || 0;
-      const aiCostMonth = letters?.filter(l => new Date(l.created_at) >= monthAgo)
-        .reduce((sum, l) => sum + parseFloat(l.ai_cost?.toString() || '0'), 0) || 0;
+      const infrastructureCost = 100; // Estimerad infrastrukturkostnad
 
-      // Estimera infrastrukturkostnader (Supabase, Vercel, etc.)
-      // Baserat på användning - detta är ett estimat
-      const estimatedInfraCostPerUser = 2; // SEK per användare per månad
-      const infrastructureCost = (profiles?.length || 0) * estimatedInfraCostPerUser;
-
-      // Beräkna totala kostnader
-      const totalCosts = (totalAICost * 10.5) + infrastructureCost; // AI-kostnader är i USD
-
-      // Beräkna vinst (använd faktiska Stripe-intäkter om tillgängliga)
-      const actualRevenue = stripeRevenue ? stripeRevenue.revenue.total : totalRevenue;
+      // Beräkna vinst
       const grossProfit = actualRevenue - (totalAICost * 10.5);
       const grossMargin = actualRevenue > 0 ? (grossProfit / actualRevenue) * 100 : 0;
       const netProfit = grossProfit - infrastructureCost;
@@ -254,21 +229,14 @@ export default function StatisticsPage() {
       const savedLetters = letters?.filter(l => l.is_saved) || [];
 
       const saveRate = letters && letters.length > 0
-        ? (savedLetters.length / letters.length) * 100
-        : 0;
+        ? (savedLetters.length / letters.length) * 100 : 0;
 
-      // CV-analyser från aktiviteter
       const cvAnalyses = activities?.filter(a =>
         a.activity_type === 'cv_analysis_completed'
       ) || [];
       const analysesToday = cvAnalyses.filter(a => new Date(a.created_at) >= today);
 
-      // Beräkna engagement metrics
-      const dau = activeToday.length;
-      const wau = activeWeek.length;
-      const mau = activeMonth.length;
-
-      // Feature adoption från aktiviteter
+      // Feature adoption
       const featureAdoption: { [key: string]: number } = {};
       activities?.forEach(activity => {
         const type = activity.activity_type;
@@ -277,25 +245,61 @@ export default function StatisticsPage() {
         }
       });
 
-      // Beräkna churn rate (månadsvis)
-      // Antal som slutat / totalt antal i början av perioden
+      // Beräkna churn rate
       const churnedUsers = profiles?.filter(p => {
         const lastActive = p.last_active ? new Date(p.last_active) : null;
         return lastActive && lastActive < monthAgo;
       }) || [];
       const churnRate = profiles && profiles.length > 0
-        ? (churnedUsers.length / profiles.length) * 100
-        : 0;
+        ? (churnedUsers.length / profiles.length) * 100 : 0;
 
-      // Lifetime value (LTV)
-      const avgCustomerLifespan = churnRate > 0 ? 100 / churnRate : 12; // månader
+      // Lifetime value
+      const avgCustomerLifespan = churnRate > 0 ? 100 / churnRate : 12;
       const lifetimeValue = monthlyPrice * avgCustomerLifespan;
 
-      // Performance metrics (vissa är faktiska, andra estimat)
-      const apiCallsToday = activities?.filter(a => new Date(a.created_at) >= today).length || 0;
-      const apiCallsMonth = activities?.filter(a => new Date(a.created_at) >= monthAgo).length || 0;
+      // Förbered grafdata
+      const last7Days = Array.from({ length: 7 }, (_, i) => {
+        const date = subDays(now, 6 - i);
+        const dateStr = format(date, 'MMM dd', { locale: sv });
 
-      // Sätt statistikdata
+        const dayActivities = activities?.filter(a => {
+          const actDate = new Date(a.created_at);
+          return format(actDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
+        }) || [];
+
+        const dayRevenue = revenues?.filter(r => {
+          const revDate = new Date(r.created_at);
+          return format(revDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
+        }).reduce((sum, r) => sum + (r.amount || 0), 0) || 0;
+
+        const dayCost = usageLogs?.filter(log => {
+          const logDate = new Date(log.created_at);
+          return format(logDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
+        }).reduce((sum, log) => sum + (log.cost || 0) * 10.5, 0) || 0;
+
+        return {
+          date: dateStr,
+          activities: dayActivities.length,
+          revenue: dayRevenue,
+          cost: dayCost,
+          profit: dayRevenue - dayCost,
+          users: profiles?.filter(p => {
+            const createdDate = new Date(p.created_at);
+            return format(createdDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
+          }).length || 0
+        };
+      });
+
+      setChartData({
+        activity: last7Days.map(d => ({ date: d.date, value: d.activities })),
+        revenue: last7Days.map(d => ({ date: d.date, value: d.revenue })),
+        costs: last7Days.map(d => ({ date: d.date, value: d.cost })),
+        profit: last7Days.map(d => ({ date: d.date, value: d.profit })),
+        users: last7Days.map(d => ({ date: d.date, value: d.users })),
+        combined: last7Days
+      });
+
+      // Sätt statistik
       setStats({
         users: {
           total: profiles?.length || 0,
@@ -313,17 +317,17 @@ export default function StatisticsPage() {
         revenue: {
           mrr,
           arr,
-          total_revenue: totalRevenue,
+          total_revenue: actualRevenue,
           revenue_today: revenueToday,
           revenue_week: revenueWeek,
           revenue_month: revenueMonth,
-          average_revenue_per_user: profiles?.length ? totalRevenue / profiles.length : 0,
-          average_revenue_per_premium_user: premiumUsers.length ? totalRevenue / premiumUsers.length : 0,
+          average_revenue_per_user: profiles?.length ? actualRevenue / profiles.length : 0,
+          average_revenue_per_premium_user: premiumUsers.length ? actualRevenue / premiumUsers.length : 0,
           lifetime_value: Math.round(lifetimeValue),
           churn_rate: Math.round(churnRate * 10) / 10
         },
         costs: {
-          total_ai_cost: totalAICost * 10.5, // Konvertera till SEK
+          total_ai_cost: totalAICost * 10.5,
           ai_cost_today: aiCostToday * 10.5,
           ai_cost_week: aiCostWeek * 10.5,
           ai_cost_month: aiCostMonth * 10.5,
@@ -354,35 +358,22 @@ export default function StatisticsPage() {
           analyses_today: analysesToday.length
         },
         engagement: {
-          daily_active_users: dau,
-          weekly_active_users: wau,
-          monthly_active_users: mau,
-          average_session_duration: 0, // Skulle kräva sessionsspårning
-          pages_per_session: 0, // Skulle kräva sessionsspårning
-          bounce_rate: 0, // Skulle kräva sessionsspårning
-          feature_adoption: featureAdoption,
-          user_satisfaction: 0 // Skulle kräva användarundersökningar
-        },
-        performance: {
-          average_response_time: 0, // Skulle kräva API-metriker
-          uptime_percentage: 99.9, // Antagande
-          error_rate: 0.1, // Antagande
-          api_calls_today: apiCallsToday,
-          api_calls_month: apiCallsMonth,
-          database_size_mb: 0, // Skulle kräva databasmetriker
-          storage_used_gb: 0 // Skulle kräva lagringsmetriker
+          daily_active_users: activeToday.length,
+          weekly_active_users: activeWeek.length,
+          monthly_active_users: activeMonth.length,
+          feature_adoption: featureAdoption
         }
       });
 
-    } catch (err: any) {
-      console.error('Fel vid hämtning av statistik:', err);
-      setError(err.message || 'Ett fel uppstod vid hämtning av statistik');
-    } finally {
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Fel vid hämtning av statistik:', error);
+      setError('Ett fel uppstod vid hämtning av data');
       setIsLoading(false);
     }
   };
 
-  // Hämta faktisk OpenAI-användningsdata
+  // Hämta OpenAI-användning
   const fetchOpenAIUsage = async () => {
     try {
       let days = 30;
@@ -398,18 +389,10 @@ export default function StatisticsPage() {
 
       if (result.success && result.data) {
         setOpenaiUsage(result);
-        setCostComparison(result.data.comparison);
       }
     } catch (error) {
       console.error('Fel vid hämtning av OpenAI-användning:', error);
     }
-  };
-
-  // Uppdatera data
-  const handleRefresh = async () => {
-    setRefreshing(true);
-    await Promise.all([fetchStatistics(), fetchOpenAIUsage(), fetchStripeRevenue()]);
-    setRefreshing(false);
   };
 
   // Hämta Stripe-intäkter
@@ -428,504 +411,474 @@ export default function StatisticsPage() {
 
       if (result.success) {
         setStripeRevenue(result);
+        // Uppdatera statistiken igen med nya Stripe-data
+        fetchStatistics();
       }
     } catch (error) {
       console.error('Fel vid hämtning av Stripe-intäkter:', error);
     }
   };
 
-  // Synkronisera OpenAI-data
-  const syncOpenAIData = async () => {
-    try {
-      const response = await fetch('/api/admin/openai-usage', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ days: 30 })
-      });
-      const result = await response.json();
-      if (result.success) {
-        alert(`Synkade ${result.syncedRecords} poster från OpenAI`);
-        fetchOpenAIUsage();
-      } else {
-        alert('Synkronisering misslyckades. Kontrollera Admin API-nyckel.');
-      }
-    } catch (error) {
-      console.error('Fel vid synkronisering:', error);
-      alert('Ett fel uppstod vid synkronisering');
-    }
-  };
-
-  // Synkronisera Stripe-data
-  const syncStripeData = async () => {
-    try {
-      const response = await fetch('/api/admin/stripe-revenue', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ days: 30 })
-      });
-      const result = await response.json();
-      if (result.success) {
-        alert(`Synkade Stripe-intäkter för ${result.period.days} dagar`);
-        fetchStripeRevenue();
-        fetchStatistics(); // Uppdatera även huvudstatistiken
-      } else {
-        alert('Synkronisering misslyckades.');
-      }
-    } catch (error) {
-      console.error('Fel vid synkronisering:', error);
-      alert('Ett fel uppstod vid synkronisering');
-    }
-  };
-
+  // Automatisk synkning vid sidladdning och datumändring
   useEffect(() => {
-    fetchStatistics();
-    fetchOpenAIUsage();
-    fetchStripeRevenue();
+    // Initial laddning
+    Promise.all([
+      fetchStatistics(),
+      fetchOpenAIUsage(),
+      fetchStripeRevenue()
+    ]);
+
+    // Uppdatera var 2:e minut
     const interval = setInterval(() => {
-      fetchStatistics();
-      fetchOpenAIUsage();
-      fetchStripeRevenue();
-    }, 60000); // Uppdatera varje minut
+      Promise.all([
+        fetchStatistics(),
+        fetchOpenAIUsage(),
+        fetchStripeRevenue()
+      ]);
+    }, 120000);
+
     return () => clearInterval(interval);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dateRange]);
+  }, [dateRange]); // Kör om när dateRange ändras
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-navy-900 to-navy-800 p-6 flex items-center justify-center">
-        <div className="text-white">Laddar statistik...</div>
+      <div className="flex items-center justify-center min-h-screen bg-navy-950">
+        <div className="text-center">
+          <RefreshCw className="w-12 h-12 text-blue-500 animate-spin mx-auto mb-4" />
+          <p className="text-gray-300">Laddar statistik...</p>
+        </div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-navy-900 to-navy-800 p-6">
-        <div className="bg-red-900/20 border border-red-500 rounded-lg p-4 text-red-400">
-          {error}
+      <div className="flex items-center justify-center min-h-screen bg-navy-950">
+        <div className="text-center">
+          <p className="text-red-400 mb-4">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            Försök igen
+          </button>
         </div>
       </div>
     );
   }
 
-  if (!stats) return null;
+  if (!stats) {
+    return null;
+  }
+
+  // Färger för grafer
+  const COLORS = {
+    primary: '#10b981', // green-500
+    secondary: '#3b82f6', // blue-500
+    tertiary: '#f59e0b', // amber-500
+    danger: '#ef4444', // red-500
+    purple: '#8b5cf6',
+    pink: '#ec4899'
+  };
+
+  const tabs = [
+    { id: 'overview', label: 'Översikt', icon: ChartBar },
+    { id: 'activity', label: 'Aktivitet', icon: Activity },
+    { id: 'revenue', label: 'Intäkter', icon: TrendingUp },
+    { id: 'costs', label: 'Kostnader', icon: TrendingDown },
+    { id: 'profit', label: 'Vinst', icon: Euro }
+  ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-navy-900 to-navy-800 p-6">
-      {/* Header */}
-      <div className="mb-8">
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-3xl font-bold text-white mb-2">Admin Dashboard</h1>
-            <p className="text-gray-400">Fullständig översikt av Jobbcoach.ai</p>
+    <div className="min-h-screen bg-navy-950 text-white">
+      <div className="container mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-white mb-2">Admin Dashboard</h1>
+          <p className="text-gray-400">Fullständig översikt av Jobbcoach.ai</p>
+        </div>
+
+        {/* Date Range Selector */}
+        <div className="flex gap-2 mb-6">
+          {['day', 'week', 'month', 'year'].map((range) => (
+            <button
+              key={range}
+              onClick={() => setDateRange(range)}
+              className={`px-4 py-2 rounded-lg transition-colors ${
+                dateRange === range
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-navy-800 text-gray-400 hover:bg-navy-700'
+              }`}
+            >
+              {range === 'day' && 'Idag'}
+              {range === 'week' && 'Vecka'}
+              {range === 'month' && 'Månad'}
+              {range === 'year' && 'År'}
+            </button>
+          ))}
+        </div>
+
+        {/* KPI Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+            <div className="flex items-center justify-between mb-4">
+              <Euro className="w-8 h-8 text-green-400" />
+              <span className="text-sm text-gray-400">Total intäkt</span>
+            </div>
+            <div className="text-2xl font-bold text-white">
+              {stripeRevenue ? stripeRevenue.revenue.total.toLocaleString('sv-SE') : stats.revenue.total_revenue.toLocaleString('sv-SE')} kr
+            </div>
+            {stripeRevenue && (
+              <div className="text-xs text-green-400 mt-1">Faktisk från Stripe</div>
+            )}
+            <div className="text-sm text-green-400 mt-2">
+              MRR: {stripeRevenue ? stripeRevenue.subscriptions.mrr.toLocaleString('sv-SE') : stats.revenue.mrr.toLocaleString('sv-SE')} kr
+            </div>
           </div>
-          <div className="flex gap-4">
-            <select
-              value={dateRange}
-              onChange={(e) => setDateRange(e.target.value)}
-              className="px-4 py-2 bg-navy-700 text-white rounded-lg border border-gray-600"
-            >
-              <option value="day">Idag</option>
-              <option value="week">Senaste veckan</option>
-              <option value="month">Senaste månaden</option>
-              <option value="year">Senaste året</option>
-            </select>
-            <button
-              onClick={handleRefresh}
-              disabled={refreshing}
-              className="px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-lg flex items-center gap-2 transition-colors"
-            >
-              <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
-              Uppdatera
-            </button>
-            <button
-              onClick={syncOpenAIData}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center gap-2 transition-colors"
-            >
-              <CloudDownload className="w-4 h-4" />
-              Synka OpenAI
-            </button>
+
+          <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+            <div className="flex items-center justify-between mb-4">
+              <TrendingUp className="w-8 h-8 text-blue-400" />
+              <span className="text-sm text-gray-400">Nettovinst</span>
+            </div>
+            <div className="text-2xl font-bold text-white">
+              {stats.profit.net_profit.toLocaleString('sv-SE')} kr
+            </div>
+            <div className="text-sm text-blue-400 mt-2">
+              Marginal: {stats.profit.net_margin.toFixed(0)}%
+            </div>
+          </div>
+
+          <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+            <div className="flex items-center justify-between mb-4">
+              <Users className="w-8 h-8 text-purple-400" />
+              <span className="text-sm text-gray-400">Aktiva användare</span>
+            </div>
+            <div className="text-2xl font-bold text-white">
+              {stats.engagement.monthly_active_users}
+            </div>
+            <div className="text-sm text-purple-400 mt-2">
+              Av totalt {stats.users.total} användare
+            </div>
+          </div>
+
+          <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+            <div className="flex items-center justify-between mb-4">
+              <UserCheck className="w-8 h-8 text-amber-400" />
+              <span className="text-sm text-gray-400">Konvertering</span>
+            </div>
+            <div className="text-2xl font-bold text-white">
+              {stats.users.conversion_rate}%
+            </div>
+            <div className="text-sm text-amber-400 mt-2">
+              {stats.users.premium} premium av {stats.users.total}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Key Metrics Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {/* Total Revenue */}
-        <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-          <div className="flex items-center justify-between mb-4">
-            <Euro className="w-8 h-8 text-green-400" />
-            <span className="text-sm text-gray-400">Total intäkt</span>
-          </div>
-          <div className="text-2xl font-bold text-white">
-            {stripeRevenue ? stripeRevenue.revenue.total.toLocaleString('sv-SE') : stats.revenue.total_revenue.toLocaleString('sv-SE')} kr
-          </div>
-          {stripeRevenue && (
-            <div className="text-xs text-green-400 mt-1">Faktisk från Stripe</div>
+        {/* Tabs */}
+        <div className="flex gap-1 mb-6 bg-navy-900 rounded-lg p-1">
+          {tabs.map((tab) => {
+            const Icon = tab.icon;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setSelectedTab(tab.id)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors flex-1 ${
+                  selectedTab === tab.id
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-400 hover:bg-navy-800'
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+                <span>{tab.label}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Tab Content with Charts */}
+        <div className="space-y-6">
+          {selectedTab === 'overview' && (
+            <>
+              {/* Combined Chart */}
+              <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+                <h2 className="text-xl font-semibold text-white mb-4">Översikt senaste 7 dagarna</h2>
+                <ResponsiveContainer width="100%" height={400}>
+                  <LineChart data={chartData.combined}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                    <XAxis dataKey="date" stroke="#9ca3af" />
+                    <YAxis stroke="#9ca3af" />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Legend />
+                    <Line
+                      type="monotone"
+                      dataKey="revenue"
+                      stroke={COLORS.primary}
+                      name="Intäkter (kr)"
+                      strokeWidth={2}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="cost"
+                      stroke={COLORS.danger}
+                      name="Kostnader (kr)"
+                      strokeWidth={2}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="profit"
+                      stroke={COLORS.secondary}
+                      name="Vinst (kr)"
+                      strokeWidth={2}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="activities"
+                      stroke={COLORS.purple}
+                      name="Aktiviteter"
+                      strokeWidth={2}
+                      yAxisId="right"
+                    />
+                    <YAxis yAxisId="right" orientation="right" stroke="#9ca3af" />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* Feature Adoption Pie Chart */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+                  <h2 className="text-xl font-semibold text-white mb-4">Funktionsanvändning</h2>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <PieChart>
+                      <Pie
+                        data={Object.entries(stats.engagement.feature_adoption)
+                          .slice(0, 5)
+                          .map(([key, value]) => ({ name: key, value }))}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                        outerRadius={80}
+                        fill="#8884d8"
+                        dataKey="value"
+                      >
+                        {Object.entries(stats.engagement.feature_adoption).slice(0, 5).map((_, index) => (
+                          <Cell key={`cell-${index}`} fill={Object.values(COLORS)[index % Object.values(COLORS).length]} />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+
+                <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+                  <h2 className="text-xl font-semibold text-white mb-4">Användarfördelning</h2>
+                  <ResponsiveContainer width="100%" height={300}>
+                    <PieChart>
+                      <Pie
+                        data={[
+                          { name: 'Premium', value: stats.users.premium },
+                          { name: 'Gratis', value: stats.users.free }
+                        ]}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        label={({ name, value }) => `${name}: ${value}`}
+                        outerRadius={80}
+                        fill="#8884d8"
+                        dataKey="value"
+                      >
+                        <Cell fill={COLORS.primary} />
+                        <Cell fill={COLORS.secondary} />
+                      </Pie>
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </div>
+            </>
           )}
-          <div className="text-sm text-green-400 mt-2">
-            MRR: {stripeRevenue ? stripeRevenue.subscriptions.mrr.toLocaleString('sv-SE') : stats.revenue.mrr.toLocaleString('sv-SE')} kr
-          </div>
+
+          {selectedTab === 'activity' && (
+            <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+              <h2 className="text-xl font-semibold text-white mb-4">Aktivitet per dag</h2>
+              <ResponsiveContainer width="100%" height={400}>
+                <AreaChart data={chartData.activity}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                  <XAxis dataKey="date" stroke="#9ca3af" />
+                  <YAxis stroke="#9ca3af" />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Area
+                    type="monotone"
+                    dataKey="value"
+                    stroke={COLORS.purple}
+                    fill={COLORS.purple}
+                    fillOpacity={0.3}
+                    name="Aktiviteter"
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+          )}
+
+          {selectedTab === 'revenue' && (
+            <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+              <h2 className="text-xl font-semibold text-white mb-4">Intäkter per dag</h2>
+              <ResponsiveContainer width="100%" height={400}>
+                <BarChart data={chartData.revenue}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                  <XAxis dataKey="date" stroke="#9ca3af" />
+                  <YAxis stroke="#9ca3af" />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Bar dataKey="value" fill={COLORS.primary} name="Intäkter (kr)" />
+                </BarChart>
+              </ResponsiveContainer>
+              {stripeRevenue && (
+                <div className="mt-4 p-4 bg-navy-900 rounded-lg">
+                  <p className="text-sm text-green-400">
+                    Aktiva prenumerationer: {stripeRevenue.subscriptions.active} |
+                    MRR: {stripeRevenue.subscriptions.mrr.toLocaleString('sv-SE')} kr |
+                    ARR: {stripeRevenue.subscriptions.arr.toLocaleString('sv-SE')} kr
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {selectedTab === 'costs' && (
+            <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+              <h2 className="text-xl font-semibold text-white mb-4">Kostnader per dag</h2>
+              <ResponsiveContainer width="100%" height={400}>
+                <BarChart data={chartData.costs}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                  <XAxis dataKey="date" stroke="#9ca3af" />
+                  <YAxis stroke="#9ca3af" />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Bar dataKey="value" fill={COLORS.danger} name="Kostnader (kr)" />
+                </BarChart>
+              </ResponsiveContainer>
+              {openaiUsage && (
+                <div className="mt-4 p-4 bg-navy-900 rounded-lg">
+                  <p className="text-sm text-red-400">
+                    Total AI-kostnad: {(openaiUsage.data?.totalCost * 10.5 || 0).toFixed(2)} kr |
+                    Tokens: {openaiUsage.data?.totalTokens?.toLocaleString() || 0}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+
+          {selectedTab === 'profit' && (
+            <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+              <h2 className="text-xl font-semibold text-white mb-4">Vinst per dag</h2>
+              <ResponsiveContainer width="100%" height={400}>
+                <AreaChart data={chartData.profit}>
+                  <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                  <XAxis dataKey="date" stroke="#9ca3af" />
+                  <YAxis stroke="#9ca3af" />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Area
+                    type="monotone"
+                    dataKey="value"
+                    stroke={COLORS.secondary}
+                    fill={COLORS.secondary}
+                    fillOpacity={0.3}
+                    name="Vinst (kr)"
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+              <div className="mt-4 grid grid-cols-2 gap-4">
+                <div className="p-4 bg-navy-900 rounded-lg">
+                  <p className="text-sm text-gray-400">Bruttomarginal</p>
+                  <p className="text-2xl font-bold text-white">{stats.profit.gross_margin.toFixed(1)}%</p>
+                </div>
+                <div className="p-4 bg-navy-900 rounded-lg">
+                  <p className="text-sm text-gray-400">Nettomarginal</p>
+                  <p className="text-2xl font-bold text-white">{stats.profit.net_margin.toFixed(1)}%</p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Net Profit */}
-        <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-          <div className="flex items-center justify-between mb-4">
-            <TrendingUp className="w-8 h-8 text-pink-400" />
-            <span className="text-sm text-gray-400">Nettovinst</span>
-          </div>
-          <div className="text-2xl font-bold text-white">{stats.profit.net_profit.toLocaleString('sv-SE')} kr</div>
-          <div className="text-sm text-pink-400 mt-2">Marginal: {stats.profit.net_margin}%</div>
-        </div>
-
-        {/* Active Users */}
-        <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-          <div className="flex items-center justify-between mb-4">
-            <Users className="w-8 h-8 text-blue-400" />
-            <span className="text-sm text-gray-400">Aktiva användare</span>
-          </div>
-          <div className="text-2xl font-bold text-white">{stats.engagement.monthly_active_users}</div>
-          <div className="text-sm text-blue-400 mt-2">Av totalt {stats.users.total} användare</div>
-        </div>
-
-        {/* Conversion Rate */}
-        <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-          <div className="flex items-center justify-between mb-4">
-            <UserCheck className="w-8 h-8 text-purple-400" />
-            <span className="text-sm text-gray-400">Konvertering</span>
-          </div>
-          <div className="text-2xl font-bold text-white">{stats.users.conversion_rate}%</div>
-          <div className="text-sm text-purple-400 mt-2">{stats.users.premium} premium av {stats.users.total}</div>
-        </div>
-      </div>
-
-      {/* Detailed Sections */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-        {/* User Analytics */}
-        <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-          <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
-            <Users className="w-5 h-5 text-blue-400" />
-            Användaranalys
-          </h2>
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-navy-900 rounded-lg p-4">
-                <div className="text-sm text-gray-400 mb-1">Premium-användare</div>
-                <div className="text-xl font-bold text-white">{stats.users.premium}</div>
-                <div className="text-xs text-green-400 mt-1">
-                  {stats.revenue.average_revenue_per_premium_user.toFixed(0)} kr/användare
-                </div>
-              </div>
-              <div className="bg-navy-900 rounded-lg p-4">
-                <div className="text-sm text-gray-400 mb-1">Gratisanvändare</div>
-                <div className="text-xl font-bold text-white">{stats.users.free}</div>
-                <div className="text-xs text-gray-500 mt-1">
-                  Potentiell MRR: {(stats.users.free * 149).toLocaleString('sv-SE')} kr
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-navy-900 rounded-lg p-4">
-              <div className="text-sm text-gray-400 mb-2">Användaraktivitet</div>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-gray-300">Idag</span>
-                  <span className="text-white font-semibold">{stats.users.active_today}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-300">Denna vecka</span>
-                  <span className="text-white font-semibold">{stats.users.active_week}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-300">Denna månad</span>
-                  <span className="text-white font-semibold">{stats.users.active_month}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-navy-900 rounded-lg p-4">
-              <div className="text-sm text-gray-400 mb-2">Nya registreringar</div>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-gray-300">Idag</span>
-                  <span className="text-white font-semibold">{stats.users.new_today}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-300">Denna vecka</span>
-                  <span className="text-white font-semibold">{stats.users.new_week}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-300">Denna månad</span>
-                  <span className="text-white font-semibold">{stats.users.new_month}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-navy-900 rounded-lg p-4">
-                <div className="text-sm text-gray-400 mb-1">Retention Rate</div>
-                <div className="text-xl font-bold text-white">{stats.users.retention_rate}%</div>
-              </div>
-              <div className="bg-navy-900 rounded-lg p-4">
-                <div className="text-sm text-gray-400 mb-1">Churn Rate</div>
-                <div className="text-xl font-bold text-white">{stats.revenue.churn_rate}%</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Revenue & Costs */}
-        <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-          <div className="flex justify-between items-start mb-4">
-            <h2 className="text-xl font-semibold text-white flex items-center gap-2">
-              <DollarSign className="w-5 h-5 text-green-400" />
-              Ekonomi & Lönsamhet
-            </h2>
-            <button
-              onClick={syncStripeData}
-              className="px-3 py-1 text-sm bg-green-600 hover:bg-green-700 text-white rounded flex items-center gap-2 transition-colors"
-              title="Synka Stripe-intäkter"
-            >
-              <RefreshCw className="w-4 h-4" />
-              Synka Stripe
-            </button>
-          </div>
-          <div className="space-y-4">
-            <div className="bg-navy-900 rounded-lg p-4">
-              <div className="text-sm text-gray-400 mb-2 flex items-center justify-between">
-                <span>Intäkter</span>
-                {stripeRevenue && <span className="text-xs text-green-400">Faktisk data från Stripe</span>}
-              </div>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-gray-300">Total intäkt</span>
-                  <span className="text-green-400 font-semibold">
-                    {stripeRevenue ? stripeRevenue.revenue.total.toLocaleString('sv-SE') : stats.revenue.total_revenue.toLocaleString('sv-SE')} kr
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-300">Denna månad</span>
-                  <span className="text-green-400 font-semibold">{stats.revenue.revenue_month.toLocaleString('sv-SE')} kr</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-300">MRR</span>
-                  <span className="text-green-400 font-semibold">
-                    {stripeRevenue ? stripeRevenue.subscriptions.mrr.toLocaleString('sv-SE') : stats.revenue.mrr.toLocaleString('sv-SE')} kr
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-300">ARR</span>
-                  <span className="text-green-400 font-semibold">
-                    {stripeRevenue ? stripeRevenue.subscriptions.arr.toLocaleString('sv-SE') : stats.revenue.arr.toLocaleString('sv-SE')} kr
-                  </span>
-                </div>
-                {stripeRevenue && (
-                  <>
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">Aktiva prenumerationer</span>
-                      <span className="text-blue-400 font-semibold">{stripeRevenue.subscriptions.active}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-gray-300">Återbetalningar</span>
-                      <span className="text-red-400 font-semibold">-{stripeRevenue.revenue.refunded.toLocaleString('sv-SE')} kr</span>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-
-            <div className="bg-navy-900 rounded-lg p-4">
-              <div className="text-sm text-gray-400 mb-2">Kostnader</div>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-gray-300">AI-kostnader (total)</span>
-                  <span className="text-red-400 font-semibold">{stats.costs.total_ai_cost.toFixed(2)} kr</span>
-                </div>
-                {costComparison && (
-                  <div className="flex justify-between">
-                    <span className="text-gray-300">Faktisk AI-kostnad</span>
-                    <span className="text-orange-400 font-semibold">{costComparison.actualCostSEK.toFixed(2)} kr</span>
-                  </div>
-                )}
-                <div className="flex justify-between">
-                  <span className="text-gray-300">Denna månad</span>
-                  <span className="text-red-400 font-semibold">{stats.costs.ai_cost_month.toFixed(2)} kr</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-300">Infrastruktur (est.)</span>
-                  <span className="text-red-400 font-semibold">{stats.costs.infrastructure_cost.toFixed(2)} kr</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-300">Kostnad per användare</span>
-                  <span className="text-red-400 font-semibold">{stats.costs.cost_per_user.toFixed(2)} kr</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-navy-900 rounded-lg p-4">
-              <div className="text-sm text-gray-400 mb-2">Vinst & Marginaler</div>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-gray-300">Bruttovinst</span>
-                  <span className="text-pink-400 font-semibold">{stats.profit.gross_profit.toFixed(0)} kr</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-300">Bruttomarginal</span>
-                  <span className="text-pink-400 font-semibold">{stats.profit.gross_margin}%</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-300">Nettovinst</span>
-                  <span className="text-pink-400 font-semibold">{stats.profit.net_profit.toFixed(0)} kr</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-300">Nettomarginal</span>
-                  <span className="text-pink-400 font-semibold">{stats.profit.net_margin}%</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-navy-900 rounded-lg p-4">
-              <div className="text-sm text-gray-400 mb-2">Nyckeltal</div>
-              <div className="space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-gray-300">LTV (Lifetime Value)</span>
-                  <span className="text-purple-400 font-semibold">{stats.revenue.lifetime_value.toLocaleString('sv-SE')} kr</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-300">Vinst per användare</span>
-                  <span className="text-purple-400 font-semibold">{stats.profit.profit_per_user.toFixed(0)} kr</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-300">Vinst per premium</span>
-                  <span className="text-purple-400 font-semibold">{stats.profit.profit_per_premium_user.toFixed(0)} kr</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Usage Statistics */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        {/* CV Statistics */}
-        <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <FileText className="w-5 h-5 text-blue-400" />
-            CV-hantering
-          </h3>
-          <div className="space-y-3">
-            <div className="flex justify-between">
-              <span className="text-gray-400">Totalt antal CV:n</span>
-              <span className="text-white font-semibold">{stats.usage.total_cvs}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400">Uppladdade idag</span>
-              <span className="text-white font-semibold">{stats.usage.cvs_uploaded_today}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400">Denna vecka</span>
-              <span className="text-white font-semibold">{stats.usage.cvs_uploaded_week}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400">Denna månad</span>
-              <span className="text-white font-semibold">{stats.usage.cvs_uploaded_month}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400">CV-analyser</span>
-              <span className="text-white font-semibold">{stats.usage.cv_analyses}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Letter Statistics */}
-        <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <FileCheck className="w-5 h-5 text-green-400" />
-            Brevgenerering
-          </h3>
-          <div className="space-y-3">
-            <div className="flex justify-between">
-              <span className="text-gray-400">Totalt antal brev</span>
-              <span className="text-white font-semibold">{stats.usage.total_letters}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400">Genererade idag</span>
-              <span className="text-white font-semibold">{stats.usage.letters_generated_today}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400">Denna vecka</span>
-              <span className="text-white font-semibold">{stats.usage.letters_generated_week}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400">Sparade brev</span>
-              <span className="text-white font-semibold">{stats.usage.letters_saved}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400">Sparfrekvens</span>
-              <span className="text-white font-semibold">{stats.usage.save_rate}%</span>
-            </div>
-          </div>
-        </div>
-
-        {/* AI Cost Details */}
-        <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-          <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
-            <Brain className="w-5 h-5 text-pink-400" />
-            AI-kostnader
-          </h3>
-          <div className="space-y-3">
-            <div className="flex justify-between">
-              <span className="text-gray-400">Total kostnad</span>
-              <span className="text-white font-semibold">{stats.costs.total_ai_cost.toFixed(2)} kr</span>
-            </div>
-            {costComparison && (
+        {/* Detailed Stats Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
+          {/* Users Section */}
+          <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+            <h2 className="text-xl font-semibold text-white mb-4">Användaranalys</h2>
+            <div className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-gray-400">Skillnad estimat</span>
-                <span className={`font-semibold ${costComparison.difference > 0 ? 'text-red-400' : 'text-green-400'}`}>
-                  {costComparison.differenceSEK > 0 ? '+' : ''}{costComparison.differenceSEK.toFixed(2)} kr
+                <span className="text-gray-400">Premium-användare</span>
+                <span className="text-green-400 font-semibold">{stats.users.premium}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Gratisanvändare</span>
+                <span className="text-blue-400 font-semibold">{stats.users.free}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Aktiva idag</span>
+                <span className="text-white">{stats.users.active_today}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Nya denna vecka</span>
+                <span className="text-white">{stats.users.new_week}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Retention Rate</span>
+                <span className="text-white">{stats.users.retention_rate}%</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Revenue Section */}
+          <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+            <h2 className="text-xl font-semibold text-white mb-4">Ekonomi</h2>
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-gray-400">Total intäkt</span>
+                <span className="text-green-400 font-semibold">
+                  {(stripeRevenue?.revenue.total || stats.revenue.total_revenue).toLocaleString('sv-SE')} kr
                 </span>
               </div>
-            )}
-            <div className="flex justify-between">
-              <span className="text-gray-400">Idag</span>
-              <span className="text-white font-semibold">{stats.costs.ai_cost_today.toFixed(2)} kr</span>
+              <div className="flex justify-between">
+                <span className="text-gray-400">AI-kostnader</span>
+                <span className="text-red-400 font-semibold">{stats.costs.total_ai_cost.toFixed(2)} kr</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Nettovinst</span>
+                <span className="text-blue-400 font-semibold">{stats.profit.net_profit.toFixed(0)} kr</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">LTV</span>
+                <span className="text-white">{stats.revenue.lifetime_value} kr</span>
+              </div>
             </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400">Denna vecka</span>
-              <span className="text-white font-semibold">{stats.costs.ai_cost_week.toFixed(2)} kr</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-gray-400">Per generering</span>
-              <span className="text-white font-semibold">{stats.costs.cost_per_generation.toFixed(2)} kr</span>
+          </div>
+
+          {/* Usage Section */}
+          <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+            <h2 className="text-xl font-semibold text-white mb-4">Användning</h2>
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-gray-400">CV:n</span>
+                <span className="text-white">{stats.usage.total_cvs}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Brev genererade</span>
+                <span className="text-white">{stats.usage.total_letters}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Sparfrekvens</span>
+                <span className="text-white">{stats.usage.save_rate}%</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">CV-analyser</span>
+                <span className="text-white">{stats.usage.cv_analyses}</span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Feature Adoption */}
-      <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-        <h2 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
-          <Activity className="w-5 h-5 text-purple-400" />
-          Funktionsanvändning
-        </h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {Object.entries(stats.engagement.feature_adoption)
-            .sort(([, a], [, b]) => b - a)
-            .slice(0, 12)
-            .map(([feature, count]) => (
-              <div key={feature} className="bg-navy-900 rounded-lg p-3">
-                <div className="text-sm text-gray-400 mb-1">
-                  {feature.replace(/_/g, ' ')}
-                </div>
-                <div className="text-xl font-bold text-white">{count}</div>
-              </div>
-            ))}
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div className="mt-8 text-center text-gray-400 text-sm">
-        Senast uppdaterad: {new Date().toLocaleString('sv-SE')}
       </div>
     </div>
   );
