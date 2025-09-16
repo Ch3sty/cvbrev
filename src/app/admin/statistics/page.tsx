@@ -169,16 +169,14 @@ export default function StatisticsPage() {
         { data: letters },
         { data: activities },
         { data: usageLogs },
-        { data: revenues },
-        { data: subscriptions }
+        { data: revenues }
       ] = await Promise.all([
         supabase.from('profiles').select('*'),
         supabase.from('cv_texts').select('*'),
         supabase.from('letters').select('*'),
         supabase.from('user_activities').select('*').order('created_at', { ascending: false }),
         supabase.from('usage_log').select('*'),
-        supabase.from('revenue_tracking').select('*').eq('status', 'completed'),
-        supabase.from('subscriptions').select('*').eq('status', 'active')
+        supabase.from('revenue_tracking').select('*').eq('status', 'completed')
       ]);
 
       // Beräkna användarstatistik
