@@ -52,7 +52,7 @@ export async function analyzeCompetenceGap(
 
     const { mode, cvText } = input;
     const truncatedCV = cvText.substring(0, 8000);
-    const modelToUse = "gpt-4.1";
+    const modelToUse = "gpt-5"; // Uppgraderat till GPT-5 för bättre prestanda och lägre kostnad
 
     // --- Dynamisk Promptkonstruktion ---
     let targetInfoPrompt: string;

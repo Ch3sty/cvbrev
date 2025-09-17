@@ -15,16 +15,19 @@ import { openai } from '@/lib/openai/api';
 // Konstant för att definiera veckobegränsning för gratisanvändare
 const WEEKLY_COMPETENCE_ANALYSIS_LIMIT_FREE = 2; // Endast 2 analys per vecka för gratisanvändare
 
-// --- TYPDEFINITION MED SÖKTERMER ISTÄLLET FÖR URL ---
+// --- TYPDEFINITION MED UTÖKADE FÄLT OCH DIREKTLÄNKAR ---
 // Denna typ används internt i denna fil och för API-svaret.
 export interface LearningSuggestion {
     type: 'course' | 'certification' | 'self-study' | 'project';
-    title: string; // Så exakt som möjligt
-    provider?: string; // Tydlig leverantör/plattform
+    title: string; // Exakt kursnamn
+    provider?: string; // Specifik leverantör/plattform
     relevance: string;
-    search_keywords?: string[]; // NYTT: Array med föreslagna söktermer
+    search_keywords?: string[]; // Söktermer för att hitta kursen
+    direct_url?: string; // Direktlänk när känd
+    duration?: string; // Kurslängd (t.ex. '2 veckor', '3 månader')
+    cost?: string; // Kostnad (t.ex. 'Gratis', '15 000 kr')
+    priority?: 'essential' | 'recommended' | 'optional'; // Prioritetsnivå
     language?: 'sv' | 'en' | 'other';
-    // url?: string; // BORTTAGEN!
 }
 // --- SLUT TYPDEFINITION ---
 
@@ -173,37 +176,54 @@ async function incrementFreeUserCount(supabase: SupabaseClient<Database>, userId
 }
 
 /**
- * Använder OpenAI för att hitta läranderesurser och generera söktermer för ett specifikt kompetensgap.
+ * Använder OpenAI för att hitta läranderesurser och generera direkta länkar för ett specifikt kompetensgap.
  */
 async function findLearningResourcesForGap(gap: MissingSkill, language: string = 'sv'): Promise<LearningSuggestion[]> {
-    const modelToUse = "gpt-4.1";
-    const maxSuggestionsPerGap = 2; // Max antal förslag per identifierat gap
+    const modelToUse = "gpt-5-mini"; // Använd GPT-5-mini för kostnadseffektiv generering
+    const maxSuggestionsPerGap = 2; // Max 2 förslag per gap för bättre pedagogik
 
     const systemPrompt = `
-        Du är expert på läranderesurser för **Sverige**. Ditt mål är att ge användaren information för att **själv kunna hitta** relevanta resurser.
-        Svara ALLTID med JSON: {"suggestions": [{...}, max ${maxSuggestionsPerGap} objekt]}.
+        Du är expert på svenska arbetsmarknaden och yrkesutbildningar.
+        För varje kompetensgap, returnera MAX ${maxSuggestionsPerGap} KONKRETA kursförslag.
+
+        Svara ALLTID med JSON: {"suggestions": [{...}]}.
         Varje objekt MÅSTE följa strukturen:
         {
             "type": "'course' | 'certification' | 'self-study' | 'project'",
-            "title": "Exakt och fullständigt namn på resursen",
-            "provider": "Tydligt namn på leverantör/myndighet/plattform",
-            "relevance": "Kort motivering varför detta är relevant för gapet I SVERIGE.",
-            "search_keywords": ["Lista med 2-3 specifika söktermer användaren kan använda på Google eller leverantörens sida för att hitta detta"],
-            "language": "'sv' | 'en' | 'other'"
+            "title": "Exakt kursnamn eller certifieringsnamn",
+            "provider": "Specifik leverantör (t.ex. Arbetsförmedlingen, Lernia, BYN, Brandskyddsföreningen)",
+            "relevance": "Kort förklaring varför detta krävs för yrket i Sverige",
+            "search_keywords": ["Exakta söktermer för att hitta kursen"],
+            "direct_url": "Om känd, annars null",
+            "duration": "Kurslängd (t.ex. '2 veckor', '3 månader')",
+            "cost": "Kostnad (t.ex. 'Gratis', '15 000 kr', 'Ca 5 000 kr')",
+            "priority": "'essential' | 'recommended' | 'optional'",
+            "language": "'sv' | 'en'"
         }
-        **VIKTIGT: Inkludera ALDRIG ett 'url'-fält.** Fokusera på att ge **korrekt 'title' och 'provider'** samt **användbara 'search_keywords'**.
 
-        REGLER FÖR RELEVANTA FÖRSLAG I SVERIGE:
-        1.  **Prioritera Svenskt:** Ge stark förtur åt svenska leverantörer/myndigheter.
-        2.  **Internationellt:** Endast online-resurser relevanta i Sverige, ej landspecifika.
-        3.  **Essentiella Gap:** Försök identifiera den officiella svenska vägen/organisationen i 'provider'.
+        VIKTIGA REGLER:
+        1. Prioritera Arbetsförmedlingens kurser (ofta gratis)
+        2. För yrkescertifikat: Ange ALLTID branschorganisationen
+        3. För körkort: Hänvisa till lokala trafikskolor
+        4. Inkludera uppskattad tid och kostnad
+        5. Var SPECIFIK med kursnamn som faktiskt existerar
 
-        Om inga relevanta förslag hittas, returnera {"suggestions": []}. ENDAST JSON.
+        Vanliga svenska utbildningsanordnare:
+        - Arbetsförmedlingen (gratis kurser)
+        - Lernia (yrkesutbildningar)
+        - YH-skolor (yrkeshögskola)
+        - BYN (byggbranschens certifikat)
+        - Brandskyddsföreningen (säkerhetscertifikat)
+        - Transportfackens Yrkes- och Arbetsmiljönämnd (TYA)
+        - Komvux (grundläggande kurser)
     `;
 
     const userPrompt = `
-        Hitta max ${maxSuggestionsPerGap} mest relevanta läranderesurserna **för någon i Sverige** för gapet: "${gap.skill}" (Viktighet: ${gap.importance}).
-        Följ systemprompten noga. Ge **exakt titel, tydlig leverantör och användbara söktermer**. **Inkludera INTE någon URL.** Prioritera svenska resurser.
+        Hitta MAX ${maxSuggestionsPerGap} konkreta kurser/certifieringar för: "${gap.skill}" (${gap.importance}).
+        ${gap.reasoning}
+
+        Ge EXAKTA kursnamn som finns hos svenska utbildningsanordnare.
+        Inkludera uppskattad tid, kostnad och om det är obligatoriskt för yrket.
     `;
 
     try {
@@ -232,11 +252,18 @@ async function findLearningResourcesForGap(gap: MissingSkill, language: string =
              if (parsedJson && typeof parsedJson === 'object') {
                 if (Array.isArray(parsedJson.suggestions)) {
                     suggestions = parsedJson.suggestions;
-                    // Säkerställ att url inte finns och att search_keywords är en array
+                    // Map och validera fält
                     suggestions = suggestions.map(s => ({
-                        ...s,
-                        url: undefined, // Explicit borttagning
-                        search_keywords: Array.isArray(s.search_keywords) ? s.search_keywords : [] // Default till tom array
+                        type: s.type || 'course',
+                        title: s.title || '',
+                        provider: s.provider || undefined,
+                        relevance: s.relevance || '',
+                        search_keywords: Array.isArray(s.search_keywords) ? s.search_keywords : [],
+                        direct_url: s.direct_url || undefined,
+                        duration: s.duration || undefined,
+                        cost: s.cost || undefined,
+                        priority: s.priority || 'recommended',
+                        language: s.language || 'sv'
                     }));
                 } else {
                     console.warn(`--- DEBUG findLearningResourcesForGap: Oväntad JSON-struktur (saknar 'suggestions'-array) från OpenAI för gap "${gap.skill}".`);
@@ -246,8 +273,8 @@ async function findLearningResourcesForGap(gap: MissingSkill, language: string =
              }
 
             // Filtrera bort förslag som saknar nödvändiga fält
-            suggestions = suggestions.filter(s => s?.type && s?.title && s?.relevance && Array.isArray(s.search_keywords));
-            console.log(`--- DEBUG findLearningResourcesForGap: Antal GILTIGA förslag (med söktermer) efter filtrering för gap "${gap.skill}": ${suggestions.length}`);
+            suggestions = suggestions.filter(s => s?.type && s?.title && s?.relevance);
+            console.log(`--- DEBUG findLearningResourcesForGap: Antal GILTIGA förslag efter filtrering för gap "${gap.skill}": ${suggestions.length}`);
 
         } catch (parseError) {
             console.error(`--- DEBUG findLearningResourcesForGap: Misslyckades parsa JSON för gap "${gap.skill}":`, parseError, "\nRått innehåll:", content);

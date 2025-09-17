@@ -25,7 +25,11 @@ interface LearningSuggestion {
     title: string;
     provider?: string;
     relevance: string;
-    search_keywords?: string[]; // Array med söktermer istället för URL
+    search_keywords?: string[];
+    direct_url?: string;
+    duration?: string;
+    cost?: string;
+    priority?: 'essential' | 'recommended' | 'optional';
     language?: 'sv' | 'en' | 'other';
 }
 

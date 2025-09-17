@@ -9,7 +9,7 @@ import Link from 'next/link';
 import {
     CheckCircle, AlertTriangle, GraduationCap, Search, Briefcase, Building,
     Languages, BookOpen, Award, Loader2, ServerCrash, SearchX, Target,
-    Lock, ArrowRight, ThumbsUp, ClipboardList // Lade till ThumbsUp, ClipboardList
+    Lock, ArrowRight, ThumbsUp, ClipboardList, Clock, Coins, ExternalLink, Star
 } from 'lucide-react';
 
 // --- Type Definitions ---
@@ -26,6 +26,10 @@ interface LearningSuggestion {
     provider?: string;
     relevance: string;
     search_keywords?: string[];
+    direct_url?: string;
+    duration?: string;
+    cost?: string;
+    priority?: 'essential' | 'recommended' | 'optional';
     language?: 'sv' | 'en' | 'other';
 }
 
@@ -127,20 +131,89 @@ SearchKeywordDisplay.displayName = 'SearchKeywordDisplay';
 /**
  * Visar ett enskilt lärandeförslag.
  */
-const LearningSuggestionItem: React.FC<{ item: LearningSuggestion }> = React.memo(({ item }) => (
-    <div className="bg-navy-800/60 p-3 rounded-lg border border-navy-700/70 flex items-start gap-3">
-        <div className="flex-shrink-0 pt-0.5"> <LearningIcon type={item.type} /> </div>
-        <div className="flex-grow text-sm">
-            <h4 className="font-semibold text-white mb-1">{item.title}</h4>
-            {item.provider && ( <p className="text-xs text-gray-400 mb-1 flex items-center"> <Building className="w-3 h-3 mr-1.5 flex-shrink-0"/>{item.provider} </p> )}
-            <p className="text-gray-300 mb-2 text-xs leading-relaxed">{item.relevance}</p>
-            <SearchKeywordDisplay keywords={item.search_keywords} />
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-400 mt-2">
-                {item.language && ( <span className="flex items-center"> <Languages className="w-3.5 h-3.5 mr-1"/> {item.language === 'sv' ? 'Svenska' : item.language === 'en' ? 'Engelska' : item.language} </span> )}
+const LearningSuggestionItem: React.FC<{ item: LearningSuggestion }> = React.memo(({ item }) => {
+    // Prioritetsfärg och text
+    const getPriorityColor = (priority?: string) => {
+        if (priority === 'essential') return 'text-red-400';
+        if (priority === 'recommended') return 'text-yellow-400';
+        return 'text-gray-400';
+    };
+
+    const getPriorityText = (priority?: string) => {
+        if (priority === 'essential') return 'Väsentlig';
+        if (priority === 'recommended') return 'Rekommenderad';
+        return 'Valfri';
+    };
+
+    return (
+        <div className="bg-navy-800/60 p-4 rounded-lg border border-navy-700/70 hover:border-navy-600/80 transition-colors">
+            {/* Header med ikon och prioritet */}
+            <div className="flex items-start gap-3 mb-3">
+                <div className="flex-shrink-0 pt-0.5">
+                    <LearningIcon type={item.type} />
+                </div>
+                <div className="flex-grow">
+                    <div className="flex items-start justify-between gap-2">
+                        <h4 className="font-semibold text-white text-base">{item.title}</h4>
+                        {item.priority && (
+                            <span className={`flex items-center text-xs font-medium ${getPriorityColor(item.priority)}`}>
+                                <Star className="w-3 h-3 mr-1" />
+                                {getPriorityText(item.priority)}
+                            </span>
+                        )}
+                    </div>
+                    {item.provider && (
+                        <p className="text-sm text-gray-400 mt-1 flex items-center">
+                            <Building className="w-3.5 h-3.5 mr-1.5 flex-shrink-0"/>
+                            {item.provider}
+                        </p>
+                    )}
+                </div>
             </div>
+
+            {/* Beskrivning */}
+            <p className="text-gray-300 text-sm leading-relaxed mb-3">{item.relevance}</p>
+
+            {/* Kursinfo: Längd, Kostnad, Språk */}
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm mb-3">
+                {item.duration && (
+                    <span className="flex items-center text-gray-300">
+                        <Clock className="w-4 h-4 mr-1.5 text-blue-400"/>
+                        {item.duration}
+                    </span>
+                )}
+                {item.cost && (
+                    <span className="flex items-center text-gray-300">
+                        <Coins className="w-4 h-4 mr-1.5 text-green-400"/>
+                        {item.cost}
+                    </span>
+                )}
+                {item.language && (
+                    <span className="flex items-center text-gray-300">
+                        <Languages className="w-4 h-4 mr-1.5 text-purple-400"/>
+                        {item.language === 'sv' ? 'Svenska' : item.language === 'en' ? 'Engelska' : item.language}
+                    </span>
+                )}
+            </div>
+
+            {/* Direktlänk eller söktermer */}
+            {item.direct_url ? (
+                <a
+                    href={item.direct_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center text-sm font-medium text-pink-400 hover:text-pink-300 transition-colors group"
+                >
+                    <ExternalLink className="w-4 h-4 mr-1.5" />
+                    Gå direkt till kursen
+                    <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-0.5 transition-transform" />
+                </a>
+            ) : (
+                <SearchKeywordDisplay keywords={item.search_keywords} />
+            )}
         </div>
-    </div>
-));
+    );
+});
 LearningSuggestionItem.displayName = 'LearningSuggestionItem';
 
 // ============================================================================
@@ -165,11 +238,11 @@ const CompetenceAnalysisDisplay: React.FC<CompetenceAnalysisDisplayProps> = Reac
     const allSuggestions = data.suggestedLearningPath || [];
 
     const MAX_GAPS_FREE = 2;
-    const MAX_SUGGESTIONS_FREE = 2; // <<--- KORREKT GRÄNS FÖR FREE
+    const MAX_SUGGESTIONS_FREE = 3; // Visa 3 förslag för bättre översikt
 
     // Visa max 2 gap för free, annars alla
     const gapsToShow = isFreeTier ? allGaps.slice(0, MAX_GAPS_FREE) : allGaps;
-    // Visa max 2 förslag för free, annars ALLA för premium
+    // Visa max 3 förslag för free, annars ALLA för premium
     const suggestionsToShow = isFreeTier ? allSuggestions.slice(0, MAX_SUGGESTIONS_FREE) : allSuggestions;
 
     const hiddenGapsCount = allGaps.length - gapsToShow.length;
