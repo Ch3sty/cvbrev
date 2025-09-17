@@ -505,7 +505,7 @@ export async function POST(request: NextRequest) {
                         : 'Jobbannons';
 
                     // Skip GPT-5 for suggestions to save time - use GPT-4 directly
-                    let suggestions = [];
+                    let suggestions: LearningSuggestion[] = [];
                     try {
                         suggestions = await findLearningResourcesForGapOld(gap, 'sv');
                         console.log(`--- DEBUG: Used GPT-4 for suggestions (faster than GPT-5)`);
