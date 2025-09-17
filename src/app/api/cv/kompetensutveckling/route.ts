@@ -462,7 +462,7 @@ export async function POST(request: NextRequest) {
         // --- 5. Steg 1: Utför initial kompetensanalys (identifiera gap) ---
         console.log(`--- DEBUG POST (Step 1): Performing initial analysis for target: ${errorTargetDesc}`);
 
-        // Try GPT-5 with new Responses API structure
+        // Use GPT-5 for main analysis - IT'S BETTER!
         try {
             initialAnalysisResult = await analyzeCompetenceGapGPT5(analysisInputForStep1);
             console.log('--- DEBUG: Successfully used GPT-5 for analysis');
@@ -489,28 +489,27 @@ export async function POST(request: NextRequest) {
             console.log(`--- DEBUG POST (Step 2): Found ${gapsToProcess.length} gaps to process. Processing in order (essential first).`);
 
             // Begränsa antalet gap som processas för att undvika timeout
-            // Ta max 2 essentiella gap för att hålla tiden nere
+            // Ta bara 1 essentiellt gap för att garantera att vi hinner
             const essentialGaps = gapsToProcess.filter(g => g.importance === 'essential');
             const desirableGaps = gapsToProcess.filter(g => g.importance === 'desirable');
-            const gapsToProcessLimited = [...essentialGaps.slice(0, 2)]; // Max 2 gaps total
+            const gapsToProcessLimited = [...essentialGaps.slice(0, 1)]; // Max 1 gap för säkerhet
 
             console.log(`--- DEBUG POST (Step 2): Processing ${gapsToProcessLimited.length} of ${gapsToProcess.length} gaps to avoid timeout.`);
 
-            // Processa gap sekventiellt istället för parallellt för bättre kontroll
+            // Process gaps - since we only have 1 gap, no need for parallel
             for (const gap of gapsToProcessLimited) {
                 try {
-                    // Try GPT-5 first for better suggestions
                     const targetRole = analysisInputForStep1.mode === 'role'
                         ? analysisInputForStep1.targetRole
                         : 'Jobbannons';
 
-                    // Use GPT-5 for better suggestions with fallback to GPT-4
+                    // Use GPT-5 for better suggestions
                     let suggestions: LearningSuggestion[] = [];
                     try {
                         suggestions = await generateLearningSuggestionsGPT5(gap, targetRole);
                         console.log(`--- DEBUG: Used GPT-5 for suggestions (better quality)`);
                     } catch (gpt5Err) {
-                        console.error(`--- DEBUG: GPT-5 failed for suggestions, using GPT-4 fallback:`, gpt5Err);
+                        console.error(`--- DEBUG: GPT-5 failed for suggestions, trying GPT-4:`, gpt5Err);
                         try {
                             suggestions = await findLearningResourcesForGapOld(gap, 'sv');
                             console.log(`--- DEBUG: Used GPT-4 fallback for suggestions`);
@@ -523,8 +522,7 @@ export async function POST(request: NextRequest) {
                     allGeneratedSuggestions.push(...suggestions);
                     console.log(`--- DEBUG POST (Step 2): Processed gap "${gap.skill}", got ${suggestions.length} suggestions`);
                 } catch (err) {
-                    console.error(`--- ERROR POST (Step 2): Failed findLearningResourcesForGap for gap "${gap.skill}":`, err);
-                    // Fortsätt med nästa gap även om ett misslyckas
+                    console.error(`--- ERROR POST (Step 2): Failed for gap "${gap.skill}":`, err);
                 }
             }
 

@@ -22,8 +22,8 @@ export async function analyzeCompetenceGapGPT5(
 ): Promise<CompetenceAnalysisResult> {
 
   const { mode, cvText } = input;
-  const truncatedCV = cvText.substring(0, 8000);
-  const modelToUse = "gpt-5"; // Using full gpt-5 for best quality
+  const truncatedCV = cvText.substring(0, 6000); // Reduce input to speed up
+  const modelToUse = "gpt-5-mini"; // Using mini for better speed/quality balance
 
   // Build target information
   let targetInfoPrompt: string;
@@ -112,9 +112,9 @@ export async function analyzeCompetenceGapGPT5(
   try {
     console.log(`Starting GPT-5 competence analysis for target: ${targetDescriptionForOutput}`);
 
-    // Create timeout promise - reduced to 20s to allow time for fallback
+    // Create timeout promise - 35s to give GPT-5 enough time
     const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('GPT-5 request timeout after 20s')), 20000)
+      setTimeout(() => reject(new Error('GPT-5 request timeout after 35s')), 35000)
     );
 
     // Make GPT-5 API call using instructions + input pattern
@@ -123,10 +123,10 @@ export async function analyzeCompetenceGapGPT5(
       instructions: systemPrompt, // System instructions go here
       input: `Analysera detta CV och returnera JSON enligt instruktionerna:\n\n${truncatedCV}`,
       reasoning: {
-        effort: 'medium' // Reduced from high to balance speed and quality
+        effort: 'low' // Low effort for faster response
       },
       text: {
-        verbosity: 'medium', // Reduced from high to get faster response
+        verbosity: 'low', // Low verbosity for faster response
         format: {
           type: 'json_schema',
           name: 'competence_analysis',
@@ -302,11 +302,11 @@ export async function generateLearningSuggestionsGPT5(
   try {
     // Add timeout for course suggestions to prevent hanging
     const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('GPT-5 course suggestion timeout after 10s')), 10000)
+      setTimeout(() => reject(new Error('GPT-5 course suggestion timeout after 15s')), 15000)
     );
 
     const responsePromise = createGPT5Response({
-      model: 'gpt-5-mini', // Use mini for speed
+      model: 'gpt-5-nano', // Use nano for maximum speed
       instructions: prompt,
       input: `Hitta kurser för: ${gap.skill}`,
       reasoning: {
@@ -347,7 +347,7 @@ export async function generateLearningSuggestionsGPT5(
           }
         }
       },
-      max_output_tokens: 2000, // Balanced for course suggestions
+      max_output_tokens: 1000, // Reduced for speed with nano model
       store: false
     });
 
