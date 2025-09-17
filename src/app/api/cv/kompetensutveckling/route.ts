@@ -504,14 +504,20 @@ export async function POST(request: NextRequest) {
                         ? analysisInputForStep1.targetRole
                         : 'Jobbannons';
 
-                    // Skip GPT-5 for suggestions to save time - use GPT-4 directly
+                    // Use GPT-5 for better suggestions with fallback to GPT-4
                     let suggestions: LearningSuggestion[] = [];
                     try {
-                        suggestions = await findLearningResourcesForGapOld(gap, 'sv');
-                        console.log(`--- DEBUG: Used GPT-4 for suggestions (faster than GPT-5)`);
-                    } catch (err) {
-                        console.error(`--- DEBUG: Failed to get suggestions:`, err);
-                        suggestions = [];
+                        suggestions = await generateLearningSuggestionsGPT5(gap, targetRole);
+                        console.log(`--- DEBUG: Used GPT-5 for suggestions (better quality)`);
+                    } catch (gpt5Err) {
+                        console.error(`--- DEBUG: GPT-5 failed for suggestions, using GPT-4 fallback:`, gpt5Err);
+                        try {
+                            suggestions = await findLearningResourcesForGapOld(gap, 'sv');
+                            console.log(`--- DEBUG: Used GPT-4 fallback for suggestions`);
+                        } catch (err) {
+                            console.error(`--- DEBUG: GPT-4 also failed:`, err);
+                            suggestions = [];
+                        }
                     }
 
                     allGeneratedSuggestions.push(...suggestions);

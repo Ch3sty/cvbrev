@@ -300,15 +300,20 @@ export async function generateLearningSuggestionsGPT5(
   Ge 2-3 KONKRETA förslag. Returnera ENDAST JSON-array, ingen annan text!`;
 
   try {
-    const response = await createGPT5Response({
-      model: 'gpt-5-mini', // Use mini for better course suggestions
+    // Add timeout for course suggestions to prevent hanging
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('GPT-5 course suggestion timeout after 10s')), 10000)
+    );
+
+    const responsePromise = createGPT5Response({
+      model: 'gpt-5-mini', // Use mini for speed
       instructions: prompt,
       input: `Hitta kurser för: ${gap.skill}`,
       reasoning: {
-        effort: 'low' // Reduce reasoning to save tokens for output
+        effort: 'minimal' // Minimal reasoning for course lookup
       },
       text: {
-        verbosity: 'medium',
+        verbosity: 'low', // Low verbosity for faster response
         format: {
           type: 'json_schema',
           name: 'course_suggestions',
@@ -342,9 +347,15 @@ export async function generateLearningSuggestionsGPT5(
           }
         }
       },
-      max_output_tokens: 3000, // Increased to allow for reasoning + output
+      max_output_tokens: 2000, // Balanced for course suggestions
       store: false
     });
+
+    // Race between request and timeout for course suggestions
+    const response = await Promise.race([
+      responsePromise,
+      timeoutPromise
+    ]) as Awaited<ReturnType<typeof createGPT5Response>>;
 
     const suggestions = extractJSONFromGPT5Response(response);
 
