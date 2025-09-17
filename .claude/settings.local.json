@@ -116,7 +116,8 @@
       "Bash(paste:*)",
       "WebFetch(domain:vercel.com)",
       "WebFetch(domain:platform.openai.com)",
-      "WebFetch(domain:cookbook.openai.com)"
+      "WebFetch(domain:cookbook.openai.com)",
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-gpt5-competence.html\")"
     ],
     "deny": [],
     "ask": []

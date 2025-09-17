@@ -9,6 +9,9 @@ import { logUserActivity } from '@/lib/activity-logger';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { openai } from '@/lib/openai/api';
 
+// Set max duration for Vercel functions (in seconds)
+export const maxDuration = 60; // Vercel limit
+
 // ============================================================================
 //  Constants & Configuration
 // ============================================================================
@@ -486,10 +489,10 @@ export async function POST(request: NextRequest) {
             console.log(`--- DEBUG POST (Step 2): Found ${gapsToProcess.length} gaps to process. Processing in order (essential first).`);
 
             // Begränsa antalet gap som processas för att undvika timeout
-            // Ta bara essentiella gap och max 1 desirable för att hålla tiden nere
+            // Ta max 2 essentiella gap för att hålla tiden nere
             const essentialGaps = gapsToProcess.filter(g => g.importance === 'essential');
             const desirableGaps = gapsToProcess.filter(g => g.importance === 'desirable');
-            const gapsToProcessLimited = [...essentialGaps, ...desirableGaps.slice(0, 1)];
+            const gapsToProcessLimited = [...essentialGaps.slice(0, 2)]; // Max 2 gaps total
 
             console.log(`--- DEBUG POST (Step 2): Processing ${gapsToProcessLimited.length} of ${gapsToProcess.length} gaps to avoid timeout.`);
 
@@ -501,13 +504,14 @@ export async function POST(request: NextRequest) {
                         ? analysisInputForStep1.targetRole
                         : 'Jobbannons';
 
-                    let suggestions;
+                    // Skip GPT-5 for suggestions to save time - use GPT-4 directly
+                    let suggestions = [];
                     try {
-                        suggestions = await generateLearningSuggestionsGPT5(gap, targetRole);
-                        console.log(`--- DEBUG: Used GPT-5 for suggestions`);
-                    } catch (gpt5Err) {
-                        console.error(`--- DEBUG: GPT-5 failed for suggestions, using GPT-4:`, gpt5Err);
                         suggestions = await findLearningResourcesForGapOld(gap, 'sv');
+                        console.log(`--- DEBUG: Used GPT-4 for suggestions (faster than GPT-5)`);
+                    } catch (err) {
+                        console.error(`--- DEBUG: Failed to get suggestions:`, err);
+                        suggestions = [];
                     }
 
                     allGeneratedSuggestions.push(...suggestions);

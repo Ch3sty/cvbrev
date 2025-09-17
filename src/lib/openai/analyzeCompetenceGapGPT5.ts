@@ -112,9 +112,9 @@ export async function analyzeCompetenceGapGPT5(
   try {
     console.log(`Starting GPT-5 competence analysis for target: ${targetDescriptionForOutput}`);
 
-    // Create timeout promise - reduced to 30s to stay within Vercel limits
+    // Create timeout promise - reduced to 20s to allow time for fallback
     const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('GPT-5 request timeout after 30s')), 30000)
+      setTimeout(() => reject(new Error('GPT-5 request timeout after 20s')), 20000)
     );
 
     // Make GPT-5 API call using instructions + input pattern
@@ -123,10 +123,10 @@ export async function analyzeCompetenceGapGPT5(
       instructions: systemPrompt, // System instructions go here
       input: `Analysera detta CV och returnera JSON enligt instruktionerna:\n\n${truncatedCV}`,
       reasoning: {
-        effort: 'high' // Use high reasoning for complex analysis
+        effort: 'medium' // Reduced from high to balance speed and quality
       },
       text: {
-        verbosity: 'high', // Get comprehensive analysis
+        verbosity: 'medium', // Reduced from high to get faster response
         format: {
           type: 'json_schema',
           name: 'competence_analysis',
@@ -168,7 +168,7 @@ export async function analyzeCompetenceGapGPT5(
           }
         }
       },
-      max_output_tokens: 2000, // Reduced for faster response
+      max_output_tokens: 1500, // Keep low for faster response
       store: false // Don't store for privacy
     });
 
