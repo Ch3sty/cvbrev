@@ -314,24 +314,31 @@ export async function generateLearningSuggestionsGPT5(
           name: 'course_suggestions',
           strict: true,
           schema: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                type: { type: 'string', enum: ['course', 'certification', 'self-study', 'project'] },
-                title: { type: 'string' },
-                provider: { type: 'string' },
-                relevance: { type: 'string' },
-                search_keywords: { type: 'array', items: { type: 'string' } },
-                direct_url: { type: 'string' },
-                duration: { type: 'string' },
-                cost: { type: 'string' },
-                priority: { type: 'string', enum: ['essential', 'recommended', 'optional'] },
-                language: { type: 'string', enum: ['sv', 'en', 'other'] }
-              },
-              required: ['type', 'title', 'relevance', 'priority', 'language'],
-              additionalProperties: false
-            }
+            type: 'object',
+            properties: {
+              suggestions: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    type: { type: 'string', enum: ['course', 'certification', 'self-study', 'project'] },
+                    title: { type: 'string' },
+                    provider: { type: 'string' },
+                    relevance: { type: 'string' },
+                    search_keywords: { type: 'array', items: { type: 'string' } },
+                    direct_url: { type: 'string' },
+                    duration: { type: 'string' },
+                    cost: { type: 'string' },
+                    priority: { type: 'string', enum: ['essential', 'recommended', 'optional'] },
+                    language: { type: 'string', enum: ['sv', 'en', 'other'] }
+                  },
+                  required: ['type', 'title', 'relevance', 'priority', 'language'],
+                  additionalProperties: false
+                }
+              }
+            },
+            required: ['suggestions'],
+            additionalProperties: false
           }
         }
       },
@@ -341,7 +348,12 @@ export async function generateLearningSuggestionsGPT5(
 
     const suggestions = extractJSONFromGPT5Response(response);
 
-    if (Array.isArray(suggestions)) {
+    // Extract suggestions array from response
+    if (suggestions && suggestions.suggestions && Array.isArray(suggestions.suggestions)) {
+      console.log(`Generated ${suggestions.suggestions.length} learning suggestions for gap: ${gap.skill}`);
+      return suggestions.suggestions;
+    } else if (Array.isArray(suggestions)) {
+      // Fallback if direct array
       console.log(`Generated ${suggestions.length} learning suggestions for gap: ${gap.skill}`);
       return suggestions;
     }
