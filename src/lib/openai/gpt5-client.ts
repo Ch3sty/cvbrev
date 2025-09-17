@@ -125,7 +125,7 @@ export function extractJSONFromGPT5Response(response: GPT5Response): any {
   }
 
   // Clean the text
-  let cleanText = text.trim();
+  const cleanText = text.trim();
 
   // Try to find JSON in code blocks first
   const jsonMatch = cleanText.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
