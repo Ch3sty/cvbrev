@@ -133,7 +133,28 @@ const CompetenceAnalysisTool: React.FC<CompetenceAnalysisToolProps> = ({
         setError(null);
         setAnalysisResult(null);
         setMatchScore(null);
-        showNotification('loading', 'Startar kompetensanalys...');
+
+        // Roliga laddningsmeddelanden som uppdateras
+        const loadingMessages = [
+            '🚀 Startar kompetensanalys...',
+            '📖 Läser igenom ditt CV...',
+            '🔍 Analyserar dina färdigheter...',
+            '🎯 Matchar mot målrollen...',
+            '🧠 AI:n tänker djupt...',
+            '📊 Beräknar matchningspoäng...',
+            '💡 Identifierar utvecklingsområden...',
+            '🎓 Söker efter relevanta kurser...',
+            '✨ Nästan klar...'
+        ];
+
+        let messageIndex = 0;
+        showNotification('loading', loadingMessages[0]);
+
+        // Uppdatera meddelandet var 3:e sekund
+        const messageInterval = setInterval(() => {
+            messageIndex = (messageIndex + 1) % loadingMessages.length;
+            showNotification('loading', loadingMessages[messageIndex], null);
+        }, 3000);
 
         const requestBody: any = { cvId: selectedCvId, analysisMode };
         if (analysisMode === 'role') requestBody.targetRole = targetRole;
@@ -146,6 +167,7 @@ const CompetenceAnalysisTool: React.FC<CompetenceAnalysisToolProps> = ({
                 body: JSON.stringify(requestBody),
             });
             const data = await response.json();
+            clearInterval(messageInterval); // Stoppa laddningsmeddelanden
             closeNotification();
 
             if (!response.ok) {
@@ -187,6 +209,7 @@ const CompetenceAnalysisTool: React.FC<CompetenceAnalysisToolProps> = ({
 
         } catch (err: any) {
             console.error("Fel vid kompetensanalys:", err);
+            clearInterval(messageInterval); // Stoppa laddningsmeddelanden även vid fel
             const errorMessage = err.message || 'Ett okänt fel uppstod vid analysen.';
             setError(errorMessage);
             closeNotification();

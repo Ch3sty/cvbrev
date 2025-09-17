@@ -90,9 +90,9 @@ export async function analyzeCompetenceGap(
     try {
         console.log(`Starting competence analysis (Step 1) for target: ${targetDescriptionForOutput}`);
 
-        // Skapa en timeout promise
+        // Skapa en timeout promise (50 sekunder för att ge GPT-5 tid)
         const timeoutPromise = new Promise((_, reject) =>
-            setTimeout(() => reject(new Error('OpenAI request timeout after 30s')), 30000)
+            setTimeout(() => reject(new Error('OpenAI request timeout after 50s')), 50000)
         );
 
         // Kör OpenAI-anropet med timeout

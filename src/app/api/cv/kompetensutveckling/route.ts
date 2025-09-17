@@ -214,9 +214,9 @@ async function findLearningResourcesForGap(gap: MissingSkill, language: string =
     try {
         console.log(`--- DEBUG findLearningResourcesForGap: Söker resurser/söktermer för gap: ${JSON.stringify(gap.skill)} (max ${maxSuggestionsPerGap})`);
 
-        // Timeout för varje kursförslag (10 sekunder)
+        // Timeout för varje kursförslag (15 sekunder för bättre kvalitet)
         const timeoutPromise = new Promise((_, reject) =>
-            setTimeout(() => reject(new Error(`Timeout för kursförslag: ${gap.skill}`)), 10000)
+            setTimeout(() => reject(new Error(`Timeout för kursförslag: ${gap.skill}`)), 15000)
         );
 
         const completionPromise = openai.chat.completions.create({
