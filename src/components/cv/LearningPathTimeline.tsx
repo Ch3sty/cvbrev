@@ -161,17 +161,17 @@ export default function LearningPathTimeline({
                     </div>
                   )}
 
-                  {course.start_date && (
+                  {(course as any).start_date && (
                     <div className="flex items-center gap-1 text-sm text-gray-600">
                       <Calendar className="w-4 h-4" />
-                      <span>{course.start_date}</span>
+                      <span>{(course as any).start_date}</span>
                     </div>
                   )}
 
-                  {course.study_format && (
+                  {(course as any).study_format && (
                     <div className="flex items-center gap-1 text-sm text-gray-600">
                       <MapPin className="w-4 h-4" />
-                      <span>{course.study_format}</span>
+                      <span>{(course as any).study_format}</span>
                     </div>
                   )}
                 </div>

@@ -266,7 +266,17 @@ export async function generateLearningSuggestionsGPT5(
   - Studietakt (heltid/deltid/distans)
   - Kontaktuppgifter till utbildningsanordnaren
 
-  EXEMPEL PÅ BRA SVAR:
+  RETURNERA JSON med dessa OBLIGATORISKA fält:
+  - type, title, provider, relevance
+  - search_keywords (array med sökord)
+  - direct_url (VIKTIGAST - hitta faktisk länk!)
+  - duration, cost, priority, language
+
+  Lägg gärna till om du hittar (men inte obligatoriskt):
+  - start_date, application_deadline
+  - study_format, contact
+
+  EXEMPEL:
   {
     "type": "certification",
     "title": "HLR-instruktör",
@@ -276,10 +286,6 @@ export async function generateLearningSuggestionsGPT5(
     "direct_url": "https://www.hlr.nu/utbildning/hlr-instruktor",
     "duration": "3 dagar",
     "cost": "7500 kr",
-    "start_date": "15 mars 2025",
-    "application_deadline": "1 mars 2025",
-    "study_format": "Närundervisning i Stockholm",
-    "contact": "utbildning@hlr.nu, 08-123 456",
     "priority": "essential",
     "language": "sv"
   }
@@ -322,11 +328,7 @@ export async function generateLearningSuggestionsGPT5(
                     duration: { type: 'string' },
                     cost: { type: 'string' },
                     priority: { type: 'string', enum: ['essential', 'recommended', 'optional'] },
-                    language: { type: 'string', enum: ['sv', 'en', 'other'] },
-                    start_date: { type: 'string' },
-                    application_deadline: { type: 'string' },
-                    study_format: { type: 'string' },
-                    contact: { type: 'string' }
+                    language: { type: 'string', enum: ['sv', 'en', 'other'] }
                   },
                   required: ['type', 'title', 'provider', 'relevance', 'search_keywords', 'direct_url', 'duration', 'cost', 'priority', 'language'],
                   additionalProperties: false
