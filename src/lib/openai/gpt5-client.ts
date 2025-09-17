@@ -111,7 +111,8 @@ export async function createGPT5Response(params: GPT5ResponseParams): Promise<GP
       // Look for message type items
       if (item.type === 'message' && item.content && Array.isArray(item.content)) {
         for (const content of item.content) {
-          if (content.type === 'text' && content.text) {
+          // GPT-5 uses 'output_text' instead of 'text'
+          if ((content.type === 'text' || content.type === 'output_text') && content.text) {
             output_text += content.text;
           }
         }

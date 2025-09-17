@@ -305,7 +305,7 @@ export async function generateLearningSuggestionsGPT5(
       instructions: prompt,
       input: `Hitta kurser för: ${gap.skill}`,
       reasoning: {
-        effort: 'medium' // Medium reasoning is enough for course lookup
+        effort: 'low' // Reduce reasoning to save tokens for output
       },
       text: {
         verbosity: 'medium',
@@ -332,7 +332,7 @@ export async function generateLearningSuggestionsGPT5(
                     priority: { type: 'string', enum: ['essential', 'recommended', 'optional'] },
                     language: { type: 'string', enum: ['sv', 'en', 'other'] }
                   },
-                  required: ['type', 'title', 'relevance', 'priority', 'language'],
+                  required: ['type', 'title', 'provider', 'relevance', 'search_keywords', 'direct_url', 'duration', 'cost', 'priority', 'language'],
                   additionalProperties: false
                 }
               }
@@ -342,7 +342,7 @@ export async function generateLearningSuggestionsGPT5(
           }
         }
       },
-      max_output_tokens: 1500,
+      max_output_tokens: 3000, // Increased to allow for reasoning + output
       store: false
     });
 
