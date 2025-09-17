@@ -107,26 +107,14 @@ export async function createGPT5Response(params: GPT5ResponseParams): Promise<GP
   // Extract text from output - handle both text and JSON schema responses
   let output_text = '';
 
-  // When using JSON schema, the response is directly in the output
-  if (params.text?.format?.type === 'json_schema') {
-    // For structured outputs, GPT-5 returns the JSON directly in data
-    // It might be in data.output as a string or as the parsed object
-    if (typeof data.output === 'string') {
-      output_text = data.output;
-    } else if (data.output && typeof data.output === 'object') {
-      // If it's already parsed, stringify it
-      output_text = JSON.stringify(data.output);
-    } else if (data.content) {
-      // Sometimes it's in content field
-      output_text = typeof data.content === 'string' ? data.content : JSON.stringify(data.content);
-    }
-  } else if (data.output && Array.isArray(data.output)) {
-    // Regular text response handling
+  // Check if we have an output array (GPT-5 response format)
+  if (data.output && Array.isArray(data.output)) {
+    // GPT-5 returns an array with reasoning and message objects
     for (const item of data.output) {
-      // Look for message type items
+      // Look for message type items which contain the actual response
       if (item.type === 'message' && item.content && Array.isArray(item.content)) {
         for (const content of item.content) {
-          // GPT-5 uses 'output_text' instead of 'text'
+          // Extract text from output_text or text fields
           if ((content.type === 'text' || content.type === 'output_text') && content.text) {
             output_text += content.text;
           }
@@ -136,6 +124,12 @@ export async function createGPT5Response(params: GPT5ResponseParams): Promise<GP
         output_text += item.content;
       }
     }
+  } else if (typeof data.output === 'string') {
+    // Sometimes output is directly a string
+    output_text = data.output;
+  } else if (data.output && typeof data.output === 'object') {
+    // If output is an object, stringify it
+    output_text = JSON.stringify(data.output);
   }
 
   // Debug logging for structured outputs
@@ -169,6 +163,11 @@ export function extractJSONFromGPT5Response(response: GPT5Response): any {
 
   // Log for debugging
   console.log('Attempting to parse GPT-5 response, length:', cleanText.length);
+
+  // Debug: Show first 200 chars to understand structure
+  if (cleanText.length > 0) {
+    console.log('First 200 chars of response to parse:', cleanText.substring(0, 200));
+  }
 
   // Try to find JSON in code blocks first
   const jsonMatch = cleanText.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
