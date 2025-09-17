@@ -25,6 +25,12 @@ export default function FinanceDashboard() {
   const [dateRange, setDateRange] = useState('30');
   const [stripeData, setStripeData] = useState<any>(null);
   const [openaiData, setOpenaiData] = useState<any>(null);
+  const [aiCostData, setAiCostData] = useState({
+    totalAICost: 0,
+    totalAICostSEK: 0,
+    aiCostSource: 'Ingen data',
+    lettersCount: 0
+  });
   const supabase = createClientComponentClient();
 
   // Hämta all finansiell data
@@ -107,6 +113,14 @@ export default function FinanceDashboard() {
       }
 
       const totalAICostSEK = totalAICost * 10.5;
+
+      // Sätt AI-kostnad data i state för användning i render
+      setAiCostData({
+        totalAICost,
+        totalAICostSEK,
+        aiCostSource,
+        lettersCount: letters?.length || 0
+      });
 
       // Beräkna vinst
       const grossProfit = netRevenue - totalAICostSEK;
@@ -569,23 +583,23 @@ export default function FinanceDashboard() {
             <div className="flex justify-between">
               <span className="text-gray-400">Total kostnad (USD):</span>
               <span className="text-white font-semibold">
-                ${totalAICost.toFixed(4)}
+                ${aiCostData.totalAICost.toFixed(4)}
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Total kostnad (SEK):</span>
               <span className="text-white font-semibold">
-                {Math.round(totalAICostSEK).toLocaleString('sv-SE')} kr
+                {Math.round(aiCostData.totalAICostSEK).toLocaleString('sv-SE')} kr
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-400">Datakälla:</span>
               <span className={`font-semibold ${
-                aiCostSource.includes('OpenAI API') ? 'text-green-500' :
-                aiCostSource.includes('brev') ? 'text-blue-500' :
+                aiCostData.aiCostSource.includes('OpenAI API') ? 'text-green-500' :
+                aiCostData.aiCostSource.includes('brev') ? 'text-blue-500' :
                 'text-yellow-500'
               }`}>
-                {aiCostSource}
+                {aiCostData.aiCostSource}
               </span>
             </div>
             {openaiData?.data?.totalTokens > 0 && (
@@ -596,10 +610,10 @@ export default function FinanceDashboard() {
                 </span>
               </div>
             )}
-            {letters && letters.length > 0 && (
+            {aiCostData.lettersCount > 0 && (
               <div className="flex justify-between">
                 <span className="text-gray-400">Genererade brev:</span>
-                <span className="text-white font-semibold">{letters.length}</span>
+                <span className="text-white font-semibold">{aiCostData.lettersCount}</span>
               </div>
             )}
             {(!openaiData || openaiData.estimatedOnly) && (
