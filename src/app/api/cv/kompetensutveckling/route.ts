@@ -4,6 +4,7 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { Database } from '@/types/database.types';
 import { analyzeCompetenceGap, CompetenceAnalysisResult, MissingSkill } from '@/lib/openai/analyzeCompetenceGap';
+import { analyzeCompetenceGapGPT5, generateLearningSuggestionsGPT5 } from '@/lib/openai/analyzeCompetenceGapGPT5';
 import { logUserActivity } from '@/lib/activity-logger';
 import { SupabaseClient } from '@supabase/supabase-js';
 import { openai } from '@/lib/openai/api';
@@ -176,9 +177,23 @@ async function incrementFreeUserCount(supabase: SupabaseClient<Database>, userId
 }
 
 /**
- * Använder OpenAI för att hitta läranderesurser och generera direkta länkar för ett specifikt kompetensgap.
+ * Använder GPT-5 för att hitta läranderesurser och generera direkta länkar för ett specifikt kompetensgap.
  */
-async function findLearningResourcesForGap(gap: MissingSkill, language: string = 'sv'): Promise<LearningSuggestion[]> {
+async function findLearningResourcesForGap(gap: MissingSkill, targetRole: string = ''): Promise<LearningSuggestion[]> {
+    // Use GPT-5 for learning suggestions
+    try {
+        const suggestions = await generateLearningSuggestionsGPT5(gap, targetRole);
+        return suggestions;
+    } catch (error) {
+        console.error(`Failed to generate learning suggestions with GPT-5 for gap "${gap.skill}":`, error);
+        return [];
+    }
+}
+
+/**
+ * Fallback function using GPT-4 if GPT-5 fails
+ */
+async function findLearningResourcesForGapOld(gap: MissingSkill, language: string = 'sv'): Promise<LearningSuggestion[]> {
     const modelToUse = "gpt-4o-mini"; // Använder GPT-4o-mini som fungerar tillförlitligt
     const maxSuggestionsPerGap = 2; // Max 2 förslag per gap för bättre pedagogik
 
@@ -442,14 +457,22 @@ export async function POST(request: NextRequest) {
         analysisInputForStep1.cvText = cvText; // Lägg till CV-texten för analysen
 
         // --- 5. Steg 1: Utför initial kompetensanalys (identifiera gap) ---
-        console.log(`--- DEBUG POST (Step 1): Performing initial analysis for target: ${errorTargetDesc}`);
-        initialAnalysisResult = await analyzeCompetenceGap(analysisInputForStep1);
+        console.log(`--- DEBUG POST (Step 1): Performing initial analysis using GPT-5 for target: ${errorTargetDesc}`);
+
+        // Try GPT-5 first, fallback to GPT-4 if it fails
+        try {
+            initialAnalysisResult = await analyzeCompetenceGapGPT5(analysisInputForStep1);
+            console.log('--- DEBUG: Successfully used GPT-5 for analysis');
+        } catch (gpt5Error) {
+            console.error('--- DEBUG: GPT-5 failed, falling back to GPT-4:', gpt5Error);
+            initialAnalysisResult = await analyzeCompetenceGap(analysisInputForStep1);
+        }
         console.log(`--- DEBUG POST (Step 1): Initial analysis successful. Score: ${initialAnalysisResult?.matchScore ?? 'N/A'}%`);
 
         // --- 6. Steg 2: Hitta läranderesurser/söktermer för identifierade gap ---
         const allGeneratedSuggestions: LearningSuggestion[] = [];
         const gapsToProcess = initialAnalysisResult?.identifiedSkillGaps || [];
-        const modelToUseStep2 = "gpt-4.1"; // Modell för detta steg
+        const modelToUseStep2 = "gpt-5-nano"; // Using GPT-5 nano for course suggestions
 
         if (gapsToProcess.length > 0) {
             // Sortera gapen: 'essential' först, sedan 'desirable'
@@ -473,7 +496,11 @@ export async function POST(request: NextRequest) {
             // Processa gap sekventiellt istället för parallellt för bättre kontroll
             for (const gap of gapsToProcessLimited) {
                 try {
-                    const suggestions = await findLearningResourcesForGap(gap, 'sv');
+                    // Pass the target role for better context
+                    const targetRole = analysisInputForStep1.mode === 'role'
+                        ? analysisInputForStep1.targetRole
+                        : 'Jobbannons';
+                    const suggestions = await findLearningResourcesForGap(gap, targetRole);
                     allGeneratedSuggestions.push(...suggestions);
                     console.log(`--- DEBUG POST (Step 2): Processed gap "${gap.skill}", got ${suggestions.length} suggestions`);
                 } catch (err) {

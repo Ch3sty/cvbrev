@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test GPT-5 Kompetensanalys</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a1f36 100%);
+            color: #e1e8ed;
+            padding: 20px;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #22c55e;
+            border-bottom: 2px solid #22c55e;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid #475569;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        button {
+            background: linear-gradient(135deg, #22c55e, #10b981);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 10px 5px;
+        }
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(34, 197, 94, 0.3);
+        }
+        button:disabled {
+            background: #64748b;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .loading {
+            display: none;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            color: #93c5fd;
+        }
+        .loading.active {
+            display: block;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid #10b981;
+            border-radius: 8px;
+            display: none;
+        }
+        .result.active {
+            display: block;
+        }
+        .error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid #ef4444;
+            color: #fca5a5;
+        }
+        pre {
+            background: #0f172a;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        .status.gpt5 {
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            color: white;
+        }
+        .status.gpt4 {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            color: white;
+        }
+        .gap-item {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid #374151;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+        }
+        .gap-essential {
+            border-left: 4px solid #ef4444;
+        }
+        .gap-desirable {
+            border-left: 4px solid #fbbf24;
+        }
+        .course-suggestion {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid #6366f1;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+        }
+        .metadata {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+        }
+        .metadata-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .metadata-label {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-bottom: 4px;
+        }
+        .metadata-value {
+            font-size: 16px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Test GPT-5 Kompetensanalys</h1>
+
+        <div class="test-section">
+            <h2>Test 1: Målare → Analys med GPT-5</h2>
+            <p>Testar samma målare-CV som tidigare för att jämföra kvaliteten.</p>
+            <button onclick="testPainterAnalysis()">
+                Kör Målare-analys
+            </button>
+            <div class="loading" id="loading1">
+                <strong>⏳ Analyserar med GPT-5...</strong><br>
+                <span id="loadingMsg1">Startar analys...</span>
+            </div>
+            <div class="result" id="result1"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test 2: Utvecklare → Senior Utvecklare</h2>
+            <p>Testar med en utvecklare som vill bli senior utvecklare.</p>
+            <button onclick="testDeveloperAnalysis()">
+                Kör Utvecklar-analys
+            </button>
+            <div class="loading" id="loading2">
+                <strong>⏳ Analyserar med GPT-5...</strong><br>
+                <span id="loadingMsg2">Startar analys...</span>
+            </div>
+            <div class="result" id="result2"></div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test 3: Test mot Jobbannons</h2>
+            <p>Testar analys mot en specifik jobbannons.</p>
+            <button onclick="testJobAdAnalysis()">
+                Kör Jobbannons-analys
+            </button>
+            <div class="loading" id="loading3">
+                <strong>⏳ Analyserar med GPT-5...</strong><br>
+                <span id="loadingMsg3">Startar analys...</span>
+            </div>
+            <div class="result" id="result3"></div>
+        </div>
+    </div>
+
+    <script>
+        // Simulera inloggad användare med ett test CV
+        const TEST_CV_ID = 'test-cv-123'; // Detta behöver vara ett riktigt CV ID från databasen
+
+        async function makeAnalysisRequest(payload, testNum) {
+            const loadingEl = document.getElementById(`loading${testNum}`);
+            const resultEl = document.getElementById(`result${testNum}`);
+            const loadingMsgEl = document.getElementById(`loadingMsg${testNum}`);
+
+            loadingEl.classList.add('active');
+            resultEl.classList.remove('active');
+            resultEl.classList.remove('error');
+
+            // Uppdatera laddningsmeddelanden
+            const messages = [
+                'Kontaktar GPT-5 API...',
+                'Analyserar CV innehåll...',
+                'Identifierar kompetensgap...',
+                'Söker efter kurser och certifieringar...',
+                'Genererar förslag...',
+                'Slutför analys...'
+            ];
+
+            let msgIndex = 0;
+            const msgInterval = setInterval(() => {
+                if (msgIndex < messages.length) {
+                    loadingMsgEl.textContent = messages[msgIndex];
+                    msgIndex++;
+                }
+            }, 3000);
+
+            try {
+                console.log('Sending request:', payload);
+
+                const response = await fetch('http://localhost:3000/api/cv/kompetensutveckling', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // Simulera autentisering (i verkligheten kommer detta från cookies)
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify(payload)
+                });
+
+                clearInterval(msgInterval);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.message || `HTTP ${response.status}`);
+                }
+
+                console.log('Response received:', data);
+                displayResult(data, resultEl, testNum);
+
+            } catch (error) {
+                clearInterval(msgInterval);
+                console.error('Analysis error:', error);
+                resultEl.innerHTML = `
+                    <h3 style="color: #ef4444;">❌ Fel vid analys</h3>
+                    <p>${error.message}</p>
+                    <p style="color: #fbbf24;">Tips: Se till att du är inloggad och har valt ett CV.</p>
+                `;
+                resultEl.classList.add('active', 'error');
+            } finally {
+                loadingEl.classList.remove('active');
+            }
+        }
+
+        function displayResult(data, resultEl, testNum) {
+            const model = data.model || 'unknown';
+            const isGPT5 = model.includes('gpt-5');
+
+            let html = `
+                <h3 style="color: #10b981;">
+                    ✅ Analys Slutförd
+                    <span class="status ${isGPT5 ? 'gpt5' : 'gpt4'}">
+                        ${model.toUpperCase()}
+                    </span>
+                </h3>
+            `;
+
+            // Metadata
+            html += `
+                <div class="metadata">
+                    <div class="metadata-item">
+                        <span class="metadata-label">Matchningspoäng</span>
+                        <span class="metadata-value" style="color: ${data.matchScore >= 70 ? '#10b981' : data.matchScore >= 40 ? '#fbbf24' : '#ef4444'}">
+                            ${data.matchScore}%
+                        </span>
+                    </div>
+                    <div class="metadata-item">
+                        <span class="metadata-label">Modell</span>
+                        <span class="metadata-value">${model}</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span class="metadata-label">Tokens</span>
+                        <span class="metadata-value">${data.tokens?.total || 'N/A'}</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span class="metadata-label">Kostnad</span>
+                        <span class="metadata-value">$${data.cost?.toFixed(4) || 'N/A'}</span>
+                    </div>
+                </div>
+            `;
+
+            // Sammanfattning
+            html += `
+                <h4>📋 Sammanfattning</h4>
+                <p>${data.cvSummaryForTarget}</p>
+            `;
+
+            // Identifierade gap
+            if (data.identifiedSkillGaps && data.identifiedSkillGaps.length > 0) {
+                html += `<h4>🎯 Identifierade Kompetensgap (${data.identifiedSkillGaps.length})</h4>`;
+
+                const essentialGaps = data.identifiedSkillGaps.filter(g => g.importance === 'essential');
+                const desirableGaps = data.identifiedSkillGaps.filter(g => g.importance === 'desirable');
+
+                if (essentialGaps.length > 0) {
+                    html += '<h5 style="color: #ef4444;">Essentiella (Måste-ha):</h5>';
+                    essentialGaps.forEach(gap => {
+                        html += `
+                            <div class="gap-item gap-essential">
+                                <strong>${gap.skill}</strong><br>
+                                <small>${gap.reasoning}</small>
+                            </div>
+                        `;
+                    });
+                }
+
+                if (desirableGaps.length > 0) {
+                    html += '<h5 style="color: #fbbf24;">Önskvärda:</h5>';
+                    desirableGaps.forEach(gap => {
+                        html += `
+                            <div class="gap-item gap-desirable">
+                                <strong>${gap.skill}</strong><br>
+                                <small>${gap.reasoning}</small>
+                            </div>
+                        `;
+                    });
+                }
+            }
+
+            // Learning suggestions
+            if (data.suggestedLearningPath && data.suggestedLearningPath.length > 0) {
+                html += `<h4>🎓 Föreslagna Kurser & Certifieringar (${data.suggestedLearningPath.length})</h4>`;
+
+                data.suggestedLearningPath.forEach(suggestion => {
+                    const priorityColor = suggestion.priority === 'essential' ? '#ef4444' :
+                                         suggestion.priority === 'recommended' ? '#fbbf24' : '#9ca3af';
+
+                    html += `
+                        <div class="course-suggestion">
+                            <strong style="font-size: 16px;">${suggestion.title}</strong>
+                            <span style="color: ${priorityColor}; margin-left: 10px; font-size: 12px;">
+                                ${suggestion.priority?.toUpperCase() || 'RECOMMENDED'}
+                            </span><br>
+                            ${suggestion.provider ? `<small>Leverantör: ${suggestion.provider}</small><br>` : ''}
+                            <small>${suggestion.relevance}</small><br>
+                            ${suggestion.duration ? `<small>⏱️ ${suggestion.duration}</small> ` : ''}
+                            ${suggestion.cost ? `<small>💰 ${suggestion.cost}</small> ` : ''}
+                            ${suggestion.direct_url ? `<br><a href="${suggestion.direct_url}" target="_blank" style="color: #60a5fa;">🔗 Direktlänk</a>` : ''}
+                            ${suggestion.search_keywords && suggestion.search_keywords.length > 0 ?
+                                `<br><small>Sökord: ${suggestion.search_keywords.join(', ')}</small>` : ''}
+                        </div>
+                    `;
+                });
+            } else {
+                html += '<p style="color: #fbbf24;">⚠️ Inga kursförslag genererades</p>';
+            }
+
+            // Visa rådata för debugging
+            html += `
+                <details style="margin-top: 20px;">
+                    <summary style="cursor: pointer; color: #9ca3af;">📊 Visa Rådata (Debug)</summary>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                </details>
+            `;
+
+            resultEl.innerHTML = html;
+            resultEl.classList.add('active');
+        }
+
+        function testPainterAnalysis() {
+            const payload = {
+                cvId: TEST_CV_ID,
+                analysisMode: 'role',
+                targetRole: 'Målare'
+            };
+            makeAnalysisRequest(payload, 1);
+        }
+
+        function testDeveloperAnalysis() {
+            const payload = {
+                cvId: TEST_CV_ID,
+                analysisMode: 'role',
+                targetRole: 'Senior Fullstack-utvecklare'
+            };
+            makeAnalysisRequest(payload, 2);
+        }
+
+        function testJobAdAnalysis() {
+            const jobAd = `
+Vi söker en erfaren DevOps Engineer till vårt team i Stockholm.
+
+Krav:
+- Minst 3 års erfarenhet av DevOps eller liknande roll
+- God kunskap om Docker och Kubernetes
+- Erfarenhet av CI/CD pipelines (Jenkins, GitLab CI eller liknande)
+- Kunskap om molntjänster (AWS, Azure eller GCP)
+- Erfarenhet av Infrastructure as Code (Terraform, Ansible)
+- Scripting-kunskaper (Python, Bash)
+- God kommunikationsförmåga på svenska och engelska
+
+Meriterande:
+- Certifieringar inom AWS eller Azure
+- Erfarenhet av monitoring-verktyg (Prometheus, Grafana)
+- Kunskap om säkerhet och compliance
+            `;
+
+            const payload = {
+                cvId: TEST_CV_ID,
+                analysisMode: 'jobAd',
+                jobAdText: jobAd
+            };
+            makeAnalysisRequest(payload, 3);
+        }
+
+        // Visa instruktioner
+        console.log(`
+            🎯 GPT-5 Test Suite
+            ==================
+
+            VIKTIGT: Du måste vara inloggad och ha ett CV för att testa!
+
+            1. Logga in på http://localhost:3000
+            2. Se till att du har minst ett CV sparat
+            3. Kopiera CV ID från Network-fliken eller databasen
+            4. Uppdatera TEST_CV_ID i denna fil
+            5. Kör testerna!
+
+            Aktuellt test CV ID: ${TEST_CV_ID}
+        `);
+    </script>
+</body>
+</html>
