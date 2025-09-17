@@ -111,7 +111,7 @@ export async function analyzeCompetenceGap(
                 { role: "user", content: `Här är CV:t som ska analyseras:\n\n${truncatedCV}` }
             ],
             temperature: 0.4, // Ännu lägre temp för att fokusera på instruktioner
-            max_tokens: 1800, // Kan troligen minskas då outputen är mindre
+            max_completion_tokens: 1800, // GPT-5 använder max_completion_tokens
             response_format: { type: "json_object" }
         });
 

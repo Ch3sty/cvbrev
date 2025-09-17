@@ -232,7 +232,7 @@ async function findLearningResourcesForGap(gap: MissingSkill, language: string =
             model: modelToUse,
             messages: [ { role: "system", content: systemPrompt }, { role: "user", content: userPrompt } ],
             temperature: 0.5, // Lite lägre temp för precision
-            max_tokens: 500,
+            max_completion_tokens: 500, // GPT-5 använder max_completion_tokens
             response_format: { type: "json_object" }
          });
 
