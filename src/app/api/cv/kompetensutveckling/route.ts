@@ -179,7 +179,7 @@ async function incrementFreeUserCount(supabase: SupabaseClient<Database>, userId
  * Använder OpenAI för att hitta läranderesurser och generera direkta länkar för ett specifikt kompetensgap.
  */
 async function findLearningResourcesForGap(gap: MissingSkill, language: string = 'sv'): Promise<LearningSuggestion[]> {
-    const modelToUse = "gpt-5-mini"; // Använder GPT-5-mini för kostnadseffektiv generering
+    const modelToUse = "gpt-5-mini-2025-08-07"; // Använder specifik GPT-5-mini snapshot
     const maxSuggestionsPerGap = 2; // Max 2 förslag per gap för bättre pedagogik
 
     const systemPrompt = `

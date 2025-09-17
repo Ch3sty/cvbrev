@@ -49,10 +49,12 @@ export function calculateOpenAICost(model: string, promptTokens: number, complet
     // Priser per 1 MILJON tokens (Uppdaterad 2025-09-15)
     // Hämta från https://openai.com/pricing
     const prices: { [key: string]: { input: number; output: number } } = {
-        // GPT-5 modeller (augusti 2025)
-        "gpt-5":                { input: 1.25,  output: 10.00 },
-        "gpt-5-mini":           { input: 0.25,  output: 1.00 },
-        "gpt-5-nano":           { input: 0.05,  output: 0.20 },
+        // GPT-5 modeller (augusti 2025) - Exakta priser från dokumentationen
+        "gpt-5":                { input: 1.25,  output: 10.00 },  // $1.25/$10.00 per 1M tokens
+        "gpt-5-2025-08-07":     { input: 1.25,  output: 10.00 },  // Specifik snapshot
+        "gpt-5-mini":           { input: 0.25,  output: 1.00 },   // Billigare variant
+        "gpt-5-mini-2025-08-07":{ input: 0.25,  output: 1.00 },   // Mini snapshot
+        "gpt-5-nano":           { input: 0.05,  output: 0.20 },   // Mest kostnadseffektiv
 
         // GPT-4 modeller
         "gpt-4o":               { input: 5.00,  output: 15.00 },

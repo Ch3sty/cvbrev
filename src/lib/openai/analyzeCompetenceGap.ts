@@ -52,7 +52,7 @@ export async function analyzeCompetenceGap(
 
     const { mode, cvText } = input;
     const truncatedCV = cvText.substring(0, 8000);
-    const modelToUse = "gpt-5"; // Använder GPT-5 för bättre prestanda
+    const modelToUse = "gpt-5-2025-08-07"; // Använder specifik GPT-5 snapshot för stabilitet
 
     // --- Dynamisk Promptkonstruktion ---
     let targetInfoPrompt: string;
@@ -110,12 +110,19 @@ export async function analyzeCompetenceGap(
                 { role: "system", content: systemPrompt },
                 { role: "user", content: `Här är CV:t som ska analyseras:\n\n${truncatedCV}` }
             ],
-            // GPT-5 kräver specifika parametrar
-            max_completion_tokens: 1800,
+            // GPT-5 parametrar enligt dokumentationen
+            max_completion_tokens: 2000, // Ökat för att säkerställa fullständiga svar
             response_format: { type: "json_object" }
         });
 
         content = completion.choices[0].message.content || '{}';
+
+        // Kontrollera om svaret är tomt
+        if (content === '{}' || content.trim() === '') {
+            console.error("OpenAI returnerade ett tomt svar. Försöker igen med fallback.");
+            throw new Error("Tomt svar från OpenAI GPT-5");
+        }
+
         console.log("Raw OpenAI Response (Step 1):", content.substring(0, 500) + "...");
 
         const parsedResult = JSON.parse(content);
