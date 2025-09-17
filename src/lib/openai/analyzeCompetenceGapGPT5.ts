@@ -107,7 +107,7 @@ export async function analyzeCompetenceGapGPT5(
 
   KRITISKT: Returnera ENDAST ren JSON utan kodblock eller förklaringar!
   Starta direkt med { och sluta med }
-  Ingen ```json``` eller annan text!`;
+  Ingen kodblock-markup eller annan text!`;
 
   try {
     console.log(`Starting GPT-5 competence analysis for target: ${targetDescriptionForOutput}`);
