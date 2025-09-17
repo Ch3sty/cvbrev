@@ -119,28 +119,49 @@ export async function createGPT5Response(params: GPT5ResponseParams): Promise<GP
 export function extractJSONFromGPT5Response(response: GPT5Response): any {
   const text = response.output_text || '';
 
+  if (!text) {
+    console.warn('GPT-5 response has no text content');
+    return null;
+  }
+
+  // Clean the text
+  let cleanText = text.trim();
+
   // Try to find JSON in code blocks first
-  const jsonMatch = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+  const jsonMatch = cleanText.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
   if (jsonMatch) {
     try {
       return JSON.parse(jsonMatch[1]);
     } catch (e) {
-      console.warn('Failed to parse JSON from code block:', e);
+      console.warn('Failed to parse JSON from code block');
     }
   }
 
   // Try to parse the entire text as JSON
   try {
-    return JSON.parse(text);
+    return JSON.parse(cleanText);
   } catch (e) {
-    // Try to find JSON-like structure in the text
-    const jsonStart = text.indexOf('{');
-    const jsonEnd = text.lastIndexOf('}');
-    if (jsonStart !== -1 && jsonEnd !== -1) {
+    // Try to find JSON array
+    const arrayStart = cleanText.indexOf('[');
+    const arrayEnd = cleanText.lastIndexOf(']');
+    if (arrayStart !== -1 && arrayEnd !== -1 && arrayStart < arrayEnd) {
       try {
-        return JSON.parse(text.substring(jsonStart, jsonEnd + 1));
+        const arrayText = cleanText.substring(arrayStart, arrayEnd + 1);
+        return JSON.parse(arrayText);
       } catch (e2) {
-        console.warn('Failed to extract JSON from response:', e2);
+        // Continue to object extraction
+      }
+    }
+
+    // Try to find JSON object
+    const jsonStart = cleanText.indexOf('{');
+    const jsonEnd = cleanText.lastIndexOf('}');
+    if (jsonStart !== -1 && jsonEnd !== -1 && jsonStart < jsonEnd) {
+      try {
+        const objText = cleanText.substring(jsonStart, jsonEnd + 1);
+        return JSON.parse(objText);
+      } catch (e3) {
+        console.warn('Failed to extract JSON from response. Text:', cleanText.substring(0, 200));
       }
     }
   }

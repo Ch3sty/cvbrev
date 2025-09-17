@@ -105,7 +105,9 @@ export async function analyzeCompetenceGapGPT5(
   {"skill": "Saknar YH-utbildning måleri", "importance": "essential", "reasoning": "Formell utbildning som ofta krävs av svenska arbetsgivare"}
   {"skill": "Saknar Heta Arbeten-certifikat", "importance": "essential", "reasoning": "Lagkrav för många målerijobb i Sverige"}
 
-  Returnera ENDAST JSON, ingen extra text!`;
+  KRITISKT: Returnera ENDAST ren JSON utan kodblock eller förklaringar!
+  Starta direkt med { och sluta med }
+  Ingen ```json``` eller annan text!`;
 
   try {
     console.log(`Starting GPT-5 competence analysis for target: ${targetDescriptionForOutput}`);
@@ -128,10 +130,8 @@ export async function analyzeCompetenceGapGPT5(
         effort: 'high' // Use high reasoning for complex analysis
       },
       text: {
-        verbosity: 'high', // Get comprehensive analysis
-        format: {
-          type: 'json' // Request JSON format
-        }
+        verbosity: 'high' // Get comprehensive analysis
+        // Note: GPT-5 doesn't support format.type='json', will extract JSON from text
       },
       max_output_tokens: 3000
     });
@@ -144,11 +144,16 @@ export async function analyzeCompetenceGapGPT5(
 
     console.log(`GPT-5 Response received. Output length: ${response.output_text?.length || 0}`);
 
+    // Debug: Log the actual response text
+    if (response.output_text) {
+      console.log('GPT-5 raw text (first 500 chars):', response.output_text.substring(0, 500));
+    }
+
     // Extract JSON from response
     const parsedResult = extractJSONFromGPT5Response(response);
 
     if (!parsedResult) {
-      console.error("Failed to extract JSON from GPT-5 response");
+      console.error("Failed to extract JSON from GPT-5 response. Raw text:", response.output_text);
       throw new Error("Invalid JSON response from GPT-5");
     }
 
@@ -256,7 +261,7 @@ export async function generateLearningSuggestionsGPT5(
     }
   ]
 
-  Ge 2-3 KONKRETA förslag. Var SPECIFIK!`;
+  Ge 2-3 KONKRETA förslag. Returnera ENDAST JSON-array, ingen annan text!`;
 
   try {
     const response = await createGPT5Response({
@@ -266,10 +271,8 @@ export async function generateLearningSuggestionsGPT5(
         effort: 'medium' // Medium reasoning is enough for course lookup
       },
       text: {
-        verbosity: 'medium',
-        format: {
-          type: 'json'
-        }
+        verbosity: 'medium'
+        // Note: GPT-5 doesn't support format.type='json', will extract JSON from text
       },
       max_output_tokens: 1500
     });
