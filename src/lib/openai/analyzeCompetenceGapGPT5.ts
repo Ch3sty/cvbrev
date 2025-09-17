@@ -23,7 +23,7 @@ export async function analyzeCompetenceGapGPT5(
 
   const { mode, cvText } = input;
   const truncatedCV = cvText.substring(0, 8000);
-  const modelToUse = "gpt-5-mini"; // Using gpt-5-mini for balance of cost and performance
+  const modelToUse = "gpt-5"; // Using full gpt-5 for best quality
 
   // Build target information
   let targetInfoPrompt: string;
@@ -48,58 +48,64 @@ export async function analyzeCompetenceGapGPT5(
   }
 
   // Build the comprehensive prompt with clear instructions
-  const systemPrompt = `Du är en expert karriärrådgivare och rekryterare med djup kunskap om den svenska arbetsmarknaden.
+  const systemPrompt = `Du är en SVENSK rekryteringsexpert som specialiserat dig på den svenska arbetsmarknaden.
 
   ${targetInfoPrompt}
 
-  Analysera följande CV:
+  Analysera följande CV noggrant:
   """
   ${truncatedCV}
   """
 
-  Gör följande analys och returnera resultatet som strukturerad JSON:
+  KRITISKT VIKTIGT för svenska yrken:
 
-  1. matchScore: Procentuell matchningspoäng (0-100) baserat på hur väl CV:t uppfyller målets krav
+  För MÅLARE måste du kontrollera:
+  - Målargesäll-certifikat (branschstandard)
+  - YH-utbildning inom måleri
+  - Heta Arbeten-certifikat (för vissa jobb)
+  - Asbestutbildning (för renovering)
+  - Ställningsbyggnad-certifikat
+  - B-körkort (ofta krav)
+  - ADR-certifikat (för hantering av farliga ämnen)
 
-  2. cvSummaryForTarget: En kort (2-3 meningar) bedömning av CV:ts styrkor och svagheter i relation till målet i Sverige
+  För FRONTEND UTVECKLARE måste du kontrollera:
+  - Formell högskoleutbildning inom IT/datateknik (ofta krav i Sverige)
+  - Kunskap om React, Angular eller Vue (branschstandard)
+  - TypeScript (nästan alltid krav idag)
+  - Git versionshantering
+  - Agile/Scrum-erfarenhet
+  - CI/CD pipeline-kunskap
+  - Testning (Jest, Cypress etc)
 
-  3. identifiedRelevantSkills: Lista 3-7 färdigheter från CV:t som är relevanta. Varje färdighet ska ha:
-     - skill: Färdighetens namn
-     - source_in_cv: Var i CV:t den hittades
-     - relevance_to_target: "high", "medium" eller "low"
+  För andra yrken, identifiera BRANSCHSPECIFIKA certifikat och formella krav!
 
-  4. identifiedSkillGaps: VIKTIGASTE STEGET - Lista kompetenser som saknas. Prioritera:
-     a) FÖRST: Essentiella svenska krav (formella utbildningar, licenser, certifikat som 1SO, legitimation, körkortsklass)
-        Ange dessa med importance: "essential"
-     b) SEDAN: Andra viktiga kompetenser som är önskvärda
-        Ange dessa med importance: "desirable"
+  Returnera JSON med följande struktur:
 
-     Varje gap ska ha:
-     - skill: Specifik beskrivning (t.ex. "Saknar B-körkort", "Saknar 1SO Behörighet Klass X")
-     - importance: "essential" eller "desirable"
-     - reasoning: Kort motivering varför det är ett gap för rollen i Sverige
+  1. matchScore: 0-100 (var REALISTISK - om personen saknar grundläggande formell utbildning/certifikat ska poängen vara LÅG)
 
-  VIKTIGT: Var MYCKET specifik med svenska formella krav och certifieringar.
+  2. cvSummaryForTarget: KRITISK bedömning av vad som saknas för svensk arbetsmarknad
 
-  Returnera ENDAST giltig JSON i följande format:
-  {
-    "matchScore": number,
-    "cvSummaryForTarget": string,
-    "identifiedRelevantSkills": [
-      {
-        "skill": string,
-        "source_in_cv": string,
-        "relevance_to_target": "high" | "medium" | "low"
-      }
-    ],
-    "identifiedSkillGaps": [
-      {
-        "skill": string,
-        "importance": "essential" | "desirable",
-        "reasoning": string
-      }
-    ]
-  }`;
+  3. identifiedRelevantSkills: Max 7 relevanta färdigheter med:
+     - skill: Exakt färdighet
+     - source_in_cv: Var den nämns i CV:t
+     - relevance_to_target: "high"/"medium"/"low"
+
+  4. identifiedSkillGaps: MINST 5-8 gap där du MÅSTE inkludera:
+     a) ALLA formella utbildningar/certifikat som saknas (importance: "essential")
+     b) Tekniska färdigheter som saknas (importance: "essential" eller "desirable")
+     c) Branschspecifika krav som saknas
+
+     Format:
+     - skill: "Saknar [SPECIFIKT CERTIFIKAT/UTBILDNING]"
+     - importance: "essential" för formella krav, "desirable" för önskvärda
+     - reasoning: Förklara VARFÖR detta krävs i Sverige
+
+  Exempel på gap för målare:
+  {"skill": "Saknar Målargesäll-certifikat", "importance": "essential", "reasoning": "Branschstandard i Sverige för kvalificerade målare"}
+  {"skill": "Saknar YH-utbildning måleri", "importance": "essential", "reasoning": "Formell utbildning som ofta krävs av svenska arbetsgivare"}
+  {"skill": "Saknar Heta Arbeten-certifikat", "importance": "essential", "reasoning": "Lagkrav för många målerijobb i Sverige"}
+
+  Returnera ENDAST JSON, ingen extra text!`;
 
   try {
     console.log(`Starting GPT-5 competence analysis for target: ${targetDescriptionForOutput}`);
@@ -127,7 +133,7 @@ export async function analyzeCompetenceGapGPT5(
           type: 'json' // Request JSON format
         }
       },
-      max_completion_tokens: 3000
+      max_output_tokens: 3000
     });
 
     // Race between request and timeout
@@ -195,36 +201,66 @@ export async function generateLearningSuggestionsGPT5(
   targetRole: string
 ): Promise<any[]> {
 
-  const prompt = `Du är en svensk utbildningsexpert. Hitta konkreta kurser och utbildningar för följande kompetensgap:
+  const prompt = `Du är en svensk utbildningsexpert. Hitta EXAKTA kurser för:
 
   Gap: ${gap.skill}
-  Viktighet: ${gap.importance === 'essential' ? 'ESSENTIELL - obligatorisk för rollen' : 'Önskvärd'}
-  Anledning: ${gap.reasoning}
+  Viktighet: ${gap.importance === 'essential' ? 'OBLIGATORISK' : 'Önskvärd'}
   Målroll: ${targetRole}
 
-  Sök efter RIKTIGA kurser som finns i Sverige. Prioritera:
-  1. AMF-kurser, Folkuniversitetet, Lernia för yrkesutbildningar
-  2. Coursera, Udemy, LinkedIn Learning för tekniska färdigheter
-  3. Svenska universitet och högskolor för formella utbildningar
-  4. Branschspecifika certifieringsorganisationer
+  SVENSKA UTBILDNINGSANORDNARE (använd dessa):
 
-  För varje förslag, ge:
-  - type: "course", "certification", "self-study" eller "project"
-  - title: Kursnamn eller certifiering
-  - provider: Utbildningsanordnare
-  - relevance: Varför detta löser gapet
-  - search_keywords: Sökord för att hitta kursen
-  - direct_url: Om möjligt, direktlänk (börja söka på kända plattformar)
-  - duration: Uppskattad tidsåtgång
-  - cost: Uppskattad kostnad (eller "Gratis")
-  - priority: "essential" för måste-ha, "recommended" för bör-ha
-  - language: "sv" för svenska, "en" för engelska
+  För CERTIFIKAT:
+  - Måleriyrkets våtrum (MVK) - våtrumscertifikat
+  - Målarmästarna - Målargesäll-certifikat
+  - BYN (Byggbranschens Yrkesnämnd) - ID06, APU-handledare
+  - Svenska Brand- och Säkerhetscertifiering - Heta Arbeten
+  - Prevent - Asbestutbildning
+  - TYA - Ställningsbyggnad
+  - Transportstyrelsen - ADR-certifikat
+  - SSG - SSG Entre Säker
 
-  Returnera ENDAST en JSON-array med 2-3 konkreta förslag.`;
+  För YRKESUTBILDNING:
+  - Lernia - YH-utbildningar, yrkesutbildningar
+  - Hermods - Yrkesutbildningar, distans
+  - Arbetsförmedlingen - Yrkesväxling, bristyrkesutbildningar
+  - Komvux - Gymnasiala yrkeskurser
+  - Folkuniversitetet - Yrkeskurser
+  - Medborgarskolan - Korta yrkeskurser
+
+  För IT/TEKNIK:
+  - Chas Academy - Fullstack, Frontend bootcamp (12 veckor)
+  - </salt> - JavaScript bootcamp (3 månader)
+  - Technigo - Frontend bootcamp (24 veckor)
+  - KTH Executive School - Kortare IT-kurser
+  - Nackademin - YH-utbildningar IT
+  - EC Utbildning - .NET utvecklare, Java utvecklare
+
+  ONLINE (för tekniska färdigheter):
+  - Pluralsight - Tekniska kurser
+  - Frontend Masters - JavaScript/React specialisering
+  - Udemy Business - Företagslicenser
+
+  Returnera en JSON-array med EXAKT denna struktur:
+  [
+    {
+      "type": "certification" eller "course",
+      "title": "EXAKT kursnamn som finns",
+      "provider": "EXAKT anordnare från listan ovan",
+      "relevance": "Hur detta löser gapet",
+      "search_keywords": ["sökord1", "sökord2"],
+      "direct_url": "https://... om du vet",
+      "duration": "2 dagar" eller "12 veckor" etc,
+      "cost": "3500 kr" eller "Gratis via Arbetsförmedlingen",
+      "priority": "essential" eller "recommended",
+      "language": "sv" eller "en"
+    }
+  ]
+
+  Ge 2-3 KONKRETA förslag. Var SPECIFIK!`;
 
   try {
     const response = await createGPT5Response({
-      model: 'gpt-5-nano', // Use nano for faster, cheaper course suggestions
+      model: 'gpt-5-mini', // Use mini for better course suggestions
       input: prompt,
       reasoning: {
         effort: 'medium' // Medium reasoning is enough for course lookup
@@ -235,7 +271,7 @@ export async function generateLearningSuggestionsGPT5(
           type: 'json'
         }
       },
-      max_completion_tokens: 1500
+      max_output_tokens: 1500
     });
 
     const suggestions = extractJSONFromGPT5Response(response);

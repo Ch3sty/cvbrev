@@ -40,7 +40,7 @@ export interface GPT5ResponseParams {
     mode: 'auto' | 'required';
     tools: Array<{ type: string; name: string }>;
   };
-  max_completion_tokens?: number;
+  max_output_tokens?: number;
   previous_response_id?: string;
 }
 
@@ -72,13 +72,19 @@ export async function createGPT5Response(params: GPT5ResponseParams): Promise<GP
     throw new Error('OPENAI_API_KEY not configured');
   }
 
+  // Fix parameter name: max_completion_tokens -> max_output_tokens
+  const requestParams = { ...params };
+  if ('max_completion_tokens' in requestParams) {
+    delete (requestParams as any).max_completion_tokens;
+  }
+
   const response = await fetch('https://api.openai.com/v1/responses', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${apiKey}`,
     },
-    body: JSON.stringify(params),
+    body: JSON.stringify(requestParams),
   });
 
   if (!response.ok) {
@@ -92,9 +98,10 @@ export async function createGPT5Response(params: GPT5ResponseParams): Promise<GP
   let output_text = '';
   if (data.output && Array.isArray(data.output)) {
     for (const item of data.output) {
-      if (item.content && Array.isArray(item.content)) {
+      // Look for message type items
+      if (item.type === 'message' && item.content && Array.isArray(item.content)) {
         for (const content of item.content) {
-          if (content.text) {
+          if (content.type === 'text' && content.text) {
             output_text += content.text;
           }
         }
