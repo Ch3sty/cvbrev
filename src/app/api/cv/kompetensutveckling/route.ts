@@ -231,7 +231,7 @@ async function findLearningResourcesForGap(gap: MissingSkill, language: string =
         const completion = await openai.chat.completions.create({
             model: modelToUse,
             messages: [ { role: "system", content: systemPrompt }, { role: "user", content: userPrompt } ],
-            temperature: 0.5, // Lite lägre temp för precision
+            // temperature: 1.0 är default för GPT-5-mini (enda tillåtna värdet)
             max_completion_tokens: 500, // GPT-5 använder max_completion_tokens
             response_format: { type: "json_object" }
          });
