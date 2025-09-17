@@ -94,6 +94,11 @@ export async function createGPT5Response(params: GPT5ResponseParams): Promise<GP
 
   const data = await response.json();
 
+  // Debug: Log the full response structure
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('GPT-5 API Response structure:', JSON.stringify(data.output?.slice(0, 2), null, 2));
+  }
+
   // Extract text from output for convenience
   let output_text = '';
   if (data.output && Array.isArray(data.output)) {
@@ -105,6 +110,9 @@ export async function createGPT5Response(params: GPT5ResponseParams): Promise<GP
             output_text += content.text;
           }
         }
+      } else if (item.content && typeof item.content === 'string') {
+        // Sometimes content might be a direct string
+        output_text += item.content;
       }
     }
   }
