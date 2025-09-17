@@ -141,20 +141,26 @@ export function extractJSONFromGPT5Response(response: GPT5Response): any {
   // Clean the text
   const cleanText = text.trim();
 
+  // Log for debugging
+  console.log('Attempting to parse GPT-5 response, length:', cleanText.length);
+
   // Try to find JSON in code blocks first
   const jsonMatch = cleanText.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
   if (jsonMatch) {
     try {
       return JSON.parse(jsonMatch[1]);
     } catch (e) {
-      console.warn('Failed to parse JSON from code block');
+      console.warn('Failed to parse JSON from code block:', e);
     }
   }
 
   // Try to parse the entire text as JSON
   try {
-    return JSON.parse(cleanText);
+    const parsed = JSON.parse(cleanText);
+    console.log('Successfully parsed complete JSON');
+    return parsed;
   } catch (e) {
+    console.warn('Failed to parse as complete JSON, trying to extract:', e);
     // Try to find JSON array
     const arrayStart = cleanText.indexOf('[');
     const arrayEnd = cleanText.lastIndexOf(']');

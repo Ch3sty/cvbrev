@@ -189,9 +189,14 @@ export async function analyzeCompetenceGapGPT5(
     const parsedResult = extractJSONFromGPT5Response(response);
 
     if (!parsedResult) {
-      console.error("Failed to extract JSON from GPT-5 response. Raw text:", response.output_text);
+      console.error("Failed to extract JSON from GPT-5 response. Raw text length:", response.output_text?.length);
+      console.error("Full raw text:", response.output_text);
       throw new Error("Invalid JSON response from GPT-5");
     }
+
+    // Additional logging to debug the parsed result
+    console.log('Parsed result keys:', Object.keys(parsedResult));
+    console.log('identifiedSkillGaps count:', parsedResult.identifiedSkillGaps?.length || 0);
 
     // Calculate cost
     const usage = response.usage;
@@ -203,14 +208,14 @@ export async function analyzeCompetenceGapGPT5(
 
     console.log(`GPT-5 Usage: Input=${usage.input_tokens}, Output=${usage.output_tokens}, Cost=$${calculatedCost.toFixed(4)}`);
 
-    // Build result
+    // Build result with better error handling
     const finalResult: CompetenceAnalysisResult = {
       analysisType: 'competence',
       targetDescription: targetDescriptionForOutput,
       matchScore: typeof parsedResult.matchScore === 'number' ? parsedResult.matchScore : null,
       cvSummaryForTarget: parsedResult.cvSummaryForTarget || "Sammanfattning kunde inte genereras.",
-      identifiedRelevantSkills: parsedResult.identifiedRelevantSkills || [],
-      identifiedSkillGaps: parsedResult.identifiedSkillGaps || [],
+      identifiedRelevantSkills: Array.isArray(parsedResult.identifiedRelevantSkills) ? parsedResult.identifiedRelevantSkills : [],
+      identifiedSkillGaps: Array.isArray(parsedResult.identifiedSkillGaps) ? parsedResult.identifiedSkillGaps : [],
       model: modelToUse,
       tokens: {
         prompt: usage.input_tokens,
@@ -219,6 +224,12 @@ export async function analyzeCompetenceGapGPT5(
       },
       cost: calculatedCost
     };
+
+    // Log if we're missing critical data
+    if (!Array.isArray(parsedResult.identifiedSkillGaps) || parsedResult.identifiedSkillGaps.length === 0) {
+      console.warn('WARNING: No skill gaps identified in GPT-5 response. Check if response format is correct.');
+      console.warn('Parsed result structure:', JSON.stringify(parsedResult, null, 2).substring(0, 500));
+    }
 
     console.log(`GPT-5 analysis successful. Score: ${finalResult.matchScore}%. Gaps: ${finalResult.identifiedSkillGaps.length}`);
 
