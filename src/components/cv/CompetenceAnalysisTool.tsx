@@ -144,17 +144,22 @@ const CompetenceAnalysisTool: React.FC<CompetenceAnalysisToolProps> = ({
             '📊 Beräknar matchningspoäng...',
             '💡 Identifierar utvecklingsområden...',
             '🎓 Söker efter relevanta kurser...',
-            '✨ Nästan klar...'
+            '✨ Nästan klar...',
+            '⏳ Tar lite extra tid...',
+            '🔄 Bearbetar information...',
+            '⚡ Snart där...'
         ];
 
         let messageIndex = 0;
         showNotification('loading', loadingMessages[0]);
 
-        // Uppdatera meddelandet var 3:e sekund
+        // Uppdatera meddelandet var 3:e sekund, men sluta loopa efter alla meddelanden
         const messageInterval = setInterval(() => {
-            messageIndex = (messageIndex + 1) % loadingMessages.length;
-            showNotification('loading', loadingMessages[messageIndex], null);
-        }, 3000);
+            if (messageIndex < loadingMessages.length - 1) {
+                messageIndex++;
+                showNotification('loading', loadingMessages[messageIndex], null);
+            }
+        }, 3500);
 
         const requestBody: any = { cvId: selectedCvId, analysisMode };
         if (analysisMode === 'role') requestBody.targetRole = targetRole;

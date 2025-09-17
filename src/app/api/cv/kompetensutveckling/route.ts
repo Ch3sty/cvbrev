@@ -179,7 +179,7 @@ async function incrementFreeUserCount(supabase: SupabaseClient<Database>, userId
  * Använder OpenAI för att hitta läranderesurser och generera direkta länkar för ett specifikt kompetensgap.
  */
 async function findLearningResourcesForGap(gap: MissingSkill, language: string = 'sv'): Promise<LearningSuggestion[]> {
-    const modelToUse = "gpt-5-mini"; // Använder standard GPT-5-mini för bättre tillgänglighet
+    const modelToUse = "gpt-4o-mini"; // Använder GPT-4o-mini som fungerar tillförlitligt
     const maxSuggestionsPerGap = 2; // Max 2 förslag per gap för bättre pedagogik
 
     const systemPrompt = `
@@ -222,8 +222,9 @@ async function findLearningResourcesForGap(gap: MissingSkill, language: string =
         const completionPromise = openai.chat.completions.create({
             model: modelToUse,
             messages: [ { role: "system", content: systemPrompt }, { role: "user", content: userPrompt } ],
-            // GPT-5-mini med Structured Outputs
-            max_completion_tokens: 800, // Fullständiga kursförslag
+            // GPT-4o-mini med Structured Outputs
+            temperature: 0.5, // Balanserad temperatur
+            max_tokens: 800, // GPT-4o-mini använder max_tokens
             response_format: {
                 type: "json_schema",
                 json_schema: {
