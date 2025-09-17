@@ -12,6 +12,9 @@ import {
     Lock, ArrowRight, ThumbsUp, ClipboardList, Clock, Coins, ExternalLink, Star
 } from 'lucide-react';
 
+// --- Components ---
+import LearningPathTimeline from './LearningPathTimeline';
+
 // --- Type Definitions ---
 import {
     CompetenceAnalysisResult as InitialCompetenceAnalysisResult,
@@ -250,6 +253,7 @@ const CompetenceAnalysisDisplay: React.FC<CompetenceAnalysisDisplayProps> = Reac
 
     // --- Render Main Analysis Content ---
     return (
+        <>
         <div className="space-y-4 animate-fadeIn"> {/* Minskad space-y */}
 
             {/* --- Analysmål --- */}
@@ -312,6 +316,16 @@ const CompetenceAnalysisDisplay: React.FC<CompetenceAnalysisDisplayProps> = Reac
             </AnalysisSection>
 
         </div>
+
+        {/* --- Lärandeväg Timeline (Full width below) --- */}
+        {data?.suggestedLearningPath && data.suggestedLearningPath.length > 0 && (
+            <LearningPathTimeline
+                suggestions={data.suggestedLearningPath}
+                targetRole={data.targetDescription.replace('Yrkesroll: ', '').replace(' i Sverige', '')}
+                className="mt-8"
+            />
+        )}
+        </>
     );
 });
 CompetenceAnalysisDisplay.displayName = 'CompetenceAnalysisDisplay';

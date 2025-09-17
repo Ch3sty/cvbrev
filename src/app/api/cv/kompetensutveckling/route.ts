@@ -489,41 +489,52 @@ export async function POST(request: NextRequest) {
             console.log(`--- DEBUG POST (Step 2): Found ${gapsToProcess.length} gaps to process. Processing in order (essential first).`);
 
             // Begränsa antalet gap som processas för att undvika timeout
-            // Ta bara 1 essentiellt gap för att garantera att vi hinner
+            // Ta 3 essentiella gap för att ge användaren tillräckligt med vägledning
             const essentialGaps = gapsToProcess.filter(g => g.importance === 'essential');
             const desirableGaps = gapsToProcess.filter(g => g.importance === 'desirable');
-            const gapsToProcessLimited = [...essentialGaps.slice(0, 1)]; // Max 1 gap för säkerhet
+            const gapsToProcessLimited = [...essentialGaps.slice(0, 3)]; // Processa 3 essentiella gap för bättre vägledning
 
-            console.log(`--- DEBUG POST (Step 2): Processing ${gapsToProcessLimited.length} of ${gapsToProcess.length} gaps to avoid timeout.`);
+            console.log(`--- DEBUG POST (Step 2): Processing ${gapsToProcessLimited.length} of ${gapsToProcess.length} gaps for comprehensive guidance.`);
 
-            // Process gaps - since we only have 1 gap, no need for parallel
-            for (const gap of gapsToProcessLimited) {
+            // Process gaps in parallel for better performance
+            const targetRole = analysisInputForStep1.mode === 'role'
+                ? analysisInputForStep1.targetRole
+                : 'Jobbannons';
+
+            console.log(`--- DEBUG POST (Step 2): Starting parallel processing of ${gapsToProcessLimited.length} gaps`);
+
+            // Use Promise.all for parallel processing
+            const suggestionPromises = gapsToProcessLimited.map(async (gap) => {
                 try {
-                    const targetRole = analysisInputForStep1.mode === 'role'
-                        ? analysisInputForStep1.targetRole
-                        : 'Jobbannons';
-
                     // Use GPT-5 for better suggestions
                     let suggestions: LearningSuggestion[] = [];
                     try {
                         suggestions = await generateLearningSuggestionsGPT5(gap, targetRole);
-                        console.log(`--- DEBUG: Used GPT-5 for suggestions (better quality)`);
+                        console.log(`--- DEBUG: Used GPT-5 for suggestions for gap "${gap.skill}" (better quality)`);
                     } catch (gpt5Err) {
-                        console.error(`--- DEBUG: GPT-5 failed for suggestions, trying GPT-4:`, gpt5Err);
+                        console.error(`--- DEBUG: GPT-5 failed for gap "${gap.skill}", trying GPT-4:`, gpt5Err);
                         try {
                             suggestions = await findLearningResourcesForGapOld(gap, 'sv');
-                            console.log(`--- DEBUG: Used GPT-4 fallback for suggestions`);
+                            console.log(`--- DEBUG: Used GPT-4 fallback for gap "${gap.skill}"`);
                         } catch (err) {
-                            console.error(`--- DEBUG: GPT-4 also failed:`, err);
+                            console.error(`--- DEBUG: GPT-4 also failed for gap "${gap.skill}":`, err);
                             suggestions = [];
                         }
                     }
-
-                    allGeneratedSuggestions.push(...suggestions);
                     console.log(`--- DEBUG POST (Step 2): Processed gap "${gap.skill}", got ${suggestions.length} suggestions`);
+                    return suggestions;
                 } catch (err) {
                     console.error(`--- ERROR POST (Step 2): Failed for gap "${gap.skill}":`, err);
+                    return [];
                 }
+            });
+
+            // Wait for all suggestions to complete
+            const allSuggestionsArrays = await Promise.all(suggestionPromises);
+
+            // Flatten the array of arrays into a single array
+            for (const suggestions of allSuggestionsArrays) {
+                allGeneratedSuggestions.push(...suggestions);
             }
 
             console.log(`--- DEBUG POST (Step 2): Resource finding complete. Generated ${allGeneratedSuggestions.length} suggestions with search keywords.`);

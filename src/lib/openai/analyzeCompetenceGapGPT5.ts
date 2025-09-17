@@ -112,9 +112,9 @@ export async function analyzeCompetenceGapGPT5(
   try {
     console.log(`Starting GPT-5 competence analysis for target: ${targetDescriptionForOutput}`);
 
-    // Create timeout promise - 35s to give GPT-5 enough time
+    // Create timeout promise - 40s to give GPT-5 enough time for comprehensive analysis
     const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('GPT-5 request timeout after 35s')), 35000)
+      setTimeout(() => reject(new Error('GPT-5 request timeout after 40s')), 40000)
     );
 
     // Make GPT-5 API call using instructions + input pattern
@@ -242,67 +242,54 @@ export async function generateLearningSuggestionsGPT5(
   targetRole: string
 ): Promise<any[]> {
 
-  const prompt = `Du är en svensk utbildningsexpert. Hitta EXAKTA kurser för:
+  const prompt = `Du är en svensk utbildningsexpert med tillgång till webben. SÖK AKTIVT efter AKTUELLA kurser för:
 
   Gap: ${gap.skill}
-  Viktighet: ${gap.importance === 'essential' ? 'OBLIGATORISK' : 'Önskvärd'}
+  Viktighet: ${gap.importance === 'essential' ? 'OBLIGATORISK för yrket' : 'Önskvärd kompetens'}
   Målroll: ${targetRole}
+  År: 2025
 
-  SVENSKA UTBILDNINGSANORDNARE (använd dessa):
+  INSTRUKTIONER:
+  1. SÖK PÅ WEBBEN efter kurser som startar 2025
+  2. Hitta DIREKTLÄNKAR till ansökningssidor
+  3. Prioritera dessa källor:
+     - arbetsformedlingen.se/utbildning
+     - yrkeshogskolan.se
+     - komvux.se
+     - Branschspecifika certifieringsorgan
 
-  För CERTIFIKAT:
-  - Måleriyrkets våtrum (MVK) - våtrumscertifikat
-  - Målarmästarna - Målargesäll-certifikat
-  - BYN (Byggbranschens Yrkesnämnd) - ID06, APU-handledare
-  - Svenska Brand- och Säkerhetscertifiering - Heta Arbeten
-  - Prevent - Asbestutbildning
-  - TYA - Ställningsbyggnad
-  - Transportstyrelsen - ADR-certifikat
-  - SSG - SSG Entre Säker
+  För varje kurs, INKLUDERA:
+  - DIREKTLÄNK till ansökningssidan (inte bara huvudsidan)
+  - Nästa startdatum (t.ex. "Mars 2025")
+  - Ansökningsdeadline
+  - Exakt kostnad eller "Kostnadsfri via Arbetsförmedlingen"
+  - Studietakt (heltid/deltid/distans)
+  - Kontaktuppgifter till utbildningsanordnaren
 
-  För YRKESUTBILDNING:
-  - Lernia - YH-utbildningar, yrkesutbildningar
-  - Hermods - Yrkesutbildningar, distans
-  - Arbetsförmedlingen - Yrkesväxling, bristyrkesutbildningar
-  - Komvux - Gymnasiala yrkeskurser
-  - Folkuniversitetet - Yrkeskurser
-  - Medborgarskolan - Korta yrkeskurser
+  EXEMPEL PÅ BRA SVAR:
+  {
+    "type": "certification",
+    "title": "HLR-instruktör",
+    "provider": "Svenska HLR-rådet",
+    "relevance": "Grundläggande certifikat för vårdpersonal",
+    "search_keywords": ["HLR", "instruktör", "certifikat"],
+    "direct_url": "https://www.hlr.nu/utbildning/hlr-instruktor",
+    "duration": "3 dagar",
+    "cost": "7500 kr",
+    "start_date": "15 mars 2025",
+    "application_deadline": "1 mars 2025",
+    "study_format": "Närundervisning i Stockholm",
+    "contact": "utbildning@hlr.nu, 08-123 456",
+    "priority": "essential",
+    "language": "sv"
+  }
 
-  För IT/TEKNIK:
-  - Chas Academy - Fullstack, Frontend bootcamp (12 veckor)
-  - </salt> - JavaScript bootcamp (3 månader)
-  - Technigo - Frontend bootcamp (24 veckor)
-  - KTH Executive School - Kortare IT-kurser
-  - Nackademin - YH-utbildningar IT
-  - EC Utbildning - .NET utvecklare, Java utvecklare
-
-  ONLINE (för tekniska färdigheter):
-  - Pluralsight - Tekniska kurser
-  - Frontend Masters - JavaScript/React specialisering
-  - Udemy Business - Företagslicenser
-
-  Returnera en JSON-array med EXAKT denna struktur:
-  [
-    {
-      "type": "certification" eller "course",
-      "title": "EXAKT kursnamn som finns",
-      "provider": "EXAKT anordnare från listan ovan",
-      "relevance": "Hur detta löser gapet",
-      "search_keywords": ["sökord1", "sökord2"],
-      "direct_url": "https://... om du vet",
-      "duration": "2 dagar" eller "12 veckor" etc,
-      "cost": "3500 kr" eller "Gratis via Arbetsförmedlingen",
-      "priority": "essential" eller "recommended",
-      "language": "sv" eller "en"
-    }
-  ]
-
-  Ge 2-3 KONKRETA förslag. Returnera ENDAST JSON-array, ingen annan text!`;
+  SÖK WEBBEN och returnera 2 KONKRETA kurser med DIREKTLÄNKAR!`;
 
   try {
-    // Add timeout for course suggestions to prevent hanging
+    // Add timeout for course suggestions - increased for web search
     const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('GPT-5 course suggestion timeout after 15s')), 15000)
+      setTimeout(() => reject(new Error('GPT-5 course suggestion timeout after 20s')), 20000)
     );
 
     const responsePromise = createGPT5Response({
@@ -310,7 +297,7 @@ export async function generateLearningSuggestionsGPT5(
       instructions: prompt,
       input: `Hitta kurser för: ${gap.skill}`,
       reasoning: {
-        effort: 'minimal' // Minimal reasoning for course lookup
+        effort: 'medium' // Medium effort for better web search results
       },
       text: {
         verbosity: 'low', // Low verbosity for faster response
@@ -335,7 +322,11 @@ export async function generateLearningSuggestionsGPT5(
                     duration: { type: 'string' },
                     cost: { type: 'string' },
                     priority: { type: 'string', enum: ['essential', 'recommended', 'optional'] },
-                    language: { type: 'string', enum: ['sv', 'en', 'other'] }
+                    language: { type: 'string', enum: ['sv', 'en', 'other'] },
+                    start_date: { type: 'string' },
+                    application_deadline: { type: 'string' },
+                    study_format: { type: 'string' },
+                    contact: { type: 'string' }
                   },
                   required: ['type', 'title', 'provider', 'relevance', 'search_keywords', 'direct_url', 'duration', 'cost', 'priority', 'language'],
                   additionalProperties: false
@@ -347,7 +338,7 @@ export async function generateLearningSuggestionsGPT5(
           }
         }
       },
-      max_output_tokens: 1000, // Reduced for speed with nano model
+      max_output_tokens: 2000, // Increased for more detailed results with links
       store: false
     });
 
