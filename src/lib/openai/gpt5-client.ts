@@ -104,9 +104,24 @@ export async function createGPT5Response(params: GPT5ResponseParams): Promise<GP
     console.log('GPT-5 API Response structure:', JSON.stringify(data.output?.slice(0, 2), null, 2));
   }
 
-  // Extract text from output for convenience
+  // Extract text from output - handle both text and JSON schema responses
   let output_text = '';
-  if (data.output && Array.isArray(data.output)) {
+
+  // When using JSON schema, the response is directly in the output
+  if (params.text?.format?.type === 'json_schema') {
+    // For structured outputs, GPT-5 returns the JSON directly in data
+    // It might be in data.output as a string or as the parsed object
+    if (typeof data.output === 'string') {
+      output_text = data.output;
+    } else if (data.output && typeof data.output === 'object') {
+      // If it's already parsed, stringify it
+      output_text = JSON.stringify(data.output);
+    } else if (data.content) {
+      // Sometimes it's in content field
+      output_text = typeof data.content === 'string' ? data.content : JSON.stringify(data.content);
+    }
+  } else if (data.output && Array.isArray(data.output)) {
+    // Regular text response handling
     for (const item of data.output) {
       // Look for message type items
       if (item.type === 'message' && item.content && Array.isArray(item.content)) {
@@ -121,6 +136,17 @@ export async function createGPT5Response(params: GPT5ResponseParams): Promise<GP
         output_text += item.content;
       }
     }
+  }
+
+  // Debug logging for structured outputs
+  if (params.text?.format?.type === 'json_schema' && !output_text) {
+    console.warn('GPT-5 JSON schema response - checking all fields:', {
+      hasOutput: !!data.output,
+      outputType: typeof data.output,
+      hasContent: !!data.content,
+      contentType: typeof data.content,
+      dataKeys: Object.keys(data)
+    });
   }
 
   return {
