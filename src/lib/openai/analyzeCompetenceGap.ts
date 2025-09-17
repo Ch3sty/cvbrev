@@ -52,7 +52,7 @@ export async function analyzeCompetenceGap(
 
     const { mode, cvText } = input;
     const truncatedCV = cvText.substring(0, 8000);
-    const modelToUse = "gpt-5"; // Uppgraderat till GPT-5 för bättre prestanda och lägre kostnad
+    const modelToUse = "gpt-4o-mini"; // Använder GPT-4o-mini för bästa balans mellan kostnad och kvalitet
 
     // --- Dynamisk Promptkonstruktion ---
     let targetInfoPrompt: string;
@@ -110,8 +110,8 @@ export async function analyzeCompetenceGap(
                 { role: "system", content: systemPrompt },
                 { role: "user", content: `Här är CV:t som ska analyseras:\n\n${truncatedCV}` }
             ],
-            // temperature: 1.0 är default för GPT-5 (enda tillåtna värdet)
-            max_completion_tokens: 1800, // GPT-5 använder max_completion_tokens
+            temperature: 0.4, // Låg temperatur för konsistenta resultat
+            max_tokens: 1800, // GPT-4o-mini använder max_tokens
             response_format: { type: "json_object" }
         });
 
