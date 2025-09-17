@@ -186,21 +186,6 @@ async function findLearningResourcesForGap(gap: MissingSkill, language: string =
         Du är expert på svenska arbetsmarknaden och yrkesutbildningar.
         För varje kompetensgap, returnera MAX ${maxSuggestionsPerGap} KONKRETA kursförslag.
 
-        Svara ALLTID med JSON: {"suggestions": [{...}]}.
-        Varje objekt MÅSTE följa strukturen:
-        {
-            "type": "'course' | 'certification' | 'self-study' | 'project'",
-            "title": "Exakt kursnamn eller certifieringsnamn",
-            "provider": "Specifik leverantör (t.ex. Arbetsförmedlingen, Lernia, BYN, Brandskyddsföreningen)",
-            "relevance": "Kort förklaring varför detta krävs för yrket i Sverige",
-            "search_keywords": ["Exakta söktermer för att hitta kursen"],
-            "direct_url": "Om känd, annars null",
-            "duration": "Kurslängd (t.ex. '2 veckor', '3 månader')",
-            "cost": "Kostnad (t.ex. 'Gratis', '15 000 kr', 'Ca 5 000 kr')",
-            "priority": "'essential' | 'recommended' | 'optional'",
-            "language": "'sv' | 'en'"
-        }
-
         VIKTIGA REGLER:
         1. Prioritera Arbetsförmedlingens kurser (ofta gratis)
         2. För yrkescertifikat: Ange ALLTID branschorganisationen
@@ -231,9 +216,73 @@ async function findLearningResourcesForGap(gap: MissingSkill, language: string =
         const completion = await openai.chat.completions.create({
             model: modelToUse,
             messages: [ { role: "system", content: systemPrompt }, { role: "user", content: userPrompt } ],
-            // GPT-5-mini kräver specifika parametrar
-            max_completion_tokens: 500,
-            response_format: { type: "json_object" }
+            // GPT-5-mini med Structured Outputs
+            max_completion_tokens: 800,
+            response_format: {
+                type: "json_schema",
+                json_schema: {
+                    strict: true,
+                    name: "learning_suggestions",
+                    schema: {
+                        type: "object",
+                        properties: {
+                            suggestions: {
+                                type: "array",
+                                items: {
+                                    type: "object",
+                                    properties: {
+                                        type: {
+                                            type: "string",
+                                            enum: ["course", "certification", "self-study", "project"]
+                                        },
+                                        title: {
+                                            type: "string",
+                                            description: "Exakt kursnamn"
+                                        },
+                                        provider: {
+                                            type: ["string", "null"],
+                                            description: "Leverantör eller plattform"
+                                        },
+                                        relevance: {
+                                            type: "string",
+                                            description: "Förklaring av relevans"
+                                        },
+                                        search_keywords: {
+                                            type: "array",
+                                            items: { type: "string" },
+                                            description: "Söktermer för att hitta kursen"
+                                        },
+                                        direct_url: {
+                                            type: ["string", "null"],
+                                            description: "Direktlänk om känd"
+                                        },
+                                        duration: {
+                                            type: ["string", "null"],
+                                            description: "Kurslängd"
+                                        },
+                                        cost: {
+                                            type: ["string", "null"],
+                                            description: "Kostnad"
+                                        },
+                                        priority: {
+                                            type: "string",
+                                            enum: ["essential", "recommended", "optional"]
+                                        },
+                                        language: {
+                                            type: "string",
+                                            enum: ["sv", "en", "other"]
+                                        }
+                                    },
+                                    required: ["type", "title", "relevance", "search_keywords", "priority", "language"],
+                                    additionalProperties: false
+                                }
+                            }
+                        },
+                        required: ["suggestions"],
+                        additionalProperties: false
+                    }
+                }
+            }
          });
 
         const content = completion.choices[0].message.content;

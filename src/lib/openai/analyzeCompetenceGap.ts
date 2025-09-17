@@ -82,21 +82,6 @@ export async function analyzeCompetenceGap(
             a.  **Prioritera Essentiella Svenska Krav:** Identifiera FÖRST de kompetenser, erfarenheter, **formella utbildningar, licenser, certifikat eller behörigheter (t.ex. 1SO, legitimation, körkortsklass)** som är **absolut nödvändiga ('essential')** för att kunna arbeta i yrkesrollen **i Sverige**, men som saknas i CV:t. Var specifik (t.ex. "Saknar B-körkort", "Saknar Sjuksköterskelegitimation", "Saknar 1SO Behörighet Klass X").
             b.  **Identifiera Övriga Gap:** Lista därefter 2-4 andra viktiga kompetenser som är starkt önskvärda ('desirable') för målet men saknas.
             c.  **Format:** Ange 'importance' ('essential' eller 'desirable') och motivera kort varför det är ett gap för rollen **i Sverige**. Lista de essentiella gapen FÖRST i arrayen.
-
-        Svara ALLTID i JSON-format med exakt denna struktur (OBS: ingen 'suggestedLearningPath' här):
-        {
-          "matchScore": number (0-100),
-          "cvSummaryForTarget": "Din sammanfattande bedömning för Sverige (2-3 meningar).",
-          "identifiedRelevantSkills": [
-            { "skill": "...", "source_in_cv": "...", "relevance_to_target": "..." }
-          ],
-          "identifiedSkillGaps": [
-            // Essentiella gap först
-            { "skill": "...", "importance": "essential", "reasoning": "..." },
-            // Därefter desirable gap
-            { "skill": "...", "importance": "desirable", "reasoning": "..." }
-          ]
-        }
     `;
     // ---------------------------------
 
@@ -110,9 +95,62 @@ export async function analyzeCompetenceGap(
                 { role: "system", content: systemPrompt },
                 { role: "user", content: `Här är CV:t som ska analyseras:\n\n${truncatedCV}` }
             ],
-            // GPT-5 parametrar enligt dokumentationen
-            max_completion_tokens: 2000, // Ökat för att säkerställa fullständiga svar
-            response_format: { type: "json_object" }
+            // GPT-5 parametrar med Structured Outputs
+            max_completion_tokens: 2000,
+            response_format: {
+                type: "json_schema",
+                json_schema: {
+                    strict: true,
+                    name: "competence_analysis",
+                    schema: {
+                        type: "object",
+                        properties: {
+                            matchScore: {
+                                type: "number",
+                                description: "Matchningspoäng mellan 0-100"
+                            },
+                            cvSummaryForTarget: {
+                                type: "string",
+                                description: "Sammanfattning av CV:t i relation till målet"
+                            },
+                            identifiedRelevantSkills: {
+                                type: "array",
+                                items: {
+                                    type: "object",
+                                    properties: {
+                                        skill: { type: "string" },
+                                        source_in_cv: { type: "string" },
+                                        relevance_to_target: {
+                                            type: "string",
+                                            enum: ["high", "medium", "low"]
+                                        }
+                                    },
+                                    required: ["skill", "source_in_cv", "relevance_to_target"],
+                                    additionalProperties: false
+                                }
+                            },
+                            identifiedSkillGaps: {
+                                type: "array",
+                                items: {
+                                    type: "object",
+                                    properties: {
+                                        skill: { type: "string" },
+                                        importance: {
+                                            type: "string",
+                                            enum: ["essential", "desirable", "unclear"]
+                                        },
+                                        reasoning: { type: "string" }
+                                    },
+                                    required: ["skill", "importance", "reasoning"],
+                                    additionalProperties: false
+                                }
+                            }
+                        },
+                        required: ["matchScore", "cvSummaryForTarget", "identifiedRelevantSkills", "identifiedSkillGaps"],
+                        additionalProperties: false
+                    }
+                }
+            }
         });
 
         content = completion.choices[0].message.content || '{}';
