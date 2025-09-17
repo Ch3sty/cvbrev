@@ -29,9 +29,9 @@ export interface GPT5ResponseParams {
     effort: 'minimal' | 'low' | 'medium' | 'high';
   };
   text?: {
-    verbosity: 'low' | 'medium' | 'high';
+    verbosity?: 'low' | 'medium' | 'high';
     format?: {
-      type: 'text' | 'json';
+      type: 'text'; // Only 'text' is supported for freeform output
     };
   };
   tools?: GPT5Tool[];

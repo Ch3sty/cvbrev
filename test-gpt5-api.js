@@ -21,12 +21,17 @@ async function testGPT5API() {
             },
             body: JSON.stringify({
                 model: 'gpt-5-mini',
-                input: 'Say "Hello from GPT-5" if you are GPT-5',
+                input: [
+                    { role: 'user', content: 'Say "Hello from GPT-5" if you are GPT-5' }
+                ],
                 reasoning: {
                     effort: 'minimal'
                 },
                 text: {
-                    verbosity: 'low'
+                    verbosity: 'low',
+                    format: {
+                        type: 'text'
+                    }
                 },
                 max_output_tokens: 100
             })

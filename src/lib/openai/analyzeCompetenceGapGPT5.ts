@@ -130,8 +130,10 @@ export async function analyzeCompetenceGapGPT5(
         effort: 'high' // Use high reasoning for complex analysis
       },
       text: {
-        verbosity: 'high' // Get comprehensive analysis
-        // Note: GPT-5 doesn't support format.type='json', will extract JSON from text
+        verbosity: 'high', // Get comprehensive analysis
+        format: {
+          type: 'text' // GPT-5 requires format specification
+        }
       },
       max_output_tokens: 3000
     });
@@ -266,13 +268,20 @@ export async function generateLearningSuggestionsGPT5(
   try {
     const response = await createGPT5Response({
       model: 'gpt-5-mini', // Use mini for better course suggestions
-      input: prompt,
+      input: [
+        {
+          role: 'developer',
+          content: prompt
+        }
+      ],
       reasoning: {
         effort: 'medium' // Medium reasoning is enough for course lookup
       },
       text: {
-        verbosity: 'medium'
-        // Note: GPT-5 doesn't support format.type='json', will extract JSON from text
+        verbosity: 'medium',
+        format: {
+          type: 'text'
+        }
       },
       max_output_tokens: 1500
     });
