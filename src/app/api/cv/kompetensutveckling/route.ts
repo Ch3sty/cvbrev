@@ -446,7 +446,7 @@ export async function POST(request: NextRequest) {
         console.log(`--- DEBUG POST (Step 1): Initial analysis successful. Score: ${initialAnalysisResult?.matchScore ?? 'N/A'}%`);
 
         // --- 6. Steg 2: Hitta läranderesurser/söktermer för identifierade gap ---
-        let allGeneratedSuggestions: LearningSuggestion[] = [];
+        const allGeneratedSuggestions: LearningSuggestion[] = [];
         const gapsToProcess = initialAnalysisResult?.identifiedSkillGaps || [];
         const modelToUseStep2 = "gpt-4.1"; // Modell för detta steg
 

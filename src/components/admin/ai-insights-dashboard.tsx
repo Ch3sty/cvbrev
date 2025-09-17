@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   Brain,
   TrendingUp,
@@ -76,7 +76,7 @@ export default function AIInsightsDashboard() {
   }));
 
   // Load all analytics data
-  const loadAnalytics = async () => {
+  const loadAnalytics = useCallback(async () => {
     setState(prev => ({ ...prev, loading: true, error: null }));
 
     try {
@@ -108,14 +108,18 @@ export default function AIInsightsDashboard() {
         error: error.message || 'Failed to load analytics'
       }));
     }
-  };
+  }, [engines]);
+
+  // Load analytics on mount and when timeRange changes
+  useEffect(() => {
+    loadAnalytics();
+  }, [loadAnalytics]);
 
   // Auto-refresh every 5 minutes
   useEffect(() => {
-    loadAnalytics();
     const interval = setInterval(loadAnalytics, 5 * 60 * 1000);
     return () => clearInterval(interval);
-  }, [state.timeRange, loadAnalytics]);
+  }, [loadAnalytics]);
 
   // Tab navigation
   const tabs = [
