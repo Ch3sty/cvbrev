@@ -253,60 +253,36 @@ export async function generateLearningSuggestionsGPT5(
   targetRole: string
 ): Promise<any[]> {
 
-  const prompt = `Du är en svensk utbildningsexpert med tillgång till webben. SÖK AKTIVT efter AKTUELLA kurser för:
+  const prompt = `Du är en svensk utbildningsexpert. Generera 2 KONKRETA kursförslag för:
 
   Gap: ${gap.skill}
   Viktighet: ${gap.importance === 'essential' ? 'OBLIGATORISK för yrket' : 'Önskvärd kompetens'}
   Målroll: ${targetRole}
-  År: 2025
 
-  INSTRUKTIONER:
-  1. SÖK PÅ WEBBEN efter kurser som startar 2025
-  2. Hitta DIREKTLÄNKAR till ansökningssidor
-  3. Prioritera dessa källor:
-     - arbetsformedlingen.se/utbildning
-     - yrkeshogskolan.se
-     - komvux.se
-     - Branschspecifika certifieringsorgan
-
-  För varje kurs, INKLUDERA:
-  - DIREKTLÄNK till ansökningssidan (inte bara huvudsidan)
-  - Nästa startdatum (t.ex. "Mars 2025")
-  - Ansökningsdeadline
-  - Exakt kostnad eller "Kostnadsfri via Arbetsförmedlingen"
-  - Studietakt (heltid/deltid/distans)
-  - Kontaktuppgifter till utbildningsanordnaren
-
-  RETURNERA JSON med dessa OBLIGATORISKA fält:
-  - type, title, provider, relevance
-  - search_keywords (array med sökord)
-  - direct_url (VIKTIGAST - hitta faktisk länk!)
-  - duration, cost, priority, language
-
-  Lägg gärna till om du hittar (men inte obligatoriskt):
-  - start_date, application_deadline
-  - study_format, contact
-
-  EXEMPEL:
+  VIKTIG: Returnera BARA en JSON-array med objekt som har denna exakta struktur:
   {
-    "type": "certification",
-    "title": "HLR-instruktör",
-    "provider": "Svenska HLR-rådet",
-    "relevance": "Grundläggande certifikat för vårdpersonal",
-    "search_keywords": ["HLR", "instruktör", "certifikat"],
-    "direct_url": "https://www.hlr.nu/utbildning/hlr-instruktor",
-    "duration": "3 dagar",
-    "cost": "7500 kr",
-    "priority": "essential",
-    "language": "sv"
+    "suggestions": [
+      {
+        "type": "course" | "certification" | "self-study" | "project",
+        "title": "Kursnamn",
+        "provider": "Utbildningsanordnare",
+        "relevance": "Varför kursen är relevant",
+        "search_keywords": ["sökord1", "sökord2"],
+        "direct_url": "https://exempel.se/kurs",
+        "duration": "3 veckor",
+        "cost": "Kostnadsfri",
+        "priority": "essential" | "recommended" | "optional",
+        "language": "sv" | "en" | "other"
+      }
+    ]
   }
 
-  SÖK WEBBEN och returnera 2 KONKRETA kurser med DIREKTLÄNKAR!`;
+  Returnera ENDAST giltig JSON, ingen annan text!`;
 
   try {
-    // Add timeout for course suggestions - increased for web search
+    // Add timeout for course suggestions
     const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('GPT-5 course suggestion timeout after 20s')), 20000)
+      setTimeout(() => reject(new Error('GPT-5 course suggestion timeout after 15s')), 15000)
     );
 
     const responsePromise = createGPT5Response({
@@ -314,44 +290,12 @@ export async function generateLearningSuggestionsGPT5(
       instructions: prompt,
       input: `Hitta kurser för: ${gap.skill}`,
       reasoning: {
-        effort: 'medium' // Medium effort for better web search results
+        effort: 'low' // Low effort for faster response
       },
       text: {
-        verbosity: 'low', // Low verbosity for faster response
-        format: {
-          type: 'json_schema',
-          name: 'course_suggestions',
-          strict: true,
-          schema: {
-            type: 'object',
-            properties: {
-              suggestions: {
-                type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    type: { type: 'string', enum: ['course', 'certification', 'self-study', 'project'] },
-                    title: { type: 'string' },
-                    provider: { type: 'string' },
-                    relevance: { type: 'string' },
-                    search_keywords: { type: 'array', items: { type: 'string' } },
-                    direct_url: { type: 'string' },
-                    duration: { type: 'string' },
-                    cost: { type: 'string' },
-                    priority: { type: 'string', enum: ['essential', 'recommended', 'optional'] },
-                    language: { type: 'string', enum: ['sv', 'en', 'other'] }
-                  },
-                  required: ['type', 'title', 'provider', 'relevance', 'search_keywords', 'direct_url', 'duration', 'cost', 'priority', 'language'],
-                  additionalProperties: false
-                }
-              }
-            },
-            required: ['suggestions'],
-            additionalProperties: false
-          }
-        }
+        verbosity: 'low' // Low verbosity for faster response
       },
-      max_output_tokens: 2000, // Increased for more detailed results with links
+      max_output_tokens: 1000, // Reduced for faster response
       store: false
     });
 
@@ -366,16 +310,57 @@ export async function generateLearningSuggestionsGPT5(
     // Extract suggestions array from response
     if (suggestions && suggestions.suggestions && Array.isArray(suggestions.suggestions)) {
       console.log(`Generated ${suggestions.suggestions.length} learning suggestions for gap: ${gap.skill}`);
-      return suggestions.suggestions;
+
+      // Ensure all required fields have default values if missing
+      const validatedSuggestions = suggestions.suggestions.map((s: any) => ({
+        type: s.type || 'course',
+        title: s.title || `Kurs för ${gap.skill}`,
+        provider: s.provider || 'Se utbildningsportal',
+        relevance: s.relevance || `Relevant för ${gap.skill}`,
+        search_keywords: Array.isArray(s.search_keywords) ? s.search_keywords : [gap.skill],
+        direct_url: s.direct_url || '',
+        duration: s.duration || 'Varierar',
+        cost: s.cost || 'Kontrollera med anordnare',
+        priority: s.priority || (gap.importance === 'essential' ? 'essential' : 'recommended'),
+        language: s.language || 'sv'
+      }));
+
+      return validatedSuggestions;
     } else if (Array.isArray(suggestions)) {
       // Fallback if direct array
       console.log(`Generated ${suggestions.length} learning suggestions for gap: ${gap.skill}`);
       return suggestions;
     }
 
-    return [];
+    // If GPT-5 fails, return fallback suggestions
+    console.log('GPT-5 did not return valid suggestions, using fallback');
+    return [{
+      type: 'course',
+      title: `Utbildning inom ${gap.skill}`,
+      provider: 'Se Arbetsförmedlingens utbildningsportal',
+      relevance: `Utvecklar kompetens inom ${gap.skill}`,
+      search_keywords: [gap.skill, targetRole],
+      direct_url: 'https://arbetsformedlingen.se/for-arbetssokande/sa-hittar-du-jobbet/utbildningar',
+      duration: 'Varierar',
+      cost: 'Ofta kostnadsfri',
+      priority: gap.importance === 'essential' ? 'essential' : 'recommended',
+      language: 'sv'
+    }];
   } catch (error: any) {
     console.error(`Failed to generate learning suggestions: ${error.message}`);
-    return [];
+
+    // Return fallback suggestion on error
+    return [{
+      type: 'course',
+      title: `Utbildning inom ${gap.skill}`,
+      provider: 'Se Arbetsförmedlingens utbildningsportal',
+      relevance: `Utvecklar kompetens inom ${gap.skill}`,
+      search_keywords: [gap.skill, targetRole],
+      direct_url: 'https://arbetsformedlingen.se/for-arbetssokande/sa-hittar-du-jobbet/utbildningar',
+      duration: 'Varierar',
+      cost: 'Ofta kostnadsfri',
+      priority: gap.importance === 'essential' ? 'essential' : 'recommended',
+      language: 'sv'
+    }];
   }
 }

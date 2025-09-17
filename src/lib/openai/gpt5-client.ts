@@ -151,6 +151,12 @@ export async function createGPT5Response(params: GPT5ResponseParams): Promise<GP
       output_text = JSON.stringify(data.output);
       console.log('Found JSON output in data.output, stringified:', output_text.substring(0, 200));
     }
+
+    // Check if the response is in the 'text' field directly (GPT-5 structured output format)
+    if (!output_text && data.text) {
+      output_text = typeof data.text === 'string' ? data.text : JSON.stringify(data.text);
+      console.log('Found JSON output in data.text field');
+    }
   }
 
   return {
