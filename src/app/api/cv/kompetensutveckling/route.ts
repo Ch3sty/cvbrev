@@ -179,7 +179,7 @@ async function incrementFreeUserCount(supabase: SupabaseClient<Database>, userId
  * Använder OpenAI för att hitta läranderesurser och generera direkta länkar för ett specifikt kompetensgap.
  */
 async function findLearningResourcesForGap(gap: MissingSkill, language: string = 'sv'): Promise<LearningSuggestion[]> {
-    const modelToUse = "gpt-5-mini-2025-08-07"; // Använder specifik GPT-5-mini snapshot
+    const modelToUse = "gpt-5-mini"; // Använder standard GPT-5-mini för bättre tillgänglighet
     const maxSuggestionsPerGap = 2; // Max 2 förslag per gap för bättre pedagogik
 
     const systemPrompt = `
@@ -213,11 +213,17 @@ async function findLearningResourcesForGap(gap: MissingSkill, language: string =
 
     try {
         console.log(`--- DEBUG findLearningResourcesForGap: Söker resurser/söktermer för gap: ${JSON.stringify(gap.skill)} (max ${maxSuggestionsPerGap})`);
-        const completion = await openai.chat.completions.create({
+
+        // Timeout för varje kursförslag (10 sekunder)
+        const timeoutPromise = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error(`Timeout för kursförslag: ${gap.skill}`)), 10000)
+        );
+
+        const completionPromise = openai.chat.completions.create({
             model: modelToUse,
             messages: [ { role: "system", content: systemPrompt }, { role: "user", content: userPrompt } ],
             // GPT-5-mini med Structured Outputs
-            max_completion_tokens: 800,
+            max_completion_tokens: 800, // Fullständiga kursförslag
             response_format: {
                 type: "json_schema",
                 json_schema: {
@@ -284,6 +290,12 @@ async function findLearningResourcesForGap(gap: MissingSkill, language: string =
                 }
             }
          });
+
+        // Vänta på det som slutförs först
+        const completion = await Promise.race([
+            completionPromise,
+            timeoutPromise
+        ]) as any;
 
         const content = completion.choices[0].message.content;
         console.log(`--- DEBUG findLearningResourcesForGap: Rått OpenAI-svar (förväntar söktermer) för gap "${gap.skill}": ${content ? content.substring(0, 150) + '...' : 'null'}`);
@@ -449,16 +461,25 @@ export async function POST(request: NextRequest) {
              });
             console.log(`--- DEBUG POST (Step 2): Found ${gapsToProcess.length} gaps to process. Processing in order (essential first).`);
 
-            // Kör API-anropen parallellt för att hitta resurser/söktermer
-            const resourcePromises = gapsToProcess.map(gap =>
-                findLearningResourcesForGap(gap, 'sv').catch(err => {
-                    // Logga felet men fortsätt med övriga gap
+            // Begränsa antalet gap som processas för att undvika timeout
+            // Ta bara essentiella gap och max 1 desirable för att hålla tiden nere
+            const essentialGaps = gapsToProcess.filter(g => g.importance === 'essential');
+            const desirableGaps = gapsToProcess.filter(g => g.importance === 'desirable');
+            const gapsToProcessLimited = [...essentialGaps, ...desirableGaps.slice(0, 1)];
+
+            console.log(`--- DEBUG POST (Step 2): Processing ${gapsToProcessLimited.length} of ${gapsToProcess.length} gaps to avoid timeout.`);
+
+            // Processa gap sekventiellt istället för parallellt för bättre kontroll
+            for (const gap of gapsToProcessLimited) {
+                try {
+                    const suggestions = await findLearningResourcesForGap(gap, 'sv');
+                    allGeneratedSuggestions.push(...suggestions);
+                    console.log(`--- DEBUG POST (Step 2): Processed gap "${gap.skill}", got ${suggestions.length} suggestions`);
+                } catch (err) {
                     console.error(`--- ERROR POST (Step 2): Failed findLearningResourcesForGap for gap "${gap.skill}":`, err);
-                    return []; // Returnera tom array om ett anrop misslyckas
-                })
-            );
-            const resultsArray = await Promise.all(resourcePromises);
-            allGeneratedSuggestions = resultsArray.flat().filter(suggestion => suggestion != null); // Platta ut arrayen av arrayer
+                    // Fortsätt med nästa gap även om ett misslyckas
+                }
+            }
 
             console.log(`--- DEBUG POST (Step 2): Resource finding complete. Generated ${allGeneratedSuggestions.length} suggestions with search keywords.`);
         } else {

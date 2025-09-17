@@ -51,8 +51,8 @@ export async function analyzeCompetenceGap(
 ): Promise<CompetenceAnalysisResult> { // Returnerar nu typen UTAN suggestedLearningPath
 
     const { mode, cvText } = input;
-    const truncatedCV = cvText.substring(0, 8000);
-    const modelToUse = "gpt-5-2025-08-07"; // Använder specifik GPT-5 snapshot för stabilitet
+    const truncatedCV = cvText.substring(0, 8000); // Hela CV:t för fullständig analys
+    const modelToUse = "gpt-5"; // Använder GPT-5 för bästa kvalitet
 
     // --- Dynamisk Promptkonstruktion ---
     let targetInfoPrompt: string;
@@ -89,14 +89,21 @@ export async function analyzeCompetenceGap(
 
     try {
         console.log(`Starting competence analysis (Step 1) for target: ${targetDescriptionForOutput}`);
-        const completion = await openai.chat.completions.create({
+
+        // Skapa en timeout promise
+        const timeoutPromise = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('OpenAI request timeout after 30s')), 30000)
+        );
+
+        // Kör OpenAI-anropet med timeout
+        const completionPromise = openai.chat.completions.create({
             model: modelToUse,
             messages: [
                 { role: "system", content: systemPrompt },
                 { role: "user", content: `Här är CV:t som ska analyseras:\n\n${truncatedCV}` }
             ],
             // GPT-5 parametrar med Structured Outputs
-            max_completion_tokens: 2000,
+            max_completion_tokens: 2000, // Fullständiga svar
             response_format: {
                 type: "json_schema",
                 json_schema: {
@@ -153,10 +160,16 @@ export async function analyzeCompetenceGap(
             }
         });
 
+        // Vänta på det som slutförs först - completion eller timeout
+        const completion = await Promise.race([
+            completionPromise,
+            timeoutPromise
+        ]) as any;
+
         content = completion.choices[0].message.content || '{}';
 
         // Kontrollera om svaret är tomt
-        if (content === '{}' || content.trim() === '') {
+        if (!content || content === '{}' || content.trim() === '') {
             console.error("OpenAI returnerade ett tomt svar. Försöker igen med fallback.");
             throw new Error("Tomt svar från OpenAI GPT-5");
         }
