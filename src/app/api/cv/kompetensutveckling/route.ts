@@ -459,17 +459,14 @@ export async function POST(request: NextRequest) {
         // --- 5. Steg 1: Utför initial kompetensanalys (identifiera gap) ---
         console.log(`--- DEBUG POST (Step 1): Performing initial analysis for target: ${errorTargetDesc}`);
 
-        // Temporarily disabled GPT-5 due to response issues, using GPT-4
-        initialAnalysisResult = await analyzeCompetenceGap(analysisInputForStep1);
-
-        // Uncomment to try GPT-5 again:
-        // try {
-        //     initialAnalysisResult = await analyzeCompetenceGapGPT5(analysisInputForStep1);
-        //     console.log('--- DEBUG: Successfully used GPT-5 for analysis');
-        // } catch (gpt5Error) {
-        //     console.error('--- DEBUG: GPT-5 failed, falling back to GPT-4:', gpt5Error);
-        //     initialAnalysisResult = await analyzeCompetenceGap(analysisInputForStep1);
-        // }
+        // Try GPT-5 with new Responses API structure
+        try {
+            initialAnalysisResult = await analyzeCompetenceGapGPT5(analysisInputForStep1);
+            console.log('--- DEBUG: Successfully used GPT-5 for analysis');
+        } catch (gpt5Error) {
+            console.error('--- DEBUG: GPT-5 failed, falling back to GPT-4:', gpt5Error);
+            initialAnalysisResult = await analyzeCompetenceGap(analysisInputForStep1);
+        }
         console.log(`--- DEBUG POST (Step 1): Initial analysis successful. Score: ${initialAnalysisResult?.matchScore ?? 'N/A'}%`);
 
         // --- 6. Steg 2: Hitta läranderesurser/söktermer för identifierade gap ---
@@ -499,8 +496,20 @@ export async function POST(request: NextRequest) {
             // Processa gap sekventiellt istället för parallellt för bättre kontroll
             for (const gap of gapsToProcessLimited) {
                 try {
-                    // Use the old GPT-4 function that works
-                    const suggestions = await findLearningResourcesForGapOld(gap, 'sv');
+                    // Try GPT-5 first for better suggestions
+                    const targetRole = analysisInputForStep1.mode === 'role'
+                        ? analysisInputForStep1.targetRole
+                        : 'Jobbannons';
+
+                    let suggestions;
+                    try {
+                        suggestions = await generateLearningSuggestionsGPT5(gap, targetRole);
+                        console.log(`--- DEBUG: Used GPT-5 for suggestions`);
+                    } catch (gpt5Err) {
+                        console.error(`--- DEBUG: GPT-5 failed for suggestions, using GPT-4:`, gpt5Err);
+                        suggestions = await findLearningResourcesForGapOld(gap, 'sv');
+                    }
+
                     allGeneratedSuggestions.push(...suggestions);
                     console.log(`--- DEBUG POST (Step 2): Processed gap "${gap.skill}", got ${suggestions.length} suggestions`);
                 } catch (err) {

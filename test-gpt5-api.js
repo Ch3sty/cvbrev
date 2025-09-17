@@ -21,9 +21,8 @@ async function testGPT5API() {
             },
             body: JSON.stringify({
                 model: 'gpt-5-mini',
-                input: [
-                    { role: 'user', content: 'Say "Hello from GPT-5" if you are GPT-5' }
-                ],
+                instructions: 'You are a helpful assistant',
+                input: 'Say "Hello from GPT-5" if you are GPT-5',
                 reasoning: {
                     effort: 'minimal'
                 },
@@ -33,7 +32,8 @@ async function testGPT5API() {
                         type: 'text'
                     }
                 },
-                max_output_tokens: 100
+                max_output_tokens: 100,
+                store: false
             })
         });
 

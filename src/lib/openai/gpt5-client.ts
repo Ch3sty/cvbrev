@@ -25,13 +25,17 @@ export interface GPT5Tool {
 export interface GPT5ResponseParams {
   model: 'gpt-5' | 'gpt-5-mini' | 'gpt-5-nano';
   input: string | GPT5ResponseInput[];
+  instructions?: string; // System-level instructions
   reasoning?: {
     effort: 'minimal' | 'low' | 'medium' | 'high';
   };
   text?: {
     verbosity?: 'low' | 'medium' | 'high';
     format?: {
-      type: 'text'; // Only 'text' is supported for freeform output
+      type: 'text' | 'json_schema';
+      name?: string;
+      strict?: boolean;
+      schema?: any;
     };
   };
   tools?: GPT5Tool[];
@@ -42,6 +46,7 @@ export interface GPT5ResponseParams {
   };
   max_output_tokens?: number;
   previous_response_id?: string;
+  store?: boolean;
 }
 
 export interface GPT5Response {

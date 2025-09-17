@@ -117,25 +117,59 @@ export async function analyzeCompetenceGapGPT5(
       setTimeout(() => reject(new Error('GPT-5 request timeout after 30s')), 30000)
     );
 
-    // Make GPT-5 API call with high reasoning effort for best quality
+    // Make GPT-5 API call using instructions + input pattern
     const responsePromise = createGPT5Response({
       model: modelToUse,
-      input: [
-        {
-          role: 'developer',
-          content: systemPrompt
-        }
-      ],
+      instructions: systemPrompt, // System instructions go here
+      input: `Analysera detta CV och returnera JSON enligt instruktionerna:\n\n${truncatedCV}`,
       reasoning: {
         effort: 'high' // Use high reasoning for complex analysis
       },
       text: {
         verbosity: 'high', // Get comprehensive analysis
         format: {
-          type: 'text' // GPT-5 requires format specification
+          type: 'json_schema',
+          name: 'competence_analysis',
+          strict: true,
+          schema: {
+            type: 'object',
+            properties: {
+              matchScore: { type: 'number', minimum: 0, maximum: 100 },
+              cvSummaryForTarget: { type: 'string' },
+              identifiedRelevantSkills: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    skill: { type: 'string' },
+                    source_in_cv: { type: 'string' },
+                    relevance_to_target: { type: 'string', enum: ['high', 'medium', 'low'] }
+                  },
+                  required: ['skill', 'source_in_cv', 'relevance_to_target'],
+                  additionalProperties: false
+                }
+              },
+              identifiedSkillGaps: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    skill: { type: 'string' },
+                    importance: { type: 'string', enum: ['essential', 'desirable'] },
+                    reasoning: { type: 'string' }
+                  },
+                  required: ['skill', 'importance', 'reasoning'],
+                  additionalProperties: false
+                }
+              }
+            },
+            required: ['matchScore', 'cvSummaryForTarget', 'identifiedRelevantSkills', 'identifiedSkillGaps'],
+            additionalProperties: false
+          }
         }
       },
-      max_output_tokens: 2000 // Reduced for faster response
+      max_output_tokens: 2000, // Reduced for faster response
+      store: false // Don't store for privacy
     });
 
     // Race between request and timeout
@@ -268,22 +302,41 @@ export async function generateLearningSuggestionsGPT5(
   try {
     const response = await createGPT5Response({
       model: 'gpt-5-mini', // Use mini for better course suggestions
-      input: [
-        {
-          role: 'developer',
-          content: prompt
-        }
-      ],
+      instructions: prompt,
+      input: `Hitta kurser för: ${gap.skill}`,
       reasoning: {
         effort: 'medium' // Medium reasoning is enough for course lookup
       },
       text: {
         verbosity: 'medium',
         format: {
-          type: 'text'
+          type: 'json_schema',
+          name: 'course_suggestions',
+          strict: true,
+          schema: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                type: { type: 'string', enum: ['course', 'certification', 'self-study', 'project'] },
+                title: { type: 'string' },
+                provider: { type: 'string' },
+                relevance: { type: 'string' },
+                search_keywords: { type: 'array', items: { type: 'string' } },
+                direct_url: { type: 'string' },
+                duration: { type: 'string' },
+                cost: { type: 'string' },
+                priority: { type: 'string', enum: ['essential', 'recommended', 'optional'] },
+                language: { type: 'string', enum: ['sv', 'en', 'other'] }
+              },
+              required: ['type', 'title', 'relevance', 'priority', 'language'],
+              additionalProperties: false
+            }
+          }
         }
       },
-      max_output_tokens: 1500
+      max_output_tokens: 1500,
+      store: false
     });
 
     const suggestions = extractJSONFromGPT5Response(response);
