@@ -123,10 +123,10 @@ export async function analyzeCompetenceGapGPT5(
       instructions: systemPrompt, // System instructions go here
       input: `Analysera detta CV och returnera JSON enligt instruktionerna:\n\n${truncatedCV}`,
       reasoning: {
-        effort: 'low' // Low effort for faster response
+        effort: 'medium' // Medium effort for better analysis quality
       },
       text: {
-        verbosity: 'low', // Low verbosity for faster response
+        verbosity: 'medium', // Medium verbosity for better analysis details
         format: {
           type: 'json_schema',
           name: 'competence_analysis',
@@ -134,16 +134,39 @@ export async function analyzeCompetenceGapGPT5(
           schema: {
             type: 'object',
             properties: {
-              matchScore: { type: 'number', minimum: 0, maximum: 100 },
-              cvSummaryForTarget: { type: 'string' },
+              matchScore: {
+                type: 'number',
+                minimum: 0,
+                maximum: 100,
+                description: "Overall match percentage between CV and target role"
+              },
+              cvSummaryForTarget: {
+                type: 'string',
+                minLength: 50,
+                description: "Critical assessment of what's missing for Swedish job market"
+              },
               identifiedRelevantSkills: {
                 type: 'array',
+                minItems: 3,
+                maxItems: 7,
                 items: {
                   type: 'object',
                   properties: {
-                    skill: { type: 'string' },
-                    source_in_cv: { type: 'string' },
-                    relevance_to_target: { type: 'string', enum: ['high', 'medium', 'low'] }
+                    skill: {
+                      type: 'string',
+                      minLength: 3,
+                      description: "Exact skill from CV"
+                    },
+                    source_in_cv: {
+                      type: 'string',
+                      minLength: 5,
+                      description: "Where this skill is mentioned in CV"
+                    },
+                    relevance_to_target: {
+                      type: 'string',
+                      enum: ['high', 'medium', 'low'],
+                      description: "How relevant this skill is to target role"
+                    }
                   },
                   required: ['skill', 'source_in_cv', 'relevance_to_target'],
                   additionalProperties: false
@@ -151,12 +174,26 @@ export async function analyzeCompetenceGapGPT5(
               },
               identifiedSkillGaps: {
                 type: 'array',
+                minItems: 5,
+                maxItems: 8,
                 items: {
                   type: 'object',
                   properties: {
-                    skill: { type: 'string' },
-                    importance: { type: 'string', enum: ['essential', 'desirable'] },
-                    reasoning: { type: 'string' }
+                    skill: {
+                      type: 'string',
+                      minLength: 5,
+                      description: "Specific missing skill, certification, or education"
+                    },
+                    importance: {
+                      type: 'string',
+                      enum: ['essential', 'desirable'],
+                      description: "How critical this gap is for the role"
+                    },
+                    reasoning: {
+                      type: 'string',
+                      minLength: 20,
+                      description: "Why this is required in Sweden for this role"
+                    }
                   },
                   required: ['skill', 'importance', 'reasoning'],
                   additionalProperties: false
@@ -253,138 +290,143 @@ export async function generateLearningSuggestionsGPT5(
   targetRole: string
 ): Promise<any[]> {
 
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
-    console.error('OpenAI API key not configured');
-    return [];
-  }
-
   try {
     console.log(`Using GPT-5 Responses API with web_search tool for: ${gap.skill} (${targetRole})`);
 
-    // Use GPT-5 Responses API with web_search tool - NO TIMEOUT, let it complete
-    const response = await fetch('https://api.openai.com/v1/responses', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: 'gpt-5', // Use GPT-5 directly
-        tools: [
-          {
-            type: 'web_search' // Enable web search tool
+    // Use the improved GPT-5 client with proper web search configuration
+    const response = await createGPT5Response({
+      model: 'gpt-5-mini', // Use gpt-5-mini for better speed/cost balance
+      instructions: `Du är en svensk utbildningsexpert som specialiserar dig på att hitta VERKLIGA utbildningar och certifieringar.
+      Använd websökning för att hitta exakta kurser med riktiga länkar från svenska utbildningsanordnare.
+
+      VIKTIGA SVENSKA UTBILDNINGSANORDNARE att söka efter:
+      - BYA (Bevakningsbranschens yrkes- och arbetsmiljönämnd) för säkerhet/väktare
+      - Yrkeshögskolan (YH) för alla yrkesutbildningar
+      - Arbetsförmedlingen för arbetsmarknadsutbildningar
+      - Lernia för yrkesutbildningar
+      - KI (Karolinska Institutet) för hälso/sjukvård
+      - Sophiahemmet för specialistutbildningar
+      - Folkuniversitetet för kurser
+      - Komvux för grundläggande utbildning
+
+      Sök specifikt på svenska webbsidor (.se-domäner) och returnera EXAKTA URL:er till ansökningssidor.`,
+      input: `Hitta 2 konkreta utbildningar för kompetensen "${gap.skill}" som behövs för rollen som ${targetRole} i Sverige. Sök på svenska utbildningssidor och ge EXAKTA länkar.`,
+      tools: [
+        {
+          type: 'web_search',
+          web_search_options: {
+            region: 'se', // Search specifically in Sweden
+            search_query: `${gap.skill} utbildning ${targetRole} Sverige kurs certifiering`
           }
-        ],
-        input: `Sök på webben och hitta 2 konkreta utbildningar för kompetensen "${gap.skill}" som krävs för att jobba som ${targetRole} i Sverige.
-
-Ge mig VERKLIGA kurser med RIKTIGA länkar från webben.
-
-Formatera svaret som en JSON-struktur med följande fält för varje kurs:
-- type: "course" eller "certification"
-- title: Exakt kursnamn från webben
-- provider: Verklig utbildningsanordnare
-- direct_url: Faktisk URL till kursen
-- duration: Kurslängd
-- cost: Kostnad
-- start_date: När kursen startar
-- study_format: Distans/Campus/Hybrid
-- priority: "essential"
-- description: Vad kursen handlar om
-
-Börja svaret med { "courses": [ och avsluta med ] }`
-        // REMOVED json_object format - not compatible with web_search
-      }),
+        }
+      ],
+      reasoning: {
+        effort: 'medium' // Higher reasoning for better course matching
+      },
+      text: {
+        verbosity: 'medium',
+        format: {
+          type: 'json_schema',
+          name: 'course_suggestions',
+          strict: true,
+          schema: {
+            type: 'object',
+            properties: {
+              courses: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    type: {
+                      type: 'string',
+                      enum: ['course', 'certification', 'self-study']
+                    },
+                    title: { type: 'string' },
+                    provider: { type: 'string' },
+                    direct_url: { type: 'string' },
+                    duration: { type: 'string' },
+                    cost: { type: 'string' },
+                    start_date: { type: 'string' },
+                    study_format: { type: 'string' },
+                    priority: {
+                      type: 'string',
+                      enum: ['essential', 'recommended', 'optional']
+                    },
+                    description: { type: 'string' },
+                    relevance: { type: 'string' },
+                    search_keywords: {
+                      type: 'array',
+                      items: { type: 'string' }
+                    },
+                    language: {
+                      type: 'string',
+                      enum: ['sv', 'en', 'other']
+                    }
+                  },
+                  required: ['type', 'title', 'provider', 'direct_url', 'duration', 'cost', 'priority', 'description', 'relevance', 'search_keywords', 'language'],
+                  additionalProperties: false
+                }
+              }
+            },
+            required: ['courses'],
+            additionalProperties: false
+          }
+        }
+      },
+      max_output_tokens: 3000,
+      store: false
     });
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      console.error(`GPT-5 Responses API error: ${response.status}`, errorData);
-      return [];
+    console.log(`GPT-5 Response received. Output length: ${response.output_text?.length || 0}`);
+
+    // Debug: Log the actual response text
+    if (response.output_text) {
+      console.log('GPT-5 raw text (first 500 chars):', response.output_text.substring(0, 500));
     }
 
-    const data = await response.json();
-    console.log('GPT-5 raw response:', JSON.stringify(data).substring(0, 500));
+    // Extract JSON from response using the improved client function
+    const parsedResult = extractJSONFromGPT5Response(response);
 
-    // Extract output from GPT-5 response
-    let outputText = '';
-    if (data.output) {
-      // GPT-5 Responses API returns output array
-      if (Array.isArray(data.output)) {
-        data.output.forEach((item: any) => {
-          if (item.content) {
-            item.content.forEach((content: any) => {
-              if (content.text) {
-                outputText += content.text;
-              }
-            });
-          }
-        });
-      } else if (typeof data.output === 'string') {
-        outputText = data.output;
-      }
-    } else if (data.output_text) {
-      outputText = data.output_text;
-    }
-
-    if (!outputText) {
-      console.warn('No content from GPT-5');
-      return [];
-    }
-
-    try {
-      // Try to extract JSON from the text response
-      let jsonText = outputText;
-
-      // Find JSON structure in the response
-      const jsonStart = outputText.indexOf('{"courses":');
-      const jsonEnd = outputText.lastIndexOf(']}') + 2;
-
-      if (jsonStart >= 0 && jsonEnd > jsonStart) {
-        jsonText = outputText.substring(jsonStart, jsonEnd);
-      }
-
-      const parsed = JSON.parse(jsonText);
-      let courses = parsed.courses || [];
-
-      if (!Array.isArray(courses) || courses.length === 0) {
-        console.warn('No courses in GPT-5 response');
-        return [];
-      }
-
-      // Return courses from GPT-5 web search
-      courses = courses.map((course: any) => ({
-        type: course.type || 'course',
-        title: course.title || `Kurs inom ${gap.skill}`,
-        provider: course.provider || 'Se kursinformation',
-        direct_url: course.direct_url || '#',
-        duration: course.duration || 'Se kursinformation',
-        cost: course.cost || 'Se kursinformation',
-        start_date: course.start_date || 'Se kursinformation',
-        study_format: course.study_format || 'Se kursinformation',
-        priority: course.priority || 'essential',
-        description: course.description || '',
-        relevance: `Relevant för ${gap.skill}`,
-        search_keywords: [gap.skill, targetRole],
-        language: 'sv'
-      })).slice(0, 2);
-
-      console.log(`GPT-5 found ${courses.length} real courses via web search`);
-      return courses;
-
-    } catch (parseError) {
-      console.error('Failed to parse GPT-5 response:', parseError);
-      console.error('Raw output:', outputText);
+    if (!parsedResult) {
+      console.error("Failed to extract JSON from GPT-5 response. Raw text length:", response.output_text?.length);
+      console.error("Full raw text:", response.output_text);
 
       // Try alternative approach if parsing fails
       console.log('Parse failed, trying alternative GPT-5 approach...');
-      const alternativeResults = await tryGPT5Alternative(gap, targetRole, apiKey);
+      const alternativeResults = await tryGPT5Alternative(gap, targetRole);
       if (alternativeResults.length > 0) {
         return alternativeResults;
       }
 
       return [];
     }
+
+    let courses = parsedResult.courses || [];
+
+    if (!Array.isArray(courses) || courses.length === 0) {
+      console.warn('No courses in GPT-5 response');
+      return [];
+    }
+
+    // Return courses from GPT-5 web search with improved mapping
+    courses = courses.map((course: any) => ({
+      type: course.type || 'course',
+      title: course.title || `Kurs inom ${gap.skill}`,
+      provider: course.provider || 'Se kursinformation',
+      direct_url: course.direct_url || '#',
+      duration: course.duration || 'Se kursinformation',
+      cost: course.cost || 'Se kursinformation',
+      start_date: course.start_date || 'Se kursinformation',
+      study_format: course.study_format || 'Se kursinformation',
+      priority: course.priority || 'essential',
+      description: course.description || '',
+      relevance: course.relevance || `Relevant för ${gap.skill}`,
+      search_keywords: course.search_keywords || [gap.skill, targetRole],
+      language: course.language || 'sv'
+    })).slice(0, 2);
+
+    console.log(`GPT-5 found ${courses.length} real courses via web search`);
+    return courses;
 
   } catch (error: any) {
     console.error(`GPT-5 web search failed: ${error.message}`);
@@ -403,113 +445,90 @@ Börja svaret med { "courses": [ och avsluta med ] }`
 // Try alternative GPT-5 approach
 async function tryGPT5Alternative(
   gap: MissingSkill,
-  targetRole: string,
-  apiKey: string
+  targetRole: string
 ): Promise<any[]> {
   // USE GPT-5 WITH WEB SEARCH - NO FALLBACKS!
   try {
-    console.log('Using GPT-5 with web search for real course links...');
+    console.log('Using alternative GPT-5 approach with web search for real course links...');
 
-    const response = await fetch('https://api.openai.com/v1/responses', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
+    const response = await createGPT5Response({
+      model: 'gpt-5',
+      instructions: `Du är en expertutbildningsrådgivare för svenska arbetsmarknaden. Använd websökning för att hitta VERKLIGA kurser med EXAKTA URL:er från svenska utbildningsanordnare.`,
+      input: `Sök på webben och hitta 2 konkreta utbildningar för kompetensen "${gap.skill}" som behövs för rollen som ${targetRole} i Sverige. Ge EXAKTA länkar till kursernas ansökningssidor.`,
+      tools: [
+        {
+          type: 'web_search',
+          web_search_options: {
+            region: 'se',
+            search_query: `${gap.skill} ${targetRole} utbildning kurs Sverige certifiering`
+          }
+        }
+      ],
+      reasoning: {
+        effort: 'medium'
       },
-      body: JSON.stringify({
-        model: 'gpt-5',
-        tools: [{ type: 'web_search' }],
-        input: `Sök på webben och hitta 2 konkreta utbildningar för kompetensen "${gap.skill}" som behövs för rollen som ${targetRole} i Sverige.
-
-VIKTIGT:
-- Använd websökning för att hitta VERKLIGA kurser med RIKTIGA URL:er
-- Sök efter kurser hos: BYA, Karolinska Institutet, Yrkeshögskolan, Arbetsförmedlingen, Lernia, etc
-- Returnera EXAKTA URL:er till kursernas ansökningssidor
-- Exempel på format vi vill ha: "Karolinska Institutet – Sjuksköterskeprogrammet" med länk: https://education.ki.se/programme-syllabus/2UK21
-
-Formatera som JSON:
-{
-  "courses": [
-    {
-      "type": "course",
-      "title": "[Exakt kursnamn]",
-      "provider": "[Verklig utbildningsanordnare]",
-      "direct_url": "[EXAKT URL från websökning]",
-      "duration": "[Verklig längd]",
-      "cost": "[Verklig kostnad]",
-      "priority": "essential"
-    }
-  ]
-}`,
-        max_output_tokens: 3000
-      }),
+      text: {
+        verbosity: 'low',
+        format: {
+          type: 'json_schema',
+          name: 'alternative_courses',
+          strict: true,
+          schema: {
+            type: 'object',
+            properties: {
+              courses: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    type: { type: 'string', enum: ['course', 'certification'] },
+                    title: { type: 'string' },
+                    provider: { type: 'string' },
+                    direct_url: { type: 'string' },
+                    duration: { type: 'string' },
+                    cost: { type: 'string' },
+                    priority: { type: 'string', enum: ['essential', 'recommended'] }
+                  },
+                  required: ['type', 'title', 'provider', 'direct_url', 'duration', 'cost', 'priority'],
+                  additionalProperties: false
+                }
+              }
+            },
+            required: ['courses'],
+            additionalProperties: false
+          }
+        }
+      },
+      max_output_tokens: 2000,
+      store: false
     });
 
-    if (!response.ok) {
+    const parsedResult = extractJSONFromGPT5Response(response);
+    if (!parsedResult || !parsedResult.courses) {
       return [];
     }
 
-    const data = await response.json();
+    const courses = (Array.isArray(parsedResult.courses) ? parsedResult.courses : []).slice(0, 2);
+    console.log(`Alternative approach: Parsed ${courses.length} courses from GPT-5 web search`);
 
-    // Extract text from GPT-5-mini response
-    let outputText = '';
-    if (data.output) {
-      if (Array.isArray(data.output)) {
-        data.output.forEach((item: any) => {
-          if (item.content) {
-            item.content.forEach((content: any) => {
-              if (content.text) {
-                outputText += content.text;
-              }
-            });
-          }
-        });
-      } else if (typeof data.output === 'string') {
-        outputText = data.output;
-      }
-    } else if (data.output_text) {
-      outputText = data.output_text;
-    }
+    return courses.map((c: any) => ({
+      type: c.type || 'course',
+      title: c.title || `Utbildning inom ${gap.skill}`,
+      provider: c.provider || 'Se information',
+      direct_url: c.direct_url || c.url || '#',
+      duration: c.duration || 'Se information',
+      cost: c.cost || 'Se information',
+      start_date: c.start_date || 'Löpande',
+      study_format: c.study_format || 'Se information',
+      priority: 'essential',
+      description: c.description || `Relevant för ${targetRole}`,
+      relevance: `För ${gap.skill}`,
+      search_keywords: [gap.skill, targetRole],
+      language: 'sv'
+    }));
 
-    if (!outputText) {
-      return [];
-    }
-
-    try {
-      // Try to find and parse JSON in the response
-      const jsonStart = outputText.indexOf('{"courses":') >= 0 ? outputText.indexOf('{"courses":') : outputText.indexOf('[');
-      const jsonEnd = outputText.lastIndexOf('}') + 1;
-
-      if (jsonStart >= 0 && jsonEnd > jsonStart) {
-        const jsonText = outputText.substring(jsonStart, jsonEnd);
-        const parsed = JSON.parse(jsonText);
-        const courses = (Array.isArray(parsed) ? parsed : parsed.courses || []).slice(0, 2);
-
-        console.log(`Parsed ${courses.length} courses from GPT-5 web search`);
-
-        return courses.map((c: any) => ({
-          type: c.type || 'course',
-          title: c.title || `Utbildning inom ${gap.skill}`,
-          provider: c.provider || 'Se information',
-          direct_url: c.direct_url || c.url || '#',
-          duration: c.duration || 'Se information',
-          cost: c.cost || 'Se information',
-          start_date: c.start_date || 'Löpande',
-          study_format: c.study_format || 'Se information',
-          priority: 'essential',
-          description: c.description || `Relevant för ${targetRole}`,
-          relevance: `För ${gap.skill}`,
-          search_keywords: [gap.skill, targetRole],
-          language: 'sv'
-        }));
-      }
-    } catch (error) {
-      console.error('Failed to parse GPT-5 response:', error);
-    }
-
-    return [];
   } catch (error) {
-    console.error('GPT-5 web search failed:', error);
+    console.error('Alternative GPT-5 web search failed:', error);
     return [];
   }
 }

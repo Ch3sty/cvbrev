@@ -10,9 +10,9 @@ export interface GPT5ResponseInput {
 }
 
 export interface GPT5Tool {
-  type: 'custom' | 'function';
-  name: string;
-  description: string;
+  type: 'custom' | 'function' | 'web_search';
+  name?: string;
+  description?: string;
   format?: {
     type: 'grammar';
     syntax: 'lark' | 'regex';
@@ -20,6 +20,12 @@ export interface GPT5Tool {
   };
   // For function type tools
   parameters?: any;
+  // For web_search tools
+  web_search_options?: {
+    search_query?: string;
+    region?: string;
+    time_range?: string;
+  };
 }
 
 export interface GPT5ResponseParams {
@@ -27,7 +33,7 @@ export interface GPT5ResponseParams {
   input: string | GPT5ResponseInput[];
   instructions?: string; // System-level instructions
   reasoning?: {
-    effort: 'minimal' | 'low' | 'medium' | 'high';
+    effort: 'minimal' | 'low' | 'medium' | 'high' | 'max';
   };
   text?: {
     verbosity?: 'low' | 'medium' | 'high';
@@ -72,9 +78,10 @@ export interface GPT5Response {
 
 // Custom fetch-based implementation since OpenAI SDK doesn't support responses API yet
 export async function createGPT5Response(params: GPT5ResponseParams): Promise<GPT5Response> {
-  const apiKey = process.env.OPENAI_API_KEY;
+  // Use OPENAI_ADMIN_API_KEY for GPT-5 if available, fallback to OPENAI_API_KEY
+  const apiKey = process.env.OPENAI_ADMIN_API_KEY || process.env.OPENAI_API_KEY;
   if (!apiKey) {
-    throw new Error('OPENAI_API_KEY not configured');
+    throw new Error('OPENAI_ADMIN_API_KEY or OPENAI_API_KEY not configured');
   }
 
   // Fix parameter name: max_completion_tokens -> max_output_tokens
@@ -126,6 +133,19 @@ export async function createGPT5Response(params: GPT5ResponseParams): Promise<GP
       } else if (item.content && typeof item.content === 'string') {
         // Sometimes content might be a direct string
         output_text += item.content;
+      }
+      // Handle tool calls and web search results
+      else if (item.type === 'tool_call' && item.content) {
+        // Web search results might be in tool_call content
+        if (typeof item.content === 'string') {
+          output_text += item.content;
+        } else if (Array.isArray(item.content)) {
+          for (const toolContent of item.content) {
+            if (toolContent.text) {
+              output_text += toolContent.text;
+            }
+          }
+        }
       }
     }
   } else if (typeof data.output === 'string') {
