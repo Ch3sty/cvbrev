@@ -18,7 +18,7 @@ import { useProfile } from '@/hooks/use-profile';
 
 // --- UI Components ---
 import Notification from '@/components/ui/notification';
-import CompetenceAnalysisTool from '@/components/cv/CompetenceAnalysisTool';
+import CompetenceAnalysisDashboard from '@/components/cv/CompetenceAnalysisDashboard';
 
 // --- Utility Functions ---
 import { logUserActivity } from '@/lib/activity-logger';
@@ -146,7 +146,7 @@ export default function CompetenceAnalysisPage() {
   }
   
   return (
-    <div className="max-w-screen-xl mx-auto pt-8 pb-16 px-4">
+    <div className="max-w-screen-2xl mx-auto pt-8 pb-16 px-6">
       {/* --- Notification Area --- */}
       {notification.isVisible && ( <Notification isVisible={notification.isVisible} message={notification.message} type={notification.type} onClose={closeNotification} /> )}
 
@@ -210,73 +210,61 @@ export default function CompetenceAnalysisPage() {
         </section>
       )}
 
-      {/* --- Main Content Grid --- */}
-      <main className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-
-        {/* --- Left Column: CV Selection --- */}
-        <section aria-labelledby="cv-selection-heading" className="space-y-6 lg:col-span-1">
-          <div className="bg-navy-800 rounded-lg p-6 border border-navy-700">
-            <h2 id="cv-selection-heading" className="text-xl font-semibold mb-5 text-white flex items-center">
-              <FileText className="w-5 h-5 mr-2 text-blue-400" />
-              1. Välj CV
-            </h2>
-            <div className="min-h-[10rem]">
+      {/* --- CV Selection (Compact) --- */}
+      <div className="mb-8">
+        <div className="bg-navy-800 rounded-lg p-4 border border-navy-700">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center">
+              <FileText className="w-5 h-5 mr-3 text-blue-400" />
+              <label htmlFor="cv-selector" className="text-sm font-medium text-gray-300 mr-3">
+                Välj CV för analys:
+              </label>
               {cvsLoading || profileLoading ? (
-                 <div className="flex items-center justify-center h-32"><Loader2 className="w-8 h-8 text-pink-500 animate-spin" aria-label="Laddar CV-lista..." /></div>
-              ) : cvs.length === 0 ? (
-                <div className="border border-navy-700 border-dashed rounded-lg p-6 bg-navy-900/50 text-center flex flex-col items-center justify-center h-full">
-                  <FileText className="w-10 h-10 mx-auto mb-3 text-gray-600" />
-                  <p className="text-lg mb-1 text-gray-300">Inga CV:n uppladdade</p>
-                  <p className="text-sm text-gray-500 mb-4">Ladda upp ditt CV för att kunna analysera det.</p>
-                  <Link href={PROFILE_CV_ROUTE} className="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors bg-pink-600 rounded-md hover:bg-pink-700">
-                    <Upload className="w-4 h-4 mr-2" /> Gå till CV-hantering
-                  </Link>
+                <div className="flex items-center">
+                  <Loader2 className="w-5 h-5 text-pink-500 animate-spin" />
+                  <span className="ml-2 text-sm text-gray-400">Laddar CV:n...</span>
                 </div>
+              ) : cvs.length === 0 ? (
+                <Link href={PROFILE_CV_ROUTE} className="inline-flex items-center px-3 py-1 text-sm font-medium text-pink-400 hover:text-pink-300">
+                  <Upload className="w-4 h-4 mr-2" /> Ladda upp CV
+                </Link>
               ) : (
-                <ul className="space-y-3 max-h-80 overflow-y-auto elegant-scrollbar pr-1">
+                <select
+                  id="cv-selector"
+                  value={selectedCV || ''}
+                  onChange={(e) => setSelectedCV(e.target.value)}
+                  disabled={profileLoading || hasReachedLimit}
+                  className="px-4 py-2 bg-navy-900 border border-navy-700 rounded-lg text-white focus:ring-2 focus:ring-pink-500 focus:border-transparent disabled:opacity-50"
+                >
+                  <option value="" disabled>Välj ett CV...</option>
                   {cvs.map((cv) => (
-                    <li key={cv.id}>
-                      <button
-                        type="button"
-                        onClick={() => setSelectedCV(cv.id)}
-                        disabled={profileLoading || hasReachedLimit}
-                        className={`w-full text-left p-4 rounded-md border transition-all duration-200 flex items-start gap-3 ${
-                          selectedCV === cv.id
-                            ? 'bg-navy-700 border-pink-500 ring-1 ring-pink-500 shadow-md'
-                            : 'bg-navy-900/50 border-navy-700 hover:bg-navy-700 hover:border-navy-600'
-                        } ${(profileLoading || hasReachedLimit) ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
-                        aria-pressed={selectedCV === cv.id}
-                       >
-                        <FileText className={`w-5 h-5 mt-0.5 flex-shrink-0 ${selectedCV === cv.id ? 'text-pink-400' : 'text-blue-400'}`} />
-                        <div className="flex-grow overflow-hidden">
-                          <p className={`font-medium truncate ${selectedCV === cv.id ? 'text-white' : 'text-gray-200'}`}>
-                            {cv.file_name || `CV ${cv.id.substring(0, 6)}`}
-                          </p>
-                          <p className="text-xs text-gray-400">Uppladdat: {formatDate(cv.created_at)}</p>
-                        </div>
-                        {selectedCV === cv.id && <Check className="w-5 h-5 text-pink-400 flex-shrink-0" aria-hidden="true" />}
-                      </button>
-                    </li>
+                    <option key={cv.id} value={cv.id}>
+                      {cv.file_name || `CV ${cv.id.substring(0, 6)}`} - Uppladdat {formatDate(cv.created_at)}
+                    </option>
                   ))}
-                </ul>
+                </select>
               )}
             </div>
+            {selectedCV && cvs.find(cv => cv.id === selectedCV) && (
+              <div className="flex items-center text-sm text-green-400">
+                <Check className="w-4 h-4 mr-1" />
+                CV valt
+              </div>
+            )}
           </div>
-        </section>
+        </div>
+      </div>
 
-        {/* --- Right Column: Analysis Tool & Results --- */}
-        <section aria-labelledby="analysis-tool-heading" className="lg:col-span-2">
-             <h2 id="analysis-tool-heading" className="sr-only">Kompetensanalysverktyg och Resultat</h2>
-             <CompetenceAnalysisTool
-                selectedCvId={selectedCV}
-                subscriptionTier={subscriptionTier}
-                remainingWeeklyAnalyses={remainingWeeklyAnalyses}
-                updateRemainingAnalyses={updateRemainingAnalyses}
-                updateNextAnalysisResetDate={updateNextAnalysisResetDate}
-                hasReachedLimit={hasReachedLimit}
-             />
-        </section>
-
+      {/* --- Main Content (Full Width) --- */}
+      <main className="w-full">
+        <CompetenceAnalysisDashboard
+          selectedCvId={selectedCV}
+          subscriptionTier={subscriptionTier}
+          remainingWeeklyAnalyses={remainingWeeklyAnalyses}
+          updateRemainingAnalyses={updateRemainingAnalyses}
+          updateNextAnalysisResetDate={updateNextAnalysisResetDate}
+          hasReachedLimit={hasReachedLimit}
+        />
       </main>
     </div>
   );
