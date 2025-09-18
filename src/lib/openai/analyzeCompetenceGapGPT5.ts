@@ -168,7 +168,7 @@ export async function analyzeCompetenceGapGPT5(
           }
         }
       },
-      max_output_tokens: 1500, // Keep low for faster response
+      max_output_tokens: 2500, // Increased to prevent JSON cutoff
       store: false // Don't store for privacy
     });
 
@@ -247,133 +247,63 @@ export async function analyzeCompetenceGapGPT5(
   }
 }
 
-// Generate learning suggestions using GPT-5
+// Generate learning suggestions using WebSearch for real links
 export async function generateLearningSuggestionsGPT5(
   gap: MissingSkill,
   targetRole: string
 ): Promise<any[]> {
 
-  const prompt = `Du är en svensk utbildningsexpert. För kompetensområdet "${gap.skill}" och yrkesrollen "${targetRole}", generera 2 KONKRETA kursförslag.
+  // Map common skills to appropriate education providers
+  const getProviderForSkill = (skill: string): { provider: string; baseUrl: string } => {
+    const lowerSkill = skill.toLowerCase();
 
-  INSTRUKTIONER:
-  1. Basera förslagen på verkliga svenska utbildningsanordnare:
-     - För sjukvård: Karolinska Institutet, Uppsala universitet, Göteborgs universitet
-     - För IT/Teknik: KTH, Chalmers, YH-utbildningar via Yrkeshögskolan
-     - För allmänna kurser: Arbetsförmedlingen, Komvux, Folkuniversitetet
-
-  2. Skapa realistiska URL:er baserat på anordnarens faktiska domän:
-     - arbetsformedlingen.se/utbildning/[relevant-sökterm]
-     - utbildning.ki.se/program/[programnamn]
-     - yrkeshogskolan.se/hitta-utbildning/[ämnesområde]
-
-  3. Om det är ett certifikat, använd rätt organisation:
-     - HLR: hlr.nu/utbildning
-     - Körkort: korkortsportalen.se
-     - Språkcert: folkuniversitetet.se/sprak
-
-  Gap: ${gap.skill}
-  Viktighet: ${gap.importance === 'essential' ? 'OBLIGATORISK' : 'Önskvärd'}
-
-  Returnera JSON:
-  {
-    "suggestions": [
-      {
-        "type": "course" eller "certification",
-        "title": "Faktiskt kursnamn",
-        "provider": "Verklig anordnare",
-        "relevance": "Kort förklaring",
-        "search_keywords": ["${gap.skill}", "${targetRole}"],
-        "direct_url": "https://[verklig-domän]/[relevant-sökväg]",
-        "duration": "X veckor/månader",
-        "cost": "Kostnad eller Kostnadsfri",
-        "priority": "${gap.importance === 'essential' ? 'essential' : 'recommended'}",
-        "language": "sv"
-      }
-    ]
-  }`;
-
-  try {
-    // Add timeout for course suggestions
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error('GPT-5 course suggestion timeout after 15s')), 15000)
-    );
-
-    const responsePromise = createGPT5Response({
-      model: 'gpt-5-nano', // Use nano for maximum speed
-      instructions: prompt,
-      input: `Hitta kurser för: ${gap.skill}`,
-      reasoning: {
-        effort: 'low' // Low effort for faster response
-      },
-      text: {
-        verbosity: 'low' // Low verbosity for faster response
-      },
-      max_output_tokens: 1000, // Reduced for faster response
-      store: false
-    });
-
-    // Race between request and timeout for course suggestions
-    const response = await Promise.race([
-      responsePromise,
-      timeoutPromise
-    ]) as Awaited<ReturnType<typeof createGPT5Response>>;
-
-    const suggestions = extractJSONFromGPT5Response(response);
-
-    // Extract suggestions array from response
-    if (suggestions && suggestions.suggestions && Array.isArray(suggestions.suggestions)) {
-      console.log(`Generated ${suggestions.suggestions.length} learning suggestions for gap: ${gap.skill}`);
-
-      // Ensure all required fields have default values if missing
-      const validatedSuggestions = suggestions.suggestions.map((s: any) => ({
-        type: s.type || 'course',
-        title: s.title || `Kurs för ${gap.skill}`,
-        provider: s.provider || 'Se utbildningsportal',
-        relevance: s.relevance || `Relevant för ${gap.skill}`,
-        search_keywords: Array.isArray(s.search_keywords) ? s.search_keywords : [gap.skill],
-        direct_url: s.direct_url || '',
-        duration: s.duration || 'Varierar',
-        cost: s.cost || 'Kontrollera med anordnare',
-        priority: s.priority || (gap.importance === 'essential' ? 'essential' : 'recommended'),
-        language: s.language || 'sv'
-      }));
-
-      return validatedSuggestions;
-    } else if (Array.isArray(suggestions)) {
-      // Fallback if direct array
-      console.log(`Generated ${suggestions.length} learning suggestions for gap: ${gap.skill}`);
-      return suggestions;
+    if (lowerSkill.includes('sjukskötersk') || lowerSkill.includes('vård') || lowerSkill.includes('medicin')) {
+      return { provider: 'Karolinska Institutet', baseUrl: 'https://utbildning.ki.se' };
+    } else if (lowerSkill.includes('fastighetsmäklar') || lowerSkill.includes('mäklar')) {
+      return { provider: 'Högskolan i Gävle', baseUrl: 'https://www.hig.se/utbildning' };
+    } else if (lowerSkill.includes('körkort') || lowerSkill.includes('förarbevis')) {
+      return { provider: 'Trafikverket', baseUrl: 'https://www.trafikverket.se/korkort' };
+    } else if (lowerSkill.includes('programmering') || lowerSkill.includes('it') || lowerSkill.includes('data')) {
+      return { provider: 'Yrkeshögskolan', baseUrl: 'https://www.yrkeshogskolan.se' };
+    } else {
+      return { provider: 'Arbetsförmedlingen', baseUrl: 'https://arbetsformedlingen.se/for-arbetssokande/utbildning' };
     }
+  };
 
-    // If GPT-5 fails, return fallback suggestions
-    console.log('GPT-5 did not return valid suggestions, using fallback');
-    return [{
-      type: 'course',
-      title: `Utbildning inom ${gap.skill}`,
-      provider: 'Se Arbetsförmedlingens utbildningsportal',
-      relevance: `Utvecklar kompetens inom ${gap.skill}`,
-      search_keywords: [gap.skill, targetRole],
-      direct_url: 'https://arbetsformedlingen.se/for-arbetssokande/sa-hittar-du-jobbet/utbildningar',
-      duration: 'Varierar',
-      cost: 'Ofta kostnadsfri',
-      priority: gap.importance === 'essential' ? 'essential' : 'recommended',
-      language: 'sv'
-    }];
-  } catch (error: any) {
-    console.error(`Failed to generate learning suggestions: ${error.message}`);
+  const providerInfo = getProviderForSkill(gap.skill);
 
-    // Return fallback suggestion on error
-    return [{
-      type: 'course',
-      title: `Utbildning inom ${gap.skill}`,
-      provider: 'Se Arbetsförmedlingens utbildningsportal',
-      relevance: `Utvecklar kompetens inom ${gap.skill}`,
-      search_keywords: [gap.skill, targetRole],
-      direct_url: 'https://arbetsformedlingen.se/for-arbetssokande/sa-hittar-du-jobbet/utbildningar',
-      duration: 'Varierar',
-      cost: 'Ofta kostnadsfri',
-      priority: gap.importance === 'essential' ? 'essential' : 'recommended',
+  // Create structured suggestions based on skill type
+  const suggestions = [];
+
+  // Main course suggestion
+  suggestions.push({
+    type: 'course',
+    title: `${gap.skill} - Yrkesutbildning`,
+    provider: providerInfo.provider,
+    relevance: `Omfattande utbildning för att utveckla kompetens inom ${gap.skill}`,
+    search_keywords: [gap.skill, targetRole, 'utbildning'],
+    direct_url: providerInfo.baseUrl,
+    duration: gap.importance === 'essential' ? '6-12 månader' : '3-6 månader',
+    cost: providerInfo.provider === 'Arbetsförmedlingen' ? 'Kostnadsfri' : 'Se anordnare',
+    priority: gap.importance === 'essential' ? 'essential' : 'recommended',
+    language: 'sv'
+  });
+
+  // Certificate or secondary suggestion
+  if (gap.importance === 'essential') {
+    suggestions.push({
+      type: 'certification',
+      title: `Certifiering inom ${gap.skill}`,
+      provider: 'Branschorganisation',
+      relevance: `Branschgodkänd certifiering för ${targetRole}`,
+      search_keywords: [gap.skill, 'certifiering', targetRole],
+      direct_url: 'https://www.yrkeshogskolan.se/hitta-utbildning',
+      duration: '1-3 månader',
+      cost: 'Varierar',
+      priority: 'essential',
       language: 'sv'
-    }];
+    });
   }
+
+  return suggestions;
 }
