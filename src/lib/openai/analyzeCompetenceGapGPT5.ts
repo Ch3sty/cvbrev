@@ -253,31 +253,44 @@ export async function generateLearningSuggestionsGPT5(
   targetRole: string
 ): Promise<any[]> {
 
-  const prompt = `Du är en svensk utbildningsexpert. Generera 2 KONKRETA kursförslag för:
+  const prompt = `Du är en svensk utbildningsexpert. För kompetensområdet "${gap.skill}" och yrkesrollen "${targetRole}", generera 2 KONKRETA kursförslag.
+
+  INSTRUKTIONER:
+  1. Basera förslagen på verkliga svenska utbildningsanordnare:
+     - För sjukvård: Karolinska Institutet, Uppsala universitet, Göteborgs universitet
+     - För IT/Teknik: KTH, Chalmers, YH-utbildningar via Yrkeshögskolan
+     - För allmänna kurser: Arbetsförmedlingen, Komvux, Folkuniversitetet
+
+  2. Skapa realistiska URL:er baserat på anordnarens faktiska domän:
+     - arbetsformedlingen.se/utbildning/[relevant-sökterm]
+     - utbildning.ki.se/program/[programnamn]
+     - yrkeshogskolan.se/hitta-utbildning/[ämnesområde]
+
+  3. Om det är ett certifikat, använd rätt organisation:
+     - HLR: hlr.nu/utbildning
+     - Körkort: korkortsportalen.se
+     - Språkcert: folkuniversitetet.se/sprak
 
   Gap: ${gap.skill}
-  Viktighet: ${gap.importance === 'essential' ? 'OBLIGATORISK för yrket' : 'Önskvärd kompetens'}
-  Målroll: ${targetRole}
+  Viktighet: ${gap.importance === 'essential' ? 'OBLIGATORISK' : 'Önskvärd'}
 
-  VIKTIG: Returnera BARA en JSON-array med objekt som har denna exakta struktur:
+  Returnera JSON:
   {
     "suggestions": [
       {
-        "type": "course" | "certification" | "self-study" | "project",
-        "title": "Kursnamn",
-        "provider": "Utbildningsanordnare",
-        "relevance": "Varför kursen är relevant",
-        "search_keywords": ["sökord1", "sökord2"],
-        "direct_url": "https://exempel.se/kurs",
-        "duration": "3 veckor",
-        "cost": "Kostnadsfri",
-        "priority": "essential" | "recommended" | "optional",
-        "language": "sv" | "en" | "other"
+        "type": "course" eller "certification",
+        "title": "Faktiskt kursnamn",
+        "provider": "Verklig anordnare",
+        "relevance": "Kort förklaring",
+        "search_keywords": ["${gap.skill}", "${targetRole}"],
+        "direct_url": "https://[verklig-domän]/[relevant-sökväg]",
+        "duration": "X veckor/månader",
+        "cost": "Kostnad eller Kostnadsfri",
+        "priority": "${gap.importance === 'essential' ? 'essential' : 'recommended'}",
+        "language": "sv"
       }
     ]
-  }
-
-  Returnera ENDAST giltig JSON, ingen annan text!`;
+  }`;
 
   try {
     // Add timeout for course suggestions

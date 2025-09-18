@@ -253,7 +253,6 @@ const CompetenceAnalysisDisplay: React.FC<CompetenceAnalysisDisplayProps> = Reac
 
     // --- Render Main Analysis Content ---
     return (
-        <>
         <div className="space-y-4 animate-fadeIn"> {/* Minskad space-y */}
 
             {/* --- Analysmål --- */}
@@ -301,31 +300,17 @@ const CompetenceAnalysisDisplay: React.FC<CompetenceAnalysisDisplayProps> = Reac
                 ) : ( <div className="flex items-center text-sm text-green-300"> <CheckCircle className="w-4 h-4 mr-2 flex-shrink-0"/> <span>Inga uppenbara kompetensgap identifierades.</span> </div> )}
             </AnalysisSection>
 
-            {/* --- Förslag på Lärande & Utveckling --- */}
-            <AnalysisSection title="Förslag på Lärande & Utveckling" icon={GraduationCap}>
-                {allSuggestions.length > 0 ? (
-                    <>
-                        <div className="space-y-4">
-                             {suggestionsToShow.map((item, index) => (
-                                <LearningSuggestionItem key={index} item={item} />
-                             ))}
-                        </div>
-                        {isFreeTier && <UpgradeMessage hiddenCount={hiddenSuggestionsCount} itemType="lärandeförslag" />}
-                    </>
-                 ) : ( <p className={fallbackTextClasses}>Inga specifika lärandeförslag genererades.</p> )}
-            </AnalysisSection>
+            {/* --- Lärandeväg Timeline (Moved inside grid to stay within col-span-2) --- */}
+            {data?.suggestedLearningPath && data.suggestedLearningPath.length > 0 && (
+                <LearningPathTimeline
+                    suggestions={data.suggestedLearningPath}
+                    targetRole={data.targetDescription.replace('Yrkesroll: ', '').replace(' i Sverige', '')}
+                    className="mt-8"
+                    subscriptionTier={subscriptionTier}
+                />
+            )}
 
         </div>
-
-        {/* --- Lärandeväg Timeline (Full width below) --- */}
-        {data?.suggestedLearningPath && data.suggestedLearningPath.length > 0 && (
-            <LearningPathTimeline
-                suggestions={data.suggestedLearningPath}
-                targetRole={data.targetDescription.replace('Yrkesroll: ', '').replace(' i Sverige', '')}
-                className="mt-8"
-            />
-        )}
-        </>
     );
 });
 CompetenceAnalysisDisplay.displayName = 'CompetenceAnalysisDisplay';

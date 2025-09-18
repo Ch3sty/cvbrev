@@ -241,8 +241,8 @@ export default function CompetenceAnalysisPage() {
                         onClick={() => setSelectedCV(cv.id)}
                         disabled={profileLoading || hasReachedLimit}
                         className={`w-full text-left p-4 rounded-md border transition-all duration-200 flex items-start gap-3 ${
-                          selectedCV === cv.id 
-                            ? 'bg-navy-700 border-pink-500 ring-1 ring-pink-500 shadow-md' 
+                          selectedCV === cv.id
+                            ? 'bg-navy-700 border-pink-500 ring-1 ring-pink-500 shadow-md'
                             : 'bg-navy-900/50 border-navy-700 hover:bg-navy-700 hover:border-navy-600'
                         } ${(profileLoading || hasReachedLimit) ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
                         aria-pressed={selectedCV === cv.id}

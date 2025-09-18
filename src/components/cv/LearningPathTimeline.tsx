@@ -30,12 +30,14 @@ interface LearningPathTimelineProps {
   suggestions: any[];
   targetRole: string;
   className?: string;
+  subscriptionTier?: 'free' | 'premium' | null;
 }
 
 export default function LearningPathTimeline({
   suggestions,
   targetRole,
-  className = ''
+  className = '',
+  subscriptionTier = 'free'
 }: LearningPathTimelineProps) {
 
   // Group suggestions by priority and create timeline steps
@@ -92,21 +94,21 @@ export default function LearningPathTimeline({
   }
 
   return (
-    <div className={`w-full bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 mt-8 ${className}`}>
+    <div className={`w-full bg-navy-900/50 border border-navy-700 rounded-xl p-6 mt-8 ${className}`}>
       <div className="mb-6">
-        <h3 className="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2">
-          <Target className="w-6 h-6 text-blue-600" />
+        <h3 className="text-2xl font-bold text-white mb-2 flex items-center gap-2">
+          <Target className="w-6 h-6 text-pink-400" />
           Din rekommenderade lärandeväg mot {targetRole}
         </h3>
-        <p className="text-gray-600">
-          Total uppskattad tid: <span className="font-semibold">{totalTimeString}</span>
+        <p className="text-gray-300">
+          Total uppskattad tid: <span className="font-semibold text-cyan-400">{totalTimeString}</span>
         </p>
       </div>
 
       {/* Timeline */}
       <div className="relative">
         {/* Vertical line */}
-        <div className="absolute left-6 top-8 bottom-8 w-0.5 bg-blue-300"></div>
+        <div className="absolute left-6 top-8 bottom-8 w-0.5 bg-navy-600"></div>
 
         {/* Timeline steps */}
         <div className="space-y-6">
@@ -116,8 +118,8 @@ export default function LearningPathTimeline({
               <div className={`
                 relative z-10 w-12 h-12 rounded-full flex items-center justify-center shadow-lg
                 ${course.priority === 'essential'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white text-blue-600 border-2 border-blue-600'}
+                  ? 'bg-pink-600 text-white'
+                  : 'bg-navy-800 text-cyan-400 border-2 border-cyan-500'}
               `}>
                 {course.type === 'certification' ? (
                   <Award className="w-5 h-5" />
@@ -128,20 +130,20 @@ export default function LearningPathTimeline({
 
               {/* Content card */}
               <div className={`
-                flex-1 bg-white rounded-lg shadow-md p-5 hover:shadow-lg transition-shadow
-                ${course.priority === 'essential' ? 'border-l-4 border-blue-600' : ''}
+                flex-1 bg-navy-800/60 rounded-lg border border-navy-700 p-5 hover:border-navy-600 transition-all
+                ${course.priority === 'essential' ? 'border-l-4 border-l-pink-500' : ''}
               `}>
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h4 className="font-semibold text-lg text-gray-900">
+                    <h4 className="font-semibold text-lg text-white">
                       {course.title}
                     </h4>
                     {course.provider && (
-                      <p className="text-sm text-gray-600 mt-1">{course.provider}</p>
+                      <p className="text-sm text-gray-400 mt-1">{course.provider}</p>
                     )}
                   </div>
                   {course.priority === 'essential' && (
-                    <span className="bg-red-100 text-red-700 text-xs font-semibold px-2 py-1 rounded">
+                    <span className="bg-red-900/40 text-red-300 text-xs font-semibold px-2 py-1 rounded">
                       Obligatorisk
                     </span>
                   )}
@@ -149,28 +151,28 @@ export default function LearningPathTimeline({
 
                 {/* Course details */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
-                  <div className="flex items-center gap-1 text-sm text-gray-600">
-                    <Clock className="w-4 h-4" />
+                  <div className="flex items-center gap-1 text-sm text-gray-300">
+                    <Clock className="w-4 h-4 text-blue-400" />
                     <span>{course.duration}</span>
                   </div>
 
                   {course.cost && (
-                    <div className="flex items-center gap-1 text-sm text-gray-600">
-                      <DollarSign className="w-4 h-4" />
+                    <div className="flex items-center gap-1 text-sm text-gray-300">
+                      <DollarSign className="w-4 h-4 text-green-400" />
                       <span>{course.cost}</span>
                     </div>
                   )}
 
                   {(course as any).start_date && (
-                    <div className="flex items-center gap-1 text-sm text-gray-600">
-                      <Calendar className="w-4 h-4" />
+                    <div className="flex items-center gap-1 text-sm text-gray-300">
+                      <Calendar className="w-4 h-4 text-purple-400" />
                       <span>{(course as any).start_date}</span>
                     </div>
                   )}
 
                   {(course as any).study_format && (
-                    <div className="flex items-center gap-1 text-sm text-gray-600">
-                      <MapPin className="w-4 h-4" />
+                    <div className="flex items-center gap-1 text-sm text-gray-300">
+                      <MapPin className="w-4 h-4 text-cyan-400" />
                       <span>{(course as any).study_format}</span>
                     </div>
                   )}
@@ -182,17 +184,17 @@ export default function LearningPathTimeline({
                     href={course.direct_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm"
+                    className="inline-flex items-center gap-2 text-pink-400 hover:text-pink-300 font-medium text-sm transition-colors group"
                   >
                     Läs mer & ansök
-                    <ExternalLink className="w-4 h-4" />
+                    <ExternalLink className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
                   </a>
                 )}
 
                 {/* Progress indicator for multi-step path */}
                 {index < learningPath.length - 1 && (
                   <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2">
-                    <ChevronRight className="w-5 h-5 text-blue-400 rotate-90" />
+                    <ChevronRight className="w-5 h-5 text-navy-600 rotate-90" />
                   </div>
                 )}
               </div>
@@ -201,14 +203,14 @@ export default function LearningPathTimeline({
 
           {/* Final goal */}
           <div className="relative flex gap-4">
-            <div className="relative z-10 w-12 h-12 rounded-full bg-green-600 text-white flex items-center justify-center shadow-lg">
+            <div className="relative z-10 w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-teal-500 text-white flex items-center justify-center shadow-lg">
               <Target className="w-5 h-5" />
             </div>
-            <div className="flex-1 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-5 border-2 border-green-200">
-              <h4 className="font-bold text-lg text-gray-900 mb-2">
+            <div className="flex-1 bg-gradient-to-r from-green-900/20 to-teal-900/20 rounded-lg p-5 border border-green-700/50">
+              <h4 className="font-bold text-lg text-white mb-2">
                 🎯 Mål uppnått: {targetRole}
               </h4>
-              <p className="text-gray-600">
+              <p className="text-gray-300">
                 Efter genomförd utbildningsplan är du redo för rollen som {targetRole}
               </p>
             </div>
@@ -217,9 +219,9 @@ export default function LearningPathTimeline({
       </div>
 
       {/* Summary box */}
-      <div className="mt-8 bg-blue-100 rounded-lg p-4">
-        <h4 className="font-semibold text-blue-900 mb-2">Finansieringsmöjligheter</h4>
-        <ul className="text-sm text-blue-800 space-y-1">
+      <div className="mt-8 bg-navy-800/60 rounded-lg p-4 border border-navy-700">
+        <h4 className="font-semibold text-cyan-400 mb-2">Finansieringsmöjligheter</h4>
+        <ul className="text-sm text-gray-300 space-y-1">
           <li>• CSN-stöd för längre utbildningar</li>
           <li>• Arbetsförmedlingens utbildningsstöd för bristyrken</li>
           <li>• Kompetensutveckling via nuvarande arbetsgivare</li>
