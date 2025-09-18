@@ -635,7 +635,7 @@ function parseWebSearchContent(
   console.log(`Found ${urlsByIndex.size} URL citations in web search results`);
 
   // Look for numbered course listings (1., 2., etc.)
-  const coursePattern = /\d+\.\s*(.+?)(?=\n\d+\.|\n\n|$)/gs;
+  const coursePattern = /\d+\.\s*(.+?)(?=\n\d+\.|\n\n|$)/g;
   const courseMatches = Array.from(content.matchAll(coursePattern));
 
   for (let i = 0; i < Math.min(2, courseMatches.length); i++) {
