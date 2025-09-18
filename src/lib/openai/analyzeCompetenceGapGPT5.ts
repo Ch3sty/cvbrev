@@ -280,28 +280,20 @@ export async function generateLearningSuggestionsGPT5(
 
 Ge mig VERKLIGA kurser med RIKTIGA länkar från webben.
 
-Returnera som JSON:
-{
-  "courses": [
-    {
-      "type": "course" eller "certification",
-      "title": "Exakt kursnamn från webben",
-      "provider": "Verklig utbildningsanordnare",
-      "direct_url": "Faktisk URL till kursen",
-      "duration": "Kurslängd",
-      "cost": "Kostnad",
-      "start_date": "När kursen startar",
-      "study_format": "Distans/Campus/Hybrid",
-      "priority": "essential",
-      "description": "Vad kursen handlar om"
-    }
-  ]
-}`,
-        text: {
-          format: {
-            type: 'json_object'
-          }
-        }
+Formatera svaret som en JSON-struktur med följande fält för varje kurs:
+- type: "course" eller "certification"
+- title: Exakt kursnamn från webben
+- provider: Verklig utbildningsanordnare
+- direct_url: Faktisk URL till kursen
+- duration: Kurslängd
+- cost: Kostnad
+- start_date: När kursen startar
+- study_format: Distans/Campus/Hybrid
+- priority: "essential"
+- description: Vad kursen handlar om
+
+Börja svaret med { "courses": [ och avsluta med ] }`
+        // REMOVED json_object format - not compatible with web_search
       }),
     });
 
@@ -344,7 +336,18 @@ Returnera som JSON:
     }
 
     try {
-      const parsed = JSON.parse(outputText);
+      // Try to extract JSON from the text response
+      let jsonText = outputText;
+
+      // Find JSON structure in the response
+      const jsonStart = outputText.indexOf('{"courses":');
+      const jsonEnd = outputText.lastIndexOf(']}') + 2;
+
+      if (jsonStart >= 0 && jsonEnd > jsonStart) {
+        jsonText = outputText.substring(jsonStart, jsonEnd);
+      }
+
+      const parsed = JSON.parse(jsonText);
       let courses = parsed.courses || [];
 
       if (!Array.isArray(courses) || courses.length === 0) {
@@ -402,9 +405,11 @@ async function tryGPT5Alternative(
       body: JSON.stringify({
         model: 'gpt-5-mini',
         tools: [{ type: 'web_search' }],
-        input: `Sök på webben efter utbildningar för ${gap.skill} för ${targetRole} i Sverige. Ge 2 konkreta kurser med länkar.`,
+        input: `Sök på webben efter utbildningar för ${gap.skill} för ${targetRole} i Sverige.
+Ge 2 konkreta kurser med direkta länkar.
+Formatera som JSON med courses array.`,
         text: {
-          verbosity: 'low'
+          verbosity: 'medium'
         }
       }),
     });
@@ -415,31 +420,61 @@ async function tryGPT5Alternative(
 
     const data = await response.json();
 
-    // Try to extract course information from the response
-    // Even if not in perfect JSON format
-    const text = JSON.stringify(data);
-    const courses = [];
-
-    // Basic extraction logic
-    if (text.includes('http')) {
-      courses.push({
-        type: 'course',
-        title: `Utbildning inom ${gap.skill}`,
-        provider: 'Se information',
-        direct_url: '#',
-        duration: 'Varierar',
-        cost: 'Se information',
-        start_date: 'Löpande',
-        study_format: 'Varierar',
-        priority: 'essential',
-        description: `Relevant för ${targetRole}`,
-        relevance: `För ${gap.skill}`,
-        search_keywords: [gap.skill, targetRole],
-        language: 'sv'
-      });
+    // Extract text from GPT-5-mini response
+    let outputText = '';
+    if (data.output) {
+      if (Array.isArray(data.output)) {
+        data.output.forEach((item: any) => {
+          if (item.content) {
+            item.content.forEach((content: any) => {
+              if (content.text) {
+                outputText += content.text;
+              }
+            });
+          }
+        });
+      } else if (typeof data.output === 'string') {
+        outputText = data.output;
+      }
+    } else if (data.output_text) {
+      outputText = data.output_text;
     }
 
-    return courses;
+    if (!outputText) {
+      return [];
+    }
+
+    try {
+      // Try to find and parse JSON in the response
+      const jsonStart = outputText.indexOf('{"courses":') >= 0 ? outputText.indexOf('{"courses":') : outputText.indexOf('[');
+      const jsonEnd = outputText.lastIndexOf('}') + 1;
+
+      if (jsonStart >= 0 && jsonEnd > jsonStart) {
+        const jsonText = outputText.substring(jsonStart, jsonEnd);
+        const parsed = JSON.parse(jsonText);
+        const courses = (Array.isArray(parsed) ? parsed : parsed.courses || []).slice(0, 2);
+
+        return courses.map((c: any) => ({
+          type: c.type || 'course',
+          title: c.title || `Utbildning inom ${gap.skill}`,
+          provider: c.provider || 'Se information',
+          direct_url: c.direct_url || c.url || '#',
+          duration: c.duration || 'Se information',
+          cost: c.cost || 'Se information',
+          start_date: c.start_date || 'Löpande',
+          study_format: c.study_format || 'Se information',
+          priority: 'essential',
+          description: c.description || `Relevant för ${targetRole}`,
+          relevance: `För ${gap.skill}`,
+          search_keywords: [gap.skill, targetRole],
+          language: 'sv'
+        }));
+      }
+    } catch (error) {
+      console.error('Failed to parse GPT-5-mini response:', error);
+    }
+
+    return [];
   } catch (error) {
     console.error('GPT-5 alternative failed:', error);
     return [];
