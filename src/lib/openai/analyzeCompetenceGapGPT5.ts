@@ -322,7 +322,7 @@ Returnera som JSON:
     if (data.output) {
       // GPT-5 Responses API returns output array
       if (Array.isArray(data.output)) {
-        data.output.forEach(item => {
+        data.output.forEach((item: any) => {
           if (item.content) {
             item.content.forEach((content: any) => {
               if (content.text) {
