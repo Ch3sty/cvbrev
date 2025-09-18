@@ -8,7 +8,7 @@ export const maxDuration = 10; // Quick response
 export async function GET(request: NextRequest) {
     try {
         // Authenticate user
-        const cookieStore = cookies();
+        const cookieStore = await cookies();
         const supabase = createServerClient(cookieStore);
         const { data: { user }, error: authError } = await supabase.auth.getUser();
 

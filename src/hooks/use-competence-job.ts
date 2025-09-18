@@ -1,6 +1,6 @@
 // src/hooks/use-competence-job.ts
 import { useEffect, useState, useCallback } from 'react';
-import { createBrowserClient } from '@/lib/supabase/client';
+import { createClient } from '@/lib/supabase/client';
 
 interface CompetenceJob {
   id: string;
@@ -29,7 +29,7 @@ export function useCompetenceJob(jobId: string | null): UseCompetenceJobResult {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const supabase = createBrowserClient();
+  const supabase = createClient();
 
   const fetchJob = useCallback(async () => {
     if (!jobId) {
