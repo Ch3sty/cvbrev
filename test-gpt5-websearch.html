@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test GPT-5 Web Search för Kurser</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f7f9fc;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .course-card {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        .course-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .course-provider {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .course-link {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .course-link:hover {
+            background: #5a67d8;
+        }
+        .course-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        .detail-item {
+            display: flex;
+            align-items: center;
+        }
+        .detail-label {
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        .loading {
+            text-align: center;
+            padding: 20px;
+            font-size: 18px;
+            color: #667eea;
+        }
+        .error {
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c00;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .success {
+            background: #efe;
+            border: 1px solid #cfc;
+            color: #060;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .skill-gap {
+            background: #fffaf0;
+            border: 1px solid #fed7aa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+        button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background: #5a67d8;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 Test GPT-5 Web Search för Kompetensutveckling</h1>
+
+        <div class="test-section">
+            <h2>Test av verkliga kurssökningar</h2>
+            <p>Detta testar att GPT-5 med web_search hittar RIKTIGA kurser med FUNGERANDE länkar.</p>
+
+            <button id="testBtn" onclick="runTest()">Kör Test för Truckförare</button>
+
+            <div id="status"></div>
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <script>
+        async function runTest() {
+            const statusDiv = document.getElementById('status');
+            const resultsDiv = document.getElementById('results');
+            const testBtn = document.getElementById('testBtn');
+
+            testBtn.disabled = true;
+            statusDiv.innerHTML = '<div class="loading">⏳ Startar kompetensanalys för Truckförare...</div>';
+            resultsDiv.innerHTML = '';
+
+            try {
+                // Simulera ett CV för test
+                const testData = {
+                    cvId: 'test-cv-id', // Detta behöver vara ett riktigt CV ID
+                    analysisMode: 'role',
+                    targetRole: 'Truckförare'
+                };
+
+                // Starta analys
+                statusDiv.innerHTML = '<div class="loading">🚀 Skickar förfrågan till /api/cv/kompetensutveckling/start...</div>';
+
+                const startResponse = await fetch('/api/cv/kompetensutveckling/start', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(testData)
+                });
+
+                if (!startResponse.ok) {
+                    throw new Error(`Start failed: ${startResponse.status}`);
+                }
+
+                const { jobId } = await startResponse.json();
+                statusDiv.innerHTML = `<div class="success">✅ Job startad: ${jobId}</div>`;
+
+                // Polling för status
+                let attempts = 0;
+                const maxAttempts = 60; // Max 2 minuter
+
+                const checkStatus = async () => {
+                    attempts++;
+
+                    const statusResponse = await fetch(`/api/cv/kompetensutveckling/status?id=${jobId}`);
+                    const jobStatus = await statusResponse.json();
+
+                    statusDiv.innerHTML = `
+                        <div class="status">
+                            📊 Status: ${jobStatus.status}<br>
+                            📈 Progress: ${jobStatus.progress}%<br>
+                            📝 Steg: ${jobStatus.currentStep || 'Väntar...'}<br>
+                            ${jobStatus.totalGaps ? `🎯 Gaps: ${jobStatus.processedGaps}/${jobStatus.totalGaps}` : ''}
+                        </div>
+                    `;
+
+                    if (jobStatus.status === 'completed') {
+                        displayResults(jobStatus.results);
+                        testBtn.disabled = false;
+                    } else if (jobStatus.status === 'failed') {
+                        statusDiv.innerHTML += `<div class="error">❌ Fel: ${jobStatus.errorMessage}</div>`;
+                        testBtn.disabled = false;
+                    } else if (attempts < maxAttempts) {
+                        setTimeout(checkStatus, 2000);
+                    } else {
+                        statusDiv.innerHTML += '<div class="error">⏱️ Timeout - analysen tog för lång tid</div>';
+                        testBtn.disabled = false;
+                    }
+                };
+
+                setTimeout(checkStatus, 2000);
+
+            } catch (error) {
+                statusDiv.innerHTML = `<div class="error">❌ Fel: ${error.message}</div>`;
+                testBtn.disabled = false;
+            }
+        }
+
+        function displayResults(results) {
+            const resultsDiv = document.getElementById('results');
+
+            if (!results || !results.learningSuggestions) {
+                resultsDiv.innerHTML = '<div class="error">Inga resultat att visa</div>';
+                return;
+            }
+
+            let html = `
+                <h3>📊 Matchningspoäng: ${results.matchScore}%</h3>
+                <p>${results.cvSummary}</p>
+                <h3>🎓 Hittade kurser (RIKTIGA med länkar):</h3>
+            `;
+
+            results.learningSuggestions.forEach(gap => {
+                html += `
+                    <div class="skill-gap">
+                        <strong>${gap.skill}</strong> (${gap.importance})
+                        ${gap.suggestions.length} kurser hittade:
+                    </div>
+                `;
+
+                gap.suggestions.forEach(course => {
+                    const hasRealUrl = course.direct_url && course.direct_url.startsWith('https://');
+
+                    html += `
+                        <div class="course-card">
+                            <div class="course-title">${course.title}</div>
+                            <div class="course-provider">${course.provider}</div>
+                            <div class="course-details">
+                                ${course.duration ? `<div class="detail-item"><span class="detail-label">Längd:</span> ${course.duration}</div>` : ''}
+                                ${course.cost ? `<div class="detail-item"><span class="detail-label">Kostnad:</span> ${course.cost}</div>` : ''}
+                                ${course.start_date ? `<div class="detail-item"><span class="detail-label">Start:</span> ${course.start_date}</div>` : ''}
+                                ${course.study_format ? `<div class="detail-item"><span class="detail-label">Format:</span> ${course.study_format}</div>` : ''}
+                                ${course.location ? `<div class="detail-item"><span class="detail-label">Plats:</span> ${course.location}</div>` : ''}
+                            </div>
+                            ${course.description ? `<p style="font-size: 14px; color: #666;">${course.description}</p>` : ''}
+                            ${hasRealUrl ?
+                                `<a href="${course.direct_url}" target="_blank" class="course-link">
+                                    Gå till kurs →
+                                </a>
+                                <span style="color: green; margin-left: 10px;">✅ VERKLIG LÄNK</span>` :
+                                '<span style="color: red;">❌ INGEN RIKTIG LÄNK</span>'
+                            }
+                        </div>
+                    `;
+                });
+            });
+
+            resultsDiv.innerHTML = html;
+        }
+    </script>
+</body>
+</html>
