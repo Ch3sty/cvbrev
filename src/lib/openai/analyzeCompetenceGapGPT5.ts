@@ -247,54 +247,214 @@ export async function analyzeCompetenceGapGPT5(
   }
 }
 
-// Generate learning suggestions using WebSearch for real links
+// Generate learning suggestions using OpenAI Web Search API
 export async function generateLearningSuggestionsGPT5(
   gap: MissingSkill,
   targetRole: string
 ): Promise<any[]> {
 
-  // Map common skills to appropriate education providers
-  const getProviderForSkill = (skill: string): { provider: string; baseUrl: string } => {
-    const lowerSkill = skill.toLowerCase();
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    console.error('OpenAI API key not configured');
+    return generateFallbackSuggestions(gap, targetRole);
+  }
 
-    if (lowerSkill.includes('sjukskötersk') || lowerSkill.includes('vård') || lowerSkill.includes('medicin')) {
-      return { provider: 'Karolinska Institutet', baseUrl: 'https://utbildning.ki.se' };
-    } else if (lowerSkill.includes('fastighetsmäklar') || lowerSkill.includes('mäklar')) {
-      return { provider: 'Högskolan i Gävle', baseUrl: 'https://www.hig.se/utbildning' };
-    } else if (lowerSkill.includes('körkort') || lowerSkill.includes('förarbevis')) {
-      return { provider: 'Trafikverket', baseUrl: 'https://www.trafikverket.se/korkort' };
-    } else if (lowerSkill.includes('programmering') || lowerSkill.includes('it') || lowerSkill.includes('data')) {
-      return { provider: 'Yrkeshögskolan', baseUrl: 'https://www.yrkeshogskolan.se' };
-    } else {
-      return { provider: 'Arbetsförmedlingen', baseUrl: 'https://arbetsformedlingen.se/for-arbetssokande/utbildning' };
+  try {
+    // Create search query for Swedish education context
+    const searchQuery = `
+      Ge mig 2 konkreta utbildningsförslag för att lära sig "${gap.skill}" för rollen ${targetRole} i Sverige.
+      Inkludera för varje utbildning:
+      - Exakt kursnamn
+      - Utbildningsanordnare (t.ex. Karolinska Institutet, YH, Arbetsförmedlingen)
+      - Direkt länk till kursens ansökningssida
+      - Längd/duration
+      - Kostnad
+      - Kort beskrivning
+
+      Fokusera på svenska utbildningar som startar 2025.
+      Håll svaret kortfattat och strukturerat.
+    `;
+
+    console.log(`Searching for courses: ${gap.skill} for ${targetRole}`);
+
+    // Use OpenAI Web Search API
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini-search-preview',
+        web_search_options: {
+          user_location: {
+            type: 'approximate',
+            approximate: {
+              country: 'SE',
+              city: 'Stockholm',
+              region: 'Stockholm',
+            },
+          },
+          search_context_size: 'medium',
+        },
+        messages: [{
+          role: 'user',
+          content: searchQuery
+        }],
+        max_tokens: 1000,
+        temperature: 0.3, // Lower temperature for more factual results
+      }),
+    });
+
+    if (!response.ok) {
+      console.error(`Web Search API error: ${response.status}`);
+      return generateFallbackSuggestions(gap, targetRole);
     }
-  };
 
-  const providerInfo = getProviderForSkill(gap.skill);
+    const data = await response.json();
+    const content = data.choices?.[0]?.message?.content;
+    const annotations = data.choices?.[0]?.message?.annotations || [];
 
-  // Create structured suggestions based on skill type
+    if (!content) {
+      console.warn('No content from Web Search API');
+      return generateFallbackSuggestions(gap, targetRole);
+    }
+
+    // Parse the response to extract course information
+    const suggestions = parseCourseSearchResponse(content, annotations, gap, targetRole);
+
+    if (suggestions.length > 0) {
+      console.log(`Found ${suggestions.length} course suggestions via web search`);
+      return suggestions;
+    }
+
+    return generateFallbackSuggestions(gap, targetRole);
+
+  } catch (error: any) {
+    console.error(`Web Search API failed: ${error.message}`);
+    return generateFallbackSuggestions(gap, targetRole);
+  }
+}
+
+// Parse web search response to extract structured course data
+function parseCourseSearchResponse(
+  content: string,
+  annotations: any[],
+  gap: MissingSkill,
+  targetRole: string
+): any[] {
+  const suggestions = [];
+
+  // Extract URLs from annotations
+  const urlMap = new Map();
+  annotations.forEach(ann => {
+    if (ann.type === 'url_citation' && ann.url_citation) {
+      const { url, title, start_index, end_index } = ann.url_citation;
+      urlMap.set(`${start_index}-${end_index}`, { url, title });
+    }
+  });
+
+  // Try to parse structured course information from the content
+  const courseRegex = /(?:^|\n)\d+\.\s*([^\n]+?)\n/g;
+  const matches = content.matchAll(courseRegex);
+
+  let courseIndex = 0;
+  for (const match of matches) {
+    if (courseIndex >= 2) break; // Max 2 suggestions
+
+    const courseText = match[1];
+
+    // Extract provider and course name
+    const providerMatch = courseText.match(/^([^\u2013\-]+)\s*[\u2013\-]\s*(.+)/);
+    const provider = providerMatch ? providerMatch[1].trim() : 'Svensk utbildningsanordnare';
+    const courseName = providerMatch ? providerMatch[2].trim() : courseText;
+
+    // Find associated URL
+    let courseUrl = '';
+    for (const [range, urlInfo] of urlMap.entries()) {
+      const [start] = range.split('-').map(Number);
+      if (content.indexOf(courseText) < start && start < content.indexOf(courseText) + 500) {
+        courseUrl = urlInfo.url;
+        break;
+      }
+    }
+
+    // If no URL found, use a relevant portal
+    if (!courseUrl) {
+      if (provider.toLowerCase().includes('karolinska')) {
+        courseUrl = 'https://utbildning.ki.se';
+      } else if (provider.toLowerCase().includes('arbetsförmedling')) {
+        courseUrl = 'https://arbetsformedlingen.se/for-arbetssokande/utbildning';
+      } else {
+        courseUrl = 'https://www.yrkeshogskolan.se/hitta-utbildning';
+      }
+    }
+
+    suggestions.push({
+      type: courseIndex === 0 ? 'course' : 'certification',
+      title: courseName,
+      provider: provider,
+      relevance: `Utvecklar kompetens inom ${gap.skill} för ${targetRole}`,
+      search_keywords: [gap.skill, targetRole],
+      direct_url: courseUrl,
+      duration: gap.importance === 'essential' ? '6-12 månader' : '3-6 månader',
+      cost: 'Se utbildningsanordnare',
+      priority: gap.importance === 'essential' ? 'essential' : 'recommended',
+      language: 'sv'
+    });
+
+    courseIndex++;
+  }
+
+  // If we couldn't parse structured data, create suggestions from the general content
+  if (suggestions.length === 0 && urlMap.size > 0) {
+    let count = 0;
+    for (const [, urlInfo] of urlMap) {
+      if (count >= 2) break;
+
+      suggestions.push({
+        type: count === 0 ? 'course' : 'certification',
+        title: urlInfo.title || `Utbildning inom ${gap.skill}`,
+        provider: 'Se utbildningsportal',
+        relevance: `Relevant utbildning för ${targetRole}`,
+        search_keywords: [gap.skill, targetRole],
+        direct_url: urlInfo.url,
+        duration: 'Se kursinfo',
+        cost: 'Se anordnare',
+        priority: gap.importance === 'essential' ? 'essential' : 'recommended',
+        language: 'sv'
+      });
+      count++;
+    }
+  }
+
+  return suggestions;
+}
+
+// Fallback suggestions when web search fails
+function generateFallbackSuggestions(gap: MissingSkill, targetRole: string): any[] {
   const suggestions = [];
 
   // Main course suggestion
   suggestions.push({
     type: 'course',
     title: `${gap.skill} - Yrkesutbildning`,
-    provider: providerInfo.provider,
+    provider: 'Arbetsförmedlingen',
     relevance: `Omfattande utbildning för att utveckla kompetens inom ${gap.skill}`,
     search_keywords: [gap.skill, targetRole, 'utbildning'],
-    direct_url: providerInfo.baseUrl,
+    direct_url: 'https://arbetsformedlingen.se/for-arbetssokande/utbildning',
     duration: gap.importance === 'essential' ? '6-12 månader' : '3-6 månader',
-    cost: providerInfo.provider === 'Arbetsförmedlingen' ? 'Kostnadsfri' : 'Se anordnare',
+    cost: 'Ofta kostnadsfri',
     priority: gap.importance === 'essential' ? 'essential' : 'recommended',
     language: 'sv'
   });
 
-  // Certificate or secondary suggestion
+  // Certificate suggestion for essential gaps
   if (gap.importance === 'essential') {
     suggestions.push({
       type: 'certification',
       title: `Certifiering inom ${gap.skill}`,
-      provider: 'Branschorganisation',
+      provider: 'Yrkeshögskolan',
       relevance: `Branschgodkänd certifiering för ${targetRole}`,
       search_keywords: [gap.skill, 'certifiering', targetRole],
       direct_url: 'https://www.yrkeshogskolan.se/hitta-utbildning',

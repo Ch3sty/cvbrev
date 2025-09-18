@@ -118,7 +118,8 @@
       "WebFetch(domain:platform.openai.com)",
       "WebFetch(domain:cookbook.openai.com)",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-gpt5-competence.html\")",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(del /F /Q .nexttrace)"
     ],
     "deny": [],
     "ask": []
