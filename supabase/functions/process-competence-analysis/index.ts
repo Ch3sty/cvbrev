@@ -1,14 +1,14 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 
-const OPENAI_API_KEY = Deno.env.get('OPENAI_ADMIN_API_KEY'); // Using admin key for GPT-5
+const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY'); // Using regular API key
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
 
 const supabase = createClient(SUPABASE_URL!, SUPABASE_SERVICE_KEY!);
 
-// Step 1: Analyze CV with GPT-5 (without web search)
-async function analyzeWithGPT5(cvText: string, targetInfo: any) {
+// Step 1: Analyze CV with GPT-4o (without web search)
+async function analyzeCV(cvText: string, targetInfo: any) {
   const truncatedCV = cvText.substring(0, 8000);
 
   let targetPrompt = '';
@@ -18,199 +18,176 @@ async function analyzeWithGPT5(cvText: string, targetInfo: any) {
     targetPrompt = `Målet är att matcha mot följande jobbannons: ${targetInfo.jobAdText?.substring(0, 4000)}`;
   }
 
-  const response = await fetch('https://api.openai.com/v1/responses', {
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${OPENAI_API_KEY}`
     },
     body: JSON.stringify({
-      model: 'gpt-5',
-      reasoning: { effort: 'medium' },
-      input: `Du är en svensk rekryteringsexpert. ${targetPrompt}
+      model: 'gpt-4o',
+      messages: [
+        {
+          role: 'system',
+          content: `Du är en svensk rekryteringsexpert. ${targetPrompt}
 
 Analysera detta CV och identifiera:
-1. Matchningspoäng (0-100) - var KRITISK
+1. Matchningspoäng (0-100) - var KRITISK och realistisk
 2. Sammanfattning av CV:t relaterat till målet
 3. Relevanta kompetenser som personen har
-4. ALLA kompetensgap som saknas för rollen (var noggrann!)
+4. ALLA kompetensgap som saknas för rollen (var noggrann och identifiera både formella och informella kompetenser)
 
-CV:
-${truncatedCV}
-
-Returnera JSON med följande struktur:
-{
-  "matchScore": number,
-  "cvSummaryForTarget": string,
-  "identifiedRelevantSkills": string[],
-  "identifiedSkillGaps": [
-    {
-      "skill": string,
-      "importance": "essential" | "important" | "nice-to-have",
-      "reasoning": string
-    }
-  ]
-}`,
-      output_format: { type: 'json_object' }
+Returnera ENDAST JSON utan någon annan text.`
+        },
+        {
+          role: 'user',
+          content: `CV att analysera:\n${truncatedCV}`
+        }
+      ],
+      response_format: { type: 'json_object' },
+      max_tokens: 3000
     })
   });
 
   if (!response.ok) {
     const errorText = await response.text();
-    console.error('GPT-5 analysis failed:', errorText);
-    throw new Error(`GPT-5 analysis failed: ${response.status}`);
+    console.error('GPT-4o analysis failed:', errorText);
+    throw new Error(`Analysis failed: ${response.status}`);
   }
 
   const data = await response.json();
-  return JSON.parse(data.output_text);
+  return JSON.parse(data.choices[0].message.content);
 }
 
-// Step 2: Find REAL courses using GPT-5 with web_search
+// Step 2: Find REAL courses using GPT-4o-search-preview with web_search
 async function findRealCoursesWithWebSearch(gap: any, targetRole: string) {
   console.log(`Searching for REAL courses for: ${gap.skill}`);
 
   try {
-    const searchQuery = `${gap.skill} kurs utbildning certifiering Sverige 2024 2025 online distans`;
-
-    const response = await fetch('https://api.openai.com/v1/responses', {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${OPENAI_API_KEY}`
       },
       body: JSON.stringify({
-        model: 'gpt-5',
-        reasoning: { effort: 'high' },
-        tools: [
-          {
-            type: 'web_search',
-            user_location: {
-              type: 'approximate',
-              approximate: {
-                country: 'SE',
-                city: 'Stockholm',
-                region: 'Stockholm'
-              }
+        model: 'gpt-4o-search-preview',
+        web_search_options: {
+          search_context_size: 'high',
+          user_location: {
+            type: 'approximate',
+            approximate: {
+              country: 'SE',
+              city: 'Stockholm',
+              region: 'Stockholm'
             }
           }
-        ],
-        tool_choice: 'required',
-        include: ['web_search_call.action.sources'],
-        input: `Sök efter RIKTIGA kurser och utbildningar för kompetensen "${gap.skill}" som är relevant för ${targetRole}.
+        },
+        messages: [
+          {
+            role: 'system',
+            content: `Du är en expert på utbildning och kompetensutveckling. Din uppgift är att hitta RIKTIGA kurser med FUNGERANDE länkar baserat på websökning.
 
 VIKTIGT:
-1. Hitta ENDAST kurser som FAKTISKT existerar med FUNGERANDE länkar
-2. Inkludera både svenska och internationella alternativ
-3. Blanda gratis och betalda alternativ
-4. Inkludera olika format: traditionella kurser, online-plattformar, certifieringar, YouTube-tutorials
-5. Prioritera kurser som startar snart eller är tillgängliga direkt
+- Använd ENDAST information från websökningen
+- Returnera ENDAST kurser med verkliga URL:er från sökresultaten
+- Inkludera både svenska och internationella alternativ
+- Prioritera aktuella kurser (2024-2025)
+- Returnera JSON-format med strukturen nedan`
+          },
+          {
+            role: 'user',
+            content: `Sök efter kurser för kompetensen "${gap.skill}" som är relevant för ${targetRole}.
 
-Sök brett och inkludera:
-- YH-utbildningar och Komvux
-- Internationella plattformar (Coursera, Udemy, LinkedIn Learning)
-- Branschcertifieringar (Microsoft, AWS, Google, etc)
-- YouTube och gratis resurser
-- Intensivkurser och bootcamps
-
-För varje kurs, extrahera:
-- Exakt kursnnamn
-- Utbildningsanordnare
-- DIREKT LÄNK till kurssidan (KRITISKT!)
-- Längd/duration
-- Kostnad
-- Startdatum eller tillgänglighet
-- Studieformat (distans/campus/självstudier)
-- Kort beskrivning
-
-Returnera 3-5 av de mest relevanta kurserna i JSON-format.`,
-        output_format: { type: 'json_object' }
+Hitta 3-5 kurser och returnera i denna JSON-struktur:
+{
+  "courses": [
+    {
+      "title": "Kursnamn",
+      "provider": "Utbildningsanordnare",
+      "direct_url": "https://...",
+      "duration": "Längd",
+      "cost": "Kostnad",
+      "start_date": "Startdatum",
+      "study_format": "Distans/Campus/Online",
+      "location": "Plats",
+      "description": "Kort beskrivning"
+    }
+  ]
+}`
+          }
+        ],
+        response_format: { type: 'json_object' },
+        max_tokens: 3000
       })
     });
 
     if (!response.ok) {
-      console.error('GPT-5 web search failed:', response.status);
+      console.error('Web search failed:', response.status);
       return [];
     }
 
     const data = await response.json();
 
-    // Extrahera kurser från svaret
+    // Extrahera kurser och URL:er från svaret
     let courses = [];
     try {
-      const result = JSON.parse(data.output_text);
+      const content = data.choices[0].message.content;
+      const result = JSON.parse(content);
 
-      // Hantera olika möjliga strukturer i svaret
-      if (result.courses && Array.isArray(result.courses)) {
-        courses = result.courses;
-      } else if (result.suggestions && Array.isArray(result.suggestions)) {
-        courses = result.suggestions;
-      } else if (Array.isArray(result)) {
-        courses = result;
-      }
-
-      // Extrahera källor och URL:er från web_search
-      const sources = data.web_search_call?.action?.sources || [];
+      // Extrahera annotations/citations om de finns
+      const annotations = data.choices[0].message.annotations || [];
       const urlMap = new Map();
-      sources.forEach((source: any) => {
-        if (source.url && source.title) {
-          urlMap.set(source.title.toLowerCase(), source.url);
+
+      annotations.forEach((annotation: any) => {
+        if (annotation.type === 'url_citation' && annotation.url_citation) {
+          const citation = annotation.url_citation;
+          urlMap.set(citation.title?.toLowerCase(), citation.url);
         }
       });
 
-      // Matcha kurser med verkliga URL:er från källor
-      courses = courses.map((course: any) => {
-        // Försök hitta matchande URL från källor
-        let directUrl = course.direct_url || course.url || '';
+      if (result.courses && Array.isArray(result.courses)) {
+        courses = result.courses.map((course: any) => {
+          // Verifiera att URL:en är riktig
+          const hasValidUrl = course.direct_url &&
+                             course.direct_url.startsWith('http') &&
+                             !course.direct_url.includes('example.com');
 
-        // Om ingen direkt URL, försök matcha via titel
-        if (!directUrl && course.provider) {
-          const searchKey = `${course.provider} ${course.title}`.toLowerCase();
-          for (const [title, url] of urlMap.entries()) {
-            if (title.includes(course.provider.toLowerCase()) ||
-                searchKey.includes(title)) {
-              directUrl = url;
-              break;
-            }
-          }
+          return {
+            type: course.type || 'course',
+            title: course.title || 'Okänd kurs',
+            provider: course.provider || 'Okänd anordnare',
+            direct_url: hasValidUrl ? course.direct_url : '',
+            duration: course.duration || 'Se kurssida',
+            cost: course.cost || 'Kontakta anordnare',
+            start_date: course.start_date || 'Flexibel start',
+            study_format: course.study_format || 'Se kurssida',
+            location: course.location || 'Online',
+            description: course.description || '',
+            priority: gap.importance === 'essential' ? 'essential' : 'recommended',
+            relevance: `Direkt relevant för ${gap.skill}`,
+            is_verified: hasValidUrl
+          };
+        });
+
+        // Filtrera endast kurser med verifierade URL:er
+        const verifiedCourses = courses.filter((c: any) => c.is_verified);
+        if (verifiedCourses.length > 0) {
+          courses = verifiedCourses;
         }
-
-        return {
-          type: course.type || 'course',
-          title: course.title || course.name || 'Okänd kurs',
-          provider: course.provider || course.organization || 'Okänd anordnare',
-          direct_url: directUrl,
-          duration: course.duration || course.length || 'Ej angivet',
-          cost: course.cost || course.price || 'Kontakta anordnare',
-          start_date: course.start_date || course.starts || 'Flexibel start',
-          study_format: course.study_format || course.format || 'Se kurssida',
-          location: course.location || (course.study_format === 'Campus' ? 'Se kurssida' : 'Online'),
-          description: course.description || '',
-          priority: gap.importance === 'essential' ? 'essential' : 'recommended',
-          relevance: `Direkt relevant för ${gap.skill}`,
-          is_verified: !!directUrl && directUrl.startsWith('http')
-        };
-      });
-
-      // Filtrera bort kurser utan URL om vi har några med URL
-      const coursesWithUrls = courses.filter((c: any) => c.is_verified);
-      if (coursesWithUrls.length > 0) {
-        courses = coursesWithUrls;
       }
 
-      console.log(`Found ${courses.length} courses with${coursesWithUrls.length > 0 ? ' verified' : ''} URLs`);
-
+      console.log(`Found ${courses.length} courses for ${gap.skill}`);
     } catch (parseError) {
       console.error('Failed to parse course results:', parseError);
-      console.log('Raw output:', data.output_text);
     }
 
-    return courses.slice(0, 5); // Max 5 kurser per gap
+    return courses.slice(0, 5);
 
   } catch (error) {
     console.error(`Failed to get courses for ${gap.skill}:`, error);
+    return [];
   }
-
-  return [];
 }
 
 Deno.serve(async (req) => {
@@ -288,20 +265,29 @@ Deno.serve(async (req) => {
       .from('competence_analysis_jobs')
       .update({
         progress: 20,
-        current_step: 'Analyserar med GPT-5...'
+        current_step: 'Analyserar CV...'
       })
       .eq('id', jobId);
 
-    // Step 1: Analysis with GPT-5
-    console.log('Starting GPT-5 analysis...');
+    // Step 1: Analysis with GPT-4o
+    console.log('Starting CV analysis...');
     let analysisResult: any;
 
     try {
-      analysisResult = await analyzeWithGPT5(cvData.cv_text, {
+      analysisResult = await analyzeCV(cvData.cv_text, {
         mode: job.analysis_mode,
         targetRole: job.target_role,
         jobAdText: job.job_ad_text
       });
+
+      // Ensure the result has the expected structure
+      analysisResult = {
+        matchScore: analysisResult.matchScore || analysisResult.match_score || 0,
+        cvSummaryForTarget: analysisResult.cvSummaryForTarget || analysisResult.summary || '',
+        identifiedRelevantSkills: analysisResult.identifiedRelevantSkills || analysisResult.relevant_skills || [],
+        identifiedSkillGaps: analysisResult.identifiedSkillGaps || analysisResult.skill_gaps || []
+      };
+
     } catch (analysisError: any) {
       console.error('Analysis failed:', analysisError);
       await supabase
@@ -324,13 +310,13 @@ Deno.serve(async (req) => {
       .update({
         status: 'processing_gaps',
         progress: 40,
-        match_score: analysisResult.matchScore || 0,
-        cv_summary: analysisResult.cvSummaryForTarget || '',
-        identified_skills: analysisResult.identifiedRelevantSkills || [],
-        skill_gaps: analysisResult.identifiedSkillGaps || [],
+        match_score: analysisResult.matchScore,
+        cv_summary: analysisResult.cvSummaryForTarget,
+        identified_skills: analysisResult.identifiedRelevantSkills,
+        skill_gaps: analysisResult.identifiedSkillGaps,
         total_gaps: analysisResult.identifiedSkillGaps?.length || 0,
         processed_gaps: 0,
-        current_step: 'Söker kurser med GPT-5 web search...'
+        current_step: 'Söker kurser med web search...'
       })
       .eq('id', jobId);
 
@@ -338,7 +324,7 @@ Deno.serve(async (req) => {
     const gaps = analysisResult.identifiedSkillGaps || [];
     const allSuggestions: any[] = [];
 
-    // Process max 5 gaps (to avoid timeout)
+    // Process max 5 gaps to avoid timeout
     const gapsToProcess = gaps.slice(0, 5);
 
     for (let i = 0; i < gapsToProcess.length; i++) {
@@ -362,8 +348,8 @@ Deno.serve(async (req) => {
 
       allSuggestions.push({
         skill: gap.skill,
-        importance: gap.importance,
-        reasoning: gap.reasoning,
+        importance: gap.importance || 'important',
+        reasoning: gap.reasoning || '',
         suggestions: courses
       });
     }
@@ -384,18 +370,19 @@ Deno.serve(async (req) => {
       (acc, s) => acc + s.suggestions.length,
       0
     );
+    const verifiedCourses = allSuggestions.reduce(
+      (acc, s) => acc + s.suggestions.filter((c: any) => c.is_verified).length,
+      0
+    );
 
-    console.log(`Job completed successfully. Found ${totalCoursesFound} real courses.`);
+    console.log(`Job completed. Found ${totalCoursesFound} courses (${verifiedCourses} verified).`);
 
     return new Response(
       JSON.stringify({
         success: true,
         message: 'Job processed successfully',
         coursesFound: totalCoursesFound,
-        verifiedCourses: allSuggestions.reduce(
-          (acc, s) => acc + s.suggestions.filter((c: any) => c.is_verified).length,
-          0
-        )
+        verifiedCourses: verifiedCourses
       }),
       { headers: { 'Content-Type': 'application/json' } }
     );
