@@ -259,12 +259,17 @@ export async function generateLearningSuggestionsGPT5(
     return [];
   }
 
+  // Set a timeout to prevent Vercel function timeout
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 15000); // 15 second timeout
+
   try {
     console.log(`Using GPT-5 Responses API with web_search tool for: ${gap.skill} (${targetRole})`);
 
     // Use GPT-5 Responses API with web_search tool as per documentation
     const response = await fetch('https://api.openai.com/v1/responses', {
       method: 'POST',
+      signal: controller.signal, // Add abort signal
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${apiKey}`,
@@ -296,6 +301,8 @@ Börja svaret med { "courses": [ och avsluta med ] }`
         // REMOVED json_object format - not compatible with web_search
       }),
     });
+
+    clearTimeout(timeout); // Clear timeout if request completes
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
@@ -382,6 +389,28 @@ Börja svaret med { "courses": [ och avsluta med ] }`
     }
 
   } catch (error: any) {
+    clearTimeout(timeout); // Always clear timeout
+
+    if (error.name === 'AbortError') {
+      console.error('GPT-5 request timeout - using simplified fallback');
+      // Return simplified course suggestion without web search
+      return [{
+        type: 'course',
+        title: `Kurs för ${gap.skill}`,
+        provider: 'Se utbildningsportaler',
+        direct_url: 'https://www.yrkeshogskolan.se/hitta-utbildning/',
+        duration: 'Varierar',
+        cost: 'Se information',
+        start_date: 'Löpande',
+        study_format: 'Varierar',
+        priority: 'essential',
+        description: `Utbildning inom ${gap.skill} för ${targetRole}`,
+        relevance: `För ${gap.skill}`,
+        search_keywords: [gap.skill, targetRole],
+        language: 'sv'
+      }];
+    }
+
     console.error(`GPT-5 web search failed: ${error.message}`);
     return [];
   }
@@ -393,6 +422,25 @@ async function tryGPT5Alternative(
   targetRole: string,
   apiKey: string
 ): Promise<any[]> {
+  // Skip GPT-5-mini to save time, return fallback directly
+  console.log('Returning simplified course suggestion');
+  return [{
+    type: 'course',
+    title: `Utbildning: ${gap.skill}`,
+    provider: 'Yrkeshögskolan / Arbetsförmedlingen',
+    direct_url: `https://www.yrkeshogskolan.se/hitta-utbildning/?q=${encodeURIComponent(gap.skill)}`,
+    duration: 'Se information',
+    cost: 'CSN-berättigad / Kostnadsfri',
+    start_date: 'Se portal',
+    study_format: 'Varierar',
+    priority: 'essential',
+    description: `Relevant utbildning för ${targetRole}`,
+    relevance: `Direkt relevant för ${gap.skill}`,
+    search_keywords: [gap.skill, targetRole],
+    language: 'sv'
+  }];
+
+  /* OLD SLOW CODE - Disabled to prevent timeouts
   try {
     console.log('Trying GPT-5-mini with web search...');
 
@@ -479,6 +527,7 @@ Formatera som JSON med courses array.`,
     console.error('GPT-5 alternative failed:', error);
     return [];
   }
+  */
 }
 
 // REMOVED - Only use GPT-5 with web search
