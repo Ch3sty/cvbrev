@@ -375,11 +375,27 @@ Börja svaret med { "courses": [ och avsluta med ] }`
     } catch (parseError) {
       console.error('Failed to parse GPT-5 response:', parseError);
       console.error('Raw output:', outputText);
+
+      // Try alternative approach if parsing fails
+      console.log('Parse failed, trying alternative GPT-5 approach...');
+      const alternativeResults = await tryGPT5Alternative(gap, targetRole, apiKey);
+      if (alternativeResults.length > 0) {
+        return alternativeResults;
+      }
+
       return [];
     }
 
   } catch (error: any) {
     console.error(`GPT-5 web search failed: ${error.message}`);
+
+    // Try alternative approach if main GPT-5 fails
+    console.log('Trying alternative GPT-5 approach...');
+    const alternativeResults = await tryGPT5Alternative(gap, targetRole, apiKey);
+    if (alternativeResults.length > 0) {
+      return alternativeResults;
+    }
+
     return [];
   }
 }
@@ -390,27 +406,9 @@ async function tryGPT5Alternative(
   targetRole: string,
   apiKey: string
 ): Promise<any[]> {
-  // Skip GPT-5-mini to save time, return fallback directly
-  console.log('Returning simplified course suggestion');
-  return [{
-    type: 'course',
-    title: `Utbildning: ${gap.skill}`,
-    provider: 'Yrkeshögskolan / Arbetsförmedlingen',
-    direct_url: `https://www.yrkeshogskolan.se/hitta-utbildning/?q=${encodeURIComponent(gap.skill)}`,
-    duration: 'Se information',
-    cost: 'CSN-berättigad / Kostnadsfri',
-    start_date: 'Se portal',
-    study_format: 'Varierar',
-    priority: 'essential',
-    description: `Relevant utbildning för ${targetRole}`,
-    relevance: `Direkt relevant för ${gap.skill}`,
-    search_keywords: [gap.skill, targetRole],
-    language: 'sv'
-  }];
-
-  /* OLD SLOW CODE - Disabled to prevent timeouts
+  // USE GPT-5 WITH WEB SEARCH - NO FALLBACKS!
   try {
-    console.log('Trying GPT-5-mini with web search...');
+    console.log('Using GPT-5 with web search for real course links...');
 
     const response = await fetch('https://api.openai.com/v1/responses', {
       method: 'POST',
@@ -419,14 +417,31 @@ async function tryGPT5Alternative(
         'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'gpt-5-mini',
+        model: 'gpt-5',
         tools: [{ type: 'web_search' }],
-        input: `Sök på webben efter utbildningar för ${gap.skill} för ${targetRole} i Sverige.
-Ge 2 konkreta kurser med direkta länkar.
-Formatera som JSON med courses array.`,
-        text: {
-          verbosity: 'medium'
-        }
+        input: `Sök på webben och hitta 2 konkreta utbildningar för kompetensen "${gap.skill}" som behövs för rollen som ${targetRole} i Sverige.
+
+VIKTIGT:
+- Använd websökning för att hitta VERKLIGA kurser med RIKTIGA URL:er
+- Sök efter kurser hos: BYA, Karolinska Institutet, Yrkeshögskolan, Arbetsförmedlingen, Lernia, etc
+- Returnera EXAKTA URL:er till kursernas ansökningssidor
+- Exempel på format vi vill ha: "Karolinska Institutet – Sjuksköterskeprogrammet" med länk: https://education.ki.se/programme-syllabus/2UK21
+
+Formatera som JSON:
+{
+  "courses": [
+    {
+      "type": "course",
+      "title": "[Exakt kursnamn]",
+      "provider": "[Verklig utbildningsanordnare]",
+      "direct_url": "[EXAKT URL från websökning]",
+      "duration": "[Verklig längd]",
+      "cost": "[Verklig kostnad]",
+      "priority": "essential"
+    }
+  ]
+}`,
+        max_output_tokens: 3000
       }),
     });
 
@@ -470,6 +485,8 @@ Formatera som JSON med courses array.`,
         const parsed = JSON.parse(jsonText);
         const courses = (Array.isArray(parsed) ? parsed : parsed.courses || []).slice(0, 2);
 
+        console.log(`Parsed ${courses.length} courses from GPT-5 web search`);
+
         return courses.map((c: any) => ({
           type: c.type || 'course',
           title: c.title || `Utbildning inom ${gap.skill}`,
@@ -487,15 +504,14 @@ Formatera som JSON med courses array.`,
         }));
       }
     } catch (error) {
-      console.error('Failed to parse GPT-5-mini response:', error);
+      console.error('Failed to parse GPT-5 response:', error);
     }
 
     return [];
   } catch (error) {
-    console.error('GPT-5 alternative failed:', error);
+    console.error('GPT-5 web search failed:', error);
     return [];
   }
-  */
 }
 
 // REMOVED - Only use GPT-5 with web search

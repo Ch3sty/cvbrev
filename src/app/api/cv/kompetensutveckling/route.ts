@@ -490,22 +490,21 @@ export async function POST(request: NextRequest) {
             console.log(`--- DEBUG POST (Step 2): Found ${gapsToProcess.length} gaps to process. Processing in order (essential first).`);
 
             // Begränsa antalet gap som processas för att undvika timeout
-            // Ta 3 essentiella gap för att ge användaren tillräckligt med vägledning
+            // Ta ENDAST 1 gap för att säkerställa svar inom timeout
             const essentialGaps = gapsToProcess.filter(g => g.importance === 'essential');
             const desirableGaps = gapsToProcess.filter(g => g.importance === 'desirable');
-            const gapsToProcessLimited = [...essentialGaps.slice(0, 3)]; // Processa 3 essentiella gap för bättre vägledning
+            const gapsToProcessLimited = [...essentialGaps.slice(0, 1)]; // Processa ENDAST 1 gap för att undvika timeout
 
-            console.log(`--- DEBUG POST (Step 2): Processing ${gapsToProcessLimited.length} of ${gapsToProcess.length} gaps for comprehensive guidance.`);
+            console.log(`--- DEBUG POST (Step 2): Processing ${gapsToProcessLimited.length} of ${gapsToProcess.length} gaps (ONE ONLY to avoid timeout).`);
 
-            // Process gaps in parallel for better performance
             const targetRole = analysisInputForStep1.mode === 'role'
                 ? analysisInputForStep1.targetRole
                 : 'Jobbannons';
 
-            console.log(`--- DEBUG POST (Step 2): Starting SEQUENTIAL processing of ${gapsToProcessLimited.length} gaps to avoid timeout`);
+            console.log(`--- DEBUG POST (Step 2): Processing SINGLE gap to ensure response within 60s`);
 
-            // Process gaps SEQUENTIALLY to avoid timeout
-            // Each GPT-5 call with web search can take 20-30 seconds
+            // Process ONLY ONE gap to avoid timeout
+            // GPT-5 with web search can take 30-40 seconds
             for (let i = 0; i < gapsToProcessLimited.length; i++) {
                 const gap = gapsToProcessLimited[i];
                 console.log(`--- DEBUG POST (Step 2): Processing gap ${i+1}/${gapsToProcessLimited.length}: "${gap.skill}"`);
@@ -514,7 +513,7 @@ export async function POST(request: NextRequest) {
                     // Use GPT-5 for better suggestions
                     let suggestions: LearningSuggestion[] = [];
 
-                    // Set a per-gap timeout of 25 seconds (safe within Vercel's 60s limit for 2 gaps)
+                    // Allow up to 40 seconds for single GPT-5 call with web search
                     const startTime = Date.now();
 
                     try {
