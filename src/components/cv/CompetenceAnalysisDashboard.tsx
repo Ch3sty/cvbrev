@@ -11,7 +11,6 @@ import {
   Briefcase, FileText, Sparkles, Loader2, AlertTriangle,
   Lock, Target, PlayCircle, RefreshCw
 } from 'lucide-react';
-import { logUserActivity } from '@/lib/activity-logger';
 
 interface CompetenceAnalysisDashboardProps {
   selectedCvId: string | null;
@@ -138,12 +137,7 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
         updateNextAnalysisResetDate(new Date(data.nextResetDate));
       }
 
-      // Log activity
-      await logUserActivity(data.userId || '', 'competence_analysis_started', 'Started competence analysis', {
-        jobId: data.jobId,
-        analysisMode,
-        targetRole: analysisMode === 'role' ? targetRole : undefined
-      });
+      // Activity logging happens on server side in /start endpoint
 
     } catch (err: any) {
       console.error('Error starting analysis:', err);
