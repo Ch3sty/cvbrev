@@ -27,6 +27,7 @@ export type ActivityType =
   | 'upgrade_clicked'           // Klickade på uppgraderingsknapp
   | 'premium_feature_attempt'   // Försökte använda premium-funktion (som gratis)
   | 'setting_changed'          // Ändrade inställning (t.ex. språk, tonalitet)
+  | 'competence_analysis_started'   // <-- NYTT: Kompetensanalys startades
   | 'competence_analysis_completed' // <-- NYTT: Kompetensanalys slutfördes
   | 'competence_analysis_failed';    // <-- NYTT: Kompetensanalys misslyckades
   // Lägg till fler typer vid behov
