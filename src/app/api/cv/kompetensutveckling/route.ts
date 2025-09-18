@@ -476,6 +476,7 @@ export async function POST(request: NextRequest) {
         const allGeneratedSuggestions: LearningSuggestion[] = [];
         const gapsToProcess = initialAnalysisResult?.identifiedSkillGaps || [];
         const modelToUseStep2 = "gpt-5-nano"; // Using GPT-5 nano for course suggestions
+        const analysisStartTime = Date.now(); // Track start time for timeout check
 
         if (gapsToProcess.length > 0) {
             // Sortera gapen: 'essential' först, sedan 'desirable'
@@ -501,40 +502,44 @@ export async function POST(request: NextRequest) {
                 ? analysisInputForStep1.targetRole
                 : 'Jobbannons';
 
-            console.log(`--- DEBUG POST (Step 2): Starting parallel processing of ${gapsToProcessLimited.length} gaps`);
+            console.log(`--- DEBUG POST (Step 2): Starting SEQUENTIAL processing of ${gapsToProcessLimited.length} gaps to avoid timeout`);
 
-            // Use Promise.all for parallel processing
-            const suggestionPromises = gapsToProcessLimited.map(async (gap) => {
+            // Process gaps SEQUENTIALLY to avoid timeout
+            // Each GPT-5 call with web search can take 20-30 seconds
+            for (let i = 0; i < gapsToProcessLimited.length; i++) {
+                const gap = gapsToProcessLimited[i];
+                console.log(`--- DEBUG POST (Step 2): Processing gap ${i+1}/${gapsToProcessLimited.length}: "${gap.skill}"`);
+
                 try {
                     // Use GPT-5 for better suggestions
                     let suggestions: LearningSuggestion[] = [];
+
+                    // Set a per-gap timeout of 25 seconds (safe within Vercel's 60s limit for 2 gaps)
+                    const startTime = Date.now();
+
                     try {
                         suggestions = await generateLearningSuggestionsGPT5(gap, targetRole);
-                        console.log(`--- DEBUG: Used GPT-5 for suggestions for gap "${gap.skill}" (better quality)`);
+                        const elapsed = Date.now() - startTime;
+                        console.log(`--- DEBUG: GPT-5 completed for gap "${gap.skill}" in ${elapsed}ms`);
                     } catch (gpt5Err) {
-                        console.error(`--- DEBUG: GPT-5 failed for gap "${gap.skill}", trying GPT-4:`, gpt5Err);
-                        try {
-                            suggestions = await findLearningResourcesForGapOld(gap, 'sv');
-                            console.log(`--- DEBUG: Used GPT-4 fallback for gap "${gap.skill}"`);
-                        } catch (err) {
-                            console.error(`--- DEBUG: GPT-4 also failed for gap "${gap.skill}":`, err);
-                            suggestions = [];
-                        }
+                        const elapsed = Date.now() - startTime;
+                        console.error(`--- DEBUG: GPT-5 failed for gap "${gap.skill}" after ${elapsed}ms:`, gpt5Err);
+                        // Skip fallback to save time
+                        suggestions = [];
                     }
+
                     console.log(`--- DEBUG POST (Step 2): Processed gap "${gap.skill}", got ${suggestions.length} suggestions`);
-                    return suggestions;
+                    allGeneratedSuggestions.push(...suggestions);
+
+                    // Check if we're approaching timeout (50 seconds total)
+                    const totalElapsed = Date.now() - analysisStartTime;
+                    if (totalElapsed > 50000 && i < gapsToProcessLimited.length - 1) {
+                        console.warn(`--- WARNING: Approaching timeout after ${i+1} gaps (${totalElapsed}ms elapsed). Stopping.`);
+                        break;
+                    }
                 } catch (err) {
                     console.error(`--- ERROR POST (Step 2): Failed for gap "${gap.skill}":`, err);
-                    return [];
                 }
-            });
-
-            // Wait for all suggestions to complete
-            const allSuggestionsArrays = await Promise.all(suggestionPromises);
-
-            // Flatten the array of arrays into a single array
-            for (const suggestions of allSuggestionsArrays) {
-                allGeneratedSuggestions.push(...suggestions);
             }
 
             console.log(`--- DEBUG POST (Step 2): Resource finding complete. Generated ${allGeneratedSuggestions.length} suggestions with search keywords.`);

@@ -259,17 +259,12 @@ export async function generateLearningSuggestionsGPT5(
     return [];
   }
 
-  // Set a timeout to prevent Vercel function timeout
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 15000); // 15 second timeout
-
   try {
     console.log(`Using GPT-5 Responses API with web_search tool for: ${gap.skill} (${targetRole})`);
 
-    // Use GPT-5 Responses API with web_search tool as per documentation
+    // Use GPT-5 Responses API with web_search tool - NO TIMEOUT, let it complete
     const response = await fetch('https://api.openai.com/v1/responses', {
       method: 'POST',
-      signal: controller.signal, // Add abort signal
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${apiKey}`,
@@ -302,15 +297,10 @@ Börja svaret med { "courses": [ och avsluta med ] }`
       }),
     });
 
-    clearTimeout(timeout); // Clear timeout if request completes
-
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       console.error(`GPT-5 Responses API error: ${response.status}`, errorData);
-
-      // Try GPT-5 with different approach
-      console.log('Trying GPT-5 with alternative format...');
-      return await tryGPT5Alternative(gap, targetRole, apiKey);
+      return [];
     }
 
     const data = await response.json();
@@ -389,28 +379,6 @@ Börja svaret med { "courses": [ och avsluta med ] }`
     }
 
   } catch (error: any) {
-    clearTimeout(timeout); // Always clear timeout
-
-    if (error.name === 'AbortError') {
-      console.error('GPT-5 request timeout - using simplified fallback');
-      // Return simplified course suggestion without web search
-      return [{
-        type: 'course',
-        title: `Kurs för ${gap.skill}`,
-        provider: 'Se utbildningsportaler',
-        direct_url: 'https://www.yrkeshogskolan.se/hitta-utbildning/',
-        duration: 'Varierar',
-        cost: 'Se information',
-        start_date: 'Löpande',
-        study_format: 'Varierar',
-        priority: 'essential',
-        description: `Utbildning inom ${gap.skill} för ${targetRole}`,
-        relevance: `För ${gap.skill}`,
-        search_keywords: [gap.skill, targetRole],
-        language: 'sv'
-      }];
-    }
-
     console.error(`GPT-5 web search failed: ${error.message}`);
     return [];
   }
