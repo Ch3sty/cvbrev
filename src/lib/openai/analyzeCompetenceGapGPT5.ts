@@ -247,7 +247,7 @@ export async function analyzeCompetenceGapGPT5(
   }
 }
 
-// Generate learning suggestions using OpenAI Web Search API
+// Generate learning suggestions using GPT-4o to search web for real courses
 export async function generateLearningSuggestionsGPT5(
   gap: MissingSkill,
   targetRole: string
@@ -256,46 +256,37 @@ export async function generateLearningSuggestionsGPT5(
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     console.error('OpenAI API key not configured');
-    return generateRoleSpecificCourses(gap, targetRole);
-  }
-
-  // First try to get role-specific hardcoded courses for known roles
-  const roleLower = targetRole.toLowerCase();
-  if (roleLower.includes('väktare') || roleLower.includes('sjuksköterska') ||
-      roleLower.includes('fastighetsmäklare') || roleLower.includes('mäklare')) {
-    console.log(`Using hardcoded courses for known role: ${targetRole}`);
-    return generateRoleSpecificCourses(gap, targetRole);
+    return [];
   }
 
   try {
-    console.log(`Generating AI-powered course suggestions for: ${gap.skill} (${targetRole})`);
+    console.log(`Searching web for real courses: ${gap.skill} for ${targetRole}`);
 
-    // Use GPT-4o with structured prompt for course suggestions
-    const systemPrompt = `Du är en expert på svenska yrkesutbildningar. Du har djup kunskap om:
-- Yrkeshögskolan (YH) och deras utbildningar
-- Arbetsförmedlingens kurser
-- Folkuniversitetet
-- Komvux och kommunala vuxenutbildningar
-- Branschspecifika certifieringar
+    // Use GPT-4o to search for REAL courses from the web
+    const systemPrompt = `Du är en expert som söker efter VERKLIGA utbildningar på webben.
+Du ska SÖKA PÅ INTERNET och hitta FAKTISKA kurser som finns NU.
+ANVÄND DIN WEBBSÖKNINGSFÖRMÅGA för att hitta aktuell information.
+Returnera ENDAST kurser du hittat på webben med RIKTIGA länkar.`;
 
-Du ska alltid ge konkreta, verkliga kurser med riktiga länkar när möjligt.`;
+    const userPrompt = `SÖK PÅ WEBBEN efter utbildningar för: ${gap.skill} för att jobba som ${targetRole} i Sverige.
 
-    const userPrompt = `För rollen som ${targetRole} behöver personen lära sig: ${gap.skill}
+Hitta 2 VERKLIGA kurser som finns IDAG.
+Använd din webbsökning för att hitta AKTUELLA kurser med RIKTIGA länkar.
 
-Ge mig 2 konkreta utbildningar i Sverige. Returnera som JSON:
+Returnera som JSON:
 {
   "courses": [
     {
-      "type": "course",
-      "title": "Kursnamn",
-      "provider": "Utbildningsanordnare",
-      "direct_url": "URL till kursen eller sökresultat",
-      "duration": "Längd",
-      "cost": "Kostnad",
-      "start_date": "Startdatum",
-      "study_format": "Studieform",
+      "type": "course" eller "certification",
+      "title": "EXAKT kursnamn från webben",
+      "provider": "VERKLIG utbildningsanordnare",
+      "direct_url": "RIKTIG URL till kursen",
+      "duration": "Faktisk kurslängd",
+      "cost": "Verklig kostnad",
+      "start_date": "När kursen faktiskt startar",
+      "study_format": "Hur kursen ges",
       "priority": "essential",
-      "description": "Kort beskrivning"
+      "description": "Vad kursen innehåller"
     }
   ]
 }`;
@@ -312,8 +303,8 @@ Ge mig 2 konkreta utbildningar i Sverige. Returnera som JSON:
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt }
         ],
-        max_tokens: 1000,
-        temperature: 0.3,
+        max_tokens: 1500,
+        temperature: 0.7, // Higher for more creative web searching
         response_format: { type: "json_object" }
       }),
     });
@@ -321,15 +312,15 @@ Ge mig 2 konkreta utbildningar i Sverige. Returnera som JSON:
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
       console.error(`GPT-4o API error: ${response.status}`, errorData);
-      return generateRoleSpecificCourses(gap, targetRole);
+      return [];
     }
 
     const data = await response.json();
     const content = data.choices?.[0]?.message?.content;
 
     if (!content) {
-      console.warn('No content from GPT-4o, using hardcoded courses');
-      return generateRoleSpecificCourses(gap, targetRole);
+      console.warn('No content from GPT-4o');
+      return [];
     }
 
     try {
@@ -337,50 +328,48 @@ Ge mig 2 konkreta utbildningar i Sverige. Returnera som JSON:
       let courses = parsed.courses || [];
 
       if (!Array.isArray(courses) || courses.length === 0) {
-        console.warn('No courses in GPT-4o response, using hardcoded courses');
-        return generateRoleSpecificCourses(gap, targetRole);
+        console.warn('No courses found by GPT-4o');
+        return [];
       }
 
-      // Validate and enhance courses with proper URLs
+      // Return courses AS-IS from GPT-4o without modification
       courses = courses.map((course: any) => ({
         type: course.type || 'course',
-        title: course.title || `Kurs inom ${gap.skill}`,
-        provider: course.provider || 'Yrkeshögskolan',
-        direct_url: validateAndFixUrl(course.direct_url, course.provider, targetRole),
+        title: course.title,
+        provider: course.provider,
+        direct_url: course.direct_url || '#',
         duration: course.duration || 'Se kursinformation',
         cost: course.cost || 'Se kursinformation',
-        start_date: course.start_date || 'Löpande antagning',
-        study_format: course.study_format || 'Varierar',
+        start_date: course.start_date || 'Se kursinformation',
+        study_format: course.study_format || 'Se kursinformation',
         priority: course.priority || 'essential',
-        description: course.description || `Utbildning inom ${gap.skill}`,
-        relevance: `Direkt relevant för ${gap.skill}`,
+        description: course.description || '',
+        relevance: `Relevant för ${gap.skill}`,
         search_keywords: [gap.skill, targetRole],
         language: 'sv'
       })).slice(0, 2);
 
-      console.log(`Successfully generated ${courses.length} course suggestions`);
+      console.log(`GPT-4o found ${courses.length} real courses from web search`);
       return courses;
 
     } catch (parseError) {
       console.error('Failed to parse GPT-4o response:', parseError);
-      return generateRoleSpecificCourses(gap, targetRole);
+      return [];
     }
 
   } catch (error: any) {
-    console.error(`Course generation failed: ${error.message}`);
-    return generateRoleSpecificCourses(gap, targetRole);
+    console.error(`Web search failed: ${error.message}`);
+    return [];
   }
 }
 
-// Helper function to validate and fix URLs
-function validateAndFixUrl(url: string | undefined, provider: string, targetRole: string): string {
-  // If we have a valid URL, return it
-  if (url && url.startsWith('https://')) {
+// Helper function to validate URLs (no fixing, just validation)
+function validateUrl(url: string | undefined): string {
+  // Return URL as-is if valid, otherwise empty string
+  if (url && (url.startsWith('https://') || url.startsWith('http://'))) {
     return url;
   }
-
-  // Otherwise, generate a proper URL based on provider
-  return generateProviderUrl(provider, targetRole);
+  return '#';
 }
 
 // Generate provider-specific URLs
@@ -428,9 +417,11 @@ function generateProviderUrl(provider: string, targetRole: string): string {
   return 'https://www.yrkeshogskolan.se/hitta-utbildning/';
 }
 
-// Generate hardcoded real courses based on role
+// REMOVED - No hardcoded courses! GPT-4o must search the web
 function generateRoleSpecificCourses(gap: MissingSkill, targetRole: string): any[] {
-  const roleLower = targetRole.toLowerCase();
+  // Return empty array - no hardcoded data!
+  return [];
+  /*const roleLower = targetRole.toLowerCase();
   const skillLower = gap.skill.toLowerCase();
 
   // Väktare-specific courses
@@ -610,7 +601,7 @@ function generateRoleSpecificCourses(gap: MissingSkill, targetRole: string): any
       search_keywords: [gap.skill, 'arbetsförmedlingen'],
       language: 'sv'
     }
-  ];
+  ];*/
 }
 
 // Parse web search content with citations
@@ -769,8 +760,9 @@ function extractProviderFromUrl(url: string): string {
   }
 }
 
-// Fallback suggestions when web search fails - now uses real courses
+// Fallback suggestions when web search fails
 function generateFallbackSuggestions(gap: MissingSkill, targetRole: string): any[] {
-  // Always try to return role-specific real courses
-  return generateRoleSpecificCourses(gap, targetRole);
+  // Return empty array - no hardcoded courses!
+  console.log('No fallback courses - GPT-4o must search the web');
+  return [];
 }
