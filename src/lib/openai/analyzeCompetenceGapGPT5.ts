@@ -433,7 +433,7 @@ export async function generateLearningSuggestionsGPT5(
 
     // Try alternative approach if main GPT-5 fails
     console.log('Trying alternative GPT-5 approach...');
-    const alternativeResults = await tryGPT5Alternative(gap, targetRole, apiKey);
+    const alternativeResults = await tryGPT5Alternative(gap, targetRole);
     if (alternativeResults.length > 0) {
       return alternativeResults;
     }
