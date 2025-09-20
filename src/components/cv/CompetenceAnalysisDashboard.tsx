@@ -4,7 +4,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCompetenceJob } from '@/hooks/use-competence-job';
-import CompetenceProgressTracker from './CompetenceProgressTracker';
+import CompetenceProgressTrackerEnhanced from './CompetenceProgressTrackerEnhanced';
 import LearningPathVisualization from './LearningPathVisualization';
 import Notification from '@/components/ui/notification';
 import {
@@ -180,7 +180,7 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
 
       {/* Show progress tracker if job is running */}
       {job && isAnalyzing && (
-        <CompetenceProgressTracker
+        <CompetenceProgressTrackerEnhanced
           status={job.status}
           progress={job.progress}
           currentStep={job.current_step}

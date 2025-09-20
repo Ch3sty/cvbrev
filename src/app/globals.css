@@ -46,6 +46,15 @@ body {
   animation: pulse 1.8s infinite cubic-bezier(0.66, 0, 0, 1); /* Annan timing function */
 }
 
+/* Shimmer animation for progress bars */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.animate-shimmer {
+  animation: shimmer 2s infinite linear;
+}
+
 /* Card hover effects (Behåll och ev. finjustera) */
 /* Generell card hover (kan appliceras på funktionskort, prisplaner etc.) */
 .card-hover-effect {

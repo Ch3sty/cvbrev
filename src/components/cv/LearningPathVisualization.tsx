@@ -104,43 +104,80 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
     return gap.importance === filterPriority;
   });
 
-  // Calculate total time and cost
+  // Calculate total time and cost (using MINIMUM per gap, not SUM of all alternatives)
   const calculateTotals = () => {
     let totalWeeks = 0;
-    let totalCost = 0;
+    let minTotalCost = 0;
+    let maxTotalCost = 0;
 
     learningSuggestions.forEach(gap => {
+      let minCostForGap = Infinity;
+      let maxCostForGap = 0;
+      let minWeeksForGap = Infinity;
+
+      // Find the cheapest and most expensive option for this gap
       gap.suggestions.forEach(suggestion => {
-        // Parse duration
+        // Parse duration - find shortest option
         if (suggestion.duration) {
           const duration = suggestion.duration.toLowerCase();
+          let weeks = 0;
+
           if (duration.includes('veckor')) {
-            const weeks = parseInt(duration.match(/\d+/)?.[0] || '0');
-            totalWeeks += weeks;
+            weeks = parseInt(duration.match(/\d+/)?.[0] || '0');
           } else if (duration.includes('månad')) {
             const months = parseInt(duration.match(/\d+/)?.[0] || '0');
-            totalWeeks += months * 4;
+            weeks = months * 4;
           } else if (duration.includes('dag')) {
             const days = parseInt(duration.match(/\d+/)?.[0] || '0');
-            totalWeeks += Math.ceil(days / 7);
+            weeks = Math.ceil(days / 7);
+          } else if (duration.includes('år')) {
+            const years = parseInt(duration.match(/\d+/)?.[0] || '0');
+            weeks = years * 52;
+          }
+
+          if (weeks > 0 && weeks < minWeeksForGap) {
+            minWeeksForGap = weeks;
           }
         }
 
-        // Parse cost
-        if (suggestion.cost && suggestion.cost !== 'Gratis') {
-          const costMatch = suggestion.cost.match(/\d+[\s]?\d*/);
-          if (costMatch) {
-            const cost = parseInt(costMatch[0].replace(/\s/g, ''));
-            totalCost += cost;
+        // Parse cost - track both min and max
+        let cost = 0;
+        if (suggestion.cost) {
+          if (suggestion.cost.toLowerCase() === 'gratis') {
+            cost = 0;
+          } else {
+            const costMatch = suggestion.cost.match(/\d+[\s]?\d*/);
+            if (costMatch) {
+              cost = parseInt(costMatch[0].replace(/\s/g, ''));
+            }
           }
         }
+
+        if (cost < minCostForGap) minCostForGap = cost;
+        if (cost > maxCostForGap) maxCostForGap = cost;
       });
+
+      // Add the minimum cost and time for this gap
+      if (minCostForGap !== Infinity) {
+        minTotalCost += minCostForGap;
+      }
+      if (maxCostForGap > 0) {
+        maxTotalCost += maxCostForGap;
+      }
+      if (minWeeksForGap !== Infinity) {
+        totalWeeks += minWeeksForGap;
+      }
     });
 
-    return { totalWeeks, totalCost };
+    return {
+      totalWeeks,
+      minTotalCost,
+      maxTotalCost,
+      hasAlternatives: learningSuggestions.some(gap => gap.suggestions.length > 1)
+    };
   };
 
-  const { totalWeeks, totalCost } = calculateTotals();
+  const { totalWeeks, minTotalCost, maxTotalCost, hasAlternatives } = calculateTotals();
 
   return (
     <div className="w-full space-y-6">
@@ -199,7 +236,9 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
             <div className="flex items-center justify-between">
               <DollarSign className="w-5 h-5 text-pink-400" />
               <span className="text-2xl font-bold text-white">
-                {totalCost > 0 ? `${totalCost.toLocaleString('sv-SE')} kr` : 'Varierar'}
+                {minTotalCost === 0 && maxTotalCost === 0 ? 'Varierar' :
+                 minTotalCost === maxTotalCost ? `${minTotalCost.toLocaleString('sv-SE')} kr` :
+                 `${minTotalCost.toLocaleString('sv-SE')} - ${maxTotalCost.toLocaleString('sv-SE')} kr`}
               </span>
             </div>
             <p className="text-sm text-gray-400 mt-2">Uppskattad kostnad</p>
