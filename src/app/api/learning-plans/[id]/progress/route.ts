@@ -30,9 +30,13 @@ export async function POST(
         const {
             skillId,
             hoursSpent = 0,
-            activityType, // 'applied', 'accepted', 'enrolled', 'course_completed', 'module_started', 'skill_completed'
+            activityType, // 'applied', 'accepted', 'enrolled', 'course_completed', 'module_started', 'skill_completed', 'study_session'
             activityDescription,
-            xpEarned = 50 // Default XP
+            xpEarned = 50, // Default XP
+            studyMethod,
+            studyQuality,
+            notes,
+            date
         } = body;
 
         // Verify ownership
@@ -61,7 +65,10 @@ export async function POST(
                 xp_earned: xpEarned,
                 activity_type: activityType,
                 activity_description: activityDescription,
-                date: new Date().toISOString().split('T')[0]
+                date: date || new Date().toISOString().split('T')[0],
+                study_method: studyMethod || null,
+                study_quality_rating: studyQuality || null,
+                notes: notes || null
             })
             .select()
             .single();

@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import StudyProgressModal from '@/components/learning/StudyProgressModal';
 import {
   Trophy,
   Target,
@@ -16,7 +17,8 @@ import {
   TrendingUp,
   Award,
   BookOpen,
-  Zap
+  Zap,
+  Plus
 } from 'lucide-react';
 
 // Types
@@ -87,6 +89,8 @@ export default function LearningPlanPage({
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'overview' | 'skills' | 'progress'>('overview');
   const [isUpdatingProgress, setIsUpdatingProgress] = useState(false);
+  const [showProgressModal, setShowProgressModal] = useState(false);
+  const [selectedSkillForProgress, setSelectedSkillForProgress] = useState<Skill | null>(null);
 
   useEffect(() => {
     async function initializePage() {
@@ -533,23 +537,38 @@ export default function LearningPlanPage({
                             <Badge variant="outline" className="text-blue-400 border-blue-400">Pågår</Badge>
                           </div>
                           <p className="text-sm text-gray-400 mb-3">
-                            {skill.actual_hours}h av {skill.estimated_hours}h slutfört
+                            {skill.actual_hours || 0}h av {skill.estimated_hours}h slutfört
                           </p>
                           <div className="w-full bg-navy-700 rounded-full h-2 mb-3">
                             <div
                               className="bg-gradient-to-r from-pink-500 to-purple-500 h-2 rounded-full"
-                              style={{ width: `${Math.min((skill.actual_hours / skill.estimated_hours) * 100, 100)}%` }}
+                              style={{ width: `${Math.min(((skill.actual_hours || 0) / skill.estimated_hours) * 100, 100)}%` }}
                             />
                           </div>
-                          <Button
-                            size="sm"
-                            className="w-full"
-                            onClick={() => updateProgress(skill.id, 'course_completed', 10)}
-                            disabled={isUpdatingProgress}
-                          >
-                            <PlayCircle className="w-4 h-4 mr-2" />
-                            {isUpdatingProgress ? 'Uppdaterar...' : 'Registrera studietid'}
-                          </Button>
+                          <div className="flex gap-2">
+                            <Button
+                              size="sm"
+                              className="flex-1"
+                              onClick={() => {
+                                setSelectedSkillForProgress(skill);
+                                setShowProgressModal(true);
+                              }}
+                            >
+                              <Plus className="w-4 h-4 mr-2" />
+                              Registrera framsteg
+                            </Button>
+                            {skill.actual_hours >= skill.estimated_hours * 0.8 && (
+                              <Button
+                                size="sm"
+                                variant="secondary"
+                                onClick={() => updateProgress(skill.id, 'skill_completed', 0)}
+                                disabled={isUpdatingProgress}
+                              >
+                                <Award className="w-4 h-4 mr-2" />
+                                Slutför
+                              </Button>
+                            )}
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -563,14 +582,28 @@ export default function LearningPlanPage({
                           <p className="text-sm text-green-400 mb-3">
                             🎉 Grattis! Du har blivit antagen!
                           </p>
-                          <Button
-                            size="sm"
-                            className="w-full"
-                            onClick={() => updateProgress(skill.id, 'enrolled', 0.5)}
-                            disabled={isUpdatingProgress}
-                          >
-                            {isUpdatingProgress ? 'Startar...' : 'Påbörja utbildning'}
-                          </Button>
+                          <div className="flex gap-2">
+                            <Button
+                              size="sm"
+                              className="flex-1"
+                              variant="secondary"
+                              onClick={() => {
+                                setSelectedSkillForProgress(skill);
+                                setShowProgressModal(true);
+                              }}
+                            >
+                              <Clock className="w-4 h-4 mr-2" />
+                              Registrera studietimmar
+                            </Button>
+                            <Button
+                              size="sm"
+                              className="flex-1"
+                              onClick={() => updateProgress(skill.id, 'enrolled', 0.5)}
+                              disabled={isUpdatingProgress}
+                            >
+                              {isUpdatingProgress ? 'Startar...' : 'Markera som påbörjad'}
+                            </Button>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -919,6 +952,25 @@ export default function LearningPlanPage({
             </CardContent>
           </Card>
         </div>
+      )}
+
+      {/* Study Progress Modal */}
+      {showProgressModal && selectedSkillForProgress && (
+        <StudyProgressModal
+          isOpen={showProgressModal}
+          onClose={() => {
+            setShowProgressModal(false);
+            setSelectedSkillForProgress(null);
+          }}
+          skillId={selectedSkillForProgress.id}
+          skillName={selectedSkillForProgress.skill_name}
+          planId={planId}
+          onSuccess={() => {
+            loadLearningPlan(planId);
+            setShowProgressModal(false);
+            setSelectedSkillForProgress(null);
+          }}
+        />
       )}
     </div>
   );
