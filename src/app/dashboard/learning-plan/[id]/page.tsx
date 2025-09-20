@@ -558,7 +558,7 @@ export default function LearningPlanPage({
       <div className="flex gap-1 bg-navy-800 p-1 rounded-lg w-fit">
         {[
           { key: 'overview', label: 'Översikt', icon: Target },
-          { key: 'skills', label: 'Färdigheter', icon: BookOpen },
+          { key: 'skills', label: 'Kompetensutveckling', icon: BookOpen },
           { key: 'progress', label: 'Framsteg', icon: Award }
         ].map(({ key, label, icon: Icon }) => (
           <button
@@ -822,62 +822,111 @@ export default function LearningPlanPage({
             return (
               <Card key={skill.id} className="group hover:shadow-lg hover:shadow-pink-500/10 transition-all duration-300 border-navy-700 hover:border-pink-500/30">
                 <CardContent className="p-0">
-                  {/* Skill Header */}
-                  <div className="p-6 pb-0">
-                    <div className="flex items-start gap-4">
-                      {/* Status Indicator */}
-                      <div className={`relative flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center ${statusConfig.iconBg} shadow-lg group-hover:scale-105 transition-transform duration-200`}>
-                        {applicationStatus === 'completed' ? (
-                          <CheckCircle className="w-6 h-6 text-white" />
-                        ) : (
-                          <span className="text-white font-bold text-lg">{index + 1}</span>
-                        )}
+                  {/* Premium Skill Header */}
+                  <div className="relative p-6 pb-0 overflow-hidden">
+                    {/* Subtle background gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-navy-800/50 via-transparent to-pink-500/5 opacity-60"></div>
+
+                    <div className="relative flex items-start gap-6">
+                      {/* Premium Number Indicator */}
+                      <div className="relative flex-shrink-0">
+                        <div className={`relative w-16 h-16 rounded-2xl flex items-center justify-center ${statusConfig.iconBg} shadow-xl border border-white/10 group-hover:scale-105 transition-all duration-300 backdrop-blur-sm`}>
+                          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-transparent"></div>
+                          {applicationStatus === 'completed' ? (
+                            <CheckCircle className="w-7 h-7 text-white relative z-10" />
+                          ) : (
+                            <span className="text-white font-bold text-2xl relative z-10">{index + 1}</span>
+                          )}
+                          {/* Animated border for enrolled status */}
+                          {applicationStatus === 'enrolled' && (
+                            <div className="absolute inset-0 rounded-2xl border-2 border-blue-400/50 animate-pulse"></div>
+                          )}
+                        </div>
+                        {/* Progress indicator */}
                         {applicationStatus === 'enrolled' && progressPercentage > 0 && (
-                          <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-navy-900 rounded-full flex items-center justify-center">
+                          <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-navy-900 rounded-full flex items-center justify-center border-2 border-navy-800">
                             <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
                           </div>
                         )}
                       </div>
 
-                      {/* Skill Info */}
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between gap-3 mb-3">
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-2">
-                              <Badge variant="outline" className="text-xs text-pink-400 border-pink-400/30 bg-pink-400/5">FÄRDIGHET</Badge>
+                      {/* Premium Skill Info */}
+                      <div className="flex-1 min-w-0 space-y-4">
+                        {/* Header Row */}
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex-1 space-y-3">
+                            {/* Badge Row */}
+                            <div className="flex items-center gap-3">
+                              <Badge
+                                variant="outline"
+                                className="px-3 py-1 text-sm font-medium text-white bg-gradient-to-r from-pink-600/20 to-purple-600/20 border border-pink-500/30 backdrop-blur-sm hover:from-pink-600/30 hover:to-purple-600/30 transition-all duration-300"
+                              >
+                                KOMPETENSOMRÅDE
+                              </Badge>
                               {statusConfig.badge}
                             </div>
-                            <h3 className="text-xl font-bold text-white group-hover:text-pink-300 transition-colors duration-200">
+
+                            {/* Skill Title */}
+                            <h3 className="text-2xl font-bold text-white group-hover:text-pink-300 transition-colors duration-300 leading-tight">
                               {skill.skill_name}
                             </h3>
                           </div>
+
+                          {/* Importance Badge */}
                           <Badge
                             variant={skill.importance === 'essential' ? 'default' : 'secondary'}
-                            className={skill.importance === 'essential' ? 'bg-gradient-to-r from-pink-600 to-purple-600 border-0 text-white font-medium' : ''}
+                            className={`px-4 py-2 text-sm font-semibold transition-all duration-300 ${
+                              skill.importance === 'essential'
+                                ? 'bg-gradient-to-r from-pink-600 to-purple-600 border-0 text-white shadow-lg hover:shadow-pink-500/25 hover:scale-105'
+                                : 'bg-navy-700/80 border-navy-600 text-gray-300 hover:bg-navy-600/80'
+                            }`}
                           >
                             {skill.importance === 'essential' ? 'Kritisk' : skill.importance === 'desirable' ? 'Önskvärd' : 'Valfri'}
                           </Badge>
                         </div>
 
-                        {/* Skill Metadata */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
-                          <div className="flex items-center gap-2 text-gray-300">
-                            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                            <span className="font-medium">Nivå:</span>
-                            <span className="text-gray-400">
-                              {skill.skill_level === 'foundation' ? 'Grund' : skill.skill_level === 'intermediate' ? 'Medel' : 'Avancerad'}
-                            </span>
+                        {/* Premium Metadata Cards */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                          {/* Level Card */}
+                          <div className="group/meta bg-navy-700/30 backdrop-blur-sm rounded-xl p-3 border border-navy-600/50 hover:border-blue-400/50 transition-all duration-300 hover:bg-navy-700/50">
+                            <div className="flex items-center gap-3">
+                              <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                                <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
+                              </div>
+                              <div className="flex-1">
+                                <div className="text-xs font-medium text-blue-300 uppercase tracking-wide">Nivå</div>
+                                <div className="text-sm font-semibold text-white">
+                                  {skill.skill_level === 'foundation' ? 'Grund' : skill.skill_level === 'intermediate' ? 'Medel' : 'Avancerad'}
+                                </div>
+                              </div>
+                            </div>
                           </div>
-                          <div className="flex items-center gap-2 text-gray-300">
-                            <Clock className="w-4 h-4 text-purple-400" />
-                            <span className="font-medium">Tid:</span>
-                            <span className="text-gray-400">{getEducationLength()}</span>
+
+                          {/* Time Card */}
+                          <div className="group/meta bg-navy-700/30 backdrop-blur-sm rounded-xl p-3 border border-navy-600/50 hover:border-purple-400/50 transition-all duration-300 hover:bg-navy-700/50">
+                            <div className="flex items-center gap-3">
+                              <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                                <Clock className="w-4 h-4 text-purple-400" />
+                              </div>
+                              <div className="flex-1">
+                                <div className="text-xs font-medium text-purple-300 uppercase tracking-wide">Tid</div>
+                                <div className="text-sm font-semibold text-white">{getEducationLength()}</div>
+                              </div>
+                            </div>
                           </div>
+
+                          {/* Start Date Card */}
                           {skill.start_date && (
-                            <div className="flex items-center gap-2 text-gray-300">
-                              <Calendar className="w-4 h-4 text-green-400" />
-                              <span className="font-medium">Start:</span>
-                              <span className="text-gray-400">{new Date(skill.start_date).toLocaleDateString('sv-SE')}</span>
+                            <div className="group/meta bg-navy-700/30 backdrop-blur-sm rounded-xl p-3 border border-navy-600/50 hover:border-green-400/50 transition-all duration-300 hover:bg-navy-700/50">
+                              <div className="flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
+                                  <Calendar className="w-4 h-4 text-green-400" />
+                                </div>
+                                <div className="flex-1">
+                                  <div className="text-xs font-medium text-green-300 uppercase tracking-wide">Start</div>
+                                  <div className="text-sm font-semibold text-white">{new Date(skill.start_date).toLocaleDateString('sv-SE')}</div>
+                                </div>
+                              </div>
                             </div>
                           )}
                         </div>
@@ -913,7 +962,7 @@ export default function LearningPlanPage({
                     <div className="px-6 py-4 border-t border-navy-700/50">
                       <div className="flex items-center gap-2 mb-4">
                         <GraduationCap className="w-5 h-5 text-pink-400" />
-                        <h4 className="font-semibold text-gray-200">Rekommenderade utbildningar</h4>
+                        <h4 className="font-semibold text-gray-200">Utbildningsväg för denna kompetens</h4>
                         <div className="flex-1 h-px bg-gradient-to-r from-navy-600 to-transparent"></div>
                       </div>
 
