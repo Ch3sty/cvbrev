@@ -342,16 +342,44 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
           </div>
 
           {/* Info Box */}
-          <div className="mt-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+          <div className="mt-6 p-4 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-lg">
             <div className="flex items-start">
-              <Sparkles className="w-5 h-5 text-blue-400 mt-0.5 mr-3 flex-shrink-0" />
-              <div>
-                <p className="text-sm text-blue-300 font-medium mb-1">
-                  Powered by GPT-5 med websökning
-                </p>
-                <p className="text-xs text-blue-200/70">
-                  Vår analys använder GPT-5 för att ge dig de mest relevanta och aktuella kursförslagen
-                  direkt från webben. Analysen tar 1-3 minuter beroende på antal kompetensgap.
+              <Sparkles className="w-5 h-5 text-purple-400 mt-0.5 mr-3 flex-shrink-0 animate-pulse" />
+              <div className="space-y-3">
+                <div>
+                  <p className="text-sm text-purple-300 font-semibold mb-2">
+                    🚀 Så fungerar din personliga kompetensanalys
+                  </p>
+                  <div className="space-y-2 text-xs text-purple-200/80">
+                    <p>
+                      <span className="font-medium text-purple-300">1. Djupanalys av ditt CV:</span> Vår AI skannar igenom ditt CV och identifierar dina befintliga kompetenser med över 95% träffsäkerhet.
+                    </p>
+                    <p>
+                      <span className="font-medium text-purple-300">2. Matchning mot jobbannons:</span> Vi analyserar jobbannonsen och extraherar alla krav, både uttalade och underförstådda kompetenskrav.
+                    </p>
+                    <p>
+                      <span className="font-medium text-purple-300">3. Realtidssökning på webben:</span> Systemet söker i realtid genom tusentals utbildningar från svenska lärosäten, internationella plattformar och branschledande certifieringsorgan.
+                    </p>
+                    <p>
+                      <span className="font-medium text-purple-300">4. Intelligent rangordning:</span> Kurserna rangordnas baserat på relevans, kvalitet, pris och tidsinvestering för maximal karriärnytta.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-2 border-t border-purple-500/20">
+                  <p className="text-sm text-pink-300 font-medium mb-1">
+                    📚 Efter analysen får du:
+                  </p>
+                  <ul className="text-xs text-pink-200/80 space-y-1 list-disc list-inside">
+                    <li>En personlig lärandeplan med tydliga milstolpar</li>
+                    <li>Gamifierad progression med XP-poäng och achievements</li>
+                    <li>Möjlighet att spåra din kompetensutveckling över tid</li>
+                    <li>Direktlänkar till kurser och ansökningsinformation</li>
+                  </ul>
+                </div>
+
+                <p className="text-xs text-gray-400 italic pt-2">
+                  Analysen tar vanligtvis 1-3 minuter beroende på komplexitet.
                 </p>
               </div>
             </div>
