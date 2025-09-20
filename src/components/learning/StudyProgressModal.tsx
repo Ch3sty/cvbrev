@@ -73,6 +73,34 @@ export default function StudyProgressModal({
     }
   };
 
+  const handleMarkAsComplete = async () => {
+    setIsSubmitting(true);
+    try {
+      // Mark the skill as completed with a significant amount of XP
+      const response = await fetch(`/api/learning-plans/${planId}/progress`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          skillId,
+          hoursSpent: 200, // Default hours for a complete education
+          activityType: 'skill_completed',
+          activityDescription: `Avslutade utbildning: ${skillName}`,
+          xpEarned: 500 // Significant XP reward for completion
+        })
+      });
+
+      if (!response.ok) throw new Error('Failed to mark as complete');
+
+      onSuccess();
+      onClose();
+      resetForms();
+    } catch (error) {
+      console.error('Error marking as complete:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const handleSubmitCourse = async () => {
     if (!courseName || !courseHours) return;
 
@@ -258,7 +286,7 @@ export default function StudyProgressModal({
                   onChange={(e) => setStudyNotes(e.target.value)}
                   rows={3}
                   className="w-full px-4 py-3 bg-navy-900 border border-navy-700 rounded-lg text-white placeholder-gray-500 focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                  placeholder="Vad lärde du dig? Vad var svårt?"
+                  placeholder="Vad arbetade du med? Eventuella reflektioner eller anteckningar"
                 />
               </div>
 
@@ -271,24 +299,43 @@ export default function StudyProgressModal({
                 </p>
               </div>
 
-              <button
-                onClick={handleSubmitHours}
-                disabled={!studyHours || isSubmitting}
-                className={`w-full py-3 rounded-lg font-medium transition-all ${
-                  studyHours && !isSubmitting
-                    ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600'
-                    : 'bg-navy-700 text-gray-500 cursor-not-allowed'
-                }`}
-              >
-                {isSubmitting ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <Loader2 className="w-5 h-5 animate-spin" />
-                    Registrerar...
-                  </span>
-                ) : (
-                  'Registrera studietimmar'
-                )}
-              </button>
+              <div className="border-t border-navy-700 pt-4">
+                <p className="text-sm text-gray-400 mb-3">Eller markera hela utbildningen som avslutad:</p>
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={handleSubmitHours}
+                  disabled={!studyHours || isSubmitting}
+                  className={`flex-1 py-3 rounded-lg font-medium transition-all ${
+                    studyHours && !isSubmitting
+                      ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600'
+                      : 'bg-navy-700 text-gray-500 cursor-not-allowed'
+                  }`}
+                >
+                  {isSubmitting ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                      Registrerar...
+                    </span>
+                  ) : (
+                    'Registrera studietimmar'
+                  )}
+                </button>
+                <button
+                  onClick={() => handleMarkAsComplete()}
+                  disabled={isSubmitting}
+                  className={`flex items-center gap-2 px-4 py-3 rounded-lg font-medium transition-all ${
+                    !isSubmitting
+                      ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-600 hover:to-emerald-600'
+                      : 'bg-navy-700 text-gray-500 cursor-not-allowed'
+                  }`}
+                  title="Markera hela utbildningen som avslutad"
+                >
+                  <Award className="w-5 h-5" />
+                  <span>Avslutad</span>
+                </button>
+              </div>
             </div>
           ) : (
             <div className="space-y-4">
