@@ -82,7 +82,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
       });
       
       if (success) {
-        router.push(`/my-letters/${id}`);
+        router.push(`/dashboard/my-letters/${id}`);
       } else {
         setSaveError('Ett fel uppstod när brevet skulle sparas');
       }
@@ -111,7 +111,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
         <div className="p-4 bg-red-500 rounded-md">
           <h2 className="mb-2 text-xl font-bold text-white">Ett fel uppstod</h2>
           <p className="text-white">{error || 'Brevet kunde inte hittas'}</p>
-          <Link href="/my-letters" className="inline-block px-4 py-2 mt-4 text-white bg-red-700 rounded-md hover:bg-red-800">
+          <Link href="/dashboard/my-letters" className="inline-block px-4 py-2 mt-4 text-white bg-red-700 rounded-md hover:bg-red-800">
             Tillbaka till mina brev
           </Link>
         </div>
@@ -196,7 +196,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
           
           <div className="flex justify-between mt-6">
             <Link
-              href={`/my-letters/${id}`}
+              href={`/dashboard/my-letters/${id}`}
               className="px-4 py-2 text-white bg-gray-600 rounded-md hover:bg-gray-700"
             >
               Avbryt

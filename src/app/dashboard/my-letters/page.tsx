@@ -1,4 +1,4 @@
-// src/app/my-letters/page.tsx
+// src/app/dashboard/my-letters/page.tsx
 // UPPDATERAD: Anpassad design för att likna ProfilePage, Inklusive knappstilar (navy-700 för Visa/Redigera)
 // KORRIGERAD: Fixat 'void' is not assignable to type 'ReactNode' i formatRelativeDate
 // KORRIGERAD: Åtgärdat onödiga useCallback-beroenden enligt ESLint-varningar.
@@ -833,9 +833,9 @@ export default function MyLettersPage() {
                           {/* Top row: Visa, Redigera, Ta bort */}
                           <div className="flex flex-wrap gap-2 justify-end">
                             {/* ÄNDRAD KNAPPSTIL */}
-                            <Link href={`/my-letters/${letter.id}`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Eye className="w-4 h-4 mr-1.5" /> Visa </Link>
+                            <Link href={`/dashboard/my-letters/${letter.id}`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Eye className="w-4 h-4 mr-1.5" /> Visa </Link>
                             {/* ÄNDRAD KNAPPSTIL */}
-                            <Link href={`/my-letters/${letter.id}/edit`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Pencil className="w-4 h-4 mr-1.5" /> Redigera </Link>
+                            <Link href={`/dashboard/my-letters/${letter.id}/edit`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Pencil className="w-4 h-4 mr-1.5" /> Redigera </Link>
                             {/* BEHÅLLEN KNAPPSTIL */}
                             <button onClick={() => handleDelete(letter.id)} disabled={isDeleting} className={`inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors ${isDeleting && deleteId === letter.id ? 'opacity-50 cursor-not-allowed' : ''}`}> {isDeleting && deleteId === letter.id ? ( <> <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> Tar bort... </> ) : ( <> <Trash2 className="w-4 h-4 mr-1.5" /> Ta bort </> )} </button>
                           </div>
@@ -930,9 +930,9 @@ export default function MyLettersPage() {
                            {/* Top row: Visa, Redigera, Ta bort */}
                            <div className="flex flex-wrap gap-2 justify-end">
                              {/* ÄNDRAD KNAPPSTIL */}
-                             <Link href={`/my-letters/${letter.id}`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Eye className="w-4 h-4 mr-1.5" /> Visa </Link>
+                             <Link href={`/dashboard/my-letters/${letter.id}`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Eye className="w-4 h-4 mr-1.5" /> Visa </Link>
                              {/* ÄNDRAD KNAPPSTIL */}
-                             <Link href={`/my-letters/${letter.id}/edit`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Pencil className="w-4 h-4 mr-1.5" /> Redigera </Link>
+                             <Link href={`/dashboard/my-letters/${letter.id}/edit`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Pencil className="w-4 h-4 mr-1.5" /> Redigera </Link>
                              {/* BEHÅLLEN KNAPPSTIL */}
                              <button onClick={() => handleDelete(letter.id)} disabled={isDeleting} className={`inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors ${isDeleting && deleteId === letter.id ? 'opacity-50 cursor-not-allowed' : ''}`}> {isDeleting && deleteId === letter.id ? ( <> <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> Tar bort... </> ) : ( <> <Trash2 className="w-4 h-4 mr-1.5" /> Ta bort </> )} </button>
                            </div>
@@ -1021,9 +1021,9 @@ export default function MyLettersPage() {
                         {/* Top row: Visa, Redigera, Ta bort */}
                         <div className="flex flex-wrap gap-2 justify-end">
                           {/* ÄNDRAD KNAPPSTIL */}
-                          <Link href={`/my-letters/${letter.id}`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Eye className="w-4 h-4 mr-1.5" /> Visa </Link>
+                          <Link href={`/dashboard/my-letters/${letter.id}`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Eye className="w-4 h-4 mr-1.5" /> Visa </Link>
                           {/* ÄNDRAD KNAPPSTIL */}
-                          <Link href={`/my-letters/${letter.id}/edit`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Pencil className="w-4 h-4 mr-1.5" /> Redigera </Link>
+                          <Link href={`/dashboard/my-letters/${letter.id}/edit`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Pencil className="w-4 h-4 mr-1.5" /> Redigera </Link>
                           {/* BEHÅLLEN KNAPPSTIL */}
                           <button onClick={() => handleDelete(letter.id)} disabled={isDeleting} className={`inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors ${isDeleting && deleteId === letter.id ? 'opacity-50 cursor-not-allowed' : ''}`}> {isDeleting && deleteId === letter.id ? ( <> <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> Tar bort... </> ) : ( <> <Trash2 className="w-4 h-4 mr-1.5" /> Ta bort </> )} </button>
                         </div>

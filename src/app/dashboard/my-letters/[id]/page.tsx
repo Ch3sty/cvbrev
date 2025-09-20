@@ -69,7 +69,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
 
 
   const handleEdit = () => {
-    router.push(`/my-letters/${id}/edit`);
+    router.push(`/dashboard/my-letters/${id}/edit`);
   };
 
   const handleDeleteRequest = () => {
@@ -78,7 +78,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
 
   const confirmDeleteAction = async () => {
     if (await removeLetter(id)) {
-      router.push('/my-letters');
+      router.push('/dashboard/my-letters');
       setShowDeleteConfirm(false);
     }
   };
@@ -111,7 +111,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
                 {error || 'Brevet kunde inte hittas eller laddas.'}
               </p>
               <Link
-                href="/my-letters"
+                href="/dashboard/my-letters"
                 className="inline-flex items-center mt-3 px-4 py-2 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
@@ -130,7 +130,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
     return (
        <div className="max-w-screen-lg mx-auto pt-8 pb-16 px-4">
           <p className="text-center text-red-400">Ett oväntat fel inträffade vid rendering av brevet.</p>
-           <Link href="/my-letters" className="block text-center mt-4 text-pink-400 hover:text-pink-300 underline"> Tillbaka till mina brev </Link>
+           <Link href="/dashboard/my-letters" className="block text-center mt-4 text-pink-400 hover:text-pink-300 underline"> Tillbaka till mina brev </Link>
        </div>
     );
   }
@@ -186,7 +186,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
 
       {/* Navigation */}
       <div className="flex flex-col sm:flex-row justify-between items-center gap-3 mt-8">
-        <Link href="/my-letters" className="inline-flex items-center w-full sm:w-auto justify-center px-4 py-2 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <ArrowLeft className="w-4 h-4 mr-2" /> Tillbaka till mina brev </Link>
+        <Link href="/dashboard/my-letters" className="inline-flex items-center w-full sm:w-auto justify-center px-4 py-2 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <ArrowLeft className="w-4 h-4 mr-2" /> Tillbaka till mina brev </Link>
         <Link href="/create-letter" className="inline-flex items-center w-full sm:w-auto justify-center px-4 py-2 text-sm font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors"> <Plus className="w-4 h-4 mr-2" /> Skapa nytt brev </Link>
       </div>
 

@@ -11,7 +11,7 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: '*', // Gäller för alla robotar
         allow: '/', // Tillåt genomsökning av allt som standard
         // disallow: '/admin/', // Exempel: Blockera en admin-sektion
-        // disallow: '/my-letters/', // Exempel: Blockera sidor bakom inloggning
+        // disallow: '/dashboard/my-letters/', // Exempel: Blockera sidor bakom inloggning
 		// disallow: '/profile/', // Exempel: Blockera sidor bakom inloggning
       },
     ],
