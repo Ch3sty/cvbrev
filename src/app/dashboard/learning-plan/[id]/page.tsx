@@ -113,12 +113,14 @@ export default function LearningPlanPage({
       if (!user) return;
 
       // Load or create gamification stats
-      let { data: statsData, error: statsError } = await supabase
+      const { data: statsData, error: statsError } = await supabase
         .from('user_gamification_stats')
         .select('*')
         .eq('user_id', user.id)
         .eq('plan_id', id)
         .single();
+
+      let finalStatsData = statsData;
 
       if (statsError && statsError.code === 'PGRST116') {
         // No stats exist, create initial stats
@@ -135,7 +137,7 @@ export default function LearningPlanPage({
           })
           .select()
           .single();
-        statsData = newStats;
+        finalStatsData = newStats;
       }
 
       // Load user achievements
@@ -160,10 +162,10 @@ export default function LearningPlanPage({
 
       // Set user stats with real data
       setUserStats({
-        currentStreak: statsData?.current_streak || 0,
-        totalXP: statsData?.total_xp || 0,
-        currentLevel: statsData?.current_level || 1,
-        weeklyGoal: statsData?.weekly_goal_hours || 10,
+        currentStreak: finalStatsData?.current_streak || 0,
+        totalXP: finalStatsData?.total_xp || 0,
+        currentLevel: finalStatsData?.current_level || 1,
+        weeklyGoal: finalStatsData?.weekly_goal_hours || 10,
         weeklyProgress: weeklyHours,
         achievements: achievementsData?.map(a => a.achievement_key) || []
       });

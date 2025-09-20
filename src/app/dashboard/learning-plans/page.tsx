@@ -33,7 +33,7 @@ export default function LearningPlansPage() {
 
   useEffect(() => {
     fetchLearningPlans();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchLearningPlans = async () => {
     try {

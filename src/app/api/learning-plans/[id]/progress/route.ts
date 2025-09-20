@@ -71,12 +71,14 @@ export async function POST(
         }
 
         // Get or create gamification stats
-        let { data: stats, error: statsError } = await supabase
+        const { data: stats, error: statsError } = await supabase
             .from('user_gamification_stats')
             .select('*')
             .eq('user_id', user.id)
             .eq('plan_id', planId)
             .single();
+
+        let finalStats = stats;
 
         if (statsError && statsError.code === 'PGRST116') {
             // Create initial stats
@@ -94,7 +96,7 @@ export async function POST(
                 })
                 .select()
                 .single();
-            stats = newStats;
+            finalStats = newStats;
         } else if (stats) {
             // Update existing stats
             const today = new Date().toISOString().split('T')[0];
@@ -130,10 +132,10 @@ export async function POST(
                 .select()
                 .single();
 
-            stats = updatedStats;
+            finalStats = updatedStats;
 
             // Check for achievements
-            await checkAndAwardAchievements(supabase, user.id, planId, stats, activityType);
+            await checkAndAwardAchievements(supabase, user.id, planId, finalStats || stats, activityType);
         }
 
         // Update skill status if completed
@@ -160,7 +162,7 @@ export async function POST(
         return NextResponse.json({
             success: true,
             progress: progressEntry,
-            stats: stats,
+            stats: finalStats,
             message: 'Progress uppdaterad!'
         }, { status: 200 });
 
