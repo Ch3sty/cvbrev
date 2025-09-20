@@ -823,19 +823,19 @@ export default function LearningPlanPage({
               <Card key={skill.id} className="group hover:shadow-lg hover:shadow-pink-500/10 transition-all duration-300 border-navy-700 hover:border-pink-500/30">
                 <CardContent className="p-0">
                   {/* Premium Skill Header */}
-                  <div className="relative p-6 pb-0 overflow-hidden">
+                  <div className="relative p-4 pb-0 overflow-hidden">
                     {/* Subtle background gradient */}
                     <div className="absolute inset-0 bg-gradient-to-br from-navy-800/50 via-transparent to-pink-500/5 opacity-60"></div>
 
-                    <div className="relative flex items-start gap-6">
+                    <div className="relative flex items-start gap-4">
                       {/* Premium Number Indicator */}
                       <div className="relative flex-shrink-0">
-                        <div className={`relative w-16 h-16 rounded-2xl flex items-center justify-center ${statusConfig.iconBg} shadow-xl border border-white/10 group-hover:scale-105 transition-all duration-300 backdrop-blur-sm`}>
-                          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/10 to-transparent"></div>
+                        <div className={`relative w-10 h-10 rounded-xl flex items-center justify-center ${statusConfig.iconBg} shadow-lg border border-white/10 group-hover:scale-105 transition-all duration-300 backdrop-blur-sm`}>
+                          <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/10 to-transparent"></div>
                           {applicationStatus === 'completed' ? (
-                            <CheckCircle className="w-7 h-7 text-white relative z-10" />
+                            <CheckCircle className="w-5 h-5 text-white relative z-10" />
                           ) : (
-                            <span className="text-white font-bold text-2xl relative z-10">{index + 1}</span>
+                            <span className="text-white font-bold text-lg relative z-10">{index + 1}</span>
                           )}
                           {/* Animated border for enrolled status */}
                           {applicationStatus === 'enrolled' && (
@@ -851,15 +851,15 @@ export default function LearningPlanPage({
                       </div>
 
                       {/* Premium Skill Info */}
-                      <div className="flex-1 min-w-0 space-y-4">
+                      <div className="flex-1 min-w-0 space-y-3">
                         {/* Header Row */}
-                        <div className="flex items-start justify-between gap-4">
-                          <div className="flex-1 space-y-3">
+                        <div className="flex items-start justify-between gap-3">
+                          <div className="flex-1 space-y-2">
                             {/* Badge Row */}
-                            <div className="flex items-center gap-3">
+                            <div className="flex items-center gap-2">
                               <Badge
                                 variant="outline"
-                                className="px-3 py-1 text-sm font-medium text-white bg-gradient-to-r from-pink-600/20 to-purple-600/20 border border-pink-500/30 backdrop-blur-sm hover:from-pink-600/30 hover:to-purple-600/30 transition-all duration-300"
+                                className="px-2 py-0.5 text-xs font-medium text-white bg-gradient-to-r from-pink-600/20 to-purple-600/20 border border-pink-500/30 backdrop-blur-sm"
                               >
                                 KOMPETENSOMRÅDE
                               </Badge>
@@ -867,7 +867,7 @@ export default function LearningPlanPage({
                             </div>
 
                             {/* Skill Title */}
-                            <h3 className="text-2xl font-bold text-white group-hover:text-pink-300 transition-colors duration-300 leading-tight">
+                            <h3 className="text-lg font-bold text-white group-hover:text-pink-300 transition-colors duration-200 leading-tight">
                               {skill.skill_name}
                             </h3>
                           </div>
@@ -875,9 +875,9 @@ export default function LearningPlanPage({
                           {/* Importance Badge */}
                           <Badge
                             variant={skill.importance === 'essential' ? 'default' : 'secondary'}
-                            className={`px-4 py-2 text-sm font-semibold transition-all duration-300 ${
+                            className={`px-3 py-1 text-xs font-semibold transition-all duration-200 ${
                               skill.importance === 'essential'
-                                ? 'bg-gradient-to-r from-pink-600 to-purple-600 border-0 text-white shadow-lg hover:shadow-pink-500/25 hover:scale-105'
+                                ? 'bg-gradient-to-r from-pink-600 to-purple-600 border-0 text-white shadow-md hover:shadow-pink-500/20'
                                 : 'bg-navy-700/80 border-navy-600 text-gray-300 hover:bg-navy-600/80'
                             }`}
                           >
@@ -885,71 +885,50 @@ export default function LearningPlanPage({
                           </Badge>
                         </div>
 
-                        {/* Premium Metadata Cards */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                          {/* Level Card */}
-                          <div className="group/meta bg-navy-700/30 backdrop-blur-sm rounded-xl p-3 border border-navy-600/50 hover:border-blue-400/50 transition-all duration-300 hover:bg-navy-700/50">
-                            <div className="flex items-center gap-3">
-                              <div className="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                                <div className="w-3 h-3 bg-blue-400 rounded-full"></div>
-                              </div>
-                              <div className="flex-1">
-                                <div className="text-xs font-medium text-blue-300 uppercase tracking-wide">Nivå</div>
-                                <div className="text-sm font-semibold text-white">
-                                  {skill.skill_level === 'foundation' ? 'Grund' : skill.skill_level === 'intermediate' ? 'Medel' : 'Avancerad'}
-                                </div>
-                              </div>
-                            </div>
+                        {/* Compact Metadata */}
+                        <div className="flex flex-wrap items-center gap-3 text-sm">
+                          {/* Level */}
+                          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-navy-700/40 rounded-lg border border-navy-600/50">
+                            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                            <span className="text-xs font-medium text-gray-400">Nivå:</span>
+                            <span className="text-xs font-semibold text-white">
+                              {skill.skill_level === 'foundation' ? 'Grund' : skill.skill_level === 'intermediate' ? 'Medel' : 'Avancerad'}
+                            </span>
                           </div>
 
-                          {/* Time Card */}
-                          <div className="group/meta bg-navy-700/30 backdrop-blur-sm rounded-xl p-3 border border-navy-600/50 hover:border-purple-400/50 transition-all duration-300 hover:bg-navy-700/50">
-                            <div className="flex items-center gap-3">
-                              <div className="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center">
-                                <Clock className="w-4 h-4 text-purple-400" />
-                              </div>
-                              <div className="flex-1">
-                                <div className="text-xs font-medium text-purple-300 uppercase tracking-wide">Tid</div>
-                                <div className="text-sm font-semibold text-white">{getEducationLength()}</div>
-                              </div>
-                            </div>
+                          {/* Time */}
+                          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-navy-700/40 rounded-lg border border-navy-600/50">
+                            <Clock className="w-3.5 h-3.5 text-purple-400" />
+                            <span className="text-xs font-medium text-gray-400">Tid:</span>
+                            <span className="text-xs font-semibold text-white">{getEducationLength()}</span>
                           </div>
 
-                          {/* Start Date Card */}
+                          {/* Start Date */}
                           {skill.start_date && (
-                            <div className="group/meta bg-navy-700/30 backdrop-blur-sm rounded-xl p-3 border border-navy-600/50 hover:border-green-400/50 transition-all duration-300 hover:bg-navy-700/50">
-                              <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center">
-                                  <Calendar className="w-4 h-4 text-green-400" />
-                                </div>
-                                <div className="flex-1">
-                                  <div className="text-xs font-medium text-green-300 uppercase tracking-wide">Start</div>
-                                  <div className="text-sm font-semibold text-white">{new Date(skill.start_date).toLocaleDateString('sv-SE')}</div>
-                                </div>
-                              </div>
+                            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-navy-700/40 rounded-lg border border-navy-600/50">
+                              <Calendar className="w-3.5 h-3.5 text-green-400" />
+                              <span className="text-xs font-medium text-gray-400">Start:</span>
+                              <span className="text-xs font-semibold text-white">{new Date(skill.start_date).toLocaleDateString('sv-SE')}</span>
                             </div>
                           )}
                         </div>
 
                         {/* Progress Bar for Enrolled Skills */}
                         {applicationStatus === 'enrolled' && (
-                          <div className="mt-4 space-y-2">
+                          <div className="mt-3 space-y-1">
                             <div className="flex justify-between items-center">
-                              <span className="text-sm font-medium text-gray-300">Framsteg</span>
-                              <span className="text-sm text-gray-400">
-                                {skill.actual_hours || 0}h / {skill.estimated_hours}h
+                              <span className="text-xs font-medium text-gray-400">Framsteg</span>
+                              <span className="text-xs text-gray-500">
+                                {skill.actual_hours || 0}h / {skill.estimated_hours}h ({progressPercentage.toFixed(0)}%)
                               </span>
                             </div>
-                            <div className="relative h-3 bg-navy-700 rounded-full overflow-hidden">
+                            <div className="relative h-2 bg-navy-700 rounded-full overflow-hidden">
                               <div
                                 className={`absolute inset-y-0 left-0 bg-gradient-to-r ${statusConfig.progressColor} rounded-full transition-all duration-1000 ease-out`}
                                 style={{ width: `${progressPercentage}%` }}
                               >
                                 <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
                               </div>
-                            </div>
-                            <div className="text-xs text-gray-500">
-                              {progressPercentage.toFixed(1)}% slutfört
                             </div>
                           </div>
                         )}
@@ -959,92 +938,84 @@ export default function LearningPlanPage({
 
                   {/* Course Options Section */}
                   {skill.courses && skill.courses.length > 0 && (
-                    <div className="px-6 py-4 border-t border-navy-700/50">
-                      <div className="flex items-center gap-2 mb-4">
-                        <GraduationCap className="w-5 h-5 text-pink-400" />
-                        <h4 className="font-semibold text-gray-200">Utbildningsväg för denna kompetens</h4>
+                    <div className="px-4 py-3 border-t border-navy-700/50">
+                      <div className="flex items-center gap-2 mb-3">
+                        <GraduationCap className="w-4 h-4 text-pink-400" />
+                        <h4 className="text-sm font-semibold text-gray-300">Utbildningsväg för denna kompetens</h4>
                         <div className="flex-1 h-px bg-gradient-to-r from-navy-600 to-transparent"></div>
                       </div>
 
-                      <div className="grid gap-3">
+                      <div className="grid gap-2">
                         {skill.courses.map((course: any, idx: number) => {
                           const isEnrolled = enrolledCourses.has(`${skill.id}-${course.title}`);
                           return (
                             <div
                               key={idx}
-                              className={`relative p-4 rounded-xl border transition-all duration-200 hover:shadow-md ${
+                              className={`relative p-3 rounded-lg border transition-all duration-200 ${
                                 isEnrolled
-                                  ? 'border-green-500/30 bg-green-500/5 shadow-green-500/10'
+                                  ? 'border-green-500/30 bg-green-500/5'
                                   : 'border-navy-600 bg-navy-800/30 hover:border-pink-500/30 hover:bg-navy-800/50'
                               }`}
                             >
                               {isEnrolled && (
                                 <div className="absolute top-2 right-2">
-                                  <CheckCircle className="w-5 h-5 text-green-400" />
+                                  <CheckCircle className="w-4 h-4 text-green-400" />
                                 </div>
                               )}
 
-                              <div className="space-y-3">
-                                {/* Course Title */}
-                                <div>
-                                  {course.url ? (
-                                    <a
-                                      href={course.url}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="font-semibold text-white hover:text-pink-300 transition-colors duration-200 flex items-center gap-2 group/link"
-                                    >
-                                      {course.title || course.name || course}
-                                      <ExternalLink className="w-4 h-4 opacity-60 group-hover/link:opacity-100 transition-opacity" />
-                                    </a>
-                                  ) : (
-                                    <h5 className="font-semibold text-white">
-                                      {course.title || course.name || course}
-                                    </h5>
-                                  )}
-                                </div>
+                              <div className="space-y-2">
+                                {/* Course Title and Details on same row */}
+                                <div className="flex items-start justify-between gap-3">
+                                  <div className="flex-1 space-y-1">
+                                    {course.url ? (
+                                      <a
+                                        href={course.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-sm font-medium text-white hover:text-pink-300 transition-colors duration-200 flex items-center gap-1.5 group/link"
+                                      >
+                                        {course.title || course.name || course}
+                                        <ExternalLink className="w-3 h-3 opacity-60 group-hover/link:opacity-100 transition-opacity" />
+                                      </a>
+                                    ) : (
+                                      <h5 className="text-sm font-medium text-white">
+                                        {course.title || course.name || course}
+                                      </h5>
+                                    )}
 
-                                {/* Course Details */}
-                                <div className="flex flex-wrap items-center gap-4 text-sm">
-                                  {course.provider && (
-                                    <div className="flex items-center gap-1.5 text-gray-400">
-                                      <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
-                                      <span className="font-medium">Leverantör:</span>
-                                      <span>{course.provider}</span>
+                                    {/* Course Details */}
+                                    <div className="flex flex-wrap items-center gap-3 text-xs text-gray-400">
+                                      {course.provider && (
+                                        <span>{course.provider}</span>
+                                      )}
+                                      {course.duration && (
+                                        <span className="flex items-center gap-1">
+                                          <Clock className="w-3 h-3" />
+                                          {course.duration}
+                                        </span>
+                                      )}
+                                      {course.cost && (
+                                        <span>{course.cost}</span>
+                                      )}
                                     </div>
-                                  )}
-                                  {course.duration && (
-                                    <div className="flex items-center gap-1.5 text-gray-400">
-                                      <Clock className="w-3.5 h-3.5 text-blue-400" />
-                                      <span>{course.duration}</span>
-                                    </div>
-                                  )}
-                                  {course.cost && (
-                                    <div className="flex items-center gap-1.5 text-gray-400">
-                                      <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full"></div>
-                                      <span className="font-medium">Pris:</span>
-                                      <span>{course.cost}</span>
-                                    </div>
-                                  )}
-                                </div>
+                                  </div>
 
-                                {/* Enrollment Button */}
-                                <div className="flex justify-end">
+                                  {/* Enrollment Button */}
                                   <Button
                                     size="sm"
                                     variant={isEnrolled ? "secondary" : "outline"}
-                                    className={isEnrolled ? 'bg-green-500/20 border-green-500/30 text-green-300 hover:bg-green-500/30' : 'hover:bg-pink-500/10 hover:border-pink-500/30'}
+                                    className={`text-xs px-2 py-1 ${isEnrolled ? 'bg-green-500/20 border-green-500/30 text-green-300 hover:bg-green-500/30' : 'hover:bg-pink-500/10 hover:border-pink-500/30'}`}
                                     onClick={() => handleCourseEnrollment(skill.id, course)}
                                   >
                                     {isEnrolled ? (
                                       <>
-                                        <CheckCircle className="w-4 h-4 mr-2" />
+                                        <CheckCircle className="w-3 h-3 mr-1" />
                                         Anmäld
                                       </>
                                     ) : (
                                       <>
-                                        <Plus className="w-4 h-4 mr-2" />
-                                        Markera som anmäld
+                                        <Plus className="w-3 h-3 mr-1" />
+                                        Anmäl
                                       </>
                                     )}
                                   </Button>
@@ -1058,22 +1029,23 @@ export default function LearningPlanPage({
                   )}
 
                   {/* Action Buttons Section */}
-                  <div className="px-6 py-4 border-t border-navy-700/30 bg-navy-800/20">
-                    <div className="flex flex-wrap gap-3">
+                  <div className="px-4 py-3 border-t border-navy-700/30 bg-navy-800/20">
+                    <div className="flex flex-wrap gap-2">
                       {applicationStatus === 'not_applied' && (
                         <Button
-                          className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 border-0 text-white font-medium shadow-lg hover:shadow-pink-500/25 transition-all duration-200"
+                          size="sm"
+                          className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 border-0 text-white text-xs font-medium shadow-md hover:shadow-pink-500/20 transition-all duration-200"
                           onClick={() => updateProgress(skill.id, 'applied', 0)}
                           disabled={isUpdatingProgress}
                         >
                           {isUpdatingProgress ? (
                             <>
-                              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                              <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin mr-1"></div>
                               Uppdaterar...
                             </>
                           ) : (
                             <>
-                              <PlayCircle className="w-4 h-4 mr-2" />
+                              <PlayCircle className="w-3 h-3 mr-1" />
                               {isLongEducation ? 'Ansök nu' : 'Anmäl dig nu'}
                             </>
                           )}
@@ -1082,14 +1054,15 @@ export default function LearningPlanPage({
 
                       {applicationStatus === 'applied' && (
                         <Button
+                          size="sm"
                           variant="outline"
-                          className="border-green-500/30 text-green-300 hover:bg-green-500/10 hover:border-green-400"
+                          className="border-green-500/30 text-green-300 text-xs hover:bg-green-500/10 hover:border-green-400"
                           onClick={() => updateProgress(skill.id, 'accepted', 0)}
                           disabled={isUpdatingProgress}
                         >
                           {isUpdatingProgress ? 'Uppdaterar...' : (
                             <>
-                              <CheckCircle className="w-4 h-4 mr-2" />
+                              <CheckCircle className="w-3 h-3 mr-1" />
                               Markera som antagen
                             </>
                           )}
@@ -1098,13 +1071,14 @@ export default function LearningPlanPage({
 
                       {applicationStatus === 'accepted' && (
                         <Button
-                          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 text-white font-medium"
+                          size="sm"
+                          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 text-white text-xs font-medium"
                           onClick={() => updateProgress(skill.id, 'enrolled', 0)}
                           disabled={isUpdatingProgress}
                         >
                           {isUpdatingProgress ? 'Uppdaterar...' : (
                             <>
-                              <PlayCircle className="w-4 h-4 mr-2" />
+                              <PlayCircle className="w-3 h-3 mr-1" />
                               Påbörja utbildning
                             </>
                           )}
@@ -1114,38 +1088,41 @@ export default function LearningPlanPage({
                       {applicationStatus === 'enrolled' && (
                         <>
                           <Button
+                            size="sm"
                             variant="secondary"
-                            className="hover:bg-navy-600"
+                            className="hover:bg-navy-600 text-xs"
                             onClick={() => {
                               setSelectedSkillForProgress(skill);
                               setShowStudyHoursModal(true);
                             }}
                           >
-                            <Clock className="w-4 h-4 mr-2" />
-                            Logga studietimmar
+                            <Clock className="w-3 h-3 mr-1" />
+                            Logga timmar
                           </Button>
                           <Button
+                            size="sm"
                             variant="secondary"
-                            className="hover:bg-navy-600"
+                            className="hover:bg-navy-600 text-xs"
                             onClick={() => {
                               setSelectedSkillForProgress(skill);
                               setShowCompletedCourseModal(true);
                             }}
                           >
-                            <Award className="w-4 h-4 mr-2" />
+                            <Award className="w-3 h-3 mr-1" />
                             Avslutad kurs
                           </Button>
                           {progressPercentage >= 50 && (
                             <Button
+                              size="sm"
                               variant="outline"
-                              className="border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/10"
+                              className="border-emerald-500/30 text-emerald-300 text-xs hover:bg-emerald-500/10"
                               onClick={() => {
                                 setSelectedSkillForProgress(skill);
                                 setShowCompleteEducationModal(true);
                               }}
                             >
-                              <GraduationCap className="w-4 h-4 mr-2" />
-                              Slutför utbildning
+                              <GraduationCap className="w-3 h-3 mr-1" />
+                              Slutför
                             </Button>
                           )}
                         </>
