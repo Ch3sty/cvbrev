@@ -1,5 +1,6 @@
 // /app/api/learning-plans/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { logUserActivity } from '@/lib/activity-logger';
 
@@ -13,7 +14,8 @@ export async function GET(
     console.log('--- API /learning-plans/[id]: GET request initiated');
 
     try {
-        const supabase = await createServerClient();
+        const cookieStore = await cookies();
+        const supabase = createServerClient({ cookies: cookieStore });
         const { id: planId } = await params;
 
         // Check authentication
@@ -78,7 +80,8 @@ export async function PATCH(
     console.log('--- API /learning-plans/[id]: PATCH request initiated');
 
     try {
-        const supabase = await createServerClient();
+        const cookieStore = await cookies();
+        const supabase = createServerClient({ cookies: cookieStore });
         const { id: planId } = await params;
 
         // Check authentication
@@ -193,7 +196,7 @@ export async function PATCH(
         // Log activity
         await logUserActivity(
             user.id,
-            'learning_plan_updated',
+            'learning_plan_updated' as any,
             activityMessage,
             {
                 planId,
@@ -225,7 +228,8 @@ export async function DELETE(
     console.log('--- API /learning-plans/[id]: DELETE request initiated');
 
     try {
-        const supabase = await createServerClient();
+        const cookieStore = await cookies();
+        const supabase = createServerClient({ cookies: cookieStore });
         const { id: planId } = await params;
 
         // Check authentication
@@ -255,7 +259,7 @@ export async function DELETE(
         // Log activity
         await logUserActivity(
             user.id,
-            'learning_plan_deleted',
+            'learning_plan_deleted' as any,
             'Raderade lärandeplan',
             { planId }
         );

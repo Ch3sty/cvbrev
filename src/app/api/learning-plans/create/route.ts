@@ -11,7 +11,8 @@ export async function POST(request: NextRequest) {
     console.log('--- API /learning-plans/create: Request initiated');
 
     try {
-        const supabase = await createServerClient();
+        const cookieStore = await cookies();
+        const supabase = createServerClient({ cookies: cookieStore });
 
         // Check authentication
         const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -136,7 +137,7 @@ export async function POST(request: NextRequest) {
         // Log activity
         await logUserActivity(
             userId,
-            'learning_plan_created',
+            'learning_plan_created' as any,
             `Skapade lärandeplan: ${title}`,
             {
                 planId: learningPlan.id,
