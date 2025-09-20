@@ -124,7 +124,8 @@
       "mcp__supabase__get_edge_function",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-gpt5-websearch.html\")",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-gpt5-edge-function.html\")",
-      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-websearch-api.html\")"
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-websearch-api.html\")",
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-gamified-learning-plan.html\")"
     ],
     "deny": [],
     "ask": []

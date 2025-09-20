@@ -2,10 +2,10 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { 
+import {
   LayoutDashboard,
-  PenTool, 
-  FileText, 
+  PenTool,
+  FileText,
   Brain,
   Palette,
   User,
@@ -13,7 +13,8 @@ import {
   ChevronLeft,
   LogOut,
   HelpCircle,
-  Mail
+  Mail,
+  GraduationCap
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
@@ -24,9 +25,9 @@ export default function DashboardSidebar() {
   
   // Navigationslänkar för användardashboard
   const navItems = [
-    { 
-      path: '/dashboard', 
-      label: 'Översikt', 
+    {
+      path: '/dashboard',
+      label: 'Översikt',
       icon: <LayoutDashboard className="w-5 h-5" />,
       section: 'main'
     },
@@ -47,6 +48,12 @@ export default function DashboardSidebar() {
       label: 'Kompetensutveckling',
       icon: <Brain className="w-5 h-5" />,
       section: 'tools'
+    },
+    {
+      path: '/dashboard/learning-plans',
+      label: 'Mina Lärandeplaner',
+      icon: <GraduationCap className="w-5 h-5" />,
+      section: 'learning'
     },
     {
       path: '/dashboard/cv-mallar',
@@ -76,6 +83,7 @@ export default function DashboardSidebar() {
   
   // Gruppera navigation items
   const toolsItems = navItems.filter(item => item.section === 'tools');
+  const learningItems = navItems.filter(item => item.section === 'learning');
   const documentsItems = navItems.filter(item => item.section === 'documents');
   const profileItems = navItems.filter(item => item.section === 'profile');
   const overviewItems = navItems.filter(item => item.section === 'main');
@@ -160,6 +168,35 @@ export default function DashboardSidebar() {
           </ul>
         </div>
 
+        {/* Lärande Sektion */}
+        <div>
+          {!collapsed && (
+            <h3 className="px-4 py-2 text-xs font-semibold text-gray-400 uppercase tracking-wider">
+              Lärande
+            </h3>
+          )}
+          <ul className="space-y-1">
+            {learningItems.map((item) => (
+              <li key={item.path}>
+                <Link
+                  href={item.path}
+                  className={`
+                    flex items-center px-4 py-2.5
+                    ${pathname === item.path || pathname.startsWith(item.path + '/')
+                      ? 'bg-pink-600 text-white'
+                      : 'text-gray-300 hover:bg-navy-800 hover:text-white'
+                    }
+                    ${collapsed ? 'justify-center' : ''}
+                  `}
+                >
+                  <span className="flex-shrink-0">{item.icon}</span>
+                  {!collapsed && <span className="ml-3">{item.label}</span>}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
         {/* Mina Dokument Sektion */}
         <div>
           {!collapsed && (
@@ -170,12 +207,12 @@ export default function DashboardSidebar() {
           <ul className="space-y-1">
             {documentsItems.map((item) => (
               <li key={item.path}>
-                <Link 
+                <Link
                   href={item.path}
                   className={`
-                    flex items-center px-4 py-2.5 
-                    ${pathname === item.path 
-                      ? 'bg-pink-600 text-white' 
+                    flex items-center px-4 py-2.5
+                    ${pathname === item.path
+                      ? 'bg-pink-600 text-white'
                       : 'text-gray-300 hover:bg-navy-800 hover:text-white'
                     }
                     ${collapsed ? 'justify-center' : ''}
