@@ -158,6 +158,8 @@ export async function POST(
                 updateData.application_status = 'enrolled';
                 updateData.status = 'in_progress';
                 updateData.start_date = new Date().toISOString().split('T')[0];
+                // Reset actual hours to 0 when enrolling in a new course/education
+                updateData.actual_hours = 0;
             } else if (activityType === 'skill_completed' || (activityType === 'course_completed' && hoursSpent >= 50)) {
                 updateData.application_status = 'completed';
                 updateData.status = 'completed';

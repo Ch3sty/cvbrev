@@ -7,6 +7,7 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import StudyHoursModal from '@/components/learning/StudyHoursModal';
 import CompletedCourseModal from '@/components/learning/CompletedCourseModal';
 import CompleteEducationModal from '@/components/learning/CompleteEducationModal';
+import CourseSelectionModal from '@/components/learning/CourseSelectionModal';
 import {
   Trophy,
   Target,
@@ -22,7 +23,8 @@ import {
   Zap,
   Plus,
   ExternalLink,
-  GraduationCap
+  GraduationCap,
+  Trash2
 } from 'lucide-react';
 
 // Types
@@ -96,6 +98,8 @@ export default function LearningPlanPage({
   const [showStudyHoursModal, setShowStudyHoursModal] = useState(false);
   const [showCompletedCourseModal, setShowCompletedCourseModal] = useState(false);
   const [showCompleteEducationModal, setShowCompleteEducationModal] = useState(false);
+  const [showCourseSelectionModal, setShowCourseSelectionModal] = useState(false);
+  const [courseSelectionAction, setCourseSelectionAction] = useState<'applied' | 'accepted' | 'enrolled'>('applied');
   const [selectedSkillForProgress, setSelectedSkillForProgress] = useState<Skill | null>(null);
   const [enrolledCourses, setEnrolledCourses] = useState<Set<string>>(new Set());
 
@@ -107,6 +111,57 @@ export default function LearningPlanPage({
     }
     initializePage();
   }, [params]);
+
+  const handleCourseSelection = async (selectedCourses: any[]) => {
+    if (!selectedSkillForProgress) return;
+
+    // Save the selected courses for this skill
+    const supabase = getSupabaseClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    // Register course enrollments
+    for (const course of selectedCourses) {
+      await supabase
+        .from('user_course_enrollments')
+        .insert({
+          user_id: user.id,
+          plan_id: planId,
+          skill_id: selectedSkillForProgress.id,
+          course_title: course.title,
+          course_url: course.url,
+          course_provider: course.provider,
+          course_duration: course.duration,
+          course_cost: course.cost,
+          enrollment_status: courseSelectionAction
+        });
+    }
+
+    // Update skill status based on action
+    await updateProgress(selectedSkillForProgress.id, courseSelectionAction, 0);
+
+    // Reload to show changes
+    await loadLearningPlan(planId);
+  };
+
+  const handleResetSkill = async (skillId: string) => {
+    try {
+      const response = await fetch('/api/learning-plans/skills/reset', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          skillId,
+          resetType: 'enrollment'
+        })
+      });
+
+      if (response.ok) {
+        await loadLearningPlan(planId);
+      }
+    } catch (error) {
+      console.error('Error resetting skill:', error);
+    }
+  };
 
   const handleCourseEnrollment = async (skillId: string, course: any) => {
     try {
@@ -999,26 +1054,6 @@ export default function LearningPlanPage({
                                       )}
                                     </div>
                                   </div>
-
-                                  {/* Enrollment Button */}
-                                  <Button
-                                    size="sm"
-                                    variant={isEnrolled ? "secondary" : "outline"}
-                                    className={`text-xs px-2 py-1 ${isEnrolled ? 'bg-green-500/20 border-green-500/30 text-green-300 hover:bg-green-500/30' : 'hover:bg-pink-500/10 hover:border-pink-500/30'}`}
-                                    onClick={() => handleCourseEnrollment(skill.id, course)}
-                                  >
-                                    {isEnrolled ? (
-                                      <>
-                                        <CheckCircle className="w-3 h-3 mr-1" />
-                                        Anmäld
-                                      </>
-                                    ) : (
-                                      <>
-                                        <Plus className="w-3 h-3 mr-1" />
-                                        Anmäl
-                                      </>
-                                    )}
-                                  </Button>
                                 </div>
                               </div>
                             </div>
@@ -1035,20 +1070,15 @@ export default function LearningPlanPage({
                         <Button
                           size="sm"
                           className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 border-0 text-white text-xs font-medium shadow-md hover:shadow-pink-500/20 transition-all duration-200"
-                          onClick={() => updateProgress(skill.id, 'applied', 0)}
+                          onClick={() => {
+                            setSelectedSkillForProgress(skill);
+                            setCourseSelectionAction('applied');
+                            setShowCourseSelectionModal(true);
+                          }}
                           disabled={isUpdatingProgress}
                         >
-                          {isUpdatingProgress ? (
-                            <>
-                              <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin mr-1"></div>
-                              Uppdaterar...
-                            </>
-                          ) : (
-                            <>
-                              <PlayCircle className="w-3 h-3 mr-1" />
-                              {isLongEducation ? 'Ansök nu' : 'Anmäl dig nu'}
-                            </>
-                          )}
+                          <PlayCircle className="w-3 h-3 mr-1" />
+                          Markera som anmäld till kurser ovan
                         </Button>
                       )}
 
@@ -1057,15 +1087,15 @@ export default function LearningPlanPage({
                           size="sm"
                           variant="outline"
                           className="border-green-500/30 text-green-300 text-xs hover:bg-green-500/10 hover:border-green-400"
-                          onClick={() => updateProgress(skill.id, 'accepted', 0)}
+                          onClick={() => {
+                            setSelectedSkillForProgress(skill);
+                            setCourseSelectionAction('accepted');
+                            setShowCourseSelectionModal(true);
+                          }}
                           disabled={isUpdatingProgress}
                         >
-                          {isUpdatingProgress ? 'Uppdaterar...' : (
-                            <>
-                              <CheckCircle className="w-3 h-3 mr-1" />
-                              Markera som antagen
-                            </>
-                          )}
+                          <CheckCircle className="w-3 h-3 mr-1" />
+                          Markera som antagen till kurs ovan
                         </Button>
                       )}
 
@@ -1073,15 +1103,15 @@ export default function LearningPlanPage({
                         <Button
                           size="sm"
                           className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 text-white text-xs font-medium"
-                          onClick={() => updateProgress(skill.id, 'enrolled', 0)}
+                          onClick={() => {
+                            setSelectedSkillForProgress(skill);
+                            setCourseSelectionAction('enrolled');
+                            setShowCourseSelectionModal(true);
+                          }}
                           disabled={isUpdatingProgress}
                         >
-                          {isUpdatingProgress ? 'Uppdaterar...' : (
-                            <>
-                              <PlayCircle className="w-3 h-3 mr-1" />
-                              Påbörja utbildning
-                            </>
-                          )}
+                          <PlayCircle className="w-3 h-3 mr-1" />
+                          Påbörja studier för kurs ovan
                         </Button>
                       )}
 
@@ -1125,6 +1155,19 @@ export default function LearningPlanPage({
                               Slutför
                             </Button>
                           )}
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="border-red-500/30 text-red-300 text-xs hover:bg-red-500/10"
+                            onClick={() => {
+                              if (confirm('Vill du verkligen ta bort denna påbörjade utbildning? All progress kommer att nollställas.')) {
+                                handleResetSkill(skill.id);
+                              }
+                            }}
+                          >
+                            <Trash2 className="w-3 h-3 mr-1" />
+                            Ta bort
+                          </Button>
                         </>
                       )}
                     </div>
@@ -1302,6 +1345,22 @@ export default function LearningPlanPage({
             setShowCompleteEducationModal(false);
             setSelectedSkillForProgress(null);
           }}
+        />
+      )}
+
+      {/* Course Selection Modal */}
+      {showCourseSelectionModal && selectedSkillForProgress && (
+        <CourseSelectionModal
+          isOpen={showCourseSelectionModal}
+          onClose={() => {
+            setShowCourseSelectionModal(false);
+            setSelectedSkillForProgress(null);
+          }}
+          skillId={selectedSkillForProgress.id}
+          skillName={selectedSkillForProgress.skill_name}
+          courses={selectedSkillForProgress.courses || []}
+          action={courseSelectionAction}
+          onConfirm={handleCourseSelection}
         />
       )}
     </div>
