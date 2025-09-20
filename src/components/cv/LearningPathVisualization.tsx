@@ -258,6 +258,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
       {activeTab === 'skills' && (
         <SkillTreeVisualization
           skillGaps={skillGaps}
+          learningSuggestions={learningSuggestions}
           targetRole={targetRole || ''}
         />
       )}
