@@ -122,7 +122,8 @@
       "Bash(del /F /Q .nexttrace)",
       "mcp__supabase__list_edge_functions",
       "mcp__supabase__get_edge_function",
-      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-gpt5-websearch.html\")"
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-gpt5-websearch.html\")",
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-gpt5-edge-function.html\")"
     ],
     "deny": [],
     "ask": []
