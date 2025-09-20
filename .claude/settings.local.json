@@ -123,7 +123,8 @@
       "mcp__supabase__list_edge_functions",
       "mcp__supabase__get_edge_function",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-gpt5-websearch.html\")",
-      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-gpt5-edge-function.html\")"
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-gpt5-edge-function.html\")",
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-websearch-api.html\")"
     ],
     "deny": [],
     "ask": []

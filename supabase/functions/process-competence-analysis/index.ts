@@ -1,7 +1,7 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 
-// API key hantering för personligt konto
+// API key hantering - använd OPENAI_API_KEY (inte ADMIN)
 const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
 const OPENAI_PROJECT_ID = Deno.env.get('OPENAI_PROJECT_ID');
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
@@ -164,13 +164,13 @@ VIKTIGT:
 - Använd ENDAST information från websökningen
 - Returnera ENDAST kurser med verkliga URL:er
 - Prioritera svenska utbildningsanordnare
-- Returnera JSON-format`
+- Returnera ALLTID valid JSON - ingenting annat`
           },
           {
             role: 'user',
             content: `Sök efter kurser för "${gap.skill}" relevant för ${targetRole}.
 
-Returnera JSON med format:
+Returnera ENDAST denna JSON-struktur (inget annat):
 {
   "courses": [
     {
@@ -185,19 +185,35 @@ Returnera JSON med format:
 }`
           }
         ],
-        response_format: { type: 'json_object' },
+        // REMOVED response_format since it's not supported with web_search
         max_tokens: 2000
       })
     });
 
     if (!response.ok) {
-      console.error('❌ Web search failed:', response.status);
+      const errorText = await response.text();
+      console.error(`❌ Web search failed (${response.status}):`, errorText);
       return [];
     }
 
     const data = await response.json();
     const content = data.choices[0].message.content;
-    const parsed = JSON.parse(content);
+
+    // Parse JSON från web search response
+    let parsed: any = { courses: [] };
+    try {
+      // Try to extract JSON from the response
+      const jsonMatch = content.match(/\{[\s\S]*\}/);
+      if (jsonMatch) {
+        parsed = JSON.parse(jsonMatch[0]);
+      } else {
+        parsed = JSON.parse(content);
+      }
+    } catch (parseError: any) {
+      console.error(`⚠️ Failed to parse web search response for ${gap.skill}:`, parseError.message);
+      console.log('Raw response:', content.substring(0, 500));
+      return [];
+    }
 
     const courses = (parsed.courses || []).map((course: any) => ({
       type: 'course',
