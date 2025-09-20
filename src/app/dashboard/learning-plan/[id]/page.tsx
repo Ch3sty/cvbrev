@@ -598,7 +598,7 @@ export default function LearningPlanPage({
                             <Button
                               size="sm"
                               className="flex-1"
-                              onClick={() => updateProgress(skill.id, 'enrolled', 0.5)}
+                              onClick={() => updateProgress(skill.id, 'enrolled', 0)}
                               disabled={isUpdatingProgress}
                             >
                               {isUpdatingProgress ? 'Startar...' : 'Markera som påbörjad'}
@@ -817,7 +817,7 @@ export default function LearningPlanPage({
                         {applicationStatus === 'accepted' && (
                           <Button
                             size="sm"
-                            onClick={() => updateProgress(skill.id, 'enrolled', 0.5)}
+                            onClick={() => updateProgress(skill.id, 'enrolled', 0)}
                             disabled={isUpdatingProgress}
                           >
                             {isUpdatingProgress ? 'Uppdaterar...' : 'Påbörja utbildning'}
