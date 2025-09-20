@@ -43,6 +43,9 @@ interface Skill {
   actual_hours: number;
   courses: any[];
   order_index: number;
+  application_status?: 'not_applied' | 'applied' | 'accepted' | 'enrolled' | 'completed';
+  start_date?: string;
+  end_date?: string;
 }
 
 interface UserStats {
@@ -54,6 +57,16 @@ interface UserStats {
   achievements: string[];
 }
 
+interface ProgressEntry {
+  id: string;
+  date: string;
+  activity_type: string;
+  activity_description: string;
+  skill_id?: string;
+  xp_earned: number;
+  hours_spent?: number;
+}
+
 export default function LearningPlanPage({
   params
 }: {
@@ -62,6 +75,7 @@ export default function LearningPlanPage({
   const [planId, setPlanId] = useState<string>('');
   const [plan, setPlan] = useState<LearningPlan | null>(null);
   const [skills, setSkills] = useState<Skill[]>([]);
+  const [progressEntries, setProgressEntries] = useState<ProgressEntry[]>([]);
   const [userStats, setUserStats] = useState<UserStats>({
     currentStreak: 0,
     totalXP: 0,
@@ -159,6 +173,17 @@ export default function LearningPlanPage({
         .gte('date', weekAgo.toISOString().split('T')[0]);
 
       const weeklyHours = weeklyProgressData?.reduce((sum, entry) => sum + Number(entry.hours_spent), 0) || 0;
+
+      // Load all progress entries for timeline
+      const { data: allProgressEntries } = await supabase
+        .from('learning_progress_entries')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('plan_id', id)
+        .order('date', { ascending: false })
+        .limit(10);
+
+      setProgressEntries(allProgressEntries || []);
 
       // Set user stats with real data
       setUserStats({
@@ -459,55 +484,108 @@ export default function LearningPlanPage({
               </CardTitle>
             </CardHeader>
             <CardContent>
-              {skills.find(skill => skill.status === 'in_progress') ? (
-                <div className="space-y-4">
-                  {skills.filter(skill => skill.status === 'in_progress').map(skill => (
-                    <div key={skill.id} className="border border-navy-700 rounded-lg p-4">
-                      <div className="flex items-start justify-between mb-2">
-                        <h4 className="font-semibold text-white">{skill.skill_name}</h4>
-                        <Badge variant={skill.importance === 'essential' ? 'default' : 'secondary'}>
-                          {skill.importance === 'essential' ? 'Kritisk' : 'Önskvärd'}
-                        </Badge>
+              {(() => {
+                // Find skills that are actively being worked on
+                const enrolledSkills = skills.filter(s => s.application_status === 'enrolled');
+                const acceptedSkills = skills.filter(s => s.application_status === 'accepted');
+                const appliedSkills = skills.filter(s => s.application_status === 'applied');
+                const notAppliedSkills = skills.filter(s => !s.application_status || s.application_status === 'not_applied');
+
+                if (enrolledSkills.length > 0) {
+                  return (
+                    <div className="space-y-4">
+                      {enrolledSkills.map(skill => (
+                        <div key={skill.id} className="border border-navy-700 rounded-lg p-4">
+                          <div className="flex items-start justify-between mb-2">
+                            <h4 className="font-semibold text-white">{skill.skill_name}</h4>
+                            <Badge variant="outline" className="text-blue-400 border-blue-400">Pågår</Badge>
+                          </div>
+                          <p className="text-sm text-gray-400 mb-3">
+                            {skill.actual_hours}h av {skill.estimated_hours}h slutfört
+                          </p>
+                          <div className="w-full bg-navy-700 rounded-full h-2 mb-3">
+                            <div
+                              className="bg-gradient-to-r from-pink-500 to-purple-500 h-2 rounded-full"
+                              style={{ width: `${Math.min((skill.actual_hours / skill.estimated_hours) * 100, 100)}%` }}
+                            />
+                          </div>
+                          <Button
+                            size="sm"
+                            className="w-full"
+                            onClick={() => updateProgress(skill.id, 'course_completed', 10)}
+                            disabled={isUpdatingProgress}
+                          >
+                            <PlayCircle className="w-4 h-4 mr-2" />
+                            {isUpdatingProgress ? 'Uppdaterar...' : 'Registrera studietid'}
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                } else if (acceptedSkills.length > 0) {
+                  return (
+                    <div className="space-y-4">
+                      {acceptedSkills.map(skill => (
+                        <div key={skill.id} className="border border-green-500/30 bg-green-500/10 rounded-lg p-4">
+                          <h4 className="font-semibold text-white mb-2">{skill.skill_name}</h4>
+                          <p className="text-sm text-green-400 mb-3">
+                            🎉 Grattis! Du har blivit antagen!
+                          </p>
+                          <Button
+                            size="sm"
+                            className="w-full"
+                            onClick={() => updateProgress(skill.id, 'enrolled', 0.5)}
+                            disabled={isUpdatingProgress}
+                          >
+                            {isUpdatingProgress ? 'Startar...' : 'Påbörja utbildning'}
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  );
+                } else if (appliedSkills.length > 0) {
+                  return (
+                    <div className="space-y-4">
+                      <div className="border border-orange-500/30 bg-orange-500/10 rounded-lg p-4">
+                        <h4 className="font-semibold text-white mb-2">Väntar på antagningsbesked</h4>
+                        <p className="text-sm text-orange-400 mb-3">
+                          Du har ansökt till {appliedSkills.length} utbildning{appliedSkills.length > 1 ? 'ar' : ''}
+                        </p>
+                        <ul className="space-y-1">
+                          {appliedSkills.map(skill => (
+                            <li key={skill.id} className="text-sm text-gray-300">
+                              • {skill.skill_name}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                      <p className="text-sm text-gray-400 mb-3">
-                        {skill.actual_hours}h av {skill.estimated_hours}h slutfört
+                    </div>
+                  );
+                } else if (notAppliedSkills.length > 0) {
+                  return (
+                    <div className="text-center py-8">
+                      <BookOpen className="w-12 h-12 text-gray-500 mx-auto mb-4" />
+                      <h4 className="font-semibold text-white mb-2">Börja din utbildningsresa</h4>
+                      <p className="text-gray-400 mb-4">
+                        {notAppliedSkills.length} utbildning{notAppliedSkills.length > 1 ? 'ar' : ''} väntar på din ansökan
                       </p>
-                      <div className="w-full bg-navy-700 rounded-full h-2 mb-3">
-                        <div
-                          className="bg-gradient-to-r from-pink-500 to-purple-500 h-2 rounded-full"
-                          style={{ width: `${Math.min((skill.actual_hours / skill.estimated_hours) * 100, 100)}%` }}
-                        ></div>
-                      </div>
                       <Button
-                        size="sm"
-                        className="w-full"
-                        onClick={() => updateProgress(skill.id, 'module_started', 0.5)}
-                        disabled={isUpdatingProgress}
+                        onClick={() => setActiveTab('skills')}
                       >
-                        <PlayCircle className="w-4 h-4 mr-2" />
-                        {isUpdatingProgress ? 'Uppdaterar...' : `Fortsätt med ${skill.skill_name}`}
+                        Visa utbildningar
                       </Button>
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-8">
-                  <PlayCircle className="w-12 h-12 text-gray-500 mx-auto mb-4" />
-                  <h4 className="font-semibold text-white mb-2">Redo att börja?</h4>
-                  <p className="text-gray-400 mb-4">Välj en färdighet att fokusera på</p>
-                  <Button
-                    onClick={() => {
-                      const firstSkill = skills.find(s => s.status === 'pending');
-                      if (firstSkill) {
-                        updateProgress(firstSkill.id, 'module_started', 0.5);
-                      }
-                    }}
-                    disabled={isUpdatingProgress || skills.length === 0}
-                  >
-                    {isUpdatingProgress ? 'Startar...' : 'Börja första färdigheten'}
-                  </Button>
-                </div>
-              )}
+                  );
+                } else {
+                  return (
+                    <div className="text-center py-8">
+                      <CheckCircle className="w-12 h-12 text-emerald-500 mx-auto mb-4" />
+                      <h4 className="font-semibold text-white mb-2">Alla färdigheter slutförda!</h4>
+                      <p className="text-gray-400">Grattis till din prestation!</p>
+                    </div>
+                  );
+                }
+              })()}
             </CardContent>
           </Card>
 
@@ -555,79 +633,148 @@ export default function LearningPlanPage({
 
       {activeTab === 'skills' && (
         <div className="space-y-4">
-          {skills.map((skill, index) => (
-            <Card key={skill.id}>
-              <CardContent className="p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                        skill.status === 'completed' ? 'bg-emerald-500' :
-                        skill.status === 'in_progress' ? 'bg-blue-500' :
-                        'bg-navy-700'
-                      }`}>
-                        {skill.status === 'completed' ? (
-                          <CheckCircle className="w-5 h-5 text-white" />
-                        ) : (
-                          <span className="text-white font-bold text-sm">{index + 1}</span>
+          {skills.map((skill, index) => {
+            // Determine if this is a long education (>100 hours)
+            const isLongEducation = skill.estimated_hours > 100;
+            const applicationStatus = skill.application_status || 'not_applied';
+
+            const getStatusBadge = () => {
+              switch (applicationStatus) {
+                case 'applied':
+                  return <Badge variant="outline" className="text-orange-400 border-orange-400">Ansökt</Badge>;
+                case 'accepted':
+                  return <Badge variant="outline" className="text-green-400 border-green-400">Antagen</Badge>;
+                case 'enrolled':
+                  return <Badge variant="outline" className="text-blue-400 border-blue-400">Pågår</Badge>;
+                case 'completed':
+                  return <Badge variant="outline" className="text-emerald-400 border-emerald-400">Slutförd</Badge>;
+                default:
+                  return null;
+              }
+            };
+
+            const getEducationLength = () => {
+              const hours = skill.estimated_hours;
+              if (hours >= 1600) return `${Math.round(hours / 1600)} år`;
+              if (hours >= 800) return `${Math.round(hours / 800)} termin(er)`;
+              if (hours >= 160) return `${Math.round(hours / 160)} månad(er)`;
+              if (hours >= 40) return `${Math.round(hours / 40)} veckor`;
+              return `${hours} timmar`;
+            };
+
+            return (
+              <Card key={skill.id}>
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                          applicationStatus === 'completed' ? 'bg-emerald-500' :
+                          applicationStatus === 'enrolled' ? 'bg-blue-500' :
+                          applicationStatus === 'accepted' ? 'bg-green-500' :
+                          applicationStatus === 'applied' ? 'bg-orange-500' :
+                          'bg-navy-700'
+                        }`}>
+                          {applicationStatus === 'completed' ? (
+                            <CheckCircle className="w-5 h-5 text-white" />
+                          ) : (
+                            <span className="text-white font-bold text-sm">{index + 1}</span>
+                          )}
+                        </div>
+                        <h3 className="text-lg font-semibold text-white">{skill.skill_name}</h3>
+                        {getStatusBadge()}
+                        <Badge variant={skill.importance === 'essential' ? 'default' : 'secondary'}>
+                          {skill.importance === 'essential' ? 'Kritisk' : skill.importance === 'desirable' ? 'Önskvärd' : 'Valfri'}
+                        </Badge>
+                      </div>
+                      <div className="flex items-center gap-4 text-sm text-gray-400 mb-3">
+                        <span>Nivå: {skill.skill_level === 'foundation' ? 'Grund' : skill.skill_level === 'intermediate' ? 'Medel' : 'Avancerad'}</span>
+                        <span>•</span>
+                        <span>Längd: {getEducationLength()}</span>
+                        {skill.start_date && (
+                          <>
+                            <span>•</span>
+                            <span>Start: {new Date(skill.start_date).toLocaleDateString('sv-SE')}</span>
+                          </>
                         )}
                       </div>
-                      <h3 className="text-lg font-semibold text-white">{skill.skill_name}</h3>
-                      <Badge variant={skill.importance === 'essential' ? 'default' : 'secondary'}>
-                        {skill.importance === 'essential' ? 'Kritisk' : skill.importance === 'desirable' ? 'Önskvärd' : 'Valfri'}
-                      </Badge>
-                    </div>
-                    <div className="flex items-center gap-4 text-sm text-gray-400 mb-3">
-                      <span>Nivå: {skill.skill_level === 'foundation' ? 'Grund' : skill.skill_level === 'intermediate' ? 'Medel' : 'Avancerad'}</span>
-                      <span>•</span>
-                      <span>{skill.estimated_hours} timmar</span>
-                      <span>•</span>
-                      <span>{skill.courses?.length || 0} kurser</span>
-                    </div>
 
-                    {/* Progress Bar */}
-                    <div className="w-full bg-navy-700 rounded-full h-2 mb-4">
-                      <div
-                        className={`h-2 rounded-full transition-all duration-1000 ${
-                          skill.status === 'completed' ? 'bg-emerald-500' :
-                          skill.status === 'in_progress' ? 'bg-gradient-to-r from-blue-500 to-purple-500' :
-                          'bg-gray-600'
-                        }`}
-                        style={{
-                          width: skill.status === 'completed' ? '100%' :
-                                skill.status === 'in_progress' ? `${Math.min((skill.actual_hours / skill.estimated_hours) * 100, 100)}%` :
-                                '0%'
-                        }}
-                      ></div>
-                    </div>
-
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-400">
-                        {skill.status === 'completed' ? 'Slutförd!' :
-                         skill.status === 'in_progress' ? `${skill.actual_hours}h av ${skill.estimated_hours}h` :
-                         'Inte påbörjad'}
-                      </span>
-
-                      {skill.status !== 'completed' && (
-                        <Button
-                          size="sm"
-                          variant={skill.status === 'in_progress' ? 'default' : 'secondary'}
-                          onClick={() => updateProgress(
-                            skill.id,
-                            skill.status === 'pending' ? 'module_started' : 'course_completed',
-                            skill.status === 'pending' ? 0.5 : 1
-                          )}
-                          disabled={isUpdatingProgress}
-                        >
-                          {isUpdatingProgress ? 'Uppdaterar...' : skill.status === 'in_progress' ? 'Fortsätt' : 'Börja'}
-                        </Button>
+                      {/* Show courses if available */}
+                      {skill.courses && skill.courses.length > 0 && (
+                        <div className="mb-4 p-3 bg-navy-700/50 rounded-lg">
+                          <p className="text-xs text-gray-400 mb-2">Rekommenderade utbildningar:</p>
+                          <div className="space-y-1">
+                            {skill.courses.slice(0, 3).map((course: any, idx: number) => (
+                              <div key={idx} className="text-sm text-white">
+                                • {course.title || course.name || course}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
                       )}
+
+                      {/* Progress or Action Buttons */}
+                      {applicationStatus === 'enrolled' && (
+                        <div className="mb-4">
+                          <div className="w-full bg-navy-700 rounded-full h-2 mb-2">
+                            <div
+                              className="h-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-1000"
+                              style={{ width: `${Math.min((skill.actual_hours / skill.estimated_hours) * 100, 100)}%` }}
+                            />
+                          </div>
+                          <span className="text-sm text-gray-400">
+                            {skill.actual_hours}h av {skill.estimated_hours}h slutfört
+                          </span>
+                        </div>
+                      )}
+
+                      <div className="flex gap-2">
+                        {applicationStatus === 'not_applied' && (
+                          <Button
+                            size="sm"
+                            variant="secondary"
+                            onClick={() => updateProgress(skill.id, 'applied', 0)}
+                            disabled={isUpdatingProgress}
+                          >
+                            {isUpdatingProgress ? 'Uppdaterar...' : isLongEducation ? 'Ansök nu' : 'Anmäl dig'}
+                          </Button>
+                        )}
+                        {applicationStatus === 'applied' && (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => updateProgress(skill.id, 'accepted', 0)}
+                            disabled={isUpdatingProgress}
+                          >
+                            {isUpdatingProgress ? 'Uppdaterar...' : 'Markera som antagen'}
+                          </Button>
+                        )}
+                        {applicationStatus === 'accepted' && (
+                          <Button
+                            size="sm"
+                            onClick={() => updateProgress(skill.id, 'enrolled', 0.5)}
+                            disabled={isUpdatingProgress}
+                          >
+                            {isUpdatingProgress ? 'Uppdaterar...' : 'Påbörja utbildning'}
+                          </Button>
+                        )}
+                        {applicationStatus === 'enrolled' && (
+                          <Button
+                            size="sm"
+                            onClick={() => updateProgress(skill.id, 'course_completed', 10)}
+                            disabled={isUpdatingProgress}
+                          >
+                            <PlayCircle className="w-4 h-4 mr-2" />
+                            {isUpdatingProgress ? 'Uppdaterar...' : 'Registrera progress'}
+                          </Button>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       )}
 
@@ -640,34 +787,60 @@ export default function LearningPlanPage({
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {/* Placeholder progress items */}
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-emerald-500 rounded-full flex items-center justify-center">
-                    <CheckCircle className="w-4 h-4 text-white" />
+                {progressEntries.length > 0 ? (
+                  progressEntries.map((entry) => {
+                    const getIcon = () => {
+                      switch (entry.activity_type) {
+                        case 'course_completed': return <CheckCircle className="w-4 h-4 text-white" />;
+                        case 'module_started': return <PlayCircle className="w-4 h-4 text-white" />;
+                        case 'skill_completed': return <Star className="w-4 h-4 text-white" />;
+                        case 'applied': return <BookOpen className="w-4 h-4 text-white" />;
+                        case 'accepted': return <Award className="w-4 h-4 text-white" />;
+                        default: return <Zap className="w-4 h-4 text-white" />;
+                      }
+                    };
+
+                    const getColor = () => {
+                      switch (entry.activity_type) {
+                        case 'course_completed': return 'bg-emerald-500';
+                        case 'module_started': return 'bg-blue-500';
+                        case 'skill_completed': return 'bg-purple-500';
+                        case 'applied': return 'bg-orange-500';
+                        case 'accepted': return 'bg-green-500';
+                        default: return 'bg-gray-500';
+                      }
+                    };
+
+                    const getDaysAgo = () => {
+                      const days = Math.floor((Date.now() - new Date(entry.date).getTime()) / (1000 * 60 * 60 * 24));
+                      if (days === 0) return 'Idag';
+                      if (days === 1) return 'Igår';
+                      return `För ${days} dagar sedan`;
+                    };
+
+                    return (
+                      <div key={entry.id} className="flex items-start gap-3">
+                        <div className={`w-8 h-8 ${getColor()} rounded-full flex items-center justify-center`}>
+                          {getIcon()}
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-semibold text-white">{entry.activity_description}</p>
+                          <div className="flex items-center gap-2 mt-1">
+                            <p className="text-sm text-gray-400">{getDaysAgo()}</p>
+                            {entry.xp_earned > 0 && (
+                              <span className="text-xs text-green-400">+{entry.xp_earned} XP</span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="text-center py-8">
+                    <Clock className="w-12 h-12 text-gray-500 mx-auto mb-4" />
+                    <p className="text-gray-400">Ingen aktivitet ännu. Börja din utbildningsresa!</p>
                   </div>
-                  <div>
-                    <p className="font-semibold text-white">Slutförde "JavaScript Grundkurs"</p>
-                    <p className="text-sm text-gray-400">För 2 dagar sedan</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                    <PlayCircle className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-white">Påbörjade "React Fundamentals"</p>
-                    <p className="text-sm text-gray-400">För 1 dag sedan</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
-                    <Award className="w-4 h-4 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-white">Fick "Veckostreak" badge</p>
-                    <p className="text-sm text-gray-400">Idag</p>
-                  </div>
-                </div>
+                )}
               </div>
             </CardContent>
           </Card>

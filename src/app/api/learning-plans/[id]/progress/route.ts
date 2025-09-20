@@ -29,8 +29,8 @@ export async function POST(
         const body = await request.json();
         const {
             skillId,
-            hoursSpent,
-            activityType, // 'course_completed', 'module_started', 'skill_completed'
+            hoursSpent = 0,
+            activityType, // 'applied', 'accepted', 'enrolled', 'course_completed', 'module_started', 'skill_completed'
             activityDescription,
             xpEarned = 50 // Default XP
         } = body;
@@ -138,20 +138,55 @@ export async function POST(
             await checkAndAwardAchievements(supabase, user.id, planId, finalStats || stats, activityType);
         }
 
-        // Update skill status if completed
-        if (activityType === 'skill_completed' && skillId) {
-            await supabase
-                .from('learning_plan_skills')
-                .update({ status: 'completed' })
-                .eq('id', skillId);
+        // Update skill status based on activity type
+        if (skillId) {
+            const updateData: any = {};
+
+            // Update application status for education-related activities
+            if (activityType === 'applied') {
+                updateData.application_status = 'applied';
+            } else if (activityType === 'accepted') {
+                updateData.application_status = 'accepted';
+            } else if (activityType === 'enrolled') {
+                updateData.application_status = 'enrolled';
+                updateData.status = 'in_progress';
+                updateData.start_date = new Date().toISOString().split('T')[0];
+            } else if (activityType === 'skill_completed' || (activityType === 'course_completed' && hoursSpent >= 50)) {
+                updateData.application_status = 'completed';
+                updateData.status = 'completed';
+                updateData.end_date = new Date().toISOString().split('T')[0];
+            } else if (activityType === 'module_started' && !updateData.status) {
+                updateData.status = 'in_progress';
+            }
+
+            // Update actual hours if progress was made
+            if (hoursSpent > 0) {
+                const { data: currentSkill } = await supabase
+                    .from('learning_plan_skills')
+                    .select('actual_hours')
+                    .eq('id', skillId)
+                    .single();
+
+                updateData.actual_hours = (currentSkill?.actual_hours || 0) + hoursSpent;
+            }
+
+            // Apply updates if any
+            if (Object.keys(updateData).length > 0) {
+                await supabase
+                    .from('learning_plan_skills')
+                    .update(updateData)
+                    .eq('id', skillId);
+            }
 
             // Update plan's completed skills count
             const { data: allSkills } = await supabase
                 .from('learning_plan_skills')
-                .select('status')
+                .select('status, application_status')
                 .eq('plan_id', planId);
 
-            const completedCount = allSkills?.filter(s => s.status === 'completed').length || 0;
+            const completedCount = allSkills?.filter(s =>
+                s.status === 'completed' || s.application_status === 'completed'
+            ).length || 0;
 
             await supabase
                 .from('learning_plans')
