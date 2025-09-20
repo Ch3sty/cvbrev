@@ -5,8 +5,10 @@ import React, { useState } from 'react';
 import {
   BookOpen, Clock, DollarSign, AlertTriangle, ChevronRight,
   ExternalLink, Target, Award, Users, Calendar, Filter,
-  ChevronDown, ChevronUp, Star, TrendingUp
+  ChevronDown, ChevronUp, Star, TrendingUp, Map, TreePine, BookOpenCheck
 } from 'lucide-react';
+import LearningJourneyDashboard from './LearningJourneyDashboard';
+import SkillTreeVisualization from './SkillTreeVisualization';
 
 interface LearningSuggestion {
   type: 'course' | 'certification' | 'self-study' | 'project';
@@ -46,6 +48,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
 }) => {
   const [expandedGaps, setExpandedGaps] = useState<Set<number>>(new Set([0])); // First gap expanded by default
   const [filterPriority, setFilterPriority] = useState<'all' | 'essential' | 'desirable'>('all');
+  const [activeTab, setActiveTab] = useState<'journey' | 'skills' | 'courses'>('journey');
 
   // Toggle gap expansion
   const toggleGap = (index: number) => {
@@ -203,9 +206,67 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
         )}
       </div>
 
-      {/* Overview Stats */}
-      {learningSuggestions.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      {/* Tab Navigation */}
+      <div className="bg-navy-800 rounded-lg p-2 border border-navy-700">
+        <div className="flex gap-2">
+          <button
+            onClick={() => setActiveTab('journey')}
+            className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all ${
+              activeTab === 'journey'
+                ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg'
+                : 'bg-navy-900/50 text-gray-400 hover:text-white hover:bg-navy-700'
+            }`}
+          >
+            <Map className="w-5 h-5" />
+            <span>Din lärandresa</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('skills')}
+            className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all ${
+              activeTab === 'skills'
+                ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg'
+                : 'bg-navy-900/50 text-gray-400 hover:text-white hover:bg-navy-700'
+            }`}
+          >
+            <TreePine className="w-5 h-5" />
+            <span>Kompetensträd</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('courses')}
+            className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all ${
+              activeTab === 'courses'
+                ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg'
+                : 'bg-navy-900/50 text-gray-400 hover:text-white hover:bg-navy-700'
+            }`}
+          >
+            <BookOpenCheck className="w-5 h-5" />
+            <span>Alla kurser</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Tab Content */}
+      {activeTab === 'journey' && (
+        <LearningJourneyDashboard
+          skillGaps={skillGaps}
+          learningSuggestions={learningSuggestions}
+          targetRole={targetRole || ''}
+          matchScore={matchScore}
+        />
+      )}
+
+      {activeTab === 'skills' && (
+        <SkillTreeVisualization
+          skillGaps={skillGaps}
+          targetRole={targetRole || ''}
+        />
+      )}
+
+      {activeTab === 'courses' && (
+        <>
+          {/* Overview Stats */}
+          {learningSuggestions.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="bg-navy-800 rounded-lg p-4 border border-navy-700">
             <div className="flex items-center justify-between">
               <Target className="w-5 h-5 text-blue-400" />
@@ -244,86 +305,86 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
             <p className="text-sm text-gray-400 mt-2">Uppskattad kostnad</p>
           </div>
         </div>
-      )}
+          )}
 
-      {/* Filter */}
-      <div className="flex items-center gap-4">
-        <Filter className="w-5 h-5 text-gray-400" />
-        <button
-          onClick={() => setFilterPriority('all')}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-            filterPriority === 'all'
-              ? 'bg-blue-500 text-white'
-              : 'bg-navy-800 text-gray-400 hover:text-white'
-          }`}
-        >
-          Alla ({learningSuggestions.length})
-        </button>
-        <button
-          onClick={() => setFilterPriority('essential')}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-            filterPriority === 'essential'
-              ? 'bg-red-500 text-white'
-              : 'bg-navy-800 text-gray-400 hover:text-white'
-          }`}
-        >
-          Kritiska ({learningSuggestions.filter(g => g.importance === 'essential').length})
-        </button>
-        <button
-          onClick={() => setFilterPriority('desirable')}
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-            filterPriority === 'desirable'
-              ? 'bg-blue-500 text-white'
-              : 'bg-navy-800 text-gray-400 hover:text-white'
-          }`}
-        >
-          Rekommenderade ({learningSuggestions.filter(g => g.importance === 'desirable').length})
-        </button>
-      </div>
-
-      {/* Learning Path Cards */}
-      <div className="space-y-4">
-        {filteredSuggestions.map((gap, index) => (
-          <div
-            key={index}
-            className="bg-navy-800 rounded-lg border border-navy-700 overflow-hidden"
-          >
-            {/* Gap Header */}
+          {/* Filter */}
+          <div className="flex items-center gap-4">
+            <Filter className="w-5 h-5 text-gray-400" />
             <button
-              onClick={() => toggleGap(index)}
-              className="w-full px-6 py-4 flex items-center justify-between hover:bg-navy-700 transition-colors"
+              onClick={() => setFilterPriority('all')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                filterPriority === 'all'
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-navy-800 text-gray-400 hover:text-white'
+              }`}
             >
-              <div className="flex items-center gap-3">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                  gap.importance === 'essential' ? 'bg-red-500' : 'bg-blue-500'
-                }`}>
-                  {gap.importance === 'essential' ? <AlertTriangle className="w-4 h-4 text-white" /> : <TrendingUp className="w-4 h-4 text-white" />}
-                </div>
-                <div className="text-left">
-                  <h3 className="text-lg font-semibold text-white">{gap.skill}</h3>
-                  <p className="text-sm text-gray-400">
-                    {gap.suggestions.length} {gap.suggestions.length === 1 ? 'kurs' : 'kurser'} tillgängliga
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <PriorityBadge importance={gap.importance} />
-                {expandedGaps.has(index) ? (
-                  <ChevronUp className="w-5 h-5 text-gray-400" />
-                ) : (
-                  <ChevronDown className="w-5 h-5 text-gray-400" />
-                )}
-              </div>
+              Alla ({learningSuggestions.length})
             </button>
+            <button
+              onClick={() => setFilterPriority('essential')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                filterPriority === 'essential'
+                  ? 'bg-red-500 text-white'
+                  : 'bg-navy-800 text-gray-400 hover:text-white'
+              }`}
+            >
+              Kritiska ({learningSuggestions.filter(g => g.importance === 'essential').length})
+            </button>
+            <button
+              onClick={() => setFilterPriority('desirable')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                filterPriority === 'desirable'
+                  ? 'bg-blue-500 text-white'
+                  : 'bg-navy-800 text-gray-400 hover:text-white'
+              }`}
+            >
+              Rekommenderade ({learningSuggestions.filter(g => g.importance === 'desirable').length})
+            </button>
+          </div>
 
-            {/* Expanded Content */}
-            {expandedGaps.has(index) && (
-              <div className="px-6 pb-6 border-t border-navy-700">
-                <div className="space-y-3 mt-4">
-                  {gap.suggestions.map((suggestion, suggIndex) => (
-                    <div
-                      key={suggIndex}
-                      className="bg-navy-900/50 rounded-lg p-4 hover:bg-navy-900 transition-colors"
+          {/* Learning Path Cards */}
+          <div className="space-y-4">
+            {filteredSuggestions.map((gap, index) => (
+              <div
+                key={index}
+                className="bg-navy-800 rounded-lg border border-navy-700 overflow-hidden"
+              >
+                {/* Gap Header */}
+                <button
+                  onClick={() => toggleGap(index)}
+                  className="w-full px-6 py-4 flex items-center justify-between hover:bg-navy-700 transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                      gap.importance === 'essential' ? 'bg-red-500' : 'bg-blue-500'
+                    }`}>
+                      {gap.importance === 'essential' ? <AlertTriangle className="w-4 h-4 text-white" /> : <TrendingUp className="w-4 h-4 text-white" />}
+                    </div>
+                    <div className="text-left">
+                      <h3 className="text-lg font-semibold text-white">{gap.skill}</h3>
+                      <p className="text-sm text-gray-400">
+                        {gap.suggestions.length} {gap.suggestions.length === 1 ? 'kurs' : 'kurser'} tillgängliga
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <PriorityBadge importance={gap.importance} />
+                    {expandedGaps.has(index) ? (
+                      <ChevronUp className="w-5 h-5 text-gray-400" />
+                    ) : (
+                      <ChevronDown className="w-5 h-5 text-gray-400" />
+                    )}
+                  </div>
+                </button>
+
+                {/* Expanded Content */}
+                {expandedGaps.has(index) && (
+                  <div className="px-6 pb-6 border-t border-navy-700">
+                    <div className="space-y-3 mt-4">
+                      {gap.suggestions.map((suggestion, suggIndex) => (
+                        <div
+                          key={suggIndex}
+                          className="bg-navy-900/50 rounded-lg p-4 hover:bg-navy-900 transition-colors"
                     >
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex items-start gap-3">
@@ -384,35 +445,37 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
                           {suggestion.description}
                         </p>
                       )}
-                    </div>
-                  ))}
+                        </div>
+                      ))}
 
-                  {/* No suggestions fallback */}
-                  {gap.suggestions.length === 0 && (
+                      {/* No suggestions fallback */}
+                      {gap.suggestions.length === 0 && (
                     <div className="text-center py-8 text-gray-500">
                       <BookOpen className="w-8 h-8 mx-auto mb-2 opacity-50" />
                       <p>Inga specifika kurser hittades för detta utvecklingsområde.</p>
                       <p className="text-sm mt-1">Sök själv efter kurser inom "{gap.skill}"</p>
                     </div>
-                  )}
+                      )}
+                    </div>
                 </div>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
-
-      {/* Empty state */}
-      {filteredSuggestions.length === 0 && (
-        <div className="bg-navy-800 rounded-lg p-12 text-center border border-navy-700">
-          <Target className="w-12 h-12 mx-auto mb-4 text-gray-600" />
-          <h3 className="text-lg font-semibold text-white mb-2">Inga utvecklingsområden att visa</h3>
-          <p className="text-gray-400">
-            {filterPriority !== 'all'
-              ? 'Prova att ändra filtret för att se fler resultat.'
-              : 'Din kompetens matchar redan målrollen mycket bra!'}
-          </p>
+              )}
+            </div>
+          ))}
         </div>
+
+          {/* Empty state */}
+          {filteredSuggestions.length === 0 && (
+            <div className="bg-navy-800 rounded-lg p-12 text-center border border-navy-700">
+              <Target className="w-12 h-12 mx-auto mb-4 text-gray-600" />
+              <h3 className="text-lg font-semibold text-white mb-2">Inga utvecklingsområden att visa</h3>
+              <p className="text-gray-400">
+                {filterPriority !== 'all'
+                  ? 'Prova att ändra filtret för att se fler resultat.'
+                  : 'Din kompetens matchar redan målrollen mycket bra!'}
+              </p>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
