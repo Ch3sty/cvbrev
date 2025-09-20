@@ -7,6 +7,7 @@ import {
   ChevronRight, Sparkles, Zap, Map, Filter, BarChart3,
   Calendar, Users, Trophy, Brain, Rocket, CheckCircle2
 } from 'lucide-react';
+import LearningPlanCreator from './LearningPlanCreator';
 
 interface LearningSuggestion {
   skill: string;
@@ -33,6 +34,7 @@ interface LearningJourneyDashboardProps {
   skillGaps: any[];
   learningSuggestions: any[];
   targetRole: string;
+  jobId?: string;
 }
 
 type LearningPath = 'quick' | 'balanced' | 'comprehensive';
@@ -42,12 +44,14 @@ const LearningJourneyDashboard: React.FC<LearningJourneyDashboardProps> = ({
   matchScore,
   skillGaps,
   learningSuggestions,
-  targetRole
+  targetRole,
+  jobId
 }) => {
   const [selectedPath, setSelectedPath] = useState<LearningPath>('balanced');
   const [timeCommitment, setTimeCommitment] = useState<TimeCommitment>('10h');
   const [budgetLimit, setBudgetLimit] = useState<number>(5000);
   const [showOnlyFree, setShowOnlyFree] = useState(false);
+  const [showPlanCreator, setShowPlanCreator] = useState(false);
 
   // Group skills into learning phases
   const learningPhases = useMemo(() => {
@@ -494,11 +498,30 @@ const LearningJourneyDashboard: React.FC<LearningJourneyDashboardProps> = ({
               kan du nå ditt mål om cirka {estimatedTimeToGoal} månader!
             </p>
           </div>
-          <button className="px-6 py-3 bg-white text-purple-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+          <button
+            onClick={() => setShowPlanCreator(true)}
+            className="px-6 py-3 bg-white text-purple-600 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+          >
             Skapa min lärandeplan →
           </button>
         </div>
       </div>
+
+      {/* Learning Plan Creator Modal */}
+      {showPlanCreator && jobId && (
+        <LearningPlanCreator
+          isOpen={showPlanCreator}
+          onClose={() => setShowPlanCreator(false)}
+          jobData={{
+            jobId,
+            targetRole,
+            matchScore,
+            learningSuggestions
+          }}
+          learningPath={selectedPath}
+          timeCommitment={parseInt(timeCommitment)}
+        />
+      )}
     </div>
   );
 };

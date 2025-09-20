@@ -37,6 +37,7 @@ interface LearningPathVisualizationProps {
   skillGaps: any[];
   learningSuggestions: SkillGapWithSuggestions[];
   targetRole?: string;
+  jobId?: string;
 }
 
 const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
@@ -44,7 +45,8 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
   cvSummary,
   skillGaps,
   learningSuggestions,
-  targetRole
+  targetRole,
+  jobId
 }) => {
   const [expandedGaps, setExpandedGaps] = useState<Set<number>>(new Set([0])); // First gap expanded by default
   const [filterPriority, setFilterPriority] = useState<'all' | 'essential' | 'desirable'>('all');
@@ -252,6 +254,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
           learningSuggestions={learningSuggestions}
           targetRole={targetRole || ''}
           matchScore={matchScore}
+          jobId={jobId}
         />
       )}
 

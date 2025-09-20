@@ -200,6 +200,7 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
             skillGaps={job.skill_gaps || []}
             learningSuggestions={job.learning_suggestions || []}
             targetRole={targetRole}
+            jobId={currentJobId || undefined}
           />
 
           {/* New Analysis Button */}
