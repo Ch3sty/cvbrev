@@ -1,35 +1,62 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 
-const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY'); // Using regular API key
+// API key hantering för personligt konto
+const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
+const OPENAI_PROJECT_ID = Deno.env.get('OPENAI_PROJECT_ID');
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
 
+// Validera miljövariabler
+if (!OPENAI_API_KEY) {
+  console.error('❌ OPENAI_API_KEY är inte konfigurerad');
+}
+if (!OPENAI_PROJECT_ID) {
+  console.error('⚠️ OPENAI_PROJECT_ID är inte konfigurerad - kan orsaka permissions problem');
+}
+
 const supabase = createClient(SUPABASE_URL!, SUPABASE_SERVICE_KEY!);
 
-// Step 1: Analyze CV with GPT-4o (without web search)
+// Analyze CV with GPT-5 using chat/completions endpoint
 async function analyzeCV(cvText: string, targetInfo: any) {
+  console.log('🤖 Starting CV analysis with GPT-5...');
+  console.log(`🔑 Using project: ${OPENAI_PROJECT_ID ? 'cvbrev (proj_WlM3ZDwbSPysgXRdp4m8dEGg)' : 'default'}`);
+
   const truncatedCV = cvText.substring(0, 8000);
+  console.log(`📄 CV length: ${cvText.length} chars (truncated to ${truncatedCV.length})`);
 
   let targetPrompt = '';
   if (targetInfo.mode === 'role') {
     targetPrompt = `Målet är yrkesrollen "${targetInfo.targetRole}" i Sverige.`;
+    console.log(`🎯 Analysis mode: role-based (${targetInfo.targetRole})`);
   } else {
     targetPrompt = `Målet är att matcha mot följande jobbannons: ${targetInfo.jobAdText?.substring(0, 4000)}`;
+    console.log(`🎯 Analysis mode: job ad matching`);
   }
 
-  const response = await fetch('https://api.openai.com/v1/chat/completions', {
-    method: 'POST',
-    headers: {
+  try {
+    console.log('🚀 Calling GPT-5 API...');
+    console.log(`🔨 Headers: Authorization: Bearer sk-...${OPENAI_API_KEY?.slice(-4)}, OpenAI-Project: ${OPENAI_PROJECT_ID || 'not set'}`);
+
+    const headers: any = {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${OPENAI_API_KEY}`
-    },
-    body: JSON.stringify({
-      model: 'gpt-4o',
-      messages: [
-        {
-          role: 'system',
-          content: `Du är en svensk rekryteringsexpert. ${targetPrompt}
+    };
+
+    // Lägg till projekt header om den finns
+    if (OPENAI_PROJECT_ID) {
+      headers['OpenAI-Project'] = OPENAI_PROJECT_ID;
+    }
+
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        model: 'gpt-5-2025-08-07', // Använd det officiella GPT-5 modellnamnet
+        messages: [
+          {
+            role: 'system',
+            content: `Du är en svensk rekryteringsexpert. ${targetPrompt}
 
 Analysera detta CV och identifiera:
 1. Matchningspoäng (0-100) - var KRITISK och realistisk
@@ -37,39 +64,84 @@ Analysera detta CV och identifiera:
 3. Relevanta kompetenser som personen har
 4. ALLA kompetensgap som saknas för rollen (var noggrann och identifiera både formella och informella kompetenser)
 
-Returnera ENDAST JSON utan någon annan text.`
-        },
-        {
-          role: 'user',
-          content: `CV att analysera:\n${truncatedCV}`
-        }
-      ],
-      response_format: { type: 'json_object' },
-      max_tokens: 3000
-    })
-  });
+Returnera ENDAST ett JSON-objekt med följande struktur:
+{
+  "matchScore": number,
+  "cvSummaryForTarget": string,
+  "identifiedRelevantSkills": [{"skill": string, "source_in_cv": string, "relevance_to_target": "high"|"medium"|"low"}],
+  "identifiedSkillGaps": [{"skill": string, "importance": "essential"|"desirable", "reasoning": string}]
+}`
+          },
+          {
+            role: 'user',
+            content: `CV att analysera:\n${truncatedCV}`
+          }
+        ],
+        max_completion_tokens: 20000,
+        store: true,
+        response_format: { type: 'json_object' }
+      })
+    });
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    console.error('GPT-4o analysis failed:', errorText);
-    throw new Error(`Analysis failed: ${response.status}`);
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`❌ GPT-5 analysis failed (${response.status}):`, errorText);
+
+      // Logga response headers för debugging
+      const headers: any = {};
+      response.headers.forEach((value, key) => {
+        headers[key] = value;
+      });
+      console.error('🔍 Response headers:', JSON.stringify(headers, null, 2));
+
+      // Specifik hantering för scope errors
+      if (errorText.includes('Missing scopes: model.request')) {
+        throw new Error(`GPT-5 permission denied - API key saknar model.request scope för projekt ${OPENAI_PROJECT_ID || 'default'}. Kontrollera att din API-nyckel har rätt permissions i projektet cvbrev.`);
+      }
+
+      throw new Error(`GPT-5 analysis failed: ${response.status} - ${errorText}`);
+    }
+
+    const data = await response.json();
+    console.log('✅ GPT-5 response received successfully');
+
+    const result = JSON.parse(data.choices[0].message.content);
+
+    // Ensure the result has the expected structure
+    const structuredResult = {
+      matchScore: result.matchScore || 0,
+      cvSummaryForTarget: result.cvSummaryForTarget || '',
+      identifiedRelevantSkills: result.identifiedRelevantSkills || [],
+      identifiedSkillGaps: result.identifiedSkillGaps || []
+    };
+
+    console.log(`✅ GPT-5 Analysis complete: Score=${structuredResult.matchScore}%, Gaps=${structuredResult.identifiedSkillGaps.length}`);
+    return structuredResult;
+
+  } catch (error: any) {
+    console.error(`🔥 GPT-5 request failed:`, error.message);
+    throw error;
   }
-
-  const data = await response.json();
-  return JSON.parse(data.choices[0].message.content);
 }
 
-// Step 2: Find REAL courses using GPT-4o-search-preview with web_search
+// Find courses using gpt-4o-search-preview with web search
 async function findRealCoursesWithWebSearch(gap: any, targetRole: string) {
-  console.log(`Searching for REAL courses for: ${gap.skill}`);
+  console.log(`🔍 Searching for courses: ${gap.skill}`);
 
   try {
+    const headers: any = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${OPENAI_API_KEY}`
+    };
+
+    // Lägg till projekt header för web search också
+    if (OPENAI_PROJECT_ID) {
+      headers['OpenAI-Project'] = OPENAI_PROJECT_ID;
+    }
+
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENAI_API_KEY}`
-      },
+      headers,
       body: JSON.stringify({
         model: 'gpt-4o-search-preview',
         web_search_options: {
@@ -86,31 +158,27 @@ async function findRealCoursesWithWebSearch(gap: any, targetRole: string) {
         messages: [
           {
             role: 'system',
-            content: `Du är en expert på utbildning och kompetensutveckling. Din uppgift är att hitta RIKTIGA kurser med FUNGERANDE länkar baserat på websökning.
+            content: `Du är en expert på utbildning. Hitta RIKTIGA kurser med FUNGERANDE länkar från websökning.
 
 VIKTIGT:
 - Använd ENDAST information från websökningen
-- Returnera ENDAST kurser med verkliga URL:er från sökresultaten
-- Inkludera både svenska och internationella alternativ
-- Prioritera aktuella kurser (2024-2025)
-- Returnera JSON-format med strukturen nedan`
+- Returnera ENDAST kurser med verkliga URL:er
+- Prioritera svenska utbildningsanordnare
+- Returnera JSON-format`
           },
           {
             role: 'user',
-            content: `Sök efter kurser för kompetensen "${gap.skill}" som är relevant för ${targetRole}.
+            content: `Sök efter kurser för "${gap.skill}" relevant för ${targetRole}.
 
-Hitta 3-5 kurser och returnera i denna JSON-struktur:
+Returnera JSON med format:
 {
   "courses": [
     {
       "title": "Kursnamn",
-      "provider": "Utbildningsanordnare",
+      "provider": "Anordnare",
       "direct_url": "https://...",
-      "duration": "Längd",
-      "cost": "Kostnad",
-      "start_date": "Startdatum",
-      "study_format": "Distans/Campus/Online",
-      "location": "Plats",
+      "duration": "X veckor/månader",
+      "cost": "Kostnad eller Gratis",
       "description": "Kort beskrivning"
     }
   ]
@@ -118,92 +186,108 @@ Hitta 3-5 kurser och returnera i denna JSON-struktur:
           }
         ],
         response_format: { type: 'json_object' },
-        max_tokens: 3000
+        max_tokens: 2000
       })
     });
 
     if (!response.ok) {
-      console.error('Web search failed:', response.status);
+      console.error('❌ Web search failed:', response.status);
       return [];
     }
 
     const data = await response.json();
+    const content = data.choices[0].message.content;
+    const parsed = JSON.parse(content);
 
-    // Extrahera kurser och URL:er från svaret
-    let courses = [];
-    try {
-      const content = data.choices[0].message.content;
-      const result = JSON.parse(content);
+    const courses = (parsed.courses || []).map((course: any) => ({
+      type: 'course',
+      title: course.title || 'Okänd kurs',
+      provider: course.provider || 'Okänd anordnare',
+      direct_url: course.direct_url || '',
+      duration: course.duration || 'Se kurssida',
+      cost: course.cost || 'Kontakta anordnare',
+      description: course.description || '',
+      priority: gap.importance === 'essential' ? 'essential' : 'recommended',
+      relevance: `För ${gap.skill}`,
+      is_verified: course.direct_url?.startsWith('http'),
+      search_source: 'gpt4o_web_search'
+    }));
 
-      // Extrahera annotations/citations om de finns
-      const annotations = data.choices[0].message.annotations || [];
-      const urlMap = new Map();
+    const verifiedCourses = courses.filter((c: any) => c.is_verified);
+    console.log(`✅ Found ${verifiedCourses.length} verified courses for "${gap.skill}"`);
 
-      annotations.forEach((annotation: any) => {
-        if (annotation.type === 'url_citation' && annotation.url_citation) {
-          const citation = annotation.url_citation;
-          urlMap.set(citation.title?.toLowerCase(), citation.url);
-        }
-      });
+    return verifiedCourses.slice(0, 3);
 
-      if (result.courses && Array.isArray(result.courses)) {
-        courses = result.courses.map((course: any) => {
-          // Verifiera att URL:en är riktig
-          const hasValidUrl = course.direct_url &&
-                             course.direct_url.startsWith('http') &&
-                             !course.direct_url.includes('example.com');
-
-          return {
-            type: course.type || 'course',
-            title: course.title || 'Okänd kurs',
-            provider: course.provider || 'Okänd anordnare',
-            direct_url: hasValidUrl ? course.direct_url : '',
-            duration: course.duration || 'Se kurssida',
-            cost: course.cost || 'Kontakta anordnare',
-            start_date: course.start_date || 'Flexibel start',
-            study_format: course.study_format || 'Se kurssida',
-            location: course.location || 'Online',
-            description: course.description || '',
-            priority: gap.importance === 'essential' ? 'essential' : 'recommended',
-            relevance: `Direkt relevant för ${gap.skill}`,
-            is_verified: hasValidUrl
-          };
-        });
-
-        // Filtrera endast kurser med verifierade URL:er
-        const verifiedCourses = courses.filter((c: any) => c.is_verified);
-        if (verifiedCourses.length > 0) {
-          courses = verifiedCourses;
-        }
-      }
-
-      console.log(`Found ${courses.length} courses for ${gap.skill}`);
-    } catch (parseError) {
-      console.error('Failed to parse course results:', parseError);
-    }
-
-    return courses.slice(0, 5);
-
-  } catch (error) {
-    console.error(`Failed to get courses for ${gap.skill}:`, error);
+  } catch (error: any) {
+    console.error(`❌ Web search failed for ${gap.skill}:`, error.message);
     return [];
   }
 }
 
 Deno.serve(async (req) => {
+  console.log('='.repeat(60));
+  console.log(`📥 Request received: ${req.method} ${req.url}`);
+  console.log('='.repeat(60));
+
+  // Handle OPTIONS requests
+  if (req.method === 'OPTIONS') {
+    return new Response(null, {
+      status: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+      }
+    });
+  }
+
+  let requestBody: any = null;
+  let jobId: string | null = null;
+
   try {
-    const { jobId } = await req.json();
-    console.log('Processing job:', jobId);
+    // Parse request body
+    try {
+      const bodyText = await req.text();
+      console.log(`📦 Request body received, length: ${bodyText.length}`);
+
+      if (!bodyText || bodyText.trim() === '') {
+        console.error('❌ Empty request body');
+        return new Response(
+          JSON.stringify({ error: 'Empty request body' }),
+          { status: 400, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
+
+      requestBody = JSON.parse(bodyText);
+      jobId = requestBody.jobId;
+      console.log('🚀 Processing competence analysis job:', jobId);
+
+    } catch (parseError: any) {
+      console.error('❌ Failed to parse request body:', parseError.message);
+      return new Response(
+        JSON.stringify({ error: 'Invalid JSON in request body', details: parseError.message }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
 
     if (!jobId) {
       return new Response(
         JSON.stringify({ error: 'Job ID required' }),
-        {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' }
-        }
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
+
+    // Verify API key
+    if (!OPENAI_API_KEY) {
+      console.error('❌ No OpenAI API key configured');
+      return new Response(
+        JSON.stringify({ error: 'OpenAI API key not configured' }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    console.log(`🔑 API key configured: sk-...${OPENAI_API_KEY.slice(-4)}`);
+    console.log(`🎯 Project ID: ${OPENAI_PROJECT_ID || 'not configured (will use default)'}`);
 
     // Get job details
     const { data: job, error: jobError } = await supabase
@@ -213,13 +297,10 @@ Deno.serve(async (req) => {
       .single();
 
     if (jobError || !job) {
-      console.error('Job not found:', jobError);
+      console.error('❌ Job not found:', jobError);
       return new Response(
         JSON.stringify({ error: 'Job not found' }),
-        {
-          status: 404,
-          headers: { 'Content-Type': 'application/json' }
-        }
+        { status: 404, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
@@ -241,7 +322,7 @@ Deno.serve(async (req) => {
       .single();
 
     if (cvError || !cvData) {
-      console.error('CV not found:', cvError);
+      console.error('❌ CV not found:', cvError);
       await supabase
         .from('competence_analysis_jobs')
         .update({
@@ -253,10 +334,7 @@ Deno.serve(async (req) => {
 
       return new Response(
         JSON.stringify({ error: 'CV not found' }),
-        {
-          status: 404,
-          headers: { 'Content-Type': 'application/json' }
-        }
+        { status: 404, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
@@ -265,12 +343,12 @@ Deno.serve(async (req) => {
       .from('competence_analysis_jobs')
       .update({
         progress: 20,
-        current_step: 'Analyserar CV...'
+        current_step: 'Analyserar CV med GPT-5...'
       })
       .eq('id', jobId);
 
-    // Step 1: Analysis with GPT-4o
-    console.log('Starting CV analysis...');
+    // Step 1: Analysis with GPT-5
+    console.log('📋 Starting CV analysis with GPT-5...');
     let analysisResult: any;
 
     try {
@@ -280,21 +358,13 @@ Deno.serve(async (req) => {
         jobAdText: job.job_ad_text
       });
 
-      // Ensure the result has the expected structure
-      analysisResult = {
-        matchScore: analysisResult.matchScore || analysisResult.match_score || 0,
-        cvSummaryForTarget: analysisResult.cvSummaryForTarget || analysisResult.summary || '',
-        identifiedRelevantSkills: analysisResult.identifiedRelevantSkills || analysisResult.relevant_skills || [],
-        identifiedSkillGaps: analysisResult.identifiedSkillGaps || analysisResult.skill_gaps || []
-      };
-
     } catch (analysisError: any) {
-      console.error('Analysis failed:', analysisError);
+      console.error('❌ GPT-5 Analysis failed:', analysisError);
       await supabase
         .from('competence_analysis_jobs')
         .update({
           status: 'failed',
-          error_message: `Analys misslyckades: ${analysisError.message}`,
+          error_message: `GPT-5 analys misslyckades: ${analysisError.message}`,
           completed_at: new Date().toISOString()
         })
         .eq('id', jobId);
@@ -302,7 +372,7 @@ Deno.serve(async (req) => {
       throw analysisError;
     }
 
-    console.log(`Analysis complete. Score: ${analysisResult.matchScore}%, Gaps: ${analysisResult.identifiedSkillGaps?.length}`);
+    console.log(`📊 GPT-5 Analysis complete. Score: ${analysisResult.matchScore}%, Gaps: ${analysisResult.identifiedSkillGaps?.length}`);
 
     // Update with initial results
     await supabase
@@ -320,27 +390,25 @@ Deno.serve(async (req) => {
       })
       .eq('id', jobId);
 
-    // Step 2: Find courses with web search
+    // Step 2: Find courses
+    console.log('🎓 Starting course search with web search...');
     const gaps = analysisResult.identifiedSkillGaps || [];
     const allSuggestions: any[] = [];
 
-    // Process max 5 gaps to avoid timeout
-    const gapsToProcess = gaps.slice(0, 5);
+    const gapsToProcess = gaps.slice(0, 5); // Max 5 gaps
 
     for (let i = 0; i < gapsToProcess.length; i++) {
       const gap = gapsToProcess[i];
 
-      // Update progress
       await supabase
         .from('competence_analysis_jobs')
         .update({
           processed_gaps: i + 1,
           progress: 40 + Math.round(((i + 1) / gapsToProcess.length) * 50),
-          current_step: `Söker RIKTIGA kurser för: "${gap.skill}" (${i + 1}/${gapsToProcess.length})...`
+          current_step: `Söker kurser för: "${gap.skill}" (${i + 1}/${gapsToProcess.length})...`
         })
         .eq('id', jobId);
 
-      // Get courses using web search
       const courses = await findRealCoursesWithWebSearch(
         gap,
         job.target_role || 'yrkesrollen'
@@ -370,40 +438,39 @@ Deno.serve(async (req) => {
       (acc, s) => acc + s.suggestions.length,
       0
     );
-    const verifiedCourses = allSuggestions.reduce(
-      (acc, s) => acc + s.suggestions.filter((c: any) => c.is_verified).length,
-      0
-    );
 
-    console.log(`Job completed. Found ${totalCoursesFound} courses (${verifiedCourses} verified).`);
+    console.log('='.repeat(60));
+    console.log(`✅ Job completed successfully with GPT-5!`);
+    console.log(`   Project: ${OPENAI_PROJECT_ID ? 'cvbrev' : 'default'}`);
+    console.log(`   Model: gpt-5-2025-08-07`);
+    console.log(`   Courses found: ${totalCoursesFound}`);
+    console.log('='.repeat(60));
 
     return new Response(
       JSON.stringify({
         success: true,
-        message: 'Job processed successfully',
-        coursesFound: totalCoursesFound,
-        verifiedCourses: verifiedCourses
+        message: 'Job processed successfully with GPT-5',
+        model: 'gpt-5-2025-08-07',
+        project: OPENAI_PROJECT_ID ? 'cvbrev' : 'default',
+        coursesFound: totalCoursesFound
       }),
       { headers: { 'Content-Type': 'application/json' } }
     );
 
   } catch (error: any) {
-    console.error('Edge function error:', error);
+    console.error('💥 Edge function error:', error);
 
-    // Mark job as failed
-    if (req.body) {
+    // Mark job as failed if we have a jobId
+    if (jobId) {
       try {
-        const { jobId } = await req.clone().json();
-        if (jobId) {
-          await supabase
-            .from('competence_analysis_jobs')
-            .update({
-              status: 'failed',
-              error_message: error.message || 'Unknown error',
-              completed_at: new Date().toISOString()
-            })
-            .eq('id', jobId);
-        }
+        await supabase
+          .from('competence_analysis_jobs')
+          .update({
+            status: 'failed',
+            error_message: error.message || 'Unknown error',
+            completed_at: new Date().toISOString()
+          })
+          .eq('id', jobId);
       } catch (e) {
         console.error('Could not update job status:', e);
       }
@@ -414,10 +481,7 @@ Deno.serve(async (req) => {
         error: 'Processing failed',
         message: error.message
       }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json' }
-      }
+      { status: 500, headers: { 'Content-Type': 'application/json' } }
     );
   }
 });
