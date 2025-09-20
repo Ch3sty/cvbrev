@@ -546,18 +546,30 @@ export default function MyLettersPage() {
         />
       )}
 
-      {/* Header - Matchar ProfilePage */}
-      <h1 className="text-3xl font-bold text-white mb-2">Mina sparade brev</h1>
-      <p className="text-gray-300 mb-8">
-        Här hittar du alla dina sparade ansökningsbrev som du kan visa, redigera eller ta bort.
-      </p>
+      {/* Premium Header med gradient */}
+      <div className="mb-8">
+        <div className="flex items-center mb-4">
+          <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-600 blur-xl opacity-50"></div>
+            <h1 className="relative text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+              Mina sparade brev
+            </h1>
+          </div>
+        </div>
+        <p className="text-gray-300 text-lg leading-relaxed max-w-3xl">
+          Här hittar du alla dina sparade ansökningsbrev. Hantera, redigera och ladda ner dina dokument med stil.
+        </p>
+      </div>
 
       <div className="flex flex-col md:flex-row gap-6"> {/* Minskad gap */}
         {/* Huvudsektionen med brev */}
         <div className="flex-1 space-y-6"> {/* Använd space-y för avstånd */}
 
-          {/* Search and Filter Bar */}
-          <div className="bg-navy-800 p-5 rounded-lg border border-gray-700 shadow-md space-y-4">
+          {/* Premium Search and Filter Bar */}
+          <div className="relative bg-gradient-to-br from-navy-800 to-navy-900 p-6 rounded-xl border border-navy-700 shadow-2xl space-y-4 overflow-hidden">
+            {/* Subtle gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-purple-500/5 pointer-events-none"></div>
+            <div className="relative z-10 space-y-4">
             {/* Top row: Stats and actions */}
             <div className="flex flex-col sm:flex-row items-center justify-between">
               <div className="flex items-center mb-3 sm:mb-0">
@@ -585,7 +597,7 @@ export default function MyLettersPage() {
                 </button>
                 
                 <Link href="/create-letter"
-                  className={`inline-flex items-center px-4 py-2 text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors font-medium ${subscriptionTier === 'free' && hasReachedLetterLimit ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`inline-flex items-center px-5 py-2.5 text-white bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg hover:from-pink-700 hover:to-purple-700 transition-all font-medium shadow-lg hover:shadow-pink-500/25 ${subscriptionTier === 'free' && hasReachedLetterLimit ? 'opacity-50 cursor-not-allowed' : ''}`}
                   aria-disabled={subscriptionTier === 'free' && hasReachedLetterLimit}
                   onClick={(e) => {
                     if (subscriptionTier === 'free' && hasReachedLetterLimit) {
@@ -607,7 +619,7 @@ export default function MyLettersPage() {
                 placeholder="Sök i brev, företag, tjänster..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-navy-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:border-pink-500 focus:ring-1 focus:ring-pink-500"
+                className="w-full pl-10 pr-4 py-3 bg-navy-900/50 border border-navy-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 backdrop-blur-sm transition-all"
               />
               {searchTerm && (
                 <button
@@ -697,6 +709,7 @@ export default function MyLettersPage() {
                 )}
               </div>
             )}
+            </div>
           </div>
 
           {/* Varningsmeddelanden - Matchar ProfilePage */}
@@ -795,10 +808,13 @@ export default function MyLettersPage() {
                     {groupedLetters.recent.map((letter) => (
                       <div
                         key={letter.id}
-                        className="letter-card bg-navy-800 rounded-lg border border-gray-700 transition-all hover:border-pink-500/50 hover:shadow-lg cv-card animate-slideUp"
+                        className="letter-card group relative bg-gradient-to-br from-navy-800 to-navy-900 rounded-xl border border-navy-700 transition-all duration-300 hover:border-pink-500/30 hover:shadow-2xl hover:shadow-pink-500/10 overflow-hidden animate-slideUp"
                       >
+                        {/* Premium gradient overlay på hover */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-pink-500/0 to-purple-500/0 group-hover:from-pink-500/5 group-hover:to-purple-500/5 transition-all duration-300 pointer-events-none"></div>
+
                         {/* Kortets innehåll */}
-                        <div className="p-5">
+                        <div className="relative p-6">
                           <div className="flex flex-col sm:flex-row justify-between sm:items-start mb-3">
                              <h2 className="text-lg font-semibold text-white mb-2 sm:mb-0 flex items-center">
                                 <FileText className="w-5 h-5 mr-2 text-pink-500" />
@@ -822,22 +838,47 @@ export default function MyLettersPage() {
                             <LetterTag label="Tonalitet" value={letter.tonality} type="tone" />
                           </div>
                         </div>
-                        {/* Förhandsvisning */}
-                        <div className="border-t border-gray-700 p-4 bg-navy-900/30">
+                        {/* Förhandsvisning med gradient */}
+                        <div className="relative border-t border-navy-700/50 p-4 bg-gradient-to-b from-navy-900/30 to-navy-950/50">
                            <div className="text-sm text-gray-300 bg-navy-950/50 p-3 rounded-md border border-gray-700/50 elegant-scrollbar max-h-28 overflow-auto" style={{ lineHeight: '1.5', fontStyle: 'italic' }}>
                              {getPreview(letter.content) || <span className="text-gray-500">Ingen förhandsvisning</span>}
                            </div>
                         </div>
-                        {/* Åtgärdsknappar */}
-                        <div className="border-t border-gray-700 p-4 bg-navy-900/30 space-y-3">
+                        {/* Premium åtgärdsknappar */}
+                        <div className="relative border-t border-navy-700/50 p-4 bg-gradient-to-b from-navy-900/20 to-navy-950/40 space-y-3">
                           {/* Top row: Visa, Redigera, Ta bort */}
                           <div className="flex flex-wrap gap-2 justify-end">
-                            {/* ÄNDRAD KNAPPSTIL */}
-                            <Link href={`/dashboard/my-letters/${letter.id}`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Eye className="w-4 h-4 mr-1.5" /> Visa </Link>
-                            {/* ÄNDRAD KNAPPSTIL */}
-                            <Link href={`/dashboard/my-letters/${letter.id}/edit`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Pencil className="w-4 h-4 mr-1.5" /> Redigera </Link>
-                            {/* BEHÅLLEN KNAPPSTIL */}
-                            <button onClick={() => handleDelete(letter.id)} disabled={isDeleting} className={`inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors ${isDeleting && deleteId === letter.id ? 'opacity-50 cursor-not-allowed' : ''}`}> {isDeleting && deleteId === letter.id ? ( <> <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> Tar bort... </> ) : ( <> <Trash2 className="w-4 h-4 mr-1.5" /> Ta bort </> )} </button>
+                            <Link
+                              href={`/dashboard/my-letters/${letter.id}`}
+                              className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 rounded-lg transition-all shadow-md hover:shadow-blue-500/25 hover:scale-105"
+                            >
+                              <Eye className="w-4 h-4 mr-1.5" />
+                              Visa
+                            </Link>
+                            <Link
+                              href={`/dashboard/my-letters/${letter.id}/edit`}
+                              className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-lg transition-all shadow-md hover:shadow-purple-500/25 hover:scale-105"
+                            >
+                              <Pencil className="w-4 h-4 mr-1.5" />
+                              Redigera
+                            </Link>
+                            <button
+                              onClick={() => handleDelete(letter.id)}
+                              disabled={isDeleting}
+                              className={`inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 rounded-lg transition-all shadow-md hover:shadow-red-500/25 hover:scale-105 ${isDeleting && deleteId === letter.id ? 'opacity-50 cursor-not-allowed' : ''}`}
+                            >
+                              {isDeleting && deleteId === letter.id ? (
+                                <>
+                                  <Loader2 className="w-4 h-4 mr-1.5 animate-spin" />
+                                  Tar bort...
+                                </>
+                              ) : (
+                                <>
+                                  <Trash2 className="w-4 h-4 mr-1.5" />
+                                  Ta bort
+                                </>
+                              )}
+                            </button>
                           </div>
                           
                           {/* Bottom row: Download buttons */}
@@ -897,10 +938,13 @@ export default function MyLettersPage() {
                      {groupedLetters.older.map((letter) => (
                        <div
                          key={letter.id}
-                         className="letter-card bg-navy-800 rounded-lg border border-gray-700 transition-all hover:border-blue-500/50 hover:shadow-lg cv-card animate-slideUp" // Ändrat hover-border till blå
+                         className="letter-card group relative bg-gradient-to-br from-navy-800 to-navy-900 rounded-xl border border-navy-700 transition-all duration-300 hover:border-blue-500/30 hover:shadow-2xl hover:shadow-blue-500/10 overflow-hidden animate-slideUp"
                        >
+                         {/* Premium gradient overlay på hover */}
+                         <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/5 group-hover:to-cyan-500/5 transition-all duration-300 pointer-events-none"></div>
+
                          {/* Kortets innehåll */}
-                         <div className="p-5">
+                         <div className="relative p-6">
                            <div className="flex flex-col sm:flex-row justify-between sm:items-start mb-3">
                               <h2 className="text-lg font-semibold text-white mb-2 sm:mb-0 flex items-center">
                                  <FileText className="w-5 h-5 mr-2 text-blue-500" /> {/* Ändrat ikonfärg till blå */}
@@ -919,22 +963,47 @@ export default function MyLettersPage() {
                              <LetterTag label="Tonalitet" value={letter.tonality} type="tone" />
                            </div>
                          </div>
-                         {/* Förhandsvisning */}
-                         <div className="border-t border-gray-700 p-4 bg-navy-900/30">
+                         {/* Förhandsvisning med gradient */}
+                         <div className="relative border-t border-navy-700/50 p-4 bg-gradient-to-b from-navy-900/30 to-navy-950/50">
                             <div className="text-sm text-gray-300 bg-navy-950/50 p-3 rounded-md border border-gray-700/50 elegant-scrollbar max-h-28 overflow-auto" style={{ lineHeight: '1.5', fontStyle: 'italic' }}>
                               {getPreview(letter.content) || <span className="text-gray-500">Ingen förhandsvisning</span>}
                             </div>
                          </div>
-                         {/* Åtgärdsknappar */}
-                         <div className="border-t border-gray-700 p-4 bg-navy-900/30 space-y-3">
+                         {/* Premium åtgärdsknappar */}
+                         <div className="relative border-t border-navy-700/50 p-4 bg-gradient-to-b from-navy-900/20 to-navy-950/40 space-y-3">
                            {/* Top row: Visa, Redigera, Ta bort */}
                            <div className="flex flex-wrap gap-2 justify-end">
-                             {/* ÄNDRAD KNAPPSTIL */}
-                             <Link href={`/dashboard/my-letters/${letter.id}`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Eye className="w-4 h-4 mr-1.5" /> Visa </Link>
-                             {/* ÄNDRAD KNAPPSTIL */}
-                             <Link href={`/dashboard/my-letters/${letter.id}/edit`} className="inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-navy-700 hover:bg-navy-600 rounded-md transition-colors border border-gray-700"> <Pencil className="w-4 h-4 mr-1.5" /> Redigera </Link>
-                             {/* BEHÅLLEN KNAPPSTIL */}
-                             <button onClick={() => handleDelete(letter.id)} disabled={isDeleting} className={`inline-flex items-center px-3 py-1.5 text-sm font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 transition-colors ${isDeleting && deleteId === letter.id ? 'opacity-50 cursor-not-allowed' : ''}`}> {isDeleting && deleteId === letter.id ? ( <> <Loader2 className="w-4 h-4 mr-1.5 animate-spin" /> Tar bort... </> ) : ( <> <Trash2 className="w-4 h-4 mr-1.5" /> Ta bort </> )} </button>
+                             <Link
+                               href={`/dashboard/my-letters/${letter.id}`}
+                               className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 rounded-lg transition-all shadow-md hover:shadow-blue-500/25 hover:scale-105"
+                             >
+                               <Eye className="w-4 h-4 mr-1.5" />
+                               Visa
+                             </Link>
+                             <Link
+                               href={`/dashboard/my-letters/${letter.id}/edit`}
+                               className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-lg transition-all shadow-md hover:shadow-purple-500/25 hover:scale-105"
+                             >
+                               <Pencil className="w-4 h-4 mr-1.5" />
+                               Redigera
+                             </Link>
+                             <button
+                               onClick={() => handleDelete(letter.id)}
+                               disabled={isDeleting}
+                               className={`inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 rounded-lg transition-all shadow-md hover:shadow-red-500/25 hover:scale-105 ${isDeleting && deleteId === letter.id ? 'opacity-50 cursor-not-allowed' : ''}`}
+                             >
+                               {isDeleting && deleteId === letter.id ? (
+                                 <>
+                                   <Loader2 className="w-4 h-4 mr-1.5 animate-spin" />
+                                   Tar bort...
+                                 </>
+                               ) : (
+                                 <>
+                                   <Trash2 className="w-4 h-4 mr-1.5" />
+                                   Ta bort
+                                 </>
+                               )}
+                             </button>
                            </div>
                            
                            {/* Bottom row: Download buttons */}
@@ -1083,9 +1152,24 @@ export default function MyLettersPage() {
             // Skeleton loader för LetterCounter
             <div className="bg-navy-800 rounded-lg p-5 shadow-md border border-gray-700 w-full animate-pulse"> <div className="h-5 bg-gray-700 rounded w-3/4 mb-4"></div> <div className="flex items-center justify-center bg-navy-900 rounded-xl p-4 mb-4 border border-gray-700/50"> <div className="w-16 h-16 rounded-full bg-navy-950"></div> <div className="ml-5 space-y-2 flex-1"> <div className="h-4 bg-gray-700 rounded w-20"></div> <div className="h-5 bg-gray-700 rounded w-16"></div> </div> </div> <div className="h-2 bg-navy-700 rounded-full mb-2 border border-gray-600/50"></div> <div className="h-3 bg-gray-700 rounded w-1/2 ml-auto"></div> </div>
           )}
-          <div className="bg-navy-800 rounded-lg p-5 shadow-md border border-gray-700">
-             <h3 className="font-semibold text-white flex items-center mb-3 text-lg"> <Info className="h-5 w-5 text-blue-400 mr-2 flex-shrink-0" /> Tips & Trix </h3>
-             <div className="text-sm text-gray-300 space-y-2"> <p>Behåll dina bästa brev och ta bort de du inte längre behöver för att hålla listan relevant.</p> <p>Använd "Redigera" för att finjustera ett befintligt brev istället för att skapa ett helt nytt varje gång.</p> </div>
+          <div className="relative bg-gradient-to-br from-navy-800 to-navy-900 rounded-xl p-6 shadow-2xl border border-navy-700 overflow-hidden">
+             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 pointer-events-none"></div>
+             <div className="relative">
+               <h3 className="font-semibold text-white flex items-center mb-4 text-lg">
+                 <Info className="h-5 w-5 text-cyan-400 mr-2 flex-shrink-0" />
+                 Tips & Trix
+               </h3>
+               <div className="text-sm text-gray-300 space-y-3">
+                 <div className="flex items-start">
+                   <span className="text-cyan-400 mr-2">•</span>
+                   <p>Behåll dina bästa brev och ta bort de du inte längre behöver för att hålla listan relevant.</p>
+                 </div>
+                 <div className="flex items-start">
+                   <span className="text-cyan-400 mr-2">•</span>
+                   <p>Använd "Redigera" för att finjustera ett befintligt brev istället för att skapa ett helt nytt varje gång.</p>
+                 </div>
+               </div>
+             </div>
           </div>
         </div> {/* Slut på sidofältet */}
       </div> {/* Slut på flex-row */}
