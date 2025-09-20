@@ -246,7 +246,7 @@ export default function LearningPlanPage({
       switch(activityType) {
         case 'applied':
           xpEarned = 100;
-          description = skill?.estimated_hours > 100 ?
+          description = (skill?.estimated_hours || 0) > 100 ?
             `Ansökte till ${skill?.skill_name}` :
             `Anmälde sig till ${skill?.skill_name}`;
           break;
@@ -557,7 +557,7 @@ export default function LearningPlanPage({
                               <Plus className="w-4 h-4 mr-2" />
                               Registrera framsteg
                             </Button>
-                            {skill.actual_hours >= skill.estimated_hours * 0.8 && (
+                            {(skill.actual_hours || 0) >= skill.estimated_hours * 0.8 && (
                               <Button
                                 size="sm"
                                 variant="secondary"
