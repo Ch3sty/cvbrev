@@ -8,13 +8,13 @@ export const maxDuration = 10;
 // GET - Fetch a specific learning plan
 export async function GET(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     console.log('--- API /learning-plans/[id]: GET request initiated');
 
     try {
         const supabase = await createServerClient();
-        const planId = params.id;
+        const { id: planId } = await params;
 
         // Check authentication
         const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -73,13 +73,13 @@ export async function GET(
 // PATCH - Update a learning plan or its skills
 export async function PATCH(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     console.log('--- API /learning-plans/[id]: PATCH request initiated');
 
     try {
         const supabase = await createServerClient();
-        const planId = params.id;
+        const { id: planId } = await params;
 
         // Check authentication
         const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -220,13 +220,13 @@ export async function PATCH(
 // DELETE - Delete a learning plan
 export async function DELETE(
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: { params: Promise<{ id: string }> }
 ) {
     console.log('--- API /learning-plans/[id]: DELETE request initiated');
 
     try {
         const supabase = await createServerClient();
-        const planId = params.id;
+        const { id: planId } = await params;
 
         // Check authentication
         const { data: { user }, error: authError } = await supabase.auth.getUser();
