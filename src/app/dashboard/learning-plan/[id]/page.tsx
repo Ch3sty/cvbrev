@@ -766,24 +766,44 @@ export default function LearningPlanPage({
       )}
 
       {activeTab === 'skills' && (
-        <div className="space-y-4">
+        <div className="space-y-6">
           {skills.map((skill, index) => {
             // Determine if this is a long education (>100 hours)
             const isLongEducation = skill.estimated_hours > 100;
             const applicationStatus = skill.application_status || 'not_applied';
 
-            const getStatusBadge = () => {
+            const getStatusConfig = () => {
               switch (applicationStatus) {
                 case 'applied':
-                  return <Badge variant="outline" className="text-orange-400 border-orange-400">Ansökt</Badge>;
+                  return {
+                    badge: <Badge variant="outline" className="text-orange-400 border-orange-400 bg-orange-400/10">Ansökt</Badge>,
+                    iconBg: 'bg-orange-500',
+                    progressColor: 'from-orange-500 to-red-500'
+                  };
                 case 'accepted':
-                  return <Badge variant="outline" className="text-green-400 border-green-400">Antagen</Badge>;
+                  return {
+                    badge: <Badge variant="outline" className="text-green-400 border-green-400 bg-green-400/10">Antagen</Badge>,
+                    iconBg: 'bg-green-500',
+                    progressColor: 'from-green-500 to-emerald-500'
+                  };
                 case 'enrolled':
-                  return <Badge variant="outline" className="text-blue-400 border-blue-400">Pågår</Badge>;
+                  return {
+                    badge: <Badge variant="outline" className="text-blue-400 border-blue-400 bg-blue-400/10">Pågår</Badge>,
+                    iconBg: 'bg-blue-500',
+                    progressColor: 'from-blue-500 to-purple-500'
+                  };
                 case 'completed':
-                  return <Badge variant="outline" className="text-emerald-400 border-emerald-400">Slutförd</Badge>;
+                  return {
+                    badge: <Badge variant="outline" className="text-emerald-400 border-emerald-400 bg-emerald-400/10">Slutförd</Badge>,
+                    iconBg: 'bg-emerald-500',
+                    progressColor: 'from-emerald-500 to-green-500'
+                  };
                 default:
-                  return null;
+                  return {
+                    badge: null,
+                    iconBg: 'bg-navy-600',
+                    progressColor: 'from-gray-500 to-gray-600'
+                  };
               }
             };
 
@@ -796,199 +816,291 @@ export default function LearningPlanPage({
               return `${hours} timmar`;
             };
 
+            const statusConfig = getStatusConfig();
+            const progressPercentage = applicationStatus === 'enrolled' ? Math.min(((skill.actual_hours || 0) / skill.estimated_hours) * 100, 100) : 0;
+
             return (
-              <Card key={skill.id}>
-                <CardContent className="p-6">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                          applicationStatus === 'completed' ? 'bg-emerald-500' :
-                          applicationStatus === 'enrolled' ? 'bg-blue-500' :
-                          applicationStatus === 'accepted' ? 'bg-green-500' :
-                          applicationStatus === 'applied' ? 'bg-orange-500' :
-                          'bg-navy-700'
-                        }`}>
-                          {applicationStatus === 'completed' ? (
-                            <CheckCircle className="w-5 h-5 text-white" />
-                          ) : (
-                            <span className="text-white font-bold text-sm">{index + 1}</span>
-                          )}
-                        </div>
-                        <div className="flex-1">
-                          <Badge variant="outline" className="text-xs mb-1">FÄRDIGHET</Badge>
-                          <h3 className="text-lg font-semibold text-white">{skill.skill_name}</h3>
-                        </div>
-                        {getStatusBadge()}
-                        <Badge variant={skill.importance === 'essential' ? 'default' : 'secondary'}>
-                          {skill.importance === 'essential' ? 'Kritisk' : skill.importance === 'desirable' ? 'Önskvärd' : 'Valfri'}
-                        </Badge>
-                      </div>
-                      <div className="flex items-center gap-4 text-sm text-gray-400 mb-3">
-                        <span>Nivå: {skill.skill_level === 'foundation' ? 'Grund' : skill.skill_level === 'intermediate' ? 'Medel' : 'Avancerad'}</span>
-                        <span>•</span>
-                        <span>Uppskattad tid för kompetens: {getEducationLength()}</span>
-                        {skill.start_date && (
-                          <>
-                            <span>•</span>
-                            <span>Start: {new Date(skill.start_date).toLocaleDateString('sv-SE')}</span>
-                          </>
+              <Card key={skill.id} className="group hover:shadow-lg hover:shadow-pink-500/10 transition-all duration-300 border-navy-700 hover:border-pink-500/30">
+                <CardContent className="p-0">
+                  {/* Skill Header */}
+                  <div className="p-6 pb-0">
+                    <div className="flex items-start gap-4">
+                      {/* Status Indicator */}
+                      <div className={`relative flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center ${statusConfig.iconBg} shadow-lg group-hover:scale-105 transition-transform duration-200`}>
+                        {applicationStatus === 'completed' ? (
+                          <CheckCircle className="w-6 h-6 text-white" />
+                        ) : (
+                          <span className="text-white font-bold text-lg">{index + 1}</span>
+                        )}
+                        {applicationStatus === 'enrolled' && progressPercentage > 0 && (
+                          <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-navy-900 rounded-full flex items-center justify-center">
+                            <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
+                          </div>
                         )}
                       </div>
 
-                      {/* Show courses with links if available */}
-                      {skill.courses && skill.courses.length > 0 && (
-                        <div className="mb-4 space-y-3">
-                          <div className="flex items-center gap-2">
-                            <BookOpen className="w-4 h-4 text-gray-400" />
-                            <p className="text-sm font-medium text-gray-300">Välj utbildningar som passar dig:</p>
+                      {/* Skill Info */}
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start justify-between gap-3 mb-3">
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Badge variant="outline" className="text-xs text-pink-400 border-pink-400/30 bg-pink-400/5">FÄRDIGHET</Badge>
+                              {statusConfig.badge}
+                            </div>
+                            <h3 className="text-xl font-bold text-white group-hover:text-pink-300 transition-colors duration-200">
+                              {skill.skill_name}
+                            </h3>
                           </div>
-                          <div className="space-y-3">
-                            {skill.courses.map((course: any, idx: number) => (
-                              <div key={idx} className="p-3 bg-navy-700/30 border border-navy-600 rounded-lg hover:bg-navy-700/50 transition-colors">
-                                <div className="flex items-start justify-between gap-3">
-                                  <div className="flex-1">
-                                    <div className="flex items-start gap-2">
-                                      {course.url ? (
-                                        <a
-                                          href={course.url}
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                          className="text-sm font-medium text-blue-400 hover:text-blue-300 hover:underline flex items-center gap-1"
-                                        >
-                                          {course.title || course.name || course}
-                                          <ExternalLink className="w-3 h-3" />
-                                        </a>
-                                      ) : (
-                                        <span className="text-sm font-medium text-white">
-                                          {course.title || course.name || course}
-                                        </span>
-                                      )}
+                          <Badge
+                            variant={skill.importance === 'essential' ? 'default' : 'secondary'}
+                            className={skill.importance === 'essential' ? 'bg-gradient-to-r from-pink-600 to-purple-600 border-0 text-white font-medium' : ''}
+                          >
+                            {skill.importance === 'essential' ? 'Kritisk' : skill.importance === 'desirable' ? 'Önskvärd' : 'Valfri'}
+                          </Badge>
+                        </div>
+
+                        {/* Skill Metadata */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+                          <div className="flex items-center gap-2 text-gray-300">
+                            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                            <span className="font-medium">Nivå:</span>
+                            <span className="text-gray-400">
+                              {skill.skill_level === 'foundation' ? 'Grund' : skill.skill_level === 'intermediate' ? 'Medel' : 'Avancerad'}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2 text-gray-300">
+                            <Clock className="w-4 h-4 text-purple-400" />
+                            <span className="font-medium">Tid:</span>
+                            <span className="text-gray-400">{getEducationLength()}</span>
+                          </div>
+                          {skill.start_date && (
+                            <div className="flex items-center gap-2 text-gray-300">
+                              <Calendar className="w-4 h-4 text-green-400" />
+                              <span className="font-medium">Start:</span>
+                              <span className="text-gray-400">{new Date(skill.start_date).toLocaleDateString('sv-SE')}</span>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Progress Bar for Enrolled Skills */}
+                        {applicationStatus === 'enrolled' && (
+                          <div className="mt-4 space-y-2">
+                            <div className="flex justify-between items-center">
+                              <span className="text-sm font-medium text-gray-300">Framsteg</span>
+                              <span className="text-sm text-gray-400">
+                                {skill.actual_hours || 0}h / {skill.estimated_hours}h
+                              </span>
+                            </div>
+                            <div className="relative h-3 bg-navy-700 rounded-full overflow-hidden">
+                              <div
+                                className={`absolute inset-y-0 left-0 bg-gradient-to-r ${statusConfig.progressColor} rounded-full transition-all duration-1000 ease-out`}
+                                style={{ width: `${progressPercentage}%` }}
+                              >
+                                <div className="absolute inset-0 bg-white/20 animate-pulse"></div>
+                              </div>
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              {progressPercentage.toFixed(1)}% slutfört
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Course Options Section */}
+                  {skill.courses && skill.courses.length > 0 && (
+                    <div className="px-6 py-4 border-t border-navy-700/50">
+                      <div className="flex items-center gap-2 mb-4">
+                        <GraduationCap className="w-5 h-5 text-pink-400" />
+                        <h4 className="font-semibold text-gray-200">Rekommenderade utbildningar</h4>
+                        <div className="flex-1 h-px bg-gradient-to-r from-navy-600 to-transparent"></div>
+                      </div>
+
+                      <div className="grid gap-3">
+                        {skill.courses.map((course: any, idx: number) => {
+                          const isEnrolled = enrolledCourses.has(`${skill.id}-${course.title}`);
+                          return (
+                            <div
+                              key={idx}
+                              className={`relative p-4 rounded-xl border transition-all duration-200 hover:shadow-md ${
+                                isEnrolled
+                                  ? 'border-green-500/30 bg-green-500/5 shadow-green-500/10'
+                                  : 'border-navy-600 bg-navy-800/30 hover:border-pink-500/30 hover:bg-navy-800/50'
+                              }`}
+                            >
+                              {isEnrolled && (
+                                <div className="absolute top-2 right-2">
+                                  <CheckCircle className="w-5 h-5 text-green-400" />
+                                </div>
+                              )}
+
+                              <div className="space-y-3">
+                                {/* Course Title */}
+                                <div>
+                                  {course.url ? (
+                                    <a
+                                      href={course.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="font-semibold text-white hover:text-pink-300 transition-colors duration-200 flex items-center gap-2 group/link"
+                                    >
+                                      {course.title || course.name || course}
+                                      <ExternalLink className="w-4 h-4 opacity-60 group-hover/link:opacity-100 transition-opacity" />
+                                    </a>
+                                  ) : (
+                                    <h5 className="font-semibold text-white">
+                                      {course.title || course.name || course}
+                                    </h5>
+                                  )}
+                                </div>
+
+                                {/* Course Details */}
+                                <div className="flex flex-wrap items-center gap-4 text-sm">
+                                  {course.provider && (
+                                    <div className="flex items-center gap-1.5 text-gray-400">
+                                      <div className="w-1.5 h-1.5 bg-purple-400 rounded-full"></div>
+                                      <span className="font-medium">Leverantör:</span>
+                                      <span>{course.provider}</span>
                                     </div>
-                                    <div className="flex items-center gap-3 mt-1 text-xs text-gray-400">
-                                      {course.provider && (
-                                        <span className="flex items-center gap-1">
-                                          <span className="text-gray-500">Leverantör:</span> {course.provider}
-                                        </span>
-                                      )}
-                                      {course.duration && (
-                                        <span className="flex items-center gap-1">
-                                          <Clock className="w-3 h-3" />
-                                          {course.duration}
-                                        </span>
-                                      )}
-                                      {course.cost && (
-                                        <span className="flex items-center gap-1">
-                                          <span className="text-gray-500">Pris:</span> {course.cost}
-                                        </span>
-                                      )}
+                                  )}
+                                  {course.duration && (
+                                    <div className="flex items-center gap-1.5 text-gray-400">
+                                      <Clock className="w-3.5 h-3.5 text-blue-400" />
+                                      <span>{course.duration}</span>
                                     </div>
-                                  </div>
+                                  )}
+                                  {course.cost && (
+                                    <div className="flex items-center gap-1.5 text-gray-400">
+                                      <div className="w-1.5 h-1.5 bg-yellow-400 rounded-full"></div>
+                                      <span className="font-medium">Pris:</span>
+                                      <span>{course.cost}</span>
+                                    </div>
+                                  )}
+                                </div>
+
+                                {/* Enrollment Button */}
+                                <div className="flex justify-end">
                                   <Button
                                     size="sm"
-                                    variant={enrolledCourses.has(`${skill.id}-${course.title}`) ? "secondary" : "outline"}
-                                    className="shrink-0"
+                                    variant={isEnrolled ? "secondary" : "outline"}
+                                    className={isEnrolled ? 'bg-green-500/20 border-green-500/30 text-green-300 hover:bg-green-500/30' : 'hover:bg-pink-500/10 hover:border-pink-500/30'}
                                     onClick={() => handleCourseEnrollment(skill.id, course)}
                                   >
-                                    {enrolledCourses.has(`${skill.id}-${course.title}`) ? (
+                                    {isEnrolled ? (
                                       <>
-                                        <CheckCircle className="w-3 h-3 mr-1" />
+                                        <CheckCircle className="w-4 h-4 mr-2" />
                                         Anmäld
                                       </>
                                     ) : (
-                                      'Markera som anmäld'
+                                      <>
+                                        <Plus className="w-4 h-4 mr-2" />
+                                        Markera som anmäld
+                                      </>
                                     )}
                                   </Button>
                                 </div>
                               </div>
-                            ))}
-                          </div>
-                        </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Action Buttons Section */}
+                  <div className="px-6 py-4 border-t border-navy-700/30 bg-navy-800/20">
+                    <div className="flex flex-wrap gap-3">
+                      {applicationStatus === 'not_applied' && (
+                        <Button
+                          className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 border-0 text-white font-medium shadow-lg hover:shadow-pink-500/25 transition-all duration-200"
+                          onClick={() => updateProgress(skill.id, 'applied', 0)}
+                          disabled={isUpdatingProgress}
+                        >
+                          {isUpdatingProgress ? (
+                            <>
+                              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                              Uppdaterar...
+                            </>
+                          ) : (
+                            <>
+                              <PlayCircle className="w-4 h-4 mr-2" />
+                              {isLongEducation ? 'Ansök nu' : 'Anmäl dig nu'}
+                            </>
+                          )}
+                        </Button>
                       )}
 
-                      {/* Progress or Action Buttons */}
+                      {applicationStatus === 'applied' && (
+                        <Button
+                          variant="outline"
+                          className="border-green-500/30 text-green-300 hover:bg-green-500/10 hover:border-green-400"
+                          onClick={() => updateProgress(skill.id, 'accepted', 0)}
+                          disabled={isUpdatingProgress}
+                        >
+                          {isUpdatingProgress ? 'Uppdaterar...' : (
+                            <>
+                              <CheckCircle className="w-4 h-4 mr-2" />
+                              Markera som antagen
+                            </>
+                          )}
+                        </Button>
+                      )}
+
+                      {applicationStatus === 'accepted' && (
+                        <Button
+                          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 text-white font-medium"
+                          onClick={() => updateProgress(skill.id, 'enrolled', 0)}
+                          disabled={isUpdatingProgress}
+                        >
+                          {isUpdatingProgress ? 'Uppdaterar...' : (
+                            <>
+                              <PlayCircle className="w-4 h-4 mr-2" />
+                              Påbörja utbildning
+                            </>
+                          )}
+                        </Button>
+                      )}
+
                       {applicationStatus === 'enrolled' && (
-                        <div className="mb-4">
-                          <div className="w-full bg-navy-700 rounded-full h-2 mb-2">
-                            <div
-                              className="h-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-1000"
-                              style={{ width: `${Math.min((skill.actual_hours / skill.estimated_hours) * 100, 100)}%` }}
-                            />
-                          </div>
-                          <span className="text-sm text-gray-400">
-                            {skill.actual_hours}h av {skill.estimated_hours}h slutfört
-                          </span>
-                        </div>
-                      )}
-
-                      <div className="flex gap-2">
-                        {applicationStatus === 'not_applied' && (
+                        <>
                           <Button
-                            size="sm"
                             variant="secondary"
-                            onClick={() => updateProgress(skill.id, 'applied', 0)}
-                            disabled={isUpdatingProgress}
+                            className="hover:bg-navy-600"
+                            onClick={() => {
+                              setSelectedSkillForProgress(skill);
+                              setShowStudyHoursModal(true);
+                            }}
                           >
-                            {isUpdatingProgress ? 'Uppdaterar...' : isLongEducation ? 'Markera som ansökt' : 'Markera som anmäld'}
+                            <Clock className="w-4 h-4 mr-2" />
+                            Logga studietimmar
                           </Button>
-                        )}
-                        {applicationStatus === 'applied' && (
                           <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => updateProgress(skill.id, 'accepted', 0)}
-                            disabled={isUpdatingProgress}
+                            variant="secondary"
+                            className="hover:bg-navy-600"
+                            onClick={() => {
+                              setSelectedSkillForProgress(skill);
+                              setShowCompletedCourseModal(true);
+                            }}
                           >
-                            {isUpdatingProgress ? 'Uppdaterar...' : 'Markera som antagen'}
+                            <Award className="w-4 h-4 mr-2" />
+                            Avslutad kurs
                           </Button>
-                        )}
-                        {applicationStatus === 'accepted' && (
-                          <Button
-                            size="sm"
-                            onClick={() => updateProgress(skill.id, 'enrolled', 0)}
-                            disabled={isUpdatingProgress}
-                          >
-                            {isUpdatingProgress ? 'Uppdaterar...' : 'Påbörja utbildning'}
-                          </Button>
-                        )}
-                        {applicationStatus === 'enrolled' && (
-                          <div className="flex flex-wrap gap-2">
+                          {progressPercentage >= 50 && (
                             <Button
-                              size="sm"
-                              variant="secondary"
-                              onClick={() => {
-                                setSelectedSkillForProgress(skill);
-                                setShowStudyHoursModal(true);
-                              }}
-                            >
-                              <Clock className="w-4 h-4 mr-2" />
-                              Studietimmar
-                            </Button>
-                            <Button
-                              size="sm"
-                              variant="secondary"
-                              onClick={() => {
-                                setSelectedSkillForProgress(skill);
-                                setShowCompletedCourseModal(true);
-                              }}
-                            >
-                              <Award className="w-4 h-4 mr-2" />
-                              Avslutad kurs
-                            </Button>
-                            <Button
-                              size="sm"
                               variant="outline"
+                              className="border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/10"
                               onClick={() => {
                                 setSelectedSkillForProgress(skill);
                                 setShowCompleteEducationModal(true);
                               }}
                             >
                               <GraduationCap className="w-4 h-4 mr-2" />
-                              Slutför
+                              Slutför utbildning
                             </Button>
-                          </div>
-                        )}
-                      </div>
+                          )}
+                        </>
+                      )}
                     </div>
                   </div>
                 </CardContent>
