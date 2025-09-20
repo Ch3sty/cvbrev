@@ -234,6 +234,38 @@ export default function LearningPlanPage({
 
     setIsUpdatingProgress(true);
     try {
+      // Determine XP based on activity type
+      let xpEarned = 50; // Default
+      let description = '';
+      const skill = skills.find(s => s.id === skillId);
+
+      switch(activityType) {
+        case 'applied':
+          xpEarned = 100;
+          description = skill?.estimated_hours > 100 ?
+            `Ansökte till ${skill?.skill_name}` :
+            `Anmälde sig till ${skill?.skill_name}`;
+          break;
+        case 'accepted':
+          xpEarned = 200;
+          description = `Blev antagen till ${skill?.skill_name}`;
+          break;
+        case 'enrolled':
+          xpEarned = 150;
+          description = `Påbörjade ${skill?.skill_name}`;
+          break;
+        case 'course_completed':
+          xpEarned = 100;
+          description = `Genomförde studietid i ${skill?.skill_name}`;
+          break;
+        case 'skill_completed':
+          xpEarned = 500;
+          description = `Slutförde ${skill?.skill_name}`;
+          break;
+        default:
+          description = `Arbetade med ${skill?.skill_name}`;
+      }
+
       const response = await fetch(`/api/learning-plans/${planId}/progress`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -241,8 +273,8 @@ export default function LearningPlanPage({
           skillId,
           hoursSpent,
           activityType,
-          activityDescription: `Arbetade med ${skills.find(s => s.id === skillId)?.skill_name}`,
-          xpEarned: activityType === 'skill_completed' ? 200 : 50
+          activityDescription: description,
+          xpEarned
         })
       });
 
@@ -736,7 +768,7 @@ export default function LearningPlanPage({
                             onClick={() => updateProgress(skill.id, 'applied', 0)}
                             disabled={isUpdatingProgress}
                           >
-                            {isUpdatingProgress ? 'Uppdaterar...' : isLongEducation ? 'Ansök nu' : 'Anmäl dig'}
+                            {isUpdatingProgress ? 'Uppdaterar...' : isLongEducation ? 'Markera som ansökt' : 'Markera som anmäld'}
                           </Button>
                         )}
                         {applicationStatus === 'applied' && (
@@ -854,22 +886,33 @@ export default function LearningPlanPage({
               <div className="space-y-4">
                 <div className="flex justify-between items-center p-3 bg-navy-700 rounded-lg">
                   <span className="text-gray-300">Total studietid</span>
-                  <span className="font-bold text-white">{skills.reduce((sum, skill) => sum + skill.actual_hours, 0)}h</span>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-navy-700 rounded-lg">
-                  <span className="text-gray-300">Slutförda färdigheter</span>
-                  <span className="font-bold text-white">{skills.filter(s => s.status === 'completed').length}</span>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-navy-700 rounded-lg">
-                  <span className="text-gray-300">Pågående färdigheter</span>
-                  <span className="font-bold text-white">{skills.filter(s => s.status === 'in_progress').length}</span>
-                </div>
-                <div className="flex justify-between items-center p-3 bg-navy-700 rounded-lg">
-                  <span className="text-gray-300">Uppskattad tid kvar</span>
                   <span className="font-bold text-white">
-                    {skills.reduce((sum, skill) => {
-                      return sum + (skill.estimated_hours - skill.actual_hours);
-                    }, 0)}h
+                    {skills.reduce((sum, skill) => sum + (skill.actual_hours || 0), 0)}h
+                  </span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-navy-700 rounded-lg">
+                  <span className="text-gray-300">Slutförda utbildningar</span>
+                  <span className="font-bold text-white">
+                    {skills.filter(s => s.application_status === 'completed' || s.status === 'completed').length}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-navy-700 rounded-lg">
+                  <span className="text-gray-300">Pågående utbildningar</span>
+                  <span className="font-bold text-white">
+                    {skills.filter(s => s.application_status === 'enrolled').length}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center p-3 bg-navy-700 rounded-lg">
+                  <span className="text-gray-300">Status</span>
+                  <span className="font-bold text-white">
+                    {skills.filter(s => s.application_status === 'applied').length > 0 &&
+                      `${skills.filter(s => s.application_status === 'applied').length} ansökningar`}
+                    {skills.filter(s => s.application_status === 'accepted').length > 0 &&
+                      `${skills.filter(s => s.application_status === 'accepted').length} antagningar`}
+                    {skills.filter(s => s.application_status === 'enrolled').length > 0 &&
+                      `${skills.filter(s => s.application_status === 'enrolled').length} pågående`}
+                    {!skills.some(s => ['applied', 'accepted', 'enrolled'].includes(s.application_status || '')) &&
+                      'Inga aktiva'}
                   </span>
                 </div>
               </div>
