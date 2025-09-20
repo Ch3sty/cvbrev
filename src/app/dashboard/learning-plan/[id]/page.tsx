@@ -97,6 +97,7 @@ export default function LearningPlanPage({
   const [showCompletedCourseModal, setShowCompletedCourseModal] = useState(false);
   const [showCompleteEducationModal, setShowCompleteEducationModal] = useState(false);
   const [selectedSkillForProgress, setSelectedSkillForProgress] = useState<Skill | null>(null);
+  const [enrolledCourses, setEnrolledCourses] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     async function initializePage() {
@@ -106,6 +107,55 @@ export default function LearningPlanPage({
     }
     initializePage();
   }, [params]);
+
+  const handleCourseEnrollment = async (skillId: string, course: any) => {
+    try {
+      const supabase = getSupabaseClient();
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (!user) return;
+
+      const courseKey = `${skillId}-${course.title}`;
+
+      if (enrolledCourses.has(courseKey)) {
+        // Remove enrollment
+        await supabase
+          .from('user_course_enrollments')
+          .delete()
+          .eq('skill_id', skillId)
+          .eq('course_title', course.title);
+
+        setEnrolledCourses(prev => {
+          const newSet = new Set(prev);
+          newSet.delete(courseKey);
+          return newSet;
+        });
+      } else {
+        // Add enrollment
+        await supabase
+          .from('user_course_enrollments')
+          .insert({
+            user_id: user.id,
+            plan_id: planId,
+            skill_id: skillId,
+            course_title: course.title,
+            course_url: course.url,
+            course_provider: course.provider,
+            course_duration: course.duration,
+            course_cost: course.cost,
+            enrollment_status: 'applied'
+          });
+
+        setEnrolledCourses(prev => {
+          const newSet = new Set(prev);
+          newSet.add(courseKey);
+          return newSet;
+        });
+      }
+    } catch (error) {
+      console.error('Error handling course enrollment:', error);
+    }
+  };
 
   const loadLearningPlan = async (id: string) => {
     try {
@@ -194,6 +244,18 @@ export default function LearningPlanPage({
         .limit(10);
 
       setProgressEntries(allProgressEntries || []);
+
+      // Load enrolled courses
+      const { data: enrollmentsData } = await supabase
+        .from('user_course_enrollments')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('plan_id', id);
+
+      if (enrollmentsData) {
+        const enrolledSet = new Set(enrollmentsData.map(e => `${e.skill_id}-${e.course_title}`));
+        setEnrolledCourses(enrolledSet);
+      }
 
       // Set user stats with real data
       setUserStats({
@@ -753,7 +815,10 @@ export default function LearningPlanPage({
                             <span className="text-white font-bold text-sm">{index + 1}</span>
                           )}
                         </div>
-                        <h3 className="text-lg font-semibold text-white">{skill.skill_name}</h3>
+                        <div className="flex-1">
+                          <Badge variant="outline" className="text-xs mb-1">FÄRDIGHET</Badge>
+                          <h3 className="text-lg font-semibold text-white">{skill.skill_name}</h3>
+                        </div>
                         {getStatusBadge()}
                         <Badge variant={skill.importance === 'essential' ? 'default' : 'secondary'}>
                           {skill.importance === 'essential' ? 'Kritisk' : skill.importance === 'desirable' ? 'Önskvärd' : 'Valfri'}
@@ -762,7 +827,7 @@ export default function LearningPlanPage({
                       <div className="flex items-center gap-4 text-sm text-gray-400 mb-3">
                         <span>Nivå: {skill.skill_level === 'foundation' ? 'Grund' : skill.skill_level === 'intermediate' ? 'Medel' : 'Avancerad'}</span>
                         <span>•</span>
-                        <span>Längd: {getEducationLength()}</span>
+                        <span>Uppskattad tid för kompetens: {getEducationLength()}</span>
                         {skill.start_date && (
                           <>
                             <span>•</span>
@@ -773,30 +838,68 @@ export default function LearningPlanPage({
 
                       {/* Show courses with links if available */}
                       {skill.courses && skill.courses.length > 0 && (
-                        <div className="mb-4 p-3 bg-navy-700/50 rounded-lg">
-                          <p className="text-xs text-gray-400 mb-2">Rekommenderade utbildningar:</p>
-                          <div className="space-y-2">
-                            {skill.courses.slice(0, 3).map((course: any, idx: number) => (
-                              <div key={idx} className="flex items-start gap-2">
-                                <span className="text-sm text-gray-400 mt-0.5">•</span>
-                                {course.url ? (
-                                  <a
-                                    href={course.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-sm text-blue-400 hover:text-blue-300 hover:underline flex items-center gap-1"
+                        <div className="mb-4 space-y-3">
+                          <div className="flex items-center gap-2">
+                            <BookOpen className="w-4 h-4 text-gray-400" />
+                            <p className="text-sm font-medium text-gray-300">Välj utbildningar som passar dig:</p>
+                          </div>
+                          <div className="space-y-3">
+                            {skill.courses.map((course: any, idx: number) => (
+                              <div key={idx} className="p-3 bg-navy-700/30 border border-navy-600 rounded-lg hover:bg-navy-700/50 transition-colors">
+                                <div className="flex items-start justify-between gap-3">
+                                  <div className="flex-1">
+                                    <div className="flex items-start gap-2">
+                                      {course.url ? (
+                                        <a
+                                          href={course.url}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="text-sm font-medium text-blue-400 hover:text-blue-300 hover:underline flex items-center gap-1"
+                                        >
+                                          {course.title || course.name || course}
+                                          <ExternalLink className="w-3 h-3" />
+                                        </a>
+                                      ) : (
+                                        <span className="text-sm font-medium text-white">
+                                          {course.title || course.name || course}
+                                        </span>
+                                      )}
+                                    </div>
+                                    <div className="flex items-center gap-3 mt-1 text-xs text-gray-400">
+                                      {course.provider && (
+                                        <span className="flex items-center gap-1">
+                                          <span className="text-gray-500">Leverantör:</span> {course.provider}
+                                        </span>
+                                      )}
+                                      {course.duration && (
+                                        <span className="flex items-center gap-1">
+                                          <Clock className="w-3 h-3" />
+                                          {course.duration}
+                                        </span>
+                                      )}
+                                      {course.cost && (
+                                        <span className="flex items-center gap-1">
+                                          <span className="text-gray-500">Pris:</span> {course.cost}
+                                        </span>
+                                      )}
+                                    </div>
+                                  </div>
+                                  <Button
+                                    size="sm"
+                                    variant={enrolledCourses.has(`${skill.id}-${course.title}`) ? "secondary" : "outline"}
+                                    className="shrink-0"
+                                    onClick={() => handleCourseEnrollment(skill.id, course)}
                                   >
-                                    {course.title || course.name || course}
-                                    <ExternalLink className="w-3 h-3" />
-                                  </a>
-                                ) : (
-                                  <span className="text-sm text-white">
-                                    {course.title || course.name || course}
-                                  </span>
-                                )}
-                                {course.provider && (
-                                  <span className="text-xs text-gray-500">({course.provider})</span>
-                                )}
+                                    {enrolledCourses.has(`${skill.id}-${course.title}`) ? (
+                                      <>
+                                        <CheckCircle className="w-3 h-3 mr-1" />
+                                        Anmäld
+                                      </>
+                                    ) : (
+                                      'Markera som anmäld'
+                                    )}
+                                  </Button>
+                                </div>
                               </div>
                             ))}
                           </div>
