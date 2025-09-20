@@ -270,7 +270,7 @@ export async function POST(request: NextRequest) {
                     body: JSON.stringify({ jobId: newJob.id })
                 }),
                 new Promise((_, reject) =>
-                    setTimeout(() => reject(new Error('Edge function timeout after 5s')), 5000)
+                    setTimeout(() => reject(new Error('Edge function timeout after 30s')), 30000)
                 )
             ]) as Response;
 
@@ -293,20 +293,26 @@ export async function POST(request: NextRequest) {
                     .eq('id', newJob.id);
             }
         } catch (err: any) {
-            console.error('--- API /start: Failed to trigger edge function:', err.message);
+            // If it's a timeout, that's actually OK - the edge function is running async
+            if (err.message.includes('timeout')) {
+                console.log('--- API /start: Edge function is processing in background (timeout is normal for long analyses)');
+                // Don't mark as error - the job is likely running fine
+            } else {
+                console.error('--- API /start: Failed to trigger edge function:', err.message);
 
-            // Don't fail the main request, but mark job as queued
-            try {
-                await supabase
-                    .from('competence_analysis_jobs')
-                    .update({
-                        status: 'queued',
-                        current_step: 'Väntar på bearbetning...',
-                        error_message: `Trigger error: ${err.message}`
-                    })
-                    .eq('id', newJob.id);
-            } catch (updateErr) {
-                console.error('--- API /start: Failed to update job status:', updateErr);
+                // Mark job as queued only for real errors
+                try {
+                    await supabase
+                        .from('competence_analysis_jobs')
+                        .update({
+                            status: 'queued',
+                            current_step: 'Väntar på bearbetning...',
+                            error_message: `Trigger error: ${err.message}`
+                        })
+                        .eq('id', newJob.id);
+                } catch (updateErr) {
+                    console.error('--- API /start: Failed to update job status:', updateErr);
+                }
             }
         }
 
