@@ -482,19 +482,24 @@ export default function CreateLetterPage() {
       <div className="min-h-screen text-white">
           <div className="container max-w-7xl px-4 py-10 mx-auto">
 
-              {/* --- Sidhuvud --- */}
-              <div className="mb-8 md:mb-12 text-center">
-                  <h1 className="mb-3 text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-                      Skapa <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Personligt Brev</span> med AI
-                  </h1>
-                  <p className="max-w-2xl mx-auto text-lg text-gray-300">
+              {/* --- Premium Sidhuvud --- */}
+              <div className="mb-10 md:mb-14 text-center">
+                  <div className="relative inline-block mb-4">
+                      <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-600 blur-2xl opacity-40"></div>
+                      <h1 className="relative text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">
+                          Skapa <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400">Personligt Brev</span> med AI
+                      </h1>
+                  </div>
+                  <p className="max-w-3xl mx-auto text-lg md:text-xl text-gray-300 leading-relaxed">
                       Välj ditt CV, klistra in jobbannonsen och låt vår AI skapa ett unikt och anpassat utkast på sekunder.
                   </p>
               </div>
 
-              {/* --- Veckogräns Info (Free Tier) - UPPDATERAD SEKTION --- */}
+              {/* --- Premium Veckogräns Info --- */}
               {isFreeTier && weeklyLetterLimit > 0 && weeklyLetterLimit !== Infinity && (
-                <section aria-labelledby="letter-limit-heading" className="mb-8 p-5 bg-navy-800 rounded-lg border border-navy-700">
+                <section aria-labelledby="letter-limit-heading" className="relative mb-8 p-6 bg-gradient-to-br from-navy-800 to-navy-900 rounded-xl border border-navy-700 shadow-2xl overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-purple-500/5 pointer-events-none"></div>
+                  <div className="relative z-10">
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                     <div>
                       <h2 id="letter-limit-heading" className="flex items-center mb-1 font-medium text-white">
@@ -541,6 +546,7 @@ export default function CreateLetterPage() {
                       </span>
                     </div>
                   )}
+                  </div>
                 </section>
               )}
               {/* --- SLUT PÅ UPPDATERAD SEKTION --- */}
@@ -548,8 +554,11 @@ export default function CreateLetterPage() {
               {/* --- Huvudlayout (Grid) --- */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
 
-                  {/* === Vänsterkolumn: Input === */}
-                  <div className="space-y-6 p-6 bg-navy-800/50 border border-navy-700 rounded-2xl shadow-xl flex flex-col"> {/* Lade till flex flex-col */}
+                  {/* === Premium Vänsterkolumn: Input === */}
+                  <div className="relative space-y-6 p-7 bg-gradient-to-br from-navy-800 to-navy-900 border border-navy-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-pink-500/5 pointer-events-none"></div>
+                      <div className="relative z-10 space-y-6 flex flex-col">
 
                       {/* --- 1. Välj CV --- */}
                       <section>
@@ -565,7 +574,7 @@ export default function CreateLetterPage() {
                           ) : cvs.length === 0 ? (
                               <div className="p-4 text-center bg-navy-900/30 rounded-md border border-navy-600">
                                   <p className="text-gray-300 mb-3">Inga CV:n uppladdade ännu.</p>
-                                  <button onClick={() => router.push('/dashboard/profil?tab=cv')} className="inline-flex items-center px-4 py-2 font-medium text-white bg-pink-600 rounded-md hover:bg-pink-700 text-sm transition-colors">
+                                  <button onClick={() => router.push('/dashboard/profil?tab=cv')} className="inline-flex items-center px-5 py-2.5 font-medium text-white bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 rounded-lg text-sm transition-all shadow-lg hover:shadow-pink-500/25 hover:scale-105">
                                       <Upload className="w-4 h-4 mr-2" /> Ladda upp CV
                                   </button>
                               </div>
@@ -575,7 +584,11 @@ export default function CreateLetterPage() {
                                       <div
                                           key={cv.id}
                                           onClick={() => !isSubmitting && setSelectedCV(cv.id)}
-                                          className={`p-3 cursor-pointer rounded-lg transition-all duration-200 border ${ selectedCV === cv.id ? 'bg-navy-700 border-pink-500 shadow-inner scale-[1.02]' : 'bg-navy-900/60 border-navy-700 hover:bg-navy-700/70 hover:border-navy-600' } ${isSubmitting ? 'opacity-60 cursor-not-allowed' : ''}`} >
+                                          className={`p-4 cursor-pointer rounded-xl transition-all duration-300 border group ${
+                                            selectedCV === cv.id
+                                              ? 'bg-gradient-to-r from-pink-600/20 to-purple-600/20 border-pink-500 shadow-lg shadow-pink-500/20 scale-[1.02]'
+                                              : 'bg-navy-900/60 border-navy-700 hover:bg-navy-800/70 hover:border-purple-500/50 hover:shadow-md'
+                                          } ${isSubmitting ? 'opacity-60 cursor-not-allowed' : ''}`} >
                                           <p className="font-medium text-white truncate">{cv.file_name || `CV ${cv.id.substring(0, 6)}`}</p>
                                           {cv.created_at && <p className="text-xs text-gray-400">Uppladdat: {formatDate(cv.created_at)}</p>}
                                       </div>
@@ -662,10 +675,14 @@ export default function CreateLetterPage() {
                                 <p className="text-center text-xs text-red-400 mt-2.5">Veckogräns nådd. Uppgradera för fler.</p>
                            )}
                       </div>
+                      </div>
                   </div> {/* Slut Vänsterkolumn */}
 
-                  {/* === Högerkolumn: Förhandsgranskning === */}
-                  <div className="p-6 bg-navy-800/50 border border-navy-700 rounded-2xl shadow-xl flex flex-col" style={{ minHeight: '70vh' }}>
+                  {/* === Premium Högerkolumn: Förhandsgranskning === */}
+                  <div className="relative p-7 bg-gradient-to-br from-navy-800 to-navy-900 border border-navy-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden" style={{ minHeight: '70vh' }}>
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/5 to-blue-500/5 pointer-events-none"></div>
+                      <div className="relative z-10 flex flex-col h-full">
                       {/* Section Header */}
                       <h2 className="mb-4 text-xl font-semibold text-white flex items-center">
                           <Eye className="w-5 h-5 mr-2 text-green-400" />
@@ -695,9 +712,43 @@ export default function CreateLetterPage() {
                       {generatedLetter && (
                           <div className="mt-5 flex flex-wrap gap-3 justify-start">
                                {/* Knappar (Spara, Redigera, Nytt Fönster) med logik oförändrad, endast styling */}
-                              <button onClick={handleSaveLetter} disabled={isSaveButtonDisabled} className={`inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 border shadow-sm ${ isSaveButtonDisabled ? 'bg-navy-700 text-gray-500 border-navy-700 cursor-not-allowed' : 'bg-navy-700 text-white border-gray-600 hover:bg-navy-600 hover:border-gray-500 hover:scale-[1.03]' }`} > {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : (letterData?.is_saved ? <Check className="w-4 h-4 mr-2 text-green-400" /> : <Save className="w-4 h-4 mr-2" />)} {isSaving ? 'Sparar...' : (letterData?.is_saved ? 'Sparat' : 'Spara brev')} </button>
-                              <button onClick={handleEdit} disabled={isEditButtonDisabled} className={`inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 border shadow-sm ${ isEditButtonDisabled ? 'bg-navy-700 text-gray-500 border-navy-700 cursor-not-allowed' : 'bg-navy-700 text-white border-gray-600 hover:bg-navy-600 hover:border-gray-500 hover:scale-[1.03]' }`} > <Pencil className="w-4 h-4 mr-2" /> Redigera </button>
-                              <button onClick={() => { const newWindow = window.open('', '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes'); if (newWindow && generatedLetter) { newWindow.document.write(`<!DOCTYPE html><html><head><title>Personligt Brev - Förhandsgranskning</title><style>body{font-family:system-ui,sans-serif;padding:30px 40px;line-height:1.65;color:#2d3748;} .content{white-space:pre-wrap;}</style></head><body><div class="content">${generatedLetter.replace(/</g, "<").replace(/>/g, ">")}</div></body></html>`); newWindow.document.close(); } }} className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-navy-700 border border-gray-600 rounded-lg hover:bg-navy-600 hover:border-gray-500 transition-all duration-200 shadow-sm hover:scale-[1.03]" > <ExternalLink className="w-4 h-4 mr-2" /> Visa i nytt fönster </button>
+                              <button
+                                onClick={handleSaveLetter}
+                                disabled={isSaveButtonDisabled}
+                                className={`inline-flex items-center px-5 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 shadow-lg hover:scale-105 ${
+                                  isSaveButtonDisabled
+                                    ? 'bg-gray-600 text-gray-400 cursor-not-allowed opacity-60'
+                                    : 'bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white hover:shadow-green-500/25'
+                                }`}
+                              >
+                                {isSaving ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : (letterData?.is_saved ? <Check className="w-4 h-4 mr-2" /> : <Save className="w-4 h-4 mr-2" />)}
+                                {isSaving ? 'Sparar...' : (letterData?.is_saved ? 'Sparat' : 'Spara brev')}
+                              </button>
+                              <button
+                                onClick={handleEdit}
+                                disabled={isEditButtonDisabled}
+                                className={`inline-flex items-center px-5 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 shadow-lg hover:scale-105 ${
+                                  isEditButtonDisabled
+                                    ? 'bg-gray-600 text-gray-400 cursor-not-allowed opacity-60'
+                                    : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white hover:shadow-purple-500/25'
+                                }`}
+                              >
+                                <Pencil className="w-4 h-4 mr-2" />
+                                Redigera
+                              </button>
+                              <button
+                                onClick={() => {
+                                  const newWindow = window.open('', '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+                                  if (newWindow && generatedLetter) {
+                                    newWindow.document.write(`<!DOCTYPE html><html><head><title>Personligt Brev - Förhandsgranskning</title><style>body{font-family:system-ui,sans-serif;padding:30px 40px;line-height:1.65;color:#2d3748;} .content{white-space:pre-wrap;}</style></head><body><div class="content">${generatedLetter.replace(/</g, "<").replace(/>/g, ">")}</div></body></html>`);
+                                    newWindow.document.close();
+                                  }
+                                }}
+                                className="inline-flex items-center px-5 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 shadow-lg hover:scale-105 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white hover:shadow-blue-500/25"
+                              >
+                                <ExternalLink className="w-4 h-4 mr-2" />
+                                Visa i nytt fönster
+                              </button>
                               {/* Uppgraderingsknapp vid spargräns */}
                               {hasReachedLetterLimit && subscriptionTier === 'free' && !letterData?.is_saved && ( <button onClick={handleUpgrade} className="inline-flex items-center px-4 py-2 text-sm font-medium text-pink-400 bg-navy-700 border border-pink-700/50 rounded-lg hover:bg-pink-900/30 hover:text-pink-300 transition-colors ml-auto shadow-sm" > <Crown className="w-4 h-4 mr-2" /> Uppgradera för att spara </button> )}
                           </div>
@@ -712,6 +763,7 @@ export default function CreateLetterPage() {
                                 </div>
                             </div>
                         )}
+                      </div>
                   </div> {/* Slut Högerkolumn */}
               </div> {/* Slut Grid */}
           </div> {/* Slut Container */}
