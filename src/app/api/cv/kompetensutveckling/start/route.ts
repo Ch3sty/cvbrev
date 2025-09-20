@@ -251,70 +251,54 @@ export async function POST(request: NextRequest) {
             subscriptionTier
         });
 
-        // Trigger the Edge Function to process the job
-        try {
-            const projectUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-            const functionUrl = `${projectUrl}/functions/v1/process-competence-analysis`;
-            const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+        // Trigger the Edge Function to process the job (fire and forget)
+        const projectUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+        const functionUrl = `${projectUrl}/functions/v1/process-competence-analysis`;
+        const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
-            console.log(`--- API /start: Triggering edge function at ${functionUrl}`);
+        console.log(`--- API /start: Triggering edge function at ${functionUrl}`);
 
-            // Use await to ensure the connection is established properly
-            const edgeResponse = await Promise.race([
-                fetch(functionUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${serviceKey}`
-                    },
-                    body: JSON.stringify({ jobId: newJob.id })
-                }),
-                new Promise((_, reject) =>
-                    setTimeout(() => reject(new Error('Edge function timeout after 30s')), 30000)
-                )
-            ]) as Response;
-
-            if (edgeResponse.ok) {
-                const result = await edgeResponse.json().catch(() => ({}));
-                console.log(`--- API /start: Edge function triggered successfully for job ${newJob.id}`, result);
+        // Fire and forget - don't wait for the response to avoid Vercel timeout
+        fetch(functionUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${serviceKey}`
+            },
+            body: JSON.stringify({ jobId: newJob.id })
+        }).then(response => {
+            if (response.ok) {
+                console.log(`--- API /start: Edge function triggered successfully for job ${newJob.id}`);
             } else {
-                console.error(`--- API /start: Edge function returned ${edgeResponse.status}`);
-                const errorText = await edgeResponse.text().catch(() => 'No error details');
-                console.error(`--- API /start: Edge function error:`, errorText);
-
-                // Mark job as queued for retry
-                await supabase
+                console.error(`--- API /start: Edge function returned ${response.status}`);
+                // Update job status asynchronously
+                supabase
                     .from('competence_analysis_jobs')
                     .update({
                         status: 'queued',
                         current_step: 'Väntar på bearbetning...',
-                        error_message: `Edge function error: ${edgeResponse.status}`
+                        error_message: `Edge function error: ${response.status}`
                     })
-                    .eq('id', newJob.id);
+                    .eq('id', newJob.id)
+                    .then(() => {
+                        console.log('--- API /start: Job status updated to queued');
+                    });
             }
-        } catch (err: any) {
-            // If it's a timeout, that's actually OK - the edge function is running async
-            if (err.message.includes('timeout')) {
-                console.log('--- API /start: Edge function is processing in background (timeout is normal for long analyses)');
-                // Don't mark as error - the job is likely running fine
-            } else {
-                console.error('--- API /start: Failed to trigger edge function:', err.message);
-
-                // Mark job as queued only for real errors
-                try {
-                    await supabase
-                        .from('competence_analysis_jobs')
-                        .update({
-                            status: 'queued',
-                            current_step: 'Väntar på bearbetning...',
-                            error_message: `Trigger error: ${err.message}`
-                        })
-                        .eq('id', newJob.id);
-                } catch (updateErr) {
-                    console.error('--- API /start: Failed to update job status:', updateErr);
-                }
-            }
-        }
+        }).catch(err => {
+            console.error('--- API /start: Failed to trigger edge function:', err.message);
+            // Update job status asynchronously
+            supabase
+                .from('competence_analysis_jobs')
+                .update({
+                    status: 'queued',
+                    current_step: 'Väntar på bearbetning...',
+                    error_message: `Trigger error: ${err.message}`
+                })
+                .eq('id', newJob.id)
+                .then(() => {
+                    console.log('--- API /start: Job status updated to queued after error');
+                });
+        });
 
         const responseTime = Date.now() - startTime;
         console.log(`--- API /start: Request completed in ${responseTime}ms`);
