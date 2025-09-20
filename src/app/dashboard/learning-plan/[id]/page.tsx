@@ -72,6 +72,7 @@ export default function LearningPlanPage({
   });
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<'overview' | 'skills' | 'progress'>('overview');
+  const [isUpdatingProgress, setIsUpdatingProgress] = useState(false);
 
   useEffect(() => {
     async function initializePage() {
@@ -107,14 +108,64 @@ export default function LearningPlanPage({
       if (skillsError) throw skillsError;
       setSkills(skillsData || []);
 
-      // Simulate user stats (would come from database in real implementation)
+      // Get current user
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
+      // Load or create gamification stats
+      let { data: statsData, error: statsError } = await supabase
+        .from('user_gamification_stats')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('plan_id', id)
+        .single();
+
+      if (statsError && statsError.code === 'PGRST116') {
+        // No stats exist, create initial stats
+        const { data: newStats } = await supabase
+          .from('user_gamification_stats')
+          .insert({
+            user_id: user.id,
+            plan_id: id,
+            total_xp: 0,
+            current_level: 1,
+            current_streak: 0,
+            weekly_goal_hours: planData.time_commitment_hours || 10,
+            weekly_progress_hours: 0
+          })
+          .select()
+          .single();
+        statsData = newStats;
+      }
+
+      // Load user achievements
+      const { data: achievementsData } = await supabase
+        .from('user_achievements')
+        .select('achievement_key')
+        .eq('user_id', user.id)
+        .eq('plan_id', id);
+
+      // Calculate weekly progress from last 7 days
+      const weekAgo = new Date();
+      weekAgo.setDate(weekAgo.getDate() - 7);
+
+      const { data: weeklyProgressData } = await supabase
+        .from('learning_progress_entries')
+        .select('hours_spent')
+        .eq('user_id', user.id)
+        .eq('plan_id', id)
+        .gte('date', weekAgo.toISOString().split('T')[0]);
+
+      const weeklyHours = weeklyProgressData?.reduce((sum, entry) => sum + Number(entry.hours_spent), 0) || 0;
+
+      // Set user stats with real data
       setUserStats({
-        currentStreak: 7,
-        totalXP: 2450,
-        currentLevel: 3,
-        weeklyGoal: 10,
-        weeklyProgress: 6.5,
-        achievements: ['first_course', 'week_streak', 'skill_master']
+        currentStreak: statsData?.current_streak || 0,
+        totalXP: statsData?.total_xp || 0,
+        currentLevel: statsData?.current_level || 1,
+        weeklyGoal: statsData?.weekly_goal_hours || 10,
+        weeklyProgress: weeklyHours,
+        achievements: achievementsData?.map(a => a.achievement_key) || []
       });
 
     } catch (error) {
@@ -148,6 +199,40 @@ export default function LearningPlanPage({
       5: 'Specialist'
     };
     return titles[level as keyof typeof titles] || 'Mästare';
+  };
+
+  // Function to update progress
+  const updateProgress = async (skillId: string, activityType: string, hoursSpent = 0.5) => {
+    if (isUpdatingProgress || !planId) return;
+
+    setIsUpdatingProgress(true);
+    try {
+      const response = await fetch(`/api/learning-plans/${planId}/progress`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          skillId,
+          hoursSpent,
+          activityType,
+          activityDescription: `Arbetade med ${skills.find(s => s.id === skillId)?.skill_name}`,
+          xpEarned: activityType === 'skill_completed' ? 200 : 50
+        })
+      });
+
+      if (!response.ok) throw new Error('Failed to update progress');
+
+      const data = await response.json();
+
+      // Reload the page data to show updated stats
+      await loadLearningPlan(planId);
+
+      // Show success message (you could add a toast notification here)
+      console.log('Progress updated!', data);
+    } catch (error) {
+      console.error('Error updating progress:', error);
+    } finally {
+      setIsUpdatingProgress(false);
+    }
   };
 
   if (isLoading) {
@@ -391,9 +476,14 @@ export default function LearningPlanPage({
                           style={{ width: `${Math.min((skill.actual_hours / skill.estimated_hours) * 100, 100)}%` }}
                         ></div>
                       </div>
-                      <Button size="sm" className="w-full">
+                      <Button
+                        size="sm"
+                        className="w-full"
+                        onClick={() => updateProgress(skill.id, 'module_started', 0.5)}
+                        disabled={isUpdatingProgress}
+                      >
                         <PlayCircle className="w-4 h-4 mr-2" />
-                        Fortsätt med {skill.skill_name}
+                        {isUpdatingProgress ? 'Uppdaterar...' : `Fortsätt med ${skill.skill_name}`}
                       </Button>
                     </div>
                   ))}
@@ -403,7 +493,17 @@ export default function LearningPlanPage({
                   <PlayCircle className="w-12 h-12 text-gray-500 mx-auto mb-4" />
                   <h4 className="font-semibold text-white mb-2">Redo att börja?</h4>
                   <p className="text-gray-400 mb-4">Välj en färdighet att fokusera på</p>
-                  <Button>Börja första färdigheten</Button>
+                  <Button
+                    onClick={() => {
+                      const firstSkill = skills.find(s => s.status === 'pending');
+                      if (firstSkill) {
+                        updateProgress(firstSkill.id, 'module_started', 0.5);
+                      }
+                    }}
+                    disabled={isUpdatingProgress || skills.length === 0}
+                  >
+                    {isUpdatingProgress ? 'Startar...' : 'Börja första färdigheten'}
+                  </Button>
                 </div>
               )}
             </CardContent>
@@ -510,8 +610,14 @@ export default function LearningPlanPage({
                         <Button
                           size="sm"
                           variant={skill.status === 'in_progress' ? 'default' : 'secondary'}
+                          onClick={() => updateProgress(
+                            skill.id,
+                            skill.status === 'pending' ? 'module_started' : 'course_completed',
+                            skill.status === 'pending' ? 0.5 : 1
+                          )}
+                          disabled={isUpdatingProgress}
                         >
-                          {skill.status === 'in_progress' ? 'Fortsätt' : 'Börja'}
+                          {isUpdatingProgress ? 'Uppdaterar...' : skill.status === 'in_progress' ? 'Fortsätt' : 'Börja'}
                         </Button>
                       )}
                     </div>
