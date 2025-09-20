@@ -85,24 +85,26 @@ const LearningJourneyDashboard: React.FC<LearningJourneyDashboardProps> = ({
   // Calculate optimized course recommendations
   const optimizedCourses = useMemo(() => {
     const allCourses: Course[] = [];
-    const courseSkillMap = new (Map as any)() as Map<string, Set<string>>;
+    const courseSkillMap: { [key: string]: string[] } = {};
 
     learningSuggestions.forEach((gap: any) => {
       gap.suggestions?.forEach((course: any) => {
         const courseKey = course.title + course.provider;
-        if (!courseSkillMap.has(courseKey)) {
-          courseSkillMap.set(courseKey, new Set());
+        if (!courseSkillMap[courseKey]) {
+          courseSkillMap[courseKey] = [];
           allCourses.push(course);
         }
-        courseSkillMap.get(courseKey)?.add(gap.skill);
+        if (!courseSkillMap[courseKey].includes(gap.skill)) {
+          courseSkillMap[courseKey].push(gap.skill);
+        }
       });
     });
 
     // Enrich courses with skills covered count
     return allCourses.map(course => ({
       ...course,
-      skillsCovered: Array.from(courseSkillMap.get(course.title + course.provider) || []),
-      efficiency: courseSkillMap.get(course.title + course.provider)?.size || 1
+      skillsCovered: courseSkillMap[course.title + course.provider] || [],
+      efficiency: courseSkillMap[course.title + course.provider]?.length || 1
     })).sort((a, b) => b.efficiency - a.efficiency);
   }, [learningSuggestions]);
 
@@ -472,7 +474,8 @@ const LearningJourneyDashboard: React.FC<LearningJourneyDashboardProps> = ({
               </p>
               <p className="text-xs text-gray-400">
                 Med dessa {optimizedCourses.slice(0, 3).length} kurser täcker du {
-                  new Set(optimizedCourses.slice(0, 3).flatMap(c => c.skillsCovered || [])).size
+                  optimizedCourses.slice(0, 3).flatMap(c => c.skillsCovered || [])
+                    .filter((skill, index, self) => self.indexOf(skill) === index).length
                 } kompetensområden
               </p>
             </div>
