@@ -135,40 +135,52 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
           {gamificationStats && (
             <div className="flex items-center space-x-4 pl-6 border-l border-gray-700">
               {/* Level Badge */}
-              <div className="relative">
-                <div className="w-14 h-14 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full flex items-center justify-center shadow-lg">
-                  <span className="text-white font-bold text-lg">
+              <div className="relative group">
+                <div className="w-16 h-16 bg-gradient-to-br from-pink-600 via-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-xl border-2 border-white/20 backdrop-blur-sm">
+                  <span className="text-white font-bold text-xl tracking-wide">
                     {gamificationStats.stats.current_level}
                   </span>
                 </div>
-                {/* Progress Ring */}
-                <svg className="absolute -inset-1 w-16 h-16 transform -rotate-90">
+
+                {/* Enhanced Progress Ring */}
+                <svg className="absolute -inset-2 w-20 h-20 transform -rotate-90">
+                  {/* Background Ring */}
                   <circle
-                    cx="32"
-                    cy="32"
-                    r="28"
-                    stroke="rgba(255,255,255,0.1)"
-                    strokeWidth="3"
+                    cx="40"
+                    cy="40"
+                    r="36"
+                    stroke="rgba(255,255,255,0.08)"
+                    strokeWidth="2"
                     fill="none"
                   />
+                  {/* Progress Ring */}
                   <circle
-                    cx="32"
-                    cy="32"
-                    r="28"
-                    stroke="url(#gradient)"
+                    cx="40"
+                    cy="40"
+                    r="36"
+                    stroke="url(#levelGradient)"
                     strokeWidth="3"
                     fill="none"
-                    strokeDasharray={`${getXPProgress() * 1.76} 176`}
+                    strokeDasharray={`${getXPProgress() * 2.26} 226`}
                     strokeLinecap="round"
-                    className="transition-all duration-500"
+                    className="transition-all duration-700 ease-out drop-shadow-sm"
+                    style={{
+                      filter: 'drop-shadow(0 0 6px rgba(232, 121, 249, 0.4))'
+                    }}
                   />
                   <defs>
-                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#06b6d4" />
+                    <linearGradient id="levelGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stopColor="#ec4899" />
+                      <stop offset="50%" stopColor="#a855f7" />
                       <stop offset="100%" stopColor="#3b82f6" />
                     </linearGradient>
                   </defs>
                 </svg>
+
+                {/* Hover Tooltip */}
+                <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-navy-800 text-white text-xs px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap border border-navy-700 shadow-xl">
+                  Level {gamificationStats.stats.current_level} • {getXPProgress()}% till nästa
+                </div>
               </div>
 
               {/* XP Stats */}
@@ -185,13 +197,32 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
                 </div>
               </div>
 
-              {/* Streak */}
+              {/* Enhanced Streak Display */}
               {gamificationStats.stats.daily_streak > 0 && (
-                <div className="flex items-center space-x-2 px-3 py-1 bg-orange-500/20 rounded-full border border-orange-500/30">
-                  <span className="text-orange-400">🔥</span>
-                  <span className="text-orange-400 font-semibold text-sm">
-                    {gamificationStats.stats.daily_streak} dagar
-                  </span>
+                <div className="relative group">
+                  <div className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-orange-500/20 via-red-500/20 to-pink-500/20 rounded-full border border-orange-500/40 backdrop-blur-sm shadow-lg">
+                    <span
+                      className="text-xl animate-pulse"
+                      style={{
+                        animation: 'fireFlicker 1.5s ease-in-out infinite alternate'
+                      }}
+                    >
+                      🔥
+                    </span>
+                    <div className="flex flex-col">
+                      <span className="text-orange-400 font-bold text-sm tracking-wide">
+                        {gamificationStats.stats.daily_streak} dagar
+                      </span>
+                      <span className="text-orange-300/70 text-xs">
+                        streak
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Streak tooltip */}
+                  <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-navy-800 text-white text-xs px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap border border-navy-700 shadow-xl">
+                    {gamificationStats.stats.daily_streak} dagar i rad! Fortsätt så!
+                  </div>
                 </div>
               )}
             </div>
@@ -210,13 +241,25 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
             />
           </div>
 
-          {/* Achievements/Notifications */}
-          <button className="relative p-2 rounded-lg hover:bg-navy-800 transition-colors group">
-            <Trophy className="w-5 h-5 text-gray-400 group-hover:text-yellow-400 transition-colors" />
+          {/* Enhanced Achievements/Notifications */}
+          <button className="relative p-3 rounded-xl hover:bg-navy-800/60 transition-all duration-300 group hover:scale-105">
+            <Trophy
+              className="w-6 h-6 text-gray-400 group-hover:text-yellow-400 transition-all duration-300"
+              style={{
+                filter: gamificationStats && gamificationStats.achievements.length > 0
+                  ? 'drop-shadow(0 0 8px rgba(251, 191, 36, 0.6))'
+                  : 'none'
+              }}
+            />
             {gamificationStats && gamificationStats.achievements.length > 0 && (
-              <span className="absolute -top-1 -right-1 bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center animate-pulse">
-                {gamificationStats.achievements.length}
-              </span>
+              <div className="absolute -top-2 -right-2">
+                {/* Glow ring */}
+                <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full blur animate-pulse scale-125" />
+                {/* Badge */}
+                <span className="relative bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center border-2 border-white shadow-xl animate-bounce">
+                  {gamificationStats.achievements.length}
+                </span>
+              </div>
             )}
           </button>
 
@@ -237,16 +280,91 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
         </div>
       </div>
 
-      {/* XP Animation */}
+      {/* Enhanced XP Animation */}
       {showXPAnimation && (
-        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 animate-bounce">
-          <div className="px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full shadow-2xl">
-            <span className="text-white font-bold text-lg">
-              +{xpGainAmount} XP! ✨
-            </span>
+        <div
+          className="fixed top-24 left-1/2 transform -translate-x-1/2 z-50"
+          style={{
+            animation: 'xpFloatUp 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards'
+          }}
+        >
+          <div className="relative">
+            {/* Glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-green-400 to-emerald-400 rounded-full blur-xl opacity-40 scale-110"></div>
+
+            {/* Main XP badge */}
+            <div className="relative px-8 py-4 bg-gradient-to-r from-yellow-500 via-green-500 to-emerald-500 rounded-full shadow-2xl border-2 border-white/30 backdrop-blur-sm">
+              <div className="flex items-center space-x-2">
+                <Zap className="w-5 h-5 text-white animate-pulse" />
+                <span className="text-white font-bold text-xl tracking-wide">
+                  +{xpGainAmount} XP
+                </span>
+                <span className="text-2xl animate-bounce">✨</span>
+              </div>
+            </div>
+
+            {/* Particle effects */}
+            <div className="absolute top-0 left-0 w-full h-full">
+              {[...Array(6)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute w-2 h-2 bg-yellow-300 rounded-full"
+                  style={{
+                    top: '50%',
+                    left: '50%',
+                    animation: `xpParticle 2s ease-out ${i * 0.2}s forwards`,
+                    transform: `rotate(${i * 60}deg) translateX(20px)`
+                  }}
+                />
+              ))}
+            </div>
           </div>
         </div>
       )}
+
+      <style jsx>{`
+        @keyframes xpFloatUp {
+          0% {
+            opacity: 0;
+            transform: translateX(-50%) translateY(20px) scale(0.8);
+          }
+          20% {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0px) scale(1.1);
+          }
+          80% {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-10px) scale(1);
+          }
+          100% {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-30px) scale(0.9);
+          }
+        }
+
+        @keyframes xpParticle {
+          0% {
+            opacity: 1;
+            transform: rotate(var(--rotation, 0deg)) translateX(20px) scale(1);
+          }
+          100% {
+            opacity: 0;
+            transform: rotate(var(--rotation, 0deg)) translateX(40px) scale(0);
+          }
+        }
+
+        @keyframes fireFlicker {
+          0% {
+            transform: scale(1) rotate(-1deg);
+          }
+          50% {
+            transform: scale(1.1) rotate(1deg);
+          }
+          100% {
+            transform: scale(1.05) rotate(-0.5deg);
+          }
+        }
+      `}</style>
     </header>
   );
 }

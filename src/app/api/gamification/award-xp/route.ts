@@ -1,6 +1,7 @@
 // src/app/api/gamification/award-xp/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createServerClient } from '@/lib/supabase/server';
+import { cookies } from 'next/headers';
 
 interface XPAwardRequest {
   amount: number;
@@ -11,7 +12,8 @@ interface XPAwardRequest {
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient();
+    const cookieStore = await cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
     const body: XPAwardRequest = await request.json();
 
     const { amount, source, sourceId, description } = body;

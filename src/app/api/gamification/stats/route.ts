@@ -1,10 +1,12 @@
 // src/app/api/gamification/stats/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { createServerClient } from '@/lib/supabase/server';
+import { cookies } from 'next/headers';
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = await createClient();
+    const cookieStore = await cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
 
     // Get current user
     const { data: { user }, error: userError } = await supabase.auth.getUser();
@@ -13,11 +15,13 @@ export async function GET(request: NextRequest) {
     }
 
     // Get or create user stats
-    let { data: stats, error: statsError } = await supabase
+    const { data: statsData, error: statsError } = await supabase
       .from('global_user_stats')
       .select('*')
       .eq('user_id', user.id)
       .single();
+
+    let stats = statsData;
 
     // If no stats exist, create them
     if (!stats) {
