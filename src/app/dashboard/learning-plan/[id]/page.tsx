@@ -529,81 +529,25 @@ export default function LearningPlanPage({
           </CardContent>
         </Card>
 
-        {/* Gamification Stats */}
+        {/* Quick Actions - Simplified without gamification */}
         <div className="lg:w-80 space-y-4">
-          {/* Level & XP */}
           <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <Star className="w-5 h-5 text-yellow-500" />
-                  <span className="font-semibold">Nivå {userStats.currentLevel}</span>
-                </div>
-                <span className="text-sm text-gray-400">{getLevelTitle(userStats.currentLevel)}</span>
-              </div>
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">XP</span>
-                  <span className="text-white">{userStats.totalXP} / {getNextLevelXP()}</span>
-                </div>
-                <div className="w-full bg-navy-700 rounded-full h-2">
-                  <div
-                    className="bg-gradient-to-r from-yellow-500 to-orange-500 h-2 rounded-full transition-all duration-1000"
-                    style={{ width: `${getCurrentLevelProgress()}%` }}
-                  ></div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Streak Counter */}
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="relative">
-                    <Flame className="w-6 h-6 text-orange-500" />
-                    {userStats.currentStreak > 0 && (
-                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
-                        <span className="text-xs font-bold text-white">{userStats.currentStreak}</span>
-                      </div>
-                    )}
-                  </div>
-                  <div>
-                    <p className="font-semibold">Streak</p>
-                    <p className="text-xs text-gray-400">dagar i rad</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <p className="text-lg font-bold text-orange-500">{userStats.currentStreak}</p>
-                  <p className="text-xs text-gray-400">Fantastiskt!</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Weekly Goal */}
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 text-blue-500" />
-                  <span className="font-semibold">Veckomål</span>
-                </div>
-                <span className="text-sm text-gray-400">{userStats.weeklyProgress}h / {userStats.weeklyGoal}h</span>
-              </div>
-              <div className="w-full bg-navy-700 rounded-full h-2">
-                <div
-                  className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-1000"
-                  style={{ width: `${Math.min((userStats.weeklyProgress / userStats.weeklyGoal) * 100, 100)}%` }}
-                ></div>
-              </div>
-              <p className="text-xs text-gray-400 mt-2">
-                {userStats.weeklyProgress >= userStats.weeklyGoal
-                  ? 'Mål uppnått! Bra jobbat!'
-                  : `${userStats.weeklyGoal - userStats.weeklyProgress} timmar kvar`
-                }
-              </p>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-lg">Snabbåtgärder</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-3">
+              <Button className="w-full justify-start" variant="secondary" size="sm">
+                <Calendar className="w-4 h-4 mr-2" />
+                Schemalägg studietid
+              </Button>
+              <Button className="w-full justify-start" variant="secondary" size="sm">
+                <BookOpen className="w-4 h-4 mr-2" />
+                Visa kurskatalog
+              </Button>
+              <Button className="w-full justify-start" variant="secondary" size="sm">
+                <Award className="w-4 h-4 mr-2" />
+                Exportera certifikat
+              </Button>
             </CardContent>
           </Card>
         </div>

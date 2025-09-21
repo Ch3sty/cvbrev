@@ -78,13 +78,62 @@ export async function GET(request: NextRequest) {
       .order('created_at', { ascending: false })
       .limit(10);
 
+    // Calculate current week start and end
+    const now = new Date();
+    const startOfWeek = new Date(now);
+    startOfWeek.setDate(now.getDate() - now.getDay() + 1); // Monday
+    startOfWeek.setHours(0, 0, 0, 0);
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(startOfWeek.getDate() + 6); // Sunday
+    endOfWeek.setHours(23, 59, 59, 999);
+
+    // Get weekly XP progress
+    const { data: weeklyXP, error: weeklyXPError } = await supabase
+      .from('xp_history')
+      .select('amount')
+      .eq('user_id', user.id)
+      .gte('created_at', startOfWeek.toISOString())
+      .lte('created_at', endOfWeek.toISOString());
+
+    const weekly_xp = weeklyXP?.reduce((sum, xp) => sum + xp.amount, 0) || 0;
+
+    // Get weekly activity counts from profiles table
+    const { data: profileData, error: profileError } = await supabase
+      .from('profiles')
+      .select('weekly_letter_count, weekly_analysis_count, weekly_competence_analysis_count')
+      .eq('id', user.id)
+      .single();
+
+    // Get completed courses this week from learning_progress_entries
+    const { data: weeklyCoursesData, error: weeklyCoursesError } = await supabase
+      .from('completed_courses')
+      .select('id')
+      .eq('user_id', user.id)
+      .gte('completion_date', startOfWeek.toISOString().split('T')[0])
+      .lte('completion_date', endOfWeek.toISOString().split('T')[0]);
+
+    const weekly_courses_completed = weeklyCoursesData?.length || 0;
+
+    // Weekly goals (these could be user-configurable in the future)
+    const weeklyGoals = {
+      weekly_goal: 600, // XP goal for the week
+      weekly_letters_goal: 5, // Letter creation goal
+      weekly_analyses_goal: 3, // CV analysis goal
+      weekly_courses_goal: 2 // Course completion goal
+    };
+
     return NextResponse.json({
       stats: {
         ...stats,
         xpForNextLevel,
         xpForCurrentLevel,
         xpProgress: stats.total_xp - xpForCurrentLevel,
-        xpNeeded: xpForNextLevel - xpForCurrentLevel
+        xpNeeded: xpForNextLevel - xpForCurrentLevel,
+        weekly_xp,
+        letters_created: profileData?.weekly_letter_count || 0,
+        cv_analyses_completed: (profileData?.weekly_analysis_count || 0) + (profileData?.weekly_competence_analysis_count || 0),
+        courses_completed: weekly_courses_completed,
+        ...weeklyGoals
       },
       achievements: achievements || [],
       recentXP: recentXP || []
