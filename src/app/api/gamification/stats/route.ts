@@ -53,9 +53,15 @@ export async function GET(request: NextRequest) {
     }
 
     const xpForNextLevel = nextLevelData || ((stats.current_level + 1) * 100);
-    const xpForCurrentLevel = stats.current_level > 1
-      ? ((stats.current_level - 1) * 50 + (stats.current_level - 1) * (stats.current_level) * 25)
-      : 0;
+
+    // Calculate XP required for current level using the same logic as the database function
+    let xpForCurrentLevel = 0;
+    if (stats.current_level > 1) {
+      // Use the same progressive calculation as the database function
+      for (let level = 1; level < stats.current_level; level++) {
+        xpForCurrentLevel += level * 100;
+      }
+    }
 
     // Get user achievements
     const { data: achievements, error: achievementsError } = await supabase
@@ -171,8 +177,21 @@ export async function GET(request: NextRequest) {
 
   } catch (error) {
     console.error('Error fetching gamification stats:', error);
+
+    // Log more detailed error information for debugging
+    if (error instanceof Error) {
+      console.error('Error details:', {
+        message: error.message,
+        stack: error.stack,
+        name: error.name
+      });
+    }
+
     return NextResponse.json(
-      { error: 'Failed to fetch stats' },
+      {
+        error: 'Failed to fetch stats',
+        details: process.env.NODE_ENV === 'development' ? error : undefined
+      },
       { status: 500 }
     );
   }

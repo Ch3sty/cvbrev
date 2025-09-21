@@ -34,9 +34,9 @@ export async function POST(request: NextRequest) {
 
     // Check if user is premium for multiplier
     const { data: profile } = await supabase
-      .from('user_profiles')
+      .from('profiles')
       .select('subscription_tier')
-      .eq('user_id', user.id)
+      .eq('id', user.id)
       .single();
 
     const multiplier = profile?.subscription_tier === 'premium' ? 1.5 : 1.0;
@@ -69,9 +69,20 @@ export async function POST(request: NextRequest) {
       const newWeeklyXP = stats.weekly_xp + finalAmount;
       const newMonthlyXP = stats.monthly_xp + finalAmount;
 
+      // Calculate new level based on total XP
+      const { data: newLevelData, error: levelError } = await supabase
+        .rpc('calculate_level_from_xp', { xp: newTotalXP });
+
+      if (levelError) {
+        console.error('Error calculating level:', levelError);
+      }
+
+      const newLevel = newLevelData || stats.current_level;
+
       // Update activity counts based on source
       const updates: any = {
         total_xp: newTotalXP,
+        current_level: newLevel,
         weekly_xp: newWeeklyXP,
         monthly_xp: newMonthlyXP,
         last_activity_at: new Date().toISOString()
@@ -161,8 +172,21 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Error awarding XP:', error);
+
+    // Log more detailed error information for debugging
+    if (error instanceof Error) {
+      console.error('Error details:', {
+        message: error.message,
+        stack: error.stack,
+        name: error.name
+      });
+    }
+
     return NextResponse.json(
-      { error: 'Failed to award XP' },
+      {
+        error: 'Failed to award XP',
+        details: process.env.NODE_ENV === 'development' ? error : undefined
+      },
       { status: 500 }
     );
   }
