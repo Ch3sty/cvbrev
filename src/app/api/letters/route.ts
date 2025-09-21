@@ -151,8 +151,31 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ 
-      success: true, 
+    // Award XP for creating a letter
+    try {
+      const xpResponse = await fetch(`${request.headers.get('origin')}/api/gamification/award-xp`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Cookie': request.headers.get('cookie') || ''
+        },
+        body: JSON.stringify({
+          amount: 25,
+          source: 'letter_created',
+          sourceId: data[0].id,
+          description: 'Skapade ett personligt brev'
+        })
+      });
+
+      if (!xpResponse.ok) {
+        console.error('Failed to award XP for letter creation');
+      }
+    } catch (xpError) {
+      console.error('Error awarding XP:', xpError);
+    }
+
+    return NextResponse.json({
+      success: true,
       data: data[0]
     });
   } catch (error: any) {

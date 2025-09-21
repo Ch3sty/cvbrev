@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import DashboardSidebar from '@/components/dashboard/sidebar';
 import DashboardHeader from '@/components/dashboard/header';
+import AchievementManager from '@/components/gamification/AchievementManager';
 
 export default function DashboardLayout({
   children,
@@ -62,14 +63,17 @@ export default function DashboardLayout({
   // Om användaren är inloggad, visa dashboard-gränssnittet
   return (
     <div className="flex h-screen bg-navy-950 text-white">
+      {/* Achievement Notifications */}
+      {user && <AchievementManager userId={user.id} />}
+
       {/* Dashboard Sidebar */}
       <DashboardSidebar />
-      
+
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Dashboard Header */}
         <DashboardHeader user={user} />
-        
+
         {/* Main Content Area */}
         <main className="flex-1 overflow-y-auto p-4">
           {children}

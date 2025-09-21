@@ -245,6 +245,29 @@ export async function POST(request: NextRequest) {
              currentRemainingAnalyses = Infinity;
         }
 
+        // Award XP for CV analysis
+        try {
+            const xpResponse = await fetch(`${request.headers.get('origin')}/api/gamification/award-xp`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Cookie': request.headers.get('cookie') || ''
+                },
+                body: JSON.stringify({
+                    amount: 40,
+                    source: 'cv_analyzed',
+                    sourceId: cvId,
+                    description: 'Genomförde CV-analys'
+                })
+            });
+
+            if (!xpResponse.ok) {
+                console.error('Failed to award XP for CV analysis');
+            }
+        } catch (xpError) {
+            console.error('Error awarding XP:', xpError);
+        }
+
         // --- 7. Construct and Return Success Response ---
         return NextResponse.json( { ...analysisResult, remainingAnalyses: currentRemainingAnalyses, nextResetDate: nextResetDate.toISOString(), limitReached: profileData.subscriptionTier === 'free' && currentRemainingAnalyses <= 0, }, { status: 200 } );
 

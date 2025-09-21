@@ -64,6 +64,37 @@ export async function GET(request: NextRequest) {
                 skillGaps: job.skill_gaps,
                 learningSuggestions: job.learning_suggestions
             };
+
+            // Award XP for competence analysis if not already awarded
+            if (!job.xp_awarded) {
+                try {
+                    const xpResponse = await fetch(`${request.headers.get('origin')}/api/gamification/award-xp`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Cookie': request.headers.get('cookie') || ''
+                        },
+                        body: JSON.stringify({
+                            amount: 50,
+                            source: 'competence_analyzed',
+                            sourceId: job.id,
+                            description: 'Genomförde kompetensutvecklingsanalys'
+                        })
+                    });
+
+                    if (xpResponse.ok) {
+                        // Mark XP as awarded in database
+                        await supabase
+                            .from('competence_analysis_jobs')
+                            .update({ xp_awarded: true })
+                            .eq('id', job.id);
+                    } else {
+                        console.error('Failed to award XP for competence analysis');
+                    }
+                } catch (xpError) {
+                    console.error('Error awarding XP:', xpError);
+                }
+            }
         }
 
         // Add error message if failed
