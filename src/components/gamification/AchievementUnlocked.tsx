@@ -137,7 +137,7 @@ const AchievementUnlocked: React.FC<AchievementUnlockedProps> = ({ achievement, 
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes shrink {
           from {
             width: 100%;

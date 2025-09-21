@@ -322,7 +322,7 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         @keyframes xpFloatUp {
           0% {
             opacity: 0;
