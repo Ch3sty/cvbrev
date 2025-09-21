@@ -92,7 +92,7 @@ export default function DashboardPage() {
       title: 'Mina Brev',
       description: `${stats.totalLetters} sparade brev`,
       icon: <FileText className="w-8 h-8" />,
-      href: '/dashboard/mina-brev',
+      href: '/dashboard/my-letters',
       color: 'bg-gradient-to-r from-green-500 to-emerald-500'
     },
     {
@@ -195,7 +195,7 @@ export default function DashboardPage() {
               Senaste Brev
             </h3>
             <Link 
-              href="/dashboard/mina-brev"
+              href="/dashboard/my-letters"
               className="text-pink-500 hover:text-pink-400 text-sm font-medium"
             >
               Visa alla

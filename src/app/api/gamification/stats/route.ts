@@ -47,6 +47,11 @@ export async function GET(request: NextRequest) {
     const { data: nextLevelData, error: funcError } = await supabase
       .rpc('xp_for_next_level', { current_xp: stats.total_xp });
 
+    if (funcError) {
+      console.error('Error calling xp_for_next_level function:', funcError);
+      // Use fallback calculation instead of failing
+    }
+
     const xpForNextLevel = nextLevelData || ((stats.current_level + 1) * 100);
     const xpForCurrentLevel = stats.current_level > 1
       ? ((stats.current_level - 1) * 50 + (stats.current_level - 1) * (stats.current_level) * 25)
@@ -70,6 +75,11 @@ export async function GET(request: NextRequest) {
       `)
       .eq('user_id', user.id);
 
+    if (achievementsError) {
+      console.error('Error fetching achievements:', achievementsError);
+      // Continue with empty array instead of failing
+    }
+
     // Get recent XP history
     const { data: recentXP, error: historyError } = await supabase
       .from('xp_history')
@@ -77,6 +87,11 @@ export async function GET(request: NextRequest) {
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .limit(10);
+
+    if (historyError) {
+      console.error('Error fetching XP history:', historyError);
+      // Continue with empty array instead of failing
+    }
 
     // Calculate current week start and end
     const now = new Date();
@@ -95,6 +110,11 @@ export async function GET(request: NextRequest) {
       .gte('created_at', startOfWeek.toISOString())
       .lte('created_at', endOfWeek.toISOString());
 
+    if (weeklyXPError) {
+      console.error('Error fetching weekly XP:', weeklyXPError);
+      // Continue with 0 instead of failing
+    }
+
     const weekly_xp = weeklyXP?.reduce((sum, xp) => sum + xp.amount, 0) || 0;
 
     // Get weekly activity counts from profiles table
@@ -104,13 +124,23 @@ export async function GET(request: NextRequest) {
       .eq('id', user.id)
       .single();
 
-    // Get completed courses this week from learning_progress_entries
+    if (profileError) {
+      console.error('Error fetching profile data:', profileError);
+      // Continue with default values instead of failing
+    }
+
+    // Get completed courses this week from completed_courses table
     const { data: weeklyCoursesData, error: weeklyCoursesError } = await supabase
       .from('completed_courses')
       .select('id')
       .eq('user_id', user.id)
       .gte('completion_date', startOfWeek.toISOString().split('T')[0])
       .lte('completion_date', endOfWeek.toISOString().split('T')[0]);
+
+    if (weeklyCoursesError) {
+      console.error('Error fetching weekly courses data:', weeklyCoursesError);
+      // Continue with 0 instead of failing
+    }
 
     const weekly_courses_completed = weeklyCoursesData?.length || 0;
 
