@@ -103,11 +103,11 @@ export async function GET(request: NextRequest) {
     // Get user's current level
     const { data: userStats } = await supabase
       .from('global_user_stats')
-      .select('level, total_xp')
+      .select('current_level, total_xp')
       .eq('user_id', user.id)
       .single()
 
-    const currentLevel = userStats?.level || 1
+    const currentLevel = userStats?.current_level || 1
 
     // Get all claimed rewards
     const { data: claimedRewards } = await supabase

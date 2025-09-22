@@ -53,11 +53,11 @@ export async function POST(request: NextRequest) {
       // Calculate bonus based on user level
       const { data: userStats } = await supabase
         .from('global_user_stats')
-        .select('level')
+        .select('current_level')
         .eq('user_id', user.id)
         .single()
 
-      const level = userStats?.level || 1
+      const level = userStats?.current_level || 1
       let bonus = 0
       if (level >= 50) bonus = 999 // Unlimited
       else if (level >= 40) bonus = 4

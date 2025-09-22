@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
     // Get user's current stats
     const { data: userStats, error: statsError } = await supabase
       .from('global_user_stats')
-      .select('level, total_xp')
+      .select('current_level, total_xp')
       .eq('user_id', user.id)
       .single()
 
@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
       }, { status: 500 })
     }
 
-    const currentLevel = userStats?.level || 1
+    const currentLevel = userStats?.current_level || 1
     const totalXp = userStats?.total_xp || 0
 
     // Get level title
