@@ -46,7 +46,7 @@ export default function DashboardSidebar() {
 
           const { data: profile, error: profileError } = await supabase
             .from('profiles')
-            .select('premium_until')
+            .select('premium_until, subscription_tier')
             .eq('id', userId)
             .single();
 
@@ -55,7 +55,10 @@ export default function DashboardSidebar() {
             return;
           }
 
-          setIsPremium(profile?.premium_until && new Date(profile.premium_until) > new Date());
+          // Check both premium_until and subscription_tier
+          const hasPremiumUntil = profile?.premium_until && new Date(profile.premium_until) > new Date();
+          const hasPremiumTier = profile?.subscription_tier === 'premium';
+          setIsPremium(hasPremiumUntil || hasPremiumTier);
         }
       } catch (error) {
         console.error('Error checking premium status:', error);
@@ -146,12 +149,12 @@ export default function DashboardSidebar() {
       <div className="flex items-center justify-between p-4 border-b border-gray-700">
         {!collapsed && (
           <div className="text-xl font-bold">
-            <span className="text-white">cv</span>
-            <span className="text-pink-500">brev</span>
+            <span className="text-white">Jobbcoach</span>
+            <span className="text-pink-500">.ai</span>
           </div>
         )}
         
-        {collapsed && <span className="text-pink-500 text-2xl font-bold mx-auto">C</span>}
+        {collapsed && <span className="text-pink-500 text-2xl font-bold mx-auto">J</span>}
         
         <button 
           onClick={() => setCollapsed(!collapsed)}
