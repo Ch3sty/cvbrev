@@ -1,8 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@/lib/supabase/server'
+import { createClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 
 export const dynamic = 'force-dynamic'
+
+// Anonym klient för public queries
+const getAnonClient = () => {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    throw new Error('Missing Supabase environment variables')
+  }
+
+  return createClient(supabaseUrl, supabaseAnonKey)
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -142,8 +155,8 @@ export async function POST(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
   try {
-    const cookieStore = await cookies()
-    const supabase = createServerClient({ cookies: cookieStore })
+    // Använd anonym klient för att läsa public data
+    const supabase = getAnonClient()
     const url = new URL(request.url)
     const code = url.searchParams.get('code')
 
