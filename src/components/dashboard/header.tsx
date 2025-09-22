@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Bell, Search, Settings, User, Trophy, Zap, TrendingUp, Calendar, Target, BookOpen, Clock, Award, Star, Flame, Gift } from 'lucide-react';
+import { Trophy, Zap, TrendingUp, Target, Star, Crown, CheckCircle2, Sparkles, ChevronRight } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import Link from 'next/link';
 
@@ -174,188 +174,137 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
           {/* Gamification Stats */}
           {gamificationStats && (
             <div className="flex items-center space-x-4 pl-6 border-l border-gray-700">
-              {/* Level Badge - Now clickable! */}
-              <Link href="/dashboard/rewards" className="relative group cursor-pointer">
-                <div className="w-16 h-16 bg-gradient-to-br from-pink-600 via-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-xl border-2 border-white/20 backdrop-blur-sm hover:scale-110 transition-transform">
-                  <span className="text-white font-bold text-xl tracking-wide">
-                    {gamificationStats.stats.current_level}
-                  </span>
-                </div>
-
-                {/* Enhanced Progress Ring */}
-                <svg className="absolute -inset-2 w-20 h-20 transform -rotate-90">
-                  {/* Background Ring */}
-                  <circle
-                    cx="40"
-                    cy="40"
-                    r="36"
-                    stroke="rgba(255,255,255,0.08)"
-                    strokeWidth="2"
-                    fill="none"
-                  />
-                  {/* Progress Ring */}
-                  <circle
-                    cx="40"
-                    cy="40"
-                    r="36"
-                    stroke="url(#levelGradient)"
-                    strokeWidth="3"
-                    fill="none"
-                    strokeDasharray={`${getXPProgress() * 2.26} 226`}
-                    strokeLinecap="round"
-                    className="transition-all duration-700 ease-out drop-shadow-sm"
-                    style={{
-                      filter: 'drop-shadow(0 0 6px rgba(232, 121, 249, 0.4))'
-                    }}
-                  />
-                  <defs>
-                    <linearGradient id="levelGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#ec4899" />
-                      <stop offset="50%" stopColor="#a855f7" />
-                      <stop offset="100%" stopColor="#3b82f6" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-
-                {/* Hover Tooltip */}
-                <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-navy-800 text-white text-xs px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap border border-navy-700 shadow-xl">
-                  Level {gamificationStats.stats.current_level} • {getXPProgress()}% till nästa • Klicka för belöningar!
-                </div>
-              </Link>
-
-              {/* XP Stats */}
-              <div className="flex flex-col">
-                <div className="flex items-center space-x-2">
-                  <Zap className="w-4 h-4 text-yellow-400" />
-                  <span className="text-white font-semibold">
-                    {gamificationStats.stats.total_xp.toLocaleString()} XP
-                  </span>
-                </div>
-                <div className="flex items-center space-x-2 text-xs text-gray-400">
-                  <TrendingUp className="w-3 h-3" />
-                  <span>{gamificationStats.stats.xpProgress}/{gamificationStats.stats.xpNeeded} till nästa level</span>
-                </div>
-              </div>
-
-              {/* Enhanced Streak Display */}
-              {gamificationStats.stats.daily_streak > 0 && (
-                <div className="relative group">
-                  <div className={`flex items-center space-x-2 px-4 py-2 bg-gradient-to-r ${getStreakDisplay(gamificationStats.stats.daily_streak).color.replace('from-', 'from-').replace('via-', '/20 via-').replace('to-', '/20 to-') + '/20'} rounded-full border ${gamificationStats.stats.daily_streak >= 7 ? 'border-orange-500/60 animate-pulse' : 'border-orange-500/40'} backdrop-blur-sm shadow-lg`}>
-                    <span
-                      className="text-xl"
-                      style={{
-                        animation: gamificationStats.stats.daily_streak >= 7 ? 'fireFlicker 1.5s ease-in-out infinite alternate' : undefined
-                      }}
-                    >
-                      {getStreakDisplay(gamificationStats.stats.daily_streak).emoji}
-                    </span>
-                    <div className="flex flex-col">
-                      <span className="text-orange-400 font-bold text-sm tracking-wide">
-                        {gamificationStats.stats.daily_streak} dagar
-                      </span>
-                      <span className="text-orange-300/70 text-xs">
-                        {getStreakDisplay(gamificationStats.stats.daily_streak).message}
-                      </span>
+              {/* Compact Gamified Level Badge */}
+              <Link href="/dashboard/rewards" className="relative group">
+                <div className="flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-purple-900/50 to-pink-900/50 rounded-xl border border-purple-600/30 hover:border-purple-500/50 transition-all duration-300">
+                  {/* Level Icon */}
+                  <div className="relative">
+                    <div className="w-12 h-12 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                      <Crown className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="absolute -bottom-1 -right-1 bg-yellow-500 text-navy-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                      {gamificationStats.stats.current_level}
                     </div>
                   </div>
 
-                  {/* Streak tooltip */}
-                  <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-navy-800 text-white text-xs px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap border border-navy-700 shadow-xl">
-                    {getStreakDisplay(gamificationStats.stats.daily_streak).message}
+                  {/* XP Info */}
+                  <div className="flex flex-col">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm font-semibold text-white">Level {gamificationStats.stats.current_level}</span>
+                      <span className="text-xs text-purple-400">• {getXPProgress()}%</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Zap className="w-3 h-3 text-yellow-400" />
+                      <span className="text-xs text-gray-400">{gamificationStats.stats.total_xp.toLocaleString()} XP</span>
+                    </div>
+                  </div>
+
+                  {/* Progress Bar */}
+                  <div className="w-24 h-1.5 bg-navy-700/50 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-500"
+                      style={{ width: `${getXPProgress()}%` }}
+                    />
+                  </div>
+
+                  {/* Hover Arrow */}
+                  <ChevronRight className="w-4 h-4 text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+              </Link>
+
+              {/* Compact Next Milestone Preview */}
+              <div className="px-3 py-2 bg-navy-800/50 rounded-lg border border-navy-700/50">
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-yellow-400" />
+                  <div>
+                    <p className="text-xs text-gray-400">Nästa milstolpe</p>
+                    <p className="text-sm font-semibold text-white">Level {Math.ceil(gamificationStats.stats.current_level / 5) * 5 + 5}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Compact Streak Display */}
+              {gamificationStats.stats.daily_streak > 0 && (
+                <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-orange-900/30 to-red-900/30 rounded-lg border border-orange-600/30">
+                  <span className="text-lg">
+                    {getStreakDisplay(gamificationStats.stats.daily_streak).emoji}
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-bold text-orange-400">
+                      {gamificationStats.stats.daily_streak}
+                    </span>
+                    <span className="text-xs text-orange-400/70">dagars streak</span>
                   </div>
                 </div>
               )}
 
-              {/* Weekly Goals Widget - More Playful */}
-              <div className="relative group">
-                <div className="bg-gradient-to-br from-navy-800 to-navy-900 p-3 rounded-xl border border-navy-700 shadow-lg hover:shadow-2xl transition-all duration-300 min-w-[200px]">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-2">
-                      <Target className="w-4 h-4 text-cyan-400" />
-                      <span className="text-xs font-bold text-cyan-400">VECKANS MÅL</span>
-                    </div>
-                    <span className="text-xs text-gray-400">
-                      {gamificationStats.stats.weekly_xp}/{gamificationStats.stats.weekly_goal} XP
-                    </span>
+              {/* Gamified Weekly Goals */}
+              <div className="flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-navy-800/50 to-navy-900/50 rounded-xl border border-navy-700/50">
+                <Target className="w-5 h-5 text-cyan-400" />
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xs font-semibold text-cyan-400">Veckans framsteg</span>
+                    <span className="text-xs text-gray-400">{gamificationStats.stats.weekly_xp}/{gamificationStats.stats.weekly_goal} XP</span>
                   </div>
 
-                  {/* Main XP Progress */}
-                  <div className="mb-3">
-                    <div className="w-full bg-navy-700/50 rounded-full h-3 overflow-hidden">
-                      <div
-                        className={`h-full rounded-full transition-all duration-1000 relative ${
-                          getWeeklyProgress().xp >= 100
-                            ? 'bg-gradient-to-r from-green-400 via-emerald-400 to-cyan-400 animate-pulse'
-                            : getWeeklyProgress().xp >= 70
-                            ? 'bg-gradient-to-r from-yellow-400 to-orange-400'
-                            : 'bg-gradient-to-r from-blue-400 to-purple-400'
-                        }`}
-                        style={{ width: `${Math.min(getWeeklyProgress().xp, 100)}%` }}
-                      >
-                        {getWeeklyProgress().xp >= 100 && (
-                          <div className="absolute inset-0 bg-white/20 animate-pulse" />
-                        )}
+                  {/* Compact Progress Indicators */}
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-1">
+                      <div className="relative w-8 h-8 rounded-full bg-navy-700/50">
+                        <div className="absolute inset-0 rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-gradient-to-t from-blue-500 to-cyan-500 transition-all duration-500"
+                            style={{ height: `${Math.min(getWeeklyProgress().letters, 100)}%` }}
+                          />
+                        </div>
+                        <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white">
+                          {gamificationStats.stats.letters_created}
+                        </span>
                       </div>
+                      <span className="text-xs text-gray-400">Brev</span>
                     </div>
-                    <p className="text-xs text-center mt-1 font-semibold">
-                      {getWeeklyProgress().xp >= 100 ? (
-                        <span className="text-green-400">Mål uppnått! 🎯</span>
-                      ) : getWeeklyProgress().xp >= 70 ? (
-                        <span className="text-yellow-400">Nästan i mål! 💪</span>
-                      ) : (
-                        <span className="text-gray-400">Fortsätt kämpa! 🚀</span>
-                      )}
-                    </p>
-                  </div>
 
-                  {/* Mini Goals Grid */}
-                  <div className="grid grid-cols-3 gap-2">
-                    <div className="text-center">
-                      <div className="text-xs text-gray-500 mb-1">Brev</div>
-                      <div className="relative h-1 bg-navy-700 rounded-full overflow-hidden">
-                        <div
-                          className={`h-full ${getWeeklyProgress().letters >= 100 ? 'bg-green-400' : 'bg-blue-400'}`}
-                          style={{ width: `${Math.min(getWeeklyProgress().letters, 100)}%` }}
-                        />
+                    <div className="flex items-center gap-1">
+                      <div className="relative w-8 h-8 rounded-full bg-navy-700/50">
+                        <div className="absolute inset-0 rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-gradient-to-t from-purple-500 to-pink-500 transition-all duration-500"
+                            style={{ height: `${Math.min(getWeeklyProgress().analyses, 100)}%` }}
+                          />
+                        </div>
+                        <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white">
+                          {gamificationStats.stats.cv_analyses_completed}
+                        </span>
                       </div>
-                      <div className="text-xs font-bold mt-1">
-                        {gamificationStats.stats.letters_created}/{gamificationStats.stats.weekly_letters_goal}
-                      </div>
+                      <span className="text-xs text-gray-400">Analys</span>
                     </div>
-                    <div className="text-center">
-                      <div className="text-xs text-gray-500 mb-1">Analys</div>
-                      <div className="relative h-1 bg-navy-700 rounded-full overflow-hidden">
-                        <div
-                          className={`h-full ${getWeeklyProgress().analyses >= 100 ? 'bg-green-400' : 'bg-purple-400'}`}
-                          style={{ width: `${Math.min(getWeeklyProgress().analyses, 100)}%` }}
-                        />
-                      </div>
-                      <div className="text-xs font-bold mt-1">
-                        {gamificationStats.stats.cv_analyses_completed}/{gamificationStats.stats.weekly_analyses_goal}
-                      </div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-xs text-gray-500 mb-1">Kurser</div>
-                      <div className="relative h-1 bg-navy-700 rounded-full overflow-hidden">
-                        <div
-                          className={`h-full ${getWeeklyProgress().courses >= 100 ? 'bg-green-400' : 'bg-pink-400'}`}
-                          style={{ width: `${Math.min(getWeeklyProgress().courses, 100)}%` }}
-                        />
-                      </div>
-                      <div className="text-xs font-bold mt-1">
-                        {gamificationStats.stats.courses_completed}/{gamificationStats.stats.weekly_courses_goal}
-                      </div>
-                    </div>
-                  </div>
 
-                  {/* Hover tooltip with details */}
-                  <div className="absolute -top-20 left-1/2 transform -translate-x-1/2 bg-navy-800 text-white text-xs px-4 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap border border-navy-700 shadow-xl z-50">
-                    <div className="space-y-1">
-                      <div>📝 Skapa {gamificationStats.stats.weekly_letters_goal} brev = 125 XP</div>
-                      <div>🔍 Gör {gamificationStats.stats.weekly_analyses_goal} analyser = 120 XP</div>
-                      <div>📚 Slutför {gamificationStats.stats.weekly_courses_goal} kurser = 100 XP</div>
+                    <div className="flex items-center gap-1">
+                      <div className="relative w-8 h-8 rounded-full bg-navy-700/50">
+                        <div className="absolute inset-0 rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-gradient-to-t from-green-500 to-emerald-500 transition-all duration-500"
+                            style={{ height: `${Math.min(getWeeklyProgress().courses, 100)}%` }}
+                          />
+                        </div>
+                        <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white">
+                          {gamificationStats.stats.courses_completed}
+                        </span>
+                      </div>
+                      <span className="text-xs text-gray-400">Kurser</span>
                     </div>
                   </div>
+                </div>
+
+                {/* Quick Status */}
+                <div className="ml-auto">
+                  {getWeeklyProgress().xp >= 100 ? (
+                    <CheckCircle2 className="w-5 h-5 text-green-400 animate-pulse" />
+                  ) : getWeeklyProgress().xp >= 70 ? (
+                    <Star className="w-5 h-5 text-yellow-400" />
+                  ) : (
+                    <TrendingUp className="w-5 h-5 text-blue-400" />
+                  )}
                 </div>
               </div>
             </div>
@@ -364,52 +313,31 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
 
         {/* Höger sida - Användarinfo och snabblänkar */}
         <div className="flex items-center space-x-4">
-          {/* Sökfunktion */}
-          <div className="relative">
-            <Search className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Sök i dina brev..."
-              className="bg-navy-800 text-white placeholder-gray-400 border border-gray-600 rounded-lg pl-10 pr-4 py-2 focus:outline-none focus:border-pink-500 w-64"
-            />
-          </div>
 
-          {/* Enhanced Achievements/Notifications */}
-          <button className="relative p-3 rounded-xl hover:bg-navy-800/60 transition-all duration-300 group hover:scale-105">
-            <Trophy
-              className="w-6 h-6 text-gray-400 group-hover:text-yellow-400 transition-all duration-300"
-              style={{
-                filter: gamificationStats && gamificationStats.achievements.length > 0
-                  ? 'drop-shadow(0 0 8px rgba(251, 191, 36, 0.6))'
-                  : 'none'
-              }}
-            />
-            {gamificationStats && gamificationStats.achievements.length > 0 && (
-              <div className="absolute -top-2 -right-2">
-                {/* Glow ring */}
-                <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full blur animate-pulse scale-125" />
-                {/* Badge */}
-                <span className="relative bg-gradient-to-r from-yellow-500 to-orange-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center border-2 border-white shadow-xl animate-bounce">
-                  {gamificationStats.achievements.length}
+
+          {/* Enhanced User Info */}
+          <Link href="/profile" className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-navy-800/50 transition-all duration-300 group">
+            <div className="relative">
+              <div className="w-10 h-10 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                <span className="text-white font-bold text-sm">
+                  {getUserName().charAt(0).toUpperCase()}
                 </span>
               </div>
-            )}
-          </button>
-
-          {/* Användarinfo */}
-          <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-pink-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-medium text-sm">
-                {getUserName().charAt(0).toUpperCase()}
-              </span>
+              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-navy-900" />
             </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-medium text-white">{getUserName()}</span>
-              <span className="text-xs text-gray-400">
-                Level {gamificationStats?.stats.current_level || 1} • {gamificationStats?.stats.weekly_xp || 0} XP denna vecka
-              </span>
+            <div>
+              <p className="text-sm font-semibold text-white">{getUserName()}</p>
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
+                  <Zap className="w-3 h-3 text-yellow-400" />
+                  <span className="text-xs text-purple-400 font-medium">
+                    +{gamificationStats?.stats.weekly_xp || 0} XP denna vecka
+                  </span>
+                </div>
+              </div>
             </div>
-          </div>
+            <ChevronRight className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
+          </Link>
         </div>
       </div>
 
