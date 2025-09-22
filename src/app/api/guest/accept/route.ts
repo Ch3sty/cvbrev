@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
 
     // Accept the invitation
     const premiumEndDate = new Date()
-    premiumEndDate.setDate(premiumEndDate.getDate() + invitation.premium_days)
+    premiumEndDate.setDate(premiumEndDate.getDate() + invitation.trial_duration_days)
 
     // Update guest's premium status
     const { error: updateError } = await supabase
@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
       .from('guest_invitations')
       .update({
         status: 'accepted',
-        guest_id: user.id,
+        guest_user_id: user.id,
         accepted_at: new Date().toISOString()
       })
       .eq('id', invitation.id)
@@ -124,10 +124,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       data: {
-        premiumDays: invitation.premium_days,
+        premiumDays: invitation.trial_duration_days,
         premiumUntil: premiumEndDate.toISOString(),
         inviterName: invitation.inviter?.full_name || 'En vän',
-        message: `Välkommen till Premium! Du har fått ${invitation.premium_days} dagars gratis Premium från ${invitation.inviter?.full_name || 'en vän'}.`
+        message: `Välkommen till Premium! Du har fått ${invitation.trial_duration_days} dagars gratis Premium från ${invitation.inviter?.full_name || 'en vän'}.`
       }
     })
 
@@ -203,7 +203,7 @@ export async function GET(request: NextRequest) {
       valid: true,
       data: {
         inviterName: invitation.inviter?.full_name || 'En vän',
-        premiumDays: invitation.premium_days,
+        premiumDays: invitation.trial_duration_days,
         expiresAt: invitation.expires_at
       }
     })

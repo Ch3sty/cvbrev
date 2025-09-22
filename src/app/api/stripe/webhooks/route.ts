@@ -93,7 +93,7 @@ const handleReferralConversion = async (customerId: string) => {
         const { data: invitation } = await supabaseAdmin
             .from('guest_invitations')
             .select('*')
-            .eq('guest_id', newCustomer.id)
+            .eq('guest_user_id', newCustomer.id)
             .eq('status', 'accepted')
             .is('converted_at', null)
             .single();
