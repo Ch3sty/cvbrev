@@ -35,6 +35,13 @@ export default function InvitePage() {
 
   useEffect(() => {
     checkUserAndValidateInvitation()
+
+    // Check if user just confirmed their email
+    const urlParams = new URLSearchParams(window.location.search)
+    if (urlParams.get('confirmed') === 'true') {
+      setError(null)
+      setShowEmailConfirmation(false)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [invitationCode])
 
@@ -237,6 +244,7 @@ export default function InvitePage() {
 
               console.log('User does not exist or wrong password, trying to create account...')
 
+              // Create user with email confirmation disabled initially
               const { data: authData, error: signUpError } = await supabase.auth.signUp({
                 email,
                 password,
@@ -244,7 +252,8 @@ export default function InvitePage() {
                   data: {
                     full_name: fullName
                   },
-                  emailRedirectTo: `${window.location.origin}/invite/${invitationCode}`
+                  emailRedirectTo: `${window.location.origin}/invite/${invitationCode}`,
+                  shouldCreateUser: true
                 }
               })
 
@@ -273,8 +282,34 @@ export default function InvitePage() {
 
               // Check if email confirmation is required
               if (authData.user && !authData.session) {
-                setShowEmailConfirmation(true)
-                setConfirmationEmail(email)
+                // Send confirmation email via Resend instead of Supabase
+                try {
+                  const confirmResponse = await fetch('/api/auth/send-confirmation', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      email,
+                      fullName,
+                      userId: authData.user.id,
+                      isInvitation: true,
+                      inviterName: invitationData.inviterName,
+                      invitationCode
+                    })
+                  })
+
+                  if (!confirmResponse.ok) {
+                    const errorData = await confirmResponse.json()
+                    console.error('Failed to send confirmation email:', errorData)
+                    setError('Kunde inte skicka bekräftelsemail. Kontakta support@jobbcoach.ai för hjälp.')
+                    return
+                  }
+
+                  setShowEmailConfirmation(true)
+                  setConfirmationEmail(email)
+                } catch (err) {
+                  console.error('Error sending confirmation email:', err)
+                  setError('Ett fel uppstod vid utskick av bekräftelsemail.')
+                }
                 return
               }
 
