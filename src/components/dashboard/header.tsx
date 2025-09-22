@@ -92,16 +92,42 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
 
         // Check subscription tier
         const supabase = getSupabaseClient();
-        const { data: { user: authUser } } = await supabase.auth.getUser();
-        if (authUser) {
-          const { data: profile } = await supabase
-            .from('profiles')
-            .select('premium_until')
-            .eq('id', authUser.id)
-            .single();
+        try {
+          const { data: { user: authUser }, error: authError } = await supabase.auth.getUser();
 
-          const isPremium = profile?.premium_until && new Date(profile.premium_until) > new Date();
-          setSubscriptionTier(isPremium ? 'premium' : 'free');
+          if (authError) {
+            console.error('Auth error in header:', authError);
+            return;
+          }
+
+          if (authUser && authUser.id) {
+            // Ensure authUser.id is a string, not an array or undefined
+            const userId = typeof authUser.id === 'string' ? authUser.id : null;
+
+            if (!userId) {
+              console.error('Invalid user ID format in header');
+              return;
+            }
+
+            const { data: profile, error: profileError } = await supabase
+              .from('profiles')
+              .select('premium_until')
+              .eq('id', userId)
+              .single();
+
+            if (profileError) {
+              console.error('Profile query error in header:', profileError);
+              // Set to free if there's an error
+              setSubscriptionTier('free');
+              return;
+            }
+
+            const isPremium = profile?.premium_until && new Date(profile.premium_until) > new Date();
+            setSubscriptionTier(isPremium ? 'premium' : 'free');
+          }
+        } catch (error) {
+          console.error('Error checking subscription in header:', error);
+          setSubscriptionTier('free');
         }
       }
     } catch (error) {

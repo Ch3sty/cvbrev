@@ -27,15 +27,38 @@ export default function DashboardSidebar() {
 
   useEffect(() => {
     const checkPremiumStatus = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('premium_until')
-          .eq('id', user.id)
-          .single();
+      try {
+        const { data: { user }, error: authError } = await supabase.auth.getUser();
 
-        setIsPremium(profile?.premium_until && new Date(profile.premium_until) > new Date());
+        if (authError) {
+          console.error('Auth error:', authError);
+          return;
+        }
+
+        if (user && user.id) {
+          // Ensure user.id is a string, not an array or undefined
+          const userId = typeof user.id === 'string' ? user.id : null;
+
+          if (!userId) {
+            console.error('Invalid user ID format');
+            return;
+          }
+
+          const { data: profile, error: profileError } = await supabase
+            .from('profiles')
+            .select('premium_until')
+            .eq('id', userId)
+            .single();
+
+          if (profileError) {
+            console.error('Profile query error:', profileError);
+            return;
+          }
+
+          setIsPremium(profile?.premium_until && new Date(profile.premium_until) > new Date());
+        }
+      } catch (error) {
+        console.error('Error checking premium status:', error);
       }
     };
     checkPremiumStatus();
