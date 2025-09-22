@@ -174,9 +174,32 @@ export default function InvitePage() {
   if (!user) {
     return (
       <GuestWelcomeLanding
-        inviterName={invitationData.inviterName}
-        premiumDays={invitationData.premiumDays}
-        invitationCode={invitationCode}
+        invitation={{
+          invitation_code: invitationCode,
+          trial_duration_days: invitationData.premiumDays,
+          expires_at: invitationData.expiresAt,
+          inviter: {
+            full_name: invitationData.inviterName,
+            email: '',
+            current_level: 1,
+            level_title: 'Novis',
+            profile_photo_url: undefined
+          },
+          features_included: [
+            'Obegränsade AI-genererade personliga brev',
+            'Professionella CV-mallar och analyser',
+            'Personlig karriärvägledning med AI',
+            '1.5x snabbare XP-intjäning',
+            'Tillgång till alla premium-funktioner'
+          ]
+        }}
+        onAcceptInvitation={async (email, fullName) => {
+          // Redirect to sign up with details
+          router.push(`/auth/signup?invite=${invitationCode}&email=${encodeURIComponent(email)}&name=${encodeURIComponent(fullName)}`)
+        }}
+        onDeclineInvitation={() => router.push('/')}
+        isAccepting={false}
+        error={error || undefined}
       />
     )
   }

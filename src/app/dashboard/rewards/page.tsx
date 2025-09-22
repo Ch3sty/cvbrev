@@ -169,13 +169,18 @@ export default function RewardsPage() {
 
         <TabsContent value="overview" className="space-y-6">
           <RewardsDashboard
-            currentLevel={rewardStatus.currentLevel}
-            levelTitle={rewardStatus.levelTitle}
-            totalXp={rewardStatus.totalXp}
-            nextLevel={rewardStatus.nextLevel}
+            userLevel={{
+              current_level: rewardStatus.currentLevel,
+              current_xp: rewardStatus.totalXp,
+              title: rewardStatus.levelTitle,
+              xp_to_next_level: rewardStatus.nextLevel?.xpRemaining || 0,
+              total_xp_for_current_level: rewardStatus.totalXp,
+              total_xp_for_next_level: rewardStatus.nextLevel?.xpRequired || 0
+            }}
             availableRewards={rewardStatus.availableRewards}
             claimedRewards={rewardStatus.claimedRewards}
-            onClaimReward={handleClaimReward}
+            onClaimReward={(rewardId) => handleClaimReward(rewardStatus.availableRewards.find(r => r.id === rewardId))}
+            onActivateReward={(claimId) => console.log('Activate reward:', claimId)}
           />
 
           {/* Quick Actions */}
@@ -223,17 +228,43 @@ export default function RewardsPage() {
         <TabsContent value="milestones" className="space-y-6">
           <MilestoneRewardsTimeline
             currentLevel={rewardStatus.currentLevel}
-            totalXp={rewardStatus.totalXp}
-            onClaimReward={handleClaimReward}
+            currentXp={rewardStatus.totalXp}
+            milestones={rewardStatus.upcomingRewards.map((r: any) => ({
+              ...r,
+              is_unlocked: rewardStatus.currentLevel >= r.milestone_level,
+              is_claimed: rewardStatus.claimedRewards.some((c: any) => c.reward_id === r.id)
+            }))}
+            onClaimReward={(rewardId) => handleClaimReward(rewardStatus.availableRewards.find(r => r.id === rewardId))}
+            onShowRewardDetails={(milestone) => console.log('Show details:', milestone)}
           />
         </TabsContent>
 
         {rewardStatus.isPremium && (
           <TabsContent value="guests" className="space-y-6">
             <GuestInvitationCard
-              allowance={rewardStatus.guestInvitations!}
-              isPremium={rewardStatus.isPremium}
-              onInvitationSent={loadRewardStatus}
+              allowance={{
+                base_allowance: 1,
+                bonus_allowance: Math.max(0, rewardStatus.guestInvitations!.total - 1),
+                total_allowance: rewardStatus.guestInvitations!.total,
+                used_invitations: rewardStatus.guestInvitations!.used,
+                remaining_invitations: rewardStatus.guestInvitations!.remaining,
+                month_year: new Date().toLocaleDateString('sv-SE', { year: 'numeric', month: 'long' })
+              }}
+              invitations={[]}
+              onCreateInvitation={async (email) => {
+                console.log('Creating invitation for:', email);
+                await loadRewardStatus();
+              }}
+              onCopyLink={(code) => navigator.clipboard.writeText(`${window.location.origin}/invite/${code}`)}
+              onShareSocial={(platform, code) => {
+                const url = `${window.location.origin}/invite/${code}`;
+                const text = 'Prova Jobbcoach.ai Premium gratis i 7 dagar!';
+                if (platform === 'twitter') {
+                  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`);
+                } else if (platform === 'linkedin') {
+                  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`);
+                }
+              }}
             />
 
             {/* Invitation Benefits */}
@@ -289,9 +320,13 @@ export default function RewardsPage() {
       {/* Claim Modal */}
       {showClaimModal && selectedReward && (
         <RewardClaimModal
+          isOpen={showClaimModal}
           reward={selectedReward}
           onClose={() => setShowClaimModal(false)}
-          onSuccess={handleClaimSuccess}
+          onActivate={async () => {
+            await handleClaimSuccess();
+          }}
+          isActivating={false}
         />
       )}
     </div>

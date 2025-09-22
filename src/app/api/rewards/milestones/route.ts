@@ -115,11 +115,11 @@ export async function GET(request: Request) {
       .eq('user_id', user.id)
 
     const claimedLevels = new Set(
-      claimedRewards?.map(r => r.premium_rewards?.milestone_level).filter(Boolean) || []
+      claimedRewards?.map((r: any) => r.premium_rewards?.milestone_level).filter(Boolean) || []
     )
 
     // Process milestones
-    const milestones = MILESTONE_REWARDS.map(milestone => {
+    const milestones = await Promise.all(MILESTONE_REWARDS.map(async milestone => {
       const isUnlocked = currentLevel >= milestone.level
       const isClaimed = claimedLevels.has(milestone.level)
 
@@ -135,7 +135,7 @@ export async function GET(request: Request) {
       // Calculate XP needed if locked
       let xpNeeded = 0
       if (!isUnlocked) {
-        const { data: targetLevel } = supabase
+        const { data: targetLevel } = await supabase
           .from('level_titles')
           .select('xp_required')
           .eq('level', milestone.level)
@@ -152,7 +152,7 @@ export async function GET(request: Request) {
         xpNeeded,
         progress: isUnlocked ? 100 : Math.min(99, ((userStats?.total_xp || 0) / (xpNeeded + (userStats?.total_xp || 0))) * 100)
       }
-    })
+    }))
 
     // Get next milestone
     const nextMilestone = milestones.find(m => m.status === 'locked')

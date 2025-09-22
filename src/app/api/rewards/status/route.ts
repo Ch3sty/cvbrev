@@ -145,7 +145,11 @@ export async function GET() {
         .eq('inviter_id', user.id)
         .eq('status', 'pending')
 
-      guestInvitations.pendingCount = count || 0
+      const pendingCount = count || 0
+      guestInvitations = {
+        ...guestInvitations,
+        pendingCount
+      }
     }
 
     return NextResponse.json({
