@@ -153,6 +153,11 @@ export async function POST(request: NextRequest) {
       // Check for achievements
       await checkAndAwardAchievements(supabase, user.id, updates, source);
 
+      // Check for level milestone rewards if level increased
+      if (newLevel > stats.current_level) {
+        await checkAndCreateMilestoneRewards(supabase, user.id, stats.current_level, newLevel);
+      }
+
       // Get updated stats
       const { data: updatedStats } = await supabase
         .from('global_user_stats')
@@ -166,7 +171,8 @@ export async function POST(request: NextRequest) {
         multiplier,
         newTotalXP: updatedStats?.total_xp || newTotalXP,
         newLevel: updatedStats?.current_level || stats.current_level,
-        streak: updatedStats?.daily_streak || 1
+        streak: updatedStats?.daily_streak || 1,
+        leveledUp: newLevel > stats.current_level
       });
     }
 
@@ -189,6 +195,161 @@ export async function POST(request: NextRequest) {
       },
       { status: 500 }
     );
+  }
+}
+
+async function checkAndCreateMilestoneRewards(
+  supabase: any,
+  userId: string,
+  oldLevel: number,
+  newLevel: number
+) {
+  try {
+    const MILESTONE_LEVELS = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+    const rewardsToCreate = [];
+
+    // Check which milestones were reached
+    for (const milestone of MILESTONE_LEVELS) {
+      if (oldLevel < milestone && newLevel >= milestone) {
+        // User just reached this milestone
+        let reward = null;
+
+        switch (milestone) {
+          case 5:
+            reward = {
+              user_id: userId,
+              milestone_level: 5,
+              reward_type: 'trial',
+              reward_value: { days: 2 },
+              name: '2 dagars Premium Trial',
+              description: 'Grattis till level 5! Prova Premium i 2 dagar.',
+              status: 'available'
+            };
+            break;
+          case 10:
+            reward = {
+              user_id: userId,
+              milestone_level: 10,
+              reward_type: 'trial',
+              reward_value: { days: 5 },
+              name: '5 dagars Premium Trial',
+              description: 'Fantastiskt, level 10! Upplev Premium i 5 dagar.',
+              status: 'available'
+            };
+            break;
+          case 15:
+            reward = {
+              user_id: userId,
+              milestone_level: 15,
+              reward_type: 'discount',
+              reward_value: { discount_percent: 15, duration_months: 1 },
+              name: '15% rabatt (1 månad)',
+              description: 'Level 15 uppnådd! Få 15% rabatt på din första månad.',
+              status: 'available'
+            };
+            break;
+          case 20:
+            reward = {
+              user_id: userId,
+              milestone_level: 20,
+              reward_type: 'full_premium',
+              reward_value: { days: 7 },
+              name: '1 vecka gratis Premium',
+              description: 'Otroligt, level 20! En hel vecka Premium väntar.',
+              status: 'available'
+            };
+            break;
+          case 25:
+            reward = {
+              user_id: userId,
+              milestone_level: 25,
+              reward_type: 'discount',
+              reward_value: { discount_percent: 25, duration_months: 3 },
+              name: '25% rabatt (3 månader)',
+              description: 'Level 25! Spara 25% på 3 månaders Premium.',
+              status: 'available'
+            };
+            break;
+          case 30:
+            reward = {
+              user_id: userId,
+              milestone_level: 30,
+              reward_type: 'full_premium',
+              reward_value: { days: 14 },
+              name: '2 veckors gratis Premium',
+              description: 'Imponerande! Level 30 ger dig 2 veckors Premium.',
+              status: 'available'
+            };
+            break;
+          case 35:
+            reward = {
+              user_id: userId,
+              milestone_level: 35,
+              reward_type: 'discount',
+              reward_value: { discount_percent: 35, duration_months: 6 },
+              name: '35% rabatt (6 månader)',
+              description: 'Level 35! Stor rabatt på halvårsprenumeration.',
+              status: 'available'
+            };
+            break;
+          case 40:
+            reward = {
+              user_id: userId,
+              milestone_level: 40,
+              reward_type: 'full_premium',
+              reward_value: { days: 30 },
+              name: '1 månad gratis Premium',
+              description: 'Enastående! Level 40 belönas med en hel månad Premium.',
+              status: 'available'
+            };
+            break;
+          case 45:
+            reward = {
+              user_id: userId,
+              milestone_level: 45,
+              reward_type: 'discount',
+              reward_value: { discount_percent: 45, duration_months: 12 },
+              name: '45% rabatt (12 månader)',
+              description: 'Level 45! Nästan halva priset på årsprenumeration.',
+              status: 'available'
+            };
+            break;
+          case 50:
+            reward = {
+              user_id: userId,
+              milestone_level: 50,
+              reward_type: 'genesis',
+              reward_value: { days: 90, genesis_status: true },
+              name: '3 månaders Premium + Genesis Status',
+              description: 'Legendarisk prestation! Level 50 ger dig Genesis-status.',
+              status: 'available'
+            };
+            break;
+        }
+
+        if (reward) {
+          rewardsToCreate.push(reward);
+        }
+      }
+    }
+
+    // Create rewards if any
+    if (rewardsToCreate.length > 0) {
+      const { error } = await supabase
+        .from('premium_rewards')
+        .insert(rewardsToCreate);
+
+      if (error) {
+        console.error('Error creating milestone rewards:', error);
+      } else {
+        console.log(`Created ${rewardsToCreate.length} milestone rewards for user ${userId}`);
+      }
+    }
+
+    return rewardsToCreate.length;
+  } catch (error) {
+    console.error('Error checking milestone rewards:', error);
+    return 0;
   }
 }
 

@@ -1,0 +1,445 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import {
+  X,
+  Crown,
+  Trophy,
+  Gift,
+  Zap,
+  Star,
+  CheckCircle2,
+  Copy,
+  ExternalLink,
+  Calendar,
+  Clock,
+  Percent,
+  Users,
+  Sparkles
+} from 'lucide-react';
+
+// Types for the reward claim modal
+interface RewardData {
+  duration_days?: number;
+  percentage?: number;
+  discount_type?: string;
+  features?: string[];
+  bonus_invitations_per_month?: number;
+  status?: string;
+  lifetime_discount?: number;
+  priority_support?: boolean;
+  beta_access?: boolean;
+  auto_activate?: boolean;
+}
+
+interface Reward {
+  id: string;
+  name: string;
+  description: string;
+  reward_type: 'trial' | 'discount' | 'premium_time' | 'guest_invitations' | 'status';
+  reward_data: RewardData;
+  trigger_value: number;
+  icon?: string;
+}
+
+interface RewardClaimModalProps {
+  isOpen: boolean;
+  reward: Reward | null;
+  onClose: () => void;
+  onActivate: (activationData?: any) => Promise<void>;
+  isActivating?: boolean;
+}
+
+const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
+  isOpen,
+  reward,
+  onClose,
+  onActivate,
+  isActivating = false
+}) => {
+  const [showCelebration, setShowCelebration] = useState(false);
+  const [activationStep, setActivationStep] = useState<'claim' | 'celebrate' | 'activated'>('claim');
+  const [discountCode, setDiscountCode] = useState<string>('');
+
+  useEffect(() => {
+    if (isOpen && reward) {
+      setActivationStep('claim');
+      setShowCelebration(false);
+      setDiscountCode('');
+    }
+  }, [isOpen, reward]);
+
+  if (!isOpen || !reward) return null;
+
+  const getRewardIcon = (type: string, customIcon?: string) => {
+    if (customIcon) return customIcon;
+
+    const iconMap = {
+      trial: <Zap className="w-8 h-8" />,
+      discount: <Percent className="w-8 h-8" />,
+      premium_time: <Clock className="w-8 h-8" />,
+      guest_invitations: <Users className="w-8 h-8" />,
+      status: <Crown className="w-8 h-8" />
+    };
+
+    return iconMap[type as keyof typeof iconMap] || <Gift className="w-8 h-8" />;
+  };
+
+  const getRewardGradient = (type: string) => {
+    const gradients = {
+      trial: 'from-blue-500 to-cyan-500',
+      discount: 'from-green-500 to-emerald-500',
+      premium_time: 'from-purple-500 to-pink-500',
+      guest_invitations: 'from-yellow-400 to-orange-500',
+      status: 'from-pink-500 to-purple-600'
+    };
+
+    return gradients[type as keyof typeof gradients] || 'from-purple-500 to-pink-500';
+  };
+
+  const getRewardValue = () => {
+    const data = reward.reward_data;
+
+    switch (reward.reward_type) {
+      case 'trial':
+        return `${data.duration_days} dagars premium-test`;
+      case 'discount':
+        return `${data.percentage}% rabatt`;
+      case 'premium_time':
+        return `${data.duration_days} dagars gratis premium`;
+      case 'guest_invitations':
+        return `+${data.bonus_invitations_per_month} extra inbjudningar per månad`;
+      case 'status':
+        return `${data.status} status med exklusiva fördelar`;
+      default:
+        return 'Premium belöning';
+    }
+  };
+
+  const getRewardDetails = () => {
+    const data = reward.reward_data;
+
+    switch (reward.reward_type) {
+      case 'trial':
+        return {
+          title: 'Premium-provperiod',
+          features: data.features || [
+            'Obegränsade personliga brev',
+            'Avancerad CV-analys',
+            'Automatisk tonalitetsanpassning',
+            'Prioriterad support'
+          ],
+          expires: data.duration_days ? `${data.duration_days} dagar` : undefined
+        };
+
+      case 'discount':
+        return {
+          title: 'Rabattkupong',
+          features: [
+            `${data.percentage}% rabatt på premium`,
+            data.discount_type === 'annual' ? 'Gäller årsprenumeration' : 'Gäller månadsprenumeration',
+            'Kan användas en gång',
+            'Automatisk applicering vid betalning'
+          ],
+          expires: '30 dagar'
+        };
+
+      case 'premium_time':
+        return {
+          title: 'Gratis Premium-tid',
+          features: [
+            'Aktiveras automatiskt',
+            'Alla premium-funktioner',
+            'Pausar befintlig prenumeration',
+            'Ingen bindningstid'
+          ],
+          expires: data.duration_days ? `${data.duration_days} dagar` : undefined
+        };
+
+      case 'guest_invitations':
+        return {
+          title: 'Extra Gästinbjudningar',
+          features: [
+            `+${data.bonus_invitations_per_month} extra inbjudningar`,
+            'Gäller varje månad',
+            '7-dagars premium för gäster',
+            'Bonus för varje konvertering'
+          ],
+          expires: '12 månader'
+        };
+
+      case 'status':
+        return {
+          title: 'Exklusiv Status',
+          features: [
+            `${data.status} status-märke`,
+            data.lifetime_discount ? `${data.lifetime_discount}% livstidsrabatt` : undefined,
+            data.priority_support ? 'Prioriterad support' : undefined,
+            data.beta_access ? 'Tidig tillgång till nya funktioner' : undefined,
+            'Exklusiva evenemang och innehåll'
+          ].filter(Boolean) as string[],
+          expires: 'Permanent'
+        };
+
+      default:
+        return {
+          title: 'Premium Belöning',
+          features: ['Exklusiva fördelar'],
+          expires: undefined
+        };
+    }
+  };
+
+  const handleActivate = async () => {
+    try {
+      setShowCelebration(true);
+      setActivationStep('celebrate');
+
+      // Generate discount code for discount rewards
+      let activationData = {};
+      if (reward.reward_type === 'discount') {
+        const code = `SAVE${reward.reward_data.percentage}-${Date.now().toString().slice(-6)}`;
+        setDiscountCode(code);
+        activationData = { discount_code: code };
+      }
+
+      await onActivate(activationData);
+
+      // Show celebration for 3 seconds
+      setTimeout(() => {
+        setActivationStep('activated');
+        setShowCelebration(false);
+      }, 3000);
+
+    } catch (error) {
+      setShowCelebration(false);
+      setActivationStep('claim');
+    }
+  };
+
+  const copyDiscountCode = () => {
+    if (discountCode) {
+      navigator.clipboard.writeText(discountCode);
+    }
+  };
+
+  const details = getRewardDetails();
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+        onClick={onClose}
+      />
+
+      {/* Modal */}
+      <div className="relative w-full max-w-md mx-auto">
+        <div className="bg-navy-900 border border-navy-700 rounded-2xl shadow-2xl overflow-hidden modal-container">
+          {/* Celebration Animation Overlay */}
+          {showCelebration && (
+            <div className="absolute inset-0 z-10 flex items-center justify-center bg-navy-900/95">
+              <div className="text-center">
+                <div className="relative mb-6">
+                  <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center shadow-xl animate-bounce">
+                    <Trophy className="w-12 h-12 text-white" />
+                  </div>
+
+                  {/* Confetti Effect */}
+                  <div className="absolute inset-0 pointer-events-none">
+                    {Array.from({ length: 12 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className="absolute w-2 h-2 bg-yellow-400 rounded-full animate-ping"
+                        style={{
+                          left: `${Math.random() * 100}%`,
+                          top: `${Math.random() * 100}%`,
+                          animationDelay: `${Math.random() * 1000}ms`,
+                          animationDuration: `${800 + Math.random() * 400}ms`
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+
+                <h3 className="text-2xl font-bold text-white mb-2">Grattis!</h3>
+                <p className="text-gray-300">Din belöning har aktiverats</p>
+              </div>
+            </div>
+          )}
+
+          {/* Header */}
+          <div className="relative">
+            <div className={`p-1 bg-gradient-to-r ${getRewardGradient(reward.reward_type)}`}>
+              <div className="bg-navy-900 px-6 py-4 rounded-t-2xl">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${getRewardGradient(reward.reward_type)} flex items-center justify-center text-white shadow-lg`}>
+                      {getRewardIcon(reward.reward_type, reward.icon)}
+                    </div>
+                    <div>
+                      <h2 className="text-xl font-bold text-white">{reward.name}</h2>
+                      <p className="text-sm text-gray-400">Level {reward.trigger_value} belöning</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={onClose}
+                    className="p-2 rounded-full hover:bg-navy-800 transition-colors"
+                  >
+                    <X className="w-5 h-5 text-gray-400 hover:text-white" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Content */}
+          <div className="p-6 space-y-6">
+            {/* Reward Value */}
+            <div className="text-center">
+              <Badge variant="secondary" className="text-lg px-4 py-2 bg-gradient-to-r from-pink-600/20 to-purple-600/20 border-pink-500/50">
+                {getRewardValue()}
+              </Badge>
+            </div>
+
+            {/* Description */}
+            <div>
+              <p className="text-gray-300 text-center">{reward.description}</p>
+            </div>
+
+            {/* Features */}
+            <div>
+              <h3 className="font-semibold text-white mb-3 flex items-center">
+                <Sparkles className="w-4 h-4 mr-2 text-pink-500" />
+                {details.title}
+              </h3>
+              <div className="space-y-2">
+                {details.features.map((feature, index) => (
+                  <div key={index} className="flex items-center space-x-2">
+                    <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0" />
+                    <span className="text-sm text-gray-300">{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Expiry Info */}
+            {details.expires && (
+              <div className="p-3 bg-orange-500/10 border border-orange-500/20 rounded-lg">
+                <div className="flex items-center space-x-2">
+                  <Calendar className="w-4 h-4 text-orange-400" />
+                  <span className="text-sm text-orange-300">
+                    {reward.reward_type === 'status' ? 'Permanent belöning' : `Gäller i ${details.expires}`}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* Discount Code Display (for activated discount rewards) */}
+            {activationStep === 'activated' && reward.reward_type === 'discount' && discountCode && (
+              <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
+                <h4 className="font-semibold text-green-400 mb-2">Din rabattkod</h4>
+                <div className="flex items-center space-x-2">
+                  <code className="flex-1 px-3 py-2 bg-navy-800 border border-navy-600 rounded text-white font-mono">
+                    {discountCode}
+                  </code>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={copyDiscountCode}
+                    className="hover:bg-green-600 hover:text-white"
+                  >
+                    <Copy className="w-4 h-4" />
+                  </Button>
+                </div>
+                <p className="text-xs text-green-300 mt-2">
+                  Koden appliceras automatiskt vid betalning
+                </p>
+              </div>
+            )}
+
+            {/* Action Buttons */}
+            <div className="flex space-x-3">
+              {activationStep === 'claim' ? (
+                <>
+                  <Button
+                    variant="outline"
+                    onClick={onClose}
+                    className="flex-1"
+                    disabled={isActivating}
+                  >
+                    Avbryt
+                  </Button>
+                  <Button
+                    onClick={handleActivate}
+                    disabled={isActivating}
+                    className="flex-1 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700"
+                  >
+                    {isActivating ? 'Aktiverar...' : 'Aktivera belöning'}
+                  </Button>
+                </>
+              ) : activationStep === 'activated' ? (
+                <div className="flex-1 space-y-2">
+                  {reward.reward_type === 'discount' ? (
+                    <Button
+                      onClick={() => window.open('/priser', '_blank')}
+                      className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
+                    >
+                      <ExternalLink className="w-4 h-4 mr-2" />
+                      Använd rabatt nu
+                    </Button>
+                  ) : reward.reward_type === 'guest_invitations' ? (
+                    <Button
+                      onClick={() => window.open('/dashboard/inbjudningar', '_blank')}
+                      className="w-full bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700"
+                    >
+                      <Users className="w-4 h-4 mr-2" />
+                      Skicka inbjudningar
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => window.open('/dashboard', '_blank')}
+                      className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                    >
+                      <Star className="w-4 h-4 mr-2" />
+                      Gå till dashboard
+                    </Button>
+                  )}
+                  <Button
+                    variant="outline"
+                    onClick={onClose}
+                    className="w-full"
+                  >
+                    Stäng
+                  </Button>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Celebration Styles */}
+      <style>{`
+        @keyframes confettiDrop {
+          0% {
+            transform: translateY(-100vh) rotate(0deg);
+            opacity: 1;
+          }
+          100% {
+            transform: translateY(100vh) rotate(720deg);
+            opacity: 0;
+          }
+        }
+
+        .confetti {
+          animation: confettiDrop 3s linear infinite;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default RewardClaimModal;
