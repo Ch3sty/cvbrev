@@ -29,11 +29,14 @@ export async function POST(request: NextRequest) {
     // Check if user is premium
     const { data: profile } = await supabase
       .from('profiles')
-      .select('premium_until, full_name')
+      .select('premium_until, subscription_tier, full_name')
       .eq('id', user.id)
       .single()
 
-    const isPremium = profile?.premium_until && new Date(profile.premium_until) > new Date()
+    // Check both manual premium (premium_until) and Stripe subscription (subscription_tier)
+    const hasPremiumUntil = profile?.premium_until && new Date(profile.premium_until) > new Date()
+    const hasPremiumTier = profile?.subscription_tier === 'premium'
+    const isPremium = hasPremiumUntil || hasPremiumTier
 
     if (!isPremium) {
       return NextResponse.json({ error: 'Premium membership required' }, { status: 403 })

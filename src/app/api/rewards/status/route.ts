@@ -122,11 +122,14 @@ export async function GET(request: NextRequest) {
     // Check premium status
     const { data: profile } = await supabase
       .from('profiles')
-      .select('premium_until')
+      .select('premium_until, subscription_tier')
       .eq('id', user.id)
       .single()
 
-    const isPremium = profile?.premium_until && new Date(profile.premium_until) > new Date()
+    // Check both manual premium (premium_until) and Stripe subscription (subscription_tier)
+    const hasPremiumUntil = profile?.premium_until && new Date(profile.premium_until) > new Date()
+    const hasPremiumTier = profile?.subscription_tier === 'premium'
+    const isPremium = hasPremiumUntil || hasPremiumTier
 
     // Get guest invitation allowance if premium
     let guestInvitations = null
