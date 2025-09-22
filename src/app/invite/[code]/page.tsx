@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import GuestWelcomeLanding from '@/components/rewards/GuestWelcomeLanding'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -27,7 +27,7 @@ export default function InvitePage() {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
   const [user, setUser] = useState<any>(null)
-  const supabase = createClientComponentClient()
+  const supabase = getSupabaseClient()
 
   const invitationCode = params.code as string
 

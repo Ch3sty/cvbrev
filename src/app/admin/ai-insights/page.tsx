@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { 
   LightBulbIcon,
   ArrowTrendingUpIcon as TrendingUpIcon,
@@ -48,7 +48,7 @@ export default function AIInsightsDashboard() {
   const [recommendations, setRecommendations] = useState<AIRecommendation[]>([]);
   const [optimizationMetrics, setOptimizationMetrics] = useState<any>({});
   const [loading, setLoading] = useState(true);
-  const supabase = createClientComponentClient();
+  const supabase = getSupabaseClient();
 
   useEffect(() => {
     fetchAIInsights();

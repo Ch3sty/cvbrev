@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { ArrowUpIcon, ArrowDownIcon, CreditCardIcon, UsersIcon, ChartBarIcon, ArrowTrendingUpIcon as TrendingUpIcon, BanknotesIcon, CurrencyDollarIcon } from '@heroicons/react/24/outline';
 import { LineChart, Line, AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { format, subDays, startOfDay } from 'date-fns';
@@ -31,7 +31,7 @@ export default function FinanceDashboard() {
     aiCostSource: 'Ingen data',
     lettersCount: 0
   });
-  const supabase = createClientComponentClient();
+  const supabase = getSupabaseClient();
 
   // Hämta all finansiell data
   const fetchFinancialData = async () => {

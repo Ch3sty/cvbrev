@@ -212,12 +212,78 @@ function patchStorageMethods(): void {
 }
 
 /**
+ * Clean corrupted cookies that might have been set by old auth-helpers
+ */
+function cleanCorruptedCookies(): void {
+  if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
+  try {
+    const allCookies = document.cookie.split(';');
+
+    for (const cookie of allCookies) {
+      const trimmed = cookie.trim();
+      if (!trimmed) continue;
+
+      const eqIndex = trimmed.indexOf('=');
+      if (eqIndex === -1) continue;
+
+      const name = trimmed.substring(0, eqIndex).trim();
+      const value = trimmed.substring(eqIndex + 1).trim();
+
+      // Check if this is a Supabase auth cookie
+      const isSupabaseKey = SUPABASE_KEY_PATTERNS.some(pattern => pattern.test(name)) ||
+                            SUPABASE_STORAGE_KEYS.includes(name);
+
+      if (isSupabaseKey) {
+        // Check for common corruption patterns
+        if (value === 'undefined' || value === 'null' || value === '' ||
+            value === '""' || value === "''" || value === '%22%22' ||
+            value === '%27%27') {
+
+          // Remove the corrupted cookie
+          document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
+
+          if (process.env.NODE_ENV === 'development') {
+            console.log(`[Storage Sanitizer] Removed corrupted cookie: ${name}`);
+          }
+        }
+
+        // Check for malformed JSON in cookies
+        else if (value.includes('%7B') || value.includes('%5B')) {
+          try {
+            const decoded = decodeURIComponent(value);
+            if (decoded.startsWith('{') || decoded.startsWith('[')) {
+              JSON.parse(decoded); // Test if it's valid JSON
+            }
+          } catch (e) {
+            // Invalid JSON, remove the cookie
+            document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
+
+            if (process.env.NODE_ENV === 'development') {
+              console.log(`[Storage Sanitizer] Removed malformed JSON cookie: ${name}`);
+            }
+          }
+        }
+      }
+    }
+  } catch (error) {
+    // Ignore errors during cookie cleaning
+    if (process.env.NODE_ENV === 'development') {
+      console.warn('[Storage Sanitizer] Error cleaning cookies:', error);
+    }
+  }
+}
+
+/**
  * Initialize storage sanitization
  * This should be called as early as possible in the application lifecycle
  */
 export function initializeStorageSanitizer(): void {
   // Clean existing corrupted data
   cleanAllStorage();
+
+  // Clean corrupted cookies
+  cleanCorruptedCookies();
 
   // Patch storage methods to prevent future corruption
   patchStorageMethods();

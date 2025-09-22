@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { useRouter } from 'next/navigation'
 import GameifiedRewardsView from '@/components/rewards/GameifiedRewardsView'
 import GuestInvitationCard from '@/components/rewards/GuestInvitationCard'
@@ -42,7 +42,7 @@ export default function RewardsPage() {
   const [selectedReward, setSelectedReward] = useState<any>(null)
   const [showClaimModal, setShowClaimModal] = useState(false)
   const [activeTab, setActiveTab] = useState('overview')
-  const supabase = createClientComponentClient()
+  const supabase = getSupabaseClient()
   const router = useRouter()
 
   useEffect(() => {

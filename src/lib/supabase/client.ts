@@ -21,7 +21,7 @@ export const createClient = () => {
             if (!value) return undefined;
 
             // Handle invalid values
-            if (value === 'undefined' || value === 'null' || value === '') {
+            if (value === 'undefined' || value === 'null' || value === '' || value === '""' || value === "''") {
               return undefined;
             }
 
@@ -32,16 +32,36 @@ export const createClient = () => {
                 return value;
               }
 
+              // Handle quotes around the value (common from old auth-helpers)
+              let cleanValue = value;
+              if ((cleanValue.startsWith('"') && cleanValue.endsWith('"')) ||
+                  (cleanValue.startsWith("'") && cleanValue.endsWith("'"))) {
+                cleanValue = cleanValue.slice(1, -1);
+              }
+
               // Try to decode URI component
               try {
-                const decoded = decodeURIComponent(value);
+                const decoded = decodeURIComponent(cleanValue);
                 // Check if decoded value is valid
-                if (decoded === 'undefined' || decoded === 'null' || decoded === '') {
+                if (decoded === 'undefined' || decoded === 'null' || decoded === '' || decoded === '""' || decoded === "''") {
                   return undefined;
                 }
+
+                // If it's a JSON string after decoding, try to parse it
+                if ((decoded.startsWith('{') && decoded.endsWith('}')) ||
+                    (decoded.startsWith('[') && decoded.endsWith(']'))) {
+                  try {
+                    return JSON.parse(decoded);
+                  } catch {
+                    // Return the decoded string if it's not valid JSON
+                    return decoded;
+                  }
+                }
+
                 return decoded;
               } catch {
-                return value;
+                // If decoding fails, try the original value
+                return cleanValue;
               }
             }
 
@@ -58,7 +78,10 @@ export const createClient = () => {
             // Return as-is for other values
             return value;
           } catch (error) {
-            // Silently handle errors to avoid console spam
+            // Log error in development, silently handle in production
+            if (process.env.NODE_ENV === 'development') {
+              console.warn('Cookie parsing error for', name, ':', error);
+            }
             return undefined;
           }
         },
@@ -67,18 +90,50 @@ export const createClient = () => {
 
           try {
             // Prevent setting invalid values
-            if (value === 'undefined' || value === undefined as any || value === null || value === 'null') {
+            if (value === 'undefined' || value === undefined as any || value === null || value === 'null' || value === '') {
               // Remove the cookie instead
               this.remove(name, options);
               return;
             }
 
-            // Handle encoding properly
-            let cookieValue = value;
-            if (typeof value === 'string') {
-              // Don't double-encode
-              if (!value.includes('%') && !value.startsWith('base64-')) {
-                cookieValue = encodeURIComponent(value);
+            // Clean the value before setting
+            let cleanValue = value;
+
+            // Remove any existing quotes that might be causing issues
+            if ((cleanValue.startsWith('"') && cleanValue.endsWith('"')) ||
+                (cleanValue.startsWith("'") && cleanValue.endsWith("'"))) {
+              cleanValue = cleanValue.slice(1, -1);
+            }
+
+            // Validate that the value isn't still invalid after cleaning
+            if (cleanValue === 'undefined' || cleanValue === 'null' || cleanValue === '') {
+              this.remove(name, options);
+              return;
+            }
+
+            // Handle encoding properly for Supabase auth cookies
+            let cookieValue = cleanValue;
+            if (name.includes('auth-token') || name.includes('refresh-token') || name.includes('provider-token') || name.includes('sb-')) {
+              // For auth cookies, ensure proper encoding
+              if (!cleanValue.startsWith('base64-')) {
+                try {
+                  // Test if it's valid JSON before encoding
+                  if (cleanValue.startsWith('{') || cleanValue.startsWith('[')) {
+                    JSON.parse(cleanValue); // Validate JSON
+                  }
+                  cookieValue = encodeURIComponent(cleanValue);
+                } catch (jsonError) {
+                  // If JSON is invalid, don't set the cookie
+                  if (process.env.NODE_ENV === 'development') {
+                    console.warn('Invalid JSON value for cookie', name, ':', jsonError);
+                  }
+                  return;
+                }
+              }
+            } else {
+              // For other cookies, encode if not already encoded and not base64
+              if (!cleanValue.includes('%') && !cleanValue.startsWith('base64-')) {
+                cookieValue = encodeURIComponent(cleanValue);
               }
             }
 
@@ -102,7 +157,10 @@ export const createClient = () => {
 
             document.cookie = cookieString;
           } catch (error) {
-            // Silently handle errors
+            // Log error in development, silently handle in production
+            if (process.env.NODE_ENV === 'development') {
+              console.warn('Cookie setting error for', name, ':', error);
+            }
           }
         },
         remove(name: string, options?: any) {

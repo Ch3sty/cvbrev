@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { RealtimeChannel } from '@supabase/supabase-js';
 
 interface SystemAlert {
@@ -27,7 +27,7 @@ export function useRealtimeAlerts() {
   const [alerts, setAlerts] = useState<SystemAlert[]>([]);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [isConnected, setIsConnected] = useState(false);
-  const supabase = createClientComponentClient();
+  const supabase = getSupabaseClient();
   
   useEffect(() => {
     let alertChannel: RealtimeChannel;
