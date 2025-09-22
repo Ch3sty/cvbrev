@@ -73,18 +73,18 @@ const updateUserSubscription = async (customerId: string, subscription: Stripe.S
 
 // Funktion för att hantera referral-konverteringar
 const handleReferralConversion = async (customerId: string) => {
-    const supabaseAdmin = getSupabaseAdmin();
+    const supabaseAdmin = getSupabaseAdmin() as any;
     console.log(`Checking for referral conversion for customer ${customerId}`);
 
     try {
         // Find the user by Stripe customer ID
-        const { data: newCustomer } = await supabaseAdmin
+        const { data: newCustomer, error: customerError } = await supabaseAdmin
             .from('profiles')
             .select('id, email')
             .eq('stripe_customer_id', customerId)
             .single();
 
-        if (!newCustomer) {
+        if (customerError || !newCustomer) {
             console.log('No user found for customer ID');
             return;
         }
@@ -123,7 +123,7 @@ const handleReferralConversion = async (customerId: string) => {
         });
 
         // Get inviter's subscription for extension
-        const { data: inviterProfile } = await supabaseAdmin
+        const { data: inviterProfile, error: inviterError } = await supabaseAdmin
             .from('profiles')
             .select('stripe_customer_id, subscription_id')
             .eq('id', invitation.inviter_id)
