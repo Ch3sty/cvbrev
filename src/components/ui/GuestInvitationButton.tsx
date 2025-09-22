@@ -128,7 +128,7 @@ const GuestInvitationButton: React.FC<GuestInvitationButtonProps> = ({
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         className={getButtonStyles()}
-        size={variant === 'compact' ? 'sm' : 'default'}
+        size={variant === 'compact' ? 'sm' : 'md'}
       >
         {/* Background glassmorphism effect */}
         <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

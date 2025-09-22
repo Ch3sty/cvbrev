@@ -21,7 +21,11 @@ export interface Profile {
   // Nya fältnamn för kompetensanalys i databasen
   weekly_competence_analysis_count?: number;
   last_competence_analysis_reset?: string;
-  
+
+  // Premium gästinbjudningar
+  guest_invitations_remaining?: number;
+  premium_until?: string;
+
   created_at?: string;
   updated_at?: string;
 }

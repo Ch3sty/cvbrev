@@ -320,7 +320,7 @@ export default function Navbar() {
                 {!isLoading && sessionUser && subscriptionTier === 'premium' && (
                   <GuestInvitationButton
                     isPremium={true}
-                    availableInvitations={profile?.guest_invitations_remaining || 0}
+                    availableInvitations={1} // TODO: Get from API
                     onInviteGuest={handleGuestInvitation}
                     variant="navbar"
                   />
@@ -396,7 +396,7 @@ export default function Navbar() {
                     <div className="px-3 py-2">
                       <GuestInvitationButton
                         isPremium={true}
-                        availableInvitations={profile?.guest_invitations_remaining || 0}
+                        availableInvitations={1} // TODO: Get from API
                         onInviteGuest={() => {
                           handleGuestInvitation();
                           closeMobileMenu();
