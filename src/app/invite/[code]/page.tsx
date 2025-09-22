@@ -77,27 +77,43 @@ export default function InvitePage() {
     setError(null)
 
     try {
+      // Get current session for authorization
+      const { data: { session } } = await supabase.auth.getSession()
+
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json'
+      }
+
+      // Add authorization header if we have a session
+      if (session?.access_token) {
+        headers['Authorization'] = `Bearer ${session.access_token}`
+      }
+
       const response = await fetch('/api/guest/accept', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
+        credentials: 'include', // Ensure cookies are sent
         body: JSON.stringify({ invitationCode })
       })
 
       const result = await response.json()
 
-      if (result.success) {
+      if (response.ok && result.success) {
         setSuccess(true)
         setTimeout(() => {
           router.push('/dashboard')
         }, 3000)
       } else {
-        setError(result.error || 'Kunde inte acceptera inbjudan')
-
-        if (result.isPremium) {
+        // Handle various error cases
+        if (response.status === 401) {
+          setError('Autentisering misslyckades. Försök logga in igen.')
+        } else if (result.isPremium) {
           // User already has premium
           setTimeout(() => {
             router.push('/dashboard')
           }, 2000)
+        } else {
+          setError(result.error || 'Kunde inte acceptera inbjudan')
         }
       }
     } catch (err) {
@@ -220,19 +236,74 @@ export default function InvitePage() {
               return
             }
 
-            // 2. Accept the invitation
+            // 2. Sign in the user immediately after signup
+            const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+              email,
+              password
+            })
+
+            if (signInError) {
+              setError(`Kunde inte logga in: ${signInError.message}`)
+              return
+            }
+
+            if (!signInData.session) {
+              setError('Ingen session skapades vid inloggning')
+              return
+            }
+
+            // 3. Wait for session to propagate and verify authentication
+            let retries = 0
+            const maxRetries = 5
+            let isAuthenticated = false
+
+            while (retries < maxRetries && !isAuthenticated) {
+              await new Promise(resolve => setTimeout(resolve, 1000 + (retries * 500))) // Progressive delay
+
+              // Verify session is available
+              const { data: { user: currentUser } } = await supabase.auth.getUser()
+              if (currentUser) {
+                isAuthenticated = true
+                console.log('Session verified, user authenticated:', currentUser.email)
+              } else {
+                retries++
+                console.log(`Session not ready, retry ${retries}/${maxRetries}`)
+              }
+            }
+
+            if (!isAuthenticated) {
+              setError('Autentisering tog för lång tid. Försök igen.')
+              return
+            }
+
+            // 4. Accept the invitation with proper credentials
             const response = await fetch('/api/guest/accept', {
               method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${signInData.session.access_token}`
+              },
+              credentials: 'include', // Ensure cookies are sent
               body: JSON.stringify({ invitationCode })
             })
 
-            if (response.ok) {
+            const result = await response.json()
+
+            if (response.ok && result.success) {
               // Success! Redirect to dashboard
               router.push('/dashboard')
             } else {
-              const result = await response.json()
-              setError(result.error || 'Kunde inte acceptera inbjudan')
+              // Handle various error cases
+              if (response.status === 401) {
+                setError('Autentisering misslyckades. Försök logga in manuellt.')
+              } else if (result.isPremium) {
+                // User already has premium, redirect anyway
+                setTimeout(() => {
+                  router.push('/dashboard')
+                }, 2000)
+              } else {
+                setError(result.error || 'Kunde inte acceptera inbjudan')
+              }
             }
           } catch (err) {
             console.error('Error during signup:', err)

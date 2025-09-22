@@ -34,11 +34,41 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invitation code is required' }, { status: 400 })
     }
 
-    // Get current user
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    // Get current user - try cookie-based auth first
+    let { data: { user }, error: authError } = await supabase.auth.getUser()
+
+    // If cookie-based auth fails, try Authorization header
+    if (authError || !user) {
+      const authHeader = request.headers.get('Authorization')
+      if (authHeader && authHeader.startsWith('Bearer ')) {
+        const token = authHeader.substring(7)
+        try {
+          // Create a new supabase client with the access token
+          const supabaseWithToken = createClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+          )
+
+          // Set the session manually
+          const { data: tokenUser, error: tokenError } = await supabaseWithToken.auth.getUser(token)
+
+          if (!tokenError && tokenUser.user) {
+            user = tokenUser.user
+            authError = null
+            console.log('Auth successful via Bearer token for user:', user.email)
+          }
+        } catch (tokenErr) {
+          console.error('Bearer token auth failed:', tokenErr)
+        }
+      }
+    }
 
     if (authError || !user) {
-      return NextResponse.json({ error: 'Please sign in to accept invitation' }, { status: 401 })
+      console.error('Authentication failed:', authError?.message || 'No user found')
+      return NextResponse.json({
+        error: 'Please sign in to accept invitation',
+        details: authError?.message || 'No authenticated user found'
+      }, { status: 401 })
     }
 
     // Get invitation
