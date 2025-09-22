@@ -1,17 +1,19 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { 
-  PenTool, 
-  Brain, 
-  FileText, 
+import {
+  PenTool,
+  Brain,
+  FileText,
   Palette,
   TrendingUp,
   Clock,
   Star,
   ArrowRight,
   Plus,
-  Activity
+  Activity,
+  Trophy,
+  Gift
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
@@ -20,6 +22,10 @@ interface DashboardStats {
   totalAnalyses: number;
   subscriptionTier: string;
   recentLetters: any[];
+  currentLevel?: number;
+  levelTitle?: string;
+  availableRewards?: number;
+  isPremium?: boolean;
 }
 
 export default function DashboardPage() {
@@ -49,9 +55,32 @@ export default function DashboardPage() {
         // Hämta användarens profil med prenumerationsinfo
         const { data: profile } = await supabase
           .from('profiles')
-          .select('subscription_tier, weekly_analysis_count')
+          .select('subscription_tier, weekly_analysis_count, premium_until')
           .eq('id', user.id)
           .single();
+
+        // Hämta gamification stats
+        let rewardsData = {
+          currentLevel: 1,
+          levelTitle: 'Novis',
+          availableRewards: 0
+        };
+
+        try {
+          const rewardsResponse = await fetch('/api/rewards/status');
+          if (rewardsResponse.ok) {
+            const rewards = await rewardsResponse.json();
+            rewardsData = {
+              currentLevel: rewards.data.currentLevel || 1,
+              levelTitle: rewards.data.levelTitle || 'Novis',
+              availableRewards: rewards.data.availableRewards?.length || 0
+            };
+          }
+        } catch (error) {
+          console.error('Fel vid hämtning av rewards:', error);
+        }
+
+        const isPremium = profile?.premium_until && new Date(profile.premium_until) > new Date();
 
         setStats({
           totalLetters: letters?.length || 0,
@@ -61,7 +90,11 @@ export default function DashboardPage() {
             ...letter,
             company_name: letter.company,
             position: letter.job_title
-          })) || []
+          })) || [],
+          currentLevel: rewardsData.currentLevel,
+          levelTitle: rewardsData.levelTitle,
+          availableRewards: rewardsData.availableRewards,
+          isPremium
         });
       } catch (error) {
         console.error('Fel vid hämtning av dashboard-data:', error);
@@ -115,7 +148,7 @@ export default function DashboardPage() {
   return (
     <div className="space-y-8">
       {/* Dashboard Header med statistik */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
           <div className="flex items-center justify-between">
             <div>
@@ -155,6 +188,36 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
+
+        {/* Ny Level & Rewards stats */}
+        <Link href="/dashboard/rewards" className="block group">
+          <div className="bg-gradient-to-r from-purple-900 to-pink-900 rounded-lg p-6 border border-purple-600 hover:border-purple-500 transition-all group-hover:scale-105">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-gray-300 text-sm">Din Level</p>
+                <p className="text-2xl font-bold text-white">
+                  Level {stats.currentLevel || 1}
+                </p>
+                <p className="text-xs text-purple-300 mt-1">
+                  {stats.levelTitle || 'Novis'}
+                </p>
+              </div>
+              <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 p-3 rounded-lg">
+                <Trophy className="w-6 h-6 text-yellow-400" />
+              </div>
+            </div>
+            {stats.availableRewards && stats.availableRewards > 0 && (
+              <div className="mt-3 pt-3 border-t border-purple-700">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-yellow-400 font-semibold animate-pulse">
+                    {stats.availableRewards} belöningar att hämta!
+                  </span>
+                  <Gift className="w-4 h-4 text-yellow-400 animate-bounce" />
+                </div>
+              </div>
+            )}
+          </div>
+        </Link>
       </div>
 
       {/* Snabbåtgärder */}

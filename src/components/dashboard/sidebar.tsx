@@ -14,7 +14,9 @@ import {
   LogOut,
   HelpCircle,
   Mail,
-  GraduationCap
+  GraduationCap,
+  Trophy,
+  Gift
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
@@ -30,6 +32,13 @@ export default function DashboardSidebar() {
       label: 'Översikt',
       icon: <LayoutDashboard className="w-5 h-5" />,
       section: 'main'
+    },
+    {
+      path: '/dashboard/rewards',
+      label: 'Belöningar & Förmåner',
+      icon: <Trophy className="w-5 h-5" />,
+      section: 'main',
+      highlight: true
     },
     {
       path: '/dashboard/skapa-brev',
@@ -120,12 +129,12 @@ export default function DashboardSidebar() {
           <ul className="space-y-1">
             {overviewItems.map((item) => (
               <li key={item.path}>
-                <Link 
+                <Link
                   href={item.path}
                   className={`
-                    flex items-center px-4 py-2.5 
-                    ${pathname === item.path 
-                      ? 'bg-pink-600 text-white' 
+                    flex items-center px-4 py-2.5 relative
+                    ${pathname === item.path
+                      ? 'bg-pink-600 text-white'
                       : 'text-gray-300 hover:bg-navy-800 hover:text-white'
                     }
                     ${collapsed ? 'justify-center' : ''}
@@ -133,6 +142,11 @@ export default function DashboardSidebar() {
                 >
                   <span className="flex-shrink-0">{item.icon}</span>
                   {!collapsed && <span className="ml-3">{item.label}</span>}
+                  {'highlight' in item && item.highlight && !collapsed && (
+                    <span className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 text-black text-xs font-bold rounded-full animate-pulse">
+                      NY
+                    </span>
+                  )}
                 </Link>
               </li>
             ))}

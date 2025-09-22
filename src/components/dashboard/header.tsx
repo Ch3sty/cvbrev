@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Bell, Search, Settings, User, Trophy, Zap, TrendingUp, Calendar, Target, BookOpen, Clock, Award, Star, Flame, Gift } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import Link from 'next/link';
 
 interface DashboardHeaderProps {
   user: any;
@@ -173,9 +174,9 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
           {/* Gamification Stats */}
           {gamificationStats && (
             <div className="flex items-center space-x-4 pl-6 border-l border-gray-700">
-              {/* Level Badge */}
-              <div className="relative group">
-                <div className="w-16 h-16 bg-gradient-to-br from-pink-600 via-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-xl border-2 border-white/20 backdrop-blur-sm">
+              {/* Level Badge - Now clickable! */}
+              <Link href="/dashboard/rewards" className="relative group cursor-pointer">
+                <div className="w-16 h-16 bg-gradient-to-br from-pink-600 via-purple-600 to-blue-600 rounded-full flex items-center justify-center shadow-xl border-2 border-white/20 backdrop-blur-sm hover:scale-110 transition-transform">
                   <span className="text-white font-bold text-xl tracking-wide">
                     {gamificationStats.stats.current_level}
                   </span>
@@ -218,9 +219,9 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
 
                 {/* Hover Tooltip */}
                 <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-navy-800 text-white text-xs px-3 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap border border-navy-700 shadow-xl">
-                  Level {gamificationStats.stats.current_level} • {getXPProgress()}% till nästa
+                  Level {gamificationStats.stats.current_level} • {getXPProgress()}% till nästa • Klicka för belöningar!
                 </div>
-              </div>
+              </Link>
 
               {/* XP Stats */}
               <div className="flex flex-col">
