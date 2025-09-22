@@ -3,14 +3,15 @@
 import { useState, useEffect } from 'react'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/navigation'
-import GameifiedRewardsView from '@/components/rewards/GameifiedRewardsView'
+import RewardsDashboard from '@/components/rewards/RewardsDashboard'
 import GuestInvitationCard from '@/components/rewards/GuestInvitationCard'
+import MilestoneRewardsTimeline from '@/components/rewards/MilestoneRewardsTimeline'
 import RewardClaimModal from '@/components/rewards/RewardClaimModal'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Loader2, Trophy, Gift, Users } from 'lucide-react'
+import { Loader2, Trophy, Gift, Users, Crown, Sparkles } from 'lucide-react'
 
 interface RewardStatus {
   currentLevel: number
@@ -106,13 +107,57 @@ export default function RewardsPage() {
   }
 
   return (
-    <div className="container mx-auto py-6 px-4 max-w-7xl">
+    <div className="container mx-auto py-8 px-4 max-w-7xl">
+      {/* Hero Section */}
+      <div className="relative mb-8 overflow-hidden rounded-2xl bg-gradient-to-r from-purple-600 via-pink-500 to-indigo-600 p-8 text-white">
+        <div className="relative z-10">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl">
+              <Crown className="w-8 h-8" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold">Belöningar & Förmåner</h1>
+              <p className="text-white/90">Level {rewardStatus.currentLevel} - {rewardStatus.levelTitle}</p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3">
+              <div className="text-2xl font-bold">{rewardStatus.currentLevel}</div>
+              <div className="text-sm text-white/80">Nuvarande Level</div>
+            </div>
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3">
+              <div className="text-2xl font-bold">{rewardStatus.totalXp.toLocaleString()}</div>
+              <div className="text-sm text-white/80">Total XP</div>
+            </div>
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3">
+              <div className="text-2xl font-bold">{rewardStatus.availableRewards.length}</div>
+              <div className="text-sm text-white/80">Tillgängliga belöningar</div>
+            </div>
+            {rewardStatus.isPremium && rewardStatus.guestInvitations && (
+              <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3">
+                <div className="text-2xl font-bold">{rewardStatus.guestInvitations.remaining}</div>
+                <div className="text-sm text-white/80">Gästinbjudningar kvar</div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Decorative elements */}
+        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/3 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/3 w-64 h-64 bg-white/10 rounded-full blur-3xl" />
+      </div>
+
       {/* Main Content */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid grid-cols-2 w-full max-w-md mx-auto">
+        <TabsList className="grid grid-cols-3 w-full max-w-md mx-auto">
           <TabsTrigger value="overview" className="flex items-center gap-2">
             <Trophy className="w-4 h-4" />
-            Belöningar
+            Översikt
+          </TabsTrigger>
+          <TabsTrigger value="milestones" className="flex items-center gap-2">
+            <Sparkles className="w-4 h-4" />
+            Milstolpar
           </TabsTrigger>
           {rewardStatus.isPremium && (
             <TabsTrigger value="guests" className="flex items-center gap-2">
@@ -123,21 +168,76 @@ export default function RewardsPage() {
         </TabsList>
 
         <TabsContent value="overview" className="space-y-6">
-          <GameifiedRewardsView
+          <RewardsDashboard
             userLevel={{
               current_level: rewardStatus.currentLevel,
               current_xp: rewardStatus.totalXp,
               title: rewardStatus.levelTitle,
               xp_to_next_level: rewardStatus.nextLevel?.xpRemaining || 0,
-              total_xp_for_current_level: rewardStatus.totalXp - (rewardStatus.nextLevel?.xpProgress || 0),
+              total_xp_for_current_level: rewardStatus.totalXp,
               total_xp_for_next_level: rewardStatus.nextLevel?.xpRequired || 0
             }}
+            availableRewards={rewardStatus.availableRewards}
+            claimedRewards={rewardStatus.claimedRewards}
             onClaimReward={(rewardId) => handleClaimReward(rewardStatus.availableRewards.find(r => r.id === rewardId))}
+            onActivateReward={(claimId) => console.log('Activate reward:', claimId)}
           />
 
+          {/* Quick Actions */}
+          {rewardStatus.availableRewards.length > 0 && (
+            <Card className="border-2 border-purple-200 bg-gradient-to-r from-purple-50 to-pink-50">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Gift className="w-5 h-5 text-purple-600" />
+                  Snabbåtgärder
+                </CardTitle>
+                <CardDescription>
+                  Du har {rewardStatus.availableRewards.length} belöningar att hämta ut!
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid gap-3">
+                  {rewardStatus.availableRewards.slice(0, 3).map((reward) => (
+                    <div
+                      key={reward.id}
+                      className="flex items-center justify-between p-3 bg-white rounded-lg border border-purple-100"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="text-2xl">{reward.icon || '🎁'}</div>
+                        <div>
+                          <div className="font-semibold">{reward.name}</div>
+                          <div className="text-sm text-gray-600">{reward.description}</div>
+                        </div>
+                      </div>
+                      <Button
+                        size="sm"
+                        variant="default"
+                        className="bg-gradient-to-r from-purple-600 to-pink-600"
+                        onClick={() => handleClaimReward(reward)}
+                      >
+                        Hämta ut
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </TabsContent>
 
-        {/* Milestones tab removed - integrated in main overview */}
+        <TabsContent value="milestones" className="space-y-6">
+          <MilestoneRewardsTimeline
+            currentLevel={rewardStatus.currentLevel}
+            currentXp={rewardStatus.totalXp}
+            milestones={rewardStatus.upcomingRewards.map((r: any) => ({
+              ...r,
+              is_unlocked: rewardStatus.currentLevel >= r.milestone_level,
+              is_claimed: rewardStatus.claimedRewards.some((c: any) => c.reward_id === r.id)
+            }))}
+            onClaimReward={(rewardId) => handleClaimReward(rewardStatus.availableRewards.find(r => r.id === rewardId))}
+            onShowRewardDetails={(milestone) => console.log('Show details:', milestone)}
+          />
+        </TabsContent>
 
         {rewardStatus.isPremium && (
           <TabsContent value="guests" className="space-y-6">
