@@ -18,7 +18,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Du har blivit inbjuden till Jobbcoach.ai Premium!</title>
+  <title>Din exklusiva inbjudan till Jobbcoach.ai Premium!</title>
   <!--[if mso]>
   <noscript>
     <xml>
@@ -28,53 +28,75 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
     </xml>
   </noscript>
   <![endif]-->
+  <style>
+    @media screen and (max-width: 600px) {
+      .mobile-padding { padding: 20px !important; }
+      .mobile-text { font-size: 16px !important; }
+      .mobile-button { padding: 16px 32px !important; font-size: 16px !important; }
+    }
+  </style>
 </head>
-<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f5f7;">
-  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f5f5f7;">
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0A0F1E; line-height: 1.6;">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #0A0F1E; min-height: 100vh;">
     <tr>
-      <td align="center" style="padding: 40px 20px;">
+      <td align="center" style="padding: 30px 15px;">
 
         <!-- Main Container -->
-        <table width="600" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+        <table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width: 600px; background-color: #ffffff; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
 
-          <!-- Header with gradient -->
+          <!-- Header Section -->
           <tr>
-            <td style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); padding: 60px 40px; text-align: center;">
-              <h1 style="color: #ffffff; font-size: 32px; margin: 0 0 20px 0; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                Jobbcoach.ai Premium
-              </h1>
-              <div style="background: rgba(255,255,255,0.2); border-radius: 100px; padding: 12px 24px; display: inline-block; backdrop-filter: blur(10px);">
-                <p style="color: #ffffff; font-size: 18px; margin: 0; font-weight: 600;">
-                  7 DAGARS KOSTNADSFRI TILLGÅNG
+            <td style="background: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); padding: 50px 40px; text-align: center;" class="mobile-padding">
+              <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 8px 20px; display: inline-block; margin-bottom: 24px;">
+                <p style="color: #ffffff; font-size: 14px; margin: 0; font-weight: 600; letter-spacing: 0.5px;">
+                  EXKLUSIV INBJUDAN
                 </p>
               </div>
-            </td>
-          </tr>
-
-          <!-- Personal Invitation Message -->
-          <tr>
-            <td style="padding: 40px 40px 20px 40px;">
-              <h2 style="color: #1e1b4b; font-size: 24px; margin: 0 0 16px 0; font-weight: 600;">
-                ${inviterName} har bjudit in dig!
-              </h2>
-              <p style="color: #64748b; font-size: 16px; line-height: 1.6; margin: 0;">
-                Du har fått en exklusiv inbjudan att prova Jobbcoach.ai Premium helt kostnadsfritt i 7 dagar.
-                Upptäck hur AI kan accelerera din karriär och hjälpa dig nå dina yrkesmål.
+              <h1 style="color: #ffffff; font-size: 36px; margin: 0 0 16px 0; font-weight: 700; line-height: 1.2;" class="mobile-text">
+                7 dagar gratis Premium
+              </h1>
+              <p style="color: rgba(255,255,255,0.9); font-size: 18px; margin: 0; font-weight: 400;">
+                Värd 149 kr - helt kostnadsfritt för dig
               </p>
             </td>
           </tr>
 
-          ${personalMessage ? `
-          <!-- Personal Message Box -->
+          <!-- Personal Invitation -->
           <tr>
-            <td style="padding: 0 40px;">
-              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: linear-gradient(135deg, #f3e7fc 0%, #fce7f3 100%); border-radius: 12px;">
+            <td style="padding: 45px 40px 30px 40px;" class="mobile-padding">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                  <td style="padding: 20px;">
-                    <p style="color: #6b21a8; font-size: 16px; font-style: italic; line-height: 1.5; margin: 0;">
+                  <td style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); border-radius: 50%; margin: 0 auto 24px auto; display: flex; align-items: center; justify-content: center;">
+                      <span style="color: white; font-size: 24px;">🎁</span>
+                    </div>
+                    <h2 style="color: #131B32; font-size: 28px; margin: 0 0 16px 0; font-weight: 700;">
+                      ${inviterName} tänkte på dig!
+                    </h2>
+                    <p style="color: #64748b; font-size: 18px; line-height: 1.6; margin: 0 auto; max-width: 480px;">
+                      Du har fått en personlig inbjudan att uppleva Sveriges mest avancerade karriärverktyg.
+                      Helt kostnadsfritt i en hel vecka.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          ${personalMessage ? `
+          <!-- Personal Message -->
+          <tr>
+            <td style="padding: 0 40px 30px 40px;" class="mobile-padding">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border-radius: 16px; border: 2px solid #E2E8F0;">
+                <tr>
+                  <td style="padding: 30px;">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                      <span style="font-size: 24px;">💬</span>
+                    </div>
+                    <p style="color: #475569; font-size: 16px; font-style: italic; line-height: 1.6; margin: 0 0 16px 0; text-align: center;">
                       "${personalMessage}"
                     </p>
-                    <p style="color: #9333ea; font-size: 14px; margin: 12px 0 0 0; font-weight: 600;">
+                    <p style="color: #E9457A; font-size: 14px; margin: 0; font-weight: 600; text-align: center;">
                       — ${inviterName}
                     </p>
                   </td>
@@ -84,27 +106,30 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
           </tr>
           ` : ''}
 
-          <!-- Features Section -->
+          <!-- Benefits Section -->
           <tr>
-            <td style="padding: 30px 40px;">
-              <h3 style="color: #1e1b4b; font-size: 20px; margin: 0 0 20px 0; font-weight: 600;">
-                Vad ingår i Premium?
+            <td style="padding: 30px 40px;" class="mobile-padding">
+              <h3 style="color: #131B32; font-size: 24px; margin: 0 0 30px 0; font-weight: 700; text-align: center;">
+                Vad får du tillgång till?
               </h3>
 
-              <!-- Feature List -->
+              <!-- Benefits Grid -->
               <table width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
-                  <td style="padding: 12px 0;">
-                    <table cellpadding="0" cellspacing="0" border="0">
+                  <td style="padding: 16px 0;">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
                       <tr>
-                        <td style="width: 32px; vertical-align: top;">
-                          <div style="width: 24px; height: 24px; background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); border-radius: 50%; text-align: center; line-height: 24px;">
-                            <span style="color: white; font-size: 14px;">✓</span>
+                        <td style="width: 50px; vertical-align: top;">
+                          <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                            <span style="color: white; font-size: 18px;">✉️</span>
                           </div>
                         </td>
-                        <td style="padding-left: 12px;">
-                          <p style="color: #334155; font-size: 15px; margin: 0; line-height: 1.5;">
-                            <strong>Obegränsade AI-genererade brev</strong> - Skräddarsydda för varje ansökan
+                        <td style="padding-left: 16px; vertical-align: top;">
+                          <h4 style="color: #131B32; font-size: 18px; margin: 0 0 8px 0; font-weight: 600;">
+                            Personliga följebrev
+                          </h4>
+                          <p style="color: #64748b; font-size: 15px; margin: 0; line-height: 1.5;">
+                            Skräddarsydda brev för varje jobbtillfälle som verkligen gör intryck på arbetsgivare
                           </p>
                         </td>
                       </tr>
@@ -113,17 +138,20 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                 </tr>
 
                 <tr>
-                  <td style="padding: 12px 0;">
-                    <table cellpadding="0" cellspacing="0" border="0">
+                  <td style="padding: 16px 0;">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
                       <tr>
-                        <td style="width: 32px; vertical-align: top;">
-                          <div style="width: 24px; height: 24px; background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); border-radius: 50%; text-align: center; line-height: 24px;">
-                            <span style="color: white; font-size: 14px;">✓</span>
+                        <td style="width: 50px; vertical-align: top;">
+                          <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                            <span style="color: white; font-size: 18px;">📄</span>
                           </div>
                         </td>
-                        <td style="padding-left: 12px;">
-                          <p style="color: #334155; font-size: 15px; margin: 0; line-height: 1.5;">
-                            <strong>Professionella CV-mallar</strong> - Designade för svenska arbetsmarknaden
+                        <td style="padding-left: 16px; vertical-align: top;">
+                          <h4 style="color: #131B32; font-size: 18px; margin: 0 0 8px 0; font-weight: 600;">
+                            Professionella CV-mallar
+                          </h4>
+                          <p style="color: #64748b; font-size: 15px; margin: 0; line-height: 1.5;">
+                            Designade för svenska arbetsmarknaden och optimerade för moderna rekryteringsprocesser
                           </p>
                         </td>
                       </tr>
@@ -132,17 +160,20 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                 </tr>
 
                 <tr>
-                  <td style="padding: 12px 0;">
-                    <table cellpadding="0" cellspacing="0" border="0">
+                  <td style="padding: 16px 0;">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
                       <tr>
-                        <td style="width: 32px; vertical-align: top;">
-                          <div style="width: 24px; height: 24px; background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); border-radius: 50%; text-align: center; line-height: 24px;">
-                            <span style="color: white; font-size: 14px;">✓</span>
+                        <td style="width: 50px; vertical-align: top;">
+                          <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                            <span style="color: white; font-size: 18px;">🎯</span>
                           </div>
                         </td>
-                        <td style="padding-left: 12px;">
-                          <p style="color: #334155; font-size: 15px; margin: 0; line-height: 1.5;">
-                            <strong>AI-driven CV-analys</strong> - Få feedback och förbättringsförslag
+                        <td style="padding-left: 16px; vertical-align: top;">
+                          <h4 style="color: #131B32; font-size: 18px; margin: 0 0 8px 0; font-weight: 600;">
+                            Smart CV-analys
+                          </h4>
+                          <p style="color: #64748b; font-size: 15px; margin: 0; line-height: 1.5;">
+                            Få professionell feedback på ditt CV och konkreta förslag för förbättringar
                           </p>
                         </td>
                       </tr>
@@ -151,36 +182,20 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                 </tr>
 
                 <tr>
-                  <td style="padding: 12px 0;">
-                    <table cellpadding="0" cellspacing="0" border="0">
+                  <td style="padding: 16px 0;">
+                    <table cellpadding="0" cellspacing="0" border="0" width="100%">
                       <tr>
-                        <td style="width: 32px; vertical-align: top;">
-                          <div style="width: 24px; height: 24px; background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); border-radius: 50%; text-align: center; line-height: 24px;">
-                            <span style="color: white; font-size: 14px;">✓</span>
+                        <td style="width: 50px; vertical-align: top;">
+                          <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                            <span style="color: white; font-size: 18px;">🚀</span>
                           </div>
                         </td>
-                        <td style="padding-left: 12px;">
-                          <p style="color: #334155; font-size: 15px; margin: 0; line-height: 1.5;">
-                            <strong>1.5x snabbare XP-intjäning</strong> - Lås upp belöningar snabbare
-                          </p>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td style="padding: 12px 0;">
-                    <table cellpadding="0" cellspacing="0" border="0">
-                      <tr>
-                        <td style="width: 32px; vertical-align: top;">
-                          <div style="width: 24px; height: 24px; background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); border-radius: 50%; text-align: center; line-height: 24px;">
-                            <span style="color: white; font-size: 14px;">✓</span>
-                          </div>
-                        </td>
-                        <td style="padding-left: 12px;">
-                          <p style="color: #334155; font-size: 15px; margin: 0; line-height: 1.5;">
-                            <strong>Personlig karriärvägledning</strong> - AI-coach för din utveckling
+                        <td style="padding-left: 16px; vertical-align: top;">
+                          <h4 style="color: #131B32; font-size: 18px; margin: 0 0 8px 0; font-weight: 600;">
+                            Personlig karriärvägledning
+                          </h4>
+                          <p style="color: #64748b; font-size: 15px; margin: 0; line-height: 1.5;">
+                            Strategisk rådgivning för din karriärutveckling och nästa steg framåt
                           </p>
                         </td>
                       </tr>
@@ -191,37 +206,46 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
             </td>
           </tr>
 
-          <!-- CTA Button -->
+          <!-- CTA Section -->
           <tr>
-            <td style="padding: 20px 40px 40px 40px; text-align: center;">
-              <a href="${inviteUrl}" style="display: inline-block; text-decoration: none;">
+            <td style="padding: 40px 40px 50px 40px; text-align: center;" class="mobile-padding">
+              <a href="${inviteUrl}" style="display: inline-block; text-decoration: none; transform: translateY(0); transition: transform 0.2s ease;">
                 <table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto;">
                   <tr>
-                    <td style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); border-radius: 12px; padding: 18px 48px; text-align: center;">
-                      <span style="color: #ffffff; font-size: 18px; font-weight: 600; text-decoration: none;">
-                        Aktivera Premium Nu →
+                    <td style="background: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); border-radius: 16px; padding: 20px 50px; text-align: center; box-shadow: 0 8px 32px rgba(233, 69, 122, 0.3);" class="mobile-button">
+                      <span style="color: #ffffff; font-size: 19px; font-weight: 700; text-decoration: none; letter-spacing: 0.3px;">
+                        Starta min gratisperiod →
                       </span>
                     </td>
                   </tr>
                 </table>
               </a>
-              <p style="color: #94a3b8; font-size: 14px; margin: 20px 0 0 0;">
-                Ingen betalningsinformation krävs • Avslutas automatiskt efter 7 dagar
-              </p>
+
+              <div style="margin-top: 24px;">
+                <p style="color: #94a3b8; font-size: 14px; margin: 0 0 8px 0;">
+                  ✓ Ingen betalningsinformation krävs
+                </p>
+                <p style="color: #94a3b8; font-size: 14px; margin: 0;">
+                  ✓ Avregistreras automatiskt efter 7 dagar
+                </p>
+              </div>
             </td>
           </tr>
 
-          <!-- Reward Info -->
+          <!-- Reward Section -->
           <tr>
-            <td style="background: #f8fafc; padding: 30px 40px; border-top: 1px solid #e2e8f0;">
+            <td style="background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); padding: 35px 40px; border-top: 1px solid #E2E8F0;" class="mobile-padding">
               <table width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
                   <td style="text-align: center;">
-                    <h4 style="color: #64748b; font-size: 14px; margin: 0 0 8px 0; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
-                      Win-Win Erbjudande
+                    <div style="margin-bottom: 16px;">
+                      <span style="font-size: 32px;">🎉</span>
+                    </div>
+                    <h4 style="color: #131B32; font-size: 18px; margin: 0 0 12px 0; font-weight: 600;">
+                      Tack för att du sprider ordet!
                     </h4>
-                    <p style="color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0;">
-                      När du blir en betalande Premium-medlem får ${inviterName} en månads extra Premium och 500 XP som tack för rekommendationen!
+                    <p style="color: #64748b; font-size: 15px; line-height: 1.6; margin: 0; max-width: 400px; margin: 0 auto;">
+                      När du blir Premium-medlem får ${inviterName} en hel månad extra Premium som tack för rekommendationen!
                     </p>
                   </td>
                 </tr>
@@ -231,16 +255,25 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
 
           <!-- Footer -->
           <tr>
-            <td style="background: #1e1b4b; padding: 30px 40px; text-align: center;">
-              <p style="color: #cbd5e1; font-size: 14px; margin: 0 0 8px 0;">
-                Jobbcoach.ai - Din AI-drivna karriärpartner
-              </p>
-              <p style="color: #94a3b8; font-size: 12px; margin: 0;">
-                © 2024 Jobbcoach.ai. Alla rättigheter förbehållna.
-              </p>
-              <p style="color: #64748b; font-size: 12px; margin: 16px 0 0 0;">
-                Inbjudan giltig i 30 dagar • <a href="https://jobbcoach.ai" style="color: #ec4899; text-decoration: none;">jobbcoach.ai</a>
-              </p>
+            <td style="background: #131B32; padding: 35px 40px; text-align: center;" class="mobile-padding">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td style="text-align: center;">
+                    <h4 style="color: #ffffff; font-size: 18px; margin: 0 0 8px 0; font-weight: 600;">
+                      Jobbcoach.ai
+                    </h4>
+                    <p style="color: #94a3b8; font-size: 14px; margin: 0 0 16px 0;">
+                      Din partner för en framgångsrik karriär
+                    </p>
+                    <p style="color: #64748b; font-size: 13px; margin: 0;">
+                      © 2024 Jobbcoach.ai • Inbjudan giltig i 30 dagar
+                    </p>
+                    <p style="color: #64748b; font-size: 13px; margin: 8px 0 0 0;">
+                      <a href="https://jobbcoach.ai" style="color: #E9457A; text-decoration: none;">jobbcoach.ai</a>
+                    </p>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
 
@@ -259,30 +292,42 @@ export function generateInvitationEmailText(data: InvitationEmailData): string {
   const { inviterName, personalMessage, inviteUrl } = data;
 
   return `
-Du har blivit inbjuden till Jobbcoach.ai Premium!
+🎁 DIN EXKLUSIVA INBJUDAN TILL JOBBCOACH.AI PREMIUM
 
-${inviterName} har bjudit in dig att prova Jobbcoach.ai Premium helt kostnadsfritt i 7 dagar.
+${inviterName} tänkte på dig!
 
-${personalMessage ? `Personligt meddelande från ${inviterName}:\n"${personalMessage}"\n\n` : ''}
+Du har fått en personlig inbjudan att uppleva Sveriges mest avancerade karriärverktyg helt kostnadsfritt i 7 dagar.
 
-VAD INGÅR I PREMIUM?
-✓ Obegränsade AI-genererade personliga brev
-✓ Professionella CV-mallar
-✓ AI-driven CV-analys och feedback
-✓ 1.5x snabbare XP-intjäning
-✓ Personlig karriärvägledning med AI
+Värd 149 kr - helt gratis för dig.
 
-Aktivera din Premium-tillgång här:
+${personalMessage ? `💬 Personligt meddelande från ${inviterName}:\n"${personalMessage}"\n\n` : ''}
+
+VAD FÅR DU TILLGÅNG TILL?
+
+✉️ Personliga följebrev
+Skräddarsydda brev för varje jobbtillfälle som verkligen gör intryck på arbetsgivare
+
+📄 Professionella CV-mallar
+Designade för svenska arbetsmarknaden och optimerade för moderna rekryteringsprocesser
+
+🎯 Smart CV-analys
+Få professionell feedback på ditt CV och konkreta förslag för förbättringar
+
+🚀 Personlig karriärvägledning
+Strategisk rådgivning för din karriärutveckling och nästa steg framåt
+
+👉 STARTA DIN GRATISPERIOD:
 ${inviteUrl}
 
-Ingen betalningsinformation krävs. Avslutas automatiskt efter 7 dagar.
+✓ Ingen betalningsinformation krävs
+✓ Avregistreras automatiskt efter 7 dagar
 
-När du blir en betalande Premium-medlem får ${inviterName} en månads extra Premium och 500 XP som tack!
+🎉 TACK FÖR ATT DU SPRIDER ORDET!
+När du blir Premium-medlem får ${inviterName} en hel månad extra Premium som tack för rekommendationen!
 
-Med vänliga hälsningar,
-Jobbcoach.ai-teamet
-
-© 2024 Jobbcoach.ai. Alla rättigheter förbehållna.
-Inbjudan giltig i 30 dagar.
+---
+Jobbcoach.ai - Din partner för en framgångsrik karriär
+© 2024 Jobbcoach.ai • Inbjudan giltig i 30 dagar
+jobbcoach.ai
   `;
 }
