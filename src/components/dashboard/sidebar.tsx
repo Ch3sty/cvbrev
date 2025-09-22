@@ -1,7 +1,8 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import {
   LayoutDashboard,
   PenTool,
@@ -18,12 +19,27 @@ import {
   Trophy,
   Gift
 } from 'lucide-react';
-import { getSupabaseClient } from '@/lib/supabase/client-manager';
-
 export default function DashboardSidebar() {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+  const [isPremium, setIsPremium] = useState(false);
   const supabase = getSupabaseClient();
+
+  useEffect(() => {
+    const checkPremiumStatus = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('premium_until')
+          .eq('id', user.id)
+          .single();
+
+        setIsPremium(profile?.premium_until && new Date(profile.premium_until) > new Date());
+      }
+    };
+    checkPremiumStatus();
+  }, []);
   
   // Navigationslänkar för användardashboard
   const navItems = [
@@ -124,6 +140,29 @@ export default function DashboardSidebar() {
       
       {/* Navigation Links */}
       <nav className="flex-1 py-4 space-y-6">
+        {/* Premium Gästinbjudan */}
+        {isPremium && (
+          <div className="px-4 mb-4">
+            <Link
+              href="/dashboard/invite-friends"
+              className="flex items-center justify-between p-3 bg-gradient-to-r from-pink-600/20 to-purple-600/20 rounded-lg border border-pink-600/30 hover:border-pink-500/50 transition-all duration-300 group"
+            >
+              <div className="flex items-center gap-3">
+                <Gift className="w-5 h-5 text-pink-400 group-hover:text-pink-300" />
+                {!collapsed && (
+                  <div>
+                    <span className="text-sm font-semibold text-white">Bjud in en vän</span>
+                    <p className="text-xs text-gray-400">Ge 7 dagars gratis Premium</p>
+                  </div>
+                )}
+              </div>
+              {!collapsed && (
+                <ChevronRight className="w-4 h-4 text-pink-400 opacity-50 group-hover:opacity-100" />
+              )}
+            </Link>
+          </div>
+        )}
+
         {/* Översikt */}
         <div>
           <ul className="space-y-1">

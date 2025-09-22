@@ -36,6 +36,7 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
   const [showLevelUpCelebration, setShowLevelUpCelebration] = useState(false);
   const [showStreakCelebration, setShowStreakCelebration] = useState(false);
   const [showAchievementPopup, setShowAchievementPopup] = useState(false);
+  const [subscriptionTier, setSubscriptionTier] = useState<'free' | 'premium'>('free');
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -88,6 +89,20 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
       if (response.ok) {
         const data = await response.json();
         setGamificationStats(data);
+
+        // Check subscription tier
+        const supabase = getSupabaseClient();
+        const { data: { user: authUser } } = await supabase.auth.getUser();
+        if (authUser) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('premium_until')
+            .eq('id', authUser.id)
+            .single();
+
+          const isPremium = profile?.premium_until && new Date(profile.premium_until) > new Date();
+          setSubscriptionTier(isPremium ? 'premium' : 'free');
+        }
       }
     } catch (error) {
       console.error('Error fetching gamification stats:', error);
@@ -243,8 +258,8 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
                 <Target className="w-5 h-5 text-cyan-400" />
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-semibold text-cyan-400">Veckans framsteg</span>
-                    <span className="text-xs text-gray-400">{gamificationStats.stats.weekly_xp}/{gamificationStats.stats.weekly_goal} XP</span>
+                    <span className="text-xs font-semibold text-cyan-400">Veckans aktivitet</span>
+                    <span className="text-xs text-gray-400">+{gamificationStats.stats.weekly_xp} XP tjänat</span>
                   </div>
 
                   {/* Compact Progress Indicators */}
@@ -253,45 +268,81 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
                       <div className="relative w-8 h-8 rounded-full bg-navy-700/50">
                         <div className="absolute inset-0 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-t from-blue-500 to-cyan-500 transition-all duration-500"
-                            style={{ height: `${Math.min(getWeeklyProgress().letters, 100)}%` }}
+                            className={`h-full transition-all duration-500 ${
+                              subscriptionTier === 'premium' ? 'bg-gradient-to-t from-green-500 to-emerald-500' :
+                              getWeeklyProgress().letters >= 100 ? 'bg-gradient-to-t from-orange-500 to-red-500' :
+                              'bg-gradient-to-t from-blue-500 to-cyan-500'
+                            }`}
+                            style={{ height: subscriptionTier === 'premium' ? '100%' : `${Math.min(getWeeklyProgress().letters, 100)}%` }}
                           />
                         </div>
                         <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white">
-                          {gamificationStats.stats.letters_created}
+                          {subscriptionTier === 'premium' ? '∞' : gamificationStats.stats.letters_created}
                         </span>
                       </div>
-                      <span className="text-xs text-gray-400">Brev</span>
+                      <div className="flex flex-col">
+                        <span className="text-xs text-gray-400">Brev</span>
+                        {subscriptionTier === 'free' && (
+                          <span className="text-[10px] text-orange-400">{gamificationStats.stats.letters_created}/{gamificationStats.stats.weekly_letters_goal}</span>
+                        )}
+                        {subscriptionTier === 'premium' && (
+                          <span className="text-[10px] text-green-400">Obegränsat</span>
+                        )}
+                      </div>
                     </div>
 
                     <div className="flex items-center gap-1">
                       <div className="relative w-8 h-8 rounded-full bg-navy-700/50">
                         <div className="absolute inset-0 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-t from-purple-500 to-pink-500 transition-all duration-500"
-                            style={{ height: `${Math.min(getWeeklyProgress().analyses, 100)}%` }}
+                            className={`h-full transition-all duration-500 ${
+                              subscriptionTier === 'premium' ? 'bg-gradient-to-t from-green-500 to-emerald-500' :
+                              getWeeklyProgress().analyses >= 100 ? 'bg-gradient-to-t from-orange-500 to-red-500' :
+                              'bg-gradient-to-t from-purple-500 to-pink-500'
+                            }`}
+                            style={{ height: subscriptionTier === 'premium' ? '100%' : `${Math.min(getWeeklyProgress().analyses, 100)}%` }}
                           />
                         </div>
                         <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white">
-                          {gamificationStats.stats.cv_analyses_completed}
+                          {subscriptionTier === 'premium' ? '∞' : gamificationStats.stats.cv_analyses_completed}
                         </span>
                       </div>
-                      <span className="text-xs text-gray-400">Analys</span>
+                      <div className="flex flex-col">
+                        <span className="text-xs text-gray-400">Analys</span>
+                        {subscriptionTier === 'free' && (
+                          <span className="text-[10px] text-orange-400">{gamificationStats.stats.cv_analyses_completed}/{gamificationStats.stats.weekly_analyses_goal}</span>
+                        )}
+                        {subscriptionTier === 'premium' && (
+                          <span className="text-[10px] text-green-400">Obegränsat</span>
+                        )}
+                      </div>
                     </div>
 
                     <div className="flex items-center gap-1">
                       <div className="relative w-8 h-8 rounded-full bg-navy-700/50">
                         <div className="absolute inset-0 rounded-full overflow-hidden">
                           <div
-                            className="h-full bg-gradient-to-t from-green-500 to-emerald-500 transition-all duration-500"
-                            style={{ height: `${Math.min(getWeeklyProgress().courses, 100)}%` }}
+                            className={`h-full transition-all duration-500 ${
+                              subscriptionTier === 'premium' ? 'bg-gradient-to-t from-green-500 to-emerald-500' :
+                              getWeeklyProgress().courses >= 100 ? 'bg-gradient-to-t from-orange-500 to-red-500' :
+                              'bg-gradient-to-t from-yellow-500 to-amber-500'
+                            }`}
+                            style={{ height: subscriptionTier === 'premium' ? '100%' : `${Math.min(getWeeklyProgress().courses, 100)}%` }}
                           />
                         </div>
                         <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white">
-                          {gamificationStats.stats.courses_completed}
+                          {subscriptionTier === 'premium' ? '∞' : gamificationStats.stats.courses_completed}
                         </span>
                       </div>
-                      <span className="text-xs text-gray-400">Kurser</span>
+                      <div className="flex flex-col">
+                        <span className="text-xs text-gray-400">Kurser</span>
+                        {subscriptionTier === 'free' && (
+                          <span className="text-[10px] text-orange-400">{gamificationStats.stats.courses_completed}/{gamificationStats.stats.weekly_courses_goal}</span>
+                        )}
+                        {subscriptionTier === 'premium' && (
+                          <span className="text-[10px] text-green-400">Obegränsat</span>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -316,7 +367,7 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
 
 
           {/* Enhanced User Info */}
-          <Link href="/profile" className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-navy-800/50 transition-all duration-300 group">
+          <Link href="/dashboard/profil" className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-navy-800/50 transition-all duration-300 group">
             <div className="relative">
               <div className="w-10 h-10 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
                 <span className="text-white font-bold text-sm">
