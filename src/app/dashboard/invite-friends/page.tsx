@@ -78,7 +78,7 @@ export default function InviteFriendsPage() {
 
   const shareOnSocial = (platform: 'linkedin' | 'twitter', code: string) => {
     const link = `${window.location.origin}/invite/${code}`;
-    const text = 'Prova Jobbcoach.ai Premium gratis i 7 dagar! 🚀';
+    const text = 'Prova Jobbcoach.ai Premium kostnadsfritt i 7 dagar! 🚀';
 
     if (platform === 'linkedin') {
       window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(link)}`);
@@ -171,10 +171,10 @@ export default function InviteFriendsPage() {
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
               <Trophy className="w-5 h-5 text-yellow-500" />
-              Fördelar
+              Fördelar med att bjuda in
             </CardTitle>
             <CardDescription className="text-gray-400">
-              Vad du och din vän får ut av inbjudan
+              Belöningar för dig och din vän
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -183,8 +183,8 @@ export default function InviteFriendsPage() {
                 <Gift className="w-4 h-4 text-green-600" />
               </div>
               <div>
-                <h4 className="font-semibold text-white">7 dagars gratis Premium</h4>
-                <p className="text-sm text-gray-400">Din vän får full tillgång till alla Premium-funktioner</p>
+                <h4 className="font-semibold text-white">7 dagars kostnadsfri Premium</h4>
+                <p className="text-sm text-gray-400">Din vän får full tillgång till alla Premium-funktioner helt kostnadsfritt</p>
               </div>
             </div>
 
@@ -193,8 +193,8 @@ export default function InviteFriendsPage() {
                 <Users className="w-4 h-4 text-purple-600" />
               </div>
               <div>
-                <h4 className="font-semibold text-white">Bonus när de konverterar</h4>
-                <p className="text-sm text-gray-400">Både du och din vän får 1 vecka extra Premium</p>
+                <h4 className="font-semibold text-white">1 månads extra Premium för dig</h4>
+                <p className="text-sm text-gray-400">När din vän blir betalande kund får du 1 månads Premium utan kostnad</p>
               </div>
             </div>
 
@@ -203,8 +203,8 @@ export default function InviteFriendsPage() {
                 <Trophy className="w-4 h-4 text-blue-600" />
               </div>
               <div>
-                <h4 className="font-semibold text-white">XP-bonus</h4>
-                <p className="text-sm text-gray-400">Få 500 XP när din vän registrerar sig</p>
+                <h4 className="font-semibold text-white">500 XP-belöning</h4>
+                <p className="text-sm text-gray-400">Få 500 XP direkt när din vän blir betalande Premium-medlem</p>
               </div>
             </div>
           </CardContent>
