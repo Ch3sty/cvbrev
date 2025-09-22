@@ -150,7 +150,7 @@ export async function POST(request: NextRequest) {
       .eq('month_year', currentMonth)
 
     // Send invitation email
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://jobbcoach.ai'
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://jobbcoach.ai'
     const inviteUrl = `${baseUrl}/invite/${invitationCode}`
     const inviterName = profile?.full_name || 'En vän'
 
