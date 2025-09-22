@@ -127,7 +127,7 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
     {
       id: 'level-35',
       level: 35,
-      name: 'Storsprare',
+      name: 'Storsparare',
       description: '35% rabatt för avancerade användare',
       reward_type: 'discount',
       reward_data: { percentage: 35 },
@@ -306,7 +306,7 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
                 className="absolute inset-y-0 left-0 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full transition-all duration-1000 ease-out"
                 style={{ width: `${Math.min(progressPercentage, 100)}%` }}
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+              {/* Removed shimmer animation that was causing constant loading appearance */}
             </div>
 
             <div className="flex justify-between text-xs text-gray-500">
@@ -322,8 +322,7 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h3 className="text-2xl font-bold text-white flex items-center gap-3">
-                <Trophy className="w-7 h-7 text-pink-500" />
+              <h3 className="text-2xl font-bold text-white">
                 Belöningsvägen
               </h3>
               <p className="text-gray-400 mt-1">
@@ -438,10 +437,18 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
                     )}
                   </div>
 
-                  {/* Hover Details Card */}
+                  {/* Hover Details Card - Improved positioning to prevent clipping */}
                   {isHovered && (
-                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-4 z-50 animate-fadeIn">
-                      <div className="bg-navy-900 border border-navy-700 rounded-lg p-4 shadow-2xl min-w-64 max-w-xs">
+                    <div
+                      className={`absolute mb-4 z-50 animate-fadeIn ${
+                        index >= milestoneRewards.length - 2
+                          ? 'bottom-full right-0' // Position on right for last items
+                          : index === 0
+                          ? 'bottom-full left-0' // Position on left for first item
+                          : 'bottom-full left-1/2 transform -translate-x-1/2' // Center for middle items
+                      }`}
+                    >
+                      <div className="bg-navy-900 border border-navy-700 rounded-lg p-4 shadow-2xl min-w-64 max-w-xs backdrop-blur-sm">
                         <div className="flex items-center space-x-3 mb-3">
                           <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${getRewardGradient(reward.reward_type, reward.is_special)} flex items-center justify-center text-white`}>
                             <span className="text-lg">{reward.icon}</span>
@@ -466,6 +473,15 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
                             </div>
                           )}
                         </div>
+
+                        {/* Arrow indicator pointing to the reward */}
+                        <div className={`absolute top-full ${
+                          index >= milestoneRewards.length - 2
+                            ? 'right-4'
+                            : index === 0
+                            ? 'left-4'
+                            : 'left-1/2 transform -translate-x-1/2'
+                        } w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-navy-700`} />
                       </div>
                     </div>
                   )}
@@ -487,7 +503,7 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
                 className="absolute inset-y-0 left-0 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full transition-all duration-1000 ease-out"
                 style={{ width: `${(userLevel.current_level / 50) * 100}%` }}
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+              {/* Removed shimmer animation for cleaner appearance */}
             </div>
             <div className="flex justify-between text-xs text-gray-400 mt-2">
               <span>Nybörjare</span>

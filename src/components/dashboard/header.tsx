@@ -241,11 +241,17 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
                   </div>
 
                   {/* Progress Bar */}
-                  <div className="w-24 h-1.5 bg-navy-700/50 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-500"
-                      style={{ width: `${getXPProgress()}%` }}
-                    />
+                  <div className="w-24">
+                    <div className="h-1.5 bg-navy-700/50 rounded-full overflow-hidden mb-1">
+                      <div
+                        className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-500"
+                        style={{ width: `${getXPProgress()}%` }}
+                      />
+                    </div>
+                    {/* Weekly Activity moved here */}
+                    <div className="text-[10px] text-cyan-400 text-center">
+                      +{gamificationStats.stats.weekly_xp} XP denna vecka
+                    </div>
                   </div>
 
                   {/* Hover Arrow */}
@@ -279,111 +285,6 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
                 </div>
               )}
 
-              {/* Gamified Weekly Goals */}
-              <div className="flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-navy-800/50 to-navy-900/50 rounded-xl border border-navy-700/50">
-                <Target className="w-5 h-5 text-cyan-400" />
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-semibold text-cyan-400">Veckans aktivitet</span>
-                    <span className="text-xs text-gray-400">+{gamificationStats.stats.weekly_xp} XP tjänat</span>
-                  </div>
-
-                  {/* Compact Progress Indicators */}
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-1">
-                      <div className="relative w-8 h-8 rounded-full bg-navy-700/50">
-                        <div className="absolute inset-0 rounded-full overflow-hidden">
-                          <div
-                            className={`h-full transition-all duration-500 ${
-                              subscriptionTier === 'premium' ? 'bg-gradient-to-t from-green-500 to-emerald-500' :
-                              getWeeklyProgress().letters >= 100 ? 'bg-gradient-to-t from-orange-500 to-red-500' :
-                              'bg-gradient-to-t from-blue-500 to-cyan-500'
-                            }`}
-                            style={{ height: subscriptionTier === 'premium' ? '100%' : `${Math.min(getWeeklyProgress().letters, 100)}%` }}
-                          />
-                        </div>
-                        <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white">
-                          {subscriptionTier === 'premium' ? '∞' : gamificationStats.stats.letters_created}
-                        </span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-xs text-gray-400">Brev</span>
-                        {subscriptionTier === 'free' && (
-                          <span className="text-[10px] text-orange-400">{gamificationStats.stats.letters_created}/{gamificationStats.stats.weekly_letters_goal}</span>
-                        )}
-                        {subscriptionTier === 'premium' && (
-                          <span className="text-[10px] text-green-400">Obegränsat</span>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-1">
-                      <div className="relative w-8 h-8 rounded-full bg-navy-700/50">
-                        <div className="absolute inset-0 rounded-full overflow-hidden">
-                          <div
-                            className={`h-full transition-all duration-500 ${
-                              subscriptionTier === 'premium' ? 'bg-gradient-to-t from-green-500 to-emerald-500' :
-                              getWeeklyProgress().analyses >= 100 ? 'bg-gradient-to-t from-orange-500 to-red-500' :
-                              'bg-gradient-to-t from-purple-500 to-pink-500'
-                            }`}
-                            style={{ height: subscriptionTier === 'premium' ? '100%' : `${Math.min(getWeeklyProgress().analyses, 100)}%` }}
-                          />
-                        </div>
-                        <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white">
-                          {subscriptionTier === 'premium' ? '∞' : gamificationStats.stats.cv_analyses_completed}
-                        </span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-xs text-gray-400">Analys</span>
-                        {subscriptionTier === 'free' && (
-                          <span className="text-[10px] text-orange-400">{gamificationStats.stats.cv_analyses_completed}/{gamificationStats.stats.weekly_analyses_goal}</span>
-                        )}
-                        {subscriptionTier === 'premium' && (
-                          <span className="text-[10px] text-green-400">Obegränsat</span>
-                        )}
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-1">
-                      <div className="relative w-8 h-8 rounded-full bg-navy-700/50">
-                        <div className="absolute inset-0 rounded-full overflow-hidden">
-                          <div
-                            className={`h-full transition-all duration-500 ${
-                              subscriptionTier === 'premium' ? 'bg-gradient-to-t from-green-500 to-emerald-500' :
-                              getWeeklyProgress().courses >= 100 ? 'bg-gradient-to-t from-orange-500 to-red-500' :
-                              'bg-gradient-to-t from-yellow-500 to-amber-500'
-                            }`}
-                            style={{ height: subscriptionTier === 'premium' ? '100%' : `${Math.min(getWeeklyProgress().courses, 100)}%` }}
-                          />
-                        </div>
-                        <span className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white">
-                          {subscriptionTier === 'premium' ? '∞' : gamificationStats.stats.courses_completed}
-                        </span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-xs text-gray-400">Kurser</span>
-                        {subscriptionTier === 'free' && (
-                          <span className="text-[10px] text-orange-400">{gamificationStats.stats.courses_completed}/{gamificationStats.stats.weekly_courses_goal}</span>
-                        )}
-                        {subscriptionTier === 'premium' && (
-                          <span className="text-[10px] text-green-400">Obegränsat</span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Quick Status */}
-                <div className="ml-auto">
-                  {getWeeklyProgress().xp >= 100 ? (
-                    <CheckCircle2 className="w-5 h-5 text-green-400 animate-pulse" />
-                  ) : getWeeklyProgress().xp >= 70 ? (
-                    <Star className="w-5 h-5 text-yellow-400" />
-                  ) : (
-                    <TrendingUp className="w-5 h-5 text-blue-400" />
-                  )}
-                </div>
-              </div>
             </div>
           )}
         </div>
@@ -404,14 +305,7 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
             </div>
             <div>
               <p className="text-sm font-semibold text-white">{getUserName()}</p>
-              <div className="flex items-center gap-2">
-                <div className="flex items-center gap-1">
-                  <Zap className="w-3 h-3 text-yellow-400" />
-                  <span className="text-xs text-purple-400 font-medium">
-                    +{gamificationStats?.stats.weekly_xp || 0} XP denna vecka
-                  </span>
-                </div>
-              </div>
+              <p className="text-xs text-gray-400">Klicka för att visa profil</p>
             </div>
             <ChevronRight className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
           </Link>

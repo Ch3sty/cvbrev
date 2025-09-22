@@ -163,9 +163,9 @@ export default function DashboardSidebar() {
       
       {/* Navigation Links */}
       <nav className="flex-1 py-4 space-y-6">
-        {/* Premium Gästinbjudan */}
+        {/* Premium Gästinbjudan - flyttad till rätt plats */}
         {isPremium && (
-          <div className="px-4 mb-4">
+          <div className="px-4">
             <Link
               href="/dashboard/invite-friends"
               className="flex items-center justify-between p-3 bg-gradient-to-r from-pink-600/20 to-purple-600/20 rounded-lg border border-pink-600/30 hover:border-pink-500/50 transition-all duration-300 group"
@@ -175,7 +175,7 @@ export default function DashboardSidebar() {
                 {!collapsed && (
                   <div>
                     <span className="text-sm font-semibold text-white">Bjud in en vän</span>
-                    <p className="text-xs text-gray-400">Ge 7 dagars gratis Premium</p>
+                    <p className="text-xs text-gray-400">Få 7 dagar Premium</p>
                   </div>
                 )}
               </div>

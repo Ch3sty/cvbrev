@@ -111,8 +111,7 @@ export default function RewardsPage() {
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <TabsList className="grid grid-cols-2 w-full max-w-md mx-auto">
           <TabsTrigger value="overview" className="flex items-center gap-2">
-            <Trophy className="w-4 h-4" />
-            Belöningar
+            Översikt
           </TabsTrigger>
           {rewardStatus.isPremium && (
             <TabsTrigger value="guests" className="flex items-center gap-2">
