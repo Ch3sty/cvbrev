@@ -46,6 +46,8 @@ interface GuestWelcomeLandingProps {
   onDeclineInvitation: () => void;
   isAccepting?: boolean;
   error?: string;
+  showEmailConfirmation?: boolean;
+  confirmationEmail?: string;
 }
 
 const GuestWelcomeLanding: React.FC<GuestWelcomeLandingProps> = ({
@@ -53,7 +55,9 @@ const GuestWelcomeLanding: React.FC<GuestWelcomeLandingProps> = ({
   onAcceptInvitation,
   onDeclineInvitation,
   isAccepting = false,
-  error
+  error,
+  showEmailConfirmation = false,
+  confirmationEmail = ''
 }) => {
   const [guestEmail, setGuestEmail] = useState('');
   const [guestName, setGuestName] = useState('');
@@ -170,6 +174,54 @@ const GuestWelcomeLanding: React.FC<GuestWelcomeLandingProps> = ({
       rating: 5
     }
   ];
+
+  // Show email confirmation message if needed
+  if (showEmailConfirmation) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-navy-950 via-navy-900 to-navy-800 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md mx-auto bg-navy-800 border-navy-700">
+          <CardContent className="p-8 text-center">
+            <div className="relative mb-6">
+              <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-xl">
+                <Mail className="w-10 h-10 text-white" />
+              </div>
+              <div className="absolute -inset-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur opacity-20 animate-pulse" />
+            </div>
+
+            <h1 className="text-2xl font-bold text-white mb-4">Bekräfta din e-postadress</h1>
+            <p className="text-gray-300 mb-6">
+              Vi har skickat ett bekräftelsemail till:
+              <br />
+              <span className="font-semibold text-white">{confirmationEmail}</span>
+            </p>
+
+            <div className="bg-navy-700 rounded-lg p-4 mb-6">
+              <p className="text-sm text-gray-400 mb-3">För att slutföra registreringen:</p>
+              <ol className="text-left text-sm text-gray-300 space-y-2">
+                <li>1. Öppna bekräftelsemailet i din inkorg</li>
+                <li>2. Klicka på bekräftelselänken</li>
+                <li>3. Återkom hit för att acceptera din premium-inbjudan</li>
+              </ol>
+            </div>
+
+            <Button
+              onClick={() => window.location.href = '/login'}
+              className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 mb-3"
+            >
+              Jag har bekräftat min e-post
+            </Button>
+
+            <p className="text-xs text-gray-400">
+              Hittar du inte mailet? Kolla skräpposten eller kontakta{' '}
+              <a href="mailto:support@jobbcoach.ai" className="text-pink-400 hover:text-pink-300">
+                support@jobbcoach.ai
+              </a>
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   if (currentStep === 'success') {
     return (

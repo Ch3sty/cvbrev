@@ -27,6 +27,8 @@ export default function InvitePage() {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
   const [user, setUser] = useState<any>(null)
+  const [showEmailConfirmation, setShowEmailConfirmation] = useState(false)
+  const [confirmationEmail, setConfirmationEmail] = useState('')
   const supabase = getSupabaseClient()
 
   const invitationCode = params.code as string
@@ -226,6 +228,13 @@ export default function InvitePage() {
 
             // If sign in failed, try to create new account
             if (signInAttemptError) {
+              // Check if it's an email confirmation error
+              if (signInAttemptError.message?.includes('email_not_confirmed') ||
+                  signInAttemptError.message?.includes('Email not confirmed')) {
+                setError('Din e-postadress behöver bekräftas. Kolla din inkorg för bekräftelsemailet eller kontakta support@jobbcoach.ai för hjälp.')
+                return
+              }
+
               console.log('User does not exist or wrong password, trying to create account...')
 
               const { data: authData, error: signUpError } = await supabase.auth.signUp({
@@ -234,13 +243,21 @@ export default function InvitePage() {
                 options: {
                   data: {
                     full_name: fullName
-                  }
+                  },
+                  emailRedirectTo: `${window.location.origin}/invite/${invitationCode}`
                 }
               })
 
               if (signUpError) {
+                // Check for rate limiting
+                if (signUpError.message?.includes('over_email_send_rate_limit') ||
+                    signUpError.message?.includes('rate limit')) {
+                  setError('För många registreringsförsök. Vänta några minuter och försök igen, eller kontakta support@jobbcoach.ai för hjälp.')
+                  return
+                }
                 // Check if user already exists
-                if (signUpError.message.includes('already registered') || signUpError.message.includes('already exists')) {
+                if (signUpError.message?.includes('already registered') ||
+                    signUpError.message?.includes('already exists')) {
                   setError('Den här e-postadressen är redan registrerad. Vänligen logga in med ditt befintliga lösenord eller använd "Glömt lösenord" för att återställa det.')
                 } else {
                   setError(`Kunde inte skapa konto: ${signUpError.message}`)
@@ -250,7 +267,14 @@ export default function InvitePage() {
 
               if (!authData.user) {
                 // Check if user already exists (Supabase returns null user for existing emails)
-                setError('E-postadressen är redan registrerad. Vänligen logga in istället.')
+                setError('Ett bekräftelsemail har skickats till din e-postadress. Vänligen bekräfta din e-post och återkom sedan till denna sida för att acceptera inbjudan.')
+                return
+              }
+
+              // Check if email confirmation is required
+              if (authData.user && !authData.session) {
+                setShowEmailConfirmation(true)
+                setConfirmationEmail(email)
                 return
               }
 
@@ -336,6 +360,8 @@ export default function InvitePage() {
         onDeclineInvitation={() => router.push('/')}
         isAccepting={false}
         error={error || undefined}
+        showEmailConfirmation={showEmailConfirmation}
+        confirmationEmail={confirmationEmail}
       />
     )
   }
