@@ -131,10 +131,10 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                         </td>
                         <td style="padding-left: 16px; vertical-align: top;">
                           <h4 style="color: #131B32; font-size: 18px; margin: 0 0 8px 0; font-weight: 600;">
-                            Personliga följebrev
+                            Personliga brev
                           </h4>
                           <p style="color: #64748b; font-size: 15px; margin: 0; line-height: 1.5;">
-                            Skräddarsydda brev för varje jobbtillfälle som verkligen gör intryck på arbetsgivare
+                            Vi matchar ditt CV mot jobbkrav för att automatiskt skapa ett världsklass personligt följebrev
                           </p>
                         </td>
                       </tr>
@@ -156,7 +156,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                             Professionella CV-mallar
                           </h4>
                           <p style="color: #64748b; font-size: 15px; margin: 0; line-height: 1.5;">
-                            Designade för svenska arbetsmarknaden och optimerade för moderna rekryteringsprocesser
+                            Välj bara en design du gillar så skapar vi ditt färdiga CV på sekunder utan att du lyfter ett finger
                           </p>
                         </td>
                       </tr>
@@ -178,7 +178,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                             Smart CV-analys
                           </h4>
                           <p style="color: #64748b; font-size: 15px; margin: 0; line-height: 1.5;">
-                            Få professionell feedback på ditt CV och konkreta förslag för förbättringar
+                            Vi matchar ditt CV mot din önskade roll för att identifiera kompetensluckor och föreslår relevanta kurser
                           </p>
                         </td>
                       </tr>
@@ -309,14 +309,14 @@ ${personalMessage ? `💬 Personligt meddelande från ${inviterName}:\n"${person
 
 VAD FÅR DU TILLGÅNG TILL?
 
-✉️ Personliga följebrev
-Skräddarsydda brev för varje jobbtillfälle som verkligen gör intryck på arbetsgivare
+✉️ Personliga brev
+Vi matchar ditt CV mot jobbkrav för att automatiskt skapa ett världsklass personligt följebrev
 
 📄 Professionella CV-mallar
-Designade för svenska arbetsmarknaden och optimerade för moderna rekryteringsprocesser
+Välj bara en design du gillar så skapar vi ditt färdiga CV på sekunder utan att du lyfter ett finger
 
 🎯 Smart CV-analys
-Få professionell feedback på ditt CV och konkreta förslag för förbättringar
+Vi matchar ditt CV mot din önskade roll för att identifiera kompetensluckor och föreslå relevanta kurser
 
 🚀 Personlig karriärvägledning
 Strategisk rådgivning för din karriärutveckling och nästa steg framåt
