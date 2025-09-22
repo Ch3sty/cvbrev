@@ -62,7 +62,7 @@ export default function DashboardSidebar() {
       }
     };
     checkPremiumStatus();
-  }, []);
+  }, [supabase]);
   
   // Navigationslänkar för användardashboard
   const navItems = [
