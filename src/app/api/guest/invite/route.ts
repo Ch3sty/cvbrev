@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
       .from('monthly_guest_allowances')
       .select('*')
       .eq('user_id', user.id)
-      .eq('month', currentMonth)
+      .eq('month_year', currentMonth)
       .single()
 
     // Create allowance if it doesn't exist
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
         .from('monthly_guest_allowances')
         .insert({
           user_id: user.id,
-          month: currentMonth,
+          month_year: currentMonth,
           base_allowance: 1,
           bonus_allowance: bonus,
           used_invitations: 0
@@ -147,7 +147,7 @@ export async function POST(request: NextRequest) {
       .from('monthly_guest_allowances')
       .update({ used_invitations: allowance.used_invitations + 1 })
       .eq('user_id', user.id)
-      .eq('month', currentMonth)
+      .eq('month_year', currentMonth)
 
     // Send invitation email
     const inviteUrl = `${process.env.NEXT_PUBLIC_APP_URL}/invite/${invitationCode}`
