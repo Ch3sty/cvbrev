@@ -215,42 +215,64 @@ export default function InvitePage() {
           setError(null)
 
           try {
-            // 1. Create the user account
-            const { data: authData, error: signUpError } = await supabase.auth.signUp({
-              email,
-              password,
-              options: {
-                data: {
-                  full_name: fullName
-                }
-              }
-            })
-
-            if (signUpError) {
-              setError(`Kunde inte skapa konto: ${signUpError.message}`)
-              return
-            }
-
-            if (!authData.user) {
-              setError('Ett oväntat fel uppstod vid registrering')
-              return
-            }
-
-            // 2. Sign in the user immediately after signup
-            const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+            // 1. First try to sign in - user might already exist
+            const { data: signInAttempt, error: signInAttemptError } = await supabase.auth.signInWithPassword({
               email,
               password
             })
 
-            if (signInError) {
-              setError(`Kunde inte logga in: ${signInError.message}`)
-              return
+            let user = signInAttempt?.user
+            let session = signInAttempt?.session
+
+            // If sign in failed, try to create new account
+            if (signInAttemptError) {
+              console.log('User does not exist or wrong password, trying to create account...')
+
+              const { data: authData, error: signUpError } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                  data: {
+                    full_name: fullName
+                  }
+                }
+              })
+
+              if (signUpError) {
+                // Check if user already exists
+                if (signUpError.message.includes('already registered') || signUpError.message.includes('already exists')) {
+                  setError('Den här e-postadressen är redan registrerad. Vänligen logga in med ditt befintliga lösenord eller använd "Glömt lösenord" för att återställa det.')
+                } else {
+                  setError(`Kunde inte skapa konto: ${signUpError.message}`)
+                }
+                return
+              }
+
+              if (!authData.user) {
+                // Check if user already exists (Supabase returns null user for existing emails)
+                setError('E-postadressen är redan registrerad. Vänligen logga in istället.')
+                return
+              }
+
+              user = authData.user
+
+              // 2. Sign in the newly created user
+              const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+                email,
+                password
+              })
+
+              if (signInError) {
+                setError(`Kunde inte logga in: ${signInError.message}`)
+                return
+              }
+
+              session = signInData.session
             }
 
-            if (!signInData.session) {
+            if (!session) {
               setError('Ingen session skapades vid inloggning')
               return
-            }
 
             // 3. Wait for session to propagate and verify authentication
             let retries = 0
@@ -281,7 +303,7 @@ export default function InvitePage() {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${signInData.session.access_token}`
+                'Authorization': `Bearer ${session.access_token}`
               },
               credentials: 'include', // Ensure cookies are sent
               body: JSON.stringify({ invitationCode })

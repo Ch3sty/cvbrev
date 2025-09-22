@@ -448,6 +448,18 @@ const GuestWelcomeLanding: React.FC<GuestWelcomeLandingProps> = ({
                     </div>
                   </div>
 
+                  <div className="pt-4 text-center">
+                    <p className="text-sm text-gray-400">
+                      Redan registrerad?{' '}
+                      <a
+                        href="/login"
+                        className="text-pink-400 hover:text-pink-300 font-medium"
+                      >
+                        Logga in här
+                      </a>
+                    </p>
+                  </div>
+
                   <p className="text-xs text-gray-500 text-center">
                     Genom att acceptera inbjudan godkänner du våra{' '}
                     <a href="/anvandarvillkor" className="text-pink-400 hover:text-pink-300">
