@@ -12,6 +12,8 @@ import { Suspense, useState, useEffect } from 'react';
 import CookieConsent, { Cookies, getCookieConsentValue, OPTIONS } from "react-cookie-consent";
 import { NotificationProvider } from '@/context/notificationcontext';
 import { usePathname } from 'next/navigation';
+// Import storage adapter to ensure it's initialized early
+import '@/lib/supabase/storage-adapter';
 
 const inter = Inter({ subsets: ['latin'] })
 

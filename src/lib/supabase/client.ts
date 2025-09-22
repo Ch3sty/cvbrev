@@ -1,6 +1,7 @@
 // src/lib/supabase/client.ts
 import { createBrowserClient } from '@supabase/ssr'
 import { type Database } from '@/types/database.types'
+import { parseCookies, parseCookieValue, stringifyCookieValue } from './cookie-helpers'
 
 export const createClient = () => {
   return createBrowserClient<Database>(
@@ -9,24 +10,41 @@ export const createClient = () => {
     {
       cookies: {
         get(name: string) {
-          // Handle cookie parsing errors gracefully
           if (typeof document === 'undefined') return undefined;
 
           try {
-            const cookies = document.cookie.split('; ');
-            const cookie = cookies.find(c => c.startsWith(`${name}=`));
-            return cookie ? decodeURIComponent(cookie.split('=')[1]) : undefined;
+            const cookies = parseCookies(document.cookie);
+            const value = cookies[name];
+
+            if (!value) return undefined;
+
+            // Special handling for Supabase auth cookies
+            if (name.includes('auth-token') || name.includes('refresh-token') || name.includes('provider-token')) {
+              // These should be returned as-is
+              try {
+                return decodeURIComponent(value);
+              } catch {
+                return value;
+              }
+            }
+
+            // For other cookies, try to parse JSON if applicable
+            return parseCookieValue(value);
           } catch (error) {
-            console.warn('Cookie parsing error:', error);
+            // Silently handle errors to avoid console spam
             return undefined;
           }
         },
         set(name: string, value: string, options?: any) {
-          // Handle cookie setting errors gracefully
           if (typeof document === 'undefined') return;
 
           try {
-            let cookieString = `${name}=${encodeURIComponent(value)}`;
+            // Don't encode if it's already a string that looks encoded
+            const cookieValue = typeof value === 'string' && !value.includes('%')
+              ? encodeURIComponent(value)
+              : value;
+
+            let cookieString = `${name}=${cookieValue}`;
 
             if (options?.maxAge) {
               cookieString += `; Max-Age=${options.maxAge}`;
@@ -46,11 +64,10 @@ export const createClient = () => {
 
             document.cookie = cookieString;
           } catch (error) {
-            console.warn('Cookie setting error:', error);
+            // Silently handle errors
           }
         },
         remove(name: string, options?: any) {
-          // Remove cookie by setting it with expired date
           if (typeof document === 'undefined') return;
 
           try {
@@ -65,7 +82,7 @@ export const createClient = () => {
 
             document.cookie = cookieString;
           } catch (error) {
-            console.warn('Cookie removal error:', error);
+            // Silently handle errors
           }
         },
       },
