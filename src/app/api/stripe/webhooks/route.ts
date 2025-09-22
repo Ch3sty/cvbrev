@@ -2,11 +2,12 @@
 // =====================================
 // Hanterar INKOMMANDE WEBHOOKS från Stripe
 // Uppdaterad: Hanterar nu även 'subscription_tier' baserat på Stripe status
+// Och referral-konverteringar för belöningar
 
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
-import { headers } from 'next/headers'; 
-import { stripe } from '@/lib/stripe/server'; 
+import { headers } from 'next/headers';
+import { stripe } from '@/lib/stripe/server';
 import { getSupabaseAdmin } from '@/lib/supabase/admin'; 
 
 // Funktion för att uppdatera användarprofilen i Supabase (inklusive subscription_tier)
@@ -70,6 +71,104 @@ const updateUserSubscription = async (customerId: string, subscription: Stripe.S
      return true; // Returnera success
 };
 
+// Funktion för att hantera referral-konverteringar
+const handleReferralConversion = async (customerId: string) => {
+    const supabaseAdmin = getSupabaseAdmin();
+    console.log(`Checking for referral conversion for customer ${customerId}`);
+
+    try {
+        // Find the user by Stripe customer ID
+        const { data: newCustomer } = await supabaseAdmin
+            .from('profiles')
+            .select('id, email')
+            .eq('stripe_customer_id', customerId)
+            .single();
+
+        if (!newCustomer) {
+            console.log('No user found for customer ID');
+            return;
+        }
+
+        // Check if this user accepted an invitation
+        const { data: invitation } = await supabaseAdmin
+            .from('guest_invitations')
+            .select('*')
+            .eq('guest_id', newCustomer.id)
+            .eq('status', 'accepted')
+            .is('converted_at', null)
+            .single();
+
+        if (!invitation) {
+            console.log('No pending referral found for this user');
+            return;
+        }
+
+        console.log(`Found referral: User ${newCustomer.id} was invited by ${invitation.inviter_id}`);
+
+        // Mark invitation as converted
+        await supabaseAdmin
+            .from('guest_invitations')
+            .update({
+                converted_at: new Date().toISOString(),
+                reward_granted: false // Will be set to true after granting rewards
+            })
+            .eq('id', invitation.id);
+
+        // Grant 500 XP to the inviter
+        await supabaseAdmin.rpc('add_xp_with_cap_check', {
+            p_user_id: invitation.inviter_id,
+            p_amount: 500,
+            p_source: 'referral_conversion',
+            p_description: 'Vän blev Premium-medlem'
+        });
+
+        // Get inviter's subscription for extension
+        const { data: inviterProfile } = await supabaseAdmin
+            .from('profiles')
+            .select('stripe_customer_id, subscription_id')
+            .eq('id', invitation.inviter_id)
+            .single();
+
+        if (inviterProfile?.stripe_customer_id && inviterProfile?.subscription_id) {
+            try {
+                // Add 1 month credit to inviter's subscription
+                // Using a coupon for 100% off for 1 month is the cleanest approach
+                const coupon = await stripe.coupons.create({
+                    percent_off: 100,
+                    duration: 'once',
+                    max_redemptions: 1,
+                    metadata: {
+                        type: 'referral_reward',
+                        guest_id: newCustomer.id,
+                        inviter_id: invitation.inviter_id
+                    }
+                });
+
+                // Apply coupon to inviter's subscription
+                await stripe.subscriptions.update(inviterProfile.subscription_id, {
+                    coupon: coupon.id
+                });
+
+                console.log(`Applied 1 month free coupon to inviter's subscription`);
+
+                // Mark reward as granted
+                await supabaseAdmin
+                    .from('guest_invitations')
+                    .update({ reward_granted: true })
+                    .eq('id', invitation.id);
+
+            } catch (stripeError) {
+                console.error('Failed to apply subscription credit:', stripeError);
+                // Still mark as converted even if Stripe credit fails
+            }
+        }
+
+        console.log(`Referral conversion completed for invitation ${invitation.id}`);
+
+    } catch (error) {
+        console.error('Error handling referral conversion:', error);
+    }
+};
 
 // Exportera ENDAST POST-metoden för att hantera inkommande webhooks
 export async function POST(request: Request) {
@@ -126,13 +225,22 @@ export async function POST(request: Request) {
      // Huvudlogik för events
      switch (event.type) {
         case 'customer.subscription.created':
+             console.log(`Handling subscription event: ${event.type}`);
+             if (customerId && relevantSubscriptionId) {
+                 const fullSubscription = await stripe.subscriptions.retrieve(relevantSubscriptionId);
+                 await updateUserSubscription(customerId, fullSubscription);
+
+                 // Check if this is a referral conversion
+                 await handleReferralConversion(customerId);
+             } else { console.warn(`Webhook Warning: Missing data for ${event.type}`); }
+             break;
         case 'customer.subscription.updated':
-        case 'customer.subscription.deleted': 
+        case 'customer.subscription.deleted':
              console.log(`Handling subscription event: ${event.type}`);
              if (customerId && relevantSubscriptionId) {
                  const fullSubscription = await stripe.subscriptions.retrieve(relevantSubscriptionId);
                  // Anropa den uppdaterade funktionen som nu sätter subscription_tier
-                 await updateUserSubscription(customerId, fullSubscription); 
+                 await updateUserSubscription(customerId, fullSubscription);
              } else { console.warn(`Webhook Warning: Missing data for ${event.type}`); }
              break;
         case 'invoice.payment_succeeded':

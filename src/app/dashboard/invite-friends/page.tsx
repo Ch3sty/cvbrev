@@ -46,10 +46,13 @@ export default function InviteFriendsPage() {
 
     setIsLoading(true);
     try {
-      const response = await fetch('/api/invitations/create', {
+      const response = await fetch('/api/guest/invite', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email.trim() })
+        body: JSON.stringify({
+          guestEmail: email.trim(),
+          personalMessage: '' // Can be added as a feature later
+        })
       });
 
       if (response.ok) {
@@ -103,7 +106,7 @@ export default function InviteFriendsPage() {
       {showSuccess && (
         <div className="mb-6 p-4 bg-green-100 border border-green-300 rounded-lg flex items-center gap-3">
           <CheckCircle2 className="w-5 h-5 text-green-600" />
-          <span className="text-green-800 font-medium">Inbjudan skickad! Din vän får 7 dagars gratis Premium.</span>
+          <span className="text-green-800 font-medium">Inbjudan skickad! Din vän får 7 dagars kostnadsfri Premium.</span>
         </div>
       )}
 
@@ -114,7 +117,7 @@ export default function InviteFriendsPage() {
         </div>
         <h1 className="text-3xl font-bold text-white mb-2">Bjud in en vän</h1>
         <p className="text-gray-400 text-lg">
-          Ge dina vänner 7 dagars gratis Premium och få belöningar när de konverterar
+          Din vän får 7 dagars kostnadsfri Premium. När de blir betalande kund får du 500 XP och 1 månads extra Premium!
         </p>
       </div>
 
@@ -127,7 +130,7 @@ export default function InviteFriendsPage() {
               Skicka inbjudan
             </CardTitle>
             <CardDescription className="text-gray-400">
-              Bjud in en vän via e-post för att ge dem 7 dagars gratis Premium
+              Bjud in en vän via e-post för att ge dem 7 dagars kostnadsfri Premium
             </CardDescription>
           </CardHeader>
           <CardContent>

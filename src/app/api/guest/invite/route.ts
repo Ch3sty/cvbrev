@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createServerClient } from '@/lib/supabase/server'
 import { cookies } from 'next/headers'
 import { Resend } from 'resend'
+import { generateInvitationEmailHTML, generateInvitationEmailText } from '@/lib/email/invitation-email-generator'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -150,54 +151,29 @@ export async function POST(request: NextRequest) {
     const inviterName = profile?.full_name || 'En vän'
 
     try {
+      // Generate professional email templates
+      const htmlContent = generateInvitationEmailHTML({
+        inviterName,
+        guestEmail,
+        personalMessage,
+        inviteUrl,
+        invitationCode
+      })
+
+      const textContent = generateInvitationEmailText({
+        inviterName,
+        guestEmail,
+        personalMessage,
+        inviteUrl,
+        invitationCode
+      })
+
       await resend.emails.send({
         from: 'Jobbcoach.ai <no-reply@jobbcoach.ai>',
         to: guestEmail,
-        subject: `${inviterName} bjuder in dig till Jobbcoach.ai Premium`,
-        html: `
-          <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-            <div style="text-align: center; margin-bottom: 30px;">
-              <h1 style="color: #1e1b4b; margin-bottom: 10px;">Du har blivit inbjuden till Jobbcoach.ai Premium!</h1>
-            </div>
-
-            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 10px; text-align: center; margin-bottom: 30px;">
-              <h2 style="margin: 0 0 10px 0; font-size: 24px;">7 dagars gratis Premium</h2>
-              <p style="margin: 0; font-size: 18px;">Upplev alla premium-funktioner helt kostnadsfritt</p>
-            </div>
-
-            <p style="color: #4a5568; font-size: 16px; line-height: 1.6;">
-              ${inviterName} har bjudit in dig att prova Jobbcoach.ai Premium gratis i 7 dagar!
-            </p>
-
-            ${personalMessage ? `
-              <div style="background: #f7fafc; border-left: 4px solid #667eea; padding: 15px; margin: 20px 0;">
-                <p style="color: #2d3748; font-style: italic; margin: 0;">
-                  "${personalMessage}"
-                </p>
-                <p style="color: #718096; font-size: 14px; margin-top: 10px;">- ${inviterName}</p>
-              </div>
-            ` : ''}
-
-            <h3 style="color: #1e1b4b; margin-top: 30px;">Vad ingår i Premium?</h3>
-            <ul style="color: #4a5568; line-height: 1.8;">
-              <li>Obegränsade AI-genererade personliga brev</li>
-              <li>Professionella CV-mallar och analyser</li>
-              <li>Personlig karriärvägledning med AI</li>
-              <li>1.5x snabbare XP-intjäning</li>
-              <li>Tillgång till alla premium-funktioner</li>
-            </ul>
-
-            <div style="text-align: center; margin-top: 30px;">
-              <a href="${inviteUrl}" style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">
-                Aktivera din gratis Premium
-              </a>
-            </div>
-
-            <p style="color: #718096; font-size: 14px; text-align: center; margin-top: 30px;">
-              Inbjudan giltig i 30 dagar. Ingen betalningsinformation krävs.
-            </p>
-          </div>
-        `
+        subject: `${inviterName} bjuder in dig till 7 dagars kostnadsfri Premium!`,
+        html: htmlContent,
+        text: textContent
       })
     } catch (emailError) {
       console.error('Error sending email:', emailError)
