@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
+import { createServerClient } from '@/lib/supabase/server';
 import { cookies } from 'next/headers';
 
 export async function GET(request: NextRequest) {
   try {
-    const supabase = createRouteHandlerClient({ cookies });
+    const cookieStore = await cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
 
     // Kontrollera autentisering och admin-behörighet
     const { data: { session } } = await supabase.auth.getSession();
@@ -342,7 +343,8 @@ export async function GET(request: NextRequest) {
 // POST endpoint för att logga systemmetrics
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createRouteHandlerClient({ cookies });
+    const cookieStore = await cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
     
     // Kontrollera autentisering och admin-behörighet
     const { data: { session } } = await supabase.auth.getSession();
