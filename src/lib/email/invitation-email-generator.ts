@@ -27,6 +27,11 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
       </o:OfficeDocumentSettings>
     </xml>
   </noscript>
+  <style type="text/css">
+    table {border-collapse: collapse;}
+    td {padding: 0;}
+    a {color: #E9457A !important;}
+  </style>
   <![endif]-->
   <style>
     @media screen and (max-width: 600px) {
@@ -36,8 +41,8 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
     }
   </style>
 </head>
-<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0A0F1E; line-height: 1.6;">
-  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #0A0F1E; min-height: 100vh;">
+<body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f5f7; line-height: 1.6;">
+  <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f5f5f7;">
     <tr>
       <td align="center" style="padding: 30px 15px;">
 
@@ -46,7 +51,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
 
           <!-- Header Section -->
           <tr>
-            <td style="background: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); padding: 50px 40px; text-align: center;" class="mobile-padding">
+            <td style="background-color: #E9457A; background-image: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); padding: 50px 40px; text-align: center;" class="mobile-padding">
               <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 8px 20px; display: inline-block; margin-bottom: 24px;">
                 <p style="color: #ffffff; font-size: 14px; margin: 0; font-weight: 600; letter-spacing: 0.5px;">
                   EXKLUSIV INBJUDAN
@@ -67,7 +72,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
               <table width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
                   <td style="text-align: center;">
-                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); border-radius: 50%; margin: 0 auto 24px auto; display: flex; align-items: center; justify-content: center;">
+                    <div style="width: 60px; height: 60px; background-color: #E9457A; border-radius: 50%; margin: 0 auto 24px auto; line-height: 60px; text-align: center;">
                       <span style="color: white; font-size: 24px;">🎁</span>
                     </div>
                     <h2 style="color: #131B32; font-size: 28px; margin: 0 0 16px 0; font-weight: 700;">
@@ -87,7 +92,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
           <!-- Personal Message -->
           <tr>
             <td style="padding: 0 40px 30px 40px;" class="mobile-padding">
-              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); border-radius: 16px; border: 2px solid #E2E8F0;">
+              <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #F8FAFC; border-radius: 16px; border: 2px solid #E2E8F0;">
                 <tr>
                   <td style="padding: 30px;">
                     <div style="text-align: center; margin-bottom: 20px;">
@@ -120,7 +125,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                     <table cellpadding="0" cellspacing="0" border="0" width="100%">
                       <tr>
                         <td style="width: 50px; vertical-align: top;">
-                          <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                          <div style="width: 40px; height: 40px; background-color: #E9457A; border-radius: 12px; line-height: 40px; text-align: center;">
                             <span style="color: white; font-size: 18px;">✉️</span>
                           </div>
                         </td>
@@ -142,7 +147,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                     <table cellpadding="0" cellspacing="0" border="0" width="100%">
                       <tr>
                         <td style="width: 50px; vertical-align: top;">
-                          <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                          <div style="width: 40px; height: 40px; background-color: #E9457A; border-radius: 12px; line-height: 40px; text-align: center;">
                             <span style="color: white; font-size: 18px;">📄</span>
                           </div>
                         </td>
@@ -164,7 +169,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                     <table cellpadding="0" cellspacing="0" border="0" width="100%">
                       <tr>
                         <td style="width: 50px; vertical-align: top;">
-                          <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                          <div style="width: 40px; height: 40px; background-color: #E9457A; border-radius: 12px; line-height: 40px; text-align: center;">
                             <span style="color: white; font-size: 18px;">🎯</span>
                           </div>
                         </td>
@@ -186,7 +191,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                     <table cellpadding="0" cellspacing="0" border="0" width="100%">
                       <tr>
                         <td style="width: 50px; vertical-align: top;">
-                          <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                          <div style="width: 40px; height: 40px; background-color: #E9457A; border-radius: 12px; line-height: 40px; text-align: center;">
                             <span style="color: white; font-size: 18px;">🚀</span>
                           </div>
                         </td>
@@ -209,17 +214,17 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
           <!-- CTA Section -->
           <tr>
             <td style="padding: 40px 40px 50px 40px; text-align: center;" class="mobile-padding">
-              <a href="${inviteUrl}" style="display: inline-block; text-decoration: none; transform: translateY(0); transition: transform 0.2s ease;">
-                <table cellpadding="0" cellspacing="0" border="0" style="margin: 0 auto;">
-                  <tr>
-                    <td style="background: linear-gradient(135deg, #E9457A 0%, #9333EA 100%); border-radius: 16px; padding: 20px 50px; text-align: center; box-shadow: 0 8px 32px rgba(233, 69, 122, 0.3);" class="mobile-button">
-                      <span style="color: #ffffff; font-size: 19px; font-weight: 700; text-decoration: none; letter-spacing: 0.3px;">
-                        Starta min gratisperiod →
-                      </span>
-                    </td>
-                  </tr>
-                </table>
+              <!--[if mso]>
+              <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${inviteUrl}" style="height:60px;v-text-anchor:middle;width:280px;" arcsize="20%" strokecolor="#E9457A" fillcolor="#E9457A">
+                <w:anchorlock/>
+                <center style="color:#ffffff;font-family:sans-serif;font-size:19px;font-weight:bold;">Starta min gratisperiod →</center>
+              </v:roundrect>
+              <![endif]-->
+              <!--[if !mso]><!-->
+              <a href="${inviteUrl}" style="display: inline-block; text-decoration: none; background-color: #E9457A; color: #ffffff; padding: 20px 50px; border-radius: 16px; font-size: 19px; font-weight: 700; letter-spacing: 0.3px;">
+                Starta min gratisperiod →
               </a>
+              <!--<![endif]-->
 
               <div style="margin-top: 24px;">
                 <p style="color: #94a3b8; font-size: 14px; margin: 0 0 8px 0;">
@@ -234,7 +239,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
 
           <!-- Reward Section -->
           <tr>
-            <td style="background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 100%); padding: 35px 40px; border-top: 1px solid #E2E8F0;" class="mobile-padding">
+            <td style="background-color: #F8FAFC; padding: 35px 40px; border-top: 1px solid #E2E8F0;" class="mobile-padding">
               <table width="100%" cellpadding="0" cellspacing="0" border="0">
                 <tr>
                   <td style="text-align: center;">
