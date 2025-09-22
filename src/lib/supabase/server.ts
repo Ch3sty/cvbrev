@@ -11,13 +11,24 @@ export const createServerClient = ({ cookies }: { cookies: any }) => {
     {
       cookies: {
         get(name: string) {
-          return cookies.get(name)?.value
+          try {
+            const cookie = cookies.get(name);
+            // Handle both string and object cookie values
+            if (typeof cookie === 'string') {
+              return cookie;
+            }
+            return cookie?.value;
+          } catch (error) {
+            console.warn('Server cookie get error:', error);
+            return undefined;
+          }
         },
         set(name: string, value: string, options: any) {
           try {
             cookies.set(name, value, options)
           } catch (error) {
             // Kan ignoreras om anropat från en Server Component
+            console.debug('Server cookie set - expected in Server Components');
           }
         },
         remove(name: string, options: any) {
@@ -25,6 +36,7 @@ export const createServerClient = ({ cookies }: { cookies: any }) => {
             cookies.set(name, '', { ...options, maxAge: 0 })
           } catch (error) {
             // Kan ignoreras om anropat från en Server Component
+            console.debug('Server cookie remove - expected in Server Components');
           }
         },
       },
