@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import MilestoneProgressIndicator from './MilestoneProgressIndicator';
 import {
   Crown,
   Trophy,
@@ -137,6 +138,12 @@ const RewardsDashboard: React.FC<RewardsDashboardProps> = ({
 
   return (
     <div className="space-y-6">
+      {/* Milestone Progress Indicator */}
+      <MilestoneProgressIndicator
+        currentLevel={userLevel.current_level}
+        currentXp={userLevel.current_xp}
+      />
+
       {/* Level Status Card */}
       <Card className="relative overflow-hidden bg-gradient-to-br from-navy-900 to-navy-800 border-navy-700">
         {/* Background glow effect */}

@@ -126,7 +126,12 @@ const MilestoneRewardsTimeline: React.FC<MilestoneRewardsTimelineProps> = ({
     if (milestone.is_claimed) return 'claimed';
     if (milestone.is_unlocked) return 'unlocked';
     if (milestone.level <= currentLevel) return 'available';
-    return 'locked';
+
+    // Enhanced upcoming status for better motivation
+    const levelDiff = milestone.level - currentLevel;
+    if (levelDiff <= 3) return 'upcoming'; // Within 3 levels = visible and motivating
+    if (levelDiff <= 10) return 'near_future'; // Within 10 levels = moderately visible
+    return 'locked'; // Far future = minimal visibility but still shown
   };
 
   const getStatusColor = (status: string) => {
@@ -134,40 +139,87 @@ const MilestoneRewardsTimeline: React.FC<MilestoneRewardsTimelineProps> = ({
       claimed: 'text-green-400',
       unlocked: 'text-yellow-400',
       available: 'text-purple-400',
+      upcoming: 'text-blue-400',
+      near_future: 'text-gray-400',
       locked: 'text-gray-500'
     };
     return colors[status as keyof typeof colors] || 'text-gray-500';
+  };
+
+  const getStatusStyles = (status: string, milestone: MilestoneReward) => {
+    const baseStyles = "w-14 h-14 rounded-full flex items-center justify-center shadow-lg border-2 transition-all duration-300";
+
+    switch (status) {
+      case 'claimed':
+        return `${baseStyles} bg-gradient-to-br from-green-500 to-emerald-500 border-green-400`;
+      case 'unlocked':
+        return `${baseStyles} bg-gradient-to-br ${getRewardGradient(milestone.reward_type, milestone.is_special)} border-yellow-400`;
+      case 'available':
+        return `${baseStyles} bg-gradient-to-br from-purple-600 to-pink-600 border-purple-400`;
+      case 'upcoming':
+        return `${baseStyles} bg-gradient-to-br from-blue-600/70 to-cyan-600/70 border-blue-400/80 ring-2 ring-blue-400/30`;
+      case 'near_future':
+        return `${baseStyles} bg-gradient-to-br from-navy-600/60 to-navy-700/60 border-gray-500/60`;
+      default:
+        return `${baseStyles} bg-navy-700 border-gray-600 opacity-75`;
+    }
   };
 
   const sortedMilestones = [...milestones].sort((a, b) => a.level - b.level);
 
   const TimelineView = () => (
     <div className="relative">
-      {/* Timeline Header */}
+      {/* Timeline Header with Progress */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-lg font-semibold text-white">Belönings-tidslinje</h3>
+          <h3 className="text-lg font-semibold text-white">Din belöningsresa</h3>
           <p className="text-sm text-gray-400">
-            Din resa genom alla 50 nivåer och belöningar
+            Upptäck alla 50 nivåer och exklusiva belöningar som väntar
           </p>
         </div>
-        <div className="flex items-center space-x-2 text-sm text-gray-400">
-          <div className="flex items-center space-x-1">
-            <div className="w-2 h-2 bg-green-400 rounded-full" />
-            <span>Hämtad</span>
+        <div className="text-right">
+          <div className="flex items-center space-x-2 text-sm text-gray-400 mb-2">
+            <div className="flex items-center space-x-1">
+              <div className="w-2 h-2 bg-green-400 rounded-full" />
+              <span>Hämtad</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <div className="w-2 h-2 bg-yellow-400 rounded-full" />
+              <span>Redo</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <div className="w-2 h-2 bg-blue-400 rounded-full" />
+              <span>Kommande</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <div className="w-2 h-2 bg-gray-500 rounded-full animate-pulse" />
+              <span>Framtida</span>
+            </div>
           </div>
-          <div className="flex items-center space-x-1">
-            <div className="w-2 h-2 bg-yellow-400 rounded-full" />
-            <span>Tillgänglig</span>
+          <div className="text-xs text-purple-400 font-medium">
+            {Math.floor((currentLevel / 50) * 100)}% genomförd resa
           </div>
-          <div className="flex items-center space-x-1">
-            <div className="w-2 h-2 bg-purple-400 rounded-full" />
-            <span>Nåbar</span>
-          </div>
-          <div className="flex items-center space-x-1">
-            <div className="w-2 h-2 bg-gray-500 rounded-full" />
-            <span>Låst</span>
-          </div>
+        </div>
+      </div>
+
+      {/* Progress Overview Bar */}
+      <div className="mb-6 p-4 bg-navy-900/50 border border-navy-700/50 rounded-xl backdrop-blur-sm">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-sm font-medium text-gray-300">Nästa stora milstolpe</span>
+          <span className="text-sm text-purple-400">
+            {sortedMilestones.find(m => m.level > currentLevel && (m.level % 5 === 0))?.level || 50} nivåer
+          </span>
+        </div>
+        <div className="relative h-2 bg-navy-700 rounded-full overflow-hidden">
+          <div
+            className="absolute inset-y-0 left-0 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full transition-all duration-1000 ease-out"
+            style={{ width: `${(currentLevel / 50) * 100}%` }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
+        </div>
+        <div className="flex justify-between text-xs text-gray-400 mt-2">
+          <span>Level {currentLevel}</span>
+          <span>Level 50 (Mästarnivå)</span>
         </div>
       </div>
 
@@ -218,29 +270,29 @@ const MilestoneRewardsTimeline: React.FC<MilestoneRewardsTimelineProps> = ({
                 <div className="relative">
                   <div
                     className={`
-                      w-14 h-14 rounded-full flex items-center justify-center shadow-lg border-2 transition-all duration-300
-                      ${status === 'claimed'
-                        ? 'bg-gradient-to-br from-green-500 to-emerald-500 border-green-400'
-                        : status === 'unlocked'
-                        ? `bg-gradient-to-br ${getRewardGradient(milestone.reward_type, milestone.is_special)} border-yellow-400`
-                        : status === 'available'
-                        ? 'bg-gradient-to-br from-purple-600 to-pink-600 border-purple-400'
-                        : 'bg-navy-700 border-gray-600'
-                      }
+                      ${getStatusStyles(status, milestone)}
                       ${hoveredMilestone === milestone.id ? 'scale-110 shadow-2xl' : ''}
                       ${milestone.is_special ? 'ring-4 ring-yellow-400/30' : ''}
+                      ${status === 'upcoming' ? 'animate-pulse' : ''}
                     `}
                   >
                     {status === 'claimed' ? (
                       <CheckCircle2 className="w-6 h-6 text-white" />
-                    ) : status === 'locked' ? (
-                      <Lock className="w-5 h-5 text-gray-400" />
+                    ) : status === 'locked' || status === 'near_future' ? (
+                      <Lock className={`w-5 h-5 ${status === 'near_future' ? 'text-gray-500' : 'text-gray-400'}`} />
                     ) : (
                       <div className={getStatusColor(status)}>
                         {getRewardIcon(milestone.reward_type, milestone.icon, milestone.is_special)}
                       </div>
                     )}
                   </div>
+
+                  {/* Upcoming indicator */}
+                  {status === 'upcoming' && (
+                    <div className="absolute -top-1 -left-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center animate-bounce">
+                      <span className="text-white text-xs font-bold">!</span>
+                    </div>
+                  )}
 
                   {/* Level Badge */}
                   <div className="absolute -top-1 -right-1 bg-navy-900 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center border border-navy-600">
@@ -257,12 +309,32 @@ const MilestoneRewardsTimeline: React.FC<MilestoneRewardsTimelineProps> = ({
                 <div className="text-center max-w-24">
                   <p className="font-semibold text-white text-sm truncate">{milestone.name}</p>
                   <p className="text-xs text-gray-400">Level {milestone.level}</p>
+
+                  {/* Enhanced badge styling based on status */}
                   <Badge
-                    variant={status === 'claimed' ? 'success' : status === 'unlocked' ? 'warning' : 'secondary'}
-                    className="text-xs mt-1"
+                    variant={
+                      status === 'claimed' ? 'success'
+                      : status === 'unlocked' ? 'warning'
+                      : status === 'upcoming' ? 'default'
+                      : 'secondary'
+                    }
+                    className={`text-xs mt-1 ${
+                      status === 'upcoming'
+                        ? 'bg-blue-600/20 text-blue-400 border-blue-400/50 animate-pulse'
+                        : status === 'near_future'
+                        ? 'bg-gray-700/50 text-gray-400 border-gray-500/50'
+                        : ''
+                    }`}
                   >
                     {getRewardValue(milestone)}
                   </Badge>
+
+                  {/* Motivational text for upcoming rewards */}
+                  {status === 'upcoming' && (
+                    <p className="text-xs text-blue-400 font-medium mt-1">
+                      {milestone.level - currentLevel} nivåer kvar!
+                    </p>
+                  )}
                 </div>
 
                 {/* Action Button */}

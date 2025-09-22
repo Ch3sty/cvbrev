@@ -8,6 +8,7 @@ import { User as SupabaseUser } from '@supabase/supabase-js'
 import { useRouter, usePathname } from 'next/navigation'
 import { Menu, Transition, Disclosure } from '@headlessui/react'
 import { useProfile } from '@/hooks/use-profile'; // Importera useProfile
+import GuestInvitationButton from '@/components/ui/GuestInvitationButton';
 
 // --- Icon Imports (Lucide React) ---
 import {
@@ -78,7 +79,9 @@ export default function Navbar() {
 
   const {
       savedLettersCount,
-      loading: profileLoading
+      loading: profileLoading,
+      subscriptionTier,
+      profile
   } = useProfile();
 
   const router = useRouter();
@@ -119,6 +122,12 @@ export default function Navbar() {
     await supabase.auth.signOut();
     router.push('/');
     router.refresh();
+  };
+
+  const handleGuestInvitation = () => {
+    // For now, navigate to a dedicated invitation page or open a modal
+    // This could be enhanced with a modal component later
+    router.push('/dashboard/invite-friends');
   };
 
   // --- Hjälpfunktion för att rendera EN navigeringslänk ---
@@ -307,6 +316,16 @@ export default function Navbar() {
 
               {/* --- Desktop User/Auth Area --- */}
               <div className="hidden md:flex items-center space-x-3">
+                {/* Guest Invitation Button for Premium Users */}
+                {!isLoading && sessionUser && subscriptionTier === 'premium' && (
+                  <GuestInvitationButton
+                    isPremium={true}
+                    availableInvitations={profile?.guest_invitations_remaining || 0}
+                    onInviteGuest={handleGuestInvitation}
+                    variant="navbar"
+                  />
+                )}
+
                 {isLoading ? ( <div className="flex items-center justify-center w-8 h-8"><Loader2 className="w-5 h-5 text-pink-500 animate-spin" /></div> )
                 : sessionUser ? (
                   <Menu as="div" className="relative">
@@ -369,6 +388,25 @@ export default function Navbar() {
                     {renderSingleNavLink(myLettersLink, true, closeMobileMenu, savedLettersCount)}
                     {toolLinks.filter(link => link.href !== '/create-letter').map(link => renderSingleNavLink(link, true, closeMobileMenu))}
                 </div>
+
+                {/* Premium Guest Invitation for Mobile */}
+                {!isLoading && sessionUser && subscriptionTier === 'premium' && (
+                  <div className="pt-2 border-t border-navy-700/30 mt-2">
+                    <h3 className="px-3 text-xs font-semibold uppercase text-gray-500 tracking-wider mb-1">Premium</h3>
+                    <div className="px-3 py-2">
+                      <GuestInvitationButton
+                        isPremium={true}
+                        availableInvitations={profile?.guest_invitations_remaining || 0}
+                        onInviteGuest={() => {
+                          handleGuestInvitation();
+                          closeMobileMenu();
+                        }}
+                        variant="dashboard"
+                        className="w-full"
+                      />
+                    </div>
+                  </div>
+                )}
 
                 {/* Mobil-specifika info */}
                  <div className="pt-2 border-t border-navy-700/30 mt-2"> {mobileOnlyLinks.map(link => renderSingleNavLink(link, true, closeMobileMenu))} </div>

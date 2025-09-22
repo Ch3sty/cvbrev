@@ -119,18 +119,25 @@ export async function GET(request: NextRequest) {
       claimedRewards?.map((r: any) => r.premium_rewards?.milestone_level).filter(Boolean) || []
     )
 
-    // Process milestones
+    // Process ALL milestones to show upcoming ones
     const milestones = await Promise.all(MILESTONE_REWARDS.map(async milestone => {
       const isUnlocked = currentLevel >= milestone.level
       const isClaimed = claimedLevels.has(milestone.level)
 
-      let status: 'locked' | 'available' | 'claimed'
+      let status: 'locked' | 'available' | 'claimed' | 'upcoming' | 'near_future'
       if (isClaimed) {
         status = 'claimed'
       } else if (isUnlocked) {
         status = 'available'
       } else {
-        status = 'locked'
+        const levelDiff = milestone.level - currentLevel
+        if (levelDiff <= 3) {
+          status = 'upcoming' // Within 3 levels - highly visible
+        } else if (levelDiff <= 10) {
+          status = 'near_future' // Within 10 levels - moderately visible
+        } else {
+          status = 'locked' // Far future
+        }
       }
 
       // Calculate XP needed if locked

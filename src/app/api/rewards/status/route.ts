@@ -85,16 +85,39 @@ export async function GET(request: NextRequest) {
       console.error('Error fetching claimed rewards:', claimedError)
     }
 
-    // Get upcoming milestones
-    const upcomingMilestones = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
-      .filter(level => level > currentLevel)
-      .slice(0, 3)
+    // Get ALL milestones to show full progression path
+    const allMilestoneLevels = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
 
-    const { data: upcomingRewards } = await supabase
+    // Fetch all milestone rewards to show complete progression
+    const { data: allMilestoneRewards } = await supabase
       .from('premium_rewards')
       .select('*')
-      .in('milestone_level', upcomingMilestones)
+      .in('milestone_level', allMilestoneLevels)
       .order('milestone_level', { ascending: true })
+
+    // Process milestones to add status
+    const processedMilestones = allMilestoneRewards?.map(reward => {
+      const levelDiff = reward.milestone_level - currentLevel
+      let status = 'locked'
+
+      if (claimedRewards?.some((c: any) => c.premium_rewards?.milestone_level === reward.milestone_level)) {
+        status = 'claimed'
+      } else if (currentLevel >= reward.milestone_level) {
+        status = 'available'
+      } else if (levelDiff <= 3) {
+        status = 'upcoming'
+      } else if (levelDiff <= 10) {
+        status = 'near_future'
+      }
+
+      return {
+        ...reward,
+        status,
+        is_unlocked: currentLevel >= reward.milestone_level,
+        is_claimed: status === 'claimed',
+        levels_until_unlock: Math.max(0, reward.milestone_level - currentLevel)
+      }
+    }) || []
 
     // Check premium status
     const { data: profile } = await supabase
@@ -170,7 +193,8 @@ export async function GET(request: NextRequest) {
         isPremium,
         availableRewards: availableRewards || [],
         claimedRewards: claimedRewards || [],
-        upcomingRewards: upcomingRewards || [],
+        upcomingRewards: processedMilestones || [],
+        allMilestones: processedMilestones || [],
         guestInvitations
       }
     })
