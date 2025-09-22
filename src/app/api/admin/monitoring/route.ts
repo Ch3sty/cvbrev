@@ -143,7 +143,8 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = createRouteHandlerClient({ cookies });
+    const cookieStore = await cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
     
     // Check if user is admin
     const { data: { user } } = await supabase.auth.getUser();
