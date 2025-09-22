@@ -273,6 +273,7 @@ export default function InvitePage() {
             if (!session) {
               setError('Ingen session skapades vid inloggning')
               return
+            }
 
             // 3. Wait for session to propagate and verify authentication
             let retries = 0
@@ -303,7 +304,7 @@ export default function InvitePage() {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${session.access_token}`
+                'Authorization': `Bearer ${session?.access_token}`
               },
               credentials: 'include', // Ensure cookies are sent
               body: JSON.stringify({ invitationCode })
