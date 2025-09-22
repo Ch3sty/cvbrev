@@ -10,6 +10,12 @@ const getAnonClient = () => {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
+  console.log('[getAnonClient] Environment check:', {
+    hasUrl: !!supabaseUrl,
+    hasKey: !!supabaseAnonKey,
+    urlPrefix: supabaseUrl?.substring(0, 30)
+  })
+
   if (!supabaseUrl || !supabaseAnonKey) {
     throw new Error('Missing Supabase environment variables')
   }
@@ -160,6 +166,8 @@ export async function GET(request: NextRequest) {
     const url = new URL(request.url)
     const code = url.searchParams.get('code')
 
+    console.log('[GET /api/guest/accept] Code:', code)
+
     if (!code) {
       return NextResponse.json({ error: 'Invitation code is required' }, { status: 400 })
     }
@@ -177,8 +185,18 @@ export async function GET(request: NextRequest) {
       .eq('invitation_code', code)
       .single()
 
+    console.log('[GET /api/guest/accept] Query result:', {
+      hasData: !!invitation,
+      error: error?.message || 'none',
+      code: error?.code
+    })
+
     if (error || !invitation) {
-      return NextResponse.json({ error: 'Invalid invitation code' }, { status: 404 })
+      return NextResponse.json({
+        error: 'Invalid invitation code',
+        details: error?.message || 'No invitation found',
+        code: code
+      }, { status: 404 })
     }
 
     // Check status
