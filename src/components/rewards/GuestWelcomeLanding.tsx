@@ -42,7 +42,7 @@ interface InvitationDetails {
 
 interface GuestWelcomeLandingProps {
   invitation: InvitationDetails;
-  onAcceptInvitation: (email: string, fullName: string) => Promise<void>;
+  onAcceptInvitation: (email: string, fullName: string, password: string) => Promise<void>;
   onDeclineInvitation: () => void;
   isAccepting?: boolean;
   error?: string;
@@ -57,6 +57,7 @@ const GuestWelcomeLanding: React.FC<GuestWelcomeLandingProps> = ({
 }) => {
   const [guestEmail, setGuestEmail] = useState('');
   const [guestName, setGuestName] = useState('');
+  const [guestPassword, setGuestPassword] = useState('');
   const [currentStep, setCurrentStep] = useState<'welcome' | 'signup' | 'success'>('welcome');
   const [timeRemaining, setTimeRemaining] = useState('');
 
@@ -92,10 +93,15 @@ const GuestWelcomeLanding: React.FC<GuestWelcomeLandingProps> = ({
   }, [invitation.expires_at]);
 
   const handleAcceptInvitation = async () => {
-    if (!guestEmail.trim() || !guestName.trim()) return;
+    if (!guestEmail.trim() || !guestName.trim() || !guestPassword.trim()) return;
+
+    if (guestPassword.length < 6) {
+      // Should show error but handled by parent
+      return;
+    }
 
     try {
-      await onAcceptInvitation(guestEmail.trim(), guestName.trim());
+      await onAcceptInvitation(guestEmail.trim(), guestName.trim(), guestPassword.trim());
       setCurrentStep('success');
     } catch (error) {
       // Error handling is done in parent component
@@ -384,10 +390,27 @@ const GuestWelcomeLanding: React.FC<GuestWelcomeLandingProps> = ({
                     />
                   </div>
 
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Lösenord
+                    </label>
+                    <input
+                      type="password"
+                      value={guestPassword}
+                      onChange={(e) => setGuestPassword(e.target.value)}
+                      placeholder="Minst 6 tecken"
+                      className="w-full px-3 py-2 bg-navy-700 border border-navy-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                      disabled={isAccepting}
+                    />
+                    <p className="text-xs text-gray-400 mt-1">
+                      Du använder detta för att logga in senare
+                    </p>
+                  </div>
+
                   <div className="space-y-3">
                     <Button
                       onClick={handleAcceptInvitation}
-                      disabled={!guestEmail.trim() || !guestName.trim() || isAccepting}
+                      disabled={!guestEmail.trim() || !guestName.trim() || !guestPassword.trim() || guestPassword.length < 6 || isAccepting}
                       className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white py-3"
                     >
                       {isAccepting ? (

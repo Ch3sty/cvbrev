@@ -194,9 +194,50 @@ export default function InvitePage() {
             'Tillgång till alla premium-funktioner'
           ]
         }}
-        onAcceptInvitation={async (email, fullName) => {
-          // Redirect to register page with details
-          router.push(`/register?invite=${invitationCode}&email=${encodeURIComponent(email)}&name=${encodeURIComponent(fullName)}`)
+        onAcceptInvitation={async (email, fullName, password) => {
+          // Create account and accept invitation directly
+          setError(null)
+
+          try {
+            // 1. Create the user account
+            const { data: authData, error: signUpError } = await supabase.auth.signUp({
+              email,
+              password,
+              options: {
+                data: {
+                  full_name: fullName
+                }
+              }
+            })
+
+            if (signUpError) {
+              setError(`Kunde inte skapa konto: ${signUpError.message}`)
+              return
+            }
+
+            if (!authData.user) {
+              setError('Ett oväntat fel uppstod vid registrering')
+              return
+            }
+
+            // 2. Accept the invitation
+            const response = await fetch('/api/guest/accept', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ invitationCode })
+            })
+
+            if (response.ok) {
+              // Success! Redirect to dashboard
+              router.push('/dashboard')
+            } else {
+              const result = await response.json()
+              setError(result.error || 'Kunde inte acceptera inbjudan')
+            }
+          } catch (err) {
+            console.error('Error during signup:', err)
+            setError('Ett oväntat fel uppstod')
+          }
         }}
         onDeclineInvitation={() => router.push('/')}
         isAccepting={false}
