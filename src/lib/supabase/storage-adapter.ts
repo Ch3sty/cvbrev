@@ -14,13 +14,20 @@ class SafeStorageAdapter {
     try {
       const item = this.storage.getItem(key);
 
+      // Handle common invalid values
+      if (!item || item === 'undefined' || item === 'null' || item === '') {
+        if (item !== null) {
+          this.storage.removeItem(key);
+        }
+        return null;
+      }
+
       // If it looks like JSON, try to validate it
-      if (item && (item.startsWith('{') || item.startsWith('['))) {
+      if (item.startsWith('{') || item.startsWith('[')) {
         try {
           JSON.parse(item);
         } catch (e) {
-          // Invalid JSON, remove the corrupted item
-          console.warn(`Removing corrupted storage item: ${key}`);
+          // Invalid JSON, remove the corrupted item silently
           this.storage.removeItem(key);
           return null;
         }
@@ -28,7 +35,7 @@ class SafeStorageAdapter {
 
       return item;
     } catch (error) {
-      console.warn('Storage getItem error:', error);
+      // Silently handle errors
       return null;
     }
   }
@@ -37,19 +44,25 @@ class SafeStorageAdapter {
     if (!this.storage) return;
 
     try {
+      // Prevent storing invalid values
+      if (value === 'undefined' || value === undefined as any) {
+        this.storage.removeItem(key);
+        return;
+      }
+
       // Validate JSON before storing
       if (value && (value.startsWith('{') || value.startsWith('['))) {
         try {
           JSON.parse(value);
         } catch (e) {
-          console.warn(`Attempting to store invalid JSON for key: ${key}`);
+          // Don't store invalid JSON
           return;
         }
       }
 
       this.storage.setItem(key, value);
     } catch (error) {
-      console.warn('Storage setItem error:', error);
+      // Silently handle errors
     }
   }
 
@@ -59,7 +72,7 @@ class SafeStorageAdapter {
     try {
       this.storage.removeItem(key);
     } catch (error) {
-      console.warn('Storage removeItem error:', error);
+      // Silently handle errors
     }
   }
 }
@@ -67,22 +80,34 @@ class SafeStorageAdapter {
 // Create a global instance
 export const safeStorage = new SafeStorageAdapter();
 
-// Monkey-patch localStorage if in browser
+// Enhanced monkey-patch for localStorage and sessionStorage
 if (typeof window !== 'undefined') {
-  const originalGetItem = window.localStorage.getItem;
-  const originalSetItem = window.localStorage.setItem;
+  // Patch localStorage
+  const originalLocalGetItem = window.localStorage.getItem;
+  const originalLocalSetItem = window.localStorage.setItem;
 
   window.localStorage.getItem = function(key: string) {
     try {
-      const value = originalGetItem.call(this, key);
+      const value = originalLocalGetItem.call(this, key);
+
+      // Handle invalid values
+      if (value === 'undefined' || value === '' || value === 'null') {
+        this.removeItem(key);
+        return null;
+      }
 
       // Special handling for Supabase auth keys
-      if (key && key.includes('supabase.auth.token')) {
+      if (key && (key.includes('supabase') || key.includes('sb-'))) {
+        // Don't parse base64 encoded values
+        if (value && value.startsWith('base64-')) {
+          return value;
+        }
+
         if (value && (value.startsWith('{') || value.startsWith('['))) {
           try {
             JSON.parse(value);
           } catch (e) {
-            console.warn(`Clearing corrupted auth token: ${key}`);
+            // Silently clear corrupted auth token
             this.removeItem(key);
             return null;
           }
@@ -97,21 +122,66 @@ if (typeof window !== 'undefined') {
 
   window.localStorage.setItem = function(key: string, value: string) {
     try {
+      // Prevent storing invalid values
+      if (value === 'undefined' || value === undefined as any) {
+        this.removeItem(key);
+        return;
+      }
+
       // Validate JSON for Supabase keys
-      if (key && key.includes('supabase.auth.token')) {
+      if (key && (key.includes('supabase') || key.includes('sb-'))) {
+        // Don't validate base64 encoded values
+        if (value && value.startsWith('base64-')) {
+          return originalLocalSetItem.call(this, key, value);
+        }
+
         if (value && (value.startsWith('{') || value.startsWith('['))) {
           try {
             JSON.parse(value);
           } catch (e) {
-            console.warn(`Blocked invalid JSON for key: ${key}`);
+            // Don't store invalid JSON
             return;
           }
         }
       }
 
-      return originalSetItem.call(this, key, value);
+      return originalLocalSetItem.call(this, key, value);
     } catch (e) {
-      console.warn('localStorage.setItem error:', e);
+      // Silently handle errors
+    }
+  };
+
+  // Also patch sessionStorage
+  const originalSessionGetItem = window.sessionStorage.getItem;
+  const originalSessionSetItem = window.sessionStorage.setItem;
+
+  window.sessionStorage.getItem = function(key: string) {
+    try {
+      const value = originalSessionGetItem.call(this, key);
+
+      // Handle invalid values
+      if (value === 'undefined' || value === '' || value === 'null') {
+        this.removeItem(key);
+        return null;
+      }
+
+      return value;
+    } catch (e) {
+      return null;
+    }
+  };
+
+  window.sessionStorage.setItem = function(key: string, value: string) {
+    try {
+      // Prevent storing invalid values
+      if (value === 'undefined' || value === undefined as any) {
+        this.removeItem(key);
+        return;
+      }
+
+      return originalSessionSetItem.call(this, key, value);
+    } catch (e) {
+      // Silently handle errors
     }
   };
 }

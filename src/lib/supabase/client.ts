@@ -1,7 +1,9 @@
 // src/lib/supabase/client.ts
 import { createBrowserClient } from '@supabase/ssr'
 import { type Database } from '@/types/database.types'
-import { parseCookies, parseCookieValue, stringifyCookieValue } from './cookie-helpers'
+import { parseCookies } from './cookie-helpers'
+// Import storage initializer to ensure it runs first
+import './storage-init'
 
 export const createClient = () => {
   return createBrowserClient<Database>(
@@ -18,18 +20,43 @@ export const createClient = () => {
 
             if (!value) return undefined;
 
+            // Handle invalid values
+            if (value === 'undefined' || value === 'null' || value === '') {
+              return undefined;
+            }
+
             // Special handling for Supabase auth cookies
-            if (name.includes('auth-token') || name.includes('refresh-token') || name.includes('provider-token')) {
-              // These should be returned as-is
+            if (name.includes('auth-token') || name.includes('refresh-token') || name.includes('provider-token') || name.includes('sb-')) {
+              // Handle base64 encoded values
+              if (value.startsWith('base64-')) {
+                return value;
+              }
+
+              // Try to decode URI component
               try {
-                return decodeURIComponent(value);
+                const decoded = decodeURIComponent(value);
+                // Check if decoded value is valid
+                if (decoded === 'undefined' || decoded === 'null' || decoded === '') {
+                  return undefined;
+                }
+                return decoded;
               } catch {
                 return value;
               }
             }
 
-            // For other cookies, try to parse JSON if applicable
-            return parseCookieValue(value);
+            // For JSON-like values, parse safely
+            if (value.startsWith('{') || value.startsWith('[')) {
+              try {
+                return JSON.parse(value);
+              } catch {
+                // Not valid JSON, return as string
+                return value;
+              }
+            }
+
+            // Return as-is for other values
+            return value;
           } catch (error) {
             // Silently handle errors to avoid console spam
             return undefined;
@@ -39,10 +66,21 @@ export const createClient = () => {
           if (typeof document === 'undefined') return;
 
           try {
-            // Don't encode if it's already a string that looks encoded
-            const cookieValue = typeof value === 'string' && !value.includes('%')
-              ? encodeURIComponent(value)
-              : value;
+            // Prevent setting invalid values
+            if (value === 'undefined' || value === undefined as any || value === null || value === 'null') {
+              // Remove the cookie instead
+              this.remove(name, options);
+              return;
+            }
+
+            // Handle encoding properly
+            let cookieValue = value;
+            if (typeof value === 'string') {
+              // Don't double-encode
+              if (!value.includes('%') && !value.startsWith('base64-')) {
+                cookieValue = encodeURIComponent(value);
+              }
+            }
 
             let cookieString = `${name}=${cookieValue}`;
 

@@ -1,6 +1,9 @@
 // app/layout.tsx
 'use client';
 
+// CRITICAL: Import storage initialization FIRST before anything else
+import '@/lib/supabase/storage-init';
+
 import './globals.css'
 // import type { Metadata } from 'next' // Metadata kan inte användas med 'use client'
 import { Inter } from 'next/font/google'
@@ -12,8 +15,6 @@ import { Suspense, useState, useEffect } from 'react';
 import CookieConsent, { Cookies, getCookieConsentValue, OPTIONS } from "react-cookie-consent";
 import { NotificationProvider } from '@/context/notificationcontext';
 import { usePathname } from 'next/navigation';
-// Import storage adapter to ensure it's initialized early
-import '@/lib/supabase/storage-adapter';
 
 const inter = Inter({ subsets: ['latin'] })
 
