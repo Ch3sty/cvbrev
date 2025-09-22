@@ -68,8 +68,8 @@ export default function InvitePage() {
 
   const handleAcceptInvitation = async () => {
     if (!user) {
-      // Redirect to sign up with return URL
-      router.push(`/auth/signup?invite=${invitationCode}`)
+      // Redirect to register page with invitation code
+      router.push(`/register?invite=${invitationCode}`)
       return
     }
 
@@ -195,8 +195,8 @@ export default function InvitePage() {
           ]
         }}
         onAcceptInvitation={async (email, fullName) => {
-          // Redirect to sign up with details
-          router.push(`/auth/signup?invite=${invitationCode}&email=${encodeURIComponent(email)}&name=${encodeURIComponent(fullName)}`)
+          // Redirect to register page with details
+          router.push(`/register?invite=${invitationCode}&email=${encodeURIComponent(email)}&name=${encodeURIComponent(fullName)}`)
         }}
         onDeclineInvitation={() => router.push('/')}
         isAccepting={false}
