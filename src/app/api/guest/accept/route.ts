@@ -172,16 +172,10 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Invitation code is required' }, { status: 400 })
     }
 
-    // Get invitation details
+    // Get invitation details (utan JOIN först)
     const { data: invitation, error } = await supabase
       .from('guest_invitations')
-      .select(`
-        *,
-        inviter:profiles!inviter_id (
-          full_name,
-          email
-        )
-      `)
+      .select('*')
       .eq('invitation_code', code)
       .single()
 
@@ -197,6 +191,20 @@ export async function GET(request: NextRequest) {
         details: error?.message || 'No invitation found',
         code: code
       }, { status: 404 })
+    }
+
+    // Hämta inviter-info separat
+    let inviterName = 'En vän'
+    if (invitation.inviter_id) {
+      const { data: inviterProfile } = await supabase
+        .from('profiles')
+        .select('full_name, email')
+        .eq('id', invitation.inviter_id)
+        .single()
+
+      if (inviterProfile?.full_name) {
+        inviterName = inviterProfile.full_name
+      }
     }
 
     // Check status
@@ -233,7 +241,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       valid: true,
       data: {
-        inviterName: invitation.inviter?.full_name || 'En vän',
+        inviterName: inviterName,
         premiumDays: invitation.trial_duration_days,
         expiresAt: invitation.expires_at
       }
