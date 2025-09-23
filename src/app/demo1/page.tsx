@@ -33,13 +33,16 @@ export default function Demo1Page() {
     }
   }
 
-  // CV-mallar data
+  // CV-mallar data med faktiska SVG-filer
   const cvTemplates = [
-    { id: 1, name: 'Modern Minimal', industry: 'Tech/Startup', popularity: 89 },
-    { id: 2, name: 'Klassisk Professional', industry: 'Bank/Finans', popularity: 92 },
-    { id: 3, name: 'Kreativ Design', industry: 'Media/Reklam', popularity: 76 },
-    { id: 4, name: 'Executive Premium', industry: 'Ledning/Chef', popularity: 85 },
-    { id: 5, name: 'Clean Corporate', industry: 'Konsult/B2B', popularity: 94 }
+    { id: 1, name: 'Modern Minimal', industry: 'Tech/Startup', popularity: 89, svg: '/mallar/modern-minimal.svg', premium: false },
+    { id: 2, name: 'Klassisk Professional', industry: 'Bank/Finans', popularity: 92, svg: '/mallar/classic-professional.svg', premium: false },
+    { id: 3, name: 'Clean Corporate', industry: 'Konsult/B2B', popularity: 94, svg: '/mallar/clean-corporate.svg', premium: false },
+    { id: 4, name: 'Executive Premium', industry: 'Ledning/Chef', popularity: 85, svg: '/mallar/executive-premium.svg', premium: true },
+    { id: 5, name: 'Nordic Professional', industry: 'Alla branscher', popularity: 88, svg: '/mallar/nordic-professional.svg', premium: false },
+    { id: 6, name: 'Creative Edge', industry: 'Media/Design', popularity: 76, svg: '/mallar/creative-edge.svg', premium: false },
+    { id: 7, name: 'Platinum Executive', industry: 'VD/Direktion', popularity: 82, svg: '/mallar/platinum-executive.svg', premium: true },
+    { id: 8, name: 'Creative Minimal', industry: 'Kreativa yrken', popularity: 79, svg: '/mallar/creative-minimal.svg', premium: false }
   ]
 
   // FAQ data
@@ -144,7 +147,7 @@ export default function Demo1Page() {
       {/* Social Proof Bar */}
       <section className="py-8 bg-white border-y border-slate-200">
         <div className="container mx-auto px-4">
-          <p className="text-center text-sm text-slate-600 mb-4">Betrodd av jobbsökare på ledande svenska företag</p>
+          <p className="text-center text-sm text-slate-600 mb-4">Vi matchar dagligen CV:n mot attraktiva tjänster hos företag som</p>
           <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-60">
             <span className="text-xl font-semibold text-slate-700">Volvo</span>
             <span className="text-xl font-semibold text-slate-700">Ericsson</span>
@@ -155,59 +158,54 @@ export default function Demo1Page() {
         </div>
       </section>
 
-      {/* Problem/Solution Section */}
-      <section className="py-16 lg:py-24 bg-slate-50">
+      {/* Value Proposition Section - Mer professionell approach */}
+      <section className="py-16 lg:py-24 bg-gradient-to-b from-white to-slate-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8 md:gap-12">
-              <div className="bg-red-50 border border-red-200 rounded-2xl p-8">
-                <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
-                  <X className="w-6 h-6 text-red-600" />
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                Varför välja Jobbcoach.ai?
+              </h2>
+              <p className="text-xl text-slate-600">
+                Vi förvandlar din jobbsökning från tidskrävande gissningsarbete till en datadriven process
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Clock className="w-8 h-8 text-blue-600" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Utan Jobbcoach.ai</h3>
-                <ul className="space-y-3 text-slate-600">
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-500 mt-1">✗</span>
-                    <span>Timmar av skrivkramp för varje ansökan</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-500 mt-1">✗</span>
-                    <span>Generiska brev som inte sticker ut</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-500 mt-1">✗</span>
-                    <span>Missar viktiga nyckelord från annonsen</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-red-500 mt-1">✗</span>
-                    <span>Osäker på om CV:t är konkurrenskraftigt</span>
-                  </li>
-                </ul>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">Spara tid</h3>
+                <p className="text-slate-600">
+                  Från timmar till minuter - skapa anpassade ansökningar 10x snabbare
+                </p>
+                <div className="mt-4 text-2xl font-bold text-blue-600">90%</div>
+                <p className="text-sm text-slate-500">tidsbesparing per ansökan</p>
               </div>
 
-              <div className="bg-green-50 border border-green-200 rounded-2xl p-8">
-                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                  <Check className="w-6 h-6 text-green-600" />
+              <div className="text-center">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Target className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Med Jobbcoach.ai</h3>
-                <ul className="space-y-3 text-slate-600">
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-500 mt-1">✓</span>
-                    <span>Professionella ansökningar på 60 sekunder</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-500 mt-1">✓</span>
-                    <span>Unika brev anpassade för varje tjänst</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-500 mt-1">✓</span>
-                    <span>AI matchar dina styrkor mot kraven</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-green-500 mt-1">✓</span>
-                    <span>Konkret feedback som ökar dina chanser</span>
-                  </li>
-                </ul>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">Öka precision</h3>
+                <p className="text-slate-600">
+                  AI matchar dina styrkor mot arbetsgivarens krav för perfekt passform
+                </p>
+                <div className="mt-4 text-2xl font-bold text-green-600">3x</div>
+                <p className="text-sm text-slate-500">högre svarsfrekvens</p>
+              </div>
+
+              <div className="text-center">
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <BrainCircuit className="w-8 h-8 text-purple-600" />
+                </div>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">Få insikter</h3>
+                <p className="text-slate-600">
+                  Förstå vad som saknas och få konkreta förbättringsförslag
+                </p>
+                <div className="mt-4 text-2xl font-bold text-purple-600">89%</div>
+                <p className="text-sm text-slate-500">får intervju inom 2 veckor</p>
               </div>
             </div>
           </div>
@@ -219,14 +217,15 @@ export default function Demo1Page() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-              Allt du behöver för en framgångsrik jobbsökning
+              Alla våra kraftfulla funktioner
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Komplett verktyg för att optimera varje del av din ansökningsprocess
+              Från AI-drivna personliga brev till djupgående kompetensanalys - allt för din framgång
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            {/* Kärnfunktioner */}
             <div className="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300">
               <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                 <FileText className="w-6 h-6 text-blue-600" />
@@ -245,7 +244,7 @@ export default function Demo1Page() {
               <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
                 <FileSearch className="w-6 h-6 text-green-600" />
               </div>
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">Djupgående CV-analys</h3>
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">CV-analys & optimering</h3>
               <p className="text-slate-600 text-sm mb-3">
                 ATS-optimering och konkreta förbättringsförslag
               </p>
@@ -275,21 +274,86 @@ export default function Demo1Page() {
               </div>
               <h3 className="text-lg font-semibold text-slate-900 mb-2">Tonalitetsanpassning</h3>
               <p className="text-slate-600 text-sm mb-3">
-                Matcha företagskulturen perfekt
+                Matcha företagskulturen perfekt med rätt ton
               </p>
               <div className="flex items-center gap-2 text-sm text-orange-600 font-medium">
                 <Award className="w-4 h-4" />
                 <span>Premium-funktion</span>
               </div>
             </div>
+
+            <div className="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300">
+              <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4">
+                <BarChart className="w-6 h-6 text-indigo-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">ATS-kompatibilitet</h3>
+              <p className="text-slate-600 text-sm mb-3">
+                Säkerställ att ditt CV går igenom alla filter
+              </p>
+              <div className="flex items-center gap-2 text-sm text-indigo-600 font-medium">
+                <Shield className="w-4 h-4" />
+                <span>100% genomslag</span>
+              </div>
+            </div>
+
+            <div className="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300">
+              <div className="w-12 h-12 bg-pink-100 rounded-lg flex items-center justify-center mb-4">
+                <Sparkles className="w-6 h-6 text-pink-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">Nyckelordsoptimering</h3>
+              <p className="text-slate-600 text-sm mb-3">
+                Matcha jobbannonens viktiga nyckelord automatiskt
+              </p>
+              <div className="flex items-center gap-2 text-sm text-pink-600 font-medium">
+                <Target className="w-4 h-4" />
+                <span>Perfekt matchning</span>
+              </div>
+            </div>
+
+            <div className="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300">
+              <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center mb-4">
+                <Globe className="w-6 h-6 text-teal-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">Branschspecifika tips</h3>
+              <p className="text-slate-600 text-sm mb-3">
+                Anpassade råd för din specifika bransch
+              </p>
+              <div className="flex items-center gap-2 text-sm text-teal-600 font-medium">
+                <Briefcase className="w-4 h-4" />
+                <span>Expertinsikter</span>
+              </div>
+            </div>
+
+            <div className="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300">
+              <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+                <Upload className="w-6 h-6 text-red-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">PDF-export</h3>
+              <p className="text-slate-600 text-sm mb-3">
+                Professionell formatering redo att skickas
+              </p>
+              <div className="flex items-center gap-2 text-sm text-red-600 font-medium">
+                <FileText className="w-4 h-4" />
+                <span>Perfekt layout</span>
+              </div>
+            </div>
+
+            <div className="bg-slate-50 rounded-xl p-6 hover:shadow-lg transition-shadow duration-300">
+              <div className="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center mb-4">
+                <Clock className="w-6 h-6 text-yellow-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-slate-900 mb-2">Sparade ansökningar</h3>
+              <p className="text-slate-600 text-sm mb-3">
+                Organisera och återanvänd dina bästa ansökningar
+              </p>
+              <div className="flex items-center gap-2 text-sm text-yellow-600 font-medium">
+                <CheckCircle className="w-4 h-4" />
+                <span>Smart bibliotek</span>
+              </div>
+            </div>
           </div>
 
-          <div className="text-center mt-8">
-            <Link href="/funktioner" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium">
-              Se alla 12+ funktioner
-              <ChevronRight className="w-4 h-4" />
-            </Link>
-          </div>
+          {/* Ta bort länken - vi visar alla funktioner längre ner */}
         </div>
       </section>
 
@@ -305,28 +369,51 @@ export default function Demo1Page() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
-            {cvTemplates.map((template) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {cvTemplates.slice(0, 8).map((template) => (
               <div
                 key={template.id}
-                className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer group"
+                className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer group transform hover:-translate-y-1"
                 onClick={() => setSelectedTemplate(template.id)}
               >
-                <div className="aspect-[3/4] bg-gradient-to-br from-slate-100 to-slate-200 relative">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <div className="w-20 h-20 bg-white rounded-lg shadow-md mb-3 mx-auto" />
-                      <div className="h-2 bg-slate-300 rounded w-24 mb-2 mx-auto" />
-                      <div className="h-2 bg-slate-300 rounded w-20 mx-auto" />
-                    </div>
+                <div className="aspect-[3/4] bg-gradient-to-br from-slate-50 to-slate-100 relative overflow-hidden p-4">
+                  {/* Visa faktisk SVG med bättre styling */}
+                  <div className="w-full h-full bg-white rounded-lg shadow-inner overflow-hidden">
+                    <img
+                      src={template.svg}
+                      alt={`${template.name} CV-mall`}
+                      className="w-full h-full object-contain"
+                      loading="lazy"
+                    />
                   </div>
-                  <div className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+                  {/* Popularity badge */}
+                  <div className="absolute top-3 right-3 bg-green-500 text-white text-xs px-2.5 py-1 rounded-full font-medium shadow-sm">
                     {template.popularity}% väljer
+                  </div>
+                  {/* Premium badge om premium */}
+                  {template.premium && (
+                    <div className="absolute top-3 left-3 bg-gradient-to-r from-purple-600 to-purple-500 text-white text-xs px-2.5 py-1 rounded-full font-medium shadow-sm">
+                      Premium
+                    </div>
+                  )}
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-blue-600 bg-opacity-0 group-hover:bg-opacity-90 transition-all duration-300 flex items-center justify-center">
+                    <button className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 px-6 py-2 bg-white text-blue-600 font-semibold rounded-lg shadow-lg">
+                      Använd denna mall
+                    </button>
                   </div>
                 </div>
                 <div className="p-4">
-                  <h3 className="font-semibold text-slate-900 mb-1">{template.name}</h3>
+                  <h3 className="font-semibold text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">{template.name}</h3>
                   <p className="text-sm text-slate-600">{template.industry}</p>
+                  <div className="mt-2 flex items-center gap-2">
+                    <div className="flex -space-x-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className={`w-3 h-3 ${i < 4 ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} />
+                      ))}
+                    </div>
+                    <span className="text-xs text-slate-500">4.8</span>
+                  </div>
                 </div>
               </div>
             ))}

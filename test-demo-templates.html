@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Demo Page - CV Templates</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8fafc;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #1e293b;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 40px;
+        }
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .template-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .template-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .template-preview {
+            aspect-ratio: 3/4;
+            background: linear-gradient(to bottom right, #f8fafc, #f1f5f9);
+            padding: 16px;
+            position: relative;
+        }
+        .template-image {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 8px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .template-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        .popularity-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #10b981;
+            color: white;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .premium-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: linear-gradient(to right, #9333ea, #7c3aed);
+            color: white;
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .template-info {
+            padding: 16px;
+        }
+        .template-name {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        .template-industry {
+            font-size: 14px;
+            color: #64748b;
+        }
+        .test-info {
+            background: #3b82f6;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        .cta-button {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+        .cta-button:hover {
+            background: #2563eb;
+        }
+        .center {
+            text-align: center;
+            margin-top: 32px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="test-info">
+            <strong>Demo-sida test:</strong> Verifierar att CV-mallarna renderas korrekt från /mallar/ katalogen
+        </div>
+
+        <h1>Professionella CV-mallar som imponerar</h1>
+        <p class="subtitle">Välj bland våra branschanpassade mallar - alla ATS-optimerade</p>
+
+        <div class="templates-grid">
+            <!-- Modern Minimal -->
+            <div class="template-card">
+                <div class="template-preview">
+                    <div class="template-image">
+                        <img src="http://localhost:3000/mallar/modern-minimal.svg" alt="Modern Minimal">
+                    </div>
+                    <span class="popularity-badge">89% väljer</span>
+                </div>
+                <div class="template-info">
+                    <div class="template-name">Modern Minimal</div>
+                    <div class="template-industry">Tech/Startup</div>
+                </div>
+            </div>
+
+            <!-- Klassisk Professional -->
+            <div class="template-card">
+                <div class="template-preview">
+                    <div class="template-image">
+                        <img src="http://localhost:3000/mallar/classic-professional.svg" alt="Klassisk Professional">
+                    </div>
+                    <span class="popularity-badge">92% väljer</span>
+                </div>
+                <div class="template-info">
+                    <div class="template-name">Klassisk Professional</div>
+                    <div class="template-industry">Bank/Finans</div>
+                </div>
+            </div>
+
+            <!-- Clean Corporate -->
+            <div class="template-card">
+                <div class="template-preview">
+                    <div class="template-image">
+                        <img src="http://localhost:3000/mallar/clean-corporate.svg" alt="Clean Corporate">
+                    </div>
+                    <span class="popularity-badge">94% väljer</span>
+                </div>
+                <div class="template-info">
+                    <div class="template-name">Clean Corporate</div>
+                    <div class="template-industry">Konsult/B2B</div>
+                </div>
+            </div>
+
+            <!-- Executive Premium -->
+            <div class="template-card">
+                <div class="template-preview">
+                    <div class="template-image">
+                        <img src="http://localhost:3000/mallar/executive-premium.svg" alt="Executive Premium">
+                    </div>
+                    <span class="popularity-badge">85% väljer</span>
+                    <span class="premium-badge">Premium</span>
+                </div>
+                <div class="template-info">
+                    <div class="template-name">Executive Premium</div>
+                    <div class="template-industry">Ledning/Chef</div>
+                </div>
+            </div>
+
+            <!-- Nordic Professional -->
+            <div class="template-card">
+                <div class="template-preview">
+                    <div class="template-image">
+                        <img src="http://localhost:3000/mallar/nordic-professional.svg" alt="Nordic Professional">
+                    </div>
+                    <span class="popularity-badge">88% väljer</span>
+                </div>
+                <div class="template-info">
+                    <div class="template-name">Nordic Professional</div>
+                    <div class="template-industry">Alla branscher</div>
+                </div>
+            </div>
+
+            <!-- Creative Edge -->
+            <div class="template-card">
+                <div class="template-preview">
+                    <div class="template-image">
+                        <img src="http://localhost:3000/mallar/creative-edge.svg" alt="Creative Edge">
+                    </div>
+                    <span class="popularity-badge">76% väljer</span>
+                </div>
+                <div class="template-info">
+                    <div class="template-name">Creative Edge</div>
+                    <div class="template-industry">Media/Design</div>
+                </div>
+            </div>
+
+            <!-- Platinum Executive -->
+            <div class="template-card">
+                <div class="template-preview">
+                    <div class="template-image">
+                        <img src="http://localhost:3000/mallar/platinum-executive.svg" alt="Platinum Executive">
+                    </div>
+                    <span class="popularity-badge">82% väljer</span>
+                    <span class="premium-badge">Premium</span>
+                </div>
+                <div class="template-info">
+                    <div class="template-name">Platinum Executive</div>
+                    <div class="template-industry">VD/Direktion</div>
+                </div>
+            </div>
+
+            <!-- Creative Minimal -->
+            <div class="template-card">
+                <div class="template-preview">
+                    <div class="template-image">
+                        <img src="http://localhost:3000/mallar/creative-minimal.svg" alt="Creative Minimal">
+                    </div>
+                    <span class="popularity-badge">79% väljer</span>
+                </div>
+                <div class="template-info">
+                    <div class="template-name">Creative Minimal</div>
+                    <div class="template-industry">Kreativa yrken</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="center">
+            <a href="http://localhost:3000/demo1" class="cta-button">Se hela demo-sidan</a>
+        </div>
+    </div>
+</body>
+</html>
