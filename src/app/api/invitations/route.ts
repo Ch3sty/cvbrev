@@ -13,10 +13,17 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Get user's invitations
+    // Get user's invitations with guest user details
     const { data: invitations, error } = await supabase
       .from('guest_invitations')
-      .select('*')
+      .select(`
+        *,
+        guest:profiles!guest_user_id (
+          id,
+          email,
+          full_name
+        )
+      `)
       .eq('inviter_id', user.id)
       .order('created_at', { ascending: false });
 

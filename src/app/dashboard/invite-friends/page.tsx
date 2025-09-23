@@ -16,6 +16,11 @@ interface InvitationData {
   created_at: string;
   expires_at: string;
   invitation_code: string;
+  guest?: {
+    id: string;
+    email: string;
+    full_name: string;
+  };
 }
 
 export default function InviteFriendsPage() {
@@ -226,12 +231,27 @@ export default function InviteFriendsPage() {
                 <div key={invitation.id} className="flex items-center justify-between p-4 bg-navy-900/50 rounded-lg border border-navy-700/50">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-gradient-to-br from-pink-600/20 to-purple-600/20 rounded-full flex items-center justify-center">
-                      <Mail className="w-5 h-5 text-pink-400" />
+                      {invitation.status === 'accepted' ? (
+                        <CheckCircle2 className="w-5 h-5 text-green-400" />
+                      ) : (
+                        <Mail className="w-5 h-5 text-pink-400" />
+                      )}
                     </div>
                     <div>
-                      <p className="font-medium text-white">{invitation.email}</p>
+                      <p className="font-medium text-white">
+                        {invitation.status === 'accepted' && invitation.guest ? (
+                          <>
+                            {invitation.guest.full_name || 'Anonym användare'}
+                            <span className="text-sm text-gray-400 ml-2">({invitation.guest.email})</span>
+                          </>
+                        ) : (
+                          invitation.email
+                        )}
+                      </p>
                       <p className="text-sm text-gray-400">
-                        Skickad {new Date(invitation.created_at).toLocaleDateString('sv-SE')}
+                        {invitation.status === 'accepted'
+                          ? `Accepterad ${new Date(invitation.created_at).toLocaleDateString('sv-SE')}`
+                          : `Skickad ${new Date(invitation.created_at).toLocaleDateString('sv-SE')}`}
                       </p>
                     </div>
                   </div>
