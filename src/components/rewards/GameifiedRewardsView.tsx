@@ -318,8 +318,8 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
       </Card>
 
       {/* Gamified Milestone Path */}
-      <Card className="bg-navy-800 border-navy-700">
-        <CardContent className="p-6">
+      <Card className="bg-navy-800 border-navy-700 overflow-visible">
+        <CardContent className="p-6 overflow-visible">
           <div className="flex items-center justify-between mb-6">
             <div>
               <h3 className="text-2xl font-bold text-white">
@@ -338,7 +338,7 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
           </div>
 
           {/* Milestone Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 pb-16 overflow-visible">
             {milestoneRewards.map((reward, index) => {
               const status = getRewardStatus(reward);
               const isHovered = hoveredReward === reward.level;
@@ -440,12 +440,12 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
                   {/* Hover Details Card - Improved positioning to prevent clipping */}
                   {isHovered && (
                     <div
-                      className={`absolute mb-4 z-50 animate-fadeIn ${
+                      className={`absolute mt-2 z-[100] animate-fadeIn ${
                         index >= milestoneRewards.length - 2
-                          ? 'bottom-full right-0' // Position on right for last items
+                          ? 'top-full right-0' // Position on right for last items
                           : index === 0
-                          ? 'bottom-full left-0' // Position on left for first item
-                          : 'bottom-full left-1/2 transform -translate-x-1/2' // Center for middle items
+                          ? 'top-full left-0' // Position on left for first item
+                          : 'top-full left-1/2 transform -translate-x-1/2' // Center for middle items
                       }`}
                     >
                       <div className="bg-navy-900 border border-navy-700 rounded-lg p-4 shadow-2xl min-w-64 max-w-xs backdrop-blur-sm">
