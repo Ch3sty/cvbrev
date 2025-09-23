@@ -126,7 +126,11 @@
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-gpt5-edge-function.html\")",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-websearch-api.html\")",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-gamified-learning-plan.html\")",
-      "Bash(git checkout:*)"
+      "Bash(git checkout:*)",
+      "WebFetch(domain:seamless.ai)",
+      "WebFetch(domain:databox.com)",
+      "WebFetch(domain:www.loom.com)",
+      "WebFetch(domain:loom.com)"
     ],
     "deny": [],
     "ask": []
