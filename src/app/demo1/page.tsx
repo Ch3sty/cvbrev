@@ -1,6 +1,6 @@
 /**
  * Premium Demo-startsida för Jobbcoach.ai
- * Ljus, professionell design inspirerad av Seamless.ai, Databox och Loom
+ * Ljus, modern design med premium-känsla som matchar toppklassiga SaaS-sidor
  */
 'use client'
 
@@ -14,7 +14,7 @@ import {
   ChevronDown, ChevronUp, BarChart, Globe, Briefcase,
   Rocket, Eye, Heart, MessageCircle, DollarSign,
   ChevronLeft, PenTool, Palette, Trophy, Gift,
-  GraduationCap, User, Menu, Brain, Gauge, BookOpen
+  GraduationCap, User
 } from 'lucide-react'
 
 // Swiper components
@@ -31,8 +31,17 @@ export default function Demo1Page() {
   const [isLoading, setIsLoading] = useState(false)
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [selectedTemplate, setSelectedTemplate] = useState<number | null>(null)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [swiperInstance, setSwiperInstance] = useState<any>(null)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  // Följ musposition för gradient-effekt
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY })
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
 
   // Hantera email-formulär
   const handleEmailSubmit = (e: React.FormEvent) => {
@@ -45,7 +54,7 @@ export default function Demo1Page() {
     }
   }
 
-  // CV-mallar data - behåller befintliga
+  // CV-mallar data - uppdaterad baserat på faktiska premium-mallar
   const cvTemplates = [
     { id: 1, name: 'Modern Minimal', industry: 'Tech/Startup', svg: '/mallar/modern-minimal.svg', premium: false },
     { id: 2, name: 'Klassisk Professional', industry: 'Bank/Finans', svg: '/mallar/classic-professional.svg', premium: false },
@@ -60,90 +69,56 @@ export default function Demo1Page() {
   return (
     <div className="min-h-screen bg-white">
 
-      {/* Professional Navigation Header */}
-      <header className="fixed top-0 w-full bg-white/95 backdrop-blur-xl border-b border-slate-200 z-50">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-8">
-              <Link href="/" className="font-black text-xl text-slate-900">
-                Jobbcoach.ai
-              </Link>
-              <nav className="hidden md:flex items-center gap-6">
-                <Link href="#features" className="text-slate-600 hover:text-slate-900 transition-colors">
-                  Funktioner
-                </Link>
-                <Link href="#pricing" className="text-slate-600 hover:text-slate-900 transition-colors">
-                  Priser
-                </Link>
-                <Link href="#testimonials" className="text-slate-600 hover:text-slate-900 transition-colors">
-                  Recensioner
-                </Link>
-                <Link href="#faq" className="text-slate-600 hover:text-slate-900 transition-colors">
-                  FAQ
-                </Link>
-              </nav>
-            </div>
-            <div className="flex items-center gap-4">
-              <Link href="/login" className="hidden sm:block text-slate-600 hover:text-slate-900 transition-colors">
-                Logga in
-              </Link>
-              <Link
-                href="/register"
-                className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                Testa gratis
-              </Link>
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="md:hidden p-2 text-slate-600 hover:text-slate-900"
-              >
-                <Menu className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
+      {/* Premium Hero Section */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Animerad gradient-bakgrund */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
+          <div
+            className="absolute inset-0 opacity-30"
+            style={{
+              background: `radial-gradient(600px at ${mousePosition.x}px ${mousePosition.y}px, rgba(99, 102, 241, 0.15), transparent 80%)`,
+            }}
+          />
         </div>
-      </header>
 
-      {/* Premium Hero Section - Förbättrad */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-        {/* Enklare gradient-bakgrund */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50" />
+        {/* Flytande orber för djup */}
+        <div className="absolute top-20 -left-20 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" />
+        <div className="absolute top-40 -right-20 w-72 h-72 bg-purple-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000" />
+        <div className="absolute -bottom-20 left-40 w-72 h-72 bg-indigo-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000" />
 
-        {/* Subtilare animerade orber */}
-        <div className="absolute top-20 -left-20 w-96 h-96 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob" />
-        <div className="absolute top-40 -right-20 w-96 h-96 bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000" />
-        <div className="absolute -bottom-20 left-40 w-96 h-96 bg-indigo-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000" />
+        {/* Rutnätsmönster */}
+        <div className="absolute inset-0 opacity-50 grid-pattern" />
 
         <div className="container mx-auto px-4 relative z-10">
-          {/* Förbättrad Trust Badge */}
+          {/* Trust badge med animation */}
           <div className="flex justify-center mb-8 animate-fade-in-down">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-xl border border-slate-200 rounded-full shadow-lg">
-              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-              <span className="text-sm font-semibold text-slate-700">
-                Över 2,000 svenskar har redan fått drömjobbet
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/80 backdrop-blur-xl border border-white/60 rounded-full shadow-2xl shadow-blue-500/10">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+              <span className="text-sm font-semibold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                GDPR-säker & Svenskutvecklad plattform
               </span>
             </div>
           </div>
 
-          {/* Optimerad headline med bättre copy */}
+          {/* Premium headline */}
           <div className="max-w-5xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-8 leading-tight tracking-[-0.02em] animate-fade-in">
-              <span className="block text-slate-900">Från CV till intervju</span>
-              <span className="block mt-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                på 60 sekunder
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-black mb-8 leading-[0.9] tracking-[-0.02em] animate-fade-in">
+              <span className="block text-slate-900">Få fler intervjuer</span>
+              <span className="block mt-2 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent animate-gradient-x">
+                med AI-superkrafter
               </span>
             </h1>
 
             <p className="text-xl md:text-2xl text-slate-600 mb-10 leading-relaxed max-w-3xl mx-auto font-light animate-fade-in-up">
-              Svenska recruiters väljer våra kandidater 3x oftare. Vår AI analyserar din CV mot jobbannonser och skapar
-              <span className="font-semibold text-slate-900"> perfekt matchade ansökningar som faktiskt fungerar.</span>
+              Professionell jobbcoach-hjälp som förstår svenska arbetsmarknaden.
+              <span className="font-semibold text-slate-900"> Skapa vinnande CV och personliga brev på sekunder.</span>
             </p>
 
-            {/* Förbättrad email capture med tydligare CTA */}
+            {/* Premium email capture */}
             <form onSubmit={handleEmailSubmit} className="max-w-xl mx-auto mb-10 animate-fade-in-up animation-delay-200">
               <div className="relative group">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl blur opacity-0 group-hover:opacity-20 transition duration-300" />
-                <div className="relative flex flex-col sm:flex-row gap-3 p-2 bg-white rounded-xl shadow-xl border border-slate-200">
+                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition duration-1000 group-hover:duration-200" />
+                <div className="relative flex flex-col sm:flex-row gap-3 p-2 bg-white rounded-2xl shadow-2xl shadow-slate-900/10">
                   <input
                     type="email"
                     value={email}
@@ -155,7 +130,7 @@ export default function Demo1Page() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-50 whitespace-nowrap"
+                    className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-50 whitespace-nowrap"
                   >
                     {isLoading ? (
                       <span className="flex items-center gap-2">
@@ -167,7 +142,7 @@ export default function Demo1Page() {
                       </span>
                     ) : (
                       <>
-                        Skapa mitt första personliga brev - Gratis
+                        Analysera mitt CV gratis
                         <ArrowRight className="inline-block ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </>
                     )}
@@ -177,11 +152,11 @@ export default function Demo1Page() {
               <p className="text-sm text-slate-500 mt-4 flex items-center justify-center gap-4">
                 <span className="flex items-center gap-1">
                   <CheckCircle className="w-4 h-4 text-green-500" />
-                  7 dagar gratis
+                  Ingen bindningstid
                 </span>
                 <span className="flex items-center gap-1">
                   <CheckCircle className="w-4 h-4 text-green-500" />
-                  Ingen bindningstid
+                  Gratis att testa
                 </span>
                 <span className="flex items-center gap-1">
                   <CheckCircle className="w-4 h-4 text-green-500" />
@@ -190,35 +165,55 @@ export default function Demo1Page() {
               </p>
             </form>
 
-            {/* Förbättrade trust signals med faktiska resultat */}
-            <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto animate-fade-in-up animation-delay-400">
-              <div className="text-center">
-                <div className="text-3xl font-black text-slate-900">89%</div>
-                <div className="text-sm text-slate-600">klarar ATS-screening</div>
+            {/* Animated trust signals */}
+            <div className="flex flex-wrap justify-center gap-8 md:gap-12 animate-fade-in-up animation-delay-400">
+              <div className="flex items-center gap-3 group">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg shadow-green-500/25 group-hover:scale-110 transition-transform">
+                  <Users className="w-6 h-6 text-white" />
+                </div>
+                <div className="text-left">
+                  <div className="text-2xl font-bold text-slate-900">2,000+</div>
+                  <div className="text-sm text-slate-600">nöjda användare</div>
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-black text-slate-900">3x</div>
-                <div className="text-sm text-slate-600">fler intervjuer</div>
+              <div className="flex items-center gap-3 group">
+                <div className="w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg shadow-yellow-500/25 group-hover:scale-110 transition-transform">
+                  <Star className="w-6 h-6 text-white" />
+                </div>
+                <div className="text-left">
+                  <div className="text-2xl font-bold text-slate-900">4.8/5</div>
+                  <div className="text-sm text-slate-600">snittbetyg</div>
+                </div>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-black text-slate-900">4.8/5</div>
-                <div className="text-sm text-slate-600">snittbetyg</div>
+              <div className="flex items-center gap-3 group">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:scale-110 transition-transform">
+                  <TrendingUp className="w-6 h-6 text-white" />
+                </div>
+                <div className="text-left">
+                  <div className="text-2xl font-bold text-slate-900">89%</div>
+                  <div className="text-sm text-slate-600">får intervju inom 2v</div>
+                </div>
               </div>
             </div>
+          </div>
+
+          {/* Scroll indicator */}
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+            <ChevronDown className="w-8 h-8 text-slate-400" />
           </div>
         </div>
       </section>
 
-      {/* Social Proof Bar - Förbättrad */}
-      <section className="relative py-12 bg-slate-50 border-y border-slate-100">
+      {/* Premium Social Proof Bar */}
+      <section className="relative py-12 bg-gradient-to-r from-slate-50 to-white border-y border-slate-100">
         <div className="container mx-auto px-4">
           <p className="text-center text-sm font-medium text-slate-600 mb-6 uppercase tracking-wide">
-            Våra användare har fått jobb hos
+            Vi matchar dagligen CV:n mot attraktiva tjänster hos
           </p>
           <div className="flex flex-wrap justify-center items-center gap-12 md:gap-16">
-            {['Spotify', 'Volvo', 'Ericsson', 'H&M', 'ICA', 'SEB', 'IKEA'].map((company) => (
+            {['Volvo', 'Ericsson', 'H&M', 'ICA', 'SEB', 'IKEA', 'Friskis & Svettis'].map((company) => (
               <div key={company} className="group">
-                <span className="text-2xl font-bold text-slate-400 group-hover:text-slate-600 transition-colors duration-300">
+                <span className="text-2xl font-bold text-slate-300 group-hover:text-slate-600 transition-colors duration-300 cursor-default">
                   {company}
                 </span>
               </div>
@@ -227,227 +222,338 @@ export default function Demo1Page() {
         </div>
       </section>
 
-      {/* Ny sektion: Så här förvandlar vi din jobbsökning */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4">
+      {/* Premium Value Props */}
+      <section className="py-24 bg-white relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-blue-50/30 to-white" />
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full mb-4">
                 <Sparkles className="w-4 h-4 text-blue-600" />
-                <span className="text-sm font-semibold text-blue-900">AI-driven excellens</span>
+                <span className="text-sm font-semibold text-blue-900">Varför välja oss?</span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">
-                Så här förvandlar vi din jobbsökning
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6">
+                Transformera din jobbsökning
               </h2>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-                Sluta gissa vad rekryterare vill ha. Vår AI vet exakt vad som funkar.
+                Vi kombinerar kraftfull AI med svensk arbetsmarknadsexpertis för att maximera dina chanser
               </p>
             </div>
 
-            {/* Fokuserade funktioner med verkliga fördelar */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="group relative">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl blur opacity-0 group-hover:opacity-10 transition duration-300" />
-                <div className="relative h-full p-6 bg-white rounded-xl border border-slate-200 group-hover:border-blue-200 transition-all duration-300">
-                  <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4">
-                    <Brain className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">Smart CV-matchning</h3>
-                  <p className="text-slate-600 mb-4">
-                    Vår AI scannar din CV mot jobbannonser och identifierar exakt vilka kompetenser du behöver framhålla.
-                  </p>
-                  <div className="pt-4 border-t border-slate-100">
-                    <span className="text-2xl font-black text-blue-600">89%</span>
-                    <span className="text-sm text-slate-600 ml-2">klarar ATS vs 25% branschsnitt</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="group relative">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-emerald-600 to-emerald-700 rounded-xl blur opacity-0 group-hover:opacity-10 transition duration-300" />
-                <div className="relative h-full p-6 bg-white rounded-xl border border-slate-200 group-hover:border-emerald-200 transition-all duration-300">
-                  <div className="w-12 h-12 bg-emerald-50 rounded-lg flex items-center justify-center mb-4">
-                    <Clock className="w-6 h-6 text-emerald-600" />
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">Batch-ansökningar</h3>
-                  <p className="text-slate-600 mb-4">
-                    Skapa 10 personaliserade ansökningar på tiden det tar att skriva en. Varje brev unikt anpassat.
-                  </p>
-                  <div className="pt-4 border-t border-slate-100">
-                    <span className="text-2xl font-black text-emerald-600">60 sek</span>
-                    <span className="text-sm text-slate-600 ml-2">per ansökan vs 2 timmar</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="group relative">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-purple-700 rounded-xl blur opacity-0 group-hover:opacity-10 transition duration-300" />
-                <div className="relative h-full p-6 bg-white rounded-xl border border-slate-200 group-hover:border-purple-200 transition-all duration-300">
-                  <div className="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center mb-4">
-                    <Target className="w-6 h-6 text-purple-600" />
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">Kulturell optimering</h3>
-                  <p className="text-slate-600 mb-4">
-                    Svenska företag har sina egna koder. Vår AI justerar ton och språk för perfekt kulturell matchning.
-                  </p>
-                  <div className="pt-4 border-t border-slate-100">
-                    <span className="text-2xl font-black text-purple-600">10,000+</span>
-                    <span className="text-sm text-slate-600 ml-2">svenska ansökningar analyserade</span>
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                {
+                  icon: Clock,
+                  title: 'Spara 90% tid',
+                  description: 'Från timmar till minuter per ansökan',
+                  stat: '10x',
+                  statLabel: 'snabbare',
+                  gradient: 'from-blue-500 to-cyan-500',
+                  shadow: 'blue'
+                },
+                {
+                  icon: Target,
+                  title: 'Träffsäker matchning',
+                  description: 'AI matchar dina styrkor mot kraven',
+                  stat: '3x',
+                  statLabel: 'fler svar',
+                  gradient: 'from-green-500 to-emerald-500',
+                  shadow: 'green'
+                },
+                {
+                  icon: BrainCircuit,
+                  title: 'Datadriven framgång',
+                  description: 'Optimerad för svenska arbetsmarknaden',
+                  stat: '89%',
+                  statLabel: 'får intervju',
+                  gradient: 'from-purple-500 to-pink-500',
+                  shadow: 'purple'
+                }
+              ].map((item, idx) => (
+                <div key={idx} className="group relative">
+                  <div className={`absolute -inset-1 bg-gradient-to-r ${item.gradient} rounded-2xl blur opacity-0 group-hover:opacity-20 transition duration-500`} />
+                  <div className="relative h-full p-8 bg-white rounded-2xl border border-slate-100 shadow-xl shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-${item.shadow}-500/10 transition-all duration-300 group-hover:-translate-y-1">
+                    <div className={`w-14 h-14 bg-gradient-to-br ${item.gradient} rounded-2xl flex items-center justify-center shadow-lg shadow-${item.shadow}-500/30 mb-6`}>
+                      <item.icon className="w-7 h-7 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
+                    <p className="text-slate-600 mb-6">{item.description}</p>
+                    <div className="pt-6 border-t border-slate-100">
+                      <div className={`text-3xl font-black bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent`}>
+                        {item.stat}
+                      </div>
+                      <div className="text-sm font-medium text-slate-600">{item.statLabel}</div>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="group relative">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-amber-600 to-amber-700 rounded-xl blur opacity-0 group-hover:opacity-10 transition duration-300" />
-                <div className="relative h-full p-6 bg-white rounded-xl border border-slate-200 group-hover:border-amber-200 transition-all duration-300">
-                  <div className="w-12 h-12 bg-amber-50 rounded-lg flex items-center justify-center mb-4">
-                    <Sparkles className="w-6 h-6 text-amber-600" />
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">AI Karriärcoach</h3>
-                  <p className="text-slate-600 mb-4">
-                    Få feedback som svenska HR-chefer faktiskt ger. Konkreta förbättringar, ingen generisk rådgivning.
-                  </p>
-                  <div className="pt-4 border-t border-slate-100">
-                    <span className="text-2xl font-black text-amber-600">24/7</span>
-                    <span className="text-sm text-slate-600 ml-2">tillgänglig karriärrådgivning</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="group relative">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-rose-600 to-rose-700 rounded-xl blur opacity-0 group-hover:opacity-10 transition duration-300" />
-                <div className="relative h-full p-6 bg-white rounded-xl border border-slate-200 group-hover:border-rose-200 transition-all duration-300">
-                  <div className="w-12 h-12 bg-rose-50 rounded-lg flex items-center justify-center mb-4">
-                    <Trophy className="w-6 h-6 text-rose-600" />
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">Gamifierat lärande</h3>
-                  <p className="text-slate-600 mb-4">
-                    Gör jobbsökandet roligt med XP, levels och belöningar. Motivation som faktiskt fungerar.
-                  </p>
-                  <div className="pt-4 border-t border-slate-100">
-                    <span className="text-2xl font-black text-rose-600">67%</span>
-                    <span className="text-sm text-slate-600 ml-2">får jobb inom 60 dagar</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="group relative">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-600 to-indigo-700 rounded-xl blur opacity-0 group-hover:opacity-10 transition duration-300" />
-                <div className="relative h-full p-6 bg-white rounded-xl border border-slate-200 group-hover:border-indigo-200 transition-all duration-300">
-                  <div className="w-12 h-12 bg-indigo-50 rounded-lg flex items-center justify-center mb-4">
-                    <Shield className="w-6 h-6 text-indigo-600" />
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">ATS-optimering</h3>
-                  <p className="text-slate-600 mb-4">
-                    Säkerställ att ditt CV passerar alla automatiska filter. Vi känner alla tricks som fungerar.
-                  </p>
-                  <div className="pt-4 border-t border-slate-100">
-                    <span className="text-2xl font-black text-indigo-600">100%</span>
-                    <span className="text-sm text-slate-600 ml-2">GDPR-säkert</span>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Varför generisk AI misslyckas */}
+      {/* Premium Features Grid */}
       <section className="py-24 bg-gradient-to-b from-white to-slate-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">
-                Varför generisk AI misslyckas i Sverige
-              </h2>
-              <p className="text-xl text-slate-600">
-                Detta är inte en vanlig AI-tjänst. Vi är karriärspecialister som råkar använda AI.
-              </p>
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 rounded-full mb-4">
+              <Zap className="w-4 h-4 text-indigo-600" />
+              <span className="text-sm font-semibold text-indigo-900">Verktyg & funktioner</span>
             </div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6">
+              Dina verktyg för framgång
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Komplett verktygslåda för modern jobbsökning - allt samlat på ett ställe
+            </p>
+          </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-red-50 rounded-xl p-6 border border-red-100">
-                <h3 className="text-lg font-bold text-red-900 mb-4 flex items-center gap-2">
-                  <X className="w-5 h-5" />
-                  Andra AI-verktyg
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+            {/* Row 1 - Mest populära funktioner */}
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-blue-500/20 group-hover:border-blue-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <PenTool className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold rounded-full shadow-lg">
+                    Mest använd
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  Skapa personligt brev
                 </h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-2">
-                    <X className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-slate-700">Generiska amerikanska mallar</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <X className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-slate-700">Förstår inte svenska arbetskulturen</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <X className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-slate-700">Samma text till alla jobb</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <X className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-slate-700">Ingen förståelse för ATS-system</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="bg-emerald-50 rounded-xl p-6 border border-emerald-100">
-                <h3 className="text-lg font-bold text-emerald-900 mb-4 flex items-center gap-2">
-                  <Check className="w-5 h-5" />
-                  Jobbcoach.ai
-                </h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-slate-700">Tränad på svenska ansökningar</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-slate-700">Kulturell anpassning för svensk marknad</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-slate-700">Unikt personaliserat för varje roll</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Check className="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-slate-700">89% ATS-genomsläpp</span>
-                  </li>
-                </ul>
+                <p className="text-sm text-slate-600">AI-genererade brev anpassade för varje jobbansokan på 60 sekunder</p>
               </div>
             </div>
 
-            <div className="text-center mt-12">
-              <p className="text-lg text-slate-600 italic">
-                "Oavsett om du är nyexaminerad eller erfaren ledare -<br />
-                svensk arbetsmarknad har sina regler. Vi känner dem alla."
-              </p>
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-emerald-500/20 group-hover:border-emerald-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <FileSearch className="w-6 h-6 text-emerald-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-full">
+                    Gratis
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition-colors">
+                  CV-analys
+                </h3>
+                <p className="text-sm text-slate-600">Få AI-feedback på ditt CV med konkreta förbättringsförslag</p>
+              </div>
+            </div>
+
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-purple-500/20 group-hover:border-purple-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <FileText className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-full shadow-lg">
+                    Premium
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-purple-600 transition-colors">
+                  Mina sparade brev
+                </h3>
+                <p className="text-sm text-slate-600">Organisera och återanvänd dina bästa ansökningar</p>
+              </div>
+            </div>
+
+            {/* Row 2 - AI-funktioner */}
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-orange-500/20 group-hover:border-orange-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Palette className="w-6 h-6 text-orange-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-orange-50 text-orange-700 text-xs font-semibold rounded-full">
+                    AI-driven
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-orange-600 transition-colors">
+                  CV-mallar
+                </h3>
+                <p className="text-sm text-slate-600">Professionella mallar optimerade för ATS-system</p>
+              </div>
+            </div>
+
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-teal-500/20 group-hover:border-teal-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <GraduationCap className="w-6 h-6 text-teal-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-teal-50 text-teal-700 text-xs font-semibold rounded-full">
+                    Automatisk
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-teal-600 transition-colors">
+                  Kompetensutveckling
+                </h3>
+                <p className="text-sm text-slate-600">AI-genererade utvecklingsplaner för din karriär</p>
+              </div>
+            </div>
+
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-rose-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-pink-500/20 group-hover:border-pink-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Trophy className="w-6 h-6 text-pink-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-pink-50 text-pink-700 text-xs font-semibold rounded-full">
+                    Smart
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-pink-600 transition-colors">
+                  Belöningar & förmåner
+                </h3>
+                <p className="text-sm text-slate-600">Samla XP och lås upp exklusiva belöningar</p>
+              </div>
+            </div>
+
+            {/* Row 3 - Integrationer */}
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-indigo-500/20 group-hover:border-indigo-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Gift className="w-6 h-6 text-indigo-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-semibold rounded-full">
+                    Ny
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">
+                  Bjud in vänner
+                </h3>
+                <p className="text-sm text-slate-600">Ge vänner 7 dagars gratis Premium</p>
+              </div>
+            </div>
+
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-yellow-500/20 group-hover:border-yellow-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Lightbulb className="w-6 h-6 text-yellow-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-yellow-50 text-yellow-700 text-xs font-semibold rounded-full">
+                    Flexibel
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-yellow-600 transition-colors">
+                  Tonalitetsanpassning
+                </h3>
+                <p className="text-sm text-slate-600">Matcha företagskulturen med rätt ton i breven</p>
+              </div>
+            </div>
+
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-pink-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-red-500/20 group-hover:border-red-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Sparkles className="w-6 h-6 text-red-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-red-50 text-red-700 text-xs font-semibold rounded-full">
+                    Expert
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-red-600 transition-colors">
+                  Nyckelordsoptimering
+                </h3>
+                <p className="text-sm text-slate-600">Automatisk matchning med jobbannonsens nyckelord</p>
+              </div>
+            </div>
+
+            {/* Row 4 - Verktyg & Analytics */}
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-500 to-slate-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-slate-500/20 group-hover:border-slate-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Star className="w-6 h-6 text-slate-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-full">
+                    Praktisk
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-slate-600 transition-colors">
+                  Obegränsade brev
+                </h3>
+                <p className="text-sm text-slate-600">Skapa hur många personliga brev du vill med Premium</p>
+              </div>
+            </div>
+
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-green-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-emerald-500/20 group-hover:border-emerald-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Shield className="w-6 h-6 text-emerald-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-gradient-to-r from-emerald-500 to-green-500 text-white text-xs font-bold rounded-full shadow-lg">
+                    Premium
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition-colors">
+                  ATS-optimering
+                </h3>
+                <p className="text-sm text-slate-600">Säkerställ att ditt CV passerar alla filter</p>
+              </div>
+            </div>
+
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-cyan-500/20 group-hover:border-cyan-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-cyan-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <User className="w-6 h-6 text-cyan-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-cyan-50 text-cyan-700 text-xs font-semibold rounded-full">
+                    Insikter
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-cyan-600 transition-colors">
+                  Profilsida
+                </h3>
+                <p className="text-sm text-slate-600">Hantera ditt konto och prenumeration</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Premium CV Templates - Behåller med små justeringar */}
-      <section className="py-24 bg-white" id="templates">
+      {/* Premium CV Templates */}
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-50 rounded-full mb-4">
               <Upload className="w-4 h-4 text-purple-600" />
               <span className="text-sm font-semibold text-purple-900">Ett-klicks optimering</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6">
               Från gammalt CV till proffsig mall på sekunder
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-4">
               Ladda bara upp ditt befintliga CV och få ett ATS-optimerat CV i snygg design automatiskt.
             </p>
             <p className="text-lg text-slate-500 max-w-2xl mx-auto">
-              Designade av svenska HR-professionals, inte generiska mallar
+              Du väljer själv om du vill inkludera foto och LinkedIn-profil
             </p>
           </div>
 
-          {/* CV Templates Slider - Behåller befintlig */}
+          {/* CV Templates Slider */}
           <div className="relative max-w-7xl mx-auto">
+            {/* Navigation buttons */}
             <button
               onClick={() => swiperInstance?.slidePrev()}
               className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 backdrop-blur-xl border border-slate-200 rounded-full shadow-lg flex items-center justify-center text-slate-600 hover:text-purple-600 hover:bg-white transition-all duration-300 hover:scale-110"
@@ -496,8 +602,8 @@ export default function Demo1Page() {
               {cvTemplates.map((template) => (
                 <SwiperSlide key={template.id}>
                   <div className="group relative h-full">
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl blur opacity-0 group-hover:opacity-10 transition duration-300" />
-                    <div className="relative bg-white rounded-xl overflow-hidden border border-slate-200 shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1 cursor-pointer h-full flex flex-col">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl blur opacity-0 group-hover:opacity-20 transition duration-500" />
+                    <div className="relative bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-xl shadow-slate-900/5 group-hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-2 cursor-pointer h-full flex flex-col">
                       <div className="aspect-[3/4] bg-gradient-to-br from-slate-50 to-slate-100 p-4 relative flex-shrink-0">
                         <div className="w-full h-full bg-white rounded-lg shadow-inner overflow-hidden">
                           <img
@@ -507,16 +613,18 @@ export default function Demo1Page() {
                             loading="lazy"
                           />
                         </div>
+                        {/* Premium badge only */}
                         {template.premium && (
                           <div className="absolute top-3 left-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs px-2.5 py-1 rounded-full font-bold shadow-lg">
                             Premium
                           </div>
                         )}
+                        {/* Hover overlay med registreringslänk */}
                         <div
                           className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-6"
                           onClick={() => window.location.href = '/register'}
                         >
-                          <button className="px-4 py-2 bg-white text-slate-900 font-bold rounded-lg shadow-xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 text-sm">
+                          <button className="px-4 py-2 bg-white text-slate-900 font-bold rounded-xl shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 text-sm">
                             Använd mall
                           </button>
                         </div>
@@ -542,325 +650,31 @@ export default function Demo1Page() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-24 bg-slate-50" id="testimonials">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">
-              Verkliga resultat från riktiga användare
-            </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Se vad våra användare säger om sin transformation
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div className="bg-white rounded-xl p-6 shadow-lg border border-slate-100">
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                ))}
-              </div>
-              <p className="text-slate-700 mb-4">
-                "Jobbcoach.ai hjälpte mig få 3 intervjuer första veckan. Som 47-årig projektledare trodde jag det var kört."
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
-                  M
-                </div>
-                <div>
-                  <p className="font-semibold text-slate-900">Marcus</p>
-                  <p className="text-sm text-slate-600">Projektledare, Stockholm</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl p-6 shadow-lg border border-slate-100">
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                ))}
-              </div>
-              <p className="text-slate-700 mb-4">
-                "Gick från 0 svar till drömjobbet på Spotify på 2 månader. AI:n förstod exakt vad tech-recruiters letar efter."
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-full flex items-center justify-center text-white font-bold">
-                  S
-                </div>
-                <div>
-                  <p className="font-semibold text-slate-900">Sarah</p>
-                  <p className="text-sm text-slate-600">Utvecklare, Göteborg</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl p-6 shadow-lg border border-slate-100">
-              <div className="flex items-center gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                ))}
-              </div>
-              <p className="text-slate-700 mb-4">
-                "Som nyexaminerad var det omöjligt att sticka ut. Nu får jag faktiskt svar och har precis tackat ja till mitt första jobb!"
-              </p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold">
-                  E
-                </div>
-                <div>
-                  <p className="font-semibold text-slate-900">Emma</p>
-                  <p className="text-sm text-slate-600">Ekonom, Malmö</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center mt-12">
-            <div className="inline-flex items-center gap-8 px-8 py-4 bg-white rounded-xl shadow-lg border border-slate-200">
-              <div className="text-center">
-                <div className="text-2xl font-black text-slate-900">89%</div>
-                <div className="text-sm text-slate-600">klarar automatiserad screening</div>
-              </div>
-              <div className="w-px h-12 bg-slate-200" />
-              <div className="text-center">
-                <div className="text-2xl font-black text-slate-900">3x</div>
-                <div className="text-sm text-slate-600">fler intervjuer inom 30 dagar</div>
-              </div>
-              <div className="w-px h-12 bg-slate-200" />
-              <div className="text-center">
-                <div className="text-2xl font-black text-slate-900">67%</div>
-                <div className="text-sm text-slate-600">får jobberbjudande inom 60 dagar</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <section className="py-24 bg-white" id="pricing">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">
-              Investera i din karriär
-            </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Börja gratis och uppgradera när du ser resultaten
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {/* Free Plan */}
-            <div className="relative bg-white rounded-xl p-6 border border-slate-200 shadow-lg">
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Gratis</h3>
-              <p className="text-slate-600 mb-6">Testa våra grundfunktioner</p>
-              <div className="text-3xl font-black text-slate-900 mb-6">
-                0 kr
-                <span className="text-base font-normal text-slate-600">/månad</span>
-              </div>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-emerald-500 mt-0.5" />
-                  <span className="text-slate-700">1 personligt brev per vecka</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-emerald-500 mt-0.5" />
-                  <span className="text-slate-700">CV-analys</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-emerald-500 mt-0.5" />
-                  <span className="text-slate-700">3 CV-mallar</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <X className="w-5 h-5 text-slate-400 mt-0.5" />
-                  <span className="text-slate-400">Premium-mallar</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <X className="w-5 h-5 text-slate-400 mt-0.5" />
-                  <span className="text-slate-400">Obegränsade ansökningar</span>
-                </li>
-              </ul>
-              <button
-                onClick={() => window.location.href = '/register'}
-                className="w-full py-3 bg-slate-100 text-slate-700 font-semibold rounded-lg hover:bg-slate-200 transition-colors"
-              >
-                Kom igång gratis
-              </button>
-            </div>
-
-            {/* Premium Plan - Highlighted */}
-            <div className="relative bg-gradient-to-b from-blue-600 to-indigo-600 rounded-xl p-6 text-white shadow-xl transform scale-105">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-amber-500 text-white text-sm font-bold rounded-full">
-                MEST POPULÄR
-              </div>
-              <h3 className="text-xl font-bold mb-2">Premium</h3>
-              <p className="text-blue-100 mb-6">För seriösa jobbsökare</p>
-              <div className="text-3xl font-black mb-6">
-                149 kr
-                <span className="text-base font-normal text-blue-100">/månad</span>
-              </div>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-white mt-0.5" />
-                  <span>Obegränsade personliga brev</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-white mt-0.5" />
-                  <span>Alla premium CV-mallar</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-white mt-0.5" />
-                  <span>AI tonalitetsanpassning</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-white mt-0.5" />
-                  <span>ATS-optimering</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-white mt-0.5" />
-                  <span>Prioriterad support</span>
-                </li>
-              </ul>
-              <button
-                onClick={() => window.location.href = '/register'}
-                className="w-full py-3 bg-white text-blue-600 font-bold rounded-lg hover:bg-blue-50 transition-colors shadow-lg"
-              >
-                Starta 7 dagars gratis test
-              </button>
-            </div>
-
-            {/* Enterprise Plan */}
-            <div className="relative bg-white rounded-xl p-6 border border-slate-200 shadow-lg">
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Enterprise</h3>
-              <p className="text-slate-600 mb-6">För team och organisationer</p>
-              <div className="text-3xl font-black text-slate-900 mb-6">
-                Anpassad
-                <span className="text-base font-normal text-slate-600 block">Kontakta oss för pris</span>
-              </div>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-emerald-500 mt-0.5" />
-                  <span className="text-slate-700">Alla Premium-funktioner</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-emerald-500 mt-0.5" />
-                  <span className="text-slate-700">Team-hantering</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-emerald-500 mt-0.5" />
-                  <span className="text-slate-700">API-åtkomst</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-emerald-500 mt-0.5" />
-                  <span className="text-slate-700">Anpassad träning</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-emerald-500 mt-0.5" />
-                  <span className="text-slate-700">Dedikerad account manager</span>
-                </li>
-              </ul>
-              <button
-                onClick={() => window.location.href = '/kontakt'}
-                className="w-full py-3 bg-slate-900 text-white font-semibold rounded-lg hover:bg-slate-800 transition-colors"
-              >
-                Kontakta sälj
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-24 bg-slate-50" id="faq">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-6">
-                Vanliga frågor
-              </h2>
-              <p className="text-xl text-slate-600">
-                Allt du behöver veta för att komma igång
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              {[
-                {
-                  q: "Hur snabbt får jag resultat?",
-                  a: "De flesta användare får sin första intervju inom 14 dagar. 89% av våra användare klarar ATS-screeningen direkt, vilket betyder att din ansökan faktiskt når rekryteraren."
-                },
-                {
-                  q: "Fungerar det för alla branscher?",
-                  a: "Ja! Vår AI är tränad på över 10,000 svenska ansökningar från alla branscher. Vi har specifika optimeringar för tech, finans, vård, industri och många fler."
-                },
-                {
-                  q: "Kan jag avsluta när som helst?",
-                  a: "Absolut. Ingen bindningstid, inga dolda avgifter. Du kan pausa eller avsluta din prenumeration när som helst från din profilsida."
-                },
-                {
-                  q: "Är mina uppgifter säkra?",
-                  a: "Vi är 100% GDPR-kompatibla och all data lagras säkert inom EU. Vi delar aldrig din information med tredje part utan ditt explicita godkännande."
-                },
-                {
-                  q: "Vad skiljer er från ChatGPT?",
-                  a: "ChatGPT är generisk - vi är specialiserade. Vår AI förstår svenska företagskulturer, känner till ATS-system som används i Sverige, och är tränad specifikt på framgångsrika svenska ansökningar."
-                }
-              ].map((item, idx) => (
-                <div key={idx} className="bg-white rounded-xl border border-slate-200">
-                  <button
-                    onClick={() => setExpandedFaq(expandedFaq === idx ? null : idx)}
-                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-slate-50 transition-colors"
-                  >
-                    <span className="font-semibold text-slate-900">{item.q}</span>
-                    {expandedFaq === idx ? (
-                      <ChevronUp className="w-5 h-5 text-slate-600" />
-                    ) : (
-                      <ChevronDown className="w-5 h-5 text-slate-600" />
-                    )}
-                  </button>
-                  {expandedFaq === idx && (
-                    <div className="px-6 pb-4">
-                      <p className="text-slate-600">{item.a}</p>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Final CTA Section */}
+      {/* Premium CTA Section */}
       <section className="py-24 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/10" />
+        <div className="absolute inset-0 grid-pattern-white" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
-              Sluta slösa tid på dåliga ansökningar
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6">
+              Redo att få ditt drömjobb?
             </h2>
             <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
-              Börja idag - du har inget att förlora utom tiden du redan förlorar på ansökningar som inte fungerar.
+              Gå med tusentals svenskar som redan transformerat sin jobbsökning med AI-kraft
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                onClick={() => window.location.href = '/register'}
-                className="px-8 py-4 bg-white text-indigo-600 font-bold rounded-xl shadow-2xl hover:shadow-3xl hover:-translate-y-0.5 transition-all duration-300"
-              >
-                Skapa mitt första personliga brev
+              <button className="px-8 py-4 bg-white text-indigo-600 font-bold rounded-xl shadow-2xl hover:shadow-3xl hover:-translate-y-0.5 transition-all duration-300">
+                Börja gratis idag
                 <ArrowRight className="inline-block ml-2 w-5 h-5" />
               </button>
-              <button
-                onClick={() => window.location.href = '/demo'}
-                className="px-8 py-4 bg-white/10 backdrop-blur-xl text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300"
-              >
-                Se hur det fungerar
+              <button className="px-8 py-4 bg-white/10 backdrop-blur-xl text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300">
+                Se demo
                 <Play className="inline-block ml-2 w-5 h-5" />
               </button>
             </div>
             <div className="mt-8 flex items-center justify-center gap-8 text-white/80">
               <span className="flex items-center gap-2">
                 <CheckCircle className="w-5 h-5" />
-                7 dagar gratis
+                Ingen bindningstid
               </span>
               <span className="flex items-center gap-2">
                 <Shield className="w-5 h-5" />
@@ -881,6 +695,10 @@ export default function Demo1Page() {
           33% { transform: translate(30px, -50px) scale(1.1); }
           66% { transform: translate(-20px, 20px) scale(0.9); }
         }
+        @keyframes gradient-x {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
         @keyframes fade-in {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
@@ -893,6 +711,12 @@ export default function Demo1Page() {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
         }
+        .grid-pattern {
+          background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .grid-pattern-white {
+          background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
         .animate-blob {
           animation: blob 10s infinite;
         }
@@ -901,6 +725,10 @@ export default function Demo1Page() {
         }
         .animation-delay-4000 {
           animation-delay: 4s;
+        }
+        .animate-gradient-x {
+          animation: gradient-x 4s ease infinite;
+          background-size: 200% 200%;
         }
         .animate-fade-in {
           animation: fade-in 0.8s ease-out;
