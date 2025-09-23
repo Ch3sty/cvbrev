@@ -132,7 +132,9 @@
       "WebFetch(domain:www.loom.com)",
       "WebFetch(domain:loom.com)",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-demo-templates.html\")",
-      "Bash(start \"http://localhost:3000/demo1\")"
+      "Bash(start \"http://localhost:3000/demo1\")",
+      "WebFetch(domain:clickup.com)",
+      "Bash(copy:*)"
     ],
     "deny": [],
     "ask": []
