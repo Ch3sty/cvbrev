@@ -146,17 +146,17 @@ export async function POST(request: NextRequest) {
 
     // Award XP to both inviter and guest
     await supabase.rpc('add_xp_with_cap_check', {
-      p_user_id: user.id,
-      p_amount: 100,
-      p_source: 'invitation_accepted',
-      p_description: 'Accepterade Premium-inbjudan'
+      user_id_param: user.id,
+      xp_amount: 100,
+      source_param: 'invitation_accepted',
+      description_param: 'Accepterade Premium-inbjudan'
     })
 
     await supabase.rpc('add_xp_with_cap_check', {
-      p_user_id: invitation.inviter_id,
-      p_amount: 50,
-      p_source: 'invitation_accepted',
-      p_description: 'Din gäst accepterade inbjudan'
+      user_id_param: invitation.inviter_id,
+      xp_amount: 50,
+      source_param: 'invitation_accepted',
+      description_param: 'Din gäst accepterade inbjudan'
     })
 
     // Create notification for inviter

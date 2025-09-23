@@ -116,10 +116,10 @@ const handleReferralConversion = async (customerId: string) => {
 
         // Grant 500 XP to the inviter
         await supabaseAdmin.rpc('add_xp_with_cap_check', {
-            p_user_id: invitation.inviter_id,
-            p_amount: 500,
-            p_source: 'referral_conversion',
-            p_description: 'Vän blev Premium-medlem'
+            user_id_param: invitation.inviter_id,
+            xp_amount: 500,
+            source_param: 'referral_conversion',
+            description_param: 'Vän blev Premium-medlem'
         });
 
         // Get inviter's subscription for extension

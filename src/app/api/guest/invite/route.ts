@@ -188,10 +188,10 @@ export async function POST(request: NextRequest) {
 
     // Award XP to inviter
     await supabase.rpc('add_xp_with_cap_check', {
-      p_user_id: user.id,
-      p_amount: 25,
-      p_source: 'guest_invitation',
-      p_description: 'Skickade gästinbjudan'
+      user_id_param: user.id,
+      xp_amount: 25,
+      source_param: 'guest_invitation',
+      description_param: 'Skickade gästinbjudan'
     })
 
     return NextResponse.json({

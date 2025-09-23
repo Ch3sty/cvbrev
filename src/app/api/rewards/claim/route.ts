@@ -105,10 +105,10 @@ export async function POST(request: NextRequest) {
 
     // Award XP for claiming reward
     await supabase.rpc('add_xp_with_cap_check', {
-      p_user_id: user.id,
-      p_amount: 50,
-      p_source: 'reward_claim',
-      p_description: `Hämtade belöning: ${reward.name}`
+      user_id_param: user.id,
+      xp_amount: 50,
+      source_param: 'reward_claim',
+      description_param: `Hämtade belöning: ${reward.name}`
     })
 
     return NextResponse.json({
