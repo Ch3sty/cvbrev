@@ -29,6 +29,7 @@ export default function InvitePage() {
   const [user, setUser] = useState<any>(null)
   const [showEmailConfirmation, setShowEmailConfirmation] = useState(false)
   const [confirmationEmail, setConfirmationEmail] = useState('')
+  const [linkExpiredError, setLinkExpiredError] = useState(false)
   const supabase = getSupabaseClient()
 
   const invitationCode = params.code as string
@@ -36,11 +37,22 @@ export default function InvitePage() {
   useEffect(() => {
     checkUserAndValidateInvitation()
 
-    // Check if user just confirmed their email
+    // Check URL parameters for errors and confirmations
     const urlParams = new URLSearchParams(window.location.search)
+
+    // Check if user just confirmed their email
     if (urlParams.get('confirmed') === 'true') {
       setError(null)
       setShowEmailConfirmation(false)
+      setLinkExpiredError(false)
+    }
+
+    // Check for expired link errors
+    if (urlParams.get('error') === 'access_denied' &&
+        (urlParams.get('error_code') === 'otp_expired' ||
+         urlParams.get('error_description')?.includes('expired'))) {
+      setLinkExpiredError(true)
+      setError('Din bekräftelselänk har utgått. Klicka nedan för att skicka ett nytt bekräftelsemail.')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [invitationCode])
@@ -244,7 +256,7 @@ export default function InvitePage() {
 
               console.log('User does not exist or wrong password, trying to create account...')
 
-              // Create user with email confirmation disabled initially
+              // Create user without triggering Supabase automatic emails
               const { data: authData, error: signUpError } = await supabase.auth.signUp({
                 email,
                 password,
@@ -252,7 +264,7 @@ export default function InvitePage() {
                   data: {
                     full_name: fullName
                   },
-                  emailRedirectTo: `${window.location.origin}/invite/${invitationCode}`,
+                  // emailRedirectTo: `${window.location.origin}/invite/${invitationCode}`,
                   shouldCreateUser: true
                 }
               })
@@ -397,6 +409,44 @@ export default function InvitePage() {
         error={error || undefined}
         showEmailConfirmation={showEmailConfirmation}
         confirmationEmail={confirmationEmail}
+        linkExpiredError={linkExpiredError}
+        onResendEmail={async (email: string) => {
+          try {
+            // Get user from database to get their ID
+            const { data: users } = await supabase
+              .from('profiles')
+              .select('id, full_name')
+              .eq('email', email)
+              .single()
+
+            if (users) {
+              // Send new confirmation email
+              const response = await fetch('/api/auth/send-confirmation', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  email,
+                  fullName: users.full_name || 'Användare',
+                  userId: users.id,
+                  isInvitation: true,
+                  inviterName: invitationData?.inviterName,
+                  invitationCode
+                })
+              })
+
+              if (response.ok) {
+                setError('Ett nytt bekräftelsemail har skickats. Kolla din inkorg!')
+                setLinkExpiredError(false)
+                setShowEmailConfirmation(true)
+              } else {
+                setError('Kunde inte skicka nytt bekräftelsemail. Kontakta support.')
+              }
+            }
+          } catch (err) {
+            console.error('Error resending email:', err)
+            setError('Ett fel uppstod. Försök igen eller kontakta support.')
+          }
+        }}
       />
     )
   }

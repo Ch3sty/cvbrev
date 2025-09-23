@@ -48,6 +48,8 @@ interface GuestWelcomeLandingProps {
   error?: string;
   showEmailConfirmation?: boolean;
   confirmationEmail?: string;
+  linkExpiredError?: boolean;
+  onResendEmail?: (email: string) => Promise<void>;
 }
 
 const GuestWelcomeLanding: React.FC<GuestWelcomeLandingProps> = ({
@@ -57,13 +59,16 @@ const GuestWelcomeLanding: React.FC<GuestWelcomeLandingProps> = ({
   isAccepting = false,
   error,
   showEmailConfirmation = false,
-  confirmationEmail = ''
+  confirmationEmail = '',
+  linkExpiredError = false,
+  onResendEmail
 }) => {
   const [guestEmail, setGuestEmail] = useState('');
   const [guestName, setGuestName] = useState('');
   const [guestPassword, setGuestPassword] = useState('');
   const [currentStep, setCurrentStep] = useState<'welcome' | 'signup' | 'success'>('welcome');
   const [timeRemaining, setTimeRemaining] = useState('');
+  const [resendingEmail, setResendingEmail] = useState(false);
 
   // Calculate time remaining for invitation
   useEffect(() => {
@@ -174,6 +179,75 @@ const GuestWelcomeLanding: React.FC<GuestWelcomeLandingProps> = ({
       rating: 5
     }
   ];
+
+  // Show expired link error if needed
+  if (linkExpiredError) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-navy-950 via-navy-900 to-navy-800 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md mx-auto bg-navy-800 border-navy-700">
+          <CardContent className="p-8 text-center">
+            <div className="relative mb-6">
+              <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center shadow-xl">
+                <Clock className="w-10 h-10 text-white" />
+              </div>
+              <div className="absolute -inset-4 bg-gradient-to-r from-orange-500 to-red-500 rounded-full blur opacity-20 animate-pulse" />
+            </div>
+
+            <h1 className="text-2xl font-bold text-white mb-4">Bekräftelselänken har utgått</h1>
+            <p className="text-gray-300 mb-6">
+              Din bekräftelselänk är inte längre giltig.
+              Länken är endast giltig i 24 timmar av säkerhetsskäl.
+            </p>
+
+            <div className="bg-navy-700 rounded-lg p-4 mb-6">
+              <p className="text-sm text-gray-400 mb-3">Vad vill du göra?</p>
+              <div className="space-y-3">
+                <Button
+                  onClick={async () => {
+                    if (onResendEmail && confirmationEmail) {
+                      setResendingEmail(true)
+                      await onResendEmail(confirmationEmail)
+                      setResendingEmail(false)
+                    }
+                  }}
+                  disabled={resendingEmail || !confirmationEmail}
+                  className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700"
+                >
+                  {resendingEmail ? (
+                    <>
+                      <Mail className="w-4 h-4 mr-2 animate-pulse" />
+                      Skickar nytt mail...
+                    </>
+                  ) : (
+                    <>
+                      <Mail className="w-4 h-4 mr-2" />
+                      Skicka nytt bekräftelsemail
+                    </>
+                  )}
+                </Button>
+
+                <Button
+                  onClick={() => window.location.href = '/login'}
+                  variant="outline"
+                  className="w-full text-gray-300 border-gray-600 hover:bg-navy-700"
+                >
+                  Logga in istället
+                </Button>
+              </div>
+            </div>
+
+            <p className="text-xs text-gray-400">
+              Problem? Kontakta{' '}
+              <a href="mailto:support@jobbcoach.ai" className="text-pink-400 hover:text-pink-300">
+                support@jobbcoach.ai
+              </a>
+              {' '}för hjälp
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   // Show email confirmation message if needed
   if (showEmailConfirmation) {

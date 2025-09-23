@@ -31,7 +31,7 @@ export default function RegisterForm() {
     }
 
     try {
-      // 2. Försök registrera användaren
+      // 2. Försök registrera användaren (UTAN att Supabase skickar emails)
       const { data, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
@@ -64,14 +64,41 @@ export default function RegisterForm() {
             console.log('Data Layer event pushed: user_registered');
         } else { console.warn('Data Layer not available.'); }
 
-        // Hantera omdirigering baserat på om session skapades direkt
-        if (!data.session) {
-            // E-postverifiering krävs troligen
-            router.push('/auth/verify-email');
-        } else {
-            // Användare direkt inloggad
+        // 4. Skicka EGEN bekräftelse-email via Resend (inte Supabase)
+        try {
+          const emailResponse = await fetch('/api/auth/send-confirmation', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: data.user.email,
+              fullName: fullName,
+              userId: data.user.id,
+              isInvitation: false
+            })
+          })
+
+          if (!emailResponse.ok) {
+            console.error('Failed to send confirmation email:', await emailResponse.text())
+            // Vi fortsätter ändå - användaren är registrerad
+          } else {
+            console.log('Custom confirmation email sent successfully')
+          }
+        } catch (emailError) {
+          console.error('Error sending confirmation email:', emailError)
+          // Vi fortsätter ändå - användaren är registrerad
+        }
+
+        // 5. Omdirigera till bekräftelsesida
+        // Eftersom email confirmations är disabled, kommer användaren troligen ha session direkt
+        if (data.session) {
+            // Användare direkt inloggad (email confirmations disabled)
+            setMessage('Konto skapat! Kontrollera din e-post för att bekräfta din adress.')
             router.push('/dashboard');
             router.refresh();
+        } else {
+            // E-postverifiering krävs (om du har confirmations enabled)
+            setMessage('Konto skapat! Kontrollera din e-post för att bekräfta din adress.')
+            router.push('/auth/verify-email');
         }
       } else {
          // Detta fall bör inte hända om signUp lyckas utan fel
