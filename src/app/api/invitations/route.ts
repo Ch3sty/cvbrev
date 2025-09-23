@@ -27,13 +27,19 @@ export async function GET(request: NextRequest) {
       .eq('inviter_id', user.id)
       .order('created_at', { ascending: false });
 
+    // Transform guest_email to email for frontend compatibility
+    const transformedInvitations = invitations?.map(inv => ({
+      ...inv,
+      email: inv.guest_email // Map guest_email to email
+    }));
+
     if (error) {
       console.error('Error fetching invitations:', error);
       return NextResponse.json({ error: 'Failed to fetch invitations' }, { status: 500 });
     }
 
     return NextResponse.json({
-      invitations: invitations || [],
+      invitations: transformedInvitations || [],
       success: true
     });
 
