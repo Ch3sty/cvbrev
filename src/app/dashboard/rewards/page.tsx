@@ -12,6 +12,21 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Loader2, Trophy, Gift, Users } from 'lucide-react'
 
+interface InvitationData {
+  id: string;
+  email: string;
+  guest_email?: string;
+  status: 'pending' | 'accepted' | 'expired';
+  created_at: string;
+  expires_at: string;
+  invitation_code: string;
+  guest?: {
+    id: string;
+    email: string;
+    full_name: string;
+  };
+}
+
 interface RewardStatus {
   currentLevel: number
   totalXp: number
@@ -42,11 +57,13 @@ export default function RewardsPage() {
   const [selectedReward, setSelectedReward] = useState<any>(null)
   const [showClaimModal, setShowClaimModal] = useState(false)
   const [activeTab, setActiveTab] = useState('overview')
+  const [invitations, setInvitations] = useState<InvitationData[]>([])
   const supabase = getSupabaseClient()
   const router = useRouter()
 
   useEffect(() => {
     loadRewardStatus()
+    loadInvitations()
   }, [])
 
   const loadRewardStatus = async () => {
@@ -74,10 +91,42 @@ export default function RewardsPage() {
     setShowClaimModal(true)
   }
 
+  const loadInvitations = async () => {
+    try {
+      const response = await fetch('/api/invitations');
+      if (response.ok) {
+        const data = await response.json();
+        setInvitations(data.invitations || []);
+      }
+    } catch (error) {
+      console.error('Error loading invitations:', error);
+    }
+  };
+
   const handleClaimSuccess = async () => {
     setShowClaimModal(false)
     setSelectedReward(null)
     await loadRewardStatus() // Reload status
+  }
+
+  const handleCreateInvitation = async (email: string) => {
+    try {
+      const response = await fetch('/api/guest/invite', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          guestEmail: email,
+          personalMessage: ''
+        })
+      });
+
+      if (response.ok) {
+        await loadInvitations();
+        await loadRewardStatus();
+      }
+    } catch (error) {
+      console.error('Error sending invitation:', error);
+    }
   }
 
   if (loading) {
@@ -149,13 +198,21 @@ export default function RewardsPage() {
                 remaining_invitations: rewardStatus.guestInvitations!.remaining,
                 month_year: new Date().toLocaleDateString('sv-SE', { year: 'numeric', month: 'long' })
               }}
-              invitations={[]}
-              onCreateInvitation={async (email) => {
-                console.log('Creating invitation for:', email);
-                await loadRewardStatus();
-              }}
+              invitations={invitations.map(inv => ({
+                id: inv.id,
+                invitation_code: inv.invitation_code,
+                guest_email: inv.email || inv.guest_email || '',
+                guest_name: inv.guest?.full_name,
+                status: inv.status,
+                trial_duration_days: 7,
+                expires_at: inv.expires_at,
+                accepted_at: inv.guest ? inv.created_at : undefined,
+                converted_to_paid: false,
+                created_at: inv.created_at
+              }))}
+              onCreateInvitation={handleCreateInvitation}
               onCopyLink={(code) => navigator.clipboard.writeText(`${window.location.origin}/invite/${code}`)}
-              onShareSocial={(platform, code) => {
+              onShareSocial={(code, platform) => {
                 const url = `${window.location.origin}/invite/${code}`;
                 const text = 'Prova Jobbcoach.ai Premium gratis i 7 dagar!';
                 if (platform === 'twitter') {

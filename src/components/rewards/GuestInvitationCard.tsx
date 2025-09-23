@@ -33,6 +33,7 @@ interface GuestInvitation {
   id: string;
   invitation_code: string;
   guest_email: string;
+  guest_name?: string;
   status: 'pending' | 'accepted' | 'expired' | 'cancelled';
   trial_duration_days: number;
   expires_at: string;
@@ -344,12 +345,23 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center text-white text-sm font-bold">
-                          {invitation.guest_email.charAt(0).toUpperCase()}
+                          {(invitation.guest_name || invitation.guest_email).charAt(0).toUpperCase()}
                         </div>
                         <div>
-                          <p className="font-medium text-white">{invitation.guest_email}</p>
+                          <p className="font-medium text-white">
+                            {invitation.status === 'accepted' && invitation.guest_name ? (
+                              <>
+                                {invitation.guest_name}
+                                <span className="text-sm text-gray-400 ml-2">({invitation.guest_email})</span>
+                              </>
+                            ) : (
+                              invitation.guest_email
+                            )}
+                          </p>
                           <p className="text-sm text-gray-400">
-                            Skickad {new Date(invitation.created_at).toLocaleDateString('sv-SE')}
+                            {invitation.status === 'accepted'
+                              ? `Accepterad ${new Date(invitation.accepted_at || invitation.created_at).toLocaleDateString('sv-SE')}`
+                              : `Skickad ${new Date(invitation.created_at).toLocaleDateString('sv-SE')}`}
                           </p>
                         </div>
                       </div>
