@@ -264,9 +264,8 @@ export default function InvitePage() {
                 options: {
                   data: {
                     full_name: fullName
-                  },
-                  // emailRedirectTo: `${window.location.origin}/invite/${invitationCode}`,
-                  shouldCreateUser: true
+                  }
+                  // emailRedirectTo: `${window.location.origin}/invite/${invitationCode}`
                 }
               })
 

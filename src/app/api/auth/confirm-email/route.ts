@@ -57,7 +57,7 @@ export async function GET(request: NextRequest) {
     // Confirm the user's email in auth.users
     const { error: confirmError } = await supabase.auth.admin.updateUserById(
       confirmation.user_id,
-      { email_confirmed_at: new Date().toISOString() }
+      { email_confirm: true }
     )
 
     if (confirmError) {
