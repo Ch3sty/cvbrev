@@ -42,16 +42,16 @@ export default function Demo1Page() {
     }
   }
 
-  // CV-mallar data
+  // CV-mallar data - uppdaterad baserat på faktiska premium-mallar
   const cvTemplates = [
-    { id: 1, name: 'Modern Minimal', industry: 'Tech/Startup', popularity: 89, svg: '/mallar/modern-minimal.svg', premium: false },
-    { id: 2, name: 'Klassisk Professional', industry: 'Bank/Finans', popularity: 92, svg: '/mallar/classic-professional.svg', premium: false },
-    { id: 3, name: 'Clean Corporate', industry: 'Konsult/B2B', popularity: 94, svg: '/mallar/clean-corporate.svg', premium: false },
-    { id: 4, name: 'Executive Premium', industry: 'Ledning/Chef', popularity: 85, svg: '/mallar/executive-premium.svg', premium: true },
-    { id: 5, name: 'Nordic Professional', industry: 'Alla branscher', popularity: 88, svg: '/mallar/nordic-professional.svg', premium: false },
-    { id: 6, name: 'Creative Edge', industry: 'Media/Design', popularity: 76, svg: '/mallar/creative-edge.svg', premium: false },
-    { id: 7, name: 'Platinum Executive', industry: 'VD/Direktion', popularity: 82, svg: '/mallar/platinum-executive.svg', premium: true },
-    { id: 8, name: 'Creative Minimal', industry: 'Kreativa yrken', popularity: 79, svg: '/mallar/creative-minimal.svg', premium: false }
+    { id: 1, name: 'Modern Minimal', industry: 'Tech/Startup', svg: '/mallar/modern-minimal.svg', premium: false },
+    { id: 2, name: 'Klassisk Professional', industry: 'Bank/Finans', svg: '/mallar/classic-professional.svg', premium: false },
+    { id: 3, name: 'Clean Corporate', industry: 'Konsult/B2B', svg: '/mallar/clean-corporate.svg', premium: false },
+    { id: 4, name: 'Executive Premium', industry: 'Ledning/Chef', svg: '/mallar/executive-premium.svg', premium: true },
+    { id: 5, name: 'Nordic Professional', industry: 'Alla branscher', svg: '/mallar/nordic-professional.svg', premium: true },
+    { id: 6, name: 'Creative Edge', industry: 'Media/Design', svg: '/mallar/creative-edge.svg', premium: false },
+    { id: 7, name: 'Platinum Executive', industry: 'VD/Direktion', svg: '/mallar/platinum-executive.svg', premium: true },
+    { id: 8, name: 'Creative Minimal', industry: 'Kreativa yrken', svg: '/mallar/creative-minimal.svg', premium: true }
   ]
 
   return (
@@ -199,7 +199,7 @@ export default function Demo1Page() {
             Vi matchar dagligen CV:n mot attraktiva tjänster hos
           </p>
           <div className="flex flex-wrap justify-center items-center gap-12 md:gap-16">
-            {['Volvo', 'Ericsson', 'H&M', 'Spotify', 'SEB', 'IKEA'].map((company) => (
+            {['Volvo', 'Ericsson', 'H&M', 'ICA', 'SEB', 'IKEA', 'Friskis & Svettis'].map((company) => (
               <div key={company} className="group">
                 <span className="text-2xl font-bold text-slate-300 group-hover:text-slate-600 transition-colors duration-300 cursor-default">
                   {company}
@@ -298,12 +298,18 @@ export default function Demo1Page() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
             {[
-              { icon: FileText, title: 'AI-personliga brev', desc: 'Unika brev på 60 sekunder', badge: '3x fler svar', color: 'blue' },
-              { icon: FileSearch, title: 'CV-analys', desc: 'ATS-optimering och feedback', badge: 'Populär', color: 'green' },
-              { icon: BrainCircuit, title: 'Kompetensanalys', desc: 'Identifiera styrkor', badge: 'Premium', color: 'purple' },
-              { icon: Lightbulb, title: 'Tonalitet', desc: 'Matcha företagskulturen', badge: 'AI-driven', color: 'orange' },
-              { icon: BarChart, title: 'ATS-scanning', desc: '100% genomslag', badge: 'Garanterad', color: 'indigo' },
-              { icon: Sparkles, title: 'Nyckelord', desc: 'Automatisk optimering', badge: 'Smart', color: 'pink' }
+              { icon: FileText, title: 'AI-personliga brev', desc: 'Unika brev anpassade för varje tjänst', badge: 'Mest populär', color: 'blue' },
+              { icon: FileSearch, title: 'CV-analys & optimering', desc: 'ATS-scanning och konkreta tips', badge: 'Gratis', color: 'green' },
+              { icon: BrainCircuit, title: 'Kompetensanalys', desc: 'Identifiera styrkor och utvecklingsområden', badge: 'Premium', color: 'purple' },
+              { icon: Lightbulb, title: 'Tonalitetsanpassning', desc: 'Matcha företagskulturen perfekt', badge: 'AI-driven', color: 'orange' },
+              { icon: Upload, title: 'Ett-klicks CV-optimering', desc: 'Ladda upp ditt CV och få en snygg mall direkt', badge: 'Automatisk', color: 'teal' },
+              { icon: Sparkles, title: 'Nyckelordsoptimering', desc: 'Matcha jobbannonsen automatiskt', badge: 'Smart', color: 'pink' },
+              { icon: Target, title: 'LinkedIn-integrering', desc: 'Importera din profil direkt', badge: 'Ny', color: 'indigo' },
+              { icon: Users, title: 'Anpassningsbara CV:n', desc: 'Välj foto och LinkedIn-länk', badge: 'Flexibel', color: 'yellow' },
+              { icon: Globe, title: 'Branschspecifika tips', desc: 'Anpassat för din bransch', badge: 'Expert', color: 'red' },
+              { icon: Clock, title: 'Sparade ansökningar', desc: 'Organisera alla dina ansökningar', badge: 'Praktisk', color: 'gray' },
+              { icon: Award, title: 'Intervjuförberedelse', desc: 'AI-genererade intervjufrågor', badge: 'Premium', color: 'emerald' },
+              { icon: TrendingUp, title: 'Ansökningsstatistik', desc: 'Följ dina framsteg över tid', badge: 'Insikter', color: 'cyan' }
             ].map((feature, idx) => (
               <div key={idx} className="group relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-${feature.color}-500 to-${feature.color}-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-10 transition duration-500" />
@@ -332,14 +338,17 @@ export default function Demo1Page() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-50 rounded-full mb-4">
-              <Award className="w-4 h-4 text-purple-600" />
-              <span className="text-sm font-semibold text-purple-900">Premium CV-mallar</span>
+              <Upload className="w-4 h-4 text-purple-600" />
+              <span className="text-sm font-semibold text-purple-900">Ett-klicks optimering</span>
             </div>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 mb-6">
-              Designade för att imponera
+              Från gammalt CV till proffsig mall på sekunder
             </h2>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Branschanpassade mallar som är ATS-optimerade och visuellt tilltalande
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto mb-4">
+              Ladda bara upp ditt befintliga CV och få ett ATS-optimerat CV i snygg design automatiskt.
+            </p>
+            <p className="text-lg text-slate-500 max-w-2xl mx-auto">
+              Du väljer själv om du vill inkludera foto och LinkedIn-profil
             </p>
           </div>
 
@@ -357,19 +366,19 @@ export default function Demo1Page() {
                         loading="lazy"
                       />
                     </div>
-                    {/* Badges */}
-                    <div className="absolute top-3 right-3 bg-green-500 text-white text-xs px-2.5 py-1 rounded-full font-bold shadow-lg">
-                      {template.popularity}%
-                    </div>
+                    {/* Premium badge only */}
                     {template.premium && (
                       <div className="absolute top-3 left-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs px-2.5 py-1 rounded-full font-bold shadow-lg">
                         Premium
                       </div>
                     )}
-                    {/* Hover overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-6">
+                    {/* Hover overlay med registreringslänk */}
+                    <div
+                      className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-6"
+                      onClick={() => window.location.href = '/register'}
+                    >
                       <button className="px-6 py-2.5 bg-white text-slate-900 font-bold rounded-xl shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                        Använd mall
+                        Registrera dig för att använda
                       </button>
                     </div>
                   </div>
