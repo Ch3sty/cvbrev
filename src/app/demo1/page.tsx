@@ -4,7 +4,7 @@
  */
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import {
   ChevronRight, Check, Star, Users, Shield, Award,
@@ -12,8 +12,18 @@ import {
   Clock, TrendingUp, Sparkles, Upload, Mail, Phone,
   CheckCircle, Lock, Zap, ArrowRight, Play, X,
   ChevronDown, ChevronUp, BarChart, Globe, Briefcase,
-  Rocket, Eye, Heart, MessageCircle, DollarSign
+  Rocket, Eye, Heart, MessageCircle, DollarSign,
+  ChevronLeft
 } from 'lucide-react'
+
+// Swiper components
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Pagination, Autoplay } from 'swiper/modules'
+
+// Swiper styles
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
 
 export default function Demo1Page() {
   const [email, setEmail] = useState('')
@@ -21,6 +31,7 @@ export default function Demo1Page() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [selectedTemplate, setSelectedTemplate] = useState<number | null>(null)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const swiperRef = useRef<any>(null)
 
   // Följ musposition för gradient-effekt
   useEffect(() => {
@@ -267,7 +278,7 @@ export default function Demo1Page() {
                     <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
                     <p className="text-slate-600 mb-6">{item.description}</p>
                     <div className="pt-6 border-t border-slate-100">
-                      <div className="text-3xl font-black bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent">
+                      <div className={`text-3xl font-black bg-gradient-to-r ${item.gradient} bg-clip-text text-transparent`}>
                         {item.stat}
                       </div>
                       <div className="text-sm font-medium text-slate-600">{item.statLabel}</div>
@@ -297,38 +308,225 @@ export default function Demo1Page() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
-            {[
-              { icon: FileText, title: 'AI-personliga brev', desc: 'Unika brev anpassade för varje tjänst', badge: 'Mest populär', color: 'blue' },
-              { icon: FileSearch, title: 'CV-analys & optimering', desc: 'ATS-scanning och konkreta tips', badge: 'Gratis', color: 'green' },
-              { icon: BrainCircuit, title: 'Kompetensanalys', desc: 'Identifiera styrkor och utvecklingsområden', badge: 'Premium', color: 'purple' },
-              { icon: Lightbulb, title: 'Tonalitetsanpassning', desc: 'Matcha företagskulturen perfekt', badge: 'AI-driven', color: 'orange' },
-              { icon: Upload, title: 'Ett-klicks CV-optimering', desc: 'Ladda upp ditt CV och få en snygg mall direkt', badge: 'Automatisk', color: 'teal' },
-              { icon: Sparkles, title: 'Nyckelordsoptimering', desc: 'Matcha jobbannonsen automatiskt', badge: 'Smart', color: 'pink' },
-              { icon: Target, title: 'LinkedIn-integrering', desc: 'Importera din profil direkt', badge: 'Ny', color: 'indigo' },
-              { icon: Users, title: 'Anpassningsbara CV:n', desc: 'Välj foto och LinkedIn-länk', badge: 'Flexibel', color: 'yellow' },
-              { icon: Globe, title: 'Branschspecifika tips', desc: 'Anpassat för din bransch', badge: 'Expert', color: 'red' },
-              { icon: Clock, title: 'Sparade ansökningar', desc: 'Organisera alla dina ansökningar', badge: 'Praktisk', color: 'gray' },
-              { icon: Award, title: 'Intervjuförberedelse', desc: 'AI-genererade intervjufrågor', badge: 'Premium', color: 'emerald' },
-              { icon: TrendingUp, title: 'Ansökningsstatistik', desc: 'Följ dina framsteg över tid', badge: 'Insikter', color: 'cyan' }
-            ].map((feature, idx) => (
-              <div key={idx} className="group relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-${feature.color}-500 to-${feature.color}-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-10 transition duration-500" />
-                <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:border-${feature.color}-100 transition-all duration-300 group-hover:-translate-y-1">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className={`w-12 h-12 bg-${feature.color}-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform`}>
-                      <feature.icon className={`w-6 h-6 text-${feature.color}-600`} />
-                    </div>
-                    <span className={`px-3 py-1 bg-${feature.color}-50 text-${feature.color}-700 text-xs font-semibold rounded-full`}>
-                      {feature.badge}
-                    </span>
+            {/* Row 1 - Mest populära funktioner */}
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-blue-500/20 group-hover:border-blue-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <FileText className="w-6 h-6 text-blue-600" />
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-${feature.color}-600 transition-colors">
-                    {feature.title}
-                  </h3>
-                  <p className="text-sm text-slate-600">{feature.desc}</p>
+                  <span className="px-3 py-1 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-xs font-bold rounded-full shadow-lg">
+                    Mest populär
+                  </span>
                 </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  AI-personliga brev
+                </h3>
+                <p className="text-sm text-slate-600">Unika brev anpassade för varje tjänst</p>
               </div>
-            ))}
+            </div>
+
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-emerald-500/20 group-hover:border-emerald-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <FileSearch className="w-6 h-6 text-emerald-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs font-semibold rounded-full">
+                    Gratis
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition-colors">
+                  CV-analys & optimering
+                </h3>
+                <p className="text-sm text-slate-600">ATS-scanning och konkreta tips</p>
+              </div>
+            </div>
+
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-purple-500/20 group-hover:border-purple-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <BrainCircuit className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold rounded-full shadow-lg">
+                    Premium
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-purple-600 transition-colors">
+                  Kompetensanalys
+                </h3>
+                <p className="text-sm text-slate-600">Identifiera styrkor och utvecklingsområden</p>
+              </div>
+            </div>
+
+            {/* Row 2 - AI-funktioner */}
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-orange-500/20 group-hover:border-orange-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Lightbulb className="w-6 h-6 text-orange-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-orange-50 text-orange-700 text-xs font-semibold rounded-full">
+                    AI-driven
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-orange-600 transition-colors">
+                  Tonalitetsanpassning
+                </h3>
+                <p className="text-sm text-slate-600">Matcha företagskulturen perfekt</p>
+              </div>
+            </div>
+
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-teal-500/20 group-hover:border-teal-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Upload className="w-6 h-6 text-teal-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-teal-50 text-teal-700 text-xs font-semibold rounded-full">
+                    Automatisk
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-teal-600 transition-colors">
+                  Ett-klicks CV-optimering
+                </h3>
+                <p className="text-sm text-slate-600">Ladda upp ditt CV och få en snygg mall direkt</p>
+              </div>
+            </div>
+
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-rose-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-pink-500/20 group-hover:border-pink-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-pink-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Sparkles className="w-6 h-6 text-pink-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-pink-50 text-pink-700 text-xs font-semibold rounded-full">
+                    Smart
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-pink-600 transition-colors">
+                  Nyckelordsoptimering
+                </h3>
+                <p className="text-sm text-slate-600">Matcha jobbannonsen automatiskt</p>
+              </div>
+            </div>
+
+            {/* Row 3 - Integrationer */}
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-blue-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-indigo-500/20 group-hover:border-indigo-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-indigo-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Target className="w-6 h-6 text-indigo-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-semibold rounded-full">
+                    Ny
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-indigo-600 transition-colors">
+                  LinkedIn-integrering
+                </h3>
+                <p className="text-sm text-slate-600">Importera din profil direkt</p>
+              </div>
+            </div>
+
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-yellow-500/20 group-hover:border-yellow-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Users className="w-6 h-6 text-yellow-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-yellow-50 text-yellow-700 text-xs font-semibold rounded-full">
+                    Flexibel
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-yellow-600 transition-colors">
+                  Anpassningsbara CV:n
+                </h3>
+                <p className="text-sm text-slate-600">Välj foto och LinkedIn-länk</p>
+              </div>
+            </div>
+
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-pink-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-red-500/20 group-hover:border-red-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Globe className="w-6 h-6 text-red-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-red-50 text-red-700 text-xs font-semibold rounded-full">
+                    Expert
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-red-600 transition-colors">
+                  Branschspecifika tips
+                </h3>
+                <p className="text-sm text-slate-600">Anpassat för din bransch</p>
+              </div>
+            </div>
+
+            {/* Row 4 - Verktyg & Analytics */}
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-500 to-slate-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-slate-500/20 group-hover:border-slate-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Clock className="w-6 h-6 text-slate-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-slate-100 text-slate-700 text-xs font-semibold rounded-full">
+                    Praktisk
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-slate-600 transition-colors">
+                  Sparade ansökningar
+                </h3>
+                <p className="text-sm text-slate-600">Organisera alla dina ansökningar</p>
+              </div>
+            </div>
+
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-green-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-emerald-500/20 group-hover:border-emerald-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <Award className="w-6 h-6 text-emerald-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-gradient-to-r from-emerald-500 to-green-500 text-white text-xs font-bold rounded-full shadow-lg">
+                    Premium
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-emerald-600 transition-colors">
+                  Intervjuförberedelse
+                </h3>
+                <p className="text-sm text-slate-600">AI-genererade intervjufrågor</p>
+              </div>
+            </div>
+
+            <div className="group relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-15 transition duration-500" />
+              <div className="relative h-full p-6 bg-white rounded-2xl border border-slate-100 shadow-lg shadow-slate-900/5 group-hover:shadow-2xl group-hover:shadow-cyan-500/20 group-hover:border-cyan-100 transition-all duration-300 group-hover:-translate-y-1">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="w-12 h-12 bg-cyan-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <TrendingUp className="w-6 h-6 text-cyan-600" />
+                  </div>
+                  <span className="px-3 py-1 bg-cyan-50 text-cyan-700 text-xs font-semibold rounded-full">
+                    Insikter
+                  </span>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-cyan-600 transition-colors">
+                  Ansökningsstatistik
+                </h3>
+                <p className="text-sm text-slate-600">Följ dina framsteg över tid</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -352,51 +550,101 @@ export default function Demo1Page() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-7xl mx-auto">
-            {cvTemplates.map((template) => (
-              <div key={template.id} className="group relative">
-                <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl blur opacity-0 group-hover:opacity-20 transition duration-500" />
-                <div className="relative bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-xl shadow-slate-900/5 group-hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-2 cursor-pointer">
-                  <div className="aspect-[3/4] bg-gradient-to-br from-slate-50 to-slate-100 p-4 relative">
-                    <div className="w-full h-full bg-white rounded-lg shadow-inner overflow-hidden">
-                      <img
-                        src={template.svg}
-                        alt={`${template.name} CV-mall`}
-                        className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
-                        loading="lazy"
-                      />
-                    </div>
-                    {/* Premium badge only */}
-                    {template.premium && (
-                      <div className="absolute top-3 left-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs px-2.5 py-1 rounded-full font-bold shadow-lg">
-                        Premium
+          {/* CV Templates Slider */}
+          <div className="relative max-w-7xl mx-auto">
+            {/* Navigation buttons */}
+            <button
+              onClick={() => swiperRef.current?.slidePrev()}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 backdrop-blur-xl border border-white/60 rounded-full shadow-2xl shadow-purple-500/10 flex items-center justify-center text-slate-600 hover:text-purple-600 hover:bg-white transition-all duration-300 hover:scale-110"
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => swiperRef.current?.slideNext()}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/90 backdrop-blur-xl border border-white/60 rounded-full shadow-2xl shadow-purple-500/10 flex items-center justify-center text-slate-600 hover:text-purple-600 hover:bg-white transition-all duration-300 hover:scale-110"
+            >
+              <ChevronRight className="w-5 h-5" />
+            </button>
+
+            <Swiper
+              ref={swiperRef}
+              modules={[Navigation, Pagination, Autoplay]}
+              spaceBetween={24}
+              slidesPerView={1.2}
+              centeredSlides={false}
+              autoplay={{
+                delay: 4000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+              }}
+              pagination={{
+                clickable: true,
+                bulletClass: 'swiper-pagination-bullet !bg-purple-300 !opacity-40',
+                bulletActiveClass: 'swiper-pagination-bullet-active !bg-purple-600 !opacity-100'
+              }}
+              breakpoints={{
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 20
+                },
+                768: {
+                  slidesPerView: 3,
+                  spaceBetween: 24
+                },
+                1024: {
+                  slidesPerView: 4,
+                  spaceBetween: 24
+                }
+              }}
+              className="cv-templates-swiper !pb-12"
+            >
+              {cvTemplates.map((template) => (
+                <SwiperSlide key={template.id}>
+                  <div className="group relative h-full">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl blur opacity-0 group-hover:opacity-20 transition duration-500" />
+                    <div className="relative bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-xl shadow-slate-900/5 group-hover:shadow-2xl transition-all duration-300 group-hover:-translate-y-2 cursor-pointer h-full flex flex-col">
+                      <div className="aspect-[3/4] bg-gradient-to-br from-slate-50 to-slate-100 p-4 relative flex-shrink-0">
+                        <div className="w-full h-full bg-white rounded-lg shadow-inner overflow-hidden">
+                          <img
+                            src={template.svg}
+                            alt={`${template.name} CV-mall`}
+                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                            loading="lazy"
+                          />
+                        </div>
+                        {/* Premium badge only */}
+                        {template.premium && (
+                          <div className="absolute top-3 left-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs px-2.5 py-1 rounded-full font-bold shadow-lg">
+                            Premium
+                          </div>
+                        )}
+                        {/* Hover overlay med registreringslänk */}
+                        <div
+                          className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-6"
+                          onClick={() => window.location.href = '/register'}
+                        >
+                          <button className="px-4 py-2 bg-white text-slate-900 font-bold rounded-xl shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 text-sm">
+                            Använd mall
+                          </button>
+                        </div>
                       </div>
-                    )}
-                    {/* Hover overlay med registreringslänk */}
-                    <div
-                      className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-end justify-center pb-6"
-                      onClick={() => window.location.href = '/register'}
-                    >
-                      <button className="px-6 py-2.5 bg-white text-slate-900 font-bold rounded-xl shadow-2xl transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                        Registrera dig för att använda
-                      </button>
+                      <div className="p-4 flex-1 flex flex-col">
+                        <h3 className="font-bold text-slate-900 mb-1 group-hover:text-purple-600 transition-colors text-sm">
+                          {template.name}
+                        </h3>
+                        <p className="text-xs text-slate-600 mb-3 flex-1">{template.industry}</p>
+                        <div className="flex items-center gap-1">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className={`w-3 h-3 ${i < 4 ? 'text-yellow-400 fill-current' : 'text-slate-200'}`} />
+                          ))}
+                          <span className="text-xs text-slate-500 ml-1">4.8</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="p-5">
-                    <h3 className="font-bold text-slate-900 mb-1 group-hover:text-purple-600 transition-colors">
-                      {template.name}
-                    </h3>
-                    <p className="text-sm text-slate-600 mb-3">{template.industry}</p>
-                    <div className="flex items-center gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className={`w-3.5 h-3.5 ${i < 4 ? 'text-yellow-400 fill-current' : 'text-slate-200'}`} />
-                      ))}
-                      <span className="text-xs text-slate-500 ml-1">4.8</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
       </section>
@@ -497,6 +745,19 @@ export default function Demo1Page() {
         .animation-delay-400 {
           animation-delay: 0.4s;
           animation-fill-mode: backwards;
+        }
+        /* Custom Swiper styles */
+        .cv-templates-swiper .swiper-pagination {
+          bottom: 0 !important;
+        }
+        .cv-templates-swiper .swiper-pagination-bullet {
+          width: 8px;
+          height: 8px;
+          margin: 0 4px !important;
+          transition: all 0.3s ease;
+        }
+        .cv-templates-swiper .swiper-pagination-bullet-active {
+          transform: scale(1.2);
         }
       `}} />
     </div>
