@@ -244,6 +244,7 @@ export default function InvitePage() {
 
             let user = signInAttempt?.user
             let session = signInAttempt?.session
+            let finalSession = session // Keep track of the final session
 
             // If sign in failed, try to create new account
             if (signInAttemptError) {
@@ -339,12 +340,16 @@ export default function InvitePage() {
               }
 
               session = signInData.session
+              finalSession = signInData.session // Update final session
             }
 
             if (!session) {
               setError('Ingen session skapades vid inloggning')
               return
             }
+
+            // Store the final session for use in API call
+            finalSession = session
 
             // 3. Wait for session to propagate and verify authentication
             let retries = 0
@@ -375,7 +380,7 @@ export default function InvitePage() {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${session?.access_token}`
+                'Authorization': `Bearer ${finalSession?.access_token}`
               },
               credentials: 'include', // Ensure cookies are sent
               body: JSON.stringify({ invitationCode })
