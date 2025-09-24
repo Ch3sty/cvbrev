@@ -115,7 +115,7 @@ export default function PremiumNavbar() {
           icon: Palette,
           description: 'Professionella CV-mallar',
           gradient: 'from-green-500 to-teal-500',
-          requireLogin: false
+          requireLogin: true
         },
         {
           name: 'CV-Analys',
@@ -167,22 +167,17 @@ export default function PremiumNavbar() {
           <div className="flex items-center">
             <Link
               href="/"
-              className="group flex items-center gap-2 text-xl font-bold transition-all duration-300 hover:scale-105"
+              className="group flex items-center text-xl font-bold transition-all duration-300 hover:scale-105"
               onClick={closeAllDropdowns}
             >
+              <span className="text-2xl font-bold text-gray-900 hover:opacity-90 transition-opacity">
+                Jobbcoach
+              </span>
               <div className="relative">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-pink-500 via-purple-500 to-blue-500 flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:shadow-pink-500/25 transition-all duration-300">
-                  <Sparkles className="w-5 h-5 text-white" />
-                </div>
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-pulse" />
-              </div>
-              <div className="flex items-center">
-                <span className="text-2xl font-bold text-gray-900 hover:opacity-90 transition-opacity">
-                  Jobbcoach
-                </span>
                 <span className="text-2xl font-bold text-white bg-gradient-to-r from-pink-600 to-purple-600 rounded-md px-1.5 py-0.5 ml-1 leading-tight hover:opacity-90 transition-opacity shadow-sm">
                   .ai
                 </span>
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-pulse" />
               </div>
             </Link>
           </div>
