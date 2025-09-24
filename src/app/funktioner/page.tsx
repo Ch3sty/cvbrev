@@ -23,7 +23,6 @@ import StaticFeatureCard from '@/components/StaticFeatureCard'
 import LiveAIDemo from '@/components/LiveAIDemo'
 import BeforeAfterSlider from '@/components/BeforeAfterSlider'
 import InteractiveFunctionExplorer from '@/components/InteractiveFunctionExplorer'
-import DynamicTrustIndicator from '@/components/DynamicTrustIndicator'
 
 export default function FunktionerPage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -44,30 +43,23 @@ export default function FunktionerPage() {
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
-  // Animated statistics component
-  const AnimatedStatCard = ({ value, label, icon: Icon, delay = 0 }: any) => (
+  // Simple static statistics component
+  const StaticStatCard = ({ value, label, icon: Icon, delay = 0 }: any) => (
     <motion.div
-      className="bg-white rounded-xl border border-slate-200 p-6 shadow-lg"
+      className="bg-white rounded-xl border border-slate-200 p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay, duration: 0.6 }}
-      whileHover={{ scale: 1.05, y: -5 }}
     >
       <div className="flex items-start gap-4">
         <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center">
           <Icon className="w-6 h-6 text-blue-600" />
         </div>
         <div>
-          <motion.div
-            className="text-3xl font-bold text-slate-900"
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: delay + 0.2, type: "spring", stiffness: 200 }}
-          >
+          <div className="text-3xl font-bold text-slate-900">
             {value}
-          </motion.div>
+          </div>
           <p className="text-sm text-slate-600 mt-1">{label}</p>
         </div>
       </div>
@@ -285,21 +277,21 @@ export default function FunktionerPage() {
               Våra AI-verktyg sparar tid och ökar dina chanser dramatiskt.
             </p>
 
-            {/* Live animated statistics */}
+            {/* Static statistics */}
             <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-3xl mx-auto">
-              <AnimatedStatCard
+              <StaticStatCard
                 value="2.6x"
                 label="Högre intervjufrekvens"
                 icon={TrendingUp}
                 delay={0.2}
               />
-              <AnimatedStatCard
+              <StaticStatCard
                 value="60 sek"
                 label="Till färdig ansökan"
                 icon={Clock}
                 delay={0.4}
               />
-              <AnimatedStatCard
+              <StaticStatCard
                 value="89%"
                 label="Får intervju inom 2 veckor"
                 icon={Target}
@@ -320,9 +312,22 @@ export default function FunktionerPage() {
               </span>
             </motion.button>
 
-            {/* Trust indicator */}
+            {/* Static trust indicators */}
             <div className="mt-8">
-              <DynamicTrustIndicator />
+              <div className="flex items-center justify-center gap-8 text-sm text-slate-600">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <span className="font-medium">43+ personliga brev idag</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  <span className="font-medium">127 aktiva just nu</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                  <span className="font-medium">89% får intervju</span>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
