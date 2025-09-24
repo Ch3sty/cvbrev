@@ -88,7 +88,7 @@ export default function Demo1Page() {
 
   // Use cases för olika målgrupper
   return (
-    <div className="min-h-screen bg-gradient-to-b from-navy-950 via-navy-900 to-navy-950">
+    <div className="min-h-screen bg-gradient-to-b from-white to-slate-50/50">
 
       {/* Premium Navigation Bar */}
       <PremiumNavbar />

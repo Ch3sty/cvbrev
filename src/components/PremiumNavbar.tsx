@@ -3,18 +3,29 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
+import { usePathname } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
+import { User as SupabaseUser } from '@supabase/supabase-js'
 import {
   ChevronDown,
   FileText,
-  LayoutDashboard,
-  Building2,
-  Mail,
+  Home,
+  LayoutGrid,
+  Tag,
+  Newspaper,
+  Wrench,
+  Edit3,
+  SearchCheck,
+  GraduationCap,
+  Palette,
   Menu,
   X,
   Sparkles,
-  Settings,
-  User,
-  Zap
+  User as UserIcon,
+  LogOut,
+  LogIn,
+  Zap,
+  Lock
 } from 'lucide-react'
 
 interface NavItem {
@@ -23,10 +34,12 @@ interface NavItem {
   icon: React.ElementType
   description: string
   gradient: string
+  requireLogin?: boolean
 }
 
 interface NavDropdown {
   name: string
+  icon: React.ElementType
   items: NavItem[]
 }
 
@@ -34,6 +47,10 @@ export default function PremiumNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const [scrollY, setScrollY] = useState(0)
+  const [sessionUser, setSessionUser] = useState<SupabaseUser | null>(null)
+  const [isLoadingAuth, setIsLoadingAuth] = useState(true)
+  const pathname = usePathname()
+  const supabase = createClient()
 
   // Track scroll for navbar effects
   useEffect(() => {
@@ -42,51 +59,89 @@ export default function PremiumNavbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Navigation structure with ONLY real pages
+  // Auth state management
+  useEffect(() => {
+    const getUserSession = async () => {
+      setIsLoadingAuth(true)
+      const { data: { session } } = await supabase.auth.getSession()
+      setSessionUser(session?.user ?? null)
+      setIsLoadingAuth(false)
+    }
+    getUserSession()
+
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setIsLoadingAuth(true)
+        setSessionUser(session?.user ?? null)
+        setIsLoadingAuth(false)
+      }
+    )
+    return () => {
+      authListener.subscription.unsubscribe()
+    }
+  }, [supabase])
+
+  const handleSignOut = async () => {
+    setIsLoadingAuth(true)
+    await supabase.auth.signOut()
+    window.location.href = '/'
+  }
+
+  // Navigation structure matching the existing navbar exactly
   const navigationDropdowns: NavDropdown[] = [
     {
       name: 'Verktyg',
+      icon: Wrench,
       items: [
         {
-          name: 'Dashboard',
-          href: '/dashboard',
-          icon: LayoutDashboard,
-          description: 'Översikt över din karriärresa',
-          gradient: 'from-blue-500 to-cyan-500'
+          name: 'Skapa personligt brev',
+          href: '/create-letter',
+          icon: Edit3,
+          description: 'AI-genererade personliga brev',
+          gradient: 'from-blue-500 to-cyan-500',
+          requireLogin: true
         },
         {
-          name: 'CV-mallar',
-          href: '/cv-mallar',
+          name: 'Mina Brev',
+          href: '/dashboard/my-letters',
           icon: FileText,
-          description: 'Professionella CV-mallar för alla branscher',
-          gradient: 'from-purple-500 to-pink-500'
-        }
-      ]
-    },
-    {
-      name: 'Företaget',
-      items: [
-        {
-          name: 'Om oss',
-          href: '/om-oss',
-          icon: Building2,
-          description: 'Lär känna teamet bakom Jobbcoach.ai',
-          gradient: 'from-green-500 to-teal-500'
+          description: 'Se dina sparade brev',
+          gradient: 'from-purple-500 to-pink-500',
+          requireLogin: true
         },
         {
-          name: 'Kontakt',
-          href: '/kontakt',
-          icon: Mail,
-          description: 'Hör av dig - vi hjälper gärna till',
-          gradient: 'from-orange-500 to-red-500'
+          name: 'CV-Mallar',
+          href: '/cv-mallar',
+          icon: Palette,
+          description: 'Professionella CV-mallar',
+          gradient: 'from-green-500 to-teal-500',
+          requireLogin: false
+        },
+        {
+          name: 'CV-Analys',
+          href: '/analysera-cv',
+          icon: SearchCheck,
+          description: 'Få feedback på ditt CV',
+          gradient: 'from-orange-500 to-red-500',
+          requireLogin: true
+        },
+        {
+          name: 'Kompetensutveckling',
+          href: '/kompetensutveckling',
+          icon: GraduationCap,
+          description: 'Utveckla dina färdigheter',
+          gradient: 'from-indigo-500 to-purple-500',
+          requireLogin: true
         }
       ]
     }
   ]
 
   const directLinks = [
-    { name: 'Funktioner', href: '/funktioner' },
-    { name: 'Priser', href: '/priser' }
+    { name: 'Hem', href: '/', icon: Home },
+    { name: 'Funktioner', href: '/funktioner', icon: LayoutGrid },
+    { name: 'Priser', href: '/priser', icon: Tag },
+    { name: 'Artiklar', href: '/artiklar', icon: Newspaper }
   ]
 
   const handleDropdownClick = (dropdownName: string) => {
@@ -128,7 +183,23 @@ export default function PremiumNavbar() {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-6">
+
+            {/* Direct Links First */}
+            {directLinks.slice(0, 2).map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                onClick={closeAllDropdowns}
+                className={`px-3 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                  pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))
+                    ? 'text-pink-400 bg-navy-800/50'
+                    : 'text-gray-300 hover:text-white hover:bg-navy-800/30'
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
 
             {/* Dropdown Menus */}
             {navigationDropdowns.map((dropdown) => (
@@ -136,12 +207,13 @@ export default function PremiumNavbar() {
                 <button
                   onClick={() => handleDropdownClick(dropdown.name)}
                   onMouseEnter={() => setActiveDropdown(dropdown.name)}
-                  className={`flex items-center gap-1 px-3 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${
+                  className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${
                     activeDropdown === dropdown.name
                       ? 'text-pink-400 bg-navy-800/50'
                       : 'text-gray-300 hover:text-white hover:bg-navy-800/30'
                   }`}
                 >
+                  <dropdown.icon className="w-4 h-4" />
                   {dropdown.name}
                   <ChevronDown
                     className={`w-4 h-4 transition-transform duration-200 ${
@@ -163,26 +235,43 @@ export default function PremiumNavbar() {
                     >
                       <div className="bg-navy-800/95 backdrop-blur-xl border border-navy-700/50 rounded-xl shadow-2xl p-4 min-w-[320px]">
                         <div className="space-y-2">
-                          {dropdown.items.map((item) => (
-                            <Link
-                              key={item.name}
-                              href={item.href}
-                              onClick={closeAllDropdowns}
-                              className="group flex items-center gap-4 p-3 rounded-lg hover:bg-navy-700/50 transition-all duration-300 hover:scale-[1.02]"
-                            >
-                              <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${item.gradient} flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300`}>
-                                <item.icon className="w-5 h-5 text-white" />
-                              </div>
-                              <div className="flex-1">
-                                <div className="font-medium text-white group-hover:text-pink-300 transition-colors">
-                                  {item.name}
+                          {dropdown.items.map((item) => {
+                            const isLocked = item.requireLogin && !sessionUser
+                            const effectiveHref = isLocked
+                              ? `/register?redirect=${encodeURIComponent(item.href)}`
+                              : item.href
+
+                            return (
+                              <Link
+                                key={item.name}
+                                href={effectiveHref}
+                                onClick={closeAllDropdowns}
+                                className={`group flex items-center gap-4 p-3 rounded-lg transition-all duration-300 ${
+                                  isLocked
+                                    ? 'opacity-60 hover:bg-navy-700/30'
+                                    : 'hover:bg-navy-700/50 hover:scale-[1.02]'
+                                }`}
+                                title={isLocked ? 'Logga in för att använda denna funktion' : undefined}
+                              >
+                                <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${item.gradient} flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300`}>
+                                  <item.icon className="w-5 h-5 text-white" />
                                 </div>
-                                <div className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors">
-                                  {item.description}
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-2">
+                                    <span className="font-medium text-white group-hover:text-pink-300 transition-colors">
+                                      {item.name}
+                                    </span>
+                                    {isLocked && (
+                                      <Lock className="w-3 h-3 text-gray-400" />
+                                    )}
+                                  </div>
+                                  <div className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors">
+                                    {item.description}
+                                  </div>
                                 </div>
-                              </div>
-                            </Link>
-                          ))}
+                              </Link>
+                            )
+                          })}
                         </div>
                       </div>
                     </motion.div>
@@ -191,13 +280,17 @@ export default function PremiumNavbar() {
               </div>
             ))}
 
-            {/* Direct Links */}
-            {directLinks.map((link) => (
+            {/* Remaining Direct Links */}
+            {directLinks.slice(2).map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 onClick={closeAllDropdowns}
-                className="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-navy-800/30 rounded-lg transition-all duration-300"
+                className={`px-3 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                  pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))
+                    ? 'text-pink-400 bg-navy-800/50'
+                    : 'text-gray-300 hover:text-white hover:bg-navy-800/30'
+                }`}
               >
                 {link.name}
               </Link>
@@ -206,22 +299,47 @@ export default function PremiumNavbar() {
 
           {/* CTA Buttons Desktop */}
           <div className="hidden lg:flex items-center gap-4">
-            <Link
-              href="/login"
-              className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors"
-            >
-              Logga in
-            </Link>
-            <Link
-              href="/register"
-              className="group relative px-6 py-2.5 bg-gradient-to-r from-pink-600 to-purple-600 text-white text-sm font-semibold rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-pink-500/25 hover:scale-105"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <span className="relative flex items-center gap-2">
-                <Zap className="w-4 h-4" />
-                Starta gratis
-              </span>
-            </Link>
+            {!isLoadingAuth && (
+              <>
+                {sessionUser ? (
+                  <div className="flex items-center gap-3">
+                    <button
+                      className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-navy-800/30 rounded-lg transition-all duration-300"
+                    >
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center text-white font-semibold">
+                        {sessionUser.email?.charAt(0).toUpperCase() ?? '?'}
+                      </div>
+                      <span className="hidden xl:inline">{sessionUser.email}</span>
+                    </button>
+                    <button
+                      onClick={handleSignOut}
+                      className="px-4 py-2 text-sm font-medium text-red-400 hover:text-red-300 hover:bg-navy-800/30 rounded-lg transition-all duration-300"
+                    >
+                      <LogOut className="w-4 h-4" />
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <Link
+                      href="/login"
+                      className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors"
+                    >
+                      Logga in
+                    </Link>
+                    <Link
+                      href="/register"
+                      className="group relative px-6 py-2.5 bg-gradient-to-r from-pink-600 to-purple-600 text-white text-sm font-semibold rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-pink-500/25 hover:scale-105"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <span className="relative flex items-center gap-2">
+                        <Zap className="w-4 h-4" />
+                        Skapa konto
+                      </span>
+                    </Link>
+                  </>
+                )}
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -249,68 +367,118 @@ export default function PremiumNavbar() {
             <div className="container mx-auto px-4 py-6">
               <div className="space-y-6">
 
+                {/* Mobile Direct Links */}
+                <div className="space-y-2">
+                  {directLinks.map((link) => (
+                    <Link
+                      key={link.name}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center gap-3 p-3 rounded-lg transition-all ${
+                        pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))
+                          ? 'text-pink-400 bg-navy-800/50'
+                          : 'text-gray-300 hover:text-white hover:bg-navy-800/50'
+                      }`}
+                    >
+                      <link.icon className="w-5 h-5" />
+                      <span className="font-medium">{link.name}</span>
+                    </Link>
+                  ))}
+                </div>
+
                 {/* Mobile Dropdowns */}
                 {navigationDropdowns.map((dropdown) => (
                   <div key={dropdown.name}>
-                    <div className="font-medium text-pink-400 mb-3 text-sm uppercase tracking-wide">
+                    <div className="font-medium text-pink-400 mb-3 text-sm uppercase tracking-wide flex items-center gap-2">
+                      <dropdown.icon className="w-4 h-4" />
                       {dropdown.name}
                     </div>
                     <div className="space-y-2 ml-4">
-                      {dropdown.items.map((item) => (
-                        <Link
-                          key={item.name}
-                          href={item.href}
-                          onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center gap-3 p-3 text-gray-300 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all"
-                        >
-                          <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${item.gradient} flex items-center justify-center`}>
-                            <item.icon className="w-4 h-4 text-white" />
-                          </div>
-                          <div>
-                            <div className="font-medium">{item.name}</div>
-                            <div className="text-xs text-gray-400">{item.description}</div>
-                          </div>
-                        </Link>
-                      ))}
+                      {dropdown.items.map((item) => {
+                        const isLocked = item.requireLogin && !sessionUser
+                        const effectiveHref = isLocked
+                          ? `/register?redirect=${encodeURIComponent(item.href)}`
+                          : item.href
+
+                        return (
+                          <Link
+                            key={item.name}
+                            href={effectiveHref}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className={`flex items-center gap-3 p-3 rounded-lg transition-all ${
+                              isLocked
+                                ? 'text-gray-500 hover:text-gray-400 hover:bg-navy-800/30'
+                                : 'text-gray-300 hover:text-white hover:bg-navy-800/50'
+                            }`}
+                          >
+                            <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${item.gradient} flex items-center justify-center ${
+                              isLocked ? 'opacity-60' : ''
+                            }`}>
+                              <item.icon className="w-4 h-4 text-white" />
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2">
+                                <span className="font-medium">{item.name}</span>
+                                {isLocked && (
+                                  <Lock className="w-3 h-3 text-gray-500" />
+                                )}
+                              </div>
+                              <div className="text-xs text-gray-400">{item.description}</div>
+                            </div>
+                          </Link>
+                        )
+                      })}
                     </div>
                   </div>
                 ))}
 
-                {/* Mobile Direct Links */}
-                <div>
-                  <div className="font-medium text-pink-400 mb-3 text-sm uppercase tracking-wide">
-                    Snabblänkar
-                  </div>
-                  <div className="space-y-2 ml-4">
-                    {directLinks.map((link) => (
-                      <Link
-                        key={link.name}
-                        href={link.href}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="block p-3 text-gray-300 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all"
-                      >
-                        {link.name}
-                      </Link>
-                    ))}
-                  </div>
-                </div>
 
                 {/* Mobile CTA */}
                 <div className="pt-4 border-t border-navy-700/50 space-y-3">
-                  <Link
-                    href="/login"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block w-full px-4 py-3 text-center text-gray-300 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all"
-                  >
-                    Logga in
-                  </Link>
-                  <Link
-                    href="/register"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="block w-full px-4 py-3 text-center bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all"
-                  >
-                    Starta gratis
-                  </Link>
+                  {!isLoadingAuth && (
+                    <>
+                      {sessionUser ? (
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-3 px-4">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center text-white font-semibold">
+                              {sessionUser.email?.charAt(0).toUpperCase() ?? '?'}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="text-sm font-medium text-gray-200 truncate">
+                                {sessionUser.email}
+                              </div>
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => {
+                              handleSignOut()
+                              setMobileMenuOpen(false)
+                            }}
+                            className="w-full px-4 py-3 text-center text-red-400 hover:text-red-300 hover:bg-navy-800/50 rounded-lg transition-all font-medium"
+                          >
+                            Logga ut
+                          </button>
+                        </div>
+                      ) : (
+                        <>
+                          <Link
+                            href="/login"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="block w-full px-4 py-3 text-center text-gray-300 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all"
+                          >
+                            Logga in
+                          </Link>
+                          <Link
+                            href="/register"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="block w-full px-4 py-3 text-center bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all"
+                          >
+                            Skapa konto
+                          </Link>
+                        </>
+                      )}
+                    </>
+                  )}
                 </div>
               </div>
             </div>
