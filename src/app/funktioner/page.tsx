@@ -44,20 +44,32 @@ export default function FunktionerPage() {
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
-  // Simple static statistics component
+  // Simple static statistics component with stable hover states
   const StaticStatCard = ({ value, label, icon: Icon, delay = 0 }: any) => (
     <motion.div
-      className="bg-white rounded-xl border border-slate-200 p-6 shadow-lg hover:shadow-xl transition-shadow duration-300"
+      className="relative bg-white rounded-xl border border-slate-200 p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform-gpu will-change-transform"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay, duration: 0.6 }}
+      style={{
+        backfaceVisibility: 'hidden',
+        WebkitBackfaceVisibility: 'hidden',
+        perspective: 1000,
+        WebkitPerspective: 1000,
+        transformStyle: 'preserve-3d',
+        WebkitTransformStyle: 'preserve-3d'
+      }}
+      whileHover={{
+        scale: 1.02,
+        transition: { duration: 0.2 }
+      }}
     >
-      <div className="flex items-start gap-4">
-        <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center">
+      <div className="flex items-start gap-4 relative z-10">
+        <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center flex-shrink-0">
           <Icon className="w-6 h-6 text-blue-600" />
         </div>
-        <div>
+        <div className="min-w-0 flex-1">
           <div className="text-3xl font-bold text-slate-900">
             {value}
           </div>
@@ -278,8 +290,8 @@ export default function FunktionerPage() {
               Våra AI-verktyg sparar tid och ökar dina chanser dramatiskt.
             </p>
 
-            {/* Static statistics */}
-            <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-3xl mx-auto">
+            {/* Static statistics with proper z-indexing */}
+            <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-3xl mx-auto relative z-20">
               <StaticStatCard
                 value="2.6x"
                 label="Högre intervjufrekvens"

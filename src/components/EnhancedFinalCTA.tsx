@@ -39,9 +39,9 @@ export default function EnhancedFinalCTA() {
   const [isInView, setIsInView] = useState(false)
 
   return (
-    <section className="py-24 relative overflow-hidden">
-      {/* Sophisticated gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-white via-slate-50/30 to-slate-50/50" />
+    <section className="py-24 relative overflow-hidden bg-gradient-to-b from-white to-slate-50/50">
+      {/* Sophisticated gradient background - matching the site's light theme */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-white/90 to-slate-50/30" />
 
       {/* Geometric pattern overlay */}
       <div className="absolute inset-0 opacity-5">
@@ -56,32 +56,32 @@ export default function EnhancedFinalCTA() {
         </svg>
       </div>
 
-      {/* Animated background orbs */}
+      {/* Animated background orbs - lighter and more subtle */}
       <motion.div
-        className="absolute top-20 left-1/4 w-48 h-48 bg-blue-100/15 rounded-full blur-3xl"
+        className="absolute top-20 left-1/4 w-48 h-48 bg-blue-100/10 rounded-full blur-3xl"
         animate={{
           y: [0, -30, 0],
           scale: [1, 1.2, 1],
-          opacity: [0.15, 0.25, 0.15]
+          opacity: [0.1, 0.15, 0.1]
         }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute bottom-20 right-1/3 w-40 h-40 bg-indigo-100/20 rounded-full blur-2xl"
+        className="absolute bottom-20 right-1/3 w-40 h-40 bg-indigo-100/10 rounded-full blur-2xl"
         animate={{
           y: [0, 20, 0],
           scale: [1, 0.8, 1],
-          opacity: [0.2, 0.3, 0.2]
+          opacity: [0.1, 0.15, 0.1]
         }}
         transition={{ duration: 6, repeat: Infinity, delay: 2, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute top-1/2 right-1/4 w-32 h-32 bg-purple-100/12 rounded-full blur-2xl"
+        className="absolute top-1/2 right-1/4 w-32 h-32 bg-purple-100/8 rounded-full blur-2xl"
         animate={{
           x: [0, -20, 0],
           y: [0, 10, 0],
           scale: [1, 1.1, 1],
-          opacity: [0.12, 0.2, 0.12]
+          opacity: [0.08, 0.12, 0.08]
         }}
         transition={{ duration: 7, repeat: Infinity, delay: 1, ease: "easeInOut" }}
       />
@@ -306,7 +306,7 @@ export default function EnhancedFinalCTA() {
                 ].map((item, idx) => (
                   <motion.div
                     key={idx}
-                    className="group flex items-center gap-3 px-4 py-3 bg-white/70 backdrop-blur-sm rounded-xl border border-white/60 hover:bg-white/90 hover:border-white/80 transition-all duration-300"
+                    className="group flex items-center gap-3 px-4 py-3 bg-white/80 backdrop-blur-sm rounded-xl border border-slate-200/60 hover:bg-white hover:border-slate-200 transition-all duration-300"
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
