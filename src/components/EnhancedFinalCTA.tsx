@@ -41,10 +41,10 @@ export default function EnhancedFinalCTA() {
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Sophisticated gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50/50 to-indigo-50/70" />
+      <div className="absolute inset-0 bg-gradient-to-br from-white via-slate-50/30 to-slate-50/50" />
 
       {/* Geometric pattern overlay */}
-      <div className="absolute inset-0 opacity-10">
+      <div className="absolute inset-0 opacity-5">
         <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
           <defs>
             <pattern id="elegantGrid" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
@@ -58,30 +58,30 @@ export default function EnhancedFinalCTA() {
 
       {/* Animated background orbs */}
       <motion.div
-        className="absolute top-20 left-1/4 w-48 h-48 bg-blue-200/25 rounded-full blur-3xl"
+        className="absolute top-20 left-1/4 w-48 h-48 bg-blue-100/15 rounded-full blur-3xl"
         animate={{
           y: [0, -30, 0],
           scale: [1, 1.2, 1],
-          opacity: [0.25, 0.4, 0.25]
+          opacity: [0.15, 0.25, 0.15]
         }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute bottom-20 right-1/3 w-40 h-40 bg-indigo-200/30 rounded-full blur-2xl"
+        className="absolute bottom-20 right-1/3 w-40 h-40 bg-indigo-100/20 rounded-full blur-2xl"
         animate={{
           y: [0, 20, 0],
           scale: [1, 0.8, 1],
-          opacity: [0.3, 0.45, 0.3]
+          opacity: [0.2, 0.3, 0.2]
         }}
         transition={{ duration: 6, repeat: Infinity, delay: 2, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute top-1/2 right-1/4 w-32 h-32 bg-purple-200/20 rounded-full blur-2xl"
+        className="absolute top-1/2 right-1/4 w-32 h-32 bg-purple-100/12 rounded-full blur-2xl"
         animate={{
           x: [0, -20, 0],
           y: [0, 10, 0],
           scale: [1, 1.1, 1],
-          opacity: [0.2, 0.35, 0.2]
+          opacity: [0.12, 0.2, 0.12]
         }}
         transition={{ duration: 7, repeat: Infinity, delay: 1, ease: "easeInOut" }}
       />
