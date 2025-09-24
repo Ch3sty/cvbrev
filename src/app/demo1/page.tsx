@@ -25,6 +25,7 @@ import {
 import AILiveWriting from '@/components/AILiveWriting'
 import DynamicTrustIndicator from '@/components/DynamicTrustIndicator'
 import FloatingAIAssistant from '@/components/FloatingAIAssistant'
+import InteractiveSteps from '@/components/InteractiveSteps'
 
 // Swiper components
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -388,10 +389,10 @@ export default function Demo1Page() {
       <section className="py-12 bg-white border-y border-slate-100">
         <div className="container mx-auto px-4">
           <p className="text-center text-sm font-medium text-slate-500 mb-8">
-            VÅRA ANVÄNDARE HAR FÅTT JOBB HOS
+            Våra användare har använt vår tjänst för att söka roller hos:
           </p>
           <div className="grid grid-cols-3 md:grid-cols-7 gap-8 items-center justify-items-center opacity-60 hover:opacity-100 transition-opacity">
-            {['Spotify', 'Klarna', 'Ericsson', 'H&M', 'Volvo', 'IKEA', 'SEB'].map((company) => (
+            {['Spotify', 'Friskis & Svettis', 'H&M', 'Anticimex', 'IKEA', 'SEB', 'Klarna'].map((company) => (
               <div key={company} className="text-xl font-bold text-slate-400 hover:text-slate-600 transition-colors">
                 {company}
               </div>
@@ -400,66 +401,51 @@ export default function Demo1Page() {
         </div>
       </section>
 
-      {/* Hur det fungerar - 3-stegs process */}
-      <section className="py-24 bg-white">
+      {/* Hur det fungerar - Interactive 3-step process with wow factor */}
+      <section className="py-24 bg-white overflow-hidden">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-16">
+            <motion.div
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
               <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
                 Så enkelt är det
               </h2>
               <p className="text-xl text-slate-600">
                 Från jobbannons till färdig ansökan på tre enkla steg
               </p>
-            </div>
+            </motion.div>
 
-            <div className="grid md:grid-cols-3 gap-8">
-              {[
-                {
-                  step: '1',
-                  title: 'Ladda upp ditt CV',
-                  description: 'Dra och släpp eller klicka för att ladda upp. Vi läser alla format.',
-                  icon: Upload,
-                  color: 'blue'
-                },
-                {
-                  step: '2',
-                  title: 'AI analyserar jobbet',
-                  description: 'Vår AI matchar dina kompetenser mot jobbkraven på sekunder.',
-                  icon: BrainCircuit,
-                  color: 'indigo'
-                },
-                {
-                  step: '3',
-                  title: 'Få perfekt ansökan',
-                  description: 'Ladda ner anpassat CV och personligt brev redo att skickas.',
-                  icon: FileText,
-                  color: 'purple'
-                }
-              ].map((item, idx) => (
-                <div key={idx} className="relative">
-                  {idx < 2 && (
-                    <div className="hidden md:block absolute top-12 left-full w-full h-0.5 bg-gradient-to-r from-slate-200 to-transparent -translate-x-4 z-0" />
-                  )}
-                  <div className="relative z-10">
-                    <div className={`w-24 h-24 mx-auto bg-gradient-to-br from-${item.color}-50 to-${item.color}-100 rounded-2xl flex items-center justify-center mb-6`}>
-                      <div className={`w-12 h-12 bg-gradient-to-br from-${item.color}-500 to-${item.color}-600 rounded-xl flex items-center justify-center text-white text-xl font-bold`}>
-                        {item.step}
-                      </div>
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2 text-center">{item.title}</h3>
-                    <p className="text-slate-600 text-center">{item.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <InteractiveSteps />
 
-            <div className="text-center mt-12">
-              <button className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 hover:-translate-y-0.5">
+            <motion.div
+              className="text-center mt-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+            >
+              <motion.button
+                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 Testa nu - helt gratis
                 <ArrowRight className="inline-block ml-2 w-5 h-5" />
-              </button>
-            </div>
+              </motion.button>
+              <motion.p
+                className="mt-4 text-sm text-slate-500"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.2 }}
+              >
+                Ingen registrering krävs • Klart på 60 sekunder
+              </motion.p>
+            </motion.div>
           </div>
         </div>
       </section>
