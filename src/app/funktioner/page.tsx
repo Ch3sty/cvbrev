@@ -19,7 +19,7 @@ import {
 // Custom components
 import PremiumNavbar from '@/components/PremiumNavbar'
 import FloatingAIAssistant from '@/components/FloatingAIAssistant'
-import FeatureMorphingCard from '@/components/FeatureMorphingCard'
+import StaticFeatureCard from '@/components/StaticFeatureCard'
 import LiveAIDemo from '@/components/LiveAIDemo'
 import BeforeAfterSlider from '@/components/BeforeAfterSlider'
 import InteractiveFunctionExplorer from '@/components/InteractiveFunctionExplorer'
@@ -359,10 +359,9 @@ export default function FunktionerPage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
               {features.map((feature, idx) => (
                 <div key={feature.id} className="min-h-[400px]">
-                  <FeatureMorphingCard
+                  <StaticFeatureCard
                     feature={feature}
                     delay={idx * 0.1}
-                    onInteract={(id) => console.log(`Interacted with ${id}`)}
                   />
                 </div>
               ))}
