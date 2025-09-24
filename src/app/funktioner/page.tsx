@@ -23,6 +23,7 @@ import StaticFeatureCard from '@/components/StaticFeatureCard'
 import LiveAIDemo from '@/components/LiveAIDemo'
 import BeforeAfterSlider from '@/components/BeforeAfterSlider'
 import InteractiveFunctionExplorer from '@/components/InteractiveFunctionExplorer'
+import DynamicTrustIndicator from '@/components/DynamicTrustIndicator'
 
 export default function FunktionerPage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -312,22 +313,9 @@ export default function FunktionerPage() {
               </span>
             </motion.button>
 
-            {/* Static trust indicators */}
+            {/* Trust indicator */}
             <div className="mt-8">
-              <div className="flex items-center justify-center gap-8 text-sm text-slate-600">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span className="font-medium">43+ personliga brev idag</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <span className="font-medium">127 aktiva just nu</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                  <span className="font-medium">89% får intervju</span>
-                </div>
-              </div>
+              <DynamicTrustIndicator />
             </div>
           </motion.div>
         </div>
