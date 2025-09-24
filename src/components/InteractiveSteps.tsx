@@ -8,7 +8,24 @@ import {
   Zap, Code, Database, Eye
 } from 'lucide-react'
 
-const steps = [
+interface StepData {
+  id: number
+  title: string
+  description: string
+  icon: React.ElementType
+  color: string
+  demoContent: {
+    files?: Array<{ name: string; size: string; status: string }>
+    stats?: { format: string; pages: string; words: string }
+    skills?: string[]
+    matching?: Array<{ skill: string; match: number }>
+    processing?: string[]
+    documents?: Array<{ type: string; status: string; score: number }>
+    improvements?: string[]
+  }
+}
+
+const steps: StepData[] = [
   {
     id: 1,
     title: 'Ladda upp ditt CV',
@@ -171,7 +188,7 @@ export default function InteractiveSteps() {
                       </div>
 
                       {/* Demo content based on step */}
-                      {step.id === 1 && (
+                      {step.id === 1 && step.demoContent.files && (
                         <div className="space-y-3">
                           {step.demoContent.files.map((file, i) => (
                             <motion.div
@@ -200,14 +217,14 @@ export default function InteractiveSteps() {
                           ))}
                           <div className="pt-3 border-t border-slate-200">
                             <div className="flex justify-between text-xs text-slate-600">
-                              <span>Format: {step.demoContent.stats.format}</span>
-                              <span>{step.demoContent.stats.words} ord</span>
+                              <span>Format: {step.demoContent.stats?.format}</span>
+                              <span>{step.demoContent.stats?.words} ord</span>
                             </div>
                           </div>
                         </div>
                       )}
 
-                      {step.id === 2 && (
+                      {step.id === 2 && step.demoContent.skills && step.demoContent.matching && (
                         <div className="space-y-3">
                           <div className="flex flex-wrap gap-2 mb-3">
                             {step.demoContent.skills.map((skill, i) => (
@@ -241,7 +258,7 @@ export default function InteractiveSteps() {
                         </div>
                       )}
 
-                      {step.id === 3 && (
+                      {step.id === 3 && step.demoContent.documents && step.demoContent.improvements && (
                         <div className="space-y-3">
                           {step.demoContent.documents.map((doc, i) => (
                             <motion.div
