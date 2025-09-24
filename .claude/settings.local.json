@@ -135,7 +135,9 @@
       "Bash(start \"http://localhost:3000/demo1\")",
       "WebFetch(domain:clickup.com)",
       "Bash(copy:*)",
-      "Bash(rd:*)"
+      "Bash(rd:*)",
+      "Bash(start \"http://localhost:3000/dashboard\")",
+      "Bash(git revert:*)"
     ],
     "deny": [],
     "ask": []
