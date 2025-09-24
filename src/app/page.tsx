@@ -1,773 +1,960 @@
 /**
- * Startsidan för Jobbcoach.ai.
- * Visar information om tjänsten, dess funktioner, prissättning,
- * fördelar och vanliga frågor.
+ * Premium startsida för Jobbcoach.ai med WOW-faktor
+ * Ljus, professionell design med unika interaktiva element
+ * Skandinavisk minimalism möter AI-innovation
  */
 'use client'
 
-// --- Core Imports ---
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Head from 'next/head'
-
-// --- Icon Imports (Lucide React) ---
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 import {
-  UserPlus,
-  X,
-  PlayCircle,
-  ChevronRight, Star, CheckCircle, FileText, FileSearch, Lock, Zap, Save,
-  Clock, Target, Lightbulb, BrainCircuit, Sparkles, Upload, ArrowRight, // <<< Lade till Sparkles här
-  TrendingUp, ChevronDown, ChevronUp, GraduationCap, Repeat, Briefcase,
+  ChevronRight, Check, Star, Users, Shield, Award,
+  FileText, FileSearch, Target, Lightbulb, BrainCircuit,
+  Clock, TrendingUp, Sparkles, Upload, Mail, Phone,
+  CheckCircle, Lock, Zap, ArrowRight, Play, X,
+  ChevronDown, ChevronUp, BarChart, Globe, Briefcase,
+  Rocket, Eye, Heart, MessageCircle, DollarSign,
+  ChevronLeft, PenTool, Palette, Trophy, Gift,
+  GraduationCap, User, Building2, Layers, Settings,
+  Timer, RefreshCw, Gauge, BookOpen, Code, Database
 } from 'lucide-react'
 
-// --- Data Definitions ---
+// Custom components
+import AILiveWriting from '@/components/AILiveWriting'
+import DynamicTrustIndicator from '@/components/DynamicTrustIndicator'
+import FloatingAIAssistant from '@/components/FloatingAIAssistant'
+import InteractiveSteps from '@/components/InteractiveSteps'
+import PersonalizedUserJourney from '@/components/PersonalizedUserJourney'
+import EnhancedFinalCTA from '@/components/EnhancedFinalCTA'
+import PremiumNavbar from '@/components/PremiumNavbar'
 
-/**
- * Definition av en funktion som visas i funktionskorten.
- */
-interface Feature {
-    icon: React.ElementType; // Lucide icon component
-    title: string;
-    description: string;
-    benefit: string;
-    gradient: string; // Tailwind gradient classes
-    href: string;
-}
+// Swiper components
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules'
 
-const features: Feature[] = [
-    {
-        icon: FileText,
-        title: "Personliga brev med AI",
-        description: "Skapa unika, träffsäkra personliga brev på sekunder. Vår AI analyserar ditt CV och jobbannonsen för att maximera dina chanser.",
-        benefit: "Sticker ut hos arbetsgivaren.",
-        gradient: "from-pink-500 to-purple-500",
-        href: "/create-letter",
-    },
-    {
-        icon: FileSearch,
-        title: "Djupgående CV-analys",
-        description: "Få konkret feedback för att förbättra ditt CV. Identifiera styrkor, svagheter och nyckelord som rekryterare letar efter.",
-        benefit: "Optimerar din profil.",
-        gradient: "from-blue-500 to-teal-500",
-        href: "/cv-analysis",
-    },
-    {
-        icon: Lightbulb,
-        title: "Anpassningsbar tonalitet",
-        description: "Justera enkelt tonen i ditt personliga brev (formell, entusiastisk etc.) för att perfekt spegla företagskulturen du söker till (Premium).",
-        benefit: "Matchar företagskulturen.",
-        gradient: "from-yellow-500 to-orange-500",
-        href: "/create-letter#tonalitet",
-    },
-    {
-        icon: BrainCircuit, // Behåller BrainCircuit för Feature-kortet, använder Sparkles i prisplanen
-        title: "Smarta insikter & matchning",
-        description: "Förstå hur väl din profil matchar kraven i jobbannonsen. Få datadrivna insikter för att vässa din ansökan ytterligare.",
-        benefit: "Ger dig ett övertag.",
-        gradient: "from-teal-500 to-cyan-500",
-        href: "/insights", // Hypotetisk framtida sida
-    },
-];
+// Swiper styles
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import 'swiper/css/effect-fade'
 
-/**
- * Definition av en användarpersona/användarfall.
- */
-interface Persona {
-    icon: React.ElementType;
-    title: string;
-    description: string;
-    color: string; // Tailwind text color class
-    bgColor: string; // Tailwind background color class
-}
+export default function HomePage() {
+  const [email, setEmail] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
+  const [swiperInstance, setSwiperInstance] = useState<any>(null)
+  const [playVideo, setPlayVideo] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-const personas: Persona[] = [
-    {
-        icon: GraduationCap,
-        title: "Nyexaminerad?",
-        description: "Saknar du lång arbetslivserfarenhet? Låt vår AI hjälpa dig lyfta fram relevanta projekt, utbildning och ambitioner i ditt personliga brev och CV.",
-        color: "text-pink-400",
-        bgColor: "bg-pink-900/30",
-    },
-    {
-        icon: Repeat,
-        title: "Karriärbytare?",
-        description: "Byter du bransch? Vi hjälper dig identifiera och formulera överförbara färdigheter och motivera ditt byte på ett övertygande sätt.",
-        color: "text-purple-400",
-        bgColor: "bg-purple-900/30",
-    },
-    {
-        icon: Briefcase,
-        title: "Erfaren specialist?",
-        description: "Svårt att kortfattat sammanfatta många års erfarenhet? Vår CV-analys hjälper dig att spetsa till din profil och fokusera på det mest relevanta för nästa steg.",
-        color: "text-blue-400",
-        bgColor: "bg-blue-900/30",
+  // Scroll animations
+  const { scrollY } = useScroll()
+  const backgroundY = useTransform(scrollY, [0, 500], [0, 150])
+  const backgroundOpacity = useTransform(scrollY, [0, 300], [1, 0.3])
+
+  // Track mouse for gradient effect
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY })
     }
-];
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
 
-/**
- * Definition av ett FAQ-item (fråga och svar).
- */
-interface FaqItem {
-    question: string;
-    answer: string;
-}
-
-const faqItems: FaqItem[] = [
-    {
-        question: "Hur skiljer sig gratis CV-analys från Premium?",
-        answer: "Gratisversionen ger dig en grundläggande översikt och identifierar uppenbara förbättringspunkter (2 analyser totalt). Premium ger en djupgående analys med specifika förslag på nyckelord, kvantifiering av prestationer, strukturförbättringar och obegränsade analyser." // Uppdaterad text
-    },
-    {
-        question: "Är min uppladdade data säker?",
-        answer: "Ja, säkerheten för din data är vår högsta prioritet. All dataöverföring är krypterad (SSL). Vi lagrar dina CV-texter och genererade brev säkert och delar dem aldrig med tredje part utan ditt uttryckliga medgivande. Du kan när som helst radera dina uppgifter från ditt konto."
-    },
-    {
-        question: "Hur 'smart' är AI:n? Vad baseras den på?",
-        answer: "Vår AI använder avancerade modeller (som GPT-4o) men är finjusterad med expert-designade instruktioner (prompts) specifikt framtagna för att skapa högkvalitativa, relevanta och anpassade jobbansökningar. Den är tränad att förstå sammanhanget i både ditt CV och jobbannonsen för att skapa bästa möjliga matchning."
-    },
-    {
-        question: "Kan jag lita på att texten blir unik och inte plagiat?",
-        answer: "Absolut. AI:n genererar text baserat på din unika input (CV och jobbannons). Varje genererat brev är unikt för den specifika kombinationen. Vi uppmuntrar dig dock alltid att granska och personifiera texten ytterligare för att säkerställa att den helt representerar dig."
-    },
-    {
-        question: "Hur fungerar betalning och kan jag avsluta när som helst?",
-        answer: "Premium kostar 149 kr per månad och betalas via säker kortbetalning (via Stripe). Det finns ingen bindningstid. Du kan enkelt avsluta din prenumeration när som helst direkt från dina kontoinställningar, och du behåller tillgången till Premium månaden ut."
-    },
-    {
-        question: "Vilka filformat stöds för CV-uppladdning?",
-        answer: "Vi stöder för närvarande uppladdning av CV i PDF (.pdf) och Microsoft Word (.docx) format. Du kan också klistra in texten direkt från ditt CV."
+  // Hantera email-formulär
+  const handleEmailSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (email) {
+      setIsLoading(true)
+      setTimeout(() => {
+        window.location.href = `/register?email=${encodeURIComponent(email)}`
+      }, 500)
     }
-];
+  }
 
-// --- Definition och data för videodemos ---
-interface VideoDemo {
-    title: string;
-    description: string; // Kort beskrivning för videon
-    videoSrc: string; // Sökväg till MP4-filen
-    posterSrc: string; // Sökväg till förhandsvisningsbilden
-}
+  // CV-mallar data
+  const cvTemplates = [
+    { id: 1, name: 'Modern Minimal', industry: 'Tech/Startup', svg: '/mallar/modern-minimal.svg', premium: false, users: '2.1K' },
+    { id: 2, name: 'Klassisk Professional', industry: 'Bank/Finans', svg: '/mallar/classic-professional.svg', premium: false, users: '1.8K' },
+    { id: 3, name: 'Clean Corporate', industry: 'Konsult/B2B', svg: '/mallar/clean-corporate.svg', premium: false, users: '1.5K' },
+    { id: 4, name: 'Executive Premium', industry: 'Ledning/Chef', svg: '/mallar/executive-premium.svg', premium: true, users: '920' },
+    { id: 5, name: 'Nordic Professional', industry: 'Alla branscher', svg: '/mallar/nordic-professional.svg', premium: true, users: '1.3K' },
+    { id: 6, name: 'Creative Edge', industry: 'Media/Design', svg: '/mallar/creative-edge.svg', premium: false, users: '780' },
+    { id: 7, name: 'Platinum Executive', industry: 'VD/Direktion', svg: '/mallar/platinum-executive.svg', premium: true, users: '450' },
+    { id: 8, name: 'Creative Minimal', industry: 'Kreativa yrken', svg: '/mallar/creative-minimal.svg', premium: true, users: '680' }
+  ]
 
-const videoDemos: VideoDemo[] = [
-    {
-        title: "Skapa Personliga Brev med AI",
-        description: "Se hur AI:n matchar ditt CV mot jobbannonsen och genererar ett anpassat utkast på sekunder.",
-        videoSrc: "/videos/Personligt%20brev%20-%20Jobbcoach.ai.mp4",
-        posterSrc: "/images/videocover/skriva%20personligt%20brev%20-%20jobbcoach.ai.png",
-    },
-    {
-        title: "Djupgående CV-Analys",
-        description: "Få omedelbar feedback på ditt CV, inklusive ATS-vänlighet och konkreta förbättringsförslag.",
-        videoSrc: "/videos/Analysera%20CV%20-%20Jobbcoach.ai.mp4",
-        posterSrc: "/images/videocover/cv-analys%20-%20jobbcoach.ai.png",
-    },
-    {
-        title: "Identifiera Kompetensgap",
-        description: "Upptäck vilka kunskaper du saknar för drömjobbet och få förslag på relevanta kurser och utvecklingsområden.",
-        videoSrc: "/videos/Kompetensanalys%20-%20Jobbcoach.ai.mp4",
-        posterSrc: "/images/videocover/Kompetensanalys%20-%20jobbcoach.ai.png",
-    },
-];
+  // Use cases för olika målgrupper
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-white to-slate-50/50">
 
-// --- Sub-Components ---
+      {/* Premium Navigation Bar */}
+      <PremiumNavbar />
 
-/**
- * En återanvändbar Accordion-komponent för FAQ-sektionen.
- */
-const FaqAccordion: React.FC<{ items: FaqItem[] }> = ({ items }) => {
-    const [openIndex, setOpenIndex] = useState<number | null>(null);
+      {/* Floating AI Assistant - Always visible */}
+      <FloatingAIAssistant />
 
-    const handleClick = (index: number) => {
-        setOpenIndex(openIndex === index ? null : index);
-    };
+      {/* Premium Hero Section with WOW factor */}
+      <section className="relative pt-32 pb-24 overflow-hidden">
+        {/* Morphing gradient background that follows mouse */}
+        <motion.div
+          className="absolute inset-0"
+          style={{ opacity: backgroundOpacity }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-white to-indigo-50/30" />
 
-    return (
-        <div className="space-y-4">
-            {items.map((item, index) => (
-                <div key={index} className="bg-navy-800 border border-navy-700 rounded-lg overflow-hidden">
-                    <button
-                        onClick={() => handleClick(index)}
-                        className="flex justify-between items-center w-full px-6 py-4 text-left text-white hover:bg-navy-700/50 focus:outline-none focus-visible:ring focus-visible:ring-pink-500 focus-visible:ring-opacity-75 transition-colors duration-200"
-                        aria-expanded={openIndex === index}
-                        aria-controls={`faq-answer-${index}`}
-                    >
-                        <span className="font-medium text-base">{item.question}</span>
-                        {openIndex === index ? (
-                            <ChevronUp className="w-5 h-5 text-pink-400 flex-shrink-0" />
-                        ) : (
-                            <ChevronDown className="w-5 h-5 text-gray-400 flex-shrink-0" />
-                        )}
-                    </button>
-                    {openIndex === index && (
-                        <div
-                            id={`faq-answer-${index}`}
-                            className="px-6 pb-4 pt-2 border-t border-navy-700"
-                            role="region"
-                        >
-                            <p className="text-gray-300 text-sm leading-relaxed">{item.answer}</p>
-                        </div>
-                    )}
+          {/* Mouse-following gradient */}
+          <motion.div
+            className="absolute w-[600px] h-[600px] rounded-full"
+            style={{
+              background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
+              left: mousePosition.x - 300,
+              top: mousePosition.y - 300,
+              filter: 'blur(40px)',
+            }}
+            animate={{
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              repeatType: 'reverse',
+            }}
+          />
+
+          {/* Animated gradient orbs */}
+          <motion.div
+            className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full mix-blend-multiply filter blur-3xl"
+            animate={{
+              x: [0, 100, 0],
+              y: [0, -50, 0],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              repeatType: 'reverse',
+            }}
+          />
+          <motion.div
+            className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full mix-blend-multiply filter blur-3xl"
+            animate={{
+              x: [0, -100, 0],
+              y: [0, 50, 0],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              repeatType: 'reverse',
+            }}
+          />
+
+          {/* Pattern overlay */}
+          <div
+            className="absolute inset-0 opacity-30 pattern-overlay"
+          />
+        </motion.div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Vänster kolumn - Text */}
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                {/* Dynamic trust indicator instead of static badge */}
+                <div className="mb-8">
+                  <DynamicTrustIndicator />
                 </div>
-            ))}
+
+                {/* Huvudrubrik with animation */}
+                <motion.h1
+                  className="text-5xl md:text-6xl font-extrabold text-slate-900 mb-6 leading-[1.1]"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.8 }}
+                >
+                  Landa drömjobbet{' '}
+                  <motion.span
+                    className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent"
+                    animate={{
+                      backgroundPosition: ['0%', '100%', '0%'],
+                    }}
+                    transition={{
+                      duration: 5,
+                      repeat: Infinity,
+                      repeatType: 'loop',
+                    }}
+                    style={{
+                      backgroundSize: '200% 200%',
+                    }}
+                  >
+                    snabbare med AI
+                  </motion.span>
+                </motion.h1>
+
+                {/* Underrubrik */}
+                <p className="text-xl text-slate-600 mb-8 leading-relaxed">
+                  Skapa vinnande personliga brev på 60 sekunder med AI som förstår svenska arbetsmarknaden.
+                  <span className="font-semibold text-slate-900"> 89% av våra användare får intervju inom 2 veckor.</span>
+                </p>
+
+                {/* CTA-formulär with magnetic effect */}
+                <motion.form
+                  onSubmit={handleEmailSubmit}
+                  className="mb-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.8 }}
+                >
+                  <div className="relative">
+                    <motion.div
+                      className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-lg blur opacity-20"
+                      animate={{
+                        opacity: [0.2, 0.3, 0.2],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                      }}
+                    />
+                    <div className="relative flex flex-col sm:flex-row gap-3 bg-white rounded-lg p-2">
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="din@email.se"
+                        className="flex-1 px-5 py-3.5 bg-transparent text-base focus:outline-none"
+                        required
+                      />
+                      <motion.button
+                        type="submit"
+                        disabled={isLoading}
+                        className="px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-lg hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 disabled:opacity-50 whitespace-nowrap"
+                        whileHover={{ scale: 1.02, y: -2 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                      {isLoading ? (
+                        <span className="flex items-center gap-2">
+                          <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                          </svg>
+                          Laddar...
+                        </span>
+                      ) : (
+                        <>Starta gratis idag</>
+                      )}
+                      </motion.button>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4 mt-4 text-sm text-slate-500">
+                    <span className="flex items-center gap-1">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      Gratis CV-analys
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      Inga bindningar
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      GDPR-säker
+                    </span>
+                  </div>
+                </motion.form>
+
+                {/* Animated social proof */}
+                <motion.div
+                  className="flex items-center gap-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.6, duration: 0.8 }}
+                >
+                  <div className="flex -space-x-2">
+                    {[1,2,3,4,5].map(i => (
+                      <motion.div
+                        key={i}
+                        className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-200 to-slate-300 border-2 border-white"
+                        initial={{ scale: 0, rotate: -180 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ delay: 0.8 + i * 0.1, type: "spring", stiffness: 260, damping: 20 }}
+                      />
+                    ))}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1">
+                      {[1,2,3,4,5].map(i => (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, scale: 0 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 1.2 + i * 0.05 }}
+                        >
+                          <Star className={`w-4 h-4 ${i < 5 ? 'text-yellow-400 fill-current' : 'text-slate-300'}`} />
+                        </motion.div>
+                      ))}
+                    </div>
+                    <p className="text-sm text-slate-600">4.9/5 från 200+ recensioner</p>
+                  </div>
+                </motion.div>
+              </motion.div>
+
+              {/* Höger kolumn - AI Live Writing Demo */}
+              <motion.div
+                className="relative lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 w-full lg:w-1/2"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4, duration: 0.8 }}
+              >
+                <AILiveWriting />
+              </motion.div>
+            </div>
+          </div>
         </div>
-    );
-};
+      </section>
 
-// --- Main Page Component ---
+      {/* Logo Bar - Som Databox */}
+      <section className="py-12 bg-white border-y border-slate-100">
+        <div className="container mx-auto px-4">
+          <p className="text-center text-sm font-medium text-slate-500 mb-8">
+            Våra användare har använt vår tjänst för att söka roller hos:
+          </p>
+          <div className="grid grid-cols-3 md:grid-cols-7 gap-8 items-center justify-items-center opacity-60 hover:opacity-100 transition-opacity">
+            {['Spotify', 'Friskis & Svettis', 'H&M', 'Anticimex', 'IKEA', 'SEB', 'Klarna'].map((company) => (
+              <div key={company} className="text-xl font-bold text-slate-400 hover:text-slate-600 transition-colors">
+                {company}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-export default function Home() {
-    // State för användarsession och laddningsstatus
-    const [session, setSession] = useState<any>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(true);
+      {/* Hur det fungerar - Interactive 3-step process with wow factor */}
+      <section className="py-24 bg-white overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <motion.div
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+                Så enkelt är det
+              </h2>
+              <p className="text-xl text-slate-600">
+                Från jobbannons till färdig ansökan på tre enkla steg
+              </p>
+            </motion.div>
 
-    // --- State för modalen ---
-    const [modalVideoSrc, setModalVideoSrc] = useState<string | null>(null);
-    const [modalTitle, setModalTitle] = useState<string>('');
+            <InteractiveSteps />
 
-    // Effekt för att hämta användarsession vid sidladdning
-    useEffect(() => {
-        async function getSession() {
-             try {
-                 setIsLoading(true);
-                 const { getSupabaseClient } = await import('@/lib/supabase/client-manager');
-                 const supabase = getSupabaseClient();
-                 const { data } = await supabase.auth.getSession();
-                 setSession(data.session);
-                 
-                 // Redirect inloggade användare till dashboard
-                 if (data.session) {
-                     console.log('Användare inloggad, omdirigerar till dashboard...');
-                     window.location.href = '/dashboard';
-                     return;
-                 }
-             } catch (error) {
-                 console.error('Kunde inte hämta session:', error);
-                 setSession(null);
-             } finally {
-                 setIsLoading(false);
-             }
-        }
-        getSession();
-    }, []);
+            <motion.div
+              className="text-center mt-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+            >
+              <motion.button
+                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Testa nu - helt gratis
+                <ArrowRight className="inline-block ml-2 w-5 h-5" />
+              </motion.button>
+              <motion.p
+                className="mt-4 text-sm text-slate-500"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1.2 }}
+              >
+                Ingen registrering krävs • Klart på 60 sekunder
+              </motion.p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
-    // --- Hantera Escape-tangent och Body Scroll för modal ---
-    useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === 'Escape') {
-                closeModal();
-            }
-        };
+      {/* Värdeproposition - Ny version baserad på rekommendationer */}
+      <section className="py-24 bg-gradient-to-b from-slate-50 to-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+                Vad gör oss unika?
+              </h2>
+              <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+                Vi är den enda AI-tjänsten som verkligen förstår svenska arbetsmarknaden
+              </p>
+            </div>
 
-        if (modalVideoSrc) {
-            window.addEventListener('keydown', handleKeyDown);
-            document.body.style.overflow = 'hidden';
-        } else {
-            window.removeEventListener('keydown', handleKeyDown);
-            document.body.style.overflow = 'unset';
-        }
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="bg-white rounded-2xl p-8 shadow-xl shadow-slate-900/5 border border-slate-100">
+                <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mb-6">
+                  <Target className="w-7 h-7 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">
+                  3x högre träffsäkerhet
+                </h3>
+                <p className="text-slate-600 mb-4">
+                  Våra algoritmer är tränade på över 50,000 svenska jobbannonser och CV:n
+                </p>
+                <div className="pt-4 border-t border-slate-100">
+                  <p className="text-sm font-medium text-slate-500">Jämfört med generiska AI-verktyg</p>
+                  <div className="flex items-center gap-2 mt-2">
+                    <div className="flex-1 h-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full" />
+                    <span className="text-lg font-bold text-slate-900">+300%</span>
+                  </div>
+                </div>
+              </div>
 
-        return () => {
-            window.removeEventListener('keydown', handleKeyDown);
-            document.body.style.overflow = 'unset';
-        };
-    }, [modalVideoSrc]); // Körs när modalVideoSrc ändras
-
-    // Visar laddningsindikator
-    if (isLoading) {
-        return (
-             <div className="flex flex-col items-center justify-center min-h-screen bg-navy-950">
-                 <div className="w-16 h-16 border-4 border-pink-500 border-t-transparent rounded-full animate-spin" aria-label="Laddar innehåll"></div>
-                 <p className="mt-4 text-white">Laddar jobbcoach.ai...</p>
-             </div>
-         );
-    }
-
-    // --- Funktioner för att hantera modalen ---
-    const openModal = (src: string, title: string) => {
-        setModalVideoSrc(src);
-        setModalTitle(title);
-    };
-
-    const closeModal = () => {
-        setModalVideoSrc(null);
-        setModalTitle('');
-    };
-
-    // Rendera huvudsidan
-    return (
-        <>
-            {/* SEO och Metadata */}
-            <Head>
-                <title>Jobbcoach.ai | Din digitala jobbcoach - AI för CV & personligt brev</title>
-                <meta name="description" content="Jobbcoach.ai är din smarta digitala jobbcoach. Använd AI för att skapa vinnande personliga brev, analysera ditt CV, identifiera kompetensgap och optimera din jobbsökning. Testa gratis!"/>
-                <meta name="keywords" content="digital jobbcoach, jobbcoach, AI, personligt brev, skriva personligt brev, CV-analys, analysera CV, kompetensutveckling, kompetensanalys, ATS-vänlighet, jobbsökning, karriär, AI-verktyg, jobbansökan, jobbcoach.ai, gratis personligt brev"/>
-                <meta property="og:title" content="Jobbcoach.ai | Din digitala jobbcoach - AI för CV & personligt brev" />
-                <meta property="og:description" content="Få experthjälp i jobbsökningen med Jobbcoach.ai. Skapa ansökningar som sticker ut, få CV-insikter och utvecklingsförslag. Testa gratis!" />
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://jobbcoach.ai" />
-                <meta property="og:image" content="https://jobbcoach.ai/images/jobbcoach-og-main.png" />
-                <link rel="canonical" href="https://jobbcoach.ai" />
-            </Head>
-
-            {/* Huvudinnehåll */}
-            <div className="flex flex-col min-h-screen bg-gradient-to-b from-navy-950 via-navy-900 to-navy-950">
-
-                {/* === Hero Section === */}
-                <section className="relative pt-24 pb-16 text-center lg:pt-32 lg:pb-24 overflow-hidden">
-                   <div className="absolute inset-0 opacity-30" aria-hidden="true">
-                       <div className="absolute bottom-0 left-0 -translate-x-1/4 translate-y-1/4 w-96 h-96 bg-pink-600 rounded-full filter blur-3xl"></div>
-                       <div className="absolute top-0 right-0 translate-x-1/4 -translate-y-1/4 w-96 h-96 bg-blue-600 rounded-full filter blur-3xl"></div>
-                   </div>
-                   <div className="container relative px-4 mx-auto z-10">
-                       <span className="inline-block px-4 py-1 mb-4 text-sm font-semibold text-pink-400 bg-pink-900/50 rounded-full border border-pink-800">
-                           Sveriges smartaste digitala jobbcoach
-                       </span>
-                       <h1 className="mb-6 text-5xl font-bold tracking-tight text-white sm:text-6xl md:text-7xl">
-                           Landa ditt drömjobb <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">snabbare</span>
-                       </h1>
-                       <p className="max-w-2xl mx-auto mb-8 text-xl text-gray-300">
-                           Låt vår AI-drivna plattform guida dig. Skapa vinnande ansökningar, få CV-insikter och optimera din jobbsökning – allt på ett ställe.
-                       </p>
-                       <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                           {session ? (
-                               <Link href="/register" className="inline-flex items-center justify-center w-full px-8 py-4 text-lg font-medium text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg shadow-lg hover:shadow-xl hover:from-pink-700 hover:to-purple-700 group sm:w-auto">
-                                   Prova gratis nu
-                                   <ChevronRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-                               </Link>
-                           ) : (
-                               <>
-                                   <Link href="/register" className="inline-flex items-center justify-center w-full px-8 py-4 text-lg font-medium text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg shadow-lg hover:shadow-xl hover:from-pink-700 hover:to-purple-700 group sm:w-auto animate-pulse-pink">
-                                       Kom igång gratis
-                                       <ChevronRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-                                   </Link>
-                                   <Link href="/login" className="inline-flex items-center justify-center w-full px-8 py-4 text-lg font-medium text-gray-300 transition-colors bg-navy-800/50 border border-gray-700 rounded-lg hover:bg-navy-700/70 hover:text-white sm:w-auto">
-                                       Logga in
-                                   </Link>
-                               </>
-                           )}
-                       </div>
-                       <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 mt-10 text-sm text-gray-400">
-                           <div className="flex items-center"> <CheckCircle className="w-4 h-4 mr-1.5 text-pink-500 flex-shrink-0" /> <span>AI-drivna personliga brev</span> </div>
-                           <div className="flex items-center"> <CheckCircle className="w-4 h-4 mr-1.5 text-pink-500 flex-shrink-0" /> <span>CV-analys & insikter</span> </div>
-                           <div className="flex items-center"> <CheckCircle className="w-4 h-4 mr-1.5 text-pink-500 flex-shrink-0" /> <span>Snabbt & enkelt</span> </div>
-                       </div>
-                   </div>
-                </section>
-
-                {/* === Funktions-sektion === */}
-                <section id="funktioner" aria-labelledby="features-heading" className="py-16 bg-navy-900 lg:py-24">
-                    <div className="container px-4 mx-auto">
-                       <div className="max-w-3xl mx-auto mb-16 text-center">
-                           <h2 id="features-heading" className="mb-4 text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
-                               Din kompletta <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">jobbsökar-assistent</span>
-                           </h2>
-                           <p className="text-xl text-gray-300">
-                               Jobbcoach.ai ger dig verktygen och insikterna för att lyckas. Från första utkast till finslipad ansökan.
-                           </p>
-                       </div>
-                       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-                            {features.map((feature, index) => (
-                                <div key={index} className="relative group p-6 bg-navy-800 border border-navy-700 rounded-xl overflow-hidden transition-all duration-300 hover:border-pink-500/50 hover:shadow-xl hover:shadow-pink-500/10 hover:-translate-y-2 flex flex-col items-center text-center">
-                                    <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} aria-hidden="true"></div>
-                                    <div className={`flex items-center justify-center w-16 h-16 mb-6 rounded-full bg-gradient-to-br ${feature.gradient} text-white shadow-lg flex-shrink-0`}>
-                                        <feature.icon className="w-8 h-8" aria-hidden="true" />
-                                    </div>
-                                    <h3 className="mb-3 text-xl font-semibold text-white">{feature.title}</h3>
-                                    <p className="text-gray-300 text-sm mb-3 flex-grow">{feature.description}</p>
-                                    <p className="text-sm font-medium text-pink-400 mt-auto">
-                                        <TrendingUp className="inline w-4 h-4 mr-1" aria-hidden="true" /> {feature.benefit}
-                                    </p>
-                                </div>
-                            ))}
-                       </div>
+              <div className="bg-white rounded-2xl p-8 shadow-xl shadow-slate-900/5 border border-slate-100">
+                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mb-6">
+                  <Clock className="w-7 h-7 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">
+                  Spara 2 timmar per ansökan
+                </h3>
+                <p className="text-slate-600 mb-4">
+                  Från research till färdigt brev på 60 sekunder istället för timmar
+                </p>
+                <div className="pt-4 border-t border-slate-100">
+                  <p className="text-sm font-medium text-slate-500">Tid per ansökan</p>
+                  <div className="flex items-center justify-between mt-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-slate-500">Förr:</span>
+                      <span className="font-bold text-slate-400 line-through">2.5h</span>
                     </div>
-                </section>
-
-                {/* === UPPDATERAD "Kom igång"-sektion === */}
-                <section id="kom-igang" aria-labelledby="how-it-works-heading" className="py-16 bg-navy-950 lg:py-24 relative overflow-hidden">
-                   <div className="absolute inset-0 opacity-10" style={{backgroundImage: 'radial-gradient(circle at center, rgba(236, 72, 153, 0.2) 1px, transparent 1px)', backgroundSize: '30px 30px'}} aria-hidden="true"></div>
-                   <div className="container relative px-4 mx-auto z-10">
-                       <div className="max-w-3xl mx-auto mb-16 text-center">
-                           <h2 id="how-it-works-heading" className="mb-4 text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
-                               Kom igång på <span className="text-pink-400">3 enkla steg</span>
-                           </h2>
-                           <p className="text-xl text-gray-300">
-                               Börja använda Jobbcoach.ai och effektivisera din jobbsökning direkt.
-                           </p>
-                       </div>
-                       <div className="flex flex-col lg:flex-row items-center lg:items-stretch justify-center gap-8 lg:gap-4">
-                           {/* Steg 1: Skapa Konto */}
-                           <div className="flex flex-col items-center text-center max-w-sm p-6 bg-navy-800/80 backdrop-blur-sm border border-navy-700 rounded-xl transition-all duration-300 hover:bg-navy-700/70 hover:border-pink-800/50 hover:scale-105">
-                               <div className="flex items-center justify-center w-16 h-16 mb-5 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 text-white shadow-lg flex-shrink-0">
-                                   <UserPlus className="w-8 h-8" aria-hidden="true"/>
-                               </div>
-                               <h3 className="mb-2 text-xl font-semibold text-white">1. Skapa ditt konto</h3>
-                               <p className="text-sm text-gray-300">
-                                   Registrera dig snabbt och gratis för att få tillgång till våra kraftfulla AI-verktyg.
-                               </p>
-                           </div>
-                           <ArrowRight className="w-8 h-8 text-pink-500/50 hidden lg:block mx-4 self-center shrink-0 transform rotate-90 lg:rotate-0" aria-hidden="true"/>
-                           {/* Steg 2: Ladda upp CV */}
-                           <div className="flex flex-col items-center text-center max-w-sm p-6 bg-navy-800/80 backdrop-blur-sm border border-navy-700 rounded-xl transition-all duration-300 hover:bg-navy-700/70 hover:border-purple-800/50 hover:scale-105">
-                                <div className="flex items-center justify-center w-16 h-16 mb-5 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 text-white shadow-lg flex-shrink-0">
-                                    <Upload className="w-8 h-8" aria-hidden="true"/>
-                                </div>
-                                <h3 className="mb-2 text-xl font-semibold text-white">2. Ladda upp CV</h3>
-                                <p className="text-sm text-gray-300">
-                                    Importera ditt CV (PDF/DOCX) eller klistra in texten så att AI:n kan börja jobba.
-                                </p>
-                           </div>
-                           <ArrowRight className="w-8 h-8 text-pink-500/50 hidden lg:block mx-4 self-center shrink-0 transform rotate-90 lg:rotate-0" aria-hidden="true"/>
-                           {/* Steg 3: Nyttja Funktionerna */}
-                           <div className="flex flex-col items-center text-center max-w-sm p-6 bg-navy-800/80 backdrop-blur-sm border border-navy-700 rounded-xl transition-all duration-300 hover:bg-navy-700/70 hover:border-blue-800/50 hover:scale-105">
-                                <div className="flex items-center justify-center w-16 h-16 mb-5 rounded-full bg-gradient-to-br from-blue-600 to-teal-600 text-white shadow-lg flex-shrink-0">
-                                    <Zap className="w-8 h-8" aria-hidden="true"/>
-                                </div>
-                                <h3 className="mb-2 text-xl font-semibold text-white">3. Nyttja AI-verktygen</h3>
-                                <p className="text-sm text-gray-300">
-                                    Skapa personliga brev, analysera CV, hitta kompetensgap och mycket mer!
-                                </p>
-                           </div>
-                       </div>
-                       <p className="mt-12 text-center text-gray-400 text-base">
-                           Så enkelt är det att turboladda din jobbsökning med AI.
-                       </p>
-                   </div>
-                </section>
-                {/* === SLUT UPPDATERAD "Kom igång"-sektion === */}
-
-                {/* === Utforska Kärnfunktionerna (Video Demos med Autoplay + Modal) === */}
-                <section id="funktioner-video" aria-labelledby="video-demos-heading" className="py-16 bg-navy-900 lg:py-24">
-                   <div className="container px-4 mx-auto">
-                       <div className="max-w-3xl mx-auto mb-12 text-center lg:mb-16">
-                           <h2 id="video-demos-heading" className="mb-4 text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
-                               Utforska <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Kärnfunktionerna</span>
-                           </h2>
-                           <p className="text-xl text-gray-300">
-                               Se hur Jobbcoach.ai förvandlar din jobbsökning med AI-driven analys och innehållsskapande.
-                           </p>
-                       </div>
-                       <div className="grid grid-cols-1 gap-8 md:grid-cols-3 lg:gap-10">
-                           {videoDemos.map((demo, index) => (
-                               <div
-                                   key={index}
-                                   onClick={() => openModal(demo.videoSrc, demo.title)} // Gör kortet klickbart för modal
-                                   className="flex flex-col overflow-hidden transition-all duration-300 bg-navy-800 border border-navy-700 rounded-xl hover:border-pink-500/50 hover:shadow-xl hover:shadow-pink-500/10 hover:-translate-y-1 cursor-pointer group" // Styling för klickbarhet + hover
-                               >
-                                   <div className="relative w-full aspect-video bg-navy-900"> {/* Relativ position för overlay */}
-                                       <video
-                                           src={demo.videoSrc}
-                                           poster={demo.posterSrc}
-                                           width="100%"
-                                           height="auto"
-                                           loop
-                                           muted
-                                           autoPlay
-                                           playsInline
-                                           preload="metadata"
-                                           className="block object-cover w-full h-full rounded-t-xl"
-                                           aria-label={`Autospelande demonstration av ${demo.title}. Klicka för att se större version med kontroller.`}
-                                       >
-                                           {/* Fallback text mindre kritisk när poster finns */}
-                                       </video>
-                                       {/* Play-ikon overlay visas vid hover */}
-                                       <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 bg-black bg-opacity-20 opacity-0 group-hover:opacity-100 pointer-events-none">
-                                           <PlayCircle className="w-16 h-16 text-white opacity-70" />
-                                       </div>
-                                   </div>
-                                   <div className="p-5 lg:p-6">
-                                       <h3 className="mb-2 text-lg font-semibold text-white lg:text-xl">{demo.title}</h3>
-                                       <p className="text-sm text-gray-300 lg:text-base">{demo.description}</p>
-                                   </div>
-                               </div>
-                           ))}
-                       </div>
-                   </div>
-               </section>
-               {/* === SLUT Utforska Kärnfunktionerna === */}
-
-
-                {/* === Prisplaner (UPPDATERAD 2024-07-16) === */}
-                <section id="priser" aria-labelledby="pricing-heading" className="py-16 bg-navy-900 lg:py-24">
-                     <div className="container px-4 mx-auto">
-                         <div className="max-w-3xl mx-auto mb-16 text-center">
-                             <h2 id="pricing-heading" className="mb-4 text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
-                                 Enkel prissättning som passar alla
-                             </h2>
-                             <p className="text-xl text-gray-300">
-                                 Starta gratis och upplev grunderna, eller gå Premium för full tillgång.
-                             </p>
-                         </div>
-                         <div className="grid max-w-4xl gap-8 mx-auto lg:grid-cols-2 items-stretch">
-                            {/* --- UPDATED Gratis plan --- */}
-                            <div className="flex flex-col overflow-hidden bg-navy-800 border border-gray-700 rounded-2xl transition-all duration-300 hover:border-gray-500 hover:shadow-lg">
-                                <div className="p-8 pb-6 flex-grow">
-                                    <h3 className="mb-2 text-2xl font-semibold text-white">Gratis</h3>
-                                    {/* Uppdaterad beskrivning */}
-                                    <p className="mb-6 text-gray-400 h-12">Testa grundläggande funktioner och upplev AI-kraften.</p>
-                                    <div className="mb-6"> <span className="text-4xl font-bold text-white">0 kr</span> <span className="text-gray-400"> / för alltid</span> </div>
-                                    <p className="mb-4 text-sm font-semibold text-gray-300">Detta ingår:</p>
-                                    <ul className="space-y-3 text-sm">
-                                        {/* Uppdaterade gratis-features */}
-                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-500 shrink-0" /> <span className="text-gray-300">2 AI-genererade personliga brev</span> </li>
-                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-500 shrink-0" /> <span className="text-gray-300">2 CV-analyser (grundläggande)</span> </li>
-                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-500 shrink-0" /> <span className="text-gray-300">2 Kompetensanalyser (grundläggande)</span> </li>
-                                        {/* Uppdaterade låsta features */}
-                                        <li className="flex items-center opacity-60"> <Lock className="w-5 h-5 mr-3 text-gray-500 shrink-0" /> <span className="text-gray-400">Djupgående CV-analys (Premium)</span> </li>
-                                        <li className="flex items-center opacity-60"> <Lock className="w-5 h-5 mr-3 text-gray-500 shrink-0" /> <span className="text-gray-400">Djupgående kompetensanalys (Premium)</span> </li>
-                                        <li className="flex items-center opacity-60"> <Lock className="w-5 h-5 mr-3 text-gray-500 shrink-0" /> <span className="text-gray-400">Anpassningsbar tonalitet (Premium)</span> </li>
-                                        <li className="flex items-center opacity-60"> <Lock className="w-5 h-5 mr-3 text-gray-500 shrink-0" /> <span className="text-gray-400">Obegränsad användning (Premium)</span> </li>
-                                    </ul>
-                                </div>
-                                <div className="p-6 mt-auto bg-navy-800 border-t border-navy-700 rounded-b-2xl">
-                                    {/* Uppdaterad knapptext */}
-                                    <Link href="/register" className="flex items-center justify-center w-full px-6 py-3 font-medium text-white transition-colors bg-gray-600 rounded-lg hover:bg-gray-500 text-center">
-                                        Registrera gratiskonto
-                                        <ArrowRight className="w-4 h-4 ml-2"/>
-                                    </Link>
-                                </div>
-                            </div>
-                            {/* --- UPDATED Premium plan --- */}
-                             <div className="relative flex flex-col overflow-hidden bg-navy-800 border-2 border-pink-500 rounded-2xl shadow-xl shadow-pink-500/10 transition-all duration-300 hover:shadow-pink-500/20">
-                                <div className="absolute top-0 right-0 px-4 py-1 text-xs font-bold tracking-wider text-white uppercase bg-gradient-to-r from-pink-600 to-purple-600 rounded-bl-lg rounded-tr-lg z-10">
-                                    Mest populär
-                                </div>
-                                <div className="absolute inset-0 opacity-10 bg-gradient-to-br from-pink-500/50 via-transparent to-purple-500/50 rounded-2xl" aria-hidden="true"></div>
-                                <div className="p-8 pb-6 flex-grow relative z-10">
-                                    <h3 className="mb-2 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">Premium</h3>
-                                    {/* Uppdaterad beskrivning */}
-                                    <p className="mb-6 text-gray-400 h-12">Lås upp full potential och maximera dina chanser med obegränsad tillgång.</p>
-                                    <div className="mb-6"> <span className="text-4xl font-bold text-white">149 kr</span> <span className="text-gray-400"> / månad</span> </div>
-                                    <p className="mb-4 text-sm font-semibold text-gray-300">Allt i Gratis, plus:</p>
-                                    <ul className="space-y-3 text-sm">
-                                        {/* Uppdaterade premium-features med nya ikoner & text */}
-                                        <li className="flex items-center"> <Zap className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsad AI-generering</span> </li>
-                                        <li className="flex items-center"> <FileSearch className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsad & djupgående CV-analys</span> </li>
-                                        <li className="flex items-center"> <FileSearch className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsad & djupgående kompetensanalys</span> </li>
-                                        <li className="flex items-center"> <Save className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Obegränsat antal sparade ansökningar</span> </li>
-                                        <li className="flex items-center"> <Lightbulb className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">AI-optimerad & anpassningsbar tonalitet</span> </li>
-                                        <li className="flex items-center"> <Sparkles className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Avancerade matchningsinsikter</span> </li>
-                                        <li className="flex items-center"> <CheckCircle className="w-5 h-5 mr-3 text-pink-400 shrink-0" /> <span className="text-gray-300 font-medium">Prioriterad support</span> </li>
-                                    </ul>
-                                </div>
-                                <div className="p-6 mt-auto relative z-10 bg-gradient-to-t from-navy-800 via-navy-800 to-transparent border-t-2 border-pink-500 rounded-b-2xl">
-                                    {/* Uppdaterad knapptext & stil */}
-                                    <Link href="/register?plan=premium" className="flex items-center justify-center w-full px-6 py-3 font-medium text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-fuchsia-600 rounded-lg hover:from-pink-700 hover:to-fuchsia-700 hover:shadow-lg text-center">
-                                        Uppgradera till Premium
-                                        <ArrowRight className="w-4 h-4 ml-2"/>
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                         <p className="mt-12 text-center text-sm text-gray-400">
-                             Alla priser är inklusive moms. Ingen bindningstid, avsluta när du vill.
-                         </p>
+                    <ArrowRight className="w-4 h-4 text-slate-400" />
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-slate-500">Nu:</span>
+                      <span className="font-bold text-green-600">60s</span>
                     </div>
-                </section>
-                 {/* === SLUT Prisplaner === */}
+                  </div>
+                </div>
+              </div>
 
-                {/* === Varför Välja Oss & Omdömen (Med konkretisering) === */}
-                <section aria-labelledby="why-choose-us-heading" className="py-16 bg-navy-950 lg:py-24">
-                    <div className="container px-4 mx-auto">
-                        <div className="max-w-3xl mx-auto mb-16 text-center">
-                            <h2 id="why-choose-us-heading" className="mb-4 text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
-                                Ge din jobbsökning <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">superkrafter</span>
-                            </h2>
-                            <p className="text-xl text-gray-300">
-                                Jobbcoach.ai är mer än bara ett verktyg – det är din strategiska partner för att nå dina karriärmål.
-                            </p>
-                        </div>
-                        <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
-                            {/* Vänsterkolumn: Fördelar */}
-                            <div className="mt-4 lg:mt-0">
-                                <h3 className="text-2xl font-semibold text-white mb-6 text-center lg:text-left">Fördelarna med Jobbcoach.ai:</h3>
-                                <ul className="space-y-6">
-                                    <li className="flex items-start p-4 bg-navy-800/50 rounded-lg border border-navy-700">
-                                        <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full shadow-md mt-1"> <Target className="w-5 h-5 text-white" /> </div>
-                                        <div className="ml-4">
-                                            <h4 className="mb-1 text-lg font-semibold text-white">Stå ut från mängden</h4>
-                                            <p className="text-gray-300 text-sm mb-3">Skapa unika och relevanta ansökningar som fångar rekryterarens intresse direkt, istället för generiska mallar.</p>
-                                            <div className="mt-2 p-2 bg-navy-900/50 border border-navy-600 rounded text-xs text-gray-400 italic relative overflow-hidden">
-                                                 <div className="absolute inset-0 bg-gradient-to-r from-pink-500/10 via-transparent to-transparent" aria-hidden="true"></div>
-                                                "...min erfarenhet av <span className='text-pink-400 not-italic font-medium'>projektledning i agila team</span>, som nämns i er annons, gör att jag snabbt kan..."
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="flex items-start p-4 bg-navy-800/50 rounded-lg border border-navy-700">
-                                        <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-500 to-teal-500 rounded-full shadow-md mt-1"> <BrainCircuit className="w-5 h-5 text-white" /> </div>
-                                        <div className="ml-4">
-                                            <h4 className="mb-1 text-lg font-semibold text-white">Förstå dina styrkor</h4>
-                                            <p className="text-gray-300 text-sm mb-3">Få objektiv feedback på ditt CV och lär dig hur du bäst presenterar din kompetens och erfarenhet.</p>
-                                            <div className="mt-2 p-2 bg-navy-900/50 border border-navy-600 rounded text-xs space-y-1">
-                                                <div className="flex items-center text-blue-400"><FileSearch className="w-3 h-3 mr-1.5" aria-hidden="true"/> Nyckelord Matchning: <span className="font-semibold ml-1">85%</span></div>
-                                                <div className="text-gray-400"><Lightbulb className="w-3 h-3 mr-1.5 inline text-yellow-400" aria-hidden="true"/> Förslag: Kvantifiera prestationer under 'Projektledare'-rollen.</div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li className="flex items-start p-4 bg-navy-800/50 rounded-lg border border-navy-700">
-                                        <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full shadow-md mt-1"> <Clock className="w-5 h-5 text-white" /> </div>
-                                        <div className="ml-4">
-                                            <h4 className="mb-1 text-lg font-semibold text-white">Effektivisera processen</h4>
-                                            <p className="text-gray-300 text-sm mb-3">Spara timmar av arbete på varje ansökan och lägg din energi på nätverkande och intervjuförberedelser.</p>
-                                            <div className="mt-2 text-sm font-medium text-orange-400">
-                                                <Clock className="inline w-4 h-4 mr-1" aria-hidden="true" /> Från timmar av skrivkramp till minuter.
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            {/* Högerkolumn: Testimonials */}
-                            <div className="relative">
-                                 <div className="absolute inset-x-0 top-0 h-64 bg-gradient-to-b from-purple-900/30 to-transparent filter blur-3xl -z-10" aria-hidden="true"></div>
-                                 <div className="p-8 bg-navy-800 border border-navy-700 rounded-xl shadow-xl">
-                                    <h3 className="mb-8 text-2xl font-semibold text-center text-white">Vad våra användare säger:</h3>
-                                    <div className="space-y-6">
-                                        <blockquote className="p-4 bg-navy-700/50 border border-navy-600 rounded-lg hover:bg-navy-700/70 transition-colors duration-200">
-                                            <div className="flex items-center mb-2" aria-label="Betyg: 5 av 5 stjärnor">
-                                                {[...Array(5)].map((_, i) => ( <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400 mr-0.5" /> ))}
-                                            </div>
-                                            <p className="mb-3 italic text-gray-300 text-[0.9rem] leading-relaxed">
-                                                "Jobbcoach.ai hjälpte mig att få tre intervjuer på en vecka! De personliga breven gjorde verkligen skillnad."
-                                            </p>
-                                            <footer className="font-semibold text-sm text-white">- Sofia L.</footer>
-                                        </blockquote>
-                                        <blockquote className="p-4 bg-navy-700/50 border border-navy-600 rounded-lg hover:bg-navy-700/70 transition-colors duration-200">
-                                            <div className="flex items-center mb-2" aria-label="Betyg: 5 av 5 stjärnor">
-                                                {[...Array(5)].map((_, i) => ( <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400 mr-0.5" /> ))}
-                                            </div>
-                                            <p className="mb-3 italic text-gray-300 text-[0.9rem] leading-relaxed">
-                                                "Jag sparar otroligt mycket tid per ansökan och får mycket bättre respons från rekryterare nu."
-                                            </p>
-                                            <footer className="font-semibold text-sm text-white">- Johan K.</footer>
-                                        </blockquote>
-                                        <blockquote className="p-4 bg-navy-700/50 border border-navy-600 rounded-lg hover:bg-navy-700/70 transition-colors duration-200">
-                                             <div className="flex items-center mb-2" aria-label="Betyg: 5 av 5 stjärnor">
-                                                {[...Array(5)].map((_, i) => ( <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400 mr-0.5" /> ))}
-                                            </div>
-                                            <p className="mb-3 italic text-gray-300 text-[0.9rem] leading-relaxed">
-                                                "Äntligen ett verktyg som faktiskt förstår vad rekryterare letar efter. Mina ansökningar sticker verkligen ut nu!"
-                                            </p>
-                                            <footer className="font-semibold text-sm text-white">- Maria B.</footer>
-                                        </blockquote>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+              <div className="bg-white rounded-2xl p-8 shadow-xl shadow-slate-900/5 border border-slate-100">
+                <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mb-6">
+                  <Award className="w-7 h-7 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">
+                  89% får intervju
+                </h3>
+                <p className="text-slate-600 mb-4">
+                  Bevisad framgång baserad på data från 2,000+ svenska jobbsökare
+                </p>
+                <div className="pt-4 border-t border-slate-100">
+                  <p className="text-sm font-medium text-slate-500">Inom första 2 veckorna</p>
+                  <div className="grid grid-cols-5 gap-1 mt-2">
+                    {[...Array(5)].map((_, i) => (
+                      <div
+                        key={i}
+                        className={`h-8 rounded ${i < 4 ? 'bg-gradient-to-t from-purple-500 to-pink-500' : 'bg-slate-200'}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Funktioner - Användarfokuserad design med micro-interactions */}
+      <section id="funktioner" className="py-24 bg-white relative overflow-hidden">
+        {/* Animated background pattern */}
+        <motion.div
+          className="absolute inset-0 opacity-5"
+          animate={{
+            backgroundPosition: ['0% 0%', '100% 100%'],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            repeatType: 'reverse',
+          }}
+          style={{
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
+            backgroundSize: '60px 60px',
+          }}
+        />
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <motion.div
+                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-full mb-6"
+                whileHover={{ scale: 1.05 }}
+              >
+                <Sparkles className="w-4 h-4 text-blue-600" />
+                <span className="text-sm font-semibold text-blue-900">Kraftfulla verktyg</span>
+              </motion.div>
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+                Allt du behöver för att lyckas
+              </h2>
+              <p className="text-xl text-slate-600">
+                Komplett verktygslåda för modern jobbsökning
+              </p>
+            </motion.div>
+
+            {/* Feature grid with advanced micro-interactions */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                {
+                  icon: PenTool,
+                  title: 'Skapa perfekta personliga brev',
+                  description: 'Generera unika brev för varje ansökan på 60 sekunder. Anpassade efter företagskultur och jobbkrav.',
+                  badge: 'Mest använd',
+                  badgeColor: 'from-blue-500 to-blue-600',
+                  stats: '10,000+ brev skapade',
+                  delay: 0
+                },
+                {
+                  icon: FileSearch,
+                  title: 'CV-analys med AI-feedback',
+                  description: 'Få konkreta förbättringsförslag baserat på vad svenska rekryterare letar efter.',
+                  badge: 'Gratis',
+                  badgeColor: 'from-green-500 to-green-600',
+                  stats: '4.9/5 användarbetyg',
+                  delay: 0.1
+                },
+                {
+                  icon: Palette,
+                  title: 'Professionella CV-mallar',
+                  description: '8+ branschoptimerade mallar som passerar alla ATS-filter. Välj design som matchar din roll.',
+                  badge: 'Premium',
+                  badgeColor: 'from-purple-500 to-purple-600',
+                  stats: 'ATS-optimerade',
+                  delay: 0.2
+                },
+                {
+                  icon: Target,
+                  title: 'Smart nyckelordsmatchning',
+                  description: 'AI identifierar och inkluderar rätt nyckelord från jobbannonsen för maximal träffsäkerhet.',
+                  badge: 'AI-driven',
+                  badgeColor: 'from-indigo-500 to-indigo-600',
+                  stats: '3x bättre matchning',
+                  delay: 0.3
+                },
+                {
+                  icon: GraduationCap,
+                  title: 'Personlig kompetensutveckling',
+                  description: 'Få AI-genererade utvecklingsplaner baserat på dina karriärmål och marknadens krav.',
+                  badge: 'Ny',
+                  badgeColor: 'from-pink-500 to-pink-600',
+                  stats: 'Skräddarsydd plan',
+                  delay: 0.4
+                },
+                {
+                  icon: Shield,
+                  title: 'Säker datahantering',
+                  description: 'GDPR-säker svensk plattform. Din data raderas automatiskt efter 30 dagar.',
+                  badge: 'Trygg',
+                  badgeColor: 'from-slate-500 to-slate-600',
+                  stats: '100% GDPR-säker',
+                  delay: 0.5
+                }
+              ].map((feature, idx) => (
+                <motion.div
+                  key={idx}
+                  className="group relative"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: feature.delay, duration: 0.5 }}
+                >
+                  <motion.div
+                    className="relative h-full bg-white rounded-xl border border-slate-200 p-6 cursor-pointer overflow-hidden"
+                    whileHover={{
+                      y: -8,
+                      transition: { duration: 0.3, ease: "easeOut" }
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {/* Gradient overlay on hover */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 opacity-0"
+                      whileHover={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+
+                    {/* Content */}
+                    <div className="relative z-10">
+                      <div className="flex items-start justify-between mb-4">
+                        <motion.div
+                          className="w-12 h-12 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl flex items-center justify-center"
+                          whileHover={{
+                            scale: 1.15,
+                            rotate: 5,
+                            background: 'linear-gradient(135deg, rgb(239 246 255) 0%, rgb(219 234 254) 100%)',
+                          }}
+                          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                        >
+                          <feature.icon className="w-6 h-6 text-slate-700" />
+                        </motion.div>
+                        <motion.span
+                          className={`px-3 py-1 bg-gradient-to-r ${feature.badgeColor} text-white text-xs font-bold rounded-full`}
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                        >
+                          {feature.badge}
+                        </motion.span>
+                      </div>
+                      <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                        {feature.title}
+                      </h3>
+                      <p className="text-sm text-slate-600 mb-4">{feature.description}</p>
+
+                      {/* Animated stats bar */}
+                      <div className="pt-4 border-t border-slate-100">
+                        <motion.p
+                          className="text-xs font-medium text-slate-500 flex items-center gap-2"
+                          initial={{ width: 0 }}
+                          whileInView={{ width: 'auto' }}
+                          viewport={{ once: true }}
+                          transition={{ delay: feature.delay + 0.5, duration: 0.5 }}
+                        >
+                          <motion.span
+                            animate={{ opacity: [0.5, 1, 0.5] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                            className="w-1.5 h-1.5 bg-green-500 rounded-full"
+                          />
+                          {feature.stats}
+                        </motion.p>
+                      </div>
                     </div>
-                </section>
 
-                {/* === Anpassat för din situation (Personas) === */}
-                <section id="personas" aria-labelledby="personas-heading" className="py-16 bg-navy-900 lg:py-24">
-                    <div className="container px-4 mx-auto">
-                        <div className="max-w-3xl mx-auto mb-16 text-center">
-                            <h2 id="personas-heading" className="mb-4 text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
-                                Anpassat för <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">din situation</span>
-                            </h2>
-                            <p className="text-xl text-gray-300">
-                                Oavsett var du befinner dig i karriären, hjälper Jobbcoach.ai dig att nå nästa nivå.
-                            </p>
+                    {/* Hover sparkle effect */}
+                    <motion.div
+                      className="absolute top-2 right-2 opacity-0 group-hover:opacity-100"
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Sparkles className="w-4 h-4 text-yellow-400" />
+                    </motion.div>
+                  </motion.div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Personalized User Journey - Interactive personas with wow factor */}
+      <section className="py-24 bg-gradient-to-b from-white to-slate-50 overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+                Anpassad för din situation
+              </h2>
+              <p className="text-xl text-slate-600">
+                Oavsett var du är i karriären har vi rätt verktyg för dig
+              </p>
+            </motion.div>
+
+            <PersonalizedUserJourney />
+          </div>
+        </div>
+      </section>
+
+      {/* CV Templates Showcase */}
+      <section id="mallar" className="py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+              Professionella CV-mallar för alla branscher
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Välj bland våra branschoptimerade mallar. Alla är ATS-säkra och godkända av svenska rekryterare.
+            </p>
+          </div>
+
+          {/* Templates slider */}
+          <div className="relative max-w-7xl mx-auto">
+            <button
+              onClick={() => swiperInstance?.slidePrev()}
+              className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white border border-slate-200 rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-all duration-300 hover:scale-110"
+            >
+              <ChevronLeft className="w-5 h-5 text-slate-600" />
+            </button>
+            <button
+              onClick={() => swiperInstance?.slideNext()}
+              className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white border border-slate-200 rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-all duration-300 hover:scale-110"
+            >
+              <ChevronRight className="w-5 h-5 text-slate-600" />
+            </button>
+
+            <Swiper
+              onSwiper={setSwiperInstance}
+              modules={[Navigation, Pagination, Autoplay]}
+              spaceBetween={24}
+              slidesPerView={1.2}
+              centeredSlides={false}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true
+              }}
+              pagination={{
+                clickable: true,
+                bulletClass: 'swiper-pagination-bullet !bg-slate-300',
+                bulletActiveClass: 'swiper-pagination-bullet-active !bg-blue-600'
+              }}
+              breakpoints={{
+                640: { slidesPerView: 2 },
+                768: { slidesPerView: 3 },
+                1024: { slidesPerView: 4 }
+              }}
+              className="!pb-12"
+            >
+              {cvTemplates.map((template) => (
+                <SwiperSlide key={template.id}>
+                  <div className="group cursor-pointer">
+                    <div className="relative bg-white rounded-xl overflow-hidden border border-slate-200 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                      <div className="aspect-[3/4] bg-gradient-to-br from-slate-50 to-slate-100 p-4">
+                        <div className="w-full h-full bg-white rounded-lg shadow-inner overflow-hidden">
+                          <img
+                            src={template.svg}
+                            alt={template.name}
+                            className="w-full h-full object-contain"
+                            loading="lazy"
+                          />
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            {personas.map((persona, index) => (
-                                <div key={index} className={`p-6 rounded-xl border border-navy-700 flex flex-col items-center text-center transition-all duration-300 hover:border-opacity-50 ${persona.bgColor} hover:shadow-lg hover:-translate-y-1`}>
-                                    <div className={`flex items-center justify-center w-14 h-14 mb-5 rounded-full ${persona.color} ${persona.bgColor.replace('900/30', '800/50')} flex-shrink-0`}>
-                                        <persona.icon className="w-7 h-7" aria-hidden="true" />
-                                    </div>
-                                    <h3 className={`mb-2 text-xl font-semibold ${persona.color}`}>{persona.title}</h3>
-                                    <p className="text-sm text-gray-300">{persona.description}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </section>
-
-                {/* === FAQ-sektion === */}
-                <section id="faq" aria-labelledby="faq-heading" className="py-16 bg-navy-950 lg:py-24">
-                    <div className="container px-4 mx-auto">
-                        <div className="max-w-3xl mx-auto mb-16 text-center">
-                             <h2 id="faq-heading" className="mb-4 text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
-                                 Vanliga frågor <span className="text-pink-400">(FAQ)</span>
-                             </h2>
-                             <p className="text-xl text-gray-300">
-                                 Har du funderingar? Här hittar du svar på de vanligaste frågorna.
-                             </p>
-                        </div>
-                        <div className="max-w-3xl mx-auto">
-                            <FaqAccordion items={faqItems} />
-                        </div>
-                    </div>
-                </section>
-
-                {/* === Sista CTA-sektion === */}
-                <section aria-labelledby="final-cta-heading" className="py-16 bg-gradient-to-t from-navy-950 via-navy-900 to-navy-800 lg:py-20">
-                     <div className="container px-4 mx-auto text-center">
-                         <div className="max-w-2xl mx-auto">
-                             <Sparkles className="w-10 h-10 mx-auto mb-4 text-pink-400" aria-hidden="true"/>
-                             <h2 id="final-cta-heading" className="mb-4 text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
-                                 Redo att ta kontroll över din karriär?
-                             </h2>
-                             <p className="mb-8 text-xl text-gray-300">
-                                 Gå med i jobbcoach.ai idag och upplev skillnaden en smart digital jobbcoach kan göra. Skapa ditt konto och testa gratis!
-                             </p>
-                             <Link
-                                 href={session ? "/register" : "/register"}
-                                 className="inline-flex items-center px-10 py-4 text-lg font-medium text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg shadow-lg hover:shadow-xl hover:from-pink-700 hover:to-purple-700 group animate-pulse-pink"
-                             >
-                                 {session ? "Prova gratis nu" : "Kom igång gratis nu"}
-                                 <ChevronRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
-                             </Link>
-                             <p className="mt-4 text-sm text-gray-400">
-                                 Uppgradera till Premium för bara 149 kr/månad när du vill.
-                             </p>
-                         </div>
-                    </div>
-                </section>
-
-            </div> {/* Stänger huvudinnehålls-div */}
-
-             {/* === Modal för Video === */}
-             {modalVideoSrc && (
-                 <div
-                     className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-80 backdrop-blur-sm"
-                     onClick={closeModal} // Stäng när man klickar på bakgrunden
-                     role="dialog"
-                     aria-modal="true"
-                     aria-labelledby="video-modal-title"
-                 >
-                     <div
-                         className="relative w-full max-w-4xl bg-navy-900 rounded-lg shadow-xl overflow-hidden border border-navy-700"
-                         onClick={(e) => e.stopPropagation()} // Förhindra att klick inuti stänger modalen
-                     >
-                         {/* Header med titel och stängknapp */}
-                          <div className="flex items-center justify-between p-4 border-b border-navy-700">
-                              <h2 id="video-modal-title" className="text-xl font-semibold text-white">{modalTitle}</h2>
-                              <button
-                                  onClick={closeModal}
-                                  className="text-gray-400 transition-colors rounded-full hover:text-white hover:bg-navy-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-900 p-1"
-                                  aria-label="Stäng videovisning"
-                              >
-                                  <X className="w-6 h-6" />
-                              </button>
+                        {template.premium && (
+                          <div className="absolute top-3 right-3 px-3 py-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold rounded-full">
+                            Premium
                           </div>
-
-                         {/* Video Container */}
-                         <div className="p-4 md:p-6 aspect-video"> {/* Behåll aspect ratio */}
-                              <video
-                                  key={modalVideoSrc} // Lägg till key för att tvinga omrendrering vid src-byte
-                                  src={modalVideoSrc} // Använd state för källan
-                                  width="100%"
-                                  height="auto"
-                                  controls // Visa standardkontroller
-                                  autoPlay // Spela upp direkt när modalen öppnas
-                                  className="w-full h-full rounded"
-                                  aria-label={`Videouppspelning av ${modalTitle}`}
-                              >
-                                  Din webbläsare stöder inte video-taggen.
-                              </video>
+                        )}
+                      </div>
+                      <div className="p-4">
+                        <h3 className="font-bold text-slate-900 mb-1">{template.name}</h3>
+                        <p className="text-sm text-slate-600 mb-2">{template.industry}</p>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-1">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} className={`w-3 h-3 ${i < 5 ? 'text-yellow-400 fill-current' : 'text-slate-300'}`} />
+                            ))}
                           </div>
-                     </div>
-                 </div>
-             )}
-             {/* === SLUT Modal === */}
-        </>
-    );
+                          <span className="text-xs text-slate-500">{template.users} använder</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-24 bg-gradient-to-b from-slate-50 to-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+                Vad våra användare säger
+              </h2>
+              <p className="text-xl text-slate-600">
+                Över 2,000 svenskar har redan transformerat sin jobbsökning
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                {
+                  name: 'Anna Lindberg',
+                  role: 'Marknadsförare → Senior Marketing Manager',
+                  quote: 'Fick drömjobbet på Spotify efter bara 3 veckors sökande. AI:n förstod exakt vad de letade efter.',
+                  rating: 5,
+                  increase: '+45% lön'
+                },
+                {
+                  name: 'Marcus Svensson',
+                  role: 'Nyexaminerad → Junior Developer',
+                  quote: 'Som nyexad var det svårt att sticka ut. Jobbcoach.ai hjälpte mig framhäva mina projekt perfekt.',
+                  rating: 5,
+                  increase: 'Första jobbet på 2 veckor'
+                },
+                {
+                  name: 'Sofia Andersson',
+                  role: 'Konsult → Product Manager',
+                  quote: 'Bytte karriär från konsult till tech. Fick 5 intervjuer första veckan med de anpassade breven.',
+                  rating: 5,
+                  increase: '5 intervjuer första veckan'
+                }
+              ].map((testimonial, idx) => (
+                <div key={idx} className="bg-white rounded-xl p-6 shadow-lg shadow-slate-900/5 border border-slate-100">
+                  <div className="flex items-center gap-1 mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                    ))}
+                  </div>
+                  <p className="text-slate-600 mb-4 italic">"{testimonial.quote}"</p>
+                  <div className="pt-4 border-t border-slate-100">
+                    <p className="font-semibold text-slate-900">{testimonial.name}</p>
+                    <p className="text-sm text-slate-600">{testimonial.role}</p>
+                    <p className="text-sm font-bold text-green-600 mt-2">{testimonial.increase}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+                Vanliga frågor
+              </h2>
+              <p className="text-xl text-slate-600">
+                Allt du behöver veta för att komma igång
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              {[
+                {
+                  q: 'Hur snabbt kan jag skapa ett personligt brev?',
+                  a: 'Med vår AI tar det bara 60 sekunder att skapa ett unikt, anpassat personligt brev för varje jobbansökan.'
+                },
+                {
+                  q: 'Fungerar det för alla branscher?',
+                  a: 'Ja! Vår AI är tränad på data från alla stora svenska branscher och anpassar språk och ton efter branschstandard.'
+                },
+                {
+                  q: 'Är mina uppgifter säkra?',
+                  a: 'Absolut. Vi är GDPR-certifierade och all data lagras säkert i Sverige. Din data raderas automatiskt efter 30 dagar.'
+                },
+                {
+                  q: 'Kan jag avsluta när som helst?',
+                  a: 'Ja, du kan avsluta din prenumeration när som helst utan bindningstid eller dolda avgifter.'
+                },
+                {
+                  q: 'Vad ingår i gratisversionen?',
+                  a: 'Du får en gratis CV-analys och kan skapa 3 personliga brev. Perfekt för att testa tjänsten innan du uppgraderar.'
+                }
+              ].map((item, idx) => (
+                <div key={idx} className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+                  <button
+                    onClick={() => setExpandedFaq(expandedFaq === idx ? null : idx)}
+                    className="w-full px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors"
+                  >
+                    <span className="font-medium text-slate-900 text-left">{item.q}</span>
+                    {expandedFaq === idx ? (
+                      <ChevronUp className="w-5 h-5 text-slate-500" />
+                    ) : (
+                      <ChevronDown className="w-5 h-5 text-slate-500" />
+                    )}
+                  </button>
+                  {expandedFaq === idx && (
+                    <div className="px-6 pb-4">
+                      <p className="text-slate-600">{item.a}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Enhanced Final CTA - Nordic Elegance */}
+      <EnhancedFinalCTA />
+
+      {/* Footer */}
+      <footer className="bg-slate-900 text-slate-300 py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h3 className="font-bold text-white mb-4">Jobbcoach.ai</h3>
+              <p className="text-sm">Din AI-drivna karriärpartner för svenska arbetsmarknaden.</p>
+            </div>
+            <div>
+              <h4 className="font-semibold text-white mb-4">Produkt</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="#" className="hover:text-white transition-colors">Funktioner</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Priser</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">CV-mallar</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Integrationer</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold text-white mb-4">Företag</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="#" className="hover:text-white transition-colors">Om oss</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Karriär</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Press</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Kontakt</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold text-white mb-4">Support</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="#" className="hover:text-white transition-colors">Hjälpcenter</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">GDPR</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Villkor</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">API</Link></li>
+              </ul>
+            </div>
+          </div>
+          <div className="pt-8 border-t border-slate-800 text-center text-sm">
+            <p>&copy; 2024 Jobbcoach.ai. Alla rättigheter förbehållna. Utvecklad med ❤️ i Sverige.</p>
+          </div>
+        </div>
+      </footer>
+
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+        }
+        @keyframes float-delayed {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-15px); }
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+          animation: float-delayed 6s ease-in-out infinite;
+          animation-delay: 2s;
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.5s ease-out;
+        }
+        .pattern-overlay {
+          background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+      `}} />
+    </div>
+  )
 }
