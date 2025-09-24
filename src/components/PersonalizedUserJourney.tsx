@@ -110,6 +110,8 @@ export default function PersonalizedUserJourney() {
   const [animatedSkills, setAnimatedSkills] = useState<string[]>([])
   const [revealedPath, setRevealedPath] = useState(0)
   const [showMetrics, setShowMetrics] = useState(false)
+  const [showAutoDemo, setShowAutoDemo] = useState(false)
+  const [hasInteracted, setHasInteracted] = useState(false)
   const controls = useAnimation()
 
   useEffect(() => {
@@ -139,7 +141,20 @@ export default function PersonalizedUserJourney() {
     }
   }, [selectedPersona])
 
+  // Auto-demo effect - visa första personan efter 3 sekunder om ingen interaktion
+  useEffect(() => {
+    if (!hasInteracted) {
+      const timer = setTimeout(() => {
+        setShowAutoDemo(true)
+      }, 3000)
+
+      return () => clearTimeout(timer)
+    }
+  }, [hasInteracted])
+
   const handlePersonaClick = (persona: Persona) => {
+    setHasInteracted(true)
+    setShowAutoDemo(false)
     if (selectedPersona?.id === persona.id) {
       setSelectedPersona(null)
     } else {
@@ -154,7 +169,7 @@ export default function PersonalizedUserJourney() {
     <div className="relative">
       {/* Persona cards grid */}
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-        {personas.map((persona) => (
+        {personas.map((persona, index) => (
           <motion.div
             key={persona.id}
             layoutId={`persona-${persona.id}`}
@@ -170,11 +185,14 @@ export default function PersonalizedUserJourney() {
               className={`relative h-full cursor-pointer rounded-2xl border-2 transition-all ${
                 selectedPersona?.id === persona.id
                   ? 'border-blue-500 shadow-2xl shadow-blue-500/20'
-                  : 'border-slate-200 hover:border-slate-300'
+                  : hoveredPersona === persona.id
+                  ? 'border-blue-400 shadow-2xl shadow-blue-500/10'
+                  : 'border-slate-200'
               }`}
-              whileHover={{ scale: 1.05, rotateY: 5 }}
+              whileHover={{ scale: 1.08, rotateY: 5, z: 20 }}
               whileTap={{ scale: 0.98 }}
               style={{ transformStyle: 'preserve-3d' }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               {/* Gradient glow effect */}
               <motion.div
@@ -184,6 +202,23 @@ export default function PersonalizedUserJourney() {
                 }}
                 transition={{ duration: 0.3 }}
               />
+
+              {/* Auto-demo badge */}
+              {!hasInteracted && index === 0 && (
+                <motion.div
+                  className="absolute -top-3 -right-3 z-20"
+                  animate={{
+                    y: showAutoDemo ? [0, -5, 0] : 0,
+                    scale: showAutoDemo ? [1, 1.1, 1] : 1
+                  }}
+                  transition={{ duration: 1, repeat: showAutoDemo ? Infinity : 0 }}
+                >
+                  <div className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1">
+                    <Sparkles className="w-3 h-3" />
+                    Prova mig!
+                  </div>
+                </motion.div>
+              )}
 
               {/* Card content */}
               <div className="relative h-full bg-white rounded-2xl p-6">
@@ -228,6 +263,71 @@ export default function PersonalizedUserJourney() {
                     </div>
                   </div>
                 </div>
+
+                {/* Hover preview content */}
+                <AnimatePresence>
+                  {hoveredPersona === persona.id && !selectedPersona && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 10 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-white via-white to-transparent p-4 pt-8 -mb-4 rounded-b-2xl"
+                    >
+                      {/* Preview skills */}
+                      <div className="flex flex-wrap gap-1 mb-3">
+                        {persona.skills.slice(0, 2).map((skill, idx) => (
+                          <motion.span
+                            key={skill}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: idx * 0.1 }}
+                            className="px-2 py-0.5 bg-blue-100 text-blue-700 text-xs rounded-full"
+                          >
+                            {skill}
+                          </motion.span>
+                        ))}
+                        {persona.skills.length > 2 && (
+                          <span className="px-2 py-0.5 bg-slate-100 text-slate-500 text-xs rounded-full">
+                            +{persona.skills.length - 2} mer
+                          </span>
+                        )}
+                      </div>
+
+                      {/* CTA with animated arrow */}
+                      <motion.div
+                        className="flex items-center justify-center gap-2 text-sm font-semibold text-blue-600"
+                        animate={{ x: [0, 5, 0] }}
+                        transition={{ duration: 1, repeat: Infinity }}
+                      >
+                        <span>Klicka för personlig analys</span>
+                        <ChevronRight className="w-4 h-4" />
+                      </motion.div>
+
+                      {/* Mini metrics preview */}
+                      <div className="flex justify-center gap-4 mt-2">
+                        <motion.div
+                          className="text-center"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.2 }}
+                        >
+                          <p className="text-xs font-bold text-green-600">{persona.avgSalaryIncrease}</p>
+                          <p className="text-xs text-slate-500">löneökning</p>
+                        </motion.div>
+                        <motion.div
+                          className="text-center"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.3 }}
+                        >
+                          <p className="text-xs font-bold text-purple-600">{persona.matchRate}%</p>
+                          <p className="text-xs text-slate-500">match</p>
+                        </motion.div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
                 {/* Selection indicator */}
                 <motion.div
