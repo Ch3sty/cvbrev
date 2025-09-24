@@ -5,7 +5,7 @@
  */
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import {
@@ -24,6 +24,7 @@ import LiveAIDemo from '@/components/LiveAIDemo'
 import BeforeAfterSlider from '@/components/BeforeAfterSlider'
 import InteractiveFunctionExplorer from '@/components/InteractiveFunctionExplorer'
 import DynamicTrustIndicator from '@/components/DynamicTrustIndicator'
+import StatCard from '@/components/StatCard'
 
 export default function FunktionerPage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -35,46 +36,30 @@ export default function FunktionerPage() {
   const backgroundY = useTransform(scrollY, [0, 500], [0, 150])
   const backgroundOpacity = useTransform(scrollY, [0, 300], [1, 0.3])
 
-  // Track mouse for gradient effect
+  // Track mouse for gradient effect with throttling to reduce re-renders
   useEffect(() => {
+    let animationFrameId: number
+
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
+      // Throttle mouse updates using requestAnimationFrame
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId)
+      }
+
+      animationFrameId = requestAnimationFrame(() => {
+        setMousePosition({ x: e.clientX, y: e.clientY })
+      })
     }
+
     window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId)
+      }
+    }
   }, [])
 
-  // Stable statistics component with proper isolation from background effects
-  const StaticStatCard = ({ value, label, icon: Icon, delay = 0 }: any) => (
-    <motion.div
-      className="relative bg-white rounded-xl border border-slate-200 p-6 shadow-lg hover:shadow-xl transition-all duration-300 isolate pointer-events-auto"
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay, duration: 0.6 }}
-      style={{
-        zIndex: 10,
-        position: 'relative',
-        isolation: 'isolate',
-      }}
-      whileHover={{
-        scale: 1.02,
-        transition: { duration: 0.2 }
-      }}
-    >
-      <div className="flex items-start gap-4 relative z-10">
-        <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center flex-shrink-0">
-          <Icon className="w-6 h-6 text-blue-600" />
-        </div>
-        <div className="min-w-0 flex-1">
-          <div className="text-3xl font-bold text-slate-900">
-            {value}
-          </div>
-          <p className="text-sm text-slate-600 mt-1">{label}</p>
-        </div>
-      </div>
-    </motion.div>
-  )
 
   // Features data with demo points
   const features = [
@@ -290,19 +275,19 @@ export default function FunktionerPage() {
 
             {/* Static statistics with FULLY ISOLATED rendering context */}
             <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-3xl mx-auto relative" style={{ zIndex: 50, isolation: 'isolate', position: 'relative' }}>
-              <StaticStatCard
+              <StatCard
                 value="2.6x"
                 label="Högre intervjufrekvens"
                 icon={TrendingUp}
                 delay={0.2}
               />
-              <StaticStatCard
+              <StatCard
                 value="60 sek"
                 label="Till färdig ansökan"
                 icon={Clock}
                 delay={0.4}
               />
-              <StaticStatCard
+              <StatCard
                 value="89%"
                 label="Får intervju inom 2 veckor"
                 icon={Target}

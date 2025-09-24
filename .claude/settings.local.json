@@ -142,7 +142,9 @@
       "WebFetch(domain:www.homerun.co)",
       "Bash(findstr:*)",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-fixes.html\")",
-      "Bash(del \"C:\\Users\\chris\\cvbrev\\test-fixes.html\")"
+      "Bash(del \"C:\\Users\\chris\\cvbrev\\test-fixes.html\")",
+      "Bash(npm run type-check:*)",
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-animation-fix.html\")"
     ],
     "deny": [],
     "ask": []
