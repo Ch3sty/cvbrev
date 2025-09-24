@@ -156,8 +156,8 @@ export default function PremiumNavbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrollY > 0
-          ? 'bg-navy-900/95 backdrop-blur-xl border-b border-navy-700/50 shadow-xl'
-          : 'bg-navy-950/90 backdrop-blur-lg border-b border-navy-800/30'
+          ? 'bg-white/95 backdrop-blur-xl border-b border-gray-200/80 shadow-lg'
+          : 'bg-white/90 backdrop-blur-lg border-b border-gray-100/60 shadow-sm'
       }`}
     >
       <div className="container mx-auto px-4">
@@ -176,9 +176,14 @@ export default function PremiumNavbar() {
                 </div>
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-pulse" />
               </div>
-              <span className="bg-gradient-to-r from-pink-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
-                Jobbcoach.ai
-              </span>
+              <div className="flex items-center">
+                <span className="text-2xl font-bold text-gray-900 hover:opacity-90 transition-opacity">
+                  Jobbcoach
+                </span>
+                <span className="text-2xl font-bold text-white bg-gradient-to-r from-pink-600 to-purple-600 rounded-md px-1.5 py-0.5 ml-1 leading-tight hover:opacity-90 transition-opacity shadow-sm">
+                  .ai
+                </span>
+              </div>
             </Link>
           </div>
 
@@ -193,8 +198,8 @@ export default function PremiumNavbar() {
                 onClick={closeAllDropdowns}
                 className={`px-3 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
                   pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))
-                    ? 'text-pink-400 bg-navy-800/50'
-                    : 'text-gray-300 hover:text-white hover:bg-navy-800/30'
+                    ? 'text-pink-600 bg-pink-50/80 shadow-sm'
+                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100/80'
                 }`}
               >
                 {link.name}
@@ -209,14 +214,14 @@ export default function PremiumNavbar() {
                   onMouseEnter={() => setActiveDropdown(dropdown.name)}
                   className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-all duration-300 rounded-lg ${
                     activeDropdown === dropdown.name
-                      ? 'text-pink-400 bg-navy-800/50'
-                      : 'text-gray-300 hover:text-white hover:bg-navy-800/30'
+                      ? 'text-pink-600 bg-pink-50/80 shadow-sm'
+                      : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100/80'
                   }`}
                 >
                   <dropdown.icon className="w-4 h-4" />
                   {dropdown.name}
                   <ChevronDown
-                    className={`w-4 h-4 transition-transform duration-200 ${
+                    className={`w-4 h-4 transition-transform duration-200 text-gray-600 ${
                       activeDropdown === dropdown.name ? 'rotate-180' : ''
                     }`}
                   />
@@ -233,7 +238,7 @@ export default function PremiumNavbar() {
                       onMouseLeave={() => setActiveDropdown(null)}
                       className="absolute top-full left-1/2 transform -translate-x-1/2 pt-3"
                     >
-                      <div className="bg-navy-800/95 backdrop-blur-xl border border-navy-700/50 rounded-xl shadow-2xl p-4 min-w-[320px]">
+                      <div className="bg-white/95 backdrop-blur-xl border border-gray-200/80 rounded-xl shadow-2xl p-4 min-w-[320px]">
                         <div className="space-y-2">
                           {dropdown.items.map((item) => {
                             const isLocked = item.requireLogin && !sessionUser
@@ -248,8 +253,8 @@ export default function PremiumNavbar() {
                                 onClick={closeAllDropdowns}
                                 className={`group flex items-center gap-4 p-3 rounded-lg transition-all duration-300 ${
                                   isLocked
-                                    ? 'opacity-60 hover:bg-navy-700/30'
-                                    : 'hover:bg-navy-700/50 hover:scale-[1.02]'
+                                    ? 'opacity-60 hover:bg-gray-100/50'
+                                    : 'hover:bg-gray-100/80 hover:scale-[1.02] hover:shadow-sm'
                                 }`}
                                 title={isLocked ? 'Logga in för att använda denna funktion' : undefined}
                               >
@@ -258,14 +263,14 @@ export default function PremiumNavbar() {
                                 </div>
                                 <div className="flex-1">
                                   <div className="flex items-center gap-2">
-                                    <span className="font-medium text-white group-hover:text-pink-300 transition-colors">
+                                    <span className="font-medium text-gray-900 group-hover:text-pink-600 transition-colors">
                                       {item.name}
                                     </span>
                                     {isLocked && (
-                                      <Lock className="w-3 h-3 text-gray-400" />
+                                      <Lock className="w-3 h-3 text-gray-500" />
                                     )}
                                   </div>
-                                  <div className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors">
+                                  <div className="text-xs text-gray-600 group-hover:text-gray-700 transition-colors">
                                     {item.description}
                                   </div>
                                 </div>
@@ -288,8 +293,8 @@ export default function PremiumNavbar() {
                 onClick={closeAllDropdowns}
                 className={`px-3 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
                   pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))
-                    ? 'text-pink-400 bg-navy-800/50'
-                    : 'text-gray-300 hover:text-white hover:bg-navy-800/30'
+                    ? 'text-pink-600 bg-pink-50/80 shadow-sm'
+                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100/80'
                 }`}
               >
                 {link.name}
@@ -304,16 +309,16 @@ export default function PremiumNavbar() {
                 {sessionUser ? (
                   <div className="flex items-center gap-3">
                     <button
-                      className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-navy-800/30 rounded-lg transition-all duration-300"
+                      className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 rounded-lg transition-all duration-300"
                     >
                       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center text-white font-semibold">
                         {sessionUser.email?.charAt(0).toUpperCase() ?? '?'}
                       </div>
-                      <span className="hidden xl:inline">{sessionUser.email}</span>
+                      <span className="hidden xl:inline text-gray-700">{sessionUser.email}</span>
                     </button>
                     <button
                       onClick={handleSignOut}
-                      className="px-4 py-2 text-sm font-medium text-red-400 hover:text-red-300 hover:bg-navy-800/30 rounded-lg transition-all duration-300"
+                      className="px-4 py-2 text-sm font-medium text-red-500 hover:text-red-600 hover:bg-red-50/80 rounded-lg transition-all duration-300"
                     >
                       <LogOut className="w-4 h-4" />
                     </button>
@@ -322,7 +327,7 @@ export default function PremiumNavbar() {
                   <>
                     <Link
                       href="/login"
-                      className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors"
+                      className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
                     >
                       Logga in
                     </Link>
@@ -346,7 +351,7 @@ export default function PremiumNavbar() {
           <div className="lg:hidden">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-gray-300 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all"
+              className="p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 rounded-lg transition-all"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -362,7 +367,7 @@ export default function PremiumNavbar() {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="lg:hidden bg-navy-900/95 backdrop-blur-xl border-t border-navy-700/50"
+            className="lg:hidden bg-white/95 backdrop-blur-xl border-t border-gray-200/80"
           >
             <div className="container mx-auto px-4 py-6">
               <div className="space-y-6">
@@ -376,8 +381,8 @@ export default function PremiumNavbar() {
                       onClick={() => setMobileMenuOpen(false)}
                       className={`flex items-center gap-3 p-3 rounded-lg transition-all ${
                         pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))
-                          ? 'text-pink-400 bg-navy-800/50'
-                          : 'text-gray-300 hover:text-white hover:bg-navy-800/50'
+                          ? 'text-pink-600 bg-pink-50/80'
+                          : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100/80'
                       }`}
                     >
                       <link.icon className="w-5 h-5" />
@@ -389,7 +394,7 @@ export default function PremiumNavbar() {
                 {/* Mobile Dropdowns */}
                 {navigationDropdowns.map((dropdown) => (
                   <div key={dropdown.name}>
-                    <div className="font-medium text-pink-400 mb-3 text-sm uppercase tracking-wide flex items-center gap-2">
+                    <div className="font-medium text-pink-600 mb-3 text-sm uppercase tracking-wide flex items-center gap-2">
                       <dropdown.icon className="w-4 h-4" />
                       {dropdown.name}
                     </div>
@@ -407,8 +412,8 @@ export default function PremiumNavbar() {
                             onClick={() => setMobileMenuOpen(false)}
                             className={`flex items-center gap-3 p-3 rounded-lg transition-all ${
                               isLocked
-                                ? 'text-gray-500 hover:text-gray-400 hover:bg-navy-800/30'
-                                : 'text-gray-300 hover:text-white hover:bg-navy-800/50'
+                                ? 'text-gray-500 hover:text-gray-600 hover:bg-gray-100/50'
+                                : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100/80'
                             }`}
                           >
                             <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${item.gradient} flex items-center justify-center ${
@@ -418,12 +423,12 @@ export default function PremiumNavbar() {
                             </div>
                             <div className="flex-1">
                               <div className="flex items-center gap-2">
-                                <span className="font-medium">{item.name}</span>
+                                <span className="font-medium text-gray-900">{item.name}</span>
                                 {isLocked && (
                                   <Lock className="w-3 h-3 text-gray-500" />
                                 )}
                               </div>
-                              <div className="text-xs text-gray-400">{item.description}</div>
+                              <div className="text-xs text-gray-600">{item.description}</div>
                             </div>
                           </Link>
                         )
@@ -434,7 +439,7 @@ export default function PremiumNavbar() {
 
 
                 {/* Mobile CTA */}
-                <div className="pt-4 border-t border-navy-700/50 space-y-3">
+                <div className="pt-4 border-t border-gray-200/80 space-y-3">
                   {!isLoadingAuth && (
                     <>
                       {sessionUser ? (
@@ -444,7 +449,7 @@ export default function PremiumNavbar() {
                               {sessionUser.email?.charAt(0).toUpperCase() ?? '?'}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <div className="text-sm font-medium text-gray-200 truncate">
+                              <div className="text-sm font-medium text-gray-700 truncate">
                                 {sessionUser.email}
                               </div>
                             </div>
@@ -454,7 +459,7 @@ export default function PremiumNavbar() {
                               handleSignOut()
                               setMobileMenuOpen(false)
                             }}
-                            className="w-full px-4 py-3 text-center text-red-400 hover:text-red-300 hover:bg-navy-800/50 rounded-lg transition-all font-medium"
+                            className="w-full px-4 py-3 text-center text-red-500 hover:text-red-600 hover:bg-red-50/80 rounded-lg transition-all font-medium"
                           >
                             Logga ut
                           </button>
@@ -464,7 +469,7 @@ export default function PremiumNavbar() {
                           <Link
                             href="/login"
                             onClick={() => setMobileMenuOpen(false)}
-                            className="block w-full px-4 py-3 text-center text-gray-300 hover:text-white hover:bg-navy-800/50 rounded-lg transition-all"
+                            className="block w-full px-4 py-3 text-center text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 rounded-lg transition-all"
                           >
                             Logga in
                           </Link>
