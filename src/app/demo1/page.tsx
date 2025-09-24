@@ -27,6 +27,7 @@ import DynamicTrustIndicator from '@/components/DynamicTrustIndicator'
 import FloatingAIAssistant from '@/components/FloatingAIAssistant'
 import InteractiveSteps from '@/components/InteractiveSteps'
 import PersonalizedUserJourney from '@/components/PersonalizedUserJourney'
+import EnhancedFinalCTA from '@/components/EnhancedFinalCTA'
 
 // Swiper components
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -915,47 +916,8 @@ export default function Demo1Page() {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-24 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/10" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Starta din framgångsresa idag
-            </h2>
-            <p className="text-xl text-white/90 mb-10">
-              Gå med 2,000+ svenskar som redan landat drömjobbet med AI-hjälp
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                onClick={() => window.location.href = '/register'}
-                className="px-8 py-4 bg-white text-indigo-600 font-bold rounded-xl shadow-2xl hover:shadow-3xl hover:-translate-y-0.5 transition-all duration-300"
-              >
-                Starta gratis nu
-                <ArrowRight className="inline-block ml-2 w-5 h-5" />
-              </button>
-              <button className="px-8 py-4 bg-white/10 backdrop-blur-xl text-white font-bold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300">
-                Boka demo
-                <Phone className="inline-block ml-2 w-5 h-5" />
-              </button>
-            </div>
-            <div className="mt-8 flex items-center justify-center gap-6 text-white/80 text-sm">
-              <span className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5" />
-                Ingen bindningstid
-              </span>
-              <span className="flex items-center gap-2">
-                <Shield className="w-5 h-5" />
-                GDPR-säker
-              </span>
-              <span className="flex items-center gap-2">
-                <Clock className="w-5 h-5" />
-                Setup på 2 minuter
-              </span>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Enhanced Final CTA - Nordic Elegance */}
+      <EnhancedFinalCTA />
 
       {/* Footer */}
       <footer className="bg-slate-900 text-slate-300 py-12">
