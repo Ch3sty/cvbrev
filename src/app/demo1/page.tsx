@@ -221,7 +221,7 @@ export default function Demo1Page() {
           <div
             className="absolute inset-0 opacity-30 pattern-overlay"
           />
-        </div>
+        </motion.div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-6xl mx-auto">
