@@ -416,80 +416,93 @@ export default function FunktionerPage() {
               </p>
             </motion.div>
 
-            <div className="space-y-8">
-              {[
-                {
-                  name: 'Anna Lindberg',
-                  role: 'Marknadsförare → Senior Marketing Manager',
-                  company: 'Spotify',
-                  time: '3 veckor',
-                  increase: '+45% lön',
-                  quote: 'AI:n förstod exakt vad Spotify letade efter och hjälpte mig framhäva rätt kompetenser.'
-                },
-                {
-                  name: 'Marcus Svensson',
-                  role: 'Nyexaminerad → Junior Developer',
-                  company: 'Klarna',
-                  time: '2 veckor',
-                  increase: 'Första jobbet',
-                  quote: 'Som nyexad var det svårt att sticka ut. Jobbcoach.ai hjälpte mig visa min potential.'
-                },
-                {
-                  name: 'Sofia Andersson',
-                  role: 'Konsult → Product Manager',
-                  company: 'H&M',
-                  time: '1 vecka',
-                  increase: '5 intervjuer',
-                  quote: 'Bytte karriär från konsult till tech. Fick 5 intervjuer första veckan!'
-                }
-              ].map((story, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.2 }}
-                  className="relative"
-                >
-                  <div className={`flex items-center gap-8 ${idx % 2 === 1 ? 'flex-row-reverse' : ''}`}>
-                    {/* Timeline line */}
-                    <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-200 to-purple-200" />
+            {/* Timeline container with proper positioning */}
+            <div className="relative">
+              {/* Continuous timeline line */}
+              <div className="hidden md:block absolute left-1/2 top-16 bottom-16 w-0.5 bg-gradient-to-b from-blue-200 via-purple-200 to-blue-200 -translate-x-1/2" />
 
-                    {/* Timeline dot */}
-                    <div className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full ring-4 ring-white" />
+              <div className="space-y-16">
+                {[
+                  {
+                    name: 'Anna Lindberg',
+                    role: 'Marknadsförare → Senior Marketing Manager',
+                    company: 'Spotify',
+                    time: '3 veckor',
+                    increase: '+45% lön',
+                    quote: 'AI:n förstod exakt vad Spotify letade efter och hjälpte mig framhäva rätt kompetenser.'
+                  },
+                  {
+                    name: 'Marcus Svensson',
+                    role: 'Nyexaminerad → Junior Developer',
+                    company: 'Klarna',
+                    time: '2 veckor',
+                    increase: 'Första jobbet',
+                    quote: 'Som nyexad var det svårt att sticka ut. Jobbcoach.ai hjälpte mig visa min potential.'
+                  },
+                  {
+                    name: 'Sofia Andersson',
+                    role: 'Konsult → Product Manager',
+                    company: 'H&M',
+                    time: '1 vecka',
+                    increase: '5 intervjuer',
+                    quote: 'Bytte karriär från konsult till tech. Fick 5 intervjuer första veckan!'
+                  }
+                ].map((story, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.2 }}
+                    className="relative"
+                  >
+                    <div className={`grid md:grid-cols-2 gap-8 items-center ${idx % 2 === 1 ? 'md:grid-flow-col-dense' : ''}`}>
+                      {/* Timeline dot */}
+                      <div className="hidden md:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-6 h-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full ring-4 ring-white shadow-lg z-10" />
 
-                    {/* Content card */}
-                    <div className={`flex-1 ${idx % 2 === 1 ? 'text-right' : ''}`}>
+                      {/* Content card */}
                       <motion.div
-                        className="bg-white rounded-xl p-6 shadow-lg border border-slate-200"
+                        className={`${idx % 2 === 1 ? 'md:col-start-2' : 'md:col-start-1'}`}
                         whileHover={{ scale: 1.02, y: -5 }}
                       >
-                        <div className="flex items-start justify-between mb-4">
-                          <div className={idx % 2 === 1 ? 'order-2' : ''}>
-                            <h3 className="font-bold text-slate-900">{story.name}</h3>
-                            <p className="text-sm text-slate-600">{story.role}</p>
-                            <p className="text-sm font-semibold text-blue-600">{story.company}</p>
+                        <div className="bg-white rounded-xl p-6 shadow-lg border border-slate-200 relative">
+                          {/* Arrow pointing to timeline */}
+                          <div className={`hidden md:block absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-slate-200 rotate-45 ${
+                            idx % 2 === 1
+                              ? '-left-2 border-l border-t'
+                              : '-right-2 border-r border-b'
+                          }`} />
+
+                          <div className="flex items-start justify-between mb-4">
+                            <div>
+                              <h3 className="font-bold text-slate-900">{story.name}</h3>
+                              <p className="text-sm text-slate-600">{story.role}</p>
+                              <p className="text-sm font-semibold text-blue-600">{story.company}</p>
+                            </div>
+                            <div className="flex flex-col gap-1 items-end">
+                              <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">
+                                {story.time}
+                              </span>
+                              <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">
+                                {story.increase}
+                              </span>
+                            </div>
                           </div>
-                          <div className={`flex flex-col gap-1 ${idx % 2 === 1 ? 'order-1 items-end' : 'items-start'}`}>
-                            <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">
-                              {story.time}
-                            </span>
-                            <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">
-                              {story.increase}
-                            </span>
+                          <p className="text-slate-700 italic mb-4">"{story.quote}"</p>
+                          <div className="flex items-center gap-1">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+                            ))}
                           </div>
-                        </div>
-                        <p className="text-slate-700 italic">"{story.quote}"</p>
-                        <div className="mt-4 flex items-center gap-1">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                          ))}
                         </div>
                       </motion.div>
+
+                      {/* Empty space for alternating layout */}
+                      <div className={`hidden md:block ${idx % 2 === 1 ? 'md:col-start-1' : 'md:col-start-2'}`}></div>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -533,12 +546,13 @@ export default function FunktionerPage() {
 
               {[
                 { feature: 'Svensk arbetsmarknad', us: true, chatgpt: false, traditional: false },
-                { feature: 'ATS-optimering', us: true, chatgpt: false, traditional: false },
-                { feature: 'Branschanpassning', us: true, chatgpt: 'partial', traditional: false },
-                { feature: 'Unika texter', us: true, chatgpt: true, traditional: false },
-                { feature: 'CV-mallar', us: true, chatgpt: false, traditional: 'partial' },
-                { feature: 'Tidsåtgång', us: '60 sek', chatgpt: '10 min', traditional: '2+ timmar' },
-                { feature: 'Pris/månad', us: '149 kr', chatgpt: '200+ kr', traditional: 'Gratis' },
+                { feature: 'ATS-optimerade mallar', us: true, chatgpt: false, traditional: false },
+                { feature: 'Avancerade AI-prompts', us: true, chatgpt: 'partial', traditional: false },
+                { feature: 'Djupgående CV-analys', us: true, chatgpt: false, traditional: false },
+                { feature: 'Färdiga snygga dokument', us: true, chatgpt: false, traditional: 'partial' },
+                { feature: 'Kompetensutvecklingsplan', us: true, chatgpt: false, traditional: false },
+                { feature: 'GDPR-säker datahantering', us: true, chatgpt: 'partial', traditional: true },
+                { feature: 'Obegränsad användning', us: '149 kr/månad', chatgpt: '200+ kr/månad', traditional: 'Gratis men tidskrävande' },
               ].map((row, idx) => (
                 <div key={idx} className={`grid grid-cols-4 border-t border-slate-200 ${idx % 2 === 0 ? 'bg-slate-50/50' : ''}`}>
                   <div className="p-6 font-medium text-slate-700">{row.feature}</div>
