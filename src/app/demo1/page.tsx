@@ -1,12 +1,14 @@
 /**
- * Premium Demo-startsida för Jobbcoach.ai
- * Ljus, professionell design inspirerad av ledande SaaS-plattformar
- * Baserad på UX-analys av Seamless.ai, Databox och Loom
+ * Premium Demo-startsida för Jobbcoach.ai med WOW-faktor
+ * Ljus, professionell design med unika interaktiva element
+ * Baserad på UX-analys av Seamless.ai, Databox, Loom och Homerun
  */
 'use client'
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 import {
   ChevronRight, Check, Star, Users, Shield, Award,
   FileText, FileSearch, Target, Lightbulb, BrainCircuit,
@@ -18,6 +20,11 @@ import {
   GraduationCap, User, Building2, Layers, Settings,
   Timer, RefreshCw, Gauge, BookOpen, Code, Database
 } from 'lucide-react'
+
+// Custom components
+import AILiveWriting from '@/components/AILiveWriting'
+import DynamicTrustIndicator from '@/components/DynamicTrustIndicator'
+import FloatingAIAssistant from '@/components/FloatingAIAssistant'
 
 // Swiper components
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -36,6 +43,21 @@ export default function Demo1Page() {
   const [activeTab, setActiveTab] = useState('nystartade')
   const [swiperInstance, setSwiperInstance] = useState<any>(null)
   const [playVideo, setPlayVideo] = useState(false)
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+
+  // Scroll animations
+  const { scrollY } = useScroll()
+  const backgroundY = useTransform(scrollY, [0, 500], [0, 150])
+  const backgroundOpacity = useTransform(scrollY, [0, 300], [1, 0.3])
+
+  // Track mouse for gradient effect
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY })
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
 
   // Hantera email-formulär
   const handleEmailSubmit = (e: React.FormEvent) => {
@@ -138,33 +160,111 @@ export default function Demo1Page() {
         </div>
       </nav>
 
-      {/* Premium Hero Section - Inspirerad av Loom & Seamless */}
+      {/* Floating AI Assistant - Always visible */}
+      <FloatingAIAssistant />
+
+      {/* Premium Hero Section with WOW factor */}
       <section className="relative pt-32 pb-24 overflow-hidden">
-        {/* Subtil gradient bakgrund */}
-        <div className="absolute inset-0">
+        {/* Morphing gradient background that follows mouse */}
+        <motion.div
+          className="absolute inset-0"
+          style={{ opacity: backgroundOpacity }}
+        >
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-white to-indigo-50/30" />
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-float" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-float-delayed" />
+
+          {/* Mouse-following gradient */}
+          <motion.div
+            className="absolute w-[600px] h-[600px] rounded-full"
+            style={{
+              background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
+              left: mousePosition.x - 300,
+              top: mousePosition.y - 300,
+              filter: 'blur(40px)',
+            }}
+            animate={{
+              scale: [1, 1.1, 1],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              repeatType: 'reverse',
+            }}
+          />
+
+          {/* Animated gradient orbs */}
+          <motion.div
+            className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full mix-blend-multiply filter blur-3xl"
+            animate={{
+              x: [0, 100, 0],
+              y: [0, -50, 0],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              repeatType: 'reverse',
+            }}
+          />
+          <motion.div
+            className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full mix-blend-multiply filter blur-3xl"
+            animate={{
+              x: [0, -100, 0],
+              y: [0, 50, 0],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              repeatType: 'reverse',
+            }}
+          />
+
+          {/* Pattern overlay */}
+          <div
+            className="absolute inset-0 opacity-30"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            }}
+          />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Vänster kolumn - Text */}
-              <div>
-                {/* Trust badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 border border-green-200 rounded-full mb-6">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                  <span className="text-sm font-medium text-green-800">Betrodd av 2,000+ svenska yrkesverksamma</span>
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                {/* Dynamic trust indicator instead of static badge */}
+                <div className="mb-8">
+                  <DynamicTrustIndicator />
                 </div>
 
-                {/* Huvudrubrik */}
-                <h1 className="text-5xl md:text-6xl font-extrabold text-slate-900 mb-6 leading-[1.1]">
+                {/* Huvudrubrik with animation */}
+                <motion.h1
+                  className="text-5xl md:text-6xl font-extrabold text-slate-900 mb-6 leading-[1.1]"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.8 }}
+                >
                   Landa drömjobbet{' '}
-                  <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                  <motion.span
+                    className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent"
+                    animate={{
+                      backgroundPosition: ['0%', '100%', '0%'],
+                    }}
+                    transition={{
+                      duration: 5,
+                      repeat: Infinity,
+                      repeatType: 'loop',
+                    }}
+                    style={{
+                      backgroundSize: '200% 200%',
+                    }}
+                  >
                     snabbare med AI
-                  </span>
-                </h1>
+                  </motion.span>
+                </motion.h1>
 
                 {/* Underrubrik */}
                 <p className="text-xl text-slate-600 mb-8 leading-relaxed">
@@ -172,22 +272,41 @@ export default function Demo1Page() {
                   <span className="font-semibold text-slate-900"> 89% av våra användare får intervju inom 2 veckor.</span>
                 </p>
 
-                {/* CTA-formulär */}
-                <form onSubmit={handleEmailSubmit} className="mb-6">
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="din@email.se"
-                      className="flex-1 px-5 py-3.5 bg-white border border-slate-200 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      required
+                {/* CTA-formulär with magnetic effect */}
+                <motion.form
+                  onSubmit={handleEmailSubmit}
+                  className="mb-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.8 }}
+                >
+                  <div className="relative">
+                    <motion.div
+                      className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-lg blur opacity-20"
+                      animate={{
+                        opacity: [0.2, 0.3, 0.2],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                      }}
                     />
-                    <button
-                      type="submit"
-                      disabled={isLoading}
-                      className="px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-lg hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-50 whitespace-nowrap"
-                    >
+                    <div className="relative flex flex-col sm:flex-row gap-3 bg-white rounded-lg p-2">
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="din@email.se"
+                        className="flex-1 px-5 py-3.5 bg-transparent text-base focus:outline-none"
+                        required
+                      />
+                      <motion.button
+                        type="submit"
+                        disabled={isLoading}
+                        className="px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-lg hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 disabled:opacity-50 whitespace-nowrap"
+                        whileHover={{ scale: 1.02, y: -2 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
                       {isLoading ? (
                         <span className="flex items-center gap-2">
                           <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
@@ -199,7 +318,8 @@ export default function Demo1Page() {
                       ) : (
                         <>Starta gratis idag</>
                       )}
-                    </button>
+                      </motion.button>
+                    </div>
                   </div>
                   <div className="flex items-center gap-4 mt-4 text-sm text-slate-500">
                     <span className="flex items-center gap-1">
@@ -215,65 +335,53 @@ export default function Demo1Page() {
                       GDPR-säker
                     </span>
                   </div>
-                </form>
+                </motion.form>
 
-                {/* Social proof */}
-                <div className="flex items-center gap-4">
+                {/* Animated social proof */}
+                <motion.div
+                  className="flex items-center gap-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.6, duration: 0.8 }}
+                >
                   <div className="flex -space-x-2">
                     {[1,2,3,4,5].map(i => (
-                      <div key={i} className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-200 to-slate-300 border-2 border-white" />
+                      <motion.div
+                        key={i}
+                        className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-200 to-slate-300 border-2 border-white"
+                        initial={{ scale: 0, rotate: -180 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        transition={{ delay: 0.8 + i * 0.1, type: "spring", stiffness: 260, damping: 20 }}
+                      />
                     ))}
                   </div>
                   <div>
                     <div className="flex items-center gap-1">
                       {[1,2,3,4,5].map(i => (
-                        <Star key={i} className={`w-4 h-4 ${i < 5 ? 'text-yellow-400 fill-current' : 'text-slate-300'}`} />
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, scale: 0 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 1.2 + i * 0.05 }}
+                        >
+                          <Star className={`w-4 h-4 ${i < 5 ? 'text-yellow-400 fill-current' : 'text-slate-300'}`} />
+                        </motion.div>
                       ))}
                     </div>
                     <p className="text-sm text-slate-600">4.9/5 från 200+ recensioner</p>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
 
-              {/* Höger kolumn - Visuell demo/preview */}
-              <div className="relative">
-                <div className="relative bg-white rounded-2xl shadow-2xl shadow-slate-900/10 overflow-hidden">
-                  {/* Demo video/animation placeholder */}
-                  <div className="aspect-[4/3] bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
-                    {!playVideo ? (
-                      <button
-                        onClick={() => setPlayVideo(true)}
-                        className="group relative w-20 h-20 bg-white rounded-full shadow-xl flex items-center justify-center hover:scale-110 transition-transform"
-                      >
-                        <Play className="w-8 h-8 text-blue-600 ml-1" />
-                        <div className="absolute inset-0 rounded-full bg-blue-600 opacity-0 group-hover:opacity-10 transition-opacity" />
-                      </button>
-                    ) : (
-                      <div className="text-center p-8">
-                        <BrainCircuit className="w-16 h-16 text-blue-600 mx-auto mb-4" />
-                        <p className="text-slate-600">AI-demo kommer här</p>
-                      </div>
-                    )}
-                  </div>
-                  {/* Stats overlay */}
-                  <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm rounded-lg p-4 flex items-center justify-between">
-                    <div>
-                      <p className="text-2xl font-bold text-slate-900">60 sek</p>
-                      <p className="text-xs text-slate-600">till färdigt brev</p>
-                    </div>
-                    <div className="w-px h-10 bg-slate-200" />
-                    <div>
-                      <p className="text-2xl font-bold text-slate-900">3x</p>
-                      <p className="text-xs text-slate-600">fler svar</p>
-                    </div>
-                    <div className="w-px h-10 bg-slate-200" />
-                    <div>
-                      <p className="text-2xl font-bold text-slate-900">89%</p>
-                      <p className="text-xs text-slate-600">får intervju</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {/* Höger kolumn - AI Live Writing Demo */}
+              <motion.div
+                className="relative lg:absolute lg:right-0 lg:top-1/2 lg:-translate-y-1/2 w-full lg:w-1/2"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4, duration: 0.8 }}
+              >
+                <AILiveWriting />
+              </motion.div>
             </div>
           </div>
         </div>
@@ -445,20 +553,50 @@ export default function Demo1Page() {
         </div>
       </section>
 
-      {/* Funktioner - Användarfokuserad design */}
-      <section id="funktioner" className="py-24 bg-white">
-        <div className="container mx-auto px-4">
+      {/* Funktioner - Användarfokuserad design med micro-interactions */}
+      <section id="funktioner" className="py-24 bg-white relative overflow-hidden">
+        {/* Animated background pattern */}
+        <motion.div
+          className="absolute inset-0 opacity-5"
+          animate={{
+            backgroundPosition: ['0% 0%', '100% 100%'],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            repeatType: 'reverse',
+          }}
+          style={{
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
+            backgroundSize: '60px 60px',
+          }}
+        />
+
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
+            <motion.div
+              className="text-center mb-16"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <motion.div
+                className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-full mb-6"
+                whileHover={{ scale: 1.05 }}
+              >
+                <Sparkles className="w-4 h-4 text-blue-600" />
+                <span className="text-sm font-semibold text-blue-900">Kraftfulla verktyg</span>
+              </motion.div>
               <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
                 Allt du behöver för att lyckas
               </h2>
               <p className="text-xl text-slate-600">
                 Komplett verktygslåda för modern jobbsökning
               </p>
-            </div>
+            </motion.div>
 
-            {/* Feature grid - 2x3 layout */}
+            {/* Feature grid with advanced micro-interactions */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 {
@@ -466,63 +604,134 @@ export default function Demo1Page() {
                   title: 'Skapa perfekta personliga brev',
                   description: 'Generera unika brev för varje ansökan på 60 sekunder. Anpassade efter företagskultur och jobbkrav.',
                   badge: 'Mest använd',
-                  badgeColor: 'bg-blue-500',
-                  stats: '10,000+ brev skapade'
+                  badgeColor: 'from-blue-500 to-blue-600',
+                  stats: '10,000+ brev skapade',
+                  delay: 0
                 },
                 {
                   icon: FileSearch,
                   title: 'CV-analys med AI-feedback',
                   description: 'Få konkreta förbättringsförslag baserat på vad svenska rekryterare letar efter.',
                   badge: 'Gratis',
-                  badgeColor: 'bg-green-500',
-                  stats: '4.9/5 användarbetyg'
+                  badgeColor: 'from-green-500 to-green-600',
+                  stats: '4.9/5 användarbetyg',
+                  delay: 0.1
                 },
                 {
                   icon: Palette,
                   title: 'Professionella CV-mallar',
                   description: '8+ branschoptimerade mallar som passerar alla ATS-filter. Välj design som matchar din roll.',
                   badge: 'Premium',
-                  badgeColor: 'bg-purple-500',
-                  stats: 'ATS-optimerade'
+                  badgeColor: 'from-purple-500 to-purple-600',
+                  stats: 'ATS-optimerade',
+                  delay: 0.2
                 },
                 {
                   icon: Target,
                   title: 'Smart nyckelordsmatchning',
                   description: 'AI identifierar och inkluderar rätt nyckelord från jobbannonsen för maximal träffsäkerhet.',
                   badge: 'AI-driven',
-                  badgeColor: 'bg-indigo-500',
-                  stats: '3x bättre matchning'
+                  badgeColor: 'from-indigo-500 to-indigo-600',
+                  stats: '3x bättre matchning',
+                  delay: 0.3
                 },
                 {
                   icon: GraduationCap,
                   title: 'Personlig kompetensutveckling',
                   description: 'Få AI-genererade utvecklingsplaner baserat på dina karriärmål och marknadens krav.',
                   badge: 'Ny',
-                  badgeColor: 'bg-pink-500',
-                  stats: 'Skräddarsydd plan'
+                  badgeColor: 'from-pink-500 to-pink-600',
+                  stats: 'Skräddarsydd plan',
+                  delay: 0.4
                 },
                 {
                   icon: Shield,
                   title: 'Säker datahantering',
                   description: 'GDPR-säker svensk plattform. Din data raderas automatiskt efter 30 dagar.',
                   badge: 'Trygg',
-                  badgeColor: 'bg-slate-500',
-                  stats: '100% GDPR-säker'
+                  badgeColor: 'from-slate-500 to-slate-600',
+                  stats: '100% GDPR-säker',
+                  delay: 0.5
                 }
               ].map((feature, idx) => (
-                <div key={idx} className="group relative bg-white rounded-xl border border-slate-200 p-6 hover:shadow-xl hover:shadow-slate-900/5 transition-all duration-300 hover:-translate-y-1">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <feature.icon className="w-6 h-6 text-slate-700" />
+                <motion.div
+                  key={idx}
+                  className="group relative"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: feature.delay, duration: 0.5 }}
+                >
+                  <motion.div
+                    className="relative h-full bg-white rounded-xl border border-slate-200 p-6 cursor-pointer overflow-hidden"
+                    whileHover={{
+                      y: -8,
+                      transition: { duration: 0.3, ease: "easeOut" }
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    {/* Gradient overlay on hover */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 opacity-0"
+                      whileHover={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+
+                    {/* Content */}
+                    <div className="relative z-10">
+                      <div className="flex items-start justify-between mb-4">
+                        <motion.div
+                          className="w-12 h-12 bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl flex items-center justify-center"
+                          whileHover={{
+                            scale: 1.15,
+                            rotate: 5,
+                            background: 'linear-gradient(135deg, rgb(239 246 255) 0%, rgb(219 234 254) 100%)',
+                          }}
+                          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                        >
+                          <feature.icon className="w-6 h-6 text-slate-700" />
+                        </motion.div>
+                        <motion.span
+                          className={`px-3 py-1 bg-gradient-to-r ${feature.badgeColor} text-white text-xs font-bold rounded-full`}
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                        >
+                          {feature.badge}
+                        </motion.span>
+                      </div>
+                      <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                        {feature.title}
+                      </h3>
+                      <p className="text-sm text-slate-600 mb-4">{feature.description}</p>
+
+                      {/* Animated stats bar */}
+                      <div className="pt-4 border-t border-slate-100">
+                        <motion.p
+                          className="text-xs font-medium text-slate-500 flex items-center gap-2"
+                          initial={{ width: 0 }}
+                          whileInView={{ width: 'auto' }}
+                          viewport={{ once: true }}
+                          transition={{ delay: feature.delay + 0.5, duration: 0.5 }}
+                        >
+                          <motion.span
+                            animate={{ opacity: [0.5, 1, 0.5] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                            className="w-1.5 h-1.5 bg-green-500 rounded-full"
+                          />
+                          {feature.stats}
+                        </motion.p>
+                      </div>
                     </div>
-                    <span className={`px-3 py-1 ${feature.badgeColor} text-white text-xs font-bold rounded-full`}>
-                      {feature.badge}
-                    </span>
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900 mb-2">{feature.title}</h3>
-                  <p className="text-sm text-slate-600 mb-4">{feature.description}</p>
-                  <p className="text-xs font-medium text-slate-500">{feature.stats}</p>
-                </div>
+
+                    {/* Hover sparkle effect */}
+                    <motion.div
+                      className="absolute top-2 right-2 opacity-0 group-hover:opacity-100"
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Sparkles className="w-4 h-4 text-yellow-400" />
+                    </motion.div>
+                  </motion.div>
+                </motion.div>
               ))}
             </div>
           </div>

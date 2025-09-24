@@ -137,7 +137,9 @@
       "Bash(copy:*)",
       "Bash(rd:*)",
       "Bash(start \"http://localhost:3000/dashboard\")",
-      "Bash(git revert:*)"
+      "Bash(git revert:*)",
+      "WebFetch(domain:homerun.co)",
+      "WebFetch(domain:www.homerun.co)"
     ],
     "deny": [],
     "ask": []
