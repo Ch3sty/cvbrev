@@ -61,7 +61,7 @@ export default function DynamicTrustIndicator() {
       clearInterval(userInterval)
       clearInterval(successInterval)
     }
-  }, [])
+  }, [cities, userNames])
 
   const metrics: LiveMetric[] = [
     {

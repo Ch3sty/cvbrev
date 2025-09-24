@@ -84,7 +84,7 @@ export default function AILiveWriting() {
       clearTimeout(metricsTimeout)
       keywordTimeouts.forEach(clearTimeout)
     }
-  }, [currentScenario])
+  }, [currentScenario, scenario.keywords])
 
   const highlightText = (text: string) => {
     let highlightedText = text
