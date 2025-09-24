@@ -26,6 +26,7 @@ import AILiveWriting from '@/components/AILiveWriting'
 import DynamicTrustIndicator from '@/components/DynamicTrustIndicator'
 import FloatingAIAssistant from '@/components/FloatingAIAssistant'
 import InteractiveSteps from '@/components/InteractiveSteps'
+import PersonalizedUserJourney from '@/components/PersonalizedUserJourney'
 
 // Swiper components
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -41,7 +42,6 @@ export default function Demo1Page() {
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
-  const [activeTab, setActiveTab] = useState('nystartade')
   const [swiperInstance, setSwiperInstance] = useState<any>(null)
   const [playVideo, setPlayVideo] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -84,42 +84,6 @@ export default function Demo1Page() {
   ]
 
   // Use cases för olika målgrupper
-  const useCases = {
-    nystartade: {
-      title: 'Nyexaminerade',
-      icon: GraduationCap,
-      description: 'Gör skillnad från dag ett',
-      benefits: [
-        'Framhäv akademiska meriter optimalt',
-        'Översätt kurser till branschrelevanta kompetenser',
-        'Få coaching kring praktikplatser och examensarbeten'
-      ],
-      stat: '73% får första jobbet inom 6 veckor'
-    },
-    karriärbytare: {
-      title: 'Karriärbytare',
-      icon: RefreshCw,
-      description: 'Lyft överförbara kompetenser',
-      benefits: [
-        'Identifiera och framhäv överförbara färdigheter',
-        'Anpassa erfarenheter till ny bransch',
-        'Hantera kompetensluckor professionellt'
-      ],
-      stat: '68% lyckas byta karriär inom 3 månader'
-    },
-    specialister: {
-      title: 'Erfarna specialister',
-      icon: Award,
-      description: 'Ta nästa steg i karriären',
-      benefits: [
-        'Positionera expertkunskaper strategiskt',
-        'Kvantifiera resultat och impact',
-        'Optimera för executive search och headhunters'
-      ],
-      stat: '85% får löneökning på 15%+'
-    }
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50/50">
 
@@ -721,75 +685,26 @@ export default function Demo1Page() {
         </div>
       </section>
 
-      {/* Use Cases - Som Loom */}
-      <section className="py-24 bg-gradient-to-b from-white to-slate-50">
+      {/* Personalized User Journey - Interactive personas with wow factor */}
+      <section className="py-24 bg-gradient-to-b from-white to-slate-50 overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              className="text-center mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
               <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
                 Anpassad för din situation
               </h2>
               <p className="text-xl text-slate-600">
                 Oavsett var du är i karriären har vi rätt verktyg för dig
               </p>
-            </div>
+            </motion.div>
 
-            {/* Tabs */}
-            <div className="flex justify-center mb-12">
-              <div className="inline-flex bg-slate-100 rounded-xl p-1">
-                {Object.keys(useCases).map((key) => (
-                  <button
-                    key={key}
-                    onClick={() => setActiveTab(key)}
-                    className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
-                      activeTab === key
-                        ? 'bg-white text-slate-900 shadow-lg'
-                        : 'text-slate-600 hover:text-slate-900'
-                    }`}
-                  >
-                    {useCases[key as keyof typeof useCases].title}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Tab content */}
-            <div className="bg-white rounded-2xl shadow-xl shadow-slate-900/5 p-8 md:p-12">
-              {Object.entries(useCases).map(([key, useCase]) => (
-                <div
-                  key={key}
-                  className={`${activeTab === key ? 'block' : 'hidden'} animate-fadeIn`}
-                >
-                  <div className="grid md:grid-cols-2 gap-8 items-center">
-                    <div>
-                      <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-6">
-                        <useCase.icon className="w-8 h-8 text-white" />
-                      </div>
-                      <h3 className="text-2xl font-bold text-slate-900 mb-3">{useCase.description}</h3>
-                      <ul className="space-y-3 mb-6">
-                        {useCase.benefits.map((benefit, idx) => (
-                          <li key={idx} className="flex items-start gap-3">
-                            <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                            <span className="text-slate-600">{benefit}</span>
-                          </li>
-                        ))}
-                      </ul>
-                      <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg">
-                        <p className="text-lg font-bold text-slate-900">{useCase.stat}</p>
-                      </div>
-                    </div>
-                    <div className="relative">
-                      <div className="aspect-[4/3] bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl flex items-center justify-center">
-                        <div className="text-center">
-                          <useCase.icon className="w-24 h-24 text-slate-300 mx-auto mb-4" />
-                          <p className="text-slate-500">Visualisering kommer här</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <PersonalizedUserJourney />
           </div>
         </div>
       </section>
