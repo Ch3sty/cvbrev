@@ -44,21 +44,18 @@ export default function FunktionerPage() {
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
-  // Simple static statistics component with stable hover states
+  // Stable statistics component with proper isolation from background effects
   const StaticStatCard = ({ value, label, icon: Icon, delay = 0 }: any) => (
     <motion.div
-      className="relative bg-white rounded-xl border border-slate-200 p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform-gpu will-change-transform"
+      className="relative bg-white rounded-xl border border-slate-200 p-6 shadow-lg hover:shadow-xl transition-all duration-300 isolate pointer-events-auto"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay, duration: 0.6 }}
       style={{
-        backfaceVisibility: 'hidden',
-        WebkitBackfaceVisibility: 'hidden',
-        perspective: 1000,
-        WebkitPerspective: 1000,
-        transformStyle: 'preserve-3d',
-        WebkitTransformStyle: 'preserve-3d'
+        zIndex: 10,
+        position: 'relative',
+        isolation: 'isolate',
       }}
       whileHover={{
         scale: 1.02,
@@ -221,14 +218,15 @@ export default function FunktionerPage() {
         >
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-white to-indigo-50/30" />
 
-          {/* Mouse-following gradient */}
+          {/* Mouse-following gradient with proper z-index */}
           <motion.div
-            className="absolute w-[500px] h-[500px] rounded-full"
+            className="absolute w-[500px] h-[500px] rounded-full pointer-events-none z-0"
             style={{
               background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
               left: mousePosition.x - 250,
               top: mousePosition.y - 250,
               filter: 'blur(60px)',
+              zIndex: 0,
             }}
             animate={{
               scale: [1, 1.1, 1],
@@ -290,8 +288,8 @@ export default function FunktionerPage() {
               Våra AI-verktyg sparar tid och ökar dina chanser dramatiskt.
             </p>
 
-            {/* Static statistics with proper z-indexing */}
-            <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-3xl mx-auto relative z-20">
+            {/* Static statistics with FULLY ISOLATED rendering context */}
+            <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-3xl mx-auto relative" style={{ zIndex: 50, isolation: 'isolate', position: 'relative' }}>
               <StaticStatCard
                 value="2.6x"
                 label="Högre intervjufrekvens"

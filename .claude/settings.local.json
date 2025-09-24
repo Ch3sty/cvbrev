@@ -140,7 +140,9 @@
       "Bash(git revert:*)",
       "WebFetch(domain:homerun.co)",
       "WebFetch(domain:www.homerun.co)",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-fixes.html\")",
+      "Bash(del \"C:\\Users\\chris\\cvbrev\\test-fixes.html\")"
     ],
     "deny": [],
     "ask": []
