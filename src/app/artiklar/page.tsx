@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { getAllPostsMeta, PostMeta } from '@/lib/blog';
 import { BookOpen, Filter, TrendingUp } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import PremiumNavbar from '@/components/PremiumNavbar';
 import ModernArticleCard from '@/components/artiklar/ModernArticleCard';
 import ModernCategoriesServer from '@/components/artiklar/ModernCategoriesServer';
@@ -23,7 +23,37 @@ type ResolvedSearchParams = {
 
 const ITEMS_PER_PAGE = 6; // Antal artiklar per sida
 
-export default function ArticlesIndexPage() {
+// Loading fallback component
+function ArticlesLoading() {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <PremiumNavbar />
+      <OrganicTrafficBanner />
+      <div className="container max-w-7xl px-4 py-16 mx-auto lg:py-20">
+        <header className="mb-12 text-center md:mb-16">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-200 rounded-2xl mb-6 animate-pulse">
+            <BookOpen className="w-8 h-8 text-gray-400" />
+          </div>
+          <div className="h-12 bg-gray-200 rounded-lg mb-4 animate-pulse max-w-md mx-auto"></div>
+          <div className="h-6 bg-gray-200 rounded-lg animate-pulse max-w-2xl mx-auto"></div>
+        </header>
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="bg-white rounded-2xl border border-gray-200 p-6 animate-pulse">
+              <div className="h-48 bg-gray-200 rounded-xl mb-4"></div>
+              <div className="h-6 bg-gray-200 rounded mb-3"></div>
+              <div className="h-4 bg-gray-200 rounded mb-2"></div>
+              <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Main content component that uses searchParams
+function ArticlesContent() {
   const searchParams = useSearchParams();
   const [allPosts, setAllPosts] = useState<PostMeta[]>([]);
 
@@ -228,5 +258,14 @@ export default function ArticlesIndexPage() {
         <FloatingCTA />
       </div>
     </div>
+  );
+}
+
+// Main export component that wraps ArticlesContent in Suspense
+export default function ArticlesIndexPage() {
+  return (
+    <Suspense fallback={<ArticlesLoading />}>
+      <ArticlesContent />
+    </Suspense>
   );
 }
