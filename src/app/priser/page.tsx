@@ -5,7 +5,7 @@
  */
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
@@ -17,6 +17,9 @@ import FloatingAIAssistant from '@/components/FloatingAIAssistant'
 import DynamicTrustIndicator from '@/components/DynamicTrustIndicator'
 import StatCard from '@/components/StatCard'
 import { SubscribeButton } from '@/components/subscription/SubscribeButton'
+
+// Lazy load heavy components for performance
+const AILiveWriting = lazy(() => import('@/components/AILiveWriting'))
 
 // Icons
 import {
@@ -32,78 +35,78 @@ interface FaqItem {
   answer: string
 }
 
-// FAQ data - fokuserad på värde och ROI
+// FAQ data - fokuserad på verkligt värde och ärlig information
 const pricingFaqItems: FaqItem[] = [
   {
     question: "Vad ingår i Gratis-planen?",
-    answer: "Gratis-planen låter dig testa våra smarta verktyg: begränsad brevgenerering per vecka, 2 CV-analyser per vecka, 2 kompetensanalyser per vecka, tillgång till 2 grundläggande CV-mallar, och möjlighet att spara upp till 2 brev. Perfekt för att upptäcka vad våra verktyg kan göra för din karriär."
+    answer: "Med Gratis-planen får du tillgång till grundfunktionerna: 5 personliga brev per vecka, 2 CV-analyser per vecka, 2 kompetensanalyser per vecka, 2 grundläggande CV-mallar, och lagring för upp till 2 brev. Det räcker för att komma igång och testa våra verktyg."
   },
   {
-    question: "Betalar sig verkligen Premium för 149 kr/månad?",
-    answer: "Många användare rapporterar förbättrade resultat i sin jobbsökning. Premium ger obegränsad tillgång till alla funktioner för 149 kr/mån - mindre än vad en lunch kostar. Ingen bindningstid så du kan prova utan risk."
+    question: "Vad får jag för 149 kr/månad?",
+    answer: "Premium ger dig obegränsad tillgång till alla funktioner: skapa så många personliga brev som du behöver, obegränsade CV- och kompetensanalyser, alla 8 CV-mallar, smart tonalitetsanpassning, obegränsad lagring och export till Word/PDF. Ingen bindningstid."
   },
   {
-    question: "Hur snabbt får jag resultat?",
-    answer: "Många användare ser förbättringar redan med sitt första skräddarsydda brev. Med professionellt optimerade ansökningar och smart anpassad tonalitet kan du få bättre respons från arbetsgivare. Resultaten varierar beroende på bransch och marknad."
+    question: "Hur fungerar verktygen?",
+    answer: "Du laddar upp ditt CV och klistrar in jobbannonsen. Våra verktyg analyserar båda och skapar ett skräddarsytt personligt brev på svenska på cirka 60 sekunder. Du kan välja mellan 5 olika tonaliteter eller låta systemet välja automatiskt baserat på jobbannonsen."
   },
   {
-    question: "Vad händer när jag avslutar min Premium-prenumeration?",
-    answer: "Du behåller all tillgång under din betalda period, sedan återgår kontot till Gratis-planen. Alla dina sparade dokument, mallar och tidigare analyser finns kvar - du förlorar aldrig ditt arbete."
+    question: "Vad händer om jag avbryter Premium?",
+    answer: "Du behåller full tillgång under din betalda period. Efter det återgår ditt konto till Gratis-planen med begränsade funktioner, men alla dina sparade dokument och tidigare analyser försvinner inte."
   },
   {
-    question: "Är det säkert att betala och hur fungerar det?",
-    answer: "100% säkert! Vi använder Stripe (samma som Spotify, Shopify) för alla betalningar. Bank-nivå kryptering, PCI-kompatibelt. Du kan betala med kort, Apple Pay, Google Pay. Alla transaktioner är säkrade och GDPR-kompatibla."
+    question: "Hur säkra är mina uppgifter?",
+    answer: "Vi tar datasäkerhet på allvar. All data lagras säkert och krypterat, vi följer GDPR-reglerna, och använder Stripe för säkra betalningar. Din CV och personliga information delas aldrig med tredje part."
   },
   {
     question: "Kan jag verkligen avbryta när som helst?",
-    answer: "Ja, helt utan krångel! Ingen bindningstid, inga dolda avgifter, inga frågor. Avbryt direkt i dina inställningar eller kontakta oss. Vi tror på att tjäna din affär varje månad, inte låsa in dig."
+    answer: "Ja, helt utan krångel. Ingen bindningstid, inga avbokningsavgifter, inga frågor. Du kan avbryta direkt i dina kontoinställningar eller kontakta vår support. Vi tjänar din fortsatta användning genom att leverera värde, inte genom att låsa in dig."
   }
 ]
 
-// Trust indicators data - REAL and modest
+// Trust indicators data - faktiska funktioner
 const trustStats = [
-  { number: "Smarta", label: "Professionella verktyg", icon: BrainCircuit },
-  { number: "8", label: "Designade CV-mallar", icon: PenTool },
-  { number: "5", label: "Tonaliteter att välja mellan", icon: Palette },
-  { number: "24/7", label: "Tillgängligt dygnet runt", icon: Clock }
+  { number: "60", label: "Sekunder per brev", icon: Clock },
+  { number: "8", label: "Professionella CV-mallar", icon: PenTool },
+  { number: "5+1", label: "Tonaliteter (inkl. Auto)", icon: Palette },
+  { number: "Svenskt", label: "Språk och marknadsfokus", icon: BrainCircuit }
 ]
 
-// Premium features data - REAL features only
+// Premium features data - verkliga funktioner med nytta-fokus
 const premiumFeatures = [
   {
     icon: Zap,
-    title: "Obegränsad brevgenerering",
-    description: "Skapa så många personliga brev som du behöver - ingen vecka-begränsning",
+    title: "Obegränsade personliga brev",
+    description: "Ansök till alla jobb du vill utan att vänta - ingen vecko-begränsning",
     gradient: "from-blue-500/20 to-indigo-500/20"
   },
   {
     icon: FileSearch,
-    title: "Obegränsade analyser",
-    description: "CV-analyser och kompetensanalyser utan vecka-gränser",
+    title: "Djupgående analyser när du behöver",
+    description: "Få detaljerad feedback på ditt CV och kompetenser utan begränsningar",
     gradient: "from-indigo-500/20 to-purple-500/20"
   },
   {
     icon: Palette,
-    title: "6 Premium CV-mallar",
-    description: "Executive, Nordic Professional, Creative och fler designade mallar",
+    title: "Alla 8 professionella mallar",
+    description: "Från minimalistisk till executive-nivå - välj den som passar din bransch",
     gradient: "from-purple-500/20 to-pink-500/20"
   },
   {
     icon: BrainCircuit,
-    title: "Smart tonalitetsanpassning",
-    description: "Systemet väljer automatiskt optimal ton för varje jobbannons",
+    title: "Automatisk tonalitetsoptimering",
+    description: "Systemet anpassar automatiskt din brevstil till företaget och rollen",
     gradient: "from-pink-500/20 to-red-500/20"
   },
   {
     icon: Save,
-    title: "Obegränsad lagring",
-    description: "Spara så många brev som du vill - ingen 2-brev gräns",
+    title: "Spara allt du skapar",
+    description: "Bygg upp ditt bibliotek av anpassade brev och analyser",
     gradient: "from-green-500/20 to-teal-500/20"
   },
   {
     icon: Code,
-    title: "Export till Word/PDF",
-    description: "Ladda ner dina dokument i det format du behöver",
+    title: "Professionell export",
+    description: "Ladda ner färdiga dokument i Word eller PDF - redo att skicka",
     gradient: "from-teal-500/20 to-cyan-500/20"
   }
 ]
@@ -180,6 +183,8 @@ export default function PriserPage() {
   const [session, setSession] = useState<any>(null)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [applicationsPerMonth, setApplicationsPerMonth] = useState(10)
+  const [timePerLetter, setTimePerLetter] = useState(2.5)
 
   // Scroll animations
   const { scrollY } = useScroll()
@@ -280,6 +285,46 @@ export default function PriserPage() {
 
       {/* Light theme main container */}
       <div className="min-h-screen bg-gradient-to-b from-white to-slate-50/50 relative overflow-hidden">
+        {/* Advanced animated background effects */}
+        <div className="absolute inset-0 -z-10">
+          <motion.div
+            className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full mix-blend-multiply filter blur-3xl"
+            animate={{
+              x: [0, 100, 0],
+              y: [0, -50, 0],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              repeatType: 'reverse',
+            }}
+          />
+          <motion.div
+            className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-pink-400/20 to-orange-400/20 rounded-full mix-blend-multiply filter blur-3xl"
+            animate={{
+              x: [0, -100, 0],
+              y: [0, 50, 0],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              repeatType: 'reverse',
+            }}
+          />
+          <motion.div
+            className="absolute top-1/2 left-1/2 w-80 h-80 bg-gradient-to-br from-green-400/10 to-teal-400/10 rounded-full mix-blend-multiply filter blur-3xl"
+            animate={{
+              x: ['-50%', '-45%', '-55%', '-50%'],
+              y: ['-50%', '-45%', '-55%', '-50%'],
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              repeatType: 'reverse',
+            }}
+          />
+        </div>
+
         {/* Mouse-following gradient background */}
         <motion.div
           className="fixed inset-0 opacity-30 pointer-events-none z-0"
@@ -326,43 +371,95 @@ export default function PriserPage() {
               </motion.div>
 
               <h1 className="mb-6 text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900">
-                Enkel prissättning för
+                Professionella verktyg för
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
-                  maximal karriärtillväxt
+                  din nästa karriärsteg
                 </span>
               </h1>
 
               <p className="max-w-2xl mx-auto mb-8 text-xl text-slate-600 leading-relaxed">
-                Professionella AI-verktyg för att skapa skräddarsydda personliga brev och CV-analyser på svenska.
-                <strong className="text-slate-900"> Starta gratis eller lås upp allt för 149 kr/mån.</strong>
+                Skapa skräddarsydda personliga brev och få djupgående CV-analyser på svenska - på 60 sekunder.
+                <strong className="text-slate-900"> Börja gratis eller få obegränsad tillgång för 149 kr/mån.</strong>
               </p>
 
-              {/* Trust Indicators */}
+              {/* Dynamic Trust Indicators with Live Updates */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
-                className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12"
+                className="mb-12"
               >
-                {trustStats.map((stat, index) => {
-                  const IconComponent = stat.icon
-                  return (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
-                      className="text-center"
-                    >
-                      <div className="flex items-center justify-center w-12 h-12 mx-auto mb-3 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 rounded-xl">
-                        <IconComponent className="w-6 h-6 text-blue-600" />
-                      </div>
-                      <div className="text-2xl font-bold text-slate-900">{stat.number}</div>
-                      <div className="text-sm text-slate-600">{stat.label}</div>
-                    </motion.div>
-                  )
-                })}
+                <DynamicTrustIndicator />
               </motion.div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Interactive Demo Section - Show Premium Features in Action */}
+        <section className="py-20 bg-white overflow-hidden">
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="max-w-4xl mx-auto text-center mb-12"
+            >
+              <h2 className="text-4xl font-bold text-slate-900 mb-4">
+                Se vad du får med <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Premium</span>
+              </h2>
+              <p className="text-xl text-slate-600">
+                Upplev kraften i våra verktyg - se ett personligt brev skapas i realtid
+              </p>
+            </motion.div>
+
+            {/* Live AI Writing Demo */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="max-w-3xl mx-auto"
+            >
+              <Suspense fallback={
+                <div className="flex items-center justify-center h-96">
+                  <motion.div
+                    className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                  />
+                </div>
+              }>
+                <AILiveWriting />
+              </Suspense>
+            </motion.div>
+
+            {/* Feature highlights with animations */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-12"
+            >
+              {[
+                { number: "60", label: "sekunder", desc: "från start till färdigt brev" },
+                { number: "5+1", label: "tonaliteter", desc: "inklusive smart auto-val" },
+                { number: "100%", label: "anpassat", desc: "för varje specifik roll" }
+              ].map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.5 + idx * 0.1 }}
+                  className="text-center p-4"
+                >
+                  <div className="text-3xl font-bold text-blue-600 mb-1">{item.number}</div>
+                  <div className="text-lg font-semibold text-slate-900">{item.label}</div>
+                  <div className="text-sm text-slate-600">{item.desc}</div>
+                </motion.div>
+              ))}
             </motion.div>
           </div>
         </section>
@@ -378,14 +475,14 @@ export default function PriserPage() {
               className="max-w-3xl mx-auto text-center mb-16"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                Enkla priser - <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">maximal effekt</span>
+                Transparent prissättning - <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">äkta värde</span>
               </h2>
               <p className="text-xl text-slate-600 mb-4">
-                Börja gratis och upplev våra smarta verktyg. Uppgradera när du vill ha obegränsad tillgång.
+                Testa gratis först, sedan bestäm om du vill ha obegränsad tillgång till alla verktyg.
               </p>
               <div className="inline-flex items-center px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
                 <Sparkles className="w-4 h-4 mr-2" />
-                Ingen bindningstid • Avbryt när som helst • 149 kr betalar sig själv första dagen
+                Ingen bindningstid • Transparenta priser • Spara 15-20 timmar per månad
               </div>
             </motion.div>
 
@@ -426,7 +523,7 @@ export default function PriserPage() {
                       <div className="space-y-3">
                         <div className="flex items-center">
                           <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
-                          <span className="text-slate-700">Begränsad AI-brevgenerering per vecka</span>
+                          <span className="text-slate-700">5 personliga brev per vecka</span>
                         </div>
                         <div className="flex items-center">
                           <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
@@ -449,19 +546,19 @@ export default function PriserPage() {
                         <div className="pt-4 border-t border-gray-100">
                           <div className="flex items-center opacity-60">
                             <Lock className="w-5 h-5 text-gray-400 mr-3 flex-shrink-0" />
-                            <span className="text-slate-500">Obegränsad brevgenerering (Premium)</span>
+                            <span className="text-slate-500">Obegränsade brev (Premium)</span>
                           </div>
                           <div className="flex items-center opacity-60 mt-2">
                             <Lock className="w-5 h-5 text-gray-400 mr-3 flex-shrink-0" />
-                            <span className="text-slate-500">6 premium CV-mallar (Premium)</span>
+                            <span className="text-slate-500">6 extra CV-mallar (Premium)</span>
                           </div>
                           <div className="flex items-center opacity-60 mt-2">
                             <Lock className="w-5 h-5 text-gray-400 mr-3 flex-shrink-0" />
-                            <span className="text-slate-500">Smart tonalitetsanpassning (Premium)</span>
+                            <span className="text-slate-500">Auto-tonalitet (Premium)</span>
                           </div>
                           <div className="flex items-center opacity-60 mt-2">
                             <Lock className="w-5 h-5 text-gray-400 mr-3 flex-shrink-0" />
-                            <span className="text-slate-500">Obegränsad lagring (Premium)</span>
+                            <span className="text-slate-500">Export till Word/PDF (Premium)</span>
                           </div>
                         </div>
                       </div>
@@ -480,17 +577,22 @@ export default function PriserPage() {
                 </div>
               </motion.div>
 
-              {/* Premium Plan */}
+              {/* Premium Plan with enhanced interactions */}
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 whileHover={{
-                  y: -8,
-                  transition: { type: "spring", stiffness: 300, damping: 20 }
+                  y: -12,
+                  scale: 1.02,
+                  transition: {
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 20
+                  }
                 }}
-                className="relative group"
+                className="relative group perspective-1000"
               >
                 {/* Popular badge */}
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-20">
@@ -500,6 +602,13 @@ export default function PriserPage() {
                 </div>
 
                 <div className="flex flex-col h-full bg-white/90 backdrop-blur-sm border-2 border-blue-200 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden relative">
+                  {/* Animated shine effect on hover */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -translate-x-full z-20 pointer-events-none"
+                    whileHover={{ x: ['100%', '200%'] }}
+                    transition={{ duration: 1.5, ease: "easeInOut" }}
+                  />
+
                   {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-indigo-50/50 pointer-events-none" />
 
@@ -514,7 +623,7 @@ export default function PriserPage() {
                     </div>
 
                     <p className="text-slate-600 mb-6">
-                      Lås upp obegränsade möjligheter för 149 kr/mån - mindre än vad en kaffe kostar per dag. Betalar sig själv första intervjun.
+                      Få tillgång till alla funktioner för 149 kr/mån - mindre än en arbetslunch kostar. Perfekt för seriös jobbsökning.
                     </p>
 
                     <div className="mb-8">
@@ -596,10 +705,10 @@ export default function PriserPage() {
               className="max-w-3xl mx-auto text-center mb-16"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-                Varför investerar smarta jobbsökare i <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Premium?</span>
+                Varför väljer erfarna yrkespersoner <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Premium?</span>
               </h2>
               <p className="text-xl text-slate-600">
-                För att 149 kr/månad är världens bästa investering i din karriär. Mindre än en restaurangmiddag - större påverkan än en MBA.
+                För att tid är dyrare än 149 kr/månad. Spara 15-20 timmar månadsvis och fokusera på att få jobbet, inte skriva ansökningar.
               </p>
             </motion.div>
 
@@ -607,22 +716,22 @@ export default function PriserPage() {
               {[
                 {
                   icon: Zap,
-                  title: "Obegränsade möjligheter",
-                  description: "Skapa så många personliga brev och gör så många analyser du behöver – utan begränsningar",
+                  title: "Ansök till alla jobb",
+                  description: "Skapa personliga brev och analyser för varje intressant position utan att oroa dig för begränsningar",
                   gradient: "from-yellow-400/20 to-orange-400/20",
                   iconColor: "text-yellow-600"
                 },
                 {
                   icon: FileSearch,
-                  title: "Djupgående analyser",
-                  description: "Få detaljerad feedback på allt från nyckelord till prestationer i både CV och kompetensanalys",
+                  title: "Förbättra ditt CV kontinuerligt",
+                  description: "Få konkret feedback med ATS-poäng, saknade nyckelord och förslag på förbättringar",
                   gradient: "from-purple-400/20 to-pink-400/20",
                   iconColor: "text-purple-600"
                 },
                 {
                   icon: Target,
-                  title: "Smart anpassning",
-                  description: "Optimerad tonalitet och avancerade insikter för att skräddarsy varje ansökan perfekt",
+                  title: "Perfekt tonalitet varje gång",
+                  description: "Automatisk anpassning av brevets stil till företagets kultur och rollens krav",
                   gradient: "from-green-400/20 to-teal-400/20",
                   iconColor: "text-green-600"
                 }
@@ -766,10 +875,10 @@ export default function PriserPage() {
               className="max-w-4xl mx-auto text-center mb-16"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-                Vad sparar du med <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Premium?</span>
+                Vad får du med <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Premium?</span>
               </h2>
               <p className="text-xl text-slate-600">
-                Tidsbesparing och kraftfulla verktyg för din jobbsökning
+                Konkreta verktyg som sparar tid och förbättrar dina chanser
               </p>
             </motion.div>
 
@@ -784,27 +893,27 @@ export default function PriserPage() {
                   {[
                     {
                       icon: Clock,
-                      title: "Spara tid",
-                      value: "15-20 timmar/månad",
-                      description: "Istället för att skriva varje personligt brev för hand"
-                    },
-                    {
-                      icon: Zap,
-                      title: "Obegränsade brev",
-                      value: "Så många du behöver",
-                      description: "Ansök till alla jobb utan begränsningar"
+                      title: "Tidsbesparing",
+                      value: "60 sekunder per brev",
+                      description: "Istället för 2-3 timmar manuellt skrivande"
                     },
                     {
                       icon: Target,
-                      title: "Professionella mallar",
-                      value: "8 designade mallar",
-                      description: "Från minimalistisk till executive-nivå"
+                      title: "Skräddarsydda brev",
+                      value: "Anpassade för varje roll",
+                      description: "Analyserar både CV och jobbannons"
                     },
                     {
                       icon: FileSearch,
-                      title: "Expertanalyser",
-                      value: "Obegränsade insikter",
-                      description: "CV- och kompetensanalyser när du behöver dem"
+                      title: "ATS-optimering",
+                      value: "Höjd genomslagskraft",
+                      description: "CV-analys med ATS-poäng och nyckelord"
+                    },
+                    {
+                      icon: Zap,
+                      title: "Professionell kvalitet",
+                      value: "8 CV-mallar",
+                      description: "Designade för svenska arbetsmarknaden"
                     }
                   ].map((item, index) => {
                     const IconComponent = item.icon
@@ -829,15 +938,15 @@ export default function PriserPage() {
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-gray-200 text-center">
-                  <div className="text-2xl font-bold text-slate-900 mb-2">Endast 149 kr/månad</div>
-                  <p className="text-slate-600">Mindre än vad en arbetslunch kostar - för obegränsade möjligheter</p>
+                  <div className="text-2xl font-bold text-slate-900 mb-2">149 kr/månad</div>
+                  <p className="text-slate-600">Investering som sparar dig 15-20 timmar månadsvis</p>
                 </div>
               </motion.div>
             </div>
           </div>
         </section>
 
-        {/* ROI Calculator Section */}
+        {/* Interactive ROI Calculator Section */}
         <section className="py-20 bg-gradient-to-b from-blue-50/30 to-white">
           <div className="container px-4 mx-auto">
             <motion.div
@@ -848,7 +957,7 @@ export default function PriserPage() {
               className="max-w-4xl mx-auto text-center mb-16"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-                Investeringen som <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600">betalar sig själv</span>
+                En investering som <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600">sparar dig tid</span>
               </h2>
             </motion.div>
 
@@ -859,51 +968,142 @@ export default function PriserPage() {
                 viewport={{ once: true }}
                 className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded-2xl shadow-xl p-8"
               >
+                {/* Interactive Calculator Controls */}
+                <div className="mb-8 p-6 bg-gradient-to-r from-slate-50 to-blue-50 rounded-xl">
+                  <h3 className="font-bold text-slate-900 mb-6 text-center">Anpassa efter din situation</h3>
+
+                  <div className="space-y-6">
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 mb-2">
+                        Hur många jobb söker du per månad?
+                      </label>
+                      <div className="flex items-center gap-4">
+                        <motion.input
+                          type="range"
+                          min="5"
+                          max="30"
+                          value={applicationsPerMonth}
+                          onChange={(e) => setApplicationsPerMonth(Number(e.target.value))}
+                          className="flex-1 accent-blue-600"
+                          whileFocus={{ scale: 1.02 }}
+                        />
+                        <div className="w-16 text-center font-bold text-slate-900">
+                          {applicationsPerMonth}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 mb-2">
+                        Timmar per personligt brev (manuellt)
+                      </label>
+                      <div className="flex items-center gap-4">
+                        <motion.input
+                          type="range"
+                          min="1"
+                          max="4"
+                          step="0.5"
+                          value={timePerLetter}
+                          onChange={(e) => setTimePerLetter(Number(e.target.value))}
+                          className="flex-1 accent-blue-600"
+                          whileFocus={{ scale: 1.02 }}
+                        />
+                        <div className="w-16 text-center font-bold text-slate-900">
+                          {timePerLetter}h
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Calculated Results */}
                 <div className="grid md:grid-cols-2 gap-8">
-                  <div className="text-center">
+                  <motion.div
+                    className="text-center"
+                    key={`time-${applicationsPerMonth}-${timePerLetter}`}
+                    animate={{ scale: [1, 1.05, 1] }}
+                    transition={{ duration: 0.3 }}
+                  >
                     <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 rounded-2xl flex items-center justify-center">
                       <TrendingUp className="w-8 h-8 text-blue-600" />
                     </div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">Möjlig lönökning</h3>
-                    <div className="text-4xl font-bold text-green-600 mb-2">5-20%</div>
-                    <p className="text-slate-700 text-sm">När du får ett nytt jobb med professionella ansökningar</p>
-                  </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">Tid du sparar</h3>
+                    <div className="text-4xl font-bold text-green-600 mb-2">
+                      {Math.round(applicationsPerMonth * timePerLetter)} tim
+                    </div>
+                    <p className="text-slate-700 text-sm">Per månad med våra verktyg</p>
+                  </motion.div>
 
-                  <div className="text-center">
+                  <motion.div
+                    className="text-center"
+                    key={`value-${applicationsPerMonth}-${timePerLetter}`}
+                    animate={{ scale: [1, 1.05, 1] }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                  >
                     <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-2xl flex items-center justify-center">
                       <Clock className="w-8 h-8 text-green-600" />
                     </div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">Effektivare jobbsökning</h3>
-                    <div className="text-4xl font-bold text-blue-600 mb-2">Snabbare</div>
-                    <p className="text-slate-700 text-sm">Med professionella, anpassade ansökningar</p>
-                  </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">Värde av tiden</h3>
+                    <div className="text-4xl font-bold text-blue-600 mb-2">
+                      {Math.round(applicationsPerMonth * timePerLetter * 100)} kr
+                    </div>
+                    <p className="text-slate-700 text-sm">Vid 100 kr/timme</p>
+                  </motion.div>
                 </div>
 
-                <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl">
-                  <h4 className="font-bold text-slate-900 text-center mb-4">Varför Premium lönar sig</h4>
+                <motion.div
+                  className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <h4 className="font-bold text-slate-900 text-center mb-4">Din personliga kalkyl</h4>
                   <div className="space-y-4">
                     <div className="text-center p-4 bg-white/80 rounded-lg">
-                      <div className="text-lg font-semibold text-slate-800 mb-2">Månadskostand för Premium</div>
-                      <div className="text-3xl font-bold text-blue-600">149 kr</div>
-                      <div className="text-sm text-slate-600 mt-1">Mindre än en lunch på jobbet</div>
+                      <div className="text-lg font-semibold text-slate-800 mb-2">Premium kostnad</div>
+                      <div className="text-3xl font-bold text-blue-600">149 kr/mån</div>
+                      <div className="text-sm text-slate-600 mt-1">Ingen bindningstid</div>
                     </div>
 
-                    <div className="text-center p-4 bg-white/80 rounded-lg">
-                      <div className="text-lg font-semibold text-slate-800 mb-2">Årskostnad</div>
-                      <div className="text-2xl font-bold text-slate-800">1,788 kr</div>
-                      <div className="text-sm text-slate-600 mt-1">För obegränsad AI-kraft</div>
-                    </div>
+                    <motion.div
+                      className="text-center p-4 bg-white/80 rounded-lg"
+                      key={`saved-${applicationsPerMonth}-${timePerLetter}`}
+                      animate={{ scale: [1, 1.02, 1] }}
+                    >
+                      <div className="text-lg font-semibold text-slate-800 mb-2">Du sparar</div>
+                      <div className="text-2xl font-bold text-slate-800">
+                        {Math.round(applicationsPerMonth * timePerLetter)} timmar/mån
+                      </div>
+                      <div className="text-sm text-slate-600 mt-1">
+                        = {Math.round(applicationsPerMonth * timePerLetter * 100)} kr i tidsvärde
+                      </div>
+                    </motion.div>
 
-                    <div className="text-center mt-6 p-4 bg-green-100 rounded-lg">
-                      <div className="text-lg font-bold text-green-800">
-                        Även en liten förbättring i din jobbsökning gör att Premium betalar sig själv många gånger om
+                    <motion.div
+                      className="text-center mt-6 p-4 rounded-lg"
+                      style={{
+                        backgroundColor: (applicationsPerMonth * timePerLetter * 100) > 149 ? '#dcfce7' : '#fef3c7'
+                      }}
+                      key={`result-${applicationsPerMonth}-${timePerLetter}`}
+                      animate={{ scale: [1, 1.03, 1] }}
+                    >
+                      <div className="text-lg font-bold" style={{
+                        color: (applicationsPerMonth * timePerLetter * 100) > 149 ? '#166534' : '#92400e'
+                      }}>
+                        {(applicationsPerMonth * timePerLetter * 100) > 149
+                          ? `Du sparar ${Math.round((applicationsPerMonth * timePerLetter * 100) - 149)} kr netto per månad!`
+                          : 'Öka antalet ansökningar för att maximera värdet'
+                        }
                       </div>
-                      <div className="text-sm text-green-700 mt-2">
-                        Spara tid, få bättre resultat, ingen bindningstid
+                      <div className="text-sm mt-2" style={{
+                        color: (applicationsPerMonth * timePerLetter * 100) > 149 ? '#15803d' : '#b45309'
+                      }}>
+                        Plus professionell kvalitet på alla ansökningar
                       </div>
-                    </div>
+                    </motion.div>
                   </div>
-                </div>
+                </motion.div>
               </motion.div>
             </div>
           </div>
@@ -924,35 +1124,35 @@ export default function PriserPage() {
                 Varför välja <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Jobbcoach.ai?</span>
               </h2>
               <p className="text-xl text-slate-600">
-                Smarta verktyg som hjälper dig att skapa professionella ansökningar snabbt och enkelt
+                Verktyg byggda specifikt för svenska arbetsmarknaden - inte översatta från engelska
               </p>
             </motion.div>
 
             <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
               {[
                 {
-                  title: "Snabbt och enkelt",
-                  description: "Generera ett professionellt personligt brev på 60 sekunder. Ingen väntan, inga komplicerade processer.",
-                  icon: Zap,
-                  color: "from-yellow-500/20 to-orange-500/20"
-                },
-                {
-                  title: "Alltid tillgängligt",
-                  description: "24/7 tillgång till alla verktyg. Ansök när det passar dig, inte när någon annan har tid.",
-                  icon: Clock,
+                  title: "Byggd för Sverige",
+                  description: "Svenska språket, svenska företagskultur, svenska CV-standarder. Inte bara översatt från engelska.",
+                  icon: Award,
                   color: "from-blue-500/20 to-indigo-500/20"
                 },
                 {
-                  title: "Professionell kvalitet",
-                  description: "8 designade CV-mallar och smarta verktyg som skapar skräddarsydda brev för varje jobbannons.",
-                  icon: Award,
+                  title: "Konkreta resultat",
+                  description: "60 sekunder från jobbannons till färdigt personligt brev. Spara 2-3 timmar per ansökan.",
+                  icon: Clock,
+                  color: "from-green-500/20 to-teal-500/20"
+                },
+                {
+                  title: "Komplett lösning",
+                  description: "Personliga brev, CV-analys med ATS-poäng, kompetensanalys och professionella mallar på samma plats.",
+                  icon: Zap,
                   color: "from-purple-500/20 to-pink-500/20"
                 },
                 {
-                  title: "Transparent prissättning",
-                  description: "149 kr/mån för allt. Ingen bindningstid, inga dolda kostnader, avsluta när du vill.",
+                  title: "Ingen risk",
+                  description: "Börja gratis, testa allt. Uppgradera när du ser värdet. Ingen bindningstid, avbryt när som helst.",
                   icon: Shield,
-                  color: "from-green-500/20 to-teal-500/20"
+                  color: "from-yellow-500/20 to-orange-500/20"
                 }
               ].map((benefit, index) => {
                 const IconComponent = benefit.icon
@@ -1013,14 +1213,14 @@ export default function PriserPage() {
               </div>
 
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-                Redo att investera i din
+                Redo för ditt nästa
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-orange-300 drop-shadow-sm">
-                  framtid?
+                  karriärsteg?
                 </span>
               </h2>
 
               <p className="max-w-2xl mx-auto text-xl md:text-2xl text-white mb-12 leading-relaxed drop-shadow-sm">
-                Välj mellan vår generösa gratisplan eller Premium för obegränsade möjligheter. Din karriär väntar.
+                Börja gratis idag. Uppgradera till Premium när du vill ha obegränsad tillgång. Ingen bindningstid.
               </p>
 
               {/* Enhanced Trust Indicators with better contrast */}
@@ -1033,10 +1233,10 @@ export default function PriserPage() {
               >
                 <div className="text-center p-6 bg-white/95 backdrop-blur-sm rounded-xl shadow-lg max-w-2xl mx-auto">
                   <div className="text-lg font-semibold text-slate-800 mb-2">
-                    Professionella verktyg för din jobbsökning
+                    Spara 15-20 timmar per månad
                   </div>
                   <div className="text-slate-600">
-                    Skapa personliga brev, analysera ditt CV, och använd professionella mallar - allt på svenska
+                    Med verktyg som skapar professionella ansökningar på 60 sekunder - specialbyggda för Sverige
                   </div>
                 </div>
               </motion.div>
