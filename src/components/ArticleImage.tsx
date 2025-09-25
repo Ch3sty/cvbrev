@@ -15,23 +15,37 @@ export default function ArticleImage({ src, alt, slug }: ArticleImageProps) {
   const [imagePath, setImagePath] = useState('');
 
   useEffect(() => {
-    // Korrigera sökvägarna
-    let correctedPath = src;
-    
-    // Ta bort '/public' om det finns i början av sökvägen
-    if (correctedPath.startsWith('/public/')) {
-      correctedPath = correctedPath.replace('/public', '');
-    } else if (correctedPath.startsWith('public/')) {
-      correctedPath = correctedPath.replace('public', '');
+    try {
+      // Validate src first
+      if (!src || typeof src !== 'string' || src.trim() === '') {
+        console.warn('Invalid image src provided:', src);
+        setImagePath('');
+        setImageError(true);
+        return;
+      }
+
+      // Korrigera sökvägarna
+      let correctedPath = src.trim();
+
+      // Ta bort '/public' om det finns i början av sökvägen
+      if (correctedPath.startsWith('/public/')) {
+        correctedPath = correctedPath.replace('/public', '');
+      } else if (correctedPath.startsWith('public/')) {
+        correctedPath = correctedPath.replace('public', '');
+      }
+
+      // Lägg till inledande / om det saknas
+      if (!correctedPath.startsWith('/') && !correctedPath.startsWith('http')) {
+        correctedPath = `/${correctedPath}`;
+      }
+
+      console.log(`Original bildväg: ${src}, Korrigerad: ${correctedPath}`);
+      setImagePath(correctedPath);
+    } catch (error) {
+      console.error('Error processing image path:', error);
+      setImagePath('');
+      setImageError(true);
     }
-    
-    // Lägg till inledande / om det saknas
-    if (!correctedPath.startsWith('/') && !correctedPath.startsWith('http')) {
-      correctedPath = `/${correctedPath}`;
-    }
-    
-    console.log(`Original bildväg: ${src}, Korrigerad: ${correctedPath}`);
-    setImagePath(correctedPath);
   }, [src]);
 
   const handleImageError = () => {

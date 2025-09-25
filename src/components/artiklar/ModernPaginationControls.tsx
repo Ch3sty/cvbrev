@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 interface ModernPaginationControlsProps {
   currentPage: number;
@@ -65,10 +64,7 @@ const ModernPaginationControls: React.FC<ModernPaginationControlsProps> = ({
   const pageNumbers = generatePageNumbers();
 
   return (
-    <motion.nav
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
+    <nav
       className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-12 pt-8 border-t border-gray-200"
       aria-label="Paginering"
     >
@@ -151,7 +147,7 @@ const ModernPaginationControls: React.FC<ModernPaginationControlsProps> = ({
           Sida <span className="font-medium text-gray-900">{currentPage}</span> av <span className="font-medium text-gray-900">{totalPages}</span>
         </span>
       </div>
-    </motion.nav>
+    </nav>
   );
 };
 

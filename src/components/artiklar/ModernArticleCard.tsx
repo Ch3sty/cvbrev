@@ -72,11 +72,26 @@ const ModernArticleCard: React.FC<ModernArticleCardProps> = ({
         <div className="flex items-center gap-4 mb-3 text-sm text-gray-500">
           <div className="flex items-center gap-1">
             <CalendarDays className="w-4 h-4" />
-            {post.date && (
-              <time dateTime={post.date}>
-                {format(parseISO(post.date), 'd MMM yyyy', { locale: sv })}
-              </time>
-            )}
+            {post.date && (() => {
+              try {
+                // Parse and validate the date
+                const parsedDate = parseISO(post.date);
+                // Check if the date is valid
+                if (!isNaN(parsedDate.getTime())) {
+                  return (
+                    <time dateTime={post.date}>
+                      {format(parsedDate, 'd MMM yyyy', { locale: sv })}
+                    </time>
+                  );
+                }
+                // Fallback for invalid dates
+                return <span>{post.date}</span>;
+              } catch (error) {
+                // Fallback if date parsing fails
+                console.warn('Date parsing failed for:', post.date, error);
+                return <span>{post.date}</span>;
+              }
+            })()}
           </div>
 
           {post.author && (

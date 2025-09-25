@@ -36,15 +36,28 @@ export default async function ArticlesIndexPage({
   // Validera sidnummer
   const currentPage = isNaN(page) || page < 1 ? 1 : page;
 
-  const allPosts = getAllPostsMeta(); // Hämtar alla poster (sorterade efter datum som default?)
+  // Hämta alla poster med felhantering
+  let allPosts: PostMeta[] = [];
+  try {
+    allPosts = getAllPostsMeta();
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    // Return empty state instead of crashing
+    allPosts = [];
+  }
 
-  // 1. Filtrera först baserat på tagg
+  // 1. Filtrera först baserat på tagg med säker filtrering
   const filteredPosts = tagFilter
-    ? allPosts.filter(post =>
-        post.tags &&
-        Array.isArray(post.tags) &&
-        post.tags.some(tag => typeof tag === 'string' && tag.toLowerCase() === tagFilter.toLowerCase())
-      )
+    ? allPosts.filter(post => {
+        try {
+          return post.tags &&
+            Array.isArray(post.tags) &&
+            post.tags.some(tag => typeof tag === 'string' && tag.toLowerCase() === tagFilter.toLowerCase());
+        } catch (error) {
+          console.warn('Error filtering post:', post?.slug, error);
+          return false;
+        }
+      })
     : allPosts;
 
   // 2. Beräkna pagineringsvariabler baserat på filtrerade poster
