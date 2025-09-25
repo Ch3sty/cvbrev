@@ -4,18 +4,12 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { X, Sparkles, Clock, Users, TrendingUp } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useGlobalCounters } from '@/contexts/GlobalCountersContext';
 
 const OrganicTrafficBanner = () => {
   const [isVisible, setIsVisible] = useState(true);
-  const [liveCount, setLiveCount] = useState(8);
-
-  // Update live counter
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLiveCount(prev => prev + Math.floor(Math.random() * 3) - 1);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
+  const { counters } = useGlobalCounters();
+  const liveCount = counters.activeUsers;
 
   // Check if user has dismissed banner recently
   useEffect(() => {
@@ -91,7 +85,7 @@ const OrganicTrafficBanner = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Users className="w-4 h-4 text-blue-300" />
-                <span className="opacity-90">500+ jobbsökare</span>
+                <span className="opacity-90">{counters.totalUsers}+ jobbsökare</span>
               </div>
             </div>
           </div>

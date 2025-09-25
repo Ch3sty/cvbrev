@@ -13,12 +13,17 @@ interface LiveMetric {
   color: string
 }
 
+import { useGlobalCounters } from '@/contexts/GlobalCountersContext'
+
 export default function DynamicTrustIndicator() {
-  const [todayLetters, setTodayLetters] = useState(43)
-  const [activeUsers, setActiveUsers] = useState(127)
+  const { counters } = useGlobalCounters()
   const [successRate, setSuccessRate] = useState(89)
   const [recentUser, setRecentUser] = useState<string | null>(null)
   const [pulseAnimation, setPulseAnimation] = useState(false)
+
+  // Use global counters
+  const todayLetters = counters.todayLetters
+  const activeUsers = counters.activeUsers
 
   useEffect(() => {
     // Flytta arrays inuti useEffect för att undvika dependency-varningar
@@ -38,10 +43,6 @@ export default function DynamicTrustIndicator() {
       const randomCity = cities[Math.floor(Math.random() * cities.length)]
       setRecentUser(`${randomName} från ${randomCity}`)
       setPulseAnimation(true)
-
-      // Öka räknare
-      setTodayLetters(prev => prev + 1)
-      setActiveUsers(prev => Math.min(prev + Math.floor(Math.random() * 3), 150))
 
       // Ta bort notification efter 4 sekunder
       setTimeout(() => {

@@ -14,6 +14,7 @@ import Script from 'next/script'
 import { Suspense, useState, useEffect } from 'react';
 import CookieConsent, { Cookies, getCookieConsentValue, OPTIONS } from "react-cookie-consent";
 import { NotificationProvider } from '@/context/notificationcontext';
+import { GlobalCountersProvider } from '@/contexts/GlobalCountersContext';
 import { usePathname } from 'next/navigation';
 
 const inter = Inter({ subsets: ['latin'] })
@@ -166,12 +167,13 @@ export default function RootLayout({
         </noscript>
         {/* === GTM BODY SNIPPET (NOSCRIPT) SLUT === */}
 
-        <NotificationProvider>
-          {!isDashboard && <Navbar />}
+        <GlobalCountersProvider>
+          <NotificationProvider>
+            {!isDashboard && <Navbar />}
 
-          <main className="flex-grow">
-            {children}
-          </main>
+            <main className="flex-grow">
+              {children}
+            </main>
 
           {/* ================= FOOTER START (UPPDATERAD MED NY TEXT) ================= */}
           {!isDashboard && (
@@ -267,7 +269,8 @@ export default function RootLayout({
             </Link>.
           </CookieConsent>
           {/* === COOKIE BANNER SLUT === */}
-        </NotificationProvider>
+          </NotificationProvider>
+        </GlobalCountersProvider>
       </body>
     </html>
   )

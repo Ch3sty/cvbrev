@@ -4,8 +4,10 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, ArrowRight, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { useGlobalCounters } from '@/contexts/GlobalCountersContext';
 
 const FloatingCTA = () => {
+  const { counters } = useGlobalCounters();
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
 
@@ -51,7 +53,7 @@ const FloatingCTA = () => {
             damping: 30,
             duration: 0.6
           }}
-          className="fixed bottom-6 right-6 z-50 max-w-sm"
+          className="fixed bottom-6 right-6 z-50 max-w-xs"
         >
           <div className="relative bg-white rounded-2xl shadow-2xl border border-gray-200/60 overflow-hidden">
             {/* Close button */}
@@ -68,47 +70,47 @@ const FloatingCTA = () => {
             <div className="absolute inset-0 bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50"></div>
 
             {/* Content */}
-            <div className="relative p-6 pt-12">
+            <div className="relative p-4 pt-8">
               {/* Icon */}
-              <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-pink-600 to-purple-600
-                            rounded-xl mb-4 shadow-lg">
-                <Sparkles className="w-6 h-6 text-white" />
+              <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-pink-600 to-purple-600
+                            rounded-lg mb-3 shadow-lg">
+                <Sparkles className="w-5 h-5 text-white" />
               </div>
 
               {/* Text */}
-              <h3 className="text-lg font-bold text-gray-900 mb-2">
+              <h3 className="text-base font-bold text-gray-900 mb-2">
                 Gillar du våra artiklar?
               </h3>
-              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+              <p className="text-gray-600 text-xs mb-3 leading-relaxed">
                 Få personligt brev skrivet av AI på bara 2 minuter.
-                Över 500 jobbsökare har redan förbättrat sina ansökningar.
+                Över {counters.totalUsers} jobbsökare har redan förbättrat sina ansökningar.
               </p>
 
               {/* CTA Button */}
               <Link
                 href="/create-letter"
-                className="group flex items-center justify-center w-full py-3 px-4
+                className="group flex items-center justify-center w-full py-2.5 px-3 text-sm
                          bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold
-                         rounded-xl hover:from-pink-500 hover:to-purple-500
+                         rounded-lg hover:from-pink-500 hover:to-purple-500
                          transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105
                          focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
               >
-                <Sparkles className="w-4 h-4 mr-2" />
+                <Sparkles className="w-3 h-3 mr-1.5" />
                 Skapa mitt brev - Gratis
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-200" />
+                <ArrowRight className="w-3 h-3 ml-1.5 group-hover:translate-x-1 transition-transform duration-200" />
               </Link>
 
               {/* Trust indicators */}
-              <div className="mt-3 text-center">
+              <div className="mt-2 text-center">
                 <p className="text-xs text-gray-500">
-                  ⭐ 4.8/5 rating • 🚀 2 min setup • 💳 Inga kort krävs
+                  ⭐ 4.8/5 • 🚀 2 min • 💳 Inga kort krävs
                 </p>
               </div>
             </div>
 
             {/* Animated background elements */}
-            <div className="absolute -top-4 -right-4 w-8 h-8 bg-pink-400/20 rounded-full animate-pulse"></div>
-            <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-purple-400/20 rounded-full animate-pulse delay-1000"></div>
+            <div className="absolute -top-2 -right-2 w-6 h-6 bg-pink-400/20 rounded-full animate-pulse"></div>
+            <div className="absolute -bottom-1 -left-1 w-4 h-4 bg-purple-400/20 rounded-full animate-pulse delay-1000"></div>
           </div>
         </motion.div>
       )}

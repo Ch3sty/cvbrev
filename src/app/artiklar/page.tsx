@@ -183,7 +183,7 @@ export default async function ArticlesIndexPage({
                   if (!tagFilter && (globalIndex + 1) % 5 === 0) {
                     // Smart distribution: 70% free-trial, 30% premium
                     // Use position-based deterministic selection for consistency
-                    const conversionPosition = Math.floor((globalIndex + 1) / 5);
+                    const conversionPosition = Math.floor((globalIndex + 1) / 5) - 1; // 0-based indexing
                     const selectedVariant = (conversionPosition % 10) < 7 ? 'free-trial' : 'premium';
 
                     elements.push(

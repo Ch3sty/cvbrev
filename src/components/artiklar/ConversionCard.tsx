@@ -18,7 +18,7 @@ import {
   TrendingUp as TrendingUpIcon,
   GraduationCap
 } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useGlobalCounters } from '@/contexts/GlobalCountersContext';
 
 interface ConversionCardProps {
   variant?: 'free-trial' | 'premium';
@@ -29,20 +29,9 @@ const ConversionCard: React.FC<ConversionCardProps> = ({
   variant = 'free-trial',
   position = 0
 }) => {
-  const [liveUsers, setLiveUsers] = useState(12);
-  const [completedToday, setCompletedToday] = useState(8);
-
-  // Live counter animation
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLiveUsers(prev => prev + Math.floor(Math.random() * 3) - 1);
-      if (Math.random() > 0.7) {
-        setCompletedToday(prev => prev + 1);
-      }
-    }, 3000 + Math.random() * 4000);
-
-    return () => clearInterval(interval);
-  }, []);
+  const { counters } = useGlobalCounters();
+  const liveUsers = counters.activeUsers;
+  const completedToday = counters.todayLetters;
 
   const variants = {
     'free-trial': {
@@ -165,7 +154,7 @@ const ConversionCard: React.FC<ConversionCardProps> = ({
           <div className="text-center">
             <div className="flex items-center justify-center gap-1 mb-1">
               <Users className="w-4 h-4 text-pink-600" />
-              <span className="text-2xl font-bold text-gray-900">500+</span>
+              <span className="text-2xl font-bold text-gray-900">{counters.totalUsers}+</span>
             </div>
             <p className="text-xs text-gray-600">Jobbsökare</p>
           </div>
