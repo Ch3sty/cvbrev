@@ -36,15 +36,15 @@ interface FaqItem {
 const pricingFaqItems: FaqItem[] = [
   {
     question: "Vad ingår i Gratis-planen?",
-    answer: "Gratis-planen är din perfekta startpunkt: 2 AI-genererade personliga brev (värde 800 kr), 2 professionella CV-analyser (värde 1200 kr), och 2 kompetensanalyser (värde 1800 kr). Totalt värde: 3800 kr - helt gratis för att du ska kunna testa vår AI-kraft."
+    answer: "Gratis-planen låter dig testa vår AI-kraft: begränsad brevgenerering per vecka, 2 CV-analyser per vecka, 2 kompetensanalyser per vecka, tillgång till 2 grundläggande CV-mallar, och möjlighet att spara upp till 2 brev. Perfekt för att upptäcka vad vår AI kan göra för din karriär."
   },
   {
     question: "Betalar sig verkligen Premium för 149 kr/månad?",
-    answer: "Absolut! Genomsnittsanvändaren får 15-20% lönökning efter nytt jobb. På en 35,000 kr/mån lön betyder det +63,000 kr/år. Premium kostar 1,788 kr/år = ROI på 3,422%. Investeringen betalar sig själv på mindre än 10 dagar."
+    answer: "Många användare rapporterar förbättrade resultat i sin jobbsökning. Premium ger obegränsad tillgång till alla funktioner för 149 kr/mån - mindre än vad en lunch kostar. Ingen bindningstid så du kan prova utan risk."
   },
   {
     question: "Hur snabbt får jag resultat?",
-    answer: "89% av våra Premium-användare får minst en intervju inom 3 veckor (jämfört med 6-8 veckor normalt). Genomsnittstid till jobberbjudande är 4-6 veckor. Du ser resultatet redan första ansökningen med våra AI-optimerade personliga brev."
+    answer: "Många användare ser förbättringar redan med sitt första AI-genererade brev. Med professionellt optimerade ansökningar och skräddarsydd tonalitet kan du få bättre respons från arbetsgivare. Resultaten varierar beroende på bransch och marknad."
   },
   {
     question: "Vad händer när jag avslutar min Premium-prenumeration?",
@@ -60,50 +60,50 @@ const pricingFaqItems: FaqItem[] = [
   }
 ]
 
-// Trust indicators data
+// Trust indicators data - REAL and modest
 const trustStats = [
-  { number: "15,000+", label: "Nöjda användare", icon: Users },
-  { number: "50,000+", label: "Personliga brev skapade", icon: PenTool },
-  { number: "4.8/5", label: "Användarbetyg", icon: Star },
-  { number: "94%", label: "Får jobbet de söker", icon: Trophy }
+  { number: "AI-drivna", label: "Professionella verktyg", icon: BrainCircuit },
+  { number: "8", label: "Designade CV-mallar", icon: PenTool },
+  { number: "5", label: "Tonaliteter att välja mellan", icon: Palette },
+  { number: "24/7", label: "Tillgängligt dygnet runt", icon: Clock }
 ]
 
-// Premium features data
+// Premium features data - REAL features only
 const premiumFeatures = [
   {
     icon: Zap,
-    title: "Obegränsad AI-generering",
-    description: "Skapa så många personliga brev som du behöver - ingen begränsning",
+    title: "Obegränsad brevgenerering",
+    description: "Skapa så många personliga brev som du behöver - ingen vecka-begränsning",
     gradient: "from-blue-500/20 to-indigo-500/20"
   },
   {
     icon: FileSearch,
-    title: "Djupgående analyser",
-    description: "Få detaljerad feedback och konkreta förbättringsförslag",
+    title: "Obegränsade analyser",
+    description: "CV-analyser och kompetensanalyser utan vecka-gränser",
     gradient: "from-indigo-500/20 to-purple-500/20"
   },
   {
-    icon: Target,
-    title: "Smart matchning",
-    description: "AI matchar dina kompetenser perfekt mot varje jobbannons",
+    icon: Palette,
+    title: "6 Premium CV-mallar",
+    description: "Executive, Nordic Professional, Creative och fler designade mallar",
     gradient: "from-purple-500/20 to-pink-500/20"
   },
   {
-    icon: Lightbulb,
-    title: "Anpassningsbar tonalitet",
-    description: "Justera stil och ton för att passa olika företagskulturer",
+    icon: BrainCircuit,
+    title: "AI-auto tonalitet",
+    description: "AI väljer automatiskt optimal ton för varje jobbannons",
     gradient: "from-pink-500/20 to-red-500/20"
   },
   {
     icon: Save,
-    title: "Obegränsade sparade ansökningar",
-    description: "Spara och organisera alla dina ansökningar på ett ställe",
+    title: "Obegränsad lagring",
+    description: "Spara så många brev som du vill - ingen 2-brev gräns",
     gradient: "from-green-500/20 to-teal-500/20"
   },
   {
-    icon: Sparkles,
-    title: "Prioriterad support",
-    description: "Få hjälp inom 24 timmar från vårt expertteam",
+    icon: Code,
+    title: "Export till Word/PDF",
+    description: "Ladda ner dina dokument i det format du behöver",
     gradient: "from-teal-500/20 to-cyan-500/20"
   }
 ]
@@ -333,7 +333,7 @@ export default function PriserPage() {
               </h1>
 
               <p className="max-w-2xl mx-auto mb-8 text-xl text-slate-600 leading-relaxed">
-                Samma AI som rekryterare använder. 89% får intervju inom 3 veckor. Genomsnittlig lönökning: 15-20%.
+                Professionella AI-verktyg för att skapa skräddarsydda personliga brev och CV-analyser på svenska.
                 <strong className="text-slate-900"> Starta gratis eller lås upp allt för 149 kr/mån.</strong>
               </p>
 
@@ -426,30 +426,42 @@ export default function PriserPage() {
                       <div className="space-y-3">
                         <div className="flex items-center">
                           <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
-                          <span className="text-slate-700">2 AI-genererade personliga brev</span>
+                          <span className="text-slate-700">Begränsad AI-brevgenerering per vecka</span>
                         </div>
                         <div className="flex items-center">
                           <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
-                          <span className="text-slate-700">2 grundläggande CV-analyser</span>
+                          <span className="text-slate-700">2 CV-analyser per vecka</span>
                         </div>
                         <div className="flex items-center">
                           <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
-                          <span className="text-slate-700">2 kompetensanalyser</span>
+                          <span className="text-slate-700">2 kompetensanalyser per vecka</span>
+                        </div>
+                        <div className="flex items-center">
+                          <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                          <span className="text-slate-700">2 grundläggande CV-mallar</span>
+                        </div>
+                        <div className="flex items-center">
+                          <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                          <span className="text-slate-700">Spara upp till 2 brev</span>
                         </div>
 
                         {/* Locked features */}
                         <div className="pt-4 border-t border-gray-100">
                           <div className="flex items-center opacity-60">
                             <Lock className="w-5 h-5 text-gray-400 mr-3 flex-shrink-0" />
-                            <span className="text-slate-500">Obegränsad användning (Premium)</span>
+                            <span className="text-slate-500">Obegränsad brevgenerering (Premium)</span>
                           </div>
                           <div className="flex items-center opacity-60 mt-2">
                             <Lock className="w-5 h-5 text-gray-400 mr-3 flex-shrink-0" />
-                            <span className="text-slate-500">Djupgående analyser (Premium)</span>
+                            <span className="text-slate-500">6 premium CV-mallar (Premium)</span>
                           </div>
                           <div className="flex items-center opacity-60 mt-2">
                             <Lock className="w-5 h-5 text-gray-400 mr-3 flex-shrink-0" />
-                            <span className="text-slate-500">Prioriterad support (Premium)</span>
+                            <span className="text-slate-500">AI-auto tonalitet (Premium)</span>
+                          </div>
+                          <div className="flex items-center opacity-60 mt-2">
+                            <Lock className="w-5 h-5 text-gray-400 mr-3 flex-shrink-0" />
+                            <span className="text-slate-500">Obegränsad lagring (Premium)</span>
                           </div>
                         </div>
                       </div>
@@ -743,7 +755,7 @@ export default function PriserPage() {
           </div>
         </section>
 
-        {/* Value Stack Section */}
+        {/* Real Value Section */}
         <section className="py-20 bg-gradient-to-b from-white to-blue-50/30">
           <div className="container px-4 mx-auto">
             <motion.div
@@ -754,10 +766,10 @@ export default function PriserPage() {
               className="max-w-4xl mx-auto text-center mb-16"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-                Vad får du för <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">149 kr/månad?</span>
+                Vad sparar du med <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Premium?</span>
               </h2>
               <p className="text-xl text-slate-600">
-                En komplett karriärcoach-suite värd över 5,000 kr om du köpte tjänsterna separat
+                Tidsbesparing och kraftfulla verktyg för din jobbsökning
               </p>
             </motion.div>
 
@@ -768,45 +780,57 @@ export default function PriserPage() {
                 viewport={{ once: true }}
                 className="bg-white/80 backdrop-blur-sm border border-gray-200 rounded-2xl shadow-xl p-8 mb-8"
               >
-                <div className="grid gap-4">
+                <div className="grid gap-6 md:grid-cols-2">
                   {[
-                    { feature: "Obegränsade AI-personliga brev", value: "2,400 kr", description: "(Jämfört med CV-skrivare: 400 kr/brev × 6 st/år)" },
-                    { feature: "Djupgående CV-analyser", value: "1,200 kr", description: "(Karriärcoach-konsultation: 600 kr/tim × 2 sessioner)" },
-                    { feature: "8 professionella CV-mallar", value: "800 kr", description: "(Designer-mallar: 100 kr/st × 8 st)" },
-                    { feature: "Kompetensanalys & utvecklingsplaner", value: "1,800 kr", description: "(Karriärvägledare: 900 kr/session × 2 st)" },
-                    { feature: "ATS-optimering & nyckelordsanalys", value: "600 kr", description: "(Specialistconsulting: 600 kr/analys)" },
-                    { feature: "Export till Word/PDF + prioriterad support", value: "300 kr", description: "(Tech-support & formatering)" },
-                  ].map((item, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                      className="flex justify-between items-center py-4 border-b border-gray-100 last:border-b-0"
-                    >
-                      <div className="flex-1">
-                        <div className="font-semibold text-slate-900">{item.feature}</div>
-                        <div className="text-sm text-slate-600">{item.description}</div>
-                      </div>
-                      <div className="font-bold text-lg text-slate-900 ml-4">{item.value}</div>
-                    </motion.div>
-                  ))}
+                    {
+                      icon: Clock,
+                      title: "Spara tid",
+                      value: "15-20 timmar/månad",
+                      description: "Istället för att skriva varje personligt brev för hand"
+                    },
+                    {
+                      icon: Zap,
+                      title: "Obegränsade brev",
+                      value: "Så många du behöver",
+                      description: "Ansök till alla jobb utan begränsningar"
+                    },
+                    {
+                      icon: Target,
+                      title: "Professionella mallar",
+                      value: "8 designade mallar",
+                      description: "Från minimalistisk till executive-nivå"
+                    },
+                    {
+                      icon: FileSearch,
+                      title: "AI-analyser",
+                      value: "Obegränsade insikter",
+                      description: "CV- och kompetensanalyser när du behöver dem"
+                    }
+                  ].map((item, index) => {
+                    const IconComponent = item.icon
+                    return (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: index * 0.1 }}
+                        className="text-center p-6 bg-gradient-to-br from-blue-50/50 to-indigo-50/50 rounded-xl"
+                      >
+                        <div className="flex items-center justify-center w-12 h-12 mx-auto mb-4 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 rounded-xl">
+                          <IconComponent className="w-6 h-6 text-blue-600" />
+                        </div>
+                        <h3 className="font-bold text-slate-900 mb-2">{item.title}</h3>
+                        <div className="text-lg font-semibold text-blue-600 mb-2">{item.value}</div>
+                        <p className="text-sm text-slate-600">{item.description}</p>
+                      </motion.div>
+                    )
+                  })}
                 </div>
 
-                <div className="mt-6 pt-6 border-t-2 border-blue-200">
-                  <div className="flex justify-between items-center">
-                    <div className="text-lg font-semibold text-slate-700">Totalt värde per år:</div>
-                    <div className="text-2xl font-bold text-slate-500 line-through">7,100 kr</div>
-                  </div>
-                  <div className="flex justify-between items-center mt-2">
-                    <div className="text-xl font-bold text-blue-600">Du betalar endast:</div>
-                    <div className="text-3xl font-bold text-green-600">1,788 kr/år</div>
-                  </div>
-                  <div className="text-center mt-4 p-4 bg-green-50 rounded-lg">
-                    <div className="text-2xl font-bold text-green-700">75% RABATT!</div>
-                    <div className="text-sm text-green-600 mt-1">Du sparar 5,312 kr per år</div>
-                  </div>
+                <div className="mt-8 pt-6 border-t border-gray-200 text-center">
+                  <div className="text-2xl font-bold text-slate-900 mb-2">Endast 149 kr/månad</div>
+                  <p className="text-slate-600">Mindre än vad en arbetslunch kostar - för obegränsad AI-kraft</p>
                 </div>
               </motion.div>
             </div>
@@ -840,42 +864,43 @@ export default function PriserPage() {
                     <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 rounded-2xl flex items-center justify-center">
                       <TrendingUp className="w-8 h-8 text-blue-600" />
                     </div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">Genomsnittlig lönökning</h3>
-                    <div className="text-4xl font-bold text-green-600 mb-2">15-20%</div>
-                    <p className="text-slate-600 text-sm">När du får ett nytt jobb med AI-optimerade ansökningar</p>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">Möjlig lönökning</h3>
+                    <div className="text-4xl font-bold text-green-600 mb-2">5-20%</div>
+                    <p className="text-slate-700 text-sm">När du får ett nytt jobb med professionella ansökningar</p>
                   </div>
 
                   <div className="text-center">
                     <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-2xl flex items-center justify-center">
                       <Clock className="w-8 h-8 text-green-600" />
                     </div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">Tid till första intervjun</h3>
-                    <div className="text-4xl font-bold text-blue-600 mb-2">2-3 veckor</div>
-                    <p className="text-slate-600 text-sm">Jämfört med 6-8 veckor utan AI-hjälp</p>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">Effektivare jobbsökning</h3>
+                    <div className="text-4xl font-bold text-blue-600 mb-2">Snabbare</div>
+                    <p className="text-slate-700 text-sm">Med professionella, anpassade ansökningar</p>
                   </div>
                 </div>
 
                 <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl">
-                  <h4 className="font-bold text-slate-900 text-center mb-4">Exempel på ROI (Return on Investment)</h4>
-                  <div className="space-y-3 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">Nuvarande lön (35,000 kr/mån):</span>
-                      <span className="font-semibold">420,000 kr/år</span>
+                  <h4 className="font-bold text-slate-900 text-center mb-4">Varför Premium lönar sig</h4>
+                  <div className="space-y-4">
+                    <div className="text-center p-4 bg-white/80 rounded-lg">
+                      <div className="text-lg font-semibold text-slate-800 mb-2">Månadskostand för Premium</div>
+                      <div className="text-3xl font-bold text-blue-600">149 kr</div>
+                      <div className="text-sm text-slate-600 mt-1">Mindre än en lunch på jobbet</div>
                     </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">Efter 15% lönökning:</span>
-                      <span className="font-semibold text-green-600">483,000 kr/år</span>
+
+                    <div className="text-center p-4 bg-white/80 rounded-lg">
+                      <div className="text-lg font-semibold text-slate-800 mb-2">Årskostnad</div>
+                      <div className="text-2xl font-bold text-slate-800">1,788 kr</div>
+                      <div className="text-sm text-slate-600 mt-1">För obegränsad AI-kraft</div>
                     </div>
-                    <div className="flex justify-between border-t pt-3">
-                      <span className="text-slate-600">Kostnad för Jobbcoach Premium:</span>
-                      <span className="font-semibold">1,788 kr/år</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-600">Din nettovinst:</span>
-                      <span className="font-bold text-2xl text-green-600">+61,212 kr/år</span>
-                    </div>
-                    <div className="text-center mt-4 p-3 bg-green-100 rounded-lg">
-                      <span className="font-bold text-green-700">ROI: 3,422% - Investeringen betalar sig själv på 10 dagar!</span>
+
+                    <div className="text-center mt-6 p-4 bg-green-100 rounded-lg">
+                      <div className="text-lg font-bold text-green-800">
+                        Även en liten förbättring i din jobbsökning gör att Premium betalar sig själv många gånger om
+                      </div>
+                      <div className="text-sm text-green-700 mt-2">
+                        Spara tid, få bättre resultat, ingen bindningstid
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -884,80 +909,8 @@ export default function PriserPage() {
           </div>
         </section>
 
-        {/* Social Proof Section */}
-        <section className="py-20 bg-gradient-to-b from-white to-slate-50/50">
-          <div className="container px-4 mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="max-w-4xl mx-auto text-center mb-16"
-            >
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-                Riktiga resultat från riktiga användare
-              </h2>
-            </motion.div>
 
-            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {[
-                {
-                  name: "Anna S., Projektledare",
-                  result: "Fick 3 intervjuer första veckan",
-                  quote: "AI:n fångade precis rätt ton för min bransch. Personliga breven kändes autentiska men professionella.",
-                  impact: "Lönökning: 18%",
-                  time: "2 veckor till nytt jobb"
-                },
-                {
-                  name: "Marcus L., Utvecklare",
-                  result: "Första jobbet som senior efter 6 månader",
-                  quote: "Kompetensanalysen visade exakt vilka färdigheter jag behövde utveckla. Fick seniorroll direkt!",
-                  impact: "Lönökning: 22%",
-                  time: "3 veckor till intervju"
-                },
-                {
-                  name: "Sara K., Marknadsförare",
-                  result: "Bytte bransch framgångsrikt",
-                  quote: "Trodde aldrig att AI kunde hjälpa mig byta från retail till tech. CV-mallarna var perfekta.",
-                  impact: "Lönökning: 15%",
-                  time: "4 veckor till erbjudande"
-                }
-              ].map((testimonial, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.2, duration: 0.6 }}
-                  className="bg-white/80 backdrop-blur-sm border border-gray-200 rounded-2xl shadow-lg p-6"
-                >
-                  <div className="mb-4">
-                    <div className="flex items-center mb-2">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
-                      ))}
-                    </div>
-                    <h4 className="font-bold text-slate-900">{testimonial.name}</h4>
-                    <div className="text-sm font-semibold text-green-600">{testimonial.result}</div>
-                  </div>
-                  <p className="text-slate-600 italic mb-4">"{testimonial.quote}"</p>
-                  <div className="space-y-1 text-sm">
-                    <div className="flex justify-between">
-                      <span className="text-slate-500">Resultat:</span>
-                      <span className="font-semibold text-green-600">{testimonial.impact}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span className="text-slate-500">Tid:</span>
-                      <span className="font-semibold text-blue-600">{testimonial.time}</span>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Comparison vs Alternatives Section */}
+        {/* Why Choose Jobbcoach Section */}
         <section className="py-20 bg-gradient-to-b from-slate-50/50 to-white">
           <div className="container px-4 mx-auto">
             <motion.div
@@ -968,118 +921,64 @@ export default function PriserPage() {
               className="max-w-4xl mx-auto text-center mb-16"
             >
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-                Jämförelse: <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Jobbcoach vs Alternativen</span>
+                Varför välja <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Jobbcoach.ai?</span>
               </h2>
               <p className="text-xl text-slate-600">
-                Se varför 15,000+ svenskar valt Jobbcoach över dyrare alternativ
+                AI-drivna verktyg som hjälper dig att skapa professionella ansökningar snabbt och enkelt
               </p>
             </motion.div>
 
-            <div className="max-w-6xl mx-auto">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="bg-white/90 backdrop-blur-sm border border-gray-200 rounded-2xl shadow-xl overflow-hidden"
-              >
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead className="bg-gradient-to-r from-blue-50 to-indigo-50">
-                      <tr>
-                        <th className="px-6 py-4 text-left font-bold text-slate-900"></th>
-                        <th className="px-6 py-4 text-center font-bold text-blue-600">
-                          <div className="flex flex-col items-center">
-                            <span className="text-lg">Jobbcoach Premium</span>
-                            <span className="text-2xl font-bold">149 kr/mån</span>
-                          </div>
-                        </th>
-                        <th className="px-6 py-4 text-center font-semibold text-slate-600">
-                          <div className="flex flex-col items-center">
-                            <span>CV-skrivare</span>
-                            <span className="text-lg font-bold">2,000-5,000 kr</span>
-                          </div>
-                        </th>
-                        <th className="px-6 py-4 text-center font-semibold text-slate-600">
-                          <div className="flex flex-col items-center">
-                            <span>Karriärcoach</span>
-                            <span className="text-lg font-bold">800-1,200 kr/tim</span>
-                          </div>
-                        </th>
-                        <th className="px-6 py-4 text-center font-semibold text-slate-600">
-                          <div className="flex flex-col items-center">
-                            <span>Gör det själv</span>
-                            <span className="text-lg font-bold">0 kr (men...)</span>
-                          </div>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-200">
-                      {[
-                        {
-                          feature: "Obegränsade personliga brev",
-                          jobbcoach: "✓ Ja, med AI-optimering",
-                          writer: "✗ 1-2 brev max",
-                          coach: "✗ Inte inkluderat",
-                          diy: "✓ Men tar 3-4 tim/brev"
-                        },
-                        {
-                          feature: "CV-analys & feedback",
-                          jobbcoach: "✓ Obegränsat med AI",
-                          writer: "✓ 1 gång",
-                          coach: "✓ 800 kr/session",
-                          diy: "✗ Ingen expertfeedback"
-                        },
-                        {
-                          feature: "8 professionella mallar",
-                          jobbcoach: "✓ Alla inkluderade",
-                          writer: "✓ 1-2 mallar",
-                          coach: "✗ Inte inkluderat",
-                          diy: "✗ Grundläggande bara"
-                        },
-                        {
-                          feature: "ATS-optimering",
-                          jobbcoach: "✓ Automatisk AI-optimering",
-                          writer: "✓ Grundläggande",
-                          coach: "✗ Inte inkluderat",
-                          diy: "✗ Svårt utan expertis"
-                        },
-                        {
-                          feature: "Tid till resultat",
-                          jobbcoach: "60 sekunder/brev",
-                          writer: "2-4 veckor leverans",
-                          coach: "Bokar 2-3 veckor fram",
-                          diy: "3-4 timmar/brev"
-                        },
-                        {
-                          feature: "Kostnad per år (6 ansökningar)",
-                          jobbcoach: "1,788 kr",
-                          writer: "12,000-30,000 kr",
-                          coach: "4,800-7,200 kr",
-                          diy: "0 kr (18-24 tim av din tid)"
-                        }
-                      ].map((row, index) => (
-                        <tr key={index} className="hover:bg-gray-50/50 transition-colors">
-                          <td className="px-6 py-4 font-medium text-slate-900">{row.feature}</td>
-                          <td className="px-6 py-4 text-center text-blue-600 font-semibold">{row.jobbcoach}</td>
-                          <td className="px-6 py-4 text-center text-slate-600">{row.writer}</td>
-                          <td className="px-6 py-4 text-center text-slate-600">{row.coach}</td>
-                          <td className="px-6 py-4 text-center text-slate-600">{row.diy}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-                <div className="p-6 bg-green-50 border-t">
-                  <div className="text-center">
-                    <h4 className="text-xl font-bold text-green-700 mb-2">Vinnaren är uppenbar!</h4>
-                    <p className="text-green-600">
-                      Jobbcoach Premium ger dig mer värde för 149 kr/mån än vad konkurrenterna tar för en enda tjänst.
-                      <br />
-                      <strong>Spara 10,000+ kr/år och få bättre resultat!</strong>
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
+            <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+              {[
+                {
+                  title: "Snabbt och enkelt",
+                  description: "Generera ett professionellt personligt brev på 60 sekunder. Ingen väntan, inga komplicerade processer.",
+                  icon: Zap,
+                  color: "from-yellow-500/20 to-orange-500/20"
+                },
+                {
+                  title: "Alltid tillgängligt",
+                  description: "24/7 tillgång till alla verktyg. Ansök när det passar dig, inte när någon annan har tid.",
+                  icon: Clock,
+                  color: "from-blue-500/20 to-indigo-500/20"
+                },
+                {
+                  title: "Professionell kvalitet",
+                  description: "8 designade CV-mallar och AI som skapar skräddarsydda brev för varje jobbannons.",
+                  icon: Award,
+                  color: "from-purple-500/20 to-pink-500/20"
+                },
+                {
+                  title: "Transparent prissättning",
+                  description: "149 kr/mån för allt. Ingen bindningstid, inga dolda kostnader, avsluta när du vill.",
+                  icon: Shield,
+                  color: "from-green-500/20 to-teal-500/20"
+                }
+              ].map((benefit, index) => {
+                const IconComponent = benefit.icon
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.2, duration: 0.6 }}
+                    className="group"
+                  >
+                    <div className={`p-8 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 h-full bg-gradient-to-br ${benefit.color}`}>
+                      <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm">
+                        <IconComponent className="w-8 h-8 text-blue-600" />
+                      </div>
+                      <h3 className="text-xl font-bold text-slate-900 mb-4 group-hover:text-blue-600 transition-colors text-center">
+                        {benefit.title}
+                      </h3>
+                      <p className="text-slate-600 leading-relaxed text-center">
+                        {benefit.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                )
+              })}
             </div>
           </div>
         </section>
@@ -1132,31 +1031,13 @@ export default function PriserPage() {
                 transition={{ delay: 0.4, duration: 0.6 }}
                 className="mb-12"
               >
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                  {[
-                    { number: "15,000+", label: "personliga brev idag", icon: PenTool },
-                    { number: "8,200+", label: "aktiva användare", icon: Users },
-                    { number: "89%", label: "får intervju inom 3 veckor", icon: Trophy },
-                    { number: "2.6x", label: "högre svarsfrekvens", icon: TrendingUp }
-                  ].map((stat, index) => {
-                    const IconComponent = stat.icon
-                    return (
-                      <motion.div
-                        key={index}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
-                        className="text-center bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg"
-                      >
-                        <div className="flex items-center justify-center w-10 h-10 mx-auto mb-2 bg-gradient-to-br from-blue-500/20 to-indigo-500/20 rounded-lg">
-                          <IconComponent className="w-5 h-5 text-blue-600" />
-                        </div>
-                        <div className="text-2xl font-bold text-slate-900">{stat.number}</div>
-                        <div className="text-xs text-slate-600 font-medium leading-tight">{stat.label}</div>
-                      </motion.div>
-                    )
-                  })}
+                <div className="text-center p-6 bg-white/95 backdrop-blur-sm rounded-xl shadow-lg max-w-2xl mx-auto">
+                  <div className="text-lg font-semibold text-slate-800 mb-2">
+                    Professionella AI-verktyg för din jobbsökning
+                  </div>
+                  <div className="text-slate-600">
+                    Skapa personliga brev, analysera ditt CV, och använd professionella mallar - allt på svenska
+                  </div>
                 </div>
               </motion.div>
 
@@ -1219,7 +1100,7 @@ export default function PriserPage() {
                 </div>
                 <div className="flex items-center">
                   <Heart className="w-4 h-4 mr-2" />
-                  15,000+ nöjda användare
+                  GDPR-kompatibel
                 </div>
               </motion.div>
             </motion.div>
