@@ -21,12 +21,12 @@ import {
 import { useState, useEffect } from 'react';
 
 interface ConversionCardProps {
-  variant?: 'hero' | 'feature' | 'testimonial' | 'cta' | 'cv-templates' | 'competency';
+  variant?: 'free-trial' | 'premium';
   position?: number; // Position in grid for analytics
 }
 
 const ConversionCard: React.FC<ConversionCardProps> = ({
-  variant = 'hero',
+  variant = 'free-trial',
   position = 0
 }) => {
   const [liveUsers, setLiveUsers] = useState(12);
@@ -45,71 +45,44 @@ const ConversionCard: React.FC<ConversionCardProps> = ({
   }, []);
 
   const variants = {
-    hero: {
+    'free-trial': {
       icon: Sparkles,
-      gradient: 'from-pink-600 to-purple-600',
-      bgGradient: 'from-pink-50 via-purple-50 to-blue-50',
-      title: 'Skapa ditt vinnande personliga brev',
-      subtitle: 'AI-driven karriärcoaching för svenska jobbsökare',
-      description: 'Matcha ditt CV mot jobbannonsen och få ett skräddarsytt personligt brev på under 2 minuter. Över 500 jobbsökare har redan förbättrat sina ansökningar.',
-      ctaText: 'Skapa mitt brev - Gratis',
-      ctaLink: '/create-letter',
-      features: ['✓ AI anpassat för svenska arbetsmarknaden', '✓ Perfekt match till jobbannonsen', '✓ Klar på 2 minuter']
-    },
-    feature: {
-      icon: Target,
       gradient: 'from-blue-600 to-indigo-600',
-      bgGradient: 'from-blue-50 to-indigo-50',
-      title: 'Analysera ditt CV med AI',
-      subtitle: 'Expertfeedback på sekunder',
-      description: 'Få detaljerad analys av ditt CV med konkreta förbättringsförslag från vår avancerade AI. Se precis vad rekryterare letar efter.',
-      ctaText: 'Analysera mitt CV',
-      ctaLink: '/analysera-cv',
-      features: ['✓ Detaljerad AI-feedback', '✓ Konkreta förbättringstips', '✓ ATS-optimering']
-    },
-    testimonial: {
-      icon: Award,
-      gradient: 'from-green-600 to-teal-600',
-      bgGradient: 'from-green-50 to-teal-50',
-      title: '"Fick jobbet efter första intervjun!"',
-      subtitle: '- Marcus, Utvecklare Stockholm',
-      description: 'Med hjälp av jobbcoach.ai fick jag ett personligt brev som verkligen stack ut. Rekryteraren sa att det var det bästa brevet hen läst på månader.',
-      ctaText: 'Läs fler framgångsstories',
-      ctaLink: '/om-oss',
-      features: ['⭐ 4.8/5 i genomsnittlig rating', '📈 65% högre svarfrekvens', '🎯 Bättre matchning mot jobb']
-    },
-    cta: {
-      icon: Zap,
-      gradient: 'from-purple-600 to-pink-600',
-      bgGradient: 'from-purple-50 to-pink-50',
-      title: 'Prova Premium i 7 dagar',
-      subtitle: 'Allt du behöver för din karriär',
-      description: 'Obegränsade personliga brev, CV-analys, kompetensutvecklingsplaner och mycket mer. Endast 149 SEK/månad efter testperioden.',
-      ctaText: 'Starta gratis testperiod',
+      bgGradient: 'from-blue-50 via-indigo-50 to-purple-50',
+      title: 'Testa allt helt gratis',
+      subtitle: 'Ingen risk • Inget kreditkort',
+      description: 'Upptäck vad jobbcoach.ai kan göra för dig utan att betala en krona. Alla grundfunktioner är gratis att använda - för alltid.',
+      ctaText: 'Testa gratis nu',
       ctaLink: '/register',
-      features: ['🚀 Obegränsade AI-genererade brev', '📊 Avancerad CV-analys', '🎯 Personlig karriärcoaching']
+      features: [
+        '✓ Skapa personligt brev med AI',
+        '✓ Få detaljerad CV-analys',
+        '✓ Matcha mot jobbannonser',
+        '✓ Feedback på din ansökan',
+        '✓ Karriärtips och råd'
+      ],
+      showPremiumBadge: false,
+      trustText: 'Helt gratis att komma igång'
     },
-    'cv-templates': {
-      icon: FileText,
-      gradient: 'from-emerald-600 to-teal-600',
-      bgGradient: 'from-emerald-50 to-teal-50',
-      title: 'Premium CV-mallar',
-      subtitle: 'Professionella mallar för alla branscher',
-      description: 'Välj bland våra handplockade CV-mallar som är designade för att imponera på svenska rekryterare. ATS-optimerade och branschspecifika.',
-      ctaText: 'Visa CV-mallar',
-      ctaLink: '/cv-mallar',
-      features: ['✓ 15+ professionella mallar', '✓ ATS-optimerade för svenska företag', '✓ Branschspecifik design']
-    },
-    'competency': {
-      icon: GraduationCap,
-      gradient: 'from-orange-600 to-red-600',
-      bgGradient: 'from-orange-50 to-red-50',
-      title: 'Utveckla dina kompetenser',
-      subtitle: 'Identifiera och stärk dina färdigheter',
-      description: 'Få personlig analys av dina kompetenser och skräddarsydda rekommendationer för hur du kan utvecklas inom din bransch.',
-      ctaText: 'Analysera mina kompetenser',
-      ctaLink: '/kompetensutveckling',
-      features: ['✓ Personlig kompetensanalys', '✓ Skräddarsydda utvecklingsplaner', '✓ Branschspecifika råd']
+    'premium': {
+      icon: Award,
+      gradient: 'from-pink-600 to-purple-600',
+      bgGradient: 'from-pink-50 via-purple-50 to-indigo-50',
+      title: 'Låt upp din karriärs fulla potential',
+      subtitle: 'Premium AI-karriärcoaching',
+      description: 'Få obegränsad tillgång till alla premium-funktioner och avancerade AI-verktyg som tar din jobbsökning till nästa nivå.',
+      ctaText: 'Uppgradera till Premium',
+      ctaLink: '/pricing',
+      features: [
+        '🚀 Obegränsade personliga brev',
+        '📊 Avancerad CV-analys & optimering',
+        '🎯 Personlig karriärcoaching',
+        '📈 Kompetensutvecklingsplaner',
+        '⚡ Prioriterad AI-support',
+        '📋 Premium CV-mallar'
+      ],
+      showPremiumBadge: true,
+      trustText: 'Endast 149 SEK/månad'
     }
   };
 
@@ -126,14 +99,16 @@ const ConversionCard: React.FC<ConversionCardProps> = ({
                   transition-all duration-500 bg-gradient-to-br ${config.bgGradient}
                   before:absolute before:inset-0 before:bg-white/40 before:backdrop-blur-sm`}
     >
-      {/* Premium Badge */}
-      <div className="absolute top-4 right-4 z-10">
-        <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-white
-                        bg-gradient-to-r ${config.gradient} shadow-lg`}>
-          <Star className="w-3 h-3 mr-1" />
-          Premium
+      {/* Premium Badge - only show for premium variant */}
+      {config.showPremiumBadge && (
+        <div className="absolute top-4 right-4 z-10">
+          <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-white
+                          bg-gradient-to-r ${config.gradient} shadow-lg`}>
+            <Star className="w-3 h-3 mr-1" />
+            Premium
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Live Activity Indicator */}
       <div className="absolute top-4 left-4 z-10">
@@ -218,7 +193,7 @@ const ConversionCard: React.FC<ConversionCardProps> = ({
 
           <p className="text-xs text-gray-500 mt-3">
             <Clock className="w-3 h-3 inline mr-1" />
-            Tar endast 2 minuter • Inget kreditkort krävs
+            {config.trustText}
           </p>
         </div>
       </div>

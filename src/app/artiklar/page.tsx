@@ -181,10 +181,10 @@ export default async function ArticlesIndexPage({
 
                   // Strategic conversion card placement - show every 5th position on all pages
                   if (!tagFilter && (globalIndex + 1) % 5 === 0) {
-                    // Rotate between different conversion card types
-                    const conversionVariants = ['hero', 'feature', 'cv-templates', 'competency', 'testimonial', 'cta'];
-                    const variantIndex = Math.floor((globalIndex + 1) / 5) % conversionVariants.length;
-                    const selectedVariant = conversionVariants[variantIndex] as 'hero' | 'feature' | 'cv-templates' | 'competency' | 'testimonial' | 'cta';
+                    // Smart distribution: 70% free-trial, 30% premium
+                    // Use position-based deterministic selection for consistency
+                    const conversionPosition = Math.floor((globalIndex + 1) / 5);
+                    const selectedVariant = (conversionPosition % 10) < 7 ? 'free-trial' : 'premium';
 
                     elements.push(
                       <ConversionCard
@@ -203,7 +203,7 @@ export default async function ArticlesIndexPage({
                   <div className="md:col-span-2 lg:col-span-3">
                     <ConversionCard
                       key={`conversion-final-cta-${validCurrentPage}`}
-                      variant="cta"
+                      variant="free-trial"
                       position={999}
                     />
                   </div>
