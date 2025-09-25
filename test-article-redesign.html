@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test: Premium Article Page Redesign</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(to right, #ec4899, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen bg-white">
+        <!-- Reading Progress Bar -->
+        <div class="fixed top-16 left-0 right-0 h-1 bg-gradient-to-r from-pink-600 to-purple-600 z-40" style="width: 30%"></div>
+
+        <!-- Main Content -->
+        <div class="pt-24">
+            <!-- Decorative background elements -->
+            <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                <div class="absolute -top-40 -right-40 w-80 h-80 bg-pink-100 rounded-full opacity-20 blur-3xl"></div>
+                <div class="absolute top-60 -left-40 w-80 h-80 bg-purple-100 rounded-full opacity-20 blur-3xl"></div>
+            </div>
+
+            <div class="container max-w-7xl px-4 py-12 mx-auto">
+                <div class="grid lg:grid-cols-12 gap-8 lg:gap-12">
+
+                    <!-- Main Content Column -->
+                    <div class="lg:col-span-8">
+                        <article class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 lg:p-12">
+                            <!-- Article Header -->
+                            <header class="mb-10">
+                                <div class="flex flex-wrap items-center gap-2 mb-4">
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-pink-50 to-purple-50 text-purple-700 border border-purple-200/50">
+                                        Karriärtips
+                                    </span>
+                                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-pink-50 to-purple-50 text-purple-700 border border-purple-200/50">
+                                        Jobbintervju
+                                    </span>
+                                </div>
+
+                                <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                                    10 vanliga misstag i personliga brev (och hur du undviker dem)
+                                </h1>
+
+                                <div class="flex flex-wrap items-center gap-6 text-sm text-gray-600 pb-6 border-b border-gray-100">
+                                    <div class="flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                        </svg>
+                                        <time>25 september 2024</time>
+                                    </div>
+
+                                    <div class="flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                        </svg>
+                                        <span>Teamet på jobbcoach.ai</span>
+                                    </div>
+
+                                    <div class="flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        <span>5 min läsning</span>
+                                    </div>
+
+                                    <!-- Social Share Buttons -->
+                                    <div class="flex items-center gap-2 ml-auto">
+                                        <span class="text-gray-500 mr-2">Dela:</span>
+                                        <button class="p-2 text-gray-600 hover:text-[#0A66C2] hover:bg-blue-50 rounded-lg transition-all duration-200">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                                        </button>
+                                        <button class="p-2 text-gray-600 hover:text-[#1DA1F2] hover:bg-blue-50 rounded-lg transition-all duration-200">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22.46 6c-.85.38-1.75.64-2.7.76 1-.6 1.76-1.55 2.12-2.68-.93.55-1.96.95-3.06 1.17-.88-.94-2.13-1.53-3.51-1.53-2.66 0-4.81 2.16-4.81 4.81 0 .38.04.75.13 1.1-4-.2-7.58-2.11-9.96-5.02-.42.72-.66 1.56-.66 2.46 0 1.67.85 3.14 2.14 4.01-.79-.03-1.54-.24-2.19-.61v.06c0 2.33 1.66 4.28 3.86 4.72-.4.11-.83.17-1.27.17-.31 0-.62-.03-.92-.08.63 1.96 2.45 3.39 4.61 3.43-1.69 1.32-3.83 2.1-6.15 2.1-.4 0-.8-.02-1.19-.07 2.19 1.4 4.78 2.22 7.57 2.22 9.07 0 14.02-7.52 14.02-14.02 0-.21 0-.43-.01-.64.96-.69 1.79-1.56 2.45-2.55-.88.39-1.83.65-2.82.77z"/></svg>
+                                        </button>
+                                        <button class="p-2 text-gray-600 hover:text-[#1877F2] hover:bg-blue-50 rounded-lg transition-all duration-200">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </header>
+
+                            <!-- Article Content -->
+                            <div class="prose prose-lg max-w-none">
+                                <p class="text-gray-700 leading-relaxed text-lg mb-6">
+                                    Ditt personliga brev är ofta det första en rekryterare läser. Det är din chans att sticka ut från mängden och visa varför just du är perfekt för jobbet. Tyvärr gör många jobbsökande samma misstag om och om igen. Här går vi igenom de 10 vanligaste felen och visar hur du undviker dem.
+                                </p>
+
+                                <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mt-10 mb-5">
+                                    1. För generiskt innehåll
+                                </h2>
+
+                                <p class="text-gray-700 leading-relaxed text-lg mb-6">
+                                    Ett av de största misstagen är att skicka samma brev till alla företag. Rekryterare märker direkt när ett brev inte är anpassat för deras specifika tjänst eller företag.
+                                </p>
+
+                                <!-- Conversion Banner Example -->
+                                <div class="my-10 p-6 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-purple-200">
+                                    <div class="flex items-center gap-3 mb-3">
+                                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                        </svg>
+                                        <h3 class="font-semibold text-gray-900">Skapa anpassade brev på sekunder</h3>
+                                    </div>
+                                    <p class="text-gray-700 mb-4">
+                                        Vår AI analyserar jobbannonsen och matchar ditt CV för att skapa perfekt anpassade personliga brev.
+                                    </p>
+                                    <a href="/skapa-brev" class="inline-flex items-center gap-2 gradient-text font-semibold">
+                                        Testa gratis nu
+                                        <svg class="w-4 h-4 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                        </svg>
+                                    </a>
+                                </div>
+
+                                <h2 class="text-2xl md:text-3xl font-semibold text-gray-900 mt-10 mb-5">
+                                    2. Fokuserar på sig själv istället för företaget
+                                </h2>
+
+                                <p class="text-gray-700 leading-relaxed text-lg mb-6">
+                                    Många brev börjar med "Jag vill ha det här jobbet för att..." istället för att fokusera på vad du kan bidra med till företaget. Vänd perspektivet och visa hur du kan lösa deras problem.
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- Premium Sidebar -->
+                    <aside class="lg:col-span-4 space-y-6">
+                        <!-- Table of Contents -->
+                        <div class="sticky top-24 bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="p-2 bg-gradient-to-r from-pink-100 to-purple-100 rounded-lg">
+                                    <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                    </svg>
+                                </div>
+                                <h3 class="font-semibold text-gray-900">Innehållsförteckning</h3>
+                            </div>
+                            <nav class="space-y-1">
+                                <a href="#" class="block px-3 py-2 text-sm bg-gradient-to-r from-pink-50 to-purple-50 text-purple-700 font-medium border-l-2 border-pink-600 rounded-lg">
+                                    1. För generiskt innehåll
+                                </a>
+                                <a href="#" class="block px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg">
+                                    2. Fokuserar på sig själv
+                                </a>
+                                <a href="#" class="block px-3 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg">
+                                    3. Stavfel och grammatik
+                                </a>
+                            </nav>
+                        </div>
+
+                        <!-- Premium CTA Card -->
+                        <div class="bg-gradient-to-br from-pink-600 to-purple-600 rounded-2xl shadow-xl p-6 text-white relative overflow-hidden">
+                            <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                            <div class="relative">
+                                <div class="flex items-center gap-2 mb-3">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                    </svg>
+                                    <span class="text-xs font-semibold uppercase tracking-wider bg-white/20 px-2 py-1 rounded-full">Premium</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-2">Maximera din jobbsökning</h3>
+                                <p class="text-white/90 text-sm mb-6">Få tillgång till alla AI-verktyg och premiummallar.</p>
+                                <div class="space-y-2 mb-6">
+                                    <div class="flex items-center gap-2 text-sm">
+                                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                        <span>8 professionella CV-mallar</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-sm">
+                                        <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                        <span>AI-genererade personliga brev</span>
+                                    </div>
+                                </div>
+                                <a href="/register" class="block w-full py-3 px-4 bg-white text-purple-600 font-semibold rounded-lg text-center hover:bg-gray-50">
+                                    Prova gratis i 7 dagar
+                                </a>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Top Button -->
+        <button class="fixed bottom-8 right-8 z-40 p-3 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-full shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+            </svg>
+        </button>
+    </div>
+
+    <script>
+        console.log("✅ Premium Article Page Redesign Test");
+        console.log("Features implemented:");
+        console.log("- ✅ Clean white background (no gradient issues)");
+        console.log("- ✅ Premium sidebar with table of contents");
+        console.log("- ✅ Social sharing buttons in header");
+        console.log("- ✅ Pink/purple gradient colors matching homepage");
+        console.log("- ✅ Reading progress bar");
+        console.log("- ✅ Back to top button");
+        console.log("- ✅ Premium CTA card");
+        console.log("- ✅ Improved typography and spacing");
+    </script>
+</body>
+</html>

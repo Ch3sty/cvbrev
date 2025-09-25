@@ -146,7 +146,9 @@
       "Bash(npm run type-check:*)",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-animation-fix.html\")",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-improved-pricing.html\")",
-      "WebFetch(domain:calendly.com)"
+      "WebFetch(domain:calendly.com)",
+      "WebFetch(domain:aircall.io)",
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-article-redesign.html\")"
     ],
     "deny": [],
     "ask": []
