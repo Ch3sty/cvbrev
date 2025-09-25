@@ -12,6 +12,7 @@ import { PostMeta } from '@/lib/blog';
 import PremiumNavbar from '@/components/PremiumNavbar';
 import FloatingAIAssistant from '@/components/FloatingAIAssistant';
 import PremiumArticleSidebar from '@/components/artiklar/PremiumArticleSidebar';
+import { Heading } from '@/lib/extractHeadings';
 
 interface ArticleClientWrapperProps {
   children: React.ReactNode;
@@ -27,6 +28,7 @@ interface ArticleClientWrapperProps {
   slug: string;
   allPostsMeta: PostMeta[];
   readingTime: number;
+  headings: Heading[];
 }
 
 export default function ArticleClientWrapper({
@@ -34,7 +36,8 @@ export default function ArticleClientWrapper({
   post,
   slug,
   allPostsMeta,
-  readingTime
+  readingTime,
+  headings
 }: ArticleClientWrapperProps) {
   // Reading progress state
   const [showBackToTop, setShowBackToTop] = useState(false);
@@ -225,12 +228,12 @@ export default function ArticleClientWrapper({
               </motion.article>
             </div>
 
-            {/* Premium Sidebar */}
+            {/* Premium Sidebar with SEO-optimized TOC */}
             <PremiumArticleSidebar
               allPosts={allPostsMeta}
               currentPostSlug={slug}
               currentPostTags={post.frontmatter.tags}
-              content={post.content}
+              headings={headings}
             />
           </div>
         </div>

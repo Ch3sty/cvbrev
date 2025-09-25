@@ -7,6 +7,7 @@ import { format, parseISO } from 'date-fns';
 import { sv } from 'date-fns/locale';
 import Link from 'next/link';
 import React from 'react';
+import { extractHeadingsFromContent, addHeadingIds, filterH2Headings } from '@/lib/extractHeadings';
 
 // Importera MDX-komponenter
 import CustomImage from '@/components/mdx/Image';
@@ -78,7 +79,7 @@ export async function generateStaticParams() {
 }
 
 // --- HJÄLPFUNKTIONER FÖR SCHEMA MARKUP ---
-function generateArticleSchema(post: Post, slug: string): React.ReactNode | null {
+function generateArticleSchema(post: Post, slug: string, headings: any[]): React.ReactNode | null {
     if (!post || !post.frontmatter || !post.frontmatter.title || !post.frontmatter.date || !slug) {
         console.warn("generateArticleSchema: Saknar nödvändig data (post, titel, datum eller slug).");
         return null;
@@ -104,6 +105,23 @@ function generateArticleSchema(post: Post, slug: string): React.ReactNode | null
             "datePublished": new Date(post.frontmatter.date).toISOString(),
             "author": author, "publisher": publisher, "url": canonicalUrl
         };
+
+        // Add Table of Contents structured data for SEO
+        if (headings && headings.length > 0) {
+            schema.hasPart = headings.map(heading => ({
+                "@type": "WebPageElement",
+                "name": heading.text,
+                "url": `${canonicalUrl}#${heading.id}`,
+                "isPartOf": { "@type": "Article", "url": canonicalUrl }
+            }));
+
+            // Add speakable schema for voice assistants
+            schema.speakable = {
+                "@type": "SpeakableSpecification",
+                "cssSelector": ["h1", "h2", ".article-content"]
+            };
+        }
+
         Object.keys(schema).forEach(key => { if (typeof schema[key] === 'object' && schema[key] !== null && Object.keys(schema[key]).length === 0) { delete schema[key]; } else if (schema[key] === undefined) { delete schema[key]; } });
         if (schema.image && !schema.image.url) { delete schema.image; }
         return (<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema, null, 2) }} key="article-schema" />);
@@ -188,8 +206,14 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         notFound();
     }
 
+    // Extract headings for SEO-optimized TOC
+    const headings = filterH2Headings(extractHeadingsFromContent(post.content));
+
+    // Add IDs to headings in content for anchor linking
+    const contentWithIds = addHeadingIds(post.content);
+
     // Injicera båda komponenter i innehållet
-    const contentWithBanner = injectBannerIntoContent(post.content);
+    const contentWithBanner = injectBannerIntoContent(contentWithIds);
     const contentWithBannerAndCV = injectCVTemplateShowcase(contentWithBanner);
     const articleFaqData: FaqItemData[] | undefined = post.frontmatter.faq;
 
@@ -227,8 +251,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         },
     };
 
-    // Generera båda schema-skripten
-    const articleSchemaScript = generateArticleSchema(post, slug);
+    // Generera båda schema-skripten med TOC-data för SEO
+    const articleSchemaScript = generateArticleSchema(post, slug, headings);
     const faqSchemaScript = generateFaqSchema(articleFaqData);
 
     return (
@@ -238,6 +262,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 slug={slug}
                 allPostsMeta={allPostsMeta}
                 readingTime={readingTime}
+                headings={headings}
             >
                 <MDXRemote source={contentWithBannerAndCV} components={components} />
 

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { PostMeta } from '@/lib/blog';
+import { Heading } from '@/lib/extractHeadings';
 import { motion } from 'framer-motion';
 import {
   Sparkles, FileText, ArrowRight, ChevronDown, ChevronUp,
@@ -15,31 +16,17 @@ interface PremiumArticleSidebarProps {
   allPosts: PostMeta[];
   currentPostSlug: string;
   currentPostTags?: string[];
-  content: string; // For table of contents
+  headings: Heading[]; // Pre-extracted headings from server for SEO
 }
 
 const PremiumArticleSidebar: React.FC<PremiumArticleSidebarProps> = ({
   allPosts,
   currentPostSlug,
   currentPostTags = [],
-  content
+  headings = [] // Now receiving pre-extracted headings from server
 }) => {
   const [activeSection, setActiveSection] = useState<string>('');
   const [expandedToc, setExpandedToc] = useState(true);
-
-  // Extract headings for table of contents
-  const headings = React.useMemo(() => {
-    const headingRegex = /^##\s+(.+)$/gm;
-    const matches = [];
-    let match;
-    while ((match = headingRegex.exec(content)) !== null) {
-      matches.push({
-        id: match[1].toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, ''),
-        text: match[1]
-      });
-    }
-    return matches;
-  }, [content]);
 
   // Track active section based on scroll
   useEffect(() => {
@@ -94,6 +81,8 @@ const PremiumArticleSidebar: React.FC<PremiumArticleSidebarProps> = ({
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 backdrop-blur-xl bg-white/90"
+            role="navigation"
+            aria-label="Innehållsförteckning"
           >
           <button
             onClick={() => setExpandedToc(!expandedToc)}
@@ -103,7 +92,7 @@ const PremiumArticleSidebar: React.FC<PremiumArticleSidebarProps> = ({
               <div className="p-2 bg-gradient-to-r from-pink-100 to-purple-100 rounded-lg">
                 <BookOpen className="w-4 h-4 text-purple-600" />
               </div>
-              <h3 className="font-semibold text-gray-900">Innehållsförteckning</h3>
+              <h3 className="font-semibold text-gray-900" id="toc-heading">Innehållsförteckning</h3>
             </div>
             {expandedToc ? (
               <ChevronUp className="w-5 h-5 text-gray-500 group-hover:text-pink-600 transition-colors" />
@@ -113,24 +102,36 @@ const PremiumArticleSidebar: React.FC<PremiumArticleSidebarProps> = ({
           </button>
 
           {expandedToc && (
-            <nav className="mt-4 space-y-1">
-              {headings.map((heading) => (
-                <a
-                  key={heading.id}
-                  href={`#${heading.id}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById(heading.id)?.scrollIntoView({ behavior: 'smooth' });
-                  }}
-                  className={`block px-3 py-2 text-sm rounded-lg transition-all duration-200 ${
-                    activeSection === heading.id
-                      ? 'bg-gradient-to-r from-pink-50 to-purple-50 text-purple-700 font-medium border-l-2 border-pink-600'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                  }`}
-                >
-                  {heading.text}
-                </a>
-              ))}
+            <nav
+              className="mt-4"
+              aria-labelledby="toc-heading"
+            >
+              <ol className="space-y-1">
+                {headings.map((heading) => (
+                  <li key={heading.id}>
+                    <a
+                      href={`#${heading.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const element = document.getElementById(heading.id);
+                        if (element) {
+                          element.scrollIntoView({ behavior: 'smooth' });
+                          // Update URL hash for better SEO and sharing
+                          window.history.pushState(null, '', `#${heading.id}`);
+                        }
+                      }}
+                      className={`block px-3 py-2 text-sm rounded-lg transition-all duration-200 ${
+                        activeSection === heading.id
+                          ? 'bg-gradient-to-r from-pink-50 to-purple-50 text-purple-700 font-medium border-l-2 border-pink-600'
+                          : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                      }`}
+                      aria-current={activeSection === heading.id ? 'location' : undefined}
+                    >
+                      {heading.text}
+                    </a>
+                  </li>
+                ))}
+              </ol>
             </nav>
           )}
           </motion.div>
