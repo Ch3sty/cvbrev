@@ -7,34 +7,35 @@ import { motion } from 'framer-motion';
 import { TrendingUp, ArrowRight, Sparkles } from 'lucide-react';
 
 const CVTemplateShowcase: React.FC = () => {
-  const popularTemplates = [
+  // ÄKTA CV-mallar baserade på faktiska SVG-filer i /public/mallar/
+  const actualTemplates = [
     {
-      id: 'modern-professional',
-      name: 'Modern Professional',
+      id: 'modern-minimal',
+      name: 'Modern Minimal',
       description: 'Perfekt för tech och konsult',
-      image: '/images/cv-templates/modern-professional-preview.jpg',
-      badge: 'Heta just nu'
-    },
-    {
-      id: 'classic-elegant',
-      name: 'Classic Elegant',
-      description: 'Traditionell och pålitlig',
-      image: '/images/cv-templates/classic-elegant-preview.jpg',
+      svg: '/mallar/modern-minimal.svg',
       badge: 'Populärast'
     },
     {
-      id: 'creative-bold',
-      name: 'Creative Bold',
-      description: 'För kreativa yrken',
-      image: '/images/cv-templates/creative-bold-preview.jpg',
-      badge: 'Trendigt'
+      id: 'classic-professional',
+      name: 'Classic Professional',
+      description: 'Traditionell och pålitlig',
+      svg: '/mallar/classic-professional.svg',
+      badge: 'Rekommenderad'
     },
     {
-      id: 'minimalist-clean',
-      name: 'Minimalist Clean',
-      description: 'Rent och professionellt',
-      image: '/images/cv-templates/minimalist-clean-preview.jpg',
-      badge: 'Rekommenderad'
+      id: 'nordic-professional',
+      name: 'Nordic Professional',
+      description: 'Skandinavisk elegans',
+      svg: '/mallar/nordic-professional.svg',
+      badge: 'Heta just nu'
+    },
+    {
+      id: 'creative-edge',
+      name: 'Creative Edge',
+      description: 'För kreativa yrken',
+      svg: '/mallar/creative-edge.svg',
+      badge: 'Trendigt'
     }
   ];
 
@@ -61,7 +62,7 @@ const CVTemplateShowcase: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        {popularTemplates.map((template, index) => (
+        {actualTemplates.map((template, index) => (
           <motion.div
             key={template.id}
             initial={{ opacity: 0, scale: 0.9 }}
@@ -80,18 +81,20 @@ const CVTemplateShowcase: React.FC = () => {
                 </span>
               </div>
 
-              {/* Template Preview */}
-              <div className="relative aspect-[3/4] bg-gray-100 overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900/20" />
-                {/* Placeholder for template image */}
-                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
-                  <div className="text-center">
-                    <div className="w-8 h-8 bg-pink-600 rounded mx-auto mb-2"></div>
-                    <div className="space-y-1">
-                      <div className="h-2 bg-gray-300 rounded w-16 mx-auto"></div>
-                      <div className="h-1 bg-gray-300 rounded w-12 mx-auto"></div>
-                      <div className="h-1 bg-gray-300 rounded w-14 mx-auto"></div>
-                    </div>
+              {/* Template Preview - ÄKTA SVG-filer */}
+              <div className="relative aspect-[3/4] bg-gray-50 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-900/10" />
+
+                {/* Render äkta SVG-fil */}
+                <div className="w-full h-full p-4 flex items-center justify-center">
+                  <div className="w-full h-full bg-white rounded shadow-sm border border-gray-100 overflow-hidden">
+                    <Image
+                      src={template.svg}
+                      alt={`${template.name} CV-mall preview`}
+                      width={200}
+                      height={280}
+                      className="w-full h-full object-contain"
+                    />
                   </div>
                 </div>
 
@@ -119,7 +122,8 @@ const CVTemplateShowcase: React.FC = () => {
 
       <div className="flex items-center justify-between pt-4 border-t border-gray-100">
         <p className="text-sm text-gray-600">
-          <span className="font-medium">200+</span> professionella mallar att välja mellan
+          {/* ÄRLIGT antal mallar - 8 st totalt */}
+          <span className="font-medium">8</span> professionella mallar att välja mellan
         </p>
 
         <Link

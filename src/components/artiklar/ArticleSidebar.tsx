@@ -108,7 +108,7 @@ const ArticleSidebar: React.FC<ArticleSidebarProps> = ({
                    Populärast: CV-mallar
                  </h4>
                  <p className="text-sm text-gray-600 leading-snug">
-                   200+ professionella mallar för alla branscher. Heta just nu!
+                   8 professionella mallar för alla branscher
                  </p>
                </div>
                 <ArrowRight className="w-5 h-5 text-gray-400 ml-auto opacity-70 transition-all duration-300 group-hover:opacity-100 group-hover:text-pink-600 group-hover:translate-x-1 flex-shrink-0 mt-0.5" />

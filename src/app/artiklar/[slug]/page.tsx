@@ -134,6 +134,28 @@ function generateFaqSchema(data: FaqItemData[] | undefined): React.ReactNode | n
     } catch (error) { console.error("Error generating FAQ schema:", error); return null; }
 }
 
+// Funktion för att injicera BroadConversionBanner i MDX-innehåll
+function injectBannerIntoContent(content: string): string {
+    // Redan innehåller bannern? Hoppa över injection
+    if (content.includes('<BroadConversionBanner') || content.includes('BroadConversionBanner')) {
+        return content;
+    }
+
+    // Dela upp innehållet i stycken
+    const paragraphs = content.split('\n\n');
+
+    // Om det finns minst 3 stycken, lägg in bannern efter det andra stycket
+    // Om bara 1-2 stycken, lägg in den efter första stycket
+    let insertIndex = 1;
+    if (paragraphs.length >= 3) {
+        insertIndex = 2;
+    }
+
+    // Lägg in banner-komponenten
+    paragraphs.splice(insertIndex, 0, '\n<BroadConversionBanner />\n');
+
+    return paragraphs.join('\n\n');
+}
 
 // --- SIDKOMPONENTEN (ArticlePage) ---
 export default async function ArticlePage({ params }: ArticlePageProps) {
@@ -150,6 +172,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     if (!post) { // (OFÖRÄNDRAT)
         notFound();
     }
+
+    // Injicera BroadConversionBanner automatiskt i innehållet
+    const contentWithBanner = injectBannerIntoContent(post.content);
 
     // Hämta FAQ-data från frontmatter (OFÖRÄNDRAT)
     const articleFaqData: FaqItemData[] | undefined = post.frontmatter.faq;
@@ -191,7 +216,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 <div className="flex flex-wrap gap-2 mt-4">
                     {post.frontmatter.tags.map((tag: string) => (
                         <Link
-                            href={`/artiklar?tag=${encodeURIComponent(tag)}`}
+                            href={`/artiklar?tag=${tag}`}
                             key={tag}
                             className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-700 border border-gray-200 hover:bg-pink-50 hover:border-pink-300 hover:text-pink-700 transition-all duration-150"
                         >
@@ -210,7 +235,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
     // *** LJUST PREMIUM TEMA LAYOUT MED KONVERTERINGSKOMPONENTER ***
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-gradient-to-b from-white to-slate-50/50">
             <div className="container max-w-6xl px-4 py-16 mx-auto lg:py-20">
                 <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
 
@@ -248,10 +273,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
                             {/* MDX-innehåll med automatisk konverteringskomponent-injektion */}
                             <div className="article-content">
-                                <MDXRemote source={post.content} components={components} />
+                                <MDXRemote source={contentWithBanner} components={components} />
 
                                 {/* Lägg till showcase efter innehåll om det inte redan finns i MDX */}
-                                {!post.content.includes('<CVTemplateShowcase') && !post.content.includes('CVTemplateShowcase') && (
+                                {!contentWithBanner.includes('<CVTemplateShowcase') && !contentWithBanner.includes('CVTemplateShowcase') && (
                                     <CVTemplateShowcase />
                                 )}
                             </div>
