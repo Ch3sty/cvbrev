@@ -21,6 +21,7 @@ export type Frontmatter = {
 
 export type PostMeta = {
   slug: string;
+  wordCount?: number;
 } & Frontmatter;
 
 export type Post = {
@@ -59,6 +60,14 @@ export function getAllPostsMeta(): PostMeta[] { // Uppdaterad returtyp
           const fileContents = fs.readFileSync(fullPath, 'utf8');
           const matterResult = matter(fileContents);
 
+          // Calculate word count from the actual content
+          const contentWordCount = matterResult.content
+            .replace(/```[\s\S]*?```/g, '') // Remove code blocks
+            .replace(/<[^>]*>/g, '') // Remove HTML tags
+            .replace(/[#*_`\[\]()]/g, ' ') // Remove markdown formatting
+            .split(/\s+/)
+            .filter(word => word.length > 0).length;
+
           // Validate required fields
           const frontmatter = matterResult.data as Frontmatter;
           if (!frontmatter.title || !frontmatter.date) {
@@ -79,6 +88,7 @@ export function getAllPostsMeta(): PostMeta[] { // Uppdaterad returtyp
             tags: Array.isArray(frontmatter.tags) ? frontmatter.tags : [],
             image: frontmatter.image,
             faq: Array.isArray(frontmatter.faq) ? frontmatter.faq : [],
+            wordCount: contentWordCount,
           };
           return postMetaData;
         } catch (error) {

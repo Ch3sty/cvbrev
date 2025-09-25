@@ -24,14 +24,13 @@ const ModernArticleCard: React.FC<ModernArticleCardProps> = ({
     post.image.trim() !== '' &&
     post.image.startsWith('/');
 
-  // Estimate reading time (simple calculation: ~200 words per minute)
-  const estimateReadingTime = (description: string) => {
-    const wordCount = description.split(' ').length;
-    const readingTime = Math.ceil(wordCount / 200);
-    return readingTime;
+  // Calculate reading time based on actual word count (~200 words per minute)
+  const calculateReadingTime = (wordCount: number) => {
+    if (wordCount === 0) return 1; // Minimum 1 minute
+    return Math.ceil(wordCount / 200);
   };
 
-  const readingTime = estimateReadingTime(post.description || '');
+  const readingTime = calculateReadingTime(post.wordCount || 0);
 
   return (
     <motion.article
@@ -39,7 +38,7 @@ const ModernArticleCard: React.FC<ModernArticleCardProps> = ({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
       className={`group bg-white rounded-xl overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border border-gray-200/60 hover:border-gray-300/80 ${
-        featured ? 'md:col-span-2 lg:col-span-2' : ''
+        featured ? 'md:col-span-2 lg:col-span-3' : ''
       }`}
     >
       {/* Article Image */}

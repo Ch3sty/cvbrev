@@ -1,6 +1,6 @@
 import React from 'react';
 import { getAllPostsMeta } from '@/lib/blog';
-import ModernCategorySidebar from './ModernCategorySidebar';
+import ModernHorizontalFilter from './ModernHorizontalFilter';
 
 export const generateTagsData = () => {
   try {
@@ -35,7 +35,7 @@ export const generateTagsData = () => {
 
 const ModernCategoriesServer = () => {
   const tagsData = generateTagsData();
-  return <ModernCategorySidebar categories={tagsData} />;
+  return <ModernHorizontalFilter categories={tagsData} />;
 };
 
 export default ModernCategoriesServer;
