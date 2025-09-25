@@ -179,12 +179,13 @@ export default async function ArticlesIndexPage({
                     />
                   );
 
-                  // Strategic conversion card placement - show every 5th position on all pages
+                  // Strategic conversion card placement - show every 5th article position (5, 10, 15, 20, etc.)
                   if (!tagFilter && (globalIndex + 1) % 5 === 0) {
-                    // Smart distribution: 70% free-trial, 30% premium
-                    // Use position-based deterministic selection for consistency
-                    const conversionPosition = Math.floor((globalIndex + 1) / 5) - 1; // 0-based indexing
-                    const selectedVariant = (conversionPosition % 10) < 7 ? 'free-trial' : 'premium';
+                    // Distribution pattern: ~70% free-trial, ~30% premium
+                    // Every 3rd conversion card is premium
+                    const conversionPosition = Math.floor((globalIndex + 1) / 5); // Which conversion card number this is
+                    const selectedVariant = (conversionPosition % 3 === 0) ? 'premium' : 'free-trial';
+
 
                     elements.push(
                       <ConversionCard

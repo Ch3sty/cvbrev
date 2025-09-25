@@ -78,6 +78,7 @@ const ConversionCard: React.FC<ConversionCardProps> = ({
   const config = variants[variant];
   const Icon = config.icon;
 
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}
