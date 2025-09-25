@@ -48,18 +48,18 @@ const ModernArticleCard: React.FC<ModernArticleCardProps> = ({
         className="block overflow-hidden"
         aria-label={`Läs mer om ${post.title}`}
       >
-        <div className={`relative ${featured ? 'aspect-w-16 aspect-h-8' : 'aspect-w-16 aspect-h-9'}`}>
+        <div className={`relative ${featured ? 'h-64 md:h-96' : 'h-48'}`}>
           {hasValidImage ? (
-            <div className="relative overflow-hidden">
+            <>
               <ArticleImage
                 src={post.image as string}
                 alt={post.title ?? 'Artikelbild'}
                 slug={post.slug}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </div>
+            </>
           ) : (
-            <div className="flex items-center justify-center w-full h-full bg-gradient-to-br from-gray-50 to-gray-100">
+            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
               <FileText className="w-12 h-12 text-gray-400" />
             </div>
           )}

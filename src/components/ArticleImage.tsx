@@ -55,8 +55,8 @@ export default function ArticleImage({ src, alt, slug }: ArticleImageProps) {
 
   if (imageError || !imagePath) {
     return (
-      <div className="fallback-icon-container flex items-center justify-center w-full h-full bg-gradient-to-br from-navy-800 to-navy-700">
-        <FileText className="w-12 h-12 text-navy-600" />
+      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
+        <FileText className="w-12 h-12 text-gray-400" />
       </div>
     );
   }
@@ -66,7 +66,7 @@ export default function ArticleImage({ src, alt, slug }: ArticleImageProps) {
       src={imagePath}
       alt={alt || 'Artikelbild'}
       fill
-      sizes="(max-width: 768px) 100vw, 50vw"
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
       className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
       onError={handleImageError}
     />
