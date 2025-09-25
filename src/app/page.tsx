@@ -192,13 +192,13 @@ export default function HomePage() {
                       backgroundSize: '200% 200%',
                     }}
                   >
-                    snabbare med AI
+                    snabbare än någonsin
                   </motion.span>
                 </motion.h1>
 
                 {/* Underrubrik */}
                 <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-                  Skapa vinnande personliga brev på 60 sekunder med AI som förstår svenska arbetsmarknaden.
+                  Skapa vinnande personliga brev på 60 sekunder med smarta verktyg som förstår svenska arbetsmarknaden.
                   <span className="font-semibold text-slate-900"> 89% av våra användare får intervju inom 2 veckor.</span>
                 </p>
 
@@ -391,7 +391,7 @@ export default function HomePage() {
                 Vad gör oss unika?
               </h2>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-                Vi är den enda AI-tjänsten som verkligen förstår svenska arbetsmarknaden
+                Vi är den enda tjänsten som verkligen förstår svenska arbetsmarknaden och ger dig konkreta resultat
               </p>
             </div>
 
@@ -404,10 +404,10 @@ export default function HomePage() {
                   3x högre träffsäkerhet
                 </h3>
                 <p className="text-slate-600 mb-4">
-                  Våra algoritmer är tränade på över 50,000 svenska jobbannonser och CV:n
+                  Våra smarta algoritmer är tränade på över 50,000 svenska jobbannonser och CV:n för maximal träffsäkerhet
                 </p>
                 <div className="pt-4 border-t border-slate-100">
-                  <p className="text-sm font-medium text-slate-500">Jämfört med generiska AI-verktyg</p>
+                  <p className="text-sm font-medium text-slate-500">Jämfört med generiska verktyg</p>
                   <div className="flex items-center gap-2 mt-2">
                     <div className="flex-1 h-2 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full" />
                     <span className="text-lg font-bold text-slate-900">+300%</span>
@@ -525,7 +525,7 @@ export default function HomePage() {
                 },
                 {
                   icon: FileSearch,
-                  title: 'CV-analys med AI-feedback',
+                  title: 'CV-analys med expertfeedback',
                   description: 'Få konkreta förbättringsförslag baserat på vad svenska rekryterare letar efter.',
                   badge: 'Gratis',
                   badgeColor: 'from-green-500 to-green-600',
@@ -544,8 +544,8 @@ export default function HomePage() {
                 {
                   icon: Target,
                   title: 'Smart nyckelordsmatchning',
-                  description: 'AI identifierar och inkluderar rätt nyckelord från jobbannonsen för maximal träffsäkerhet.',
-                  badge: 'AI-driven',
+                  description: 'Våra verktyg identifierar och inkluderar rätt nyckelord från jobbannonsen för maximal träffsäkerhet.',
+                  badge: 'Smart',
                   badgeColor: 'from-indigo-500 to-indigo-600',
                   stats: '3x bättre matchning',
                   delay: 0.3
@@ -553,7 +553,7 @@ export default function HomePage() {
                 {
                   icon: GraduationCap,
                   title: 'Personlig kompetensutveckling',
-                  description: 'Få AI-genererade utvecklingsplaner baserat på dina karriärmål och marknadens krav.',
+                  description: 'Få skräddarsydda utvecklingsplaner baserat på dina karriärmål och marknadens krav.',
                   badge: 'Ny',
                   badgeColor: 'from-pink-500 to-pink-600',
                   stats: 'Skräddarsydd plan',
@@ -785,14 +785,14 @@ export default function HomePage() {
                 {
                   name: 'Anna Lindberg',
                   role: 'Marknadsförare → Senior Marketing Manager',
-                  quote: 'Fick drömjobbet på Spotify efter bara 3 veckors sökande. AI:n förstod exakt vad de letade efter.',
+                  quote: 'Fick drömjobbet på Spotify efter bara 3 veckors sökande. Verktyget förstod exakt vad de letade efter.',
                   rating: 5,
                   increase: '+45% lön'
                 },
                 {
                   name: 'Marcus Svensson',
                   role: 'Nyexaminerad → Junior Developer',
-                  quote: 'Som nyexad var det svårt att sticka ut. Jobbcoach.ai hjälpte mig framhäva mina projekt perfekt.',
+                  quote: 'Som nyexad var det svårt att sticka ut. Jobbcoach.ai hjälpte mig framhäva mina projekt på ett kraftfullt sätt.',
                   rating: 5,
                   increase: 'Första jobbet på 2 veckor'
                 },
@@ -840,11 +840,11 @@ export default function HomePage() {
               {[
                 {
                   q: 'Hur snabbt kan jag skapa ett personligt brev?',
-                  a: 'Med vår AI tar det bara 60 sekunder att skapa ett unikt, anpassat personligt brev för varje jobbansökan.'
+                  a: 'Med våra smarta verktyg tar det bara 60 sekunder att skapa ett unikt, anpassat personligt brev för varje jobbansökan.'
                 },
                 {
                   q: 'Fungerar det för alla branscher?',
-                  a: 'Ja! Vår AI är tränad på data från alla stora svenska branscher och anpassar språk och ton efter branschstandard.'
+                  a: 'Ja! Våra verktyg är tränade på data från alla stora svenska branscher och anpassar språk och ton efter branschstandard.'
                 },
                 {
                   q: 'Är mina uppgifter säkra?',
@@ -892,7 +892,7 @@ export default function HomePage() {
           <div className="grid md:grid-cols-4 gap-8 mb-8">
             <div>
               <h3 className="font-bold text-white mb-4">Jobbcoach.ai</h3>
-              <p className="text-sm">Din AI-drivna karriärpartner för svenska arbetsmarknaden.</p>
+              <p className="text-sm">Din smarta karriärpartner för svenska arbetsmarknaden.</p>
             </div>
             <div>
               <h4 className="font-semibold text-white mb-4">Produkt</h4>

@@ -36,7 +36,7 @@ interface FaqItem {
 const pricingFaqItems: FaqItem[] = [
   {
     question: "Vad ingår i Gratis-planen?",
-    answer: "Gratis-planen låter dig testa vår AI-kraft: begränsad brevgenerering per vecka, 2 CV-analyser per vecka, 2 kompetensanalyser per vecka, tillgång till 2 grundläggande CV-mallar, och möjlighet att spara upp till 2 brev. Perfekt för att upptäcka vad vår AI kan göra för din karriär."
+    answer: "Gratis-planen låter dig testa våra smarta verktyg: begränsad brevgenerering per vecka, 2 CV-analyser per vecka, 2 kompetensanalyser per vecka, tillgång till 2 grundläggande CV-mallar, och möjlighet att spara upp till 2 brev. Perfekt för att upptäcka vad våra verktyg kan göra för din karriär."
   },
   {
     question: "Betalar sig verkligen Premium för 149 kr/månad?",
@@ -44,7 +44,7 @@ const pricingFaqItems: FaqItem[] = [
   },
   {
     question: "Hur snabbt får jag resultat?",
-    answer: "Många användare ser förbättringar redan med sitt första AI-genererade brev. Med professionellt optimerade ansökningar och skräddarsydd tonalitet kan du få bättre respons från arbetsgivare. Resultaten varierar beroende på bransch och marknad."
+    answer: "Många användare ser förbättringar redan med sitt första skräddarsydda brev. Med professionellt optimerade ansökningar och smart anpassad tonalitet kan du få bättre respons från arbetsgivare. Resultaten varierar beroende på bransch och marknad."
   },
   {
     question: "Vad händer när jag avslutar min Premium-prenumeration?",
@@ -62,7 +62,7 @@ const pricingFaqItems: FaqItem[] = [
 
 // Trust indicators data - REAL and modest
 const trustStats = [
-  { number: "AI-drivna", label: "Professionella verktyg", icon: BrainCircuit },
+  { number: "Smarta", label: "Professionella verktyg", icon: BrainCircuit },
   { number: "8", label: "Designade CV-mallar", icon: PenTool },
   { number: "5", label: "Tonaliteter att välja mellan", icon: Palette },
   { number: "24/7", label: "Tillgängligt dygnet runt", icon: Clock }
@@ -90,8 +90,8 @@ const premiumFeatures = [
   },
   {
     icon: BrainCircuit,
-    title: "AI-auto tonalitet",
-    description: "AI väljer automatiskt optimal ton för varje jobbannons",
+    title: "Smart tonalitetsanpassning",
+    description: "Systemet väljer automatiskt optimal ton för varje jobbannons",
     gradient: "from-pink-500/20 to-red-500/20"
   },
   {
@@ -267,11 +267,11 @@ export default function PriserPage() {
     <>
       {/* SEO Metadata */}
       <Head>
-        <title>Priser | Jobbcoach.ai - Premium AI-karriärcoach för 149 kr/månad</title>
-        <meta name="description" content="Endast 149 kr/månad för obegränsad tillgång till AI-genererade personliga brev, djupgående CV-analyser och karriärcoaching. Gratis plan tillgänglig. Ingen bindningstid." />
-        <meta name="keywords" content="priser jobbcoach.ai, premium AI karriärcoach, personligt brev AI pris, CV-analys kostnad, 149 kr månad jobbcoach" />
-        <meta property="og:title" content="Priser | Jobbcoach.ai - Premium AI för 149 kr/månad" />
-        <meta property="og:description" content="Transparent prissättning: Premium för 149 kr/månad eller starta gratis. Obegränsad AI-kraft för din karriär. Ingen bindningstid." />
+        <title>Priser | Jobbcoach.ai - Premium karriärcoach för 149 kr/månad</title>
+        <meta name="description" content="Endast 149 kr/månad för obegränsad tillgång till professionella personliga brev, djupgående CV-analyser och karriärcoaching. Gratis plan tillgänglig. Ingen bindningstid." />
+        <meta name="keywords" content="priser jobbcoach.ai, premium karriärcoach, personligt brev pris, CV-analys kostnad, 149 kr månad jobbcoach" />
+        <meta property="og:title" content="Priser | Jobbcoach.ai - Premium verktyg för 149 kr/månad" />
+        <meta property="og:description" content="Transparent prissättning: Premium för 149 kr/månad eller starta gratis. Obegränsade möjligheter för din karriär. Ingen bindningstid." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://jobbcoach.ai/priser" />
         <meta property="og:image" content="https://jobbcoach.ai/images/jobbcoach-og-pricing.png" />
@@ -381,7 +381,7 @@ export default function PriserPage() {
                 Enkla priser - <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">maximal effekt</span>
               </h2>
               <p className="text-xl text-slate-600 mb-4">
-                Börja gratis och upplev AI:ns kraft. Uppgradera när du vill ha obegränsad tillgång.
+                Börja gratis och upplev våra smarta verktyg. Uppgradera när du vill ha obegränsad tillgång.
               </p>
               <div className="inline-flex items-center px-4 py-2 bg-green-100 text-green-700 text-sm font-semibold rounded-full">
                 <Sparkles className="w-4 h-4 mr-2" />
@@ -412,7 +412,7 @@ export default function PriserPage() {
                     </div>
 
                     <p className="text-slate-600 mb-6">
-                      Perfekt för att uppleva AI-kraften och testa grundfunktionerna
+                      Perfekt för att uppleva våra smarta verktyg och testa grundfunktionerna
                     </p>
 
                     <div className="mb-8">
@@ -457,7 +457,7 @@ export default function PriserPage() {
                           </div>
                           <div className="flex items-center opacity-60 mt-2">
                             <Lock className="w-5 h-5 text-gray-400 mr-3 flex-shrink-0" />
-                            <span className="text-slate-500">AI-auto tonalitet (Premium)</span>
+                            <span className="text-slate-500">Smart tonalitetsanpassning (Premium)</span>
                           </div>
                           <div className="flex items-center opacity-60 mt-2">
                             <Lock className="w-5 h-5 text-gray-400 mr-3 flex-shrink-0" />
@@ -514,7 +514,7 @@ export default function PriserPage() {
                     </div>
 
                     <p className="text-slate-600 mb-6">
-                      Lås upp obegränsad AI-kraft för 149 kr/mån - mindre än vad en kaffe kostar per dag. Betalar sig själv första intervjun.
+                      Lås upp obegränsade möjligheter för 149 kr/mån - mindre än vad en kaffe kostar per dag. Betalar sig själv första intervjun.
                     </p>
 
                     <div className="mb-8">
@@ -607,7 +607,7 @@ export default function PriserPage() {
               {[
                 {
                   icon: Zap,
-                  title: "Obegränsad AI-kraft",
+                  title: "Obegränsade möjligheter",
                   description: "Skapa så många personliga brev och gör så många analyser du behöver – utan begränsningar",
                   gradient: "from-yellow-400/20 to-orange-400/20",
                   iconColor: "text-yellow-600"
@@ -622,7 +622,7 @@ export default function PriserPage() {
                 {
                   icon: Target,
                   title: "Smart anpassning",
-                  description: "AI-optimerad tonalitet och avancerade insikter för att skräddarsy varje ansökan perfekt",
+                  description: "Optimerad tonalitet och avancerade insikter för att skräddarsy varje ansökan perfekt",
                   gradient: "from-green-400/20 to-teal-400/20",
                   iconColor: "text-green-600"
                 }
@@ -802,7 +802,7 @@ export default function PriserPage() {
                     },
                     {
                       icon: FileSearch,
-                      title: "AI-analyser",
+                      title: "Expertanalyser",
                       value: "Obegränsade insikter",
                       description: "CV- och kompetensanalyser när du behöver dem"
                     }
@@ -830,7 +830,7 @@ export default function PriserPage() {
 
                 <div className="mt-8 pt-6 border-t border-gray-200 text-center">
                   <div className="text-2xl font-bold text-slate-900 mb-2">Endast 149 kr/månad</div>
-                  <p className="text-slate-600">Mindre än vad en arbetslunch kostar - för obegränsad AI-kraft</p>
+                  <p className="text-slate-600">Mindre än vad en arbetslunch kostar - för obegränsade möjligheter</p>
                 </div>
               </motion.div>
             </div>
@@ -924,7 +924,7 @@ export default function PriserPage() {
                 Varför välja <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Jobbcoach.ai?</span>
               </h2>
               <p className="text-xl text-slate-600">
-                AI-drivna verktyg som hjälper dig att skapa professionella ansökningar snabbt och enkelt
+                Smarta verktyg som hjälper dig att skapa professionella ansökningar snabbt och enkelt
               </p>
             </motion.div>
 
@@ -944,7 +944,7 @@ export default function PriserPage() {
                 },
                 {
                   title: "Professionell kvalitet",
-                  description: "8 designade CV-mallar och AI som skapar skräddarsydda brev för varje jobbannons.",
+                  description: "8 designade CV-mallar och smarta verktyg som skapar skräddarsydda brev för varje jobbannons.",
                   icon: Award,
                   color: "from-purple-500/20 to-pink-500/20"
                 },
@@ -1008,7 +1008,7 @@ export default function PriserPage() {
                   className="inline-flex items-center px-6 py-3 bg-white/90 backdrop-blur-sm text-slate-900 text-sm font-bold rounded-full border border-white/30 mb-6 shadow-lg"
                 >
                   <Award className="w-5 h-5 mr-2 text-blue-600" />
-                  Premium AI-karriärcoach för svenska yrkesverksamma
+                  Premium karriärcoach för svenska yrkesverksamma
                 </motion.div>
               </div>
 
@@ -1020,7 +1020,7 @@ export default function PriserPage() {
               </h2>
 
               <p className="max-w-2xl mx-auto text-xl md:text-2xl text-white mb-12 leading-relaxed drop-shadow-sm">
-                Välj mellan vår generösa gratisplan eller Premium för obegränsad AI-kraft. Din karriär väntar.
+                Välj mellan vår generösa gratisplan eller Premium för obegränsade möjligheter. Din karriär väntar.
               </p>
 
               {/* Enhanced Trust Indicators with better contrast */}
@@ -1033,7 +1033,7 @@ export default function PriserPage() {
               >
                 <div className="text-center p-6 bg-white/95 backdrop-blur-sm rounded-xl shadow-lg max-w-2xl mx-auto">
                   <div className="text-lg font-semibold text-slate-800 mb-2">
-                    Professionella AI-verktyg för din jobbsökning
+                    Professionella verktyg för din jobbsökning
                   </div>
                   <div className="text-slate-600">
                     Skapa personliga brev, analysera ditt CV, och använd professionella mallar - allt på svenska
