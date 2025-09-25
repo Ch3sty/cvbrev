@@ -7,7 +7,7 @@ import { format, parseISO } from 'date-fns';
 import { sv } from 'date-fns/locale';
 import Link from 'next/link';
 import React from 'react';
-import { extractHeadingsFromContent, addHeadingIds, filterH2Headings } from '@/lib/extractHeadings';
+import { extractHeadingsFromContent, filterH2Headings } from '@/lib/extractHeadings';
 
 // Importera MDX-komponenter
 import CustomImage from '@/components/mdx/Image';
@@ -209,11 +209,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     // Extract headings for SEO-optimized TOC
     const headings = filterH2Headings(extractHeadingsFromContent(post.content));
 
-    // Add IDs to headings in content for anchor linking
-    const contentWithIds = addHeadingIds(post.content);
-
-    // Injicera båda komponenter i innehållet
-    const contentWithBanner = injectBannerIntoContent(contentWithIds);
+    // Injicera båda komponenter i innehållet - UTAN att modifiera headings
+    const contentWithBanner = injectBannerIntoContent(post.content);
     const contentWithBannerAndCV = injectCVTemplateShowcase(contentWithBanner);
     const articleFaqData: FaqItemData[] | undefined = post.frontmatter.faq;
 
@@ -230,6 +227,34 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         // Lägg till konverteringskomponenter som kan användas i MDX
         BroadConversionBanner: BroadConversionBanner,
         CVTemplateShowcase: CVTemplateShowcase,
+        // Automatisk ID-generering för h2 headings - SEO-optimerad
+        h2: (props: any) => {
+            const text = typeof props.children === 'string' ? props.children : '';
+            const id = text
+                .toLowerCase()
+                .replace(/[åä]/g, 'a')
+                .replace(/ö/g, 'o')
+                .replace(/[^\w\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '')
+                || 'section';
+            return <h2 id={id} {...props} />;
+        },
+        // Automatisk ID-generering för h3 headings
+        h3: (props: any) => {
+            const text = typeof props.children === 'string' ? props.children : '';
+            const id = text
+                .toLowerCase()
+                .replace(/[åä]/g, 'a')
+                .replace(/ö/g, 'o')
+                .replace(/[^\w\s-]/g, '')
+                .replace(/\s+/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, '')
+                || 'subsection';
+            return <h3 id={id} {...props} />;
+        },
         img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => {
             if (!props.src) {
                 console.warn(`MDX img tag in article "${slug}" is missing src attribute.`);

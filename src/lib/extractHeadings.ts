@@ -60,32 +60,9 @@ export function generateHeadingId(text: string): string {
     || 'section';
 }
 
-/**
- * Adds IDs to headings in the MDX content for anchor linking
- * This ensures headings have proper IDs for TOC navigation
- */
-export function addHeadingIds(content: string): string {
-  const headings = extractHeadingsFromContent(content);
-  let modifiedContent = content;
-
-  headings.forEach(heading => {
-    // Replace heading with version that has an ID
-    const originalHeading = new RegExp(
-      `^(${'#'.repeat(heading.level)}\\s+)(${escapeRegex(heading.text)})$`,
-      'gm'
-    );
-
-    // Add {#id} syntax for MDX heading IDs
-    const replacement = `$1$2 {#${heading.id}}`;
-
-    // Only add ID if it doesn't already exist
-    if (!content.includes(`{#${heading.id}}`)) {
-      modifiedContent = modifiedContent.replace(originalHeading, replacement);
-    }
-  });
-
-  return modifiedContent;
-}
+// REMOVED: addHeadingIds function
+// IDs are now generated dynamically via MDX component overrides
+// This prevents MDX parsing errors with {#id} syntax
 
 /**
  * Escapes special regex characters in a string
