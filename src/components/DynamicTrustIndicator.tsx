@@ -20,17 +20,18 @@ export default function DynamicTrustIndicator() {
   const [recentUser, setRecentUser] = useState<string | null>(null)
   const [pulseAnimation, setPulseAnimation] = useState(false)
 
-  const userNames = [
-    'Anna L.', 'Marcus S.', 'Sofia A.', 'Erik J.', 'Maria K.',
-    'Johan P.', 'Emma N.', 'Viktor H.', 'Lisa M.', 'Oscar B.'
-  ]
-
-  const cities = [
-    'Stockholm', 'Göteborg', 'Malmö', 'Uppsala', 'Linköping',
-    'Örebro', 'Västerås', 'Helsingborg', 'Jönköping', 'Norrköping'
-  ]
-
   useEffect(() => {
+    // Flytta arrays inuti useEffect för att undvika dependency-varningar
+    const userNames = [
+      'Anna L.', 'Marcus S.', 'Sofia A.', 'Erik J.', 'Maria K.',
+      'Johan P.', 'Emma N.', 'Viktor H.', 'Lisa M.', 'Oscar B.'
+    ]
+
+    const cities = [
+      'Stockholm', 'Göteborg', 'Malmö', 'Uppsala', 'Linköping',
+      'Örebro', 'Västerås', 'Helsingborg', 'Jönköping', 'Norrköping'
+    ]
+
     // Simulera ny användare var 8:e sekund
     const userInterval = setInterval(() => {
       const randomName = userNames[Math.floor(Math.random() * userNames.length)]
@@ -61,7 +62,7 @@ export default function DynamicTrustIndicator() {
       clearInterval(userInterval)
       clearInterval(successInterval)
     }
-  }, [cities, userNames])
+  }, [])
 
   const metrics: LiveMetric[] = [
     {

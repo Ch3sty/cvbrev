@@ -786,10 +786,7 @@ export default function PriserPage() {
                 transition={{ delay: 0.4, duration: 0.6 }}
                 className="mb-12"
               >
-                <DynamicTrustIndicator
-                  className="text-white/80"
-                  highlightClassName="text-yellow-300"
-                />
+                <DynamicTrustIndicator />
               </motion.div>
 
               {/* CTA Buttons */}
