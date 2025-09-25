@@ -149,6 +149,34 @@ function injectBannerIntoContent(content: string): string {
     return paragraphs.join('\n\n');
 }
 
+// Funktion för att injicera CVTemplateShowcase i mitten av MDX-innehåll
+function injectCVTemplateShowcase(content: string): string {
+    // Redan innehåller CV showcase? Hoppa över injection
+    if (content.includes('<CVTemplateShowcase') || content.includes('CVTemplateShowcase')) {
+        return content;
+    }
+
+    // Dela upp innehållet i stycken
+    const paragraphs = content.split('\n\n');
+
+    // Om innehållet är för kort, lägg inte in showcase
+    if (paragraphs.length < 4) {
+        return content;
+    }
+
+    // Beräkna mitten av innehållet (runt 50-60% av vägen genom artikeln)
+    const totalParagraphs = paragraphs.length;
+    const middleIndex = Math.floor(totalParagraphs * 0.55); // 55% genom artikeln
+
+    // Säkerställ att vi inte går utanför gränserna
+    const insertIndex = Math.max(3, Math.min(middleIndex, totalParagraphs - 2));
+
+    // Lägg in CV Template Showcase
+    paragraphs.splice(insertIndex, 0, '\n<CVTemplateShowcase />\n');
+
+    return paragraphs.join('\n\n');
+}
+
 // --- SIDKOMPONENTEN (ArticlePage) ---
 export default async function ArticlePage({ params }: ArticlePageProps) {
     const resolvedParams = await params;
@@ -160,7 +188,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         notFound();
     }
 
+    // Injicera båda komponenter i innehållet
     const contentWithBanner = injectBannerIntoContent(post.content);
+    const contentWithBannerAndCV = injectCVTemplateShowcase(contentWithBanner);
     const articleFaqData: FaqItemData[] | undefined = post.frontmatter.faq;
 
     // Calculate reading time
@@ -209,14 +239,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 allPostsMeta={allPostsMeta}
                 readingTime={readingTime}
             >
-                <MDXRemote source={contentWithBanner} components={components} />
+                <MDXRemote source={contentWithBannerAndCV} components={components} />
 
-                {/* CV Template Showcase */}
-                {!contentWithBanner.includes('<CVTemplateShowcase') && !contentWithBanner.includes('CVTemplateShowcase') && (
-                    <CVTemplateShowcase />
-                )}
-
-                {/* Comprehensive Service Card */}
+                {/* Comprehensive Service Card - Final CTA */}
                 <div className="mt-12">
                     <ComprehensiveServiceCard />
                 </div>

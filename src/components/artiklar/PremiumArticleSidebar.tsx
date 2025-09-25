@@ -84,15 +84,17 @@ const PremiumArticleSidebar: React.FC<PremiumArticleSidebarProps> = ({
   }
 
   return (
-    <aside className="lg:col-span-4 space-y-6">
-      {/* Table of Contents - Sticky */}
-      {headings.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="sticky top-24 bg-white rounded-2xl shadow-sm border border-gray-100 p-6 backdrop-blur-xl bg-white/90"
-        >
+    <aside className="lg:col-span-4">
+      {/* Entire Sidebar - Sticky as one unit */}
+      <div className="sticky top-24 space-y-6">
+        {/* Table of Contents */}
+        {headings.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 backdrop-blur-xl bg-white/90"
+          >
           <button
             onClick={() => setExpandedToc(!expandedToc)}
             className="flex items-center justify-between w-full group"
@@ -131,15 +133,15 @@ const PremiumArticleSidebar: React.FC<PremiumArticleSidebarProps> = ({
               ))}
             </nav>
           )}
-        </motion.div>
-      )}
+          </motion.div>
+        )}
 
-      {/* Premium CTA Card */}
-      <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="bg-gradient-to-br from-pink-600 to-purple-600 rounded-2xl shadow-xl p-6 text-white relative overflow-hidden"
+        {/* Premium CTA Card */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="bg-gradient-to-br from-pink-600 to-purple-600 rounded-2xl shadow-xl p-6 text-white relative overflow-hidden"
       >
         {/* Background decoration */}
         <div className="absolute -right-10 -top-10 w-32 h-32 bg-white/10 rounded-full blur-2xl" />
@@ -180,14 +182,14 @@ const PremiumArticleSidebar: React.FC<PremiumArticleSidebarProps> = ({
             Prova gratis i 7 dagar
           </Link>
         </div>
-      </motion.div>
+        </motion.div>
 
-      {/* AI Tools Showcase */}
-      <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6"
+        {/* AI Tools Showcase */}
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6"
       >
         <div className="flex items-center gap-2 mb-4">
           <Sparkles className="w-5 h-5 text-pink-600" />
@@ -237,15 +239,15 @@ const PremiumArticleSidebar: React.FC<PremiumArticleSidebarProps> = ({
             <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-pink-600 group-hover:translate-x-1 transition-all duration-200" />
           </Link>
         </div>
-      </motion.div>
+        </motion.div>
 
-      {/* Related Articles */}
-      {relatedPosts.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6"
+        {/* Related Articles */}
+        {relatedPosts.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6"
         >
           <div className="flex items-center gap-2 mb-4">
             <BookOpen className="w-5 h-5 text-pink-600" />
@@ -276,8 +278,9 @@ const PremiumArticleSidebar: React.FC<PremiumArticleSidebarProps> = ({
             Visa alla artiklar
             <ArrowRight className="w-4 h-4 text-pink-600" />
           </Link>
-        </motion.div>
-      )}
+          </motion.div>
+        )}
+      </div>
     </aside>
   );
 };
