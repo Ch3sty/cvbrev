@@ -1,7 +1,11 @@
+'use client'
+
 import Link from 'next/link';
 import { getAllPostsMeta, PostMeta } from '@/lib/blog';
-import { Metadata } from 'next';
 import { BookOpen, Filter, TrendingUp } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import PremiumNavbar from '@/components/PremiumNavbar';
 import ModernArticleCard from '@/components/artiklar/ModernArticleCard';
 import ModernCategoriesServer from '@/components/artiklar/ModernCategoriesServer';
 import ModernPaginationControls from '@/components/artiklar/ModernPaginationControls';
@@ -9,13 +13,7 @@ import ConversionCard from '@/components/artiklar/ConversionCard';
 import OrganicTrafficBanner from '@/components/artiklar/OrganicTrafficBanner';
 import FloatingCTA from '@/components/artiklar/FloatingCTA';
 
-export const metadata: Metadata = {
-  title: 'Artiklar | jobbcoach.ai - Tips och Råd för Jobbsökande',
-  description: 'Läs de senaste artiklarna om personliga brev, CV-skrivning, AI i jobbsökandet och karriärtips från jobbcoach.ai.',
-  alternates: {
-    canonical: '/artiklar',
-  },
-};
+// Metadata moved to layout since this is now a client component
 
 // Typen för de *resolverade* searchParams, inkludera 'page'
 type ResolvedSearchParams = {
@@ -25,29 +23,27 @@ type ResolvedSearchParams = {
 
 const ITEMS_PER_PAGE = 6; // Antal artiklar per sida
 
-export default async function ArticlesIndexPage({
-  searchParams,
-}: {
-  searchParams: Promise<ResolvedSearchParams>;
-}) {
-  const resolvedSearchParams = await searchParams;
+export default function ArticlesIndexPage() {
+  const searchParams = useSearchParams();
+  const [allPosts, setAllPosts] = useState<PostMeta[]>([]);
 
   // Hämta filter och sidnummer från URL
-  const tagFilter = typeof resolvedSearchParams?.tag === 'string' ? resolvedSearchParams.tag : undefined;
-  const page = typeof resolvedSearchParams?.page === 'string' ? parseInt(resolvedSearchParams.page, 10) : 1;
+  const tagFilter = searchParams.get('tag') || undefined;
+  const page = parseInt(searchParams.get('page') || '1', 10);
 
   // Validera sidnummer
   const currentPage = isNaN(page) || page < 1 ? 1 : page;
 
   // Hämta alla poster med felhantering
-  let allPosts: PostMeta[] = [];
-  try {
-    allPosts = getAllPostsMeta();
-  } catch (error) {
-    console.error('Error fetching posts:', error);
-    // Return empty state instead of crashing
-    allPosts = [];
-  }
+  useEffect(() => {
+    try {
+      const posts = getAllPostsMeta();
+      setAllPosts(posts);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+      setAllPosts([]);
+    }
+  }, []);
 
   // 1. Filtrera först baserat på tagg med säker filtrering
   const filteredPosts = tagFilter
@@ -77,6 +73,9 @@ export default async function ArticlesIndexPage({
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Premium Navigation Bar */}
+      <PremiumNavbar />
+
       {/* Organic Traffic Conversion Banner */}
       <OrganicTrafficBanner />
 

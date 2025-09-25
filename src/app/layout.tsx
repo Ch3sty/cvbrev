@@ -58,6 +58,13 @@ export default function RootLayout({
   const pathname = usePathname();
   const isDashboard = pathname?.startsWith('/dashboard');
 
+  // Pages that use PremiumNavbar instead of the layout Navbar
+  const usesPremiumNavbar = pathname === '/' ||
+                           pathname === '/funktioner' ||
+                           pathname === '/priser' ||
+                           pathname === '/artiklar' ||
+                           pathname?.startsWith('/artiklar/');
+
   // Körs EN gång när komponenten monteras (Oförändrad)
   useEffect(() => {
     const consentValue = getCookieConsentValue(COOKIE_NAME);
@@ -169,7 +176,7 @@ export default function RootLayout({
 
         <GlobalCountersProvider>
           <NotificationProvider>
-            {!isDashboard && <Navbar />}
+            {!isDashboard && !usesPremiumNavbar && <Navbar />}
 
             <main className="flex-grow">
               {children}
