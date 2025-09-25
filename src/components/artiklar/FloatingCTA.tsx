@@ -81,7 +81,7 @@ const FloatingCTA = () => {
               </h3>
               <p className="text-gray-600 text-sm mb-4 leading-relaxed">
                 Få personligt brev skrivet av AI på bara 2 minuter.
-                Över 10,000 svenska jobbsökare har redan fått sina drömjobb.
+                Över 500 jobbsökare har redan förbättrat sina ansökningar.
               </p>
 
               {/* CTA Button */}
@@ -101,7 +101,7 @@ const FloatingCTA = () => {
               {/* Trust indicators */}
               <div className="mt-3 text-center">
                 <p className="text-xs text-gray-500">
-                  ⭐ 4.9/5 rating • 🚀 2 min setup • 💳 Inga kort krävs
+                  ⭐ 4.8/5 rating • 🚀 2 min setup • 💳 Inga kort krävs
                 </p>
               </div>
             </div>

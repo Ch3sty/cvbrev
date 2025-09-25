@@ -167,6 +167,8 @@ export default async function ArticlesIndexPage({
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:gap-12">
                 {((currentPage === 1 && !tagFilter) ? paginatedPosts.slice(1) : paginatedPosts).map((post, index) => {
                   const elements = [];
+                  // Calculate global index for conversion card placement
+                  const globalIndex = (currentPage === 1 && !tagFilter) ? index + 1 : (validCurrentPage - 1) * ITEMS_PER_PAGE + index;
 
                   // Add the article card
                   elements.push(
@@ -177,46 +179,32 @@ export default async function ArticlesIndexPage({
                     />
                   );
 
-                  // Strategic conversion card placement - only on first page without filters
-                  if (currentPage === 1 && !tagFilter) {
-                    // Insert conversion cards at strategic positions
-                    if (index === 2) { // After 3rd article
-                      elements.push(
-                        <ConversionCard
-                          key="conversion-hero"
-                          variant="hero"
-                          position={index + 1}
-                        />
-                      );
-                    } else if (index === 5) { // After 6th article
-                      elements.push(
-                        <ConversionCard
-                          key="conversion-feature"
-                          variant="feature"
-                          position={index + 1}
-                        />
-                      );
-                    } else if (index === 8) { // After 9th article
-                      elements.push(
-                        <ConversionCard
-                          key="conversion-testimonial"
-                          variant="testimonial"
-                          position={index + 1}
-                        />
-                      );
-                    }
+                  // Strategic conversion card placement - show every 5th position on all pages
+                  if (!tagFilter && (globalIndex + 1) % 5 === 0) {
+                    // Rotate between different conversion card types
+                    const conversionVariants = ['hero', 'feature', 'cv-templates', 'competency', 'testimonial', 'cta'];
+                    const variantIndex = Math.floor((globalIndex + 1) / 5) % conversionVariants.length;
+                    const selectedVariant = conversionVariants[variantIndex] as 'hero' | 'feature' | 'cv-templates' | 'competency' | 'testimonial' | 'cta';
+
+                    elements.push(
+                      <ConversionCard
+                        key={`conversion-${globalIndex}`}
+                        variant={selectedVariant}
+                        position={globalIndex + 1}
+                      />
+                    );
                   }
 
                   return elements;
                 }).flat()}
 
-                {/* Final conversion CTA for users who scroll to the end */}
-                {currentPage === 1 && !tagFilter && paginatedPosts.length > 6 && (
+                {/* Final conversion CTA for users who scroll to the end - show on all pages */}
+                {!tagFilter && paginatedPosts.length > 3 && (
                   <div className="md:col-span-2 lg:col-span-3">
                     <ConversionCard
-                      key="conversion-final-cta"
+                      key={`conversion-final-cta-${validCurrentPage}`}
                       variant="cta"
-                      position={99}
+                      position={999}
                     />
                   </div>
                 )}

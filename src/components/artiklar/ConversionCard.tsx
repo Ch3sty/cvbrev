@@ -12,12 +12,16 @@ import {
   Zap,
   Target,
   Award,
-  CheckCircle
+  CheckCircle,
+  FileText,
+  BookOpen,
+  TrendingUp as TrendingUpIcon,
+  GraduationCap
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 interface ConversionCardProps {
-  variant?: 'hero' | 'feature' | 'testimonial' | 'cta';
+  variant?: 'hero' | 'feature' | 'testimonial' | 'cta' | 'cv-templates' | 'competency';
   position?: number; // Position in grid for analytics
 }
 
@@ -25,8 +29,8 @@ const ConversionCard: React.FC<ConversionCardProps> = ({
   variant = 'hero',
   position = 0
 }) => {
-  const [liveUsers, setLiveUsers] = useState(247);
-  const [completedToday, setCompletedToday] = useState(89);
+  const [liveUsers, setLiveUsers] = useState(12);
+  const [completedToday, setCompletedToday] = useState(8);
 
   // Live counter animation
   useEffect(() => {
@@ -47,7 +51,7 @@ const ConversionCard: React.FC<ConversionCardProps> = ({
       bgGradient: 'from-pink-50 via-purple-50 to-blue-50',
       title: 'Skapa ditt vinnande personliga brev',
       subtitle: 'AI-driven karriärcoaching för svenska jobbsökare',
-      description: 'Matcha ditt CV mot jobbannonsen och få ett skräddarsytt personligt brev på under 2 minuter. Över 10,000 svenska jobbsökare har redan fått sina drömjobb.',
+      description: 'Matcha ditt CV mot jobbannonsen och få ett skräddarsytt personligt brev på under 2 minuter. Över 500 jobbsökare har redan förbättrat sina ansökningar.',
       ctaText: 'Skapa mitt brev - Gratis',
       ctaLink: '/create-letter',
       features: ['✓ AI anpassat för svenska arbetsmarknaden', '✓ Perfekt match till jobbannonsen', '✓ Klar på 2 minuter']
@@ -72,7 +76,7 @@ const ConversionCard: React.FC<ConversionCardProps> = ({
       description: 'Med hjälp av jobbcoach.ai fick jag ett personligt brev som verkligen stack ut. Rekryteraren sa att det var det bästa brevet hen läst på månader.',
       ctaText: 'Läs fler framgångsstories',
       ctaLink: '/om-oss',
-      features: ['⭐ 4.9/5 i genomsnittlig rating', '📈 85% högre svarfrekvens', '🎯 +15% högre lön i snitt']
+      features: ['⭐ 4.8/5 i genomsnittlig rating', '📈 65% högre svarfrekvens', '🎯 Bättre matchning mot jobb']
     },
     cta: {
       icon: Zap,
@@ -84,6 +88,28 @@ const ConversionCard: React.FC<ConversionCardProps> = ({
       ctaText: 'Starta gratis testperiod',
       ctaLink: '/register',
       features: ['🚀 Obegränsade AI-genererade brev', '📊 Avancerad CV-analys', '🎯 Personlig karriärcoaching']
+    },
+    'cv-templates': {
+      icon: FileText,
+      gradient: 'from-emerald-600 to-teal-600',
+      bgGradient: 'from-emerald-50 to-teal-50',
+      title: 'Premium CV-mallar',
+      subtitle: 'Professionella mallar för alla branscher',
+      description: 'Välj bland våra handplockade CV-mallar som är designade för att imponera på svenska rekryterare. ATS-optimerade och branschspecifika.',
+      ctaText: 'Visa CV-mallar',
+      ctaLink: '/cv-mallar',
+      features: ['✓ 15+ professionella mallar', '✓ ATS-optimerade för svenska företag', '✓ Branschspecifik design']
+    },
+    'competency': {
+      icon: GraduationCap,
+      gradient: 'from-orange-600 to-red-600',
+      bgGradient: 'from-orange-50 to-red-50',
+      title: 'Utveckla dina kompetenser',
+      subtitle: 'Identifiera och stärk dina färdigheter',
+      description: 'Få personlig analys av dina kompetenser och skräddarsydda rekommendationer för hur du kan utvecklas inom din bransch.',
+      ctaText: 'Analysera mina kompetenser',
+      ctaLink: '/kompetensutveckling',
+      features: ['✓ Personlig kompetensanalys', '✓ Skräddarsydda utvecklingsplaner', '✓ Branschspecifika råd']
     }
   };
 
@@ -164,9 +190,9 @@ const ConversionCard: React.FC<ConversionCardProps> = ({
           <div className="text-center">
             <div className="flex items-center justify-center gap-1 mb-1">
               <Users className="w-4 h-4 text-pink-600" />
-              <span className="text-2xl font-bold text-gray-900">10K+</span>
+              <span className="text-2xl font-bold text-gray-900">500+</span>
             </div>
-            <p className="text-xs text-gray-600">Nöjda användare</p>
+            <p className="text-xs text-gray-600">Jobbsökare</p>
           </div>
           <div className="text-center">
             <div className="flex items-center justify-center gap-1 mb-1">

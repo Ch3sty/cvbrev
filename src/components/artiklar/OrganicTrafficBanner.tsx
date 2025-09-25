@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 
 const OrganicTrafficBanner = () => {
   const [isVisible, setIsVisible] = useState(true);
-  const [liveCount, setLiveCount] = useState(156);
+  const [liveCount, setLiveCount] = useState(8);
 
   // Update live counter
   useEffect(() => {
@@ -76,22 +76,22 @@ const OrganicTrafficBanner = () => {
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-yellow-300 animate-pulse" />
-                <span className="font-bold text-lg">Välkommen till Sveriges #1 AI-karriärcoach!</span>
+                <span className="font-bold text-lg">Välkommen till vår växande AI-karriärcoach!</span>
               </div>
             </div>
 
             <div className="hidden md:flex items-center gap-6 text-sm">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="opacity-90">{liveCount} skapar brev nu</span>
+                <span className="opacity-90">{liveCount} aktiva nu</span>
               </div>
               <div className="flex items-center gap-2">
                 <TrendingUp className="w-4 h-4 text-green-300" />
-                <span className="opacity-90">85% högre svarfrekvens</span>
+                <span className="opacity-90">65% bättre svar</span>
               </div>
               <div className="flex items-center gap-2">
                 <Users className="w-4 h-4 text-blue-300" />
-                <span className="opacity-90">10,000+ nöjda användare</span>
+                <span className="opacity-90">500+ jobbsökare</span>
               </div>
             </div>
           </div>
@@ -130,7 +130,7 @@ const OrganicTrafficBanner = () => {
           <div className="flex items-center justify-between text-sm">
             <div className="flex items-center gap-4">
               <span className="opacity-90">{liveCount} aktiva</span>
-              <span className="opacity-90">85% bättre svar</span>
+              <span className="opacity-90">65% bättre svar</span>
             </div>
             <span className="text-xs opacity-75">Gratis test • Inga kort</span>
           </div>
