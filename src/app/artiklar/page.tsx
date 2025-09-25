@@ -1,12 +1,10 @@
 import Link from 'next/link';
-import { getAllPostsMeta, PostMeta } from '@/lib/blog'; // Importera PostMeta typen
+import { getAllPostsMeta, PostMeta } from '@/lib/blog';
 import { Metadata } from 'next';
-import { format, parseISO } from 'date-fns';
-import { sv } from 'date-fns/locale';
-import { CalendarDays, UserCircle, Tag, FileText, ArrowLeft, ArrowRight } from 'lucide-react'; // Importera pilar
-import ArticleImage from '@/components/ArticleImage';
-import ArticleCategoriesServer from '@/components/artiklar/ArticleCategoriesServer';
-import PaginationControls from '@/components/artiklar/PaginationControls'; // Importera den nya komponenten
+import { BookOpen, Filter, TrendingUp } from 'lucide-react';
+import ModernArticleCard from '@/components/artiklar/ModernArticleCard';
+import ModernCategoriesServer from '@/components/artiklar/ModernCategoriesServer';
+import ModernPaginationControls from '@/components/artiklar/ModernPaginationControls';
 
 export const metadata: Metadata = {
   title: 'Artiklar | jobbcoach.ai - Tips och Råd för Jobbsökande',
@@ -62,154 +60,116 @@ export default async function ArticlesIndexPage({
   const paginatedPosts = filteredPosts.slice(startIndex, endIndex); // Ta ut rätt segment
 
   return (
-    <div className="container max-w-6xl px-4 py-16 mx-auto lg:py-20">
-       <header className="mb-12 text-center md:mb-16">
-        <h1 className="text-4xl font-bold text-white md:text-5xl lg:text-6xl">
-          Artiklar & Insikter
-        </h1>
-        <p className="mt-4 text-lg text-gray-300 md:text-xl">
-          Vässa ditt jobbsökande med våra senaste tips och analyser.
-        </p>
-      </header>
+    <div className="min-h-screen bg-gray-50">
+      <div className="container max-w-7xl px-4 py-16 mx-auto lg:py-20">
+        <header className="mb-12 text-center md:mb-16">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-pink-600 to-purple-600 rounded-2xl mb-6">
+            <BookOpen className="w-8 h-8 text-white" />
+          </div>
+          <h1 className="text-4xl font-bold text-gray-900 md:text-5xl lg:text-6xl mb-4">
+            Artiklar & Insikter
+          </h1>
+          <p className="text-lg text-gray-600 md:text-xl max-w-3xl mx-auto">
+            Vässa ditt jobbsökande med våra senaste tips och analyser. Upptäck strategier som hjälper dig att sticka ut i konkurrensen.
+          </p>
+        </header>
 
-      <div className="grid gap-8 lg:grid-cols-3 md:grid-cols-1 lg:gap-10">
-        {/* Kolumn 1 och 2: Artiklar & Paginering */}
-        <div className="lg:col-span-2">
-          {/* Meddelande om inga poster */}
-          {filteredPosts.length === 0 ? ( // Ändrat från posts.length till filteredPosts.length
-            <div className="text-center py-12 bg-navy-900 rounded-lg border border-navy-700 p-6">
-              <p className="text-gray-400 mb-2">Inga artiklar hittades {tagFilter ? `för kategorin "${tagFilter}"` : ''}.</p>
-              <Link
-                href="/artiklar"
-                className="text-pink-500 hover:text-pink-400 inline-flex items-center"
-              >
-                <span aria-hidden="true" className="mr-1">←</span>
-                Visa alla artiklar
-              </Link>
-            </div>
-          ) : (
-            // Container för grid och paginering
-            <div className="flex flex-col gap-10">
-                {/* Grid med artiklar för aktuell sida */}
-                <div className="grid gap-8 md:grid-cols-2 lg:gap-10">
-                  {paginatedPosts.map((post) => { // Ändrat från posts.map till paginatedPosts.map
-                    const hasValidImage =
-                      typeof post.image === 'string' &&
-                      post.image.trim() !== '' &&
-                      post.image.startsWith('/');
+        <div className="grid gap-8 lg:grid-cols-4 md:grid-cols-1 lg:gap-10">
+          {/* Kolumn 1-3: Artiklar & Paginering */}
+          <div className="lg:col-span-3">
+            {/* Filter Info */}
+            {tagFilter && (
+              <div className="mb-8 bg-pink-50 border border-pink-200 rounded-lg p-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <Filter className="w-5 h-5 mr-2 text-pink-600" />
+                    <p className="text-pink-800">
+                      Visar artiklar för kategorin <span className="font-semibold">"{tagFilter}"</span>
+                    </p>
+                  </div>
+                  <Link
+                    href="/artiklar"
+                    className="text-pink-600 hover:text-pink-700 font-medium text-sm transition-colors"
+                  >
+                    Visa alla
+                  </Link>
+                </div>
+              </div>
+            )}
 
-                    // --- Artikel-rendering (behåll din befintliga kod här) ---
-                    return (
-                      <article
+            {/* Meddelande om inga poster */}
+            {filteredPosts.length === 0 ? (
+              <div className="text-center py-16 bg-white rounded-xl border border-gray-200 shadow-sm">
+                <BookOpen className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Inga artiklar hittades</h3>
+                <p className="text-gray-600 mb-4">
+                  {tagFilter ? `Inga artiklar för kategorin "${tagFilter}".` : 'Inga artiklar finns tillgängliga just nu.'}
+                </p>
+                <Link
+                  href="/artiklar"
+                  className="inline-flex items-center px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors"
+                >
+                  Visa alla artiklar
+                </Link>
+              </div>
+            ) : (
+              // Container för grid och paginering
+              <div className="flex flex-col gap-12">
+                {/* Featured Article (first article gets special treatment) */}
+                {paginatedPosts.length > 0 && currentPage === 1 && !tagFilter && (
+                  <div className="mb-12">
+                    <div className="flex items-center gap-2 mb-6">
+                      <TrendingUp className="w-5 h-5 text-pink-600" />
+                      <h2 className="text-xl font-bold text-gray-900">Utvalda artiklar</h2>
+                    </div>
+                    <div className="grid gap-8 md:grid-cols-2">
+                      <ModernArticleCard
+                        key={paginatedPosts[0].slug}
+                        post={paginatedPosts[0]}
+                        tagFilter={tagFilter}
+                        featured={true}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* Regular Articles Grid */}
+                <div>
+                  {((currentPage === 1 && !tagFilter) ? paginatedPosts.length > 1 : paginatedPosts.length > 0) && (
+                    <div className="flex items-center gap-2 mb-6">
+                      <BookOpen className="w-5 h-5 text-gray-600" />
+                      <h2 className="text-xl font-bold text-gray-900">
+                        {(currentPage === 1 && !tagFilter) ? 'Senaste artiklar' : 'Artiklar'}
+                      </h2>
+                    </div>
+                  )}
+                  <div className="grid gap-8 md:grid-cols-2 lg:gap-10">
+                    {((currentPage === 1 && !tagFilter) ? paginatedPosts.slice(1) : paginatedPosts).map((post, index) => (
+                      <ModernArticleCard
                         key={post.slug}
-                        className="group flex flex-col overflow-hidden rounded-lg bg-navy-900 shadow-lg transition-all duration-300 hover:shadow-xl hover:shadow-pink-900/30 border border-navy-700/70 hover:border-navy-600"
-                      >
-                         <Link
-                          href={`/artiklar/${post.slug}`}
-                          className="block overflow-hidden bg-navy-800"
-                          aria-label={`Läs mer om ${post.title}`}
-                        >
-                          <div className="relative aspect-w-16 aspect-h-9">
-                            {hasValidImage ? (
-                              <ArticleImage
-                                src={post.image as string}
-                                alt={post.title ?? 'Artikelbild'}
-                                slug={post.slug}
-                              />
-                            ) : (
-                              <div className="fallback-icon-container flex items-center justify-center w-full h-full bg-gradient-to-br from-navy-800 to-navy-700">
-                                <FileText className="w-12 h-12 text-navy-600" />
-                              </div>
-                            )}
-                          </div>
-                        </Link>
-
-                        <div className="flex flex-col flex-1 p-6">
-                          <header className="mb-3">
-                            <h2 className="text-xl font-semibold leading-snug text-white transition-colors lg:text-2xl group-hover:text-pink-400 line-clamp-2">
-                              <Link href={`/artiklar/${post.slug}`}>
-                                {post.title}
-                              </Link>
-                            </h2>
-
-                            <div className="flex items-center mt-3 space-x-4 text-xs text-gray-400">
-                              <div className="flex items-center">
-                                <CalendarDays className="w-3.5 h-3.5 mr-1.5" />
-                                {post.date && (
-                                    <time dateTime={post.date}>
-                                      {format(parseISO(post.date), 'd MMM yyyy', { locale: sv })}
-                                    </time>
-                                )}
-                              </div>
-                              {post.author && (
-                                <div className="flex items-center">
-                                  <UserCircle className="w-3.5 h-3.5 mr-1.5" />
-                                  <span>{post.author}</span>
-                                </div>
-                              )}
-                            </div>
-                          </header>
-
-                          <p className="text-gray-300 text-sm leading-relaxed flex-1 mb-4 line-clamp-3">
-                            {post.description}
-                          </p>
-
-                          <footer className="mt-auto pt-4 border-t border-navy-700/50">
-                            {post.tags && post.tags.length > 0 && (
-                              <div className="mb-4 flex flex-wrap items-center gap-2">
-                                <Tag className="w-3.5 h-3.5 text-gray-500 flex-shrink-0" />
-                                {post.tags.slice(0, 3).map((tag) => (
-                                  <Link
-                                    key={tag}
-                                    // Länka till första sidan när man klickar på en tagg från kortet
-                                    href={`/artiklar?tag=${encodeURIComponent(tag)}`}
-                                    className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${
-                                      tagFilter === tag
-                                        ? 'bg-pink-900/30 text-pink-300 border border-pink-500'
-                                        : 'bg-navy-700 text-gray-300 border border-navy-600 hover:border-pink-500/50 hover:text-pink-400'
-                                    }`}
-                                  >
-                                    {tag}
-                                  </Link>
-                                ))}
-                                {post.tags.length > 3 && (
-                                  <span className="text-xs text-gray-500">...</span>
-                                )}
-                              </div>
-                            )}
-
-                            <div>
-                              <Link
-                                href={`/artiklar/${post.slug}`}
-                                className="inline-flex items-center text-sm font-medium text-pink-500 transition-colors hover:text-pink-400 group"
-                              >
-                                Läs hela artikeln
-                                <span aria-hidden="true" className="ml-1 transition-transform group-hover:translate-x-1">→</span>
-                              </Link>
-                            </div>
-                          </footer>
-                        </div>
-                      </article>
-                    );
-                    // --- Slut på Artikel-rendering ---
-                  })}
+                        post={post}
+                        tagFilter={tagFilter}
+                      />
+                    ))}
+                  </div>
                 </div>
 
                 {/* Pagineringkontroller */}
-                {totalPages > 1 && ( // Visa endast om det finns mer än en sida
-                    <PaginationControls
-                        currentPage={validCurrentPage}
-                        totalPages={totalPages}
-                        tag={tagFilter} // Skicka med aktuell tagg
-                    />
+                {totalPages > 1 && (
+                  <ModernPaginationControls
+                    currentPage={validCurrentPage}
+                    totalPages={totalPages}
+                    tag={tagFilter}
+                  />
                 )}
             </div>
           )}
         </div>
 
-        {/* Kolumn 3: Kategorisektion (Oförändrad) */}
-        <div className="lg:col-span-1">
-          <ArticleCategoriesServer />
+          {/* Kolumn 4: Kategorisektion */}
+          <div className="lg:col-span-1">
+            <ModernCategoriesServer />
+          </div>
         </div>
       </div>
     </div>
