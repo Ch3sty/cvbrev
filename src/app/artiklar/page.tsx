@@ -30,9 +30,9 @@ type ResolvedSearchParams = {
 export default async function ArticlesIndexPage({
   searchParams,
 }: {
-  searchParams: Promise<ResolvedSearchParams> | ResolvedSearchParams;
+  searchParams: Promise<ResolvedSearchParams>;
 }) {
-  const resolvedParams = await Promise.resolve(searchParams);
+  const resolvedParams = await searchParams;
 
   // Get all posts server-side
   const allPosts = getAllPostsMeta();
