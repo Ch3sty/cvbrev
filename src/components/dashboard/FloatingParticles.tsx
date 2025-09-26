@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 interface Particle {
   id: string;
@@ -20,6 +20,18 @@ interface FloatingParticlesProps {
   className?: string;
 }
 
+const SIZE_MAP = {
+  sm: { min: 2, max: 4 },
+  md: { min: 3, max: 6 },
+  lg: { min: 4, max: 8 }
+} as const;
+
+const SPEED_MAP = {
+  slow: { min: 8, max: 15 },
+  medium: { min: 6, max: 12 },
+  fast: { min: 4, max: 8 }
+} as const;
+
 export default function FloatingParticles({
   count = 8,
   colors = ['bg-pink-400', 'bg-purple-400', 'bg-blue-400', 'bg-indigo-400'],
@@ -28,18 +40,6 @@ export default function FloatingParticles({
   className = ''
 }: FloatingParticlesProps) {
   const [particles, setParticles] = useState<Particle[]>([]);
-
-  const sizeMap = {
-    sm: { min: 2, max: 4 },
-    md: { min: 3, max: 6 },
-    lg: { min: 4, max: 8 }
-  };
-
-  const speedMap = {
-    slow: { min: 8, max: 15 },
-    medium: { min: 6, max: 12 },
-    fast: { min: 4, max: 8 }
-  };
 
   useEffect(() => {
     const generateParticles = () => {
@@ -50,10 +50,10 @@ export default function FloatingParticles({
           id: `particle-${i}`,
           x: Math.random() * 100,
           y: Math.random() * 100,
-          size: Math.random() * (sizeMap[size].max - sizeMap[size].min) + sizeMap[size].min,
+          size: Math.random() * (SIZE_MAP[size].max - SIZE_MAP[size].min) + SIZE_MAP[size].min,
           opacity: Math.random() * 0.6 + 0.2,
           color: colors[Math.floor(Math.random() * colors.length)],
-          duration: Math.random() * (speedMap[speed].max - speedMap[speed].min) + speedMap[speed].min
+          duration: Math.random() * (SPEED_MAP[speed].max - SPEED_MAP[speed].min) + SPEED_MAP[speed].min
         });
       }
 

@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 interface Sparkle {
   id: string;
@@ -20,6 +20,12 @@ interface SparkleEffectProps {
   children?: React.ReactNode;
 }
 
+const DENSITY_MAP = {
+  low: 3,
+  medium: 6,
+  high: 10
+} as const;
+
 export default function SparkleEffect({
   density = 'medium',
   colors = ['#EC4899', '#8B5CF6', '#3B82F6', '#10B981'],
@@ -29,14 +35,8 @@ export default function SparkleEffect({
 }: SparkleEffectProps) {
   const [sparkles, setSparkles] = useState<Sparkle[]>([]);
 
-  const densityMap = {
-    low: 3,
-    medium: 6,
-    high: 10
-  };
-
-  const generateSparkles = () => {
-    const count = densityMap[density];
+  const generateSparkles = useCallback(() => {
+    const count = DENSITY_MAP[density];
     const newSparkles: Sparkle[] = [];
 
     for (let i = 0; i < count; i++) {
@@ -57,13 +57,13 @@ export default function SparkleEffect({
     setTimeout(() => {
       setSparkles([]);
     }, 2000);
-  };
+  }, [density, colors]);
 
   useEffect(() => {
     if (trigger) {
       generateSparkles();
     }
-  }, [trigger]);
+  }, [trigger, generateSparkles]);
 
   return (
     <div className={`relative ${className}`}>

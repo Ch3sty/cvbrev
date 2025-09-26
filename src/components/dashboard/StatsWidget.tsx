@@ -143,6 +143,7 @@ export default function StatsWidget({
     const interval = setInterval(updateTimer, 60000); // Uppdatera varje minut
 
     return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quotaInfo, isPremium]);
 
   // Hjälpfunktioner för kvot-hantering

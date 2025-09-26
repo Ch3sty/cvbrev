@@ -93,6 +93,7 @@ export default function LiveActivityIndicator({
       clearInterval(usersInterval);
       clearInterval(activityInterval);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
