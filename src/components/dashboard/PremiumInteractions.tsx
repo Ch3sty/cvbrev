@@ -193,12 +193,12 @@ export function PremiumCard({
   onClick?: () => void;
 } & MotionProps) {
   const baseClasses = `
-    bg-white/90 backdrop-blur-md
-    border border-slate-200/60
-    rounded-xl shadow-lg
+    bg-white/95 backdrop-blur-xl
+    border border-slate-200/40
+    rounded-2xl shadow-2xl shadow-slate-900/5
     transition-all duration-300
-    ${glowing ? 'shadow-pink-500/20 shadow-xl' : ''}
-    ${clickable ? 'cursor-pointer hover:border-slate-300/80' : ''}
+    ${glowing ? 'shadow-pink-500/20 shadow-2xl ring-1 ring-pink-500/10' : ''}
+    ${clickable ? 'cursor-pointer hover:border-slate-300/60 hover:shadow-xl hover:shadow-slate-900/8' : ''}
   `;
 
   if (clickable || onClick) {

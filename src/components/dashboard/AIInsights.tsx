@@ -169,7 +169,7 @@ export default function AIInsights({
               transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
             >
               <Link href={insight.href} className="block group">
-                <div className="bg-white/60 rounded-xl p-4 border border-slate-200/60 hover:border-slate-300/80 hover:shadow-md transition-all">
+                <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-slate-200/40 hover:border-slate-300/60 hover:shadow-lg hover:bg-white/90 transition-all duration-300">
                   <div className="flex items-start gap-3">
                     <div className={`bg-gradient-to-r ${insight.color} rounded-lg p-2 text-white flex-shrink-0`}>
                       {insight.icon}

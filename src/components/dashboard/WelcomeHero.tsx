@@ -49,7 +49,7 @@ export default function WelcomeHero({
         stiffness: 100,
         damping: 15
       }}
-      className="relative bg-gradient-to-br from-white via-slate-50/50 to-blue-50/20 backdrop-blur-sm rounded-2xl border border-slate-200/60 shadow-lg overflow-hidden p-4 sm:p-6 lg:p-8 mb-8"
+      className="relative bg-white/90 backdrop-blur-xl rounded-3xl border border-slate-200/40 shadow-2xl shadow-slate-900/5 overflow-hidden p-6 sm:p-8 lg:p-10 mb-8"
     >
       {/* Premium floating particles background */}
       <FloatingParticles
@@ -84,9 +84,15 @@ export default function WelcomeHero({
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-2"
+            whileHover={{
+              scale: 1.02,
+              transition: { type: "spring", stiffness: 400, damping: 17 }
+            }}
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-2 cursor-default group"
           >
-            {getTimeBasedGreeting()}{userName ? `, ${userName}` : ''}!
+            <span className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent group-hover:from-pink-600 group-hover:via-purple-600 group-hover:to-pink-600 transition-all duration-500">
+              {getTimeBasedGreeting()}{userName ? `, ${userName}` : ''}!
+            </span>
           </motion.h1>
 
           <motion.p
@@ -179,7 +185,7 @@ export default function WelcomeHero({
 
             {/* Enhanced Progress Bar with Glow Effect */}
             <div className="mt-4">
-              <div className="bg-slate-200 rounded-full h-3 overflow-hidden relative">
+              <div className="bg-slate-200/60 backdrop-blur-sm rounded-full h-3 overflow-hidden relative border border-slate-200/40">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${Math.min(100, (totalLetters / 10) * 100)}%` }}
@@ -190,11 +196,11 @@ export default function WelcomeHero({
                     type: "spring",
                     stiffness: 100
                   }}
-                  className="bg-gradient-to-r from-pink-600 to-purple-600 h-full rounded-full relative overflow-hidden"
+                  className="bg-gradient-to-r from-pink-600 to-purple-600 h-full rounded-full relative overflow-hidden shadow-lg"
                 >
                   {/* Animated shimmer effect */}
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
                     animate={{ x: ['-100%', '200%'] }}
                     transition={{
                       duration: 2,
@@ -203,16 +209,53 @@ export default function WelcomeHero({
                       delay: 1.5
                     }}
                   />
+
+                  {/* Pulsing inner glow */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30"
+                    animate={{
+                      opacity: [0.3, 0.7, 0.3]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
                 </motion.div>
 
-                {/* Glow effect */}
+                {/* Outer glow effect */}
                 <motion.div
                   initial={{ opacity: 0 }}
-                  animate={{ opacity: 0.6 }}
+                  animate={{ opacity: 0.8 }}
                   transition={{ delay: 1.2, duration: 0.5 }}
-                  className="absolute inset-0 bg-gradient-to-r from-pink-600/20 to-purple-600/20 rounded-full blur-sm"
-                  style={{ transform: 'scale(1.1)' }}
+                  className="absolute inset-0 bg-gradient-to-r from-pink-600/15 to-purple-600/15 rounded-full blur-sm"
+                  style={{ transform: 'scale(1.2)' }}
                 />
+
+                {/* Sparkle effect at progress end */}
+                {totalLetters > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 2.5, duration: 0.5 }}
+                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1"
+                  >
+                    <motion.div
+                      animate={{
+                        rotate: 360,
+                        scale: [1, 1.2, 1]
+                      }}
+                      transition={{
+                        rotate: { duration: 10, repeat: Infinity, ease: "linear" },
+                        scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+                      }}
+                      className="w-4 h-4 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg"
+                    >
+                      <Sparkles className="w-2 h-2 text-white" />
+                    </motion.div>
+                  </motion.div>
+                )}
               </div>
               <motion.div
                 initial={{ opacity: 0, y: 10 }}

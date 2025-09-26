@@ -176,7 +176,7 @@ export default function ActivityFeed({
                 }
               }}
             >
-              <div className="flex items-start gap-4 p-4 rounded-xl bg-slate-50/50 hover:bg-slate-100/50 transition-colors">
+              <div className="flex items-start gap-4 p-4 rounded-xl bg-white/60 backdrop-blur-sm border border-slate-200/40 hover:bg-white/80 hover:border-slate-300/60 hover:shadow-lg transition-all duration-300">
                 {/* Icon */}
                 <div className={`p-2 rounded-lg border ${getActivityColor(item.type)} flex-shrink-0`}>
                   {getActivityIcon(item.type)}

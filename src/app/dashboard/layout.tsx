@@ -62,7 +62,7 @@ export default function DashboardLayout({
 
   // Om användaren är inloggad, visa dashboard-gränssnittet
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-slate-50/50">
+    <div className="min-h-screen bg-white">
       <div className="flex h-screen">
         {/* Achievement Notifications */}
         {user && <AchievementManager userId={user.id} />}

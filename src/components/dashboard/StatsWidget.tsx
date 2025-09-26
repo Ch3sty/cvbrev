@@ -138,9 +138,38 @@ export default function StatsWidget({
           initial={{ opacity: 0, scale: 0.5, rotate: -180 }}
           animate={{ opacity: 1, scale: 1, rotate: 0 }}
           transition={{ delay: 0.3, duration: 0.8, type: "spring", stiffness: 200 }}
-          className={`${colors.bg} p-3 rounded-xl border ${colors.border}`}
+          whileHover={{
+            scale: 1.1,
+            rotate: [0, -5, 5, 0],
+            transition: { duration: 0.3, type: "spring", stiffness: 400 }
+          }}
+          className={`
+            ${colors.bg} p-3 rounded-xl border ${colors.border}
+            shadow-lg hover:shadow-xl transition-all duration-300
+            relative overflow-hidden group
+          `}
         >
-          <Icon className={`w-6 h-6 ${colors.icon}`} />
+          <Icon className={`w-6 h-6 ${colors.icon} relative z-10 transition-transform duration-300 group-hover:scale-110`} />
+
+          {/* Glow effect on hover */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileHover={{ opacity: 0.3 }}
+            transition={{ duration: 0.3 }}
+            className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} rounded-xl`}
+          />
+
+          {/* Shimmer effect */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full"
+            animate={{ x: ['0%', '200%'] }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              repeatDelay: 5,
+              ease: "linear"
+            }}
+          />
         </motion.div>
       </div>
 

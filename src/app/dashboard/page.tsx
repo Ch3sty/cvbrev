@@ -198,79 +198,148 @@ export default function DashboardPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Premium Background with Morphing Gradients - same as landing page */}
+      {/* Premium Dynamic Background - Enhanced like landing page */}
       <motion.div
         className="fixed inset-0 pointer-events-none z-0"
-        style={{ opacity: 0.8 }}
+        style={{ opacity: 0.9 }}
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-white to-indigo-50/30" />
+        {/* Primary gradient foundation */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-slate-50/50" />
 
-        {/* Mouse-following gradient */}
+        {/* Secondary gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-purple-50/20 to-pink-50/30" />
+
+        {/* Animated morphing gradient orbs - like landing page */}
         <motion.div
-          className="absolute w-[600px] h-[600px] rounded-full"
+          className="absolute top-[10%] left-[5%] w-[500px] h-[500px]"
           style={{
-            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%)',
-            filter: 'blur(40px)',
+            background: 'radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, rgba(147, 51, 234, 0.05) 40%, transparent 70%)',
+            filter: 'blur(60px)',
           }}
           animate={{
-            x: [100, 300, 100],
-            y: [100, 200, 100],
+            x: [0, 150, 0],
+            y: [0, -100, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            repeatType: 'reverse',
+            ease: "easeInOut"
+          }}
+        />
+
+        <motion.div
+          className="absolute top-[30%] right-[10%] w-[600px] h-[600px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, rgba(139, 92, 246, 0.04) 40%, transparent 70%)',
+            filter: 'blur(80px)',
+          }}
+          animate={{
+            x: [0, -200, 0],
+            y: [0, 150, 0],
+            scale: [1, 0.8, 1],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            repeatType: 'reverse',
+            ease: "easeInOut"
+          }}
+        />
+
+        <motion.div
+          className="absolute bottom-[20%] left-[15%] w-[400px] h-[400px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.03) 40%, transparent 70%)',
+            filter: 'blur(70px)',
+          }}
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -80, 0],
             scale: [1, 1.1, 1],
           }}
           transition={{
             duration: 20,
             repeat: Infinity,
             repeatType: 'reverse',
+            ease: "easeInOut"
           }}
         />
 
-        {/* Animated gradient orbs */}
-        <motion.div
-          className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-blue-400/15 to-purple-400/15 rounded-full mix-blend-multiply filter blur-3xl"
-          animate={{
-            x: [0, 100, 0],
-            y: [0, -50, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            repeatType: 'reverse',
-          }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-purple-400/15 to-pink-400/15 rounded-full mix-blend-multiply filter blur-3xl"
-          animate={{
-            x: [0, -100, 0],
-            y: [0, 50, 0],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            repeatType: 'reverse',
-          }}
-        />
-
-        {/* Pattern overlay */}
+        {/* Subtle pattern overlay */}
         <div
-          className="absolute inset-0 opacity-30 pattern-overlay"
+          className="absolute inset-0 opacity-[0.015]"
           style={{
-            backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%239C92AC\' fill-opacity=\'0.05\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
-            backgroundSize: '60px 60px',
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z\'/%3E%3C/g%3E%3C/svg%3E")',
+            backgroundSize: '40px 40px',
           }}
         />
       </motion.div>
 
-      {/* Background floating particles */}
+      {/* Enhanced floating particles */}
       <FloatingParticles
-        count={12}
-        colors={['bg-pink-400/10', 'bg-purple-400/10', 'bg-blue-400/10', 'bg-indigo-400/10']}
+        count={15}
+        colors={['bg-pink-400/8', 'bg-purple-400/8', 'bg-blue-400/8', 'bg-indigo-400/8', 'bg-emerald-400/8']}
         size="lg"
         speed="slow"
         className="fixed inset-0 pointer-events-none z-5"
       />
 
-      {/* Live Activity Indicator */}
-      <LiveActivityIndicator className="fixed top-20 right-6 z-50" />
+      {/* Live Activity Indicator - MOVED to bottom right to fix overlap */}
+      <LiveActivityIndicator className="fixed bottom-6 right-6 z-40" showBadge={false} />
+
+      {/* Floating Action Button for Quick Actions */}
+      <motion.div
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 1.5, duration: 0.5, type: "spring", stiffness: 200 }}
+        className="fixed bottom-6 left-6 z-40"
+      >
+        <motion.button
+          whileHover={{
+            scale: 1.1,
+            boxShadow: "0 10px 40px rgba(236, 72, 153, 0.3)"
+          }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => window.location.href = '/dashboard/skapa-brev'}
+          className="bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-full p-4 shadow-2xl hover:shadow-pink-500/30 transition-all duration-300 relative overflow-hidden group"
+        >
+          <Plus className="w-6 h-6 relative z-10 group-hover:rotate-90 transition-transform duration-300" />
+
+          {/* Ripple effect */}
+          <motion.div
+            className="absolute inset-0 bg-white/20 rounded-full"
+            initial={{ scale: 0, opacity: 0 }}
+            whileHover={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          />
+
+          {/* Pulsing glow */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full opacity-50"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.5, 0.2, 0.5]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        </motion.button>
+
+        {/* Tooltip */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileHover={{ opacity: 1, x: 0 }}
+          className="absolute left-full ml-4 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-xl border border-slate-200/60 rounded-lg px-3 py-2 text-sm font-medium text-slate-700 shadow-lg whitespace-nowrap pointer-events-none"
+        >
+          Skapa nytt personligt brev
+          <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-white/95"></div>
+        </motion.div>
+      </motion.div>
 
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
