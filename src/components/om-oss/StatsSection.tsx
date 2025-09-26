@@ -32,7 +32,7 @@ interface StatItem {
 const statsData: StatItem[] = [
   {
     id: 'users',
-    label: 'Jobbsökare',
+    label: 'Arbetssökande',
     value: 518,
     suffix: '+',
     icon: Users,
@@ -52,23 +52,23 @@ const statsData: StatItem[] = [
   },
   {
     id: 'success',
-    label: 'Bättre svar',
-    value: 65,
+    label: 'Bättre intryck',
+    value: 80,
     suffix: '%',
     icon: TrendingUp,
     color: 'text-green-600',
     gradient: 'from-green-500 to-teal-500',
-    description: 'Får fler intervjuer'
+    description: 'Gör starkare intryck på arbetsgivare'
   },
   {
     id: 'rating',
     label: 'Sparad tid',
-    value: 2,
+    value: 58,
     suffix: ' min',
     icon: Clock,
     color: 'text-yellow-600',
     gradient: 'from-yellow-500 to-orange-500',
-    description: 'Per personligt brev'
+    description: 'Per personligt brev jämfört med manuellt'
   }
 ]
 
