@@ -513,7 +513,7 @@ export default function DashboardPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, staggerChildren: 0.1 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
           >
             {/* Skapa Personligt Brev */}
             <motion.div
@@ -523,11 +523,13 @@ export default function DashboardPage() {
             >
               <QuickActionCard
                 title="Skapa Personligt Brev"
-                description="100% progress"
+                description={stats.isPremium
+                  ? "Skapa AI-genererade personliga brev utan begränsningar"
+                  : `Skapa nytt personligt brev (${stats.remainingLetters || 0} kvar idag)`
+                }
                 icon={PenTool}
                 href="/dashboard/skapa-brev"
                 color="pink"
-                progress={100}
               />
             </motion.div>
 
@@ -539,11 +541,13 @@ export default function DashboardPage() {
             >
               <QuickActionCard
                 title="Mina Brev"
-                description={`${stats.totalLetters} sparade, 50% progress`}
+                description={stats.totalLetters > 0
+                  ? `Hantera dina ${stats.totalLetters} sparade brev och exportera som PDF`
+                  : "Du har inga sparade brev ännu. Skapa ditt första brev!"
+                }
                 icon={FileText}
                 href="/dashboard/my-letters"
                 color="green"
-                progress={50}
               />
             </motion.div>
 
@@ -555,10 +559,30 @@ export default function DashboardPage() {
             >
               <QuickActionCard
                 title="CV-Mallar"
-                description="Utforska professionella mallar"
+                description="Välj bland professionella CV-mallar anpassade för svenska arbetsgivare"
                 icon={Palette}
                 href="/dashboard/cv-mallar"
                 color="purple"
+              />
+            </motion.div>
+
+            {/* CV-Analys */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9, duration: 0.5 }}
+            >
+              <QuickActionCard
+                title="CV-Analys"
+                description={stats.isPremium
+                  ? "Få djupgående AI-analys av ditt CV med förbättringsförslag"
+                  : `Analysera ditt CV med AI (${stats.remainingAnalyses || 0} kvar denna vecka)`
+                }
+                icon={Brain}
+                href="/dashboard/cv-analys"
+                color="blue"
+                premium={!stats.isPremium && (stats.remainingAnalyses || 0) === 0}
+                isPremiumUser={stats.isPremium}
               />
             </motion.div>
           </motion.div>

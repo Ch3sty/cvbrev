@@ -84,7 +84,7 @@ export default function QuickActionCard({
       )}
 
       <EnhancedCard
-        className={`p-4 sm:p-6 group relative overflow-hidden ${
+        className={`p-4 sm:p-6 group relative overflow-hidden min-h-[280px] flex flex-col ${
           isLocked ? 'opacity-75' : ''
         }`}
         clickable={!isLocked}
@@ -133,7 +133,7 @@ export default function QuickActionCard({
       </motion.div>
 
       {/* Content */}
-      <div className="space-y-3">
+      <div className="space-y-3 flex-1 flex flex-col">
         <motion.h3
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -147,7 +147,7 @@ export default function QuickActionCard({
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.4, duration: 0.5 }}
-          className="text-slate-600 text-sm"
+          className="text-slate-600 text-sm leading-relaxed flex-1"
         >
           {description}
         </motion.p>
@@ -182,7 +182,7 @@ export default function QuickActionCard({
           transition={{ delay: 0.6, duration: 0.5 }}
           className={`
             flex items-center justify-between
-            pt-3 mt-4 border-t border-slate-200
+            pt-3 mt-auto border-t border-slate-200
           `}
         >
           <span className={`text-sm font-medium ${colors.text}`}>
