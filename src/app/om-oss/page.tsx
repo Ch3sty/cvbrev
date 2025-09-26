@@ -19,6 +19,7 @@ import {
 import StatsSection from '@/components/om-oss/StatsSection'
 import VisionSection from '@/components/om-oss/VisionSection'
 import TeamMemberCard from '@/components/om-oss/TeamMemberCard'
+import PremiumNavbar from '@/components/PremiumNavbar'
 
 export default function OmOssPage() {
   const [session, setSession] = useState<any>(null)
@@ -100,6 +101,9 @@ export default function OmOssPage() {
         <meta property="og:image" content="https://jobbcoach.ai/images/jobbcoach-og-about.png" />
         <link rel="canonical" href="https://jobbcoach.ai/om-oss" />
       </Head>
+
+      {/* Premium Navbar */}
+      <PremiumNavbar />
 
       {/* Light theme main container */}
       <div className="flex flex-col min-h-screen bg-white">
@@ -355,6 +359,48 @@ export default function OmOssPage() {
         </section>
 
       </div>
+
+      {/* Footer */}
+      <footer className="bg-slate-900 text-slate-300 py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h3 className="font-bold text-white mb-4">Jobbcoach.ai</h3>
+              <p className="text-sm">Din smarta karriärpartner för svenska arbetsmarknaden.</p>
+            </div>
+            <div>
+              <h4 className="font-semibold text-white mb-4">Produkt</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/funktioner" className="hover:text-white transition-colors">Funktioner</Link></li>
+                <li><Link href="/priser" className="hover:text-white transition-colors">Priser</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">CV-mallar</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Integrationer</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold text-white mb-4">Företag</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="/om-oss" className="hover:text-white transition-colors">Om oss</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Karriär</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">Press</Link></li>
+                <li><Link href="/kontakt" className="hover:text-white transition-colors">Kontakt</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold text-white mb-4">Support</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link href="#" className="hover:text-white transition-colors">Hjälpcenter</Link></li>
+                <li><Link href="/integritetspolicy" className="hover:text-white transition-colors">GDPR</Link></li>
+                <li><Link href="/anvandarvillkor" className="hover:text-white transition-colors">Villkor</Link></li>
+                <li><Link href="#" className="hover:text-white transition-colors">API</Link></li>
+              </ul>
+            </div>
+          </div>
+          <div className="pt-8 border-t border-slate-800 text-center text-sm">
+            <p>&copy; 2024 Jobbcoach.ai. Alla rättigheter förbehållna. Utvecklad med ❤️ i Sverige.</p>
+          </div>
+        </div>
+      </footer>
     </>
   )
 }

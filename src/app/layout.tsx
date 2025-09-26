@@ -62,6 +62,7 @@ export default function RootLayout({
   const usesPremiumNavbar = pathname === '/' ||
                            pathname === '/funktioner' ||
                            pathname === '/priser' ||
+                           pathname === '/om-oss' ||
                            pathname === '/artiklar' ||
                            pathname?.startsWith('/artiklar/');
 

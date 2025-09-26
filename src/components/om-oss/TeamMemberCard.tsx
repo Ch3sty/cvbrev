@@ -192,10 +192,7 @@ export default function TeamMemberCard({ member, index }: TeamMemberCardProps) {
       </div>
 
       {/* Subtle Gradient Border Effect */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-pink-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-           style={{ padding: '1px' }}>
-        <div className="w-full h-full bg-white rounded-2xl" />
-      </div>
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-pink-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
     </motion.div>
   )
 }
