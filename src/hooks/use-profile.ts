@@ -7,16 +7,20 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager';
 const SUBSCRIPTION_LIMITS = {
   free: {
     maxSavedLetters: 2,
-    weeklyLetterLimit: 5,
+    dailyLetterLimit: 2,      // Nytt: 2 brev per dag (ersätter weeklyLetterLimit)
+    weeklyLetterLimit: 5,     // Behålls för bakåtkompatibilitet
     maxCVCount: 1,
-    weeklyAnalysisLimit: 2, // Ny konstant för analysgräns
+    weeklyAnalysisLimit: 1,   // Ändrat: 1 analys per vecka (från 2)
+    weeklyCompetenceLimit: 1, // Nytt: 1 kompetensutveckling per vecka
     availableTonalities: ['professional', 'enthusiastic', 'confident', 'balanced', 'creative'],
   },
   premium: {
     maxSavedLetters: Infinity,
-    weeklyLetterLimit: Infinity,
+    dailyLetterLimit: Infinity,      // Nytt: obegränsade brev per dag
+    weeklyLetterLimit: Infinity,     // Behålls för bakåtkompatibilitet
     maxCVCount: Infinity,
-    weeklyAnalysisLimit: Infinity, // Ny konstant för analysgräns (obegränsad för premium)
+    weeklyAnalysisLimit: Infinity,   // Obegränsade analyser för premium
+    weeklyCompetenceLimit: Infinity, // Nytt: obegränsad kompetensutveckling för premium
     availableTonalities: ['professional', 'enthusiastic', 'confident', 'balanced', 'creative', 'auto'],
   }
 };

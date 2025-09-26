@@ -25,7 +25,7 @@ export default function CVMallarPage() {
     selectedCV, 
     selectCV
   } = useCVStore();
-  const { profile, loading: profileLoading } = useProfile();
+  const { profile, loading: profileLoading, subscriptionTier } = useProfile();
   
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -70,9 +70,20 @@ export default function CVMallarPage() {
     setNotification(prev => ({ ...prev, isVisible: false }));
   };
 
+  const handleUpgradeClick = () => {
+    router.push('/priser');
+  };
+
   const handleGenerateCV = async () => {
     if (!selectedTemplate || !selectedCV) {
       showNotification('error', 'Välj både ett CV och en mall först.');
+      return;
+    }
+
+    const template = getTemplateById(selectedTemplate);
+    if (template?.tier === 'premium' && subscriptionTier !== 'premium') {
+      showNotification('error', 'Premium-mallar kräver en Premium-prenumeration.');
+      handleUpgradeClick();
       return;
     }
 
@@ -80,7 +91,6 @@ export default function CVMallarPage() {
     showNotification('loading', 'Skapar ditt CV...');
 
     try {
-      const template = getTemplateById(selectedTemplate);
       const fileName = `cv-${template?.name.toLowerCase().replace(/\s+/g, '-')}-${selectedCV.file_name.replace(/\.[^/.]+$/, '')}.pdf`;
       
       // Prepare options for templates that support photo and LinkedIn
@@ -362,6 +372,8 @@ export default function CVMallarPage() {
                 <SimpleTemplateGallery
                   selectedTemplate={selectedTemplate}
                   onTemplateSelect={setSelectedTemplate}
+                  isPremium={subscriptionTier === 'premium'}
+                  onUpgradeClick={handleUpgradeClick}
                 />
               </CardContent>
             </Card>

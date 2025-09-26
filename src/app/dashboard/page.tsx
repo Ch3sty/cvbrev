@@ -40,11 +40,14 @@ interface DashboardStats {
   levelTitle?: string;
   availableRewards?: number;
   isPremium?: boolean;
-  monthlyLetterCount?: number;
+  // Uppdaterade kvot-fält
+  dailyLetterCount?: number;
   weeklyAnalysisCount?: number;
+  weeklyCompetenceCount?: number;
   remainingLetters?: number;
   remainingAnalyses?: number;
-  nextMonthlyReset?: Date;
+  remainingCompetence?: number;
+  nextDailyReset?: Date;
   nextWeeklyReset?: Date;
 }
 
@@ -90,10 +93,10 @@ export default function DashboardPage() {
           .eq('user_id', user.id)
           .gte('created_at', startOfWeek.toISOString());
 
-        // Hämta användarens profil med prenumerationsinfo
+        // Hämta användarens profil med prenumerationsinfo och nya kvotfält
         const { data: profile } = await supabase
           .from('profiles')
-          .select('subscription_tier, weekly_analysis_count, weekly_letter_count, premium_until, premium_source')
+          .select('subscription_tier, weekly_analysis_count, weekly_letter_count, weekly_competence_analysis_count, premium_until, premium_source, daily_letter_count, last_daily_reset, last_analysis_reset, last_competence_analysis_reset')
           .eq('id', user.id)
           .single();
 
@@ -128,20 +131,40 @@ export default function DashboardPage() {
           profile?.premium_source
         );
 
-        // Kvot-gränser
-        const monthlyLetterLimit = 5;
-        const weeklyAnalysisLimit = 3;
+        // Nya kvot-gränser
+        const dailyLetterLimit = 2;    // 2 per dag (inte 5/månad)
+        const weeklyAnalysisLimit = 1; // 1 per vecka (inte 3/vecka)
+        const weeklyCompetenceLimit = 1; // 1 per vecka (ny begränsning)
+
+        // Kontrollera om daglig återställning behövs
+        const today = new Date().toDateString();
+        const lastReset = profile?.last_daily_reset ? new Date(profile.last_daily_reset).toDateString() : null;
+        const needsDailyReset = lastReset !== today;
+
+        // Räkna brev skapade idag för gratis-användare
+        const todayStart = new Date();
+        todayStart.setHours(0, 0, 0, 0);
+        const dailyLetters = letters?.filter(letter =>
+          new Date(letter.created_at) >= todayStart
+        ) || [];
+
+        // Använd databas-värde om ingen reset behövs, annars räkna från idag
+        const dailyLetterCount = needsDailyReset ? dailyLetters.length : (profile?.daily_letter_count || 0);
 
         // Beräkna återstående kvoter för gratis-användare
-        const monthlyLetterCount = monthlyLetters.length;
         const weeklyAnalysisCount = analyses?.length || 0;
-        const remainingLetters = isPremium ? -1 : Math.max(0, monthlyLetterLimit - monthlyLetterCount);
+        const weeklyCompetenceCount = profile?.weekly_competence_analysis_count || 0;
+
+        const remainingLetters = isPremium ? -1 : Math.max(0, dailyLetterLimit - dailyLetterCount);
         const remainingAnalyses = isPremium ? -1 : Math.max(0, weeklyAnalysisLimit - weeklyAnalysisCount);
+        const remainingCompetence = isPremium ? -1 : Math.max(0, weeklyCompetenceLimit - weeklyCompetenceCount);
 
         // Beräkna nästa återställningsdatum
-        const getNextMonthlyReset = () => {
-          const now = new Date();
-          return new Date(now.getFullYear(), now.getMonth() + 1, 1);
+        const getNextDailyReset = () => {
+          const tomorrow = new Date();
+          tomorrow.setDate(tomorrow.getDate() + 1);
+          tomorrow.setHours(0, 0, 0, 0);
+          return tomorrow;
         };
 
         const getNextWeeklyReset = () => {
@@ -153,7 +176,7 @@ export default function DashboardPage() {
           return nextSunday;
         };
 
-        const nextMonthlyReset = getNextMonthlyReset();
+        const nextDailyReset = getNextDailyReset();
         const nextWeeklyReset = getNextWeeklyReset();
 
         setStats({
@@ -169,11 +192,14 @@ export default function DashboardPage() {
           levelTitle: rewardsData.levelTitle,
           availableRewards: rewardsData.availableRewards,
           isPremium,
-          monthlyLetterCount,
+          // Uppdaterade kvot-värden
+          dailyLetterCount,
           weeklyAnalysisCount,
+          weeklyCompetenceCount,
           remainingLetters,
           remainingAnalyses,
-          nextMonthlyReset,
+          remainingCompetence,
+          nextDailyReset,
           nextWeeklyReset
         });
       } catch (error) {
@@ -323,12 +349,12 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6"
         >
           <StatsWidget
-            title={stats.isPremium ? "Skapade Brev" : "Brev denna månad"}
-            value={stats.isPremium ? stats.totalLetters : `${stats.monthlyLetterCount}/5`}
-            subtitle={stats.isPremium ? "Obegränsade brev" : `${stats.remainingLetters} kvar denna månad`}
+            title={stats.isPremium ? "Skapade Brev" : "Brev idag"}
+            value={stats.isPremium ? stats.totalLetters : `${stats.dailyLetterCount}/2`}
+            subtitle={stats.isPremium ? "Obegränsade brev" : `${stats.remainingLetters} kvar idag`}
             icon={PenTool}
             color="pink"
             trend={stats.isPremium ? { value: 15, isPositive: true } : undefined}
@@ -337,10 +363,10 @@ export default function DashboardPage() {
             liveUpdate={true}
             pulseOnUpdate={true}
             quotaInfo={!stats.isPremium ? {
-              used: stats.monthlyLetterCount || 0,
-              limit: 5,
-              resetDate: stats.nextMonthlyReset,
-              resetType: 'monthly',
+              used: stats.dailyLetterCount || 0,
+              limit: 2,
+              resetDate: stats.nextDailyReset,
+              resetType: 'daily',
               showProgress: true,
               showCountdown: true
             } : undefined}
@@ -348,7 +374,7 @@ export default function DashboardPage() {
 
           <StatsWidget
             title={stats.isPremium ? "CV-Analyser" : "Analyser denna vecka"}
-            value={stats.isPremium ? "Obegränsade" : `${stats.weeklyAnalysisCount}/3`}
+            value={stats.isPremium ? "Obegränsade" : `${stats.weeklyAnalysisCount}/1`}
             subtitle={stats.isPremium ? "Alla funktioner tillgängliga" : `${stats.remainingAnalyses} kvar denna vecka`}
             icon={Brain}
             color="blue"
@@ -357,7 +383,25 @@ export default function DashboardPage() {
             liveUpdate={stats.isPremium}
             quotaInfo={!stats.isPremium ? {
               used: stats.weeklyAnalysisCount || 0,
-              limit: 3,
+              limit: 1,
+              resetDate: stats.nextWeeklyReset,
+              resetType: 'weekly',
+              showProgress: true,
+              showCountdown: true
+            } : undefined}
+          />
+
+          <StatsWidget
+            title={stats.isPremium ? "Kompetensutveckling" : "Kompetensutveckling denna vecka"}
+            value={stats.isPremium ? "Obegränsat" : `${stats.weeklyCompetenceCount}/1`}
+            subtitle={stats.isPremium ? "Alla funktioner tillgängliga" : `${stats.remainingCompetence} kvar denna vecka`}
+            icon={Target}
+            color="orange"
+            onClick={() => window.location.href = '/dashboard/kompetensutveckling'}
+            isPremium={stats.isPremium}
+            quotaInfo={!stats.isPremium ? {
+              used: stats.weeklyCompetenceCount || 0,
+              limit: 1,
               resetDate: stats.nextWeeklyReset,
               resetType: 'weekly',
               showProgress: true,
@@ -370,7 +414,7 @@ export default function DashboardPage() {
             value={stats.isPremium ? "Premium ✨" : "Gratis"}
             subtitle={stats.isPremium ? "Obegränsad tillgång" : "Uppgradera för full åtkomst"}
             icon={Star}
-            color={stats.isPremium ? "green" : "orange"}
+            color={stats.isPremium ? "green" : "purple"}
             onClick={() => !stats.isPremium && (window.location.href = '/priser')}
             isPremium={stats.isPremium}
           />

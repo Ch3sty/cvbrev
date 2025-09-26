@@ -5,13 +5,15 @@ import Image from 'next/image';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Crown, Check } from 'lucide-react';
+import { Crown, Check, Lock } from 'lucide-react';
 import { SIMPLE_TEMPLATES, SimpleTemplate } from '@/lib/cv/simple-templates';
 
 interface SimpleTemplateGalleryProps {
   selectedTemplate?: string | null;
   onTemplateSelect: (templateId: string) => void;
   className?: string;
+  isPremium?: boolean;
+  onUpgradeClick?: () => void;
 }
 
 const CATEGORY_LABELS = {
@@ -23,7 +25,9 @@ const CATEGORY_LABELS = {
 export default function SimpleTemplateGallery({
   selectedTemplate,
   onTemplateSelect,
-  className = ""
+  className = "",
+  isPremium = false,
+  onUpgradeClick
 }: SimpleTemplateGalleryProps) {
   const [selectedCategory, setSelectedCategory] = useState<SimpleTemplate['category'] | 'all'>('all');
 
@@ -79,29 +83,65 @@ export default function SimpleTemplateGallery({
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredTemplates.map((template) => {
           const isSelected = selectedTemplate === template.id;
-          const isPremium = template.tier === 'premium';
+          const isPremiumTemplate = template.tier === 'premium';
+          const isLocked = isPremiumTemplate && !isPremium;
+
+          const handleClick = () => {
+            if (isLocked && onUpgradeClick) {
+              onUpgradeClick();
+            } else if (!isLocked) {
+              onTemplateSelect(template.id);
+            }
+          };
 
           return (
             <Card
               key={template.id}
-              className={`cursor-pointer transition-all duration-200 hover:shadow-md border ${
-                isSelected 
-                  ? 'ring-2 ring-pink-500 shadow-lg bg-navy-700 border-pink-500' 
+              className={`cursor-pointer transition-all duration-200 hover:shadow-md border relative ${
+                isSelected
+                  ? 'ring-2 ring-pink-500 shadow-lg bg-navy-700 border-pink-500'
+                  : isLocked
+                  ? 'bg-navy-900/40 border-navy-600 opacity-75 hover:opacity-90'
                   : 'hover:shadow-lg hover:scale-[1.02] bg-navy-900/60 border-navy-600 hover:border-navy-500'
               }`}
-              onClick={() => onTemplateSelect(template.id)}
+              onClick={handleClick}
             >
+              {/* Lock overlay for premium templates */}
+              {isLocked && (
+                <div className="absolute inset-0 bg-navy-900/80 backdrop-blur-sm rounded-lg flex items-center justify-center z-10">
+                  <div className="text-center">
+                    <Lock className="h-8 w-8 text-gray-400 mx-auto mb-2" />
+                    <p className="text-sm text-gray-300 font-medium mb-2">Premium Mall</p>
+                    <Button
+                      size="sm"
+                      className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white text-xs"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onUpgradeClick?.();
+                      }}
+                    >
+                      <Crown className="h-3 w-3 mr-1" />
+                      Uppgradera
+                    </Button>
+                  </div>
+                </div>
+              )}
+
               <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg font-semibold text-white flex items-center gap-2">
-                    {isPremium && <Crown className="h-4 w-4 text-amber-500" />}
+                  <CardTitle className={`text-lg font-semibold flex items-center gap-2 ${
+                    isLocked ? 'text-gray-400' : 'text-white'
+                  }`}>
+                    {isPremiumTemplate && <Crown className="h-4 w-4 text-amber-500" />}
                     {template.name}
                   </CardTitle>
-                  {isSelected && (
+                  {isSelected && !isLocked && (
                     <Check className="h-5 w-5 text-pink-400" />
                   )}
                 </div>
-                <CardDescription className="text-sm text-gray-300">
+                <CardDescription className={`text-sm ${
+                  isLocked ? 'text-gray-500' : 'text-gray-300'
+                }`}>
                   {template.description}
                 </CardDescription>
               </CardHeader>
@@ -121,16 +161,22 @@ export default function SimpleTemplateGallery({
                 {/* Template Badges */}
                 <div className="flex items-center justify-between">
                   <div className="flex gap-2">
-                    <Badge 
-                      variant="outline" 
-                      className={`text-xs border-navy-500 ${getCategoryColor(template.category)}`}
+                    <Badge
+                      variant="outline"
+                      className={`text-xs border-navy-500 ${getCategoryColor(template.category)} ${
+                        isLocked ? 'opacity-60' : ''
+                      }`}
                     >
                       {CATEGORY_LABELS[template.category]}
                     </Badge>
-                    {isPremium ? (
-                      <Badge className="bg-amber-100 text-amber-800 border-amber-200 text-xs">
+                    {isPremiumTemplate ? (
+                      <Badge className={`text-xs ${
+                        isLocked
+                          ? 'bg-gray-600 text-gray-400 border-gray-600'
+                          : 'bg-amber-100 text-amber-800 border-amber-200'
+                      }`}>
                         <Crown className="h-3 w-3 mr-1" />
-                        Premium
+                        {isLocked ? 'Låst' : 'Premium'}
                       </Badge>
                     ) : (
                       <Badge variant="outline" className="bg-green-900/30 text-green-400 border-green-600 text-xs">
@@ -138,8 +184,8 @@ export default function SimpleTemplateGallery({
                       </Badge>
                     )}
                   </div>
-                  
-                  {isSelected && (
+
+                  {isSelected && !isLocked && (
                     <Badge className="bg-pink-500 text-white text-xs">
                       Vald
                     </Badge>

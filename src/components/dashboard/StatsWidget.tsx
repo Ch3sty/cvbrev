@@ -23,7 +23,7 @@ interface StatsWidgetProps {
     used: number;
     limit: number;
     resetDate?: Date;
-    resetType?: 'monthly' | 'weekly';
+    resetType?: 'daily' | 'weekly' | 'monthly';
     showProgress?: boolean;
     showCountdown?: boolean;
   };
@@ -89,7 +89,12 @@ export default function StatsWidget({
     if (!quotaInfo?.resetType) return null;
 
     const now = new Date();
-    if (quotaInfo.resetType === 'monthly') {
+    if (quotaInfo.resetType === 'daily') {
+      const tomorrow = new Date(now);
+      tomorrow.setDate(now.getDate() + 1);
+      tomorrow.setHours(0, 0, 0, 0);
+      return tomorrow;
+    } else if (quotaInfo.resetType === 'monthly') {
       return new Date(now.getFullYear(), now.getMonth() + 1, 1);
     } else {
       const daysUntilSunday = (7 - now.getDay()) % 7 || 7;
