@@ -28,9 +28,12 @@ export default function InviteFriendsPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [invitations, setInvitations] = useState<InvitationData[]>([]);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [remainingInvitations, setRemainingInvitations] = useState<number | null>(null);
+  const [isPremium, setIsPremium] = useState(false);
 
   useEffect(() => {
     loadInvitations();
+    loadUserStatus();
   }, []);
 
   const loadInvitations = async () => {
@@ -42,6 +45,47 @@ export default function InviteFriendsPage() {
       }
     } catch (error) {
       console.error('Error loading invitations:', error);
+    }
+  };
+
+  const loadUserStatus = async () => {
+    try {
+      const supabase = getSupabaseClient();
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (user) {
+        // Check premium status
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('subscription_tier, premium_until')
+          .eq('id', user.id)
+          .single();
+
+        const hasPremiumUntil = profile?.premium_until && new Date(profile.premium_until) > new Date();
+        const hasPremiumTier = profile?.subscription_tier === 'premium';
+        const userIsPremium = hasPremiumUntil || hasPremiumTier;
+        setIsPremium(userIsPremium);
+
+        // Get monthly allowance
+        const currentMonth = new Date().toISOString().slice(0, 7) + '-01';
+        const { data: allowance } = await supabase
+          .from('monthly_guest_allowances')
+          .select('*')
+          .eq('user_id', user.id)
+          .eq('month_year', currentMonth)
+          .single();
+
+        if (allowance) {
+          const total = allowance.base_allowance + allowance.bonus_allowance;
+          const remaining = total - allowance.used_invitations;
+          setRemainingInvitations(Math.max(0, remaining));
+        } else {
+          // No allowance record yet - use defaults
+          setRemainingInvitations(userIsPremium ? 3 : 1);
+        }
+      }
+    } catch (error) {
+      console.error('Error loading user status:', error);
     }
   };
 
@@ -65,6 +109,7 @@ export default function InviteFriendsPage() {
         setShowSuccess(true);
         setTimeout(() => setShowSuccess(false), 3000);
         await loadInvitations();
+        await loadUserStatus(); // Reload remaining invitations
       } else {
         const error = await response.json();
         console.error('Failed to send invitation:', error);
@@ -122,7 +167,7 @@ export default function InviteFriendsPage() {
         </div>
         <h1 className="text-3xl font-bold text-white mb-2">Bjud in en vän</h1>
         <p className="text-gray-400 text-lg">
-          Din vän får 7 dagars kostnadsfri Premium. När de blir betalande kund får du 500 XP och 1 månads extra Premium!
+          Din vän får 7 dagars kostnadsfri Premium. När de blir betalande kund får båda 7 dagars extra Premium + 500 XP!
         </p>
       </div>
 
@@ -136,6 +181,19 @@ export default function InviteFriendsPage() {
             </CardTitle>
             <CardDescription className="text-gray-400">
               Bjud in en vän via e-post för att ge dem 7 dagars kostnadsfri Premium
+              {remainingInvitations !== null && (
+                <div className="mt-2 flex items-center gap-2">
+                  <Badge
+                    variant={remainingInvitations > 0 ? "default" : "destructive"}
+                    className={remainingInvitations > 0 ? "bg-green-100 text-green-800" : ""}
+                  >
+                    {remainingInvitations === 999 ? "Obegränsat" : `${remainingInvitations} kvar denna månad`}
+                  </Badge>
+                  {!isPremium && (
+                    <span className="text-xs text-yellow-400">Uppgradera till Premium för 3 inbjudningar/månad</span>
+                  )}
+                </div>
+              )}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -152,13 +210,18 @@ export default function InviteFriendsPage() {
               </div>
               <Button
                 type="submit"
-                disabled={isLoading || !email.trim()}
-                className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700"
+                disabled={isLoading || !email.trim() || (remainingInvitations !== null && remainingInvitations <= 0)}
+                className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 disabled:opacity-50"
               >
                 {isLoading ? (
                   <>
                     <Clock className="w-4 h-4 mr-2 animate-spin" />
                     Skickar...
+                  </>
+                ) : remainingInvitations !== null && remainingInvitations <= 0 ? (
+                  <>
+                    <Gift className="w-4 h-4 mr-2" />
+                    Inga inbjudningar kvar
                   </>
                 ) : (
                   <>
@@ -198,8 +261,8 @@ export default function InviteFriendsPage() {
                 <Users className="w-4 h-4 text-purple-600" />
               </div>
               <div>
-                <h4 className="font-semibold text-white">1 månads extra Premium för dig</h4>
-                <p className="text-sm text-gray-400">När din vän blir betalande kund får du 1 månads Premium utan kostnad</p>
+                <h4 className="font-semibold text-white">7 dagars extra Premium för båda</h4>
+                <p className="text-sm text-gray-400">När din vän blir betalande kund får både du och din vän 7 dagars Premium</p>
               </div>
             </div>
 

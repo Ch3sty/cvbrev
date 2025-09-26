@@ -144,6 +144,44 @@ export async function POST(request: NextRequest) {
       })
       .eq('id', invitation.id)
 
+    // Grant 7 days premium to inviter as reward (both get 7 days when guest accepts)
+    const inviterPremiumEndDate = new Date()
+    inviterPremiumEndDate.setDate(inviterPremiumEndDate.getDate() + 7)
+
+    // Check inviter's current premium status to extend properly
+    const { data: inviterProfile } = await supabase
+      .from('profiles')
+      .select('premium_until')
+      .eq('id', invitation.inviter_id)
+      .single()
+
+    let newInviterPremiumUntil
+    if (inviterProfile?.premium_until) {
+      const currentPremiumEnd = new Date(inviterProfile.premium_until)
+      const now = new Date()
+
+      if (currentPremiumEnd > now) {
+        // Add 7 days to existing premium
+        newInviterPremiumUntil = new Date(currentPremiumEnd)
+        newInviterPremiumUntil.setDate(newInviterPremiumUntil.getDate() + 7)
+      } else {
+        // Start fresh 7-day premium
+        newInviterPremiumUntil = inviterPremiumEndDate
+      }
+    } else {
+      // Start fresh 7-day premium
+      newInviterPremiumUntil = inviterPremiumEndDate
+    }
+
+    // Update inviter's premium
+    await supabase
+      .from('profiles')
+      .update({
+        premium_until: newInviterPremiumUntil.toISOString(),
+        premium_source: 'referral'
+      })
+      .eq('id', invitation.inviter_id)
+
     // Award XP to both inviter and guest
     await supabase.rpc('add_xp_with_cap_check', {
       user_id_param: user.id,

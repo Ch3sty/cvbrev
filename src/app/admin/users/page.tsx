@@ -286,23 +286,25 @@ export default function AdminUsersPage() {
   // Hantera uppgradering av användare till premium
   const handleUpgradeUser = async () => {
     if (!selectedUser) return;
-    
+
     setIsUpdating(true);
     setUpdateSuccess(null);
     setError(null); // Rensa tidigare fel
-    
+
     try {
-      // Uppdatera användarens prenumerationsnivå i databasen
+      // Admin-uppgradering ger permanent premium utan allowance-begränsningar
       const { error: updateError } = await supabase
         .from('profiles')
-        .update({ 
+        .update({
           subscription_tier: 'premium',
-          updated_at: new Date().toISOString() // Bra att uppdatera denna
+          premium_until: null, // null = permanent premium
+          premium_source: 'admin',
+          updated_at: new Date().toISOString()
         })
         .eq('id', selectedUser.id)
-        .select() // Lägg till select för att få tillbaka den uppdaterade raden (valfritt)
-        .single(); // Om du förväntar dig exakt en rad tillbaka
-      
+        .select()
+        .single();
+
       if (updateError) throw updateError;
       
       // Uppdatera lokal state MER ROBUST
@@ -331,23 +333,25 @@ export default function AdminUsersPage() {
   // Hantera nedgradering av användare till free
   const handleDowngradeUser = async () => {
     if (!selectedUser) return;
-    
+
     setIsUpdating(true);
     setUpdateSuccess(null);
     setError(null); // Rensa tidigare fel
-    
+
     try {
-      // Uppdatera användarens prenumerationsnivå i databasen
+      // Admin kan ta bort premium-status helt
       const { error: updateError } = await supabase
         .from('profiles')
-        .update({ 
-          subscription_tier: 'free', // Sätt till 'free'
-          updated_at: new Date().toISOString() 
+        .update({
+          subscription_tier: 'free',
+          premium_until: null, // Ta bort premium-datum
+          premium_source: null, // Ta bort premium-källa
+          updated_at: new Date().toISOString()
         })
         .eq('id', selectedUser.id)
         .select()
         .single();
-      
+
       if (updateError) throw updateError;
       
       // Uppdatera lokal state

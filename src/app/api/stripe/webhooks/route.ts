@@ -122,34 +122,46 @@ const handleReferralConversion = async (customerId: string) => {
             description_param: 'Vän blev Premium-medlem'
         });
 
-        // Get inviter's subscription for extension
+        // Grant 7 days premium to inviter (consistent with accept logic)
         const { data: inviterProfile, error: inviterError } = await supabaseAdmin
             .from('profiles')
-            .select('stripe_customer_id, subscription_id')
+            .select('premium_until')
             .eq('id', invitation.inviter_id)
             .single();
 
-        if (inviterProfile?.stripe_customer_id && inviterProfile?.subscription_id) {
+        if (!inviterError && inviterProfile) {
             try {
-                // Add 1 month credit to inviter's subscription
-                // Using a coupon for 100% off for 1 month is the cleanest approach
-                const coupon = await stripe.coupons.create({
-                    percent_off: 100,
-                    duration: 'once',
-                    max_redemptions: 1,
-                    metadata: {
-                        type: 'referral_reward',
-                        guest_id: newCustomer.id,
-                        inviter_id: invitation.inviter_id
+                const inviterPremiumEndDate = new Date()
+                inviterPremiumEndDate.setDate(inviterPremiumEndDate.getDate() + 7)
+
+                let newInviterPremiumUntil
+                if (inviterProfile.premium_until) {
+                    const currentPremiumEnd = new Date(inviterProfile.premium_until)
+                    const now = new Date()
+
+                    if (currentPremiumEnd > now) {
+                        // Add 7 days to existing premium
+                        newInviterPremiumUntil = new Date(currentPremiumEnd)
+                        newInviterPremiumUntil.setDate(newInviterPremiumUntil.getDate() + 7)
+                    } else {
+                        // Start fresh 7-day premium
+                        newInviterPremiumUntil = inviterPremiumEndDate
                     }
-                });
+                } else {
+                    // Start fresh 7-day premium
+                    newInviterPremiumUntil = inviterPremiumEndDate
+                }
 
-                // Apply coupon to inviter's subscription
-                await stripe.subscriptions.update(inviterProfile.subscription_id, {
-                    coupon: coupon.id
-                });
+                // Update inviter's premium
+                await supabaseAdmin
+                    .from('profiles')
+                    .update({
+                        premium_until: newInviterPremiumUntil.toISOString(),
+                        premium_source: 'referral'
+                    })
+                    .eq('id', invitation.inviter_id)
 
-                console.log(`Applied 1 month free coupon to inviter's subscription`);
+                console.log(`Granted 7 days premium to inviter ${invitation.inviter_id}`);
 
                 // Mark reward as granted
                 await supabaseAdmin
@@ -157,9 +169,9 @@ const handleReferralConversion = async (customerId: string) => {
                     .update({ reward_granted: true })
                     .eq('id', invitation.id);
 
-            } catch (stripeError) {
-                console.error('Failed to apply subscription credit:', stripeError);
-                // Still mark as converted even if Stripe credit fails
+            } catch (premiumError) {
+                console.error('Failed to grant premium to inviter:', premiumError);
+                // Still mark as converted even if premium grant fails
             }
         }
 

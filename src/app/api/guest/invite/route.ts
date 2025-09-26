@@ -26,34 +26,48 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    // Check if user is premium
+    // Check if user is premium or admin
     const { data: profile } = await supabase
       .from('profiles')
       .select('premium_until, subscription_tier, full_name')
       .eq('id', user.id)
       .single()
 
+    // Check if user is admin (admins can send unlimited invitations)
+    const { data: adminUser } = await supabase
+      .from('admin_users')
+      .select('role')
+      .eq('id', user.id)
+      .single()
+
+    const isAdmin = adminUser?.role === 'admin' || adminUser?.role === 'super_admin'
+
     // Check both manual premium (premium_until) and Stripe subscription (subscription_tier)
     const hasPremiumUntil = profile?.premium_until && new Date(profile.premium_until) > new Date()
     const hasPremiumTier = profile?.subscription_tier === 'premium'
     const isPremium = hasPremiumUntil || hasPremiumTier
 
-    if (!isPremium) {
+    if (!isPremium && !isAdmin) {
       return NextResponse.json({ error: 'Premium membership required' }, { status: 403 })
     }
 
-    // Check monthly allowance
-    const currentMonth = new Date().toISOString().slice(0, 7) + '-01'
+    // Check monthly allowance (skip for admin users)
+    let allowance = null
 
-    let { data: allowance } = await supabase
-      .from('monthly_guest_allowances')
-      .select('*')
-      .eq('user_id', user.id)
-      .eq('month_year', currentMonth)
-      .single()
+    if (!isAdmin) {
+      const currentMonth = new Date().toISOString().slice(0, 7) + '-01'
 
-    // Create allowance if it doesn't exist
-    if (!allowance) {
+      let { data: monthlyAllowance } = await supabase
+        .from('monthly_guest_allowances')
+        .select('*')
+        .eq('user_id', user.id)
+        .eq('month_year', currentMonth)
+        .single()
+
+      allowance = monthlyAllowance
+
+      // Create allowance if it doesn't exist
+      if (!allowance) {
       // Calculate bonus based on user level
       const { data: userStats } = await supabase
         .from('global_user_stats')
@@ -69,12 +83,16 @@ export async function POST(request: NextRequest) {
       else if (level >= 20) bonus = 2
       else if (level >= 10) bonus = 1
 
+      // Premium-användare får 3 inbjudningar per månad (inte 10)
+      // Gratis-användare får 1 inbjudan per månad
+      const baseAllowance = isPremium ? 3 : 1
+
       const { data: newAllowance, error: allowanceError } = await supabase
         .from('monthly_guest_allowances')
         .insert({
           user_id: user.id,
           month_year: currentMonth,
-          base_allowance: 1,
+          base_allowance: baseAllowance,
           bonus_allowance: bonus,
           used_invitations: 0
         })
@@ -86,20 +104,21 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: 'Failed to create allowance' }, { status: 500 })
       }
 
-      allowance = newAllowance
-    }
+        allowance = newAllowance
+      }
 
-    // Check if user has invitations left
-    const totalAllowance = allowance.base_allowance + allowance.bonus_allowance
-    if (allowance.used_invitations >= totalAllowance && totalAllowance < 999) {
-      return NextResponse.json({
-        error: 'No invitations remaining this month',
-        allowance: {
-          total: totalAllowance,
-          used: allowance.used_invitations,
-          remaining: 0
-        }
-      }, { status: 403 })
+      // Check if user has invitations left
+      const totalAllowance = allowance.base_allowance + allowance.bonus_allowance
+      if (allowance.used_invitations >= totalAllowance && totalAllowance < 999) {
+        return NextResponse.json({
+          error: 'No invitations remaining this month',
+          allowance: {
+            total: totalAllowance,
+            used: allowance.used_invitations,
+            remaining: 0
+          }
+        }, { status: 403 })
+      }
     }
 
     // Check if guest is already invited or registered
@@ -142,12 +161,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Failed to create invitation' }, { status: 500 })
     }
 
-    // Update used invitations count
-    await supabase
-      .from('monthly_guest_allowances')
-      .update({ used_invitations: allowance.used_invitations + 1 })
-      .eq('user_id', user.id)
-      .eq('month_year', currentMonth)
+    // Update used invitations count (only for non-admin users)
+    if (!isAdmin && allowance) {
+      const currentMonth = new Date().toISOString().slice(0, 7) + '-01'
+      await supabase
+        .from('monthly_guest_allowances')
+        .update({ used_invitations: allowance.used_invitations + 1 })
+        .eq('user_id', user.id)
+        .eq('month_year', currentMonth)
+    }
 
     // Send invitation email
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_APP_URL || 'https://jobbcoach.ai'
@@ -194,6 +216,13 @@ export async function POST(request: NextRequest) {
       description_param: 'Skickade gästinbjudan'
     })
 
+    // Calculate remaining invitations for response
+    let remainingInvitations = 999 // Unlimited for admin
+    if (!isAdmin && allowance) {
+      const totalAllowance = allowance.base_allowance + allowance.bonus_allowance
+      remainingInvitations = totalAllowance - allowance.used_invitations - 1
+    }
+
     return NextResponse.json({
       success: true,
       data: {
@@ -202,7 +231,7 @@ export async function POST(request: NextRequest) {
         inviteUrl,
         guestEmail,
         expiresAt: invitation.expires_at,
-        remainingInvitations: totalAllowance - allowance.used_invitations - 1
+        remainingInvitations
       }
     })
 
