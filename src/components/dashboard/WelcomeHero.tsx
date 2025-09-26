@@ -23,9 +23,15 @@ export default function WelcomeHero({
 
   const getTimeBasedGreeting = () => {
     const hour = new Date().getHours();
-    if (hour < 10) return 'God morgon';
-    if (hour < 17) return 'God dag';
-    if (hour < 21) return 'God kväll';
+    // 00:00-04:59: God natt
+    if (hour >= 0 && hour < 5) return 'God natt';
+    // 05:00-09:59: God morgon
+    if (hour >= 5 && hour < 10) return 'God morgon';
+    // 10:00-16:59: God dag
+    if (hour >= 10 && hour < 17) return 'God dag';
+    // 17:00-20:59: God kväll
+    if (hour >= 17 && hour < 21) return 'God kväll';
+    // 21:00-23:59: God kväll/God natt
     return 'God kväll';
   };
 

@@ -40,6 +40,10 @@ interface DashboardStats {
   levelTitle?: string;
   availableRewards?: number;
   isPremium?: boolean;
+  monthlyLetterCount?: number;
+  weeklyAnalysisCount?: number;
+  remainingLetters?: number;
+  remainingAnalyses?: number;
 }
 
 export default function DashboardPage() {
@@ -66,10 +70,28 @@ export default function DashboardPage() {
           .eq('user_id', user.id)
           .order('created_at', { ascending: false });
 
+        // Räkna brev skapade denna månad (för gratis-användare)
+        const now = new Date();
+        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const monthlyLetters = letters?.filter(letter =>
+          new Date(letter.created_at) >= startOfMonth
+        ) || [];
+
+        // Räkna CV-analyser denna vecka (för gratis-användare)
+        const startOfWeek = new Date(now);
+        startOfWeek.setDate(now.getDate() - now.getDay()); // Söndag som första dag
+        startOfWeek.setHours(0, 0, 0, 0);
+
+        const { data: analyses } = await supabase
+          .from('competence_analysis_jobs')
+          .select('id, created_at')
+          .eq('user_id', user.id)
+          .gte('created_at', startOfWeek.toISOString());
+
         // Hämta användarens profil med prenumerationsinfo
         const { data: profile } = await supabase
           .from('profiles')
-          .select('subscription_tier, weekly_analysis_count, premium_until')
+          .select('subscription_tier, weekly_analysis_count, weekly_letter_count, premium_until, premium_source')
           .eq('id', user.id)
           .single();
 
@@ -94,7 +116,25 @@ export default function DashboardPage() {
           console.error('Fel vid hämtning av rewards:', error);
         }
 
-        const isPremium = profile?.premium_until && new Date(profile.premium_until) > new Date();
+        // Kontrollera premium-status från alla möjliga källor
+        const isPremium = !!(
+          // Stripe prenumeration
+          profile?.subscription_tier === 'premium' ||
+          // Admin-tilldelad premium med datum
+          (profile?.premium_until && new Date(profile.premium_until) > new Date()) ||
+          // Admin-tilldelad premium via source
+          profile?.premium_source
+        );
+
+        // Kvot-gränser
+        const monthlyLetterLimit = 5;
+        const weeklyAnalysisLimit = 3;
+
+        // Beräkna återstående kvoter för gratis-användare
+        const monthlyLetterCount = monthlyLetters.length;
+        const weeklyAnalysisCount = analyses?.length || 0;
+        const remainingLetters = isPremium ? -1 : Math.max(0, monthlyLetterLimit - monthlyLetterCount);
+        const remainingAnalyses = isPremium ? -1 : Math.max(0, weeklyAnalysisLimit - weeklyAnalysisCount);
 
         setStats({
           totalLetters: letters?.length || 0,
@@ -108,7 +148,11 @@ export default function DashboardPage() {
           currentLevel: rewardsData.currentLevel,
           levelTitle: rewardsData.levelTitle,
           availableRewards: rewardsData.availableRewards,
-          isPremium
+          isPremium,
+          monthlyLetterCount,
+          weeklyAnalysisCount,
+          remainingLetters,
+          remainingAnalyses
         });
       } catch (error) {
         console.error('Fel vid hämtning av dashboard-data:', error);
@@ -260,12 +304,12 @@ export default function DashboardPage() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           <StatsWidget
-            title="Skapade Brev"
-            value={stats.totalLetters}
-            subtitle="↗15% från förra veckan"
+            title={stats.isPremium ? "Skapade Brev" : "Brev denna månad"}
+            value={stats.isPremium ? stats.totalLetters : `${stats.monthlyLetterCount}/5`}
+            subtitle={stats.isPremium ? "Obegränsade brev" : `${stats.remainingLetters} kvar denna månad`}
             icon={PenTool}
             color="pink"
-            trend={{ value: 15, isPositive: true }}
+            trend={stats.isPremium ? { value: 15, isPositive: true } : undefined}
             onClick={() => window.location.href = '/dashboard/my-letters'}
             isPremium={stats.isPremium}
             liveUpdate={true}
@@ -273,9 +317,9 @@ export default function DashboardPage() {
           />
 
           <StatsWidget
-            title="CV-Analyser"
-            value={stats.totalAnalyses}
-            subtitle="Återstående denna vecka"
+            title={stats.isPremium ? "CV-Analyser" : "Analyser denna vecka"}
+            value={stats.isPremium ? "Obegränsade" : `${stats.weeklyAnalysisCount}/3`}
+            subtitle={stats.isPremium ? "Alla funktioner tillgängliga" : `${stats.remainingAnalyses} kvar denna vecka`}
             icon={Brain}
             color="blue"
             onClick={() => window.location.href = '/dashboard/cv-analys'}
@@ -285,8 +329,8 @@ export default function DashboardPage() {
 
           <StatsWidget
             title="Prenumeration"
-            value={stats.isPremium ? "Premium" : "Gratis"}
-            subtitle={stats.isPremium ? "Alla funktioner" : "Begränsade funktioner"}
+            value={stats.isPremium ? "Premium ✨" : "Gratis"}
+            subtitle={stats.isPremium ? "Obegränsad tillgång" : "Uppgradera för full åtkomst"}
             icon={Star}
             color={stats.isPremium ? "green" : "orange"}
             onClick={() => !stats.isPremium && (window.location.href = '/priser')}
