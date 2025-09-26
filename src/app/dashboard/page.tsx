@@ -199,7 +199,7 @@ export default function DashboardPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="space-y-8"
+      className="space-y-8 bg-transparent"
     >
       <div className="space-y-8">
         {/* Welcome Hero Section */}
@@ -262,8 +262,11 @@ export default function DashboardPage() {
           transition={{ delay: 0.4, duration: 0.6 }}
         >
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-slate-900">Smarta Åtgärder</h2>
-            <div className="text-sm font-medium text-slate-600 bg-slate-100/80 px-3 py-1 rounded-full">
+            <div>
+              <h2 className="text-2xl font-bold text-slate-900">Smarta Åtgärder</h2>
+              <p className="text-sm text-slate-600 mt-1">De viktigaste verktygen för din karriärutveckling just nu</p>
+            </div>
+            <div className="text-sm font-medium text-pink-600 bg-pink-50/80 px-3 py-1 rounded-full border border-pink-200/60">
               Anpassade för din progress
             </div>
           </div>
