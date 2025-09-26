@@ -141,12 +141,12 @@ export default function DashboardSidebar() {
   
   return (
     <div
-      className={`bg-white/90 backdrop-blur-md h-full ${
+      className={`bg-white h-full ${
         collapsed ? 'w-16' : 'w-64'
-      } transition-all duration-300 border-r border-slate-200/60 flex flex-col shadow-xl`}
+      } transition-all duration-300 border-r border-slate-300 flex flex-col shadow-2xl relative z-10`}
     >
       {/* Logo och Collapse-knapp */}
-      <div className="flex items-center justify-between p-4 border-b border-slate-200/60">
+      <div className="flex items-center justify-between p-4 border-b border-slate-300 bg-gradient-to-r from-white to-slate-50/50">
         {!collapsed && (
           <div className="text-xl font-bold">
             <span className="text-slate-900">Jobbcoach</span>
@@ -160,7 +160,7 @@ export default function DashboardSidebar() {
         
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-600 hover:text-slate-900 transition-colors"
+          className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-700 hover:text-slate-900 transition-colors shadow-sm hover:shadow-md"
         >
           {collapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
         </button>
@@ -173,14 +173,14 @@ export default function DashboardSidebar() {
           <div className="px-4">
             <Link
               href="/dashboard/invite-friends"
-              className="flex items-center justify-between p-3 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-200/60 hover:border-pink-300 hover:shadow-lg transition-all duration-300 group"
+              className="flex items-center justify-between p-3 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-300 hover:border-pink-400 hover:shadow-xl transition-all duration-300 group shadow-lg"
             >
               <div className="flex items-center gap-3">
                 <Gift className="w-5 h-5 text-pink-600 group-hover:text-pink-700" />
                 {!collapsed && (
                   <div>
-                    <span className="text-sm font-semibold text-slate-900">Bjud in en vän</span>
-                    <p className="text-xs text-slate-600">Få 7 dagar Premium</p>
+                    <span className="text-sm font-bold text-slate-900">Bjud in en vän</span>
+                    <p className="text-xs text-slate-700">Få 7 dagar Premium</p>
                   </div>
                 )}
               </div>
@@ -201,8 +201,8 @@ export default function DashboardSidebar() {
                   className={`
                     flex items-center px-4 py-2.5 rounded-lg relative transition-all duration-200
                     ${pathname === item.path
-                      ? 'bg-gradient-to-r from-pink-50 to-purple-50 text-pink-600 border-l-4 border-pink-600 shadow-md'
-                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                      ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
+                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
                     }
                     ${collapsed ? 'justify-center' : ''}
                   `}
@@ -223,7 +223,7 @@ export default function DashboardSidebar() {
         {/* Verktyg Sektion */}
         <div>
           {!collapsed && (
-            <h3 className="px-4 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <h3 className="px-4 py-2 text-xs font-bold text-slate-600 uppercase tracking-wider">
               Verktyg
             </h3>
           )}
@@ -235,8 +235,8 @@ export default function DashboardSidebar() {
                   className={`
                     flex items-center px-4 py-2.5 rounded-lg transition-all duration-200
                     ${pathname === item.path
-                      ? 'bg-gradient-to-r from-pink-50 to-purple-50 text-pink-600 border-l-4 border-pink-600 shadow-md'
-                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                      ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
+                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
                     }
                     ${collapsed ? 'justify-center' : ''}
                   `}
@@ -252,7 +252,7 @@ export default function DashboardSidebar() {
         {/* Lärande Sektion */}
         <div>
           {!collapsed && (
-            <h3 className="px-4 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <h3 className="px-4 py-2 text-xs font-bold text-slate-600 uppercase tracking-wider">
               Lärande
             </h3>
           )}
@@ -264,8 +264,8 @@ export default function DashboardSidebar() {
                   className={`
                     flex items-center px-4 py-2.5
                     ${pathname === item.path || pathname.startsWith(item.path + '/')
-                      ? 'bg-pink-600 text-white'
-                      : 'text-gray-300 hover:bg-navy-800 hover:text-white'
+                      ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold rounded-lg'
+                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm rounded-lg'
                     }
                     ${collapsed ? 'justify-center' : ''}
                   `}
@@ -281,7 +281,7 @@ export default function DashboardSidebar() {
         {/* Mina Dokument Sektion */}
         <div>
           {!collapsed && (
-            <h3 className="px-4 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <h3 className="px-4 py-2 text-xs font-bold text-slate-600 uppercase tracking-wider">
               Mina Dokument
             </h3>
           )}
@@ -293,8 +293,8 @@ export default function DashboardSidebar() {
                   className={`
                     flex items-center px-4 py-2.5 rounded-lg transition-all duration-200
                     ${pathname === item.path
-                      ? 'bg-gradient-to-r from-pink-50 to-purple-50 text-pink-600 border-l-4 border-pink-600 shadow-md'
-                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                      ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
+                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
                     }
                     ${collapsed ? 'justify-center' : ''}
                   `}
@@ -310,7 +310,7 @@ export default function DashboardSidebar() {
         {/* Profil Sektion */}
         <div>
           {!collapsed && (
-            <h3 className="px-4 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <h3 className="px-4 py-2 text-xs font-bold text-slate-600 uppercase tracking-wider">
               Min Profil
             </h3>
           )}
@@ -322,8 +322,8 @@ export default function DashboardSidebar() {
                   className={`
                     flex items-center px-4 py-2.5 rounded-lg transition-all duration-200
                     ${pathname === item.path
-                      ? 'bg-gradient-to-r from-pink-50 to-purple-50 text-pink-600 border-l-4 border-pink-600 shadow-md'
-                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                      ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
+                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
                     }
                     ${collapsed ? 'justify-center' : ''}
                   `}
@@ -338,11 +338,11 @@ export default function DashboardSidebar() {
       </nav>
       
       {/* Hjälp & Support */}
-      <div className="p-4 border-t border-slate-200/60 space-y-2">
+      <div className="p-4 border-t border-slate-300 space-y-2 bg-gradient-to-r from-white to-slate-50/50">
         <Link
           href="/kontakt"
           className={`
-            flex items-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 py-2 px-2 rounded-lg transition-all
+            flex items-center text-slate-700 hover:text-slate-900 hover:bg-slate-100 py-2 px-2 rounded-lg transition-all shadow-sm hover:shadow-md font-medium
             ${collapsed ? 'justify-center' : ''}
           `}
         >
@@ -353,7 +353,7 @@ export default function DashboardSidebar() {
         <button
           onClick={handleLogout}
           className={`
-            flex items-center text-slate-600 hover:text-red-600 hover:bg-red-50 py-2 px-2 rounded-lg transition-all
+            flex items-center text-slate-700 hover:text-red-600 hover:bg-red-50 py-2 px-2 rounded-lg transition-all shadow-sm hover:shadow-md font-medium
             ${collapsed ? 'justify-center' : 'w-full'}
           `}
         >

@@ -62,23 +62,27 @@ export default function DashboardLayout({
 
   // Om användaren är inloggad, visa dashboard-gränssnittet
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-white via-slate-50/30 to-slate-100/20">
       <div className="flex h-screen">
         {/* Achievement Notifications */}
         {user && <AchievementManager userId={user.id} />}
 
         {/* Dashboard Sidebar */}
-        <DashboardSidebar />
+        <div className="relative z-20">
+          <DashboardSidebar />
+        </div>
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col overflow-hidden">
+        <div className="flex-1 flex flex-col overflow-hidden relative z-10">
           {/* Dashboard Header */}
-          <DashboardHeader user={user} />
+          <div className="relative z-15">
+            <DashboardHeader user={user} />
+          </div>
 
-          {/* Main Content Area with premium glassmorphism */}
-          <main className="flex-1 overflow-y-auto p-6 relative">
+          {/* Main Content Area with subtle background */}
+          <main className="flex-1 overflow-y-auto p-6 relative bg-gradient-to-br from-white/50 via-slate-50/30 to-slate-100/10">
             <div className="max-w-7xl mx-auto relative">
-              {/* Main content container with glassmorphism */}
+              {/* Main content container */}
               <div className="relative">
                 {children}
               </div>
