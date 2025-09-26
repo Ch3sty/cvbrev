@@ -83,12 +83,16 @@ function CountUp({ end, duration = 2.5, suffix = '', prefix = '' }: CountUpProps
   const [count, setCount] = useState(0)
   const [hasAnimated, setHasAnimated] = useState(false)
   const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "0px" })
+  const isInView = useInView(ref, { once: true, amount: 0.3 })
 
   useEffect(() => {
-    // Only animate once when coming into view
-    if (isInView && !hasAnimated && end > 0) {
+    // Start animation immediately when in view
+    if (isInView && !hasAnimated) {
       setHasAnimated(true)
+
+      // Ensure end value is valid
+      const targetValue = end || 0
+
       let startTime: number | undefined
       let animationFrameId: number
 
@@ -103,19 +107,23 @@ function CountUp({ end, duration = 2.5, suffix = '', prefix = '' }: CountUpProps
         // Easing function for smooth animation
         const easeOutQuart = 1 - Math.pow(1 - progress, 4)
 
-        const current = Math.floor(easeOutQuart * end)
+        const current = Math.floor(easeOutQuart * targetValue)
         setCount(current)
 
         if (progress < 1) {
           animationFrameId = requestAnimationFrame(animate)
         } else {
-          setCount(end)
+          setCount(targetValue)
         }
       }
 
-      animationFrameId = requestAnimationFrame(animate)
+      // Small delay to ensure component is mounted
+      const timeoutId = setTimeout(() => {
+        animationFrameId = requestAnimationFrame(animate)
+      }, 100)
 
       return () => {
+        clearTimeout(timeoutId)
         if (animationFrameId) {
           cancelAnimationFrame(animationFrameId)
         }

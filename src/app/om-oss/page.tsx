@@ -27,7 +27,6 @@ export default function OmOssPage() {
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
   const heroRef = useRef(null)
-  const isHeroInView = useInView(heroRef, { once: true })
 
   useEffect(() => {
     async function getSession() {
@@ -117,7 +116,7 @@ export default function OmOssPage() {
           <div className="container relative px-4 mx-auto z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
               <div className="inline-flex items-center gap-2 bg-pink-50 text-pink-600 px-4 py-2 rounded-full text-sm font-semibold mb-6">
@@ -139,7 +138,7 @@ export default function OmOssPage() {
 
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
-                animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="mt-8 flex justify-center"
               >
@@ -354,9 +353,6 @@ export default function OmOssPage() {
         </section>
 
       </div>
-
-      {/* Premium Footer */}
-      <PremiumFooter />
 
     </>
   )
