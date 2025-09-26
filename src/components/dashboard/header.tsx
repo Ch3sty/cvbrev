@@ -199,25 +199,25 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
   };
 
   return (
-    <header className="bg-navy-900 border-b border-gray-700 px-6 py-4">
+    <header className="bg-white/95 backdrop-blur-md border-b border-slate-200/60 px-6 py-4 shadow-sm">
       <div className="flex items-center justify-between">
         {/* Vänster sida - Välkomstmeddelande */}
         <div className="flex items-center space-x-6">
           <div className="flex flex-col">
-            <h1 className="text-xl font-semibold text-white">
+            <h1 className="text-xl font-semibold text-slate-900">
               Välkommen tillbaka, {getUserName()}!
             </h1>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-slate-600">
               {formatDate(currentTime)} • {formatTime(currentTime)}
             </p>
           </div>
 
           {/* Gamification Stats */}
           {gamificationStats && (
-            <div className="flex items-center space-x-4 pl-6 border-l border-gray-700">
+            <div className="flex items-center space-x-4 pl-6 border-l border-slate-200">
               {/* Compact Gamified Level Badge */}
               <Link href="/dashboard/rewards" className="relative group">
-                <div className="flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-purple-900/50 to-pink-900/50 rounded-xl border border-purple-600/30 hover:border-purple-500/50 transition-all duration-300">
+                <div className="flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-200/60 hover:border-pink-300 hover:shadow-lg transition-all duration-300">
                   {/* Level Icon */}
                   <div className="relative">
                     <div className="w-12 h-12 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
@@ -231,56 +231,56 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
                   {/* XP Info */}
                   <div className="flex flex-col">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-semibold text-white">Level {gamificationStats.stats.current_level}</span>
-                      <span className="text-xs text-purple-400">• {getXPProgress()}%</span>
+                      <span className="text-sm font-semibold text-slate-900">Level {gamificationStats.stats.current_level}</span>
+                      <span className="text-xs text-purple-600">• {getXPProgress()}%</span>
                     </div>
                     <div className="flex items-center gap-1">
-                      <Zap className="w-3 h-3 text-yellow-400" />
-                      <span className="text-xs text-gray-400">{gamificationStats.stats.total_xp.toLocaleString()} XP</span>
+                      <Zap className="w-3 h-3 text-yellow-500" />
+                      <span className="text-xs text-slate-600">{gamificationStats.stats.total_xp.toLocaleString()} XP</span>
                     </div>
                   </div>
 
                   {/* Progress Bar */}
                   <div className="w-24">
-                    <div className="h-1.5 bg-navy-700/50 rounded-full overflow-hidden mb-1">
+                    <div className="h-1.5 bg-slate-200 rounded-full overflow-hidden mb-1">
                       <div
-                        className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-500"
+                        className="h-full bg-gradient-to-r from-pink-600 to-purple-600 rounded-full transition-all duration-500"
                         style={{ width: `${getXPProgress()}%` }}
                       />
                     </div>
                     {/* Weekly Activity moved here */}
-                    <div className="text-[10px] text-cyan-400 text-center">
+                    <div className="text-[10px] text-purple-600 text-center font-medium">
                       +{gamificationStats.stats.weekly_xp} XP denna vecka
                     </div>
                   </div>
 
                   {/* Hover Arrow */}
-                  <ChevronRight className="w-4 h-4 text-purple-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <ChevronRight className="w-4 h-4 text-purple-600 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
                 </div>
               </Link>
 
               {/* Compact Next Milestone Preview */}
-              <div className="px-3 py-2 bg-navy-800/50 rounded-lg border border-navy-700/50">
+              <div className="px-3 py-2 bg-slate-50 rounded-xl border border-slate-200">
                 <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-yellow-400" />
+                  <Sparkles className="w-4 h-4 text-yellow-500" />
                   <div>
-                    <p className="text-xs text-gray-400">Nästa milstolpe</p>
-                    <p className="text-sm font-semibold text-white">Level {Math.ceil(gamificationStats.stats.current_level / 5) * 5 + 5}</p>
+                    <p className="text-xs text-slate-600">Nästa milstolpe</p>
+                    <p className="text-sm font-semibold text-slate-900">Level {Math.ceil(gamificationStats.stats.current_level / 5) * 5 + 5}</p>
                   </div>
                 </div>
               </div>
 
               {/* Compact Streak Display */}
               {gamificationStats.stats.daily_streak > 0 && (
-                <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-orange-900/30 to-red-900/30 rounded-lg border border-orange-600/30">
+                <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-orange-50 to-red-50 rounded-xl border border-orange-200">
                   <span className="text-lg">
                     {getStreakDisplay(gamificationStats.stats.daily_streak).emoji}
                   </span>
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-bold text-orange-400">
+                    <span className="text-sm font-bold text-orange-600">
                       {gamificationStats.stats.daily_streak}
                     </span>
-                    <span className="text-xs text-orange-400/70">dagars streak</span>
+                    <span className="text-xs text-orange-600/70">dagars streak</span>
                   </div>
                 </div>
               )}
@@ -294,20 +294,20 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
 
 
           {/* Enhanced User Info */}
-          <Link href="/dashboard/profil" className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-navy-800/50 transition-all duration-300 group">
+          <Link href="/dashboard/profil" className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-50 transition-all duration-300 group">
             <div className="relative">
               <div className="w-10 h-10 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
                 <span className="text-white font-bold text-sm">
                   {getUserName().charAt(0).toUpperCase()}
                 </span>
               </div>
-              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-navy-900" />
+              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-white">{getUserName()}</p>
-              <p className="text-xs text-gray-400">Klicka för att visa profil</p>
+              <p className="text-sm font-semibold text-slate-900">{getUserName()}</p>
+              <p className="text-xs text-slate-600">Klicka för att visa profil</p>
             </div>
-            <ChevronRight className="w-4 h-4 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity ml-auto" />
+            <ChevronRight className="w-4 h-4 text-slate-400 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all ml-auto" />
           </Link>
         </div>
       </div>

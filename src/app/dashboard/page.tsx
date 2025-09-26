@@ -13,9 +13,21 @@ import {
   Plus,
   Activity,
   Trophy,
-  Gift
+  Gift,
+  BarChart3,
+  Users,
+  Target
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import { motion } from 'framer-motion';
+
+// Import premium components
+import WelcomeHero from '@/components/dashboard/WelcomeHero';
+import StatsWidget from '@/components/dashboard/StatsWidget';
+import QuickActionCard from '@/components/dashboard/QuickActionCard';
+import ActivityFeed from '@/components/dashboard/ActivityFeed';
+import AIInsights from '@/components/dashboard/AIInsights';
+import LoadingSkeleton from '@/components/dashboard/LoadingSkeleton';
 
 interface DashboardStats {
   totalLetters: number;
@@ -42,7 +54,7 @@ export default function DashboardPage() {
       try {
         const supabase = getSupabaseClient();
         const { data: { user } } = await supabase.auth.getUser();
-        
+
         if (!user) return;
 
         // Hämta användarens brev
@@ -106,232 +118,208 @@ export default function DashboardPage() {
     fetchDashboardData();
   }, []);
 
-  const quickActions = [
-    {
+  // Smart Quick Actions based on user data
+  const getSmartQuickActions = () => {
+    const actions = [];
+
+    // Always show create letter as primary action
+    actions.push({
       title: 'Skapa Personligt Brev',
-      description: 'Skapa ett skräddarsytt brev med AI',
-      icon: <PenTool className="w-8 h-8" />,
+      description: stats.totalLetters === 0
+        ? 'Skapa ditt första AI-optimerade brev'
+        : 'Skapa ett nytt skräddarsytt brev med AI',
+      icon: PenTool,
       href: '/dashboard/skapa-brev',
-      color: 'bg-gradient-to-r from-pink-500 to-rose-500'
-    },
-    {
-      title: 'Analysera CV',
-      description: 'Få AI-feedback på ditt CV',
-      icon: <Brain className="w-8 h-8" />,
-      href: '/dashboard/cv-analys',
-      color: 'bg-gradient-to-r from-blue-500 to-cyan-500'
-    },
-    {
-      title: 'Mina Brev',
-      description: `${stats.totalLetters} sparade brev`,
-      icon: <FileText className="w-8 h-8" />,
-      href: '/dashboard/my-letters',
-      color: 'bg-gradient-to-r from-green-500 to-emerald-500'
-    },
-    {
+      color: 'pink' as const,
+      badge: stats.totalLetters === 0 ? 'Kom igång' : undefined,
+      progress: stats.totalLetters > 0 ? Math.min(100, (stats.totalLetters / 5) * 100) : undefined
+    });
+
+    // CV Analysis - priority if no letters yet or premium user
+    if (stats.totalLetters === 0 || stats.isPremium) {
+      actions.push({
+        title: 'Analysera CV',
+        description: stats.isPremium
+          ? 'Obegränsade AI-analyser av ditt CV'
+          : 'Få AI-feedback på ditt CV (begränsad)',
+        icon: Brain,
+        href: '/dashboard/cv-analys',
+        color: 'blue' as const,
+        premium: !stats.isPremium,
+        isPremiumUser: stats.isPremium
+      });
+    }
+
+    // My Letters - show if user has letters
+    if (stats.totalLetters > 0) {
+      actions.push({
+        title: 'Mina Brev',
+        description: `${stats.totalLetters} sparade brev`,
+        icon: FileText,
+        href: '/dashboard/my-letters',
+        color: 'green' as const,
+        progress: Math.min(100, (stats.totalLetters / 10) * 100)
+      });
+    }
+
+    // CV Templates - always available
+    actions.push({
       title: 'CV-Mallar',
       description: 'Utforska professionella mallar',
-      icon: <Palette className="w-8 h-8" />,
+      icon: Palette,
       href: '/dashboard/cv-mallar',
-      color: 'bg-gradient-to-r from-purple-500 to-indigo-500'
-    }
-  ];
+      color: 'purple' as const
+    });
+
+    return actions.slice(0, 4); // Max 4 actions
+  };
+
+  const quickActions = getSmartQuickActions();
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-64">
-        <div className="w-8 h-8 border-t-2 border-b-2 border-pink-500 rounded-full animate-spin"></div>
+      <div className="space-y-8">
+        <LoadingSkeleton variant="hero" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <LoadingSkeleton variant="stats" count={4} />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <LoadingSkeleton variant="card" count={4} />
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <LoadingSkeleton variant="list" />
+          <LoadingSkeleton variant="card" />
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-8">
-      {/* Dashboard Header med statistik */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-gray-400 text-sm">Skapade Brev</p>
-              <p className="text-3xl font-bold text-white">{stats.totalLetters}</p>
-            </div>
-            <div className="bg-pink-500/10 p-3 rounded-lg">
-              <PenTool className="w-6 h-6 text-pink-500" />
-            </div>
-          </div>
-        </div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen bg-gradient-to-br from-white via-slate-50/30 to-blue-50/10"
+    >
+      <div className="space-y-8">
+        {/* Welcome Hero Section */}
+        <WelcomeHero
+          currentLevel={stats.currentLevel}
+          levelTitle={stats.levelTitle}
+          totalLetters={stats.totalLetters}
+        />
 
-        {stats.subscriptionTier !== 'premium' && (
-          <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-400 text-sm">CV-Analyser</p>
-                <p className="text-3xl font-bold text-white">{stats.totalAnalyses}</p>
-              </div>
-              <div className="bg-blue-500/10 p-3 rounded-lg">
-                <Brain className="w-6 h-6 text-blue-500" />
-              </div>
-            </div>
-          </div>
-        )}
+        {/* Premium Stats Grid */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+        >
+          <StatsWidget
+            title="Skapade Brev"
+            value={stats.totalLetters}
+            subtitle={stats.totalLetters === 0 ? "Skapa ditt första brev" : "Brev i biblioteket"}
+            icon={PenTool}
+            color="pink"
+            trend={stats.totalLetters > 0 ? { value: 15, isPositive: true } : undefined}
+            onClick={() => window.location.href = '/dashboard/my-letters'}
+          />
 
-        <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-gray-400 text-sm">Prenumeration</p>
-              <p className="text-xl font-bold text-white capitalize">
-                {stats.subscriptionTier === 'premium' ? 'Premium' : 'Gratisversion'}
-              </p>
-            </div>
-            <div className="bg-green-500/10 p-3 rounded-lg">
-              <Star className="w-6 h-6 text-green-500" />
-            </div>
-          </div>
-        </div>
+          <StatsWidget
+            title="CV-Analyser"
+            value={stats.isPremium ? "Obegränsat" : stats.totalAnalyses}
+            subtitle={stats.isPremium ? "Premium användare" : "Återstående denna vecka"}
+            icon={Brain}
+            color="blue"
+            onClick={() => window.location.href = '/dashboard/cv-analys'}
+          />
 
-        {/* Ny Level & Rewards stats */}
-        <Link href="/dashboard/rewards" className="block group">
-          <div className="bg-gradient-to-r from-purple-900 to-pink-900 rounded-lg p-6 border border-purple-600 hover:border-purple-500 transition-all group-hover:scale-105">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-gray-300 text-sm">Din Level</p>
-                <p className="text-2xl font-bold text-white">
-                  Level {stats.currentLevel || 1}
-                </p>
-                <p className="text-xs text-purple-300 mt-1">
-                  {stats.levelTitle || 'Novis'}
-                </p>
-              </div>
-              <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 p-3 rounded-lg">
-                <Trophy className="w-6 h-6 text-yellow-400" />
-              </div>
-            </div>
-            {stats.availableRewards && stats.availableRewards > 0 && (
-              <div className="mt-3 pt-3 border-t border-purple-700">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-yellow-400 font-semibold animate-pulse">
-                    {stats.availableRewards} belöningar att hämta!
-                  </span>
-                  <Gift className="w-4 h-4 text-yellow-400 animate-bounce" />
-                </div>
-              </div>
-            )}
-          </div>
-        </Link>
-      </div>
+          <StatsWidget
+            title="Prenumeration"
+            value={stats.isPremium ? "Premium" : "Gratis"}
+            subtitle={stats.isPremium ? "Alla funktioner" : "Begränsade funktioner"}
+            icon={Star}
+            color={stats.isPremium ? "green" : "orange"}
+            onClick={() => !stats.isPremium && (window.location.href = '/pricing')}
+          />
 
-      {/* Snabbåtgärder */}
-      <div>
-        <h2 className="text-2xl font-semibold text-white mb-6">Snabbåtgärder</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {quickActions.map((action, index) => (
-            <Link
-              key={index}
-              href={action.href}
-              className="group block"
-            >
-              <div className="bg-navy-800 rounded-lg p-6 border border-gray-700 hover:border-gray-600 transition-all group-hover:scale-105">
-                <div className={`${action.color} rounded-lg p-4 mb-4 w-fit`}>
-                  <div className="text-white">
-                    {action.icon}
-                  </div>
-                </div>
-                <h3 className="text-lg font-semibold text-white mb-2">{action.title}</h3>
-                <p className="text-gray-400 text-sm mb-4">{action.description}</p>
-                <div className="flex items-center text-pink-500 text-sm font-medium">
-                  Använd verktyg
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
+          <Link href="/dashboard/rewards" className="block">
+            <StatsWidget
+              title={`Level ${stats.currentLevel || 1}`}
+              value={stats.levelTitle || 'Novis'}
+              subtitle={stats.availableRewards ? `${stats.availableRewards} belöningar väntar` : "Fortsätt samla XP"}
+              icon={Trophy}
+              color="purple"
+            />
+          </Link>
+        </motion.div>
 
-      {/* Senaste Aktivitet */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Senaste Brev */}
-        <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-white flex items-center">
-              <Clock className="w-5 h-5 mr-2 text-gray-400" />
-              Senaste Brev
-            </h3>
-            <Link 
-              href="/dashboard/my-letters"
-              className="text-pink-500 hover:text-pink-400 text-sm font-medium"
-            >
-              Visa alla
-            </Link>
+        {/* Smart Quick Actions */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+        >
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-slate-900">Smarta Åtgärder</h2>
+            <div className="text-sm text-slate-600">Anpassade för din progress</div>
           </div>
-          
-          {stats.recentLetters.length > 0 ? (
-            <div className="space-y-3">
-              {stats.recentLetters.map((letter, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-navy-900 rounded-lg">
-                  <div>
-                    <p className="text-white font-medium">{letter.company_name || 'Okänt företag'}</p>
-                    <p className="text-gray-400 text-sm">{letter.position || 'Okänd position'}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-gray-400 text-xs">
-                      {new Date(letter.created_at).toLocaleDateString('sv-SE')}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-8">
-              <FileText className="w-12 h-12 text-gray-600 mx-auto mb-4" />
-              <p className="text-gray-400">Inga brev skapade än</p>
-              <Link 
-                href="/dashboard/skapa-brev"
-                className="inline-flex items-center mt-4 px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition-colors"
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, staggerChildren: 0.1 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            {quickActions.map((action, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
               >
-                <Plus className="w-4 h-4 mr-2" />
-                Skapa ditt första brev
-              </Link>
-            </div>
-          )}
-        </div>
+                <QuickActionCard
+                  title={action.title}
+                  description={action.description}
+                  icon={action.icon}
+                  href={action.href}
+                  color={action.color}
+                  premium={action.premium}
+                  isPremiumUser={action.isPremiumUser}
+                  progress={action.progress}
+                  badge={action.badge}
+                  onClick={action.premium && !action.isPremiumUser
+                    ? () => window.location.href = '/pricing'
+                    : undefined
+                  }
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
 
-        {/* Tips & Råd */}
-        <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-          <div className="flex items-center mb-4">
-            <Activity className="w-5 h-5 mr-2 text-gray-400" />
-            <h3 className="text-lg font-semibold text-white">Tips & Råd</h3>
-          </div>
-          
-          <div className="space-y-4">
-            <div className="p-4 bg-gradient-to-r from-pink-500/10 to-rose-500/10 rounded-lg border border-pink-500/20">
-              <h4 className="text-white font-medium mb-2">💡 Förbättra ditt CV</h4>
-              <p className="text-gray-300 text-sm">
-                Använd våra AI-analyser för att optimera ditt CV för ATS-system och rekryterare.
-              </p>
-              <Link 
-                href="/dashboard/cv-analys"
-                className="text-pink-400 hover:text-pink-300 text-sm font-medium mt-2 inline-block"
-              >
-                Analysera nu →
-              </Link>
-            </div>
-            
-            <div className="p-4 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-lg border border-blue-500/20">
-              <h4 className="text-white font-medium mb-2">🎯 Personligt Brev</h4>
-              <p className="text-gray-300 text-sm">
-                Skapa skräddarsydda personliga brev som sticker ut från mängden.
-              </p>
-              <Link 
-                href="/dashboard/skapa-brev"
-                className="text-blue-400 hover:text-blue-300 text-sm font-medium mt-2 inline-block"
-              >
-                Kom igång →
-              </Link>
-            </div>
-          </div>
-        </div>
+        {/* Activity Feed & AI Insights */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+          className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+        >
+          <ActivityFeed
+            recentLetters={stats.recentLetters}
+            currentLevel={stats.currentLevel}
+            availableRewards={stats.availableRewards}
+          />
+
+          <AIInsights
+            totalLetters={stats.totalLetters}
+            subscriptionTier={stats.subscriptionTier}
+            currentLevel={stats.currentLevel}
+            isPremium={stats.isPremium}
+          />
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }

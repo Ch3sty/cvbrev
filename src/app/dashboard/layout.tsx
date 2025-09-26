@@ -45,10 +45,10 @@ export default function DashboardLayout({
   // Visa en laddningsskärm medan vi kontrollerar autentisering
   if (isLoading) {
     return (
-      <div className="flex h-screen items-center justify-center bg-navy-950 text-white">
+      <div className="flex h-screen items-center justify-center bg-gradient-to-br from-white via-slate-50 to-blue-50/30">
         <div className="flex flex-col items-center">
           <div className="w-12 h-12 border-t-2 border-b-2 border-pink-500 rounded-full animate-spin mb-4"></div>
-          <p>Laddar din dashboard...</p>
+          <p className="text-slate-700">Laddar din dashboard...</p>
         </div>
       </div>
     );
@@ -62,7 +62,7 @@ export default function DashboardLayout({
 
   // Om användaren är inloggad, visa dashboard-gränssnittet
   return (
-    <div className="flex h-screen bg-navy-950 text-white">
+    <div className="flex h-screen bg-gradient-to-br from-white via-slate-50/50 to-blue-50/20">
       {/* Achievement Notifications */}
       {user && <AchievementManager userId={user.id} />}
 
@@ -75,8 +75,10 @@ export default function DashboardLayout({
         <DashboardHeader user={user} />
 
         {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto p-4">
-          {children}
+        <main className="flex-1 overflow-y-auto p-6 bg-transparent">
+          <div className="max-w-7xl mx-auto">
+            {children}
+          </div>
         </main>
       </div>
     </div>
