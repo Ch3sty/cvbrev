@@ -13,6 +13,9 @@ import PremiumNavbar from '@/components/PremiumNavbar';
 import FloatingAIAssistant from '@/components/FloatingAIAssistant';
 import PremiumArticleSidebar from '@/components/artiklar/PremiumArticleSidebar';
 import { Heading } from '@/lib/extractHeadings';
+import AuthorBox from '@/components/artiklar/AuthorBox';
+import BreadcrumbNavigation from '@/components/artiklar/BreadcrumbNavigation';
+import { getAuthorForArticle } from '@/lib/authors';
 
 interface ArticleClientWrapperProps {
   children: React.ReactNode;
@@ -39,6 +42,9 @@ export default function ArticleClientWrapper({
   readingTime,
   headings
 }: ArticleClientWrapperProps) {
+  // Get author for this article
+  const author = getAuthorForArticle(slug, post.frontmatter.tags || [], post.frontmatter.title);
+
   // Reading progress state
   const [showBackToTop, setShowBackToTop] = useState(false);
   const { scrollYProgress } = useScroll();
@@ -125,6 +131,12 @@ export default function ArticleClientWrapper({
                 transition={{ duration: 0.6 }}
                 className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 lg:p-12"
               >
+                {/* Breadcrumb Navigation */}
+                <BreadcrumbNavigation
+                  articleTitle={post.frontmatter.title}
+                  articleSlug={slug}
+                />
+
                 {/* Article Header */}
                 <header className="mb-10">
                   <div className="flex flex-wrap items-center gap-2 mb-4">
@@ -150,13 +162,6 @@ export default function ArticleClientWrapper({
                         {format(parseISO(post.frontmatter.date), 'd MMMM yyyy', { locale: sv })}
                       </time>
                     </div>
-
-                    {post.frontmatter.author && (
-                      <div className="flex items-center gap-2">
-                        <User className="w-4 h-4 text-pink-600" />
-                        <span>{post.frontmatter.author}</span>
-                      </div>
-                    )}
 
                     <div className="flex items-center gap-2">
                       <Clock className="w-4 h-4 text-pink-600" />
@@ -190,6 +195,9 @@ export default function ArticleClientWrapper({
                     </div>
                   </div>
                 </header>
+
+                {/* Author Box - SEO optimized */}
+                <AuthorBox author={author} readingTime={readingTime} />
 
                 {/* Article Content */}
                 <div className="prose prose-lg prose-gray max-w-none

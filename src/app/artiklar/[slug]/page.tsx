@@ -19,6 +19,10 @@ import ArticleClientWrapper from '@/components/artiklar/ArticleClientWrapper';
 import BroadConversionBanner from '@/components/artiklar/BroadConversionBanner';
 import CVTemplateShowcase from '@/components/artiklar/CVTemplateShowcase';
 import ComprehensiveServiceCard from '@/components/artiklar/ComprehensiveServiceCard';
+import TrustSignals from '@/components/artiklar/TrustSignals';
+
+// Importera författarsystem
+import { getAuthorForArticle, generateAuthorSchema } from '@/lib/authors';
 
 // Korrekt typdefinition för props med Promise
 interface ArticlePageProps {
@@ -79,7 +83,7 @@ export async function generateStaticParams() {
 }
 
 // --- HJÄLPFUNKTIONER FÖR SCHEMA MARKUP ---
-function generateArticleSchema(post: Post, slug: string, headings: any[]): React.ReactNode | null {
+function generateEnhancedArticleSchema(post: Post, slug: string, headings: any[]): React.ReactNode | null {
     if (!post || !post.frontmatter || !post.frontmatter.title || !post.frontmatter.date || !slug) {
         console.warn("generateArticleSchema: Saknar nödvändig data (post, titel, datum eller slug).");
         return null;
@@ -87,13 +91,21 @@ function generateArticleSchema(post: Post, slug: string, headings: any[]): React
     const siteBaseUrl = "https://www.jobbcoach.ai";
     const publisherName = "jobbcoach.ai";
     const publisherLogoUrl = `${siteBaseUrl}/images/logo-cvbrev-600x60.png`;
-    const defaultAuthorName = "Teamet på jobbcoach.ai";
     const canonicalUrl = `${siteBaseUrl}/artiklar/${slug}`;
-    const publisher = { "@type": "Organization", "name": publisherName, "logo": { "@type": "ImageObject", "url": publisherLogoUrl } };
-    const authorName = post.frontmatter.author || defaultAuthorName;
-    const isOrganizationAuthor = !post.frontmatter.author || authorName === defaultAuthorName;
-    const author: { "@type": string; name: string; url?: string } = { "@type": isOrganizationAuthor ? "Organization" : "Person", "name": authorName };
-    if (isOrganizationAuthor) { author.url = siteBaseUrl; }
+
+    // Hämta författare från vårt nya system
+    const articleAuthor = getAuthorForArticle(slug, post.frontmatter.tags || [], post.frontmatter.title);
+    const authorSchema = generateAuthorSchema(articleAuthor, canonicalUrl);
+
+    const publisher = {
+        "@type": "Organization",
+        "name": publisherName,
+        "logo": { "@type": "ImageObject", "url": publisherLogoUrl },
+        "sameAs": [
+            "https://www.linkedin.com/company/jobbcoach-ai",
+            "https://twitter.com/jobbcoach_ai"
+        ]
+    };
     const imageUrl = post.frontmatter.image ? (post.frontmatter.image.startsWith('http') ? post.frontmatter.image : `${siteBaseUrl}${post.frontmatter.image}`) : undefined;
     try {
         const schema: Record<string, any> = {
@@ -101,9 +113,16 @@ function generateArticleSchema(post: Post, slug: string, headings: any[]): React
             "mainEntityOfPage": { "@type": "WebPage", "@id": canonicalUrl },
             "headline": post.frontmatter.title,
             "description": post.frontmatter.description || undefined,
-            "image": imageUrl ? { "@type": "ImageObject", "url": imageUrl } : undefined,
+            "image": imageUrl ? { "@type": "ImageObject", "url": imageUrl, "width": 1200, "height": 630 } : undefined,
             "datePublished": new Date(post.frontmatter.date).toISOString(),
-            "author": author, "publisher": publisher, "url": canonicalUrl
+            "dateModified": new Date().toISOString(),
+            "author": authorSchema,
+            "publisher": publisher,
+            "url": canonicalUrl,
+            "inLanguage": "sv-SE",
+            "articleSection": "Career Advice",
+            "wordCount": post.content.split(/\s+/).length,
+            "keywords": post.frontmatter.tags?.join(', ')
         };
 
         // Add Table of Contents structured data for SEO
@@ -277,7 +296,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     };
 
     // Generera båda schema-skripten med TOC-data för SEO
-    const articleSchemaScript = generateArticleSchema(post, slug, headings);
+    const articleSchemaScript = generateEnhancedArticleSchema(post, slug, headings);
     const faqSchemaScript = generateFaqSchema(articleFaqData);
 
     return (
@@ -290,6 +309,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 headings={headings}
             >
                 <MDXRemote source={contentWithBannerAndCV} components={components} />
+
+                {/* Trust Signals - SEO och användarförtroende */}
+                <TrustSignals />
 
                 {/* Comprehensive Service Card - Final CTA */}
                 <div className="mt-12">
