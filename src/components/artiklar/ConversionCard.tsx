@@ -61,7 +61,7 @@ const ConversionCard: React.FC<ConversionCardProps> = ({
       subtitle: 'Premium AI-karriärcoaching',
       description: 'Få obegränsad tillgång till alla premium-funktioner och avancerade AI-verktyg som tar din jobbsökning till nästa nivå.',
       ctaText: 'Uppgradera till Premium',
-      ctaLink: '/pricing',
+      ctaLink: '/priser',
       features: [
         '🚀 Obegränsade personliga brev',
         '📊 Avancerad CV-analys & optimering',

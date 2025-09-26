@@ -81,7 +81,7 @@ export default function AIInsights({
         title: 'Uppgradera till Premium',
         description: 'Få obegränsade CV-analyser, avancerade AI-funktioner och prioriterad support för bara 149 SEK/månad.',
         action: 'Uppgradera',
-        href: '/pricing',
+        href: '/priser',
         color: 'from-orange-500 to-red-500',
         priority: 'medium'
       });

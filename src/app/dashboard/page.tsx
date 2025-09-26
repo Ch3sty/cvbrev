@@ -199,7 +199,7 @@ export default function DashboardPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen bg-gradient-to-br from-white via-slate-50/30 to-blue-50/10"
+      className="space-y-8"
     >
       <div className="space-y-8">
         {/* Welcome Hero Section */}
@@ -241,7 +241,7 @@ export default function DashboardPage() {
             subtitle={stats.isPremium ? "Alla funktioner" : "Begränsade funktioner"}
             icon={Star}
             color={stats.isPremium ? "green" : "orange"}
-            onClick={() => !stats.isPremium && (window.location.href = '/pricing')}
+            onClick={() => !stats.isPremium && (window.location.href = '/priser')}
           />
 
           <Link href="/dashboard/rewards" className="block">
@@ -263,7 +263,9 @@ export default function DashboardPage() {
         >
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-slate-900">Smarta Åtgärder</h2>
-            <div className="text-sm text-slate-600">Anpassade för din progress</div>
+            <div className="text-sm font-medium text-slate-600 bg-slate-100/80 px-3 py-1 rounded-full">
+              Anpassade för din progress
+            </div>
           </div>
 
           <motion.div
@@ -290,7 +292,7 @@ export default function DashboardPage() {
                   progress={action.progress}
                   badge={action.badge}
                   onClick={action.premium && !action.isPremiumUser
-                    ? () => window.location.href = '/pricing'
+                    ? () => window.location.href = '/priser'
                     : undefined
                   }
                 />

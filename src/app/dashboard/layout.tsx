@@ -62,24 +62,26 @@ export default function DashboardLayout({
 
   // Om användaren är inloggad, visa dashboard-gränssnittet
   return (
-    <div className="flex h-screen bg-gradient-to-br from-white via-slate-50/50 to-blue-50/20">
-      {/* Achievement Notifications */}
-      {user && <AchievementManager userId={user.id} />}
+    <div className="min-h-screen bg-gradient-to-br from-white via-slate-50/30 to-blue-50/10">
+      <div className="flex h-screen">
+        {/* Achievement Notifications */}
+        {user && <AchievementManager userId={user.id} />}
 
-      {/* Dashboard Sidebar */}
-      <DashboardSidebar />
+        {/* Dashboard Sidebar */}
+        <DashboardSidebar />
 
-      {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Dashboard Header */}
-        <DashboardHeader user={user} />
+        {/* Main Content */}
+        <div className="flex-1 flex flex-col overflow-hidden">
+          {/* Dashboard Header */}
+          <DashboardHeader user={user} />
 
-        {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto p-6 bg-transparent">
-          <div className="max-w-7xl mx-auto">
-            {children}
-          </div>
-        </main>
+          {/* Main Content Area */}
+          <main className="flex-1 overflow-y-auto p-6">
+            <div className="max-w-7xl mx-auto">
+              {children}
+            </div>
+          </main>
+        </div>
       </div>
     </div>
   );
