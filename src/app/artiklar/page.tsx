@@ -67,8 +67,10 @@ export default async function ArticlesIndexPage({
       {/* Premium Navigation Bar */}
       <PremiumNavbar />
 
-      {/* Organic Traffic Conversion Banner */}
-      <OrganicTrafficBanner />
+      {/* Organic Traffic Conversion Banner - positioned below navbar */}
+      <div className="pt-16">
+        <OrganicTrafficBanner />
+      </div>
 
       <div className="container max-w-7xl px-4 py-16 mx-auto lg:py-20">
         <header className="mb-12 text-center md:mb-16">

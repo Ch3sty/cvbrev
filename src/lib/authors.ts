@@ -17,8 +17,8 @@ export const AUTHORS: Author[] = [
     name: 'Helena Andersson',
     image: '/images/jobbcoach/Helena.webp',
     title: 'Senior Karriärcoach',
-    bio: 'Certifierad karriärcoach med över 10 års erfarenhet inom rekrytering och vägledning. Har hjälpt hundratals kandidater att nå sina karriärmål genom strategisk CV-optimering och intervjuförberedelse.',
-    expertise: ['CV-optimering', 'Intervjuteknik', 'Karriärplanering', 'Arbetssökning'],
+    bio: 'Certifierad karriärcoach med mångårig erfarenhet från ledande rekryteringsföretag. Specialiserar sig på att vägleda kandidater genom komplexa karriärövergångar och strategisk positionering på arbetsmarknaden.',
+    expertise: ['Karriärstrategi', 'Meritdokumentation', 'Intervjumetodik', 'Professionell utveckling'],
     articleCount: 0
   },
   {
@@ -26,8 +26,8 @@ export const AUTHORS: Author[] = [
     name: 'Johan Lindberg',
     image: '/images/jobbcoach/Johan.webp',
     title: 'AI & HR-teknikspecialist',
-    bio: 'Teknisk expert inom HR-tech med bakgrund inom systemutveckling och rekrytering. Specialiserad på hur moderna AI-verktyg kan stärka din jobbsökning och göra dina ansökningar mer effektiva.',
-    expertise: ['AI-verktyg', 'Personliga brev', 'Digital jobbsökning', 'LinkedIn-optimering'],
+    bio: 'Teknologiexpert inom HR-automation med djup förståelse för ATS-system och digitala rekryteringsprocesser. Utvecklar strategier för hur kandidater navigerar dagens teknikdrivna rekryteringslandskap.',
+    expertise: ['HR-teknologi', 'Digitala ansökningsprocesser', 'ATS-optimering', 'LinkedIn-strategier'],
     articleCount: 0
   },
   {
@@ -35,8 +35,8 @@ export const AUTHORS: Author[] = [
     name: 'Linda Eriksson',
     image: '/images/jobbcoach/Linda.webp',
     title: 'Chefsrekryterare & Employer Branding Expert',
-    bio: 'Erfaren rekryterare med över 12 års erfarenhet från både startup-miljöer och etablerade företag. Expert på modern rekrytering, löneförhandling och hur du positionerar dig på arbetsmarknaden.',
-    expertise: ['Löneförhandling', 'Employer Branding', 'Tech-rekrytering', 'Företagskultur'],
+    bio: 'Senior rekryteringskonsult med omfattande erfarenhet från executive search och talangförvärv. Inriktad på kompetensbaserad rekrytering och strategisk employer branding inom den svenska marknaden.',
+    expertise: ['Executive Search', 'Kompetensbaserad rekrytering', 'Förhandlingsstrategier', 'Employer Branding'],
     articleCount: 0
   }
 ];
@@ -49,38 +49,41 @@ const AUTHOR_TOPIC_WEIGHTS: Record<string, Record<string, number>> = {
     'meritförteckning': 0.9,
     'intervju': 0.8,
     'arbetsintervju': 0.8,
-    'jobbintervju': 0.8,
-    'karriär': 0.7,
-    'karriärplanering': 0.7,
-    'arbetssök': 0.7,
-    'jobbsök': 0.7,
-    'ansökan': 0.6
+    'anställningsintervju': 0.8,
+    'karriär': 0.8,
+    'karriärstrategi': 0.9,
+    'karriärväxling': 0.8,
+    'karriärövergång': 0.8,
+    'ansökan': 0.7
   },
   johan: {
     'ai': 0.9,
     'artificiell intelligens': 0.9,
-    'personligt brev': 0.9,
-    'följebrev': 0.9,
-    'motivationsbrev': 0.8,
-    'digital': 0.7,
-    'linkedin': 0.8,
-    'profil': 0.6,
-    'online': 0.6,
-    'sociala medier': 0.7,
-    'nätverk': 0.6
+    'ats': 0.9,
+    'ats-system': 0.9,
+    'personligt brev': 0.8,
+    'följebrev': 0.8,
+    'automation': 0.8,
+    'digital': 0.8,
+    'linkedin': 0.9,
+    'profil': 0.7,
+    'online': 0.7,
+    'hr-tech': 0.9,
+    'hr-teknologi': 0.9
   },
   linda: {
     'lön': 0.9,
     'löneförhandling': 0.9,
-    'förhandling': 0.8,
+    'förhandling': 0.9,
     'employer branding': 0.9,
     'företagskultur': 0.8,
-    'tech': 0.7,
-    'it': 0.7,
-    'rekrytering': 0.8,
-    'arbetsgivare': 0.7,
-    'chef': 0.6,
-    'ledare': 0.6
+    'executive': 0.9,
+    'chef': 0.8,
+    'ledare': 0.8,
+    'rekrytering': 0.9,
+    'talang': 0.8,
+    'kompetens': 0.8,
+    'search': 0.8
   }
 };
 
