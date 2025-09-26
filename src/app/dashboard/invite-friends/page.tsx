@@ -184,8 +184,8 @@ export default function InviteFriendsPage() {
               {remainingInvitations !== null && (
                 <div className="mt-2 flex items-center gap-2">
                   <Badge
-                    variant={remainingInvitations > 0 ? "default" : "destructive"}
-                    className={remainingInvitations > 0 ? "bg-green-100 text-green-800" : ""}
+                    variant={remainingInvitations > 0 ? "success" : "warning"}
+                    className={remainingInvitations > 0 ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}
                   >
                     {remainingInvitations === 999 ? "Obegränsat" : `${remainingInvitations} kvar denna månad`}
                   </Badge>
