@@ -197,14 +197,76 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="relative">
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Premium Background with Morphing Gradients - same as landing page */}
+      <motion.div
+        className="fixed inset-0 pointer-events-none z-0"
+        style={{ opacity: 0.8 }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-white to-indigo-50/30" />
+
+        {/* Mouse-following gradient */}
+        <motion.div
+          className="absolute w-[600px] h-[600px] rounded-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%)',
+            filter: 'blur(40px)',
+          }}
+          animate={{
+            x: [100, 300, 100],
+            y: [100, 200, 100],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            repeatType: 'reverse',
+          }}
+        />
+
+        {/* Animated gradient orbs */}
+        <motion.div
+          className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-blue-400/15 to-purple-400/15 rounded-full mix-blend-multiply filter blur-3xl"
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -50, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            repeatType: 'reverse',
+          }}
+        />
+        <motion.div
+          className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-purple-400/15 to-pink-400/15 rounded-full mix-blend-multiply filter blur-3xl"
+          animate={{
+            x: [0, -100, 0],
+            y: [0, 50, 0],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            repeatType: 'reverse',
+          }}
+        />
+
+        {/* Pattern overlay */}
+        <div
+          className="absolute inset-0 opacity-30 pattern-overlay"
+          style={{
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%239C92AC\' fill-opacity=\'0.05\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")',
+            backgroundSize: '60px 60px',
+          }}
+        />
+      </motion.div>
+
       {/* Background floating particles */}
       <FloatingParticles
         count={12}
         colors={['bg-pink-400/10', 'bg-purple-400/10', 'bg-blue-400/10', 'bg-indigo-400/10']}
         size="lg"
         speed="slow"
-        className="fixed inset-0 pointer-events-none z-0"
+        className="fixed inset-0 pointer-events-none z-5"
       />
 
       {/* Live Activity Indicator */}
@@ -219,7 +281,7 @@ export default function DashboardPage() {
           type: "spring",
           stiffness: 100
         }}
-        className="space-y-8 bg-transparent relative z-10"
+        className="space-y-8 relative z-10"
       >
       <div className="space-y-8">
         {/* Welcome Hero Section */}
@@ -354,6 +416,35 @@ export default function DashboardPage() {
         </motion.div>
       </div>
     </motion.div>
+
+      {/* CSS Styles for pattern overlay and animations */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes float {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
+        }
+        @keyframes float-delayed {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-15px); }
+        }
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
+        }
+        .animate-float-delayed {
+          animation: float-delayed 6s ease-in-out infinite;
+          animation-delay: 2s;
+        }
+        .animate-fadeIn {
+          animation: fadeIn 0.5s ease-out;
+        }
+        .pattern-overlay {
+          background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+      `}} />
     </div>
   );
 }

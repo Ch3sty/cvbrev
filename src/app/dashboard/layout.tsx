@@ -75,10 +75,13 @@ export default function DashboardLayout({
           {/* Dashboard Header */}
           <DashboardHeader user={user} />
 
-          {/* Main Content Area */}
-          <main className="flex-1 overflow-y-auto p-6 bg-transparent">
-            <div className="max-w-7xl mx-auto">
-              {children}
+          {/* Main Content Area with premium glassmorphism */}
+          <main className="flex-1 overflow-y-auto p-6 relative">
+            <div className="max-w-7xl mx-auto relative">
+              {/* Main content container with glassmorphism */}
+              <div className="relative">
+                {children}
+              </div>
             </div>
           </main>
         </div>
