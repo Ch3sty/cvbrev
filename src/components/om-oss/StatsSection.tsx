@@ -83,10 +83,10 @@ function CountUp({ end, duration = 2.5, suffix = '', prefix = '' }: CountUpProps
   const [count, setCount] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
   const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const isInView = useInView(ref, { once: true, margin: "-50px" })
 
   useEffect(() => {
-    if (isInView && !isAnimating) {
+    if (isInView && !isAnimating && end > 0) {
       setIsAnimating(true)
       let startTime: number
       let animationFrameId: number
@@ -109,6 +109,7 @@ function CountUp({ end, duration = 2.5, suffix = '', prefix = '' }: CountUpProps
           animationFrameId = requestAnimationFrame(animate)
         } else {
           setCount(end)
+          setIsAnimating(false)
         }
       }
 

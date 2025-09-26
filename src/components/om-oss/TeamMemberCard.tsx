@@ -7,10 +7,7 @@ import {
   Star,
   Users,
   Award,
-  ChevronRight,
-  Linkedin,
-  Mail,
-  ExternalLink
+  ChevronRight
 } from 'lucide-react'
 
 interface TeamMember {
@@ -19,8 +16,6 @@ interface TeamMember {
   image: string
   bio: string
   expertise: string[]
-  linkedinUrl?: string
-  email?: string
 }
 
 interface TeamMemberCardProps {
@@ -100,36 +95,6 @@ export default function TeamMemberCard({ member, index }: TeamMemberCardProps) {
           Expert
         </div>
 
-        {/* Contact Links - Visible on Hover */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{
-            opacity: isHovered ? 1 : 0,
-            y: isHovered ? 0 : 10
-          }}
-          className="absolute top-4 right-4 flex gap-2"
-        >
-          {member.linkedinUrl && (
-            <a
-              href={member.linkedinUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-8 h-8 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center text-blue-600 hover:bg-white hover:scale-110 transition-all duration-200 shadow-lg"
-              aria-label={`${member.name}s LinkedIn profil`}
-            >
-              <Linkedin className="w-4 h-4" />
-            </a>
-          )}
-          {member.email && (
-            <a
-              href={`mailto:${member.email}`}
-              className="w-8 h-8 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center text-pink-600 hover:bg-white hover:scale-110 transition-all duration-200 shadow-lg"
-              aria-label={`Skicka e-post till ${member.name}`}
-            >
-              <Mail className="w-4 h-4" />
-            </a>
-          )}
-        </motion.div>
       </div>
 
       {/* Content Section */}
