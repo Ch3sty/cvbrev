@@ -81,14 +81,15 @@ interface CountUpProps {
 
 function CountUp({ end, duration = 2.5, suffix = '', prefix = '' }: CountUpProps) {
   const [count, setCount] = useState(0)
-  const [isAnimating, setIsAnimating] = useState(false)
+  const [hasAnimated, setHasAnimated] = useState(false)
   const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-50px" })
+  const isInView = useInView(ref, { once: true, margin: "0px" })
 
   useEffect(() => {
-    if (isInView && !isAnimating && end > 0) {
-      setIsAnimating(true)
-      let startTime: number
+    // Only animate once when coming into view
+    if (isInView && !hasAnimated && end > 0) {
+      setHasAnimated(true)
+      let startTime: number | undefined
       let animationFrameId: number
 
       const animate = (currentTime: number) => {
@@ -109,7 +110,6 @@ function CountUp({ end, duration = 2.5, suffix = '', prefix = '' }: CountUpProps
           animationFrameId = requestAnimationFrame(animate)
         } else {
           setCount(end)
-          setIsAnimating(false)
         }
       }
 
@@ -121,7 +121,7 @@ function CountUp({ end, duration = 2.5, suffix = '', prefix = '' }: CountUpProps
         }
       }
     }
-  }, [isInView, end, duration, isAnimating])
+  }, [isInView, end, duration, hasAnimated])
 
   const formatNumber = (num: number) => {
     if (num >= 1000) {

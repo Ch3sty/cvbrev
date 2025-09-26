@@ -20,6 +20,7 @@ import StatsSection from '@/components/om-oss/StatsSection'
 import VisionSection from '@/components/om-oss/VisionSection'
 import TeamMemberCard from '@/components/om-oss/TeamMemberCard'
 import PremiumNavbar from '@/components/PremiumNavbar'
+import PremiumFooter from '@/components/PremiumFooter'
 
 export default function OmOssPage() {
   const [session, setSession] = useState<any>(null)
@@ -105,18 +106,18 @@ export default function OmOssPage() {
         {/* === Hero Section === */}
         <section
           ref={heroRef}
-          className="relative pt-24 pb-16 text-center lg:pt-32 lg:pb-20 overflow-hidden bg-gradient-to-b from-white to-slate-50/50"
+          className="relative pt-24 pb-16 text-center lg:pt-32 lg:pb-20 overflow-hidden bg-gradient-to-b from-slate-50 to-white"
         >
           {/* Background Effects */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute -top-40 -right-40 w-80 h-80 bg-pink-500/10 rounded-full blur-3xl" />
-            <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl" />
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            <div className="absolute -top-40 -right-40 w-80 h-80 bg-pink-500/5 rounded-full blur-3xl" />
+            <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl" />
           </div>
 
           <div className="container relative px-4 mx-auto z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
-              animate={isHeroInView ? { opacity: 1, y: 0 } : {}}
+              animate={isHeroInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.6 }}
             >
               <div className="inline-flex items-center gap-2 bg-pink-50 text-pink-600 px-4 py-2 rounded-full text-sm font-semibold mb-6">
@@ -353,6 +354,9 @@ export default function OmOssPage() {
         </section>
 
       </div>
+
+      {/* Premium Footer */}
+      <PremiumFooter />
 
     </>
   )

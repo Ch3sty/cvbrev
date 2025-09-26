@@ -8,6 +8,7 @@ import './globals.css'
 // import type { Metadata } from 'next' // Metadata kan inte användas med 'use client'
 import { Inter } from 'next/font/google'
 import Navbar from '@/components/ui/navbar'
+import PremiumFooter from '@/components/PremiumFooter'
 import Link from 'next/link'
 import { Facebook, Instagram, Users, HelpCircle } from 'lucide-react'
 import Script from 'next/script'
@@ -183,76 +184,70 @@ export default function RootLayout({
               {children}
             </main>
 
-          {/* ================= FOOTER START (UPPDATERAD MED NY TEXT) ================= */}
+          {/* Footer - använd PremiumFooter på premium-sidor, annars den gamla mörka footern */}
           {!isDashboard && (
-          <footer className="bg-navy-950 border-t border-navy-700/50 mt-auto">
-             <div className="container px-4 py-12 mx-auto">
-               <div className="grid grid-cols-1 gap-10 text-center md:grid-cols-3 md:text-left">
+            usesPremiumNavbar ? <PremiumFooter /> : (
+              <footer className="bg-navy-950 border-t border-navy-700/50 mt-auto">
+                <div className="container px-4 py-12 mx-auto">
+                  <div className="grid grid-cols-1 gap-10 text-center md:grid-cols-3 md:text-left">
+                    {/* Kolumn 1: Om jobbcoach.ai */}
+                    <div>
+                      <Link href="/" className="inline-block mb-4">
+                        <span className="text-lg font-bold text-white hover:opacity-90 transition-opacity">
+                          Jobbcoach
+                        </span>
+                        <span className="text-lg font-bold text-white bg-gradient-to-r from-pink-600 to-purple-600 rounded-md px-1.5 py-0.5 ml-1 leading-tight hover:opacity-90 transition-opacity shadow-sm">
+                          .ai
+                        </span>
+                      </Link>
+                      <p className="text-sm text-gray-400">
+                        Din smarta karriärpartner för svenska arbetsmarknaden.
+                      </p>
+                    </div>
 
-                 {/* Kolumn 1: Om jobbcoach.ai */}
-                 <div>
-                   {/* Logotyp i footer */}
-                   <Link href="/" className="inline-block mb-4">
-                      <span className="text-lg font-bold text-white hover:opacity-90 transition-opacity">
-                        Jobbcoach
-                      </span>
-                      <span className="text-lg font-bold text-white bg-gradient-to-r from-pink-600 to-purple-600 rounded-md px-1.5 py-0.5 ml-1 leading-tight hover:opacity-90 transition-opacity shadow-sm">
-                        .ai
-                      </span>
-                   </Link>
-                   {/* === NY BESKRIVNINGSTEXT HÄR === */}
-                   <p className="text-sm text-gray-400">
-                     Ta kontroll över din jobbsökning med Jobbcoach.ai – din digitala jobbcoach. Vi kombinerar avancerad AI med insikter om rekrytering för att guida dig rätt. Skapa enastående ansökningshandlingar som fångar arbetsgivares intresse, få djupgående analyser av ditt CV och det strategiska stöd du behöver för att sticka ut och landa drömjobbet.
-                   </p>
-                   {/* === SLUT PÅ NY BESKRIVNINGSTEXT === */}
-                 </div>
+                    {/* Kolumn 2: Snabblänkar */}
+                    <div>
+                      <h3 className="mb-4 text-lg font-semibold text-white">Utforska</h3>
+                      <ul className="space-y-2">
+                        <li><Link href="/" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Hem</Link></li>
+                        <li><Link href="/funktioner" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Funktioner</Link></li>
+                        <li><Link href="/priser" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Priser</Link></li>
+                        <li><Link href="/om-oss" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Om Oss</Link></li>
+                        <li><Link href="/kontakt" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Kontakt</Link></li>
+                      </ul>
+                    </div>
 
-                 {/* Kolumn 2: Snabblänkar (inkl. Om Oss, Kontakt) */}
-                 <div>
-                   <h3 className="mb-4 text-lg font-semibold text-white">Utforska</h3>
-                   <ul className="space-y-2">
-                     <li><Link href="/" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Hem</Link></li>
-                     <li><Link href="/funktioner" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Funktioner</Link></li>
-                     <li><Link href="/priser" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Priser</Link></li>
-                     <li><Link href="/om-oss" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Om Oss</Link></li>
-                     <li><Link href="/kontakt" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Kontakt</Link></li>
-                     {/* <li><Link href="/artiklar" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Artiklar</Link></li> */}
-                   </ul>
-                 </div>
+                    {/* Kolumn 3: Sociala medier & Legal */}
+                    <div>
+                      <h3 className="mb-4 text-lg font-semibold text-white">Följ oss</h3>
+                      <div className="flex justify-center mb-6 space-x-4 md:justify-start">
+                        <a href="https://www.facebook.com/CVbrev/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-gray-400 transition-colors hover:text-pink-400"><Facebook size={24} /></a>
+                        <a href="https://www.instagram.com/jobbcoach.ai/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-gray-400 transition-colors hover:text-pink-400"><Instagram size={24} /></a>
+                      </div>
+                      <h3 className="mb-4 text-lg font-semibold text-white">Legal</h3>
+                      <ul className="space-y-2">
+                        <li><Link href="/integritetspolicy" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Integritetspolicy</Link></li>
+                        <li><Link href="/anvandarvillkor" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Användarvillkor</Link></li>
+                      </ul>
+                    </div>
+                  </div>
 
-                 {/* Kolumn 3: Sociala medier & Legal */}
-                 <div>
-                   {/* Sociala medier sektion */}
-                   <h3 className="mb-4 text-lg font-semibold text-white">Följ oss</h3>
-                   <div className="flex justify-center mb-6 space-x-4 md:justify-start">
-                     <a href="https://www.facebook.com/CVbrev/" target="_blank" rel="noopener noreferrer" aria-label="Jobbcoach.ai på Facebook" className="text-gray-400 transition-colors hover:text-pink-400"><Facebook size={24} /></a>
-                     <a href="https://www.instagram.com/jobbcoach.ai/" target="_blank" rel="noopener noreferrer" aria-label="Jobbcoach.ai på Instagram" className="text-gray-400 transition-colors hover:text-pink-400"><Instagram size={24} /></a>
-                   </div>
-                   {/* Legal sektion */}
-                    <h3 className="mb-4 text-lg font-semibold text-white">Legal</h3>
-                    <ul className="space-y-2">
-                     <li><Link href="/integritetspolicy" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Integritetspolicy</Link></li>
-                     <li><Link href="/anvandarvillkor" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Användarvillkor</Link></li>
-                    </ul>
-                 </div>
-               </div>
-
-               {/* Cookie Consent Management & Copyright */}
-               <div className="pt-8 mt-8 border-t border-navy-700/50 flex flex-col items-center space-y-4 md:flex-row md:justify-between md:space-y-0">
-                  <p className="text-sm text-gray-500 text-center md:text-left">
-                    © {new Date().getFullYear()} jobbcoach.ai. Alla rättigheter förbehållna.
-                  </p>
-                  <button
-                       onClick={resetConsent}
-                       className="text-xs text-gray-400 underline transition-colors hover:text-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-navy-950 rounded"
-                   >
-                       Hantera cookie-samtycke
-                   </button>
-               </div>
-             </div>
-          </footer>
+                  {/* Cookie Consent Management & Copyright */}
+                  <div className="pt-8 mt-8 border-t border-navy-700/50 flex flex-col items-center space-y-4 md:flex-row md:justify-between md:space-y-0">
+                    <p className="text-sm text-gray-500 text-center md:text-left">
+                      © {new Date().getFullYear()} jobbcoach.ai. Alla rättigheter förbehållna.
+                    </p>
+                    <button
+                      onClick={resetConsent}
+                      className="text-xs text-gray-400 underline transition-colors hover:text-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-navy-950 rounded"
+                    >
+                      Hantera cookie-samtycke
+                    </button>
+                  </div>
+                </div>
+              </footer>
+            )
           )}
-          {/* ================= FOOTER SLUT ================= */}
 
           {/* === COOKIE BANNER (Oförändrad) === */}
           <CookieConsent
