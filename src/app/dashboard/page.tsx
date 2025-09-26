@@ -44,6 +44,8 @@ interface DashboardStats {
   weeklyAnalysisCount?: number;
   remainingLetters?: number;
   remainingAnalyses?: number;
+  nextMonthlyReset?: Date;
+  nextWeeklyReset?: Date;
 }
 
 export default function DashboardPage() {
@@ -136,6 +138,24 @@ export default function DashboardPage() {
         const remainingLetters = isPremium ? -1 : Math.max(0, monthlyLetterLimit - monthlyLetterCount);
         const remainingAnalyses = isPremium ? -1 : Math.max(0, weeklyAnalysisLimit - weeklyAnalysisCount);
 
+        // Beräkna nästa återställningsdatum
+        const getNextMonthlyReset = () => {
+          const now = new Date();
+          return new Date(now.getFullYear(), now.getMonth() + 1, 1);
+        };
+
+        const getNextWeeklyReset = () => {
+          const now = new Date();
+          const daysUntilSunday = (7 - now.getDay()) % 7 || 7;
+          const nextSunday = new Date(now);
+          nextSunday.setDate(now.getDate() + daysUntilSunday);
+          nextSunday.setHours(0, 0, 0, 0);
+          return nextSunday;
+        };
+
+        const nextMonthlyReset = getNextMonthlyReset();
+        const nextWeeklyReset = getNextWeeklyReset();
+
         setStats({
           totalLetters: letters?.length || 0,
           totalAnalyses: profile?.weekly_analysis_count || 0,
@@ -152,7 +172,9 @@ export default function DashboardPage() {
           monthlyLetterCount,
           weeklyAnalysisCount,
           remainingLetters,
-          remainingAnalyses
+          remainingAnalyses,
+          nextMonthlyReset,
+          nextWeeklyReset
         });
       } catch (error) {
         console.error('Fel vid hämtning av dashboard-data:', error);
@@ -314,6 +336,14 @@ export default function DashboardPage() {
             isPremium={stats.isPremium}
             liveUpdate={true}
             pulseOnUpdate={true}
+            quotaInfo={!stats.isPremium ? {
+              used: stats.monthlyLetterCount || 0,
+              limit: 5,
+              resetDate: stats.nextMonthlyReset,
+              resetType: 'monthly',
+              showProgress: true,
+              showCountdown: true
+            } : undefined}
           />
 
           <StatsWidget
@@ -325,6 +355,14 @@ export default function DashboardPage() {
             onClick={() => window.location.href = '/dashboard/cv-analys'}
             isPremium={stats.isPremium}
             liveUpdate={stats.isPremium}
+            quotaInfo={!stats.isPremium ? {
+              used: stats.weeklyAnalysisCount || 0,
+              limit: 3,
+              resetDate: stats.nextWeeklyReset,
+              resetType: 'weekly',
+              showProgress: true,
+              showCountdown: true
+            } : undefined}
           />
 
           <StatsWidget

@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { LucideIcon } from 'lucide-react';
+import { LucideIcon, Clock, AlertTriangle, CheckCircle, Infinity } from 'lucide-react';
 import { PremiumCard } from './PremiumInteractions';
 import { useEffect, useState } from 'react';
 
@@ -18,6 +18,15 @@ interface StatsWidgetProps {
   isPremium?: boolean;
   liveUpdate?: boolean;
   pulseOnUpdate?: boolean;
+  // Nya kvot-specifika props
+  quotaInfo?: {
+    used: number;
+    limit: number;
+    resetDate?: Date;
+    resetType?: 'monthly' | 'weekly';
+    showProgress?: boolean;
+    showCountdown?: boolean;
+  };
 }
 
 const colorVariants = {
@@ -63,10 +72,33 @@ export default function StatsWidget({
   onClick,
   isPremium = false,
   liveUpdate = false,
-  pulseOnUpdate = false
+  pulseOnUpdate = false,
+  quotaInfo
 }: StatsWidgetProps) {
   const colors = colorVariants[color];
   const [isUpdating, setIsUpdating] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState<{ days: number; hours: number; minutes: number }>({
+    days: 0,
+    hours: 0,
+    minutes: 0
+  });
+
+  // Beräkna nästa återställningsdatum
+  const getNextResetDate = (): Date | null => {
+    if (quotaInfo?.resetDate) return quotaInfo.resetDate;
+    if (!quotaInfo?.resetType) return null;
+
+    const now = new Date();
+    if (quotaInfo.resetType === 'monthly') {
+      return new Date(now.getFullYear(), now.getMonth() + 1, 1);
+    } else {
+      const daysUntilSunday = (7 - now.getDay()) % 7 || 7;
+      const nextSunday = new Date(now);
+      nextSunday.setDate(now.getDate() + daysUntilSunday);
+      nextSunday.setHours(0, 0, 0, 0);
+      return nextSunday;
+    }
+  };
 
   useEffect(() => {
     if (liveUpdate && pulseOnUpdate) {
@@ -78,6 +110,64 @@ export default function StatsWidget({
       return () => clearInterval(interval);
     }
   }, [liveUpdate, pulseOnUpdate]);
+
+  // Countdown timer för kvot-återställning
+  useEffect(() => {
+    if (!quotaInfo?.showCountdown || isPremium) return;
+
+    const nextReset = getNextResetDate();
+    if (!nextReset) return;
+
+    const updateTimer = () => {
+      const now = new Date();
+      const diff = nextReset.getTime() - now.getTime();
+
+      if (diff <= 0) {
+        setTimeRemaining({ days: 0, hours: 0, minutes: 0 });
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+      setTimeRemaining({ days, hours, minutes });
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 60000); // Uppdatera varje minut
+
+    return () => clearInterval(interval);
+  }, [quotaInfo, isPremium]);
+
+  // Hjälpfunktioner för kvot-hantering
+  const getQuotaPercentage = () => {
+    if (!quotaInfo || isPremium) return 0;
+    return Math.min((quotaInfo.used / quotaInfo.limit) * 100, 100);
+  };
+
+  const getQuotaStatus = () => {
+    if (isPremium) return 'premium';
+    if (!quotaInfo) return 'normal';
+
+    const percentage = getQuotaPercentage();
+    if (percentage >= 100) return 'exhausted';
+    if (percentage >= 80) return 'warning';
+    return 'normal';
+  };
+
+  const formatTimeRemaining = () => {
+    if (timeRemaining.days > 0) {
+      return `${timeRemaining.days}d ${timeRemaining.hours}h`;
+    } else if (timeRemaining.hours > 0) {
+      return `${timeRemaining.hours}h ${timeRemaining.minutes}m`;
+    } else {
+      return `${timeRemaining.minutes}m`;
+    }
+  };
+
+  const quotaStatus = getQuotaStatus();
+  const quotaPercentage = getQuotaPercentage();
 
   return (
     <div className="relative">
@@ -112,10 +202,65 @@ export default function StatsWidget({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="text-slate-500 text-xs"
+              className={`text-xs ${
+                quotaStatus === 'exhausted' ? 'text-red-600 font-medium' :
+                quotaStatus === 'warning' ? 'text-orange-600 font-medium' :
+                'text-slate-500'
+              }`}
             >
               {subtitle}
             </motion.p>
+          )}
+
+          {/* Progress bar för kvot-visning */}
+          {quotaInfo?.showProgress && !isPremium && (
+            <motion.div
+              initial={{ opacity: 0, scaleX: 0 }}
+              animate={{ opacity: 1, scaleX: 1 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="mt-3"
+            >
+              <div className="flex items-center justify-between text-xs mb-1">
+                <span className="text-slate-600">
+                  {quotaInfo.used}/{quotaInfo.limit} använda
+                </span>
+                <span className={`font-medium ${
+                  quotaStatus === 'exhausted' ? 'text-red-600' :
+                  quotaStatus === 'warning' ? 'text-orange-600' :
+                  colors.icon
+                }`}>
+                  {Math.round(quotaPercentage)}%
+                </span>
+              </div>
+
+              <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${quotaPercentage}%` }}
+                  transition={{ delay: 0.6, duration: 1, ease: "easeOut" }}
+                  className={`h-full rounded-full transition-colors duration-300 ${
+                    quotaStatus === 'exhausted' ? 'bg-gradient-to-r from-red-500 to-red-600' :
+                    quotaStatus === 'warning' ? 'bg-gradient-to-r from-orange-500 to-orange-600' :
+                    `bg-gradient-to-r ${colors.gradient}`
+                  }`}
+                />
+              </div>
+            </motion.div>
+          )}
+
+          {/* Countdown timer */}
+          {quotaInfo?.showCountdown && !isPremium && (timeRemaining.days > 0 || timeRemaining.hours > 0 || timeRemaining.minutes > 0) && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+              className="mt-3 flex items-center gap-2 text-xs"
+            >
+              <Clock className="w-3 h-3 text-slate-500" />
+              <span className="text-slate-600">
+                Återställs om {formatTimeRemaining()}
+              </span>
+            </motion.div>
           )}
 
           {trend && (
@@ -147,9 +292,45 @@ export default function StatsWidget({
             ${colors.bg} p-3 rounded-xl border ${colors.border}
             shadow-lg hover:shadow-xl transition-all duration-300
             relative overflow-hidden group
+            ${quotaStatus === 'warning' ? 'ring-2 ring-orange-200' : ''}
+            ${quotaStatus === 'exhausted' ? 'ring-2 ring-red-200' : ''}
           `}
         >
-          <Icon className={`w-6 h-6 ${colors.icon} relative z-10 transition-transform duration-300 group-hover:scale-110`} />
+          <Icon className={`w-6 h-6 ${
+            quotaStatus === 'exhausted' ? 'text-red-600' :
+            quotaStatus === 'warning' ? 'text-orange-600' :
+            colors.icon
+          } relative z-10 transition-transform duration-300 group-hover:scale-110`} />
+
+          {/* Kvot-status indikator */}
+          {quotaInfo && !isPremium && quotaStatus !== 'normal' && (
+            <motion.div
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.8, duration: 0.3 }}
+              className={`absolute -top-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center ${
+                quotaStatus === 'exhausted' ? 'bg-red-500 text-white' : 'bg-orange-500 text-white'
+              }`}
+            >
+              {quotaStatus === 'exhausted' ? (
+                <AlertTriangle className="w-2.5 h-2.5" />
+              ) : (
+                <AlertTriangle className="w-2.5 h-2.5" />
+              )}
+            </motion.div>
+          )}
+
+          {/* Premium indikator */}
+          {isPremium && (
+            <motion.div
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.8, duration: 0.3 }}
+              className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 text-white rounded-full flex items-center justify-center"
+            >
+              <CheckCircle className="w-2.5 h-2.5" />
+            </motion.div>
+          )}
 
           {/* Glow effect on hover */}
           <motion.div
@@ -165,7 +346,7 @@ export default function StatsWidget({
             animate={{ x: ['0%', '200%'] }}
             transition={{
               duration: 2,
-              repeat: Infinity,
+              repeat: Number.POSITIVE_INFINITY,
               repeatDelay: 5,
               ease: "linear"
             }}
@@ -182,7 +363,7 @@ export default function StatsWidget({
           transition={{
             delay: 0.5,
             duration: isPremium ? 4 : 1,
-            repeat: isPremium ? Infinity : 0,
+            repeat: isPremium ? Number.POSITIVE_INFINITY : 0,
             ease: "easeInOut"
           }}
           className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} rounded-xl pointer-events-none`}
