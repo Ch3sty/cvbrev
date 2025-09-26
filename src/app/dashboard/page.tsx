@@ -40,6 +40,7 @@ interface DashboardStats {
   levelTitle?: string;
   availableRewards?: number;
   isPremium?: boolean;
+  monthlyLetters?: number; // Lägg till för premium dashboard
   // Uppdaterade kvot-fält
   dailyLetterCount?: number;
   weeklyAnalysisCount?: number;
@@ -75,7 +76,7 @@ export default function DashboardPage() {
           .eq('user_id', user.id)
           .order('created_at', { ascending: false });
 
-        // Räkna brev skapade denna månad (för gratis-användare)
+        // Räkna brev skapade denna månad (för premium dashboard)
         const now = new Date();
         const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
         const monthlyLetters = letters?.filter(letter =>
@@ -192,6 +193,7 @@ export default function DashboardPage() {
           levelTitle: rewardsData.levelTitle,
           availableRewards: rewardsData.availableRewards,
           isPremium,
+          monthlyLetters: monthlyLetters.length, // Lägg till för premium dashboard
           // Uppdaterade kvot-värden
           dailyLetterCount,
           weeklyAnalysisCount,
@@ -351,85 +353,147 @@ export default function DashboardPage() {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6"
         >
-          <StatsWidget
-            title={stats.isPremium ? "Skapade Brev" : "Brev idag"}
-            value={stats.isPremium ? stats.totalLetters : `${stats.dailyLetterCount}/2`}
-            subtitle={stats.isPremium ? "Obegränsade brev" : `${stats.remainingLetters} kvar idag`}
-            icon={PenTool}
-            color="pink"
-            trend={stats.isPremium ? { value: 15, isPositive: true } : undefined}
-            onClick={() => window.location.href = '/dashboard/my-letters'}
-            isPremium={stats.isPremium}
-            liveUpdate={true}
-            pulseOnUpdate={true}
-            quotaInfo={!stats.isPremium ? {
-              used: stats.dailyLetterCount || 0,
-              limit: 2,
-              resetDate: stats.nextDailyReset,
-              resetType: 'daily',
-              showProgress: true,
-              showCountdown: true
-            } : undefined}
-          />
+          {stats.isPremium ? (
+            // Premium användare - visa relevanta stats utan kvoter
+            <>
+              <StatsWidget
+                title="Totalt Skapade Brev"
+                value={stats.totalLetters}
+                subtitle="Sedan du började"
+                icon={PenTool}
+                color="pink"
+                trend={{ value: 15, isPositive: true }}
+                onClick={() => window.location.href = '/dashboard/my-letters'}
+                isPremium={true}
+                liveUpdate={true}
+                pulseOnUpdate={true}
+              />
 
-          <StatsWidget
-            title={stats.isPremium ? "CV-Analyser" : "Analyser denna vecka"}
-            value={stats.isPremium ? "Obegränsade" : `${stats.weeklyAnalysisCount}/1`}
-            subtitle={stats.isPremium ? "Alla funktioner tillgängliga" : `${stats.remainingAnalyses} kvar denna vecka`}
-            icon={Brain}
-            color="blue"
-            onClick={() => window.location.href = '/dashboard/cv-analys'}
-            isPremium={stats.isPremium}
-            liveUpdate={stats.isPremium}
-            quotaInfo={!stats.isPremium ? {
-              used: stats.weeklyAnalysisCount || 0,
-              limit: 1,
-              resetDate: stats.nextWeeklyReset,
-              resetType: 'weekly',
-              showProgress: true,
-              showCountdown: true
-            } : undefined}
-          />
+              <StatsWidget
+                title="Denna Månad"
+                value={stats.monthlyLetters || 0}
+                subtitle="Brev skapade"
+                icon={TrendingUp}
+                color="blue"
+                onClick={() => window.location.href = '/dashboard/my-letters'}
+                isPremium={true}
+                liveUpdate={true}
+              />
 
-          <StatsWidget
-            title={stats.isPremium ? "Kompetensutveckling" : "Kompetensutveckling denna vecka"}
-            value={stats.isPremium ? "Obegränsat" : `${stats.weeklyCompetenceCount}/1`}
-            subtitle={stats.isPremium ? "Alla funktioner tillgängliga" : `${stats.remainingCompetence} kvar denna vecka`}
-            icon={Target}
-            color="orange"
-            onClick={() => window.location.href = '/dashboard/kompetensutveckling'}
-            isPremium={stats.isPremium}
-            quotaInfo={!stats.isPremium ? {
-              used: stats.weeklyCompetenceCount || 0,
-              limit: 1,
-              resetDate: stats.nextWeeklyReset,
-              resetType: 'weekly',
-              showProgress: true,
-              showCountdown: true
-            } : undefined}
-          />
+              <StatsWidget
+                title="Favoritmall"
+                value="Modern"
+                subtitle="Mest använd"
+                icon={Palette}
+                color="purple"
+                onClick={() => window.location.href = '/dashboard/cv-mallar'}
+                isPremium={true}
+              />
 
-          <StatsWidget
-            title="Prenumeration"
-            value={stats.isPremium ? "Premium ✨" : "Gratis"}
-            subtitle={stats.isPremium ? "Obegränsad tillgång" : "Uppgradera för full åtkomst"}
-            icon={Star}
-            color={stats.isPremium ? "green" : "purple"}
-            onClick={() => !stats.isPremium && (window.location.href = '/priser')}
-            isPremium={stats.isPremium}
-          />
+              <StatsWidget
+                title="Premium Status ✨"
+                value="Aktiv"
+                subtitle="Obegränsad tillgång"
+                icon={Star}
+                color="green"
+                isPremium={true}
+              />
 
-          <Link href="/dashboard/rewards" className="block">
-            <StatsWidget
-              title={`Level ${stats.currentLevel || 1}`}
-              value={stats.levelTitle || 'Novis'}
-              subtitle={stats.availableRewards ? `${stats.availableRewards} belöningar väntar` : "Fortsätt samla XP"}
-              icon={Trophy}
-              color="purple"
-              isPremium={true}
-              liveUpdate={true}
-            />
-          </Link>
+              <Link href="/dashboard/rewards" className="block">
+                <StatsWidget
+                  title={`Level ${stats.currentLevel || 1}`}
+                  value={stats.levelTitle || 'Novis'}
+                  subtitle={stats.availableRewards ? `${stats.availableRewards} belöningar väntar` : "Fortsätt samla XP"}
+                  icon={Trophy}
+                  color="orange"
+                  isPremium={true}
+                  liveUpdate={true}
+                />
+              </Link>
+            </>
+          ) : (
+            // Gratis användare - visa kvoter som tidigare
+            <>
+              <StatsWidget
+                title="Brev idag"
+                value={`${stats.dailyLetterCount}/2`}
+                subtitle={`${stats.remainingLetters} kvar idag`}
+                icon={PenTool}
+                color="pink"
+                onClick={() => window.location.href = '/dashboard/my-letters'}
+                isPremium={false}
+                liveUpdate={true}
+                pulseOnUpdate={true}
+                quotaInfo={{
+                  used: stats.dailyLetterCount || 0,
+                  limit: 2,
+                  resetDate: stats.nextDailyReset,
+                  resetType: 'daily',
+                  showProgress: true,
+                  showCountdown: true
+                }}
+              />
+
+              <StatsWidget
+                title="Analyser denna vecka"
+                value={`${stats.weeklyAnalysisCount}/1`}
+                subtitle={`${stats.remainingAnalyses} kvar denna vecka`}
+                icon={Brain}
+                color="blue"
+                onClick={() => window.location.href = '/dashboard/cv-analys'}
+                isPremium={false}
+                liveUpdate={false}
+                quotaInfo={{
+                  used: stats.weeklyAnalysisCount || 0,
+                  limit: 1,
+                  resetDate: stats.nextWeeklyReset,
+                  resetType: 'weekly',
+                  showProgress: true,
+                  showCountdown: true
+                }}
+              />
+
+              <StatsWidget
+                title="Kompetensutveckling denna vecka"
+                value={`${stats.weeklyCompetenceCount}/1`}
+                subtitle={`${stats.remainingCompetence} kvar denna vecka`}
+                icon={Target}
+                color="orange"
+                onClick={() => window.location.href = '/dashboard/kompetensutveckling'}
+                isPremium={false}
+                quotaInfo={{
+                  used: stats.weeklyCompetenceCount || 0,
+                  limit: 1,
+                  resetDate: stats.nextWeeklyReset,
+                  resetType: 'weekly',
+                  showProgress: true,
+                  showCountdown: true
+                }}
+              />
+
+              <StatsWidget
+                title="Prenumeration"
+                value="Gratis"
+                subtitle="Uppgradera för full åtkomst"
+                icon={Star}
+                color="purple"
+                onClick={() => window.location.href = '/priser'}
+                isPremium={false}
+              />
+
+              <Link href="/dashboard/rewards" className="block">
+                <StatsWidget
+                  title={`Level ${stats.currentLevel || 1}`}
+                  value={stats.levelTitle || 'Novis'}
+                  subtitle={stats.availableRewards ? `${stats.availableRewards} belöningar väntar` : "Fortsätt samla XP"}
+                  icon={Trophy}
+                  color="purple"
+                  isPremium={true}
+                  liveUpdate={true}
+                />
+              </Link>
+            </>
+          )}
         </motion.div>
 
         {/* Smarta Åtgärder Sektion */}
