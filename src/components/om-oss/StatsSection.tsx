@@ -167,7 +167,7 @@ export default function StatsSection() {
       scale: 1,
       transition: {
         duration: 0.6,
-        ease: "easeOut"
+        ease: [0.25, 0.46, 0.45, 0.94] // easeOut cubic-bezier
       }
     }
   }
@@ -178,7 +178,7 @@ export default function StatsSection() {
       scale: 1.1,
       transition: {
         duration: 0.6,
-        ease: "easeInOut"
+        ease: [0.42, 0, 0.58, 1] // easeInOut cubic-bezier
       }
     }
   }
@@ -228,7 +228,7 @@ export default function StatsSection() {
               variants={itemVariants}
               whileHover={{
                 y: -5,
-                transition: { duration: 0.3, ease: "easeOut" }
+                transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }
               }}
               className="group relative bg-white rounded-2xl p-8 border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-500 hover:border-pink-200"
             >
