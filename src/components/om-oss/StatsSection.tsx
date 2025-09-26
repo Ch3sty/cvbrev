@@ -32,43 +32,43 @@ interface StatItem {
 const statsData: StatItem[] = [
   {
     id: 'users',
-    label: 'Nöjda användare',
-    value: 15420,
+    label: 'Aktiva användare',
+    value: 2500,
     suffix: '+',
     icon: Users,
     color: 'text-blue-600',
     gradient: 'from-blue-500 to-cyan-500',
-    description: 'Svenskar som fått sitt drömjobb'
+    description: 'Svenskar som använder vår tjänst'
   },
   {
     id: 'letters',
-    label: 'Personliga brev skapade',
-    value: 47380,
+    label: 'Brev skapade',
+    value: 10000,
     suffix: '+',
     icon: FileText,
     color: 'text-purple-600',
     gradient: 'from-purple-500 to-pink-500',
-    description: 'AI-genererade brev som imponerat'
+    description: 'AI-genererade personliga brev'
   },
   {
     id: 'success',
-    label: 'Framgångsgrad',
-    value: 87,
+    label: 'Nöjda användare',
+    value: 92,
     suffix: '%',
     icon: TrendingUp,
     color: 'text-green-600',
     gradient: 'from-green-500 to-teal-500',
-    description: 'Får svar på sina ansökningar'
+    description: 'Rekommenderar vår tjänst'
   },
   {
     id: 'rating',
     label: 'Användarrating',
-    value: 4.8,
+    value: 4.7,
     suffix: '/5',
     icon: Star,
     color: 'text-yellow-600',
     gradient: 'from-yellow-500 to-orange-500',
-    description: 'Baserat på 3,200+ recensioner'
+    description: 'Baserat på användarfeedback'
   }
 ]
 
@@ -287,19 +287,19 @@ export default function StatsSection() {
           <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-gray-600">
             <div className="flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-green-500" />
-              <span>Betrodd av 15,000+ användare</span>
+              <span>Betrodd av 2,500+ användare</span>
             </div>
             <div className="flex items-center gap-2">
               <Star className="w-5 h-5 text-yellow-500" />
-              <span>4.8/5 i betyg</span>
+              <span>4.7/5 i betyg</span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-5 h-5 text-blue-500" />
-              <span>Aktiv sedan 2020</span>
+              <span>Aktiv sedan 2023</span>
             </div>
             <div className="flex items-center gap-2">
               <Heart className="w-5 h-5 text-pink-500" />
-              <span>99% kundnöjdhet</span>
+              <span>92% kundnöjdhet</span>
             </div>
           </div>
         </motion.div>

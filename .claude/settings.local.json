@@ -150,7 +150,8 @@
       "WebFetch(domain:aircall.io)",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-article-redesign.html\")",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-seo-implementation.html\")",
-      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-om-oss.html\")"
+      "Bash(start \"C:\\Users\\chris\\cvbrev\\test-om-oss.html\")",
+      "Bash(git mv:*)"
     ],
     "deny": [],
     "ask": []
