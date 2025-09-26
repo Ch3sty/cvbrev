@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     if (!isAdmin) {
       const currentMonth = new Date().toISOString().slice(0, 7) + '-01'
 
-      let { data: monthlyAllowance } = await supabase
+      const { data: monthlyAllowance } = await supabase
         .from('monthly_guest_allowances')
         .select('*')
         .eq('user_id', user.id)
