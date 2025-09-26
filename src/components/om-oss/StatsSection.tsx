@@ -128,8 +128,7 @@ function CountUp({ end, duration = 2.5, suffix = '', prefix = '' }: CountUpProps
   return (
     <span ref={ref} className="font-bold">
       {prefix}
-      {end >= 1000 && count < 1000 ? count.toLocaleString('sv-SE') :
-       end >= 1000 ? formatNumber(count) : count.toLocaleString('sv-SE')}
+      {count}
       {suffix}
     </span>
   )
