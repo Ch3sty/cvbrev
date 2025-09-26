@@ -32,43 +32,43 @@ interface StatItem {
 const statsData: StatItem[] = [
   {
     id: 'users',
-    label: 'Aktiva användare',
-    value: 2500,
+    label: 'Jobbsökare',
+    value: 518,
     suffix: '+',
     icon: Users,
     color: 'text-blue-600',
     gradient: 'from-blue-500 to-cyan-500',
-    description: 'Svenskar som använder vår tjänst'
+    description: 'Aktiva användare av tjänsten'
   },
   {
     id: 'letters',
     label: 'Brev skapade',
-    value: 10000,
+    value: 1250,
     suffix: '+',
     icon: FileText,
     color: 'text-purple-600',
     gradient: 'from-purple-500 to-pink-500',
-    description: 'AI-genererade personliga brev'
+    description: 'Personliga brev med AI'
   },
   {
     id: 'success',
-    label: 'Nöjda användare',
-    value: 92,
+    label: 'Bättre svar',
+    value: 65,
     suffix: '%',
     icon: TrendingUp,
     color: 'text-green-600',
     gradient: 'from-green-500 to-teal-500',
-    description: 'Rekommenderar vår tjänst'
+    description: 'Får fler intervjuer'
   },
   {
     id: 'rating',
-    label: 'Användarrating',
-    value: 4.7,
-    suffix: '/5',
-    icon: Star,
+    label: 'Sparad tid',
+    value: 2,
+    suffix: ' min',
+    icon: Clock,
     color: 'text-yellow-600',
     gradient: 'from-yellow-500 to-orange-500',
-    description: 'Baserat på användarfeedback'
+    description: 'Per personligt brev'
   }
 ]
 
@@ -207,11 +207,11 @@ export default function StatsSection() {
             Våra resultat
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Siffror som talar för sig själva
+            Våra resultat hittills
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Tusentals svenskar har redan förvandlat sina karriärer med hjälp av Jobbcoach.ai.
-            Se varför vi är Sveriges mest betrodda AI-karriärcoach.
+            Vi hjälper svenska jobbsökare att spara tid och få bättre resultat.
+            Se vad vi uppnått sedan starten 2023.
           </p>
         </motion.div>
 
@@ -287,19 +287,19 @@ export default function StatsSection() {
           <div className="flex flex-wrap justify-center items-center gap-8 text-sm text-gray-600">
             <div className="flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-green-500" />
-              <span>Betrodd av 2,500+ användare</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Star className="w-5 h-5 text-yellow-500" />
-              <span>4.7/5 i betyg</span>
+              <span>518+ aktiva användare</span>
             </div>
             <div className="flex items-center gap-2">
               <Clock className="w-5 h-5 text-blue-500" />
-              <span>Aktiv sedan 2023</span>
+              <span>2 min per brev</span>
             </div>
             <div className="flex items-center gap-2">
               <Heart className="w-5 h-5 text-pink-500" />
-              <span>92% kundnöjdhet</span>
+              <span>Gratis att testa</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Star className="w-5 h-5 text-yellow-500" />
+              <span>Inget kreditkort krävs</span>
             </div>
           </div>
         </motion.div>
@@ -312,7 +312,7 @@ export default function StatsSection() {
           className="mt-12 text-center"
         >
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-            Bli en del av framgångssagan. Testa Jobbcoach.ai idag och se varför tusentals svenskar litar på oss för sina karriärer.
+            Bli en av våra växande antal användare. Testa Jobbcoach.ai helt gratis idag - inget kreditkort krävs.
           </p>
           <motion.button
             whileHover={{
