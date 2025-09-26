@@ -1,8 +1,9 @@
 'use client';
 import { motion } from 'framer-motion';
-import { LucideIcon, ArrowRight, Lock } from 'lucide-react';
+import { LucideIcon, ArrowRight, Lock, Sparkles } from 'lucide-react';
 import Link from 'next/link';
-import PremiumCard from './PremiumCard';
+import { PremiumCard as EnhancedCard } from './PremiumInteractions';
+import SparkleEffect, { useSparkleOnHover } from './SparkleEffect';
 
 interface QuickActionCardProps {
   title: string;
@@ -69,13 +70,28 @@ export default function QuickActionCard({
 }: QuickActionCardProps) {
   const colors = colorVariants[color];
   const isLocked = premium && !isPremiumUser;
+  const sparkleHover = useSparkleOnHover();
+  const isPremiumFeature = premium && isPremiumUser;
 
   const cardContent = (
-    <PremiumCard
-      className={`p-4 sm:p-6 group relative overflow-hidden ${isLocked ? 'opacity-75' : ''}`}
-      hover={!isLocked}
-      glow={!isLocked}
-    >
+    <div className="relative">
+      {isPremiumFeature && (
+        <SparkleEffect
+          trigger={sparkleHover.isTriggered}
+          density="medium"
+          colors={['#EC4899', '#8B5CF6', '#3B82F6']}
+        />
+      )}
+
+      <EnhancedCard
+        className={`p-4 sm:p-6 group relative overflow-hidden ${
+          isLocked ? 'opacity-75' : ''
+        }`}
+        clickable={!isLocked}
+        glowing={isPremiumFeature}
+        floating={isPremiumFeature}
+        {...(isPremiumFeature ? sparkleHover : {})}
+      >
       {/* Badge */}
       {badge && (
         <motion.div
@@ -176,14 +192,30 @@ export default function QuickActionCard({
         </motion.div>
       </div>
 
-      {/* Hover Gradient Overlay */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileHover={{ opacity: 0.05 }}
-        transition={{ duration: 0.3 }}
-        className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} pointer-events-none rounded-xl`}
-      />
-    </PremiumCard>
+        {/* Enhanced Hover Gradient Overlay */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileHover={{ opacity: isPremiumFeature ? 0.08 : 0.05 }}
+          transition={{ duration: 0.3 }}
+          className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} pointer-events-none rounded-xl`}
+        />
+
+        {/* Premium ambient glow */}
+        {isPremiumFeature && (
+          <motion.div
+            className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} opacity-5 rounded-xl pointer-events-none`}
+            animate={{
+              opacity: [0.05, 0.1, 0.05]
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        )}
+      </EnhancedCard>
+    </div>
   );
 
   if (isLocked || onClick) {

@@ -28,6 +28,8 @@ import QuickActionCard from '@/components/dashboard/QuickActionCard';
 import ActivityFeed from '@/components/dashboard/ActivityFeed';
 import AIInsights from '@/components/dashboard/AIInsights';
 import LoadingSkeleton from '@/components/dashboard/LoadingSkeleton';
+import LiveActivityIndicator from '@/components/dashboard/LiveActivityIndicator';
+import FloatingParticles from '@/components/dashboard/FloatingParticles';
 
 interface DashboardStats {
   totalLetters: number;
@@ -195,12 +197,30 @@ export default function DashboardPage() {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="space-y-8 bg-transparent"
-    >
+    <div className="relative">
+      {/* Background floating particles */}
+      <FloatingParticles
+        count={12}
+        colors={['bg-pink-400/10', 'bg-purple-400/10', 'bg-blue-400/10', 'bg-indigo-400/10']}
+        size="lg"
+        speed="slow"
+        className="fixed inset-0 pointer-events-none z-0"
+      />
+
+      {/* Live Activity Indicator */}
+      <LiveActivityIndicator className="fixed top-20 right-6 z-50" />
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.8,
+          ease: "easeOut",
+          type: "spring",
+          stiffness: 100
+        }}
+        className="space-y-8 bg-transparent relative z-10"
+      >
       <div className="space-y-8">
         {/* Welcome Hero Section */}
         <WelcomeHero
@@ -224,6 +244,9 @@ export default function DashboardPage() {
             color="pink"
             trend={stats.totalLetters > 0 ? { value: 15, isPositive: true } : undefined}
             onClick={() => window.location.href = '/dashboard/my-letters'}
+            isPremium={stats.isPremium}
+            liveUpdate={true}
+            pulseOnUpdate={true}
           />
 
           <StatsWidget
@@ -233,6 +256,8 @@ export default function DashboardPage() {
             icon={Brain}
             color="blue"
             onClick={() => window.location.href = '/dashboard/cv-analys'}
+            isPremium={stats.isPremium}
+            liveUpdate={stats.isPremium}
           />
 
           <StatsWidget
@@ -242,6 +267,7 @@ export default function DashboardPage() {
             icon={Star}
             color={stats.isPremium ? "green" : "orange"}
             onClick={() => !stats.isPremium && (window.location.href = '/priser')}
+            isPremium={stats.isPremium}
           />
 
           <Link href="/dashboard/rewards" className="block">
@@ -251,6 +277,8 @@ export default function DashboardPage() {
               subtitle={stats.availableRewards ? `${stats.availableRewards} belöningar väntar` : "Fortsätt samla XP"}
               icon={Trophy}
               color="purple"
+              isPremium={true}
+              liveUpdate={true}
             />
           </Link>
         </motion.div>
@@ -326,5 +354,6 @@ export default function DashboardPage() {
         </motion.div>
       </div>
     </motion.div>
+    </div>
   );
 }

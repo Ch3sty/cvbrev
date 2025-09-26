@@ -1,7 +1,8 @@
 'use client';
 import { motion } from 'framer-motion';
 import { LucideIcon } from 'lucide-react';
-import PremiumCard from './PremiumCard';
+import { PremiumCard } from './PremiumInteractions';
+import { useEffect, useState } from 'react';
 
 interface StatsWidgetProps {
   title: string;
@@ -14,6 +15,9 @@ interface StatsWidgetProps {
     isPositive: boolean;
   };
   onClick?: () => void;
+  isPremium?: boolean;
+  liveUpdate?: boolean;
+  pulseOnUpdate?: boolean;
 }
 
 const colorVariants = {
@@ -56,13 +60,34 @@ export default function StatsWidget({
   icon: Icon,
   color,
   trend,
-  onClick
+  onClick,
+  isPremium = false,
+  liveUpdate = false,
+  pulseOnUpdate = false
 }: StatsWidgetProps) {
   const colors = colorVariants[color];
+  const [isUpdating, setIsUpdating] = useState(false);
+
+  useEffect(() => {
+    if (liveUpdate && pulseOnUpdate) {
+      const interval = setInterval(() => {
+        setIsUpdating(true);
+        setTimeout(() => setIsUpdating(false), 600);
+      }, Math.random() * 10000 + 15000); // Random interval between 15-25 seconds
+
+      return () => clearInterval(interval);
+    }
+  }, [liveUpdate, pulseOnUpdate]);
 
   return (
-    <PremiumCard onClick={onClick} hover={!!onClick} className="p-4 sm:p-6">
-      <div className="flex items-start justify-between">
+    <div className="relative">
+      <PremiumCard
+        onClick={onClick}
+        clickable={!!onClick}
+        glowing={isPremium && liveUpdate}
+        className="p-4 sm:p-6 overflow-hidden"
+      >
+        <div className="flex items-start justify-between relative z-10">
         <div className="flex-1">
           <motion.p
             initial={{ opacity: 0 }}
@@ -119,13 +144,31 @@ export default function StatsWidget({
         </motion.div>
       </div>
 
-      {/* Subtle animated background gradient */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.05 }}
-        transition={{ delay: 0.5, duration: 1 }}
-        className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} rounded-xl pointer-events-none`}
-      />
-    </PremiumCard>
+        {/* Enhanced animated background gradient */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: isPremium ? [0.05, 0.1, 0.05] : 0.05
+          }}
+          transition={{
+            delay: 0.5,
+            duration: isPremium ? 4 : 1,
+            repeat: isPremium ? Infinity : 0,
+            ease: "easeInOut"
+          }}
+          className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} rounded-xl pointer-events-none`}
+        />
+
+        {/* Update pulse effect */}
+        {isUpdating && pulseOnUpdate && (
+          <motion.div
+            initial={{ scale: 0, opacity: 0.5 }}
+            animate={{ scale: 2, opacity: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="absolute inset-0 bg-blue-400/20 rounded-xl pointer-events-none"
+          />
+        )}
+      </PremiumCard>
+    </div>
   );
 }

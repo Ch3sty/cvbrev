@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import { Lightbulb, TrendingUp, Target, Sparkles, ArrowRight, Brain } from 'lucide-react';
 import Link from 'next/link';
-import PremiumCard from './PremiumCard';
+import { PremiumCard } from './PremiumInteractions';
 
 interface AIInsightsProps {
   totalLetters: number;

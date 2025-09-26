@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import { Clock, FileText, Brain, Trophy, Star, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
-import PremiumCard from './PremiumCard';
+import { PremiumCard as EnhancedCard } from './PremiumInteractions';
 
 interface ActivityItem {
   id: string;
@@ -126,7 +126,7 @@ export default function ActivityFeed({
   };
 
   return (
-    <PremiumCard className="p-4 sm:p-6">
+    <EnhancedCard className="p-4 sm:p-6" floating={true}>
       <div className="flex items-center justify-between mb-6">
         <motion.h3
           initial={{ opacity: 0, x: -20 }}
@@ -230,6 +230,6 @@ export default function ActivityFeed({
           </Link>
         </motion.div>
       )}
-    </PremiumCard>
+    </EnhancedCard>
   );
 }
