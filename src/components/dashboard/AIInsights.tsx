@@ -109,9 +109,9 @@ export default function AIInsights({
   const insights = getPersonalizedInsights();
 
   const todaysTip = {
-    title: 'Dagens AI-tips',
-    content: 'Använd nyckelord från jobbannonnsen i ditt personliga brev för att öka chanserna att passera ATS-system med upp till 40%.',
-    category: 'Optimering'
+    title: 'Dagens tips om ATS-optimering',
+    content: 'Använd nyckelord från jobbannonsen i ditt personliga brev för att öka chanserna att passera ATS-system med upp till 40%. Placera nyckelorden naturligt i texten och undvik överdrift.',
+    category: 'ATS'
   };
 
   return (
@@ -126,7 +126,7 @@ export default function AIInsights({
           <Lightbulb className="w-6 h-6 text-white" />
         </div>
         <div>
-          <h3 className="text-base sm:text-lg font-semibold text-slate-900">AI Insights & Tips</h3>
+          <h3 className="text-base sm:text-lg font-semibold text-slate-900">AI Insights</h3>
           <p className="text-slate-600 text-sm">Personaliserade råd för din karriär</p>
         </div>
       </motion.div>
@@ -139,15 +139,15 @@ export default function AIInsights({
           transition={{ delay: 0.2, duration: 0.5 }}
           className="relative"
         >
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-5 border border-blue-200/60">
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-5 border border-green-200/60">
             <div className="flex items-start gap-3">
-              <div className="bg-blue-600 rounded-lg p-2 flex-shrink-0">
-                <Sparkles className="w-4 h-4 text-white" />
+              <div className="bg-green-600 rounded-lg p-2 flex-shrink-0">
+                <Target className="w-4 h-4 text-white" />
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-2">
                   <h4 className="font-semibold text-slate-900 text-sm">{todaysTip.title}</h4>
-                  <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs font-medium">
+                  <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-medium">
                     {todaysTip.category}
                   </span>
                 </div>

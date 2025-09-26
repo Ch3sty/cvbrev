@@ -1,6 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
-import { Clock, Sparkles, TrendingUp, Star } from 'lucide-react';
+import { Clock, Sparkles, TrendingUp, Star, PenTool } from 'lucide-react';
+import Link from 'next/link';
 import FloatingParticles from './FloatingParticles';
 import SparkleEffect, { useSparkleOnHover } from './SparkleEffect';
 import PremiumInteractions from './PremiumInteractions';
@@ -28,248 +29,191 @@ export default function WelcomeHero({
     return 'God kväll';
   };
 
-  const getMotivationalMessage = () => {
-    if (totalLetters === 0) {
-      return "Låt oss skapa ditt första imponerande personliga brev tillsammans!";
-    }
-    if (totalLetters < 5) {
-      return "Du bygger en stark grund för din karriär. Fortsätt så här bra!";
-    }
-    return "Du har gjort fantastiska framsteg i din karriärutveckling!";
+  const getDateString = () => {
+    return new Date().toLocaleDateString('sv-SE', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long'
+    });
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{
-        duration: 0.8,
-        ease: "easeOut",
-        type: "spring",
-        stiffness: 100,
-        damping: 15
-      }}
-      className="relative bg-white/90 backdrop-blur-xl rounded-3xl border border-slate-200/40 shadow-2xl shadow-slate-900/5 overflow-hidden p-6 sm:p-8 lg:p-10 mb-8"
-    >
-      {/* Premium floating particles background */}
-      <FloatingParticles
-        count={6}
-        colors={['bg-pink-400/20', 'bg-purple-400/20', 'bg-blue-400/20']}
-        size="md"
-        speed="slow"
-        className="opacity-60"
-      />
-      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between">
-        {/* Välkomsthälsning */}
-        <div className="flex-1">
+    <div className="space-y-6">
+      {/* Date Header */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-slate-700 font-medium text-lg"
+      >
+        {getDateString()}
+      </motion.div>
+
+      {/* Main Greeting */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.1, duration: 0.6 }}
+        className="space-y-4"
+      >
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900">
+          <span className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent hover:from-pink-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-500">
+            {getTimeBasedGreeting()}!
+          </span>
+        </h1>
+
+        <p className="text-lg sm:text-xl text-slate-600 max-w-2xl">
+          Du har gjort fantastiska framsteg i din karriärutveckling!
+        </p>
+
+        {/* Level Badge */}
+        <SparkleEffect
+          trigger={sparkleHover.isTriggered}
+          density="medium"
+          colors={['#EC4899', '#8B5CF6', '#3B82F6']}
+        >
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="flex items-center gap-3 mb-3"
-          >
-            <div className="flex items-center gap-2 text-slate-600">
-              <Clock className="w-5 h-5" />
-              <span className="text-sm font-medium">
-                {new Date().toLocaleDateString('sv-SE', {
-                  weekday: 'long',
-                  day: 'numeric',
-                  month: 'long'
-                })}
-              </span>
-            </div>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            whileHover={{
-              scale: 1.02,
-              transition: { type: "spring", stiffness: 400, damping: 17 }
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+              delay: 0.3,
+              duration: 0.6,
+              type: "spring",
+              stiffness: 200
             }}
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-2 cursor-default group"
-          >
-            <span className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent group-hover:from-pink-600 group-hover:via-purple-600 group-hover:to-pink-600 transition-all duration-500">
-              {getTimeBasedGreeting()}{userName ? `, ${userName}` : ''}!
-            </span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="text-base sm:text-lg text-slate-600 mb-4"
-          >
-            {getMotivationalMessage()}
-          </motion.p>
-
-          {/* Enhanced Level Badge with Sparkle Effect */}
-          <SparkleEffect
-            trigger={sparkleHover.isTriggered}
-            density="medium"
-            colors={['#EC4899', '#8B5CF6', '#3B82F6']}
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg cursor-pointer"
+            {...sparkleHover}
+            whileHover={{
+              scale: 1.05,
+              boxShadow: "0 10px 30px rgba(236, 72, 153, 0.3)"
+            }}
+            whileTap={{ scale: 0.95 }}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{
-                delay: 0.5,
-                duration: 0.6,
-                type: "spring",
-                stiffness: 200
-              }}
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg cursor-pointer"
-              {...sparkleHover}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 10px 30px rgba(236, 72, 153, 0.3)"
-              }}
-              whileTap={{ scale: 0.95 }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
             >
+              <Sparkles className="w-4 h-4" />
+            </motion.div>
+            Level {currentLevel} - {levelTitle}
+            <motion.div
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.7, 1, 0.7]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <Star className="w-3 h-3 ml-1" />
+            </motion.div>
+          </motion.div>
+        </SparkleEffect>
+      </motion.div>
+
+      {/* Progress Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.6 }}
+        className="bg-white/90 backdrop-blur-xl rounded-2xl border border-slate-200/40 shadow-lg p-6"
+      >
+        <div className="flex items-center gap-3 mb-4">
+          <TrendingUp className="w-5 h-5 text-pink-600" />
+          <span className="font-semibold text-slate-900 text-lg">Din Progress</span>
+        </div>
+
+        <div className="grid grid-cols-2 gap-6 mb-6">
+          <div className="text-center">
+            <div className="text-3xl font-bold text-pink-600 mb-1">{totalLetters}</div>
+            <div className="text-sm text-slate-600">Skapade Brev</div>
+          </div>
+          <div className="text-center">
+            <div className="text-3xl font-bold text-purple-600 mb-1">{currentLevel}</div>
+            <div className="text-sm text-slate-600">Nuvarande Level</div>
+          </div>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="space-y-3">
+          <div className="bg-slate-200/60 backdrop-blur-sm rounded-full h-3 overflow-hidden relative border border-slate-200/40">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: `50%` }}
+              transition={{
+                delay: 0.8,
+                duration: 1.5,
+                ease: "easeOut",
+                type: "spring",
+                stiffness: 100
+              }}
+              className="bg-gradient-to-r from-pink-600 to-purple-600 h-full rounded-full relative overflow-hidden shadow-lg"
+            >
+              {/* Animated shimmer effect */}
               <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              >
-                <Sparkles className="w-4 h-4" />
-              </motion.div>
-              Level {currentLevel} - {levelTitle}
-              <motion.div
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.7, 1, 0.7]
-                }}
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                animate={{ x: ['-100%', '200%'] }}
                 transition={{
                   duration: 2,
                   repeat: Infinity,
-                  ease: "easeInOut"
+                  ease: "linear",
+                  delay: 1.5
                 }}
-              >
-                <Star className="w-3 h-3 ml-1" />
-              </motion.div>
+              />
             </motion.div>
-          </SparkleEffect>
-        </div>
-
-        {/* Enhanced Progress Visualization */}
-        <PremiumInteractions
-          variant="float"
-          className="mt-6 lg:mt-0 lg:ml-8"
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, x: 50 }}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            transition={{
-              delay: 0.6,
-              duration: 0.7,
-              type: "spring",
-              stiffness: 150
-            }}
-          >
-          <div className="bg-white/80 backdrop-blur-md rounded-xl p-4 sm:p-6 border border-slate-200/60 shadow-md">
-            <div className="flex items-center gap-3 mb-3">
-              <TrendingUp className="w-5 h-5 text-pink-600" />
-              <span className="font-semibold text-slate-900">Din Progress</span>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4 text-center">
-              <div>
-                <div className="text-2xl font-bold text-pink-600">{totalLetters}</div>
-                <div className="text-xs text-slate-600">Skapade Brev</div>
-              </div>
-              <div>
-                <div className="text-2xl font-bold text-purple-600">{currentLevel}</div>
-                <div className="text-xs text-slate-600">Nuvarande Level</div>
-              </div>
-            </div>
-
-            {/* Enhanced Progress Bar with Glow Effect */}
-            <div className="mt-4">
-              <div className="bg-slate-200/60 backdrop-blur-sm rounded-full h-3 overflow-hidden relative border border-slate-200/40">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${Math.min(100, (totalLetters / 10) * 100)}%` }}
-                  transition={{
-                    delay: 1,
-                    duration: 1.5,
-                    ease: "easeOut",
-                    type: "spring",
-                    stiffness: 100
-                  }}
-                  className="bg-gradient-to-r from-pink-600 to-purple-600 h-full rounded-full relative overflow-hidden shadow-lg"
-                >
-                  {/* Animated shimmer effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-                    animate={{ x: ['-100%', '200%'] }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "linear",
-                      delay: 1.5
-                    }}
-                  />
-
-                  {/* Pulsing inner glow */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-pink-400/30 to-purple-400/30"
-                    animate={{
-                      opacity: [0.3, 0.7, 0.3]
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  />
-                </motion.div>
-
-                {/* Outer glow effect */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 0.8 }}
-                  transition={{ delay: 1.2, duration: 0.5 }}
-                  className="absolute inset-0 bg-gradient-to-r from-pink-600/15 to-purple-600/15 rounded-full blur-sm"
-                  style={{ transform: 'scale(1.2)' }}
-                />
-
-                {/* Sparkle effect at progress end */}
-                {totalLetters > 0 && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 2.5, duration: 0.5 }}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1"
-                  >
-                    <motion.div
-                      animate={{
-                        rotate: 360,
-                        scale: [1, 1.2, 1]
-                      }}
-                      transition={{
-                        rotate: { duration: 10, repeat: Infinity, ease: "linear" },
-                        scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-                      }}
-                      className="w-4 h-4 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg"
-                    >
-                      <Sparkles className="w-2 h-2 text-white" />
-                    </motion.div>
-                  </motion.div>
-                )}
-              </div>
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.3, duration: 0.5 }}
-                className="text-xs text-slate-500 mt-2 text-center font-medium"
-              >
-                {Math.min(100, Math.round((totalLetters / 10) * 100))}% till nästa level
-              </motion.div>
-            </div>
           </div>
-          </motion.div>
-        </PremiumInteractions>
-      </div>
-    </motion.div>
+          <div className="text-sm text-slate-600 text-center font-medium">
+            50% till nästa level
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Premium CTA Button - Replacing FAB */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 0.6 }}
+      >
+        <Link href="/dashboard/skapa-brev">
+          <motion.button
+            whileHover={{
+              scale: 1.02,
+              boxShadow: "0 10px 40px rgba(236, 72, 153, 0.3)"
+            }}
+            whileTap={{ scale: 0.98 }}
+            className="w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-xl px-8 py-4 text-lg font-semibold shadow-2xl hover:shadow-pink-500/30 transition-all duration-300 relative overflow-hidden group"
+          >
+            <div className="flex items-center justify-center gap-3 relative z-10">
+              <PenTool className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
+              <span>Skapa Personligt Brev</span>
+            </div>
+
+            {/* Ripple effect */}
+            <motion.div
+              className="absolute inset-0 bg-white/10 rounded-xl"
+              initial={{ scale: 0, opacity: 0 }}
+              whileHover={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.3 }}
+            />
+
+            {/* Pulsing glow */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 rounded-xl opacity-50 blur-lg"
+              animate={{
+                scale: [1, 1.05, 1],
+                opacity: [0.5, 0.3, 0.5]
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+          </motion.button>
+        </Link>
+      </motion.div>
+    </div>
   );
 }

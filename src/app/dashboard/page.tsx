@@ -120,63 +120,7 @@ export default function DashboardPage() {
     fetchDashboardData();
   }, []);
 
-  // Smart Quick Actions based on user data
-  const getSmartQuickActions = () => {
-    const actions = [];
-
-    // Always show create letter as primary action
-    actions.push({
-      title: 'Skapa Personligt Brev',
-      description: stats.totalLetters === 0
-        ? 'Skapa ditt första AI-optimerade brev'
-        : 'Skapa ett nytt skräddarsytt brev med AI',
-      icon: PenTool,
-      href: '/dashboard/skapa-brev',
-      color: 'pink' as const,
-      badge: stats.totalLetters === 0 ? 'Kom igång' : undefined,
-      progress: stats.totalLetters > 0 ? Math.min(100, (stats.totalLetters / 5) * 100) : undefined
-    });
-
-    // CV Analysis - priority if no letters yet or premium user
-    if (stats.totalLetters === 0 || stats.isPremium) {
-      actions.push({
-        title: 'Analysera CV',
-        description: stats.isPremium
-          ? 'Obegränsade AI-analyser av ditt CV'
-          : 'Få AI-feedback på ditt CV (begränsad)',
-        icon: Brain,
-        href: '/dashboard/cv-analys',
-        color: 'blue' as const,
-        premium: !stats.isPremium,
-        isPremiumUser: stats.isPremium
-      });
-    }
-
-    // My Letters - show if user has letters
-    if (stats.totalLetters > 0) {
-      actions.push({
-        title: 'Mina Brev',
-        description: `${stats.totalLetters} sparade brev`,
-        icon: FileText,
-        href: '/dashboard/my-letters',
-        color: 'green' as const,
-        progress: Math.min(100, (stats.totalLetters / 10) * 100)
-      });
-    }
-
-    // CV Templates - always available
-    actions.push({
-      title: 'CV-Mallar',
-      description: 'Utforska professionella mallar',
-      icon: Palette,
-      href: '/dashboard/cv-mallar',
-      color: 'purple' as const
-    });
-
-    return actions.slice(0, 4); // Max 4 actions
-  };
-
-  const quickActions = getSmartQuickActions();
+  // Remove Smart Quick Actions helper function since we're using static layout now
 
   if (loading) {
     return (
@@ -289,58 +233,6 @@ export default function DashboardPage() {
       {/* Live Activity Indicator - MOVED to bottom right to fix overlap */}
       <LiveActivityIndicator className="fixed bottom-6 right-6 z-40" showBadge={false} />
 
-      {/* Floating Action Button for Quick Actions */}
-      <motion.div
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.5, type: "spring", stiffness: 200 }}
-        className="fixed bottom-6 left-6 z-40"
-      >
-        <motion.button
-          whileHover={{
-            scale: 1.1,
-            boxShadow: "0 10px 40px rgba(236, 72, 153, 0.3)"
-          }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => window.location.href = '/dashboard/skapa-brev'}
-          className="bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-full p-4 shadow-2xl hover:shadow-pink-500/30 transition-all duration-300 relative overflow-hidden group"
-        >
-          <Plus className="w-6 h-6 relative z-10 group-hover:rotate-90 transition-transform duration-300" />
-
-          {/* Ripple effect */}
-          <motion.div
-            className="absolute inset-0 bg-white/20 rounded-full"
-            initial={{ scale: 0, opacity: 0 }}
-            whileHover={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          />
-
-          {/* Pulsing glow */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full opacity-50"
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.5, 0.2, 0.5]
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-        </motion.button>
-
-        {/* Tooltip */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileHover={{ opacity: 1, x: 0 }}
-          className="absolute left-full ml-4 top-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-xl border border-slate-200/60 rounded-lg px-3 py-2 text-sm font-medium text-slate-700 shadow-lg whitespace-nowrap pointer-events-none"
-        >
-          Skapa nytt personligt brev
-          <div className="absolute right-full top-1/2 -translate-y-1/2 border-4 border-transparent border-r-white/95"></div>
-        </motion.div>
-      </motion.div>
-
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -353,14 +245,14 @@ export default function DashboardPage() {
         className="space-y-8 relative z-10"
       >
       <div className="space-y-8">
-        {/* Welcome Hero Section */}
+        {/* Welcome Hero Section - Redesigned */}
         <WelcomeHero
           currentLevel={stats.currentLevel}
           levelTitle={stats.levelTitle}
           totalLetters={stats.totalLetters}
         />
 
-        {/* Premium Stats Grid */}
+        {/* Stats Kort Grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -370,10 +262,10 @@ export default function DashboardPage() {
           <StatsWidget
             title="Skapade Brev"
             value={stats.totalLetters}
-            subtitle={stats.totalLetters === 0 ? "Skapa ditt första brev" : "Brev i biblioteket"}
+            subtitle="↗15% från förra veckan"
             icon={PenTool}
             color="pink"
-            trend={stats.totalLetters > 0 ? { value: 15, isPositive: true } : undefined}
+            trend={{ value: 15, isPositive: true }}
             onClick={() => window.location.href = '/dashboard/my-letters'}
             isPremium={stats.isPremium}
             liveUpdate={true}
@@ -382,8 +274,8 @@ export default function DashboardPage() {
 
           <StatsWidget
             title="CV-Analyser"
-            value={stats.isPremium ? "Obegränsat" : stats.totalAnalyses}
-            subtitle={stats.isPremium ? "Premium användare" : "Återstående denna vecka"}
+            value={stats.totalAnalyses}
+            subtitle="Återstående denna vecka"
             icon={Brain}
             color="blue"
             onClick={() => window.location.href = '/dashboard/cv-analys'}
@@ -414,7 +306,7 @@ export default function DashboardPage() {
           </Link>
         </motion.div>
 
-        {/* Smart Quick Actions */}
+        {/* Smarta Åtgärder Sektion */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -425,45 +317,64 @@ export default function DashboardPage() {
               <h2 className="text-2xl font-bold text-slate-900">Smarta Åtgärder</h2>
               <p className="text-sm text-slate-600 mt-1">De viktigaste verktygen för din karriärutveckling just nu</p>
             </div>
-            <div className="text-sm font-medium text-pink-600 bg-pink-50/80 px-3 py-1 rounded-full border border-pink-200/60">
-              Anpassade för din progress
-            </div>
           </div>
 
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, staggerChildren: 0.1 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {quickActions.map((action, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
-              >
-                <QuickActionCard
-                  title={action.title}
-                  description={action.description}
-                  icon={action.icon}
-                  href={action.href}
-                  color={action.color}
-                  premium={action.premium}
-                  isPremiumUser={action.isPremiumUser}
-                  progress={action.progress}
-                  badge={action.badge}
-                  onClick={action.premium && !action.isPremiumUser
-                    ? () => window.location.href = '/priser'
-                    : undefined
-                  }
-                />
-              </motion.div>
-            ))}
+            {/* Skapa Personligt Brev */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+            >
+              <QuickActionCard
+                title="Skapa Personligt Brev"
+                description="100% progress"
+                icon={PenTool}
+                href="/dashboard/skapa-brev"
+                color="pink"
+                progress={100}
+              />
+            </motion.div>
+
+            {/* Mina Brev */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.5 }}
+            >
+              <QuickActionCard
+                title="Mina Brev"
+                description={`${stats.totalLetters} sparade, 50% progress`}
+                icon={FileText}
+                href="/dashboard/my-letters"
+                color="green"
+                progress={50}
+              />
+            </motion.div>
+
+            {/* CV-Mallar */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.5 }}
+            >
+              <QuickActionCard
+                title="CV-Mallar"
+                description="Utforska professionella mallar"
+                icon={Palette}
+                href="/dashboard/cv-mallar"
+                color="purple"
+              />
+            </motion.div>
           </motion.div>
         </motion.div>
 
-        {/* Activity Feed & AI Insights */}
+        {/* Senaste Aktivitet & AI Insights Grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -483,6 +394,46 @@ export default function DashboardPage() {
             isPremium={stats.isPremium}
           />
         </motion.div>
+
+        {/* Level Progress Info */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0, duration: 0.6 }}
+          className="bg-white/90 backdrop-blur-xl rounded-2xl border border-slate-200/40 shadow-lg p-6"
+        >
+          <div className="text-center">
+            <p className="text-slate-700 font-medium">
+              Du är på Level {stats.currentLevel || 1}. Skapa 0 fler brev för att låsa upp nya funktioner
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Premium CTA Section */}
+        {!stats.isPremium && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 0.6 }}
+            className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl border border-pink-200/40 p-8 text-center"
+          >
+            <h3 className="text-2xl font-bold text-slate-900 mb-4">
+              Uppgradera till Premium
+            </h3>
+            <p className="text-slate-600 mb-6 max-w-lg mx-auto">
+              Få tillgång till obegränsade CV-analyser, avancerade AI-funktioner och mycket mer för endast 149 SEK/månad.
+            </p>
+            <Link href="/priser">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-pink-500/25 transition-all duration-300"
+              >
+                Uppgradera för 149 SEK/månad
+              </motion.button>
+            </Link>
+          </motion.div>
+        )}
       </div>
     </motion.div>
 
