@@ -81,55 +81,42 @@ interface CountUpProps {
 
 function CountUp({ end, duration = 2.5, suffix = '', prefix = '' }: CountUpProps) {
   const [count, setCount] = useState(0)
-  const [hasAnimated, setHasAnimated] = useState(false)
   const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true, amount: 0.3 })
+  const isInView = useInView(ref, { once: true })
 
   useEffect(() => {
-    // Start animation immediately when in view
-    if (isInView && !hasAnimated) {
-      setHasAnimated(true)
+    if (!isInView) return
 
-      // Ensure end value is valid
-      const targetValue = end || 0
+    let startTimestamp: number | null = null
+    let animationFrame: number
 
-      let startTime: number | undefined
-      let animationFrameId: number
-
-      const animate = (currentTime: number) => {
-        if (startTime === undefined) {
-          startTime = currentTime
-        }
-
-        const elapsed = currentTime - startTime
-        const progress = Math.min(elapsed / (duration * 1000), 1)
-
-        // Easing function for smooth animation
-        const easeOutQuart = 1 - Math.pow(1 - progress, 4)
-
-        const current = Math.floor(easeOutQuart * targetValue)
-        setCount(current)
-
-        if (progress < 1) {
-          animationFrameId = requestAnimationFrame(animate)
-        } else {
-          setCount(targetValue)
-        }
+    const step = (timestamp: number) => {
+      if (!startTimestamp) {
+        startTimestamp = timestamp
       }
 
-      // Small delay to ensure component is mounted
-      const timeoutId = setTimeout(() => {
-        animationFrameId = requestAnimationFrame(animate)
-      }, 100)
+      const progress = Math.min((timestamp - startTimestamp) / (duration * 1000), 1)
 
-      return () => {
-        clearTimeout(timeoutId)
-        if (animationFrameId) {
-          cancelAnimationFrame(animationFrameId)
-        }
+      // Easing function
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4)
+      const currentCount = Math.floor(easeOutQuart * end)
+
+      setCount(currentCount)
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(step)
       }
     }
-  }, [isInView, end, duration, hasAnimated])
+
+    // Start animation
+    animationFrame = requestAnimationFrame(step)
+
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame)
+      }
+    }
+  }, [isInView, end, duration])
 
   const formatNumber = (num: number) => {
     if (num >= 1000) {
