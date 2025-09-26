@@ -141,8 +141,7 @@ export default function PremiumNavbar() {
     { name: 'Hem', href: '/', icon: Home },
     { name: 'Funktioner', href: '/funktioner', icon: LayoutGrid },
     { name: 'Priser', href: '/priser', icon: Tag },
-    { name: 'Artiklar', href: '/artiklar', icon: Newspaper },
-    { name: 'Om oss', href: '/om-oss', icon: UserIcon }
+    { name: 'Artiklar', href: '/artiklar', icon: Newspaper }
   ]
 
   const handleDropdownClick = (dropdownName: string) => {
