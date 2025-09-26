@@ -44,7 +44,7 @@ export default function TeamMemberCard({ member, index }: TeamMemberCardProps) {
       transition: {
         duration: 0.6,
         delay: index * 0.1,
-        ease: "easeOut"
+        ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number]
       }
     }
   }
@@ -54,7 +54,7 @@ export default function TeamMemberCard({ member, index }: TeamMemberCardProps) {
       scale: 1.05,
       transition: {
         duration: 0.3,
-        ease: "easeOut"
+        ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number]
       }
     }
   }
@@ -76,7 +76,7 @@ export default function TeamMemberCard({ member, index }: TeamMemberCardProps) {
       viewport={{ once: true, margin: "-50px" }}
       whileHover={{
         y: -8,
-        transition: { duration: 0.3, ease: "easeOut" }
+        transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }
       }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}

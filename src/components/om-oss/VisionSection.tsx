@@ -93,7 +93,7 @@ export default function VisionSection() {
       scale: 1,
       transition: {
         duration: 0.6,
-        ease: "easeOut"
+        ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number]
       }
     }
   }
@@ -106,7 +106,7 @@ export default function VisionSection() {
       transition: {
         delay: i * 0.1,
         duration: 0.4,
-        ease: "easeOut"
+        ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number]
       }
     })
   }
@@ -162,7 +162,7 @@ export default function VisionSection() {
               variants={itemVariants}
               whileHover={{
                 y: -8,
-                transition: { duration: 0.3, ease: "easeOut" }
+                transition: { duration: 0.3, ease: [0.25, 0.46, 0.45, 0.94] as [number, number, number, number] }
               }}
               className="group relative bg-white rounded-3xl p-8 border border-gray-200 shadow-lg hover:shadow-2xl transition-all duration-500 hover:border-gray-300"
             >
