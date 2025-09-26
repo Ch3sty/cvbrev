@@ -82,12 +82,12 @@ export default function SparkleEffect({
             }}
             initial={{
               scale: 0,
-              rotation: sparkle.rotation,
+              rotate: sparkle.rotation,
               opacity: 0
             }}
             animate={{
               scale: [0, sparkle.scale, 0],
-              rotation: sparkle.rotation + 180,
+              rotate: sparkle.rotation + 180,
               opacity: [0, sparkle.opacity, 0],
               y: [-20, -40]
             }}

@@ -1,5 +1,5 @@
 'use client';
-import { motion, MotionProps } from 'framer-motion';
+import { motion, MotionProps, Transition } from 'framer-motion';
 import { ReactNode, useState } from 'react';
 
 interface PremiumInteractionsProps extends MotionProps {
@@ -11,62 +11,62 @@ interface PremiumInteractionsProps extends MotionProps {
   sound?: boolean;
 }
 
-// Animation variants
+// Animation variants with proper typing
 const variants = {
   gentle: {
     hover: {
       scale: 1.02,
       y: -2,
-      transition: { type: "spring", stiffness: 400, damping: 17 }
+      transition: { type: "spring" as const, stiffness: 400, damping: 17 }
     },
     tap: {
       scale: 0.98,
-      transition: { type: "spring", stiffness: 400, damping: 17 }
+      transition: { type: "spring" as const, stiffness: 400, damping: 17 }
     }
   },
   bounce: {
     hover: {
       scale: 1.05,
       y: -4,
-      transition: { type: "spring", stiffness: 300, damping: 15 }
+      transition: { type: "spring" as const, stiffness: 300, damping: 15 }
     },
     tap: {
       scale: 0.95,
-      transition: { type: "spring", stiffness: 400, damping: 20 }
+      transition: { type: "spring" as const, stiffness: 400, damping: 20 }
     }
   },
   scale: {
     hover: {
       scale: 1.03,
-      transition: { type: "spring", stiffness: 400, damping: 25 }
+      transition: { type: "spring" as const, stiffness: 400, damping: 25 }
     },
     tap: {
       scale: 0.97,
-      transition: { type: "spring", stiffness: 600, damping: 30 }
+      transition: { type: "spring" as const, stiffness: 600, damping: 30 }
     }
   },
   glow: {
     hover: {
       scale: 1.02,
       filter: "brightness(1.1)",
-      transition: { type: "spring", stiffness: 400, damping: 25 }
+      transition: { type: "spring" as const, stiffness: 400, damping: 25 }
     },
     tap: {
       scale: 0.98,
-      transition: { type: "spring", stiffness: 400, damping: 25 }
+      transition: { type: "spring" as const, stiffness: 400, damping: 25 }
     }
   },
   float: {
     hover: {
       y: -6,
-      transition: { type: "spring", stiffness: 400, damping: 20 }
+      transition: { type: "spring" as const, stiffness: 400, damping: 20 }
     },
     tap: {
       y: 0,
-      transition: { type: "spring", stiffness: 400, damping: 20 }
+      transition: { type: "spring" as const, stiffness: 400, damping: 20 }
     }
   }
-};
+} as const;
 
 export default function PremiumInteractions({
   children,
