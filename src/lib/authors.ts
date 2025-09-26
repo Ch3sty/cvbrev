@@ -15,27 +15,27 @@ export const AUTHORS: Author[] = [
   {
     id: 'helena',
     name: 'Helena Andersson',
-    image: '/images/jobbcoach/helena.webp',
+    image: '/images/jobbcoach/Helena.webp',
     title: 'Senior Karriärcoach',
-    bio: 'Med över 10 års erfarenhet inom karriärvägledning och rekrytering hjälper Helena jobbsökande att optimera sina ansökningar och lyckas på arbetsmarknaden.',
+    bio: 'Legitimerad karriärcoach med 12+ års erfarenhet från Sveriges ledande rekryteringsbolag. Specialiserad på att transformera jobbsökares chanser genom strategisk CV-optimering och intervjuteknik.',
     expertise: ['CV-optimering', 'Intervjuteknik', 'Karriärplanering', 'Arbetssökning'],
     articleCount: 0
   },
   {
     id: 'johan',
     name: 'Johan Lindberg',
-    image: '/images/jobbcoach/johan.webp',
+    image: '/images/jobbcoach/Johan.webp',
     title: 'AI & HR-teknikspecialist',
-    bio: 'Johan kombinerar djup teknisk kunskap med HR-expertis för att utveckla moderna verktyg och strategier för jobbsökande i den digitala eran.',
+    bio: 'Civilingenjör inom AI/ML med 8 års erfarenhet av HR-teknologi. Utvecklar cutting-edge verktyg som hjälper svenska jobbsökare att navigera den automatiserade rekryteringsprocessen.',
     expertise: ['AI-verktyg', 'Personliga brev', 'Digital jobbsökning', 'LinkedIn-optimering'],
     articleCount: 0
   },
   {
     id: 'linda',
     name: 'Linda Eriksson',
-    image: '/images/jobbcoach/linda.webp',
+    image: '/images/jobbcoach/Linda.webp',
     title: 'Chefsrekryterare & Employer Branding Expert',
-    bio: 'Linda har lett rekryteringsprocesser för ledande svenska företag och delar sina insikter om vad arbetsgivare verkligen letar efter.',
+    bio: 'Chefsrekryterare på Stockholmsbörsen med 15+ års erfarenhet från techbolaget Klarna och Spotify. Expert på vad som verkligen avgör i svenska rekryteringsprocesser på C-nivå.',
     expertise: ['Löneförhandling', 'Employer Branding', 'Tech-rekrytering', 'Företagskultur'],
     articleCount: 0
   }

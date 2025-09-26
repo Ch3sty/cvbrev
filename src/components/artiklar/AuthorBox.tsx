@@ -79,15 +79,9 @@ export default function AuthorBox({ author, readingTime }: AuthorBoxProps) {
                   : 'Expert inom jobbcoach.ai'}
               </span>
             </div>
-            {readingTime && (
-              <>
-                <span className="text-gray-300">•</span>
-                <span>{readingTime} min läsning</span>
-              </>
-            )}
             <span className="text-gray-300">•</span>
             <span className="text-green-600 font-medium">
-              Granskad av HR-experter
+              Artikel granskad av HR-experter
             </span>
           </div>
         </div>

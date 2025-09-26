@@ -19,7 +19,6 @@ import ArticleClientWrapper from '@/components/artiklar/ArticleClientWrapper';
 import BroadConversionBanner from '@/components/artiklar/BroadConversionBanner';
 import CVTemplateShowcase from '@/components/artiklar/CVTemplateShowcase';
 import ComprehensiveServiceCard from '@/components/artiklar/ComprehensiveServiceCard';
-import TrustSignals from '@/components/artiklar/TrustSignals';
 
 // Importera författarsystem
 import { getAuthorForArticle, generateAuthorSchema } from '@/lib/authors';
@@ -310,8 +309,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             >
                 <MDXRemote source={contentWithBannerAndCV} components={components} />
 
-                {/* Trust Signals - SEO och användarförtroende */}
-                <TrustSignals />
 
                 {/* Comprehensive Service Card - Final CTA */}
                 <div className="mt-12">
