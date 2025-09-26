@@ -17,7 +17,7 @@ export const AUTHORS: Author[] = [
     name: 'Helena Andersson',
     image: '/images/jobbcoach/Helena.webp',
     title: 'Senior Karriärcoach',
-    bio: 'Legitimerad karriärcoach med 12+ års erfarenhet från Sveriges ledande rekryteringsbolag. Specialiserad på att transformera jobbsökares chanser genom strategisk CV-optimering och intervjuteknik.',
+    bio: 'Certifierad karriärcoach med över 10 års erfarenhet inom rekrytering och vägledning. Har hjälpt hundratals kandidater att nå sina karriärmål genom strategisk CV-optimering och intervjuförberedelse.',
     expertise: ['CV-optimering', 'Intervjuteknik', 'Karriärplanering', 'Arbetssökning'],
     articleCount: 0
   },
@@ -26,7 +26,7 @@ export const AUTHORS: Author[] = [
     name: 'Johan Lindberg',
     image: '/images/jobbcoach/Johan.webp',
     title: 'AI & HR-teknikspecialist',
-    bio: 'Civilingenjör inom AI/ML med 8 års erfarenhet av HR-teknologi. Utvecklar cutting-edge verktyg som hjälper svenska jobbsökare att navigera den automatiserade rekryteringsprocessen.',
+    bio: 'Teknisk expert inom HR-tech med bakgrund inom systemutveckling och rekrytering. Specialiserad på hur moderna AI-verktyg kan stärka din jobbsökning och göra dina ansökningar mer effektiva.',
     expertise: ['AI-verktyg', 'Personliga brev', 'Digital jobbsökning', 'LinkedIn-optimering'],
     articleCount: 0
   },
@@ -35,7 +35,7 @@ export const AUTHORS: Author[] = [
     name: 'Linda Eriksson',
     image: '/images/jobbcoach/Linda.webp',
     title: 'Chefsrekryterare & Employer Branding Expert',
-    bio: 'Chefsrekryterare på Stockholmsbörsen med 15+ års erfarenhet från techbolaget Klarna och Spotify. Expert på vad som verkligen avgör i svenska rekryteringsprocesser på C-nivå.',
+    bio: 'Erfaren rekryterare med över 12 års erfarenhet från både startup-miljöer och etablerade företag. Expert på modern rekrytering, löneförhandling och hur du positionerar dig på arbetsmarknaden.',
     expertise: ['Löneförhandling', 'Employer Branding', 'Tech-rekrytering', 'Företagskultur'],
     articleCount: 0
   }
