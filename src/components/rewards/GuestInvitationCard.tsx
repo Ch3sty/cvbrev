@@ -133,136 +133,198 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
 
   return (
     <div className="space-y-6">
-      {/* Allowance Status Card */}
-      <Card className="relative overflow-hidden bg-white/90 backdrop-blur-lg border border-gray-200/50 shadow-xl">
-        {/* Background glow effect */}
-        <div className="absolute -inset-1 bg-gradient-to-r from-pink-600 to-purple-600 rounded-xl blur opacity-10" />
+      {/* Allowance Status Card - Premium Light Design */}
+      <Card className="relative overflow-hidden bg-white border border-gray-200/80 shadow-lg hover:shadow-xl transition-all duration-300">
+        {/* Subtle gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-slate-50/30 to-gray-50/50" />
 
-        <CardHeader className="relative">
-          <CardTitle className="flex items-center space-x-2 text-gray-900">
-            <UserPlus className="w-5 h-5 text-pink-600" />
-            <span>Gästinbjudningar</span>
-            <Badge variant="secondary" className="ml-auto bg-gray-100 text-gray-700">
-              {allowance.month_year}
-            </Badge>
-          </CardTitle>
+        {/* Floating accent elements */}
+        <div className="absolute top-4 right-4 w-20 h-20 bg-gradient-to-br from-pink-600/10 to-purple-600/10 rounded-full blur-xl" />
+        <div className="absolute bottom-4 left-4 w-16 h-16 bg-gradient-to-br from-blue-600/10 to-indigo-600/10 rounded-full blur-xl" />
+
+        <CardHeader className="relative pb-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-3">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-50 to-purple-50 flex items-center justify-center border border-pink-200/50">
+                <UserPlus className="w-6 h-6 text-pink-600" />
+              </div>
+              <div>
+                <CardTitle className="text-gray-900 text-xl">Månatliga inbjudningar</CardTitle>
+                <p className="text-sm text-gray-600">{allowance.month_year}</p>
+              </div>
+            </div>
+            <div className="text-right">
+              <div className="text-3xl font-bold text-gray-900">
+                {allowance.remaining_invitations}
+              </div>
+              <p className="text-sm text-gray-600">kvar</p>
+            </div>
+          </div>
         </CardHeader>
 
-        <CardContent className="relative">
-          {/* Usage Progress */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-2xl font-bold text-gray-900">
-                  {allowance.remaining_invitations}
-                </p>
-                <p className="text-sm text-gray-600">kvar denna månad</p>
-              </div>
-
-              <div className="text-right">
-                <p className="text-lg font-semibold text-purple-600">
-                  {allowance.total_allowance}
-                </p>
-                <p className="text-sm text-gray-600">totalt tillgängligt</p>
-              </div>
+        <CardContent className="relative space-y-6">
+          {/* Progress Section */}
+          <div className="space-y-3">
+            <div className="flex justify-between items-center">
+              <span className="text-sm font-medium text-gray-700">Kvot använd</span>
+              <span className="text-sm text-gray-600">
+                {allowance.used_invitations} av {allowance.total_allowance}
+              </span>
             </div>
 
-            {/* Progress Bar */}
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm text-gray-600">
-                <span>Månatlig kvot</span>
-                <span>{allowance.used_invitations}/{allowance.total_allowance}</span>
-              </div>
-
-              <div className="relative h-2 bg-gray-100 rounded-full overflow-hidden shadow-inner">
-                <div
-                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full transition-all duration-500"
-                  style={{
-                    width: `${Math.min((allowance.used_invitations / allowance.total_allowance) * 100, 100)}%`
-                  }}
-                />
-              </div>
+            <div className="relative h-3 bg-gray-100 rounded-full overflow-hidden">
+              <div
+                className="absolute inset-y-0 left-0 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full transition-all duration-700 ease-out"
+                style={{
+                  width: `${Math.min((allowance.used_invitations / allowance.total_allowance) * 100, 100)}%`
+                }}
+              />
+              {/* Shimmer effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 animate-pulse" />
             </div>
+          </div>
 
-            {/* Allowance Breakdown */}
-            <div className="grid grid-cols-2 gap-4 pt-2">
-              <div className="text-center">
-                <p className="text-sm text-gray-600">Bas kvot</p>
-                <p className="text-lg font-semibold text-gray-900">{allowance.base_allowance}</p>
-              </div>
-              <div className="text-center">
-                <p className="text-sm text-gray-600">Bonus kvot</p>
-                <p className="text-lg font-semibold text-purple-600">+{allowance.bonus_allowance}</p>
-              </div>
+          {/* Quota Breakdown */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="text-center p-4 rounded-lg bg-gradient-to-br from-gray-50 to-white border border-gray-100">
+              <div className="text-2xl font-bold text-gray-900">{allowance.base_allowance}</div>
+              <div className="text-sm text-gray-600">Bas-kvot</div>
+              <div className="text-xs text-gray-500 mt-1">Premium-medlem</div>
             </div>
+            <div className="text-center p-4 rounded-lg bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200/50">
+              <div className="text-2xl font-bold text-purple-600">+{allowance.bonus_allowance}</div>
+              <div className="text-sm text-gray-600">Bonus-kvot</div>
+              <div className="text-xs text-gray-500 mt-1">Från level-framsteg</div>
+            </div>
+          </div>
+
+          {/* Quick Stats */}
+          <div className="flex items-center justify-between p-4 bg-gradient-to-r from-slate-50 to-gray-50 rounded-lg border border-gray-100">
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+              <span className="text-sm text-gray-600">Nästa reset</span>
+            </div>
+            <span className="text-sm font-medium text-gray-700">
+              {new Date(new Date().getFullYear(), new Date().getMonth() + 1, 1).toLocaleDateString('sv-SE', { day: 'numeric', month: 'short' })}
+            </span>
           </div>
         </CardContent>
       </Card>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="bg-white border border-gray-200 shadow-sm hover:shadow-lg transition-shadow">
-          <CardContent className="p-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-green-600" />
-              </div>
+      {/* Stats Cards - Light Premium Design */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Successful Conversions */}
+        <Card className="relative overflow-hidden bg-white border border-gray-200/80 shadow-sm hover:shadow-lg transition-all duration-300 group">
+          <div className="absolute -inset-1 bg-gradient-to-r from-green-600/20 to-emerald-600/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <CardContent className="relative p-6">
+            <div className="flex items-center justify-between">
               <div>
-                <p className="text-xl font-bold text-gray-900">{totalConversions}</p>
-                <p className="text-sm text-gray-600">Konverteringar</p>
+                <div className="text-2xl font-bold text-gray-900">{totalConversions}</div>
+                <div className="text-sm text-gray-600">Konverteringar</div>
+                <div className="text-xs text-gray-500 mt-1">Lyckade uppgraderingar</div>
+              </div>
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 flex items-center justify-center border border-green-200/50">
+                <TrendingUp className="w-6 h-6 text-green-600" />
+              </div>
+            </div>
+            <div className="mt-4 pt-4 border-t border-gray-100">
+              <div className="flex items-center text-xs text-gray-500">
+                <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                Ger dig extra Premium-tid
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white border border-gray-200 shadow-sm hover:shadow-lg transition-shadow">
-          <CardContent className="p-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center">
-                <Clock className="w-5 h-5 text-yellow-600" />
-              </div>
+        {/* Pending Invitations */}
+        <Card className="relative overflow-hidden bg-white border border-gray-200/80 shadow-sm hover:shadow-lg transition-all duration-300 group">
+          <div className="absolute -inset-1 bg-gradient-to-r from-orange-600/20 to-yellow-600/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <CardContent className="relative p-6">
+            <div className="flex items-center justify-between">
               <div>
-                <p className="text-xl font-bold text-gray-900">{pendingInvitations}</p>
-                <p className="text-sm text-gray-600">Väntande</p>
+                <div className="text-2xl font-bold text-gray-900">{pendingInvitations}</div>
+                <div className="text-sm text-gray-600">Väntande</div>
+                <div className="text-xs text-gray-500 mt-1">Inbjudningar som väntar</div>
+              </div>
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-50 to-yellow-50 flex items-center justify-center border border-orange-200/50">
+                <Clock className="w-6 h-6 text-orange-600" />
+              </div>
+            </div>
+            <div className="mt-4 pt-4 border-t border-gray-100">
+              <div className="flex items-center text-xs text-gray-500">
+                <span className="w-2 h-2 bg-orange-400 rounded-full mr-2 animate-pulse"></span>
+                Gäster som inte accepterat än
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-white border border-gray-200 shadow-sm hover:shadow-lg transition-shadow">
-          <CardContent className="p-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
-                <Gift className="w-5 h-5 text-purple-600" />
-              </div>
+        {/* Extra Premium Days Earned */}
+        <Card className="relative overflow-hidden bg-white border border-gray-200/80 shadow-sm hover:shadow-lg transition-all duration-300 group">
+          <div className="absolute -inset-1 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <CardContent className="relative p-6">
+            <div className="flex items-center justify-between">
               <div>
-                <p className="text-xl font-bold text-gray-900">{totalRevenue} SEK</p>
-                <p className="text-sm text-gray-600">Intjänat</p>
+                <div className="text-2xl font-bold text-gray-900">{totalConversions * 7}</div>
+                <div className="text-sm text-gray-600">Extra Premium-dagar</div>
+                <div className="text-xs text-gray-500 mt-1">Från konverteringar</div>
+              </div>
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center border border-purple-200/50">
+                <Gift className="w-6 h-6 text-purple-600" />
+              </div>
+            </div>
+            <div className="mt-4 pt-4 border-t border-gray-100">
+              <div className="flex items-center text-xs text-gray-500">
+                <span className="w-2 h-2 bg-purple-400 rounded-full mr-2"></span>
+                {totalConversions > 0 ? 'Automatiskt tillagt' : 'Inga bonus-dagar än'}
               </div>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Main Invitation Management */}
-      <Card className="bg-white border border-gray-200 shadow-sm">
-        <CardHeader>
+      {/* Main Invitation Management - Premium Light Design */}
+      <Card className="relative overflow-hidden bg-white border border-gray-200/80 shadow-lg">
+        {/* Subtle background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-slate-50/20 to-gray-50/30" />
+
+        <CardHeader className="relative border-b border-gray-100/80">
           <div className="flex items-center justify-between">
-            <CardTitle className="text-gray-900">Hantera inbjudningar</CardTitle>
-            <div className="flex space-x-2">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center border border-blue-200/50">
+                <Users className="w-5 h-5 text-blue-600" />
+              </div>
+              <div>
+                <CardTitle className="text-gray-900 text-lg">Hantera inbjudningar</CardTitle>
+                <p className="text-sm text-gray-600">Skicka och övervaka dina gästinbjudningar</p>
+              </div>
+            </div>
+
+            {/* Tab Navigation */}
+            <div className="flex space-x-1 p-1 bg-gray-100 rounded-lg">
               <Button
-                variant={activeTab === 'create' ? 'default' : 'ghost'}
+                variant="ghost"
                 size="sm"
                 onClick={() => setActiveTab('create')}
-                className={activeTab === 'create' ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'}
+                className={`
+                  ${activeTab === 'create'
+                    ? 'bg-white text-gray-900 shadow-sm border border-gray-200'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                  } transition-all duration-200
+                `}
               >
                 Skapa ny
               </Button>
               <Button
-                variant={activeTab === 'manage' ? 'default' : 'ghost'}
+                variant="ghost"
                 size="sm"
                 onClick={() => setActiveTab('manage')}
-                className={activeTab === 'manage' ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'}
+                className={`
+                  ${activeTab === 'manage'
+                    ? 'bg-white text-gray-900 shadow-sm border border-gray-200'
+                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                  } transition-all duration-200
+                `}
               >
                 Hantera ({invitations.length})
               </Button>
@@ -270,164 +332,226 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
           </div>
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="relative p-6 space-y-6">
           {activeTab === 'create' ? (
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+            <div className="space-y-6">
+              {/* Email Input Section */}
+              <div className="space-y-3">
+                <label className="block text-sm font-semibold text-gray-700">
                   E-postadress till gäst
                 </label>
                 <div className="flex space-x-3">
-                  <div className="flex-1">
+                  <div className="flex-1 relative">
                     <input
                       type="email"
                       value={newGuestEmail}
                       onChange={(e) => setNewGuestEmail(e.target.value)}
                       placeholder="exempel@email.com"
-                      className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                      className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all duration-200"
                       disabled={isCreating || allowance.remaining_invitations <= 0}
                     />
+                    <div className="absolute inset-y-0 right-0 flex items-center pr-4">
+                      <Mail className="w-4 h-4 text-gray-400" />
+                    </div>
                   </div>
                   <Button
                     onClick={handleCreateInvitation}
                     disabled={!newGuestEmail.trim() || isCreating || allowance.remaining_invitations <= 0}
-                    className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700"
+                    className="px-6 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
                   >
                     {isCreating ? (
-                      <RefreshCw className="w-4 h-4 animate-spin" />
+                      <RefreshCw className="w-5 h-5 animate-spin" />
                     ) : (
-                      <Mail className="w-4 h-4" />
+                      <>
+                        <Mail className="w-5 h-5 mr-2" />
+                        Skicka inbjudan
+                      </>
                     )}
-                    <span className="ml-2">Skicka inbjudan</span>
                   </Button>
                 </div>
               </div>
 
+              {/* Quota Warning */}
               {allowance.remaining_invitations <= 0 && (
-                <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
-                  <div className="flex items-center space-x-2">
-                    <Calendar className="w-5 h-5 text-orange-600" />
-                    <p className="text-orange-800 font-medium">Ingen kvot kvar</p>
+                <div className="p-5 bg-gradient-to-br from-orange-50 to-red-50 border border-orange-200/60 rounded-xl">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center">
+                      <Calendar className="w-5 h-5 text-orange-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-orange-800">Ingen kvot kvar denna månad</h4>
+                      <p className="text-sm text-orange-700 mt-1">
+                        Du har använt alla dina inbjudningar för {allowance.month_year}. Fler blir tillgängliga nästa månad.
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-sm text-orange-700 mt-1">
-                    Du har använt alla dina inbjudningar för denna månad. Fler blir tillgängliga nästa månad.
-                  </p>
                 </div>
               )}
 
-              <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <h4 className="font-semibold text-blue-800 mb-2">Vad får din gäst?</h4>
-                <ul className="space-y-1 text-sm text-blue-700">
-                  <li>• 7 dagars gratis premium-test</li>
-                  <li>• Obegränsade personliga brev</li>
-                  <li>• Avancerad CV-analys</li>
-                  <li>• Prioriterad support</li>
-                  <li>• Automatisk tonalitetsanpassning</li>
-                </ul>
+              {/* Guest Benefits Preview */}
+              <div className="p-5 bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200/60 rounded-xl">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+                    <Gift className="w-5 h-5 text-blue-600" />
+                  </div>
+                  <h4 className="font-semibold text-blue-800">Vad får din gäst?</h4>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="flex items-center space-x-2 text-sm text-blue-700">
+                    <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                    <span>7 dagars gratis Premium</span>
+                  </div>
+                  <div className="flex items-center space-x-2 text-sm text-blue-700">
+                    <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                    <span>Obegränsade personliga brev</span>
+                  </div>
+                  <div className="flex items-center space-x-2 text-sm text-blue-700">
+                    <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                    <span>Avancerad CV-analys</span>
+                  </div>
+                  <div className="flex items-center space-x-2 text-sm text-blue-700">
+                    <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                    <span>Prioriterad support</span>
+                  </div>
+                  <div className="flex items-center space-x-2 text-sm text-blue-700">
+                    <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                    <span>Automatisk tonalitetsanpassning</span>
+                  </div>
+                  <div className="flex items-center space-x-2 text-sm text-blue-700">
+                    <div className="w-1.5 h-1.5 bg-blue-500 rounded-full"></div>
+                    <span>Kompetensanalys</span>
+                  </div>
+                </div>
               </div>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-6">
               {invitations.length === 0 ? (
-                <div className="text-center py-8">
-                  <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-600">Inga inbjudningar ännu</p>
-                  <p className="text-sm text-gray-500 mt-1">
+                <div className="text-center py-12">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center border border-gray-200">
+                    <Users className="w-8 h-8 text-gray-400" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">Inga inbjudningar ännu</h3>
+                  <p className="text-gray-600 mb-4">
                     Skicka din första inbjudan för att komma igång!
                   </p>
+                  <Button
+                    onClick={() => setActiveTab('create')}
+                    className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white"
+                  >
+                    Skapa första inbjudan
+                  </Button>
                 </div>
               ) : (
-                invitations.map((invitation) => (
-                  <div
-                    key={invitation.id}
-                    className="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:shadow-sm transition-shadow"
-                  >
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center text-white text-sm font-bold">
-                          {(invitation.guest_name || invitation.guest_email).charAt(0).toUpperCase()}
-                        </div>
-                        <div>
-                          <p className="font-medium text-gray-900">
-                            {invitation.status === 'accepted' && invitation.guest_name ? (
-                              <>
-                                {invitation.guest_name}
-                                <span className="text-sm text-gray-600 ml-2">({invitation.guest_email})</span>
-                              </>
-                            ) : (
-                              invitation.guest_email
-                            )}
-                          </p>
-                          <p className="text-sm text-gray-600">
-                            {invitation.status === 'accepted'
-                              ? `Accepterad ${new Date(invitation.accepted_at || invitation.created_at).toLocaleDateString('sv-SE')}`
-                              : `Skickad ${new Date(invitation.created_at).toLocaleDateString('sv-SE')}`}
-                          </p>
-                        </div>
-                      </div>
-                      {getStatusBadge(invitation)}
-                    </div>
+                <div className="space-y-4">
+                  {invitations.map((invitation) => (
+                    <div
+                      key={invitation.id}
+                      className="relative p-6 bg-white border border-gray-200/80 rounded-xl hover:shadow-lg transition-all duration-300 group"
+                    >
+                      {/* Subtle background gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-white via-gray-50/20 to-slate-50/30 rounded-xl" />
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                      <div>
-                        <p className="text-gray-600">Status</p>
-                        <p className="text-gray-900 capitalize">{invitation.status}</p>
+                      {/* Header */}
+                      <div className="relative flex items-center justify-between mb-4">
+                        <div className="flex items-center space-x-4">
+                          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center text-white text-lg font-bold shadow-lg">
+                            {(invitation.guest_name || invitation.guest_email).charAt(0).toUpperCase()}
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-gray-900 text-lg">
+                              {invitation.status === 'accepted' && invitation.guest_name ? (
+                                <>
+                                  {invitation.guest_name}
+                                  <span className="text-sm text-gray-600 ml-2 font-normal">({invitation.guest_email})</span>
+                                </>
+                              ) : (
+                                invitation.guest_email
+                              )}
+                            </h4>
+                            <p className="text-sm text-gray-600">
+                              {invitation.status === 'accepted'
+                                ? `Accepterad ${new Date(invitation.accepted_at || invitation.created_at).toLocaleDateString('sv-SE')}`
+                                : `Skickad ${new Date(invitation.created_at).toLocaleDateString('sv-SE')}`}
+                            </p>
+                          </div>
+                        </div>
+                        {getStatusBadge(invitation)}
                       </div>
-                      <div>
-                        <p className="text-gray-600">Provperiod</p>
-                        <p className="text-gray-900">{invitation.trial_duration_days} dagar</p>
-                      </div>
-                      <div>
-                        <p className="text-gray-600">Går ut</p>
-                        <p className="text-gray-900">{formatTimeRemaining(invitation.expires_at)}</p>
-                      </div>
-                      <div>
-                        <p className="text-gray-600">Konvertering</p>
-                        <p className="text-gray-900">
-                          {invitation.converted_to_paid
-                            ? `${invitation.conversion_amount} SEK`
-                            : 'Ej konverterad'
-                          }
-                        </p>
-                      </div>
-                    </div>
 
-                    {invitation.status === 'pending' && (
-                      <div className="flex space-x-2 mt-4 pt-4 border-t border-gray-200">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => onCopyLink(invitation.invitation_code)}
-                          className="flex-1"
-                        >
-                          <Copy className="w-4 h-4 mr-2" />
-                          Kopiera länk
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => onShareSocial(invitation.invitation_code, 'email')}
-                        >
-                          <Mail className="w-4 h-4" />
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => onShareSocial(invitation.invitation_code, 'social')}
-                        >
-                          <Share2 className="w-4 h-4" />
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => window.open(getInvitationLink(invitation.invitation_code), '_blank')}
-                        >
-                          <ExternalLink className="w-4 h-4" />
-                        </Button>
+                      {/* Stats Grid */}
+                      <div className="relative grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                        <div className="text-center p-3 rounded-lg bg-gray-50/80 border border-gray-100">
+                          <p className="text-xs text-gray-600 uppercase tracking-wide mb-1">Status</p>
+                          <p className="text-sm font-semibold text-gray-900 capitalize">{invitation.status}</p>
+                        </div>
+                        <div className="text-center p-3 rounded-lg bg-blue-50/80 border border-blue-100">
+                          <p className="text-xs text-gray-600 uppercase tracking-wide mb-1">Provperiod</p>
+                          <p className="text-sm font-semibold text-blue-700">{invitation.trial_duration_days} dagar</p>
+                        </div>
+                        <div className="text-center p-3 rounded-lg bg-orange-50/80 border border-orange-100">
+                          <p className="text-xs text-gray-600 uppercase tracking-wide mb-1">Går ut</p>
+                          <p className="text-sm font-semibold text-orange-700">{formatTimeRemaining(invitation.expires_at)}</p>
+                        </div>
+                        <div className="text-center p-3 rounded-lg bg-purple-50/80 border border-purple-100">
+                          <p className="text-xs text-gray-600 uppercase tracking-wide mb-1">Bonus</p>
+                          <p className="text-sm font-semibold text-purple-700">
+                            {invitation.converted_to_paid ? '7 extra dagar' : 'Väntar'}
+                          </p>
+                        </div>
                       </div>
-                    )}
-                  </div>
-                ))
+
+                      {/* Actions for pending invitations */}
+                      {invitation.status === 'pending' && (
+                        <div className="relative flex flex-wrap gap-2 pt-4 border-t border-gray-100">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => onCopyLink(invitation.invitation_code)}
+                            className="flex-1 min-w-0 bg-white hover:bg-gray-50 border-gray-200"
+                          >
+                            <Copy className="w-4 h-4 mr-2" />
+                            Kopiera länk
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => onShareSocial(invitation.invitation_code, 'email')}
+                            className="bg-white hover:bg-gray-50 border-gray-200"
+                          >
+                            <Mail className="w-4 h-4" />
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => onShareSocial(invitation.invitation_code, 'social')}
+                            className="bg-white hover:bg-gray-50 border-gray-200"
+                          >
+                            <Share2 className="w-4 h-4" />
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => window.open(getInvitationLink(invitation.invitation_code), '_blank')}
+                            className="bg-white hover:bg-gray-50 border-gray-200"
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      )}
+
+                      {/* Success state for converted */}
+                      {invitation.converted_to_paid && (
+                        <div className="relative mt-4 p-4 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200/60 rounded-lg">
+                          <div className="flex items-center space-x-2 text-green-800">
+                            <CheckCircle2 className="w-5 h-5" />
+                            <span className="font-medium">Konverterad! Ni fick båda 1 vecka extra Premium.</span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
               )}
             </div>
           )}

@@ -223,52 +223,83 @@ export default function RewardsPage() {
               }}
             />
 
-            {/* Invitation Benefits */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Fördelar med gästinbjudningar</CardTitle>
-                <CardDescription>
-                  Bjud in vänner och kollegor att prova Premium gratis
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <div className="p-2 bg-green-100 rounded-lg">
-                    <Users className="w-5 h-5 text-green-600" />
+            {/* Invitation Benefits - Redesigned for Light Premium Theme */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Guest Benefits Card */}
+              <Card className="relative overflow-hidden bg-white border border-gray-200/80 shadow-sm hover:shadow-lg transition-all duration-300 group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-pink-600/20 to-purple-600/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <CardContent className="relative p-6">
+                  <div className="flex items-center space-x-3 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-50 to-purple-50 flex items-center justify-center border border-pink-200/50">
+                      <Users className="w-6 h-6 text-pink-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">7 dagars gratis test</h4>
+                      <p className="text-sm text-gray-600">För din gäst</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold">7 dagars gratis Premium för din gäst</h4>
-                    <p className="text-sm text-gray-600">
-                      Din gäst får tillgång till alla Premium-funktioner helt kostnadsfritt
-                    </p>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    Din gäst får full tillgång till alla Premium-funktioner helt kostnadsfritt i en hel vecka
+                  </p>
+                  <div className="mt-4 pt-4 border-t border-gray-100">
+                    <div className="flex items-center text-xs text-gray-500">
+                      <span className="w-2 h-2 bg-pink-400 rounded-full mr-2"></span>
+                      Obegränsade personliga brev
+                    </div>
                   </div>
-                </div>
+                </CardContent>
+              </Card>
 
-                <div className="flex items-start gap-3">
-                  <div className="p-2 bg-purple-100 rounded-lg">
-                    <Gift className="w-5 h-5 text-purple-600" />
+              {/* Premium Rewards Card */}
+              <Card className="relative overflow-hidden bg-white border border-gray-200/80 shadow-sm hover:shadow-lg transition-all duration-300 group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <CardContent className="relative p-6">
+                  <div className="flex items-center space-x-3 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center border border-purple-200/50">
+                      <Gift className="w-6 h-6 text-purple-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">Extra Premium-tid</h4>
+                      <p className="text-sm text-gray-600">Vid konvertering</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold">1 vecka extra när de konverterar</h4>
-                    <p className="text-sm text-gray-600">
-                      Både du och din gäst får 1 vecka extra Premium när de uppgraderar
-                    </p>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    När din gäst uppgraderar får ni båda 1 vecka extra Premium som bonus
+                  </p>
+                  <div className="mt-4 pt-4 border-t border-gray-100">
+                    <div className="flex items-center text-xs text-gray-500">
+                      <span className="w-2 h-2 bg-purple-400 rounded-full mr-2"></span>
+                      Automatisk förlängning
+                    </div>
                   </div>
-                </div>
+                </CardContent>
+              </Card>
 
-                <div className="flex items-start gap-3">
-                  <div className="p-2 bg-blue-100 rounded-lg">
-                    <Trophy className="w-5 h-5 text-blue-600" />
+              {/* Level Progression Card */}
+              <Card className="relative overflow-hidden bg-white border border-gray-200/80 shadow-sm hover:shadow-lg transition-all duration-300 group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <CardContent className="relative p-6">
+                  <div className="flex items-center space-x-3 mb-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center border border-blue-200/50">
+                      <Trophy className="w-6 h-6 text-blue-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900">Fler inbjudningar</h4>
+                      <p className="text-sm text-gray-600">Högre level</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold">Öka dina inbjudningar med högre level</h4>
-                    <p className="text-sm text-gray-600">
-                      Level 10+: 2 inbjudningar/månad • Level 20+: 3 inbjudningar/månad
-                    </p>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    Få fler månatliga inbjudningar när du når högre levels
+                  </p>
+                  <div className="mt-4 pt-4 border-t border-gray-100">
+                    <div className="flex items-center text-xs text-gray-500">
+                      <span className="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+                      Level 10+: 2/månad • Level 20+: 3/månad
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
         )}
       </Tabs>
