@@ -250,7 +250,7 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
       case 'upcoming':
         return `${baseStyles} bg-gradient-to-br from-blue-500/80 to-cyan-500/80 border-blue-400 shadow-blue-400/30`;
       default:
-        return `${baseStyles} bg-gradient-to-br from-gray-300 to-gray-400 border-gray-400 opacity-60`;
+        return `${baseStyles} bg-gradient-to-br ${getRewardGradient(reward.reward_type, reward.is_special)} border-gray-300 shadow-gray-200/30 opacity-50 grayscale`;
     }
   };
 
@@ -350,10 +350,7 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
                   onMouseEnter={() => setHoveredReward(reward.level)}
                   onMouseLeave={() => setHoveredReward(null)}
                 >
-                  {/* Connection Path */}
-                  {index < milestoneRewards.length - 1 && (
-                    <div className="hidden lg:block absolute top-10 left-24 w-24 h-1 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full z-0" />
-                  )}
+                  {/* Connection Path - Removed for cleaner design */}
 
                   {/* Achievement Badge */}
                   <div className="relative z-10 flex flex-col items-center space-y-4">
@@ -364,11 +361,9 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
                       )}
 
                       {/* Reward Icon */}
-                      <div className="text-3xl">
+                      <div className={`text-3xl ${status === 'locked' ? 'opacity-40 grayscale' : ''}`}>
                         {status === 'claimed' ? (
                           <CheckCircle2 className="w-10 h-10 text-white" />
-                        ) : status === 'locked' ? (
-                          <Lock className="w-8 h-8 text-gray-400" />
                         ) : (
                           reward.icon || getRewardIcon(reward.reward_type, undefined, reward.is_special)
                         )}

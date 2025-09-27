@@ -152,7 +152,8 @@
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-seo-implementation.html\")",
       "Bash(start \"C:\\Users\\chris\\cvbrev\\test-om-oss.html\")",
       "Bash(git mv:*)",
-      "Bash(timeout 60 npm run build)"
+      "Bash(timeout 60 npm run build)",
+      "Bash(npm run:*)"
     ],
     "deny": [],
     "ask": []

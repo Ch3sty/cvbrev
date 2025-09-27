@@ -134,15 +134,15 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
   return (
     <div className="space-y-6">
       {/* Allowance Status Card */}
-      <Card className="relative overflow-hidden bg-gradient-to-br from-navy-900 to-navy-800 border-navy-700">
+      <Card className="relative overflow-hidden bg-white/90 backdrop-blur-lg border border-gray-200/50 shadow-xl">
         {/* Background glow effect */}
-        <div className="absolute -inset-1 bg-gradient-to-r from-pink-600 to-purple-600 rounded-xl blur opacity-15" />
+        <div className="absolute -inset-1 bg-gradient-to-r from-pink-600 to-purple-600 rounded-xl blur opacity-10" />
 
         <CardHeader className="relative">
-          <CardTitle className="flex items-center space-x-2">
-            <UserPlus className="w-5 h-5 text-pink-500" />
+          <CardTitle className="flex items-center space-x-2 text-gray-900">
+            <UserPlus className="w-5 h-5 text-pink-600" />
             <span>Gästinbjudningar</span>
-            <Badge variant="secondary" className="ml-auto">
+            <Badge variant="secondary" className="ml-auto bg-gray-100 text-gray-700">
               {allowance.month_year}
             </Badge>
           </CardTitle>
@@ -153,28 +153,28 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-2xl font-bold text-white">
+                <p className="text-2xl font-bold text-gray-900">
                   {allowance.remaining_invitations}
                 </p>
-                <p className="text-sm text-gray-400">kvar denna månad</p>
+                <p className="text-sm text-gray-600">kvar denna månad</p>
               </div>
 
               <div className="text-right">
-                <p className="text-lg font-semibold text-purple-400">
+                <p className="text-lg font-semibold text-purple-600">
                   {allowance.total_allowance}
                 </p>
-                <p className="text-sm text-gray-400">totalt tillgängligt</p>
+                <p className="text-sm text-gray-600">totalt tillgängligt</p>
               </div>
             </div>
 
             {/* Progress Bar */}
             <div className="space-y-2">
-              <div className="flex justify-between text-sm text-gray-400">
+              <div className="flex justify-between text-sm text-gray-600">
                 <span>Månatlig kvot</span>
                 <span>{allowance.used_invitations}/{allowance.total_allowance}</span>
               </div>
 
-              <div className="relative h-2 bg-navy-700 rounded-full overflow-hidden">
+              <div className="relative h-2 bg-gray-100 rounded-full overflow-hidden shadow-inner">
                 <div
                   className="absolute inset-y-0 left-0 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full transition-all duration-500"
                   style={{
@@ -187,12 +187,12 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
             {/* Allowance Breakdown */}
             <div className="grid grid-cols-2 gap-4 pt-2">
               <div className="text-center">
-                <p className="text-sm text-gray-400">Bas kvot</p>
-                <p className="text-lg font-semibold text-white">{allowance.base_allowance}</p>
+                <p className="text-sm text-gray-600">Bas kvot</p>
+                <p className="text-lg font-semibold text-gray-900">{allowance.base_allowance}</p>
               </div>
               <div className="text-center">
-                <p className="text-sm text-gray-400">Bonus kvot</p>
-                <p className="text-lg font-semibold text-purple-400">+{allowance.bonus_allowance}</p>
+                <p className="text-sm text-gray-600">Bonus kvot</p>
+                <p className="text-lg font-semibold text-purple-600">+{allowance.bonus_allowance}</p>
               </div>
             </div>
           </div>
@@ -201,43 +201,43 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="bg-navy-800 border-navy-700">
+        <Card className="bg-white border border-gray-200 shadow-sm hover:shadow-lg transition-shadow">
           <CardContent className="p-4">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-green-400" />
+              <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                <TrendingUp className="w-5 h-5 text-green-600" />
               </div>
               <div>
-                <p className="text-xl font-bold text-white">{totalConversions}</p>
-                <p className="text-sm text-gray-400">Konverteringar</p>
+                <p className="text-xl font-bold text-gray-900">{totalConversions}</p>
+                <p className="text-sm text-gray-600">Konverteringar</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-navy-800 border-navy-700">
+        <Card className="bg-white border border-gray-200 shadow-sm hover:shadow-lg transition-shadow">
           <CardContent className="p-4">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center">
-                <Clock className="w-5 h-5 text-yellow-400" />
+              <div className="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center">
+                <Clock className="w-5 h-5 text-yellow-600" />
               </div>
               <div>
-                <p className="text-xl font-bold text-white">{pendingInvitations}</p>
-                <p className="text-sm text-gray-400">Väntande</p>
+                <p className="text-xl font-bold text-gray-900">{pendingInvitations}</p>
+                <p className="text-sm text-gray-600">Väntande</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-navy-800 border-navy-700">
+        <Card className="bg-white border border-gray-200 shadow-sm hover:shadow-lg transition-shadow">
           <CardContent className="p-4">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
-                <Gift className="w-5 h-5 text-purple-400" />
+              <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+                <Gift className="w-5 h-5 text-purple-600" />
               </div>
               <div>
-                <p className="text-xl font-bold text-white">{totalRevenue} SEK</p>
-                <p className="text-sm text-gray-400">Intjänat</p>
+                <p className="text-xl font-bold text-gray-900">{totalRevenue} SEK</p>
+                <p className="text-sm text-gray-600">Intjänat</p>
               </div>
             </div>
           </CardContent>
@@ -245,16 +245,16 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
       </div>
 
       {/* Main Invitation Management */}
-      <Card className="bg-navy-800 border-navy-700">
+      <Card className="bg-white border border-gray-200 shadow-sm">
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle>Hantera inbjudningar</CardTitle>
+            <CardTitle className="text-gray-900">Hantera inbjudningar</CardTitle>
             <div className="flex space-x-2">
               <Button
                 variant={activeTab === 'create' ? 'default' : 'ghost'}
                 size="sm"
                 onClick={() => setActiveTab('create')}
-                className={activeTab === 'create' ? '' : 'text-gray-400 hover:text-white'}
+                className={activeTab === 'create' ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'}
               >
                 Skapa ny
               </Button>
@@ -262,7 +262,7 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
                 variant={activeTab === 'manage' ? 'default' : 'ghost'}
                 size="sm"
                 onClick={() => setActiveTab('manage')}
-                className={activeTab === 'manage' ? '' : 'text-gray-400 hover:text-white'}
+                className={activeTab === 'manage' ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'}
               >
                 Hantera ({invitations.length})
               </Button>
@@ -274,7 +274,7 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
           {activeTab === 'create' ? (
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   E-postadress till gäst
                 </label>
                 <div className="flex space-x-3">
@@ -284,7 +284,7 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
                       value={newGuestEmail}
                       onChange={(e) => setNewGuestEmail(e.target.value)}
                       placeholder="exempel@email.com"
-                      className="w-full px-3 py-2 bg-navy-700 border border-navy-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                      className="w-full px-3 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                       disabled={isCreating || allowance.remaining_invitations <= 0}
                     />
                   </div>
@@ -304,20 +304,20 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
               </div>
 
               {allowance.remaining_invitations <= 0 && (
-                <div className="p-4 bg-orange-500/10 border border-orange-500/20 rounded-lg">
+                <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
                   <div className="flex items-center space-x-2">
-                    <Calendar className="w-5 h-5 text-orange-400" />
-                    <p className="text-orange-400 font-medium">Ingen kvot kvar</p>
+                    <Calendar className="w-5 h-5 text-orange-600" />
+                    <p className="text-orange-800 font-medium">Ingen kvot kvar</p>
                   </div>
-                  <p className="text-sm text-orange-300 mt-1">
+                  <p className="text-sm text-orange-700 mt-1">
                     Du har använt alla dina inbjudningar för denna månad. Fler blir tillgängliga nästa månad.
                   </p>
                 </div>
               )}
 
-              <div className="p-4 bg-blue-500/10 border border-blue-500/20 rounded-lg">
-                <h4 className="font-semibold text-blue-400 mb-2">Vad får din gäst?</h4>
-                <ul className="space-y-1 text-sm text-blue-300">
+              <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <h4 className="font-semibold text-blue-800 mb-2">Vad får din gäst?</h4>
+                <ul className="space-y-1 text-sm text-blue-700">
                   <li>• 7 dagars gratis premium-test</li>
                   <li>• Obegränsade personliga brev</li>
                   <li>• Avancerad CV-analys</li>
@@ -330,8 +330,8 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
             <div className="space-y-4">
               {invitations.length === 0 ? (
                 <div className="text-center py-8">
-                  <Users className="w-12 h-12 text-gray-500 mx-auto mb-4" />
-                  <p className="text-gray-400">Inga inbjudningar ännu</p>
+                  <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-gray-600">Inga inbjudningar ännu</p>
                   <p className="text-sm text-gray-500 mt-1">
                     Skicka din första inbjudan för att komma igång!
                   </p>
@@ -340,7 +340,7 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
                 invitations.map((invitation) => (
                   <div
                     key={invitation.id}
-                    className="p-4 bg-navy-700/50 border border-navy-600 rounded-xl"
+                    className="p-4 bg-gray-50 border border-gray-200 rounded-xl hover:shadow-sm transition-shadow"
                   >
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center space-x-3">
@@ -348,17 +348,17 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
                           {(invitation.guest_name || invitation.guest_email).charAt(0).toUpperCase()}
                         </div>
                         <div>
-                          <p className="font-medium text-white">
+                          <p className="font-medium text-gray-900">
                             {invitation.status === 'accepted' && invitation.guest_name ? (
                               <>
                                 {invitation.guest_name}
-                                <span className="text-sm text-gray-400 ml-2">({invitation.guest_email})</span>
+                                <span className="text-sm text-gray-600 ml-2">({invitation.guest_email})</span>
                               </>
                             ) : (
                               invitation.guest_email
                             )}
                           </p>
-                          <p className="text-sm text-gray-400">
+                          <p className="text-sm text-gray-600">
                             {invitation.status === 'accepted'
                               ? `Accepterad ${new Date(invitation.accepted_at || invitation.created_at).toLocaleDateString('sv-SE')}`
                               : `Skickad ${new Date(invitation.created_at).toLocaleDateString('sv-SE')}`}
@@ -370,20 +370,20 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                       <div>
-                        <p className="text-gray-400">Status</p>
-                        <p className="text-white capitalize">{invitation.status}</p>
+                        <p className="text-gray-600">Status</p>
+                        <p className="text-gray-900 capitalize">{invitation.status}</p>
                       </div>
                       <div>
-                        <p className="text-gray-400">Provperiod</p>
-                        <p className="text-white">{invitation.trial_duration_days} dagar</p>
+                        <p className="text-gray-600">Provperiod</p>
+                        <p className="text-gray-900">{invitation.trial_duration_days} dagar</p>
                       </div>
                       <div>
-                        <p className="text-gray-400">Går ut</p>
-                        <p className="text-white">{formatTimeRemaining(invitation.expires_at)}</p>
+                        <p className="text-gray-600">Går ut</p>
+                        <p className="text-gray-900">{formatTimeRemaining(invitation.expires_at)}</p>
                       </div>
                       <div>
-                        <p className="text-gray-400">Konvertering</p>
-                        <p className="text-white">
+                        <p className="text-gray-600">Konvertering</p>
+                        <p className="text-gray-900">
                           {invitation.converted_to_paid
                             ? `${invitation.conversion_amount} SEK`
                             : 'Ej konverterad'
@@ -393,7 +393,7 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
                     </div>
 
                     {invitation.status === 'pending' && (
-                      <div className="flex space-x-2 mt-4 pt-4 border-t border-navy-600">
+                      <div className="flex space-x-2 mt-4 pt-4 border-t border-gray-200">
                         <Button
                           variant="outline"
                           size="sm"
