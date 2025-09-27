@@ -21,8 +21,16 @@ import {
   MessageSquare,
   Clock,
   Download,
-  Calendar
+  Calendar,
+  Eye,
+  Copy,
+  Check,
+  ZoomIn,
+  ZoomOut
 } from 'lucide-react';
+
+// Import DownloadButton for PDF functionality
+import DownloadButton from '@/components/letters/download-button';
 
 // Reuse LetterTag component with light theme
 const LetterTag = ({
@@ -54,6 +62,9 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
   const router = useRouter();
   const { getLetter, currentLetter, isLoading, error, removeLetter, isDeleting } = useLetters();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [zoom, setZoom] = useState(0.7);
+  const previewRef = useRef<HTMLDivElement>(null);
 
   const resolvedParams = use(params);
   const id = resolvedParams.id;
@@ -86,6 +97,31 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
     if (!isDeleting) {
       setShowDeleteConfirm(false);
     }
+  };
+
+  const handleCopy = async () => {
+    if (currentLetter?.content) {
+      await navigator.clipboard.writeText(currentLetter.content.replace(/<[^>]*>/g, ''));
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const formatContent = (content: string) => {
+    // Simple formatting for preview
+    return content
+      .split('\n')
+      .map(line => {
+        if (line.trim() === '') return '<br/>';
+        if (line.startsWith('Hej') || line.startsWith('Dear')) {
+          return `<p class="font-semibold mb-4">${line}</p>`;
+        }
+        if (line.startsWith('Med vänlig hälsning') || line.startsWith('Best regards')) {
+          return `<p class="mt-6 font-medium">${line}</p>`;
+        }
+        return `<p class="mb-3">${line}</p>`;
+      })
+      .join('');
   };
 
   // Handle initial loading
@@ -136,130 +172,199 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
   }
 
   return (
-    <div className="max-w-screen-lg mx-auto pt-8 pb-16 px-4 bg-gradient-to-br from-slate-50 to-gray-50 min-h-screen">
-      {/* Header section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="flex flex-col mb-6 md:flex-row md:items-center md:justify-between"
-      >
-        <div className="flex-1 mb-4 md:mb-0 md:mr-6">
-          <h1 className="mb-3 text-3xl font-bold text-gray-900">{currentLetter.title || 'Ansökningsbrev'}</h1>
-          <div className="flex flex-wrap gap-2">
-            <LetterTag label="Företag" value={currentLetter.company} type="company" />
-            <LetterTag label="Tjänst" value={currentLetter.job_title} type="job" />
-            <LetterTag label="Tonalitet" value={currentLetter.tonality} type="tone" />
-          </div>
-        </div>
-        <div className="flex space-x-2 flex-shrink-0">
-          <button
-            onClick={handleEdit}
-            className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-lg transition-all shadow-md hover:shadow-purple-500/25"
-          >
-            <Edit className="w-4 h-4 mr-2" />
-            Redigera
-          </button>
-          <button
-            onClick={handleDeleteRequest}
-            disabled={isDeleting}
-            className={`inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 rounded-lg transition-all shadow-md hover:shadow-red-500/25 ${isDeleting ? 'opacity-50 cursor-not-allowed' : ''}`}
-          >
-            {isDeleting ? (
-              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-            ) : (
-              <Trash2 className="w-4 h-4 mr-2" />
-            )}
-            Ta bort
-          </button>
-        </div>
-      </motion.div>
-
-      {/* Letter content */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.1 }}
-        className="p-6 md:p-8 bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-200/80 mb-6"
-      >
-        <div
-          className="prose prose-gray max-w-none text-gray-800 view-letter-content"
-          style={{ lineHeight: '1.7' }}
-          dangerouslySetInnerHTML={{ __html: currentLetter.content?.replace(/\n/g, '<br />') || '' }}
-        />
-      </motion.div>
-
-      {/* Meta info */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="p-5 bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-200/80 mb-6"
-      >
-        <h3 className="text-lg font-semibold text-gray-900 flex items-center mb-3">
-          <Info className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" />
-          Information
-        </h3>
-        <div className="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
-          <div>
-            <p className="text-gray-600 mb-0.5">Skapad</p>
-            <p className="text-gray-900 flex items-center">
-              <Calendar className="w-4 h-4 mr-1.5 text-gray-500" />
-              {currentLetter.created_at ? new Date(currentLetter.created_at).toLocaleString('sv-SE', { dateStyle: 'long', timeStyle: 'short'}) : 'Okänt datum'}
-            </p>
-          </div>
-          {currentLetter.updated_at && currentLetter.created_at &&
-             new Date(currentLetter.updated_at) > new Date(currentLetter.created_at) && (
-            <div>
-              <p className="text-gray-600 mb-0.5">Senast uppdaterad</p>
-              <p className="text-gray-900 flex items-center">
-                <Clock className="w-4 h-4 mr-1.5 text-gray-500" />
-                {new Date(currentLetter.updated_at).toLocaleString('sv-SE', { dateStyle: 'long', timeStyle: 'short'})}
-              </p>
-            </div>
-          )}
-        </div>
-      </motion.div>
-
-      {/* Download section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
-        className="p-5 bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-200/80 mb-6"
-      >
-        <h3 className="text-lg font-semibold text-gray-900 flex items-center mb-3">
-          <Download className="h-5 w-5 text-green-600 mr-2 flex-shrink-0" />
-          Ladda ned brev
-        </h3>
-        <div className="flex flex-col sm:flex-row gap-3">
-          <button className="flex-1 inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 rounded-lg transition-all shadow-md hover:shadow-green-500/25">
-            <Download className="w-4 h-4 mr-2" />
-            Ladda ned som PDF
-          </button>
-          <button className="flex-1 inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 rounded-lg transition-all shadow-md hover:shadow-blue-500/25">
-            <Download className="w-4 h-4 mr-2" />
-            Ladda ned som DOCX
-          </button>
-        </div>
-      </motion.div>
-
+    <div className="max-w-7xl mx-auto px-6 py-8 bg-gradient-to-br from-slate-50 to-gray-50 min-h-screen">
       {/* Navigation */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="flex flex-col sm:flex-row justify-between items-center gap-3 mt-8"
+        transition={{ duration: 0.6 }}
+        className="mb-6"
       >
-        <Link href="/dashboard/mina-brev" className="inline-flex items-center w-full sm:w-auto justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 rounded-lg transition-colors border border-gray-300 shadow-sm">
+        <Link href="/dashboard/mina-brev" className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Tillbaka till mina brev
         </Link>
-        <Link href="/dashboard/skapa-brev" className="inline-flex items-center w-full sm:w-auto justify-center px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 rounded-lg transition-all shadow-md hover:shadow-pink-500/25">
-          <Plus className="w-4 h-4 mr-2" />
-          Skapa nytt brev
-        </Link>
       </motion.div>
+
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="mb-8"
+      >
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          {currentLetter.title || 'Ansökningsbrev'}
+        </h1>
+        <div className="flex flex-wrap gap-2 mb-4">
+          <LetterTag label="Företag" value={currentLetter.company} type="company" />
+          <LetterTag label="Tjänst" value={currentLetter.job_title} type="job" />
+          <LetterTag label="Tonalitet" value={currentLetter.tonality} type="tone" />
+        </div>
+      </motion.div>
+
+      <div className="space-y-6">
+        {/* Action Bar - EXACT copy from PreviewStep */}
+        <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-white rounded-xl border border-gray-200">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setZoom(Math.max(0.5, zoom - 0.1))}
+              className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <ZoomOut className="w-4 h-4" />
+            </button>
+            <span className="text-sm text-gray-600 min-w-[60px] text-center">
+              {Math.round(zoom * 100)}%
+            </span>
+            <button
+              onClick={() => setZoom(Math.min(1, zoom + 0.1))}
+              className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              <ZoomIn className="w-4 h-4" />
+            </button>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <motion.button
+              onClick={handleCopy}
+              className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              {copied ? (
+                <>
+                  <Check className="w-4 h-4 text-green-600" />
+                  <span className="text-sm">Kopierat!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-4 h-4" />
+                  <span className="text-sm">Kopiera</span>
+                </>
+              )}
+            </motion.button>
+
+            <motion.button
+              onClick={handleEdit}
+              className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Edit className="w-4 h-4" />
+              <span className="text-sm">Redigera</span>
+            </motion.button>
+
+            <DownloadButton
+              format="pdf"
+              letterContent={currentLetter.content || ''}
+              metadata={{
+                title: currentLetter.title || undefined,
+                company: currentLetter.company || undefined,
+                position: currentLetter.job_title || undefined
+              }}
+              className="!px-4 !py-2"
+              showTemplateSelector={false}
+              showPreview={false}
+            />
+
+            <motion.button
+              onClick={handleDeleteRequest}
+              disabled={isDeleting}
+              className="flex items-center gap-2 px-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              {isDeleting ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <Trash2 className="w-4 h-4" />
+              )}
+              <span className="text-sm font-medium">{isDeleting ? 'Tar bort...' : 'Ta bort'}</span>
+            </motion.button>
+          </div>
+        </div>
+
+        {/* Document Preview - EXACT copy from PreviewStep */}
+        <div className="bg-gray-50 rounded-2xl p-6 min-h-[600px] flex items-center justify-center">
+          <motion.div
+            ref={previewRef}
+            className="bg-white shadow-2xl rounded-lg overflow-hidden"
+            style={{
+              width: '210mm',
+              minHeight: '297mm',
+              transform: `scale(${zoom})`,
+              transformOrigin: 'top center'
+            }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{ boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.25)' }}
+          >
+            {/* Page Header */}
+            <div className="border-b border-gray-100 px-8 py-4 bg-gradient-to-r from-gray-50 to-white">
+              <div className="flex items-center gap-2">
+                <FileText className="w-5 h-5 text-gray-400" />
+                <span className="text-sm text-gray-600">Personligt brev</span>
+              </div>
+            </div>
+
+            {/* Page Content */}
+            <div
+              className="p-16 text-gray-800"
+              style={{ fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
+              dangerouslySetInnerHTML={{ __html: formatContent(currentLetter.content || '') }}
+            />
+
+            {/* Page Footer */}
+            <div className="border-t border-gray-100 px-8 py-4 bg-gradient-to-r from-white to-gray-50">
+              <p className="text-xs text-gray-400 text-center">
+                Genererat med Jobbcoach.ai
+              </p>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Help Text */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="text-center text-sm text-gray-600"
+        >
+          💡 Tips: Du kan redigera texten eller ladda ner som PDF
+        </motion.div>
+
+        {/* Meta info */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="p-5 bg-white/95 backdrop-blur-xl rounded-xl shadow-lg border border-gray-200/80"
+        >
+          <h3 className="text-lg font-semibold text-gray-900 flex items-center mb-3">
+            <Info className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" />
+            Information
+          </h3>
+          <div className="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
+            <div>
+              <p className="text-gray-600 mb-0.5">Skapad</p>
+              <p className="text-gray-900 flex items-center">
+                <Calendar className="w-4 h-4 mr-1.5 text-gray-500" />
+                {currentLetter.created_at ? new Date(currentLetter.created_at).toLocaleString('sv-SE', { dateStyle: 'long', timeStyle: 'short'}) : 'Okänt datum'}
+              </p>
+            </div>
+            {currentLetter.updated_at && currentLetter.created_at &&
+               new Date(currentLetter.updated_at) > new Date(currentLetter.created_at) && (
+              <div>
+                <p className="text-gray-600 mb-0.5">Senast uppdaterad</p>
+                <p className="text-gray-900 flex items-center">
+                  <Clock className="w-4 h-4 mr-1.5 text-gray-500" />
+                  {new Date(currentLetter.updated_at).toLocaleString('sv-SE', { dateStyle: 'long', timeStyle: 'short'})}
+                </p>
+              </div>
+            )}
+          </div>
+        </motion.div>
+      </div>
 
       {/* Delete confirmation modal */}
       {showDeleteConfirm && (

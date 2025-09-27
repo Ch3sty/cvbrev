@@ -174,50 +174,35 @@ const LetterPreviewCard = ({ letter, onView, onEdit, onDelete, isDeleting }: any
         </div>
 
         {/* Action buttons */}
-        <motion.div
-          className="flex items-center space-x-2"
-          variants={{
-            hidden: { opacity: 0, y: 20 },
-            visible: {
-              opacity: 1,
-              y: 0,
-              transition: { staggerChildren: 0.1 }
-            }
-          }}
-          initial="hidden"
-          animate={isHovered ? "visible" : "hidden"}
-        >
-          <motion.button
-            variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1 } }}
+        <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+          <button
             onClick={() => onView(letter.id)}
-            className="flex-1 px-3 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg text-sm font-medium hover:from-blue-600 hover:to-cyan-600 transition-all shadow-lg hover:shadow-blue-500/25"
+            className="flex-1 px-3 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium"
           >
             <Eye className="w-4 h-4 mr-1 inline" />
             Visa
-          </motion.button>
+          </button>
 
-          <motion.button
-            variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1 } }}
+          <button
             onClick={() => onEdit(letter.id)}
-            className="flex-1 px-3 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg text-sm font-medium hover:from-purple-600 hover:to-pink-600 transition-all shadow-lg hover:shadow-purple-500/25"
+            className="flex-1 px-3 py-2 bg-purple-600 text-white rounded-lg text-sm font-medium"
           >
             <Pencil className="w-4 h-4 mr-1 inline" />
             Redigera
-          </motion.button>
+          </button>
 
-          <motion.button
-            variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1 } }}
+          <button
             onClick={() => onDelete(letter.id)}
             disabled={isDeleting}
-            className="px-3 py-2 bg-gradient-to-r from-red-500 to-rose-500 text-white rounded-lg text-sm font-medium hover:from-red-600 hover:to-rose-600 transition-all shadow-lg hover:shadow-red-500/25 disabled:opacity-50"
+            className="px-3 py-2 bg-red-600 text-white rounded-lg text-sm font-medium disabled:opacity-50"
           >
             {isDeleting ? (
               <RefreshCw className="w-4 h-4 animate-spin" />
             ) : (
               <Trash2 className="w-4 h-4" />
             )}
-          </motion.button>
-        </motion.div>
+          </button>
+        </div>
       </div>
     </BentoCard>
   );

@@ -27,36 +27,51 @@ export default function GenerationStep({
   const [currentStep, setCurrentStep] = useState(0);
 
   useEffect(() => {
-    if (isGenerating) {
+    if (isGenerating && !generatedLetter) {
+      console.log('🚀 GenerationStep: Starting animation sequence');
       setCompletedSteps([]);
       setCurrentStep(0);
 
-      // Simulate step progression with GUARANTEED timing
-      const progressSteps = () => {
-        const stepDuration = 2500; // 2.5 seconds per step for visibility
+      // Use setInterval for GUARANTEED step progression
+      let currentStepIndex = 0;
+      const stepDuration = 3000; // 3 seconds per step for clear visibility
 
-        // Step 0: Start immediately
-        setCurrentStep(0);
+      const stepInterval = setInterval(() => {
+        console.log(`🔄 GenerationStep: Moving to step ${currentStepIndex}`);
 
-        // Steps 1-4: Progress through each step
-        aiSteps.forEach((_, index) => {
-          if (index > 0) {
-            setTimeout(() => {
-              setCompletedSteps(prev => [...prev, index - 1]);
-              setCurrentStep(index);
-            }, stepDuration * index);
-          }
-        });
+        // Mark previous step as completed (except for first step)
+        if (currentStepIndex > 0) {
+          setCompletedSteps(prev => {
+            const newCompleted = [...prev, currentStepIndex - 1];
+            console.log('✅ Completed steps:', newCompleted);
+            return newCompleted;
+          });
+        }
 
-        // Final completion - only after ALL steps are done
-        setTimeout(() => {
-          setCompletedSteps(prev => [...prev, aiSteps.length - 1]);
+        // Set current active step
+        setCurrentStep(currentStepIndex);
+        console.log('👉 Current step:', currentStepIndex);
+
+        currentStepIndex++;
+
+        // Stop when we've gone through all steps
+        if (currentStepIndex >= aiSteps.length) {
+          console.log('🏁 GenerationStep: All steps completed, clearing interval');
+          clearInterval(stepInterval);
+
+          // Mark final step as completed
+          setCompletedSteps(aiSteps.map((_, i) => i));
           setCurrentStep(aiSteps.length);
-        }, stepDuration * aiSteps.length);
-      };
+        }
+      }, stepDuration);
 
-      progressSteps();
+      // Cleanup interval on component unmount or when generation stops
+      return () => {
+        console.log('🧹 GenerationStep: Cleaning up interval');
+        clearInterval(stepInterval);
+      };
     } else if (generatedLetter && !isGenerating) {
+      console.log('✨ GenerationStep: Letter generated, showing completion');
       // Only complete when generation is fully done
       setCompletedSteps(aiSteps.map((_, i) => i));
       setCurrentStep(aiSteps.length);
@@ -194,12 +209,12 @@ export default function GenerationStep({
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: step.delay * 0.3 }}
                 className={`
-                  flex items-center gap-4 p-4 rounded-lg transition-all
+                  flex items-center gap-4 p-4 rounded-lg transition-all duration-500
                   ${isCurrent
-                    ? 'bg-white shadow-md border-2 border-blue-400'
+                    ? 'bg-white shadow-lg border-2 border-blue-500 scale-105 transform'
                     : isCompleted
-                    ? 'bg-white/80'
-                    : 'bg-white/50'
+                    ? 'bg-green-50 border border-green-200'
+                    : 'bg-white/50 border border-gray-200'
                   }
                 `}
               >
@@ -225,8 +240,8 @@ export default function GenerationStep({
                 </div>
 
                 <div className="flex-1">
-                  <p className={`font-medium ${
-                    isCompleted ? 'text-gray-900' : isCurrent ? 'text-blue-900' : 'text-gray-500'
+                  <p className={`font-medium transition-colors duration-300 ${
+                    isCompleted ? 'text-green-800' : isCurrent ? 'text-blue-900 font-semibold' : 'text-gray-500'
                   }`}>
                     {step.label}
                   </p>
