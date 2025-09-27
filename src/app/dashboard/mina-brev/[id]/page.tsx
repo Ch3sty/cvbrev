@@ -44,14 +44,14 @@ const LetterTag = ({
 }) => {
   if (!value) return null;
   const iconAndColor = {
-    company: { icon: <Building2 className="w-4 h-4 mr-1.5 text-blue-600" />, bgClass: "bg-blue-50 text-blue-700 border-blue-200" },
-    job: { icon: <Briefcase className="w-4 h-4 mr-1.5 text-purple-600" />, bgClass: "bg-purple-50 text-purple-700 border-purple-200" },
-    tone: { icon: <MessageSquare className="w-4 h-4 mr-1.5 text-pink-600" />, bgClass: "bg-pink-50 text-pink-700 border-pink-200" }
+    company: { icon: <Building2 className="w-3 h-3 mr-1" />, bgClass: "bg-blue-50 text-blue-700 border-blue-200" },
+    job: { icon: <Briefcase className="w-3 h-3 mr-1" />, bgClass: "bg-purple-50 text-purple-700 border-purple-200" },
+    tone: { icon: <MessageSquare className="w-3 h-3 mr-1" />, bgClass: "bg-pink-50 text-pink-700 border-pink-200" }
   };
   const { icon, bgClass } = iconAndColor[type];
   const displayValue = type === 'tone' ? value.charAt(0).toUpperCase() + value.slice(1) : value;
   return (
-    <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium border ${bgClass}`} title={`${label}: ${displayValue}`} style={{maxWidth: '180px'}}>
+    <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${bgClass}`} title={`${label}: ${displayValue}`} style={{maxWidth: '180px'}}>
       {icon}
       <span className="truncate">{displayValue}</span>
     </span>
@@ -207,28 +207,32 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
         {/* Action Bar - EXACT copy from PreviewStep */}
         <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-white rounded-xl border border-gray-200">
           <div className="flex items-center gap-2">
-            <button
+            <motion.button
               onClick={() => setZoom(Math.max(0.5, zoom - 0.1))}
-              className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg hover:scale-105 transition-all duration-200"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               <ZoomOut className="w-4 h-4" />
-            </button>
-            <span className="text-sm text-gray-600 min-w-[60px] text-center">
+            </motion.button>
+            <span className="text-sm text-gray-600 min-w-[60px] text-center font-medium">
               {Math.round(zoom * 100)}%
             </span>
-            <button
-              onClick={() => setZoom(Math.min(1, zoom + 0.1))}
-              className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+            <motion.button
+              onClick={() => setZoom(Math.min(1.5, zoom + 0.1))}
+              className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg hover:scale-105 transition-all duration-200"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               <ZoomIn className="w-4 h-4" />
-            </button>
+            </motion.button>
           </div>
 
           <div className="flex items-center gap-2">
             <motion.button
               onClick={handleCopy}
-              className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-              whileHover={{ scale: 1.02 }}
+              className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:scale-105 transition-all duration-200 shadow-sm hover:shadow-md"
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
               {copied ? (
@@ -246,8 +250,8 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
 
             <motion.button
               onClick={handleEdit}
-              className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-              whileHover={{ scale: 1.02 }}
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
               <Edit className="w-4 h-4" />
@@ -270,8 +274,8 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
             <motion.button
               onClick={handleDeleteRequest}
               disabled={isDeleting}
-              className="flex items-center gap-2 px-4 py-2 text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50"
-              whileHover={{ scale: 1.02 }}
+              className="flex items-center gap-2 px-4 py-2 text-white bg-red-600 hover:bg-red-700 rounded-lg font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-50"
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
               {isDeleting ? (
@@ -293,7 +297,8 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
               width: '210mm',
               minHeight: '297mm',
               transform: `scale(${zoom})`,
-              transformOrigin: 'top center'
+              transformOrigin: 'top center',
+              transition: 'transform 0.3s ease'
             }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -397,10 +402,10 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
               </div>
             </div>
             <div className="p-5 border-t border-gray-200 flex justify-end space-x-3 bg-gray-50">
-              <button onClick={cancelDeleteAction} disabled={isDeleting} className="px-4 py-2 bg-white text-gray-700 rounded-md hover:bg-gray-50 transition-colors disabled:opacity-50 border border-gray-300">
+              <motion.button onClick={cancelDeleteAction} disabled={isDeleting} className="px-4 py-2 bg-white text-gray-700 rounded-lg hover:bg-gray-50 hover:scale-105 transition-all duration-200 disabled:opacity-50 border border-gray-300 font-medium shadow-sm hover:shadow-md" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
                 Avbryt
-              </button>
-              <button onClick={confirmDeleteAction} disabled={isDeleting} className={`px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 flex items-center transition-colors disabled:opacity-50 disabled:cursor-not-allowed`}>
+              </motion.button>
+              <motion.button onClick={confirmDeleteAction} disabled={isDeleting} className={`px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 hover:scale-105 flex items-center transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed font-medium shadow-lg hover:shadow-xl`} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
                 {isDeleting ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -412,7 +417,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
                     Ta bort brevet
                   </>
                 )}
-              </button>
+              </motion.button>
             </div>
           </motion.div>
         </motion.div>

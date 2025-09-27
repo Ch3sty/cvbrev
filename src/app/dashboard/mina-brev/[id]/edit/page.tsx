@@ -39,14 +39,14 @@ const LetterTag = ({
 }) => {
   if (!value) return null;
   const iconAndColor = {
-    company: { icon: <Building2 className="w-4 h-4 mr-1.5 text-blue-600" />, bgClass: "bg-blue-50 text-blue-700 border-blue-200" },
-    job: { icon: <Briefcase className="w-4 h-4 mr-1.5 text-purple-600" />, bgClass: "bg-purple-50 text-purple-700 border-purple-200" },
-    tone: { icon: <MessageSquare className="w-4 h-4 mr-1.5 text-pink-600" />, bgClass: "bg-pink-50 text-pink-700 border-pink-200" }
+    company: { icon: <Building2 className="w-3 h-3 mr-1" />, bgClass: "bg-blue-50 text-blue-700 border-blue-200" },
+    job: { icon: <Briefcase className="w-3 h-3 mr-1" />, bgClass: "bg-purple-50 text-purple-700 border-purple-200" },
+    tone: { icon: <MessageSquare className="w-3 h-3 mr-1" />, bgClass: "bg-pink-50 text-pink-700 border-pink-200" }
   };
   const { icon, bgClass } = iconAndColor[type];
   const displayValue = type === 'tone' ? value.charAt(0).toUpperCase() + value.slice(1) : value;
   return (
-    <span className={`inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium border ${bgClass}`} title={`${label}: ${displayValue}`} style={{maxWidth: '180px'}}>
+    <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${bgClass}`} title={`${label}: ${displayValue}`} style={{maxWidth: '180px'}}>
       {icon}
       <span className="truncate">{displayValue}</span>
     </span>
@@ -193,7 +193,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
         <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
           <h2 className="mb-2 text-xl font-bold text-red-800">Ett fel uppstod</h2>
           <p className="text-red-700">{error || 'Brevet kunde inte hittas'}</p>
-          <Link href="/dashboard/mina-brev" className="inline-block px-4 py-2 mt-4 text-white bg-red-600 rounded-md hover:bg-red-700">
+          <Link href="/dashboard/mina-brev" className="inline-block px-4 py-2 mt-4 text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 rounded-lg font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200">
             Tillbaka till mina brev
           </Link>
         </div>
@@ -210,7 +210,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
         transition={{ duration: 0.6 }}
         className="mb-6"
       >
-        <Link href={`/dashboard/mina-brev/${id}`} className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors">
+        <Link href={`/dashboard/mina-brev/${id}`} className="inline-flex items-center text-gray-600 hover:text-gray-900 hover:scale-105 transition-all duration-200">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Tillbaka till brev
         </Link>
@@ -322,28 +322,32 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
         {/* Action Bar - EXACT copy from PreviewStep */}
         <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-white rounded-xl border border-gray-200">
           <div className="flex items-center gap-2">
-            <button
+            <motion.button
               onClick={() => setZoom(Math.max(0.5, zoom - 0.1))}
-              className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg hover:scale-105 transition-all duration-200"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               <ZoomOut className="w-4 h-4" />
-            </button>
-            <span className="text-sm text-gray-600 min-w-[60px] text-center">
+            </motion.button>
+            <span className="text-sm text-gray-600 min-w-[60px] text-center font-medium">
               {Math.round(zoom * 100)}%
             </span>
-            <button
-              onClick={() => setZoom(Math.min(1, zoom + 0.1))}
-              className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+            <motion.button
+              onClick={() => setZoom(Math.min(1.5, zoom + 0.1))}
+              className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg hover:scale-105 transition-all duration-200"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               <ZoomIn className="w-4 h-4" />
-            </button>
+            </motion.button>
           </div>
 
           <div className="flex items-center gap-2">
             <motion.button
               onClick={handleCopy}
-              className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-              whileHover={{ scale: 1.02 }}
+              className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:scale-105 transition-all duration-200 shadow-sm hover:shadow-md"
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
               {copied ? (
@@ -361,8 +365,8 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
 
             <motion.button
               onClick={() => setIsEditing(!isEditing)}
-              className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-              whileHover={{ scale: 1.02 }}
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
               <Edit3 className="w-4 h-4" />
@@ -372,8 +376,8 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
             <motion.button
               onClick={handleSave}
               disabled={isSaving}
-              className="flex items-center gap-2 px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
-              whileHover={{ scale: 1.02 }}
+              className="flex items-center gap-2 px-4 py-2 text-white bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 rounded-lg font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-50"
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
             >
               {isSaving ? (
@@ -419,21 +423,25 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
                 style={{ fontFamily: 'Georgia, serif' }}
               />
               <div className="flex justify-end gap-2 mt-4">
-                <button
+                <motion.button
                   onClick={() => {
                     setIsEditing(false);
                     setEditedContent(formData.content);
                   }}
-                  className="px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50"
+                  className="px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:scale-105 transition-all duration-200 shadow-sm hover:shadow-md"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   Avbryt
-                </button>
-                <button
+                </motion.button>
+                <motion.button
                   onClick={handleSaveEdit}
-                  className="px-4 py-2 text-white bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg hover:from-pink-700 hover:to-purple-700"
+                  className="px-4 py-2 text-white bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 rounded-lg font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   Spara ändringar
-                </button>
+                </motion.button>
               </div>
             </motion.div>
           ) : (
@@ -444,7 +452,8 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
                 width: '210mm',
                 minHeight: '297mm',
                 transform: `scale(${zoom})`,
-                transformOrigin: 'top center'
+                transformOrigin: 'top center',
+                transition: 'transform 0.3s ease'
               }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

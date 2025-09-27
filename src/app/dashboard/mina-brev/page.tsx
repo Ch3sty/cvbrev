@@ -146,19 +146,19 @@ const LetterPreviewCard = ({ letter, onView, onEdit, onDelete, isDeleting }: any
         {/* Tags */}
         <div className="flex flex-wrap gap-2 mb-4">
           {letter.company && (
-            <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded-md text-xs font-medium flex items-center">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200">
               <Building2 className="w-3 h-3 mr-1" />
               {letter.company}
             </span>
           )}
           {letter.job_title && (
-            <span className="px-2 py-1 bg-purple-50 text-purple-700 rounded-md text-xs font-medium flex items-center">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-50 text-purple-700 border border-purple-200">
               <Briefcase className="w-3 h-3 mr-1" />
               {letter.job_title}
             </span>
           )}
           {letter.tonality && (
-            <span className="px-2 py-1 bg-pink-50 text-pink-700 rounded-md text-xs font-medium flex items-center">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-pink-50 text-pink-700 border border-pink-200">
               <MessageSquare className="w-3 h-3 mr-1" />
               {letter.tonality}
             </span>
@@ -175,33 +175,39 @@ const LetterPreviewCard = ({ letter, onView, onEdit, onDelete, isDeleting }: any
 
         {/* Action buttons */}
         <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
-          <button
+          <motion.button
             onClick={() => onView(letter.id)}
-            className="flex-1 px-3 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium"
+            className="flex-1 px-3 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg text-sm font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
           >
             <Eye className="w-4 h-4 mr-1 inline" />
             Visa
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
             onClick={() => onEdit(letter.id)}
-            className="flex-1 px-3 py-2 bg-purple-600 text-white rounded-lg text-sm font-medium"
+            className="flex-1 px-3 py-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-lg text-sm font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
           >
             <Pencil className="w-4 h-4 mr-1 inline" />
             Redigera
-          </button>
+          </motion.button>
 
-          <button
+          <motion.button
             onClick={() => onDelete(letter.id)}
             disabled={isDeleting}
-            className="px-3 py-2 bg-red-600 text-white rounded-lg text-sm font-medium disabled:opacity-50"
+            className="px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-50"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
           >
             {isDeleting ? (
               <RefreshCw className="w-4 h-4 animate-spin" />
             ) : (
               <Trash2 className="w-4 h-4" />
             )}
-          </button>
+          </motion.button>
         </div>
       </div>
     </BentoCard>
@@ -489,7 +495,7 @@ export default function MinaBrevPage() {
               >
                 <Link
                   href="/dashboard/skapa-brev"
-                  className="px-8 py-4 bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold rounded-2xl shadow-2xl hover:shadow-pink-500/25 transition-all flex items-center space-x-2"
+                  className="px-8 py-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 flex items-center space-x-2"
                 >
                   <Plus className="w-5 h-5" />
                   <span>Skapa nytt brev</span>
@@ -550,8 +556,8 @@ export default function MinaBrevPage() {
 
                 <motion.button
                   onClick={() => setShowFilters(!showFilters)}
-                  className="px-4 py-3 bg-white/70 backdrop-blur-xl border border-gray-200/50 rounded-xl text-gray-700 hover:bg-white/90 transition-all flex items-center space-x-2"
-                  whileHover={{ scale: 1.02 }}
+                  className="px-4 py-3 bg-white hover:bg-gray-50 text-gray-900 rounded-xl font-medium border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 flex items-center space-x-2"
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                 >
                   <Filter className="w-4 h-4" />
@@ -564,8 +570,8 @@ export default function MinaBrevPage() {
                   onClick={() => setSelectedView('grid')}
                   className={`p-3 rounded-xl transition-all ${
                     selectedView === 'grid'
-                      ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
-                      : 'bg-white/70 backdrop-blur-xl text-gray-600 hover:bg-white/90'
+                      ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-lg'
+                      : 'bg-white hover:bg-gray-50 text-gray-600 border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md'
                   }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -576,8 +582,8 @@ export default function MinaBrevPage() {
                   onClick={() => setSelectedView('list')}
                   className={`p-3 rounded-xl transition-all ${
                     selectedView === 'list'
-                      ? 'bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg'
-                      : 'bg-white/70 backdrop-blur-xl text-gray-600 hover:bg-white/90'
+                      ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-lg'
+                      : 'bg-white hover:bg-gray-50 text-gray-600 border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md'
                   }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -643,7 +649,7 @@ export default function MinaBrevPage() {
               >
                 <Link
                   href="/dashboard/skapa-brev"
-                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-pink-500/25 transition-all space-x-2"
+                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 space-x-2"
                 >
                   <Plus className="w-5 h-5" />
                   <span>Skapa ditt första brev</span>
