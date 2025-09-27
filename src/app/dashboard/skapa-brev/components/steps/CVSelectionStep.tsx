@@ -71,7 +71,7 @@ export default function CVSelectionStep({
   return (
     <div className="space-y-6">
       {/* Upload Zone */}
-      <motion.div
+      <div
         {...getRootProps()}
         className={`
           border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer
@@ -81,8 +81,6 @@ export default function CVSelectionStep({
             : 'border-gray-300 hover:border-pink-400 hover:bg-gray-50/50'
           }
         `}
-        whileHover={{ scale: 1.01 }}
-        whileTap={{ scale: 0.99 }}
       >
         <input {...getInputProps()} />
 
@@ -146,7 +144,7 @@ export default function CVSelectionStep({
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
+      </div>
 
       {/* Error Message */}
       {uploadError && (
@@ -217,7 +215,7 @@ export default function CVSelectionStep({
                 }`} />
                 <div className="flex-1 min-w-0">
                   <h4 className="font-semibold text-gray-900 truncate">
-                    {cv.name || 'Namnlöst CV'}
+                    {cv.file_name || 'Namnlöst CV'}
                   </h4>
                   <div className="flex items-center gap-2 mt-1">
                     <Clock className="w-3 h-3 text-gray-400" />
@@ -225,11 +223,10 @@ export default function CVSelectionStep({
                       Uppladdad {formatDate(cv.created_at)}
                     </span>
                   </div>
-                  {cv.job_title && (
-                    <p className="text-sm text-gray-600 mt-1 truncate">
-                      {cv.job_title}
-                    </p>
-                  )}
+                  {/* CV text preview */}
+                  <p className="text-sm text-gray-600 mt-1 truncate">
+                    {cv.cv_text ? cv.cv_text.substring(0, 50) + '...' : 'CV-innehåll'}
+                  </p>
                 </div>
               </div>
             </motion.button>

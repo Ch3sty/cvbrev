@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 
@@ -73,7 +74,7 @@ export default function ProgressBar({
                 {isCompleted || isPast ? (
                   <Check className="w-5 h-5" />
                 ) : (
-                  <step.icon className="w-5 h-5" />
+                  React.createElement(step.icon, { className: "w-5 h-5" })
                 )}
               </motion.div>
 

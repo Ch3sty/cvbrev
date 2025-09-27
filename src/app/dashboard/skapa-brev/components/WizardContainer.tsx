@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, ReactNode } from 'react';
+import React, { useState, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ProgressBar from './ProgressBar';
@@ -62,16 +62,8 @@ export default function WizardContainer({ steps, onComplete }: WizardContainerPr
 
   const stepVariants = {
     hidden: { opacity: 0, x: 50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { type: 'spring', stiffness: 300, damping: 30 }
-    },
-    exit: {
-      opacity: 0,
-      x: -50,
-      transition: { duration: 0.2 }
-    }
+    visible: { opacity: 1, x: 0 },
+    exit: { opacity: 0, x: -50 }
   };
 
   return (
@@ -105,7 +97,7 @@ export default function WizardContainer({ steps, onComplete }: WizardContainerPr
                 animate={{ scale: 1 }}
                 className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br ${steps[currentStep].color} flex items-center justify-center`}
               >
-                {<steps[currentStep].icon className="w-8 h-8 text-white" />}
+                {React.createElement(steps[currentStep].icon, { className: "w-8 h-8 text-white" })}
               </motion.div>
               <h2 className="text-2xl font-semibold text-gray-900 mb-2">
                 {steps[currentStep].title}
@@ -121,6 +113,7 @@ export default function WizardContainer({ steps, onComplete }: WizardContainerPr
                 initial="hidden"
                 animate="visible"
                 exit="exit"
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 className="min-h-[400px]"
               >
                 {steps[currentStep].component}

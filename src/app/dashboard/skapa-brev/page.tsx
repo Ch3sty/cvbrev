@@ -79,22 +79,23 @@ export default function CreateLetterPage() {
 
     try {
       const result = await createLetter({
-        cvId: selectedCV,
-        jobDescription,
+        cv_id: selectedCV,
+        job_description: jobDescription,
         tonality,
-        language
+        language,
+        save: false // Generate preview first, save later in preview step
       });
 
-      if (result.success && result.data) {
-        setGeneratedLetter(result.data.content);
-        setLetterData(result.data);
+      if (result) {
+        setGeneratedLetter(result.content || result);
+        setLetterData(result);
 
         // Update remaining letters
-        if (remainingWeeklyLetters !== null) {
-          updateRemainingLetters(remainingWeeklyLetters - 1);
+        if (remainingWeeklyLetters !== null && result.remainingLetters !== undefined) {
+          updateRemainingLetters(result.remainingLetters);
         }
       } else {
-        setError(result.error || 'Kunde inte generera brevet');
+        setError('Kunde inte generera brevet');
       }
     } catch (error) {
       console.error('Letter generation error:', error);
@@ -117,8 +118,8 @@ export default function CreateLetterPage() {
       await saveLetter({
         ...letterData,
         content: generatedLetter,
-        cvId: selectedCV!,
-        jobDescription,
+        cv_id: selectedCV!,
+        job_description: jobDescription,
         tonality,
         language
       });
