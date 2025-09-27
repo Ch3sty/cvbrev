@@ -25,16 +25,18 @@ export default function GenerationStep({
 }: GenerationStepProps) {
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [currentStep, setCurrentStep] = useState(0);
+  const [animationComplete, setAnimationComplete] = useState(false);
 
   useEffect(() => {
-    if (isGenerating && !generatedLetter) {
-      console.log('🚀 GenerationStep: Starting animation sequence');
+    if (isGenerating) {
+      console.log('🚀 GenerationStep: Starting animation sequence, isGenerating:', isGenerating);
       setCompletedSteps([]);
       setCurrentStep(0);
+      setAnimationComplete(false);
 
       // Start immediately with step 0
       let currentStepIndex = 0;
-      const stepDuration = 3000; // 3 seconds per step for clear visibility
+      const stepDuration = 2500; // 2.5 seconds per step for clear visibility
 
       // Function to advance to next step
       const advanceStep = () => {
@@ -47,20 +49,22 @@ export default function GenerationStep({
           setCurrentStep(currentStepIndex);
           console.log(`👉 Now on step ${currentStepIndex}: ${aiSteps[currentStepIndex].label}`);
         } else {
-          // We're on the last step, just mark it as completed
+          // We're on the last step, mark animation as complete
           setCompletedSteps(aiSteps.map((_, i) => i));
           setCurrentStep(aiSteps.length);
-          console.log('🏁 All steps completed');
+          setAnimationComplete(true);
+          console.log('🏁 Animation cycle completed');
         }
       };
 
-      // Use setInterval to advance through steps
+      // Use setInterval to advance through steps continuously
       const stepInterval = setInterval(() => {
-        if (currentStepIndex < aiSteps.length - 1) {
-          advanceStep();
-        } else {
-          console.log('🏁 GenerationStep: Clearing interval, all steps shown');
-          clearInterval(stepInterval);
+        advanceStep();
+
+        // If we've completed all steps and letter is still generating, loop back
+        if (currentStepIndex >= aiSteps.length - 1 && !generatedLetter) {
+          currentStepIndex = -1; // Will become 0 in next advanceStep
+          console.log('🔄 Looping animation as generation continues...');
         }
       }, stepDuration);
 
@@ -69,13 +73,19 @@ export default function GenerationStep({
         console.log('🧹 GenerationStep: Cleaning up interval');
         clearInterval(stepInterval);
       };
-    } else if (generatedLetter && !isGenerating) {
+    }
+  }, [isGenerating]);
+
+  // Handle completion separately
+  useEffect(() => {
+    if (generatedLetter && !isGenerating) {
       console.log('✨ GenerationStep: Letter generated, showing completion');
-      // Only complete when generation is fully done
+      // Mark all steps as completed when letter is done
       setCompletedSteps(aiSteps.map((_, i) => i));
       setCurrentStep(aiSteps.length);
+      setAnimationComplete(true);
     }
-  }, [isGenerating, generatedLetter]);
+  }, [generatedLetter, isGenerating]);
 
   if (error) {
     return (
