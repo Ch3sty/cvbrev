@@ -163,7 +163,6 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
       if (now > trialEnd) return 'trial_expired';
       return 'trial_active';
     }
-    if (invitation.status === 'accepted') return 'accepted';
     return 'sent';
   };
 
