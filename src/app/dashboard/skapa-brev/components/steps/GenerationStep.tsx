@@ -31,25 +31,24 @@ export default function GenerationStep({
       setCompletedSteps([]);
       setCurrentStep(0);
 
-      // Simulate step progression with proper timing
+      // Simulate step progression with GUARANTEED timing
       const progressSteps = () => {
-        const stepDuration = 1800; // 1.8 seconds per step
+        const stepDuration = 2500; // 2.5 seconds per step for visibility
 
-        // Progress through each step sequentially
+        // Step 0: Start immediately
+        setCurrentStep(0);
+
+        // Steps 1-4: Progress through each step
         aiSteps.forEach((_, index) => {
-          setTimeout(() => {
-            if (index === 0) {
-              // Start with first step active
-              setCurrentStep(0);
-            } else {
-              // Mark previous step as completed and move to next
+          if (index > 0) {
+            setTimeout(() => {
               setCompletedSteps(prev => [...prev, index - 1]);
               setCurrentStep(index);
-            }
-          }, stepDuration * index);
+            }, stepDuration * index);
+          }
         });
 
-        // Complete the final step
+        // Final completion - only after ALL steps are done
         setTimeout(() => {
           setCompletedSteps(prev => [...prev, aiSteps.length - 1]);
           setCurrentStep(aiSteps.length);
@@ -57,8 +56,8 @@ export default function GenerationStep({
       };
 
       progressSteps();
-    } else if (generatedLetter) {
-      // Complete all steps when generation is done (fallback)
+    } else if (generatedLetter && !isGenerating) {
+      // Only complete when generation is fully done
       setCompletedSteps(aiSteps.map((_, i) => i));
       setCurrentStep(aiSteps.length);
     }
@@ -233,12 +232,13 @@ export default function GenerationStep({
                   </p>
                   {isCurrent && (
                     <motion.div
-                      className="h-1 bg-blue-200 rounded-full mt-2 overflow-hidden"
+                      className="h-1.5 bg-blue-200 rounded-full mt-2 overflow-hidden"
                     >
                       <motion.div
                         className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
-                        animate={{ x: ['-100%', '100%'] }}
-                        transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
+                        initial={{ width: '0%' }}
+                        animate={{ width: '100%' }}
+                        transition={{ duration: 2.5, ease: 'linear' }}
                       />
                     </motion.div>
                   )}
