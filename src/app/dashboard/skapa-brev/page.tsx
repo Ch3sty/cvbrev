@@ -36,7 +36,7 @@ export default function CreateLetterPage() {
   const [letterData, setLetterData] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [currentWizardStep, setCurrentWizardStep] = useState(0);
-  const [shouldGenerate, setShouldGenerate] = useState(false);
+  const [hasTriggeredGeneration, setHasTriggeredGeneration] = useState(false);
 
   const isPremium = subscriptionTier === 'premium';
 
@@ -46,10 +46,13 @@ export default function CreateLetterPage() {
 
   // Generate letter when reaching the generation step
   useEffect(() => {
-    if (currentWizardStep === 3 && !generatedLetter && !isGenerating && shouldGenerate) {
+    // Step 3 is the generation step (0-indexed)
+    if (currentWizardStep === 3 && !generatedLetter && !isGenerating && !hasTriggeredGeneration) {
+      console.log('Triggering letter generation...');
+      setHasTriggeredGeneration(true);
       handleGenerateLetter();
     }
-  }, [currentWizardStep, shouldGenerate]);
+  }, [currentWizardStep, generatedLetter, isGenerating, hasTriggeredGeneration]);
 
   const handleCVUpload = async (file: File) => {
     // Implementation for CV upload
@@ -73,11 +76,24 @@ export default function CreateLetterPage() {
   };
 
   const handleGenerateLetter = async () => {
-    if (!selectedCV || !jobDescription) return;
+    console.log('handleGenerateLetter called', { selectedCV, jobDescription, tonality, language });
+
+    if (!selectedCV || !jobDescription) {
+      console.error('Missing required data:', { selectedCV, jobDescription });
+      setError('CV eller jobbbeskrivning saknas');
+      return;
+    }
 
     setError(null);
 
     try {
+      console.log('Calling createLetter with:', {
+        cv_id: selectedCV,
+        job_description: jobDescription,
+        tonality,
+        language
+      });
+
       const result = await createLetter({
         cv_id: selectedCV,
         job_description: jobDescription,
@@ -85,6 +101,8 @@ export default function CreateLetterPage() {
         language,
         save: false // Generate preview first, save later in preview step
       });
+
+      console.log('Letter generation result:', result);
 
       if (result) {
         setGeneratedLetter(result.content || result);
@@ -195,10 +213,7 @@ export default function CreateLetterPage() {
           isPremium={isPremium}
         />
       ),
-      canNavigateNext: () => {
-        setShouldGenerate(true);
-        return true;
-      }
+      canNavigateNext: () => true
     },
     {
       id: 4,
@@ -235,22 +250,11 @@ export default function CreateLetterPage() {
     }
   ];
 
-  // Track current step for generation trigger
-  const handleStepChange = (step: number) => {
-    setCurrentWizardStep(step);
-  };
-
   return (
     <WizardContainer
-      steps={wizardSteps.map((step, index) => ({
-        ...step,
-        component: (
-          <div onFocus={() => handleStepChange(index)}>
-            {step.component}
-          </div>
-        )
-      }))}
+      steps={wizardSteps}
       onComplete={handleWizardComplete}
+      onStepChange={setCurrentWizardStep}
     />
   );
 }

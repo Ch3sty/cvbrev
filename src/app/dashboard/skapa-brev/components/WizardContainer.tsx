@@ -19,15 +19,17 @@ export interface WizardStep {
 interface WizardContainerProps {
   steps: WizardStep[];
   onComplete: () => void;
+  onStepChange?: (step: number) => void;
 }
 
-export default function WizardContainer({ steps, onComplete }: WizardContainerProps) {
+export default function WizardContainer({ steps, onComplete, onStepChange }: WizardContainerProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
 
   const goToStep = (stepIndex: number) => {
     if (stepIndex >= 0 && stepIndex < steps.length) {
       setCurrentStep(stepIndex);
+      onStepChange?.(stepIndex);
     }
   };
 
@@ -42,7 +44,9 @@ export default function WizardContainer({ steps, onComplete }: WizardContainerPr
     }
 
     if (currentStep < steps.length - 1) {
-      setCurrentStep(currentStep + 1);
+      const nextStep = currentStep + 1;
+      setCurrentStep(nextStep);
+      onStepChange?.(nextStep);
     } else {
       onComplete();
     }
@@ -50,7 +54,9 @@ export default function WizardContainer({ steps, onComplete }: WizardContainerPr
 
   const handlePrevious = () => {
     if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
+      const prevStep = currentStep - 1;
+      setCurrentStep(prevStep);
+      onStepChange?.(prevStep);
     }
   };
 

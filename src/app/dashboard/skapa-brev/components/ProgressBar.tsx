@@ -59,15 +59,14 @@ export default function ProgressBar({
                   relative w-10 h-10 rounded-full flex items-center justify-center
                   transition-all duration-300 cursor-pointer
                   ${isCurrent
-                    ? 'bg-gradient-to-br from-pink-600 to-purple-600 text-white shadow-lg'
+                    ? 'bg-gradient-to-br from-pink-600 to-purple-600 text-white shadow-lg ring-4 ring-pink-500/20'
                     : isCompleted || isPast
                     ? 'bg-green-500 text-white'
                     : 'bg-white border-2 border-gray-300 text-gray-400 hover:border-pink-400'
                   }
                 `}
                 animate={isCurrent ? {
-                  scale: [1, 1.1, 1],
-                  boxShadow: ['0px 0px 0px rgba(236, 72, 153, 0)', '0px 0px 20px rgba(236, 72, 153, 0.4)', '0px 0px 0px rgba(236, 72, 153, 0)']
+                  scale: [1, 1.1, 1]
                 } : {}}
                 transition={{ duration: 2, repeat: Infinity }}
               >
