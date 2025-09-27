@@ -27,9 +27,15 @@ export default function GenerationStep({
   const [currentStep, setCurrentStep] = useState(0);
   const [animationComplete, setAnimationComplete] = useState(false);
 
+  // Debug logging
+  console.log('🔍 GenerationStep rendered:', { isGenerating, generatedLetter: !!generatedLetter, error });
+
   useEffect(() => {
-    if (isGenerating) {
-      console.log('🚀 GenerationStep: Starting animation sequence, isGenerating:', isGenerating);
+    console.log('📊 GenerationStep useEffect triggered, isGenerating:', isGenerating, 'generatedLetter:', !!generatedLetter);
+
+    // Start animation when component mounts if letter is not yet generated
+    if (!generatedLetter && !error) {
+      console.log('🚀 GenerationStep: Starting animation sequence (letter not generated yet)');
       setCompletedSteps([]);
       setCurrentStep(0);
       setAnimationComplete(false);
@@ -74,7 +80,7 @@ export default function GenerationStep({
         clearInterval(stepInterval);
       };
     }
-  }, [isGenerating]);
+  }, [generatedLetter, error]);
 
   // Handle completion separately
   useEffect(() => {
