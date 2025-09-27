@@ -32,36 +32,35 @@ export default function GenerationStep({
       setCompletedSteps([]);
       setCurrentStep(0);
 
-      // Use setInterval for GUARANTEED step progression
+      // Start immediately with step 0
       let currentStepIndex = 0;
       const stepDuration = 3000; // 3 seconds per step for clear visibility
 
-      const stepInterval = setInterval(() => {
-        console.log(`🔄 GenerationStep: Moving to step ${currentStepIndex}`);
+      // Function to advance to next step
+      const advanceStep = () => {
+        console.log(`🔄 GenerationStep: Advancing from step ${currentStepIndex}`);
 
-        // Mark previous step as completed (except for first step)
-        if (currentStepIndex > 0) {
-          setCompletedSteps(prev => {
-            const newCompleted = [...prev, currentStepIndex - 1];
-            console.log('✅ Completed steps:', newCompleted);
-            return newCompleted;
-          });
-        }
-
-        // Set current active step
-        setCurrentStep(currentStepIndex);
-        console.log('👉 Current step:', currentStepIndex);
-
-        currentStepIndex++;
-
-        // Stop when we've gone through all steps
-        if (currentStepIndex >= aiSteps.length) {
-          console.log('🏁 GenerationStep: All steps completed, clearing interval');
-          clearInterval(stepInterval);
-
-          // Mark final step as completed
+        // Mark current step as completed and move to next
+        if (currentStepIndex < aiSteps.length - 1) {
+          setCompletedSteps(prev => [...prev, currentStepIndex]);
+          currentStepIndex++;
+          setCurrentStep(currentStepIndex);
+          console.log(`👉 Now on step ${currentStepIndex}: ${aiSteps[currentStepIndex].label}`);
+        } else {
+          // We're on the last step, just mark it as completed
           setCompletedSteps(aiSteps.map((_, i) => i));
           setCurrentStep(aiSteps.length);
+          console.log('🏁 All steps completed');
+        }
+      };
+
+      // Use setInterval to advance through steps
+      const stepInterval = setInterval(() => {
+        if (currentStepIndex < aiSteps.length - 1) {
+          advanceStep();
+        } else {
+          console.log('🏁 GenerationStep: Clearing interval, all steps shown');
+          clearInterval(stepInterval);
         }
       }, stepDuration);
 
