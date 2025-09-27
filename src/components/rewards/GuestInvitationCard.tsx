@@ -189,65 +189,120 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
   };
 
   const renderJourneyFlow = () => (
-    <Card className="bg-white border border-gray-200/80 shadow-sm">
-      <CardHeader className="pb-4">
+    <Card className="bg-white border border-gray-200/80 shadow-sm hover:shadow-lg transition-all duration-300">
+      <CardHeader className="pb-6">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center border border-purple-200/50">
-            <Target className="w-5 h-5 text-purple-600" />
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center border border-purple-200/50">
+            <Target className="w-6 h-6 text-purple-600" />
           </div>
           <div>
-            <CardTitle className="text-gray-900 text-lg">Så fungerar belöningssystemet</CardTitle>
-            <p className="text-sm text-gray-600">Förstå resan från inbjudan till belöning</p>
+            <CardTitle className="text-gray-900 text-xl">Så fungerar belöningssystemet</CardTitle>
+            <p className="text-sm text-gray-600 mt-1">Förstå resan från inbjudan till belöning</p>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="space-y-6">
-        {/* Flow Diagram */}
+      <CardContent className="space-y-8">
+        {/* Enhanced Flow Diagram - Better Layout */}
         <div className="relative">
-          <div className="flex items-center justify-between">
+          {/* Desktop: Horizontal Flow */}
+          <div className="hidden md:block">
+            <div className="grid grid-cols-4 gap-8">
+              {journeyStages.map((stage, index) => (
+                <div key={stage.id} className="relative">
+                  {/* Stage Card */}
+                  <div className="text-center space-y-3">
+                    <div className={`w-16 h-16 mx-auto rounded-2xl ${stage.bgColor} ${stage.borderColor} border-2 flex items-center justify-center shadow-sm hover:shadow-md transition-all duration-300`}>
+                      <stage.icon className={`w-8 h-8 ${stage.color}`} />
+                    </div>
+                    <div className="space-y-1">
+                      <h4 className="text-sm font-semibold text-gray-900 leading-tight">{stage.title}</h4>
+                      <p className="text-xs text-gray-600 leading-relaxed">{stage.description}</p>
+                    </div>
+                  </div>
+
+                  {/* Arrow between stages */}
+                  {index < journeyStages.length - 1 && (
+                    <div className="absolute top-8 -right-4 transform -translate-y-1/2 z-10">
+                      <ArrowRight className="w-6 h-6 text-gray-400" />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile: Vertical Flow */}
+          <div className="md:hidden space-y-6">
             {journeyStages.map((stage, index) => (
-              <div key={stage.id} className="flex items-center">
-                <div className="text-center">
-                  <div className={`w-12 h-12 rounded-full ${stage.bgColor} ${stage.borderColor} border-2 flex items-center justify-center`}>
+              <div key={stage.id} className="relative">
+                <div className="flex items-start space-x-4">
+                  <div className={`w-12 h-12 rounded-xl ${stage.bgColor} ${stage.borderColor} border-2 flex items-center justify-center flex-shrink-0`}>
                     <stage.icon className={`w-6 h-6 ${stage.color}`} />
                   </div>
-                  <div className="mt-2 max-w-20">
-                    <p className="text-xs font-medium text-gray-900">{stage.title}</p>
-                    <p className="text-xs text-gray-600 mt-1">{stage.description}</p>
+                  <div className="flex-1 pt-1">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-1">{stage.title}</h4>
+                    <p className="text-xs text-gray-600">{stage.description}</p>
                   </div>
                 </div>
+
+                {/* Vertical connector */}
                 {index < journeyStages.length - 1 && (
-                  <ArrowRight className="w-5 h-5 text-gray-400 mx-4" />
+                  <div className="ml-6 mt-3 mb-3">
+                    <div className="w-0.5 h-6 bg-gray-200"></div>
+                  </div>
                 )}
               </div>
             ))}
           </div>
         </div>
 
-        {/* Key Info */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-200/60">
-          <div className="space-y-2">
-            <div className="flex items-center space-x-2 text-sm">
-              <Zap className="w-4 h-4 text-blue-600" />
-              <span className="font-medium text-blue-800">Gästen får:</span>
-              <span className="text-blue-700">7 dagars gratis Premium</span>
+        {/* Enhanced Key Info Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Guest Benefits */}
+          <div className="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-200/60">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
+                <Zap className="w-5 h-5 text-blue-600" />
+              </div>
+              <h4 className="font-semibold text-blue-900">Gästens fördelar</h4>
             </div>
-            <div className="flex items-center space-x-2 text-sm">
-              <Award className="w-4 h-4 text-purple-600" />
-              <span className="font-medium text-purple-800">Vid konvertering:</span>
-              <span className="text-purple-700">Båda får 1 vecka extra</span>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3 text-sm">
+                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <span className="text-blue-800">7 dagars gratis Premium</span>
+              </div>
+              <div className="flex items-center space-x-3 text-sm">
+                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <span className="text-blue-800">Obegränsade personliga brev</span>
+              </div>
+              <div className="flex items-center space-x-3 text-sm">
+                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <span className="text-blue-800">Avancerad CV-analys</span>
+              </div>
             </div>
           </div>
-          <div className="space-y-2">
-            <div className="flex items-center space-x-2 text-sm">
-              <Timer className="w-4 h-4 text-orange-600" />
-              <span className="font-medium text-orange-800">Provperiod:</span>
-              <span className="text-orange-700">7 dagar från acceptans</span>
+
+          {/* Rewards & Timeline */}
+          <div className="p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl border border-purple-200/60">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-10 h-10 rounded-lg bg-purple-100 flex items-center justify-center">
+                <Crown className="w-5 h-5 text-purple-600" />
+              </div>
+              <h4 className="font-semibold text-purple-900">Belöningar</h4>
             </div>
-            <div className="flex items-center space-x-2 text-sm">
-              <Crown className="w-4 h-4 text-pink-600" />
-              <span className="font-medium text-pink-800">Belöning:</span>
-              <span className="text-pink-700">Endast vid uppgradering</span>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3 text-sm">
+                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                <span className="text-purple-800">1 vecka extra för båda vid konvertering</span>
+              </div>
+              <div className="flex items-center space-x-3 text-sm">
+                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                <span className="text-purple-800">Automatisk förlängning</span>
+              </div>
+              <div className="flex items-center space-x-3 text-sm">
+                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                <span className="text-purple-800">Endast vid uppgradering till betald plan</span>
+              </div>
             </div>
           </div>
         </div>
