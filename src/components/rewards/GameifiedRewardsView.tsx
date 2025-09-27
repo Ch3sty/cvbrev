@@ -240,44 +240,44 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
   };
 
   const getStatusStyles = (status: string, reward: GameifiedReward) => {
-    const baseStyles = "relative w-16 h-16 rounded-xl flex items-center justify-center shadow-lg border-2 transition-all duration-300 group-hover:scale-105";
+    const baseStyles = "relative w-20 h-20 rounded-2xl flex items-center justify-center shadow-xl border-2 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3";
 
     switch (status) {
       case 'claimed':
-        return `${baseStyles} bg-gradient-to-br from-green-500 to-emerald-500 border-green-400 shadow-green-500/25`;
+        return `${baseStyles} bg-gradient-to-br from-green-500 to-emerald-500 border-green-400 shadow-green-500/30`;
       case 'unlocked':
-        return `${baseStyles} bg-gradient-to-br ${getRewardGradient(reward.reward_type, reward.is_special)} border-yellow-400 shadow-yellow-400/25 animate-pulse`;
+        return `${baseStyles} bg-gradient-to-br ${getRewardGradient(reward.reward_type, reward.is_special)} border-yellow-400 shadow-yellow-400/40 animate-pulse`;
       case 'upcoming':
-        return `${baseStyles} bg-gradient-to-br from-blue-600/70 to-cyan-600/70 border-blue-400/80 shadow-blue-400/25`;
+        return `${baseStyles} bg-gradient-to-br from-blue-500/80 to-cyan-500/80 border-blue-400 shadow-blue-400/30`;
       default:
-        return `${baseStyles} bg-navy-700 border-gray-600 opacity-60`;
+        return `${baseStyles} bg-gradient-to-br from-gray-300 to-gray-400 border-gray-400 opacity-60`;
     }
   };
 
   return (
-    <div className="space-y-6">
-      {/* Compact Progress Card */}
-      <Card className="relative overflow-hidden bg-gradient-to-br from-navy-900 to-navy-800 border-navy-700">
+    <div className="space-y-8">
+      {/* Premium Progress Card - Light Theme */}
+      <Card className="relative overflow-hidden bg-white/80 backdrop-blur-lg border border-gray-200/50 shadow-xl">
         {/* Background glow effect */}
-        <div className="absolute -inset-1 bg-gradient-to-r from-pink-600 to-purple-600 rounded-xl blur opacity-20" />
+        <div className="absolute -inset-1 bg-gradient-to-r from-pink-600 to-purple-600 rounded-xl blur opacity-10" />
 
-        <CardContent className="relative p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center space-x-4">
+        <CardContent className="relative p-8">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center space-x-6">
               <div className="relative">
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center shadow-xl">
-                  <Crown className="w-10 h-10 text-white" />
+                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center shadow-2xl">
+                  <Crown className="w-12 h-12 text-white" />
                 </div>
-                <div className="absolute -top-2 -right-2 bg-yellow-400 text-navy-900 text-sm font-bold rounded-full w-8 h-8 flex items-center justify-center">
+                <div className="absolute -top-2 -right-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-sm font-bold rounded-full w-10 h-10 flex items-center justify-center shadow-lg">
                   {userLevel.current_level}
                 </div>
               </div>
 
               <div>
-                <h2 className="text-3xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent">
+                <h2 className="text-4xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
                   {userLevel.title}
                 </h2>
-                <p className="text-gray-400 text-lg">
+                <p className="text-gray-600 text-xl">
                   {userLevel.current_xp.toLocaleString()} XP • Level {userLevel.current_level}
                 </p>
               </div>
@@ -285,9 +285,9 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
 
             {nextMilestone && (
               <div className="text-right">
-                <div className="text-sm text-gray-400 mb-1">Nästa belöning:</div>
-                <div className="text-2xl font-bold text-white mb-1">{nextMilestone.icon}</div>
-                <div className="text-lg font-semibold text-purple-400">
+                <div className="text-sm text-gray-500 mb-1">Nästa belöning:</div>
+                <div className="text-3xl font-bold mb-1">{nextMilestone.icon}</div>
+                <div className="text-lg font-semibold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                   {levelsToNext} {levelsToNext === 1 ? 'nivå' : 'nivåer'} kvar!
                 </div>
               </div>
@@ -295,21 +295,21 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
           </div>
 
           {/* XP Progress Bar */}
-          <div className="space-y-3">
-            <div className="flex justify-between text-sm text-gray-400">
-              <span>Framsteg till nästa level</span>
-              <span>{Math.round(progressPercentage)}%</span>
+          <div className="space-y-4">
+            <div className="flex justify-between text-sm text-gray-600">
+              <span className="font-medium">Framsteg till nästa level</span>
+              <span className="font-bold text-purple-600">{Math.round(progressPercentage)}%</span>
             </div>
 
-            <div className="relative h-4 bg-navy-700 rounded-full overflow-hidden">
+            <div className="relative h-6 bg-gray-100 rounded-full overflow-hidden shadow-inner">
               <div
-                className="absolute inset-y-0 left-0 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full transition-all duration-1000 ease-out"
+                className="absolute inset-y-0 left-0 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full transition-all duration-1000 ease-out shadow-sm"
                 style={{ width: `${Math.min(progressPercentage, 100)}%` }}
               />
-              {/* Removed shimmer animation that was causing constant loading appearance */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer" />
             </div>
 
-            <div className="flex justify-between text-xs text-gray-500">
+            <div className="flex justify-between text-sm text-gray-500">
               <span>{userLevel.total_xp_for_current_level.toLocaleString()} XP</span>
               <span>{userLevel.total_xp_for_next_level.toLocaleString()} XP</span>
             </div>
@@ -317,28 +317,28 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
         </CardContent>
       </Card>
 
-      {/* Gamified Milestone Path */}
-      <Card className="bg-navy-800 border-navy-700 overflow-visible">
-        <CardContent className="p-6 overflow-visible">
-          <div className="flex items-center justify-between mb-6">
+      {/* Premium Milestone Path */}
+      <Card className="bg-white/90 backdrop-blur-lg border border-gray-200/50 shadow-xl overflow-visible">
+        <CardContent className="p-8 overflow-visible">
+          <div className="flex items-center justify-between mb-8">
             <div>
-              <h3 className="text-2xl font-bold text-white">
+              <h3 className="text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
                 Belöningsvägen
               </h3>
-              <p className="text-gray-400 mt-1">
+              <p className="text-gray-600 mt-2 text-lg">
                 Samla XP och lås upp exklusiva belöningar på din karriärresa
               </p>
             </div>
             <div className="text-right">
-              <div className="text-sm text-gray-400">Framsteg</div>
-              <div className="text-lg font-semibold text-purple-400">
+              <div className="text-sm text-gray-500 font-medium">Framsteg</div>
+              <div className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                 {milestoneRewards.filter(r => r.is_unlocked).length} / {milestoneRewards.length}
               </div>
             </div>
           </div>
 
-          {/* Milestone Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 pb-16 overflow-visible">
+          {/* Premium Milestone Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 pb-20 overflow-visible">
             {milestoneRewards.map((reward, index) => {
               const status = getRewardStatus(reward);
               const isHovered = hoveredReward === reward.level;
@@ -352,42 +352,42 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
                 >
                   {/* Connection Path */}
                   {index < milestoneRewards.length - 1 && (
-                    <div className="hidden lg:block absolute top-8 left-20 w-20 h-0.5 bg-gradient-to-r from-navy-600 to-navy-700 z-0" />
+                    <div className="hidden lg:block absolute top-10 left-24 w-24 h-1 bg-gradient-to-r from-gray-200 to-gray-300 rounded-full z-0" />
                   )}
 
                   {/* Achievement Badge */}
-                  <div className="relative z-10 flex flex-col items-center space-y-3">
+                  <div className="relative z-10 flex flex-col items-center space-y-4">
                     <div className={getStatusStyles(status, reward)}>
                       {/* Special Milestone Glow */}
                       {reward.is_special && (
-                        <div className="absolute -inset-2 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-xl blur opacity-30 animate-pulse" />
+                        <div className="absolute -inset-2 bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-2xl blur opacity-30 animate-pulse" />
                       )}
 
                       {/* Reward Icon */}
-                      <div className="text-2xl">
+                      <div className="text-3xl">
                         {status === 'claimed' ? (
-                          <CheckCircle2 className="w-8 h-8 text-white" />
+                          <CheckCircle2 className="w-10 h-10 text-white" />
                         ) : status === 'locked' ? (
-                          <Lock className="w-6 h-6 text-gray-400" />
+                          <Lock className="w-8 h-8 text-gray-400" />
                         ) : (
                           reward.icon || getRewardIcon(reward.reward_type, undefined, reward.is_special)
                         )}
                       </div>
 
                       {/* Level Badge */}
-                      <div className="absolute -top-2 -right-2 bg-navy-900 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center border border-navy-600">
+                      <div className="absolute -top-2 -right-2 bg-white text-gray-900 text-xs font-bold rounded-full w-7 h-7 flex items-center justify-center border-2 border-gray-200 shadow-lg">
                         {reward.level}
                       </div>
 
                       {/* Status Indicator */}
                       {status === 'unlocked' && (
-                        <div className="absolute -top-1 -left-1 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center animate-bounce">
-                          <Sparkles className="w-3 h-3 text-navy-900" />
+                        <div className="absolute -top-1 -left-1 w-5 h-5 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center animate-bounce shadow-lg">
+                          <Sparkles className="w-3 h-3 text-white" />
                         </div>
                       )}
 
                       {status === 'upcoming' && (
-                        <div className="absolute -top-1 -left-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center animate-pulse">
+                        <div className="absolute -top-1 -left-1 w-5 h-5 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center animate-pulse shadow-lg">
                           <Target className="w-3 h-3 text-white" />
                         </div>
                       )}
@@ -395,7 +395,7 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
 
                     {/* Reward Info */}
                     <div className="text-center">
-                      <h4 className="font-bold text-white text-sm mb-1">{reward.name}</h4>
+                      <h4 className="font-bold text-gray-900 text-sm mb-1">{reward.name}</h4>
 
                       {/* Enhanced Value Badge */}
                       <Badge
@@ -409,7 +409,7 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
                           status === 'unlocked'
                             ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white border-0 animate-pulse'
                             : status === 'upcoming'
-                            ? 'bg-blue-600/20 text-blue-400 border-blue-400/50'
+                            ? 'bg-blue-600/20 text-blue-600 border-blue-400/50'
                             : ''
                         }`}
                       >
@@ -418,7 +418,7 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
 
                       {/* Motivational text */}
                       {status === 'upcoming' && (
-                        <p className="text-xs text-blue-400 font-medium mt-1">
+                        <p className="text-xs text-blue-600 font-medium mt-1">
                           {reward.level - userLevel.current_level} {reward.level - userLevel.current_level === 1 ? 'nivå' : 'nivåer'} kvar!
                         </p>
                       )}
@@ -429,7 +429,7 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
                       <Button
                         size="sm"
                         onClick={() => onClaimReward(reward.id)}
-                        className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse"
+                        className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse hover:scale-105"
                       >
                         <Gift className="w-4 h-4 mr-1" />
                         Hämta
@@ -437,38 +437,38 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
                     )}
                   </div>
 
-                  {/* Hover Details Card - Improved positioning to prevent clipping */}
+                  {/* Hover Details Card - Premium styling */}
                   {isHovered && (
                     <div
-                      className={`absolute mt-2 z-[100] animate-fadeIn ${
+                      className={`absolute mt-4 z-[100] animate-fadeIn ${
                         index >= milestoneRewards.length - 2
-                          ? 'top-full right-0' // Position on right for last items
+                          ? 'top-full right-0'
                           : index === 0
-                          ? 'top-full left-0' // Position on left for first item
-                          : 'top-full left-1/2 transform -translate-x-1/2' // Center for middle items
+                          ? 'top-full left-0'
+                          : 'top-full left-1/2 transform -translate-x-1/2'
                       }`}
                     >
-                      <div className="bg-navy-900 border border-navy-700 rounded-lg p-4 shadow-2xl min-w-64 max-w-xs backdrop-blur-sm">
-                        <div className="flex items-center space-x-3 mb-3">
-                          <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${getRewardGradient(reward.reward_type, reward.is_special)} flex items-center justify-center text-white`}>
-                            <span className="text-lg">{reward.icon}</span>
+                      <div className="bg-white/95 backdrop-blur-lg border border-gray-200/50 rounded-xl p-6 shadow-2xl min-w-72 max-w-sm">
+                        <div className="flex items-center space-x-4 mb-4">
+                          <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${getRewardGradient(reward.reward_type, reward.is_special)} flex items-center justify-center text-white shadow-lg`}>
+                            <span className="text-xl">{reward.icon}</span>
                           </div>
                           <div>
-                            <h4 className="font-bold text-white">{reward.name}</h4>
-                            <p className="text-xs text-gray-400">Level {reward.level} Belöning</p>
+                            <h4 className="font-bold text-gray-900">{reward.name}</h4>
+                            <p className="text-xs text-gray-500">Level {reward.level} Belöning</p>
                           </div>
                         </div>
 
-                        <p className="text-sm text-gray-300 mb-3">{reward.description}</p>
+                        <p className="text-sm text-gray-700 mb-4">{reward.description}</p>
 
                         <div className="flex items-center justify-between">
-                          <Badge variant="secondary" className="text-xs">
+                          <Badge variant="secondary" className="text-xs bg-gradient-to-r from-purple-100 to-pink-100 text-purple-800 border-purple-200">
                             {getRewardValue(reward)}
                           </Badge>
 
                           {status === 'upcoming' && (
-                            <div className="text-xs text-blue-400 font-medium">
-                              <ChevronRight className="w-3 h-3 inline mr-1" />
+                            <div className="text-xs text-blue-600 font-medium flex items-center">
+                              <ChevronRight className="w-3 h-3 mr-1" />
                               {reward.level - userLevel.current_level} nivåer kvar
                             </div>
                           )}
@@ -477,11 +477,11 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
                         {/* Arrow indicator pointing to the reward */}
                         <div className={`absolute top-full ${
                           index >= milestoneRewards.length - 2
-                            ? 'right-4'
+                            ? 'right-6'
                             : index === 0
-                            ? 'left-4'
+                            ? 'left-6'
                             : 'left-1/2 transform -translate-x-1/2'
-                        } w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-navy-700`} />
+                        } w-0 h-0 border-l-6 border-r-6 border-t-6 border-l-transparent border-r-transparent border-t-gray-200`} />
                       </div>
                     </div>
                   )}
@@ -490,22 +490,22 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
             })}
           </div>
 
-          {/* Journey Progress */}
-          <div className="mt-8 p-4 bg-navy-900/50 border border-navy-700/50 rounded-xl">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-medium text-gray-300">Din belöningsresa</span>
-              <span className="text-sm text-purple-400">
+          {/* Premium Journey Progress */}
+          <div className="mt-10 p-6 bg-gradient-to-r from-gray-50 to-gray-100/50 border border-gray-200/50 rounded-2xl shadow-inner">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-lg font-semibold text-gray-800">Din belöningsresa</span>
+              <span className="text-lg font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                 {Math.floor((userLevel.current_level / 50) * 100)}% genomförd
               </span>
             </div>
-            <div className="relative h-2 bg-navy-700 rounded-full overflow-hidden">
+            <div className="relative h-4 bg-white rounded-full overflow-hidden shadow-inner border border-gray-200">
               <div
-                className="absolute inset-y-0 left-0 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full transition-all duration-1000 ease-out"
+                className="absolute inset-y-0 left-0 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full transition-all duration-1000 ease-out shadow-sm"
                 style={{ width: `${(userLevel.current_level / 50) * 100}%` }}
               />
-              {/* Removed shimmer animation for cleaner appearance */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
             </div>
-            <div className="flex justify-between text-xs text-gray-400 mt-2">
+            <div className="flex justify-between text-sm text-gray-600 mt-3 font-medium">
               <span>Nybörjare</span>
               <span>Genesis Mästare</span>
             </div>

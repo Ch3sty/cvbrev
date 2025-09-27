@@ -288,3 +288,43 @@ export default function RewardsPage() {
     </div>
   )
 }
+
+// Lägg till CSS-animationer för extra wow-faktorer
+const styles = `
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.6); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .animate-shimmer {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    background-size: 1000px 100%;
+    animation: shimmer 2s ease-in-out infinite;
+  }
+`
+
+// Inject styles
+if (typeof document !== 'undefined') {
+  const styleSheet = document.createElement('style')
+  styleSheet.type = 'text/css'
+  styleSheet.innerText = styles
+  document.head.appendChild(styleSheet)
+}
