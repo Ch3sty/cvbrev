@@ -2,18 +2,20 @@
 
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Eye, Download, Edit3, Copy, Check, FileText, ZoomIn, ZoomOut } from 'lucide-react';
+import { Eye, Download, Edit3, Copy, Check, FileText, ZoomIn, ZoomOut, Save } from 'lucide-react';
 
 interface PreviewStepProps {
   letterContent: string;
   onEdit: (content: string) => void;
   onDownload: () => void;
+  onSave?: () => void;
 }
 
 export default function PreviewStep({
   letterContent,
   onEdit,
-  onDownload
+  onDownload,
+  onSave
 }: PreviewStepProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(letterContent);
@@ -100,6 +102,18 @@ export default function PreviewStep({
             <Edit3 className="w-4 h-4" />
             <span className="text-sm">{isEditing ? 'Avbryt' : 'Redigera'}</span>
           </motion.button>
+
+          {onSave && (
+            <motion.button
+              onClick={onSave}
+              className="flex items-center gap-2 px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Save className="w-4 h-4" />
+              <span className="text-sm font-medium">Spara brev</span>
+            </motion.button>
+          )}
 
           <motion.button
             onClick={onDownload}

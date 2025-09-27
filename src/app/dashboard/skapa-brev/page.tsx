@@ -128,25 +128,44 @@ export default function CreateLetterPage() {
     }
   };
 
-  const handleDownloadLetter = async () => {
-    if (!generatedLetter || !letterData) return;
+  const handleSaveLetter = async () => {
+    if (!generatedLetter || !selectedCV) return;
 
     try {
-      // Save letter first
-      await saveLetter({
-        ...letterData,
+      const savedLetter = await saveLetter({
         content: generatedLetter,
-        cv_id: selectedCV!,
+        cv_id: selectedCV,
         job_description: jobDescription,
         tonality,
         language
       });
 
-      // Then download as PDF
+      if (savedLetter) {
+        // Navigate to my letters after successful save
+        router.push('/dashboard/my-letters');
+      }
+    } catch (error) {
+      console.error('Save error:', error);
+    }
+  };
+
+  const handleDownloadLetter = async (format: 'pdf' | 'docx' = 'pdf') => {
+    if (!generatedLetter) return;
+
+    try {
       const response = await fetch('/api/letters/download', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: generatedLetter })
+        body: JSON.stringify({
+          content: generatedLetter,
+          format,
+          metadata: {
+            name: profile?.full_name || 'Användare',
+            email: profile?.email || '',
+            phone: profile?.phone || '',
+            date: new Date().toISOString()
+          }
+        })
       });
 
       if (response.ok) {
@@ -154,9 +173,11 @@ export default function CreateLetterPage() {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'personligt-brev.pdf';
+        a.download = `personligt-brev.${format}`;
         a.click();
         URL.revokeObjectURL(url);
+      } else {
+        console.error('Download failed:', await response.text());
       }
     } catch (error) {
       console.error('Download error:', error);
@@ -164,7 +185,7 @@ export default function CreateLetterPage() {
   };
 
   const handleWizardComplete = () => {
-    router.push('/dashboard/mina-brev');
+    router.push('/dashboard/my-letters');
   };
 
   // Define wizard steps
@@ -241,6 +262,7 @@ export default function CreateLetterPage() {
           letterContent={generatedLetter}
           onEdit={handleEditLetter}
           onDownload={handleDownloadLetter}
+          onSave={handleSaveLetter}
         />
       ) : (
         <div className="text-center py-12 text-gray-600">
