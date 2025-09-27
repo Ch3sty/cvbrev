@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { FileText, MessageSquare, SlidersHorizontal, Brain, Eye } from 'lucide-react';
 
@@ -44,15 +44,6 @@ export default function CreateLetterPage() {
     fetchCVs();
   }, [fetchCVs]);
 
-  // Generate letter when reaching the generation step
-  useEffect(() => {
-    // Step 3 is the generation step (0-indexed)
-    if (currentWizardStep === 3 && !generatedLetter && !isGenerating && !hasTriggeredGeneration) {
-      console.log('Triggering letter generation...');
-      setHasTriggeredGeneration(true);
-      handleGenerateLetter();
-    }
-  }, [currentWizardStep, generatedLetter, isGenerating, hasTriggeredGeneration]);
 
   const handleCVUpload = async (file: File) => {
     // Implementation for CV upload
@@ -75,7 +66,7 @@ export default function CreateLetterPage() {
     }
   };
 
-  const handleGenerateLetter = async () => {
+  const handleGenerateLetter = useCallback(async () => {
     console.log('handleGenerateLetter called', { selectedCV, jobDescription, tonality, language });
 
     if (!selectedCV || !jobDescription) {
@@ -119,7 +110,17 @@ export default function CreateLetterPage() {
       console.error('Letter generation error:', error);
       setError('Ett fel uppstod vid genereringen');
     }
-  };
+  }, [selectedCV, jobDescription, tonality, language, createLetter, remainingWeeklyLetters, updateRemainingLetters]);
+
+  // Generate letter when reaching the generation step
+  useEffect(() => {
+    // Step 3 is the generation step (0-indexed)
+    if (currentWizardStep === 3 && !generatedLetter && !isGenerating && !hasTriggeredGeneration) {
+      console.log('Triggering letter generation...');
+      setHasTriggeredGeneration(true);
+      handleGenerateLetter();
+    }
+  }, [currentWizardStep, generatedLetter, isGenerating, hasTriggeredGeneration, handleGenerateLetter]);
 
   const handleEditLetter = (content: string) => {
     setGeneratedLetter(content);

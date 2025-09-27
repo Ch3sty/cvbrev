@@ -124,7 +124,7 @@ const LetterPreviewCard = ({ letter, onView, onEdit, onDelete, isDeleting }: any
                 {letter.title || 'Ansökningsbrev'}
               </h3>
               <p className="text-sm text-gray-500">
-                {formatDistanceToNow(new Date(letter.updated_at || letter.created_at), {
+                {formatDistanceToNow(new Date(letter.updated_at || letter.created_at || new Date()), {
                   addSuffix: true,
                   locale: sv
                 })}
@@ -349,7 +349,7 @@ export default function MinaBrevPage() {
     if (profile) {
       fetchLetters();
     }
-  }, [profile]);
+  }, [profile, fetchLetters]);
 
   // Filter letters
   const filteredLetters = useMemo(() => {
@@ -367,12 +367,14 @@ export default function MinaBrevPage() {
     if (!letters) return {};
 
     const thisMonth = letters.filter(letter => {
+      if (!letter.created_at) return false;
       const letterDate = new Date(letter.created_at);
       const now = new Date();
       return letterDate.getMonth() === now.getMonth() && letterDate.getFullYear() === now.getFullYear();
     }).length;
 
     const lastMonth = letters.filter(letter => {
+      if (!letter.created_at) return false;
       const letterDate = new Date(letter.created_at);
       const lastMonthDate = new Date();
       lastMonthDate.setMonth(lastMonthDate.getMonth() - 1);

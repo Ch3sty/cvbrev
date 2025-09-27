@@ -44,7 +44,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
       initialLoadRef.current = true;
       getLetter(id);
     }
-  }, [id]);
+  }, [id, getLetter]);
 
   // Update form when letter data is fetched
   useEffect(() => {

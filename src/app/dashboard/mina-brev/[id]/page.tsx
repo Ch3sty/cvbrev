@@ -65,7 +65,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
       initialLoadRef.current = true;
       getLetter(id);
     }
-  }, [id]);
+  }, [id, currentLetter, getLetter]);
 
   const handleEdit = () => {
     router.push(`/dashboard/mina-brev/${id}/edit`);
