@@ -103,7 +103,7 @@ export default function PremiumNavbar() {
         },
         {
           name: 'Mina Brev',
-          href: '/dashboard/my-letters',
+          href: '/dashboard/mina-brev',
           icon: FileText,
           description: 'Se dina sparade brev',
           gradient: 'from-purple-500 to-pink-500',

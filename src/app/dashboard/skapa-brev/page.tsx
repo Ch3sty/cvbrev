@@ -132,17 +132,27 @@ export default function CreateLetterPage() {
     if (!generatedLetter || !selectedCV) return;
 
     try {
-      const savedLetter = await saveLetter({
+      // Use all data from letterData to preserve title, company, and job_title
+      const dataToSave = letterData ? {
+        ...letterData,
+        content: generatedLetter, // Ensure we use the current edited content
+        cv_id: selectedCV,
+        job_description: jobDescription,
+        tonality,
+        language
+      } : {
         content: generatedLetter,
         cv_id: selectedCV,
         job_description: jobDescription,
         tonality,
         language
-      });
+      };
+
+      const savedLetter = await saveLetter(dataToSave);
 
       if (savedLetter) {
         // Navigate to my letters after successful save
-        router.push('/dashboard/my-letters');
+        router.push('/dashboard/mina-brev');
       }
     } catch (error) {
       console.error('Save error:', error);

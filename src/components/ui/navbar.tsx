@@ -60,7 +60,7 @@ const toolLinks: NavLinkItem[] = [
   { href: '/kompetensutveckling', label: 'Kompetensutveckling', icon: GraduationCap, requireLogin: true, isSpecial: true },
 ];
 
-const myLettersLink: NavLinkItem = { href: '/dashboard/my-letters', label: 'Mina Brev', icon: FileText, requireLogin: true, isSpecial: true };
+const myLettersLink: NavLinkItem = { href: '/dashboard/mina-brev', label: 'Mina Brev', icon: FileText, requireLogin: true, isSpecial: true };
 
 const mobileOnlyLinks: NavLinkItem[] = [
   { href: '/om-oss', label: 'Om Oss', icon: Users, isMobileOnly: true },
@@ -207,7 +207,7 @@ export default function Navbar() {
         <link.icon size={iconSize} className={`${iconMargin} flex-shrink-0 ${iconColor}`} aria-hidden="true" />
         <span className="flex-grow">{link.label}</span>
 
-        {link.href === '/dashboard/my-letters' && isMobile && isUserLoggedIn && currentSavedLettersCount !== null && (
+        {link.href === '/dashboard/mina-brev' && isMobile && isUserLoggedIn && currentSavedLettersCount !== null && (
             <span className="ml-auto text-xs bg-pink-800/80 text-pink-200 rounded-full px-2 py-0.5 font-medium">
                 {currentSavedLettersCount}
             </span>

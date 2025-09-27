@@ -416,7 +416,7 @@ export default function CreateLetterPage() {
   // --- Funktion: Redigera Brev ---
   const handleEdit = useCallback(() => {
     if (letterData?.id && letterData?.is_saved) { // Måste vara sparat
-      router.push(`/dashboard/my-letters/${letterData.id}/edit`);
+      router.push(`/dashboard/mina-brev/${letterData.id}/edit`);
     } else {
       showNotification('info', 'Brevet måste sparas innan det kan redigeras.', 3000);
       setError('Spara brevet först för att kunna redigera det.');
@@ -708,7 +708,7 @@ export default function CreateLetterPage() {
                                  {/* Logik oförändrad */}
                                 <div className="flex items-start">
                                     <AlertTriangle className="w-4 h-4 text-yellow-400 mr-2 flex-shrink-0 mt-0.5" />
-                                    <p className="text-yellow-200"> {subscriptionTier === 'free' ? `Max ${maxSavedLetters} sparade brev för gratisanvändare. ` : `Max ${maxSavedLetters} sparade brev.`} <button onClick={() => router.push('/dashboard/my-letters')} className="ml-1 underline hover:text-yellow-100 font-medium">Hantera</button> eller <button onClick={handleUpgrade} className="ml-1 underline hover:text-yellow-100 font-medium"> uppgradera</button>. </p>
+                                    <p className="text-yellow-200"> {subscriptionTier === 'free' ? `Max ${maxSavedLetters} sparade brev för gratisanvändare. ` : `Max ${maxSavedLetters} sparade brev.`} <button onClick={() => router.push('/dashboard/mina-brev')} className="ml-1 underline hover:text-yellow-100 font-medium">Hantera</button> eller <button onClick={handleUpgrade} className="ml-1 underline hover:text-yellow-100 font-medium"> uppgradera</button>. </p>
                                 </div>
                             </div>
                         )}

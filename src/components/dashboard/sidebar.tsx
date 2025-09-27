@@ -113,7 +113,7 @@ export default function DashboardSidebar() {
       section: 'tools'
     },
     {
-      path: '/dashboard/my-letters',
+      path: '/dashboard/mina-brev',
       label: 'Mina Brev',
       icon: <FileText className="w-5 h-5" />,
       section: 'documents'

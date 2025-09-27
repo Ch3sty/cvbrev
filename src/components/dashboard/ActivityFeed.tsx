@@ -35,7 +35,7 @@ export default function ActivityFeed({
       title: 'AFRY - Junior civilingenjör',
       description: 'Personligt brev skapat',
       timestamp: '2024-09-16T10:00:00Z',
-      href: '/dashboard/my-letters'
+      href: '/dashboard/mina-brev'
     });
 
     items.push({
@@ -44,7 +44,7 @@ export default function ActivityFeed({
       title: 'Sushi Yama - Restaurangbiträde',
       description: 'Personligt brev skapat',
       timestamp: '2024-04-17T14:30:00Z',
-      href: '/dashboard/my-letters'
+      href: '/dashboard/mina-brev'
     });
 
     items.push({
@@ -53,7 +53,7 @@ export default function ActivityFeed({
       title: 'Landskrona stad - Grundlärare',
       description: 'Personligt brev skapat',
       timestamp: '2024-04-16T09:15:00Z',
-      href: '/dashboard/my-letters'
+      href: '/dashboard/mina-brev'
     });
 
     // Add dynamic letters from actual data if any
@@ -65,7 +65,7 @@ export default function ActivityFeed({
           title: `${letter.company_name || 'Okänt företag'} - ${letter.position || 'Okänd position'}`,
           description: 'Personligt brev skapat',
           timestamp: letter.created_at,
-          href: '/dashboard/my-letters'
+          href: '/dashboard/mina-brev'
         });
       }
     });
@@ -137,7 +137,7 @@ export default function ActivityFeed({
           transition={{ delay: 0.2, duration: 0.5 }}
         >
           <Link
-            href="/dashboard/my-letters"
+            href="/dashboard/mina-brev"
             className="text-pink-600 hover:text-pink-700 text-sm font-medium flex items-center gap-1 transition-colors"
           >
             Visa alla

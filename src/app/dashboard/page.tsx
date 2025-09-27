@@ -363,7 +363,7 @@ export default function DashboardPage() {
                 icon={PenTool}
                 color="pink"
                 trend={{ value: 15, isPositive: true }}
-                onClick={() => window.location.href = '/dashboard/my-letters'}
+                onClick={() => window.location.href = '/dashboard/mina-brev'}
                 isPremium={true}
                 liveUpdate={true}
                 pulseOnUpdate={true}
@@ -375,7 +375,7 @@ export default function DashboardPage() {
                 subtitle="Brev skapade"
                 icon={TrendingUp}
                 color="blue"
-                onClick={() => window.location.href = '/dashboard/my-letters'}
+                onClick={() => window.location.href = '/dashboard/mina-brev'}
                 isPremium={true}
                 liveUpdate={true}
               />
@@ -420,7 +420,7 @@ export default function DashboardPage() {
                 subtitle={`${stats.remainingLetters} kvar idag`}
                 icon={PenTool}
                 color="pink"
-                onClick={() => window.location.href = '/dashboard/my-letters'}
+                onClick={() => window.location.href = '/dashboard/mina-brev'}
                 isPremium={false}
                 liveUpdate={true}
                 pulseOnUpdate={true}

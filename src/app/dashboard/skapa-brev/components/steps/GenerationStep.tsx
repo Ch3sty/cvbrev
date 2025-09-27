@@ -31,20 +31,34 @@ export default function GenerationStep({
       setCompletedSteps([]);
       setCurrentStep(0);
 
-      // Simulate step progression
-      const interval = setInterval(() => {
-        setCurrentStep((prev) => {
-          if (prev < aiSteps.length - 1) {
-            setCompletedSteps((completed) => [...completed, prev]);
-            return prev + 1;
-          }
-          return prev;
-        });
-      }, 2000);
+      // Simulate step progression with proper timing
+      const progressSteps = () => {
+        const stepDuration = 1800; // 1.8 seconds per step
 
-      return () => clearInterval(interval);
+        // Progress through each step sequentially
+        aiSteps.forEach((_, index) => {
+          setTimeout(() => {
+            if (index === 0) {
+              // Start with first step active
+              setCurrentStep(0);
+            } else {
+              // Mark previous step as completed and move to next
+              setCompletedSteps(prev => [...prev, index - 1]);
+              setCurrentStep(index);
+            }
+          }, stepDuration * index);
+        });
+
+        // Complete the final step
+        setTimeout(() => {
+          setCompletedSteps(prev => [...prev, aiSteps.length - 1]);
+          setCurrentStep(aiSteps.length);
+        }, stepDuration * aiSteps.length);
+      };
+
+      progressSteps();
     } else if (generatedLetter) {
-      // Complete all steps when generation is done
+      // Complete all steps when generation is done (fallback)
       setCompletedSteps(aiSteps.map((_, i) => i));
       setCurrentStep(aiSteps.length);
     }
