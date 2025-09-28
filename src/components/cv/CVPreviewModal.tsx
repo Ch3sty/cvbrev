@@ -316,9 +316,12 @@ export default function CVPreviewModal({
                   >
                     Stäng
                   </Button>
-                  <Button className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white">
+                  <Button
+                    onClick={onClose}
+                    className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white"
+                  >
                     <Download className="mr-2 h-4 w-4" />
-                    Ladda ner förbättrad
+                    Fortsätt till nedladdning
                   </Button>
                 </div>
               </div>

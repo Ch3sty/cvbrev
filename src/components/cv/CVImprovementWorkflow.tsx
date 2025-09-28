@@ -370,6 +370,15 @@ export default function CVImprovementWorkflow({
               <ImprovementMetrics metrics={metrics} />
 
               <div className="mt-6">
+                <div className="mb-4 p-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg border border-pink-200">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Download className="h-4 w-4 text-pink-600" />
+                    <h4 className="font-medium text-gray-900">Ladda ned din förbättrade CV</h4>
+                  </div>
+                  <p className="text-sm text-gray-600">
+                    Följ stegen nedan för att välja format, mall och ladda ned ditt förbättrade CV.
+                  </p>
+                </div>
                 <CVExportOptions
                   improvedCV={improvedCV}
                   cvId={cvId}

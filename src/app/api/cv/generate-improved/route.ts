@@ -134,6 +134,37 @@ Returnera endast det förbättrade CV:t utan några förklaringar eller kommenta
       // Continue even if save fails - user can still see the result
     }
 
+    // Try to log AI usage for cost tracking (non-critical)
+    try {
+      if (completion.usage?.total_tokens && completion.usage?.prompt_tokens && completion.usage?.completion_tokens) {
+        const estimatedCost = (completion.usage.prompt_tokens * 0.01 + completion.usage.completion_tokens * 0.03) / 1000; // GPT-4 pricing estimate
+
+        const { error: usageLogError } = await supabase.from('usage_log').insert({
+          user_id: user.id,
+          feature_type: 'cv_improvement',
+          model: 'gpt-4-turbo-preview',
+          tokens: completion.usage.total_tokens,
+          cost: estimatedCost,
+          related_id: cvId,
+          metadata: {
+            cv_id: cvId,
+            suggestions_count: selectedSuggestions.length,
+            cost_sek: estimatedCost * 10.5,
+            prompt_tokens: completion.usage.prompt_tokens,
+            completion_tokens: completion.usage.completion_tokens
+          }
+        });
+
+        if (usageLogError) {
+          console.error('Non-critical: Failed to log usage to usage_log:', usageLogError);
+        } else {
+          console.log(`Logged AI usage: $${estimatedCost} for CV improvement`);
+        }
+      }
+    } catch (usageLogError) {
+      console.error('Non-critical: Usage logging failed:', usageLogError);
+    }
+
     // Return the improved CV and metrics
     return NextResponse.json({
       success: true,

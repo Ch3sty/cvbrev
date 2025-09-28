@@ -556,7 +556,7 @@ export default function CVExportOptions({
               ) : (
                 <>
                   <Download className="w-4 h-4" />
-                  Välj cv-mall och ladda ned ditt förbättrade CV
+                  Ladda ned förbättrad
                 </>
               )}
             </Button>
