@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -34,10 +34,10 @@ export function Dialog({ open = false, onOpenChange, children }: DialogProps) {
     setIsOpen(open);
   }, [open]);
 
-  const handleOpenChange = (newOpen: boolean) => {
+  const handleOpenChange = useCallback((newOpen: boolean) => {
     setIsOpen(newOpen);
     onOpenChange?.(newOpen);
-  };
+  }, [onOpenChange]);
 
   // Handle escape key
   useEffect(() => {
@@ -56,7 +56,7 @@ export function Dialog({ open = false, onOpenChange, children }: DialogProps) {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'unset';
     };
-  }, [isOpen]);
+  }, [isOpen, handleOpenChange]);
 
   return (
     <DialogContext.Provider value={{ open: isOpen, onOpenChange: handleOpenChange }}>

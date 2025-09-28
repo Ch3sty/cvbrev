@@ -80,7 +80,7 @@ export default function GenerationStep({
         clearInterval(stepInterval);
       };
     }
-  }, [generatedLetter, error]);
+  }, [generatedLetter, error, isGenerating]);
 
   // Handle completion separately
   useEffect(() => {

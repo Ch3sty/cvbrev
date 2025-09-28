@@ -700,7 +700,7 @@ export default function AnalyzeCvPage() {
                       <div className="flex-grow overflow-auto">
                         <CvAnalysisResults
                           data={analysisResult}
-                          cvContent={cvs?.find(cv => cv.id === selectedCV)?.content || ''}
+                          cvContent={cvs?.find(cv => cv.id === selectedCV)?.cv_text || ''}
                           cvId={selectedCV || ''}
                         />
                       </div>
