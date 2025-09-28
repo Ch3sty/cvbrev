@@ -34,6 +34,10 @@ export interface QuantificationItem {
   aiSuggestion: string;
   userChoice: 'ai' | 'custom';
   customText?: string;
+  // Context fields for better user understanding
+  area?: string; // E.g., "Arbetslivserfarenhet", "Profilsammanfattning"
+  roleContext?: string; // E.g., "Platschef - Fitnessworld Skärholmen"
+  section?: string; // More specific section identification
 }
 
 interface QuantificationCustomizerProps {
@@ -123,8 +127,30 @@ export default function QuantificationCustomizer({
       </div>
 
       {/* Current item */}
-      <Card className="p-6">
+      <Card className="bg-white border-gray-200 shadow-sm p-6">
         <div className="space-y-4">
+          {/* Context information */}
+          {(currentItem.area || currentItem.roleContext) && (
+            <div className="bg-white rounded-lg p-4 border border-gray-200 mb-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Info className="h-4 w-4 text-pink-600" />
+                <Label className="text-sm font-medium text-gray-900">
+                  Kontext för denna kvantifiering:
+                </Label>
+              </div>
+              {currentItem.area && (
+                <p className="text-sm text-gray-700 mb-1">
+                  <span className="font-medium">Område:</span> {currentItem.area}
+                </p>
+              )}
+              {currentItem.roleContext && (
+                <p className="text-sm text-gray-700">
+                  <span className="font-medium">Roll/Position:</span> {currentItem.roleContext}
+                </p>
+              )}
+            </div>
+          )}
+
           {/* Original text */}
           <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
             <Label className="text-sm font-medium text-gray-600 mb-2 block">
@@ -161,8 +187,8 @@ export default function QuantificationCustomizer({
                           </Tooltip>
                         </TooltipProvider>
                       </div>
-                      <div className="bg-blue-50 rounded-lg p-3 border border-blue-200">
-                        <p className="text-sm">{currentItem.aiSuggestion}</p>
+                      <div className="bg-white rounded-lg p-3 border border-gray-200 shadow-sm">
+                        <p className="text-sm text-gray-900">{currentItem.aiSuggestion}</p>
                       </div>
                     </Label>
                   </div>
@@ -205,7 +231,7 @@ export default function QuantificationCustomizer({
           </RadioGroup>
 
           {/* Help section */}
-          <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg p-4 border border-pink-200">
+          <div className="bg-white rounded-lg p-4 border border-gray-200">
             <div className="flex items-start gap-3">
               <Info className="h-5 w-5 text-pink-600 mt-0.5 flex-shrink-0" />
               <div>
@@ -221,7 +247,7 @@ export default function QuantificationCustomizer({
                   ))}
                 </div>
                 <p className="text-xs text-gray-600 mt-2">
-                  Mall: <span className="font-mono bg-white px-1 rounded">
+                  Mall: <span className="font-mono bg-gray-50 px-1 rounded border border-gray-200">
                     [Handling] som resulterade i [Mätbart resultat]
                   </span>
                 </p>

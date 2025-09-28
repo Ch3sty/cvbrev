@@ -109,31 +109,102 @@ export default function CVImprovementWorkflow({
   };
 
   const prepareQuantificationItems = () => {
-    // Extract quantification suggestions from selected suggestions
     const items: QuantificationItem[] = [];
-    const selectedSuggs = suggestions.filter(s => s.selected);
 
-    selectedSuggs.forEach(sugg => {
-      // Check if this is a quantification suggestion
-      if (sugg.category === 'keywords' ||
-          sugg.title.toLowerCase().includes('kvantifi') ||
-          sugg.description.toLowerCase().includes('siffror') ||
-          sugg.description.toLowerCase().includes('resultat')) {
+    // First, try to get real quantification items from analysis detailedImprovements
+    if (analysisDetails?.detailedImprovements) {
+      const selectedSuggs = suggestions.filter(s => s.selected);
 
-        // Extract original text and AI suggestion from description
-        const originalMatch = sugg.description.match(/[Ii]stället för ['"](.+?)['"]/);
-        const suggestionMatch = sugg.description.match(/skriv ['"](.+?)['"]/i);
-
-        items.push({
-          id: sugg.id,
-          category: sugg.category,
-          originalText: originalMatch ? originalMatch[1] : sugg.title,
-          aiSuggestion: suggestionMatch ? suggestionMatch[1] :
-                        sugg.example || sugg.description,
-          userChoice: 'ai'
+      // Map selected suggestions to corresponding detailed improvements
+      selectedSuggs.forEach(sugg => {
+        // Find matching detailed improvement
+        const matchingImprovement = analysisDetails.detailedImprovements?.find(imp => {
+          // Match by area or if suggestion description contains the area
+          return sugg.area === imp.area ||
+                 sugg.description.toLowerCase().includes(imp.area.toLowerCase()) ||
+                 sugg.title.toLowerCase().includes(imp.area.toLowerCase()) ||
+                 (sugg.category === 'keywords' || sugg.category === 'content') &&
+                 (sugg.title.toLowerCase().includes('kvantifi') ||
+                  sugg.description.toLowerCase().includes('siffror') ||
+                  sugg.description.toLowerCase().includes('resultat') ||
+                  imp.suggestion.toLowerCase().includes('kvantifi'));
         });
-      }
-    });
+
+        if (matchingImprovement) {
+          // Extract original and suggestion from the example field
+          let originalText = '';
+          let aiSuggestion = matchingImprovement.suggestion;
+
+          if (matchingImprovement.example) {
+            // Try to parse "Istället för 'X', skriv 'Y'" format
+            const exampleMatch = matchingImprovement.example.match(/[Ii]stället för ['"]([^'"]+)['"][^'"]*skriv ['"]([^'"]+)['"]/i);
+            if (exampleMatch) {
+              originalText = exampleMatch[1];
+              aiSuggestion = exampleMatch[2];
+            } else {
+              // If no clear format, use the example as suggestion
+              originalText = matchingImprovement.suggestion.replace(/^[^:]*: */, ''); // Remove prefix
+              aiSuggestion = matchingImprovement.example;
+            }
+          } else {
+            // No example, use suggestion as both (user will need to customize)
+            originalText = matchingImprovement.suggestion;
+          }
+
+          // Extract role context from original CV if possible
+          let roleContext = '';
+          if (matchingImprovement.area.toLowerCase().includes('arbetslivserfarenhet') ||
+              matchingImprovement.area.toLowerCase().includes('berufserfahrung') ||
+              matchingImprovement.area.toLowerCase().includes('roll')) {
+            // Try to extract role from the suggestion or original text
+            const roleMatch = (originalText + ' ' + aiSuggestion).match(/(\w+(?:\s+\w+)?(?:chef|manager|ledare|ansvarig|specialist|koordinator|tekniker|ing[ejö]nj[öo]r|utvecklare|analyst))/i);
+            if (roleMatch) {
+              roleContext = roleMatch[1];
+            }
+          }
+
+          items.push({
+            id: sugg.id,
+            category: sugg.category,
+            originalText: originalText,
+            aiSuggestion: aiSuggestion,
+            userChoice: 'ai',
+            area: matchingImprovement.area,
+            roleContext: roleContext || undefined,
+            section: matchingImprovement.area
+          });
+        }
+      });
+    }
+
+    // Fallback: if no analysis data or no matches, use the old method
+    if (items.length === 0) {
+      const selectedSuggs = suggestions.filter(s => s.selected);
+
+      selectedSuggs.forEach(sugg => {
+        // Check if this is a quantification suggestion
+        if (sugg.category === 'keywords' ||
+            sugg.title.toLowerCase().includes('kvantifi') ||
+            sugg.description.toLowerCase().includes('siffror') ||
+            sugg.description.toLowerCase().includes('resultat')) {
+
+          // Extract original text and AI suggestion from description
+          const originalMatch = sugg.description.match(/[Ii]stället för ['"](.+?)['"]/);
+          const suggestionMatch = sugg.description.match(/skriv ['"](.+?)['"]/i);
+
+          items.push({
+            id: sugg.id,
+            category: sugg.category,
+            originalText: originalMatch ? originalMatch[1] : sugg.title,
+            aiSuggestion: suggestionMatch ? suggestionMatch[1] :
+                          sugg.example || sugg.description,
+            userChoice: 'ai',
+            area: sugg.area,
+            section: sugg.category
+          });
+        }
+      });
+    }
 
     return items;
   };
