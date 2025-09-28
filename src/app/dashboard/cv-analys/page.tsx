@@ -1,8 +1,7 @@
 /**
- * AnalyzeCvPage Component
- * Handles CV selection, initiates AI analysis, displays results,
- * and manages analysis limits based on user subscription tier.
- * Uses Zustand for global CV state and a custom hook for profile/subscription info.
+ * AnalyzeCvPage Component - Premium Light Theme
+ * Enhanced AI-powered CV analysis with real-time visualization and premium UX.
+ * Features step-by-step AI wizard, animated progress tracking, and glassmorphism design.
  */
 'use client'
 
@@ -18,14 +17,22 @@ import { useProfile } from '@/hooks/use-profile';
 // --- UI Components ---
 import Notification from '@/components/ui/notification';
 import CvAnalysisResults from '@/components/cv/CvAnalysisResults';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 // --- Utility Functions ---
 import { logUserActivity } from '@/lib/activity-logger';
 
+// --- Animations ---
+import { motion, AnimatePresence } from 'framer-motion';
+
 // --- Icons ---
 import {
   FileText, Upload, SearchCheck, ClipboardList, AlertTriangle,
-  Crown, Clock, Pencil, Loader2, MessageSquare, ChevronRight, Check
+  Crown, Clock, Pencil, Loader2, MessageSquare, ChevronRight, Check,
+  Sparkles, Zap, Target, Star, Brain, Layers, BarChart3, Lightbulb,
+  ArrowRight, CheckCircle2, Timer, TrendingUp
 } from 'lucide-react';
 
 // --- Constants ---
@@ -167,128 +174,678 @@ export default function AnalyzeCvPage() {
   }
   
   return (
-    <div className="max-w-screen-xl mx-auto pt-8 pb-16 px-4"> {/* Kept wider max-width */}
-      {/* --- Notification Area --- */}
-      {notification.isVisible && ( <Notification isVisible={notification.isVisible} message={notification.message} type={notification.type} onClose={closeNotification} /> )}
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Premium Dynamic Background - Enhanced like CV-mallar page */}
+      <motion.div
+        className="fixed inset-0 pointer-events-none z-0"
+        style={{ opacity: 0.9 }}
+      >
+        {/* Primary gradient foundation */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-slate-50/50" />
 
-      {/* --- Page Header --- */}
-      <header className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2">Analysera CV</h1>
-        <p className="text-gray-300">Få AI-drivna insikter och förbättringsförslag för ditt uppladdade CV.</p>
-      </header>
+        {/* Secondary gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-purple-50/20 to-pink-50/30" />
 
-      {/* --- Analysis Limits Info (Free Tier Only) - UPPDATERAD SEKTION --- */}
-      {isFreeTier && weeklyAnalysisLimit > 0 && weeklyAnalysisLimit !== Infinity && (
-        <section aria-labelledby="analysis-limit-heading" className="mb-8 p-5 bg-navy-800 rounded-lg border border-navy-700">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-            <div>
-              <h2 id="analysis-limit-heading" className="flex items-center mb-1 font-medium text-white">
-                <SearchCheck className="w-5 h-5 mr-2 text-pink-400" /> Veckans CV-analyser
-              </h2>
-              <p className="text-xs text-gray-400 pl-7">
-                Gratisanvändare kan göra {weeklyAnalysisLimit} {weeklyAnalysisLimit === 1 ? 'analys' : 'analyser'} per vecka.
-              </p>
-            </div>
-            
-            <div className="flex items-center space-x-3 w-full sm:w-auto justify-end sm:justify-start">
-              <span className={`text-sm font-semibold px-2 py-0.5 rounded ${
-                hasReachedLimit ? 'bg-red-500/20 text-red-300' : 'bg-green-500/20 text-green-300'
-              }`}>
-                {remainingWeeklyAnalyses ?? '-'} / {weeklyAnalysisLimit} kvar
-              </span>
-              {hasReachedLimit && (
-                <button
-                  onClick={handleUpgrade}
-                  className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-purple-600 rounded-md shadow-md hover:shadow-lg hover:from-pink-700 hover:to-purple-700 group"
-                  aria-label="Uppgradera till Premium för fler analyser"
-                >
-                  <Crown className="w-3 h-3 mr-1" /> Uppgradera
-                  <ChevronRight className="w-3 h-3 ml-1 transition-transform duration-300 group-hover:translate-x-0.5" />
-                </button>
-              )}
-            </div>
-          </div>
-          
-          {nextAnalysisResetDate && (
-            <div className="flex items-center mt-3 text-xs text-gray-400 border-t border-navy-700 pt-3">
-              <Clock className="w-3 h-3 mr-1.5" />
-              <span>Nollställs {timeUntilAnalysisReset ? `om ${timeUntilAnalysisReset}` : formatDate(nextAnalysisResetDate)}</span>
-            </div>
-          )}
-          
-          {hasReachedLimit && (
-            <div className="mt-3 text-sm text-yellow-300 flex items-start">
-              <AlertTriangle className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
-              <span>
-                Du har nått din veckogräns för CV-analyser. 
-                <button onClick={handleUpgrade} className="ml-1 text-pink-400 hover:text-pink-300 underline font-medium">Uppgradera</button>
-                 för obegränsad användning.
-              </span>
-            </div>
-          )}
-        </section>
+        {/* Animated morphing gradient orbs */}
+        <motion.div
+          className="absolute top-[10%] left-[5%] w-[500px] h-[500px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, rgba(147, 51, 234, 0.05) 40%, transparent 70%)',
+            filter: 'blur(60px)',
+          }}
+          animate={{
+            x: [0, 150, 0],
+            y: [0, -100, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            repeatType: 'reverse',
+            ease: "easeInOut"
+          }}
+        />
+
+        <motion.div
+          className="absolute top-[30%] right-[10%] w-[600px] h-[600px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, rgba(139, 92, 246, 0.04) 40%, transparent 70%)',
+            filter: 'blur(80px)',
+          }}
+          animate={{
+            x: [0, -200, 0],
+            y: [0, 150, 0],
+            scale: [1, 0.8, 1],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            repeatType: 'reverse',
+            ease: "easeInOut"
+          }}
+        />
+
+        <motion.div
+          className="absolute bottom-[20%] left-[15%] w-[400px] h-[400px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.03) 40%, transparent 70%)',
+            filter: 'blur(70px)',
+          }}
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -80, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            repeatType: 'reverse',
+            ease: "easeInOut"
+          }}
+        />
+
+        {/* Subtle pattern overlay */}
+        <div
+          className="absolute inset-0"
+          style={{
+            opacity: 0.015,
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z\'/%3E%3C/g%3E%3C/svg%3E")',
+            backgroundSize: '40px 40px',
+          }}
+        />
+      </motion.div>
+
+      {/* Notification */}
+      {notification.isVisible && (
+        <Notification
+          isVisible={notification.isVisible}
+          message={notification.message}
+          type={notification.type}
+          onClose={closeNotification}
+        />
       )}
-      {/* --- SLUT PÅ UPPDATERAD SEKTION --- */}
 
-      {/* --- Main Content Grid (Layout Justerad) --- */}
-      {/* Changed to lg:grid-cols-3. Left takes lg:col-span-1, Right takes lg:col-span-2 */}
-      <main className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-7xl mx-auto px-4 py-8 relative z-10">
+        {/* Header */}
+        <motion.header
+          className="mb-8"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="text-center mb-6">
+            <h1 className="text-4xl font-bold text-gray-900 mb-3">
+              AI CV-Analys
+            </h1>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Få djupgående AI-drivna insikter och förbättringsförslag för ditt CV.
+            </p>
+          </div>
 
-        {/* --- Left Column: CV Selection & Actions --- */}
-        {/* Changed to lg:col-span-1 */}
-        <section aria-labelledby="cv-selection-heading" className="space-y-6 lg:col-span-1">
-          <div className="bg-navy-800 rounded-lg p-6 border border-navy-700">
-            <h2 id="cv-selection-heading" className="text-xl font-semibold mb-5 text-white flex items-center">
-              <FileText className="w-5 h-5 mr-2 text-blue-400" />
-              Välj CV
-            </h2>
-            <div className="min-h-[10rem]">
-              {cvsLoading || profileLoading ? (
-                <div className="flex items-center justify-center h-32"><Loader2 className="w-8 h-8 text-pink-500 animate-spin" aria-label="Laddar CV-lista..." /></div>
-              ) : cvs.length === 0 ? (
-                <div className="border border-navy-700 border-dashed rounded-lg p-6 bg-navy-900/50 text-center flex flex-col items-center justify-center h-full"> <FileText className="w-10 h-10 mx-auto mb-3 text-gray-600" /> <p className="text-lg mb-1 text-gray-300">Inga CV:n uppladdade</p> <p className="text-sm text-gray-500 mb-4">Ladda upp ditt CV för att kunna analysera det.</p> <Link href={PROFILE_CV_ROUTE} className="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors bg-pink-600 rounded-md hover:bg-pink-700"> <Upload className="w-4 h-4 mr-2" /> Gå till CV-hantering </Link> </div>
-              ) : (
-                <ul className="space-y-3 max-h-80 overflow-y-auto elegant-scrollbar pr-1">
-                  {cvs.map((cv) => ( <li key={cv.id}> <button type="button" onClick={() => !isAnalyzing && setSelectedCV(cv.id)} disabled={isAnalyzing} className={`w-full text-left p-4 rounded-md border transition-all duration-200 flex items-start gap-3 ${ selectedCV === cv.id ? 'bg-navy-700 border-pink-500 ring-1 ring-pink-500 shadow-md' : 'bg-navy-900/50 border-navy-700 hover:bg-navy-700 hover:border-navy-600' } ${isAnalyzing ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`} aria-pressed={selectedCV === cv.id} > <FileText className={`w-5 h-5 mt-0.5 flex-shrink-0 ${selectedCV === cv.id ? 'text-pink-400' : 'text-blue-400'}`} /> <div className="flex-grow overflow-hidden"> <p className={`font-medium truncate ${selectedCV === cv.id ? 'text-white' : 'text-gray-200'}`}>{cv.file_name}</p> <p className="text-xs text-gray-400 truncate"> {cv.cv_text ? `Innehåll: ${cv.cv_text.substring(0, 60)}...` : 'Förhandsgranskning saknas'} </p> </div> {selectedCV === cv.id && <Check className="w-5 h-5 text-pink-400 flex-shrink-0" aria-hidden="true" />} </button> </li> ))}
-                </ul>
-              )}
+          <div className="flex justify-center gap-4 text-sm">
+            <div className="flex items-center text-green-600">
+              <Check className="w-4 h-4 mr-2" />
+              ATS-analys
+            </div>
+            <div className="flex items-center text-blue-600">
+              <Check className="w-4 h-4 mr-2" />
+              Nyckelord
+            </div>
+            <div className="flex items-center text-purple-600">
+              <Check className="w-4 h-4 mr-2" />
+              Förbättringsförslag
             </div>
           </div>
-          {error && ( <div role="alert" className="p-3 text-sm text-red-100 bg-red-900/50 border border-red-500/50 rounded-md"> {error} </div> )}
-          <button onClick={handleAnalyzeCv} disabled={isAnalyzeButtonDisabled} className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-navy-900 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed disabled:from-gray-600 disabled:to-gray-700 transition-all duration-300" aria-label={analyzeButtonAriaLabel} aria-live="polite" >
-            {isAnalyzing ? ( <> <Loader2 className="animate-spin -ml-1 mr-3 h-5 w-5" aria-hidden="true" /> Analyserar... </> ) : hasReachedLimit ? ( <> <AlertTriangle className="w-5 h-5 mr-2" aria-hidden="true" /> Veckogräns nådd </> ) : ( <> <SearchCheck className="w-5 h-5 mr-2" aria-hidden="true" /> Analysera valt CV </> )}
-          </button>
-        </section>
+        </motion.header>
 
-        {/* --- Right Column: Analysis Results --- */}
-        {/* Changed to lg:col-span-2 */}
-        <section aria-labelledby="analysis-results-heading" className="bg-navy-800 rounded-lg p-6 border border-navy-700 lg:col-span-2 flex flex-col" style={{ minHeight: '400px' }}>
-          <h2 id="analysis-results-heading" className="text-xl font-semibold mb-6 text-white flex items-center flex-shrink-0">
-            <ClipboardList className="w-5 h-5 mr-2 text-green-400" />
-            Resultat från analys
-          </h2>
-          <div className="flex-grow flex flex-col">
-            {isAnalyzing ? (
-              <div className="flex flex-col items-center justify-center text-center flex-grow"> <Loader2 className="w-10 h-10 text-pink-500 animate-spin mb-4" aria-label="Analys pågår"/> <p className="text-lg text-gray-300 mb-1">Analyserar ditt CV...</p> <p className="text-sm text-gray-400">Ett ögonblick, AI:n jobbar.</p> </div>
-            ) : analysisResult ? (
-              <>
-                {/* Pass the analysis result to the dedicated display component */}
-                <div className="prose prose-sm prose-invert max-w-none elegant-scrollbar flex-grow mb-6" style={{ overflowY: 'auto' }}>
-                  <CvAnalysisResults data={analysisResult} />
+        {/* Analysis Limits Info with Premium Design */}
+        {isFreeTier && weeklyAnalysisLimit > 0 && weeklyAnalysisLimit !== Infinity && (
+          <motion.section
+            className="mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <Card className="bg-white/95 backdrop-blur-xl shadow-xl border border-gray-200/80 overflow-hidden">
+              <CardContent className="p-6">
+                <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                  {/* Progress Ring Section */}
+                  <div className="flex items-center gap-4">
+                    <div className="relative w-20 h-20">
+                      {/* Background Circle */}
+                      <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 100 100">
+                        <circle
+                          cx="50"
+                          cy="50"
+                          r="40"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="8"
+                          className="text-gray-200"
+                        />
+                        {/* Progress Circle */}
+                        <motion.circle
+                          cx="50"
+                          cy="50"
+                          r="40"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="8"
+                          strokeLinecap="round"
+                          className={hasReachedLimit ? "text-red-500" : "text-green-500"}
+                          initial={{ pathLength: 0 }}
+                          animate={{
+                            pathLength: remainingWeeklyAnalyses !== null
+                              ? remainingWeeklyAnalyses / weeklyAnalysisLimit
+                              : 0
+                          }}
+                          transition={{ duration: 1.5, ease: "easeOut" }}
+                          style={{
+                            strokeDasharray: "251.2",
+                            strokeDashoffset: "251.2",
+                          }}
+                        />
+                      </svg>
+
+                      {/* Center Content */}
+                      <div className="absolute inset-0 flex flex-col items-center justify-center">
+                        <span className="text-lg font-bold text-gray-900">
+                          {remainingWeeklyAnalyses ?? 0}
+                        </span>
+                        <span className="text-xs text-gray-500">kvar</span>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-1 flex items-center">
+                        <Brain className="w-5 h-5 mr-2 text-pink-600" />
+                        Veckans AI-analyser
+                      </h3>
+                      <p className="text-sm text-gray-600">
+                        {remainingWeeklyAnalyses ?? 0} av {weeklyAnalysisLimit} analyser kvar
+                      </p>
+                      {nextAnalysisResetDate && (
+                        <div className="flex items-center mt-2 text-xs text-gray-500">
+                          <Timer className="w-3 h-3 mr-1" />
+                          Nollställs {timeUntilAnalysisReset ? `om ${timeUntilAnalysisReset}` : formatDate(nextAnalysisResetDate)}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Upgrade Section */}
+                  {hasReachedLimit ? (
+                    <motion.div
+                      className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg p-4 border border-pink-200"
+                      initial={{ scale: 0.95, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className="flex items-start gap-3">
+                        <AlertTriangle className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
+                        <div>
+                          <h4 className="font-semibold text-gray-900 mb-1">Veckogräns nådd</h4>
+                          <p className="text-sm text-gray-600 mb-3">
+                            Du har använt alla dina CV-analyser denna vecka.
+                          </p>
+                          <motion.button
+                            onClick={handleUpgrade}
+                            className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-lg hover:from-pink-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl group"
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            <Crown className="w-4 h-4 mr-2" />
+                            Uppgradera till Premium
+                            <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-0.5" />
+                          </motion.button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ) : (
+                    <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                      <div className="flex items-center gap-2 text-green-700">
+                        <CheckCircle2 className="w-5 h-5" />
+                        <span className="font-medium">Analyser tillgängliga</span>
+                      </div>
+                      <p className="text-sm text-green-600 mt-1">
+                        Du kan göra {remainingWeeklyAnalyses} fler analyser denna vecka.
+                      </p>
+                    </div>
+                  )}
                 </div>
-                {/* Action buttons appear below the results */}
-                <div className="mt-auto pt-4 border-t border-navy-700 flex flex-wrap gap-3 flex-shrink-0">
-                  <button onClick={handleNavigateToCvManagement} className="inline-flex items-center px-4 py-2 border border-navy-600 text-sm font-medium rounded-md shadow-sm text-gray-300 bg-navy-700 hover:bg-navy-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-navy-800 focus:ring-pink-500 transition-colors" aria-label="Hantera dina uppladdade CVn"> <Pencil className="w-4 h-4 mr-2" /> Hantera CV:n </button>
-                  <button onClick={() => router.push(`${CREATE_LETTER_ROUTE_BASE}?cvId=${selectedCV}`)} disabled={!selectedCV} title={!selectedCV ? "Välj ett CV först" : "Skapa personligt brev med detta CV"} className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-navy-800 focus:ring-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all" aria-label={selectedCV ? "Skapa personligt brev baserat på det valda CV:t" : "Välj ett CV för att skapa brev"}> <MessageSquare className="w-4 h-4 mr-2" /> Skapa brev med CV </button>
-                </div>
-              </>
-            ) : (
-              <div className="flex flex-col items-center justify-center text-center flex-grow"> <SearchCheck className="w-16 h-16 mb-4 text-gray-600" /> <p className="text-lg mb-1 text-gray-300">Analysen visas här</p> <p className="text-sm text-gray-400 max-w-xs"> Välj ett av dina uppladdade CV:n och klicka sedan på knappen "Analysera valt CV". </p> </div>
+              </CardContent>
+            </Card>
+          </motion.section>
+        )}
+
+        {/* Main Content Grid */}
+        <div className="grid lg:grid-cols-4 gap-8">
+
+          {/* Sidebar - CV Selection */}
+          <motion.aside
+            className="lg:col-span-1"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <Card className="bg-white/95 backdrop-blur-xl shadow-xl border border-gray-200/80">
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2 text-gray-900">
+                  <FileText className="w-5 h-5 text-pink-600" />
+                  Ditt CV
+                </CardTitle>
+                <CardDescription className="text-gray-600">
+                  Välj det CV du vill analysera
+                </CardDescription>
+              </CardHeader>
+
+              <CardContent>
+                {cvsLoading || profileLoading ? (
+                  <div className="flex items-center justify-center h-32">
+                    <motion.div
+                      className="w-8 h-8 border-2 border-pink-600 border-t-transparent rounded-full"
+                      animate={{ rotate: 360 }}
+                      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    />
+                  </div>
+                ) : cvs.length === 0 ? (
+                  <div className="text-center py-6">
+                    <Upload className="w-12 h-12 mx-auto mb-3 text-gray-500" />
+                    <p className="text-gray-600 mb-4">Inga CV uppladdade</p>
+                    <Link href={PROFILE_CV_ROUTE}>
+                      <Button size="sm" className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700">
+                        Ladda upp CV
+                      </Button>
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    {cvs.map((cv) => (
+                      <motion.button
+                        key={cv.id}
+                        type="button"
+                        onClick={() => !isAnalyzing && setSelectedCV(cv.id)}
+                        disabled={isAnalyzing}
+                        className={`w-full text-left p-3 rounded-lg border transition-all duration-300 ${
+                          selectedCV === cv.id
+                            ? 'bg-pink-50/80 border-pink-500 ring-1 ring-pink-400 shadow-lg'
+                            : 'bg-white/60 border-gray-200 hover:bg-gray-50/80 hover:border-gray-300 hover:shadow-md'
+                        } ${isAnalyzing ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
+                        whileHover={!isAnalyzing ? { scale: 1.02, y: -2 } : {}}
+                        whileTap={!isAnalyzing ? { scale: 0.98 } : {}}
+                      >
+                        <div className="flex items-start gap-3">
+                          <FileText className={`w-4 h-4 mt-0.5 ${
+                            selectedCV === cv.id ? 'text-pink-600' : 'text-gray-500'
+                          }`} />
+                          <div className="flex-1 min-w-0">
+                            <p className={`font-medium truncate ${
+                              selectedCV === cv.id ? 'text-gray-900' : 'text-gray-700'
+                            }`}>
+                              {cv.file_name}
+                            </p>
+                            <p className="text-xs text-gray-500 mt-1 line-clamp-2">
+                              {cv.cv_text ? cv.cv_text.substring(0, 80) + '...' : 'Ingen förhandsgranskning'}
+                            </p>
+                          </div>
+                          {selectedCV === cv.id && (
+                            <motion.div
+                              initial={{ scale: 0 }}
+                              animate={{ scale: 1 }}
+                              transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                            >
+                              <Check className="w-4 h-4 text-pink-600 flex-shrink-0" />
+                            </motion.div>
+                          )}
+                        </div>
+                      </motion.button>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Error Display */}
+            <AnimatePresence>
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="mt-4"
+                >
+                  <Card className="border-red-200 bg-red-50">
+                    <CardContent className="p-4">
+                      <div className="flex items-start gap-2">
+                        <AlertTriangle className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
+                        <p className="text-sm text-red-700">{error}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Analysis Button */}
+            {selectedCV && (
+              <motion.div
+                className="mt-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+              >
+                <Card className={`border-0 shadow-xl overflow-hidden ${
+                  hasReachedLimit
+                    ? 'bg-gradient-to-r from-gray-400 to-gray-500'
+                    : 'bg-gradient-to-r from-pink-600 to-purple-600'
+                } text-white`}>
+                  <CardContent className="p-4">
+                    <div className="text-center mb-3">
+                      <h3 className="font-semibold">
+                        {isAnalyzing ? 'AI analyserar...' : hasReachedLimit ? 'Veckogräns nådd' : 'Klar för analys'}
+                      </h3>
+                      {!hasReachedLimit && !isAnalyzing && (
+                        <p className="text-sm opacity-90 mt-1">
+                          CV: {cvs.find(cv => cv.id === selectedCV)?.file_name}
+                        </p>
+                      )}
+                    </div>
+
+                    <motion.div
+                      whileHover={!isAnalyzeButtonDisabled ? { scale: 1.02 } : {}}
+                      whileTap={!isAnalyzeButtonDisabled ? { scale: 0.98 } : {}}
+                    >
+                      <Button
+                        onClick={handleAnalyzeCv}
+                        disabled={isAnalyzeButtonDisabled}
+                        className="w-full bg-white text-gray-900 hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group disabled:bg-gray-200 disabled:text-gray-500"
+                      >
+                        {!isAnalyzing && !hasReachedLimit && (
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-pink-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100"
+                            initial={{ x: '-100%' }}
+                            animate={{ x: '100%' }}
+                            transition={{ duration: 0.6, ease: "easeInOut" }}
+                          />
+                        )}
+                        <div className="relative z-10 flex items-center justify-center">
+                          {isAnalyzing ? (
+                            <>
+                              <motion.div
+                                className="w-4 h-4 border-2 border-gray-900 border-t-transparent rounded-full mr-2"
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                              />
+                              Analyserar CV...
+                            </>
+                          ) : hasReachedLimit ? (
+                            <>
+                              <AlertTriangle className="w-4 h-4 mr-2" />
+                              Veckogräns nådd
+                            </>
+                          ) : (
+                            <>
+                              <Brain className="w-4 h-4 mr-2" />
+                              Starta AI-analys
+                              <Sparkles className="w-3 h-3 ml-2 opacity-60" />
+                            </>
+                          )}
+                        </div>
+                      </Button>
+                    </motion.div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             )}
-          </div>
-        </section>
+          </motion.aside>
 
-      </main>
+          {/* Main Content - Analysis Results */}
+          <motion.main
+            className="lg:col-span-3"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <Card className="bg-white/95 backdrop-blur-xl shadow-xl border border-gray-200/80 min-h-[600px] flex flex-col">
+              <CardHeader className="flex-shrink-0">
+                <CardTitle className="text-xl flex items-center gap-2 text-gray-900">
+                  <ClipboardList className="w-5 h-5 text-green-600" />
+                  AI-Analysresultat
+                </CardTitle>
+                <CardDescription className="text-gray-600">
+                  Djupgående insikter och förbättringsförslag från vår AI.
+                </CardDescription>
+              </CardHeader>
+
+              <CardContent className="flex-grow flex flex-col">
+                <AnimatePresence mode="wait">
+                  {isAnalyzing ? (
+                    <motion.div
+                      key="analyzing"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="flex-grow flex flex-col items-center justify-center text-center"
+                    >
+                      {/* AI Analysis Wizard Steps */}
+                      <div className="max-w-md mx-auto">
+                        <motion.div
+                          className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full flex items-center justify-center"
+                          animate={{
+                            scale: [1, 1.1, 1],
+                            rotate: [0, 360]
+                          }}
+                          transition={{
+                            scale: { duration: 2, repeat: Infinity },
+                            rotate: { duration: 4, repeat: Infinity, ease: "linear" }
+                          }}
+                        >
+                          <Brain className="w-10 h-10 text-white" />
+                        </motion.div>
+
+                        <h3 className="text-2xl font-bold text-gray-900 mb-2">AI analyserar ditt CV</h3>
+                        <p className="text-gray-600 mb-8">Vår avancerade AI läser och utvärderar ditt CV...</p>
+
+                        {/* Analysis Steps */}
+                        <div className="space-y-4">
+                          {[
+                            { icon: FileText, text: "Läser CV-innehåll", delay: 0 },
+                            { icon: SearchCheck, text: "Identifierar nyckelord", delay: 1 },
+                            { icon: Target, text: "Analyserar ATS-kompatibilitet", delay: 2 },
+                            { icon: Lightbulb, text: "Genererar förbättringsförslag", delay: 3 },
+                            { icon: Star, text: "Beräknar poäng", delay: 4 }
+                          ].map((step, index) => (
+                            <motion.div
+                              key={index}
+                              className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"
+                              initial={{ opacity: 0, x: -20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: step.delay * 0.5 }}
+                            >
+                              <motion.div
+                                className="w-8 h-8 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full flex items-center justify-center"
+                                animate={{
+                                  scale: [1, 1.2, 1],
+                                  opacity: [0.7, 1, 0.7]
+                                }}
+                                transition={{
+                                  duration: 1.5,
+                                  repeat: Infinity,
+                                  delay: step.delay * 0.5
+                                }}
+                              >
+                                <step.icon className="w-4 h-4 text-white" />
+                              </motion.div>
+                              <span className="text-gray-700 font-medium">{step.text}</span>
+                              <motion.div
+                                className="ml-auto w-2 h-2 bg-green-500 rounded-full"
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ delay: step.delay * 0.5 + 0.5 }}
+                              />
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  ) : analysisResult ? (
+                    <motion.div
+                      key="results"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      className="flex-grow flex flex-col"
+                    >
+                      {/* Results Content */}
+                      <div className="flex-grow overflow-auto">
+                        <CvAnalysisResults data={analysisResult} />
+                      </div>
+
+                      {/* Action Buttons */}
+                      <motion.div
+                        className="mt-6 pt-4 border-t border-gray-200 flex flex-wrap gap-3"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                      >
+                        <motion.button
+                          onClick={handleNavigateToCvManagement}
+                          className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 shadow-sm hover:shadow-md transition-all duration-300"
+                          whileHover={{ scale: 1.02, y: -1 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <Pencil className="w-4 h-4 mr-2" />
+                          Hantera CV:n
+                        </motion.button>
+                        <motion.button
+                          onClick={() => router.push(`${CREATE_LETTER_ROUTE_BASE}?cvId=${selectedCV}`)}
+                          disabled={!selectedCV}
+                          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                          whileHover={selectedCV ? { scale: 1.02, y: -1 } : {}}
+                          whileTap={selectedCV ? { scale: 0.98 } : {}}
+                        >
+                          <MessageSquare className="w-4 h-4 mr-2" />
+                          Skapa brev med CV
+                        </motion.button>
+                      </motion.div>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="empty"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="flex-grow flex flex-col items-center justify-center text-center"
+                    >
+                      <motion.div
+                        className="w-24 h-24 bg-gradient-to-r from-pink-100 to-purple-100 rounded-full flex items-center justify-center mb-6"
+                        animate={{
+                          scale: [1, 1.05, 1],
+                          rotate: [0, 5, -5, 0]
+                        }}
+                        transition={{
+                          duration: 4,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        <SearchCheck className="w-12 h-12 text-gray-500" />
+                      </motion.div>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2">Redo för AI-analys</h3>
+                      <p className="text-gray-600 max-w-sm">
+                        Välj ett CV från vänster panel och klicka på "Starta AI-analys" för att få djupgående insikter.
+                      </p>
+
+                      {/* Feature highlights */}
+                      <div className="grid grid-cols-2 gap-4 mt-8 max-w-md">
+                        {[
+                          { icon: Target, text: "ATS-optimering" },
+                          { icon: Star, text: "Poängbedömning" },
+                          { icon: Lightbulb, text: "Förbättringar" },
+                          { icon: TrendingUp, text: "Insikter" }
+                        ].map((feature, index) => (
+                          <motion.div
+                            key={index}
+                            className="flex flex-col items-center p-3 bg-gray-50 rounded-lg"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                            whileHover={{ scale: 1.05 }}
+                          >
+                            <feature.icon className="w-6 h-6 text-pink-600 mb-2" />
+                            <span className="text-xs text-gray-600 text-center">{feature.text}</span>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </CardContent>
+            </Card>
+          </motion.main>
+        </div>
+      </div>
+
+      {/* Floating Particles */}
+      <div className="fixed inset-0 pointer-events-none z-5">
+        {[...Array(12)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full opacity-20"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -100, 0],
+              x: [0, Math.random() * 50 - 25, 0],
+              scale: [1, 1.5, 1],
+              opacity: [0.2, 0.5, 0.2],
+            }}
+            transition={{
+              duration: 8 + Math.random() * 4,
+              repeat: Infinity,
+              delay: Math.random() * 8,
+              ease: "easeInOut"
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Success Confetti Animation */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes confetti {
+          0% {
+            transform: translate(-50%, -50%) scale(0) rotate(0deg);
+            opacity: 1;
+          }
+          50% {
+            transform: translate(-50%, -50%) scale(1.5) rotate(180deg);
+            opacity: 1;
+          }
+          100% {
+            transform: translate(-50%, -50%) scale(0.5) rotate(360deg);
+            opacity: 0;
+          }
+        }
+        .elegant-scrollbar {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(236, 72, 153, 0.3) transparent;
+        }
+        .elegant-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .elegant-scrollbar::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .elegant-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(236, 72, 153, 0.3);
+          border-radius: 3px;
+        }
+        .elegant-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(236, 72, 153, 0.5);
+        }
+      `}} />
     </div>
   );
 }

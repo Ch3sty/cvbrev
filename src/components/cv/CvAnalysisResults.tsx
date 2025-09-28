@@ -86,13 +86,13 @@ interface CvAnalysisResultsProps {
 }
 
 // ============================================================================
-//  Styling Constants (Optional but can improve consistency)
+//  Styling Constants - Premium Light Theme
 // ============================================================================
-const sectionBaseClasses = "bg-navy-900/50 border border-navy-700 rounded-lg p-5 transition-all hover:border-navy-600";
-const sectionTitleClasses = "text-lg font-semibold text-white flex items-center mb-3";
-const sectionIconClasses = "w-5 h-5 mr-2 text-pink-400 flex-shrink-0";
-const listClasses = "list-disc pl-5 space-y-1 text-sm text-gray-300";
-const premiumTeaserClasses = "bg-gradient-to-r from-pink-900/30 via-purple-900/20 to-navy-900/30 border border-pink-700/50 rounded-lg p-5 text-center";
+const sectionBaseClasses = "bg-white/80 backdrop-blur-sm border border-gray-200 rounded-xl p-6 transition-all hover:border-gray-300 hover:shadow-md";
+const sectionTitleClasses = "text-lg font-semibold text-gray-900 flex items-center mb-4";
+const sectionIconClasses = "w-5 h-5 mr-2 text-pink-600 flex-shrink-0";
+const listClasses = "list-disc pl-5 space-y-2 text-sm text-gray-700";
+const premiumTeaserClasses = "bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50 border border-pink-200 rounded-xl p-6 text-center";
 const fallbackTextClasses = "text-gray-500 italic text-sm";
 
 // ============================================================================
@@ -140,7 +140,7 @@ const KeywordList: React.FC<{ keywords?: string[] }> = React.memo(({ keywords })
     return (
         <div className="flex flex-wrap gap-2">
             {keywords.map((keyword, index) => (
-                <span key={index} className="px-2.5 py-1 text-xs font-medium bg-pink-900/50 text-pink-300 rounded-full border border-pink-800/50">
+                <span key={index} className="px-3 py-1.5 text-xs font-medium bg-pink-100 text-pink-700 rounded-full border border-pink-200 hover:bg-pink-200 transition-colors">
                     {keyword}
                 </span>
             ))}
@@ -160,21 +160,21 @@ const ScoreCard: React.FC<{ title: string; score?: Score; maxRating?: number; ic
     const visualRatingOutOf5 = maxRating > 0 ? Math.round((rating / maxRating) * 5) : 0;
 
     return (
-        <div className="bg-navy-700/40 p-4 rounded-lg border border-navy-600 flex-1 min-w-[200px] flex flex-col">
-            <h4 className="text-base font-semibold text-white flex items-center mb-2">
-                <Icon className="w-4 h-4 mr-2 text-blue-400 flex-shrink-0" aria-hidden="true" />
+        <div className="bg-gradient-to-br from-white to-gray-50/50 p-5 rounded-xl border border-gray-200 flex-1 min-w-[200px] flex flex-col shadow-sm hover:shadow-md transition-all duration-300">
+            <h4 className="text-base font-semibold text-gray-900 flex items-center mb-3">
+                <Icon className="w-4 h-4 mr-2 text-blue-600 flex-shrink-0" aria-hidden="true" />
                 {title}
             </h4>
-            <div className="flex items-center mb-2" aria-label={`Betyg: ${rating} av ${maxRating}`}>
+            <div className="flex items-center mb-3" aria-label={`Betyg: ${rating} av ${maxRating}`}>
                 {[...Array(5)].map((_, i) => (
                     <Star
                         key={i}
-                        className={`w-4 h-4 flex-shrink-0 ${i < visualRatingOutOf5 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}`}
+                        className={`w-4 h-4 flex-shrink-0 ${i < visualRatingOutOf5 ? 'text-yellow-500 fill-yellow-500' : 'text-gray-300'}`}
                     />
                 ))}
-                <span className="ml-2 text-xs text-gray-400">({rating}/{maxRating})</span>
+                <span className="ml-2 text-xs text-gray-500 font-medium">({rating}/{maxRating})</span>
             </div>
-            <p className="text-xs text-gray-300 flex-grow">{feedback}</p> {/* flex-grow to push content */}
+            <p className="text-sm text-gray-600 flex-grow leading-relaxed">{feedback}</p>
         </div>
     );
 });
@@ -223,11 +223,11 @@ const PremiumStrengthsList: React.FC<{ strengths?: Array<{ point: string; exampl
         return <p className={fallbackTextClasses}>Inga specifika styrkor med exempel identifierade.</p>;
     }
     return (
-        <ul className="space-y-3">
+        <ul className="space-y-4">
             {strengths.map((item, index) => (
-                <li key={index} className="border-l-2 border-green-500 pl-3 text-sm">
-                    <p className="font-medium text-gray-200">{item.point}</p>
-                    {item.example && <p className="text-xs text-gray-400 mt-1 italic">Exempel: "{item.example}"</p>}
+                <li key={index} className="border-l-4 border-green-500 pl-4 py-2 bg-green-50/50 rounded-r-lg">
+                    <p className="font-medium text-gray-800">{item.point}</p>
+                    {item.example && <p className="text-sm text-green-700 mt-2 italic bg-green-100/50 p-2 rounded text-xs">Exempel: "{item.example}"</p>}
                 </li>
             ))}
         </ul>
@@ -245,9 +245,9 @@ const PremiumImprovementsList: React.FC<{ improvements?: PremiumImprovement[] }>
     return (
          <ul className="space-y-4">
             {improvements.map((item, index) => (
-                <li key={index} className="border-l-2 border-yellow-500 pl-3 text-sm">
-                    <p className="font-medium text-gray-200"><span className="text-yellow-400 font-semibold">{item.area}:</span> {item.suggestion}</p>
-                    {item.example && <p className="text-xs text-gray-400 mt-1 italic">Förslag: "{item.example}"</p>}
+                <li key={index} className="border-l-4 border-orange-500 pl-4 py-2 bg-orange-50/50 rounded-r-lg">
+                    <p className="font-medium text-gray-800"><span className="text-orange-700 font-semibold">{item.area}:</span> {item.suggestion}</p>
+                    {item.example && <p className="text-sm text-orange-700 mt-2 italic bg-orange-100/50 p-2 rounded text-xs">Förslag: "{item.example}"</p>}
                 </li>
             ))}
         </ul>
@@ -260,18 +260,21 @@ PremiumImprovementsList.displayName = 'PremiumImprovementsList';
  */
 const AtsSection: React.FC<{ atsData?: PremiumAnalysisResult['atsFriendliness'] }> = React.memo(({ atsData }) => {
     if (!atsData) return null; // Don't render if no ATS data
-    const scoreColor = atsData.score >= 75 ? 'text-green-400' : atsData.score >= 50 ? 'text-yellow-400' : 'text-red-400';
+    const scoreColor = atsData.score >= 75 ? 'text-green-600' : atsData.score >= 50 ? 'text-yellow-600' : 'text-red-600';
+    const scoreBgColor = atsData.score >= 75 ? 'bg-green-100' : atsData.score >= 50 ? 'bg-yellow-100' : 'bg-red-100';
     return (
         <AnalysisSection title="ATS-Vänlighet" icon={ScanSearch}>
-             <div className="text-sm text-gray-300 space-y-2">
-                <div className="flex items-baseline mb-1">
-                    <span className={`text-2xl font-bold ${scoreColor}`}>{atsData.score}</span>
-                    <span className="text-sm text-gray-400">/100</span>
+             <div className="text-sm text-gray-700 space-y-4">
+                <div className={`${scoreBgColor} rounded-lg p-4 border border-gray-200`}>
+                    <div className="flex items-baseline mb-2">
+                        <span className={`text-3xl font-bold ${scoreColor}`}>{atsData.score}</span>
+                        <span className="text-sm text-gray-500 ml-1">/100</span>
+                    </div>
+                    <p className="text-gray-700">{atsData.feedback}</p>
                 </div>
-                <p>{atsData.feedback}</p>
                 {atsData.missingKeywords && atsData.missingKeywords.length > 0 && (
                     <div className='pt-2'>
-                        <h5 className="text-xs font-semibold text-gray-400 mb-1 uppercase tracking-wider">Potentiellt saknade nyckelord:</h5>
+                        <h5 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wider">Potentiellt saknade nyckelord:</h5>
                         <KeywordList keywords={atsData.missingKeywords} />
                     </div>
                 )}
@@ -301,17 +304,19 @@ QuantificationSection.displayName = 'QuantificationSection';
  */
 const PremiumTeaserSection: React.FC = React.memo(() => (
     <section className={premiumTeaserClasses}>
-        <Crown className="w-8 h-8 mx-auto mb-3 text-yellow-400" aria-hidden="true" />
-        <h3 className="text-lg font-semibold text-white mb-2">Lås upp djupare insikter med Premium!</h3>
-        <p className="text-sm text-gray-300 mb-4 max-w-md mx-auto">
+        <div className="bg-gradient-to-r from-pink-600 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Crown className="w-8 h-8 text-white" aria-hidden="true" />
+        </div>
+        <h3 className="text-xl font-semibold text-gray-900 mb-3">Lås upp djupare insikter med Premium!</h3>
+        <p className="text-gray-600 mb-6 max-w-md mx-auto leading-relaxed">
             Få detaljerade exempel, ATS-analys, kvantifieringsförslag och mer avancerad poängsättning för att verkligen optimera ditt CV.
         </p>
         <Link
-            href="/profile?tab=subscription" // Consistent link to upgrade
-            className="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors bg-pink-600 rounded-md hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-navy-900 focus:ring-pink-500"
+            href="/profile?tab=subscription"
+            className="inline-flex items-center px-6 py-3 text-sm font-medium text-white transition-all bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg hover:from-pink-700 hover:to-purple-700 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500"
         >
             Uppgradera till Premium
-            <ChevronRight className="w-4 h-4 ml-1.5" />
+            <ChevronRight className="w-4 h-4 ml-2" />
         </Link>
     </section>
 ));
@@ -328,8 +333,8 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data }
     if (!data) {
         return (
             <div className="flex flex-col items-center justify-center text-center flex-grow py-10">
-                <ClipboardList className="w-12 h-12 mb-4 text-gray-600" />
-                <p className="text-lg text-gray-400">Ingen analysdata att visa.</p>
+                <ClipboardList className="w-12 h-12 mb-4 text-gray-500" />
+                <p className="text-lg text-gray-700">Ingen analysdata att visa.</p>
                 <p className="text-sm text-gray-500">Välj ett CV och starta analysen.</p>
             </div>
         );
@@ -353,7 +358,9 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data }
         <div className="space-y-6">
             {/* --- Common Sections --- */}
             <AnalysisSection title="Sammanfattning" icon={ClipboardList}>
-                <p className="text-sm text-gray-300">{summary}</p>
+                <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                    <p className="text-sm text-gray-700 leading-relaxed">{summary}</p>
+                </div>
             </AnalysisSection>
 
             <AnalysisSection title="Identifierade Styrkor" icon={ThumbsUp}>
