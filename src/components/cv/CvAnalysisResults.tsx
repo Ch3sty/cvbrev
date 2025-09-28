@@ -27,8 +27,15 @@ import {
     Trophy,        // For Scores Section Title
     Crown,         // For Premium Teaser
     ChevronRight,  // For Premium Teaser Button
-    Info           // (Potentially for Tooltips - not used currently)
+    Info,          // (Potentially for Tooltips - not used currently)
+    Wand2,         // For improvement workflow
+    ArrowRight     // For action button
 } from 'lucide-react';
+
+// --- Additional Components ---
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import CVImprovementWorkflow, { Suggestion } from './CVImprovementWorkflow';
 
 // --- Type Definitions ---
 // It's highly recommended to move these types to a shared location
@@ -83,6 +90,8 @@ type CvAnalysisData = BasicAnalysisResult | PremiumAnalysisResult;
 
 interface CvAnalysisResultsProps {
     data: CvAnalysisData | null | undefined; // Allow null/undefined for initial/error states
+    cvContent?: string; // The original CV content for improvement workflow
+    cvId?: string; // CV ID for saving improvements
 }
 
 // ============================================================================
@@ -327,7 +336,8 @@ PremiumTeaserSection.displayName = 'PremiumTeaserSection';
 //  Main Analysis Results Component
 // ============================================================================
 
-const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data }) => {
+const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, cvContent, cvId }) => {
+    const [showImprovementWorkflow, setShowImprovementWorkflow] = useState(false);
 
     // Handle loading or no data state gracefully
     if (!data) {
@@ -353,6 +363,79 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data }
     const scores = data.scores;
     const atsData = isPremium ? (data as PremiumAnalysisResult).atsFriendliness : undefined;
     const quantificationSuggestions = isPremium ? (data as PremiumAnalysisResult).quantificationSuggestions : undefined;
+
+    // Convert analysis data to suggestions for improvement workflow
+    const convertToSuggestions = (): Suggestion[] => {
+        const suggestions: Suggestion[] = [];
+        let idCounter = 0;
+
+        // Convert improvement areas to suggestions
+        if (isPremium && premiumImprovements) {
+            premiumImprovements.forEach(imp => {
+                suggestions.push({
+                    id: `suggestion-${idCounter++}`,
+                    category: 'content',
+                    title: imp.area,
+                    description: imp.suggestion,
+                    impact: 'high'
+                });
+            });
+        } else if (basicImprovements) {
+            basicImprovements.forEach(imp => {
+                suggestions.push({
+                    id: `suggestion-${idCounter++}`,
+                    category: 'content',
+                    title: 'Förbättringsförslag',
+                    description: imp,
+                    impact: 'medium'
+                });
+            });
+        }
+
+        // Add ATS suggestions if available
+        if (atsData?.missingKeywords && atsData.missingKeywords.length > 0) {
+            suggestions.push({
+                id: `suggestion-${idCounter++}`,
+                category: 'ats',
+                title: 'Lägg till saknade nyckelord',
+                description: `Inkludera följande nyckelord för bättre ATS-kompatibilitet: ${atsData.missingKeywords.join(', ')}`,
+                impact: 'high'
+            });
+        }
+
+        // Add quantification suggestions
+        if (quantificationSuggestions && quantificationSuggestions.length > 0) {
+            quantificationSuggestions.forEach(q => {
+                suggestions.push({
+                    id: `suggestion-${idCounter++}`,
+                    category: 'keywords',
+                    title: 'Kvantifiering',
+                    description: q,
+                    impact: 'medium'
+                });
+            });
+        }
+
+        return suggestions;
+    };
+
+    const handleStartImprovement = () => {
+        setShowImprovementWorkflow(true);
+    };
+
+    // If improvement workflow is active, show it instead of regular results
+    if (showImprovementWorkflow && cvContent && cvId) {
+        return (
+            <div className="space-y-6">
+                <CVImprovementWorkflow
+                    suggestions={convertToSuggestions()}
+                    originalCV={cvContent}
+                    cvId={cvId}
+                    onComplete={() => setShowImprovementWorkflow(false)}
+                />
+            </div>
+        );
+    }
 
     return (
         <div className="space-y-6">
@@ -399,6 +482,30 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data }
 
             {/* --- Premium Teaser (Basic Users Only) --- */}
             {!isPremium && <PremiumTeaserSection />}
+
+            {/* --- Improvement Workflow Button --- */}
+            {cvContent && cvId && (
+                <section className="bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50 border border-pink-200 rounded-xl p-6 text-center">
+                    <div className="max-w-2xl mx-auto">
+                        <div className="bg-gradient-to-r from-pink-600 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <Wand2 className="w-8 h-8 text-white" />
+                        </div>
+                        <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                            Förbättra ditt CV baserat på analysen
+                        </h3>
+                        <p className="text-gray-600 mb-6 max-w-md mx-auto leading-relaxed">
+                            Välj vilka förbättringsförslag som ska implementeras och generera en optimerad version av ditt CV.
+                        </p>
+                        <Button
+                            onClick={handleStartImprovement}
+                            className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white px-6 py-3 text-sm font-medium rounded-lg shadow-lg hover:shadow-xl transition-all"
+                        >
+                            Starta förbättringsprocess
+                            <ArrowRight className="ml-2 h-4 w-4" />
+                        </Button>
+                    </div>
+                </section>
+            )}
         </div>
     );
 });
