@@ -94,10 +94,7 @@ export default function CVImprovementWorkflow({
     setIsGenerating(true);
 
     try {
-      // Get user ID from localStorage or session
-      const userId = localStorage.getItem('userId') || 'demo-user';
-
-      // Call API to generate improved CV
+      // Call API to generate improved CV (userId is now obtained from server-side authentication)
       const response = await fetch('/api/cv/generate-improved', {
         method: 'POST',
         headers: {
@@ -106,8 +103,7 @@ export default function CVImprovementWorkflow({
         body: JSON.stringify({
           cvId: cvId,
           originalContent: originalCV,
-          selectedSuggestions: suggestions.filter(s => s.selected),
-          userId: userId
+          selectedSuggestions: suggestions.filter(s => s.selected)
         }),
       });
 

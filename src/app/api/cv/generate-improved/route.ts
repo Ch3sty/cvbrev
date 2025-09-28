@@ -1,24 +1,53 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { cookies } from 'next/headers';
+import { createServerClient } from '@/lib/supabase/server';
 import OpenAI from 'openai';
-
-// Initialize Supabase client
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 // Initialize OpenAI
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
 });
 
+// Helper function to get original CV filename
+async function getOriginalFilename(supabase: any, userId: string, cvId: string): Promise<string | null> {
+  try {
+    const { data: cvData, error } = await supabase
+      .from('cv_texts')
+      .select('file_name')
+      .eq('id', cvId)
+      .eq('user_id', userId)
+      .single();
+
+    if (error) {
+      console.error('Error fetching original CV filename:', error);
+      return null;
+    }
+
+    return cvData?.file_name || null;
+  } catch (error) {
+    console.error('Error in getOriginalFilename:', error);
+    return null;
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
-    // Get request body
-    const { cvId, originalContent, selectedSuggestions, userId } = await request.json();
+    // Initialize Supabase with proper server client
+    const cookieStore = cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
+
+    // Authenticate user
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) {
+      console.error('API generate-improved: Authentication failed.', authError);
+      return NextResponse.json({ error: 'Autentisering krävs.' }, { status: 401 });
+    }
+
+    // Get request body (userId no longer needed as we get it from auth)
+    const { cvId, originalContent, selectedSuggestions } = await request.json();
 
     // Validate required fields
-    if (!cvId || !originalContent || !selectedSuggestions || !userId) {
+    if (!cvId || !originalContent || !selectedSuggestions) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -84,15 +113,17 @@ Returnera endast det förbättrade CV:t utan några förklaringar eller kommenta
       overallImprovement: Math.round(((improvedWords - originalWords) / originalWords) * 100 + 15),
     };
 
-    // Save improved version to database
+    // Save improved version to existing cv_texts table with meaningful filename
+    const originalFilename = await getOriginalFilename(supabase, user.id, cvId);
+    const improvedFilename = `Förbättrat CV - ${originalFilename || 'CV'}.txt`;
+
     const { data: savedCV, error: saveError } = await supabase
-      .from('improved_cvs')
+      .from('cv_texts')
       .insert({
-        original_cv_id: cvId,
-        user_id: userId,
-        content: improvedContent,
-        suggestions_applied: selectedSuggestions,
-        metrics,
+        user_id: user.id,
+        file_name: improvedFilename,
+        original_file_path: `improved/${user.id}/${Date.now()}.txt`, // Placeholder path for improved CVs
+        cv_text: improvedContent,
         created_at: new Date().toISOString(),
       })
       .select()
