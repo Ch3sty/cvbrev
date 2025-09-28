@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { Download, FileText, Upload, Check, Crown, User, Linkedin } from 'lucide-react';
+import { Download, FileText, Upload, Check, Crown, User, Linkedin, Sparkles, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { useCVStore } from '@/store/cv-store';
 import { useProfile } from '@/hooks/use-profile';
@@ -15,6 +15,7 @@ import Notification from '@/components/ui/notification';
 import SimpleTemplateGallery from '@/components/cv/simple-template-gallery';
 import { getTemplateById } from '@/lib/cv/simple-templates';
 import { motion } from 'framer-motion';
+import CVGenerationModal from '@/components/cv/CVGenerationModal';
 
 export default function CVMallarPage() {
   const router = useRouter();
@@ -32,10 +33,11 @@ export default function CVMallarPage() {
   const [includePhoto, setIncludePhoto] = useState(true);
   const [includeLinkedIn, setIncludeLinkedIn] = useState(true);
   const [notification, setNotification] = useState({
-    isVisible: false, 
-    message: '', 
+    isVisible: false,
+    message: '',
     type: 'loading' as 'loading' | 'success' | 'error'
   });
+  const [showGenerationModal, setShowGenerationModal] = useState(false);
 
   // Initialize data
   useEffect(() => {
@@ -74,7 +76,7 @@ export default function CVMallarPage() {
     router.push('/priser');
   };
 
-  const handleGenerateCV = async () => {
+  const handleGenerateCV = async (options: any = {}) => {
     if (!selectedTemplate || !selectedCV) {
       showNotification('error', 'Välj både ett CV och en mall först.');
       return;
@@ -92,11 +94,11 @@ export default function CVMallarPage() {
 
     try {
       const fileName = `cv-${template?.name.toLowerCase().replace(/\s+/g, '-')}-${selectedCV.file_name.replace(/\.[^/.]+$/, '')}.pdf`;
-      
-      // Prepare options for templates that support photo and LinkedIn
+
+      // Use options from modal or fallback to component state
       const templateOptions = (selectedTemplate === 'platinum-executive' || selectedTemplate === 'nordic-professional' || selectedTemplate === 'creative-minimal') ? {
-        includePhoto,
-        includeLinkedIn
+        includePhoto: options.includePhoto !== undefined ? options.includePhoto : includePhoto,
+        includeLinkedIn: options.includeLinkedIn !== undefined ? options.includeLinkedIn : includeLinkedIn
       } : {};
 
       // Anropa generate-formatted API med AI-parsad CV-data
@@ -131,6 +133,25 @@ export default function CVMallarPage() {
       
       closeNotification();
       showNotification('success', `CV skapat! Nedladdning startar automatiskt.`);
+
+      // Success celebration animation
+      const celebration = document.createElement('div');
+      celebration.innerHTML = '🎉';
+      celebration.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 3rem;
+        z-index: 9999;
+        pointer-events: none;
+        animation: celebration 2s ease-out forwards;
+      `;
+      document.body.appendChild(celebration);
+      setTimeout(() => {
+        celebration.remove();
+        setShowGenerationModal(false); // Close modal after success
+      }, 2000);
       
     } catch (error: any) {
       console.error('Fel vid CV-skapande:', error);
@@ -148,7 +169,86 @@ export default function CVMallarPage() {
   const selectedTemplateData = selectedTemplate ? getTemplateById(selectedTemplate) : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-navy-900 to-navy-800">
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Premium Dynamic Background - Enhanced like dashboard page */}
+      <motion.div
+        className="fixed inset-0 pointer-events-none z-0"
+        style={{ opacity: 0.9 }}
+      >
+        {/* Primary gradient foundation */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-slate-50/50" />
+
+        {/* Secondary gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-purple-50/20 to-pink-50/30" />
+
+        {/* Animated morphing gradient orbs */}
+        <motion.div
+          className="absolute top-[10%] left-[5%] w-[500px] h-[500px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, rgba(147, 51, 234, 0.05) 40%, transparent 70%)',
+            filter: 'blur(60px)',
+          }}
+          animate={{
+            x: [0, 150, 0],
+            y: [0, -100, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            repeatType: 'reverse',
+            ease: "easeInOut"
+          }}
+        />
+
+        <motion.div
+          className="absolute top-[30%] right-[10%] w-[600px] h-[600px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, rgba(139, 92, 246, 0.04) 40%, transparent 70%)',
+            filter: 'blur(80px)',
+          }}
+          animate={{
+            x: [0, -200, 0],
+            y: [0, 150, 0],
+            scale: [1, 0.8, 1],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            repeatType: 'reverse',
+            ease: "easeInOut"
+          }}
+        />
+
+        <motion.div
+          className="absolute bottom-[20%] left-[15%] w-[400px] h-[400px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.03) 40%, transparent 70%)',
+            filter: 'blur(70px)',
+          }}
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -80, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            repeatType: 'reverse',
+            ease: "easeInOut"
+          }}
+        />
+
+        {/* Subtle pattern overlay */}
+        <div
+          className="absolute inset-0"
+          style={{
+            opacity: 0.015,
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z\'/%3E%3C/g%3E%3C/svg%3E")',
+            backgroundSize: '40px 40px',
+          }}
+        />
+      </motion.div>
       {/* Notification */}
       {notification.isVisible && (
         <Notification
@@ -159,7 +259,7 @@ export default function CVMallarPage() {
         />
       )}
 
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-8 relative z-10">
         {/* Header */}
         <motion.header 
           className="mb-8"
@@ -168,24 +268,24 @@ export default function CVMallarPage() {
           transition={{ duration: 0.5 }}
         >
           <div className="text-center mb-6">
-            <h1 className="text-4xl font-bold text-white mb-3">
+            <h1 className="text-4xl font-bold text-gray-900 mb-3">
               CV-mallar
             </h1>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Välj en professionell CV-mall och skapa ditt CV på mindre än en minut.
             </p>
           </div>
           
           <div className="flex justify-center gap-4 text-sm">
-            <div className="flex items-center text-green-400">
+            <div className="flex items-center text-green-600">
               <Check className="w-4 h-4 mr-2" />
               ATS-kompatibel
             </div>
-            <div className="flex items-center text-blue-400">
+            <div className="flex items-center text-blue-600">
               <Check className="w-4 h-4 mr-2" />
               Snabb nedladdning
             </div>
-            <div className="flex items-center text-purple-400">
+            <div className="flex items-center text-purple-600">
               <Check className="w-4 h-4 mr-2" />
               Alla branscher
             </div>
@@ -200,13 +300,13 @@ export default function CVMallarPage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <Card className="bg-navy-800 shadow-lg border border-navy-700">
+            <Card className="bg-white/95 backdrop-blur-xl shadow-xl border border-gray-200/80">
               <CardHeader>
-                <CardTitle className="text-lg flex items-center gap-2 text-white">
-                  <FileText className="w-5 h-5 text-blue-400" />
+                <CardTitle className="text-lg flex items-center gap-2 text-gray-900">
+                  <FileText className="w-5 h-5 text-pink-600" />
                   Ditt CV
                 </CardTitle>
-                <CardDescription className="text-gray-300">
+                <CardDescription className="text-gray-600">
                   Välj det CV du vill använda som grund
                 </CardDescription>
               </CardHeader>
@@ -214,12 +314,12 @@ export default function CVMallarPage() {
               <CardContent>
                 {cvsLoading || profileLoading ? (
                   <div className="flex items-center justify-center h-32">
-                    <div className="animate-spin rounded-full h-8 w-8 border-2 border-blue-400 border-t-transparent"></div>
+                    <div className="animate-spin rounded-full h-8 w-8 border-2 border-pink-600 border-t-transparent"></div>
                   </div>
                 ) : cvs.length === 0 ? (
                   <div className="text-center py-6">
-                    <Upload className="w-12 h-12 mx-auto mb-3 text-gray-400" />
-                    <p className="text-gray-300 mb-4">Inga CV uppladdade</p>
+                    <Upload className="w-12 h-12 mx-auto mb-3 text-gray-500" />
+                    <p className="text-gray-600 mb-4">Inga CV uppladdade</p>
                     <Link href="/profile?tab=cv">
                       <Button size="sm" className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700">
                         Ladda upp CV
@@ -233,28 +333,28 @@ export default function CVMallarPage() {
                         key={cv.id}
                         type="button"
                         onClick={() => selectCV(cv.id)}
-                        className={`w-full text-left p-3 rounded-lg border transition-all ${
+                        className={`w-full text-left p-3 rounded-lg border transition-all duration-300 ${
                           selectedCV?.id === cv.id
-                            ? 'bg-navy-700 border-pink-500 ring-1 ring-pink-400'
-                            : 'bg-navy-900/60 border-navy-600 hover:bg-navy-700/50 hover:border-navy-500'
+                            ? 'bg-pink-50/80 border-pink-500 ring-1 ring-pink-400 shadow-lg'
+                            : 'bg-white/60 border-gray-200 hover:bg-gray-50/80 hover:border-gray-300 hover:shadow-md'
                         }`}
                       >
                         <div className="flex items-start gap-3">
                           <FileText className={`w-4 h-4 mt-0.5 ${
-                            selectedCV?.id === cv.id ? 'text-pink-400' : 'text-gray-400'
+                            selectedCV?.id === cv.id ? 'text-pink-600' : 'text-gray-500'
                           }`} />
                           <div className="flex-1 min-w-0">
                             <p className={`font-medium truncate ${
-                              selectedCV?.id === cv.id ? 'text-white' : 'text-gray-200'
+                              selectedCV?.id === cv.id ? 'text-gray-900' : 'text-gray-700'
                             }`}>
                               {cv.file_name}
                             </p>
-                            <p className="text-xs text-gray-400 mt-1 line-clamp-2">
+                            <p className="text-xs text-gray-500 mt-1 line-clamp-2">
                               {cv.cv_text ? cv.cv_text.substring(0, 80) + '...' : 'Ingen förhandsgranskning'}
                             </p>
                           </div>
                           {selectedCV?.id === cv.id && (
-                            <Check className="w-4 h-4 text-pink-400 flex-shrink-0" />
+                            <Check className="w-4 h-4 text-pink-600 flex-shrink-0" />
                           )}
                         </div>
                       </button>
@@ -272,7 +372,7 @@ export default function CVMallarPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                <Card className="bg-gradient-to-r from-pink-600 to-purple-600 text-white border-0">
+                <Card className="bg-gradient-to-r from-pink-600 to-purple-600 text-white border-0 shadow-xl">
                   <CardContent className="p-4">
                     <div className="text-center mb-3">
                       <h3 className="font-semibold">
@@ -288,13 +388,13 @@ export default function CVMallarPage() {
 
                     {/* Toggle options for templates with photo and LinkedIn support */}
                     {(selectedTemplate === 'platinum-executive' || selectedTemplate === 'nordic-professional' || selectedTemplate === 'creative-minimal') && (
-                      <div className="space-y-4 mb-4 p-3 bg-white/10 rounded-lg backdrop-blur-sm">
-                        <h4 className="text-sm font-medium text-white/90">Anpassningsalternativ</h4>
+                      <div className="space-y-4 mb-4 p-3 bg-white/20 rounded-lg backdrop-blur-sm border border-white/30">
+                        <h4 className="text-sm font-medium text-white">Anpassningsalternativ</h4>
                         
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-2">
                             <User className="w-4 h-4" />
-                            <Label htmlFor="include-photo" className="text-sm text-white/90 cursor-pointer">
+                            <Label htmlFor="include-photo" className="text-sm text-white cursor-pointer">
                               Inkludera profilbild
                             </Label>
                           </div>
@@ -309,7 +409,7 @@ export default function CVMallarPage() {
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-2">
                             <Linkedin className="w-4 h-4" />
-                            <Label htmlFor="include-linkedin" className="text-sm text-white/90 cursor-pointer">
+                            <Label htmlFor="include-linkedin" className="text-sm text-white cursor-pointer">
                               Inkludera LinkedIn-länk
                             </Label>
                           </div>
@@ -321,7 +421,7 @@ export default function CVMallarPage() {
                           />
                         </div>
 
-                        <div className="text-xs text-white/70 mt-2">
+                        <div className="text-xs text-white/90 mt-2">
                           {includePhoto && includeLinkedIn ? '💼 Executive Layout med foto & LinkedIn' :
                            includePhoto && !includeLinkedIn ? '📸 Professional Layout med foto' :
                            !includePhoto && includeLinkedIn ? '💼 Business Layout med LinkedIn' :
@@ -330,23 +430,43 @@ export default function CVMallarPage() {
                       </div>
                     )}
                     
-                    <Button
-                      onClick={handleGenerateCV}
-                      disabled={isGenerating}
-                      className="w-full bg-white text-gray-900 hover:bg-gray-100"
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
                     >
-                      {isGenerating ? (
-                        <>
-                          <div className="animate-spin rounded-full h-4 w-4 border-2 border-gray-900 border-t-transparent mr-2" />
-                          Skapar CV...
-                        </>
-                      ) : (
-                        <>
-                          <Download className="w-4 h-4 mr-2" />
-                          Skapa CV-PDF
-                        </>
-                      )}
-                    </Button>
+                      <Button
+                        onClick={() => setShowGenerationModal(true)}
+                        disabled={isGenerating}
+                        className="w-full bg-white text-gray-900 hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden group"
+                      >
+                        {!isGenerating && (
+                          <motion.div
+                            className="absolute inset-0 bg-gradient-to-r from-pink-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100"
+                            initial={{ x: '-100%' }}
+                            animate={{ x: '100%' }}
+                            transition={{ duration: 0.6, ease: "easeInOut" }}
+                          />
+                        )}
+                        <div className="relative z-10 flex items-center justify-center">
+                          {isGenerating ? (
+                            <>
+                              <motion.div
+                                className="w-4 h-4 border-2 border-gray-900 border-t-transparent rounded-full mr-2"
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                              />
+                              Skapar CV...
+                            </>
+                          ) : (
+                            <>
+                              <Sparkles className="w-4 h-4 mr-2" />
+                              Skapa CV-PDF
+                              <ArrowRight className="w-3 h-3 ml-2 opacity-60" />
+                            </>
+                          )}
+                        </div>
+                      </Button>
+                    </motion.div>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -360,10 +480,10 @@ export default function CVMallarPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Card className="bg-navy-800 shadow-lg border border-navy-700">
+            <Card className="bg-white/95 backdrop-blur-xl shadow-xl border border-gray-200/80">
               <CardHeader>
-                <CardTitle className="text-xl text-white">Välj din design</CardTitle>
-                <CardDescription className="text-gray-300">
+                <CardTitle className="text-xl text-gray-900">Välj din design</CardTitle>
+                <CardDescription className="text-gray-600">
                   Alla mallar fungerar för alla yrken - välj den design som passar dig bäst.
                 </CardDescription>
               </CardHeader>
@@ -378,8 +498,65 @@ export default function CVMallarPage() {
               </CardContent>
             </Card>
           </motion.main>
-        </div>
+        </motion.div>
       </div>
+
+      {/* Floating Particles */}
+      <div className="fixed inset-0 pointer-events-none z-5">
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full opacity-20"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -100, 0],
+              x: [0, Math.random() * 50 - 25, 0],
+              scale: [1, 1.5, 1],
+              opacity: [0.2, 0.5, 0.2],
+            }}
+            transition={{
+              duration: 8 + Math.random() * 4,
+              repeat: Infinity,
+              delay: Math.random() * 8,
+              ease: "easeInOut"
+            }}
+          />
+        ))}
+      </div>
+
+      {/* CV Generation Modal */}
+      <CVGenerationModal
+        isOpen={showGenerationModal}
+        onClose={() => setShowGenerationModal(false)}
+        selectedCV={selectedCV}
+        selectedTemplate={selectedTemplateData}
+        onGenerate={handleGenerateCV}
+        isGenerating={isGenerating}
+      />
+
+      {/* CSS Styles for animations */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes celebration {
+          0% {
+            transform: translate(-50%, -50%) scale(0) rotate(0deg);
+            opacity: 1;
+          }
+          50% {
+            transform: translate(-50%, -50%) scale(1.5) rotate(180deg);
+            opacity: 1;
+          }
+          100% {
+            transform: translate(-50%, -50%) scale(0.5) rotate(360deg);
+            opacity: 0;
+          }
+        }
+        .glow-pink {
+          box-shadow: 0 0 20px rgba(236, 72, 153, 0.3), 0 10px 40px rgba(236, 72, 153, 0.1);
+        }
+      `}} />
     </div>
   );
 }
