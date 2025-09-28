@@ -77,16 +77,22 @@ export default function CVPreviewModal({
   const renderContent = (content: string, isImproved: boolean) => {
     return (
       <div
-        className={`
-          prose prose-sm max-w-none p-6
-          ${highlightChanges && isImproved ? 'improved-content' : ''}
-        `}
+        className="prose prose-sm max-w-none p-6 relative"
         style={{
           fontSize: `${zoomLevel}%`,
           transition: 'font-size 0.2s ease'
         }}
       >
-        <div className="whitespace-pre-wrap font-sans text-gray-900">
+        {/* Gradient overlay for improved content */}
+        {highlightChanges && isImproved && (
+          <div
+            className="absolute inset-0 pointer-events-none rounded-lg"
+            style={{
+              background: 'linear-gradient(135deg, rgba(219, 39, 119, 0.03), rgba(147, 51, 234, 0.03))'
+            }}
+          />
+        )}
+        <div className="whitespace-pre-wrap font-sans text-gray-900 relative z-10">
           {content}
         </div>
       </div>
@@ -318,25 +324,6 @@ export default function CVPreviewModal({
               </div>
             </div>
           </motion.div>
-
-          {/* Custom styles for highlighting changes */}
-          <style jsx>{`
-            .improved-content {
-              position: relative;
-            }
-            .improved-content::before {
-              content: '';
-              position: absolute;
-              inset: 0;
-              background: linear-gradient(
-                135deg,
-                rgba(219, 39, 119, 0.03),
-                rgba(147, 51, 234, 0.03)
-              );
-              pointer-events: none;
-              border-radius: 0.5rem;
-            }
-          `}</style>
         </>
       )}
     </AnimatePresence>

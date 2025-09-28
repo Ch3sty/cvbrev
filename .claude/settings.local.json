@@ -154,7 +154,8 @@
       "Bash(git mv:*)",
       "Bash(timeout 60 npm run build)",
       "Bash(npm run:*)",
-      "Bash(start \"http://localhost:3001/dashboard/cv-mallar\")"
+      "Bash(start \"http://localhost:3001/dashboard/cv-mallar\")",
+      "Bash(timeout 30 npm run build)"
     ],
     "deny": [],
     "ask": []
