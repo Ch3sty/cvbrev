@@ -8,6 +8,7 @@ import {
   validateImprovedCV,
   type ImprovementContext
 } from '@/lib/cv/improvement-prompts';
+import type { Suggestion } from '@/components/cv/SuggestionSelector';
 
 // Initialize OpenAI
 const openai = new OpenAI({
@@ -50,7 +51,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Get request body (userId no longer needed as we get it from auth)
-    const { cvId, originalContent, selectedSuggestions, analysisDetails } = await request.json();
+    const { cvId, originalContent, selectedSuggestions, analysisDetails }: {
+      cvId: string;
+      originalContent: string;
+      selectedSuggestions: Suggestion[];
+      analysisDetails?: any;
+    } = await request.json();
 
     // Validate required fields
     if (!cvId || !originalContent || !selectedSuggestions) {
@@ -102,18 +108,18 @@ export async function POST(request: NextRequest) {
     const improvedWords = improvedContent.split(/\s+/).length;
 
     // Enhanced keyword detection including any ATS keywords from analysis
-    const baseKeywords = ['resultat', 'ansvarig', 'ledde', 'utvecklade', 'implementerade',
+    const baseKeywords: string[] = ['resultat', 'ansvarig', 'ledde', 'utvecklade', 'implementerade',
                           'förbättrade', 'ökade', 'minskade', 'optimerade', 'skapade', 'byggde'];
-    const analysisKeywords = analysisDetails?.atsFriendliness?.missingKeywords || [];
-    const allKeywords = [...new Set([...baseKeywords, ...analysisKeywords])];
+    const analysisKeywords: string[] = analysisDetails?.atsFriendliness?.missingKeywords || [];
+    const allKeywords = Array.from(new Set([...baseKeywords, ...analysisKeywords]));
 
     const keywordCount = allKeywords.filter(kw =>
       improvedContent.toLowerCase().includes(kw.toLowerCase())
     ).length;
 
     // More accurate metrics calculation
-    const hasATSImprovements = selectedSuggestions.some(s => s.category === 'ats' || s.category === 'keywords');
-    const hasQuantification = selectedSuggestions.some(s =>
+    const hasATSImprovements = selectedSuggestions.some((s: Suggestion) => s.category === 'ats' || s.category === 'keywords');
+    const hasQuantification = selectedSuggestions.some((s: Suggestion) =>
       s.title.toLowerCase().includes('kvantifi') ||
       s.description.toLowerCase().includes('siffror')
     );
