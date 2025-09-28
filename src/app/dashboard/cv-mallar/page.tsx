@@ -5,9 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-import { Download, FileText, Upload, Check, Crown, User, Linkedin, Sparkles, ArrowRight } from 'lucide-react';
+import { Download, FileText, Upload, Check, Crown, Sparkles, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { useCVStore } from '@/store/cv-store';
 import { useProfile } from '@/hooks/use-profile';
@@ -30,8 +28,6 @@ export default function CVMallarPage() {
   
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [includePhoto, setIncludePhoto] = useState(true);
-  const [includeLinkedIn, setIncludeLinkedIn] = useState(true);
   const [notification, setNotification] = useState({
     isVisible: false,
     message: '',
@@ -95,10 +91,10 @@ export default function CVMallarPage() {
     try {
       const fileName = `cv-${template?.name.toLowerCase().replace(/\s+/g, '-')}-${selectedCV.file_name.replace(/\.[^/.]+$/, '')}.pdf`;
 
-      // Use options from modal or fallback to component state
+      // Use options from modal
       const templateOptions = (selectedTemplate === 'platinum-executive' || selectedTemplate === 'nordic-professional' || selectedTemplate === 'creative-minimal') ? {
-        includePhoto: options.includePhoto !== undefined ? options.includePhoto : includePhoto,
-        includeLinkedIn: options.includeLinkedIn !== undefined ? options.includeLinkedIn : includeLinkedIn
+        includePhoto: options.includePhoto !== undefined ? options.includePhoto : true,
+        includeLinkedIn: options.includeLinkedIn !== undefined ? options.includeLinkedIn : true
       } : {};
 
       // Anropa generate-formatted API med AI-parsad CV-data
@@ -386,50 +382,6 @@ export default function CVMallarPage() {
                       )}
                     </div>
 
-                    {/* Toggle options for templates with photo and LinkedIn support */}
-                    {(selectedTemplate === 'platinum-executive' || selectedTemplate === 'nordic-professional' || selectedTemplate === 'creative-minimal') && (
-                      <div className="space-y-4 mb-4 p-3 bg-white/20 rounded-lg backdrop-blur-sm border border-white/30">
-                        <h4 className="text-sm font-medium text-white">Anpassningsalternativ</h4>
-                        
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-2">
-                            <User className="w-4 h-4" />
-                            <Label htmlFor="include-photo" className="text-sm text-white cursor-pointer">
-                              Inkludera profilbild
-                            </Label>
-                          </div>
-                          <Switch
-                            id="include-photo"
-                            checked={includePhoto}
-                            onCheckedChange={setIncludePhoto}
-                            className="data-[state=checked]:bg-amber-500"
-                          />
-                        </div>
-                        
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center space-x-2">
-                            <Linkedin className="w-4 h-4" />
-                            <Label htmlFor="include-linkedin" className="text-sm text-white cursor-pointer">
-                              Inkludera LinkedIn-länk
-                            </Label>
-                          </div>
-                          <Switch
-                            id="include-linkedin"
-                            checked={includeLinkedIn}
-                            onCheckedChange={setIncludeLinkedIn}
-                            className="data-[state=checked]:bg-blue-500"
-                          />
-                        </div>
-
-                        <div className="text-xs text-white/90 mt-2">
-                          {includePhoto && includeLinkedIn ? '💼 Executive Layout med foto & LinkedIn' :
-                           includePhoto && !includeLinkedIn ? '📸 Professional Layout med foto' :
-                           !includePhoto && includeLinkedIn ? '💼 Business Layout med LinkedIn' :
-                           '✨ Clean Layout utan extra element'}
-                        </div>
-                      </div>
-                    )}
-                    
                     <motion.div
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
