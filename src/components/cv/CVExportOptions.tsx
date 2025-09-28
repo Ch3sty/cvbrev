@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Download,
@@ -16,7 +16,9 @@ import {
   Clock,
   Crown,
   ArrowLeft,
-  Check
+  Check,
+  AlertCircle,
+  Info
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -24,12 +26,21 @@ import { Badge } from '@/components/ui/badge';
 import SimpleTemplateGallery from './simple-template-gallery';
 import { getTemplateById } from '@/lib/cv/simple-templates';
 import { useProfile } from '@/hooks/use-profile';
+import { createBrowserClient } from '@/lib/supabase/client';
+import { Checkbox } from '@/components/ui/checkbox';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 interface CVExportOptionsProps {
   improvedCV: string;
   cvId: string;
   onExportComplete?: () => void;
   className?: string;
+  skipSaveByDefault?: boolean;
 }
 
 type ExportFormat = 'pdf' | 'docx';
@@ -40,7 +51,8 @@ export default function CVExportOptions({
   improvedCV,
   cvId,
   onExportComplete,
-  className = ''
+  className = '',
+  skipSaveByDefault = false
 }: CVExportOptionsProps) {
   const [currentStep, setCurrentStep] = useState<ExportStep>('format');
   const [selectedFormat, setSelectedFormat] = useState<ExportFormat>('pdf');
@@ -49,7 +61,51 @@ export default function CVExportOptions({
   const [customName, setCustomName] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
+  const [saveToAccount, setSaveToAccount] = useState(!skipSaveByDefault);
+  const [cvCount, setCvCount] = useState<number>(0);
+  const [maxCvCount, setMaxCvCount] = useState<number>(5); // Default for free users
+  const [isLoadingQuota, setIsLoadingQuota] = useState(true);
   const { subscriptionTier } = useProfile();
+  const supabase = createBrowserClient();
+
+  // Check CV quota on mount
+  useEffect(() => {
+    const checkCvQuota = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+
+        // Get current CV count
+        const { data: cvs, error: countError } = await supabase
+          .from('cv_texts')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', user.id);
+
+        if (!countError && cvs) {
+          const count = cvs.length || 0;
+          setCvCount(count);
+        }
+
+        // Set max based on subscription tier
+        const max = subscriptionTier === 'premium' ? 50 : 5;
+        setMaxCvCount(max);
+
+        // If at max, disable saving by default
+        if (cvs && cvs.length >= max) {
+          setSaveToAccount(false);
+        }
+      } catch (error) {
+        console.error('Error checking CV quota:', error);
+      } finally {
+        setIsLoadingQuota(false);
+      }
+    };
+
+    checkCvQuota();
+  }, [supabase, subscriptionTier]);
+
+  const canSaveMore = cvCount < maxCvCount;
+  const remainingSlots = maxCvCount - cvCount;
 
   const namingOptions = [
     {
@@ -154,7 +210,7 @@ export default function CVExportOptions({
         includeLinkedIn: true
       } : {};
 
-      // Call the generate-formatted API
+      // Call the generate-formatted API with save preference
       const response = await fetch('/api/cv/generate-formatted', {
         method: 'POST',
         headers: {
@@ -164,7 +220,8 @@ export default function CVExportOptions({
           template: selectedTemplate,
           cvText: improvedCV,
           format: selectedFormat,
-          templateOptions
+          templateOptions,
+          skipSave: !saveToAccount // Pass whether to skip saving
         })
       });
 
@@ -437,6 +494,60 @@ export default function CVExportOptions({
                 <div className="text-2xl">📄</div>
               </div>
             </Card>
+
+            {/* Save to Account Checkbox */}
+            <Card className="border border-gray-200 p-4 mt-4">
+              <div className="flex items-start space-x-3">
+                <Checkbox
+                  id="saveToAccount"
+                  checked={saveToAccount}
+                  disabled={!canSaveMore}
+                  onCheckedChange={(checked) => setSaveToAccount(!!checked)}
+                  className="mt-0.5"
+                />
+                <div className="flex-1">
+                  <label
+                    htmlFor="saveToAccount"
+                    className={`block text-sm font-medium cursor-pointer ${
+                      !canSaveMore ? 'text-gray-400' : 'text-gray-700'
+                    }`}
+                  >
+                    Spara CV:t på Jobbcoach.ai
+                  </label>
+                  <div className="mt-1 text-xs text-gray-500">
+                    {!isLoadingQuota ? (
+                      canSaveMore ? (
+                        <span>
+                          Du har {remainingSlots} {remainingSlots === 1 ? 'plats' : 'platser'} kvar av {maxCvCount}
+                        </span>
+                      ) : (
+                        <span className="flex items-center gap-1 text-amber-600">
+                          <AlertCircle className="h-3 w-3" />
+                          Du har nått maxgränsen ({maxCvCount} CV:n).
+                          {subscriptionTier === 'free' && ' Uppgradera för fler platser.'}
+                        </span>
+                      )
+                    ) : (
+                      <span>Kontrollerar...</span>
+                    )}
+                  </div>
+                </div>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Info className="h-4 w-4 text-gray-400 cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent side="left" className="max-w-xs">
+                      <p className="text-sm">
+                        {canSaveMore
+                          ? 'Spara CV:t för att kunna redigera och använda det senare.'
+                          : 'Du har nått maxgränsen för sparade CV:n. Du kan fortfarande ladda ned ditt förbättrade CV utan att spara det.'}
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+            </Card>
           </motion.div>
         );
 
@@ -523,27 +634,7 @@ export default function CVExportOptions({
         )}
 
         {currentStep === 'naming' && (
-          <>
-            <Button
-              onClick={handleSave}
-              disabled={isSaving || isExporting}
-              variant="outline"
-              className="bg-white hover:bg-gray-50 flex items-center gap-2"
-            >
-              {isSaving ? (
-                <>
-                  <Clock className="w-4 h-4 animate-spin" />
-                  Sparar...
-                </>
-              ) : (
-                <>
-                  <Save className="w-4 h-4" />
-                  Spara
-                </>
-              )}
-            </Button>
-
-            <Button
+          <Button
               onClick={handleExport}
               disabled={isSaving || isExporting || !selectedTemplate}
               className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
@@ -560,7 +651,6 @@ export default function CVExportOptions({
                 </>
               )}
             </Button>
-          </>
         )}
       </div>
 

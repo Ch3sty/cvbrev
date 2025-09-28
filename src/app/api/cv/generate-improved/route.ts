@@ -51,11 +51,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Get request body (userId no longer needed as we get it from auth)
-    const { cvId, originalContent, selectedSuggestions, analysisDetails }: {
+    const { cvId, originalContent, selectedSuggestions, analysisDetails, skipSave }: {
       cvId: string;
       originalContent: string;
       selectedSuggestions: Suggestion[];
       analysisDetails?: any;
+      skipSave?: boolean;
     } = await request.json();
 
     // Validate required fields
@@ -135,25 +136,30 @@ export async function POST(request: NextRequest) {
       ),
     };
 
-    // Save improved version to existing cv_texts table with meaningful filename
-    const originalFilename = await getOriginalFilename(supabase, user.id, cvId);
-    const improvedFilename = `Förbättrat CV - ${originalFilename || 'CV'}.txt`;
+    // Save improved version to existing cv_texts table with meaningful filename (unless skipSave is true)
+    let savedCV = null;
+    if (!skipSave) {
+      const originalFilename = await getOriginalFilename(supabase, user.id, cvId);
+      const improvedFilename = `Förbättrat CV - ${originalFilename || 'CV'}.txt`;
 
-    const { data: savedCV, error: saveError } = await supabase
-      .from('cv_texts')
-      .insert({
-        user_id: user.id,
-        file_name: improvedFilename,
-        original_file_path: `improved/${user.id}/${Date.now()}.txt`, // Placeholder path for improved CVs
-        cv_text: improvedContent,
-        created_at: new Date().toISOString(),
-      })
-      .select()
-      .single();
+      const { data: savedData, error: saveError } = await supabase
+        .from('cv_texts')
+        .insert({
+          user_id: user.id,
+          file_name: improvedFilename,
+          original_file_path: `improved/${user.id}/${Date.now()}.txt`, // Placeholder path for improved CVs
+          cv_text: improvedContent,
+          created_at: new Date().toISOString(),
+        })
+        .select()
+        .single();
 
-    if (saveError) {
-      console.error('Error saving improved CV:', saveError);
-      // Continue even if save fails - user can still see the result
+      if (saveError) {
+        console.error('Error saving improved CV:', saveError);
+        // Continue even if save fails - user can still see the result
+      } else {
+        savedCV = savedData;
+      }
     }
 
     // Try to log AI usage for cost tracking (non-critical)

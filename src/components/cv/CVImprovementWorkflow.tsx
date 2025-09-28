@@ -20,6 +20,7 @@ import SuggestionSelector from './SuggestionSelector';
 import CVPreviewModal from './CVPreviewModal';
 import ImprovementMetrics from './ImprovementMetrics';
 import CVExportOptions from './CVExportOptions';
+import QuantificationCustomizer, { QuantificationItem } from './QuantificationCustomizer';
 
 export interface Suggestion {
   id: string;
@@ -55,7 +56,7 @@ interface CVImprovementWorkflowProps {
   };
 }
 
-type WorkflowStep = 'select' | 'generate' | 'preview' | 'export';
+type WorkflowStep = 'select' | 'quantify' | 'generate' | 'preview' | 'export';
 
 export default function CVImprovementWorkflow({
   suggestions: initialSuggestions,
@@ -77,6 +78,7 @@ export default function CVImprovementWorkflow({
   });
   const [showPreview, setShowPreview] = useState(false);
   const [exportComplete, setExportComplete] = useState(false);
+  const [quantificationItems, setQuantificationItems] = useState<QuantificationItem[]>([]);
 
   const selectedCount = suggestions.filter(s => s.selected).length;
   const totalCount = suggestions.length;
@@ -106,11 +108,71 @@ export default function CVImprovementWorkflow({
     setSuggestions(prev => prev.map(s => ({ ...s, selected: false })));
   };
 
+  const prepareQuantificationItems = () => {
+    // Extract quantification suggestions from selected suggestions
+    const items: QuantificationItem[] = [];
+    const selectedSuggs = suggestions.filter(s => s.selected);
+
+    selectedSuggs.forEach(sugg => {
+      // Check if this is a quantification suggestion
+      if (sugg.category === 'keywords' ||
+          sugg.title.toLowerCase().includes('kvantifi') ||
+          sugg.description.toLowerCase().includes('siffror') ||
+          sugg.description.toLowerCase().includes('resultat')) {
+
+        // Extract original text and AI suggestion from description
+        const originalMatch = sugg.description.match(/[Ii]stället för ['"](.+?)['"]/);
+        const suggestionMatch = sugg.description.match(/skriv ['"](.+?)['"]/i);
+
+        items.push({
+          id: sugg.id,
+          category: sugg.category,
+          originalText: originalMatch ? originalMatch[1] : sugg.title,
+          aiSuggestion: suggestionMatch ? suggestionMatch[1] :
+                        sugg.example || sugg.description,
+          userChoice: 'ai'
+        });
+      }
+    });
+
+    return items;
+  };
+
+  const handleProceedToQuantify = () => {
+    const items = prepareQuantificationItems();
+    if (items.length > 0) {
+      setQuantificationItems(items);
+      setCurrentStep('quantify');
+    } else {
+      // Skip quantify step if no quantification suggestions
+      handleGenerateImproved();
+    }
+  };
+
+  const handleQuantificationComplete = () => {
+    handleGenerateImproved();
+  };
+
   const handleGenerateImproved = async () => {
     if (selectedCount === 0) return;
 
     setCurrentStep('generate');
     setIsGenerating(true);
+
+    // Merge quantification customizations back into suggestions
+    const updatedSuggestions = suggestions.filter(s => s.selected).map(sugg => {
+      const quantItem = quantificationItems.find(q => q.id === sugg.id);
+      if (quantItem) {
+        return {
+          ...sugg,
+          description: quantItem.userChoice === 'custom' && quantItem.customText
+            ? quantItem.customText
+            : quantItem.aiSuggestion,
+          customized: true
+        };
+      }
+      return sugg;
+    });
 
     try {
       // Call API to generate improved CV (userId is now obtained from server-side authentication)
@@ -122,7 +184,7 @@ export default function CVImprovementWorkflow({
         body: JSON.stringify({
           cvId: cvId,
           originalContent: originalCV,
-          selectedSuggestions: suggestions.filter(s => s.selected),
+          selectedSuggestions: updatedSuggestions,
           analysisDetails: analysisDetails || {} // Pass the full analysis details
         }),
       });
@@ -165,6 +227,7 @@ export default function CVImprovementWorkflow({
   const getStepIcon = (step: WorkflowStep) => {
     switch (step) {
       case 'select': return <Target className="h-5 w-5" />;
+      case 'quantify': return <Sparkles className="h-5 w-5" />;
       case 'generate': return <Wand2 className="h-5 w-5" />;
       case 'preview': return <FileText className="h-5 w-5" />;
       case 'export': return <Download className="h-5 w-5" />;
@@ -174,13 +237,14 @@ export default function CVImprovementWorkflow({
   const getStepLabel = (step: WorkflowStep) => {
     switch (step) {
       case 'select': return 'Välj förbättringar';
+      case 'quantify': return 'Anpassa';
       case 'generate': return 'Generera';
       case 'preview': return 'Förhandsgranska';
       case 'export': return 'Spara';
     }
   };
 
-  const steps: WorkflowStep[] = ['select', 'generate', 'preview', 'export'];
+  const steps: WorkflowStep[] = ['select', 'quantify', 'generate', 'preview', 'export'];
   const currentStepIndex = steps.indexOf(currentStep);
 
   return (
@@ -306,15 +370,31 @@ export default function CVImprovementWorkflow({
                 </div>
 
                 <Button
-                  onClick={handleGenerateImproved}
+                  onClick={handleProceedToQuantify}
                   disabled={selectedCount === 0}
                   className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white"
                 >
-                  Generera förbättrad version
+                  Fortsätt till anpassning
                   <ChevronRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>
             </Card>
+          </motion.div>
+        )}
+
+        {currentStep === 'quantify' && quantificationItems.length > 0 && (
+          <motion.div
+            key="quantify"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <QuantificationCustomizer
+              items={quantificationItems}
+              onUpdate={setQuantificationItems}
+              onComplete={handleQuantificationComplete}
+            />
           </motion.div>
         )}
 
@@ -393,7 +473,7 @@ export default function CVImprovementWorkflow({
                 <div className="mb-4 p-4 bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg border border-pink-200">
                   <div className="flex items-center gap-2 mb-2">
                     <Download className="h-4 w-4 text-pink-600" />
-                    <h4 className="font-medium text-gray-900">Ladda ned din förbättrade CV</h4>
+                    <h4 className="font-medium text-gray-900">Ladda ned ditt förbättrade CV</h4>
                   </div>
                   <p className="text-sm text-gray-600">
                     Följ stegen nedan för att välja format, mall och ladda ned ditt förbättrade CV.
