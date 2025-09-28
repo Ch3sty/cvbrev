@@ -205,7 +205,7 @@ export default function SimpleTemplateGallery({
             </motion.div>
           );
         })}
-      </motion.div>
+      </div>
 
       {filteredTemplates.length === 0 && (
         <div className="text-center py-8 text-gray-600">

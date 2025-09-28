@@ -498,7 +498,7 @@ export default function CVMallarPage() {
               </CardContent>
             </Card>
           </motion.main>
-        </motion.div>
+        </div>
       </div>
 
       {/* Floating Particles */}
