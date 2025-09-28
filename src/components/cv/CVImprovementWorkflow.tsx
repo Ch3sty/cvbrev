@@ -28,6 +28,9 @@ export interface Suggestion {
   description: string;
   impact: 'high' | 'medium' | 'low';
   selected?: boolean;
+  // Additional fields for richer context
+  example?: string;
+  area?: string;
 }
 
 interface CVImprovementWorkflowProps {
@@ -35,6 +38,21 @@ interface CVImprovementWorkflowProps {
   originalCV: string;
   cvId: string;
   onComplete?: () => void;
+  // Pass analysis details for better improvement generation
+  analysisDetails?: {
+    atsFriendliness?: {
+      score: number;
+      feedback: string;
+      missingKeywords?: string[];
+    };
+    quantificationSuggestions?: string[];
+    detailedImprovements?: Array<{
+      area: string;
+      suggestion: string;
+      example?: string;
+    }>;
+    keywords?: string[];
+  };
 }
 
 type WorkflowStep = 'select' | 'generate' | 'preview' | 'export';
@@ -43,7 +61,8 @@ export default function CVImprovementWorkflow({
   suggestions: initialSuggestions,
   originalCV,
   cvId,
-  onComplete
+  onComplete,
+  analysisDetails
 }: CVImprovementWorkflowProps) {
   const [currentStep, setCurrentStep] = useState<WorkflowStep>('select');
   const [suggestions, setSuggestions] = useState<Suggestion[]>(
@@ -103,7 +122,8 @@ export default function CVImprovementWorkflow({
         body: JSON.stringify({
           cvId: cvId,
           originalContent: originalCV,
-          selectedSuggestions: suggestions.filter(s => s.selected)
+          selectedSuggestions: suggestions.filter(s => s.selected),
+          analysisDetails: analysisDetails || {} // Pass the full analysis details
         }),
       });
 

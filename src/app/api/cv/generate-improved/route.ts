@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import OpenAI from 'openai';
+import {
+  generateImprovementPrompt,
+  generateSystemPrompt,
+  validateImprovedCV,
+  type ImprovementContext
+} from '@/lib/cv/improvement-prompts';
 
 // Initialize OpenAI
 const openai = new OpenAI({
@@ -44,7 +50,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get request body (userId no longer needed as we get it from auth)
-    const { cvId, originalContent, selectedSuggestions } = await request.json();
+    const { cvId, originalContent, selectedSuggestions, analysisDetails } = await request.json();
 
     // Validate required fields
     if (!cvId || !originalContent || !selectedSuggestions) {
@@ -54,63 +60,73 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Format suggestions for the prompt
-    const formattedSuggestions = selectedSuggestions
-      .map((s: any) => `- ${s.title}: ${s.description}`)
-      .join('\n');
+    // Create improvement context with all available information
+    const improvementContext: ImprovementContext = {
+      originalContent,
+      selectedSuggestions,
+      analysisDetails: analysisDetails || {}
+    };
 
-    // Create prompt for OpenAI
-    const prompt = `Du är en expert på att förbättra CV:n. Baserat på följande originaltext och valda förbättringsförslag, skapa en förbättrad version av CV:t.
+    // Generate sophisticated prompt using the new system
+    const prompt = generateImprovementPrompt(improvementContext);
+    const systemPrompt = generateSystemPrompt();
 
-Original CV:
-${originalContent}
-
-Valda förbättringsförslag:
-${formattedSuggestions}
-
-Instruktioner:
-1. Implementera ENDAST de valda förbättringsförslagen
-2. Behåll originalets struktur och format så mycket som möjligt
-3. Förbättra språket för att vara mer professionellt och impaktfullt
-4. Lägg till relevanta nyckelord där det är lämpligt
-5. Kvantifiera resultat där det är möjligt
-6. Behåll all viktig information från originalet
-
-Returnera endast det förbättrade CV:t utan några förklaringar eller kommentarer.`;
-
-    // Call OpenAI API
+    // Call OpenAI API with improved prompts
     const completion = await openai.chat.completions.create({
       model: 'gpt-4-turbo-preview',
       messages: [
         {
           role: 'system',
-          content: 'Du är en professionell CV-expert som hjälper till att optimera CV:n för att maximera kandidaternas chanser att få jobb.',
+          content: systemPrompt,
         },
         {
           role: 'user',
           content: prompt,
         },
       ],
-      temperature: 0.3, // Lower temperature for more consistent output
-      max_tokens: 2000,
+      temperature: 0.4, // Slightly higher for more creative improvements
+      max_tokens: 3000, // Increased to handle longer, more detailed CVs
     });
 
     const improvedContent = completion.choices[0]?.message?.content || '';
 
-    // Calculate improvement metrics (simplified version)
+    // Validate the improved CV
+    const validation = validateImprovedCV(originalContent, improvedContent);
+    if (!validation.isValid) {
+      console.error('CV improvement validation failed:', validation.issues);
+      // Log but don't fail - let user see the result
+    }
+
+    // Calculate improvement metrics (more sophisticated)
     const originalWords = originalContent.split(/\s+/).length;
     const improvedWords = improvedContent.split(/\s+/).length;
 
-    // Simple keyword detection (would be more sophisticated in production)
-    const keywords = ['resultat', 'ansvarig', 'ledde', 'utvecklade', 'implementerade', 'förbättrade', 'ökade', 'minskade'];
-    const keywordCount = keywords.filter(kw =>
-      improvedContent.toLowerCase().includes(kw)
+    // Enhanced keyword detection including any ATS keywords from analysis
+    const baseKeywords = ['resultat', 'ansvarig', 'ledde', 'utvecklade', 'implementerade',
+                          'förbättrade', 'ökade', 'minskade', 'optimerade', 'skapade', 'byggde'];
+    const analysisKeywords = analysisDetails?.atsFriendliness?.missingKeywords || [];
+    const allKeywords = [...new Set([...baseKeywords, ...analysisKeywords])];
+
+    const keywordCount = allKeywords.filter(kw =>
+      improvedContent.toLowerCase().includes(kw.toLowerCase())
     ).length;
 
+    // More accurate metrics calculation
+    const hasATSImprovements = selectedSuggestions.some(s => s.category === 'ats' || s.category === 'keywords');
+    const hasQuantification = selectedSuggestions.some(s =>
+      s.title.toLowerCase().includes('kvantifi') ||
+      s.description.toLowerCase().includes('siffror')
+    );
+
     const metrics = {
-      keywordOptimization: Math.round((keywordCount / keywords.length) * 100),
-      atsScore: Math.min(95, 70 + selectedSuggestions.length * 3), // Simple formula
-      overallImprovement: Math.round(((improvedWords - originalWords) / originalWords) * 100 + 15),
+      keywordOptimization: Math.round((keywordCount / Math.max(allKeywords.length, 1)) * 100),
+      atsScore: Math.min(95, 70 + (hasATSImprovements ? 15 : 0) + (keywordCount * 2)),
+      overallImprovement: Math.round(
+        15 + // Base improvement
+        (hasQuantification ? 10 : 0) + // Quantification bonus
+        (selectedSuggestions.length * 5) + // Per suggestion bonus
+        ((improvedWords - originalWords) / Math.max(originalWords, 1)) * 10 // Length change factor
+      ),
     };
 
     // Save improved version to existing cv_texts table with meaningful filename

@@ -369,7 +369,7 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
         const suggestions: Suggestion[] = [];
         let idCounter = 0;
 
-        // Convert improvement areas to suggestions
+        // Convert improvement areas to suggestions with full context
         if (isPremium && premiumImprovements) {
             premiumImprovements.forEach(imp => {
                 suggestions.push({
@@ -377,7 +377,9 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
                     category: 'content',
                     title: imp.area,
                     description: imp.suggestion,
-                    impact: 'high'
+                    impact: 'high',
+                    example: imp.example, // Include example if available
+                    area: imp.area // Include area for better context
                 });
             });
         } else if (basicImprovements) {
@@ -425,6 +427,14 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
 
     // If improvement workflow is active, show it instead of regular results
     if (showImprovementWorkflow && cvContent && cvId) {
+        // Prepare analysis details to pass to improvement workflow
+        const analysisDetailsForWorkflow = {
+            atsFriendliness: atsData,
+            quantificationSuggestions: quantificationSuggestions,
+            detailedImprovements: premiumImprovements,
+            keywords: keywords
+        };
+
         return (
             <div className="space-y-6">
                 <CVImprovementWorkflow
@@ -432,6 +442,7 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
                     originalCV={cvContent}
                     cvId={cvId}
                     onComplete={() => setShowImprovementWorkflow(false)}
+                    analysisDetails={analysisDetailsForWorkflow}
                 />
             </div>
         );
