@@ -26,7 +26,7 @@ import { Badge } from '@/components/ui/badge';
 import SimpleTemplateGallery from './simple-template-gallery';
 import { getTemplateById } from '@/lib/cv/simple-templates';
 import { useProfile } from '@/hooks/use-profile';
-import { createBrowserClient } from '@/lib/supabase/client';
+import { createClient } from '@/lib/supabase/client';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   Tooltip,
@@ -66,7 +66,7 @@ export default function CVExportOptions({
   const [maxCvCount, setMaxCvCount] = useState<number>(5); // Default for free users
   const [isLoadingQuota, setIsLoadingQuota] = useState(true);
   const { subscriptionTier } = useProfile();
-  const supabase = createBrowserClient();
+  const supabase = createClient();
 
   // Check CV quota on mount
   useEffect(() => {
@@ -76,14 +76,13 @@ export default function CVExportOptions({
         if (!user) return;
 
         // Get current CV count
-        const { data: cvs, error: countError } = await supabase
+        const { count, error: countError } = await supabase
           .from('cv_texts')
-          .select('id', { count: 'exact', head: true })
+          .select('*', { count: 'exact', head: true })
           .eq('user_id', user.id);
 
-        if (!countError && cvs) {
-          const count = cvs.length || 0;
-          setCvCount(count);
+        if (!countError) {
+          setCvCount(count || 0);
         }
 
         // Set max based on subscription tier
@@ -91,7 +90,7 @@ export default function CVExportOptions({
         setMaxCvCount(max);
 
         // If at max, disable saving by default
-        if (cvs && cvs.length >= max) {
+        if (count && count >= max) {
           setSaveToAccount(false);
         }
       } catch (error) {
