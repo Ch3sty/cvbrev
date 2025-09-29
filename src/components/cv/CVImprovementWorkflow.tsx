@@ -137,54 +137,82 @@ export default function CVImprovementWorkflow({
     const items: QuantificationItem[] = [];
     const processedIds = new Set<string>(); // Track processed suggestion IDs to prevent duplicates
 
-    // First, try to use AI-driven text extraction
+    // First, try to use the new grouping API for intelligent improvement grouping
     const selectedSuggestions = suggestions.filter(s => s.selected);
 
+    console.log('🚀 Preparing quantification items with grouping:', {
+      totalSelected: selectedSuggestions.length,
+      suggestions: selectedSuggestions.map(s => ({ id: s.id, category: s.category, area: s.area }))
+    });
+
     try {
-      const response = await fetch('/api/cv/extract-text', {
+      // Call the new grouping API to intelligently combine related improvements
+      const response = await fetch('/api/cv/group-improvements', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          cvContent: originalCV,
           improvements: selectedSuggestions.map(s => ({
             id: s.id,
+            category: s.category,
             area: s.area || s.category,
-            suggestion: s.description,
+            description: s.description,
             example: s.example,
-            category: s.category
-          }))
+            type: s.category === 'keywords' ? 'keywords' :
+                  s.category === 'quantification' ||
+                  s.description.toLowerCase().includes('kvantifi') ? 'quantification' : 'content',
+            selected: s.selected
+          })),
+          cvText: originalCV,
+          detailedAnalysis: analysisDetails
         }),
       });
 
       if (response.ok) {
         const result = await response.json();
 
-        if (result.success && result.extractions) {
-          // Process AI extractions
-          for (const extraction of result.extractions) {
-            if (extraction.isValid && !processedIds.has(extraction.id)) {
+        console.log('📊 Grouping API response:', {
+          success: result.success,
+          groupCount: result.groups?.length,
+          stats: result.stats
+        });
+
+        if (result.success && result.groups) {
+          // Process grouped improvements - each group combines multiple related improvements
+          for (const group of result.groups) {
+            if (!processedIds.has(group.id)) {
+              // Create a quantification item from the grouped improvement
               items.push({
-                id: extraction.id,
-                category: extraction.category,
-                originalText: extraction.originalText,
-                aiSuggestion: extraction.aiSuggestion,
+                id: group.id,
+                category: 'grouped', // Indicate this is a grouped improvement
+                originalText: group.originalText,
+                aiSuggestion: group.aiExample || group.combinedSuggestion,
                 userChoice: 'ai',
-                area: extraction.sourceSection,
-                roleContext: extraction.roleContext,
-                section: extraction.sourceSection,
-                confidence: extraction.confidence,
-                sourceImprovementId: extraction.id,
-                sourceSection: extraction.sourceSection,
-                isValid: extraction.isValid
+                area: group.area || 'Arbetslivserfarenhet',
+                roleContext: group.roleContext,
+                section: group.area,
+                confidence: group.confidence || 0.8,
+                sourceImprovementId: group.id,
+                sourceSection: group.area,
+                isValid: true,
+                // Additional info for grouped improvements
+                groupedImprovements: group.improvements,
+                sourceImprovementIds: group.sourceImprovements
+              } as any);
+              processedIds.add(group.id);
+
+              console.log('✅ Added grouped improvement:', {
+                id: group.id,
+                originalText: group.originalText.substring(0, 50) + '...',
+                combinedTypes: Object.keys(group.improvements)
               });
-              processedIds.add(extraction.id);
             }
           }
 
-          // If we got valid AI extractions, use them and skip fallback
+          // If we got valid grouped improvements, use them and skip fallback
           if (items.length > 0) {
+            console.log(`🎯 Successfully grouped ${selectedSuggestions.length} improvements into ${items.length} items`);
             return items;
           }
         }
@@ -480,7 +508,8 @@ export default function CVImprovementWorkflow({
           cvId: cvId,
           originalContent: originalCV,
           selectedSuggestions: updatedSuggestions,
-          analysisDetails: analysisDetails || {} // Pass the full analysis details
+          analysisDetails: analysisDetails || {}, // Pass the full analysis details
+          skipSave: true // VIKTIGT: Förhindra automatisk sparning här
         }),
       });
 

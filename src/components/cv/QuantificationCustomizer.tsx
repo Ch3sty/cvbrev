@@ -46,6 +46,13 @@ export interface QuantificationItem {
   sourceImprovementId?: string; // Reference to the original improvement suggestion
   sourceSection?: string; // More detailed section information from AI extraction
   isValid?: boolean; // Whether the extraction is valid for quantification
+  // Grouped improvement fields
+  groupedImprovements?: {
+    quantification?: string;
+    keywords?: string[];
+    other?: string[];
+  };
+  sourceImprovementIds?: string[]; // IDs of original improvements that were grouped
 }
 
 interface QuantificationCustomizerProps {
@@ -152,6 +159,23 @@ export default function QuantificationCustomizer({
       {/* Current item */}
       <Card className="bg-white border-gray-200 shadow-sm p-6">
         <div className="space-y-4">
+          {/* Show if this is a grouped improvement */}
+          {currentItem.groupedImprovements && (
+            <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg p-3 border border-pink-200 mb-4">
+              <div className="flex items-center gap-2">
+                <TrendingUp className="h-4 w-4 text-pink-600" />
+                <span className="text-sm font-medium text-gray-900">
+                  Kombinerad förbättring
+                </span>
+              </div>
+              <p className="text-xs text-gray-700 mt-1">
+                Detta förslag kombinerar {currentItem.groupedImprovements.quantification ? 'kvantifiering' : ''}
+                {currentItem.groupedImprovements.quantification && currentItem.groupedImprovements.keywords ? ' och ' : ''}
+                {currentItem.groupedImprovements.keywords ? `nyckelord (${currentItem.groupedImprovements.keywords.join(', ')})` : ''}
+              </p>
+            </div>
+          )}
+
           {/* Context information */}
           {(currentItem.area || currentItem.roleContext || currentItem.confidence !== undefined) && (
             <div className="bg-white rounded-lg p-4 border border-gray-200 mb-4">
@@ -159,7 +183,7 @@ export default function QuantificationCustomizer({
                 <div className="flex items-center gap-2">
                   <Info className="h-4 w-4 text-pink-600" />
                   <Label className="text-sm font-medium text-gray-900">
-                    Kontext för denna kvantifiering:
+                    Kontext för denna förbättring:
                   </Label>
                 </div>
 
@@ -303,7 +327,7 @@ export default function QuantificationCustomizer({
               <Info className="h-5 w-5 text-pink-600 mt-0.5 flex-shrink-0" />
               <div>
                 <p className="text-sm font-medium text-gray-900 mb-2">
-                  Tips för bra kvantifieringar:
+                  Tips för effektiva förbättringar:
                 </p>
                 <div className="grid grid-cols-2 gap-2">
                   {quantificationExamples.map((example, idx) => (
@@ -313,9 +337,23 @@ export default function QuantificationCustomizer({
                     </div>
                   ))}
                 </div>
+
+                {/* Extra tip for grouped improvements */}
+                {currentItem.groupedImprovements && currentItem.groupedImprovements.keywords && (
+                  <div className="bg-purple-50 rounded p-2 mt-2 border border-purple-200">
+                    <p className="text-xs text-purple-900 font-medium mb-1">
+                      💡 Inkludera både siffror OCH nyckelord:
+                    </p>
+                    <p className="text-xs text-purple-800">
+                      "Ledde team på 12 personer med <span className="font-semibold">budgetansvar</span> på 2 MSEK,
+                      implementerade <span className="font-semibold">projektledning</span> som ökade effektiviteten med 25%"
+                    </p>
+                  </div>
+                )}
+
                 <p className="text-xs text-gray-600 mt-2">
                   Mall: <span className="font-mono bg-gray-50 px-1 rounded border border-gray-200">
-                    [Handling] som resulterade i [Mätbart resultat]
+                    [Handling] med [Nyckelord] som resulterade i [Mätbart resultat]
                   </span>
                 </p>
               </div>
