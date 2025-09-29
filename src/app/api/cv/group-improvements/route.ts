@@ -9,6 +9,7 @@ import {
   type GroupedImprovement,
   type ImprovementToGroup
 } from '@/lib/cv/improvement-grouping';
+import { validateAIResponse } from '@/lib/cv/role-based-improvements';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
@@ -189,43 +190,75 @@ async function enhanceGroupsWithAI(
   cvText: string
 ): Promise<GroupedImprovement[]> {
   try {
-    const prompt = `Du är en expert på CV-optimering. Analysera följande grupperade förbättringar och generera kombinerade förslag som inkluderar BÅDE kvantifiering OCH relevanta nyckelord.
+    // Enhance each group with role-specific AI examples
+    const enhancedGroups = await Promise.all(groups.map(async (group) => {
+      // Validate existing AI example
+      if (group.aiExample && !validateAIResponse(group.aiExample)) {
+        console.warn(`⚠️ Invalid AI example for group ${group.id}: "${group.aiExample}"`);
+        group.aiExample = ''; // Clear invalid example
+      }
 
-CV-innehåll:
-${cvText}
+      // Generate new AI example if needed
+      if (!group.aiExample || group.aiExample.length < 20) {
+        const newExample = await generateGroupAIExample(group, cvText);
+        group.aiExample = newExample;
+      }
 
-Grupperade förbättringar:
-${JSON.stringify(groups.map(g => ({
-  originalText: g.originalText,
-  roleContext: g.roleContext,
-  improvements: g.improvements
-})), null, 2)}
+      return group;
+    }));
 
-För varje grupp, generera:
-1. En kombinerad förbättring som inkluderar både kvantifiering och nyckelord
-2. Ett konkret exempel som visar hur texten kan skrivas om
+    return enhancedGroups;
 
-VIKTIGT:
-- Kombinera kvantifiering och nyckelord i SAMMA mening
-- Exempel: "Ledde ett team på 12 personer med budgetansvar på 2 MSEK och implementerade projektledning som ökade effektiviteten med 25%"
-- Inkludera ALLA relevanta nyckelord naturligt i texten
-- Behåll svensk kontext och branschtermer
-
-Returnera som JSON-array:
-[
-  {
-    "groupId": "group_1",
-    "combinedSuggestion": "Kombinerat förslag här",
-    "aiExample": "Konkret exempel här"
+  } catch (error) {
+    console.error('Error enhancing groups with AI:', error);
+    // Return original groups if AI enhancement fails
+    return groups;
   }
-]`;
+}
+
+/**
+ * Generate AI example for a specific group
+ */
+async function generateGroupAIExample(
+  group: GroupedImprovement,
+  cvText: string
+): Promise<string> {
+  try {
+    const roleContext = group.roleContext || 'Yrkesroll';
+    const area = group.area || 'arbetslivserfarenhet';
+
+    // Get improvement details for the prompt
+    const hasQuantification = !!group.improvements.quantification;
+    const hasKeywords = !!(group.improvements.keywords && group.improvements.keywords.length > 0);
+    const keywords = hasKeywords ? group.improvements.keywords : [];
+
+    const prompt = `Generera ett konkret förbättringsförslag för följande roll:
+
+Roll: ${roleContext}
+Område: ${area}
+Originaltext: ${group.originalText.substring(0, 250)}
+
+${hasQuantification ? 'Lägg till kvantifiering: siffror, teamstorlek, budget, procentuella förbättringar' : ''}
+${hasKeywords && keywords ? `Inkludera dessa nyckelord naturligt: ${keywords.join(', ')}` : ''}
+
+Förslaget MÅSTE:
+- Vara minst 20 ord långt men max 50 ord
+- Vara konkret och specifikt för ${roleContext}
+- Innehålla minst 2-3 konkreta siffror eller mätbara resultat
+- Vara på professionell svenska
+- INTE bara vara bokstaven "t" eller annan nonsens
+
+Returnera ENDAST det förbättrade textförslaget, ingenting annat.
+
+Exempel på BRA förbättring:
+"Ledde team på 12 personer med budgetansvar på 5 MSEK, implementerade strategisk projektledning som ökade effektiviteten med 25% och minskade kostnaderna med 15% under 18 månader."`;
 
     const response = await openai.chat.completions.create({
-      model: 'gpt-4-turbo-preview',
+      model: 'gpt-4o-mini',
       messages: [
         {
           role: 'system',
-          content: 'Du är en svensk CV-expert som hjälper till att kombinera kvantifiering och nyckelord i effektiva CV-förbättringar.',
+          content: 'Du är en erfaren svensk CV-expert. Generera alltid konkreta, mätbara förbättringar med siffror och resultat. ALDRIG returnera bara "t" eller kort nonsens-text.',
         },
         {
           role: 'user',
@@ -233,39 +266,54 @@ Returnera som JSON-array:
         }
       ],
       temperature: 0.7,
-      response_format: { type: 'json_object' }
+      max_tokens: 200
     });
 
     const aiResponse = response.choices[0].message.content;
-    if (!aiResponse) {
-      console.error('No AI response received');
-      return groups;
+
+    // Validate the AI response
+    if (!aiResponse || !validateAIResponse(aiResponse)) {
+      console.warn(`⚠️ Invalid AI response for group ${group.id}, using fallback`);
+      return generateFallbackExample(group);
     }
 
-    const aiEnhancements = JSON.parse(aiResponse);
-    const enhancementsArray = aiEnhancements.groups || aiEnhancements.enhancements ||
-                              (Array.isArray(aiEnhancements) ? aiEnhancements : []);
-
-    // Merge AI enhancements with groups
-    return groups.map((group, index) => {
-      const enhancement = enhancementsArray.find((e: any) =>
-        e.groupId === group.id || e.index === index
-      ) || enhancementsArray[index];
-
-      if (enhancement) {
-        return {
-          ...group,
-          combinedSuggestion: enhancement.combinedSuggestion || group.combinedSuggestion,
-          aiExample: enhancement.aiExample || group.aiExample
-        };
-      }
-
-      return group;
-    });
+    return aiResponse.trim();
 
   } catch (error) {
-    console.error('Error enhancing groups with AI:', error);
-    // Return original groups if AI enhancement fails
-    return groups;
+    console.error('Error generating AI example:', error);
+    // Return fallback example if AI generation fails
+    return generateFallbackExample(group);
   }
+}
+
+/**
+ * Generate a fallback example if AI fails or returns invalid response
+ */
+function generateFallbackExample(group: GroupedImprovement): string {
+  const roleContext = group.roleContext || 'Yrkesroll';
+  const hasQuantification = !!group.improvements.quantification;
+  const hasKeywords = !!(group.improvements.keywords && group.improvements.keywords.length > 0);
+
+  // Create a contextual fallback based on the role
+  const roleExamples: Record<string, string> = {
+    'Platschef': 'Ansvarade för anläggning med 15 anställda och årlig omsättning på 8 MSEK, implementerade nya rutiner som ökade kundnöjdheten med 30% och minskade personalomsättningen med 40%.',
+    'Projektledare': 'Ledde projekt värt 3 MSEK med team på 8 personer, levererade inom budget och 2 veckor före deadline vilket resulterade i 20% kostnadsbesparingar.',
+    'Säljare': 'Genererade 5 MSEK i ny försäljning under 12 månader, utvecklade 25 nya kundrelationer och ökade återköpsfrekvensen med 35%.',
+    'default': 'Ansvarade för verksamhetsområde med 10 medarbetare, implementerade förbättringar som ökade effektiviteten med 25% och minskade kostnader med 15%.'
+  };
+
+  // Find matching example or use default
+  const matchingKey = Object.keys(roleExamples).find(key =>
+    roleContext.toLowerCase().includes(key.toLowerCase())
+  );
+
+  let example = roleExamples[matchingKey || 'default'];
+
+  // Add keywords if available
+  if (hasKeywords && group.improvements.keywords) {
+    const keyword = group.improvements.keywords[0];
+    example = example.replace('implementerade', `implementerade ${keyword} och`);
+  }
+
+  return example;
 }

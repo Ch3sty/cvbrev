@@ -5,6 +5,8 @@ import { createServerClient } from '@/lib/supabase/server'; // Importerar bara f
 import { SupabaseClient } from '@supabase/supabase-js';   // <<<--- KORREKT IMPORT HÄR
 import { analyzeCvBasic, analyzeCvPremium } from '@/lib/openai/cv-analysis';
 import { Database } from '@/types/database.types';
+import { parseCV, validateParsedCV } from '@/lib/cv/cv-parser';
+import { generateRoleBasedImprovements } from '@/lib/cv/role-based-improvements';
 
 // ============================================================================
 //  Constants & Configuration
@@ -203,14 +205,48 @@ export async function POST(request: NextRequest) {
         // --- 4. Fetch CV Text ---
         const cvText = await getCvText(supabase, userId, cvId);
 
-        // --- 5. Perform AI Analysis ---
+        // --- 5. Perform AI Analysis with Role-Based Parsing ---
         console.log(`API analyzeCv: User ${userId} (${profileData.subscriptionTier}): Performing analysis for CV ${cvId}...`);
+
+        // Parse CV to identify roles
+        const parsedCV = await parseCV(cvText);
+        const isValid = validateParsedCV(parsedCV);
+
+        if (!isValid) {
+            console.warn('⚠️ CV parsing validation failed, using fallback analysis');
+        }
+
         let analysisResult;
         if (profileData.subscriptionTier === 'premium') {
             analysisResult = await analyzeCvPremium(cvText);
         } else {
             analysisResult = await analyzeCvBasic(cvText);
         }
+
+        // Generate role-based improvements if parsing was successful
+        if (isValid && parsedCV.roles.length > 0) {
+            console.log(`🎯 Generating role-based improvements for ${parsedCV.roles.length} roles`);
+
+            const roleBasedImprovements = [];
+            for (const role of parsedCV.roles.slice(0, 3)) { // Limit to first 3 roles
+                const improvements = await generateRoleBasedImprovements(role, {
+                    maxSuggestions: 3,
+                    focusAreas: ['quantification', 'keywords']
+                });
+                roleBasedImprovements.push(...improvements);
+            }
+
+            // Enhance analysis result with role-based improvements
+            (analysisResult as any).roleBasedImprovements = roleBasedImprovements;
+            (analysisResult as any).parsedRoles = parsedCV.roles.map(r => ({
+                title: r.title,
+                company: r.company,
+                period: r.period
+            }));
+
+            console.log(`✅ Generated ${roleBasedImprovements.length} role-based improvements`);
+        }
+
         console.log(`API analyzeCv: User ${userId}: Analysis successful.`);
 
         // Logga AI-kostnad till usage_log för ekonomisk spårning
