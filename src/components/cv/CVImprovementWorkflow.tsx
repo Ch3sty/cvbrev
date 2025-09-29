@@ -490,6 +490,23 @@ export default function CVImprovementWorkflow({
 
       const result = await response.json();
 
+      // DEFENSIV VALIDERING: Kontrollera att vi fick giltigt förbättrat innehåll
+      if (!result.improvedContent || result.improvedContent.trim().length === 0) {
+        console.error('❌ API returnerade tomt eller ogiltigt förbättrat CV:', result);
+        throw new Error('API:t kunde inte generera ett giltigt förbättrat CV');
+      }
+
+      if (result.improvedContent.trim().length < 50) {
+        console.error('❌ Förbättrat CV är för kort:', result.improvedContent.length, 'tecken');
+        throw new Error('Det förbättrade CV:t verkar vara skadat');
+      }
+
+      console.log('✅ Förbättrat CV genererat framgångsrikt:', {
+        originalLength: originalCV?.length || 0,
+        improvedLength: result.improvedContent?.length || 0,
+        improvementRatio: ((result.improvedContent?.length || 0) / (originalCV?.length || 1)).toFixed(2)
+      });
+
       setImprovedCV(result.improvedContent);
       setMetrics(result.metrics);
 
@@ -789,8 +806,17 @@ export default function CVImprovementWorkflow({
                     Följ stegen nedan för att välja format, mall och ladda ned ditt förbättrade CV.
                   </p>
                 </div>
+                {/* DEBUG: Log the improved CV before passing to CVExportOptions */}
+                {console.log('🔍 DEBUG - CVImprovementWorkflow: Förbättrat CV som skickas till CVExportOptions:', {
+                  improvedCVLength: improvedCV?.length || 0,
+                  improvedCVPreview: improvedCV?.substring(0, 200) + '...',
+                  originalCVLength: originalCV?.length || 0,
+                  originalCVPreview: originalCV?.substring(0, 200) + '...',
+                  cvId
+                })}
                 <CVExportOptions
                   improvedCV={improvedCV}
+                  originalCV={originalCV}
                   cvId={cvId}
                   onExportComplete={handleExportComplete}
                 />

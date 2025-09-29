@@ -2134,10 +2134,35 @@ async function extractCVContentOldFallback(rawText: string): Promise<CVMetadata>
 export async function POST(request: NextRequest) {
   try {
     const { template, cvText, format = 'pdf', colorScheme = 'blue', templateOptions = {} } = await request.json();
-    
+
+    // DEBUG: Log what the API receives
+    console.log('🔍 DEBUG - generate-formatted API: Mottagen data:', {
+      template,
+      cvTextLength: cvText?.length || 0,
+      cvTextPreview: cvText?.substring(0, 200) + '...',
+      format,
+      hasTemplateOptions: Object.keys(templateOptions).length > 0
+    });
+
+    // DEFENSIV VALIDERING: Kontrollera att vi har giltiga data
     if (!template || !cvText) {
+      console.error('❌ DEBUG - Missing required data:', {
+        template: !!template,
+        cvText: !!cvText,
+        templateValue: template,
+        cvTextLength: cvText?.length || 0
+      });
       return NextResponse.json(
         { error: 'Template och CV-text krävs' },
+        { status: 400 }
+      );
+    }
+
+    // Extra validering för CV-text kvalitet
+    if (cvText.trim().length < 50) {
+      console.error('❌ DEBUG - CV-text för kort:', cvText.length, 'tecken');
+      return NextResponse.json(
+        { error: 'CV-text är för kort eller tom' },
         { status: 400 }
       );
     }

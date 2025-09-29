@@ -41,6 +41,7 @@ interface CVExportOptionsProps {
   onExportComplete?: () => void;
   className?: string;
   skipSaveByDefault?: boolean;
+  originalCV?: string; // Add as fallback for debugging
 }
 
 type ExportFormat = 'pdf' | 'docx';
@@ -52,7 +53,8 @@ export default function CVExportOptions({
   cvId,
   onExportComplete,
   className = '',
-  skipSaveByDefault = false
+  skipSaveByDefault = false,
+  originalCV
 }: CVExportOptionsProps) {
   const [currentStep, setCurrentStep] = useState<ExportStep>('format');
   const [selectedFormat, setSelectedFormat] = useState<ExportFormat>('pdf');
@@ -209,6 +211,39 @@ export default function CVExportOptions({
         includeLinkedIn: true
       } : {};
 
+      // DEFENSIV VALIDERING: Säkerställ att vi har förbättrat CV
+      let finalCVText = improvedCV;
+
+      if (!improvedCV || improvedCV.trim().length === 0) {
+        console.error('❌ KRITISKT FEL: Inget förbättrat CV tillgängligt!');
+        console.error('❌ ImprovedCV är tomt eller undefined:', { improvedCV, length: improvedCV?.length });
+
+        if (originalCV && originalCV.trim().length > 0) {
+          console.warn('⚠️ FALLBACK: Använder ursprungligt CV som backup');
+          finalCVText = originalCV;
+        } else {
+          throw new Error('Inget CV-innehåll tillgängligt att ladda ned. Försök att generera om CV:t.');
+        }
+      }
+
+      // Verifiera att finalCVText innehåller meningsfullt innehåll
+      if (finalCVText.trim().length < 50) {
+        console.error('❌ CV-innehållet är för kort:', finalCVText.length, 'tecken');
+        throw new Error('CV-innehållet verkar vara skadat. Försök att generera om CV:t.');
+      }
+
+      // DEBUG: Log what we're sending to the API
+      console.log('🔍 DEBUG - CVExportOptions: CV-data som skickas till API:', {
+        improvedCVLength: improvedCV?.length || 0,
+        improvedCVPreview: improvedCV?.substring(0, 200) + '...',
+        finalCVTextLength: finalCVText?.length || 0,
+        finalCVTextPreview: finalCVText?.substring(0, 200) + '...',
+        usingFallback: finalCVText !== improvedCV,
+        template: selectedTemplate,
+        format: selectedFormat,
+        saveToAccount
+      });
+
       // Call the generate-formatted API with save preference
       const response = await fetch('/api/cv/generate-formatted', {
         method: 'POST',
@@ -217,7 +252,7 @@ export default function CVExportOptions({
         },
         body: JSON.stringify({
           template: selectedTemplate,
-          cvText: improvedCV,
+          cvText: finalCVText, // Använd validerad CV-text
           format: selectedFormat,
           templateOptions,
           skipSave: !saveToAccount // Pass whether to skip saving
@@ -633,23 +668,29 @@ export default function CVExportOptions({
         )}
 
         {currentStep === 'naming' && (
-          <Button
-              onClick={handleExport}
-              disabled={isSaving || isExporting || !selectedTemplate}
-              className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isExporting ? (
-                <>
-                  <Clock className="w-4 h-4 animate-spin" />
-                  Laddar ner...
-                </>
-              ) : (
-                <>
-                  <Download className="w-4 h-4" />
-                  Ladda ned förbättrad
-                </>
-              )}
-            </Button>
+          <>
+            <div className="flex items-center gap-2 text-xs text-green-600 bg-green-50 px-3 py-2 rounded-lg">
+              <CheckCircle2 className="w-4 h-4" />
+              <span>Förbättrat CV redo för nedladdning ({improvedCV?.length || 0} tecken)</span>
+            </div>
+            <Button
+                onClick={handleExport}
+                disabled={isSaving || isExporting || !selectedTemplate}
+                className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isExporting ? (
+                  <>
+                    <Clock className="w-4 h-4 animate-spin" />
+                    Laddar ner...
+                  </>
+                ) : (
+                  <>
+                    <Download className="w-4 h-4" />
+                    Ladda ned förbättrat CV
+                  </>
+                )}
+              </Button>
+          </>
         )}
       </div>
 
