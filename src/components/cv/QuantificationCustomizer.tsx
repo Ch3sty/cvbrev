@@ -172,7 +172,7 @@ export default function QuantificationCustomizer({
                   <div className="flex-1">
                     <Label htmlFor="ai" className="cursor-pointer">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="font-medium">Använd vårt exempel</span>
+                        <span className="font-medium text-gray-900">Använd vårt exempel</span>
                         <TooltipProvider>
                           <Tooltip>
                             <TooltipTrigger asChild>

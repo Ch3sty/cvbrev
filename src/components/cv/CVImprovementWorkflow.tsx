@@ -134,9 +134,7 @@ export default function CVImprovementWorkflow({
 
   const prepareQuantificationItems = () => {
     const items: QuantificationItem[] = [];
-    const processedAreas = new Set<string>(); // Track areas to prevent duplicates
-    const processedSuggestions = new Set<string>(); // Track suggestions to prevent duplicates
-
+    const processedIds = new Set<string>(); // Track processed suggestion IDs to prevent duplicates
 
     // Helper function to check if this is a quantifiable suggestion
     const isQuantifiableSuggestion = (suggestion: any): boolean => {
@@ -149,16 +147,101 @@ export default function CVImprovementWorkflow({
       return quantifiableKeywords.some(keyword => text.includes(keyword));
     };
 
+    // Helper function to check if this is a profile summary suggestion
+    const isProfileSummarySuggestion = (suggestion: any): boolean => {
+      const text = (suggestion.suggestion || suggestion.description || suggestion.title || suggestion.area || '').toLowerCase();
+      const profileKeywords = [
+        'profil', 'sammanfattning', 'profilsammanfattning', 'personlig beskrivning',
+        'om mig', 'profilering', 'yrkesmässig', 'social och glad', 'beskrivs som'
+      ];
+      return profileKeywords.some(keyword => text.includes(keyword));
+    };
+
+    // Helper function to extract original text from CV based on the improvement suggestion
+    const extractOriginalTextFromCV = (improvement: any, cvText: string): string => {
+      // First, try to find direct matches for mentioned roles or positions
+      if (improvement.area && improvement.area.toLowerCase().includes('arbetslivserfarenhet')) {
+        // Look for role mentions in the improvement
+        const roleMatch = improvement.suggestion.match(/(platschef|projektledare|säljare|tekniker|chef|ansvarig|specialist|koordinator|utvecklare|analyst)[^\n.,]*/gi);
+        if (roleMatch) {
+          // Find this role in the original CV
+          const roleInCV = cvText.match(new RegExp(`[^\n.]*${roleMatch[0].replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}[^\n.]*`, 'gi'));
+          if (roleInCV) {
+            return roleInCV[0].trim();
+          }
+        }
+      }
+
+      // Look for keywords mentioned in the suggestion within the original CV
+      const suggestionWords = improvement.suggestion.toLowerCase().split(/[\s,.]+/);
+      const meaningfulWords = suggestionWords.filter(word =>
+        word.length > 3 &&
+        !['under', 'för', 'till', 'med', 'som', 'och', 'eller', 'att', 'det', 'den', 'denna'].includes(word)
+      );
+
+      // Find sentences in CV that contain multiple meaningful words from the suggestion
+      const sentences = cvText.split(/[.!?]+/);
+      for (const sentence of sentences) {
+        const lowerSentence = sentence.toLowerCase();
+        const matchCount = meaningfulWords.filter(word => lowerSentence.includes(word)).length;
+        if (matchCount >= Math.min(2, meaningfulWords.length)) {
+          return sentence.trim();
+        }
+      }
+
+      // Fallback: look for simple patterns mentioned in examples
+      if (improvement.example) {
+        const exampleMatch = improvement.example.match(/[Ii]stället för ['"](.*?)['"][^'"]*['"](.*?)['"]/);
+        if (exampleMatch && exampleMatch[1]) {
+          // Search for this text in the original CV
+          const originalText = exampleMatch[1];
+          if (cvText.toLowerCase().includes(originalText.toLowerCase())) {
+            return originalText;
+          }
+        }
+      }
+
+      // Final fallback: use first 100 characters of relevant section if identifiable
+      return 'Relevant text från ditt CV kunde inte identifieras automatiskt';
+    };
+
+    // Helper function to clean AI suggestion from instruction wrappers
+    const cleanAISuggestion = (suggestion: string, example?: string): string => {
+      // If we have an example with "Istället för X, skriv Y" format, extract Y
+      if (example) {
+        const cleanMatch = example.match(/skriv\s+['"](.*?)['"]|skriv\s+(.+?)(?:\.|$)/);
+        if (cleanMatch) {
+          return cleanMatch[1] || cleanMatch[2];
+        }
+      }
+
+      // Remove common instruction prefixes
+      return suggestion
+        .replace(/^(Kvantifiera|Lägg till|Inkludera|Skriv om|Förbättra|Beskriv)\s*:?\s*/i, '')
+        .replace(/^Istället för.*skriv\s+['"]([^'"]+)['"].*$/i, '$1')
+        .trim();
+    };
+
     // First, try to get real quantification items from analysis detailedImprovements
     if (analysisDetails?.detailedImprovements) {
       const selectedSuggs = suggestions.filter(s => s.selected);
 
       // Filter and process detailed improvements
       selectedSuggs.forEach(sugg => {
+        // Skip if already processed
+        if (processedIds.has(sugg.id)) {
+          return;
+        }
+
         // Find matching detailed improvement
         const matchingImprovement = analysisDetails.detailedImprovements?.find(imp => {
           // Skip if it's a structural suggestion
           if (isStructuralSuggestion(imp)) {
+            return false;
+          }
+
+          // Skip if it's a profile summary suggestion (should be handled as direct text replacement)
+          if (isProfileSummarySuggestion(imp)) {
             return false;
           }
 
@@ -171,58 +254,20 @@ export default function CVImprovementWorkflow({
         });
 
         if (matchingImprovement) {
-          // Check for duplicates by area
-          const areaKey = `${matchingImprovement.area}_${sugg.category}`;
-          if (processedAreas.has(areaKey)) {
-            return; // Skip duplicate
-          }
-          processedAreas.add(areaKey);
+          processedIds.add(sugg.id);
 
-          // Check for duplicate suggestions
-          const suggestionKey = matchingImprovement.suggestion.trim().toLowerCase();
-          if (processedSuggestions.has(suggestionKey)) {
-            return; // Skip duplicate
-          }
-          processedSuggestions.add(suggestionKey);
+          // Extract original text from the actual CV content
+          const originalText = extractOriginalTextFromCV(matchingImprovement, originalCV);
 
-          // Extract original and suggestion from the example field
-          let originalText = '';
-          let aiSuggestion = matchingImprovement.suggestion;
+          // Clean the AI suggestion to remove instruction wrappers
+          const aiSuggestion = cleanAISuggestion(matchingImprovement.suggestion, matchingImprovement.example);
 
-          if (matchingImprovement.example) {
-            // Try to parse "Istället för 'X', skriv 'Y'" format
-            const exampleMatch = matchingImprovement.example.match(/[Ii]stället för ['"]([^'"]+)['"][^'"]*skriv ['"]([^'"]+)['"]/i);
-            if (exampleMatch) {
-              originalText = exampleMatch[1];
-              aiSuggestion = exampleMatch[2];
-            } else {
-              // For keywords, try to extract actual CV text rather than instructions
-              if (sugg.category === 'keywords') {
-                // Look for patterns like "Lägg till nyckelord i: [actual text]"
-                const keywordMatch = matchingImprovement.example.match(/(?:i|till|för):\s*(.+?)(?:\.|$)/i);
-                if (keywordMatch) {
-                  originalText = keywordMatch[1].trim();
-                  // Create improved version with keywords
-                  aiSuggestion = originalText + ' med relevanta nyckelord som [branschspecifika termer]';
-                } else {
-                  // If no clear format, use the example as suggestion
-                  originalText = matchingImprovement.suggestion.replace(/^[^:]*:\s*/, ''); // Remove prefix
-                  aiSuggestion = matchingImprovement.example;
-                }
-              } else {
-                originalText = matchingImprovement.suggestion.replace(/^[^:]*:\s*/, ''); // Remove prefix
-                aiSuggestion = matchingImprovement.example;
-              }
-            }
-          } else {
-            // No example, use suggestion as both (user will need to customize)
-            originalText = matchingImprovement.suggestion;
-          }
-
-          // Skip if original text looks like instructions rather than actual CV content
+          // Skip if we couldn't identify meaningful original text or if it looks like instructions
           const instructionKeywords = ['inkludera', 'lägg till', 'använd', 'skriv om', 'förbättra', 'beskriv'];
-          if (instructionKeywords.some(keyword => originalText.toLowerCase().includes(keyword))) {
-            return; // Skip instruction-like text
+          if (originalText.includes('kunde inte identifieras') ||
+              instructionKeywords.some(keyword => originalText.toLowerCase().includes(keyword))) {
+            console.log('Skipping item due to unidentifiable or instruction-like original text:', originalText);
+            return;
           }
 
           // Extract role context from original CV if possible
@@ -256,29 +301,47 @@ export default function CVImprovementWorkflow({
       const selectedSuggs = suggestions.filter(s => s.selected);
 
       selectedSuggs.forEach(sugg => {
+        // Skip if already processed
+        if (processedIds.has(sugg.id)) {
+          return;
+        }
+
         // Skip structural suggestions
         if (isStructuralSuggestion(sugg)) {
           return;
         }
 
+        // Skip profile summary suggestions
+        if (isProfileSummarySuggestion(sugg)) {
+          return;
+        }
+
         // Check if this is a quantifiable suggestion
-        if (sugg.category === 'keywords' ||
-            isQuantifiableSuggestion(sugg)) {
+        if (sugg.category === 'keywords' || isQuantifiableSuggestion(sugg)) {
+          processedIds.add(sugg.id);
 
-          // Check for duplicates
-          const areaKey = `${sugg.area}_${sugg.category}`;
-          if (processedAreas.has(areaKey)) {
-            return; // Skip duplicate
-          }
-          processedAreas.add(areaKey);
+          // Extract original text from CV or use basic parsing
+          let originalText = '';
+          let aiSuggestion = '';
 
-          // Extract original text and AI suggestion from description
+          // Try to extract from description using existing patterns
           const originalMatch = sugg.description.match(/[Ii]stället för ['"](.+?)['"]/);
           const suggestionMatch = sugg.description.match(/skriv ['"](.+?)['"]/i);
 
-          const originalText = originalMatch ? originalMatch[1] : sugg.title;
-          const aiSuggestion = suggestionMatch ? suggestionMatch[1] :
-                              sugg.example || sugg.description;
+          if (originalMatch && suggestionMatch) {
+            originalText = originalMatch[1];
+            aiSuggestion = suggestionMatch[1];
+          } else {
+            // Fallback: try to find relevant text in CV
+            originalText = extractOriginalTextFromCV({ suggestion: sugg.description, area: sugg.area }, originalCV);
+            aiSuggestion = cleanAISuggestion(sugg.description, sugg.example);
+          }
+
+          // Skip if we couldn't get meaningful text
+          if (originalText.includes('kunde inte identifieras')) {
+            console.log('Skipping fallback item due to unidentifiable text for suggestion:', sugg.title);
+            return;
+          }
 
           // Skip if original text looks like instructions
           const instructionKeywords = ['inkludera', 'lägg till', 'använd', 'skriv om', 'förbättra', 'beskriv'];
