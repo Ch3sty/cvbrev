@@ -74,6 +74,13 @@ interface CVImprovementWorkflowProps {
       example?: string;
     }>;
     keywords?: string[];
+    parsedRoles?: Array<{
+      title: string;
+      company: string;
+      period: string;
+      description?: string;
+      originalText?: string;
+    }>;
   };
 }
 
@@ -164,7 +171,8 @@ export default function CVImprovementWorkflow({
             selected: s.selected
           })),
           cvText: originalCV,
-          detailedAnalysis: analysisDetails
+          detailedAnalysis: analysisDetails,
+          parsedRoles: analysisDetails?.parsedRoles || [] // Skicka med parsedRoles
         }),
       });
 

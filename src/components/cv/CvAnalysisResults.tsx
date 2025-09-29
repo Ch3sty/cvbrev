@@ -525,7 +525,8 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
             atsFriendliness: atsData,
             quantificationSuggestions: quantificationSuggestions,
             detailedImprovements: premiumImprovements,
-            keywords: keywords
+            keywords: keywords,
+            parsedRoles: (data as any).parsedRoles || [] // Lägg till parsedRoles från analysis data
         };
 
         return (

@@ -44,7 +44,8 @@ export interface ImprovementToGroup {
 export async function groupRelatedImprovements(
   improvements: ImprovementToGroup[],
   cvText: string,
-  detailedAnalysis?: any
+  detailedAnalysis?: any,
+  parsedRoles?: any[]
 ): Promise<GroupedImprovement[]> {
   const groups = new Map<string, GroupedImprovement>();
   const processedIds = new Set<string>();
@@ -91,7 +92,7 @@ export async function groupRelatedImprovements(
           confidence: 0.8,
           sourceImprovements: [],
           area: improvement.area,
-          roleContext: extractRoleContext(textSection, cvText)
+          roleContext: extractRoleContext(textSection, cvText, parsedRoles)
         });
       }
 
@@ -424,7 +425,30 @@ function generateGroupKey(textSection: string): string {
 /**
  * Extracts role/position context from text section
  */
-function extractRoleContext(textSection: string, cvText: string): string {
+function extractRoleContext(textSection: string, cvText: string, parsedRoles?: any[]): string {
+  // Om vi har parsedRoles, använd dem för exakt matchning
+  if (parsedRoles && parsedRoles.length > 0) {
+    // Matcha text mot parsade roller
+    for (const role of parsedRoles) {
+      // Kontrollera om textSection matchar denna roll
+      if (role.originalText && textSection.includes(role.originalText.substring(0, 50))) {
+        return `${role.title} - ${role.company}${role.period ? ` (${role.period})` : ''}`;
+      }
+
+      // Kontrollera om textSection innehåller företag eller titel
+      if ((role.company && textSection.includes(role.company)) ||
+          (role.title && textSection.includes(role.title))) {
+        return `${role.title} - ${role.company}${role.period ? ` (${role.period})` : ''}`;
+      }
+
+      // Kontrollera om role.description innehåller textSection
+      if (role.description && role.description.includes(textSection.substring(0, 50))) {
+        return `${role.title} - ${role.company}${role.period ? ` (${role.period})` : ''}`;
+      }
+    }
+  }
+
+  // Fallback till existerande logik om parsedRoles inte finns
   // Look for role identifiers
   const rolePatterns = [
     /platschef/i,

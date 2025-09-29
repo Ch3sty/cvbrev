@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { improvements, cvText, detailedAnalysis } = await request.json();
+    const { improvements, cvText, detailedAnalysis, parsedRoles } = await request.json();
 
     if (!improvements || !Array.isArray(improvements) || improvements.length === 0) {
       return NextResponse.json(
@@ -62,7 +62,8 @@ export async function POST(request: NextRequest) {
     const groupedImprovements = await groupRelatedImprovements(
       contentImprovements,
       cvText,
-      detailedAnalysis
+      detailedAnalysis,
+      parsedRoles // Skicka med parsedRoles
     );
 
     console.log('🔗 Grouped into:', {
@@ -217,6 +218,61 @@ async function enhanceGroupsWithAI(
 }
 
 /**
+ * Korrigera stavfel och grammatik i svensk text
+ */
+async function correctSpellingAndGrammar(text: string): Promise<string> {
+  try {
+    const prompt = `Korrigera följande svenska text och gör den professionell. Fixa ALLA stavfel och grammatiska fel.
+
+INPUT: "${text}"
+
+VANLIGA FEL ATT KORRIGERA:
+- "opch" → "och"
+- "utfärde" → "utförde"
+- "influenser" → "inflytande"
+- "hr" → "HR"
+
+INSTRUKTIONER:
+1. Korrigera alla stavfel
+2. Fixa grammatiska fel
+3. Behåll exakt samma betydelse
+4. Gör texten professionell
+5. Returnera ENDAST den korrigerade texten, inga kommentarer
+
+OUTPUT:`;
+
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [
+        {
+          role: 'system',
+          content: 'Du är en svensk språkexpert. Korrigera stavfel och grammatik men behåll betydelsen exakt.',
+        },
+        {
+          role: 'user',
+          content: prompt
+        }
+      ],
+      temperature: 0.1, // Låg temperatur för konsekvent korrigering
+      max_tokens: 150
+    });
+
+    const corrected = response.choices[0].message.content?.trim();
+
+    // Validera att vi fick ett svar
+    if (!corrected || corrected.length < 5) {
+      console.warn('⚠️ Stavkorrigering misslyckades, returnerar original');
+      return text;
+    }
+
+    return corrected;
+  } catch (error) {
+    console.error('Error correcting spelling:', error);
+    return text; // Returnera original om korrigering misslyckas
+  }
+}
+
+/**
  * Generate AI example for a specific group
  */
 async function generateGroupAIExample(
@@ -227,38 +283,46 @@ async function generateGroupAIExample(
     const roleContext = group.roleContext || 'Yrkesroll';
     const area = group.area || 'arbetslivserfarenhet';
 
+    // STEG 1: Korrigera stavfel i originaltexten först!
+    const correctedOriginal = await correctSpellingAndGrammar(group.originalText);
+    console.log(`📝 Korrigerad text: "${correctedOriginal}" (från: "${group.originalText}")`);
+
     // Get improvement details for the prompt
     const hasQuantification = !!group.improvements.quantification;
     const hasKeywords = !!(group.improvements.keywords && group.improvements.keywords.length > 0);
     const keywords = hasKeywords ? group.improvements.keywords : [];
 
-    const prompt = `Generera ett konkret förbättringsförslag för följande roll:
+    const prompt = `Skapa en kvantifierad förbättring av denna CV-text:
 
-Roll: ${roleContext}
-Område: ${area}
-Originaltext: ${group.originalText.substring(0, 250)}
+KORRIGERAD ORIGINALTEXT: "${correctedOriginal}"
+ROLL: ${roleContext}
+OMRÅDE: ${area}
 
 ${hasQuantification ? 'Lägg till kvantifiering: siffror, teamstorlek, budget, procentuella förbättringar' : ''}
 ${hasKeywords && keywords ? `Inkludera dessa nyckelord naturligt: ${keywords.join(', ')}` : ''}
 
-Förslaget MÅSTE:
-- Vara minst 20 ord långt men max 50 ord
-- Vara konkret och specifikt för ${roleContext}
-- Innehålla minst 2-3 konkreta siffror eller mätbara resultat
-- Vara på professionell svenska
-- INTE bara vara bokstaven "t" eller annan nonsens
+VIKTIGT - Skapa en FÖRBÄTTRING som:
+1. Är ANNORLUNDA än originaltexten (inte bara upprepa den)
+2. Lägger till konkreta siffror (team, budget, resultat, procent)
+3. Är grammatiskt korrekt svensk text
+4. Är 20-40 ord lång
+5. Passar rollen och kontexten
+6. Fokuserar på mätbara resultat
 
-Returnera ENDAST det förbättrade textförslaget, ingenting annat.
+FELAKTIGT EXEMPEL (undvik detta):
+"Ansvarade för innefattar främst skapande av företagshemsidor" ❌
 
-Exempel på BRA förbättring:
-"Ledde team på 12 personer med budgetansvar på 5 MSEK, implementerade strategisk projektledning som ökade effektiviteten med 25% och minskade kostnaderna med 15% under 18 månader."`;
+KORREKT EXEMPEL:
+"Ansvarade för utveckling av 25+ företagshemsidor med årlig omsättning på 1,2 MSEK, minskade utvecklingstid med 30% genom effektiva arbetsmetoder" ✅
+
+Returnera ENDAST den förbättrade texten:`;
 
     const response = await openai.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
         {
           role: 'system',
-          content: 'Du är en erfaren svensk CV-expert. Generera alltid konkreta, mätbara förbättringar med siffror och resultat. ALDRIG returnera bara "t" eller kort nonsens-text.',
+          content: 'Du är en svensk CV-expert. Skapa ALLTID nya, förbättrade meningar med konkreta siffror. ALDRIG kopiera originaltexten direkt.',
         },
         {
           role: 'user',
@@ -277,12 +341,43 @@ Exempel på BRA förbättring:
       return generateFallbackExample(group);
     }
 
+    // VIKTIG: Kontrollera att AI-svaret faktiskt är annorlunda än originalet
+    const cleanedAI = aiResponse.trim().toLowerCase();
+    const cleanedOriginal = correctedOriginal.toLowerCase();
+
+    if (cleanedAI === cleanedOriginal || cleanedAI.startsWith('ansvarade för ' + cleanedOriginal)) {
+      console.warn(`⚠️ AI response too similar to original, generating better example`);
+      return generateContextualFallback(group, correctedOriginal);
+    }
+
     return aiResponse.trim();
 
   } catch (error) {
     console.error('Error generating AI example:', error);
     // Return fallback example if AI generation fails
     return generateFallbackExample(group);
+  }
+}
+
+/**
+ * Generate contextual fallback with improved text
+ */
+function generateContextualFallback(group: GroupedImprovement, correctedOriginal?: string): string {
+  const roleContext = group.roleContext || 'Yrkesroll';
+  const baseText = correctedOriginal || group.originalText;
+
+  // Skapa förbättrad version baserat på kontext
+  if (roleContext.toLowerCase().includes('platschef')) {
+    return `Ledde träningsanläggning med 15 anställda och 3000+ aktiva medlemmar, implementerade nya rutiner som ökade medlemsretention med 25% och årlig omsättning med 2 MSEK`;
+  } else if (roleContext.toLowerCase().includes('projektledare')) {
+    return `Ansvarade för byggprojekt värt 3,5 MSEK med team på 8 personer, slutförde projektet 2 veckor före deadline och 10% under budget`;
+  } else if (roleContext.toLowerCase().includes('webbdesign') || baseText.toLowerCase().includes('hemsidor')) {
+    return `Utvecklade 30+ företagshemsidor med fokus på användarvänlighet och konvertering, ökade kundernas online-försäljning med genomsnittligt 40%`;
+  } else if (baseText.toLowerCase().includes('snickare') || baseText.toLowerCase().includes('renovering')) {
+    return `Genomförde 50+ renoveringsprojekt av lägenheter i Stockholmsområdet, med 98% kundnöjdhet och återkommande uppdrag från 75% av kunderna`;
+  } else {
+    // Generisk förbättring
+    return `Ansvarade för verksamhetsområde med team på 10 personer och årlig budget på 2 MSEK, implementerade förbättringar som ökade effektiviteten med 30%`;
   }
 }
 
