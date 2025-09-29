@@ -66,12 +66,27 @@ Svara ENDAST i följande JSON-format:
 
 VIKTIGA KRAV:
 - originalText MÅSTE vara exakt kopierad från CV:t, inte parafraserad
+- originalText får MAX vara 250 tecken långt - ALDRIG hela CV:t
+- Om hela CV:t skulle returneras, hitta istället en specifik mening/stycke
 - Om ingen exakt matchning finns, sätt confidence < 0.4
 - roleContext ska inkludera både roll och företag när möjligt
 - sourceSection ska vara tydlig och specifik
 - improvementMatch = true endast om säker matchning hittades
 
-Fokusera på att hitta kvantifierbara delar som kan förbättras med siffror och mätbara resultat.
+LÄNGDRESTRIKTIONER:
+- originalText: Max 250 tecken
+- Om längre text hittas, ta bara den mest relevanta meningen
+- Fokusera på kvantifierbara delar som kan förbättras med siffror
+
+EXEMPEL PÅ BRA SVAR:
+- "Platschef för Fitnessworlds största anläggning, administrativt arbete med influenser av HR och personalansvar"
+- "Projektledare för renovering och ombyggnad av Vårbergsskolan"
+- "Egen företagare inom webbdesign och utveckling av hemsidor"
+
+EXEMPEL PÅ DÅLIGA SVAR (undvik dessa):
+- Hela CV:t från början till slut
+- Flera stycken text tillsammans
+- Text längre än 250 tecken
 `;
 
     const response = await openai.chat.completions.create({
@@ -101,6 +116,37 @@ Fokusera på att hitta kvantifierbara delar som kan förbättras med siffror och
     // Validera resultat
     if (!result.originalText || !result.sourceSection) {
       throw new Error('Ofullständigt svar från AI');
+    }
+
+    // KRITISK validering: Kontrollera att vi inte returnerar hela CV:t
+    const maxAllowedLength = 250;
+    if (result.originalText.length > maxAllowedLength) {
+      console.warn(`⚠️ AI returnerade för lång text (${result.originalText.length} tecken), trunkerar...`);
+
+      // Försök hitta första meningen
+      const firstSentence = result.originalText.split(/[.!?]+/)[0]?.trim();
+      if (firstSentence && firstSentence.length <= maxAllowedLength) {
+        result.originalText = firstSentence;
+      } else {
+        // Fallback: trunkera till max längd
+        result.originalText = result.originalText.substring(0, maxAllowedLength - 3) + '...';
+      }
+    }
+
+    // Kontrollera att det inte är instruktionstext
+    const instructionPatterns = [
+      /christian karlsson.*vällistavägen/i, // Start of CV
+      /070.*449.*92.*97/i, // Phone number from CV
+      /huddinge/i, // Location
+    ];
+
+    const isInstructionOrFullCV = instructionPatterns.some(pattern =>
+      pattern.test(result.originalText)
+    );
+
+    if (isInstructionOrFullCV) {
+      console.warn('⚠️ AI returnerade hela CV eller personlig info, använder fallback');
+      throw new Error('AI returnerade olämplig text');
     }
 
     return {

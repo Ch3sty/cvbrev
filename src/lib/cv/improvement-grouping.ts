@@ -1,7 +1,10 @@
+import { extractOriginalTextWithAI, type ExtractionContext } from './cv-text-extraction';
+
 /**
  * Utility functions for intelligent grouping of CV improvements
  * Groups related improvements that affect the same text section
  * Combines quantification and keywords into unified suggestions
+ * Uses AI-powered text extraction for precise matching
  */
 
 export interface GroupedImprovement {
@@ -36,64 +39,85 @@ export interface ImprovementToGroup {
 /**
  * Groups improvements that affect the same text section
  * Intelligently combines quantification and keyword improvements
+ * Uses AI-powered text extraction for precise matching
  */
-export function groupRelatedImprovements(
+export async function groupRelatedImprovements(
   improvements: ImprovementToGroup[],
   cvText: string,
   detailedAnalysis?: any
-): GroupedImprovement[] {
+): Promise<GroupedImprovement[]> {
   const groups = new Map<string, GroupedImprovement>();
   const processedIds = new Set<string>();
 
-  // First pass: identify text sections and create initial groups
-  improvements.forEach(improvement => {
+  console.log('🔍 Starting intelligent grouping with AI text extraction...');
+
+  // First pass: identify text sections using AI and create initial groups
+  for (const improvement of improvements) {
     if (!improvement.selected || processedIds.has(improvement.id)) {
-      return;
+      continue;
     }
 
-    // Extract the text section this improvement refers to
-    const textSection = extractTextSection(improvement, cvText, detailedAnalysis);
+    try {
+      // Use AI to extract the precise text section
+      const textSection = await extractTextSectionWithAI(improvement, cvText, detailedAnalysis);
 
-    if (!textSection || textSection === 'unknown') {
-      console.warn('Could not extract text section for improvement:', improvement.id);
-      return;
+      if (!textSection || textSection.includes('kunde inte identifieras')) {
+        console.warn('Could not extract text section for improvement:', improvement.id);
+        continue;
+      }
+
+      // Validate that extracted text is reasonable (not whole CV)
+      if (textSection.length > 300) {
+        console.warn('Extracted text too long, truncating:', textSection.substring(0, 100), '...');
+        const truncated = truncateToRelevantPart(textSection, improvement);
+        if (!truncated || truncated.length > 300) {
+          continue;
+        }
+      }
+
+      // Check if we already have a group for this text section
+      const groupKey = generateGroupKey(textSection);
+
+      if (!groups.has(groupKey)) {
+        // Create new group
+        groups.set(groupKey, {
+          id: `group_${groups.size + 1}`,
+          textSection: groupKey,
+          originalText: textSection,
+          improvements: {},
+          combinedSuggestion: '',
+          aiExample: '',
+          userChoice: 'ai',
+          confidence: 0.8,
+          sourceImprovements: [],
+          area: improvement.area,
+          roleContext: extractRoleContext(textSection, cvText)
+        });
+      }
+
+      const group = groups.get(groupKey)!;
+
+      // Add improvement to appropriate category
+      if (improvement.type === 'quantification') {
+        group.improvements.quantification = improvement.description;
+      } else if (improvement.type === 'keywords') {
+        group.improvements.keywords = extractKeywords(improvement.description);
+      } else {
+        group.improvements.other = group.improvements.other || [];
+        group.improvements.other.push(improvement.description);
+      }
+
+      group.sourceImprovements.push(improvement.id);
+      processedIds.add(improvement.id);
+
+    } catch (error) {
+      console.error('Error processing improvement:', improvement.id, error);
+      // Continue with next improvement instead of failing completely
+      continue;
     }
+  }
 
-    // Check if we already have a group for this text section
-    const groupKey = generateGroupKey(textSection);
-
-    if (!groups.has(groupKey)) {
-      // Create new group
-      groups.set(groupKey, {
-        id: `group_${groups.size + 1}`,
-        textSection: groupKey,
-        originalText: textSection,
-        improvements: {},
-        combinedSuggestion: '',
-        aiExample: '',
-        userChoice: 'ai',
-        confidence: 0.8,
-        sourceImprovements: [],
-        area: improvement.area,
-        roleContext: extractRoleContext(textSection, cvText)
-      });
-    }
-
-    const group = groups.get(groupKey)!;
-
-    // Add improvement to appropriate category
-    if (improvement.type === 'quantification') {
-      group.improvements.quantification = improvement.description;
-    } else if (improvement.type === 'keywords') {
-      group.improvements.keywords = extractKeywords(improvement.description);
-    } else {
-      group.improvements.other = group.improvements.other || [];
-      group.improvements.other.push(improvement.description);
-    }
-
-    group.sourceImprovements.push(improvement.id);
-    processedIds.add(improvement.id);
-  });
+  console.log(`🔗 Created ${groups.size} groups from ${improvements.filter(i => i.selected).length} improvements`);
 
   // Second pass: generate combined suggestions for each group
   groups.forEach(group => {
@@ -105,75 +129,283 @@ export function groupRelatedImprovements(
 }
 
 /**
- * Extracts the text section from CV that an improvement refers to
+ * Extracts the specific text section from CV using AI for precise matching
+ */
+async function extractTextSectionWithAI(
+  improvement: ImprovementToGroup,
+  cvText: string,
+  detailedAnalysis?: any
+): Promise<string> {
+  try {
+    // First try AI extraction
+    const context: ExtractionContext = {
+      cvContent: cvText,
+      improvementSuggestion: improvement.description,
+      improvementArea: improvement.area || '',
+      improvementExample: improvement.example
+    };
+
+    const result = await extractOriginalTextWithAI(context);
+
+    if (result.improvementMatch && result.confidence > 0.4) {
+      // Validate length to avoid whole CV being returned
+      if (result.originalText.length <= 250) {
+        return result.originalText;
+      } else {
+        // Truncate to relevant part if too long
+        return truncateToRelevantPart(result.originalText, improvement);
+      }
+    }
+
+    // Fallback to rule-based extraction if AI fails or has low confidence
+    return extractTextSection(improvement, cvText, detailedAnalysis);
+
+  } catch (error) {
+    console.warn('AI text extraction failed, using fallback:', error);
+    return extractTextSection(improvement, cvText, detailedAnalysis);
+  }
+}
+
+/**
+ * Truncates long text to the most relevant part based on improvement context
+ */
+function truncateToRelevantPart(longText: string, improvement: ImprovementToGroup): string {
+  // Split into sentences
+  const sentences = longText.split(/[.!?]+/);
+  if (sentences.length <= 1) {
+    // If no sentence breaks, truncate to first 200 chars
+    return longText.substring(0, 200).trim() + (longText.length > 200 ? '...' : '');
+  }
+
+  // Find the most relevant sentence based on improvement keywords
+  const keywords = improvement.description.toLowerCase()
+    .split(/[\s,.:;!?]+/)
+    .filter(word => word.length > 3 && !['för', 'och', 'att', 'med', 'som', 'den', 'det'].includes(word));
+
+  let bestSentence = sentences[0];
+  let bestScore = 0;
+
+  for (const sentence of sentences) {
+    if (sentence.trim().length < 10) continue;
+
+    const lowerSentence = sentence.toLowerCase();
+    const matchCount = keywords.filter(keyword => lowerSentence.includes(keyword)).length;
+    const score = matchCount / Math.max(keywords.length, 1);
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestSentence = sentence;
+    }
+  }
+
+  return bestSentence.trim() || longText.substring(0, 200) + '...';
+}
+
+/**
+ * Legacy text extraction function - now used as fallback
+ * Uses intelligent pattern matching and semantic analysis to avoid returning whole CV
  */
 function extractTextSection(
   improvement: ImprovementToGroup,
   cvText: string,
   detailedAnalysis?: any
 ): string {
-  // Try to find matching text based on improvement description
-  const description = improvement.description.toLowerCase();
-  const cvLines = cvText.split('\n');
-
-  // Look for role-specific mentions
-  if (description.includes('platschef')) {
-    const platschefLine = cvLines.find(line =>
-      line.toLowerCase().includes('platschef') ||
-      line.toLowerCase().includes('fitnessworld')
-    );
-    if (platschefLine) return platschefLine.trim();
-  }
-
-  if (description.includes('vårbergsskolan')) {
-    const schoolLine = cvLines.find(line =>
-      line.toLowerCase().includes('vårbergsskolan') ||
-      line.toLowerCase().includes('projekt')
-    );
-    if (schoolLine) return schoolLine.trim();
-  }
-
-  if (description.includes('webbdesign') || description.includes('webdesign')) {
-    const webLine = cvLines.find(line =>
-      line.toLowerCase().includes('webbdesign') ||
-      line.toLowerCase().includes('webdesign') ||
-      line.toLowerCase().includes('egen företagare')
-    );
-    if (webLine) return webLine.trim();
-  }
-
-  if (description.includes('renovering')) {
-    const renovLine = cvLines.find(line =>
-      line.toLowerCase().includes('renovering') ||
-      line.toLowerCase().includes('snickare')
-    );
-    if (renovLine) return renovLine.trim();
-  }
-
-  // Look for mentions in the improvement example
-  if (improvement.example) {
-    const exampleMatch = improvement.example.match(/["']([^"']+)["']/);
-    if (exampleMatch) {
-      const searchText = exampleMatch[1].toLowerCase();
-      const matchingLine = cvLines.find(line =>
-        line.toLowerCase().includes(searchText)
-      );
-      if (matchingLine) return matchingLine.trim();
+  // Step 1: Try direct keyword matching from improvement description/example
+  const extractedText = extractByKeywordMatching(improvement, cvText);
+  if (extractedText && extractedText !== 'unknown') {
+    // Validate length - never return more than 200 characters
+    if (extractedText.length <= 200) {
+      return extractedText;
+    } else {
+      // If too long, try to extract just the relevant sentence
+      return extractRelevantSentence(extractedText, improvement);
     }
   }
 
-  // Fallback: look for area-specific text
-  if (improvement.area === 'Arbetslivserfarenhet') {
-    // Find work experience related text
-    const workLine = cvLines.find(line =>
-      line.toLowerCase().includes('ansvarig') ||
-      line.toLowerCase().includes('chef') ||
-      line.toLowerCase().includes('ledare')
-    );
-    if (workLine) return workLine.trim();
+  // Step 2: Try semantic matching using improvement context
+  const semanticMatch = extractBySemanticMatching(improvement, cvText);
+  if (semanticMatch && semanticMatch !== 'unknown') {
+    return semanticMatch;
+  }
+
+  // Step 3: Extract from detailed analysis if available
+  if (detailedAnalysis) {
+    const analysisMatch = extractFromDetailedAnalysis(improvement, detailedAnalysis);
+    if (analysisMatch && analysisMatch !== 'unknown') {
+      return analysisMatch;
+    }
+  }
+
+  // Step 4: Last resort - return descriptive placeholder instead of 'unknown'
+  return generateDescriptivePlaceholder(improvement);
+}
+
+/**
+ * Extract text using keyword matching from improvement description and example
+ */
+function extractByKeywordMatching(
+  improvement: ImprovementToGroup,
+  cvText: string
+): string {
+  const description = improvement.description.toLowerCase();
+  const cvLines = cvText.split('\n').filter(line => line.trim().length > 5);
+
+  // Look for direct quotes in the improvement example first
+  if (improvement.example) {
+    const quoteMatches = improvement.example.match(/["']([^"']{10,150})["']/g);
+    if (quoteMatches) {
+      for (const quote of quoteMatches) {
+        const cleanQuote = quote.slice(1, -1); // Remove quotes
+        const matchingLine = cvLines.find(line =>
+          line.toLowerCase().includes(cleanQuote.toLowerCase())
+        );
+        if (matchingLine && matchingLine.length <= 200) {
+          return matchingLine.trim();
+        }
+      }
+    }
+  }
+
+  // Role-specific keyword matching with better precision
+  const roleKeywords = {
+    'platschef': ['platschef', 'fitnessworld', 'gym', 'träning'],
+    'projektledare': ['projekt', 'ledare', 'vårbergsskolan', 'byggprojekt'],
+    'webbdesign': ['webbdesign', 'webdesign', 'hemsida', 'wordpress'],
+    'snickare': ['snickare', 'renovering', 'byggarbete', 'konstruktion']
+  };
+
+  for (const [role, keywords] of Object.entries(roleKeywords)) {
+    if (description.includes(role)) {
+      for (const keyword of keywords) {
+        const matchingLine = cvLines.find(line => {
+          const lowerLine = line.toLowerCase();
+          return lowerLine.includes(keyword) && line.length <= 200;
+        });
+        if (matchingLine) {
+          return matchingLine.trim();
+        }
+      }
+    }
   }
 
   return 'unknown';
+}
+
+/**
+ * Extract using semantic matching - find sentences with multiple relevant keywords
+ */
+function extractBySemanticMatching(
+  improvement: ImprovementToGroup,
+  cvText: string
+): string {
+  const description = improvement.description.toLowerCase();
+
+  // Extract meaningful keywords from the improvement description
+  const keywords = description
+    .split(/[\s,.:;!?]+/)
+    .filter(word =>
+      word.length > 3 &&
+      !['för', 'och', 'att', 'med', 'som', 'den', 'det', 'till', 'från', 'under', 'över', 'inkludera', 'lägg', 'skriv', 'förbättra', 'använd', 'beskriv'].includes(word)
+    );
+
+  if (keywords.length === 0) return 'unknown';
+
+  // Split CV into sentences
+  const sentences = cvText.split(/[.!?]+/).filter(s => s.trim().length > 10);
+
+  let bestMatch = '';
+  let bestScore = 0;
+
+  for (const sentence of sentences) {
+    if (sentence.length > 200) continue; // Skip sentences that are too long
+
+    const lowerSentence = sentence.toLowerCase();
+    const matchCount = keywords.filter(keyword =>
+      lowerSentence.includes(keyword)
+    ).length;
+
+    const score = matchCount / keywords.length;
+
+    if (score > bestScore && matchCount >= 2) {
+      bestScore = score;
+      bestMatch = sentence.trim();
+    }
+  }
+
+  return bestScore > 0.3 ? bestMatch : 'unknown';
+}
+
+/**
+ * Extract from detailed analysis data if available
+ */
+function extractFromDetailedAnalysis(
+  improvement: ImprovementToGroup,
+  detailedAnalysis: any
+): string {
+  try {
+    if (detailedAnalysis.sections) {
+      for (const section of detailedAnalysis.sections) {
+        if (section.area === improvement.area && section.content) {
+          // Look for specific content chunks in the section
+          if (Array.isArray(section.content)) {
+            for (const item of section.content) {
+              if (typeof item === 'string' && item.length <= 200) {
+                return item.trim();
+              }
+            }
+          } else if (typeof section.content === 'string' && section.content.length <= 200) {
+            return section.content.trim();
+          }
+        }
+      }
+    }
+  } catch (error) {
+    console.warn('Could not extract from detailed analysis:', error);
+  }
+
+  return 'unknown';
+}
+
+/**
+ * Extract only the relevant sentence from a longer text
+ */
+function extractRelevantSentence(longText: string, improvement: ImprovementToGroup): string {
+  const sentences = longText.split(/[.!?]+/);
+  const description = improvement.description.toLowerCase();
+
+  // Find the sentence that contains most keywords from the improvement
+  const keywords = description
+    .split(/[\s,.:;!?]+/)
+    .filter(word => word.length > 3);
+
+  let bestSentence = sentences[0] || longText.substring(0, 150);
+  let bestScore = 0;
+
+  for (const sentence of sentences) {
+    if (sentence.length > 200) continue;
+
+    const lowerSentence = sentence.toLowerCase();
+    const matchCount = keywords.filter(keyword =>
+      lowerSentence.includes(keyword)
+    ).length;
+
+    if (matchCount > bestScore) {
+      bestScore = matchCount;
+      bestSentence = sentence;
+    }
+  }
+
+  return bestSentence.trim() || longText.substring(0, 150) + '...';
+}
+
+/**
+ * Generate a descriptive placeholder when no text can be extracted
+ */
+function generateDescriptivePlaceholder(improvement: ImprovementToGroup): string {
+  const area = improvement.area || 'okänt område';
+  const type = improvement.type === 'quantification' ? 'kvantifiering' : 'förbättring';
+
+  return `Text för ${type} inom ${area} (specifik text behöver identifieras manuellt)`;
 }
 
 /**
@@ -258,7 +490,7 @@ function extractKeywords(description: string): string[] {
     foundKeywords.push(...keywords);
   }
 
-  return [...new Set(foundKeywords)]; // Remove duplicates
+  return Array.from(new Set(foundKeywords)); // Remove duplicates
 }
 
 /**
