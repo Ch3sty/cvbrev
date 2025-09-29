@@ -13,7 +13,10 @@ import {
   DollarSign,
   Percent,
   Hash,
-  ChevronRight
+  ChevronRight,
+  AlertTriangle,
+  Shield,
+  ShieldCheck
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -38,6 +41,11 @@ export interface QuantificationItem {
   area?: string; // E.g., "Arbetslivserfarenhet", "Profilsammanfattning"
   roleContext?: string; // E.g., "Platschef - Fitnessworld Skärholmen"
   section?: string; // More specific section identification
+  // New fields for enhanced AI-driven functionality
+  confidence?: number; // Confidence level for text extraction (0-1)
+  sourceImprovementId?: string; // Reference to the original improvement suggestion
+  sourceSection?: string; // More detailed section information from AI extraction
+  isValid?: boolean; // Whether the extraction is valid for quantification
 }
 
 interface QuantificationCustomizerProps {
@@ -54,6 +62,21 @@ const quantificationExamples = [
   { icon: Hash, text: 'Antal projekt/kunder' },
   { icon: TrendingUp, text: 'Tillväxt eller förbättring' },
 ];
+
+// Helper function to get confidence display info
+const getConfidenceInfo = (confidence?: number) => {
+  if (!confidence) return { icon: AlertTriangle, color: 'text-gray-400', text: 'Okänd', bgColor: 'bg-gray-100' };
+
+  if (confidence >= 0.8) {
+    return { icon: ShieldCheck, color: 'text-green-600', text: 'Hög säkerhet', bgColor: 'bg-green-50' };
+  } else if (confidence >= 0.6) {
+    return { icon: Shield, color: 'text-blue-600', text: 'Medel säkerhet', bgColor: 'bg-blue-50' };
+  } else if (confidence >= 0.4) {
+    return { icon: AlertTriangle, color: 'text-yellow-600', text: 'Låg säkerhet', bgColor: 'bg-yellow-50' };
+  } else {
+    return { icon: AlertTriangle, color: 'text-red-600', text: 'Mycket låg säkerhet', bgColor: 'bg-red-50' };
+  }
+};
 
 export default function QuantificationCustomizer({
   items: initialItems,
@@ -130,24 +153,68 @@ export default function QuantificationCustomizer({
       <Card className="bg-white border-gray-200 shadow-sm p-6">
         <div className="space-y-4">
           {/* Context information */}
-          {(currentItem.area || currentItem.roleContext) && (
+          {(currentItem.area || currentItem.roleContext || currentItem.confidence !== undefined) && (
             <div className="bg-white rounded-lg p-4 border border-gray-200 mb-4">
-              <div className="flex items-center gap-2 mb-2">
-                <Info className="h-4 w-4 text-pink-600" />
-                <Label className="text-sm font-medium text-gray-900">
-                  Kontext för denna kvantifiering:
-                </Label>
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <Info className="h-4 w-4 text-pink-600" />
+                  <Label className="text-sm font-medium text-gray-900">
+                    Kontext för denna kvantifiering:
+                  </Label>
+                </div>
+
+                {/* Confidence indicator */}
+                {currentItem.confidence !== undefined && (
+                  <div className="flex items-center gap-2">
+                    {(() => {
+                      const confidenceInfo = getConfidenceInfo(currentItem.confidence);
+                      const ConfidenceIcon = confidenceInfo.icon;
+                      return (
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs ${confidenceInfo.bgColor}`}>
+                                <ConfidenceIcon className={`h-3 w-3 ${confidenceInfo.color}`} />
+                                <span className={confidenceInfo.color}>
+                                  {confidenceInfo.text}
+                                </span>
+                              </div>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              <p className="max-w-xs text-center">
+                                Matchningssäkerhet: {Math.round((currentItem.confidence || 0) * 100)}%
+                                <br />
+                                {currentItem.confidence && currentItem.confidence >= 0.8 && 'Texten matchades exakt från ditt CV'}
+                                {currentItem.confidence && currentItem.confidence >= 0.6 && currentItem.confidence < 0.8 && 'Texten matchades kontextuellt från ditt CV'}
+                                {currentItem.confidence && currentItem.confidence >= 0.4 && currentItem.confidence < 0.6 && 'Texten matchades semantiskt - kontrollera att den stämmer'}
+                                {currentItem.confidence && currentItem.confidence < 0.4 && 'Osäker matchning - dubbelkolla originaltexten'}
+                              </p>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      );
+                    })()}
+                  </div>
+                )}
               </div>
-              {currentItem.area && (
-                <p className="text-sm text-gray-700 mb-1">
-                  <span className="font-medium">Område:</span> {currentItem.area}
-                </p>
-              )}
-              {currentItem.roleContext && (
-                <p className="text-sm text-gray-700">
-                  <span className="font-medium">Roll/Position:</span> {currentItem.roleContext}
-                </p>
-              )}
+
+              <div className="space-y-2">
+                {currentItem.area && (
+                  <p className="text-sm text-gray-700">
+                    <span className="font-medium">Område:</span> {currentItem.area}
+                  </p>
+                )}
+                {currentItem.roleContext && (
+                  <p className="text-sm text-gray-700">
+                    <span className="font-medium">Roll/Position:</span> {currentItem.roleContext}
+                  </p>
+                )}
+                {currentItem.sourceSection && currentItem.sourceSection !== currentItem.area && (
+                  <p className="text-sm text-gray-700">
+                    <span className="font-medium">Källa:</span> {currentItem.sourceSection}
+                  </p>
+                )}
+              </div>
             </div>
           )}
 

@@ -103,6 +103,7 @@ export default function CVImprovementWorkflow({
   const [showPreview, setShowPreview] = useState(false);
   const [exportComplete, setExportComplete] = useState(false);
   const [quantificationItems, setQuantificationItems] = useState<QuantificationItem[]>([]);
+  const [isPreparingQuantification, setIsPreparingQuantification] = useState(false);
 
   const selectedCount = suggestions.filter(s => s.selected).length;
   const totalCount = suggestions.length;
@@ -132,9 +133,66 @@ export default function CVImprovementWorkflow({
     setSuggestions(prev => prev.map(s => ({ ...s, selected: false })));
   };
 
-  const prepareQuantificationItems = () => {
+  const prepareQuantificationItems = async () => {
     const items: QuantificationItem[] = [];
     const processedIds = new Set<string>(); // Track processed suggestion IDs to prevent duplicates
+
+    // First, try to use AI-driven text extraction
+    const selectedSuggestions = suggestions.filter(s => s.selected);
+
+    try {
+      const response = await fetch('/api/cv/extract-text', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          cvContent: originalCV,
+          improvements: selectedSuggestions.map(s => ({
+            id: s.id,
+            area: s.area || s.category,
+            suggestion: s.description,
+            example: s.example,
+            category: s.category
+          }))
+        }),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+
+        if (result.success && result.extractions) {
+          // Process AI extractions
+          for (const extraction of result.extractions) {
+            if (extraction.isValid && !processedIds.has(extraction.id)) {
+              items.push({
+                id: extraction.id,
+                category: extraction.category,
+                originalText: extraction.originalText,
+                aiSuggestion: extraction.aiSuggestion,
+                userChoice: 'ai',
+                area: extraction.sourceSection,
+                roleContext: extraction.roleContext,
+                section: extraction.sourceSection,
+                confidence: extraction.confidence,
+                sourceImprovementId: extraction.id,
+                sourceSection: extraction.sourceSection,
+                isValid: extraction.isValid
+              });
+              processedIds.add(extraction.id);
+            }
+          }
+
+          // If we got valid AI extractions, use them and skip fallback
+          if (items.length > 0) {
+            return items;
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Fel vid AI-textextraktion:', error);
+      // Fall through to fallback method
+    }
 
     // Helper function to check if this is a quantifiable suggestion
     const isQuantifiableSuggestion = (suggestion: any): boolean => {
@@ -365,15 +423,25 @@ export default function CVImprovementWorkflow({
     return items;
   };
 
-  const handleProceedToQuantify = () => {
-    const items = prepareQuantificationItems();
-    if (items.length > 0) {
-      setQuantificationItems(items);
-      setCurrentStep('quantify');
-    } else {
-      // Skip quantify step if no quantification suggestions
+  const handleProceedToQuantify = async () => {
+    setIsPreparingQuantification(true); // Show loading while preparing items
+
+    try {
+      const items = await prepareQuantificationItems();
+      if (items.length > 0) {
+        setQuantificationItems(items);
+        setCurrentStep('quantify');
+      } else {
+        // Skip quantify step if no quantification suggestions
+        handleGenerateImproved();
+      }
+    } catch (error) {
+      console.error('Fel vid förberedelse av kvantifiering:', error);
+      // Fall back to generating improved CV directly
       handleGenerateImproved();
     }
+
+    setIsPreparingQuantification(false);
   };
 
   const handleQuantificationComplete = () => {
@@ -598,11 +666,26 @@ export default function CVImprovementWorkflow({
 
                 <Button
                   onClick={handleProceedToQuantify}
-                  disabled={selectedCount === 0}
+                  disabled={selectedCount === 0 || isPreparingQuantification}
                   className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white"
                 >
-                  Fortsätt till anpassning
-                  <ChevronRight className="ml-2 h-4 w-4" />
+                  {isPreparingQuantification ? (
+                    <>
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        className="mr-2"
+                      >
+                        <Wand2 className="h-4 w-4" />
+                      </motion.div>
+                      Förbereder AI-analys...
+                    </>
+                  ) : (
+                    <>
+                      Fortsätt till anpassning
+                      <ChevronRight className="ml-2 h-4 w-4" />
+                    </>
+                  )}
                 </Button>
               </div>
             </Card>
