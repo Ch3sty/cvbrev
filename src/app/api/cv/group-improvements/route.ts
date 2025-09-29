@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { cookies } from 'next/headers';
+import { createServerClient } from '@/lib/supabase/server';
 import OpenAI from 'openai';
 import {
   groupRelatedImprovements,
@@ -15,7 +16,8 @@ const openai = new OpenAI({
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient();
+    const cookieStore = cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
 
     // Check authentication
     const { data: { user }, error: authError } = await supabase.auth.getUser();
