@@ -110,27 +110,67 @@ export default function CVImprovementWorkflow({
 
   const prepareQuantificationItems = () => {
     const items: QuantificationItem[] = [];
+    const processedAreas = new Set<string>(); // Track areas to prevent duplicates
+    const processedSuggestions = new Set<string>(); // Track suggestions to prevent duplicates
+
+    // Helper function to check if suggestion is structure/formatting related
+    const isStructuralSuggestion = (suggestion: any): boolean => {
+      const text = (suggestion.suggestion || suggestion.description || suggestion.title || '').toLowerCase();
+      const structuralKeywords = [
+        'struktur', 'formatering', 'format', 'layout', 'rubrik', 'punktlista',
+        'punktlistor', 'tydliga rubriker', 'använd', 'organisera', 'gruppera',
+        'strukturera', 'ordna', 'kategorisera', 'dela upp', 'headings', 'bullets'
+      ];
+      return structuralKeywords.some(keyword => text.includes(keyword));
+    };
+
+    // Helper function to check if this is a quantifiable suggestion
+    const isQuantifiableSuggestion = (suggestion: any): boolean => {
+      const text = (suggestion.suggestion || suggestion.description || suggestion.title || '').toLowerCase();
+      const quantifiableKeywords = [
+        'kvantifi', 'siffror', 'resultat', 'antal', 'procent', '%', 'ökning',
+        'minskning', 'budget', 'team', 'försäljning', 'kostnad', 'tid', 'projekt',
+        'kunder', 'tillväxt', 'förbättring', 'mätbar', 'specifik'
+      ];
+      return quantifiableKeywords.some(keyword => text.includes(keyword));
+    };
 
     // First, try to get real quantification items from analysis detailedImprovements
     if (analysisDetails?.detailedImprovements) {
       const selectedSuggs = suggestions.filter(s => s.selected);
 
-      // Map selected suggestions to corresponding detailed improvements
+      // Filter and process detailed improvements
       selectedSuggs.forEach(sugg => {
         // Find matching detailed improvement
         const matchingImprovement = analysisDetails.detailedImprovements?.find(imp => {
+          // Skip if it's a structural suggestion
+          if (isStructuralSuggestion(imp)) {
+            return false;
+          }
+
           // Match by area or if suggestion description contains the area
           return sugg.area === imp.area ||
                  sugg.description.toLowerCase().includes(imp.area.toLowerCase()) ||
                  sugg.title.toLowerCase().includes(imp.area.toLowerCase()) ||
                  (sugg.category === 'keywords' || sugg.category === 'content') &&
-                 (sugg.title.toLowerCase().includes('kvantifi') ||
-                  sugg.description.toLowerCase().includes('siffror') ||
-                  sugg.description.toLowerCase().includes('resultat') ||
-                  imp.suggestion.toLowerCase().includes('kvantifi'));
+                 isQuantifiableSuggestion(imp);
         });
 
         if (matchingImprovement) {
+          // Check for duplicates by area
+          const areaKey = `${matchingImprovement.area}_${sugg.category}`;
+          if (processedAreas.has(areaKey)) {
+            return; // Skip duplicate
+          }
+          processedAreas.add(areaKey);
+
+          // Check for duplicate suggestions
+          const suggestionKey = matchingImprovement.suggestion.trim().toLowerCase();
+          if (processedSuggestions.has(suggestionKey)) {
+            return; // Skip duplicate
+          }
+          processedSuggestions.add(suggestionKey);
+
           // Extract original and suggestion from the example field
           let originalText = '';
           let aiSuggestion = matchingImprovement.suggestion;
@@ -142,13 +182,33 @@ export default function CVImprovementWorkflow({
               originalText = exampleMatch[1];
               aiSuggestion = exampleMatch[2];
             } else {
-              // If no clear format, use the example as suggestion
-              originalText = matchingImprovement.suggestion.replace(/^[^:]*: */, ''); // Remove prefix
-              aiSuggestion = matchingImprovement.example;
+              // For keywords, try to extract actual CV text rather than instructions
+              if (sugg.category === 'keywords') {
+                // Look for patterns like "Lägg till nyckelord i: [actual text]"
+                const keywordMatch = matchingImprovement.example.match(/(?:i|till|för):\s*(.+?)(?:\.|$)/i);
+                if (keywordMatch) {
+                  originalText = keywordMatch[1].trim();
+                  // Create improved version with keywords
+                  aiSuggestion = originalText + ' med relevanta nyckelord som [branschspecifika termer]';
+                } else {
+                  // If no clear format, use the example as suggestion
+                  originalText = matchingImprovement.suggestion.replace(/^[^:]*:\s*/, ''); // Remove prefix
+                  aiSuggestion = matchingImprovement.example;
+                }
+              } else {
+                originalText = matchingImprovement.suggestion.replace(/^[^:]*:\s*/, ''); // Remove prefix
+                aiSuggestion = matchingImprovement.example;
+              }
             }
           } else {
             // No example, use suggestion as both (user will need to customize)
             originalText = matchingImprovement.suggestion;
+          }
+
+          // Skip if original text looks like instructions rather than actual CV content
+          const instructionKeywords = ['inkludera', 'lägg till', 'använd', 'skriv om', 'förbättra', 'beskriv'];
+          if (instructionKeywords.some(keyword => originalText.toLowerCase().includes(keyword))) {
+            return; // Skip instruction-like text
           }
 
           // Extract role context from original CV if possible
@@ -177,27 +237,46 @@ export default function CVImprovementWorkflow({
       });
     }
 
-    // Fallback: if no analysis data or no matches, use the old method
+    // Fallback: if no analysis data or no matches, use the old method with filtering
     if (items.length === 0) {
       const selectedSuggs = suggestions.filter(s => s.selected);
 
       selectedSuggs.forEach(sugg => {
-        // Check if this is a quantification suggestion
+        // Skip structural suggestions
+        if (isStructuralSuggestion(sugg)) {
+          return;
+        }
+
+        // Check if this is a quantifiable suggestion
         if (sugg.category === 'keywords' ||
-            sugg.title.toLowerCase().includes('kvantifi') ||
-            sugg.description.toLowerCase().includes('siffror') ||
-            sugg.description.toLowerCase().includes('resultat')) {
+            isQuantifiableSuggestion(sugg)) {
+
+          // Check for duplicates
+          const areaKey = `${sugg.area}_${sugg.category}`;
+          if (processedAreas.has(areaKey)) {
+            return; // Skip duplicate
+          }
+          processedAreas.add(areaKey);
 
           // Extract original text and AI suggestion from description
           const originalMatch = sugg.description.match(/[Ii]stället för ['"](.+?)['"]/);
           const suggestionMatch = sugg.description.match(/skriv ['"](.+?)['"]/i);
 
+          const originalText = originalMatch ? originalMatch[1] : sugg.title;
+          const aiSuggestion = suggestionMatch ? suggestionMatch[1] :
+                              sugg.example || sugg.description;
+
+          // Skip if original text looks like instructions
+          const instructionKeywords = ['inkludera', 'lägg till', 'använd', 'skriv om', 'förbättra', 'beskriv'];
+          if (instructionKeywords.some(keyword => originalText.toLowerCase().includes(keyword))) {
+            return;
+          }
+
           items.push({
             id: sugg.id,
             category: sugg.category,
-            originalText: originalMatch ? originalMatch[1] : sugg.title,
-            aiSuggestion: suggestionMatch ? suggestionMatch[1] :
-                          sugg.example || sugg.description,
+            originalText: originalText,
+            aiSuggestion: aiSuggestion,
             userChoice: 'ai',
             area: sugg.area,
             section: sugg.category

@@ -202,7 +202,7 @@ export default function QuantificationCustomizer({
                   <div className="flex-1">
                     <Label htmlFor="custom" className="cursor-pointer">
                       <div className="flex items-center gap-2 mb-2">
-                        <span className="font-medium">Skriv eget exempel</span>
+                        <span className="font-medium text-gray-900">Skriv eget exempel</span>
                         <Edit3 className="h-4 w-4 text-gray-400" />
                       </div>
                     </Label>
