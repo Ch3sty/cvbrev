@@ -95,6 +95,38 @@ interface CvAnalysisResultsProps {
 }
 
 // ============================================================================
+//  Utility Functions
+// ============================================================================
+
+/**
+ * Identifies if a suggestion is structural/formatting related that should be
+ * automatically handled by CV templates
+ */
+const isStructuralSuggestion = (suggestion: string | PremiumImprovement): boolean => {
+    const text = typeof suggestion === 'string'
+        ? suggestion.toLowerCase()
+        : `${suggestion.area} ${suggestion.suggestion}`.toLowerCase();
+
+    const structuralKeywords = [
+        // Layout and structure
+        'layout', 'struktur', 'formatering', 'format', 'överskådlighet',
+        // Headers and sections
+        'rubrik', 'rubriker', 'sidhuvud', 'huvud', 'header',
+        'sektion', 'sektioner', 'avsnitt', 'dela upp', 'organisera',
+        // Lists and formatting
+        'punktlista', 'punktlistor', 'bullets', 'bullet points',
+        'indrag', 'marginal', 'spacing', 'avstånd',
+        // Contact info positioning
+        'kontaktuppgifter', 'kontakt', 'placera', 'flytta',
+        // General structure commands
+        'strukturera', 'ordna', 'gruppera', 'kategorisera',
+        'använd tydliga', 'gör tydligare', 'förtydliga struktur'
+    ];
+
+    return structuralKeywords.some(keyword => text.includes(keyword));
+};
+
+// ============================================================================
 //  Styling Constants - Premium Light Theme
 // ============================================================================
 const sectionBaseClasses = "bg-white/80 backdrop-blur-sm border border-gray-200 rounded-xl p-6 transition-all hover:border-gray-300 hover:shadow-md";
@@ -309,6 +341,39 @@ QuantificationSection.displayName = 'QuantificationSection';
 
 
 /**
+ * Renders a list of automatic improvements that will be handled by CV templates
+ */
+const AutomaticImprovementsSection: React.FC<{ improvements: string[] }> = React.memo(({ improvements }) => {
+    if (improvements.length === 0) return null;
+
+    return (
+        <AnalysisSection title="Automatiska förbättringar" icon={CheckCircle}>
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-4 border border-green-200">
+                <div className="flex items-center gap-2 mb-3">
+                    <CheckCircle className="h-5 w-5 text-green-600" />
+                    <h4 className="font-medium text-green-900">
+                        Följande förbättringar sker automatiskt med våra CV-mallar
+                    </h4>
+                </div>
+                <p className="text-sm text-green-700 mb-4">
+                    Dessa struktur- och formateringsproblem löses automatiskt när du väljer en CV-mall.
+                    Du behöver inte välja dessa förbättringar manuellt.
+                </p>
+                <ul className="space-y-2">
+                    {improvements.map((improvement, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                            <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                            <span className="text-sm text-gray-700">{improvement}</span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </AnalysisSection>
+    );
+});
+AutomaticImprovementsSection.displayName = 'AutomaticImprovementsSection';
+
+/**
  * Renders a teaser prompting free users to upgrade to Premium.
  */
 const PremiumTeaserSection: React.FC = React.memo(() => (
@@ -365,6 +430,7 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
     const quantificationSuggestions = isPremium ? (data as PremiumAnalysisResult).quantificationSuggestions : undefined;
 
     // Convert analysis data to suggestions for improvement workflow
+    // Filter out structural suggestions that will be handled automatically by templates
     const convertToSuggestions = (): Suggestion[] => {
         const suggestions: Suggestion[] = [];
         let idCounter = 0;
@@ -372,25 +438,31 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
         // Convert improvement areas to suggestions with full context
         if (isPremium && premiumImprovements) {
             premiumImprovements.forEach(imp => {
-                suggestions.push({
-                    id: `suggestion-${idCounter++}`,
-                    category: 'content',
-                    title: imp.area,
-                    description: imp.suggestion,
-                    impact: 'high',
-                    example: imp.example, // Include example if available
-                    area: imp.area // Include area for better context
-                });
+                // Skip structural suggestions - they will be shown in automatic improvements
+                if (!isStructuralSuggestion(imp)) {
+                    suggestions.push({
+                        id: `suggestion-${idCounter++}`,
+                        category: 'content',
+                        title: imp.area,
+                        description: imp.suggestion,
+                        impact: 'high',
+                        example: imp.example, // Include example if available
+                        area: imp.area // Include area for better context
+                    });
+                }
             });
         } else if (basicImprovements) {
             basicImprovements.forEach(imp => {
-                suggestions.push({
-                    id: `suggestion-${idCounter++}`,
-                    category: 'content',
-                    title: 'Förbättringsförslag',
-                    description: imp,
-                    impact: 'medium'
-                });
+                // Skip structural suggestions - they will be shown in automatic improvements
+                if (!isStructuralSuggestion(imp)) {
+                    suggestions.push({
+                        id: `suggestion-${idCounter++}`,
+                        category: 'content',
+                        title: 'Förbättringsförslag',
+                        description: imp,
+                        impact: 'medium'
+                    });
+                }
             });
         }
 
@@ -419,6 +491,27 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
         }
 
         return suggestions;
+    };
+
+    // Extract structural suggestions that will be handled automatically
+    const getAutomaticImprovements = (): string[] => {
+        const automaticImprovements: string[] = [];
+
+        if (isPremium && premiumImprovements) {
+            premiumImprovements.forEach(imp => {
+                if (isStructuralSuggestion(imp)) {
+                    automaticImprovements.push(`${imp.area}: ${imp.suggestion}`);
+                }
+            });
+        } else if (basicImprovements) {
+            basicImprovements.forEach(imp => {
+                if (isStructuralSuggestion(imp)) {
+                    automaticImprovements.push(imp);
+                }
+            });
+        }
+
+        return automaticImprovements;
     };
 
     const handleStartImprovement = () => {
@@ -469,11 +562,14 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
             <AnalysisSection title="Förbättringsområden" icon={Lightbulb}>
                 {/* Render premium list if available, otherwise basic list */}
                  {isPremium && premiumImprovements ? (
-                    <PremiumImprovementsList improvements={premiumImprovements} />
+                    <PremiumImprovementsList improvements={premiumImprovements.filter(imp => !isStructuralSuggestion(imp))} />
                 ) : (
-                    <BasicList items={basicImprovements} />
+                    <BasicList items={basicImprovements?.filter(imp => !isStructuralSuggestion(imp))} />
                 )}
             </AnalysisSection>
+
+            {/* Show automatic improvements that will be handled by CV templates */}
+            <AutomaticImprovementsSection improvements={getAutomaticImprovements()} />
 
             <AnalysisSection title="Nyckelord" icon={Tags}>
                 <KeywordList keywords={keywords} />
@@ -505,7 +601,7 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
                             Förbättra ditt CV baserat på analysen
                         </h3>
                         <p className="text-gray-600 mb-6 max-w-md mx-auto leading-relaxed">
-                            Välj vilka förbättringsförslag som ska implementeras och generera en optimerad version av ditt CV.
+                            Välj vilka innehållsförbättringar som ska implementeras. Struktur och formatering hanteras automatiskt av våra CV-mallar.
                         </p>
                         <Button
                             onClick={handleStartImprovement}

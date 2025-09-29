@@ -34,6 +34,27 @@ export interface Suggestion {
   area?: string;
 }
 
+// Utility function to identify structural suggestions that will be handled by templates
+const isStructuralSuggestion = (suggestion: any): boolean => {
+  const text = (suggestion.suggestion || suggestion.description || suggestion.title || '').toLowerCase();
+  const structuralKeywords = [
+    // Layout and structure
+    'layout', 'struktur', 'formatering', 'format', 'överskådlighet',
+    // Headers and sections
+    'rubrik', 'rubriker', 'sidhuvud', 'huvud', 'header',
+    'sektion', 'sektioner', 'avsnitt', 'dela upp', 'organisera',
+    // Lists and formatting
+    'punktlista', 'punktlistor', 'bullets', 'bullet points',
+    'indrag', 'marginal', 'spacing', 'avstånd',
+    // Contact info positioning
+    'kontaktuppgifter', 'kontakt', 'placera', 'flytta',
+    // General structure commands
+    'strukturera', 'ordna', 'gruppera', 'kategorisera',
+    'använd tydliga', 'gör tydligare', 'förtydliga struktur'
+  ];
+  return structuralKeywords.some(keyword => text.includes(keyword));
+};
+
 interface CVImprovementWorkflowProps {
   suggestions: Suggestion[];
   originalCV: string;
@@ -66,8 +87,11 @@ export default function CVImprovementWorkflow({
   analysisDetails
 }: CVImprovementWorkflowProps) {
   const [currentStep, setCurrentStep] = useState<WorkflowStep>('select');
+  // Filter out structural suggestions that should be handled by templates
+  const filteredSuggestions = initialSuggestions.filter(s => !isStructuralSuggestion(s));
+
   const [suggestions, setSuggestions] = useState<Suggestion[]>(
-    initialSuggestions.map(s => ({ ...s, selected: false }))
+    filteredSuggestions.map(s => ({ ...s, selected: false }))
   );
   const [isGenerating, setIsGenerating] = useState(false);
   const [improvedCV, setImprovedCV] = useState<string | null>(null);
@@ -113,16 +137,6 @@ export default function CVImprovementWorkflow({
     const processedAreas = new Set<string>(); // Track areas to prevent duplicates
     const processedSuggestions = new Set<string>(); // Track suggestions to prevent duplicates
 
-    // Helper function to check if suggestion is structure/formatting related
-    const isStructuralSuggestion = (suggestion: any): boolean => {
-      const text = (suggestion.suggestion || suggestion.description || suggestion.title || '').toLowerCase();
-      const structuralKeywords = [
-        'struktur', 'formatering', 'format', 'layout', 'rubrik', 'punktlista',
-        'punktlistor', 'tydliga rubriker', 'använd', 'organisera', 'gruppera',
-        'strukturera', 'ordna', 'kategorisera', 'dela upp', 'headings', 'bullets'
-      ];
-      return structuralKeywords.some(keyword => text.includes(keyword));
-    };
 
     // Helper function to check if this is a quantifiable suggestion
     const isQuantifiableSuggestion = (suggestion: any): boolean => {
