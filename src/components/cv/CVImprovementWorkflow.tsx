@@ -160,7 +160,6 @@ export default function CVImprovementWorkflow({
             description: s.description,
             example: s.example,
             type: s.category === 'keywords' ? 'keywords' :
-                  s.category === 'quantification' ||
                   s.description.toLowerCase().includes('kvantifi') ? 'quantification' : 'content',
             selected: s.selected
           })),
