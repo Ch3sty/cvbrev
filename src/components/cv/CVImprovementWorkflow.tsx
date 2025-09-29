@@ -174,7 +174,7 @@ export default function CVImprovementWorkflow({
 
       // Look for keywords mentioned in the suggestion within the original CV
       const suggestionWords = improvement.suggestion.toLowerCase().split(/[\s,.]+/);
-      const meaningfulWords = suggestionWords.filter(word =>
+      const meaningfulWords = suggestionWords.filter((word: string) =>
         word.length > 3 &&
         !['under', 'för', 'till', 'med', 'som', 'och', 'eller', 'att', 'det', 'den', 'denna'].includes(word)
       );
@@ -183,7 +183,7 @@ export default function CVImprovementWorkflow({
       const sentences = cvText.split(/[.!?]+/);
       for (const sentence of sentences) {
         const lowerSentence = sentence.toLowerCase();
-        const matchCount = meaningfulWords.filter(word => lowerSentence.includes(word)).length;
+        const matchCount = meaningfulWords.filter((word: string) => lowerSentence.includes(word)).length;
         if (matchCount >= Math.min(2, meaningfulWords.length)) {
           return sentence.trim();
         }
