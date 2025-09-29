@@ -208,32 +208,83 @@ export async function POST(request: NextRequest) {
         // --- 5. Perform AI Analysis with Role-Based Parsing ---
         console.log(`API analyzeCv: User ${userId} (${profileData.subscriptionTier}): Performing analysis for CV ${cvId}...`);
 
-        // Parse CV to identify roles
-        const parsedCV = await parseCV(cvText);
-        const isValid = validateParsedCV(parsedCV);
+        // OPTIMERING: Kör parseCV och analyzeCv parallellt för att spara tid
+        console.log('🚀 Starting parallel analysis (parseCV + analyzeCv)...');
+        const startTime = Date.now();
 
+        // Timeout-hantering: Sätt en timeout på 50 sekunder (ger 10s marginal innan Vercel's 60s limit)
+        const analysisTimeout = new Promise<never>((_, reject) => {
+            setTimeout(() => {
+                reject(new Error('Analysis timeout: Processing took too long (>50s)'));
+            }, 50000); // 50 sekunder
+        });
+
+        let parsedCV, analysisResult;
+        try {
+            // Kör analys med timeout
+            [parsedCV, analysisResult] = await Promise.race([
+                Promise.all([
+                    parseCV(cvText),
+                    profileData.subscriptionTier === 'premium'
+                        ? analyzeCvPremium(cvText)
+                        : analyzeCvBasic(cvText)
+                ]),
+                analysisTimeout
+            ]);
+
+            console.log(`⏱️ Parallel analysis completed in ${Date.now() - startTime}ms`);
+        } catch (timeoutError) {
+            console.error(`⚠️ Analysis timeout after ${Date.now() - startTime}ms`);
+            // Returnera delresultat om timeout
+            return NextResponse.json(
+                {
+                    message: 'Analysen tog för lång tid. Försök igen eller kontakta support om problemet kvarstår.',
+                    partial: true,
+                    error: 'timeout'
+                },
+                { status: 408 } // Request Timeout
+            );
+        }
+
+        const isValid = validateParsedCV(parsedCV);
         if (!isValid) {
             console.warn('⚠️ CV parsing validation failed, using fallback analysis');
         }
 
-        let analysisResult;
-        if (profileData.subscriptionTier === 'premium') {
-            analysisResult = await analyzeCvPremium(cvText);
-        } else {
-            analysisResult = await analyzeCvBasic(cvText);
-        }
-
         // Generate role-based improvements if parsing was successful
         if (isValid && parsedCV.roles.length > 0) {
-            console.log(`🎯 Generating role-based improvements for ${parsedCV.roles.length} roles`);
+            console.log(`🎯 Generating role-based improvements for ${parsedCV.roles.length} roles (parallel)...`);
+            const roleStartTime = Date.now();
 
-            const roleBasedImprovements = [];
-            for (const role of parsedCV.roles.slice(0, 3)) { // Limit to first 3 roles
+            // OPTIMERING: Kör alla rollförbättringar parallellt istället för sekventiellt
+            const roleImprovementPromises = parsedCV.roles.slice(0, 3).map(async (role, index) => {
+                console.log(`  → Starting improvements for role ${index + 1}: ${role.title}`);
                 const improvements = await generateRoleBasedImprovements(role, {
                     maxSuggestions: 3,
                     focusAreas: ['quantification', 'keywords']
                 });
-                roleBasedImprovements.push(...improvements);
+                console.log(`  ✓ Completed improvements for role ${index + 1}: ${role.title}`);
+                return improvements;
+            });
+
+            // Timeout för rollförbättringar (10 sekunder max)
+            const roleTimeout = new Promise<never>((_, reject) => {
+                setTimeout(() => reject(new Error('Role improvements timeout')), 10000);
+            });
+
+            let roleBasedImprovements: any[] = [];
+            try {
+                // Vänta på alla rollförbättringar samtidigt med timeout
+                const roleImprovementResults = await Promise.race([
+                    Promise.all(roleImprovementPromises),
+                    roleTimeout
+                ]);
+                roleBasedImprovements = roleImprovementResults.flat();
+                console.log(`⏱️ Role improvements completed in ${Date.now() - roleStartTime}ms`);
+            } catch (roleTimeoutError) {
+                console.warn(`⚠️ Role improvements timeout after ${Date.now() - roleStartTime}ms, continuing without them`);
+                // Fortsätt utan rollförbättringar om timeout
+                roleBasedImprovements = [];
             }
 
             // Enhance analysis result with role-based improvements

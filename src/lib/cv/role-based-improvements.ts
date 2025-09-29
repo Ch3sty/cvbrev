@@ -133,8 +133,8 @@ async function generateSingleImprovement(
           content: prompt,
         },
       ],
-      temperature: 0.5,
-      max_tokens: 500,
+      temperature: 0.3, // OPTIMERING: Lägre temperatur för snabbare svar
+      max_tokens: 300, // OPTIMERING: Minskat för snabbare svar
       response_format: { type: 'json_object' },
     });
 
@@ -312,8 +312,8 @@ Exempel: "Ledde team på 12 personer med budgetansvar på 5 MSEK, implementerade
           content: prompt,
         },
       ],
-      temperature: 0.7,
-      max_tokens: 150,
+      temperature: 0.3, // OPTIMERING: Lägre temperatur för snabbare svar
+      max_tokens: 100, // OPTIMERING: Minskat för snabbare svar
     });
 
     const aiExample = response.choices[0].message.content?.trim();
