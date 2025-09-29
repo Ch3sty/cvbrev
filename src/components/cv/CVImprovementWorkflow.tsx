@@ -807,13 +807,16 @@ export default function CVImprovementWorkflow({
                   </p>
                 </div>
                 {/* DEBUG: Log the improved CV before passing to CVExportOptions */}
-                {console.log('🔍 DEBUG - CVImprovementWorkflow: Förbättrat CV som skickas till CVExportOptions:', {
-                  improvedCVLength: improvedCV?.length || 0,
-                  improvedCVPreview: improvedCV?.substring(0, 200) + '...',
-                  originalCVLength: originalCV?.length || 0,
-                  originalCVPreview: originalCV?.substring(0, 200) + '...',
-                  cvId
-                })}
+                {(() => {
+                  console.log('🔍 DEBUG - CVImprovementWorkflow: Förbättrat CV som skickas till CVExportOptions:', {
+                    improvedCVLength: improvedCV?.length || 0,
+                    improvedCVPreview: improvedCV?.substring(0, 200) + '...',
+                    originalCVLength: originalCV?.length || 0,
+                    originalCVPreview: originalCV?.substring(0, 200) + '...',
+                    cvId
+                  });
+                  return null;
+                })()}
                 <CVExportOptions
                   improvedCV={improvedCV}
                   originalCV={originalCV}
