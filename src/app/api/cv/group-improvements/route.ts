@@ -286,7 +286,7 @@ function findMatchingImprovement(
   }
 
   // Först: Exakt områdesmatchning
-  let match = detailedImprovements.find(imp =>
+  const match = detailedImprovements.find(imp =>
     imp.area && group.area &&
     imp.area.toLowerCase() === group.area.toLowerCase()
   );
