@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ChevronRight,
@@ -126,14 +126,7 @@ export default function CVImprovementWorkflow({
     ? roleBasedImprovements.length + generalImprovements.length
     : suggestions.length;
 
-  // Load role-based improvements on component mount
-  useEffect(() => {
-    if (useRoleBasedView && roleBasedImprovements.length === 0 && !isLoadingRoleBasedData) {
-      loadRoleBasedImprovements();
-    }
-  }, [useRoleBasedView]);
-
-  const loadRoleBasedImprovements = async () => {
+  const loadRoleBasedImprovements = useCallback(async () => {
     setIsLoadingRoleBasedData(true);
 
     try {
@@ -186,7 +179,14 @@ export default function CVImprovementWorkflow({
     }
 
     setIsLoadingRoleBasedData(false);
-  };
+  }, [suggestions, originalCV, analysisDetails]);
+
+  // Load role-based improvements on component mount
+  useEffect(() => {
+    if (useRoleBasedView && roleBasedImprovements.length === 0 && !isLoadingRoleBasedData) {
+      loadRoleBasedImprovements();
+    }
+  }, [useRoleBasedView, isLoadingRoleBasedData, roleBasedImprovements.length, loadRoleBasedImprovements]);
 
   const handleSuggestionToggle = (suggestionId: string) => {
     setSuggestions(prev =>
@@ -246,7 +246,7 @@ export default function CVImprovementWorkflow({
     const processedIds = new Set<string>(); // Track processed suggestion IDs to prevent duplicates
 
     // Determine what improvements are selected based on the current view
-    let selectedImprovements: any[] = [];
+    const selectedImprovements: any[] = [];
 
     if (useRoleBasedView) {
       // Convert role-based improvements to quantification items
