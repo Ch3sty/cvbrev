@@ -16,7 +16,13 @@ import {
   ChevronRight,
   AlertTriangle,
   Shield,
-  ShieldCheck
+  ShieldCheck,
+  Building2,
+  Calendar,
+  Briefcase,
+  Tag,
+  Sparkles,
+  Target
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -53,6 +59,7 @@ export interface QuantificationItem {
     other?: string[];
   };
   sourceImprovementIds?: string[]; // IDs of original improvements that were grouped
+  combinedSuggestion?: string; // Clear explanation of what's being combined
 }
 
 interface QuantificationCustomizerProps {
@@ -159,19 +166,57 @@ export default function QuantificationCustomizer({
       {/* Current item */}
       <Card className="bg-white border-gray-200 shadow-sm p-6">
         <div className="space-y-4">
-          {/* Show if this is a grouped improvement */}
+          {/* Enhanced display for grouped improvements */}
           {currentItem.groupedImprovements && (
-            <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg p-3 border border-pink-200 mb-4">
-              <div className="flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-pink-600" />
-                <span className="text-sm font-medium text-gray-900">
-                  Kombinerad förbättring
+            <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg p-4 border border-pink-200 mb-4">
+              <div className="flex items-center gap-2 mb-3">
+                <TrendingUp className="h-5 w-5 text-pink-600" />
+                <span className="text-sm font-semibold text-gray-900">
+                  {currentItem.combinedSuggestion ?
+                    currentItem.combinedSuggestion.split('\n')[0] :
+                    'Kombinerad förbättring'
+                  }
                 </span>
               </div>
-              <p className="text-xs text-gray-700 mt-1">
-                Detta förslag kombinerar {currentItem.groupedImprovements.quantification ? 'kvantifiering' : ''}
-                {currentItem.groupedImprovements.quantification && currentItem.groupedImprovements.keywords ? ' och ' : ''}
-                {currentItem.groupedImprovements.keywords ? `nyckelord (${currentItem.groupedImprovements.keywords.join(', ')})` : ''}
+
+              {/* Show what types are being combined */}
+              <div className="flex flex-wrap gap-2 mb-3">
+                {currentItem.groupedImprovements.quantification && (
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-green-100 text-green-800 font-medium">
+                    📊 Kvantifiering
+                  </span>
+                )}
+                {currentItem.groupedImprovements.keywords && currentItem.groupedImprovements.keywords.length > 0 && (
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-blue-100 text-blue-800 font-medium">
+                    🔑 Nyckelord ({currentItem.groupedImprovements.keywords.length})
+                  </span>
+                )}
+                {currentItem.groupedImprovements.other && currentItem.groupedImprovements.other.length > 0 && (
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-purple-100 text-purple-800 font-medium">
+                    ⚡ ATS-optimering ({currentItem.groupedImprovements.other.length})
+                  </span>
+                )}
+              </div>
+
+              {/* Show keywords if available */}
+              {currentItem.groupedImprovements.keywords && currentItem.groupedImprovements.keywords.length > 0 && (
+                <div className="mt-2">
+                  <p className="text-xs font-medium text-gray-700 mb-1">Nyckelord att inkludera:</p>
+                  <div className="flex flex-wrap gap-1">
+                    {currentItem.groupedImprovements.keywords.map((keyword, index) => (
+                      <span key={index} className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-blue-50 text-blue-700 border border-blue-200">
+                        {keyword}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <p className="text-xs text-gray-600 mt-2 italic">
+                {currentItem.combinedSuggestion && currentItem.combinedSuggestion.includes('För:') ?
+                  'Detta förslag kombinerar flera förbättringstyper för samma roll/text.' :
+                  'Denna förbättring kombinerar flera typer av förändringar för samma textavsnitt i ditt CV.'
+                }
               </p>
             </div>
           )}
@@ -222,21 +267,48 @@ export default function QuantificationCustomizer({
                 )}
               </div>
 
-              <div className="space-y-2">
-                {currentItem.area && (
-                  <p className="text-sm text-gray-700">
-                    <span className="font-medium">Område:</span> {currentItem.area}
-                  </p>
-                )}
+              <div className="space-y-3">
+                {/* Role context with enhanced styling */}
                 {currentItem.roleContext && (
-                  <p className="text-sm text-gray-700">
-                    <span className="font-medium">Roll/Position:</span> {currentItem.roleContext}
-                  </p>
+                  <div className="bg-blue-50 rounded-lg p-3 border border-blue-200">
+                    <div className="flex items-start gap-3">
+                      <Building2 className="h-5 w-5 text-blue-600 mt-0.5" />
+                      <div className="flex-1">
+                        <span className="text-xs font-medium text-blue-800 uppercase tracking-wide">ROLL & ARBETSPLATS</span>
+                        <p className="text-sm font-bold text-gray-900 mt-1">{currentItem.roleContext}</p>
+                        {currentItem.roleContext.includes('(') && (
+                          <div className="flex items-center gap-2 mt-2">
+                            <Calendar className="h-3 w-3 text-blue-600" />
+                            <span className="text-xs text-blue-700">
+                              {currentItem.roleContext.match(/\(([^)]+)\)/)?.[1] || ''}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 )}
+
+                {/* Area information */}
+                {currentItem.area && (
+                  <div className="flex items-center gap-2">
+                    <Tag className="h-4 w-4 text-purple-600" />
+                    <div>
+                      <span className="text-xs font-medium text-gray-600">Område:</span>
+                      <span className="text-sm text-gray-700 ml-2">{currentItem.area}</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Source section if different from area */}
                 {currentItem.sourceSection && currentItem.sourceSection !== currentItem.area && (
-                  <p className="text-sm text-gray-700">
-                    <span className="font-medium">Källa:</span> {currentItem.sourceSection}
-                  </p>
+                  <div className="flex items-center gap-2">
+                    <Info className="h-4 w-4 text-orange-600" />
+                    <div>
+                      <span className="text-xs font-medium text-gray-600 uppercase tracking-wide">KÄLLA</span>
+                      <p className="text-sm text-gray-700">{currentItem.sourceSection}</p>
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
@@ -244,9 +316,16 @@ export default function QuantificationCustomizer({
 
           {/* Original text */}
           <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-            <Label className="text-sm font-medium text-gray-600 mb-2 block">
-              Originaltext från ditt CV:
-            </Label>
+            <div className="flex items-center justify-between mb-2">
+              <Label className="text-sm font-medium text-gray-600">
+                Originaltext från ditt CV:
+              </Label>
+              {!currentItem.roleContext && currentItem.area && (
+                <span className="text-xs text-gray-500 italic">
+                  ⚠️ Roll/företag kunde inte identifieras
+                </span>
+              )}
+            </div>
             <p className="text-gray-900">{currentItem.originalText}</p>
           </div>
 

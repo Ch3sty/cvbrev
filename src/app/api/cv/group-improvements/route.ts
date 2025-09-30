@@ -162,26 +162,50 @@ function sanitizeGroupedImprovements(
 }
 
 /**
- * Calculate similarity between two texts (simple approach)
+ * Calculate similarity between two texts using Levenshtein distance
+ * This replaces the simple approach with a more accurate fuzzy matching algorithm
  */
 function calculateTextSimilarity(text1: string, text2: string): number {
-  // Simple similarity check - if text1 is a large portion of text2, they're too similar
-  const ratio = text1.length / text2.length;
+  const a = text1.toLowerCase().trim();
+  const b = text2.toLowerCase().trim();
 
-  if (ratio > 0.7) {
-    // If text1 is more than 70% of text2's length, likely the whole CV
-    return 1;
+  if (a === b) return 1;
+  if (a.length === 0 || b.length === 0) return 0;
+
+  // For very different lengths, likely not similar
+  const lengthRatio = Math.min(a.length, b.length) / Math.max(a.length, b.length);
+  if (lengthRatio < 0.3) return 0;
+
+  // Use simplified Levenshtein distance for better accuracy
+  const matrix = [];
+  const aLen = a.length;
+  const bLen = b.length;
+
+  for (let i = 0; i <= bLen; i++) {
+    matrix[i] = [i];
   }
 
-  // Check if text1 contains too much of text2's content
-  const text1Lower = text1.toLowerCase();
-  const text2Lower = text2.toLowerCase();
-
-  if (text2Lower.includes(text1Lower) && ratio > 0.3) {
-    return ratio;
+  for (let j = 0; j <= aLen; j++) {
+    matrix[0][j] = j;
   }
 
-  return 0;
+  for (let i = 1; i <= bLen; i++) {
+    for (let j = 1; j <= aLen; j++) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j - 1] + 1, // substitution
+          matrix[i][j - 1] + 1,     // insertion
+          matrix[i - 1][j] + 1      // deletion
+        );
+      }
+    }
+  }
+
+  const distance = matrix[bLen][aLen];
+  const maxLength = Math.max(aLen, bLen);
+  return 1 - (distance / maxLength);
 }
 
 /**

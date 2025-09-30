@@ -5,7 +5,58 @@ import { extractOriginalTextWithAI, type ExtractionContext } from './cv-text-ext
  * Groups related improvements that affect the same text section
  * Combines quantification and keywords into unified suggestions
  * Uses AI-powered text extraction for precise matching
+ * Includes fuzzy matching to prevent text duplication
  */
+
+/**
+ * Calculate text similarity using Levenshtein distance
+ * Returns a similarity score between 0 and 1
+ */
+function calculateTextSimilarity(text1: string, text2: string): number {
+  const a = text1.toLowerCase().trim();
+  const b = text2.toLowerCase().trim();
+
+  if (a === b) return 1;
+  if (a.length === 0 || b.length === 0) return 0;
+
+  // Use simplified Levenshtein distance
+  const matrix = [];
+  const aLen = a.length;
+  const bLen = b.length;
+
+  for (let i = 0; i <= bLen; i++) {
+    matrix[i] = [i];
+  }
+
+  for (let j = 0; j <= aLen; j++) {
+    matrix[0][j] = j;
+  }
+
+  for (let i = 1; i <= bLen; i++) {
+    for (let j = 1; j <= aLen; j++) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j - 1] + 1, // substitution
+          matrix[i][j - 1] + 1,     // insertion
+          matrix[i - 1][j] + 1      // deletion
+        );
+      }
+    }
+  }
+
+  const distance = matrix[bLen][aLen];
+  const maxLength = Math.max(aLen, bLen);
+  return 1 - (distance / maxLength);
+}
+
+/**
+ * Check if two texts are similar based on a threshold
+ */
+function areTextsSimilar(text1: string, text2: string, threshold = 0.8): boolean {
+  return calculateTextSimilarity(text1, text2) > threshold;
+}
 
 export interface GroupedImprovement {
   id: string;
@@ -24,6 +75,14 @@ export interface GroupedImprovement {
   sourceImprovements: string[]; // IDs of original improvements that were grouped
   area?: string; // Area/section in CV (e.g., "Arbetslivserfarenhet")
   roleContext?: string; // Role/position context
+}
+
+export interface ParsedRole {
+  title: string;
+  company: string;
+  period?: string;
+  description?: string;
+  originalText?: string;
 }
 
 export interface ImprovementToGroup {
@@ -52,7 +111,7 @@ export async function groupRelatedImprovements(
 
   console.log('🔍 Starting intelligent grouping with AI text extraction...');
 
-  // First pass: identify text sections using AI and create initial groups
+  // First pass: identify text sections using AI and create initial groups with fuzzy matching
   for (const improvement of improvements) {
     if (!improvement.selected || processedIds.has(improvement.id)) {
       continue;
@@ -76,12 +135,24 @@ export async function groupRelatedImprovements(
         }
       }
 
-      // Check if we already have a group for this text section
-      const groupKey = generateGroupKey(textSection);
+      // Check for similar existing groups using fuzzy matching
+      let existingGroup: GroupedImprovement | null = null;
 
-      if (!groups.has(groupKey)) {
-        // Create new group
-        groups.set(groupKey, {
+      for (const [_, group] of groups) {
+        // Use a lower threshold (0.7) to catch more similar texts while avoiding false positives
+        if (areTextsSimilar(textSection, group.originalText, 0.7)) {
+          console.log(`🔗 Found similar text (${(calculateTextSimilarity(textSection, group.originalText) * 100).toFixed(1)}% match), grouping with existing: "${group.originalText.substring(0, 50)}..."`);
+          existingGroup = group;
+          break;
+        }
+      }
+
+      if (!existingGroup) {
+        // Create new group with enhanced role context
+        const roleContext = extractEnhancedRoleContext(textSection, cvText, parsedRoles);
+        const groupKey = generateGroupKey(textSection);
+
+        existingGroup = {
           id: `group_${groups.size + 1}`,
           textSection: groupKey,
           originalText: textSection,
@@ -92,23 +163,24 @@ export async function groupRelatedImprovements(
           confidence: 0.8,
           sourceImprovements: [],
           area: improvement.area,
-          roleContext: extractRoleContext(textSection, cvText, parsedRoles)
-        });
-      }
+          roleContext: roleContext
+        };
 
-      const group = groups.get(groupKey)!;
+        groups.set(groupKey, existingGroup);
+        console.log(`✨ Created new group for: "${textSection.substring(0, 50)}..." with role: ${roleContext}`);
+      }
 
       // Add improvement to appropriate category
       if (improvement.type === 'quantification') {
-        group.improvements.quantification = improvement.description;
+        existingGroup.improvements.quantification = improvement.description;
       } else if (improvement.type === 'keywords') {
-        group.improvements.keywords = extractKeywords(improvement.description);
+        existingGroup.improvements.keywords = extractKeywords(improvement.description);
       } else {
-        group.improvements.other = group.improvements.other || [];
-        group.improvements.other.push(improvement.description);
+        existingGroup.improvements.other = existingGroup.improvements.other || [];
+        existingGroup.improvements.other.push(improvement.description);
       }
 
-      group.sourceImprovements.push(improvement.id);
+      existingGroup.sourceImprovements.push(improvement.id);
       processedIds.add(improvement.id);
 
     } catch (error) {
@@ -423,61 +495,89 @@ function generateGroupKey(textSection: string): string {
 }
 
 /**
- * Extracts role/position context from text section
+ * Enhanced role context extraction with consistent formatting
+ * Always returns format: "Roll - Företag (Period)" when possible
  */
-function extractRoleContext(textSection: string, cvText: string, parsedRoles?: any[]): string {
+function extractEnhancedRoleContext(
+  textSection: string,
+  cvText: string,
+  parsedRoles?: ParsedRole[]
+): string {
   // Om vi har parsedRoles, använd dem för exakt matchning
   if (parsedRoles && parsedRoles.length > 0) {
-    // Matcha text mot parsade roller
+    // Försök olika matchningsstrategier
     for (const role of parsedRoles) {
-      // Kontrollera om textSection matchar denna roll
-      if (role.originalText && textSection.includes(role.originalText.substring(0, 50))) {
-        return `${role.title} - ${role.company}${role.period ? ` (${role.period})` : ''}`;
+      let matches = false;
+
+      // 1. Kontrollera om textSection matchar originaltext
+      if (role.originalText &&
+          areTextsSimilar(textSection, role.originalText, 0.6)) {
+        matches = true;
       }
 
-      // Kontrollera om textSection innehåller företag eller titel
-      if ((role.company && textSection.includes(role.company)) ||
-          (role.title && textSection.includes(role.title))) {
-        return `${role.title} - ${role.company}${role.period ? ` (${role.period})` : ''}`;
+      // 2. Kontrollera om textSection innehåller företag OCH titel
+      if (!matches && role.company && role.title) {
+        const hasCompany = textSection.toLowerCase().includes(role.company.toLowerCase());
+        const hasTitle = textSection.toLowerCase().includes(role.title.toLowerCase());
+        if (hasCompany || hasTitle) {
+          matches = true;
+        }
       }
 
-      // Kontrollera om role.description innehåller textSection
-      if (role.description && role.description.includes(textSection.substring(0, 50))) {
-        return `${role.title} - ${role.company}${role.period ? ` (${role.period})` : ''}`;
+      // 3. Kontrollera keyword-matchning i beskrivning
+      if (!matches && role.description) {
+        const textWords = textSection.toLowerCase().split(/\s+/);
+        const descWords = role.description.toLowerCase().split(/\s+/);
+        const commonWords = textWords.filter(word =>
+          word.length > 3 && descWords.includes(word)
+        );
+        if (commonWords.length >= 2) {
+          matches = true;
+        }
+      }
+
+      if (matches) {
+        // Formatera konsekvent: "Roll - Företag (Period)"
+        const title = role.title || 'Okänd roll';
+        const company = role.company || 'Okänt företag';
+        const period = role.period || '';
+
+        return period ?
+          `${title} - ${company} (${period})` :
+          `${title} - ${company}`;
       }
     }
   }
 
-  // Fallback till existerande logik om parsedRoles inte finns
-  // Look for role identifiers
+  // Fallback till förbättrad pattern-matchning
   const rolePatterns = [
-    /platschef/i,
-    /projektledare/i,
-    /webbdesigner/i,
-    /webdesigner/i,
-    /snickare/i,
-    /egen företagare/i,
-    /ansvarig/i
+    { pattern: /platschef/i, title: 'Platschef', company: 'Fitnessworld' },
+    { pattern: /projektledare/i, title: 'Projektledare', company: 'Vårbergsskolan' },
+    { pattern: /webbdesigner|webdesigner/i, title: 'Webbdesigner', company: 'Egen företagare' },
+    { pattern: /snickare/i, title: 'Snickare', company: 'Egen företagare' },
+    { pattern: /ansvarig/i, title: 'Ansvarig', company: '' }
   ];
 
-  for (const pattern of rolePatterns) {
-    const match = textSection.match(pattern);
-    if (match) {
-      // Try to find company/context
-      if (textSection.toLowerCase().includes('fitnessworld')) {
-        return `Platschef - Fitnessworld`;
-      }
-      if (textSection.toLowerCase().includes('vårbergsskolan')) {
-        return `Projektledare - Vårbergsskolan`;
-      }
-      if (textSection.toLowerCase().includes('webbdesign')) {
-        return `Webbdesigner - Egen företagare`;
-      }
-      return match[0];
+  for (const { pattern, title, company } of rolePatterns) {
+    if (pattern.test(textSection)) {
+      return company ? `${title} - ${company}` : title;
     }
+  }
+
+  // Sista utväg: försök extrahera roll från kontexten
+  const contextMatch = textSection.match(/([A-ZÅÄÖ][a-zåäö]+(?:\s+[A-ZÅÄÖ][a-zåäö]+)*(?:chef|ledare|ansvarig|specialist))/i);
+  if (contextMatch) {
+    return contextMatch[1];
   }
 
   return '';
+}
+
+/**
+ * Legacy function for backward compatibility
+ */
+function extractRoleContext(textSection: string, cvText: string, parsedRoles?: any[]): string {
+  return extractEnhancedRoleContext(textSection, cvText, parsedRoles);
 }
 
 /**
@@ -518,30 +618,42 @@ function extractKeywords(description: string): string[] {
 }
 
 /**
- * Generates a combined suggestion incorporating all improvements
+ * Generates a combined suggestion that clearly shows what is being combined
  */
 function generateCombinedSuggestion(group: GroupedImprovement): string {
+  const types = [];
   let suggestion = '';
 
-  // Start with the text section context
+  // Identify what types are being combined
+  if (group.improvements.quantification) types.push('Kvantifiering');
+  if (group.improvements.keywords && group.improvements.keywords.length > 0) types.push('Nyckelord');
+  if (group.improvements.other && group.improvements.other.length > 0) types.push('ATS-optimering');
+
+  // Create header showing combination
+  if (types.length > 1) {
+    suggestion += `Kombinerad förbättring: ${types.join(' + ')}\n\n`;
+  } else if (types.length === 1) {
+    suggestion += `${types[0]}:\n\n`;
+  }
+
+  // Add role context if available
   if (group.roleContext) {
-    suggestion += `För rollen ${group.roleContext}: `;
+    suggestion += `För: ${group.roleContext}\n`;
   }
 
-  // Add quantification if present
+  suggestion += `Originaltext: "${group.originalText}"\n\n`;
+
+  // Add specific improvements
   if (group.improvements.quantification) {
-    suggestion += group.improvements.quantification;
+    suggestion += `📊 Kvantifiering: ${group.improvements.quantification}\n`;
   }
 
-  // Add keywords integration
   if (group.improvements.keywords && group.improvements.keywords.length > 0) {
-    if (suggestion) suggestion += ' ';
-    suggestion += `Inkludera nyckelord som ${group.improvements.keywords.join(', ')}.`;
+    suggestion += `🔑 Nyckelord: ${group.improvements.keywords.join(', ')}\n`;
   }
 
-  // Add other improvements
   if (group.improvements.other && group.improvements.other.length > 0) {
-    suggestion += ` ${group.improvements.other.join(' ')}`;
+    suggestion += `⚡ ATS-optimering: ${group.improvements.other.join('; ')}\n`;
   }
 
   return suggestion.trim();

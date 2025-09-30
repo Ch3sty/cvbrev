@@ -155,7 +155,9 @@
       "Bash(timeout 60 npm run build)",
       "Bash(npm run:*)",
       "Bash(start \"http://localhost:3001/dashboard/cv-mallar\")",
-      "Bash(timeout 30 npm run build)"
+      "Bash(timeout 30 npm run build)",
+      "Bash(timeout:*)",
+      "Bash(del test-fuzzy-matching.js)"
     ],
     "deny": [],
     "ask": []
