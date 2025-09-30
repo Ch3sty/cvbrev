@@ -110,10 +110,29 @@ export async function groupRelatedImprovements(
   const processedIds = new Set<string>();
 
   console.log('🔍 Starting intelligent grouping with AI text extraction...');
+  console.log('📊 Received improvements for grouping:', {
+    count: improvements.length,
+    selectedCount: improvements.filter(i => i.selected).length,
+    improvements: improvements.map(i => ({
+      id: i.id,
+      selected: i.selected,
+      category: i.category,
+      description: i.description.substring(0, 50) + '...'
+    }))
+  });
 
   // First pass: identify text sections using AI and create initial groups with fuzzy matching
   for (const improvement of improvements) {
-    if (!improvement.selected || processedIds.has(improvement.id)) {
+    // FALLBACK: Om selected saknas, anta true
+    const isSelected = improvement.selected ?? true;
+
+    if (!isSelected) {
+      console.warn(`⚠️ Skipping improvement ${improvement.id} - NOT SELECTED (selected=${improvement.selected})`);
+      continue;
+    }
+
+    if (processedIds.has(improvement.id)) {
+      console.warn(`⚠️ Skipping improvement ${improvement.id} - ALREADY PROCESSED`);
       continue;
     }
 
@@ -777,7 +796,7 @@ export function filterStructuralImprovements(improvements: ImprovementToGroup[])
     'uppställning'
   ];
 
-  return improvements.filter(imp => {
+  const filtered = improvements.filter(imp => {
     const desc = imp.description.toLowerCase();
     const isStructural = structuralKeywords.some(keyword => desc.includes(keyword));
 
@@ -787,4 +806,14 @@ export function filterStructuralImprovements(improvements: ImprovementToGroup[])
 
     return !isStructural;
   });
+
+  // KRITISK LOGGING: Verifiera att selected-fältet bevaras
+  console.log('🔍 After structural filtering:', {
+    originalCount: improvements.length,
+    filteredCount: filtered.length,
+    selectedInOriginal: improvements.filter(i => i.selected).length,
+    selectedInFiltered: filtered.filter(i => i.selected).length
+  });
+
+  return filtered;
 }

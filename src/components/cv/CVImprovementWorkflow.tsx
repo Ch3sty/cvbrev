@@ -107,6 +107,7 @@ export default function CVImprovementWorkflow({
   const [roleBasedImprovements, setRoleBasedImprovements] = useState<RoleImprovement[]>([]);
   const [generalImprovements, setGeneralImprovements] = useState<any[]>([]);
   const [isLoadingRoleBasedData, setIsLoadingRoleBasedData] = useState(false);
+  const [hasTriedLoading, setHasTriedLoading] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [improvedCV, setImprovedCV] = useState<string | null>(null);
   const [metrics, setMetrics] = useState({
@@ -127,7 +128,24 @@ export default function CVImprovementWorkflow({
     : suggestions.length;
 
   const loadRoleBasedImprovements = useCallback(async () => {
+    // Förhindra oändlig loop - kontrollera om vi redan försökt ladda
+    if (isLoadingRoleBasedData || hasTriedLoading) {
+      return;
+    }
+
+    // Kontrollera att vi har nödvändiga data
+    if (!suggestions || suggestions.length === 0 || !originalCV) {
+      console.warn('⚠️ Kan inte ladda roll-baserade förbättringar - saknar data');
+      return;
+    }
+
+    console.log('🚀 Startar laddning av roll-baserade förbättringar...', {
+      suggestionsCount: suggestions.length,
+      hasCV: !!originalCV
+    });
+
     setIsLoadingRoleBasedData(true);
+    setHasTriedLoading(true);
 
     try {
       const response = await fetch('/api/cv/group-improvements', {
@@ -144,11 +162,12 @@ export default function CVImprovementWorkflow({
             title: s.title,
             type: s.category === 'keywords' ? 'keywords' :
                   s.description.toLowerCase().includes('kvantifi') ? 'quantification' : 'content',
-            selected: false
+            selected: true // VIKTIGT: Skicka alla som "selected" för initial gruppering
           })),
           cvText: originalCV,
           detailedAnalysis: analysisDetails,
-          parsedRoles: analysisDetails?.parsedRoles || []
+          parsedRoles: analysisDetails?.parsedRoles || [],
+          isInitialLoad: true // Flagga för att indikera initial laddning
         }),
       });
 
@@ -179,14 +198,20 @@ export default function CVImprovementWorkflow({
     }
 
     setIsLoadingRoleBasedData(false);
-  }, [suggestions, originalCV, analysisDetails]);
+  }, []); // Inga dependencies - funktionen ska inte ändras
 
-  // Load role-based improvements on component mount
+  // Load role-based improvements on component mount - MED LOOP-SKYDD
   useEffect(() => {
-    if (useRoleBasedView && roleBasedImprovements.length === 0 && !isLoadingRoleBasedData) {
+    // Endast ladda vid första gången när roll-baserad vy är aktiverad
+    if (useRoleBasedView &&
+        !hasTriedLoading &&
+        !isLoadingRoleBasedData &&
+        suggestions.length > 0 &&
+        originalCV) {
+      console.log('🚀 Startar initial laddning av roll-baserade förbättringar');
       loadRoleBasedImprovements();
     }
-  }, [useRoleBasedView, isLoadingRoleBasedData, roleBasedImprovements.length, loadRoleBasedImprovements]);
+  }, [useRoleBasedView, hasTriedLoading, isLoadingRoleBasedData, suggestions.length, originalCV, loadRoleBasedImprovements]);
 
   const handleSuggestionToggle = (suggestionId: string) => {
     setSuggestions(prev =>
@@ -901,7 +926,14 @@ export default function CVImprovementWorkflow({
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setUseRoleBasedView(!useRoleBasedView)}
+                    onClick={() => {
+                      const newView = !useRoleBasedView;
+                      setUseRoleBasedView(newView);
+                      // Reset loading state när vi byter till roll-baserad vy
+                      if (newView && !isLoadingRoleBasedData && roleBasedImprovements.length === 0) {
+                        setHasTriedLoading(false);
+                      }
+                    }}
                     className="bg-white/80 hover:bg-gray-50"
                     disabled={isLoadingRoleBasedData}
                   >

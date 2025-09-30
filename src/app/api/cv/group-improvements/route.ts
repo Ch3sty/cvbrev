@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { improvements, cvText, detailedAnalysis, parsedRoles } = await request.json();
+    const { improvements, cvText, detailedAnalysis, parsedRoles, isInitialLoad } = await request.json();
     const detailedImprovements = detailedAnalysis?.detailedImprovements || [];
 
     if (!improvements || !Array.isArray(improvements) || improvements.length === 0) {
@@ -46,17 +46,43 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // KRITISK FIX: Vid initial laddning, behandla ALLA förbättringar som "selected"
+    const improvementsToProcess = isInitialLoad
+      ? improvements.map((imp: any) => ({ ...imp, selected: true }))
+      : improvements;
+
     console.log('📊 Grouping improvements:', {
-      totalImprovements: improvements.length,
-      selectedImprovements: improvements.filter((i: any) => i.selected).length
+      totalImprovements: improvementsToProcess.length,
+      selectedImprovements: improvementsToProcess.filter((i: any) => i.selected).length,
+      isInitialLoad: !!isInitialLoad
     });
 
+    // Säkerställ att vi har förbättringar att bearbeta
+    if (improvementsToProcess.filter((i: any) => i.selected).length === 0) {
+      console.warn('⚠️ Inga valda förbättringar att bearbeta!');
+      return NextResponse.json({
+        success: true,
+        roleBasedImprovements: [],
+        generalImprovements: [],
+        groups: [],
+        stats: {
+          originalCount: improvementsToProcess.length,
+          filteredCount: 0,
+          groupedCount: 0,
+          roleBasedCount: 0,
+          generalCount: 0,
+          reductionPercentage: 0
+        }
+      });
+    }
+
     // Step 1: Filter out structural improvements (handled by templates)
-    const contentImprovements = filterStructuralImprovements(improvements);
+    const contentImprovements = filterStructuralImprovements(improvementsToProcess);
 
     console.log('📝 After filtering structural:', {
-      originalCount: improvements.length,
-      filteredCount: contentImprovements.length
+      originalCount: improvementsToProcess.length,
+      filteredCount: contentImprovements.length,
+      processingMode: isInitialLoad ? 'INITIAL_LOAD' : 'SELECTED_ONLY'
     });
 
     // Step 2: Group related improvements with AI-powered text extraction
@@ -104,13 +130,13 @@ export async function POST(request: NextRequest) {
       generalImprovements,
       groups: enhancedGroups, // Keep for backward compatibility
       stats: {
-        originalCount: improvements.length,
+        originalCount: improvementsToProcess.length,
         filteredCount: contentImprovements.length,
         groupedCount: enhancedGroups.length,
         roleBasedCount: roleBasedImprovements.length,
         generalCount: generalImprovements.length,
         reductionPercentage: Math.round(
-          ((improvements.length - (roleBasedImprovements.length + generalImprovements.length)) / improvements.length) * 100
+          ((improvementsToProcess.length - (roleBasedImprovements.length + generalImprovements.length)) / improvementsToProcess.length) * 100
         )
       }
     });
