@@ -89,15 +89,28 @@ export async function POST(request: NextRequest) {
       console.warn('⚠️ Validation failed for grouped improvements');
     }
 
+    // Step 6: Transform to role-based structure
+    const roleBasedImprovements = transformToRoleBasedStructure(enhancedGroups, parsedRoles);
+    const generalImprovements = extractGeneralImprovements(enhancedGroups);
+
+    console.log('🎯 Role-based transformation complete:', {
+      roleCount: roleBasedImprovements.length,
+      generalCount: generalImprovements.length
+    });
+
     return NextResponse.json({
       success: true,
-      groups: enhancedGroups,
+      roleBasedImprovements,
+      generalImprovements,
+      groups: enhancedGroups, // Keep for backward compatibility
       stats: {
         originalCount: improvements.length,
         filteredCount: contentImprovements.length,
         groupedCount: enhancedGroups.length,
+        roleBasedCount: roleBasedImprovements.length,
+        generalCount: generalImprovements.length,
         reductionPercentage: Math.round(
-          ((improvements.length - enhancedGroups.length) / improvements.length) * 100
+          ((improvements.length - (roleBasedImprovements.length + generalImprovements.length)) / improvements.length) * 100
         )
       }
     });
@@ -527,4 +540,158 @@ function generateFallbackExample(group: GroupedImprovement): string {
   }
 
   return example;
+}
+
+/**
+ * Transform grouped improvements to role-based structure
+ */
+function transformToRoleBasedStructure(
+  groups: GroupedImprovement[],
+  parsedRoles: any[] = []
+): any[] {
+  const roleMap = new Map<string, any>();
+
+  // Initialize roles from parsed CV data
+  parsedRoles.forEach(role => {
+    const roleKey = `${role.title} - ${role.company}`;
+    roleMap.set(roleKey, {
+      role: roleKey,
+      period: role.period || 'Ej specificerad',
+      originalText: role.description || 'Beskrivning saknas',
+      improvements: {
+        quantification: false,
+        keywords: [],
+        atsOptimization: false
+      },
+      suggestedText: '',
+      selected: false,
+      confidence: 0.8,
+      impact: 'medium' as const,
+      sourceImprovementIds: []
+    });
+  });
+
+  // Map improvements to roles
+  groups.forEach(group => {
+    const roleContext = group.roleContext || group.area;
+
+    // Try to match with existing roles
+    let matchedRole: string | null = null;
+
+    for (const [roleKey, roleData] of roleMap.entries()) {
+      if (roleContext && (
+        roleKey.toLowerCase().includes(roleContext.toLowerCase()) ||
+        roleContext.toLowerCase().includes(roleKey.toLowerCase()) ||
+        roleData.originalText.toLowerCase().includes(roleContext.toLowerCase())
+      )) {
+        matchedRole = roleKey;
+        break;
+      }
+    }
+
+    // If no match found, create a new role entry
+    if (!matchedRole) {
+      matchedRole = roleContext || `Allmän förbättring - ${group.area || 'Okänt område'}`;
+      roleMap.set(matchedRole, {
+        role: matchedRole,
+        period: 'Se CV för detaljer',
+        originalText: group.originalText,
+        improvements: {
+          quantification: false,
+          keywords: [],
+          atsOptimization: false
+        },
+        suggestedText: '',
+        selected: false,
+        confidence: group.confidence || 0.7,
+        impact: 'medium' as const,
+        sourceImprovementIds: []
+      });
+    }
+
+    // Update the matched role with improvements
+    const roleData = roleMap.get(matchedRole)!;
+
+    // Merge improvements
+    if (group.improvements.quantification) {
+      roleData.improvements.quantification = true;
+    }
+
+    if (group.improvements.keywords) {
+      roleData.improvements.keywords = [
+        ...new Set([...roleData.improvements.keywords, ...group.improvements.keywords])
+      ];
+    }
+
+    // Note: atsOptimization may not exist in all improvement types
+    if ((group.improvements as any).atsOptimization) {
+      roleData.improvements.atsOptimization = true;
+    }
+
+    // Use the best AI example as suggested text
+    if (group.aiExample && (!roleData.suggestedText || group.aiExample.length > roleData.suggestedText.length)) {
+      roleData.suggestedText = group.aiExample;
+    }
+
+    // Track source improvements
+    roleData.sourceImprovementIds.push(...(group.sourceImprovements || [group.id]));
+
+    // Update confidence and impact
+    if (group.confidence && group.confidence > roleData.confidence) {
+      roleData.confidence = group.confidence;
+    }
+
+    // Impact priority: high > medium > low
+    const impactPriority: Record<string, number> = { high: 3, medium: 2, low: 1 };
+    const newImpact = group.confidence > 0.8 ? 'high' : 'medium';
+    if (impactPriority[newImpact] > impactPriority[roleData.impact]) {
+      roleData.impact = newImpact as 'high' | 'medium' | 'low';
+    }
+  });
+
+  // Convert map to array and filter out roles without improvements
+  return Array.from(roleMap.values()).filter(role =>
+    role.improvements.quantification ||
+    role.improvements.keywords.length > 0 ||
+    role.improvements.atsOptimization ||
+    role.suggestedText.length > 0
+  );
+}
+
+/**
+ * Extract general improvements that don't belong to specific roles
+ */
+function extractGeneralImprovements(groups: GroupedImprovement[]): any[] {
+  const generalImprovements: any[] = [];
+
+  groups.forEach(group => {
+    // Check if this is a general improvement (not role-specific)
+    const isGeneral = !group.roleContext ||
+      group.area?.toLowerCase().includes('allmän') ||
+      group.area?.toLowerCase().includes('general') ||
+      group.area?.toLowerCase().includes('färdighet') ||
+      group.area?.toLowerCase().includes('certifiering') ||
+      group.area?.toLowerCase().includes('språk');
+
+    if (isGeneral) {
+      let category: 'skills' | 'certifications' | 'languages' = 'skills';
+
+      if (group.area?.toLowerCase().includes('certifiering')) {
+        category = 'certifications';
+      } else if (group.area?.toLowerCase().includes('språk')) {
+        category = 'languages';
+      }
+
+      generalImprovements.push({
+        id: group.id,
+        title: group.area || 'Allmän förbättring',
+        description: group.aiExample || group.combinedSuggestion || 'Förbättring identifierad',
+        category,
+        selected: false,
+        impact: group.confidence > 0.8 ? 'high' : 'medium' as const
+      });
+    }
+  });
+
+  return generalImprovements;
 }
