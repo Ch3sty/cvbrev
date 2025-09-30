@@ -94,7 +94,7 @@ Exempel på korrekt rollextraktion:
 }`;
 
     const response = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo', // OPTIMERING: Använd snabbare modell
+      model: 'gpt-4o-mini', // UPPGRADERAD: Bättre modell för högre kvalitet
       messages: [
         {
           role: 'system',
@@ -105,8 +105,8 @@ Exempel på korrekt rollextraktion:
           content: prompt,
         },
       ],
-      temperature: 0.1, // OPTIMERING: Lägre temperatur för snabbare svar
-      max_tokens: 1500, // OPTIMERING: Minskat från 2000 för snabbare svar
+      temperature: 0.1, // Låg temperatur för konsekvent parsning
+      max_tokens: 1500, // Balanserat för fullständiga svar
       response_format: { type: 'json_object' },
     });
 

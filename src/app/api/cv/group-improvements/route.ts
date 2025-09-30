@@ -30,6 +30,7 @@ export async function POST(request: NextRequest) {
     }
 
     const { improvements, cvText, detailedAnalysis, parsedRoles } = await request.json();
+    const detailedImprovements = detailedAnalysis?.detailedImprovements || [];
 
     if (!improvements || !Array.isArray(improvements) || improvements.length === 0) {
       return NextResponse.json(
@@ -80,7 +81,7 @@ export async function POST(request: NextRequest) {
     const sanitizedGroups = sanitizeGroupedImprovements(groupedImprovements, cvText);
 
     // Step 4: Enhance groups with AI-generated combined suggestions
-    const enhancedGroups = await enhanceGroupsWithAI(sanitizedGroups, cvText);
+    const enhancedGroups = await enhanceGroupsWithAI(sanitizedGroups, cvText, detailedImprovements);
 
     // Step 5: Final validation
     const isValid = validateGroupedImprovements(enhancedGroups);
@@ -188,7 +189,8 @@ function calculateTextSimilarity(text1: string, text2: string): number {
  */
 async function enhanceGroupsWithAI(
   groups: GroupedImprovement[],
-  cvText: string
+  cvText: string,
+  detailedImprovements: any[] = []
 ): Promise<GroupedImprovement[]> {
   try {
     // Enhance each group with role-specific AI examples
@@ -201,7 +203,7 @@ async function enhanceGroupsWithAI(
 
       // Generate new AI example if needed
       if (!group.aiExample || group.aiExample.length < 20) {
-        const newExample = await generateGroupAIExample(group, cvText);
+        const newExample = await generateGroupAIExample(group, cvText, detailedImprovements);
         group.aiExample = newExample;
       }
 
@@ -273,80 +275,170 @@ OUTPUT:`;
 }
 
 /**
+ * Find matching improvement from analysis
+ */
+function findMatchingImprovement(
+  group: GroupedImprovement,
+  detailedImprovements: any[]
+): any | undefined {
+  if (!detailedImprovements || detailedImprovements.length === 0) {
+    return undefined;
+  }
+
+  // Först: Exakt områdesmatchning
+  let match = detailedImprovements.find(imp =>
+    imp.area && group.area &&
+    imp.area.toLowerCase() === group.area.toLowerCase()
+  );
+
+  if (match) return match;
+
+  // Sedan: Nyckelordsmatchning
+  const groupKeywords = (group.originalText + ' ' + (group.area || '')).toLowerCase().split(/\s+/);
+
+  let bestMatch: any = undefined;
+  let bestScore = 0;
+
+  for (const imp of detailedImprovements) {
+    const impKeywords = ((imp.suggestion || '') + ' ' + (imp.area || '')).toLowerCase().split(/\s+/);
+    const matchingWords = groupKeywords.filter(word =>
+      word.length > 3 && impKeywords.includes(word)
+    ).length;
+
+    const score = matchingWords / Math.max(groupKeywords.length, 1);
+
+    if (score > bestScore && score > 0.2) {
+      bestScore = score;
+      bestMatch = imp;
+    }
+  }
+
+  return bestMatch;
+}
+
+/**
  * Generate AI example for a specific group
  */
 async function generateGroupAIExample(
   group: GroupedImprovement,
-  cvText: string
+  cvText: string,
+  detailedImprovements: any[] = []
 ): Promise<string> {
   try {
     const roleContext = group.roleContext || 'Yrkesroll';
     const area = group.area || 'arbetslivserfarenhet';
 
-    // STEG 1: Korrigera stavfel i originaltexten först!
+    // STEG 1: Hitta matchande analysförslag
+    const matchingImprovement = findMatchingImprovement(group, detailedImprovements);
+
+    // STEG 2: Korrigera stavfel i originaltexten
     const correctedOriginal = await correctSpellingAndGrammar(group.originalText);
     console.log(`📝 Korrigerad text: "${correctedOriginal}" (från: "${group.originalText}")`);
+
+    if (matchingImprovement) {
+      console.log(`✅ Hittade matchande analysförslag för ${area}:`, matchingImprovement.suggestion);
+    }
 
     // Get improvement details for the prompt
     const hasQuantification = !!group.improvements.quantification;
     const hasKeywords = !!(group.improvements.keywords && group.improvements.keywords.length > 0);
     const keywords = hasKeywords ? group.improvements.keywords : [];
 
-    const prompt = `Skapa en kvantifierad förbättring av denna CV-text:
+    // Bygg prompt med analysförslag som grund
+    let prompt = '';
 
-KORRIGERAD ORIGINALTEXT: "${correctedOriginal}"
+    if (matchingImprovement) {
+      // Vi har ett analysförslag - använd det som grund!
+      prompt = `UTGÅ FRÅN DETTA ANALYSFÖRSLAG och anpassa det till kontexten:
+
+ANALYSFÖRSLAG:
+Förslag: "${matchingImprovement.suggestion || ''}"
+Exempel från analys: "${matchingImprovement.example || ''}"
+
+DIN UPPGIFT: Anpassa ovanstående förslag till denna specifika kontext:
+
+ROLL: ${roleContext}
+OMRÅDE: ${area}
+ORIGINALTEXT ATT FÖRBÄTTRA: "${correctedOriginal}"
+
+${hasQuantification ? 'Lägg till konkreta siffror: teamstorlek, budget, procentuella förbättringar' : ''}
+${hasKeywords && keywords ? `Inkludera dessa nyckelord naturligt: ${keywords.join(', ')}` : ''}
+
+KRAV FÖR DITT SVAR:
+1. UTGÅ från analysförslaget men ANPASSA det till denna specifika roll och företag
+2. Minst 25 ord med konkreta siffror (team, budget, resultat, procent)
+3. Grammatiskt perfekt svenska
+4. Aldrig börja med "Ansvarade för"
+5. Skapa en KOMPLETT, professionell mening
+6. Anpassa exemplet så det passar naturligt för ${roleContext}
+
+RETURNERA ENDAST det anpassade exemplet (ingen förklaring):`;
+    } else {
+      // Fallback: Inget matchande analysförslag, generera från scratch
+      console.warn(`⚠️ Inget matchande analysförslag hittades för ${area}, använder fallback`);
+
+      prompt = `Skapa en kvantifierad förbättring av denna CV-text:
+
+ORIGINALTEXT: "${correctedOriginal}"
 ROLL: ${roleContext}
 OMRÅDE: ${area}
 
 ${hasQuantification ? 'Lägg till kvantifiering: siffror, teamstorlek, budget, procentuella förbättringar' : ''}
 ${hasKeywords && keywords ? `Inkludera dessa nyckelord naturligt: ${keywords.join(', ')}` : ''}
 
-VIKTIGT - Skapa en FÖRBÄTTRING som:
-1. Är ANNORLUNDA än originaltexten (inte bara upprepa den)
-2. Lägger till konkreta siffror (team, budget, resultat, procent)
-3. Är grammatiskt korrekt svensk text
-4. Är 20-40 ord lång
-5. Passar rollen och kontexten
-6. Fokuserar på mätbara resultat
+KRAV:
+1. Minst 25 ord med konkreta siffror
+2. Grammatiskt perfekt svenska
+3. ALDRIG börja med "Ansvarade för"
+4. Skapa en KOMPLETT, professionell mening
+5. Passa rollen och kontexten
 
-FELAKTIGT EXEMPEL (undvik detta):
-"Ansvarade för innefattar främst skapande av företagshemsidor" ❌
-
-KORREKT EXEMPEL:
-"Ansvarade för utveckling av 25+ företagshemsidor med årlig omsättning på 1,2 MSEK, minskade utvecklingstid med 30% genom effektiva arbetsmetoder" ✅
-
-Returnera ENDAST den förbättrade texten:`;
+RETURNERA ENDAST den förbättrade texten:`;
+    }
 
     const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: 'gpt-4o', // UPPGRADERAD: Använd GPT-4 för högre kvalitet
       messages: [
         {
           role: 'system',
-          content: 'Du är en svensk CV-expert. Skapa ALLTID nya, förbättrade meningar med konkreta siffror. ALDRIG kopiera originaltexten direkt.',
+          content: 'Du är expert på svenska CV:n. När du får ett analysförslag, UTGÅ från det och anpassa intelligent till kontexten. Skapa ALLTID konkreta exempel med siffror. ALDRIG börja med "Ansvarade för".',
         },
         {
           role: 'user',
           content: prompt
         }
       ],
-      temperature: 0.7,
-      max_tokens: 200
+      temperature: 0.6, // Balanserad temperatur för kreativitet och precision
+      max_tokens: 300 // Ökad gräns för fullständiga svar
     });
 
     const aiResponse = response.choices[0].message.content;
 
-    // Validate the AI response
+    // Validate the AI response with enhanced validation
     if (!aiResponse || !validateAIResponse(aiResponse)) {
       console.warn(`⚠️ Invalid AI response for group ${group.id}, using fallback`);
+
+      // Om vi har ett analysförslag men AI misslyckades, använd analysexemplet direkt
+      if (matchingImprovement?.example && matchingImprovement.example.length > 50) {
+        console.log(`✅ Använder analysexempel direkt: "${matchingImprovement.example}"`);
+        return matchingImprovement.example;
+      }
+
       return generateFallbackExample(group);
     }
 
-    // VIKTIG: Kontrollera att AI-svaret faktiskt är annorlunda än originalet
+    // Extra kontroll: Kontrollera att AI-svaret faktiskt är annorlunda än originalet
     const cleanedAI = aiResponse.trim().toLowerCase();
     const cleanedOriginal = correctedOriginal.toLowerCase();
 
-    if (cleanedAI === cleanedOriginal || cleanedAI.startsWith('ansvarade för ' + cleanedOriginal)) {
-      console.warn(`⚠️ AI response too similar to original, generating better example`);
+    if (cleanedAI === cleanedOriginal || cleanedAI.includes(cleanedOriginal)) {
+      console.warn(`⚠️ AI response too similar to original, using analysis example or fallback`);
+
+      // Försök använda analysexemplet först
+      if (matchingImprovement?.example && matchingImprovement.example.length > 50) {
+        return matchingImprovement.example;
+      }
+
       return generateContextualFallback(group, correctedOriginal);
     }
 

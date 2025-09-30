@@ -250,9 +250,9 @@ export function validateAIResponse(response: string): boolean {
     return false;
   }
 
-  // Check minimum length
-  if (response.length < 20) {
-    console.warn(`⚠️ AI response too short: "${response}"`);
+  // Check minimum length - increased to 50 for better quality
+  if (response.length < 50) {
+    console.warn(`⚠️ AI response too short (${response.length} chars): "${response}"`);
     return false;
   }
 
@@ -262,14 +262,31 @@ export function validateAIResponse(response: string): boolean {
     return false;
   }
 
+  // VIKTIGT: Blockera "Ansvarade för" som början
+  if (response.trim().toLowerCase().startsWith('ansvarade för')) {
+    console.warn(`❌ AI response starts with forbidden 'Ansvarade för': "${response}"`);
+    return false;
+  }
+
   // Check for numbers (quantification should have numbers)
   const hasNumbers = /\d+/.test(response);
+  if (!hasNumbers) {
+    console.warn(`⚠️ AI response lacks numbers: "${response}"`);
+    // Don't reject, but warn
+  }
 
-  // Check for sufficient words
+  // Check for sufficient words - increased to 8 for complete sentences
   const wordCount = response.split(/\s+/).length;
-  if (wordCount < 5) {
-    console.warn(`⚠️ AI response has too few words: ${wordCount}`);
+  if (wordCount < 8) {
+    console.warn(`⚠️ AI response has too few words (${wordCount}): "${response}"`);
     return false;
+  }
+
+  // Check for Swedish action verbs (must have at least one)
+  const hasActionVerb = /\b(ledde|utvecklade|implementerade|ökade|minskade|skapade|genomförde|optimerade|förbättrade|hanterade|koordinerade|etablerade|drev|byggde|ansåg|administrerade)\b/i.test(response);
+  if (!hasActionVerb) {
+    console.warn(`⚠️ AI response lacks action verb: "${response}"`);
+    // Don't reject, but could be improved
   }
 
   // Check for placeholder text
