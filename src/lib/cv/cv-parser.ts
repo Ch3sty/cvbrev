@@ -76,21 +76,36 @@ Returnera en JSON-struktur med följande format:
   "skills": ["färdighet1", "färdighet2"]
 }
 
-VIKTIGA REGLER:
-1. För varje roll, inkludera EXAKT företagsnamn och period
-2. Om period saknas, skriv "Period ej angiven"
-3. Extrahera alla ansvarsområden som lista
-4. Behåll originaltext exakt som den står i CV:t
-5. Om något inte finns, lämna tomt eller null
+KRITISKA REGLER FÖR SVENSKA CV:n:
+1. Företagsnamn är ALLTID det faktiska företaget, ALDRIG ord som "ansvarig", "ansvar", "text", "arbete"
+2. Om texten säger "Platschef, Fitnessworld Skärholmen" → company: "Fitnessworld Skärholmen"
+3. Om texten säger "är ansvarig för inköp..." → detta är responsibilities, INTE company
+4. Om någon "agerade projektledare" inom annan roll, behåll originaltiteln (t.ex. "Målare")
+5. Extrahera EXAKT företagsnamn efter kommatecken i rollbeskrivningar
+6. Vid sammmanhängande text, identifiera var varje ny roll börjar
 
-Exempel på korrekt rollextraktion:
+VANLIGA FEL ATT UNDVIKA:
+- "Ansvarig" är ALDRIG ett företagsnamn
+- Om någon är "ansvarig för" något, tillhör det föregående roll
+- "Projektledare" som sekundärt ansvar ska inte bli en egen roll
+
+Exempel på KORREKT rollextraktion:
 {
   "title": "Platschef",
-  "company": "Fitnessworld Skärholmen",
+  "company": "Fitnessworld Skärholmen",  // INTE "ansvarig"!
   "period": "2014 - pågående",
-  "description": "Platschef för Fitnessworlds största anläggning, administrativt arbete med influenser av HR och personalansvar",
+  "description": "Platschef för Fitnessworlds största anläggning, administrativt arbete med influenser av HR och personalansvar. Är i dagsäget ansvarig för inköp, drift, personal...",
   "responsibilities": ["inköp", "drift", "personal", "webbsidan", "medlemssystem", "statistik"],
-  "originalText": "Platschef, Fitnessworld Skärholmen Stockholm, 2014-pågående. Platschef för Fitnessworlds största anläggning..."
+  "originalText": "Platschef, Fitnessworld Skärholmen Stockholm, 2014-pågående. Platschef för Fitnessworlds största anläggning... Är i dagsäget ansvarig för inköp..."
+}
+
+{
+  "title": "Målare",  // INTE "Projektledare"!
+  "company": "Lingfjords Fasadtvätt AB",
+  "period": "2014",
+  "description": "Utförde renovering av taket på Vårbergsskolan, eget ansvar över 5.000kvm. Agerade projektledare...",
+  "responsibilities": ["renovering", "projektledning", "tid- och kostnadsplanering", "besiktning"],
+  "originalText": "Målare, Lingfjords Fasadtvätt AB Stockholm, Vårberg — 2014-2014..."
 }`;
 
     const response = await openai.chat.completions.create({
@@ -118,15 +133,35 @@ Exempel på korrekt rollextraktion:
     const parsedData = JSON.parse(content) as ParsedCV;
 
     // Validate and clean the parsed data
-    parsedData.roles = (parsedData.roles || []).map(role => ({
-      ...role,
-      title: role.title || 'Okänd titel',
-      company: role.company || 'Okänt företag',
-      period: role.period || 'Period ej angiven',
-      description: role.description || '',
-      responsibilities: role.responsibilities || [],
-      originalText: role.originalText || role.description || '',
-    }));
+    parsedData.roles = (parsedData.roles || []).map(role => {
+      // Validera och korrigera företagsnamn
+      let company = role.company || 'Okänt företag';
+      const invalidCompanies = ['ansvarig', 'ansvar', 'text', 'arbete', 'roll', 'tjänst'];
+
+      if (invalidCompanies.some(invalid => company.toLowerCase() === invalid)) {
+        console.warn(`⚠️ Invalid company name detected: "${company}", marking as unknown`);
+        company = 'Okänt företag';
+
+        // Försök hitta rätt företag från originaltext
+        if (role.originalText) {
+          const companyMatch = role.originalText.match(/,\s*([A-ZÅÄÖ][^,]+?)\s*(?:Stockholm|Göteborg|Malmö|Sverige|AB|\d{4})/i);
+          if (companyMatch) {
+            company = companyMatch[1].trim();
+            console.log(`✅ Found correct company from originalText: "${company}"`);
+          }
+        }
+      }
+
+      return {
+        ...role,
+        title: role.title || 'Okänd titel',
+        company: company,
+        period: role.period || 'Period ej angiven',
+        description: role.description || '',
+        responsibilities: role.responsibilities || [],
+        originalText: role.originalText || role.description || '',
+      };
+    });
 
     parsedData.education = (parsedData.education || []).map(edu => ({
       ...edu,

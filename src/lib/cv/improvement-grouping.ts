@@ -505,33 +505,46 @@ function extractEnhancedRoleContext(
 ): string {
   // Om vi har parsedRoles, använd dem för exakt matchning
   if (parsedRoles && parsedRoles.length > 0) {
+    // Specialhantering för "ansvarig för" texter
+    const isResponsibilityText = textSection.toLowerCase().includes('är ansvarig för') ||
+                                 textSection.toLowerCase().includes('är i dagsäget ansvarig') ||
+                                 textSection.toLowerCase().includes('ansvarig för');
+
     // Försök olika matchningsstrategier
     for (const role of parsedRoles) {
       let matches = false;
 
+      // Validera företagsnamn
+      const invalidCompanies = ['ansvarig', 'ansvar', 'text', 'arbete', 'okänt företag'];
+      const hasValidCompany = role.company &&
+                             !invalidCompanies.includes(role.company.toLowerCase());
+
+      // Specialhantering för Fitnessworld/Platschef och "ansvarig för" texter
+      if (isResponsibilityText && role.title?.toLowerCase().includes('platschef')) {
+        matches = true;
+        console.log(`🎯 Matched responsibility text to Platschef role`);
+      }
       // 1. Kontrollera om textSection matchar originaltext
-      if (role.originalText &&
+      else if (role.originalText &&
           areTextsSimilar(textSection, role.originalText, 0.6)) {
         matches = true;
       }
-
       // 2. Kontrollera om textSection innehåller företag OCH titel
-      if (!matches && role.company && role.title) {
+      else if (hasValidCompany && role.title) {
         const hasCompany = textSection.toLowerCase().includes(role.company.toLowerCase());
         const hasTitle = textSection.toLowerCase().includes(role.title.toLowerCase());
         if (hasCompany || hasTitle) {
           matches = true;
         }
       }
-
       // 3. Kontrollera keyword-matchning i beskrivning
-      if (!matches && role.description) {
+      else if (role.description) {
         const textWords = textSection.toLowerCase().split(/\s+/);
         const descWords = role.description.toLowerCase().split(/\s+/);
         const commonWords = textWords.filter(word =>
           word.length > 3 && descWords.includes(word)
         );
-        if (commonWords.length >= 2) {
+        if (commonWords.length >= 3) { // Ökat från 2 till 3 för bättre precision
           matches = true;
         }
       }
@@ -539,12 +552,21 @@ function extractEnhancedRoleContext(
       if (matches) {
         // Formatera konsekvent: "Roll - Företag (Period)"
         const title = role.title || 'Okänd roll';
-        const company = role.company || 'Okänt företag';
+        const company = hasValidCompany ? role.company : 'Okänt företag';
         const period = role.period || '';
 
+        // Om företag är okänt, försök hitta från roll-beskrivningen
+        let finalCompany = company;
+        if (company === 'Okänt företag' && role.originalText) {
+          const companyMatch = role.originalText.match(/,\s*([A-ZÅÄÖ][^,]+?)\s*(?:Stockholm|Göteborg|Malmö|\d{4})/i);
+          if (companyMatch) {
+            finalCompany = companyMatch[1].trim();
+          }
+        }
+
         return period ?
-          `${title} - ${company} (${period})` :
-          `${title} - ${company}`;
+          `${title} - ${finalCompany} (${period})` :
+          `${title} - ${finalCompany}`;
       }
     }
   }
@@ -552,10 +574,11 @@ function extractEnhancedRoleContext(
   // Fallback till förbättrad pattern-matchning
   const rolePatterns = [
     { pattern: /platschef/i, title: 'Platschef', company: 'Fitnessworld' },
-    { pattern: /projektledare/i, title: 'Projektledare', company: 'Vårbergsskolan' },
+    { pattern: /målare/i, title: 'Målare', company: '' }, // Lagt till Målare
     { pattern: /webbdesigner|webdesigner/i, title: 'Webbdesigner', company: 'Egen företagare' },
-    { pattern: /snickare/i, title: 'Snickare', company: 'Egen företagare' },
-    { pattern: /ansvarig/i, title: 'Ansvarig', company: '' }
+    { pattern: /snickare/i, title: 'Snickare', company: '' },
+    // Undvik att matcha "ansvarig" som roll om det är del av ansvarsområde
+    { pattern: /^(?!.*är ansvarig).*ansvarig/i, title: 'Ansvarig', company: '' }
   ];
 
   for (const { pattern, title, company } of rolePatterns) {
