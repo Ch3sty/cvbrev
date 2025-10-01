@@ -84,6 +84,15 @@ interface CVImprovementWorkflowProps {
       originalText?: string;
     }>;
     roleBasedImprovements?: FrontendRoleImprovement[];
+    generalImprovements?: Array<{
+      id: string;
+      title: string;
+      description: string;
+      category: 'skills' | 'certifications' | 'languages' | 'profile';
+      selected: boolean;
+      impact: 'high' | 'medium' | 'low';
+      example?: string;
+    }>;
   };
 }
 
@@ -104,8 +113,7 @@ export default function CVImprovementWorkflow({
     filteredSuggestions.map(s => ({ ...s, selected: false }))
   );
 
-  // Role-based improvements state
-  const [useRoleBasedView, setUseRoleBasedView] = useState(true);
+  // Role-based improvements state (ALWAYS ENABLED - klassisk vy borttagen)
   const [roleBasedImprovements, setRoleBasedImprovements] = useState<RoleImprovement[]>([]);
   const [generalImprovements, setGeneralImprovements] = useState<any[]>([]);
   const [isLoadingRoleBasedData, setIsLoadingRoleBasedData] = useState(false);
@@ -122,12 +130,9 @@ export default function CVImprovementWorkflow({
   const [quantificationItems, setQuantificationItems] = useState<QuantificationItem[]>([]);
   const [isPreparingQuantification, setIsPreparingQuantification] = useState(false);
 
-  const selectedCount = useRoleBasedView
-    ? roleBasedImprovements.filter(r => r.selected).length + generalImprovements.filter(g => g.selected).length
-    : suggestions.filter(s => s.selected).length;
-  const totalCount = useRoleBasedView
-    ? roleBasedImprovements.length + generalImprovements.length
-    : suggestions.length;
+  // Räkna alltid roll-baserade förbättringar (klassisk vy borttagen)
+  const selectedCount = roleBasedImprovements.filter(r => r.selected).length + generalImprovements.filter(g => g.selected).length;
+  const totalCount = roleBasedImprovements.length + generalImprovements.length;
 
   const loadRoleBasedImprovements = useCallback(async () => {
     // Förhindra oändlig loop - kontrollera om vi redan försökt ladda
@@ -138,7 +143,8 @@ export default function CVImprovementWorkflow({
     // NYTT: Använd färdiga roll-baserade förbättringar från analysisDetails
     if (analysisDetails?.roleBasedImprovements && Array.isArray(analysisDetails.roleBasedImprovements)) {
       console.log('✅ Använder färdiga roll-baserade förbättringar från analys:', {
-        roleCount: analysisDetails.roleBasedImprovements.length
+        roleCount: analysisDetails.roleBasedImprovements.length,
+        generalCount: analysisDetails.generalImprovements?.length || 0
       });
 
       setRoleBasedImprovements(
@@ -147,6 +153,16 @@ export default function CVImprovementWorkflow({
           selected: false
         }))
       );
+
+      // Sätt allmänna förbättringar från analysen
+      if (analysisDetails.generalImprovements && Array.isArray(analysisDetails.generalImprovements)) {
+        setGeneralImprovements(
+          analysisDetails.generalImprovements.map((general: any) => ({
+            ...general,
+            selected: false
+          }))
+        );
+      }
 
       setHasTriedLoading(true);
       return;
@@ -212,7 +228,7 @@ export default function CVImprovementWorkflow({
       }
     } catch (error) {
       console.error('Failed to load role-based improvements:', error);
-      setUseRoleBasedView(false);
+      // Continue with empty improvements on error
     }
 
     setIsLoadingRoleBasedData(false);
@@ -220,16 +236,15 @@ export default function CVImprovementWorkflow({
 
   // Load role-based improvements on component mount - MED LOOP-SKYDD
   useEffect(() => {
-    // Endast ladda vid första gången när roll-baserad vy är aktiverad
-    if (useRoleBasedView &&
-        !hasTriedLoading &&
+    // Endast ladda vid första gången
+    if (!hasTriedLoading &&
         !isLoadingRoleBasedData &&
         suggestions.length > 0 &&
         originalCV) {
       console.log('🚀 Startar initial laddning av roll-baserade förbättringar');
       loadRoleBasedImprovements();
     }
-  }, [useRoleBasedView, hasTriedLoading, isLoadingRoleBasedData, suggestions.length, originalCV, loadRoleBasedImprovements]);
+  }, [hasTriedLoading, isLoadingRoleBasedData, suggestions.length, originalCV, loadRoleBasedImprovements]);
 
   const handleSuggestionToggle = (suggestionId: string) => {
     setSuggestions(prev =>
@@ -253,12 +268,9 @@ export default function CVImprovementWorkflow({
   };
 
   const handleClearSelection = () => {
-    if (useRoleBasedView) {
-      setRoleBasedImprovements(prev => prev.map(r => ({ ...r, selected: false })));
-      setGeneralImprovements(prev => prev.map(g => ({ ...g, selected: false })));
-    } else {
-      setSuggestions(prev => prev.map(s => ({ ...s, selected: false })));
-    }
+    // Alltid roll-baserad vy (klassisk vy borttagen)
+    setRoleBasedImprovements(prev => prev.map(r => ({ ...r, selected: false })));
+    setGeneralImprovements(prev => prev.map(g => ({ ...g, selected: false })));
   };
 
   // Role-based handlers
@@ -288,48 +300,46 @@ export default function CVImprovementWorkflow({
     const items: QuantificationItem[] = [];
     const processedIds = new Set<string>(); // Track processed suggestion IDs to prevent duplicates
 
-    // Determine what improvements are selected based on the current view
-    const selectedImprovements: any[] = [];
+    // Alltid roll-baserad vy (klassisk vy borttagen)
+    const selectedRoles = roleBasedImprovements.filter(r => r.selected);
+    const selectedGeneral = generalImprovements.filter(g => g.selected);
 
-    if (useRoleBasedView) {
-      // Convert role-based improvements to quantification items
-      const selectedRoles = roleBasedImprovements.filter(r => r.selected);
-      const selectedGeneral = generalImprovements.filter(g => g.selected);
+    selectedRoles.forEach(role => {
+      items.push({
+        id: role.role,
+        category: 'role-based',
+        originalText: role.originalText,
+        aiSuggestion: role.suggestedText,
+        userChoice: 'ai',
+        area: role.role.split(' - ')[0], // Extract role title
+        roleContext: role.role,
+        section: 'Arbetslivserfarenhet',
+        confidence: role.confidence || 0.8,
+        sourceImprovementId: role.role,
+        sourceSection: 'Arbetslivserfarenhet',
+        isValid: true,
+        sourceImprovementIds: role.sourceImprovementIds || []
+      } as any);
+    });
 
-      selectedRoles.forEach(role => {
-        items.push({
-          id: role.role,
-          category: 'role-based',
-          originalText: role.originalText,
-          aiSuggestion: role.suggestedText,
-          userChoice: 'ai',
-          area: role.role.split(' - ')[0], // Extract role title
-          roleContext: role.role,
-          section: 'Arbetslivserfarenhet',
-          confidence: role.confidence || 0.8,
-          sourceImprovementId: role.role,
-          sourceSection: 'Arbetslivserfarenhet',
-          isValid: true,
-          sourceImprovementIds: role.sourceImprovementIds || []
-        } as any);
-      });
+    selectedGeneral.forEach(general => {
+      items.push({
+        id: general.id,
+        category: 'general',
+        originalText: general.example || `Allmän förbättring: ${general.title}`,
+        aiSuggestion: general.description,
+        userChoice: 'ai',
+        area: general.title,
+        section: general.category,
+        confidence: 0.7,
+        sourceImprovementId: general.id,
+        sourceSection: general.category,
+        isValid: true
+      } as any);
+    });
 
-      selectedGeneral.forEach(general => {
-        items.push({
-          id: general.id,
-          category: 'general',
-          originalText: `Allmän förbättring: ${general.title}`,
-          aiSuggestion: general.description,
-          userChoice: 'ai',
-          area: general.title,
-          section: general.category,
-          confidence: 0.7,
-          sourceImprovementId: general.id,
-          sourceSection: general.category,
-          isValid: true
-        } as any);
-      });
-
+    // Om vi har kvantifieringsobjekt, returnera dem direkt
+    if (items.length > 0) {
       return items;
     }
 
@@ -678,58 +688,39 @@ export default function CVImprovementWorkflow({
     setCurrentStep('generate');
     setIsGenerating(true);
 
-    let updatedSuggestions: any[] = [];
+    // Alltid roll-baserad vy (klassisk vy borttagen)
+    const selectedRoles = roleBasedImprovements.filter(r => r.selected);
+    const selectedGeneral = generalImprovements.filter(g => g.selected);
 
-    if (useRoleBasedView) {
-      // Convert role-based selections to suggestions format
-      const selectedRoles = roleBasedImprovements.filter(r => r.selected);
-      const selectedGeneral = generalImprovements.filter(g => g.selected);
-
-      updatedSuggestions = [
-        ...selectedRoles.map(role => {
-          const quantItem = quantificationItems.find(q => q.id === role.role);
-          return {
-            id: role.role,
-            category: 'role-based',
-            title: role.role,
-            description: quantItem?.userChoice === 'custom' && quantItem.customText
-              ? quantItem.customText
-              : role.suggestedText,
-            impact: role.impact,
-            area: role.role,
-            customized: !!quantItem,
-            roleContext: role.role,
-            originalText: role.originalText,
-            suggestedText: role.suggestedText,
-            improvements: role.improvements
-          };
-        }),
-        ...selectedGeneral.map(general => ({
-          id: general.id,
-          category: general.category,
-          title: general.title,
-          description: general.description,
-          impact: general.impact,
-          area: general.title,
-          customized: false
-        }))
-      ];
-    } else {
-      // Original logic for traditional suggestions
-      updatedSuggestions = suggestions.filter(s => s.selected).map(sugg => {
-        const quantItem = quantificationItems.find(q => q.id === sugg.id);
-        if (quantItem) {
-          return {
-            ...sugg,
-            description: quantItem.userChoice === 'custom' && quantItem.customText
-              ? quantItem.customText
-              : quantItem.aiSuggestion,
-            customized: true
-          };
-        }
-        return sugg;
-      });
-    }
+    const updatedSuggestions = [
+      ...selectedRoles.map(role => {
+        const quantItem = quantificationItems.find(q => q.id === role.role);
+        return {
+          id: role.role,
+          category: 'role-based',
+          title: role.role,
+          description: quantItem?.userChoice === 'custom' && quantItem.customText
+            ? quantItem.customText
+            : role.suggestedText,
+          impact: role.impact,
+          area: role.role,
+          customized: !!quantItem,
+          roleContext: role.role,
+          originalText: role.originalText,
+          suggestedText: role.suggestedText,
+          improvements: role.improvements
+        };
+      }),
+      ...selectedGeneral.map(general => ({
+        id: general.id,
+        category: general.category,
+        title: general.title,
+        description: general.description,
+        impact: general.impact,
+        area: general.title,
+        customized: false
+      }))
+    ];
 
     try {
       // Call API to generate improved CV (userId is now obtained from server-side authentication)
@@ -900,37 +891,19 @@ export default function CVImprovementWorkflow({
                     </h3>
                     <p className="text-sm text-gray-600">
                       {selectedCount} av {totalCount} förbättringar valda
-                      {useRoleBasedView && (
-                        <span className="ml-2 text-xs text-pink-600 font-medium">
-                          • Roll-baserad vy
-                        </span>
-                      )}
                     </p>
                   </div>
                 </div>
 
                 <div className="flex gap-2">
-                  {!useRoleBasedView && (
-                    <>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={handleSelectAll}
-                        className="bg-white/80 hover:bg-gray-50"
-                      >
-                        Välj alla
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={handleSelectATS}
-                        className="bg-white/80 hover:bg-gray-50"
-                      >
-                        <Target className="h-4 w-4 mr-1" />
-                        ATS-fokus
-                      </Button>
-                    </>
-                  )}
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleSelectAllRoles}
+                    className="bg-white/80 hover:bg-gray-50"
+                  >
+                    Välj alla
+                  </Button>
                   <Button
                     variant="outline"
                     size="sm"
@@ -938,24 +911,6 @@ export default function CVImprovementWorkflow({
                     className="bg-white/80 hover:bg-gray-50"
                   >
                     Rensa val
-                  </Button>
-
-                  {/* Toggle between view modes */}
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      const newView = !useRoleBasedView;
-                      setUseRoleBasedView(newView);
-                      // Reset loading state när vi byter till roll-baserad vy
-                      if (newView && !isLoadingRoleBasedData && roleBasedImprovements.length === 0) {
-                        setHasTriedLoading(false);
-                      }
-                    }}
-                    className="bg-white/80 hover:bg-gray-50"
-                    disabled={isLoadingRoleBasedData}
-                  >
-                    {useRoleBasedView ? 'Klassisk vy' : 'Roll-baserad vy'}
                   </Button>
                 </div>
               </div>
@@ -971,7 +926,7 @@ export default function CVImprovementWorkflow({
                   </motion.div>
                   <p className="text-gray-600">Förbereder roll-baserade förbättringar...</p>
                 </div>
-              ) : useRoleBasedView ? (
+              ) : (
                 <RoleBasedSuggestionSelector
                   roleImprovements={roleBasedImprovements}
                   generalImprovements={generalImprovements}
@@ -979,11 +934,6 @@ export default function CVImprovementWorkflow({
                   onGeneralToggle={handleGeneralToggle}
                   onSelectAllRoles={handleSelectAllRoles}
                   onClearRoleSelection={handleClearRoleSelection}
-                />
-              ) : (
-                <SuggestionSelector
-                  suggestions={suggestions}
-                  onToggle={handleSuggestionToggle}
                 />
               )}
 

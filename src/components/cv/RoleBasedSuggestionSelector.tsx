@@ -26,9 +26,10 @@ interface GeneralImprovement {
   id: string;
   title: string;
   description: string;
-  category: 'skills' | 'certifications' | 'languages';
+  category: 'skills' | 'certifications' | 'languages' | 'profile';
   selected: boolean;
   impact: 'high' | 'medium' | 'low';
+  example?: string;
 }
 
 interface RoleBasedSuggestionSelectorProps {
@@ -97,6 +98,12 @@ const generalCategoryConfig = {
     label: 'Språkkunskaper',
     color: 'text-emerald-600',
     bgColor: 'bg-emerald-50'
+  },
+  profile: {
+    icon: Star,
+    label: 'Profilsammanfattning',
+    color: 'text-purple-600',
+    bgColor: 'bg-purple-50'
   }
 };
 
@@ -279,12 +286,38 @@ export default function RoleBasedSuggestionSelector({
                         {renderImprovementTags(roleImprovement.improvements)}
                       </div>
 
+                      {/* Why This Improvement is Good */}
+                      {(roleImprovement.improvements.quantification || roleImprovement.improvements.keywords.length > 0) && (
+                        <div className="mt-3 p-3 bg-blue-50/50 rounded-lg border border-blue-200/60">
+                          <div className="flex items-start gap-2">
+                            <div className="mt-0.5">
+                              <div className="w-5 h-5 rounded-full bg-blue-500 flex items-center justify-center flex-shrink-0">
+                                <span className="text-white text-xs font-bold">💡</span>
+                              </div>
+                            </div>
+                            <div className="flex-1">
+                              <p className="text-sm text-gray-700 leading-relaxed">
+                                {roleImprovement.improvements.quantification && roleImprovement.improvements.keywords.length > 0 && (
+                                  <>Genom att <strong>kvantifiera resultat</strong> och lägga till <strong>nyckelord som {roleImprovement.improvements.keywords.slice(0, 2).join(', ')}</strong> ökar dina chanser att passera ATS med <span className="text-pink-600 font-semibold">40%</span> och gör din erfarenhet mer konkret för rekryterare.</>
+                                )}
+                                {roleImprovement.improvements.quantification && !roleImprovement.improvements.keywords.length && (
+                                  <>Kvantifierade resultat visar <strong>mätbar påverkan</strong> och ökar trovärdigheten hos rekryterare betydligt. Konkreta siffror gör ditt CV <span className="text-pink-600 font-semibold">3x mer attraktivt</span>.</>
+                                )}
+                                {!roleImprovement.improvements.quantification && roleImprovement.improvements.keywords.length > 0 && (
+                                  <>Dessa nyckelord matchar <span className="text-pink-600 font-semibold">80% av jobbannonser</span> i din bransch och ökar dina chanser att passera ATS-system.</>
+                                )}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
                       {/* Expand/Collapse Button */}
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => toggleRoleExpansion(roleImprovement.role)}
-                        className="w-full justify-center bg-gray-50/80 hover:bg-gray-100 h-8"
+                        className="w-full justify-center bg-gray-50/80 hover:bg-gray-100 h-8 mt-2"
                       >
                         {isExpanded ? (
                           <>
@@ -312,13 +345,16 @@ export default function RoleBasedSuggestionSelector({
                       transition={{ duration: 0.3 }}
                       className="border-t border-gray-200/60"
                     >
-                      <div className="p-4 space-y-4 bg-gray-50/30">
+                      <div className="p-4 space-y-4 bg-gradient-to-b from-gray-50/50 to-white/80">
                         {/* Original Text */}
                         <div>
-                          <h5 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
-                            Nuvarande beskrivning
-                          </h5>
-                          <div className="p-3 bg-white/80 rounded-lg border border-gray-200">
+                          <div className="flex items-center gap-2 mb-2">
+                            <div className="w-1 h-4 bg-gray-400 rounded-full"></div>
+                            <h5 className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
+                              Nuvarande beskrivning
+                            </h5>
+                          </div>
+                          <div className="p-3 bg-white rounded-lg border border-gray-200 shadow-sm">
                             <p className="text-sm text-gray-700 leading-relaxed">
                               {roleImprovement.originalText}
                             </p>
@@ -327,28 +363,55 @@ export default function RoleBasedSuggestionSelector({
 
                         {/* Suggested Text */}
                         <div>
-                          <h5 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
-                            Förbättrat förslag
-                          </h5>
-                          <div className="p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg border border-green-200">
-                            <p className="text-sm text-gray-800 leading-relaxed font-medium">
+                          <div className="flex items-center gap-2 mb-2">
+                            <div className="w-1 h-4 bg-gradient-to-b from-green-500 to-emerald-600 rounded-full"></div>
+                            <h5 className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
+                              Förbättrat förslag
+                            </h5>
+                          </div>
+                          <div className="p-4 bg-gradient-to-br from-green-50 via-emerald-50/50 to-green-50 rounded-lg border border-green-300/60 shadow-sm">
+                            <p className="text-sm text-gray-900 leading-relaxed font-medium">
                               {roleImprovement.suggestedText}
                             </p>
+                            {/* Visual improvement indicators */}
+                            <div className="mt-3 pt-3 border-t border-green-200/60 flex flex-wrap gap-2">
+                              {roleImprovement.improvements.quantification && (
+                                <div className="flex items-center gap-1 text-xs text-green-700">
+                                  <BarChart3 className="h-3 w-3" />
+                                  <span className="font-medium">Kvantifierat</span>
+                                </div>
+                              )}
+                              {roleImprovement.improvements.keywords.length > 0 && (
+                                <div className="flex items-center gap-1 text-xs text-green-700">
+                                  <Key className="h-3 w-3" />
+                                  <span className="font-medium">{roleImprovement.improvements.keywords.length} nyckelord</span>
+                                </div>
+                              )}
+                              {roleImprovement.improvements.atsOptimization && (
+                                <div className="flex items-center gap-1 text-xs text-green-700">
+                                  <Target className="h-3 w-3" />
+                                  <span className="font-medium">ATS-optimerad</span>
+                                </div>
+                              )}
+                            </div>
                           </div>
                         </div>
 
                         {/* Keywords if available */}
                         {roleImprovement.improvements.keywords.length > 0 && (
                           <div>
-                            <h5 className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-2">
-                              Tillagda nyckelord
-                            </h5>
-                            <div className="flex flex-wrap gap-1">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Key className="h-3.5 w-3.5 text-purple-600" />
+                              <h5 className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
+                                Tillagda nyckelord ({roleImprovement.improvements.keywords.length})
+                              </h5>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
                               {roleImprovement.improvements.keywords.map((keyword, idx) => (
                                 <Badge
                                   key={idx}
                                   variant="outline"
-                                  className="text-xs bg-purple-50 text-purple-700 border-purple-200"
+                                  className="text-xs bg-purple-50 text-purple-700 border-purple-300 font-medium px-2.5 py-1"
                                 >
                                   {keyword}
                                 </Badge>

@@ -45,6 +45,59 @@ const calculateNextResetDate = (lastResetTimestamp: string | null): Date => {
 };
 
 /**
+ * Extracts general improvements from analysis result
+ * General improvements are those that apply to the whole CV, not specific roles
+ */
+function extractGeneralImprovementsFromAnalysis(analysisResult: any): any[] {
+    const generalImprovements: any[] = [];
+
+    // Extract from detailed improvements if available
+    const detailedImprovements = analysisResult.detailedImprovements || [];
+
+    detailedImprovements.forEach((improvement: any) => {
+        const area = (improvement.area || '').toLowerCase();
+        const suggestion = (improvement.suggestion || '').toLowerCase();
+
+        // Check if this is a general improvement (not role-specific)
+        const isGeneral =
+            area.includes('profilsammanfattning') ||
+            area.includes('profil') ||
+            area.includes('färdighet') ||
+            area.includes('certifiering') ||
+            area.includes('språk') ||
+            area.includes('utbildning') ||
+            area.includes('saknade nyckelord') ||
+            suggestion.includes('lägg till färdighet') ||
+            suggestion.includes('certifiering') ||
+            suggestion.includes('språkkunskap');
+
+        if (isGeneral) {
+            let category: 'skills' | 'certifications' | 'languages' | 'profile' = 'skills';
+
+            if (area.includes('profilsammanfattning') || area.includes('profil')) {
+                category = 'profile' as any;
+            } else if (area.includes('certifiering')) {
+                category = 'certifications';
+            } else if (area.includes('språk')) {
+                category = 'languages';
+            }
+
+            generalImprovements.push({
+                id: `general-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+                title: improvement.area || 'Allmän förbättring',
+                description: improvement.suggestion || improvement.example || 'Förbättring identifierad',
+                category,
+                selected: false,
+                impact: 'high' as const,
+                example: improvement.example
+            });
+        }
+    });
+
+    return generalImprovements;
+}
+
+/**
  * Fetches user profile data relevant for analysis limits.
  * @param supabase - Initialized Supabase server client.
  * @param userId - The ID of the user.
@@ -299,7 +352,12 @@ export async function POST(request: NextRequest) {
                 period: r.period
             }));
 
+            // Extract general improvements from analysis result
+            const generalImprovements = extractGeneralImprovementsFromAnalysis(analysisResult);
+            (analysisResult as any).generalImprovements = generalImprovements;
+
             console.log(`✅ Generated ${formattedRoleImprovements.length} role-based improvements (from ${roleBasedImprovements.length} raw improvements)`);
+            console.log(`✅ Extracted ${generalImprovements.length} general improvements from analysis`);
         }
 
         console.log(`API analyzeCv: User ${userId}: Analysis successful.`);
