@@ -19,6 +19,7 @@ import { Badge } from '@/components/ui/badge';
 import SuggestionSelector from './SuggestionSelector';
 import RoleBasedSuggestionSelector, { RoleImprovement } from './RoleBasedSuggestionSelector';
 import CVPreviewModal from './CVPreviewModal';
+import type { FrontendRoleImprovement } from '@/lib/cv/role-based-improvements';
 import ImprovementMetrics from './ImprovementMetrics';
 import CVExportOptions from './CVExportOptions';
 import QuantificationCustomizer, { QuantificationItem } from './QuantificationCustomizer';
@@ -82,6 +83,7 @@ interface CVImprovementWorkflowProps {
       description?: string;
       originalText?: string;
     }>;
+    roleBasedImprovements?: FrontendRoleImprovement[];
   };
 }
 

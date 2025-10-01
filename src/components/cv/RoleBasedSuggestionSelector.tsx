@@ -17,22 +17,10 @@ import {
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import type { FrontendRoleImprovement } from '@/lib/cv/role-based-improvements';
 
-export interface RoleImprovement {
-  role: string;              // "Platschef - Fitnessworld"
-  period: string;            // "2014-pågående"
-  originalText: string;      // Nuvarande CV-text
-  improvements: {
-    quantification: boolean;  // Har kvantifieringsförslag
-    keywords: string[];      // Keywords att lägga till
-    atsOptimization: boolean; // Behöver ATS-optimering
-  };
-  suggestedText: string;     // Kombinerat förbättringsförslag
-  selected: boolean;         // Användarvalt
-  confidence?: number;       // AI-konfidensgrad (0-1)
-  impact: 'high' | 'medium' | 'low'; // Påverkansnivå
-  sourceImprovementIds?: string[]; // ID:n från ursprungliga förbättringar
-}
+// Export FrontendRoleImprovement as RoleImprovement for backward compatibility
+export type RoleImprovement = FrontendRoleImprovement;
 
 interface GeneralImprovement {
   id: string;
