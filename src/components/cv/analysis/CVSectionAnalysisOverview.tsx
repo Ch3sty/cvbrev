@@ -1,7 +1,7 @@
 // src/components/cv/analysis/CVSectionAnalysisOverview.tsx
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import {
   BarChart3,
@@ -10,10 +10,14 @@ import {
   Zap,
   AlertCircle,
   TrendingUp,
-  CheckCircle2
+  CheckCircle2,
+  CheckSquare,
+  Square,
+  Wand2
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import SectionCard from './SectionCard';
 
 // ============================================================================
@@ -46,6 +50,7 @@ interface CVSectionAnalysisOverviewProps {
   generalImprovements: GeneralImprovement[];
   atsScore?: number;
   onStartImprovements?: () => void;
+  onImplementSelected?: (selectedImprovements: RoleBasedImprovement[]) => void;
 }
 
 // ============================================================================
@@ -81,19 +86,70 @@ export default function CVSectionAnalysisOverview({
   roleBasedImprovements,
   generalImprovements,
   atsScore = 0,
-  onStartImprovements
+  onStartImprovements,
+  onImplementSelected
 }: CVSectionAnalysisOverviewProps) {
+  // State for checkbox selection
+  const [selectedIndices, setSelectedIndices] = useState<Set<number>>(new Set());
+  const [editedTexts, setEditedTexts] = useState<Map<number, string>>(new Map());
 
-  // Beräkna prioriteter
+  // Beräkna prioriteter och sortera (senaste först, men behåll prioritet)
   const prioritizedRoles = roleBasedImprovements
-    .map(role => ({
+    .map((role, index) => ({
       ...role,
-      priority: calculatePriority(role)
+      priority: calculatePriority(role),
+      originalIndex: roleBasedImprovements.length - 1 - index // Reverse index för senaste först
     }))
     .sort((a, b) => {
+      // Primär sortering: prioritet
       const priorityOrder = { critical: 0, high: 1, medium: 2, low: 3 };
-      return priorityOrder[a.priority] - priorityOrder[b.priority];
+      const priorityDiff = priorityOrder[a.priority] - priorityOrder[b.priority];
+
+      // Om samma prioritet, sortera efter originalIndex (senaste först)
+      if (priorityDiff === 0) {
+        return a.originalIndex - b.originalIndex;
+      }
+
+      return priorityDiff;
     });
+
+  // Handlers
+  const toggleSelection = (index: number) => {
+    const newSelected = new Set(selectedIndices);
+    if (newSelected.has(index)) {
+      newSelected.delete(index);
+    } else {
+      newSelected.add(index);
+    }
+    setSelectedIndices(newSelected);
+  };
+
+  const handleTextEdit = (index: number, newText: string) => {
+    const newEdited = new Map(editedTexts);
+    newEdited.set(index, newText);
+    setEditedTexts(newEdited);
+  };
+
+  const handleImplementSelected = () => {
+    if (!onImplementSelected || selectedIndices.size === 0) return;
+
+    const selectedImprovements = prioritizedRoles
+      .filter((_, index) => selectedIndices.has(index))
+      .map((role, index) => ({
+        ...role,
+        suggestedText: editedTexts.get(index) || role.suggestedText
+      }));
+
+    onImplementSelected(selectedImprovements);
+  };
+
+  const selectAll = () => {
+    setSelectedIndices(new Set(prioritizedRoles.map((_, index) => index)));
+  };
+
+  const deselectAll = () => {
+    setSelectedIndices(new Set());
+  };
 
   const criticalCount = prioritizedRoles.filter(r => r.priority === 'critical').length;
   const highCount = prioritizedRoles.filter(r => r.priority === 'high').length;
@@ -239,10 +295,34 @@ export default function CVSectionAnalysisOverview({
         }}
         className="space-y-4"
       >
-        <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
-          <TrendingUp className="w-6 h-6 text-pink-600" />
-          Sektion-baserade Förbättringar
-        </h3>
+        <div className="flex items-center justify-between">
+          <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
+            <TrendingUp className="w-6 h-6 text-pink-600" />
+            Sektion-baserade Förbättringar
+          </h3>
+
+          {/* Selection Controls */}
+          {onImplementSelected && prioritizedRoles.length > 0 && (
+            <div className="flex items-center gap-3">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={selectAll}
+                className="text-sm"
+              >
+                Välj alla
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={deselectAll}
+                className="text-sm"
+              >
+                Avmarkera alla
+              </Button>
+            </div>
+          )}
+        </div>
 
         {prioritizedRoles.length === 0 ? (
           <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 p-8 text-center">
@@ -267,17 +347,37 @@ export default function CVSectionAnalysisOverview({
               key={`${role.roleTitle}-${index}`}
               variants={itemVariants}
               transition={{ duration: 0.5, ease: "easeOut" }}
+              className="relative"
             >
-              <SectionCard
-                sectionName={`${role.roleTitle} - ${role.company}`}
-                sectionType="work_experience"
-                period={role.period}
-                priority={role.priority}
-                currentText={role.currentText || ''}
-                suggestedText={role.suggestedText}
-                improvements={role.improvements}
-                atsImpact={role.atsImpact || 0}
-              />
+              {/* Checkbox for selection */}
+              {onImplementSelected && (
+                <div
+                  className="absolute top-4 left-4 z-10 cursor-pointer"
+                  onClick={() => toggleSelection(index)}
+                >
+                  <div className="bg-white rounded-md p-1 shadow-md border-2 border-gray-300 hover:border-blue-500 transition-colors">
+                    {selectedIndices.has(index) ? (
+                      <CheckSquare className="w-5 h-5 text-blue-600" />
+                    ) : (
+                      <Square className="w-5 h-5 text-gray-400" />
+                    )}
+                  </div>
+                </div>
+              )}
+
+              <div className={onImplementSelected ? 'ml-8' : ''}>
+                <SectionCard
+                  sectionName={`${role.roleTitle} - ${role.company}`}
+                  sectionType="work_experience"
+                  period={role.period}
+                  priority={role.priority}
+                  currentText={role.currentText || ''}
+                  suggestedText={role.suggestedText}
+                  improvements={role.improvements}
+                  atsImpact={role.atsImpact || 0}
+                  onTextEdit={onImplementSelected ? (newText) => handleTextEdit(index, newText) : undefined}
+                />
+              </div>
             </motion.div>
           ))
         )}
@@ -307,6 +407,36 @@ export default function CVSectionAnalysisOverview({
                     )}
                   </div>
                 ))}
+              </div>
+            </Card>
+          </motion.div>
+        )}
+
+        {/* Implement Selected Button */}
+        {onImplementSelected && prioritizedRoles.length > 0 && selectedIndices.size > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="sticky bottom-6 z-20"
+          >
+            <Card className="bg-gradient-to-r from-blue-600 to-purple-600 border-0 shadow-2xl">
+              <div className="p-6 flex items-center justify-between">
+                <div className="text-white">
+                  <h4 className="font-semibold text-lg mb-1">
+                    {selectedIndices.size} förbättring{selectedIndices.size !== 1 ? 'ar' : ''} vald{selectedIndices.size !== 1 ? 'a' : ''}
+                  </h4>
+                  <p className="text-sm text-blue-100">
+                    Klicka för att implementera valda förbättringar i ditt CV
+                  </p>
+                </div>
+                <Button
+                  onClick={handleImplementSelected}
+                  size="lg"
+                  className="bg-white text-blue-600 hover:bg-blue-50 font-semibold px-8 py-6 text-lg shadow-lg"
+                >
+                  <Wand2 className="w-5 h-5 mr-2" />
+                  Implementera valda
+                </Button>
               </div>
             </Card>
           </motion.div>

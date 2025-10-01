@@ -11,7 +11,9 @@ import {
   Type,
   AlertTriangle,
   Sparkles,
-  Check
+  Check,
+  Edit3,
+  Save
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -38,6 +40,7 @@ interface SectionCardProps {
   suggestedText: string;
   improvements: Improvements;
   atsImpact?: number;
+  onTextEdit?: (newText: string) => void; // Callback när text ändras
 }
 
 // ============================================================================
@@ -91,10 +94,20 @@ export default function SectionCard({
   currentText,
   suggestedText,
   improvements,
-  atsImpact
+  atsImpact,
+  onTextEdit
 }: SectionCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedText, setEditedText] = useState(suggestedText);
   const config = priorityConfig[priority];
+
+  const handleSave = () => {
+    if (onTextEdit && editedText !== suggestedText) {
+      onTextEdit(editedText);
+    }
+    setIsEditing(false);
+  };
 
   // Räkna förbättringstyper
   const improvementCount = [
@@ -194,15 +207,71 @@ export default function SectionCard({
               className="overflow-hidden"
             >
               <div className="mt-4">
-                <BeforeAfterComparison
-                  beforeText={currentText || ''}
-                  afterText={suggestedText}
-                  keywords={improvements.keywords || []}
-                  hasQuantification={!improvements.hasQuantification}
-                />
+                {!isEditing ? (
+                  <>
+                    <BeforeAfterComparison
+                      beforeText={currentText || ''}
+                      afterText={editedText}
+                      keywords={improvements.keywords || []}
+                      hasQuantification={!improvements.hasQuantification}
+                    />
+
+                    {/* Edit Button */}
+                    {onTextEdit && (
+                      <div className="mt-3 flex justify-end">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setIsEditing(true)}
+                          className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                        >
+                          <Edit3 className="w-3 h-3 mr-1" />
+                          Redigera förslag
+                        </Button>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="space-y-3">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Redigera AI-förslag
+                        <span className="text-gray-500 font-normal ml-2">
+                          (Justera siffror, erfarenheter och detaljer)
+                        </span>
+                      </label>
+                      <textarea
+                        value={editedText}
+                        onChange={(e) => setEditedText(e.target.value)}
+                        className="w-full min-h-[120px] p-3 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="Redigera AI:ns förslag här..."
+                      />
+                    </div>
+                    <div className="flex gap-2 justify-end">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          setEditedText(suggestedText);
+                          setIsEditing(false);
+                        }}
+                      >
+                        Avbryt
+                      </Button>
+                      <Button
+                        size="sm"
+                        onClick={handleSave}
+                        className="bg-blue-600 hover:bg-blue-700 text-white"
+                      >
+                        <Save className="w-3 h-3 mr-1" />
+                        Spara ändringar
+                      </Button>
+                    </div>
+                  </div>
+                )}
 
                 {/* Grammar Issues */}
-                {(improvements.grammarIssues?.length || 0) > 0 && (
+                {!isEditing && (improvements.grammarIssues?.length || 0) > 0 && (
                   <div className="mt-4 p-3 bg-orange-50 rounded-lg border border-orange-200">
                     <div className="flex items-start gap-2">
                       <AlertTriangle className="w-4 h-4 text-orange-600 mt-0.5 flex-shrink-0" />

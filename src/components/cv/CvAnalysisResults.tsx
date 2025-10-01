@@ -246,34 +246,131 @@ const ScoreCard: React.FC<{ title: string; score?: Score; maxRating?: number; ic
 ScoreCard.displayName = 'ScoreCard';
 
 /**
- * Renders the entire scores section, adapting display based on premium status.
+ * Renders the entire scores section with progression tracking
  */
-const ScoresSection: React.FC<{ scores?: BasicAnalysisResult['scores'] | PremiumAnalysisResult['scores']; isPremium: boolean }> = React.memo(({ scores, isPremium }) => {
+const ScoresSection: React.FC<{
+    scores?: BasicAnalysisResult['scores'] | PremiumAnalysisResult['scores'];
+    isPremium: boolean;
+    roleBasedImprovements?: RoleBasedImprovement[];
+    atsData?: PremiumAnalysisResult['atsFriendliness'];
+}> = React.memo(({ scores, isPremium, roleBasedImprovements, atsData }) => {
     // Extract scores safely, provide fallbacks
     const clarityScore = scores?.clarityAndStructure;
     const impactScore = isPremium ? (scores as PremiumAnalysisResult['scores'])?.impactAndResults : undefined;
-    // Use specific strongVerbs if available, else map impactAndResults for premium, else undefined
     const strongVerbScore = scores?.strongVerbs ?? impactScore;
     const overallScore = isPremium ? (scores as PremiumAnalysisResult['scores'])?.overall : undefined;
     const relevanceScore = isPremium ? (scores as PremiumAnalysisResult['scores'])?.relevance : undefined;
 
-    // Check if there are any scores to display
-    const hasScores = clarityScore || strongVerbScore || overallScore || relevanceScore;
+    // Calculate potential improvement from role-based analysis
+    const calculatePotentialImprovement = () => {
+        if (!roleBasedImprovements || roleBasedImprovements.length === 0) return null;
+
+        // Sum up ATS impact from all role improvements
+        const totalAtsImpact = roleBasedImprovements.reduce((sum, role) => {
+            return sum + (role.atsImpact || 0);
+        }, 0);
+
+        // Current ATS score
+        const currentAtsScore = atsData?.score || 0;
+
+        // Estimated improvement (cap at 100)
+        const estimatedImprovedScore = Math.min(100, currentAtsScore + totalAtsImpact);
+
+        return {
+            current: currentAtsScore,
+            potential: estimatedImprovedScore,
+            improvement: totalAtsImpact,
+            improvementCount: roleBasedImprovements.length
+        };
+    };
+
+    const potentialImprovement = calculatePotentialImprovement();
 
     return (
         <AnalysisSection title="Poäng & Bedömning" icon={Trophy}>
-            {hasScores ? (
-                <div className="flex flex-wrap gap-4">
-                    {/* Premium Scores */}
-                    {isPremium && overallScore && <ScoreCard title="Övergripande" score={overallScore} maxRating={10} icon={CheckCircle} />}
-                    {isPremium && relevanceScore && <ScoreCard title="Relevans" score={relevanceScore} maxRating={10} icon={Target} />}
-                    {/* Common/Adapted Scores */}
-                    {clarityScore && <ScoreCard title="Tydlighet & Struktur" score={clarityScore} maxRating={isPremium ? 10 : 5} icon={Type} />}
-                    {strongVerbScore && <ScoreCard title={isPremium ? "Impact & Resultat" : "Starka Verb"} score={strongVerbScore} maxRating={isPremium ? 10 : 5} icon={Zap} />}
-                 </div>
-            ) : (
-                <p className={fallbackTextClasses}>Ingen poänginformation tillgänglig.</p>
-            )}
+            <div className="space-y-6">
+                {/* Current CV Scores */}
+                <div>
+                    <h4 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wider">
+                        Ditt nuvarande CV
+                    </h4>
+                    <div className="flex flex-wrap gap-4">
+                        {/* Premium Scores */}
+                        {isPremium && overallScore && <ScoreCard title="Övergripande" score={overallScore} maxRating={10} icon={CheckCircle} />}
+                        {isPremium && relevanceScore && <ScoreCard title="Relevans" score={relevanceScore} maxRating={10} icon={Target} />}
+                        {/* Common/Adapted Scores */}
+                        {clarityScore && <ScoreCard title="Tydlighet & Struktur" score={clarityScore} maxRating={isPremium ? 10 : 5} icon={Type} />}
+                        {strongVerbScore && <ScoreCard title={isPremium ? "Impact & Resultat" : "Starka Verb"} score={strongVerbScore} maxRating={isPremium ? 10 : 5} icon={Zap} />}
+                    </div>
+                </div>
+
+                {/* ATS Score with Potential Improvement */}
+                {atsData && (
+                    <div>
+                        <h4 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wider">
+                            ATS-Vänlighet (Applicant Tracking System)
+                        </h4>
+                        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200">
+                            <div className="flex items-center justify-between mb-4">
+                                <div>
+                                    <div className="text-sm text-gray-600 mb-1">Nuvarande poäng</div>
+                                    <div className="flex items-baseline">
+                                        <span className={`text-4xl font-bold ${atsData.score >= 75 ? 'text-green-600' : atsData.score >= 50 ? 'text-yellow-600' : 'text-red-600'}`}>
+                                            {atsData.score}
+                                        </span>
+                                        <span className="text-lg text-gray-500 ml-1">/100</span>
+                                    </div>
+                                </div>
+
+                                {potentialImprovement && potentialImprovement.improvement > 0 && (
+                                    <>
+                                        <ArrowRight className="w-8 h-8 text-gray-400" />
+                                        <div>
+                                            <div className="text-sm text-gray-600 mb-1">Potentiell förbättring</div>
+                                            <div className="flex items-baseline">
+                                                <span className="text-4xl font-bold text-green-600">
+                                                    {potentialImprovement.potential}
+                                                </span>
+                                                <span className="text-lg text-gray-500 ml-1">/100</span>
+                                                <span className="text-sm text-green-600 ml-2 font-semibold">
+                                                    (+{potentialImprovement.improvement})
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+
+                            <p className="text-sm text-gray-700 leading-relaxed mb-3">
+                                {atsData.feedback}
+                            </p>
+
+                            {potentialImprovement && potentialImprovement.improvement > 0 && (
+                                <div className="bg-white/50 rounded-lg p-4 border border-blue-200 mt-4">
+                                    <div className="flex items-start gap-2">
+                                        <Lightbulb className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                                        <div>
+                                            <p className="text-sm font-semibold text-gray-900 mb-1">
+                                                Värdeskapande insikter
+                                            </p>
+                                            <p className="text-sm text-gray-700">
+                                                Genom att implementera våra {potentialImprovement.improvementCount} föreslagna förbättringar
+                                                kan ditt CV:s ATS-poäng förbättras med upp till <strong>+{potentialImprovement.improvement} poäng</strong>.
+                                                Detta ökar chansen att ditt CV kommer förbi automatiska urvalsystem och når rekryterare.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
+
+                {/* Fallback if no scores available */}
+                {!clarityScore && !strongVerbScore && !overallScore && !relevanceScore && !atsData && (
+                    <p className={fallbackTextClasses}>Ingen poänginformation tillgänglig.</p>
+                )}
+            </div>
         </AnalysisSection>
     );
 });
@@ -427,6 +524,8 @@ PremiumTeaserSection.displayName = 'PremiumTeaserSection';
 
 const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, cvContent, cvId }) => {
     const [showImprovementWorkflow, setShowImprovementWorkflow] = useState(false);
+    const [isProcessing, setIsProcessing] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     // Handle loading or no data state gracefully
     if (!data) {
@@ -542,6 +641,73 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
         setShowImprovementWorkflow(true);
     };
 
+    /**
+     * Applicerar valda förbättringar på CV-texten
+     */
+    const applyImprovements = (originalText: string, improvements: any[]): string => {
+        let updatedText = originalText;
+
+        improvements.forEach(improvement => {
+            const { currentText, suggestedText } = improvement;
+
+            // Om vi har både original och förbättrad text, ersätt
+            if (currentText && suggestedText) {
+                // Normalisera whitespace för att hantera olika formatering
+                const normalizedCurrent = currentText.trim().replace(/\s+/g, ' ');
+                const normalizedOriginal = updatedText.replace(/\s+/g, ' ');
+
+                // Hitta och ersätt texten
+                if (normalizedOriginal.includes(normalizedCurrent)) {
+                    updatedText = updatedText.replace(
+                        new RegExp(currentText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'),
+                        suggestedText
+                    );
+                }
+            }
+        });
+
+        return updatedText;
+    };
+
+    const handleImplementSelected = async (selectedImprovements: any[]) => {
+        if (!cvContent || !cvId || selectedImprovements.length === 0) {
+            return;
+        }
+
+        setIsProcessing(true);
+
+        try {
+            // 1. Applicera förbättringar på CV-texten
+            const improvedText = applyImprovements(cvContent, selectedImprovements);
+
+            // 2. Spara till databasen
+            const response = await fetch('/api/cv/update', {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: cvId,
+                    cv_text: improvedText,
+                }),
+            });
+
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.error || 'Kunde inte uppdatera CV');
+            }
+
+            // 3. Visa success-modal
+            setShowSuccessModal(true);
+
+        } catch (error) {
+            console.error('Error implementing improvements:', error);
+            alert('Ett fel uppstod när förbättringarna skulle implementeras. Försök igen.');
+        } finally {
+            setIsProcessing(false);
+        }
+    };
+
     // If improvement workflow is active, show it instead of regular results
     if (showImprovementWorkflow && cvContent && cvId) {
         // Prepare analysis details to pass to improvement workflow
@@ -572,12 +738,14 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
 
     return (
         <div className="space-y-6">
-            {/* --- Common Sections --- */}
-            <AnalysisSection title="Sammanfattning" icon={ClipboardList}>
-                <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-                    <p className="text-sm text-gray-700 leading-relaxed">{summary}</p>
-                </div>
-            </AnalysisSection>
+            {/* --- Sammanfattning (dold för nu) --- */}
+            {summary && summary !== "Ingen sammanfattning tillgänglig." && (
+                <AnalysisSection title="Sammanfattning" icon={ClipboardList}>
+                    <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                        <p className="text-sm text-gray-700 leading-relaxed">{summary}</p>
+                    </div>
+                </AnalysisSection>
+            )}
 
             {/* NEW: Section-Based Analysis Overview (Premium Only) */}
             {isPremium && roleBasedImprovements && roleBasedImprovements.length > 0 && (
@@ -586,6 +754,7 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
                     generalImprovements={generalImprovements || []}
                     atsScore={atsData?.score}
                     onStartImprovements={cvContent && cvId ? handleStartImprovement : undefined}
+                    onImplementSelected={cvContent && cvId ? handleImplementSelected : undefined}
                 />
             )}
 
@@ -615,12 +784,20 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
                 </>
             )}
 
-            <AnalysisSection title="Nyckelord" icon={Tags}>
-                <KeywordList keywords={keywords} />
-            </AnalysisSection>
+            {/* --- Poäng & Bedömning (alltid synlig) --- */}
+            <ScoresSection
+                scores={scores}
+                isPremium={isPremium}
+                roleBasedImprovements={roleBasedImprovements}
+                atsData={atsData}
+            />
 
-            {/* Render scores using the dedicated component */}
-            <ScoresSection scores={scores} isPremium={isPremium} />
+            {/* --- Nyckelord (döljs för premium med role-based improvements) --- */}
+            {(!isPremium || !roleBasedImprovements || roleBasedImprovements.length === 0) && (
+                <AnalysisSection title="Nyckelord" icon={Tags}>
+                    <KeywordList keywords={keywords} />
+                </AnalysisSection>
+            )}
 
             {/* --- Premium-Only Sections --- */}
             {isPremium && (
@@ -635,6 +812,81 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
 
             {/* --- Improvement Workflow Button removed for premium users with role-based improvements --- */}
             {/* The new CVSectionAnalysisOverview component already handles improvements inline */}
+
+            {/* Success Modal */}
+            {showSuccessModal && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="bg-white rounded-xl shadow-2xl max-w-md w-full p-8"
+                    >
+                        <div className="text-center">
+                            {/* Success Icon */}
+                            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <CheckCircle className="w-12 h-12 text-green-600" />
+                            </div>
+
+                            {/* Title */}
+                            <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                                CV Uppdaterat!
+                            </h3>
+
+                            {/* Description */}
+                            <p className="text-gray-600 mb-6">
+                                Dina valda förbättringar har implementerats och sparats i ditt CV.
+                            </p>
+
+                            {/* Action Buttons */}
+                            <div className="space-y-3">
+                                <Link
+                                    href="/dashboard/profil/cv"
+                                    className="block w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-semibold px-6 py-3 rounded-lg transition-all shadow-lg"
+                                >
+                                    <div className="flex items-center justify-center gap-2">
+                                        <ClipboardList className="w-5 h-5" />
+                                        Visa mitt CV
+                                    </div>
+                                </Link>
+
+                                <Link
+                                    href="/cv-mallar"
+                                    className="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3 rounded-lg transition-all"
+                                >
+                                    <div className="flex items-center justify-center gap-2">
+                                        <Star className="w-5 h-5" />
+                                        Ladda ner med CV-mall
+                                    </div>
+                                </Link>
+
+                                <button
+                                    onClick={() => setShowSuccessModal(false)}
+                                    className="w-full text-gray-600 hover:text-gray-800 font-medium px-6 py-3 rounded-lg transition-colors"
+                                >
+                                    Stäng
+                                </button>
+                            </div>
+                        </div>
+                    </motion.div>
+                </div>
+            )}
+
+            {/* Processing Overlay */}
+            {isProcessing && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-xl shadow-2xl p-8 max-w-sm">
+                        <div className="flex flex-col items-center">
+                            <div className="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mb-4" />
+                            <p className="text-lg font-semibold text-gray-900">
+                                Implementerar förbättringar...
+                            </p>
+                            <p className="text-sm text-gray-600 mt-2">
+                                Detta kan ta några sekunder
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 });
