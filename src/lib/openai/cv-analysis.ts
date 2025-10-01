@@ -29,6 +29,21 @@ interface PremiumImprovement {
     example?: string; // Konkret exempel på hur det kan skrivas om
 }
 
+interface RoleBasedImprovement {
+    roleTitle: string;
+    company: string;
+    period: string;
+    currentText: string;
+    improvements: {
+        hasQuantification: boolean;
+        keywords: string[];
+        grammarIssues: string[];
+        atsOptimization: boolean;
+    };
+    suggestedText: string;
+    atsImpact: number;
+}
+
 // Ärv från Basic och lägg till/ersätt fält
 interface PremiumAnalysisResult extends Omit<BasicAnalysisResult, 'analysisType' | 'identifiedStrengths' | 'improvementAreas' | 'scores'> {
     analysisType: 'premium';
@@ -36,7 +51,9 @@ interface PremiumAnalysisResult extends Omit<BasicAnalysisResult, 'analysisType'
     keywords: string[]; // Överskrider Basic (kan vara fler)
     // Premium-specifika fält
     detailedStrengths?: Array<{ point: string; example?: string }>; // Styrkor med exempel
-    detailedImprovements?: PremiumImprovement[]; // Mer strukturerade förbättringar
+    detailedImprovements?: PremiumImprovement[]; // Mer strukturerade förbättringar (legacy)
+    roleBasedImprovements?: RoleBasedImprovement[]; // Roll-baserade förbättringar (nytt)
+    generalImprovements?: Array<{ area: string; suggestion: string; example?: string }>; // Allmänna förbättringar
     atsFriendliness?: { // Applicant Tracking System
         score: number; // 0-100
         feedback: string;
@@ -115,29 +132,82 @@ export async function analyzeCvBasic(cvText: string): Promise<BasicAnalysisResul
 }
 
 // --- Premium Analysfunktion ---
-export async function analyzeCvPremium(cvText: string): Promise<PremiumAnalysisResult> {
-    // ... (kod för prompt och API-anrop är oförändrad) ...
+export async function analyzeCvPremium(cvText: string, parsedCV?: any): Promise<PremiumAnalysisResult> {
     const truncatedCV = cvText.substring(0, 8000);
     const modelToUse = "gpt-4.1";
+
+    // Bygg roll-kontext om parsedCV finns
+    let rolesContext = '';
+    if (parsedCV && parsedCV.roles && parsedCV.roles.length > 0) {
+        rolesContext = '\n\n=== IDENTIFIERADE ROLLER ===\n' + parsedCV.roles.map((r: any, idx: number) =>
+            `\nROLL ${idx + 1}:\nTitel: ${r.title}\nFöretag: ${r.company}\nPeriod: ${r.period}\nNuvarande text: ${r.description || r.originalText}`
+        ).join('\n---');
+    }
+
     const systemPrompt = `
-        Du är en expert på CV-granskning och rekrytering med djup förståelse för Applicant Tracking Systems (ATS). Analysera följande svenska CV i detalj. Ge konkreta, handlingsorienterade råd och exempel. Svara ALLTID i JSON-format med exakt denna struktur:
+        Du är en expert på CV-granskning och rekrytering med djup förståelse för Applicant Tracking Systems (ATS). Analysera följande svenska CV i detalj och generera ROLL-BASERADE förbättringar.
+
+        VIKTIGT: För VARJE identifierad yrkesroll, generera EN komplett förbättrad version som kombinerar ALLA förbättringstyper (ATS-nyckelord, kvantifiering, grammatik, starka verb) i SAMMA text.
+
+        Svara ALLTID i JSON-format med exakt denna struktur:
         {
           "summary": "En detaljerad sammanfattning (3-4 meningar) som lyfter fram CV:ts kärnbudskap, målgruppsanpassning och övergripande intryck.",
           "detailedStrengths": [ { "point": "Specifik identifierad styrka", "example": "Konkret exempel från CV:t som illustrerar styrkan, t.ex., 'Användningen av projekt X för att visa Y-kompetens är effektiv.'" } ],
-          "detailedImprovements": [ { "area": "Område för förbättring (t.ex. 'Arbetslivserfarenhet', 'Profilsammanfattning', 'Kompetenser')", "suggestion": "Specifikt och handlingsbart förslag, t.ex. 'Kvantifiera resultaten under rollen som Projektledare'", "example": "Eventuellt ett kort exempel på hur det kan skrivas om, t.ex. 'Istället för Ansvarade för budget, skriv Ledde budget på X SEK och uppnådde Y% besparing.'" } ],
+          "roleBasedImprovements": [
+            {
+              "roleTitle": "Exakt titel från CV",
+              "company": "Företagsnamn",
+              "period": "Tidsperiod",
+              "currentText": "Nuvarande text för denna roll från CV:t",
+              "improvements": {
+                "hasQuantification": true/false,
+                "keywords": ["nyckelord1", "nyckelord2", "nyckelord3"],
+                "grammarIssues": ["specifikt fel1", "specifikt fel2"] eller [],
+                "atsOptimization": true/false
+              },
+              "suggestedText": "KOMPLETT förbättrad CV-text för denna roll som KOMBINERAR alla förbättringar: kvantifiering MED konkreta siffror, bransch-specifika ATS-nyckelord, korrigerad grammatik OCH starka resultat-fokuserade verb i EN sammanhängande professionell text (minst 80 ord). Texten MÅSTE vara färdig CV-text som kan användas direkt, INTE en beskrivning av vad som ska göras.",
+              "atsImpact": number (poäng-förbättring 0-20)
+            }
+          ],
+          "generalImprovements": [
+            {
+              "area": "Profilsammanfattning" | "Färdigheter" | "Utbildning",
+              "suggestion": "Specifikt förslag",
+              "example": "Konkret exempel på förbättring"
+            }
+          ],
           "keywords": ["Omfattande lista med identifierade nyckelord och tekniska termer (10-15 st)"],
-          "atsFriendliness": { "score": number (0-100), "feedback": "Specifik feedback om ATS-läsbarhet, formatering, och nyckelordsanvändning.", "missingKeywords": ["Eventuell lista på 3-5 viktiga nyckelord som troligen saknas baserat på vanliga roller/branscher, om det går att avgöra"] },
-          "quantificationSuggestions": [ "Lista med 2-4 specifika punkter i CV:t där kvantifiering skulle stärka intrycket, t.ex., 'Resultat under rollen [Rollnamn]', 'Effekten av projekt [Projektnamn]'" ],
-          "scores": { "overall": { "rating": number (1-10), "feedback": "Övergripande bedömning" }, "clarityAndStructure": { "rating": number (1-10), "feedback": "Detaljerad feedback om läsbarhet, struktur, sektionsindelning." }, "relevance": { "rating": number (1-10), "feedback": "Bedömning av hur väl innehållet verkar anpassat (generellt, då vi inte har jobbannons här)." }, "impactAndResults": { "rating": number (1-10), "feedback": "Feedback om användning av resultat, prestationer och starka verb." } }
+          "atsFriendliness": { "score": number (0-100), "feedback": "Specifik feedback om ATS-läsbarhet, formatering, och nyckelordsanvändning.", "missingKeywords": ["Eventuell lista på 3-5 viktiga nyckelord som troligen saknas baserat på vanliga roller/branscher"] },
+          "quantificationSuggestions": [ "Lista med 2-4 specifika punkter i CV:t där kvantifiering skulle stärka intrycket" ],
+          "scores": { "overall": { "rating": number (1-10), "feedback": "Övergripande bedömning" }, "clarityAndStructure": { "rating": number (1-10), "feedback": "Detaljerad feedback om läsbarhet, struktur, sektionsindelning." }, "relevance": { "rating": number (1-10), "feedback": "Bedömning av hur väl innehållet verkar anpassat." }, "impactAndResults": { "rating": number (1-10), "feedback": "Feedback om användning av resultat, prestationer och starka verb." } }
         }
-        Ge betyg (rating) från 1 (Mycket svagt) till 10 (Utmärkt). Ge många konkreta exempel i 'detailedStrengths' och 'detailedImprovements'. Var kritisk men konstruktiv.
+
+        KRITISKA REGLER FÖR suggestedText:
+        1. MÅSTE vara FULLSTÄNDIG CV-text för rollen, INTE en beskrivning eller instruktion
+        2. MÅSTE inkludera KONKRETA SIFFROR för kvantifiering (teamstorlek, budget, resultat, procentuella förbättringar)
+        3. MÅSTE vara minst 80 ord lång och läsbar som sammanhängande text
+        4. MÅSTE använda starka aktiva verb (ledde, utvecklade, implementerade, ökade, förbättrade)
+        5. MÅSTE innehålla bransch-specifika ATS-nyckelord naturligt integrerade
+        6. Generera EN förbättring PER ROLL, inte flera varianter
+
+        EXEMPEL PÅ KORREKT suggestedText för en Platschef-roll:
+        "Ledde Stockholms största träningsanläggning (Fitnessworld Skärholmen) med 3500 medlemmar och ansvar för team på 15 anställda. Hanterade budgetansvar på 5 MSEK årligen med fokus på drift, inköp, personalutveckling och medlemssystem. Implementerade nya rutiner för kundnöjdhet som ökade retentionen med 25% och minskade personalomsättningen från 40% till 15% på 18 månader. Ansvarade för webbsida, digital marknadsföring och statistikuppföljning. Utvecklade och genomförde träningsprogram som resulterade i 95% kundnöjdhet enligt NPS-mätningar."
+
+        EXEMPEL PÅ FEL suggestedText (undvik dessa):
+        ❌ "Förbättrad version kommer att inkludera teamstorlek och budget" ← Detta är INTE CV-text!
+        ❌ "Lägg till konkreta siffror om medlemmar" ← Detta är en instruktion, inte CV-text!
+        ❌ "Ansvarig för drift" ← För kort och saknar kvantifiering
+
+        Ge betyg (rating) från 1 (Mycket svagt) till 10 (Utmärkt). Var kritisk men konstruktiv.
     `;
 
      try {
+        const userPrompt = `Analysera följande CV i detalj och generera roll-baserade förbättringar:\n\n${truncatedCV}${rolesContext}`;
+
         const completion = await openai.chat.completions.create({
             model: modelToUse,
-            messages: [ { role: "system", content: systemPrompt }, { role: "user", content: `Analysera följande CV i detalj:\n\n${truncatedCV}` } ],
-            temperature: 0.6, max_tokens: 2000, response_format: { type: "json_object" }
+            messages: [ { role: "system", content: systemPrompt }, { role: "user", content: userPrompt } ],
+            temperature: 0.6, max_tokens: 3000, response_format: { type: "json_object" }
         });
 
         const content = completion.choices[0].message.content || '{}';
@@ -157,7 +227,9 @@ export async function analyzeCvPremium(cvText: string): Promise<PremiumAnalysisR
 
           // Premium fields
           detailedStrengths: parsedResult.detailedStrengths || [],
-          detailedImprovements: parsedResult.detailedImprovements || [],
+          detailedImprovements: parsedResult.detailedImprovements || [], // Legacy fallback
+          roleBasedImprovements: parsedResult.roleBasedImprovements || [], // Nytt roll-baserat format
+          generalImprovements: parsedResult.generalImprovements || [],
           atsFriendliness: parsedResult.atsFriendliness,
           quantificationSuggestions: parsedResult.quantificationSuggestions || [],
 

@@ -261,8 +261,8 @@ export async function POST(request: NextRequest) {
         // --- 5. Perform AI Analysis with Role-Based Parsing ---
         console.log(`API analyzeCv: User ${userId} (${profileData.subscriptionTier}): Performing analysis for CV ${cvId}...`);
 
-        // OPTIMERING: Kör parseCV och analyzeCv parallellt för att spara tid
-        console.log('🚀 Starting parallel analysis (parseCV + analyzeCv)...');
+        // Kör parseCV först, sedan analyzeCv med parsad data
+        console.log('🚀 Starting sequential analysis (parseCV → analyzeCv)...');
         const startTime = Date.now();
 
         // Timeout-hantering: Sätt en timeout på 50 sekunder (ger 10s marginal innan Vercel's 60s limit)
@@ -274,18 +274,19 @@ export async function POST(request: NextRequest) {
 
         let parsedCV, analysisResult;
         try {
-            // Kör analys med timeout
-            [parsedCV, analysisResult] = await Promise.race([
-                Promise.all([
-                    parseCV(cvText),
-                    profileData.subscriptionTier === 'premium'
-                        ? analyzeCvPremium(cvText)
-                        : analyzeCvBasic(cvText)
-                ]),
+            // Först: Parse CV för att identifiera roller
+            parsedCV = await parseCV(cvText);
+            console.log(`✓ CV parsing completed, found ${parsedCV.roles.length} roles`);
+
+            // Sedan: Analysera CV med parsad roll-information
+            analysisResult = await Promise.race([
+                profileData.subscriptionTier === 'premium'
+                    ? analyzeCvPremium(cvText, parsedCV)  // Skicka parsedCV till premium-analysen
+                    : analyzeCvBasic(cvText),
                 analysisTimeout
             ]);
 
-            console.log(`⏱️ Parallel analysis completed in ${Date.now() - startTime}ms`);
+            console.log(`⏱️ Analysis completed in ${Date.now() - startTime}ms`);
         } catch (timeoutError) {
             console.error(`⚠️ Analysis timeout after ${Date.now() - startTime}ms`);
             // Returnera delresultat om timeout
@@ -304,67 +305,30 @@ export async function POST(request: NextRequest) {
             console.warn('⚠️ CV parsing validation failed, using fallback analysis');
         }
 
-        // Generate role-based improvements if parsing was successful
-        if (isValid && parsedCV.roles.length > 0) {
-            console.log(`🎯 Generating role-based improvements for ${parsedCV.roles.length} roles (parallel)...`);
-            const roleStartTime = Date.now();
+        // Add parsed roles info to analysis result
+        (analysisResult as any).parsedRoles = parsedCV.roles.map(r => ({
+            title: r.title,
+            company: r.company,
+            period: r.period
+        }));
 
-            // OPTIMERING: Kör alla rollförbättringar parallellt istället för sekventiellt
-            const roleImprovementPromises = parsedCV.roles.slice(0, 3).map(async (role, index) => {
-                console.log(`  → Starting improvements for role ${index + 1}: ${role.title}`);
-                const improvements = await generateRoleBasedImprovements(role, {
-                    maxSuggestions: 3,
-                    focusAreas: ['quantification', 'keywords']
-                });
-                console.log(`  ✓ Completed improvements for role ${index + 1}: ${role.title}`);
-                return improvements;
-            });
-
-            // Timeout för rollförbättringar (10 sekunder max)
-            const roleTimeout = new Promise<never>((_, reject) => {
-                setTimeout(() => reject(new Error('Role improvements timeout')), 10000);
-            });
-
-            let roleBasedImprovements: any[] = [];
-            try {
-                // Vänta på alla rollförbättringar samtidigt med timeout
-                const roleImprovementResults = await Promise.race([
-                    Promise.all(roleImprovementPromises),
-                    roleTimeout
-                ]);
-                roleBasedImprovements = roleImprovementResults.flat();
-                console.log(`⏱️ Role improvements completed in ${Date.now() - roleStartTime}ms`);
-            } catch (roleTimeoutError) {
-                console.warn(`⚠️ Role improvements timeout after ${Date.now() - roleStartTime}ms, continuing without them`);
-                // Fortsätt utan rollförbättringar om timeout
-                roleBasedImprovements = [];
-            }
-
-            // Format role-based improvements for frontend
-            const { formatRoleImprovementsForFrontend } = await import('@/lib/cv/role-based-improvements');
-            const formattedRoleImprovements = formatRoleImprovementsForFrontend(roleBasedImprovements);
-
-            // Enhance analysis result with formatted role-based improvements
-            (analysisResult as any).roleBasedImprovements = formattedRoleImprovements;
-            (analysisResult as any).parsedRoles = parsedCV.roles.map(r => ({
-                title: r.title,
-                company: r.company,
-                period: r.period
-            }));
-
-            // Extract general improvements from analysis result
-            const generalImprovements = extractGeneralImprovementsFromAnalysis(analysisResult);
-            (analysisResult as any).generalImprovements = generalImprovements;
-
-            console.log(`✅ Generated ${formattedRoleImprovements.length} role-based improvements (from ${roleBasedImprovements.length} raw improvements)`);
-            console.log('📊 Role details:', formattedRoleImprovements.map(r => ({
-              role: r.role,
-              hasSuggestedText: !!r.suggestedText,
-              textLength: r.suggestedText?.length || 0,
-              textPreview: r.suggestedText?.substring(0, 60) || 'TOM'
+        // Log role-based improvements from AI analysis
+        const roleImprovementsFromAI = (analysisResult as any).roleBasedImprovements || [];
+        console.log(`✅ AI generated ${roleImprovementsFromAI.length} role-based improvements`);
+        if (roleImprovementsFromAI.length > 0) {
+            console.log('📊 Role-based improvements from AI:', roleImprovementsFromAI.map((r: any) => ({
+                role: `${r.roleTitle} - ${r.company}`,
+                hasSuggestedText: !!r.suggestedText,
+                textLength: r.suggestedText?.length || 0,
+                textPreview: r.suggestedText?.substring(0, 80) || 'SAKNAS'
             })));
-            console.log(`✅ Extracted ${generalImprovements.length} general improvements from analysis`);
         }
+
+        // Extract general improvements from analysis result
+        const generalImprovements = (analysisResult as any).generalImprovements ||
+            extractGeneralImprovementsFromAnalysis(analysisResult);
+        (analysisResult as any).generalImprovements = generalImprovements;
+        console.log(`✅ Extracted ${generalImprovements.length} general improvements from analysis`);
 
         console.log(`API analyzeCv: User ${userId}: Analysis successful.`);
 

@@ -36,6 +36,7 @@ import {
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import CVImprovementWorkflow, { Suggestion } from './CVImprovementWorkflow';
+import CVSectionAnalysisOverview from './analysis/CVSectionAnalysisOverview';
 
 // --- Type Definitions ---
 // It's highly recommended to move these types to a shared location
@@ -63,11 +64,34 @@ interface PremiumImprovement {
     example?: string;
 }
 
+interface RoleBasedImprovement {
+    roleTitle: string;
+    company: string;
+    period: string;
+    currentText: string;
+    improvements: {
+        hasQuantification: boolean;
+        keywords: string[];
+        grammarIssues: string[];
+        atsOptimization: boolean;
+    };
+    suggestedText: string;
+    atsImpact: number;
+}
+
+interface GeneralImprovement {
+    area: string;
+    suggestion: string;
+    example?: string;
+}
+
 interface PremiumAnalysisResult {
     analysisType: 'premium';
     summary?: string;
     detailedStrengths?: Array<{ point: string; example?: string }>;
     detailedImprovements?: PremiumImprovement[];
+    roleBasedImprovements?: RoleBasedImprovement[];
+    generalImprovements?: GeneralImprovement[];
     keywords?: string[];
     atsFriendliness?: {
         score: number;
@@ -542,6 +566,10 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
         );
     }
 
+    // Get role-based and general improvements from premium analysis
+    const roleBasedImprovements = isPremium ? (data as PremiumAnalysisResult).roleBasedImprovements : undefined;
+    const generalImprovements = isPremium ? (data as PremiumAnalysisResult).generalImprovements : undefined;
+
     return (
         <div className="space-y-6">
             {/* --- Common Sections --- */}
@@ -551,26 +579,41 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
                 </div>
             </AnalysisSection>
 
-            <AnalysisSection title="Identifierade Styrkor" icon={ThumbsUp}>
-                {/* Render premium list if available, otherwise basic list */}
-                {isPremium && premiumStrengths ? (
-                    <PremiumStrengthsList strengths={premiumStrengths} />
-                ) : (
-                    <BasicList items={basicStrengths} />
-                )}
-            </AnalysisSection>
+            {/* NEW: Section-Based Analysis Overview (Premium Only) */}
+            {isPremium && roleBasedImprovements && roleBasedImprovements.length > 0 && (
+                <CVSectionAnalysisOverview
+                    roleBasedImprovements={roleBasedImprovements}
+                    generalImprovements={generalImprovements || []}
+                    atsScore={atsData?.score}
+                    onStartImprovements={cvContent && cvId ? handleStartImprovement : undefined}
+                />
+            )}
 
-            <AnalysisSection title="Förbättringsområden" icon={Lightbulb}>
-                {/* Render premium list if available, otherwise basic list */}
-                 {isPremium && premiumImprovements ? (
-                    <PremiumImprovementsList improvements={premiumImprovements.filter(imp => !isStructuralSuggestion(imp))} />
-                ) : (
-                    <BasicList items={basicImprovements?.filter(imp => !isStructuralSuggestion(imp))} />
-                )}
-            </AnalysisSection>
+            {/* Fallback: Show old analysis format if no role-based improvements */}
+            {(!isPremium || !roleBasedImprovements || roleBasedImprovements.length === 0) && (
+                <>
+                    <AnalysisSection title="Identifierade Styrkor" icon={ThumbsUp}>
+                        {/* Render premium list if available, otherwise basic list */}
+                        {isPremium && premiumStrengths ? (
+                            <PremiumStrengthsList strengths={premiumStrengths} />
+                        ) : (
+                            <BasicList items={basicStrengths} />
+                        )}
+                    </AnalysisSection>
 
-            {/* Show automatic improvements that will be handled by CV templates */}
-            <AutomaticImprovementsSection improvements={getAutomaticImprovements()} />
+                    <AnalysisSection title="Förbättringsområden" icon={Lightbulb}>
+                        {/* Render premium list if available, otherwise basic list */}
+                         {isPremium && premiumImprovements ? (
+                            <PremiumImprovementsList improvements={premiumImprovements.filter(imp => !isStructuralSuggestion(imp))} />
+                        ) : (
+                            <BasicList items={basicImprovements?.filter(imp => !isStructuralSuggestion(imp))} />
+                        )}
+                    </AnalysisSection>
+
+                    {/* Show automatic improvements that will be handled by CV templates */}
+                    <AutomaticImprovementsSection improvements={getAutomaticImprovements()} />
+                </>
+            )}
 
             <AnalysisSection title="Nyckelord" icon={Tags}>
                 <KeywordList keywords={keywords} />
@@ -591,8 +634,8 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
             {/* --- Premium Teaser (Basic Users Only) --- */}
             {!isPremium && <PremiumTeaserSection />}
 
-            {/* --- Improvement Workflow Button --- */}
-            {cvContent && cvId && (
+            {/* --- Improvement Workflow Button (only show if NOT using new section-based view) --- */}
+            {cvContent && cvId && (!isPremium || !roleBasedImprovements || roleBasedImprovements.length === 0) && (
                 <section className="bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50 border border-pink-200 rounded-xl p-6 text-center">
                     <div className="max-w-2xl mx-auto">
                         <div className="bg-gradient-to-r from-pink-600 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
