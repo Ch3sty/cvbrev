@@ -631,32 +631,10 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
                 </>
             )}
 
-            {/* --- Premium Teaser (Basic Users Only) --- */}
-            {!isPremium && <PremiumTeaserSection />}
+            {/* --- Premium Teaser removed - will be added later when everything works --- */}
 
-            {/* --- Improvement Workflow Button (only show if NOT using new section-based view) --- */}
-            {cvContent && cvId && (!isPremium || !roleBasedImprovements || roleBasedImprovements.length === 0) && (
-                <section className="bg-gradient-to-r from-pink-50 via-purple-50 to-blue-50 border border-pink-200 rounded-xl p-6 text-center">
-                    <div className="max-w-2xl mx-auto">
-                        <div className="bg-gradient-to-r from-pink-600 to-purple-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <Wand2 className="w-8 h-8 text-white" />
-                        </div>
-                        <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                            Förbättra ditt CV baserat på analysen
-                        </h3>
-                        <p className="text-gray-600 mb-6 max-w-md mx-auto leading-relaxed">
-                            Välj vilka innehållsförbättringar som ska implementeras. Struktur och formatering hanteras automatiskt av våra CV-mallar.
-                        </p>
-                        <Button
-                            onClick={handleStartImprovement}
-                            className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white px-6 py-3 text-sm font-medium rounded-lg shadow-lg hover:shadow-xl transition-all"
-                        >
-                            Starta förbättringsprocess
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                        </Button>
-                    </div>
-                </section>
-            )}
+            {/* --- Improvement Workflow Button removed for premium users with role-based improvements --- */}
+            {/* The new CVSectionAnalysisOverview component already handles improvements inline */}
         </div>
     );
 });
