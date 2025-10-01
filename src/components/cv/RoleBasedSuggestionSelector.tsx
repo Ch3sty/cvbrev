@@ -12,7 +12,9 @@ import {
   Briefcase,
   Star,
   TrendingUp,
-  Clock
+  Clock,
+  AlertTriangle,
+  Edit3
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -39,6 +41,7 @@ interface RoleBasedSuggestionSelectorProps {
   onGeneralToggle: (improvementId: string) => void;
   onSelectAllRoles: () => void;
   onClearRoleSelection: () => void;
+  onEditSuggestion?: (roleId: string, newText: string) => void;
 }
 
 const improvementTypeConfig = {
@@ -113,10 +116,13 @@ export default function RoleBasedSuggestionSelector({
   onRoleToggle,
   onGeneralToggle,
   onSelectAllRoles,
-  onClearRoleSelection
+  onClearRoleSelection,
+  onEditSuggestion
 }: RoleBasedSuggestionSelectorProps) {
   const [expandedRoles, setExpandedRoles] = useState<Set<string>>(new Set());
   const [expandedGeneral, setExpandedGeneral] = useState(false);
+  const [editingRole, setEditingRole] = useState<string | null>(null);
+  const [editedText, setEditedText] = useState<Record<string, string>>({});
 
   const toggleRoleExpansion = (roleId: string) => {
     setExpandedRoles(prev => {
@@ -173,8 +179,37 @@ export default function RoleBasedSuggestionSelector({
     return tags;
   };
 
+  const handleSaveEdit = (roleId: string) => {
+    if (editedText[roleId] && onEditSuggestion) {
+      onEditSuggestion(roleId, editedText[roleId]);
+    }
+    setEditingRole(null);
+  };
+
+  const handleStartEdit = (roleId: string, currentText: string) => {
+    setEditingRole(roleId);
+    setEditedText({ ...editedText, [roleId]: currentText });
+  };
+
   return (
     <div className="space-y-6">
+      {/* Warning about AI-generated numbers */}
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+        <div className="flex items-start gap-3">
+          <AlertTriangle className="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0" />
+          <div>
+            <h4 className="font-medium text-yellow-900 mb-1">
+              Viktigt: Verifiera AI-genererade siffror
+            </h4>
+            <p className="text-sm text-yellow-800">
+              AI:n har genererat uppskattade siffror baserat på kontext.
+              <strong> Redigera alltid dessa så de stämmer överens med dina faktiska prestationer</strong>
+              innan du använder dem i ditt CV. Klicka på "Redigera" vid varje förbättring för att anpassa texten.
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Header with Progress */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
@@ -363,16 +398,57 @@ export default function RoleBasedSuggestionSelector({
 
                         {/* Suggested Text */}
                         <div>
-                          <div className="flex items-center gap-2 mb-2">
-                            <div className="w-1 h-4 bg-gradient-to-b from-green-500 to-emerald-600 rounded-full"></div>
-                            <h5 className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
-                              Förbättrat förslag
-                            </h5>
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-2">
+                              <div className="w-1 h-4 bg-gradient-to-b from-green-500 to-emerald-600 rounded-full"></div>
+                              <h5 className="text-xs font-semibold text-gray-600 uppercase tracking-wide">
+                                Förbättrat förslag
+                              </h5>
+                            </div>
+                            {editingRole !== roleImprovement.role && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => handleStartEdit(roleImprovement.role, roleImprovement.suggestedText)}
+                                className="h-7 text-xs gap-1 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
+                              >
+                                <Edit3 className="h-3 w-3" />
+                                Redigera
+                              </Button>
+                            )}
                           </div>
                           <div className="p-4 bg-gradient-to-br from-green-50 via-emerald-50/50 to-green-50 rounded-lg border border-green-300/60 shadow-sm">
-                            <p className="text-sm text-gray-900 leading-relaxed font-medium">
-                              {roleImprovement.suggestedText}
-                            </p>
+                            {editingRole === roleImprovement.role ? (
+                              <div className="space-y-3">
+                                <textarea
+                                  className="w-full min-h-[120px] p-3 text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent resize-y"
+                                  value={editedText[roleImprovement.role] || roleImprovement.suggestedText}
+                                  onChange={(e) => setEditedText({ ...editedText, [roleImprovement.role]: e.target.value })}
+                                  placeholder="Redigera AI-genererad text här..."
+                                />
+                                <div className="flex justify-end gap-2">
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setEditingRole(null)}
+                                    className="h-8 text-xs"
+                                  >
+                                    Avbryt
+                                  </Button>
+                                  <Button
+                                    size="sm"
+                                    onClick={() => handleSaveEdit(roleImprovement.role)}
+                                    className="h-8 text-xs bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700"
+                                  >
+                                    Spara ändringar
+                                  </Button>
+                                </div>
+                              </div>
+                            ) : (
+                              <p className="text-sm text-gray-900 leading-relaxed font-medium">
+                                {editedText[roleImprovement.role] || roleImprovement.suggestedText}
+                              </p>
+                            )}
                             {/* Visual improvement indicators */}
                             <div className="mt-3 pt-3 border-t border-green-200/60 flex flex-wrap gap-2">
                               {roleImprovement.improvements.quantification && (
