@@ -249,7 +249,7 @@ export async function POST(request: NextRequest) {
         // --- 3. Fetch Profile & Handle Limits/Resets ---
         const profileData = await getUserProfileData(supabase, userId);
         const resetInfo = await checkAndResetAnalysisCount( supabase, userId, profileData.currentAnalysisCount, profileData.dbNextResetDate, profileData.lastAnalysisResetTimestamp );
-        let currentRemainingAnalyses = WEEKLY_ANALYSIS_LIMIT_FREE - resetInfo.count;
+        const currentRemainingAnalyses = WEEKLY_ANALYSIS_LIMIT_FREE - resetInfo.count;
         const nextResetDate = resetInfo.nextReset;
         if (profileData.subscriptionTier === 'free' && resetInfo.count >= WEEKLY_ANALYSIS_LIMIT_FREE) {
             console.log(`API analyzeCv: User ${userId} (Free): Limit reached after reset check.`);
