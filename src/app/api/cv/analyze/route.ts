@@ -357,6 +357,12 @@ export async function POST(request: NextRequest) {
             (analysisResult as any).generalImprovements = generalImprovements;
 
             console.log(`✅ Generated ${formattedRoleImprovements.length} role-based improvements (from ${roleBasedImprovements.length} raw improvements)`);
+            console.log('📊 Role details:', formattedRoleImprovements.map(r => ({
+              role: r.role,
+              hasSuggestedText: !!r.suggestedText,
+              textLength: r.suggestedText?.length || 0,
+              textPreview: r.suggestedText?.substring(0, 60) || 'TOM'
+            })));
             console.log(`✅ Extracted ${generalImprovements.length} general improvements from analysis`);
         }
 

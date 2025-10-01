@@ -87,6 +87,11 @@ export function formatRoleImprovementsForFrontend(
     // Get original text (use first improvement's original text)
     const originalText = roleImprovements[0].originalText;
 
+    // Generate fallback if AI example is empty or too short
+    const suggestedText = bestExample.aiExample && bestExample.aiExample.length > 20
+      ? bestExample.aiExample
+      : generateQuickFallbackText(roleKey, originalText, hasQuantification, uniqueKeywords);
+
     frontendImprovements.push({
       role: roleKey,
       period: roleImprovements[0].period,
@@ -96,7 +101,7 @@ export function formatRoleImprovementsForFrontend(
         keywords: uniqueKeywords,
         atsOptimization: hasKeywords || hasQuantification // ATS benefits from both
       },
-      suggestedText: bestExample.aiExample,
+      suggestedText, // Use fallback if AI failed
       selected: false,
       confidence: Math.max(...roleImprovements.map(imp => imp.confidence)),
       impact: determineOverallImpact(roleImprovements),
@@ -118,6 +123,28 @@ function determineOverallImpact(improvements: RoleBasedImprovement[]): 'high' | 
   if (hasMediumImpact) return 'medium';
 
   return 'low';
+}
+
+/**
+ * Generate quick fallback text if AI fails
+ */
+function generateQuickFallbackText(
+  roleKey: string,
+  originalText: string,
+  hasQuantification: boolean,
+  keywords: string[]
+): string {
+  const [title] = roleKey.split(' - ');
+
+  if (hasQuantification && keywords.length > 0) {
+    return `Förbättrad version för ${title} kommer att inkludera kvantifierade resultat och nyckelord som ${keywords.slice(0, 3).join(', ')}.`;
+  } else if (hasQuantification) {
+    return `Förbättrad version för ${title} kommer att inkludera konkreta siffror och mätbara resultat.`;
+  } else if (keywords.length > 0) {
+    return `Förbättrad version för ${title} kommer att optimeras med nyckelord: ${keywords.slice(0, 3).join(', ')}.`;
+  } else {
+    return `Professionell omformulering av din erfarenhet som ${title} för att stärka CV:t.`;
+  }
 }
 
 /**
@@ -473,8 +500,19 @@ export function validateAIResponse(response: string): boolean {
     return false;
   }
 
-  // REMOVED: "Ansvarade för" är faktiskt OK för CV-text!
-  // Det är variationen som är problemet, inte fraser i sig
+  // NYTT: Blockera personlig info och malformed starts
+  const personalInfoPatterns = [
+    /^ansvarade för\s+(christian|egen företagare|innefattar|agerade)/i,
+    /\b\d{2,4}\s*år\s+(från|i)\b/i, // "25 år från"
+    /christian\s+karlsson/i,
+  ];
+
+  for (const pattern of personalInfoPatterns) {
+    if (pattern.test(response.trim())) {
+      console.warn(`⚠️ AI response contains personal info or malformed start: "${response.substring(0, 50)}..."`);
+      return false;
+    }
+  }
 
   // Check for repetitive/generic starts that indicate low quality
   const genericStarts = [

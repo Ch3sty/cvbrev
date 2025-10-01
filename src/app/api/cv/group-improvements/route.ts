@@ -765,13 +765,8 @@ function transformToRoleBasedStructure(
     }
   });
 
-  // Convert map to array and filter out roles without improvements
-  return Array.from(roleMap.values()).filter(role =>
-    role.improvements.quantification ||
-    role.improvements.keywords.length > 0 ||
-    role.improvements.atsOptimization ||
-    role.suggestedText.length > 0
-  );
+  // Convert map to array - VISA ALLA ROLLER (även utan perfekt text)
+  return Array.from(roleMap.values());
 }
 
 /**

@@ -144,7 +144,12 @@ export default function CVImprovementWorkflow({
     if (analysisDetails?.roleBasedImprovements && Array.isArray(analysisDetails.roleBasedImprovements)) {
       console.log('✅ Använder färdiga roll-baserade förbättringar från analys:', {
         roleCount: analysisDetails.roleBasedImprovements.length,
-        generalCount: analysisDetails.generalImprovements?.length || 0
+        generalCount: analysisDetails.generalImprovements?.length || 0,
+        roleDetails: analysisDetails.roleBasedImprovements.map((r: any) => ({
+          role: r.role,
+          hasText: !!r.suggestedText,
+          textLength: r.suggestedText?.length || 0
+        }))
       });
 
       setRoleBasedImprovements(
