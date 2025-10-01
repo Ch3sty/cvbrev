@@ -17,7 +17,8 @@ export type ActivityType =
   | 'letter_edit_attempt_unsaved' // Försökte redigera osparat brev
   | 'cv_uploaded'               // Ny CV laddades upp
   | 'cv_deleted'                // CV togs bort
-  | 'cv_analysis_completed'     // <-- NYTT: CV-analys slutfördes framgångsrikt
+  | 'cv_analysis_started'       // CV-analys startades
+  | 'cv_analysis_completed'     // CV-analys slutfördes framgångsrikt
   | 'subscription_upgraded'     // Uppgraderade till premium
   | 'subscription_downgraded'   // Nedgraderade från premium
   | 'password_reset'            // Återställning av lösenord

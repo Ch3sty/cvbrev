@@ -196,10 +196,16 @@ export default function AnalyzeCvPage() {
 
       // Log activity
       if (profile?.id) {
-        await logUserActivity(profile.id, 'cv_analysis_started', {
-          cv_id: selectedCV,
-          job_id: result.jobId
-        });
+        const cvFileName = cvs?.find(cv => cv.id === selectedCV)?.file_name || 'Unknown CV';
+        await logUserActivity(
+          profile.id,
+          'cv_analysis_started',
+          `Started CV analysis for: ${cvFileName}`,
+          {
+            cv_id: selectedCV,
+            job_id: result.jobId
+          }
+        );
       }
 
       return result.jobId;
@@ -237,7 +243,7 @@ export default function AnalyzeCvPage() {
     setShowAnalysisModal(true);
     setError(null);
     setAnalysisResult(null);
-  }, [ selectedCV, showNotification, closeNotification, subscriptionTier, remainingWeeklyAnalyses, updateRemainingAnalyses, updateNextAnalysisResetDate, profile, cvs, pollForJobResult ]);
+  }, [selectedCV, showNotification, subscriptionTier, remainingWeeklyAnalyses]);
 
   const handleNavigateToCvManagement = useCallback(() => { router.push(PROFILE_CV_ROUTE); }, [router]);
   const handleUpgrade = useCallback(() => { router.push(UPGRADE_ROUTE); }, [router]);
