@@ -287,15 +287,19 @@ export async function POST(request: NextRequest) {
                 roleBasedImprovements = [];
             }
 
-            // Enhance analysis result with role-based improvements
-            (analysisResult as any).roleBasedImprovements = roleBasedImprovements;
+            // Format role-based improvements for frontend
+            const { formatRoleImprovementsForFrontend } = await import('@/lib/cv/role-based-improvements');
+            const formattedRoleImprovements = formatRoleImprovementsForFrontend(roleBasedImprovements);
+
+            // Enhance analysis result with formatted role-based improvements
+            (analysisResult as any).roleBasedImprovements = formattedRoleImprovements;
             (analysisResult as any).parsedRoles = parsedCV.roles.map(r => ({
                 title: r.title,
                 company: r.company,
                 period: r.period
             }));
 
-            console.log(`✅ Generated ${roleBasedImprovements.length} role-based improvements`);
+            console.log(`✅ Generated ${formattedRoleImprovements.length} role-based improvements (from ${roleBasedImprovements.length} raw improvements)`);
         }
 
         console.log(`API analyzeCv: User ${userId}: Analysis successful.`);

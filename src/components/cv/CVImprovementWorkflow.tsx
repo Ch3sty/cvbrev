@@ -133,13 +133,30 @@ export default function CVImprovementWorkflow({
       return;
     }
 
-    // Kontrollera att vi har nödvändiga data
+    // NYTT: Använd färdiga roll-baserade förbättringar från analysisDetails
+    if (analysisDetails?.roleBasedImprovements && Array.isArray(analysisDetails.roleBasedImprovements)) {
+      console.log('✅ Använder färdiga roll-baserade förbättringar från analys:', {
+        roleCount: analysisDetails.roleBasedImprovements.length
+      });
+
+      setRoleBasedImprovements(
+        analysisDetails.roleBasedImprovements.map((role: any) => ({
+          ...role,
+          selected: false
+        }))
+      );
+
+      setHasTriedLoading(true);
+      return;
+    }
+
+    // FALLBACK: Om inga färdiga förbättringar finns, försök gruppera manuellt
     if (!suggestions || suggestions.length === 0 || !originalCV) {
       console.warn('⚠️ Kan inte ladda roll-baserade förbättringar - saknar data');
       return;
     }
 
-    console.log('🚀 Startar laddning av roll-baserade förbättringar...', {
+    console.log('🚀 Startar fallback-gruppering av förbättringar...', {
       suggestionsCount: suggestions.length,
       hasCV: !!originalCV
     });
@@ -162,12 +179,12 @@ export default function CVImprovementWorkflow({
             title: s.title,
             type: s.category === 'keywords' ? 'keywords' :
                   s.description.toLowerCase().includes('kvantifi') ? 'quantification' : 'content',
-            selected: true // VIKTIGT: Skicka alla som "selected" för initial gruppering
+            selected: true
           })),
           cvText: originalCV,
           detailedAnalysis: analysisDetails,
           parsedRoles: analysisDetails?.parsedRoles || [],
-          isInitialLoad: true // Flagga för att indikera initial laddning
+          isInitialLoad: true
         }),
       });
 
@@ -193,12 +210,11 @@ export default function CVImprovementWorkflow({
       }
     } catch (error) {
       console.error('Failed to load role-based improvements:', error);
-      // Fallback to traditional view if loading fails
       setUseRoleBasedView(false);
     }
 
     setIsLoadingRoleBasedData(false);
-  }, []); // Inga dependencies - funktionen ska inte ändras
+  }, [analysisDetails, suggestions, originalCV, isLoadingRoleBasedData, hasTriedLoading]);
 
   // Load role-based improvements on component mount - MED LOOP-SKYDD
   useEffect(() => {

@@ -115,28 +115,26 @@ export async function POST(request: NextRequest) {
       console.warn('⚠️ Validation failed for grouped improvements');
     }
 
-    // Step 6: Transform to role-based structure
-    const roleBasedImprovements = transformToRoleBasedStructure(enhancedGroups, parsedRoles);
+    // Step 6: Extract general improvements (role-based are now handled by /api/cv/analyze)
     const generalImprovements = extractGeneralImprovements(enhancedGroups);
 
-    console.log('🎯 Role-based transformation complete:', {
-      roleCount: roleBasedImprovements.length,
+    console.log('🎯 General improvements extraction complete:', {
       generalCount: generalImprovements.length
     });
 
     return NextResponse.json({
       success: true,
-      roleBasedImprovements,
+      roleBasedImprovements: [], // Now handled by /api/cv/analyze
       generalImprovements,
       groups: enhancedGroups, // Keep for backward compatibility
       stats: {
         originalCount: improvementsToProcess.length,
         filteredCount: contentImprovements.length,
         groupedCount: enhancedGroups.length,
-        roleBasedCount: roleBasedImprovements.length,
+        roleBasedCount: 0, // Deprecated - use /api/cv/analyze instead
         generalCount: generalImprovements.length,
         reductionPercentage: Math.round(
-          ((improvementsToProcess.length - (roleBasedImprovements.length + generalImprovements.length)) / improvementsToProcess.length) * 100
+          ((improvementsToProcess.length - generalImprovements.length) / improvementsToProcess.length) * 100
         )
       }
     });

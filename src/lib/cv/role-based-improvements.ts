@@ -27,6 +27,100 @@ export interface RoleBasedImprovement {
 }
 
 /**
+ * Frontend format for role-based improvements
+ */
+export interface FrontendRoleImprovement {
+  role: string;           // "Platschef - Fitnessworld"
+  period: string;         // "2014-pågående"
+  originalText: string;   // Nuvarande CV-text
+  improvements: {
+    quantification: boolean;
+    keywords: string[];
+    atsOptimization: boolean;
+  };
+  suggestedText: string;  // Kombinerat förbättringsförslag
+  selected: boolean;
+  confidence: number;
+  impact: 'high' | 'medium' | 'low';
+  sourceImprovementIds: string[];
+}
+
+/**
+ * Format role-based improvements for frontend display
+ * Combines multiple improvement types per role into single suggestions
+ */
+export function formatRoleImprovementsForFrontend(
+  improvements: RoleBasedImprovement[]
+): FrontendRoleImprovement[] {
+  // Group improvements by role
+  const roleMap = new Map<string, RoleBasedImprovement[]>();
+
+  for (const improvement of improvements) {
+    const roleKey = `${improvement.roleTitle} - ${improvement.company}`;
+    if (!roleMap.has(roleKey)) {
+      roleMap.set(roleKey, []);
+    }
+    roleMap.get(roleKey)!.push(improvement);
+  }
+
+  // Transform each role group to frontend format
+  const frontendImprovements: FrontendRoleImprovement[] = [];
+
+  for (const [roleKey, roleImprovements] of roleMap.entries()) {
+    // Find best AI example (longest, most detailed)
+    const bestExample = roleImprovements.reduce((best, current) => {
+      return current.aiExample.length > best.aiExample.length ? current : best;
+    }, roleImprovements[0]);
+
+    // Collect all keywords
+    const allKeywords = roleImprovements
+      .filter(imp => imp.keywords && imp.keywords.length > 0)
+      .flatMap(imp => imp.keywords || []);
+    const uniqueKeywords = [...new Set(allKeywords)];
+
+    // Determine improvements
+    const hasQuantification = roleImprovements.some(
+      imp => imp.improvementType === 'quantification'
+    );
+    const hasKeywords = uniqueKeywords.length > 0;
+
+    // Get original text (use first improvement's original text)
+    const originalText = roleImprovements[0].originalText;
+
+    frontendImprovements.push({
+      role: roleKey,
+      period: roleImprovements[0].period,
+      originalText,
+      improvements: {
+        quantification: hasQuantification,
+        keywords: uniqueKeywords,
+        atsOptimization: hasKeywords || hasQuantification // ATS benefits from both
+      },
+      suggestedText: bestExample.aiExample,
+      selected: false,
+      confidence: Math.max(...roleImprovements.map(imp => imp.confidence)),
+      impact: determineOverallImpact(roleImprovements),
+      sourceImprovementIds: roleImprovements.map(imp => imp.id)
+    });
+  }
+
+  return frontendImprovements;
+}
+
+/**
+ * Determine overall impact from multiple improvements
+ */
+function determineOverallImpact(improvements: RoleBasedImprovement[]): 'high' | 'medium' | 'low' {
+  const hasHighImpact = improvements.some(imp => imp.impact === 'high');
+  if (hasHighImpact) return 'high';
+
+  const hasMediumImpact = improvements.some(imp => imp.impact === 'medium');
+  if (hasMediumImpact) return 'medium';
+
+  return 'low';
+}
+
+/**
  * Generate role-based improvements for a specific role
  */
 export async function generateRoleBasedImprovements(

@@ -157,7 +157,8 @@
       "Bash(start \"http://localhost:3001/dashboard/cv-mallar\")",
       "Bash(timeout 30 npm run build)",
       "Bash(timeout:*)",
-      "Bash(del test-fuzzy-matching.js)"
+      "Bash(del test-fuzzy-matching.js)",
+      "Bash(git log:*)"
     ],
     "deny": [],
     "ask": []
