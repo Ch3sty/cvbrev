@@ -133,82 +133,83 @@ export async function analyzeCvBasic(cvText: string): Promise<BasicAnalysisResul
 
 // --- Premium Analysfunktion ---
 export async function analyzeCvPremium(cvText: string, parsedCV?: any): Promise<PremiumAnalysisResult> {
+    const startTime = Date.now();
     const truncatedCV = cvText.substring(0, 8000);
     const modelToUse = "gpt-4.1";
 
-    // Bygg roll-kontext om parsedCV finns
+    // Bygg roll-kontext om parsedCV finns - BEGRÄNSA till max 3 roller för snabbare processing
     let rolesContext = '';
     if (parsedCV && parsedCV.roles && parsedCV.roles.length > 0) {
-        rolesContext = '\n\n=== IDENTIFIERADE ROLLER ===\n' + parsedCV.roles.map((r: any, idx: number) =>
-            `\nROLL ${idx + 1}:\nTitel: ${r.title}\nFöretag: ${r.company}\nPeriod: ${r.period}\nNuvarande text: ${r.description || r.originalText}`
-        ).join('\n---');
+        const rolesToProcess = parsedCV.roles.slice(0, 3); // Ta bara första 3 rollerna
+        rolesContext = '\n\n=== IDENTIFIERADE ROLLER (top 3) ===\n' + rolesToProcess.map((r: any, idx: number) =>
+            `ROLL ${idx + 1}: ${r.title} @ ${r.company} (${r.period})\nText: ${(r.description || r.originalText || '').substring(0, 300)}`
+        ).join('\n---\n');
+
+        if (parsedCV.roles.length > 3) {
+            console.log(`⚠️ CV has ${parsedCV.roles.length} roles, processing top 3 for performance`);
+        }
     }
 
-    const systemPrompt = `
-        Du är en expert på CV-granskning och rekrytering med djup förståelse för Applicant Tracking Systems (ATS). Analysera följande svenska CV i detalj och generera ROLL-BASERADE förbättringar.
+    // OPTIMERAD prompt - borttagna exempel, kortare instruktioner
+    const systemPrompt = `Du är en CV-expert med ATS-kunskap. Analysera detta svenska CV och generera roll-baserade förbättringar.
 
-        VIKTIGT: För VARJE identifierad yrkesroll, generera EN komplett förbättrad version som kombinerar ALLA förbättringstyper (ATS-nyckelord, kvantifiering, grammatik, starka verb) i SAMMA text.
+VIKTIGT: För VARJE roll, generera EN komplett förbättrad CV-text med ATS-nyckelord, kvantifiering, starka verb och grammatik.
 
-        Svara ALLTID i JSON-format med exakt denna struktur:
-        {
-          "summary": "En detaljerad sammanfattning (3-4 meningar) som lyfter fram CV:ts kärnbudskap, målgruppsanpassning och övergripande intryck.",
-          "detailedStrengths": [ { "point": "Specifik identifierad styrka", "example": "Konkret exempel från CV:t som illustrerar styrkan, t.ex., 'Användningen av projekt X för att visa Y-kompetens är effektiv.'" } ],
-          "roleBasedImprovements": [
-            {
-              "roleTitle": "Exakt titel från CV",
-              "company": "Företagsnamn",
-              "period": "Tidsperiod",
-              "currentText": "Nuvarande text för denna roll från CV:t",
-              "improvements": {
-                "hasQuantification": true/false,
-                "keywords": ["nyckelord1", "nyckelord2", "nyckelord3"],
-                "grammarIssues": ["specifikt fel1", "specifikt fel2"] eller [],
-                "atsOptimization": true/false
-              },
-              "suggestedText": "KOMPLETT förbättrad CV-text för denna roll som KOMBINERAR alla förbättringar: kvantifiering MED konkreta siffror, bransch-specifika ATS-nyckelord, korrigerad grammatik OCH starka resultat-fokuserade verb i EN sammanhängande professionell text (minst 80 ord). Texten MÅSTE vara färdig CV-text som kan användas direkt, INTE en beskrivning av vad som ska göras.",
-              "atsImpact": number (poäng-förbättring 0-20)
-            }
-          ],
-          "generalImprovements": [
-            {
-              "area": "Profilsammanfattning" | "Färdigheter" | "Utbildning",
-              "suggestion": "Specifikt förslag",
-              "example": "Konkret exempel på förbättring"
-            }
-          ],
-          "keywords": ["Omfattande lista med identifierade nyckelord och tekniska termer (10-15 st)"],
-          "atsFriendliness": { "score": number (0-100), "feedback": "Specifik feedback om ATS-läsbarhet, formatering, och nyckelordsanvändning.", "missingKeywords": ["Eventuell lista på 3-5 viktiga nyckelord som troligen saknas baserat på vanliga roller/branscher"] },
-          "quantificationSuggestions": [ "Lista med 2-4 specifika punkter i CV:t där kvantifiering skulle stärka intrycket" ],
-          "scores": { "overall": { "rating": number (1-10), "feedback": "Övergripande bedömning" }, "clarityAndStructure": { "rating": number (1-10), "feedback": "Detaljerad feedback om läsbarhet, struktur, sektionsindelning." }, "relevance": { "rating": number (1-10), "feedback": "Bedömning av hur väl innehållet verkar anpassat." }, "impactAndResults": { "rating": number (1-10), "feedback": "Feedback om användning av resultat, prestationer och starka verb." } }
-        }
+JSON-struktur (svara ENDAST med JSON):
+{
+  "summary": "3-4 meningar om CV:ts styrkor och intryck",
+  "detailedStrengths": [{"point": "Styrka", "example": "Exempel från CV"}],
+  "roleBasedImprovements": [{
+    "roleTitle": "Titel från CV",
+    "company": "Företag",
+    "period": "Period",
+    "currentText": "Nuvarande text",
+    "improvements": {
+      "hasQuantification": boolean,
+      "keywords": ["3-5 nyckelord"],
+      "grammarIssues": ["fel"] eller [],
+      "atsOptimization": boolean
+    },
+    "suggestedText": "KOMPLETT färdig CV-text (80+ ord) med konkreta siffror, ATS-nyckelord och starka verb. MÅSTE vara användbar text, INTE instruktioner!",
+    "atsImpact": number (0-20)
+  }],
+  "generalImprovements": [{"area": "Område", "suggestion": "Förslag", "example": "Exempel"}],
+  "keywords": ["10-15 identifierade nyckelord"],
+  "atsFriendliness": {"score": number (0-100), "feedback": "ATS-feedback", "missingKeywords": ["3-5 saknade ord"]},
+  "quantificationSuggestions": ["2-4 kvantifieringsförslag"],
+  "scores": {
+    "overall": {"rating": number (1-10), "feedback": "Text"},
+    "clarityAndStructure": {"rating": number (1-10), "feedback": "Text"},
+    "relevance": {"rating": number (1-10), "feedback": "Text"},
+    "impactAndResults": {"rating": number (1-10), "feedback": "Text"}
+  }
+}
 
-        KRITISKA REGLER FÖR suggestedText:
-        1. MÅSTE vara FULLSTÄNDIG CV-text för rollen, INTE en beskrivning eller instruktion
-        2. MÅSTE inkludera KONKRETA SIFFROR för kvantifiering (teamstorlek, budget, resultat, procentuella förbättringar)
-        3. MÅSTE vara minst 80 ord lång och läsbar som sammanhängande text
-        4. MÅSTE använda starka aktiva verb (ledde, utvecklade, implementerade, ökade, förbättrade)
-        5. MÅSTE innehålla bransch-specifika ATS-nyckelord naturligt integrerade
-        6. Generera EN förbättring PER ROLL, inte flera varianter
+KRAV för suggestedText:
+1. Fullständig CV-text, INTE instruktioner
+2. Konkreta siffror (teamstorlek, budget, resultat, %)
+3. Minst 80 ord, sammanhängande text
+4. Starka verb: ledde, utvecklade, implementerade, ökade
+5. Bransch-ATS-nyckelord naturligt integrerade
 
-        EXEMPEL PÅ KORREKT suggestedText för en Platschef-roll:
-        "Ledde Stockholms största träningsanläggning (Fitnessworld Skärholmen) med 3500 medlemmar och ansvar för team på 15 anställda. Hanterade budgetansvar på 5 MSEK årligen med fokus på drift, inköp, personalutveckling och medlemssystem. Implementerade nya rutiner för kundnöjdhet som ökade retentionen med 25% och minskade personalomsättningen från 40% till 15% på 18 månader. Ansvarade för webbsida, digital marknadsföring och statistikuppföljning. Utvecklade och genomförde träningsprogram som resulterade i 95% kundnöjdhet enligt NPS-mätningar."
+Exempel KORREKT suggestedText: "Ledde träningsanläggning med 3500 medlemmar och team på 15 anställda. Budgetansvar 5 MSEK årligen. Implementerade nya rutiner som ökade retention med 25% och minskade personalomsättning från 40% till 15% på 18 månader. Utvecklade träningsprogram som resulterade i 95% kundnöjdhet (NPS)."
 
-        EXEMPEL PÅ FEL suggestedText (undvik dessa):
-        ❌ "Förbättrad version kommer att inkludera teamstorlek och budget" ← Detta är INTE CV-text!
-        ❌ "Lägg till konkreta siffror om medlemmar" ← Detta är en instruktion, inte CV-text!
-        ❌ "Ansvarig för drift" ← För kort och saknar kvantifiering
-
-        Ge betyg (rating) från 1 (Mycket svagt) till 10 (Utmärkt). Var kritisk men konstruktiv.
-    `;
+Ge betyg 1-10. Var konstruktiv.`;
 
      try {
-        const userPrompt = `Analysera följande CV i detalj och generera roll-baserade förbättringar:\n\n${truncatedCV}${rolesContext}`;
+        console.log(`🔍 [analyzeCvPremium] Starting AI analysis with ${parsedCV?.roles?.length || 0} roles detected`);
+        const userPrompt = `Analysera följande CV och generera roll-baserade förbättringar:\n\n${truncatedCV}${rolesContext}`;
 
+        const aiStartTime = Date.now();
         const completion = await openai.chat.completions.create({
             model: modelToUse,
             messages: [ { role: "system", content: systemPrompt }, { role: "user", content: userPrompt } ],
-            temperature: 0.6, max_tokens: 3000, response_format: { type: "json_object" }
+            temperature: 0.6,
+            max_tokens: 4000, // Ökat från 3000 för snabbare completion
+            response_format: { type: "json_object" }
         });
+        const aiDuration = Date.now() - aiStartTime;
+        console.log(`✅ [analyzeCvPremium] AI completion finished in ${aiDuration}ms`);
 
         const content = completion.choices[0].message.content || '{}';
         const parsedResult = JSON.parse(content);
@@ -218,6 +219,10 @@ export async function analyzeCvPremium(cvText: string, parsedCV?: any): Promise<
         const completionTokens = completion.usage?.completion_tokens || 0;
         const totalTokens = completion.usage?.total_tokens || 0;
         const cost = calculateOpenAICost(modelToUse, promptTokens, completionTokens);
+
+        const totalDuration = Date.now() - startTime;
+        console.log(`⏱️ [analyzeCvPremium] Total analysis time: ${totalDuration}ms (AI: ${aiDuration}ms, parsing: ${totalDuration - aiDuration}ms)`);
+        console.log(`💰 [analyzeCvPremium] Token usage: ${promptTokens} prompt + ${completionTokens} completion = ${totalTokens} total ($${cost.toFixed(4)})`);
 
         // *** UPPDATERAT finalResult-OBJEKT ***
         const finalResult: PremiumAnalysisResult = {

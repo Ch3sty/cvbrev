@@ -322,7 +322,6 @@ export default function MinaBrevPage() {
   // Scroll animations
   const { scrollY } = useScroll();
   const headerY = useTransform(scrollY, [0, 300], [0, -50]);
-  const headerOpacity = useTransform(scrollY, [0, 200], [1, 0.8]);
 
   // Mouse tracking for interactive effects
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -472,7 +471,7 @@ export default function MinaBrevPage() {
         {/* Hero Header */}
         <motion.div
           className="mb-12"
-          style={{ y: headerY, opacity: headerOpacity }}
+          style={{ y: headerY }}
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
