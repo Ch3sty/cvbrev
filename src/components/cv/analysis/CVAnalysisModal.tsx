@@ -21,6 +21,7 @@ interface CVAnalysisModalProps {
   cvContent: string;
   onAnalysisStart: () => Promise<string>; // Returns jobId
   onPollJob: (jobId: string) => Promise<any>; // Returns analysis result
+  onComplete?: (result: any) => void; // Optional callback when analysis completes
 }
 
 const STEPS = [
@@ -38,7 +39,8 @@ export default function CVAnalysisModal({
   cvId,
   cvContent,
   onAnalysisStart,
-  onPollJob
+  onPollJob,
+  onComplete
 }: CVAnalysisModalProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
@@ -221,6 +223,10 @@ export default function CVAnalysisModal({
   };
 
   const handleAnalyzeAnother = () => {
+    // Call onComplete with analysis result if available
+    if (onComplete && analysisResult) {
+      onComplete(analysisResult);
+    }
     onClose();
   };
 

@@ -17,6 +17,7 @@ import { useProfile } from '@/hooks/use-profile';
 // --- UI Components ---
 import Notification from '@/components/ui/notification';
 import CvAnalysisResults from '@/components/cv/CvAnalysisResults';
+import CVAnalysisModal from '@/components/cv/analysis/CVAnalysisModal';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -71,6 +72,8 @@ export default function AnalyzeCvPage() {
   const [notification, setNotification] = useState<NotificationState>({
     isVisible: false, message: '', type: 'loading',
   });
+  const [showAnalysisModal, setShowAnalysisModal] = useState(false);
+  const [currentJobId, setCurrentJobId] = useState<string | null>(null);
 
   // --- Refs ---
   const initialLoadRef = useRef(false);
@@ -158,6 +161,71 @@ export default function AnalyzeCvPage() {
     throw new Error('Analysen tog för lång tid. Försök igen eller kontakta support.');
   }, [showNotification]);
 
+  // --- Modal Callbacks ---
+  const handleModalAnalysisStart = useCallback(async () => {
+    if (!selectedCV) {
+      throw new Error('Inget CV valt');
+    }
+
+    setIsAnalyzing(true);
+    setError(null);
+
+    try {
+      const response = await fetch(API_ANALYZE_ROUTE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cvId: selectedCV })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Kunde inte starta analys');
+      }
+
+      // Update quota info
+      if (result.remainingAnalyses !== undefined) {
+        updateRemainingAnalyses(result.remainingAnalyses);
+      }
+      if (result.nextResetDate) {
+        updateNextAnalysisResetDate(result.nextResetDate);
+      }
+
+      // Store jobId for polling
+      setCurrentJobId(result.jobId);
+
+      // Log activity
+      if (profile?.id) {
+        await logUserActivity(profile.id, 'cv_analysis_started', {
+          cv_id: selectedCV,
+          job_id: result.jobId
+        });
+      }
+
+      return result.jobId;
+    } catch (error: any) {
+      setIsAnalyzing(false);
+      throw error;
+    }
+  }, [selectedCV, updateRemainingAnalyses, updateNextAnalysisResetDate, profile]);
+
+  const handleModalPollJob = useCallback(async (jobId: string) => {
+    return await pollForJobResult(jobId);
+  }, [pollForJobResult]);
+
+  const handleModalClose = useCallback(() => {
+    setShowAnalysisModal(false);
+    setIsAnalyzing(false);
+    setCurrentJobId(null);
+  }, []);
+
+  const handleModalComplete = useCallback((result: any) => {
+    setAnalysisResult(result);
+    setIsAnalyzing(false);
+    setShowAnalysisModal(false);
+    setCurrentJobId(null);
+  }, []);
+
   // --- Event Handlers ---
   const handleAnalyzeCv = useCallback(async () => {
     if (!selectedCV) { showNotification('error', 'Välj ett CV att analysera.', 3000); return; }
@@ -165,66 +233,10 @@ export default function AnalyzeCvPage() {
     const hasReachedLimit = isFreeTier && remainingWeeklyAnalyses !== null && remainingWeeklyAnalyses <= 0;
     if (hasReachedLimit) { showNotification('error', 'Du har nått din veckogräns för CV-analyser. Uppgradera till premium för obegränsad användning.', NOTIFICATION_DURATION_MS); setError('Veckogräns nådd. Uppgradera till premium.'); return; }
 
-    setIsAnalyzing(true); setError(null); setAnalysisResult(null); showNotification('loading', 'Startar AI-analys av ditt CV...');
-
-    try {
-      const response = await fetch(API_ANALYZE_ROUTE, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ cvId: selectedCV }) });
-      const result = await response.json();
-
-      // All responses are now background jobs (status 202)
-      if (response.status === 202 && result.isBackgroundJob && result.jobId) {
-        closeNotification();
-        showNotification('loading', 'AI analyserar ditt CV med avancerad rollbaserad analys. Detta tar vanligtvis 30-60 sekunder...');
-
-        // Update remaining analyses from initial response
-        if (result.remainingAnalyses !== undefined && typeof updateRemainingAnalyses === 'function') {
-          updateRemainingAnalyses(result.remainingAnalyses);
-        }
-        if (result.nextResetDate && typeof updateNextAnalysisResetDate === 'function') {
-          updateNextAnalysisResetDate(new Date(result.nextResetDate));
-        }
-
-        // Poll for result
-        const analysisResult = await pollForJobResult(result.jobId);
-
-        // Process completed analysis
-        setAnalysisResult(analysisResult);
-
-        // Show success message with remaining analyses info
-        if (isFreeTier) {
-          const remainingCount = result.remainingAnalyses;
-          const limitText = remainingCount === 0
-            ? 'Du har nu nått din veckogräns.'
-            : `Du har ${remainingCount} ${remainingCount === 1 ? 'analys' : 'analyser'} kvar denna vecka.`;
-          showNotification('success', `CV-analysen är klar! ${limitText}`, NOTIFICATION_DURATION_MS + 1000);
-        } else {
-          showNotification('success', 'CV-analysen är klar!', NOTIFICATION_DURATION_MS);
-        }
-
-        // Log activity
-        if (profile?.id && selectedCV) {
-          const cvFileName = cvs?.find(cv => cv.id === selectedCV)?.file_name || selectedCV;
-          logUserActivity(profile.id, 'cv_analysis_completed', `Successfully analyzed CV: ${cvFileName}`, { cvId: selectedCV, tier: subscriptionTier }).catch(e => console.error("Activity logging failed:", e));
-        }
-
-        return;
-      }
-
-      // Handle non-202 responses (errors)
-      closeNotification();
-      if (!response.ok) {
-        if (response.status === 429) {
-          showNotification('error', result.message || 'Du har nått din gräns för CV-analyser denna vecka.', NOTIFICATION_DURATION_MS);
-          if (typeof updateRemainingAnalyses === 'function') updateRemainingAnalyses(0);
-        }
-        throw new Error(result.message || `Serverfel ${response.status}: Något gick fel vid analysen.`);
-      }
-
-    } catch (error: any) {
-      console.error("Fel vid CV-analys:", error); closeNotification();
-      const errorMessage = error.message?.includes('Failed to fetch') ? 'Nätverksfel. Kontrollera din anslutning och försök igen.' : error.message || 'Ett oväntat fel inträffade vid analysen.';
-      setError(errorMessage); showNotification('error', errorMessage, NOTIFICATION_DURATION_MS);
-    } finally { setIsAnalyzing(false); }
+    // Open modal - analysis will start automatically in modal
+    setShowAnalysisModal(true);
+    setError(null);
+    setAnalysisResult(null);
   }, [ selectedCV, showNotification, closeNotification, subscriptionTier, remainingWeeklyAnalyses, updateRemainingAnalyses, updateNextAnalysisResetDate, profile, cvs, pollForJobResult ]);
 
   const handleNavigateToCvManagement = useCallback(() => { router.push(PROFILE_CV_ROUTE); }, [router]);
@@ -923,6 +935,17 @@ export default function AnalyzeCvPage() {
           background: rgba(236, 72, 153, 0.5);
         }
       `}} />
+
+      {/* CV Analysis Modal */}
+      <CVAnalysisModal
+        isOpen={showAnalysisModal}
+        onClose={handleModalClose}
+        cvId={selectedCV || ''}
+        cvContent={cvs?.find(cv => cv.id === selectedCV)?.cv_text || ''}
+        onAnalysisStart={handleModalAnalysisStart}
+        onPollJob={handleModalPollJob}
+        onComplete={handleModalComplete}
+      />
     </div>
   );
 }
