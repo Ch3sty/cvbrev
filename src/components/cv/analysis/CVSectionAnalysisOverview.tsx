@@ -202,6 +202,7 @@ export default function CVSectionAnalysisOverview({
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
+          style={{ willChange: 'opacity, transform' }}
           className="bg-gradient-to-r from-red-50 via-orange-50 to-yellow-50 border border-red-200 rounded-xl p-4"
         >
           <div className="flex items-start gap-3">
@@ -248,6 +249,7 @@ export default function CVSectionAnalysisOverview({
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
+              style={{ willChange: 'transform' }}
               className="w-20 h-20 bg-green-500 rounded-full mx-auto mb-4 flex items-center justify-center"
             >
               <CheckCircle2 className="w-10 h-10 text-white" />

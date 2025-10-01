@@ -998,6 +998,7 @@ export default function CVImprovementWorkflow({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
+            style={{ willChange: 'opacity, transform' }}
             transition={{ duration: 0.3 }}
             className="text-center py-12"
           >
@@ -1101,6 +1102,7 @@ export default function CVImprovementWorkflow({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
+            style={{ willChange: 'opacity, transform' }}
             transition={{ duration: 0.3 }}
             className="text-center py-12"
           >
@@ -1108,6 +1110,7 @@ export default function CVImprovementWorkflow({
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
+                style={{ willChange: 'transform' }}
                 transition={{ type: "spring", stiffness: 200, damping: 15 }}
                 className="w-20 h-20 mx-auto mb-4 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 flex items-center justify-center"
               >

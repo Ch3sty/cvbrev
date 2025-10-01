@@ -119,6 +119,7 @@ export default function CVPreviewModal({
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
+            style={{ willChange: 'opacity, transform' }}
             transition={{ duration: 0.3, type: "spring", stiffness: 300, damping: 30 }}
           >
             <div className="w-full h-full bg-white/95 backdrop-blur-xl rounded-xl shadow-2xl border border-gray-200/80 flex flex-col overflow-hidden">

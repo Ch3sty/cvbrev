@@ -141,6 +141,7 @@ export default function BeforeAfterComparison({
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
+          style={{ willChange: 'transform' }}
           transition={{ delay: 0.2, type: "spring" as const, stiffness: 200 }}
           className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-full p-2"
         >

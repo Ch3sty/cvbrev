@@ -237,6 +237,7 @@ export default function SuggestionSelector({
                                 <motion.div
                                   initial={{ opacity: 0, scale: 0 }}
                                   animate={{ opacity: 1, scale: 1 }}
+                                  style={{ willChange: 'opacity, transform' }}
                                   transition={{ duration: 0.2 }}
                                 >
                                   <Badge className="text-xs bg-pink-600 text-white">
