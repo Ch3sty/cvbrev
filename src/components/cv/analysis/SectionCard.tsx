@@ -23,10 +23,10 @@ import BeforeAfterComparison from './BeforeAfterComparison';
 // ============================================================================
 
 interface Improvements {
-  hasQuantification: boolean;
-  keywords: string[];
-  grammarIssues: string[];
-  atsOptimization: boolean;
+  hasQuantification?: boolean;
+  keywords?: string[];
+  grammarIssues?: string[];
+  atsOptimization?: boolean;
 }
 
 interface SectionCardProps {
@@ -99,8 +99,8 @@ export default function SectionCard({
   // Räkna förbättringstyper
   const improvementCount = [
     !improvements.hasQuantification,
-    improvements.keywords.length > 0,
-    improvements.grammarIssues.length > 0,
+    (improvements.keywords?.length || 0) > 0,
+    (improvements.grammarIssues?.length || 0) > 0,
     improvements.atsOptimization
   ].filter(Boolean).length;
 
@@ -146,16 +146,16 @@ export default function SectionCard({
               Behöver kvantifiering
             </Badge>
           )}
-          {improvements.keywords.length > 0 && (
+          {(improvements.keywords?.length || 0) > 0 && (
             <Badge className="bg-purple-50 text-purple-700 border border-purple-300 text-xs">
               <Key className="w-3 h-3 mr-1" />
-              {improvements.keywords.length} nyckelord
+              {improvements.keywords?.length || 0} nyckelord
             </Badge>
           )}
-          {improvements.grammarIssues.length > 0 && (
+          {(improvements.grammarIssues?.length || 0) > 0 && (
             <Badge className="bg-orange-50 text-orange-700 border border-orange-300 text-xs">
               <Type className="w-3 h-3 mr-1" />
-              {improvements.grammarIssues.length} grammatikfel
+              {improvements.grammarIssues?.length || 0} grammatikfel
             </Badge>
           )}
           {improvements.atsOptimization && (
@@ -197,12 +197,12 @@ export default function SectionCard({
                 <BeforeAfterComparison
                   beforeText={currentText}
                   afterText={suggestedText}
-                  keywords={improvements.keywords}
+                  keywords={improvements.keywords || []}
                   hasQuantification={!improvements.hasQuantification}
                 />
 
                 {/* Grammar Issues */}
-                {improvements.grammarIssues.length > 0 && (
+                {(improvements.grammarIssues?.length || 0) > 0 && (
                   <div className="mt-4 p-3 bg-orange-50 rounded-lg border border-orange-200">
                     <div className="flex items-start gap-2">
                       <AlertTriangle className="w-4 h-4 text-orange-600 mt-0.5 flex-shrink-0" />
@@ -211,7 +211,7 @@ export default function SectionCard({
                           Grammatikförbättringar
                         </h5>
                         <ul className="text-xs text-gray-700 space-y-1">
-                          {improvements.grammarIssues.map((issue, index) => (
+                          {improvements.grammarIssues?.map((issue, index) => (
                             <li key={index}>• {issue}</li>
                           ))}
                         </ul>

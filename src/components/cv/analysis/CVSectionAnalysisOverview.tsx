@@ -23,16 +23,16 @@ import SectionCard from './SectionCard';
 export interface RoleBasedImprovement {
   roleTitle: string;
   company: string;
-  period: string;
-  currentText: string;
+  period?: string;
+  currentText?: string;
   improvements: {
-    hasQuantification: boolean;
-    keywords: string[];
-    grammarIssues: string[];
-    atsOptimization: boolean;
+    hasQuantification?: boolean;
+    keywords?: string[];
+    grammarIssues?: string[];
+    atsOptimization?: boolean;
   };
   suggestedText: string;
-  atsImpact: number;
+  atsImpact?: number;
 }
 
 export interface GeneralImprovement {
@@ -53,7 +53,7 @@ interface CVSectionAnalysisOverviewProps {
 // ============================================================================
 
 const calculatePriority = (improvement: RoleBasedImprovement): 'critical' | 'high' | 'medium' | 'low' => {
-  const { improvements, atsImpact } = improvement;
+  const { improvements, atsImpact = 0 } = improvement;
 
   // Kritisk: Saknar kvantifiering OCH har högt ATS-impact
   if (!improvements.hasQuantification && atsImpact > 15) {
@@ -66,7 +66,7 @@ const calculatePriority = (improvement: RoleBasedImprovement): 'critical' | 'hig
   }
 
   // Medium: Har grammatikfel eller några nyckelord
-  if (improvements.grammarIssues.length > 0 || improvements.keywords.length > 0) {
+  if ((improvements.grammarIssues?.length || 0) > 0 || (improvements.keywords?.length || 0) > 0) {
     return 'medium';
   }
 
