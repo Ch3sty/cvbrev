@@ -238,18 +238,6 @@ export default function CVSectionAnalysisOverview({
             </div>
           </div>
 
-          {/* CTA Button */}
-          {onStartImprovements && (
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={onStartImprovements}
-              className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white px-6 py-3 rounded-lg font-semibold shadow-lg flex items-center gap-2"
-            >
-              <Zap className="w-5 h-5" />
-              Generera AI-förbättringar
-            </motion.button>
-          )}
         </div>
       </motion.div>
 
@@ -435,7 +423,7 @@ export default function CVSectionAnalysisOverview({
                   className="bg-white text-blue-600 hover:bg-blue-50 font-semibold px-8 py-6 text-lg shadow-lg"
                 >
                   <Wand2 className="w-5 h-5 mr-2" />
-                  Implementera valda
+                  Granska & uppdatera CV
                 </Button>
               </div>
             </Card>

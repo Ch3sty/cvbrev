@@ -529,7 +529,6 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
     const [showImprovementWorkflow, setShowImprovementWorkflow] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
-    const [showImplementationChoice, setShowImplementationChoice] = useState(false);
     const [pendingImprovements, setPendingImprovements] = useState<any[]>([]);
 
     // Handle loading or no data state gracefully
@@ -679,49 +678,8 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
             return;
         }
 
-        // Spara förbättringar och visa valmöjlighet
+        // Gå direkt till förbättringsworkflow för förhandsgranskning
         setPendingImprovements(selectedImprovements);
-        setShowImplementationChoice(true);
-    };
-
-    const handleQuickSave = async () => {
-        setShowImplementationChoice(false);
-        setIsProcessing(true);
-
-        try {
-            // 1. Applicera förbättringar på CV-texten
-            const improvedText = applyImprovements(cvContent!, pendingImprovements);
-
-            // 2. Spara till databasen
-            const response = await fetch('/api/cv/update', {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    id: cvId,
-                    cv_text: improvedText,
-                }),
-            });
-
-            if (!response.ok) {
-                const error = await response.json();
-                throw new Error(error.error || 'Kunde inte uppdatera CV');
-            }
-
-            // 3. Visa success-modal
-            setShowSuccessModal(true);
-
-        } catch (error) {
-            console.error('Error implementing improvements:', error);
-            alert('Ett fel uppstod när förbättringarna skulle implementeras. Försök igen.');
-        } finally {
-            setIsProcessing(false);
-        }
-    };
-
-    const handleFullWorkflow = () => {
-        setShowImplementationChoice(false);
         setShowImprovementWorkflow(true);
     };
 
@@ -830,104 +788,6 @@ const CvAnalysisResults: React.FC<CvAnalysisResultsProps> = React.memo(({ data, 
             {/* --- Improvement Workflow Button removed for premium users with role-based improvements --- */}
             {/* The new CVSectionAnalysisOverview component already handles improvements inline */}
 
-            {/* Implementation Choice Modal */}
-            {showImplementationChoice && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="bg-white rounded-xl shadow-2xl max-w-2xl w-full p-8"
-                    >
-                        <div className="mb-6">
-                            <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                                Hur vill du fortsätta?
-                            </h3>
-                            <p className="text-gray-600">
-                                Välj mellan snabbsparning eller fullständig kontroll över dina CV-förbättringar
-                            </p>
-                        </div>
-
-                        <div className="grid md:grid-cols-2 gap-4 mb-6">
-                            {/* Quick Save Option */}
-                            <button
-                                onClick={handleQuickSave}
-                                className="group relative bg-gradient-to-br from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 border-2 border-green-200 hover:border-green-400 rounded-xl p-6 text-left transition-all"
-                            >
-                                <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 rounded-lg bg-green-100 group-hover:bg-green-200 flex items-center justify-center flex-shrink-0 transition-colors">
-                                        <Zap className="w-6 h-6 text-green-600" />
-                                    </div>
-                                    <div className="flex-1">
-                                        <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-                                            Snabbspara
-                                            <Badge className="bg-green-100 text-green-700 text-xs">
-                                                2 sek
-                                            </Badge>
-                                        </h4>
-                                        <p className="text-sm text-gray-600 mb-3">
-                                            Spara förbättringar direkt till ditt CV utan ytterligare steg
-                                        </p>
-                                        <ul className="text-xs text-gray-500 space-y-1">
-                                            <li className="flex items-center gap-1">
-                                                <CheckCircle className="w-3 h-3 text-green-600" />
-                                                Snabbt och enkelt
-                                            </li>
-                                            <li className="flex items-center gap-1">
-                                                <CheckCircle className="w-3 h-3 text-green-600" />
-                                                Sparar automatiskt
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </button>
-
-                            {/* Full Workflow Option */}
-                            <button
-                                onClick={handleFullWorkflow}
-                                className="group relative bg-gradient-to-br from-blue-50 to-purple-50 hover:from-blue-100 hover:to-purple-100 border-2 border-purple-200 hover:border-purple-400 rounded-xl p-6 text-left transition-all"
-                            >
-                                <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 rounded-lg bg-purple-100 group-hover:bg-purple-200 flex items-center justify-center flex-shrink-0 transition-colors">
-                                        <Sparkles className="w-6 h-6 text-purple-600" />
-                                    </div>
-                                    <div className="flex-1">
-                                        <h4 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-                                            Granska & Anpassa
-                                            <Badge className="bg-purple-100 text-purple-700 text-xs">
-                                                2-3 min
-                                            </Badge>
-                                        </h4>
-                                        <p className="text-sm text-gray-600 mb-3">
-                                            Förhandsgranska, anpassa och välj mellan att spara eller ladda ner
-                                        </p>
-                                        <ul className="text-xs text-gray-500 space-y-1">
-                                            <li className="flex items-center gap-1">
-                                                <CheckCircle className="w-3 h-3 text-purple-600" />
-                                                Full kontroll över förbättringar
-                                            </li>
-                                            <li className="flex items-center gap-1">
-                                                <CheckCircle className="w-3 h-3 text-purple-600" />
-                                                Förhandsgranska före/efter
-                                            </li>
-                                            <li className="flex items-center gap-1">
-                                                <CheckCircle className="w-3 h-3 text-purple-600" />
-                                                Välj CV-mall och format
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </button>
-                        </div>
-
-                        <button
-                            onClick={() => setShowImplementationChoice(false)}
-                            className="w-full text-gray-600 hover:text-gray-800 font-medium px-6 py-3 rounded-lg transition-colors"
-                        >
-                            Avbryt
-                        </button>
-                    </motion.div>
-                </div>
-            )}
 
             {/* Success Modal */}
             {showSuccessModal && (
