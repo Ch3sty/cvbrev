@@ -102,25 +102,12 @@ export default function CVSectionAnalysisOverview({
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2
-      }
-    }
+    show: { opacity: 1 }
   };
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut"
-      }
-    }
+    show: { opacity: 1, y: 0 }
   };
 
   return (
@@ -245,6 +232,10 @@ export default function CVSectionAnalysisOverview({
         variants={containerVariants}
         initial="hidden"
         animate="show"
+        transition={{
+          staggerChildren: 0.1,
+          delayChildren: 0.2
+        }}
         className="space-y-4"
       >
         <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
@@ -270,7 +261,11 @@ export default function CVSectionAnalysisOverview({
           </Card>
         ) : (
           prioritizedRoles.map((role, index) => (
-            <motion.div key={`${role.roleTitle}-${index}`} variants={itemVariants}>
+            <motion.div
+              key={`${role.roleTitle}-${index}`}
+              variants={itemVariants}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+            >
               <SectionCard
                 sectionName={`${role.roleTitle} - ${role.company}`}
                 sectionType="work_experience"
@@ -287,7 +282,10 @@ export default function CVSectionAnalysisOverview({
 
         {/* General Improvements */}
         {generalImprovements.length > 0 && (
-          <motion.div variants={itemVariants}>
+          <motion.div
+            variants={itemVariants}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
             <Card className="bg-white/95 border-gray-200 p-6">
               <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
                 <Zap className="w-5 h-5 text-purple-600" />

@@ -141,7 +141,7 @@ export default function BeforeAfterComparison({
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+          transition={{ delay: 0.2, type: "spring" as const, stiffness: 200 }}
           className="bg-gradient-to-r from-green-500 to-emerald-600 rounded-full p-2"
         >
           <ArrowDown className="w-4 h-4 text-white" />
