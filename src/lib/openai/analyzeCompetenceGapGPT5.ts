@@ -243,7 +243,7 @@ export async function analyzeCompetenceGapGPT5(
       usage.output_tokens
     );
 
-    console.log(`GPT-5 Usage: Input=${usage.input_tokens}, Output=${usage.output_tokens}, Cost=$${calculatedCost.toFixed(4)}`);
+    console.log(`GPT-5 Usage: Input=${usage.input_tokens}, Output=${usage.output_tokens}, Cost=$${calculatedCost !== null && calculatedCost !== undefined ? calculatedCost.toFixed(4) : 'N/A'}`);
 
     // Build result with better error handling
     const finalResult: CompetenceAnalysisResult = {

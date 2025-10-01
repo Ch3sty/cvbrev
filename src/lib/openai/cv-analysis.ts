@@ -222,7 +222,7 @@ Ge betyg 1-10. Var konstruktiv.`;
 
         const totalDuration = Date.now() - startTime;
         console.log(`⏱️ [analyzeCvPremium] Total analysis time: ${totalDuration}ms (AI: ${aiDuration}ms, parsing: ${totalDuration - aiDuration}ms)`);
-        console.log(`💰 [analyzeCvPremium] Token usage: ${promptTokens} prompt + ${completionTokens} completion = ${totalTokens} total ($${cost.toFixed(4)})`);
+        console.log(`💰 [analyzeCvPremium] Token usage: ${promptTokens} prompt + ${completionTokens} completion = ${totalTokens} total ($${cost !== null ? cost.toFixed(4) : 'N/A'})`);
 
         // *** UPPDATERAT finalResult-OBJEKT ***
         const finalResult: PremiumAnalysisResult = {
