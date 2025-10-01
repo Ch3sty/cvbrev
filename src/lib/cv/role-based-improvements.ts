@@ -267,15 +267,21 @@ async function generateSingleImprovement(
 }
 
 /**
- * Build improvement prompt for AI
+ * Build improvement prompt for AI with variation strategies
  */
 function buildImprovementPrompt(role: ParsedRole, context: any, type: string): string {
+  // Infer seniority from role and period
+  const seniority = inferSeniority(role);
+  const industry = inferIndustry(role);
+
   const basePrompt = `
 Analysera följande roll och generera en specifik förbättring:
 
 Roll: ${role.title}
 Företag: ${role.company}
 Period: ${role.period}
+Senioritet: ${seniority}
+Bransch: ${industry}
 Beskrivning: ${role.description}
 Ansvarsområden: ${role.responsibilities?.join(', ') || 'Ej specificerade'}
 `;
@@ -284,25 +290,54 @@ Ansvarsområden: ${role.responsibilities?.join(', ') || 'Ej specificerade'}
     return basePrompt + `
 Fokus: Kvantifiering av prestationer och resultat
 
-Identifiera ETT område som kan kvantifieras bättre och returnera JSON:
+VIKTIGT: Variera meningsstrukturen baserat på senioritet och roll!
+
+STRUKTURMALLAR (välj EN lämplig för ${seniority} ${role.title}):
+
+A. RESULTATFOKUS (bäst för Senior/Lead):
+   "Ökade/Minskade/Förbättrade [metrik] med [X]% genom [konkret handling]"
+   Exempel: "Ökade medlemsretention med 35% genom att implementera lojalitetsprogram och personliga träningserbjudanden"
+
+B. PROJEKT/LEVERANS (bäst för projektroller):
+   "Levererade [projekt] värt [belopp] [före tid/under budget] med [resultat]"
+   Exempel: "Levererade renoveringsprojekt på 5000 kvm värt 3,5 MSEK två veckor före deadline och 10% under budget"
+
+C. LEDARSKAP (bäst för chefsroller):
+   "Ledde team på [X] personer som [uppnådde resultat]"
+   Exempel: "Ledde team på 15 träningsexperter som ökade kundnöjdheten från 7,2 till 9,1 på 12 månader"
+
+D. UTVECKLING (bäst för tech/skapande):
+   "Utvecklade/Skapade [produkt/tjänst] som resulterade i [mätbart resultat]"
+   Exempel: "Utvecklade 40+ responsiva företagswebbplatser som ökade kundernas online-konvertering med genomsnitt 45%"
+
+E. ANSVAR/SCOPE (fallback):
+   "Ansvarade för [område] med [omfattning], uppnådde [resultat]"
+   Exempel: "Ansvarade för drift av Stockholms största träningsanläggning med 3500 medlemmar, ökade årsomsättningen med 2,8 MSEK"
+
+Returnera JSON:
 {
   "originalText": "Exakt text från CV:t som ska förbättras (max 100 tecken)",
   "suggestion": "Beskriv vad som ska kvantifieras",
-  "aiExample": "Konkret exempel med SIFFROR och RESULTAT (minst 20 ord)",
+  "aiExample": "ANVÄND EN AV STRUKTURMALLARNA OVAN - minst 25 ord med 2-3 specifika siffror",
   "confidence": 0.9
 }
 
 KRAV för aiExample:
+- MÅSTE använda EN strukturmall ovan (variera mellan anrop!)
 - MÅSTE innehålla minst 2-3 specifika siffror
-- MÅSTE vara minst 20 ord långt
+- MÅSTE vara minst 25 ord långt
 - MÅSTE vara relevant för ${role.title} på ${role.company}
 - MÅSTE vara realistiskt och trovärdigt
+- MÅSTE anpassa tonstil efter senioritet (${seniority})
 
-EXEMPEL på bra aiExample för en Platschef:
-"Ledde team på 12 personer med budgetansvar på 5 MSEK årligen, ökade medlemsantalet med 18% under 2023 och minskade personalomsättningen från 25% till 12%"
+SENIORITETSSTIL:
+- Junior: "Bidrog till", "Assisterade", "Utvecklade färdigheter i"
+- Mid: "Ansvarade för", "Levererade", "Ökade", "Implementerade"
+- Senior: "Ledde", "Transformerade", "Skalade", "Etablerade"
+- Lead: "Drev strategisk", "Byggde organisation", "Levererade affärsvärde"
 
 EXEMPEL på DÅLIGT aiExample (undvik):
-"t" eller "Förbättrade resultat" eller text utan siffror
+"t" eller "Ansvarade för christian karlsson" eller "Förbättrade resultat" eller text utan siffror
 `;
   }
 
@@ -313,27 +348,109 @@ Fokus: Inkludera relevanta nyckelord
 
 Nyckelord att inkludera: ${keywords.join(', ')}
 
+VIKTIGT: Variera meningsstrukturen!
+
+STRUKTURMALLAR med nyckelord (välj EN lämplig):
+
+1. KOMPETENSFOKUS:
+   "Specialist på [nyckelord] med fokus på [resultat]"
+
+2. ANSVARSOMRÅDE:
+   "Ansvarade för [nyckelord] och uppnådde [mätbart resultat]"
+
+3. UTVECKLING:
+   "Utvecklade kompetens inom [nyckelord] som resulterade i [resultat]"
+
+4. BRED ERFARENHET:
+   "Omfattande erfarenhet av [nyckelord] med dokumenterade resultat i [område]"
+
 Returnera JSON:
 {
   "originalText": "Exakt text från CV:t som ska förbättras (max 100 tecken)",
   "suggestion": "Förklara vilka nyckelord som ska läggas till",
-  "aiExample": "Konkret exempel som naturligt inkluderar nyckelorden (minst 20 ord)",
+  "aiExample": "ANVÄND EN STRUKTURMALL - naturligt inkludera nyckelorden (minst 25 ord)",
   "keywords": ["nyckelord1", "nyckelord2"],
   "confidence": 0.85
 }
 
 KRAV för aiExample:
 - MÅSTE naturligt inkludera nyckelorden ${keywords.join(', ')}
-- MÅSTE vara minst 20 ord långt
+- MÅSTE vara minst 25 ord långt
 - MÅSTE vara relevant för ${role.title} på ${role.company}
 - Får INTE bara vara en lista av nyckelord
-
-EXEMPEL på bra aiExample för en Platschef med nyckelord [ledarskap, budgetansvar]:
-"Ansvarade för strategisk ledarskap av träningsanläggning med fokus på personalutveckling och operativ excellens, hanterade budgetansvar omfattande både drift och investeringar på totalt 8 MSEK årligen"
+- MÅSTE variera struktur mellan olika anrop
 `;
   }
 
   return basePrompt;
+}
+
+/**
+ * Infer seniority level from role and period
+ */
+function inferSeniority(role: ParsedRole): 'junior' | 'mid' | 'senior' | 'lead' {
+  const title = role.title.toLowerCase();
+
+  // Calculate years of experience from period
+  const yearsOfExperience = calculateYearsOfExperience(role.period);
+
+  // Check for leadership indicators
+  if (title.includes('chef') || title.includes('manager') || title.includes('lead') || title.includes('vd')) {
+    return 'lead';
+  }
+
+  // Check for senior indicators
+  if (title.includes('senior') || title.includes('specialist') || yearsOfExperience > 5) {
+    return 'senior';
+  }
+
+  // Mid-level
+  if (yearsOfExperience > 2) {
+    return 'mid';
+  }
+
+  // Junior by default
+  return 'junior';
+}
+
+/**
+ * Calculate years of experience from period string
+ */
+function calculateYearsOfExperience(period: string): number {
+  if (!period) return 0;
+
+  // Extract years from period (e.g., "2014 - Pågående" or "2018-2020")
+  const yearMatch = period.match(/(\d{4})/g);
+  if (!yearMatch || yearMatch.length === 0) return 0;
+
+  const startYear = parseInt(yearMatch[0]);
+  const endYear = period.toLowerCase().includes('pågående') || period.toLowerCase().includes('nuvarande')
+    ? new Date().getFullYear()
+    : (yearMatch.length > 1 ? parseInt(yearMatch[1]) : new Date().getFullYear());
+
+  return Math.max(0, endYear - startYear);
+}
+
+/**
+ * Infer industry from role title, company, and description
+ */
+function inferIndustry(role: ParsedRole): string {
+  const combined = (role.title + ' ' + role.company + ' ' + role.description).toLowerCase();
+
+  if (combined.includes('bygg') || combined.includes('snickare') || combined.includes('renovering')) {
+    return 'construction';
+  }
+  if (combined.includes('träning') || combined.includes('fitness') || combined.includes('gym')) {
+    return 'fitness';
+  }
+  if (combined.includes('webb') || combined.includes('design') || combined.includes('utveckl')) {
+    return 'tech';
+  }
+  if (combined.includes('sälj') || combined.includes('försälj')) {
+    return 'sales';
+  }
+
+  return 'general';
 }
 
 /**
@@ -344,7 +461,7 @@ export function validateAIResponse(response: string): boolean {
     return false;
   }
 
-  // Check minimum length - increased to 50 for better quality
+  // Check minimum length - CV text should be substantial
   if (response.length < 50) {
     console.warn(`⚠️ AI response too short (${response.length} chars): "${response}"`);
     return false;
@@ -356,37 +473,57 @@ export function validateAIResponse(response: string): boolean {
     return false;
   }
 
-  // VIKTIGT: Blockera "Ansvarade för" som början
-  if (response.trim().toLowerCase().startsWith('ansvarade för')) {
-    console.warn(`❌ AI response starts with forbidden 'Ansvarade för': "${response}"`);
-    return false;
+  // REMOVED: "Ansvarade för" är faktiskt OK för CV-text!
+  // Det är variationen som är problemet, inte fraser i sig
+
+  // Check for repetitive/generic starts that indicate low quality
+  const genericStarts = [
+    'ansvarade för christian karlsson',
+    'ansvarade för agerade projektledare',
+    'text för',
+    'exempel på',
+    'förbättring av'
+  ];
+
+  const lowerResponse = response.trim().toLowerCase();
+  for (const genericStart of genericStarts) {
+    if (lowerResponse.startsWith(genericStart)) {
+      console.warn(`⚠️ AI response has generic/malformed start: "${response.substring(0, 50)}..."`);
+      return false;
+    }
   }
 
   // Check for numbers (quantification should have numbers)
   const hasNumbers = /\d+/.test(response);
   if (!hasNumbers) {
     console.warn(`⚠️ AI response lacks numbers: "${response}"`);
-    // Don't reject, but warn
+    // Don't reject entirely, but prefer responses with numbers
   }
 
-  // Check for sufficient words - increased to 8 for complete sentences
+  // Check for sufficient words - CV text should be detailed
   const wordCount = response.split(/\s+/).length;
-  if (wordCount < 8) {
+  if (wordCount < 15) {
     console.warn(`⚠️ AI response has too few words (${wordCount}): "${response}"`);
     return false;
   }
 
   // Check for Swedish action verbs (must have at least one)
-  const hasActionVerb = /\b(ledde|utvecklade|implementerade|ökade|minskade|skapade|genomförde|optimerade|förbättrade|hanterade|koordinerade|etablerade|drev|byggde|ansåg|administrerade)\b/i.test(response);
+  const hasActionVerb = /\b(ledde|utvecklade|implementerade|ökade|minskade|skapade|genomförde|optimerade|förbättrade|hanterade|koordinerade|etablerade|drev|byggde|ansvarade|administrerade|levererade)\b/i.test(response);
   if (!hasActionVerb) {
     console.warn(`⚠️ AI response lacks action verb: "${response}"`);
-    // Don't reject, but could be improved
+    return false; // Reject if no action verb - critical for CV quality
   }
 
   // Check for placeholder text
-  const invalidPhrases = ['[', ']', 'exempel här', 'text här', 'TODO'];
+  const invalidPhrases = ['[', ']', 'exempel här', 'text här', 'TODO', 'kunde inte'];
   if (invalidPhrases.some(phrase => response.toLowerCase().includes(phrase))) {
     console.warn(`⚠️ AI response contains placeholder text: "${response}"`);
+    return false;
+  }
+
+  // Check that it's not just a copy of input
+  if (response.includes('originaltext:') || response.includes('förbättring:')) {
+    console.warn(`⚠️ AI response contains prompt artifacts: "${response.substring(0, 50)}..."`);
     return false;
   }
 
@@ -443,32 +580,94 @@ Exempel: "Ledde team på 12 personer med budgetansvar på 5 MSEK, implementerade
 }
 
 /**
- * Create fallback example if AI fails
+ * Create contextual fallback example if AI fails
  */
 function createFallbackExample(role: ParsedRole, type: string): string {
-  const roleExamples: Record<string, Record<string, string>> = {
-    platschef: {
-      quantification: 'Ledde team på 10-15 personer med ansvar för daglig drift, budget på 3-5 MSEK årligen och verksamhet med 2000+ medlemmar',
-      keywords: 'Ansvarade för strategisk ledning, operativ drift och personalutveckling inom träningsbranschen med fokus på medlemstillfredsställelse och lönsamhet',
+  const seniority = inferSeniority(role);
+  const industry = inferIndustry(role);
+  const yearsExp = calculateYearsOfExperience(role.period);
+
+  // Bransch- och senioritetspecifika mallar med variation
+  const fallbackExamples: Record<string, Record<string, string[]>> = {
+    fitness: {
+      lead: [
+        `Ledde träningsanläggning med ${Math.max(3000, Math.floor(yearsExp * 500))} medlemmar och team på ${10 + yearsExp} personer, ökade årsomsättningen med ${1 + yearsExp * 0.3} MSEK genom förbättrad kundservice och nya tjänster`,
+        `Drev strategisk utveckling av fitnesscenter med fokus på medlemsretention och lönsamhet, uppnådde ${75 + yearsExp * 2}% kundnöjdhet och ${15 + yearsExp}% årlig tillväxt`
+      ],
+      mid: [
+        `Ansvarade för personalschema och medlemsservice för ${1500 + yearsExp * 200}+ medlemmar, ökade retention med ${20 + yearsExp * 3}% på 12 månader`,
+        `Koordinerade träningsverksamhet och kundservice, implementerade rutiner som förbättrade medlemsnöjdheten från ${6.5 + yearsExp * 0.2} till ${8.0 + yearsExp * 0.3} i betyg`
+      ],
+      junior: [
+        `Bidrog till daglig drift av träningsanläggning med ${800 + yearsExp * 100} medlemmar, assisterade i utveckling av kundservicerutiner`,
+        `Stöttade gymverksamhet genom schemaläggning och kundservice, utvecklade färdigheter inom träningsrådgivning och medlemsvård`
+      ]
     },
-    projektledare: {
-      quantification: 'Ledde projekt med budget på 2-10 MSEK, team på 5-10 personer och levererade inom tidsram med 15% kostnadsbesparingar',
-      keywords: 'Projektledning enligt agila metoder med ansvar för planering, genomförande och uppföljning av komplexa byggprojekt',
+    construction: {
+      lead: [
+        `Ledde ${10 + yearsExp * 3} byggprojekt värda totalt ${5 + yearsExp * 2} MSEK med team på ${8 + yearsExp} hantverkare, slutförde samtliga inom tid och budget`,
+        `Drev renoveringsprojekt i Stockholmsområdet med budgetansvar på ${3 + yearsExp} MSEK, uppnådde ${95 + yearsExp}% kundnöjdhet och ${20 + yearsExp * 2}% återkommande uppdrag`
+      ],
+      mid: [
+        `Ansvarade för renovering av ${15 + yearsExp * 5} objekt i Stockholmsområdet, genomförde projekt värt ${2 + yearsExp * 0.5} MSEK med 98% kundnöjdhet`,
+        `Levererade ${20 + yearsExp * 3} renoveringsprojekt med fokus på kvalitet och tidseffektivitet, minskade materialspill med ${15 + yearsExp * 3}%`
+      ],
+      junior: [
+        `Bidrog till ${5 + yearsExp * 2} renoveringsprojekt med fokus på kvalitetsarbete och säkerhet, utvecklade kompetens inom byggstandarder`,
+        `Assisterade i byggprojekt värt totalt ${1 + yearsExp * 0.3} MSEK, lärde mig professionella metoder för renovering och nyproduktion`
+      ]
     },
-    snickare: {
-      quantification: 'Genomförde 20+ renoveringsprojekt årligen med fokus på kvalitet och tidseffektivitet, minskade materialspill med 30%',
-      keywords: 'Erfaren snickare med kompetens inom renovering, nyproduktion och specialsnickeri samt god kännedom om byggstandarder',
+    tech: {
+      lead: [
+        `Utvecklade ${30 + yearsExp * 10}+ företagswebbplatser med fokus på UX och konvertering, ökade kunders online-försäljning med genomsnitt ${35 + yearsExp * 5}%`,
+        `Drev webbdesignbyrå med ${15 + yearsExp * 3} projekt årligen, specialiserad på responsiv design och CMS-lösningar, uppnådde ${90 + yearsExp}% kundnöjdhet`
+      ],
+      mid: [
+        `Designade och implementerade ${20 + yearsExp * 5} webbprojekt i WordPress/HTML/CSS, levererade samtliga projekt i tid med ${85 + yearsExp * 2}% kundnöjdhet`,
+        `Utvecklade ${15 + yearsExp * 4} responsiva webbplatser för SME-kunder, ökade deras konverteringsgrad med genomsnitt ${25 + yearsExp * 3}%`
+      ],
+      junior: [
+        `Bidrog till utveckling av ${8 + yearsExp * 2} webbprojekt med fokus på front-end och användarupplevelse`,
+        `Assisterade i design och implementation av företagswebbplatser, utvecklade färdigheter i WordPress, HTML och CSS`
+      ]
     },
-    default: {
-      quantification: 'Ansvarade för verksamhet med team på 5+ personer, budget på 1+ MSEK och uppnådde uppsatta mål med 20% marginal',
-      keywords: 'Bred kompetens inom ledarskap, administration och verksamhetsutveckling med dokumenterade resultat och stark kundorientering',
+    sales: {
+      lead: [
+        `Ledde säljteam på ${8 + yearsExp} personer som genererade ${10 + yearsExp * 3} MSEK i försäljning, ökade teamets genomsnitt med ${30 + yearsExp * 5}%`,
+        `Drev försäljningsstrategi som resulterade i ${15 + yearsExp * 4} nya nyckelkunder och ${20 + yearsExp * 3}% årlig tillväxt`
+      ],
+      mid: [
+        `Ansvarade för försäljning till ${30 + yearsExp * 10} kunder, genererade ${5 + yearsExp * 2} MSEK årligen med ${75 + yearsExp * 3}% måluppfyllelse`,
+        `Utvecklade ${20 + yearsExp * 5} nya kundrelationer som bidrog till ${3 + yearsExp}% marknadsandelsökning`
+      ],
+      junior: [
+        `Bidrog till försäljning genom prospektering och kundvård, uppnådde ${80 + yearsExp * 5}% av personligt försäljningsmål`,
+        `Assisterade säljteam med kundkontakter och erbjudanden, utvecklade färdigheter inom B2B-försäljning`
+      ]
     },
+    general: {
+      lead: [
+        `Ledde verksamhetsområde med team på ${10 + yearsExp} personer och budget på ${3 + yearsExp} MSEK, implementerade förbättringar som ökade effektiviteten med ${25 + yearsExp * 3}%`,
+        `Drev strategisk utveckling av affärsområde, uppnådde ${15 + yearsExp * 2}% årlig tillväxt och ${85 + yearsExp}% kundnöjdhet`
+      ],
+      mid: [
+        `Ansvarade för verksamhet med ${5 + yearsExp} medarbetare, genomförde förbättringar som ökade produktiviteten med ${20 + yearsExp * 2}%`,
+        `Koordinerade arbetsområde med budget på ${2 + yearsExp} MSEK, uppnådde uppsatta mål med ${110 + yearsExp * 3}% måluppfyllelse`
+      ],
+      junior: [
+        `Bidrog till verksamhet genom ${3 + yearsExp} projekt med dokumenterade resultat, utvecklade kompetens inom ${type === 'quantification' ? 'processförbättring' : 'operativ verksamhet'}`,
+        `Assisterade i ${5 + yearsExp * 2} förbättringsprojekt, lärde mig professionella metoder för ${type === 'quantification' ? 'resultatmätning' : 'verksamhetsutveckling'}`
+      ]
+    }
   };
 
-  const roleLower = role.title.toLowerCase();
-  const examples = roleExamples[roleLower] || roleExamples.default;
+  // Välj rätt bransch och senioritet
+  const industryExamples = fallbackExamples[industry] || fallbackExamples.general;
+  const seniorityExamples = industryExamples[seniority] || industryExamples.mid;
 
-  return examples[type] || examples.quantification;
+  // Välj slumpmässigt exempel för variation
+  const randomIndex = Math.floor(Math.random() * seniorityExamples.length);
+  return seniorityExamples[randomIndex];
 }
 
 /**
