@@ -37,6 +37,68 @@ export async function GET(
       return NextResponse.json({ message: 'Åtkomst nekad.' }, { status: 403 });
     }
 
+    // Om jobbet är completed och usage inte räknats än, uppdatera usage count
+    if (job.status === 'completed' && !(job as any).usage_counted) {
+      console.log(`Updating usage count for completed job ${jobId}`);
+
+      // Hämta user profile för att kolla subscription tier
+      const { data: profileData } = await supabase
+        .from('profiles')
+        .select('subscription_tier, weekly_analysis_count')
+        .eq('id', user.id)
+        .single();
+
+      // Endast uppdatera count för free tier users
+      if (profileData?.subscription_tier === 'free') {
+        const newCount = (profileData.weekly_analysis_count || 0) + 1;
+
+        const { error: updateError } = await supabase
+          .from('profiles')
+          .update({ weekly_analysis_count: newCount })
+          .eq('id', user.id);
+
+        if (updateError) {
+          console.error('Failed to update weekly_analysis_count:', updateError);
+        } else {
+          console.log(`Updated weekly_analysis_count to ${newCount} for user ${user.id}`);
+        }
+      }
+
+      // Markera job som usage_counted
+      const { error: jobUpdateError } = await supabase
+        .from('cv_analysis_jobs')
+        .update({ usage_counted: true })
+        .eq('id', jobId);
+
+      if (jobUpdateError) {
+        console.error('Failed to mark job as usage_counted:', jobUpdateError);
+      }
+
+      // Award XP for CV analysis
+      try {
+        const origin = request.headers.get('origin') || 'https://jobbcoach.ai';
+        const xpResponse = await fetch(`${origin}/api/gamification/award-xp`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Cookie': request.headers.get('cookie') || ''
+          },
+          body: JSON.stringify({
+            amount: 40,
+            source: 'cv_analyzed',
+            sourceId: job.cv_id,
+            description: 'Genomförde CV-analys'
+          })
+        });
+
+        if (!xpResponse.ok) {
+          console.error('Failed to award XP for CV analysis');
+        }
+      } catch (xpError) {
+        console.error('Error awarding XP:', xpError);
+      }
+    }
+
     // Returnera status
     return NextResponse.json({
       id: job.id,

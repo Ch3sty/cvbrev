@@ -1,12 +1,9 @@
 // /src/app/api/cv/analyze/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { createServerClient } from '@/lib/supabase/server'; // Importerar bara funktionen
-import { SupabaseClient } from '@supabase/supabase-js';   // <<<--- KORREKT IMPORT HÄR
-import { analyzeCvBasic, analyzeCvPremium } from '@/lib/openai/cv-analysis';
+import { createServerClient } from '@/lib/supabase/server';
+import { SupabaseClient } from '@supabase/supabase-js';
 import { Database } from '@/types/database.types';
-import { parseCV, validateParsedCV } from '@/lib/cv/cv-parser';
-import { generateRoleBasedImprovements } from '@/lib/cv/role-based-improvements';
 import { createBackgroundJob } from '@/lib/cv/background-jobs';
 
 // Vercel maxDuration configuration
@@ -262,190 +259,34 @@ export async function POST(request: NextRequest) {
         // --- 4. Fetch CV Text ---
         const cvText = await getCvText(supabase, userId, cvId);
 
-        // --- 5. Perform AI Analysis with Role-Based Parsing ---
-        console.log(`API analyzeCv: User ${userId} (${profileData.subscriptionTier}): Performing analysis for CV ${cvId}...`);
+        // --- 5. Create Background Job for AI Analysis (100% Async) ---
+        console.log(`API analyzeCv: User ${userId} (${profileData.subscriptionTier}): Creating background job for CV ${cvId}...`);
 
-        // Kör parseCV först, sedan analyzeCv med parsad data
-        console.log('🚀 Starting sequential analysis (parseCV → analyzeCv)...');
-        const overallStartTime = Date.now();
+        const { jobId, error: jobError } = await createBackgroundJob(userId, cvId, cvText);
 
-        // Hybrid timeout: 45s för att avgöra om vi behöver gå till background job
-        const SYNC_TIMEOUT_MS = 45000; // 45 sekunder för synkron processing
-
-        let parsedCV, analysisResult;
-        try {
-            // Först: Parse CV för att identifiera roller
-            const parseStartTime = Date.now();
-            parsedCV = await parseCV(cvText);
-            const parseDuration = Date.now() - parseStartTime;
-            console.log(`✅ [parseCV] Completed in ${parseDuration}ms, found ${parsedCV.roles.length} roles`);
-
-            // Kolla om vi redan använt för mycket tid (>30s för parseCV = stort CV)
-            const remainingTime = SYNC_TIMEOUT_MS - parseDuration;
-            if (remainingTime < 15000) {
-                console.log(`⚠️ Parse took ${parseDuration}ms, insufficient time remaining for sync analysis. Switching to background job.`);
-
-                // Skapa background job
-                const { jobId, error: jobError } = await createBackgroundJob(userId, cvId, cvText);
-                if (jobError || !jobId) {
-                    throw new Error(`Failed to create background job: ${jobError}`);
-                }
-
-                console.log(`✅ Background job created: ${jobId}`);
-                return NextResponse.json(
-                    {
-                        message: 'CV-analysen körs i bakgrunden. Detta kan ta upp till 2 minuter.',
-                        jobId,
-                        status: 'processing',
-                        isBackgroundJob: true
-                    },
-                    { status: 202 } // Accepted
-                );
-            }
-
-            // Timeout-hantering: Ge analysen resterande tid
-            const analysisTimeout = new Promise<never>((_, reject) => {
-                setTimeout(() => {
-                    reject(new Error(`Analysis timeout: Processing took too long (>${remainingTime/1000}s)`));
-                }, remainingTime);
-            });
-
-            // Sedan: Analysera CV med parsad roll-information
-            const analysisStartTime = Date.now();
-            analysisResult = await Promise.race([
-                profileData.subscriptionTier === 'premium'
-                    ? analyzeCvPremium(cvText, parsedCV)  // Skicka parsedCV till premium-analysen
-                    : analyzeCvBasic(cvText),
-                analysisTimeout
-            ]);
-            const analysisDuration = Date.now() - analysisStartTime;
-            console.log(`✅ [${profileData.subscriptionTier}Analysis] Completed in ${analysisDuration}ms`);
-
-            const totalDuration = Date.now() - overallStartTime;
-            console.log(`⏱️ [TOTAL] Sequential analysis completed in ${totalDuration}ms (parse: ${parseDuration}ms, analysis: ${analysisDuration}ms)`);
-        } catch (timeoutError) {
-            const totalDuration = Date.now() - overallStartTime;
-            console.error(`❌ Analysis timeout after ${totalDuration}ms. Switching to background job.`);
-
-            // Fallback till background job vid timeout
-            const { jobId, error: jobError } = await createBackgroundJob(userId, cvId, cvText);
-            if (jobError || !jobId) {
-                console.error('Failed to create background job on timeout:', jobError);
-                return NextResponse.json(
-                    {
-                        message: `Analysen tog för lång tid och kunde inte skapas som bakgrundsjobb. Försök igen senare.`,
-                        error: 'timeout_and_fallback_failed',
-                        duration: totalDuration
-                    },
-                    { status: 500 }
-                );
-            }
-
-            console.log(`✅ Background job created after timeout: ${jobId}`);
+        if (jobError || !jobId) {
+            console.error('Failed to create background job:', jobError);
             return NextResponse.json(
-                {
-                    message: 'CV-analysen körs i bakgrunden. Detta kan ta upp till 2 minuter.',
-                    jobId,
-                    status: 'processing',
-                    isBackgroundJob: true
-                },
-                { status: 202 } // Accepted
+                { message: 'Kunde inte starta CV-analys. Försök igen.' },
+                { status: 500 }
             );
         }
 
-        const isValid = validateParsedCV(parsedCV);
-        if (!isValid) {
-            console.warn('⚠️ CV parsing validation failed, using fallback analysis');
-        }
+        console.log(`✅ Background job created: ${jobId}`);
 
-        // Add parsed roles info to analysis result
-        (analysisResult as any).parsedRoles = parsedCV.roles.map(r => ({
-            title: r.title,
-            company: r.company,
-            period: r.period
-        }));
-
-        // Log role-based improvements from AI analysis med detaljerad timing
-        const roleImprovementsFromAI = (analysisResult as any).roleBasedImprovements || [];
-        console.log(`✅ AI generated ${roleImprovementsFromAI.length} role-based improvements (expected: ${Math.min(parsedCV.roles.length, 3)})`);
-        if (roleImprovementsFromAI.length > 0) {
-            console.log('📊 Role-based improvements summary:', roleImprovementsFromAI.map((r: any) => ({
-                role: `${r.roleTitle} @ ${r.company}`,
-                hasQuantification: r.improvements?.hasQuantification || false,
-                keywordsCount: r.improvements?.keywords?.length || 0,
-                suggestedTextLength: r.suggestedText?.length || 0,
-                atsImpact: r.atsImpact || 0,
-                textPreview: r.suggestedText?.substring(0, 60) || 'SAKNAS'
-            })));
-        } else {
-            console.warn(`⚠️ No role-based improvements generated despite ${parsedCV.roles.length} roles found in parsing`);
-        }
-
-        // Extract general improvements from analysis result
-        const generalImprovements = (analysisResult as any).generalImprovements ||
-            extractGeneralImprovementsFromAnalysis(analysisResult);
-        (analysisResult as any).generalImprovements = generalImprovements;
-        console.log(`✅ Extracted ${generalImprovements.length} general improvements from analysis`);
-
-        console.log(`API analyzeCv: User ${userId}: Analysis successful.`);
-
-        // Logga AI-kostnad till usage_log för ekonomisk spårning
-        if (analysisResult.cost && analysisResult.model) {
-            const { error: usageLogError } = await supabase.from('usage_log').insert({
-                user_id: userId,
-                feature_type: 'cv_analysis',
-                model: analysisResult.model,
-                tokens: analysisResult.tokens?.total || 0,
-                cost: analysisResult.cost,
-                related_id: cvId,  // Use related_id for the CV ID
-                metadata: {
-                    cv_id: cvId,
-                    analysis_type: profileData.subscriptionTier,
-                    cost_sek: analysisResult.cost * 10.5,
-                    prompt_tokens: analysisResult.tokens?.prompt,
-                    completion_tokens: analysisResult.tokens?.completion
-                }
-            });
-
-            if (usageLogError) {
-                console.error('Failed to insert into usage_log:', usageLogError);
-            } else {
-                console.log(`API analyzeCv: Logged AI cost to usage_log: $${analysisResult.cost} for user ${userId}`);
-            }
-        }
-
-        // --- 6. Update Count for Free Users (Post-Analysis) ---
-        if (profileData.subscriptionTier === 'free') {
-            currentRemainingAnalyses = await decrementFreeUserCount(supabase, userId, resetInfo.count);
-        } else {
-             currentRemainingAnalyses = Infinity;
-        }
-
-        // Award XP for CV analysis
-        try {
-            const xpResponse = await fetch(`${request.headers.get('origin')}/api/gamification/award-xp`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Cookie': request.headers.get('cookie') || ''
-                },
-                body: JSON.stringify({
-                    amount: 40,
-                    source: 'cv_analyzed',
-                    sourceId: cvId,
-                    description: 'Genomförde CV-analys'
-                })
-            });
-
-            if (!xpResponse.ok) {
-                console.error('Failed to award XP for CV analysis');
-            }
-        } catch (xpError) {
-            console.error('Error awarding XP:', xpError);
-        }
-
-        // --- 7. Construct and Return Success Response ---
-        return NextResponse.json( { ...analysisResult, remainingAnalyses: currentRemainingAnalyses, nextResetDate: nextResetDate.toISOString(), limitReached: profileData.subscriptionTier === 'free' && currentRemainingAnalyses <= 0, }, { status: 200 } );
+        // Return 202 Accepted immediately with job info
+        return NextResponse.json(
+            {
+                message: 'CV-analysen har startats och körs i bakgrunden.',
+                jobId,
+                status: 'processing',
+                isBackgroundJob: true,
+                estimatedTime: '30-60 sekunder',
+                remainingAnalyses: currentRemainingAnalyses,
+                nextResetDate: nextResetDate.toISOString()
+            },
+            { status: 202 } // Accepted
+        );
 
     } catch (error: any) {
         // --- Global Error Handling ---

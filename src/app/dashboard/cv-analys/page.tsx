@@ -128,6 +128,7 @@ export default function AnalyzeCvPage() {
   const pollForJobResult = useCallback(async (jobId: string): Promise<any> => {
     const MAX_POLLS = 60; // 60 polls * 2s = 2 minutes max
     const POLL_INTERVAL_MS = 2000; // 2 seconds
+    const ESTIMATED_TOTAL_TIME = 50; // sekunder (realistisk uppskattning)
 
     for (let i = 0; i < MAX_POLLS; i++) {
       await new Promise(resolve => setTimeout(resolve, POLL_INTERVAL_MS));
@@ -145,12 +146,16 @@ export default function AnalyzeCvPage() {
         throw new Error(jobData.error || 'Analysis failed');
       }
 
-      // Update progress message
+      // Update progress message with percentage and estimated time
       const elapsed = (i + 1) * (POLL_INTERVAL_MS / 1000);
-      showNotification('loading', `Analyserar ditt CV (${elapsed}s)...`);
+      const progress = Math.min(95, Math.round((elapsed / ESTIMATED_TOTAL_TIME) * 100));
+
+      showNotification('loading',
+        `AI analyserar ditt CV med avancerad rollbaserad analys... ${progress}% (${elapsed}s av ~${ESTIMATED_TOTAL_TIME}s)`
+      );
     }
 
-    throw new Error('Analysis timeout: Job took too long to complete');
+    throw new Error('Analysen tog för lång tid. Försök igen eller kontakta support.');
   }, [showNotification]);
 
   // --- Event Handlers ---
@@ -160,29 +165,43 @@ export default function AnalyzeCvPage() {
     const hasReachedLimit = isFreeTier && remainingWeeklyAnalyses !== null && remainingWeeklyAnalyses <= 0;
     if (hasReachedLimit) { showNotification('error', 'Du har nått din veckogräns för CV-analyser. Uppgradera till premium för obegränsad användning.', NOTIFICATION_DURATION_MS); setError('Veckogräns nådd. Uppgradera till premium.'); return; }
 
-    setIsAnalyzing(true); setError(null); setAnalysisResult(null); showNotification('loading', 'Analyserar ditt CV...');
+    setIsAnalyzing(true); setError(null); setAnalysisResult(null); showNotification('loading', 'Startar AI-analys av ditt CV...');
 
     try {
       const response = await fetch(API_ANALYZE_ROUTE, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ cvId: selectedCV }) });
       const result = await response.json();
-      closeNotification();
 
-      // Check if this is a background job (status 202)
+      // All responses are now background jobs (status 202)
       if (response.status === 202 && result.isBackgroundJob && result.jobId) {
-        showNotification('loading', 'Analyserar ditt CV i bakgrunden...');
+        closeNotification();
+        showNotification('loading', 'AI analyserar ditt CV med avancerad rollbaserad analys. Detta tar vanligtvis 30-60 sekunder...');
+
+        // Update remaining analyses from initial response
+        if (result.remainingAnalyses !== undefined && typeof updateRemainingAnalyses === 'function') {
+          updateRemainingAnalyses(result.remainingAnalyses);
+        }
+        if (result.nextResetDate && typeof updateNextAnalysisResetDate === 'function') {
+          updateNextAnalysisResetDate(new Date(result.nextResetDate));
+        }
 
         // Poll for result
         const analysisResult = await pollForJobResult(result.jobId);
 
-        // Process result same as sync flow
+        // Process completed analysis
         setAnalysisResult(analysisResult);
 
+        // Show success message with remaining analyses info
         if (isFreeTier) {
-          showNotification('success', 'CV-analysen är klar!', NOTIFICATION_DURATION_MS);
+          const remainingCount = result.remainingAnalyses;
+          const limitText = remainingCount === 0
+            ? 'Du har nu nått din veckogräns.'
+            : `Du har ${remainingCount} ${remainingCount === 1 ? 'analys' : 'analyser'} kvar denna vecka.`;
+          showNotification('success', `CV-analysen är klar! ${limitText}`, NOTIFICATION_DURATION_MS + 1000);
         } else {
-          showNotification('success', 'CV-analysen är klar!', NOTIFICATION_DURATION_MS - 1000);
+          showNotification('success', 'CV-analysen är klar!', NOTIFICATION_DURATION_MS);
         }
 
+        // Log activity
         if (profile?.id && selectedCV) {
           const cvFileName = cvs?.find(cv => cv.id === selectedCV)?.file_name || selectedCV;
           logUserActivity(profile.id, 'cv_analysis_completed', `Successfully analyzed CV: ${cvFileName}`, { cvId: selectedCV, tier: subscriptionTier }).catch(e => console.error("Activity logging failed:", e));
@@ -191,7 +210,8 @@ export default function AnalyzeCvPage() {
         return;
       }
 
-      // Standard synchronous response (status 200)
+      // Handle non-202 responses (errors)
+      closeNotification();
       if (!response.ok) {
         if (response.status === 429) {
           showNotification('error', result.message || 'Du har nått din gräns för CV-analyser denna vecka.', NOTIFICATION_DURATION_MS);
@@ -199,16 +219,6 @@ export default function AnalyzeCvPage() {
         }
         throw new Error(result.message || `Serverfel ${response.status}: Något gick fel vid analysen.`);
       }
-
-      setAnalysisResult(result);
-
-      if (result.remainingAnalyses !== undefined && typeof updateRemainingAnalyses === 'function') {
-        updateRemainingAnalyses(result.remainingAnalyses);
-        if (isFreeTier) { const remainingCount = result.remainingAnalyses; const limitText = remainingCount === 0 ? 'Du har nu nått din veckogräns.' : `Du har ${remainingCount} ${remainingCount === 1 ? 'analys' : 'analyser'} kvar denna vecka.`; showNotification('success', `CV-analysen är klar! ${limitText}`, NOTIFICATION_DURATION_MS + 1000); } else { showNotification('success', 'CV-analysen är klar!', NOTIFICATION_DURATION_MS - 1000); }
-      } else { showNotification('success', 'CV-analysen är klar!', NOTIFICATION_DURATION_MS - 1000); }
-      if (result.nextResetDate && typeof updateNextAnalysisResetDate === 'function') { updateNextAnalysisResetDate(new Date(result.nextResetDate)); }
-
-      if (profile?.id && selectedCV) { const cvFileName = cvs?.find(cv => cv.id === selectedCV)?.file_name || selectedCV; logUserActivity(profile.id, 'cv_analysis_completed', `Successfully analyzed CV: ${cvFileName}`, { cvId: selectedCV, tier: subscriptionTier }).catch(e => console.error("Activity logging failed:", e)); }
 
     } catch (error: any) {
       console.error("Fel vid CV-analys:", error); closeNotification();
