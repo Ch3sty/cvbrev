@@ -131,34 +131,26 @@ export async function analyzeCvBasic(cvText: string): Promise<BasicAnalysisResul
     }
 }
 
-// --- Premium Analysfunktion ---
-export async function analyzeCvPremium(cvText: string, parsedCV?: any): Promise<PremiumAnalysisResult> {
-    const startTime = Date.now();
+// --- Helper: Analyze a batch of roles ---
+async function analyzeRoleBatch(
+    cvText: string,
+    roles: any[],
+    modelToUse: string,
+    batchIndex: number
+): Promise<{ roleBasedImprovements: RoleBasedImprovement[], tokens: any, cost: number | null }> {
     const truncatedCV = cvText.substring(0, 8000);
-    const modelToUse = "gpt-4.1";
 
-    // Bygg roll-kontext om parsedCV finns - BEGRÄNSA till max 3 roller för snabbare processing
-    let rolesContext = '';
-    if (parsedCV && parsedCV.roles && parsedCV.roles.length > 0) {
-        const rolesToProcess = parsedCV.roles.slice(0, 3); // Ta bara första 3 rollerna
-        rolesContext = '\n\n=== IDENTIFIERADE ROLLER (top 3) ===\n' + rolesToProcess.map((r: any, idx: number) =>
-            `ROLL ${idx + 1}: ${r.title} @ ${r.company} (${r.period})\nText: ${(r.description || r.originalText || '').substring(0, 300)}`
-        ).join('\n---\n');
+    // Bygg roll-kontext för denna batch
+    const rolesContext = '\n\n=== ROLLER ATT ANALYSERA ===\n' + roles.map((r: any, idx: number) =>
+        `ROLL ${idx + 1}: ${r.title} @ ${r.company} (${r.period})\nText: ${(r.description || r.originalText || '').substring(0, 300)}`
+    ).join('\n---\n');
 
-        if (parsedCV.roles.length > 3) {
-            console.log(`⚠️ CV has ${parsedCV.roles.length} roles, processing top 3 for performance`);
-        }
-    }
+    const systemPrompt = `Du är en CV-expert med ATS-kunskap. Analysera roller från ett svenskt CV och generera roll-baserade förbättringar.
 
-    // OPTIMERAD prompt - borttagna exempel, kortare instruktioner
-    const systemPrompt = `Du är en CV-expert med ATS-kunskap. Analysera detta svenska CV och generera roll-baserade förbättringar.
-
-VIKTIGT: För VARJE roll, generera EN komplett förbättrad CV-text med ATS-nyckelord, kvantifiering, starka verb och grammatik.
+VIKTIGT: För VARJE roll nedan, generera EN komplett förbättrad CV-text med ATS-nyckelord, kvantifiering, starka verb och grammatik.
 
 JSON-struktur (svara ENDAST med JSON):
 {
-  "summary": "3-4 meningar om CV:ts styrkor och intryck",
-  "detailedStrengths": [{"point": "Styrka", "example": "Exempel från CV"}],
   "roleBasedImprovements": [{
     "roleTitle": "Titel från CV",
     "company": "Företag",
@@ -172,7 +164,99 @@ JSON-struktur (svara ENDAST med JSON):
     },
     "suggestedText": "KOMPLETT färdig CV-text (80+ ord) med konkreta siffror, ATS-nyckelord och starka verb. MÅSTE vara användbar text, INTE instruktioner!",
     "atsImpact": number (0-20)
-  }],
+  }]
+}
+
+KRAV för suggestedText:
+1. Fullständig CV-text, INTE instruktioner
+2. Konkreta siffror (teamstorlek, budget, resultat, %)
+3. Minst 80 ord, sammanhängande text
+4. Starka verb: ledde, utvecklade, implementerade, ökade
+5. Bransch-ATS-nyckelord naturligt integrerade
+
+Exempel KORREKT suggestedText: "Ledde träningsanläggning med 3500 medlemmar och team på 15 anställda. Budgetansvar 5 MSEK årligen. Implementerade nya rutiner som ökade retention med 25% och minskade personalomsättning från 40% till 15% på 18 månader. Utvecklade träningsprogram som resulterade i 95% kundnöjdhet (NPS)."
+
+Var konstruktiv och praktisk.`;
+
+    const userPrompt = `Här är CV-kontexten:\n\n${truncatedCV}\n\n${rolesContext}\n\nGenerera förbättringsförslag för varje roll ovan.`;
+
+    const completion = await openai.chat.completions.create({
+        model: modelToUse,
+        messages: [ { role: "system", content: systemPrompt }, { role: "user", content: userPrompt } ],
+        temperature: 0.6,
+        max_tokens: 2500, // Optimerad för 3 roller (sänkt från 4000)
+        response_format: { type: "json_object" }
+    });
+
+    const content = completion.choices[0].message.content || '{}';
+    const parsedResult = JSON.parse(content);
+
+    // Beräkna kostnad och tokens
+    const promptTokens = completion.usage?.prompt_tokens || 0;
+    const completionTokens = completion.usage?.completion_tokens || 0;
+    const totalTokens = completion.usage?.total_tokens || 0;
+    const cost = calculateOpenAICost(modelToUse, promptTokens, completionTokens);
+
+    console.log(`[analyzeRoleBatch ${batchIndex}] Analyzed ${roles.length} roles: ${promptTokens} prompt + ${completionTokens} completion tokens ($${cost !== null ? cost.toFixed(4) : 'N/A'})`);
+
+    return {
+        roleBasedImprovements: parsedResult.roleBasedImprovements || [],
+        tokens: { prompt: promptTokens, completion: completionTokens, total: totalTokens },
+        cost: cost
+    };
+}
+
+// --- Premium Analysfunktion ---
+export async function analyzeCvPremium(cvText: string, parsedCV?: any): Promise<PremiumAnalysisResult> {
+    const startTime = Date.now();
+    const truncatedCV = cvText.substring(0, 8000);
+    const modelToUse = "gpt-4o"; // Byt från gpt-4.1 till gpt-4o för snabbare respons
+
+    // Batch-baserad roll-analys: Dela upp roller i grupper om 3
+    const ROLES_PER_BATCH = 3;
+    let allRoleImprovements: RoleBasedImprovement[] = [];
+    let totalPromptTokens = 0;
+    let totalCompletionTokens = 0;
+    let totalCost = 0;
+
+    if (parsedCV && parsedCV.roles && parsedCV.roles.length > 0) {
+        console.log(`[analyzeCvPremium] Starting batch analysis for ${parsedCV.roles.length} roles (${ROLES_PER_BATCH} per batch)`);
+
+        // Dela upp i batchar
+        const batches = [];
+        for (let i = 0; i < parsedCV.roles.length; i += ROLES_PER_BATCH) {
+            batches.push(parsedCV.roles.slice(i, i + ROLES_PER_BATCH));
+        }
+
+        // Analysera varje batch sekventiellt
+        for (let i = 0; i < batches.length; i++) {
+            const batchStartTime = Date.now();
+            const batch = batches[i];
+
+            try {
+                const batchResult = await analyzeRoleBatch(cvText, batch, modelToUse, i + 1);
+                allRoleImprovements.push(...batchResult.roleBasedImprovements);
+
+                totalPromptTokens += batchResult.tokens.prompt;
+                totalCompletionTokens += batchResult.tokens.completion;
+                totalCost += batchResult.cost || 0;
+
+                const batchDuration = Date.now() - batchStartTime;
+                console.log(`[analyzeCvPremium] Batch ${i + 1}/${batches.length} completed in ${batchDuration}ms (${batchResult.roleBasedImprovements.length} improvements)`);
+            } catch (error: any) {
+                console.error(`[analyzeCvPremium] Batch ${i + 1} failed:`, error.message);
+                // Fortsätt med nästa batch även om en batch misslyckas
+            }
+        }
+    }
+
+    // Nu gör vi en snabb general analysis (utan roll-detaljer)
+    const generalSystemPrompt = `Du är en CV-expert med ATS-kunskap. Ge en övergripande analys av detta svenska CV.
+
+JSON-struktur (svara ENDAST med JSON):
+{
+  "summary": "3-4 meningar om CV:ts styrkor och intryck",
+  "detailedStrengths": [{"point": "Styrka", "example": "Exempel från CV"}],
   "generalImprovements": [{"area": "Område", "suggestion": "Förslag", "example": "Exempel"}],
   "keywords": ["10-15 identifierade nyckelord"],
   "atsFriendliness": {"score": number (0-100), "feedback": "ATS-feedback", "missingKeywords": ["3-5 saknade ord"]},
@@ -185,55 +269,50 @@ JSON-struktur (svara ENDAST med JSON):
   }
 }
 
-KRAV för suggestedText:
-1. Fullständig CV-text, INTE instruktioner
-2. Konkreta siffror (teamstorlek, budget, resultat, %)
-3. Minst 80 ord, sammanhängande text
-4. Starka verb: ledde, utvecklade, implementerade, ökade
-5. Bransch-ATS-nyckelord naturligt integrerade
-
-Exempel KORREKT suggestedText: "Ledde träningsanläggning med 3500 medlemmar och team på 15 anställda. Budgetansvar 5 MSEK årligen. Implementerade nya rutiner som ökade retention med 25% och minskade personalomsättning från 40% till 15% på 18 månader. Utvecklade träningsprogram som resulterade i 95% kundnöjdhet (NPS)."
-
 Ge betyg 1-10. Var konstruktiv.`;
 
      try {
-        console.log(`🔍 [analyzeCvPremium] Starting AI analysis with ${parsedCV?.roles?.length || 0} roles detected`);
-        const userPrompt = `Analysera följande CV och generera roll-baserade förbättringar:\n\n${truncatedCV}${rolesContext}`;
+        console.log(`[analyzeCvPremium] Starting general analysis (role analysis completed with ${allRoleImprovements.length} improvements)`);
+        const userPrompt = `Analysera följande CV övergripande:\n\n${truncatedCV}`;
 
         const aiStartTime = Date.now();
         const completion = await openai.chat.completions.create({
             model: modelToUse,
-            messages: [ { role: "system", content: systemPrompt }, { role: "user", content: userPrompt } ],
+            messages: [ { role: "system", content: generalSystemPrompt }, { role: "user", content: userPrompt } ],
             temperature: 0.6,
-            max_tokens: 4000, // Ökat från 3000 för snabbare completion
+            max_tokens: 1500, // Mindre eftersom vi inte behöver roll-detaljer
             response_format: { type: "json_object" }
         });
         const aiDuration = Date.now() - aiStartTime;
-        console.log(`✅ [analyzeCvPremium] AI completion finished in ${aiDuration}ms`);
+        console.log(`[analyzeCvPremium] General analysis finished in ${aiDuration}ms`);
 
         const content = completion.choices[0].message.content || '{}';
         const parsedResult = JSON.parse(content);
 
-        // Beräkna kostnad och tokens
+        // Beräkna kostnad och tokens (lägg till general analysis tokens)
         const promptTokens = completion.usage?.prompt_tokens || 0;
         const completionTokens = completion.usage?.completion_tokens || 0;
         const totalTokens = completion.usage?.total_tokens || 0;
         const cost = calculateOpenAICost(modelToUse, promptTokens, completionTokens);
 
+        totalPromptTokens += promptTokens;
+        totalCompletionTokens += completionTokens;
+        totalCost += cost || 0;
+
         const totalDuration = Date.now() - startTime;
-        console.log(`⏱️ [analyzeCvPremium] Total analysis time: ${totalDuration}ms (AI: ${aiDuration}ms, parsing: ${totalDuration - aiDuration}ms)`);
-        console.log(`💰 [analyzeCvPremium] Token usage: ${promptTokens} prompt + ${completionTokens} completion = ${totalTokens} total ($${cost !== null ? cost.toFixed(4) : 'N/A'})`);
+        console.log(`[analyzeCvPremium] Total analysis time: ${totalDuration}ms (${allRoleImprovements.length} roles analyzed)`);
+        console.log(`[analyzeCvPremium] Total token usage: ${totalPromptTokens} prompt + ${totalCompletionTokens} completion = ${totalPromptTokens + totalCompletionTokens} total ($${totalCost.toFixed(4)})`);
 
         // *** UPPDATERAT finalResult-OBJEKT ***
         const finalResult: PremiumAnalysisResult = {
           analysisType: 'premium',
           summary: parsedResult.summary || "Sammanfattning kunde inte genereras.",
-          keywords: parsedResult.keywords || [], // Från premium-prompten
+          keywords: parsedResult.keywords || [],
 
           // Premium fields
           detailedStrengths: parsedResult.detailedStrengths || [],
           detailedImprovements: parsedResult.detailedImprovements || [], // Legacy fallback
-          roleBasedImprovements: parsedResult.roleBasedImprovements || [], // Nytt roll-baserat format
+          roleBasedImprovements: allRoleImprovements, // Från batch-analysen
           generalImprovements: parsedResult.generalImprovements || [],
           atsFriendliness: parsedResult.atsFriendliness,
           quantificationSuggestions: parsedResult.quantificationSuggestions || [],
@@ -246,28 +325,23 @@ Ge betyg 1-10. Var konstruktiv.`;
               impactAndResults: parsedResult.scores?.impactAndResults,
               // Försök mappa 'impactAndResults' till 'strongVerbs' för kompatibilitet med ScoreSection
               strongVerbs: parsedResult.scores?.impactAndResults ? {
-                  rating: parsedResult.scores.impactAndResults.rating, // Använd samma betyg
-                  feedback: parsedResult.scores.impactAndResults.feedback // Använd samma feedback
+                  rating: parsedResult.scores.impactAndResults.rating,
+                  feedback: parsedResult.scores.impactAndResults.feedback
               } : undefined
           },
 
-          // <<< INKLUDERA DE FÄLT SOM KRÄVS FÖR ATT UPPFYLLA PremiumAnalysisResult-TYPEN >>>
-          // Även om premium-prompten inte direkt ber om dessa,
-          // så behöver de finnas här (kan vara tomma).
-          // Om din PremiumAnalysisResult-typ INTE ärver/inkluderar dessa, kan du ta bort dem.
-          identifiedStrengths: [], // Sätt till tom array som standard
-          improvementAreas: [],   // Sätt till tom array som standard
+          identifiedStrengths: [],
+          improvementAreas: [],
 
-          // Lägg till kostnads- och tokeninformation
+          // Lägg till kostnads- och tokeninformation (totalt från alla batchar + general analysis)
           model: modelToUse,
-          cost: cost,
+          cost: totalCost,
           tokens: {
-              prompt: promptTokens,
-              completion: completionTokens,
-              total: totalTokens
+              prompt: totalPromptTokens,
+              completion: totalCompletionTokens,
+              total: totalPromptTokens + totalCompletionTokens
           }
         };
-        // *** SLUT PÅ UPPDATERING ***
 
         return finalResult;
 

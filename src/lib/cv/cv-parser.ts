@@ -121,7 +121,7 @@ Exempel på KORREKT rollextraktion:
         },
       ],
       temperature: 0.1, // Låg temperatur för konsekvent parsning
-      max_tokens: 1500, // Balanserat för fullständiga svar
+      max_tokens: 1200, // Optimerad för snabbare respons (sänkt från 1500)
       response_format: { type: 'json_object' },
     });
 

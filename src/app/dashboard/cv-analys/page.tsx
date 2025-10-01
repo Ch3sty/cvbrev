@@ -177,8 +177,7 @@ export default function AnalyzeCvPage() {
     <div className="relative min-h-screen overflow-hidden">
       {/* Premium Dynamic Background - Enhanced like CV-mallar page */}
       <motion.div
-        className="fixed inset-0 pointer-events-none z-0"
-        style={{ opacity: 0.9 }}
+        className="fixed inset-0 pointer-events-none z-0 opacity-90"
       >
         {/* Primary gradient foundation */}
         <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-slate-50/50" />
@@ -188,10 +187,11 @@ export default function AnalyzeCvPage() {
 
         {/* Animated morphing gradient orbs */}
         <motion.div
-          className="absolute top-[10%] left-[5%] w-[500px] h-[500px]"
+          className="absolute top-[10%] left-[5%] w-[500px] h-[500px] will-change-transform"
           style={{
             background: 'radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, rgba(147, 51, 234, 0.05) 40%, transparent 70%)',
             filter: 'blur(60px)',
+            willChange: 'transform',
           }}
           animate={{
             x: [0, 150, 0],
@@ -207,10 +207,11 @@ export default function AnalyzeCvPage() {
         />
 
         <motion.div
-          className="absolute top-[30%] right-[10%] w-[600px] h-[600px]"
+          className="absolute top-[30%] right-[10%] w-[600px] h-[600px] will-change-transform"
           style={{
             background: 'radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, rgba(139, 92, 246, 0.04) 40%, transparent 70%)',
             filter: 'blur(80px)',
+            willChange: 'transform',
           }}
           animate={{
             x: [0, -200, 0],
@@ -226,10 +227,11 @@ export default function AnalyzeCvPage() {
         />
 
         <motion.div
-          className="absolute bottom-[20%] left-[15%] w-[400px] h-[400px]"
+          className="absolute bottom-[20%] left-[15%] w-[400px] h-[400px] will-change-transform"
           style={{
             background: 'radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.03) 40%, transparent 70%)',
             filter: 'blur(70px)',
+            willChange: 'transform',
           }}
           animate={{
             x: [0, 100, 0],

@@ -8,6 +8,9 @@ import { Database } from '@/types/database.types';
 import { parseCV, validateParsedCV } from '@/lib/cv/cv-parser';
 import { generateRoleBasedImprovements } from '@/lib/cv/role-based-improvements';
 
+// Vercel maxDuration configuration
+export const maxDuration = 60; // 60 seconds (Vercel free tier limit)
+
 // ============================================================================
 //  Constants & Configuration
 // ============================================================================
@@ -265,8 +268,8 @@ export async function POST(request: NextRequest) {
         console.log('🚀 Starting sequential analysis (parseCV → analyzeCv)...');
         const overallStartTime = Date.now();
 
-        // Timeout-hantering: Ökat till 90 sekunder för premium-analyser med många roller
-        const ANALYSIS_TIMEOUT_MS = 90000; // 90 sekunder (ger marginal innan Vercel's 120s limit)
+        // Timeout-hantering: Satt till 55s för att ge batch-analysen tid för flera roller
+        const ANALYSIS_TIMEOUT_MS = 55000; // 55 sekunder (marginal före Vercel's 60s limit)
         const analysisTimeout = new Promise<never>((_, reject) => {
             setTimeout(() => {
                 reject(new Error(`Analysis timeout: Processing took too long (>${ANALYSIS_TIMEOUT_MS/1000}s)`));
