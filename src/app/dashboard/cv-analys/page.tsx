@@ -124,6 +124,35 @@ export default function AnalyzeCvPage() {
     if (type !== 'loading') { setTimeout(closeNotification, duration); }
   }, [closeNotification]);
 
+  // --- Helper: Poll for background job result ---
+  const pollForJobResult = useCallback(async (jobId: string): Promise<any> => {
+    const MAX_POLLS = 60; // 60 polls * 2s = 2 minutes max
+    const POLL_INTERVAL_MS = 2000; // 2 seconds
+
+    for (let i = 0; i < MAX_POLLS; i++) {
+      await new Promise(resolve => setTimeout(resolve, POLL_INTERVAL_MS));
+
+      const pollResponse = await fetch(`/api/cv/jobs/${jobId}`);
+      const jobData = await pollResponse.json();
+
+      if (!pollResponse.ok) {
+        throw new Error(jobData.message || 'Failed to fetch job status');
+      }
+
+      if (jobData.status === 'completed') {
+        return jobData.result;
+      } else if (jobData.status === 'failed') {
+        throw new Error(jobData.error || 'Analysis failed');
+      }
+
+      // Update progress message
+      const elapsed = (i + 1) * (POLL_INTERVAL_MS / 1000);
+      showNotification('loading', `Analyserar ditt CV (${elapsed}s)...`);
+    }
+
+    throw new Error('Analysis timeout: Job took too long to complete');
+  }, [showNotification]);
+
   // --- Event Handlers ---
   const handleAnalyzeCv = useCallback(async () => {
     if (!selectedCV) { showNotification('error', 'Välj ett CV att analysera.', 3000); return; }
@@ -137,7 +166,39 @@ export default function AnalyzeCvPage() {
       const response = await fetch(API_ANALYZE_ROUTE, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ cvId: selectedCV }) });
       const result = await response.json();
       closeNotification();
-      if (!response.ok) { if (response.status === 429) { showNotification('error', result.message || 'Du har nått din gräns för CV-analyser denna vecka.', NOTIFICATION_DURATION_MS); if (typeof updateRemainingAnalyses === 'function') updateRemainingAnalyses(0); } throw new Error(result.message || `Serverfel ${response.status}: Något gick fel vid analysen.`); }
+
+      // Check if this is a background job (status 202)
+      if (response.status === 202 && result.isBackgroundJob && result.jobId) {
+        showNotification('loading', 'Analyserar ditt CV i bakgrunden...');
+
+        // Poll for result
+        const analysisResult = await pollForJobResult(result.jobId);
+
+        // Process result same as sync flow
+        setAnalysisResult(analysisResult);
+
+        if (isFreeTier) {
+          showNotification('success', 'CV-analysen är klar!', NOTIFICATION_DURATION_MS);
+        } else {
+          showNotification('success', 'CV-analysen är klar!', NOTIFICATION_DURATION_MS - 1000);
+        }
+
+        if (profile?.id && selectedCV) {
+          const cvFileName = cvs?.find(cv => cv.id === selectedCV)?.file_name || selectedCV;
+          logUserActivity(profile.id, 'cv_analysis_completed', `Successfully analyzed CV: ${cvFileName}`, { cvId: selectedCV, tier: subscriptionTier }).catch(e => console.error("Activity logging failed:", e));
+        }
+
+        return;
+      }
+
+      // Standard synchronous response (status 200)
+      if (!response.ok) {
+        if (response.status === 429) {
+          showNotification('error', result.message || 'Du har nått din gräns för CV-analyser denna vecka.', NOTIFICATION_DURATION_MS);
+          if (typeof updateRemainingAnalyses === 'function') updateRemainingAnalyses(0);
+        }
+        throw new Error(result.message || `Serverfel ${response.status}: Något gick fel vid analysen.`);
+      }
 
       setAnalysisResult(result);
 
@@ -154,7 +215,7 @@ export default function AnalyzeCvPage() {
       const errorMessage = error.message?.includes('Failed to fetch') ? 'Nätverksfel. Kontrollera din anslutning och försök igen.' : error.message || 'Ett oväntat fel inträffade vid analysen.';
       setError(errorMessage); showNotification('error', errorMessage, NOTIFICATION_DURATION_MS);
     } finally { setIsAnalyzing(false); }
-  }, [ selectedCV, showNotification, closeNotification, subscriptionTier, remainingWeeklyAnalyses, updateRemainingAnalyses, updateNextAnalysisResetDate, profile, cvs ]);
+  }, [ selectedCV, showNotification, closeNotification, subscriptionTier, remainingWeeklyAnalyses, updateRemainingAnalyses, updateNextAnalysisResetDate, profile, cvs, pollForJobResult ]);
 
   const handleNavigateToCvManagement = useCallback(() => { router.push(PROFILE_CV_ROUTE); }, [router]);
   const handleUpgrade = useCallback(() => { router.push(UPGRADE_ROUTE); }, [router]);

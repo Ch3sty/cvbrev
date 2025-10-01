@@ -7,6 +7,7 @@ import { analyzeCvBasic, analyzeCvPremium } from '@/lib/openai/cv-analysis';
 import { Database } from '@/types/database.types';
 import { parseCV, validateParsedCV } from '@/lib/cv/cv-parser';
 import { generateRoleBasedImprovements } from '@/lib/cv/role-based-improvements';
+import { createBackgroundJob } from '@/lib/cv/background-jobs';
 
 // Vercel maxDuration configuration
 export const maxDuration = 60; // 60 seconds (Vercel free tier limit)
@@ -268,23 +269,45 @@ export async function POST(request: NextRequest) {
         console.log('🚀 Starting sequential analysis (parseCV → analyzeCv)...');
         const overallStartTime = Date.now();
 
-        // Timeout-konstant (definierad utanför try för att vara tillgänglig i catch)
-        const ANALYSIS_TIMEOUT_MS = 35000; // 35 sekunder för själva analysen
+        // Hybrid timeout: 45s för att avgöra om vi behöver gå till background job
+        const SYNC_TIMEOUT_MS = 45000; // 45 sekunder för synkron processing
 
         let parsedCV, analysisResult;
         try {
-            // Först: Parse CV för att identifiera roller (ingen timeout här, typiskt 20-25s)
+            // Först: Parse CV för att identifiera roller
             const parseStartTime = Date.now();
             parsedCV = await parseCV(cvText);
             const parseDuration = Date.now() - parseStartTime;
             console.log(`✅ [parseCV] Completed in ${parseDuration}ms, found ${parsedCV.roles.length} roles`);
 
-            // Timeout-hantering: Starta EFTER parseCV för att ge analysen rätt tid
-            // parseCV + analyze = ~50s totalt, under 60s Vercel-limit
+            // Kolla om vi redan använt för mycket tid (>30s för parseCV = stort CV)
+            const remainingTime = SYNC_TIMEOUT_MS - parseDuration;
+            if (remainingTime < 15000) {
+                console.log(`⚠️ Parse took ${parseDuration}ms, insufficient time remaining for sync analysis. Switching to background job.`);
+
+                // Skapa background job
+                const { jobId, error: jobError } = await createBackgroundJob(userId, cvId, cvText);
+                if (jobError || !jobId) {
+                    throw new Error(`Failed to create background job: ${jobError}`);
+                }
+
+                console.log(`✅ Background job created: ${jobId}`);
+                return NextResponse.json(
+                    {
+                        message: 'CV-analysen körs i bakgrunden. Detta kan ta upp till 2 minuter.',
+                        jobId,
+                        status: 'processing',
+                        isBackgroundJob: true
+                    },
+                    { status: 202 } // Accepted
+                );
+            }
+
+            // Timeout-hantering: Ge analysen resterande tid
             const analysisTimeout = new Promise<never>((_, reject) => {
                 setTimeout(() => {
-                    reject(new Error(`Analysis timeout: Processing took too long (>${ANALYSIS_TIMEOUT_MS/1000}s)`));
-                }, ANALYSIS_TIMEOUT_MS);
+                    reject(new Error(`Analysis timeout: Processing took too long (>${remainingTime/1000}s)`));
+                }, remainingTime);
             });
 
             // Sedan: Analysera CV med parsad roll-information
@@ -302,16 +325,31 @@ export async function POST(request: NextRequest) {
             console.log(`⏱️ [TOTAL] Sequential analysis completed in ${totalDuration}ms (parse: ${parseDuration}ms, analysis: ${analysisDuration}ms)`);
         } catch (timeoutError) {
             const totalDuration = Date.now() - overallStartTime;
-            console.error(`❌ Analysis timeout after ${totalDuration}ms (limit: ${ANALYSIS_TIMEOUT_MS}ms)`);
-            // Returnera delresultat om timeout
+            console.error(`❌ Analysis timeout after ${totalDuration}ms. Switching to background job.`);
+
+            // Fallback till background job vid timeout
+            const { jobId, error: jobError } = await createBackgroundJob(userId, cvId, cvText);
+            if (jobError || !jobId) {
+                console.error('Failed to create background job on timeout:', jobError);
+                return NextResponse.json(
+                    {
+                        message: `Analysen tog för lång tid och kunde inte skapas som bakgrundsjobb. Försök igen senare.`,
+                        error: 'timeout_and_fallback_failed',
+                        duration: totalDuration
+                    },
+                    { status: 500 }
+                );
+            }
+
+            console.log(`✅ Background job created after timeout: ${jobId}`);
             return NextResponse.json(
                 {
-                    message: `Analysen tog för lång tid (>${ANALYSIS_TIMEOUT_MS/1000}s). Detta kan bero på ett stort CV med många roller. Försök igen eller kontakta support om problemet kvarstår.`,
-                    partial: true,
-                    error: 'timeout',
-                    duration: totalDuration
+                    message: 'CV-analysen körs i bakgrunden. Detta kan ta upp till 2 minuter.',
+                    jobId,
+                    status: 'processing',
+                    isBackgroundJob: true
                 },
-                { status: 408 } // Request Timeout
+                { status: 202 } // Accepted
             );
         }
 
