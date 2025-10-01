@@ -34,10 +34,10 @@ interface SectionCardProps {
   sectionType: 'work_experience' | 'profile' | 'skills' | 'education';
   period?: string;
   priority: 'critical' | 'high' | 'medium' | 'low';
-  currentText: string;
+  currentText?: string;
   suggestedText: string;
   improvements: Improvements;
-  atsImpact: number;
+  atsImpact?: number;
 }
 
 // ============================================================================
@@ -195,7 +195,7 @@ export default function SectionCard({
             >
               <div className="mt-4">
                 <BeforeAfterComparison
-                  beforeText={currentText}
+                  beforeText={currentText || ''}
                   afterText={suggestedText}
                   keywords={improvements.keywords || []}
                   hasQuantification={!improvements.hasQuantification}

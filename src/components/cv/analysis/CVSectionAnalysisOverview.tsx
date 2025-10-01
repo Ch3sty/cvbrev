@@ -273,10 +273,10 @@ export default function CVSectionAnalysisOverview({
                 sectionType="work_experience"
                 period={role.period}
                 priority={role.priority}
-                currentText={role.currentText}
+                currentText={role.currentText || ''}
                 suggestedText={role.suggestedText}
                 improvements={role.improvements}
-                atsImpact={role.atsImpact}
+                atsImpact={role.atsImpact || 0}
               />
             </motion.div>
           ))
