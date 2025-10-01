@@ -214,7 +214,7 @@ export async function analyzeCvPremium(cvText: string, parsedCV?: any): Promise<
 
     // Batch-baserad roll-analys: Dela upp roller i grupper om 3
     const ROLES_PER_BATCH = 3;
-    let allRoleImprovements: RoleBasedImprovement[] = [];
+    const allRoleImprovements: RoleBasedImprovement[] = [];
     let totalPromptTokens = 0;
     let totalCompletionTokens = 0;
     let totalCost = 0;
