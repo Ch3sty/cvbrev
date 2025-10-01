@@ -203,9 +203,11 @@ export default function SelectImprovementsStep({
                       size="sm"
                       onClick={(e) => {
                         e.stopPropagation();
-                        allSelected
-                          ? deselectAllInCategory(category.id)
-                          : selectAllInCategory(category.id);
+                        if (allSelected) {
+                          deselectAllInCategory(category.id);
+                        } else {
+                          selectAllInCategory(category.id);
+                        }
                       }}
                       className="text-xs"
                     >

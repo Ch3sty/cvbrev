@@ -69,6 +69,7 @@ export default function CVAnalysisModal({
     if (isOpen && currentStep === 0 && !isAnalyzing && !analysisResult) {
       startAnalysis();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
 
   // Reset when modal closes
