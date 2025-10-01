@@ -9,7 +9,7 @@ import { getJobStatus } from '@/lib/cv/background-jobs';
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { jobId: string } }
+  { params }: { params: Promise<{ jobId: string }> }
 ) {
   const cookieStore = cookies();
   const supabase = createServerClient({ cookies: cookieStore });
@@ -21,7 +21,7 @@ export async function GET(
       return NextResponse.json({ message: 'Autentisering krävs.' }, { status: 401 });
     }
 
-    const { jobId } = params;
+    const { jobId } = await params;
     if (!jobId) {
       return NextResponse.json({ message: 'Job ID saknas.' }, { status: 400 });
     }

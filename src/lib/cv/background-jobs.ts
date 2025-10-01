@@ -1,4 +1,5 @@
-import { createClient } from '@/lib/supabase/server';
+import { createServerClient } from '@/lib/supabase/server';
+import { cookies } from 'next/headers';
 
 export interface BackgroundJob {
   id: string;
@@ -21,7 +22,8 @@ export async function createBackgroundJob(
   cvText: string
 ): Promise<{ jobId: string; error?: string }> {
   try {
-    const supabase = await createClient();
+    const cookieStore = cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
 
     // Skapa job i databasen
     const { data: job, error: insertError } = await supabase
@@ -80,7 +82,8 @@ export async function createBackgroundJob(
  */
 export async function getJobStatus(jobId: string): Promise<BackgroundJob | null> {
   try {
-    const supabase = await createClient();
+    const cookieStore = cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
 
     const { data: job, error } = await supabase
       .from('cv_analysis_jobs')
