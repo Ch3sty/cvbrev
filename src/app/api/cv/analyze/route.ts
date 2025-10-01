@@ -268,6 +268,9 @@ export async function POST(request: NextRequest) {
         console.log('🚀 Starting sequential analysis (parseCV → analyzeCv)...');
         const overallStartTime = Date.now();
 
+        // Timeout-konstant (definierad utanför try för att vara tillgänglig i catch)
+        const ANALYSIS_TIMEOUT_MS = 35000; // 35 sekunder för själva analysen
+
         let parsedCV, analysisResult;
         try {
             // Först: Parse CV för att identifiera roller (ingen timeout här, typiskt 20-25s)
@@ -277,8 +280,7 @@ export async function POST(request: NextRequest) {
             console.log(`✅ [parseCV] Completed in ${parseDuration}ms, found ${parsedCV.roles.length} roles`);
 
             // Timeout-hantering: Starta EFTER parseCV för att ge analysen rätt tid
-            // 35s timeout för analysen (parseCV + analyze = ~50s totalt, under 60s Vercel-limit)
-            const ANALYSIS_TIMEOUT_MS = 35000; // 35 sekunder för själva analysen
+            // parseCV + analyze = ~50s totalt, under 60s Vercel-limit
             const analysisTimeout = new Promise<never>((_, reject) => {
                 setTimeout(() => {
                     reject(new Error(`Analysis timeout: Processing took too long (>${ANALYSIS_TIMEOUT_MS/1000}s)`));
