@@ -24,12 +24,12 @@ interface CVAnalysisModalProps {
 }
 
 const STEPS = [
-  { id: 0, title: 'Analys', icon: null },
-  { id: 1, title: 'Översikt', icon: null },
-  { id: 2, title: 'Välj', icon: null },
-  { id: 3, title: 'Förhandsgranskning', icon: null },
-  { id: 4, title: 'Spara', icon: null },
-  { id: 5, title: 'Klar', icon: null }
+  { id: 0, title: 'Analys' },
+  { id: 1, title: 'Översikt' },
+  { id: 2, title: 'Välj' },
+  { id: 3, title: 'Förhandsgranskning' },
+  { id: 4, title: 'Spara' },
+  { id: 5, title: 'Klar' }
 ];
 
 export default function CVAnalysisModal({
