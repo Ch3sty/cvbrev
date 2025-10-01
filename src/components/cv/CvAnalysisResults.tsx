@@ -29,7 +29,8 @@ import {
     ChevronRight,  // For Premium Teaser Button
     Info,          // (Potentially for Tooltips - not used currently)
     Wand2,         // For improvement workflow
-    ArrowRight     // For action button
+    ArrowRight,    // For action button
+    Sparkles       // For implementation choice modal
 } from 'lucide-react';
 
 // --- Additional Components ---
