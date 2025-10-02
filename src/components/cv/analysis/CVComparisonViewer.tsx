@@ -1,7 +1,7 @@
 // src/components/cv/analysis/CVComparisonViewer.tsx
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ZoomIn, ZoomOut, Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
