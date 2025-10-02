@@ -25,8 +25,8 @@ export default function CVComparisonViewer({
   const diff = highlightChanges ? generateWordDiff(originalCV, improvedCV) : null;
 
   const renderDiffText = (segments: DiffSegment[]) => {
-    const elements: JSX.Element[] = [];
-    let currentParagraph: JSX.Element[] = [];
+    const elements: React.JSX.Element[] = [];
+    let currentParagraph: React.JSX.Element[] = [];
     let paragraphKey = 0;
 
     segments.forEach((segment, index) => {
@@ -47,7 +47,7 @@ export default function CVComparisonViewer({
         }
 
         if (line.length > 0) {
-          let element: JSX.Element;
+          let element: React.JSX.Element;
 
           if (segment.type === 'unchanged') {
             element = <span key={`${index}-${lineIndex}`}>{line}</span>;
