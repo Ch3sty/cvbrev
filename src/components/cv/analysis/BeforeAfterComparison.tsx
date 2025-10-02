@@ -25,13 +25,26 @@ interface BeforeAfterComparisonProps {
  * Highlights keywords and numbers in text
  */
 const highlightText = (text: string, keywords: string[] = []): React.ReactNode => {
-  if (!keywords.length && !text.match(/\d+/)) {
+  console.log('🔍 BeforeAfterComparison highlightText called:', {
+    text: text?.substring(0, 50),
+    keywords: {
+      type: typeof keywords,
+      isArray: Array.isArray(keywords),
+      value: keywords,
+      length: keywords?.length
+    }
+  });
+
+  // SAFE: Ensure keywords is an array
+  const safeKeywords = Array.isArray(keywords) ? keywords : [];
+
+  if (!safeKeywords.length && !text.match(/\d+/)) {
     return text;
   }
 
   // Create regex patterns for keywords and numbers
-  const keywordPattern = keywords.length > 0
-    ? new RegExp(`\\b(${keywords.join('|')})\\b`, 'gi')
+  const keywordPattern = safeKeywords.length > 0
+    ? new RegExp(`\\b(${safeKeywords.join('|')})\\b`, 'gi')
     : null;
   const numberPattern = /\b\d+([,.]\d+)?(%|MSEK|SEK|kr|st|personer|anställda|medlemmar)?\b/g;
 

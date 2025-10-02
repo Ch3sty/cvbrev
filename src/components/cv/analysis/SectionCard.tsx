@@ -97,6 +97,24 @@ export default function SectionCard({
   atsImpact,
   onTextEdit
 }: SectionCardProps) {
+  // DEBUG: Log all props
+  console.log('🔍 SectionCard RENDER:', {
+    sectionName,
+    sectionType,
+    period,
+    priority,
+    improvements: {
+      type: typeof improvements,
+      value: improvements,
+      isNull: improvements === null,
+      isUndefined: improvements === undefined,
+      hasQuantification: improvements?.hasQuantification,
+      keywords: improvements?.keywords,
+      grammarIssues: improvements?.grammarIssues,
+      atsOptimization: improvements?.atsOptimization
+    }
+  });
+
   const [isExpanded, setIsExpanded] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState(suggestedText);
@@ -109,13 +127,15 @@ export default function SectionCard({
     setIsEditing(false);
   };
 
-  // Räkna förbättringstyper
+  // Räkna förbättringstyper - SAFE version
+  console.log('🔍 SectionCard BEFORE improvementCount calculation');
   const improvementCount = [
-    !improvements.hasQuantification,
-    (improvements.keywords?.length || 0) > 0,
-    (improvements.grammarIssues?.length || 0) > 0,
-    improvements.atsOptimization
+    improvements && !improvements.hasQuantification,
+    improvements && (improvements.keywords?.length || 0) > 0,
+    improvements && (improvements.grammarIssues?.length || 0) > 0,
+    improvements && improvements.atsOptimization
   ].filter(Boolean).length;
+  console.log('🔍 SectionCard AFTER improvementCount calculation:', improvementCount);
 
   return (
     <Card
