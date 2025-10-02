@@ -259,18 +259,34 @@ export default function SelectImprovementsStep({
                   )}
 
                   {category.id === 'roles' && roleBasedImprovements?.map((role, index) => {
-                    // DEBUG LOGGING - Ta bort när problemet är löst
+                    // FÖRBÄTTRAD DEBUG LOGGING - Visar fullständigt innehåll
                     console.log(`🔍 DEBUG Step 3 - Role ${index}:`, {
                       hasRole: !!role,
                       roleTitle: role?.roleTitle,
                       company: role?.company,
                       period: role?.period,
-                      hasImprovements: !!role?.improvements,
-                      improvementsType: typeof role?.improvements,
-                      improvementsKeys: role?.improvements ? Object.keys(role.improvements) : [],
-                      keywordsType: typeof role?.improvements?.keywords,
-                      keywordsIsArray: Array.isArray(role?.improvements?.keywords),
-                      keywordsLength: role?.improvements?.keywords?.length
+
+                      // FULLSTÄNDIG improvements-struktur
+                      FULL_IMPROVEMENTS: role?.improvements,
+
+                      // Faktiskt innehåll i keywords
+                      keywords_CONTENT: role?.improvements?.keywords,
+                      keywords_FirstItem: role?.improvements?.keywords?.[0],
+                      keywords_FirstItemType: typeof role?.improvements?.keywords?.[0],
+
+                      // Faktiskt innehåll i grammarIssues
+                      grammarIssues_CONTENT: role?.improvements?.grammarIssues,
+                      grammarIssues_FirstItem: role?.improvements?.grammarIssues?.[0],
+
+                      // Verifiera om keywords är array av strings
+                      keywords_AllAreStrings: Array.isArray(role?.improvements?.keywords)
+                        ? role.improvements.keywords.every(k => typeof k === 'string')
+                        : false,
+
+                      // Verifiera om grammarIssues är array av strings
+                      grammarIssues_AllAreStrings: Array.isArray(role?.improvements?.grammarIssues)
+                        ? role.improvements.grammarIssues.every(g => typeof g === 'string')
+                        : false
                     });
 
                     return (
@@ -282,22 +298,44 @@ export default function SelectImprovementsStep({
                           className="absolute top-4 left-4 z-10 w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
                         />
                         <div className="ml-8">
-                          <SectionCard
-                            sectionName={`${role?.roleTitle || 'Okänd roll'} - ${role?.company || 'Okänt företag'}`}
-                            sectionType="work_experience"
-                            period={role?.period || ''}
-                            priority={role?.priority || 'medium'}
-                            currentText={role?.currentText || ''}
-                            suggestedText={role?.suggestedText || ''}
-                            improvements={{
-                              hasQuantification: role?.improvements?.hasQuantification ?? false,
-                              keywords: Array.isArray(role?.improvements?.keywords) ? role.improvements.keywords : [],
-                              grammarIssues: Array.isArray(role?.improvements?.grammarIssues) ? role.improvements.grammarIssues : [],
-                              atsOptimization: role?.improvements?.atsOptimization ?? false
-                            }}
-                            atsImpact={role?.atsImpact || 0}
-                            onTextEdit={onRoleTextEdit ? (newText) => onRoleTextEdit(index, newText) : undefined}
-                          />
+                          {(() => {
+                            try {
+                              return (
+                                <SectionCard
+                                  sectionName={`${role?.roleTitle || 'Okänd roll'} - ${role?.company || 'Okänt företag'}`}
+                                  sectionType="work_experience"
+                                  period={role?.period || ''}
+                                  priority={role?.priority || 'medium'}
+                                  currentText={role?.currentText || ''}
+                                  suggestedText={role?.suggestedText || ''}
+                                  improvements={{
+                                    hasQuantification: role?.improvements?.hasQuantification ?? false,
+                                    keywords: Array.isArray(role?.improvements?.keywords) ? role.improvements.keywords : [],
+                                    grammarIssues: Array.isArray(role?.improvements?.grammarIssues) ? role.improvements.grammarIssues : [],
+                                    atsOptimization: role?.improvements?.atsOptimization ?? false
+                                  }}
+                                  atsImpact={role?.atsImpact || 0}
+                                  onTextEdit={onRoleTextEdit ? (newText) => onRoleTextEdit(index, newText) : undefined}
+                                />
+                              );
+                            } catch (error: any) {
+                              console.error(`❌ CRASH in SectionCard for Role ${index}:`, {
+                                errorMessage: error?.message,
+                                errorStack: error?.stack,
+                                role: role,
+                                improvements: role?.improvements,
+                                keywords: role?.improvements?.keywords,
+                                grammarIssues: role?.improvements?.grammarIssues
+                              });
+                              return (
+                                <div className="bg-red-50 border-2 border-red-500 rounded-lg p-4">
+                                  <p className="text-red-800 font-semibold">⚠️ Fel vid rendering av roll {index}</p>
+                                  <p className="text-red-600 text-sm mt-1">{role?.roleTitle || 'Okänd roll'} - {role?.company || 'Okänt företag'}</p>
+                                  <p className="text-red-500 text-xs mt-2">Error: {error?.message}</p>
+                                </div>
+                              );
+                            }
+                          })()}
                         </div>
                       </div>
                     );

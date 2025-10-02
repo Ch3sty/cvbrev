@@ -34,6 +34,22 @@ async function fetchWithRetry(url: string, options: any, maxRetries = 2, timeout
 
 // KRITISK FIX: Validera och normalisera roleImprovement-objekt
 function sanitizeRoleImprovement(role: any): any {
+  // Validera att keywords är array av STRINGS (inte objekt)
+  const validateKeywords = (arr: any): string[] => {
+    if (!Array.isArray(arr)) return [];
+    return arr
+      .filter(item => typeof item === 'string')  // Filtrera bort icke-strings
+      .map(item => String(item));  // Säkerställ string-typ
+  };
+
+  // Validera att grammarIssues är array av STRINGS
+  const validateGrammarIssues = (arr: any): string[] => {
+    if (!Array.isArray(arr)) return [];
+    return arr
+      .filter(item => typeof item === 'string')  // Filtrera bort icke-strings
+      .map(item => String(item));  // Säkerställ string-typ
+  };
+
   return {
     roleTitle: role?.roleTitle || 'Okänd roll',
     company: role?.company || 'Okänt företag',
@@ -42,8 +58,8 @@ function sanitizeRoleImprovement(role: any): any {
     suggestedText: role?.suggestedText || '',
     improvements: {
       hasQuantification: role?.improvements?.hasQuantification ?? false,
-      keywords: Array.isArray(role?.improvements?.keywords) ? role.improvements.keywords : [],
-      grammarIssues: Array.isArray(role?.improvements?.grammarIssues) ? role.improvements.grammarIssues : [],
+      keywords: validateKeywords(role?.improvements?.keywords),  // <-- VALIDERA STRINGS!
+      grammarIssues: validateGrammarIssues(role?.improvements?.grammarIssues),  // <-- VALIDERA STRINGS!
       atsOptimization: role?.improvements?.atsOptimization ?? false
     },
     atsImpact: typeof role?.atsImpact === 'number' ? role.atsImpact : 0
