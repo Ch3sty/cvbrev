@@ -66,10 +66,10 @@ export default function ProfileSummaryCard({
       </div>
 
       {/* Changes Summary (Always Visible) */}
-      {!isExpanded && changes.length > 0 && (
+      {!isExpanded && (changes || []).length > 0 && (
         <div className="ml-9 text-sm text-gray-600">
-          <span className="font-medium">{changes.length} förbättringar:</span> {changes[0]}
-          {changes.length > 1 && `, +${changes.length - 1} till...`}
+          <span className="font-medium">{(changes || []).length} förbättringar:</span> {(changes || [])[0]}
+          {(changes || []).length > 1 && `, +${(changes || []).length - 1} till...`}
         </div>
       )}
 
@@ -109,7 +109,7 @@ export default function ProfileSummaryCard({
                 Förbättringar
               </div>
               <ul className="space-y-2">
-                {changes.map((change, index) => (
+                {(changes || []).map((change, index) => (
                   <li key={index} className="flex items-start gap-2 text-sm text-gray-700">
                     <span className="text-green-600 mt-0.5">✓</span>
                     <span>{change}</span>
