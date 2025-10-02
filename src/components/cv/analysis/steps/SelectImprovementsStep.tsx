@@ -26,9 +26,9 @@ interface SelectImprovementsStepProps {
     changes: string[];
     atsImpact: number;
   };
-  roleBasedImprovements: any[];
-  skillSuggestions: any[];
-  generalImprovements: any[];
+  roleBasedImprovements?: any[];
+  skillSuggestions?: any[];
+  generalImprovements?: any[];
   selectedProfile: boolean;
   selectedRoles: Set<number>;
   selectedSkills: Set<number>;
@@ -75,15 +75,15 @@ export default function SelectImprovementsStep({
     if (category === 'profile') {
       onToggleProfile();
     } else if (category === 'roles') {
-      roleBasedImprovements.forEach((_, index) => {
+      roleBasedImprovements?.forEach((_, index) => {
         if (!selectedRoles.has(index)) onToggleRole(index);
       });
     } else if (category === 'skills') {
-      skillSuggestions.forEach((_, index) => {
+      skillSuggestions?.forEach((_, index) => {
         if (!selectedSkills.has(index)) onToggleSkill(index);
       });
     } else if (category === 'general') {
-      generalImprovements.forEach((_, index) => {
+      generalImprovements?.forEach((_, index) => {
         if (!selectedGeneral.has(index)) onToggleGeneral(index);
       });
     }
