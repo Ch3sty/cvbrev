@@ -41,8 +41,9 @@ export async function createBackgroundJob(
       return { jobId: '', error: insertError?.message || 'Failed to create job' };
     }
 
-    // Trigga Edge Function för att starta analysen
-    const { data: edgeFunctionResult, error: edgeFunctionError } = await supabase.functions.invoke(
+    // Trigga Edge Function för att starta analysen (ASYNKRONT - fire and forget)
+    // Vi väntar INTE på resultatet - Edge Functionen uppdaterar job status själv
+    supabase.functions.invoke(
       'analyze-cv-background',
       {
         body: {
@@ -51,25 +52,13 @@ export async function createBackgroundJob(
           userId,
         },
       }
-    );
+    ).catch((error) => {
+      // Logga men returnera inte fel - jobbet är redan skapat och Edge Functionen
+      // kommer att uppdatera status till 'failed' i databasen om något går fel
+      console.error(`Edge function invocation error (job ${job.id}):`, error);
+    });
 
-    if (edgeFunctionError) {
-      console.error('Failed to invoke edge function:', edgeFunctionError);
-
-      // Uppdatera job status till failed
-      await supabase
-        .from('cv_analysis_jobs')
-        .update({
-          status: 'failed',
-          error: edgeFunctionError.message,
-          completed_at: new Date().toISOString(),
-        })
-        .eq('id', job.id);
-
-      return { jobId: job.id, error: edgeFunctionError.message };
-    }
-
-    console.log(`Background job created successfully: ${job.id}`);
+    console.log(`Background job created successfully: ${job.id} - Edge Function triggered asynchronously`);
     return { jobId: job.id };
   } catch (error) {
     console.error('Error creating background job:', error);
