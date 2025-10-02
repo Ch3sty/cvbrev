@@ -362,21 +362,21 @@ export default function CVAnalysisModal({
               setSelectedGeneral(newSet);
             }}
             onSelectAllRoles={() => {
-              const allIndices = (analysisResult.roleBasedImprovements || []).map((_, i) => i);
+              const allIndices = (analysisResult.roleBasedImprovements || []).map((_item: any, i: number) => i);
               setSelectedRoles(new Set(allIndices));
             }}
             onDeselectAllRoles={() => {
               setSelectedRoles(new Set());
             }}
             onSelectAllSkills={() => {
-              const allIndices = (analysisResult.skillSuggestions || []).map((_, i) => i);
+              const allIndices = (analysisResult.skillSuggestions || []).map((_item: any, i: number) => i);
               setSelectedSkills(new Set(allIndices));
             }}
             onDeselectAllSkills={() => {
               setSelectedSkills(new Set());
             }}
             onSelectAllGeneral={() => {
-              const allIndices = (analysisResult.generalImprovements || []).map((_, i) => i);
+              const allIndices = (analysisResult.generalImprovements || []).map((_item: any, i: number) => i);
               setSelectedGeneral(new Set(allIndices));
             }}
             onDeselectAllGeneral={() => {
