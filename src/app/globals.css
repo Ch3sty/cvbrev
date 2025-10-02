@@ -3,17 +3,14 @@
 @tailwind utilities;
 
 :root {
-  /* Ljust tema (dashboard) */
-  --foreground-rgb-light: 17, 24, 39; /* gray-900 */
-  --background-rgb-light: 249, 250, 251; /* gray-50 */
-
-  /* Mörkt tema (landing pages) */
-  --foreground-rgb-dark: 255, 255, 255;
-  --background-start-rgb-dark: 10, 15, 30;
-  --background-end-rgb-dark: 19, 24, 42;
+  /* Ljust tema (hela applikationen) */
+  --foreground-rgb: 17, 24, 39; /* gray-900 */
+  --background-rgb: 255, 255, 255; /* white */
 }
 
 body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
   /* Smidigare scrollning */
   scroll-behavior: smooth;
 }

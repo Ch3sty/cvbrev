@@ -7,10 +7,8 @@ import '@/lib/supabase/storage-init';
 import './globals.css'
 // import type { Metadata } from 'next' // Metadata kan inte användas med 'use client'
 import { Inter } from 'next/font/google'
-import Navbar from '@/components/ui/navbar'
 import PremiumFooter from '@/components/PremiumFooter'
 import Link from 'next/link'
-import { Facebook, Instagram, Users, HelpCircle } from 'lucide-react'
 import Script from 'next/script'
 import { Suspense, useState, useEffect } from 'react';
 import CookieConsent, { Cookies, getCookieConsentValue, OPTIONS } from "react-cookie-consent";
@@ -58,14 +56,6 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
   const isDashboard = pathname?.startsWith('/dashboard');
-
-  // Pages that use PremiumNavbar instead of the layout Navbar
-  const usesPremiumNavbar = pathname === '/' ||
-                           pathname === '/funktioner' ||
-                           pathname === '/priser' ||
-                           pathname === '/om-oss' ||
-                           pathname === '/artiklar' ||
-                           pathname?.startsWith('/artiklar/');
 
   // Körs EN gång när komponenten monteras (Oförändrad)
   useEffect(() => {
@@ -163,7 +153,7 @@ export default function RootLayout({
         <meta name="description" content="Skapa professionella CV:n och personliga brev snabbt och enkelt med hjälp av AI från Jobbcoach.ai." />
         {/* Andra head-element */}
       </head>
-      <body className={`${inter.className} ${isDashboard ? 'bg-gray-50 text-gray-900' : 'bg-navy-900 text-white'} flex flex-col min-h-full`}>
+      <body className={`${inter.className} bg-white text-gray-900 flex flex-col min-h-full`}>
         {/* === GTM BODY SNIPPET (NOSCRIPT) START (Oförändrad) === */}
         <noscript>
           <iframe
@@ -178,86 +168,22 @@ export default function RootLayout({
 
         <GlobalCountersProvider>
           <NotificationProvider>
-            {!isDashboard && !usesPremiumNavbar && <Navbar />}
-
             <main className="flex-grow">
               {children}
             </main>
 
-          {/* Footer - använd PremiumFooter på premium-sidor, annars den gamla mörka footern */}
-          {!isDashboard && (
-            usesPremiumNavbar ? <PremiumFooter /> : (
-              <footer className="bg-navy-950 border-t border-navy-700/50 mt-auto">
-                <div className="container px-4 py-12 mx-auto">
-                  <div className="grid grid-cols-1 gap-10 text-center md:grid-cols-3 md:text-left">
-                    {/* Kolumn 1: Om jobbcoach.ai */}
-                    <div>
-                      <Link href="/" className="inline-block mb-4">
-                        <span className="text-lg font-bold text-white hover:opacity-90 transition-opacity">
-                          Jobbcoach
-                        </span>
-                        <span className="text-lg font-bold text-white bg-gradient-to-r from-pink-600 to-purple-600 rounded-md px-1.5 py-0.5 ml-1 leading-tight hover:opacity-90 transition-opacity shadow-sm">
-                          .ai
-                        </span>
-                      </Link>
-                      <p className="text-sm text-gray-400">
-                        Din smarta karriärpartner för svenska arbetsmarknaden.
-                      </p>
-                    </div>
+          {/* Footer - använd PremiumFooter överallt utom på dashboard */}
+          {!isDashboard && <PremiumFooter />}
 
-                    {/* Kolumn 2: Snabblänkar */}
-                    <div>
-                      <h3 className="mb-4 text-lg font-semibold text-white">Utforska</h3>
-                      <ul className="space-y-2">
-                        <li><Link href="/" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Hem</Link></li>
-                        <li><Link href="/funktioner" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Funktioner</Link></li>
-                        <li><Link href="/priser" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Priser</Link></li>
-                        <li><Link href="/om-oss" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Om Oss</Link></li>
-                        <li><Link href="/kontakt" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Kontakt</Link></li>
-                      </ul>
-                    </div>
-
-                    {/* Kolumn 3: Sociala medier & Legal */}
-                    <div>
-                      <h3 className="mb-4 text-lg font-semibold text-white">Följ oss</h3>
-                      <div className="flex justify-center mb-6 space-x-4 md:justify-start">
-                        <a href="https://www.facebook.com/CVbrev/" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="text-gray-400 transition-colors hover:text-pink-400"><Facebook size={24} /></a>
-                        <a href="https://www.instagram.com/jobbcoach.ai/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-gray-400 transition-colors hover:text-pink-400"><Instagram size={24} /></a>
-                      </div>
-                      <h3 className="mb-4 text-lg font-semibold text-white">Legal</h3>
-                      <ul className="space-y-2">
-                        <li><Link href="/integritetspolicy" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Integritetspolicy</Link></li>
-                        <li><Link href="/anvandarvillkor" className="text-sm text-gray-400 transition-colors hover:text-pink-400">Användarvillkor</Link></li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Cookie Consent Management & Copyright */}
-                  <div className="pt-8 mt-8 border-t border-navy-700/50 flex flex-col items-center space-y-4 md:flex-row md:justify-between md:space-y-0">
-                    <p className="text-sm text-gray-500 text-center md:text-left">
-                      © {new Date().getFullYear()} jobbcoach.ai. Alla rättigheter förbehållna.
-                    </p>
-                    <button
-                      onClick={resetConsent}
-                      className="text-xs text-gray-400 underline transition-colors hover:text-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-navy-950 rounded"
-                    >
-                      Hantera cookie-samtycke
-                    </button>
-                  </div>
-                </div>
-              </footer>
-            )
-          )}
-
-          {/* === COOKIE BANNER (Oförändrad) === */}
+          {/* === COOKIE BANNER === */}
           <CookieConsent
             location={OPTIONS.BOTTOM}
             buttonText="Jag förstår och accepterar"
             declineButtonText="Avvisa"
             cookieName={COOKIE_NAME}
-            style={{ background: "rgb(3 7 18 / 0.9)", backdropFilter: "blur(4px)", fontSize: "14px", borderTop: "1px solid rgb(55 65 81 / 0.5)" }}
+            style={{ background: "rgba(255, 255, 255, 0.95)", backdropFilter: "blur(8px)", fontSize: "14px", borderTop: "1px solid rgb(229 231 235)", color: "rgb(31 41 55)" }}
             buttonStyle={{ background: "#db2777", color: "white", fontSize: "13px", borderRadius: "6px", padding: "8px 15px", fontWeight: "500" }}
-            declineButtonStyle={{ background: "#374151", color: "white", fontSize: "13px", borderRadius: "6px", margin: "0 10px", padding: "8px 15px", fontWeight: "500" }}
+            declineButtonStyle={{ background: "#e5e7eb", color: "#374151", fontSize: "13px", borderRadius: "6px", margin: "0 10px", padding: "8px 15px", fontWeight: "500" }}
             expires={180}
             enableDeclineButton
             onAccept={handleAcceptCookie}
@@ -267,7 +193,7 @@ export default function RootLayout({
             overlay={false}
           >
              Vi använder cookies för att förbättra din upplevelse och förstå hur webbplatsen används (analys). Genom att klicka "Acceptera" samtycker du till användningen av analyscookies.{" "}
-            <Link href="/integritetspolicy#cookies" className="font-semibold text-pink-400 underline hover:text-pink-300">
+            <Link href="/integritetspolicy#cookies" className="font-semibold text-pink-600 underline hover:text-pink-700">
                Läs mer om cookies i vår integritetspolicy
             </Link>.
           </CookieConsent>
