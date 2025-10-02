@@ -25,29 +25,67 @@ export default function CVComparisonViewer({
   const diff = highlightChanges ? generateWordDiff(originalCV, improvedCV) : null;
 
   const renderDiffText = (segments: DiffSegment[]) => {
-    return segments.map((segment, index) => {
-      if (segment.type === 'unchanged') {
-        return <span key={index}>{segment.text}</span>;
-      } else if (segment.type === 'added') {
-        return (
-          <span
-            key={index}
-            className="bg-green-100 text-green-900 border-b-2 border-green-400"
-          >
-            {segment.text}
-          </span>
-        );
-      } else {
-        return (
-          <span
-            key={index}
-            className="bg-red-100 text-red-900 line-through"
-          >
-            {segment.text}
-          </span>
-        );
-      }
+    const elements: JSX.Element[] = [];
+    let currentParagraph: JSX.Element[] = [];
+    let paragraphKey = 0;
+
+    segments.forEach((segment, index) => {
+      const lines = segment.text.split('\n');
+
+      lines.forEach((line, lineIndex) => {
+        if (lineIndex > 0) {
+          // New line detected - close current paragraph and start new one
+          if (currentParagraph.length > 0) {
+            elements.push(
+              <p key={`para-${paragraphKey}`} className="leading-relaxed mb-4">
+                {currentParagraph}
+              </p>
+            );
+            currentParagraph = [];
+            paragraphKey++;
+          }
+        }
+
+        if (line.length > 0) {
+          let element: JSX.Element;
+
+          if (segment.type === 'unchanged') {
+            element = <span key={`${index}-${lineIndex}`}>{line}</span>;
+          } else if (segment.type === 'added') {
+            element = (
+              <span
+                key={`${index}-${lineIndex}`}
+                className="bg-green-100 text-green-900 border-b-2 border-green-400"
+              >
+                {line}
+              </span>
+            );
+          } else {
+            element = (
+              <span
+                key={`${index}-${lineIndex}`}
+                className="bg-red-100 text-red-900 line-through"
+              >
+                {line}
+              </span>
+            );
+          }
+
+          currentParagraph.push(element);
+        }
+      });
     });
+
+    // Add remaining paragraph
+    if (currentParagraph.length > 0) {
+      elements.push(
+        <p key={`para-${paragraphKey}`} className="leading-relaxed mb-4">
+          {currentParagraph}
+        </p>
+      );
+    }
+
+    return elements;
   };
 
   return (
@@ -135,7 +173,7 @@ export default function CVComparisonViewer({
             <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-green-50/30 to-emerald-50/30" />
 
             {highlightChanges && diff ? (
-              <div className="whitespace-pre-wrap font-sans text-gray-900 relative z-10">
+              <div className="font-sans text-gray-900 relative z-10">
                 {renderDiffText(diff)}
               </div>
             ) : (

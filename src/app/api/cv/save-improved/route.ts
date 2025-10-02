@@ -80,6 +80,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validate text length (Supabase text column typically has limits)
+    if (improvedText.length > 100000) {
+      return NextResponse.json(
+        { error: 'Text too long', message: 'CV-texten är för lång (max 100 000 tecken)' },
+        { status: 400 }
+      );
+    }
+
     // Save improved CV
     const { data: newCv, error: insertError } = await supabase
       .from('cv_texts')
@@ -93,8 +101,13 @@ export async function POST(request: NextRequest) {
 
     if (insertError) {
       console.error('Error inserting CV:', insertError);
+      console.error('Insert error details:', JSON.stringify(insertError, null, 2));
       return NextResponse.json(
-        { error: 'Database error', message: 'Kunde inte spara CV' },
+        {
+          error: 'Database error',
+          message: `Kunde inte spara CV: ${insertError.message || 'Okänt fel'}`,
+          details: insertError.hint || insertError.details
+        },
         { status: 500 }
       );
     }
