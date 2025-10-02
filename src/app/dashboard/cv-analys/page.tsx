@@ -16,7 +16,6 @@ import { useProfile } from '@/hooks/use-profile';
 
 // --- UI Components ---
 import Notification from '@/components/ui/notification';
-import CvAnalysisResults from '@/components/cv/CvAnalysisResults';
 import CVAnalysisModal from '@/components/cv/analysis/CVAnalysisModal';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -66,7 +65,6 @@ export default function AnalyzeCvPage() {
 
   // --- State ---
   const [selectedCV, setSelectedCV] = useState<string | null>(null);
-  const [analysisResult, setAnalysisResult] = useState<any | null>(null); // Consider using a more specific type if defined globally
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [notification, setNotification] = useState<NotificationState>({
@@ -220,7 +218,7 @@ export default function AnalyzeCvPage() {
   }, []);
 
   const handleModalComplete = useCallback((result: any) => {
-    setAnalysisResult(result);
+    // Modal is self-contained and handles all results internally - just reset state
     setIsAnalyzing(false);
     setShowAnalysisModal(false);
     setCurrentJobId(null);
@@ -704,121 +702,8 @@ export default function AnalyzeCvPage() {
 
               <CardContent className="flex-grow flex flex-col">
                 <AnimatePresence mode="wait">
-                  {isAnalyzing ? (
-                    <motion.div
-                      key="analyzing"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="flex-grow flex flex-col items-center justify-center text-center"
-                    >
-                      {/* AI Analysis Wizard Steps */}
-                      <div className="max-w-md mx-auto">
-                        <motion.div
-                          className="w-20 h-20 mx-auto mb-6 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full flex items-center justify-center"
-                          animate={{
-                            scale: [1, 1.1, 1],
-                            rotate: [0, 360]
-                          }}
-                          transition={{
-                            scale: { duration: 2, repeat: Infinity },
-                            rotate: { duration: 4, repeat: Infinity, ease: "linear" }
-                          }}
-                        >
-                          <Brain className="w-10 h-10 text-white" />
-                        </motion.div>
-
-                        <h3 className="text-2xl font-bold text-gray-900 mb-2">AI analyserar ditt CV</h3>
-                        <p className="text-gray-600 mb-8">Vår avancerade AI läser och utvärderar ditt CV...</p>
-
-                        {/* Analysis Steps */}
-                        <div className="space-y-4">
-                          {[
-                            { icon: FileText, text: "Läser CV-innehåll", delay: 0 },
-                            { icon: SearchCheck, text: "Identifierar nyckelord", delay: 1 },
-                            { icon: Target, text: "Analyserar ATS-kompatibilitet", delay: 2 },
-                            { icon: Lightbulb, text: "Genererar förbättringsförslag", delay: 3 },
-                            { icon: Star, text: "Beräknar poäng", delay: 4 }
-                          ].map((step, index) => (
-                            <motion.div
-                              key={index}
-                              className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"
-                              initial={{ opacity: 0, x: -20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: step.delay * 0.5 }}
-                            >
-                              <motion.div
-                                className="w-8 h-8 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full flex items-center justify-center"
-                                animate={{
-                                  scale: [1, 1.2, 1],
-                                  opacity: [0.7, 1, 0.7]
-                                }}
-                                transition={{
-                                  duration: 1.5,
-                                  repeat: Infinity,
-                                  delay: step.delay * 0.5
-                                }}
-                              >
-                                <step.icon className="w-4 h-4 text-white" />
-                              </motion.div>
-                              <span className="text-gray-700 font-medium">{step.text}</span>
-                              <motion.div
-                                className="ml-auto w-2 h-2 bg-green-500 rounded-full"
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                transition={{ delay: step.delay * 0.5 + 0.5 }}
-                              />
-                            </motion.div>
-                          ))}
-                        </div>
-                      </div>
-                    </motion.div>
-                  ) : analysisResult ? (
-                    <motion.div
-                      key="results"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      className="flex-grow flex flex-col"
-                    >
-                      {/* Results Content */}
-                      <div className="flex-grow overflow-auto">
-                        <CvAnalysisResults
-                          data={analysisResult}
-                          cvContent={cvs?.find(cv => cv.id === selectedCV)?.cv_text || ''}
-                          cvId={selectedCV || ''}
-                        />
-                      </div>
-
-                      {/* Action Buttons */}
-                      <motion.div
-                        className="mt-6 pt-4 border-t border-gray-200 flex flex-wrap gap-3"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                      >
-                        <motion.button
-                          onClick={handleNavigateToCvManagement}
-                          className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 shadow-sm hover:shadow-md transition-all duration-300"
-                          whileHover={{ scale: 1.02, y: -1 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <Pencil className="w-4 h-4 mr-2" />
-                          Hantera CV:n
-                        </motion.button>
-                        <motion.button
-                          onClick={() => router.push(`${CREATE_LETTER_ROUTE_BASE}?cvId=${selectedCV}`)}
-                          disabled={!selectedCV}
-                          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 shadow-sm hover:shadow-md disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
-                          whileHover={selectedCV ? { scale: 1.02, y: -1 } : {}}
-                          whileTap={selectedCV ? { scale: 0.98 } : {}}
-                        >
-                          <MessageSquare className="w-4 h-4 mr-2" />
-                          Skapa brev med CV
-                        </motion.button>
-                      </motion.div>
-                    </motion.div>
-                  ) : (
+                  {/* Analysis happens in modal - show empty state here */}
+                  {!showAnalysisModal ? (
                     <motion.div
                       key="empty"
                       initial={{ opacity: 0 }}
