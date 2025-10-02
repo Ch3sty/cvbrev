@@ -234,7 +234,6 @@ export default function AnalyzeCvPage() {
     // Open modal - analysis will start automatically in modal
     setShowAnalysisModal(true);
     setError(null);
-    setAnalysisResult(null);
   }, [selectedCV, showNotification, subscriptionTier, remainingWeeklyAnalyses]);
 
   const handleNavigateToCvManagement = useCallback(() => { router.push(PROFILE_CV_ROUTE); }, [router]);
