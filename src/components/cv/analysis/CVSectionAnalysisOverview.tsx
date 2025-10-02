@@ -369,8 +369,12 @@ export default function CVSectionAnalysisOverview({
                   suggestedText={role?.suggestedText || ''}
                   improvements={{
                     hasQuantification: role?.improvements?.hasQuantification ?? false,
-                    keywords: Array.isArray(role?.improvements?.keywords) ? role.improvements.keywords : [],
-                    grammarIssues: Array.isArray(role?.improvements?.grammarIssues) ? role.improvements.grammarIssues : [],
+                    keywords: Array.isArray(role?.improvements?.keywords)
+                      ? role.improvements.keywords.filter((k): k is string => typeof k === 'string' && k.trim().length > 0)
+                      : [],
+                    grammarIssues: Array.isArray(role?.improvements?.grammarIssues)
+                      ? role.improvements.grammarIssues.filter((g): g is string => typeof g === 'string' && g.trim().length > 0)
+                      : [],
                     atsOptimization: role?.improvements?.atsOptimization ?? false
                   }}
                   atsImpact={role?.atsImpact || 0}

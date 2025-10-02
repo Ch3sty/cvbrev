@@ -34,20 +34,20 @@ async function fetchWithRetry(url: string, options: any, maxRetries = 2, timeout
 
 // KRITISK FIX: Validera och normalisera roleImprovement-objekt
 function sanitizeRoleImprovement(role: any): any {
-  // Validera att keywords är array av STRINGS (inte objekt)
+  // Validera att keywords är array av STRINGS (inte objekt, undefined, null, eller tom sträng)
   const validateKeywords = (arr: any): string[] => {
     if (!Array.isArray(arr)) return [];
     return arr
-      .filter(item => typeof item === 'string')  // Filtrera bort icke-strings
-      .map(item => String(item));  // Säkerställ string-typ
+      .filter(item => typeof item === 'string' && item !== null && item !== undefined && item.trim().length > 0)
+      .map(item => String(item).trim());
   };
 
-  // Validera att grammarIssues är array av STRINGS
+  // Validera att grammarIssues är array av STRINGS (inte objekt, undefined, null, eller tom sträng)
   const validateGrammarIssues = (arr: any): string[] => {
     if (!Array.isArray(arr)) return [];
     return arr
-      .filter(item => typeof item === 'string')  // Filtrera bort icke-strings
-      .map(item => String(item));  // Säkerställ string-typ
+      .filter(item => typeof item === 'string' && item !== null && item !== undefined && item.trim().length > 0)
+      .map(item => String(item).trim());
   };
 
   return {
