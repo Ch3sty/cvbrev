@@ -258,7 +258,7 @@ export default function SelectImprovementsStep({
                     />
                   )}
 
-                  {category.id === 'roles' && roleBasedImprovements?.map((role, index) => {
+                  {category.id === 'roles' && (roleBasedImprovements || []).map((role, index) => {
                     // FÖRBÄTTRAD DEBUG LOGGING - Visar fullständigt innehåll
                     console.log(`🔍 DEBUG Step 3 - Role ${index}:`, {
                       hasRole: !!role,
@@ -346,7 +346,7 @@ export default function SelectImprovementsStep({
                   })}
 
                   {category.id === 'skills' &&
-                    skillSuggestions?.map((skill, index) => (
+                    (skillSuggestions || []).map((skill, index) => (
                       <SkillSuggestionCard
                         key={index}
                         suggestion={skill}
@@ -356,7 +356,7 @@ export default function SelectImprovementsStep({
                     ))}
 
                   {category.id === 'general' &&
-                    generalImprovements?.map((improvement, index) => (
+                    (generalImprovements || []).map((improvement, index) => (
                       <Card
                         key={index}
                         className={`p-4 transition-all ${
