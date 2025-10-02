@@ -299,12 +299,24 @@ export default function CVAnalysisModal({
 
       case 2:
         if (!analysisResult) return null;
+
+        // Ensure all arrays are actually arrays to prevent crashes
+        const roleImprovements = Array.isArray(analysisResult.roleBasedImprovements)
+          ? analysisResult.roleBasedImprovements
+          : [];
+        const skillSuggs = Array.isArray(analysisResult.skillSuggestions)
+          ? analysisResult.skillSuggestions
+          : [];
+        const generalImps = Array.isArray(analysisResult.generalImprovements)
+          ? analysisResult.generalImprovements
+          : [];
+
         return (
           <SelectImprovementsStep
             profileSummary={analysisResult.profileSummary}
-            roleBasedImprovements={analysisResult.roleBasedImprovements || []}
-            skillSuggestions={analysisResult.skillSuggestions || []}
-            generalImprovements={analysisResult.generalImprovements || []}
+            roleBasedImprovements={roleImprovements}
+            skillSuggestions={skillSuggs}
+            generalImprovements={generalImps}
             selectedProfile={selectedProfile}
             selectedRoles={selectedRoles}
             selectedSkills={selectedSkills}
