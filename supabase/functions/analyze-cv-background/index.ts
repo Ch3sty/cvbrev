@@ -169,7 +169,14 @@ Deno.serve(async (req) => {
         });
 
         const profileData = await profileResponse.json();
-        profileSummaryImprovement = JSON.parse(profileData.choices[0].message.content);
+        const rawProfileData = JSON.parse(profileData.choices[0].message.content);
+        // Map to frontend expected format: suggestedText -> improvedText, improvements -> changes
+        profileSummaryImprovement = {
+          currentText: rawProfileData.currentText,
+          improvedText: rawProfileData.suggestedText,
+          changes: rawProfileData.improvements || [],
+          atsImpact: 10 // Static for now
+        };
         console.log(`[Job ${jobId}] Profile summary improvement generated`);
       }
 
@@ -190,7 +197,7 @@ Deno.serve(async (req) => {
             },
             {
               role: 'user',
-              content: `Analysera dessa roller och hitta färdigheter som nämns men kanske inte listas explicit:\n\n${JSON.stringify(parsedCV.roles)}\n\nReturnera JSON med format: { "skillSuggestions": [{ "skill": string, "category": string ("Teknisk", "Mjuk färdighet", "Språk", "Verktyg"), "sourceRole": string, "reasoning": string }] }`
+              content: `Analysera dessa roller och hitta färdigheter som nämns men kanske inte listas explicit:\n\n${JSON.stringify(parsedCV.roles)}\n\nReturnera JSON med format: { "skillSuggestions": [{ "skill": string, "relevance": string ("high", "medium", "low"), "source": string (konkret roll och företag, t.ex. "Snickare på Durgé Byggnads AB"), "reasoning": string }] }\n\nVIKTIGT: source ska vara exakt "RollTitle på Company" från rollerna ovan.`
             }
           ],
           temperature: 0.5,

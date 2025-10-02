@@ -219,13 +219,33 @@ export default function CVAnalysisModal({
         setSavedCvId(newCvId);
       }
 
-      // TODO: Generate PDF with template and download
-      // For now, just download as text
-      const blob = new Blob([improvedCV], { type: 'text/plain' });
+      // Generate PDF with template and download
+      const pdfFileName = `${fileName.replace(/\.[^/.]+$/, '')}.pdf`;
+
+      const pdfResponse = await fetch('/api/cv/generate-formatted', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          template: templateId,
+          cvText: improvedCV,
+          format: 'pdf',
+          templateOptions: {}
+        })
+      });
+
+      if (!pdfResponse.ok) {
+        const errorData = await pdfResponse.json();
+        throw new Error(errorData.error || 'Kunde inte generera PDF');
+      }
+
+      // Download PDF
+      const blob = await pdfResponse.blob();
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `${fileName}.txt`;
+      a.download = pdfFileName;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -392,7 +412,7 @@ export default function CVAnalysisModal({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:ml-64">
         {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}

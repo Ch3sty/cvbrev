@@ -3,20 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255;
-  /* Lite justerad bakgrund för djupare känsla */
-  --background-start-rgb: 10, 15, 30; /* Mörkare start */
-  --background-end-rgb: 19, 24, 42; /* Något ljusare slut */
+  /* Ljust tema (dashboard) */
+  --foreground-rgb-light: 17, 24, 39; /* gray-900 */
+  --background-rgb-light: 249, 250, 251; /* gray-50 */
+
+  /* Mörkt tema (landing pages) */
+  --foreground-rgb-dark: 255, 255, 255;
+  --background-start-rgb-dark: 10, 15, 30;
+  --background-end-rgb-dark: 19, 24, 42;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      rgb(var(--background-start-rgb)),
-      rgb(var(--background-end-rgb))
-    )
-    fixed;
   /* Smidigare scrollning */
   scroll-behavior: smooth;
 }

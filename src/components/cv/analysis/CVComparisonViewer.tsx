@@ -109,8 +109,12 @@ export default function CVComparisonViewer({
             className="p-6 bg-white overflow-auto max-h-[600px]"
             style={{ fontSize: `${zoomLevel}%` }}
           >
-            <div className="whitespace-pre-wrap font-sans text-gray-900">
-              {originalCV}
+            <div className="space-y-4 font-sans text-gray-900">
+              {originalCV.split(/\n\n+/).map((paragraph, index) => (
+                <p key={index} className="whitespace-pre-wrap leading-relaxed">
+                  {paragraph}
+                </p>
+              ))}
             </div>
           </div>
         </div>

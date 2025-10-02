@@ -67,17 +67,23 @@ export default function SkillSuggestionCard({
               </Badge>
             </div>
 
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-2">
-              <div className="flex items-start gap-2">
-                <Info className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
-                <div className="text-sm">
-                  <div className="font-medium text-blue-900 mb-1">Källa:</div>
-                  <div className="text-blue-700">{suggestion.source}</div>
+            <div className="space-y-3">
+              <div>
+                <div className="text-xs font-medium text-gray-700 mb-1">
+                  Källa från din arbetserfarenhet:
+                </div>
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                  <p className="text-sm text-blue-900 font-medium">{suggestion.source || 'Din tidigare erfarenhet'}</p>
                 </div>
               </div>
-            </div>
 
-            <p className="text-sm text-gray-600">{suggestion.reasoning}</p>
+              <div>
+                <div className="text-xs font-medium text-gray-700 mb-1">
+                  Varför denna kompetens:
+                </div>
+                <p className="text-sm text-gray-700">{suggestion.reasoning}</p>
+              </div>
+            </div>
           </div>
         </div>
       </Card>

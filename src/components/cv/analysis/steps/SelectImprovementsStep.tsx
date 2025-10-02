@@ -175,7 +175,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
     {
       id: 'skills' as Category,
       icon: Award,
-      title: 'Kompetenser & färdigheter',
+      title: 'Lägg till kompetenser & färdigheter',
       color: 'from-purple-600 to-pink-600',
       count: safeData.skills.length,
       selectedCount: selectedSkills.size
@@ -357,14 +357,14 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
                         />
                         <div className="flex-1">
                           <h5 className="font-semibold text-gray-900 mb-1">
-                            {improvement.area}
+                            {improvement.area || improvement.title || 'Förbättring'}
                           </h5>
                           <p className="text-sm text-gray-700 mb-2">
-                            {improvement.suggestion}
+                            {improvement.suggestion || improvement.description || 'Ingen beskrivning tillgänglig'}
                           </p>
-                          {improvement.example && (
+                          {(improvement.example || improvement.category) && (
                             <p className="text-xs text-gray-600 italic">
-                              Exempel: {improvement.example}
+                              {improvement.example ? `Exempel: ${improvement.example}` : `Kategori: ${improvement.category}`}
                             </p>
                           )}
                         </div>

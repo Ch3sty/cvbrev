@@ -99,24 +99,30 @@ export default function ProfileSummaryCard({
                 Förbättrad version
               </div>
               <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                <p className="text-sm text-gray-900 font-medium">{improvedText}</p>
+                {improvedText ? (
+                  <p className="text-sm text-gray-900 font-medium">{improvedText}</p>
+                ) : (
+                  <p className="text-sm text-gray-600 italic">Din personbeskrivning är redan optimerad! Inga förändringar föreslås.</p>
+                )}
               </div>
             </div>
 
             {/* Changes List */}
-            <div>
-              <div className="text-xs font-semibold text-gray-500 uppercase mb-2">
-                Förbättringar
+            {(changes || []).length > 0 && (
+              <div>
+                <div className="text-xs font-semibold text-gray-500 uppercase mb-2">
+                  Förbättringar
+                </div>
+                <ul className="space-y-2">
+                  {(changes || []).map((change, index) => (
+                    <li key={index} className="flex items-start gap-2 text-sm text-gray-700">
+                      <span className="text-green-600 mt-0.5">✓</span>
+                      <span>{change}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="space-y-2">
-                {(changes || []).map((change, index) => (
-                  <li key={index} className="flex items-start gap-2 text-sm text-gray-700">
-                    <span className="text-green-600 mt-0.5">✓</span>
-                    <span>{change}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

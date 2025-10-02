@@ -163,7 +163,7 @@ export default function RootLayout({
         <meta name="description" content="Skapa professionella CV:n och personliga brev snabbt och enkelt med hjälp av AI från Jobbcoach.ai." />
         {/* Andra head-element */}
       </head>
-      <body className={`${inter.className} bg-navy-900 text-white flex flex-col min-h-full`}>
+      <body className={`${inter.className} ${isDashboard ? 'bg-gray-50 text-gray-900' : 'bg-navy-900 text-white'} flex flex-col min-h-full`}>
         {/* === GTM BODY SNIPPET (NOSCRIPT) START (Oförändrad) === */}
         <noscript>
           <iframe
