@@ -97,15 +97,33 @@ export default function CVAnalysisModal({
   const startAnalysis = async () => {
     setIsAnalyzing(true);
     setProgress(0);
+    setEstimatedTimeRemaining(50);
 
     try {
       const jobId = await onAnalysisStart();
 
+      // Start progress simulation
+      const startTime = Date.now();
+      const ESTIMATED_DURATION = 50000; // 50 seconds
+
+      const progressInterval = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const progressPercent = Math.min(95, Math.floor((elapsed / ESTIMATED_DURATION) * 100));
+        const timeRemaining = Math.max(0, Math.ceil((ESTIMATED_DURATION - elapsed) / 1000));
+
+        setProgress(progressPercent);
+        setEstimatedTimeRemaining(timeRemaining);
+      }, 500);
+
       // Poll for result
       const result = await onPollJob(jobId);
 
+      // Clear progress interval
+      clearInterval(progressInterval);
+
       setAnalysisResult(result);
       setProgress(100);
+      setEstimatedTimeRemaining(0);
 
       // Auto-advance to overview after short delay
       setTimeout(() => {
@@ -257,20 +275,25 @@ export default function CVAnalysisModal({
 
       case 1:
         if (!analysisResult) return null;
+
+        // Calculate ATS scores
+        const currentAtsScore = analysisResult.atsFriendliness?.score || 0;
+        const totalImprovements =
+          (analysisResult.profileSummary ? 1 : 0) +
+          (analysisResult.roleBasedImprovements?.length || 0) +
+          (analysisResult.skillSuggestions?.length || 0) +
+          (analysisResult.generalImprovements?.length || 0);
+        const potentialAtsScore = Math.min(100, currentAtsScore + (totalImprovements * 2));
+
         return (
           <AnalysisOverviewStep
-            totalImprovements={
-              (analysisResult.profileSummary ? 1 : 0) +
-              (analysisResult.roleBasedImprovements?.length || 0) +
-              (analysisResult.skillSuggestions?.length || 0) +
-              (analysisResult.generalImprovements?.length || 0)
-            }
+            totalImprovements={totalImprovements}
             roleBasedCount={analysisResult.roleBasedImprovements?.length || 0}
             skillsCount={analysisResult.skillSuggestions?.length || 0}
             generalCount={analysisResult.generalImprovements?.length || 0}
             profileImproved={!!analysisResult.profileSummary}
-            atsScore={analysisResult.atsAnalysis?.currentScore || 0}
-            potentialScore={analysisResult.atsAnalysis?.potentialScore || 0}
+            atsScore={currentAtsScore}
+            potentialScore={potentialAtsScore}
           />
         );
 
@@ -323,21 +346,18 @@ export default function CVAnalysisModal({
         );
 
       case 3:
+        const selectedImprovementsCount =
+          (selectedProfile ? 1 : 0) +
+          selectedRoles.size +
+          selectedSkills.size +
+          selectedGeneral.size;
+
         return (
           <PreviewComparisonStep
             originalCV={cvContent}
             improvedCV={improvedCV}
-            improvementsCount={
-              (selectedProfile ? 1 : 0) +
-              selectedRoles.size +
-              selectedSkills.size +
-              selectedGeneral.size
-            }
-            atsImprovement={
-              analysisResult?.atsAnalysis
-                ? analysisResult.atsAnalysis.potentialScore - analysisResult.atsAnalysis.currentScore
-                : 0
-            }
+            improvementsCount={selectedImprovementsCount}
+            atsImprovement={selectedImprovementsCount * 2}
           />
         );
 

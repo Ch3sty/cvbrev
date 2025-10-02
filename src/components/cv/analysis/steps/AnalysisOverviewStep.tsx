@@ -130,7 +130,7 @@ export default function AnalysisOverviewStep({
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
           >
-            <Card className="p-6 hover:shadow-md transition-shadow">
+            <Card className="bg-white border-slate-200 p-6 hover:shadow-md transition-shadow">
               <div className="flex items-start gap-4">
                 <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${category.color} flex items-center justify-center flex-shrink-0`}>
                   <category.icon className="w-6 h-6 text-white" />

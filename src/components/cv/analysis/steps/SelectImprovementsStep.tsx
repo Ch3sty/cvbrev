@@ -115,7 +115,7 @@ export default function SelectImprovementsStep({
       icon: Briefcase,
       title: 'Rollbaserade förbättringar',
       color: 'from-blue-600 to-cyan-600',
-      count: roleBasedImprovements.length,
+      count: roleBasedImprovements?.length || 0,
       selectedCount: selectedRoles.size
     },
     {
@@ -123,7 +123,7 @@ export default function SelectImprovementsStep({
       icon: Award,
       title: 'Kompetenser & färdigheter',
       color: 'from-purple-600 to-pink-600',
-      count: skillSuggestions.length,
+      count: skillSuggestions?.length || 0,
       selectedCount: selectedSkills.size
     },
     {
@@ -131,7 +131,7 @@ export default function SelectImprovementsStep({
       icon: Target,
       title: 'Allmänna förbättringar',
       color: 'from-green-600 to-emerald-600',
-      count: generalImprovements.length,
+      count: generalImprovements?.length || 0,
       selectedCount: selectedGeneral.size
     }
   ];
@@ -144,9 +144,9 @@ export default function SelectImprovementsStep({
 
   const totalAvailable =
     (profileSummary ? 1 : 0) +
-    roleBasedImprovements.length +
-    skillSuggestions.length +
-    generalImprovements.length;
+    (roleBasedImprovements?.length || 0) +
+    (skillSuggestions?.length || 0) +
+    (generalImprovements?.length || 0);
 
   return (
     <div className="space-y-6">
@@ -253,7 +253,7 @@ export default function SelectImprovementsStep({
                   )}
 
                   {category.id === 'roles' &&
-                    roleBasedImprovements.map((role, index) => (
+                    roleBasedImprovements?.map((role, index) => (
                       <div key={index} className="relative">
                         <input
                           type="checkbox"
@@ -278,7 +278,7 @@ export default function SelectImprovementsStep({
                     ))}
 
                   {category.id === 'skills' &&
-                    skillSuggestions.map((skill, index) => (
+                    skillSuggestions?.map((skill, index) => (
                       <SkillSuggestionCard
                         key={index}
                         suggestion={skill}
@@ -288,7 +288,7 @@ export default function SelectImprovementsStep({
                     ))}
 
                   {category.id === 'general' &&
-                    generalImprovements.map((improvement, index) => (
+                    generalImprovements?.map((improvement, index) => (
                       <Card
                         key={index}
                         className={`p-4 transition-all ${
