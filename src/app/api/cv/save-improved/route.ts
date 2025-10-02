@@ -88,12 +88,35 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Get original file path if originalCvId is provided
+    let originalFilePath = `ai-improved/${user.id}/${Date.now()}-${fileName}.txt`;
+
+    if (originalCvId) {
+      const { data: originalCv } = await supabase
+        .from('cv_texts')
+        .select('original_file_path')
+        .eq('id', originalCvId)
+        .single();
+
+      if (originalCv?.original_file_path) {
+        // Use original's path with "-improved" suffix
+        const pathParts = originalCv.original_file_path.split('.');
+        if (pathParts.length > 1) {
+          pathParts[pathParts.length - 2] += '-improved';
+          originalFilePath = pathParts.join('.');
+        } else {
+          originalFilePath = `${originalCv.original_file_path}-improved`;
+        }
+      }
+    }
+
     // Save improved CV
     const { data: newCv, error: insertError } = await supabase
       .from('cv_texts')
       .insert({
         user_id: user.id,
         file_name: fileName,
+        original_file_path: originalFilePath,
         cv_text: improvedText
       })
       .select()
