@@ -361,14 +361,19 @@ export default function CVSectionAnalysisOverview({
 
               <div className={onImplementSelected ? 'ml-8' : ''}>
                 <SectionCard
-                  sectionName={`${role.roleTitle} - ${role.company}`}
+                  sectionName={`${role?.roleTitle || 'Okänd roll'} - ${role?.company || 'Okänt företag'}`}
                   sectionType="work_experience"
-                  period={role.period}
-                  priority={role.priority}
-                  currentText={role.currentText || ''}
-                  suggestedText={role.suggestedText}
-                  improvements={role.improvements}
-                  atsImpact={role.atsImpact || 0}
+                  period={role?.period || ''}
+                  priority={role?.priority || 'medium'}
+                  currentText={role?.currentText || ''}
+                  suggestedText={role?.suggestedText || ''}
+                  improvements={{
+                    hasQuantification: role?.improvements?.hasQuantification ?? false,
+                    keywords: Array.isArray(role?.improvements?.keywords) ? role.improvements.keywords : [],
+                    grammarIssues: Array.isArray(role?.improvements?.grammarIssues) ? role.improvements.grammarIssues : [],
+                    atsOptimization: role?.improvements?.atsOptimization ?? false
+                  }}
+                  atsImpact={role?.atsImpact || 0}
                   onTextEdit={onImplementSelected ? (newText) => handleTextEdit(index, newText) : undefined}
                 />
               </div>

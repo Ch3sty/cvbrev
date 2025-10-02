@@ -258,8 +258,22 @@ export default function SelectImprovementsStep({
                     />
                   )}
 
-                  {category.id === 'roles' &&
-                    roleBasedImprovements?.map((role, index) => (
+                  {category.id === 'roles' && roleBasedImprovements?.map((role, index) => {
+                    // DEBUG LOGGING - Ta bort när problemet är löst
+                    console.log(`🔍 DEBUG Step 3 - Role ${index}:`, {
+                      hasRole: !!role,
+                      roleTitle: role?.roleTitle,
+                      company: role?.company,
+                      period: role?.period,
+                      hasImprovements: !!role?.improvements,
+                      improvementsType: typeof role?.improvements,
+                      improvementsKeys: role?.improvements ? Object.keys(role.improvements) : [],
+                      keywordsType: typeof role?.improvements?.keywords,
+                      keywordsIsArray: Array.isArray(role?.improvements?.keywords),
+                      keywordsLength: role?.improvements?.keywords?.length
+                    });
+
+                    return (
                       <div key={index} className="relative">
                         <input
                           type="checkbox"
@@ -269,19 +283,25 @@ export default function SelectImprovementsStep({
                         />
                         <div className="ml-8">
                           <SectionCard
-                            sectionName={`${role.roleTitle} - ${role.company}`}
+                            sectionName={`${role?.roleTitle || 'Okänd roll'} - ${role?.company || 'Okänt företag'}`}
                             sectionType="work_experience"
-                            period={role.period}
-                            priority={role.priority || 'medium'}
-                            currentText={role.currentText || ''}
-                            suggestedText={role.suggestedText}
-                            improvements={role.improvements || {}}
-                            atsImpact={role.atsImpact || 0}
+                            period={role?.period || ''}
+                            priority={role?.priority || 'medium'}
+                            currentText={role?.currentText || ''}
+                            suggestedText={role?.suggestedText || ''}
+                            improvements={{
+                              hasQuantification: role?.improvements?.hasQuantification ?? false,
+                              keywords: Array.isArray(role?.improvements?.keywords) ? role.improvements.keywords : [],
+                              grammarIssues: Array.isArray(role?.improvements?.grammarIssues) ? role.improvements.grammarIssues : [],
+                              atsOptimization: role?.improvements?.atsOptimization ?? false
+                            }}
+                            atsImpact={role?.atsImpact || 0}
                             onTextEdit={onRoleTextEdit ? (newText) => onRoleTextEdit(index, newText) : undefined}
                           />
                         </div>
                       </div>
-                    ))}
+                    );
+                  })}
 
                   {category.id === 'skills' &&
                     skillSuggestions?.map((skill, index) => (
