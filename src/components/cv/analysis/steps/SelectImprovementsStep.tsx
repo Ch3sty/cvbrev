@@ -280,12 +280,12 @@ export default function SelectImprovementsStep({
 
                       // Verifiera om keywords är array av strings
                       keywords_AllAreStrings: Array.isArray(role?.improvements?.keywords)
-                        ? role.improvements.keywords.every(k => typeof k === 'string')
+                        ? role.improvements.keywords.every((k: any) => typeof k === 'string')
                         : false,
 
                       // Verifiera om grammarIssues är array av strings
                       grammarIssues_AllAreStrings: Array.isArray(role?.improvements?.grammarIssues)
-                        ? role.improvements.grammarIssues.every(g => typeof g === 'string')
+                        ? role.improvements.grammarIssues.every((g: any) => typeof g === 'string')
                         : false
                     });
 
