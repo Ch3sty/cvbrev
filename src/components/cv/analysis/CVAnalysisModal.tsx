@@ -301,6 +301,26 @@ export default function CVAnalysisModal({
       case 2:
         if (!analysisResult) return null;
 
+        // DEBUG: Log analysisResult structure
+        console.log('🔍 CVAnalysisModal case 2 - analysisResult:', {
+          fullObject: analysisResult,
+          roleBasedImprovements: {
+            type: typeof analysisResult.roleBasedImprovements,
+            isArray: Array.isArray(analysisResult.roleBasedImprovements),
+            value: analysisResult.roleBasedImprovements
+          },
+          skillSuggestions: {
+            type: typeof analysisResult.skillSuggestions,
+            isArray: Array.isArray(analysisResult.skillSuggestions),
+            value: analysisResult.skillSuggestions
+          },
+          generalImprovements: {
+            type: typeof analysisResult.generalImprovements,
+            isArray: Array.isArray(analysisResult.generalImprovements),
+            value: analysisResult.generalImprovements
+          }
+        });
+
         // Ensure all arrays are actually arrays to prevent crashes
         const roleImprovements = Array.isArray(analysisResult.roleBasedImprovements)
           ? analysisResult.roleBasedImprovements
@@ -311,6 +331,12 @@ export default function CVAnalysisModal({
         const generalImps = Array.isArray(analysisResult.generalImprovements)
           ? analysisResult.generalImprovements
           : [];
+
+        console.log('🔍 CVAnalysisModal case 2 - sanitized arrays:', {
+          roleImprovements,
+          skillSuggs,
+          generalImps
+        });
 
         return (
           <SelectImprovementsStep

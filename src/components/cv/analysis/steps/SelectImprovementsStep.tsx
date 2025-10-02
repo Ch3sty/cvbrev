@@ -57,6 +57,29 @@ export default function SelectImprovementsStep({
   onToggleGeneral,
   onRoleTextEdit
 }: SelectImprovementsStepProps) {
+  // DEBUG: Log all incoming props
+  console.log('🔍 SelectImprovementsStep PROPS:', {
+    profileSummary: profileSummary ? 'present' : 'undefined',
+    roleBasedImprovements: {
+      type: typeof roleBasedImprovements,
+      isArray: Array.isArray(roleBasedImprovements),
+      value: roleBasedImprovements,
+      length: roleBasedImprovements?.length
+    },
+    skillSuggestions: {
+      type: typeof skillSuggestions,
+      isArray: Array.isArray(skillSuggestions),
+      value: skillSuggestions,
+      length: skillSuggestions?.length
+    },
+    generalImprovements: {
+      type: typeof generalImprovements,
+      isArray: Array.isArray(generalImprovements),
+      value: generalImprovements,
+      length: generalImprovements?.length
+    }
+  });
+
   const [expandedCategories, setExpandedCategories] = useState<Set<Category>>(
     new Set(['profile', 'roles'])
   );
@@ -72,20 +95,36 @@ export default function SelectImprovementsStep({
   };
 
   const selectAllInCategory = (category: Category) => {
+    console.log('🔍 selectAllInCategory called for:', category);
+    console.log('🔍 Arrays state:', {
+      roleBasedImprovements: roleBasedImprovements,
+      skillSuggestions: skillSuggestions,
+      generalImprovements: generalImprovements
+    });
+
     if (category === 'profile') {
       onToggleProfile();
     } else if (category === 'roles') {
-      roleBasedImprovements?.forEach((_, index) => {
-        if (!selectedRoles.has(index)) onToggleRole(index);
-      });
+      console.log('🔍 Processing roles, isArray:', Array.isArray(roleBasedImprovements));
+      if (Array.isArray(roleBasedImprovements)) {
+        roleBasedImprovements.forEach((_, index) => {
+          if (!selectedRoles.has(index)) onToggleRole(index);
+        });
+      }
     } else if (category === 'skills') {
-      skillSuggestions?.forEach((_, index) => {
-        if (!selectedSkills.has(index)) onToggleSkill(index);
-      });
+      console.log('🔍 Processing skills, isArray:', Array.isArray(skillSuggestions));
+      if (Array.isArray(skillSuggestions)) {
+        skillSuggestions.forEach((_, index) => {
+          if (!selectedSkills.has(index)) onToggleSkill(index);
+        });
+      }
     } else if (category === 'general') {
-      generalImprovements?.forEach((_, index) => {
-        if (!selectedGeneral.has(index)) onToggleGeneral(index);
-      });
+      console.log('🔍 Processing general, isArray:', Array.isArray(generalImprovements));
+      if (Array.isArray(generalImprovements)) {
+        generalImprovements.forEach((_, index) => {
+          if (!selectedGeneral.has(index)) onToggleGeneral(index);
+        });
+      }
     }
   };
 
