@@ -57,6 +57,7 @@ export default function CVAnalysisModal({
   const [selectedSkills, setSelectedSkills] = useState<Set<number>>(new Set());
   const [selectedGeneral, setSelectedGeneral] = useState<Set<number>>(new Set());
   const [editedRoleTexts, setEditedRoleTexts] = useState<Map<number, string>>(new Map());
+  const [editedProfileText, setEditedProfileText] = useState<string | null>(null);
 
   // Preview state
   const [improvedCV, setImprovedCV] = useState('');
@@ -169,7 +170,7 @@ export default function CVAnalysisModal({
     if (selectedProfile && analysisResult.profileSummary) {
       improvements.push({
         currentText: analysisResult.profileSummary.currentText,
-        suggestedText: analysisResult.profileSummary.improvedText
+        suggestedText: editedProfileText || analysisResult.profileSummary.improvedText
       });
     }
 
@@ -386,6 +387,9 @@ export default function CVAnalysisModal({
               const newMap = new Map(editedRoleTexts);
               newMap.set(index, newText);
               setEditedRoleTexts(newMap);
+            }}
+            onProfileEdit={(newText) => {
+              setEditedProfileText(newText);
             }}
           />
         );

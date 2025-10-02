@@ -44,6 +44,7 @@ interface SelectImprovementsStepProps {
   onSelectAllGeneral?: () => void;
   onDeselectAllGeneral?: () => void;
   onRoleTextEdit?: (index: number, newText: string) => void;
+  onProfileEdit?: (newText: string) => void;
 }
 
 type Category = 'profile' | 'roles' | 'skills' | 'general';
@@ -117,7 +118,8 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
     onDeselectAllSkills,
     onSelectAllGeneral,
     onDeselectAllGeneral,
-    onRoleTextEdit
+    onRoleTextEdit,
+    onProfileEdit
   } = props;
 
   // Get GUARANTEED safe data
@@ -309,6 +311,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
                       atsImpact={profileSummary.atsImpact}
                       selected={selectedProfile}
                       onToggle={onToggleProfile}
+                      onEdit={onProfileEdit}
                     />
                   )}
 

@@ -28,14 +28,17 @@ export default function CVComparisonViewer({
     const elements: React.JSX.Element[] = [];
     let currentParagraph: React.JSX.Element[] = [];
     let paragraphKey = 0;
+    let emptyLineCount = 0;
 
     segments.forEach((segment, index) => {
       const lines = segment.text.split('\n');
 
       lines.forEach((line, lineIndex) => {
-        if (lineIndex > 0) {
-          // New line detected - close current paragraph and start new one
-          if (currentParagraph.length > 0) {
+        // Check for empty lines (paragraph breaks)
+        if (line.trim().length === 0) {
+          emptyLineCount++;
+          // If we have 2+ empty lines, it's a paragraph break
+          if (emptyLineCount >= 2 && currentParagraph.length > 0) {
             elements.push(
               <p key={`para-${paragraphKey}`} className="leading-relaxed mb-4">
                 {currentParagraph}
@@ -43,10 +46,17 @@ export default function CVComparisonViewer({
             );
             currentParagraph = [];
             paragraphKey++;
+            emptyLineCount = 0;
           }
-        }
+        } else {
+          // Non-empty line - add to current paragraph
+          emptyLineCount = 0;
 
-        if (line.length > 0) {
+          // If starting a new paragraph after an empty line
+          if (lineIndex > 0 && currentParagraph.length > 0) {
+            currentParagraph.push(<span key={`${index}-${lineIndex}-space`}> </span>);
+          }
+
           let element: React.JSX.Element;
 
           if (segment.type === 'unchanged') {

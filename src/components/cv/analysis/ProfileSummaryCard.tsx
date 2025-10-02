@@ -14,6 +14,7 @@ interface ProfileSummaryCardProps {
   atsImpact: number;
   selected: boolean;
   onToggle: () => void;
+  onEdit?: (newText: string) => void;
 }
 
 export default function ProfileSummaryCard({
@@ -22,9 +23,19 @@ export default function ProfileSummaryCard({
   changes,
   atsImpact,
   selected,
-  onToggle
+  onToggle,
+  onEdit
 }: ProfileSummaryCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [editedText, setEditedText] = useState(improvedText);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleSaveEdit = () => {
+    if (onEdit) {
+      onEdit(editedText);
+    }
+    setIsEditing(false);
+  };
 
   return (
     <Card className={`p-6 transition-all ${
@@ -95,12 +106,47 @@ export default function ProfileSummaryCard({
 
             {/* After */}
             <div>
-              <div className="text-xs font-semibold text-green-700 uppercase mb-2">
-                Förbättrad version
+              <div className="flex items-center justify-between mb-2">
+                <div className="text-xs font-semibold text-green-700 uppercase">
+                  Förbättrad version
+                </div>
+                {onEdit && !isEditing && (
+                  <button
+                    onClick={() => setIsEditing(true)}
+                    className="text-xs text-blue-600 hover:text-blue-700 font-medium"
+                  >
+                    Redigera
+                  </button>
+                )}
               </div>
               <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                {improvedText ? (
-                  <p className="text-sm text-gray-900 font-medium">{improvedText}</p>
+                {isEditing ? (
+                  <div className="space-y-2">
+                    <textarea
+                      value={editedText}
+                      onChange={(e) => setEditedText(e.target.value)}
+                      className="w-full min-h-[100px] p-3 border border-green-300 rounded-lg text-sm text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    />
+                    <div className="flex gap-2 justify-end">
+                      <button
+                        onClick={() => {
+                          setEditedText(improvedText);
+                          setIsEditing(false);
+                        }}
+                        className="px-3 py-1 text-sm text-gray-600 hover:text-gray-800"
+                      >
+                        Avbryt
+                      </button>
+                      <button
+                        onClick={handleSaveEdit}
+                        className="px-3 py-1 text-sm bg-green-600 text-white rounded hover:bg-green-700"
+                      >
+                        Spara
+                      </button>
+                    </div>
+                  </div>
+                ) : improvedText ? (
+                  <p className="text-sm text-gray-900 font-medium">{editedText}</p>
                 ) : (
                   <p className="text-sm text-gray-600 italic">Din personbeskrivning är redan optimerad! Inga förändringar föreslås.</p>
                 )}
