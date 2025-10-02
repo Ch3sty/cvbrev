@@ -99,21 +99,21 @@ export default function CVAnalysisModal({
     setProgress(0);
     setEstimatedTimeRemaining(50);
 
+    // Start progress simulation BEFORE async operations
+    const startTime = Date.now();
+    const ESTIMATED_DURATION = 50000; // 50 seconds
+
+    const progressInterval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const progressPercent = Math.min(95, Math.floor((elapsed / ESTIMATED_DURATION) * 100));
+      const timeRemaining = Math.max(0, Math.ceil((ESTIMATED_DURATION - elapsed) / 1000));
+
+      setProgress(progressPercent);
+      setEstimatedTimeRemaining(timeRemaining);
+    }, 1000); // 1 second intervals for smoother visible updates
+
     try {
       const jobId = await onAnalysisStart();
-
-      // Start progress simulation
-      const startTime = Date.now();
-      const ESTIMATED_DURATION = 50000; // 50 seconds
-
-      const progressInterval = setInterval(() => {
-        const elapsed = Date.now() - startTime;
-        const progressPercent = Math.min(95, Math.floor((elapsed / ESTIMATED_DURATION) * 100));
-        const timeRemaining = Math.max(0, Math.ceil((ESTIMATED_DURATION - elapsed) / 1000));
-
-        setProgress(progressPercent);
-        setEstimatedTimeRemaining(timeRemaining);
-      }, 500);
 
       // Poll for result
       const result = await onPollJob(jobId);
@@ -131,6 +131,7 @@ export default function CVAnalysisModal({
       }, 1500);
     } catch (error) {
       console.error('Analysis error:', error);
+      clearInterval(progressInterval);
       alert('Ett fel uppstod vid analysen. Försök igen.');
       onClose();
     } finally {
