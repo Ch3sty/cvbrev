@@ -259,43 +259,29 @@ export default function SelectImprovementsStep({
                   )}
 
                   {category.id === 'roles' &&
-                    roleBasedImprovements?.map((role, index) => {
-                      console.log(`🔍 SelectImprovementsStep rendering role ${index}:`, {
-                        roleTitle: role.roleTitle,
-                        company: role.company,
-                        improvements: {
-                          type: typeof role.improvements,
-                          value: role.improvements,
-                          isNull: role.improvements === null,
-                          isUndefined: role.improvements === undefined,
-                          withFallback: role.improvements || {}
-                        }
-                      });
-
-                      return (
-                        <div key={index} className="relative">
-                          <input
-                            type="checkbox"
-                            checked={selectedRoles.has(index)}
-                            onChange={() => onToggleRole(index)}
-                            className="absolute top-4 left-4 z-10 w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    roleBasedImprovements?.map((role, index) => (
+                      <div key={index} className="relative">
+                        <input
+                          type="checkbox"
+                          checked={selectedRoles.has(index)}
+                          onChange={() => onToggleRole(index)}
+                          className="absolute top-4 left-4 z-10 w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        />
+                        <div className="ml-8">
+                          <SectionCard
+                            sectionName={`${role.roleTitle} - ${role.company}`}
+                            sectionType="work_experience"
+                            period={role.period}
+                            priority={role.priority || 'medium'}
+                            currentText={role.currentText || ''}
+                            suggestedText={role.suggestedText}
+                            improvements={role.improvements || {}}
+                            atsImpact={role.atsImpact || 0}
+                            onTextEdit={onRoleTextEdit ? (newText) => onRoleTextEdit(index, newText) : undefined}
                           />
-                          <div className="ml-8">
-                            <SectionCard
-                              sectionName={`${role.roleTitle} - ${role.company}`}
-                              sectionType="work_experience"
-                              period={role.period}
-                              priority={role.priority || 'medium'}
-                              currentText={role.currentText || ''}
-                              suggestedText={role.suggestedText}
-                              improvements={role.improvements || {}}
-                              atsImpact={role.atsImpact || 0}
-                              onTextEdit={onRoleTextEdit ? (newText) => onRoleTextEdit(index, newText) : undefined}
-                            />
-                          </div>
                         </div>
-                      );
-                    })}
+                      </div>
+                    ))}
 
                   {category.id === 'skills' &&
                     skillSuggestions?.map((skill, index) => (

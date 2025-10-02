@@ -24,17 +24,6 @@ export default function SkillSuggestionCard({
   selected,
   onToggle
 }: SkillSuggestionCardProps) {
-  console.log('🔍 SkillSuggestionCard RENDER:', {
-    suggestion: {
-      type: typeof suggestion,
-      value: suggestion,
-      skill: suggestion?.skill,
-      source: suggestion?.source,
-      relevance: suggestion?.relevance,
-      reasoning: suggestion?.reasoning
-    }
-  });
-
   const relevanceConfig = {
     high: {
       color: 'bg-green-100 text-green-700 border-green-200',

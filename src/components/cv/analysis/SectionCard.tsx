@@ -97,24 +97,6 @@ export default function SectionCard({
   atsImpact,
   onTextEdit
 }: SectionCardProps) {
-  // DEBUG: Log all props
-  console.log('🔍 SectionCard RENDER:', {
-    sectionName,
-    sectionType,
-    period,
-    priority,
-    improvements: {
-      type: typeof improvements,
-      value: improvements,
-      isNull: improvements === null,
-      isUndefined: improvements === undefined,
-      hasQuantification: improvements?.hasQuantification,
-      keywords: improvements?.keywords,
-      grammarIssues: improvements?.grammarIssues,
-      atsOptimization: improvements?.atsOptimization
-    }
-  });
-
   const [isExpanded, setIsExpanded] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editedText, setEditedText] = useState(suggestedText);
@@ -128,14 +110,12 @@ export default function SectionCard({
   };
 
   // Räkna förbättringstyper - SAFE version
-  console.log('🔍 SectionCard BEFORE improvementCount calculation');
   const improvementCount = [
     improvements && !improvements.hasQuantification,
     improvements && (improvements.keywords?.length || 0) > 0,
     improvements && (improvements.grammarIssues?.length || 0) > 0,
     improvements && improvements.atsOptimization
   ].filter(Boolean).length;
-  console.log('🔍 SectionCard AFTER improvementCount calculation:', improvementCount);
 
   return (
     <Card
@@ -173,25 +153,25 @@ export default function SectionCard({
 
         {/* Improvement Tags */}
         <div className="mt-3 flex flex-wrap gap-2">
-          {!improvements.hasQuantification && (
+          {improvements && !improvements.hasQuantification && (
             <Badge className="bg-blue-50 text-blue-700 border border-blue-300 text-xs">
               <BarChart3 className="w-3 h-3 mr-1" />
               Behöver kvantifiering
             </Badge>
           )}
-          {(improvements.keywords?.length || 0) > 0 && (
+          {improvements && (improvements.keywords?.length || 0) > 0 && (
             <Badge className="bg-purple-50 text-purple-700 border border-purple-300 text-xs">
               <Key className="w-3 h-3 mr-1" />
               {improvements.keywords?.length || 0} nyckelord
             </Badge>
           )}
-          {(improvements.grammarIssues?.length || 0) > 0 && (
+          {improvements && (improvements.grammarIssues?.length || 0) > 0 && (
             <Badge className="bg-orange-50 text-orange-700 border border-orange-300 text-xs">
               <Type className="w-3 h-3 mr-1" />
               {improvements.grammarIssues?.length || 0} grammatikfel
             </Badge>
           )}
-          {improvements.atsOptimization && (
+          {improvements && improvements.atsOptimization && (
             <Badge className="bg-green-50 text-green-700 border border-green-300 text-xs">
               <Sparkles className="w-3 h-3 mr-1" />
               ATS-optimering
@@ -232,8 +212,8 @@ export default function SectionCard({
                     <BeforeAfterComparison
                       beforeText={currentText || ''}
                       afterText={editedText}
-                      keywords={improvements.keywords || []}
-                      hasQuantification={!improvements.hasQuantification}
+                      keywords={improvements?.keywords || []}
+                      hasQuantification={improvements ? !improvements.hasQuantification : false}
                     />
 
                     {/* Edit Button */}

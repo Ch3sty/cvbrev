@@ -25,16 +25,6 @@ interface BeforeAfterComparisonProps {
  * Highlights keywords and numbers in text
  */
 const highlightText = (text: string, keywords: string[] = []): React.ReactNode => {
-  console.log('🔍 BeforeAfterComparison highlightText called:', {
-    text: text?.substring(0, 50),
-    keywords: {
-      type: typeof keywords,
-      isArray: Array.isArray(keywords),
-      value: keywords,
-      length: keywords?.length
-    }
-  });
-
   // SAFE: Ensure keywords is an array
   const safeKeywords = Array.isArray(keywords) ? keywords : [];
 
