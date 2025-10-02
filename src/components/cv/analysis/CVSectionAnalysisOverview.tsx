@@ -60,6 +60,12 @@ interface CVSectionAnalysisOverviewProps {
 const calculatePriority = (improvement: RoleBasedImprovement): 'critical' | 'high' | 'medium' | 'low' => {
   const { improvements, atsImpact = 0 } = improvement;
 
+  // SÄKERHETSKONTROLL: Om improvements saknas helt, returnera 'low' priority
+  // Detta förhindrar "can't access property 'hasQuantification', improvements is undefined"
+  if (!improvements) {
+    return 'low';
+  }
+
   // Kritisk: Saknar kvantifiering OCH har högt ATS-impact
   if (!improvements.hasQuantification && atsImpact > 15) {
     return 'critical';

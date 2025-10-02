@@ -162,13 +162,13 @@ export default function SectionCard({
           {improvements && (improvements.keywords?.length || 0) > 0 && (
             <Badge className="bg-purple-50 text-purple-700 border border-purple-300 text-xs">
               <Key className="w-3 h-3 mr-1" />
-              {improvements.keywords?.length || 0} nyckelord
+              {improvements?.keywords?.length || 0} nyckelord
             </Badge>
           )}
           {improvements && (improvements.grammarIssues?.length || 0) > 0 && (
             <Badge className="bg-orange-50 text-orange-700 border border-orange-300 text-xs">
               <Type className="w-3 h-3 mr-1" />
-              {improvements.grammarIssues?.length || 0} grammatikfel
+              {improvements?.grammarIssues?.length || 0} grammatikfel
             </Badge>
           )}
           {improvements && improvements.atsOptimization && (
