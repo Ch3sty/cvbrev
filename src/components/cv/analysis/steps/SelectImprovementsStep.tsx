@@ -1,7 +1,7 @@
 // src/components/cv/analysis/steps/SelectImprovementsStep.tsx
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import {
   ChevronDown,
@@ -42,21 +42,75 @@ interface SelectImprovementsStepProps {
 
 type Category = 'profile' | 'roles' | 'skills' | 'general';
 
-export default function SelectImprovementsStep({
-  profileSummary,
-  roleBasedImprovements,
-  skillSuggestions,
-  generalImprovements,
-  selectedProfile,
-  selectedRoles,
-  selectedSkills,
-  selectedGeneral,
-  onToggleProfile,
-  onToggleRole,
-  onToggleSkill,
-  onToggleGeneral,
-  onRoleTextEdit
-}: SelectImprovementsStepProps) {
+// ============================================================================
+//  SAFE DATA VALIDATOR - Runs ONCE at component mount
+// ============================================================================
+function useSafeData(props: SelectImprovementsStepProps) {
+  return useMemo(() => {
+    // Validate and sanitize ALL data at component initialization
+    const safeRoles = Array.isArray(props.roleBasedImprovements)
+      ? props.roleBasedImprovements.map((role, index) => {
+          // Return GUARANTEED safe object structure
+          return {
+            roleTitle: String(role?.roleTitle || `Roll ${index + 1}`),
+            company: String(role?.company || 'Företag'),
+            period: String(role?.period || ''),
+            currentText: String(role?.currentText || ''),
+            suggestedText: String(role?.suggestedText || ''),
+            priority: role?.priority || 'medium',
+            atsImpact: typeof role?.atsImpact === 'number' ? role.atsImpact : 0,
+            improvements: {
+              hasQuantification: Boolean(role?.improvements?.hasQuantification),
+              keywords: Array.isArray(role?.improvements?.keywords)
+                ? role.improvements.keywords
+                    .filter((k: any) => typeof k === 'string' && k.trim())
+                    .map((k: any) => String(k).trim())
+                : [],
+              grammarIssues: Array.isArray(role?.improvements?.grammarIssues)
+                ? role.improvements.grammarIssues
+                    .filter((g: any) => typeof g === 'string' && g.trim())
+                    .map((g: any) => String(g).trim())
+                : [],
+              atsOptimization: Boolean(role?.improvements?.atsOptimization)
+            }
+          };
+        })
+      : [];
+
+    const safeSkills = Array.isArray(props.skillSuggestions)
+      ? props.skillSuggestions
+      : [];
+
+    const safeGeneral = Array.isArray(props.generalImprovements)
+      ? props.generalImprovements
+      : [];
+
+    return {
+      roles: safeRoles,
+      skills: safeSkills,
+      general: safeGeneral,
+      hasProfile: Boolean(props.profileSummary)
+    };
+  }, [props.roleBasedImprovements, props.skillSuggestions, props.generalImprovements, props.profileSummary]);
+}
+
+export default function SelectImprovementsStep(props: SelectImprovementsStepProps) {
+  const {
+    profileSummary,
+    selectedProfile,
+    selectedRoles,
+    selectedSkills,
+    selectedGeneral,
+    onToggleProfile,
+    onToggleRole,
+    onToggleSkill,
+    onToggleGeneral,
+    onRoleTextEdit
+  } = props;
+
+  // Get GUARANTEED safe data
+  const safeData = useSafeData(props);
+
   const [expandedCategories, setExpandedCategories] = useState<Set<Category>>(
     new Set(['profile', 'roles'])
   );
@@ -75,23 +129,17 @@ export default function SelectImprovementsStep({
     if (category === 'profile') {
       onToggleProfile();
     } else if (category === 'roles') {
-      if (Array.isArray(roleBasedImprovements)) {
-        roleBasedImprovements.forEach((_, index) => {
-          if (!selectedRoles.has(index)) onToggleRole(index);
-        });
-      }
+      safeData.roles.forEach((_, index) => {
+        if (!selectedRoles.has(index)) onToggleRole(index);
+      });
     } else if (category === 'skills') {
-      if (Array.isArray(skillSuggestions)) {
-        skillSuggestions.forEach((_, index) => {
-          if (!selectedSkills.has(index)) onToggleSkill(index);
-        });
-      }
+      safeData.skills.forEach((_, index) => {
+        if (!selectedSkills.has(index)) onToggleSkill(index);
+      });
     } else if (category === 'general') {
-      if (Array.isArray(generalImprovements)) {
-        generalImprovements.forEach((_, index) => {
-          if (!selectedGeneral.has(index)) onToggleGeneral(index);
-        });
-      }
+      safeData.general.forEach((_, index) => {
+        if (!selectedGeneral.has(index)) onToggleGeneral(index);
+      });
     }
   };
 
@@ -113,7 +161,7 @@ export default function SelectImprovementsStep({
       icon: User,
       title: 'Personbeskrivning',
       color: 'from-pink-600 to-rose-600',
-      count: profileSummary ? 1 : 0,
+      count: safeData.hasProfile ? 1 : 0,
       selectedCount: selectedProfile ? 1 : 0
     },
     {
@@ -121,7 +169,7 @@ export default function SelectImprovementsStep({
       icon: Briefcase,
       title: 'Rollbaserade förbättringar',
       color: 'from-blue-600 to-cyan-600',
-      count: roleBasedImprovements?.length || 0,
+      count: safeData.roles.length,
       selectedCount: selectedRoles.size
     },
     {
@@ -129,7 +177,7 @@ export default function SelectImprovementsStep({
       icon: Award,
       title: 'Kompetenser & färdigheter',
       color: 'from-purple-600 to-pink-600',
-      count: skillSuggestions?.length || 0,
+      count: safeData.skills.length,
       selectedCount: selectedSkills.size
     },
     {
@@ -137,7 +185,7 @@ export default function SelectImprovementsStep({
       icon: Target,
       title: 'Allmänna förbättringar',
       color: 'from-green-600 to-emerald-600',
-      count: generalImprovements?.length || 0,
+      count: safeData.general.length,
       selectedCount: selectedGeneral.size
     }
   ];
@@ -149,10 +197,10 @@ export default function SelectImprovementsStep({
     selectedGeneral.size;
 
   const totalAvailable =
-    (profileSummary ? 1 : 0) +
-    (roleBasedImprovements?.length || 0) +
-    (skillSuggestions?.length || 0) +
-    (generalImprovements?.length || 0);
+    (safeData.hasProfile ? 1 : 0) +
+    safeData.roles.length +
+    safeData.skills.length +
+    safeData.general.length;
 
   return (
     <div className="space-y-6">
@@ -258,104 +306,71 @@ export default function SelectImprovementsStep({
                     />
                   )}
 
-                  {category.id === 'roles' && (roleBasedImprovements || []).map((role, index) => (
-                      <div key={index} className="relative">
+                  {category.id === 'roles' && safeData.roles.map((role, index) => (
+                    <div key={index} className="relative">
+                      <input
+                        type="checkbox"
+                        checked={selectedRoles.has(index)}
+                        onChange={() => onToggleRole(index)}
+                        className="absolute top-4 left-4 z-10 w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                      />
+                      <div className="ml-8">
+                        <SectionCard
+                          sectionName={`${role.roleTitle} - ${role.company}`}
+                          sectionType="work_experience"
+                          period={role.period}
+                          priority={role.priority as any}
+                          currentText={role.currentText}
+                          suggestedText={role.suggestedText}
+                          improvements={role.improvements}
+                          atsImpact={role.atsImpact}
+                          onTextEdit={onRoleTextEdit ? (newText) => onRoleTextEdit(index, newText) : undefined}
+                        />
+                      </div>
+                    </div>
+                  ))}
+
+                  {category.id === 'skills' && safeData.skills.map((skill, index) => (
+                    <SkillSuggestionCard
+                      key={index}
+                      suggestion={skill}
+                      selected={selectedSkills.has(index)}
+                      onToggle={() => onToggleSkill(index)}
+                    />
+                  ))}
+
+                  {category.id === 'general' && safeData.general.map((improvement, index) => (
+                    <Card
+                      key={index}
+                      className={`p-4 transition-all ${
+                        selectedGeneral.has(index)
+                          ? 'border-2 border-green-600 bg-green-50/30'
+                          : 'border-gray-200'
+                      }`}
+                    >
+                      <div className="flex items-start gap-3">
                         <input
                           type="checkbox"
-                          checked={selectedRoles.has(index)}
-                          onChange={() => onToggleRole(index)}
-                          className="absolute top-4 left-4 z-10 w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          checked={selectedGeneral.has(index)}
+                          onChange={() => onToggleGeneral(index)}
+                          className="mt-1 w-5 h-5 rounded border-gray-300 text-green-600 focus:ring-green-500"
                         />
-                        <div className="ml-8">
-                          {(() => {
-                            try {
-                              return (
-                                <SectionCard
-                                  sectionName={`${role?.roleTitle || 'Okänd roll'} - ${role?.company || 'Okänt företag'}`}
-                                  sectionType="work_experience"
-                                  period={role?.period || ''}
-                                  priority={role?.priority || 'medium'}
-                                  currentText={role?.currentText || ''}
-                                  suggestedText={role?.suggestedText || ''}
-                                  improvements={{
-                                    hasQuantification: role?.improvements?.hasQuantification ?? false,
-                                    keywords: Array.isArray(role?.improvements?.keywords)
-                                      ? role.improvements.keywords.filter((k: any): k is string => typeof k === 'string' && k !== null && k !== undefined && k.trim().length > 0)
-                                      : [],
-                                    grammarIssues: Array.isArray(role?.improvements?.grammarIssues)
-                                      ? role.improvements.grammarIssues.filter((g: any): g is string => typeof g === 'string' && g !== null && g !== undefined && g.trim().length > 0)
-                                      : [],
-                                    atsOptimization: role?.improvements?.atsOptimization ?? false
-                                  }}
-                                  atsImpact={role?.atsImpact || 0}
-                                  onTextEdit={onRoleTextEdit ? (newText) => onRoleTextEdit(index, newText) : undefined}
-                                />
-                              );
-                            } catch (error: any) {
-                              console.error(`❌ CRASH in SectionCard for Role ${index}:`, {
-                                errorMessage: error?.message,
-                                errorStack: error?.stack,
-                                role: role,
-                                improvements: role?.improvements,
-                                keywords: role?.improvements?.keywords,
-                                grammarIssues: role?.improvements?.grammarIssues
-                              });
-                              return (
-                                <div className="bg-red-50 border-2 border-red-500 rounded-lg p-4">
-                                  <p className="text-red-800 font-semibold">⚠️ Fel vid rendering av roll {index}</p>
-                                  <p className="text-red-600 text-sm mt-1">{role?.roleTitle || 'Okänd roll'} - {role?.company || 'Okänt företag'}</p>
-                                  <p className="text-red-500 text-xs mt-2">Error: {error?.message}</p>
-                                </div>
-                              );
-                            }
-                          })()}
+                        <div className="flex-1">
+                          <h5 className="font-semibold text-gray-900 mb-1">
+                            {improvement.area}
+                          </h5>
+                          <p className="text-sm text-gray-700 mb-2">
+                            {improvement.suggestion}
+                          </p>
+                          {improvement.example && (
+                            <p className="text-xs text-gray-600 italic">
+                              Exempel: {improvement.example}
+                            </p>
+                          )}
                         </div>
                       </div>
-                    ))}
-
-                  {category.id === 'skills' &&
-                    (skillSuggestions || []).map((skill, index) => (
-                      <SkillSuggestionCard
-                        key={index}
-                        suggestion={skill}
-                        selected={selectedSkills.has(index)}
-                        onToggle={() => onToggleSkill(index)}
-                      />
-                    ))}
-
-                  {category.id === 'general' &&
-                    (generalImprovements || []).map((improvement, index) => (
-                      <Card
-                        key={index}
-                        className={`p-4 transition-all ${
-                          selectedGeneral.has(index)
-                            ? 'border-2 border-green-600 bg-green-50/30'
-                            : 'border-gray-200'
-                        }`}
-                      >
-                        <div className="flex items-start gap-3">
-                          <input
-                            type="checkbox"
-                            checked={selectedGeneral.has(index)}
-                            onChange={() => onToggleGeneral(index)}
-                            className="mt-1 w-5 h-5 rounded border-gray-300 text-green-600 focus:ring-green-500"
-                          />
-                          <div className="flex-1">
-                            <h5 className="font-semibold text-gray-900 mb-1">
-                              {improvement.area}
-                            </h5>
-                            <p className="text-sm text-gray-700 mb-2">
-                              {improvement.suggestion}
-                            </p>
-                            {improvement.example && (
-                              <p className="text-xs text-gray-600 italic">
-                                Exempel: {improvement.example}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                      </Card>
-                    ))}
+                    </Card>
+                  ))}
                 </motion.div>
               )}
             </Card>

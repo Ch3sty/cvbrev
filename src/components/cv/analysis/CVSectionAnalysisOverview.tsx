@@ -368,14 +368,14 @@ export default function CVSectionAnalysisOverview({
                   currentText={role?.currentText || ''}
                   suggestedText={role?.suggestedText || ''}
                   improvements={{
-                    hasQuantification: role?.improvements?.hasQuantification ?? false,
-                    keywords: Array.isArray(role?.improvements?.keywords)
-                      ? role.improvements.keywords.filter((k: any): k is string => typeof k === 'string' && k.trim().length > 0)
-                      : [],
-                    grammarIssues: Array.isArray(role?.improvements?.grammarIssues)
-                      ? role.improvements.grammarIssues.filter((g: any): g is string => typeof g === 'string' && g.trim().length > 0)
-                      : [],
-                    atsOptimization: role?.improvements?.atsOptimization ?? false
+                    hasQuantification: Boolean(role?.improvements?.hasQuantification),
+                    keywords: (Array.isArray(role?.improvements?.keywords) ? role.improvements.keywords : [])
+                      .filter((k: any) => typeof k === 'string' && k?.trim?.())
+                      .map((k: any) => String(k).trim()),
+                    grammarIssues: (Array.isArray(role?.improvements?.grammarIssues) ? role.improvements.grammarIssues : [])
+                      .filter((g: any) => typeof g === 'string' && g?.trim?.())
+                      .map((g: any) => String(g).trim()),
+                    atsOptimization: Boolean(role?.improvements?.atsOptimization)
                   }}
                   atsImpact={role?.atsImpact || 0}
                   onTextEdit={onImplementSelected ? (newText) => handleTextEdit(index, newText) : undefined}

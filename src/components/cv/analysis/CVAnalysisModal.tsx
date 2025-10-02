@@ -301,37 +301,14 @@ export default function CVAnalysisModal({
       case 2:
         if (!analysisResult) return null;
 
-        // Sanitize and ensure all data is valid before passing to SelectImprovementsStep
-        const sanitizeRole = (role: any) => ({
-          ...role,
-          improvements: {
-            hasQuantification: role?.improvements?.hasQuantification ?? false,
-            keywords: Array.isArray(role?.improvements?.keywords)
-              ? role.improvements.keywords.filter((k: any) => typeof k === 'string' && k?.trim?.())
-              : [],
-            grammarIssues: Array.isArray(role?.improvements?.grammarIssues)
-              ? role.improvements.grammarIssues.filter((g: any) => typeof g === 'string' && g?.trim?.())
-              : [],
-            atsOptimization: role?.improvements?.atsOptimization ?? false
-          }
-        });
-
-        const roleImprovements = Array.isArray(analysisResult.roleBasedImprovements)
-          ? analysisResult.roleBasedImprovements.map(sanitizeRole)
-          : [];
-        const skillSuggs = Array.isArray(analysisResult.skillSuggestions)
-          ? analysisResult.skillSuggestions
-          : [];
-        const generalImps = Array.isArray(analysisResult.generalImprovements)
-          ? analysisResult.generalImprovements
-          : [];
-
+        // SelectImprovementsStep handles ALL data validation internally via useSafeData hook
+        // No need to pre-process data here - pass raw data directly
         return (
           <SelectImprovementsStep
             profileSummary={analysisResult.profileSummary}
-            roleBasedImprovements={roleImprovements}
-            skillSuggestions={skillSuggs}
-            generalImprovements={generalImps}
+            roleBasedImprovements={analysisResult.roleBasedImprovements}
+            skillSuggestions={analysisResult.skillSuggestions}
+            generalImprovements={analysisResult.generalImprovements}
             selectedProfile={selectedProfile}
             selectedRoles={selectedRoles}
             selectedSkills={selectedSkills}
