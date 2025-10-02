@@ -37,6 +37,12 @@ interface SelectImprovementsStepProps {
   onToggleRole: (index: number) => void;
   onToggleSkill: (index: number) => void;
   onToggleGeneral: (index: number) => void;
+  onSelectAllRoles?: () => void;
+  onDeselectAllRoles?: () => void;
+  onSelectAllSkills?: () => void;
+  onDeselectAllSkills?: () => void;
+  onSelectAllGeneral?: () => void;
+  onDeselectAllGeneral?: () => void;
   onRoleTextEdit?: (index: number, newText: string) => void;
 }
 
@@ -105,6 +111,12 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
     onToggleRole,
     onToggleSkill,
     onToggleGeneral,
+    onSelectAllRoles,
+    onDeselectAllRoles,
+    onSelectAllSkills,
+    onDeselectAllSkills,
+    onSelectAllGeneral,
+    onDeselectAllGeneral,
     onRoleTextEdit
   } = props;
 
@@ -127,31 +139,25 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
 
   const selectAllInCategory = (category: Category) => {
     if (category === 'profile') {
-      onToggleProfile();
-    } else if (category === 'roles') {
-      safeData.roles.forEach((_, index) => {
-        if (!selectedRoles.has(index)) onToggleRole(index);
-      });
-    } else if (category === 'skills') {
-      safeData.skills.forEach((_, index) => {
-        if (!selectedSkills.has(index)) onToggleSkill(index);
-      });
-    } else if (category === 'general') {
-      safeData.general.forEach((_, index) => {
-        if (!selectedGeneral.has(index)) onToggleGeneral(index);
-      });
+      if (!selectedProfile) onToggleProfile();
+    } else if (category === 'roles' && onSelectAllRoles) {
+      onSelectAllRoles();
+    } else if (category === 'skills' && onSelectAllSkills) {
+      onSelectAllSkills();
+    } else if (category === 'general' && onSelectAllGeneral) {
+      onSelectAllGeneral();
     }
   };
 
   const deselectAllInCategory = (category: Category) => {
     if (category === 'profile') {
       if (selectedProfile) onToggleProfile();
-    } else if (category === 'roles') {
-      Array.from(selectedRoles).forEach(index => onToggleRole(index));
-    } else if (category === 'skills') {
-      Array.from(selectedSkills).forEach(index => onToggleSkill(index));
-    } else if (category === 'general') {
-      Array.from(selectedGeneral).forEach(index => onToggleGeneral(index));
+    } else if (category === 'roles' && onDeselectAllRoles) {
+      onDeselectAllRoles();
+    } else if (category === 'skills' && onDeselectAllSkills) {
+      onDeselectAllSkills();
+    } else if (category === 'general' && onDeselectAllGeneral) {
+      onDeselectAllGeneral();
     }
   };
 
@@ -183,24 +189,24 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
     {
       id: 'general' as Category,
       icon: Target,
-      title: 'Allmänna förbättringar',
+      title: 'Automatiska förbättringar',
       color: 'from-green-600 to-emerald-600',
       count: safeData.general.length,
-      selectedCount: selectedGeneral.size
+      selectedCount: safeData.general.length // All are automatically applied
     }
   ];
 
   const totalSelected =
     (selectedProfile ? 1 : 0) +
     selectedRoles.size +
-    selectedSkills.size +
-    selectedGeneral.size;
+    selectedSkills.size;
+    // general improvements are automatically applied, not selected
 
   const totalAvailable =
     (safeData.hasProfile ? 1 : 0) +
     safeData.roles.length +
-    safeData.skills.length +
-    safeData.general.length;
+    safeData.skills.length;
+    // general improvements are shown separately as auto-applied
 
   return (
     <div className="space-y-6">
@@ -251,7 +257,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
                 </div>
 
                 <div className="flex items-center gap-3">
-                  {category.count > 1 && (
+                  {category.count > 1 && category.id !== 'general' && (
                     <Button
                       variant="outline"
                       size="sm"
@@ -339,38 +345,46 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
                     />
                   ))}
 
-                  {category.id === 'general' && safeData.general.map((improvement, index) => (
-                    <Card
-                      key={index}
-                      className={`p-4 transition-all ${
-                        selectedGeneral.has(index)
-                          ? 'border-2 border-green-600 bg-green-50/30'
-                          : 'border-gray-200'
-                      }`}
-                    >
-                      <div className="flex items-start gap-3">
-                        <input
-                          type="checkbox"
-                          checked={selectedGeneral.has(index)}
-                          onChange={() => onToggleGeneral(index)}
-                          className="mt-1 w-5 h-5 rounded border-gray-300 text-green-600 focus:ring-green-500"
-                        />
+                  {category.id === 'general' && (
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                      <div className="flex items-start gap-3 mb-3">
+                        <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                          <Target className="w-5 h-5 text-blue-600" />
+                        </div>
                         <div className="flex-1">
-                          <h5 className="font-semibold text-gray-900 mb-1">
-                            {improvement.area || improvement.title || 'Förbättring'}
+                          <h5 className="font-semibold text-blue-900 mb-1">
+                            Automatiska förbättringar
                           </h5>
-                          <p className="text-sm text-gray-700 mb-2">
-                            {improvement.suggestion || improvement.description || 'Ingen beskrivning tillgänglig'}
+                          <p className="text-sm text-blue-700">
+                            Dessa förbättringar kommer automatiskt att tillämpas när du väljer en CV-mall i nästa steg.
                           </p>
-                          {(improvement.example || improvement.category) && (
-                            <p className="text-xs text-gray-600 italic">
-                              {improvement.example ? `Exempel: ${improvement.example}` : `Kategori: ${improvement.category}`}
-                            </p>
-                          )}
                         </div>
                       </div>
-                    </Card>
-                  ))}
+
+                      <div className="space-y-2">
+                        {safeData.general.map((improvement, index) => (
+                          <div key={index} className="flex items-start gap-2 bg-white rounded-lg p-3">
+                            <div className="w-5 h-5 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                              <CheckSquare className="w-3 h-3 text-green-600" />
+                            </div>
+                            <div className="flex-1">
+                              <h6 className="font-medium text-gray-900 text-sm mb-0.5">
+                                {improvement.area || improvement.title || 'Förbättring'}
+                              </h6>
+                              <p className="text-xs text-gray-600">
+                                {improvement.suggestion || improvement.description || 'Ingen beskrivning tillgänglig'}
+                              </p>
+                              {(improvement.example || improvement.category) && (
+                                <p className="text-xs text-gray-500 italic mt-1">
+                                  {improvement.example ? `Exempel: ${improvement.example}` : `Kategori: ${improvement.category}`}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </motion.div>
               )}
             </Card>

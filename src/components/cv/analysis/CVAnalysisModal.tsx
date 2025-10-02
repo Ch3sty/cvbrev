@@ -29,7 +29,7 @@ const STEPS = [
   { id: 1, title: 'Översikt' },
   { id: 2, title: 'Välj' },
   { id: 3, title: 'Förhandsgranskning' },
-  { id: 4, title: 'Spara' },
+  { id: 4, title: 'Välj CV-mall' },
   { id: 5, title: 'Klar' }
 ];
 
@@ -360,6 +360,27 @@ export default function CVAnalysisModal({
                 newSet.add(index);
               }
               setSelectedGeneral(newSet);
+            }}
+            onSelectAllRoles={() => {
+              const allIndices = (analysisResult.roleBasedImprovements || []).map((_, i) => i);
+              setSelectedRoles(new Set(allIndices));
+            }}
+            onDeselectAllRoles={() => {
+              setSelectedRoles(new Set());
+            }}
+            onSelectAllSkills={() => {
+              const allIndices = (analysisResult.skillSuggestions || []).map((_, i) => i);
+              setSelectedSkills(new Set(allIndices));
+            }}
+            onDeselectAllSkills={() => {
+              setSelectedSkills(new Set());
+            }}
+            onSelectAllGeneral={() => {
+              const allIndices = (analysisResult.generalImprovements || []).map((_, i) => i);
+              setSelectedGeneral(new Set(allIndices));
+            }}
+            onDeselectAllGeneral={() => {
+              setSelectedGeneral(new Set());
             }}
             onRoleTextEdit={(index, newText) => {
               const newMap = new Map(editedRoleTexts);

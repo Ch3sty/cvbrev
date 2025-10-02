@@ -134,9 +134,19 @@ export default function CVComparisonViewer({
             {/* Subtle gradient overlay */}
             <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-green-50/30 to-emerald-50/30" />
 
-            <div className="whitespace-pre-wrap font-sans text-gray-900 relative z-10">
-              {highlightChanges && diff ? renderDiffText(diff) : improvedCV}
-            </div>
+            {highlightChanges && diff ? (
+              <div className="whitespace-pre-wrap font-sans text-gray-900 relative z-10">
+                {renderDiffText(diff)}
+              </div>
+            ) : (
+              <div className="space-y-4 font-sans text-gray-900 relative z-10">
+                {improvedCV.split(/\n\n+/).map((paragraph, index) => (
+                  <p key={index} className="whitespace-pre-wrap leading-relaxed">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

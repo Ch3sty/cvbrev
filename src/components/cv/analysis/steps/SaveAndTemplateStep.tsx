@@ -55,88 +55,104 @@ export default function SaveAndTemplateStep({
     <div className="space-y-6">
       {/* Header */}
       <div className="text-center">
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-green-600 to-emerald-600 flex items-center justify-center">
+        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
           <Download className="w-8 h-8 text-white" />
         </div>
         <h3 className="text-2xl font-bold text-gray-900 mb-2">
-          Spara eller ladda ner
+          Välj CV-mall
         </h3>
         <p className="text-gray-600">
-          Välj mall och spara ditt förbättrade CV
+          Välj en professionell mall för ditt förbättrade CV
         </p>
       </div>
 
-      {/* Save Options */}
-      <Card className="p-6">
-        <div className="flex items-start gap-3 mb-4">
-          <input
-            type="checkbox"
-            checked={saveToLibrary && canSave}
-            onChange={(e) => setSaveToLibrary(e.target.checked && canSave)}
-            disabled={!canSave}
-            className="mt-1 w-5 h-5 rounded border-gray-300 text-pink-600 focus:ring-pink-500 disabled:opacity-50"
-          />
-          <div className="flex-1">
-            <h4 className="font-semibold text-gray-900 mb-1">
-              Spara till Jobbcoach.ai
-            </h4>
-            <p className="text-sm text-gray-600 mb-3">
-              Spara ditt förbättrade CV i ditt bibliotek för senare användning
-            </p>
+      {/* Template Selection - MOVED TO TOP */}
+      <TemplateSelector
+        selectedTemplateId={selectedTemplate}
+        onSelectTemplate={setSelectedTemplate}
+        subscriptionTier={subscriptionTier}
+      />
 
-            {saveToLibrary && canSave && (
-              <div className="space-y-3">
-                {/* Name Suggestions */}
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 block">
-                    Välj ett namn:
-                  </label>
-                  <div className="grid grid-cols-2 gap-2">
-                    {nameSuggestions.slice(0, 4).map((suggestion) => (
-                      <button
-                        key={suggestion}
-                        onClick={() => setCustomName(suggestion)}
-                        className={`text-left p-3 rounded-lg border-2 transition-all ${
-                          customName === suggestion
-                            ? 'border-pink-600 bg-pink-50'
-                            : 'border-gray-200 hover:border-pink-300 bg-white'
-                        }`}
-                      >
-                        <div className="text-sm font-medium text-gray-900">
-                          {suggestion}
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+      {/* Save to Library Section - IMPROVED */}
+      <Card className="p-6 border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-cyan-50">
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <Save className="w-6 h-6 text-blue-600" />
+              <div>
+                <h4 className="font-semibold text-gray-900">
+                  Spara till Jobbcoach.ai
+                </h4>
+                <p className="text-sm text-gray-600">
+                  Spara i ditt CV-bibliotek för senare användning
+                </p>
+              </div>
+            </div>
 
-                {/* Custom Name Input */}
-                <div>
-                  <label className="text-sm font-medium text-gray-700 mb-2 block">
-                    Eller skriv eget namn:
-                  </label>
-                  <input
-                    type="text"
-                    value={customName}
-                    onChange={(e) => setCustomName(e.target.value)}
-                    placeholder="t.ex. Mitt förbättrade CV 2025"
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                  />
-                </div>
+            <div className="flex items-center gap-3">
+              {/* Quota Badge - More Prominent */}
+              <div className={`px-4 py-2 rounded-lg font-semibold ${
+                canSave
+                  ? 'bg-green-100 text-green-700 border border-green-300'
+                  : 'bg-red-100 text-red-700 border border-red-300'
+              }`}>
+                {cvCount}/{maxCvs} sparade
+              </div>
 
-                {/* Quota Info */}
-                <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-                  <div className="text-sm text-gray-700">
-                    <span className="font-medium">{cvCount}/{maxCvs} CV:n sparade</span>
-                    {subscriptionTier === 'free' && (
-                      <span className="text-gray-600"> (Gratis plan)</span>
-                    )}
-                  </div>
+              <input
+                type="checkbox"
+                checked={saveToLibrary && canSave}
+                onChange={(e) => setSaveToLibrary(e.target.checked && canSave)}
+                disabled={!canSave}
+                className="w-6 h-6 rounded border-gray-300 text-blue-600 focus:ring-blue-500 disabled:opacity-50"
+              />
+            </div>
+          </div>
+
+          {saveToLibrary && canSave && (
+            <div className="space-y-3 border-t border-blue-200 pt-4">
+              {/* Name Suggestions */}
+              <div>
+                <label className="text-sm font-medium text-gray-700 mb-2 block">
+                  Välj ett namn:
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  {nameSuggestions.slice(0, 4).map((suggestion) => (
+                    <button
+                      key={suggestion}
+                      onClick={() => setCustomName(suggestion)}
+                      className={`text-left p-3 rounded-lg border-2 transition-all ${
+                        customName === suggestion
+                          ? 'border-blue-600 bg-blue-100'
+                          : 'border-gray-200 hover:border-blue-300 bg-white'
+                      }`}
+                    >
+                      <div className="text-sm font-medium text-gray-900">
+                        {suggestion}
+                      </div>
+                    </button>
+                  ))}
                 </div>
               </div>
-            )}
 
-            {!canSave && (
+              {/* Custom Name Input */}
+              <div>
+                <label className="text-sm font-medium text-gray-700 mb-2 block">
+                  Eller skriv eget namn:
+                </label>
+                <input
+                  type="text"
+                  value={customName}
+                  onChange={(e) => setCustomName(e.target.value)}
+                  placeholder="t.ex. Mitt förbättrade CV 2025"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-900"
+                />
+              </div>
+            </div>
+          )}
+
+          {!canSave && (
+            <div className="border-t border-blue-200 pt-4">
               <CVQuotaManager
                 key={quotaRefreshKey}
                 cvCount={cvCount}
@@ -144,17 +160,10 @@ export default function SaveAndTemplateStep({
                 subscriptionTier={subscriptionTier}
                 onCVDeleted={handleQuotaRefresh}
               />
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </Card>
-
-      {/* Template Selection */}
-      <TemplateSelector
-        selectedTemplateId={selectedTemplate}
-        onSelectTemplate={setSelectedTemplate}
-        subscriptionTier={subscriptionTier}
-      />
 
       {/* Action Buttons */}
       <div className="flex gap-4">
