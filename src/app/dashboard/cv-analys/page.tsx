@@ -703,7 +703,7 @@ export default function AnalyzeCvPage() {
               <CardContent className="flex-grow flex flex-col">
                 <AnimatePresence mode="wait">
                   {/* Analysis happens in modal - show empty state here */}
-                  {!showAnalysisModal ? (
+                  {!showAnalysisModal && (
                     <motion.div
                       key="empty"
                       initial={{ opacity: 0 }}
