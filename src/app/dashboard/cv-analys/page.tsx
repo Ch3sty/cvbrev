@@ -149,13 +149,7 @@ export default function AnalyzeCvPage() {
         throw new Error(jobData.error || 'Analysis failed');
       }
 
-      // Update progress message with percentage and estimated time
-      const elapsed = (i + 1) * (POLL_INTERVAL_MS / 1000);
-      const progress = Math.min(95, Math.round((elapsed / ESTIMATED_TOTAL_TIME) * 100));
-
-      showNotification('loading',
-        `AI analyserar ditt CV med avancerad rollbaserad analys... ${progress}% (${elapsed}s av ~${ESTIMATED_TOTAL_TIME}s)`
-      );
+      // Progress is now handled by CVAnalysisModal - no need for notification here
     }
 
     throw new Error('Analysen tog för lång tid. Försök igen eller kontakta support.');

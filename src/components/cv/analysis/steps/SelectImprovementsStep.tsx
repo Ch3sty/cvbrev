@@ -258,38 +258,7 @@ export default function SelectImprovementsStep({
                     />
                   )}
 
-                  {category.id === 'roles' && (roleBasedImprovements || []).map((role, index) => {
-                    // FÖRBÄTTRAD DEBUG LOGGING - Visar fullständigt innehåll
-                    console.log(`🔍 DEBUG Step 3 - Role ${index}:`, {
-                      hasRole: !!role,
-                      roleTitle: role?.roleTitle,
-                      company: role?.company,
-                      period: role?.period,
-
-                      // FULLSTÄNDIG improvements-struktur
-                      FULL_IMPROVEMENTS: role?.improvements,
-
-                      // Faktiskt innehåll i keywords
-                      keywords_CONTENT: role?.improvements?.keywords,
-                      keywords_FirstItem: role?.improvements?.keywords?.[0],
-                      keywords_FirstItemType: typeof role?.improvements?.keywords?.[0],
-
-                      // Faktiskt innehåll i grammarIssues
-                      grammarIssues_CONTENT: role?.improvements?.grammarIssues,
-                      grammarIssues_FirstItem: role?.improvements?.grammarIssues?.[0],
-
-                      // Verifiera om keywords är array av strings
-                      keywords_AllAreStrings: Array.isArray(role?.improvements?.keywords)
-                        ? role.improvements.keywords.every((k: any) => typeof k === 'string')
-                        : false,
-
-                      // Verifiera om grammarIssues är array av strings
-                      grammarIssues_AllAreStrings: Array.isArray(role?.improvements?.grammarIssues)
-                        ? role.improvements.grammarIssues.every((g: any) => typeof g === 'string')
-                        : false
-                    });
-
-                    return (
+                  {category.id === 'roles' && (roleBasedImprovements || []).map((role, index) => (
                       <div key={index} className="relative">
                         <input
                           type="checkbox"
@@ -342,8 +311,7 @@ export default function SelectImprovementsStep({
                           })()}
                         </div>
                       </div>
-                    );
-                  })}
+                    ))}
 
                   {category.id === 'skills' &&
                     (skillSuggestions || []).map((skill, index) => (

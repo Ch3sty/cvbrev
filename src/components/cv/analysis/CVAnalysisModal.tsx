@@ -301,9 +301,23 @@ export default function CVAnalysisModal({
       case 2:
         if (!analysisResult) return null;
 
-        // Ensure all arrays are actually arrays to prevent crashes
+        // Sanitize and ensure all data is valid before passing to SelectImprovementsStep
+        const sanitizeRole = (role: any) => ({
+          ...role,
+          improvements: {
+            hasQuantification: role?.improvements?.hasQuantification ?? false,
+            keywords: Array.isArray(role?.improvements?.keywords)
+              ? role.improvements.keywords.filter((k: any) => typeof k === 'string' && k?.trim?.())
+              : [],
+            grammarIssues: Array.isArray(role?.improvements?.grammarIssues)
+              ? role.improvements.grammarIssues.filter((g: any) => typeof g === 'string' && g?.trim?.())
+              : [],
+            atsOptimization: role?.improvements?.atsOptimization ?? false
+          }
+        });
+
         const roleImprovements = Array.isArray(analysisResult.roleBasedImprovements)
-          ? analysisResult.roleBasedImprovements
+          ? analysisResult.roleBasedImprovements.map(sanitizeRole)
           : [];
         const skillSuggs = Array.isArray(analysisResult.skillSuggestions)
           ? analysisResult.skillSuggestions

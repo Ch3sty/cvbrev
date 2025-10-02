@@ -178,24 +178,24 @@ export default function BeforeAfterComparison({
               Kvantifierat
             </Badge>
           )}
-          {keywords.length > 0 && (
+          {(keywords || []).length > 0 && (
             <Badge className="bg-purple-600 text-white text-xs">
               <Key className="w-3 h-3 mr-1" />
-              {keywords.length} nyckelord tillagda
+              {(keywords || []).length} nyckelord tillagda
             </Badge>
           )}
         </div>
       </motion.div>
 
       {/* Legend */}
-      {(keywords.length > 0 || hasQuantification) && (
+      {((keywords || []).length > 0 || hasQuantification) && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
           className="flex items-center gap-4 text-xs text-gray-600 pt-2"
         >
-          {keywords.length > 0 && (
+          {(keywords || []).length > 0 && (
             <div className="flex items-center gap-1">
               <span className="bg-purple-200 text-purple-900 px-1.5 py-0.5 rounded">Nyckelord</span>
             </div>
