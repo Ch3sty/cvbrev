@@ -170,37 +170,89 @@ export default function CVAnalysisModal({
     }
   };
 
+  // Helper: Generate readable text from structured CV
+  const formatStructuredCVAsText = (structured: any): string => {
+    if (!structured) return '';
+
+    const parts: string[] = [];
+
+    // Personal Info
+    if (structured.personalInfo) {
+      const p = structured.personalInfo;
+      if (p.fullName) parts.push(p.fullName);
+      if (p.address) parts.push(p.address);
+      if (p.phone) parts.push(p.phone);
+      if (p.email) parts.push(p.email);
+      parts.push(''); // Empty line
+    }
+
+    // Summary
+    if (structured.summary) {
+      parts.push('SAMMANFATTNING');
+      parts.push(structured.summary);
+      parts.push(''); // Empty line
+    }
+
+    // Education
+    if (structured.education && structured.education.length > 0) {
+      parts.push('UTBILDNING');
+      structured.education.forEach((edu: any) => {
+        parts.push(`${edu.degree} ${edu.graduationYear || ''}`);
+        parts.push(edu.institution);
+        if (edu.description) parts.push(edu.description);
+        parts.push(''); // Empty line
+      });
+    }
+
+    // Experience
+    if (structured.experience && structured.experience.length > 0) {
+      parts.push('ERFARENHETER');
+      structured.experience.forEach((exp: any) => {
+        parts.push(`${exp.position}, ${exp.company} ${exp.location || ''} - ${exp.startDate} - ${exp.endDate || 'Nuvarande'}`);
+        if (Array.isArray(exp.description)) {
+          exp.description.forEach((desc: string) => parts.push(desc));
+        } else if (exp.description) {
+          parts.push(exp.description);
+        }
+        parts.push(''); // Empty line
+      });
+    }
+
+    // Skills
+    if (structured.skills && structured.skills.length > 0) {
+      parts.push('FÄRDIGHETER');
+      structured.skills.forEach((skillGroup: any) => {
+        if (Array.isArray(skillGroup.skills)) {
+          parts.push(`${skillGroup.category}: ${skillGroup.skills.join(', ')}`);
+        }
+      });
+      parts.push(''); // Empty line
+    }
+
+    // Languages
+    if (structured.languages && structured.languages.length > 0) {
+      parts.push('SPRÅK');
+      structured.languages.forEach((lang: any) => {
+        parts.push(`${lang.language} (${lang.proficiency})`);
+      });
+      parts.push(''); // Empty line
+    }
+
+    // References
+    if (structured.references) {
+      parts.push('REFERENSER');
+      parts.push(structured.references);
+    }
+
+    return parts.join('\n');
+  };
+
   const generateImprovedCV = () => {
     if (!analysisResult) return;
 
-    const improvements: any[] = [];
-
-    // Add profile summary if selected
-    if (selectedProfile && analysisResult.profileSummary) {
-      improvements.push({
-        currentText: analysisResult.profileSummary.currentText,
-        suggestedText: editedProfileText || analysisResult.profileSummary.improvedText
-      });
-    }
-
-    // Add selected role improvements
-    if (analysisResult.roleBasedImprovements) {
-      Array.from(selectedRoles).forEach(index => {
-        const role = analysisResult.roleBasedImprovements[index];
-        improvements.push({
-          currentText: role.currentText,
-          suggestedText: editedRoleTexts.get(index) || role.suggestedText
-        });
-      });
-    }
-
-    // Apply improvements to CV text (for preview)
-    const improved = applyImprovements(cvContent, improvements);
-    setImprovedCV(improved);
-
-    // NEW: Also apply improvements to structured CV data
+    // NEW: If we have structured CV, work with that instead of broken text
     if (structuredCV) {
-      const updatedStructured = { ...structuredCV };
+      const updatedStructured = JSON.parse(JSON.stringify(structuredCV)); // Deep clone
 
       // Apply profile summary
       if (selectedProfile && analysisResult.profileSummary) {
@@ -230,7 +282,34 @@ export default function CVAnalysisModal({
 
       // Update structured CV state
       setStructuredCV(updatedStructured);
-      console.log('✅ Applied improvements to structured CV');
+
+      // Generate readable text from structured data for preview
+      const readableText = formatStructuredCVAsText(updatedStructured);
+      setImprovedCV(readableText);
+      console.log('✅ Applied improvements to structured CV and generated preview');
+    } else {
+      // FALLBACK: Old method with text improvements
+      const improvements: any[] = [];
+
+      if (selectedProfile && analysisResult.profileSummary) {
+        improvements.push({
+          currentText: analysisResult.profileSummary.currentText,
+          suggestedText: editedProfileText || analysisResult.profileSummary.improvedText
+        });
+      }
+
+      if (analysisResult.roleBasedImprovements) {
+        Array.from(selectedRoles).forEach(index => {
+          const role = analysisResult.roleBasedImprovements[index];
+          improvements.push({
+            currentText: role.currentText,
+            suggestedText: editedRoleTexts.get(index) || role.suggestedText
+          });
+        });
+      }
+
+      const improved = applyImprovements(cvContent, improvements);
+      setImprovedCV(improved);
     }
   };
 
