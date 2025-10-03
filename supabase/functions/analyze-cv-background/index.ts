@@ -136,6 +136,36 @@ Deno.serve(async (req) => {
     const rolesCount = parsedCV.roles?.length || 0;
     console.log(`[Job ${jobId}] Parsed ${rolesCount} roles and profile summary`);
 
+    // NEW: Parse CV into structured CVMetadata format
+    console.log(`[Job ${jobId}] Step 1.5/6: Parsing CV into structured format...`);
+    const structuredParsingResponse = await fetchWithRetry('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${openaiApiKey}`
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o',
+        messages: [
+          {
+            role: 'system',
+            content: 'Du är en CV-parser. Extrahera ALL information från CV:t och returnera som strukturerad JSON. Var EXTREMT noggrann med att bevara all text och formatering.'
+          },
+          {
+            role: 'user',
+            content: `Parsa detta CV till strukturerad JSON:\n\n${cvText}\n\nReturnera JSON med EXAKT detta format:\n{\n  "personalInfo": {\n    "fullName": string,\n    "email": string,\n    "phone": string,\n    "address": string,\n    "linkedin": string\n  },\n  "summary": string,\n  "experience": [{\n    "position": string,\n    "company": string,\n    "location": string,\n    "startDate": string,\n    "endDate": string (eller null om nuvarande),\n    "description": string[]\n  }],\n  "education": [{\n    "degree": string,\n    "institution": string,\n    "graduationYear": string,\n    "description": string\n  }],\n  "skills": [{\n    "category": string,\n    "skills": string[]\n  }],\n  "languages": [{\n    "language": string,\n    "proficiency": string\n  }],\n  "certifications": [{\n    "name": string,\n    "issuer": string,\n    "date": string\n  }],\n  "references": string\n}\n\nVIKTIGT: Bevara ALL originaltext. Description-fält ska vara arrays med meningar/punkter.`
+          }
+        ],
+        temperature: 0.2,
+        max_tokens: 3000,
+        response_format: { type: 'json_object' }
+      })
+    });
+
+    const structuredData = await structuredParsingResponse.json();
+    const structuredCV = JSON.parse(structuredData.choices[0].message.content);
+    console.log(`[Job ${jobId}] Structured CV parsed: ${structuredCV.experience?.length || 0} experiences, ${structuredCV.education?.length || 0} educations`);
+
     let analysisResult: any;
 
     if (isPremium) {
@@ -361,7 +391,10 @@ Deno.serve(async (req) => {
       period: r.period
     })) || [];
 
-    console.log(`[Job ${jobId}] Step 6/6: Saving results...`);
+    // NEW: Add structured CV data to result
+    analysisResult.structuredCV = structuredCV;
+
+    console.log(`[Job ${jobId}] Step 6/6: Saving results (with structured CV data)...`);
 
     const { error: resultError } = await supabase
       .from('cv_analysis_jobs')

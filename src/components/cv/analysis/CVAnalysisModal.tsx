@@ -59,6 +59,9 @@ export default function CVAnalysisModal({
   const [editedRoleTexts, setEditedRoleTexts] = useState<Map<number, string>>(new Map());
   const [editedProfileText, setEditedProfileText] = useState<string | null>(null);
 
+  // Structured CV data state
+  const [structuredCV, setStructuredCV] = useState<any>(null);
+
   // Preview state
   const [improvedCV, setImprovedCV] = useState('');
 
@@ -83,6 +86,7 @@ export default function CVAnalysisModal({
         setCurrentStep(0);
         setCompletedSteps([]);
         setAnalysisResult(null);
+        setStructuredCV(null);
         setProgress(0);
         setSelectedProfile(false);
         setSelectedRoles(new Set());
@@ -123,6 +127,11 @@ export default function CVAnalysisModal({
       clearInterval(progressInterval);
 
       setAnalysisResult(result);
+      // Extract structured CV if present
+      if (result.structuredCV) {
+        setStructuredCV(result.structuredCV);
+        console.log('✅ Structured CV loaded:', result.structuredCV);
+      }
       setProgress(100);
       setEstimatedTimeRemaining(0);
 
@@ -185,9 +194,44 @@ export default function CVAnalysisModal({
       });
     }
 
-    // Apply improvements to CV text
+    // Apply improvements to CV text (for preview)
     const improved = applyImprovements(cvContent, improvements);
     setImprovedCV(improved);
+
+    // NEW: Also apply improvements to structured CV data
+    if (structuredCV) {
+      const updatedStructured = { ...structuredCV };
+
+      // Apply profile summary
+      if (selectedProfile && analysisResult.profileSummary) {
+        updatedStructured.summary = editedProfileText || analysisResult.profileSummary.improvedText;
+      }
+
+      // Apply role improvements
+      if (analysisResult.roleBasedImprovements && updatedStructured.experience) {
+        Array.from(selectedRoles).forEach(roleIndex => {
+          const improvement = analysisResult.roleBasedImprovements[roleIndex];
+          const editedText = editedRoleTexts.get(roleIndex);
+
+          // Find matching experience by title and company
+          const expIndex = updatedStructured.experience.findIndex((exp: any) =>
+            exp.position?.toLowerCase().includes(improvement.roleTitle?.toLowerCase()) &&
+            exp.company?.toLowerCase().includes(improvement.company?.toLowerCase())
+          );
+
+          if (expIndex !== -1) {
+            const newDescription = editedText || improvement.suggestedText;
+            // Split improved description into bullet points
+            updatedStructured.experience[expIndex].description =
+              newDescription.split(/\n+/).filter((line: string) => line.trim().length > 0);
+          }
+        });
+      }
+
+      // Update structured CV state
+      setStructuredCV(updatedStructured);
+      console.log('✅ Applied improvements to structured CV');
+    }
   };
 
   const handleSaveAndDownload = async (
@@ -223,17 +267,33 @@ export default function CVAnalysisModal({
       // Generate PDF with template and download
       const pdfFileName = `${fileName.replace(/\.[^/.]+$/, '')}.pdf`;
 
+      // Use structured CV data if available, otherwise fallback to text
+      const requestBody: any = {
+        template: templateId,
+        format: 'pdf',
+        templateOptions: {}
+      };
+
+      if (structuredCV) {
+        // NEW: Send structured data directly (best quality)
+        requestBody.structuredData = structuredCV;
+        console.log('📄 Generating PDF with structured data');
+      } else {
+        // FALLBACK: Fix missing spaces in text
+        const fixedCVText = improvedCV
+          .replace(/([a-zåäö])([A-ZÅÄÖ])/g, '$1 $2')
+          .replace(/([0-9])([A-ZÅÄÖ])/g, '$1 $2')
+          .replace(/([a-zåäö])([0-9])/g, '$1 $2');
+        requestBody.cvText = fixedCVText;
+        console.log('📄 Generating PDF with text parsing (fallback)');
+      }
+
       const pdfResponse = await fetch('/api/cv/generate-formatted', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          template: templateId,
-          cvText: improvedCV,
-          format: 'pdf',
-          templateOptions: {}
-        })
+        body: JSON.stringify(requestBody)
       });
 
       if (!pdfResponse.ok) {

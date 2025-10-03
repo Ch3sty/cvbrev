@@ -2133,11 +2133,12 @@ async function extractCVContentOldFallback(rawText: string): Promise<CVMetadata>
 
 export async function POST(request: NextRequest) {
   try {
-    const { template, cvText, format = 'pdf', colorScheme = 'blue', templateOptions = {} } = await request.json();
+    const { template, cvText, structuredData, format = 'pdf', colorScheme = 'blue', templateOptions = {} } = await request.json();
 
     // DEBUG: Log what the API receives
     console.log('🔍 DEBUG - generate-formatted API: Mottagen data:', {
       template,
+      hasStructuredData: !!structuredData,
       cvTextLength: cvText?.length || 0,
       cvTextPreview: cvText?.substring(0, 200) + '...',
       format,
@@ -2145,21 +2146,22 @@ export async function POST(request: NextRequest) {
     });
 
     // DEFENSIV VALIDERING: Kontrollera att vi har giltiga data
-    if (!template || !cvText) {
+    if (!template || (!cvText && !structuredData)) {
       console.error('❌ DEBUG - Missing required data:', {
         template: !!template,
         cvText: !!cvText,
+        structuredData: !!structuredData,
         templateValue: template,
         cvTextLength: cvText?.length || 0
       });
       return NextResponse.json(
-        { error: 'Template och CV-text krävs' },
+        { error: 'Template och antingen CV-text eller strukturerad data krävs' },
         { status: 400 }
       );
     }
 
-    // Extra validering för CV-text kvalitet
-    if (cvText.trim().length < 50) {
+    // Extra validering för CV-text kvalitet (om text används)
+    if (cvText && cvText.trim().length < 50) {
       console.error('❌ DEBUG - CV-text för kort:', cvText.length, 'tecken');
       return NextResponse.json(
         { error: 'CV-text är för kort eller tom' },
@@ -2205,10 +2207,19 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Extrahera CV-innehåll med förbättrad svensk parsing
-    console.log('Extraherar svenskt CV-innehåll...');
-    const extractedCVData = await extractSwedishCVContent(cvText);
-    
+    // NEW: Use structured data if available, otherwise parse from text
+    let extractedCVData: CVMetadata;
+
+    if (structuredData) {
+      // Use structured data directly (best quality)
+      console.log('✅ Använder strukturerad CV-data direkt (högsta kvalitet)');
+      extractedCVData = structuredData;
+    } else {
+      // FALLBACK: Parse from text
+      console.log('⚠️ Fallback: Extraherar svenskt CV-innehåll från text...');
+      extractedCVData = await extractSwedishCVContent(cvText);
+    }
+
     // Enhance CV data with user profile information
     if (userProfile) {
       if (userProfile.profile_photo_url) {
