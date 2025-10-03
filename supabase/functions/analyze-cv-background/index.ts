@@ -189,7 +189,7 @@ Deno.serve(async (req) => {
               },
               {
                 role: 'user',
-                content: `Förbättra denna personbeskrivning:\n\n"${parsedCV.profileSummary}"\n\nReturnera JSON med format: { "currentText": string, "suggestedText": string, "improvements": string[] }\n\nVIKTIGT: currentText ska vara EXAKT originaltexten.`
+                content: `Här är det fullständiga CV:t:\n\n${cvText}\n\n---\n\nFörbättra personbeskrivningen/sammanfattningen från CV:t.\n\nReturnera JSON med format: { "currentText": string (EXAKT originaltext från CV:t), "suggestedText": string (förbättrad version), "improvements": string[] }\n\nVIKTIGT: currentText ska vara EXAKT den text som finns i det ursprungliga CV:t, inklusive eventuella fel eller brister.`
               }
             ],
             temperature: 0.6,
@@ -272,7 +272,7 @@ Deno.serve(async (req) => {
               },
               {
                 role: 'user',
-                content: `Analysera dessa roller och ge förbättringsförslag med siffror och KPI:er:\n\n${JSON.stringify(batch)}\n\nReturnera JSON med format: { "roleBasedImprovements": [{ "roleTitle": string, "company": string, "period": string, "currentText": string (EXAKT text från description), "suggestedText": string, "improvements": { "hasQuantification": boolean, "keywords": string[], "grammarIssues": string[], "atsOptimization": boolean }, "atsImpact": number (1-20) }] }\n\nVIKTIGT: currentText ska vara EXAKT den beskrivning som finns i role.description, atsImpact ska vara ett nummer mellan 1-20, och improvements.keywords samt improvements.grammarIssues ska ALLTID vara arrays (tom array [] om inga finns).`
+                content: `Här är det fullständiga CV:t:\n\n${cvText}\n\n---\n\nFokusera på dessa roller:\n${JSON.stringify(batch)}\n\nAnalysera dessa roller och ge förbättringsförslag med siffror och KPI:er.\n\nReturnera JSON med format: { "roleBasedImprovements": [{ "roleTitle": string, "company": string, "period": string, "currentText": string (EXAKT originaltext från CV:t för denna roll), "suggestedText": string (förbättrad version), "improvements": { "hasQuantification": boolean, "keywords": string[], "grammarIssues": string[], "atsOptimization": boolean }, "atsImpact": number (1-20) }] }\n\nVIKTIGT: currentText ska vara EXAKT den text som finns i det ursprungliga CV:t för varje roll, inklusive eventuella brister. Hitta texten i det fullständiga CV:t ovan. atsImpact ska vara 1-20, improvements.keywords och improvements.grammarIssues ska ALLTID vara arrays.`
               }
             ],
             temperature: 0.6,
