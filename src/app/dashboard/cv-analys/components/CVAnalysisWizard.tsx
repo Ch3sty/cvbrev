@@ -83,6 +83,9 @@ export default function CVAnalysisWizard({
   const [savedCvId, setSavedCvId] = useState<string | undefined>();
   const [savedFileName, setSavedFileName] = useState('');
 
+  // Dynamic potential state - uppdateras när användaren väljer förbättringar
+  const [dynamicPotentialScore, setDynamicPotentialScore] = useState(0);
+
   // Auto-select first CV
   useEffect(() => {
     if (!selectedCV && cvs && cvs.length > 0) {
@@ -215,6 +218,55 @@ export default function CVAnalysisWizard({
     }
   };
 
+  // Funktion för att beräkna dynamisk potential baserat på användarens val
+  const calculateSelectedImpact = () => {
+    if (!analysisResult) return 0;
+
+    const currentAtsScore = analysisResult.atsFriendliness?.score || 0;
+    let impact = 0;
+
+    // Profil (om vald)
+    if (selectedProfile && analysisResult.profileSummary?.atsImpact) {
+      impact += analysisResult.profileSummary.atsImpact;
+    }
+
+    // Valda roller
+    if (analysisResult.roleBasedImprovements) {
+      Array.from(selectedRoles).forEach(index => {
+        impact += analysisResult.roleBasedImprovements[index]?.atsImpact || 0;
+      });
+    }
+
+    // Valda skills
+    if (analysisResult.skillSuggestions) {
+      Array.from(selectedSkills).forEach(index => {
+        const skill = analysisResult.skillSuggestions[index];
+        if (skill?.relevance === 'high') impact += 2;
+        else if (skill?.relevance === 'medium') impact += 1;
+        else impact += 0.5;
+      });
+    }
+
+    // Valda allmänna
+    if (analysisResult.generalImprovements) {
+      Array.from(selectedGeneral).forEach(index => {
+        const imp = analysisResult.generalImprovements[index];
+        if (imp?.category === 'Nyckelord') impact += 3;
+        else if (imp?.category === 'Innehåll') impact += 2;
+        else impact += 1;
+      });
+    }
+
+    return Math.min(100, currentAtsScore + impact);
+  };
+
+  // Uppdatera dynamisk potential när användaren ändrar sina val
+  useEffect(() => {
+    if (analysisResult) {
+      setDynamicPotentialScore(calculateSelectedImpact());
+    }
+  }, [selectedProfile, selectedRoles, selectedSkills, selectedGeneral, analysisResult]);
+
   const generateImprovedCV = () => {
     if (!analysisResult || !structuredCV) return;
 
@@ -329,12 +381,67 @@ export default function CVAnalysisWizard({
       case 2:
         if (!analysisResult) return null;
         const currentAtsScore = analysisResult.atsFriendliness?.score || 0;
+
+        // Beräkna VERKLIG potential baserat på atsImpact från AI
+        const calculateTruePotential = () => {
+          let totalImpact = 0;
+          const breakdown = {
+            profile: 0,
+            roles: 0,
+            skills: 0,
+            general: 0,
+            total: 0
+          };
+
+          // Profil: använd atsImpact från AI (vanligtvis ~10 poäng)
+          if (analysisResult.profileSummary?.atsImpact) {
+            breakdown.profile = analysisResult.profileSummary.atsImpact;
+            totalImpact += breakdown.profile;
+          }
+
+          // Roller: använd faktisk atsImpact (1-20 per roll)
+          if (analysisResult.roleBasedImprovements) {
+            breakdown.roles = analysisResult.roleBasedImprovements.reduce(
+              (sum: number, role: any) => sum + (role.atsImpact || 0),
+              0
+            );
+            totalImpact += breakdown.roles;
+          }
+
+          // Skills: ~1-2 poäng per skill beroende på relevans
+          if (analysisResult.skillSuggestions) {
+            breakdown.skills = analysisResult.skillSuggestions.reduce((sum: number, skill: any) => {
+              if (skill.relevance === 'high') return sum + 2;
+              if (skill.relevance === 'medium') return sum + 1;
+              return sum + 0.5;
+            }, 0);
+            totalImpact += breakdown.skills;
+          }
+
+          // General: ~1-3 poäng beroende på kategori
+          if (analysisResult.generalImprovements) {
+            breakdown.general = analysisResult.generalImprovements.reduce((sum: number, imp: any) => {
+              if (imp.category === 'Nyckelord') return sum + 3;
+              if (imp.category === 'Innehåll') return sum + 2;
+              return sum + 1;
+            }, 0);
+            totalImpact += breakdown.general;
+          }
+
+          breakdown.total = Math.round(totalImpact);
+          return breakdown;
+        };
+
+        const impactBreakdown = calculateTruePotential();
+        // Realistisk maxökning: begränsa till ~45 poäng för trovärdighet
+        const realisticMaxIncrease = Math.min(impactBreakdown.total, 45);
+        const potentialAtsScore = Math.min(100, currentAtsScore + realisticMaxIncrease);
+
         const totalImprovements =
           (analysisResult.profileSummary ? 1 : 0) +
           (analysisResult.roleBasedImprovements?.length || 0) +
           (analysisResult.skillSuggestions?.length || 0) +
           (analysisResult.generalImprovements?.length || 0);
-        const potentialAtsScore = Math.min(100, currentAtsScore + (totalImprovements * 2));
 
         return (
           <AnalysisOverviewStep
@@ -345,6 +452,7 @@ export default function CVAnalysisWizard({
             profileImproved={!!analysisResult.profileSummary}
             atsScore={currentAtsScore}
             potentialScore={potentialAtsScore}
+            totalImpactBreakdown={impactBreakdown}
           />
         );
 
@@ -360,6 +468,8 @@ export default function CVAnalysisWizard({
             selectedRoles={selectedRoles}
             selectedSkills={selectedSkills}
             selectedGeneral={selectedGeneral}
+            currentAtsScore={analysisResult.atsFriendliness?.score || 0}
+            dynamicPotentialScore={dynamicPotentialScore}
             onToggleProfile={() => setSelectedProfile(!selectedProfile)}
             onToggleRole={(index) => {
               const newSet = new Set(selectedRoles);

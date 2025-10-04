@@ -11,7 +11,8 @@ import {
   Award,
   Target,
   CheckSquare,
-  Square
+  Square,
+  TrendingUp
 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -33,6 +34,8 @@ interface SelectImprovementsStepProps {
   selectedRoles: Set<number>;
   selectedSkills: Set<number>;
   selectedGeneral: Set<number>;
+  currentAtsScore?: number;
+  dynamicPotentialScore?: number;
   onToggleProfile: () => void;
   onToggleRole: (index: number) => void;
   onToggleSkill: (index: number) => void;
@@ -108,6 +111,8 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
     selectedRoles,
     selectedSkills,
     selectedGeneral,
+    currentAtsScore = 0,
+    dynamicPotentialScore = 0,
     onToggleProfile,
     onToggleRole,
     onToggleSkill,
@@ -210,6 +215,8 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
     safeData.skills.length;
     // general improvements are shown separately as auto-applied
 
+  const atsIncrease = Math.round(dynamicPotentialScore - currentAtsScore);
+
   return (
     <div className="space-y-6">
       {/* Header with total */}
@@ -229,6 +236,60 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
           </div>
         </div>
       </div>
+
+      {/* Sticky ATS Potential Card */}
+      {currentAtsScore > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="sticky top-4 z-10"
+        >
+          <Card className="bg-gradient-to-r from-blue-600 to-cyan-600 border-0 shadow-lg">
+            <div className="p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                    <TrendingUp className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h5 className="text-sm font-medium text-white/90">
+                      Potential med dina val
+                    </h5>
+                    <p className="text-xs text-white/70">
+                      {totalSelected} förbättring{totalSelected !== 1 ? 'ar' : ''} vald{totalSelected !== 1 ? 'a' : ''}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="text-right">
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl font-bold text-white">
+                        {currentAtsScore}
+                      </span>
+                      <span className="text-white/70">→</span>
+                      <span className="text-2xl font-bold text-white">
+                        {Math.round(dynamicPotentialScore)}
+                      </span>
+                    </div>
+                    <p className="text-xs text-white/70 mt-0.5">
+                      {atsIncrease > 0 ? (
+                        <span className="text-green-200 font-semibold">
+                          +{atsIncrease} poäng
+                        </span>
+                      ) : (
+                        <span className="text-white/50">
+                          Välj förbättringar
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </motion.div>
+      )}
 
       {/* Categories */}
       <div className="space-y-4">

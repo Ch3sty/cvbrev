@@ -97,13 +97,9 @@ Deno.serve(async (req) => {
 
     const openaiApiKey = Deno.env.get('OPENAI_API_KEY')!;
 
-    const { data: profileData } = await supabase
-      .from('profiles')
-      .select('subscription_tier')
-      .eq('id', userId)
-      .single();
-
-    const isPremium = profileData?.subscription_tier === 'premium';
+    // ALLA användare får nu fullständig premium-analys
+    // Premium-användare får andra förmåner (fler analyser/vecka, fler mallar, etc)
+    const useFullAnalysis = true;
 
     // 1. Parse CV into structured CVMetadata format (ONLY parsing needed)
     console.log(`[Job ${jobId}] Step 1/5: Parsing CV into structured format (${cvText.length} chars)...`);
@@ -137,8 +133,8 @@ Deno.serve(async (req) => {
 
     let analysisResult: any;
 
-    if (isPremium) {
-      // 2. Analysera personbeskrivning (Premium)
+    if (useFullAnalysis) {
+      // 2. Analysera personbeskrivning (Fullständig analys för alla användare)
       console.log(`[Job ${jobId}] Step 2/5: Analyzing profile summary...`);
       let profileSummaryImprovement = null;
 
@@ -348,7 +344,7 @@ VIKTIGT:
       }
 
       analysisResult = {
-        analysisType: 'premium',
+        analysisType: 'full', // Ändrat från 'premium' till 'full' - alla får samma
         profileSummary: profileSummaryImprovement,
         skillSuggestions: skillSuggestions,
         roleBasedImprovements: allRoleImprovements,
@@ -362,44 +358,6 @@ VIKTIGT:
         model: 'gpt-4o',
         tokens: { total: 0 }
       };
-    } else {
-      // Basic-analys
-      console.log(`[Job ${jobId}] Step 2/6: Performing basic analysis...`);
-      const basicResponse = await fetchWithRetry('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${openaiApiKey}`
-        },
-        body: JSON.stringify({
-          model: 'gpt-4o-mini',
-          messages: [
-            {
-              role: 'system',
-              content: 'Du är en CV-expert. Ge grundläggande förbättringsförslag.'
-            },
-            {
-              role: 'user',
-              content: `Analysera detta CV och ge förbättringsförslag:\n\n${cvText}\n\nReturnera JSON med format: { "generalImprovements": [{ "title": string, "description": string, "category": string }] }`
-            }
-          ],
-          temperature: 0.6,
-          max_tokens: 1000,
-          response_format: { type: 'json_object' }
-        })
-      });
-
-      const basicData = await basicResponse.json();
-      analysisResult = JSON.parse(basicData.choices[0].message.content);
-      analysisResult.analysisType = 'basic';
-      analysisResult.model = 'gpt-4o-mini';
-
-      // Ensure generalImprovements exists for basic tier too
-      if (!analysisResult.generalImprovements || analysisResult.generalImprovements.length === 0) {
-        analysisResult.generalImprovements = [
-          { title: 'Uppgradera till Premium', description: 'Få djupare analys med rollspecifika förbättringar och färdighetsförslag', category: 'Premium' }
-        ];
-      }
     }
 
     // Lägg till parsed roles från structuredCV

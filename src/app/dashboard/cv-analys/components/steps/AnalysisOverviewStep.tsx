@@ -32,6 +32,13 @@ interface AnalysisOverviewStepProps {
   profileImproved: boolean;
   atsScore: number;
   potentialScore: number;
+  totalImpactBreakdown?: {
+    profile: number;
+    roles: number;
+    skills: number;
+    general: number;
+    total: number;
+  };
 }
 
 export default function AnalysisOverviewStep({
@@ -41,7 +48,8 @@ export default function AnalysisOverviewStep({
   generalCount,
   profileImproved,
   atsScore,
-  potentialScore
+  potentialScore,
+  totalImpactBreakdown
 }: AnalysisOverviewStepProps) {
   const improvement = potentialScore - atsScore;
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
@@ -232,6 +240,54 @@ export default function AnalysisOverviewStep({
             </div>
           </div>
         </Card>
+
+        {/* ATS Impact Breakdown - NYTT! */}
+        {totalImpactBreakdown && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25 }}
+          >
+            <Card className="bg-white border border-gray-200 p-6">
+              <div className="flex items-center gap-2 mb-4">
+                <Info className="w-5 h-5 text-blue-600" />
+                <h5 className="text-base font-semibold text-gray-900">
+                  Poängfördelning från förbättringar
+                </h5>
+              </div>
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Personbeskrivning:</span>
+                  <span className="font-semibold text-gray-900">+{Math.round(totalImpactBreakdown.profile)} poäng</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Rollförbättringar:</span>
+                  <span className="font-semibold text-gray-900">+{Math.round(totalImpactBreakdown.roles)} poäng</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Kompetenser:</span>
+                  <span className="font-semibold text-gray-900">+{Math.round(totalImpactBreakdown.skills)} poäng</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Allmänna förbättringar:</span>
+                  <span className="font-semibold text-gray-900">+{Math.round(totalImpactBreakdown.general)} poäng</span>
+                </div>
+                <div className="border-t border-gray-200 pt-3 flex justify-between items-center">
+                  <span className="font-semibold text-gray-900">Total möjlig ökning:</span>
+                  <span className="font-bold text-green-600 text-lg">+{totalImpactBreakdown.total} poäng</span>
+                </div>
+                {totalImpactBreakdown.total > 45 && (
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-3">
+                    <p className="text-xs text-blue-800">
+                      <span className="font-semibold">Obs!</span> Vi visar en realistisk maxökning på +{Math.min(totalImpactBreakdown.total, 45)} poäng i översikten ovan.
+                      Faktiskt resultat beror på vilka förbättringar du väljer att implementera i nästa steg.
+                    </p>
+                  </div>
+                )}
+              </div>
+            </Card>
+          </motion.div>
+        )}
 
         {/* Quick Wins Section */}
         {quickWins.length > 0 && (
