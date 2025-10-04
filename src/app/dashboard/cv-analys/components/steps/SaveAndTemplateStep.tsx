@@ -11,6 +11,7 @@ import TemplateOptions from '../TemplateOptions';
 import { generateCVNameSuggestions } from '@/lib/cv/cvNameSuggestions';
 import { useCvQuota } from '@/hooks/useCvQuota';
 import { getTemplateById } from '@/lib/cv/simple-templates';
+import { useProfile } from '@/hooks/use-profile';
 
 interface SaveAndTemplateStepProps {
   improvedCV: string;
@@ -24,6 +25,7 @@ export default function SaveAndTemplateStep({
   isSaving
 }: SaveAndTemplateStepProps) {
   const { cvCount, maxCvs, canSave, subscriptionTier, loading } = useCvQuota();
+  const { profile } = useProfile();
   const [saveToLibrary, setSaveToLibrary] = useState(canSave);
   const [customName, setCustomName] = useState('');
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>('modern-minimal');
@@ -33,10 +35,10 @@ export default function SaveAndTemplateStep({
   const nameSuggestions = generateCVNameSuggestions();
   const selectedTemplateData = selectedTemplate ? (getTemplateById(selectedTemplate) || null) : null;
 
-  // Mock user profile data - replace with actual data from context/hook
+  // Get actual user profile data for photo and LinkedIn
   const userProfile = {
-    hasPhoto: false, // TODO: Get from actual user profile
-    hasLinkedIn: false // TODO: Get from actual user profile
+    hasPhoto: !!profile?.profile_photo_url,
+    hasLinkedIn: !!profile?.linkedin_url
   };
 
   const handleSave = async () => {
@@ -95,7 +97,7 @@ export default function SaveAndTemplateStep({
                 className="w-4 h-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
               />
               <span className="text-sm font-medium text-green-800">
-                Spara ({cvCount}/{maxCvs})
+                Spara på Jobbcoach.ai ({cvCount}/{maxCvs} CVs)
               </span>
             </label>
           )}
@@ -113,7 +115,7 @@ export default function SaveAndTemplateStep({
           className="mt-3 w-full text-left flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
         >
           <Lightbulb className="w-4 h-4" />
-          <span className="font-medium">Namngivningstips</span>
+          <span className="font-medium">Namnförslag</span>
           <span className="ml-auto text-gray-400">{showTips ? '−' : '+'}</span>
         </button>
 
