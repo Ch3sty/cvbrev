@@ -5,11 +5,62 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ZoomIn, ZoomOut, Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { generateWordDiff, type DiffSegment } from '@/lib/cv/cvDiffUtils';
 
 interface CVComparisonViewerProps {
   originalCV: string;
   improvedCV: string;
+}
+
+interface BlockDiff {
+  type: 'unchanged' | 'changed' | 'added' | 'removed';
+  originalBlock?: string;
+  improvedBlock?: string;
+}
+
+/**
+ * Skapar block-baserad jämförelse istället för ord-baserad
+ */
+function generateBlockDiff(original: string, improved: string): BlockDiff[] {
+  const originalBlocks = original.split(/\n\n+/).filter(b => b.trim());
+  const improvedBlocks = improved.split(/\n\n+/).filter(b => b.trim());
+
+  const blocks: BlockDiff[] = [];
+  const maxLength = Math.max(originalBlocks.length, improvedBlocks.length);
+
+  for (let i = 0; i < maxLength; i++) {
+    const origBlock = originalBlocks[i] || null;
+    const impBlock = improvedBlocks[i] || null;
+
+    if (!origBlock && impBlock) {
+      // Nytt block tillagt
+      blocks.push({
+        type: 'added',
+        improvedBlock: impBlock
+      });
+    } else if (origBlock && !impBlock) {
+      // Block borttaget
+      blocks.push({
+        type: 'removed',
+        originalBlock: origBlock
+      });
+    } else if (origBlock === impBlock) {
+      // Oförändrat
+      blocks.push({
+        type: 'unchanged',
+        originalBlock: origBlock,
+        improvedBlock: impBlock
+      });
+    } else {
+      // Block ändrat
+      blocks.push({
+        type: 'changed',
+        originalBlock: origBlock,
+        improvedBlock: impBlock
+      });
+    }
+  }
+
+  return blocks;
 }
 
 export default function CVComparisonViewer({
@@ -22,80 +73,81 @@ export default function CVComparisonViewer({
   const handleZoomIn = () => setZoomLevel(prev => Math.min(prev + 10, 150));
   const handleZoomOut = () => setZoomLevel(prev => Math.max(prev - 10, 70));
 
-  const diff = highlightChanges ? generateWordDiff(originalCV, improvedCV) : null;
+  const blockDiff = highlightChanges ? generateBlockDiff(originalCV, improvedCV) : null;
 
-  const renderDiffText = (segments: DiffSegment[]) => {
-    const elements: React.JSX.Element[] = [];
-    let currentParagraph: React.JSX.Element[] = [];
-    let paragraphKey = 0;
-    let emptyLineCount = 0;
+  const renderBlockDiff = (blocks: BlockDiff[]) => {
+    return blocks.map((block, index) => {
+      if (block.type === 'unchanged') {
+        return (
+          <div key={index} className="mb-4">
+            <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
+              {block.originalBlock}
+            </p>
+          </div>
+        );
+      }
 
-    segments.forEach((segment, index) => {
-      const lines = segment.text.split('\n');
-
-      lines.forEach((line, lineIndex) => {
-        // Check for empty lines (paragraph breaks)
-        if (line.trim().length === 0) {
-          emptyLineCount++;
-          // If we have 2+ empty lines, it's a paragraph break
-          if (emptyLineCount >= 2 && currentParagraph.length > 0) {
-            elements.push(
-              <p key={`para-${paragraphKey}`} className="leading-relaxed mb-4">
-                {currentParagraph}
+      if (block.type === 'changed') {
+        return (
+          <div key={index} className="mb-6 space-y-2">
+            {/* Original block (röd) */}
+            <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-xs font-semibold text-red-700 uppercase">Original</span>
+              </div>
+              <p className="text-red-900 leading-relaxed whitespace-pre-wrap line-through opacity-75">
+                {block.originalBlock}
               </p>
-            );
-            currentParagraph = [];
-            paragraphKey++;
-            emptyLineCount = 0;
-          }
-        } else {
-          // Non-empty line - add to current paragraph
-          emptyLineCount = 0;
+            </div>
 
-          // If starting a new paragraph after an empty line
-          if (lineIndex > 0 && currentParagraph.length > 0) {
-            currentParagraph.push(<span key={`${index}-${lineIndex}-space`}> </span>);
-          }
+            {/* Arrow */}
+            <div className="flex justify-center">
+              <div className="w-8 h-8 bg-gradient-to-r from-red-400 to-green-400 rounded-full flex items-center justify-center">
+                <span className="text-white text-xs">→</span>
+              </div>
+            </div>
 
-          let element: React.JSX.Element;
+            {/* Improved block (grön) */}
+            <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-xs font-semibold text-green-700 uppercase">Förbättrad</span>
+              </div>
+              <p className="text-green-900 leading-relaxed whitespace-pre-wrap font-medium">
+                {block.improvedBlock}
+              </p>
+            </div>
+          </div>
+        );
+      }
 
-          if (segment.type === 'unchanged') {
-            element = <span key={`${index}-${lineIndex}`}>{line}</span>;
-          } else if (segment.type === 'added') {
-            element = (
-              <span
-                key={`${index}-${lineIndex}`}
-                className="bg-green-100 text-green-900 border-b-2 border-green-400"
-              >
-                {line}
-              </span>
-            );
-          } else {
-            element = (
-              <span
-                key={`${index}-${lineIndex}`}
-                className="bg-red-100 text-red-900 line-through"
-              >
-                {line}
-              </span>
-            );
-          }
+      if (block.type === 'added') {
+        return (
+          <div key={index} className="mb-4 bg-green-50 border-l-4 border-green-400 p-4 rounded">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-xs font-semibold text-green-700 uppercase">Ny text tillagd</span>
+            </div>
+            <p className="text-green-900 leading-relaxed whitespace-pre-wrap font-medium">
+              {block.improvedBlock}
+            </p>
+          </div>
+        );
+      }
 
-          currentParagraph.push(element);
-        }
-      });
+      if (block.type === 'removed') {
+        return (
+          <div key={index} className="mb-4 bg-red-50 border-l-4 border-red-400 p-4 rounded">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-xs font-semibold text-red-700 uppercase">Text borttagen</span>
+            </div>
+            <p className="text-red-900 leading-relaxed whitespace-pre-wrap line-through opacity-75">
+              {block.originalBlock}
+            </p>
+          </div>
+        );
+      }
+
+      return null;
     });
-
-    // Add remaining paragraph
-    if (currentParagraph.length > 0) {
-      elements.push(
-        <p key={`para-${paragraphKey}`} className="leading-relaxed mb-4">
-          {currentParagraph}
-        </p>
-      );
-    }
-
-    return elements;
   };
 
   return (
@@ -182,9 +234,9 @@ export default function CVComparisonViewer({
             {/* Subtle gradient overlay */}
             <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-green-50/30 to-emerald-50/30" />
 
-            {highlightChanges && diff ? (
+            {highlightChanges && blockDiff ? (
               <div className="font-sans text-gray-900 relative z-10">
-                {renderDiffText(diff)}
+                {renderBlockDiff(blockDiff)}
               </div>
             ) : (
               <div className="space-y-4 font-sans text-gray-900 relative z-10">
@@ -203,12 +255,16 @@ export default function CVComparisonViewer({
       {highlightChanges && (
         <div className="flex items-center gap-6 text-sm text-gray-600 bg-gray-50 border border-gray-200 rounded-lg p-3">
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-green-100 border-b-2 border-green-400 rounded" />
-            <span>Tillagd text</span>
+            <div className="w-4 h-4 bg-green-50 border-l-4 border-green-400 rounded" />
+            <span>Förbättrad/Tillagd</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 bg-red-100 rounded line-through" />
-            <span>Borttagen text</span>
+            <div className="w-4 h-4 bg-red-50 border-l-4 border-red-400 rounded" />
+            <span>Original/Borttagen</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-gray-100 rounded" />
+            <span>Oförändrad</span>
           </div>
         </div>
       )}

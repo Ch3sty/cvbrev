@@ -105,39 +105,8 @@ Deno.serve(async (req) => {
 
     const isPremium = profileData?.subscription_tier === 'premium';
 
-    // 1. Parse CV
-    console.log(`[Job ${jobId}] Step 1/6: Parsing CV (${cvText.length} chars)...`);
-    const parseResponse = await fetchWithRetry('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${openaiApiKey}`
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o',
-        messages: [
-          {
-            role: 'system',
-            content: 'Du är en CV-parser. Extrahera arbetsroller och personbeskrivning från CV:t i JSON-format.'
-          },
-          {
-            role: 'user',
-            content: `Analysera detta CV och extrahera arbetsroller och personbeskrivning:\n\n${cvText}\n\nReturnera JSON med format: { "profileSummary": string | null, "roles": [{ "title": string, "company": string, "period": string, "description": string }] }\n\nVIKTIGT: profileSummary ska vara den inledande texten/personbeskrivningen om den finns, annars null.`
-          }
-        ],
-        temperature: 0.3,
-        max_tokens: 1500,
-        response_format: { type: 'json_object' }
-      })
-    });
-
-    const parseData = await parseResponse.json();
-    const parsedCV = JSON.parse(parseData.choices[0].message.content);
-    const rolesCount = parsedCV.roles?.length || 0;
-    console.log(`[Job ${jobId}] Parsed ${rolesCount} roles and profile summary`);
-
-    // NEW: Parse CV into structured CVMetadata format
-    console.log(`[Job ${jobId}] Step 1.5/6: Parsing CV into structured format...`);
+    // 1. Parse CV into structured CVMetadata format (ONLY parsing needed)
+    console.log(`[Job ${jobId}] Step 1/5: Parsing CV into structured format (${cvText.length} chars)...`);
     const structuredParsingResponse = await fetchWithRetry('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -170,10 +139,10 @@ Deno.serve(async (req) => {
 
     if (isPremium) {
       // 2. Analysera personbeskrivning (Premium)
-      console.log(`[Job ${jobId}] Step 2/6: Analyzing profile summary...`);
+      console.log(`[Job ${jobId}] Step 2/5: Analyzing profile summary...`);
       let profileSummaryImprovement = null;
 
-      if (parsedCV.profileSummary) {
+      if (structuredCV.summary) {
         const profileResponse = await fetchWithRetry('https://api.openai.com/v1/chat/completions', {
           method: 'POST',
           headers: {
@@ -189,7 +158,7 @@ Deno.serve(async (req) => {
               },
               {
                 role: 'user',
-                content: `Förbättra denna personbeskrivning:\n\n"${parsedCV.profileSummary}"\n\nReturnera JSON med format: { "suggestedText": string (förbättrad version i JAG-FORM), "improvements": string[] }\n\nVIKTIGT:\n- suggestedText MÅSTE vara skriven i JAG-FORM (första person), ALDRIG tredje person\n- Använd "jag", "min", "mitt", inte "han", "hennes" eller personens namn`
+                content: `Förbättra denna personbeskrivning:\n\n"${structuredCV.summary}"\n\nReturnera JSON med format: { "suggestedText": string (förbättrad version i JAG-FORM), "improvements": string[] }\n\nVIKTIGT:\n- suggestedText MÅSTE vara skriven i JAG-FORM (första person), ALDRIG tredje person\n- Använd "jag", "min", "mitt", inte "han", "hennes" eller personens namn`
               }
             ],
             temperature: 0.6,
@@ -200,18 +169,18 @@ Deno.serve(async (req) => {
 
         const profileData = await profileResponse.json();
         const rawProfileData = JSON.parse(profileData.choices[0].message.content);
-        // Map to frontend expected format + use structured CV for currentText
+        // Use ONLY structuredCV as source of truth
         profileSummaryImprovement = {
-          currentText: structuredCV.summary || parsedCV.profileSummary, // EXAKT från structured CV
+          currentText: structuredCV.summary, // ENDAST från structured CV
           improvedText: rawProfileData.suggestedText,
           changes: rawProfileData.improvements || [],
-          atsImpact: 10 // Static for now
+          atsImpact: 10
         };
-        console.log(`[Job ${jobId}] Profile summary improvement generated (currentText from structured CV)`);
+        console.log(`[Job ${jobId}] Profile summary improvement generated`);
       }
 
       // 3. Extrahera färdigheter från roller (Premium)
-      console.log(`[Job ${jobId}] Step 3/6: Extracting skills from role descriptions...`);
+      console.log(`[Job ${jobId}] Step 3/5: Extracting skills from role descriptions...`);
       const skillsResponse = await fetchWithRetry('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -227,7 +196,7 @@ Deno.serve(async (req) => {
             },
             {
               role: 'user',
-              content: `Analysera dessa roller och hitta färdigheter som nämns men kanske inte listas explicit:\n\n${JSON.stringify(parsedCV.roles)}\n\nReturnera JSON med format: { "skillSuggestions": [{ "skill": string, "relevance": string ("high", "medium", "low"), "source": string (konkret roll och företag, t.ex. "Snickare på Durgé Byggnads AB"), "reasoning": string }] }\n\nVIKTIGT: source ska vara exakt "RollTitle på Company" från rollerna ovan.`
+              content: `Analysera dessa roller och hitta färdigheter som nämns men kanske inte listas explicit:\n\n${JSON.stringify(structuredCV.experience)}\n\nReturnera JSON med format: { "skillSuggestions": [{ "skill": string, "relevance": string ("high", "medium", "low"), "source": string (konkret roll och företag, t.ex. "Snickare på Durgé Byggnads AB"), "reasoning": string }] }\n\nVIKTIGT: source ska vara exakt "position på company" från rollerna ovan.`
             }
           ],
           temperature: 0.5,
@@ -241,17 +210,24 @@ Deno.serve(async (req) => {
       console.log(`[Job ${jobId}] Found ${skillSuggestions.length} skill suggestions`);
 
       // 4. Analysera roller med batch processing (Premium)
-      console.log(`[Job ${jobId}] Step 4/6: Analyzing roles...`);
+      console.log(`[Job ${jobId}] Step 4/5: Analyzing roles...`);
       const ROLES_PER_BATCH = 3;
       const allRoleImprovements: any[] = [];
-      const roles = parsedCV.roles || [];
+      const experiences = structuredCV.experience || [];
 
-      const batches: any[][] = [];
-      for (let i = 0; i < roles.length; i += ROLES_PER_BATCH) {
-        batches.push(roles.slice(i, i + ROLES_PER_BATCH));
+      // Skapa batches med currentDescription från structuredCV
+      const batches = [];
+      for (let i = 0; i < experiences.length; i += ROLES_PER_BATCH) {
+        const batch = experiences.slice(i, i + ROLES_PER_BATCH).map(exp => ({
+          title: exp.position,
+          company: exp.company,
+          period: `${exp.startDate} - ${exp.endDate || 'Nuvarande'}`,
+          currentDescription: Array.isArray(exp.description) ? exp.description.join('\n') : exp.description
+        }));
+        batches.push(batch);
       }
 
-      console.log(`[Job ${jobId}] Processing ${roles.length} roles in ${batches.length} batches...`);
+      console.log(`[Job ${jobId}] Processing ${experiences.length} roles in ${batches.length} batches...`);
 
       for (let i = 0; i < batches.length; i++) {
         const batch = batches[i];
@@ -272,7 +248,30 @@ Deno.serve(async (req) => {
               },
               {
                 role: 'user',
-                content: `Analysera dessa roller och ge förbättringsförslag med siffror och KPI:er:\n\n${JSON.stringify(batch)}\n\nReturnera JSON med format: { "roleBasedImprovements": [{ "roleTitle": string, "company": string, "period": string, "suggestedText": string (förbättrad version med kvantifiering), "improvements": { "hasQuantification": boolean, "keywords": string[], "grammarIssues": string[], "atsOptimization": boolean }, "atsImpact": number (1-20) }] }\n\nVIKTIGT: atsImpact ska vara 1-20, improvements.keywords och improvements.grammarIssues ska ALLTID vara arrays.`
+                content: `Du får roller med currentDescription. Analysera och förbättra ENDAST beskrivningen med kvantifiering och KPI:er.
+
+Input: ${JSON.stringify(batch)}
+
+Returnera JSON: { "roleBasedImprovements": [{
+  "roleTitle": string (från input.title),
+  "company": string (från input.company),
+  "period": string (från input.period),
+  "suggestedText": string (FÖRBÄTTRAD beskrivning med siffror och resultat),
+  "improvements": {
+    "hasQuantification": boolean,
+    "keywords": string[],
+    "grammarIssues": string[],
+    "atsOptimization": boolean
+  },
+  "atsImpact": number (1-20)
+}] }
+
+VIKTIGT:
+- suggestedText ska vara EN sammanhängande förbättrad version av currentDescription
+- Lägg till konkreta siffror, procent, resultat
+- Returnera INTE currentDescription i svaret
+- atsImpact ska vara 1-20
+- improvements.keywords och improvements.grammarIssues ska ALLTID vara arrays`
               }
             ],
             temperature: 0.6,
@@ -284,35 +283,34 @@ Deno.serve(async (req) => {
         const batchData = await batchResponse.json();
         const batchResult = JSON.parse(batchData.choices[0].message.content);
 
-        // KRITISK FIX: Mappa currentText från structured CV istället
+        // Mappa currentText DIREKT från structured CV (enda sanningskällan)
         const sanitizedBatch = (batchResult.roleBasedImprovements || []).map((role: any, index: number) => {
           const batchIndex = i * ROLES_PER_BATCH + index;
+          const exp = experiences[batchIndex];
 
-          // Hitta motsvarande experience i structured CV
-          let currentText = role.currentText || '';
-          if (structuredCV.experience && structuredCV.experience[batchIndex]) {
-            const exp = structuredCV.experience[batchIndex];
-            // Använd description array från structured CV som currentText
-            if (Array.isArray(exp.description)) {
-              currentText = exp.description.join(' ');
-            } else if (exp.description) {
-              currentText = exp.description;
-            }
-          }
+          // currentText kommer ALLTID från structuredCV
+          const currentText = Array.isArray(exp?.description)
+            ? exp.description.join('\n')
+            : (exp?.description || '');
 
           return sanitizeRoleImprovement({
-            ...role,
-            currentText // Ersätt med EXAKT text från structured CV
+            roleTitle: exp?.position || role.roleTitle,
+            company: exp?.company || role.company,
+            period: role.period,
+            currentText, // GARANTERAT från structuredCV
+            suggestedText: role.suggestedText,
+            improvements: role.improvements,
+            atsImpact: role.atsImpact
           });
         });
 
         allRoleImprovements.push(...sanitizedBatch);
 
-        console.log(`[Job ${jobId}] Batch ${i + 1} completed: ${sanitizedBatch.length} improvements (with currentText from structured CV)`);
+        console.log(`[Job ${jobId}] Batch ${i + 1} completed: ${sanitizedBatch.length} improvements`);
       }
 
       // 5. Allmän analys (Premium)
-      console.log(`[Job ${jobId}] Step 5/6: Performing general analysis...`);
+      console.log(`[Job ${jobId}] Step 5/5: Performing general analysis...`);
       const generalResponse = await fetchWithRetry('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -404,12 +402,13 @@ Deno.serve(async (req) => {
       }
     }
 
-    // Lägg till parsed roles
-    analysisResult.parsedRoles = parsedCV.roles?.map((r: any) => ({
-      title: r.title,
-      company: r.company,
-      period: r.period
-    })) || [];
+    // Lägg till parsed roles från structuredCV
+    const experiences = structuredCV.experience || [];
+    analysisResult.parsedRoles = experiences.map((exp: any) => ({
+      title: exp.position,
+      company: exp.company,
+      period: `${exp.startDate} - ${exp.endDate || 'Nuvarande'}`
+    }));
 
     // NEW: Add structured CV data to result
     analysisResult.structuredCV = structuredCV;
@@ -444,7 +443,7 @@ Deno.serve(async (req) => {
     analysisResult.formattedPreview = formattedPreview;
     console.log(`[Job ${jobId}] Preview text generated (${formattedPreview.length} chars)`);
 
-    console.log(`[Job ${jobId}] Step 6/6: Saving results (with structured CV data + preview)...`);
+    console.log(`[Job ${jobId}] Saving results (with structured CV data + preview)...`);
 
     const { error: resultError } = await supabase
       .from('cv_analysis_jobs')
