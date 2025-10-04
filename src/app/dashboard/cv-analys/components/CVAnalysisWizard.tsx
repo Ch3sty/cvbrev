@@ -147,9 +147,113 @@ export default function CVAnalysisWizard({
     }
   };
 
+  const generatePreviewFromStructured = (structured: any) => {
+    if (!structured) return '';
+
+    const sections: string[] = [];
+
+    // Personal Info
+    if (structured.personalInfo) {
+      const p = structured.personalInfo;
+      const lines: string[] = [];
+      if (p.fullName) lines.push(p.fullName);
+      if (p.address) lines.push(p.address);
+      if (p.phone) lines.push(p.phone);
+      if (p.email) lines.push(p.email);
+      if (lines.length > 0) sections.push(lines.join('\n'));
+    }
+
+    // Summary
+    if (structured.summary) {
+      sections.push('SAMMANFATTNING\n' + structured.summary);
+    }
+
+    // Education
+    if (structured.education && structured.education.length > 0) {
+      const eduLines = ['UTBILDNING'];
+      structured.education.forEach((edu: any) => {
+        eduLines.push(`${edu.degree} ${edu.graduationYear || ''}`);
+        if (edu.institution) eduLines.push(edu.institution);
+        if (edu.description) eduLines.push(edu.description);
+      });
+      sections.push(eduLines.join('\n'));
+    }
+
+    // Experience
+    if (structured.experience && structured.experience.length > 0) {
+      const expLines = ['ERFARENHETER'];
+      structured.experience.forEach((exp: any) => {
+        expLines.push(`${exp.position}, ${exp.company} ${exp.location || ''} — ${exp.startDate} - ${exp.endDate || 'Nuvarande'}`);
+        if (Array.isArray(exp.description)) {
+          exp.description.forEach((desc: string) => {
+            if (desc && desc.trim()) expLines.push(desc);
+          });
+        } else if (exp.description) {
+          expLines.push(exp.description);
+        }
+        expLines.push('');
+      });
+      sections.push(expLines.join('\n'));
+    }
+
+    // Skills
+    if (structured.skills && structured.skills.length > 0) {
+      sections.push('FÄRDIGHETER\n' + structured.skills.join(', '));
+    }
+
+    return sections.join('\n\n');
+  };
+
+  const generateImprovedCV = () => {
+    if (!analysisResult) return;
+
+    if (structuredCV) {
+      const improvedStructured = JSON.parse(JSON.stringify(structuredCV));
+
+      // Apply profile summary if selected
+      if (selectedProfile && analysisResult.profileSummary) {
+        improvedStructured.summary = analysisResult.profileSummary.improvedText;
+      }
+
+      // Apply role improvements
+      if (analysisResult.roleBasedImprovements && improvedStructured.experience) {
+        Array.from(selectedRoles).forEach(roleIndex => {
+          const improvement = analysisResult.roleBasedImprovements[roleIndex];
+          if (improvement && roleIndex < improvedStructured.experience.length) {
+            const newDescription = improvement.suggestedText;
+            improvedStructured.experience[roleIndex].description =
+              newDescription.split(/\n+/).filter((line: string) => line.trim().length > 0);
+          }
+        });
+      }
+
+      // Apply skill improvements
+      if (analysisResult.skillImprovements && selectedSkills.size > 0) {
+        const skillsToAdd: string[] = [];
+        Array.from(selectedSkills).forEach(skillIndex => {
+          const skill = analysisResult.skillImprovements[skillIndex];
+          if (skill?.suggestedSkill) {
+            skillsToAdd.push(skill.suggestedSkill);
+          }
+        });
+        if (skillsToAdd.length > 0) {
+          improvedStructured.skills = [...(improvedStructured.skills || []), ...skillsToAdd];
+        }
+      }
+
+      const improved = generatePreviewFromStructured(improvedStructured);
+      setImprovedCV(improved);
+    }
+  };
+
   const handleNext = () => {
     if (!completedSteps.includes(currentStep)) {
       setCompletedSteps([...completedSteps, currentStep]);
+    }
+
+    // Generate improved CV when moving to preview step
+    if (currentStep === 3) {
+      generateImprovedCV();
     }
 
     if (currentStep < STEPS.length - 1) {
