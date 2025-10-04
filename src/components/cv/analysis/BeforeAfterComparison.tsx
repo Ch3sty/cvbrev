@@ -162,7 +162,7 @@ export default function BeforeAfterComparison({
         <div className="flex items-center gap-2 mb-2">
           <div className="w-1 h-4 bg-gradient-to-b from-green-500 to-emerald-600 rounded-full" />
           <span className="text-xs font-semibold text-gray-600 uppercase">
-            AI-förbättrad text
+            Vårt förslag
           </span>
           <Sparkles className="w-3 h-3 text-green-600" />
         </div>

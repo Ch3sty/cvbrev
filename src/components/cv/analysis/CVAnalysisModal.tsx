@@ -174,77 +174,80 @@ export default function CVAnalysisModal({
   const formatStructuredCVAsText = (structured: any): string => {
     if (!structured) return '';
 
-    const parts: string[] = [];
+    const sections: string[] = [];
 
     // Personal Info
     if (structured.personalInfo) {
       const p = structured.personalInfo;
-      if (p.fullName) parts.push(p.fullName);
-      if (p.address) parts.push(p.address);
-      if (p.phone) parts.push(p.phone);
-      if (p.email) parts.push(p.email);
-      parts.push(''); // Empty line
+      const personalLines: string[] = [];
+      if (p.fullName) personalLines.push(p.fullName);
+      if (p.address) personalLines.push(p.address);
+      if (p.phone) personalLines.push(p.phone);
+      if (p.email) personalLines.push(p.email);
+      if (personalLines.length > 0) {
+        sections.push(personalLines.join('\n'));
+      }
     }
 
     // Summary
     if (structured.summary) {
-      parts.push('SAMMANFATTNING');
-      parts.push(structured.summary);
-      parts.push(''); // Empty line
+      sections.push('SAMMANFATTNING\n' + structured.summary);
     }
 
     // Education
     if (structured.education && structured.education.length > 0) {
-      parts.push('UTBILDNING');
+      const eduLines: string[] = ['UTBILDNING'];
       structured.education.forEach((edu: any) => {
-        parts.push(`${edu.degree} ${edu.graduationYear || ''}`);
-        parts.push(edu.institution);
-        if (edu.description) parts.push(edu.description);
-        parts.push(''); // Empty line
+        eduLines.push(`${edu.degree} ${edu.graduationYear || ''}`);
+        if (edu.institution) eduLines.push(edu.institution);
+        if (edu.description) eduLines.push(edu.description);
       });
+      sections.push(eduLines.join('\n'));
     }
 
     // Experience
     if (structured.experience && structured.experience.length > 0) {
-      parts.push('ERFARENHETER');
+      const expLines: string[] = ['ERFARENHETER'];
       structured.experience.forEach((exp: any) => {
-        parts.push(`${exp.position}, ${exp.company} ${exp.location || ''} - ${exp.startDate} - ${exp.endDate || 'Nuvarande'}`);
+        expLines.push(`${exp.position}, ${exp.company} ${exp.location || ''} — ${exp.startDate} - ${exp.endDate || 'Nuvarande'}`);
         if (Array.isArray(exp.description)) {
-          exp.description.forEach((desc: string) => parts.push(desc));
+          exp.description.forEach((desc: string) => {
+            if (desc && desc.trim()) expLines.push(desc);
+          });
         } else if (exp.description) {
-          parts.push(exp.description);
+          expLines.push(exp.description);
         }
-        parts.push(''); // Empty line
+        expLines.push(''); // Empty line between experiences
       });
+      sections.push(expLines.join('\n'));
     }
 
     // Skills
     if (structured.skills && structured.skills.length > 0) {
-      parts.push('FÄRDIGHETER');
+      const skillLines: string[] = ['FÄRDIGHETER'];
       structured.skills.forEach((skillGroup: any) => {
         if (Array.isArray(skillGroup.skills)) {
-          parts.push(`${skillGroup.category}: ${skillGroup.skills.join(', ')}`);
+          skillLines.push(`${skillGroup.category || ''}: ${skillGroup.skills.join(', ')}`);
         }
       });
-      parts.push(''); // Empty line
+      sections.push(skillLines.join('\n'));
     }
 
     // Languages
     if (structured.languages && structured.languages.length > 0) {
-      parts.push('SPRÅK');
+      const langLines: string[] = ['SPRÅK'];
       structured.languages.forEach((lang: any) => {
-        parts.push(`${lang.language} (${lang.proficiency})`);
+        langLines.push(`${lang.language} (${lang.proficiency})`);
       });
-      parts.push(''); // Empty line
+      sections.push(langLines.join('\n'));
     }
 
     // References
     if (structured.references) {
-      parts.push('REFERENSER');
-      parts.push(structured.references);
+      sections.push('REFERENSER\n' + structured.references);
     }
 
-    return parts.join('\n');
+    return sections.join('\n\n');
   };
 
   const generateImprovedCV = () => {

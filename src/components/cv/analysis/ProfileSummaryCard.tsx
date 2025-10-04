@@ -108,7 +108,7 @@ export default function ProfileSummaryCard({
             <div>
               <div className="flex items-center justify-between mb-2">
                 <div className="text-xs font-semibold text-green-700 uppercase">
-                  Förbättrad version
+                  Vårt förslag
                 </div>
                 {onEdit && !isEditing && (
                   <button

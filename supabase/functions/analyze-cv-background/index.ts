@@ -185,11 +185,11 @@ Deno.serve(async (req) => {
             messages: [
               {
                 role: 'system',
-                content: 'Du är en CV-expert. Förbättra personbeskrivningen med kraftfulla nyckelord och tydligt värde.'
+                content: 'Du är en CV-expert. Förbättra personbeskrivningen med kraftfulla nyckelord och tydligt värde. Skriv ALLTID i JAG-FORM (första person).'
               },
               {
                 role: 'user',
-                content: `Här är det fullständiga CV:t:\n\n${cvText}\n\n---\n\nFörbättra personbeskrivningen/sammanfattningen från CV:t.\n\nReturnera JSON med format: { "currentText": string (EXAKT originaltext från CV:t), "suggestedText": string (förbättrad version), "improvements": string[] }\n\nVIKTIGT: currentText ska vara EXAKT den text som finns i det ursprungliga CV:t, inklusive eventuella fel eller brister.`
+                content: `Här är det fullständiga CV:t:\n\n${cvText}\n\n---\n\nFörbättra personbeskrivningen/sammanfattningen från CV:t.\n\nReturnera JSON med format: { "currentText": string (EXAKT originaltext från CV:t), "suggestedText": string (förbättrad version i JAG-FORM), "improvements": string[] }\n\nVIKTIGT:\n- currentText ska vara EXAKT den text som finns i det ursprungliga CV:t\n- suggestedText MÅSTE vara skriven i JAG-FORM (första person), ALDRIG tredje person\n- Använd "jag", "min", "mitt", inte "han", "hennes" eller personens namn`
               }
             ],
             temperature: 0.6,
@@ -268,14 +268,14 @@ Deno.serve(async (req) => {
             messages: [
               {
                 role: 'system',
-                content: 'Du är en expert CV-rådgivare. Analysera arbetsroller och ge konkreta förbättringsförslag med kvantifiering. Inkludera ALLTID originaltext från CV:t i currentText fältet.'
+                content: 'Du är en expert CV-rådgivare. Analysera arbetsroller och ge konkreta förbättringsförslag med kvantifiering. Det är KRITISKT att currentText är EXAKT kopierad från originalCV:t.'
               },
               {
                 role: 'user',
-                content: `Här är det fullständiga CV:t:\n\n${cvText}\n\n---\n\nFokusera på dessa roller:\n${JSON.stringify(batch)}\n\nAnalysera dessa roller och ge förbättringsförslag med siffror och KPI:er.\n\nReturnera JSON med format: { "roleBasedImprovements": [{ "roleTitle": string, "company": string, "period": string, "currentText": string (EXAKT originaltext från CV:t för denna roll), "suggestedText": string (förbättrad version), "improvements": { "hasQuantification": boolean, "keywords": string[], "grammarIssues": string[], "atsOptimization": boolean }, "atsImpact": number (1-20) }] }\n\nVIKTIGT: currentText ska vara EXAKT den text som finns i det ursprungliga CV:t för varje roll, inklusive eventuella brister. Hitta texten i det fullständiga CV:t ovan. atsImpact ska vara 1-20, improvements.keywords och improvements.grammarIssues ska ALLTID vara arrays.`
+                content: `Här är det fullständiga ORIGINAL-CV:t (med alla brister och fel):\n\n${cvText}\n\n---\n\nFokusera på dessa roller:\n${JSON.stringify(batch)}\n\nAnalysera dessa roller och ge förbättringsförslag med siffror och KPI:er.\n\nReturnera JSON med format: { "roleBasedImprovements": [{ "roleTitle": string, "company": string, "period": string, "currentText": string (EXAKT kopierad från original-CV:t, INTE förbättrad), "suggestedText": string (förbättrad version), "improvements": { "hasQuantification": boolean, "keywords": string[], "grammarIssues": string[], "atsOptimization": boolean }, "atsImpact": number (1-20) }] }\n\nKRITISK REGEL: currentText ska vara en EXAKT KOPIA av texten från original-CV:t ovan. Leta upp rollen i texten och kopiera beskrivningen EXAKT som den är, inklusive alla fel, brister, och brist på kvantifiering. GÖR INGA förbättringar i currentText - spara dem till suggestedText.\n\natsImpact ska vara 1-20, improvements.keywords och improvements.grammarIssues ska ALLTID vara arrays.`
               }
             ],
-            temperature: 0.6,
+            temperature: 0.1,
             max_tokens: 2500,
             response_format: { type: 'json_object' }
           })
