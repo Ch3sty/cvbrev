@@ -26,27 +26,30 @@ export async function extractTextFromPdf(pdfData: Uint8Array): Promise<string> {
       return "PDF-texten kunde inte extraheras - inget serverside PDF-bibliotek tillgängligt.";
     }
 
-    // Använd pdf-parse för att extrahera text med förbättrade inställningar
+    // Använd pdf-parse för att extrahera text
     const result = await pdfParse(Buffer.from(pdfData), {
-      // Försök extrahera text från alla tillgängliga källor
-      max: 0, // Process all pages (0 = no limit)
-      version: 'v2.0.550', // Use specific version if needed
+      max: 0, // Process all pages
     });
 
     console.log(`📄 PDF text extraherad, längd: ${result.text.length}, sidor: ${result.numpages}`);
 
-    // Om vi fick för lite text (< 50 tecken) - PDF:en är troligen bildbaserad
+    // Om vi fick för lite text (< 50 tecken) - PDF:en är bildbaserad
     if (!result.text || result.text.trim().length < 50) {
-      console.warn(`⚠️ PDF contains very little extractable text (${result.text?.length || 0} chars). Likely image-based PDF - trying OCR fallback...`);
+      console.warn(`⚠️ PDF contains very little extractable text (${result.text?.length || 0} chars).`);
 
-      // Try OCR with OpenAI Vision API
-      const ocrText = await extractTextWithOCR(pdfData);
-      if (ocrText && ocrText.length > 50) {
-        console.log(`✅ OCR extraction successful: ${ocrText.length} chars`);
-        return cleanExtractedText(ocrText);
-      }
+      return `PDF-filen innehåller endast ${result.text?.length || 0} tecken text.
 
-      return "PDF-filen verkar sakna läsbar text. Detta kan bero på att PDF:en innehåller text som bilder. Vänligen exportera PDF:en på nytt från ursprungskällan (t.ex. Word) eller använd en textbaserad PDF.";
+Detta beror troligen på att:
+1. PDF:en innehåller text som bilder (inte selekterbar text)
+2. PDF:en exporterades som "Utskrift" istället för "Redigering"
+
+Lösning:
+1. Öppna ditt CV i Word/Pages/Google Docs
+2. Välj: Arkiv → Exportera → PDF
+3. Kontrollera att texten ÄR selekterbar (testa att markera text med musen)
+4. Ladda upp den nya PDF:en
+
+Alternativt: Ladda upp som .DOCX istället.`;
     }
 
     // Använd befintlig rengöringsfunktion
@@ -56,73 +59,6 @@ export async function extractTextFromPdf(pdfData: Uint8Array): Promise<string> {
   } catch (error: any) {
     console.error('⚠️ PDF extraction failed:', error);
     return 'Misslyckades med att läsa PDF. Kontrollera att filen inte är lösenordsskyddad eller skadad.';
-  }
-}
-
-/**
- * Enhanced PDF text extraction using pdf2json
- * Alternative parser that works better with some PDF formats
- */
-async function extractTextWithOCR(pdfData: Uint8Array): Promise<string> {
-  try {
-    console.log('🔄 Attempting enhanced PDF text extraction with pdf2json...');
-
-    const PDFParser = (await import('pdf2json')).default;
-
-    return new Promise((resolve, reject) => {
-      const pdfParser = new PDFParser(null, 1);
-
-      pdfParser.on('pdfParser_dataError', (errData: any) => {
-        console.error('❌ pdf2json parsing error:', errData.parserError);
-        resolve('');
-      });
-
-      pdfParser.on('pdfParser_dataReady', (pdfData: any) => {
-        try {
-          // Extract text from all pages
-          let fullText = '';
-
-          if (pdfData.Pages) {
-            for (const page of pdfData.Pages) {
-              if (page.Texts) {
-                for (const text of page.Texts) {
-                  if (text.R) {
-                    for (const run of text.R) {
-                      if (run.T) {
-                        // Decode URI-encoded text
-                        fullText += decodeURIComponent(run.T) + ' ';
-                      }
-                    }
-                  }
-                }
-                fullText += '\n\n';
-              }
-            }
-          }
-
-          const trimmedText = fullText.trim();
-          console.log(`📄 pdf2json extracted ${trimmedText.length} chars`);
-
-          if (trimmedText.length > 50) {
-            console.log('✅ pdf2json extraction successful');
-            resolve(trimmedText);
-          } else {
-            console.warn('⚠️ pdf2json still yielded insufficient text');
-            resolve('');
-          }
-        } catch (error) {
-          console.error('❌ Error processing pdf2json data:', error);
-          resolve('');
-        }
-      });
-
-      // Parse the PDF data
-      pdfParser.parseBuffer(Buffer.from(pdfData));
-    });
-
-  } catch (error) {
-    console.error('❌ pdf2json import/setup error:', error);
-    return '';
   }
 }
 
