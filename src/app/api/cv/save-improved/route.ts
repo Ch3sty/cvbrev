@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
 
     // Parse request body
     const body = await request.json();
-    const { fileName, improvedText, originalCvId } = body;
+    const { fileName, improvedText, structuredData, originalCvId } = body;
 
     if (!fileName || !improvedText) {
       return NextResponse.json(
@@ -110,15 +110,23 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Save improved CV
+    // Save improved CV with structured data
+    const insertData: any = {
+      user_id: user.id,
+      file_name: fileName,
+      original_file_path: originalFilePath,
+      cv_text: improvedText
+    };
+
+    // Add structured data if provided
+    if (structuredData) {
+      insertData.structured_data = structuredData;
+      console.log('💾 Saving CV with structured data');
+    }
+
     const { data: newCv, error: insertError } = await supabase
       .from('cv_texts')
-      .insert({
-        user_id: user.id,
-        file_name: fileName,
-        original_file_path: originalFilePath,
-        cv_text: improvedText
-      })
+      .insert(insertData)
       .select()
       .single();
 

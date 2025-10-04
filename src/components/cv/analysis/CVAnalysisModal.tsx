@@ -340,35 +340,33 @@ export default function CVAnalysisModal({
 
     // NEW: If we have structured CV, work with that instead of broken text
     if (structuredCV) {
-      const updatedStructured = JSON.parse(JSON.stringify(structuredCV)); // Deep clone
+      const improvedStructured = JSON.parse(JSON.stringify(structuredCV)); // Deep clone for improved version
 
-      // Apply profile summary
+      // Apply profile summary ONLY if selected
       if (selectedProfile && analysisResult.profileSummary) {
-        updatedStructured.summary = editedProfileText || analysisResult.profileSummary.improvedText;
+        improvedStructured.summary = editedProfileText || analysisResult.profileSummary.improvedText;
       }
 
       // Apply role improvements - ENDAST för selected roles
-      if (analysisResult.roleBasedImprovements && updatedStructured.experience) {
+      if (analysisResult.roleBasedImprovements && improvedStructured.experience) {
         Array.from(selectedRoles).forEach(roleIndex => {
           const improvement = analysisResult.roleBasedImprovements[roleIndex];
           const editedText = editedRoleTexts.get(roleIndex);
 
           // Use direct index matching (roleIndex = experience index)
-          if (roleIndex < updatedStructured.experience.length) {
+          if (improvement && roleIndex < improvedStructured.experience.length) {
             const newDescription = editedText || improvement.suggestedText;
             // Split improved description into bullet points
-            updatedStructured.experience[roleIndex].description =
+            improvedStructured.experience[roleIndex].description =
               newDescription.split(/\n+/).filter((line: string) => line.trim().length > 0);
           }
         });
       }
 
-      // Update structured CV state
-      setStructuredCV(updatedStructured);
-
-      // Re-generate preview text from updated structured CV
-      generatePreviewFromStructured(updatedStructured);
-      console.log('✅ Applied improvements to structured CV and regenerated preview');
+      // DO NOT update structuredCV state - keep original intact!
+      // Only generate preview from improved version
+      generatePreviewFromStructured(improvedStructured);
+      console.log('✅ Applied improvements to improved CV (structuredCV remains original)');
     } else {
       // FALLBACK: Old method with text improvements
       const improvements: any[] = [];
@@ -404,14 +402,40 @@ export default function CVAnalysisModal({
     setSavedFileName(fileName);
 
     try {
+      // Generate IMPROVED structured CV by applying selected changes
+      let improvedStructuredCV = null;
+      if (structuredCV && analysisResult) {
+        improvedStructuredCV = JSON.parse(JSON.stringify(structuredCV));
+
+        // Apply profile summary if selected
+        if (selectedProfile && analysisResult.profileSummary) {
+          improvedStructuredCV.summary = editedProfileText || analysisResult.profileSummary.improvedText;
+        }
+
+        // Apply role improvements - ENDAST för selected roles
+        if (analysisResult.roleBasedImprovements && improvedStructuredCV.experience) {
+          Array.from(selectedRoles).forEach(roleIndex => {
+            const improvement = analysisResult.roleBasedImprovements[roleIndex];
+            const editedText = editedRoleTexts.get(roleIndex);
+
+            if (improvement && roleIndex < improvedStructuredCV.experience.length) {
+              const newDescription = editedText || improvement.suggestedText;
+              improvedStructuredCV.experience[roleIndex].description =
+                newDescription.split(/\n+/).filter((line: string) => line.trim().length > 0);
+            }
+          });
+        }
+      }
+
       if (saveToLibrary) {
-        // Save to database
+        // Save to database WITH structured data
         const response = await fetch('/api/cv/save-improved', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             fileName,
             improvedText: improvedCV,
+            structuredData: improvedStructuredCV, // Send improved structured data
             originalCvId: cvId
           })
         });
@@ -428,17 +452,21 @@ export default function CVAnalysisModal({
       // Generate PDF with template and download
       const pdfFileName = `${fileName.replace(/\.[^/.]+$/, '')}.pdf`;
 
-      // Use structured CV data if available, otherwise fallback to text
+      // Use IMPROVED structured CV data if available, otherwise fallback to text
       const requestBody: any = {
         template: templateId,
         format: 'pdf',
         templateOptions: {}
       };
 
-      if (structuredCV) {
-        // NEW: Send structured data directly (best quality)
+      if (improvedStructuredCV) {
+        // Send IMPROVED structured data (with selected changes applied)
+        requestBody.structuredData = improvedStructuredCV;
+        console.log('📄 Generating PDF with improved structured data');
+      } else if (structuredCV) {
+        // Fallback to original structured data
         requestBody.structuredData = structuredCV;
-        console.log('📄 Generating PDF with structured data');
+        console.log('📄 Generating PDF with original structured data');
       } else {
         // FALLBACK: Fix missing spaces in text
         const fixedCVText = improvedCV
