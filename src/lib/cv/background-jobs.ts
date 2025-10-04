@@ -68,8 +68,7 @@ export async function createBackgroundJob(
             updated_at: new Date().toISOString(),
           })
           .eq('id', job.id)
-          .then(() => console.log(`Job ${job.id} marked as failed`))
-          .catch(err => console.error(`Failed to update job ${job.id}:`, err));
+          .then(() => console.log(`Job ${job.id} marked as failed`));
       } else {
         console.log(`✅ Edge Function triggered successfully for job ${job.id}`);
       }
@@ -85,8 +84,7 @@ export async function createBackgroundJob(
           updated_at: new Date().toISOString(),
         })
         .eq('id', job.id)
-        .then(() => console.log(`Job ${job.id} marked as failed (critical error)`))
-        .catch(err => console.error(`Failed to update job ${job.id}:`, err));
+        .then(() => console.log(`Job ${job.id} marked as failed (critical error)`));
     });
 
     // Returnera direkt (väntar INTE på Edge Function)
