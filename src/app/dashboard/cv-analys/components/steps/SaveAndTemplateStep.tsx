@@ -59,22 +59,15 @@ export default function SaveAndTemplateStep({
           <Download className="w-8 h-8 text-white" />
         </div>
         <h3 className="text-2xl font-bold text-gray-900 mb-2">
-          Välj CV-mall
+          Spara ditt CV
         </h3>
         <p className="text-gray-600">
-          Välj en professionell mall för ditt förbättrade CV
+          Välj mall och spara ditt förbättrade CV
         </p>
       </div>
 
-      {/* Template Selection - MOVED TO TOP */}
-      <TemplateSelector
-        selectedTemplateId={selectedTemplate}
-        onSelectTemplate={setSelectedTemplate}
-        subscriptionTier={subscriptionTier}
-      />
-
-      {/* Save to Library Section - IMPROVED */}
-      <Card className="p-6 border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-cyan-50">
+      {/* Save to Library Section - MOVED TO TOP */}
+      <Card className="p-6 bg-white/95 backdrop-blur-xl shadow-lg border border-gray-200/80">
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -90,7 +83,7 @@ export default function SaveAndTemplateStep({
             </div>
 
             <div className="flex items-center gap-3">
-              {/* Quota Badge - More Prominent */}
+              {/* Quota Badge */}
               <div className={`px-4 py-2 rounded-lg font-semibold ${
                 canSave
                   ? 'bg-green-100 text-green-700 border border-green-300'
@@ -110,7 +103,7 @@ export default function SaveAndTemplateStep({
           </div>
 
           {saveToLibrary && canSave && (
-            <div className="space-y-3 border-t border-blue-200 pt-4">
+            <div className="space-y-3 border-t border-gray-200 pt-4">
               {/* Name Suggestions */}
               <div>
                 <label className="text-sm font-medium text-gray-700 mb-2 block">
@@ -123,7 +116,7 @@ export default function SaveAndTemplateStep({
                       onClick={() => setCustomName(suggestion)}
                       className={`text-left p-3 rounded-lg border-2 transition-all ${
                         customName === suggestion
-                          ? 'border-blue-600 bg-blue-100'
+                          ? 'border-blue-600 bg-blue-50'
                           : 'border-gray-200 hover:border-blue-300 bg-white'
                       }`}
                     >
@@ -152,7 +145,7 @@ export default function SaveAndTemplateStep({
           )}
 
           {!canSave && (
-            <div className="border-t border-blue-200 pt-4">
+            <div className="border-t border-gray-200 pt-4">
               <CVQuotaManager
                 key={quotaRefreshKey}
                 cvCount={cvCount}
@@ -164,6 +157,13 @@ export default function SaveAndTemplateStep({
           )}
         </div>
       </Card>
+
+      {/* Template Selector */}
+      <TemplateSelector
+        selectedTemplateId={selectedTemplate}
+        onSelectTemplate={setSelectedTemplate}
+        subscriptionTier={subscriptionTier as 'free' | 'premium'}
+      />
 
       {/* Action Buttons */}
       <div className="flex gap-4">

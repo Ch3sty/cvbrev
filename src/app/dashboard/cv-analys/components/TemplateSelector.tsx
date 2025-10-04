@@ -49,7 +49,7 @@ export default function TemplateSelector({
       </div>
 
       {/* Available Templates */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {availableTemplates.map((template) => {
           const isSelected = selectedTemplateId === template.id;
 
@@ -69,7 +69,7 @@ export default function TemplateSelector({
                   isSelected ? 'border-2 border-pink-600' : 'border-gray-200'
                 }`}>
                   {/* Template Preview */}
-                  <div className="relative aspect-[3/4] bg-gray-100">
+                  <div className="relative aspect-[2/3] bg-gray-100">
                     {template.imagePath ? (
                       <Image
                         src={template.imagePath}
@@ -102,11 +102,11 @@ export default function TemplateSelector({
                   </div>
 
                   {/* Template Info */}
-                  <div className="p-4">
-                    <h5 className="font-semibold text-gray-900 mb-1">
+                  <div className="p-3">
+                    <h5 className="font-semibold text-gray-900 text-sm mb-0.5">
                       {template.name}
                     </h5>
-                    <p className="text-sm text-gray-600 line-clamp-2">
+                    <p className="text-xs text-gray-600 line-clamp-2">
                       {template.description}
                     </p>
                   </div>
@@ -125,8 +125,8 @@ export default function TemplateSelector({
             <h5 className="font-semibold text-gray-700">Premium-mallar</h5>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {lockedTemplates.slice(0, 3).map((template) => (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            {lockedTemplates.slice(0, 4).map((template) => (
               <motion.div
                 key={template.id}
                 whileHover={{ scale: 1.02 }}
@@ -138,7 +138,7 @@ export default function TemplateSelector({
                 >
                   <Card className="overflow-hidden border-gray-200 opacity-75 hover:opacity-100 transition-opacity">
                     {/* Template Preview with overlay */}
-                    <div className="relative aspect-[3/4] bg-gray-100">
+                    <div className="relative aspect-[2/3] bg-gray-100">
                       {template.imagePath ? (
                         <Image
                           src={template.imagePath}
@@ -166,11 +166,11 @@ export default function TemplateSelector({
                     </div>
 
                     {/* Template Info */}
-                    <div className="p-4">
-                      <h5 className="font-semibold text-gray-900 mb-1">
+                    <div className="p-3">
+                      <h5 className="font-semibold text-gray-900 text-sm mb-0.5">
                         {template.name}
                       </h5>
-                      <p className="text-sm text-gray-600 line-clamp-2">
+                      <p className="text-xs text-gray-600 line-clamp-2">
                         {template.description}
                       </p>
                     </div>
