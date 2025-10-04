@@ -256,12 +256,25 @@ export default function AnalysisOverviewStep({
                 </h5>
               </div>
               <div className="space-y-3 text-sm">
+                {/* Pedagogisk info-box om beräkningen */}
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-4 mb-4">
+                  <div className="flex items-start gap-2">
+                    <Info className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <div className="text-xs text-blue-900 space-y-1">
+                      <p className="font-semibold">Så beräknar vi din potential:</p>
+                      <p>• <span className="font-medium">Rollförbättringar</span> baseras på dina 5 mest impactfulla roller (genomsnittlig kvalitet × 4)</p>
+                      <p>• Detta ger <span className="font-medium">rättvis poängsättning oavsett antal roller</span> – 2 starka roller kan ge lika mycket som 10 svaga</p>
+                      <p>• <span className="font-medium">Fokus på kvalitet över kvantitet</span> – vi belönar välskrivna, kvantifierade rollbeskrivningar</p>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">Personbeskrivning:</span>
                   <span className="font-semibold text-gray-900">+{Math.round(totalImpactBreakdown.profile)} poäng</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Rollförbättringar:</span>
+                  <span className="text-gray-600">Rollförbättringar (topp 5):</span>
                   <span className="font-semibold text-gray-900">+{Math.round(totalImpactBreakdown.roles)} poäng</span>
                 </div>
                 <div className="flex justify-between items-center">
@@ -276,9 +289,9 @@ export default function AnalysisOverviewStep({
                   <span className="font-semibold text-gray-900">Total möjlig ökning:</span>
                   <span className="font-bold text-green-600 text-lg">+{totalImpactBreakdown.total} poäng</span>
                 </div>
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-3">
-                  <p className="text-xs text-blue-800">
-                    <span className="font-semibold">Tips:</span> Faktiskt resultat beror på vilka förbättringar du väljer att implementera i nästa steg.
+                <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-3">
+                  <p className="text-xs text-amber-900">
+                    <span className="font-semibold">💡 Tips:</span> Faktiskt resultat beror på vilka förbättringar du väljer i nästa steg.
                   </p>
                 </div>
               </div>

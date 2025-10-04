@@ -230,11 +230,20 @@ export default function CVAnalysisWizard({
       impact += analysisResult.profileSummary.atsImpact;
     }
 
-    // Valda roller
-    if (analysisResult.roleBasedImprovements) {
-      Array.from(selectedRoles).forEach(index => {
-        impact += analysisResult.roleBasedImprovements[index]?.atsImpact || 0;
-      });
+    // Valda roller - använd samma viktade algoritm
+    if (analysisResult.roleBasedImprovements && selectedRoles.size > 0) {
+      // Hämta valda rollers atsImpact
+      const selectedRoleImpacts = Array.from(selectedRoles).map(index =>
+        analysisResult.roleBasedImprovements[index]?.atsImpact || 0
+      );
+
+      // Sortera och ta topp-5
+      const sortedImpacts = selectedRoleImpacts.sort((a, b) => b - a);
+      const topImpacts = sortedImpacts.slice(0, Math.min(5, sortedImpacts.length));
+
+      // Beräkna viktad poäng
+      const avgImpact = topImpacts.reduce((sum, val) => sum + val, 0) / topImpacts.length;
+      impact += Math.round(avgImpact * 4);
     }
 
     // Valda skills
@@ -399,12 +408,22 @@ export default function CVAnalysisWizard({
             totalImpact += breakdown.profile;
           }
 
-          // Roller: använd faktisk atsImpact (1-5 per roll från AI)
-          if (analysisResult.roleBasedImprovements) {
-            breakdown.roles = analysisResult.roleBasedImprovements.reduce(
-              (sum: number, role: any) => sum + (role.atsImpact || 0),
-              0
-            );
+          // Roller: Viktad beräkning baserad på topp-5 roller för att undvika att
+          // personer med många roller får oproportionerligt höga poäng
+          if (analysisResult.roleBasedImprovements && analysisResult.roleBasedImprovements.length > 0) {
+            // Sortera roller efter atsImpact (högst först)
+            const sortedRoles = [...analysisResult.roleBasedImprovements]
+              .sort((a: any, b: any) => (b.atsImpact || 0) - (a.atsImpact || 0));
+
+            // Ta de 5 mest impactfulla rollerna (eller färre om det finns mindre än 5)
+            const topRoles = sortedRoles.slice(0, Math.min(5, sortedRoles.length));
+
+            // Beräkna genomsnittlig impact
+            const avgImpact = topRoles.reduce((sum: number, role: any) => sum + (role.atsImpact || 0), 0) / topRoles.length;
+
+            // Viktad poäng: genomsnitt * 4 ger max ~20 poäng från roller
+            // Detta ger rättvis poängsättning oavsett antal roller (2 eller 20)
+            breakdown.roles = Math.round(avgImpact * 4);
             totalImpact += breakdown.roles;
           }
 
