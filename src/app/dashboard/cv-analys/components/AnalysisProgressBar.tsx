@@ -14,12 +14,14 @@ interface AnalysisProgressBarProps {
   steps: Step[];
   currentStep: number;
   completedSteps: number[];
+  onStepClick?: (stepIndex: number) => void;
 }
 
 export default function AnalysisProgressBar({
   steps,
   currentStep,
-  completedSteps
+  completedSteps,
+  onStepClick
 }: AnalysisProgressBarProps) {
   const isStepCompleted = (stepIndex: number) => completedSteps.includes(stepIndex);
   const isStepCurrent = (stepIndex: number) => stepIndex === currentStep;
@@ -47,7 +49,10 @@ export default function AnalysisProgressBar({
                       : 'rgb(226, 232, 240)' // slate-200
                   }}
                   transition={{ duration: 0.3 }}
-                  className="w-10 h-10 rounded-full flex items-center justify-center relative z-10"
+                  className={`w-10 h-10 rounded-full flex items-center justify-center relative z-10 ${
+                    onStepClick && completed ? 'cursor-pointer hover:opacity-80' : ''
+                  }`}
+                  onClick={() => onStepClick && completed && onStepClick(index)}
                 >
                   {completed ? (
                     <Check className="w-5 h-5 text-white" />
