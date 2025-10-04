@@ -240,17 +240,29 @@ export default function CVAnalysisWizard({
             onToggleProfile={() => setSelectedProfile(!selectedProfile)}
             onToggleRole={(index) => {
               const newSet = new Set(selectedRoles);
-              newSet.has(index) ? newSet.delete(index) : newSet.add(index);
+              if (newSet.has(index)) {
+                newSet.delete(index);
+              } else {
+                newSet.add(index);
+              }
               setSelectedRoles(newSet);
             }}
             onToggleSkill={(index) => {
               const newSet = new Set(selectedSkills);
-              newSet.has(index) ? newSet.delete(index) : newSet.add(index);
+              if (newSet.has(index)) {
+                newSet.delete(index);
+              } else {
+                newSet.add(index);
+              }
               setSelectedSkills(newSet);
             }}
             onToggleGeneral={(index) => {
               const newSet = new Set(selectedGeneral);
-              newSet.has(index) ? newSet.delete(index) : newSet.add(index);
+              if (newSet.has(index)) {
+                newSet.delete(index);
+              } else {
+                newSet.add(index);
+              }
               setSelectedGeneral(newSet);
             }}
             onSelectAllRoles={() => {
