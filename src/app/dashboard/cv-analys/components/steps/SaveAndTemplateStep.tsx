@@ -31,7 +31,7 @@ export default function SaveAndTemplateStep({
   const [showTips, setShowTips] = useState(false);
 
   const nameSuggestions = generateCVNameSuggestions();
-  const selectedTemplateData = selectedTemplate ? getTemplateById(selectedTemplate) : null;
+  const selectedTemplateData = selectedTemplate ? (getTemplateById(selectedTemplate) || null) : null;
 
   // Mock user profile data - replace with actual data from context/hook
   const userProfile = {
