@@ -13,6 +13,7 @@ import PreviewComparisonStep from './steps/PreviewComparisonStep';
 import SaveAndTemplateStep from './steps/SaveAndTemplateStep';
 import CompletionStep from './steps/CompletionStep';
 import { applyImprovements } from '@/lib/cv/cvDiffUtils';
+import type { CVMetadata } from '@/lib/cv/cv-metadata';
 
 interface CVAnalysisModalProps {
   isOpen: boolean;
@@ -403,9 +404,9 @@ export default function CVAnalysisModal({
 
     try {
       // Generate IMPROVED structured CV by applying selected changes
-      let improvedStructuredCV = null;
+      let improvedStructuredCV: CVMetadata | null = null;
       if (structuredCV && analysisResult) {
-        improvedStructuredCV = JSON.parse(JSON.stringify(structuredCV));
+        improvedStructuredCV = JSON.parse(JSON.stringify(structuredCV)) as CVMetadata;
 
         // Apply profile summary if selected
         if (selectedProfile && analysisResult.profileSummary) {
