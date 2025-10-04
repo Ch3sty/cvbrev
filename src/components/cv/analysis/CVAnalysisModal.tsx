@@ -132,6 +132,11 @@ export default function CVAnalysisModal({
         setStructuredCV(result.structuredCV);
         console.log('✅ Structured CV loaded:', result.structuredCV);
       }
+      // Use AI-generated formatted preview if available
+      if (result.formattedPreview) {
+        setImprovedCV(result.formattedPreview);
+        console.log('✅ Formatted preview loaded from AI');
+      }
       setProgress(100);
       setEstimatedTimeRemaining(0);
 
@@ -286,10 +291,9 @@ export default function CVAnalysisModal({
       // Update structured CV state
       setStructuredCV(updatedStructured);
 
-      // Generate readable text from structured data for preview
-      const readableText = formatStructuredCVAsText(updatedStructured);
-      setImprovedCV(readableText);
-      console.log('✅ Applied improvements to structured CV and generated preview');
+      // Note: Preview text already loaded from AI (formattedPreview)
+      // We just update the structured data; preview stays from AI generation
+      console.log('✅ Applied improvements to structured CV');
     } else {
       // FALLBACK: Old method with text improvements
       const improvements: any[] = [];

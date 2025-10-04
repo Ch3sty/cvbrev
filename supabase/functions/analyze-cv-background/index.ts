@@ -394,7 +394,37 @@ Deno.serve(async (req) => {
     // NEW: Add structured CV data to result
     analysisResult.structuredCV = structuredCV;
 
-    console.log(`[Job ${jobId}] Step 6/6: Saving results (with structured CV data)...`);
+    // NEW: Generate formatted preview text from structured CV
+    console.log(`[Job ${jobId}] Generating formatted preview text...`);
+    const previewResponse = await fetchWithRetry('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${openaiApiKey}`
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o-mini',
+        messages: [
+          {
+            role: 'system',
+            content: 'Du formaterar CV-data till läsbar text med tydliga sektioner och styckeindelningar.'
+          },
+          {
+            role: 'user',
+            content: `Formatera detta CV till läsbar text med tydliga sektioner:\n\n${JSON.stringify(structuredCV)}\n\nAnvänd följande format:\n- Personuppgifter på separata rader\n- Tom rad mellan varje sektion\n- Sektionsrubriker i VERSALER\n- Tydlig struktur för erfarenheter och utbildning\n\nReturnera ENDAST den formaterade texten, ingen JSON.`
+          }
+        ],
+        temperature: 0.3,
+        max_tokens: 2000
+      })
+    });
+
+    const previewData = await previewResponse.json();
+    const formattedPreview = previewData.choices[0].message.content;
+    analysisResult.formattedPreview = formattedPreview;
+    console.log(`[Job ${jobId}] Preview text generated (${formattedPreview.length} chars)`);
+
+    console.log(`[Job ${jobId}] Step 6/6: Saving results (with structured CV data + preview)...`);
 
     const { error: resultError } = await supabase
       .from('cv_analysis_jobs')

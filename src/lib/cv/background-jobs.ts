@@ -41,25 +41,54 @@ export async function createBackgroundJob(
       return { jobId: '', error: insertError?.message || 'Failed to create job' };
     }
 
-    // Trigga Edge Function för att starta analysen (ASYNKRONT - fire and forget)
-    // Vi väntar INTE på resultatet - Edge Functionen uppdaterar job status själv
-    supabase.functions.invoke(
-      'analyze-cv-background',
-      {
-        body: {
-          jobId: job.id,
-          cvText,
-          userId,
-        },
-      }
-    ).catch((error) => {
-      // Logga men returnera inte fel - jobbet är redan skapat och Edge Functionen
-      // kommer att uppdatera status till 'failed' i databasen om något går fel
-      console.error(`Edge function invocation error (job ${job.id}):`, error);
-    });
+    // Trigga Edge Function för att starta analysen
+    console.log(`Triggering Edge Function for job ${job.id}...`);
 
-    console.log(`Background job created successfully: ${job.id} - Edge Function triggered asynchronously`);
-    return { jobId: job.id };
+    try {
+      const { data, error: invokeError } = await supabase.functions.invoke(
+        'analyze-cv-background',
+        {
+          body: {
+            jobId: job.id,
+            cvText,
+            userId,
+          },
+        }
+      );
+
+      if (invokeError) {
+        console.error(`Edge Function invoke error (job ${job.id}):`, invokeError);
+
+        // Markera jobbet som failed
+        await supabase
+          .from('cv_analysis_jobs')
+          .update({
+            status: 'failed',
+            error: `Edge Function invoke failed: ${invokeError.message}`,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', job.id);
+
+        return { jobId: job.id, error: `Edge Function failed: ${invokeError.message}` };
+      }
+
+      console.log(`Edge Function triggered successfully for job ${job.id}`);
+      return { jobId: job.id };
+    } catch (error) {
+      console.error(`Critical error invoking Edge Function (job ${job.id}):`, error);
+
+      // Markera jobbet som failed
+      await supabase
+        .from('cv_analysis_jobs')
+        .update({
+          status: 'failed',
+          error: `Critical error: ${error instanceof Error ? error.message : 'Unknown'}`,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', job.id);
+
+      return { jobId: job.id, error: error instanceof Error ? error.message : 'Unknown error' };
+    }
   } catch (error) {
     console.error('Error creating background job:', error);
     return { jobId: '', error: error instanceof Error ? error.message : 'Unknown error' };
