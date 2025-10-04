@@ -33,6 +33,7 @@
     "critters": "^0.0.23",
     "date-fns": "^4.1.0",
     "docx": "^9.5.1",
+    "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.23.21",
     "google-auth-library": "^10.3.0",
     "googleapis": "^159.0.0",

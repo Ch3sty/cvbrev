@@ -6,6 +6,11 @@ export interface SimpleTemplate {
   imagePath: string;
   category: 'modern' | 'traditional' | 'creative';
   tier: 'free' | 'premium';
+  features?: {
+    supportsPhoto?: boolean;
+    supportsLinkedIn?: boolean;
+    columns?: 1 | 2;
+  };
 }
 
 export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
@@ -55,7 +60,12 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     description: 'Skandinavisk elegans med naturinspirerade accenter',
     imagePath: '/mallar/nordic-professional.svg',
     category: 'modern',
-    tier: 'premium'
+    tier: 'premium',
+    features: {
+      supportsPhoto: true,
+      supportsLinkedIn: true,
+      columns: 2
+    }
   },
   {
     id: 'platinum-executive',
@@ -63,7 +73,12 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     description: 'Otroligt polerad design med LinkedIn-integration och flexibla layoutalternativ',
     imagePath: '/mallar/platinum-executive.svg',
     category: 'traditional',
-    tier: 'premium'
+    tier: 'premium',
+    features: {
+      supportsPhoto: true,
+      supportsLinkedIn: true,
+      columns: 2
+    }
   },
   {
     id: 'creative-minimal',
@@ -71,7 +86,12 @@ export const SIMPLE_TEMPLATES: SimpleTemplate[] = [
     description: 'Modern asymmetrisk design med horisontell header och clean estetik',
     imagePath: '/mallar/creative-minimal.svg',
     category: 'creative',
-    tier: 'premium'
+    tier: 'premium',
+    features: {
+      supportsPhoto: true,
+      supportsLinkedIn: true,
+      columns: 2
+    }
   }
 ];
 
