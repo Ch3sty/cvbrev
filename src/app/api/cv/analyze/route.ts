@@ -182,7 +182,7 @@ async function getCvText(supabase: SupabaseClient<Database>, userId: string, cvI
     // ... (funktionens kod oförändrad) ...
     const { data: cvData, error: dbError } = await supabase
         .from('cv_texts')
-        .select('cv_text')
+        .select('cv_text, text_extraction_failed')
         .eq('id', cvId)
         .eq('user_id', userId)
         .single();
@@ -194,6 +194,14 @@ async function getCvText(supabase: SupabaseClient<Database>, userId: string, cvI
         (error as any).statusCode = isNotFoundError ? 404 : 500;
         throw error;
     }
+
+    // Check if text extraction failed
+    if ((cvData as any).text_extraction_failed === true) {
+        const error = new Error('CV-texten kunde inte extraheras från din PDF. Vänligen ladda upp filen igen eller kontrollera att PDF:en innehåller textbaserat innehåll (inte bara bilder).');
+        (error as any).statusCode = 400;
+        throw error;
+    }
+
     return (cvData as any).cv_text;
 }
 

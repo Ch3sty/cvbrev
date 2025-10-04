@@ -168,7 +168,8 @@ export async function POST(request: Request) {
         user_id: user.id,
         file_name: title || originalFileName,
         original_file_path: storageFilePath,
-        cv_text: textToSave // Använd den (potentiellt) sanerade texten
+        cv_text: textToSave, // Använd den (potentiellt) sanerade texten
+        text_extraction_failed: textExtractionFailed // Flagga om parsning misslyckades
       })
       .select()
       .single();
