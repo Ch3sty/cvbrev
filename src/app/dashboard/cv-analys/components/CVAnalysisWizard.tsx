@@ -91,62 +91,6 @@ export default function CVAnalysisWizard({
   }, [cvs, selectedCV]);
 
   // Start analysis when reaching step 1
-  useEffect(() => {
-    if (currentStep === 1 && !isAnalyzing && !analysisResult && selectedCV) {
-      startAnalysis();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentStep]);
-
-  const startAnalysis = async () => {
-    setIsAnalyzing(true);
-    setProgress(0);
-    setEstimatedTimeRemaining(50);
-
-    const startTime = Date.now();
-    const ESTIMATED_DURATION = 50000;
-
-    const progressInterval = setInterval(() => {
-      const elapsed = Date.now() - startTime;
-      const progressPercent = Math.min(95, Math.floor((elapsed / ESTIMATED_DURATION) * 100));
-      const timeRemaining = Math.max(0, Math.ceil((ESTIMATED_DURATION - elapsed) / 1000));
-
-      setProgress(progressPercent);
-      setEstimatedTimeRemaining(timeRemaining);
-    }, 1000);
-
-    try {
-      if (!selectedCV) {
-        throw new Error('Inget CV valt');
-      }
-      const jobId = await onAnalysisStart(selectedCV);
-      const result = await onPollJob(jobId);
-
-      clearInterval(progressInterval);
-
-      setAnalysisResult(result);
-      if (result.structuredCV) {
-        setStructuredCV(result.structuredCV);
-      }
-      if (result.formattedPreview) {
-        setOriginalCV(result.formattedPreview);
-        setImprovedCV(result.formattedPreview);
-      }
-      setProgress(100);
-      setEstimatedTimeRemaining(0);
-
-      setTimeout(() => {
-        handleNext();
-      }, 1500);
-    } catch (error) {
-      console.error('Analysis error:', error);
-      clearInterval(progressInterval);
-      alert('Ett fel uppstod vid analysen. Försök igen.');
-    } finally {
-      setIsAnalyzing(false);
-    }
-  };
-
   const generatePreviewFromStructured = (structured: any) => {
     if (!structured) return '';
 
@@ -198,52 +142,127 @@ export default function CVAnalysisWizard({
 
     // Skills
     if (structured.skills && structured.skills.length > 0) {
-      sections.push('FÄRDIGHETER\n' + structured.skills.join(', '));
+      const skillTexts = structured.skills.map((skill: any) => {
+        if (typeof skill === 'string') return skill;
+        if (skill && typeof skill === 'object' && skill.name) return skill.name;
+        return '';
+      }).filter((s: string) => s.trim());
+
+      if (skillTexts.length > 0) {
+        sections.push('FÄRDIGHETER\n' + skillTexts.join(', '));
+      }
     }
 
     return sections.join('\n\n');
   };
 
-  const generateImprovedCV = () => {
-    if (!analysisResult) return;
-
-    if (structuredCV) {
-      const improvedStructured = JSON.parse(JSON.stringify(structuredCV));
-
-      // Apply profile summary if selected
-      if (selectedProfile && analysisResult.profileSummary) {
-        improvedStructured.summary = analysisResult.profileSummary.improvedText;
-      }
-
-      // Apply role improvements
-      if (analysisResult.roleBasedImprovements && improvedStructured.experience) {
-        Array.from(selectedRoles).forEach(roleIndex => {
-          const improvement = analysisResult.roleBasedImprovements[roleIndex];
-          if (improvement && roleIndex < improvedStructured.experience.length) {
-            const newDescription = improvement.suggestedText;
-            improvedStructured.experience[roleIndex].description =
-              newDescription.split(/\n+/).filter((line: string) => line.trim().length > 0);
-          }
-        });
-      }
-
-      // Apply skill improvements
-      if (analysisResult.skillImprovements && selectedSkills.size > 0) {
-        const skillsToAdd: string[] = [];
-        Array.from(selectedSkills).forEach(skillIndex => {
-          const skill = analysisResult.skillImprovements[skillIndex];
-          if (skill?.suggestedSkill) {
-            skillsToAdd.push(skill.suggestedSkill);
-          }
-        });
-        if (skillsToAdd.length > 0) {
-          improvedStructured.skills = [...(improvedStructured.skills || []), ...skillsToAdd];
-        }
-      }
-
-      const improved = generatePreviewFromStructured(improvedStructured);
-      setImprovedCV(improved);
+  useEffect(() => {
+    if (currentStep === 1 && !isAnalyzing && !analysisResult && selectedCV) {
+      startAnalysis();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentStep]);
+
+  const startAnalysis = async () => {
+    setIsAnalyzing(true);
+    setProgress(0);
+    setEstimatedTimeRemaining(50);
+
+    const startTime = Date.now();
+    const ESTIMATED_DURATION = 50000;
+
+    const progressInterval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const progressPercent = Math.min(95, Math.floor((elapsed / ESTIMATED_DURATION) * 100));
+      const timeRemaining = Math.max(0, Math.ceil((ESTIMATED_DURATION - elapsed) / 1000));
+
+      setProgress(progressPercent);
+      setEstimatedTimeRemaining(timeRemaining);
+    }, 1000);
+
+    try {
+      if (!selectedCV) {
+        throw new Error('Inget CV valt');
+      }
+      const jobId = await onAnalysisStart(selectedCV);
+      const result = await onPollJob(jobId);
+
+      clearInterval(progressInterval);
+
+      setAnalysisResult(result);
+      if (result.structuredCV) {
+        setStructuredCV(result.structuredCV);
+        // Generate original CV from structured data
+        const originalPreview = generatePreviewFromStructured(result.structuredCV);
+        setOriginalCV(originalPreview);
+        setImprovedCV(originalPreview); // Start with same as original
+      } else if (result.formattedPreview) {
+        setOriginalCV(result.formattedPreview);
+        setImprovedCV(result.formattedPreview);
+      }
+      setProgress(100);
+      setEstimatedTimeRemaining(0);
+
+      setTimeout(() => {
+        handleNext();
+      }, 1500);
+    } catch (error) {
+      console.error('Analysis error:', error);
+      clearInterval(progressInterval);
+      alert('Ett fel uppstod vid analysen. Försök igen.');
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
+  const generateImprovedCV = () => {
+    if (!analysisResult || !structuredCV) return;
+
+    const improvedStructured = JSON.parse(JSON.stringify(structuredCV));
+
+    // ONLY Apply profile summary if selected
+    if (selectedProfile && analysisResult.profileSummary) {
+      improvedStructured.summary = analysisResult.profileSummary.improvedText;
+    }
+
+    // ONLY Apply role improvements for selected roles
+    if (analysisResult.roleBasedImprovements && improvedStructured.experience && selectedRoles.size > 0) {
+      Array.from(selectedRoles).forEach(roleIndex => {
+        const improvement = analysisResult.roleBasedImprovements[roleIndex];
+        if (improvement && roleIndex < improvedStructured.experience.length) {
+          const newDescription = improvement.suggestedText;
+          improvedStructured.experience[roleIndex].description =
+            newDescription.split(/\n+/).filter((line: string) => line.trim().length > 0);
+        }
+      });
+    }
+
+    // ONLY Apply skill improvements for selected skills
+    if (analysisResult.skillImprovements && selectedSkills.size > 0) {
+      const skillsToAdd: string[] = [];
+      Array.from(selectedSkills).forEach(skillIndex => {
+        const skill = analysisResult.skillImprovements[skillIndex];
+        if (skill?.suggestedSkill) {
+          skillsToAdd.push(skill.suggestedSkill);
+        }
+      });
+      if (skillsToAdd.length > 0) {
+        improvedStructured.skills = [...(improvedStructured.skills || []), ...skillsToAdd];
+      }
+    }
+
+    // ONLY Apply general improvements for selected items
+    if (analysisResult.generalImprovements && selectedGeneral.size > 0) {
+      Array.from(selectedGeneral).forEach(genIndex => {
+        const improvement = analysisResult.generalImprovements[genIndex];
+        // General improvements typically suggest adding new sections or content
+        // This would need specific handling based on the improvement type
+        console.log('General improvement to apply:', improvement);
+      });
+    }
+
+    const improved = generatePreviewFromStructured(improvedStructured);
+    setImprovedCV(improved);
   };
 
   const handleNext = () => {
