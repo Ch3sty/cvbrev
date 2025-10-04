@@ -430,7 +430,118 @@ export default function CVAnalysisWizard({
           <SaveAndTemplateStep
             improvedCV={improvedCV}
             onSaveAndDownload={async (templateId, fileName, saveToLibrary) => {
-              // Implementation here
+              setIsSaving(true);
+              setSavedFileName(fileName);
+
+              try {
+                // Generate improved structured CV with selected changes
+                let improvedStructuredCV: any = null;
+                if (structuredCV && analysisResult) {
+                  improvedStructuredCV = JSON.parse(JSON.stringify(structuredCV));
+
+                  // Apply profile summary if selected
+                  if (selectedProfile && analysisResult.profileSummary) {
+                    improvedStructuredCV.summary = analysisResult.profileSummary.improvedText;
+                  }
+
+                  // Apply role improvements for selected roles
+                  if (analysisResult.roleBasedImprovements && improvedStructuredCV.experience && selectedRoles.size > 0) {
+                    Array.from(selectedRoles).forEach(roleIndex => {
+                      const improvement = analysisResult.roleBasedImprovements[roleIndex];
+                      if (improvement && roleIndex < improvedStructuredCV.experience.length) {
+                        const newDescription = improvement.suggestedText;
+                        improvedStructuredCV.experience[roleIndex].description =
+                          newDescription.split(/\n+/).filter((line: string) => line.trim().length > 0);
+                      }
+                    });
+                  }
+
+                  // Apply skill improvements
+                  if (analysisResult.skillImprovements && selectedSkills.size > 0) {
+                    const skillsToAdd: string[] = [];
+                    Array.from(selectedSkills).forEach(skillIndex => {
+                      const skill = analysisResult.skillImprovements[skillIndex];
+                      if (skill?.suggestedSkill) {
+                        skillsToAdd.push(skill.suggestedSkill);
+                      }
+                    });
+                    if (skillsToAdd.length > 0) {
+                      improvedStructuredCV.skills = [...(improvedStructuredCV.skills || []), ...skillsToAdd];
+                    }
+                  }
+                }
+
+                if (saveToLibrary) {
+                  // Save to database
+                  const response = await fetch('/api/cv/save-improved', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      fileName,
+                      improvedText: improvedCV,
+                      structuredData: improvedStructuredCV,
+                      originalCvId: selectedCV
+                    })
+                  });
+
+                  if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.message || 'Kunde inte spara CV');
+                  }
+
+                  const { cvId: newCvId } = await response.json();
+                  setSavedCvId(newCvId);
+                }
+
+                // Generate and download PDF
+                const pdfFileName = `${fileName.replace(/\.[^/.]+$/, '')}.pdf`;
+                const requestBody: any = {
+                  template: templateId,
+                  format: 'pdf',
+                  templateOptions: {}
+                };
+
+                if (improvedStructuredCV) {
+                  requestBody.structuredData = improvedStructuredCV;
+                } else if (structuredCV) {
+                  requestBody.structuredData = structuredCV;
+                } else {
+                  const fixedCVText = improvedCV
+                    .replace(/([a-zåäö])([A-ZÅÄÖ])/g, '$1 $2')
+                    .replace(/([0-9])([A-ZÅÄÖ])/g, '$1 $2')
+                    .replace(/([a-zåäö])([0-9])/g, '$1 $2');
+                  requestBody.cvText = fixedCVText;
+                }
+
+                const pdfResponse = await fetch('/api/cv/generate-formatted', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(requestBody)
+                });
+
+                if (!pdfResponse.ok) {
+                  const errorData = await pdfResponse.json();
+                  throw new Error(errorData.error || 'Kunde inte generera PDF');
+                }
+
+                const blob = await pdfResponse.blob();
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = pdfFileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+
+                // Move to completion step
+                handleNext();
+              } catch (error: any) {
+                console.error('Save error:', error);
+                alert(error.message || 'Ett fel uppstod vid sparande');
+              } finally {
+                setIsSaving(false);
+              }
             }}
             isSaving={isSaving}
           />
