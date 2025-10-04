@@ -63,6 +63,7 @@ export default function CVAnalysisModal({
   const [structuredCV, setStructuredCV] = useState<any>(null);
 
   // Preview state
+  const [originalCV, setOriginalCV] = useState(''); // AI-formatted original
   const [improvedCV, setImprovedCV] = useState('');
 
   // Save state
@@ -132,9 +133,10 @@ export default function CVAnalysisModal({
         setStructuredCV(result.structuredCV);
         console.log('✅ Structured CV loaded:', result.structuredCV);
       }
-      // Use AI-generated formatted preview if available
+      // Use AI-generated formatted preview for both original and improved
       if (result.formattedPreview) {
-        setImprovedCV(result.formattedPreview);
+        setOriginalCV(result.formattedPreview); // Original formatted CV
+        setImprovedCV(result.formattedPreview); // Start with same, will update with improvements
         console.log('✅ Formatted preview loaded from AI');
       }
       setProgress(100);
@@ -152,6 +154,84 @@ export default function CVAnalysisModal({
     } finally {
       setIsAnalyzing(false);
     }
+  };
+
+  // Helper: Generate preview text from structured CV
+  const generatePreviewFromStructured = (structured: any) => {
+    if (!structured) return;
+
+    const sections: string[] = [];
+
+    // Personal Info
+    if (structured.personalInfo) {
+      const p = structured.personalInfo;
+      const lines: string[] = [];
+      if (p.fullName) lines.push(p.fullName);
+      if (p.address) lines.push(p.address);
+      if (p.phone) lines.push(p.phone);
+      if (p.email) lines.push(p.email);
+      if (lines.length > 0) sections.push(lines.join('\n'));
+    }
+
+    // Summary
+    if (structured.summary) {
+      sections.push('SAMMANFATTNING\n' + structured.summary);
+    }
+
+    // Education
+    if (structured.education && structured.education.length > 0) {
+      const eduLines = ['UTBILDNING'];
+      structured.education.forEach((edu: any) => {
+        eduLines.push(`${edu.degree} ${edu.graduationYear || ''}`);
+        if (edu.institution) eduLines.push(edu.institution);
+        if (edu.description) eduLines.push(edu.description);
+      });
+      sections.push(eduLines.join('\n'));
+    }
+
+    // Experience
+    if (structured.experience && structured.experience.length > 0) {
+      const expLines = ['ERFARENHETER'];
+      structured.experience.forEach((exp: any) => {
+        expLines.push(`${exp.position}, ${exp.company} ${exp.location || ''} — ${exp.startDate} - ${exp.endDate || 'Nuvarande'}`);
+        if (Array.isArray(exp.description)) {
+          exp.description.forEach((desc: string) => {
+            if (desc && desc.trim()) expLines.push(desc);
+          });
+        } else if (exp.description) {
+          expLines.push(exp.description);
+        }
+        expLines.push(''); // Empty line between experiences
+      });
+      sections.push(expLines.join('\n'));
+    }
+
+    // Skills
+    if (structured.skills && structured.skills.length > 0) {
+      const skillLines = ['FÄRDIGHETER'];
+      structured.skills.forEach((skillGroup: any) => {
+        if (Array.isArray(skillGroup.skills)) {
+          skillLines.push(`${skillGroup.category || ''}: ${skillGroup.skills.join(', ')}`);
+        }
+      });
+      sections.push(skillLines.join('\n'));
+    }
+
+    // Languages
+    if (structured.languages && structured.languages.length > 0) {
+      const langLines = ['SPRÅK'];
+      structured.languages.forEach((lang: any) => {
+        langLines.push(`${lang.language} (${lang.proficiency})`);
+      });
+      sections.push(langLines.join('\n'));
+    }
+
+    // References
+    if (structured.references) {
+      sections.push('REFERENSER\n' + structured.references);
+    }
+
+    setImprovedCV(sections.join('\n\n'));
   };
 
   const handleNext = () => {
@@ -267,22 +347,17 @@ export default function CVAnalysisModal({
         updatedStructured.summary = editedProfileText || analysisResult.profileSummary.improvedText;
       }
 
-      // Apply role improvements
+      // Apply role improvements - ENDAST för selected roles
       if (analysisResult.roleBasedImprovements && updatedStructured.experience) {
         Array.from(selectedRoles).forEach(roleIndex => {
           const improvement = analysisResult.roleBasedImprovements[roleIndex];
           const editedText = editedRoleTexts.get(roleIndex);
 
-          // Find matching experience by title and company
-          const expIndex = updatedStructured.experience.findIndex((exp: any) =>
-            exp.position?.toLowerCase().includes(improvement.roleTitle?.toLowerCase()) &&
-            exp.company?.toLowerCase().includes(improvement.company?.toLowerCase())
-          );
-
-          if (expIndex !== -1) {
+          // Use direct index matching (roleIndex = experience index)
+          if (roleIndex < updatedStructured.experience.length) {
             const newDescription = editedText || improvement.suggestedText;
             // Split improved description into bullet points
-            updatedStructured.experience[expIndex].description =
+            updatedStructured.experience[roleIndex].description =
               newDescription.split(/\n+/).filter((line: string) => line.trim().length > 0);
           }
         });
@@ -291,9 +366,9 @@ export default function CVAnalysisModal({
       // Update structured CV state
       setStructuredCV(updatedStructured);
 
-      // Note: Preview text already loaded from AI (formattedPreview)
-      // We just update the structured data; preview stays from AI generation
-      console.log('✅ Applied improvements to structured CV');
+      // Re-generate preview text from updated structured CV
+      generatePreviewFromStructured(updatedStructured);
+      console.log('✅ Applied improvements to structured CV and regenerated preview');
     } else {
       // FALLBACK: Old method with text improvements
       const improvements: any[] = [];
@@ -549,7 +624,7 @@ export default function CVAnalysisModal({
 
         return (
           <PreviewComparisonStep
-            originalCV={cvContent}
+            originalCV={originalCV || cvContent}
             improvedCV={improvedCV}
             improvementsCount={selectedImprovementsCount}
             atsImprovement={selectedImprovementsCount * 2}

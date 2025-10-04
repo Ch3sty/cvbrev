@@ -189,7 +189,7 @@ Deno.serve(async (req) => {
               },
               {
                 role: 'user',
-                content: `Här är det fullständiga CV:t:\n\n${cvText}\n\n---\n\nFörbättra personbeskrivningen/sammanfattningen från CV:t.\n\nReturnera JSON med format: { "currentText": string (EXAKT originaltext från CV:t), "suggestedText": string (förbättrad version i JAG-FORM), "improvements": string[] }\n\nVIKTIGT:\n- currentText ska vara EXAKT den text som finns i det ursprungliga CV:t\n- suggestedText MÅSTE vara skriven i JAG-FORM (första person), ALDRIG tredje person\n- Använd "jag", "min", "mitt", inte "han", "hennes" eller personens namn`
+                content: `Förbättra denna personbeskrivning:\n\n"${parsedCV.profileSummary}"\n\nReturnera JSON med format: { "suggestedText": string (förbättrad version i JAG-FORM), "improvements": string[] }\n\nVIKTIGT:\n- suggestedText MÅSTE vara skriven i JAG-FORM (första person), ALDRIG tredje person\n- Använd "jag", "min", "mitt", inte "han", "hennes" eller personens namn`
               }
             ],
             temperature: 0.6,
@@ -200,14 +200,14 @@ Deno.serve(async (req) => {
 
         const profileData = await profileResponse.json();
         const rawProfileData = JSON.parse(profileData.choices[0].message.content);
-        // Map to frontend expected format: suggestedText -> improvedText, improvements -> changes
+        // Map to frontend expected format + use structured CV for currentText
         profileSummaryImprovement = {
-          currentText: rawProfileData.currentText,
+          currentText: structuredCV.summary || parsedCV.profileSummary, // EXAKT från structured CV
           improvedText: rawProfileData.suggestedText,
           changes: rawProfileData.improvements || [],
           atsImpact: 10 // Static for now
         };
-        console.log(`[Job ${jobId}] Profile summary improvement generated`);
+        console.log(`[Job ${jobId}] Profile summary improvement generated (currentText from structured CV)`);
       }
 
       // 3. Extrahera färdigheter från roller (Premium)
@@ -268,14 +268,14 @@ Deno.serve(async (req) => {
             messages: [
               {
                 role: 'system',
-                content: 'Du är en expert CV-rådgivare. Analysera arbetsroller och ge konkreta förbättringsförslag med kvantifiering. Det är KRITISKT att currentText är EXAKT kopierad från originalCV:t.'
+                content: 'Du är en expert CV-rådgivare. Analysera arbetsroller och ge konkreta förbättringsförslag med kvantifiering.'
               },
               {
                 role: 'user',
-                content: `Här är det fullständiga ORIGINAL-CV:t (med alla brister och fel):\n\n${cvText}\n\n---\n\nFokusera på dessa roller:\n${JSON.stringify(batch)}\n\nAnalysera dessa roller och ge förbättringsförslag med siffror och KPI:er.\n\nReturnera JSON med format: { "roleBasedImprovements": [{ "roleTitle": string, "company": string, "period": string, "currentText": string (EXAKT kopierad från original-CV:t, INTE förbättrad), "suggestedText": string (förbättrad version), "improvements": { "hasQuantification": boolean, "keywords": string[], "grammarIssues": string[], "atsOptimization": boolean }, "atsImpact": number (1-20) }] }\n\nKRITISK REGEL: currentText ska vara en EXAKT KOPIA av texten från original-CV:t ovan. Leta upp rollen i texten och kopiera beskrivningen EXAKT som den är, inklusive alla fel, brister, och brist på kvantifiering. GÖR INGA förbättringar i currentText - spara dem till suggestedText.\n\natsImpact ska vara 1-20, improvements.keywords och improvements.grammarIssues ska ALLTID vara arrays.`
+                content: `Analysera dessa roller och ge förbättringsförslag med siffror och KPI:er:\n\n${JSON.stringify(batch)}\n\nReturnera JSON med format: { "roleBasedImprovements": [{ "roleTitle": string, "company": string, "period": string, "suggestedText": string (förbättrad version med kvantifiering), "improvements": { "hasQuantification": boolean, "keywords": string[], "grammarIssues": string[], "atsOptimization": boolean }, "atsImpact": number (1-20) }] }\n\nVIKTIGT: atsImpact ska vara 1-20, improvements.keywords och improvements.grammarIssues ska ALLTID vara arrays.`
               }
             ],
-            temperature: 0.1,
+            temperature: 0.6,
             max_tokens: 2500,
             response_format: { type: 'json_object' }
           })
@@ -284,11 +284,31 @@ Deno.serve(async (req) => {
         const batchData = await batchResponse.json();
         const batchResult = JSON.parse(batchData.choices[0].message.content);
 
-        // KRITISK FIX: Sanitera varje role improvement
-        const sanitizedBatch = (batchResult.roleBasedImprovements || []).map(sanitizeRoleImprovement);
+        // KRITISK FIX: Mappa currentText från structured CV istället
+        const sanitizedBatch = (batchResult.roleBasedImprovements || []).map((role: any, index: number) => {
+          const batchIndex = i * ROLES_PER_BATCH + index;
+
+          // Hitta motsvarande experience i structured CV
+          let currentText = role.currentText || '';
+          if (structuredCV.experience && structuredCV.experience[batchIndex]) {
+            const exp = structuredCV.experience[batchIndex];
+            // Använd description array från structured CV som currentText
+            if (Array.isArray(exp.description)) {
+              currentText = exp.description.join(' ');
+            } else if (exp.description) {
+              currentText = exp.description;
+            }
+          }
+
+          return sanitizeRoleImprovement({
+            ...role,
+            currentText // Ersätt med EXAKT text från structured CV
+          });
+        });
+
         allRoleImprovements.push(...sanitizedBatch);
 
-        console.log(`[Job ${jobId}] Batch ${i + 1} completed: ${sanitizedBatch.length} improvements (sanitized)`);
+        console.log(`[Job ${jobId}] Batch ${i + 1} completed: ${sanitizedBatch.length} improvements (with currentText from structured CV)`);
       }
 
       // 5. Allmän analys (Premium)
