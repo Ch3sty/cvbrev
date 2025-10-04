@@ -274,6 +274,7 @@ export default function CVAnalysisWizard({
     if (analysisResult) {
       setDynamicPotentialScore(calculateSelectedImpact());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedProfile, selectedRoles, selectedSkills, selectedGeneral, analysisResult]);
 
   const generateImprovedCV = () => {

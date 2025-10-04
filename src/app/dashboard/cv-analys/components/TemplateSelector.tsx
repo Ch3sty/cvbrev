@@ -69,17 +69,17 @@ export default function TemplateSelector({
         <div className="hidden md:flex items-center gap-2">
           <Button
             variant="outline"
-            size="icon"
+            size="sm"
             onClick={scrollPrev}
-            className="h-9 w-9 rounded-full"
+            className="h-9 w-9 rounded-full p-0"
           >
             <ChevronLeft className="w-4 h-4" />
           </Button>
           <Button
             variant="outline"
-            size="icon"
+            size="sm"
             onClick={scrollNext}
-            className="h-9 w-9 rounded-full"
+            className="h-9 w-9 rounded-full p-0"
           >
             <ChevronRight className="w-4 h-4" />
           </Button>
