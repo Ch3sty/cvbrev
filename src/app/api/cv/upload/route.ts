@@ -73,6 +73,84 @@ export async function POST(request: Request) {
     console.log(`ℹ️ Original filename: ${originalFileName}`);
     console.log(`🔒 Sanitized storage key: ${storageFilePath}`);
 
+    // VALIDERA TEXT EXTRACTION FÖRST - innan vi laddar upp till storage
+    let extractedText = '';
+    let textExtractionFailed = false;
+    let placeholderUsed = false;
+
+    try {
+      console.log(`📄 Starting text extraction for ${originalFileName} using parseCV...`);
+
+      // Använd parseCV från lib för alla filtyper istället för egen logik
+      extractedText = await parseCV(file);
+
+      // Kontrollera om vi fick felmeddelande från parseCV
+      const knownErrorMessages = [
+        "Kunde inte läsa", "Misslyckades med att läsa", "PDF-texten kunde inte",
+        "Filformatet stöds inte", 'Kunde inte ladda DOCX-parsningsbiblioteket',
+        'Kunde inte extrahera text från DOCX-filen (tom fil)',
+        'PDF-filen innehåller endast' // Bildbaserad PDF-varning
+      ];
+
+      if (knownErrorMessages.some(msg => extractedText.startsWith(msg))) {
+        console.warn(`⚠️ parseCV returned an error for ${originalFileName}: ${extractedText}`);
+
+        // BLOCKERA uppladdning om det är bildbaserad PDF
+        if (extractedText.includes('PDF-filen innehåller endast')) {
+          return NextResponse.json({
+            error: 'IMAGE_BASED_PDF',
+            message: extractedText,
+            code: 'IMAGE_BASED_PDF'
+          }, { status: 400 });
+        }
+
+        textExtractionFailed = true;
+        extractedText = createPlaceholderText(file);
+        placeholderUsed = true;
+      }
+
+      // Längdkontroll som fallback - BLOCKERA istället för placeholder
+      if (!textExtractionFailed && (!extractedText || extractedText.length < 50)) {
+        console.warn(`⚠️ Extracted text for ${originalFileName} is too short or empty (${extractedText?.length || 0} chars). Blocking upload.`);
+
+        return NextResponse.json({
+          error: 'INSUFFICIENT_TEXT',
+          message: `PDF-filen innehåller endast ${extractedText?.length || 0} tecken text.
+
+Detta beror troligen på att:
+1. PDF:en innehåller text som bilder (inte selekterbar text)
+2. PDF:en exporterades som "Utskrift" istället för "Redigering"
+
+Lösning:
+1. Öppna ditt CV i Word/Pages/Google Docs
+2. Välj: Arkiv → Exportera → PDF
+3. Kontrollera att texten ÄR selekterbar (testa att markera text med musen)
+4. Ladda upp den nya PDF:en
+
+Alternativt: Ladda upp som .DOCX istället.`,
+          code: 'IMAGE_BASED_PDF',
+          extractedLength: extractedText?.length || 0
+        }, { status: 400 });
+      }
+
+    } catch (error: any) {
+      console.error(`❌ Unexpected CV parsing error for ${originalFileName}:`, error.message || error);
+      return NextResponse.json({
+        error: 'PARSING_ERROR',
+        message: 'Ett oväntat fel uppstod vid läsning av filen. Kontrollera att filen inte är skadad.',
+        code: 'PARSING_ERROR'
+      }, { status: 500 });
+    }
+
+    // --- SANERING AV TEXTEN SOM SKA SPARAS ---
+    let textToSave = extractedText;
+    if (placeholderUsed) {
+        console.log("Sanitizing placeholder text before DB insert.");
+        textToSave = escapeDatabasePlaceholder(extractedText);
+    }
+    // --- ---
+
+    // NU LADDA UPP TILL STORAGE (efter text-validering)
     try {
       const { data: folderExists } = await supabase.storage.from('cvs').list(userFolder);
       if (!folderExists || folderExists.length === 0) {
@@ -94,53 +172,6 @@ export async function POST(request: Request) {
       }
       return NextResponse.json({ error: `Storagefel: ${uploadError.message}` }, { status: 500 });
     }
-
-    let extractedText = '';
-    let textExtractionFailed = false;
-    let placeholderUsed = false; // Flagga för att veta om placeholder användes
-
-    try {
-      console.log(`📄 Starting text extraction for ${originalFileName} using parseCV...`);
-      
-      // Använd parseCV från lib för alla filtyper istället för egen logik
-      extractedText = await parseCV(file);
-      
-      // Kontrollera om vi fick felmeddelande från parseCV
-      const knownErrorMessages = [
-        "Kunde inte läsa", "Misslyckades med att läsa", "PDF-texten kunde inte",
-        "Filformatet stöds inte", 'Kunde inte ladda DOCX-parsningsbiblioteket',
-        'Kunde inte extrahera text från DOCX-filen (tom fil)'
-      ];
-      
-      if (knownErrorMessages.some(msg => extractedText.startsWith(msg))) {
-        console.warn(`⚠️ parseCV returned an error for ${originalFileName}: ${extractedText}`);
-        textExtractionFailed = true;
-        extractedText = createPlaceholderText(file);
-        placeholderUsed = true;
-      }
-
-      // Längdkontroll som fallback
-      if (!textExtractionFailed && (!extractedText || extractedText.length < 50)) {
-        console.warn(`⚠️ Extracted text for ${originalFileName} is too short or empty (< 50 chars), using placeholder.`);
-        extractedText = createPlaceholderText(file);
-        textExtractionFailed = true;
-        placeholderUsed = true;
-      }
-      
-    } catch (error: any) {
-      console.error(`❌ Unexpected CV parsing error for ${originalFileName}:`, error.message || error);
-      extractedText = createPlaceholderText(file);
-      textExtractionFailed = true;
-      placeholderUsed = true;
-    }
-
-    // --- SANERING AV TEXTEN SOM SKA SPARAS ---
-    let textToSave = extractedText;
-    if (placeholderUsed) {
-        console.log("Sanitizing placeholder text before DB insert.");
-        textToSave = escapeDatabasePlaceholder(extractedText);
-    }
-    // --- ---
 
     let publicUrl = null;
     let urlError: any = null;
