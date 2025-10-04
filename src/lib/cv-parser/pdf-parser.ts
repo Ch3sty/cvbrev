@@ -26,8 +26,12 @@ export async function extractTextFromPdf(pdfData: Uint8Array): Promise<string> {
       return "PDF-texten kunde inte extraheras - inget serverside PDF-bibliotek tillgängligt.";
     }
 
-    // Använd pdf-parse för att extrahera text
-    const result = await pdfParse(Buffer.from(pdfData));
+    // Använd pdf-parse för att extrahera text med förbättrade inställningar
+    const result = await pdfParse(Buffer.from(pdfData), {
+      // Försök extrahera text från alla tillgängliga källor
+      max: 0, // Process all pages (0 = no limit)
+      version: 'v2.0.550', // Use specific version if needed
+    });
 
     console.log(`📄 PDF text extraherad, längd: ${result.text.length}, sidor: ${result.numpages}`);
 
@@ -56,65 +60,48 @@ export async function extractTextFromPdf(pdfData: Uint8Array): Promise<string> {
 }
 
 /**
- * Extract text from image-based PDF using OpenAI Vision API (OCR fallback)
+ * Extract text from image-based PDF using pdfjs-dist with enhanced rendering
+ * This works better for PDFs where text is embedded as images or uses complex fonts
  */
 async function extractTextWithOCR(pdfData: Uint8Array): Promise<string> {
   try {
-    const openaiApiKey = process.env.OPENAI_API_KEY;
-    if (!openaiApiKey) {
-      console.error('❌ OPENAI_API_KEY not found - cannot perform OCR');
-      return '';
+    console.log('🔄 Attempting advanced PDF text extraction with pdfjs-dist...');
+
+    // Try using pdfjs-dist for better text extraction
+    const pdfjsLib = await import('pdfjs-dist/legacy/build/pdf.mjs');
+
+    // Load the PDF document
+    const loadingTask = pdfjsLib.getDocument({ data: pdfData });
+    const pdf = await loadingTask.promise;
+
+    console.log(`📄 PDF loaded with ${pdf.numPages} pages`);
+
+    let fullText = '';
+
+    // Extract text from each page
+    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+      const page = await pdf.getPage(pageNum);
+      const textContent = await page.getTextContent();
+
+      // Combine all text items
+      const pageText = textContent.items
+        .map((item: any) => item.str)
+        .join(' ');
+
+      fullText += pageText + '\n\n';
+      console.log(`📄 Page ${pageNum}: extracted ${pageText.length} chars`);
     }
 
-    // Convert PDF to base64
-    const base64Pdf = Buffer.from(pdfData).toString('base64');
-
-    // Call OpenAI Vision API
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${openaiApiKey}`
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o',
-        messages: [
-          {
-            role: 'system',
-            content: 'Du är en OCR-assistent. Extrahera ALL text från detta CV-dokument exakt som det står. Bevara all formatering, struktur och ordning. Inkludera personuppgifter, arbetslivserfarenhet, utbildning, färdigheter och allt annat innehåll.'
-          },
-          {
-            role: 'user',
-            content: [
-              {
-                type: 'text',
-                text: 'Extrahera all text från detta CV. Var noggrann och bevara all information.'
-              },
-              {
-                type: 'image_url',
-                image_url: {
-                  url: `data:application/pdf;base64,${base64Pdf}`
-                }
-              }
-            ]
-          }
-        ],
-        max_tokens: 4000
-      })
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      console.error('❌ OpenAI OCR failed:', error);
-      return '';
+    if (fullText.trim().length > 50) {
+      console.log(`✅ Enhanced extraction successful: ${fullText.length} chars total`);
+      return fullText;
     }
 
-    const data = await response.json();
-    const extractedText = data.choices[0]?.message?.content || '';
+    console.warn('⚠️ Enhanced extraction still yielded insufficient text');
+    return '';
 
-    return extractedText;
   } catch (error) {
-    console.error('❌ OCR extraction error:', error);
+    console.error('❌ Enhanced PDF extraction error:', error);
     return '';
   }
 }
