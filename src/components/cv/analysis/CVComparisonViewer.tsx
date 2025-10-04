@@ -13,8 +13,8 @@ interface CVComparisonViewerProps {
 
 interface BlockDiff {
   type: 'unchanged' | 'changed' | 'added' | 'removed';
-  originalBlock?: string;
-  improvedBlock?: string;
+  originalBlock?: string | null;
+  improvedBlock?: string | null;
 }
 
 /**
