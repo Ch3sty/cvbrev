@@ -276,14 +276,11 @@ export default function AnalysisOverviewStep({
                   <span className="font-semibold text-gray-900">Total möjlig ökning:</span>
                   <span className="font-bold text-green-600 text-lg">+{totalImpactBreakdown.total} poäng</span>
                 </div>
-                {totalImpactBreakdown.total > 45 && (
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-3">
-                    <p className="text-xs text-blue-800">
-                      <span className="font-semibold">Obs!</span> Vi visar en realistisk maxökning på +{Math.min(totalImpactBreakdown.total, 45)} poäng i översikten ovan.
-                      Faktiskt resultat beror på vilka förbättringar du väljer att implementera i nästa steg.
-                    </p>
-                  </div>
-                )}
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mt-3">
+                  <p className="text-xs text-blue-800">
+                    <span className="font-semibold">Tips:</span> Faktiskt resultat beror på vilka förbättringar du väljer att implementera i nästa steg.
+                  </p>
+                </div>
               </div>
             </Card>
           </motion.div>

@@ -259,14 +259,17 @@ Returnera JSON: { "roleBasedImprovements": [{
     "grammarIssues": string[],
     "atsOptimization": boolean
   },
-  "atsImpact": number (1-20)
+  "atsImpact": number (1-5, där 1=minimal förbättring, 5=stor förbättring)
 }] }
 
 VIKTIGT:
 - suggestedText ska vara EN sammanhängande förbättrad version av currentDescription
 - Lägg till konkreta siffror, procent, resultat
 - Returnera INTE currentDescription i svaret
-- atsImpact ska vara 1-20
+- atsImpact ska vara 1-5 baserat på hur mycket förbättringen hjälper ATS-poäng:
+  * 1-2: Små ändringar (grammatik, formatering)
+  * 3: Medel (tillagda nyckelord)
+  * 4-5: Stor påverkan (kvantifiering + nyckelord + strukturförbättring)
 - improvements.keywords och improvements.grammarIssues ska ALLTID vara arrays`
               }
             ],

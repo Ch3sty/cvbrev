@@ -241,9 +241,9 @@ export default function CVAnalysisWizard({
     if (analysisResult.skillSuggestions) {
       Array.from(selectedSkills).forEach(index => {
         const skill = analysisResult.skillSuggestions[index];
-        if (skill?.relevance === 'high') impact += 2;
-        else if (skill?.relevance === 'medium') impact += 1;
-        else impact += 0.5;
+        if (skill?.relevance === 'high') impact += 1;
+        else if (skill?.relevance === 'medium') impact += 0.5;
+        else impact += 0.3;
       });
     }
 
@@ -251,9 +251,9 @@ export default function CVAnalysisWizard({
     if (analysisResult.generalImprovements) {
       Array.from(selectedGeneral).forEach(index => {
         const imp = analysisResult.generalImprovements[index];
-        if (imp?.category === 'Nyckelord') impact += 3;
-        else if (imp?.category === 'Innehåll') impact += 2;
-        else impact += 1;
+        if (imp?.category === 'Nyckelord') impact += 2;
+        else if (imp?.category === 'Innehåll') impact += 1;
+        else impact += 0.5;
       });
     }
 
@@ -399,7 +399,7 @@ export default function CVAnalysisWizard({
             totalImpact += breakdown.profile;
           }
 
-          // Roller: använd faktisk atsImpact (1-20 per roll)
+          // Roller: använd faktisk atsImpact (1-5 per roll från AI)
           if (analysisResult.roleBasedImprovements) {
             breakdown.roles = analysisResult.roleBasedImprovements.reduce(
               (sum: number, role: any) => sum + (role.atsImpact || 0),
@@ -408,22 +408,22 @@ export default function CVAnalysisWizard({
             totalImpact += breakdown.roles;
           }
 
-          // Skills: ~1-2 poäng per skill beroende på relevans
+          // Skills: ~0.5-1 poäng per skill beroende på relevans
           if (analysisResult.skillSuggestions) {
             breakdown.skills = analysisResult.skillSuggestions.reduce((sum: number, skill: any) => {
-              if (skill.relevance === 'high') return sum + 2;
-              if (skill.relevance === 'medium') return sum + 1;
-              return sum + 0.5;
+              if (skill.relevance === 'high') return sum + 1;
+              if (skill.relevance === 'medium') return sum + 0.5;
+              return sum + 0.3;
             }, 0);
             totalImpact += breakdown.skills;
           }
 
-          // General: ~1-3 poäng beroende på kategori
+          // General: ~0.5-2 poäng beroende på kategori
           if (analysisResult.generalImprovements) {
             breakdown.general = analysisResult.generalImprovements.reduce((sum: number, imp: any) => {
-              if (imp.category === 'Nyckelord') return sum + 3;
-              if (imp.category === 'Innehåll') return sum + 2;
-              return sum + 1;
+              if (imp.category === 'Nyckelord') return sum + 2;
+              if (imp.category === 'Innehåll') return sum + 1;
+              return sum + 0.5;
             }, 0);
             totalImpact += breakdown.general;
           }
@@ -433,9 +433,8 @@ export default function CVAnalysisWizard({
         };
 
         const impactBreakdown = calculateTruePotential();
-        // Realistisk maxökning: begränsa till ~45 poäng för trovärdighet
-        const realisticMaxIncrease = Math.min(impactBreakdown.total, 45);
-        const potentialAtsScore = Math.min(100, currentAtsScore + realisticMaxIncrease);
+        // Använd faktisk total från AI (nu realistisk med 1-5 per roll)
+        const potentialAtsScore = Math.min(100, currentAtsScore + impactBreakdown.total);
 
         const totalImprovements =
           (analysisResult.profileSummary ? 1 : 0) +
