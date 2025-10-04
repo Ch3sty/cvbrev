@@ -47,6 +47,7 @@
     "next-mdx-remote": "^5.0.0",
     "openai": "^4.87.3",
     "pdf-parse": "^1.1.1",
+    "pdf2json": "^3.2.2",
     "pdfjs-dist": "^5.0.375",
     "qrcode": "^1.5.4",
     "react": "^19.0.0",

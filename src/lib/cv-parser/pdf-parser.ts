@@ -60,48 +60,68 @@ export async function extractTextFromPdf(pdfData: Uint8Array): Promise<string> {
 }
 
 /**
- * Extract text from image-based PDF using pdfjs-dist with enhanced rendering
- * This works better for PDFs where text is embedded as images or uses complex fonts
+ * Enhanced PDF text extraction using pdf2json
+ * Alternative parser that works better with some PDF formats
  */
 async function extractTextWithOCR(pdfData: Uint8Array): Promise<string> {
   try {
-    console.log('🔄 Attempting advanced PDF text extraction with pdfjs-dist...');
+    console.log('🔄 Attempting enhanced PDF text extraction with pdf2json...');
 
-    // Try using pdfjs-dist for better text extraction
-    const pdfjsLib = await import('pdfjs-dist/legacy/build/pdf.mjs');
+    const PDFParser = (await import('pdf2json')).default;
 
-    // Load the PDF document
-    const loadingTask = pdfjsLib.getDocument({ data: pdfData });
-    const pdf = await loadingTask.promise;
+    return new Promise((resolve, reject) => {
+      const pdfParser = new PDFParser(null, 1);
 
-    console.log(`📄 PDF loaded with ${pdf.numPages} pages`);
+      pdfParser.on('pdfParser_dataError', (errData: any) => {
+        console.error('❌ pdf2json parsing error:', errData.parserError);
+        resolve('');
+      });
 
-    let fullText = '';
+      pdfParser.on('pdfParser_dataReady', (pdfData: any) => {
+        try {
+          // Extract text from all pages
+          let fullText = '';
 
-    // Extract text from each page
-    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
-      const page = await pdf.getPage(pageNum);
-      const textContent = await page.getTextContent();
+          if (pdfData.Pages) {
+            for (const page of pdfData.Pages) {
+              if (page.Texts) {
+                for (const text of page.Texts) {
+                  if (text.R) {
+                    for (const run of text.R) {
+                      if (run.T) {
+                        // Decode URI-encoded text
+                        fullText += decodeURIComponent(run.T) + ' ';
+                      }
+                    }
+                  }
+                }
+                fullText += '\n\n';
+              }
+            }
+          }
 
-      // Combine all text items
-      const pageText = textContent.items
-        .map((item: any) => item.str)
-        .join(' ');
+          const trimmedText = fullText.trim();
+          console.log(`📄 pdf2json extracted ${trimmedText.length} chars`);
 
-      fullText += pageText + '\n\n';
-      console.log(`📄 Page ${pageNum}: extracted ${pageText.length} chars`);
-    }
+          if (trimmedText.length > 50) {
+            console.log('✅ pdf2json extraction successful');
+            resolve(trimmedText);
+          } else {
+            console.warn('⚠️ pdf2json still yielded insufficient text');
+            resolve('');
+          }
+        } catch (error) {
+          console.error('❌ Error processing pdf2json data:', error);
+          resolve('');
+        }
+      });
 
-    if (fullText.trim().length > 50) {
-      console.log(`✅ Enhanced extraction successful: ${fullText.length} chars total`);
-      return fullText;
-    }
-
-    console.warn('⚠️ Enhanced extraction still yielded insufficient text');
-    return '';
+      // Parse the PDF data
+      pdfParser.parseBuffer(Buffer.from(pdfData));
+    });
 
   } catch (error) {
-    console.error('❌ Enhanced PDF extraction error:', error);
+    console.error('❌ pdf2json import/setup error:', error);
     return '';
   }
 }
