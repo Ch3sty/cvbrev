@@ -21,27 +21,101 @@ export async function extractTextFromPdf(pdfData: Uint8Array): Promise<string> {
   try {
     // Få pdf-parser om vi är på serversidan
     const pdfParse = await getPdfParser();
-    
+
     if (!pdfParse) {
       return "PDF-texten kunde inte extraheras - inget serverside PDF-bibliotek tillgängligt.";
     }
-    
+
     // Använd pdf-parse för att extrahera text
     const result = await pdfParse(Buffer.from(pdfData));
-    
+
     console.log(`📄 PDF text extraherad, längd: ${result.text.length}, sidor: ${result.numpages}`);
-    
-    if (!result.text || result.text.trim() === '') {
-      return "PDF-filen verkar sakna läsbar text eller sidor.";
+
+    // Om vi fick för lite text (< 50 tecken) - PDF:en är troligen bildbaserad
+    if (!result.text || result.text.trim().length < 50) {
+      console.warn(`⚠️ PDF contains very little extractable text (${result.text?.length || 0} chars). Likely image-based PDF - trying OCR fallback...`);
+
+      // Try OCR with OpenAI Vision API
+      const ocrText = await extractTextWithOCR(pdfData);
+      if (ocrText && ocrText.length > 50) {
+        console.log(`✅ OCR extraction successful: ${ocrText.length} chars`);
+        return cleanExtractedText(ocrText);
+      }
+
+      return "PDF-filen verkar sakna läsbar text. Detta kan bero på att PDF:en innehåller text som bilder. Vänligen exportera PDF:en på nytt från ursprungskällan (t.ex. Word) eller använd en textbaserad PDF.";
     }
-    
+
     // Använd befintlig rengöringsfunktion
     const cleanedText = cleanExtractedText(result.text);
     return cleanedText;
-      
+
   } catch (error: any) {
     console.error('⚠️ PDF extraction failed:', error);
     return 'Misslyckades med att läsa PDF. Kontrollera att filen inte är lösenordsskyddad eller skadad.';
+  }
+}
+
+/**
+ * Extract text from image-based PDF using OpenAI Vision API (OCR fallback)
+ */
+async function extractTextWithOCR(pdfData: Uint8Array): Promise<string> {
+  try {
+    const openaiApiKey = process.env.OPENAI_API_KEY;
+    if (!openaiApiKey) {
+      console.error('❌ OPENAI_API_KEY not found - cannot perform OCR');
+      return '';
+    }
+
+    // Convert PDF to base64
+    const base64Pdf = Buffer.from(pdfData).toString('base64');
+
+    // Call OpenAI Vision API
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${openaiApiKey}`
+      },
+      body: JSON.stringify({
+        model: 'gpt-4o',
+        messages: [
+          {
+            role: 'system',
+            content: 'Du är en OCR-assistent. Extrahera ALL text från detta CV-dokument exakt som det står. Bevara all formatering, struktur och ordning. Inkludera personuppgifter, arbetslivserfarenhet, utbildning, färdigheter och allt annat innehåll.'
+          },
+          {
+            role: 'user',
+            content: [
+              {
+                type: 'text',
+                text: 'Extrahera all text från detta CV. Var noggrann och bevara all information.'
+              },
+              {
+                type: 'image_url',
+                image_url: {
+                  url: `data:application/pdf;base64,${base64Pdf}`
+                }
+              }
+            ]
+          }
+        ],
+        max_tokens: 4000
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      console.error('❌ OpenAI OCR failed:', error);
+      return '';
+    }
+
+    const data = await response.json();
+    const extractedText = data.choices[0]?.message?.content || '';
+
+    return extractedText;
+  } catch (error) {
+    console.error('❌ OCR extraction error:', error);
+    return '';
   }
 }
 
