@@ -419,7 +419,7 @@ export default function CVAnalysisModal({
             const improvement = analysisResult.roleBasedImprovements[roleIndex];
             const editedText = editedRoleTexts.get(roleIndex);
 
-            if (improvement && roleIndex < improvedStructuredCV.experience.length) {
+            if (improvement && improvedStructuredCV?.experience && roleIndex < improvedStructuredCV.experience.length) {
               const newDescription = editedText || improvement.suggestedText;
               improvedStructuredCV.experience[roleIndex].description =
                 newDescription.split(/\n+/).filter((line: string) => line.trim().length > 0);
