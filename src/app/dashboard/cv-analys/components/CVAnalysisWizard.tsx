@@ -570,7 +570,9 @@ export default function CVAnalysisWizard({
 
                   // Apply profile summary if selected
                   if (selectedProfile && analysisResult.profileSummary) {
-                    improvedStructuredCV.summary = analysisResult.profileSummary.improvedText;
+                    // Use edited text if available, otherwise use AI suggestion
+                    const profileText = editedProfileText || analysisResult.profileSummary.improvedText;
+                    improvedStructuredCV.summary = profileText.trim().replace(/\s+/g, ' ');
                   }
 
                   // Apply role improvements for selected roles
@@ -578,9 +580,13 @@ export default function CVAnalysisWizard({
                     Array.from(selectedRoles).forEach(roleIndex => {
                       const improvement = analysisResult.roleBasedImprovements[roleIndex];
                       if (improvement && roleIndex < improvedStructuredCV.experience.length) {
-                        const newDescription = improvement.suggestedText;
+                        // Use edited text if available, otherwise use AI suggestion
+                        const newDescription = editedRoleTexts.get(roleIndex) || improvement.suggestedText;
                         improvedStructuredCV.experience[roleIndex].description =
-                          newDescription.split(/\n+/).filter((line: string) => line.trim().length > 0);
+                          newDescription
+                            .split(/\n+/)
+                            .map((line: string) => line.trim().replace(/\s+/g, ' '))  // Trim + normalisera mellanrum
+                            .filter((line: string) => line.length > 0);
                       }
                     });
                   }
