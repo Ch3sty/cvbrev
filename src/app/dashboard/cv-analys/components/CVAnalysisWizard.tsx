@@ -300,16 +300,36 @@ export default function CVAnalysisWizard({
     }
 
     // ONLY Apply skill improvements for selected skills
-    if (analysisResult.skillImprovements && selectedSkills.size > 0) {
+    if (analysisResult.skillSuggestions && selectedSkills.size > 0) {
       const skillsToAdd: string[] = [];
       Array.from(selectedSkills).forEach(skillIndex => {
-        const skill = analysisResult.skillImprovements[skillIndex];
-        if (skill?.suggestedSkill) {
-          skillsToAdd.push(skill.suggestedSkill);
+        const suggestion = analysisResult.skillSuggestions[skillIndex];
+        if (suggestion?.skill) {
+          skillsToAdd.push(suggestion.skill);
         }
       });
       if (skillsToAdd.length > 0) {
-        improvedStructured.skills = [...(improvedStructured.skills || []), ...skillsToAdd];
+        // Use same structured category logic as onSaveAndDownload
+        if (!improvedStructured.skills) {
+          improvedStructured.skills = [];
+        }
+
+        // Find or create "Kompletterande färdigheter" category
+        let supplementaryCategory = improvedStructured.skills.find(
+          (cat: any) => cat.category === 'Kompletterande färdigheter'
+        );
+
+        if (!supplementaryCategory) {
+          supplementaryCategory = { category: 'Kompletterande färdigheter', skills: [] };
+          improvedStructured.skills.push(supplementaryCategory);
+        }
+
+        // Add skills (avoid duplicates)
+        skillsToAdd.forEach(skill => {
+          if (!supplementaryCategory.skills.includes(skill)) {
+            supplementaryCategory.skills.push(skill);
+          }
+        });
       }
     }
 
@@ -645,6 +665,61 @@ export default function CVAnalysisWizard({
 
                   const { cvId: newCvId } = await response.json();
                   setSavedCvId(newCvId);
+
+                  // Save improved analysis for job matching
+                  if (analysisResult && newCvId) {
+                    // Build improved analysis result with user's selections
+                    const improvedAnalysisResult = {
+                      ...analysisResult,
+                      atsFriendliness: {
+                        ...analysisResult.atsFriendliness,
+                        score: Math.round(dynamicPotentialScore) // Updated score
+                      },
+                      // Update profile with improved text
+                      profileSummary: selectedProfile && analysisResult.profileSummary ? {
+                        ...analysisResult.profileSummary,
+                        currentText: editedProfileText || analysisResult.profileSummary.improvedText
+                      } : analysisResult.profileSummary,
+
+                      // Update selected roles with improved text
+                      roleBasedImprovements: analysisResult.roleBasedImprovements?.map((role: any, i: number) =>
+                        selectedRoles.has(i) ? {
+                          ...role,
+                          currentText: editedRoleTexts.get(i) || role.suggestedText
+                        } : role
+                      ),
+
+                      // Add implemented skills
+                      implementedSkills: Array.from(selectedSkills).map(i =>
+                        analysisResult.skillSuggestions[i]
+                      ),
+
+                      // Track which improvements were selected
+                      selectedImprovements: {
+                        profile: selectedProfile,
+                        roles: Array.from(selectedRoles),
+                        skills: Array.from(selectedSkills),
+                        general: Array.from(selectedGeneral)
+                      }
+                    };
+
+                    // Save improved analysis (don't block on error)
+                    try {
+                      await fetch('/api/cv/save-improved-analysis', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          originalAnalysisId: analysisResult.id,
+                          improvedResult: improvedAnalysisResult,
+                          displayName: `${analysisResult.display_name} (Förbättrad)`,
+                          cvId: newCvId
+                        })
+                      });
+                    } catch (analysisError) {
+                      console.error('Failed to save improved analysis:', analysisError);
+                      // Don't block the user flow if this fails
+                    }
+                  }
                 }
 
                 // Generate and download PDF

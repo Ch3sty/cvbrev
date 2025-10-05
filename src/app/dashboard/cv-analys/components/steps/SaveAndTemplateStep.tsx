@@ -47,11 +47,6 @@ export default function SaveAndTemplateStep({
       return;
     }
 
-    if (saveToLibrary && !customName) {
-      alert('Ange ett namn för ditt CV');
-      return;
-    }
-
     await onSaveAndDownload(selectedTemplate, customName || nameSuggestions[0], saveToLibrary);
   };
 

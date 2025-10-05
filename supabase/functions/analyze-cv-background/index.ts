@@ -215,11 +215,11 @@ Deno.serve(async (req) => {
           messages: [
             {
               role: 'system',
-              content: 'Du är en kompetensanalytiker. Identifiera konkreta färdigheter och teknologier från rollbeskrivningar som användaren kanske glömt lista under sina kompetenser.'
+              content: 'Du är en kompetensanalytiker. Identifiera konkreta färdigheter och teknologier från rollbeskrivningar som användaren kanske glömt lista under sina kompetenser. VIKTIGT: Skriv ALLA kompetenser på SVENSKA, ALDRIG engelska.'
             },
             {
               role: 'user',
-              content: `Analysera dessa roller och hitta färdigheter som nämns men kanske inte listas explicit:\n\n${JSON.stringify(structuredCV.experience)}\n\nReturnera JSON med format: { "skillSuggestions": [{ "skill": string, "relevance": string ("high", "medium", "low"), "source": string (konkret roll och företag, t.ex. "Snickare på Durgé Byggnads AB"), "reasoning": string }] }\n\nVIKTIGT: source ska vara exakt "position på company" från rollerna ovan.`
+              content: `Analysera dessa roller och hitta färdigheter som nämns men kanske inte listas explicit:\n\n${JSON.stringify(structuredCV.experience)}\n\nReturnera JSON med format: { "skillSuggestions": [{ "skill": string (PÅ SVENSKA!), "relevance": string ("high", "medium", "low"), "source": string (konkret roll och företag, t.ex. "Butikschef på H&M"), "reasoning": string (PÅ SVENSKA!) }] }\n\nKRITISKT VIKTIGT:\n- ALLA "skill" värden MÅSTE vara på SVENSKA (t.ex. "Ledarskap", inte "Leadership")\n- "source" ska vara exakt "position på company" från rollerna ovan\n- "reasoning" MÅSTE vara på SVENSKA`
             }
           ],
           temperature: 0.5,
