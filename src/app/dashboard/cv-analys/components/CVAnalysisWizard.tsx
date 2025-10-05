@@ -145,11 +145,17 @@ export default function CVAnalysisWizard({
 
     // Skills
     if (structured.skills && structured.skills.length > 0) {
-      const skillTexts = structured.skills.map((skill: any) => {
-        if (typeof skill === 'string') return skill;
-        if (skill && typeof skill === 'object' && skill.name) return skill.name;
-        return '';
-      }).filter((s: string) => s.trim());
+      const skillTexts = structured.skills.flatMap((skillCategory: any) => {
+        // Handle categorized skills { category: string, skills: string[] }
+        if (skillCategory && typeof skillCategory === 'object' && skillCategory.category && Array.isArray(skillCategory.skills)) {
+          return skillCategory.skills;
+        }
+        // Handle plain string
+        if (typeof skillCategory === 'string') return skillCategory;
+        // Handle { name: string }
+        if (skillCategory && typeof skillCategory === 'object' && skillCategory.name) return skillCategory.name;
+        return [];
+      }).filter((s: string) => s && s.trim());
 
       if (skillTexts.length > 0) {
         sections.push('FÄRDIGHETER\n' + skillTexts.join(', '));
@@ -230,20 +236,12 @@ export default function CVAnalysisWizard({
       impact += analysisResult.profileSummary.atsImpact;
     }
 
-    // Valda roller - använd samma viktade algoritm
+    // Valda roller - använd direkt summa av atsImpact från AI
     if (analysisResult.roleBasedImprovements && selectedRoles.size > 0) {
-      // Hämta valda rollers atsImpact
-      const selectedRoleImpacts = Array.from(selectedRoles).map(index =>
-        analysisResult.roleBasedImprovements[index]?.atsImpact || 0
-      );
-
-      // Sortera och ta topp-5
-      const sortedImpacts = selectedRoleImpacts.sort((a, b) => b - a);
-      const topImpacts = sortedImpacts.slice(0, Math.min(5, sortedImpacts.length));
-
-      // Beräkna viktad poäng
-      const avgImpact = topImpacts.reduce((sum, val) => sum + val, 0) / topImpacts.length;
-      impact += Math.round(avgImpact * 4);
+      Array.from(selectedRoles).forEach(index => {
+        const roleImpact = analysisResult.roleBasedImprovements[index]?.atsImpact || 0;
+        impact += roleImpact;
+      });
     }
 
     // Valda skills
