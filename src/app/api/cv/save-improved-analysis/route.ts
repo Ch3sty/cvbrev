@@ -1,13 +1,15 @@
-import { createClient } from '@/lib/supabase/server';
+import { createServerClient } from '@/lib/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient();
+    const cookieStore = await cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
 
     // Get user session
-    const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-    if (sessionError || !session) {
+    const { data: { user }, error: userError } = await supabase.auth.getUser();
+    if (userError || !user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -24,7 +26,7 @@ export async function POST(request: NextRequest) {
     const { data: newAnalysis, error: insertError } = await supabase
       .from('cv_analysis_jobs')
       .insert({
-        user_id: session.user.id,
+        user_id: user.id,
         cv_id: cvId,
         status: 'completed',
         result: improvedResult,
