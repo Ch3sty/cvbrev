@@ -129,7 +129,34 @@ Deno.serve(async (req) => {
 
     const structuredData = await structuredParsingResponse.json();
     const structuredCV = JSON.parse(structuredData.choices[0].message.content);
-    console.log(`[Job ${jobId}] Structured CV parsed: ${structuredCV.experience?.length || 0} experiences, ${structuredCV.education?.length || 0} educations`);
+
+    // FIX: Sortera experience i OMVÄND KRONOLOGI (senaste först, äldsta sist)
+    if (structuredCV.experience && Array.isArray(structuredCV.experience)) {
+      structuredCV.experience.sort((a: any, b: any) => {
+        // Nuvarande jobb (endDate = null eller tom) ska alltid vara först
+        const aIsCurrent = !a.endDate || a.endDate === 'Nuvarande' || a.endDate.toLowerCase() === 'nuvarande';
+        const bIsCurrent = !b.endDate || b.endDate === 'Nuvarande' || b.endDate.toLowerCase() === 'nuvarande';
+
+        if (aIsCurrent && !bIsCurrent) return -1;
+        if (!aIsCurrent && bIsCurrent) return 1;
+
+        // Annars sortera efter startDate (senaste först)
+        const yearA = parseInt(a.startDate) || 0;
+        const yearB = parseInt(b.startDate) || 0;
+        return yearB - yearA;
+      });
+    }
+
+    // FIX: Sortera education i OMVÄND KRONOLOGI (senaste först)
+    if (structuredCV.education && Array.isArray(structuredCV.education)) {
+      structuredCV.education.sort((a: any, b: any) => {
+        const yearA = parseInt(a.graduationYear) || 0;
+        const yearB = parseInt(b.graduationYear) || 0;
+        return yearB - yearA;
+      });
+    }
+
+    console.log(`[Job ${jobId}] Structured CV parsed and sorted: ${structuredCV.experience?.length || 0} experiences, ${structuredCV.education?.length || 0} educations`);
 
     let analysisResult: any;
 
@@ -391,7 +418,7 @@ VIKTIGT:
           },
           {
             role: 'user',
-            content: `Formatera detta CV till läsbar text med tydliga sektioner:\n\n${JSON.stringify(structuredCV)}\n\nAnvänd följande format:\n- Personuppgifter på separata rader\n- Tom rad mellan varje sektion\n- Sektionsrubriker i VERSALER\n- Tydlig struktur för erfarenheter och utbildning\n\nReturnera ENDAST den formaterade texten, ingen JSON.`
+            content: `Formatera detta CV till läsbar text med tydliga sektioner:\n\n${JSON.stringify(structuredCV)}\n\nAnvänd följande format:\n- Personuppgifter på separata rader\n- Tom rad mellan varje sektion\n- Sektionsrubriker i VERSALER\n- VIKTIGT: Erfarenheter i OMVÄND KRONOLOGI (senaste/nuvarande först, äldsta sist)\n- VIKTIGT: Behåll EXAKT ordningen från experience-arrayen\n- Tydlig struktur för erfarenheter och utbildning\n\nReturnera ENDAST den formaterade texten, ingen JSON.`
           }
         ],
         temperature: 0.3,
