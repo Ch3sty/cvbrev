@@ -433,11 +433,29 @@ VIKTIGT:
 
     console.log(`[Job ${jobId}] Saving results (with structured CV data + preview)...`);
 
+    // Auto-generate display name from most recent/current role
+    const displayName = (() => {
+      const firstExp = structuredCV.experience?.[0];
+      if (!firstExp) return `CV-analys ${new Date().toLocaleDateString('sv-SE')}`;
+
+      const roleTitle = firstExp.position || 'Okänd roll';
+      const isCurrent = !firstExp.endDate ||
+                       firstExp.endDate === 'Nuvarande' ||
+                       firstExp.endDate.toLowerCase() === 'nuvarande';
+
+      if (isCurrent) {
+        return `${roleTitle} (Nuvarande)`;
+      } else {
+        return `${roleTitle} (${firstExp.endDate})`;
+      }
+    })();
+
     const { error: resultError } = await supabase
       .from('cv_analysis_jobs')
       .update({
         status: 'completed',
         result: analysisResult,
+        display_name: displayName,
         completed_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
       })
