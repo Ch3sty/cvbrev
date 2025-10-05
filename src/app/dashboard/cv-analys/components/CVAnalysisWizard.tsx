@@ -592,16 +592,35 @@ export default function CVAnalysisWizard({
                   }
 
                   // Apply skill improvements
-                  if (analysisResult.skillImprovements && selectedSkills.size > 0) {
+                  if (analysisResult.skillSuggestions && selectedSkills.size > 0) {
                     const skillsToAdd: string[] = [];
                     Array.from(selectedSkills).forEach(skillIndex => {
-                      const skill = analysisResult.skillImprovements[skillIndex];
-                      if (skill?.suggestedSkill) {
-                        skillsToAdd.push(skill.suggestedSkill);
+                      const suggestion = analysisResult.skillSuggestions[skillIndex];
+                      if (suggestion?.skill) {
+                        skillsToAdd.push(suggestion.skill);
                       }
                     });
                     if (skillsToAdd.length > 0) {
-                      improvedStructuredCV.skills = [...(improvedStructuredCV.skills || []), ...skillsToAdd];
+                      if (!improvedStructuredCV.skills) {
+                        improvedStructuredCV.skills = [];
+                      }
+
+                      // Hitta eller skapa kategorin "Kompletterande färdigheter"
+                      let supplementaryCategory = improvedStructuredCV.skills.find(
+                        (cat: any) => cat.category === 'Kompletterande färdigheter'
+                      );
+
+                      if (!supplementaryCategory) {
+                        supplementaryCategory = { category: 'Kompletterande färdigheter', skills: [] };
+                        improvedStructuredCV.skills.push(supplementaryCategory);
+                      }
+
+                      // Lägg till nya skills (undvik dubletter)
+                      skillsToAdd.forEach(skill => {
+                        if (!supplementaryCategory.skills.includes(skill)) {
+                          supplementaryCategory.skills.push(skill);
+                        }
+                      });
                     }
                   }
                 }
