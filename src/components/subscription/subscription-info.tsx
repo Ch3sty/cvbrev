@@ -45,103 +45,107 @@ export default function SubscriptionInfo() {
   // Visa laddningsindikator om profildata fortfarande hämtas
   if (profileLoading) {
     return (
-       <div className="bg-navy-800 rounded-lg p-6 shadow-lg border border-gray-700/50 animate-pulse">
-         {/* ... laddnings-JSX ... */}
-          <div className="h-6 bg-gray-700 rounded w-3/4 mb-6"></div>
+       <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-gray-200/50 animate-pulse">
+          <div className="h-8 bg-gray-200 rounded-xl w-3/4 mb-6"></div>
           <div className="space-y-4">
-            <div className="h-4 bg-gray-700 rounded w-full"></div>
-            <div className="h-4 bg-gray-700 rounded w-5/6"></div>
-            <div className="h-4 bg-gray-700 rounded w-full"></div>
-            <div className="h-4 bg-gray-700 rounded w-4/5"></div>
+            <div className="h-5 bg-gray-200 rounded-lg w-full"></div>
+            <div className="h-5 bg-gray-200 rounded-lg w-5/6"></div>
+            <div className="h-5 bg-gray-200 rounded-lg w-full"></div>
+            <div className="h-5 bg-gray-200 rounded-lg w-4/5"></div>
           </div>
        </div>
     );
   }
 
   return (
-    <div className="bg-navy-800 rounded-lg p-6 shadow-lg border border-gray-700/50">
+    <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-8 shadow-xl border border-gray-200/50">
       {/* Titel och status */}
-      <div className="flex justify-between items-start mb-6">
-        <h2 className="text-xl font-bold text-white flex items-center">
-          <Crown className={`w-5 h-5 mr-2 ${subscriptionTier === 'premium' ? 'text-yellow-400' : 'text-gray-500'}`} />
-          Din prenumerationsstatus
-        </h2>
+      <div className="flex justify-between items-start mb-8">
+        <div className="flex items-center">
+          <div className={`p-3 rounded-xl mr-3 ${
+            subscriptionTier === 'premium'
+              ? 'bg-gradient-to-br from-yellow-500 to-amber-500'
+              : 'bg-gradient-to-br from-gray-400 to-gray-500'
+          }`}>
+            <Crown className="w-6 h-6 text-white" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900">
+            Din prenumerationsstatus
+          </h2>
+        </div>
         <div className={`
-          px-3 py-1 rounded-full text-xs font-semibold
+          px-4 py-2 rounded-xl text-xs font-semibold shadow-sm
           ${subscriptionTier === 'premium'
-            ? 'bg-gradient-to-r from-yellow-400 to-yellow-600 text-gray-900 shadow-md'
-            : 'bg-gray-700 text-gray-300'}
+            ? 'bg-gradient-to-r from-yellow-400 to-yellow-600 text-gray-900'
+            : 'bg-gray-100 text-gray-600'}
         `}>
           {subscriptionTier === 'premium' ? 'Premium' : 'Gratis'}
         </div>
       </div>
 
       {/* Begränsningar och användning */}
-      <h3 className="text-md font-semibold text-gray-200 mb-4">Användning och gränser:</h3>
+      <h3 className="text-lg font-semibold text-gray-900 mb-4">Användning och gränser:</h3>
       <div className="space-y-1">
 
         {/* Veckolimit för brev */}
-        <div className="flex items-center justify-between py-2 border-b border-gray-700/50 last:border-b-0">
+        <div className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0">
           <div className="flex items-center text-sm">
-            <MessageSquare className="w-4 h-4 mr-2 text-pink-400 flex-shrink-0" />
-            <span className="text-gray-300">Brev per vecka</span>
+            <MessageSquare className="w-4 h-4 mr-3 text-pink-600 flex-shrink-0" />
+            <span className="text-gray-700 font-medium">Brev per vecka</span>
           </div>
-          <div className="text-sm font-medium">
-            {/* Använder currentWeeklyLimit som nu är hämtad från useProfile */}
+          <div className="text-sm font-semibold">
             {subscriptionTier === 'premium' || !isFinite(currentWeeklyLimit) ? (
-              <div className="text-white flex items-center">
-                <InfinityIcon className="w-4 h-4 mr-1 text-pink-400" />
+              <div className="text-gray-900 flex items-center">
+                <InfinityIcon className="w-4 h-4 mr-1 text-pink-600" />
                 <span>Obegränsat</span>
               </div>
             ) : (
-              // *** KORRIGERAD VISNING FÖR GRATIS ***
-              <div className="text-white">
-                <span className={(weeklyLetterCount ?? 0) >= currentWeeklyLimit ? 'text-red-400 font-semibold' : ''}>
-                  {weeklyLetterCount ?? 0} {/* Visa X (aktuellt antal) */}
-                </span> / {currentWeeklyLimit} {/* Visa Y (gränsen) */}
+              <div className="text-gray-900">
+                <span className={(weeklyLetterCount ?? 0) >= currentWeeklyLimit ? 'text-red-600 font-bold' : ''}>
+                  {weeklyLetterCount ?? 0}
+                </span> / {currentWeeklyLimit}
               </div>
-              // *************************************
             )}
           </div>
         </div>
 
-        {/* CV-analyser per vecka - NY! */}
-        <div className="flex items-center justify-between py-2 border-b border-gray-700/50 last:border-b-0">
+        {/* CV-analyser per vecka */}
+        <div className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0">
           <div className="flex items-center text-sm">
-            <SearchCheck className="w-4 h-4 mr-2 text-pink-400 flex-shrink-0" />
-            <span className="text-gray-300">CV-analyser per vecka</span>
+            <SearchCheck className="w-4 h-4 mr-3 text-purple-600 flex-shrink-0" />
+            <span className="text-gray-700 font-medium">CV-analyser per vecka</span>
           </div>
-          <div className="text-sm font-medium">
+          <div className="text-sm font-semibold">
             {subscriptionTier === 'premium' || !isFinite(currentAnalysisLimit) ? (
-              <div className="text-white flex items-center">
-                <InfinityIcon className="w-4 h-4 mr-1 text-pink-400" />
+              <div className="text-gray-900 flex items-center">
+                <InfinityIcon className="w-4 h-4 mr-1 text-purple-600" />
                 <span>Obegränsat</span>
               </div>
             ) : (
-              <div className="text-white">
-                <span className={(currentAnalysisLimit - (remainingWeeklyAnalyses ?? 0) >= currentAnalysisLimit) ? 'text-red-400 font-semibold' : ''}>
-                  {currentAnalysisLimit - (remainingWeeklyAnalyses ?? 0)} {/* Visa X (aktuellt antal) */}
-                </span> / {currentAnalysisLimit} {/* Visa Y (gränsen) */}
+              <div className="text-gray-900">
+                <span className={(currentAnalysisLimit - (remainingWeeklyAnalyses ?? 0) >= currentAnalysisLimit) ? 'text-red-600 font-bold' : ''}>
+                  {currentAnalysisLimit - (remainingWeeklyAnalyses ?? 0)}
+                </span> / {currentAnalysisLimit}
               </div>
             )}
           </div>
         </div>
 
         {/* Sparade brev */}
-        <div className="flex items-center justify-between py-2 border-b border-gray-700/50 last:border-b-0">
+        <div className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0">
           <div className="flex items-center text-sm">
-            <FileText className="w-4 h-4 mr-2 text-blue-400 flex-shrink-0" />
-            <span className="text-gray-300">Sparade personliga brev</span>
+            <FileText className="w-4 h-4 mr-3 text-blue-600 flex-shrink-0" />
+            <span className="text-gray-700 font-medium">Sparade personliga brev</span>
           </div>
-          <div className="text-sm font-medium">
+          <div className="text-sm font-semibold">
             {subscriptionTier === 'premium' || !isFinite(currentSavedLettersLimit) ? (
-              <div className="text-white flex items-center">
-                <InfinityIcon className="w-4 h-4 mr-1 text-blue-400" />
+              <div className="text-gray-900 flex items-center">
+                <InfinityIcon className="w-4 h-4 mr-1 text-blue-600" />
                 <span>Obegränsat</span>
               </div>
             ) : (
-              <div className="text-white">
-                <span className={savedLettersCount >= currentSavedLettersLimit ? 'text-red-400 font-semibold' : ''}>
+              <div className="text-gray-900">
+                <span className={savedLettersCount >= currentSavedLettersLimit ? 'text-red-600 font-bold' : ''}>
                   {savedLettersCount}
                 </span> / {currentSavedLettersLimit}
               </div>
@@ -150,20 +154,20 @@ export default function SubscriptionInfo() {
         </div>
 
         {/* CV-gräns */}
-        <div className="flex items-center justify-between py-2 border-b border-gray-700/50 last:border-b-0">
+        <div className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0">
           <div className="flex items-center text-sm">
-            <FileText className="w-4 h-4 mr-2 text-green-400 flex-shrink-0" />
-            <span className="text-gray-300">Sparade CV:n</span>
+            <FileText className="w-4 h-4 mr-3 text-green-600 flex-shrink-0" />
+            <span className="text-gray-700 font-medium">Sparade CV:n</span>
           </div>
-          <div className="text-sm font-medium">
+          <div className="text-sm font-semibold">
              {subscriptionTier === 'premium' || !isFinite(currentCvLimit) ? (
-              <div className="text-white flex items-center">
-                <InfinityIcon className="w-4 h-4 mr-1 text-green-400" />
+              <div className="text-gray-900 flex items-center">
+                <InfinityIcon className="w-4 h-4 mr-1 text-green-600" />
                 <span>Obegränsat</span>
               </div>
             ) : (
-              <div className="text-white">
-                <span className={cvCount >= currentCvLimit ? 'text-red-400 font-semibold' : ''}>
+              <div className="text-gray-900">
+                <span className={cvCount >= currentCvLimit ? 'text-red-600 font-bold' : ''}>
                   {cvCount}
                 </span> / {currentCvLimit}
               </div>
@@ -172,14 +176,14 @@ export default function SubscriptionInfo() {
         </div>
 
         {/* AI-tonalitet */}
-        <div className="flex items-center justify-between py-2 border-b border-gray-700/50 last:border-b-0">
+        <div className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0">
           <div className="flex items-center text-sm">
-            <Sparkles className="w-4 h-4 mr-2 text-purple-400 flex-shrink-0" />
-            <span className="text-gray-300">AI-optimerad tonalitet</span>
+            <Sparkles className="w-4 h-4 mr-3 text-amber-600 flex-shrink-0" />
+            <span className="text-gray-700 font-medium">Smarta tonalitetsval</span>
           </div>
           <div className="flex items-center">
             {subscriptionTier === 'premium' ? (
-               <div className="flex items-center text-sm text-green-400">
+               <div className="flex items-center text-sm text-green-600 font-semibold">
                  <CheckCircle className="w-4 h-4 mr-1" />
                  <span>Tillgänglig</span>
                </div>
@@ -193,24 +197,26 @@ export default function SubscriptionInfo() {
         </div>
       </div>
 
-       {/* Info-rutor (behålls) */}
+       {/* Info-rutor */}
        {subscriptionTier === 'premium' && (
-         <div className="mt-6 p-3 bg-gradient-to-r from-yellow-500/10 to-yellow-600/10 rounded-lg border border-yellow-500/30">
-            {/* ... premium info ... */}
+         <div className="mt-6 p-4 bg-yellow-50 rounded-xl border border-yellow-200">
             <div className="flex items-start">
-                <Info className="w-4 h-4 text-yellow-400 mr-2 flex-shrink-0 mt-0.5" />
-                <p className="text-xs text-yellow-200">
+                <div className="p-2 bg-yellow-100 rounded-lg mr-3">
+                  <Info className="w-4 h-4 text-yellow-600" />
+                </div>
+                <p className="text-sm text-yellow-800">
                     Som Premium-medlem har du tillgång till alla funktioner och obegränsad användning.
                 </p>
             </div>
          </div>
        )}
        {subscriptionTier === 'free' && (
-         <div className="mt-6 p-3 bg-gradient-to-r from-blue-500/10 to-blue-600/10 rounded-lg border border-blue-500/30">
-            {/* ... gratis info ... */}
+         <div className="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
              <div className="flex items-start">
-                <Info className="w-4 h-4 text-blue-400 mr-2 flex-shrink-0 mt-0.5" />
-                <p className="text-xs text-blue-200">
+                <div className="p-2 bg-blue-100 rounded-lg mr-3">
+                  <Info className="w-4 h-4 text-blue-600" />
+                </div>
+                <p className="text-sm text-blue-800">
                     Du använder Gratis-planen. Uppgradera till Premium för att låsa upp alla funktioner och ta bort gränserna.
                 </p>
             </div>
