@@ -31,12 +31,7 @@ export async function POST(request: NextRequest) {
         status: 'completed',
         result: improvedResult,
         display_name: displayName,
-        completed_at: new Date().toISOString(),
-        // Optional: track parent analysis for history
-        metadata: {
-          parent_analysis_id: originalAnalysisId,
-          is_improved: true
-        }
+        completed_at: new Date().toISOString()
       })
       .select()
       .single();
