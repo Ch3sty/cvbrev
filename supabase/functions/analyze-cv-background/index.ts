@@ -76,16 +76,34 @@ Deno.serve(async (req) => {
 
     const requestData = await req.json();
     jobId = requestData.jobId;
-    const { cvText, userId } = requestData;
+    const { cvId } = requestData;
 
-    if (!jobId || !cvText || !userId) {
+    if (!jobId || !cvId) {
       return new Response(
-        JSON.stringify({ error: 'Missing required fields (jobId, cvText, or userId)' }),
+        JSON.stringify({ error: 'Missing required fields (jobId or cvId)' }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
-    console.log(`[Job ${jobId}] Starting background analysis`);
+    console.log(`[Job ${jobId}] Starting background analysis for CV ${cvId}`);
+
+    // Fetch CV text from cv_texts table
+    const { data: cv, error: cvError } = await supabase
+      .from('cv_texts')
+      .select('cv_text')
+      .eq('id', cvId)
+      .single();
+
+    if (cvError || !cv) {
+      console.error(`[Job ${jobId}] Failed to fetch CV:`, cvError);
+      return new Response(
+        JSON.stringify({ error: `Failed to fetch CV: ${cvError?.message || 'CV not found'}` }),
+        { status: 404, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    const cvText = cv.cv_text;
+    console.log(`[Job ${jobId}] CV text fetched (${cvText.length} chars)`);
 
     await supabase
       .from('cv_analysis_jobs')

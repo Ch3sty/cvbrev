@@ -67,7 +67,10 @@ export default function CVAnalysisPage() {
       }
 
       if (jobData.status === 'completed') {
-        return jobData.result;
+        return {
+          id: jobData.id,
+          ...jobData.result
+        };
       } else if (jobData.status === 'failed') {
         throw new Error(jobData.error || 'Analysis failed');
       }
