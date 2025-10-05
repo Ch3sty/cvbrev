@@ -17,7 +17,8 @@ import {
   Mail,
   GraduationCap,
   Trophy,
-  Gift
+  Gift,
+  Briefcase
 } from 'lucide-react';
 export default function DashboardSidebar() {
   const pathname = usePathname();
@@ -92,6 +93,12 @@ export default function DashboardSidebar() {
       path: '/dashboard/cv-analys',
       label: 'CV-Analys',
       icon: <Brain className="w-5 h-5" />,
+      section: 'tools'
+    },
+    {
+      path: '/dashboard/jobbmatchning',
+      label: 'Jobbmatchning',
+      icon: <Briefcase className="w-5 h-5" />,
       section: 'tools'
     },
     {
