@@ -13,7 +13,9 @@ import {
   Sparkles,
   Brain,
   Key,
-  FileCheck
+  FileCheck,
+  AlertTriangle,
+  Navigation
 } from 'lucide-react';
 
 interface JobCardProps {
@@ -118,7 +120,7 @@ export default function JobCard({ job, index, onSelect }: JobCardProps) {
             <span className="font-medium truncate">{job.employer.name}</span>
           </div>
 
-          {/* Location */}
+          {/* Location with Distance */}
           {job.workplace_address && (
             <div className="flex items-center gap-2 text-gray-600 text-sm mb-2">
               <MapPin className="w-4 h-4 shrink-0" />
@@ -127,7 +129,44 @@ export default function JobCard({ job, index, onSelect }: JobCardProps) {
                   job.workplace_address.municipality,
                   job.workplace_address.region
                 ].filter(Boolean).join(', ')}
+                {job.distance !== null && job.distance !== undefined && (
+                  <span className="ml-2 text-xs text-gray-500">
+                    ({job.distance} km)
+                  </span>
+                )}
               </span>
+            </div>
+          )}
+
+          {/* Long Distance Warning */}
+          {!job.isRemote && job.distance !== null && job.distance > 200 && (
+            <div className="mb-3 p-2 bg-orange-50 border border-orange-200 rounded-lg flex items-start gap-2">
+              <AlertTriangle className="w-4 h-4 text-orange-600 mt-0.5 shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-xs text-orange-800">
+                  <strong>Långt avstånd:</strong> Denna tjänst ligger {job.distance} km bort. Jobb över 200 km får max 20% matchning.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Industry Requirement Warning */}
+          {job.industryPenalty > 0 && (
+            <div className="mb-3 p-2 bg-red-50 border border-red-200 rounded-lg flex items-start gap-2">
+              <AlertTriangle className="w-4 h-4 text-red-600 mt-0.5 shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-xs text-red-800">
+                  <strong>Branschkrav:</strong> Detta jobb har branschspecifika krav som inte matchar din bakgrund (-{job.industryPenalty}p).
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Remote Badge */}
+          {job.isRemote && (
+            <div className="mb-3 inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-700 rounded-lg text-xs font-medium">
+              <Navigation className="w-3 h-3" />
+              <span>Distansarbete</span>
             </div>
           )}
 

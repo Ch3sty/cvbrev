@@ -9,7 +9,71 @@ const corsHeaders = {
   'Access-Control-Max-Age': '86400'
 };
 
-// Närliggande yrken-databas för fuzzy matching
+// Svenska städer med koordinater (top 60)
+const SWEDISH_CITIES: Record<string, { lat: number; lon: number }> = {
+  "stockholm": { lat: 59.3293, lon: 18.0686 },
+  "göteborg": { lat: 57.7089, lon: 11.9746 },
+  "malmö": { lat: 55.6050, lon: 13.0038 },
+  "uppsala": { lat: 59.8586, lon: 17.6389 },
+  "västerås": { lat: 59.6099, lon: 16.5448 },
+  "örebro": { lat: 59.2753, lon: 15.2134 },
+  "linköping": { lat: 58.4108, lon: 15.6214 },
+  "helsingborg": { lat: 56.0465, lon: 12.6945 },
+  "jönköping": { lat: 57.7826, lon: 14.1618 },
+  "norrköping": { lat: 58.5877, lon: 16.1924 },
+  "lund": { lat: 55.7047, lon: 13.1910 },
+  "umeå": { lat: 63.8258, lon: 20.2630 },
+  "gävle": { lat: 60.6749, lon: 17.1413 },
+  "borås": { lat: 57.7210, lon: 12.9401 },
+  "södertälje": { lat: 59.1959, lon: 17.6255 },
+  "eskilstuna": { lat: 59.3710, lon: 16.5077 },
+  "karlstad": { lat: 59.3793, lon: 13.5036 },
+  "täby": { lat: 59.4439, lon: 18.0687 },
+  "växjö": { lat: 56.8787, lon: 14.8059 },
+  "halmstad": { lat: 56.6745, lon: 12.8577 },
+  "sundsvall": { lat: 62.3908, lon: 17.3069 },
+  "luleå": { lat: 65.5848, lon: 22.1547 },
+  "trollhättan": { lat: 58.2836, lon: 12.2886 },
+  "östersund": { lat: 63.1792, lon: 14.6357 },
+  "borlänge": { lat: 60.4858, lon: 15.4378 },
+  "kalmar": { lat: 56.6634, lon: 16.3567 },
+  "kristianstad": { lat: 56.0294, lon: 14.1567 },
+  "karlskrona": { lat: 56.1621, lon: 15.5866 },
+  "skellefteå": { lat: 64.7507, lon: 20.9527 },
+  "uddevalla": { lat: 58.3480, lon: 11.9424 },
+  "skövde": { lat: 58.3910, lon: 13.8455 },
+  "varberg": { lat: 57.1057, lon: 12.2502 },
+  "åkersberga": { lat: 59.4797, lon: 18.2978 },
+  "falun": { lat: 60.6066, lon: 15.6265 },
+  "lidingö": { lat: 59.3667, lon: 18.1333 },
+  "örnsköldsvik": { lat: 63.2909, lon: 18.7155 },
+  "nyköping": { lat: 58.7530, lon: 17.0086 },
+  "karlskoga": { lat: 59.3267, lon: 14.5233 },
+  "sollefteå": { lat: 63.1686, lon: 17.2657 },
+  "trelleborg": { lat: 55.3754, lon: 13.1567 },
+  "solna": { lat: 59.3599, lon: 18.0000 },
+  "motala": { lat: 58.5370, lon: 15.0364 },
+  "kiruna": { lat: 67.8558, lon: 20.2253 },
+  "landskrona": { lat: 55.8708, lon: 12.8301 },
+  "ystad": { lat: 55.4296, lon: 13.8206 },
+  "enköping": { lat: 59.6357, lon: 17.0777 },
+  "ängelholm": { lat: 56.2428, lon: 12.8622 },
+  "visby": { lat: 57.6348, lon: 18.2948 },
+  "nässjö": { lat: 57.6531, lon: 14.6968 },
+  "sandviken": { lat: 60.6167, lon: 16.7667 },
+  "falkenberg": { lat: 56.9054, lon: 12.4915 },
+  "kungsbacka": { lat: 57.4870, lon: 12.0772 },
+  "lidköping": { lat: 58.5052, lon: 13.1577 },
+  "lerum": { lat: 57.7704, lon: 12.2694 },
+  "märsta": { lat: 59.6167, lon: 17.8500 },
+  "oskarshamn": { lat: 57.2644, lon: 16.4486 },
+  "katrineholm": { lat: 58.9959, lon: 16.2073 },
+  "huskvarna": { lat: 57.7858, lon: 14.3014 },
+  "piteå": { lat: 65.3197, lon: 21.4758 },
+  "vetlanda": { lat: 57.4289, lon: 15.0776 }
+};
+
+// Närliggande yrken-databas
 const RELATED_OCCUPATIONS: Record<string, string[]> = {
   "butikschef": ["restaurangchef", "caféchef", "försäljningschef", "avdelningschef", "regionchef", "vice butikschef", "butiksbiträde"],
   "restaurangchef": ["butikschef", "caféchef", "kökschef", "hotelchef", "verksamhetschef"],
@@ -27,16 +91,51 @@ const RELATED_OCCUPATIONS: Record<string, string[]> = {
 // Distansarbete-keywords
 const REMOTE_KEYWORDS = ["distans", "remote", "hemarbete", "hemifrån", "var som helst", "anywhere"];
 
+// Branschspecifika krav (för straff om saknas i CV)
+const INDUSTRY_SPECIFIC_REQUIREMENTS: Record<string, { keywords: string[]; cvIndicators: string[] }> = {
+  medical: {
+    keywords: ["läkarlegitimation", "sjuksköterska legitimation", "läkare", "medicin", "leg. läkare", "leg. sjuksköterska"],
+    cvIndicators: ["läkare", "sjuksköterska", "medicin", "karolinska", "läkarprogrammet", "vårdutbildning", "legitimerad"]
+  },
+  maritime: {
+    keywords: ["sjöfartsnäringen", "sjökapten", "sjöbefäl", "stcw", "nautisk", "certifikat iv"],
+    cvIndicators: ["sjökapten", "sjöfart", "nautisk", "maritimt", "kustbevakningen", "rederi", "fartyg", "marin"]
+  },
+  engineering: {
+    keywords: ["civilingenjör", "teknisk fysik", "teknologie master", "teknisk högskola", "civilingenjörsexamen"],
+    cvIndicators: ["civilingenjör", "kth", "chalmers", "lth", "ingenjör", "teknisk", "maskinteknik", "elektroteknik"]
+  },
+  law: {
+    keywords: ["juristexamen", "jur.kand", "advokat", "juris kandidat", "juridisk examen"],
+    cvIndicators: ["juridik", "jurist", "jur.kand", "advokatbyrå", "domstol", "rättsvetenskap", "juridisk fakultet"]
+  },
+  aviation: {
+    keywords: ["flygcertifikat", "pilotlicens", "atpl", "cpl", "flygutbildning", "certifierad pilot"],
+    cvIndicators: ["pilot", "flygplan", "sas", "luftfart", "flygutbildning", "flyg", "aviation"]
+  }
+};
+
+// Haversine-formel för distansberäkning
+function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  const R = 6371; // Jordens radie i km
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a =
+    Math.sin(dLat/2) * Math.sin(dLat/2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon/2) * Math.sin(dLon/2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+}
+
 // Extrahera geografi från CV
 function extractGeography(cvData: any) {
   const locations: string[] = [];
 
-  // Primär: personalInfo.address
   if (cvData.personalInfo?.address) {
     locations.push(cvData.personalInfo.address);
   }
 
-  // Sekundär: Senaste 2 arbetsplatser
   if (cvData.experience) {
     cvData.experience.slice(0, 2).forEach((exp: any) => {
       if (exp.location) locations.push(exp.location);
@@ -46,73 +145,152 @@ function extractGeography(cvData: any) {
   return locations.filter(Boolean);
 }
 
-// Enkel geografisk parser (Svenska städer/regioner)
-function parseLocation(location: string): { city?: string; region?: string } {
+// Parsa location till stad med koordinater
+function parseLocation(location: string): { city?: string; lat?: number; lon?: number } | null {
+  if (!location) return null;
+
   const normalized = location.toLowerCase().trim();
 
-  // Vanliga svenska städer
-  const cities: Record<string, string> = {
-    "stockholm": "Stockholm",
-    "göteborg": "Göteborg",
-    "malmö": "Malmö",
-    "uppsala": "Uppsala",
-    "västerås": "Västerås",
-    "örebro": "Örebro",
-    "linköping": "Linköping",
-    "helsingborg": "Helsingborg",
-    "jönköping": "Jönköping",
-    "norrköping": "Norrköping",
-    "lund": "Lund",
-    "umeå": "Umeå",
-    "gävle": "Gävle",
-    "borås": "Borås",
-    "södertälje": "Södertälje",
-    "eskilstuna": "Eskilstuna",
-    "karlstad": "Karlstad",
-    "täby": "Täby",
-    "växjö": "Växjö",
-    "halmstad": "Halmstad"
-  };
-
-  for (const [key, value] of Object.entries(cities)) {
-    if (normalized.includes(key)) {
-      return { city: value };
+  for (const [cityKey, coords] of Object.entries(SWEDISH_CITIES)) {
+    if (normalized.includes(cityKey)) {
+      return {
+        city: cityKey.charAt(0).toUpperCase() + cityKey.slice(1),
+        ...coords
+      };
     }
   }
 
-  return {};
+  return null;
 }
 
-// Beräkna geografisk score
-function calculateGeographyScore(cvLocations: string[], job: any): number {
-  const jobText = `${job.headline} ${job.description?.text || ''} ${job.workplace_address?.municipality || ''}`.toLowerCase();
+// Kolla om jobb är distansarbete
+function checkIfRemote(job: any): boolean {
+  const jobText = `${job.headline} ${job.description?.text || ''}`.toLowerCase();
+  return REMOTE_KEYWORDS.some(keyword => jobText.includes(keyword));
+}
 
-  // Kolla om jobbet är distansarbete
-  const isRemote = REMOTE_KEYWORDS.some(keyword => jobText.includes(keyword));
+// Beräkna distans mellan CV-location och jobb
+function calculateDistanceForJob(cvLocations: string[], job: any): number | null {
+  if (cvLocations.length === 0) return null;
+
+  const cvLoc = parseLocation(cvLocations[0]);
+  if (!cvLoc || !cvLoc.lat) return null;
+
+  const jobMunicipality = job.workplace_address?.municipality;
+  if (!jobMunicipality) return null;
+
+  const jobLoc = parseLocation(jobMunicipality);
+  if (!jobLoc || !jobLoc.lat) return null;
+
+  return calculateDistance(cvLoc.lat, cvLoc.lon, jobLoc.lat, jobLoc.lon);
+}
+
+// Beräkna geografisk score MED distansbaserad viktning
+function calculateGeographyScore(cvLocations: string[], job: any, distance: number | null, isRemote: boolean): number {
   if (isRemote) return 25; // Full poäng för distansjobb
 
-  if (cvLocations.length === 0) return 10; // Neutral score om ingen location
+  if (distance === null || cvLocations.length === 0) return 10; // Neutral om location saknas
 
-  // Kolla om någon CV-location matchar jobbets kommun/stad
-  for (const cvLoc of cvLocations) {
-    const parsed = parseLocation(cvLoc);
-    if (!parsed.city) continue;
+  // Distansbaserad viktning
+  if (distance <= 15) return 25;   // Samma stad/grannkommun
+  if (distance <= 50) return 20;   // Pendlingsavstånd (<1h)
+  if (distance <= 100) return 12;  // Regionalt (1-2h)
+  if (distance <= 200) return 5;   // Landsdel (2-3h)
+  if (distance <= 350) return 2;   // Långt bort (3-5h)
+  return 0;                        // Extremt långt (>5h)
+}
 
-    const cityLower = parsed.city.toLowerCase();
+// Extrahera kravsektion från jobbannons
+function extractRequirements(jobText: string): string {
+  const patterns = [
+    /(?:du måste ha|krav|kvalifikationer|requirements)[:\s]+(.*?)(?=\n\n|vi erbjuder|vi söker|meriterande|om rollen|ansök|we offer|responsibilities)/si,
+  ];
 
-    // Exakt stadsmatchning
-    if (jobText.includes(cityLower)) {
-      return 25; // Samma stad
-    }
-
-    // Närliggande städer (kan utökas med regions-databas)
-    if (job.workplace_address?.municipality?.toLowerCase().includes(cityLower)) {
-      return 20;
+  for (const pattern of patterns) {
+    const match = jobText.match(pattern);
+    if (match && match[1]) {
+      return match[1].toLowerCase();
     }
   }
 
-  // Ingen geografisk matchning
-  return 3;
+  return '';
+}
+
+// Extrahera ALLT text från CV
+function extractAllCVText(cvData: any): string {
+  const parts: string[] = [];
+
+  // Utbildningar
+  if (cvData.education) {
+    cvData.education.forEach((edu: any) => {
+      parts.push(edu.degree || '', edu.institution || '', edu.description || '');
+    });
+  }
+
+  // Erfarenheter
+  if (cvData.experience) {
+    cvData.experience.forEach((exp: any) => {
+      parts.push(exp.position || '', exp.company || '');
+      if (Array.isArray(exp.description)) {
+        parts.push(...exp.description);
+      } else if (exp.description) {
+        parts.push(exp.description);
+      }
+    });
+  }
+
+  // Kompetenser
+  if (cvData.skills) {
+    cvData.skills.forEach((skillGroup: any) => {
+      if (Array.isArray(skillGroup.skills)) {
+        parts.push(...skillGroup.skills);
+      }
+    });
+  }
+
+  // Certifieringar
+  if (cvData.certifications) {
+    cvData.certifications.forEach((cert: any) => {
+      parts.push(cert.name || '', cert.issuer || '');
+    });
+  }
+
+  return parts.join(' ').toLowerCase();
+}
+
+// Applicera branschstraff (ENDAST om CV saknar kompetens)
+function applyIndustryPenalty(cvData: any, job: any): number {
+  const jobText = `${job.headline} ${job.description?.text || ''}`.toLowerCase();
+  const requirementSection = extractRequirements(jobText);
+
+  if (!requirementSection) return 0; // Ingen kravsektion = inget straff
+
+  const cvText = extractAllCVText(cvData);
+  let penalty = 0;
+
+  for (const [industry, config] of Object.entries(INDUSTRY_SPECIFIC_REQUIREMENTS)) {
+    // Kolla om jobbet har branschspecifikt krav
+    const hasIndustryRequirement = config.keywords.some(kw =>
+      requirementSection.includes(kw)
+    );
+
+    if (hasIndustryRequirement) {
+      // Kolla om CV:t har matchande branschkompetens
+      const hasBranchExperience = config.cvIndicators.some(indicator =>
+        cvText.includes(indicator)
+      );
+
+      if (!hasBranchExperience) {
+        // CV saknar branschkompetens → STRAFF
+        penalty += 35;
+        console.log(`Industry mismatch: Job requires ${industry}, CV lacks indicators`);
+      } else {
+        console.log(`Industry match: Job requires ${industry}, CV has experience`);
+      }
+    }
+  }
+
+  return Math.min(50, penalty); // Max -50p straff
 }
 
 // Extrahera yrken från CV
@@ -134,12 +312,10 @@ function extractOccupations(cvData: any): string[] {
 function getRelatedOccupations(occupation: string): string[] {
   const normalized = occupation.toLowerCase().trim();
 
-  // Exakt match
   if (RELATED_OCCUPATIONS[normalized]) {
     return RELATED_OCCUPATIONS[normalized];
   }
 
-  // Partiell match (t.ex. "senior systemutvecklare" → "systemutvecklare")
   for (const [key, related] of Object.entries(RELATED_OCCUPATIONS)) {
     if (normalized.includes(key) || key.includes(normalized)) {
       return related;
@@ -155,14 +331,12 @@ function calculateOccupationScore(cvOccupations: string[], job: any): number {
 
   if (cvOccupations.length === 0) return 0;
 
-  const primaryOccupation = cvOccupations[0]; // Senaste yrkestiteln
+  const primaryOccupation = cvOccupations[0];
 
-  // Exakt match
   if (jobText.includes(primaryOccupation)) {
     return 20;
   }
 
-  // Närliggande yrken
   const relatedOccupations = getRelatedOccupations(primaryOccupation);
   for (const related of relatedOccupations) {
     if (jobText.includes(related.toLowerCase())) {
@@ -170,7 +344,6 @@ function calculateOccupationScore(cvOccupations: string[], job: any): number {
     }
   }
 
-  // Kolla andra yrken från CV
   for (let i = 1; i < Math.min(cvOccupations.length, 3); i++) {
     if (jobText.includes(cvOccupations[i])) {
       return 12;
@@ -202,7 +375,6 @@ function calculateExperienceScore(cvData: any, job: any): number {
 
   const jobText = `${job.headline} ${job.description?.text || ''}`.toLowerCase();
 
-  // Viktiga nyckelfraser (viktade)
   const keyPhrases: Record<string, number> = {
     "personalansvar": 3,
     "budgetansvar": 3,
@@ -229,7 +401,6 @@ function calculateExperienceScore(cvData: any, job: any): number {
   let score = 0;
 
   for (const [phrase, weight] of Object.entries(keyPhrases)) {
-    // Kolla om frasen finns både i CV OCH i jobbannonsen
     if (experienceText.includes(phrase) && jobText.includes(phrase)) {
       score += weight;
     }
@@ -238,31 +409,14 @@ function calculateExperienceScore(cvData: any, job: any): number {
   return Math.min(20, score);
 }
 
-// Extrahera färdigheter från CV
-function extractSkills(cvData: any): string[] {
-  const skills: string[] = [];
-
-  if (cvData.skills) {
-    cvData.skills.forEach((skillGroup: any) => {
-      if (Array.isArray(skillGroup.skills)) {
-        skills.push(...skillGroup.skills);
-      }
-    });
-  }
-
-  return [...new Set(skills.map(s => s.toLowerCase()))];
-}
-
-// Bygg smart söksträng med AI-data från CV-analys
+// Bygg smart söksträng
 function buildSmartQuery(cvData: any, analysisData: any, cvOccupations: string[]): string {
   const queryParts: string[] = [];
 
-  // 1. Primärt yrke (viktigast)
   if (cvOccupations.length > 0) {
     queryParts.push(cvOccupations[0]);
   }
 
-  // 2. Top AI-identifierade skills med hög relevans
   if (analysisData.skillSuggestions) {
     const topSkills = analysisData.skillSuggestions
       .filter((s: any) => s.relevance === 'high')
@@ -271,7 +425,6 @@ function buildSmartQuery(cvData: any, analysisData: any, cvOccupations: string[]
     queryParts.push(...topSkills);
   }
 
-  // 3. Keywords från CV-analys
   if (analysisData.keywords) {
     const topKeywords = analysisData.keywords.slice(0, 2);
     queryParts.push(...topKeywords);
@@ -280,7 +433,7 @@ function buildSmartQuery(cvData: any, analysisData: any, cvOccupations: string[]
   return queryParts.filter(Boolean).slice(0, 6).join(' ');
 }
 
-// Sök jobb via Arbetsförmedlingens API
+// Sök jobb via API
 async function searchJobs(params: Record<string, any>) {
   const baseUrl = 'https://jobsearch.api.jobtechdev.se';
   const queryParams = new URLSearchParams();
@@ -307,7 +460,7 @@ async function searchJobs(params: Record<string, any>) {
   return data.hits || [];
 }
 
-// Multi-query sökning för att få fler relevanta annonser
+// Multi-query sökning
 async function searchJobsMultiQuery(
   cvData: any,
   analysisData: any,
@@ -318,10 +471,6 @@ async function searchJobsMultiQuery(
   const allJobs: any[] = [];
   const seenIds = new Set<string>();
 
-  // Geografisk filter (om tillgänglig)
-  const parsedLocation = cvLocations.length > 0 ? parseLocation(cvLocations[0]) : {};
-
-  // Query 1: Primär sökning - Exakt yrkestitel + skills
   const primaryQuery = buildSmartQuery(cvData, analysisData, cvOccupations);
   console.log('Query 1 (Primary):', primaryQuery);
   const primaryJobs = await searchJobs({
@@ -337,7 +486,6 @@ async function searchJobsMultiQuery(
     }
   });
 
-  // Query 2: Närliggande yrken
   if (cvOccupations.length > 0) {
     const relatedOccs = getRelatedOccupations(cvOccupations[0]);
     if (relatedOccs.length > 0) {
@@ -359,7 +507,6 @@ async function searchJobsMultiQuery(
     }
   }
 
-  // Query 3: Kompetensbaserad sökning
   if (analysisData.skillSuggestions && analysisData.skillSuggestions.length > 0) {
     const topSkills = analysisData.skillSuggestions
       .filter((s: any) => s.relevance === 'high')
@@ -389,20 +536,29 @@ async function searchJobsMultiQuery(
   return allJobs;
 }
 
-// FÖRBÄTTRAD: Multi-factor relevansberäkning
-function calculateRelevance(cvData: any, analysisData: any, job: any, cvOccupations: string[], cvLocations: string[]): number {
+// FÖRBÄTTRAD: Multi-factor relevansberäkning med distans och branschstraff
+function calculateRelevance(
+  cvData: any,
+  analysisData: any,
+  job: any,
+  cvOccupations: string[],
+  cvLocations: string[],
+  distance: number | null,
+  isRemote: boolean,
+  industryPenalty: number
+): number {
   let score = 0;
   const maxScore = 100;
 
   const jobText = `${job.headline} ${job.description?.text || ''} ${job.occupation?.label || ''}`.toLowerCase();
 
-  // Faktor 1: Geografisk matchning (25 poäng) ⭐ NYT!
-  score += calculateGeographyScore(cvLocations, job);
+  // Faktor 1: Geografisk matchning (25 poäng)
+  score += calculateGeographyScore(cvLocations, job, distance, isRemote);
 
-  // Faktor 2: Yrkestitelmatchning (20 poäng) - Förbättrad
+  // Faktor 2: Yrkestitelmatchning (20 poäng)
   score += calculateOccupationScore(cvOccupations, job);
 
-  // Faktor 3: Erfarenhetsbaserad matchning (20 poäng) ⭐ NYT!
+  // Faktor 3: Erfarenhetsbaserad matchning (20 poäng)
   score += calculateExperienceScore(cvData, job);
 
   // Faktor 4: AI-identifierade kompetenser (15 poäng)
@@ -441,10 +597,18 @@ function calculateRelevance(cvData: any, analysisData: any, job: any, cvOccupati
     score += Math.min(10, roleMatches * 2);
   }
 
-  return Math.min(maxScore, Math.round(score));
+  // Applicera branschstraff
+  score -= industryPenalty;
+
+  // Maxtak för långdistansjobb (>200km)
+  if (!isRemote && distance !== null && distance > 200) {
+    score = Math.min(20, score);
+  }
+
+  return Math.max(0, Math.min(maxScore, Math.round(score)));
 }
 
-// Extrahera matchningsdetaljer per jobb
+// Extrahera matchningsdetaljer
 function extractMatchDetails(cvData: any, analysisData: any, job: any, cvOccupations: string[]) {
   const jobText = `${job.headline} ${job.description?.text || ''} ${job.occupation?.label || ''}`.toLowerCase();
 
@@ -469,7 +633,6 @@ function extractMatchDetails(cvData: any, analysisData: any, job: any, cvOccupat
 }
 
 Deno.serve(async (req) => {
-  // Handle CORS preflight OPTIONS request
   if (req.method === 'OPTIONS') {
     return new Response(null, {
       status: 204,
@@ -512,7 +675,6 @@ Deno.serve(async (req) => {
     let selectedAnalysisId = null;
 
     if (analysisId) {
-      // Hämta från specifik CV-analys
       const { data: analysisJob, error: jobError } = await supabase
         .from('cv_analysis_jobs')
         .select('id, result, display_name')
@@ -533,7 +695,6 @@ Deno.serve(async (req) => {
         };
       }
     } else {
-      // Hämta senaste analysen
       const { data: latestJob, error: latestError } = await supabase
         .from('cv_analysis_jobs')
         .select('id, result, display_name')
@@ -574,7 +735,6 @@ Deno.serve(async (req) => {
     console.log('Occupations:', cvOccupations);
     console.log('Locations:', cvLocations);
 
-    // Multi-query sökning
     const jobs = await searchJobsMultiQuery(
       cvData,
       analysisData,
@@ -585,15 +745,30 @@ Deno.serve(async (req) => {
 
     console.log(`Found ${jobs.length} jobs via multi-query`);
 
-    // Beräkna relevans OCH extrahera matchningsdetaljer
+    // Beräkna relevans med ALLA nya faktorer
     const jobsWithRelevance = jobs.map((job: any) => {
-      const relevance = calculateRelevance(cvData, analysisData, job, cvOccupations, cvLocations);
+      const distance = calculateDistanceForJob(cvLocations, job);
+      const isRemote = checkIfRemote(job);
+      const industryPenalty = applyIndustryPenalty(cvData, job);
+      const relevance = calculateRelevance(
+        cvData,
+        analysisData,
+        job,
+        cvOccupations,
+        cvLocations,
+        distance,
+        isRemote,
+        industryPenalty
+      );
       const matchDetails = extractMatchDetails(cvData, analysisData, job, cvOccupations);
 
       return {
         ...job,
         relevance,
-        matchDetails
+        matchDetails,
+        distance,           // För UI
+        isRemote,           // För UI
+        industryPenalty,    // För UI-varning
       };
     });
 

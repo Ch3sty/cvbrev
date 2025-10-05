@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Info, Briefcase, Brain, Key, FileCheck, MapPin } from 'lucide-react';
+import { ChevronDown, Info, Briefcase, Brain, Key, FileCheck, MapPin, AlertTriangle } from 'lucide-react';
 
 export default function MatchExplanation() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -12,7 +12,7 @@ export default function MatchExplanation() {
       icon: MapPin,
       title: 'Geografisk matchning',
       points: 25,
-      description: 'Distans till arbetsplatsen eller distansarbete',
+      description: 'Beräknad distans: 0-15 km (25p), 15-50 km (20p), 50-100 km (12p), 100-200 km (5p), 200-350 km (2p), >350 km (0p). Distansjobb får full poäng.',
       color: 'from-blue-500 to-cyan-500'
     },
     {
@@ -122,10 +122,34 @@ export default function MatchExplanation() {
                 ))}
               </div>
 
-              <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                <p className="text-xs text-blue-800">
-                  <strong>Tips:</strong> Jobb med 70%+ matchning anses vara högt relevanta för din profil.
-                </p>
+              <div className="mt-4 space-y-3">
+                <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                  <p className="text-xs text-blue-800">
+                    <strong>Tips:</strong> Jobb med 70%+ matchning anses vara högt relevanta för din profil.
+                  </p>
+                </div>
+
+                <div className="p-3 bg-orange-50 border border-orange-200 rounded-lg">
+                  <div className="flex items-start gap-2">
+                    <AlertTriangle className="w-4 h-4 text-orange-700 mt-0.5 shrink-0" />
+                    <div>
+                      <p className="text-xs text-orange-800">
+                        <strong>Långdistansjobb:</strong> Jobb över 200 km (icke-distans) får max 20% matchning för att säkerställa realistiska pendlingsavstånd.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
+                  <div className="flex items-start gap-2">
+                    <AlertTriangle className="w-4 h-4 text-red-700 mt-0.5 shrink-0" />
+                    <div>
+                      <p className="text-xs text-red-800">
+                        <strong>Branschkrav:</strong> Jobb med branschspecifika krav (t.ex. läkarlegitimation, sjöfartsexamen) får -35p om ditt CV saknar relevant kompetens.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
