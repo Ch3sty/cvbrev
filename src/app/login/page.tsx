@@ -2,38 +2,68 @@
 'use client'
 
 import Link from 'next/link'
-import LoginForm from '@/components/auth/login-form' // <-- IMPORTERA DEN KORREKTA KOMPONENTEN
+import LoginForm from '@/components/auth/login-form'
+import { motion } from 'framer-motion'
 
 export default function LoginPage() {
-  // All state (email, password, loading, error) och alla funktioner (handleLogin, handleGoogleLogin)
-  // har flyttats till LoginForm-komponenten och tas bort härifrån.
-
   return (
-    <div className="flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-      {/* Behåll den yttre strukturen för centrering och max bredd */}
-      <div className="w-full max-w-md space-y-8"> {/* Lite space-y för avstånd */}
+    <div className="relative min-h-screen bg-gradient-to-br from-slate-50 via-white to-gray-50/30 overflow-hidden">
+      {/* Animated background orbs */}
+      <motion.div
+        className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full blur-3xl"
+        animate={{
+          x: [0, 100, 0],
+          y: [0, -50, 0],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+      <motion.div
+        className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-br from-purple-400/10 to-pink-400/10 rounded-full blur-3xl"
+        animate={{
+          x: [0, -100, 0],
+          y: [0, 50, 0],
+          scale: [1, 1.2, 1],
+        }}
+        transition={{
+          duration: 25,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+      <motion.div
+        className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-br from-pink-400/10 to-blue-400/10 rounded-full blur-3xl"
+        animate={{
+          x: [0, 50, 0],
+          y: [0, -75, 0],
+          scale: [1, 1.15, 1],
+        }}
+        transition={{
+          duration: 22,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
 
-        {/* Sidans titel och undertitel (behålls här) */}
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-white">Logga in</h2>
-          <p className="mt-2 text-gray-400">
-            Välkommen tillbaka! Logga in för att fortsätta.
-          </p>
+      {/* Content */}
+      <div className="relative flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-md space-y-6">
+          <LoginForm />
+
+          {/* Länk för att registrera */}
+          <div className="text-center">
+            <p className="text-sm text-gray-600">
+              Har du inget konto?{' '}
+              <Link href="/register" className="font-semibold text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text hover:from-blue-700 hover:to-purple-700 transition-all">
+                Registrera dig
+              </Link>
+            </p>
+          </div>
         </div>
-
-        {/* Rendera den importerade och uppdaterade LoginForm-komponenten */}
-        <LoginForm />
-
-        {/* Länk för att registrera (behålls här) */}
-        <div className="text-center">
-          <p className="text-sm text-gray-400">
-            Har du inget konto?{' '}
-            <Link href="/register" className="font-medium text-pink-500 hover:text-pink-400"> {/* Gjorde den lite mer framträdande */}
-              Registrera dig
-            </Link>
-          </p>
-        </div>
-
       </div>
     </div>
   )

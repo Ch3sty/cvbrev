@@ -83,14 +83,21 @@ export default function LoginForm() {
   }
 
   return (
-    // Uppdaterad container-styling (oförändrad från förra versionen)
-    <div className="w-full max-w-md p-8 space-y-6 bg-navy-900 rounded-lg border border-navy-700 shadow-xl">
-      <h2 className="text-2xl font-bold text-center text-white">Logga in</h2>
+    <div className="w-full max-w-md p-8 space-y-6 bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-xl">
+      <div className="text-center">
+        <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          Välkommen tillbaka
+        </h2>
+        <p className="mt-2 text-gray-600 text-sm">Logga in för att fortsätta</p>
+      </div>
 
       {/* Error-meddelande */}
       {error && (
-        <div className="p-3 text-sm text-red-100 bg-red-900/50 border border-red-500/50 rounded-md">
-          {error}
+        <div className="p-4 text-sm text-red-800 bg-red-50 border border-red-200 rounded-xl flex items-start gap-2">
+          <svg className="w-5 h-5 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+          </svg>
+          <span>{error}</span>
         </div>
       )}
 
@@ -98,7 +105,7 @@ export default function LoginForm() {
       <form onSubmit={handleLogin} className="space-y-5">
         {/* E-postadress */}
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+          <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
             E-postadress
           </label>
           <input
@@ -109,15 +116,14 @@ export default function LoginForm() {
             onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="din.email@example.com"
-            // Uppdaterad styling
-            className="appearance-none block w-full px-3 py-2 border border-navy-700 rounded-md shadow-sm placeholder-gray-500 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm bg-navy-800 text-white"
+            className="appearance-none block w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:text-sm bg-white text-gray-900 transition-all"
             autoComplete="email"
           />
         </div>
 
         {/* Lösenord */}
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1">
+          <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-2">
             Lösenord
           </label>
           <input
@@ -128,9 +134,8 @@ export default function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
             required
             placeholder="••••••••"
-            // Uppdaterad styling
-            className="appearance-none block w-full px-3 py-2 border border-navy-700 rounded-md shadow-sm placeholder-gray-500 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm bg-navy-800 text-white"
-            autoComplete="current-password" // Korrekt autocomplete för login
+            className="appearance-none block w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:text-sm bg-white text-gray-900 transition-all"
+            autoComplete="current-password"
           />
         </div>
 
@@ -138,8 +143,7 @@ export default function LoginForm() {
         <button
           type="submit"
           disabled={loading}
-          // Uppdaterad styling
-          className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+          className="w-full flex justify-center items-center py-3.5 px-4 border border-transparent rounded-xl shadow-sm text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-[1.02]"
         >
           {loading ? (
              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -154,10 +158,10 @@ export default function LoginForm() {
       {/* Delare */}
        <div className="relative my-6">
          <div className="absolute inset-0 flex items-center" aria-hidden="true">
-           <div className="w-full border-t border-navy-700"></div>
+           <div className="w-full border-t border-gray-200"></div>
          </div>
          <div className="relative flex justify-center text-sm">
-           <span className="px-3 bg-navy-900 text-gray-400">Eller fortsätt med</span>
+           <span className="px-4 bg-white/80 text-gray-500 font-medium">Eller fortsätt med</span>
          </div>
        </div>
 
@@ -167,8 +171,7 @@ export default function LoginForm() {
            onClick={handleGoogleLogin}
            disabled={loading}
            type="button"
-           // Uppdaterad styling
-           className="w-full inline-flex justify-center py-3 px-4 border border-navy-700 rounded-md shadow-sm bg-navy-800 text-sm font-medium text-gray-300 hover:bg-navy-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-navy-900 focus:ring-pink-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+           className="w-full inline-flex justify-center items-center py-3.5 px-4 border border-gray-200 rounded-xl shadow-sm bg-white text-sm font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]"
          >
            {/* Google Icon SVG */}
            <svg className="w-5 h-5 mr-2 -ml-1" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512">

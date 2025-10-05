@@ -346,8 +346,18 @@ export default function ProfilePage() {
     try {
       setSaving(true);
       showNotificationMessage('Sparar profiländringar...', 'loading');
-      if (formData.full_name.trim() === '') {
-        showNotificationMessage('Ange ditt namn', 'error');
+
+      // Validering av obligatoriska fält
+      if (formData.full_name.trim().length < 2) {
+        showNotificationMessage('Fullständigt namn måste vara minst 2 tecken långt', 'error');
+        setSaving(false);
+        return;
+      }
+
+      // Email kan inte ändras här (hanteras av Supabase Auth)
+      // men vi säkerställer att det finns
+      if (!profile?.email) {
+        showNotificationMessage('E-postadress saknas. Kontakta support.', 'error');
         setSaving(false);
         return;
       }
@@ -548,9 +558,10 @@ export default function ProfilePage() {
             <div className="space-y-6">
             {/* Email */}
             <div className="relative">
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+              <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
                 <Mail className="w-4 h-4 mr-2 text-blue-600" />
                 E-postadress
+                <span className="ml-1 text-red-500">*</span>
               </label>
               <input
                 type="email"
@@ -561,15 +572,16 @@ export default function ProfilePage() {
               />
               <p className="mt-2 text-xs text-gray-500 flex items-center">
                 <Info className="w-3 h-3 mr-1" />
-                Din e-postadress kan inte ändras
+                Din e-postadress är obligatorisk och kan inte ändras
               </p>
             </div>
 
             {/* Fullständigt namn */}
             <div className="relative">
-              <label htmlFor="full_name" className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
+              <label htmlFor="full_name" className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
                 <User className="w-4 h-4 mr-2 text-purple-600" />
                 Fullständigt namn
+                <span className="ml-1 text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -578,8 +590,14 @@ export default function ProfilePage() {
                 value={formData.full_name}
                 onChange={handleChange}
                 placeholder="Ditt namn"
+                required
+                minLength={2}
                 className="w-full px-4 py-3 rounded-xl bg-white text-gray-900 border border-gray-200 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all"
               />
+              <p className="mt-2 text-xs text-gray-500 flex items-center">
+                <Info className="w-3 h-3 mr-1" />
+                Fullständigt namn är obligatoriskt (minst 2 tecken)
+              </p>
             </div>
 
             {/* Telefon */}
