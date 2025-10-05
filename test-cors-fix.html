@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test CORS Fix</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .container {
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    h1 {
+      color: #667eea;
+      margin-bottom: 10px;
+    }
+    .test-section {
+      margin: 20px 0;
+      padding: 20px;
+      background: #f7fafc;
+      border-radius: 12px;
+      border: 2px solid #e2e8f0;
+    }
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      margin-right: 10px;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+      transition: all 0.3s;
+    }
+    .success {
+      background: #c6f6d5;
+      color: #22543d;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+    .error {
+      background: #fed7d7;
+      color: #c53030;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+    .info {
+      background: #bee3f8;
+      color: #2c5282;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+    }
+    pre {
+      background: #1a202c;
+      color: #e2e8f0;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 13px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-right: 8px;
+    }
+    .badge-success { background: #c6f6d5; color: #22543d; }
+    .badge-error { background: #fed7d7; color: #c53030; }
+    .badge-info { background: #bee3f8; color: #2c5282; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔧 Test CORS Fix - match-jobs</h1>
+    <p style="color: #666; margin-bottom: 30px;">
+      Verifierar att CORS-headers nu fungerar korrekt för Edge Function
+    </p>
+
+    <div class="test-section">
+      <h3>Test 1: OPTIONS Preflight</h3>
+      <p style="font-size: 14px; color: #666;">
+        Testar att Edge Function svarar korrekt på OPTIONS requests med CORS headers
+      </p>
+      <button onclick="testOPTIONS()">Testa OPTIONS</button>
+      <div id="options-result"></div>
+    </div>
+
+    <div class="test-section">
+      <h3>Test 2: POST utan Authorization (401)</h3>
+      <p style="font-size: 14px; color: #666;">
+        Testar att 401-errors har CORS headers
+      </p>
+      <button onclick="test401()">Testa 401</button>
+      <div id="401-result"></div>
+    </div>
+
+    <div class="test-section">
+      <h3>Test 3: Full Request (kräver inloggning)</h3>
+      <p style="font-size: 14px; color: #666;">
+        Testar att Edge Function fungerar med korrekt auth token
+      </p>
+      <button onclick="testFullRequest()">Testa Full Request</button>
+      <div id="full-result"></div>
+    </div>
+  </div>
+
+  <script>
+    const FUNCTION_URL = 'https://dbvbnbkvadvlhjhomibg.supabase.co/functions/v1/match-jobs';
+
+    async function testOPTIONS() {
+      const resultDiv = document.getElementById('options-result');
+      resultDiv.innerHTML = '<div style="color: #667eea;">Skickar OPTIONS request...</div>';
+
+      try {
+        const response = await fetch(FUNCTION_URL, {
+          method: 'OPTIONS',
+          headers: {
+            'Access-Control-Request-Method': 'POST',
+            'Access-Control-Request-Headers': 'authorization, content-type'
+          }
+        });
+
+        console.log('OPTIONS Response:', response);
+        console.log('Status:', response.status);
+        console.log('Headers:', [...response.headers.entries()]);
+
+        const corsOrigin = response.headers.get('Access-Control-Allow-Origin');
+        const corsMethods = response.headers.get('Access-Control-Allow-Methods');
+        const corsHeaders = response.headers.get('Access-Control-Allow-Headers');
+
+        let html = `<div class="success">✅ OPTIONS Request lyckades!</div>`;
+        html += `<div style="margin-top: 15px;">`;
+        html += `<div><span class="badge badge-info">Status:</span> ${response.status}</div>`;
+        html += `<div><span class="badge ${corsOrigin ? 'badge-success' : 'badge-error'}">Allow-Origin:</span> ${corsOrigin || 'SAKNAS!'}</div>`;
+        html += `<div><span class="badge ${corsMethods ? 'badge-success' : 'badge-error'}">Allow-Methods:</span> ${corsMethods || 'SAKNAS!'}</div>`;
+        html += `<div><span class="badge ${corsHeaders ? 'badge-success' : 'badge-error'}">Allow-Headers:</span> ${corsHeaders || 'SAKNAS!'}</div>`;
+        html += `</div>`;
+
+        if (!corsOrigin) {
+          html += `<div class="error" style="margin-top: 15px;">⚠️ CORS headers saknas fortfarande!</div>`;
+        }
+
+        resultDiv.innerHTML = html;
+
+      } catch (error) {
+        console.error('OPTIONS Error:', error);
+        resultDiv.innerHTML = `
+          <div class="error">
+            ❌ Fel: ${error.message}
+          </div>
+        `;
+      }
+    }
+
+    async function test401() {
+      const resultDiv = document.getElementById('401-result');
+      resultDiv.innerHTML = '<div style="color: #667eea;">Skickar POST utan auth...</div>';
+
+      try {
+        const response = await fetch(FUNCTION_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({})
+        });
+
+        console.log('401 Response:', response);
+        console.log('Status:', response.status);
+        console.log('Headers:', [...response.headers.entries()]);
+
+        const corsOrigin = response.headers.get('Access-Control-Allow-Origin');
+        const data = await response.json();
+
+        let html = `<div class="${response.status === 401 ? 'success' : 'error'}">`;
+        html += response.status === 401 ? '✅ Fick förväntat 401-svar' : `⚠️ Fick status ${response.status}`;
+        html += `</div>`;
+
+        html += `<div style="margin-top: 15px;">`;
+        html += `<div><span class="badge badge-info">Status:</span> ${response.status}</div>`;
+        html += `<div><span class="badge ${corsOrigin ? 'badge-success' : 'badge-error'}">Allow-Origin:</span> ${corsOrigin || 'SAKNAS!'}</div>`;
+        html += `<div><span class="badge badge-info">Error:</span> ${data.error}</div>`;
+        html += `</div>`;
+
+        if (!corsOrigin) {
+          html += `<div class="error" style="margin-top: 15px;">⚠️ 401-response saknar CORS headers!</div>`;
+        } else {
+          html += `<div class="success" style="margin-top: 15px;">✅ 401-response har CORS headers!</div>`;
+        }
+
+        resultDiv.innerHTML = html;
+
+      } catch (error) {
+        console.error('401 Error:', error);
+        resultDiv.innerHTML = `
+          <div class="error">
+            ❌ CORS Error: ${error.message}
+            <p style="margin-top: 10px; font-size: 13px;">
+              Detta betyder att CORS headers saknas på 401-response
+            </p>
+          </div>
+        `;
+      }
+    }
+
+    async function testFullRequest() {
+      const resultDiv = document.getElementById('full-result');
+      resultDiv.innerHTML = '<div style="color: #667eea;">Försöker hitta auth token...</div>';
+
+      try {
+        // Försök hämta token från localStorage
+        let token = null;
+        const supabaseAuth = localStorage.getItem('sb-dbvbnbkvadvlhjhomibg-auth-token');
+        if (supabaseAuth) {
+          const authData = JSON.parse(supabaseAuth);
+          token = authData.access_token;
+        }
+
+        if (!token) {
+          resultDiv.innerHTML = `
+            <div class="info">
+              ℹ️ Ingen auth token hittades i localStorage.
+              <p style="margin-top: 10px; font-size: 13px;">
+                Logga in på jobbcoach.ai i en annan flik först.
+              </p>
+            </div>
+          `;
+          return;
+        }
+
+        resultDiv.innerHTML = '<div style="color: #667eea;">Skickar autentiserad request...</div>';
+
+        const response = await fetch(FUNCTION_URL, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({})
+        });
+
+        console.log('Full Request Response:', response);
+        const corsOrigin = response.headers.get('Access-Control-Allow-Origin');
+        const data = await response.json();
+
+        let html = `<div class="${response.ok ? 'success' : 'error'}">`;
+        html += response.ok ? '✅ Request lyckades!' : `⚠️ Status ${response.status}`;
+        html += `</div>`;
+
+        html += `<div style="margin-top: 15px;">`;
+        html += `<div><span class="badge badge-info">Status:</span> ${response.status}</div>`;
+        html += `<div><span class="badge ${corsOrigin ? 'badge-success' : 'badge-error'}">Allow-Origin:</span> ${corsOrigin || 'SAKNAS!'}</div>`;
+        html += `</div>`;
+
+        if (data.success) {
+          html += `<div class="success" style="margin-top: 15px;">
+            ✅ Hittade ${data.jobs?.length || 0} jobb!
+            <br>Söktermer: ${data.searchTerms?.occupations?.join(', ') || 'Inga'}
+          </div>`;
+        } else if (data.error) {
+          html += `<div class="info" style="margin-top: 15px;">
+            ${data.error}
+          </div>`;
+        }
+
+        resultDiv.innerHTML = html;
+
+      } catch (error) {
+        console.error('Full Request Error:', error);
+        resultDiv.innerHTML = `
+          <div class="error">
+            ❌ Fel: ${error.message}
+          </div>
+        `;
+      }
+    }
+
+    // Auto-run OPTIONS test
+    window.addEventListener('load', () => {
+      console.log('Auto-running OPTIONS test...');
+      testOPTIONS();
+    });
+  </script>
+</body>
+</html>
