@@ -10,7 +10,10 @@ import {
   ExternalLink,
   ChevronDown,
   CheckCircle2,
-  Sparkles
+  Sparkles,
+  Brain,
+  Key,
+  FileCheck
 } from 'lucide-react';
 
 interface JobCardProps {
@@ -174,7 +177,26 @@ export default function JobCard({ job, index, onSelect }: JobCardProps) {
                     transition={{ duration: 0.3 }}
                     className="overflow-hidden"
                   >
-                    <div className="pt-3 space-y-2">
+                    <div className="pt-3 space-y-3">
+                      {/* Geografisk matchning */}
+                      {job.workplace_address && (
+                        <div className="flex items-start gap-2">
+                          <MapPin className="w-4 h-4 text-blue-600 mt-0.5 shrink-0" />
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-medium text-gray-700">Geografisk plats:</p>
+                            <p className="text-xs text-gray-600 mt-0.5">
+                              {job.workplace_address.municipality || job.workplace_address.region}
+                              {job.description?.text?.toLowerCase().includes('distans') && (
+                                <span className="ml-2 px-2 py-0.5 bg-green-100 text-green-700 rounded text-xs font-medium">
+                                  Distansarbete
+                                </span>
+                              )}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Yrkestitelmatchning */}
                       {job.matchDetails.matchedOccupations?.length > 0 && (
                         <div className="flex items-start gap-2">
                           <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 shrink-0" />
@@ -194,11 +216,25 @@ export default function JobCard({ job, index, onSelect }: JobCardProps) {
                         </div>
                       )}
 
+                      {/* Närliggande yrken hint */}
+                      {job.queryType === 'related' && (
+                        <div className="flex items-start gap-2">
+                          <Briefcase className="w-4 h-4 text-purple-600 mt-0.5 shrink-0" />
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-medium text-gray-700">Närliggande yrkesroll</p>
+                            <p className="text-xs text-gray-600 mt-0.5">
+                              Detta jobb matchar en roll som är nära relaterad till din erfarenhet
+                            </p>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Matchande kompetenser */}
                       {job.matchDetails.matchedSkills?.length > 0 && (
                         <div className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-purple-600 mt-0.5 shrink-0" />
+                          <Brain className="w-4 h-4 text-purple-600 mt-0.5 shrink-0" />
                           <div className="flex-1 min-w-0">
-                            <p className="text-xs font-medium text-gray-700">Matchande kompetenser:</p>
+                            <p className="text-xs font-medium text-gray-700">Matchande kompetenser från din analys:</p>
                             <div className="flex flex-wrap gap-1 mt-1">
                               {job.matchDetails.matchedSkills.slice(0, 5).map((skill: any, i: number) => (
                                 <span
@@ -208,14 +244,20 @@ export default function JobCard({ job, index, onSelect }: JobCardProps) {
                                   {skill.skill}
                                 </span>
                               ))}
+                              {job.matchDetails.matchedSkills.length > 5 && (
+                                <span className="px-2 py-0.5 bg-gray-100 text-gray-600 rounded text-xs">
+                                  +{job.matchDetails.matchedSkills.length - 5} till
+                                </span>
+                              )}
                             </div>
                           </div>
                         </div>
                       )}
 
+                      {/* Matchande nyckelord */}
                       {job.matchDetails.matchedKeywords?.length > 0 && (
                         <div className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-blue-600 mt-0.5 shrink-0" />
+                          <Key className="w-4 h-4 text-blue-600 mt-0.5 shrink-0" />
                           <div className="flex-1 min-w-0">
                             <p className="text-xs font-medium text-gray-700">Matchande nyckelord:</p>
                             <div className="flex flex-wrap gap-1 mt-1">
@@ -223,6 +265,26 @@ export default function JobCard({ job, index, onSelect }: JobCardProps) {
                                 <span
                                   key={i}
                                   className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-xs"
+                                >
+                                  {kw}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Rollbaserade keywords */}
+                      {job.matchDetails.matchedRoleKeywords?.length > 0 && (
+                        <div className="flex items-start gap-2">
+                          <FileCheck className="w-4 h-4 text-orange-600 mt-0.5 shrink-0" />
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-medium text-gray-700">Matchande erfarenheter från dina roller:</p>
+                            <div className="flex flex-wrap gap-1 mt-1">
+                              {job.matchDetails.matchedRoleKeywords.slice(0, 5).map((kw: string, i: number) => (
+                                <span
+                                  key={i}
+                                  className="px-2 py-0.5 bg-orange-100 text-orange-700 rounded text-xs"
                                 >
                                   {kw}
                                 </span>

@@ -2,45 +2,45 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, Info, Briefcase, Brain, Key, FileCheck, Clock } from 'lucide-react';
+import { ChevronDown, Info, Briefcase, Brain, Key, FileCheck, MapPin } from 'lucide-react';
 
 export default function MatchExplanation() {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const factors = [
     {
-      icon: Briefcase,
-      title: 'Yrkestitelmatchning',
-      points: 30,
-      description: 'Din nuvarande och tidigare roller',
+      icon: MapPin,
+      title: 'Geografisk matchning',
+      points: 25,
+      description: 'Distans till arbetsplatsen eller distansarbete',
       color: 'from-blue-500 to-cyan-500'
     },
     {
-      icon: Brain,
-      title: 'Identifierade kompetenser',
-      points: 25,
-      description: 'Kompetenser från CV-analysen',
+      icon: Briefcase,
+      title: 'Yrkestitelmatchning',
+      points: 20,
+      description: 'Exakta roller + närliggande yrken (t.ex. butikschef → restaurangchef)',
       color: 'from-purple-500 to-pink-500'
     },
     {
-      icon: Key,
-      title: 'Keywords',
+      icon: FileCheck,
+      title: 'Erfarenhetsbaserad matchning',
       points: 20,
-      description: 'Nyckelord från din bakgrund',
+      description: 'Nyckelord från dina rollbeskrivningar (ledarskap, budgetansvar etc.)',
       color: 'from-green-500 to-emerald-500'
     },
     {
-      icon: FileCheck,
-      title: 'ATS-optimerade keywords',
+      icon: Brain,
+      title: 'AI-identifierade kompetenser',
       points: 15,
-      description: 'Branschspecifika termer',
+      description: 'Kompetenser från CV-analysen',
       color: 'from-orange-500 to-red-500'
     },
     {
-      icon: Clock,
-      title: 'Erfarenhet',
-      points: 10,
-      description: 'År av relevant erfarenhet',
+      icon: Key,
+      title: 'Keywords & ATS-termer',
+      points: 20,
+      description: 'Nyckelord och branschspecifika termer från analysen',
       color: 'from-indigo-500 to-purple-500'
     }
   ];
@@ -85,8 +85,8 @@ export default function MatchExplanation() {
             <div className="px-4 pb-4">
               <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-4 mb-4">
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  Vi använder data från dina CV-analyser för att matcha din kompetens mot publicerade jobbannonser.
-                  Varje jobb får en relevanspoäng baserad på 5 faktorer:
+                  Vi använder avancerad AI-analys och multi-query sökning för att hitta både exakt matchande och närliggande roller.
+                  Varje jobb får en relevanspoäng (0-100) baserad på 5 viktade faktorer:
                 </p>
               </div>
 
