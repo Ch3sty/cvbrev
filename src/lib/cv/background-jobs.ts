@@ -18,8 +18,7 @@ export interface BackgroundJob {
  */
 export async function createBackgroundJob(
   userId: string,
-  cvId: string,
-  cvText: string
+  cvId: string
 ): Promise<{ jobId: string; error?: string }> {
   try {
     const cookieStore = cookies();
@@ -51,8 +50,7 @@ export async function createBackgroundJob(
       {
         body: {
           jobId: job.id,
-          cvText,
-          userId,
+          cvId,  // Edge Function v20 förväntar sig cvId istället för cvText
         },
       }
     ).then(({ data, error: invokeError }) => {

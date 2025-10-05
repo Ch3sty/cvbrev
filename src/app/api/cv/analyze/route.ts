@@ -270,7 +270,7 @@ export async function POST(request: NextRequest) {
         // --- 5. Create Background Job for AI Analysis (100% Async) ---
         console.log(`API analyzeCv: User ${userId} (${profileData.subscriptionTier}): Creating background job for CV ${cvId}...`);
 
-        const { jobId, error: jobError } = await createBackgroundJob(userId, cvId, cvText);
+        const { jobId, error: jobError } = await createBackgroundJob(userId, cvId);
 
         if (jobError || !jobId) {
             console.error('Failed to create background job:', jobError);
