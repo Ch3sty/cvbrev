@@ -219,7 +219,7 @@ Deno.serve(async (req) => {
             },
             {
               role: 'user',
-              content: `Analysera dessa roller och hitta färdigheter som nämns men kanske inte listas explicit:\n\n${JSON.stringify(structuredCV.experience)}\n\nReturnera JSON med format: { "skillSuggestions": [{ "skill": string (PÅ SVENSKA!), "relevance": string ("high", "medium", "low"), "source": string (konkret roll och företag, t.ex. "Butikschef på H&M"), "reasoning": string (PÅ SVENSKA!) }] }\n\nKRITISKT VIKTIGT:\n- ALLA "skill" värden MÅSTE vara på SVENSKA (t.ex. "Ledarskap", inte "Leadership")\n- "source" ska vara exakt "position på company" från rollerna ovan\n- "reasoning" MÅSTE vara på SVENSKA`
+              content: `Analysera dessa roller och hitta färdigheter som nämns men kanske inte listas explicit:\n\n${JSON.stringify(structuredCV.experience)}\n\nReturnera JSON med format: { "skillSuggestions": [{ "skill": string (PÅ SVENSKA!), "relevance": string ("high", "medium", "low"), "source": string (konkret roll och företag, t.ex. "Butikschef på H&M"), "reasoning": string (PÅ SVENSKA!), "atsImpact": number (1-5, hur mycket denna skill förbättrar ATS-score) }] }\n\nKRITISKT VIKTIGT:\n- ALLA "skill" värden MÅSTE vara på SVENSKA (t.ex. "Ledarskap", inte "Leadership")\n- "source" ska vara exakt "position på company" från rollerna ovan\n- "reasoning" MÅSTE vara på SVENSKA\n- "atsImpact" ska vara 1-5 baserat på hur viktig denna skill är för ATS (5 = mycket viktig, 1 = mindre viktig)`
             }
           ],
           temperature: 0.5,
@@ -352,7 +352,7 @@ VIKTIGT:
             },
             {
               role: 'user',
-              content: `Ge allmänna förbättringsförslag för detta CV:\n\n${cvText}\n\nReturnera JSON med format: { "generalImprovements": [{ "title": string, "description": string, "category": string ("Struktur", "Formatering", "Innehåll", "Nyckelord") }], "keywords": string[], "atsScore": number (0-100) }\n\nVIKTIGT: Ge MINST 3 konkreta generalImprovements. atsScore ska vara ett heltal mellan 0-100.`
+              content: `Ge allmänna förbättringsförslag för detta CV:\n\n${cvText}\n\nReturnera JSON med format: { "generalImprovements": [{ "title": string, "description": string, "category": string ("Struktur", "Formatering", "Innehåll", "Nyckelord"), "atsImpact": number (1-5, hur mycket denna förbättring påverkar ATS-score) }], "keywords": string[], "atsScore": number (0-100) }\n\nVIKTIGT: Ge MINST 3 konkreta generalImprovements. atsScore ska vara ett heltal mellan 0-100. atsImpact ska vara 1-5 baserat på vikten av förbättringen (5 = mycket viktig, 1 = mindre viktig).`
             }
           ],
           temperature: 0.6,
@@ -367,9 +367,9 @@ VIKTIGT:
       // Ensure generalImprovements is never empty
       if (!generalResult.generalImprovements || generalResult.generalImprovements.length === 0) {
         generalResult.generalImprovements = [
-          { title: 'Lägg till nyckelord', description: 'Inkludera branschspecifika nyckelord för att öka ATS-träffsäkerhet', category: 'Nyckelord' },
-          { title: 'Kvantifiera prestationer', description: 'Lägg till mätbara resultat och siffror i dina arbetsbeskrivningar', category: 'Innehåll' },
-          { title: 'Förbättra struktur', description: 'Organisera ditt CV i tydliga sektioner med konsekvent formatering', category: 'Struktur' }
+          { title: 'Lägg till nyckelord', description: 'Inkludera branschspecifika nyckelord för att öka ATS-träffsäkerhet', category: 'Nyckelord', atsImpact: 4 },
+          { title: 'Kvantifiera prestationer', description: 'Lägg till mätbara resultat och siffror i dina arbetsbeskrivningar', category: 'Innehåll', atsImpact: 3 },
+          { title: 'Förbättra struktur', description: 'Organisera ditt CV i tydliga sektioner med konsekvent formatering', category: 'Struktur', atsImpact: 2 }
         ];
       }
 

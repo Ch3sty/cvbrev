@@ -244,23 +244,37 @@ export default function CVAnalysisWizard({
       });
     }
 
-    // Valda skills
+    // Valda skills - använd AI:ns atsImpact
     if (analysisResult.skillSuggestions) {
       Array.from(selectedSkills).forEach(index => {
         const skill = analysisResult.skillSuggestions[index];
-        if (skill?.relevance === 'high') impact += 1;
-        else if (skill?.relevance === 'medium') impact += 0.5;
-        else impact += 0.3;
+        // Use AI's atsImpact if available, otherwise fallback based on relevance
+        if (skill?.atsImpact) {
+          impact += skill.atsImpact;
+        } else if (skill?.relevance === 'high') {
+          impact += 3;
+        } else if (skill?.relevance === 'medium') {
+          impact += 2;
+        } else {
+          impact += 1;
+        }
       });
     }
 
-    // Valda allmänna
+    // Valda allmänna - använd AI:ns atsImpact
     if (analysisResult.generalImprovements) {
       Array.from(selectedGeneral).forEach(index => {
         const imp = analysisResult.generalImprovements[index];
-        if (imp?.category === 'Nyckelord') impact += 2;
-        else if (imp?.category === 'Innehåll') impact += 1;
-        else impact += 0.5;
+        // Use AI's atsImpact if available, otherwise fallback based on category
+        if (imp?.atsImpact) {
+          impact += imp.atsImpact;
+        } else if (imp?.category === 'Nyckelord') {
+          impact += 4;
+        } else if (imp?.category === 'Innehåll') {
+          impact += 3;
+        } else {
+          impact += 2;
+        }
       });
     }
 
