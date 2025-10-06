@@ -361,11 +361,11 @@ export default function JobbmatchningPage() {
                       className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                     />
                     <span className="text-sm text-gray-700 group-hover:text-indigo-600 transition-colors">
-                      Visa jobb >100 km bort
+                      Visa jobb &gt;100 km bort
                     </span>
                   </label>
                   <div className="text-xs text-gray-500">
-                    ({jobs.filter(j => !j.distance || j.distance <= 100).length} nära, {jobs.filter(j => j.distance && j.distance > 100).length} långt)
+                    ({jobs.filter(j => !j.distance || j.distance &lt;= 100).length} nära, {jobs.filter(j => j.distance && j.distance &gt; 100).length} långt)
                   </div>
                 </div>
               )}
