@@ -4,6 +4,7 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { createClient } from '@/lib/supabase/client';
 
 // Lazy load steps for performance
 const CVSelectionStep = lazy(() => import('./steps/CVSelectionStep'));
@@ -51,6 +52,8 @@ export default function CVAnalysisWizard({
   onPollJob,
   onComplete
 }: CVAnalysisWizardProps) {
+  const supabase = createClient();
+
   const [currentStep, setCurrentStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
 
@@ -61,6 +64,7 @@ export default function CVAnalysisWizard({
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [analysisResult, setAnalysisResult] = useState<any>(null);
+  const [currentAnalysisId, setCurrentAnalysisId] = useState<string | null>(null);
   const [estimatedTimeRemaining, setEstimatedTimeRemaining] = useState(50);
 
   // Selection state
@@ -73,6 +77,7 @@ export default function CVAnalysisWizard({
 
   // Structured CV data state
   const [structuredCV, setStructuredCV] = useState<any>(null);
+  const [improvedStructuredCV, setImprovedStructuredCV] = useState<any>(null);
 
   // Preview state
   const [originalCV, setOriginalCV] = useState('');
@@ -199,6 +204,7 @@ export default function CVAnalysisWizard({
       clearInterval(progressInterval);
 
       setAnalysisResult(result);
+      setCurrentAnalysisId(result.id); // Store the analysis job ID
       if (result.structuredCV) {
         setStructuredCV(result.structuredCV);
         // Generate original CV from structured data
@@ -290,7 +296,7 @@ export default function CVAnalysisWizard({
   }, [selectedProfile, selectedRoles, selectedSkills, selectedGeneral, analysisResult]);
 
   const generateImprovedCV = () => {
-    if (!analysisResult || !structuredCV) return;
+    if (!analysisResult || !structuredCV) return null;
 
     const improvedStructured = JSON.parse(JSON.stringify(structuredCV));
 
@@ -357,16 +363,60 @@ export default function CVAnalysisWizard({
 
     const improved = generatePreviewFromStructured(improvedStructured);
     setImprovedCV(improved);
+    setImprovedStructuredCV(improvedStructured); // Store improved structured CV for database update
+
+    return improvedStructured; // Return for immediate use
   };
 
-  const handleNext = () => {
+  const updateAnalysisWithImprovements = async (improvedStructured: any) => {
+    if (!analysisResult || !currentAnalysisId || !improvedStructured) {
+      console.error('Missing required data for updating analysis');
+      return;
+    }
+
+    try {
+      // Create the updated result with new ATS score and improved structured CV
+      const improvedResult = {
+        ...analysisResult,
+        atsFriendliness: {
+          ...analysisResult.atsFriendliness,
+          score: dynamicPotentialScore  // New calculated score based on selected improvements
+        },
+        structuredCV: improvedStructured  // CV with applied changes
+      };
+
+      // Update the analysis record in database
+      const { error } = await supabase
+        .from('cv_analysis_jobs')
+        .update({
+          result: improvedResult,
+          display_name: `${analysisResult.displayName || 'CV-analys'} - Förbättrad`
+        })
+        .eq('id', currentAnalysisId);
+
+      if (error) {
+        console.error('Error updating analysis with improvements:', error);
+        throw error;
+      }
+
+      console.log('Successfully updated analysis with improvements, new ATS score:', dynamicPotentialScore);
+    } catch (err) {
+      console.error('Failed to update analysis:', err);
+    }
+  };
+
+  const handleNext = async () => {
     if (!completedSteps.includes(currentStep)) {
       setCompletedSteps([...completedSteps, currentStep]);
     }
 
     // Generate improved CV when moving to preview step
     if (currentStep === 3) {
-      generateImprovedCV();
+      const improvedStructured = generateImprovedCV();
+      // Update the analysis record with the improvements
+      if (improvedStructured) {
+        await updateAnalysisWithImprovements(improvedStructured);
+      }
     }
 
     if (currentStep < STEPS.length - 1) {
