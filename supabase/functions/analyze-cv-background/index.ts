@@ -247,15 +247,69 @@ Deno.serve(async (req) => {
           messages: [
             {
               role: 'system',
-              content: 'Du är en kompetensanalytiker. Identifiera konkreta färdigheter och teknologier från rollbeskrivningar som användaren kanske glömt lista under sina kompetenser. VIKTIGT: Skriv ALLA kompetenser på SVENSKA, ALDRIG engelska.'
+              content: 'Du är en ATS-optimeringskonsult för svenska arbetsmarknaden. Extrahera EXAKTA kompetenser som svenska jobbannonser söker efter för det här yrket.'
             },
             {
               role: 'user',
-              content: `Analysera dessa roller och hitta färdigheter som nämns men kanske inte listas explicit:\n\n${JSON.stringify(structuredCV.experience)}\n\nReturnera JSON med format: { "skillSuggestions": [{ "skill": string (PÅ SVENSKA!), "relevance": string ("high", "medium", "low"), "source": string (konkret roll och företag, t.ex. "Butikschef på H&M"), "reasoning": string (PÅ SVENSKA!), "atsImpact": number (1-5, hur mycket denna skill förbättrar ATS-score) }] }\n\nKRITISKT VIKTIGT:\n- ALLA "skill" värden MÅSTE vara på SVENSKA (t.ex. "Ledarskap", inte "Leadership")\n- "source" ska vara exakt "position på company" från rollerna ovan\n- "reasoning" MÅSTE vara på SVENSKA\n- "atsImpact" ska vara 1-5 baserat på hur viktig denna skill är för ATS (5 = mycket viktig, 1 = mindre viktig)`
+              content: `Analysera dessa yrkesroller och extrahera kompetenser som EXAKT matchar termer i svenska jobbannonser.
+
+Input: ${JSON.stringify(structuredCV.experience)}
+
+Returnera JSON: { "skillSuggestions": [{
+  "skill": string (1-3 ord, EXAKT term från jobbannonser),
+  "relevance": string ("high", "medium", "low"),
+  "source": string ("position på company"),
+  "reasoning": string (KORT förklaring),
+  "atsImpact": number (1-5)
+}] }
+
+KRITISKA REGLER FÖR "skill":
+1. Max 1-3 ord (inga meningar/fraser)
+2. Använd EXAKTA termer som står i svenska jobbannonser för det yrket
+3. SEPARERA sammansatta kompetenser:
+   ❌ "Rekrytering och utbildning" → ✅ TWO skills: "Rekrytering" + "Utbildning"
+   ❌ "Försäljningsoptimering" → ✅ "Försäljning"
+   ❌ "Personaladministration" → ✅ "Administration" eller "Personalansvar"
+
+4. Inkludera IMPLICITA verktyg/system baserat på yrke:
+   - Butikschef → "Kassasystem", "Excel", "Bemanningsplanering"
+   - Byggjobb → "Byggnorm", "Säkerhetsarbete", "Arbetsledning"
+   - Juridik → "Avtalsrätt", "Due diligence", "Processrätt"
+   - IT → "Git", "Agil utveckling", "JavaScript"
+   - Vård → "Läkemedelshantering", "Patientvård", "Legitimation"
+
+5. UNDVIK vaga/abstrakta termer:
+   ❌ "God kommunikationsförmåga" → Skippa helt
+   ❌ "Produktkunskap" → ✅ Specifik produkt/bransch (t.ex. "Smycken", "Möbler")
+   ❌ "Motivera medarbetare" → ✅ "Personalledning" eller "Ledarskap"
+
+EXEMPEL PER BRANSCH (använd som guide):
+
+Detaljhandel:
+✅ "Försäljning", "Butiksdrift", "Kassasystem", "Visual merchandising", "Kundservice", "Lagerhantering"
+
+Bygg/Hantverk:
+✅ "Arbetsledning", "Byggnorm", "Projektering", "Säkerhetsarbete", "Kvalitetssäkring", "Renovering"
+
+Juridik:
+✅ "Avtalsrätt", "Processrätt", "Due diligence", "Arbetsrätt", "Förhandling", "Avtalsupprättning"
+
+IT/Tech:
+✅ "JavaScript", "Python", "Git", "Agil utveckling", "Systemutveckling", "DevOps"
+
+Ekonomi:
+✅ "Redovisning", "Bokföring", "Budgetansvar", "Controller", "Ekonomiadministration", "Visma"
+
+VIKTIGT:
+- ALLA termer på SVENSKA (svenska arbetsmarknaden!)
+- Tänk: "Vad söker ATS efter i jobbannonser för detta yrke?"
+- source: Exakt "position på company" från input
+- reasoning: Kort (1 mening) varför denna term är ATS-viktig
+- atsImpact: 5 = kritisk term, 1 = nice-to-have`
             }
           ],
           temperature: 0.5,
-          max_tokens: 1200,
+          max_tokens: 1500,
           response_format: { type: 'json_object' }
         })
       });
