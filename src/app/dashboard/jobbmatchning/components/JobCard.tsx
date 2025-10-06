@@ -131,7 +131,7 @@ export default function JobCard({ job, index, onSelect }: JobCardProps) {
                 ].filter(Boolean).join(', ')}
                 {job.distance !== null && job.distance !== undefined && (
                   <span className="ml-2 text-xs text-gray-500">
-                    ({job.distance} km)
+                    ({Math.round(job.distance)} km)
                   </span>
                 )}
               </span>
@@ -144,7 +144,7 @@ export default function JobCard({ job, index, onSelect }: JobCardProps) {
               <AlertTriangle className="w-4 h-4 text-orange-600 mt-0.5 shrink-0" />
               <div className="flex-1 min-w-0">
                 <p className="text-xs text-orange-800">
-                  <strong>Långt avstånd:</strong> Denna tjänst ligger {job.distance} km bort. Jobb över 200 km får max 20% matchning.
+                  <strong>Långt avstånd:</strong> Denna tjänst ligger {Math.round(job.distance)} km bort. Jobb över 200 km får max 20% matchning.
                 </p>
               </div>
             </div>
