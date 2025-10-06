@@ -86,7 +86,10 @@ export default function JobbmatchningPage() {
 
       const functionUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/match-jobs`;
 
-      const requestBody: any = { analysisId };
+      const requestBody: any = {
+        userId: session.user.id,
+        selectedAnalysisId: analysisId
+      };
 
       if (searchQuery) {
         requestBody.customParams = {
