@@ -63,7 +63,7 @@ export default function JobbmatchningPage() {
         .select('id, display_name, created_at, result')
         .eq('user_id', session.user.id)
         .eq('status', 'completed')
-        .order('completed_at', { ascending: false });
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
       setAnalyses(data || []);

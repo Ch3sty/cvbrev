@@ -1039,7 +1039,7 @@ Deno.serve(async (req) => {
         .select('id, result, display_name')
         .eq('user_id', user.id)
         .eq('status', 'completed')
-        .order('completed_at', { ascending: false })
+        .order('created_at', { ascending: false })
         .limit(1)
         .single();
 
