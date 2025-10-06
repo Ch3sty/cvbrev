@@ -1,6 +1,14 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 import { getCachedTaxonomy, expandOccupationForSearch } from './taxonomy-enrichment.ts';
+import { searchJobAdLinksMultiQuery, convertToInternalFormat } from './jobad-links.ts';
+import { getEnrichedJobData, enrichJobsBatch } from './jobad-enrichments.ts';
+import { enrichCVWithEducationMatching } from './jobed-connect.ts';
+import { getHistoricalTrends, analyzeTrendingSkillsMatch } from './historical-analysis.ts';
+import { calculateAdvancedRelevance } from './advanced-scoring.ts';
+import type { AdvancedScoringInput } from './advanced-scoring.ts';
+import { getRateLimiters } from './rate-limiter.ts';
+import { getCaches, startPeriodicCleanup, logCacheStats } from './cache-manager.ts';
 
 // CORS headers helper
 const corsHeaders = {
@@ -718,10 +726,97 @@ async function searchJobsMultiQuery(
   const allJobs: any[] = [];
   const seenIds = new Set<string>();
 
+  // NYTT: Hämta enrichment-data från JobEd Connect och Historical
+  let educationMatches: string[] = [];
+  let taxonomyData = null;
+  let historicalTrends = null;
+
+  try {
+    // Enrichment 1: Utbildningsmatchning
+    const eduEnrichment = await enrichCVWithEducationMatching(cvData);
+    educationMatches = eduEnrichment.additionalSearchTerms;
+    console.log(`[JobEd Connect] Found ${educationMatches.length} additional occupation matches`);
+
+    // Enrichment 2: Taxonomy för primär yrke
+    if (cvOccupations.length > 0) {
+      taxonomyData = await getCachedTaxonomy(cvOccupations[0]);
+      console.log(`[Taxonomy] Enriched "${cvOccupations[0]}" with SSYK: ${taxonomyData.ssykCode}`);
+    }
+
+    // Enrichment 3: Historical trends
+    if (cvOccupations.length > 0) {
+      historicalTrends = await getHistoricalTrends(cvOccupations[0]);
+      if (historicalTrends) {
+        console.log(`[Historical] Found ${historicalTrends.trendingSkills.length} trending skills`);
+      }
+    }
+  } catch (error) {
+    console.warn('[Enrichment] Error during enrichment phase:', error);
+  }
+
+  // MULTI-SOURCE SÖKNING: JobAd Links (primär) + JobSearch (backup)
+
+  // SOURCE 1: JobAd Links API (HELA marknaden - 80% av jobb)
+  try {
+    const primaryOccupation = cvOccupations[0] || '';
+    const primaryLocation = cvLocations[0] || '';
+
+    const jobAdLinksQueries = [];
+
+    // Query A: SSYK-kod + primär yrkestitel (om vi har SSYK)
+    if (taxonomyData?.ssykCode) {
+      jobAdLinksQueries.push({
+        q: `${primaryOccupation} OR ssyk:${taxonomyData.ssykCode}`,
+        municipality: primaryLocation || undefined,
+        limit: 50
+      });
+    } else {
+      jobAdLinksQueries.push({
+        q: primaryOccupation,
+        municipality: primaryLocation || undefined,
+        limit: 50
+      });
+    }
+
+    // Query B: Taxonomy-synonymer
+    if (taxonomyData?.alternativeLabels && taxonomyData.alternativeLabels.length > 0) {
+      jobAdLinksQueries.push({
+        q: taxonomyData.alternativeLabels.slice(0, 3).join(' OR '),
+        municipality: primaryLocation || undefined,
+        limit: 30
+      });
+    }
+
+    // Query C: Utbildningsmatchningar
+    if (educationMatches.length > 0) {
+      jobAdLinksQueries.push({
+        q: educationMatches.slice(0, 3).join(' OR '),
+        municipality: primaryLocation || undefined,
+        limit: 20
+      });
+    }
+
+    console.log(`[JobAd Links] Running ${jobAdLinksQueries.length} queries...`);
+    const jobAdLinksJobs = await searchJobAdLinksMultiQuery(jobAdLinksQueries);
+
+    jobAdLinksJobs.forEach((job: any) => {
+      const converted = convertToInternalFormat(job);
+      if (!seenIds.has(converted.id)) {
+        seenIds.add(converted.id);
+        allJobs.push({ ...converted, queryType: 'jobad-links', source: 'multi-source' });
+      }
+    });
+
+    console.log(`[JobAd Links] Found ${jobAdLinksJobs.length} jobs from whole market`);
+  } catch (error) {
+    console.error('[JobAd Links] Error, falling back to JobSearch only:', error);
+  }
+
+  // SOURCE 2: Befintlig JobSearch API (backup + extra täckning - 20% av jobb)
   // Query 1: Primär yrkestitel + Taxonomy-synonymer + AI-genererade synonymer (30 jobb)
   const primaryQuery = await buildPrimaryQuery(cvOccupations, analysisData);
   if (primaryQuery) {
-    console.log('Query 1 (Primary + Taxonomy):', primaryQuery);
+    console.log('Query 1 (Primary + Taxonomy - JobSearch fallback):', primaryQuery);
     const primaryJobs = await searchJobs({
       q: primaryQuery,
       limit: 30,
@@ -731,7 +826,7 @@ async function searchJobsMultiQuery(
     primaryJobs.forEach((job: any) => {
       if (!seenIds.has(job.id)) {
         seenIds.add(job.id);
-        allJobs.push({ ...job, queryType: 'primary' });
+        allJobs.push({ ...job, queryType: 'primary', source: 'jobsearch' });
       }
     });
   }
@@ -844,8 +939,17 @@ async function searchJobsMultiQuery(
     });
   }
 
-  console.log(`Multi-query complete: ${allJobs.length} unique jobs found (7 AI-driven queries)`);
-  return allJobs;
+  console.log(`Multi-query complete: ${allJobs.length} unique jobs found (multi-source + AI-driven queries)`);
+
+  // Returnera både jobb och enrichment-data
+  return {
+    jobs: allJobs,
+    enrichmentData: {
+      taxonomyData,
+      historicalTrends,
+      educationMatches
+    }
+  };
 }
 
 // NYT: Beräkna matchning baserat på AI-extraherade matchKeywords
@@ -1099,7 +1203,7 @@ Deno.serve(async (req) => {
     console.log('Occupations:', cvOccupations);
     console.log('Locations:', cvLocations);
 
-    const jobs = await searchJobsMultiQuery(
+    const searchResult = await searchJobsMultiQuery(
       cvData,
       analysisData,
       cvOccupations,
@@ -1107,32 +1211,66 @@ Deno.serve(async (req) => {
       customParams
     );
 
+    const jobs = searchResult.jobs;
+    const enrichmentData = searchResult.enrichmentData;
+
     console.log(`Found ${jobs.length} jobs via multi-query`);
 
-    // Beräkna relevans med ALLA nya faktorer
+    // NYTT: Batch-enrichment av jobbannonser
+    let enrichedJobsMap = new Map();
+    try {
+      const jobsToEnrich = jobs.slice(0, 100).map((job: any) => ({
+        id: job.id,
+        text: `${job.headline} ${job.description?.text || ''}`
+      }));
+
+      enrichedJobsMap = await enrichJobsBatch(jobsToEnrich);
+      console.log(`[Enrichments] Successfully enriched ${enrichedJobsMap.size} jobs`);
+    } catch (error) {
+      console.error('[Enrichments] Batch enrichment failed:', error);
+    }
+
+    // Beräkna relevans med ADVANCED SCORING (10 faktorer)
     const jobsWithRelevance = jobs.map((job: any) => {
       const distance = calculateDistanceForJob(cvLocations, job);
       const isRemote = checkIfRemote(job);
       const industryPenalty = applyIndustryPenalty(cvData, job);
-      const relevance = calculateRelevance(
+
+      // Hämta enriched job data
+      const enrichedJob = enrichedJobsMap.get(job.id) || null;
+
+      // Använd ADVANCED SCORING med 10 faktorer
+      const scoringInput: AdvancedScoringInput = {
         cvData,
-        analysisData,
-        job,
         cvOccupations,
         cvLocations,
-        distance,
-        isRemote,
-        industryPenalty
-      );
+        analysisData,
+        job,
+        enrichedJob,
+        taxonomyData: enrichmentData.taxonomyData,
+        historicalTrends: enrichmentData.historicalTrends,
+        educationMatches: enrichmentData.educationMatches,
+        userPreferredDistance: customParams?.distance,
+        isRemote
+      };
+
+      const scoringResult = calculateAdvancedRelevance(scoringInput);
+
+      // Applicera branschstraff
+      const relevance = Math.max(0, scoringResult.total - industryPenalty);
+
       const matchDetails = extractMatchDetails(cvData, analysisData, job, cvOccupations);
 
       return {
         ...job,
         relevance,
         matchDetails,
-        distance,           // För UI
-        isRemote,           // För UI
-        industryPenalty,    // För UI-varning
+        distance,
+        isRemote,
+        industryPenalty,
+        scoringBreakdown: scoringResult.breakdown,
+        scoringExplanation: scoringResult.explanation,
+        enriched: enrichedJob !== null
       };
     });
 
