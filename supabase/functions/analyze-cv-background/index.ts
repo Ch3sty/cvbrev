@@ -403,9 +403,18 @@ INSTRUKTIONER FÖR matchKeywords (KRITISKT FÖR JOBBMATCHNING):
    Exempel: "ansvarade för 8 medarbetare" → ["personalansvar", "teamledning", "bemanningsplanering"]
    Exempel: "hanterade klagomål" → ["konflikthantering", "problemlösning"]
 
-3. tools: Verktyg, system, mjukvara som använts eller kan ha använts i rollen
-   Exempel: butikschef → ["kassasystem", "POS-system", "Excel", "lagerhanteringssystem"]
-   Exempel: utvecklare → ["Git", "VS Code", "Jira", "agila verktyg"]
+3. tools: ENDAST digitala verktyg, system och mjukvara (ALDRIG fysiska verktyg!)
+   ✅ Exempel: butikschef → ["kassasystem", "POS-system", "Excel", "lagerhanteringssystem", "Visma"]
+   ✅ Exempel: utvecklare → ["Git", "VS Code", "Jira", "agila verktyg", "Docker", "Kubernetes"]
+   ✅ Exempel: VVS/Bygg → ["CAD", "BIM", "Revit", "AutoCAD", "Ritningsprogram", "Projektstyrningsverktyg"]
+   ✅ Exempel: Ekonomi → ["Visma", "Fortnox", "Excel", "BAS-kontoplan", "Ekonomisystem"]
+
+   ❌ Inkludera ALDRIG fysiska verktyg:
+   ❌ Inte "Hammare", "Spik", "Skruv", "Såg", "Skruvdragare"
+   ❌ Inte "Svetsverktyg", "Rörbockningsverktyg", "Läckagesökare"
+   ❌ Inte "Saxlift", "Truck", "Grävmaskin"
+
+   REGEL: Om verktyget inte är mjukvara/digitalt system → använd responsibilities eller implicitSkills istället
 
 4. responsibilities: Konkreta ansvarsområden
    Exempel: ["budgetansvar", "nyckeltaluppföljning", "visuell merchandising", "daglig drift"]

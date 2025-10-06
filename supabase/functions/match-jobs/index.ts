@@ -1,5 +1,6 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from 'jsr:@supabase/supabase-js@2';
+import { getCachedTaxonomy, expandOccupationForSearch } from './taxonomy-enrichment.ts';
 
 // CORS headers helper
 const corsHeaders = {
@@ -428,20 +429,26 @@ function calculateOccupationScore(cvOccupations: string[], job: any): number {
 
   const primaryOccupation = cvOccupations[0];
 
+  // Exakt matchning av primär yrkestitel = 30p (ökat från 20p för bättre precision)
   if (jobText.includes(primaryOccupation)) {
-    return 20;
+    return 30;
   }
 
-  const relatedOccupations = getRelatedOccupations(primaryOccupation);
-  for (const related of relatedOccupations) {
-    if (jobText.includes(related.toLowerCase())) {
-      return 15;
+  // Partiell matchning av primär yrkestitel = 20p
+  // Dela upp yrkestitel i ord och matcha individuella delar
+  const primaryWords = primaryOccupation.split(/[\s-]+/).filter(word => word.length > 3);
+  if (primaryWords.length > 1) {
+    for (const word of primaryWords) {
+      if (jobText.includes(word.toLowerCase())) {
+        return 20;
+      }
     }
   }
 
+  // Matchning av sekundära yrkestitlar från CV = 15p
   for (let i = 1; i < Math.min(cvOccupations.length, 3); i++) {
     if (jobText.includes(cvOccupations[i])) {
-      return 12;
+      return 15;
     }
   }
 
@@ -508,12 +515,30 @@ function calculateExperienceScore(cvData: any, job: any): number {
 // AI-DRIVNA QUERY-FUNKTIONER (Universell lösning för alla yrken)
 // ============================================================================
 
-// Query 1: Primär yrkestitel + AI-genererade synonymer från industryTerms
-function buildPrimaryQuery(cvOccupations: string[], analysisData: any): string {
+// Query 1: Primär yrkestitel + Taxonomy-synonymer + AI-genererade industryTerms
+async function buildPrimaryQuery(cvOccupations: string[], analysisData: any): Promise<string> {
   if (cvOccupations.length === 0) return '';
 
   const primaryOccupation = cvOccupations[0];
   const queryParts: string[] = [primaryOccupation];
+
+  // NYTT: Hämta Taxonomy-berikad data
+  try {
+    const taxonomyData = await getCachedTaxonomy(primaryOccupation);
+    const taxonomySynonyms = expandOccupationForSearch(taxonomyData);
+
+    // Lägg till alla Taxonomy-synonymer (max 5 för att inte späda ut)
+    taxonomySynonyms.slice(0, 5).forEach(synonym => {
+      if (!queryParts.includes(synonym)) {
+        queryParts.push(synonym);
+      }
+    });
+
+    console.log(`Taxonomy enrichment added ${taxonomySynonyms.length} synonyms for "${primaryOccupation}"`);
+  } catch (error) {
+    console.warn(`Taxonomy enrichment failed for "${primaryOccupation}":`, error);
+    // Fortsätt utan taxonomy-data
+  }
 
   // Lägg till prefixer (stf, vice, senior, junior, tf)
   const prefixes = ['stf', 'vice', 'senior'];
@@ -535,7 +560,7 @@ function buildPrimaryQuery(cvOccupations: string[], analysisData: any): string {
     });
   });
 
-  return [...new Set(queryParts)].slice(0, 8).join(' OR ');
+  return [...new Set(queryParts)].slice(0, 10).join(' OR ');
 }
 
 // Query 2: Branschspecifika termer (industryTerms)
@@ -693,10 +718,10 @@ async function searchJobsMultiQuery(
   const allJobs: any[] = [];
   const seenIds = new Set<string>();
 
-  // Query 1: Primär yrkestitel + AI-genererade synonymer (30 jobb)
-  const primaryQuery = buildPrimaryQuery(cvOccupations, analysisData);
+  // Query 1: Primär yrkestitel + Taxonomy-synonymer + AI-genererade synonymer (30 jobb)
+  const primaryQuery = await buildPrimaryQuery(cvOccupations, analysisData);
   if (primaryQuery) {
-    console.log('Query 1 (Primary):', primaryQuery);
+    console.log('Query 1 (Primary + Taxonomy):', primaryQuery);
     const primaryJobs = await searchJobs({
       q: primaryQuery,
       limit: 30,
@@ -884,42 +909,42 @@ function calculateRelevance(
   // Faktor 1: Geografisk matchning (25 poäng)
   score += calculateGeographyScore(cvLocations, job, distance, isRemote);
 
-  // Faktor 2: Yrkestitelmatchning (20 poäng)
+  // Faktor 2: Yrkestitelmatchning (30 poäng - ÖKAT från 20p för bättre precision)
   score += calculateOccupationScore(cvOccupations, job);
 
-  // Faktor 3: Erfarenhetsbaserad matchning (15 poäng - reducerad från 20)
+  // Faktor 3: Erfarenhetsbaserad matchning (12 poäng - reducerad från 15p)
   const expScore = calculateExperienceScore(cvData, job);
-  score += Math.min(15, expScore);
+  score += Math.min(12, expScore);
 
-  // Faktor 4: MatchKeywords från AI-analys (15 poäng - NYT!)
+  // Faktor 4: MatchKeywords från AI-analys (15 poäng)
   score += calculateMatchKeywordsScore(analysisData, job);
 
-  // Faktor 5: AI-identifierade kompetenser (10 poäng - reducerad från 15)
+  // Faktor 5: AI-identifierade kompetenser (8 poäng - reducerad från 10p)
   if (analysisData.skillSuggestions) {
     const aiSkillMatches = analysisData.skillSuggestions.reduce((sum: number, s: any) => {
       const skillLower = s.skill.toLowerCase();
       const matches = jobText.includes(skillLower);
 
       if (matches) {
-        if (s.relevance === 'high') return sum + 7;
-        if (s.relevance === 'medium') return sum + 4;
-        return sum + 2;
+        if (s.relevance === 'high') return sum + 6;
+        if (s.relevance === 'medium') return sum + 3;
+        return sum + 1;
       }
       return sum;
     }, 0);
 
-    score += Math.min(10, aiSkillMatches);
+    score += Math.min(8, aiSkillMatches);
   }
 
-  // Faktor 6: Keywords från CV-analys (10 poäng)
+  // Faktor 6: Keywords från CV-analys (7 poäng - reducerad från 10p)
   if (analysisData.keywords) {
     const keywordMatches = analysisData.keywords.filter((kw: string) =>
       jobText.includes(kw.toLowerCase())
     ).length;
-    score += Math.min(10, keywordMatches * 2);
+    score += Math.min(7, keywordMatches * 2);
   }
 
-  // Faktor 7: ATS-optimerade keywords från roller (5 poäng - reducerad från 10)
+  // Faktor 7: ATS-optimerade keywords från roller (3 poäng - reducerad från 5p)
   if (analysisData.roleBasedImprovements) {
     const roleKeywords = analysisData.roleBasedImprovements.flatMap((r: any) =>
       r.improvements.keywords || []
@@ -927,7 +952,7 @@ function calculateRelevance(
     const roleMatches = roleKeywords.filter((kw: string) =>
       jobText.includes(kw.toLowerCase())
     ).length;
-    score += Math.min(5, roleMatches);
+    score += Math.min(3, roleMatches);
   }
 
   // Applicera branschstraff
