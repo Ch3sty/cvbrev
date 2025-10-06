@@ -340,12 +340,37 @@ export default function JobCard({ job, index, onSelect }: JobCardProps) {
           )}
 
           {/* Footer */}
-          <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-            <div className="flex items-center gap-2 text-xs text-gray-500">
-              <Clock className="w-3 h-3" />
-              <span>Publicerad {new Date(job.publication_date).toLocaleDateString('sv-SE')}</span>
+          <div className="pt-4 border-t border-gray-100 space-y-3">
+            {/* Publication Date and Deadline */}
+            <div className="flex items-center justify-between text-xs text-gray-500">
+              <div className="flex items-center gap-2">
+                <Clock className="w-3 h-3" />
+                <span>
+                  {job.publication_date
+                    ? `Publicerad ${new Date(job.publication_date).toLocaleDateString('sv-SE')}`
+                    : 'Publiceringsdatum okänt'}
+                </span>
+              </div>
+              {job.application_deadline && (
+                <span className="text-orange-600 font-medium">
+                  Sök senast: {new Date(job.application_deadline).toLocaleDateString('sv-SE')}
+                </span>
+              )}
             </div>
-            <ExternalLink className="w-4 h-4 text-indigo-500 group-hover:translate-x-1 transition-transform" />
+
+            {/* Apply Button */}
+            {job.application_url && (
+              <a
+                href={job.application_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="block w-full py-3 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-center rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
+              >
+                <span>Ansök här</span>
+                <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </a>
+            )}
           </div>
         </div>
       </BentoCard>
