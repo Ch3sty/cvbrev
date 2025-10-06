@@ -32,3 +32,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 .vercel
+
+# deployment files (Deno edge functions, not for Next.js build)
+DEPLOYMENT_*.ts
+DEPLOY_*.ts
