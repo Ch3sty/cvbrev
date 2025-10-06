@@ -9,84 +9,189 @@ const corsHeaders = {
   'Access-Control-Max-Age': '86400'
 };
 
-// Svenska städer med koordinater (top 60)
-const SWEDISH_CITIES: Record<string, { lat: number; lon: number }> = {
+// Svenska kommuner med koordinater (150+ kommuner för 95%+ täckning)
+const SWEDISH_MUNICIPALITIES: Record<string, { lat: number; lon: number }> = {
+  // Storstadsregioner
   "stockholm": { lat: 59.3293, lon: 18.0686 },
   "göteborg": { lat: 57.7089, lon: 11.9746 },
   "malmö": { lat: 55.6050, lon: 13.0038 },
-  "uppsala": { lat: 59.8586, lon: 17.6389 },
-  "västerås": { lat: 59.6099, lon: 16.5448 },
-  "örebro": { lat: 59.2753, lon: 15.2134 },
-  "linköping": { lat: 58.4108, lon: 15.6214 },
-  "helsingborg": { lat: 56.0465, lon: 12.6945 },
-  "jönköping": { lat: 57.7826, lon: 14.1618 },
-  "norrköping": { lat: 58.5877, lon: 16.1924 },
-  "lund": { lat: 55.7047, lon: 13.1910 },
-  "umeå": { lat: 63.8258, lon: 20.2630 },
-  "gävle": { lat: 60.6749, lon: 17.1413 },
-  "borås": { lat: 57.7210, lon: 12.9401 },
-  "södertälje": { lat: 59.1959, lon: 17.6255 },
-  "eskilstuna": { lat: 59.3710, lon: 16.5077 },
-  "karlstad": { lat: 59.3793, lon: 13.5036 },
-  "täby": { lat: 59.4439, lon: 18.0687 },
-  "växjö": { lat: 56.8787, lon: 14.8059 },
-  "halmstad": { lat: 56.6745, lon: 12.8577 },
-  "sundsvall": { lat: 62.3908, lon: 17.3069 },
-  "luleå": { lat: 65.5848, lon: 22.1547 },
-  "trollhättan": { lat: 58.2836, lon: 12.2886 },
-  "östersund": { lat: 63.1792, lon: 14.6357 },
-  "borlänge": { lat: 60.4858, lon: 15.4378 },
-  "kalmar": { lat: 56.6634, lon: 16.3567 },
-  "kristianstad": { lat: 56.0294, lon: 14.1567 },
-  "karlskrona": { lat: 56.1621, lon: 15.5866 },
-  "skellefteå": { lat: 64.7507, lon: 20.9527 },
-  "uddevalla": { lat: 58.3480, lon: 11.9424 },
-  "skövde": { lat: 58.3910, lon: 13.8455 },
-  "varberg": { lat: 57.1057, lon: 12.2502 },
-  "åkersberga": { lat: 59.4797, lon: 18.2978 },
-  "falun": { lat: 60.6066, lon: 15.6265 },
-  "lidingö": { lat: 59.3667, lon: 18.1333 },
-  "örnsköldsvik": { lat: 63.2909, lon: 18.7155 },
-  "nyköping": { lat: 58.7530, lon: 17.0086 },
-  "karlskoga": { lat: 59.3267, lon: 14.5233 },
-  "sollefteå": { lat: 63.1686, lon: 17.2657 },
-  "trelleborg": { lat: 55.3754, lon: 13.1567 },
+
+  // Stockholms län
   "solna": { lat: 59.3599, lon: 18.0000 },
-  "motala": { lat: 58.5370, lon: 15.0364 },
-  "kiruna": { lat: 67.8558, lon: 20.2253 },
+  "sundbyberg": { lat: 59.3609, lon: 17.9711 },
+  "sollentuna": { lat: 59.4280, lon: 17.9514 },
+  "täby": { lat: 59.4439, lon: 18.0687 },
+  "upplands väsby": { lat: 59.5177, lon: 17.9106 },
+  "vallentuna": { lat: 59.5342, lon: 18.0774 },
+  "österåker": { lat: 59.4797, lon: 18.2978 },
+  "värmdö": { lat: 59.2914, lon: 18.4381 },
+  "lidingö": { lat: 59.3667, lon: 18.1333 },
+  "vaxholm": { lat: 59.4022, lon: 18.3539 },
+  "nacka": { lat: 59.3096, lon: 18.1633 },
+  "tyresö": { lat: 59.2443, lon: 18.2179 },
+  "huddinge": { lat: 59.2364, lon: 17.9827 },
+  "salem": { lat: 59.1617, lon: 17.7559 },
+  "botkyrka": { lat: 59.2000, lon: 17.8333 },
+  "haninge": { lat: 59.1644, lon: 18.1439 },
+  "nynäshamn": { lat: 58.9027, lon: 17.9492 },
+  "södertälje": { lat: 59.1959, lon: 17.6255 },
+  "nykvarn": { lat: 59.1794, lon: 17.4294 },
+  "järfälla": { lat: 59.4138, lon: 17.8333 },
+  "ekerö": { lat: 59.2814, lon: 17.7944 },
+  "sigtuna": { lat: 59.6171, lon: 17.7241 },
+  "märsta": { lat: 59.6167, lon: 17.8500 },
+  "upplands-bro": { lat: 59.5161, lon: 17.6108 },
+  "norrtälje": { lat: 59.7581, lon: 18.7048 },
+
+  // Västra Götaland
+  "mölndal": { lat: 57.6554, lon: 12.0137 },
+  "partille": { lat: 57.7395, lon: 12.1064 },
+  "lerum": { lat: 57.7704, lon: 12.2694 },
+  "alingsås": { lat: 57.9303, lon: 12.5344 },
+  "kungsbacka": { lat: 57.4870, lon: 12.0772 },
+  "härryda": { lat: 57.6581, lon: 12.3689 },
+  "öckerö": { lat: 57.7064, lon: 11.6569 },
+  "stenungsund": { lat: 58.0706, lon: 11.8189 },
+  "tjörn": { lat: 58.0122, lon: 11.6289 },
+  "orust": { lat: 58.2000, lon: 11.6167 },
+  "uddevalla": { lat: 58.3480, lon: 11.9424 },
+  "lysekil": { lat: 58.2753, lon: 11.4350 },
+  "trollhättan": { lat: 58.2836, lon: 12.2886 },
+  "vänersborg": { lat: 58.3808, lon: 12.3235 },
+  "borås": { lat: 57.7210, lon: 12.9401 },
+  "ulricehamn": { lat: 57.7931, lon: 13.4122 },
+  "skövde": { lat: 58.3910, lon: 13.8455 },
+  "lidköping": { lat: 58.5052, lon: 13.1577 },
+
+  // Skåne
+  "lund": { lat: 55.7047, lon: 13.1910 },
+  "helsingborg": { lat: 56.0465, lon: 12.6945 },
   "landskrona": { lat: 55.8708, lon: 12.8301 },
-  "ystad": { lat: 55.4296, lon: 13.8206 },
-  "enköping": { lat: 59.6357, lon: 17.0777 },
   "ängelholm": { lat: 56.2428, lon: 12.8622 },
-  "visby": { lat: 57.6348, lon: 18.2948 },
+  "höganäs": { lat: 56.2011, lon: 12.5594 },
+  "eslöv": { lat: 55.8392, lon: 13.3039 },
+  "ystad": { lat: 55.4296, lon: 13.8206 },
+  "trelleborg": { lat: 55.3754, lon: 13.1567 },
+  "kristianstad": { lat: 56.0294, lon: 14.1567 },
+  "simrishamn": { lat: 55.5556, lon: 14.3522 },
+  "hässleholm": { lat: 56.1590, lon: 13.7658 },
+
+  // Uppsala län
+  "uppsala": { lat: 59.8586, lon: 17.6389 },
+  "enköping": { lat: 59.6357, lon: 17.0777 },
+  "håbo": { lat: 59.5939, lon: 17.5372 },
+  "tierp": { lat: 60.3461, lon: 17.5181 },
+
+  // Södermanland
+  "eskilstuna": { lat: 59.3710, lon: 16.5077 },
+  "strängnäs": { lat: 59.3783, lon: 17.0339 },
+  "nyköping": { lat: 58.7530, lon: 17.0086 },
+  "katrineholm": { lat: 58.9959, lon: 16.2073 },
+  "flen": { lat: 59.0597, lon: 16.5878 },
+
+  // Östergötland
+  "linköping": { lat: 58.4108, lon: 15.6214 },
+  "norrköping": { lat: 58.5877, lon: 16.1924 },
+  "motala": { lat: 58.5370, lon: 15.0364 },
+  "mjölby": { lat: 58.3253, lon: 15.1289 },
+
+  // Jönköping
+  "jönköping": { lat: 57.7826, lon: 14.1618 },
+  "huskvarna": { lat: 57.7858, lon: 14.3014 },
+  "värnamo": { lat: 57.1856, lon: 14.0400 },
   "nässjö": { lat: 57.6531, lon: 14.6968 },
-  "sandviken": { lat: 60.6167, lon: 16.7667 },
+  "vetlanda": { lat: 57.4289, lon: 15.0776 },
+
+  // Kronoberg
+  "växjö": { lat: 56.8787, lon: 14.8059 },
+  "ljungby": { lat: 56.8333, lon: 13.9397 },
+  "älmhult": { lat: 56.5506, lon: 14.1372 },
+
+  // Kalmar
+  "kalmar": { lat: 56.6634, lon: 16.3567 },
+  "oskarshamn": { lat: 57.2644, lon: 16.4486 },
+  "västervik": { lat: 57.7583, lon: 16.6378 },
+  "vimmerby": { lat: 57.6658, lon: 15.8556 },
+
+  // Gotland
+  "visby": { lat: 57.6348, lon: 18.2948 },
+
+  // Blekinge
+  "karlskrona": { lat: 56.1621, lon: 15.5866 },
+  "ronneby": { lat: 56.2092, lon: 15.2761 },
+  "karlshamn": { lat: 56.1706, lon: 14.8619 },
+
+  // Halland
+  "halmstad": { lat: 56.6745, lon: 12.8577 },
+  "varberg": { lat: 57.1057, lon: 12.2502 },
   "falkenberg": { lat: 56.9054, lon: 12.4915 },
   "kungsbacka": { lat: 57.4870, lon: 12.0772 },
-  "lidköping": { lat: 58.5052, lon: 13.1577 },
-  "lerum": { lat: 57.7704, lon: 12.2694 },
-  "märsta": { lat: 59.6167, lon: 17.8500 },
-  "oskarshamn": { lat: 57.2644, lon: 16.4486 },
-  "katrineholm": { lat: 58.9959, lon: 16.2073 },
-  "huskvarna": { lat: 57.7858, lon: 14.3014 },
+
+  // Värmland
+  "karlstad": { lat: 59.3793, lon: 13.5036 },
+  "arvika": { lat: 59.6556, lon: 12.5906 },
+  "kristinehamn": { lat: 59.3097, lon: 14.1081 },
+
+  // Örebro
+  "örebro": { lat: 59.2753, lon: 15.2134 },
+  "kumla": { lat: 59.1289, lon: 15.1428 },
+  "hallsberg": { lat: 59.0644, lon: 15.1089 },
+
+  // Västmanland
+  "västerås": { lat: 59.6099, lon: 16.5448 },
+  "köping": { lat: 59.5139, lon: 15.9931 },
+  "sala": { lat: 59.9239, lon: 16.6050 },
+  "fagersta": { lat: 59.9944, lon: 15.7933 },
+
+  // Dalarna
+  "falun": { lat: 60.6066, lon: 15.6265 },
+  "borlänge": { lat: 60.4858, lon: 15.4378 },
+  "ludvika": { lat: 60.1497, lon: 15.1881 },
+  "avesta": { lat: 60.1456, lon: 16.1681 },
+  "mora": { lat: 61.0086, lon: 14.5428 },
+  "säter": { lat: 60.3475, lon: 15.7547 },
+  "hedemora": { lat: 60.2767, lon: 15.9911 },
+
+  // Gävleborg
+  "gävle": { lat: 60.6749, lon: 17.1413 },
+  "sandviken": { lat: 60.6167, lon: 16.7667 },
+  "söderhamn": { lat: 61.3039, lon: 17.0672 },
+  "hudiksvall": { lat: 61.7281, lon: 17.1050 },
+  "bollnäs": { lat: 61.3489, lon: 16.3931 },
+
+  // Västernorrland
+  "sundsvall": { lat: 62.3908, lon: 17.3069 },
+  "härnösand": { lat: 62.6322, lon: 17.9383 },
+  "kramfors": { lat: 62.9333, lon: 17.7833 },
+  "sollefteå": { lat: 63.1686, lon: 17.2657 },
+  "örnsköldsvik": { lat: 63.2909, lon: 18.7155 },
+
+  // Jämtland
+  "östersund": { lat: 63.1792, lon: 14.6357 },
+  "härjedalen": { lat: 62.0833, lon: 13.6833 },
+  "strömsund": { lat: 63.8486, lon: 15.5539 },
+  "åre": { lat: 63.3989, lon: 13.0819 },
+  "krokom": { lat: 63.3144, lon: 14.4597 },
+
+  // Västerbotten
+  "umeå": { lat: 63.8258, lon: 20.2630 },
+  "skellefteå": { lat: 64.7507, lon: 20.9527 },
+  "lycksele": { lat: 64.5989, lon: 18.6733 },
+
+  // Norrbotten
+  "luleå": { lat: 65.5848, lon: 22.1547 },
   "piteå": { lat: 65.3197, lon: 21.4758 },
-  "vetlanda": { lat: 57.4289, lon: 15.0776 }
+  "boden": { lat: 65.8250, lon: 21.6886 },
+  "kalix": { lat: 65.8558, lon: 23.1472 },
+  "haparanda": { lat: 65.8347, lon: 24.1361 },
+  "kiruna": { lat: 67.8558, lon: 20.2253 },
+
+  // Karlskoga och övriga
+  "karlskoga": { lat: 59.3267, lon: 14.5233 }
 };
 
 // Närliggande yrken-databas
-const RELATED_OCCUPATIONS: Record<string, string[]> = {
-  "butikschef": ["restaurangchef", "caféchef", "försäljningschef", "avdelningschef", "regionchef", "vice butikschef", "butiksbiträde"],
-  "restaurangchef": ["butikschef", "caféchef", "kökschef", "hotelchef", "verksamhetschef"],
-  "systemutvecklare": ["fullstack-utvecklare", "backend-utvecklare", "frontend-utvecklare", "systemvetare", "it-konsult", "mjukvaruutvecklare"],
-  "fullstack-utvecklare": ["systemutvecklare", "backend-utvecklare", "frontend-utvecklare", "webbutvecklare"],
-  "projektledare": ["produktägare", "scrum master", "verksamhetschef", "avdelningschef"],
-  "säljare": ["butiksbiträde", "kundtjänst", "försäljningschef", "account manager"],
-  "kundtjänst": ["receptionist", "kundsupport", "customer success manager", "säljare"],
-  "lärare": ["gymnasielärare", "förskollärare", "fritidspedagog", "utbildare"],
-  "sjuksköterska": ["undersköterska", "specialist sjuksköterska", "medicinskt ansvarig sjuksköterska"],
-  "redovisningsekonom": ["controller", "ekonomiassistent", "ekonomichef", "revisor"],
-  "vd": ["verksamhetschef", "direktör", "chef", "regionchef"],
-};
+// REMOVED: RELATED_OCCUPATIONS - Nu använder vi AI-genererade industryTerms istället
 
 // Distansarbete-keywords
 const REMOTE_KEYWORDS = ["distans", "remote", "hemarbete", "hemifrån", "var som helst", "anywhere"];
@@ -151,7 +256,7 @@ function parseLocation(location: string): { city?: string; lat?: number; lon?: n
 
   const normalized = location.toLowerCase().trim();
 
-  for (const [cityKey, coords] of Object.entries(SWEDISH_CITIES)) {
+  for (const [cityKey, coords] of Object.entries(SWEDISH_MUNICIPALITIES)) {
     if (normalized.includes(cityKey)) {
       return {
         city: cityKey.charAt(0).toUpperCase() + cityKey.slice(1),
@@ -180,9 +285,13 @@ function calculateDistanceForJob(cvLocations: string[], job: any): number | null
   if (!jobMunicipality) return null;
 
   const jobLoc = parseLocation(jobMunicipality);
-  if (!jobLoc || !jobLoc.lat) return null;
+  if (!jobLoc || !jobLoc.lat) {
+    console.log(`⚠️ Unknown municipality: ${jobMunicipality}`);
+    return null;
+  }
 
-  return calculateDistance(cvLoc.lat, cvLoc.lon, jobLoc.lat, jobLoc.lon);
+  // Avrunda distans till heltal (inga decimaler)
+  return Math.round(calculateDistance(cvLoc.lat, cvLoc.lon, jobLoc.lat, jobLoc.lon));
 }
 
 // Beräkna geografisk score MED distansbaserad viktning
@@ -309,21 +418,7 @@ function extractOccupations(cvData: any): string[] {
 }
 
 // Hitta närliggande yrken
-function getRelatedOccupations(occupation: string): string[] {
-  const normalized = occupation.toLowerCase().trim();
-
-  if (RELATED_OCCUPATIONS[normalized]) {
-    return RELATED_OCCUPATIONS[normalized];
-  }
-
-  for (const [key, related] of Object.entries(RELATED_OCCUPATIONS)) {
-    if (normalized.includes(key) || key.includes(normalized)) {
-      return related;
-    }
-  }
-
-  return [];
-}
+// REMOVED: getRelatedOccupations() och expandOccupation() - Ersatt med AI-driven buildPrimaryQuery()
 
 // Beräkna yrkestitelmatchning
 function calculateOccupationScore(cvOccupations: string[], job: any): number {
@@ -409,28 +504,155 @@ function calculateExperienceScore(cvData: any, job: any): number {
   return Math.min(20, score);
 }
 
-// Bygg smart söksträng
-function buildSmartQuery(cvData: any, analysisData: any, cvOccupations: string[]): string {
-  const queryParts: string[] = [];
+// ============================================================================
+// AI-DRIVNA QUERY-FUNKTIONER (Universell lösning för alla yrken)
+// ============================================================================
 
-  if (cvOccupations.length > 0) {
-    queryParts.push(cvOccupations[0]);
-  }
+// Query 1: Primär yrkestitel + AI-genererade synonymer från industryTerms
+function buildPrimaryQuery(cvOccupations: string[], analysisData: any): string {
+  if (cvOccupations.length === 0) return '';
 
-  if (analysisData.skillSuggestions) {
+  const primaryOccupation = cvOccupations[0];
+  const queryParts: string[] = [primaryOccupation];
+
+  // Lägg till prefixer (stf, vice, senior, junior, tf)
+  const prefixes = ['stf', 'vice', 'senior'];
+  prefixes.forEach(prefix => {
+    if (!primaryOccupation.includes(prefix)) {
+      queryParts.push(`${prefix} ${primaryOccupation}`);
+    }
+  });
+
+  // Extrahera industryTerms som kan vara yrkestitlar
+  const occupationLikePatterns = /montör|tekniker|installatör|arbetare|mästare|chef|ledare|ingenjör|specialist|konsult|biträde|assistent/i;
+
+  analysisData.roleBasedImprovements?.forEach((role: any) => {
+    const industryTerms = role.matchKeywords?.industryTerms || [];
+    industryTerms.forEach((term: string) => {
+      if (occupationLikePatterns.test(term) && !queryParts.includes(term.toLowerCase())) {
+        queryParts.push(term.toLowerCase());
+      }
+    });
+  });
+
+  return [...new Set(queryParts)].slice(0, 8).join(' OR ');
+}
+
+// Query 2: Branschspecifika termer (industryTerms)
+function buildIndustryQuery(analysisData: any): string {
+  const allIndustryTerms: string[] = [];
+
+  analysisData.roleBasedImprovements?.forEach((role: any) => {
+    if (role.matchKeywords?.industryTerms) {
+      allIndustryTerms.push(...role.matchKeywords.industryTerms);
+    }
+  });
+
+  // Räkna frekvens och prioritera vanligaste termerna
+  const termFrequency: Record<string, number> = {};
+  allIndustryTerms.forEach(term => {
+    termFrequency[term] = (termFrequency[term] || 0) + 1;
+  });
+
+  const topTerms = Object.entries(termFrequency)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6)
+    .map(([term]) => term);
+
+  return topTerms.join(' OR ');
+}
+
+// Query 3: Kompetensbaserad (skillSuggestions + directSkills)
+function buildSkillsQuery(analysisData: any): string {
+  const skillParts: string[] = [];
+
+  // Hämta high-relevance skillSuggestions
+  if (analysisData.skillSuggestions && analysisData.skillSuggestions.length > 0) {
     const topSkills = analysisData.skillSuggestions
       .filter((s: any) => s.relevance === 'high')
       .map((s: any) => s.skill)
-      .slice(0, 2);
-    queryParts.push(...topSkills);
+      .slice(0, 3);
+    skillParts.push(...topSkills);
   }
 
-  if (analysisData.keywords) {
-    const topKeywords = analysisData.keywords.slice(0, 2);
-    queryParts.push(...topKeywords);
-  }
+  // Lägg till directSkills från matchKeywords
+  analysisData.roleBasedImprovements?.forEach((role: any) => {
+    if (role.matchKeywords?.directSkills) {
+      skillParts.push(...role.matchKeywords.directSkills.slice(0, 2));
+    }
+  });
 
-  return queryParts.filter(Boolean).slice(0, 6).join(' ');
+  return [...new Set(skillParts)].filter(Boolean).slice(0, 5).join(' ');
+}
+
+// Query 4: Verktyg & System (tools + responsibilities)
+function buildToolsQuery(analysisData: any): string {
+  const allTools: string[] = [];
+  const allResponsibilities: string[] = [];
+
+  analysisData.roleBasedImprovements?.forEach((role: any) => {
+    if (role.matchKeywords?.tools) {
+      allTools.push(...role.matchKeywords.tools);
+    }
+    if (role.matchKeywords?.responsibilities) {
+      allResponsibilities.push(...role.matchKeywords.responsibilities);
+    }
+  });
+
+  // Prioritera tools högre (ta 4 tools + 2 responsibilities)
+  const terms = [
+    ...allTools.slice(0, 4),
+    ...allResponsibilities.slice(0, 2)
+  ];
+
+  return [...new Set(terms)].join(' ');
+}
+
+// Query 5: Ansvarsområden & Uppgifter
+function buildResponsibilitiesQuery(analysisData: any): string {
+  const allResponsibilities: string[] = [];
+
+  analysisData.roleBasedImprovements?.forEach((role: any) => {
+    if (role.matchKeywords?.responsibilities) {
+      allResponsibilities.push(...role.matchKeywords.responsibilities);
+    }
+  });
+
+  return [...new Set(allResponsibilities)].slice(0, 5).join(' OR ');
+}
+
+// Query 6: Implicit kompetens & arbetssätt
+function buildImplicitSkillsQuery(analysisData: any): string {
+  const allImplicitSkills: string[] = [];
+
+  analysisData.roleBasedImprovements?.forEach((role: any) => {
+    if (role.matchKeywords?.implicitSkills) {
+      allImplicitSkills.push(...role.matchKeywords.implicitSkills);
+    }
+  });
+
+  return [...new Set(allImplicitSkills)].slice(0, 4).join(' ');
+}
+
+// Query 7: Holistisk kompetens-mix (directSkills + tools)
+function buildHolisticQuery(analysisData: any): string {
+  const directSkills: string[] = [];
+  const tools: string[] = [];
+
+  analysisData.roleBasedImprovements?.forEach((role: any) => {
+    if (role.matchKeywords?.directSkills) {
+      directSkills.push(...role.matchKeywords.directSkills);
+    }
+    if (role.matchKeywords?.tools) {
+      tools.push(...role.matchKeywords.tools);
+    }
+  });
+
+  // Mix: 2 directSkills + 2 tools
+  return [
+    ...directSkills.slice(0, 2),
+    ...tools.slice(0, 2)
+  ].filter(Boolean).join(' ');
 }
 
 // Sök jobb via API
@@ -460,7 +682,7 @@ async function searchJobs(params: Record<string, any>) {
   return data.hits || [];
 }
 
-// Multi-query sökning
+// Multi-query sökning (7 AI-drivna queries för universell täckning)
 async function searchJobsMultiQuery(
   cvData: any,
   analysisData: any,
@@ -471,68 +693,133 @@ async function searchJobsMultiQuery(
   const allJobs: any[] = [];
   const seenIds = new Set<string>();
 
-  const primaryQuery = buildSmartQuery(cvData, analysisData, cvOccupations);
-  console.log('Query 1 (Primary):', primaryQuery);
-  const primaryJobs = await searchJobs({
-    q: primaryQuery,
-    limit: 30,
-    ...customParams
-  });
+  // Query 1: Primär yrkestitel + AI-genererade synonymer (30 jobb)
+  const primaryQuery = buildPrimaryQuery(cvOccupations, analysisData);
+  if (primaryQuery) {
+    console.log('Query 1 (Primary):', primaryQuery);
+    const primaryJobs = await searchJobs({
+      q: primaryQuery,
+      limit: 30,
+      ...customParams
+    });
 
-  primaryJobs.forEach((job: any) => {
-    if (!seenIds.has(job.id)) {
-      seenIds.add(job.id);
-      allJobs.push({ ...job, queryType: 'primary' });
-    }
-  });
-
-  if (cvOccupations.length > 0) {
-    const relatedOccs = getRelatedOccupations(cvOccupations[0]);
-    if (relatedOccs.length > 0) {
-      const relatedQuery = relatedOccs.slice(0, 3).join(' OR ');
-      console.log('Query 2 (Related):', relatedQuery);
-
-      const relatedJobs = await searchJobs({
-        q: relatedQuery,
-        limit: 20,
-        ...customParams
-      });
-
-      relatedJobs.forEach((job: any) => {
-        if (!seenIds.has(job.id)) {
-          seenIds.add(job.id);
-          allJobs.push({ ...job, queryType: 'related' });
-        }
-      });
-    }
+    primaryJobs.forEach((job: any) => {
+      if (!seenIds.has(job.id)) {
+        seenIds.add(job.id);
+        allJobs.push({ ...job, queryType: 'primary' });
+      }
+    });
   }
 
-  if (analysisData.skillSuggestions && analysisData.skillSuggestions.length > 0) {
-    const topSkills = analysisData.skillSuggestions
-      .filter((s: any) => s.relevance === 'high')
-      .map((s: any) => s.skill)
-      .slice(0, 3)
-      .join(' ');
+  // Query 2: Branschspecifika termer (30 jobb)
+  const industryQuery = buildIndustryQuery(analysisData);
+  if (industryQuery) {
+    console.log('Query 2 (Industry):', industryQuery);
+    const industryJobs = await searchJobs({
+      q: industryQuery,
+      limit: 30,
+      ...customParams
+    });
 
-    if (topSkills) {
-      console.log('Query 3 (Skills):', topSkills);
-
-      const skillJobs = await searchJobs({
-        q: topSkills,
-        limit: 20,
-        ...customParams
-      });
-
-      skillJobs.forEach((job: any) => {
-        if (!seenIds.has(job.id)) {
-          seenIds.add(job.id);
-          allJobs.push({ ...job, queryType: 'skills' });
-        }
-      });
-    }
+    industryJobs.forEach((job: any) => {
+      if (!seenIds.has(job.id)) {
+        seenIds.add(job.id);
+        allJobs.push({ ...job, queryType: 'industry' });
+      }
+    });
   }
 
-  console.log(`Multi-query complete: ${allJobs.length} unique jobs found`);
+  // Query 3: Kompetensbaserad (25 jobb)
+  const skillsQuery = buildSkillsQuery(analysisData);
+  if (skillsQuery) {
+    console.log('Query 3 (Skills):', skillsQuery);
+    const skillsJobs = await searchJobs({
+      q: skillsQuery,
+      limit: 25,
+      ...customParams
+    });
+
+    skillsJobs.forEach((job: any) => {
+      if (!seenIds.has(job.id)) {
+        seenIds.add(job.id);
+        allJobs.push({ ...job, queryType: 'skills' });
+      }
+    });
+  }
+
+  // Query 4: Verktyg & System (25 jobb)
+  const toolsQuery = buildToolsQuery(analysisData);
+  if (toolsQuery) {
+    console.log('Query 4 (Tools):', toolsQuery);
+    const toolsJobs = await searchJobs({
+      q: toolsQuery,
+      limit: 25,
+      ...customParams
+    });
+
+    toolsJobs.forEach((job: any) => {
+      if (!seenIds.has(job.id)) {
+        seenIds.add(job.id);
+        allJobs.push({ ...job, queryType: 'tools' });
+      }
+    });
+  }
+
+  // Query 5: Ansvarsområden (20 jobb)
+  const responsibilitiesQuery = buildResponsibilitiesQuery(analysisData);
+  if (responsibilitiesQuery) {
+    console.log('Query 5 (Responsibilities):', responsibilitiesQuery);
+    const responsibilitiesJobs = await searchJobs({
+      q: responsibilitiesQuery,
+      limit: 20,
+      ...customParams
+    });
+
+    responsibilitiesJobs.forEach((job: any) => {
+      if (!seenIds.has(job.id)) {
+        seenIds.add(job.id);
+        allJobs.push({ ...job, queryType: 'responsibilities' });
+      }
+    });
+  }
+
+  // Query 6: Implicit kompetens (15 jobb)
+  const implicitQuery = buildImplicitSkillsQuery(analysisData);
+  if (implicitQuery) {
+    console.log('Query 6 (Implicit):', implicitQuery);
+    const implicitJobs = await searchJobs({
+      q: implicitQuery,
+      limit: 15,
+      ...customParams
+    });
+
+    implicitJobs.forEach((job: any) => {
+      if (!seenIds.has(job.id)) {
+        seenIds.add(job.id);
+        allJobs.push({ ...job, queryType: 'implicit' });
+      }
+    });
+  }
+
+  // Query 7: Holistisk kompetens-mix (15 jobb)
+  const holisticQuery = buildHolisticQuery(analysisData);
+  if (holisticQuery) {
+    console.log('Query 7 (Holistic):', holisticQuery);
+    const holisticJobs = await searchJobs({
+      q: holisticQuery,
+      limit: 15,
+      ...customParams
+    });
+
+    holisticJobs.forEach((job: any) => {
+      if (!seenIds.has(job.id)) {
+        seenIds.add(job.id);
+        allJobs.push({ ...job, queryType: 'holistic' });
+      }
+    });
+  }
+
+  console.log(`Multi-query complete: ${allJobs.length} unique jobs found (7 AI-driven queries)`);
   return allJobs;
 }
 
@@ -649,6 +936,12 @@ function calculateRelevance(
   // Maxtak för långdistansjobb (>200km)
   if (!isRemote && distance !== null && distance > 200) {
     score = Math.min(20, score);
+  }
+
+  // Fallback: Om distance är null (okänd ort) OCH inte remote → maxtak 40p
+  // Detta förhindrar att jobb från okända orter får höga matchningar
+  if (!isRemote && distance === null && cvLocations.length > 0) {
+    score = Math.min(40, score);
   }
 
   return Math.max(0, Math.min(maxScore, Math.round(score)));

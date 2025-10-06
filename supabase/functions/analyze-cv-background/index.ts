@@ -410,16 +410,21 @@ INSTRUKTIONER FÖR matchKeywords (KRITISKT FÖR JOBBMATCHNING):
 4. responsibilities: Konkreta ansvarsområden
    Exempel: ["budgetansvar", "nyckeltaluppföljning", "visuell merchandising", "daglig drift"]
 
-5. industryTerms: Branschspecifika termer baserat på yrkesroll
-   Exempel: detaljhandel → ["butiksdrift", "detaljhandel", "visual merchandising", "retail"]
-   Exempel: tech → ["agil utveckling", "CI/CD", "molntjänster", "DevOps"]
+5. industryTerms: Branschspecifika termer OCH yrkes-synonymer för jobbsökning
+   VIKTIGT: Inkludera alternativa yrkestitlar och branschakronymer!
+   Exempel: detaljhandel → ["butiksdrift", "detaljhandel", "visual merchandising", "retail", "försäljningschef", "butikssäljare"]
+   Exempel: tech → ["agil utveckling", "CI/CD", "molntjänster", "DevOps", "systemutvecklare", "backend-utvecklare"]
+   Exempel: rörmokare → ["VVS", "vvs-montör", "vs-montör", "rörläggare", "installationsrör", "sanitet", "avlopp", "rörinstallation"]
+   Exempel: elektriker → ["elinstallatör", "elmontör", "eltekniker", "elektrisk installation"]
+   Exempel: sjuksköterska → ["vård", "hälso-sjukvård", "omvårdnad", "patientvård", "specialist sjuksköterska"]
 
 VIKTIGT för matchKeywords:
 - Alla keywords på SVENSKA
 - Inkludera både singular och plural där relevant
 - Lägg till synonymer (t.ex. "personalansvar" + "medarbetaransvar")
-- Basera ENDAST på faktisk text och yrkeskontext
-- Totalt 10-20 matchKeywords per roll (fördelat över kategorierna)
+- För industryTerms: Lägg ALLTID till branschakronymer (VVS, IT, HR) och alternativa yrkestitlar
+- Basera på faktisk text OCH yrkeskontext (infoga branschkunskap)
+- Totalt 15-25 matchKeywords per roll (fördelat över kategorierna, med fokus på industryTerms)
 - matchKeywords används för jobbmatchning, INTE synligt för användaren
 
 atsImpact (1-5):
