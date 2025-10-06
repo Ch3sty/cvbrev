@@ -21,10 +21,15 @@ export default function CVSelectionStep({
   const { cvs, fetchCVs, isLoading } = useCVStore();
   const [uploadingFile, setUploadingFile] = useState<File | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [showAllCVs, setShowAllCVs] = useState(false);
 
   useEffect(() => {
     fetchCVs();
   }, [fetchCVs]);
+
+  // Find the selected CV object
+  const selectedCVObject = selectedCV ? cvs.find(cv => cv.id === selectedCV) : null;
+  const isPrefilled = selectedCV && !showAllCVs;
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (acceptedFiles.length === 0) return;
@@ -70,6 +75,44 @@ export default function CVSelectionStep({
 
   return (
     <div className="space-y-6">
+      {/* Prefilled CV Notice */}
+      {isPrefilled && selectedCVObject && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-green-50 border-2 border-green-200 rounded-xl p-4"
+        >
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
+              <Check className="w-6 h-6 text-white" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h4 className="font-semibold text-green-900 mb-1">
+                CV redan valt från jobbmatchning
+              </h4>
+              <div className="flex items-center gap-2 mb-2">
+                <FileText className="w-4 h-4 text-green-600" />
+                <p className="text-sm text-green-800 font-medium">
+                  {selectedCVObject.file_name || 'Namnlöst CV'}
+                </p>
+              </div>
+              <p className="text-xs text-green-700 mb-3">
+                Vi använder det CV du matchade jobb mot. Du kan fortsätta eller välja ett annat CV nedan.
+              </p>
+              <button
+                onClick={() => setShowAllCVs(true)}
+                className="text-sm text-green-700 hover:text-green-800 font-medium underline"
+              >
+                Byt till annat CV
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Show upload and CV list only if not prefilled or user wants to change */}
+      {(!isPrefilled || showAllCVs) && (
+        <>
       {/* Upload Zone */}
       <div
         {...getRootProps()}
@@ -232,6 +275,8 @@ export default function CVSelectionStep({
             </motion.button>
           ))}
         </div>
+      )}
+      </>
       )}
     </div>
   );

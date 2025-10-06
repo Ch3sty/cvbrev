@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Building2,
@@ -15,13 +16,15 @@ import {
   Key,
   FileCheck,
   AlertTriangle,
-  Navigation
+  Navigation,
+  FileText
 } from 'lucide-react';
 
 interface JobCardProps {
   job: any;
   index: number;
   onSelect: (job: any) => void;
+  selectedAnalysisId?: string;
 }
 
 const BentoCard = ({ children, className = "", onClick, ...props }: any) => (
@@ -58,7 +61,8 @@ const BentoCard = ({ children, className = "", onClick, ...props }: any) => (
   </motion.div>
 );
 
-export default function JobCard({ job, index, onSelect }: JobCardProps) {
+export default function JobCard({ job, index, onSelect, selectedAnalysisId }: JobCardProps) {
+  const router = useRouter();
   const [showDetails, setShowDetails] = useState(false);
 
   const getRelevanceColor = (relevance: number) => {
@@ -358,19 +362,43 @@ export default function JobCard({ job, index, onSelect }: JobCardProps) {
               )}
             </div>
 
-            {/* Apply Button */}
-            {job.application_url && (
-              <a
-                href={job.application_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="block w-full py-3 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-center rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
-              >
-                <span>Ansök här</span>
-                <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
-            )}
+            {/* Action Buttons */}
+            <div className="grid grid-cols-1 gap-2">
+              {/* Create Cover Letter Button */}
+              {selectedAnalysisId && (
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const jobData = {
+                      cvId: selectedAnalysisId,
+                      jobTitle: job.headline,
+                      company: job.employer.name,
+                      jobDescription: `${job.headline}\n\nFöretag: ${job.employer.name}\n\n${job.description.text}`
+                    };
+                    router.push(`/dashboard/skapa-brev?prefill=${encodeURIComponent(JSON.stringify(jobData))}`);
+                  }}
+                  className="w-full py-3 px-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white text-center rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
+                >
+                  <FileText className="w-4 h-4" />
+                  <span>Skapa personligt brev</span>
+                  <Sparkles className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+                </button>
+              )}
+
+              {/* Apply Button */}
+              {job.application_url && (
+                <a
+                  href={job.application_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="block w-full py-3 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-center rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
+                >
+                  <span>Ansök här</span>
+                  <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </a>
+              )}
+            </div>
           </div>
         </div>
       </BentoCard>

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FileText, MessageSquare, SlidersHorizontal, Brain, Eye } from 'lucide-react';
 
 // Store & Hooks
@@ -23,6 +23,7 @@ type Language = 'sv' | 'en';
 
 export default function CreateLetterPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { fetchCVs } = useCVStore();
   const { createLetter, saveLetter, isGenerating } = useLetters();
   const { profile, subscriptionTier, remainingWeeklyLetters, updateRemainingLetters } = useProfile();
@@ -37,8 +38,40 @@ export default function CreateLetterPage() {
   const [error, setError] = useState<string | null>(null);
   const [currentWizardStep, setCurrentWizardStep] = useState(0);
   const [hasTriggeredGeneration, setHasTriggeredGeneration] = useState(false);
+  const [prefillApplied, setPrefillApplied] = useState(false);
 
   const isPremium = subscriptionTier === 'premium';
+
+  // Handle prefill from jobbmatchning
+  useEffect(() => {
+    if (prefillApplied) return;
+
+    const prefillParam = searchParams.get('prefill');
+    if (prefillParam) {
+      try {
+        const prefillData = JSON.parse(decodeURIComponent(prefillParam));
+
+        if (prefillData.cvId) {
+          setSelectedCV(prefillData.cvId);
+        }
+
+        if (prefillData.jobDescription) {
+          setJobDescription(prefillData.jobDescription);
+        }
+
+        // Skip to settings step if both CV and job description are prefilled
+        if (prefillData.cvId && prefillData.jobDescription) {
+          setCurrentWizardStep(2); // Start at step 3 (Settings)
+        } else if (prefillData.cvId) {
+          setCurrentWizardStep(1); // Start at step 2 (Job Description)
+        }
+
+        setPrefillApplied(true);
+      } catch (error) {
+        console.error('Failed to parse prefill data:', error);
+      }
+    }
+  }, [searchParams, prefillApplied]);
 
   useEffect(() => {
     fetchCVs();
