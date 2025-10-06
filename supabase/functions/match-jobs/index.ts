@@ -536,6 +536,48 @@ async function searchJobsMultiQuery(
   return allJobs;
 }
 
+// NYT: Beräkna matchning baserat på AI-extraherade matchKeywords
+function calculateMatchKeywordsScore(analysisData: any, job: any): number {
+  if (!analysisData?.roleBasedImprovements) return 0;
+
+  const jobText = `${job.headline} ${job.description?.text || ''}`.toLowerCase();
+  let score = 0;
+
+  analysisData.roleBasedImprovements.forEach((role: any) => {
+    if (!role.matchKeywords) return;
+
+    const mk = role.matchKeywords;
+
+    // Viktade matchningar baserat på keyword-typ
+    const directMatches = (mk.directSkills || []).filter((s: string) =>
+      jobText.includes(s.toLowerCase())
+    ).length;
+    score += directMatches * 3; // Högt värde för direkta skills
+
+    const implicitMatches = (mk.implicitSkills || []).filter((s: string) =>
+      jobText.includes(s.toLowerCase())
+    ).length;
+    score += implicitMatches * 2; // Medel värde för implicita skills
+
+    const toolMatches = (mk.tools || []).filter((t: string) =>
+      jobText.includes(t.toLowerCase())
+    ).length;
+    score += toolMatches * 4; // Mycket högt värde för verktyg/system
+
+    const respMatches = (mk.responsibilities || []).filter((r: string) =>
+      jobText.includes(r.toLowerCase())
+    ).length;
+    score += respMatches * 3; // Högt värde för ansvarsområden
+
+    const industryMatches = (mk.industryTerms || []).filter((i: string) =>
+      jobText.includes(i.toLowerCase())
+    ).length;
+    score += industryMatches * 2; // Medel värde för branschtermer
+  });
+
+  return Math.min(15, score); // Max 15 poäng för matchKeywords
+}
+
 // FÖRBÄTTRAD: Multi-factor relevansberäkning med distans och branschstraff
 function calculateRelevance(
   cvData: any,
@@ -558,27 +600,31 @@ function calculateRelevance(
   // Faktor 2: Yrkestitelmatchning (20 poäng)
   score += calculateOccupationScore(cvOccupations, job);
 
-  // Faktor 3: Erfarenhetsbaserad matchning (20 poäng)
-  score += calculateExperienceScore(cvData, job);
+  // Faktor 3: Erfarenhetsbaserad matchning (15 poäng - reducerad från 20)
+  const expScore = calculateExperienceScore(cvData, job);
+  score += Math.min(15, expScore);
 
-  // Faktor 4: AI-identifierade kompetenser (15 poäng)
+  // Faktor 4: MatchKeywords från AI-analys (15 poäng - NYT!)
+  score += calculateMatchKeywordsScore(analysisData, job);
+
+  // Faktor 5: AI-identifierade kompetenser (10 poäng - reducerad från 15)
   if (analysisData.skillSuggestions) {
     const aiSkillMatches = analysisData.skillSuggestions.reduce((sum: number, s: any) => {
       const skillLower = s.skill.toLowerCase();
       const matches = jobText.includes(skillLower);
 
       if (matches) {
-        if (s.relevance === 'high') return sum + 10;
-        if (s.relevance === 'medium') return sum + 6;
-        return sum + 3;
+        if (s.relevance === 'high') return sum + 7;
+        if (s.relevance === 'medium') return sum + 4;
+        return sum + 2;
       }
       return sum;
     }, 0);
 
-    score += Math.min(15, aiSkillMatches);
+    score += Math.min(10, aiSkillMatches);
   }
 
-  // Faktor 5: Keywords från CV-analys (10 poäng)
+  // Faktor 6: Keywords från CV-analys (10 poäng)
   if (analysisData.keywords) {
     const keywordMatches = analysisData.keywords.filter((kw: string) =>
       jobText.includes(kw.toLowerCase())
@@ -586,7 +632,7 @@ function calculateRelevance(
     score += Math.min(10, keywordMatches * 2);
   }
 
-  // Faktor 6: ATS-optimerade keywords från roller (10 poäng)
+  // Faktor 7: ATS-optimerade keywords från roller (5 poäng - reducerad från 10)
   if (analysisData.roleBasedImprovements) {
     const roleKeywords = analysisData.roleBasedImprovements.flatMap((r: any) =>
       r.improvements.keywords || []
@@ -594,7 +640,7 @@ function calculateRelevance(
     const roleMatches = roleKeywords.filter((kw: string) =>
       jobText.includes(kw.toLowerCase())
     ).length;
-    score += Math.min(10, roleMatches * 2);
+    score += Math.min(5, roleMatches);
   }
 
   // Applicera branschstraff

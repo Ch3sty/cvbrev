@@ -35,19 +35,32 @@ async function fetchWithRetry(url: string, options: any, maxRetries = 2, timeout
 // KRITISK FIX: Validera och normalisera roleImprovement-objekt
 function sanitizeRoleImprovement(role: any): any {
   // Validera att keywords är array av STRINGS (inte objekt, undefined, null, eller tom sträng)
-  const validateKeywords = (arr: any): string[] => {
+  const validateStringArray = (arr: any): string[] => {
     if (!Array.isArray(arr)) return [];
     return arr
       .filter(item => typeof item === 'string' && item !== null && item !== undefined && item.trim().length > 0)
       .map(item => String(item).trim());
   };
 
-  // Validera att grammarIssues är array av STRINGS (inte objekt, undefined, null, eller tom sträng)
-  const validateGrammarIssues = (arr: any): string[] => {
-    if (!Array.isArray(arr)) return [];
-    return arr
-      .filter(item => typeof item === 'string' && item !== null && item !== undefined && item.trim().length > 0)
-      .map(item => String(item).trim());
+  // Validera matchKeywords-objekt
+  const validateMatchKeywords = (mk: any) => {
+    if (!mk || typeof mk !== 'object') {
+      return {
+        directSkills: [],
+        implicitSkills: [],
+        tools: [],
+        responsibilities: [],
+        industryTerms: []
+      };
+    }
+
+    return {
+      directSkills: validateStringArray(mk.directSkills),
+      implicitSkills: validateStringArray(mk.implicitSkills),
+      tools: validateStringArray(mk.tools),
+      responsibilities: validateStringArray(mk.responsibilities),
+      industryTerms: validateStringArray(mk.industryTerms)
+    };
   };
 
   return {
@@ -58,10 +71,11 @@ function sanitizeRoleImprovement(role: any): any {
     suggestedText: role?.suggestedText || '',
     improvements: {
       hasQuantification: role?.improvements?.hasQuantification ?? false,
-      keywords: validateKeywords(role?.improvements?.keywords),  // <-- VALIDERA STRINGS!
-      grammarIssues: validateGrammarIssues(role?.improvements?.grammarIssues),  // <-- VALIDERA STRINGS!
+      keywords: validateStringArray(role?.improvements?.keywords),
+      grammarIssues: validateStringArray(role?.improvements?.grammarIssues),
       atsOptimization: role?.improvements?.atsOptimization ?? false
     },
+    matchKeywords: validateMatchKeywords(role?.matchKeywords),
     atsImpact: typeof role?.atsImpact === 'number' ? role.atsImpact : 0
   };
 }
@@ -285,11 +299,11 @@ Deno.serve(async (req) => {
             messages: [
               {
                 role: 'system',
-                content: 'Du är en expert CV-rådgivare. Analysera arbetsroller och ge konkreta förbättringsförslag med kvantifiering.'
+                content: 'Du är en expert CV-rådgivare OCH jobbmatchningsspecialist. Analysera arbetsroller, förbättra text ÄRLIGT och extrahera matchbara keywords för jobbsökning.'
               },
               {
                 role: 'user',
-                content: `Du får roller med currentDescription. Analysera och förbättra ENDAST beskrivningen med kvantifiering och KPI:er.
+                content: `Analysera dessa arbetsroller och förbättra dem med ÄKTHET och MATCHNINGSFOKUS.
 
 Input: ${JSON.stringify(batch)}
 
@@ -297,25 +311,68 @@ Returnera JSON: { "roleBasedImprovements": [{
   "roleTitle": string (från input.title),
   "company": string (från input.company),
   "period": string (från input.period),
-  "suggestedText": string (FÖRBÄTTRAD beskrivning med siffror och resultat),
+  "suggestedText": string (FÖRBÄTTRAD beskrivning),
   "improvements": {
     "hasQuantification": boolean,
     "keywords": string[],
     "grammarIssues": string[],
     "atsOptimization": boolean
   },
-  "atsImpact": number (1-5, där 1=minimal förbättring, 5=stor förbättring)
+  "matchKeywords": {
+    "directSkills": string[],
+    "implicitSkills": string[],
+    "tools": string[],
+    "responsibilities": string[],
+    "industryTerms": string[]
+  },
+  "atsImpact": number (1-5)
 }] }
 
-VIKTIGT:
-- suggestedText ska vara EN sammanhängande förbättrad version av currentDescription
-- Lägg till konkreta siffror, procent, resultat
-- Returnera INTE currentDescription i svaret
-- atsImpact ska vara 1-5 baserat på hur mycket förbättringen hjälper ATS-poäng:
-  * 1-2: Små ändringar (grammatik, formatering)
-  * 3: Medel (tillagda nyckelord)
-  * 4-5: Stor påverkan (kvantifiering + nyckelord + strukturförbättring)
-- improvements.keywords och improvements.grammarIssues ska ALLTID vara arrays`
+KRITISKA REGLER FÖR suggestedText:
+❌ HITTA ALDRIG PÅ SIFFROR (10%, 15%, 95% etc.) - detta skadar trovärdigheten!
+✅ Fokusera på: specifika ansvarsområden, action verbs, konkreta arbetsuppgifter
+✅ OM användaren redan nämner resultat → förtydliga dem
+✅ OM ingen kvantifiering finns → förbättra med action verbs och konkrethet
+
+Exempel KORREKT förbättring:
+Original: "Hjälpte butikschefen med olika uppgifter"
+✅ BRA: "Stöttade butikschefen med personalplanering, lagerhantering och kundservice. Ansvarade för daglig kassaavstämning och rapportering."
+❌ DÅLIGT: "Assisterade butikschefen i att öka försäljningen med 10%" (påhittad siffra!)
+
+INSTRUKTIONER FÖR matchKeywords (KRITISKT FÖR JOBBMATCHNING):
+
+1. directSkills: Explicit nämnda kompetenser från texten
+   Exempel: "rekrytering" → ["rekrytering", "personalrekrytering", "anställningsprocess"]
+   Exempel: "kundservice" → ["kundservice", "kundtjänst", "kundkontakt"]
+
+2. implicitSkills: Kompetenser som FRAMGÅR av kontext
+   Exempel: "ansvarade för 8 medarbetare" → ["personalansvar", "teamledning", "bemanningsplanering"]
+   Exempel: "hanterade klagomål" → ["konflikthantering", "problemlösning"]
+
+3. tools: Verktyg, system, mjukvara som använts eller kan ha använts i rollen
+   Exempel: butikschef → ["kassasystem", "POS-system", "Excel", "lagerhanteringssystem"]
+   Exempel: utvecklare → ["Git", "VS Code", "Jira", "agila verktyg"]
+
+4. responsibilities: Konkreta ansvarsområden
+   Exempel: ["budgetansvar", "nyckeltaluppföljning", "visuell merchandising", "daglig drift"]
+
+5. industryTerms: Branschspecifika termer baserat på yrkesroll
+   Exempel: detaljhandel → ["butiksdrift", "detaljhandel", "visual merchandising", "retail"]
+   Exempel: tech → ["agil utveckling", "CI/CD", "molntjänster", "DevOps"]
+
+VIKTIGT för matchKeywords:
+- Alla keywords på SVENSKA
+- Inkludera både singular och plural där relevant
+- Lägg till synonymer (t.ex. "personalansvar" + "medarbetaransvar")
+- Basera ENDAST på faktisk text och yrkeskontext
+- Totalt 10-20 matchKeywords per roll (fördelat över kategorierna)
+- matchKeywords används för jobbmatchning, INTE synligt för användaren
+
+atsImpact (1-5):
+1-2: Grammatik/formatering
+3: Action verbs, konkreta ansvarsområden, tydlig struktur
+4: Branschspecifika keywords, verktyg/teknologier, många matchKeywords
+5: ÄKTA kvantifiering (baserad på originaltext) + rika matchKeywords + struktur`
               }
             ],
             temperature: 0.6,
@@ -344,6 +401,7 @@ VIKTIGT:
             currentText, // GARANTERAT från structuredCV
             suggestedText: role.suggestedText,
             improvements: role.improvements,
+            matchKeywords: role.matchKeywords,
             atsImpact: role.atsImpact
           });
         });
