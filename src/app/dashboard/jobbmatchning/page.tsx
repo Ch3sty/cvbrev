@@ -90,7 +90,7 @@ export default function JobbmatchningPage() {
       if (searchQuery) {
         requestBody.customParams = {
           q: searchQuery,
-          limit: 20
+          limit: 50
         };
       }
 
