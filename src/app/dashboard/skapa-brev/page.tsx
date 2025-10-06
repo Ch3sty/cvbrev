@@ -8,6 +8,7 @@ import { FileText, MessageSquare, SlidersHorizontal, Brain, Eye } from 'lucide-r
 import { useCVStore } from '@/store/cv-store';
 import { useLetters } from '@/hooks/use-letters';
 import { useProfile } from '@/hooks/use-profile';
+import { useCoverLetterStore } from '@/store/cover-letter-store';
 
 // Wizard Components
 import WizardContainer, { WizardStep } from './components/WizardContainer';
@@ -27,6 +28,7 @@ export default function CreateLetterPage() {
   const { fetchCVs } = useCVStore();
   const { createLetter, saveLetter, isGenerating } = useLetters();
   const { profile, subscriptionTier, remainingWeeklyLetters, updateRemainingLetters } = useProfile();
+  const { prefillData, clearPrefillData } = useCoverLetterStore();
 
   // Form State
   const [selectedCV, setSelectedCV] = useState<string | null>(null);
@@ -42,36 +44,32 @@ export default function CreateLetterPage() {
 
   const isPremium = subscriptionTier === 'premium';
 
-  // Handle prefill from jobbmatchning
+  // Handle prefill from Zustand store
   useEffect(() => {
     if (prefillApplied) return;
 
-    const prefillParam = searchParams.get('prefill');
-    if (prefillParam) {
-      try {
-        const prefillData = JSON.parse(decodeURIComponent(prefillParam));
-
-        if (prefillData.cvId) {
-          setSelectedCV(prefillData.cvId);
-        }
-
-        if (prefillData.jobDescription) {
-          setJobDescription(prefillData.jobDescription);
-        }
-
-        // Skip to settings step if both CV and job description are prefilled
-        if (prefillData.cvId && prefillData.jobDescription) {
-          setCurrentWizardStep(2); // Start at step 3 (Settings)
-        } else if (prefillData.cvId) {
-          setCurrentWizardStep(1); // Start at step 2 (Job Description)
-        }
-
-        setPrefillApplied(true);
-      } catch (error) {
-        console.error('Failed to parse prefill data:', error);
+    if (prefillData) {
+      // Use data from Zustand store
+      if (prefillData.cvId) {
+        setSelectedCV(prefillData.cvId);
       }
+
+      if (prefillData.jobDescription) {
+        setJobDescription(prefillData.jobDescription);
+      }
+
+      // Skip to settings step if both CV and job description are prefilled
+      if (prefillData.cvId && prefillData.jobDescription) {
+        setCurrentWizardStep(2); // Start at step 3 (Settings)
+      } else if (prefillData.cvId) {
+        setCurrentWizardStep(1); // Start at step 2 (Job Description)
+      }
+
+      setPrefillApplied(true);
+      // Clear prefill data after applying it
+      clearPrefillData();
     }
-  }, [searchParams, prefillApplied]);
+  }, [prefillData, prefillApplied, clearPrefillData]);
 
   useEffect(() => {
     fetchCVs();

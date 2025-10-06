@@ -9,6 +9,7 @@ interface JobResultsGridProps {
   selectedAnalysis: any;
   onJobSelect: (job: any) => void;
   selectedAnalysisId?: string;
+  cvId?: string;
 }
 
 const StatWidget = ({ title, value, icon: Icon, color }: any) => (
@@ -33,7 +34,7 @@ const StatWidget = ({ title, value, icon: Icon, color }: any) => (
   </motion.div>
 );
 
-export default function JobResultsGrid({ jobs, selectedAnalysis, onJobSelect, selectedAnalysisId }: JobResultsGridProps) {
+export default function JobResultsGrid({ jobs, selectedAnalysis, onJobSelect, selectedAnalysisId, cvId }: JobResultsGridProps) {
   const highMatches = jobs.filter(j => j.relevance >= 70).length;
   const mediumMatches = jobs.filter(j => j.relevance >= 40 && j.relevance < 70).length;
   const avgRelevance = jobs.length > 0
@@ -108,6 +109,7 @@ export default function JobResultsGrid({ jobs, selectedAnalysis, onJobSelect, se
             index={index}
             onSelect={onJobSelect}
             selectedAnalysisId={selectedAnalysisId}
+            cvId={cvId}
           />
         ))}
       </div>

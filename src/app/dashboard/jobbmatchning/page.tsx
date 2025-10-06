@@ -384,6 +384,7 @@ export default function JobbmatchningPage() {
                   selectedAnalysis={selectedAnalysis}
                   onJobSelect={setSelectedJob}
                   selectedAnalysisId={selectedAnalysisId || undefined}
+                  cvId={selectedAnalysis?.cvId}
                 />
               )}
 

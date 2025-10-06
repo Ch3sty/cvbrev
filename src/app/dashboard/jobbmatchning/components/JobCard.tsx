@@ -19,12 +19,14 @@ import {
   Navigation,
   FileText
 } from 'lucide-react';
+import { useCoverLetterStore } from '@/store/cover-letter-store';
 
 interface JobCardProps {
   job: any;
   index: number;
   onSelect: (job: any) => void;
   selectedAnalysisId?: string;
+  cvId?: string;
 }
 
 const BentoCard = ({ children, className = "", onClick, ...props }: any) => (
@@ -61,9 +63,10 @@ const BentoCard = ({ children, className = "", onClick, ...props }: any) => (
   </motion.div>
 );
 
-export default function JobCard({ job, index, onSelect, selectedAnalysisId }: JobCardProps) {
+export default function JobCard({ job, index, onSelect, selectedAnalysisId, cvId }: JobCardProps) {
   const router = useRouter();
   const [showDetails, setShowDetails] = useState(false);
+  const { setPrefillData } = useCoverLetterStore();
 
   const getRelevanceColor = (relevance: number) => {
     if (relevance >= 70) return 'from-green-500 to-emerald-500';
@@ -365,17 +368,17 @@ export default function JobCard({ job, index, onSelect, selectedAnalysisId }: Jo
             {/* Action Buttons */}
             <div className="grid grid-cols-1 gap-2">
               {/* Create Cover Letter Button */}
-              {selectedAnalysisId && (
+              {selectedAnalysisId && cvId && (
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    const jobData = {
-                      cvId: selectedAnalysisId,
+                    setPrefillData({
+                      cvId: cvId,
                       jobTitle: job.headline,
                       company: job.employer.name,
                       jobDescription: `${job.headline}\n\nFöretag: ${job.employer.name}\n\n${job.description.text}`
-                    };
-                    router.push(`/dashboard/skapa-brev?prefill=${encodeURIComponent(JSON.stringify(jobData))}`);
+                    });
+                    router.push('/dashboard/skapa-brev');
                   }}
                   className="w-full py-3 px-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white text-center rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
                 >
