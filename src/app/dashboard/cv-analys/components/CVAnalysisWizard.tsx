@@ -723,7 +723,9 @@ export default function CVAnalysisWizard({
                         body: JSON.stringify({
                           originalAnalysisId: analysisResult.id,
                           improvedResult: improvedAnalysisResult,
-                          displayName: `${analysisResult.display_name} (Förbättrad)`,
+                          displayName: analysisResult.display_name
+                            ? `${analysisResult.display_name} (Förbättrad)`
+                            : `Förbättrad analys ${new Date().toLocaleDateString('sv-SE')}`,
                           cvId: newCvId
                         })
                       });
