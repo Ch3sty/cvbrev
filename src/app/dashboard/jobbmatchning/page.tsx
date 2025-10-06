@@ -383,7 +383,7 @@ export default function JobbmatchningPage() {
                   jobs={showDistantJobs ? jobs : jobs.filter(j => !j.distance || j.distance <= 100)}
                   selectedAnalysis={selectedAnalysis}
                   onJobSelect={setSelectedJob}
-                  selectedAnalysisId={selectedAnalysisId}
+                  selectedAnalysisId={selectedAnalysisId || undefined}
                 />
               )}
 
