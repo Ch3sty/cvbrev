@@ -9,6 +9,12 @@ import { calculateAdvancedRelevance } from './advanced-scoring.ts';
 import type { AdvancedScoringInput } from './advanced-scoring.ts';
 import { getRateLimiters } from './rate-limiter.ts';
 import { getCaches, startPeriodicCleanup, logCacheStats } from './cache-manager.ts';
+import {
+  getCachedOccupationEnrichment,
+  saveCachedOccupationEnrichment,
+  getCachedJobsBatch,
+  saveCachedJobsBatch
+} from './database-cache.ts';
 
 // CORS headers helper
 const corsHeaders = {
@@ -726,30 +732,62 @@ async function searchJobsMultiQuery(
   const allJobs: any[] = [];
   const seenIds = new Set<string>();
 
-  // NYTT: Hämta enrichment-data från JobEd Connect och Historical
+  // NYTT: Hämta enrichment-data med DATABASE CACHE (persistent)
   let educationMatches: string[] = [];
   let taxonomyData = null;
   let historicalTrends = null;
 
   try {
-    // Enrichment 1: Utbildningsmatchning
-    const eduEnrichment = await enrichCVWithEducationMatching(cvData);
-    educationMatches = eduEnrichment.additionalSearchTerms;
-    console.log(`[JobEd Connect] Found ${educationMatches.length} additional occupation matches`);
+    const primaryOccupation = cvOccupations[0];
 
-    // Enrichment 2: Taxonomy för primär yrke
-    if (cvOccupations.length > 0) {
-      taxonomyData = await getCachedTaxonomy(cvOccupations[0]);
-      console.log(`[Taxonomy] Enriched "${cvOccupations[0]}" with SSYK: ${taxonomyData.ssykCode}`);
-    }
+    if (primaryOccupation) {
+      // Försök hämta från DATABASE CACHE först
+      const cachedEnrichment = await getCachedOccupationEnrichment(primaryOccupation);
 
-    // Enrichment 3: Historical trends
-    if (cvOccupations.length > 0) {
-      historicalTrends = await getHistoricalTrends(cvOccupations[0]);
-      if (historicalTrends) {
-        console.log(`[Historical] Found ${historicalTrends.trendingSkills.length} trending skills`);
+      if (cachedEnrichment) {
+        console.log(`[DB Cache] Using cached enrichment for "${primaryOccupation}"`);
+
+        // Använd cached data
+        taxonomyData = {
+          primaryTerm: cachedEnrichment.occupation,
+          ssykCode: cachedEnrichment.ssyk_code,
+          preferredLabel: cachedEnrichment.preferred_label,
+          alternativeLabels: cachedEnrichment.alternative_labels,
+          relatedOccupations: cachedEnrichment.related_occupations,
+          competencies: cachedEnrichment.competencies
+        };
+
+        historicalTrends = cachedEnrichment.historical_data;
+        educationMatches = cachedEnrichment.education_matches || [];
+
+      } else {
+        console.log(`[DB Cache] No cache found for "${primaryOccupation}", fetching from APIs...`);
+
+        // Hämta från API:er parallellt
+        const [eduEnrichment, taxonomy, historical] = await Promise.all([
+          enrichCVWithEducationMatching(cvData),
+          getCachedTaxonomy(primaryOccupation),
+          getHistoricalTrends(primaryOccupation)
+        ]);
+
+        educationMatches = eduEnrichment.additionalSearchTerms;
+        taxonomyData = taxonomy;
+        historicalTrends = historical;
+
+        // Spara till DATABASE CACHE för framtida användning (non-blocking)
+        saveCachedOccupationEnrichment(
+          primaryOccupation,
+          taxonomy,
+          historical,
+          educationMatches
+        ).catch(err => console.error('[DB Cache] Save failed:', err));
+
+        console.log(`[Enrichment] Fetched and cached data for "${primaryOccupation}"`);
       }
+
+      console.log(`[Enrichment] SSYK: ${taxonomyData?.ssykCode}, Education matches: ${educationMatches.length}, Trending skills: ${historicalTrends?.trendingSkills?.length || 0}`);
     }
+
   } catch (error) {
     console.warn('[Enrichment] Error during enrichment phase:', error);
   }
@@ -1216,16 +1254,46 @@ Deno.serve(async (req) => {
 
     console.log(`Found ${jobs.length} jobs via multi-query`);
 
-    // NYTT: Batch-enrichment av jobbannonser
+    // NYTT: Batch-enrichment av jobbannonser med DATABASE CACHE
     let enrichedJobsMap = new Map();
     try {
-      const jobsToEnrich = jobs.slice(0, 100).map((job: any) => ({
-        id: job.id,
-        text: `${job.headline} ${job.description?.text || ''}`
-      }));
+      const jobsToEnrich = jobs.slice(0, 100);
+      const jobIds = jobsToEnrich.map((job: any) => job.id);
 
-      enrichedJobsMap = await enrichJobsBatch(jobsToEnrich);
-      console.log(`[Enrichments] Successfully enriched ${enrichedJobsMap.size} jobs`);
+      // Försök hämta från DATABASE CACHE först
+      const cachedJobs = await getCachedJobsBatch(jobIds);
+      console.log(`[DB Cache] Found ${cachedJobs.size}/${jobIds.length} cached jobs`);
+
+      enrichedJobsMap = cachedJobs;
+
+      // Identifiera jobb som saknas i cache
+      const uncachedJobs = jobsToEnrich.filter((job: any) => !cachedJobs.has(job.id));
+
+      if (uncachedJobs.length > 0) {
+        console.log(`[Enrichments] Enriching ${uncachedJobs.length} uncached jobs...`);
+
+        const jobsToProcess = uncachedJobs.map((job: any) => ({
+          id: job.id,
+          text: `${job.headline} ${job.description?.text || ''}`
+        }));
+
+        const newEnrichments = await enrichJobsBatch(jobsToProcess);
+
+        // Lägg till nya enrichments till map
+        newEnrichments.forEach((enrichedData, jobId) => {
+          enrichedJobsMap.set(jobId, enrichedData);
+        });
+
+        // Spara till DATABASE CACHE (non-blocking)
+        const jobHeadlines = new Map(uncachedJobs.map((job: any) => [job.id, job.headline]));
+        saveCachedJobsBatch(newEnrichments, jobHeadlines)
+          .catch(err => console.error('[DB Cache] Batch save failed:', err));
+
+        console.log(`[Enrichments] Successfully enriched ${newEnrichments.size} new jobs, total: ${enrichedJobsMap.size}`);
+      } else {
+        console.log(`[DB Cache] All jobs found in cache, no enrichment needed`);
+      }
+
     } catch (error) {
       console.error('[Enrichments] Batch enrichment failed:', error);
     }
