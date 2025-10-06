@@ -39,6 +39,7 @@ export default function JobbmatchningPage() {
   const [selectedAnalysis, setSelectedAnalysis] = useState<any>(null);
   const [customSearch, setCustomSearch] = useState('');
   const [selectedJob, setSelectedJob] = useState<any>(null);
+  const [showDistantJobs, setShowDistantJobs] = useState(false); // Filter för jobb >100km
 
   // Loading states
   const [loadingAnalyses, setLoadingAnalyses] = useState(true);
@@ -349,10 +350,30 @@ export default function JobbmatchningPage() {
                 </motion.div>
               )}
 
+              {/* Distance Filter */}
+              {!loadingJobs && jobs.length > 0 && (
+                <div className="flex items-center justify-end gap-3 bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-200">
+                  <label className="flex items-center gap-2 cursor-pointer group">
+                    <input
+                      type="checkbox"
+                      checked={showDistantJobs}
+                      onChange={(e) => setShowDistantJobs(e.target.checked)}
+                      className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    />
+                    <span className="text-sm text-gray-700 group-hover:text-indigo-600 transition-colors">
+                      Visa jobb >100 km bort
+                    </span>
+                  </label>
+                  <div className="text-xs text-gray-500">
+                    ({jobs.filter(j => !j.distance || j.distance <= 100).length} nära, {jobs.filter(j => j.distance && j.distance > 100).length} långt)
+                  </div>
+                </div>
+              )}
+
               {/* Results Grid */}
               {!loadingJobs && (
                 <JobResultsGrid
-                  jobs={jobs}
+                  jobs={showDistantJobs ? jobs : jobs.filter(j => !j.distance || j.distance <= 100)}
                   selectedAnalysis={selectedAnalysis}
                   onJobSelect={setSelectedJob}
                 />
