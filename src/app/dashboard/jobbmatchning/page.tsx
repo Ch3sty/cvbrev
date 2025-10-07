@@ -26,7 +26,7 @@ import JobResultsGrid from './components/JobResultsGrid';
 interface CV {
   id: string;
   file_name: string;
-  uploaded_at: string;
+  created_at: string;
 }
 
 interface ActiveCVData {
@@ -81,9 +81,9 @@ export default function JobbmatchningPage() {
 
       const { data, error } = await supabase
         .from('cv_texts')
-        .select('id, file_name, uploaded_at')
+        .select('id, file_name, created_at')
         .eq('user_id', session.user.id)
-        .order('uploaded_at', { ascending: false });
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
       setCvs(data || []);
@@ -104,9 +104,9 @@ export default function JobbmatchningPage() {
         .from('active_cv_for_matching')
         .select('*')
         .eq('user_id', session.user.id)
-        .single();
+        .maybeSingle(); // Använd maybeSingle() istället för single() för att undvika 406-fel
 
-      if (error && error.code !== 'PGRST116') { // PGRST116 = no rows returned
+      if (error) {
         console.error('Error fetching active CV:', error);
         return;
       }
