@@ -253,28 +253,40 @@ export class ScoringEngineV2 {
     }
 
     // ============================================================================
-    // FAKTOR 2: Yrkestitel-matchning (20p)
+    // FAKTOR 2: Yrkestitel-matchning (20p) - FÖRBÄTTRAD FÖR FRITEXT-SÖK
     // ============================================================================
     if (input.cvOccupations.length > 0) {
       const cvOccupation = input.cvOccupations[0].toLowerCase();
-      const jobOccupation = (input.job.occupation?.label || '').toLowerCase();
+      const jobOccupation = (input.job.occupation?.label || input.job.occupation_field?.label || '').toLowerCase();
       const jobHeadline = (input.job.headline || '').toLowerCase();
+      const jobDescription = (input.job.description?.text || '').toLowerCase();
 
+      // Exakt match i occupation-fält
       if (jobOccupation === cvOccupation) {
         breakdown.occupationMatch = 20;
-        explanation.push(`✅ Exakt yrkestitel: ${input.job.occupation?.label} (20p)`);
-      } else if (jobOccupation.includes(cvOccupation) || cvOccupation.includes(jobOccupation)) {
+        explanation.push(`✅ Exakt yrkestitel: ${input.job.occupation?.label || input.job.occupation_field?.label} (20p)`);
+      }
+      // Partial match i occupation-fält
+      else if (jobOccupation.includes(cvOccupation) || cvOccupation.includes(jobOccupation)) {
         breakdown.occupationMatch = 16;
         explanation.push(`✅ Liknande yrkestitel (16p)`);
-      } else if (jobHeadline.includes(cvOccupation)) {
-        breakdown.occupationMatch = 12;
-        explanation.push(`✅ Yrke i rubrik (12p)`);
+      }
+      // Match i headline (ÖKAT FRÅN 12p TILL 18p eftersom vi söker med fritext)
+      else if (jobHeadline.includes(cvOccupation)) {
+        breakdown.occupationMatch = 18;
+        explanation.push(`✅ Yrke i rubrik: "${cvOccupation}" (18p)`);
+      }
+      // Match i beskrivning (NYTT - 14p)
+      else if (jobDescription.includes(cvOccupation)) {
+        breakdown.occupationMatch = 14;
+        explanation.push(`✅ Yrke i beskrivning (14p)`);
       }
 
       // Kolla synonymer från taxonomy
       if (breakdown.occupationMatch === 0 && input.taxonomyData?.alternativeLabels) {
         for (const synonym of input.taxonomyData.alternativeLabels) {
-          if (jobOccupation.includes(synonym.toLowerCase()) || jobHeadline.includes(synonym.toLowerCase())) {
+          const synLower = synonym.toLowerCase();
+          if (jobOccupation.includes(synLower) || jobHeadline.includes(synLower) || jobDescription.includes(synLower)) {
             breakdown.occupationMatch = 14;
             explanation.push(`✅ Synonym-match: ${synonym} (14p)`);
             break;
