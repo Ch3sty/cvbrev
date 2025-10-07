@@ -22,7 +22,7 @@ interface Education {
 interface CV {
   id: string;
   file_name: string;
-  uploaded_at: string;
+  created_at: string;
 }
 
 interface ActiveCVData {
@@ -83,7 +83,7 @@ export default function CVActivationCard({
           <h3 className="font-semibold text-gray-900 truncate">{cv.file_name}</h3>
         </div>
         <p className="text-sm text-gray-500">
-          Uppladdat {new Date(cv.uploaded_at).toLocaleDateString('sv-SE')}
+          Uppladdat {new Date(cv.created_at).toLocaleDateString('sv-SE')}
         </p>
       </div>
 
