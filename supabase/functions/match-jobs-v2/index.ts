@@ -208,23 +208,29 @@ Deno.serve(async (req) => {
     });
 
     // ============================================================================
-    // STEG 6: Intelligent Filtering
+    // STEG 6: Intelligent Filtering (MJUKARE FILTER FÖR BÄTTRE TÄCKNING)
     // ============================================================================
     console.log('[Match-Jobs-V2] Applying intelligent filters...');
     const filteredJobs = jobsWithScores.filter(job => {
-      // Minimum relevans: 30 poäng
-      if (job.relevance < 30) return false;
+      // SÄNKT minimum relevans: 20 poäng (från 30)
+      if (job.relevance < 20) return false;
 
-      // Kräv antingen SSYK-match ELLER kompetens-match
       const enrichedJob = enrichedJobsMap.get(job.id);
-      if (!enrichedJob) return job.relevance >= 50; // Högre krav om inte enriched
 
+      // Om inte enriched: Sänkt krav från 50 till 35 poäng
+      if (!enrichedJob) return job.relevance >= 35;
+
+      // Om enriched: Kolla olika matchningskriterier
       const hasSSYKMatch = enrichedJob.occupations?.some(
         occ => occ.ssyk_code === taxonomyData?.ssykCode
       );
-      const hasCompetencyMatch = (enrichedJob.skills?.length || 0) >= 2;
+      const hasCompetencyMatch = (enrichedJob.skills?.length || 0) >= 1; // SÄNKT från 2 till 1 kompetens
 
-      return hasSSYKMatch || hasCompetencyMatch || job.relevance >= 60;
+      // MJUKARE KRAV: Acceptera jobb med:
+      // - SSYK-match, ELLER
+      // - Minst 1 kompetens-match, ELLER
+      // - Relevans >= 40 (sänkt från 60)
+      return hasSSYKMatch || hasCompetencyMatch || job.relevance >= 40;
     });
 
     console.log(`[Match-Jobs-V2] Filtered to ${filteredJobs.length} relevant jobs`);
