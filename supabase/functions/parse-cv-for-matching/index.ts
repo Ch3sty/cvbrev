@@ -30,14 +30,15 @@ async function createHash(text: string): Promise<string> {
 // Helper: Normalize occupation via Taxonomy API
 async function normalizeOccupation(occupation: string): Promise<OccupationMatch> {
   try {
-    const searchUrl = `${TAXONOMY_API}/specific/concepts/occupation-name?preferred-label=${encodeURIComponent(occupation)}&limit=3`;
+    // KORRIGERAT: Använd /main/concepts endpoint med type=occupation-name
+    const searchUrl = `${TAXONOMY_API}/main/concepts?preferred-label=${encodeURIComponent(occupation)}&type=occupation-name&limit=3`;
 
     const response = await fetch(searchUrl, {
       headers: { 'Accept': 'application/json' }
     });
 
     if (!response.ok) {
-      console.warn(`[Taxonomy] API error ${response.status} for "${occupation}"`);
+      console.warn(`[Taxonomy] API error ${response.status} for "${occupation}" - URL: ${searchUrl}`);
       return {
         original: occupation,
         normalized: occupation,
@@ -49,10 +50,11 @@ async function normalizeOccupation(occupation: string): Promise<OccupationMatch>
 
     const data = await response.json();
 
-    if (data && data.length > 0) {
-      const bestMatch = data[0];
-      const preferredLabel = bestMatch['taxonomy/preferred-label'] || bestMatch.preferred_label;
-      const alternativeLabels = bestMatch['taxonomy/alternative-labels'] || bestMatch.alternative_labels || [];
+    // KORRIGERAT: Response har data.concepts array, inte direkt array
+    if (data?.concepts && data.concepts.length > 0) {
+      const bestMatch = data.concepts[0];
+      const preferredLabel = bestMatch.preferred_label; // Inte taxonomy/preferred-label
+      const alternativeLabels = bestMatch.alternative_labels || [];
       const conceptId = bestMatch.id;
 
       console.log(`[Taxonomy] ✅ "${occupation}" → "${preferredLabel}" (${conceptId})`);
