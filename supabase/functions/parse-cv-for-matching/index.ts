@@ -30,15 +30,15 @@ async function createHash(text: string): Promise<string> {
 // Helper: Normalize occupation via Taxonomy API
 async function normalizeOccupation(occupation: string): Promise<OccupationMatch> {
   try {
-    // KORRIGERAT: Använd /main/concepts endpoint med type=occupation-name
-    const searchUrl = `${TAXONOMY_API}/main/concepts?preferred-label=${encodeURIComponent(occupation)}&type=occupation-name&limit=3`;
+    // KORREKT LÖSNING: Använd autocomplete suggester för fuzzy search
+    const autocompleteUrl = `${TAXONOMY_API}/suggesters/autocomplete?query-string=${encodeURIComponent(occupation.toLowerCase())}`;
 
-    const response = await fetch(searchUrl, {
+    const response = await fetch(autocompleteUrl, {
       headers: { 'Accept': 'application/json' }
     });
 
     if (!response.ok) {
-      console.warn(`[Taxonomy] API error ${response.status} for "${occupation}" - URL: ${searchUrl}`);
+      console.warn(`[Taxonomy] Autocomplete API error ${response.status} for "${occupation}"`);
       return {
         original: occupation,
         normalized: occupation,
@@ -50,12 +50,16 @@ async function normalizeOccupation(occupation: string): Promise<OccupationMatch>
 
     const data = await response.json();
 
-    // KORRIGERAT: Response har data.concepts array, inte direkt array
-    if (data?.concepts && data.concepts.length > 0) {
-      const bestMatch = data.concepts[0];
-      const preferredLabel = bestMatch.preferred_label; // Inte taxonomy/preferred-label
-      const alternativeLabels = bestMatch.alternative_labels || [];
-      const conceptId = bestMatch.id;
+    // Response structure: { value: [...], Count: number }
+    // Filtrera endast occupation-name resultat
+    const occupationResults = data?.value?.filter((item: any) =>
+      item['taxonomy/type'] === 'occupation-name'
+    ) || [];
+
+    if (occupationResults.length > 0) {
+      const bestMatch = occupationResults[0];
+      const preferredLabel = bestMatch['taxonomy/preferred-label'];
+      const conceptId = bestMatch['taxonomy/id'];
 
       console.log(`[Taxonomy] ✅ "${occupation}" → "${preferredLabel}" (${conceptId})`);
 
@@ -63,13 +67,13 @@ async function normalizeOccupation(occupation: string): Promise<OccupationMatch>
         original: occupation,
         normalized: preferredLabel,
         concept_id: conceptId,
-        alternative_labels: Array.isArray(alternativeLabels) ? alternativeLabels : [],
+        alternative_labels: [],
         confidence: 'high'
       };
     }
 
     // No match found
-    console.warn(`[Taxonomy] ⚠️ No match for "${occupation}"`);
+    console.warn(`[Taxonomy] ⚠️ No match for "${occupation}" (autocomplete returned ${data?.Count || 0} results, ${occupationResults.length} occupation-names)`);
     return {
       original: occupation,
       normalized: occupation,
