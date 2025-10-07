@@ -241,6 +241,21 @@ export class ScoringEngineV3 {
       }
     }
 
+    // SPECIAL: Om jobbet klassificeras som bred kategori men headline innehåller exakt yrke
+    // JobAd Links API klassificerar ofta specifika jobb som breda kategorier
+    if (breakdown.conceptMatch === 0 && input.job.occupation_field?.concept_id) {
+      const jobHeadline = (input.job.headline || '').toLowerCase();
+
+      // Om headline innehåller CV-yrket exakt, ge högre poäng även om concept_id är bred
+      for (const cvOcc of input.cvOccupations) {
+        if (jobHeadline.includes(cvOcc.normalized.toLowerCase())) {
+          breakdown.conceptMatch = 35;
+          explanation.push(`✅ Headline-match (API-bred klassificering): ${cvOcc.normalized} (35p)`);
+          break;
+        }
+      }
+    }
+
     // Occupation group fallback (lägre poäng)
     if (breakdown.conceptMatch === 0 && input.job.occupation_group?.concept_id) {
       for (const cvOcc of input.cvOccupations) {

@@ -37,6 +37,8 @@ interface Job {
 const JOBLINKS_API = 'https://links.api.jobtechdev.se/joblinks';
 
 export class MultiSourceAggregator {
+  private hasLoggedDescription = false;
+
   /**
    * Huvudfunktion: Aggregera jobb från alla källor
    */
@@ -253,9 +255,30 @@ export class MultiSourceAggregator {
    * JobAd Links response format skiljer sig från JobSearch API
    */
   private convertToInternalFormat(job: any): Job {
-    // JobAd Links har både 'brief' (kort) och 'description.text' (full beskrivning)
-    // Prioritera full beskrivning för bättre matchning och information
-    const descriptionText = job.description?.text || job.brief || '';
+    // JobAd Links API structure check
+    // brief = kort sammanfattning (alltid finns)
+    // description kan vara string ELLER object med .text property
+    let descriptionText = '';
+
+    if (typeof job.description === 'string') {
+      descriptionText = job.description;
+    } else if (job.description?.text) {
+      descriptionText = job.description.text;
+    } else if (job.brief) {
+      descriptionText = job.brief;
+    }
+
+    // Debug log first job
+    if (!this.hasLoggedDescription) {
+      console.log('[Aggregator] Description structure:', {
+        hasDescription: !!job.description,
+        descriptionType: typeof job.description,
+        descriptionLength: descriptionText.length,
+        hasBrief: !!job.brief,
+        briefLength: job.brief?.length || 0
+      });
+      this.hasLoggedDescription = true;
+    }
 
     // workplace_addresses är en array i JobAd Links
     const workplaceAddress = Array.isArray(job.workplace_addresses) && job.workplace_addresses.length > 0
