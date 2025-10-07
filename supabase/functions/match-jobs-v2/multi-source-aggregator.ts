@@ -63,28 +63,25 @@ export class MultiSourceAggregator {
     }
 
     // ============================================================================
-    // STRATEGI 2: occupation-field sökning (Primär strategi) - ULTRA TIGHT FILTER
+    // STRATEGI 2: Primär yrkessökning med exakt yrkesnamn (från Taxonomy)
     // ============================================================================
-    // NYTT: Använder occupation-field parameter istället för q=ssyk:xxx
-    // Detta ger EXAKT matchning på yrkesfält från Taxonomy API
-    if (params.taxonomyData?.conceptId) {
-      console.log(`[Aggregator] occupation-field search: ${params.taxonomyData.conceptId} (${params.primaryOccupation})`);
+    // KORREKT: JobAd Links API har INTE occupation-name parameter
+    // Använder istället fritext-sökning (q) med exakt normaliserat yrkesnamn från Taxonomy
+    // API:t använder ML för klassificering så fritext fungerar bra
+    console.log(`[Aggregator] Primary occupation search: "${params.primaryOccupation}"`);
 
-      // ULTRA TIGHT FILTER: occupation-field parameter med concept_id
-      // Detta är 100x mer precist än q=ssyk:xxx som returnerade 0 resultat
-      const occupationJobs = await this.fetchWithPagination({
-        'occupation-field': params.taxonomyData.conceptId,
-        limit: 100
-      }, 15); // Max 1500 jobb från occupation-field sökning (30% fler än Platsbanken)
+    const primaryJobs = await this.fetchWithPagination({
+      q: `"${params.primaryOccupation}"`, // Exact phrase search med quotes
+      limit: 100
+    }, 15); // Max 1500 jobb
 
-      this.addUniqueJobs(allJobs, occupationJobs, seenIds, 'occupation-field-primary');
-      console.log(`[Aggregator] occupation-field primary: ${occupationJobs.length} jobs (${allJobs.length} unique)`);
+    this.addUniqueJobs(allJobs, primaryJobs, seenIds, 'primary-occupation');
+    console.log(`[Aggregator] Primary occupation: ${primaryJobs.length} jobs (${allJobs.length} unique)`);
 
-      // EARLY RETURN: Om vi har nog occupation-matchade jobb, skippa bredare sökningar
-      if (allJobs.length >= 500) {
-        console.log(`[Aggregator] ✅ Found ${allJobs.length} occupation-matched jobs - skipping broader searches for optimal performance`);
-        return allJobs.slice(0, params.maxTotalJobs);
-      }
+    // EARLY RETURN: Om vi har nog jobb, skippa bredare sökningar
+    if (allJobs.length >= 500) {
+      console.log(`[Aggregator] ✅ Found ${allJobs.length} jobs for primary occupation - skipping broader searches`);
+      return allJobs.slice(0, params.maxTotalJobs);
     }
 
     // ============================================================================
@@ -175,11 +172,14 @@ export class MultiSourceAggregator {
       try {
         const queryParams = new URLSearchParams();
 
-        // JobAd Links API parametrar (olika från JobSearch API)
+        // JobAd Links API parametrar (enligt dokumentation)
+        // Stödda parametrar: occupation-field, occupation-group, municipality, region, country, q
         if (query['occupation-field']) queryParams.append('occupation-field', query['occupation-field']);
         if (query['occupation-group']) queryParams.append('occupation-group', query['occupation-group']);
-        if (query.q) queryParams.append('q', query.q); // Fallback för custom queries
         if (query.municipality) queryParams.append('municipality', query.municipality);
+        if (query.region) queryParams.append('region', query.region);
+        if (query.country) queryParams.append('country', query.country);
+        if (query.q) queryParams.append('q', query.q);
 
         queryParams.append('limit', LIMIT.toString());
         queryParams.append('offset', offset.toString());
