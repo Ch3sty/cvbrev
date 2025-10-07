@@ -389,8 +389,8 @@ export default function CVAnalysisWizard({
       const { error } = await supabase
         .from('cv_analysis_jobs')
         .update({
-          result: improvedResult,
-          display_name: `${analysisResult.displayName || 'CV-analys'} - Förbättrad`
+          result: improvedResult
+          // display_name will be updated when user saves CV in SaveAndTemplateStep
         })
         .eq('id', currentAnalysisId);
 
@@ -728,6 +728,19 @@ export default function CVAnalysisWizard({
                   const { cvId: newCvId } = await response.json();
                   setSavedCvId(newCvId);
 
+                  // Update the original analysis's display_name to match the CV name
+                  if (currentAnalysisId) {
+                    try {
+                      await supabase
+                        .from('cv_analysis_jobs')
+                        .update({ display_name: fileName })
+                        .eq('id', currentAnalysisId);
+                    } catch (updateError) {
+                      console.error('Failed to update analysis display name:', updateError);
+                      // Don't block user flow if this fails
+                    }
+                  }
+
                   // Save improved analysis for job matching
                   if (analysisResult && newCvId) {
                     // Build improved analysis result with user's selections
@@ -773,9 +786,7 @@ export default function CVAnalysisWizard({
                         body: JSON.stringify({
                           originalAnalysisId: analysisResult.id,
                           improvedResult: improvedAnalysisResult,
-                          displayName: analysisResult.display_name
-                            ? `${analysisResult.display_name} (Förbättrad)`
-                            : `Förbättrad analys ${new Date().toLocaleDateString('sv-SE')}`,
+                          displayName: fileName, // Use CV name from user input
                           cvId: newCvId
                         })
                       });

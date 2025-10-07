@@ -28,6 +28,10 @@ interface CVAnalysis {
   display_name: string;
   created_at: string;
   result: any;
+  cv_id: string;
+  cv_texts: {
+    file_name: string;
+  } | null;
 }
 
 export default function JobbmatchningPage() {
@@ -61,7 +65,16 @@ export default function JobbmatchningPage() {
 
       const { data, error } = await supabase
         .from('cv_analysis_jobs')
-        .select('id, display_name, created_at, result')
+        .select(`
+          id,
+          display_name,
+          created_at,
+          result,
+          cv_id,
+          cv_texts!cv_analysis_jobs_cv_id_fkey (
+            file_name
+          )
+        `)
         .eq('user_id', session.user.id)
         .eq('status', 'completed')
         .order('created_at', { ascending: false });
@@ -145,6 +158,26 @@ export default function JobbmatchningPage() {
     setJobs([]);
     setSelectedAnalysisId(null);
     setCustomSearch('');
+  };
+
+  const handleDeleteAnalysis = async (id: string) => {
+    const response = await fetch(`/api/cv/analysis/${id}`, {
+      method: 'DELETE'
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Kunde inte ta bort analysen');
+    }
+
+    // Refresh analyses list
+    await fetchAnalyses();
+
+    // If deleted analysis was selected, reset selection
+    if (selectedAnalysisId === id) {
+      setSelectedAnalysisId(null);
+      setWizardStep(0);
+    }
   };
 
   return (
@@ -288,6 +321,7 @@ export default function JobbmatchningPage() {
                 analyses={analyses}
                 selectedId={selectedAnalysisId}
                 onSelect={handleSelectAnalysis}
+                onDelete={handleDeleteAnalysis}
                 loading={loadingAnalyses}
               />
 
