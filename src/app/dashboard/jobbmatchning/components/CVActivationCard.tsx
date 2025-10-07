@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { CheckCircle2, Lock, Sparkles, FileText, Briefcase, GraduationCap, MapPin, ChevronDown, ChevronUp } from 'lucide-react';
+import { CheckCircle2, Lock, Sparkles, FileText, Briefcase, GraduationCap, MapPin, ChevronDown, ChevronUp, Search } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface OccupationMatch {
@@ -39,6 +39,7 @@ interface CVActivationCardProps {
   isActive: boolean;
   activeData: ActiveCVData | null;
   onActivate: (cvId: string) => Promise<void>;
+  onSearchJobs?: () => void;
   isActivating: boolean;
 }
 
@@ -47,6 +48,7 @@ export default function CVActivationCard({
   isActive,
   activeData,
   onActivate,
+  onSearchJobs,
   isActivating
 }: CVActivationCardProps) {
   const [showDetails, setShowDetails] = useState(false);
@@ -275,8 +277,8 @@ export default function CVActivationCard({
         </div>
       )}
 
-      {/* Action Button */}
-      {!isActive && (
+      {/* Action Buttons */}
+      {!isActive ? (
         <button
           onClick={() => onActivate(cv.id)}
           disabled={isActivating}
@@ -298,6 +300,16 @@ export default function CVActivationCard({
             </>
           )}
         </button>
+      ) : (
+        onSearchJobs && (
+          <button
+            onClick={onSearchJobs}
+            className="w-full py-3 mt-4 rounded-lg font-medium transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 to-blue-600 text-white hover:from-indigo-700 hover:to-blue-700 shadow-md hover:shadow-lg"
+          >
+            <Search className="w-5 h-5" />
+            Sök matchande jobb
+          </button>
+        )
       )}
     </motion.div>
   );

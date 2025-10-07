@@ -58,6 +58,7 @@ export default function JobbmatchningPage() {
   const [customSearch, setCustomSearch] = useState('');
   const [selectedJob, setSelectedJob] = useState<any>(null);
   const [showDistantJobs, setShowDistantJobs] = useState(false); // Filter för jobb >100km
+  const [showSearchView, setShowSearchView] = useState(false); // Visa sökning eller CV-val
 
   // Loading states
   const [loadingCVs, setLoadingCVs] = useState(true);
@@ -223,6 +224,17 @@ export default function JobbmatchningPage() {
     }
   };
 
+  const handleSearchJobs = () => {
+    setShowSearchView(true);
+    fetchJobs();
+  };
+
+  const handleBackToCVs = () => {
+    setShowSearchView(false);
+    setJobs([]);
+    setCustomSearch('');
+  };
+
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* Premium Dynamic Background - Same as Dashboard */}
@@ -313,68 +325,88 @@ export default function JobbmatchningPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-lg">
-              <Sparkles className="w-8 h-8 text-white" />
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <div className="p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-lg">
+                <Sparkles className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                  Jobbmatchning
+                </h1>
+                <p className="text-gray-600 mt-1">
+                  {showSearchView
+                    ? 'Matchade jobbannonser baserat på ditt CV'
+                    : activeCV
+                    ? 'Aktivt CV - redo att söka jobb'
+                    : 'Aktivera ett CV för att börja matcha jobb'
+                  }
+                </p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                Jobbmatchning
-              </h1>
-              <p className="text-gray-600 mt-1">
-                {activeCV
-                  ? 'Aktivt CV - hitta matchande jobb med AI'
-                  : 'Aktivera ett CV för att börja matcha jobb'
-                }
-              </p>
-            </div>
+
+            {/* Back button när i sökvyn */}
+            {showSearchView && (
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                onClick={handleBackToCVs}
+                className="flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-xl border border-gray-200 hover:bg-white transition-all"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Tillbaka till CV-val
+              </motion.button>
+            )}
           </div>
 
           {/* Match Explanation */}
           <MatchExplanation />
         </motion.div>
 
-        {/* CV Activation Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
-        >
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Dina CV:n</h2>
+        {/* CV Activation Section (dölj när sökvyn visas) */}
+        {!showSearchView && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8"
+          >
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Dina CV:n</h2>
 
-          {loadingCVs ? (
-            <div className="flex items-center justify-center py-12">
-              <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
-            </div>
-          ) : cvs.length === 0 ? (
-            <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-gray-200 p-8 text-center">
-              <p className="text-gray-600 mb-4">Du har inga uppladdade CV:n än.</p>
-              <a
-                href="/dashboard/cv"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all"
-              >
-                Ladda upp CV
-                <ArrowRight className="w-4 h-4" />
-              </a>
-            </div>
-          ) : (
-            <div className="grid gap-4 md:grid-cols-2">
-              {cvs.map((cv) => (
-                <CVActivationCard
-                  key={cv.id}
-                  cv={cv}
-                  isActive={activeCVId === cv.id}
-                  activeData={activeCVId === cv.id ? activeCV : null}
-                  onActivate={handleActivateCV}
-                  isActivating={activatingCV}
-                />
-              ))}
-            </div>
-          )}
-        </motion.div>
+            {loadingCVs ? (
+              <div className="flex items-center justify-center py-12">
+                <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+              </div>
+            ) : cvs.length === 0 ? (
+              <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-gray-200 p-8 text-center">
+                <p className="text-gray-600 mb-4">Du har inga uppladdade CV:n än.</p>
+                <a
+                  href="/dashboard/cv"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all"
+                >
+                  Ladda upp CV
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            ) : (
+              <div className="grid gap-4 md:grid-cols-2">
+                {cvs.map((cv) => (
+                  <CVActivationCard
+                    key={cv.id}
+                    cv={cv}
+                    isActive={activeCVId === cv.id}
+                    activeData={activeCVId === cv.id ? activeCV : null}
+                    onActivate={handleActivateCV}
+                    onSearchJobs={handleSearchJobs}
+                    isActivating={activatingCV}
+                  />
+                ))}
+              </div>
+            )}
+          </motion.div>
+        )}
 
-        {/* Job Search Section (only if CV is active) */}
-        {activeCV && (
+        {/* Job Search Section (visa endast när showSearchView är true) */}
+        {showSearchView && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
