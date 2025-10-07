@@ -33,12 +33,17 @@ async function normalizeOccupation(occupation: string): Promise<OccupationMatch>
     // KORREKT LÖSNING: Använd autocomplete suggester för fuzzy search
     const autocompleteUrl = `${TAXONOMY_API}/suggesters/autocomplete?query-string=${encodeURIComponent(occupation.toLowerCase())}`;
 
+    console.log(`[Taxonomy] Fetching: ${autocompleteUrl}`);
+
     const response = await fetch(autocompleteUrl, {
       headers: { 'Accept': 'application/json' }
     });
 
+    console.log(`[Taxonomy] Response status: ${response.status}`);
+
     if (!response.ok) {
-      console.warn(`[Taxonomy] Autocomplete API error ${response.status} for "${occupation}"`);
+      const errorText = await response.text();
+      console.warn(`[Taxonomy] Autocomplete API error ${response.status} for "${occupation}": ${errorText}`);
       return {
         original: occupation,
         normalized: occupation,
@@ -49,12 +54,26 @@ async function normalizeOccupation(occupation: string): Promise<OccupationMatch>
     }
 
     const data = await response.json();
+    console.log(`[Taxonomy] Response data structure:`, JSON.stringify(data).substring(0, 200));
+    console.log(`[Taxonomy] Data is array:`, Array.isArray(data));
+    console.log(`[Taxonomy] Data.value exists:`, !!data?.value);
+    console.log(`[Taxonomy] Data.value is array:`, Array.isArray(data?.value));
 
-    // Response structure: { value: [...], Count: number }
+    // Response structure: API returnerar direkt array, INTE { value: [...] }
+    const resultsArray = Array.isArray(data) ? data : (data?.value || []);
+    console.log(`[Taxonomy] Results array length:`, resultsArray.length);
+
+    if (resultsArray.length > 0) {
+      console.log(`[Taxonomy] First result:`, JSON.stringify(resultsArray[0]));
+      console.log(`[Taxonomy] First result type:`, resultsArray[0]?.['taxonomy/type']);
+    }
+
     // Filtrera endast occupation-name resultat
-    const occupationResults = data?.value?.filter((item: any) =>
+    const occupationResults = resultsArray.filter((item: any) =>
       item['taxonomy/type'] === 'occupation-name'
-    ) || [];
+    );
+
+    console.log(`[Taxonomy] Found ${resultsArray.length} total results, ${occupationResults.length} occupation-names`);
 
     if (occupationResults.length > 0) {
       const bestMatch = occupationResults[0];
