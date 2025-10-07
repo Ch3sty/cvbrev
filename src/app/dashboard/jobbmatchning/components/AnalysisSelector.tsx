@@ -13,7 +13,7 @@ interface CVAnalysis {
   cv_id: string;
   cv_texts: {
     file_name: string;
-  } | null;
+  } | null | Array<{ file_name: string }>;
   result: {
     atsFriendliness: {
       score: number;
@@ -105,7 +105,15 @@ export default function AnalysisSelector({ analyses, selectedId, onSelect, onDel
 
   const getCVName = (analysis: CVAnalysis) => {
     // Prioritera CV-filnamnet, fallback till display_name
-    return analysis.cv_texts?.file_name || analysis.display_name;
+    // Hantera både objekt och array från Supabase join
+    if (analysis.cv_texts) {
+      if (Array.isArray(analysis.cv_texts) && analysis.cv_texts.length > 0) {
+        return analysis.cv_texts[0].file_name || analysis.display_name;
+      } else if ('file_name' in analysis.cv_texts) {
+        return analysis.cv_texts.file_name || analysis.display_name;
+      }
+    }
+    return analysis.display_name;
   };
 
   if (loading) {

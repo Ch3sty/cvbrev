@@ -31,7 +31,7 @@ interface CVAnalysis {
   cv_id: string;
   cv_texts: {
     file_name: string;
-  } | null;
+  } | null | Array<{ file_name: string }>;
 }
 
 export default function JobbmatchningPage() {
