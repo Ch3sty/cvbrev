@@ -5,7 +5,7 @@ import { createClient } from 'jsr:@supabase/supabase-js@2';
 import { MultiSourceAggregator } from './multi-source-aggregator.ts';
 import { AIEnrichmentService } from './ai-enrichment.ts';
 import { TaxonomyEnhanced } from './taxonomy-enhanced.ts';
-import { ScoringEngineV2 } from './scoring-engine-v2.ts';
+import { ScoringEngineV3 } from './scoring-engine-v3.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -170,28 +170,23 @@ Deno.serve(async (req) => {
     console.log(`[Match-Jobs-V2] Successfully enriched ${enrichedJobsMap.size} jobs`);
 
     // ============================================================================
-    // STEG 5: Advanced Scoring V2
+    // STEG 5: Advanced Scoring V3 - OPTIMIZED FOR ACTIVE CV
     // ============================================================================
-    const scoringEngine = new ScoringEngineV2();
+    const scoringEngine = new ScoringEngineV3();
 
-    // Konvertera active CV data till format som scoring engine förväntar
-    const cvDataForScoring = {
-      structuredCV: {
-        occupation: cvOccupations.map(o => o.normalized),
-        skills: cvSkills,
-        education: cvEducations,
-        location: cvLocation ? [cvLocation] : []
-      }
-    };
+    console.log('[Match-Jobs-V2] Scoring jobs with V3 algorithm (concept_id-based)...');
+    console.log('[Match-Jobs-V2] CV Occupations for scoring:', cvOccupations.map(o => o.normalized));
+    console.log('[Match-Jobs-V2] Primary concept_id:', taxonomyData.conceptId);
+    console.log('[Match-Jobs-V2] Sample job headline:', allJobs[0]?.headline);
+    console.log('[Match-Jobs-V2] Sample job occupation_field:', allJobs[0]?.occupation_field);
 
-    console.log('[Match-Jobs-V2] Scoring jobs with enhanced algorithm...');
     const jobsWithScores = allJobs.map(job => {
       const enrichedJob = enrichedJobsMap.get(job.id) || null;
 
       const scoringResult = scoringEngine.calculateScore({
-        cvData: cvDataForScoring,
-        cvOccupations: cvOccupations.map(o => o.normalized),
-        cvLocations: cvLocation ? [cvLocation] : [],
+        cvOccupations: cvOccupations,
+        cvSkills: cvSkills,
+        cvLocation: cvLocation,
         taxonomyData,
         job,
         enrichedJob
@@ -212,8 +207,8 @@ Deno.serve(async (req) => {
     // ============================================================================
     console.log('[Match-Jobs-V2] Applying intelligent filters...');
     const filteredJobs = jobsWithScores.filter(job => {
-      // SÄNKT minimum relevans: 20 poäng (från 30)
-      if (job.relevance < 20) return false;
+      // SÄNKT minimum relevans: 15 poäng (från 20) för bredare resultat
+      if (job.relevance < 15) return false;
 
       const enrichedJob = enrichedJobsMap.get(job.id);
 

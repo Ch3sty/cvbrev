@@ -253,8 +253,9 @@ export class MultiSourceAggregator {
    * JobAd Links response format skiljer sig från JobSearch API
    */
   private convertToInternalFormat(job: any): Job {
-    // JobAd Links använder 'brief' istället för 'description.text'
-    const descriptionText = job.brief || job.description?.text || '';
+    // JobAd Links har både 'brief' (kort) och 'description.text' (full beskrivning)
+    // Prioritera full beskrivning för bättre matchning och information
+    const descriptionText = job.description?.text || job.brief || '';
 
     // workplace_addresses är en array i JobAd Links
     const workplaceAddress = Array.isArray(job.workplace_addresses) && job.workplace_addresses.length > 0

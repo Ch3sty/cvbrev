@@ -66,17 +66,21 @@ const BentoCard = ({ children, className = "", onClick, ...props }: any) => (
 export default function JobCard({ job, index, onSelect, selectedAnalysisId, cvId }: JobCardProps) {
   const router = useRouter();
   const [showDetails, setShowDetails] = useState(false);
+  const [showFullDescription, setShowFullDescription] = useState(false);
   const { setPrefillData } = useCoverLetterStore();
 
   const getRelevanceColor = (relevance: number) => {
-    if (relevance >= 70) return 'from-green-500 to-emerald-500';
+    if (relevance >= 80) return 'from-green-500 to-emerald-500';
+    if (relevance >= 60) return 'from-blue-500 to-indigo-500';
     if (relevance >= 40) return 'from-yellow-500 to-orange-500';
     return 'from-gray-400 to-gray-500';
   };
 
   const getRelevanceLabel = (relevance: number) => {
-    if (relevance >= 70) return 'Hög matchning';
-    if (relevance >= 40) return 'Medel matchning';
+    if (relevance >= 80) return 'Perfekt matchning';
+    if (relevance >= 60) return 'Mycket bra matchning';
+    if (relevance >= 40) return 'Bra matchning';
+    if (relevance >= 20) return 'OK matchning';
     return 'Låg matchning';
   };
 
@@ -185,13 +189,83 @@ export default function JobCard({ job, index, onSelect, selectedAnalysisId, cvId
             </div>
           )}
 
-          {/* Description Preview */}
-          <p className="text-gray-600 text-sm line-clamp-3 mb-4">
-            {job.description.text}
-          </p>
+          {/* Description Preview with Expand */}
+          <div className="mb-4">
+            <p className={`text-gray-600 text-sm ${showFullDescription ? '' : 'line-clamp-3'}`}>
+              {job.description.text}
+            </p>
+            {job.description.text && job.description.text.length > 200 && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowFullDescription(!showFullDescription);
+                }}
+                className="mt-2 text-sm text-indigo-600 hover:text-indigo-700 font-medium transition-colors"
+              >
+                {showFullDescription ? 'Visa mindre' : 'Läs mer...'}
+              </button>
+            )}
+          </div>
 
-          {/* Match Details Expandable */}
-          {hasMatchDetails && (
+          {/* Scoring Explanation (V3) */}
+          {job.scoringExplanation && job.scoringExplanation.length > 0 && (
+            <div className="mb-4">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowDetails(!showDetails);
+                }}
+                className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg hover:from-purple-100 hover:to-pink-100 transition-colors"
+              >
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-purple-600" />
+                  <span className="text-sm font-medium text-purple-700">
+                    Varför {job.relevance}% matchning?
+                  </span>
+                </div>
+                <motion.div
+                  animate={{ rotate: showDetails ? 180 : 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <ChevronDown className="w-4 h-4 text-purple-600" />
+                </motion.div>
+              </button>
+
+              <AnimatePresence>
+                {showDetails && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden"
+                  >
+                    <div className="pt-3 space-y-2">
+                      {job.scoringExplanation.map((explanation: string, i: number) => (
+                        <div key={i} className="flex items-start gap-2">
+                          <div className="mt-1">
+                            {explanation.startsWith('✅') ? (
+                              <CheckCircle2 className="w-4 h-4 text-green-600" />
+                            ) : explanation.startsWith('⚠️') ? (
+                              <AlertTriangle className="w-4 h-4 text-orange-600" />
+                            ) : (
+                              <Sparkles className="w-4 h-4 text-purple-600" />
+                            )}
+                          </div>
+                          <p className="text-xs text-gray-700 flex-1">
+                            {explanation.replace(/^[✅⚠️❌]\s*/, '')}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
+
+          {/* Match Details Expandable (OLD - fallback) */}
+          {!job.scoringExplanation && hasMatchDetails && (
             <div className="mb-4">
               <button
                 onClick={(e) => {
