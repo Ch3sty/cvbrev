@@ -19,77 +19,157 @@ import {
 } from 'lucide-react';
 
 // Components
-import AnalysisSelector from './components/AnalysisSelector';
+import CVActivationCard from './components/CVActivationCard';
 import MatchExplanation from './components/MatchExplanation';
 import JobResultsGrid from './components/JobResultsGrid';
 
-interface CVAnalysis {
+interface CV {
   id: string;
-  display_name: string;
-  created_at: string;
-  result: any;
+  file_name: string;
+  uploaded_at: string;
+}
+
+interface ActiveCVData {
   cv_id: string;
-  cv_texts: {
-    file_name: string;
-  } | null | Array<{ file_name: string }>;
+  extracted_occupations: Array<{
+    original: string;
+    normalized: string;
+    concept_id: string | null;
+    alternative_labels: string[];
+    confidence: 'high' | 'medium' | 'low';
+  }>;
+  extracted_skills: string[];
+  extracted_educations: Array<{
+    degree: string;
+    field: string;
+    institution: string;
+    year: string;
+  }>;
+  extracted_location: string | null;
+  parsed_at: string;
 }
 
 export default function JobbmatchningPage() {
   // State
-  const [wizardStep, setWizardStep] = useState(0); // 0: select analysis, 1: results
-  const [analyses, setAnalyses] = useState<CVAnalysis[]>([]);
-  const [selectedAnalysisId, setSelectedAnalysisId] = useState<string | null>(null);
+  const [cvs, setCvs] = useState<CV[]>([]);
+  const [activeCV, setActiveCV] = useState<ActiveCVData | null>(null);
+  const [activeCVId, setActiveCVId] = useState<string | null>(null);
   const [jobs, setJobs] = useState<any[]>([]);
-  const [selectedAnalysis, setSelectedAnalysis] = useState<any>(null);
   const [customSearch, setCustomSearch] = useState('');
   const [selectedJob, setSelectedJob] = useState<any>(null);
   const [showDistantJobs, setShowDistantJobs] = useState(false); // Filter för jobb >100km
 
   // Loading states
-  const [loadingAnalyses, setLoadingAnalyses] = useState(true);
+  const [loadingCVs, setLoadingCVs] = useState(true);
+  const [activatingCV, setActivatingCV] = useState(false);
   const [loadingJobs, setLoadingJobs] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const supabase = createClient();
 
-  // Fetch analyses on mount
+  // Fetch CVs and active CV on mount
   useEffect(() => {
-    fetchAnalyses();
+    fetchCVs();
+    fetchActiveCV();
   }, []);
 
-  const fetchAnalyses = async () => {
-    setLoadingAnalyses(true);
+  const fetchCVs = async () => {
+    setLoadingCVs(true);
     try {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) throw new Error('Du måste vara inloggad');
 
       const { data, error } = await supabase
-        .from('cv_analysis_jobs')
-        .select(`
-          id,
-          display_name,
-          created_at,
-          result,
-          cv_id,
-          cv_texts!cv_analysis_jobs_cv_id_fkey (
-            file_name
-          )
-        `)
+        .from('cv_texts')
+        .select('id, file_name, uploaded_at')
         .eq('user_id', session.user.id)
-        .eq('status', 'completed')
-        .order('created_at', { ascending: false });
+        .order('uploaded_at', { ascending: false });
 
       if (error) throw error;
-      setAnalyses(data || []);
+      setCvs(data || []);
     } catch (err) {
-      console.error('Error fetching analyses:', err);
+      console.error('Error fetching CVs:', err);
       setError(err instanceof Error ? err.message : 'Ett fel uppstod');
     } finally {
-      setLoadingAnalyses(false);
+      setLoadingCVs(false);
     }
   };
 
-  const fetchJobs = async (analysisId: string, searchQuery?: string) => {
+  const fetchActiveCV = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      const { data, error } = await supabase
+        .from('active_cv_for_matching')
+        .select('*')
+        .eq('user_id', session.user.id)
+        .single();
+
+      if (error && error.code !== 'PGRST116') { // PGRST116 = no rows returned
+        console.error('Error fetching active CV:', error);
+        return;
+      }
+
+      if (data) {
+        setActiveCV(data);
+        setActiveCVId(data.cv_id);
+      }
+    } catch (err) {
+      console.error('Error fetching active CV:', err);
+    }
+  };
+
+  const handleActivateCV = async (cvId: string) => {
+    setActivatingCV(true);
+    setError(null);
+
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) throw new Error('Du måste vara inloggad');
+
+      const functionUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/parse-cv-for-matching`;
+
+      const response = await fetch(functionUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          cvId,
+          userId: session.user.id
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Kunde inte aktivera CV');
+      }
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Update active CV state
+        await fetchActiveCV();
+
+        // Automatically start job search after activation
+        fetchJobs();
+      }
+    } catch (err) {
+      console.error('Error activating CV:', err);
+      setError(err instanceof Error ? err.message : 'Ett fel uppstod vid CV-aktivering');
+    } finally {
+      setActivatingCV(false);
+    }
+  };
+
+  const fetchJobs = async (searchQuery?: string) => {
+    if (!activeCVId && !activeCV) {
+      setError('Inget aktivt CV. Aktivera ett CV först.');
+      return;
+    }
+
     setLoadingJobs(true);
     setError(null);
 
@@ -100,15 +180,11 @@ export default function JobbmatchningPage() {
       const functionUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/match-jobs`;
 
       const requestBody: any = {
-        userId: session.user.id,
-        selectedAnalysisId: analysisId
+        userId: session.user.id
       };
 
       if (searchQuery) {
-        requestBody.customParams = {
-          q: searchQuery,
-          limit: 50
-        };
+        requestBody.customQuery = searchQuery;
       }
 
       const response = await fetch(functionUrl, {
@@ -128,9 +204,7 @@ export default function JobbmatchningPage() {
       const data = await response.json();
 
       if (data.success) {
-        setJobs(data.jobs);
-        setSelectedAnalysis(data.selectedAnalysis);
-        setWizardStep(1); // Move to results step
+        setJobs(data.jobs || []);
       }
     } catch (err) {
       console.error('Error fetching jobs:', err);
@@ -140,43 +214,12 @@ export default function JobbmatchningPage() {
     }
   };
 
-  const handleSelectAnalysis = (id: string) => {
-    setSelectedAnalysisId(id);
-    // Start fetching jobs immediately when analysis is selected
-    fetchJobs(id);
-  };
-
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (customSearch.trim() && selectedAnalysisId) {
-      fetchJobs(selectedAnalysisId, customSearch);
-    }
-  };
-
-  const handleBackToSelection = () => {
-    setWizardStep(0);
-    setJobs([]);
-    setSelectedAnalysisId(null);
-    setCustomSearch('');
-  };
-
-  const handleDeleteAnalysis = async (id: string) => {
-    const response = await fetch(`/api/cv/analysis/${id}`, {
-      method: 'DELETE'
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Kunde inte ta bort analysen');
-    }
-
-    // Refresh analyses list
-    await fetchAnalyses();
-
-    // If deleted analysis was selected, reset selection
-    if (selectedAnalysisId === id) {
-      setSelectedAnalysisId(null);
-      setWizardStep(0);
+    if (customSearch.trim()) {
+      fetchJobs(customSearch);
+    } else {
+      fetchJobs();
     }
   };
 
@@ -270,87 +313,73 @@ export default function JobbmatchningPage() {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <div className="p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-lg">
-                <Sparkles className="w-8 h-8 text-white" />
-              </div>
-              <div>
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                  Jobbmatchning
-                </h1>
-                <p className="text-gray-600 mt-1">
-                  {wizardStep === 0
-                    ? 'Välj vilken CV-analys du vill använda för matchning'
-                    : 'Matchade jobbannonser baserat på din CV-analys'
-                  }
-                </p>
-              </div>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-lg">
+              <Sparkles className="w-8 h-8 text-white" />
             </div>
-
-            {/* Back button on results page */}
-            {wizardStep === 1 && (
-              <motion.button
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                onClick={handleBackToSelection}
-                className="flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-xl border border-gray-200 hover:bg-white transition-all"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Tillbaka till val
-              </motion.button>
-            )}
+            <div>
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                Jobbmatchning
+              </h1>
+              <p className="text-gray-600 mt-1">
+                {activeCV
+                  ? 'Aktivt CV - hitta matchande jobb med AI'
+                  : 'Aktivera ett CV för att börja matcha jobb'
+                }
+              </p>
+            </div>
           </div>
 
           {/* Match Explanation */}
           <MatchExplanation />
         </motion.div>
 
-        {/* Wizard Content */}
-        <AnimatePresence mode="wait">
-          {/* Step 0: Analysis Selection */}
-          {wizardStep === 0 && (
-            <motion.div
-              key="step-0"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              transition={{ duration: 0.3 }}
-            >
-              <AnalysisSelector
-                analyses={analyses}
-                selectedId={selectedAnalysisId}
-                onSelect={handleSelectAnalysis}
-                onDelete={handleDeleteAnalysis}
-                loading={loadingAnalyses}
-              />
+        {/* CV Activation Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mb-8"
+        >
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">Dina CV:n</h2>
 
-              {/* Loading overlay when fetching jobs */}
-              {loadingJobs && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 flex items-center justify-center"
-                >
-                  <div className="bg-white/90 backdrop-blur-xl rounded-2xl p-8 shadow-2xl">
-                    <Loader2 className="w-12 h-12 text-indigo-500 animate-spin mx-auto mb-4" />
-                    <p className="text-gray-700 font-medium">Söker matchande jobb...</p>
-                  </div>
-                </motion.div>
-              )}
-            </motion.div>
+          {loadingCVs ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+            </div>
+          ) : cvs.length === 0 ? (
+            <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-gray-200 p-8 text-center">
+              <p className="text-gray-600 mb-4">Du har inga uppladdade CV:n än.</p>
+              <a
+                href="/dashboard/cv"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all"
+              >
+                Ladda upp CV
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-2">
+              {cvs.map((cv) => (
+                <CVActivationCard
+                  key={cv.id}
+                  cv={cv}
+                  isActive={activeCVId === cv.id}
+                  activeData={activeCVId === cv.id ? activeCV : null}
+                  onActivate={handleActivateCV}
+                  isActivating={activatingCV}
+                />
+              ))}
+            </div>
           )}
+        </motion.div>
 
-          {/* Step 1: Results */}
-          {wizardStep === 1 && (
-            <motion.div
-              key="step-1"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
-              className="space-y-6"
-            >
+        {/* Job Search Section (only if CV is active) */}
+        {activeCV && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="space-y-6"
+          >
               {/* Custom Search */}
               <form onSubmit={handleSearch} className="mb-6">
                 <div className="relative">
@@ -412,26 +441,33 @@ export default function JobbmatchningPage() {
               })()}
 
               {/* Results Grid */}
-              {!loadingJobs && (
+              {!loadingJobs && jobs.length > 0 && (
                 <JobResultsGrid
                   jobs={showDistantJobs ? jobs : jobs.filter(j => !j.distance || j.distance <= 100)}
-                  selectedAnalysis={selectedAnalysis}
+                  selectedAnalysis={null}
                   onJobSelect={setSelectedJob}
-                  selectedAnalysisId={selectedAnalysisId || undefined}
-                  cvId={selectedAnalysis?.cvId}
+                  selectedAnalysisId={undefined}
+                  cvId={activeCVId || undefined}
                 />
+              )}
+
+              {/* No results message */}
+              {!loadingJobs && jobs.length === 0 && (
+                <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-gray-200 p-12 text-center">
+                  <Briefcase className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+                  <p className="text-gray-600">Inga jobb hittades. Prova att söka igen.</p>
+                </div>
               )}
 
               {/* Loading State */}
               {loadingJobs && (
                 <div className="flex flex-col items-center justify-center py-20">
                   <Loader2 className="w-12 h-12 text-indigo-500 animate-spin mb-4" />
-                  <p className="text-gray-600">Uppdaterar resultat...</p>
+                  <p className="text-gray-600">Söker matchande jobb...</p>
                 </div>
               )}
-            </motion.div>
-          )}
-        </AnimatePresence>
+          </motion.div>
+        )}
       </div>
 
       {/* Job Detail Modal */}
