@@ -1,19 +1,23 @@
 /**
- * Scoring Engine V3 - Optimized for Active CV System
+ * Scoring Engine V4 - Optimized for Multi-Level Occupation Matching
  *
  * NYTT POÄNGSYSTEM (max 100p):
- * 1. Concept ID Match (40p) - Exakt occupation_field.concept_id match
- * 2. Yrkestitel Match (30p) - Headline/occupation innehåller CV-yrke
+ * 1. Occupation Level Match (45p) - Olika poäng beroende på matchningsnivå
+ *    - occupation-name exact: 45p (Butikschef = Butikschef)
+ *    - occupation-group match: 35p (Chefer inom handel)
+ *    - occupation-field match: 25p (Chefer och verksamhetsledare)
+ * 2. Title/Headline Match (25p) - Yrkestiteln i rubrik/occupation
  * 3. Kompetenser (15p) - Matchade skills från CV
  * 4. Geografi (10p) - Avstånd eller remote
- * 5. Synonymer/Relaterat (5p) - Alternative labels match
+ * 5. Must-Have Bonus (5p) - Extra för strukturerade krav som matchar
  *
- * MÅLVÄRDEN:
- * - 80-100p: Perfekt match (exakt samma roll)
- * - 60-79p: Mycket bra match (liknande roll)
- * - 40-59p: Bra match (relaterad roll)
- * - 20-39p: OK match (samma bransch/område)
- * - 0-19p: Svag match (filtreras bort)
+ * MÅLVÄRDEN (justerade för bredare sökning):
+ * - 80-100p: Perfekt match (exakt samma roll + bra skills/geo)
+ * - 60-79p: Mycket bra match (samma grupp eller liknande roll)
+ * - 40-59p: Bra match (samma field eller relaterad roll)
+ * - 25-39p: OK match (samma field, lite färre skills)
+ * - 10-24p: Svag match (långt avstånd eller få gemensamma faktorer)
+ * - 0-9p: Mycket svag match (filtreras bort)
  */
 
 export interface ScoringInput {
@@ -21,7 +25,9 @@ export interface ScoringInput {
   cvSkills: string[];
   cvLocation: string | null;
   taxonomyData: {
-    conceptId?: string;
+    conceptId?: string;              // Primary occupation concept_id
+    occupationGroupId?: string;      // Extracted from first job
+    occupationFieldId?: string;      // Extracted from first job
     alternativeLabels?: string[];
   } | null;
   job: any;
@@ -31,11 +37,11 @@ export interface ScoringInput {
 export interface ScoringResult {
   total: number;
   breakdown: {
-    conceptMatch: number;      // 0-40p
-    occupationMatch: number;    // 0-30p
+    occupationLevel: number;    // 0-45p (dynamisk baserat på matchningsnivå)
+    titleMatch: number;         // 0-25p
     skillsMatch: number;        // 0-15p
     geography: number;          // 0-10p
-    synonymMatch: number;       // 0-5p
+    mustHaveBonus: number;      // 0-5p
   };
   explanation: string[];
   distance?: number;
@@ -213,25 +219,49 @@ export class ScoringEngineV3 {
   /**
    * Quick scoring UTAN AI enrichment
    * Används för initial sorting innan AI enrichment
-   * Baserat på: concept_id, headline, occupation labels
+   * Baserat på: hierarchical concept_id, headline, occupation labels
    */
-  quickScore(job: any, cvOccupations: Array<{ normalized: string; concept_id?: string }>, taxonomyConceptId?: string): number {
+  quickScore(
+    job: any,
+    cvOccupations: Array<{ normalized: string; concept_id?: string }>,
+    primaryConceptId?: string,
+    occupationGroupId?: string,
+    occupationFieldId?: string
+  ): number {
     let score = 0;
 
-    // Faktor 1: Concept ID match (60p för snabb prioritering)
-    if (taxonomyConceptId && job.occupation_field?.concept_id === taxonomyConceptId) {
-      score += 60;
-    } else if (taxonomyConceptId && job.occupation?.concept_id === taxonomyConceptId) {
-      score += 50;
-    } else if (taxonomyConceptId && job.occupation_group?.concept_id === taxonomyConceptId) {
-      score += 30;
+    // Faktor 1: Hierarchical Concept ID match (45p för snabb prioritering)
+    const jobOccupationId = job.occupation?.concept_id;
+    const jobGroupId = job.occupation_group?.concept_id;
+    const jobFieldId = job.occupation_field?.concept_id;
+
+    // Nivå 1: occupation-name exact match (45p)
+    if (primaryConceptId && jobOccupationId === primaryConceptId) {
+      score += 45;
+    }
+    // Nivå 2: occupation-group match (35p)
+    else if (occupationGroupId && jobGroupId === occupationGroupId) {
+      score += 35;
+    }
+    // Nivå 3: occupation-field match (25p)
+    else if (occupationFieldId && jobFieldId === occupationFieldId) {
+      score += 25;
+    }
+    // Fallback: Kolla alla CV-occupations
+    else {
+      for (const cvOcc of cvOccupations) {
+        if (cvOcc.concept_id && jobOccupationId === cvOcc.concept_id) {
+          score += 40;
+          break;
+        }
+      }
     }
 
-    // Faktor 2: Headline match (30p)
+    // Faktor 2: Headline match (25p)
     const headline = (job.headline || '').toLowerCase();
     for (const cvOcc of cvOccupations) {
       if (headline.includes(cvOcc.normalized.toLowerCase())) {
-        score += 30;
+        score += 25;
         break;
       }
     }
@@ -251,63 +281,67 @@ export class ScoringEngineV3 {
 
   calculateScore(input: ScoringInput): ScoringResult {
     const breakdown = {
-      conceptMatch: 0,      // 0-40p
-      occupationMatch: 0,   // 0-30p
+      occupationLevel: 0,   // 0-45p (hierarchical)
+      titleMatch: 0,        // 0-25p
       skillsMatch: 0,       // 0-15p
       geography: 0,         // 0-10p
-      synonymMatch: 0       // 0-5p
+      mustHaveBonus: 0      // 0-5p
     };
     const explanation: string[] = [];
     let distance: number | undefined;
 
     // ========================================================================
-    // FAKTOR 1: Concept ID Match (40p) - VIKTIGAST!
+    // FAKTOR 1: Occupation Level Match (45p) - HIERARCHICAL!
     // ========================================================================
-    if (input.taxonomyData?.conceptId && input.job.occupation_field?.concept_id) {
-      if (input.job.occupation_field.concept_id === input.taxonomyData.conceptId) {
-        breakdown.conceptMatch = 40;
-        explanation.push(`✅ Exakt rollmatch: ${input.job.occupation_field.label} (40p)`);
-      } else {
-        // Kolla om något av CV:s andra yrken matchar
-        for (const cvOcc of input.cvOccupations) {
-          if (cvOcc.concept_id === input.job.occupation_field.concept_id) {
-            const points = cvOcc.confidence === 'high' ? 35 : 30;
-            breakdown.conceptMatch = points;
-            explanation.push(`✅ Rollmatch (${cvOcc.confidence} confidence): ${input.job.occupation_field.label} (${points}p)`);
-            break;
-          }
+    const primaryConceptId = input.taxonomyData?.conceptId;
+    const occupationGroupId = input.taxonomyData?.occupationGroupId;
+    const occupationFieldId = input.taxonomyData?.occupationFieldId;
+
+    const jobOccupationId = input.job.occupation?.concept_id;
+    const jobGroupId = input.job.occupation_group?.concept_id;
+    const jobFieldId = input.job.occupation_field?.concept_id;
+
+    // Nivå 1: occupation-name exact match (45p)
+    if (primaryConceptId && jobOccupationId === primaryConceptId) {
+      breakdown.occupationLevel = 45;
+      explanation.push(`✅ Exakt yrkesmatch: ${input.job.occupation?.label} (45p)`);
+    }
+    // Nivå 2: occupation-group match (35p)
+    else if (occupationGroupId && jobGroupId === occupationGroupId) {
+      breakdown.occupationLevel = 35;
+      explanation.push(`✅ Samma yrkesgrupp: ${input.job.occupation_group?.label} (35p)`);
+    }
+    // Nivå 3: occupation-field match (25p)
+    else if (occupationFieldId && jobFieldId === occupationFieldId) {
+      breakdown.occupationLevel = 25;
+      explanation.push(`✅ Samma yrkesområde: ${input.job.occupation_field?.label} (25p)`);
+    }
+    // Fallback: Kolla om något annat CV-yrke matchar
+    else {
+      for (const cvOcc of input.cvOccupations) {
+        if (cvOcc.concept_id && jobOccupationId === cvOcc.concept_id) {
+          const points = cvOcc.confidence === 'high' ? 40 : 35;
+          breakdown.occupationLevel = points;
+          explanation.push(`✅ Alt. yrkesmatch (${cvOcc.confidence}): ${input.job.occupation?.label} (${points}p)`);
+          break;
         }
       }
     }
 
-    // SPECIAL: Om jobbet klassificeras som bred kategori men headline innehåller exakt yrke
-    // JobAd Links API klassificerar ofta specifika jobb som breda kategorier
-    if (breakdown.conceptMatch === 0 && input.job.occupation_field?.concept_id) {
+    // SPECIAL: Om headline innehåller CV-yrket men ingen concept match (API-missklassificering)
+    if (breakdown.occupationLevel === 0) {
       const jobHeadline = (input.job.headline || '').toLowerCase();
-
-      // Om headline innehåller CV-yrket exakt, ge högre poäng även om concept_id är bred
       for (const cvOcc of input.cvOccupations) {
         if (jobHeadline.includes(cvOcc.normalized.toLowerCase())) {
-          breakdown.conceptMatch = 35;
-          explanation.push(`✅ Headline-match (API-bred klassificering): ${cvOcc.normalized} (35p)`);
-          break;
-        }
-      }
-    }
-
-    // Occupation group fallback (lägre poäng)
-    if (breakdown.conceptMatch === 0 && input.job.occupation_group?.concept_id) {
-      for (const cvOcc of input.cvOccupations) {
-        if (cvOcc.concept_id === input.job.occupation_group.concept_id) {
-          breakdown.conceptMatch = 20;
-          explanation.push(`✅ Samma yrkesgrupp: ${input.job.occupation_group.label} (20p)`);
+          breakdown.occupationLevel = 30;
+          explanation.push(`✅ Headline-match (bred API-kategori): ${cvOcc.normalized} (30p)`);
           break;
         }
       }
     }
 
     // ========================================================================
-    // FAKTOR 2: Yrkestitel Match (30p)
+    // FAKTOR 2: Title Match (25p)
     // ========================================================================
     if (input.cvOccupations.length > 0) {
       const primaryOccupation = input.cvOccupations[0].normalized.toLowerCase();
@@ -317,38 +351,38 @@ export class ScoringEngineV3 {
 
       // Exakt match i occupation-fält
       if (jobOccupation === primaryOccupation) {
-        breakdown.occupationMatch = 30;
-        explanation.push(`✅ Exakt yrkestitel: ${input.job.occupation?.label || input.job.occupation_field?.label} (30p)`);
+        breakdown.titleMatch = 25;
+        explanation.push(`✅ Exakt titel: ${input.job.occupation?.label || input.job.occupation_field?.label} (25p)`);
       }
       // Partial match i occupation
       else if (jobOccupation.includes(primaryOccupation) || primaryOccupation.includes(jobOccupation)) {
-        breakdown.occupationMatch = 25;
-        explanation.push(`✅ Liknande yrkestitel (25p)`);
+        breakdown.titleMatch = 20;
+        explanation.push(`✅ Liknande titel (20p)`);
       }
       // Exakt match i headline
       else if (jobHeadline === primaryOccupation) {
-        breakdown.occupationMatch = 28;
-        explanation.push(`✅ Exakt rubrik: "${primaryOccupation}" (28p)`);
+        breakdown.titleMatch = 23;
+        explanation.push(`✅ Exakt rubrik: "${primaryOccupation}" (23p)`);
       }
       // Partial match i headline
       else if (jobHeadline.includes(primaryOccupation)) {
-        breakdown.occupationMatch = 22;
-        explanation.push(`✅ Rubrik innehåller: "${primaryOccupation}" (22p)`);
+        breakdown.titleMatch = 18;
+        explanation.push(`✅ Rubrik innehåller: "${primaryOccupation}" (18p)`);
       }
       // Match i beskrivning (lägre poäng)
       else if (jobDescription.includes(primaryOccupation)) {
-        breakdown.occupationMatch = 12;
-        explanation.push(`✅ Yrke i beskrivning (12p)`);
+        breakdown.titleMatch = 10;
+        explanation.push(`✅ Yrke i beskrivning (10p)`);
       }
 
       // Kolla även andra CV-yrken
-      if (breakdown.occupationMatch < 20) {
+      if (breakdown.titleMatch < 15) {
         for (let i = 1; i < input.cvOccupations.length; i++) {
           const altOccupation = input.cvOccupations[i].normalized.toLowerCase();
           if (jobHeadline.includes(altOccupation)) {
-            const points = 18;
-            breakdown.occupationMatch = Math.max(breakdown.occupationMatch, points);
-            explanation.push(`✅ Alternativ roll i rubrik: "${altOccupation}" (${points}p)`);
+            const points = 15;
+            breakdown.titleMatch = Math.max(breakdown.titleMatch, points);
+            explanation.push(`✅ Alt. roll i rubrik: "${altOccupation}" (${points}p)`);
             break;
           }
         }
@@ -356,7 +390,7 @@ export class ScoringEngineV3 {
     }
 
     // ========================================================================
-    // FAKTOR 3: Kompetenser (15p + 5p bonus för must_have)
+    // FAKTOR 3: Skills Match (15p)
     // ========================================================================
     let matchedSkills = 0;
     const matchedSkillNames: string[] = [];
@@ -381,7 +415,7 @@ export class ScoringEngineV3 {
         const niceToHaveLabels = input.job.nice_to_have.skills.map((s: any) => s.label.toLowerCase());
 
         for (const cvSkill of input.cvSkills) {
-          if (!matchedSkillNames.includes(cvSkill)) { // Undvik dubbletter
+          if (!matchedSkillNames.includes(cvSkill)) {
             if (niceToHaveLabels.some(label => label.includes(cvSkill.toLowerCase()) || cvSkill.toLowerCase().includes(label))) {
               matchedSkills++;
               matchedSkillNames.push(cvSkill);
@@ -390,7 +424,7 @@ export class ScoringEngineV3 {
         }
       }
 
-      // FALLBACK: Text-baserad matching (om ingen strukturerad data)
+      // FALLBACK: Text-baserad matching
       if (matchedSkills === 0) {
         const jobText = `${input.job.headline || ''} ${input.job.description?.text || ''}`.toLowerCase();
 
@@ -405,27 +439,21 @@ export class ScoringEngineV3 {
       // Poängsättning
       if (matchedSkills >= 4) {
         breakdown.skillsMatch = 15;
-        explanation.push(`✅ ${matchedSkills} kompetenser: ${matchedSkillNames.slice(0, 3).join(', ')}${matchedSkills > 3 ? '...' : ''} (15p)`);
+        explanation.push(`✅ ${matchedSkills} skills: ${matchedSkillNames.slice(0, 3).join(', ')}${matchedSkills > 3 ? '...' : ''} (15p)`);
       } else if (matchedSkills === 3) {
         breakdown.skillsMatch = 12;
-        explanation.push(`✅ ${matchedSkills} kompetenser: ${matchedSkillNames.join(', ')} (12p)`);
+        explanation.push(`✅ ${matchedSkills} skills: ${matchedSkillNames.join(', ')} (12p)`);
       } else if (matchedSkills === 2) {
         breakdown.skillsMatch = 8;
-        explanation.push(`✅ ${matchedSkills} kompetenser: ${matchedSkillNames.join(', ')} (8p)`);
+        explanation.push(`✅ ${matchedSkills} skills: ${matchedSkillNames.join(', ')} (8p)`);
       } else if (matchedSkills === 1) {
         breakdown.skillsMatch = 4;
-        explanation.push(`✅ 1 kompetens: ${matchedSkillNames[0]} (4p)`);
-      }
-
-      // BONUS: +5p om minst 2 must_have skills matchar
-      if (mustHaveMatches >= 2) {
-        breakdown.skillsMatch = Math.min(20, breakdown.skillsMatch + 5); // Max 20p totalt
-        explanation.push(`🌟 ${mustHaveMatches} kritiska kompetenser (+5p bonus)`);
+        explanation.push(`✅ 1 skill: ${matchedSkillNames[0]} (4p)`);
       }
     }
 
     // ========================================================================
-    // FAKTOR 4: Geografi (10p)
+    // FAKTOR 4: Geography (10p)
     // ========================================================================
     const REMOTE_KEYWORDS = ["distans", "remote", "hemarbete", "hemifrån"];
     const jobText = `${input.job.headline || ''} ${input.job.description?.text || ''}`.toLowerCase();
@@ -461,37 +489,22 @@ export class ScoringEngineV3 {
     }
 
     // ========================================================================
-    // FAKTOR 5: Synonymer/Alternative Labels (5p)
+    // FAKTOR 5: Must-Have Bonus (5p)
     // ========================================================================
-    if (breakdown.conceptMatch === 0 && breakdown.occupationMatch < 20) {
-      if (input.taxonomyData?.alternativeLabels && input.taxonomyData.alternativeLabels.length > 0) {
-        const jobHeadline = (input.job.headline || '').toLowerCase();
-        const jobDescription = (input.job.description?.text || '').toLowerCase();
-
-        for (const synonym of input.taxonomyData.alternativeLabels) {
-          const synLower = synonym.toLowerCase();
-          if (jobHeadline.includes(synLower)) {
-            breakdown.synonymMatch = 5;
-            explanation.push(`✅ Synonym i rubrik: "${synonym}" (5p)`);
-            break;
-          } else if (jobDescription.includes(synLower)) {
-            breakdown.synonymMatch = 3;
-            explanation.push(`✅ Synonym i beskrivning: "${synonym}" (3p)`);
-            break;
-          }
-        }
-      }
+    if (mustHaveMatches >= 2) {
+      breakdown.mustHaveBonus = 5;
+      explanation.push(`🌟 ${mustHaveMatches} must-have skills (+5p)`);
     }
 
     // ========================================================================
     // TOTAL BERÄKNING
     // ========================================================================
     const total = Math.min(100, Math.round(
-      breakdown.conceptMatch +
-      breakdown.occupationMatch +
+      breakdown.occupationLevel +
+      breakdown.titleMatch +
       breakdown.skillsMatch +
       breakdown.geography +
-      breakdown.synonymMatch
+      breakdown.mustHaveBonus
     ));
 
     return { total, breakdown, explanation, distance };

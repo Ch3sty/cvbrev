@@ -126,8 +126,8 @@ Deno.serve(async (req) => {
       relatedOccupations: [],
       competencies: [],
       conceptId: primaryOccupation.concept_id,
-      occupationFieldId: primaryOccupation.concept_id,
-      occupationGroupId: null
+      occupationFieldId: null, // Will be extracted from first job result
+      occupationGroupId: null  // Will be extracted from first job result
     };
 
     // Hämta relaterade yrken för bredare sökning
@@ -182,7 +182,13 @@ Deno.serve(async (req) => {
 
     const quickScoredJobs = allJobs.map(job => ({
       ...job,
-      quickScore: scoringEngine.quickScore(job, cvOccupations, taxonomyData.conceptId)
+      quickScore: scoringEngine.quickScore(
+        job,
+        cvOccupations,
+        taxonomyData.conceptId,
+        taxonomyData.occupationGroupId,
+        taxonomyData.occupationFieldId
+      )
     }));
 
     // Sortera och ta top 100 för AI enrichment
@@ -241,13 +247,17 @@ Deno.serve(async (req) => {
     // STEG 7: Intelligent Filtering & Sorting
     // ============================================================================
     console.log('[Match-Jobs-V2] Filtering and sorting jobs...');
+    console.log(`[Match-Jobs-V2] Jobs before filtering: ${jobsWithScores.length}`);
 
     const filteredJobs = jobsWithScores.filter(job => {
-      // Minimum relevans: 20 poäng (justerat för must_have bonus)
-      return job.relevance >= 20;
+      // Minimum relevans: 15 poäng (sänkt från 20 för att få fler jobb)
+      return job.relevance >= 15;
     });
 
+    const filteredOutCount = jobsWithScores.length - filteredJobs.length;
+    const filteredOutPercentage = Math.round((filteredOutCount / jobsWithScores.length) * 100);
     console.log(`[Match-Jobs-V2] Filtered to ${filteredJobs.length} relevant jobs`);
+    console.log(`[Match-Jobs-V2] Filtered out: ${filteredOutCount} jobs (${filteredOutPercentage}%)`);
 
     // Sortera efter relevans
     filteredJobs.sort((a, b) => (b.relevance || 0) - (a.relevance || 0));

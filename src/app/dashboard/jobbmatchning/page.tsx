@@ -24,7 +24,7 @@ import {
 
 // Components
 import CVActivationCard from './components/CVActivationCard';
-import MatchExplanation from './components/MatchExplanation';
+import MatchingInfoCard from './components/MatchingInfoCard';
 import JobResultsGrid from './components/JobResultsGrid';
 
 interface CV {
@@ -413,8 +413,6 @@ export default function JobbmatchningPage() {
             )}
           </div>
 
-          {/* Match Explanation */}
-          <MatchExplanation />
         </motion.div>
 
         {/* CV Activation Section (dölj när sökvyn visas) */}
@@ -443,6 +441,10 @@ export default function JobbmatchningPage() {
               </div>
             ) : (
               <div className="grid gap-4 md:grid-cols-2">
+                {/* Info Card - Always First */}
+                <MatchingInfoCard />
+
+                {/* CV Cards */}
                 {cvs.map((cv) => (
                   <CVActivationCard
                     key={cv.id}

@@ -154,6 +154,19 @@ export class MultiSourceAggregator {
     this.addUniqueJobs(allJobs, primaryJobs, seenIds, 'primary-occupation');
     console.log(`[Aggregator] Primary occupation: ${primaryJobs.length} jobs (${allJobs.length} unique)`);
 
+    // Extrahera occupation_field och occupation_group från första jobbet
+    if (primaryJobs.length > 0 && !params.taxonomyData.occupationFieldId) {
+      const firstJob = primaryJobs[0];
+      if (firstJob.occupation_field?.concept_id) {
+        params.taxonomyData.occupationFieldId = firstJob.occupation_field.concept_id;
+        console.log(`[Aggregator] Extracted occupation-field: ${firstJob.occupation_field.label} (${firstJob.occupation_field.concept_id})`);
+      }
+      if (firstJob.occupation_group?.concept_id) {
+        params.taxonomyData.occupationGroupId = firstJob.occupation_group.concept_id;
+        console.log(`[Aggregator] Extracted occupation-group: ${firstJob.occupation_group.label} (${firstJob.occupation_group.concept_id})`);
+      }
+    }
+
     // EARLY RETURN: Om vi har nog jobb, skippa bredare sökningar
     if (allJobs.length >= 500) {
       console.log(`[Aggregator] ✅ Found ${allJobs.length} jobs for primary occupation - skipping broader searches`);
@@ -161,15 +174,30 @@ export class MultiSourceAggregator {
     }
 
     // ============================================================================
-    // STRATEGI 2B: occupation-field fallback (om för få occupation-name resultat)
+    // STRATEGI 2B: occupation-group expansion (mellan-nivå)
     // ============================================================================
-    if (allJobs.length < 500 && params.taxonomyData?.occupationFieldId) {
-      console.log(`[Aggregator] Only ${allJobs.length} occupation-name jobs - expanding with occupation-field: ${params.taxonomyData.occupationFieldId}`);
+    if (allJobs.length < 500 && params.taxonomyData?.occupationGroupId) {
+      console.log(`[Aggregator] Only ${allJobs.length} jobs - expanding with occupation-group: ${params.taxonomyData.occupationGroupId}`);
+
+      const groupJobs = await this.fetchWithPagination({
+        'occupation-group': [params.taxonomyData.occupationGroupId],
+        limit: 100
+      }, 10); // Max 1000 jobb
+
+      this.addUniqueJobs(allJobs, groupJobs, seenIds, 'occupation-group');
+      console.log(`[Aggregator] occupation-group: ${groupJobs.length} jobs (${allJobs.length} unique)`);
+    }
+
+    // ============================================================================
+    // STRATEGI 2C: occupation-field expansion (bredast nivå)
+    // ============================================================================
+    if (allJobs.length < 1000 && params.taxonomyData?.occupationFieldId) {
+      console.log(`[Aggregator] Only ${allJobs.length} jobs - expanding with occupation-field: ${params.taxonomyData.occupationFieldId}`);
 
       const fieldJobs = await this.fetchWithPagination({
         'occupation-field': [params.taxonomyData.occupationFieldId],
         limit: 100
-      }, 5); // Max 500 jobb
+      }, 10); // Max 1000 jobb
 
       this.addUniqueJobs(allJobs, fieldJobs, seenIds, 'occupation-field');
       console.log(`[Aggregator] occupation-field: ${fieldJobs.length} jobs (${allJobs.length} unique)`);
@@ -308,13 +336,10 @@ export class MultiSourceAggregator {
         const convertedJobs = jobs.map((job: any) => this.convertToInternalFormat(job));
         allJobs.push(...convertedJobs);
 
-        console.log(`[Aggregator] Page ${page + 1}/${maxPages}: ${jobs.length} jobs`);
+        console.log(`[Aggregator] Page ${page + 1}/${maxPages}: ${jobs.length} jobs (total: ${allJobs.length})`);
 
-        // Om vi fick färre än limit, vi har nått slutet
-        if (jobs.length < LIMIT) {
-          console.log(`[Aggregator] Reached end at page ${page + 1}`);
-          break;
-        }
+        // Fortsätt hämta nästa sida även om vi fick < 100 resultat
+        // Stoppar endast när jobs.length === 0 (check ovan)
 
         // Rate limiting: vänta lite mellan requests
         if (page < maxPages - 1) {
