@@ -1,7 +1,7 @@
 'use client';
 
 import { Matrix3x3 } from '@/lib/tester/patternTypes';
-import { ShapeSVG } from './ShapeSVG';
+import { MatrixCellSVG } from './MatrixCellSVG';
 
 interface MatrixGridProps {
   matrix: Matrix3x3;
@@ -15,22 +15,13 @@ export function MatrixGrid({ matrix, className = '' }: MatrixGridProps) {
         row.map((cell, colIdx) => (
           <div
             key={`${rowIdx}-${colIdx}`}
-            className="aspect-square border-2 border-gray-300 rounded-lg bg-white flex items-center justify-center relative overflow-hidden"
+            className="aspect-square border-2 border-gray-300 rounded-lg bg-white flex items-center justify-center p-2"
           >
             {cell.shapes.length === 0 ? (
               // Missing cell indicator
               <div className="text-6xl font-bold text-gray-400">?</div>
             ) : (
-              // Render shapes (may overlap)
-              <div className="relative w-full h-full p-2">
-                {cell.shapes.map((shape, shapeIdx) => (
-                  <ShapeSVG
-                    key={shapeIdx}
-                    shape={shape}
-                    className={cell.shapes.length > 1 ? 'absolute inset-2' : ''}
-                  />
-                ))}
-              </div>
+              <MatrixCellSVG cell={cell} />
             )}
           </div>
         ))

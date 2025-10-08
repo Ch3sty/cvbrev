@@ -53,11 +53,12 @@ export function MatrixCellSVG({ cell, className = '' }: MatrixCellSVGProps) {
     return Array.from(uniquePatterns.values());
   }, [cell.shapes, baseId]);
 
-  // Rendera pattern definitions
+  // Rendera pattern definitions med förbättrad stabilitet
   const renderPattern = (patternDef: typeof patterns[0]) => {
     const strokeColor = colorMap[patternDef.color];
     const R = 40; // Använd genomsnittlig storlek för pattern-beräkning
     const tile = Math.max(4, Math.round(R / 5));
+    const stripe = Math.max(1, Math.round(tile / 3)); // Randbredd
 
     if (patternDef.fill === 'striped') {
       return (
@@ -65,17 +66,18 @@ export function MatrixCellSVG({ cell, className = '' }: MatrixCellSVGProps) {
           key={patternDef.id}
           id={patternDef.id}
           patternUnits="userSpaceOnUse"
+          patternContentUnits="userSpaceOnUse"
           width={tile}
           height={tile}
-          patternTransform="rotate(45)"
+          patternTransform="rotate(45, 50, 50)"
         >
-          <line
-            x1="0"
-            y1="0"
-            x2="0"
-            y2={tile}
-            stroke={strokeColor}
-            strokeWidth={Math.max(2, tile / 2)}
+          <rect
+            x="0"
+            y="0"
+            width={stripe}
+            height={tile}
+            fill={strokeColor}
+            shapeRendering="crispEdges"
           />
         </pattern>
       );
@@ -87,13 +89,14 @@ export function MatrixCellSVG({ cell, className = '' }: MatrixCellSVGProps) {
           key={patternDef.id}
           id={patternDef.id}
           patternUnits="userSpaceOnUse"
+          patternContentUnits="userSpaceOnUse"
           width={tile}
           height={tile}
         >
           <circle
             cx={tile / 2}
             cy={tile / 2}
-            r={Math.max(1, tile / 4)}
+            r={Math.max(1, tile / 6)}
             fill={strokeColor}
           />
         </pattern>
@@ -106,13 +109,25 @@ export function MatrixCellSVG({ cell, className = '' }: MatrixCellSVGProps) {
           key={patternDef.id}
           id={patternDef.id}
           patternUnits="userSpaceOnUse"
+          patternContentUnits="userSpaceOnUse"
           width={tile}
           height={tile}
         >
-          <path
-            d={`M0,0 L${tile},${tile} M${tile},0 L0,${tile}`}
-            stroke={strokeColor}
-            strokeWidth={Math.max(1, tile / 8)}
+          <rect
+            x="0"
+            y="0"
+            width={Math.max(1, tile / 8)}
+            height={tile}
+            fill={strokeColor}
+            shapeRendering="crispEdges"
+          />
+          <rect
+            x="0"
+            y="0"
+            width={tile}
+            height={Math.max(1, tile / 8)}
+            fill={strokeColor}
+            shapeRendering="crispEdges"
           />
         </pattern>
       );
@@ -121,10 +136,60 @@ export function MatrixCellSVG({ cell, className = '' }: MatrixCellSVGProps) {
     return null;
   };
 
+  // Beräkna position för multipla shapes med tillräckligt mellanrum
+  const calculatePosition = (index: number, total: number): { cx: number; cy: number } => {
+    if (total === 1) {
+      return { cx: 50, cy: 50 }; // Center för single shape
+    }
+
+    // Beräkna max radie för att justera spacing
+    const maxRadius = Math.max(...cell.shapes.map(s => sizeMap[s.size] * 0.5));
+
+    if (total === 2) {
+      // Två shapes: placera horisontellt med spacing baserat på storlek
+      const spacing = maxRadius * 2.2; // 2.2x diameter för tydligt mellanrum
+      return {
+        cx: 50 - spacing / 2 + (index * spacing),
+        cy: 50
+      };
+    }
+
+    if (total === 3) {
+      // Tre shapes: triangel-layout ELLER horisontell rad beroende på storlek
+      const hasLargeShapes = cell.shapes.some(s => s.size === 'large');
+
+      if (hasLargeShapes) {
+        // Triangel för stora shapes med mer spacing
+        const positions = [
+          { cx: 50, cy: 30 },      // Top
+          { cx: 30, cy: 65 },      // Bottom left
+          { cx: 70, cy: 65 }       // Bottom right
+        ];
+        return positions[index];
+      } else {
+        // Horisontell rad för små/medium shapes med spacing baserat på storlek
+        const spacing = maxRadius * 2.4; // 2.4x diameter för extra mellanrum
+        return {
+          cx: 50 - spacing + (index * spacing),
+          cy: 50
+        };
+      }
+    }
+
+    // Fallback för 4+ shapes: grid layout
+    const cols = 2;
+    const spacing = maxRadius * 2.5;
+    const row = Math.floor(index / cols);
+    const col = index % cols;
+    return {
+      cx: 35 + (col * spacing),
+      cy: 35 + (row * spacing)
+    };
+  };
+
   // Rendera en shape som SVG-element
   const renderShape = (shape: Shape, index: number) => {
-    const cx = 50;
-    const cy = 50;
+    const { cx, cy } = calculatePosition(index, cell.shapes.length);
     const R = sizeMap[shape.size] * 0.5;
     const strokeColor = colorMap[shape.color];
     const strokeW = Math.max(1, Math.round(R / 12));
@@ -229,7 +294,7 @@ export function MatrixCellSVG({ cell, className = '' }: MatrixCellSVGProps) {
   };
 
   return (
-    <svg viewBox="0 0 100 100" className={`w-full h-full ${className}`}>
+    <svg viewBox="0 0 100 100" className={`w-full h-full ${className}`} xmlns="http://www.w3.org/2000/svg">
       <defs>
         {patterns.map(renderPattern)}
       </defs>
