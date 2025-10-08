@@ -23,7 +23,7 @@ Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
 
   try {
-    const { userId, customQuery, skipCache } = await req.json();
+    const { userId, customQuery, skipCache, offset, limit } = await req.json();
     if (!userId) {
       return new Response(JSON.stringify({ error: 'Missing userId' }), {
         status: 400,
@@ -47,12 +47,19 @@ Deno.serve(async (req) => {
 
       if (cachedMatching) {
         console.log(`[Match-Jobs-V2] ✅ Cache HIT - returning ${cachedMatching.jobs.length} cached jobs`);
+
+        // Hantera offset/limit för progressive loading
+        const startIndex = offset || 0;
+        const endIndex = limit ? startIndex + limit : cachedMatching.jobs.length;
+        const paginatedJobs = cachedMatching.jobs.slice(startIndex, endIndex);
+
         return new Response(JSON.stringify({
           success: true,
-          jobs: cachedMatching.jobs,
+          jobs: paginatedJobs,
           cached: true,
           cacheExpiresAt: cachedMatching.expires_at,
           totalResults: cachedMatching.total_jobs_found || cachedMatching.jobs.length,
+          hasMore: endIndex < cachedMatching.jobs.length,
           version: 'v2-jobsearch-cached'
         }), {
           status: 200,

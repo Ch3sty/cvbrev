@@ -59,6 +59,8 @@ export default function JobbmatchningPage() {
   const [selectedJob, setSelectedJob] = useState<any>(null);
   const [showDistantJobs, setShowDistantJobs] = useState(false); // Filter för jobb >100km
   const [showSearchView, setShowSearchView] = useState(false); // Visa sökning eller CV-val
+  const [hasMore, setHasMore] = useState(false); // Flag för progressive loading
+  const [loadingMore, setLoadingMore] = useState(false); // Loading state för bakgrundshämtning
 
   // Loading states
   const [loadingCVs, setLoadingCVs] = useState(true);
@@ -73,6 +75,13 @@ export default function JobbmatchningPage() {
     fetchCVs();
     fetchActiveCV();
   }, []);
+
+  // Progressive loading: Ladda resterande 250 jobb i bakgrunden efter top 50
+  useEffect(() => {
+    if (hasMore && jobs.length === 50) {
+      fetchMoreJobs(50, 250); // offset, limit
+    }
+  }, [hasMore, jobs.length]);
 
   const fetchCVs = async () => {
     setLoadingCVs(true);
@@ -206,12 +215,53 @@ export default function JobbmatchningPage() {
 
       if (data.success) {
         setJobs(data.jobs || []);
+        setHasMore(data.hasMore || false); // Spara hasMore flag
       }
     } catch (err) {
       console.error('Error fetching jobs:', err);
       setError(err instanceof Error ? err.message : 'Ett fel uppstod');
     } finally {
       setLoadingJobs(false);
+    }
+  };
+
+  // Progressive loading: Hämta resterande jobb i bakgrunden
+  const fetchMoreJobs = async (offset: number, limit: number) => {
+    if (loadingMore) return; // Förhindra dubbel-hämtning
+
+    setLoadingMore(true);
+
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      const functionUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/match-jobs`;
+
+      const response = await fetch(functionUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userId: session.user.id,
+          offset,
+          limit
+        })
+      });
+
+      if (!response.ok) return;
+
+      const data = await response.json();
+
+      if (data.success && data.jobs?.length > 0) {
+        setJobs(prev => [...prev, ...data.jobs]); // Lägg till nya jobb
+        setHasMore(data.hasMore || false);
+      }
+    } catch (err) {
+      console.error('Error fetching more jobs:', err);
+    } finally {
+      setLoadingMore(false);
     }
   };
 
