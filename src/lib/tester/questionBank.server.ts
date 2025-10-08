@@ -842,7 +842,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
     timeEstimateSeconds: 160
   },
 
-  // Fråga 18: XOR-operation (Difficulty 5)
+  // Fråga 18: Mängddifferens / Set difference (Difficulty 5)
   {
     id: '27fdb2cf-47ba-4f4e-a641-503b54847b15',
     testType: 'matrislogik-classic',
@@ -895,7 +895,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
       createCell([createShape('triangle', 'striped', 'green', 'small')])
     ],
     correctAnswer: 0,
-    explanation: 'XOR-operation per rad: Kolumn 1 innehåller två former (A ∪ B), Kolumn 2 innehåller en form (A), Kolumn 3 innehåller den andra formen (B). Detta är en set difference operation: (A ∪ B) - A = B.',
+    explanation: 'Mängddifferens (Set difference) per rad: Kolumn 1 innehåller två former (A ∪ B), Kolumn 2 innehåller en form (A), Kolumn 3 innehåller återstående form (B). Operationen är: (A ∪ B) - A = B. Detta skiljer sig från XOR (symmetrisk differens) som skulle vara (A ∪ B) - (A ∩ B).',
     patternTypes: ['structural', 'quantity'],
     timeEstimateSeconds: 170
   },

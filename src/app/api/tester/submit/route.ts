@@ -5,6 +5,7 @@ import { verifyTestSession } from '@/lib/tester/sessionManager';
 import { getQuestionById } from '@/lib/tester/questionBank.server';
 import { QuestionBreakdown, UserAnswer } from '@/lib/tester/patternTypes';
 import { calculatePracticeRating, getInterpretation } from '@/lib/tester/scoringEngine';
+import { submitPayloadSchema } from '@/lib/tester/validation';
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,11 +17,25 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { sessionToken, answers, timeSpent }: {
-      sessionToken: string;
-      answers: UserAnswer[];
-      timeSpent: number;
-    } = await request.json();
+    // P0: Zod-validering av inkommande payload
+    const body = await request.json();
+    const validationResult = submitPayloadSchema.safeParse(body);
+
+    if (!validationResult.success) {
+      console.error('[API /tester/submit] Validation error:', validationResult.error.format());
+      return NextResponse.json(
+        {
+          error: 'Ogiltig inlämning',
+          details: validationResult.error.errors.map(e => ({
+            field: e.path.join('.'),
+            message: e.message
+          }))
+        },
+        { status: 400 }
+      );
+    }
+
+    const { sessionToken, answers, timeSpent } = validationResult.data;
 
     // Verifiera session
     const session = await verifyTestSession(sessionToken);
@@ -29,25 +44,60 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid session' }, { status: 403 });
     }
 
-    // Rätta varje svar
+    // P0: Validera att alla svar hör till sessionens frågor
+    const validQuestionIds = new Set(session.questionIds);
+    const invalidAnswers = answers.filter(a => !validQuestionIds.has(a.questionId));
+
+    if (invalidAnswers.length > 0) {
+      console.error('[API /tester/submit] Invalid question IDs:', invalidAnswers.map(a => a.questionId));
+      return NextResponse.json(
+        { error: 'Svar innehåller ogiltiga fråge-ID som inte ingick i din testsession' },
+        { status: 400 }
+      );
+    }
+
+    // P0: Hantera duplikat - ta senaste svaret per fråga
+    const uniqueAnswers = Array.from(
+      answers.reduce((map, ans) => {
+        map.set(ans.questionId, ans); // Senare svar skriver över tidigare
+        return map;
+      }, new Map<string, UserAnswer>()).values()
+    );
+
+    // P0: Skapa svar-mapping för snabb lookup
+    const answersById = new Map(uniqueAnswers.map(a => [a.questionId, a]));
+
+    // P0: Rätta ALLA förväntade frågor (även obesvarade)
+    const expectedQuestionIds = session.questionIds; // Från JWT, t.ex. 15 frågor
     const breakdown: QuestionBreakdown[] = [];
     let correctCount = 0;
+    let graded = 0;
 
-    for (const answer of answers) {
-      const question = getQuestionById(answer.questionId);
+    for (const qid of expectedQuestionIds) {
+      const question = getQuestionById(qid);
 
-      if (!question) continue;
+      if (!question) {
+        // Detta borde aldrig hända om sessionen är giltig
+        console.error(`[API /tester/submit] Question ${qid} not found in question bank`);
+        continue;
+      }
 
-      const isCorrect = answer.userAnswer === question.correctAnswer;
+      graded++; // Räkna alla frågor som skulle besvaras
+
+      // Hämta användarens svar, eller -1 om obesvarad
+      const answerData = answersById.get(qid);
+      const userAnswer = answerData ? answerData.userAnswer : -1;
+      const isCorrect = userAnswer === question.correctAnswer;
+
       if (isCorrect) correctCount++;
 
       breakdown.push({
         questionId: question.id,
         isCorrect,
-        userAnswer: answer.userAnswer,
+        userAnswer,
         correctAnswer: question.correctAnswer,
         explanation: question.explanation,
-        timeSpent: answer.timeSpent || 0,
+        timeSpent: answerData?.timeSpent || 0,
         difficulty: question.difficulty,
         patternTypes: question.patternTypes,
         matrix: question.matrix,
@@ -55,8 +105,8 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Beräkna poäng
-    const scoreRaw = (correctCount / answers.length) * 100;
+    // P0: Beräkna poäng mot faktiskt antal frågor (inte answers.length)
+    const scoreRaw = graded > 0 ? (correctCount / graded) * 100 : 0;
     const scorePracticeRating = calculatePracticeRating(scoreRaw);
     const interpretation = getInterpretation(scorePracticeRating);
 
@@ -70,9 +120,9 @@ export async function POST(request: NextRequest) {
         score_raw: scoreRaw,
         score_practice_rating: scorePracticeRating,
         correct_answers: correctCount,
-        total_questions: answers.length,
+        total_questions: graded, // P0: Använd faktiskt antal rättade frågor
         time_spent_seconds: timeSpent || 0,
-        answers: answers
+        answers: uniqueAnswers // Spara endast unika svar
       })
       .select()
       .single();
@@ -87,7 +137,7 @@ export async function POST(request: NextRequest) {
       scoreRaw,
       scorePracticeRating,
       correctAnswers: correctCount,
-      totalQuestions: answers.length,
+      totalQuestions: graded, // P0: Använd faktiskt antal rättade frågor
       timeSpentSeconds: timeSpent || 0,
       breakdown,
       interpretation,
