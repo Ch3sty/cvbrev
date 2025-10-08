@@ -40,7 +40,25 @@ export default async function IconLogicResultsPage({
     redirect('/dashboard/tester/icon-logic?error=results-not-found');
   }
 
-  const breakdown = attempt.breakdown || [];
+  // Rebuild breakdown from answers (not stored in database)
+  const { ICON_LOGIC_QUESTION_BANK } = await import('@/lib/tester/iconLogicQuestionBank.server');
+  const breakdown = (attempt.answers as any[]).map((answer: any) => {
+    const question = ICON_LOGIC_QUESTION_BANK.find(q => q.id === answer.questionId);
+    if (!question) return null;
+
+    return {
+      questionId: question.id,
+      isCorrect: answer.userAnswer === question.correctAnswer,
+      userAnswer: answer.userAnswer,
+      correctAnswer: question.correctAnswer,
+      explanation: question.explanation,
+      timeSpent: answer.timeSpent || 0,
+      difficulty: question.difficulty,
+      patternTypes: question.patternTypes,
+      matrix: question.matrix,
+      options: question.options
+    };
+  }).filter((item: any) => item !== null);
   const scorePercentage = attempt.score_raw;
   const minutes = Math.floor(attempt.time_spent_seconds / 60);
   const seconds = attempt.time_spent_seconds % 60;
