@@ -25,26 +25,28 @@ const sizeMap = {
   large: 80
 } as const;
 
-function renderPattern(fill: Shape['fill'], strokeColor: string, id: string, R: number) {
+function renderPattern(fill: Shape['fill'], strokeColor: string, id: string, R: number, rotation: number) {
   // Skala pattern-täthet efter storlek för bättre visuell balans
   const tile = Math.max(4, Math.round(R / 5));
+  const stripe = Math.max(1, Math.round(tile / 3)); // Randbredd
 
   if (fill === 'striped') {
     return (
       <pattern
         id={id}
         patternUnits="userSpaceOnUse"
+        patternContentUnits="userSpaceOnUse"
         width={tile}
         height={tile}
-        patternTransform="rotate(45)"
+        patternTransform={`rotate(${rotation}, 50, 50)`}
       >
-        <line
-          x1="0"
-          y1="0"
-          x2="0"
-          y2={tile}
-          stroke={strokeColor}
-          strokeWidth={Math.max(2, tile / 2)}
+        <rect
+          x="0"
+          y="0"
+          width={stripe}
+          height={tile}
+          fill={strokeColor}
+          shapeRendering="crispEdges"
         />
       </pattern>
     );
@@ -55,13 +57,15 @@ function renderPattern(fill: Shape['fill'], strokeColor: string, id: string, R: 
       <pattern
         id={id}
         patternUnits="userSpaceOnUse"
+        patternContentUnits="userSpaceOnUse"
         width={tile}
         height={tile}
+        patternTransform={`rotate(${rotation}, 50, 50)`}
       >
         <circle
           cx={tile / 2}
           cy={tile / 2}
-          r={Math.max(1, tile / 4)}
+          r={Math.max(1, tile / 6)}
           fill={strokeColor}
         />
       </pattern>
@@ -73,13 +77,26 @@ function renderPattern(fill: Shape['fill'], strokeColor: string, id: string, R: 
       <pattern
         id={id}
         patternUnits="userSpaceOnUse"
+        patternContentUnits="userSpaceOnUse"
         width={tile}
         height={tile}
+        patternTransform={`rotate(${rotation}, 50, 50)`}
       >
-        <path
-          d={`M0,0 L${tile},${tile} M${tile},0 L0,${tile}`}
-          stroke={strokeColor}
-          strokeWidth={Math.max(1, tile / 8)}
+        <rect
+          x="0"
+          y="0"
+          width={Math.max(1, tile / 8)}
+          height={tile}
+          fill={strokeColor}
+          shapeRendering="crispEdges"
+        />
+        <rect
+          x="0"
+          y="0"
+          width={tile}
+          height={Math.max(1, tile / 8)}
+          fill={strokeColor}
+          shapeRendering="crispEdges"
         />
       </pattern>
     );
@@ -111,8 +128,8 @@ export function ShapeSVG({ shape, className = '' }: ShapeSVGProps) {
 
   const defs = useMemo(() => {
     if (fill === 'solid' || fill === 'empty') return null;
-    return renderPattern(fill, strokeColor, patternId, R);
-  }, [fill, strokeColor, patternId, R]);
+    return renderPattern(fill, strokeColor, patternId, R, rotation);
+  }, [fill, strokeColor, patternId, R, rotation]);
 
   // Hjälpfunktion för regular polygon på cirkel
   const regularPolygonPoints = (n: number, radius: number, startAngleDeg: number = -90) => {
@@ -123,7 +140,7 @@ export function ShapeSVG({ shape, className = '' }: ShapeSVGProps) {
   };
 
   return (
-    <svg viewBox="0 0 100 100" className={`w-full h-full ${className}`}>
+    <svg viewBox="0 0 100 100" className={`w-full h-full ${className}`} xmlns="http://www.w3.org/2000/svg">
       {defs && <defs>{defs}</defs>}
 
       {/* Rotation sker runt exakt center med SVG transform (säkrare än CSS) */}
