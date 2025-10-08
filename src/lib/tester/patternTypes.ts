@@ -55,7 +55,7 @@ export interface ServerQuestion {
 
 export interface ClientQuestion {
   id: string;
-  difficulty: number; // Endast för UI
+  difficulty: 1 | 2 | 3 | 4 | 5; // Endast för UI
   matrix: Matrix3x3;
   options: MatrixCell[];
   // INGEN correctAnswer eller explanation här!
