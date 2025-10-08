@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
-import { createClient } from '@/lib/supabase/server';
+import { cookies } from 'next/headers';
+import { createServerClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowRight, Clock, Target, Brain } from 'lucide-react';
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
 };
 
 export default async function IconLogicPage() {
-  const supabase = await createClient();
+  const cookieStore = await cookies();
+  const supabase = createServerClient({ cookies: cookieStore });
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {

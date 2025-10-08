@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
-import { createClient } from '@/lib/supabase/server';
+import { cookies } from 'next/headers';
+import { createServerClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle, XCircle, Clock, Target, TrendingUp } from 'lucide-react';
@@ -16,7 +17,8 @@ export default async function IconLogicResultsPage({
 }: {
   params: Promise<{ attemptId: string }>;
 }) {
-  const supabase = await createClient();
+  const cookieStore = await cookies();
+  const supabase = createServerClient({ cookies: cookieStore });
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {

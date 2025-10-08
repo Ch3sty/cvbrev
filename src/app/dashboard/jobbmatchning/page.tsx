@@ -441,7 +441,7 @@ export default function JobbmatchningPage() {
                 </a>
               </div>
             ) : (
-              <div className="grid gap-4 md:grid-cols-2">
+              <div className="grid gap-4 md:grid-cols-2 items-start">
                 {/* Info Card - Always First */}
                 <MatchingInfoCard />
 

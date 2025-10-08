@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { cookies } from 'next/headers';
+import { createServerClient } from '@/lib/supabase/server';
 import { ICON_LOGIC_QUESTION_BANK } from '@/lib/tester/iconLogicQuestionBank.server';
 import { IconLogicUserAnswer, IconLogicTestResult, IconLogicQuestionBreakdown } from '@/lib/tester/iconLogicTypes';
 import jwt from 'jsonwebtoken';
@@ -19,7 +20,8 @@ interface SubmitRequest {
  */
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient();
+    const cookieStore = await cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
 
     // Get current user
     const { data: { user }, error: userError } = await supabase.auth.getUser();
