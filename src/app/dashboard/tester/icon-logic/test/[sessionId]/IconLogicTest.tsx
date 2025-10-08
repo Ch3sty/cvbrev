@@ -98,6 +98,13 @@ export function IconLogicTest({ session }: IconLogicTestProps) {
       }
 
       const result = await response.json();
+
+      console.log('Submit result:', result);
+
+      if (!result.attemptId) {
+        throw new Error('No attemptId in response');
+      }
+
       router.push(`/dashboard/tester/icon-logic/results/${result.attemptId}`);
     } catch (error) {
       console.error('Error submitting test:', error);

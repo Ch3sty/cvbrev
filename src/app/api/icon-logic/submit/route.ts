@@ -138,7 +138,8 @@ export async function POST(request: NextRequest) {
         time_spent_seconds: timeSpentSeconds,
         completed_at: new Date().toISOString(),
         answers: answers,
-        breakdown: breakdown
+        breakdown: breakdown,
+        interpretation: interpretation
       });
 
     if (insertError) {
