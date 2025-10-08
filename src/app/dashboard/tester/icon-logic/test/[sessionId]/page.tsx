@@ -1,60 +1,65 @@
-import { Metadata } from 'next';
-import { cookies } from 'next/headers';
-import { createServerClient } from '@/lib/supabase/server';
-import { redirect } from 'next/navigation';
+'use client';
+
+import { useState, useEffect } from 'react';
+import { useRouter, useParams } from 'next/navigation';
 import { IconLogicTest } from './IconLogicTest';
-import jwt from 'jsonwebtoken';
+import type { IconLogicTestSession } from '@/lib/tester/iconLogicTypes';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+export default function IconLogicTestPage() {
+  const router = useRouter();
+  const params = useParams();
+  const sessionId = params.sessionId as string;
 
-export const metadata: Metadata = {
-  title: 'Icon Logic Test | Jobbcoach.ai',
-  description: 'Genomför Icon Logic testet'
-};
+  const [session, setSession] = useState<IconLogicTestSession | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-export default async function IconLogicTestPage({
-  params
-}: {
-  params: Promise<{ sessionId: string }>;
-}) {
-  const cookieStore = await cookies();
-  const supabase = createServerClient({ cookies: cookieStore });
-  const { data: { user } } = await supabase.auth.getUser();
+  // Load session on mount
+  useEffect(() => {
+    async function loadSession() {
+      try {
+        const response = await fetch('/api/icon-logic/validate-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionToken: sessionId })
+        });
 
-  if (!user) {
-    redirect('/login');
-  }
+        if (!response.ok) {
+          throw new Error('Ogiltig session');
+        }
 
-  const { sessionId } = await params;
-
-  // Verify session token
-  let decoded: any;
-  try {
-    decoded = jwt.verify(sessionId, JWT_SECRET);
-  } catch (error) {
-    redirect('/dashboard/tester/icon-logic?error=invalid-session');
-  }
-
-  if (decoded.userId !== user.id) {
-    redirect('/dashboard/tester/icon-logic?error=unauthorized');
-  }
-
-  // Reconstruct session from token
-  // In a real app, you might want to store this in Redis or similar
-  // For now, we'll start a new session
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SITE_URL}/api/icon-logic/start`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Cookie': `sb-access-token=${(await supabase.auth.getSession()).data.session?.access_token}`
+        const sessionData = await response.json();
+        setSession(sessionData);
+      } catch (err) {
+        setError('Kunde inte ladda testet. Vänligen starta om.');
+        setTimeout(() => {
+          router.push('/dashboard/tester/icon-logic?error=session-error');
+        }, 2000);
+      }
     }
-  });
 
-  if (!response.ok) {
-    redirect('/dashboard/tester/icon-logic?error=session-error');
+    loadSession();
+  }, [sessionId, router]);
+
+  if (error) {
+    return (
+      <div className="max-w-2xl mx-auto p-8">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+          <h2 className="text-xl font-bold text-red-800 mb-2">Ett fel uppstod</h2>
+          <p className="text-red-700">{error}</p>
+          <p className="text-sm text-red-600 mt-2">Omdirigerar...</p>
+        </div>
+      </div>
+    );
   }
 
-  const session = await response.json();
+  if (!session) {
+    return (
+      <div className="max-w-2xl mx-auto p-8 text-center">
+        <div className="animate-spin w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full mx-auto mb-4" />
+        <p className="text-gray-600">Laddar testet...</p>
+      </div>
+    );
+  }
 
   return <IconLogicTest session={session} />;
 }
