@@ -107,7 +107,7 @@ export const QUESTIONS_5_TO_10: IconLogicServerQuestion[] = [
       createCell('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><g transform="rotate(300,50,50)"><polygon points="50.00,30.00 67.32,60.00 32.68,60.00" fill="none" stroke="#000000" stroke-width="2.5" /></g></svg>')
     ],
     correctAnswer: 0,
-    explanation: 'Kolumn +120° per steg. Rad sätter startvinkel 0°/120°/240°.',
+    explanation: 'Varje rad börjar med egen rotation: rad 1 = 0°, rad 2 = 120°, rad 3 = 240°. Därefter roterar triangeln +120° för varje kolumnsteg. Rad 3 kolumn 3: 240° + 120° + 120° = 480° = 120°.',
     patternTypes: ['rotation', 'matrix-rule'],
     timeEstimateSeconds: 70
   },
