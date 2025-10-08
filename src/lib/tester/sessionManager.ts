@@ -10,6 +10,7 @@ export interface SessionPayload {
   questionIds: string[]; // Order viktigt för att matcha svar
   nonce: string;
   exp?: number;
+  [key: string]: unknown;
 }
 
 export async function createTestSession(
