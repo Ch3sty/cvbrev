@@ -57,10 +57,10 @@ export default function CVActivationCard({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className={`relative rounded-xl border-2 p-6 transition-all ${
+      className={`relative rounded-xl border-2 transition-all ${
         isActive
-          ? 'border-green-500 bg-green-50/50'
-          : 'border-gray-200 bg-white hover:border-pink-200'
+          ? 'border-green-500 bg-green-50/50 p-6'
+          : 'border-gray-200 bg-white hover:border-pink-200 p-4'
       }`}
     >
       {/* Status Badge */}
@@ -79,12 +79,12 @@ export default function CVActivationCard({
       </div>
 
       {/* CV Info */}
-      <div className="mb-4 pr-24">
-        <div className="flex items-center gap-3 mb-2">
-          <FileText className="w-5 h-5 text-gray-400" />
-          <h3 className="font-semibold text-gray-900 truncate">{cv.file_name}</h3>
+      <div className={`pr-24 ${isActive ? 'mb-4' : 'mb-2'}`}>
+        <div className={`flex items-center mb-1 ${isActive ? 'gap-3' : 'gap-2'}`}>
+          <FileText className={`text-gray-400 ${isActive ? 'w-5 h-5' : 'w-4 h-4'}`} />
+          <h3 className={`font-semibold text-gray-900 truncate ${isActive ? 'text-base' : 'text-sm'}`}>{cv.file_name}</h3>
         </div>
-        <p className="text-sm text-gray-500">
+        <p className={`text-gray-500 ${isActive ? 'text-sm' : 'text-xs'}`}>
           Uppladdat {new Date(cv.created_at).toLocaleDateString('sv-SE')}
         </p>
       </div>
@@ -272,7 +272,7 @@ export default function CVActivationCard({
           {/* Parsed Date */}
           <p className="text-xs text-gray-500 flex items-center gap-1.5 pt-2 border-t border-gray-200">
             <Sparkles className="w-3 h-3" />
-            Parsad {new Date(activeData.parsed_at).toLocaleDateString('sv-SE')} med AI
+            Analyserad {new Date(activeData.parsed_at).toLocaleDateString('sv-SE')}
           </p>
         </div>
       )}
@@ -282,7 +282,9 @@ export default function CVActivationCard({
         <button
           onClick={() => onActivate(cv.id)}
           disabled={isActivating}
-          className={`w-full py-3 mt-4 rounded-lg font-medium transition-all flex items-center justify-center gap-2 relative overflow-hidden ${
+          className={`w-full rounded-lg font-medium transition-all flex items-center justify-center gap-2 relative overflow-hidden ${
+            isActive ? 'py-3 mt-4' : 'py-2.5 mt-3'
+          } ${
             isActivating
               ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white cursor-wait'
               : 'bg-gradient-to-r from-pink-600 to-purple-600 text-white hover:from-pink-700 hover:to-purple-700 shadow-md hover:shadow-lg'
@@ -341,7 +343,7 @@ export default function CVActivationCard({
                   }}
                 />
               </div>
-              <span className="relative z-10">Aktiverar CV med AI...</span>
+              <span className="relative z-10">Aktiverar CV och justerar algoritmer...</span>
             </>
           )}
           {!isActivating && (

@@ -26,6 +26,7 @@ import {
 import CVActivationCard from './components/CVActivationCard';
 import MatchingInfoCard from './components/MatchingInfoCard';
 import JobResultsGrid from './components/JobResultsGrid';
+import JobSearchLoader from './components/JobSearchLoader';
 
 interface CV {
   id: string;
@@ -548,12 +549,7 @@ export default function JobbmatchningPage() {
               )}
 
               {/* Loading State */}
-              {loadingJobs && (
-                <div className="flex flex-col items-center justify-center py-20">
-                  <Loader2 className="w-12 h-12 text-indigo-500 animate-spin mb-4" />
-                  <p className="text-gray-600">Söker matchande jobb...</p>
-                </div>
-              )}
+              {loadingJobs && <JobSearchLoader />}
           </motion.div>
         )}
       </div>
