@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Hämta frågor baserat på questionIds från session
-    const clientQuestions: ClientQuestion[] = session.questionIds
+    const clientQuestions = session.questionIds
       .map(id => {
         const q = getQuestionById(id);
         if (!q) return null;
