@@ -282,18 +282,69 @@ export default function CVActivationCard({
         <button
           onClick={() => onActivate(cv.id)}
           disabled={isActivating}
-          className={`w-full py-3 mt-4 rounded-lg font-medium transition-all flex items-center justify-center gap-2 ${
+          className={`w-full py-3 mt-4 rounded-lg font-medium transition-all flex items-center justify-center gap-2 relative overflow-hidden ${
             isActivating
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white cursor-wait'
               : 'bg-gradient-to-r from-pink-600 to-purple-600 text-white hover:from-pink-700 hover:to-purple-700 shadow-md hover:shadow-lg'
           }`}
         >
-          {isActivating ? (
+          {isActivating && (
             <>
-              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              Aktiverar CV med AI...
+              {/* Animated gradient overlay */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+                animate={{
+                  x: ['-100%', '200%'],
+                }}
+                transition={{
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              {/* Pulsing dots */}
+              <div className="flex gap-1">
+                <motion.div
+                  className="w-2 h-2 bg-white rounded-full"
+                  animate={{
+                    scale: [1, 1.5, 1],
+                    opacity: [1, 0.5, 1],
+                  }}
+                  transition={{
+                    duration: 1,
+                    repeat: Infinity,
+                    delay: 0,
+                  }}
+                />
+                <motion.div
+                  className="w-2 h-2 bg-white rounded-full"
+                  animate={{
+                    scale: [1, 1.5, 1],
+                    opacity: [1, 0.5, 1],
+                  }}
+                  transition={{
+                    duration: 1,
+                    repeat: Infinity,
+                    delay: 0.2,
+                  }}
+                />
+                <motion.div
+                  className="w-2 h-2 bg-white rounded-full"
+                  animate={{
+                    scale: [1, 1.5, 1],
+                    opacity: [1, 0.5, 1],
+                  }}
+                  transition={{
+                    duration: 1,
+                    repeat: Infinity,
+                    delay: 0.4,
+                  }}
+                />
+              </div>
+              <span className="relative z-10">Aktiverar CV med AI...</span>
             </>
-          ) : (
+          )}
+          {!isActivating && (
             <>
               <Sparkles className="w-4 h-4" />
               Aktivera för jobbmatchning

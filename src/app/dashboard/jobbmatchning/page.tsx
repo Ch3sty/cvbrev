@@ -68,7 +68,7 @@ export default function JobbmatchningPage() {
 
   // Loading states
   const [loadingCVs, setLoadingCVs] = useState(true);
-  const [activatingCV, setActivatingCV] = useState(false);
+  const [activatingCVId, setActivatingCVId] = useState<string | null>(null);
   const [loadingJobs, setLoadingJobs] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -135,7 +135,7 @@ export default function JobbmatchningPage() {
   };
 
   const handleActivateCV = async (cvId: string) => {
-    setActivatingCV(true);
+    setActivatingCVId(cvId);
     setError(null);
 
     try {
@@ -174,7 +174,7 @@ export default function JobbmatchningPage() {
       console.error('Error activating CV:', err);
       setError(err instanceof Error ? err.message : 'Ett fel uppstod vid CV-aktivering');
     } finally {
-      setActivatingCV(false);
+      setActivatingCVId(null);
     }
   };
 
@@ -453,7 +453,7 @@ export default function JobbmatchningPage() {
                     activeData={activeCVId === cv.id ? activeCV : null}
                     onActivate={handleActivateCV}
                     onSearchJobs={handleSearchJobs}
-                    isActivating={activatingCV}
+                    isActivating={activatingCVId === cv.id}
                   />
                 ))}
               </div>
