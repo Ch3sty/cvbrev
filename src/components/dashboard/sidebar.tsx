@@ -18,7 +18,8 @@ import {
   GraduationCap,
   Trophy,
   Gift,
-  Briefcase
+  Briefcase,
+  Target
 } from 'lucide-react';
 export default function DashboardSidebar() {
   const pathname = usePathname();
@@ -100,6 +101,13 @@ export default function DashboardSidebar() {
       label: 'Jobbmatchning',
       icon: <Briefcase className="w-5 h-5" />,
       section: 'tools'
+    },
+    {
+      path: '/dashboard/tester',
+      label: 'Tester',
+      icon: <Target className="w-5 h-5" />,
+      section: 'tools',
+      highlight: true
     },
     {
       path: '/dashboard/kompetensutveckling',
