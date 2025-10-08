@@ -15,7 +15,11 @@ import {
   Briefcase,
   Calendar,
   Clock,
-  X
+  X,
+  Car,
+  GraduationCap,
+  Phone,
+  AlertCircle
 } from 'lucide-react';
 
 // Components
@@ -651,6 +655,47 @@ export default function JobbmatchningPage() {
                 )}
               </div>
 
+              {/* Viktiga krav - högt upp för synlighet */}
+              {(selectedJob.experience_required || selectedJob.driving_license_required || (selectedJob.driving_license && selectedJob.driving_license.length > 0) || selectedJob.access_to_own_car) && (
+                <div className="mb-6 p-4 bg-amber-50 border-2 border-amber-200 rounded-2xl">
+                  <div className="flex items-center gap-2 mb-3">
+                    <AlertCircle className="w-5 h-5 text-amber-600" />
+                    <h3 className="text-lg font-bold text-amber-900">Viktiga krav</h3>
+                  </div>
+                  <div className="space-y-2">
+                    {selectedJob.experience_required && (
+                      <div className="flex items-center gap-2 text-sm text-amber-800">
+                        <GraduationCap className="w-4 h-4 shrink-0" />
+                        <span className="font-medium">Erfarenhet krävs för denna tjänst</span>
+                      </div>
+                    )}
+                    {(selectedJob.driving_license_required || (selectedJob.driving_license && selectedJob.driving_license.length > 0)) && (
+                      <div className="flex items-start gap-2 text-sm text-amber-800">
+                        <Car className="w-4 h-4 shrink-0 mt-0.5" />
+                        <div className="flex-1">
+                          <p className="font-medium mb-1">Körkort krävs</p>
+                          {selectedJob.driving_license && selectedJob.driving_license.length > 0 && (
+                            <div className="flex flex-wrap gap-1">
+                              {selectedJob.driving_license.map((license: any, i: number) => (
+                                <span key={i} className="px-2 py-0.5 bg-amber-100 border border-amber-300 text-amber-700 rounded text-xs font-medium">
+                                  {license.label}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                    {selectedJob.access_to_own_car && (
+                      <div className="flex items-center gap-2 text-sm text-amber-800">
+                        <Car className="w-4 h-4 shrink-0" />
+                        <span className="font-medium">Tillgång till egen bil krävs</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
               {/* Structured Description */}
               <div className="space-y-6 mb-8">
                 {/* Vi söker / Needs */}
@@ -688,92 +733,156 @@ export default function JobbmatchningPage() {
                   </div>
                 )}
 
-                {/* Must-have & Nice-to-have (Two Columns) */}
-                {(selectedJob.must_have || selectedJob.nice_to_have) && (
-                  <div className="grid md:grid-cols-2 gap-6 mt-8 p-6 bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-200">
-                    {/* Must-Have */}
-                    <div>
-                      <h3 className="text-lg font-bold text-red-700 mb-3">Krav (måste)</h3>
-                      <div className="space-y-3">
-                        {selectedJob.must_have?.skills && selectedJob.must_have.skills.length > 0 && (
-                          <div>
-                            <p className="text-sm font-semibold text-gray-700 mb-1.5">Kompetenser:</p>
-                            <div className="flex flex-wrap gap-1.5">
-                              {selectedJob.must_have.skills.map((skill: any, i: number) => (
-                                <span key={i} className="px-2 py-1 bg-red-50 border border-red-200 text-red-700 rounded text-xs font-medium">
-                                  {skill.label}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                        {selectedJob.must_have?.languages && selectedJob.must_have.languages.length > 0 && (
-                          <div>
-                            <p className="text-sm font-semibold text-gray-700 mb-1.5">Språk:</p>
-                            <div className="flex flex-wrap gap-1.5">
-                              {selectedJob.must_have.languages.map((lang: any, i: number) => (
-                                <span key={i} className="px-2 py-1 bg-red-50 border border-red-200 text-red-700 rounded text-xs">
-                                  {lang.label}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
-                        )}
-                        {selectedJob.must_have?.education && selectedJob.must_have.education.length > 0 && (
-                          <div>
-                            <p className="text-sm font-semibold text-gray-700 mb-1.5">Utbildning:</p>
-                            <ul className="text-sm text-gray-600 space-y-1">
-                              {selectedJob.must_have.education.map((edu: any, i: number) => (
-                                <li key={i}>• {edu.label}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                      </div>
-                    </div>
+                {/* Must-have & Nice-to-have (Two Columns) - Only show if there's actual data */}
+                {(() => {
+                  const hasMustHave = selectedJob.must_have && (
+                    (selectedJob.must_have.skills && selectedJob.must_have.skills.length > 0) ||
+                    (selectedJob.must_have.languages && selectedJob.must_have.languages.length > 0) ||
+                    (selectedJob.must_have.work_experiences && selectedJob.must_have.work_experiences.length > 0) ||
+                    (selectedJob.must_have.education && selectedJob.must_have.education.length > 0) ||
+                    (selectedJob.must_have.education_level && selectedJob.must_have.education_level.length > 0)
+                  );
 
-                    {/* Nice-to-Have */}
-                    <div>
-                      <h3 className="text-lg font-bold text-green-700 mb-3">Meriterande</h3>
-                      <div className="space-y-3">
-                        {selectedJob.nice_to_have?.skills && selectedJob.nice_to_have.skills.length > 0 && (
-                          <div>
-                            <p className="text-sm font-semibold text-gray-700 mb-1.5">Kompetenser:</p>
-                            <div className="flex flex-wrap gap-1.5">
-                              {selectedJob.nice_to_have.skills.map((skill: any, i: number) => (
-                                <span key={i} className="px-2 py-1 bg-green-50 border border-green-200 text-green-700 rounded text-xs font-medium">
-                                  {skill.label}
-                                </span>
-                              ))}
-                            </div>
+                  const hasNiceToHave = selectedJob.nice_to_have && (
+                    (selectedJob.nice_to_have.skills && selectedJob.nice_to_have.skills.length > 0) ||
+                    (selectedJob.nice_to_have.languages && selectedJob.nice_to_have.languages.length > 0) ||
+                    (selectedJob.nice_to_have.work_experiences && selectedJob.nice_to_have.work_experiences.length > 0) ||
+                    (selectedJob.nice_to_have.education && selectedJob.nice_to_have.education.length > 0) ||
+                    (selectedJob.nice_to_have.education_level && selectedJob.nice_to_have.education_level.length > 0)
+                  );
+
+                  if (!hasMustHave && !hasNiceToHave) return null;
+
+                  return (
+                    <div className={`gap-6 mt-8 p-6 bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-200 ${hasMustHave && hasNiceToHave ? 'grid md:grid-cols-2' : ''}`}>
+                      {/* Must-Have */}
+                      {hasMustHave && (
+                        <div>
+                          <h3 className="text-lg font-bold text-red-700 mb-3">Krav (måste)</h3>
+                          <div className="space-y-3">
+                            {selectedJob.must_have?.skills && selectedJob.must_have.skills.length > 0 && (
+                              <div>
+                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Kompetenser:</p>
+                                <div className="flex flex-wrap gap-1.5">
+                                  {selectedJob.must_have.skills.map((skill: any, i: number) => (
+                                    <span key={i} className="px-2 py-1 bg-red-50 border border-red-200 text-red-700 rounded text-xs font-medium">
+                                      {skill.label}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            {selectedJob.must_have?.languages && selectedJob.must_have.languages.length > 0 && (
+                              <div>
+                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Språk:</p>
+                                <div className="flex flex-wrap gap-1.5">
+                                  {selectedJob.must_have.languages.map((lang: any, i: number) => (
+                                    <span key={i} className="px-2 py-1 bg-red-50 border border-red-200 text-red-700 rounded text-xs">
+                                      {lang.label}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            {selectedJob.must_have?.work_experiences && selectedJob.must_have.work_experiences.length > 0 && (
+                              <div>
+                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Arbetserfarenhet:</p>
+                                <ul className="text-sm text-gray-600 space-y-1">
+                                  {selectedJob.must_have.work_experiences.map((exp: any, i: number) => (
+                                    <li key={i}>• {exp.label}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            {selectedJob.must_have?.education && selectedJob.must_have.education.length > 0 && (
+                              <div>
+                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Utbildning:</p>
+                                <ul className="text-sm text-gray-600 space-y-1">
+                                  {selectedJob.must_have.education.map((edu: any, i: number) => (
+                                    <li key={i}>• {edu.label}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            {selectedJob.must_have?.education_level && selectedJob.must_have.education_level.length > 0 && (
+                              <div>
+                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Utbildningsnivå:</p>
+                                <ul className="text-sm text-gray-600 space-y-1">
+                                  {selectedJob.must_have.education_level.map((level: any, i: number) => (
+                                    <li key={i}>• {level.label}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
                           </div>
-                        )}
-                        {selectedJob.nice_to_have?.languages && selectedJob.nice_to_have.languages.length > 0 && (
-                          <div>
-                            <p className="text-sm font-semibold text-gray-700 mb-1.5">Språk:</p>
-                            <div className="flex flex-wrap gap-1.5">
-                              {selectedJob.nice_to_have.languages.map((lang: any, i: number) => (
-                                <span key={i} className="px-2 py-1 bg-green-50 border border-green-200 text-green-700 rounded text-xs">
-                                  {lang.label}
-                                </span>
-                              ))}
-                            </div>
+                        </div>
+                      )}
+
+                      {/* Nice-to-Have */}
+                      {hasNiceToHave && (
+                        <div>
+                          <h3 className="text-lg font-bold text-green-700 mb-3">Meriterande</h3>
+                          <div className="space-y-3">
+                            {selectedJob.nice_to_have?.skills && selectedJob.nice_to_have.skills.length > 0 && (
+                              <div>
+                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Kompetenser:</p>
+                                <div className="flex flex-wrap gap-1.5">
+                                  {selectedJob.nice_to_have.skills.map((skill: any, i: number) => (
+                                    <span key={i} className="px-2 py-1 bg-green-50 border border-green-200 text-green-700 rounded text-xs font-medium">
+                                      {skill.label}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            {selectedJob.nice_to_have?.languages && selectedJob.nice_to_have.languages.length > 0 && (
+                              <div>
+                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Språk:</p>
+                                <div className="flex flex-wrap gap-1.5">
+                                  {selectedJob.nice_to_have.languages.map((lang: any, i: number) => (
+                                    <span key={i} className="px-2 py-1 bg-green-50 border border-green-200 text-green-700 rounded text-xs">
+                                      {lang.label}
+                                    </span>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            {selectedJob.nice_to_have?.work_experiences && selectedJob.nice_to_have.work_experiences.length > 0 && (
+                              <div>
+                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Arbetserfarenhet:</p>
+                                <ul className="text-sm text-gray-600 space-y-1">
+                                  {selectedJob.nice_to_have.work_experiences.map((exp: any, i: number) => (
+                                    <li key={i}>• {exp.label}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            {selectedJob.nice_to_have?.education && selectedJob.nice_to_have.education.length > 0 && (
+                              <div>
+                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Utbildning:</p>
+                                <ul className="text-sm text-gray-600 space-y-1">
+                                  {selectedJob.nice_to_have.education.map((edu: any, i: number) => (
+                                    <li key={i}>• {edu.label}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                            {selectedJob.nice_to_have?.education_level && selectedJob.nice_to_have.education_level.length > 0 && (
+                              <div>
+                                <p className="text-sm font-semibold text-gray-700 mb-1.5">Utbildningsnivå:</p>
+                                <ul className="text-sm text-gray-600 space-y-1">
+                                  {selectedJob.nice_to_have.education_level.map((level: any, i: number) => (
+                                    <li key={i}>• {level.label}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
                           </div>
-                        )}
-                        {selectedJob.nice_to_have?.education && selectedJob.nice_to_have.education.length > 0 && (
-                          <div>
-                            <p className="text-sm font-semibold text-gray-700 mb-1.5">Utbildning:</p>
-                            <ul className="text-sm text-gray-600 space-y-1">
-                              {selectedJob.nice_to_have.education.map((edu: any, i: number) => (
-                                <li key={i}>• {edu.label}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
-                      </div>
+                        </div>
+                      )}
                     </div>
-                  </div>
-                )}
+                  );
+                })()}
 
                 {/* Villkor / Conditions */}
                 {selectedJob.description?.conditions && (
@@ -793,6 +902,40 @@ export default function JobbmatchningPage() {
                     {selectedJob.access && (
                       <p className="text-sm text-gray-700"><strong>Tillträde:</strong> {selectedJob.access}</p>
                     )}
+                  </div>
+                )}
+
+                {/* Contact Person */}
+                {selectedJob.application_contacts && (selectedJob.application_contacts.name || selectedJob.application_contacts.email || selectedJob.application_contacts.telephone) && (
+                  <div className="p-4 bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl border border-indigo-200">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Phone className="w-5 h-5 text-indigo-600" />
+                      <h3 className="text-lg font-bold text-indigo-900">Kontaktperson</h3>
+                    </div>
+                    <div className="space-y-2">
+                      {selectedJob.application_contacts.name && (
+                        <p className="text-sm text-gray-800"><strong>Namn:</strong> {selectedJob.application_contacts.name}</p>
+                      )}
+                      {selectedJob.application_contacts.description && (
+                        <p className="text-sm text-gray-700">{selectedJob.application_contacts.description}</p>
+                      )}
+                      {selectedJob.application_contacts.email && (
+                        <p className="text-sm text-gray-800">
+                          <strong>E-post:</strong>{' '}
+                          <a href={`mailto:${selectedJob.application_contacts.email}`} className="text-indigo-600 hover:underline">
+                            {selectedJob.application_contacts.email}
+                          </a>
+                        </p>
+                      )}
+                      {selectedJob.application_contacts.telephone && (
+                        <p className="text-sm text-gray-800">
+                          <strong>Telefon:</strong>{' '}
+                          <a href={`tel:${selectedJob.application_contacts.telephone}`} className="text-indigo-600 hover:underline">
+                            {selectedJob.application_contacts.telephone}
+                          </a>
+                        </p>
+                      )}
+                    </div>
                   </div>
                 )}
               </div>

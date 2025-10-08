@@ -17,7 +17,8 @@ import {
   FileCheck,
   AlertTriangle,
   Navigation,
-  FileText
+  FileText,
+  Car
 } from 'lucide-react';
 import { useCoverLetterStore } from '@/store/cover-letter-store';
 
@@ -175,7 +176,7 @@ export default function JobCard({ job, index, onSelect, selectedAnalysisId, cvId
               <AlertTriangle className="w-4 h-4 text-orange-600 mt-0.5 shrink-0" />
               <div className="flex-1 min-w-0">
                 <p className="text-xs text-orange-800">
-                  <strong>Långt avstånd:</strong> Denna tjänst ligger {Math.round(job.distance)} km bort. Jobb över 200 km får max 20% matchning.
+                  <strong>Långt avstånd:</strong> Denna tjänst ligger {Math.round(job.distance)} km bort.
                 </p>
               </div>
             </div>
@@ -217,6 +218,27 @@ export default function JobCard({ job, index, onSelect, selectedAnalysisId, cvId
               </span>
             )}
           </div>
+
+          {/* Driving License Requirement */}
+          {(job.driving_license_required || (job.driving_license && job.driving_license.length > 0)) && (
+            <div className="mb-3 p-2 bg-orange-50 border border-orange-200 rounded-lg flex items-start gap-2">
+              <Car className="w-4 h-4 text-orange-600 mt-0.5 shrink-0" />
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-semibold text-orange-800 mb-1">Körkortskrav</p>
+                {job.driving_license && job.driving_license.length > 0 ? (
+                  <div className="flex flex-wrap gap-1">
+                    {job.driving_license.map((license: any, i: number) => (
+                      <span key={i} className="px-2 py-0.5 bg-orange-100 text-orange-700 rounded text-xs font-medium">
+                        {license.label}
+                      </span>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-xs text-orange-700">Körkort krävs</p>
+                )}
+              </div>
+            </div>
+          )}
 
           {/* Must-Have Skills (Top 3) */}
           {job.must_have?.skills && job.must_have.skills.length > 0 && (
