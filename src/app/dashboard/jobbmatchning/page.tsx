@@ -527,20 +527,36 @@ export default function JobbmatchningPage() {
                 <X className="w-5 h-5 text-gray-500" />
               </button>
 
-              {/* Relevance */}
-              {selectedJob.relevance !== undefined && (
-                <div className="flex items-center gap-3 mb-6">
-                  <div className={`px-4 py-2 rounded-xl text-white font-semibold ${
-                    selectedJob.relevance >= 70
-                      ? 'bg-gradient-to-r from-green-500 to-emerald-500'
-                      : selectedJob.relevance >= 40
-                      ? 'bg-gradient-to-r from-yellow-500 to-orange-500'
-                      : 'bg-gradient-to-r from-gray-400 to-gray-500'
-                  }`}>
-                    {selectedJob.relevance}% matchning
-                  </div>
+              {/* Logo + Relevance */}
+              <div className="flex items-start justify-between mb-6">
+                <div className="flex items-center gap-4">
+                  {/* Company Logo */}
+                  {selectedJob.logo_url ? (
+                    <img
+                      src={selectedJob.logo_url}
+                      alt={selectedJob.employer?.name || 'Företag'}
+                      className="w-16 h-16 rounded-xl object-cover bg-gray-100"
+                    />
+                  ) : (
+                    <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-2xl">
+                      {(selectedJob.employer?.name || 'U').split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()}
+                    </div>
+                  )}
+
+                  {/* Relevance Badge */}
+                  {selectedJob.relevance !== undefined && (
+                    <div className={`px-4 py-2 rounded-xl text-white font-semibold ${
+                      selectedJob.relevance >= 70
+                        ? 'bg-gradient-to-r from-green-500 to-emerald-500'
+                        : selectedJob.relevance >= 40
+                        ? 'bg-gradient-to-r from-yellow-500 to-orange-500'
+                        : 'bg-gradient-to-r from-gray-400 to-gray-500'
+                    }`}>
+                      {selectedJob.relevance}% matchning
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
 
               <h2 className="text-3xl font-bold text-gray-900 mb-6">
                 {selectedJob.headline}
@@ -585,29 +601,174 @@ export default function JobbmatchningPage() {
                 )}
               </div>
 
-              {/* Description */}
-              <div className="prose max-w-none mb-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Beskrivning</h3>
-                <div
-                  className="text-gray-700 whitespace-pre-wrap"
-                  dangerouslySetInnerHTML={{
-                    __html: selectedJob.description.text_formatted || selectedJob.description.text
-                  }}
-                />
+              {/* Structured Description */}
+              <div className="space-y-6 mb-8">
+                {/* Vi söker / Needs */}
+                {selectedJob.description?.needs && (
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
+                      <Search className="w-5 h-5 text-indigo-600" />
+                      Vi söker
+                    </h3>
+                    <div className="text-gray-700 prose max-w-none" dangerouslySetInnerHTML={{ __html: selectedJob.description.needs }} />
+                  </div>
+                )}
+
+                {/* Om företaget */}
+                {selectedJob.description?.company_information && (
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
+                      <Building2 className="w-5 h-5 text-indigo-600" />
+                      Om företaget
+                    </h3>
+                    <div className="text-gray-700 prose max-w-none" dangerouslySetInnerHTML={{ __html: selectedJob.description.company_information }} />
+                  </div>
+                )}
+
+                {/* Arbetsuppgifter / Description */}
+                {selectedJob.description?.text && (
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-2 flex items-center gap-2">
+                      <Briefcase className="w-5 h-5 text-indigo-600" />
+                      Arbetsuppgifter
+                    </h3>
+                    <div className="text-gray-700 prose max-w-none whitespace-pre-wrap" dangerouslySetInnerHTML={{
+                      __html: selectedJob.description.text_formatted || selectedJob.description.text
+                    }} />
+                  </div>
+                )}
+
+                {/* Must-have & Nice-to-have (Two Columns) */}
+                {(selectedJob.must_have || selectedJob.nice_to_have) && (
+                  <div className="grid md:grid-cols-2 gap-6 mt-8 p-6 bg-gradient-to-br from-gray-50 to-white rounded-2xl border border-gray-200">
+                    {/* Must-Have */}
+                    <div>
+                      <h3 className="text-lg font-bold text-red-700 mb-3">Krav (måste)</h3>
+                      <div className="space-y-3">
+                        {selectedJob.must_have?.skills && selectedJob.must_have.skills.length > 0 && (
+                          <div>
+                            <p className="text-sm font-semibold text-gray-700 mb-1.5">Kompetenser:</p>
+                            <div className="flex flex-wrap gap-1.5">
+                              {selectedJob.must_have.skills.map((skill: any, i: number) => (
+                                <span key={i} className="px-2 py-1 bg-red-50 border border-red-200 text-red-700 rounded text-xs font-medium">
+                                  {skill.label}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        {selectedJob.must_have?.languages && selectedJob.must_have.languages.length > 0 && (
+                          <div>
+                            <p className="text-sm font-semibold text-gray-700 mb-1.5">Språk:</p>
+                            <div className="flex flex-wrap gap-1.5">
+                              {selectedJob.must_have.languages.map((lang: any, i: number) => (
+                                <span key={i} className="px-2 py-1 bg-red-50 border border-red-200 text-red-700 rounded text-xs">
+                                  {lang.label}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        {selectedJob.must_have?.education && selectedJob.must_have.education.length > 0 && (
+                          <div>
+                            <p className="text-sm font-semibold text-gray-700 mb-1.5">Utbildning:</p>
+                            <ul className="text-sm text-gray-600 space-y-1">
+                              {selectedJob.must_have.education.map((edu: any, i: number) => (
+                                <li key={i}>• {edu.label}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Nice-to-Have */}
+                    <div>
+                      <h3 className="text-lg font-bold text-green-700 mb-3">Meriterande</h3>
+                      <div className="space-y-3">
+                        {selectedJob.nice_to_have?.skills && selectedJob.nice_to_have.skills.length > 0 && (
+                          <div>
+                            <p className="text-sm font-semibold text-gray-700 mb-1.5">Kompetenser:</p>
+                            <div className="flex flex-wrap gap-1.5">
+                              {selectedJob.nice_to_have.skills.map((skill: any, i: number) => (
+                                <span key={i} className="px-2 py-1 bg-green-50 border border-green-200 text-green-700 rounded text-xs font-medium">
+                                  {skill.label}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        {selectedJob.nice_to_have?.languages && selectedJob.nice_to_have.languages.length > 0 && (
+                          <div>
+                            <p className="text-sm font-semibold text-gray-700 mb-1.5">Språk:</p>
+                            <div className="flex flex-wrap gap-1.5">
+                              {selectedJob.nice_to_have.languages.map((lang: any, i: number) => (
+                                <span key={i} className="px-2 py-1 bg-green-50 border border-green-200 text-green-700 rounded text-xs">
+                                  {lang.label}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        {selectedJob.nice_to_have?.education && selectedJob.nice_to_have.education.length > 0 && (
+                          <div>
+                            <p className="text-sm font-semibold text-gray-700 mb-1.5">Utbildning:</p>
+                            <ul className="text-sm text-gray-600 space-y-1">
+                              {selectedJob.nice_to_have.education.map((edu: any, i: number) => (
+                                <li key={i}>• {edu.label}</li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Villkor / Conditions */}
+                {selectedJob.description?.conditions && (
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">Vi erbjuder</h3>
+                    <div className="text-gray-700 prose max-w-none" dangerouslySetInnerHTML={{ __html: selectedJob.description.conditions }} />
+                  </div>
+                )}
+
+                {/* Salary & Benefits */}
+                {(selectedJob.salary_description || selectedJob.access) && (
+                  <div className="p-4 bg-blue-50 rounded-xl">
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">Villkor</h3>
+                    {selectedJob.salary_description && (
+                      <p className="text-sm text-gray-700 mb-1"><strong>Lön:</strong> {selectedJob.salary_description}</p>
+                    )}
+                    {selectedJob.access && (
+                      <p className="text-sm text-gray-700"><strong>Tillträde:</strong> {selectedJob.access}</p>
+                    )}
+                  </div>
+                )}
               </div>
 
-              {/* Apply button */}
-              {selectedJob.application_details?.url && (
-                <a
-                  href={selectedJob.application_details.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-4 rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2"
-                >
-                  Ansök nu
-                  <ExternalLink className="w-5 h-5" />
-                </a>
-              )}
+              {/* Apply button - Dynamisk text */}
+              {(() => {
+                const applicationUrl = selectedJob.application_details?.url || selectedJob.application_url || selectedJob.webpage_url;
+                if (!applicationUrl) return null;
+
+                const isViaAF = selectedJob.application_details?.via_af === true;
+                const buttonText = isViaAF
+                  ? 'Ansök via Arbetsförmedlingen'
+                  : `Ansök hos ${selectedJob.employer?.name || 'företaget'}`;
+
+                return (
+                  <a
+                    href={applicationUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-4 rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                  >
+                    {buttonText}
+                    <ExternalLink className="w-5 h-5" />
+                  </a>
+                );
+              })()}
             </motion.div>
           </motion.div>
         )}

@@ -23,7 +23,7 @@ Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
 
   try {
-    const { userId, customQuery } = await req.json();
+    const { userId, customQuery, skipCache } = await req.json();
     if (!userId) {
       return new Response(JSON.stringify({ error: 'Missing userId' }), {
         status: 400,
@@ -33,6 +33,35 @@ Deno.serve(async (req) => {
 
     const supabase = getSupabaseClient();
     console.log(`[Match-Jobs-V2] Starting for user ${userId}`);
+
+    // ============================================================================
+    // STEG 0: Check cache (1 hour validity)
+    // ============================================================================
+    if (!skipCache && !customQuery) {
+      const { data: cachedMatching } = await supabase
+        .from('job_matchings_cache')
+        .select('*')
+        .eq('user_id', userId)
+        .gt('expires_at', new Date().toISOString())
+        .single();
+
+      if (cachedMatching) {
+        console.log(`[Match-Jobs-V2] ✅ Cache HIT - returning ${cachedMatching.jobs.length} cached jobs`);
+        return new Response(JSON.stringify({
+          success: true,
+          jobs: cachedMatching.jobs,
+          cached: true,
+          cacheExpiresAt: cachedMatching.expires_at,
+          totalResults: cachedMatching.total_jobs_found || cachedMatching.jobs.length,
+          version: 'v2-jobsearch-cached'
+        }), {
+          status: 200,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+        });
+      }
+
+      console.log('[Match-Jobs-V2] Cache MISS - proceeding with fresh matching');
+    }
 
     // ============================================================================
     // STEG 1: Hämta aktivt CV från active_cv_for_matching
@@ -131,7 +160,7 @@ Deno.serve(async (req) => {
           location: cvLocation
         },
         totalResults: 0,
-        version: 'v2-active-cv'
+        version: 'v2-jobsearch'
       }), {
         status: 200,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
@@ -139,28 +168,33 @@ Deno.serve(async (req) => {
     }
 
     // ============================================================================
-    // STEG 4: AI-Powered Enrichment (CONDITIONAL - ENDAST FÖR KOMPETENSER)
+    // STEG 4: Quick Scoring (UTAN AI enrichment) för prioritering
     // ============================================================================
-    // NYTT: Skippa AI enrichment för occupations - JobAd Links har redan strukturerad occupation data
-    // AI enrichment behövs endast för kompetenser/färdigheter
+    console.log('[Match-Jobs-V2] Quick scoring all jobs for prioritization...');
+    const scoringEngine = new ScoringEngineV3();
+
+    const quickScoredJobs = allJobs.map(job => ({
+      ...job,
+      quickScore: scoringEngine.quickScore(job, cvOccupations, taxonomyData.conceptId)
+    }));
+
+    // Sortera och ta top 100 för AI enrichment
+    quickScoredJobs.sort((a, b) => b.quickScore - a.quickScore);
+    const top100Jobs = quickScoredJobs.slice(0, 100);
+
+    console.log(`[Match-Jobs-V2] Quick scored ${allJobs.length} jobs, enriching top 100`);
+    console.log(`[Match-Jobs-V2] Quick score range: ${quickScoredJobs[0]?.quickScore || 0} - ${top100Jobs[99]?.quickScore || 0}`);
+
+    // ============================================================================
+    // STEG 5: AI-Powered Enrichment (endast top 100!)
+    // ============================================================================
+    // JobSearch API har redan must_have/nice_to_have, men AI enrichment ger extra kompetenser
     const enrichmentService = new AIEnrichmentService(supabase);
 
-    console.log(`[Match-Jobs-V2] Enriching ${allJobs.length} jobs with AI (skills/competencies only)...`);
-
-    // OPTIMERING: Filtrera jobb som redan har occupation_field från JobAd Links
-    // Dessa behöver INGEN AI enrichment för occupations
-    const jobsNeedingEnrichment = allJobs.filter(job => {
-      // Om jobbet redan har occupation_field från JobAd Links, skippa occupation enrichment
-      const hasOccupationData = job.occupation_field?.concept_id || job.occupation?.concept_id;
-      if (hasOccupationData) {
-        console.log(`[Match-Jobs-V2] Job ${job.id} already has occupation data from JobAd Links - skipping AI occupation enrichment`);
-      }
-      // Vi enrichar ALLA jobb för kompetenser, men detta går snabbt
-      return true; // För nu enrichar vi alla för kompetenser
-    });
+    console.log(`[Match-Jobs-V2] Enriching top 100 jobs with AI...`);
 
     const enrichedJobsMap = await enrichmentService.enrichJobsBatch(
-      jobsNeedingEnrichment.map(job => ({
+      top100Jobs.map(job => ({
         id: job.id,
         headline: job.headline,
         text: job.description?.text || ''
@@ -170,17 +204,11 @@ Deno.serve(async (req) => {
     console.log(`[Match-Jobs-V2] Successfully enriched ${enrichedJobsMap.size} jobs`);
 
     // ============================================================================
-    // STEG 5: Advanced Scoring V3 - OPTIMIZED FOR ACTIVE CV
+    // STEG 6: Full Scoring för alla jobb (top 100 med enrichment, resten utan)
     // ============================================================================
-    const scoringEngine = new ScoringEngineV3();
+    console.log('[Match-Jobs-V2] Full scoring with V3 algorithm...');
 
-    console.log('[Match-Jobs-V2] Scoring jobs with V3 algorithm (concept_id-based)...');
-    console.log('[Match-Jobs-V2] CV Occupations for scoring:', cvOccupations.map(o => o.normalized));
-    console.log('[Match-Jobs-V2] Primary concept_id:', taxonomyData.conceptId);
-    console.log('[Match-Jobs-V2] Sample job headline:', allJobs[0]?.headline);
-    console.log('[Match-Jobs-V2] Sample job occupation_field:', allJobs[0]?.occupation_field);
-
-    const jobsWithScores = allJobs.map(job => {
+    const jobsWithScores = quickScoredJobs.map(job => {
       const enrichedJob = enrichedJobsMap.get(job.id) || null;
 
       const scoringResult = scoringEngine.calculateScore({
@@ -196,56 +224,74 @@ Deno.serve(async (req) => {
         ...job,
         relevance: scoringResult.total,
         scoringBreakdown: scoringResult.breakdown,
-        scoringExplanation: scoringResult.explanation,
+        // Ta BORT scoringExplanation från response (visa endast % i frontend)
         enriched: enrichedJob !== null,
         distance: scoringResult.distance
       };
     });
 
     // ============================================================================
-    // STEG 6: Intelligent Filtering (MJUKARE FILTER FÖR BÄTTRE TÄCKNING)
+    // STEG 7: Intelligent Filtering & Sorting
     // ============================================================================
-    console.log('[Match-Jobs-V2] Applying intelligent filters...');
+    console.log('[Match-Jobs-V2] Filtering and sorting jobs...');
+
     const filteredJobs = jobsWithScores.filter(job => {
-      // SÄNKT minimum relevans: 15 poäng (från 20) för bredare resultat
-      if (job.relevance < 15) return false;
-
-      const enrichedJob = enrichedJobsMap.get(job.id);
-
-      // Om inte enriched: Sänkt krav från 50 till 35 poäng
-      if (!enrichedJob) return job.relevance >= 35;
-
-      // Om enriched: Kolla olika matchningskriterier
-      const hasSSYKMatch = enrichedJob.occupations?.some(
-        occ => occ.ssyk_code === taxonomyData?.ssykCode
-      );
-      const hasCompetencyMatch = (enrichedJob.skills?.length || 0) >= 1; // SÄNKT från 2 till 1 kompetens
-
-      // MJUKARE KRAV: Acceptera jobb med:
-      // - SSYK-match, ELLER
-      // - Minst 1 kompetens-match, ELLER
-      // - Relevans >= 40 (sänkt från 60)
-      return hasSSYKMatch || hasCompetencyMatch || job.relevance >= 40;
+      // Minimum relevans: 20 poäng (justerat för must_have bonus)
+      return job.relevance >= 20;
     });
 
     console.log(`[Match-Jobs-V2] Filtered to ${filteredJobs.length} relevant jobs`);
 
-    // ============================================================================
-    // STEG 7: Sortera och begränsa
-    // ============================================================================
+    // Sortera efter relevans
     filteredJobs.sort((a, b) => (b.relevance || 0) - (a.relevance || 0));
-    const finalJobs = filteredJobs.slice(0, 500); // Top 500
 
-    console.log(`[Match-Jobs-V2] Returning top ${finalJobs.length} jobs`);
-    console.log(`[Match-Jobs-V2] Score range: ${finalJobs[0]?.relevance || 0} - ${finalJobs[finalJobs.length - 1]?.relevance || 0}`);
+    // Ta top 300 för caching (användaren ser max 300 jobb)
+    const top300Jobs = filteredJobs.slice(0, 300);
+
+    console.log(`[Match-Jobs-V2] Top 300 jobs selected`);
+    console.log(`[Match-Jobs-V2] Score range: ${top300Jobs[0]?.relevance || 0} - ${top300Jobs[top300Jobs.length - 1]?.relevance || 0}`);
 
     // ============================================================================
-    // RETURN RESPONSE
+    // STEG 8: Cache resultat (1 timme)
     // ============================================================================
+    if (!customQuery) {
+      try {
+        await supabase.from('job_matchings_cache').upsert({
+          user_id: userId,
+          cv_id: activeCV.cv_id,
+          jobs: top300Jobs,
+          search_params: {
+            primaryOccupation: primaryOccupation.normalized,
+            location: cvLocation,
+            totalOccupations: cvOccupations.length
+          },
+          total_jobs_found: top300Jobs.length,
+          expires_at: new Date(Date.now() + 60 * 60 * 1000).toISOString() // 1h
+        }, {
+          onConflict: 'user_id,cv_id'
+        });
+
+        console.log('[Match-Jobs-V2] ✅ Cached matching for 1 hour');
+      } catch (cacheError) {
+        console.error('[Match-Jobs-V2] Cache save error:', cacheError);
+        // Non-blocking error, continue
+      }
+    }
+
+    // ============================================================================
+    // STEG 9: Return top 50 initialt (snabb rendering)
+    // ============================================================================
+    // TODO: Frontend kan senare hämta resterande jobb med offset parameter
+    const initialJobs = top300Jobs.slice(0, 50);
+
+    console.log(`[Match-Jobs-V2] Returning top ${initialJobs.length} jobs initially`);
+
     return new Response(
       JSON.stringify({
         success: true,
-        jobs: finalJobs,
+        jobs: initialJobs,
+        hasMore: top300Jobs.length > 50,
+        totalAvailable: top300Jobs.length,
         activeCV: {
           cvId: activeCV.cv_id,
           parsedAt: activeCV.parsed_at,
@@ -259,21 +305,22 @@ Deno.serve(async (req) => {
           allOccupations: cvOccupations.map(o => o.normalized),
           location: cvLocation
         },
-        totalResults: finalJobs.length,
         stats: {
           totalAggregated: allJobs.length,
-          enriched: enrichedJobsMap.size,
+          quickScored: quickScoredJobs.length,
+          enrichedTop100: enrichedJobsMap.size,
           afterFiltering: filteredJobs.length,
-          returned: finalJobs.length
+          top300: top300Jobs.length,
+          returnedInitially: initialJobs.length
         },
-        version: 'v2-active-cv',
+        version: 'v2-jobsearch',
         improvements: [
-          'Active CV parsing with AI (GPT-4o-mini)',
-          'Taxonomy API normalization with concept_ids',
-          'Multi-source aggregation (JobAd Links with occupation-field filtering)',
-          'AI-powered enrichment for skills/competencies',
-          'Enhanced scoring algorithm (6 factors)',
-          'Intelligent filtering based on AI-extracted competencies'
+          'JobSearch API with full descriptions and structured requirements',
+          'Quick scoring for prioritization (all jobs)',
+          'AI enrichment for top 100 jobs only',
+          'must_have/nice_to_have bonus scoring',
+          '1-hour caching for instant re-loads',
+          'Progressive loading (top 50 initial, 300 total available)'
         ]
       }),
       { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }

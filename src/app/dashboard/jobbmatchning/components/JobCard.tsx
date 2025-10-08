@@ -120,15 +120,35 @@ export default function JobCard({ job, index, onSelect, selectedAnalysisId, cvId
             </div>
           )}
 
-          {/* Job Title */}
-          <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors line-clamp-2">
-            {job.headline}
-          </h3>
+          {/* Logo + Header */}
+          <div className="flex items-start gap-3 mb-4">
+            {/* Company Logo */}
+            {job.logo_url ? (
+              <img
+                src={job.logo_url}
+                alt={job.employer?.name || 'Företag'}
+                className="w-12 h-12 rounded-lg object-cover bg-gray-100"
+                onError={(e) => {
+                  // Fallback till initialer om bilden inte laddas
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                }}
+              />
+            ) : null}
+            <div className={`w-12 h-12 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-bold text-lg ${job.logo_url ? 'hidden' : ''}`}>
+              {(job.employer?.name || 'U').split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()}
+            </div>
 
-          {/* Company */}
-          <div className="flex items-center gap-2 text-gray-700 mb-2">
-            <Building2 className="w-4 h-4 shrink-0" />
-            <span className="font-medium truncate">{job.employer.name}</span>
+            {/* Title & Company */}
+            <div className="flex-1 min-w-0">
+              <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-indigo-600 transition-colors line-clamp-2">
+                {job.headline}
+              </h3>
+              <div className="flex items-center gap-2 text-gray-700">
+                <Building2 className="w-3.5 h-3.5 shrink-0" />
+                <span className="font-medium truncate text-sm">{job.employer?.name || 'Okänt företag'}</span>
+              </div>
+            </div>
           </div>
 
           {/* Location with Distance */}
@@ -181,91 +201,59 @@ export default function JobCard({ job, index, onSelect, selectedAnalysisId, cvId
             </div>
           )}
 
-          {/* Employment Type */}
-          {job.employment_type && (
-            <div className="flex items-center gap-2 text-gray-600 text-sm mb-4">
-              <Briefcase className="w-4 h-4 shrink-0" />
-              <span className="truncate">{job.employment_type.label}</span>
-            </div>
-          )}
-
-          {/* Description Preview with Expand */}
-          <div className="mb-4">
-            <p className={`text-gray-600 text-sm ${showFullDescription ? '' : 'line-clamp-3'}`}>
-              {job.description.text}
-            </p>
-            {job.description.text && job.description.text.length > 200 && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowFullDescription(!showFullDescription);
-                }}
-                className="mt-2 text-sm text-indigo-600 hover:text-indigo-700 font-medium transition-colors"
-              >
-                {showFullDescription ? 'Visa mindre' : 'Läs mer...'}
-              </button>
+          {/* Employment Type & Scope */}
+          <div className="flex items-center gap-3 text-gray-600 text-sm mb-3">
+            {job.employment_type && (
+              <div className="flex items-center gap-1.5">
+                <Briefcase className="w-3.5 h-3.5 shrink-0" />
+                <span className="truncate">{job.employment_type.label}</span>
+              </div>
+            )}
+            {job.scope_of_work && (job.scope_of_work.min || job.scope_of_work.max) && (
+              <span className="px-2 py-0.5 bg-blue-100 text-blue-700 rounded text-xs font-medium">
+                {job.scope_of_work.min === job.scope_of_work.max
+                  ? `${job.scope_of_work.min}%`
+                  : `${job.scope_of_work.min || 0}-${job.scope_of_work.max || 100}%`}
+              </span>
             )}
           </div>
 
-          {/* Scoring Explanation (V3) */}
-          {job.scoringExplanation && job.scoringExplanation.length > 0 && (
-            <div className="mb-4">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setShowDetails(!showDetails);
-                }}
-                className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg hover:from-purple-100 hover:to-pink-100 transition-colors"
-              >
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-purple-600" />
-                  <span className="text-sm font-medium text-purple-700">
-                    Varför {job.relevance}% matchning?
-                  </span>
-                </div>
-                <motion.div
-                  animate={{ rotate: showDetails ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <ChevronDown className="w-4 h-4 text-purple-600" />
-                </motion.div>
-              </button>
-
-              <AnimatePresence>
-                {showDetails && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="overflow-hidden"
+          {/* Must-Have Skills (Top 3) */}
+          {job.must_have?.skills && job.must_have.skills.length > 0 && (
+            <div className="mb-3">
+              <p className="text-xs font-medium text-gray-700 mb-1.5 flex items-center gap-1">
+                <Key className="w-3 h-3" />
+                Krav:
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {job.must_have.skills.slice(0, 3).map((skill: any, i: number) => (
+                  <span
+                    key={i}
+                    className="px-2 py-1 bg-red-50 border border-red-200 text-red-700 rounded-md text-xs font-medium"
                   >
-                    <div className="pt-3 space-y-2">
-                      {job.scoringExplanation.map((explanation: string, i: number) => (
-                        <div key={i} className="flex items-start gap-2">
-                          <div className="mt-1">
-                            {explanation.startsWith('✅') ? (
-                              <CheckCircle2 className="w-4 h-4 text-green-600" />
-                            ) : explanation.startsWith('⚠️') ? (
-                              <AlertTriangle className="w-4 h-4 text-orange-600" />
-                            ) : (
-                              <Sparkles className="w-4 h-4 text-purple-600" />
-                            )}
-                          </div>
-                          <p className="text-xs text-gray-700 flex-1">
-                            {explanation.replace(/^[✅⚠️❌]\s*/, '')}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </motion.div>
+                    {skill.label}
+                  </span>
+                ))}
+                {job.must_have.skills.length > 3 && (
+                  <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded-md text-xs">
+                    +{job.must_have.skills.length - 3} till
+                  </span>
                 )}
-              </AnimatePresence>
+              </div>
             </div>
           )}
 
-          {/* Match Details Expandable (OLD - fallback) */}
-          {!job.scoringExplanation && hasMatchDetails && (
+          {/* Description Preview (max 2 lines) */}
+          <div className="mb-4">
+            <p className="text-gray-600 text-sm line-clamp-2">
+              {job.description?.text || job.description?.needs || 'Ingen beskrivning tillgänglig'}
+            </p>
+          </div>
+
+          {/* REMOVED: Scoring Explanation - visa endast % */}
+
+          {/* Match Details Expandable (OLD - fallback för gamla jobb) */}
+          {hasMatchDetails && (
             <div className="mb-4">
               <button
                 onClick={(e) => {
@@ -423,8 +411,8 @@ export default function JobCard({ job, index, onSelect, selectedAnalysisId, cvId
           {/* Footer */}
           <div className="pt-4 border-t border-gray-100 space-y-3">
             {/* Publication Date and Deadline */}
-            <div className="flex items-center justify-between text-xs text-gray-500">
-              <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between text-xs">
+              <div className="flex items-center gap-2 text-gray-500">
                 <Clock className="w-3 h-3" />
                 <span>
                   {job.publication_date
@@ -432,11 +420,27 @@ export default function JobCard({ job, index, onSelect, selectedAnalysisId, cvId
                     : 'Publiceringsdatum okänt'}
                 </span>
               </div>
-              {job.application_deadline && (
-                <span className="text-orange-600 font-medium">
-                  Sök senast: {new Date(job.application_deadline).toLocaleDateString('sv-SE')}
-                </span>
-              )}
+              {job.application_deadline && (() => {
+                const deadline = new Date(job.application_deadline);
+                const today = new Date();
+                const daysLeft = Math.ceil((deadline.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+                const isUrgent = daysLeft <= 7 && daysLeft > 0;
+                const isExpired = daysLeft < 0;
+
+                return (
+                  <div className={`flex items-center gap-1.5 font-medium ${isExpired ? 'text-red-600' : isUrgent ? 'text-orange-600 animate-pulse' : 'text-orange-600'}`}>
+                    <Clock className="w-3 h-3" />
+                    <span>
+                      {isExpired
+                        ? 'Ansökningstiden utgången'
+                        : isUrgent
+                          ? `${daysLeft} dag${daysLeft === 1 ? '' : 'ar'} kvar!`
+                          : `Sök senast: ${deadline.toLocaleDateString('sv-SE')}`
+                      }
+                    </span>
+                  </div>
+                );
+              })()}
             </div>
 
             {/* Action Buttons */}
@@ -462,19 +466,27 @@ export default function JobCard({ job, index, onSelect, selectedAnalysisId, cvId
                 </button>
               )}
 
-              {/* Apply Button */}
-              {job.application_url && (
-                <a
-                  href={job.application_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="block w-full py-3 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-center rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
-                >
-                  <span>Ansök här</span>
-                  <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </a>
-              )}
+              {/* Apply Button - Dynamisk text */}
+              {(job.application_details?.url || job.application_url || job.webpage_url) && (() => {
+                const applicationUrl = job.application_details?.url || job.application_url || job.webpage_url;
+                const isViaAF = job.application_details?.via_af === true;
+                const buttonText = isViaAF
+                  ? 'Ansök via Arbetsförmedlingen'
+                  : `Ansök hos ${job.employer?.name || 'företaget'}`;
+
+                return (
+                  <a
+                    href={applicationUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="block w-full py-3 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-center rounded-lg font-medium transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
+                  >
+                    <span>{buttonText}</span>
+                    <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                );
+              })()}
             </div>
           </div>
         </div>

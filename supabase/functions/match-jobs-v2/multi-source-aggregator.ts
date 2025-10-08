@@ -1,11 +1,11 @@
 /**
  * Multi-Source Job Aggregator
  *
- * Aggregerar jobb från JobAd Links API för maximal täckning:
- * - 30% fler jobb än Platsbanken
- * - Inkluderar LinkedIn, Indeed, StepStone, Monster, etc.
+ * Aggregerar jobb från JobSearch API (Platsbanken):
+ * - Fullständiga jobbannonser med description.text, requirements, conditions
  * - Strukturerad occupation data (occupation_field, occupation_group)
- * - Optimerad filtrering med occupation-field parameter
+ * - Stöd för occupation-name parameter (exakt concept_id matching)
+ * - must_have och nice_to_have krav
  */
 
 export interface AggregationParams {
@@ -22,19 +22,79 @@ export interface AggregationParams {
 interface Job {
   id: string;
   headline: string;
-  description: { text: string };
-  employer: { name: string };
-  workplace_address?: { municipality?: string };
+  description: {
+    text: string;
+    text_formatted?: string;
+    company_information?: string;
+    needs?: string;
+    requirements?: string;
+    conditions?: string;
+  };
+  employer: {
+    name: string;
+    workplace?: string;
+    url?: string;
+    email?: string;
+    phone_number?: string;
+  };
+  workplace_address?: {
+    municipality?: string;
+    region?: string;
+    street_address?: string;
+    postcode?: string;
+    city?: string;
+    coordinates?: [number, number];
+  };
   publication_date?: string;
   application_deadline?: string;
-  application_url?: string;
+  application_details?: {
+    url?: string;
+    email?: string;
+    via_af?: boolean;
+    information?: string;
+    reference?: string;
+  };
+  application_contacts?: {
+    name?: string;
+    email?: string;
+    telephone?: string;
+    description?: string;
+  };
+  logo_url?: string;
+  webpage_url?: any;
+  number_of_vacancies?: number;
+  employment_type?: { label?: string; concept_id?: string };
+  duration?: { label?: string; concept_id?: string };
+  working_hours_type?: { label?: string; concept_id?: string };
+  scope_of_work?: { min?: number; max?: number };
+  salary_type?: { label?: string; concept_id?: string };
+  salary_description?: string;
+  access?: string;
   occupation?: { label?: string; concept_id?: string };
   occupation_group?: { label?: string; concept_id?: string };
-  occupation_field?: { label?: string; concept_id?: string }; // NYTT: JobAd Links occupation_field
-  source: string; // 'jobad-links', 'jobsearch', 'education-match'
+  occupation_field?: { label?: string; concept_id?: string };
+  must_have?: {
+    skills?: Array<{ label: string; concept_id?: string; weight?: number }>;
+    languages?: Array<{ label: string; concept_id?: string; weight?: number }>;
+    work_experiences?: Array<{ label: string; concept_id?: string }>;
+    education?: Array<{ label: string; concept_id?: string }>;
+    education_level?: Array<{ label: string; concept_id?: string }>;
+  };
+  nice_to_have?: {
+    skills?: Array<{ label: string; concept_id?: string; weight?: number }>;
+    languages?: Array<{ label: string; concept_id?: string }>;
+    work_experiences?: Array<{ label: string; concept_id?: string }>;
+    education?: Array<{ label: string; concept_id?: string }>;
+    education_level?: Array<{ label: string; concept_id?: string }>;
+  };
+  experience_required?: boolean;
+  driving_license_required?: boolean;
+  driving_license?: Array<{ label: string; concept_id?: string }>;
+  access_to_own_car?: boolean;
+  source: string; // 'jobsearch'
 }
 
-const JOBLINKS_API = 'https://links.api.jobtechdev.se/joblinks';
+const JOBSEARCH_API = 'https://jobsearch.api.jobtechdev.se/search';
 
 export class MultiSourceAggregator {
   private hasLoggedDescription = false;
@@ -65,17 +125,31 @@ export class MultiSourceAggregator {
     }
 
     // ============================================================================
-    // STRATEGI 2: Primär yrkessökning med exakt yrkesnamn (från Taxonomy)
+    // STRATEGI 2: Primär yrkessökning med occupation-name (concept_id)
     // ============================================================================
-    // KORREKT: JobAd Links API har INTE occupation-name parameter
-    // Använder istället fritext-sökning (q) med exakt normaliserat yrkesnamn från Taxonomy
-    // API:t använder ML för klassificering så fritext fungerar bra
-    console.log(`[Aggregator] Primary occupation search: "${params.primaryOccupation}"`);
+    // JobSearch API stödjer occupation-name parameter med concept_id från Taxonomy
+    console.log(`[Aggregator] Primary occupation search: "${params.primaryOccupation}" (concept_id: ${params.taxonomyData?.conceptId})`);
 
-    const primaryJobs = await this.fetchWithPagination({
-      q: `"${params.primaryOccupation}"`, // Exact phrase search med quotes
-      limit: 100
-    }, 15); // Max 1500 jobb
+    let primaryJobs: Job[] = [];
+
+    // Prova först med occupation-name om vi har concept_id
+    if (params.taxonomyData?.conceptId) {
+      primaryJobs = await this.fetchWithPagination({
+        'occupation-name': [params.taxonomyData.conceptId],
+        limit: 100
+      }, 20); // Max 2000 jobb (20 pages × 100, JobSearch max offset 2000)
+
+      console.log(`[Aggregator] occupation-name search: ${primaryJobs.length} jobs`);
+    }
+
+    // Fallback till fritext om occupation-name gav 0 resultat
+    if (primaryJobs.length === 0) {
+      console.log(`[Aggregator] No jobs from occupation-name, trying freetext search...`);
+      primaryJobs = await this.fetchWithPagination({
+        q: `"${params.primaryOccupation}"`,
+        limit: 100
+      }, 10); // Max 1000 jobb via fritext
+    }
 
     this.addUniqueJobs(allJobs, primaryJobs, seenIds, 'primary-occupation');
     console.log(`[Aggregator] Primary occupation: ${primaryJobs.length} jobs (${allJobs.length} unique)`);
@@ -87,19 +161,18 @@ export class MultiSourceAggregator {
     }
 
     // ============================================================================
-    // STRATEGI 2B: occupation-group fallback (om för få occupation-field resultat)
+    // STRATEGI 2B: occupation-field fallback (om för få occupation-name resultat)
     // ============================================================================
-    // Om occupation-field gav <500 jobb, prova bredare occupation-group
-    if (allJobs.length < 500 && params.taxonomyData?.occupationGroupId) {
-      console.log(`[Aggregator] Only ${allJobs.length} occupation-field jobs - expanding with occupation-group: ${params.taxonomyData.occupationGroupId}`);
+    if (allJobs.length < 500 && params.taxonomyData?.occupationFieldId) {
+      console.log(`[Aggregator] Only ${allJobs.length} occupation-name jobs - expanding with occupation-field: ${params.taxonomyData.occupationFieldId}`);
 
-      const groupJobs = await this.fetchWithPagination({
-        'occupation-group': params.taxonomyData.occupationGroupId,
+      const fieldJobs = await this.fetchWithPagination({
+        'occupation-field': [params.taxonomyData.occupationFieldId],
         limit: 100
-      }, 5); // Max 500 jobb från occupation-group
+      }, 5); // Max 500 jobb
 
-      this.addUniqueJobs(allJobs, groupJobs, seenIds, 'occupation-group');
-      console.log(`[Aggregator] occupation-group: ${groupJobs.length} jobs (${allJobs.length} unique)`);
+      this.addUniqueJobs(allJobs, fieldJobs, seenIds, 'occupation-field');
+      console.log(`[Aggregator] occupation-field: ${fieldJobs.length} jobs (${allJobs.length} unique)`);
     }
 
     // ============================================================================
@@ -159,34 +232,61 @@ export class MultiSourceAggregator {
 
   /**
    * Hämta jobb med pagination (upp till maxPages sidor)
-   * NYTT: Använder JobAd Links API med occupation-field och occupation-group parametrar
+   * Använder JobSearch API med occupation-name, occupation-field, occupation-group parametrar
    */
   private async fetchWithPagination(
     query: any,
     maxPages: number
   ): Promise<Job[]> {
     const LIMIT = 100;
+    const MAX_OFFSET = 2000; // JobSearch API constraint
     const allJobs: Job[] = [];
 
     for (let page = 0; page < maxPages; page++) {
       const offset = page * LIMIT;
 
+      // JobSearch API max offset är 2000
+      if (offset >= MAX_OFFSET) {
+        console.log(`[Aggregator] Reached max offset (2000) at page ${page + 1}`);
+        break;
+      }
+
       try {
         const queryParams = new URLSearchParams();
 
-        // JobAd Links API parametrar (enligt dokumentation)
-        // Stödda parametrar: occupation-field, occupation-group, municipality, region, country, q
-        if (query['occupation-field']) queryParams.append('occupation-field', query['occupation-field']);
-        if (query['occupation-group']) queryParams.append('occupation-group', query['occupation-group']);
-        if (query.municipality) queryParams.append('municipality', query.municipality);
-        if (query.region) queryParams.append('region', query.region);
+        // JobSearch API parametrar
+        // occupation-name, occupation-field, occupation-group kan vara arrays
+        if (query['occupation-name']) {
+          const names = Array.isArray(query['occupation-name']) ? query['occupation-name'] : [query['occupation-name']];
+          names.forEach((n: string) => queryParams.append('occupation-name', n));
+        }
+        if (query['occupation-field']) {
+          const fields = Array.isArray(query['occupation-field']) ? query['occupation-field'] : [query['occupation-field']];
+          fields.forEach((f: string) => queryParams.append('occupation-field', f));
+        }
+        if (query['occupation-group']) {
+          const groups = Array.isArray(query['occupation-group']) ? query['occupation-group'] : [query['occupation-group']];
+          groups.forEach((g: string) => queryParams.append('occupation-group', g));
+        }
+
+        // Geografiska parametrar
+        if (query.municipality) {
+          const munis = Array.isArray(query.municipality) ? query.municipality : [query.municipality];
+          munis.forEach((m: string) => queryParams.append('municipality', m));
+        }
+        if (query.region) {
+          const regions = Array.isArray(query.region) ? query.region : [query.region];
+          regions.forEach((r: string) => queryParams.append('region', r));
+        }
         if (query.country) queryParams.append('country', query.country);
+
+        // Fritext
         if (query.q) queryParams.append('q', query.q);
 
         queryParams.append('limit', LIMIT.toString());
         queryParams.append('offset', offset.toString());
 
-        const url = `${JOBLINKS_API}?${queryParams.toString()}`;
+        const url = `${JOBSEARCH_API}?${queryParams.toString()}`;
         const response = await fetch(url, {
           headers: { 'Accept': 'application/json' }
         });
@@ -251,64 +351,64 @@ export class MultiSourceAggregator {
   }
 
   /**
-   * Konvertera JobAd Links API-svar till internt format
-   * JobAd Links response format skiljer sig från JobSearch API
+   * Konvertera JobSearch API-svar till internt format
+   * JobSearch returnerar redan strukturerad data - minimal transformation krävs
    */
   private convertToInternalFormat(job: any): Job {
-    // JobAd Links API structure check
-    // brief = kort sammanfattning (alltid finns)
-    // description kan vara string ELLER object med .text property
-    let descriptionText = '';
-
-    if (typeof job.description === 'string') {
-      descriptionText = job.description;
-    } else if (job.description?.text) {
-      descriptionText = job.description.text;
-    } else if (job.brief) {
-      descriptionText = job.brief;
-    }
+    // JobSearch har redan rätt struktur!
+    // Säkerställ att description finns (kan vara null för vissa jobb)
+    const description = job.description || {
+      text: '',
+      text_formatted: '',
+      company_information: '',
+      needs: '',
+      requirements: '',
+      conditions: ''
+    };
 
     // Debug log first job
     if (!this.hasLoggedDescription) {
-      console.log('[Aggregator] Description structure:', {
+      console.log('[Aggregator] JobSearch response structure:', {
         hasDescription: !!job.description,
-        descriptionType: typeof job.description,
-        descriptionLength: descriptionText.length,
-        hasBrief: !!job.brief,
-        briefLength: job.brief?.length || 0
+        hasDescriptionText: !!job.description?.text,
+        textLength: job.description?.text?.length || 0,
+        hasMustHave: !!job.must_have,
+        mustHaveSkills: job.must_have?.skills?.length || 0,
+        hasNiceToHave: !!job.nice_to_have
       });
       this.hasLoggedDescription = true;
     }
 
-    // workplace_addresses är en array i JobAd Links
-    const workplaceAddress = Array.isArray(job.workplace_addresses) && job.workplace_addresses.length > 0
-      ? job.workplace_addresses[0]
-      : job.workplace_address;
-
-    // source_links array innehåller ansökningslänkar från olika källor
-    let applicationUrl = job.application_url || job.webpage_url;
-    if (!applicationUrl && Array.isArray(job.source_links)) {
-      const arbetsformedlingenLink = job.source_links.find((link: any) => link.source === 'arbetsformedlingen');
-      applicationUrl = arbetsformedlingenLink?.url || job.source_links[0]?.url;
-    }
-
-    // JobAd Links har occupation_field (mer specifikt) och occupation_group (bredare)
-    const occupationField = job.occupation_field || job.occupation;
-    const occupationGroup = job.occupation_group;
-
     return {
       id: job.id,
-      headline: job.headline || job.title || 'Okänd titel',
-      description: { text: descriptionText },
-      employer: { name: job.employer?.name || job.company || 'Okänd arbetsgivare' },
-      workplace_address: workplaceAddress,
-      publication_date: job.publication_date || job.published_at,
-      application_deadline: job.application_deadline || job.deadline,
-      application_url: applicationUrl,
-      occupation: occupationField,
-      occupation_group: occupationGroup,
-      occupation_field: occupationField, // NYTT: Preserve occupation_field för scoring
-      source: 'jobad-links'
+      headline: job.headline || 'Okänd titel',
+      description,
+      employer: job.employer || { name: 'Okänd arbetsgivare' },
+      workplace_address: job.workplace_address,
+      publication_date: job.publication_date,
+      application_deadline: job.application_deadline,
+      application_details: job.application_details,
+      application_contacts: job.application_contacts,
+      logo_url: job.logo_url,
+      webpage_url: job.webpage_url,
+      number_of_vacancies: job.number_of_vacancies,
+      employment_type: job.employment_type,
+      duration: job.duration,
+      working_hours_type: job.working_hours_type,
+      scope_of_work: job.scope_of_work,
+      salary_type: job.salary_type,
+      salary_description: job.salary_description,
+      access: job.access,
+      occupation: job.occupation,
+      occupation_group: job.occupation_group,
+      occupation_field: job.occupation_field,
+      must_have: job.must_have,
+      nice_to_have: job.nice_to_have,
+      experience_required: job.experience_required,
+      driving_license_required: job.driving_license_required,
+      driving_license: job.driving_license,
+      access_to_own_car: job.access_to_own_car,
+      source: 'jobsearch'
     };
   }
 

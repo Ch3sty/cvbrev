@@ -210,6 +210,45 @@ function getMunicipalityCoords(location: string): { lat: number; lon: number } |
 }
 
 export class ScoringEngineV3 {
+  /**
+   * Quick scoring UTAN AI enrichment
+   * Används för initial sorting innan AI enrichment
+   * Baserat på: concept_id, headline, occupation labels
+   */
+  quickScore(job: any, cvOccupations: Array<{ normalized: string; concept_id?: string }>, taxonomyConceptId?: string): number {
+    let score = 0;
+
+    // Faktor 1: Concept ID match (60p för snabb prioritering)
+    if (taxonomyConceptId && job.occupation_field?.concept_id === taxonomyConceptId) {
+      score += 60;
+    } else if (taxonomyConceptId && job.occupation?.concept_id === taxonomyConceptId) {
+      score += 50;
+    } else if (taxonomyConceptId && job.occupation_group?.concept_id === taxonomyConceptId) {
+      score += 30;
+    }
+
+    // Faktor 2: Headline match (30p)
+    const headline = (job.headline || '').toLowerCase();
+    for (const cvOcc of cvOccupations) {
+      if (headline.includes(cvOcc.normalized.toLowerCase())) {
+        score += 30;
+        break;
+      }
+    }
+
+    // Faktor 3: Occupation label match (10p)
+    const occupationLabel = (job.occupation?.label || job.occupation_field?.label || '').toLowerCase();
+    for (const cvOcc of cvOccupations) {
+      if (occupationLabel.includes(cvOcc.normalized.toLowerCase()) ||
+          cvOcc.normalized.toLowerCase().includes(occupationLabel)) {
+        score += 10;
+        break;
+      }
+    }
+
+    return score;
+  }
+
   calculateScore(input: ScoringInput): ScoringResult {
     const breakdown = {
       conceptMatch: 0,      // 0-40p
@@ -317,20 +356,53 @@ export class ScoringEngineV3 {
     }
 
     // ========================================================================
-    // FAKTOR 3: Kompetenser (15p)
+    // FAKTOR 3: Kompetenser (15p + 5p bonus för must_have)
     // ========================================================================
-    if (input.cvSkills && input.cvSkills.length > 0) {
-      const jobText = `${input.job.headline || ''} ${input.job.description?.text || ''}`.toLowerCase();
-      let matchedSkills = 0;
-      const matchedSkillNames: string[] = [];
+    let matchedSkills = 0;
+    const matchedSkillNames: string[] = [];
+    let mustHaveMatches = 0;
 
-      for (const skill of input.cvSkills) {
-        if (jobText.includes(skill.toLowerCase())) {
-          matchedSkills++;
-          matchedSkillNames.push(skill);
+    if (input.cvSkills && input.cvSkills.length > 0) {
+      // PRIORITET 1: Kolla strukturerad must_have data från JobSearch API
+      if (input.job.must_have?.skills && input.job.must_have.skills.length > 0) {
+        const mustHaveLabels = input.job.must_have.skills.map((s: any) => s.label.toLowerCase());
+
+        for (const cvSkill of input.cvSkills) {
+          if (mustHaveLabels.some(label => label.includes(cvSkill.toLowerCase()) || cvSkill.toLowerCase().includes(label))) {
+            matchedSkills++;
+            mustHaveMatches++;
+            matchedSkillNames.push(cvSkill);
+          }
         }
       }
 
+      // PRIORITET 2: Kolla nice_to_have
+      if (input.job.nice_to_have?.skills && input.job.nice_to_have.skills.length > 0) {
+        const niceToHaveLabels = input.job.nice_to_have.skills.map((s: any) => s.label.toLowerCase());
+
+        for (const cvSkill of input.cvSkills) {
+          if (!matchedSkillNames.includes(cvSkill)) { // Undvik dubbletter
+            if (niceToHaveLabels.some(label => label.includes(cvSkill.toLowerCase()) || cvSkill.toLowerCase().includes(label))) {
+              matchedSkills++;
+              matchedSkillNames.push(cvSkill);
+            }
+          }
+        }
+      }
+
+      // FALLBACK: Text-baserad matching (om ingen strukturerad data)
+      if (matchedSkills === 0) {
+        const jobText = `${input.job.headline || ''} ${input.job.description?.text || ''}`.toLowerCase();
+
+        for (const skill of input.cvSkills) {
+          if (jobText.includes(skill.toLowerCase())) {
+            matchedSkills++;
+            matchedSkillNames.push(skill);
+          }
+        }
+      }
+
+      // Poängsättning
       if (matchedSkills >= 4) {
         breakdown.skillsMatch = 15;
         explanation.push(`✅ ${matchedSkills} kompetenser: ${matchedSkillNames.slice(0, 3).join(', ')}${matchedSkills > 3 ? '...' : ''} (15p)`);
@@ -343,6 +415,12 @@ export class ScoringEngineV3 {
       } else if (matchedSkills === 1) {
         breakdown.skillsMatch = 4;
         explanation.push(`✅ 1 kompetens: ${matchedSkillNames[0]} (4p)`);
+      }
+
+      // BONUS: +5p om minst 2 must_have skills matchar
+      if (mustHaveMatches >= 2) {
+        breakdown.skillsMatch = Math.min(20, breakdown.skillsMatch + 5); // Max 20p totalt
+        explanation.push(`🌟 ${mustHaveMatches} kritiska kompetenser (+5p bonus)`);
       }
     }
 
