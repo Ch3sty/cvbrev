@@ -93,28 +93,28 @@ export const QUESTION_BANK: ServerQuestion[] = [
     difficulty: 2,
     matrix: [
       [
-        createCell([createShape('triangle', 'solid', 'black', 'medium', 0)]),
-        createCell([createShape('triangle', 'solid', 'black', 'medium', 90)]),
-        createCell([createShape('triangle', 'solid', 'black', 'medium', 180)])
+        createCell([createShape('triangle', 'striped', 'black', 'medium', 0)]),
+        createCell([createShape('triangle', 'striped', 'black', 'medium', 90)]),
+        createCell([createShape('triangle', 'striped', 'black', 'medium', 180)])
       ],
       [
-        createCell([createShape('diamond', 'solid', 'black', 'medium', 0)]),
-        createCell([createShape('diamond', 'solid', 'black', 'medium', 90)]),
-        createCell([createShape('diamond', 'solid', 'black', 'medium', 180)])
+        createCell([createShape('diamond', 'striped', 'black', 'medium', 0)]),
+        createCell([createShape('diamond', 'striped', 'black', 'medium', 90)]),
+        createCell([createShape('diamond', 'striped', 'black', 'medium', 180)])
       ],
       [
-        createCell([createShape('star', 'solid', 'black', 'medium', 0)]),
-        createCell([createShape('star', 'solid', 'black', 'medium', 90)]),
+        createCell([createShape('star', 'striped', 'black', 'medium', 0)]),
+        createCell([createShape('star', 'striped', 'black', 'medium', 90)]),
         createCell([]) // Missing
       ]
     ],
     options: [
-      createCell([createShape('star', 'solid', 'black', 'medium', 180)]), // CORRECT
-      createCell([createShape('star', 'solid', 'black', 'medium', 270)]),
-      createCell([createShape('star', 'solid', 'black', 'medium', 90)]),
-      createCell([createShape('triangle', 'solid', 'black', 'medium', 180)]),
-      createCell([createShape('star', 'solid', 'black', 'medium', 0)]),
-      createCell([createShape('star', 'striped', 'black', 'medium', 180)])
+      createCell([createShape('star', 'striped', 'black', 'medium', 180)]), // CORRECT
+      createCell([createShape('star', 'striped', 'black', 'medium', 270)]),
+      createCell([createShape('star', 'striped', 'black', 'medium', 90)]),
+      createCell([createShape('triangle', 'striped', 'black', 'medium', 180)]),
+      createCell([createShape('star', 'striped', 'black', 'medium', 0)]),
+      createCell([createShape('star', 'solid', 'black', 'medium', 180)])
     ],
     correctAnswer: 0,
     explanation: 'Rotationssekvens per rad: 0° → 90° → 180°. Formen varierar per rad men rotationsmönstret är detsamma.',
