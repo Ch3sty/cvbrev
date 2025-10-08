@@ -123,7 +123,7 @@ export async function POST(request: NextRequest) {
       completedAt: new Date().toISOString()
     };
 
-    // Save to database
+    // Save to database (interpretation is calculated dynamically on results page, not stored)
     const { error: insertError } = await supabase
       .from('test_attempts')
       .insert({
@@ -137,8 +137,7 @@ export async function POST(request: NextRequest) {
         total_questions: totalQuestions,
         time_spent_seconds: timeSpentSeconds,
         completed_at: new Date().toISOString(),
-        answers: answers,
-        interpretation: interpretation
+        answers: answers
       });
 
     if (insertError) {
