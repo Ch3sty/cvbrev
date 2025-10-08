@@ -1,5 +1,4 @@
 import { ServerQuestion, Shape, MatrixCell } from './patternTypes';
-import crypto from 'crypto';
 
 // Helper functions för att skapa shapes
 const createShape = (
@@ -17,7 +16,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 1: Enkel färgsekvens (Difficulty 1)
   {
-    id: crypto.randomUUID(),
+    id: 'b7346bc7-1c41-4026-a1e3-8a1c2e7ed04b',
     testType: 'matrislogik-classic',
     difficulty: 1,
     matrix: [
@@ -53,7 +52,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 2: Enkel formsekvens med fyllnad (Difficulty 1)
   {
-    id: crypto.randomUUID(),
+    id: 'fc00676e-0e4d-4fa7-b329-8f034d135a41',
     testType: 'matrislogik-classic',
     difficulty: 1,
     matrix: [
@@ -89,7 +88,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 3: Enkel rotation 90° (Difficulty 2)
   {
-    id: crypto.randomUUID(),
+    id: '0610794a-63aa-4593-9c29-e612aabca970',
     testType: 'matrislogik-classic',
     difficulty: 2,
     matrix: [
@@ -125,7 +124,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 4: Kvantitet - ökning (Difficulty 2)
   {
-    id: crypto.randomUUID(),
+    id: 'e014ea3c-6c67-4abe-b7f5-148ba6866b23',
     testType: 'matrislogik-classic',
     difficulty: 2,
     matrix: [
@@ -199,7 +198,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 5: Färg + Rotation (Difficulty 3)
   {
-    id: crypto.randomUUID(),
+    id: 'bf088037-bdd2-4f13-8415-3135bf19f1ee',
     testType: 'matrislogik-classic',
     difficulty: 3,
     matrix: [
@@ -235,7 +234,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 6: Fyllnad + Form (Difficulty 3)
   {
-    id: crypto.randomUUID(),
+    id: '10cb8b73-7e0a-435a-be67-037c202d67f7',
     testType: 'matrislogik-classic',
     difficulty: 3,
     matrix: [
@@ -271,7 +270,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 7: Kvantitet + Färg (Difficulty 3)
   {
-    id: crypto.randomUUID(),
+    id: '18fd355e-2dba-4b71-ac74-c5b6255f4894',
     testType: 'matrislogik-classic',
     difficulty: 3,
     matrix: [
@@ -347,7 +346,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 8: Storlek + Position (Difficulty 3)
   {
-    id: crypto.randomUUID(),
+    id: '26c25ae3-61c4-41bd-be06-a42a8353e3bc',
     testType: 'matrislogik-classic',
     difficulty: 3,
     matrix: [
@@ -383,7 +382,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 9: Form + Rotation + Fyllnad (Difficulty 3)
   {
-    id: crypto.randomUUID(),
+    id: '7e1fea09-1eae-4203-ae40-c2abf55f5fc4',
     testType: 'matrislogik-classic',
     difficulty: 3,
     matrix: [
@@ -419,7 +418,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 10: Diagonal + Kvantitet (Difficulty 3)
   {
-    id: crypto.randomUUID(),
+    id: '374c9350-521e-4cf0-b460-9b861d92465d',
     testType: 'matrislogik-classic',
     difficulty: 3,
     matrix: [
@@ -494,7 +493,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 11: Färg + Fyllnad + Form (Difficulty 3)
   {
-    id: crypto.randomUUID(),
+    id: 'ffff65c6-8faa-40b2-a673-85445c32520d',
     testType: 'matrislogik-classic',
     difficulty: 3,
     matrix: [
@@ -532,7 +531,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 12: Tre överlappande former (Difficulty 4)
   {
-    id: crypto.randomUUID(),
+    id: '390b8e8f-a3e9-4926-aafa-8c199cb9d7e1',
     testType: 'matrislogik-classic',
     difficulty: 4,
     matrix: [
@@ -601,7 +600,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 13: Diagonal rotation + färgbyte (Difficulty 4)
   {
-    id: crypto.randomUUID(),
+    id: 'f72002c0-fde2-4e27-9057-7c5006a1e2a2',
     testType: 'matrislogik-classic',
     difficulty: 4,
     matrix: [
@@ -637,7 +636,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 14: Komplex kvantitet + position (Difficulty 4)
   {
-    id: crypto.randomUUID(),
+    id: 'dcd6f671-32da-4eee-ad27-093ab08f500e',
     testType: 'matrislogik-classic',
     difficulty: 4,
     matrix: [
@@ -715,7 +714,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 15: Addition/Subtraktion av element (Difficulty 4)
   {
-    id: crypto.randomUUID(),
+    id: '21ecb81f-8677-478e-ab18-6d2cd8101317',
     testType: 'matrislogik-classic',
     difficulty: 4,
     matrix: [
@@ -773,7 +772,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 16: Komplex färg + fyllnad + rotation (Difficulty 5)
   {
-    id: crypto.randomUUID(),
+    id: 'd0ea7160-0df3-4b49-935c-6fb17c2db888',
     testType: 'matrislogik-classic',
     difficulty: 5,
     matrix: [
@@ -809,7 +808,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 17: Diagonal symmetri (Difficulty 5)
   {
-    id: crypto.randomUUID(),
+    id: '66756874-1ed5-422c-91fd-215249148e36',
     testType: 'matrislogik-classic',
     difficulty: 5,
     matrix: [
@@ -845,7 +844,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 18: XOR-operation (Difficulty 5)
   {
-    id: crypto.randomUUID(),
+    id: '27fdb2cf-47ba-4f4e-a641-503b54847b15',
     testType: 'matrislogik-classic',
     difficulty: 5,
     matrix: [
@@ -903,7 +902,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 19: Komplex överlappning + färgblandning (Difficulty 5)
   {
-    id: crypto.randomUUID(),
+    id: '16bbbce6-be4a-4f22-bcac-cd7ea786a93f',
     testType: 'matrislogik-classic',
     difficulty: 5,
     matrix: [
@@ -981,7 +980,7 @@ export const QUESTION_BANK: ServerQuestion[] = [
 
   // Fråga 20: Ultra-komplex multi-dimensionell transformation (Difficulty 5)
   {
-    id: crypto.randomUUID(),
+    id: 'c6e1b6a7-c0fe-4147-9e66-0d1d81abbc84',
     testType: 'matrislogik-classic',
     difficulty: 5,
     matrix: [
