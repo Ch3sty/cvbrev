@@ -36,3 +36,12 @@ next-env.d.ts
 # deployment files (Deno edge functions, not for Next.js build)
 DEPLOYMENT_*.ts
 DEPLOY_*.ts
+
+# Internal validation documents (contains answers/facit)
+KOMPLETT_UTVECKLAR_VALIDERING.md
+TESTER_VALIDATION_DOCUMENTATION.html
+
+# Test files
+test-*.js
+test-*.html
+test-*.pdf
