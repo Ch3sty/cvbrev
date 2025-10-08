@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { cookies } from 'next/headers';
+import { createServerClient } from '@/lib/supabase/server';
 import { verifyTestSession } from '@/lib/tester/sessionManager';
 import { getQuestionById } from '@/lib/tester/questionBank.server';
 import { QuestionBreakdown, UserAnswer } from '@/lib/tester/patternTypes';
@@ -7,7 +8,8 @@ import { calculatePracticeRating, getInterpretation } from '@/lib/tester/scoring
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient();
+    const cookieStore = await cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
     const { data: { user }, error: authError } = await supabase.auth.getUser();
 
     if (authError || !user) {
