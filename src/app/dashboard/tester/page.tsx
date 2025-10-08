@@ -113,6 +113,41 @@ export default function TesterPage() {
           </motion.div>
         </Link>
 
+        {/* Icon Logic Test */}
+        <Link href="/dashboard/tester/icon-logic">
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 border-2 border-blue-200 hover:border-blue-400 transition-all cursor-pointer"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  🧩 Icon Logic Test
+                </h2>
+                <p className="text-gray-700 mb-4">
+                  Testa din logiska förmåga och mönsterigenkänning med minimalistiska ikonmönster.
+                  10 frågor med varierande svårighetsgrad.
+                </p>
+
+                <div className="flex gap-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-1">
+                    <Clock className="w-4 h-4" />
+                    ~12 min
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Target className="w-4 h-4" />
+                    10 frågor
+                  </div>
+                </div>
+              </div>
+
+              <div className="px-4 py-2 bg-blue-100 text-blue-700 rounded-xl font-semibold">
+                Börja träna →
+              </div>
+            </div>
+          </motion.div>
+        </Link>
+
         {/* Future tests placeholder */}
         <div className="bg-gray-50 rounded-2xl p-8 border-2 border-gray-200 opacity-60">
           <h3 className="text-xl font-bold text-gray-500 mb-2">
