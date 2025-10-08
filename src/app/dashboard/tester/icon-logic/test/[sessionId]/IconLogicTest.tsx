@@ -144,7 +144,7 @@ export function IconLogicTest({ session }: IconLogicTestProps) {
             <div className="flex items-center gap-2 text-gray-600">
               <Clock className="w-5 h-5" />
               <span className="font-mono">
-                {Math.floor(currentAnswer.timeSpent / 60)}:{(currentAnswer.timeSpent % 60).toString().padStart(2, '0')}
+                {Math.floor((currentAnswer.timeSpent || 0) / 60)}:{((currentAnswer.timeSpent || 0) % 60).toString().padStart(2, '0')}
               </span>
             </div>
           </div>
