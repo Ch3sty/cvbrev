@@ -1,0 +1,107 @@
+[
+  {
+    "id": "v4-q1-count-progression",
+    "title": "FRÅGA 1 — Progression av antal",
+    "rule": "Antalet prickar ökar med en för varje kolumn (1, 2, 3). Raden ändrar prickarnas position (topp, mitt, botten) inom ramen.",
+    "difficulty": 1,
+    "correctAnswer": 2
+  },
+  {
+    "id": "v4-q2-simple-rotation",
+    "title": "FRÅGA 2 — Enkel rotation",
+    "rule": "L-formen roterar 90° medurs för varje steg åt höger. Raden ändrar fyllningen (ofylld, grå, fylld).",
+    "difficulty": 1,
+    "correctAnswer": 1
+  },
+  {
+    "id": "v4-q3-alternating-fill",
+    "title": "FRÅGA 3 — Alternerande fyllning",
+    "rule": "Formen är alltid densamma. Fyllningen alternerar mellan fylld och ofylld för varje cell, läst radvis.",
+    "difficulty": 1,
+    "correctAnswer": 0
+  },
+  {
+    "id": "v4-q4-size-progression",
+    "title": "FRÅGA 4 — Storleksprogression",
+    "rule": "Formen växer i storlek för varje kolumn (liten, mellan, stor). Raden bestämmer vilken form som används.",
+    "difficulty": 1,
+    "correctAnswer": 4
+  },
+  {
+    "id": "v4-q5-position-sequence",
+    "title": "FRÅGA 5 — Positionssekvens",
+    "rule": "En prick rör sig medurs ett steg i taget mellan de fyra hörnen på ramen.",
+    "difficulty": 1,
+    "correctAnswer": 2
+  },
+  {
+    "id": "v4-q6-line-union",
+    "title": "FRÅGA 6 — Union av linjer",
+    "rule": "I varje rad är Kolumn 3 en sammanslagning (union) av alla linjer från Kolumn 1 och 2.",
+    "difficulty": 2,
+    "correctAnswer": 3
+  },
+  {
+    "id": "v4-q7-attribute-grid",
+    "title": "FRÅGA 7 — Två attribut per axel",
+    "rule": "Raden bestämmer formen (cirkel, kvadrat, triangel). Kolumnen bestämmer fyllnadsgrad (kontur, grå, svart).",
+    "difficulty": 2,
+    "correctAnswer": 4
+  },
+  {
+    "id": "v4-q8-endpoint-count",
+    "title": "FRÅGA 8 — Räkna slutpunkter",
+    "rule": "Antalet 'slutpunkter' (ändar på linjer) i figuren ökar med 1 för varje kolumn (2, 3, 4).",
+    "difficulty": 2,
+    "correctAnswer": 0
+  },
+  {
+    "id": "v4-q9-reflection",
+    "title": "FRÅGA 9 — Vertikal spegling",
+    "rule": "Kolumn 2 är en upp-och-ner-vänd version (vertikal flip) av Kolumn 1. Kolumn 3 är en flip av Kolumn 2 (och därmed identisk med Kolumn 1).",
+    "difficulty": 2,
+    "correctAnswer": 5
+  },
+  {
+    "id": "v4-q10-intersection",
+    "title": "FRÅGA 10 — Skärning (A ∩ B)",
+    "rule": "I varje rad är Kolumn 3 skärningen (intersection) av formerna i Kolumn 1 och 2, dvs den del som är gemensam för båda.",
+    "difficulty": 2,
+    "correctAnswer": 5
+  },
+  {
+    "id": "v4-q11-shape-subtraction",
+    "title": "FRÅGA 11 — Subtraktion av form",
+    "rule": "Kolumn 3 är resultatet av Kolumn 1 minus Kolumn 2 (den inre formen 'stansas ut').",
+    "difficulty": 2,
+    "correctAnswer": 0
+  },
+  {
+    "id": "v4-q12-line-xor",
+    "title": "FRÅGA 12 — XOR av linjer",
+    "rule": "I varje rad, när Kolumn 1 och 2 läggs ovanpå varandra, försvinner de linjer som är gemensamma (XOR). Resultatet visas i Kolumn 3.",
+    "difficulty": 3,
+    "correctAnswer": 4
+  },
+  {
+    "id": "v4-q13-conditional",
+    "title": "FRÅGA 13 — Villkorlig förändring",
+    "rule": "Formen ändras baserat på dess position: I den vänstra kolumnen är formen en triangel. I mittenkolumnen är den en kvadrat. I den högra kolumnen är den en cirkel. Fyllningen är alltid densamma inom en rad.",
+    "difficulty": 3,
+    "correctAnswer": 2
+  },
+  {
+    "id": "v4-q14-sudoku",
+    "title": "FRÅGA 14 — Latin square (form & fyllning)",
+    "rule": "Varje rad och kolumn måste innehålla exakt en av varje form (pil, plus, måne) OCH exakt en av varje fyllning (svart, grå, ofylld).",
+    "difficulty": 3,
+    "correctAnswer": 3
+  },
+  {
+    "id": "v4-q15-element-addition",
+    "title": "FRÅGA 15 — Addition av element",
+    "rule": "I varje rad är antalet element i Kolumn 3 summan av antalet element i Kolumn 1 och Kolumn 2.",
+    "difficulty": 2,
+    "correctAnswer": 3
+  }
+]
