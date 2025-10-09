@@ -188,18 +188,18 @@
     "difficulty": 2,
     "grid": [
       [
-        { "kind": "exclusive_or", "shape1": "rect", "shape2": "circle" },
-        { "kind": "exclusive_or", "shape1": "circle", "shape2": "rect" },
+        { "kind": "exclusive_or", "shape1": "rect" },
+        { "kind": "exclusive_or", "shape1": "circle" },
         { "kind": "exclusive_or", "shape1": "rect", "shape2": "circle", "showResult": true }
       ],
       [
-        { "kind": "exclusive_or", "shape1": "circle", "shape2": "triangle" },
-        { "kind": "exclusive_or", "shape1": "triangle", "shape2": "circle" },
+        { "kind": "exclusive_or", "shape1": "circle" },
+        { "kind": "exclusive_or", "shape1": "triangle" },
         { "kind": "exclusive_or", "shape1": "circle", "shape2": "triangle", "showResult": true }
       ],
       [
-        { "kind": "exclusive_or", "shape1": "triangle", "shape2": "diamond" },
-        { "kind": "exclusive_or", "shape1": "diamond", "shape2": "triangle" },
+        { "kind": "exclusive_or", "shape1": "triangle" },
+        { "kind": "exclusive_or", "shape1": "diamond" },
         null
       ]
     ],
