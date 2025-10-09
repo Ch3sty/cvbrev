@@ -87,6 +87,7 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
         if (!cell.lines || cell.lines.length === 0) return null;
         return <>{cell.lines.map((name, index) => {
           const element = lineMap[name];
+          if (!element) return null;
           if (Array.isArray(element)) {
             return <React.Fragment key={index}>{element}</React.Fragment>;
           }
