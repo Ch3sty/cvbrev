@@ -134,51 +134,94 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
       // Apply rotation if specified
       return cell.rotation ? rotate(cell.rotation, content) : content;
     }
-    case 'contained_intersection': {
-        const outerShapes: Record<string, React.ReactElement> = {
-            rect: <rect x="15" y="15" width="70" height="70" />,
-            circle: <circle cx="50" cy="50" r="35" />,
-            triangle: <path d="M50 15 L85 85 L15 85 Z" />
-        };
-
-        const innerShapes: Record<string, React.ReactElement> = {
-            rect: <rect x="35" y="35" width="30" height="30" />,
-            circle: <circle cx="50" cy="50" r="15" />,
-            triangle: <path d="M50 30 L70 70 L30 70 Z" />,
-            diamond: <path d="M50 30 L70 50 L50 70 L30 50 Z" />
+    case 'exclusive_or': {
+        // Former för XOR-operation
+        const shapes: Record<string, React.ReactElement> = {
+            rect: <rect x="20" y="20" width="60" height="60" />,
+            circle: <circle cx="50" cy="50" r="30" />,
+            triangle: <path d="M50 20 L80 80 L20 80 Z" />,
+            diamond: <path d="M50 20 L80 50 L50 80 L20 50 Z" />
         };
 
         const fill = cell.fill === 'none' ? FILL_NONE : FILL_BLACK;
         const stroke = fill === FILL_NONE ? STROKE_COLOR : 'none';
 
-        // Om showBoth=true: Visa båda formerna med opacity (kolumn 1-2)
-        if (cell.showBoth) {
-            const outerElem = outerShapes[cell.outer];
-            const innerElem = innerShapes[cell.inner];
+        // Om shape2 finns OCH showResult=false: Visa båda formerna med opacity (kolumn 1-2)
+        if (cell.shape2 && !cell.showResult) {
+            const shape1Elem = shapes[cell.shape1];
+            const shape2Elem = shapes[cell.shape2];
 
-            if (!outerElem || !innerElem) return null;
+            if (!shape1Elem || !shape2Elem) return null;
 
             return (
                 <>
-                    {React.cloneElement(outerElem as React.ReactElement<any>, {
+                    {React.cloneElement(shape1Elem as React.ReactElement<any>, {
                         fill: FILL_BLACK,
                         stroke: 'none',
-                        opacity: 0.3
+                        opacity: 0.5
                     })}
-                    {React.cloneElement(innerElem as React.ReactElement<any>, {
+                    {React.cloneElement(shape2Elem as React.ReactElement<any>, {
                         fill: FILL_BLACK,
                         stroke: 'none',
-                        opacity: 0.7
+                        opacity: 0.5
                     })}
                 </>
             );
         }
 
-        // Annars: Visa bara den inre formen (kolumn 3 = resultatet av skärningen)
-        const innerElem = innerShapes[cell.inner];
-        if (!innerElem) return null;
+        // Om showResult=true: Visa XOR-resultatet (båda former utan överlappning)
+        if (cell.shape2 && cell.showResult) {
+            const shape1Elem = shapes[cell.shape1];
+            const shape2Elem = shapes[cell.shape2];
 
-        return React.cloneElement(innerElem as React.ReactElement<any>, {
+            if (!shape1Elem || !shape2Elem) return null;
+
+            // Använd SVG mask för att ta bort överlappningen
+            const maskId = `xor-mask-${Math.random().toString(36).substr(2, 9)}`;
+
+            return (
+                <>
+                    <defs>
+                        <mask id={maskId}>
+                            <rect x="0" y="0" width="100" height="100" fill="white" />
+                            {React.cloneElement(shape1Elem as React.ReactElement<any>, {
+                                fill: 'white'
+                            })}
+                            {React.cloneElement(shape2Elem as React.ReactElement<any>, {
+                                fill: 'black'
+                            })}
+                        </mask>
+                        <mask id={`${maskId}-2`}>
+                            <rect x="0" y="0" width="100" height="100" fill="white" />
+                            {React.cloneElement(shape2Elem as React.ReactElement<any>, {
+                                fill: 'white'
+                            })}
+                            {React.cloneElement(shape1Elem as React.ReactElement<any>, {
+                                fill: 'black'
+                            })}
+                        </mask>
+                    </defs>
+                    {/* Shape1 minus överlappning */}
+                    {React.cloneElement(shape1Elem as React.ReactElement<any>, {
+                        fill: FILL_BLACK,
+                        stroke: 'none',
+                        mask: `url(#${maskId})`
+                    })}
+                    {/* Shape2 minus överlappning */}
+                    {React.cloneElement(shape2Elem as React.ReactElement<any>, {
+                        fill: FILL_BLACK,
+                        stroke: 'none',
+                        mask: `url(#${maskId}-2)`
+                    })}
+                </>
+            );
+        }
+
+        // Annars: Visa bara en enskild form (för svarsalternativ)
+        const shapeElem = shapes[cell.shape1];
+        if (!shapeElem) return null;
+
+        return React.cloneElement(shapeElem as React.ReactElement<any>, {
             fill,
             stroke,
             strokeWidth: STROKE_WIDTH

@@ -182,34 +182,34 @@
     "correctAnswer": 5
   },
   {
-    "id": "v4-q10-contained-intersection",
-    "title": "FRÅGA 10 — Skärning (A ∩ B)",
-    "rule": "I varje rad är Kolumn 3 skärningen (intersection) av formerna i Kolumn 1 och 2, dvs den del som är gemensam för båda.",
+    "id": "v4-q10-exclusive-or",
+    "title": "FRÅGA 10 — Exklusiv eller (A ⊕ B)",
+    "rule": "I varje rad är Kolumn 3 den del som INTE överlappar mellan formerna i Kolumn 1 och 2 (exklusiv eller, XOR).",
     "difficulty": 2,
     "grid": [
       [
-        { "kind": "contained_intersection", "outer": "rect", "inner": "circle", "showBoth": true },
-        { "kind": "contained_intersection", "outer": "circle", "inner": "rect", "showBoth": true },
-        { "kind": "contained_intersection", "outer": "rect", "inner": "circle" }
+        { "kind": "exclusive_or", "shape1": "rect", "shape2": "circle" },
+        { "kind": "exclusive_or", "shape1": "circle", "shape2": "rect" },
+        { "kind": "exclusive_or", "shape1": "rect", "shape2": "circle", "showResult": true }
       ],
       [
-        { "kind": "contained_intersection", "outer": "circle", "inner": "triangle", "showBoth": true },
-        { "kind": "contained_intersection", "outer": "triangle", "inner": "circle", "showBoth": true },
-        { "kind": "contained_intersection", "outer": "circle", "inner": "triangle" }
+        { "kind": "exclusive_or", "shape1": "circle", "shape2": "triangle" },
+        { "kind": "exclusive_or", "shape1": "triangle", "shape2": "circle" },
+        { "kind": "exclusive_or", "shape1": "circle", "shape2": "triangle", "showResult": true }
       ],
       [
-        { "kind": "contained_intersection", "outer": "triangle", "inner": "diamond", "showBoth": true },
-        { "kind": "contained_intersection", "outer": "rect", "inner": "diamond", "showBoth": true },
+        { "kind": "exclusive_or", "shape1": "triangle", "shape2": "diamond" },
+        { "kind": "exclusive_or", "shape1": "diamond", "shape2": "triangle" },
         null
       ]
     ],
     "options": [
-      { "kind": "contained_intersection", "outer": "rect", "inner": "diamond" },
-      { "kind": "contained_intersection", "outer": "circle", "inner": "circle" },
-      { "kind": "contained_intersection", "outer": "triangle", "inner": "rect" },
-      { "kind": "contained_intersection", "outer": "triangle", "inner": "triangle", "fill": "none" },
-      { "kind": "contained_intersection", "outer": "rect", "inner": "circle" },
-      { "kind": "contained_intersection", "outer": "circle", "inner": "diamond", "fill": "none" }
+      { "kind": "exclusive_or", "shape1": "triangle", "shape2": "diamond", "showResult": true },
+      { "kind": "exclusive_or", "shape1": "circle", "shape2": "circle", "showResult": true },
+      { "kind": "exclusive_or", "shape1": "rect", "shape2": "triangle", "showResult": true },
+      { "kind": "exclusive_or", "shape1": "diamond" },
+      { "kind": "exclusive_or", "shape1": "triangle" },
+      { "kind": "exclusive_or", "shape1": "rect", "shape2": "diamond", "showResult": true }
     ],
     "correctAnswer": 0
   },

@@ -30,12 +30,12 @@ export type Endpoints = { kind: 'endpoints'; count: 0 | 2 | 3 | 4; shape?: strin
 // Q9: Vertikal spegling
 export type ReflectedShape = { kind: 'hook' | 'arc' | 'wedge'; mirror_v?: boolean; mirror_h?: boolean, rotation?: Angle };
 
-// Q10: Skärning mellan former (innesluten intersection)
-export type ContainedIntersection = {
-  kind: 'contained_intersection';
-  outer: 'rect' | 'circle' | 'triangle';
-  inner: 'rect' | 'circle' | 'triangle' | 'diamond';
-  showBoth?: boolean;
+// Q10: XOR (Exklusiv eller) - den del som INTE överlappar
+export type ExclusiveOr = {
+  kind: 'exclusive_or';
+  shape1: 'rect' | 'circle' | 'triangle' | 'diamond';
+  shape2?: 'rect' | 'circle' | 'triangle' | 'diamond';
+  showResult?: boolean;
   fill?: 'none' | 'black';
 };
 
@@ -60,7 +60,7 @@ export type Sweep = { kind: 'sweep'; steps: 1 | 2 | 3 | 4; rotation?: Angle };
 // --- HUVUDTYP OCH FRÅGESTruktur ---
 export type Cell =
   | Dot | LShape | Icon | Fill | CornerDot | Lines | ShadedShape | Endpoints
-  | ReflectedShape | ContainedIntersection | OrbitalDot | Swap | SizedShape | Subtraction | Sudoku | Sweep;
+  | ReflectedShape | ExclusiveOr | OrbitalDot | Swap | SizedShape | Subtraction | Sudoku | Sweep;
 
 export type Question = {
   id: string;
