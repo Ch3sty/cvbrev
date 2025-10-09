@@ -34,7 +34,7 @@ export const MatrixQuestion: React.FC<MatrixQuestionProps> = ({
   return (
     <div className="w-full max-w-4xl mx-auto">
       {/* 3x3 Matrix Grid */}
-      <div className="grid grid-cols-3 gap-4 mb-8 justify-center">
+      <div className="grid grid-cols-3 gap-2 mb-8 justify-center">
         {grid.flatMap((row, r) =>
           row.map((cell, c) => (
             <div
@@ -53,7 +53,7 @@ export const MatrixQuestion: React.FC<MatrixQuestionProps> = ({
 
       {/* Answer Options */}
       <div
-        className="grid grid-cols-3 gap-4 mt-8"
+        className="grid grid-cols-3 gap-2 mt-8"
         role="radiogroup"
         aria-label="Svarsalternativ A–F"
       >

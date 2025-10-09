@@ -110,6 +110,8 @@ const Triangle = ({ rot = 0, solid = true }: { rot?: number; solid?: boolean }) 
         stroke={black}
         strokeWidth={2.5}
       />
+      {/* Visual marker dot at top vertex to show rotation */}
+      <circle cx={CX} cy={CY - RR} r={2.5} fill={solid ? 'white' : black} />
     </g>
   );
 };
