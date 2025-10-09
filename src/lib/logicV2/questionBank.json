@@ -320,6 +320,70 @@
     "correctAnswer": 0
   },
   {
+    "id": "1f7b6a9e-c8d5-4e3f-8b1c-9a0c1d5b4e3d",
+    "title": "FRÅGA 11 — Progression av antal element",
+    "rule": "Antalet prickar i cellen följer en enkel addition. K1 + K2 = K3 i varje rad.",
+    "difficulty": 1,
+    "grid": [
+      [
+        { "kind": "dots", "count": 1 },
+        { "kind": "dots", "count": 2 },
+        { "kind": "dots", "count": 3 }
+      ],
+      [
+        { "kind": "dots", "count": 2 },
+        { "kind": "dots", "count": 2 },
+        { "kind": "dots", "count": 4 }
+      ],
+      [
+        { "kind": "dots", "count": 3 },
+        { "kind": "dots", "count": 1 },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "dots", "count": 3 },
+      { "kind": "dots", "count": 1 },
+      { "kind": "dots", "count": 2 },
+      { "kind": "dots", "count": 4 },
+      { "kind": "dots", "count": 5 },
+      { "kind": "dots", "count": 2, "layout": "vertical" }
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "8d2c4b7a-1e9f-4d3e-8b1c-9a0c1d5b4e3d",
+    "title": "FRÅGA 12 — Latin square med rotation",
+    "rule": "Varje rad och kolumn måste innehålla en av varje form (pil, T-kors, L-form). Dessutom roterar formerna 90° medurs för varje steg åt höger.",
+    "difficulty": 2,
+    "grid": [
+      [
+        { "kind": "icon", "shape": "arrow", "rotation": 0 },
+        { "kind": "icon", "shape": "cross", "rotation": 90 },
+        { "kind": "icon", "shape": "L", "rotation": 180 }
+      ],
+      [
+        { "kind": "icon", "shape": "cross", "rotation": 0 },
+        { "kind": "icon", "shape": "L", "rotation": 90 },
+        { "kind": "icon", "shape": "arrow", "rotation": 180 }
+      ],
+      [
+        { "kind": "icon", "shape": "L", "rotation": 0 },
+        { "kind": "icon", "shape": "arrow", "rotation": 90 },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "icon", "shape": "cross", "rotation": 90 },
+      { "kind": "icon", "shape": "arrow", "rotation": 180 },
+      { "kind": "icon", "shape": "arrow", "rotation": 270 },
+      { "kind": "icon", "shape": "cross", "rotation": 0 },
+      { "kind": "icon", "shape": "L", "rotation": 270 },
+      { "kind": "icon", "shape": "cross", "rotation": 180 }
+    ],
+    "correctAnswer": 5
+  },
+  {
     "id": "7e4a9b6c-2d1f-4a8c-9b6c-2d1f8a7b6c5d",
     "title": "FRÅGA 13 — Villkorlig förändring",
     "rule": "Formen i en cell bestäms av föregående cell: Om föregående form är fylld, roterar nästa 90° medurs. Om föregående är en kontur, speglas nästa horisontellt.",

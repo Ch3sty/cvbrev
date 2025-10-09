@@ -62,6 +62,20 @@ export type Group = {
   layout?: 'vert' | 'horiz'; // For arrangement
 };
 
+// For Q11: Simple dots with count (no specific shape, just filled circles)
+export type Dots = {
+  kind: 'dots';
+  count: number; // Number of dots to display
+  layout?: 'standard' | 'vertical' | 'horizontal'; // Optional layout pattern
+};
+
+// For Q12: Named icon shapes used in Latin square
+export type Icon = {
+  kind: 'icon';
+  shape: 'arrow' | 'cross' | 'L'; // Three distinct icon types
+  rotation: Angle;
+};
+
 // --- Main type that collects all possible cell types ---
 export type Cell =
   | RingTicks     // From v1
@@ -76,7 +90,9 @@ export type Cell =
   | Piece         // New for v2
   | Lines         // New for v2
   | GridDot       // New for v2
-  | Group;        // New for v2
+  | Group         // New for v2
+  | Dots          // New for v2 (Q11)
+  | Icon;         // New for v2 (Q12)
 
 // --- Data structure for a complete question ---
 export type Question = {

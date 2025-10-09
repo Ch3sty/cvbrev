@@ -160,6 +160,35 @@ export const SvgCell: React.FC<{ cell: Cell }> = ({ cell }) => {
       case 'group':
         return renderGroup(cell.shape, cell.count, cell.pos, cell.layout);
 
+      case 'dots':
+        // Render dots based on count with automatic standard positioning
+        const dotPositions: Record<number, { x: number; y: number }[]> = {
+          1: [{ x: 50, y: 50 }],
+          2: [{ x: 35, y: 50 }, { x: 65, y: 50 }],
+          3: [{ x: 50, y: 35 }, { x: 30, y: 65 }, { x: 70, y: 65 }],
+          4: [{ x: 50, y: 28 }, { x: 28, y: 50 }, { x: 72, y: 50 }, { x: 50, y: 72 }],
+          5: [{ x: 35, y: 35 }, { x: 65, y: 35 }, { x: 35, y: 65 }, { x: 65, y: 65 }, { x: 50, y: 50 }],
+        };
+        const dots = dotPositions[cell.count] || [];
+        return <>{dots.map((d, i) => <circle key={i} cx={d.x} cy={d.y} r={8} fill={STROKE_COLOR} />)}</>;
+
+      case 'icon':
+        // Render specific icon shapes with rotation
+        const iconContent = () => {
+          switch (cell.shape) {
+            case 'arrow':
+              // Diamond arrow shape (as in Q12 spec)
+              return <path d="M50 20 L70 40 L50 60 L30 40 Z" fill={STROKE_COLOR} />;
+            case 'cross':
+              // T-kors / Plus shape
+              return <g><Line x1={50} y1={25} x2={50} y2={75} /><Line x1={25} y1={50} x2={75} y2={50} /></g>;
+            case 'L':
+              // L-form
+              return <path d="M25 25 L25 75 L75 75" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH} />;
+          }
+        };
+        return rotate(cell.rotation, <>{iconContent()}</>);
+
       default:
         return null;
     }

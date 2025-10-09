@@ -40,8 +40,8 @@ export function getRandomQuestionIds(count: number): string[] {
 }
 
 /**
- * Get all 13 questions in shuffled order (for full test)
+ * Get all 15 questions in shuffled order (for full test)
  */
 export function getAllQuestionIdsShuffled(): string[] {
-  return getRandomQuestionIds(13);
+  return getRandomQuestionIds(15);
 }

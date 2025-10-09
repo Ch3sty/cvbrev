@@ -36,6 +36,10 @@ export const signature = (cell: Cell): string => {
       return `griddot:${cell.x},${cell.y}`;
     case 'group':
       return `group:${cell.shape}:${cell.count}:${cell.pos ?? 'C'}`;
+    case 'dots':
+      return `dots:${cell.count}:${cell.layout ?? 'standard'}`;
+    case 'icon':
+      return `icon:${cell.shape}:${norm(cell.rotation)}`;
 
     default:
       // Fallback for unknown types

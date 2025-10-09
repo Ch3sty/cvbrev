@@ -94,11 +94,11 @@ export default function TesterPage() {
                 <div className="flex gap-4 text-sm text-gray-600">
                   <div className="flex items-center gap-1">
                     <Clock className="w-4 h-4" />
-                    ~20-25 min
+                    ~25-30 min
                   </div>
                   <div className="flex items-center gap-1">
                     <Target className="w-4 h-4" />
-                    13 frågor
+                    15 frågor
                   </div>
                 </div>
               </div>

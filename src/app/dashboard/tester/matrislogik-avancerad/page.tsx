@@ -74,7 +74,7 @@ export default function MatrislogikAvanceradLandingPage() {
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>
-                  <strong>13 avancerade frågor</strong> med högre svårighetsgrad
+                  <strong>15 avancerade frågor</strong> med högre svårighetsgrad
                 </li>
                 <li>
                   <strong>6 svarsalternativ</strong> (A-F) per fråga
