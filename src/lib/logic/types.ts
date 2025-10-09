@@ -115,5 +115,6 @@ export type TestResult = {
   totalQuestions: number;
   timeSpentSeconds: number;
   breakdown: QuestionBreakdown[];
+  interpretation: string;
   completedAt: string; // ISO 8601
 };
