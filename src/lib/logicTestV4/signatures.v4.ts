@@ -37,7 +37,7 @@ export const signature = (cell: Cell): string => {
     case 'wedge':
         return `reflect:${cell.kind}:${cell.mirror_v ? 1:0}:${cell.mirror_h ? 1:0}:${((cell.rotation ?? 0) % 360 + 360) % 360}`;
     case 'intersection':
-        return `intersect:${cell.shape1}:${cell.shape2}:${cell.fill ?? 'black'}`;
+        return `intersect:${cell.shape1}:${cell.fill ?? 'black'}`;
     case 'orbital_dot':
         return `orbital:${cell.step % 8}`; // Modulo 8 eftersom 8*45=360
     case 'swap':
