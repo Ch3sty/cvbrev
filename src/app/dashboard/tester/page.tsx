@@ -1,7 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Brain } from 'lucide-react';
+import { Brain, Clock, Target } from 'lucide-react';
+import Link from 'next/link';
 
 export default function TesterPage() {
   return (
@@ -27,14 +28,52 @@ export default function TesterPage() {
         </div>
       </motion.div>
 
-      {/* Future tests placeholder */}
-      <div className="bg-gray-50 rounded-2xl p-8 border-2 border-gray-200">
-        <h3 className="text-xl font-bold text-gray-700 mb-2">
-          Fler tester kommer snart
-        </h3>
-        <p className="text-gray-600">
-          Vi jobbar på att lägga till kognitiva tester för att hjälpa dig träna inför rekryteringsprocesser.
-        </p>
+      {/* Test Cards */}
+      <div className="grid gap-6">
+        {/* Matrislogik Test */}
+        <Link href="/dashboard/tester/matrislogik">
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-8 border-2 border-indigo-200 hover:border-indigo-400 transition-all cursor-pointer"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">
+                  Matrislogik
+                </h2>
+                <p className="text-gray-700 mb-4">
+                  Träna på abstrakt problemlösning med minimalistiska ikonmönster.
+                  Perfekt för att förbära dig inför logiktester i rekryteringsprocesser.
+                </p>
+
+                <div className="flex gap-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-1">
+                    <Clock className="w-4 h-4" />
+                    ~15-20 min
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Target className="w-4 h-4" />
+                    15 frågor
+                  </div>
+                </div>
+              </div>
+
+              <div className="px-4 py-2 bg-indigo-100 text-indigo-700 rounded-xl font-semibold">
+                Börja träna →
+              </div>
+            </div>
+          </motion.div>
+        </Link>
+
+        {/* Future tests placeholder */}
+        <div className="bg-gray-50 rounded-2xl p-8 border-2 border-gray-200 opacity-60">
+          <h3 className="text-xl font-bold text-gray-500 mb-2">
+            Fler tester kommer snart
+          </h3>
+          <p className="text-gray-500">
+            Vi jobbar på att lägga till verbala och numeriska tester.
+          </p>
+        </div>
       </div>
     </div>
   );
