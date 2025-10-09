@@ -155,7 +155,30 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
         const fill = cell.fill === 'none' ? FILL_NONE : FILL_BLACK;
         const stroke = fill === FILL_NONE ? STROKE_COLOR : 'none';
 
-        // Rita formen från shapes-mappningen
+        // Om shape2 finns: Visa båda formerna med opacity (för att visa överlappning)
+        if (cell.shape2) {
+            const shape1_elem = shapes[cell.shape1];
+            const shape2_elem = shapes[cell.shape2];
+
+            if (!shape1_elem || !shape2_elem) return null;
+
+            return (
+                <>
+                    {React.cloneElement(shape1_elem as React.ReactElement<any>, {
+                        fill: FILL_BLACK,
+                        stroke: 'none',
+                        opacity: 0.5
+                    })}
+                    {React.cloneElement(shape2_elem as React.ReactElement<any>, {
+                        fill: FILL_BLACK,
+                        stroke: 'none',
+                        opacity: 0.5
+                    })}
+                </>
+            );
+        }
+
+        // Rita formen från shapes-mappningen (för intersection-resultat och svarsalternativ)
         const shape_elem = shapes[cell.shape1];
         if (!shape_elem) return null;
 

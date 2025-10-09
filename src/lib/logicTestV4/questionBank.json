@@ -187,9 +187,9 @@
     "rule": "I varje rad är Kolumn 3 skärningen (intersection) av formerna i Kolumn 1 och 2, dvs den del som är gemensam för båda.",
     "difficulty": 2,
     "grid": [
-      [{ "kind": "intersection", "shape1": "rect_full" }, { "kind": "intersection", "shape1": "circle" }, { "kind": "intersection", "shape1": "rect_circle_int" }],
-      [{ "kind": "intersection", "shape1": "rect_top" }, { "kind": "intersection", "shape1": "rect_left" }, { "kind": "intersection", "shape1": "rect_top_rect_left_int" }],
-      [{ "kind": "intersection", "shape1": "circle" }, { "kind": "intersection", "shape1": "tri_bottom" }, null]
+      [{ "kind": "intersection", "shape1": "rect_full", "shape2": "circle" }, { "kind": "intersection", "shape1": "circle", "shape2": "rect_full" }, { "kind": "intersection", "shape1": "rect_circle_int" }],
+      [{ "kind": "intersection", "shape1": "rect_top", "shape2": "rect_left" }, { "kind": "intersection", "shape1": "rect_left", "shape2": "rect_top" }, { "kind": "intersection", "shape1": "rect_top_rect_left_int" }],
+      [{ "kind": "intersection", "shape1": "circle", "shape2": "tri_bottom" }, { "kind": "intersection", "shape1": "tri_bottom", "shape2": "circle" }, null]
     ],
     "options": [
       { "kind": "intersection", "shape1": "circle" },
