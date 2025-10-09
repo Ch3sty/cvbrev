@@ -100,6 +100,7 @@ export type Question = {
   title: string;
   rule: string;
   difficulty: 1 | 2 | 3;
+  showGrid?: boolean;         // Optional visual reference frame
   grid: (Cell | null)[][];    // 3×3 matrix where R3C3 is null
   options: Cell[];            // Exactly 6 answer options (A-F)
   correctAnswer: number;      // Index 0-5 for correct answer

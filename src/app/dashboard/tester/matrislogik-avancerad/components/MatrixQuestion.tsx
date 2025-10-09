@@ -11,6 +11,7 @@ interface MatrixQuestionProps {
   selected: number | null;
   onSelect: (i: number) => void;
   disabled?: boolean;
+  showGrid?: boolean;
 }
 
 export const MatrixQuestion: React.FC<MatrixQuestionProps> = ({
@@ -19,6 +20,7 @@ export const MatrixQuestion: React.FC<MatrixQuestionProps> = ({
   selected,
   onSelect,
   disabled = false,
+  showGrid = false,
 }) => {
   // Validate options in development
   if (process.env.NODE_ENV !== 'production') {
@@ -42,7 +44,7 @@ export const MatrixQuestion: React.FC<MatrixQuestionProps> = ({
               className="w-[110px] h-[110px] flex items-center justify-center border-2 border-purple-300 rounded-lg bg-white"
             >
               {cell ? (
-                <SvgCell cell={cell} />
+                <SvgCell cell={cell} showGrid={showGrid} />
               ) : (
                 <div className="text-6xl text-purple-400 select-none">?</div>
               )}
@@ -83,7 +85,7 @@ export const MatrixQuestion: React.FC<MatrixQuestionProps> = ({
                 {letters[i]}
               </div>
               <div className="flex-1 flex items-center justify-center">
-                <SvgCell cell={opt} />
+                <SvgCell cell={opt} showGrid={showGrid} />
               </div>
             </button>
           );

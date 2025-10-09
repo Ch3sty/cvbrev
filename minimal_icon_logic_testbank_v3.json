@@ -1,0 +1,107 @@
+[
+  {
+    "id": "v3-q1-count-progression",
+    "title": "FRÅGA 1 — Progression av antal",
+    "rule": "Antalet prickar ökar med en för varje kolumn (1, 2, 3). Raden ändrar prickarnas position (topp, mitt, botten) inom ramen.",
+    "difficulty": 1,
+    "correctAnswer": 2
+  },
+  {
+    "id": "v3-q2-simple-rotation",
+    "title": "FRÅGA 2 — Enkel rotation",
+    "rule": "Pilen roterar 90° medurs för varje steg i raden. Formen är densamma för alla rader.",
+    "difficulty": 1,
+    "correctAnswer": 1
+  },
+  {
+    "id": "v3-q3-latin-square",
+    "title": "FRÅGA 3 — Latin square",
+    "rule": "Varje rad och kolumn måste innehålla exakt en av varje symbol (Pac-Man, stjärna, hjärta).",
+    "difficulty": 1,
+    "correctAnswer": 0
+  },
+  {
+    "id": "v3-q4-alternating-fill",
+    "title": "FRÅGA 4 — Alternerande fyllning",
+    "rule": "Fyllningen alternerar mellan fylld och ofylld för varje cell, läst radvis.",
+    "difficulty": 1,
+    "correctAnswer": 3
+  },
+  {
+    "id": "v3-q5-position-sequence",
+    "title": "FRÅGA 5 — Positionssekvens",
+    "rule": "En prick rör sig medurs ett steg i taget mellan de fyra hörnen på ramen.",
+    "difficulty": 1,
+    "correctAnswer": 2
+  },
+  {
+    "id": "v3-q6-line-union",
+    "title": "FRÅGA 6 — Union av linjer",
+    "rule": "I varje rad är Kolumn 3 en sammanslagning (union) av alla linjer från Kolumn 1 och 2.",
+    "difficulty": 2,
+    "correctAnswer": 3
+  },
+  {
+    "id": "v3-q7-attribute-grid",
+    "title": "FRÅGA 7 — Två attribut per axel",
+    "rule": "Raden bestämmer formen (cirkel, kvadrat, triangel). Kolumnen bestämmer fyllnadsgrad (kontur, grå, svart).",
+    "difficulty": 2,
+    "correctAnswer": 4
+  },
+  {
+    "id": "v3-q8-endpoint-count",
+    "title": "FRÅGA 8 — Räkna slutpunkter",
+    "rule": "Antalet 'slutpunkter' (ändar på linjer) i figuren ökar med 1 för varje kolumn (2, 3, 4).",
+    "difficulty": 2,
+    "correctAnswer": 0
+  },
+  {
+    "id": "v3-q9-reflection",
+    "title": "FRÅGA 9 — Vertikal spegling",
+    "rule": "Kolumn 2 är en vertikal spegelbild av Kolumn 1. Kolumn 3 är en vertikal spegelbild av Kolumn 2 (och därmed identisk med Kolumn 1).",
+    "difficulty": 2,
+    "correctAnswer": 5
+  },
+  {
+    "id": "v3-q10-intersection",
+    "title": "FRÅGA 10 — Skärning (A ∩ B)",
+    "rule": "I varje rad är Kolumn 3 skärningen (intersection) av formerna i Kolumn 1 och 2, dvs den del som är gemensam för båda.",
+    "difficulty": 2,
+    "correctAnswer": 1
+  },
+  {
+    "id": "v3-q11-orbital",
+    "title": "FRÅGA 11 — Kretsande objekt",
+    "rule": "En liten prick kretsar runt en central cirkel i 45°-steg moturs för varje cell, läst radvis.",
+    "difficulty": 2,
+    "correctAnswer": 0
+  },
+  {
+    "id": "v3-q12-swap",
+    "title": "FRÅGA 12 — Byte av position",
+    "rule": "Det finns alltid en svart och en vit cirkel. För varje steg i raden byter de plats med varandra. Mönstret återställs för varje ny rad.",
+    "difficulty": 2,
+    "correctAnswer": 3
+  },
+  {
+    "id": "v3-q13-size-progression",
+    "title": "FRÅGA 13 — Storleksprogression",
+    "rule": "Formen växer i storlek för varje kolumn (liten, mellan, stor). Raden bestämmer vilken form som används.",
+    "difficulty": 1,
+    "correctAnswer": 0
+  },
+  {
+    "id": "v3-q14-shape-subtraction",
+    "title": "FRÅGA 14 — Subtraktion av form",
+    "rule": "Kolumn 3 är resultatet av Kolumn 1 minus Kolumn 2 (den inre formen 'stansas ut').",
+    "difficulty": 2,
+    "correctAnswer": 0
+  },
+  {
+    "id": "v3-q15-sweep",
+    "title": "FRÅGA 15 — Svepande linje",
+    "rule": "En linje ritas från centrum och utåt. För varje steg i raden läggs en ny linje till, 90° medurs från den föregående.",
+    "difficulty": 2,
+    "correctAnswer": 0
+  }
+]

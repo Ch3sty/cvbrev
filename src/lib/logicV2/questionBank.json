@@ -196,6 +196,7 @@
     "title": "FRÅGA 7 — Rörelse i inre 3x3-rutnät",
     "rule": "Den lilla pricken rör sig ett steg i taget i ett inre 3x3-rutnät. Rörelsen går från vänster till höger, uppifrån och ner.",
     "difficulty": 3,
+    "showGrid": true,
     "grid": [
       [
         { "kind": "grid_dot", "x": -1, "y": -1 },
@@ -228,6 +229,7 @@
     "title": "FRÅGA 8 — Paritet (jämnt/udda) av element",
     "rule": "Kolumnerna alternerar mellan ett udda (1) och ett jämnt (2) antal identiska figurer. Raden bestämmer vilken figur som används.",
     "difficulty": 2,
+    "showGrid": true,
     "grid": [
       [
         { "kind": "group", "shape": "circle", "count": 1 },
@@ -324,6 +326,7 @@
     "title": "FRÅGA 11 — Progression av antal element",
     "rule": "Antalet prickar i cellen följer en enkel addition. K1 + K2 = K3 i varje rad.",
     "difficulty": 1,
+    "showGrid": true,
     "grid": [
       [
         { "kind": "dots", "count": 1 },
@@ -450,8 +453,9 @@
   {
     "id": "b9e8c1d5-a3e2-4d1c-9b6f-0e9a5c8d4b2e",
     "title": "FRÅGA 15 — Två variabler: antal och position",
-    "rule": "Antalet former i en cell är lika med dess radnummer (1, 2, 3). Positionen för formerna bestäms av kolumnnumret (vänster, mitten, höger).",
+    "rule": "Antalet former i en cell är lika med dess radnummer (1, 2, 3). Positionen för formerna bestäms av kolumnnumret (vänster, mitten, höger) inom ramen.",
     "difficulty": 2,
+    "showGrid": true,
     "grid": [
       [
         { "kind": "group", "shape": "circle", "count": 1, "pos": "L" },

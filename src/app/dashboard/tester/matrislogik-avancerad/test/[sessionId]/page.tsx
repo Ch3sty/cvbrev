@@ -191,6 +191,7 @@ export default function MatrislogikAvanceradTestPage() {
         selected={currentAnswer}
         onSelect={handleSelectAnswer}
         disabled={submitting}
+        showGrid={currentQuestion.showGrid}
       />
 
       {/* Navigation */}

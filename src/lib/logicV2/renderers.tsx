@@ -16,6 +16,11 @@ const Line = (props: { x1: number; y1: number; x2: number; y2: number }) => (
   <line {...props} stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH} strokeLinecap="round" />
 );
 
+// Grid component for visual reference frame
+const Grid = () => (
+  <rect x="20" y="20" width="60" height="60" fill="none" stroke="#ddd" strokeWidth="1"/>
+);
+
 const PolygonShape: React.FC<{ sides: number; r: number; fill: boolean; rotation?: number }> = ({ sides, r, fill, rotation = 0 }) => {
   if (sides === 0) {
     // Circle
@@ -109,7 +114,7 @@ const renderGroup = (shape: 'circle' | 'square' | 'triangle', count: number, pos
 };
 
 // --- Main Component: SvgCell ---
-export const SvgCell: React.FC<{ cell: Cell }> = ({ cell }) => {
+export const SvgCell: React.FC<{ cell: Cell; showGrid?: boolean }> = ({ cell, showGrid = false }) => {
   const content = () => {
     switch (cell.kind) {
       case 'polygon':
@@ -196,6 +201,7 @@ export const SvgCell: React.FC<{ cell: Cell }> = ({ cell }) => {
 
   return (
     <svg viewBox={`0 0 ${SIZE} ${SIZE}`} width={SIZE} height={SIZE} shapeRendering="geometricPrecision">
+      {showGrid && <Grid />}
       {content()}
     </svg>
   );
