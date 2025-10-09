@@ -104,6 +104,7 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
     }
     case 'endpoints': {
         const shapes: Record<string, React.ReactElement> = {
+            // Original former
             line: <Line x1={25} y1={50} x2={75} y2={50} />,
             U: <path d="M 25 75 V 25 H 75" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
             E: <path d="M 75 25 H 25 V 75 H 75 M 25 50 H 75" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
@@ -113,7 +114,15 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
             diag: <Line x1={25} y1={25} x2={75} y2={75} />,
             Y: <path d="M 50 50 V 75 M 50 50 L 25 25 M 50 50 L 75 25" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
             rhombus_open: <path d="M 50 25 L 25 50 L 50 75 L 75 50" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
-            square_closed: <rect x="25" y="25" width="50" height="50" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH} />
+            square_closed: <rect x="25" y="25" width="50" height="50" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH} />,
+            // Nya former för Q8
+            V_shape: <path d="M 25 25 L 50 75 L 75 25" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
+            pitchfork: <path d="M 35 75 V 40 M 50 75 V 25 M 65 75 V 40" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
+            W_shape: <path d="M 20 25 L 35 75 L 50 25 L 65 75 L 80 25" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
+            L_corner: <path d="M 25 25 V 75 H 75" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
+            plus_sign: <path d="M 50 25 V 75 M 25 50 H 75" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
+            arrow_up: <path d="M 25 75 L 50 25 L 75 75" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
+            asterisk: <path d="M 35 35 L 65 65 M 35 65 L 65 35" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>
         };
         return shapes[cell.shape ?? ''] || null;
     }
@@ -266,13 +275,13 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
     case 'sudoku': {
         let shapePath: React.ReactElement;
         if (cell.shape === 'arrow') {
-            // Förbättrad pil: Tydligare pilspets och stjälk
-            shapePath = <path d="M 30 50 L 55 50 L 55 30 L 75 50 L 55 70 L 55 50 Z" />;
+            // Pil utan streck - solid form som kan fyllas
+            shapePath = <path d="M 25 50 L 50 30 L 50 40 L 70 40 L 70 60 L 50 60 L 50 70 Z" />;
         } else if (cell.shape === 'plus') {
             shapePath = <path d="M 40 20 H 60 V 40 H 80 V 60 H 60 V 80 H 40 V 60 H 20 V 40 H 40 Z" />;
         } else {
-            // Måne: Enkel halvmåne-form (crescent)
-            shapePath = <path d="M 35,25 A 25,25 0 0,1 35,75 A 18,18 0 0,0 35,25 Z" />;
+            // Måne: D-form (halvcirkel) - enkel att fylla
+            shapePath = <path d="M 40,25 A 25,25 0 0,1 40,75 Z" />;
         }
 
         const fill = cell.fill === 'none' ? FILL_NONE : cell.fill === 'gray' ? FILL_GRAY : FILL_BLACK;

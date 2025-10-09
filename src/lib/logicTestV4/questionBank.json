@@ -147,17 +147,17 @@
     "rule": "Antalet 'slutpunkter' (ändar på linjer) i figuren ökar med 1 för varje kolumn (2, 3, 4).",
     "difficulty": 2,
     "grid": [
-      [{ "kind": "endpoints", "count": 2, "shape": "line" }, { "kind": "endpoints", "count": 3, "shape": "U" }, { "kind": "endpoints", "count": 4, "shape": "E" }],
-      [{ "kind": "endpoints", "count": 2, "shape": "v_line" }, { "kind": "endpoints", "count": 3, "shape": "T" }, { "kind": "endpoints", "count": 4, "shape": "X" }],
-      [{ "kind": "endpoints", "count": 2, "shape": "diag" }, { "kind": "endpoints", "count": 3, "shape": "Y" }, null]
+      [{ "kind": "endpoints", "count": 2, "shape": "V_shape" }, { "kind": "endpoints", "count": 3, "shape": "pitchfork" }, { "kind": "endpoints", "count": 4, "shape": "W_shape" }],
+      [{ "kind": "endpoints", "count": 2, "shape": "L_corner" }, { "kind": "endpoints", "count": 3, "shape": "T" }, { "kind": "endpoints", "count": 4, "shape": "plus_sign" }],
+      [{ "kind": "endpoints", "count": 2, "shape": "diag" }, { "kind": "endpoints", "count": 3, "shape": "arrow_up" }, null]
     ],
     "options": [
-      { "kind": "endpoints", "count": 4, "shape": "rhombus_open" },
-      { "kind": "endpoints", "count": 3, "shape": "Y" },
-      { "kind": "endpoints", "count": 4, "shape": "X" },
-      { "kind": "endpoints", "count": 2, "shape": "diag" },
+      { "kind": "endpoints", "count": 4, "shape": "asterisk" },
+      { "kind": "endpoints", "count": 2, "shape": "V_shape" },
+      { "kind": "endpoints", "count": 3, "shape": "pitchfork" },
       { "kind": "endpoints", "count": 0, "shape": "square_closed" },
-      { "kind": "endpoints", "count": 3, "shape": "U" }
+      { "kind": "endpoints", "count": 3, "shape": "T" },
+      { "kind": "endpoints", "count": 4, "shape": "W_shape" }
     ],
     "correctAnswer": 0
   },
