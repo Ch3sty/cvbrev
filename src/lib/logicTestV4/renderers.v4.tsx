@@ -84,7 +84,14 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
             frame_h: [<Line key="t" x1={25} y1={25} x2={75} y2={25} />, <Line key="b" x1={25} y1={75} x2={75} y2={75} />],
             frame_v: [<Line key="l" x1={25} y1={25} x2={25} y2={75} />, <Line key="r" x1={75} y1={25} x2={75} y2={75} />],
         };
-        return <>{cell.lines.map(name => React.cloneElement(lineMap[name] as React.ReactElement<any>, {key: name}))}</>;
+        if (!cell.lines || cell.lines.length === 0) return null;
+        return <>{cell.lines.map((name, index) => {
+          const element = lineMap[name];
+          if (Array.isArray(element)) {
+            return <React.Fragment key={index}>{element}</React.Fragment>;
+          }
+          return React.cloneElement(element as React.ReactElement<any>, {key: index});
+        })}</>;
     }
     case 'shaded_shape': {
         const fill = cell.fill === 'none' ? FILL_NONE : cell.fill === 'gray' ? FILL_GRAY : FILL_BLACK;

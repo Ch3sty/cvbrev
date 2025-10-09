@@ -97,7 +97,7 @@
       { "kind": "corner_dot", "pos": "TL" },
       { "kind": "corner_dot", "pos": "TR" },
       { "kind": "dots", "count": 1, "pos": "C" },
-      { "kind": "corner_dot", "pos": null }
+      { "kind": "dots", "count": 4, "pos": "C" }
     ],
     "correctAnswer": 2
   },
