@@ -136,20 +136,16 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
     }
     case 'intersection': {
         const shapes: Record<string, React.ReactElement> = {
-            // Enskilda former
-            rect_full: <rect x="25" y="25" width="50" height="50" />,
-            circle: <circle cx="50" cy="50" r="25" />,
-            rect_top: <rect x="25" y="25" width="50" height="25" />,
-            rect_left: <rect x="25" y="25" width="25" height="50" />,
-            rect_top_left: <rect x="25" y="25" width="25" height="25" />,
-            rect_diag: <path d="M25,25 L75,75 V25 H25Z" />,
-            tri_bottom: <path d="M50 50 L20 80 H80 Z" />,
-            circle_half_bottom: <path d="M50,75 A25,25 0 0 0 25,50 H75 A25,25 0 0 0 50,75Z" />,
-            segment: <path d="M50,25 A25,25 0,0,1,75,50 V75 H25 V50 A25,25 0,0,1,50,25Z" />,
-            // Förberäknade intersection-former
-            rect_circle_int: <circle cx="50" cy="50" r="25" />,  // Cirkel inuti fyrkant = cirkel
-            rect_top_rect_left_int: <rect x="25" y="25" width="25" height="25" />,  // Övre vänstra kvadrant
-            circle_tri_int: <path d="M50,25 A25,25 0,0,1,75,50 V75 H25 V50 A25,25 0,0,1,50,25Z" />,  // Segment av cirkel
+            // Enskilda former - centrerade och stora för tydliga överlappningar
+            rect_full: <rect x="20" y="25" width="60" height="50" />,
+            circle: <circle cx="45" cy="50" r="30" />,
+            rect_top: <rect x="20" y="20" width="60" height="30" />,
+            rect_left: <rect x="20" y="20" width="30" height="60" />,
+            rect_top_left: <rect x="20" y="20" width="30" height="30" />,
+            rect_diag: <path d="M20,20 L80,80 V20 H20Z" />,
+            tri_bottom: <path d="M50 45 L15 85 H85 Z" />,
+            circle_half_bottom: <path d="M45,80 A30,30 0 0 0 15,50 H75 A30,30 0 0 0 45,80Z" />,
+            segment: <path d="M45,20 A30,30 0,0,1,75,50 V80 H15 V50 A30,30 0,0,1,45,20Z" />,
         };
 
         const fill = cell.fill === 'none' ? FILL_NONE : FILL_BLACK;
@@ -178,7 +174,47 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
             );
         }
 
-        // Rita formen från shapes-mappningen (för intersection-resultat och svarsalternativ)
+        // För intersection-resultat (kolumn 3): Använd clipPath för korrekt skärning
+        if (cell.shape1.endsWith('_int')) {
+            // Extrahera ursprungsformer från namnet (t.ex. "rect_circle_int" -> ["rect_full", "circle"])
+            const parts = cell.shape1.replace('_int', '').split('_');
+            let shape1Key = parts[0];
+            let shape2Key = parts.slice(1).join('_');
+
+            // Konvertera till rätt keys
+            if (shape1Key === 'rect' && !shape2Key.startsWith('circle')) shape1Key = 'rect_full';
+            if (shape2Key === 'top') { shape1Key = 'rect_top'; shape2Key = 'rect_left'; }
+            if (shape2Key === 'tri') shape2Key = 'tri_bottom';
+
+            const shape1_elem = shapes[shape1Key];
+            const shape2_elem = shapes[shape2Key];
+
+            if (!shape1_elem || !shape2_elem) {
+                // Fallback till enkel rendering om vi inte kan hitta formerna
+                const shape_elem = shapes[cell.shape1];
+                if (!shape_elem) return null;
+                return React.cloneElement(shape_elem as React.ReactElement<any>, { fill, stroke, strokeWidth: STROKE_WIDTH });
+            }
+
+            const clipId = `clip-${cell.shape1}-${Math.random().toString(36).substr(2, 9)}`;
+
+            return (
+                <>
+                    <defs>
+                        <clipPath id={clipId}>
+                            {shape2_elem}
+                        </clipPath>
+                    </defs>
+                    {React.cloneElement(shape1_elem as React.ReactElement<any>, {
+                        fill,
+                        stroke: 'none',
+                        clipPath: `url(#${clipId})`
+                    })}
+                </>
+            );
+        }
+
+        // Rita formen från shapes-mappningen (för svarsalternativ)
         const shape_elem = shapes[cell.shape1];
         if (!shape_elem) return null;
 
