@@ -143,7 +143,7 @@ export const SvgCell: React.FC<{ cell: Cell; className?: string }> = ({
         <TShape rotation={cell.rotation} />
         <g transform={`rotate(${cell.rotation},${CX},${CY})`}>
           <Dot
-            cx={{ '-1': 26, '0': 50, '1': 74 }[String(cell.dot)]}
+            cx={cell.dot === -1 ? 26 : cell.dot === 0 ? 50 : 74}
             cy={50}
           />
         </g>
@@ -154,7 +154,7 @@ export const SvgCell: React.FC<{ cell: Cell; className?: string }> = ({
         <PlusShape rotation={cell.rotation} />
         <g transform={`rotate(${cell.rotation},${CX},${CY})`}>
           <Dot
-            cx={{ '-1': 30, '0': 50, '1': 70 }[String(cell.dot)]}
+            cx={cell.dot === -1 ? 30 : cell.dot === 0 ? 50 : 70}
             cy={50}
           />
         </g>
