@@ -1,0 +1,304 @@
+[
+  {
+    "id": "v3-q1-count-progression",
+    "title": "FRÅGA 1 — Progression av antal",
+    "rule": "Antalet prickar ökar med en för varje kolumn (1, 2, 3). Raden ändrar prickarnas position (topp, mitt, botten) inom ramen.",
+    "difficulty": 1,
+    "showGrid": true,
+    "grid": [
+      [{ "kind": "dots", "count": 1, "pos": "T" }, { "kind": "dots", "count": 2, "pos": "T" }, { "kind": "dots", "count": 3, "pos": "T" }],
+      [{ "kind": "dots", "count": 1, "pos": "C" }, { "kind": "dots", "count": 2, "pos": "C" }, { "kind": "dots", "count": 3, "pos": "C" }],
+      [{ "kind": "dots", "count": 1, "pos": "B" }, { "kind": "dots", "count": 2, "pos": "B" }, null]
+    ],
+    "options": [
+      { "kind": "dots", "count": 1, "pos": "B" },
+      { "kind": "dots", "count": 2, "pos": "B" },
+      { "kind": "dots", "count": 3, "pos": "B" },
+      { "kind": "dots", "count": 3, "pos": "C" },
+      { "kind": "dots", "count": 2, "pos": "T" },
+      { "kind": "dots", "count": 3, "layout": "vertical", "pos": "C" }
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "v3-q2-simple-rotation",
+    "title": "FRÅGA 2 — Enkel rotation",
+    "rule": "Pilen roterar 90° medurs för varje steg i raden. Formen är densamma för alla rader.",
+    "difficulty": 1,
+    "grid": [
+      [{ "kind": "arrow", "rotation": 0, "fill": true }, { "kind": "arrow", "rotation": 90, "fill": true }, { "kind": "arrow", "rotation": 180, "fill": true }],
+      [{ "kind": "arrow", "rotation": 0, "fill": true }, { "kind": "arrow", "rotation": 90, "fill": true }, { "kind": "arrow", "rotation": 180, "fill": true }],
+      [{ "kind": "arrow", "rotation": 0, "fill": true }, { "kind": "arrow", "rotation": 90, "fill": true }, null]
+    ],
+    "options": [
+      { "kind": "arrow", "rotation": 90, "fill": true },
+      { "kind": "arrow", "rotation": 180, "fill": true },
+      { "kind": "arrow", "rotation": 270, "fill": true },
+      { "kind": "arrow", "rotation": 0, "fill": true },
+      { "kind": "arrow", "rotation": 45, "fill": true },
+      { "kind": "arrow", "rotation": 180, "fill": false }
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "v3-q3-latin-square",
+    "title": "FRÅGA 3 — Latin square",
+    "rule": "Varje rad och kolumn måste innehålla exakt en av varje symbol (Pac-Man, stjärna, hjärta).",
+    "difficulty": 1,
+    "grid": [
+      [{ "kind": "icon", "shape": "pacman" }, { "kind": "icon", "shape": "star" }, { "kind": "icon", "shape": "heart" }],
+      [{ "kind": "icon", "shape": "star" }, { "kind": "icon", "shape": "heart" }, { "kind": "icon", "shape": "pacman" }],
+      [{ "kind": "icon", "shape": "heart" }, { "kind": "icon", "shape": "pacman" }, null]
+    ],
+    "options": [
+      { "kind": "icon", "shape": "star" },
+      { "kind": "icon", "shape": "pacman" },
+      { "kind": "icon", "shape": "heart" },
+      { "kind": "icon", "shape": "star", "rotation": 90 },
+      { "kind": "shaded_shape", "shape": "circle", "fill": "black" },
+      { "kind": "shaded_shape", "shape": "square", "fill": "black" }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v3-q4-alternating-fill",
+    "title": "FRÅGA 4 — Alternerande fyllning",
+    "rule": "Fyllningen alternerar mellan fylld och ofylld för varje cell, läst radvis.",
+    "difficulty": 1,
+    "grid": [
+      [{ "kind": "fill", "shape": "square", "fill": true }, { "kind": "fill", "shape": "square", "fill": false }, { "kind": "fill", "shape": "square", "fill": true }],
+      [{ "kind": "fill", "shape": "square", "fill": false }, { "kind": "fill", "shape": "square", "fill": true }, { "kind": "fill", "shape": "square", "fill": false }],
+      [{ "kind": "fill", "shape": "square", "fill": true }, { "kind": "fill", "shape": "square", "fill": false }, null]
+    ],
+    "options": [
+      { "kind": "fill", "shape": "square", "fill": false },
+      { "kind": "fill", "shape": "circle", "fill": true },
+      { "kind": "fill", "shape": "circle", "fill": false },
+      { "kind": "fill", "shape": "square", "fill": true },
+      { "kind": "sized_shape", "shape": "square", "size": "L" },
+      { "kind": "lines", "lines": [] }
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "v3-q5-position-sequence",
+    "title": "FRÅGA 5 — Positionssekvens",
+    "rule": "En prick rör sig medurs ett steg i taget mellan de fyra hörnen på ramen.",
+    "difficulty": 1,
+    "showGrid": true,
+    "grid": [
+      [{ "kind": "corner_dot", "pos": "TL" }, { "kind": "corner_dot", "pos": "TR" }, { "kind": "corner_dot", "pos": "BR" }],
+      [{ "kind": "corner_dot", "pos": "BL" }, { "kind": "corner_dot", "pos": "TL" }, { "kind": "corner_dot", "pos": "TR" }],
+      [{ "kind": "corner_dot", "pos": "BR" }, { "kind": "corner_dot", "pos": "BL" }, null]
+    ],
+    "options": [
+      { "kind": "corner_dot", "pos": "BL" },
+      { "kind": "corner_dot", "pos": "BR" },
+      { "kind": "corner_dot", "pos": "TL" },
+      { "kind": "corner_dot", "pos": "TR" },
+      { "kind": "grid_dot", "x": 0, "y": 0 },
+      { "kind": "corner_dot", "pos": null }
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "v3-q6-line-union",
+    "title": "FRÅGA 6 — Union av linjer",
+    "rule": "I varje rad är Kolumn 3 en sammanslagning (union) av alla linjer från Kolumn 1 och 2.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "lines", "lines": ["horiz"] }, { "kind": "lines", "lines": ["vert"] }, { "kind": "lines", "lines": ["cross"] }],
+      [{ "kind": "lines", "lines": ["diag_down"] }, { "kind": "lines", "lines": ["diag_up"] }, { "kind": "lines", "lines": ["diag_down", "diag_up"] }],
+      [{ "kind": "lines", "lines": ["frame_h"] }, { "kind": "lines", "lines": ["frame_v"] }, null]
+    ],
+    "options": [
+      { "kind": "lines", "lines": ["frame_h"] },
+      { "kind": "lines", "lines": ["frame_v"] },
+      { "kind": "lines", "lines": ["cross"] },
+      { "kind": "lines", "lines": ["frame"] },
+      { "kind": "lines", "lines": ["diag_down", "diag_up"] },
+      { "kind": "lines", "lines": [] }
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "v3-q7-attribute-grid",
+    "title": "FRÅGA 7 — Två attribut per axel",
+    "rule": "Raden bestämmer formen (cirkel, kvadrat, triangel). Kolumnen bestämmer fyllnadsgrad (kontur, grå, svart).",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "shaded_shape", "shape": "circle", "fill": "none" }, { "kind": "shaded_shape", "shape": "circle", "fill": "gray" }, { "kind": "shaded_shape", "shape": "circle", "fill": "black" }],
+      [{ "kind": "shaded_shape", "shape": "square", "fill": "none" }, { "kind": "shaded_shape", "shape": "square", "fill": "gray" }, { "kind": "shaded_shape", "shape": "square", "fill": "black" }],
+      [{ "kind": "shaded_shape", "shape": "triangle", "fill": "none" }, { "kind": "shaded_shape", "shape": "triangle", "fill": "gray" }, null]
+    ],
+    "options": [
+      { "kind": "shaded_shape", "shape": "triangle", "fill": "none" },
+      { "kind": "shaded_shape", "shape": "triangle", "fill": "gray" },
+      { "kind": "shaded_shape", "shape": "square", "fill": "black" },
+      { "kind": "shaded_shape", "shape": "circle", "fill": "black" },
+      { "kind": "shaded_shape", "shape": "triangle", "fill": "black" },
+      { "kind": "shaded_shape", "shape": "triangle", "fill": "black", "rotation": 180 }
+    ],
+    "correctAnswer": 4
+  },
+  {
+    "id": "v3-q8-endpoint-count",
+    "title": "FRÅGA 8 — Räkna slutpunkter",
+    "rule": "Antalet 'slutpunkter' (ändar på linjer) i figuren ökar med 1 för varje kolumn (2, 3, 4).",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "endpoints", "count": 2 }, { "kind": "endpoints", "count": 3 }, { "kind": "endpoints", "count": 4 }],
+      [{ "kind": "endpoints", "count": 2 }, { "kind": "endpoints", "count": 3 }, { "kind": "endpoints", "count": 4 }],
+      [{ "kind": "endpoints", "count": 2 }, { "kind": "endpoints", "count": 3 }, null]
+    ],
+    "options": [
+      { "kind": "endpoints", "count": 4, "shape": "rhombus_open" },
+      { "kind": "endpoints", "count": 3 },
+      { "kind": "endpoints", "count": 4, "shape": "cross_diags" },
+      { "kind": "endpoints", "count": 2 },
+      { "kind": "endpoints", "count": 0 },
+      { "kind": "endpoints", "count": 3, "shape": "triangle_open" }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v3-q9-reflection",
+    "title": "FRÅGA 9 — Vertikal spegling",
+    "rule": "Kolumn 2 är en vertikal spegelbild av Kolumn 1. Kolumn 3 är en vertikal spegelbild av Kolumn 2 (och därmed identisk med Kolumn 1).",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "reflected_shape", "shape": "U", "mirror_v": false }, { "kind": "reflected_shape", "shape": "U", "mirror_v": true }, { "kind": "reflected_shape", "shape": "U", "mirror_v": false }],
+      [{ "kind": "reflected_shape", "shape": "arc", "mirror_v": false }, { "kind": "reflected_shape", "shape": "arc", "mirror_v": true }, { "kind": "reflected_shape", "shape": "arc", "mirror_v": false }],
+      [{ "kind": "reflected_shape", "shape": "wedge", "mirror_v": false }, { "kind": "reflected_shape", "shape": "wedge", "mirror_v": true }, null]
+    ],
+    "options": [
+      { "kind": "reflected_shape", "shape": "wedge", "mirror_v": true },
+      { "kind": "reflected_shape", "shape": "wedge", "rotation": 180 },
+      { "kind": "reflected_shape", "shape": "wedge", "mirror_h": true },
+      { "kind": "reflected_shape", "shape": "arc", "mirror_v": false },
+      { "kind": "reflected_shape", "shape": "U", "mirror_v": false },
+      { "kind": "reflected_shape", "shape": "wedge", "mirror_v": false }
+    ],
+    "correctAnswer": 5
+  },
+  {
+    "id": "v3-q10-intersection",
+    "title": "FRÅGA 10 — Skärning (A ∩ B)",
+    "rule": "I varje rad är Kolumn 3 skärningen (intersection) av formerna i Kolumn 1 och 2, dvs den del som är gemensam för båda.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "intersection", "shape1": "rect_full", "shape2": "circle" }, { "kind": "intersection", "shape1": "circle", "shape2": "rect_full" }, { "kind": "intersection", "shape1": "circle", "shape2": "circle" }],
+      [{ "kind": "intersection", "shape1": "rect_top", "shape2": "rect_left" }, { "kind": "intersection", "shape1": "rect_left", "shape2": "rect_top" }, { "kind": "intersection", "shape1": "rect_top_left", "shape2": "rect_top_left" }],
+      [{ "kind": "intersection", "shape1": "circle", "shape2": "tri_bottom" }, { "kind": "intersection", "shape1": "tri_bottom", "shape2": "circle" }, null]
+    ],
+    "options": [
+      { "kind": "intersection", "shape1": "circle", "shape2": "circle" },
+      { "kind": "intersection", "shape1": "tri_bottom", "shape2": "tri_bottom" },
+      { "kind": "intersection", "shape1": "circle_half_bottom", "shape2": "circle_half_bottom" },
+      { "kind": "intersection", "shape1": "tri_bottom", "shape2": "tri_bottom", "fill": "none" },
+      { "kind": "intersection", "shape1": "circle", "shape2": "circle", "fill": "none" },
+      { "kind": "intersection", "shape1": "segment", "shape2": "segment" }
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "v3-q11-orbital",
+    "title": "FRÅGA 11 — Kretsande objekt",
+    "rule": "En liten prick kretsar runt en central cirkel i 45°-steg moturs för varje cell, läst radvis.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "orbital_dot", "step": 0 }, { "kind": "orbital_dot", "step": 1 }, { "kind": "orbital_dot", "step": 2 }],
+      [{ "kind": "orbital_dot", "step": 3 }, { "kind": "orbital_dot", "step": 4 }, { "kind": "orbital_dot", "step": 5 }],
+      [{ "kind": "orbital_dot", "step": 6 }, { "kind": "orbital_dot", "step": 7 }, null]
+    ],
+    "options": [
+      { "kind": "orbital_dot", "step": 0 },
+      { "kind": "orbital_dot", "step": 7 },
+      { "kind": "orbital_dot", "step": 6 },
+      { "kind": "orbital_dot", "step": 8 },
+      { "kind": "orbital_dot", "step": 4 },
+      { "kind": "orbital_dot", "step": 1 }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v3-q12-swap",
+    "title": "FRÅGA 12 — Byte av position",
+    "rule": "Det finns alltid en svart och en vit cirkel. För varje steg i raden byter de plats med varandra. Mönstret återställs för varje ny rad.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "swap", "arrangement": "diag", "black_pos": 1 }, { "kind": "swap", "arrangement": "diag", "black_pos": 2 }, { "kind": "swap", "arrangement": "diag", "black_pos": 1 }],
+      [{ "kind": "swap", "arrangement": "vert", "black_pos": 1 }, { "kind": "swap", "arrangement": "vert", "black_pos": 2 }, { "kind": "swap", "arrangement": "vert", "black_pos": 1 }],
+      [{ "kind": "swap", "arrangement": "horiz", "black_pos": 1 }, { "kind": "swap", "arrangement": "horiz", "black_pos": 2 }, null]
+    ],
+    "options": [
+      { "kind": "swap", "arrangement": "horiz", "black_pos": 2 },
+      { "kind": "swap", "arrangement": "horiz", "black_pos": 1, "shape": "square" },
+      { "kind": "swap", "arrangement": "vert", "black_pos": 1 },
+      { "kind": "swap", "arrangement": "horiz", "black_pos": 1 },
+      { "kind": "swap", "arrangement": "diag", "black_pos": 1 },
+      { "kind": "swap", "arrangement": "horiz", "black_pos": 2 }
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "v3-q13-size-progression",
+    "title": "FRÅGA 13 — Storleksprogression",
+    "rule": "Formen växer i storlek för varje kolumn (liten, mellan, stor). Raden bestämmer vilken form som används.",
+    "difficulty": 1,
+    "grid": [
+      [{ "kind": "sized_shape", "shape": "rhombus", "size": "S" }, { "kind": "sized_shape", "shape": "rhombus", "size": "M" }, { "kind": "sized_shape", "shape": "rhombus", "size": "L" }],
+      [{ "kind": "sized_shape", "shape": "square", "size": "S" }, { "kind": "sized_shape", "shape": "square", "size": "M" }, { "kind": "sized_shape", "shape": "square", "size": "L" }],
+      [{ "kind": "sized_shape", "shape": "triangle", "size": "S" }, { "kind": "sized_shape", "shape": "triangle", "size": "M" }, null]
+    ],
+    "options": [
+      { "kind": "sized_shape", "shape": "triangle", "size": "L" },
+      { "kind": "sized_shape", "shape": "triangle", "size": "M" },
+      { "kind": "sized_shape", "shape": "triangle", "size": "S" },
+      { "kind": "sized_shape", "shape": "triangle", "size": "L", "fill": false },
+      { "kind": "sized_shape", "shape": "rhombus", "size": "L" },
+      { "kind": "sized_shape", "shape": "triangle", "size": "L", "rotation": 180 }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v3-q14-shape-subtraction",
+    "title": "FRÅGA 14 — Subtraktion av form",
+    "rule": "Kolumn 3 är resultatet av Kolumn 1 minus Kolumn 2 (den inre formen 'stansas ut').",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "subtraction", "outer": "square", "inner": "circle" }, { "kind": "subtraction", "outer": "circle", "inner": "none" }, { "kind": "subtraction", "outer": "square", "inner": "none" }],
+      [{ "kind": "subtraction", "outer": "circle", "inner": "square" }, { "kind": "subtraction", "outer": "square", "inner": "none" }, { "kind": "subtraction", "outer": "circle", "inner": "none" }],
+      [{ "kind": "subtraction", "outer": "triangle", "inner": "circle" }, { "kind": "subtraction", "outer": "circle", "inner": "none" }, null]
+    ],
+    "options": [
+      { "kind": "subtraction", "outer": "triangle", "inner": "none" },
+      { "kind": "subtraction", "outer": "circle", "inner": "none" },
+      { "kind": "subtraction", "outer": "triangle", "inner": "circle" },
+      { "kind": "subtraction", "outer": "triangle", "inner": "square" },
+      { "kind": "subtraction", "outer": "square", "inner": "none" },
+      { "kind": "subtraction", "outer": "triangle", "inner": "none", "fill": false }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v3-q15-sweep",
+    "title": "FRÅGA 15 — Svepande linje",
+    "rule": "En linje ritas från centrum och utåt. För varje steg i raden läggs en ny linje till, 90° medurs från den föregående.",
+    "difficulty": 2,
+    "grid": [
+      [{ "kind": "sweep", "steps": 1 }, { "kind": "sweep", "steps": 2 }, { "kind": "sweep", "steps": 3 }],
+      [{ "kind": "sweep", "steps": 1 }, { "kind": "sweep", "steps": 2 }, { "kind": "sweep", "steps": 3 }],
+      [{ "kind": "sweep", "steps": 1 }, { "kind": "sweep", "steps": 2 }, null]
+    ],
+    "options": [
+      { "kind": "sweep", "steps": 3 },
+      { "kind": "sweep", "steps": 2 },
+      { "kind": "sweep", "steps": 1 },
+      { "kind": "sweep", "steps": 4 },
+      { "kind": "sweep", "steps": 3, "rotation": 90 },
+      { "kind": "sweep", "steps": 3, "rotation": 45 }
+    ],
+    "correctAnswer": 0
+  }
+]
