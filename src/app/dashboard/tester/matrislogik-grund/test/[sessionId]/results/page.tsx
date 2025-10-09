@@ -8,16 +8,23 @@ import { Button } from '@/components/ui/button';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
 interface PageProps {
-  params: { sessionId: string };
+  params: Promise<{ sessionId: string }>;
 }
 
 export default function ResultsPage({ params }: PageProps) {
   const router = useRouter();
-  const { sessionId } = params;
+  const [sessionId, setSessionId] = useState<string | null>(null);
   const [session, setSession] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Unwrap params Promise
   useEffect(() => {
+    params.then(p => setSessionId(p.sessionId));
+  }, [params]);
+
+  useEffect(() => {
+    if (!sessionId) return;
+
     const fetchSession = async () => {
       try {
         const supabase = getSupabaseClient();

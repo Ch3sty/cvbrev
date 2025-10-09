@@ -15,12 +15,12 @@ import type { Question } from '@/lib/logicTestV4/types.v4';
 const questions = questionBank as Question[];
 
 interface PageProps {
-  params: { sessionId: string };
+  params: Promise<{ sessionId: string }>;
 }
 
 export default function TestSessionPage({ params }: PageProps) {
   const router = useRouter();
-  const { sessionId } = params;
+  const [sessionId, setSessionId] = useState<string | null>(null);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(Array(questions.length).fill(null));
@@ -29,6 +29,11 @@ export default function TestSessionPage({ params }: PageProps) {
   const [isSaving, setIsSaving] = useState(false);
   const [showFinishConfirm, setShowFinishConfirm] = useState(false);
 
+  // Unwrap params Promise
+  useEffect(() => {
+    params.then(p => setSessionId(p.sessionId));
+  }, [params]);
+
   const question = questions[currentQuestion];
   const answeredQuestions = new Set(
     answers.map((ans, i) => (ans !== null ? i : null)).filter((i): i is number => i !== null)
@@ -36,6 +41,8 @@ export default function TestSessionPage({ params }: PageProps) {
 
   // Save answer to backend
   const saveAnswer = useCallback(async (questionIndex: number, selectedIndex: number) => {
+    if (!sessionId) return;
+
     const timeSpent = Math.floor((Date.now() - questionStartTime) / 1000);
 
     try {
@@ -102,6 +109,8 @@ export default function TestSessionPage({ params }: PageProps) {
 
   // Finish test
   const handleFinishTest = async () => {
+    if (!sessionId) return;
+
     try {
       const response = await fetch('/api/logicTestV4/complete', {
         method: 'POST',
@@ -137,6 +146,14 @@ export default function TestSessionPage({ params }: PageProps) {
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [currentQuestion, question]);
+
+  if (!sessionId) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50/30 flex items-center justify-center">
+        <div className="text-slate-600">Laddar test...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50/30 pb-32">
