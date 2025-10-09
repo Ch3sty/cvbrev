@@ -63,10 +63,10 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
       return rotate(cell.rotation ?? 0, <>{iconPath}</>);
     }
     case 'fill': {
-      const shape = cell.shape === 'circle' 
-        ? <circle cx={50} cy={50} r={25} /> 
+      const shape = cell.shape === 'circle'
+        ? <circle cx={50} cy={50} r={25} />
         : <rect x="25" y="25" width="50" height="50" />;
-      return React.cloneElement(shape, { fill: cell.fill ? STROKE_COLOR : 'none', stroke: STROKE_COLOR, strokeWidth: STROKE_WIDTH });
+      return React.cloneElement(shape as React.ReactElement<any>, { fill: cell.fill ? STROKE_COLOR : 'none', stroke: STROKE_COLOR, strokeWidth: STROKE_WIDTH });
     }
     case 'corner_dot': {
       if (!cell.pos) return null;
@@ -84,7 +84,7 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
             frame_h: [<Line key="t" x1={25} y1={25} x2={75} y2={25} />, <Line key="b" x1={25} y1={75} x2={75} y2={75} />],
             frame_v: [<Line key="l" x1={25} y1={25} x2={25} y2={75} />, <Line key="r" x1={75} y1={25} x2={75} y2={75} />],
         };
-        return <>{cell.lines.map(name => React.cloneElement(lineMap[name] as React.ReactElement, {key: name}))}</>;
+        return <>{cell.lines.map(name => React.cloneElement(lineMap[name] as React.ReactElement<any>, {key: name}))}</>;
     }
     case 'shaded_shape': {
         const fill = cell.fill === 'none' ? FILL_NONE : cell.fill === 'gray' ? FILL_GRAY : FILL_BLACK;
@@ -92,7 +92,7 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
         if (cell.shape === 'circle') shape = <circle cx="50" cy="50" r={25} />;
         else if (cell.shape === 'square') shape = <rect x="25" y="25" width="50" height="50" />;
         else shape = <path d="M50 20 L80 75 L20 75 Z" strokeLinejoin="round" />;
-        return rotate(cell.rotation ?? 0, React.cloneElement(shape, { fill, stroke: STROKE_COLOR, strokeWidth: STROKE_WIDTH }));
+        return rotate(cell.rotation ?? 0, React.cloneElement(shape as React.ReactElement<any>, { fill, stroke: STROKE_COLOR, strokeWidth: STROKE_WIDTH }));
     }
     case 'endpoints': {
         const shapes: Record<string, React.ReactElement> = {
@@ -113,7 +113,7 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
     case 'arc':
     case 'wedge': {
       let path;
-      const props = { fill: "none", stroke: STROKE_COLOR, strokeWidth: "3", strokeLinejoin: "round" };
+      const props = { fill: "none" as const, stroke: STROKE_COLOR, strokeWidth: "3", strokeLinejoin: "round" as const };
       if (cell.kind === 'flag') path = <path d="M 25 25 L 75 50 L 25 75" {...props} />;
       if (cell.kind === 'arc') path = <path d="M 50 25 A 25 25 0 0 1 75 50" {...props} />;
       if (cell.kind === 'wedge') path = <path d="M 25 25 L 75 25 L 75 50" {...props} />;
@@ -167,7 +167,7 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
         else shape = <path d={`M${CX} ${CY - s*0.8} L${CX+s} ${CY+s*0.8} L${CX-s} ${CY+s*0.8} Z`} />;
 
         const fill = cell.fill === false ? 'none' : FILL_BLACK;
-        return rotate(cell.rotation ?? 0, React.cloneElement(shape, { fill, stroke: fill === 'none' ? STROKE_COLOR : 'none', strokeWidth: STROKE_WIDTH }));
+        return rotate(cell.rotation ?? 0, React.cloneElement(shape as React.ReactElement<any>, { fill, stroke: fill === 'none' ? STROKE_COLOR : 'none', strokeWidth: STROKE_WIDTH }));
     }
     case 'subtraction': {
         const outer = cell.outer === 'square' ? 'M25,25 H75 V75 H25Z' : cell.outer === 'circle' ? 'M50,25 A25,25 0 1,1 49.99,25Z' : 'M50 20 L80 80 L20 80 Z';
@@ -184,7 +184,7 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
 
         const fill = cell.fill === 'none' ? FILL_NONE : cell.fill === 'gray' ? FILL_GRAY : FILL_BLACK;
         const stroke = fill === FILL_NONE ? STROKE_COLOR : 'none';
-        return rotate(cell.rotation ?? 0, React.cloneElement(shapePath, { fill, stroke, strokeWidth: STROKE_WIDTH }));
+        return rotate(cell.rotation ?? 0, React.cloneElement(shapePath as React.ReactElement<any>, { fill, stroke, strokeWidth: STROKE_WIDTH }));
     }
     case 'sweep': {
         const lines = [];
@@ -213,42 +213,83 @@ export const MatrixQuestionComponentV4: React.FC<{
     </svg>
   );
 
+  const styles = {
+    questionContainer: {
+      fontFamily: 'sans-serif',
+    },
+    matrixGrid: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+      gap: '12px',
+      maxWidth: '360px',
+      margin: '20px 0',
+    },
+    cell: {
+      border: '1px solid #ddd',
+      borderRadius: '8px',
+      background: '#fff',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '110px',
+      height: '110px',
+      position: 'relative' as const,
+    },
+    missing: {
+      fontSize: '48px',
+      color: '#aaa',
+    },
+    answerButton: {
+      border: '1px solid #ddd',
+      borderRadius: '8px',
+      background: '#fff',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '110px',
+      height: '110px',
+      position: 'relative' as const,
+      flexDirection: 'column' as const,
+      padding: '4px',
+      cursor: 'pointer',
+    },
+    answerButtonSelected: {
+      borderColor: '#4f46e5',
+      borderWidth: '2px',
+    },
+    answerLabel: {
+      fontSize: '12px',
+      fontWeight: 'bold' as const,
+      color: '#555',
+      height: '16px',
+    },
+  };
+
   return (
-    <div className="question-container">
-      <div className="matrix-grid">
+    <div style={styles.questionContainer}>
+      <div style={styles.matrixGrid}>
         {question.grid.flat().map((cell, i) => (
-          <div className="cell" key={`grid-${i}`}>
-            {cell ? renderCellWithGrid(cell) : <div className="missing">?</div>}
+          <div style={styles.cell} key={`grid-${i}`}>
+            {cell ? renderCellWithGrid(cell) : <div style={styles.missing}>?</div>}
           </div>
         ))}
       </div>
 
-      <div className="answers-grid" role="radiogroup">
+      <div style={styles.matrixGrid} role="radiogroup">
         {question.options.map((option, i) => (
-          <button 
+          <button
             key={`option-${i}`}
-            className={`answer-button ${selected === i ? 'selected' : ''}`}
+            style={{...styles.answerButton, ...(selected === i ? styles.answerButtonSelected : {})}}
             onClick={() => onSelect(i)}
             role="radio"
             aria-checked={selected === i}
             aria-label={`Svarsalternativ ${String.fromCharCode(65 + i)}`}
           >
-            <div className="answer-label">{String.fromCharCode(65 + i)}</div>
+            <div style={styles.answerLabel}>{String.fromCharCode(65 + i)}</div>
             {renderCellWithGrid(option)}
           </button>
         ))}
       </div>
-
-      <style jsx>{`
-        .question-container { font-family: sans-serif; }
-        .matrix-grid, .answers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 360px; margin: 20px 0; }
-        .cell, .answer-button { border: 1px solid #ddd; border-radius: 8px; background: #fff; display: flex; align-items: center; justify-content: center; width: 110px; height: 110px; position: relative; }
-        .missing { font-size: 48px; color: #aaa; }
-        .answer-button { flex-direction: column; padding: 4px; cursor: pointer; }
-        .answer-button:hover { border-color: #aaa; }
-        .answer-button.selected { border-color: #4f46e5; border-width: 2px; }
-        .answer-label { font-size: 12px; font-weight: bold; color: #555; height: 16px; }
-      `}</style>
     </div>
   );
 };
