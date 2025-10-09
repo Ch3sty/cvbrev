@@ -28,7 +28,7 @@ export type ShadedShape = { kind: 'shaded_shape'; shape: 'circle'|'square'|'tria
 export type Endpoints = { kind: 'endpoints'; count: 0 | 2 | 3 | 4; shape?: string };
 
 // Q9: Vertikal spegling
-export type ReflectedShape = { kind: 'flag' | 'arc' | 'wedge'; mirror_v?: boolean; mirror_h?: boolean, rotation?: Angle };
+export type ReflectedShape = { kind: 'hook' | 'arc' | 'wedge'; mirror_v?: boolean; mirror_h?: boolean, rotation?: Angle };
 
 // Q10: Skärning mellan former
 export type Intersection = { kind: 'intersection'; shape1: string; shape2: string, fill?: 'none' | 'black' };

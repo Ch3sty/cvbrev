@@ -116,12 +116,12 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
         };
         return shapes[cell.shape ?? ''] || null;
     }
-    case 'flag':
+    case 'hook':
     case 'arc':
     case 'wedge': {
       let path;
       const props = { fill: "none" as const, stroke: STROKE_COLOR, strokeWidth: "3", strokeLinejoin: "round" as const };
-      if (cell.kind === 'flag') path = <path d="M 25 25 L 75 50 L 25 75" {...props} />;
+      if (cell.kind === 'hook') path = <path d="M 25 75 V 25 H 75" {...props} />;
       if (cell.kind === 'arc') path = <path d="M 50 25 A 25 25 0 0 1 75 50" {...props} />;
       if (cell.kind === 'wedge') path = <path d="M 25 25 L 75 25 L 75 50" {...props} />;
 

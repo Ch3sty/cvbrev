@@ -167,7 +167,7 @@
     "rule": "Kolumn 2 är en upp-och-ner-vänd version (vertikal flip) av Kolumn 1. Kolumn 3 är en flip av Kolumn 2 (och därmed identisk med Kolumn 1).",
     "difficulty": 2,
     "grid": [
-      [{ "kind": "flag", "mirror_v": false }, { "kind": "flag", "mirror_v": true }, { "kind": "flag", "mirror_v": false }],
+      [{ "kind": "hook", "mirror_v": false }, { "kind": "hook", "mirror_v": true }, { "kind": "hook", "mirror_v": false }],
       [{ "kind": "arc", "mirror_v": false }, { "kind": "arc", "mirror_v": true }, { "kind": "arc", "mirror_v": false }],
       [{ "kind": "wedge", "mirror_v": false }, { "kind": "wedge", "mirror_v": true }, null]
     ],
@@ -176,7 +176,7 @@
       { "kind": "wedge", "rotation": 180 },
       { "kind": "arc", "mirror_v": true },
       { "kind": "arc", "mirror_v": false },
-      { "kind": "flag", "mirror_v": false },
+      { "kind": "hook", "mirror_v": false },
       { "kind": "wedge", "mirror_v": false }
     ],
     "correctAnswer": 5

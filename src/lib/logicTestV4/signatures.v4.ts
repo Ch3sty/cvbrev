@@ -32,7 +32,7 @@ export const signature = (cell: Cell): string => {
       return `shaded:${cell.shape}:${cell.fill}:${normShadedRot}`;
     case 'endpoints':
         return `endpoints:${cell.count}:${cell.shape ?? ''}`;
-    case 'flag':
+    case 'hook':
     case 'arc':
     case 'wedge':
         return `reflect:${cell.kind}:${cell.mirror_v ? 1:0}:${cell.mirror_h ? 1:0}:${((cell.rotation ?? 0) % 360 + 360) % 360}`;
