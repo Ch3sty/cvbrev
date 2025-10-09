@@ -10,7 +10,7 @@ const FILL_NONE = 'none';
 const FILL_WHITE = '#fff';
 const STROKE_WIDTH = 2.5;
 
-const rotate = (rotation: number, content: JSX.Element) => (
+const rotate = (rotation: number, content: React.ReactElement) => (
   <g transform={`rotate(${rotation}, ${CX}, ${CY})`}>{content}</g>
 );
 
