@@ -265,9 +265,15 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
     }
     case 'sudoku': {
         let shapePath: React.ReactElement;
-        if (cell.shape === 'arrow') shapePath = <path d="M 50 20 L 65 50 L 50 80 L 50 60 L 35 60 L 35 40 L 50 40 Z" />;
-        else if (cell.shape === 'plus') shapePath = <path d="M 40 20 H 60 V 40 H 80 V 60 H 60 V 80 H 40 V 60 H 20 V 40 H 40 Z" />;
-        else shapePath = <path d="M 50,25 A 25 25 0 1 0 50,75 A 20 20 0 1 1 50,25 Z" />;
+        if (cell.shape === 'arrow') {
+            // Förbättrad pil: Tydligare pilspets och stjälk
+            shapePath = <path d="M 30 50 L 55 50 L 55 30 L 75 50 L 55 70 L 55 50 Z" />;
+        } else if (cell.shape === 'plus') {
+            shapePath = <path d="M 40 20 H 60 V 40 H 80 V 60 H 60 V 80 H 40 V 60 H 20 V 40 H 40 Z" />;
+        } else {
+            // Måne: Enkel halvmåne-form (crescent)
+            shapePath = <path d="M 35,25 A 25,25 0 0,1 35,75 A 18,18 0 0,0 35,25 Z" />;
+        }
 
         const fill = cell.fill === 'none' ? FILL_NONE : cell.fill === 'gray' ? FILL_GRAY : FILL_BLACK;
         const stroke = fill === FILL_NONE ? STROKE_COLOR : 'none';
