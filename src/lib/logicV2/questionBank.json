@@ -258,7 +258,7 @@
   {
     "id": "9a1c8b7d-4e3f-4a2c-8b1d-0e9f5c8d4b2e",
     "title": "FRÅGA 9 — Analogiregel (A:B :: C:?)",
-    "rule": "Transformationen från Kolumn 1 till 2 (rotera 45° och invertera färg) är densamma för varje rad.",
+    "rule": "Transformationen från Kolumn 1 till 2 (rotera 45° och invertera färg) är densamma för varje rad. Denna transformation appliceras sedan på Kolumn 2 för att få Kolumn 3.",
     "difficulty": 3,
     "grid": [
       [
@@ -267,9 +267,9 @@
         { "kind": "polygon", "sides": 4, "fill": true, "rotation": 90 }
       ],
       [
-        { "kind": "polygon", "sides": 0, "fill": false, "rotation": 0 },
-        { "kind": "polygon", "sides": 0, "fill": true, "rotation": 45 },
-        { "kind": "polygon", "sides": 0, "fill": false, "rotation": 90 }
+        { "kind": "pointer", "rotation": 0, "fill": false },
+        { "kind": "pointer", "rotation": 45, "fill": true },
+        { "kind": "pointer", "rotation": 90, "fill": false }
       ],
       [
         { "kind": "polygon", "sides": 3, "fill": true, "rotation": 0 },
@@ -280,9 +280,9 @@
     "options": [
       { "kind": "polygon", "sides": 3, "fill": true, "rotation": 45 },
       { "kind": "polygon", "sides": 3, "fill": false, "rotation": 90 },
-      { "kind": "polygon", "sides": 3, "fill": false, "rotation": 135 },
-      { "kind": "polygon", "sides": 3, "fill": true, "rotation": 135 },
       { "kind": "polygon", "sides": 3, "fill": true, "rotation": 90 },
+      { "kind": "polygon", "sides": 3, "fill": true, "rotation": 135 },
+      { "kind": "polygon", "sides": 3, "fill": true, "rotation": 0 },
       { "kind": "polygon", "sides": 3, "fill": false, "rotation": 0 }
     ],
     "correctAnswer": 2
@@ -294,28 +294,28 @@
     "difficulty": 3,
     "grid": [
       [
-        { "kind": "polygon", "sides": 4, "fill": true, "rotation": 45 },
-        { "kind": "polygon", "sides": 4, "fill": true, "rotation": 90 },
-        { "kind": "polygon", "sides": 4, "fill": true, "rotation": 135 }
+        { "kind": "pointer", "rotation": 0, "fill": true },
+        { "kind": "pointer", "rotation": 45, "fill": true },
+        { "kind": "pointer", "rotation": 135, "fill": true }
       ],
       [
-        { "kind": "polygon", "sides": 4, "fill": true, "rotation": 135 },
-        { "kind": "polygon", "sides": 4, "fill": true, "rotation": 180 },
-        { "kind": "polygon", "sides": 4, "fill": true, "rotation": 225 }
+        { "kind": "pointer", "rotation": 135, "fill": true },
+        { "kind": "pointer", "rotation": 180, "fill": true },
+        { "kind": "pointer", "rotation": 270, "fill": true }
       ],
       [
-        { "kind": "polygon", "sides": 4, "fill": true, "rotation": 225 },
-        { "kind": "polygon", "sides": 4, "fill": true, "rotation": 270 },
+        { "kind": "pointer", "rotation": 270, "fill": true },
+        { "kind": "pointer", "rotation": 315, "fill": true },
         null
       ]
     ],
     "options": [
-      { "kind": "polygon", "sides": 4, "fill": true, "rotation": 315 },
-      { "kind": "polygon", "sides": 4, "fill": true, "rotation": 225 },
-      { "kind": "polygon", "sides": 4, "fill": true, "rotation": 270 },
-      { "kind": "polygon", "sides": 4, "fill": true, "rotation": 0 },
-      { "kind": "polygon", "sides": 4, "fill": true, "rotation": 45 },
-      { "kind": "polygon", "sides": 4, "fill": true, "rotation": 135 }
+      { "kind": "pointer", "rotation": 45, "fill": true },
+      { "kind": "pointer", "rotation": 270, "fill": true },
+      { "kind": "pointer", "rotation": 315, "fill": true },
+      { "kind": "pointer", "rotation": 0, "fill": true },
+      { "kind": "pointer", "rotation": 90, "fill": true },
+      { "kind": "pointer", "rotation": 180, "fill": true }
     ],
     "correctAnswer": 0
   },
