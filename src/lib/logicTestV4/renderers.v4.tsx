@@ -117,7 +117,7 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
             square_closed: <rect x="25" y="25" width="50" height="50" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH} />,
             // Nya former för Q8
             V_shape: <path d="M 25 25 L 50 75 L 75 25" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
-            pitchfork: <path d="M 35 75 V 40 M 50 75 V 25 M 65 75 V 40" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
+            pitchfork: <path d="M 35 25 L 35 60 L 50 75 L 65 60 L 65 25" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
             W_shape: <path d="M 20 25 L 35 75 L 50 25 L 65 75 L 80 25" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
             L_corner: <path d="M 25 25 V 75 H 75" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
             plus_sign: <path d="M 50 25 V 75 M 25 50 H 75" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
