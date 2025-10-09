@@ -1,8 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Brain, Clock, Target, Star, Zap } from 'lucide-react';
-import Link from 'next/link';
+import { Brain } from 'lucide-react';
 
 export default function TesterPage() {
   return (
@@ -30,88 +29,6 @@ export default function TesterPage() {
 
       {/* Test Cards */}
       <div className="grid gap-6">
-        {/* Matrislogik Test - Grundnivå */}
-        <Link href="/dashboard/tester/matrislogik">
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 border-2 border-blue-200 hover:border-blue-400 transition-all cursor-pointer"
-          >
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <h2 className="text-2xl font-bold text-gray-900">
-                    Logiskt Matristest
-                  </h2>
-                  <span className="px-2 py-1 bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-bold rounded-full flex items-center gap-1">
-                    <Star className="w-3 h-3" />
-                    Grundnivå
-                  </span>
-                </div>
-                <p className="text-gray-700 mb-4">
-                  Börja träna mönsterigenkänning med grundläggande logiska mönster.
-                  Perfekt för att bygga upp grunderna i abstrakt tänkande.
-                </p>
-
-                <div className="flex gap-4 text-sm text-gray-600">
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    ~15-20 min
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Target className="w-4 h-4" />
-                    15 frågor
-                  </div>
-                </div>
-              </div>
-
-              <div className="px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-semibold">
-                Börja träna →
-              </div>
-            </div>
-          </motion.div>
-        </Link>
-
-        {/* Matrislogik Test - Avancerad nivå */}
-        <Link href="/dashboard/tester/matrislogik-avancerad">
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border-2 border-purple-200 hover:border-purple-400 transition-all cursor-pointer"
-          >
-            <div className="flex items-start justify-between mb-4">
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <h2 className="text-2xl font-bold text-gray-900">
-                    Logiskt Matristest
-                  </h2>
-                  <span className="px-2 py-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold rounded-full flex items-center gap-1">
-                    <Zap className="w-3 h-3" />
-                    Avancerad Nivå
-                  </span>
-                </div>
-                <p className="text-gray-700 mb-4">
-                  Utmana dig själv med avancerade mönster och komplexa transformationer.
-                  Innehåller nya frågetyper med högre svårighetsgrad och mer sofistikerade regler.
-                </p>
-
-                <div className="flex gap-4 text-sm text-gray-600">
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    ~25-30 min
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Target className="w-4 h-4" />
-                    15 frågor
-                  </div>
-                </div>
-              </div>
-
-              <div className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold">
-                Börja träna →
-              </div>
-            </div>
-          </motion.div>
-        </Link>
-
         {/* Future tests placeholder */}
         <div className="bg-gray-50 rounded-2xl p-8 border-2 border-gray-200 opacity-60">
           <h3 className="text-xl font-bold text-gray-500 mb-2">
