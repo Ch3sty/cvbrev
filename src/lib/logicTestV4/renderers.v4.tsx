@@ -88,11 +88,11 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
     }
     case 'shaded_shape': {
         const fill = cell.fill === 'none' ? FILL_NONE : cell.fill === 'gray' ? FILL_GRAY : FILL_BLACK;
-        let shape;
+        let shape: React.ReactElement;
         if (cell.shape === 'circle') shape = <circle cx="50" cy="50" r={25} />;
-        if (cell.shape === 'square') shape = <rect x="25" y="25" width="50" height="50" />;
-        if (cell.shape === 'triangle') shape = <path d="M50 20 L80 75 L20 75 Z" strokeLinejoin="round" />;
-        return rotate(cell.rotation ?? 0, React.cloneElement(shape as React.ReactElement, { fill, stroke: STROKE_COLOR, strokeWidth: STROKE_WIDTH }));
+        else if (cell.shape === 'square') shape = <rect x="25" y="25" width="50" height="50" />;
+        else shape = <path d="M50 20 L80 75 L20 75 Z" strokeLinejoin="round" />;
+        return rotate(cell.rotation ?? 0, React.cloneElement(shape, { fill, stroke: STROKE_COLOR, strokeWidth: STROKE_WIDTH }));
     }
     case 'endpoints': {
         const shapes: Record<string, React.ReactElement> = {
@@ -161,13 +161,13 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
     case 'sized_shape': {
         const sizeMap = { S: 10, M: 20, L: 30 };
         const s = sizeMap[cell.size];
-        let shape;
+        let shape: React.ReactElement;
         if (cell.shape === 'rhombus') shape = <path d={`M${CX} ${CY-s} L${CX+s} ${CY} L${CX} ${CY+s} L${CX-s} ${CY} Z`} />;
-        if (cell.shape === 'square') shape = <rect x={CX-s/2} y={CY-s/2} width={s} height={s} />;
-        if (cell.shape === 'triangle') shape = <path d={`M${CX} ${CY - s*0.8} L${CX+s} ${CY+s*0.8} L${CX-s} ${CY+s*0.8} Z`} />;
-        
+        else if (cell.shape === 'square') shape = <rect x={CX-s/2} y={CY-s/2} width={s} height={s} />;
+        else shape = <path d={`M${CX} ${CY - s*0.8} L${CX+s} ${CY+s*0.8} L${CX-s} ${CY+s*0.8} Z`} />;
+
         const fill = cell.fill === false ? 'none' : FILL_BLACK;
-        return rotate(cell.rotation ?? 0, React.cloneElement(shape as React.ReactElement, { fill, stroke: fill === 'none' ? STROKE_COLOR : 'none', strokeWidth: STROKE_WIDTH }));
+        return rotate(cell.rotation ?? 0, React.cloneElement(shape, { fill, stroke: fill === 'none' ? STROKE_COLOR : 'none', strokeWidth: STROKE_WIDTH }));
     }
     case 'subtraction': {
         const outer = cell.outer === 'square' ? 'M25,25 H75 V75 H25Z' : cell.outer === 'circle' ? 'M50,25 A25,25 0 1,1 49.99,25Z' : 'M50 20 L80 80 L20 80 Z';
@@ -177,14 +177,14 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
         return <path d={`${outer} ${inner}`} fill={cell.fill === false ? 'none' : STROKE_COLOR} stroke={cell.fill === false ? STROKE_COLOR : 'none'} fillRule="evenodd" />;
     }
     case 'sudoku': {
-        let shapePath;
+        let shapePath: React.ReactElement;
         if (cell.shape === 'arrow') shapePath = <path d="M 50 20 L 65 50 L 50 80 L 50 60 L 35 60 L 35 40 L 50 40 Z" />;
-        if (cell.shape === 'plus') shapePath = <path d="M 40 20 H 60 V 40 H 80 V 60 H 60 V 80 H 40 V 60 H 20 V 40 H 40 Z" />;
-        if (cell.shape === 'moon') shapePath = <path d="M 50,25 A 25 25 0 1 0 50,75 A 20 20 0 1 1 50,25 Z" />;
-        
+        else if (cell.shape === 'plus') shapePath = <path d="M 40 20 H 60 V 40 H 80 V 60 H 60 V 80 H 40 V 60 H 20 V 40 H 40 Z" />;
+        else shapePath = <path d="M 50,25 A 25 25 0 1 0 50,75 A 20 20 0 1 1 50,25 Z" />;
+
         const fill = cell.fill === 'none' ? FILL_NONE : cell.fill === 'gray' ? FILL_GRAY : FILL_BLACK;
         const stroke = fill === FILL_NONE ? STROKE_COLOR : 'none';
-        return rotate(cell.rotation ?? 0, React.cloneElement(shapePath as React.ReactElement, { fill, stroke, strokeWidth: STROKE_WIDTH }));
+        return rotate(cell.rotation ?? 0, React.cloneElement(shapePath, { fill, stroke, strokeWidth: STROKE_WIDTH }));
     }
     case 'sweep': {
         const lines = [];
