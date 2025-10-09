@@ -160,7 +160,10 @@
       "Bash(del test-fuzzy-matching.js)",
       "Bash(git log:*)",
       "Bash(ökade årsomsättningen med 2,8 MSEK genom förbättrad medlemsretention\"\n\n✅ Construction Mid:\n\"Genomförde 25+ renoveringsprojekt av lägenheter i Stockholmsområdet)",
-      "Bash(med 98% kundnöjdhet och 75% återkommande kunder\"\n\n✅ Tech Senior:\n\"Drev webbdesignbyrå med 30+ projekt årligen, specialiserad på)"
+      "Bash(med 98% kundnöjdhet och 75% återkommande kunder\"\n\n✅ Tech Senior:\n\"Drev webbdesignbyrå med 30+ projekt årligen, specialiserad på)",
+      "Bash(del \"src\\lib\\tester\\iconLogicTypes.ts\")",
+      "Bash(del \"src\\lib\\tester\\iconLogicQuestionBank.server.ts\")",
+      "Bash(del \"src\\lib\\tester\\iconLogicQuestions5-10.ts\")"
     ],
     "deny": [],
     "ask": []
