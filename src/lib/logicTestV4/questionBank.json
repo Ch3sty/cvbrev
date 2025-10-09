@@ -247,9 +247,9 @@
       { "kind": "lines", "lines": ["frame"] },
       { "kind": "lines", "lines": ["frame", "horiz"] },
       { "kind": "lines", "lines": ["frame", "cross"] },
-      { "kind": "lines", "lines": ["top", "bottom"] },
+      { "kind": "lines", "lines": ["frame_v"] },
       { "kind": "lines", "lines": ["horiz"] },
-      { "kind": "lines", "lines": [] }
+      { "kind": "lines", "lines": ["diag_down", "diag_up"] }
     ],
     "correctAnswer": 4
   },
