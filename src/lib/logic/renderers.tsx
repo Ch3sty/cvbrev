@@ -92,24 +92,31 @@ const OSymbol = () => (
   <circle cx={CX} cy={CY} r={18} fill="none" stroke={black} strokeWidth={2.5} />
 );
 
-// Triangle (isosceles/asymmetric for clear rotation visibility)
-const Triangle = ({ rot = 0, solid = true }: { rot?: number; solid?: boolean }) => {
-  // Isosceles triangle: narrower base (15px each side), taller height (32px)
-  // Creates arrow-like shape where rotation direction is clearly visible
-  const baseHalfWidth = 15;
-  const height = 32;
+// Arrow (for clear rotation visibility - no symmetry issues)
+const Arrow = ({ rot = 0, solid = true }: { rot?: number; solid?: boolean }) => {
+  // Arrow pointing upward (0°) with clear arrowhead and body
+  const arrowLength = 30;
+  const arrowWidth = 12;
+  const bodyWidth = 6;
 
-  // Calculate centroid offset: for isosceles triangle, centroid is at 1/3 from base
-  // We need to shift the triangle up so centroid lands at (CX, CY)
-  const centroidOffset = height / 3;
+  // Arrow points from bottom to top when at 0°
+  // Center the arrow so it rotates around its center point
+  const tipY = CY - arrowLength / 2;
+  const baseY = CY + arrowLength / 2;
+  const bodyTop = tipY + arrowWidth;
 
   const pts = [
-    [CX, CY - height + centroidOffset],              // Top point (tip of arrow)
-    [CX + baseHalfWidth, CY + centroidOffset],       // Bottom right
-    [CX - baseHalfWidth, CY + centroidOffset],       // Bottom left
+    [CX, tipY],                           // Arrow tip (top point)
+    [CX + arrowWidth / 2, bodyTop],       // Right side of arrowhead
+    [CX + bodyWidth / 2, bodyTop],        // Right side of body
+    [CX + bodyWidth / 2, baseY],          // Right bottom of body
+    [CX - bodyWidth / 2, baseY],          // Left bottom of body
+    [CX - bodyWidth / 2, bodyTop],        // Left side of body
+    [CX - arrowWidth / 2, bodyTop],       // Left side of arrowhead
   ]
     .map(([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`)
     .join(' ');
+
   return (
     <g transform={`rotate(${norm(rot)},${CX},${CY})`}>
       <polygon
@@ -117,6 +124,7 @@ const Triangle = ({ rot = 0, solid = true }: { rot?: number; solid?: boolean }) 
         fill={solid ? black : 'none'}
         stroke={black}
         strokeWidth={2.5}
+        strokeLinejoin="miter"
       />
     </g>
   );
@@ -174,7 +182,7 @@ export const SvgCell: React.FC<{ cell: Cell; className?: string }> = ({
       ) : cell.name === 'O' ? (
         <OSymbol />
       ) : (
-        <Triangle rot={cell.rotation ?? 0} solid={cell.solid ?? true} />
+        <Arrow rot={cell.rotation ?? 0} solid={cell.solid ?? true} />
       ))}
   </svg>
 );
