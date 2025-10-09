@@ -92,10 +92,10 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
         if (cell.shape === 'circle') shape = <circle cx="50" cy="50" r={25} />;
         if (cell.shape === 'square') shape = <rect x="25" y="25" width="50" height="50" />;
         if (cell.shape === 'triangle') shape = <path d="M50 20 L80 75 L20 75 Z" strokeLinejoin="round" />;
-        return rotate(cell.rotation ?? 0, React.cloneElement(shape as JSX.Element, { fill, stroke: STROKE_COLOR, strokeWidth: STROKE_WIDTH }));
+        return rotate(cell.rotation ?? 0, React.cloneElement(shape as React.ReactElement, { fill, stroke: STROKE_COLOR, strokeWidth: STROKE_WIDTH }));
     }
     case 'endpoints': {
-        const shapes: Record<string, JSX.Element> = {
+        const shapes: Record<string, React.ReactElement> = {
             line: <Line x1={25} y1={50} x2={75} y2={50} />,
             U: <path d="M 25 75 V 25 H 75" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
             E: <path d="M 75 25 H 25 V 75 H 75 M 25 50 H 75" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
@@ -167,7 +167,7 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
         if (cell.shape === 'triangle') shape = <path d={`M${CX} ${CY - s*0.8} L${CX+s} ${CY+s*0.8} L${CX-s} ${CY+s*0.8} Z`} />;
         
         const fill = cell.fill === false ? 'none' : FILL_BLACK;
-        return rotate(cell.rotation ?? 0, React.cloneElement(shape as JSX.Element, { fill, stroke: fill === 'none' ? STROKE_COLOR : 'none', strokeWidth: STROKE_WIDTH }));
+        return rotate(cell.rotation ?? 0, React.cloneElement(shape as React.ReactElement, { fill, stroke: fill === 'none' ? STROKE_COLOR : 'none', strokeWidth: STROKE_WIDTH }));
     }
     case 'subtraction': {
         const outer = cell.outer === 'square' ? 'M25,25 H75 V75 H25Z' : cell.outer === 'circle' ? 'M50,25 A25,25 0 1,1 49.99,25Z' : 'M50 20 L80 80 L20 80 Z';
@@ -184,7 +184,7 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
         
         const fill = cell.fill === 'none' ? FILL_NONE : cell.fill === 'gray' ? FILL_GRAY : FILL_BLACK;
         const stroke = fill === FILL_NONE ? STROKE_COLOR : 'none';
-        return rotate(cell.rotation ?? 0, React.cloneElement(shapePath as JSX.Element, { fill, stroke, strokeWidth: STROKE_WIDTH }));
+        return rotate(cell.rotation ?? 0, React.cloneElement(shapePath as React.ReactElement, { fill, stroke, strokeWidth: STROKE_WIDTH }));
     }
     case 'sweep': {
         const lines = [];
