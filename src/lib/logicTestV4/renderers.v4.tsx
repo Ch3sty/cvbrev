@@ -134,91 +134,51 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
       // Apply rotation if specified
       return cell.rotation ? rotate(cell.rotation, content) : content;
     }
-    case 'intersection': {
-        const shapes: Record<string, React.ReactElement> = {
-            // Enskilda former - centrerade och stora för tydliga överlappningar
-            rect_full: <rect x="20" y="25" width="60" height="50" />,
-            circle: <circle cx="45" cy="50" r="30" />,
-            rect_top: <rect x="20" y="20" width="60" height="30" />,
-            rect_left: <rect x="20" y="20" width="30" height="60" />,
-            rect_top_left: <rect x="20" y="20" width="30" height="30" />,
-            rect_diag: <path d="M20,20 L80,80 V20 H20Z" />,
-            tri_bottom: <path d="M50 45 L15 85 H85 Z" />,
-            circle_half_bottom: <path d="M45,80 A30,30 0 0 0 15,50 H75 A30,30 0 0 0 45,80Z" />,
-            segment: <path d="M45,20 A30,30 0,0,1,75,50 V80 H15 V50 A30,30 0,0,1,45,20Z" />,
+    case 'contained_intersection': {
+        const outerShapes: Record<string, React.ReactElement> = {
+            rect: <rect x="15" y="15" width="70" height="70" />,
+            circle: <circle cx="50" cy="50" r="35" />,
+            triangle: <path d="M50 15 L85 85 L15 85 Z" />
+        };
+
+        const innerShapes: Record<string, React.ReactElement> = {
+            rect: <rect x="35" y="35" width="30" height="30" />,
+            circle: <circle cx="50" cy="50" r="15" />,
+            triangle: <path d="M50 30 L70 70 L30 70 Z" />,
+            diamond: <path d="M50 30 L70 50 L50 70 L30 50 Z" />
         };
 
         const fill = cell.fill === 'none' ? FILL_NONE : FILL_BLACK;
         const stroke = fill === FILL_NONE ? STROKE_COLOR : 'none';
 
-        // Om shape2 finns: Visa båda formerna med opacity (för att visa överlappning)
-        if (cell.shape2) {
-            const shape1_elem = shapes[cell.shape1];
-            const shape2_elem = shapes[cell.shape2];
+        // Om showBoth=true: Visa båda formerna med opacity (kolumn 1-2)
+        if (cell.showBoth) {
+            const outerElem = outerShapes[cell.outer];
+            const innerElem = innerShapes[cell.inner];
 
-            if (!shape1_elem || !shape2_elem) return null;
+            if (!outerElem || !innerElem) return null;
 
             return (
                 <>
-                    {React.cloneElement(shape1_elem as React.ReactElement<any>, {
+                    {React.cloneElement(outerElem as React.ReactElement<any>, {
                         fill: FILL_BLACK,
                         stroke: 'none',
-                        opacity: 0.5
+                        opacity: 0.3
                     })}
-                    {React.cloneElement(shape2_elem as React.ReactElement<any>, {
+                    {React.cloneElement(innerElem as React.ReactElement<any>, {
                         fill: FILL_BLACK,
                         stroke: 'none',
-                        opacity: 0.5
+                        opacity: 0.7
                     })}
                 </>
             );
         }
 
-        // För intersection-resultat (kolumn 3): Använd clipPath för korrekt skärning
-        if (cell.shape1.endsWith('_int')) {
-            // Extrahera ursprungsformer från namnet (t.ex. "rect_circle_int" -> ["rect_full", "circle"])
-            const parts = cell.shape1.replace('_int', '').split('_');
-            let shape1Key = parts[0];
-            let shape2Key = parts.slice(1).join('_');
+        // Annars: Visa bara den inre formen (kolumn 3 = resultatet av skärningen)
+        const innerElem = innerShapes[cell.inner];
+        if (!innerElem) return null;
 
-            // Konvertera till rätt keys
-            if (shape1Key === 'rect' && !shape2Key.startsWith('circle')) shape1Key = 'rect_full';
-            if (shape2Key === 'top') { shape1Key = 'rect_top'; shape2Key = 'rect_left'; }
-            if (shape2Key === 'tri') shape2Key = 'tri_bottom';
-
-            const shape1_elem = shapes[shape1Key];
-            const shape2_elem = shapes[shape2Key];
-
-            if (!shape1_elem || !shape2_elem) {
-                // Fallback till enkel rendering om vi inte kan hitta formerna
-                const shape_elem = shapes[cell.shape1];
-                if (!shape_elem) return null;
-                return React.cloneElement(shape_elem as React.ReactElement<any>, { fill, stroke, strokeWidth: STROKE_WIDTH });
-            }
-
-            const clipId = `clip-${cell.shape1}-${Math.random().toString(36).substr(2, 9)}`;
-
-            return (
-                <>
-                    <defs>
-                        <clipPath id={clipId}>
-                            {shape2_elem}
-                        </clipPath>
-                    </defs>
-                    {React.cloneElement(shape1_elem as React.ReactElement<any>, {
-                        fill,
-                        stroke: 'none',
-                        clipPath: `url(#${clipId})`
-                    })}
-                </>
-            );
-        }
-
-        // Rita formen från shapes-mappningen (för svarsalternativ)
-        const shape_elem = shapes[cell.shape1];
-        if (!shape_elem) return null;
-
-        return React.cloneElement(shape_elem as React.ReactElement<any>, {
+        return React.cloneElement(innerElem as React.ReactElement<any>, {
             fill,
             stroke,
             strokeWidth: STROKE_WIDTH

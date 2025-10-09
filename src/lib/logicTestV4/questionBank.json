@@ -182,24 +182,36 @@
     "correctAnswer": 5
   },
   {
-    "id": "v4-q10-intersection",
+    "id": "v4-q10-contained-intersection",
     "title": "FRÅGA 10 — Skärning (A ∩ B)",
     "rule": "I varje rad är Kolumn 3 skärningen (intersection) av formerna i Kolumn 1 och 2, dvs den del som är gemensam för båda.",
     "difficulty": 2,
     "grid": [
-      [{ "kind": "intersection", "shape1": "rect_full", "shape2": "circle" }, { "kind": "intersection", "shape1": "circle", "shape2": "rect_full" }, { "kind": "intersection", "shape1": "rect_circle_int" }],
-      [{ "kind": "intersection", "shape1": "rect_top", "shape2": "rect_left" }, { "kind": "intersection", "shape1": "rect_left", "shape2": "rect_top" }, { "kind": "intersection", "shape1": "rect_top_rect_left_int" }],
-      [{ "kind": "intersection", "shape1": "circle", "shape2": "tri_bottom" }, { "kind": "intersection", "shape1": "tri_bottom", "shape2": "circle" }, null]
+      [
+        { "kind": "contained_intersection", "outer": "rect", "inner": "circle", "showBoth": true },
+        { "kind": "contained_intersection", "outer": "circle", "inner": "rect", "showBoth": true },
+        { "kind": "contained_intersection", "outer": "rect", "inner": "circle" }
+      ],
+      [
+        { "kind": "contained_intersection", "outer": "circle", "inner": "triangle", "showBoth": true },
+        { "kind": "contained_intersection", "outer": "triangle", "inner": "circle", "showBoth": true },
+        { "kind": "contained_intersection", "outer": "circle", "inner": "triangle" }
+      ],
+      [
+        { "kind": "contained_intersection", "outer": "triangle", "inner": "diamond", "showBoth": true },
+        { "kind": "contained_intersection", "outer": "rect", "inner": "diamond", "showBoth": true },
+        null
+      ]
     ],
     "options": [
-      { "kind": "intersection", "shape1": "circle" },
-      { "kind": "intersection", "shape1": "tri_bottom" },
-      { "kind": "intersection", "shape1": "circle_half_bottom" },
-      { "kind": "intersection", "shape1": "tri_bottom", "fill": "none" },
-      { "kind": "intersection", "shape1": "circle", "fill": "none" },
-      { "kind": "intersection", "shape1": "circle_tri_int" }
+      { "kind": "contained_intersection", "outer": "rect", "inner": "diamond" },
+      { "kind": "contained_intersection", "outer": "circle", "inner": "circle" },
+      { "kind": "contained_intersection", "outer": "triangle", "inner": "rect" },
+      { "kind": "contained_intersection", "outer": "triangle", "inner": "triangle", "fill": "none" },
+      { "kind": "contained_intersection", "outer": "rect", "inner": "circle" },
+      { "kind": "contained_intersection", "outer": "circle", "inner": "diamond", "fill": "none" }
     ],
-    "correctAnswer": 5
+    "correctAnswer": 0
   },
   {
     "id": "v4-q11-shape-subtraction",

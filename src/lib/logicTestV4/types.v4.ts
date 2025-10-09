@@ -30,8 +30,14 @@ export type Endpoints = { kind: 'endpoints'; count: 0 | 2 | 3 | 4; shape?: strin
 // Q9: Vertikal spegling
 export type ReflectedShape = { kind: 'hook' | 'arc' | 'wedge'; mirror_v?: boolean; mirror_h?: boolean, rotation?: Angle };
 
-// Q10: Skärning mellan former
-export type Intersection = { kind: 'intersection'; shape1: string; shape2?: string; fill?: 'none' | 'black' };
+// Q10: Skärning mellan former (innesluten intersection)
+export type ContainedIntersection = {
+  kind: 'contained_intersection';
+  outer: 'rect' | 'circle' | 'triangle';
+  inner: 'rect' | 'circle' | 'triangle' | 'diamond';
+  showBoth?: boolean;
+  fill?: 'none' | 'black';
+};
 
 // Q11: Kretsande prick
 export type OrbitalDot = { kind: 'orbital_dot'; step: number };
@@ -52,9 +58,9 @@ export type Sudoku = { kind: 'sudoku'; shape: 'arrow'|'plus'|'moon'; fill: 'blac
 export type Sweep = { kind: 'sweep'; steps: 1 | 2 | 3 | 4; rotation?: Angle };
 
 // --- HUVUDTYP OCH FRÅGESTruktur ---
-export type Cell = 
-  | Dot | LShape | Icon | Fill | CornerDot | Lines | ShadedShape | Endpoints 
-  | ReflectedShape | Intersection | OrbitalDot | Swap | SizedShape | Subtraction | Sudoku | Sweep;
+export type Cell =
+  | Dot | LShape | Icon | Fill | CornerDot | Lines | ShadedShape | Endpoints
+  | ReflectedShape | ContainedIntersection | OrbitalDot | Swap | SizedShape | Subtraction | Sudoku | Sweep;
 
 export type Question = {
   id: string;
