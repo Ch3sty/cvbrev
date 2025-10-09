@@ -30,7 +30,7 @@ export default function TesterPage() {
 
       {/* Test Cards */}
       <div className="grid gap-6">
-        {/* Matrislogik Test */}
+        {/* Matrislogik Test - Grundnivå */}
         <Link href="/dashboard/tester/matrislogik">
           <motion.div
             whileHover={{ scale: 1.02 }}
@@ -38,12 +38,17 @@ export default function TesterPage() {
           >
             <div className="flex items-start justify-between mb-4">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                  Matrislogik
-                </h2>
+                <div className="flex items-center gap-2 mb-2">
+                  <h2 className="text-2xl font-bold text-gray-900">
+                    Test 1: Logiskt Matristest
+                  </h2>
+                  <span className="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded-full">
+                    Grundnivå
+                  </span>
+                </div>
                 <p className="text-gray-700 mb-4">
                   Träna på abstrakt problemlösning med minimalistiska ikonmönster.
-                  Perfekt för att förbära dig inför logiktester i rekryteringsprocesser.
+                  Perfekt för att förbereda dig inför logiktester i rekryteringsprocesser.
                 </p>
 
                 <div className="flex gap-4 text-sm text-gray-600">
@@ -59,6 +64,46 @@ export default function TesterPage() {
               </div>
 
               <div className="px-4 py-2 bg-indigo-100 text-indigo-700 rounded-xl font-semibold">
+                Börja träna →
+              </div>
+            </div>
+          </motion.div>
+        </Link>
+
+        {/* Matrislogik Test - Avancerad nivå */}
+        <Link href="/dashboard/tester/matrislogik-avancerad">
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border-2 border-purple-200 hover:border-purple-400 transition-all cursor-pointer"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <h2 className="text-2xl font-bold text-gray-900">
+                    Test 2: Logiskt Matristest
+                  </h2>
+                  <span className="px-2 py-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold rounded-full">
+                    Avancerad Nivå
+                  </span>
+                </div>
+                <p className="text-gray-700 mb-4">
+                  Utmana dig själv med avancerade mönster och komplexa transformationer.
+                  Innehåller nya frågetyper med högre svårighetsgrad och mer sofistikerade regler.
+                </p>
+
+                <div className="flex gap-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-1">
+                    <Clock className="w-4 h-4" />
+                    ~20-25 min
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Target className="w-4 h-4" />
+                    13 frågor
+                  </div>
+                </div>
+              </div>
+
+              <div className="px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-semibold">
                 Börja träna →
               </div>
             </div>

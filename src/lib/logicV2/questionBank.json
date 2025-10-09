@@ -1,0 +1,418 @@
+[
+  {
+    "id": "7c2a1b9e-f4e1-4f8b-9a2c-6d8b3e1a0f9d",
+    "title": "FRÅGA 1 — Progression av antal sidor",
+    "rule": "Antal sidor i polygonen ökar med 1 för varje kolumn (3, 4, 5). Raden bestämmer fyllning (Rad 1: kontur, Rad 2: fylld, Rad 3: kontur).",
+    "difficulty": 1,
+    "grid": [
+      [
+        { "kind": "polygon", "sides": 3, "fill": false },
+        { "kind": "polygon", "sides": 4, "fill": false },
+        { "kind": "polygon", "sides": 5, "fill": false }
+      ],
+      [
+        { "kind": "polygon", "sides": 3, "fill": true },
+        { "kind": "polygon", "sides": 4, "fill": true },
+        { "kind": "polygon", "sides": 5, "fill": true }
+      ],
+      [
+        { "kind": "polygon", "sides": 3, "fill": false },
+        { "kind": "polygon", "sides": 4, "fill": false },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "polygon", "sides": 5, "fill": false },
+      { "kind": "polygon", "sides": 5, "fill": true },
+      { "kind": "polygon", "sides": 6, "fill": false },
+      { "kind": "polygon", "sides": 4, "fill": false },
+      { "kind": "polygon", "sides": 5, "fill": false, "rotation": 45 },
+      { "kind": "polygon", "sides": 3, "fill": false }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "5b8e3a1f-9c0d-4e2a-8b1c-7d4a6f9b0e2c",
+    "title": "FRÅGA 2 — Spegling och rotation",
+    "rule": "Kolumn 2 är en horisontell spegling av Kolumn 1. Kolumn 3 är en 90° medurs rotation av Kolumn 1.",
+    "difficulty": 2,
+    "grid": [
+      [
+        { "kind": "half_circle", "rotation": 270 },
+        { "kind": "half_circle", "rotation": 90 },
+        { "kind": "half_circle", "rotation": 0 }
+      ],
+      [
+        { "kind": "pointer", "rotation": 270, "fill": true },
+        { "kind": "pointer", "rotation": 90, "fill": true },
+        { "kind": "pointer", "rotation": 0, "fill": true }
+      ],
+      [
+        { "kind": "corner", "rotation": 0 },
+        { "kind": "corner", "rotation": 90 },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "corner", "rotation": 90 },
+      { "kind": "corner", "rotation": 90, "mirror_v": true },
+      { "kind": "corner", "rotation": 180 },
+      { "kind": "corner", "rotation": 0 },
+      { "kind": "corner", "rotation": 270 },
+      { "kind": "corner", "rotation": 0, "mirror_h": true }
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "f8c1d5b7-a3e2-4d1c-9b6f-0e9a5c8d4b2e",
+    "title": "FRÅGA 3 — Antal skärningspunkter",
+    "rule": "Antalet skärningspunkter mellan linjerna ökar med 1 för varje cell (radvis, 0-8).",
+    "difficulty": 2,
+    "grid": [
+      [
+        { "kind": "intersections", "count": 0 },
+        { "kind": "intersections", "count": 1 },
+        { "kind": "intersections", "count": 2 }
+      ],
+      [
+        { "kind": "intersections", "count": 3 },
+        { "kind": "intersections", "count": 4 },
+        { "kind": "intersections", "count": 5 }
+      ],
+      [
+        { "kind": "intersections", "count": 6 },
+        { "kind": "intersections", "count": 7 },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "intersections", "count": 7 },
+      { "kind": "intersections", "count": 6 },
+      { "kind": "intersections", "count": 4 },
+      { "kind": "intersections", "count": 3 },
+      { "kind": "intersections", "count": 8 },
+      { "kind": "intersections", "count": 5 }
+    ],
+    "correctAnswer": 4
+  },
+  {
+    "id": "a2d0c4b8-e1f6-4a9c-8b7d-3e9a0c1d5b4f",
+    "title": "FRÅGA 4 — Inre/yttre position",
+    "rule": "Den lilla cirkeln rör sig mellan tre positioner: inuti den stora, på linjen, och utanför. Kolumnen bestämmer positionen. Raden bestämmer vilken form som används (cirkel, kvadrat, triangel).",
+    "difficulty": 2,
+    "grid": [
+      [
+        { "kind": "containment", "shape": "circle", "position": -1 },
+        { "kind": "containment", "shape": "circle", "position": 0 },
+        { "kind": "containment", "shape": "circle", "position": 1 }
+      ],
+      [
+        { "kind": "containment", "shape": "square", "position": -1 },
+        { "kind": "containment", "shape": "square", "position": 0 },
+        { "kind": "containment", "shape": "square", "position": 1 }
+      ],
+      [
+        { "kind": "containment", "shape": "triangle", "position": -1 },
+        { "kind": "containment", "shape": "triangle", "position": 0 },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "containment", "shape": "triangle", "position": -1 },
+      { "kind": "containment", "shape": "triangle", "position": 0 },
+      { "kind": "containment", "shape": "triangle", "position": 1 },
+      { "kind": "containment", "shape": "square", "position": 1 },
+      { "kind": "containment", "shape": "circle", "position": 1 },
+      { "kind": "containment", "shape": "triangle", "position": 0 }
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "6e3b8a7f-1d4c-4b9a-9e1f-8c7d6a5b4e3d",
+    "title": "FRÅGA 5 — Kombination av former",
+    "rule": "I varje rad passar formerna i Kolumn 1 och 2 ihop för att bilda den kompletta formen i Kolumn 3.",
+    "difficulty": 3,
+    "grid": [
+      [
+        { "kind": "piece", "shape": "square", "piece": "top_right" },
+        { "kind": "piece", "shape": "square", "piece": "bottom_left" },
+        { "kind": "piece", "shape": "square", "piece": "full" }
+      ],
+      [
+        { "kind": "piece", "shape": "circle", "piece": "top_right" },
+        { "kind": "piece", "shape": "circle", "piece": "bottom_left" },
+        { "kind": "piece", "shape": "circle", "piece": "full" }
+      ],
+      [
+        { "kind": "piece", "shape": "rhombus", "piece": "bottom" },
+        { "kind": "piece", "shape": "rhombus", "piece": "top" },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "piece", "shape": "rhombus", "piece": "bottom" },
+      { "kind": "piece", "shape": "rhombus", "piece": "top" },
+      { "kind": "piece", "shape": "square", "piece": "full" },
+      { "kind": "piece", "shape": "rhombus", "piece": "full" },
+      { "kind": "piece", "shape": "triangle", "piece": "left" },
+      { "kind": "piece", "shape": "triangle", "piece": "full" }
+    ],
+    "correctAnswer": 3
+  },
+  {
+    "id": "c7b4e9a1-f3d2-4e8b-8a1c-9d0b5e2a4f8d",
+    "title": "FRÅGA 6 — Subtraktion av linjer",
+    "rule": "I varje rad är Kolumn 3 resultatet av att ta Kolumn 1 och ta bort de linjer som finns i Kolumn 2.",
+    "difficulty": 3,
+    "grid": [
+      [
+        { "kind": "lines", "lines": ["frame", "diag_down"] },
+        { "kind": "lines", "lines": ["diag_down"] },
+        { "kind": "lines", "lines": ["frame"] }
+      ],
+      [
+        { "kind": "lines", "lines": ["frame", "diag_up", "diag_down"] },
+        { "kind": "lines", "lines": ["diag_up", "diag_down"] },
+        { "kind": "lines", "lines": ["frame"] }
+      ],
+      [
+        { "kind": "lines", "lines": ["frame", "vert"] },
+        { "kind": "lines", "lines": ["vert", "bottom"] },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "lines", "lines": ["top", "left", "right"] },
+      { "kind": "lines", "lines": ["frame"] },
+      { "kind": "lines", "lines": ["frame", "vert"] },
+      { "kind": "lines", "lines": ["bottom"] },
+      { "kind": "lines", "lines": ["top", "right", "bottom"] },
+      { "kind": "lines", "lines": ["vert"] }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "0d9e8c7b-6a5f-4d3e-8b1c-9a0c1d5b4e3d",
+    "title": "FRÅGA 7 — Rörelse i inre 3x3-rutnät",
+    "rule": "Den lilla pricken rör sig ett steg i taget i ett inre 3x3-rutnät. Rörelsen går från vänster till höger, uppifrån och ner.",
+    "difficulty": 3,
+    "grid": [
+      [
+        { "kind": "grid_dot", "x": -1, "y": -1 },
+        { "kind": "grid_dot", "x": 0, "y": -1 },
+        { "kind": "grid_dot", "x": 1, "y": -1 }
+      ],
+      [
+        { "kind": "grid_dot", "x": -1, "y": 0 },
+        { "kind": "grid_dot", "x": 0, "y": 0 },
+        { "kind": "grid_dot", "x": 1, "y": 0 }
+      ],
+      [
+        { "kind": "grid_dot", "x": -1, "y": 1 },
+        { "kind": "grid_dot", "x": 0, "y": 1 },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "grid_dot", "x": -1, "y": -1 },
+      { "kind": "grid_dot", "x": 0, "y": 1 },
+      { "kind": "grid_dot", "x": 1, "y": 0 },
+      { "kind": "grid_dot", "x": 0, "y": 0 },
+      { "kind": "grid_dot", "x": -1, "y": 1 },
+      { "kind": "grid_dot", "x": 1, "y": 1 }
+    ],
+    "correctAnswer": 5
+  },
+  {
+    "id": "3a0c9b4e-8d7f-4a1c-9e2d-6b5c4a3e2d1c",
+    "title": "FRÅGA 8 — Paritet (jämnt/udda) av element",
+    "rule": "Kolumnerna alternerar mellan ett udda (1) och ett jämnt (2) antal identiska figurer. Raden bestämmer vilken figur som används.",
+    "difficulty": 2,
+    "grid": [
+      [
+        { "kind": "group", "shape": "circle", "count": 1 },
+        { "kind": "group", "shape": "circle", "count": 2 },
+        { "kind": "group", "shape": "circle", "count": 1 }
+      ],
+      [
+        { "kind": "group", "shape": "square", "count": 1 },
+        { "kind": "group", "shape": "square", "count": 2 },
+        { "kind": "group", "shape": "square", "count": 1 }
+      ],
+      [
+        { "kind": "group", "shape": "triangle", "count": 1 },
+        { "kind": "group", "shape": "triangle", "count": 2 },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "group", "shape": "triangle", "count": 2 },
+      { "kind": "group", "shape": "triangle", "count": 1 },
+      { "kind": "group", "shape": "triangle", "count": 3 },
+      { "kind": "group", "shape": "circle", "count": 1 },
+      { "kind": "group", "shape": "square", "count": 1 },
+      { "kind": "group", "shape": "triangle", "count": 1 }
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": "9a1c8b7d-4e3f-4a2c-8b1d-0e9f5c8d4b2e",
+    "title": "FRÅGA 9 — Analogiregel (A:B :: C:?)",
+    "rule": "Transformationen från Kolumn 1 till 2 (rotera 45° och invertera färg) är densamma för varje rad.",
+    "difficulty": 3,
+    "grid": [
+      [
+        { "kind": "polygon", "sides": 4, "fill": true, "rotation": 0 },
+        { "kind": "polygon", "sides": 4, "fill": false, "rotation": 45 },
+        { "kind": "polygon", "sides": 4, "fill": true, "rotation": 90 }
+      ],
+      [
+        { "kind": "polygon", "sides": 0, "fill": false, "rotation": 0 },
+        { "kind": "polygon", "sides": 0, "fill": true, "rotation": 45 },
+        { "kind": "polygon", "sides": 0, "fill": false, "rotation": 90 }
+      ],
+      [
+        { "kind": "polygon", "sides": 3, "fill": true, "rotation": 0 },
+        { "kind": "polygon", "sides": 3, "fill": false, "rotation": 45 },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "polygon", "sides": 3, "fill": true, "rotation": 45 },
+      { "kind": "polygon", "sides": 3, "fill": false, "rotation": 90 },
+      { "kind": "polygon", "sides": 3, "fill": false, "rotation": 135 },
+      { "kind": "polygon", "sides": 3, "fill": true, "rotation": 135 },
+      { "kind": "polygon", "sides": 3, "fill": true, "rotation": 90 },
+      { "kind": "polygon", "sides": 3, "fill": false, "rotation": 0 }
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": "2b5c8e1d-7a4f-4b9c-8e1d-7a4f9c8e1d7a",
+    "title": "FRÅGA 10 — Beroende rotation",
+    "rule": "Figuren roterar medurs. Rotationsvinkeln är beroende av kolumnen: K1= +0°, K2= +45°, K3= +90°. Denna rotation ackumuleras för varje rad.",
+    "difficulty": 3,
+    "grid": [
+      [
+        { "kind": "polygon", "sides": 4, "fill": true, "rotation": 45 },
+        { "kind": "polygon", "sides": 4, "fill": true, "rotation": 90 },
+        { "kind": "polygon", "sides": 4, "fill": true, "rotation": 135 }
+      ],
+      [
+        { "kind": "polygon", "sides": 4, "fill": true, "rotation": 135 },
+        { "kind": "polygon", "sides": 4, "fill": true, "rotation": 180 },
+        { "kind": "polygon", "sides": 4, "fill": true, "rotation": 225 }
+      ],
+      [
+        { "kind": "polygon", "sides": 4, "fill": true, "rotation": 225 },
+        { "kind": "polygon", "sides": 4, "fill": true, "rotation": 270 },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "polygon", "sides": 4, "fill": true, "rotation": 315 },
+      { "kind": "polygon", "sides": 4, "fill": true, "rotation": 225 },
+      { "kind": "polygon", "sides": 4, "fill": true, "rotation": 270 },
+      { "kind": "polygon", "sides": 4, "fill": true, "rotation": 0 },
+      { "kind": "polygon", "sides": 4, "fill": true, "rotation": 45 },
+      { "kind": "polygon", "sides": 4, "fill": true, "rotation": 135 }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "7e4a9b6c-2d1f-4a8c-9b6c-2d1f8a7b6c5d",
+    "title": "FRÅGA 13 — Villkorlig förändring",
+    "rule": "Formen i en cell bestäms av föregående cell: Om föregående form är fylld, roterar nästa 90° medurs. Om föregående är en kontur, speglas nästa horisontellt.",
+    "difficulty": 3,
+    "grid": [
+      [
+        { "kind": "pointer", "rotation": 270, "fill": true },
+        { "kind": "pointer", "rotation": 0, "fill": true },
+        { "kind": "pointer", "rotation": 90, "fill": true }
+      ],
+      [
+        { "kind": "pointer", "rotation": 270, "fill": false },
+        { "kind": "pointer", "rotation": 90, "fill": false },
+        { "kind": "pointer", "rotation": 270, "fill": false }
+      ],
+      [
+        { "kind": "pointer", "rotation": 270, "fill": true },
+        { "kind": "pointer", "rotation": 0, "fill": false },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "pointer", "rotation": 180, "fill": false },
+      { "kind": "pointer", "rotation": 90, "fill": false },
+      { "kind": "pointer", "rotation": 0, "fill": true },
+      { "kind": "pointer", "rotation": 90, "fill": false },
+      { "kind": "pointer", "rotation": 90, "fill": true },
+      { "kind": "pointer", "rotation": 0, "fill": false }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "4e8c1d5b-7a3e-4d1c-9b6f-0e9a5c8d4b2e",
+    "title": "FRÅGA 14 — Överlagring och XOR",
+    "rule": "I varje rad, när Kolumn 1 och 2 läggs ovanpå varandra, försvinner de linjer som är gemensamma (XOR). Resultatet visas i Kolumn 3.",
+    "difficulty": 3,
+    "grid": [
+      [
+        { "kind": "lines", "lines": ["frame", "diag_down"] },
+        { "kind": "lines", "lines": ["diag_down", "diag_up"] },
+        { "kind": "lines", "lines": ["frame", "diag_up"] }
+      ],
+      [
+        { "kind": "lines", "lines": ["cross"] },
+        { "kind": "lines", "lines": ["horiz", "diag_down"] },
+        { "kind": "lines", "lines": ["vert", "diag_down"] }
+      ],
+      [
+        { "kind": "lines", "lines": ["frame"] },
+        { "kind": "lines", "lines": ["frame", "horiz"] },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "lines", "lines": ["frame"] },
+      { "kind": "lines", "lines": ["frame", "horiz"] },
+      { "kind": "lines", "lines": ["frame", "cross"] },
+      { "kind": "lines", "lines": ["top", "bottom"] },
+      { "kind": "lines", "lines": ["horiz"] },
+      { "kind": "lines", "lines": [] }
+    ],
+    "correctAnswer": 4
+  },
+  {
+    "id": "b9e8c1d5-a3e2-4d1c-9b6f-0e9a5c8d4b2e",
+    "title": "FRÅGA 15 — Två variabler: antal och position",
+    "rule": "Antalet former i en cell är lika med dess radnummer (1, 2, 3). Positionen för formerna bestäms av kolumnnumret (vänster, mitten, höger).",
+    "difficulty": 2,
+    "grid": [
+      [
+        { "kind": "group", "shape": "circle", "count": 1, "pos": "L" },
+        { "kind": "group", "shape": "circle", "count": 1, "pos": "C" },
+        { "kind": "group", "shape": "circle", "count": 1, "pos": "R" }
+      ],
+      [
+        { "kind": "group", "shape": "circle", "count": 2, "pos": "L" },
+        { "kind": "group", "shape": "circle", "count": 2, "pos": "C" },
+        { "kind": "group", "shape": "circle", "count": 2, "pos": "R" }
+      ],
+      [
+        { "kind": "group", "shape": "circle", "count": 3, "pos": "L" },
+        { "kind": "group", "shape": "circle", "count": 3, "pos": "C" },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "group", "shape": "circle", "count": 1, "pos": "R" },
+      { "kind": "group", "shape": "circle", "count": 2, "pos": "R" },
+      { "kind": "group", "shape": "circle", "count": 3, "pos": "C" },
+      { "kind": "group", "shape": "circle", "count": 3, "pos": "L" },
+      { "kind": "group", "shape": "circle", "count": 3, "pos": "C" },
+      { "kind": "group", "shape": "circle", "count": 3, "pos": "R" }
+    ],
+    "correctAnswer": 5
+  }
+]
