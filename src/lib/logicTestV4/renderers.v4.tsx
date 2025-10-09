@@ -74,7 +74,7 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
       return <circle {...posMap[cell.pos]} r={8} fill={FILL_BLACK} />;
     }
     case 'lines': {
-        const lineMap: Record<LineName, JSX.Element | JSX.Element[]> = {
+        const lineMap: Record<LineName, React.ReactElement | React.ReactElement[]> = {
             frame: <rect x="25" y="25" width="50" height="50" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
             diag_down: <Line x1={25} y1={25} x2={75} y2={75} />,
             diag_up: <Line x1={25} y1={75} x2={75} y2={25} />,
@@ -84,7 +84,7 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
             frame_h: [<Line key="t" x1={25} y1={25} x2={75} y2={25} />, <Line key="b" x1={25} y1={75} x2={75} y2={75} />],
             frame_v: [<Line key="l" x1={25} y1={25} x2={25} y2={75} />, <Line key="r" x1={75} y1={25} x2={75} y2={75} />],
         };
-        return <>{cell.lines.map(name => React.cloneElement(lineMap[name] as JSX.Element, {key: name}))}</>;
+        return <>{cell.lines.map(name => React.cloneElement(lineMap[name] as React.ReactElement, {key: name}))}</>;
     }
     case 'shaded_shape': {
         const fill = cell.fill === 'none' ? FILL_NONE : cell.fill === 'gray' ? FILL_GRAY : FILL_BLACK;
