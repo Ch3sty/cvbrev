@@ -92,13 +92,21 @@ const OSymbol = () => (
   <circle cx={CX} cy={CY} r={18} fill="none" stroke={black} strokeWidth={2.5} />
 );
 
-// Triangle (equilateral, rotatable, fillable)
+// Triangle (isosceles/asymmetric for clear rotation visibility)
 const Triangle = ({ rot = 0, solid = true }: { rot?: number; solid?: boolean }) => {
-  const RR = 20;
+  // Isosceles triangle: narrower base (15px each side), taller height (32px)
+  // Creates arrow-like shape where rotation direction is clearly visible
+  const baseHalfWidth = 15;
+  const height = 32;
+
+  // Calculate centroid offset: for isosceles triangle, centroid is at 1/3 from base
+  // We need to shift the triangle up so centroid lands at (CX, CY)
+  const centroidOffset = height / 3;
+
   const pts = [
-    [CX, CY - RR],
-    [CX + (RR * Math.sqrt(3)) / 2, CY + RR * 0.5],
-    [CX - (RR * Math.sqrt(3)) / 2, CY + RR * 0.5],
+    [CX, CY - height + centroidOffset],              // Top point (tip of arrow)
+    [CX + baseHalfWidth, CY + centroidOffset],       // Bottom right
+    [CX - baseHalfWidth, CY + centroidOffset],       // Bottom left
   ]
     .map(([x, y]) => `${x.toFixed(2)},${y.toFixed(2)}`)
     .join(' ');
@@ -110,8 +118,6 @@ const Triangle = ({ rot = 0, solid = true }: { rot?: number; solid?: boolean }) 
         stroke={black}
         strokeWidth={2.5}
       />
-      {/* Visual marker dot at top vertex to show rotation */}
-      <circle cx={CX} cy={CY - RR} r={2.5} fill={solid ? 'white' : black} />
     </g>
   );
 };
