@@ -7,7 +7,7 @@ const SIZE = 100, CX = 50, CY = 50;
 const STROKE_COLOR = '#000';
 const STROKE_WIDTH = 2.5;
 
-const rotate = (rotation: number, content: JSX.Element) => (
+const rotate = (rotation: number, content: React.JSX.Element) => (
   <g transform={`rotate(${rotation}, ${CX}, ${CY})`}>{content}</g>
 );
 
@@ -78,7 +78,7 @@ const renderIntersections = (count: number) => {
 };
 
 const renderLines = (lineNames: LineName[]) => {
-  const lineMap: Record<LineName, JSX.Element> = {
+  const lineMap: Record<LineName, React.JSX.Element> = {
     frame: <rect key="frame" x="25" y="25" width="50" height="50" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH} />,
     diag_down: <Line key="diag_down" x1={25} y1={25} x2={75} y2={75} />,
     diag_up: <Line key="diag_up" x1={25} y1={75} x2={75} y2={25} />,
