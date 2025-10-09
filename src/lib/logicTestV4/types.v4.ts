@@ -31,7 +31,7 @@ export type Endpoints = { kind: 'endpoints'; count: 0 | 2 | 3 | 4; shape?: strin
 export type ReflectedShape = { kind: 'hook' | 'arc' | 'wedge'; mirror_v?: boolean; mirror_h?: boolean, rotation?: Angle };
 
 // Q10: Skärning mellan former
-export type Intersection = { kind: 'intersection'; shape1: string; shape2: string, fill?: 'none' | 'black' };
+export type Intersection = { kind: 'intersection'; shape1: string; shape2?: string, fill?: 'none' | 'black' };
 
 // Q11: Kretsande prick
 export type OrbitalDot = { kind: 'orbital_dot'; step: number };

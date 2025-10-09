@@ -134,18 +134,56 @@ export const SvgCellV4: React.FC<{ cell: Cell }> = ({ cell }) => {
       return cell.rotation ? rotate(cell.rotation, content) : content;
     }
     case 'intersection': {
-        const shapes: Record<string, string> = {
-            rect_full: "M25,25 H75 V75 H25Z",
-            circle: "M50,25 A25,25 0 1,1 49.99,25Z",
-            rect_top: "M25,25 H75 V50 H25Z",
-            rect_left: "M25,25 H50 V75 H25Z",
-            rect_top_left: "M25,25 H50 V50 H25Z",
-            rect_diag: "M25,25 L75,75 V25 H25Z",
-            tri_bottom: "M50,50 L20,80 H80Z",
-            segment: "M50,25 A25,25 0,0,1,75,50 V75 H25 V50 A25,25 0,0,1,50,25Z",
+        const shapes: Record<string, React.ReactElement> = {
+            rect_full: <rect x="25" y="25" width="50" height="50" />,
+            circle: <circle cx="50" cy="50" r="25" />,
+            rect_top: <rect x="25" y="25" width="50" height="25" />,
+            rect_left: <rect x="25" y="25" width="25" height="50" />,
+            rect_top_left: <rect x="25" y="25" width="25" height="25" />,
+            rect_diag: <path d="M25,25 L75,75 V25 H25Z" />,
+            tri_bottom: <path d="M50 50 L20 80 H80 Z" />,
+            circle_half_bottom: <path d="M50,75 A25,25 0 0 0 25,50 H75 A25,25 0 0 0 50,75Z" />,
+            segment: <path d="M50,25 A25,25 0,0,1,75,50 V75 H25 V50 A25,25 0,0,1,50,25Z" />,
         };
+
         const fill = cell.fill === 'none' ? FILL_NONE : FILL_BLACK;
-        return <path d={shapes[cell.shape1]} fill={fill} />;
+        const stroke = fill === FILL_NONE ? STROKE_COLOR : 'none';
+
+        // Om shape2 finns: Rendera intersection med clipPath
+        if (cell.shape2) {
+            const clipId = `clip-${cell.shape1}-${cell.shape2}-${Math.random().toString(36).substr(2, 9)}`;
+            const shape1_elem = shapes[cell.shape1];
+            const shape2_elem = shapes[cell.shape2];
+
+            if (!shape1_elem || !shape2_elem) return null;
+
+            return (
+                <>
+                    <defs>
+                        <clipPath id={clipId}>
+                            {React.cloneElement(shape2_elem as React.ReactElement<any>)}
+                        </clipPath>
+                    </defs>
+                    <g clipPath={`url(#${clipId})`}>
+                        {React.cloneElement(shape1_elem as React.ReactElement<any>, {
+                            fill,
+                            stroke,
+                            strokeWidth: STROKE_WIDTH
+                        })}
+                    </g>
+                </>
+            );
+        }
+
+        // Annars: Rita bara shape1
+        const shape_elem = shapes[cell.shape1];
+        if (!shape_elem) return null;
+
+        return React.cloneElement(shape_elem as React.ReactElement<any>, {
+            fill,
+            stroke,
+            strokeWidth: STROKE_WIDTH
+        });
     }
     case 'orbital_dot': {
         const angle = cell.step * -45; // Moturs
