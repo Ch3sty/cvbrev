@@ -51,6 +51,10 @@ export const signature = (cell: Cell): string => {
         return `sudoku:${cell.shape}:${cell.fill}:${normalizeRotation(cell.rotation ?? 0, cell.shape)}`;
     case 'sweep':
         return `sweep:${cell.steps}:${(((cell.rotation ?? 0) % 360) + 360) % 360}`;
+    case 'striped_rotation':
+        const normOuterRot = normalizeRotation(cell.outerRotation, cell.outer);
+        const normPatternRot = ((cell.patternRotation % 360) + 360) % 360;
+        return `striped:${cell.outer}:${normOuterRot}:${cell.pattern}:${normPatternRot}:${cell.fill ?? 'none'}`;
     default:
       const exhaustiveCheck: never = cell;
       return `unknown:${JSON.stringify(exhaustiveCheck)}`;

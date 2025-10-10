@@ -57,10 +57,22 @@ export type Sudoku = { kind: 'sudoku'; shape: 'arrow'|'plus'|'moon'; fill: 'blac
 // Q15: Svepande linje
 export type Sweep = { kind: 'sweep'; steps: 1 | 2 | 3 | 4; rotation?: Angle };
 
+// ROTATION TEST: Striped patterns with rotation
+export type StripedRotation = {
+  kind: 'striped_rotation';
+  outer: 'circle' | 'square' | 'triangle' | 'half_circle' | 'l_shape';
+  outerRotation: Angle;
+  pattern: 'diagonal' | 'cross' | 'plus' | 'l_stripes' | 'stairs' | 'partial';
+  patternRotation: Angle;
+  asymmetry?: 'different_lengths' | 'uneven_spacing' | 'partial_coverage';
+  fill?: 'none' | 'outer';
+};
+
 // --- HUVUDTYP OCH FRÅGESTruktur ---
 export type Cell =
   | Dot | LShape | Icon | Fill | CornerDot | Lines | ShadedShape | Endpoints
-  | ReflectedShape | ExclusiveOr | OrbitalDot | Swap | SizedShape | Subtraction | Sudoku | Sweep;
+  | ReflectedShape | ExclusiveOr | OrbitalDot | Swap | SizedShape | Subtraction | Sudoku | Sweep
+  | StripedRotation;
 
 export type Question = {
   id: string;

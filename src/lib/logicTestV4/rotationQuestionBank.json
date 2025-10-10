@@ -1,0 +1,497 @@
+[
+  {
+    "id": "v4-rotation-q1-diagonal",
+    "title": "FRÅGA 1 — Diagonal rotation",
+    "rule": "Diagonalen roterar 45° för varje steg åt höger.",
+    "difficulty": 1,
+    "showGrid": true,
+    "grid": [
+      [
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 45 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 90 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 45 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 90 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 45 },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 90 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 135 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 45 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 0 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 180 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 270 }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v4-rotation-q2-cross-plus",
+    "title": "FRÅGA 2 — Kors till plus",
+    "rule": "Mönstret roterar 45° nedåt för varje rad. Kors (X) blir plus (+) vid 45°.",
+    "difficulty": 1,
+    "showGrid": true,
+    "grid": [
+      [
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "cross", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "cross", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "cross", "patternRotation": 0 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "cross", "patternRotation": 45 },
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "cross", "patternRotation": 45 },
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "cross", "patternRotation": 45 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "cross", "patternRotation": 90 },
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "cross", "patternRotation": 90 },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "cross", "patternRotation": 90 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "cross", "patternRotation": 0 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "cross", "patternRotation": 45 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "cross", "patternRotation": 135 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "cross", "patternRotation": 180 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "plus", "patternRotation": 0 }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v4-rotation-q3-l-stripes",
+    "title": "FRÅGA 3 — L-mönster rotation",
+    "rule": "L-mönstret roterar 90° medurs för varje steg nedåt.",
+    "difficulty": 1,
+    "showGrid": true,
+    "grid": [
+      [
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 0 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 90 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 90 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 90 }
+      ],
+      [
+        null,
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 180 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 180 }
+      ]
+    ],
+    "options": [
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 180 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 0 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 90 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 270 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 45 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 135 }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v4-rotation-q4-stairs",
+    "title": "FRÅGA 4 — Trappor rotation",
+    "rule": "Trappstegs-mönstret roterar 90° för varje steg åt höger.",
+    "difficulty": 1,
+    "showGrid": true,
+    "grid": [
+      [
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "stairs", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "stairs", "patternRotation": 90 },
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "stairs", "patternRotation": 180 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "stairs", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "stairs", "patternRotation": 90 },
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "stairs", "patternRotation": 180 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "stairs", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "stairs", "patternRotation": 90 },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "stairs", "patternRotation": 180 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "stairs", "patternRotation": 270 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "stairs", "patternRotation": 0 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "stairs", "patternRotation": 90 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "stairs", "patternRotation": 45 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "stairs", "patternRotation": 135 }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v4-rotation-q5-partial",
+    "title": "FRÅGA 5 — Partiell täckning",
+    "rule": "Det randiga området roterar 60° medurs för varje steg nedåt.",
+    "difficulty": 1,
+    "showGrid": true,
+    "grid": [
+      [
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "partial", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "partial", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "partial", "patternRotation": 0 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "partial", "patternRotation": 60 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "partial", "patternRotation": 60 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "partial", "patternRotation": 60 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "partial", "patternRotation": 120 },
+        null,
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "partial", "patternRotation": 120 }
+      ]
+    ],
+    "options": [
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "partial", "patternRotation": 120 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "partial", "patternRotation": 60 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "partial", "patternRotation": 0 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "partial", "patternRotation": 180 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "partial", "patternRotation": 90 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "partial", "patternRotation": 30 }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v4-rotation-q6-independent",
+    "title": "FRÅGA 6 — Oberoende rotation",
+    "rule": "Yttre formen roterar 45° åt höger, inre mönstret roterar 45° nedåt.",
+    "difficulty": 2,
+    "showGrid": true,
+    "grid": [
+      [
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 45, "pattern": "diagonal", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 90, "pattern": "diagonal", "patternRotation": 0 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 45 },
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 45, "pattern": "diagonal", "patternRotation": 45 },
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 90, "pattern": "diagonal", "patternRotation": 45 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 90 },
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 45, "pattern": "diagonal", "patternRotation": 90 },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 90, "pattern": "diagonal", "patternRotation": 90 },
+      { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 0 },
+      { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 90, "pattern": "diagonal", "patternRotation": 0 },
+      { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 90 },
+      { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 45, "pattern": "diagonal", "patternRotation": 45 },
+      { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 135, "pattern": "diagonal", "patternRotation": 135 }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v4-rotation-q7-counter",
+    "title": "FRÅGA 7 — Motrotering",
+    "rule": "Yttre formen roterar 60° medurs, inre mönstret roterar 60° moturs.",
+    "difficulty": 2,
+    "showGrid": true,
+    "grid": [
+      [
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 60, "pattern": "l_stripes", "patternRotation": 300 },
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 120, "pattern": "l_stripes", "patternRotation": 240 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 60, "pattern": "l_stripes", "patternRotation": 300 },
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 120, "pattern": "l_stripes", "patternRotation": 240 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 0 },
+        null,
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 120, "pattern": "l_stripes", "patternRotation": 240 }
+      ]
+    ],
+    "options": [
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 60, "pattern": "l_stripes", "patternRotation": 300 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 60, "pattern": "l_stripes", "patternRotation": 60 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 0 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 120, "pattern": "l_stripes", "patternRotation": 120 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 300, "pattern": "l_stripes", "patternRotation": 60 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 180, "pattern": "l_stripes", "patternRotation": 180 }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v4-rotation-q8-form-progression",
+    "title": "FRÅGA 8 — Form progression",
+    "rule": "Formen ändras (cirkel→fyrkant→triangel) för varje steg, mönstret roterar 90°.",
+    "difficulty": 2,
+    "showGrid": true,
+    "grid": [
+      [
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "cross", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "cross", "patternRotation": 90 },
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 0, "pattern": "cross", "patternRotation": 180 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "cross", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "cross", "patternRotation": 90 },
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 0, "pattern": "cross", "patternRotation": 180 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "cross", "patternRotation": 0 },
+        null,
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 0, "pattern": "cross", "patternRotation": 180 }
+      ]
+    ],
+    "options": [
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "cross", "patternRotation": 90 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "cross", "patternRotation": 90 },
+      { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 0, "pattern": "cross", "patternRotation": 90 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "cross", "patternRotation": 0 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "cross", "patternRotation": 180 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "plus", "patternRotation": 0 }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v4-rotation-q9-pattern-progression",
+    "title": "FRÅGA 9 — Mönster progression",
+    "rule": "Mönstret ändras (diagonal→kors→plus) nedåt, yttre formen roterar 45°.",
+    "difficulty": 2,
+    "showGrid": true,
+    "grid": [
+      [
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 45, "pattern": "diagonal", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 90, "pattern": "diagonal", "patternRotation": 0 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "cross", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 45, "pattern": "cross", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 90, "pattern": "cross", "patternRotation": 0 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "plus", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 45, "pattern": "plus", "patternRotation": 0 },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 90, "pattern": "plus", "patternRotation": 0 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "plus", "patternRotation": 0 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 90, "pattern": "cross", "patternRotation": 0 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 90, "pattern": "diagonal", "patternRotation": 0 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 45, "pattern": "plus", "patternRotation": 0 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 135, "pattern": "plus", "patternRotation": 0 }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v4-rotation-q10-double-rotation",
+    "title": "FRÅGA 10 — Dubbel rotation",
+    "rule": "Både yttre formen och inre mönstret roterar 90° för varje steg åt höger.",
+    "difficulty": 2,
+    "showGrid": true,
+    "grid": [
+      [
+        { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 0, "pattern": "stairs", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 90, "pattern": "stairs", "patternRotation": 90 },
+        { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 180, "pattern": "stairs", "patternRotation": 180 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 0, "pattern": "stairs", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 90, "pattern": "stairs", "patternRotation": 90 },
+        { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 180, "pattern": "stairs", "patternRotation": 180 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 0, "pattern": "stairs", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 90, "pattern": "stairs", "patternRotation": 90 },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 180, "pattern": "stairs", "patternRotation": 180 },
+      { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 270, "pattern": "stairs", "patternRotation": 270 },
+      { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 180, "pattern": "stairs", "patternRotation": 0 },
+      { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 0, "pattern": "stairs", "patternRotation": 180 },
+      { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 90, "pattern": "stairs", "patternRotation": 180 },
+      { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 180, "pattern": "stairs", "patternRotation": 90 }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v4-rotation-q11-filled-outer",
+    "title": "FRÅGA 11 — Fylld yttre form",
+    "rule": "Yttre formen är fylld och roterar 45° höger, inre mönstret roterar 90° nedåt.",
+    "difficulty": 3,
+    "showGrid": true,
+    "grid": [
+      [
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 0, "fill": "outer" },
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 45, "pattern": "diagonal", "patternRotation": 0, "fill": "outer" },
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 90, "pattern": "diagonal", "patternRotation": 0, "fill": "outer" }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 90, "fill": "outer" },
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 45, "pattern": "diagonal", "patternRotation": 90, "fill": "outer" },
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 90, "pattern": "diagonal", "patternRotation": 90, "fill": "outer" }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 180, "fill": "outer" },
+        null,
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 90, "pattern": "diagonal", "patternRotation": 180, "fill": "outer" }
+      ]
+    ],
+    "options": [
+      { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 45, "pattern": "diagonal", "patternRotation": 180, "fill": "outer" },
+      { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 45, "pattern": "diagonal", "patternRotation": 0, "fill": "outer" },
+      { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 0, "pattern": "diagonal", "patternRotation": 180, "fill": "outer" },
+      { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 90, "pattern": "diagonal", "patternRotation": 180, "fill": "outer" },
+      { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 45, "pattern": "diagonal", "patternRotation": 90, "fill": "outer" },
+      { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 45, "pattern": "diagonal", "patternRotation": 270, "fill": "outer" }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v4-rotation-q12-l-shape-outer",
+    "title": "FRÅGA 12 — L-formad yttre",
+    "rule": "L-formad yttre roterar 90° nedåt, trapp-mönstret roterar 45° höger.",
+    "difficulty": 3,
+    "showGrid": true,
+    "grid": [
+      [
+        { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 0, "pattern": "stairs", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 0, "pattern": "stairs", "patternRotation": 45 },
+        { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 0, "pattern": "stairs", "patternRotation": 90 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 90, "pattern": "stairs", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 90, "pattern": "stairs", "patternRotation": 45 },
+        { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 90, "pattern": "stairs", "patternRotation": 90 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 180, "pattern": "stairs", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 180, "pattern": "stairs", "patternRotation": 45 },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 180, "pattern": "stairs", "patternRotation": 90 },
+      { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 180, "pattern": "stairs", "patternRotation": 0 },
+      { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 270, "pattern": "stairs", "patternRotation": 90 },
+      { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 0, "pattern": "stairs", "patternRotation": 90 },
+      { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 180, "pattern": "stairs", "patternRotation": 135 },
+      { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 90, "pattern": "stairs", "patternRotation": 90 }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v4-rotation-q13-three-transforms",
+    "title": "FRÅGA 13 — Tre transformationer",
+    "rule": "Form ändras (cirkel→fyrkant→triangel), yttre roterar 30°, inre roterar 60°.",
+    "difficulty": 3,
+    "showGrid": true,
+    "grid": [
+      [
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 30, "pattern": "l_stripes", "patternRotation": 60 },
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 60, "pattern": "l_stripes", "patternRotation": 120 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "square", "outerRotation": 30, "pattern": "l_stripes", "patternRotation": 60 },
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 60, "pattern": "l_stripes", "patternRotation": 120 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "circle", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 0 },
+        null,
+        { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 60, "pattern": "l_stripes", "patternRotation": 120 }
+      ]
+    ],
+    "options": [
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 30, "pattern": "l_stripes", "patternRotation": 60 },
+      { "kind": "striped_rotation", "outer": "circle", "outerRotation": 30, "pattern": "l_stripes", "patternRotation": 60 },
+      { "kind": "striped_rotation", "outer": "triangle", "outerRotation": 30, "pattern": "l_stripes", "patternRotation": 60 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 60, "pattern": "l_stripes", "patternRotation": 30 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 0, "pattern": "l_stripes", "patternRotation": 0 },
+      { "kind": "striped_rotation", "outer": "square", "outerRotation": 30, "pattern": "l_stripes", "patternRotation": 120 }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v4-rotation-q14-complex-counter",
+    "title": "FRÅGA 14 — Komplex motrotering",
+    "rule": "Halvcirkeln roterar 120° medurs höger, partiellt mönster roterar 120° moturs nedåt.",
+    "difficulty": 3,
+    "showGrid": true,
+    "grid": [
+      [
+        { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 0, "pattern": "partial", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 120, "pattern": "partial", "patternRotation": 0 },
+        { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 240, "pattern": "partial", "patternRotation": 0 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 0, "pattern": "partial", "patternRotation": 240 },
+        { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 120, "pattern": "partial", "patternRotation": 240 },
+        { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 240, "pattern": "partial", "patternRotation": 240 }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 0, "pattern": "partial", "patternRotation": 120 },
+        { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 120, "pattern": "partial", "patternRotation": 120 },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 240, "pattern": "partial", "patternRotation": 120 },
+      { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 240, "pattern": "partial", "patternRotation": 0 },
+      { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 0, "pattern": "partial", "patternRotation": 120 },
+      { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 120, "pattern": "partial", "patternRotation": 240 },
+      { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 240, "pattern": "partial", "patternRotation": 240 },
+      { "kind": "striped_rotation", "outer": "half_circle", "outerRotation": 120, "pattern": "partial", "patternRotation": 120 }
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": "v4-rotation-q15-ultimate",
+    "title": "FRÅGA 15 — Ultimat utmaning",
+    "rule": "Fylld L-form roterar 45° höger, kors-mönster roterar 90° moturs nedåt.",
+    "difficulty": 3,
+    "showGrid": true,
+    "grid": [
+      [
+        { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 0, "pattern": "cross", "patternRotation": 0, "fill": "outer" },
+        { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 45, "pattern": "cross", "patternRotation": 0, "fill": "outer" },
+        { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 90, "pattern": "cross", "patternRotation": 0, "fill": "outer" }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 0, "pattern": "cross", "patternRotation": 270, "fill": "outer" },
+        { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 45, "pattern": "cross", "patternRotation": 270, "fill": "outer" },
+        { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 90, "pattern": "cross", "patternRotation": 270, "fill": "outer" }
+      ],
+      [
+        { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 0, "pattern": "cross", "patternRotation": 180, "fill": "outer" },
+        { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 45, "pattern": "cross", "patternRotation": 180, "fill": "outer" },
+        null
+      ]
+    ],
+    "options": [
+      { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 90, "pattern": "cross", "patternRotation": 180, "fill": "outer" },
+      { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 135, "pattern": "cross", "patternRotation": 90, "fill": "outer" },
+      { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 90, "pattern": "cross", "patternRotation": 0, "fill": "outer" },
+      { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 0, "pattern": "cross", "patternRotation": 180, "fill": "outer" },
+      { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 90, "pattern": "cross", "patternRotation": 270, "fill": "outer" },
+      { "kind": "striped_rotation", "outer": "l_shape", "outerRotation": 45, "pattern": "cross", "patternRotation": 180, "fill": "outer" }
+    ],
+    "correctAnswer": 0
+  }
+]
