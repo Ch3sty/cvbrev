@@ -103,21 +103,21 @@
   {
     "id": "v6-q6-position-transform",
     "title": "FRÅGA 6 — Positionsbaserad transformation",
-    "rule": "Rotationen beror på cellens position: (rad + kolumn - 1) × 45°. Formen följer en återkommande sekvens: pacman → hörn → halvcirkel.",
+    "rule": "Rotationen beror på cellens position: (rad×3 + kolumn) × 30°. Formen följer en återkommande sekvens: pacman → hörn → halvcirkel.",
     "difficulty": 3,
     "showGrid": false,
     "grid": [
-      [{ "kind": "analogy", "shape": "pacman", "rotation": 45, "fill": true }, { "kind": "analogy", "shape": "corner", "rotation": 90, "fill": true }, { "kind": "analogy", "shape": "halfcircle", "rotation": 135, "fill": true }],
-      [{ "kind": "analogy", "shape": "corner", "rotation": 90, "fill": true }, { "kind": "analogy", "shape": "halfcircle", "rotation": 135, "fill": true }, { "kind": "analogy", "shape": "pacman", "rotation": 180, "fill": true }],
-      [{ "kind": "analogy", "shape": "halfcircle", "rotation": 135, "fill": true }, { "kind": "analogy", "shape": "pacman", "rotation": 180, "fill": true }, null]
+      [{ "kind": "analogy", "shape": "pacman", "rotation": 120, "fill": true }, { "kind": "analogy", "shape": "corner", "rotation": 150, "fill": true }, { "kind": "analogy", "shape": "halfcircle", "rotation": 180, "fill": true }],
+      [{ "kind": "analogy", "shape": "pacman", "rotation": 210, "fill": true }, { "kind": "analogy", "shape": "corner", "rotation": 240, "fill": true }, { "kind": "analogy", "shape": "halfcircle", "rotation": 270, "fill": true }],
+      [{ "kind": "analogy", "shape": "pacman", "rotation": 300, "fill": true }, { "kind": "analogy", "shape": "corner", "rotation": 330, "fill": true }, null]
     ],
     "options": [
-      { "kind": "analogy", "shape": "corner", "rotation": 225, "fill": true },
-      { "kind": "analogy", "shape": "corner", "rotation": 180, "fill": true },
-      { "kind": "analogy", "shape": "halfcircle", "rotation": 225, "fill": true },
-      { "kind": "analogy", "shape": "pacman", "rotation": 225, "fill": true },
-      { "kind": "analogy", "shape": "corner", "rotation": 270, "fill": true },
-      { "kind": "analogy", "shape": "corner", "rotation": 225, "fill": false }
+      { "kind": "analogy", "shape": "halfcircle", "rotation": 0, "fill": true },
+      { "kind": "analogy", "shape": "halfcircle", "rotation": 90, "fill": true },
+      { "kind": "analogy", "shape": "corner", "rotation": 0, "fill": true },
+      { "kind": "analogy", "shape": "pacman", "rotation": 0, "fill": true },
+      { "kind": "analogy", "shape": "halfcircle", "rotation": 180, "fill": true },
+      { "kind": "analogy", "shape": "halfcircle", "rotation": 0, "fill": false }
     ],
     "correctAnswer": 0
   },
