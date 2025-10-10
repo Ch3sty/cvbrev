@@ -1,6 +1,6 @@
 // src/lib/logicTestV6/renderers.v6.tsx
 import React from 'react';
-import type { Cell, Question, LineName, CompositionItem } from './types.v6';
+import type { Cell, LineName, CompositionItem } from './types.v6';
 
 // --- Konstanter och Hjälpfunktioner ---
 const SIZE = 100, CX = 50, CY = 50;
@@ -204,58 +204,4 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
     }
     default: return null;
   }
-};
-
-// --- Fullständig Exempelkomponent ---
-export const MatrixQuestionComponentV6: React.FC<{ 
-  question: Question,
-  selected: number | null,
-  onSelect: (index: number) => void
-}> = ({ question, selected, onSelect }) => {
-  
-  const renderCellWithGrid = (cell: Cell | null) => (
-    <svg viewBox="0 0 100 100" width="100" height="100" shapeRendering="geometricPrecision">
-      {question.showGrid && <Grid />}
-      {cell && <SvgCellV6 cell={cell} />}
-    </svg>
-  );
-
-  return (
-    <div className="question-container">
-      <div className="matrix-grid">
-        {question.grid.flat().map((cell, i) => (
-          <div className="cell" key={`grid-${i}`}>
-            {cell ? renderCellWithGrid(cell) : <div className="missing">?</div>}
-          </div>
-        ))}
-      </div>
-
-      <div className="answers-grid" role="radiogroup">
-        {["A", "B", "C", "D", "E", "F"].map((label, i) => (
-          <button 
-            key={`option-${i}`}
-            className={`answer-button ${selected === i ? 'selected' : ''}`}
-            onClick={() => onSelect(i)}
-            role="radio"
-            aria-checked={selected === i}
-            aria-label={`Svarsalternativ ${label}`}
-          >
-            <div className="answer-label">{label}</div>
-            {renderCellWithGrid(question.options[i])}
-          </button>
-        ))}
-      </div>
-
-      <style jsx>{`
-        .question-container { font-family: sans-serif; }
-        .matrix-grid, .answers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 360px; margin: 20px 0; }
-        .cell, .answer-button { border: 1px solid #ddd; border-radius: 8px; background: #fff; display: flex; align-items: center; justify-content: center; width: 110px; height: 110px; position: relative; }
-        .missing { font-size: 48px; color: #aaa; font-weight: bold; }
-        .answer-button { flex-direction: column; padding: 4px; cursor: pointer; background: #f9fafb; }
-        .answer-button:hover { border-color: #aaa; }
-        .answer-button.selected { border-color: #4f46e5; border-width: 2px; background: #eef2ff; }
-        .answer-label { font-size: 12px; font-weight: bold; color: #555; height: 16px; }
-      `}</style>
-    </div>
-  );
 };
