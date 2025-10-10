@@ -34,16 +34,16 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
       return rotate(cell.rotation, path);
     }
     case 'multi_shape': {
-      let path;
+      let path: React.ReactElement;
       const size = 25;
       const posMap = { TL: { x: 25, y: 25 }, C: { x: 40, y: 40 }, BR: { x: 55, y: 55 } };
       const { x, y } = posMap[cell.pos];
-      
+
       if (cell.shape === 'L') path = <path d={`M ${x} ${y} V ${y + size} H ${y + size}`} />;
       if (cell.shape === 'T') path = <path d={`M ${x} ${y + size/2} H ${x + size} M ${x + size/2} ${y} V ${y + size}`} />;
       if (cell.shape === 'Z') path = <path d={`M ${x} ${y} H ${x + size} L ${x} ${y + size} H ${x + size}`} />;
-      
-      const elem = React.cloneElement(path as React.ReactElement, { fill: "none", stroke: STROKE_COLOR, strokeWidth: 3 });
+
+      const elem = React.cloneElement(path!, { fill: "none", stroke: STROKE_COLOR, strokeWidth: 3 });
       return rotate(cell.rotation ?? 0, elem);
     }
     case 'composition': {
