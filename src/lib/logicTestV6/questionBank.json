@@ -101,23 +101,23 @@
     "correctAnswer": 0
   },
   {
-    "id": "v6-q6-conditional-transform",
-    "title": "FRÅGA 6 — Villkorlig transformation (OM-DÅ)",
-    "rule": "För varje steg åt höger: OM formen är fylld, roterar den 90° medurs. OM den är ofylld, roterar den 90° moturs.",
+    "id": "v6-q6-position-transform",
+    "title": "FRÅGA 6 — Positionsbaserad transformation",
+    "rule": "Rotationen beror på rad- och kolumnnummer: (rad × kolumn × 45°). Formen följer en återkommande sekvens baserad på position: cirkel → kvadrat → triangel.",
     "difficulty": 3,
     "showGrid": false,
     "grid": [
-      [{ "kind": "pointer", "rotation": 0, "fill": true }, { "kind": "pointer", "rotation": 90, "fill": true }, { "kind": "pointer", "rotation": 180, "fill": true }],
-      [{ "kind": "analogy", "shape": "triangle", "rotation": 0, "fill": true }, { "kind": "analogy", "shape": "triangle", "rotation": 270, "fill": false }, { "kind": "analogy", "shape": "triangle", "rotation": 90, "fill": true }],
-      [{ "kind": "pointer", "rotation": 0, "fill": false }, { "kind": "pointer", "rotation": 270, "fill": false }, null]
+      [{ "kind": "shaded_shape", "shape": "circle", "rotation": 45, "fill": "black" }, { "kind": "shaded_shape", "shape": "square", "rotation": 90, "fill": "black" }, { "kind": "shaded_shape", "shape": "triangle", "rotation": 135, "fill": "black" }],
+      [{ "kind": "shaded_shape", "shape": "square", "rotation": 90, "fill": "black" }, { "kind": "shaded_shape", "shape": "triangle", "rotation": 180, "fill": "black" }, { "kind": "shaded_shape", "shape": "circle", "rotation": 270, "fill": "black" }],
+      [{ "kind": "shaded_shape", "shape": "triangle", "rotation": 135, "fill": "black" }, { "kind": "shaded_shape", "shape": "circle", "rotation": 270, "fill": "black" }, null]
     ],
     "options": [
-      { "kind": "pointer", "rotation": 180, "fill": false },
-      { "kind": "pointer", "rotation": 180, "fill": true },
-      { "kind": "pointer", "rotation": 0, "fill": false },
-      { "kind": "analogy", "shape": "triangle", "rotation": 180, "fill": false },
-      { "kind": "pointer", "rotation": 270, "fill": true },
-      { "kind": "pointer", "rotation": 90, "fill": false }
+      { "kind": "shaded_shape", "shape": "square", "rotation": 45, "fill": "black" },
+      { "kind": "shaded_shape", "shape": "square", "rotation": 90, "fill": "black" },
+      { "kind": "shaded_shape", "shape": "triangle", "rotation": 45, "fill": "black" },
+      { "kind": "shaded_shape", "shape": "circle", "rotation": 45, "fill": "black" },
+      { "kind": "shaded_shape", "shape": "square", "rotation": 135, "fill": "black" },
+      { "kind": "shaded_shape", "shape": "square", "rotation": 45, "fill": "gray" }
     ],
     "correctAnswer": 0
   },
