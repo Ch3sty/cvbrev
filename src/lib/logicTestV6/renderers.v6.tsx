@@ -43,11 +43,11 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
       if (cell.shape === 'T') path = <path d={`M ${x} ${y + size/2} H ${x + size} M ${x + size/2} ${y} V ${y + size}`} />;
       if (cell.shape === 'Z') path = <path d={`M ${x} ${y} H ${x + size} L ${x} ${y + size} H ${x + size}`} />;
       
-      const elem = React.cloneElement(path as JSX.Element, { fill: "none", stroke: STROKE_COLOR, strokeWidth: 3 });
+      const elem = React.cloneElement(path as React.ReactElement, { fill: "none", stroke: STROKE_COLOR, strokeWidth: 3 });
       return rotate(cell.rotation ?? 0, elem);
     }
     case 'composition': {
-      const items: Record<CompositionItem, JSX.Element> = {
+      const items: Record<CompositionItem, React.ReactElement> = {
         dot_tl: <circle cx="35" cy="35" r="12" fill={FILL_BLACK} />,
         dot_br: <circle cx="65" cy="65" r="12" fill={FILL_BLACK} />,
         square_tl: <rect x="25" y="25" width="20" height="20" fill={FILL_BLACK} />,
@@ -69,12 +69,12 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
       if (cell.shape === 'pacman') shape = <path d="M 50 25 A 25 25 0 1 1 25 50 L 50 50 Z" fill={fill} stroke={stroke} strokeWidth={STROKE_WIDTH} />;
       
       return <>
-        {rotate(cell.rotation ?? 0, shape as JSX.Element)}
+        {rotate(cell.rotation ?? 0, shape as React.ReactElement)}
         {cell.dot && <circle cx={50} cy={50} r="5" fill={FILL_BLACK}/>}
       </>;
     }
     case 'lines': {
-        const lineMap: Record<LineName, JSX.Element | JSX.Element[]> = {
+        const lineMap: Record<LineName, React.ReactElement | React.ReactElement[]> = {
             frame: <rect x="25" y="25" width="50" height="50" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
             diag_down: <Line x1={25} y1={25} x2={75} y2={75} />,
             diag_up: <Line x1={25} y1={75} x2={75} y2={25} />,
@@ -84,7 +84,7 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
             top: <Line x1={25} y1={25} x2={75} y2={25} />,
             bottom: <Line x1={25} y1={75} x2={75} y2={75} />,
         };
-        return <>{cell.lines.map(name => React.cloneElement(lineMap[name] as JSX.Element, {key: name}))}</>;
+        return <>{cell.lines.map(name => React.cloneElement(lineMap[name] as React.ReactElement, {key: name}))}</>;
     }
     case 'l_shape':
     case 'pointer': {
@@ -93,12 +93,12 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
       const stroke = cell.fill ? 'none' : STROKE_COLOR;
       if (cell.kind === 'l_shape') path = <path d="M 25 25 V 75 H 75" fill={fill} stroke={stroke} strokeWidth={3} />;
       if (cell.kind === 'pointer') path = <path d="M 30 70 L 30 30 L 70 50 Z" fill={fill} stroke={stroke} strokeWidth={STROKE_WIDTH} strokeLinejoin="round"/>;
-      
+
       const transform = `rotate(${cell.rotation} ${CX} ${CY}) translate(${CX} ${CY}) scale(1, ${cell.mirror_v ? -1 : 1}) translate(${-CX} ${-CY})`;
       return <g transform={transform}>{path}</g>;
     }
     case 'count_areas': {
-        const shapes: Record<string, JSX.Element> = {
+        const shapes: Record<string, React.ReactElement> = {
             X: <path d="M 25 25 L 75 75 M 25 75 L 75 25" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
             square: <rect x="25" y="25" width="50" height="50" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
             divided_circle: <><circle cx="50" cy="50" r="25" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><Line x1={25} y1={50} x2={75} y2={50}/></>,
