@@ -84,7 +84,15 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
             top: <Line x1={25} y1={25} x2={75} y2={25} />,
             bottom: <Line x1={25} y1={75} x2={75} y2={75} />,
         };
-        return <>{cell.lines.map(name => React.cloneElement(lineMap[name] as React.ReactElement<any>, {key: name}))}</>;
+        if (!cell.lines || cell.lines.length === 0) return null;
+        return <>{cell.lines.map((name, index) => {
+          const element = lineMap[name];
+          if (!element) return null;
+          if (Array.isArray(element)) {
+            return <React.Fragment key={index}>{element}</React.Fragment>;
+          }
+          return React.cloneElement(element as React.ReactElement<any>, {key: index});
+        })}</>;
     }
     case 'l_shape':
     case 'pointer': {
