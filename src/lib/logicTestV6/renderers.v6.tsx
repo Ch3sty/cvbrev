@@ -111,12 +111,14 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
         const shapes: Record<string, React.ReactElement> = {
             X: <path d="M 25 25 L 75 75 M 25 75 L 75 25" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
             square: <rect x="25" y="25" width="50" height="50" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
+            triangle: <path d="M 50 20 L 80 80 L 20 80 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
             divided_circle: <><circle cx="50" cy="50" r="25" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><Line x1={25} y1={50} x2={75} y2={50}/></>,
             star_of_david: <><path d="M50 20 L80 75 L20 75 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><path d="M50 80 L20 25 L80 25 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
             double_ring: <><circle cx="50" cy="50" r="25" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="50" cy="50" r="15" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
             hourglass: <><path d="M 25 25 L 75 25 L 25 75 L 75 75 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
             four_squares: <><rect x="25" y="25" width="50" height="50" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><Line x1={25} y1={50} x2={75} y2={50}/><Line x1={50} y1={25} x2={50} y2={75}/></>,
             overlapping_rings: <><circle cx="40" cy="50" r="20" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="60" cy="50" r="20" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
+            three_circles: <><circle cx="35" cy="50" r="12" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="50" cy="50" r="12" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="65" cy="50" r="12" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
             grid: <path d="M 25 25 H 75 V 75 H 25 Z M 25 50 H 75 M 50 25 V 75" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>
         };
         const dots = [];
