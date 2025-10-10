@@ -107,15 +107,15 @@
     "difficulty": 3,
     "grid": [
       [{ "kind": "pointer", "rotation": 0, "fill": true }, { "kind": "pointer", "rotation": 90, "fill": true }, { "kind": "pointer", "rotation": 180, "fill": true }],
-      [{ "kind": "pointer", "rotation": 0, "fill": false }, { "kind": "pointer", "rotation": 0, "fill": false, "mirror_v": true }, { "kind": "pointer", "rotation": 0, "fill": false }],
-      [{ "kind": "pointer", "rotation": 270, "fill": true }, { "kind": "pointer", "rotation": 0, "fill": true }, null]
+      [{ "kind": "pointer", "rotation": 0, "fill": false }, { "kind": "pointer", "rotation": 0, "fill": false, "mirror_v": true }, { "kind": "pointer", "rotation": 0, "fill": false, "mirror_v": false }],
+      [{ "kind": "pointer", "rotation": 270, "fill": false }, { "kind": "pointer", "rotation": 270, "fill": false, "mirror_v": true }, null]
     ],
     "options": [
-      { "kind": "pointer", "rotation": 90, "fill": true },
-      { "kind": "pointer", "rotation": 180, "fill": true },
+      { "kind": "pointer", "rotation": 270, "fill": false, "mirror_v": false },
       { "kind": "pointer", "rotation": 0, "fill": false },
-      { "kind": "pointer", "rotation": 90, "fill": false, "mirror_v": true },
-      { "kind": "pointer", "rotation": 270, "fill": true },
+      { "kind": "pointer", "rotation": 90, "fill": true },
+      { "kind": "pointer", "rotation": 270, "fill": false, "mirror_v": true },
+      { "kind": "pointer", "rotation": 180, "fill": true },
       { "kind": "pointer", "rotation": 0, "fill": false, "mirror_v": true }
     ],
     "correctAnswer": 0
