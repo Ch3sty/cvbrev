@@ -43,7 +43,7 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
       if (cell.shape === 'T') path = <path d={`M ${x} ${y + size/2} H ${x + size} M ${x + size/2} ${y} V ${y + size}`} />;
       if (cell.shape === 'Z') path = <path d={`M ${x} ${y} H ${x + size} L ${x} ${y + size} H ${x + size}`} />;
 
-      const elem = React.cloneElement(path!, { fill: "none", stroke: STROKE_COLOR, strokeWidth: 3 });
+      const elem = React.cloneElement(path! as React.ReactElement<any>, { fill: "none", stroke: STROKE_COLOR, strokeWidth: 3 });
       return rotate(cell.rotation ?? 0, elem);
     }
     case 'composition': {
@@ -84,7 +84,7 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
             top: <Line x1={25} y1={25} x2={75} y2={25} />,
             bottom: <Line x1={25} y1={75} x2={75} y2={75} />,
         };
-        return <>{cell.lines.map(name => React.cloneElement(lineMap[name] as React.ReactElement, {key: name}))}</>;
+        return <>{cell.lines.map(name => React.cloneElement(lineMap[name] as React.ReactElement<any>, {key: name}))}</>;
     }
     case 'l_shape':
     case 'pointer': {
@@ -152,7 +152,7 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
 
         const fill = cell.fill === 'none' ? FILL_NONE : cell.fill === 'gray' ? FILL_GRAY : FILL_BLACK;
         const stroke = fill === FILL_NONE ? STROKE_COLOR : 'none';
-        return rotate(cell.rotation ?? 0, React.cloneElement(shapePath as React.ReactElement, { fill, stroke, strokeWidth: STROKE_WIDTH }));
+        return rotate(cell.rotation ?? 0, React.cloneElement(shapePath as React.ReactElement<any>, { fill, stroke, strokeWidth: STROKE_WIDTH }));
     }
     case 'dots': {
         const dots = [];
