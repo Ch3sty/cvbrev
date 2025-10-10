@@ -103,21 +103,21 @@
   {
     "id": "v6-q6-position-transform",
     "title": "FRÅGA 6 — Positionsbaserad transformation",
-    "rule": "Rotationen beror på rad- och kolumnnummer: (rad × kolumn × 45°). Formen följer en återkommande sekvens baserad på position: cirkel → kvadrat → triangel.",
+    "rule": "Rotationen beror på cellens position: (rad + kolumn - 1) × 45°. Formen följer en återkommande sekvens: triangel → L-form → pacman.",
     "difficulty": 3,
     "showGrid": false,
     "grid": [
-      [{ "kind": "shaded_shape", "shape": "circle", "rotation": 45, "fill": "black" }, { "kind": "shaded_shape", "shape": "square", "rotation": 90, "fill": "black" }, { "kind": "shaded_shape", "shape": "triangle", "rotation": 135, "fill": "black" }],
-      [{ "kind": "shaded_shape", "shape": "square", "rotation": 90, "fill": "black" }, { "kind": "shaded_shape", "shape": "triangle", "rotation": 180, "fill": "black" }, { "kind": "shaded_shape", "shape": "circle", "rotation": 270, "fill": "black" }],
-      [{ "kind": "shaded_shape", "shape": "triangle", "rotation": 135, "fill": "black" }, { "kind": "shaded_shape", "shape": "circle", "rotation": 270, "fill": "black" }, null]
+      [{ "kind": "analogy", "shape": "triangle", "rotation": 45, "fill": true }, { "kind": "analogy", "shape": "l_shape", "rotation": 90, "fill": true }, { "kind": "analogy", "shape": "pacman", "rotation": 135, "fill": true }],
+      [{ "kind": "analogy", "shape": "l_shape", "rotation": 90, "fill": true }, { "kind": "analogy", "shape": "pacman", "rotation": 135, "fill": true }, { "kind": "analogy", "shape": "triangle", "rotation": 180, "fill": true }],
+      [{ "kind": "analogy", "shape": "pacman", "rotation": 135, "fill": true }, { "kind": "analogy", "shape": "triangle", "rotation": 180, "fill": true }, null]
     ],
     "options": [
-      { "kind": "shaded_shape", "shape": "square", "rotation": 45, "fill": "black" },
-      { "kind": "shaded_shape", "shape": "square", "rotation": 90, "fill": "black" },
-      { "kind": "shaded_shape", "shape": "triangle", "rotation": 45, "fill": "black" },
-      { "kind": "shaded_shape", "shape": "circle", "rotation": 45, "fill": "black" },
-      { "kind": "shaded_shape", "shape": "square", "rotation": 135, "fill": "black" },
-      { "kind": "shaded_shape", "shape": "square", "rotation": 45, "fill": "gray" }
+      { "kind": "analogy", "shape": "l_shape", "rotation": 225, "fill": true },
+      { "kind": "analogy", "shape": "l_shape", "rotation": 180, "fill": true },
+      { "kind": "analogy", "shape": "pacman", "rotation": 225, "fill": true },
+      { "kind": "analogy", "shape": "triangle", "rotation": 225, "fill": true },
+      { "kind": "analogy", "shape": "l_shape", "rotation": 270, "fill": true },
+      { "kind": "analogy", "shape": "l_shape", "rotation": 225, "fill": false }
     ],
     "correctAnswer": 0
   },
