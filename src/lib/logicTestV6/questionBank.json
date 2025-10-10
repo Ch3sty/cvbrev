@@ -103,21 +103,21 @@
   {
     "id": "v6-q6-conditional-transform",
     "title": "FRÅGA 6 — Villkorlig transformation (OM-DÅ)",
-    "rule": "För varje steg åt höger: OM formen är fylld, roterar den 90° medurs. OM den är ofylld, växlar den mellan två former (pil ↔ triangel).",
+    "rule": "För varje steg åt höger: OM formen är fylld, roterar den 90° medurs. OM den är ofylld, roterar den 90° moturs.",
     "difficulty": 3,
     "showGrid": false,
     "grid": [
       [{ "kind": "pointer", "rotation": 0, "fill": true }, { "kind": "pointer", "rotation": 90, "fill": true }, { "kind": "pointer", "rotation": 180, "fill": true }],
-      [{ "kind": "pointer", "rotation": 0, "fill": false }, { "kind": "analogy", "shape": "triangle", "rotation": 0, "fill": false }, { "kind": "pointer", "rotation": 0, "fill": false }],
-      [{ "kind": "analogy", "shape": "triangle", "rotation": 90, "fill": true }, { "kind": "analogy", "shape": "triangle", "rotation": 180, "fill": true }, null]
+      [{ "kind": "analogy", "shape": "triangle", "rotation": 0, "fill": true }, { "kind": "analogy", "shape": "triangle", "rotation": 270, "fill": false }, { "kind": "analogy", "shape": "triangle", "rotation": 90, "fill": true }],
+      [{ "kind": "pointer", "rotation": 0, "fill": false }, { "kind": "pointer", "rotation": 270, "fill": false }, null]
     ],
     "options": [
-      { "kind": "analogy", "shape": "triangle", "rotation": 270, "fill": true },
-      { "kind": "pointer", "rotation": 270, "fill": true },
-      { "kind": "analogy", "shape": "triangle", "rotation": 0, "fill": false },
-      { "kind": "pointer", "rotation": 0, "fill": true },
+      { "kind": "pointer", "rotation": 180, "fill": false },
+      { "kind": "pointer", "rotation": 180, "fill": true },
+      { "kind": "pointer", "rotation": 0, "fill": false },
       { "kind": "analogy", "shape": "triangle", "rotation": 180, "fill": false },
-      { "kind": "pointer", "rotation": 180, "fill": false }
+      { "kind": "pointer", "rotation": 270, "fill": true },
+      { "kind": "pointer", "rotation": 90, "fill": false }
     ],
     "correctAnswer": 0
   },
