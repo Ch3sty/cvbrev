@@ -27,11 +27,11 @@ export type Composition = {
 };
 
 // Q4: Analogiregel
-export type Analogy = { 
-  kind: 'analogy'; 
-  shape: 'triangle' | 'l_shape' | 'pacman'; 
-  rotation?: Angle; 
-  dot?: boolean; 
+export type Analogy = {
+  kind: 'analogy';
+  shape: 'triangle' | 'l_shape' | 'pacman' | 'corner' | 'halfcircle';
+  rotation?: Angle;
+  dot?: boolean;
   fill?: boolean;
 };
 
