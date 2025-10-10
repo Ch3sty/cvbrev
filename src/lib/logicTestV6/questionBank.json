@@ -102,21 +102,22 @@
   },
   {
     "id": "v6-q6-conditional-transform",
-    "title": "FRÅGA 6 — Villkorlig transformation",
-    "rule": "För varje steg åt höger: OM formen är fylld, roterar den 90° medurs. OM den är ofylld, speglas den vertikalt.",
-    "difficulty": 3,
+    "title": "FRÅGA 6 — Villkorlig transformation baserat på form",
+    "rule": "Kolumnen bestämmer formen (triangel/pil/L-form). Raden bestämmer fyllningen. Varje rad följer samma rotationsmönster (+90° per kolumn).",
+    "difficulty": 2,
+    "showGrid": false,
     "grid": [
-      [{ "kind": "pointer", "rotation": 0, "fill": true }, { "kind": "pointer", "rotation": 90, "fill": true }, { "kind": "pointer", "rotation": 180, "fill": true }],
-      [{ "kind": "pointer", "rotation": 0, "fill": false }, { "kind": "pointer", "rotation": 0, "fill": false, "mirror_v": true }, { "kind": "pointer", "rotation": 0, "fill": false, "mirror_v": false }],
-      [{ "kind": "pointer", "rotation": 270, "fill": false }, { "kind": "pointer", "rotation": 270, "fill": false, "mirror_v": true }, null]
+      [{ "kind": "analogy", "shape": "triangle", "rotation": 0, "fill": true }, { "kind": "pointer", "rotation": 0, "fill": true }, { "kind": "l_shape", "rotation": 0, "fill": true }],
+      [{ "kind": "analogy", "shape": "triangle", "rotation": 90, "fill": false }, { "kind": "pointer", "rotation": 90, "fill": false }, { "kind": "l_shape", "rotation": 90, "fill": false }],
+      [{ "kind": "analogy", "shape": "triangle", "rotation": 180, "fill": true }, { "kind": "pointer", "rotation": 180, "fill": true }, null]
     ],
     "options": [
-      { "kind": "pointer", "rotation": 270, "fill": false, "mirror_v": false },
-      { "kind": "pointer", "rotation": 0, "fill": false },
-      { "kind": "pointer", "rotation": 90, "fill": true },
-      { "kind": "pointer", "rotation": 270, "fill": false, "mirror_v": true },
-      { "kind": "pointer", "rotation": 180, "fill": true },
-      { "kind": "pointer", "rotation": 0, "fill": false, "mirror_v": true }
+      { "kind": "l_shape", "rotation": 180, "fill": true },
+      { "kind": "l_shape", "rotation": 180, "fill": false },
+      { "kind": "pointer", "rotation": 270, "fill": true },
+      { "kind": "analogy", "shape": "triangle", "rotation": 270, "fill": true },
+      { "kind": "l_shape", "rotation": 90, "fill": true },
+      { "kind": "analogy", "shape": "triangle", "rotation": 180, "fill": false }
     ],
     "correctAnswer": 0
   },
