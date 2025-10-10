@@ -5,17 +5,17 @@
     "rule": "Formen roterar 90° medurs för varje kolumn. Fyllningen alternerar (fylld/ofylld) för varje rad.",
     "difficulty": 2,
     "grid": [
-      [{ "kind": "arrow", "rotation": 90, "fill": true }, { "kind": "arrow", "rotation": 180, "fill": true }, { "kind": "arrow", "rotation": 270, "fill": true }],
-      [{ "kind": "arrow", "rotation": 180, "fill": false }, { "kind": "arrow", "rotation": 270, "fill": false }, { "kind": "arrow", "rotation": 0, "fill": false }],
-      [{ "kind": "arrow", "rotation": 270, "fill": true }, { "kind": "arrow", "rotation": 0, "fill": true }, null]
+      [{ "kind": "arrow", "rotation": 0, "fill": true }, { "kind": "arrow", "rotation": 90, "fill": true }, { "kind": "arrow", "rotation": 180, "fill": true }],
+      [{ "kind": "arrow", "rotation": 0, "fill": false }, { "kind": "arrow", "rotation": 90, "fill": false }, { "kind": "arrow", "rotation": 180, "fill": false }],
+      [{ "kind": "arrow", "rotation": 0, "fill": true }, { "kind": "arrow", "rotation": 90, "fill": true }, null]
     ],
     "options": [
-      { "kind": "arrow", "rotation": 0, "fill": true },
       { "kind": "arrow", "rotation": 90, "fill": true },
       { "kind": "arrow", "rotation": 180, "fill": true },
       { "kind": "arrow", "rotation": 270, "fill": true },
-      { "kind": "arrow", "rotation": 90, "fill": false },
-      { "kind": "arrow", "rotation": 0, "fill": false }
+      { "kind": "arrow", "rotation": 180, "fill": false },
+      { "kind": "arrow", "rotation": 0, "fill": true },
+      { "kind": "l_shape", "rotation": 180, "fill": "black" }
     ],
     "correctAnswer": 1
   },
@@ -86,38 +86,37 @@
     "rule": "I varje rad, när Kolumn 1 och 2 läggs ovanpå varandra, försvinner de linjer som är gemensamma (XOR). Resultatet visas i Kolumn 3.",
     "difficulty": 3,
     "grid": [
-      [{ "kind": "lines", "lines": ["frame", "cross"] }, { "kind": "lines", "lines": ["cross", "diag_down"] }, { "kind": "lines", "lines": ["frame", "diag_down"] }],
-      [{ "kind": "lines", "lines": ["diag_down", "diag_up"] }, { "kind": "lines", "lines": ["diag_up", "horiz"] }, { "kind": "lines", "lines": ["diag_down", "horiz"] }],
-      [{ "kind": "lines", "lines": ["frame", "vert"] }, { "kind": "lines", "lines": ["vert", "diag_down", "diag_up"] }, null]
+      [{ "kind": "lines", "lines": ["frame", "diag_down"] }, { "kind": "lines", "lines": ["diag_down", "diag_up"] }, { "kind": "lines", "lines": ["frame", "diag_up"] }],
+      [{ "kind": "lines", "lines": ["cross"] }, { "kind": "lines", "lines": ["horiz", "diag_down"] }, { "kind": "lines", "lines": ["vert", "diag_down"] }],
+      [{ "kind": "lines", "lines": ["frame"] }, { "kind": "lines", "lines": ["frame", "horiz"] }, null]
     ],
     "options": [
-      { "kind": "lines", "lines": ["frame", "diag_down", "diag_up"] },
-      { "kind": "lines", "lines": ["diag_down", "diag_up"] },
       { "kind": "lines", "lines": ["frame"] },
-      { "kind": "lines", "lines": ["frame", "vert"] },
-      { "kind": "lines", "lines": ["cross"] },
-      { "kind": "lines", "lines": ["vert", "cross"] }
+      { "kind": "lines", "lines": ["frame", "horiz"] },
+      { "kind": "lines", "lines": ["frame", "cross"] },
+      { "kind": "lines", "lines": ["top", "bottom"] },
+      { "kind": "lines", "lines": ["horiz"] },
+      { "kind": "lines", "lines": [] }
     ],
-    "correctAnswer": 0
+    "correctAnswer": 4
   },
   {
     "id": "v6-q6-conditional-transform",
-    "title": "FRÅGA 6 — Villkorlig transformation (OM-DÅ)",
-    "rule": "För varje steg åt höger: OM formen är fylld, roterar den 90° medurs. OM den är ofylld, växlar den mellan två former (pil ↔ triangel).",
+    "title": "FRÅGA 6 — Villkorlig transformation",
+    "rule": "För varje steg åt höger: OM formen är fylld, roterar den 90° medurs. OM den är ofylld, speglas den vertikalt.",
     "difficulty": 3,
-    "showGrid": false,
     "grid": [
-      [{ "kind": "pointer", "rotation": 0, "fill": true }, { "kind": "pointer", "rotation": 90, "fill": true }, { "kind": "pointer", "rotation": 180, "fill": true }],
-      [{ "kind": "pointer", "rotation": 0, "fill": false }, { "kind": "analogy", "shape": "triangle", "rotation": 0, "fill": false }, { "kind": "pointer", "rotation": 0, "fill": false }],
-      [{ "kind": "analogy", "shape": "triangle", "rotation": 90, "fill": true }, { "kind": "analogy", "shape": "triangle", "rotation": 180, "fill": true }, null]
+      [{ "kind": "pointer", "rotation": 270, "fill": true }, { "kind": "pointer", "rotation": 0, "fill": true }, { "kind": "pointer", "rotation": 90, "fill": true }],
+      [{ "kind": "l_shape", "rotation": 0, "fill": false }, { "kind": "l_shape", "rotation": 0, "fill": false, "mirror_v": true }, { "kind": "l_shape", "rotation": 0, "fill": false }],
+      [{ "kind": "l_shape", "rotation": 90, "fill": true }, { "kind": "l_shape", "rotation": 180, "fill": false }, null]
     ],
     "options": [
-      { "kind": "analogy", "shape": "triangle", "rotation": 270, "fill": true },
-      { "kind": "pointer", "rotation": 270, "fill": true },
-      { "kind": "analogy", "shape": "triangle", "rotation": 0, "fill": false },
-      { "kind": "pointer", "rotation": 0, "fill": true },
-      { "kind": "analogy", "shape": "triangle", "rotation": 180, "fill": false },
-      { "kind": "pointer", "rotation": 180, "fill": false }
+      { "kind": "l_shape", "rotation": 180, "fill": false, "mirror_v": true },
+      { "kind": "l_shape", "rotation": 270, "fill": false },
+      { "kind": "l_shape", "rotation": 180, "fill": true },
+      { "kind": "l_shape", "rotation": 90, "fill": false, "mirror_v": true },
+      { "kind": "pointer", "rotation": 180, "fill": false },
+      { "kind": "pointer", "rotation": 180, "fill": false, "mirror_v": true }
     ],
     "correctAnswer": 0
   },
