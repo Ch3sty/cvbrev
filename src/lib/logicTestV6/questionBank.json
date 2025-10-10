@@ -86,19 +86,19 @@
     "rule": "I varje rad, när Kolumn 1 och 2 läggs ovanpå varandra, försvinner de linjer som är gemensamma (XOR). Resultatet visas i Kolumn 3.",
     "difficulty": 3,
     "grid": [
-      [{ "kind": "lines", "lines": ["frame", "diag_down"] }, { "kind": "lines", "lines": ["diag_down", "diag_up"] }, { "kind": "lines", "lines": ["frame", "diag_up"] }],
-      [{ "kind": "lines", "lines": ["cross"] }, { "kind": "lines", "lines": ["horiz", "diag_down"] }, { "kind": "lines", "lines": ["vert", "diag_down"] }],
-      [{ "kind": "lines", "lines": ["frame"] }, { "kind": "lines", "lines": ["frame", "horiz"] }, null]
+      [{ "kind": "lines", "lines": ["frame", "cross"] }, { "kind": "lines", "lines": ["cross", "diag_down"] }, { "kind": "lines", "lines": ["frame", "diag_down"] }],
+      [{ "kind": "lines", "lines": ["diag_down", "diag_up"] }, { "kind": "lines", "lines": ["diag_up", "horiz"] }, { "kind": "lines", "lines": ["diag_down", "horiz"] }],
+      [{ "kind": "lines", "lines": ["frame", "vert"] }, { "kind": "lines", "lines": ["vert", "diag_down", "diag_up"] }, null]
     ],
     "options": [
+      { "kind": "lines", "lines": ["frame", "diag_down", "diag_up"] },
+      { "kind": "lines", "lines": ["diag_down", "diag_up"] },
       { "kind": "lines", "lines": ["frame"] },
-      { "kind": "lines", "lines": ["frame", "horiz"] },
-      { "kind": "lines", "lines": ["frame", "cross"] },
-      { "kind": "lines", "lines": ["top", "bottom"] },
-      { "kind": "lines", "lines": ["horiz"] },
-      { "kind": "lines", "lines": [] }
+      { "kind": "lines", "lines": ["frame", "vert"] },
+      { "kind": "lines", "lines": ["cross"] },
+      { "kind": "lines", "lines": ["vert", "cross"] }
     ],
-    "correctAnswer": 4
+    "correctAnswer": 0
   },
   {
     "id": "v6-q6-conditional-transform",
