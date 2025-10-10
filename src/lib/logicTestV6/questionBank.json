@@ -128,7 +128,7 @@
     "difficulty": 3,
     "grid": [
       [{ "kind": "count_areas", "shape": "X", "dots": 0 }, { "kind": "count_areas", "shape": "square", "dots": 1 }, { "kind": "count_areas", "shape": "divided_circle", "dots": 2 }],
-      [{ "kind": "count_areas", "shape": "star_of_david", "dots": 2 }, { "kind": "count_areas", "shape": "double_ring", "dots": 2 }, { "kind": "count_areas", "shape": "hourglass", "dots": 2 }],
+      [{ "kind": "count_areas", "shape": "star_of_david", "dots": 1 }, { "kind": "count_areas", "shape": "double_ring", "dots": 2 }, { "kind": "count_areas", "shape": "hourglass", "dots": 2 }],
       [{ "kind": "count_areas", "shape": "four_squares", "dots": 4 }, { "kind": "count_areas", "shape": "overlapping_rings", "dots": 3 }, null]
     ],
     "options": [

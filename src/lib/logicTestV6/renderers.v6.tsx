@@ -120,9 +120,21 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
             grid: <path d="M 25 25 H 75 V 75 H 25 Z M 25 50 H 75 M 50 25 V 75" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>
         };
         const dots = [];
-        if (cell.dots === 1) dots.push(<circle cx="50" cy="50" r="8" fill={FILL_BLACK}/>);
-        if (cell.dots === 2) dots.push(<circle cx="37.5" cy="50" r="8" fill={FILL_BLACK}/>, <circle cx="62.5" cy="50" r="8" fill={FILL_BLACK}/>);
-        if (cell.dots === 4) dots.push(<circle cx="37.5" cy="37.5" r="5" fill={FILL_BLACK}/>, <circle cx="62.5" cy="37.5" r="5" fill={FILL_BLACK}/>, <circle cx="37.5" cy="62.5" r="5" fill={FILL_BLACK}/>, <circle cx="62.5" cy="62.5" r="5" fill={FILL_BLACK}/>);
+        if (cell.dots === 1) dots.push(<circle key="d1" cx="50" cy="50" r="8" fill={FILL_BLACK}/>);
+        if (cell.dots === 2) {
+          // Horisontell placering för de flesta former
+          if (cell.shape === 'hourglass') {
+            // Vertikal placering för timglas (övre och nedre triangel)
+            dots.push(<circle key="d1" cx="50" cy="35" r="8" fill={FILL_BLACK}/>, <circle key="d2" cx="50" cy="65" r="8" fill={FILL_BLACK}/>);
+          } else {
+            dots.push(<circle key="d1" cx="37.5" cy="50" r="8" fill={FILL_BLACK}/>, <circle key="d2" cx="62.5" cy="50" r="8" fill={FILL_BLACK}/>);
+          }
+        }
+        if (cell.dots === 3) {
+          // Horisontell rad med 3 prickar
+          dots.push(<circle key="d1" cx="35" cy="50" r="7" fill={FILL_BLACK}/>, <circle key="d2" cx="50" cy="50" r="7" fill={FILL_BLACK}/>, <circle key="d3" cx="65" cy="50" r="7" fill={FILL_BLACK}/>);
+        }
+        if (cell.dots === 4) dots.push(<circle key="d1" cx="37.5" cy="37.5" r="5" fill={FILL_BLACK}/>, <circle key="d2" cx="62.5" cy="37.5" r="5" fill={FILL_BLACK}/>, <circle key="d3" cx="37.5" cy="62.5" r="5" fill={FILL_BLACK}/>, <circle key="d4" cx="62.5" cy="62.5" r="5" fill={FILL_BLACK}/>);
 
         return <>{shapes[cell.shape]}{dots}</>;
     }
