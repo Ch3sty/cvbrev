@@ -70,7 +70,7 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
       
       return <>
         {rotate(cell.rotation ?? 0, shape as React.ReactElement)}
-        {cell.dot && <circle cx={50} cy={50} r="5" fill={FILL_BLACK}/>}
+        {cell.dot && <circle cx={50} cy={50} r="8" fill={FILL_WHITE} stroke={STROKE_COLOR} strokeWidth={1.5}/>}
       </>;
     }
     case 'lines': {
