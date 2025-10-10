@@ -5,17 +5,17 @@
     "rule": "Formen roterar 90° medurs för varje kolumn. Fyllningen alternerar (fylld/ofylld) för varje rad.",
     "difficulty": 2,
     "grid": [
-      [{ "kind": "arrow", "rotation": 0, "fill": true }, { "kind": "arrow", "rotation": 90, "fill": true }, { "kind": "arrow", "rotation": 180, "fill": true }],
-      [{ "kind": "arrow", "rotation": 0, "fill": false }, { "kind": "arrow", "rotation": 90, "fill": false }, { "kind": "arrow", "rotation": 180, "fill": false }],
-      [{ "kind": "arrow", "rotation": 0, "fill": true }, { "kind": "arrow", "rotation": 90, "fill": true }, null]
+      [{ "kind": "arrow", "rotation": 90, "fill": true }, { "kind": "arrow", "rotation": 180, "fill": true }, { "kind": "arrow", "rotation": 270, "fill": true }],
+      [{ "kind": "arrow", "rotation": 180, "fill": false }, { "kind": "arrow", "rotation": 270, "fill": false }, { "kind": "arrow", "rotation": 0, "fill": false }],
+      [{ "kind": "arrow", "rotation": 270, "fill": true }, { "kind": "arrow", "rotation": 0, "fill": true }, null]
     ],
     "options": [
+      { "kind": "arrow", "rotation": 0, "fill": true },
       { "kind": "arrow", "rotation": 90, "fill": true },
       { "kind": "arrow", "rotation": 180, "fill": true },
       { "kind": "arrow", "rotation": 270, "fill": true },
-      { "kind": "arrow", "rotation": 180, "fill": false },
-      { "kind": "arrow", "rotation": 0, "fill": true },
-      { "kind": "l_shape", "rotation": 180, "fill": "black" }
+      { "kind": "arrow", "rotation": 90, "fill": false },
+      { "kind": "arrow", "rotation": 0, "fill": false }
     ],
     "correctAnswer": 1
   },
