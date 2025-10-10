@@ -59,6 +59,33 @@ export default function TesterPage() {
                 Perfekt för att förbereda dig inför rekryteringstester.
               </p>
 
+              {/* Preview Symbols */}
+              <div className="mb-6 p-4 bg-gradient-to-br from-slate-50 to-indigo-50 rounded-xl border border-slate-200">
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Exempel på mönster:</p>
+                <div className="flex items-center justify-around gap-4">
+                  {/* Symbol 1: Pil från sudoku */}
+                  <svg viewBox="0 0 100 100" className="w-14 h-14">
+                    <path d="M 25 50 L 50 30 L 50 40 L 70 40 L 70 60 L 50 60 L 50 70 Z" fill="currentColor" className="text-slate-700" />
+                  </svg>
+
+                  {/* Symbol 2: Y från endpoints */}
+                  <svg viewBox="0 0 100 100" className="w-14 h-14">
+                    <path d="M 50 50 V 75 M 50 50 L 25 25 M 50 50 L 75 25" fill="none" stroke="currentColor" strokeWidth="3" className="text-slate-700" />
+                  </svg>
+
+                  {/* Symbol 3: XOR-överlappning */}
+                  <svg viewBox="0 0 100 100" className="w-14 h-14">
+                    <rect x="20" y="25" width="60" height="50" fill="currentColor" opacity="0.3" className="text-indigo-500" />
+                    <circle cx="45" cy="50" r="30" fill="currentColor" opacity="0.3" className="text-purple-500" />
+                  </svg>
+
+                  {/* Symbol 4: Halvcirkel/måne från sudoku */}
+                  <svg viewBox="0 0 100 100" className="w-14 h-14">
+                    <path d="M 40,25 A 25,25 0 0,1 40,75 Z" fill="none" stroke="currentColor" strokeWidth="3" className="text-slate-700" />
+                  </svg>
+                </div>
+              </div>
+
               <div className="grid grid-cols-3 gap-4">
                 <div className="flex items-center gap-2 p-3 bg-blue-50 rounded-lg border border-blue-200">
                   <Target className="w-4 h-4 text-blue-600" />
