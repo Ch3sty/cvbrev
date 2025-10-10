@@ -29,8 +29,8 @@ export default function TesterPage() {
       </motion.div>
 
       {/* Test Cards */}
-      <div className="grid gap-6">
-        {/* Matrislogik Test Card */}
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* Matrislogik Grund Test Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -109,19 +109,83 @@ export default function TesterPage() {
           </Link>
         </motion.div>
 
-        {/* Future tests placeholder */}
+        {/* Matrislogik Avancerad Test Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-gray-50 rounded-2xl p-8 border-2 border-gray-200 opacity-60"
         >
-          <h3 className="text-xl font-bold text-gray-500 mb-2">
-            Fler tester kommer snart
-          </h3>
-          <p className="text-gray-500">
-            Vi jobbar på att lägga till verbala och numeriska tester.
-          </p>
+          <Link href="/dashboard/tester/matrislogik-avancerad">
+            <div className="bg-white rounded-2xl p-8 border-2 border-slate-200 hover:border-orange-400 transition-all shadow-lg hover:shadow-xl group cursor-pointer relative overflow-hidden">
+              <div className="flex items-start justify-between mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="p-3 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl shadow-md group-hover:scale-110 transition-transform">
+                    <Grid3x3 className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-slate-900">
+                      Logiskt Matristest
+                    </h3>
+                    <p className="text-orange-600 font-bold">Avancerad Nivå ⚡</p>
+                  </div>
+                </div>
+
+                <ArrowRight className="w-6 h-6 text-orange-600 group-hover:translate-x-1 transition-transform" />
+              </div>
+
+              <p className="text-slate-600 mb-6 leading-relaxed">
+                Utmana dig själv med komplexa logiska mönster, villkorliga transformationer och abstrakta relationer.
+                För dig som vill ta din analytiska förmåga till nästa nivå.
+              </p>
+
+              {/* Preview Symbols */}
+              <div className="mb-6 p-4 bg-gradient-to-br from-orange-50 to-red-50 rounded-xl border border-orange-200">
+                <p className="text-xs font-semibold text-orange-600 uppercase tracking-wide mb-3">Avancerade mönster:</p>
+                <div className="flex items-center justify-around gap-4">
+                  {/* Symbol 1: Arrow from v6 */}
+                  <svg viewBox="0 0 100 100" className="w-14 h-14">
+                    <path d="M 50 20 L 65 50 L 50 80 L 50 60 L 35 60 L 35 40 L 50 40 Z" fill="currentColor" className="text-orange-700" />
+                  </svg>
+
+                  {/* Symbol 2: L-shape */}
+                  <svg viewBox="0 0 100 100" className="w-14 h-14">
+                    <path d="M 25 25 V 75 H 75" fill="none" stroke="currentColor" strokeWidth="3" className="text-orange-700" />
+                  </svg>
+
+                  {/* Symbol 3: Composition */}
+                  <svg viewBox="0 0 100 100" className="w-14 h-14">
+                    <circle cx="35" cy="35" r="12" fill="currentColor" className="text-red-600" />
+                    <rect x="55" y="55" width="20" height="20" fill="currentColor" className="text-red-600" />
+                  </svg>
+
+                  {/* Symbol 4: Pointer */}
+                  <svg viewBox="0 0 100 100" className="w-14 h-14">
+                    <path d="M 30 70 L 30 30 L 70 50 Z" fill="currentColor" className="text-orange-700" />
+                  </svg>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-3 gap-4">
+                <div className="flex items-center gap-2 p-3 bg-orange-50 rounded-lg border border-orange-200">
+                  <Target className="w-4 h-4 text-orange-600" />
+                  <span className="text-sm font-semibold text-orange-900">15 frågor</span>
+                </div>
+
+                <div className="flex items-center gap-2 p-3 bg-red-50 rounded-lg border border-red-200">
+                  <Clock className="w-4 h-4 text-red-600" />
+                  <span className="text-sm font-semibold text-red-900">~35 min</span>
+                </div>
+
+                <div className="flex items-center gap-2 p-3 bg-amber-50 rounded-lg border border-amber-200">
+                  <Brain className="w-4 h-4 text-amber-600" />
+                  <span className="text-sm font-semibold text-amber-900">Nivå 2-3</span>
+                </div>
+              </div>
+
+              {/* Hover gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-red-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+            </div>
+          </Link>
         </motion.div>
       </div>
     </div>
