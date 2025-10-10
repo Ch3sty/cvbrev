@@ -106,17 +106,17 @@
     "rule": "För varje steg åt höger: OM formen är fylld, roterar den 90° medurs. OM den är ofylld, speglas den vertikalt.",
     "difficulty": 3,
     "grid": [
-      [{ "kind": "pointer", "rotation": 270, "fill": true }, { "kind": "pointer", "rotation": 0, "fill": true }, { "kind": "pointer", "rotation": 90, "fill": true }],
-      [{ "kind": "l_shape", "rotation": 0, "fill": false }, { "kind": "l_shape", "rotation": 0, "fill": false, "mirror_v": true }, { "kind": "l_shape", "rotation": 0, "fill": false }],
-      [{ "kind": "l_shape", "rotation": 90, "fill": true }, { "kind": "l_shape", "rotation": 180, "fill": false }, null]
+      [{ "kind": "pointer", "rotation": 0, "fill": true }, { "kind": "pointer", "rotation": 90, "fill": true }, { "kind": "pointer", "rotation": 180, "fill": true }],
+      [{ "kind": "pointer", "rotation": 90, "fill": false }, { "kind": "pointer", "rotation": 90, "fill": false, "mirror_v": true }, { "kind": "pointer", "rotation": 90, "fill": false }],
+      [{ "kind": "pointer", "rotation": 270, "fill": true }, { "kind": "pointer", "rotation": 0, "fill": true }, null]
     ],
     "options": [
-      { "kind": "l_shape", "rotation": 180, "fill": false, "mirror_v": true },
-      { "kind": "l_shape", "rotation": 270, "fill": false },
-      { "kind": "l_shape", "rotation": 180, "fill": true },
-      { "kind": "l_shape", "rotation": 90, "fill": false, "mirror_v": true },
-      { "kind": "pointer", "rotation": 180, "fill": false },
-      { "kind": "pointer", "rotation": 180, "fill": false, "mirror_v": true }
+      { "kind": "pointer", "rotation": 90, "fill": true },
+      { "kind": "pointer", "rotation": 180, "fill": true },
+      { "kind": "pointer", "rotation": 0, "fill": false },
+      { "kind": "pointer", "rotation": 90, "fill": false, "mirror_v": true },
+      { "kind": "pointer", "rotation": 270, "fill": true },
+      { "kind": "pointer", "rotation": 0, "fill": false, "mirror_v": true }
     ],
     "correctAnswer": 0
   },
