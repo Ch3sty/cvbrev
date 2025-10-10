@@ -103,18 +103,18 @@
   {
     "id": "v6-q6-position-transform",
     "title": "FRÅGA 6 — Positionsbaserad transformation",
-    "rule": "Rotationen beror på cellens position: (rad + kolumn - 1) × 45°. Formen följer en återkommande sekvens: pil → plus → måne.",
+    "rule": "Rotationen beror på cellens position: (rad + kolumn - 1) × 45°. Formen följer en återkommande sekvens: pil → plus → triangel.",
     "difficulty": 3,
     "showGrid": false,
     "grid": [
-      [{ "kind": "sudoku", "shape": "arrow", "rotation": 45, "fill": "black" }, { "kind": "sudoku", "shape": "plus", "rotation": 90, "fill": "black" }, { "kind": "sudoku", "shape": "moon", "rotation": 135, "fill": "black" }],
-      [{ "kind": "sudoku", "shape": "plus", "rotation": 90, "fill": "black" }, { "kind": "sudoku", "shape": "moon", "rotation": 135, "fill": "black" }, { "kind": "sudoku", "shape": "arrow", "rotation": 180, "fill": "black" }],
-      [{ "kind": "sudoku", "shape": "moon", "rotation": 135, "fill": "black" }, { "kind": "sudoku", "shape": "arrow", "rotation": 180, "fill": "black" }, null]
+      [{ "kind": "sudoku", "shape": "arrow", "rotation": 45, "fill": "black" }, { "kind": "sudoku", "shape": "plus", "rotation": 90, "fill": "black" }, { "kind": "pointer", "rotation": 135, "fill": true }],
+      [{ "kind": "sudoku", "shape": "plus", "rotation": 90, "fill": "black" }, { "kind": "pointer", "rotation": 135, "fill": true }, { "kind": "sudoku", "shape": "arrow", "rotation": 180, "fill": "black" }],
+      [{ "kind": "pointer", "rotation": 135, "fill": true }, { "kind": "sudoku", "shape": "arrow", "rotation": 180, "fill": "black" }, null]
     ],
     "options": [
       { "kind": "sudoku", "shape": "plus", "rotation": 225, "fill": "black" },
       { "kind": "sudoku", "shape": "plus", "rotation": 180, "fill": "black" },
-      { "kind": "sudoku", "shape": "moon", "rotation": 225, "fill": "black" },
+      { "kind": "pointer", "rotation": 225, "fill": true },
       { "kind": "sudoku", "shape": "arrow", "rotation": 225, "fill": "black" },
       { "kind": "sudoku", "shape": "plus", "rotation": 270, "fill": "black" },
       { "kind": "sudoku", "shape": "plus", "rotation": 225, "fill": "gray" }
