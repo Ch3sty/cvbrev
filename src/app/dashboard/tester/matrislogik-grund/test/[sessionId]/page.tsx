@@ -156,7 +156,7 @@ export default function TestSessionPage({ params }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50/30 pb-32">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50/30 pb-56">
       {/* Header */}
       <TestHeader
         currentQuestion={currentQuestion}

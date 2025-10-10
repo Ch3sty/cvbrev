@@ -158,7 +158,7 @@ export default function RotationTestSessionPage({ params }: PageProps) {
   const unansweredCount = questions.length - answeredQuestions.size;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50 p-4 sm:p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50 p-4 sm:p-6 pb-56">
       <div className="max-w-5xl mx-auto">
         {/* Header */}
         <TestHeader
