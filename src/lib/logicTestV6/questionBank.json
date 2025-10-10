@@ -103,21 +103,21 @@
   {
     "id": "v6-q6-position-transform",
     "title": "FRÅGA 6 — Positionsbaserad transformation",
-    "rule": "Rotationen beror på cellens position: (rad + kolumn - 1) × 45°. Formen följer en återkommande sekvens: triangel → L-form → pacman.",
+    "rule": "Rotationen beror på cellens position: (rad + kolumn - 1) × 45°. Formen följer en återkommande sekvens: pil → plus → måne.",
     "difficulty": 3,
     "showGrid": false,
     "grid": [
-      [{ "kind": "analogy", "shape": "triangle", "rotation": 45, "fill": true }, { "kind": "analogy", "shape": "l_shape", "rotation": 90, "fill": true }, { "kind": "analogy", "shape": "pacman", "rotation": 135, "fill": true }],
-      [{ "kind": "analogy", "shape": "l_shape", "rotation": 90, "fill": true }, { "kind": "analogy", "shape": "pacman", "rotation": 135, "fill": true }, { "kind": "analogy", "shape": "triangle", "rotation": 180, "fill": true }],
-      [{ "kind": "analogy", "shape": "pacman", "rotation": 135, "fill": true }, { "kind": "analogy", "shape": "triangle", "rotation": 180, "fill": true }, null]
+      [{ "kind": "sudoku", "shape": "arrow", "rotation": 45, "fill": "black" }, { "kind": "sudoku", "shape": "plus", "rotation": 90, "fill": "black" }, { "kind": "sudoku", "shape": "moon", "rotation": 135, "fill": "black" }],
+      [{ "kind": "sudoku", "shape": "plus", "rotation": 90, "fill": "black" }, { "kind": "sudoku", "shape": "moon", "rotation": 135, "fill": "black" }, { "kind": "sudoku", "shape": "arrow", "rotation": 180, "fill": "black" }],
+      [{ "kind": "sudoku", "shape": "moon", "rotation": 135, "fill": "black" }, { "kind": "sudoku", "shape": "arrow", "rotation": 180, "fill": "black" }, null]
     ],
     "options": [
-      { "kind": "analogy", "shape": "l_shape", "rotation": 225, "fill": true },
-      { "kind": "analogy", "shape": "l_shape", "rotation": 180, "fill": true },
-      { "kind": "analogy", "shape": "pacman", "rotation": 225, "fill": true },
-      { "kind": "analogy", "shape": "triangle", "rotation": 225, "fill": true },
-      { "kind": "analogy", "shape": "l_shape", "rotation": 270, "fill": true },
-      { "kind": "analogy", "shape": "l_shape", "rotation": 225, "fill": false }
+      { "kind": "sudoku", "shape": "plus", "rotation": 225, "fill": "black" },
+      { "kind": "sudoku", "shape": "plus", "rotation": 180, "fill": "black" },
+      { "kind": "sudoku", "shape": "moon", "rotation": 225, "fill": "black" },
+      { "kind": "sudoku", "shape": "arrow", "rotation": 225, "fill": "black" },
+      { "kind": "sudoku", "shape": "plus", "rotation": 270, "fill": "black" },
+      { "kind": "sudoku", "shape": "plus", "rotation": 225, "fill": "gray" }
     ],
     "correctAnswer": 0
   },
