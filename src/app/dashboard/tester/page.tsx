@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Brain, Grid3x3, Clock, Target, ArrowRight, RotateCw } from 'lucide-react';
+import { Brain, Grid3x3, Clock, Target, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function TesterPage() {
@@ -109,99 +109,11 @@ export default function TesterPage() {
           </Link>
         </motion.div>
 
-        {/* Rotation & Mönster Test Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-        >
-          <Link href="/dashboard/tester/rotation-monster">
-            <div className="bg-white rounded-2xl p-8 border-2 border-slate-200 hover:border-purple-400 transition-all shadow-lg hover:shadow-xl group cursor-pointer relative">
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl shadow-md group-hover:scale-110 transition-transform">
-                    <RotateCw className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-slate-900">
-                      Rotation & Mönster
-                    </h3>
-                    <p className="text-slate-500 font-medium">Avancerad nivå</p>
-                  </div>
-                </div>
-
-                <ArrowRight className="w-6 h-6 text-purple-600 group-hover:translate-x-1 transition-transform" />
-              </div>
-
-              <p className="text-slate-600 mb-6 leading-relaxed">
-                Utmana din spatiala förmåga med rotationer och mönster. Både yttre former och inre mönster
-                roterar oberoende - ett avancerat test för mönsterigenkänning.
-              </p>
-
-              {/* Preview Symbols */}
-              <div className="mb-6 p-4 bg-gradient-to-br from-slate-50 to-purple-50 rounded-xl border border-slate-200">
-                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Exempel på mönster:</p>
-                <div className="flex items-center justify-around gap-4">
-                  {/* Symbol 1: Diagonal stroke */}
-                  <svg viewBox="0 0 100 100" className="w-14 h-14">
-                    <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-700" />
-                    <line x1="20" y1="20" x2="80" y2="80" stroke="currentColor" strokeWidth="2" className="text-slate-700" />
-                  </svg>
-
-                  {/* Symbol 2: Cross pattern */}
-                  <svg viewBox="0 0 100 100" className="w-14 h-14">
-                    <rect x="15" y="15" width="70" height="70" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-slate-700" />
-                    <line x1="25" y1="25" x2="75" y2="75" stroke="currentColor" strokeWidth="2" className="text-slate-700" />
-                    <line x1="75" y1="25" x2="25" y2="75" stroke="currentColor" strokeWidth="2" className="text-slate-700" />
-                  </svg>
-
-                  {/* Symbol 3: L-stripes pattern */}
-                  <svg viewBox="0 0 100 100" className="w-14 h-14">
-                    <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-indigo-600" />
-                    <line x1="30" y1="30" x2="70" y2="30" stroke="currentColor" strokeWidth="2" className="text-indigo-600" />
-                    <line x1="30" y1="40" x2="70" y2="40" stroke="currentColor" strokeWidth="2" className="text-indigo-600" />
-                    <line x1="60" y1="40" x2="60" y2="70" stroke="currentColor" strokeWidth="2" className="text-indigo-600" />
-                    <line x1="70" y1="40" x2="70" y2="70" stroke="currentColor" strokeWidth="2" className="text-indigo-600" />
-                  </svg>
-
-                  {/* Symbol 4: Stairs pattern */}
-                  <svg viewBox="0 0 100 100" className="w-14 h-14">
-                    <rect x="15" y="15" width="70" height="70" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-purple-600" />
-                    <line x1="30" y1="35" x2="40" y2="35" stroke="currentColor" strokeWidth="3" className="text-purple-600" />
-                    <line x1="40" y1="50" x2="60" y2="50" stroke="currentColor" strokeWidth="3" className="text-purple-600" />
-                    <line x1="50" y1="65" x2="80" y2="65" stroke="currentColor" strokeWidth="3" className="text-purple-600" />
-                  </svg>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-4">
-                <div className="flex items-center gap-2 p-3 bg-indigo-50 rounded-lg border border-indigo-200">
-                  <Target className="w-4 h-4 text-indigo-600" />
-                  <span className="text-sm font-semibold text-indigo-900">15 frågor</span>
-                </div>
-
-                <div className="flex items-center gap-2 p-3 bg-purple-50 rounded-lg border border-purple-200">
-                  <Clock className="w-4 h-4 text-purple-600" />
-                  <span className="text-sm font-semibold text-purple-900">~30 min</span>
-                </div>
-
-                <div className="flex items-center gap-2 p-3 bg-amber-50 rounded-lg border border-amber-200">
-                  <RotateCw className="w-4 h-4 text-amber-600" />
-                  <span className="text-sm font-semibold text-amber-900">Avancerad</span>
-                </div>
-              </div>
-
-              {/* Hover gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-indigo-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-            </div>
-          </Link>
-        </motion.div>
-
         {/* Future tests placeholder */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+          transition={{ delay: 0.2 }}
           className="bg-gray-50 rounded-2xl p-8 border-2 border-gray-200 opacity-60"
         >
           <h3 className="text-xl font-bold text-gray-500 mb-2">
