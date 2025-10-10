@@ -67,8 +67,8 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
       if (cell.shape === 'triangle') shape = <path d="M 25 25 L 75 25 L 50 75 Z" fill={fill} stroke={stroke} strokeWidth={STROKE_WIDTH} />;
       if (cell.shape === 'l_shape') shape = <path d="M 25 25 V 75 H 75" fill={fill} stroke={stroke} strokeWidth={3} />;
       if (cell.shape === 'pacman') shape = <path d="M 50 50 L 60 30 A 25 25 0 1 1 40 30 Z" fill={fill} stroke={stroke} strokeWidth={STROKE_WIDTH} />;
-      if (cell.shape === 'corner') shape = <path d="M 50 25 A 25 25 0 0 1 75 50 L 50 50 Z" fill={fill} stroke={stroke} strokeWidth={STROKE_WIDTH} />;
-      if (cell.shape === 'halfcircle') shape = <path d="M 35 25 A 25 25 0 1 1 65 25 Z" fill={fill} stroke={stroke} strokeWidth={STROKE_WIDTH} />;
+      if (cell.shape === 'corner') shape = <path d="M 50 25 A 25 25 0 0 0 25 50 L 50 50 Z" fill={fill} stroke={stroke} strokeWidth={STROKE_WIDTH} />;
+      if (cell.shape === 'halfcircle') shape = <path d="M 25 50 A 25 25 0 0 1 75 50 Z" fill={fill} stroke={stroke} strokeWidth={STROKE_WIDTH} />;
 
       return <>
         {rotate(cell.rotation ?? 0, shape as React.ReactElement)}
