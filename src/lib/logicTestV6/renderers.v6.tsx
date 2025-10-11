@@ -166,7 +166,7 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
         if (cell.line === 'vert') line = <Line x1={50} y1={20} x2={50} y2={80} stroke={base ? FILL_WHITE : STROKE_COLOR} />;
         
         // Om både base och line är null, returnera ett tomt group element
-        if (!base && !line) return <g />;
+        if (!base && !line) return <line x1="30" y1="50" x2="70" y2="50" stroke={STROKE_COLOR} strokeWidth="2.5" strokeLinecap="round" />;
         return <>{base}{line}</>;
     }
     case 'shaded_shape': {
