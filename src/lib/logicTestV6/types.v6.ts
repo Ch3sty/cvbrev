@@ -55,9 +55,9 @@ export type Pointer = { kind: 'pointer'; rotation: Angle; fill: boolean; mirror_
 export type ConditionalShape = LShape | Pointer; // Använder LShape
 
 // Q7: Räkna slutna ytor
-export type CountAreas = { 
-  kind: 'count_areas'; 
-  shape: 'X' | 'square' | 'divided_circle' | 'star_of_david' | 'double_ring' | 'hourglass' | 'four_squares' | 'overlapping_rings' | 'grid'; 
+export type CountAreas = {
+  kind: 'count_areas';
+  shape: 'X' | 'square' | 'triangle' | 'divided_circle' | 'star_of_david' | 'double_ring' | 'hourglass' | 'four_squares' | 'overlapping_rings' | 'three_circles' | 'grid';
   dots?: number;
 };
 
