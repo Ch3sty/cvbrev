@@ -114,10 +114,10 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
             triangle: <path d="M 50 25 L 75 75 L 25 75 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
             divided_circle: <><circle cx="50" cy="50" r="20" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><Line x1={30} y1={50} x2={70} y2={50}/></>,
             star_of_david: <><path d="M50 25 L75 70 L25 70 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><path d="M50 75 L25 30 L75 30 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
-            double_ring: <><circle cx="50" cy="50" r="24" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="50" cy="50" r="10" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
+            double_ring: <><circle cx="50" cy="50" r="26" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="50" cy="50" r="8" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
             hourglass: <><path d="M 30 30 L 70 30 L 30 70 L 70 70 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
             four_squares: <><rect x="30" y="30" width="40" height="40" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><Line x1={30} y1={50} x2={70} y2={50}/><Line x1={50} y1={30} x2={50} y2={70}/></>,
-            overlapping_rings: <><circle cx="38" cy="50" r="15" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="62" cy="50" r="15" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
+            overlapping_rings: <><circle cx="32" cy="50" r="9" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="50" cy="50" r="9" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="68" cy="50" r="9" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
             three_circles: <><circle cx="32" cy="50" r="9" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="50" cy="50" r="9" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="68" cy="50" r="9" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
             grid: <path d="M 30 30 H 70 V 70 H 30 Z M 30 50 H 70 M 50 30 V 70" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>
         };
