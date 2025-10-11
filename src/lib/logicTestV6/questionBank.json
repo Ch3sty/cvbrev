@@ -1145,55 +1145,63 @@
     "correctAnswer": 4
   },
   {
-    "id": "v6-q13-count-to-shape",
-    "title": "FRÅGA 13 — Villkorlig förändring",
-    "rule": "Formen i Kolumn 3 beror på antalet ifyllda former (svart eller grå) i Kolumn 1 och 2: 0 ifyllda = triangel, 1 ifylld = kvadrat, 2 ifyllda = cirkel. Fyllningen i Kolumn 3 är alltid grå.",
+    "id": "v6-q13-rotation-fill",
+    "title": "FRÅGA 13 — Rotation och fyllning",
+    "rule": "Triangeln roterar 90 grader per kolumn (0° → 90° → 180°). Fyllningen ändras per rad: Rad 1 är tom (none), Rad 2 är grå, Rad 3 är svart.",
     "difficulty": 3,
     "grid": [
       [
         {
           "kind": "shaded_shape",
           "shape": "triangle",
-          "fill": "none"
-        },
-        {
-          "kind": "shaded_shape",
-          "shape": "square",
-          "fill": "none"
+          "fill": "none",
+          "rotation": 0
         },
         {
           "kind": "shaded_shape",
           "shape": "triangle",
-          "fill": "gray"
-        }
-      ],
-      [
-        {
-          "kind": "shaded_shape",
-          "shape": "circle",
-          "fill": "black"
+          "fill": "none",
+          "rotation": 90
         },
         {
           "kind": "shaded_shape",
-          "shape": "square",
-          "fill": "none"
-        },
-        {
-          "kind": "shaded_shape",
-          "shape": "square",
-          "fill": "gray"
+          "shape": "triangle",
+          "fill": "none",
+          "rotation": 180
         }
       ],
       [
         {
           "kind": "shaded_shape",
           "shape": "triangle",
-          "fill": "black"
+          "fill": "gray",
+          "rotation": 0
         },
         {
           "kind": "shaded_shape",
-          "shape": "circle",
-          "fill": "none"
+          "shape": "triangle",
+          "fill": "gray",
+          "rotation": 90
+        },
+        {
+          "kind": "shaded_shape",
+          "shape": "triangle",
+          "fill": "gray",
+          "rotation": 180
+        }
+      ],
+      [
+        {
+          "kind": "shaded_shape",
+          "shape": "triangle",
+          "fill": "black",
+          "rotation": 0
+        },
+        {
+          "kind": "shaded_shape",
+          "shape": "triangle",
+          "fill": "black",
+          "rotation": 90
         },
         null
       ]
@@ -1201,33 +1209,39 @@
     "options": [
       {
         "kind": "shaded_shape",
-        "shape": "square",
-        "fill": "gray"
+        "shape": "triangle",
+        "fill": "black",
+        "rotation": 180
       },
       {
         "kind": "shaded_shape",
         "shape": "triangle",
-        "fill": "gray"
-      },
-      {
-        "kind": "shaded_shape",
-        "shape": "circle",
-        "fill": "gray"
-      },
-      {
-        "kind": "shaded_shape",
-        "shape": "square",
-        "fill": "black"
+        "fill": "gray",
+        "rotation": 180
       },
       {
         "kind": "shaded_shape",
         "shape": "triangle",
-        "fill": "black"
+        "fill": "black",
+        "rotation": 270
       },
       {
         "kind": "shaded_shape",
-        "shape": "circle",
-        "fill": "black"
+        "shape": "triangle",
+        "fill": "none",
+        "rotation": 180
+      },
+      {
+        "kind": "shaded_shape",
+        "shape": "triangle",
+        "fill": "black",
+        "rotation": 0
+      },
+      {
+        "kind": "shaded_shape",
+        "shape": "triangle",
+        "fill": "gray",
+        "rotation": 90
       }
     ],
     "correctAnswer": 0
