@@ -950,8 +950,8 @@
   {
     "id": "v6-q11-fibonacci",
     "title": "FRÅGA 11 — Sekventiell progression",
-    "rule": "I varje rad är antalet element i Kolumn 3 summan av Kolumn 1 och Kolumn 2. Dessutom: Kolumn 1 på nästa rad har samma antal element som Kolumn 2 på föregående rad.",
-    "difficulty": 3,
+    "rule": "I varje rad är antalet element i Kolumn 3 summan av Kolumn 1 och Kolumn 2. Dessutom: Kolumn 1 på nästa rad har samma antal element som Kolumn 2 på föregående rad. Observera också att positionsmönstret ändras mellan raderna: Rad 1 = Centrum, Rad 2 = Vänster, Rad 3 = Höger.",
+    "difficulty": 4,
     "grid": [
       [
         {
@@ -974,29 +974,29 @@
         {
           "kind": "dots",
           "count": 1,
-          "pos": "C"
+          "pos": "L"
         },
         {
           "kind": "dots",
           "count": 2,
-          "pos": "C"
+          "pos": "L"
         },
         {
           "kind": "dots",
           "count": 3,
-          "pos": "C"
+          "pos": "L"
         }
       ],
       [
         {
           "kind": "dots",
           "count": 2,
-          "pos": "C"
+          "pos": "R"
         },
         {
           "kind": "dots",
           "count": 3,
-          "pos": "C"
+          "pos": "R"
         },
         null
       ]
@@ -1004,34 +1004,33 @@
     "options": [
       {
         "kind": "dots",
-        "count": 4,
+        "count": 5,
         "pos": "C"
       },
       {
         "kind": "dots",
-        "count": 3,
-        "pos": "C"
+        "count": 4,
+        "pos": "R"
       },
       {
         "kind": "dots",
         "count": 5,
-        "pos": "C"
+        "pos": "R"
       },
       {
         "kind": "dots",
         "count": 6,
-        "pos": "C"
-      },
-      {
-        "kind": "dots",
-        "count": 2,
-        "pos": "C"
+        "pos": "R"
       },
       {
         "kind": "dots",
         "count": 5,
-        "pos": "C",
-        "layout": "vertical"
+        "pos": "L"
+      },
+      {
+        "kind": "dots",
+        "count": 3,
+        "pos": "R"
       }
     ],
     "correctAnswer": 2
