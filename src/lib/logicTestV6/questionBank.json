@@ -1145,10 +1145,10 @@
     "correctAnswer": 4
   },
   {
-    "id": "v6-q13-conditional",
+    "id": "v6-q13-count-to-shape",
     "title": "FRÅGA 13 — Villkorlig förändring",
-    "rule": "Formen ändras baserat på dess position: I den vänstra kolumnen är formen en triangel. I mittenkolumnen är den en kvadrat. I den högra kolumnen är den en cirkel. Fyllningen är alltid densamma inom en rad.",
-    "difficulty": 3,
+    "rule": "Formen i Kolumn 3 beror på antalet ifyllda former (svart eller grå) i Kolumn 1 och 2: 0 ifyllda = triangel, 1 ifylld = kvadrat, 2 ifyllda = cirkel. Fyllningen i Kolumn 3 är alltid grå.",
+    "difficulty": 4,
     "grid": [
       [
         {
@@ -1163,8 +1163,25 @@
         },
         {
           "kind": "shaded_shape",
-          "shape": "circle",
+          "shape": "triangle",
+          "fill": "gray"
+        }
+      ],
+      [
+        {
+          "kind": "shaded_shape",
+          "shape": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "shaded_shape",
+          "shape": "square",
           "fill": "none"
+        },
+        {
+          "kind": "shaded_shape",
+          "shape": "square",
+          "fill": "gray"
         }
       ],
       [
@@ -1177,28 +1194,16 @@
           "kind": "shaded_shape",
           "shape": "square",
           "fill": "black"
-        },
-        {
-          "kind": "shaded_shape",
-          "shape": "circle",
-          "fill": "black"
-        }
-      ],
-      [
-        {
-          "kind": "shaded_shape",
-          "shape": "triangle",
-          "fill": "gray"
-        },
-        {
-          "kind": "shaded_shape",
-          "shape": "square",
-          "fill": "gray"
         },
         null
       ]
     ],
     "options": [
+      {
+        "kind": "shaded_shape",
+        "shape": "circle",
+        "fill": "gray"
+      },
       {
         "kind": "shaded_shape",
         "shape": "triangle",
@@ -1212,17 +1217,12 @@
       {
         "kind": "shaded_shape",
         "shape": "circle",
-        "fill": "gray"
-      },
-      {
-        "kind": "shaded_shape",
-        "shape": "circle",
         "fill": "black"
       },
       {
         "kind": "shaded_shape",
-        "shape": "circle",
-        "fill": "none"
+        "shape": "square",
+        "fill": "black"
       },
       {
         "kind": "shaded_shape",
@@ -1230,7 +1230,7 @@
         "fill": "black"
       }
     ],
-    "correctAnswer": 2
+    "correctAnswer": 0
   },
   {
     "id": "v6-q14-subtraction-inverted",
