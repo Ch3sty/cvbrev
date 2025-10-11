@@ -1147,8 +1147,8 @@
   {
     "id": "v6-q13-rotation-fill",
     "title": "FRÅGA 13 — Rotation och fyllning",
-    "rule": "Triangeln roterar 90 grader per kolumn (0° → 90° → 180°). Fyllningen ändras per rad: Rad 1 är tom (none), Rad 2 är grå, Rad 3 är svart.",
-    "difficulty": 3,
+    "rule": "Varje kolumn har en rotation som ökar med 45° per rad. Kolumn 1: 0°→45°→90°, Kolumn 2: 90°→135°→180°, Kolumn 3: 45°→90°→135°. Fyllningen är konstant per rad: none → grå → svart.",
+    "difficulty": 4,
     "grid": [
       [
         {
@@ -1167,7 +1167,7 @@
           "kind": "shaded_shape",
           "shape": "triangle",
           "fill": "none",
-          "rotation": 180
+          "rotation": 45
         }
       ],
       [
@@ -1175,19 +1175,19 @@
           "kind": "shaded_shape",
           "shape": "triangle",
           "fill": "gray",
-          "rotation": 0
+          "rotation": 45
+        },
+        {
+          "kind": "shaded_shape",
+          "shape": "triangle",
+          "fill": "gray",
+          "rotation": 135
         },
         {
           "kind": "shaded_shape",
           "shape": "triangle",
           "fill": "gray",
           "rotation": 90
-        },
-        {
-          "kind": "shaded_shape",
-          "shape": "triangle",
-          "fill": "gray",
-          "rotation": 180
         }
       ],
       [
@@ -1195,13 +1195,13 @@
           "kind": "shaded_shape",
           "shape": "triangle",
           "fill": "black",
-          "rotation": 0
+          "rotation": 90
         },
         {
           "kind": "shaded_shape",
           "shape": "triangle",
           "fill": "black",
-          "rotation": 90
+          "rotation": 180
         },
         null
       ]
@@ -1211,37 +1211,37 @@
         "kind": "shaded_shape",
         "shape": "triangle",
         "fill": "black",
+        "rotation": 135
+      },
+      {
+        "kind": "shaded_shape",
+        "shape": "triangle",
+        "fill": "black",
         "rotation": 180
       },
       {
         "kind": "shaded_shape",
         "shape": "triangle",
         "fill": "gray",
-        "rotation": 180
+        "rotation": 135
       },
       {
         "kind": "shaded_shape",
         "shape": "triangle",
         "fill": "black",
-        "rotation": 270
+        "rotation": 90
       },
       {
         "kind": "shaded_shape",
         "shape": "triangle",
         "fill": "none",
-        "rotation": 180
+        "rotation": 135
       },
       {
         "kind": "shaded_shape",
         "shape": "triangle",
         "fill": "black",
-        "rotation": 0
-      },
-      {
-        "kind": "shaded_shape",
-        "shape": "triangle",
-        "fill": "gray",
-        "rotation": 90
+        "rotation": 225
       }
     ],
     "correctAnswer": 0
