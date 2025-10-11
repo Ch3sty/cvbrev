@@ -164,17 +164,17 @@
   {
     "id": "v6-q9-sudoku",
     "title": "FRÅGA 9 — Latin square (form & fyllning)",
-    "rule": "Varje rad och kolumn måste innehålla exakt en av varje form (pil, plus, måne) OCH exakt en av varje fyllning (svart, grå, ofylld).",
+    "rule": "Varje rad och kolumn måste innehålla exakt en av varje form (pil, plus, cirkel) OCH exakt en av varje fyllning (svart, grå, ofylld).",
     "difficulty": 3,
     "grid": [
-      [{ "kind": "sudoku", "shape": "arrow", "fill": "black" }, { "kind": "sudoku", "shape": "moon", "fill": "gray" }, { "kind": "sudoku", "shape": "plus", "fill": "none" }],
-      [{ "kind": "sudoku", "shape": "plus", "fill": "gray" }, { "kind": "sudoku", "shape": "arrow", "fill": "none" }, { "kind": "sudoku", "shape": "moon", "fill": "black" }],
-      [{ "kind": "sudoku", "shape": "moon", "fill": "none" }, { "kind": "sudoku", "shape": "plus", "fill": "black" }, null]
+      [{ "kind": "sudoku", "shape": "arrow", "fill": "black" }, { "kind": "sudoku", "shape": "circle", "fill": "gray" }, { "kind": "sudoku", "shape": "plus", "fill": "none" }],
+      [{ "kind": "sudoku", "shape": "plus", "fill": "gray" }, { "kind": "sudoku", "shape": "arrow", "fill": "none" }, { "kind": "sudoku", "shape": "circle", "fill": "black" }],
+      [{ "kind": "sudoku", "shape": "circle", "fill": "none" }, { "kind": "sudoku", "shape": "plus", "fill": "black" }, null]
     ],
     "options": [
       { "kind": "sudoku", "shape": "arrow", "fill": "black" },
       { "kind": "sudoku", "shape": "arrow", "fill": "none" },
-      { "kind": "sudoku", "shape": "moon", "fill": "gray" },
+      { "kind": "sudoku", "shape": "circle", "fill": "gray" },
       { "kind": "sudoku", "shape": "arrow", "fill": "gray" },
       { "kind": "sudoku", "shape": "plus", "fill": "gray" },
       { "kind": "sudoku", "shape": "arrow", "fill": "none", "rotation": 90 }

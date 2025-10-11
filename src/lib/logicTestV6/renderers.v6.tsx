@@ -189,7 +189,7 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
         let shapePath;
         if (cell.shape === 'arrow') shapePath = <path d="M 50 20 L 65 50 L 50 80 L 50 60 L 35 60 L 35 40 L 50 40 Z" />;
         if (cell.shape === 'plus') shapePath = <path d="M 40 20 H 60 V 40 H 80 V 60 H 60 V 80 H 40 V 60 H 20 V 40 H 40 Z" />;
-        if (cell.shape === 'moon') shapePath = <path d="M 50,25 A 25 25 0 1 0 50,75 A 20 20 0 1 1 50,25 Z" />;
+        if (cell.shape === 'circle') shapePath = <circle cx="50" cy="50" r="25" />
 
         const fill = cell.fill === 'none' ? FILL_NONE : cell.fill === 'gray' ? FILL_GRAY : FILL_BLACK;
         const stroke = fill === FILL_NONE ? STROKE_COLOR : 'none';
