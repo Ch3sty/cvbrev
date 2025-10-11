@@ -231,12 +231,12 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
                     <circle key={5} cx={50} cy={50} r={8} fill={FILL_BLACK}/>);
         }
         if (cell.count === 6) {
-          dots.push(<circle key={1} cx={35} cy={35} r={8} fill={FILL_BLACK}/>,
-                    <circle key={2} cx={65} cy={35} r={8} fill={FILL_BLACK}/>,
+          dots.push(<circle key={1} cx={35} cy={30} r={8} fill={FILL_BLACK}/>,
+                    <circle key={2} cx={65} cy={30} r={8} fill={FILL_BLACK}/>,
                     <circle key={3} cx={35} cy={50} r={8} fill={FILL_BLACK}/>,
                     <circle key={4} cx={65} cy={50} r={8} fill={FILL_BLACK}/>,
-                    <circle key={5} cx={35} cy={65} r={8} fill={FILL_BLACK}/>,
-                    <circle key={6} cx={65} cy={65} r={8} fill={FILL_BLACK}/>);
+                    <circle key={5} cx={35} cy={70} r={8} fill={FILL_BLACK}/>,
+                    <circle key={6} cx={65} cy={70} r={8} fill={FILL_BLACK}/>);
         }
         return <>{dots}</>;
     }
