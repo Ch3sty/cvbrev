@@ -154,7 +154,9 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
         return <>{shapes[cell.shape]}{dots}</>;
     }
     case 'subtraction_inv': {
-        let base, line;
+        let base: React.ReactElement | null = null;
+        let line: React.ReactElement | null = null;
+
         if (cell.base === 'square') base = <rect x="25" y="25" width="50" height="50" fill={FILL_BLACK}/>;
         if (cell.base === 'circle') base = <circle cx="50" cy="50" r="25" fill={FILL_BLACK}/>;
         if (cell.base === 'triangle') base = <path d="M50 20 L80 80 L20 80 Z" fill={FILL_BLACK}/>;
@@ -163,6 +165,8 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
         if (cell.line === 'horiz') line = <Line x1={25} y1={50} x2={75} y2={50} stroke={base ? FILL_WHITE : STROKE_COLOR} />;
         if (cell.line === 'vert') line = <Line x1={50} y1={20} x2={50} y2={80} stroke={base ? FILL_WHITE : STROKE_COLOR} />;
         
+        // Om både base och line är null, returnera ett tomt group element
+        if (!base && !line) return <g />;
         return <>{base}{line}</>;
     }
     case 'shaded_shape': {
