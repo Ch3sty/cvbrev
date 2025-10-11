@@ -114,11 +114,11 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
             triangle: <path d="M 50 25 L 75 75 L 25 75 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
             divided_circle: <><circle cx="50" cy="50" r="20" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><Line x1={30} y1={50} x2={70} y2={50}/></>,
             star_of_david: <><path d="M50 25 L75 70 L25 70 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><path d="M50 75 L25 30 L75 30 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
-            double_ring: <><circle cx="50" cy="50" r="22" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="50" cy="50" r="13" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
+            double_ring: <><circle cx="50" cy="50" r="24" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="50" cy="50" r="10" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
             hourglass: <><path d="M 30 30 L 70 30 L 30 70 L 70 70 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
             four_squares: <><rect x="30" y="30" width="40" height="40" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><Line x1={30} y1={50} x2={70} y2={50}/><Line x1={50} y1={30} x2={50} y2={70}/></>,
-            overlapping_rings: <><circle cx="40" cy="50" r="17" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="60" cy="50" r="17" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
-            three_circles: <><circle cx="33" cy="50" r="10" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="50" cy="50" r="10" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="67" cy="50" r="10" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
+            overlapping_rings: <><circle cx="38" cy="50" r="15" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="62" cy="50" r="15" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
+            three_circles: <><circle cx="32" cy="50" r="9" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="50" cy="50" r="9" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="68" cy="50" r="9" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
             grid: <path d="M 30 30 H 70 V 70 H 30 Z M 30 50 H 70 M 50 30 V 70" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>
         };
         const dots = [];
@@ -141,10 +141,10 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
         if (cell.dots === 3) {
           // För three_circles: placera i varje cirkel
           if (cell.shape === 'three_circles') {
-            dots.push(<circle key="d1" cx="33" cy="50" r="4" fill={FILL_BLACK}/>, <circle key="d2" cx="50" cy="50" r="4" fill={FILL_BLACK}/>, <circle key="d3" cx="67" cy="50" r="4" fill={FILL_BLACK}/>);
+            dots.push(<circle key="d1" cx="32" cy="50" r="4" fill={FILL_BLACK}/>, <circle key="d2" cx="50" cy="50" r="4" fill={FILL_BLACK}/>, <circle key="d3" cx="68" cy="50" r="4" fill={FILL_BLACK}/>);
           } else if (cell.shape === 'overlapping_rings') {
             // Vänster ring, överlappning, höger ring
-            dots.push(<circle key="d1" cx="35" cy="50" r="4" fill={FILL_BLACK}/>, <circle key="d2" cx="50" cy="50" r="4" fill={FILL_BLACK}/>, <circle key="d3" cx="65" cy="50" r="4" fill={FILL_BLACK}/>);
+            dots.push(<circle key="d1" cx="32" cy="50" r="4" fill={FILL_BLACK}/>, <circle key="d2" cx="50" cy="50" r="4" fill={FILL_BLACK}/>, <circle key="d3" cx="68" cy="50" r="4" fill={FILL_BLACK}/>);
           } else {
             dots.push(<circle key="d1" cx="37" cy="50" r="5" fill={FILL_BLACK}/>, <circle key="d2" cx="50" cy="50" r="5" fill={FILL_BLACK}/>, <circle key="d3" cx="63" cy="50" r="5" fill={FILL_BLACK}/>);
           }
