@@ -5,17 +5,85 @@
     "rule": "Formen roterar 90° medurs för varje kolumn. Fyllningen alternerar (fylld/ofylld) för varje rad.",
     "difficulty": 2,
     "grid": [
-      [{ "kind": "arrow", "rotation": 90, "fill": true }, { "kind": "arrow", "rotation": 180, "fill": true }, { "kind": "arrow", "rotation": 270, "fill": true }],
-      [{ "kind": "arrow", "rotation": 180, "fill": false }, { "kind": "arrow", "rotation": 270, "fill": false }, { "kind": "arrow", "rotation": 0, "fill": false }],
-      [{ "kind": "arrow", "rotation": 270, "fill": true }, { "kind": "arrow", "rotation": 0, "fill": true }, null]
+      [
+        {
+          "kind": "arrow",
+          "rotation": 90,
+          "fill": true
+        },
+        {
+          "kind": "arrow",
+          "rotation": 180,
+          "fill": true
+        },
+        {
+          "kind": "arrow",
+          "rotation": 270,
+          "fill": true
+        }
+      ],
+      [
+        {
+          "kind": "arrow",
+          "rotation": 180,
+          "fill": false
+        },
+        {
+          "kind": "arrow",
+          "rotation": 270,
+          "fill": false
+        },
+        {
+          "kind": "arrow",
+          "rotation": 0,
+          "fill": false
+        }
+      ],
+      [
+        {
+          "kind": "arrow",
+          "rotation": 270,
+          "fill": true
+        },
+        {
+          "kind": "arrow",
+          "rotation": 0,
+          "fill": true
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "arrow", "rotation": 0, "fill": true },
-      { "kind": "arrow", "rotation": 90, "fill": true },
-      { "kind": "arrow", "rotation": 180, "fill": true },
-      { "kind": "arrow", "rotation": 270, "fill": true },
-      { "kind": "arrow", "rotation": 90, "fill": false },
-      { "kind": "arrow", "rotation": 0, "fill": false }
+      {
+        "kind": "arrow",
+        "rotation": 0,
+        "fill": true
+      },
+      {
+        "kind": "arrow",
+        "rotation": 90,
+        "fill": true
+      },
+      {
+        "kind": "arrow",
+        "rotation": 180,
+        "fill": true
+      },
+      {
+        "kind": "arrow",
+        "rotation": 270,
+        "fill": true
+      },
+      {
+        "kind": "arrow",
+        "rotation": 90,
+        "fill": false
+      },
+      {
+        "kind": "arrow",
+        "rotation": 0,
+        "fill": false
+      }
     ],
     "correctAnswer": 1
   },
@@ -26,17 +94,86 @@
     "difficulty": 2,
     "showGrid": true,
     "grid": [
-      [{ "kind": "multi_shape", "shape": "L", "pos": "TL" }, { "kind": "multi_shape", "shape": "L", "pos": "C" }, { "kind": "multi_shape", "shape": "L", "pos": "BR" }],
-      [{ "kind": "multi_shape", "shape": "T", "pos": "TL" }, { "kind": "multi_shape", "shape": "T", "pos": "C" }, { "kind": "multi_shape", "shape": "T", "pos": "BR" }],
-      [{ "kind": "multi_shape", "shape": "Z", "pos": "TL" }, { "kind": "multi_shape", "shape": "Z", "pos": "C" }, null]
+      [
+        {
+          "kind": "multi_shape",
+          "shape": "L",
+          "pos": "TL"
+        },
+        {
+          "kind": "multi_shape",
+          "shape": "L",
+          "pos": "C"
+        },
+        {
+          "kind": "multi_shape",
+          "shape": "L",
+          "pos": "BR"
+        }
+      ],
+      [
+        {
+          "kind": "multi_shape",
+          "shape": "T",
+          "pos": "TL"
+        },
+        {
+          "kind": "multi_shape",
+          "shape": "T",
+          "pos": "C"
+        },
+        {
+          "kind": "multi_shape",
+          "shape": "T",
+          "pos": "BR"
+        }
+      ],
+      [
+        {
+          "kind": "multi_shape",
+          "shape": "Z",
+          "pos": "TL"
+        },
+        {
+          "kind": "multi_shape",
+          "shape": "Z",
+          "pos": "C"
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "multi_shape", "shape": "Z", "pos": "TL" },
-      { "kind": "multi_shape", "shape": "Z", "pos": "C" },
-      { "kind": "multi_shape", "shape": "T", "pos": "BR" },
-      { "kind": "multi_shape", "shape": "L", "pos": "BR" },
-      { "kind": "multi_shape", "shape": "Z", "pos": "BR", "rotation": 90 },
-      { "kind": "multi_shape", "shape": "Z", "pos": "BR" }
+      {
+        "kind": "multi_shape",
+        "shape": "Z",
+        "pos": "TL"
+      },
+      {
+        "kind": "multi_shape",
+        "shape": "Z",
+        "pos": "C"
+      },
+      {
+        "kind": "multi_shape",
+        "shape": "T",
+        "pos": "BR"
+      },
+      {
+        "kind": "multi_shape",
+        "shape": "L",
+        "pos": "BR"
+      },
+      {
+        "kind": "multi_shape",
+        "shape": "Z",
+        "pos": "BR",
+        "rotation": 90
+      },
+      {
+        "kind": "multi_shape",
+        "shape": "Z",
+        "pos": "BR"
+      }
     ],
     "correctAnswer": 5
   },
@@ -46,17 +183,106 @@
     "rule": "Kolumn 3 är en sammanslagning (union) av alla unika element från Kolumn 1 och 2. Raden bestämmer vilka former som används.",
     "difficulty": 2,
     "grid": [
-      [{ "kind": "composition", "items": ["dot_tl"] }, { "kind": "composition", "items": ["dot_br"] }, { "kind": "composition", "items": ["dot_tl", "dot_br"] }],
-      [{ "kind": "composition", "items": ["square_tl", "square_br"] }, { "kind": "composition", "items": ["square_tr", "square_bl"] }, { "kind": "composition", "items": ["square_tl", "square_br", "square_tr", "square_bl"] }],
-      [{ "kind": "composition", "items": ["tri_t"] }, { "kind": "composition", "items": ["tri_b"] }, null]
+      [
+        {
+          "kind": "composition",
+          "items": [
+            "dot_tl"
+          ]
+        },
+        {
+          "kind": "composition",
+          "items": [
+            "dot_br"
+          ]
+        },
+        {
+          "kind": "composition",
+          "items": [
+            "dot_tl",
+            "dot_br"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "composition",
+          "items": [
+            "square_tl",
+            "square_br"
+          ]
+        },
+        {
+          "kind": "composition",
+          "items": [
+            "square_tr",
+            "square_bl"
+          ]
+        },
+        {
+          "kind": "composition",
+          "items": [
+            "square_tl",
+            "square_br",
+            "square_tr",
+            "square_bl"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "composition",
+          "items": [
+            "tri_t"
+          ]
+        },
+        {
+          "kind": "composition",
+          "items": [
+            "tri_b"
+          ]
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "composition", "items": ["tri_t", "tri_b"] },
-      { "kind": "composition", "items": ["tri_t"] },
-      { "kind": "composition", "items": ["tri_b"] },
-      { "kind": "composition", "items": ["square_tl", "square_br"] },
-      { "kind": "composition", "items": ["dot_tl", "dot_br"] },
-      { "kind": "composition", "items": [] }
+      {
+        "kind": "composition",
+        "items": [
+          "tri_t",
+          "tri_b"
+        ]
+      },
+      {
+        "kind": "composition",
+        "items": [
+          "tri_t"
+        ]
+      },
+      {
+        "kind": "composition",
+        "items": [
+          "tri_b"
+        ]
+      },
+      {
+        "kind": "composition",
+        "items": [
+          "square_tl",
+          "square_br"
+        ]
+      },
+      {
+        "kind": "composition",
+        "items": [
+          "dot_tl",
+          "dot_br"
+        ]
+      },
+      {
+        "kind": "composition",
+        "items": []
+      }
     ],
     "correctAnswer": 0
   },
@@ -66,17 +292,86 @@
     "rule": "Transformationen från Kolumn 1 till 2 (rotera 180° och lägg till en prick i mitten) är densamma för varje rad.",
     "difficulty": 3,
     "grid": [
-      [{ "kind": "analogy", "shape": "triangle" }, { "kind": "analogy", "shape": "triangle", "rotation": 180, "dot": true }, { "kind": "analogy", "shape": "triangle", "dot": true }],
-      [{ "kind": "analogy", "shape": "l_shape" }, { "kind": "analogy", "shape": "l_shape", "rotation": 180, "dot": true }, { "kind": "analogy", "shape": "l_shape", "dot": true }],
-      [{ "kind": "analogy", "shape": "pacman" }, { "kind": "analogy", "shape": "pacman", "rotation": 180, "dot": true }, null]
+      [
+        {
+          "kind": "analogy",
+          "shape": "triangle"
+        },
+        {
+          "kind": "analogy",
+          "shape": "triangle",
+          "rotation": 180,
+          "dot": true
+        },
+        {
+          "kind": "analogy",
+          "shape": "triangle",
+          "dot": true
+        }
+      ],
+      [
+        {
+          "kind": "analogy",
+          "shape": "l_shape"
+        },
+        {
+          "kind": "analogy",
+          "shape": "l_shape",
+          "rotation": 180,
+          "dot": true
+        },
+        {
+          "kind": "analogy",
+          "shape": "l_shape",
+          "dot": true
+        }
+      ],
+      [
+        {
+          "kind": "analogy",
+          "shape": "pacman"
+        },
+        {
+          "kind": "analogy",
+          "shape": "pacman",
+          "rotation": 180,
+          "dot": true
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "analogy", "shape": "pacman" },
-      { "kind": "analogy", "shape": "pacman", "rotation": 180 },
-      { "kind": "analogy", "shape": "pacman", "dot": true },
-      { "kind": "analogy", "shape": "triangle", "dot": true },
-      { "kind": "analogy", "shape": "pacman", "rotation": 90, "dot": true },
-      { "kind": "analogy", "shape": "pacman", "fill": false, "dot": true }
+      {
+        "kind": "analogy",
+        "shape": "pacman"
+      },
+      {
+        "kind": "analogy",
+        "shape": "pacman",
+        "rotation": 180
+      },
+      {
+        "kind": "analogy",
+        "shape": "pacman",
+        "dot": true
+      },
+      {
+        "kind": "analogy",
+        "shape": "triangle",
+        "dot": true
+      },
+      {
+        "kind": "analogy",
+        "shape": "pacman",
+        "rotation": 90,
+        "dot": true
+      },
+      {
+        "kind": "analogy",
+        "shape": "pacman",
+        "fill": false,
+        "dot": true
+      }
     ],
     "correctAnswer": 2
   },
@@ -86,17 +381,113 @@
     "rule": "I varje rad, när Kolumn 1 och 2 läggs ovanpå varandra, försvinner de linjer som är gemensamma (XOR). Resultatet visas i Kolumn 3.",
     "difficulty": 3,
     "grid": [
-      [{ "kind": "lines", "lines": ["frame", "cross"] }, { "kind": "lines", "lines": ["cross", "diag_down"] }, { "kind": "lines", "lines": ["frame", "diag_down"] }],
-      [{ "kind": "lines", "lines": ["diag_down", "diag_up"] }, { "kind": "lines", "lines": ["diag_up", "horiz"] }, { "kind": "lines", "lines": ["diag_down", "horiz"] }],
-      [{ "kind": "lines", "lines": ["frame", "vert"] }, { "kind": "lines", "lines": ["vert", "diag_down", "diag_up"] }, null]
+      [
+        {
+          "kind": "lines",
+          "lines": [
+            "frame",
+            "cross"
+          ]
+        },
+        {
+          "kind": "lines",
+          "lines": [
+            "cross",
+            "diag_down"
+          ]
+        },
+        {
+          "kind": "lines",
+          "lines": [
+            "frame",
+            "diag_down"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lines",
+          "lines": [
+            "diag_down",
+            "diag_up"
+          ]
+        },
+        {
+          "kind": "lines",
+          "lines": [
+            "diag_up",
+            "horiz"
+          ]
+        },
+        {
+          "kind": "lines",
+          "lines": [
+            "diag_down",
+            "horiz"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lines",
+          "lines": [
+            "frame",
+            "vert"
+          ]
+        },
+        {
+          "kind": "lines",
+          "lines": [
+            "vert",
+            "diag_down",
+            "diag_up"
+          ]
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "lines", "lines": ["frame", "diag_down", "diag_up"] },
-      { "kind": "lines", "lines": ["diag_down", "diag_up"] },
-      { "kind": "lines", "lines": ["frame"] },
-      { "kind": "lines", "lines": ["frame", "vert"] },
-      { "kind": "lines", "lines": ["cross"] },
-      { "kind": "lines", "lines": ["vert", "cross"] }
+      {
+        "kind": "lines",
+        "lines": [
+          "frame",
+          "diag_down",
+          "diag_up"
+        ]
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          "diag_down",
+          "diag_up"
+        ]
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          "frame"
+        ]
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          "frame",
+          "vert"
+        ]
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          "cross"
+        ]
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          "vert",
+          "cross"
+        ]
+      }
     ],
     "correctAnswer": 0
   },
@@ -107,17 +498,99 @@
     "difficulty": 3,
     "showGrid": false,
     "grid": [
-      [{ "kind": "analogy", "shape": "pacman", "rotation": 120, "fill": true }, { "kind": "analogy", "shape": "corner", "rotation": 150, "fill": true }, { "kind": "analogy", "shape": "halfcircle", "rotation": 180, "fill": true }],
-      [{ "kind": "analogy", "shape": "pacman", "rotation": 210, "fill": true }, { "kind": "analogy", "shape": "corner", "rotation": 240, "fill": true }, { "kind": "analogy", "shape": "halfcircle", "rotation": 270, "fill": true }],
-      [{ "kind": "analogy", "shape": "pacman", "rotation": 300, "fill": true }, { "kind": "analogy", "shape": "corner", "rotation": 330, "fill": true }, null]
+      [
+        {
+          "kind": "analogy",
+          "shape": "pacman",
+          "rotation": 120,
+          "fill": true
+        },
+        {
+          "kind": "analogy",
+          "shape": "corner",
+          "rotation": 150,
+          "fill": true
+        },
+        {
+          "kind": "analogy",
+          "shape": "halfcircle",
+          "rotation": 180,
+          "fill": true
+        }
+      ],
+      [
+        {
+          "kind": "analogy",
+          "shape": "pacman",
+          "rotation": 210,
+          "fill": true
+        },
+        {
+          "kind": "analogy",
+          "shape": "corner",
+          "rotation": 240,
+          "fill": true
+        },
+        {
+          "kind": "analogy",
+          "shape": "halfcircle",
+          "rotation": 270,
+          "fill": true
+        }
+      ],
+      [
+        {
+          "kind": "analogy",
+          "shape": "pacman",
+          "rotation": 300,
+          "fill": true
+        },
+        {
+          "kind": "analogy",
+          "shape": "corner",
+          "rotation": 330,
+          "fill": true
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "analogy", "shape": "halfcircle", "rotation": 0, "fill": true },
-      { "kind": "analogy", "shape": "halfcircle", "rotation": 90, "fill": true },
-      { "kind": "analogy", "shape": "corner", "rotation": 0, "fill": true },
-      { "kind": "analogy", "shape": "pacman", "rotation": 0, "fill": true },
-      { "kind": "analogy", "shape": "halfcircle", "rotation": 180, "fill": true },
-      { "kind": "analogy", "shape": "halfcircle", "rotation": 0, "fill": false }
+      {
+        "kind": "analogy",
+        "shape": "halfcircle",
+        "rotation": 0,
+        "fill": true
+      },
+      {
+        "kind": "analogy",
+        "shape": "halfcircle",
+        "rotation": 90,
+        "fill": true
+      },
+      {
+        "kind": "analogy",
+        "shape": "corner",
+        "rotation": 0,
+        "fill": true
+      },
+      {
+        "kind": "analogy",
+        "shape": "pacman",
+        "rotation": 0,
+        "fill": true
+      },
+      {
+        "kind": "analogy",
+        "shape": "halfcircle",
+        "rotation": 180,
+        "fill": true
+      },
+      {
+        "kind": "analogy",
+        "shape": "halfcircle",
+        "rotation": 0,
+        "fill": false
+      }
     ],
     "correctAnswer": 0
   },
@@ -127,17 +600,84 @@
     "rule": "Antalet prickar i en cell är lika med antalet helt slutna ytor i figuren i samma cell.",
     "difficulty": 3,
     "grid": [
-      [{ "kind": "count_areas", "shape": "X", "dots": 0 }, { "kind": "count_areas", "shape": "square", "dots": 1 }, { "kind": "count_areas", "shape": "divided_circle", "dots": 2 }],
-      [{ "kind": "count_areas", "shape": "triangle", "dots": 1 }, { "kind": "count_areas", "shape": "double_ring", "dots": 2 }, { "kind": "count_areas", "shape": "three_circles", "dots": 3 }],
-      [{ "kind": "count_areas", "shape": "four_squares", "dots": 4 }, { "kind": "count_areas", "shape": "overlapping_rings", "dots": 3 }, null]
+      [
+        {
+          "kind": "count_areas",
+          "shape": "X",
+          "dots": 0
+        },
+        {
+          "kind": "count_areas",
+          "shape": "square",
+          "dots": 1
+        },
+        {
+          "kind": "count_areas",
+          "shape": "divided_circle",
+          "dots": 2
+        }
+      ],
+      [
+        {
+          "kind": "count_areas",
+          "shape": "triangle",
+          "dots": 1
+        },
+        {
+          "kind": "count_areas",
+          "shape": "double_ring",
+          "dots": 2
+        },
+        {
+          "kind": "count_areas",
+          "shape": "three_circles",
+          "dots": 3
+        }
+      ],
+      [
+        {
+          "kind": "count_areas",
+          "shape": "four_squares",
+          "dots": 4
+        },
+        {
+          "kind": "count_areas",
+          "shape": "overlapping_rings",
+          "dots": 3
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "count_areas", "shape": "grid", "dots": 4 },
-      { "kind": "count_areas", "shape": "grid", "dots": 1 },
-      { "kind": "count_areas", "shape": "grid", "dots": 2 },
-      { "kind": "count_areas", "shape": "grid" },
-      { "kind": "count_areas", "shape": "double_ring", "dots": 2 },
-      { "kind": "count_areas", "shape": "X", "dots": 0 }
+      {
+        "kind": "count_areas",
+        "shape": "grid",
+        "dots": 4
+      },
+      {
+        "kind": "count_areas",
+        "shape": "grid",
+        "dots": 1
+      },
+      {
+        "kind": "count_areas",
+        "shape": "grid",
+        "dots": 2
+      },
+      {
+        "kind": "count_areas",
+        "shape": "grid"
+      },
+      {
+        "kind": "count_areas",
+        "shape": "double_ring",
+        "dots": 2
+      },
+      {
+        "kind": "count_areas",
+        "shape": "X",
+        "dots": 0
+      }
     ],
     "correctAnswer": 0
   },
@@ -147,17 +687,85 @@
     "rule": "Kolumn 3 är resultatet av Kolumn 1 minus Kolumn 2. Om en linje 'stansas ut' ur en fylld yta, blir den resulterande linjen vit.",
     "difficulty": 3,
     "grid": [
-      [{ "kind": "subtraction_inv", "base": "square", "line": "diag_down" }, { "kind": "subtraction_inv", "base": "none", "line": "diag_down" }, { "kind": "subtraction_inv", "base": "square", "line": "none" }],
-      [{ "kind": "subtraction_inv", "base": "circle", "line": "horiz" }, { "kind": "subtraction_inv", "base": "circle", "line": "none" }, { "kind": "subtraction_inv", "base": "none", "line": "horiz" }],
-      [{ "kind": "subtraction_inv", "base": "triangle", "line": "vert" }, { "kind": "subtraction_inv", "base": "triangle", "line": "none" }, null]
+      [
+        {
+          "kind": "subtraction_inv",
+          "base": "square",
+          "line": "diag_down"
+        },
+        {
+          "kind": "subtraction_inv",
+          "base": "none",
+          "line": "diag_down"
+        },
+        {
+          "kind": "subtraction_inv",
+          "base": "square",
+          "line": "none"
+        }
+      ],
+      [
+        {
+          "kind": "subtraction_inv",
+          "base": "circle",
+          "line": "horiz"
+        },
+        {
+          "kind": "subtraction_inv",
+          "base": "circle",
+          "line": "none"
+        },
+        {
+          "kind": "subtraction_inv",
+          "base": "none",
+          "line": "horiz"
+        }
+      ],
+      [
+        {
+          "kind": "subtraction_inv",
+          "base": "triangle",
+          "line": "vert"
+        },
+        {
+          "kind": "subtraction_inv",
+          "base": "triangle",
+          "line": "none"
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "subtraction_inv", "base": "triangle", "line": "vert" },
-      { "kind": "subtraction_inv", "base": "triangle", "line": "none" },
-      { "kind": "subtraction_inv", "base": "none", "line": "none" },
-      { "kind": "subtraction_inv", "base": "circle", "line": "horiz" },
-      { "kind": "subtraction_inv", "base": "none", "line": "diag_down" },
-      { "kind": "subtraction_inv", "base": "none", "line": "vert" }
+      {
+        "kind": "subtraction_inv",
+        "base": "triangle",
+        "line": "vert"
+      },
+      {
+        "kind": "subtraction_inv",
+        "base": "triangle",
+        "line": "none"
+      },
+      {
+        "kind": "subtraction_inv",
+        "base": "none",
+        "line": "none"
+      },
+      {
+        "kind": "subtraction_inv",
+        "base": "circle",
+        "line": "horiz"
+      },
+      {
+        "kind": "subtraction_inv",
+        "base": "none",
+        "line": "diag_down"
+      },
+      {
+        "kind": "subtraction_inv",
+        "base": "none",
+        "line": "vert"
+      }
     ],
     "correctAnswer": 5
   },
@@ -167,60 +775,266 @@
     "rule": "Varje rad och kolumn måste innehålla exakt en av varje form (pil, plus, cirkel) OCH exakt en av varje fyllning (svart, grå, ofylld).",
     "difficulty": 3,
     "grid": [
-      [{ "kind": "sudoku", "shape": "arrow", "fill": "black" }, { "kind": "sudoku", "shape": "circle", "fill": "gray" }, { "kind": "sudoku", "shape": "plus", "fill": "none" }],
-      [{ "kind": "sudoku", "shape": "plus", "fill": "gray" }, { "kind": "sudoku", "shape": "arrow", "fill": "none" }, { "kind": "sudoku", "shape": "circle", "fill": "black" }],
-      [{ "kind": "sudoku", "shape": "circle", "fill": "none" }, { "kind": "sudoku", "shape": "plus", "fill": "black" }, null]
+      [
+        {
+          "kind": "sudoku",
+          "shape": "arrow",
+          "fill": "black"
+        },
+        {
+          "kind": "sudoku",
+          "shape": "circle",
+          "fill": "gray"
+        },
+        {
+          "kind": "sudoku",
+          "shape": "plus",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "sudoku",
+          "shape": "plus",
+          "fill": "gray"
+        },
+        {
+          "kind": "sudoku",
+          "shape": "arrow",
+          "fill": "none"
+        },
+        {
+          "kind": "sudoku",
+          "shape": "circle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "sudoku",
+          "shape": "circle",
+          "fill": "none"
+        },
+        {
+          "kind": "sudoku",
+          "shape": "plus",
+          "fill": "black"
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "sudoku", "shape": "arrow", "fill": "black" },
-      { "kind": "sudoku", "shape": "arrow", "fill": "none" },
-      { "kind": "sudoku", "shape": "circle", "fill": "gray" },
-      { "kind": "sudoku", "shape": "arrow", "fill": "gray" },
-      { "kind": "sudoku", "shape": "plus", "fill": "gray" },
-      { "kind": "sudoku", "shape": "arrow", "fill": "none", "rotation": 90 }
+      {
+        "kind": "sudoku",
+        "shape": "arrow",
+        "fill": "black"
+      },
+      {
+        "kind": "sudoku",
+        "shape": "arrow",
+        "fill": "none"
+      },
+      {
+        "kind": "sudoku",
+        "shape": "circle",
+        "fill": "gray"
+      },
+      {
+        "kind": "sudoku",
+        "shape": "arrow",
+        "fill": "gray"
+      },
+      {
+        "kind": "sudoku",
+        "shape": "plus",
+        "fill": "gray"
+      },
+      {
+        "kind": "sudoku",
+        "shape": "arrow",
+        "fill": "none",
+        "rotation": 90
+      }
     ],
     "correctAnswer": 3
   },
-    {
+  {
     "id": "v6-q10-element-addition",
     "title": "FRÅGA 10 — Addition av element",
     "rule": "I varje rad är antalet element i Kolumn 3 summan av antalet element i Kolumn 1 och Kolumn 2.",
     "difficulty": 2,
     "grid": [
-      [{ "kind": "dots", "count": 1, "pos": "C" }, { "kind": "dots", "count": 2, "pos": "C" }, { "kind": "dots", "count": 3, "pos": "C" }],
-      [{ "kind": "dots", "count": 2, "pos": "C" }, { "kind": "dots", "count": 2, "pos": "C" }, { "kind": "dots", "count": 4, "pos": "C" }],
-      [{ "kind": "dots", "count": 3, "pos": "C" }, { "kind": "dots", "count": 1, "pos": "C" }, null]
+      [
+        {
+          "kind": "dots",
+          "count": 1,
+          "pos": "C"
+        },
+        {
+          "kind": "dots",
+          "count": 2,
+          "pos": "C"
+        },
+        {
+          "kind": "dots",
+          "count": 3,
+          "pos": "C"
+        }
+      ],
+      [
+        {
+          "kind": "dots",
+          "count": 2,
+          "pos": "C"
+        },
+        {
+          "kind": "dots",
+          "count": 2,
+          "pos": "C"
+        },
+        {
+          "kind": "dots",
+          "count": 4,
+          "pos": "C"
+        }
+      ],
+      [
+        {
+          "kind": "dots",
+          "count": 3,
+          "pos": "C"
+        },
+        {
+          "kind": "dots",
+          "count": 1,
+          "pos": "C"
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "dots", "count": 3, "pos": "C" },
-      { "kind": "dots", "count": 1, "pos": "C" },
-      { "kind": "dots", "count": 2, "pos": "C" },
-      { "kind": "dots", "count": 4, "pos": "C" },
-      { "kind": "dots", "count": 5, "pos": "C" },
-      { "kind": "dots", "count": 2, "pos": "C", "layout": "vertical" }
+      {
+        "kind": "dots",
+        "count": 3,
+        "pos": "C"
+      },
+      {
+        "kind": "dots",
+        "count": 1,
+        "pos": "C"
+      },
+      {
+        "kind": "dots",
+        "count": 2,
+        "pos": "C"
+      },
+      {
+        "kind": "dots",
+        "count": 4,
+        "pos": "C"
+      },
+      {
+        "kind": "dots",
+        "count": 5,
+        "pos": "C"
+      },
+      {
+        "kind": "dots",
+        "count": 2,
+        "pos": "C",
+        "layout": "vertical"
+      }
     ],
     "correctAnswer": 3
   },
   {
-    "id": "v6-q11-shape-position",
-    "title": "FRÅGA 11 — Två variabler: Form & Position",
-    "rule": "Raden bestämmer formen (L-form, T-form, Z-form). Kolumnen bestämmer positionen inom ramen (övre vänster, mitten, nedre höger).",
-    "difficulty": 2,
-    "showGrid": true,
+    "id": "v6-q11-fibonacci",
+    "title": "FRÅGA 11 — Sekventiell progression",
+    "rule": "I varje rad är antalet element i Kolumn 3 summan av Kolumn 1 och Kolumn 2. Dessutom: Kolumn 1 på nästa rad har samma antal element som Kolumn 2 på föregående rad.",
+    "difficulty": 3,
     "grid": [
-      [{ "kind": "multi_shape", "shape": "L", "pos": "TL" }, { "kind": "multi_shape", "shape": "L", "pos": "C" }, { "kind": "multi_shape", "shape": "L", "pos": "BR" }],
-      [{ "kind": "multi_shape", "shape": "T", "pos": "TL" }, { "kind": "multi_shape", "shape": "T", "pos": "C" }, { "kind": "multi_shape", "shape": "T", "pos": "BR" }],
-      [{ "kind": "multi_shape", "shape": "Z", "pos": "TL" }, { "kind": "multi_shape", "shape": "Z", "pos": "C" }, null]
+      [
+        {
+          "kind": "dots",
+          "count": 1,
+          "pos": "C"
+        },
+        {
+          "kind": "dots",
+          "count": 1,
+          "pos": "C"
+        },
+        {
+          "kind": "dots",
+          "count": 2,
+          "pos": "C"
+        }
+      ],
+      [
+        {
+          "kind": "dots",
+          "count": 1,
+          "pos": "C"
+        },
+        {
+          "kind": "dots",
+          "count": 2,
+          "pos": "C"
+        },
+        {
+          "kind": "dots",
+          "count": 3,
+          "pos": "C"
+        }
+      ],
+      [
+        {
+          "kind": "dots",
+          "count": 2,
+          "pos": "C"
+        },
+        {
+          "kind": "dots",
+          "count": 3,
+          "pos": "C"
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "multi_shape", "shape": "Z", "pos": "TL" },
-      { "kind": "multi_shape", "shape": "Z", "pos": "C" },
-      { "kind": "multi_shape", "shape": "T", "pos": "BR" },
-      { "kind": "multi_shape", "shape": "L", "pos": "BR" },
-      { "kind": "multi_shape", "shape": "Z", "pos": "BR", "rotation": 90 },
-      { "kind": "multi_shape", "shape": "Z", "pos": "BR" }
+      {
+        "kind": "dots",
+        "count": 4,
+        "pos": "C"
+      },
+      {
+        "kind": "dots",
+        "count": 3,
+        "pos": "C"
+      },
+      {
+        "kind": "dots",
+        "count": 5,
+        "pos": "C"
+      },
+      {
+        "kind": "dots",
+        "count": 6,
+        "pos": "C"
+      },
+      {
+        "kind": "dots",
+        "count": 2,
+        "pos": "C"
+      },
+      {
+        "kind": "dots",
+        "count": 5,
+        "pos": "C",
+        "layout": "vertical"
+      }
     ],
-    "correctAnswer": 5
+    "correctAnswer": 2
   },
   {
     "id": "v6-q12-line-xor",
@@ -228,17 +1042,106 @@
     "rule": "I varje rad, när Kolumn 1 och 2 läggs ovanpå varandra, försvinner de linjer som är gemensamma (XOR). Resultatet visas i Kolumn 3.",
     "difficulty": 3,
     "grid": [
-      [{ "kind": "lines", "lines": ["frame", "diag_down"] }, { "kind": "lines", "lines": ["diag_down", "diag_up"] }, { "kind": "lines", "lines": ["frame", "diag_up"] }],
-      [{ "kind": "lines", "lines": ["cross"] }, { "kind": "lines", "lines": ["horiz", "diag_down"] }, { "kind": "lines", "lines": ["vert", "diag_down"] }],
-      [{ "kind": "lines", "lines": ["frame"] }, { "kind": "lines", "lines": ["frame", "horiz"] }, null]
+      [
+        {
+          "kind": "lines",
+          "lines": [
+            "frame",
+            "diag_down"
+          ]
+        },
+        {
+          "kind": "lines",
+          "lines": [
+            "diag_down",
+            "diag_up"
+          ]
+        },
+        {
+          "kind": "lines",
+          "lines": [
+            "frame",
+            "diag_up"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lines",
+          "lines": [
+            "cross"
+          ]
+        },
+        {
+          "kind": "lines",
+          "lines": [
+            "horiz",
+            "diag_down"
+          ]
+        },
+        {
+          "kind": "lines",
+          "lines": [
+            "vert",
+            "diag_down"
+          ]
+        }
+      ],
+      [
+        {
+          "kind": "lines",
+          "lines": [
+            "frame"
+          ]
+        },
+        {
+          "kind": "lines",
+          "lines": [
+            "frame",
+            "horiz"
+          ]
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "lines", "lines": ["frame"] },
-      { "kind": "lines", "lines": ["frame", "horiz"] },
-      { "kind": "lines", "lines": ["frame", "cross"] },
-      { "kind": "lines", "lines": ["top", "bottom"] },
-      { "kind": "lines", "lines": ["horiz"] },
-      { "kind": "lines", "lines": [] }
+      {
+        "kind": "lines",
+        "lines": [
+          "frame"
+        ]
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          "frame",
+          "horiz"
+        ]
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          "frame",
+          "cross"
+        ]
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          "top",
+          "bottom"
+        ]
+      },
+      {
+        "kind": "lines",
+        "lines": [
+          "horiz"
+        ]
+      },
+      {
+        "kind": "lines",
+        "lines": []
+      }
     ],
     "correctAnswer": 4
   },
@@ -248,17 +1151,85 @@
     "rule": "Formen ändras baserat på dess position: I den vänstra kolumnen är formen en triangel. I mittenkolumnen är den en kvadrat. I den högra kolumnen är den en cirkel. Fyllningen är alltid densamma inom en rad.",
     "difficulty": 3,
     "grid": [
-      [{ "kind": "shaded_shape", "shape": "triangle", "fill": "none" }, { "kind": "shaded_shape", "shape": "square", "fill": "none" }, { "kind": "shaded_shape", "shape": "circle", "fill": "none" }],
-      [{ "kind": "shaded_shape", "shape": "triangle", "fill": "black" }, { "kind": "shaded_shape", "shape": "square", "fill": "black" }, { "kind": "shaded_shape", "shape": "circle", "fill": "black" }],
-      [{ "kind": "shaded_shape", "shape": "triangle", "fill": "gray" }, { "kind": "shaded_shape", "shape": "square", "fill": "gray" }, null]
+      [
+        {
+          "kind": "shaded_shape",
+          "shape": "triangle",
+          "fill": "none"
+        },
+        {
+          "kind": "shaded_shape",
+          "shape": "square",
+          "fill": "none"
+        },
+        {
+          "kind": "shaded_shape",
+          "shape": "circle",
+          "fill": "none"
+        }
+      ],
+      [
+        {
+          "kind": "shaded_shape",
+          "shape": "triangle",
+          "fill": "black"
+        },
+        {
+          "kind": "shaded_shape",
+          "shape": "square",
+          "fill": "black"
+        },
+        {
+          "kind": "shaded_shape",
+          "shape": "circle",
+          "fill": "black"
+        }
+      ],
+      [
+        {
+          "kind": "shaded_shape",
+          "shape": "triangle",
+          "fill": "gray"
+        },
+        {
+          "kind": "shaded_shape",
+          "shape": "square",
+          "fill": "gray"
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "shaded_shape", "shape": "triangle", "fill": "gray" },
-      { "kind": "shaded_shape", "shape": "square", "fill": "gray" },
-      { "kind": "shaded_shape", "shape": "circle", "fill": "gray" },
-      { "kind": "shaded_shape", "shape": "circle", "fill": "black" },
-      { "kind": "shaded_shape", "shape": "circle", "fill": "none" },
-      { "kind": "shaded_shape", "shape": "triangle", "fill": "black" }
+      {
+        "kind": "shaded_shape",
+        "shape": "triangle",
+        "fill": "gray"
+      },
+      {
+        "kind": "shaded_shape",
+        "shape": "square",
+        "fill": "gray"
+      },
+      {
+        "kind": "shaded_shape",
+        "shape": "circle",
+        "fill": "gray"
+      },
+      {
+        "kind": "shaded_shape",
+        "shape": "circle",
+        "fill": "black"
+      },
+      {
+        "kind": "shaded_shape",
+        "shape": "circle",
+        "fill": "none"
+      },
+      {
+        "kind": "shaded_shape",
+        "shape": "triangle",
+        "fill": "black"
+      }
     ],
     "correctAnswer": 2
   },
@@ -268,17 +1239,85 @@
     "rule": "Kolumn 3 är resultatet av Kolumn 1 minus Kolumn 2. Om en linje 'stansas ut' ur en fylld yta, blir den resulterande linjen vit.",
     "difficulty": 3,
     "grid": [
-      [{ "kind": "subtraction_inv", "base": "square", "line": "diag_down" }, { "kind": "subtraction_inv", "base": "none", "line": "diag_down" }, { "kind": "subtraction_inv", "base": "square", "line": "none" }],
-      [{ "kind": "subtraction_inv", "base": "circle", "line": "horiz" }, { "kind": "subtraction_inv", "base": "circle", "line": "none" }, { "kind": "subtraction_inv", "base": "none", "line": "horiz" }],
-      [{ "kind": "subtraction_inv", "base": "triangle", "line": "vert" }, { "kind": "subtraction_inv", "base": "triangle", "line": "none" }, null]
+      [
+        {
+          "kind": "subtraction_inv",
+          "base": "square",
+          "line": "diag_down"
+        },
+        {
+          "kind": "subtraction_inv",
+          "base": "none",
+          "line": "diag_down"
+        },
+        {
+          "kind": "subtraction_inv",
+          "base": "square",
+          "line": "none"
+        }
+      ],
+      [
+        {
+          "kind": "subtraction_inv",
+          "base": "circle",
+          "line": "horiz"
+        },
+        {
+          "kind": "subtraction_inv",
+          "base": "circle",
+          "line": "none"
+        },
+        {
+          "kind": "subtraction_inv",
+          "base": "none",
+          "line": "horiz"
+        }
+      ],
+      [
+        {
+          "kind": "subtraction_inv",
+          "base": "triangle",
+          "line": "vert"
+        },
+        {
+          "kind": "subtraction_inv",
+          "base": "triangle",
+          "line": "none"
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "subtraction_inv", "base": "triangle", "line": "vert" },
-      { "kind": "subtraction_inv", "base": "triangle", "line": "none" },
-      { "kind": "subtraction_inv", "base": "none", "line": "none" },
-      { "kind": "subtraction_inv", "base": "circle", "line": "horiz" },
-      { "kind": "subtraction_inv", "base": "none", "line": "diag_down" },
-      { "kind": "subtraction_inv", "base": "none", "line": "vert" }
+      {
+        "kind": "subtraction_inv",
+        "base": "triangle",
+        "line": "vert"
+      },
+      {
+        "kind": "subtraction_inv",
+        "base": "triangle",
+        "line": "none"
+      },
+      {
+        "kind": "subtraction_inv",
+        "base": "none",
+        "line": "none"
+      },
+      {
+        "kind": "subtraction_inv",
+        "base": "circle",
+        "line": "horiz"
+      },
+      {
+        "kind": "subtraction_inv",
+        "base": "none",
+        "line": "diag_down"
+      },
+      {
+        "kind": "subtraction_inv",
+        "base": "none",
+        "line": "vert"
+      }
     ],
     "correctAnswer": 5
   },
@@ -288,17 +1327,99 @@
     "rule": "Raden bestämmer formen (pil, T-kors, L-form). Kolumnen bestämmer rotationen (0°, 90°, 180°). Dessutom flyttar sig hela formen ett steg diagonalt (neråt höger) för varje cell.",
     "difficulty": 3,
     "grid": [
-      [{ "kind": "three_vars", "shape": "arrow", "rotation": 0, "pos": "TL" }, { "kind": "three_vars", "shape": "arrow", "rotation": 90, "pos": "C" }, { "kind": "three_vars", "shape": "arrow", "rotation": 180, "pos": "BR" }],
-      [{ "kind": "three_vars", "shape": "T", "rotation": 0, "pos": "TL" }, { "kind": "three_vars", "shape": "T", "rotation": 90, "pos": "C" }, { "kind": "three_vars", "shape": "T", "rotation": 180, "pos": "BR" }],
-      [{ "kind": "three_vars", "shape": "L", "rotation": 0, "pos": "TL" }, { "kind": "three_vars", "shape": "L", "rotation": 90, "pos": "C" }, null]
+      [
+        {
+          "kind": "three_vars",
+          "shape": "arrow",
+          "rotation": 0,
+          "pos": "TL"
+        },
+        {
+          "kind": "three_vars",
+          "shape": "arrow",
+          "rotation": 90,
+          "pos": "C"
+        },
+        {
+          "kind": "three_vars",
+          "shape": "arrow",
+          "rotation": 180,
+          "pos": "BR"
+        }
+      ],
+      [
+        {
+          "kind": "three_vars",
+          "shape": "T",
+          "rotation": 0,
+          "pos": "TL"
+        },
+        {
+          "kind": "three_vars",
+          "shape": "T",
+          "rotation": 90,
+          "pos": "C"
+        },
+        {
+          "kind": "three_vars",
+          "shape": "T",
+          "rotation": 180,
+          "pos": "BR"
+        }
+      ],
+      [
+        {
+          "kind": "three_vars",
+          "shape": "L",
+          "rotation": 0,
+          "pos": "TL"
+        },
+        {
+          "kind": "three_vars",
+          "shape": "L",
+          "rotation": 90,
+          "pos": "C"
+        },
+        null
+      ]
     ],
     "options": [
-      { "kind": "three_vars", "shape": "L", "rotation": 90, "pos": "C" },
-      { "kind": "three_vars", "shape": "L", "rotation": 180, "pos": "BR" },
-      { "kind": "three_vars", "shape": "L", "rotation": 180, "pos": "C" },
-      { "kind": "three_vars", "shape": "T", "rotation": 180, "pos": "BR" },
-      { "kind": "three_vars", "shape": "L", "rotation": 270, "pos": "BR" },
-      { "kind": "three_vars", "shape": "arrow", "rotation": 180, "pos": "BR" }
+      {
+        "kind": "three_vars",
+        "shape": "L",
+        "rotation": 90,
+        "pos": "C"
+      },
+      {
+        "kind": "three_vars",
+        "shape": "L",
+        "rotation": 180,
+        "pos": "BR"
+      },
+      {
+        "kind": "three_vars",
+        "shape": "L",
+        "rotation": 180,
+        "pos": "C"
+      },
+      {
+        "kind": "three_vars",
+        "shape": "T",
+        "rotation": 180,
+        "pos": "BR"
+      },
+      {
+        "kind": "three_vars",
+        "shape": "L",
+        "rotation": 270,
+        "pos": "BR"
+      },
+      {
+        "kind": "three_vars",
+        "shape": "arrow",
+        "rotation": 180,
+        "pos": "BR"
+      }
     ],
     "correctAnswer": 1
   }
