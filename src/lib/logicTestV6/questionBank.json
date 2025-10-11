@@ -1029,9 +1029,8 @@
       },
       {
         "kind": "dots",
-        "count": 5,
-        "pos": "C",
-        "layout": "vertical"
+        "count": 1,
+        "pos": "C"
       }
     ],
     "correctAnswer": 1
