@@ -1148,7 +1148,7 @@
     "id": "v6-q13-count-to-shape",
     "title": "FRÅGA 13 — Villkorlig förändring",
     "rule": "Formen i Kolumn 3 beror på antalet ifyllda former (svart eller grå) i Kolumn 1 och 2: 0 ifyllda = triangel, 1 ifylld = kvadrat, 2 ifyllda = cirkel. Fyllningen i Kolumn 3 är alltid grå.",
-    "difficulty": 4,
+    "difficulty": 3,
     "grid": [
       [
         {
@@ -1170,7 +1170,7 @@
       [
         {
           "kind": "shaded_shape",
-          "shape": "triangle",
+          "shape": "circle",
           "fill": "black"
         },
         {
@@ -1192,8 +1192,8 @@
         },
         {
           "kind": "shaded_shape",
-          "shape": "square",
-          "fill": "black"
+          "shape": "circle",
+          "fill": "none"
         },
         null
       ]
@@ -1201,7 +1201,7 @@
     "options": [
       {
         "kind": "shaded_shape",
-        "shape": "circle",
+        "shape": "square",
         "fill": "gray"
       },
       {
@@ -1211,13 +1211,8 @@
       },
       {
         "kind": "shaded_shape",
-        "shape": "square",
-        "fill": "gray"
-      },
-      {
-        "kind": "shaded_shape",
         "shape": "circle",
-        "fill": "black"
+        "fill": "gray"
       },
       {
         "kind": "shaded_shape",
@@ -1227,6 +1222,11 @@
       {
         "kind": "shaded_shape",
         "shape": "triangle",
+        "fill": "black"
+      },
+      {
+        "kind": "shaded_shape",
+        "shape": "circle",
         "fill": "black"
       }
     ],
