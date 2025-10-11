@@ -948,89 +948,90 @@
     "correctAnswer": 3
   },
   {
-    "id": "v6-q11-fibonacci-rotation",
-    "title": "FRÅGA 11 — Roterande progression",
-    "rule": "I varje rad är rotationen i Kolumn 3 summan av rotationerna i Kolumn 1 och Kolumn 2. Dessutom: Kolumn 1 på nästa rad har samma rotation som Kolumn 2 på föregående rad.",
-    "difficulty": 4,
+    "id": "v6-q11-fibonacci",
+    "title": "FRÅGA 11 — Sekventiell progression",
+    "rule": "I varje rad är antalet element i Kolumn 3 summan av Kolumn 1 och Kolumn 2. Dessutom: Kolumn 1 på nästa rad har samma antal element som Kolumn 2 på föregående rad.",
+    "difficulty": 3,
     "grid": [
       [
         {
-          "kind": "arrow",
-          "rotation": 45,
-          "fill": false
+          "kind": "dots",
+          "count": 1,
+          "pos": "C"
         },
         {
-          "kind": "arrow",
-          "rotation": 45,
-          "fill": false
+          "kind": "dots",
+          "count": 1,
+          "pos": "C"
         },
         {
-          "kind": "arrow",
-          "rotation": 90,
-          "fill": false
+          "kind": "dots",
+          "count": 2,
+          "pos": "C"
         }
       ],
       [
         {
-          "kind": "arrow",
-          "rotation": 45,
-          "fill": false
+          "kind": "dots",
+          "count": 1,
+          "pos": "C"
         },
         {
-          "kind": "arrow",
-          "rotation": 90,
-          "fill": false
+          "kind": "dots",
+          "count": 2,
+          "pos": "C"
         },
         {
-          "kind": "arrow",
-          "rotation": 135,
-          "fill": false
+          "kind": "dots",
+          "count": 3,
+          "pos": "C"
         }
       ],
       [
         {
-          "kind": "arrow",
-          "rotation": 90,
-          "fill": false
+          "kind": "dots",
+          "count": 2,
+          "pos": "C"
         },
         {
-          "kind": "arrow",
-          "rotation": 135,
-          "fill": false
+          "kind": "dots",
+          "count": 3,
+          "pos": "C"
         },
         null
       ]
     ],
     "options": [
       {
-        "kind": "arrow",
-        "rotation": 180,
-        "fill": false
+        "kind": "dots",
+        "count": 4,
+        "pos": "C"
       },
       {
-        "kind": "arrow",
-        "rotation": 225,
-        "fill": false
+        "kind": "dots",
+        "count": 5,
+        "pos": "C"
       },
       {
-        "kind": "arrow",
-        "rotation": 270,
-        "fill": false
+        "kind": "dots",
+        "count": 6,
+        "pos": "C"
       },
       {
-        "kind": "arrow",
-        "rotation": 135,
-        "fill": false
+        "kind": "dots",
+        "count": 3,
+        "pos": "C"
       },
       {
-        "kind": "arrow",
-        "rotation": 315,
-        "fill": false
+        "kind": "dots",
+        "count": 2,
+        "pos": "C"
       },
       {
-        "kind": "arrow",
-        "rotation": 200,
-        "fill": false
+        "kind": "dots",
+        "count": 5,
+        "pos": "C",
+        "layout": "vertical"
       }
     ],
     "correctAnswer": 1
