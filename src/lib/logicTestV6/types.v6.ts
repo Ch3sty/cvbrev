@@ -71,7 +71,7 @@ export type SubtractionInverted = {
 // Q9: Sudoku-liknande cell
 export type Sudoku = { 
   kind: 'sudoku'; 
-  shape: 'arrow'|'plus'|'moon'; 
+  shape: 'arrow'|'plus'|'circle'; 
   fill: FillType; 
   rotation?: Angle 
 };
