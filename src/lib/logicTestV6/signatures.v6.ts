@@ -65,6 +65,9 @@ export const signature = (cell: Cell): string => {
       return `shaded:${cell.shape}:${cell.fill}:${normShadedRot}`;
     }
 
+    case 'positioned_shape':
+      return `positioned_shape:${cell.shape}:${cell.pos}`;
+
     default: {
       const exhaustiveCheck: never = cell;
       return `unknown:${JSON.stringify(exhaustiveCheck)}`;
