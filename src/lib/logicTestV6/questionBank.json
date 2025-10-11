@@ -948,92 +948,92 @@
     "correctAnswer": 3
   },
   {
-    "id": "v6-q11-fibonacci",
-    "title": "FRÅGA 11 — Sekventiell progression",
-    "rule": "I varje rad är antalet element i Kolumn 3 summan av Kolumn 1 och Kolumn 2. Dessutom: Kolumn 1 på nästa rad har samma antal element som Kolumn 2 på föregående rad. Observera också att positionsmönstret ändras mellan raderna: Rad 1 = Centrum, Rad 2 = Vänster, Rad 3 = Höger.",
+    "id": "v6-q11-fibonacci-rotation",
+    "title": "FRÅGA 11 — Roterande progression",
+    "rule": "I varje rad är rotationen i Kolumn 3 summan av rotationerna i Kolumn 1 och Kolumn 2. Dessutom: Kolumn 1 på nästa rad har samma rotation som Kolumn 2 på föregående rad.",
     "difficulty": 4,
     "grid": [
       [
         {
-          "kind": "dots",
-          "count": 1,
-          "pos": "C"
+          "kind": "arrow",
+          "rotation": 45,
+          "fill": false
         },
         {
-          "kind": "dots",
-          "count": 1,
-          "pos": "C"
+          "kind": "arrow",
+          "rotation": 45,
+          "fill": false
         },
         {
-          "kind": "dots",
-          "count": 2,
-          "pos": "C"
+          "kind": "arrow",
+          "rotation": 90,
+          "fill": false
         }
       ],
       [
         {
-          "kind": "dots",
-          "count": 1,
-          "pos": "L"
+          "kind": "arrow",
+          "rotation": 45,
+          "fill": false
         },
         {
-          "kind": "dots",
-          "count": 2,
-          "pos": "L"
+          "kind": "arrow",
+          "rotation": 90,
+          "fill": false
         },
         {
-          "kind": "dots",
-          "count": 3,
-          "pos": "L"
+          "kind": "arrow",
+          "rotation": 135,
+          "fill": false
         }
       ],
       [
         {
-          "kind": "dots",
-          "count": 2,
-          "pos": "R"
+          "kind": "arrow",
+          "rotation": 90,
+          "fill": false
         },
         {
-          "kind": "dots",
-          "count": 3,
-          "pos": "R"
+          "kind": "arrow",
+          "rotation": 135,
+          "fill": false
         },
         null
       ]
     ],
     "options": [
       {
-        "kind": "dots",
-        "count": 5,
-        "pos": "C"
+        "kind": "arrow",
+        "rotation": 180,
+        "fill": false
       },
       {
-        "kind": "dots",
-        "count": 4,
-        "pos": "R"
+        "kind": "arrow",
+        "rotation": 225,
+        "fill": false
       },
       {
-        "kind": "dots",
-        "count": 5,
-        "pos": "R"
+        "kind": "arrow",
+        "rotation": 270,
+        "fill": false
       },
       {
-        "kind": "dots",
-        "count": 6,
-        "pos": "R"
+        "kind": "arrow",
+        "rotation": 135,
+        "fill": false
       },
       {
-        "kind": "dots",
-        "count": 5,
-        "pos": "L"
+        "kind": "arrow",
+        "rotation": 315,
+        "fill": false
       },
       {
-        "kind": "dots",
-        "count": 3,
-        "pos": "R"
+        "kind": "arrow",
+        "rotation": 200,
+        "fill": false
       }
     ],
-    "correctAnswer": 2
+    "correctAnswer": 1
   },
   {
     "id": "v6-q12-line-xor",
