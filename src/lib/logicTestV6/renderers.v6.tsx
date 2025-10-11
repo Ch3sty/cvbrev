@@ -251,6 +251,26 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
 
         return <g transform={translate}>{rotate(cell.rotation, shape as React.ReactElement)}</g>;
     }
+    case 'positioned_shape': {
+        let shape: React.ReactElement;
+        const size = 20; // Smaller size for positioned shapes
+
+        // Determine x position based on pos
+        const xMap = { L: 30, C: 50, R: 70 };
+        const x = xMap[cell.pos];
+        const y = 50; // Center vertically
+
+        if (cell.shape === 'circle') {
+          shape = <circle cx={x} cy={y} r={size} fill={FILL_BLACK} />;
+        } else if (cell.shape === 'square') {
+          shape = <rect x={x - size} y={y - size} width={size * 2} height={size * 2} fill={FILL_BLACK} />;
+        } else { // triangle
+          const points = `${x},${y - size} ${x + size},${y + size} ${x - size},${y + size}`;
+          shape = <polygon points={points} fill={FILL_BLACK} />;
+        }
+
+        return shape;
+    }
     default: return null;
   }
 };

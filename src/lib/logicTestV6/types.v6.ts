@@ -100,6 +100,13 @@ export type ShadedShape = {
   rotation?: Angle;
 };
 
+// Q13: Form med position inom cell
+export type PositionedShape = {
+  kind: 'positioned_shape';
+  shape: 'circle' | 'square' | 'triangle';
+  pos: 'L' | 'C' | 'R';  // Left, Center, Right
+};
+
 // --- HUVUDTYP OCH FRÅGESTruktur ---
 export type Cell =
   | Arrow
@@ -114,7 +121,8 @@ export type Cell =
   | Sudoku
   | Dots
   | ThreeVars
-  | ShadedShape;
+  | ShadedShape
+  | PositionedShape;
 
 export type Question = {
   id: string;
