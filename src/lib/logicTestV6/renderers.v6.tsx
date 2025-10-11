@@ -109,34 +109,47 @@ export const SvgCellV6: React.FC<{ cell: Cell }> = ({ cell }) => {
     }
     case 'count_areas': {
         const shapes: Record<string, React.ReactElement> = {
-            X: <path d="M 25 25 L 75 75 M 25 75 L 75 25" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
-            square: <rect x="25" y="25" width="50" height="50" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
-            triangle: <path d="M 50 20 L 80 80 L 20 80 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
-            divided_circle: <><circle cx="50" cy="50" r="25" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><Line x1={25} y1={50} x2={75} y2={50}/></>,
-            star_of_david: <><path d="M50 20 L80 75 L20 75 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><path d="M50 80 L20 25 L80 25 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
-            double_ring: <><circle cx="50" cy="50" r="25" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="50" cy="50" r="15" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
-            hourglass: <><path d="M 25 25 L 75 25 L 25 75 L 75 75 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
-            four_squares: <><rect x="25" y="25" width="50" height="50" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><Line x1={25} y1={50} x2={75} y2={50}/><Line x1={50} y1={25} x2={50} y2={75}/></>,
-            overlapping_rings: <><circle cx="40" cy="50" r="20" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="60" cy="50" r="20" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
-            three_circles: <><circle cx="35" cy="50" r="12" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="50" cy="50" r="12" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="65" cy="50" r="12" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
-            grid: <path d="M 25 25 H 75 V 75 H 25 Z M 25 50 H 75 M 50 25 V 75" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>
+            X: <path d="M 30 30 L 70 70 M 30 70 L 70 30" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
+            square: <rect x="30" y="30" width="40" height="40" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
+            triangle: <path d="M 50 25 L 75 75 L 25 75 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>,
+            divided_circle: <><circle cx="50" cy="50" r="20" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><Line x1={30} y1={50} x2={70} y2={50}/></>,
+            star_of_david: <><path d="M50 25 L75 70 L25 70 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><path d="M50 75 L25 30 L75 30 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
+            double_ring: <><circle cx="50" cy="50" r="22" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="50" cy="50" r="13" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
+            hourglass: <><path d="M 30 30 L 70 30 L 30 70 L 70 70 Z" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
+            four_squares: <><rect x="30" y="30" width="40" height="40" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><Line x1={30} y1={50} x2={70} y2={50}/><Line x1={50} y1={30} x2={50} y2={70}/></>,
+            overlapping_rings: <><circle cx="40" cy="50" r="17" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="60" cy="50" r="17" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
+            three_circles: <><circle cx="33" cy="50" r="10" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="50" cy="50" r="10" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/><circle cx="67" cy="50" r="10" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/></>,
+            grid: <path d="M 30 30 H 70 V 70 H 30 Z M 30 50 H 70 M 50 30 V 70" fill="none" stroke={STROKE_COLOR} strokeWidth={STROKE_WIDTH}/>
         };
         const dots = [];
-        if (cell.dots === 1) dots.push(<circle key="d1" cx="50" cy="50" r="8" fill={FILL_BLACK}/>);
+        if (cell.dots === 1) dots.push(<circle key="d1" cx="50" cy="50" r="6" fill={FILL_BLACK}/>);
         if (cell.dots === 2) {
           // Horisontell placering för de flesta former
           if (cell.shape === 'hourglass') {
             // Vertikal placering för timglas (övre och nedre triangel)
-            dots.push(<circle key="d1" cx="50" cy="35" r="8" fill={FILL_BLACK}/>, <circle key="d2" cx="50" cy="65" r="8" fill={FILL_BLACK}/>);
+            dots.push(<circle key="d1" cx="50" cy="40" r="5" fill={FILL_BLACK}/>, <circle key="d2" cx="50" cy="60" r="5" fill={FILL_BLACK}/>);
+          } else if (cell.shape === 'divided_circle') {
+            // Placera i övre och nedre halvcirkel
+            dots.push(<circle key="d1" cx="50" cy="40" r="5" fill={FILL_BLACK}/>, <circle key="d2" cx="50" cy="60" r="5" fill={FILL_BLACK}/>);
+          } else if (cell.shape === 'double_ring') {
+            // Mellan ringarna och i mitten
+            dots.push(<circle key="d1" cx="50" cy="50" r="4" fill={FILL_BLACK}/>, <circle key="d2" cx="50" cy="65" r="4" fill={FILL_BLACK}/>);
           } else {
-            dots.push(<circle key="d1" cx="37.5" cy="50" r="8" fill={FILL_BLACK}/>, <circle key="d2" cx="62.5" cy="50" r="8" fill={FILL_BLACK}/>);
+            dots.push(<circle key="d1" cx="40" cy="50" r="5" fill={FILL_BLACK}/>, <circle key="d2" cx="60" cy="50" r="5" fill={FILL_BLACK}/>);
           }
         }
         if (cell.dots === 3) {
-          // Horisontell rad med 3 prickar
-          dots.push(<circle key="d1" cx="35" cy="50" r="7" fill={FILL_BLACK}/>, <circle key="d2" cx="50" cy="50" r="7" fill={FILL_BLACK}/>, <circle key="d3" cx="65" cy="50" r="7" fill={FILL_BLACK}/>);
+          // För three_circles: placera i varje cirkel
+          if (cell.shape === 'three_circles') {
+            dots.push(<circle key="d1" cx="33" cy="50" r="4" fill={FILL_BLACK}/>, <circle key="d2" cx="50" cy="50" r="4" fill={FILL_BLACK}/>, <circle key="d3" cx="67" cy="50" r="4" fill={FILL_BLACK}/>);
+          } else if (cell.shape === 'overlapping_rings') {
+            // Vänster ring, överlappning, höger ring
+            dots.push(<circle key="d1" cx="35" cy="50" r="4" fill={FILL_BLACK}/>, <circle key="d2" cx="50" cy="50" r="4" fill={FILL_BLACK}/>, <circle key="d3" cx="65" cy="50" r="4" fill={FILL_BLACK}/>);
+          } else {
+            dots.push(<circle key="d1" cx="37" cy="50" r="5" fill={FILL_BLACK}/>, <circle key="d2" cx="50" cy="50" r="5" fill={FILL_BLACK}/>, <circle key="d3" cx="63" cy="50" r="5" fill={FILL_BLACK}/>);
+          }
         }
-        if (cell.dots === 4) dots.push(<circle key="d1" cx="37.5" cy="37.5" r="5" fill={FILL_BLACK}/>, <circle key="d2" cx="62.5" cy="37.5" r="5" fill={FILL_BLACK}/>, <circle key="d3" cx="37.5" cy="62.5" r="5" fill={FILL_BLACK}/>, <circle key="d4" cx="62.5" cy="62.5" r="5" fill={FILL_BLACK}/>);
+        if (cell.dots === 4) dots.push(<circle key="d1" cx="40" cy="40" r="4" fill={FILL_BLACK}/>, <circle key="d2" cx="60" cy="40" r="4" fill={FILL_BLACK}/>, <circle key="d3" cx="40" cy="60" r="4" fill={FILL_BLACK}/>, <circle key="d4" cx="60" cy="60" r="4" fill={FILL_BLACK}/>);
 
         return <>{shapes[cell.shape]}{dots}</>;
     }
