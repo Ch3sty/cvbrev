@@ -21,6 +21,7 @@ export default function ResultsPage({ params }: PageProps) {
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [session, setSession] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [expandedPassages, setExpandedPassages] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     params.then(p => setSessionId(p.sessionId));
@@ -97,8 +98,6 @@ export default function ResultsPage({ params }: PageProps) {
   };
 
   const performance = getPerformanceLevel(percentage);
-
-  const [expandedPassages, setExpandedPassages] = useState<Set<string>>(new Set());
 
   const togglePassage = (passageId: string) => {
     setExpandedPassages(prev => {
