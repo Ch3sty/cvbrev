@@ -1,0 +1,302 @@
+[
+  {
+    "id": "v1-p01-summer-employment",
+    "title": "PASSAGE 1 — Sommaranställningar",
+    "difficulty": 1,
+    "topic": "HR Policy",
+    "text": "Många företag tycker att det är förmånligt att anställa studenter över sommaren. Den ordinarie personalen vill ofta ta ut semester under denna period. Det är dessutom inte ovanligt att företag har toppar i sin arbetsbelastning under sommaren och därför behöver extra personal. Sommarjobb lockar också studenterna som kan komma tillbaka som välkvalificerade rekryter till företaget när de har avslutat sina utbildningar. Genom att se till att studenterna lär sig så mycket som möjligt om företaget uppmuntrar man deras intresse i att arbeta där som ordinarie personal. Företagen betalar studenterna utifrån en fast skala utan de vanliga rättigheterna, såsom betald semester och sjuklön. Erfarenheten visar att studenter ofta presterar lika bra som ordinarie anställda trots att de saknar tidigare arbetslivserfarenhet. Många företag har därför börjat investera i strukturerade sommarprogram där studenterna får utbildning och mentorskap. Detta ökar chansen att studenterna återvänder efter examen.",
+    "statements": [
+      {
+        "text": "Det är möjligt för studenter att utföra den ordinarie personalens arbete när de är på semester.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Studenter har samma rätt till betald semester som den ordinarie personalen när de sommarjobbar.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Studenterna måste följa företagets ordinarie rutiner för disciplin- och klagomålsärenden.",
+        "correctAnswer": "cannot_say"
+      },
+      {
+        "text": "Vissa företag har större arbetsbelastning under sommaren när studenterna är lediga och kan sommarjobba.",
+        "correctAnswer": "true"
+      }
+    ]
+  },
+  {
+    "id": "v1-p02-remote-work",
+    "title": "PASSAGE 2 — Distansarbete",
+    "difficulty": 2,
+    "topic": "HR Policy",
+    "text": "Distansarbete har blivit allt vanligare sedan pandemin, och många företag omvärderar nu sitt behov av stora kontorslokaler. Studier visar att produktiviteten inte har påverkats negativt av att anställda arbetar hemifrån, och i vissa fall har den till och med ökat. Anställda rapporterar högre arbetstillfredsställelse och bättre balans mellan arbete och privatliv. Företag kan dessutom spara betydande kostnader på kontorshyra och faciliteter. Samtidigt har vissa utmaningar uppstått kring teamkänsla och spontan kreativ interaktion. Många organisationer har därför infört hybridmodeller där anställda arbetar på kontoret två till tre dagar per vecka. Detta kräver nya typer av kontorslösningar med fokus på mötesrum och samarbetsytor snarare än fasta arbetsplatser. Vissa roller, särskilt inom kundservice och försäljning, kan dock vara svåra att utföra effektivt på distans.",
+    "statements": [
+      {
+        "text": "Distansarbete har lett till minskad produktivitet i de flesta företag.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Alla anställda föredrar att arbeta hemifrån framför att arbeta på kontoret.",
+        "correctAnswer": "cannot_say"
+      },
+      {
+        "text": "Företag kan minska kostnader genom att reducera kontorslokaler.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Hybridmodeller innebär att anställda arbetar på kontoret varje dag.",
+        "correctAnswer": "false"
+      }
+    ]
+  },
+  {
+    "id": "v1-p03-sustainability",
+    "title": "PASSAGE 3 — Hållbarhetsinitiativ",
+    "difficulty": 1,
+    "topic": "Sustainability",
+    "text": "Ett medelstort företag lanserade ett hållbarhetsinitiativ som reducerade energiförbrukningen med 25 procent under det senaste året. Detta resulterade i en årlig besparing på ungefär 50 000 kronor. Initiativet inkluderade installation av solpaneler på taket och uppgradering till LED-belysning i alla lokaler. Företaget implementerade även ett system för att stänga av datorer och annan elektrisk utrustning automatiskt efter kontorstid. Medarbetarna har fått utbildning i energibesparande åtgärder och uppmuntras att bidra med egna förslag. En medarbetarenkät visade att 85 procent av personalen är positiva till satsningen. Företaget planerar nu att utöka initiativet genom att installera laddstationer för elbilar på parkeringen. Detta förväntas attrahera miljömedvetna medarbetare och kunder. Ledningen överväger också att söka miljöcertifiering för att stärka företagets varumärke.",
+    "statements": [
+      {
+        "text": "Företaget har sparat 50 000 kronor per år genom energibesparande åtgärder.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Solpanelerna står för den största delen av energibesparingen.",
+        "correctAnswer": "cannot_say"
+      },
+      {
+        "text": "Alla anställda är positiva till hållbarhetsinitiativet.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Företaget kommer att spara 200 000 kronor under de närmaste fyra åren.",
+        "correctAnswer": "cannot_say"
+      }
+    ]
+  },
+  {
+    "id": "v1-p04-investment-strategy",
+    "title": "PASSAGE 4 — Investeringsstrategi",
+    "difficulty": 2,
+    "topic": "Finance",
+    "text": "Alternativa investeringar har blivit alltmer populära det senaste decenniet då investerare söker en fristad från volatila aktier och den oförutsägbara fastighetsmarknaden. Under denna period har alternativa investeringar som konst och frimärken presterat bättre än traditionella investeringar med ungefär 60 procent. Mycket förmögna individer har diversifierat sina portföljer för att minska risken för plötsliga förändringar i aktiekurser. Finansiella rådgivare rekommenderar ofta att högst 20 procent av en portfölj allokeras till alternativa tillgångar. Detta beror på att sådana tillgångar kan vara svåra att likvidera snabbt vid behov. Marknaden för alternativa investeringar kräver också specialiserad kunskap för att bedöma värde och äkthet. Trots högre avkastning det senaste decenniet finns ingen garanti för framtida resultat. Vissa experter varnar för att marknaden för alternativa investeringar kan vara övervärderad.",
+    "statements": [
+      {
+        "text": "Alternativa investeringar ger alltid bättre avkastning än traditionella investeringar.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Finansiella rådgivare rekommenderar att majoriteten av portföljen består av alternativa tillgångar.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Alternativa investeringar har presterat bättre än traditionella under det senaste decenniet.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Konst och frimärken kommer att fortsätta öka i värde nästa år.",
+        "correctAnswer": "cannot_say"
+      }
+    ]
+  },
+  {
+    "id": "v1-p05-digital-transformation",
+    "title": "PASSAGE 5 — Digital transformation",
+    "difficulty": 2,
+    "topic": "Technology",
+    "text": "Digitaliseringen av affärsprocesser har accelererat dramatiskt de senaste åren, särskilt inom retail- och tjänstesektorerna. Företag som har implementerat digitala lösningar rapporterar i genomsnitt 30 procent snabbare ärendehantering och 40 procent minskning av administrativa kostnader. Automatisering av rutinuppgifter frigör tid för medarbetare att fokusera på mer värdeskapande arbete. Många organisationer har dock upptäckt att teknisk implementation är den enklare delen av transformationen. Den verkliga utmaningen ligger i att få medarbetare att ändra sina arbetssätt och anamma nya system. Forskning visar att 70 procent av digitala transformationsprojekt misslyckas på grund av bristande förändringshantering snarare än tekniska problem. Framgångsrika företag investerar därför lika mycket i utbildning och kommunikation som i själva teknologin. De skapar även pilotgrupper som kan fungera som ambassadörer för förändringen.",
+    "statements": [
+      {
+        "text": "Digitalisering har lett till snabbare ärendehantering i företag som implementerat det.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Alla digitala transformationsprojekt misslyckas på grund av tekniska problem.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Medarbetarnas motstånd mot förändring är den största utmaningen i digital transformation.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Företag som inte digitaliserar kommer att gå i konkurs inom fem år.",
+        "correctAnswer": "cannot_say"
+      }
+    ]
+  },
+  {
+    "id": "v1-p06-talent-retention",
+    "title": "PASSAGE 6 — Kompetensbehållning",
+    "difficulty": 3,
+    "topic": "HR Strategy",
+    "text": "Att behålla kvalificerad personal har blivit en av de största utmaningarna för företag i kunskapsintensiva branscher. Studier visar att kostnaden för att ersätta en medarbetare kan uppgå till 150 procent av den årliga lönen när man räknar in rekrytering, utbildning och produktivitetsförlust. Traditionella åtgärder som högre lön har visat sig vara mindre effektiva än förväntat. Istället pekar forskning på att utvecklingsmöjligheter, meningsfullt arbete och bra ledarskap är avgörande faktorer. Millennials och Gen Z värdesätter särskilt flexibilitet och möjlighet till kontinuerligt lärande. Företag som erbjuder tydliga karriärvägar och regelbunden feedback har 40 procent lägre personalomsättning än genomsnittet. En nyligen genomförd undersökning visade att 65 procent av medarbetare som slutar gör det inom två år efter att de känt sig förbisedda för befordran. Exit-intervjuer avslöjar också att dåligt ledarskap är en vanligare orsak till uppsägning än låg lön.",
+    "statements": [
+      {
+        "text": "Det kostar mer att ersätta en medarbetare än deras årliga lön.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Högre lön är den mest effektiva metoden för att behålla personal.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Alla medarbetare som känner sig förbisedda för befordran slutar inom två år.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Företag med låg personalomsättning erbjuder alltid högre löner än konkurrenter.",
+        "correctAnswer": "cannot_say"
+      }
+    ]
+  },
+  {
+    "id": "v1-p07-consumer-behavior",
+    "title": "PASSAGE 7 — Konsumentbeteende",
+    "difficulty": 2,
+    "topic": "Market Analysis",
+    "text": "E-handeln fortsätter att växa, men fysiska butiker har inte blivit obsoleta som många förutspådde. Istället har konsumenternas shoppingbeteende blivit mer komplext och kanalövergripande. Forskning visar att 73 procent av konsumenter använder flera kanaler under sin köpresa. De kan researcha produkter online, testa dem i fysisk butik och sedan slutföra köpet via en mobilapp. Detta fenomen kallas \"omnichannel shopping\" och kräver att återförsäljare integrerar sina online- och offlinekanaler sömlöst. Företag som lyckas med detta rapporterar 30 procent högre kundlojalitet jämfört med de som endast fokuserar på en kanal. Fysiska butiker har därför fått en ny roll som upplevelsecenter där kunder kan interagera med produkter och varumärken. Samtidigt måste online-upplevelsen vara lika bra med snabba leveranser och enkla returer. Data visar att 40 procent av alla returer sker i fysiska butiker trots att köpet gjordes online.",
+    "statements": [
+      {
+        "text": "Majoriteten av konsumenter använder flera kanaler när de handlar.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Fysiska butiker har blivit onödiga på grund av e-handel.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Företag med omnichannel-strategi har högre kundlojalitet.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Fler än hälften av alla onlineköp returneras i fysiska butiker.",
+        "correctAnswer": "false"
+      }
+    ]
+  },
+  {
+    "id": "v1-p08-innovation-culture",
+    "title": "PASSAGE 8 — Innovationskultur",
+    "difficulty": 3,
+    "topic": "Business Strategy",
+    "text": "Att skapa en innovationskultur är en strategisk prioritet för många företag, men få lyckas implementera den effektivt. Forskning från Harvard Business School visar att endast 15 procent av företag som påstår sig ha en innovationskultur faktiskt uppfyller kriterierna. En verklig innovationskultur kräver mer än brainstorming-sessioner och innovationslabbar. Det handlar om att skapa psykologisk trygghet där medarbetare vågar ta risker utan rädsla för negativa konsekvenser. Google fann i sin Project Aristotle-studie att de mest innovativa teamen inte nödvändigtvis hade de smartaste individerna, utan de där medlemmarna kände sig trygga att dela idéer. Företag måste också acceptera misslyckanden som en naturlig del av innovationsprocessen. Amazon har institutionaliserat detta genom sin \"fail fast\"-filosofi. Ledare spelar en avgörande roll genom att själva modellera experimenterande beteende. Belöningssystem måste också justeras för att värdera lärande och risktagande, inte bara kortsiktiga resultat.",
+    "statements": [
+      {
+        "text": "Majoriteten av företag som påstår sig ha innovationskultur uppfyller faktiskt kriterierna.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Psykologisk trygghet är viktig för innovation enligt forskning.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Googles mest innovativa team bestod alltid av de smartaste individerna.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Alla företag som använder \"fail fast\"-filosofi blir framgångsrika.",
+        "correctAnswer": "cannot_say"
+      }
+    ]
+  },
+  {
+    "id": "v1-p09-supply-chain",
+    "title": "PASSAGE 9 — Leveranskedjan",
+    "difficulty": 2,
+    "topic": "Operations",
+    "text": "Globala leveranskedjor har utsatts för enorma påfrestningar de senaste åren på grund av pandemin, geopolitiska spänningar och naturkatastrofer. Företag som tidigare optimerade för kostnad och effektivitet fokuserar nu istället på resiliens och flexibilitet. Many multinationella bolag har börjat regionalisera sina leveranskedjor för att minska sårbarheten. Detta innebär att de etablerar produktion och lager närmare slutkunderna trots att det ofta är dyrare. En undersökning från McKinsey visar att 90 procent av företagsledare planerar att investera i mer diversifierade leveranskedjor under de kommande tre åren. Teknologi som AI och IoT gör det möjligt att få bättre realtidsinsynen i leveranskedjan och snabbt identifiera störningar. Vissa företag har också ökat sina säkerhetslager trots att detta binder kapital. Balansen mellan kostnadseffektivitet och riskhantering har helt enkelt förskjutits efter de senaste årens erfarenheter.",
+    "statements": [
+      {
+        "text": "Företag fokuserar mer på resiliens än på kostnadsoptimering idag.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Regionaliserade leveranskedjor är alltid billigare än globala.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "90 procent av företagsledare har redan diversifierat sina leveranskedjor.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Teknologi kan eliminera alla störningar i leveranskedjan.",
+        "correctAnswer": "cannot_say"
+      }
+    ]
+  },
+  {
+    "id": "v1-p10-workplace-wellness",
+    "title": "PASSAGE 10 — Hälsa på arbetsplatsen",
+    "difficulty": 1,
+    "topic": "HR Policy",
+    "text": "Företagens investeringar i medarbetarnas hälsa och välmående har ökat markant. Forskning visar att varje krona som investeras i hälsofrämjande åtgärder ger en avkastning på tre till sex kronor genom minskad sjukfrånvaro och högre produktivitet. Moderna hälsoprogram går längre än traditionella friskvårds bidrag och gymkort. De inkluderar mental hälsa, stresshantering, ergonomi och nutritionsrådgivning. Många företag erbjuder nu tillgång till psykologer och coaches som en del av anställningsförmånerna. En studie från Karolinska Institutet visar att arbetsplatser med omfattande hälsoprogram har 27 procent lägre sjukfrånvaro än genomsnittet. Dessutom rapporterar medarbetare högre arbetstillfredsställelse och engagemang. Företag har också börjat mäta hälsorelaterade nyckeltal lika seriöst som finansiella mått. Vissa organisationer har till och med knutit delar av ledningens bonus till förbättringar i medarbetarnas hälsa och välbefinnande.",
+    "statements": [
+      {
+        "text": "Investeringar i medarbetarnas hälsa ger positiv ekonomisk avkastning.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Alla företag erbjuder tillgång till psykologer som anställningsförmån.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Företag med hälsoprogram har lägre sjukfrånvaro än genomsnittet.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Hälsoprogram garanterar att ingen anställd blir sjuk.",
+        "correctAnswer": "cannot_say"
+      }
+    ]
+  },
+  {
+    "id": "v1-p11-data-privacy",
+    "title": "PASSAGE 11 — Dataintegritet",
+    "difficulty": 3,
+    "topic": "Legal & Compliance",
+    "text": "GDPR och andra dataskyddsregleringar har fundamentalt förändrat hur företag hanterar personuppgifter. Företag som bryter mot reglerna riskerar böter på upp till fyra procent av global årsomsättning eller 20 miljoner euro, beroende på vilket belopp som är högst. Detta har lett till massiva investeringar i compliance-system och datahanteringsrutiner. Många organisationer har anställt dataskyddsombud och etablerat dedikerade team för informationssäkerhet. Konsumenter har fått ökade rättigheter inklusive rätt att bli glömd och rätt till dataportabilitet. En undersökning visar dock att endast 40 procent av konsumenter faktiskt förstår sina rättigheter under GDPR. Företag måste nu designa sina system med \"privacy by design\"-principer från start. Detta innebär att dataskydd inte längre kan ses som en efterhandskontroll utan måste integreras i utvecklingsprocessen. Vissa företag ser detta som en konkurrensfördel och marknadsför aktivt sin starka dataskyddspolicy.",
+    "statements": [
+      {
+        "text": "GDPR-böter kan uppgå till fyra procent av ett företags globala årsomsättning.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Majoriteten av konsumenter förstår sina rättigheter under GDPR.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Alla företag ser dataskydd som en konkurrensfördel.",
+        "correctAnswer": "cannot_say"
+      },
+      {
+        "text": "Privacy by design innebär att dataskydd integreras från början i systemutveckling.",
+        "correctAnswer": "true"
+      }
+    ]
+  },
+  {
+    "id": "v1-p12-leadership-styles",
+    "title": "PASSAGE 12 — Ledarskap",
+    "difficulty": 3,
+    "topic": "Management",
+    "text": "Moderna ledarskapsmetoder har skiftat från hierarkiska, top-down-strukturer till mer kollaborativa och servant-leadership-modeller. Forskning från Center for Creative Leadership visar att ledare som fokuserar på att utveckla sina medarbetare uppnår 25 procent högre teamprestation än de med traditionella command-and-control-stilar. Dagens arbetskraft, särskilt yngre generationer, förväntar sig att ledare är autentiska, transparenta och empatiska. De vill ha ledare som coachar snarare än dikterar. Emotional intelligence har därför blivit en av de mest eftertraktade ledaregenskaperna. Daniel Golemans forskning identifierade fem komponenter av emotional intelligence: självmedvetenhet, självreglering, motivation, empati och social kompetens. Företag investerar nu betydande resurser i att utveckla dessa förmågor hos sina ledare. Samtidigt visar studier att traditionellt ledarskap fortfarande kan vara effektivt i krisituationer där snabba beslut krävs. Det verkar inte finnas en universellt bästa ledarstil utan snarare en situationsanpassad approach.",
+    "statements": [
+      {
+        "text": "Servant leadership ger högre teamprestation än command-and-control enligt forskning.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Emotional intelligence har fem komponenter enligt Daniel Goleman.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Traditionellt ledarskap är alltid sämre än moderna ledarskapsmetoder.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Alla företag använder servant-leadership-modeller idag.",
+        "correctAnswer": "cannot_say"
+      }
+    ]
+  }
+]
