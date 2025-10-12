@@ -1,11 +1,13 @@
-import { createClient } from '@/lib/supabase/server';
 import { NextRequest, NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
+import { createServerClient } from '@/lib/supabase/server';
 import { validateAnswer } from '@/lib/numericalTest/validator';
 import type { TestAnswer } from '@/lib/numericalTest/types';
 
 export async function POST(request: NextRequest) {
   try {
-    const supabase = await createClient();
+    const cookieStore = await cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
 
     const {
       data: { user },
