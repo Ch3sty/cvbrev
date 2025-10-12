@@ -3,10 +3,14 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Trophy, Clock, Target, TrendingUp, Home, RotateCcw, CheckCircle2, XCircle } from 'lucide-react';
+import { Trophy, Clock, Target, TrendingUp, Home, RotateCcw, CheckCircle2, XCircle, BookOpen, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { getScoreByDifficulty, getScoreByTopic, getAverageTimePerStatement } from '@/lib/verbalTestV1/validator.v1';
 import type { TestAnswer } from '@/lib/verbalTestV1/types.v1';
+import questionBank from '@/lib/verbalTestV1/questionBank.json';
+import type { Question } from '@/lib/verbalTestV1/types.v1';
+
+const questions = questionBank as Question[];
 
 interface PageProps {
   params: Promise<{ sessionId: string }>;
@@ -97,6 +101,26 @@ export default function ResultsPage({ params }: PageProps) {
   };
 
   const performance = getPerformanceLevel(percentage);
+
+  const [expandedPassages, setExpandedPassages] = useState<Set<string>>(new Set());
+
+  const togglePassage = (passageId: string) => {
+    setExpandedPassages(prev => {
+      const next = new Set(prev);
+      if (next.has(passageId)) {
+        next.delete(passageId);
+      } else {
+        next.add(passageId);
+      }
+      return next;
+    });
+  };
+
+  const answerTranslations = {
+    'true': 'Sant',
+    'false': 'Falskt',
+    'cannot_say': 'Kan inte avgöra'
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50 p-4 lg:p-8">
@@ -237,11 +261,126 @@ export default function ResultsPage({ params }: PageProps) {
           </div>
         </motion.div>
 
-        {/* Actions */}
+        {/* Answer Key / Facit */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
+          className="bg-white rounded-2xl border-2 border-slate-200 p-6 mb-6 shadow-lg"
+        >
+          <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <BookOpen className="w-5 h-5 text-green-600" />
+            Facit & Förklaringar
+          </h2>
+
+          <div className="space-y-3">
+            {questions.map((question, qIndex) => {
+              const isExpanded = expandedPassages.has(question.id);
+              const startIdx = qIndex * 4;
+              const questionAnswers = answers.slice(startIdx, startIdx + 4);
+              const correctCount = questionAnswers.filter((ans, idx) => ans.answer === question.statements[idx].correctAnswer).length;
+
+              return (
+                <div key={question.id} className="border border-slate-200 rounded-xl overflow-hidden">
+                  <button
+                    onClick={() => togglePassage(question.id)}
+                    className="w-full p-4 bg-slate-50 hover:bg-slate-100 transition-colors flex items-center justify-between"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="text-sm font-bold text-slate-900">
+                        Passage {qIndex + 1}
+                      </span>
+                      <span className="text-sm text-slate-600">
+                        {question.title}
+                      </span>
+                      <div className="flex items-center gap-1">
+                        {correctCount === 4 && (
+                          <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
+                            4/4 Rätt
+                          </span>
+                        )}
+                        {correctCount < 4 && (
+                          <span className="px-2 py-0.5 bg-slate-200 text-slate-700 text-xs font-semibold rounded-full">
+                            {correctCount}/4 Rätt
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    {isExpanded ? (
+                      <ChevronUp className="w-5 h-5 text-slate-600" />
+                    ) : (
+                      <ChevronDown className="w-5 h-5 text-slate-600" />
+                    )}
+                  </button>
+
+                  {isExpanded && (
+                    <div className="p-4 space-y-4">
+                      {/* Passage Text */}
+                      <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap">
+                          {question.text}
+                        </p>
+                      </div>
+
+                      {/* Statements */}
+                      <div className="space-y-3">
+                        {question.statements.map((statement, sIdx) => {
+                          const userAnswer = questionAnswers[sIdx];
+                          const isCorrect = userAnswer?.answer === statement.correctAnswer;
+
+                          return (
+                            <div
+                              key={sIdx}
+                              className={`p-4 rounded-lg border-2 ${
+                                isCorrect
+                                  ? 'bg-green-50 border-green-300'
+                                  : 'bg-red-50 border-red-300'
+                              }`}
+                            >
+                              <div className="flex items-start gap-3 mb-2">
+                                {isCorrect ? (
+                                  <CheckCircle2 className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                                ) : (
+                                  <XCircle className="w-5 h-5 text-red-600 mt-0.5 flex-shrink-0" />
+                                )}
+                                <p className="text-sm font-medium text-slate-900 flex-1">
+                                  {statement.text}
+                                </p>
+                              </div>
+
+                              <div className="ml-8 space-y-1">
+                                <p className="text-sm">
+                                  <span className="font-semibold text-slate-700">Ditt svar:</span>{' '}
+                                  <span className={isCorrect ? 'text-green-700' : 'text-red-700'}>
+                                    {answerTranslations[userAnswer?.answer as keyof typeof answerTranslations]}
+                                  </span>
+                                </p>
+                                {!isCorrect && (
+                                  <p className="text-sm">
+                                    <span className="font-semibold text-slate-700">Rätt svar:</span>{' '}
+                                    <span className="text-green-700">
+                                      {answerTranslations[statement.correctAnswer as keyof typeof answerTranslations]}
+                                    </span>
+                                  </p>
+                                )}
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </motion.div>
+
+        {/* Actions */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
           className="flex gap-4"
         >
           <Button
