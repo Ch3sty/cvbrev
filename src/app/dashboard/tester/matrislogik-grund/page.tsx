@@ -49,6 +49,11 @@ export default function MatrislogikGrundPage() {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   };
 
+  // Find best score
+  const bestScore = previousSessions.length > 0
+    ? Math.max(...previousSessions.map(s => s.score || 0))
+    : 0;
+
   return (
     <div className="max-w-4xl mx-auto p-6">
       {/* Header */}
@@ -155,29 +160,44 @@ export default function MatrislogikGrundPage() {
           </div>
 
           <div className="divide-y divide-slate-100">
-            {previousSessions.slice(0, 5).map((session) => (
-              <div key={session.id} className="p-4 hover:bg-slate-50 transition-colors">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-semibold text-slate-900">
-                      {session.score} / 15 ({Math.round((session.score / 15) * 100)}%)
-                    </p>
-                    <p className="text-sm text-slate-500">
-                      {new Date(session.completed_at).toLocaleDateString('sv-SE', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm text-slate-600">
-                      {formatTime(session.time_spent)}
-                    </p>
+            {previousSessions.slice(0, 5).map((session) => {
+              const isBest = session.score === bestScore;
+              return (
+                <div
+                  key={session.id}
+                  className={`p-4 hover:bg-slate-50 transition-colors ${
+                    isBest ? 'bg-yellow-50 border-2 border-yellow-300' : ''
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <p className="font-semibold text-slate-900">
+                          {session.score} / 15 ({Math.round((session.score / 15) * 100)}%)
+                        </p>
+                        {isBest && (
+                          <span className="text-xs font-bold text-yellow-700 bg-yellow-200 px-2 py-0.5 rounded-full">
+                            ⭐ Bäst hittills
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-sm text-slate-500">
+                        {new Date(session.completed_at).toLocaleDateString('sv-SE', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm text-slate-600">
+                        {formatTime(session.time_spent)}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </motion.div>
       )}

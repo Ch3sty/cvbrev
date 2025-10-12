@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { BookOpen, Clock, Target, Brain, ArrowRight, AlertCircle } from 'lucide-react';
+import { BookOpen, Clock, Target, Brain, ArrowRight, AlertCircle, History } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 
@@ -10,6 +10,19 @@ export default function VerbalResonemangPage() {
   const router = useRouter();
   const [isCreatingSession, setIsCreatingSession] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [previousSessions, setPreviousSessions] = useState<any[]>([]);
+
+  useEffect(() => {
+    // Fetch previous sessions
+    fetch('/api/verbalTestV1/session')
+      .then(res => res.json())
+      .then(data => {
+        if (data.sessions) {
+          setPreviousSessions(data.sessions.filter((s: any) => s.completed_at));
+        }
+      })
+      .catch(console.error);
+  }, []);
 
   const handleStartTest = async () => {
     setIsCreatingSession(true);
@@ -32,6 +45,17 @@ export default function VerbalResonemangPage() {
       setIsCreatingSession(false);
     }
   };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  // Find best score
+  const bestScore = previousSessions.length > 0
+    ? Math.max(...previousSessions.map(s => s.score || 0))
+    : 0;
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -208,6 +232,64 @@ export default function VerbalResonemangPage() {
             )}
           </Button>
         </motion.div>
+
+        {/* Previous Sessions */}
+        {previousSessions.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden"
+          >
+            <div className="p-6 border-b border-slate-200">
+              <div className="flex items-center gap-2">
+                <History className="w-5 h-5 text-slate-600" />
+                <h3 className="text-lg font-bold text-slate-900">Tidigare Resultat</h3>
+              </div>
+            </div>
+
+            <div className="divide-y divide-slate-100">
+              {previousSessions.slice(0, 5).map((session) => {
+                const isBest = session.score === bestScore;
+                return (
+                  <div
+                    key={session.id}
+                    className={`p-4 hover:bg-slate-50 transition-colors ${
+                      isBest ? 'bg-yellow-50 border-2 border-yellow-300' : ''
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <p className="font-semibold text-slate-900">
+                            {session.score} / 48 ({Math.round((session.score / 48) * 100)}%)
+                          </p>
+                          {isBest && (
+                            <span className="text-xs font-bold text-yellow-700 bg-yellow-200 px-2 py-0.5 rounded-full">
+                              ⭐ Bäst hittills
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-sm text-slate-500">
+                          {new Date(session.completed_at).toLocaleDateString('sv-SE', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm text-slate-600">
+                          {formatTime(session.time_spent)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
       </div>
     </div>
   );

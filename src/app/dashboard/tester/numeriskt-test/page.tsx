@@ -1,14 +1,27 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Calculator, Clock, BarChart3, TrendingUp, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Calculator, Clock, BarChart3, TrendingUp, ArrowRight, CheckCircle2, History } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function NumericalTestLandingPage() {
   const router = useRouter();
   const [isStarting, setIsStarting] = useState(false);
+  const [previousSessions, setPreviousSessions] = useState<any[]>([]);
+
+  useEffect(() => {
+    // Fetch previous sessions
+    fetch('/api/numericalTest/session')
+      .then(res => res.json())
+      .then(data => {
+        if (data.sessions) {
+          setPreviousSessions(data.sessions.filter((s: any) => s.completed_at));
+        }
+      })
+      .catch(console.error);
+  }, []);
 
   const handleStartTest = async () => {
     setIsStarting(true);
@@ -30,6 +43,17 @@ export default function NumericalTestLandingPage() {
       setIsStarting(false);
     }
   };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  // Find best score
+  const bestScore = previousSessions.length > 0
+    ? Math.max(...previousSessions.map(s => s.score || 0))
+    : 0;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-4 lg:p-8">
@@ -256,6 +280,64 @@ export default function NumericalTestLandingPage() {
             ← Tillbaka till tester
           </Button>
         </motion.div>
+
+        {/* Previous Sessions */}
+        {previousSessions.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden"
+          >
+            <div className="p-6 border-b border-slate-200">
+              <div className="flex items-center gap-2">
+                <History className="w-5 h-5 text-slate-600" />
+                <h3 className="text-lg font-bold text-slate-900">Tidigare Resultat</h3>
+              </div>
+            </div>
+
+            <div className="divide-y divide-slate-100">
+              {previousSessions.slice(0, 5).map((session) => {
+                const isBest = session.score === bestScore;
+                return (
+                  <div
+                    key={session.id}
+                    className={`p-4 hover:bg-slate-50 transition-colors ${
+                      isBest ? 'bg-yellow-50 border-2 border-yellow-300' : ''
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <p className="font-semibold text-slate-900">
+                            {session.score} / 20 ({Math.round((session.score / 20) * 100)}%)
+                          </p>
+                          {isBest && (
+                            <span className="text-xs font-bold text-yellow-700 bg-yellow-200 px-2 py-0.5 rounded-full">
+                              ⭐ Bäst hittills
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-sm text-slate-500">
+                          {new Date(session.completed_at).toLocaleDateString('sv-SE', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm text-slate-600">
+                          {formatTime(session.time_spent)}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
       </div>
     </div>
   );
