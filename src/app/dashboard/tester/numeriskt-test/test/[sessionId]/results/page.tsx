@@ -286,21 +286,16 @@ export default function ResultsPage({ params }: PageProps) {
                     onClick={() => togglePassage(passage.id)}
                     className="w-full p-4 bg-slate-50 hover:bg-slate-100 transition-colors flex items-center justify-between"
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 flex-wrap">
                       <span className="text-sm font-bold text-slate-900">Passage {pIndex + 1}</span>
                       <span className="text-sm text-slate-600">{passage.title}</span>
-                      <div className="flex items-center gap-1">
-                        {correctCount === passage.questions.length && (
-                          <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-semibold rounded-full">
-                            {correctCount}/{passage.questions.length} Rätt
-                          </span>
-                        )}
-                        {correctCount < passage.questions.length && (
-                          <span className="px-2 py-0.5 bg-slate-200 text-slate-700 text-xs font-semibold rounded-full">
-                            {correctCount}/{passage.questions.length} Rätt
-                          </span>
-                        )}
-                      </div>
+                      <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${
+                        correctCount === passage.questions.length
+                          ? 'bg-green-100 text-green-700'
+                          : 'bg-slate-200 text-slate-700'
+                      }`}>
+                        {correctCount}/{passage.questions.length} Rätt
+                      </span>
                     </div>
                     {isExpanded ? (
                       <ChevronUp className="w-5 h-5 text-slate-600" />
