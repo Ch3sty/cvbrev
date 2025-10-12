@@ -17,7 +17,12 @@ export default function MatrislogikAvanceradPage() {
       .then(res => res.json())
       .then(data => {
         if (data.sessions) {
-          setPreviousSessions(data.sessions.filter((s: any) => s.completed_at));
+          const completed = data.sessions.filter((s: any) => s.completed_at);
+          // Sort by completed_at descending (newest first)
+          completed.sort((a: any, b: any) =>
+            new Date(b.completed_at).getTime() - new Date(a.completed_at).getTime()
+          );
+          setPreviousSessions(completed);
         }
       })
       .catch(console.error);
