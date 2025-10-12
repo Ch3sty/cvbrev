@@ -55,7 +55,7 @@ export default function MatrislogikAvanceradPage() {
     : 0;
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -78,13 +78,15 @@ export default function MatrislogikAvanceradPage() {
         </div>
       </motion.div>
 
-      {/* Test Info Card */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="bg-white rounded-2xl shadow-xl border-2 border-orange-200 overflow-hidden mb-6"
-      >
+      {/* Main Content - Two Column Layout */}
+      <div className="grid lg:grid-cols-3 gap-6">
+        {/* Test Info Card - Takes 2 columns */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="lg:col-span-2 bg-white rounded-2xl shadow-xl border-2 border-orange-200 overflow-hidden"
+        >
         <div className="p-8">
           <h2 className="text-2xl font-bold text-slate-900 mb-4">Om testet</h2>
 
@@ -157,65 +159,62 @@ export default function MatrislogikAvanceradPage() {
             )}
           </Button>
         </div>
-      </motion.div>
+        </motion.div>
 
-      {/* Previous Sessions */}
-      {previousSessions.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden"
-        >
-          <div className="p-6 border-b border-slate-200">
-            <div className="flex items-center gap-2">
-              <History className="w-5 h-5 text-slate-600" />
-              <h3 className="text-lg font-bold text-slate-900">Tidigare Resultat</h3>
+        {/* Previous Sessions - Right Column */}
+        {previousSessions.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="lg:col-span-1 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden h-fit"
+          >
+            <div className="p-4 border-b border-slate-200 bg-slate-50">
+              <div className="flex items-center gap-2">
+                <History className="w-4 h-4 text-slate-600" />
+                <h3 className="text-sm font-bold text-slate-900">Tidigare Resultat</h3>
+              </div>
             </div>
-          </div>
 
-          <div className="divide-y divide-slate-100">
-            {previousSessions.slice(0, 5).map((session) => {
-              const isBest = session.score === bestScore;
-              return (
-                <div
-                  key={session.id}
-                  className={`p-4 hover:bg-slate-50 transition-colors ${
-                    isBest ? 'bg-yellow-50 border-2 border-yellow-300' : ''
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div>
+            <div className="divide-y divide-slate-100 max-h-[600px] overflow-y-auto">
+              {previousSessions.slice(0, 5).map((session) => {
+                const isBest = session.score === bestScore;
+                return (
+                  <div
+                    key={session.id}
+                    className={`p-3 hover:bg-slate-50 transition-colors ${
+                      isBest ? 'bg-yellow-50 border-l-4 border-yellow-400' : ''
+                    }`}
+                  >
+                    <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <p className="font-semibold text-slate-900">
-                          {session.score} / 15 ({Math.round((session.score / 15) * 100)}%)
+                        <p className="text-sm font-semibold text-slate-900">
+                          {session.score} / 15
+                        </p>
+                        <p className="text-xs text-slate-500">
+                          ({Math.round((session.score / 15) * 100)}%)
                         </p>
                         {isBest && (
-                          <span className="text-xs font-bold text-yellow-700 bg-yellow-200 px-2 py-0.5 rounded-full">
-                            ⭐ Bäst hittills
-                          </span>
+                          <span className="text-xs font-bold text-yellow-700">⭐</span>
                         )}
                       </div>
-                      <p className="text-sm text-slate-500">
+                      <p className="text-xs text-slate-500">
                         {new Date(session.completed_at).toLocaleDateString('sv-SE', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
+                          day: 'numeric',
+                          month: 'short'
                         })}
                       </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-sm text-slate-600">
+                      <p className="text-xs text-slate-600">
                         {formatTime(session.time_spent)}
                       </p>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        </motion.div>
-      )}
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 }
