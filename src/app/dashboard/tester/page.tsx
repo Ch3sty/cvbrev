@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Brain, Grid3x3, Clock, Target, ArrowRight, BookOpen, Calculator, BarChart3 } from 'lucide-react';
+import { Brain, Grid3x3, Clock, Target, ArrowRight, BookOpen, Calculator, BarChart3, Info } from 'lucide-react';
 import Link from 'next/link';
+import { useState } from 'react';
 
 export default function TesterPage() {
   return (
@@ -35,13 +36,22 @@ export default function TesterPage() {
         transition={{ delay: 0.1 }}
         className="mb-8"
       >
-        <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
           <Grid3x3 className="w-6 h-6 text-purple-600" />
           Matrislogik
         </h2>
-        <p className="text-slate-600 mb-4">
+        <p className="text-slate-600 mb-3">
           Identifiera logiska mönster och relationer i visuella matriser
         </p>
+        <div className="bg-purple-50 border-l-4 border-purple-500 p-4 mb-4 rounded-r-lg">
+          <div className="flex items-start gap-2">
+            <Info className="w-4 h-4 text-purple-700 flex-shrink-0 mt-0.5" />
+            <div className="text-sm text-slate-700">
+              <p className="font-semibold text-purple-900 mb-1">Varför detta test?</p>
+              <p>Matrislogik mäter abstrakt tänkande och problemlösningsförmåga – viktigt för roller som kräver analytiskt arbete. <span className="font-medium">Tips:</span> Sök efter mönster systematiskt (färg, form, rotation, antal) och eliminera omöjliga alternativ.</p>
+            </div>
+          </div>
+        </div>
 
         <div className="grid md:grid-cols-2 gap-4">
           {/* Matrislogik Grund */}
@@ -124,19 +134,28 @@ export default function TesterPage() {
         </div>
       </motion.div>
 
-      {/* Verbal Resonemang Section */}
+      {/* Verbalt Resonemang Section */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
           <BookOpen className="w-6 h-6 text-green-600" />
-          Verbal Resonemang
+          Verbalt Resonemang
         </h2>
-        <p className="text-slate-600 mb-4">
+        <p className="text-slate-600 mb-3">
           Förstå, analysera och dra slutsatser från textbaserad information
         </p>
+        <div className="bg-green-50 border-l-4 border-green-500 p-4 mb-4 rounded-r-lg">
+          <div className="flex items-start gap-2">
+            <Info className="w-4 h-4 text-green-700 flex-shrink-0 mt-0.5" />
+            <div className="text-sm text-slate-700">
+              <p className="font-semibold text-green-900 mb-1">Varför detta test?</p>
+              <p>Verbalt resonemang mäter din förmåga att tolka text och dra logiska slutsatser – centralt för roller med mycket dokumentation eller kommunikation. <span className="font-medium">Tips:</span> Basera dina svar endast på given information, gissa inte eller använd extern kunskap.</p>
+            </div>
+          </div>
+        </div>
 
         <div className="grid md:grid-cols-2 gap-4">
           {/* Verbal Resonemang */}
@@ -175,7 +194,7 @@ export default function TesterPage() {
             </motion.div>
           </Link>
 
-          {/* Verbal Resonemang v2 */}
+          {/* Verbalt Resonemang v2 */}
           <Link href="/dashboard/tester/verbal-resonemang-v2">
             <motion.div
               whileHover={{ scale: 1.02 }}
@@ -193,7 +212,7 @@ export default function TesterPage() {
                     <BookOpen className="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-slate-900">Samhälle & Vetenskap</h3>
+                    <h3 className="text-lg font-bold text-slate-900">Kritisk Läsning</h3>
                     <p className="text-xs text-slate-500">Nivå 1-3</p>
                   </div>
                 </div>
@@ -201,7 +220,7 @@ export default function TesterPage() {
               </div>
 
               <p className="text-sm text-slate-600 mb-4">
-                Analysera textpassager om utbildning, hälsa, klimat, samhälle, vetenskap och kultur.
+                Analysera textpassager om samhälle och vetenskap. Bedöm påståenden kritiskt och dra väl underbyggda slutsatser.
               </p>
 
               <div className="flex items-center gap-3 text-xs">
@@ -226,13 +245,22 @@ export default function TesterPage() {
         transition={{ delay: 0.3 }}
         className="mt-8"
       >
-        <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
           <Calculator className="w-6 h-6 text-blue-600" />
           Numeriskt Resonemang
         </h2>
-        <p className="text-slate-600 mb-4">
+        <p className="text-slate-600 mb-3">
           Analysera sifferdata, tolka tabeller och lösa matematiska problem
         </p>
+        <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4 rounded-r-lg">
+          <div className="flex items-start gap-2">
+            <Info className="w-4 h-4 text-blue-700 flex-shrink-0 mt-0.5" />
+            <div className="text-sm text-slate-700">
+              <p className="font-semibold text-blue-900 mb-1">Varför detta test?</p>
+              <p>Numeriskt resonemang bedömer din förmåga att arbeta med siffror, data och matematiska koncept – viktigt för analytiska roller, ekonomi och affärsanalys. <span className="font-medium">Tips:</span> Läs tabeller och grafer noggrant, dubbelkolla enheter och använd elimineringsmetoden för att spara tid.</p>
+            </div>
+          </div>
+        </div>
 
         <div className="grid md:grid-cols-2 gap-4">
           {/* Numeriskt Test */}

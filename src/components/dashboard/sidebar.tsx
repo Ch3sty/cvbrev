@@ -19,7 +19,8 @@ import {
   Trophy,
   Gift,
   Briefcase,
-  Target
+  Target,
+  Search
 } from 'lucide-react';
 export default function DashboardSidebar() {
   const pathname = usePathname();
@@ -93,7 +94,7 @@ export default function DashboardSidebar() {
     {
       path: '/dashboard/cv-analys',
       label: 'CV-Analys',
-      icon: <Brain className="w-5 h-5" />,
+      icon: <Search className="w-5 h-5" />,
       section: 'tools'
     },
     {
@@ -104,15 +105,15 @@ export default function DashboardSidebar() {
     },
     {
       path: '/dashboard/tester',
-      label: 'Tester',
-      icon: <Target className="w-5 h-5" />,
+      label: 'Träna på rekryteringstester',
+      icon: <Brain className="w-5 h-5" />,
       section: 'tools',
       highlight: true
     },
     {
       path: '/dashboard/kompetensutveckling',
       label: 'Kompetensutveckling',
-      icon: <Brain className="w-5 h-5" />,
+      icon: <GraduationCap className="w-5 h-5" />,
       section: 'tools'
     },
     {
