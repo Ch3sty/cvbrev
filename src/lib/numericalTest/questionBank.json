@@ -155,13 +155,13 @@
     "type": "series",
     "topic": "Matematiska Mönster",
     "difficulty": 2,
-    "contextText": "Nedan presenteras fyra olika talserier. Din uppgift är att identifiera mönstret i varje serie och bestämma vilket tal som kommer härnäst.",
+    "contextText": "Nedan presenteras fyra olika talserier. Din uppgift är att identifiera mönstret i varje serie och bestämma vilket tal som kommer härnäst.\n\nSerie 1: 2, 6, 12, 20, 30, ?\nSerie 2: 3, 9, 27, 81, 243, ?\nSerie 3: 1, 1, 2, 3, 5, 8, 13, ?\nSerie 4: 100, 95, 85, 70, 50, ?",
     "questions": [
       {
         "id": "num-p03-q01",
         "passageId": "num-p03-number-series",
         "questionNumber": 1,
-        "questionText": "2, 6, 12, 20, 30, ?",
+        "questionText": "Vilket tal kommer härnäst i Serie 1?",
         "options": [
           {"id": "a", "text": "38", "isCorrect": false},
           {"id": "b", "text": "40", "isCorrect": false},
@@ -169,14 +169,14 @@
           {"id": "d", "text": "44", "isCorrect": false}
         ],
         "correctAnswerId": "c",
-        "explanation": "Mönstret är n×(n+1) där n=1,2,3,4,5,6... (1×2=2, 2×3=6, 3×4=12, 4×5=20, 5×6=30, 6×7=42)",
+        "explanation": "Serie 1: 2, 6, 12, 20, 30, ? — Mönstret är n×(n+1) där n=1,2,3,4,5,6... (1×2=2, 2×3=6, 3×4=12, 4×5=20, 5×6=30, 6×7=42)",
         "difficulty": 2
       },
       {
         "id": "num-p03-q02",
         "passageId": "num-p03-number-series",
         "questionNumber": 2,
-        "questionText": "3, 9, 27, 81, 243, ?",
+        "questionText": "Vilket tal kommer härnäst i Serie 2?",
         "options": [
           {"id": "a", "text": "486", "isCorrect": false},
           {"id": "b", "text": "648", "isCorrect": false},
@@ -184,14 +184,14 @@
           {"id": "d", "text": "810", "isCorrect": false}
         ],
         "correctAnswerId": "c",
-        "explanation": "Varje tal är föregående tal × 3 (geometrisk serie med kvot 3). 243 × 3 = 729",
+        "explanation": "Serie 2: 3, 9, 27, 81, 243, ? — Varje tal är föregående tal × 3 (geometrisk serie med kvot 3). 243 × 3 = 729",
         "difficulty": 1
       },
       {
         "id": "num-p03-q03",
         "passageId": "num-p03-number-series",
         "questionNumber": 3,
-        "questionText": "1, 1, 2, 3, 5, 8, 13, ?",
+        "questionText": "Vilket tal kommer härnäst i Serie 3?",
         "options": [
           {"id": "a", "text": "18", "isCorrect": false},
           {"id": "b", "text": "19", "isCorrect": false},
@@ -199,14 +199,14 @@
           {"id": "d", "text": "23", "isCorrect": false}
         ],
         "correctAnswerId": "c",
-        "explanation": "Fibonacci-serien: varje tal är summan av de två föregående. 8 + 13 = 21",
+        "explanation": "Serie 3: 1, 1, 2, 3, 5, 8, 13, ? — Fibonacci-serien: varje tal är summan av de två föregående. 8 + 13 = 21",
         "difficulty": 2
       },
       {
         "id": "num-p03-q04",
         "passageId": "num-p03-number-series",
         "questionNumber": 4,
-        "questionText": "100, 95, 85, 70, 50, ?",
+        "questionText": "Vilket tal kommer härnäst i Serie 4?",
         "options": [
           {"id": "a", "text": "25", "isCorrect": true},
           {"id": "b", "text": "30", "isCorrect": false},
@@ -214,7 +214,7 @@
           {"id": "d", "text": "40", "isCorrect": false}
         ],
         "correctAnswerId": "a",
-        "explanation": "Differenserna ökar: -5, -10, -15, -20, nästa blir -25. Alltså 50 - 25 = 25",
+        "explanation": "Serie 4: 100, 95, 85, 70, 50, ? — Differenserna ökar: -5, -10, -15, -20, nästa blir -25. Alltså 50 - 25 = 25",
         "difficulty": 3
       }
     ]
