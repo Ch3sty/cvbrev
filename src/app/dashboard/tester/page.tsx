@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Brain, Grid3x3, Clock, Target, ArrowRight, BookOpen, Calculator } from 'lucide-react';
+import { Brain, Grid3x3, Clock, Target, ArrowRight, BookOpen, Calculator, BarChart3 } from 'lucide-react';
 import Link from 'next/link';
 
 export default function TesterPage() {
@@ -277,14 +277,47 @@ export default function TesterPage() {
             </motion.div>
           </Link>
 
-          {/* Placeholder for future numerical test */}
-          <div className="bg-slate-100 rounded-xl p-6 border-2 border-dashed border-slate-300 flex items-center justify-center">
-            <div className="text-center">
-              <Calculator className="w-8 h-8 text-slate-400 mx-auto mb-2" />
-              <p className="text-sm text-slate-500 font-medium">Fler numeriska test</p>
-              <p className="text-xs text-slate-400">Kommer snart</p>
-            </div>
-          </div>
+          {/* Numeriskt Test v2 */}
+          <Link href="/dashboard/tester/numeriskt-test-v2">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="bg-white rounded-xl p-6 border-2 border-slate-200 hover:border-purple-400 transition-all shadow-md hover:shadow-lg group cursor-pointer relative overflow-hidden"
+            >
+              <div className="absolute top-2 right-2">
+                <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs font-bold rounded-full">
+                  Ny!
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-gradient-to-br from-purple-500 to-violet-600 rounded-lg">
+                    <BarChart3 className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-900">Grafanalys</h3>
+                    <p className="text-xs text-slate-500">Nivå 2</p>
+                  </div>
+                </div>
+                <ArrowRight className="w-5 h-5 text-purple-600 group-hover:translate-x-1 transition-transform" />
+              </div>
+
+              <p className="text-sm text-slate-600 mb-4">
+                Stapel-, linje- och cirkeldiagram. Träna visuell datatolkning och trendanalys.
+              </p>
+
+              <div className="flex items-center gap-3 text-xs">
+                <span className="flex items-center gap-1 px-2 py-1 bg-purple-50 text-purple-700 rounded-md font-medium">
+                  <Target className="w-3 h-3" />
+                  20 frågor
+                </span>
+                <span className="flex items-center gap-1 px-2 py-1 bg-violet-50 text-violet-700 rounded-md font-medium">
+                  <Clock className="w-3 h-3" />
+                  ~20 min
+                </span>
+              </div>
+            </motion.div>
+          </Link>
         </div>
       </motion.div>
     </div>
