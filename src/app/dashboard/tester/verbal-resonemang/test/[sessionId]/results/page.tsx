@@ -76,6 +76,19 @@ export default function ResultsPage({ params }: PageProps) {
   const scoreByTopic = getScoreByTopic(answers);
   const avgTime = getAverageTimePerStatement(answers);
 
+  const topicTranslations: Record<string, string> = {
+    'HR Policy': 'HR & Policy',
+    'Sustainability': 'Hållbarhet',
+    'Finance': 'Finans',
+    'Technology': 'Teknologi',
+    'HR Strategy': 'HR-strategi',
+    'Market Analysis': 'Marknadsanalys',
+    'Business Strategy': 'Affärsstrategi',
+    'Operations': 'Verksamhet',
+    'Legal & Compliance': 'Juridik & Efterlevnad',
+    'Management': 'Ledarskap'
+  };
+
   const getPerformanceLevel = (percentage: number) => {
     if (percentage >= 85) return { label: 'Excellent', color: 'text-green-600', bgColor: 'bg-green-100' };
     if (percentage >= 70) return { label: 'Bra', color: 'text-blue-600', bgColor: 'bg-blue-100' };
@@ -207,10 +220,11 @@ export default function ResultsPage({ params }: PageProps) {
           <div className="grid md:grid-cols-2 gap-4">
             {Object.entries(scoreByTopic).map(([topic, data]) => {
               const pct = data.total > 0 ? Math.round((data.correct / data.total) * 100) : 0;
+              const translatedTopic = topicTranslations[topic] || topic;
 
               return (
                 <div key={topic} className="p-4 bg-slate-50 rounded-xl border border-slate-200">
-                  <p className="text-sm font-semibold text-slate-700 mb-2">{topic}</p>
+                  <p className="text-sm font-semibold text-slate-700 mb-2">{translatedTopic}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-2xl font-bold text-slate-900">{pct}%</span>
                     <span className="text-sm text-slate-600">

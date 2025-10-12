@@ -145,8 +145,8 @@ export default function VerbalResonemangPage() {
 
           <div className="bg-slate-50 rounded-xl p-4 mb-4 border border-slate-200">
             <p className="text-sm text-slate-700 leading-relaxed italic">
-              \"Företaget Tech Solutions grundades 2018 och har idag 45 anställda. De har kontor
-              i Stockholm och Göteborg.\"
+              Företaget Tech Solutions grundades 2018 och har idag 45 anställda. De har kontor
+              i Stockholm och Göteborg.
             </p>
           </div>
 
@@ -157,7 +157,7 @@ export default function VerbalResonemangPage() {
               </span>
               <div className="flex-1">
                 <p className="text-sm text-slate-700 mb-2">
-                  \"Tech Solutions har fler än 50 anställda.\"
+                  Tech Solutions har fler än 50 anställda.
                 </p>
                 <p className="text-xs font-semibold text-green-700">
                   Svar: <span className="text-red-600">Falskt</span> (Företaget har 45 anställda)
@@ -171,7 +171,7 @@ export default function VerbalResonemangPage() {
               </span>
               <div className="flex-1">
                 <p className="text-sm text-slate-700 mb-2">
-                  \"Tech Solutions planerar att öppna kontor i Malmö.\"
+                  Tech Solutions planerar att öppna kontor i Malmö.
                 </p>
                 <p className="text-xs font-semibold text-slate-700">
                   Svar: <span className="text-slate-600">Kan inte avgöra</span> (Ingen information om framtida planer)
