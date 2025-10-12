@@ -175,13 +175,47 @@ export default function TesterPage() {
             </motion.div>
           </Link>
 
-          {/* Placeholder for future test */}
-          <div className="bg-slate-50 rounded-xl p-6 border-2 border-dashed border-slate-300 flex items-center justify-center">
-            <div className="text-center">
-              <Brain className="w-8 h-8 text-slate-400 mx-auto mb-2" />
-              <p className="text-sm font-semibold text-slate-500">Fler tester kommer snart</p>
-            </div>
-          </div>
+          {/* Verbal Resonemang v2 */}
+          <Link href="/dashboard/tester/verbal-resonemang-v2">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="bg-white rounded-xl p-6 border-2 border-slate-200 hover:border-teal-400 transition-all shadow-md hover:shadow-lg group cursor-pointer relative overflow-hidden"
+            >
+              <div className="absolute top-2 right-2">
+                <span className="px-2 py-1 bg-teal-100 text-teal-700 text-xs font-bold rounded-full">
+                  Ny!
+                </span>
+              </div>
+
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg">
+                    <BookOpen className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-900">Samhälle & Vetenskap</h3>
+                    <p className="text-xs text-slate-500">Nivå 1-3</p>
+                  </div>
+                </div>
+                <ArrowRight className="w-5 h-5 text-teal-600 group-hover:translate-x-1 transition-transform" />
+              </div>
+
+              <p className="text-sm text-slate-600 mb-4">
+                Analysera textpassager om utbildning, hälsa, klimat, samhälle, vetenskap och kultur.
+              </p>
+
+              <div className="flex items-center gap-3 text-xs">
+                <span className="flex items-center gap-1 px-2 py-1 bg-teal-50 text-teal-700 rounded-md font-medium">
+                  <BookOpen className="w-3 h-3" />
+                  12 passager
+                </span>
+                <span className="flex items-center gap-1 px-2 py-1 bg-cyan-50 text-cyan-700 rounded-md font-medium">
+                  <Clock className="w-3 h-3" />
+                  ~25 min
+                </span>
+              </div>
+            </motion.div>
+          </Link>
         </div>
       </motion.div>
     </div>

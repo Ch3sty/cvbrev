@@ -1,0 +1,302 @@
+[
+  {
+    "id": "v2-p01-digital-learning",
+    "title": "PASSAGE 1 — Digitalt lärande",
+    "difficulty": 1,
+    "topic": "Utbildning",
+    "text": "Digitalt lärande har revolutionerat utbildningssektorn under de senaste åren. Studier visar att elever som använder digitala verktyg i genomsnitt presterar 15 procent bättre på standardiserade test jämfört med traditionella metoder. E-böcker, interaktiva övningar och videolektioner gör det möjligt för studenter att lära i sin egen takt. Detta är särskilt fördelaktigt för elever som behöver extra tid eller vill gå snabbare fram. Lärare kan dessutom följa elevers framsteg i realtid genom digitala plattformar. Trots fördelarna finns det utmaningar. Inte alla elever har tillgång till datorer eller stabil internetuppkoppling hemma, vilket skapar en digital klyfta. Vissa forskare varnar också för att för mycket skärmtid kan påverka koncentrationsförmågan negativt. Dessutom saknar vissa elever den sociala interaktion som traditionell undervisning erbjuder. Många skolor har därför börjat använda en hybridmodell som kombinerar digitala och fysiska inslag.",
+    "statements": [
+      {
+        "text": "Elever som använder digitala verktyg presterar bättre på test än de som inte gör det.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Alla elever har tillgång till datorer hemma.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Digitalt lärande kommer att helt ersätta traditionell undervisning inom fem år.",
+        "correctAnswer": "cannot_say"
+      },
+      {
+        "text": "Hybridmodeller kombinerar digitala och fysiska inslag i undervisningen.",
+        "correctAnswer": "true"
+      }
+    ]
+  },
+  {
+    "id": "v2-p02-mental-health",
+    "title": "PASSAGE 2 — Mental hälsa på arbetsplatsen",
+    "difficulty": 2,
+    "topic": "Hälsa & Välbefinnande",
+    "text": "Mental ohälsa kostar samhället enorma summor årligen genom sjukfrånvaro och produktivitetsförluster. Enligt Folkhälsomyndigheten har antalet sjukskrivningar för psykisk ohälsa ökat med 70 procent de senaste tio åren. Stressrelaterade symtom är särskilt vanliga inom yrken med höga krav och låg kontroll över arbetet. Arbetsgivare har börjat inse vikten av förebyggande insatser. Företag som investerar i mental hälsa ser i genomsnitt 30 procent lägre sjukfrånvaro och högre medarbetarnöjdhet. Åtgärder kan inkludera tillgång till samtalsterapi, stresshanteringskurser och flexibla arbetstider. En undersökning visade att 65 procent av medarbetare skulle känna sig mer bekväma att prata om mental ohälsa om deras chef tog upp ämnet först. Det finns dock fortfarande stigma kring psykisk ohälsa på många arbetsplatser. Vissa anställda är rädda för att deras karriär ska påverkas negativt om de söker hjälp.",
+    "statements": [
+      {
+        "text": "Sjukskrivningar för psykisk ohälsa har ökat de senaste tio åren.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Alla företag erbjuder tillgång till samtalsterapi för sina anställda.",
+        "correctAnswer": "cannot_say"
+      },
+      {
+        "text": "Företag som investerar i mental hälsa har lägre sjukfrånvaro.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Majoriteten av anställda känner sig bekväma att prata om mental ohälsa utan att chefen tar upp det först.",
+        "correctAnswer": "false"
+      }
+    ]
+  },
+  {
+    "id": "v2-p03-climate-action",
+    "title": "PASSAGE 3 — Klimatåtgärder",
+    "difficulty": 1,
+    "topic": "Miljö & Klimat",
+    "text": "Parisavtalet från 2015 satte som mål att begränsa den globala uppvärmningen till under två grader Celsius jämfört med förindustriell nivå. För att nå detta krävs kraftiga utsläppsminskningar inom alla sektorer. Transportsektorn står för ungefär 25 procent av de globala koldioxidutsläppen. Många länder satsar därför på elektrifiering av fordon och utbyggnad av kollektivtrafik. Sverige har som mål att nå nettonollutsläpp till år 2045. Detta kräver både tekniska innovationer och beteendeförändringar hos medborgare och företag. Förnybar energi som sol- och vindkraft expanderar snabbt och är nu ofta billigare än fossila bränslen i många regioner. Vissa kritiker menar dock att övergången går för långsamt och att politikerna saknar mod att fatta tillräckligt kraftfulla beslut. Klimatångest har blivit ett växande fenomen, särskilt bland unga människor som känner oro för framtiden.",
+    "statements": [
+      {
+        "text": "Parisavtalet har som mål att begränsa uppvärmningen till under två grader.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Transportsektorn står för mer än hälften av de globala utsläppen.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Sverige har redan uppnått nettonollutsläpp.",
+        "correctAnswer": "cannot_say"
+      },
+      {
+        "text": "Förnybar energi är ofta billigare än fossila bränslen idag.",
+        "correctAnswer": "true"
+      }
+    ]
+  },
+  {
+    "id": "v2-p04-urbanization",
+    "title": "PASSAGE 4 — Urbanisering",
+    "difficulty": 2,
+    "topic": "Samhälle & Demografi",
+    "text": "Över hälften av världens befolkning bor nu i städer, och andelen förväntas öka till 68 procent till år 2050 enligt FN. Urbaniseringen driver ekonomisk tillväxt och innovation genom att samla människor, resurser och kunskap på samma plats. Städer genererar över 80 procent av global BNP trots att de täcker mindre än två procent av jordens yta. Samtidigt medför snabb urbanisering stora utmaningar. Bostadsbrist, trafikstockningar och luftföroreningar är vanliga problem i växande städer. Många storstäder kämpar med segregation där olika socioekonomiska grupper lever åtskilda. Infrastrukturen hinner ofta inte med befolkningstillväxten. Hållbar stadsutveckling handlar om att bygga tätt men grönt, satsa på kollektivtrafik och skapa blandade bostadsområden. Konceptet smart city använder teknologi och data för att effektivisera stadstjänster. Singapore och Köpenhamn anses vara ledande exempel på hållbar stadsutveckling.",
+    "statements": [
+      {
+        "text": "Mer än hälften av världens befolkning bor i städer idag.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Städer täcker mer än tio procent av jordens yta.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Alla växande städer har problem med luftföroreningar.",
+        "correctAnswer": "cannot_say"
+      },
+      {
+        "text": "Singapore anses vara ett exempel på hållbar stadsutveckling.",
+        "correctAnswer": "true"
+      }
+    ]
+  },
+  {
+    "id": "v2-p05-ai-development",
+    "title": "PASSAGE 5 — Artificiell intelligens",
+    "difficulty": 2,
+    "topic": "Vetenskap & Forskning",
+    "text": "Artificiell intelligens har gjort enorma framsteg de senaste åren tack vare ökad beräkningskraft och stora datamängder. AI används nu inom allt från medicin till finanssektorn. Inom diagnostik kan AI-system identifiera vissa sjukdomar lika bra som erfarna läkare genom att analysera medicinska bilder. Självkörande bilar använder maskininlärning för att tolka omgivningen i realtid. Samtidigt väcker AI-utvecklingen etiska frågor. Algoritmer kan förstärka samhälleliga fördomar om träningsdata innehåller bias. Det pågår debatt om ansvarsfrågan när AI-system fattar felaktiga beslut. Vissa experter varnar för att AI kan leda till massarbetslöshet när automatisering ersätter mänskligt arbete. Andra menar att ny teknik historiskt alltid skapat nya arbetstyper. EU arbetar med lagstiftning för att reglera AI-användning och säkerställa transparens. Många länder investerar massivt i AI-forskning för att inte hamna efter i den globala konkurrensen.",
+    "statements": [
+      {
+        "text": "AI-system kan identifiera vissa sjukdomar lika bra som erfarna läkare.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Alla experter är överens om att AI kommer leda till massarbetslöshet.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "EU har redan implementerat fullständig lagstiftning för AI.",
+        "correctAnswer": "cannot_say"
+      },
+      {
+        "text": "Algoritmer kan förstärka samhälleliga fördomar.",
+        "correctAnswer": "true"
+      }
+    ]
+  },
+  {
+    "id": "v2-p06-streaming-culture",
+    "title": "PASSAGE 6 — Streamingens påverkan",
+    "difficulty": 1,
+    "topic": "Kultur & Medier",
+    "text": "Streamingtjänster har fundamentalt förändrat hur vi konsumerar underhållning. Netflix, Spotify och liknande plattformar har över en miljard användare globalt. Traditionell linjär TV har tappat tittare dramatiskt, särskilt bland yngre åldersgrupper. Algoritmer rekommenderar innehåll baserat på användarens tidigare val, vilket skapar personliga upplevelser. Detta har lett till fenomenet filter bubbles där människor främst exponeras för innehåll som bekräftar deras befintliga preferenser. Streamingtjänster har också demokratiserat innehållsproduktion genom att ge mindre skapare en plattform. Samtidigt har det blivit svårare för enskilda verk att sticka ut i flödet av nytt innehåll. Musikartister kritiserar ofta de låga ersättningar som Spotify betalar per stream. Bingewatching, att titta på flera avsnitt i sträck, har blivit den nya normen för hur många konsumerar tv-serier.",
+    "statements": [
+      {
+        "text": "Streamingtjänster har över en miljard användare globalt.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Traditionell TV har ökat i popularitet bland unga.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Alla musikartister är nöjda med Spotifys ersättningsmodell.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Filter bubbles kan begränsa exponering för nytt innehåll.",
+        "correctAnswer": "true"
+      }
+    ]
+  },
+  {
+    "id": "v2-p07-pedagogy",
+    "title": "PASSAGE 7 — Pedagogiska metoder",
+    "difficulty": 3,
+    "topic": "Utbildning",
+    "text": "Pedagogisk forskning visar att aktivt lärande är mer effektivt än passiv kunskapsöverföring. Metoder som problembaserat lärande och flipped classroom har vunnit mark i moderna utbildningssystem. I flipped classroom-modellen studerar elever teori hemma via videolektioner medan lektionstiden ägnas åt tillämpning och diskussion. Forskning från Stanford University visar att elever i aktiva lärmiljöer presterar 12 procent bättre än i traditionella föreläsningar. Kritiskt tänkande och problemlösning värderas högre än faktakunskap i dagens arbetsmarknad. Socioekonomisk bakgrund påverkar dock fortfarande skolresultat mer än pedagogisk metod. Elever från välutbildade hem har ofta tillgång till mer resurser och stöd utanför skolan. Lärares kompetens och entusiasm är enligt forskning den enskilt viktigaste faktorn för elevers lärande. Små klasser ger mer tid för individuell återkoppling men är kostsamt för skolsystem.",
+    "statements": [
+      {
+        "text": "Aktivt lärande är mer effektivt än passiv kunskapsöverföring enligt forskning.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Flipped classroom innebär att lektionstid ägnas åt teori och hemarbete åt tillämpning.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Socioekonomisk bakgrund påverkar inte längre skolresultat.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Alla länder har råd med små klasser i sina skolsystem.",
+        "correctAnswer": "cannot_say"
+      }
+    ]
+  },
+  {
+    "id": "v2-p08-preventive-healthcare",
+    "title": "PASSAGE 8 — Preventiv hälsovård",
+    "difficulty": 2,
+    "topic": "Hälsa & Välbefinnande",
+    "text": "Förebyggande hälsovård handlar om att förhindra sjukdomar innan de uppstår istället för att enbart behandla symptom. Studier visar att varje krona som investeras i prevention sparar tre till fyra kronor i framtida sjukvårdskostnader. Regelbundna hälsokontroller kan upptäcka riskfaktorer tidigt när de är lättare att åtgärda. Livsstilsfaktorer som kost, motion och sömnkvalitet har större påverkan på långsiktig hälsa än genetik för de flesta sjukdomar. Trots detta är endast fem procent av sjukvårdsbudgetar i genomsnitt avsatta för preventiva insatser. Dålig tillgång till preventiv vård i socioekonomiskt utsatta områden bidrar till ökade hälsoklyftor. Vissa länder har börjat subventionera gym och hälsoaktiviteter som en del av sjukförsäkringen. Digitaliseringen möjliggör personliga hälsodata genom wearables som kan varna för ohälsosamma mönster. Framtidens sjukvård förväntas bli mer proaktiv och individanpassad.",
+    "statements": [
+      {
+        "text": "Prevention sparar mer i framtida sjukvårdskostnader än det kostar.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Genetik har större påverkan på långsiktig hälsa än livsstilsfaktorer för de flesta sjukdomar.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Majoriteten av sjukvårdsbudgetar går till preventiva insatser.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Alla länder subventionerar gym som en del av sjukförsäkringen.",
+        "correctAnswer": "cannot_say"
+      }
+    ]
+  },
+  {
+    "id": "v2-p09-circular-economy",
+    "title": "PASSAGE 9 — Cirkulär ekonomi",
+    "difficulty": 3,
+    "topic": "Miljö & Klimat",
+    "text": "Cirkulär ekonomi är ett alternativ till den linjära ekonomiska modellen där produkter tillverkas, används och slängs. I en cirkulär modell designas produkter för att vara långvariga, reparerbara och återvinningsbara. Material cirkulerar i systemet istället för att bli avfall. Ellen MacArthur Foundation uppskattar att övergången till cirkulär ekonomi kan generera 4,5 biljoner dollar i ekonomiska fördelar globalt till 2030. Företag som IKEA och H&M har börjat erbjuda återköp och återvinning av sina produkter. Delningsekonomin där produkter hyrs istället för ägs är en del av denna utveckling. Kritiker menar dock att begreppet används för greenwashing av företag som i praktiken inte förändrar sina affärsmodeller fundamentalt. Lagstiftning som EU:s rätt-till-reparation-direktiv tvingar tillverkare att göra produkter mer reparerbara. Tekniska utmaningar kvarstår kring återvinning av komplexa elektronikprodukter som innehåller många olika material.",
+    "statements": [
+      {
+        "text": "Cirkulär ekonomi kan enligt uppskattningar generera biljoner dollar i ekonomiska fördelar.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Alla företag som säger sig arbeta med cirkulär ekonomi gör verkliga förändringar.",
+        "correctAnswer": "cannot_say"
+      },
+      {
+        "text": "EU har infört lagstiftning som kräver att produkter ska vara mer reparerbara.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Det finns inga tekniska utmaningar kring återvinning av elektronikprodukter.",
+        "correctAnswer": "false"
+      }
+    ]
+  },
+  {
+    "id": "v2-p10-aging-population",
+    "title": "PASSAGE 10 — Åldrande befolkning",
+    "difficulty": 2,
+    "topic": "Samhälle & Demografi",
+    "text": "Många industriländer står inför en demografisk utmaning med åldrande befolkningar. I Japan är över 28 procent av befolkningen över 65 år, och andelen förväntas öka ytterligare. Detta leder till ökade kostnader för pension och äldreomsorg samtidigt som arbetskraften minskar. Vissa länder har höjt pensionsåldern för att hantera situationen. Migration av arbetskraft från yngre länder är en lösning som debatteras. Teknologi som robotar och AI kan avlasta vårdpersonal i framtidens äldreomsorg. Samtidigt riskerar social isolering att öka bland äldre om mänsklig kontakt ersätts av teknik. Preventiv hälsovård och främjande av aktivt åldrande kan sänka vårdkostnader. Vissa forskare argumenterar för att fokus bör ligga på healthspan snarare än lifespan, alltså att öka antalet friska levnadsår snarare än bara att förlänga livet.",
+    "statements": [
+      {
+        "text": "Över en fjärdedel av Japans befolkning är över 65 år.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Alla länder har höjt pensionsåldern som svar på demografiska utmaningar.",
+        "correctAnswer": "cannot_say"
+      },
+      {
+        "text": "Teknologi kan helt eliminera behovet av mänsklig vårdpersonal.",
+        "correctAnswer": "cannot_say"
+      },
+      {
+        "text": "Vissa forskare förespråkar fokus på healthspan över lifespan.",
+        "correctAnswer": "true"
+      }
+    ]
+  },
+  {
+    "id": "v2-p11-medical-research",
+    "title": "PASSAGE 11 — Medicinsk genombrott",
+    "difficulty": 3,
+    "topic": "Vetenskap & Forskning",
+    "text": "CRISPR-Cas9 är en genterknologimetod som tillåter forskare att redigera DNA med precision. Tekniken upptäcktes 2012 och belönades med Nobelpriset i kemi 2020. Potentiella tillämpningar inkluderar botemedel för genetiska sjukdomar som sicklecellanemi och cystisk fibros. Kliniska studier pågår där patienter behandlas med CRISPR-redigerade celler. Tekniken väcker också etiska frågor, särskilt kring modifiering av människoembryos. Det finns farhågor om att genredigering kan leda till designade bebisar där föräldrar väljer önskade egenskaper. De flesta länder har förbud mot germline editing som påverkar kommande generationer. Kina har varit mer tillåtande vilket ledde till kontroverser 2018 när en forskare påstod sig ha skapat världens första genmodifierade bebisar. Vetenskapssamhället var enigt kritiskt. Tekniken har också tillämpningar inom jordbruk för att skapa resistenta grödor.",
+    "statements": [
+      {
+        "text": "CRISPR-Cas9 belönades med Nobelpriset i kemi.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Alla länder tillåter germline editing.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Vetenskapssamhället var positivt till de kinesiska genmodifierade bebisarna 2018.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "CRISPR kan användas för att skapa botemedel för alla genetiska sjukdomar.",
+        "correctAnswer": "cannot_say"
+      }
+    ]
+  },
+  {
+    "id": "v2-p12-social-media",
+    "title": "PASSAGE 12 — Sociala mediers påverkan",
+    "difficulty": 2,
+    "topic": "Kultur & Medier",
+    "text": "Sociala medier har blivit en central del av många människors vardag med över fyra miljarder användare världen över. Plattformarna möjliggör kontakt med vänner och familj oavsett geografiska avstånd. Samtidigt har forskning kopplat överdriven användning till ökad ångest och depression, särskilt bland tonåringar. Algoritmer designade för att maximera engagemang tenderar att främja kontroversiellt och känsloladdat innehåll. Spridning av desinformation och fake news är ett växande problem som påverkar demokratiska processer. Vissa länder har infört lagstiftning som tvingar plattformar att ta ansvar för innehåll. Sociala medier har också demokratiserat opinionsbildning och gett marginaliserade grupper en röst. Rörelser som MeToo och Black Lives Matter spreds globalt via dessa plattformar. Företag använder sociala medier för marknadsföring och kundkontakt. Influencer-yrket har vuxit fram där individer tjänar pengar på sitt innehåll och räckvidd.",
+    "statements": [
+      {
+        "text": "Sociala medier har över fyra miljarder användare globalt.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "All användning av sociala medier leder till ångest och depression.",
+        "correctAnswer": "false"
+      },
+      {
+        "text": "Algoritmer på sociala medier tenderar att främja kontroversiellt innehåll.",
+        "correctAnswer": "true"
+      },
+      {
+        "text": "Alla länder har infört lagstiftning mot desinformation på sociala medier.",
+        "correctAnswer": "cannot_say"
+      }
+    ]
+  }
+]
