@@ -32,7 +32,11 @@ function BarChart({ data }: { data: GraphData }) {
   return (
     <div className="bg-white p-6 rounded-xl border-2 border-slate-200">
       <h3 className="text-center font-bold text-slate-900 mb-4">{data.title}</h3>
-      <svg width={chartWidth} height={chartHeight + 80} className="mx-auto">
+      <svg
+        viewBox={`0 0 ${chartWidth} ${chartHeight + 80}`}
+        className="w-full h-auto max-w-full mx-auto"
+        preserveAspectRatio="xMidYMid meet"
+      >
         {/* Bars */}
         {values.map((value, i) => {
           const barHeight = (value / maxValue) * chartHeight;
@@ -113,7 +117,11 @@ function LineChart({ data }: { data: GraphData }) {
   return (
     <div className="bg-white p-6 rounded-xl border-2 border-slate-200">
       <h3 className="text-center font-bold text-slate-900 mb-4">{data.title}</h3>
-      <svg width={chartWidth} height={chartHeight + 80} className="mx-auto">
+      <svg
+        viewBox={`0 0 ${chartWidth} ${chartHeight + 80}`}
+        className="w-full h-auto max-w-full mx-auto"
+        preserveAspectRatio="xMidYMid meet"
+      >
         {datasets.map((dataset, datasetIndex) => {
           const points = dataset.data.map((value, i) => {
             const x = padding + (i * (chartWidth - 2 * padding)) / (labels.length - 1);
@@ -205,8 +213,12 @@ function PieChart({ data }: { data: GraphData }) {
   return (
     <div className="bg-white p-6 rounded-xl border-2 border-slate-200">
       <h3 className="text-center font-bold text-slate-900 mb-4">{data.title}</h3>
-      <div className="flex items-center justify-center gap-8">
-        <svg width="300" height="300">
+      <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+        <svg
+          viewBox="0 0 300 300"
+          className="w-full max-w-[300px] h-auto"
+          preserveAspectRatio="xMidYMid meet"
+        >
           {values.map((value, i) => {
             const percentage = (value / total) * 100;
             const angle = (percentage / 100) * 360;
