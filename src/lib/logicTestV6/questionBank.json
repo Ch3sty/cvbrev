@@ -1321,105 +1321,115 @@
     "correctAnswer": 5
   },
   {
-    "id": "v6-q15-three-variables",
-    "title": "FRÅGA 15 — Tre variabler: Form, Rotation & Position",
-    "rule": "Raden bestämmer formen (pil, T-kors, L-form). Kolumnen bestämmer rotationen (0°, 90°, 180°). Dessutom flyttar sig hela formen ett steg diagonalt (neråt höger) för varje cell.",
+    "id": "v6-q15-xor-lines-advanced",
+    "title": "FRÅGA 15 — XOR av linjer (avancerad)",
+    "rule": "I varje rad, när Kolumn 1 och 2 läggs ovanpå varandra, försvinner de linjer som är gemensamma (XOR). Resultatet visas i Kolumn 3.",
     "difficulty": 3,
     "grid": [
       [
         {
-          "kind": "three_vars",
-          "shape": "arrow",
-          "rotation": 0,
-          "pos": "TL"
+          "kind": "lines",
+          "lines": [
+            "frame",
+            "vert"
+          ]
         },
         {
-          "kind": "three_vars",
-          "shape": "arrow",
-          "rotation": 90,
-          "pos": "C"
+          "kind": "lines",
+          "lines": [
+            "vert",
+            "horiz"
+          ]
         },
         {
-          "kind": "three_vars",
-          "shape": "arrow",
-          "rotation": 180,
-          "pos": "BR"
+          "kind": "lines",
+          "lines": [
+            "frame",
+            "horiz"
+          ]
         }
       ],
       [
         {
-          "kind": "three_vars",
-          "shape": "T",
-          "rotation": 0,
-          "pos": "TL"
+          "kind": "lines",
+          "lines": [
+            "diag_down",
+            "diag_up"
+          ]
         },
         {
-          "kind": "three_vars",
-          "shape": "T",
-          "rotation": 90,
-          "pos": "C"
+          "kind": "lines",
+          "lines": [
+            "diag_up",
+            "frame"
+          ]
         },
         {
-          "kind": "three_vars",
-          "shape": "T",
-          "rotation": 180,
-          "pos": "BR"
+          "kind": "lines",
+          "lines": [
+            "diag_down",
+            "frame"
+          ]
         }
       ],
       [
         {
-          "kind": "three_vars",
-          "shape": "L",
-          "rotation": 0,
-          "pos": "TL"
+          "kind": "lines",
+          "lines": [
+            "cross",
+            "diag_down"
+          ]
         },
         {
-          "kind": "three_vars",
-          "shape": "L",
-          "rotation": 90,
-          "pos": "C"
+          "kind": "lines",
+          "lines": [
+            "horiz",
+            "diag_down"
+          ]
         },
         null
       ]
     ],
     "options": [
       {
-        "kind": "three_vars",
-        "shape": "L",
-        "rotation": 90,
-        "pos": "C"
+        "kind": "lines",
+        "lines": [
+          "vert"
+        ]
       },
       {
-        "kind": "three_vars",
-        "shape": "L",
-        "rotation": 180,
-        "pos": "BR"
+        "kind": "lines",
+        "lines": [
+          "horiz"
+        ]
       },
       {
-        "kind": "three_vars",
-        "shape": "L",
-        "rotation": 180,
-        "pos": "C"
+        "kind": "lines",
+        "lines": [
+          "cross"
+        ]
       },
       {
-        "kind": "three_vars",
-        "shape": "T",
-        "rotation": 180,
-        "pos": "BR"
+        "kind": "lines",
+        "lines": [
+          "diag_down"
+        ]
       },
       {
-        "kind": "three_vars",
-        "shape": "L",
-        "rotation": 270,
-        "pos": "BR"
+        "kind": "lines",
+        "lines": [
+          "frame",
+          "vert"
+        ]
       },
       {
-        "kind": "three_vars",
-        "shape": "arrow",
-        "rotation": 180,
-        "pos": "BR"
+        "kind": "lines",
+        "lines": [
+          "diag_down",
+          "diag_up"
+        ]
       }
     ],
-    "correctAnswer": 1
+    "correctAnswer": 0
   }
 ]
