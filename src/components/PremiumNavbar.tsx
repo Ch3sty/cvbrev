@@ -95,7 +95,7 @@ export default function PremiumNavbar() {
       items: [
         {
           name: 'Skapa personligt brev',
-          href: '/create-letter',
+          href: '/dashboard/skapa-brev',
           icon: Edit3,
           description: 'AI-genererade personliga brev',
           gradient: 'from-blue-500 to-cyan-500',
@@ -111,7 +111,7 @@ export default function PremiumNavbar() {
         },
         {
           name: 'CV-Mallar',
-          href: '/cv-mallar',
+          href: '/dashboard/cv-mallar',
           icon: Palette,
           description: 'Professionella CV-mallar',
           gradient: 'from-green-500 to-teal-500',
@@ -119,7 +119,7 @@ export default function PremiumNavbar() {
         },
         {
           name: 'CV-Analys',
-          href: '/analysera-cv',
+          href: '/dashboard/cv-analys',
           icon: SearchCheck,
           description: 'Få feedback på ditt CV',
           gradient: 'from-orange-500 to-red-500',
@@ -127,7 +127,7 @@ export default function PremiumNavbar() {
         },
         {
           name: 'Kompetensutveckling',
-          href: '/kompetensutveckling',
+          href: '/dashboard/kompetensutveckling',
           icon: GraduationCap,
           description: 'Utveckla dina färdigheter',
           gradient: 'from-indigo-500 to-purple-500',
@@ -304,14 +304,15 @@ export default function PremiumNavbar() {
               <>
                 {sessionUser ? (
                   <div className="flex items-center gap-3">
-                    <button
+                    <Link
+                      href="/dashboard/profil"
                       className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 rounded-lg transition-all duration-300"
                     >
                       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center text-white font-semibold">
                         {sessionUser.email?.charAt(0).toUpperCase() ?? '?'}
                       </div>
                       <span className="hidden xl:inline text-gray-700">{sessionUser.email}</span>
-                    </button>
+                    </Link>
                     <button
                       onClick={handleSignOut}
                       className="px-4 py-2 text-sm font-medium text-red-500 hover:text-red-600 hover:bg-red-50/80 rounded-lg transition-all duration-300"
@@ -440,7 +441,11 @@ export default function PremiumNavbar() {
                     <>
                       {sessionUser ? (
                         <div className="space-y-3">
-                          <div className="flex items-center gap-3 px-4">
+                          <Link
+                            href="/dashboard/profil"
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100/80 rounded-lg transition-all"
+                          >
                             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center text-white font-semibold">
                               {sessionUser.email?.charAt(0).toUpperCase() ?? '?'}
                             </div>
@@ -448,8 +453,9 @@ export default function PremiumNavbar() {
                               <div className="text-sm font-medium text-gray-700 truncate">
                                 {sessionUser.email}
                               </div>
+                              <div className="text-xs text-gray-500">Visa profil</div>
                             </div>
-                          </div>
+                          </Link>
                           <button
                             onClick={() => {
                               handleSignOut()

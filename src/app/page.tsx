@@ -7,6 +7,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import {
@@ -29,6 +30,7 @@ import InteractiveSteps from '@/components/InteractiveSteps'
 import PersonalizedUserJourney from '@/components/PersonalizedUserJourney'
 import EnhancedFinalCTA from '@/components/EnhancedFinalCTA'
 import PremiumNavbar from '@/components/PremiumNavbar'
+import { getSupabaseClient } from '@/lib/supabase/client-manager'
 
 // Swiper components
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -41,6 +43,7 @@ import 'swiper/css/pagination'
 import 'swiper/css/effect-fade'
 
 export default function HomePage() {
+  const router = useRouter()
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
@@ -53,6 +56,20 @@ export default function HomePage() {
   const { scrollY } = useScroll()
   const backgroundY = useTransform(scrollY, [0, 500], [0, 150])
   const backgroundOpacity = useTransform(scrollY, [0, 300], [1, 0.3])
+
+  // Redirect logged-in users to dashboard
+  useEffect(() => {
+    const checkAuth = async () => {
+      const supabase = getSupabaseClient()
+      const { data: { user } } = await supabase.auth.getUser()
+
+      if (user) {
+        router.push('/dashboard')
+      }
+    }
+
+    checkAuth()
+  }, [router])
 
   // Track mouse for gradient effect
   useEffect(() => {
