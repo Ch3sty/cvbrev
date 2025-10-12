@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 export default function TesterPage() {
+  const [hoveredTooltip, setHoveredTooltip] = useState<string | null>(null);
+
   return (
     <div className="max-w-6xl mx-auto p-6">
       {/* Header */}
@@ -40,16 +42,31 @@ export default function TesterPage() {
           <Grid3x3 className="w-6 h-6 text-purple-600" />
           Matrislogik
         </h2>
-        <p className="text-slate-600 mb-3">
-          Identifiera logiska mönster och relationer i visuella matriser
-        </p>
-        <div className="bg-purple-50 border-l-4 border-purple-500 p-4 mb-4 rounded-r-lg">
-          <div className="flex items-start gap-2">
-            <Info className="w-4 h-4 text-purple-700 flex-shrink-0 mt-0.5" />
-            <div className="text-sm text-slate-700">
-              <p className="font-semibold text-purple-900 mb-1">Varför detta test?</p>
-              <p>Matrislogik mäter abstrakt tänkande och problemlösningsförmåga – viktigt för roller som kräver analytiskt arbete. <span className="font-medium">Tips:</span> Sök efter mönster systematiskt (färg, form, rotation, antal) och eliminera omöjliga alternativ.</p>
-            </div>
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-slate-600">
+            Identifiera logiska mönster och relationer i visuella matriser
+          </p>
+          <div className="relative">
+            <button
+              onMouseEnter={() => setHoveredTooltip('matrislogik')}
+              onMouseLeave={() => setHoveredTooltip(null)}
+              onClick={() => setHoveredTooltip(hoveredTooltip === 'matrislogik' ? null : 'matrislogik')}
+              className="p-2 hover:bg-purple-100 rounded-full transition-colors"
+            >
+              <Info className="w-5 h-5 text-purple-600" />
+            </button>
+            {hoveredTooltip === 'matrislogik' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="absolute right-0 top-full mt-2 w-80 bg-purple-50 border-2 border-purple-500 p-4 rounded-lg shadow-lg z-10"
+              >
+                <div className="text-sm text-slate-700">
+                  <p className="font-semibold text-purple-900 mb-1">Varför detta test?</p>
+                  <p>Matrislogik mäter abstrakt tänkande och problemlösningsförmåga – viktigt för roller som kräver analytiskt arbete. <span className="font-medium">Tips:</span> Sök efter mönster systematiskt (färg, form, rotation, antal) och eliminera omöjliga alternativ.</p>
+                </div>
+              </motion.div>
+            )}
           </div>
         </div>
 
@@ -144,16 +161,31 @@ export default function TesterPage() {
           <BookOpen className="w-6 h-6 text-green-600" />
           Verbalt Resonemang
         </h2>
-        <p className="text-slate-600 mb-3">
-          Förstå, analysera och dra slutsatser från textbaserad information
-        </p>
-        <div className="bg-green-50 border-l-4 border-green-500 p-4 mb-4 rounded-r-lg">
-          <div className="flex items-start gap-2">
-            <Info className="w-4 h-4 text-green-700 flex-shrink-0 mt-0.5" />
-            <div className="text-sm text-slate-700">
-              <p className="font-semibold text-green-900 mb-1">Varför detta test?</p>
-              <p>Verbalt resonemang mäter din förmåga att tolka text och dra logiska slutsatser – centralt för roller med mycket dokumentation eller kommunikation. <span className="font-medium">Tips:</span> Basera dina svar endast på given information, gissa inte eller använd extern kunskap.</p>
-            </div>
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-slate-600">
+            Förstå, analysera och dra slutsatser från textbaserad information
+          </p>
+          <div className="relative">
+            <button
+              onMouseEnter={() => setHoveredTooltip('verbal')}
+              onMouseLeave={() => setHoveredTooltip(null)}
+              onClick={() => setHoveredTooltip(hoveredTooltip === 'verbal' ? null : 'verbal')}
+              className="p-2 hover:bg-green-100 rounded-full transition-colors"
+            >
+              <Info className="w-5 h-5 text-green-600" />
+            </button>
+            {hoveredTooltip === 'verbal' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="absolute right-0 top-full mt-2 w-80 bg-green-50 border-2 border-green-500 p-4 rounded-lg shadow-lg z-10"
+              >
+                <div className="text-sm text-slate-700">
+                  <p className="font-semibold text-green-900 mb-1">Varför detta test?</p>
+                  <p>Verbalt resonemang mäter din förmåga att tolka text och dra logiska slutsatser – centralt för roller med mycket dokumentation eller kommunikation. <span className="font-medium">Tips:</span> Basera dina svar endast på given information, gissa inte eller använd extern kunskap.</p>
+                </div>
+              </motion.div>
+            )}
           </div>
         </div>
 
@@ -249,16 +281,31 @@ export default function TesterPage() {
           <Calculator className="w-6 h-6 text-blue-600" />
           Numeriskt Resonemang
         </h2>
-        <p className="text-slate-600 mb-3">
-          Analysera sifferdata, tolka tabeller och lösa matematiska problem
-        </p>
-        <div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4 rounded-r-lg">
-          <div className="flex items-start gap-2">
-            <Info className="w-4 h-4 text-blue-700 flex-shrink-0 mt-0.5" />
-            <div className="text-sm text-slate-700">
-              <p className="font-semibold text-blue-900 mb-1">Varför detta test?</p>
-              <p>Numeriskt resonemang bedömer din förmåga att arbeta med siffror, data och matematiska koncept – viktigt för analytiska roller, ekonomi och affärsanalys. <span className="font-medium">Tips:</span> Läs tabeller och grafer noggrant, dubbelkolla enheter och använd elimineringsmetoden för att spara tid.</p>
-            </div>
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-slate-600">
+            Analysera sifferdata, tolka tabeller och lösa matematiska problem
+          </p>
+          <div className="relative">
+            <button
+              onMouseEnter={() => setHoveredTooltip('numerical')}
+              onMouseLeave={() => setHoveredTooltip(null)}
+              onClick={() => setHoveredTooltip(hoveredTooltip === 'numerical' ? null : 'numerical')}
+              className="p-2 hover:bg-blue-100 rounded-full transition-colors"
+            >
+              <Info className="w-5 h-5 text-blue-600" />
+            </button>
+            {hoveredTooltip === 'numerical' && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="absolute right-0 top-full mt-2 w-80 bg-blue-50 border-2 border-blue-500 p-4 rounded-lg shadow-lg z-10"
+              >
+                <div className="text-sm text-slate-700">
+                  <p className="font-semibold text-blue-900 mb-1">Varför detta test?</p>
+                  <p>Numeriskt resonemang bedömer din förmåga att arbeta med siffror, data och matematiska koncept – viktigt för analytiska roller, ekonomi och affärsanalys. <span className="font-medium">Tips:</span> Läs tabeller och grafer noggrant, dubbelkolla enheter och använd elimineringsmetoden för att spara tid.</p>
+                </div>
+              </motion.div>
+            )}
           </div>
         </div>
 

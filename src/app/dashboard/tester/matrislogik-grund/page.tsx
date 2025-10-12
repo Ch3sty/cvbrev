@@ -56,7 +56,7 @@ export default function MatrislogikGrundPage() {
 
   // Find best score
   const bestScore = previousSessions.length > 0
-    ? Math.max(...previousSessions.map(s => s.score || 0))
+    ? Math.max(...previousSessions.map(s => (s.score !== null && s.score !== undefined) ? s.score : 0))
     : 0;
 
   return (
@@ -168,7 +168,7 @@ export default function MatrislogikGrundPage() {
 
             <div className="divide-y divide-slate-100 max-h-[600px] overflow-y-auto">
               {previousSessions.slice(0, 5).map((session) => {
-                const isBest = session.score === bestScore;
+                const isBest = bestScore > 0 && session.score === bestScore;
                 return (
                   <div
                     key={session.id}
