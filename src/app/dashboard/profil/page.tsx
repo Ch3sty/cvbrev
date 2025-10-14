@@ -44,7 +44,12 @@ export default function ProfilPage() {
   });
 
   // Tonalitetsalternativ
-  const tonalityOptions = [
+  const tonalityOptions: Array<{
+    value: 'professional' | 'creative' | 'enthusiastic' | 'confident' | 'balanced' | 'auto';
+    label: string;
+    icon: React.ReactNode;
+    description: string;
+  }> = [
     { value: 'professional', label: 'Professionell', icon: <Building2 className="w-5 h-5" />, description: 'Formell och saklig ton för företagskommunikation.' },
     { value: 'creative', label: 'Kreativ', icon: <Lightbulb className="w-5 h-5" />, description: 'Personlig och innovativ ton för kreativa branscher.' },
     { value: 'confident', label: 'Självsäker', icon: <Trophy className="w-5 h-5" />, description: 'Bestämd och självförtroende ton för ledarskapsroller.' },
