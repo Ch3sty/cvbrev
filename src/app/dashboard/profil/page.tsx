@@ -40,7 +40,7 @@ export default function ProfilPage() {
     phone: '',
     linkedin_url: '',
     profile_photo_url: '',
-    preferred_tonality: 'professional'
+    preferred_tonality: 'professional' as 'professional' | 'creative' | 'enthusiastic' | 'confident' | 'balanced' | 'auto'
   });
 
   // Tonalitetsalternativ
@@ -60,7 +60,7 @@ export default function ProfilPage() {
         phone: profile.phone || '',
         linkedin_url: profile.linkedin_url || '',
         profile_photo_url: profile.profile_photo_url || '',
-        preferred_tonality: profile.preferred_tonality || 'professional'
+        preferred_tonality: (profile.preferred_tonality || 'professional') as 'professional' | 'creative' | 'enthusiastic' | 'confident' | 'balanced' | 'auto'
       });
     }
   }, [profile]);
@@ -70,7 +70,7 @@ export default function ProfilPage() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleTonalitySelect = (tonality: string) => {
+  const handleTonalitySelect = (tonality: 'professional' | 'creative' | 'enthusiastic' | 'confident' | 'balanced' | 'auto') => {
     setFormData(prev => ({ ...prev, preferred_tonality: tonality }));
   };
 
