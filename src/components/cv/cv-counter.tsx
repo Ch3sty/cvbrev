@@ -69,38 +69,38 @@ const CVCounter: React.FC<CVCounterProps> = ({ current, max }) => {
     : `${max - current} ${max - current === 1 ? 'plats' : 'platser'}`; // Text med antal annars
 
   return (
-    <div className="bg-navy-900 rounded-lg p-4 border border-gray-700/50"> {/* Anpassade klasser */}
-      <div className="flex items-center justify-between mb-3 text-sm"> {/* Anpassade klasser */}
-        <div className="flex items-center text-gray-300">
-          <FileText className="w-4 h-4 mr-2 text-pink-500" /> {/* Anpassade klasser */}
+    <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-xl p-4 border border-gray-200">
+      <div className="flex items-center justify-between mb-3 text-sm">
+        <div className="flex items-center text-gray-700 font-medium">
+          <FileText className="w-4 h-4 mr-2 text-pink-600" />
           CV-utrymme
         </div>
-        <div className="flex items-center text-xs text-gray-400"> {/* Anpassade klasser */}
+        <div className="flex items-center text-xs text-gray-600">
           {statusInfo.icon}
           <span className="ml-1">{statusInfo.message}</span>
         </div>
       </div>
 
       {/* Snygg räknardisplay */}
-      <div className="flex items-center justify-center bg-navy-950 rounded-xl p-3 mb-3"> {/* Anpassade klasser */}
+      <div className="flex items-center justify-center bg-white rounded-xl p-3 mb-3 border border-gray-200">
         {/* Cirkel */}
-        <div className="relative flex items-center justify-center w-12 h-12 rounded-full bg-navy-800 shadow-inner"> {/* Anpassade klasser */}
+        <div className="relative flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 shadow-inner">
            <svg className="w-full h-full" viewBox="0 0 36 36">
-             <circle cx="18" cy="18" r="16" fill="none" stroke="#475569" strokeWidth="2"/> {/* Anpassad stroke */}
+             <circle cx="18" cy="18" r="16" fill="none" stroke="#e5e7eb" strokeWidth="2"/>
               {!isInfinite && ( // Rita bara progress-cirkeln om max inte är oändligt
                 <circle cx="18" cy="18" r="16" fill="none" stroke="url(#cv-counter-pink-gradient)" strokeWidth="2.5" strokeDasharray={`${percentage}, 100`} strokeLinecap="round" style={{ transformOrigin: 'center', transform: 'rotate(-90deg)' }}/>
               )}
              <defs> <linearGradient id="cv-counter-pink-gradient" x1="0%" y1="0%" x2="100%" y2="0%"> <stop offset="0%" stopColor="#ec4899" /> <stop offset="100%" stopColor="#db2777" /> </linearGradient> </defs>
            </svg>
            <div className="absolute inset-0 flex items-center justify-center">
-             <span className="text-lg font-bold text-white">{current}</span> {/* Anpassad storlek */}
+             <span className="text-lg font-bold text-gray-900">{current}</span>
            </div>
         </div>
          {/* Text bredvid cirkeln */}
          <div className="ml-4 text-center">
-           <p className="text-xs text-gray-400 uppercase tracking-wider">Uppladdade CV</p> {/* Anpassad stil */}
-           <p className="text-lg font-bold text-white flex items-center justify-center gap-1"> {/* Anpassad storlek */}
-             {current} <span className="text-pink-500 text-sm">av</span> {maxDisplayValue} {/* Använder den uppdaterade variabeln */}
+           <p className="text-xs text-gray-500 uppercase tracking-wider">Uppladdade CV</p>
+           <p className="text-lg font-bold text-gray-900 flex items-center justify-center gap-1">
+             {current} <span className="text-pink-600 text-sm">av</span> {maxDisplayValue}
            </p>
          </div>
       </div>
@@ -108,20 +108,20 @@ const CVCounter: React.FC<CVCounterProps> = ({ current, max }) => {
        {/* Progressbar (visas endast om inte oändligt) */}
        {!isInfinite && (
          <>
-          <div className="h-1.5 bg-navy-700 rounded-full overflow-hidden mb-1"> {/* Anpassad höjd/färg */}
+          <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden mb-1">
              <div
-               className={`h-full ${getColorClass()} transition-all duration-500 ease-out`} // Använder getColorClass för färg
+               className={`h-full bg-gradient-to-r ${getColorClass()} transition-all duration-500 ease-out`}
                style={{ width: `${percentage}%` }}
              />
            </div>
-           <div className="flex justify-end text-xs text-gray-400"> {/* Flyttad text under bar */}
+           <div className="flex justify-end text-xs text-gray-600">
              <span>{remainingDisplayValue} lediga</span>
            </div>
          </>
        )}
        {/* Visa text om oändligt */}
        {isInfinite && (
-           <div className="text-center text-xs text-gray-400 mt-1">
+           <div className="text-center text-xs text-gray-600 mt-1">
                 {remainingDisplayValue} platser lediga
            </div>
        )}
