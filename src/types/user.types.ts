@@ -7,7 +7,7 @@ export interface Profile {
   profile_photo_url?: string; // Profile photo URL
   profile_photo_path?: string; // Profile photo storage path
   profile_photo_uploaded_at?: string; // Profile photo upload timestamp
-  preferred_tonality?: 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced';
+  preferred_tonality?: 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced' | 'auto';
   cv_path?: string;
   subscription_tier?: 'free' | 'premium'; // Nytt fält för användartyp
   weekly_letter_count?: number; // Nytt fält för veckogränsräknare
@@ -43,7 +43,7 @@ export interface ProfileUpdateParams {
   profile_photo_url?: string; // Profile photo URL
   profile_photo_path?: string; // Profile photo storage path
   profile_photo_uploaded_at?: string; // Profile photo upload timestamp
-  preferred_tonality?: 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced';
+  preferred_tonality?: 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced' | 'auto';
   subscription_tier?: 'free' | 'premium'; // Möjlighet att uppdatera prenumerationsnivå
   weekly_letter_count?: number; // Möjlighet att uppdatera antal brev
   last_count_reset?: string; // Möjlighet att uppdatera tidpunkt för senaste nollställning
