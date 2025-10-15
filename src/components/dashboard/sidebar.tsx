@@ -21,8 +21,6 @@ import {
   Briefcase,
   Target,
   Search,
-  ChevronDown,
-  ChevronUp,
   Crown,
   Settings
 } from 'lucide-react';
@@ -30,15 +28,7 @@ export default function DashboardSidebar() {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const [isPremium, setIsPremium] = useState(false);
-  const [profileExpanded, setProfileExpanded] = useState(false);
   const supabase = getSupabaseClient();
-
-  // Auto-expand profile section if on a profile route
-  useEffect(() => {
-    if (pathname.startsWith('/dashboard/profil')) {
-      setProfileExpanded(true);
-    }
-  }, [pathname]);
 
   useEffect(() => {
     const checkPremiumStatus = async () => {
@@ -153,22 +143,26 @@ export default function DashboardSidebar() {
     {
       path: '/dashboard/profil',
       label: 'Profilinformation',
-      icon: <User className="w-4 h-4" />
+      icon: <User className="w-4 h-4" />,
+      highlight: false
     },
     {
       path: '/dashboard/profil/cv',
       label: 'Mina CV:n',
-      icon: <FileText className="w-4 h-4" />
+      icon: <FileText className="w-4 h-4" />,
+      highlight: true // Highlighta denna som central funktion
     },
     {
       path: '/dashboard/profil/prenumeration',
       label: 'Prenumeration',
-      icon: <Crown className="w-4 h-4" />
+      icon: <Crown className="w-4 h-4" />,
+      highlight: false
     },
     {
       path: '/dashboard/profil/installningar',
       label: 'Inställningar',
-      icon: <Settings className="w-4 h-4" />
+      icon: <Settings className="w-4 h-4" />,
+      highlight: false
     }
   ];
   
@@ -352,7 +346,7 @@ export default function DashboardSidebar() {
           </ul>
         </div>
 
-        {/* Profil Sektion - Expandable */}
+        {/* Profil Sektion - Always Visible */}
         <div>
           {!collapsed && (
             <h3 className="px-4 py-2 text-xs font-bold text-slate-600 uppercase tracking-wider">
@@ -360,52 +354,36 @@ export default function DashboardSidebar() {
             </h3>
           )}
           <ul className="space-y-1">
-            <li>
-              <button
-                onClick={() => setProfileExpanded(!profileExpanded)}
-                className={`
-                  flex items-center justify-between w-full px-4 py-2.5 rounded-lg transition-all duration-200
-                  ${pathname.startsWith('/dashboard/profil')
-                    ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
-                    : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
-                  }
-                  ${collapsed ? 'justify-center' : ''}
-                `}
-              >
-                <div className="flex items-center">
-                  <User className="w-5 h-5 flex-shrink-0" />
-                  {!collapsed && <span className="ml-3">Min Profil</span>}
-                </div>
-                {!collapsed && (
-                  profileExpanded ?
-                    <ChevronUp className="w-4 h-4" /> :
-                    <ChevronDown className="w-4 h-4" />
-                )}
-              </button>
-
-              {/* Submenu */}
-              {profileExpanded && !collapsed && (
-                <ul className="mt-1 ml-4 space-y-1 border-l-2 border-slate-200 pl-2">
-                  {profileSubItems.map((subItem) => (
-                    <li key={subItem.path}>
-                      <Link
-                        href={subItem.path}
-                        className={`
-                          flex items-center px-3 py-2 rounded-lg transition-all duration-200 text-sm
-                          ${pathname === subItem.path
-                            ? 'bg-gradient-to-r from-pink-50 to-purple-50 text-pink-700 font-semibold'
-                            : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-                          }
-                        `}
-                      >
-                        <span className="flex-shrink-0">{subItem.icon}</span>
-                        <span className="ml-2">{subItem.label}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </li>
+            {profileSubItems.map((subItem) => (
+              <li key={subItem.path}>
+                <Link
+                  href={subItem.path}
+                  className={`
+                    flex items-center px-4 py-2.5 rounded-lg transition-all duration-200 relative
+                    ${pathname === subItem.path
+                      ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
+                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
+                    }
+                    ${collapsed ? 'justify-center' : ''}
+                    ${subItem.highlight ? 'ring-2 ring-green-400/30' : ''}
+                  `}
+                >
+                  <span className={`flex-shrink-0 ${subItem.highlight ? 'text-green-600' : ''}`}>
+                    {subItem.icon}
+                  </span>
+                  {!collapsed && (
+                    <>
+                      <span className={`ml-3 ${subItem.highlight ? 'font-bold' : ''}`}>
+                        {subItem.label}
+                      </span>
+                      {subItem.highlight && (
+                        <span className="absolute right-2 top-1/2 -translate-y-1/2 w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                      )}
+                    </>
+                  )}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </nav>
