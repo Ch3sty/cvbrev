@@ -113,6 +113,11 @@ export default function RootLayout({
   return (
     <html lang="sv" className="h-full">
       <head>
+        {/* Ensure dataLayer exists synchronously before GTM */}
+        <script dangerouslySetInnerHTML={{
+          __html: `window.dataLayer = window.dataLayer || [];`
+        }} />
+
         {/* === GTM DEFAULT CONSENT STATE START (Oförändrad) === */}
         <Script
           id="gtm-consent-default"
@@ -148,6 +153,27 @@ export default function RootLayout({
           }}
         />
         {/* === GTM HEAD SNIPPET SLUT === */}
+
+        {/* Suppress GTM timing errors */}
+        <Script
+          id="gtm-error-handler"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.addEventListener('error', function(e) {
+                if (e.message && (
+                    e.message.includes('isInitialized') ||
+                    e.message.includes('e.sent') ||
+                    e.message.includes('multiVariateTestingCS')
+                )) {
+                  console.warn('[GTM] Timing issue suppressed');
+                  e.preventDefault();
+                  return true;
+                }
+              }, true);
+            `,
+          }}
+        />
 
         <title>Jobbcoach.ai - Skapa CV och Personligt Brev med AI</title>
         <meta name="description" content="Skapa professionella CV:n och personliga brev snabbt och enkelt med hjälp av AI från Jobbcoach.ai." />
