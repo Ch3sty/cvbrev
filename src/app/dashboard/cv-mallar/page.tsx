@@ -14,6 +14,7 @@ import SimpleTemplateGallery from '@/components/cv/simple-template-gallery';
 import { getTemplateById } from '@/lib/cv/simple-templates';
 import { motion } from 'framer-motion';
 import CVGenerationModal from '@/components/cv/CVGenerationModal';
+import UnifiedCVSelector from '@/components/cv/unified-cv-selector';
 
 export default function CVMallarPage() {
   const router = useRouter();
@@ -308,55 +309,12 @@ export default function CVMallarPage() {
               </CardHeader>
               
               <CardContent>
-                {cvsLoading || profileLoading ? (
-                  <div className="flex items-center justify-center h-32">
-                    <div className="animate-spin rounded-full h-8 w-8 border-2 border-pink-600 border-t-transparent"></div>
-                  </div>
-                ) : cvs.length === 0 ? (
-                  <div className="text-center py-6">
-                    <Upload className="w-12 h-12 mx-auto mb-3 text-gray-500" />
-                    <p className="text-gray-600 mb-4">Inga CV uppladdade</p>
-                    <Link href="/profile?tab=cv">
-                      <Button size="sm" className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700">
-                        Ladda upp CV
-                      </Button>
-                    </Link>
-                  </div>
-                ) : (
-                  <div className="space-y-2">
-                    {cvs.map((cv) => (
-                      <button
-                        key={cv.id}
-                        type="button"
-                        onClick={() => selectCV(cv.id)}
-                        className={`w-full text-left p-3 rounded-lg border transition-all duration-300 ${
-                          selectedCV?.id === cv.id
-                            ? 'bg-pink-50/80 border-pink-500 ring-1 ring-pink-400 shadow-lg'
-                            : 'bg-white/60 border-gray-200 hover:bg-gray-50/80 hover:border-gray-300 hover:shadow-md'
-                        }`}
-                      >
-                        <div className="flex items-start gap-3">
-                          <FileText className={`w-4 h-4 mt-0.5 ${
-                            selectedCV?.id === cv.id ? 'text-pink-600' : 'text-gray-500'
-                          }`} />
-                          <div className="flex-1 min-w-0">
-                            <p className={`font-medium truncate ${
-                              selectedCV?.id === cv.id ? 'text-gray-900' : 'text-gray-700'
-                            }`}>
-                              {cv.file_name}
-                            </p>
-                            <p className="text-xs text-gray-500 mt-1 line-clamp-2">
-                              {cv.cv_text ? cv.cv_text.substring(0, 80) + '...' : 'Ingen förhandsgranskning'}
-                            </p>
-                          </div>
-                          {selectedCV?.id === cv.id && (
-                            <Check className="w-4 h-4 text-pink-600 flex-shrink-0" />
-                          )}
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                )}
+                <UnifiedCVSelector
+                  selectedCV={selectedCV?.id || null}
+                  onCVSelect={selectCV}
+                  variant="compact"
+                  showEmptyState={true}
+                />
               </CardContent>
             </Card>
 

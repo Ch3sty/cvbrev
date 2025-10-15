@@ -19,18 +19,18 @@ import { useProfile } from '@/hooks/use-profile';
 // --- UI Components ---
 import Notification from '@/components/ui/notification';
 import CompetenceAnalysisDashboard from '@/components/cv/CompetenceAnalysisDashboard';
+import UnifiedCVSelector from '@/components/cv/unified-cv-selector';
 
 // --- Utility Functions ---
 import { logUserActivity } from '@/lib/activity-logger';
 
 // --- Icons ---
 import {
-    FileText, Upload, Check, Loader2, Target, ClipboardList, 
+    FileText, Target, ClipboardList,
     Crown, Clock, AlertTriangle, ChevronRight
 } from 'lucide-react';
 
 // --- Constants ---
-const PROFILE_CV_ROUTE = '/profile?tab=cv';
 const UPGRADE_ROUTE = '/profile?tab=subscription';
 const NOTIFICATION_DURATION_MS = 5000;
 
@@ -112,7 +112,7 @@ export default function CompetenceAnalysisPage() {
       if (isNaN(date.getTime())) return '';
       return date.toLocaleDateString('sv-SE', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
     } catch (e) { console.error("Error formatting date:", e); return ''; }
-  }, []);
+  }, []); // Used for analysis reset date formatting
 
   const closeNotification = useCallback(() => {
     setNotification(prev => ({ ...prev, isVisible: false }));
@@ -212,46 +212,17 @@ export default function CompetenceAnalysisPage() {
 
       {/* --- CV Selection (Compact) --- */}
       <div className="mb-8">
-        <div className="bg-navy-800 rounded-lg p-4 border border-navy-700">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <FileText className="w-5 h-5 mr-3 text-blue-400" />
-              <label htmlFor="cv-selector" className="text-sm font-medium text-gray-300 mr-3">
-                Välj CV för analys:
-              </label>
-              {cvsLoading || profileLoading ? (
-                <div className="flex items-center">
-                  <Loader2 className="w-5 h-5 text-pink-500 animate-spin" />
-                  <span className="ml-2 text-sm text-gray-400">Laddar CV:n...</span>
-                </div>
-              ) : cvs.length === 0 ? (
-                <Link href={PROFILE_CV_ROUTE} className="inline-flex items-center px-3 py-1 text-sm font-medium text-pink-400 hover:text-pink-300">
-                  <Upload className="w-4 h-4 mr-2" /> Ladda upp CV
-                </Link>
-              ) : (
-                <select
-                  id="cv-selector"
-                  value={selectedCV || ''}
-                  onChange={(e) => setSelectedCV(e.target.value)}
-                  disabled={profileLoading || hasReachedLimit}
-                  className="px-4 py-2 bg-navy-900 border border-navy-700 rounded-lg text-white focus:ring-2 focus:ring-pink-500 focus:border-transparent disabled:opacity-50"
-                >
-                  <option value="" disabled>Välj ett CV...</option>
-                  {cvs.map((cv) => (
-                    <option key={cv.id} value={cv.id}>
-                      {cv.file_name || `CV ${cv.id.substring(0, 6)}`} - Uppladdat {formatDate(cv.created_at)}
-                    </option>
-                  ))}
-                </select>
-              )}
-            </div>
-            {selectedCV && cvs.find(cv => cv.id === selectedCV) && (
-              <div className="flex items-center text-sm text-green-400">
-                <Check className="w-4 h-4 mr-1" />
-                CV valt
-              </div>
-            )}
+        <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-xl">
+          <div className="flex items-center mb-4">
+            <FileText className="w-5 h-5 mr-3 text-blue-600" />
+            <h3 className="text-lg font-semibold text-gray-900">Välj CV för analys</h3>
           </div>
+          <UnifiedCVSelector
+            selectedCV={selectedCV}
+            onCVSelect={setSelectedCV}
+            variant="compact"
+            showEmptyState={true}
+          />
         </div>
       </div>
 

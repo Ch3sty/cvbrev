@@ -76,26 +76,7 @@ export default function CreateLetterPage() {
   }, [fetchCVs]);
 
 
-  const handleCVUpload = async (file: File) => {
-    // Implementation for CV upload
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const response = await fetch('/api/cv/upload', {
-        method: 'POST',
-        body: formData
-      });
-
-      if (!response.ok) throw new Error('Upload failed');
-
-      const data = await response.json();
-      setSelectedCV(data.cvId);
-    } catch (error) {
-      console.error('CV upload error:', error);
-      throw error;
-    }
-  };
+  // CV upload removed - users should upload via /dashboard/profil/cv
 
   const handleGenerateLetter = useCallback(async () => {
     console.log('handleGenerateLetter called', { selectedCV, jobDescription, tonality, language });
@@ -235,14 +216,13 @@ export default function CreateLetterPage() {
     {
       id: 1,
       title: 'Välj ditt CV',
-      description: 'Ladda upp eller välj från dina sparade CV:n',
+      description: 'Välj från dina sparade CV:n',
       icon: FileText,
       color: 'from-blue-500 to-cyan-500',
       component: (
         <CVSelectionStep
           selectedCV={selectedCV}
           onCVSelect={setSelectedCV}
-          onCVUpload={handleCVUpload}
         />
       ),
       canNavigateNext: () => selectedCV !== null
