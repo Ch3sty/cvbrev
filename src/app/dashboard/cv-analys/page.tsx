@@ -42,14 +42,13 @@ export default function CVAnalysisPage() {
     }
   }, [profile, profileLoading, router]);
 
-  // Fetch CVs on mount
+  // Fetch CVs AFTER profile is loaded (avoid "Ej autentiserad" error)
   useEffect(() => {
-    if (!initialLoadRef.current) {
+    if (!initialLoadRef.current && profile && !profileLoading) {
       initialLoadRef.current = true;
       fetchCVs();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [profile, profileLoading, fetchCVs]);
 
   // Poll for background job result
   const pollForJobResult = useCallback(async (jobId: string): Promise<any> => {

@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FileText, Clock, Check, Upload, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
@@ -22,11 +21,9 @@ export default function UnifiedCVSelector({
   showEmptyState = true,
   showHeader = true
 }: UnifiedCVSelectorProps) {
-  const { cvs, fetchCVs, isLoading } = useCVStore();
+  const { cvs, isLoading } = useCVStore();
 
-  useEffect(() => {
-    fetchCVs();
-  }, [fetchCVs]);
+  // fetchCVs removed - parent component should handle this to avoid race conditions
 
   // Loading state
   if (isLoading) {
