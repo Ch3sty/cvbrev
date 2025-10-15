@@ -15,6 +15,7 @@ export default function CVSelectionStep({ cvs, selectedCV, onSelectCV }: CVSelec
       onCVSelect={onSelectCV}
       variant="grid"
       showEmptyState={true}
+      showHeader={false}
     />
   );
 }

@@ -19,6 +19,7 @@ export default function CVSelectionStep({
       onCVSelect={onCVSelect}
       variant="grid"
       showEmptyState={true}
+      showHeader={false}
     />
   );
 }

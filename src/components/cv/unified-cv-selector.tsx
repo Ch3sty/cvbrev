@@ -12,13 +12,15 @@ interface UnifiedCVSelectorProps {
   onCVSelect: (cvId: string) => void;
   variant?: 'grid' | 'compact';
   showEmptyState?: boolean;
+  showHeader?: boolean;
 }
 
 export default function UnifiedCVSelector({
   selectedCV,
   onCVSelect,
   variant = 'grid',
-  showEmptyState = true
+  showEmptyState = true,
+  showHeader = true
 }: UnifiedCVSelectorProps) {
   const { cvs, fetchCVs, isLoading } = useCVStore();
 
@@ -135,10 +137,12 @@ export default function UnifiedCVSelector({
   return (
     <div>
       {/* Header */}
-      <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Välj ditt CV</h2>
-        <p className="text-gray-600">Välj det CV du vill använda</p>
-      </div>
+      {showHeader && (
+        <div className="text-center mb-6">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">Välj ditt CV</h2>
+          <p className="text-gray-600">Välj det CV du vill använda</p>
+        </div>
+      )}
 
       {/* CV Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
