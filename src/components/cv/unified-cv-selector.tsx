@@ -169,7 +169,7 @@ export default function UnifiedCVSelector({
                   initial={{ scale: 0, rotate: -180 }}
                   animate={{ scale: 1, rotate: 0 }}
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                  className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg z-10"
+                  className="absolute top-3 right-3 w-8 h-8 bg-gradient-to-r from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg z-10"
                 >
                   <Check className="w-5 h-5 text-white" />
                 </motion.div>
