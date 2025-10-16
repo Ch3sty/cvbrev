@@ -46,70 +46,6 @@ const tutorialSteps = [
   },
   {
     id: 2,
-    icon: PenTool,
-    title: 'Skapa personliga brev',
-    shortDescription: 'Skräddarsydda brev för varje tjänst',
-    fullDescription: `
-      <div class="space-y-4">
-        <div>
-          <h5 class="font-bold text-slate-900 mb-2">
-            Så fungerar det
-          </h5>
-          <ol class="list-decimal list-inside space-y-1 ml-2 text-slate-700">
-            <li>Välj ditt CV som grund</li>
-            <li>Klistra in jobbannonsen</li>
-            <li>Välj önskad tonalitet (professionell, entusiastisk, kreativ)</li>
-            <li>Generera brev</li>
-          </ol>
-        </div>
-
-        <div>
-          <h5 class="font-bold text-slate-900 mb-2">
-            Vad vi analyserar
-          </h5>
-          <p class="text-slate-700 mb-2">Vi analyserar jobbannonsen och:</p>
-
-          <div class="space-y-2 ml-2">
-            <div class="flex items-start gap-2">
-              <span class="text-blue-600 font-bold flex-shrink-0">•</span>
-              <div class="text-slate-700">
-                <strong>Identifierar viktiga kompetenser</strong> – Vi ser vilka färdigheter arbetsgivaren söker och lyfter fram dina matchande erfarenheter
-              </div>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="text-blue-600 font-bold flex-shrink-0">•</span>
-              <div class="text-slate-700">
-                <strong>Anpassar innehållet</strong> – Varje brev skrivs unikt utifrån din bakgrund och den specifika tjänsten
-              </div>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="text-blue-600 font-bold flex-shrink-0">•</span>
-              <div class="text-slate-700">
-                <strong>Väljer rätt tonalitet</strong> – Sex olika stilar beroende på företagskultur och bransch
-              </div>
-            </div>
-            <div class="flex items-start gap-2">
-              <span class="text-blue-600 font-bold flex-shrink-0">•</span>
-              <div class="text-slate-700">
-                <strong>Optimerar för rekryteringssystem</strong> – Korrekt formatering och nyckelordsmatchning för ATS-kompatibilitet
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-blue-50/50 border border-blue-100 rounded-lg p-3">
-          <p class="text-sm text-slate-700">
-            Du får ett färdigt brev på under 30 sekunder.
-          </p>
-        </div>
-      </div>
-    `,
-    actionText: 'Skapa brev',
-    href: '/dashboard/skapa-brev',
-    color: 'from-blue-500 to-indigo-600'
-  },
-  {
-    id: 3,
     icon: Brain,
     title: 'Analysera ditt CV',
     shortDescription: 'Professionell feedback som stärker din profil',
@@ -170,6 +106,70 @@ const tutorialSteps = [
     `,
     actionText: 'Analysera CV',
     href: '/dashboard/cv-analys',
+    color: 'from-blue-500 to-indigo-600'
+  },
+  {
+    id: 3,
+    icon: PenTool,
+    title: 'Skapa personliga brev',
+    shortDescription: 'Skräddarsydda brev för varje tjänst',
+    fullDescription: `
+      <div class="space-y-4">
+        <div>
+          <h5 class="font-bold text-slate-900 mb-2">
+            Så fungerar det
+          </h5>
+          <ol class="list-decimal list-inside space-y-1 ml-2 text-slate-700">
+            <li>Välj ditt CV som grund</li>
+            <li>Klistra in jobbannonsen</li>
+            <li>Välj önskad tonalitet (professionell, entusiastisk, kreativ)</li>
+            <li>Generera brev</li>
+          </ol>
+        </div>
+
+        <div>
+          <h5 class="font-bold text-slate-900 mb-2">
+            Vad vi analyserar
+          </h5>
+          <p class="text-slate-700 mb-2">Vi analyserar jobbannonsen och:</p>
+
+          <div class="space-y-2 ml-2">
+            <div class="flex items-start gap-2">
+              <span class="text-blue-600 font-bold flex-shrink-0">•</span>
+              <div class="text-slate-700">
+                <strong>Identifierar viktiga kompetenser</strong> – Vi ser vilka färdigheter arbetsgivaren söker och lyfter fram dina matchande erfarenheter
+              </div>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-blue-600 font-bold flex-shrink-0">•</span>
+              <div class="text-slate-700">
+                <strong>Anpassar innehållet</strong> – Varje brev skrivs unikt utifrån din bakgrund och den specifika tjänsten
+              </div>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-blue-600 font-bold flex-shrink-0">•</span>
+              <div class="text-slate-700">
+                <strong>Väljer rätt tonalitet</strong> – Sex olika stilar beroende på företagskultur och bransch
+              </div>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-blue-600 font-bold flex-shrink-0">•</span>
+              <div class="text-slate-700">
+                <strong>Optimerar för rekryteringssystem</strong> – Korrekt formatering och nyckelordsmatchning för ATS-kompatibilitet
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-blue-50/50 border border-blue-100 rounded-lg p-3">
+          <p class="text-sm text-slate-700">
+            Du får ett färdigt brev på under 30 sekunder.
+          </p>
+        </div>
+      </div>
+    `,
+    actionText: 'Skapa brev',
+    href: '/dashboard/skapa-brev',
     color: 'from-blue-500 to-indigo-600'
   },
   {
@@ -359,7 +359,7 @@ export default function GettingStartedTutorial() {
           </h2>
         </div>
         <p className="text-slate-600">
-          En komplett översikt av plattformens funktioner
+          En komplett översikt av våra funktioner
         </p>
       </div>
 
