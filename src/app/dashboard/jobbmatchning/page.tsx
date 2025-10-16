@@ -24,6 +24,7 @@ import {
 
 // Components
 import CVActivationCard from './components/CVActivationCard';
+import InactiveCVCard from './components/InactiveCVCard';
 import MatchingInfoCard from './components/MatchingInfoCard';
 import JobResultsGrid from './components/JobResultsGrid';
 import JobSearchLoader from './components/JobSearchLoader';
@@ -441,22 +442,56 @@ export default function JobbmatchningPage() {
                 </a>
               </div>
             ) : (
-              <div className="grid gap-4 md:grid-cols-2 items-start">
-                {/* Info Card - Always First */}
-                <MatchingInfoCard />
+              <div className="space-y-6">
+                {/* Top Row: Info Card (Left) + Active CV Card (Right) */}
+                <div className="grid gap-4 md:grid-cols-2 items-start">
+                  {/* Info Card - Always Left */}
+                  <MatchingInfoCard />
 
-                {/* CV Cards */}
-                {cvs.map((cv) => (
-                  <CVActivationCard
-                    key={cv.id}
-                    cv={cv}
-                    isActive={activeCVId === cv.id}
-                    activeData={activeCVId === cv.id ? activeCV : null}
-                    onActivate={handleActivateCV}
-                    onSearchJobs={handleSearchJobs}
-                    isActivating={activatingCVId === cv.id}
-                  />
-                ))}
+                  {/* Active CV Card - Always Right */}
+                  {activeCVId && cvs.find(cv => cv.id === activeCVId) && (
+                    <CVActivationCard
+                      key={activeCVId}
+                      cv={cvs.find(cv => cv.id === activeCVId)!}
+                      isActive={true}
+                      activeData={activeCV}
+                      onActivate={handleActivateCV}
+                      onSearchJobs={handleSearchJobs}
+                      isActivating={activatingCVId === activeCVId}
+                    />
+                  )}
+
+                  {/* If no active CV, show empty state on the right */}
+                  {!activeCVId && (
+                    <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-slate-200 p-8 flex items-center justify-center min-h-[300px]">
+                      <div className="text-center">
+                        <p className="text-slate-600 mb-2">Inget aktivt CV</p>
+                        <p className="text-sm text-slate-500">Klicka på ett CV nedan för att aktivera det</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Inactive CV Cards Grid - Below */}
+                {cvs.filter(cv => cv.id !== activeCVId).length > 0 && (
+                  <div>
+                    <h3 className="text-lg font-semibold text-slate-900 mb-4">
+                      {activeCVId ? 'Andra CV:n' : 'Välj ett CV att aktivera'}
+                    </h3>
+                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                      {cvs
+                        .filter(cv => cv.id !== activeCVId)
+                        .map((cv) => (
+                          <InactiveCVCard
+                            key={cv.id}
+                            cv={cv}
+                            onActivate={handleActivateCV}
+                            isActivating={activatingCVId === cv.id}
+                          />
+                        ))}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </motion.div>
