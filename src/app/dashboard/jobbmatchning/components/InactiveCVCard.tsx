@@ -33,9 +33,12 @@ export default function InactiveCVCard({ cv, onActivate, isActivating }: Inactiv
         {/* Gradient Header */}
         <div className="p-6 bg-gradient-to-br from-pink-50 to-purple-50 border-b border-slate-200">
           <div className="flex items-center justify-between mb-3">
-            <div className="bg-white/80 backdrop-blur-sm rounded-lg p-2">
-              <FileText className="w-6 h-6 text-pink-600" />
-            </div>
+            <motion.div
+              className="p-3 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl flex-shrink-0"
+              whileHover={{ rotate: 5, scale: 1.1 }}
+            >
+              <FileText className="w-6 h-6 text-white" />
+            </motion.div>
             <div className="flex items-center gap-1 text-xs text-slate-500">
               <Clock className="w-3 h-3" />
               <span>Uppladdat {formatDate(cv.created_at)}</span>
