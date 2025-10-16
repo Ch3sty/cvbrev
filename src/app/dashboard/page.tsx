@@ -26,7 +26,6 @@ import WelcomeHero from '@/components/dashboard/WelcomeHero';
 import QuotaCard from '@/components/dashboard/QuotaCard';
 import ActivityFeed from '@/components/dashboard/ActivityFeed';
 import AIInsights from '@/components/dashboard/AIInsights';
-import LoadingSkeleton from '@/components/dashboard/LoadingSkeleton';
 import LiveActivityIndicator from '@/components/dashboard/LiveActivityIndicator';
 import FloatingParticles from '@/components/dashboard/FloatingParticles';
 
@@ -217,17 +216,10 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="space-y-8">
-        <LoadingSkeleton variant="hero" />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <LoadingSkeleton variant="stats" count={4} />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <LoadingSkeleton variant="card" count={4} />
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <LoadingSkeleton variant="list" />
-          <LoadingSkeleton variant="card" />
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="text-center space-y-4">
+          <div className="w-12 h-12 border-4 border-pink-600 border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="text-slate-600">Laddar dashboard...</p>
         </div>
       </div>
     );
