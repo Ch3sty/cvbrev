@@ -417,6 +417,9 @@ export default function DashboardPage() {
           )}
         </motion.div>
 
+        {/* Tutorial - För ALLA användare */}
+        <GettingStartedTutorial />
+
         {/* Senaste Aktivitet & AI Insights Grid */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -438,9 +441,8 @@ export default function DashboardPage() {
           />
         </motion.div>
 
-        {/* Bottom Section: Tutorial or Premium CTA */}
-        {!stats.isPremium ? (
-          // Premium CTA för gratis-användare
+        {/* Bottom Section: Premium CTA (endast gratis-användare) */}
+        {!stats.isPremium && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -463,9 +465,6 @@ export default function DashboardPage() {
               </motion.button>
             </Link>
           </motion.div>
-        ) : (
-          // Tutorial för premium-användare
-          <GettingStartedTutorial />
         )}
       </div>
     </motion.div>
