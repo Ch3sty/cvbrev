@@ -30,7 +30,7 @@ export default function QuotaCard({
 }: QuotaCardProps) {
   // Calculate color based on remaining quota
   const getColor = () => {
-    if (isPremium) return 'gray';
+    if (isPremium) return 'premium';
     const percentage = (remaining / limit) * 100;
     if (percentage > 50) return 'green';
     if (percentage > 25) return 'yellow';
@@ -65,6 +65,12 @@ export default function QuotaCard({
       bg: 'bg-slate-50',
       border: 'border-slate-200',
       dot: 'text-slate-600'
+    },
+    premium: {
+      text: 'text-purple-600',
+      bg: 'bg-gradient-to-br from-pink-50 to-purple-50',
+      border: 'border-purple-200',
+      dot: 'text-purple-600'
     }
   };
 
@@ -130,12 +136,35 @@ export default function QuotaCard({
       {/* Content */}
       {isPremium ? (
         // Premium card content
-        <div className="space-y-2">
-          <div className="text-3xl font-bold text-slate-900">
-            {used > 0 ? used : '∞'}
-          </div>
-          <div className="text-sm text-slate-600">
-            {premiumText || 'Obegränsat'}
+        <div className="relative space-y-3">
+          {/* Gradient background orb */}
+          <motion.div
+            className="absolute -inset-4 bg-gradient-to-br from-pink-500/10 via-purple-500/10 to-indigo-500/10 rounded-2xl blur-xl"
+            animate={{
+              scale: [1, 1.1, 1],
+              opacity: [0.5, 0.7, 0.5]
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+
+          <div className="relative">
+            {/* Dynamic number with gradient */}
+            <div className="text-4xl font-black bg-gradient-to-br from-pink-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-1">
+              {used > 0 ? used : premiumText}
+            </div>
+
+            {/* Premium badge */}
+            <div className="flex items-center gap-1.5">
+              <div className="px-2 py-0.5 bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-full border border-pink-300/30">
+                <span className="text-xs font-semibold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                  Premium
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       ) : (

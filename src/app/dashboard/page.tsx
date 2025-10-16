@@ -28,6 +28,7 @@ import ActivityFeed from '@/components/dashboard/ActivityFeed';
 import AIInsights from '@/components/dashboard/AIInsights';
 import LiveActivityIndicator from '@/components/dashboard/LiveActivityIndicator';
 import FloatingParticles from '@/components/dashboard/FloatingParticles';
+import GettingStartedTutorial from '@/components/dashboard/GettingStartedTutorial';
 
 interface DashboardStats {
   totalLetters: number;
@@ -437,7 +438,7 @@ export default function DashboardPage() {
           />
         </motion.div>
 
-        {/* Bottom Section: Premium CTA or Achievements */}
+        {/* Bottom Section: Tutorial or Premium CTA */}
         {!stats.isPremium ? (
           // Premium CTA för gratis-användare
           <motion.div
@@ -463,34 +464,8 @@ export default function DashboardPage() {
             </Link>
           </motion.div>
         ) : (
-          // Achievements för premium-användare
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.0, duration: 0.6 }}
-            className="bg-white/90 backdrop-blur-xl rounded-2xl border border-slate-200/40 shadow-lg p-6"
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <Trophy className="w-6 h-6 text-pink-600" />
-              <h3 className="text-xl font-bold text-slate-900">Senaste Prestationer</h3>
-            </div>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg">
-                <Star className="w-5 h-5 text-yellow-500" />
-                <span className="text-slate-700">Nådde Level {stats.currentLevel || 1}</span>
-              </div>
-              <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg">
-                <PenTool className="w-5 h-5 text-blue-600" />
-                <span className="text-slate-700">Skapade {stats.totalLetters} brev</span>
-              </div>
-              {stats.availableRewards && stats.availableRewards > 0 && (
-                <div className="flex items-center gap-3 p-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg">
-                  <Gift className="w-5 h-5 text-green-600" />
-                  <span className="text-slate-700">{stats.availableRewards} belöningar väntar</span>
-                </div>
-              )}
-            </div>
-          </motion.div>
+          // Tutorial för premium-användare
+          <GettingStartedTutorial />
         )}
       </div>
     </motion.div>
