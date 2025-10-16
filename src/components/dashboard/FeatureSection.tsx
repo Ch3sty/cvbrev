@@ -34,11 +34,11 @@ export default function FeatureSection({
       transition={{ delay: index * 0.1, duration: 0.3 }}
       className="group"
     >
-      <div className="bg-white/80 backdrop-blur-sm rounded-xl border border-slate-200 hover:border-slate-300 hover:shadow-md transition-all overflow-hidden">
+      <div className="bg-white/80 backdrop-blur-sm rounded-xl border border-slate-200 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-100/30 transition-all duration-300 overflow-hidden">
         {/* Header - Always visible */}
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full p-5 flex items-center justify-between hover:bg-slate-50/50 transition-colors"
+          className="w-full p-5 flex items-center justify-between hover:bg-blue-50/20 transition-all duration-300"
         >
           <div className="flex items-start gap-4 flex-1">
             {/* Icon */}
@@ -90,8 +90,8 @@ export default function FeatureSection({
                     whileTap={{ scale: 0.98 }}
                     className={`
                       px-5 py-2.5 bg-gradient-to-r ${color} text-white rounded-lg
-                      text-sm font-semibold shadow-sm hover:shadow-md
-                      transition-all flex items-center gap-2
+                      text-sm font-semibold shadow-sm hover:shadow-lg hover:shadow-blue-200/40
+                      transition-all duration-300 flex items-center gap-2
                     `}
                   >
                     {actionText}

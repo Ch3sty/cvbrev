@@ -33,7 +33,7 @@ const tutorialSteps = [
           </p>
         </div>
 
-        <div class="bg-slate-50 border border-slate-200 rounded-lg p-3">
+        <div class="bg-blue-50/50 border border-blue-100 rounded-lg p-3">
           <p class="text-sm text-slate-700">
             <strong>Premium:</strong> Premium-användare kan ladda upp obegränsat antal CV:n och växla mellan dem när som helst.
           </p>
@@ -42,7 +42,7 @@ const tutorialSteps = [
     `,
     actionText: 'Ladda upp CV',
     href: '/dashboard/profil/cv',
-    color: 'from-slate-600 to-slate-800'
+    color: 'from-blue-500 to-indigo-600'
   },
   {
     id: 2,
@@ -71,25 +71,25 @@ const tutorialSteps = [
 
           <div class="space-y-2 ml-2">
             <div class="flex items-start gap-2">
-              <span class="text-slate-600 font-bold flex-shrink-0">•</span>
+              <span class="text-blue-600 font-bold flex-shrink-0">•</span>
               <div class="text-slate-700">
                 <strong>Identifierar viktiga kompetenser</strong> – Vi ser vilka färdigheter arbetsgivaren söker och lyfter fram dina matchande erfarenheter
               </div>
             </div>
             <div class="flex items-start gap-2">
-              <span class="text-slate-600 font-bold flex-shrink-0">•</span>
+              <span class="text-blue-600 font-bold flex-shrink-0">•</span>
               <div class="text-slate-700">
                 <strong>Anpassar innehållet</strong> – Varje brev skrivs unikt utifrån din bakgrund och den specifika tjänsten
               </div>
             </div>
             <div class="flex items-start gap-2">
-              <span class="text-slate-600 font-bold flex-shrink-0">•</span>
+              <span class="text-blue-600 font-bold flex-shrink-0">•</span>
               <div class="text-slate-700">
                 <strong>Väljer rätt tonalitet</strong> – Sex olika stilar beroende på företagskultur och bransch
               </div>
             </div>
             <div class="flex items-start gap-2">
-              <span class="text-slate-600 font-bold flex-shrink-0">•</span>
+              <span class="text-blue-600 font-bold flex-shrink-0">•</span>
               <div class="text-slate-700">
                 <strong>Optimerar för rekryteringssystem</strong> – Korrekt formatering och nyckelordsmatchning för ATS-kompatibilitet
               </div>
@@ -97,7 +97,7 @@ const tutorialSteps = [
           </div>
         </div>
 
-        <div class="bg-slate-50 border border-slate-200 rounded-lg p-3">
+        <div class="bg-blue-50/50 border border-blue-100 rounded-lg p-3">
           <p class="text-sm text-slate-700">
             Du får ett färdigt brev på under 30 sekunder.
           </p>
@@ -106,7 +106,7 @@ const tutorialSteps = [
     `,
     actionText: 'Skapa brev',
     href: '/dashboard/skapa-brev',
-    color: 'from-slate-600 to-slate-800'
+    color: 'from-blue-500 to-indigo-600'
   },
   {
     id: 3,
@@ -136,7 +136,7 @@ const tutorialSteps = [
           </h5>
           <p class="text-slate-700 mb-2">Du får handlingsbara rekommendationer:</p>
 
-          <div class="space-y-2 bg-slate-50 border border-slate-200 rounded-lg p-3">
+          <div class="space-y-2 bg-blue-50/50 border border-blue-100 rounded-lg p-3">
             <p class="text-sm text-slate-700 italic">
               "Lägg till kvantifierbara resultat i din senaste roll – exempelvis 'Ökade försäljningen med 35 procent' istället för 'Ansvarade för försäljning'."
             </p>
@@ -161,7 +161,7 @@ const tutorialSteps = [
           </div>
         </div>
 
-        <div class="bg-slate-50 border border-slate-200 rounded-lg p-3">
+        <div class="bg-blue-50/50 border border-blue-100 rounded-lg p-3">
           <p class="text-sm text-slate-700">
             Efter analysen kan du direkt exportera ett förbättrat CV i våra professionella mallar.
           </p>
@@ -170,7 +170,7 @@ const tutorialSteps = [
     `,
     actionText: 'Analysera CV',
     href: '/dashboard/cv-analys',
-    color: 'from-slate-600 to-slate-800'
+    color: 'from-blue-500 to-indigo-600'
   },
   {
     id: 4,
@@ -199,19 +199,19 @@ const tutorialSteps = [
 
           <div class="space-y-2 ml-2">
             <div class="flex items-start gap-2">
-              <span class="text-slate-600 font-bold flex-shrink-0">•</span>
+              <span class="text-blue-600 font-bold flex-shrink-0">•</span>
               <div class="text-slate-700">
                 <strong>Förstår synonymer och relaterade kompetenser</strong> – "Frontend Developer" matchar även "React Developer"
               </div>
             </div>
             <div class="flex items-start gap-2">
-              <span class="text-slate-600 font-bold flex-shrink-0">•</span>
+              <span class="text-blue-600 font-bold flex-shrink-0">•</span>
               <div class="text-slate-700">
                 <strong>Filtrerar på erfarenhetsnivå</strong> – Endast tjänster som matchar din bakgrund
               </div>
             </div>
             <div class="flex items-start gap-2">
-              <span class="text-slate-600 font-bold flex-shrink-0">•</span>
+              <span class="text-blue-600 font-bold flex-shrink-0">•</span>
               <div class="text-slate-700">
                 <strong>Geografisk filtrering</strong> – Tjänster längre bort än 100 kilometer döljs som standard (kan ändras i inställningar)
               </div>
@@ -219,7 +219,7 @@ const tutorialSteps = [
           </div>
         </div>
 
-        <div class="bg-slate-50 border border-slate-200 rounded-lg p-3">
+        <div class="bg-blue-50/50 border border-blue-100 rounded-lg p-3">
           <p class="text-sm text-slate-700">
             <strong>Kom igång direkt:</strong> Klicka på en tjänst för att se fullständig beskrivning. Du kan sedan direkt skapa ett personligt brev anpassat efter den specifika tjänsten.
           </p>
@@ -228,7 +228,7 @@ const tutorialSteps = [
     `,
     actionText: 'Sök tjänster',
     href: '/dashboard/jobbmatchning',
-    color: 'from-slate-600 to-slate-800'
+    color: 'from-blue-500 to-indigo-600'
   },
   {
     id: 5,
@@ -276,7 +276,7 @@ const tutorialSteps = [
           </div>
         </div>
 
-        <div class="bg-slate-50 border border-slate-200 rounded-lg p-3">
+        <div class="bg-blue-50/50 border border-blue-100 rounded-lg p-3">
           <p class="text-sm text-slate-700">
             Använd olika mallar för olika typer av ansökningar – en kreativ mall för startup-roller, en klassisk för företagspositioner.
           </p>
@@ -285,7 +285,7 @@ const tutorialSteps = [
     `,
     actionText: 'Välj mall',
     href: '/dashboard/cv-mallar',
-    color: 'from-slate-600 to-slate-800'
+    color: 'from-blue-500 to-indigo-600'
   },
   {
     id: 6,
@@ -318,7 +318,7 @@ const tutorialSteps = [
           </ul>
         </div>
 
-        <div class="bg-slate-50 border border-slate-200 rounded-lg p-3">
+        <div class="bg-blue-50/50 border border-blue-100 rounded-lg p-3">
           <p class="text-sm text-slate-700">
             <strong>Premium:</strong> Tillgänglig varje vecka för Premium-användare.
           </p>
@@ -327,7 +327,7 @@ const tutorialSteps = [
     `,
     actionText: 'Starta analys',
     href: '/dashboard/kompetensutveckling',
-    color: 'from-slate-600 to-slate-800'
+    color: 'from-blue-500 to-indigo-600'
   }
 ];
 
@@ -351,7 +351,7 @@ export default function GettingStartedTutorial() {
       {/* Header - Always visible */}
       <div className="relative mb-6">
         <div className="flex items-center gap-3 mb-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-slate-700 to-slate-900 rounded-lg flex items-center justify-center">
+          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center shadow-sm">
             <FileText className="w-6 h-6 text-white" />
           </div>
           <h2 className="text-2xl font-bold text-slate-900">

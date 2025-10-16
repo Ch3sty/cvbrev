@@ -67,10 +67,10 @@ export default function QuotaCard({
       dot: 'text-slate-600'
     },
     premium: {
-      text: 'text-purple-600',
-      bg: 'bg-gradient-to-br from-pink-50 to-purple-50',
-      border: 'border-purple-200',
-      dot: 'text-purple-600'
+      text: 'text-blue-700',
+      bg: 'bg-gradient-to-br from-blue-100 to-indigo-100',
+      border: 'border-blue-200',
+      dot: 'text-blue-600'
     }
   };
 
@@ -137,12 +137,12 @@ export default function QuotaCard({
       {isPremium ? (
         // Premium card content
         <div className="relative space-y-3">
-          {/* Gradient background orb */}
+          {/* Subtle blue glow background */}
           <motion.div
-            className="absolute -inset-4 bg-gradient-to-br from-pink-500/10 via-purple-500/10 to-indigo-500/10 rounded-2xl blur-xl"
+            className="absolute -inset-4 bg-gradient-to-br from-blue-500/5 to-indigo-500/5 rounded-2xl blur-xl"
             animate={{
-              scale: [1, 1.1, 1],
-              opacity: [0.5, 0.7, 0.5]
+              scale: [1, 1.05, 1],
+              opacity: [0.3, 0.5, 0.3]
             }}
             transition={{
               duration: 4,
@@ -152,15 +152,15 @@ export default function QuotaCard({
           />
 
           <div className="relative">
-            {/* Dynamic number with gradient */}
-            <div className="text-4xl font-black bg-gradient-to-br from-pink-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-1">
+            {/* Clean text with subtle shadow */}
+            <div className="text-4xl font-bold text-slate-900 mb-1" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
               {used > 0 ? used : premiumText}
             </div>
 
-            {/* Premium badge */}
+            {/* Discrete premium badge */}
             <div className="flex items-center gap-1.5">
-              <div className="px-2 py-0.5 bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-full border border-pink-300/30">
-                <span className="text-xs font-semibold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+              <div className="px-2 py-0.5 bg-blue-50 rounded-full border border-blue-200/40">
+                <span className="text-xs font-semibold text-blue-700">
                   Premium
                 </span>
               </div>
