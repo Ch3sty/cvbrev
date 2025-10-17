@@ -465,10 +465,16 @@ export default function JobCard({ job, index, onSelect, selectedAnalysisId, cvId
               })()}
             </div>
 
+            {/* Click for details hint */}
+            <div className="flex items-center justify-center gap-2 py-2 text-sm text-gray-500 group-hover:text-indigo-600 transition-colors">
+              <Eye className="w-4 h-4" />
+              <span className="font-medium">Klicka på kortet för fullständig annons</span>
+            </div>
+
             {/* Action Buttons */}
             <div className="grid grid-cols-1 gap-2">
-              {/* Create Cover Letter Button */}
-              {selectedAnalysisId && cvId && (
+              {/* Create Cover Letter Button - Show when cvId exists */}
+              {cvId && (
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
