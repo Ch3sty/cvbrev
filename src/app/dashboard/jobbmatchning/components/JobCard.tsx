@@ -18,7 +18,8 @@ import {
   AlertTriangle,
   Navigation,
   FileText,
-  Car
+  Car,
+  Eye
 } from 'lucide-react';
 import { useCoverLetterStore } from '@/store/cover-letter-store';
 
