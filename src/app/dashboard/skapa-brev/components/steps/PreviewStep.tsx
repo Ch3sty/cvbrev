@@ -187,13 +187,6 @@ export default function PreviewStep({
               style={{ fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
               dangerouslySetInnerHTML={{ __html: formatContent(editedContent) }}
             />
-
-            {/* Page Footer */}
-            <div className="border-t border-gray-100 px-8 py-4 bg-gradient-to-r from-white to-gray-50">
-              <p className="text-xs text-gray-400 text-center">
-                Genererat med Jobbcoach.ai
-              </p>
-            </div>
           </motion.div>
         )}
       </div>
