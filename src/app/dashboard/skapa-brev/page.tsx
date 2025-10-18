@@ -30,46 +30,60 @@ export default function CreateLetterPage() {
   const { profile, subscriptionTier, remainingWeeklyLetters, updateRemainingLetters } = useProfile();
   const { prefillData, clearPrefillData } = useCoverLetterStore();
 
+  // Calculate initial wizard step and completed steps based on prefill data
+  const getInitialWizardState = () => {
+    if (!prefillData) {
+      return { initialStep: 0, initialCompletedSteps: [], initialCV: null, initialDescription: '' };
+    }
+
+    const initialCV = prefillData.cvId || null;
+    const initialDescription = prefillData.jobDescription || '';
+
+    // Both CV and job description are prefilled - start at step 3 (Settings)
+    if (prefillData.cvId && prefillData.jobDescription) {
+      return {
+        initialStep: 2, // Step 3 (0-indexed)
+        initialCompletedSteps: [0, 1], // Mark steps 1 & 2 as completed
+        initialCV,
+        initialDescription
+      };
+    }
+
+    // Only CV is prefilled - start at step 2 (Job Description)
+    if (prefillData.cvId) {
+      return {
+        initialStep: 1, // Step 2 (0-indexed)
+        initialCompletedSteps: [0], // Mark step 1 as completed
+        initialCV,
+        initialDescription
+      };
+    }
+
+    // No prefill or only description (unlikely) - start at step 1
+    return { initialStep: 0, initialCompletedSteps: [], initialCV, initialDescription };
+  };
+
+  const { initialStep, initialCompletedSteps, initialCV, initialDescription } = getInitialWizardState();
+
   // Form State
-  const [selectedCV, setSelectedCV] = useState<string | null>(null);
-  const [jobDescription, setJobDescription] = useState('');
+  const [selectedCV, setSelectedCV] = useState<string | null>(initialCV);
+  const [jobDescription, setJobDescription] = useState(initialDescription);
   const [tonality, setTonality] = useState<Tonality>('balanced');
   const [language, setLanguage] = useState<Language>('sv');
   const [generatedLetter, setGeneratedLetter] = useState<string | null>(null);
   const [letterData, setLetterData] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [currentWizardStep, setCurrentWizardStep] = useState(0);
+  const [currentWizardStep, setCurrentWizardStep] = useState(initialStep);
   const [hasTriggeredGeneration, setHasTriggeredGeneration] = useState(false);
-  const [prefillApplied, setPrefillApplied] = useState(false);
 
   const isPremium = subscriptionTier === 'premium';
 
-  // Handle prefill from Zustand store
+  // Clear prefill data after initial mount
   useEffect(() => {
-    if (prefillApplied) return;
-
     if (prefillData) {
-      // Use data from Zustand store
-      if (prefillData.cvId) {
-        setSelectedCV(prefillData.cvId);
-      }
-
-      if (prefillData.jobDescription) {
-        setJobDescription(prefillData.jobDescription);
-      }
-
-      // Skip to settings step if both CV and job description are prefilled
-      if (prefillData.cvId && prefillData.jobDescription) {
-        setCurrentWizardStep(2); // Start at step 3 (Settings)
-      } else if (prefillData.cvId) {
-        setCurrentWizardStep(1); // Start at step 2 (Job Description)
-      }
-
-      setPrefillApplied(true);
-      // Clear prefill data after applying it
       clearPrefillData();
     }
-  }, [prefillData, prefillApplied, clearPrefillData]);
+  }, []); // Only run once on mount
 
   useEffect(() => {
     fetchCVs();
@@ -299,6 +313,8 @@ export default function CreateLetterPage() {
       steps={wizardSteps}
       onComplete={handleWizardComplete}
       onStepChange={setCurrentWizardStep}
+      initialStep={initialStep}
+      initialCompletedSteps={initialCompletedSteps}
     />
   );
 }

@@ -20,11 +20,19 @@ interface WizardContainerProps {
   steps: WizardStep[];
   onComplete: () => void;
   onStepChange?: (step: number) => void;
+  initialStep?: number;
+  initialCompletedSteps?: number[];
 }
 
-export default function WizardContainer({ steps, onComplete, onStepChange }: WizardContainerProps) {
-  const [currentStep, setCurrentStep] = useState(0);
-  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+export default function WizardContainer({
+  steps,
+  onComplete,
+  onStepChange,
+  initialStep = 0,
+  initialCompletedSteps = []
+}: WizardContainerProps) {
+  const [currentStep, setCurrentStep] = useState(initialStep);
+  const [completedSteps, setCompletedSteps] = useState<number[]>(initialCompletedSteps);
 
   const goToStep = (stepIndex: number) => {
     if (stepIndex >= 0 && stepIndex < steps.length) {
