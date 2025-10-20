@@ -19,8 +19,11 @@ import {
   Car,
   GraduationCap,
   Phone,
-  AlertCircle
+  AlertCircle,
+  Crown
 } from 'lucide-react';
+import { useProfile } from '@/hooks/use-profile';
+import { useRouter } from 'next/navigation';
 
 // Components
 import CVActivationCard from './components/CVActivationCard';
@@ -56,6 +59,11 @@ interface ActiveCVData {
 }
 
 export default function JobbmatchningPage() {
+  // Hooks
+  const { subscriptionTier } = useProfile();
+  const router = useRouter();
+  const isPremium = subscriptionTier === 'premium';
+
   // State
   const [cvs, setCvs] = useState<CV[]>([]);
   const [activeCV, setActiveCV] = useState<ActiveCVData | null>(null);
@@ -75,6 +83,9 @@ export default function JobbmatchningPage() {
   const [error, setError] = useState<string | null>(null);
 
   const supabase = createClient();
+
+  // Constants for free tier limits
+  const FREE_TIER_JOB_LIMIT = 10;
 
   // Fetch CVs and active CV on mount
   useEffect(() => {
@@ -565,15 +576,51 @@ export default function JobbmatchningPage() {
               })()}
 
               {/* Results Grid */}
-              {!loadingJobs && jobs.length > 0 && (
-                <JobResultsGrid
-                  jobs={showDistantJobs ? jobs : jobs.filter(j => !j.distance || j.distance <= 100)}
-                  selectedAnalysis={null}
-                  onJobSelect={setSelectedJob}
-                  selectedAnalysisId={undefined}
-                  cvId={activeCVId || undefined}
-                />
-              )}
+              {!loadingJobs && jobs.length > 0 && (() => {
+                const filteredJobs = showDistantJobs ? jobs : jobs.filter(j => !j.distance || j.distance <= 100);
+                const displayedJobs = isPremium ? filteredJobs : filteredJobs.slice(0, FREE_TIER_JOB_LIMIT);
+                const hasMoreJobs = !isPremium && filteredJobs.length > FREE_TIER_JOB_LIMIT;
+
+                return (
+                  <>
+                    <JobResultsGrid
+                      jobs={displayedJobs}
+                      selectedAnalysis={null}
+                      onJobSelect={setSelectedJob}
+                      selectedAnalysisId={undefined}
+                      cvId={activeCVId || undefined}
+                    />
+
+                    {/* Premium Upgrade Banner för gratis-användare */}
+                    {hasMoreJobs && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="mt-6 bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl border-2 border-pink-200/40 p-8 text-center"
+                      >
+                        <div className="flex items-center justify-center gap-2 mb-4">
+                          <Crown className="w-8 h-8 text-pink-600" />
+                          <h3 className="text-2xl font-bold text-slate-900">
+                            {filteredJobs.length - FREE_TIER_JOB_LIMIT} fler jobb tillgängliga
+                          </h3>
+                        </div>
+                        <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
+                          Vi hittade totalt <strong>{filteredJobs.length} matchande jobb</strong> baserat på ditt CV.
+                          Som gratis-användare kan du se de {FREE_TIER_JOB_LIMIT} bästa matchningarna.
+                          Uppgradera till Premium för att se alla resultat och få obegränsad tillgång till jobbmatchning.
+                        </p>
+                        <button
+                          onClick={() => router.push('/priser')}
+                          className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-pink-500/25 transition-all duration-300 hover:scale-105"
+                        >
+                          <Crown className="w-5 h-5" />
+                          Uppgradera för 149 SEK/månad
+                        </button>
+                      </motion.div>
+                    )}
+                  </>
+                );
+              })()}
 
               {/* No results message */}
               {!loadingJobs && jobs.length === 0 && (

@@ -1,12 +1,22 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Brain, Grid3x3, Clock, Target, ArrowRight, BookOpen, Calculator, BarChart3, Info } from 'lucide-react';
+import { Brain, Grid3x3, Clock, Target, ArrowRight, BookOpen, Calculator, BarChart3, Info, Crown, Lock } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useProfile } from '@/hooks/use-profile';
+import { useRouter } from 'next/navigation';
 
 export default function TesterPage() {
   const [hoveredTooltip, setHoveredTooltip] = useState<string | null>(null);
+  const { subscriptionTier, loading } = useProfile();
+  const router = useRouter();
+  const isPremium = subscriptionTier === 'premium';
+
+  const handlePremiumClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    router.push('/priser');
+  };
 
   return (
     <div className="max-w-6xl mx-auto p-6">
@@ -108,46 +118,68 @@ export default function TesterPage() {
           </Link>
 
           {/* Matrislogik Avancerad */}
-          <Link href="/dashboard/tester/matrislogik-avancerad">
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="bg-white rounded-xl p-6 border-2 border-slate-200 hover:border-orange-400 transition-all shadow-md hover:shadow-lg group cursor-pointer relative overflow-hidden"
-            >
-              <div className="absolute top-2 right-2">
-                <span className="px-2 py-1 bg-orange-100 text-orange-700 text-xs font-bold rounded-full">
-                  Avancerad
-                </span>
-              </div>
+          <div className="relative">
+            <Link href={isPremium ? "/dashboard/tester/matrislogik-avancerad" : "#"} onClick={!isPremium ? handlePremiumClick : undefined}>
+              <motion.div
+                whileHover={{ scale: isPremium ? 1.02 : 1 }}
+                className={`bg-white rounded-xl p-6 border-2 transition-all shadow-md group cursor-pointer relative overflow-hidden ${
+                  isPremium ? 'border-slate-200 hover:border-orange-400 hover:shadow-lg' : 'border-gray-200 opacity-75'
+                }`}
+              >
+                {/* Premium Lock Overlay */}
+                {!isPremium && (
+                  <div className="absolute inset-0 bg-white/95 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
+                    <div className="text-center p-4">
+                      <Lock className="h-8 w-8 text-gray-500 mx-auto mb-2" />
+                      <p className="text-sm text-gray-700 font-medium mb-2">Premium Test</p>
+                      <button
+                        onClick={handlePremiumClick}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white text-xs rounded-lg font-medium transition-all"
+                      >
+                        <Crown className="h-3 w-3" />
+                        Uppgradera
+                      </button>
+                    </div>
+                  </div>
+                )}
 
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg">
-                    <Grid3x3 className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-slate-900">Avancerad nivå</h3>
-                    <p className="text-xs text-slate-500">Nivå 2-3</p>
-                  </div>
+                <div className="absolute top-2 right-2">
+                  <span className="px-2 py-1 bg-orange-100 text-orange-700 text-xs font-bold rounded-full flex items-center gap-1">
+                    {!isPremium && <Crown className="h-3 w-3" />}
+                    Avancerad
+                  </span>
                 </div>
-                <ArrowRight className="w-5 h-5 text-orange-600 group-hover:translate-x-1 transition-transform" />
-              </div>
 
-              <p className="text-sm text-slate-600 mb-4">
-                Utmana dig med komplexa logiska mönster, villkorliga transformationer och abstrakta relationer.
-              </p>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg">
+                      <Grid3x3 className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-slate-900">Avancerad nivå</h3>
+                      <p className="text-xs text-slate-500">Nivå 2-3</p>
+                    </div>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-orange-600 group-hover:translate-x-1 transition-transform" />
+                </div>
 
-              <div className="flex items-center gap-3 text-xs">
-                <span className="flex items-center gap-1 px-2 py-1 bg-orange-50 text-orange-700 rounded-md font-medium">
-                  <Target className="w-3 h-3" />
-                  15 frågor
-                </span>
-                <span className="flex items-center gap-1 px-2 py-1 bg-red-50 text-red-700 rounded-md font-medium">
-                  <Clock className="w-3 h-3" />
-                  ~35 min
-                </span>
-              </div>
-            </motion.div>
-          </Link>
+                <p className="text-sm text-slate-600 mb-4">
+                  Utmana dig med komplexa logiska mönster, villkorliga transformationer och abstrakta relationer.
+                </p>
+
+                <div className="flex items-center gap-3 text-xs">
+                  <span className="flex items-center gap-1 px-2 py-1 bg-orange-50 text-orange-700 rounded-md font-medium">
+                    <Target className="w-3 h-3" />
+                    15 frågor
+                  </span>
+                  <span className="flex items-center gap-1 px-2 py-1 bg-red-50 text-red-700 rounded-md font-medium">
+                    <Clock className="w-3 h-3" />
+                    ~35 min
+                  </span>
+                </div>
+              </motion.div>
+            </Link>
+          </div>
         </div>
       </motion.div>
 
@@ -227,46 +259,68 @@ export default function TesterPage() {
           </Link>
 
           {/* Verbalt Resonemang v2 */}
-          <Link href="/dashboard/tester/verbal-resonemang-v2">
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="bg-white rounded-xl p-6 border-2 border-slate-200 hover:border-teal-400 transition-all shadow-md hover:shadow-lg group cursor-pointer relative overflow-hidden"
-            >
-              <div className="absolute top-2 right-2">
-                <span className="px-2 py-1 bg-teal-100 text-teal-700 text-xs font-bold rounded-full">
-                  Ny!
-                </span>
-              </div>
+          <div className="relative">
+            <Link href={isPremium ? "/dashboard/tester/verbal-resonemang-v2" : "#"} onClick={!isPremium ? handlePremiumClick : undefined}>
+              <motion.div
+                whileHover={{ scale: isPremium ? 1.02 : 1 }}
+                className={`bg-white rounded-xl p-6 border-2 transition-all shadow-md group cursor-pointer relative overflow-hidden ${
+                  isPremium ? 'border-slate-200 hover:border-teal-400 hover:shadow-lg' : 'border-gray-200 opacity-75'
+                }`}
+              >
+                {/* Premium Lock Overlay */}
+                {!isPremium && (
+                  <div className="absolute inset-0 bg-white/95 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
+                    <div className="text-center p-4">
+                      <Lock className="h-8 w-8 text-gray-500 mx-auto mb-2" />
+                      <p className="text-sm text-gray-700 font-medium mb-2">Premium Test</p>
+                      <button
+                        onClick={handlePremiumClick}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white text-xs rounded-lg font-medium transition-all"
+                      >
+                        <Crown className="h-3 w-3" />
+                        Uppgradera
+                      </button>
+                    </div>
+                  </div>
+                )}
 
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg">
-                    <BookOpen className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-slate-900">Kritisk Läsning</h3>
-                    <p className="text-xs text-slate-500">Nivå 1-3</p>
-                  </div>
+                <div className="absolute top-2 right-2">
+                  <span className="px-2 py-1 bg-teal-100 text-teal-700 text-xs font-bold rounded-full flex items-center gap-1">
+                    {!isPremium && <Crown className="h-3 w-3" />}
+                    Ny!
+                  </span>
                 </div>
-                <ArrowRight className="w-5 h-5 text-teal-600 group-hover:translate-x-1 transition-transform" />
-              </div>
 
-              <p className="text-sm text-slate-600 mb-4">
-                Analysera textpassager om samhälle och vetenskap. Bedöm påståenden kritiskt och dra väl underbyggda slutsatser.
-              </p>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-gradient-to-br from-teal-500 to-cyan-600 rounded-lg">
+                      <BookOpen className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-slate-900">Kritisk Läsning</h3>
+                      <p className="text-xs text-slate-500">Nivå 1-3</p>
+                    </div>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-teal-600 group-hover:translate-x-1 transition-transform" />
+                </div>
 
-              <div className="flex items-center gap-3 text-xs">
-                <span className="flex items-center gap-1 px-2 py-1 bg-teal-50 text-teal-700 rounded-md font-medium">
-                  <BookOpen className="w-3 h-3" />
-                  12 passager
-                </span>
-                <span className="flex items-center gap-1 px-2 py-1 bg-cyan-50 text-cyan-700 rounded-md font-medium">
-                  <Clock className="w-3 h-3" />
-                  ~25 min
-                </span>
-              </div>
-            </motion.div>
-          </Link>
+                <p className="text-sm text-slate-600 mb-4">
+                  Analysera textpassager om samhälle och vetenskap. Bedöm påståenden kritiskt och dra väl underbyggda slutsatser.
+                </p>
+
+                <div className="flex items-center gap-3 text-xs">
+                  <span className="flex items-center gap-1 px-2 py-1 bg-teal-50 text-teal-700 rounded-md font-medium">
+                    <BookOpen className="w-3 h-3" />
+                    12 passager
+                  </span>
+                  <span className="flex items-center gap-1 px-2 py-1 bg-cyan-50 text-cyan-700 rounded-md font-medium">
+                    <Clock className="w-3 h-3" />
+                    ~25 min
+                  </span>
+                </div>
+              </motion.div>
+            </Link>
+          </div>
         </div>
       </motion.div>
 
@@ -353,46 +407,68 @@ export default function TesterPage() {
           </Link>
 
           {/* Numeriskt Test v2 */}
-          <Link href="/dashboard/tester/numeriskt-test-v2">
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="bg-white rounded-xl p-6 border-2 border-slate-200 hover:border-purple-400 transition-all shadow-md hover:shadow-lg group cursor-pointer relative overflow-hidden"
-            >
-              <div className="absolute top-2 right-2">
-                <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs font-bold rounded-full">
-                  Ny!
-                </span>
-              </div>
+          <div className="relative">
+            <Link href={isPremium ? "/dashboard/tester/numeriskt-test-v2" : "#"} onClick={!isPremium ? handlePremiumClick : undefined}>
+              <motion.div
+                whileHover={{ scale: isPremium ? 1.02 : 1 }}
+                className={`bg-white rounded-xl p-6 border-2 transition-all shadow-md group cursor-pointer relative overflow-hidden ${
+                  isPremium ? 'border-slate-200 hover:border-purple-400 hover:shadow-lg' : 'border-gray-200 opacity-75'
+                }`}
+              >
+                {/* Premium Lock Overlay */}
+                {!isPremium && (
+                  <div className="absolute inset-0 bg-white/95 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
+                    <div className="text-center p-4">
+                      <Lock className="h-8 w-8 text-gray-500 mx-auto mb-2" />
+                      <p className="text-sm text-gray-700 font-medium mb-2">Premium Test</p>
+                      <button
+                        onClick={handlePremiumClick}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white text-xs rounded-lg font-medium transition-all"
+                      >
+                        <Crown className="h-3 w-3" />
+                        Uppgradera
+                      </button>
+                    </div>
+                  </div>
+                )}
 
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gradient-to-br from-purple-500 to-violet-600 rounded-lg">
-                    <BarChart3 className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-slate-900">Grafanalys</h3>
-                    <p className="text-xs text-slate-500">Nivå 2</p>
-                  </div>
+                <div className="absolute top-2 right-2">
+                  <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs font-bold rounded-full flex items-center gap-1">
+                    {!isPremium && <Crown className="h-3 w-3" />}
+                    Ny!
+                  </span>
                 </div>
-                <ArrowRight className="w-5 h-5 text-purple-600 group-hover:translate-x-1 transition-transform" />
-              </div>
 
-              <p className="text-sm text-slate-600 mb-4">
-                Stapel-, linje- och cirkeldiagram. Träna visuell datatolkning och trendanalys.
-              </p>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-gradient-to-br from-purple-500 to-violet-600 rounded-lg">
+                      <BarChart3 className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-slate-900">Grafanalys</h3>
+                      <p className="text-xs text-slate-500">Nivå 2</p>
+                    </div>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-purple-600 group-hover:translate-x-1 transition-transform" />
+                </div>
 
-              <div className="flex items-center gap-3 text-xs">
-                <span className="flex items-center gap-1 px-2 py-1 bg-purple-50 text-purple-700 rounded-md font-medium">
-                  <Target className="w-3 h-3" />
-                  20 frågor
-                </span>
-                <span className="flex items-center gap-1 px-2 py-1 bg-violet-50 text-violet-700 rounded-md font-medium">
-                  <Clock className="w-3 h-3" />
-                  ~20 min
-                </span>
-              </div>
-            </motion.div>
-          </Link>
+                <p className="text-sm text-slate-600 mb-4">
+                  Stapel-, linje- och cirkeldiagram. Träna visuell datatolkning och trendanalys.
+                </p>
+
+                <div className="flex items-center gap-3 text-xs">
+                  <span className="flex items-center gap-1 px-2 py-1 bg-purple-50 text-purple-700 rounded-md font-medium">
+                    <Target className="w-3 h-3" />
+                    20 frågor
+                  </span>
+                  <span className="flex items-center gap-1 px-2 py-1 bg-violet-50 text-violet-700 rounded-md font-medium">
+                    <Clock className="w-3 h-3" />
+                    ~20 min
+                  </span>
+                </div>
+              </motion.div>
+            </Link>
+          </div>
         </div>
       </motion.div>
     </div>

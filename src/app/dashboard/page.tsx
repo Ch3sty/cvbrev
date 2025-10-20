@@ -384,7 +384,7 @@ export default function DashboardPage() {
             // Free User Quota Cards
             <>
               <QuotaCard
-                title="Brev idag"
+                title="Skapade personliga brev"
                 icon={<PenTool className="w-5 h-5" />}
                 used={stats.dailyLetterCount || 0}
                 limit={2}
