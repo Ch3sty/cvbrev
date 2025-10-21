@@ -156,7 +156,8 @@ export default function DashboardSidebar() {
       path: '/dashboard/profil/prenumeration',
       label: 'Prenumeration',
       icon: <Crown className="w-4 h-4" />,
-      highlight: false
+      highlight: true,
+      highlightType: 'premium'
     },
     {
       path: '/dashboard/profil/installningar',
@@ -365,10 +366,14 @@ export default function DashboardSidebar() {
                       : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
                     }
                     ${collapsed ? 'justify-center' : ''}
-                    ${subItem.highlight ? 'ring-2 ring-green-400/30' : ''}
+                    ${subItem.highlight && !subItem.highlightType ? 'ring-2 ring-green-400/30' : ''}
+                    ${subItem.highlight && subItem.highlightType === 'premium' ? 'ring-2 ring-yellow-400/40' : ''}
                   `}
                 >
-                  <span className={`flex-shrink-0 ${subItem.highlight ? 'text-green-600' : ''}`}>
+                  <span className={`flex-shrink-0 ${
+                    subItem.highlight && !subItem.highlightType ? 'text-green-600' :
+                    subItem.highlight && subItem.highlightType === 'premium' ? 'text-yellow-600' : ''
+                  }`}>
                     {subItem.icon}
                   </span>
                   {!collapsed && (
@@ -376,8 +381,13 @@ export default function DashboardSidebar() {
                       <span className={`ml-3 ${subItem.highlight ? 'font-bold' : ''}`}>
                         {subItem.label}
                       </span>
-                      {subItem.highlight && (
+                      {subItem.highlight && !subItem.highlightType && (
                         <span className="absolute right-2 top-1/2 -translate-y-1/2 w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                      )}
+                      {subItem.highlight && subItem.highlightType === 'premium' && (
+                        <span className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 text-black text-xs font-bold rounded-full animate-pulse">
+                          ↑
+                        </span>
                       )}
                     </>
                   )}
