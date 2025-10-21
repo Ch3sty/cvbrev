@@ -15,7 +15,9 @@ import {
   Infinity as InfinityIcon,
   Info,
   Search,
-  GraduationCap
+  GraduationCap,
+  Palette,
+  Brain
 } from 'lucide-react';
 
 export default function SubscriptionInfo() {
@@ -196,7 +198,7 @@ export default function SubscriptionInfo() {
         </div>
 
         {/* 6. Automatisk tonalitetsanpassning */}
-        <div className="flex items-center justify-between py-3">
+        <div className="flex items-center justify-between py-3 border-b border-gray-200">
           <div className="flex items-center text-sm">
             <Lightbulb className="w-4 h-4 mr-3 text-yellow-600 flex-shrink-0" />
             <span className="text-gray-700 font-medium">Automatisk tonalitetsanpassning</span>
@@ -206,6 +208,48 @@ export default function SubscriptionInfo() {
               <div className="flex items-center text-sm text-green-600 font-semibold">
                 <CheckCircle className="w-4 h-4 mr-1" />
                 <span>Tillgänglig</span>
+              </div>
+            ) : (
+              <div className="flex items-center text-sm text-gray-500">
+                <Lock className="w-4 h-4 mr-1" />
+                <span>Endast Premium</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* 7. Premium CV-mallar - 6st premium + 2 gratis */}
+        <div className="flex items-center justify-between py-3 border-b border-gray-200">
+          <div className="flex items-center text-sm">
+            <Palette className="w-4 h-4 mr-3 text-amber-600 flex-shrink-0" />
+            <span className="text-gray-700 font-medium">Premium CV-mallar</span>
+          </div>
+          <div className="flex items-center">
+            {subscriptionTier === 'premium' ? (
+              <div className="flex items-center text-sm text-green-600 font-semibold">
+                <CheckCircle className="w-4 h-4 mr-1" />
+                <span>8 mallar tillgängliga</span>
+              </div>
+            ) : (
+              <div className="flex items-center text-sm text-gray-500">
+                <Lock className="w-4 h-4 mr-1" />
+                <span>2 gratis, 6 premium</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* 8. Avancerade kognitiva tester - 3st premium */}
+        <div className="flex items-center justify-between py-3">
+          <div className="flex items-center text-sm">
+            <Brain className="w-4 h-4 mr-3 text-orange-600 flex-shrink-0" />
+            <span className="text-gray-700 font-medium">Avancerade kognitiva tester</span>
+          </div>
+          <div className="flex items-center">
+            {subscriptionTier === 'premium' ? (
+              <div className="flex items-center text-sm text-green-600 font-semibold">
+                <CheckCircle className="w-4 h-4 mr-1" />
+                <span>3 avancerade tester</span>
               </div>
             ) : (
               <div className="flex items-center text-sm text-gray-500">

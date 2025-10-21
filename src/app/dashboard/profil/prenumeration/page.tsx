@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import SubscriptionInfo from '@/components/subscription/subscription-info';
 import { SubscribeButton } from '@/components/subscription/SubscribeButton';
 import { ManageSubscriptionButton } from '@/components/subscription/ManageSubscriptionButton';
-import { Crown, PenTool, Search, GraduationCap, FileText, Brain, Palette, Lightbulb, Save } from 'lucide-react';
+import { Crown, PenTool, Search, GraduationCap, FileText, Brain, Palette, Lightbulb } from 'lucide-react';
 
 export default function PrenumerationPage() {
   const { subscriptionTier, loading: profileLoading } = useProfile();
@@ -37,16 +37,7 @@ export default function PrenumerationPage() {
       </motion.div>
 
       <div className="space-y-6">
-        {/* 1. Visa aktuell prenumerationsinformation */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-        >
-          <SubscriptionInfo />
-        </motion.div>
-
-        {/* 2. Visa knapp för att uppgradera ELLER hantera prenumeration */}
+        {/* Loading state */}
         {profileLoading ? (
           <div className="flex justify-center items-center p-8 bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50">
             <motion.div
@@ -56,13 +47,26 @@ export default function PrenumerationPage() {
             />
           </div>
         ) : subscriptionTier === 'free' ? (
-          // ANVÄNDAREN HAR GRATISPLAN
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
-            className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-8 border-2 border-pink-500/30 shadow-2xl"
-          >
+          // GRATIS-ANVÄNDARE: Side-by-side layout
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Vänster kolumn: Prenumerationsstatus */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <SubscriptionInfo />
+            </motion.div>
+
+            {/* Höger kolumn: Uppgradera till Premium */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className="h-fit"
+            >
+              <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-8 border-2 border-pink-500/30 shadow-2xl"
+            >
             <div className="flex items-center mb-4">
               <div className="p-3 bg-gradient-to-br from-pink-600 to-purple-600 rounded-xl mr-3">
                 <Crown className="w-6 h-6 text-white" />
@@ -151,10 +155,6 @@ export default function PrenumerationPage() {
                     <FileText className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
                     <span><strong>Obegränsad lagring</strong> – Spara alla brev och analyser</span>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <Save className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span><strong>Professionell export</strong> – Word & PDF-format</span>
-                  </li>
                 </ul>
               </div>
             </div>
@@ -166,15 +166,26 @@ export default function PrenumerationPage() {
             <p className="text-center text-sm text-gray-600 mt-4">
               149 kr/månad • Ingen bindningstid • Avsluta när du vill
             </p>
-          </motion.div>
+              </div>
+            </motion.div>
+          </div>
         ) : subscriptionTier === 'premium' ? (
-          // ANVÄNDAREN HAR PREMIUM
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2 }}
-            className="bg-gradient-to-br from-yellow-50 to-amber-50 rounded-2xl p-8 border-2 border-yellow-500/30 shadow-2xl"
-          >
+          // PREMIUM-ANVÄNDARE: Vertikal layout (behåller original)
+          <>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <SubscriptionInfo />
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+              className="bg-gradient-to-br from-yellow-50 to-amber-50 rounded-2xl p-8 border-2 border-yellow-500/30 shadow-2xl"
+            >
             <div className="flex items-center mb-4">
               <div className="p-3 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-xl mr-3">
                 <Crown className="w-6 h-6 text-white" />
@@ -185,7 +196,8 @@ export default function PrenumerationPage() {
               Via Stripes kundportal kan du se dina fakturor, uppdatera din betalningsmetod eller avsluta din prenumeration.
             </p>
             <ManageSubscriptionButton className="w-full" />
-          </motion.div>
+            </motion.div>
+          </>
         ) : (
           // Fallback om status är okänd
           <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-8 border border-gray-200/50">
