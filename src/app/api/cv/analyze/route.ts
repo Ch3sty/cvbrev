@@ -19,31 +19,8 @@ const WEEKLY_ANALYSIS_LIMIT_FREE = 2; // Definiera gräns för gratisanvändare
 //  Helper Functions
 // ============================================================================
 
-/**
- * Calculates the next reset date (next Monday 00:00 UTC) based on the last reset timestamp.
- * Ensures the calculated reset date is always in the future relative to the current time.
- * @param lastResetTimestamp - ISO string of the last reset or null.
- * @returns Date object representing the next reset timestamp.
- */
-const calculateNextResetDate = (lastResetTimestamp: string | null): Date => {
-    // ... (funktionens kod oförändrad) ...
-    const now = new Date();
-    const lastReset = lastResetTimestamp ? new Date(lastResetTimestamp) : now;
-    const nextReset = new Date(lastReset);
-    nextReset.setUTCHours(0, 0, 0, 0);
-    const currentDayOfWeek = nextReset.getUTCDay();
-    const daysUntilMonday = (currentDayOfWeek === 1) ? 7 : (8 - currentDayOfWeek) % 7;
-    if (daysUntilMonday === 0 && lastResetTimestamp === null) {
-         nextReset.setUTCDate(nextReset.getUTCDate() + 7);
-    } else if (daysUntilMonday > 0) {
-        nextReset.setUTCDate(nextReset.getUTCDate() + daysUntilMonday);
-    }
-    while (nextReset.getTime() <= now.getTime()) {
-        console.warn(`Calculated reset date ${nextReset.toISOString()} was not in the future compared to ${now.toISOString()}. Adding 7 days.`);
-        nextReset.setUTCDate(nextReset.getUTCDate() + 7);
-    }
-    return nextReset;
-};
+// BORTTAGEN - Använder inte längre fast måndag-återställning
+// Ny dynamisk modell: Exakt 7 dagar från första användning
 
 /**
  * Extracts general improvements from analysis result
@@ -104,12 +81,10 @@ function extractGeneralImprovementsFromAnalysis(analysisResult: any): any[] {
  * @param userId - The ID of the user.
  * @returns Profile data or throws an error.
  */
-// Använd den importerade SupabaseClient-typen här
 async function getUserProfileData(supabase: SupabaseClient<Database>, userId: string) {
-    // ... (funktionens kod oförändrad) ...
      const { data: profileData, error: profileError } = await supabase
         .from('profiles')
-        .select('subscription_tier, weekly_analysis_count, last_analysis_reset, next_reset_date')
+        .select('subscription_tier, weekly_analysis_count, weekly_analysis_first_used_at, weekly_analysis_reset_at')
         .eq('id', userId)
         .single();
     if (profileError) {
@@ -124,49 +99,69 @@ async function getUserProfileData(supabase: SupabaseClient<Database>, userId: st
     return {
         subscriptionTier: ((profileData as any).subscription_tier === 'premium' ? 'premium' : 'free') as 'free' | 'premium',
         currentAnalysisCount: (profileData as any).weekly_analysis_count ?? 0,
-        lastAnalysisResetTimestamp: (profileData as any).last_analysis_reset,
-        dbNextResetDate: (profileData as any).next_reset_date ? new Date((profileData as any).next_reset_date) : null
+        firstUsedAt: (profileData as any).weekly_analysis_first_used_at ? new Date((profileData as any).weekly_analysis_first_used_at) : null,
+        resetAt: (profileData as any).weekly_analysis_reset_at ? new Date((profileData as any).weekly_analysis_reset_at) : null
     };
 }
 
 /**
- * Resets the weekly analysis count for a user if the reset date has passed.
+ * Manages dynamic 7-day quota cycle for CV analysis.
+ * Initializes on first use or resets after 7 days.
  * @param supabase - Initialized Supabase server client.
  * @param userId - The ID of the user.
- * @param dbNextResetDate - The next reset date stored in the database (or null).
- * @param lastAnalysisResetTimestamp - The timestamp of the last reset.
- * @returns Object containing the reset count, new last reset timestamp, and new next reset date.
+ * @param currentCount - Current analysis count.
+ * @param firstUsedAt - When quota was first used (or null).
+ * @param resetAt - When quota resets (or null).
+ * @returns Object containing the count and reset date.
  */
-// Använd den importerade SupabaseClient-typen här
 async function checkAndResetAnalysisCount(
     supabase: SupabaseClient<Database>,
     userId: string,
     currentCount: number,
-    dbNextResetDate: Date | null,
-    lastAnalysisResetTimestamp: string | null
-): Promise<{ count: number; lastReset: string; nextReset: Date }> {
-    // ... (funktionens kod oförändrad) ...
-     const now = new Date();
-    let nextResetDate = (dbNextResetDate && dbNextResetDate > now) ? dbNextResetDate : calculateNextResetDate(lastAnalysisResetTimestamp);
+    firstUsedAt: Date | null,
+    resetAt: Date | null
+): Promise<{ count: number; resetAt: Date }> {
+    const now = new Date();
+    const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
+
     let count = currentCount;
-    let lastReset = lastAnalysisResetTimestamp ?? now.toISOString();
-    if (now.getTime() >= nextResetDate.getTime()) {
-        console.log(`API analyzeCv: User ${userId}: Resetting analysis count.`);
+    let newFirstUsedAt = firstUsedAt;
+    let newResetAt = resetAt;
+    let shouldUpdate = false;
+
+    // Initialize on first use
+    if (!firstUsedAt || !resetAt) {
+        newFirstUsedAt = now;
+        newResetAt = new Date(now.getTime() + SEVEN_DAYS_MS);
         count = 0;
-        lastReset = now.toISOString();
-        nextResetDate = calculateNextResetDate(lastReset);
+        shouldUpdate = true;
+        console.log(`API analyzeCv: User ${userId}: Initiating quota. Resets at ${newResetAt.toISOString()}`);
+    }
+    // Reset if 7 days have passed
+    else if (now.getTime() >= resetAt.getTime()) {
+        newFirstUsedAt = now;
+        newResetAt = new Date(now.getTime() + SEVEN_DAYS_MS);
+        count = 0;
+        shouldUpdate = true;
+        console.log(`API analyzeCv: User ${userId}: Resetting quota. New reset at ${newResetAt.toISOString()}`);
+    }
+
+    if (shouldUpdate && newFirstUsedAt && newResetAt) {
         const { error: resetError } = await (supabase as any)
             .from('profiles')
-            .update({ 
-                weekly_analysis_count: 0, 
-                last_analysis_reset: lastReset, 
-                next_reset_date: nextResetDate.toISOString() 
+            .update({
+                weekly_analysis_count: count,
+                weekly_analysis_first_used_at: newFirstUsedAt.toISOString(),
+                weekly_analysis_reset_at: newResetAt.toISOString()
             })
             .eq('id', userId);
-        if (resetError) { console.error(`API analyzeCv: User ${userId}: Failed to update DB on count reset:`, resetError); }
-        else { console.log(`API analyzeCv: User ${userId}: Database updated with reset count and new reset date.`); }
+
+        if (resetError) {
+            console.error(`API analyzeCv: User ${userId}: Failed to update quota:`, resetError);
+        }
     }
-    return { count, lastReset, nextReset: nextResetDate };
+
+    return { count, resetAt: newResetAt || resetAt || new Date() };
 }
 
 
@@ -256,12 +251,27 @@ export async function POST(request: NextRequest) {
 
         // --- 3. Fetch Profile & Handle Limits/Resets ---
         const profileData = await getUserProfileData(supabase, userId);
-        const resetInfo = await checkAndResetAnalysisCount( supabase, userId, profileData.currentAnalysisCount, profileData.dbNextResetDate, profileData.lastAnalysisResetTimestamp );
+        const resetInfo = await checkAndResetAnalysisCount(
+            supabase,
+            userId,
+            profileData.currentAnalysisCount,
+            profileData.firstUsedAt,
+            profileData.resetAt
+        );
+
         const currentRemainingAnalyses = WEEKLY_ANALYSIS_LIMIT_FREE - resetInfo.count;
-        const nextResetDate = resetInfo.nextReset;
+        const nextResetDate = resetInfo.resetAt;
+
         if (profileData.subscriptionTier === 'free' && resetInfo.count >= WEEKLY_ANALYSIS_LIMIT_FREE) {
-            console.log(`API analyzeCv: User ${userId} (Free): Limit reached after reset check.`);
-            return NextResponse.json( { message: `Du har nått din veckogräns på ${WEEKLY_ANALYSIS_LIMIT_FREE} CV-analyser.`, remainingAnalyses: 0, limitReached: true, nextResetDate: nextResetDate.toISOString() }, { status: 429 } );
+            console.log(`API analyzeCv: User ${userId} (Free): Limit reached (${resetInfo.count}/${WEEKLY_ANALYSIS_LIMIT_FREE}).`);
+            return NextResponse.json({
+                message: `Du har nått din veckogräns på ${WEEKLY_ANALYSIS_LIMIT_FREE} CV-analys per vecka.`,
+                remainingAnalyses: 0,
+                limitReached: true,
+                nextResetDate: nextResetDate.toISOString(),
+                currentCount: resetInfo.count,
+                limit: WEEKLY_ANALYSIS_LIMIT_FREE
+            }, { status: 429 });
         }
 
         // --- 4. Fetch CV Text ---
@@ -282,6 +292,21 @@ export async function POST(request: NextRequest) {
 
         console.log(`✅ Background job created: ${jobId}`);
 
+        // --- 6. Increment Analysis Count for Free Users ---
+        if (profileData.subscriptionTier === 'free') {
+            const newCount = resetInfo.count + 1;
+            const { error: updateError } = await supabase
+                .from('profiles')
+                .update({ weekly_analysis_count: newCount })
+                .eq('id', userId);
+
+            if (updateError) {
+                console.error(`Failed to increment analysis count for user ${userId}:`, updateError);
+            } else {
+                console.log(`Incremented analysis count for user ${userId}: ${newCount}/${WEEKLY_ANALYSIS_LIMIT_FREE}`);
+            }
+        }
+
         // Return 202 Accepted immediately with job info
         return NextResponse.json(
             {
@@ -290,8 +315,10 @@ export async function POST(request: NextRequest) {
                 status: 'processing',
                 isBackgroundJob: true,
                 estimatedTime: '30-60 sekunder',
-                remainingAnalyses: currentRemainingAnalyses,
-                nextResetDate: nextResetDate.toISOString()
+                remainingAnalyses: profileData.subscriptionTier === 'free' ? (currentRemainingAnalyses - 1) : null,
+                nextResetDate: nextResetDate.toISOString(),
+                currentCount: profileData.subscriptionTier === 'free' ? (resetInfo.count + 1) : null,
+                limit: profileData.subscriptionTier === 'free' ? WEEKLY_ANALYSIS_LIMIT_FREE : null
             },
             { status: 202 } // Accepted
         );

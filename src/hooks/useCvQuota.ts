@@ -1,7 +1,7 @@
 // src/hooks/useCvQuota.ts
 /**
  * Hook for checking CV quota limits based on subscription tier
- * Free users: 5 CVs
+ * Free users: 2 CVs (ändrat från 5)
  * Premium users: 50 CVs
  */
 
@@ -19,7 +19,7 @@ interface CvQuota {
 
 export function useCvQuota(): CvQuota {
   const [cvCount, setCvCount] = useState(0);
-  const [maxCvs, setMaxCvs] = useState(5);
+  const [maxCvs, setMaxCvs] = useState(2); // Ändrat från 5 till 2
   const [subscriptionTier, setSubscriptionTier] = useState<'free' | 'premium'>('free');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -51,7 +51,7 @@ export function useCvQuota(): CvQuota {
         }
 
         const tier = profile?.subscription_tier || 'free';
-        const max = tier === 'premium' ? 50 : 5;
+        const max = tier === 'premium' ? 50 : 2; // Ändrat från 5 till 2
 
         setSubscriptionTier(tier);
         setMaxCvs(max);

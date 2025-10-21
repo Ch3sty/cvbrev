@@ -12,33 +12,14 @@ export const maxDuration = 10; // Quick response - just creates job
 //  Constants & Configuration
 // ============================================================================
 
-const WEEKLY_COMPETENCE_ANALYSIS_LIMIT_FREE = 2; // Endast 2 analys per vecka för gratisanvändare
+const WEEKLY_COMPETENCE_ANALYSIS_LIMIT_FREE = 1; // Ändrat: 1 analys per vecka (dynamisk 7-dagars cykel)
 
 // ============================================================================
 //  Helper Functions
 // ============================================================================
 
-/**
- * Beräknar nästa återställningsdatum (nästa måndag 00:00 UTC) baserat på det senaste återställningstidsstämpeln.
- */
-const calculateNextResetDate = (lastResetTimestamp: string | null): Date => {
-    const now = new Date();
-    const lastReset = lastResetTimestamp ? new Date(lastResetTimestamp) : now;
-    const nextReset = new Date(lastReset);
-    nextReset.setUTCHours(0, 0, 0, 0);
-    const currentDayOfWeek = nextReset.getUTCDay();
-    const daysUntilMonday = (currentDayOfWeek === 1) ? 7 : (8 - currentDayOfWeek) % 7;
-    if (daysUntilMonday === 0 && lastResetTimestamp === null) {
-         nextReset.setUTCDate(nextReset.getUTCDate() + 7);
-    } else if (daysUntilMonday > 0) {
-        nextReset.setUTCDate(nextReset.getUTCDate() + daysUntilMonday);
-    }
-    while (nextReset.getTime() <= now.getTime()) {
-        console.warn(`Calculated reset date ${nextReset.toISOString()} was not in the future compared to ${now.toISOString()}. Adding 7 days.`);
-        nextReset.setUTCDate(nextReset.getUTCDate() + 7);
-    }
-    return nextReset;
-};
+// BORTTAGEN - Använder inte längre fast måndag-återställning
+// Ny dynamisk modell: Exakt 7 dagar från första användning
 
 /**
  * Hämtar användarprofildata relevant för analysgränser.
@@ -46,7 +27,7 @@ const calculateNextResetDate = (lastResetTimestamp: string | null): Date => {
 async function getUserProfileData(supabase: any, userId: string) {
     const { data: profileData, error: profileError } = await supabase
         .from('profiles')
-        .select('subscription_tier, weekly_competence_analysis_count, last_competence_analysis_reset, next_reset_date')
+        .select('subscription_tier, weekly_competence_analysis_count, weekly_competence_first_used_at, weekly_competence_reset_at')
         .eq('id', userId)
         .single();
 
@@ -66,53 +47,63 @@ async function getUserProfileData(supabase: any, userId: string) {
     return {
         subscriptionTier: ((profileData as any).subscription_tier === 'premium' ? 'premium' : 'free') as 'free' | 'premium',
         currentAnalysisCount: (profileData as any).weekly_competence_analysis_count ?? 0,
-        lastAnalysisResetTimestamp: (profileData as any).last_competence_analysis_reset,
-        dbNextResetDate: (profileData as any).next_reset_date ? new Date((profileData as any).next_reset_date) : null
+        firstUsedAt: (profileData as any).weekly_competence_first_used_at ? new Date((profileData as any).weekly_competence_first_used_at) : null,
+        resetAt: (profileData as any).weekly_competence_reset_at ? new Date((profileData as any).weekly_competence_reset_at) : null
     };
 }
 
 /**
- * Återställer veckoräknaren för en användare om återställningsdatumet har passerat.
+ * Hanterar dynamisk 7-dagars kvotcykel för kompetensutveckling.
+ * Initierar vid första användning eller återställer efter 7 dagar.
  */
 async function checkAndResetAnalysisCount(
     supabase: any,
     userId: string,
     currentCount: number,
-    dbNextResetDate: Date | null,
-    lastAnalysisResetTimestamp: string | null
-): Promise<{ count: number; lastReset: string; nextReset: Date }> {
+    firstUsedAt: Date | null,
+    resetAt: Date | null
+): Promise<{ count: number; resetAt: Date }> {
     const now = new Date();
-    let nextResetDate = (dbNextResetDate && dbNextResetDate > now)
-        ? dbNextResetDate
-        : calculateNextResetDate(lastAnalysisResetTimestamp);
+    const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 
     let count = currentCount;
-    let lastReset = lastAnalysisResetTimestamp ?? now.toISOString();
+    let newFirstUsedAt = firstUsedAt;
+    let newResetAt = resetAt;
+    let shouldUpdate = false;
 
-    // Om det är dags för återställning
-    if (now.getTime() >= nextResetDate.getTime()) {
-        console.log(`API competenceAnalysis: User ${userId}: Resetting analysis count.`);
+    // Initiera vid första användning
+    if (!firstUsedAt || !resetAt) {
+        newFirstUsedAt = now;
+        newResetAt = new Date(now.getTime() + SEVEN_DAYS_MS);
         count = 0;
-        lastReset = now.toISOString();
-        nextResetDate = calculateNextResetDate(lastReset);
+        shouldUpdate = true;
+        console.log(`API competenceAnalysis: User ${userId}: Initiating quota. Resets at ${newResetAt.toISOString()}`);
+    }
+    // Återställ om 7 dagar har passerats
+    else if (now.getTime() >= resetAt.getTime()) {
+        newFirstUsedAt = now;
+        newResetAt = new Date(now.getTime() + SEVEN_DAYS_MS);
+        count = 0;
+        shouldUpdate = true;
+        console.log(`API competenceAnalysis: User ${userId}: Resetting quota. New reset at ${newResetAt.toISOString()}`);
+    }
 
+    if (shouldUpdate && newFirstUsedAt && newResetAt) {
         const { error: resetError } = await (supabase as any)
             .from('profiles')
             .update({
-                weekly_competence_analysis_count: 0,
-                last_competence_analysis_reset: lastReset,
-                next_reset_date: nextResetDate.toISOString()
+                weekly_competence_analysis_count: count,
+                weekly_competence_first_used_at: newFirstUsedAt.toISOString(),
+                weekly_competence_reset_at: newResetAt.toISOString()
             })
             .eq('id', userId);
 
         if (resetError) {
-            console.error(`API competenceAnalysis: User ${userId}: Failed to update DB on count reset:`, resetError);
-        } else {
-            console.log(`API competenceAnalysis: User ${userId}: Database updated with reset count and new reset date.`);
+            console.error(`API competenceAnalysis: User ${userId}: Failed to update quota:`, resetError);
         }
     }
 
-    return { count, lastReset, nextReset: nextResetDate };
+    return { count, resetAt: newResetAt || resetAt || new Date() };
 }
 
 // ============================================================================
@@ -162,30 +153,32 @@ export async function POST(request: NextRequest) {
         const {
             subscriptionTier,
             currentAnalysisCount,
-            lastAnalysisResetTimestamp,
-            dbNextResetDate
+            firstUsedAt,
+            resetAt
         } = await getUserProfileData(supabase, userId);
 
         console.log(`--- API /start: User ${userId} subscription tier: ${subscriptionTier}, current count: ${currentAnalysisCount}`);
 
         // Reset counter if needed
-        const { count, nextReset } = await checkAndResetAnalysisCount(
+        const quotaInfo = await checkAndResetAnalysisCount(
             supabase,
             userId,
             currentAnalysisCount,
-            dbNextResetDate,
-            lastAnalysisResetTimestamp
+            firstUsedAt,
+            resetAt
         );
 
         // Check limits for free tier
-        if (subscriptionTier === 'free' && count >= WEEKLY_COMPETENCE_ANALYSIS_LIMIT_FREE) {
-            console.log(`--- API /start: User ${userId} has reached weekly limit (${count}/${WEEKLY_COMPETENCE_ANALYSIS_LIMIT_FREE})`);
+        if (subscriptionTier === 'free' && quotaInfo.count >= WEEKLY_COMPETENCE_ANALYSIS_LIMIT_FREE) {
+            console.log(`--- API /start: User ${userId} has reached weekly limit (${quotaInfo.count}/${WEEKLY_COMPETENCE_ANALYSIS_LIMIT_FREE})`);
 
             return NextResponse.json({
                 error: 'Veckogräns nådd',
                 message: `Du har nått din veckogräns för kompetensanalyser (${WEEKLY_COMPETENCE_ANALYSIS_LIMIT_FREE} per vecka). Uppgradera till Premium för obegränsad användning.`,
                 remainingAnalyses: 0,
-                nextResetDate: nextReset.toISOString(),
+                nextResetDate: quotaInfo.resetAt.toISOString(),
+                currentCount: quotaInfo.count,
+                limit: WEEKLY_COMPETENCE_ANALYSIS_LIMIT_FREE,
                 limitReached: true
             }, { status: 429 });
         }
@@ -230,16 +223,16 @@ export async function POST(request: NextRequest) {
 
         // Update user's analysis count
         if (subscriptionTier === 'free') {
+            const newCount = quotaInfo.count + 1;
             const { error: updateError } = await supabase
                 .from('profiles')
-                .update({
-                    weekly_competence_analysis_count: count + 1,
-                    next_reset_date: nextReset.toISOString()
-                })
+                .update({ weekly_competence_analysis_count: newCount })
                 .eq('id', userId);
 
             if (updateError) {
                 console.error('--- API /start: Failed to update user count:', updateError);
+            } else {
+                console.log(`--- API /start: Updated quota for user ${userId}: ${newCount}/${WEEKLY_COMPETENCE_ANALYSIS_LIMIT_FREE}`);
             }
         }
 
@@ -310,8 +303,10 @@ export async function POST(request: NextRequest) {
             status: 'pending',
             message: 'Kompetensanalys har startats',
             statusUrl: `/api/cv/kompetensutveckling/status?id=${newJob.id}`,
-            remainingAnalyses: subscriptionTier === 'free' ? Math.max(0, WEEKLY_COMPETENCE_ANALYSIS_LIMIT_FREE - count - 1) : null,
-            nextResetDate: subscriptionTier === 'free' ? nextReset.toISOString() : null
+            remainingAnalyses: subscriptionTier === 'free' ? Math.max(0, WEEKLY_COMPETENCE_ANALYSIS_LIMIT_FREE - quotaInfo.count - 1) : null,
+            nextResetDate: subscriptionTier === 'free' ? quotaInfo.resetAt.toISOString() : null,
+            currentCount: subscriptionTier === 'free' ? (quotaInfo.count + 1) : null,
+            limit: subscriptionTier === 'free' ? WEEKLY_COMPETENCE_ANALYSIS_LIMIT_FREE : null
         });
 
     } catch (error: any) {

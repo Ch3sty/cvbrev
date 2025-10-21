@@ -39,16 +39,15 @@ interface DashboardStats {
   levelTitle?: string;
   availableRewards?: number;
   isPremium?: boolean;
-  monthlyLetters?: number; // Lägg till för premium dashboard
-  // Uppdaterade kvot-fält
-  dailyLetterCount?: number;
+  monthlyLetters?: number;
+  // Nya dynamiska 7-dagars kvoter
+  weeklyLetterCount?: number;
   weeklyAnalysisCount?: number;
   weeklyCompetenceCount?: number;
-  remainingLetters?: number;
-  remainingAnalyses?: number;
-  remainingCompetence?: number;
-  nextDailyReset?: Date;
-  nextWeeklyReset?: Date;
+  cvCount?: number;
+  letterResetDate?: Date;
+  analysisResetDate?: Date;
+  competenceResetDate?: Date;
 }
 
 export default function DashboardPage() {
@@ -96,9 +95,25 @@ export default function DashboardPage() {
         // Hämta användarens profil med prenumerationsinfo och nya kvotfält
         const { data: profile } = await supabase
           .from('profiles')
-          .select('subscription_tier, weekly_analysis_count, weekly_letter_count, weekly_competence_analysis_count, premium_until, premium_source, daily_letter_count, last_daily_reset, last_analysis_reset, last_competence_analysis_reset')
+          .select(`
+            subscription_tier,
+            premium_until,
+            premium_source,
+            weekly_letter_count,
+            weekly_letter_reset_at,
+            weekly_analysis_count,
+            weekly_analysis_reset_at,
+            weekly_competence_analysis_count,
+            weekly_competence_reset_at
+          `)
           .eq('id', user.id)
           .single();
+
+        // Hämta antal uppladdade CV
+        const { count: cvCount } = await supabase
+          .from('cv_texts')
+          .select('*', { count: 'exact', head: true })
+          .eq('user_id', user.id);
 
         // Hämta gamification stats
         let rewardsData = {
@@ -123,61 +138,10 @@ export default function DashboardPage() {
 
         // Kontrollera premium-status från alla möjliga källor
         const isPremium = !!(
-          // Stripe prenumeration
           profile?.subscription_tier === 'premium' ||
-          // Admin-tilldelad premium med datum
           (profile?.premium_until && new Date(profile.premium_until) > new Date()) ||
-          // Admin-tilldelad premium via source
           profile?.premium_source
         );
-
-        // Nya kvot-gränser
-        const dailyLetterLimit = 2;    // 2 per dag (inte 5/månad)
-        const weeklyAnalysisLimit = 1; // 1 per vecka (inte 3/vecka)
-        const weeklyCompetenceLimit = 1; // 1 per vecka (ny begränsning)
-
-        // Kontrollera om daglig återställning behövs
-        const today = new Date().toDateString();
-        const lastReset = profile?.last_daily_reset ? new Date(profile.last_daily_reset).toDateString() : null;
-        const needsDailyReset = lastReset !== today;
-
-        // Räkna brev skapade idag för gratis-användare
-        const todayStart = new Date();
-        todayStart.setHours(0, 0, 0, 0);
-        const dailyLetters = letters?.filter(letter =>
-          new Date(letter.created_at) >= todayStart
-        ) || [];
-
-        // Använd databas-värde om ingen reset behövs, annars räkna från idag
-        const dailyLetterCount = needsDailyReset ? dailyLetters.length : (profile?.daily_letter_count || 0);
-
-        // Beräkna återstående kvoter för gratis-användare
-        const weeklyAnalysisCount = analyses?.length || 0;
-        const weeklyCompetenceCount = profile?.weekly_competence_analysis_count || 0;
-
-        const remainingLetters = isPremium ? -1 : Math.max(0, dailyLetterLimit - dailyLetterCount);
-        const remainingAnalyses = isPremium ? -1 : Math.max(0, weeklyAnalysisLimit - weeklyAnalysisCount);
-        const remainingCompetence = isPremium ? -1 : Math.max(0, weeklyCompetenceLimit - weeklyCompetenceCount);
-
-        // Beräkna nästa återställningsdatum
-        const getNextDailyReset = () => {
-          const tomorrow = new Date();
-          tomorrow.setDate(tomorrow.getDate() + 1);
-          tomorrow.setHours(0, 0, 0, 0);
-          return tomorrow;
-        };
-
-        const getNextWeeklyReset = () => {
-          const now = new Date();
-          const daysUntilSunday = (7 - now.getDay()) % 7 || 7;
-          const nextSunday = new Date(now);
-          nextSunday.setDate(now.getDate() + daysUntilSunday);
-          nextSunday.setHours(0, 0, 0, 0);
-          return nextSunday;
-        };
-
-        const nextDailyReset = getNextDailyReset();
-        const nextWeeklyReset = getNextWeeklyReset();
 
         setStats({
           totalLetters: letters?.length || 0,
@@ -188,20 +152,19 @@ export default function DashboardPage() {
             company_name: letter.company,
             position: letter.job_title
           })) || [],
+          // Nya dynamiska 7-dagars kvoter
+          weeklyLetterCount: profile?.weekly_letter_count || 0,
+          weeklyAnalysisCount: profile?.weekly_analysis_count || 0,
+          weeklyCompetenceCount: profile?.weekly_competence_analysis_count || 0,
+          cvCount: cvCount || 0,
+          letterResetDate: profile?.weekly_letter_reset_at ? new Date(profile.weekly_letter_reset_at) : undefined,
+          analysisResetDate: profile?.weekly_analysis_reset_at ? new Date(profile.weekly_analysis_reset_at) : undefined,
+          competenceResetDate: profile?.weekly_competence_reset_at ? new Date(profile.weekly_competence_reset_at) : undefined,
           currentLevel: rewardsData.currentLevel,
           levelTitle: rewardsData.levelTitle,
           availableRewards: rewardsData.availableRewards,
           isPremium,
-          monthlyLetters: monthlyLetters.length, // Lägg till för premium dashboard
-          // Uppdaterade kvot-värden
-          dailyLetterCount,
-          weeklyAnalysisCount,
-          weeklyCompetenceCount,
-          remainingLetters,
-          remainingAnalyses,
-          remainingCompetence,
-          nextDailyReset,
-          nextWeeklyReset
+          monthlyLetters: monthlyLetters.length
         });
       } catch (error) {
         console.error('Fel vid hämtning av dashboard-data:', error);
@@ -386,11 +349,11 @@ export default function DashboardPage() {
               <QuotaCard
                 title="Skapade personliga brev"
                 icon={<PenTool className="w-5 h-5" />}
-                used={stats.dailyLetterCount || 0}
-                limit={2}
-                remaining={stats.remainingLetters || 0}
-                resetDate={stats.nextDailyReset}
-                resetType="daily"
+                used={stats.weeklyLetterCount || 0}
+                limit={7}
+                remaining={Math.max(0, 7 - (stats.weeklyLetterCount || 0))}
+                resetDate={stats.letterResetDate}
+                resetType="weekly"
                 href="/dashboard/skapa-brev"
               />
               <QuotaCard
@@ -398,8 +361,8 @@ export default function DashboardPage() {
                 icon={<Brain className="w-5 h-5" />}
                 used={stats.weeklyAnalysisCount || 0}
                 limit={1}
-                remaining={stats.remainingAnalyses || 0}
-                resetDate={stats.nextWeeklyReset}
+                remaining={Math.max(0, 1 - (stats.weeklyAnalysisCount || 0))}
+                resetDate={stats.analysisResetDate}
                 resetType="weekly"
                 href="/dashboard/cv-analys"
               />
@@ -408,10 +371,19 @@ export default function DashboardPage() {
                 icon={<Target className="w-5 h-5" />}
                 used={stats.weeklyCompetenceCount || 0}
                 limit={1}
-                remaining={stats.remainingCompetence || 0}
-                resetDate={stats.nextWeeklyReset}
+                remaining={Math.max(0, 1 - (stats.weeklyCompetenceCount || 0))}
+                resetDate={stats.competenceResetDate}
                 resetType="weekly"
                 href="/dashboard/kompetensutveckling"
+              />
+              <QuotaCard
+                title="Uppladdade CV"
+                icon={<FileText className="w-5 h-5" />}
+                used={stats.cvCount || 0}
+                limit={2}
+                remaining={Math.max(0, 2 - (stats.cvCount || 0))}
+                resetType="permanent"
+                href="/dashboard/profil/cv"
               />
             </>
           )}

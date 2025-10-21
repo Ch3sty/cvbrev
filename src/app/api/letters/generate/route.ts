@@ -48,47 +48,75 @@ export async function POST(request: Request) {
     }
     userIdForLogging = user.id; // Spara ID för ev. felloggning
 
-    // Hämta profil (oförändrat)
+    // Hämta profil med nya dynamiska kvotfält
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
-      .select('subscription_tier, weekly_letter_count, last_count_reset')
+      .select('subscription_tier, weekly_letter_count, weekly_letter_first_used_at, weekly_letter_reset_at')
       .eq('id', user.id)
       .single();
 
-    if (profileError || !profile) { // Lade till !profile check
+    if (profileError || !profile) {
       console.error('Fel vid hämtning av användarprofil:', profileError);
-      // Logga felet här om möjligt
       if (userIdForLogging) {
           logUserActivity(userIdForLogging, 'letter_generation_failed', 'Kunde inte hämta profil innan generering', { error: profileError?.message || 'Profil ej hittad' });
       }
       return NextResponse.json({ error: 'Kunde inte hämta användarprofil' }, { status: 500 });
     }
 
-    // Logik för veckoräknare (oförändrad)...
-    const lastReset = profile.last_count_reset ? new Date(profile.last_count_reset) : new Date(0);
+    // Ny dynamisk 7-dagars kvotlogik
     const now = new Date();
-    const oneWeek = 7 * 24 * 60 * 60 * 1000;
-    let weeklyCount = profile.weekly_letter_count || 0;
-    let shouldResetCounter = false;
-    let nextResetDate = new Date(lastReset.getTime() + oneWeek); // Beräkna nästa datum
-    if (now.getTime() - lastReset.getTime() > oneWeek) {
-      weeklyCount = 0;
-      shouldResetCounter = true;
-      nextResetDate = new Date(now.getTime() + oneWeek); // Sätt nytt datum från nu
-    }
-    // --- Slut på logik för veckoräknare ---
+    const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
+    const WEEKLY_LETTER_LIMIT = 7; // Ny gräns: 7 brev per vecka
 
-    // Kontroll av veckogräns (oförändrad)...
-    if (profile.subscription_tier === 'free' && weeklyCount >= 5) {
-      // Logga detta försök
-      logUserActivity(user.id, 'letter_generation_failed', 'Försökte generera brev men veckogräns nådd', { limit: 5 });
+    let weeklyCount = profile.weekly_letter_count || 0;
+    let firstUsedAt = profile.weekly_letter_first_used_at ? new Date(profile.weekly_letter_first_used_at) : null;
+    let resetAt = profile.weekly_letter_reset_at ? new Date(profile.weekly_letter_reset_at) : null;
+    let shouldUpdateDatabase = false;
+
+    // Om användaren aldrig använt kvoten, initiera första gången
+    if (!firstUsedAt || !resetAt) {
+      firstUsedAt = now;
+      resetAt = new Date(now.getTime() + SEVEN_DAYS_MS);
+      weeklyCount = 0;
+      shouldUpdateDatabase = true;
+      console.log(`Initierar veckokvot för användare ${user.id}: Återställs ${resetAt.toISOString()}`);
+    }
+    // Om återställningsdatumet har passerats, nollställ
+    else if (now.getTime() >= resetAt.getTime()) {
+      firstUsedAt = now;
+      resetAt = new Date(now.getTime() + SEVEN_DAYS_MS);
+      weeklyCount = 0;
+      shouldUpdateDatabase = true;
+      console.log(`Återställer veckokvot för användare ${user.id}: Ny återställning ${resetAt.toISOString()}`);
+    }
+
+    // Uppdatera databas om nödvändigt
+    if (shouldUpdateDatabase) {
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({
+          weekly_letter_count: weeklyCount,
+          weekly_letter_first_used_at: firstUsedAt.toISOString(),
+          weekly_letter_reset_at: resetAt.toISOString()
+        })
+        .eq('id', user.id);
+
+      if (updateError) {
+        console.error('Fel vid uppdatering av veckokvot:', updateError);
+      }
+    }
+
+    // Kontroll av veckogräns för gratis-användare
+    if (profile.subscription_tier === 'free' && weeklyCount >= WEEKLY_LETTER_LIMIT) {
+      logUserActivity(user.id, 'letter_generation_failed', 'Försökte generera brev men veckogräns nådd', { limit: WEEKLY_LETTER_LIMIT, current: weeklyCount });
       return NextResponse.json({
-        error: 'Du har nått din veckogräns på 5 brev. Uppgradera till premium.',
+        error: `Du har nått din veckogräns på ${WEEKLY_LETTER_LIMIT} brev. Uppgradera till premium för obegränsade brev.`,
         code: 'WEEKLY_LIMIT_REACHED',
-        nextResetDate: nextResetDate.toISOString() // Skicka med nästa återställningsdatum
+        nextResetDate: resetAt.toISOString(),
+        currentCount: weeklyCount,
+        limit: WEEKLY_LETTER_LIMIT
       }, { status: 403 });
     }
-    // --- Slut på kontroll av veckogräns ---
 
     // Hämta input och spara för ev. felloggning
     const { cv_id, job_description, tonality, language = 'sv', save = false } = await request.json();
@@ -235,24 +263,26 @@ export async function POST(request: Request) {
       return letterObject;
     })();
 
-    // Registrera pågående generering (oförändrat)
+    // Registrera pågående generering
     activeGenerations.set(requestKey, { startTime: Date.now(), promise: generationPromise });
 
-    // Öka veckoräknaren (oförändrat)...
+    // Öka veckoräknaren efter lyckad generering
     let finalRemainingLetters = null;
     if (profile.subscription_tier === 'free') {
-      const currentWeeklyCount = shouldResetCounter ? 1 : weeklyCount + 1;
-      finalRemainingLetters = 5 - currentWeeklyCount;
-      finalRemainingLetters = finalRemainingLetters >= 0 ? finalRemainingLetters : 0; // Se till att det inte är negativt
+      const currentWeeklyCount = weeklyCount + 1;
+      finalRemainingLetters = WEEKLY_LETTER_LIMIT - currentWeeklyCount;
+      finalRemainingLetters = finalRemainingLetters >= 0 ? finalRemainingLetters : 0;
 
-      const updates: any = { weekly_letter_count: currentWeeklyCount };
-      if (shouldResetCounter) { updates.last_count_reset = new Date().toISOString(); }
-      // Uppdatera även next_reset_date för tydlighet i DB (även om den beräknas ovan)
-      updates.next_reset_date = nextResetDate.toISOString(); 
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({ weekly_letter_count: currentWeeklyCount })
+        .eq('id', user.id);
 
-      const { error: updateError } = await supabase.from('profiles').update(updates).eq('id', user.id);
-      if (updateError) { console.error('Fel vid uppdatering av brevräknare:', updateError); }
-      else { console.log(`Updated weekly count for user ${user.id} (free) to ${currentWeeklyCount}`); }
+      if (updateError) {
+        console.error('Fel vid uppdatering av brevräknare:', updateError);
+      } else {
+        console.log(`Uppdaterade veckokvot för användare ${user.id}: ${currentWeeklyCount}/${WEEKLY_LETTER_LIMIT}`);
+      }
     }
 
     // Vänta på resultat och returnera till frontend
@@ -267,11 +297,13 @@ export async function POST(request: Request) {
          is_saved: letterDataResult.is_saved // Skicka med flaggan
       };
 
-      // Lägg till remainingLetters och nextResetDate
+      // Lägg till kvotinformation för gratis-användare
       if (profile.subscription_tier === 'free') {
          responseData.remainingLetters = finalRemainingLetters;
+         responseData.nextResetDate = resetAt.toISOString();
+         responseData.currentCount = weeklyCount + 1;
+         responseData.limit = WEEKLY_LETTER_LIMIT;
       }
-       responseData.nextResetDate = nextResetDate.toISOString(); // Skicka med nästa datum
 
       console.log(`Generation successful for key: ${requestKey}. Returning data to frontend (without AI meta).`);
       return NextResponse.json(responseData);

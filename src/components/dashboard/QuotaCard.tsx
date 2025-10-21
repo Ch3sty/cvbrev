@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Clock } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 interface QuotaCardProps {
   title: string;
@@ -10,7 +11,7 @@ interface QuotaCardProps {
   limit: number;
   remaining: number;
   resetDate?: Date;
-  resetType?: 'daily' | 'weekly';
+  resetType?: 'daily' | 'weekly' | 'permanent';
   href?: string;
   isPremium?: boolean;
   premiumText?: string;
@@ -92,25 +93,36 @@ export default function QuotaCard({
     );
   };
 
-  // Calculate countdown
-  const getCountdown = () => {
-    if (!resetDate || isPremium) return null;
+  // Live countdown timer - updates every minute
+  const [countdown, setCountdown] = useState<string | null>(null);
 
-    const now = new Date();
-    const diff = resetDate.getTime() - now.getTime();
-    const hours = Math.floor(diff / (1000 * 60 * 60));
-    const days = Math.floor(hours / 24);
-
-    if (days > 0) {
-      return `Återställs om ${days} dag${days > 1 ? 'ar' : ''}`;
+  useEffect(() => {
+    if (!resetDate || isPremium || resetType === 'permanent') {
+      setCountdown(null);
+      return;
     }
-    if (hours > 0) {
-      return `Återställs om ${hours}h`;
-    }
-    return 'Återställs snart';
-  };
 
-  const countdown = getCountdown();
+    const updateCountdown = () => {
+      const now = new Date();
+      const diff = resetDate.getTime() - now.getTime();
+
+      if (diff <= 0) {
+        setCountdown('Återställer...');
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+      setCountdown(`${days}d ${hours}h ${minutes}m`);
+    };
+
+    updateCountdown(); // Initial update
+    const interval = setInterval(updateCountdown, 60000); // Update every minute
+
+    return () => clearInterval(interval);
+  }, [resetDate, isPremium, resetType]);
 
   const cardContent = (
     <motion.div
