@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import SubscriptionInfo from '@/components/subscription/subscription-info';
 import { SubscribeButton } from '@/components/subscription/SubscribeButton';
 import { ManageSubscriptionButton } from '@/components/subscription/ManageSubscriptionButton';
-import { Crown } from 'lucide-react';
+import { Crown, PenTool, Search, GraduationCap, FileText, Brain, Palette, Lightbulb, Save } from 'lucide-react';
 
 export default function PrenumerationPage() {
   const { subscriptionTier, loading: profileLoading } = useProfile();
@@ -69,9 +69,91 @@ export default function PrenumerationPage() {
               </div>
               <h3 className="text-2xl font-bold text-gray-900">Uppgradera till Premium</h3>
             </div>
-            <p className="text-gray-700 mb-6 leading-relaxed">
-              Lås upp obegränsad tillgång till brevgenerering, sparade brev, CV-uppladdningar, CV-analyser och smarta tonalitetsval för att maximera dina jobbchanser.
-            </p>
+            <div className="space-y-6 mb-6">
+              {/* Sektion 1: Obegränsat användande */}
+              <div>
+                <h4 className="font-bold text-lg text-gray-900 mb-3">
+                  Obegränsat användande:
+                </h4>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex items-start gap-3">
+                    <PenTool className="w-5 h-5 text-pink-600 mt-0.5 flex-shrink-0" />
+                    <span><strong>Obegränsade personliga brev</strong> – Ansök till alla jobb du vill (gratis: 7/vecka)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Search className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <span><strong>Obegränsade CV-analyser</strong> – Få AI-feedback när du behöver (gratis: 1/vecka)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <GraduationCap className="w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0" />
+                    <span><strong>Obegränsad kompetensutveckling</strong> – Personliga lärandevägar (gratis: 1/vecka)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <FileText className="w-5 h-5 text-indigo-600 mt-0.5 flex-shrink-0" />
+                    <span><strong>50 uppladdade CV</strong> – Hantera alla dina CV-versioner (gratis: 2st)</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Sektion 2: Premium CV-mallar */}
+              <div>
+                <h4 className="font-bold text-lg text-gray-900 mb-3">
+                  Premium CV-mallar (8st totalt):
+                </h4>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex items-start gap-3">
+                    <Palette className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
+                    <span><strong>6 exklusiva premium-mallar:</strong> Clean Corporate, Creative Edge, Executive Premium, Nordic Professional, Platinum Executive, Creative Minimal</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Palette className="w-5 h-5 text-slate-500 mt-0.5 flex-shrink-0" />
+                    <span>2 gratis-mallar: Modern Minimal, Classic Professional</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Sektion 3: Avancerade kognitiva tester */}
+              <div>
+                <h4 className="font-bold text-lg text-gray-900 mb-3">
+                  Avancerade kognitiva tester:
+                </h4>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex items-start gap-3">
+                    <Brain className="w-5 h-5 text-orange-600 mt-0.5 flex-shrink-0" />
+                    <span><strong>Matrislogik Avancerad</strong> – Nivå 2-3 med komplexa mönster</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Brain className="w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0" />
+                    <span><strong>Verbalt Resonemang v2</strong> – Kritisk läsning, nivå 1-3</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Brain className="w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0" />
+                    <span><strong>Numeriskt Test v2</strong> – Grafanalys med diagram</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Sektion 4: Smarta funktioner */}
+              <div>
+                <h4 className="font-bold text-lg text-gray-900 mb-3">
+                  Smarta funktioner:
+                </h4>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex items-start gap-3">
+                    <Lightbulb className="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0" />
+                    <span><strong>Automatisk tonalitetsanpassning</strong> – 5+1 tonaliteter (inkl. Auto)</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <FileText className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <span><strong>Obegränsad lagring</strong> – Spara alla brev och analyser</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Save className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <span><strong>Professionell export</strong> – Word & PDF-format</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
             <SubscribeButton
               priceId={premiumMonthlyPriceId}
               planName="Premium Månad"
