@@ -50,21 +50,12 @@ export default function PrenumerationPage() {
           // GRATIS-ANVÄNDARE: Side-by-side layout
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Vänster kolumn: Prenumerationsstatus */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
-            >
+            <div>
               <SubscriptionInfo />
-            </motion.div>
+            </div>
 
             {/* Höger kolumn: Uppgradera till Premium */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
-              className="h-fit"
-            >
+            <div className="h-fit">
               <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-8 border-2 border-pink-500/30 shadow-2xl"
             >
             <div className="flex items-center mb-6">
@@ -79,23 +70,23 @@ export default function PrenumerationPage() {
               {/* Obegränsat användande */}
               <div className="flex items-start gap-2.5">
                 <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-gray-700"><strong>Obegränsade personliga brev</strong> (gratis: 7/vecka)</span>
+                <span className="text-sm text-gray-700"><strong>Obegränsade personliga brev</strong></span>
               </div>
               <div className="flex items-start gap-2.5">
                 <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-gray-700"><strong>Obegränsade CV-analyser</strong> (gratis: 1/vecka)</span>
+                <span className="text-sm text-gray-700"><strong>Obegränsade CV-analyser</strong></span>
               </div>
               <div className="flex items-start gap-2.5">
                 <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-gray-700"><strong>Obegränsad kompetensutveckling</strong> (gratis: 1/vecka)</span>
+                <span className="text-sm text-gray-700"><strong>Obegränsad kompetensutveckling</strong></span>
               </div>
               <div className="flex items-start gap-2.5">
                 <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-gray-700"><strong>50 uppladdade CV</strong> (gratis: 2st)</span>
+                <span className="text-sm text-gray-700"><strong>50 uppladdade CV</strong></span>
               </div>
               <div className="flex items-start gap-2.5">
                 <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-gray-700"><strong>Obegränsade sparade brev</strong> (gratis: 2st)</span>
+                <span className="text-sm text-gray-700"><strong>Obegränsade sparade brev</strong></span>
               </div>
 
               {/* Separator */}
@@ -104,7 +95,7 @@ export default function PrenumerationPage() {
               {/* Premium CV-mallar */}
               <div className="flex items-start gap-2.5">
                 <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-gray-700"><strong>8 Premium CV-mallar</strong> (gratis: 2st)</span>
+                <span className="text-sm text-gray-700"><strong>8 Premium CV-mallar</strong></span>
               </div>
 
               {/* Avancerade tester */}
@@ -135,25 +126,17 @@ export default function PrenumerationPage() {
               149 kr/månad • Ingen bindningstid • Avsluta när du vill
             </p>
               </div>
-            </motion.div>
+            </div>
           </div>
         ) : subscriptionTier === 'premium' ? (
           // PREMIUM-ANVÄNDARE: Vertikal layout (behåller original)
           <>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-            >
+            <div>
               <SubscriptionInfo />
-            </motion.div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2 }}
-              className="bg-gradient-to-br from-yellow-50 to-amber-50 rounded-2xl p-8 border-2 border-yellow-500/30 shadow-2xl"
-            >
+            <div className="bg-gradient-to-br from-yellow-50 to-amber-50 rounded-2xl p-8 border-2 border-yellow-500/30 shadow-2xl">
+
             <div className="flex items-center mb-4">
               <div className="p-3 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-xl mr-3">
                 <Crown className="w-6 h-6 text-white" />
@@ -164,7 +147,7 @@ export default function PrenumerationPage() {
               Via Stripes kundportal kan du se dina fakturor, uppdatera din betalningsmetod eller avsluta din prenumeration.
             </p>
             <ManageSubscriptionButton className="w-full" />
-            </motion.div>
+            </div>
           </>
         ) : (
           // Fallback om status är okänd

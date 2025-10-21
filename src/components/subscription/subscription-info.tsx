@@ -87,6 +87,16 @@ export default function SubscriptionInfo() {
         </div>
       </div>
 
+      {/* Premium-användare: Visa "Obegränsad tillgång" först */}
+      {subscriptionTier === 'premium' && (
+        <div className="mb-6 p-4 bg-green-50 rounded-xl border border-green-200">
+          <div className="flex items-center">
+            <CheckCircle className="w-5 h-5 text-green-600 mr-3 flex-shrink-0" />
+            <span className="text-sm font-semibold text-green-800">Obegränsad tillgång till alla funktioner</span>
+          </div>
+        </div>
+      )}
+
       {/* Begränsningar och användning */}
       <h3 className="text-lg font-semibold text-gray-900 mb-4">Användning och gränser:</h3>
       <div className="space-y-1">
