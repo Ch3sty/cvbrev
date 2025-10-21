@@ -87,16 +87,6 @@ export default function SubscriptionInfo() {
         </div>
       </div>
 
-      {/* Premium-användare: Visa "Obegränsad tillgång" först */}
-      {subscriptionTier === 'premium' && (
-        <div className="mb-6 p-4 bg-green-50 rounded-xl border border-green-200">
-          <div className="flex items-center">
-            <CheckCircle className="w-5 h-5 text-green-600 mr-3 flex-shrink-0" />
-            <span className="text-sm font-semibold text-green-800">Obegränsad tillgång till alla funktioner</span>
-          </div>
-        </div>
-      )}
-
       {/* Begränsningar och användning */}
       <h3 className="text-lg font-semibold text-gray-900 mb-4">Användning och gränser:</h3>
       <div className="space-y-1">
@@ -255,7 +245,7 @@ export default function SubscriptionInfo() {
         </div>
 
         {/* 8. Avancerade kognitiva tester - 3st premium */}
-        <div className="flex items-center justify-between py-3">
+        <div className="flex items-center justify-between py-3 border-b border-gray-200">
           <div className="flex items-center text-sm">
             <Brain className="w-4 h-4 mr-3 text-orange-600 flex-shrink-0" />
             <span className="text-gray-700 font-medium">Avancerade kognitiva tester</span>
@@ -265,6 +255,27 @@ export default function SubscriptionInfo() {
               <div className="flex items-center text-sm text-green-600 font-semibold">
                 <CheckCircle className="w-4 h-4 mr-1" />
                 <span>3 avancerade tester</span>
+              </div>
+            ) : (
+              <div className="flex items-center text-sm text-gray-500">
+                <Lock className="w-4 h-4 mr-1" />
+                <span>Endast Premium</span>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* 9. Obegränsad tillgång till alla funktioner - Endast Premium */}
+        <div className="flex items-center justify-between py-3 border-t border-gray-200 mt-3 pt-3">
+          <div className="flex items-center text-sm">
+            <Crown className="w-4 h-4 mr-3 text-yellow-600 flex-shrink-0" />
+            <span className="text-gray-700 font-medium">Obegränsad tillgång till alla funktioner</span>
+          </div>
+          <div className="flex items-center">
+            {subscriptionTier === 'premium' ? (
+              <div className="flex items-center text-sm text-green-600 font-semibold">
+                <CheckCircle className="w-4 h-4 mr-1" />
+                <span>Aktiverad</span>
               </div>
             ) : (
               <div className="flex items-center text-sm text-gray-500">
