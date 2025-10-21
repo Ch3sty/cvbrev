@@ -132,14 +132,6 @@ export default function TesterPage() {
                     {/* Subtle gradient overlay - låter innehållet skina igenom */}
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50/40 to-purple-100/60 rounded-xl pointer-events-none z-5" />
 
-                    {/* Premium badge högst upp */}
-                    <div className="absolute top-3 left-3 z-20">
-                      <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-full shadow-lg">
-                        <Crown className="h-4 w-4" />
-                        <span className="text-xs font-bold">Premium</span>
-                      </div>
-                    </div>
-
                     {/* Lock icon + CTA button längst ner */}
                     <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white via-white to-transparent rounded-b-xl z-20">
                       <button
@@ -282,14 +274,6 @@ export default function TesterPage() {
                   <>
                     {/* Subtle gradient overlay - låter innehållet skina igenom */}
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50/40 to-purple-100/60 rounded-xl pointer-events-none z-5" />
-
-                    {/* Premium badge högst upp */}
-                    <div className="absolute top-3 left-3 z-20">
-                      <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-full shadow-lg">
-                        <Crown className="h-4 w-4" />
-                        <span className="text-xs font-bold">Premium</span>
-                      </div>
-                    </div>
 
                     {/* Lock icon + CTA button längst ner */}
                     <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white via-white to-transparent rounded-b-xl z-20">
@@ -440,14 +424,6 @@ export default function TesterPage() {
                   <>
                     {/* Subtle gradient overlay - låter innehållet skina igenom */}
                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50/40 to-purple-100/60 rounded-xl pointer-events-none z-5" />
-
-                    {/* Premium badge högst upp */}
-                    <div className="absolute top-3 left-3 z-20">
-                      <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-full shadow-lg">
-                        <Crown className="h-4 w-4" />
-                        <span className="text-xs font-bold">Premium</span>
-                      </div>
-                    </div>
 
                     {/* Lock icon + CTA button längst ner */}
                     <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white via-white to-transparent rounded-b-xl z-20">
