@@ -119,6 +119,13 @@ export default function DashboardSidebar() {
       section: 'tools'
     },
     {
+      path: '/dashboard/profil/cv',
+      label: 'Mina CV:n',
+      icon: <FileText className="w-5 h-5" />,
+      section: 'tools',
+      highlight: true
+    },
+    {
       path: '/dashboard/learning-plans',
       label: 'Mina Lärandeplaner',
       icon: <GraduationCap className="w-5 h-5" />,
@@ -145,12 +152,6 @@ export default function DashboardSidebar() {
       label: 'Profilinformation',
       icon: <User className="w-4 h-4" />,
       highlight: false
-    },
-    {
-      path: '/dashboard/profil/cv',
-      label: 'Mina CV:n',
-      icon: <FileText className="w-4 h-4" />,
-      highlight: true // Highlighta denna som central funktion
     },
     {
       path: '/dashboard/profil/prenumeration',
@@ -270,10 +271,10 @@ export default function DashboardSidebar() {
           <ul className="space-y-1">
             {toolsItems.map((item) => (
               <li key={item.path}>
-                <Link 
+                <Link
                   href={item.path}
                   className={`
-                    flex items-center px-4 py-2.5 rounded-lg transition-all duration-200
+                    flex items-center px-4 py-2.5 rounded-lg transition-all duration-200 relative
                     ${pathname === item.path
                       ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
                       : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
@@ -283,6 +284,9 @@ export default function DashboardSidebar() {
                 >
                   <span className="flex-shrink-0">{item.icon}</span>
                   {!collapsed && <span className="ml-3">{item.label}</span>}
+                  {'highlight' in item && item.highlight && !collapsed && (
+                    <span className="absolute right-2 top-1/2 -translate-y-1/2 w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  )}
                 </Link>
               </li>
             ))}
@@ -366,12 +370,10 @@ export default function DashboardSidebar() {
                       : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
                     }
                     ${collapsed ? 'justify-center' : ''}
-                    ${subItem.highlight && !subItem.highlightType ? 'ring-2 ring-green-400/30' : ''}
                     ${subItem.highlight && subItem.highlightType === 'premium' ? 'ring-2 ring-yellow-400/40' : ''}
                   `}
                 >
                   <span className={`flex-shrink-0 ${
-                    subItem.highlight && !subItem.highlightType ? 'text-green-600' :
                     subItem.highlight && subItem.highlightType === 'premium' ? 'text-yellow-600' : ''
                   }`}>
                     {subItem.icon}
@@ -381,11 +383,6 @@ export default function DashboardSidebar() {
                       <span className={`ml-3 ${subItem.highlight ? 'font-bold' : ''}`}>
                         {subItem.label}
                       </span>
-                      {subItem.highlight && !subItem.highlightType && (
-                        <span className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-green-600 text-white text-xs font-bold rounded">
-                          VIKTIGT
-                        </span>
-                      )}
                       {subItem.highlight && subItem.highlightType === 'premium' && (
                         <span className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 text-black text-xs font-bold rounded-full animate-pulse">
                           ↑
