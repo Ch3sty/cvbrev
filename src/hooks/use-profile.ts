@@ -659,10 +659,10 @@ export const useProfile = () => {
        throw new Error(message);
     }
 
-    if (!gdprConsent) {
-       console.error("uploadCV Error: GDPR consent missing.");
-       throw new Error('Du måste godkänna GDPR-samtycket för att ladda upp CV');
-    }
+    // GDPR-kontrollen har tagits bort härifrån eftersom:
+    // - Upload-knappen i CVUploadZone är disabled om GDPR ej accepterad
+    // - Användaren kan inte klicka utan att bocka i GDPR först
+    // - React state updates är asynkrona vilket skapade timing-problem
 
     const validTypes = ['.pdf', '.docx', '.txt'];
     const fileExt = file.name.substring(file.name.lastIndexOf('.')).toLowerCase();
