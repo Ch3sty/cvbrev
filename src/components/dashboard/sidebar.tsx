@@ -119,10 +119,16 @@ export default function DashboardSidebar() {
       section: 'tools'
     },
     {
+      path: '/dashboard/cv-mallar',
+      label: 'CV-Mallar',
+      icon: <Palette className="w-5 h-5" />,
+      section: 'tools'
+    },
+    {
       path: '/dashboard/profil/cv',
       label: 'Mina CV:n',
       icon: <FileText className="w-5 h-5" />,
-      section: 'tools',
+      section: 'cvs',
       highlight: true
     },
     {
@@ -130,12 +136,6 @@ export default function DashboardSidebar() {
       label: 'Mina Lärandeplaner',
       icon: <GraduationCap className="w-5 h-5" />,
       section: 'learning'
-    },
-    {
-      path: '/dashboard/cv-mallar',
-      label: 'CV-Mallar',
-      icon: <Palette className="w-5 h-5" />,
-      section: 'tools'
     },
     {
       path: '/dashboard/mina-brev',
@@ -176,6 +176,7 @@ export default function DashboardSidebar() {
   
   // Gruppera navigation items
   const toolsItems = navItems.filter(item => item.section === 'tools');
+  const cvsItems = navItems.filter(item => item.section === 'cvs');
   const learningItems = navItems.filter(item => item.section === 'learning');
   const documentsItems = navItems.filter(item => item.section === 'documents');
   const overviewItems = navItems.filter(item => item.section === 'main');
@@ -276,6 +277,38 @@ export default function DashboardSidebar() {
                   className={`
                     flex items-center px-4 py-2.5 rounded-lg transition-all duration-200 relative
                     ${pathname === item.path
+                      ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
+                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
+                    }
+                    ${collapsed ? 'justify-center' : ''}
+                  `}
+                >
+                  <span className="flex-shrink-0">{item.icon}</span>
+                  {!collapsed && <span className="ml-3">{item.label}</span>}
+                  {'highlight' in item && item.highlight && !collapsed && (
+                    <span className="absolute right-2 top-1/2 -translate-y-1/2 w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                  )}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Mina CV:n Sektion */}
+        <div>
+          {!collapsed && (
+            <h3 className="px-4 py-2 text-xs font-bold text-slate-600 uppercase tracking-wider">
+              Mina CV:n
+            </h3>
+          )}
+          <ul className="space-y-1">
+            {cvsItems.map((item) => (
+              <li key={item.path}>
+                <Link
+                  href={item.path}
+                  className={`
+                    flex items-center px-4 py-2.5 rounded-lg transition-all duration-200 relative
+                    ${pathname === item.path || pathname.startsWith(item.path + '/')
                       ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
                       : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
                     }
