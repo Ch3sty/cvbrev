@@ -11,11 +11,12 @@ import { FileText, Trash2, ExternalLink, AlertTriangle, Info, Crown, Edit, Clock
 export default function MinaCVPage() {
   const router = useRouter();
   const { cvs, fetchCVs, isLoading: cvListLoading } = useCVStore();
-  const { subscriptionTier, uploadCV } = useProfile();
+  const { subscriptionTier, uploadCV, setGdprConsent: setProfileGdprConsent } = useProfile();
   const [isDeleting, setIsDeleting] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [deleteId, setDeleteId] = useState('');
   const [isUploading, setIsUploading] = useState(false);
+  const [gdprConsent, setGdprConsent] = useState(false);
 
   const cvCount = cvs.length;
 
@@ -57,12 +58,17 @@ export default function MinaCVPage() {
   const handleUpload = async (file: File) => {
     setIsUploading(true);
     try {
+      // Sätt GDPR-consent i profile innan uppladdning
+      setProfileGdprConsent(gdprConsent);
+
       // Extrahera titel från filnamn
       const title = file.name.split('.').slice(0, -1).join('.');
       const success = await uploadCV(file, title);
 
       if (success) {
         await fetchCVs();
+        // Reset GDPR efter lyckad uppladdning
+        setGdprConsent(false);
       }
     } catch (error) {
       throw error;
@@ -367,6 +373,7 @@ export default function MinaCVPage() {
 
           <CVUploadZone
             onUpload={handleUpload}
+            onGdprChange={setGdprConsent}
             disabled={isUploading}
             maxSizeMB={10}
           />

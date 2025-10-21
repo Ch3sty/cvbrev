@@ -2,11 +2,12 @@
 
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Upload, X, Loader2, FileText } from 'lucide-react';
+import { Upload, X, Loader2, FileText, Shield, Check } from 'lucide-react';
 import { useDropzone } from 'react-dropzone';
 
 interface CVUploadZoneProps {
   onUpload: (file: File) => Promise<void>;
+  onGdprChange?: (accepted: boolean) => void;
   disabled?: boolean;
   maxSizeMB?: number;
   className?: string;
@@ -14,6 +15,7 @@ interface CVUploadZoneProps {
 
 export default function CVUploadZone({
   onUpload,
+  onGdprChange,
   disabled = false,
   maxSizeMB = 10,
   className = ''
@@ -21,9 +23,15 @@ export default function CVUploadZone({
   const [uploadingFile, setUploadingFile] = useState<File | null>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [gdprAccepted, setGdprAccepted] = useState(false);
+
+  const handleGdprChange = useCallback((accepted: boolean) => {
+    setGdprAccepted(accepted);
+    onGdprChange?.(accepted);
+  }, [onGdprChange]);
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
-    if (acceptedFiles.length === 0 || disabled) return;
+    if (acceptedFiles.length === 0 || disabled || !gdprAccepted) return;
 
     const file = acceptedFiles[0];
     setUploadingFile(file);
@@ -33,13 +41,14 @@ export default function CVUploadZone({
     try {
       await onUpload(file);
       setUploadingFile(null);
+      setGdprAccepted(false); // Reset efter lyckad uppladdning
     } catch (error) {
       setUploadError(error instanceof Error ? error.message : 'Kunde inte ladda upp CV. Försök igen.');
       setUploadingFile(null);
     } finally {
       setIsUploading(false);
     }
-  }, [onUpload, disabled]);
+  }, [onUpload, disabled, gdprAccepted]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -51,7 +60,7 @@ export default function CVUploadZone({
     },
     maxFiles: 1,
     maxSize: maxSizeMB * 1024 * 1024,
-    disabled: disabled || isUploading
+    disabled: disabled || isUploading || !gdprAccepted
   });
 
   return (
@@ -133,6 +142,94 @@ export default function CVUploadZone({
           )}
         </AnimatePresence>
       </div>
+
+      {/* GDPR Consent Box */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className={`
+          mt-6 p-6 rounded-2xl border-2 backdrop-blur-sm shadow-lg
+          transition-all duration-300
+          ${gdprAccepted
+            ? 'bg-gradient-to-r from-emerald-50/90 via-green-50/90 to-emerald-50/90 border-emerald-400 shadow-emerald-500/20'
+            : 'bg-gradient-to-r from-blue-50/90 via-purple-50/90 to-pink-50/90 border-blue-300'
+          }
+        `}
+      >
+        <div className="flex items-start gap-4">
+          <motion.div
+            className={`
+              p-3 rounded-xl flex-shrink-0 shadow-md
+              ${gdprAccepted
+                ? 'bg-gradient-to-br from-emerald-500 to-green-500'
+                : 'bg-gradient-to-br from-blue-500 to-purple-500'
+              }
+            `}
+            whileHover={{ scale: 1.05, rotate: 5 }}
+            transition={{ type: 'spring', stiffness: 300 }}
+          >
+            <Shield className="w-6 h-6 text-white" />
+          </motion.div>
+
+          <div className="flex-1">
+            <label className="flex items-start gap-3 cursor-pointer group">
+              <div className="relative flex-shrink-0 mt-1">
+                <input
+                  type="checkbox"
+                  checked={gdprAccepted}
+                  onChange={(e) => handleGdprChange(e.target.checked)}
+                  className="peer sr-only"
+                />
+                <motion.div
+                  className={`
+                    w-6 h-6 rounded-lg border-2 flex items-center justify-center
+                    transition-all duration-300 shadow-sm
+                    ${gdprAccepted
+                      ? 'bg-gradient-to-br from-emerald-500 to-green-500 border-emerald-500'
+                      : 'bg-white border-gray-300 group-hover:border-blue-400'
+                    }
+                  `}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <AnimatePresence>
+                    {gdprAccepted && (
+                      <motion.div
+                        initial={{ scale: 0, rotate: -180 }}
+                        animate={{ scale: 1, rotate: 0 }}
+                        exit={{ scale: 0, rotate: 180 }}
+                        transition={{ type: 'spring', stiffness: 300 }}
+                      >
+                        <Check className="w-4 h-4 text-white" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              </div>
+
+              <div className="flex-1">
+                <p className="font-bold text-slate-900 mb-1 text-base">
+                  GDPR-samtycke krävs
+                </p>
+                <p className="text-sm text-slate-700 leading-relaxed">
+                  Jag godkänner att mitt CV behandlas enligt GDPR och Jobbcoach.ai:s{' '}
+                  <a
+                    href="/integritetspolicy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:text-blue-700 underline font-semibold transition-colors"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    integritetspolicy
+                  </a>
+                  . Dina personuppgifter hanteras säkert och används endast för att förbättra din jobbsökning.
+                </p>
+              </div>
+            </label>
+          </div>
+        </div>
+      </motion.div>
 
       {/* Error Message */}
       {uploadError && (
