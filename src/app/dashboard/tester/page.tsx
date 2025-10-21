@@ -123,29 +123,39 @@ export default function TesterPage() {
               <motion.div
                 whileHover={{ scale: isPremium ? 1.02 : 1 }}
                 className={`bg-white rounded-xl p-6 border-2 transition-all shadow-md group cursor-pointer relative overflow-hidden ${
-                  isPremium ? 'border-slate-200 hover:border-orange-400 hover:shadow-lg' : 'border-gray-200 opacity-75'
+                  isPremium ? 'border-slate-200 hover:border-orange-400 hover:shadow-lg' : 'border-purple-300'
                 }`}
               >
                 {/* Premium Lock Overlay */}
                 {!isPremium && (
-                  <div className="absolute inset-0 bg-white/95 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
-                    <div className="text-center p-4">
-                      <Lock className="h-8 w-8 text-gray-500 mx-auto mb-2" />
-                      <p className="text-sm text-gray-700 font-medium mb-2">Premium Test</p>
+                  <>
+                    {/* Subtle gradient overlay - låter innehållet skina igenom */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50/40 to-purple-100/60 rounded-xl pointer-events-none z-5" />
+
+                    {/* Premium badge högst upp */}
+                    <div className="absolute top-3 left-3 z-20">
+                      <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-full shadow-lg">
+                        <Crown className="h-4 w-4" />
+                        <span className="text-xs font-bold">Premium</span>
+                      </div>
+                    </div>
+
+                    {/* Lock icon + CTA button längst ner */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white via-white to-transparent rounded-b-xl z-20">
                       <button
                         onClick={handlePremiumClick}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white text-xs rounded-lg font-medium transition-all"
+                        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg transition-all hover:scale-105"
                       >
-                        <Crown className="h-3 w-3" />
-                        Uppgradera
+                        <Lock className="h-4 w-4" />
+                        <span>Lås upp med Premium</span>
+                        <ArrowRight className="h-4 w-4" />
                       </button>
                     </div>
-                  </div>
+                  </>
                 )}
 
-                <div className="absolute top-2 right-2">
+                <div className="absolute top-2 right-2 z-10">
                   <span className="px-2 py-1 bg-orange-100 text-orange-700 text-xs font-bold rounded-full flex items-center gap-1">
-                    {!isPremium && <Crown className="h-3 w-3" />}
                     Avancerad
                   </span>
                 </div>
@@ -264,29 +274,39 @@ export default function TesterPage() {
               <motion.div
                 whileHover={{ scale: isPremium ? 1.02 : 1 }}
                 className={`bg-white rounded-xl p-6 border-2 transition-all shadow-md group cursor-pointer relative overflow-hidden ${
-                  isPremium ? 'border-slate-200 hover:border-teal-400 hover:shadow-lg' : 'border-gray-200 opacity-75'
+                  isPremium ? 'border-slate-200 hover:border-teal-400 hover:shadow-lg' : 'border-purple-300'
                 }`}
               >
                 {/* Premium Lock Overlay */}
                 {!isPremium && (
-                  <div className="absolute inset-0 bg-white/95 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
-                    <div className="text-center p-4">
-                      <Lock className="h-8 w-8 text-gray-500 mx-auto mb-2" />
-                      <p className="text-sm text-gray-700 font-medium mb-2">Premium Test</p>
+                  <>
+                    {/* Subtle gradient overlay - låter innehållet skina igenom */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50/40 to-purple-100/60 rounded-xl pointer-events-none z-5" />
+
+                    {/* Premium badge högst upp */}
+                    <div className="absolute top-3 left-3 z-20">
+                      <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-full shadow-lg">
+                        <Crown className="h-4 w-4" />
+                        <span className="text-xs font-bold">Premium</span>
+                      </div>
+                    </div>
+
+                    {/* Lock icon + CTA button längst ner */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white via-white to-transparent rounded-b-xl z-20">
                       <button
                         onClick={handlePremiumClick}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white text-xs rounded-lg font-medium transition-all"
+                        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg transition-all hover:scale-105"
                       >
-                        <Crown className="h-3 w-3" />
-                        Uppgradera
+                        <Lock className="h-4 w-4" />
+                        <span>Lås upp med Premium</span>
+                        <ArrowRight className="h-4 w-4" />
                       </button>
                     </div>
-                  </div>
+                  </>
                 )}
 
-                <div className="absolute top-2 right-2">
+                <div className="absolute top-2 right-2 z-10">
                   <span className="px-2 py-1 bg-teal-100 text-teal-700 text-xs font-bold rounded-full flex items-center gap-1">
-                    {!isPremium && <Crown className="h-3 w-3" />}
                     Ny!
                   </span>
                 </div>
@@ -412,29 +432,39 @@ export default function TesterPage() {
               <motion.div
                 whileHover={{ scale: isPremium ? 1.02 : 1 }}
                 className={`bg-white rounded-xl p-6 border-2 transition-all shadow-md group cursor-pointer relative overflow-hidden ${
-                  isPremium ? 'border-slate-200 hover:border-purple-400 hover:shadow-lg' : 'border-gray-200 opacity-75'
+                  isPremium ? 'border-slate-200 hover:border-purple-400 hover:shadow-lg' : 'border-purple-300'
                 }`}
               >
                 {/* Premium Lock Overlay */}
                 {!isPremium && (
-                  <div className="absolute inset-0 bg-white/95 backdrop-blur-sm rounded-xl flex items-center justify-center z-10">
-                    <div className="text-center p-4">
-                      <Lock className="h-8 w-8 text-gray-500 mx-auto mb-2" />
-                      <p className="text-sm text-gray-700 font-medium mb-2">Premium Test</p>
+                  <>
+                    {/* Subtle gradient overlay - låter innehållet skina igenom */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50/40 to-purple-100/60 rounded-xl pointer-events-none z-5" />
+
+                    {/* Premium badge högst upp */}
+                    <div className="absolute top-3 left-3 z-20">
+                      <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-full shadow-lg">
+                        <Crown className="h-4 w-4" />
+                        <span className="text-xs font-bold">Premium</span>
+                      </div>
+                    </div>
+
+                    {/* Lock icon + CTA button längst ner */}
+                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white via-white to-transparent rounded-b-xl z-20">
                       <button
                         onClick={handlePremiumClick}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white text-xs rounded-lg font-medium transition-all"
+                        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg transition-all hover:scale-105"
                       >
-                        <Crown className="h-3 w-3" />
-                        Uppgradera
+                        <Lock className="h-4 w-4" />
+                        <span>Lås upp med Premium</span>
+                        <ArrowRight className="h-4 w-4" />
                       </button>
                     </div>
-                  </div>
+                  </>
                 )}
 
-                <div className="absolute top-2 right-2">
+                <div className="absolute top-2 right-2 z-10">
                   <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs font-bold rounded-full flex items-center gap-1">
-                    {!isPremium && <Crown className="h-3 w-3" />}
                     Ny!
                   </span>
                 </div>
