@@ -9,29 +9,28 @@ import {
   Crown,
   CheckCircle,
   FileText,
-  MessageSquare,
-  Sparkles,
+  PenTool,
+  Lightbulb,
   Lock,
   Infinity as InfinityIcon,
   Info,
-  SearchCheck // Importera SearchCheck för CV-analys
+  Search,
+  GraduationCap
 } from 'lucide-react';
 
 export default function SubscriptionInfo() {
   // Hämta nödvändig data, INKLUSIVE weeklyLetterCount och weeklyLetterLimit
   const {
     subscriptionTier,
-    weeklyLetterCount,    // <--- HÄMTA DENNA
-    weeklyLetterLimit,    // <--- OCH DENNA
+    weeklyLetterCount,
+    weeklyLetterLimit,
     cvCount,
-    maxCvCount,           // Kan också hämtas direkt
+    maxCvCount,
     savedLettersCount,
-    maxSavedLetters,      // Kan också hämtas direkt
-    // CV-analys värden
+    maxSavedLetters,
     remainingWeeklyAnalyses,
     weeklyAnalysisLimit,
-    // subscriptionLimits, // Kan tas bort om vi använder direkta props
-    loading: profileLoading // För att visa laddningsstatus
+    loading: profileLoading
   } = useProfile();
 
   // Använd de direkta propsen från useProfile för gränser
@@ -87,110 +86,131 @@ export default function SubscriptionInfo() {
       <h3 className="text-lg font-semibold text-gray-900 mb-4">Användning och gränser:</h3>
       <div className="space-y-1">
 
-        {/* Veckolimit för brev */}
-        <div className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0">
+        {/* 1. Skapade personliga brev - 7/vecka gratis */}
+        <div className="flex items-center justify-between py-3 border-b border-gray-200">
           <div className="flex items-center text-sm">
-            <MessageSquare className="w-4 h-4 mr-3 text-pink-600 flex-shrink-0" />
-            <span className="text-gray-700 font-medium">Brev per vecka</span>
+            <PenTool className="w-4 h-4 mr-3 text-pink-600 flex-shrink-0" />
+            <span className="text-gray-700 font-medium">Skapade personliga brev (per vecka)</span>
           </div>
           <div className="text-sm font-semibold">
-            {subscriptionTier === 'premium' || !isFinite(currentWeeklyLimit) ? (
+            {subscriptionTier === 'premium' ? (
               <div className="text-gray-900 flex items-center">
                 <InfinityIcon className="w-4 h-4 mr-1 text-pink-600" />
                 <span>Obegränsat</span>
               </div>
             ) : (
               <div className="text-gray-900">
-                <span className={(weeklyLetterCount ?? 0) >= currentWeeklyLimit ? 'text-red-600 font-bold' : ''}>
+                <span className={(weeklyLetterCount ?? 0) >= 7 ? 'text-red-600 font-bold' : ''}>
                   {weeklyLetterCount ?? 0}
-                </span> / {currentWeeklyLimit}
+                </span> / 7
               </div>
             )}
           </div>
         </div>
 
-        {/* CV-analyser per vecka */}
-        <div className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0">
+        {/* 2. CV-analyser - 1/vecka gratis */}
+        <div className="flex items-center justify-between py-3 border-b border-gray-200">
           <div className="flex items-center text-sm">
-            <SearchCheck className="w-4 h-4 mr-3 text-purple-600 flex-shrink-0" />
-            <span className="text-gray-700 font-medium">CV-analyser per vecka</span>
+            <Search className="w-4 h-4 mr-3 text-blue-600 flex-shrink-0" />
+            <span className="text-gray-700 font-medium">CV-analyser (per vecka)</span>
           </div>
           <div className="text-sm font-semibold">
-            {subscriptionTier === 'premium' || !isFinite(currentAnalysisLimit) ? (
-              <div className="text-gray-900 flex items-center">
-                <InfinityIcon className="w-4 h-4 mr-1 text-purple-600" />
-                <span>Obegränsat</span>
-              </div>
-            ) : (
-              <div className="text-gray-900">
-                <span className={(currentAnalysisLimit - (remainingWeeklyAnalyses ?? 0) >= currentAnalysisLimit) ? 'text-red-600 font-bold' : ''}>
-                  {currentAnalysisLimit - (remainingWeeklyAnalyses ?? 0)}
-                </span> / {currentAnalysisLimit}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Sparade brev */}
-        <div className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0">
-          <div className="flex items-center text-sm">
-            <FileText className="w-4 h-4 mr-3 text-blue-600 flex-shrink-0" />
-            <span className="text-gray-700 font-medium">Sparade personliga brev</span>
-          </div>
-          <div className="text-sm font-semibold">
-            {subscriptionTier === 'premium' || !isFinite(currentSavedLettersLimit) ? (
+            {subscriptionTier === 'premium' ? (
               <div className="text-gray-900 flex items-center">
                 <InfinityIcon className="w-4 h-4 mr-1 text-blue-600" />
                 <span>Obegränsat</span>
               </div>
             ) : (
               <div className="text-gray-900">
-                <span className={savedLettersCount >= currentSavedLettersLimit ? 'text-red-600 font-bold' : ''}>
-                  {savedLettersCount}
-                </span> / {currentSavedLettersLimit}
+                <span className={(1 - (remainingWeeklyAnalyses ?? 1)) >= 1 ? 'text-red-600 font-bold' : ''}>
+                  {1 - (remainingWeeklyAnalyses ?? 1)}
+                </span> / 1
               </div>
             )}
           </div>
         </div>
 
-        {/* CV-gräns */}
-        <div className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0">
+        {/* 3. Kompetensutveckling - 1/vecka gratis */}
+        <div className="flex items-center justify-between py-3 border-b border-gray-200">
           <div className="flex items-center text-sm">
-            <FileText className="w-4 h-4 mr-3 text-green-600 flex-shrink-0" />
-            <span className="text-gray-700 font-medium">Sparade CV:n</span>
+            <GraduationCap className="w-4 h-4 mr-3 text-purple-600 flex-shrink-0" />
+            <span className="text-gray-700 font-medium">Kompetensutveckling (per vecka)</span>
           </div>
           <div className="text-sm font-semibold">
-             {subscriptionTier === 'premium' || !isFinite(currentCvLimit) ? (
+            {subscriptionTier === 'premium' ? (
               <div className="text-gray-900 flex items-center">
-                <InfinityIcon className="w-4 h-4 mr-1 text-green-600" />
+                <InfinityIcon className="w-4 h-4 mr-1 text-purple-600" />
                 <span>Obegränsat</span>
               </div>
             ) : (
               <div className="text-gray-900">
-                <span className={cvCount >= currentCvLimit ? 'text-red-600 font-bold' : ''}>
-                  {cvCount}
-                </span> / {currentCvLimit}
+                1 / vecka
               </div>
             )}
           </div>
         </div>
 
-        {/* AI-tonalitet */}
-        <div className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0">
+        {/* 4. Uppladdade CV - 2 gratis, 50 premium */}
+        <div className="flex items-center justify-between py-3 border-b border-gray-200">
           <div className="flex items-center text-sm">
-            <Sparkles className="w-4 h-4 mr-3 text-amber-600 flex-shrink-0" />
-            <span className="text-gray-700 font-medium">Smarta tonalitetsval</span>
+            <FileText className="w-4 h-4 mr-3 text-indigo-600 flex-shrink-0" />
+            <span className="text-gray-700 font-medium">Uppladdade CV</span>
+          </div>
+          <div className="text-sm font-semibold">
+            {subscriptionTier === 'premium' ? (
+              <div className="text-gray-900">
+                <span className={(cvCount ?? 0) >= 50 ? 'text-red-600 font-bold' : ''}>
+                  {cvCount ?? 0}
+                </span> / 50
+              </div>
+            ) : (
+              <div className="text-gray-900">
+                <span className={(cvCount ?? 0) >= 2 ? 'text-red-600 font-bold' : ''}>
+                  {cvCount ?? 0}
+                </span> / 2
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* 5. Sparade brev - 2 gratis, obegränsat premium */}
+        <div className="flex items-center justify-between py-3 border-b border-gray-200">
+          <div className="flex items-center text-sm">
+            <FileText className="w-4 h-4 mr-3 text-emerald-600 flex-shrink-0" />
+            <span className="text-gray-700 font-medium">Sparade brev</span>
+          </div>
+          <div className="text-sm font-semibold">
+            {subscriptionTier === 'premium' || maxSavedLetters === Infinity ? (
+              <div className="text-gray-900 flex items-center">
+                <InfinityIcon className="w-4 h-4 mr-1 text-emerald-600" />
+                <span>Obegränsat</span>
+              </div>
+            ) : (
+              <div className="text-gray-900">
+                <span className={(savedLettersCount ?? 0) >= 2 ? 'text-red-600 font-bold' : ''}>
+                  {savedLettersCount ?? 0}
+                </span> / 2
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* 6. Automatisk tonalitetsanpassning */}
+        <div className="flex items-center justify-between py-3">
+          <div className="flex items-center text-sm">
+            <Lightbulb className="w-4 h-4 mr-3 text-yellow-600 flex-shrink-0" />
+            <span className="text-gray-700 font-medium">Automatisk tonalitetsanpassning</span>
           </div>
           <div className="flex items-center">
             {subscriptionTier === 'premium' ? (
-               <div className="flex items-center text-sm text-green-600 font-semibold">
-                 <CheckCircle className="w-4 h-4 mr-1" />
-                 <span>Tillgänglig</span>
-               </div>
+              <div className="flex items-center text-sm text-green-600 font-semibold">
+                <CheckCircle className="w-4 h-4 mr-1" />
+                <span>Tillgänglig</span>
+              </div>
             ) : (
               <div className="flex items-center text-sm text-gray-500">
-                 <Lock className="w-4 h-4 mr-1" />
-                 <span>Endast Premium</span>
+                <Lock className="w-4 h-4 mr-1" />
+                <span>Endast Premium</span>
               </div>
             )}
           </div>

@@ -92,6 +92,10 @@ export default function PrenumerationPage() {
                     <FileText className="w-5 h-5 text-indigo-600 mt-0.5 flex-shrink-0" />
                     <span><strong>50 uppladdade CV</strong> – Hantera alla dina CV-versioner (gratis: 2st)</span>
                   </li>
+                  <li className="flex items-start gap-3">
+                    <FileText className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
+                    <span><strong>Obegränsade sparade brev</strong> – Bygg ditt brevbibliotek (gratis: 2st)</span>
+                  </li>
                 </ul>
               </div>
 
