@@ -126,24 +126,9 @@ export default function TesterPage() {
                   isPremium ? 'border-slate-200 hover:border-orange-400 hover:shadow-lg' : 'border-purple-300'
                 }`}
               >
-                {/* Premium Lock Overlay */}
+                {/* Premium gradient overlay */}
                 {!isPremium && (
-                  <>
-                    {/* Subtle gradient overlay - låter innehållet skina igenom */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50/40 to-purple-100/60 rounded-xl pointer-events-none z-5" />
-
-                    {/* Lock icon + CTA button längst ner */}
-                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white via-white to-transparent rounded-b-xl z-20">
-                      <button
-                        onClick={handlePremiumClick}
-                        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg transition-all hover:scale-105"
-                      >
-                        <Lock className="h-4 w-4" />
-                        <span>Lås upp med Premium</span>
-                        <ArrowRight className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </>
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50/40 to-purple-100/60 rounded-xl pointer-events-none z-5" />
                 )}
 
                 <div className="absolute top-2 right-2 z-10">
@@ -181,6 +166,19 @@ export default function TesterPage() {
                 </div>
               </motion.div>
             </Link>
+
+            {/* Premium CTA Button - visas UNDER kortet */}
+            {!isPremium && (
+              <motion.button
+                onClick={handlePremiumClick}
+                whileHover={{ scale: 1.02 }}
+                className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg transition-all"
+              >
+                <Lock className="h-4 w-4" />
+                <span>Lås upp med Premium</span>
+                <ArrowRight className="h-4 w-4" />
+              </motion.button>
+            )}
           </div>
         </div>
       </motion.div>
@@ -269,24 +267,9 @@ export default function TesterPage() {
                   isPremium ? 'border-slate-200 hover:border-teal-400 hover:shadow-lg' : 'border-purple-300'
                 }`}
               >
-                {/* Premium Lock Overlay */}
+                {/* Premium gradient overlay */}
                 {!isPremium && (
-                  <>
-                    {/* Subtle gradient overlay - låter innehållet skina igenom */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50/40 to-purple-100/60 rounded-xl pointer-events-none z-5" />
-
-                    {/* Lock icon + CTA button längst ner */}
-                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white via-white to-transparent rounded-b-xl z-20">
-                      <button
-                        onClick={handlePremiumClick}
-                        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg transition-all hover:scale-105"
-                      >
-                        <Lock className="h-4 w-4" />
-                        <span>Lås upp med Premium</span>
-                        <ArrowRight className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </>
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50/40 to-purple-100/60 rounded-xl pointer-events-none z-5" />
                 )}
 
                 <div className="absolute top-2 right-2 z-10">
@@ -324,6 +307,19 @@ export default function TesterPage() {
                 </div>
               </motion.div>
             </Link>
+
+            {/* Premium CTA Button - visas UNDER kortet */}
+            {!isPremium && (
+              <motion.button
+                onClick={handlePremiumClick}
+                whileHover={{ scale: 1.02 }}
+                className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg transition-all"
+              >
+                <Lock className="h-4 w-4" />
+                <span>Lås upp med Premium</span>
+                <ArrowRight className="h-4 w-4" />
+              </motion.button>
+            )}
           </div>
         </div>
       </motion.div>
@@ -419,24 +415,9 @@ export default function TesterPage() {
                   isPremium ? 'border-slate-200 hover:border-purple-400 hover:shadow-lg' : 'border-purple-300'
                 }`}
               >
-                {/* Premium Lock Overlay */}
+                {/* Premium gradient overlay */}
                 {!isPremium && (
-                  <>
-                    {/* Subtle gradient overlay - låter innehållet skina igenom */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50/40 to-purple-100/60 rounded-xl pointer-events-none z-5" />
-
-                    {/* Lock icon + CTA button längst ner */}
-                    <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white via-white to-transparent rounded-b-xl z-20">
-                      <button
-                        onClick={handlePremiumClick}
-                        className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg transition-all hover:scale-105"
-                      >
-                        <Lock className="h-4 w-4" />
-                        <span>Lås upp med Premium</span>
-                        <ArrowRight className="h-4 w-4" />
-                      </button>
-                    </div>
-                  </>
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-50/40 to-purple-100/60 rounded-xl pointer-events-none z-5" />
                 )}
 
                 <div className="absolute top-2 right-2 z-10">
@@ -474,6 +455,19 @@ export default function TesterPage() {
                 </div>
               </motion.div>
             </Link>
+
+            {/* Premium CTA Button - visas UNDER kortet */}
+            {!isPremium && (
+              <motion.button
+                onClick={handlePremiumClick}
+                whileHover={{ scale: 1.02 }}
+                className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg transition-all"
+              >
+                <Lock className="h-4 w-4" />
+                <span>Lås upp med Premium</span>
+                <ArrowRight className="h-4 w-4" />
+              </motion.button>
+            )}
           </div>
         </div>
       </motion.div>
