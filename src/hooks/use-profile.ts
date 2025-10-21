@@ -74,6 +74,12 @@ export const useProfile = () => {
   const analysisTimerIntervalRef = useRef<NodeJS.Timeout | null>(null);
   // --- SLUT PÅ NY STATE ---
 
+  // --- STATE FÖR KOMPETENSUTVECKLING ---
+  const [weeklyCompetenceCount, setWeeklyCompetenceCount] = useState<number>(0);
+  const [weeklyCompetenceLimit, setWeeklyCompetenceLimit] = useState<number>(SUBSCRIPTION_LIMITS.free.weeklyCompetenceLimit);
+  const [remainingWeeklyCompetence, setRemainingWeeklyCompetence] = useState<number>(SUBSCRIPTION_LIMITS.free.weeklyCompetenceLimit);
+  // --- SLUT PÅ KOMPETENSUTVECKLING STATE ---
+
   // Supabase-klient
   const supabase = getSupabaseClient();
 
@@ -116,6 +122,14 @@ export const useProfile = () => {
     return Math.max(0, limit - count);
   }, []);
   // --- SLUT PÅ NY HJÄLPFUNKTION ---
+
+  // --- HJÄLPFUNKTION FÖR KOMPETENSUTVECKLING ---
+  const calculateRemainingCompetence = useCallback((tier: 'free' | 'premium', count: number) => {
+    const limit = SUBSCRIPTION_LIMITS[tier].weeklyCompetenceLimit;
+    if (!isFinite(limit)) return Infinity;
+    return Math.max(0, limit - count);
+  }, []);
+  // --- SLUT PÅ KOMPETENSUTVECKLING HJÄLPFUNKTION ---
 
   const calculateLetterLimitReached = useCallback((tier: 'free' | 'premium', count: number) => {
     const limit = SUBSCRIPTION_LIMITS[tier].maxSavedLetters;
@@ -382,6 +396,9 @@ export const useProfile = () => {
         // --- NY LIMIT FÖR ANALYS ---
         setWeeklyAnalysisLimit(SUBSCRIPTION_LIMITS[dbTier].weeklyAnalysisLimit);
         // --- SLUT PÅ NY LIMIT ---
+        // --- LIMIT FÖR KOMPETENSUTVECKLING ---
+        setWeeklyCompetenceLimit(SUBSCRIPTION_LIMITS[dbTier].weeklyCompetenceLimit);
+        // --- SLUT PÅ KOMPETENSUTVECKLING LIMIT ---
         
         console.log("useProfile: Set limits based on tier:", { 
           maxCv: SUBSCRIPTION_LIMITS[dbTier].maxCVCount, 
@@ -413,12 +430,22 @@ export const useProfile = () => {
         const nextAnalysisReset = calculateNextResetDate(data.last_competence_analysis_reset || null);
         setNextAnalysisResetDate(nextAnalysisReset);
         setTimeUntilAnalysisReset(formatTimeRemaining(nextAnalysisReset));
-        console.log("useProfile: Set analysis count & reset:", { 
-          count: currentAnalysisCount, 
-          remaining: calculateRemainingAnalyses(dbTier, currentAnalysisCount), 
-          nextReset: nextAnalysisReset 
+        console.log("useProfile: Set analysis count & reset:", {
+          count: currentAnalysisCount,
+          remaining: calculateRemainingAnalyses(dbTier, currentAnalysisCount),
+          nextReset: nextAnalysisReset
         });
         // --- SLUT PÅ NY HANTERING ---
+
+        // --- HANTERING FÖR KOMPETENSUTVECKLING RÄKNARE ---
+        const currentCompetenceCount = data.weekly_competence_analysis_count || 0;
+        setWeeklyCompetenceCount(currentCompetenceCount);
+        setRemainingWeeklyCompetence(calculateRemainingCompetence(dbTier, currentCompetenceCount));
+        console.log("useProfile: Set competence count:", {
+          count: currentCompetenceCount,
+          remaining: calculateRemainingCompetence(dbTier, currentCompetenceCount)
+        });
+        // --- SLUT PÅ KOMPETENSUTVECKLING HANTERING ---
 
         // Hämta relaterad info
         await fetchCvInfo();
@@ -809,6 +836,11 @@ export const useProfile = () => {
     remainingWeeklyAnalyses,
     nextAnalysisResetDate,
     timeUntilAnalysisReset,
+
+    // === KOMPETENSUTVECKLING VÄRDEN ===
+    weeklyCompetenceCount,
+    weeklyCompetenceLimit,
+    remainingWeeklyCompetence,
 
     // Funktioner
     updateProfile,

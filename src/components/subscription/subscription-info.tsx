@@ -32,6 +32,8 @@ export default function SubscriptionInfo() {
     maxSavedLetters,
     remainingWeeklyAnalyses,
     weeklyAnalysisLimit,
+    weeklyCompetenceCount,
+    weeklyCompetenceLimit,
     loading: profileLoading
   } = useProfile();
 
@@ -41,6 +43,7 @@ export default function SubscriptionInfo() {
   const currentCvLimit = !isFinite(maxCvCount) ? Infinity : maxCvCount ?? 0;
   const currentSavedLettersLimit = !isFinite(maxSavedLetters) ? Infinity : maxSavedLetters ?? 0;
   const currentAnalysisLimit = !isFinite(weeklyAnalysisLimit) ? Infinity : weeklyAnalysisLimit ?? 0;
+  const currentCompetenceLimit = !isFinite(weeklyCompetenceLimit) ? Infinity : weeklyCompetenceLimit ?? 0;
 
 
   // Visa laddningsindikator om profildata fortfarande hämtas
@@ -146,7 +149,9 @@ export default function SubscriptionInfo() {
               </div>
             ) : (
               <div className="text-gray-900">
-                1 / vecka
+                <span className={(weeklyCompetenceCount ?? 0) >= currentCompetenceLimit ? 'text-red-600 font-bold' : ''}>
+                  {weeklyCompetenceCount ?? 0}
+                </span> / {currentCompetenceLimit}
               </div>
             )}
           </div>

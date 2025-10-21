@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import SubscriptionInfo from '@/components/subscription/subscription-info';
 import { SubscribeButton } from '@/components/subscription/SubscribeButton';
 import { ManageSubscriptionButton } from '@/components/subscription/ManageSubscriptionButton';
-import { Crown, PenTool, Search, GraduationCap, FileText, Brain, Palette, Lightbulb } from 'lucide-react';
+import { Crown, CheckCircle } from 'lucide-react';
 
 export default function PrenumerationPage() {
   const { subscriptionTier, loading: profileLoading } = useProfile();
@@ -67,95 +67,63 @@ export default function PrenumerationPage() {
             >
               <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-8 border-2 border-pink-500/30 shadow-2xl"
             >
-            <div className="flex items-center mb-4">
+            <div className="flex items-center mb-6">
               <div className="p-3 bg-gradient-to-br from-pink-600 to-purple-600 rounded-xl mr-3">
                 <Crown className="w-6 h-6 text-white" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900">Uppgradera till Premium</h3>
             </div>
-            <div className="space-y-6 mb-6">
-              {/* Sektion 1: Obegränsat användande */}
-              <div>
-                <h4 className="font-bold text-lg text-gray-900 mb-3">
-                  Obegränsat användande:
-                </h4>
-                <ul className="space-y-3 text-gray-700">
-                  <li className="flex items-start gap-3">
-                    <PenTool className="w-5 h-5 text-pink-600 mt-0.5 flex-shrink-0" />
-                    <span><strong>Obegränsade personliga brev</strong> – Ansök till alla jobb du vill (gratis: 7/vecka)</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Search className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                    <span><strong>Obegränsade CV-analyser</strong> – Få AI-feedback när du behöver (gratis: 1/vecka)</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <GraduationCap className="w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0" />
-                    <span><strong>Obegränsad kompetensutveckling</strong> – Personliga lärandevägar (gratis: 1/vecka)</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <FileText className="w-5 h-5 text-indigo-600 mt-0.5 flex-shrink-0" />
-                    <span><strong>50 uppladdade CV</strong> – Hantera alla dina CV-versioner (gratis: 2st)</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <FileText className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
-                    <span><strong>Obegränsade sparade brev</strong> – Bygg ditt brevbibliotek (gratis: 2st)</span>
-                  </li>
-                </ul>
+
+            {/* Kompakt lista med alla premium-funktioner */}
+            <div className="space-y-2.5 mb-6">
+              {/* Obegränsat användande */}
+              <div className="flex items-start gap-2.5">
+                <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-gray-700"><strong>Obegränsade personliga brev</strong> (gratis: 7/vecka)</span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-gray-700"><strong>Obegränsade CV-analyser</strong> (gratis: 1/vecka)</span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-gray-700"><strong>Obegränsad kompetensutveckling</strong> (gratis: 1/vecka)</span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-gray-700"><strong>50 uppladdade CV</strong> (gratis: 2st)</span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-gray-700"><strong>Obegränsade sparade brev</strong> (gratis: 2st)</span>
               </div>
 
-              {/* Sektion 2: Premium CV-mallar */}
-              <div>
-                <h4 className="font-bold text-lg text-gray-900 mb-3">
-                  Premium CV-mallar (8st totalt):
-                </h4>
-                <ul className="space-y-3 text-gray-700">
-                  <li className="flex items-start gap-3">
-                    <Palette className="w-5 h-5 text-amber-600 mt-0.5 flex-shrink-0" />
-                    <span><strong>6 exklusiva premium-mallar:</strong> Clean Corporate, Creative Edge, Executive Premium, Nordic Professional, Platinum Executive, Creative Minimal</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Palette className="w-5 h-5 text-slate-500 mt-0.5 flex-shrink-0" />
-                    <span>2 gratis-mallar: Modern Minimal, Classic Professional</span>
-                  </li>
-                </ul>
+              {/* Separator */}
+              <div className="h-3"></div>
+
+              {/* Premium CV-mallar */}
+              <div className="flex items-start gap-2.5">
+                <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-gray-700"><strong>8 Premium CV-mallar</strong> (gratis: 2st)</span>
               </div>
 
-              {/* Sektion 3: Avancerade kognitiva tester */}
-              <div>
-                <h4 className="font-bold text-lg text-gray-900 mb-3">
-                  Avancerade kognitiva tester:
-                </h4>
-                <ul className="space-y-3 text-gray-700">
-                  <li className="flex items-start gap-3">
-                    <Brain className="w-5 h-5 text-orange-600 mt-0.5 flex-shrink-0" />
-                    <span><strong>Matrislogik Avancerad</strong> – Nivå 2-3 med komplexa mönster</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Brain className="w-5 h-5 text-teal-600 mt-0.5 flex-shrink-0" />
-                    <span><strong>Verbalt Resonemang v2</strong> – Kritisk läsning, nivå 1-3</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <Brain className="w-5 h-5 text-purple-600 mt-0.5 flex-shrink-0" />
-                    <span><strong>Numeriskt Test v2</strong> – Grafanalys med diagram</span>
-                  </li>
-                </ul>
+              {/* Avancerade tester */}
+              <div className="flex items-start gap-2.5">
+                <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-gray-700"><strong>3 Avancerade kognitiva tester</strong></span>
               </div>
 
-              {/* Sektion 4: Smarta funktioner */}
-              <div>
-                <h4 className="font-bold text-lg text-gray-900 mb-3">
-                  Smarta funktioner:
-                </h4>
-                <ul className="space-y-3 text-gray-700">
-                  <li className="flex items-start gap-3">
-                    <Lightbulb className="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0" />
-                    <span><strong>Automatisk tonalitetsanpassning</strong> – 5+1 tonaliteter (inkl. Auto)</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <FileText className="w-5 h-5 text-emerald-600 mt-0.5 flex-shrink-0" />
-                    <span><strong>Obegränsad lagring</strong> – Spara alla brev och analyser</span>
-                  </li>
-                </ul>
+              {/* Separator */}
+              <div className="h-3"></div>
+
+              {/* Smarta funktioner */}
+              <div className="flex items-start gap-2.5">
+                <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-gray-700"><strong>Automatisk tonalitetsanpassning</strong> (5+1 val)</span>
+              </div>
+              <div className="flex items-start gap-2.5">
+                <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-gray-700"><strong>Obegränsad lagring</strong> av brev och analyser</span>
               </div>
             </div>
             <SubscribeButton
