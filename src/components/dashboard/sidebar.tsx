@@ -382,7 +382,9 @@ export default function DashboardSidebar() {
                         {subItem.label}
                       </span>
                       {subItem.highlight && !subItem.highlightType && (
-                        <span className="absolute right-2 top-1/2 -translate-y-1/2 w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                        <span className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-green-600 text-white text-xs font-bold rounded">
+                          VIKTIGT
+                        </span>
                       )}
                       {subItem.highlight && subItem.highlightType === 'premium' && (
                         <span className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 text-black text-xs font-bold rounded-full animate-pulse">
