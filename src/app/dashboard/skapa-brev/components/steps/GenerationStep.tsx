@@ -67,10 +67,10 @@ export default function GenerationStep({
       const stepInterval = setInterval(() => {
         advanceStep();
 
-        // If we've completed all steps and letter is still generating, loop back
-        if (currentStepIndex >= aiSteps.length - 1 && !generatedLetter) {
-          currentStepIndex = -1; // Will become 0 in next advanceStep
-          console.log('🔄 Looping animation as generation continues...');
+        // Stoppa intervallet när vi nått sista steget - ingen looping
+        if (currentStepIndex >= aiSteps.length - 1) {
+          clearInterval(stepInterval);
+          console.log('🏁 Animation completed - waiting for letter generation');
         }
       }, stepDuration);
 
@@ -127,7 +127,7 @@ export default function GenerationStep({
         </motion.div>
         <h3 className="text-2xl font-bold text-gray-900 mb-2">Ditt brev är klart!</h3>
         <p className="text-gray-600 mb-6">
-          AI har skapat ett personligt brev optimerat för din ansökan
+          Vi har skapat ett personligt brev optimerat för din ansökan
         </p>
 
         {/* Success Animation */}
@@ -204,7 +204,7 @@ export default function GenerationStep({
             />
           </div>
           <h3 className="text-xl font-semibold text-gray-900 mt-4 mb-2">
-            AI arbetar med ditt brev
+            Vi skapar ditt brev
           </h3>
           <p className="text-gray-600">
             Analyserar och optimerar för bästa resultat...
@@ -286,7 +286,7 @@ export default function GenerationStep({
           className="mt-8 text-center"
         >
           <p className="text-sm text-gray-600">
-            💡 Visste du att vår AI analyserar över 50 parametrar för att skapa det perfekta brevet?
+            💡 Visste du att vi analyserar över 50 parametrar för att skapa det perfekta brevet?
           </p>
         </motion.div>
       </div>

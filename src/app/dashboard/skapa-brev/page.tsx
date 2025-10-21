@@ -274,8 +274,8 @@ export default function CreateLetterPage() {
     },
     {
       id: 4,
-      title: 'AI skapar ditt brev',
-      description: 'Vänta medan AI analyserar och genererar',
+      title: 'Vi skapar ditt brev',
+      description: 'Vänta medan vi analyserar och genererar',
       icon: Brain,
       color: 'from-orange-500 to-red-500',
       component: (
