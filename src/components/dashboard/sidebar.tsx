@@ -293,6 +293,35 @@ export default function DashboardSidebar() {
           </ul>
         </div>
 
+        {/* Lärande Sektion */}
+        <div>
+          {!collapsed && (
+            <h3 className="px-4 py-2 text-xs font-bold text-slate-600 uppercase tracking-wider">
+              Lärande
+            </h3>
+          )}
+          <ul className="space-y-1">
+            {learningItems.map((item) => (
+              <li key={item.path}>
+                <Link
+                  href={item.path}
+                  className={`
+                    flex items-center px-4 py-2.5
+                    ${pathname === item.path || pathname.startsWith(item.path + '/')
+                      ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold rounded-lg'
+                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm rounded-lg'
+                    }
+                    ${collapsed ? 'justify-center' : ''}
+                  `}
+                >
+                  <span className="flex-shrink-0">{item.icon}</span>
+                  {!collapsed && <span className="ml-3">{item.label}</span>}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
         {/* Mina CV:n Sektion */}
         <div>
           {!collapsed && (
@@ -318,35 +347,6 @@ export default function DashboardSidebar() {
                   <span className={`flex-shrink-0 ${'highlight' in item && item.highlight ? 'text-green-600' : ''}`}>
                     {item.icon}
                   </span>
-                  {!collapsed && <span className="ml-3">{item.label}</span>}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Lärande Sektion */}
-        <div>
-          {!collapsed && (
-            <h3 className="px-4 py-2 text-xs font-bold text-slate-600 uppercase tracking-wider">
-              Lärande
-            </h3>
-          )}
-          <ul className="space-y-1">
-            {learningItems.map((item) => (
-              <li key={item.path}>
-                <Link
-                  href={item.path}
-                  className={`
-                    flex items-center px-4 py-2.5
-                    ${pathname === item.path || pathname.startsWith(item.path + '/')
-                      ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold rounded-lg'
-                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm rounded-lg'
-                    }
-                    ${collapsed ? 'justify-center' : ''}
-                  `}
-                >
-                  <span className="flex-shrink-0">{item.icon}</span>
                   {!collapsed && <span className="ml-3">{item.label}</span>}
                 </Link>
               </li>
