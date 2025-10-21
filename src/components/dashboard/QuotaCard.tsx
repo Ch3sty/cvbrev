@@ -41,53 +41,73 @@ export default function QuotaCard({
 
   const color = getColor();
 
-  // Color classes
+  // Premium glassmorfism color classes
   const colorClasses = {
     green: {
-      text: 'text-green-600',
-      bg: 'bg-green-50',
-      border: 'border-green-200',
-      dot: 'text-green-600'
+      text: 'text-emerald-700',
+      iconBg: 'bg-gradient-to-br from-emerald-100 to-green-100',
+      iconText: 'text-emerald-600',
+      cardGlow: 'shadow-emerald-500/10',
+      hoverGlow: 'hover:shadow-emerald-500/20',
+      dot: 'text-emerald-600',
+      border: 'border-emerald-200/60'
     },
     yellow: {
-      text: 'text-yellow-600',
-      bg: 'bg-yellow-50',
-      border: 'border-yellow-200',
-      dot: 'text-yellow-600'
+      text: 'text-amber-700',
+      iconBg: 'bg-gradient-to-br from-amber-100 to-yellow-100',
+      iconText: 'text-amber-600',
+      cardGlow: 'shadow-amber-500/10',
+      hoverGlow: 'hover:shadow-amber-500/20',
+      dot: 'text-amber-600',
+      border: 'border-amber-200/60'
     },
     red: {
-      text: 'text-red-600',
-      bg: 'bg-red-50',
-      border: 'border-red-200',
-      dot: 'text-red-600'
+      text: 'text-rose-700',
+      iconBg: 'bg-gradient-to-br from-rose-100 to-red-100',
+      iconText: 'text-rose-600',
+      cardGlow: 'shadow-rose-500/10',
+      hoverGlow: 'hover:shadow-rose-500/20',
+      dot: 'text-rose-600',
+      border: 'border-rose-200/60'
     },
     gray: {
       text: 'text-slate-600',
-      bg: 'bg-slate-50',
-      border: 'border-slate-200',
-      dot: 'text-slate-600'
+      iconBg: 'bg-gradient-to-br from-slate-100 to-gray-100',
+      iconText: 'text-slate-500',
+      cardGlow: 'shadow-slate-500/10',
+      hoverGlow: 'hover:shadow-slate-500/20',
+      dot: 'text-slate-400',
+      border: 'border-slate-200/60'
     },
     premium: {
       text: 'text-blue-700',
-      bg: 'bg-gradient-to-br from-blue-100 to-indigo-100',
-      border: 'border-blue-200',
-      dot: 'text-blue-600'
+      iconBg: 'bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100',
+      iconText: 'text-blue-600',
+      cardGlow: 'shadow-blue-500/20',
+      hoverGlow: 'hover:shadow-blue-500/30',
+      dot: 'text-blue-600',
+      border: 'border-blue-200/60'
     }
   };
 
-  // Generate visual dots
+  // Generate visual dots with premium style
   const renderDots = () => {
     if (isPremium) return null;
 
     return (
-      <div className="flex items-center gap-1 text-xl">
+      <div className="flex items-center gap-1.5">
         {Array.from({ length: limit }, (_, i) => (
-          <span
+          <motion.span
             key={i}
-            className={i < used ? colorClasses[color].dot : 'text-gray-300'}
+            className={`text-2xl transition-all duration-300 ${
+              i < used ? colorClasses[color].dot : 'text-gray-300'
+            }`}
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: i * 0.1, type: 'spring', stiffness: 200 }}
           >
             ●
-          </span>
+          </motion.span>
         ))}
       </div>
     );
@@ -126,86 +146,185 @@ export default function QuotaCard({
 
   const cardContent = (
     <motion.div
-      whileHover={href ? { scale: 1.02, y: -2 } : {}}
-      whileTap={href ? { scale: 0.98 } : {}}
+      whileHover={href ? { y: -4, scale: 1.01 } : {}}
+      whileTap={href ? { scale: 0.99 } : {}}
       className={`
-        bg-white/90 backdrop-blur-xl rounded-xl border shadow-sm p-5
-        transition-all duration-300
-        ${href ? 'cursor-pointer hover:shadow-lg hover:border-slate-300' : ''}
+        relative overflow-hidden
+        bg-white/80 backdrop-blur-xl rounded-2xl border
+        shadow-lg ${colorClasses[color].cardGlow} ${colorClasses[color].hoverGlow}
+        transition-all duration-500 ease-out
+        ${href ? 'cursor-pointer' : ''}
         ${colorClasses[color].border}
+        group
       `}
     >
-      {/* Header */}
-      <div className="flex items-center gap-2 mb-4">
-        <div className={`${colorClasses[color].bg} rounded-lg p-2`}>
-          <div className={`w-5 h-5 ${colorClasses[color].text}`}>
-            {icon}
-          </div>
-        </div>
-        <h3 className="font-semibold text-slate-900 text-sm">{title}</h3>
-      </div>
+      {/* Animated gradient background orb */}
+      <motion.div
+        className="absolute -top-20 -right-20 w-40 h-40 rounded-full opacity-20 blur-3xl"
+        style={{
+          background: isPremium
+            ? 'radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%)'
+            : color === 'green'
+            ? 'radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, transparent 70%)'
+            : color === 'yellow'
+            ? 'radial-gradient(circle, rgba(245, 158, 11, 0.4) 0%, transparent 70%)'
+            : color === 'red'
+            ? 'radial-gradient(circle, rgba(244, 63, 94, 0.4) 0%, transparent 70%)'
+            : 'radial-gradient(circle, rgba(100, 116, 139, 0.4) 0%, transparent 70%)'
+        }}
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.15, 0.25, 0.15]
+        }}
+        transition={{
+          duration: 5,
+          repeat: Infinity,
+          repeatType: 'reverse',
+          ease: 'easeInOut'
+        }}
+      />
 
-      {/* Content */}
-      {isPremium ? (
-        // Premium card content
-        <div className="relative space-y-3">
-          {/* Subtle blue glow background */}
+      {/* Content wrapper with padding */}
+      <div className="relative p-6">
+        {/* Header with icon and title */}
+        <div className="flex items-center gap-3 mb-5">
           <motion.div
-            className="absolute -inset-4 bg-gradient-to-br from-blue-500/5 to-indigo-500/5 rounded-2xl blur-xl"
-            animate={{
-              scale: [1, 1.05, 1],
-              opacity: [0.3, 0.5, 0.3]
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: "easeInOut"
-            }}
-          />
-
-          <div className="relative">
-            {/* Clean text with subtle shadow */}
-            <div className="text-4xl font-bold text-slate-900 mb-1" style={{ textShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
-              {used > 0 ? used : premiumText}
+            className={`${colorClasses[color].iconBg} rounded-xl p-2.5 shadow-sm`}
+            whileHover={{ rotate: [0, -5, 5, 0], scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className={`w-5 h-5 ${colorClasses[color].iconText}`}>
+              {icon}
             </div>
+          </motion.div>
+          <h3 className="font-bold text-slate-900 text-sm leading-tight flex-1">
+            {title}
+          </h3>
+        </div>
 
-            {/* Discrete premium badge */}
-            <div className="flex items-center gap-1.5">
-              <div className="px-2 py-0.5 bg-blue-50 rounded-full border border-blue-200/40">
-                <span className="text-xs font-semibold text-blue-700">
+        {/* Main content area */}
+        {isPremium ? (
+          // Premium card content with animated glow
+          <div className="space-y-4">
+            {/* Animated premium glow effect */}
+            <motion.div
+              className="absolute -inset-1 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-indigo-500/10 rounded-2xl blur-lg"
+              animate={{
+                opacity: [0.3, 0.6, 0.3]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+
+            <div className="relative">
+              {/* Large premium text or number */}
+              <motion.div
+                className="text-4xl font-black text-slate-900 mb-2"
+                style={{
+                  textShadow: '0 2px 10px rgba(59, 130, 246, 0.1)'
+                }}
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ type: 'spring', stiffness: 200 }}
+              >
+                {used > 0 ? used : premiumText}
+              </motion.div>
+
+              {/* Premium badge with shimmer */}
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-full border border-blue-200/50 shadow-sm">
+                <motion.div
+                  className="w-1.5 h-1.5 bg-blue-500 rounded-full"
+                  animate={{
+                    scale: [1, 1.3, 1],
+                    opacity: [0.6, 1, 0.6]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+                <span className="text-xs font-bold text-blue-700">
                   Premium
                 </span>
               </div>
             </div>
           </div>
-        </div>
-      ) : (
-        // Quota card content
-        <div className="space-y-3">
-          {/* Visual dots */}
-          {renderDots()}
-
-          {/* Usage text */}
-          <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-slate-900">
-              {used}/{limit}
-            </span>
-          </div>
-
-          {/* Remaining */}
-          <div className={`text-sm font-medium ${colorClasses[color].text}`}>
-            {remaining} kvar
-          </div>
-
-          {/* Countdown */}
-          {countdown && (
-            <div className="flex items-center gap-1 text-xs text-slate-500">
-              <Clock className="w-3 h-3" />
-              {countdown}
+        ) : (
+          // Quota card content with enhanced visuals
+          <div className="space-y-4">
+            {/* Visual dots */}
+            <div className="mb-3">
+              {renderDots()}
             </div>
-          )}
-        </div>
-      )}
+
+            {/* Usage display with large numbers */}
+            <div className="flex items-baseline gap-2">
+              <motion.span
+                className="text-4xl font-black text-slate-900"
+                initial={{ scale: 0.8 }}
+                animate={{ scale: 1 }}
+                transition={{ type: 'spring', stiffness: 200 }}
+              >
+                {used}
+              </motion.span>
+              <span className="text-2xl font-semibold text-slate-400">/</span>
+              <span className="text-2xl font-bold text-slate-600">{limit}</span>
+            </div>
+
+            {/* Remaining count with premium styling */}
+            <div className={`text-sm font-bold ${colorClasses[color].text}`}>
+              {remaining} {remaining === 1 ? 'kvar' : 'kvar'}
+            </div>
+
+            {/* Countdown timer with pulse animation */}
+            {countdown && (
+              <motion.div
+                className="flex items-center gap-2 px-3 py-1.5 bg-slate-50/80 rounded-lg border border-slate-200/60"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <motion.div
+                  animate={{
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  <Clock className="w-3.5 h-3.5 text-slate-500" />
+                </motion.div>
+                <span className="text-xs font-semibold text-slate-600">
+                  {countdown}
+                </span>
+              </motion.div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Subtle hover shimmer effect */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+        style={{
+          transform: 'translateX(-100%)'
+        }}
+        animate={{
+          transform: href ? ['translateX(-100%)', 'translateX(100%)'] : 'translateX(-100%)'
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          repeatDelay: 3,
+          ease: "easeInOut"
+        }}
+      />
     </motion.div>
   );
 

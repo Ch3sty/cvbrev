@@ -16,7 +16,10 @@ import {
   Gift,
   BarChart3,
   Users,
-  Target
+  Target,
+  Search,
+  GraduationCap,
+  Crown
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { motion } from 'framer-motion';
@@ -307,7 +310,7 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4"
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4"
         >
           {stats.isPremium ? (
             // Premium Cards
@@ -358,7 +361,7 @@ export default function DashboardPage() {
               />
               <QuotaCard
                 title="CV-analys"
-                icon={<Brain className="w-5 h-5" />}
+                icon={<Search className="w-5 h-5" />}
                 used={stats.weeklyAnalysisCount || 0}
                 limit={1}
                 remaining={Math.max(0, 1 - (stats.weeklyAnalysisCount || 0))}
@@ -368,7 +371,7 @@ export default function DashboardPage() {
               />
               <QuotaCard
                 title="Kompetensutveckling"
-                icon={<Target className="w-5 h-5" />}
+                icon={<GraduationCap className="w-5 h-5" />}
                 used={stats.weeklyCompetenceCount || 0}
                 limit={1}
                 remaining={Math.max(0, 1 - (stats.weeklyCompetenceCount || 0))}
