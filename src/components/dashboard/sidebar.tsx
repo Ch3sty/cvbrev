@@ -109,8 +109,7 @@ export default function DashboardSidebar() {
       path: '/dashboard/tester',
       label: 'Träna på rekryteringstester',
       icon: <Brain className="w-5 h-5" />,
-      section: 'tools',
-      highlight: true
+      section: 'tools'
     },
     {
       path: '/dashboard/kompetensutveckling',
@@ -313,13 +312,13 @@ export default function DashboardSidebar() {
                       : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
                     }
                     ${collapsed ? 'justify-center' : ''}
+                    ${'highlight' in item && item.highlight ? 'ring-2 ring-green-400/30' : ''}
                   `}
                 >
-                  <span className="flex-shrink-0">{item.icon}</span>
+                  <span className={`flex-shrink-0 ${'highlight' in item && item.highlight ? 'text-green-600' : ''}`}>
+                    {item.icon}
+                  </span>
                   {!collapsed && <span className="ml-3">{item.label}</span>}
-                  {'highlight' in item && item.highlight && !collapsed && (
-                    <span className="absolute right-2 top-1/2 -translate-y-1/2 w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                  )}
                 </Link>
               </li>
             ))}
@@ -412,16 +411,9 @@ export default function DashboardSidebar() {
                     {subItem.icon}
                   </span>
                   {!collapsed && (
-                    <>
-                      <span className={`ml-3 ${subItem.highlight ? 'font-bold' : ''}`}>
-                        {subItem.label}
-                      </span>
-                      {subItem.highlight && subItem.highlightType === 'premium' && (
-                        <span className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 text-black text-xs font-bold rounded-full animate-pulse">
-                          ↑
-                        </span>
-                      )}
-                    </>
+                    <span className={`ml-3 ${subItem.highlight ? 'font-bold' : ''}`}>
+                      {subItem.label}
+                    </span>
                   )}
                 </Link>
               </li>
