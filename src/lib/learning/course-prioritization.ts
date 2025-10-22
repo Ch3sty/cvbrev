@@ -3,6 +3,8 @@
  * Utility functions for intelligent course prioritization and learning strategy determination
  */
 
+import { filterRelevantCourses } from './course-filtering';
+
 export type LearningStrategy = 'career_change' | 'adaptation' | 'refinement';
 export type LegacyLearningPath = 'quick' | 'balanced' | 'comprehensive';
 
@@ -176,15 +178,19 @@ export function mapLegacyPath(legacyPath: LegacyLearningPath): LearningStrategy 
 
 /**
  * Sort courses based on strategy and cost
+ * IMPORTANT: Filters out gymnasium courses first - users have already completed gymnasium
  */
 export function prioritizeCourses(
   courses: Course[],
   matchScore: number
 ): Course[] {
+  // Step 1: Filter out gymnasium courses - keep only adult education
+  const relevantCourses = filterRelevantCourses(courses);
+
   const strategy = determineStrategy(matchScore);
   const config = getStrategyConfig(strategy);
 
-  return [...courses].sort((a, b) => {
+  return [...relevantCourses].sort((a, b) => {
     // Priority 1: Free courses first
     const aCost = parseCost(a.cost);
     const bCost = parseCost(b.cost);

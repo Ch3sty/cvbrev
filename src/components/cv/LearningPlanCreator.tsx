@@ -148,25 +148,25 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="relative w-full max-w-4xl max-h-[90vh] bg-navy-800 rounded-xl border border-navy-700 overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+      <div className="relative w-full max-w-4xl max-h-[90vh] bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="sticky top-0 z-10 bg-navy-800 border-b border-navy-700 px-6 py-4">
+        <div className="sticky top-0 z-10 bg-white/80 backdrop-blur-xl border-b border-gray-200/50 px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-                <Sparkles className="w-6 h-6 text-yellow-400" />
+              <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+                <Sparkles className="w-6 h-6 text-blue-600" />
                 Skapa din utvecklingsplan
               </h2>
-              <p className="text-sm text-gray-400 mt-1">
+              <p className="text-sm text-gray-600 mt-1">
                 Din väg mot {jobData.targetRole}
               </p>
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-navy-700 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
             >
-              <X className="w-5 h-5 text-gray-400" />
+              <X className="w-5 h-5 text-gray-600" />
             </button>
           </div>
         </div>
@@ -175,46 +175,46 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
         <div className="overflow-y-auto max-h-[calc(90vh-140px)] p-6 space-y-6">
           {/* Plan Title */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
               Namn på din plan
             </label>
             <input
               type="text"
               value={planTitle}
               onChange={(e) => setPlanTitle(e.target.value)}
-              className="w-full px-4 py-3 bg-navy-900 border border-navy-700 rounded-lg text-white placeholder-gray-500 focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Min väg till..."
             />
           </div>
 
           {/* Summary */}
           <div className="grid grid-cols-3 gap-4">
-            <div className="bg-navy-900 rounded-lg p-4 border border-navy-700">
+            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200/50 shadow-sm">
               <div className="flex items-center justify-between mb-2">
-                <Target className="w-5 h-5 text-blue-400" />
-                <span className="text-2xl font-bold text-white">{selectedSkills.length}</span>
+                <Target className="w-5 h-5 text-blue-600" />
+                <span className="text-2xl font-bold text-gray-900">{selectedSkills.length}</span>
               </div>
-              <p className="text-sm text-gray-400">Valda kompetenser</p>
+              <p className="text-sm text-gray-600">Valda kompetenser</p>
             </div>
-            <div className="bg-navy-900 rounded-lg p-4 border border-navy-700">
+            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200/50 shadow-sm">
               <div className="flex items-center justify-between mb-2">
-                <Clock className="w-5 h-5 text-yellow-400" />
-                <span className="text-2xl font-bold text-white">~{estimatedWeeks}v</span>
+                <Clock className="w-5 h-5 text-yellow-600" />
+                <span className="text-2xl font-bold text-gray-900">~{estimatedWeeks}v</span>
               </div>
-              <p className="text-sm text-gray-400">Beräknad tid</p>
+              <p className="text-sm text-gray-600">Beräknad tid</p>
             </div>
-            <div className="bg-navy-900 rounded-lg p-4 border border-navy-700">
+            <div className="bg-gray-50 rounded-lg p-4 border border-gray-200/50 shadow-sm">
               <div className="flex items-center justify-between mb-2">
-                <Calendar className="w-5 h-5 text-green-400" />
-                <span className="text-2xl font-bold text-white">{timeCommitmentHours}h/v</span>
+                <Calendar className="w-5 h-5 text-green-600" />
+                <span className="text-2xl font-bold text-gray-900">{timeCommitmentHours}h/v</span>
               </div>
-              <p className="text-sm text-gray-400">Per vecka</p>
+              <p className="text-sm text-gray-600">Per vecka</p>
             </div>
           </div>
 
           {/* Skills Selection */}
           <div>
-            <h3 className="text-lg font-semibold text-white mb-3">
+            <h3 className="text-lg font-semibold text-gray-900 mb-3">
               Välj kompetenser att inkludera
             </h3>
             <div className="space-y-2">
@@ -227,29 +227,29 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
                     key={skillId}
                     className={`p-4 rounded-lg border-2 transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-navy-700 border-pink-500'
-                        : 'bg-navy-900/50 border-navy-700 hover:border-navy-600'
+                        ? 'bg-blue-50 border-blue-500'
+                        : 'bg-gray-50 border-gray-200 hover:border-gray-300'
                     }`}
                     onClick={() => toggleSkill(skillId)}
                   >
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-center gap-2">
-                          <h4 className="font-medium text-white">{gap.skill}</h4>
+                          <h4 className="font-medium text-gray-900">{gap.skill}</h4>
                           {gap.importance === 'essential' && (
-                            <span className="px-2 py-0.5 text-xs bg-red-500/20 text-red-300 rounded">
+                            <span className="px-2 py-0.5 text-xs bg-red-100 text-red-700 rounded font-medium">
                               Kritisk
                             </span>
                           )}
                         </div>
-                        <p className="text-sm text-gray-400 mt-1">
+                        <p className="text-sm text-gray-600 mt-1">
                           {gap.suggestions?.length || 0} kurser tillgängliga
                         </p>
                       </div>
                       <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
                         isSelected
-                          ? 'bg-pink-500 border-pink-500'
-                          : 'border-gray-600'
+                          ? 'bg-blue-600 border-blue-600'
+                          : 'border-gray-300'
                       }`}>
                         {isSelected && <Check className="w-4 h-4 text-white" />}
                       </div>
@@ -262,28 +262,28 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
 
           {/* Error Message */}
           {error && (
-            <div className="p-4 bg-red-500/10 border border-red-500/30 rounded-lg">
-              <p className="text-sm text-red-300">{error}</p>
+            <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-sm text-red-700">{error}</p>
             </div>
           )}
         </div>
 
         {/* Footer */}
-        <div className="sticky bottom-0 bg-navy-800 border-t border-navy-700 px-6 py-4">
+        <div className="sticky bottom-0 bg-white/80 backdrop-blur-xl border-t border-gray-200/50 px-6 py-4">
           <div className="flex items-center justify-between">
             <button
               onClick={onClose}
-              className="px-6 py-3 text-gray-400 hover:text-white transition-colors"
+              className="px-6 py-3 text-gray-600 hover:text-gray-900 transition-colors font-medium"
             >
               Avbryt
             </button>
             <button
               onClick={handleCreatePlan}
               disabled={isCreating || selectedSkills.length === 0}
-              className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all ${
+              className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all shadow-md ${
                 isCreating || selectedSkills.length === 0
-                  ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-pink-500 to-purple-500 text-white hover:from-pink-600 hover:to-purple-600'
+                  ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 hover:shadow-lg'
               }`}
             >
               {isCreating ? (

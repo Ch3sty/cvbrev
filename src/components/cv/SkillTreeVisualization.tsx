@@ -237,41 +237,41 @@ const SkillTreeVisualization: React.FC<SkillTreeVisualizationProps> = ({
 
   const getStatusColor = (status: string, importance?: string) => {
     const baseColors = {
-      completed: 'border-green-500 bg-green-500/10',
-      'in-progress': 'border-yellow-500 bg-yellow-500/10 animate-pulse',
+      completed: 'border-green-500 bg-green-50',
+      'in-progress': 'border-yellow-500 bg-yellow-50 animate-pulse',
       available: importance === 'essential'
-        ? 'border-red-500 bg-red-500/10 hover:bg-red-500/20'
-        : 'border-blue-500 bg-blue-500/10 hover:bg-blue-500/20',
-      locked: 'border-gray-600 bg-gray-800/50 opacity-60'
+        ? 'border-red-500 bg-red-50 hover:bg-red-100'
+        : 'border-blue-500 bg-blue-50 hover:bg-blue-100',
+      locked: 'border-gray-300 bg-gray-100 opacity-60'
     };
 
-    return baseColors[status as keyof typeof baseColors] || 'border-gray-700 bg-navy-900/50';
+    return baseColors[status as keyof typeof baseColors] || 'border-gray-200 bg-gray-50';
   };
 
   return (
     <div className="w-full space-y-6">
       {/* Header with Progress */}
-      <div className="bg-navy-800 rounded-xl p-6 border border-navy-700">
+      <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-xl">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h3 className="text-xl font-semibold text-white flex items-center gap-2">
-              <GitBranch className="w-5 h-5 text-purple-400" />
+            <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
+              <GitBranch className="w-5 h-5 text-blue-600" />
               Kompetensträd - {targetRole}
             </h3>
-            <p className="text-sm text-gray-400 mt-1">
+            <p className="text-sm text-gray-600 mt-1">
               Visualisering av din lärandebana med beroenden
             </p>
           </div>
           <div className="text-right">
-            <div className="text-2xl font-bold text-white">{progress}%</div>
-            <div className="text-xs text-gray-400">Färdigställt</div>
+            <div className="text-2xl font-bold text-gray-900">{progress}%</div>
+            <div className="text-xs text-gray-600">Färdigställt</div>
           </div>
         </div>
 
         {/* Progress Bar */}
-        <div className="h-3 bg-navy-900 rounded-full overflow-hidden">
+        <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-700"
+            className="h-full bg-gradient-to-r from-blue-600 to-indigo-600 transition-all duration-700"
             style={{ width: `${progress}%` }}
           />
         </div>
@@ -279,16 +279,16 @@ const SkillTreeVisualization: React.FC<SkillTreeVisualizationProps> = ({
         {/* Legend */}
         <div className="flex items-center gap-6 mt-4 text-xs">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-green-500" />
-            <span className="text-gray-400">Avklarad</span>
+            <CheckCircle2 className="w-4 h-4 text-green-600" />
+            <span className="text-gray-600">Avklarad</span>
           </div>
           <div className="flex items-center gap-2">
-            <Circle className="w-4 h-4 text-blue-500" />
-            <span className="text-gray-400">Tillgänglig</span>
+            <Circle className="w-4 h-4 text-blue-600" />
+            <span className="text-gray-600">Tillgänglig</span>
           </div>
           <div className="flex items-center gap-2">
             <Lock className="w-3 h-3 text-gray-500" />
-            <span className="text-gray-400">Låst</span>
+            <span className="text-gray-600">Låst</span>
           </div>
         </div>
       </div>
@@ -297,13 +297,13 @@ const SkillTreeVisualization: React.FC<SkillTreeVisualizationProps> = ({
       <div className="space-y-6">
         {/* Foundation Level */}
         {skillsByLevel.foundation.length > 0 && (
-          <div className="bg-navy-800 rounded-xl p-6 border border-navy-700">
+          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-xl">
             <div className="flex items-center justify-between mb-4">
-              <h4 className="text-lg font-semibold text-white flex items-center gap-2">
-                <Star className="w-5 h-5 text-blue-400" />
+              <h4 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <Star className="w-5 h-5 text-blue-600" />
                 Grundläggande kompetenser
               </h4>
-              <span className="text-xs px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full">
+              <span className="text-xs px-3 py-1 bg-blue-100 text-blue-700 rounded-full font-medium">
                 Starta här
               </span>
             </div>
@@ -317,14 +317,14 @@ const SkillTreeVisualization: React.FC<SkillTreeVisualizationProps> = ({
                     className={`relative p-4 rounded-lg border-2 transition-all cursor-pointer ${getStatusColor(skill.status, skill.importance)}`}
                   >
                     <div className="flex items-start justify-between mb-2">
-                      <Icon className="w-6 h-6 text-gray-400" />
+                      <Icon className="w-6 h-6 text-gray-600" />
                       {getStatusIcon(skill.status)}
                     </div>
-                    <h5 className="font-medium text-white text-sm mb-1 line-clamp-2">{skill.name}</h5>
-                    <p className="text-xs text-gray-400 mb-2">{skill.category}</p>
+                    <h5 className="font-medium text-gray-900 text-sm mb-1 line-clamp-2">{skill.name}</h5>
+                    <p className="text-xs text-gray-600 mb-2">{skill.category}</p>
                     <div className="flex items-center justify-between text-xs">
                       <span className="text-gray-500">{skill.estimatedHours}h</span>
-                      <span className="text-blue-400">{skill.courses} kurser</span>
+                      <span className="text-blue-600 font-medium">{skill.courses} kurser</span>
                     </div>
                     {skill.status === 'available' && skill.importance === 'essential' && (
                       <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse" />
@@ -338,13 +338,13 @@ const SkillTreeVisualization: React.FC<SkillTreeVisualizationProps> = ({
 
         {/* Intermediate Level */}
         {skillsByLevel.intermediate.length > 0 && (
-          <div className="bg-navy-800 rounded-xl p-6 border border-navy-700">
+          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-xl">
             <div className="flex items-center justify-between mb-4">
-              <h4 className="text-lg font-semibold text-white flex items-center gap-2">
-                <Zap className="w-5 h-5 text-purple-400" />
+              <h4 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <Zap className="w-5 h-5 text-indigo-600" />
                 Fördjupande kompetenser
               </h4>
-              <span className="text-xs px-3 py-1 bg-purple-500/20 text-purple-300 rounded-full">
+              <span className="text-xs px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full font-medium">
                 Bygger på grundkunskaper
               </span>
             </div>
@@ -360,9 +360,9 @@ const SkillTreeVisualization: React.FC<SkillTreeVisualizationProps> = ({
                     {/* Dependency indicator */}
                     {skill.prerequisites && skill.prerequisites.length > 0 && (
                       <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                        <div className="flex items-center gap-1 px-2 py-1 bg-navy-900 rounded-full border border-navy-700">
+                        <div className="flex items-center gap-1 px-2 py-1 bg-white rounded-full border border-gray-200 shadow-sm">
                           <ChevronRight className="w-3 h-3 text-gray-500" />
-                          <span className="text-xs text-gray-400">
+                          <span className="text-xs text-gray-600 font-medium">
                             Kräver: {skill.prerequisites.length}
                           </span>
                         </div>
@@ -370,14 +370,14 @@ const SkillTreeVisualization: React.FC<SkillTreeVisualizationProps> = ({
                     )}
 
                     <div className="flex items-start justify-between mb-2 mt-2">
-                      <Icon className="w-6 h-6 text-gray-400" />
+                      <Icon className="w-6 h-6 text-gray-600" />
                       {getStatusIcon(skill.status)}
                     </div>
-                    <h5 className="font-medium text-white text-sm mb-1 line-clamp-2">{skill.name}</h5>
-                    <p className="text-xs text-gray-400 mb-2">{skill.category}</p>
+                    <h5 className="font-medium text-gray-900 text-sm mb-1 line-clamp-2">{skill.name}</h5>
+                    <p className="text-xs text-gray-600 mb-2">{skill.category}</p>
                     <div className="flex items-center justify-between text-xs">
                       <span className="text-gray-500">{skill.estimatedHours}h</span>
-                      <span className="text-purple-400">{skill.courses} kurser</span>
+                      <span className="text-indigo-600 font-medium">{skill.courses} kurser</span>
                     </div>
                   </div>
                 );
@@ -388,13 +388,13 @@ const SkillTreeVisualization: React.FC<SkillTreeVisualizationProps> = ({
 
         {/* Advanced Level */}
         {skillsByLevel.advanced.length > 0 && (
-          <div className="bg-navy-800 rounded-xl p-6 border border-navy-700">
+          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-xl">
             <div className="flex items-center justify-between mb-4">
-              <h4 className="text-lg font-semibold text-white flex items-center gap-2">
-                <Star className="w-5 h-5 text-pink-400" />
+              <h4 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <Star className="w-5 h-5 text-purple-600" />
                 Avancerade kompetenser
               </h4>
-              <span className="text-xs px-3 py-1 bg-pink-500/20 text-pink-300 rounded-full">
+              <span className="text-xs px-3 py-1 bg-purple-100 text-purple-700 rounded-full font-medium">
                 Expert-nivå
               </span>
             </div>
@@ -409,9 +409,9 @@ const SkillTreeVisualization: React.FC<SkillTreeVisualizationProps> = ({
                   >
                     {skill.prerequisites && skill.prerequisites.length > 0 && (
                       <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                        <div className="flex items-center gap-1 px-2 py-1 bg-navy-900 rounded-full border border-navy-700">
+                        <div className="flex items-center gap-1 px-2 py-1 bg-white rounded-full border border-gray-200 shadow-sm">
                           <ChevronRight className="w-3 h-3 text-gray-500" />
-                          <span className="text-xs text-gray-400">
+                          <span className="text-xs text-gray-600 font-medium">
                             Kräver: {skill.prerequisites.length}
                           </span>
                         </div>
@@ -419,14 +419,14 @@ const SkillTreeVisualization: React.FC<SkillTreeVisualizationProps> = ({
                     )}
 
                     <div className="flex items-start justify-between mb-2 mt-2">
-                      <Icon className="w-6 h-6 text-gray-400" />
+                      <Icon className="w-6 h-6 text-gray-600" />
                       {getStatusIcon(skill.status)}
                     </div>
-                    <h5 className="font-medium text-white text-sm mb-1 line-clamp-2">{skill.name}</h5>
-                    <p className="text-xs text-gray-400 mb-2">{skill.category}</p>
+                    <h5 className="font-medium text-gray-900 text-sm mb-1 line-clamp-2">{skill.name}</h5>
+                    <p className="text-xs text-gray-600 mb-2">{skill.category}</p>
                     <div className="flex items-center justify-between text-xs">
                       <span className="text-gray-500">{skill.estimatedHours}h</span>
-                      <span className="text-pink-400">{skill.courses} kurser</span>
+                      <span className="text-purple-600 font-medium">{skill.courses} kurser</span>
                     </div>
                   </div>
                 );
@@ -438,9 +438,9 @@ const SkillTreeVisualization: React.FC<SkillTreeVisualizationProps> = ({
 
       {/* Recommended Next Steps */}
       {skillTree.filter(s => s.status === 'available').length > 0 && (
-        <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-xl p-6 border border-blue-500/20">
-          <h4 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
-            <Zap className="w-5 h-5 text-yellow-400" />
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-200/50 shadow-xl">
+          <h4 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
+            <Zap className="w-5 h-5 text-yellow-600" />
             Rekommenderat nästa steg
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -456,12 +456,12 @@ const SkillTreeVisualization: React.FC<SkillTreeVisualizationProps> = ({
               })
               .slice(0, 3)
               .map(skill => (
-                <div key={skill.id} className="bg-navy-800 rounded-lg p-4">
-                  <h5 className="font-medium text-white text-sm mb-1">{skill.name}</h5>
-                  <p className="text-xs text-gray-400 mb-2">{skill.description}</p>
+                <div key={skill.id} className="bg-white rounded-lg p-4 border border-gray-200/50 shadow-sm">
+                  <h5 className="font-medium text-gray-900 text-sm mb-1">{skill.name}</h5>
+                  <p className="text-xs text-gray-600 mb-2">{skill.description}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-xs text-gray-500">{skill.courses} kurser • {skill.estimatedHours}h</span>
-                    <button className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1">
+                    <button className="text-xs text-blue-600 hover:text-blue-700 flex items-center gap-1 font-medium">
                       Börja nu <ChevronRight className="w-3 h-3" />
                     </button>
                   </div>

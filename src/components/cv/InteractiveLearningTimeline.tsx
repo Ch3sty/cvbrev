@@ -3,11 +3,12 @@
 
 import React, { useState, useMemo } from 'react';
 import {
-  ChevronDown, ChevronUp, ExternalLink, Clock,
-  BookOpen, Award, Target, CheckCircle, Info,
-  Map as MapIcon, Bookmark, BookmarkCheck
+  BookOpen, Bookmark, BookmarkCheck, ChevronRight, ChevronDown,
+  Clock, Target, TrendingUp, Award, Sparkles, MapPin,
+  CheckCircle2, Circle, ArrowRight, Zap
 } from 'lucide-react';
-import { getCourseBadges, isFreeOrSubsidized } from '@/lib/learning/course-prioritization';
+import { groupCourses, shouldDisplayAsGroup, getGroupDisplayText, getCourseVariants } from '@/lib/learning/course-grouping';
+import type { CourseGroup } from '@/lib/learning/course-grouping';
 import type { Course } from '@/lib/learning/course-prioritization';
 import LearningPlanCreator from './LearningPlanCreator';
 
@@ -22,11 +23,13 @@ interface TimelineStep {
   id: string;
   title: string;
   description: string;
+  reasoning: string; // Why is this step needed?
+  whatNext: string; // What happens after this step?
   duration: string;
   icon: React.ElementType;
   color: string;
-  skills: LearningSuggestion[];
-  courses: Course[];
+  skillsCovered: string[];
+  courseGroups: CourseGroup[];
 }
 
 interface InteractiveLearningTimelineProps {
@@ -44,76 +47,130 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
   targetRole,
   jobId
 }) => {
+  // State
   const [expandedSteps, setExpandedSteps] = useState<Set<string>>(new Set(['step1']));
-  const [expandedCourses, setExpandedCourses] = useState<{ [key: string]: boolean }>({});
-  const [showPlanCreator, setShowPlanCreator] = useState(false);
+  const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set());
   const [selectedCourses, setSelectedCourses] = useState<Set<string>>(new Set());
+  const [showPlanCreator, setShowPlanCreator] = useState(false);
 
-  // Group skills into timeline steps
-  const timelineSteps = useMemo<TimelineStep[]>(() => {
+  // Categorize skills by importance
+  const { essential, desirable } = useMemo(() => {
     const essential = learningSuggestions.filter(s => s.importance === 'essential');
     const desirable = learningSuggestions.filter(s => s.importance === 'desirable');
+    return { essential, desirable };
+  }, [learningSuggestions]);
 
-    // Distribute courses across steps based on priority and match score
-    const allCourses = [...optimizedCourses];
+  // Build timeline steps with grouped courses
+  const timelineSteps = useMemo<TimelineStep[]>(() => {
+    const coursesPerStep = Math.ceil(optimizedCourses.length / 3);
 
-    // Low match score (0-40%): Focus on fundamentals, longer courses first
-    // Medium (40-70%): Balanced approach
-    // High (70%+): Quick wins, shorter courses first
+    // Step 1: Foundation (first third of courses)
+    const step1Courses = optimizedCourses.slice(0, coursesPerStep);
+    const step1Groups = groupCourses(step1Courses);
 
-    const coursesPerStep = Math.ceil(allCourses.length / 3);
+    // Step 2: Development (middle third)
+    const step2Courses = optimizedCourses.slice(coursesPerStep, coursesPerStep * 2);
+    const step2Groups = groupCourses(step2Courses);
 
-    return [
+    // Step 3: Specialization (last third)
+    const step3Courses = optimizedCourses.slice(coursesPerStep * 2);
+    const step3Groups = groupCourses(step3Courses);
+
+    const steps: TimelineStep[] = [
       {
         id: 'step1',
         title: 'Grundkompetens',
         description: matchScore < 40
-          ? 'Börja med fundamental utbildning för att bygga en solid bas'
-          : 'Börja här för att fylla de viktigaste kompetensluckorna',
-        duration: '0-3 månader',
+          ? 'Börja med fundamental utbildning som bygger din kompetens från grunden'
+          : 'Börja här för att fylla de viktigaste luckorna',
+        reasoning: matchScore < 40
+          ? 'Vi börjar med grundläggande utbildningar eftersom det finns betydande kompetensgap att fylla. Dessa kurser ger dig den bas du behöver för att sedan bygga vidare.'
+          : 'Även om du redan har erfarenhet, ger dessa kurser dig specifik kompetens som efterfrågas i rollen.',
+        whatNext: 'Efter dessa kurser har du grundläggande förståelse och kan börja applicera kunskaperna i praktiken. Du är redo för mer specialiserade utbildningar.',
+        duration: matchScore < 40 ? '0-6 månader' : '0-3 månader',
         icon: BookOpen,
         color: 'from-blue-500 to-blue-600',
-        skills: essential.slice(0, Math.ceil(essential.length / 3)),
-        courses: allCourses.slice(0, coursesPerStep)
+        skillsCovered: essential.slice(0, Math.ceil(essential.length / 3)).map(s => s.skill),
+        courseGroups: step1Groups
       },
       {
         id: 'step2',
         title: 'Fördjupning',
-        description: 'Bygg vidare på dina grundkunskaper och specialisera dig',
-        duration: '3-6 månader',
-        icon: Target,
-        color: 'from-purple-500 to-purple-600',
-        skills: essential.slice(Math.ceil(essential.length / 3), Math.ceil(essential.length * 2 / 3)),
-        courses: allCourses.slice(coursesPerStep, coursesPerStep * 2)
+        description: 'Bygg på din kompetens med mer specialiserade kurser',
+        reasoning: 'Nu när du har grunden på plats kan du fördjupa dig inom de områden som är mest relevanta för rollen. Dessa kurser ger dig praktisk erfarenhet och branschspecifik kunskap.',
+        whatNext: 'Med fördjupad kunskap kan du ta dig an mer komplexa uppgifter och börja specialisera dig inom specifika områden. Du närmar dig expert-nivå.',
+        duration: matchScore < 40 ? '6-12 månader' : '3-8 månader',
+        icon: TrendingUp,
+        color: 'from-indigo-500 to-indigo-600',
+        skillsCovered: [
+          ...essential.slice(Math.ceil(essential.length / 3), Math.ceil(essential.length * 2 / 3)).map(s => s.skill),
+          ...desirable.slice(0, Math.ceil(desirable.length / 2)).map(s => s.skill)
+        ],
+        courseGroups: step2Groups
       },
       {
         id: 'step3',
         title: 'Specialisering',
-        description: 'Bli expert och differentiera dig från andra kandidater',
-        duration: '6-9 månader',
+        description: 'Nå expertis med avancerade kurser och certifieringar',
+        reasoning: 'För att verkligen sticka ut och nå full kompetens för rollen behövs specialiserad kunskap. Dessa kurser och certifieringar ger dig den kompetitiva fördelen.',
+        whatNext: 'Efter dessa kurser har du full kompetens för rollen. Du kan söka jobbet med självförtroende och har dokumenterad expertis genom certifieringar.',
+        duration: matchScore < 40 ? '12-18 månader' : '8-12 månader',
         icon: Award,
-        color: 'from-pink-500 to-pink-600',
-        skills: [...essential.slice(Math.ceil(essential.length * 2 / 3)), ...desirable],
-        courses: allCourses.slice(coursesPerStep * 2)
+        color: 'from-purple-500 to-purple-600',
+        skillsCovered: [
+          ...essential.slice(Math.ceil(essential.length * 2 / 3)).map(s => s.skill),
+          ...desirable.slice(Math.ceil(desirable.length / 2)).map(s => s.skill)
+        ],
+        courseGroups: step3Groups
       }
     ];
+
+    return steps;
+  }, [learningSuggestions, optimizedCourses, matchScore, essential, desirable]);
+
+  // Calculate summary statistics
+  const summary = useMemo(() => {
+    const totalMonths = matchScore < 40 ? 18 : matchScore < 70 ? 12 : 9;
+    const totalSkills = learningSuggestions.length;
+    const totalCourses = optimizedCourses.length;
+    const freeCourses = optimizedCourses.filter(c =>
+      (c.cost || '').toLowerCase().includes('gratis') ||
+      (c.cost || '').toLowerCase().includes('free') ||
+      (c.cost || '') === '0'
+    ).length;
+
+    return {
+      totalMonths,
+      totalSkills,
+      totalCourses,
+      freeCourses,
+      costEstimate: freeCourses === totalCourses ? 'Gratis via CSN' : 'Mix gratis/betalda kurser'
+    };
   }, [learningSuggestions, optimizedCourses, matchScore]);
 
+  // Handlers
   const toggleStep = (stepId: string) => {
-    const newExpanded = new Set(expandedSteps);
-    if (newExpanded.has(stepId)) {
-      newExpanded.delete(stepId);
-    } else {
-      newExpanded.add(stepId);
-    }
-    setExpandedSteps(newExpanded);
+    setExpandedSteps(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(stepId)) {
+        newSet.delete(stepId);
+      } else {
+        newSet.add(stepId);
+      }
+      return newSet;
+    });
   };
 
-  const toggleCourseDetails = (courseKey: string) => {
-    setExpandedCourses(prev => ({
-      ...prev,
-      [courseKey]: !prev[courseKey]
-    }));
+  const toggleGroup = (groupId: string) => {
+    setExpandedGroups(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(groupId)) {
+        newSet.delete(groupId);
+      } else {
+        newSet.add(groupId);
+      }
+      return newSet;
+    });
   };
 
   const toggleCourseSelection = (courseTitle: string) => {
@@ -130,342 +187,262 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
 
   const handleSaveRoadmap = () => {
     if (!jobId) {
-      alert('Kunde inte spara - inget jobb-ID tillgängligt');
+      alert('Jobbannonsen kunde inte hittas. Uppdatera sidan och försök igen.');
       return;
     }
     setShowPlanCreator(true);
   };
 
   return (
-    <div className="space-y-6">
-      {/* Timeline Header */}
-      <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-xl">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2 flex items-center gap-2">
-          <MapIcon className="w-6 h-6 text-blue-600" />
-          Din utvecklingsväg mot {targetRole}
-        </h2>
-        <p className="text-gray-600">
-          En steg-för-steg guide med konkreta utbildningsalternativ anpassade efter din nuvarande kompetens
-        </p>
+    <div className="w-full space-y-8">
+      {/* Summary Overview Panel */}
+      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-200/50 shadow-xl">
+        <div className="flex items-start justify-between mb-4">
+          <div>
+            <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
+              <Sparkles className="w-6 h-6 text-blue-600" />
+              Din utvecklingsväg mot {targetRole}
+            </h3>
+            <p className="text-sm text-gray-600 mt-1">
+              En komplett färdplan anpassad efter din nuvarande kompetensnivå
+            </p>
+          </div>
+        </div>
+
+        {/* Key Metrics */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="bg-white rounded-lg p-4 shadow-sm">
+            <div className="flex items-center gap-2 mb-1">
+              <Clock className="w-4 h-4 text-blue-600" />
+              <span className="text-xs text-gray-600">Total tid</span>
+            </div>
+            <p className="text-2xl font-bold text-gray-900">{summary.totalMonths} mån</p>
+          </div>
+
+          <div className="bg-white rounded-lg p-4 shadow-sm">
+            <div className="flex items-center gap-2 mb-1">
+              <Target className="w-4 h-4 text-indigo-600" />
+              <span className="text-xs text-gray-600">Kompetenser</span>
+            </div>
+            <p className="text-2xl font-bold text-gray-900">{summary.totalSkills}</p>
+          </div>
+
+          <div className="bg-white rounded-lg p-4 shadow-sm">
+            <div className="flex items-center gap-2 mb-1">
+              <BookOpen className="w-4 h-4 text-purple-600" />
+              <span className="text-xs text-gray-600">Kurser</span>
+            </div>
+            <p className="text-2xl font-bold text-gray-900">{summary.totalCourses}</p>
+          </div>
+
+          <div className="bg-white rounded-lg p-4 shadow-sm">
+            <div className="flex items-center gap-2 mb-1">
+              <Zap className="w-4 h-4 text-green-600" />
+              <span className="text-xs text-gray-600">Kostnad</span>
+            </div>
+            <p className="text-sm font-bold text-gray-900">{summary.costEstimate}</p>
+          </div>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="mt-4">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-sm text-gray-600">Utvecklingsframsteg</span>
+            <span className="text-sm font-medium text-gray-900">0% → 100%</span>
+          </div>
+          <div className="h-2 bg-white rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-blue-600 to-purple-600 transition-all duration-700"
+              style={{ width: '0%' }}
+            />
+          </div>
+        </div>
       </div>
 
-      {/* Timeline Steps */}
+      {/* Horizontal Flow Roadmap (Desktop) / Vertical (Mobile) */}
       <div className="relative">
-        {timelineSteps.map((step, index) => {
-          const Icon = step.icon;
-          const isExpanded = expandedSteps.has(step.id);
-          const isLast = index === timelineSteps.length - 1;
-
-          return (
-            <div key={step.id} className="relative">
-              {/* Connector Line */}
-              {!isLast && (
-                <div className="absolute left-8 top-20 w-0.5 h-full bg-gradient-to-b from-gray-300 to-transparent" />
-              )}
-
-              {/* Step Card */}
-              <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-xl overflow-hidden mb-6">
-                {/* Colored Top Bar */}
-                <div className={`h-2 bg-gradient-to-r ${step.color}`} />
-
-                {/* Step Header */}
-                <button
-                  onClick={() => toggleStep(step.id)}
-                  className="w-full p-6 flex items-start gap-4 hover:bg-gray-50 transition-colors"
-                >
-                  {/* Icon Circle */}
-                  <div className={`flex-shrink-0 w-16 h-16 rounded-full bg-gradient-to-br ${step.color} flex items-center justify-center shadow-lg`}>
-                    <Icon className="w-8 h-8 text-white" />
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex-1 text-left">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-xl font-semibold text-gray-900">
-                        Steg {index + 1}: {step.title}
-                      </h3>
-                      {isExpanded ? (
-                        <ChevronUp className="w-5 h-5 text-gray-600 flex-shrink-0" />
-                      ) : (
-                        <ChevronDown className="w-5 h-5 text-gray-600 flex-shrink-0" />
-                      )}
-                    </div>
-                    <p className="text-gray-600 mb-3">{step.description}</p>
-                    <div className="flex items-center gap-4 text-sm text-gray-600">
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
+        {/* Desktop: Horizontal Flow */}
+        <div className="hidden lg:block">
+          <div className="flex items-start justify-between gap-8">
+            {timelineSteps.map((step, index) => (
+              <div key={step.id} className="flex-1 relative">
+                {/* Step Card */}
+                <div className={`bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-xl overflow-hidden transition-all ${
+                  expandedSteps.has(step.id) ? 'ring-2 ring-blue-500' : ''
+                }`}>
+                  {/* Step Header */}
+                  <button
+                    onClick={() => toggleStep(step.id)}
+                    className="w-full p-6 text-left hover:bg-gray-50 transition-colors"
+                  >
+                    <div className="flex items-start justify-between mb-3">
+                      <div className={`p-3 rounded-xl bg-gradient-to-r ${step.color}`}>
+                        <step.icon className="w-6 h-6 text-white" />
+                      </div>
+                      <span className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded-full font-medium">
                         {step.duration}
                       </span>
-                      <span className="flex items-center gap-1">
-                        <Target className="w-4 h-4" />
-                        {step.skills.length} kompetenser
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <BookOpen className="w-4 h-4" />
-                        {step.courses.length} kursalternativ
-                      </span>
                     </div>
+
+                    <h4 className="text-lg font-semibold text-gray-900 mb-2">{step.title}</h4>
+                    <p className="text-sm text-gray-600 mb-3">{step.description}</p>
+
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-500">
+                        {step.skillsCovered.length} kompetenser • {step.courseGroups.length} kurser
+                      </span>
+                      <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform ${
+                        expandedSteps.has(step.id) ? 'rotate-180' : ''
+                      }`} />
+                    </div>
+                  </button>
+
+                  {/* Expanded Content */}
+                  {expandedSteps.has(step.id) && (
+                    <div className="px-6 pb-6 space-y-4 border-t border-gray-200/50">
+                      {/* Reasoning */}
+                      <div className="pt-4">
+                        <h5 className="text-sm font-semibold text-gray-900 mb-2">❓ Varför detta steg?</h5>
+                        <p className="text-sm text-gray-600">{step.reasoning}</p>
+                      </div>
+
+                      {/* What's Next */}
+                      <div>
+                        <h5 className="text-sm font-semibold text-gray-900 mb-2">✨ Vad händer sen?</h5>
+                        <p className="text-sm text-gray-600">{step.whatNext}</p>
+                      </div>
+
+                      {/* Course Groups */}
+                      <div>
+                        <h5 className="text-sm font-semibold text-gray-900 mb-3">📚 Utbildningar</h5>
+                        <div className="space-y-2">
+                          {step.courseGroups.map(group => (
+                            <CourseGroupCard
+                              key={group.id}
+                              group={group}
+                              isExpanded={expandedGroups.has(group.id)}
+                              onToggle={() => toggleGroup(group.id)}
+                              selectedCourses={selectedCourses}
+                              onSelectCourse={toggleCourseSelection}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Arrow to next step */}
+                {index < timelineSteps.length - 1 && (
+                  <div className="absolute top-1/4 -right-8 z-10">
+                    <ArrowRight className="w-8 h-8 text-blue-600" />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile: Vertical Stack */}
+        <div className="lg:hidden space-y-6">
+          {timelineSteps.map((step, index) => (
+            <div key={step.id} className="relative">
+              <div className={`bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-xl overflow-hidden ${
+                expandedSteps.has(step.id) ? 'ring-2 ring-blue-500' : ''
+              }`}>
+                <button
+                  onClick={() => toggleStep(step.id)}
+                  className="w-full p-6 text-left hover:bg-gray-50 transition-colors"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <div className={`p-3 rounded-xl bg-gradient-to-r ${step.color}`}>
+                      <step.icon className="w-6 h-6 text-white" />
+                    </div>
+                    <span className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded-full font-medium">
+                      {step.duration}
+                    </span>
+                  </div>
+
+                  <h4 className="text-lg font-semibold text-gray-900 mb-2">{step.title}</h4>
+                  <p className="text-sm text-gray-600 mb-3">{step.description}</p>
+
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-gray-500">
+                      {step.skillsCovered.length} kompetenser • {step.courseGroups.length} kurser
+                    </span>
+                    <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform ${
+                      expandedSteps.has(step.id) ? 'rotate-180' : ''
+                    }`} />
                   </div>
                 </button>
 
-                {/* Expanded Content */}
-                {isExpanded && (
-                  <div className="px-6 pb-6 border-t border-gray-200">
-                    {/* Skills Overview */}
-                    <div className="mt-4 mb-6">
-                      <h4 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                        <Target className="w-4 h-4 text-blue-600" />
-                        Kompetenser att utveckla:
-                      </h4>
-                      <div className="grid grid-cols-2 gap-2">
-                        {step.skills.slice(0, 6).map((skill, idx) => (
-                          <div
-                            key={idx}
-                            className="bg-gray-50 rounded-lg px-3 py-2 text-sm text-gray-700 border border-gray-200"
-                          >
-                            {skill.skill}
-                          </div>
-                        ))}
-                        {step.skills.length > 6 && (
-                          <div className="bg-gray-50 rounded-lg px-3 py-2 text-sm text-gray-600 border border-gray-200 flex items-center justify-center">
-                            +{step.skills.length - 6} till...
-                          </div>
-                        )}
-                      </div>
+                {expandedSteps.has(step.id) && (
+                  <div className="px-6 pb-6 space-y-4 border-t border-gray-200/50">
+                    <div className="pt-4">
+                      <h5 className="text-sm font-semibold text-gray-900 mb-2">❓ Varför detta steg?</h5>
+                      <p className="text-sm text-gray-600">{step.reasoning}</p>
                     </div>
 
-                    {/* Course Alternatives */}
                     <div>
-                      <h4 className="text-sm font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                        <BookOpen className="w-4 h-4 text-blue-600" />
-                        Välj ett eller flera alternativ:
-                      </h4>
+                      <h5 className="text-sm font-semibold text-gray-900 mb-2">✨ Vad händer sen?</h5>
+                      <p className="text-sm text-gray-600">{step.whatNext}</p>
+                    </div>
 
-                      {step.courses.length === 0 ? (
-                        <div className="bg-gray-50 rounded-lg p-6 text-center border border-gray-200">
-                          <Info className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                          <p className="text-gray-600">Inga specifika kurser hittades för detta steg.</p>
-                          <p className="text-sm text-gray-500 mt-1">
-                            Sök själv efter kurser inom: {step.skills.map(s => s.skill).join(', ')}
-                          </p>
-                        </div>
-                      ) : (
-                        <div className="space-y-3">
-                          {step.courses.map((course, courseIdx) => {
-                            const courseKey = `${step.id}-course-${courseIdx}`;
-                            const isExpanded = expandedCourses[courseKey];
-                            const badges = getCourseBadges(course);
-                            const isFree = isFreeOrSubsidized(course);
-
-                            return (
-                              <div
-                                key={courseIdx}
-                                className="bg-gray-50 rounded-lg border border-gray-200 hover:border-blue-300 transition-all"
-                              >
-                                {/* Course Header */}
-                                <div className="p-4">
-                                  <div className="flex items-start justify-between gap-4">
-                                    <div className="flex-1">
-                                      <div className="flex items-start gap-2 mb-2">
-                                        <h5 className="font-semibold text-gray-900 flex-1">
-                                          {course.title}
-                                        </h5>
-                                        {/* Badges */}
-                                        <div className="flex flex-wrap gap-1">
-                                          {badges.map((badge, idx) => (
-                                            <span
-                                              key={idx}
-                                              className={`px-2 py-0.5 text-xs font-medium rounded-full ${
-                                                badge === 'Gratis' || badge.includes('CSN')
-                                                  ? 'bg-green-100 text-green-700'
-                                                  : badge === 'Komvux' || badge === 'Högskola'
-                                                  ? 'bg-blue-100 text-blue-700'
-                                                  : 'bg-gray-100 text-gray-700'
-                                              }`}
-                                            >
-                                              {badge}
-                                            </span>
-                                          ))}
-                                        </div>
-                                      </div>
-
-                                      {course.provider && (
-                                        <p className="text-sm text-gray-600 mb-2">{course.provider}</p>
-                                      )}
-
-                                      <div className="flex items-center gap-4 text-xs text-gray-600 mb-3">
-                                        {course.duration && (
-                                          <span className="flex items-center gap-1">
-                                            <Clock className="w-3 h-3" />
-                                            {course.duration}
-                                          </span>
-                                        )}
-                                        {course.cost && (
-                                          <span className={`font-medium ${isFree ? 'text-green-600' : 'text-gray-700'}`}>
-                                            {course.cost.replace(/^\$\s*/, '')}
-                                          </span>
-                                        )}
-                                      </div>
-
-                                      {/* Skills Covered */}
-                                      {course.skillsCovered && course.skillsCovered.length > 0 && (
-                                        <div className="flex flex-wrap gap-1 mb-2">
-                                          {course.skillsCovered.slice(0, 3).map((skill, idx) => (
-                                            <span
-                                              key={idx}
-                                              className="text-xs px-2 py-1 bg-blue-50 text-blue-700 rounded border border-blue-200"
-                                            >
-                                              {String(skill)}
-                                            </span>
-                                          ))}
-                                          {course.skillsCovered.length > 3 && (
-                                            <span className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded">
-                                              +{course.skillsCovered.length - 3}
-                                            </span>
-                                          )}
-                                        </div>
-                                      )}
-                                    </div>
-
-                                    {/* Action Buttons */}
-                                    <div className="flex flex-col gap-2 flex-shrink-0">
-                                      <button
-                                        onClick={() => toggleCourseSelection(course.title)}
-                                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all border ${
-                                          selectedCourses.has(course.title)
-                                            ? 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700'
-                                            : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
-                                        }`}
-                                      >
-                                        {selectedCourses.has(course.title) ? (
-                                          <>
-                                            <BookmarkCheck className="w-4 h-4" />
-                                            Vald
-                                          </>
-                                        ) : (
-                                          <>
-                                            <Bookmark className="w-4 h-4" />
-                                            Välj kurs
-                                          </>
-                                        )}
-                                      </button>
-                                      {course.direct_url && (
-                                        <a
-                                          href={course.direct_url}
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                          className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg text-sm font-medium transition-all shadow-md hover:shadow-lg"
-                                        >
-                                          Gå till kurs
-                                          <ExternalLink className="w-4 h-4" />
-                                        </a>
-                                      )}
-                                      <button
-                                        onClick={() => toggleCourseDetails(courseKey)}
-                                        className="px-4 py-2 bg-white hover:bg-gray-50 text-gray-700 rounded-lg text-sm font-medium transition-all border border-gray-300"
-                                      >
-                                        {isExpanded ? 'Dölj detaljer' : 'Visa detaljer'}
-                                      </button>
-                                    </div>
-                                  </div>
-
-                                  {/* Expanded Course Details */}
-                                  {isExpanded && (
-                                    <div className="mt-4 pt-4 border-t border-gray-200 space-y-3">
-                                      {/* Why this course? */}
-                                      {course.skillsCovered && course.skillsCovered.length > 0 && (
-                                        <div>
-                                          <h6 className="text-sm font-semibold text-gray-900 mb-2 flex items-center gap-2">
-                                            <Target className="w-4 h-4 text-blue-600" />
-                                            Varför denna kurs?
-                                          </h6>
-                                          <p className="text-sm text-gray-700">
-                                            Denna kurs täcker <strong>{course.skillsCovered.length}</strong> kompetensområden
-                                            som är viktiga för rollen som {targetRole}:
-                                          </p>
-                                          <ul className="list-disc list-inside text-sm text-gray-700 mt-2 space-y-1">
-                                            {course.skillsCovered.map((skill, idx) => (
-                                              <li key={idx}>{String(skill)}</li>
-                                            ))}
-                                          </ul>
-                                        </div>
-                                      )}
-
-                                      {/* Course Description */}
-                                      {course.description && (
-                                        <div>
-                                          <h6 className="text-sm font-semibold text-gray-900 mb-2 flex items-center gap-2">
-                                            <Info className="w-4 h-4 text-blue-600" />
-                                            Kursbeskrivning
-                                          </h6>
-                                          <p className="text-sm text-gray-700 leading-relaxed">
-                                            {course.description}
-                                          </p>
-                                        </div>
-                                      )}
-
-                                      {/* Additional Info */}
-                                      <div className="grid grid-cols-2 gap-4 pt-2">
-                                        {course.study_format && (
-                                          <div>
-                                            <span className="text-xs text-gray-600 block mb-1">Studieform</span>
-                                            <span className="text-sm text-gray-900 font-medium">{course.study_format}</span>
-                                          </div>
-                                        )}
-                                        {course.start_date && (
-                                          <div>
-                                            <span className="text-xs text-gray-600 block mb-1">Startdatum</span>
-                                            <span className="text-sm text-gray-900 font-medium">{course.start_date}</span>
-                                          </div>
-                                        )}
-                                      </div>
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      )}
+                    <div>
+                      <h5 className="text-sm font-semibold text-gray-900 mb-3">📚 Utbildningar</h5>
+                      <div className="space-y-2">
+                        {step.courseGroups.map(group => (
+                          <CourseGroupCard
+                            key={group.id}
+                            group={group}
+                            isExpanded={expandedGroups.has(group.id)}
+                            onToggle={() => toggleGroup(group.id)}
+                            selectedCourses={selectedCourses}
+                            onSelectCourse={toggleCourseSelection}
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
                 )}
               </div>
+
+              {/* Down arrow for mobile */}
+              {index < timelineSteps.length - 1 && (
+                <div className="flex justify-center py-4">
+                  <ChevronDown className="w-8 h-8 text-blue-600" />
+                </div>
+              )}
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
 
-      {/* Call to Action */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-200/50">
-        <div className="flex items-start gap-4">
-          <CheckCircle className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
-          <div className="flex-1">
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              Redo att börja din utvecklingsresa?
-            </h3>
-            <p className="text-gray-600 mb-4">
-              {selectedCourses.size > 0 ? (
-                <>
-                  Du har valt <strong>{selectedCourses.size}</strong> {selectedCourses.size === 1 ? 'kurs' : 'kurser'}.
-                  Spara din utvecklingsväg för att komma igång!
-                </>
-              ) : (
-                <>
-                  Du har nu en komplett översikt över alla steg och utbildningsalternativ.
-                  Välj de kurser som passar dig bäst genom att klicka på "Välj kurs"-knappen.
-                </>
-              )}
-            </p>
-            <button
-              onClick={handleSaveRoadmap}
-              disabled={!jobId}
-              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg font-medium transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {selectedCourses.size > 0 ? `Spara plan med ${selectedCourses.size} kurser` : 'Skapa min utvecklingsplan'}
-            </button>
-          </div>
-        </div>
+      {/* CTA: Save Roadmap */}
+      <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-xl text-center">
+        <h4 className="text-lg font-semibold text-gray-900 mb-2">
+          {selectedCourses.size > 0 ? 'Redo att starta din utveckling?' : 'Välj kurser för att skapa din plan'}
+        </h4>
+        <p className="text-sm text-gray-600 mb-4">
+          {selectedCourses.size > 0
+            ? `Du har valt ${selectedCourses.size} kurser. Spara din plan för att komma igång!`
+            : 'Välj de kurser som passar dig bäst och spara din utvecklingsplan.'}
+        </p>
+        <button
+          onClick={handleSaveRoadmap}
+          disabled={!jobId}
+          className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all shadow-md ${
+            jobId && selectedCourses.size > 0
+              ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 hover:shadow-lg'
+              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+          }`}
+        >
+          <Sparkles className="w-5 h-5" />
+          {selectedCourses.size > 0
+            ? `Spara plan med ${selectedCourses.size} kurser`
+            : 'Skapa min utvecklingsplan'}
+          <ChevronRight className="w-4 h-4" />
+        </button>
       </div>
 
       {/* Learning Plan Creator Modal */}
@@ -480,6 +457,150 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
             learningSuggestions
           }}
         />
+      )}
+    </div>
+  );
+};
+
+// Sub-component: Course Group Card
+interface CourseGroupCardProps {
+  group: CourseGroup;
+  isExpanded: boolean;
+  onToggle: () => void;
+  selectedCourses: Set<string>;
+  onSelectCourse: (courseTitle: string) => void;
+}
+
+const CourseGroupCard: React.FC<CourseGroupCardProps> = ({
+  group,
+  isExpanded,
+  onToggle,
+  selectedCourses,
+  onSelectCourse
+}) => {
+  const shouldGroup = shouldDisplayAsGroup(group);
+  const displayText = getGroupDisplayText(group);
+
+  if (!shouldGroup) {
+    // Single course - display directly
+    const course = group.courses[0];
+    const isSelected = selectedCourses.has(course.title);
+
+    return (
+      <div className="bg-gray-50 rounded-lg p-4 border border-gray-200/50">
+        <div className="flex items-start justify-between mb-2">
+          <div className="flex-1">
+            <h6 className="font-medium text-gray-900 text-sm mb-1">{course.title}</h6>
+            {course.provider && (
+              <p className="text-xs text-gray-600 flex items-center gap-1">
+                <MapPin className="w-3 h-3" />
+                {course.provider}
+              </p>
+            )}
+            <div className="flex items-center gap-2 mt-2">
+              {course.duration && (
+                <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-700 rounded font-medium">
+                  {course.duration}
+                </span>
+              )}
+              {course.cost && (
+                <span className={`text-xs px-2 py-0.5 rounded font-medium ${
+                  (course.cost.toLowerCase().includes('gratis') || course.cost === '0')
+                    ? 'bg-green-100 text-green-700'
+                    : 'bg-gray-200 text-gray-700'
+                }`}>
+                  {course.cost}
+                </span>
+              )}
+            </div>
+          </div>
+          <button
+            onClick={() => onSelectCourse(course.title)}
+            className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+              isSelected
+                ? 'bg-blue-600 text-white'
+                : 'bg-white text-gray-700 border border-gray-300 hover:border-blue-500'
+            }`}
+          >
+            {isSelected ? (
+              <><BookmarkCheck className="w-4 h-4" />Vald</>
+            ) : (
+              <><Bookmark className="w-4 h-4" />Välj</>
+            )}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Grouped courses - show expandable group
+  const variants = getCourseVariants(group);
+
+  return (
+    <div className="bg-gray-50 rounded-lg border border-gray-200/50 overflow-hidden">
+      <button
+        onClick={onToggle}
+        className="w-full p-4 text-left hover:bg-gray-100 transition-colors"
+      >
+        <div className="flex items-center justify-between">
+          <div className="flex-1">
+            <h6 className="font-medium text-gray-900 text-sm mb-1">{group.baseTitle}</h6>
+            <p className="text-xs text-gray-600">{displayText}</p>
+            <div className="flex items-center gap-2 mt-2">
+              {group.duration && (
+                <span className="text-xs px-2 py-0.5 bg-blue-100 text-blue-700 rounded font-medium">
+                  {group.duration}
+                </span>
+              )}
+              {group.isFree && (
+                <span className="text-xs px-2 py-0.5 bg-green-100 text-green-700 rounded font-medium">
+                  Gratis
+                </span>
+              )}
+            </div>
+          </div>
+          <ChevronRight className={`w-5 h-5 text-gray-400 transition-transform ${
+            isExpanded ? 'rotate-90' : ''
+          }`} />
+        </div>
+      </button>
+
+      {/* Expanded Variants */}
+      {isExpanded && (
+        <div className="px-4 pb-4 space-y-2 border-t border-gray-200/50">
+          {variants.map((course, idx) => {
+            const isSelected = selectedCourses.has(course.title);
+            return (
+              <div key={idx} className="bg-white rounded-lg p-3 border border-gray-200/50">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <p className="text-xs text-gray-900 font-medium mb-1 flex items-center gap-1">
+                      <MapPin className="w-3 h-3" />
+                      {course.provider || `Alternativ ${idx + 1}`}
+                    </p>
+                    {course.description && (
+                      <p className="text-xs text-gray-600">{course.description}</p>
+                    )}
+                  </div>
+                  <button
+                    onClick={() => onSelectCourse(course.title)}
+                    className={`flex items-center gap-1 px-2 py-1 rounded text-xs font-medium transition-colors ${
+                      isSelected
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-white text-gray-700 border border-gray-300 hover:border-blue-500'
+                    }`}
+                  >
+                    {isSelected ? (
+                      <><CheckCircle2 className="w-3 h-3" />Vald</>
+                    ) : (
+                      <><Circle className="w-3 h-3" />Välj</>
+                    )}
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       )}
     </div>
   );

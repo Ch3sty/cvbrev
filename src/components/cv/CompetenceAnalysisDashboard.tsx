@@ -125,7 +125,6 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
 
       // Set the job ID to start tracking
       setCurrentJobId(data.jobId);
-      showNotification('success', 'Analys startad! Väntar på resultat...', 3000);
 
       // Update remaining analyses
       if (data.remainingAnalyses !== undefined && updateRemainingAnalyses) {
