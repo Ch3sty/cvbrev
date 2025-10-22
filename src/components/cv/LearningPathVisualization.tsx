@@ -302,6 +302,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
           learningSuggestions={learningSuggestions}
           optimizedCourses={optimizedCourses}
           targetRole={targetRole || ''}
+          jobId={jobId}
         />
       )}
 

@@ -5,10 +5,11 @@ import React, { useState, useMemo } from 'react';
 import {
   ChevronDown, ChevronUp, ExternalLink, Clock,
   BookOpen, Award, Target, CheckCircle, Info,
-  Map as MapIcon
+  Map as MapIcon, Bookmark, BookmarkCheck
 } from 'lucide-react';
 import { getCourseBadges, isFreeOrSubsidized } from '@/lib/learning/course-prioritization';
 import type { Course } from '@/lib/learning/course-prioritization';
+import LearningPlanCreator from './LearningPlanCreator';
 
 interface LearningSuggestion {
   skill: string;
@@ -33,16 +34,20 @@ interface InteractiveLearningTimelineProps {
   learningSuggestions: LearningSuggestion[];
   optimizedCourses: Course[];
   targetRole: string;
+  jobId?: string;
 }
 
 const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = ({
   matchScore,
   learningSuggestions,
   optimizedCourses,
-  targetRole
+  targetRole,
+  jobId
 }) => {
   const [expandedSteps, setExpandedSteps] = useState<Set<string>>(new Set(['step1']));
   const [expandedCourses, setExpandedCourses] = useState<{ [key: string]: boolean }>({});
+  const [showPlanCreator, setShowPlanCreator] = useState(false);
+  const [selectedCourses, setSelectedCourses] = useState<Set<string>>(new Set());
 
   // Group skills into timeline steps
   const timelineSteps = useMemo<TimelineStep[]>(() => {
@@ -109,6 +114,26 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
       ...prev,
       [courseKey]: !prev[courseKey]
     }));
+  };
+
+  const toggleCourseSelection = (courseTitle: string) => {
+    setSelectedCourses(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(courseTitle)) {
+        newSet.delete(courseTitle);
+      } else {
+        newSet.add(courseTitle);
+      }
+      return newSet;
+    });
+  };
+
+  const handleSaveRoadmap = () => {
+    if (!jobId) {
+      alert('Kunde inte spara - inget jobb-ID tillgängligt');
+      return;
+    }
+    setShowPlanCreator(true);
   };
 
   return (
@@ -304,6 +329,26 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
 
                                     {/* Action Buttons */}
                                     <div className="flex flex-col gap-2 flex-shrink-0">
+                                      <button
+                                        onClick={() => toggleCourseSelection(course.title)}
+                                        className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all border ${
+                                          selectedCourses.has(course.title)
+                                            ? 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700'
+                                            : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
+                                        }`}
+                                      >
+                                        {selectedCourses.has(course.title) ? (
+                                          <>
+                                            <BookmarkCheck className="w-4 h-4" />
+                                            Vald
+                                          </>
+                                        ) : (
+                                          <>
+                                            <Bookmark className="w-4 h-4" />
+                                            Välj kurs
+                                          </>
+                                        )}
+                                      </button>
                                       {course.direct_url && (
                                         <a
                                           href={course.direct_url}
@@ -325,11 +370,55 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
                                   </div>
 
                                   {/* Expanded Course Details */}
-                                  {isExpanded && course.description && (
-                                    <div className="mt-4 pt-4 border-t border-gray-200">
-                                      <p className="text-sm text-gray-700 leading-relaxed">
-                                        {course.description}
-                                      </p>
+                                  {isExpanded && (
+                                    <div className="mt-4 pt-4 border-t border-gray-200 space-y-3">
+                                      {/* Why this course? */}
+                                      {course.skillsCovered && course.skillsCovered.length > 0 && (
+                                        <div>
+                                          <h6 className="text-sm font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                                            <Target className="w-4 h-4 text-blue-600" />
+                                            Varför denna kurs?
+                                          </h6>
+                                          <p className="text-sm text-gray-700">
+                                            Denna kurs täcker <strong>{course.skillsCovered.length}</strong> kompetensområden
+                                            som är viktiga för rollen som {targetRole}:
+                                          </p>
+                                          <ul className="list-disc list-inside text-sm text-gray-700 mt-2 space-y-1">
+                                            {course.skillsCovered.map((skill, idx) => (
+                                              <li key={idx}>{String(skill)}</li>
+                                            ))}
+                                          </ul>
+                                        </div>
+                                      )}
+
+                                      {/* Course Description */}
+                                      {course.description && (
+                                        <div>
+                                          <h6 className="text-sm font-semibold text-gray-900 mb-2 flex items-center gap-2">
+                                            <Info className="w-4 h-4 text-blue-600" />
+                                            Kursbeskrivning
+                                          </h6>
+                                          <p className="text-sm text-gray-700 leading-relaxed">
+                                            {course.description}
+                                          </p>
+                                        </div>
+                                      )}
+
+                                      {/* Additional Info */}
+                                      <div className="grid grid-cols-2 gap-4 pt-2">
+                                        {course.study_format && (
+                                          <div>
+                                            <span className="text-xs text-gray-600 block mb-1">Studieform</span>
+                                            <span className="text-sm text-gray-900 font-medium">{course.study_format}</span>
+                                          </div>
+                                        )}
+                                        {course.start_date && (
+                                          <div>
+                                            <span className="text-xs text-gray-600 block mb-1">Startdatum</span>
+                                            <span className="text-sm text-gray-900 font-medium">{course.start_date}</span>
+                                          </div>
+                                        )}
+                                      </div>
                                     </div>
                                   )}
                                 </div>
@@ -356,15 +445,42 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
               Redo att börja din utvecklingsresa?
             </h3>
             <p className="text-gray-600 mb-4">
-              Du har nu en komplett översikt över alla steg och utbildningsalternativ.
-              Välj de kurser som passar dig bäst och börja utveckla din kompetens!
+              {selectedCourses.size > 0 ? (
+                <>
+                  Du har valt <strong>{selectedCourses.size}</strong> {selectedCourses.size === 1 ? 'kurs' : 'kurser'}.
+                  Spara din utvecklingsväg för att komma igång!
+                </>
+              ) : (
+                <>
+                  Du har nu en komplett översikt över alla steg och utbildningsalternativ.
+                  Välj de kurser som passar dig bäst genom att klicka på "Välj kurs"-knappen.
+                </>
+              )}
             </p>
-            <button className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg font-medium transition-all shadow-md hover:shadow-lg">
-              Spara min utvecklingsväg
+            <button
+              onClick={handleSaveRoadmap}
+              disabled={!jobId}
+              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg font-medium transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {selectedCourses.size > 0 ? `Spara plan med ${selectedCourses.size} kurser` : 'Skapa min utvecklingsplan'}
             </button>
           </div>
         </div>
       </div>
+
+      {/* Learning Plan Creator Modal */}
+      {showPlanCreator && jobId && (
+        <LearningPlanCreator
+          isOpen={showPlanCreator}
+          onClose={() => setShowPlanCreator(false)}
+          jobData={{
+            jobId,
+            targetRole,
+            matchScore,
+            learningSuggestions
+          }}
+        />
+      )}
     </div>
   );
 };
