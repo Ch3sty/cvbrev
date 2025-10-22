@@ -425,8 +425,8 @@ export default function LearningPlanPage({
     return (
       <div className="flex h-screen items-center justify-center">
         <div className="flex flex-col items-center">
-          <div className="w-12 h-12 border-t-2 border-b-2 border-pink-500 rounded-full animate-spin mb-4"></div>
-          <p className="text-gray-400">Laddar din lärandeplan...</p>
+          <div className="w-12 h-12 border-t-2 border-b-2 border-blue-600 rounded-full animate-spin mb-4"></div>
+          <p className="text-gray-600">Laddar din lärandeplan...</p>
         </div>
       </div>
     );
@@ -435,8 +435,8 @@ export default function LearningPlanPage({
   if (!plan) {
     return (
       <div className="text-center py-12">
-        <h1 className="text-2xl font-bold text-white mb-4">Lärandeplan ej hittad</h1>
-        <p className="text-gray-400">Den begärda lärande-planen kunde inte hittas.</p>
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">Lärandeplan ej hittad</h1>
+        <p className="text-gray-600">Den begärda lärande-planen kunde inte hittas.</p>
       </div>
     );
   }
@@ -451,7 +451,7 @@ export default function LearningPlanPage({
             <div className="flex items-start justify-between">
               <div>
                 <CardTitle className="text-2xl mb-2">{plan.title}</CardTitle>
-                <p className="text-gray-400">Målroll: {plan.target_role}</p>
+                <p className="text-gray-600">Målroll: {plan.target_role}</p>
               </div>
               <Badge
                 variant={plan.status === 'active' ? 'success' : 'secondary'}
@@ -473,7 +473,7 @@ export default function LearningPlanPage({
                     stroke="currentColor"
                     strokeWidth="8"
                     fill="none"
-                    className="text-navy-700"
+                    className="text-gray-200"
                   />
                   <circle
                     cx="50"
@@ -488,29 +488,29 @@ export default function LearningPlanPage({
                   />
                   <defs>
                     <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#E9457A" />
-                      <stop offset="100%" stopColor="#9333EA" />
+                      <stop offset="0%" stopColor="#2563EB" />
+                      <stop offset="100%" stopColor="#4F46E5" />
                     </linearGradient>
                   </defs>
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-2xl font-bold text-white">{getProgressPercentage()}%</span>
+                  <span className="text-2xl font-bold text-gray-900">{getProgressPercentage()}%</span>
                 </div>
               </div>
 
               {/* Stats */}
               <div className="flex-1 space-y-3">
                 <div className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
-                  <span className="text-gray-300">{plan.completed_skills} av {plan.total_skills} färdigheter slutförda</span>
+                  <CheckCircle className="w-4 h-4 text-emerald-600" />
+                  <span className="text-gray-700">{plan.completed_skills} av {plan.total_skills} färdigheter slutförda</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
-                  <Clock className="w-4 h-4 text-blue-500" />
-                  <span className="text-gray-300">{plan.time_commitment_hours} timmar total tidsåtgång</span>
+                  <Clock className="w-4 h-4 text-blue-600" />
+                  <span className="text-gray-700">{plan.time_commitment_hours} timmar total tidsåtgång</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
-                  <Target className="w-4 h-4 text-pink-500" />
-                  <span className="text-gray-300">Matchning: {plan.match_score}%</span>
+                  <Target className="w-4 h-4 text-blue-600" />
+                  <span className="text-gray-700">Matchning: {plan.match_score}%</span>
                 </div>
               </div>
             </div>
@@ -554,7 +554,7 @@ export default function LearningPlanPage({
       </div>
 
       {/* Navigation Tabs */}
-      <div className="flex gap-1 bg-navy-800 p-1 rounded-lg w-fit">
+      <div className="flex gap-1 bg-white/80 backdrop-blur-xl p-1 rounded-lg w-fit border border-gray-200/50 shadow-xl">
         {[
           { key: 'overview', label: 'Översikt', icon: Target },
           { key: 'skills', label: 'Kompetensutveckling', icon: BookOpen },
@@ -565,8 +565,8 @@ export default function LearningPlanPage({
             onClick={() => setActiveTab(key as any)}
             className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
               activeTab === key
-                ? 'bg-pink-600 text-white'
-                : 'text-gray-400 hover:text-white hover:bg-navy-700'
+                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }`}
           >
             <Icon className="w-4 h-4" />
@@ -598,17 +598,17 @@ export default function LearningPlanPage({
                   return (
                     <div className="space-y-4">
                       {enrolledSkills.map(skill => (
-                        <div key={skill.id} className="border border-navy-700 rounded-lg p-4">
+                        <div key={skill.id} className="border border-gray-200 rounded-lg p-4 bg-gray-50">
                           <div className="flex items-start justify-between mb-2">
-                            <h4 className="font-semibold text-white">{skill.skill_name}</h4>
-                            <Badge variant="outline" className="text-blue-400 border-blue-400">Pågår</Badge>
+                            <h4 className="font-semibold text-gray-900">{skill.skill_name}</h4>
+                            <Badge variant="outline" className="text-blue-600 border-blue-600">Pågår</Badge>
                           </div>
-                          <p className="text-sm text-gray-400 mb-3">
+                          <p className="text-sm text-gray-600 mb-3">
                             {skill.actual_hours || 0}h av {skill.estimated_hours}h slutfört
                           </p>
-                          <div className="w-full bg-navy-700 rounded-full h-2 mb-3">
+                          <div className="w-full bg-gray-200 rounded-full h-2 mb-3">
                             <div
-                              className="bg-gradient-to-r from-pink-500 to-purple-500 h-2 rounded-full"
+                              className="bg-gradient-to-r from-blue-600 to-indigo-600 h-2 rounded-full"
                               style={{ width: `${Math.min(((skill.actual_hours || 0) / skill.estimated_hours) * 100, 100)}%` }}
                             />
                           </div>
@@ -657,9 +657,9 @@ export default function LearningPlanPage({
                   return (
                     <div className="space-y-4">
                       {acceptedSkills.map(skill => (
-                        <div key={skill.id} className="border border-green-500/30 bg-green-500/10 rounded-lg p-4">
-                          <h4 className="font-semibold text-white mb-2">{skill.skill_name}</h4>
-                          <p className="text-sm text-green-400 mb-3">
+                        <div key={skill.id} className="border border-green-500/30 bg-green-50 rounded-lg p-4">
+                          <h4 className="font-semibold text-gray-900 mb-2">{skill.skill_name}</h4>
+                          <p className="text-sm text-green-700 mb-3">
                             🎉 Grattis! Du har blivit antagen!
                           </p>
                           <div className="flex gap-2">
@@ -679,14 +679,14 @@ export default function LearningPlanPage({
                 } else if (appliedSkills.length > 0) {
                   return (
                     <div className="space-y-4">
-                      <div className="border border-orange-500/30 bg-orange-500/10 rounded-lg p-4">
-                        <h4 className="font-semibold text-white mb-2">Väntar på antagningsbesked</h4>
-                        <p className="text-sm text-orange-400 mb-3">
+                      <div className="border border-orange-500/30 bg-orange-50 rounded-lg p-4">
+                        <h4 className="font-semibold text-gray-900 mb-2">Väntar på antagningsbesked</h4>
+                        <p className="text-sm text-orange-700 mb-3">
                           Du har ansökt till {appliedSkills.length} utbildning{appliedSkills.length > 1 ? 'ar' : ''}
                         </p>
                         <ul className="space-y-1">
                           {appliedSkills.map(skill => (
-                            <li key={skill.id} className="text-sm text-gray-300">
+                            <li key={skill.id} className="text-sm text-gray-700">
                               • {skill.skill_name}
                             </li>
                           ))}
@@ -697,9 +697,9 @@ export default function LearningPlanPage({
                 } else if (notAppliedSkills.length > 0) {
                   return (
                     <div className="text-center py-8">
-                      <BookOpen className="w-12 h-12 text-gray-500 mx-auto mb-4" />
-                      <h4 className="font-semibold text-white mb-2">Börja din utbildningsresa</h4>
-                      <p className="text-gray-400 mb-4">
+                      <BookOpen className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                      <h4 className="font-semibold text-gray-900 mb-2">Börja din utbildningsresa</h4>
+                      <p className="text-gray-600 mb-4">
                         {notAppliedSkills.length} utbildning{notAppliedSkills.length > 1 ? 'ar' : ''} väntar på din ansökan
                       </p>
                       <Button
@@ -712,9 +712,9 @@ export default function LearningPlanPage({
                 } else {
                   return (
                     <div className="text-center py-8">
-                      <CheckCircle className="w-12 h-12 text-emerald-500 mx-auto mb-4" />
-                      <h4 className="font-semibold text-white mb-2">Alla färdigheter slutförda!</h4>
-                      <p className="text-gray-400">Grattis till din prestation!</p>
+                      <CheckCircle className="w-12 h-12 text-emerald-600 mx-auto mb-4" />
+                      <h4 className="font-semibold text-gray-900 mb-2">Alla färdigheter slutförda!</h4>
+                      <p className="text-gray-600">Grattis till din prestation!</p>
                     </div>
                   );
                 }
@@ -734,17 +734,17 @@ export default function LearningPlanPage({
               <div className="space-y-3">
                 {userStats.achievements.length > 0 ? (
                   userStats.achievements.map((achievement, index) => (
-                    <div key={index} className="flex items-center gap-3 p-3 bg-navy-700 rounded-lg">
+                    <div key={index} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
                       <div className="w-10 h-10 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center">
                         <Award className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <p className="font-semibold text-white">
+                        <p className="font-semibold text-gray-900">
                           {achievement === 'first_course' && 'Första kursen!'}
                           {achievement === 'week_streak' && 'Veckostreak!'}
                           {achievement === 'skill_master' && 'Färdighetsmästare!'}
                         </p>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-xs text-gray-600">
                           {achievement === 'first_course' && 'Slutförde din första kurs'}
                           {achievement === 'week_streak' && 'Lärde dig 7 dagar i rad'}
                           {achievement === 'skill_master' && 'Behärskade en färdighet'}
@@ -754,8 +754,8 @@ export default function LearningPlanPage({
                   ))
                 ) : (
                   <div className="text-center py-8">
-                    <Trophy className="w-12 h-12 text-gray-500 mx-auto mb-4" />
-                    <p className="text-gray-400">Inga prestationer än. Börja lära dig för att låsa upp dina första badges!</p>
+                    <Trophy className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                    <p className="text-gray-600">Inga prestationer än. Börja lära dig för att låsa upp dina första badges!</p>
                   </div>
                 )}
               </div>
@@ -819,12 +819,12 @@ export default function LearningPlanPage({
             const progressPercentage = applicationStatus === 'enrolled' ? Math.min(((skill.actual_hours || 0) / skill.estimated_hours) * 100, 100) : 0;
 
             return (
-              <Card key={skill.id} className="group hover:shadow-lg hover:shadow-pink-500/10 transition-all duration-300 border-navy-700 hover:border-pink-500/30">
+              <Card key={skill.id} className="group hover:shadow-lg hover:shadow-blue-500/10 transition-all duration-300 border-gray-200 hover:border-blue-500/30">
                 <CardContent className="p-0">
                   {/* Premium Skill Header */}
                   <div className="relative p-4 pb-0 overflow-hidden">
                     {/* Subtle background gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-navy-800/50 via-transparent to-pink-500/5 opacity-60"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-transparent to-blue-500/5 opacity-60"></div>
 
                     <div className="relative flex items-start gap-4">
                       {/* Premium Number Indicator */}
@@ -843,8 +843,8 @@ export default function LearningPlanPage({
                         </div>
                         {/* Progress indicator */}
                         {applicationStatus === 'enrolled' && progressPercentage > 0 && (
-                          <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-navy-900 rounded-full flex items-center justify-center border-2 border-navy-800">
-                            <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
+                          <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center border-2 border-gray-200 shadow">
+                            <div className="w-3 h-3 bg-blue-600 rounded-full animate-pulse"></div>
                           </div>
                         )}
                       </div>
@@ -858,7 +858,7 @@ export default function LearningPlanPage({
                             <div className="flex items-center gap-2">
                               <Badge
                                 variant="outline"
-                                className="px-2 py-0.5 text-xs font-medium text-white bg-gradient-to-r from-pink-600/20 to-purple-600/20 border border-pink-500/30 backdrop-blur-sm"
+                                className="px-2 py-0.5 text-xs font-medium text-gray-900 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 border border-blue-500/30 backdrop-blur-sm"
                               >
                                 KOMPETENSOMRÅDE
                               </Badge>
@@ -866,7 +866,7 @@ export default function LearningPlanPage({
                             </div>
 
                             {/* Skill Title */}
-                            <h3 className="text-lg font-bold text-white group-hover:text-pink-300 transition-colors duration-200 leading-tight">
+                            <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-700 transition-colors duration-200 leading-tight">
                               {skill.skill_name}
                             </h3>
                           </div>
@@ -876,8 +876,8 @@ export default function LearningPlanPage({
                             variant={skill.importance === 'essential' ? 'default' : 'secondary'}
                             className={`px-3 py-1 text-xs font-semibold transition-all duration-200 ${
                               skill.importance === 'essential'
-                                ? 'bg-gradient-to-r from-pink-600 to-purple-600 border-0 text-white shadow-md hover:shadow-pink-500/20'
-                                : 'bg-navy-700/80 border-navy-600 text-gray-300 hover:bg-navy-600/80'
+                                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 border-0 text-white shadow-md hover:shadow-blue-500/20'
+                                : 'bg-gray-100 border-gray-300 text-gray-700 hover:bg-gray-200'
                             }`}
                           >
                             {skill.importance === 'essential' ? 'Kritisk' : skill.importance === 'desirable' ? 'Önskvärd' : 'Valfri'}
@@ -887,27 +887,27 @@ export default function LearningPlanPage({
                         {/* Compact Metadata */}
                         <div className="flex flex-wrap items-center gap-3 text-sm">
                           {/* Level */}
-                          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-navy-700/40 rounded-lg border border-navy-600/50">
-                            <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
-                            <span className="text-xs font-medium text-gray-400">Nivå:</span>
-                            <span className="text-xs font-semibold text-white">
+                          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 rounded-lg border border-gray-200">
+                            <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                            <span className="text-xs font-medium text-gray-600">Nivå:</span>
+                            <span className="text-xs font-semibold text-gray-900">
                               {skill.skill_level === 'foundation' ? 'Grund' : skill.skill_level === 'intermediate' ? 'Medel' : 'Avancerad'}
                             </span>
                           </div>
 
                           {/* Time */}
-                          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-navy-700/40 rounded-lg border border-navy-600/50">
-                            <Clock className="w-3.5 h-3.5 text-purple-400" />
-                            <span className="text-xs font-medium text-gray-400">Tid:</span>
-                            <span className="text-xs font-semibold text-white">{getEducationLength()}</span>
+                          <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 rounded-lg border border-gray-200">
+                            <Clock className="w-3.5 h-3.5 text-indigo-600" />
+                            <span className="text-xs font-medium text-gray-600">Tid:</span>
+                            <span className="text-xs font-semibold text-gray-900">{getEducationLength()}</span>
                           </div>
 
                           {/* Start Date */}
                           {skill.start_date && (
-                            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-navy-700/40 rounded-lg border border-navy-600/50">
-                              <Calendar className="w-3.5 h-3.5 text-green-400" />
-                              <span className="text-xs font-medium text-gray-400">Start:</span>
-                              <span className="text-xs font-semibold text-white">{new Date(skill.start_date).toLocaleDateString('sv-SE')}</span>
+                            <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gray-50 rounded-lg border border-gray-200">
+                              <Calendar className="w-3.5 h-3.5 text-green-600" />
+                              <span className="text-xs font-medium text-gray-600">Start:</span>
+                              <span className="text-xs font-semibold text-gray-900">{new Date(skill.start_date).toLocaleDateString('sv-SE')}</span>
                             </div>
                           )}
                         </div>
@@ -916,12 +916,12 @@ export default function LearningPlanPage({
                         {applicationStatus === 'enrolled' && (
                           <div className="mt-3 space-y-1">
                             <div className="flex justify-between items-center">
-                              <span className="text-xs font-medium text-gray-400">Framsteg</span>
-                              <span className="text-xs text-gray-500">
+                              <span className="text-xs font-medium text-gray-600">Framsteg</span>
+                              <span className="text-xs text-gray-600">
                                 {skill.actual_hours || 0}h / {skill.estimated_hours}h ({progressPercentage.toFixed(0)}%)
                               </span>
                             </div>
-                            <div className="relative h-2 bg-navy-700 rounded-full overflow-hidden">
+                            <div className="relative h-2 bg-gray-200 rounded-full overflow-hidden">
                               <div
                                 className={`absolute inset-y-0 left-0 bg-gradient-to-r ${statusConfig.progressColor} rounded-full transition-all duration-1000 ease-out`}
                                 style={{ width: `${progressPercentage}%` }}
@@ -937,11 +937,11 @@ export default function LearningPlanPage({
 
                   {/* Course Options Section */}
                   {skill.courses && skill.courses.length > 0 && (
-                    <div className="px-4 py-3 border-t border-navy-700/50">
+                    <div className="px-4 py-3 border-t border-gray-200">
                       <div className="flex items-center gap-2 mb-3">
-                        <GraduationCap className="w-4 h-4 text-pink-400" />
-                        <h4 className="text-sm font-semibold text-gray-300">Utbildningsväg för denna kompetens</h4>
-                        <div className="flex-1 h-px bg-gradient-to-r from-navy-600 to-transparent"></div>
+                        <GraduationCap className="w-4 h-4 text-blue-600" />
+                        <h4 className="text-sm font-semibold text-gray-700">Utbildningsväg för denna kompetens</h4>
+                        <div className="flex-1 h-px bg-gradient-to-r from-gray-300 to-transparent"></div>
                       </div>
 
                       <div className="grid gap-2">
@@ -952,8 +952,8 @@ export default function LearningPlanPage({
                               key={idx}
                               className={`relative p-3 rounded-lg border transition-all duration-200 ${
                                 isEnrolled
-                                  ? 'border-green-500/30 bg-green-500/5'
-                                  : 'border-navy-600 bg-navy-800/30 hover:border-pink-500/30 hover:bg-navy-800/50'
+                                  ? 'border-green-500/30 bg-green-50'
+                                  : 'border-gray-200 bg-gray-50 hover:border-blue-500/30 hover:bg-white'
                               }`}
                             >
                               {isEnrolled && (
@@ -971,19 +971,19 @@ export default function LearningPlanPage({
                                         href={course.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-sm font-medium text-white hover:text-pink-300 transition-colors duration-200 flex items-center gap-1.5 group/link"
+                                        className="text-sm font-medium text-gray-900 hover:text-blue-700 transition-colors duration-200 flex items-center gap-1.5 group/link"
                                       >
                                         {course.title || course.name || course}
                                         <ExternalLink className="w-3 h-3 opacity-60 group-hover/link:opacity-100 transition-opacity" />
                                       </a>
                                     ) : (
-                                      <h5 className="text-sm font-medium text-white">
+                                      <h5 className="text-sm font-medium text-gray-900">
                                         {course.title || course.name || course}
                                       </h5>
                                     )}
 
                                     {/* Course Details */}
-                                    <div className="flex flex-wrap items-center gap-3 text-xs text-gray-400">
+                                    <div className="flex flex-wrap items-center gap-3 text-xs text-gray-600">
                                       {course.provider && (
                                         <span>{course.provider}</span>
                                       )}
@@ -1008,12 +1008,12 @@ export default function LearningPlanPage({
                   )}
 
                   {/* Action Buttons Section */}
-                  <div className="px-4 py-3 border-t border-navy-700/30 bg-navy-800/20">
+                  <div className="px-4 py-3 border-t border-gray-200 bg-gray-50/50">
                     <div className="flex flex-wrap gap-2">
                       {applicationStatus === 'not_applied' && (
                         <Button
                           size="sm"
-                          className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 border-0 text-white text-xs font-medium shadow-md hover:shadow-pink-500/20 transition-all duration-200"
+                          className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 border-0 text-white text-xs font-medium shadow-md hover:shadow-blue-500/20 transition-all duration-200"
                           onClick={() => {
                             setSelectedSkillForProgress(skill);
                             setCourseSelectionAction('applied');
@@ -1169,11 +1169,11 @@ export default function LearningPlanPage({
                           {getIcon()}
                         </div>
                         <div className="flex-1">
-                          <p className="font-semibold text-white">{entry.activity_description}</p>
+                          <p className="font-semibold text-gray-900">{entry.activity_description}</p>
                           <div className="flex items-center gap-2 mt-1">
-                            <p className="text-sm text-gray-400">{getDaysAgo()}</p>
+                            <p className="text-sm text-gray-600">{getDaysAgo()}</p>
                             {entry.xp_earned > 0 && (
-                              <span className="text-xs text-green-400">+{entry.xp_earned} XP</span>
+                              <span className="text-xs text-green-600">+{entry.xp_earned} XP</span>
                             )}
                           </div>
                         </div>
@@ -1182,8 +1182,8 @@ export default function LearningPlanPage({
                   })
                 ) : (
                   <div className="text-center py-8">
-                    <Clock className="w-12 h-12 text-gray-500 mx-auto mb-4" />
-                    <p className="text-gray-400">Ingen aktivitet ännu. Börja din utbildningsresa!</p>
+                    <Clock className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+                    <p className="text-gray-600">Ingen aktivitet ännu. Börja din utbildningsresa!</p>
                   </div>
                 )}
               </div>
@@ -1197,27 +1197,27 @@ export default function LearningPlanPage({
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div className="flex justify-between items-center p-3 bg-navy-700 rounded-lg">
-                  <span className="text-gray-300">Total studietid</span>
-                  <span className="font-bold text-white">
+                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
+                  <span className="text-gray-700">Total studietid</span>
+                  <span className="font-bold text-gray-900">
                     {skills.reduce((sum, skill) => sum + (skill.actual_hours || 0), 0)}h
                   </span>
                 </div>
-                <div className="flex justify-between items-center p-3 bg-navy-700 rounded-lg">
-                  <span className="text-gray-300">Slutförda utbildningar</span>
-                  <span className="font-bold text-white">
+                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
+                  <span className="text-gray-700">Slutförda utbildningar</span>
+                  <span className="font-bold text-gray-900">
                     {skills.filter(s => s.application_status === 'completed' || s.status === 'completed').length}
                   </span>
                 </div>
-                <div className="flex justify-between items-center p-3 bg-navy-700 rounded-lg">
-                  <span className="text-gray-300">Pågående utbildningar</span>
-                  <span className="font-bold text-white">
+                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
+                  <span className="text-gray-700">Pågående utbildningar</span>
+                  <span className="font-bold text-gray-900">
                     {skills.filter(s => s.application_status === 'enrolled').length}
                   </span>
                 </div>
-                <div className="flex justify-between items-center p-3 bg-navy-700 rounded-lg">
-                  <span className="text-gray-300">Status</span>
-                  <span className="font-bold text-white">
+                <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-200">
+                  <span className="text-gray-700">Status</span>
+                  <span className="font-bold text-gray-900">
                     {skills.filter(s => s.application_status === 'applied').length > 0 &&
                       `${skills.filter(s => s.application_status === 'applied').length} ansökningar`}
                     {skills.filter(s => s.application_status === 'accepted').length > 0 &&
