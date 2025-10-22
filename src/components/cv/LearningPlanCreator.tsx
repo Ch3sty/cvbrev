@@ -13,80 +13,30 @@ interface LearningPlanCreatorProps {
     matchScore: number;
     learningSuggestions: any[];
   };
+  selectedCoursesByStep: {
+    step1: Set<string>;
+    step2: Set<string>;
+    step3: Set<string>;
+  };
   // learningPath and timeCommitment are now determined automatically based on matchScore
 }
 
 const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
   isOpen,
   onClose,
-  jobData
+  jobData,
+  selectedCoursesByStep
 }) => {
   const [planTitle, setPlanTitle] = useState(`Min väg till ${jobData.targetRole}`);
-  const [selectedSkills, setSelectedSkills] = useState<any[]>([]);
   const [isCreating, setIsCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Initialize selected skills - auto-select based on match score
-  useMemo(() => {
-    if (!jobData.learningSuggestions) return;
-
-    // Determine strategy based on match score
-    const isCareerChange = jobData.matchScore < 40;
-    const isAdaptation = jobData.matchScore >= 40 && jobData.matchScore < 70;
-    const isRefinement = jobData.matchScore >= 70;
-
-    const skills = jobData.learningSuggestions.map((gap, index) => ({
-      id: `skill-${index}`,
-      name: gap.skill,
-      importance: gap.importance,
-      level: index < 3 ? 'foundation' : index < 7 ? 'intermediate' : 'advanced',
-      estimatedHours: gap.suggestions?.[0]?.duration
-        ? parseInt(gap.suggestions[0].duration.match(/\d+/)?.[0] || '40') * 4
-        : 40,
-      courses: gap.suggestions?.slice(0, 3).map((s: any) => ({
-        title: s.title,
-        provider: s.provider,
-        url: s.direct_url,
-        duration: s.duration,
-        cost: s.cost
-      })) || [],
-      selected: gap.importance === 'essential' ||
-                (isCareerChange) ||  // Career change: select all
-                (isAdaptation && index < 10) ||  // Adaptation: balanced selection
-                (isRefinement && index < 5)  // Refinement: quick selection
-    }));
-
-    setSelectedSkills(skills.filter(s => s.selected));
-  }, [jobData]);
-
-  const toggleSkill = (skillId: string) => {
-    setSelectedSkills(prev => {
-      const skill = jobData.learningSuggestions.find((_, i) => `skill-${i}` === skillId);
-      if (!skill) return prev;
-
-      const existing = prev.find(s => s.id === skillId);
-      if (existing) {
-        return prev.filter(s => s.id !== skillId);
-      } else {
-        const index = parseInt(skillId.split('-')[1]);
-        const gap = jobData.learningSuggestions[index];
-        return [...prev, {
-          id: skillId,
-          name: gap.skill,
-          importance: gap.importance,
-          level: index < 3 ? 'foundation' : index < 7 ? 'intermediate' : 'advanced',
-          estimatedHours: 40,
-          courses: gap.suggestions?.slice(0, 3).map((s: any) => ({
-            title: s.title,
-            provider: s.provider,
-            url: s.direct_url,
-            duration: s.duration,
-            cost: s.cost
-          })) || []
-        }];
-      }
-    });
-  };
+  // Convert selectedCoursesByStep to total count
+  const totalSelectedCourses = useMemo(() => {
+    return selectedCoursesByStep.step1.size +
+           selectedCoursesByStep.step2.size +
+           selectedCoursesByStep.step3.size;
+  }, [selectedCoursesByStep]);
 
   // Determine automatic time commitment based on match score
   const timeCommitmentHours = useMemo(() => {
@@ -95,19 +45,23 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
     return 5; // Refinement: 5h/week
   }, [jobData.matchScore]);
 
-  const totalHours = useMemo(() =>
-    selectedSkills.reduce((sum, skill) => sum + skill.estimatedHours, 0),
-    [selectedSkills]
-  );
+  // Estimate total hours based on number of selected courses and steps
+  const totalHours = useMemo(() => {
+    const avgHoursPerCourse = 160; // Average ~4 months per course at 10h/week
+    return totalSelectedCourses * avgHoursPerCourse;
+  }, [totalSelectedCourses]);
 
   const estimatedWeeks = useMemo(() =>
     Math.ceil(totalHours / timeCommitmentHours),
     [totalHours, timeCommitmentHours]
   );
 
+  // Calculate estimated months
+  const estimatedMonths = useMemo(() => Math.ceil(estimatedWeeks / 4), [estimatedWeeks]);
+
   const handleCreatePlan = async () => {
-    if (selectedSkills.length === 0) {
-      setError('Välj minst en kompetens för din plan');
+    if (totalSelectedCourses === 0) {
+      setError('Välj minst en utbildning för din plan');
       return;
     }
 
@@ -115,6 +69,13 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
     setError(null);
 
     try {
+      // Convert Sets to arrays for API
+      const selectedCoursesData = {
+        step1: Array.from(selectedCoursesByStep.step1),
+        step2: Array.from(selectedCoursesByStep.step2),
+        step3: Array.from(selectedCoursesByStep.step3)
+      };
+
       const response = await fetch('/api/learning-plans/create', {
         method: 'POST',
         headers: {
@@ -124,7 +85,8 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
           jobId: jobData.jobId,
           title: planTitle,
           targetRole: jobData.targetRole,
-          selectedSkills
+          selectedCoursesByStep: selectedCoursesData,
+          matchScore: jobData.matchScore
           // learningPath and timeCommitmentHours are now auto-determined by backend
         }),
       });
@@ -191,15 +153,15 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-gray-50 rounded-lg p-4 border border-gray-200/50 shadow-sm">
               <div className="flex items-center justify-between mb-2">
-                <Target className="w-5 h-5 text-blue-600" />
-                <span className="text-2xl font-bold text-gray-900">{selectedSkills.length}</span>
+                <BookOpen className="w-5 h-5 text-blue-600" />
+                <span className="text-2xl font-bold text-gray-900">{totalSelectedCourses}</span>
               </div>
-              <p className="text-sm text-gray-600">Valda kompetenser</p>
+              <p className="text-sm text-gray-600">Valda utbildningar</p>
             </div>
             <div className="bg-gray-50 rounded-lg p-4 border border-gray-200/50 shadow-sm">
               <div className="flex items-center justify-between mb-2">
                 <Clock className="w-5 h-5 text-yellow-600" />
-                <span className="text-2xl font-bold text-gray-900">~{estimatedWeeks}v</span>
+                <span className="text-2xl font-bold text-gray-900">~{estimatedMonths}mån</span>
               </div>
               <p className="text-sm text-gray-600">Beräknad tid</p>
             </div>
@@ -212,51 +174,56 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
             </div>
           </div>
 
-          {/* Skills Selection */}
+          {/* Course Distribution by Step */}
           <div>
             <h3 className="text-lg font-semibold text-gray-900 mb-3">
-              Välj kompetenser att inkludera
+              Dina valda utbildningar
             </h3>
-            <div className="space-y-2">
-              {jobData.learningSuggestions.map((gap, index) => {
-                const skillId = `skill-${index}`;
-                const isSelected = selectedSkills.some(s => s.id === skillId);
-
-                return (
-                  <div
-                    key={skillId}
-                    className={`p-4 rounded-lg border-2 transition-all cursor-pointer ${
-                      isSelected
-                        ? 'bg-blue-50 border-blue-500'
-                        : 'bg-gray-50 border-gray-200 hover:border-gray-300'
-                    }`}
-                    onClick={() => toggleSkill(skillId)}
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2">
-                          <h4 className="font-medium text-gray-900">{gap.skill}</h4>
-                          {gap.importance === 'essential' && (
-                            <span className="px-2 py-0.5 text-xs bg-red-100 text-red-700 rounded font-medium">
-                              Kritisk
-                            </span>
-                          )}
-                        </div>
-                        <p className="text-sm text-gray-600 mt-1">
-                          {gap.suggestions?.length || 0} kurser tillgängliga
-                        </p>
-                      </div>
-                      <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                        isSelected
-                          ? 'bg-blue-600 border-blue-600'
-                          : 'border-gray-300'
-                      }`}>
-                        {isSelected && <Check className="w-4 h-4 text-white" />}
-                      </div>
-                    </div>
+            <div className="space-y-3">
+              {/* Step 1 */}
+              <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="font-medium text-gray-900">Steg 1: Grundkompetens</h4>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {selectedCoursesByStep.step1.size} utbildning{selectedCoursesByStep.step1.size !== 1 ? 'ar' : ''}
+                    </p>
                   </div>
-                );
-              })}
+                  {selectedCoursesByStep.step1.size > 0 && (
+                    <Check className="w-6 h-6 text-blue-600" />
+                  )}
+                </div>
+              </div>
+
+              {/* Step 2 */}
+              <div className="bg-indigo-50 rounded-lg p-4 border border-indigo-200">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="font-medium text-gray-900">Steg 2: Fördjupning</h4>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {selectedCoursesByStep.step2.size} utbildning{selectedCoursesByStep.step2.size !== 1 ? 'ar' : ''}
+                    </p>
+                  </div>
+                  {selectedCoursesByStep.step2.size > 0 && (
+                    <Check className="w-6 h-6 text-indigo-600" />
+                  )}
+                </div>
+              </div>
+
+              {/* Step 3 */}
+              <div className="bg-purple-50 rounded-lg p-4 border border-purple-200">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h4 className="font-medium text-gray-900">Steg 3: Specialisering</h4>
+                    <p className="text-sm text-gray-600 mt-1">
+                      {selectedCoursesByStep.step3.size} utbildning{selectedCoursesByStep.step3.size !== 1 ? 'ar' : ''}
+                    </p>
+                  </div>
+                  {selectedCoursesByStep.step3.size > 0 && (
+                    <Check className="w-6 h-6 text-purple-600" />
+                  )}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -279,9 +246,9 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
             </button>
             <button
               onClick={handleCreatePlan}
-              disabled={isCreating || selectedSkills.length === 0}
+              disabled={isCreating || totalSelectedCourses === 0}
               className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all shadow-md ${
-                isCreating || selectedSkills.length === 0
+                isCreating || totalSelectedCourses === 0
                   ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 hover:shadow-lg'
               }`}
