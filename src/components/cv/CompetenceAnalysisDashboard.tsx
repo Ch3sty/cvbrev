@@ -207,7 +207,7 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
           <div className="flex justify-center">
             <button
               onClick={handleNewAnalysis}
-              className="flex items-center gap-2 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium transition-colors"
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg font-medium transition-all shadow-md hover:shadow-lg"
             >
               <RefreshCw className="w-5 h-5" />
               Gör ny analys
@@ -218,15 +218,15 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
 
       {/* Show input form if no job or job completed/failed */}
       {(!job || job.status === 'completed' || job.status === 'failed') && !job?.learning_suggestions && (
-        <div className="bg-navy-800 rounded-lg p-6 border border-navy-700">
-          <h2 className="text-xl font-semibold mb-5 text-white flex items-center">
-            <Target className="w-5 h-5 mr-2 text-cyan-400" />
+        <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-xl">
+          <h2 className="text-xl font-semibold mb-5 text-gray-900 flex items-center">
+            <Target className="w-5 h-5 mr-2 text-blue-600" />
             Analysera kompetensmatchning
           </h2>
 
           {/* Analysis Mode Selector */}
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-300 mb-3">
+            <label className="block text-sm font-medium text-gray-700 mb-3">
               Vad vill du matcha mot?
             </label>
             <div className="grid grid-cols-2 gap-3">
@@ -236,8 +236,8 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
                 disabled={hasReachedLimit}
                 className={`p-4 rounded-lg border-2 transition-all ${
                   analysisMode === 'role'
-                    ? 'bg-navy-700 border-pink-500 text-white'
-                    : 'bg-navy-900/50 border-navy-700 text-gray-400 hover:border-navy-600'
+                    ? 'bg-blue-50 border-blue-500 text-gray-900'
+                    : 'bg-gray-50 border-gray-200 text-gray-600 hover:border-gray-300'
                 } ${hasReachedLimit ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 <Briefcase className="w-6 h-6 mx-auto mb-2" />
@@ -251,8 +251,8 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
                 disabled={hasReachedLimit}
                 className={`p-4 rounded-lg border-2 transition-all ${
                   analysisMode === 'jobAd'
-                    ? 'bg-navy-700 border-pink-500 text-white'
-                    : 'bg-navy-900/50 border-navy-700 text-gray-400 hover:border-navy-600'
+                    ? 'bg-blue-50 border-blue-500 text-gray-900'
+                    : 'bg-gray-50 border-gray-200 text-gray-600 hover:border-gray-300'
                 } ${hasReachedLimit ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 <FileText className="w-6 h-6 mx-auto mb-2" />
@@ -265,7 +265,7 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
           {/* Input Fields */}
           {analysisMode === 'role' ? (
             <div className="mb-6">
-              <label htmlFor="targetRole" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="targetRole" className="block text-sm font-medium text-gray-700 mb-2">
                 Ange yrkesroll du vill matcha mot
               </label>
               <input
@@ -275,12 +275,12 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
                 onChange={(e) => setTargetRole(e.target.value)}
                 disabled={hasReachedLimit}
                 placeholder="T.ex. Projektledare, Sjuksköterska, Frontend-utvecklare..."
-                className="w-full px-4 py-3 bg-navy-900 border border-navy-700 rounded-lg text-white placeholder-gray-500 focus:ring-2 focus:ring-pink-500 focus:border-transparent disabled:opacity-50"
+                className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
               />
             </div>
           ) : (
             <div className="mb-6">
-              <label htmlFor="jobAdText" className="block text-sm font-medium text-gray-300 mb-2">
+              <label htmlFor="jobAdText" className="block text-sm font-medium text-gray-700 mb-2">
                 Klistra in jobbannons
               </label>
               <textarea
@@ -290,7 +290,7 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
                 disabled={hasReachedLimit}
                 placeholder="Klistra in hela jobbannonsen här..."
                 rows={8}
-                className="w-full px-4 py-3 bg-navy-900 border border-navy-700 rounded-lg text-white placeholder-gray-500 focus:ring-2 focus:ring-pink-500 focus:border-transparent disabled:opacity-50"
+                className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
               />
             </div>
           )}
@@ -299,7 +299,7 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
           <div className="flex items-center justify-between">
             <div className="flex-1">
               {hasReachedLimit && (
-                <div className="flex items-center text-yellow-400 text-sm">
+                <div className="flex items-center text-yellow-700 text-sm">
                   <AlertTriangle className="w-4 h-4 mr-2" />
                   Du har nått din veckogräns
                 </div>
@@ -310,7 +310,7 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
               {hasReachedLimit ? (
                 <button
                   onClick={handleUpgrade}
-                  className="flex items-center px-5 py-3 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-lg font-medium hover:from-pink-700 hover:to-purple-700 transition-all"
+                  className="flex items-center px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-medium hover:from-blue-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg"
                 >
                   <Lock className="w-4 h-4 mr-2" />
                   Uppgradera för fler analyser
@@ -321,8 +321,8 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
                   disabled={!isInputValid() || loading}
                   className={`flex items-center px-6 py-3 rounded-lg font-medium transition-all ${
                     isInputValid() && !loading
-                      ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600 shadow-lg hover:shadow-xl'
-                      : 'bg-navy-700 text-gray-500 cursor-not-allowed'
+                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl'
+                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   }`}
                 >
                   {loading ? (
@@ -342,43 +342,42 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
           </div>
 
           {/* Info Box */}
-          <div className="mt-6 p-4 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/30 rounded-lg">
+          <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
             <div className="flex items-start">
-              <Sparkles className="w-5 h-5 text-purple-400 mt-0.5 mr-3 flex-shrink-0 animate-pulse" />
+              <Sparkles className="w-5 h-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" />
               <div className="space-y-3">
                 <div>
-                  <p className="text-sm text-purple-300 font-semibold mb-2">
-                    🚀 Så fungerar din personliga kompetensanalys
+                  <p className="text-sm text-gray-900 font-semibold mb-2">
+                    Så fungerar din personliga kompetensanalys
                   </p>
-                  <div className="space-y-2 text-xs text-purple-200/80">
+                  <div className="space-y-2 text-xs text-gray-700">
                     <p>
-                      <span className="font-medium text-purple-300">1. Djupanalys av ditt CV:</span> Vår AI skannar igenom ditt CV och identifierar dina befintliga kompetenser med över 95% träffsäkerhet.
+                      <span className="font-medium text-gray-900">1. Vi analyserar ditt CV:</span> Vi går igenom ditt CV och identifierar dina befintliga kompetenser.
                     </p>
                     <p>
-                      <span className="font-medium text-purple-300">2. Matchning mot jobbannons:</span> Vi analyserar jobbannonsen och extraherar alla krav, både uttalade och underförstådda kompetenskrav.
+                      <span className="font-medium text-gray-900">2. Vi matchar mot jobbannons:</span> Vi analyserar jobbannonsen och extraherar alla krav och önskemål.
                     </p>
                     <p>
-                      <span className="font-medium text-purple-300">3. Realtidssökning på webben:</span> Systemet söker i realtid genom tusentals utbildningar från svenska lärosäten, internationella plattformar och branschledande certifieringsorgan.
+                      <span className="font-medium text-gray-900">3. Vi söker efter utbildningar:</span> Vi söker igenom utbildningar från svenska lärosäten, internationella plattformar och certifieringsorgan.
                     </p>
                     <p>
-                      <span className="font-medium text-purple-300">4. Intelligent rangordning:</span> Kurserna rangordnas baserat på relevans, kvalitet, pris och tidsinvestering för maximal karriärnytta.
+                      <span className="font-medium text-gray-900">4. Vi rekommenderar kurser:</span> Kurserna prioriteras baserat på relevans, kvalitet, pris och tidsinvestering.
                     </p>
                   </div>
                 </div>
 
-                <div className="pt-2 border-t border-purple-500/20">
-                  <p className="text-sm text-pink-300 font-medium mb-1">
-                    📚 Efter analysen får du:
+                <div className="pt-2 border-t border-blue-200">
+                  <p className="text-sm text-gray-900 font-medium mb-1">
+                    Efter analysen får du:
                   </p>
-                  <ul className="text-xs text-pink-200/80 space-y-1 list-disc list-inside">
+                  <ul className="text-xs text-gray-700 space-y-1 list-disc list-inside">
                     <li>En personlig lärandeplan med tydliga milstolpar</li>
-                    <li>Gamifierad progression med XP-poäng och achievements</li>
                     <li>Möjlighet att spåra din kompetensutveckling över tid</li>
                     <li>Direktlänkar till kurser och ansökningsinformation</li>
                   </ul>
                 </div>
 
-                <p className="text-xs text-gray-400 italic pt-2">
+                <p className="text-xs text-gray-600 italic pt-2">
                   Analysen tar vanligtvis 1-3 minuter beroende på komplexitet.
                 </p>
               </div>

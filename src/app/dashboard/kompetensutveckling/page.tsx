@@ -152,35 +152,35 @@ export default function CompetenceAnalysisPage() {
 
       {/* --- Page Header --- */}
       <header className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2 flex items-center">
-            <Target className="w-7 h-7 mr-3 text-cyan-400" /> Kompetensanalys & Utveckling
+        <h1 className="text-3xl font-bold text-gray-900 mb-2 flex items-center">
+            <Target className="w-7 h-7 mr-3 text-blue-600" /> Kompetensanalys & Utveckling
         </h1>
-        <p className="text-gray-300">Analysera hur väl ditt CV matchar en specifik roll eller jobbannons och få förslag på utvecklingsområden.</p>
+        <p className="text-gray-700">Analysera hur väl ditt CV matchar en specifik roll eller jobbannons och få förslag på utvecklingsområden.</p>
       </header>
 
       {/* --- Analysis Limits Info (Free Tier Only) --- */}
       {isFreeTier && weeklyAnalysisLimit > 0 && weeklyAnalysisLimit !== Infinity && (
-        <section aria-labelledby="analysis-limit-heading" className="mb-8 p-5 bg-navy-800 rounded-lg border border-navy-700">
+        <section aria-labelledby="analysis-limit-heading" className="mb-8 p-5 bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-xl">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
             <div>
-              <h2 id="analysis-limit-heading" className="flex items-center mb-1 font-medium text-white">
-                <Target className="w-5 h-5 mr-2 text-pink-400" /> Veckans kompetensanalyser
+              <h2 id="analysis-limit-heading" className="flex items-center mb-1 font-medium text-gray-900">
+                <Target className="w-5 h-5 mr-2 text-blue-600" /> Veckans kompetensanalyser
               </h2>
-              <p className="text-xs text-gray-400 pl-7">
+              <p className="text-xs text-gray-600 pl-7">
                 Gratisanvändare kan göra {weeklyAnalysisLimit} {weeklyAnalysisLimit === 1 ? 'analys' : 'analyser'} per vecka.
               </p>
             </div>
-            
+
             <div className="flex items-center space-x-3 w-full sm:w-auto justify-end sm:justify-start">
               <span className={`text-sm font-semibold px-2 py-0.5 rounded ${
-                hasReachedLimit ? 'bg-red-500/20 text-red-300' : 'bg-green-500/20 text-green-300'
+                hasReachedLimit ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'
               }`}>
                 {remainingWeeklyAnalyses ?? '-'} / {weeklyAnalysisLimit} kvar
               </span>
               {hasReachedLimit && (
                 <button
                   onClick={handleUpgrade}
-                  className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-purple-600 rounded-md shadow-md hover:shadow-lg hover:from-pink-700 hover:to-purple-700 group"
+                  className="inline-flex items-center px-3 py-1.5 text-xs font-medium text-white transition-all duration-300 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-md shadow-md hover:shadow-lg hover:from-blue-700 hover:to-indigo-700 group"
                   aria-label="Uppgradera till Premium för fler analyser"
                 >
                   <Crown className="w-3 h-3 mr-1" /> Uppgradera
@@ -189,20 +189,20 @@ export default function CompetenceAnalysisPage() {
               )}
             </div>
           </div>
-          
+
           {nextAnalysisResetDate && (
-            <div className="flex items-center mt-3 text-xs text-gray-400 border-t border-navy-700 pt-3">
+            <div className="flex items-center mt-3 text-xs text-gray-600 border-t border-gray-200 pt-3">
               <Clock className="w-3 h-3 mr-1.5" />
               <span>Nollställs {timeUntilAnalysisReset ? `om ${timeUntilAnalysisReset}` : formatDate(nextAnalysisResetDate)}</span>
             </div>
           )}
-          
+
           {hasReachedLimit && (
-            <div className="mt-3 text-sm text-yellow-300 flex items-start">
+            <div className="mt-3 text-sm text-yellow-700 flex items-start bg-yellow-50 p-3 rounded-lg">
               <AlertTriangle className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
               <span>
-                Du har nått din veckogräns för kompetensanalyser. 
-                <button onClick={handleUpgrade} className="ml-1 text-pink-400 hover:text-pink-300 underline font-medium">  Uppgradera </button>
+                Du har nått din veckogräns för kompetensanalyser.
+                <button onClick={handleUpgrade} className="ml-1 text-blue-600 hover:text-blue-700 underline font-medium">  Uppgradera </button>
                  för obegränsad användning.
               </span>
             </div>
