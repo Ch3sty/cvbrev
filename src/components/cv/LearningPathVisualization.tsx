@@ -8,6 +8,7 @@ import {
   ChevronDown, ChevronUp, Star, TrendingUp, Map, TreePine, BookOpenCheck
 } from 'lucide-react';
 import LearningJourneyDashboard from './LearningJourneyDashboard';
+import InteractiveLearningTimeline from './InteractiveLearningTimeline';
 import SkillTreeVisualization from './SkillTreeVisualization';
 import { prioritizeCourses, getCourseBadges } from '@/lib/learning/course-prioritization';
 import type { Course } from '@/lib/learning/course-prioritization';
@@ -104,6 +105,35 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
         return <BookOpen className="w-4 h-4" />;
     }
   };
+
+  // Calculate optimized course recommendations (same logic as LearningJourneyDashboard)
+  const optimizedCourses = useMemo(() => {
+    const allCourses: Course[] = [];
+    const courseSkillMap: { [key: string]: string[] } = {};
+
+    learningSuggestions.forEach((gap: any) => {
+      gap.suggestions?.forEach((course: any) => {
+        const courseKey = course.title + course.provider;
+        if (!courseSkillMap[courseKey]) {
+          courseSkillMap[courseKey] = [];
+          allCourses.push(course);
+        }
+        if (!courseSkillMap[courseKey].includes(gap.skill)) {
+          courseSkillMap[courseKey].push(gap.skill);
+        }
+      });
+    });
+
+    // Enrich courses with skills covered count
+    const enrichedCourses = allCourses.map(course => ({
+      ...course,
+      skillsCovered: courseSkillMap[course.title + course.provider] || [],
+      efficiency: courseSkillMap[course.title + course.provider]?.length || 1
+    }));
+
+    // Use smart prioritization based on match score
+    return prioritizeCourses(enrichedCourses, matchScore);
+  }, [learningSuggestions, matchScore]);
 
   // Filter and prioritize suggestions
   const filteredSuggestions = useMemo(() => {
@@ -238,7 +268,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
             }`}
           >
             <Map className="w-5 h-5" />
-            <span>Utvecklingsresa</span>
+            <span>Din utvecklingsväg</span>
           </button>
           <button
             onClick={() => setActiveTab('skills')}
@@ -249,7 +279,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
             }`}
           >
             <TreePine className="w-5 h-5" />
-            <span>Kompetensträd</span>
+            <span>Kompetensöversikt</span>
           </button>
           <button
             onClick={() => setActiveTab('courses')}
@@ -260,19 +290,18 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
             }`}
           >
             <BookOpenCheck className="w-5 h-5" />
-            <span>Alla kurser</span>
+            <span>Alla utbildningar</span>
           </button>
         </div>
       </div>
 
       {/* Tab Content */}
       {activeTab === 'journey' && (
-        <LearningJourneyDashboard
-          skillGaps={skillGaps}
-          learningSuggestions={learningSuggestions}
-          targetRole={targetRole || ''}
+        <InteractiveLearningTimeline
           matchScore={matchScore}
-          jobId={jobId}
+          learningSuggestions={learningSuggestions}
+          optimizedCourses={optimizedCourses}
+          targetRole={targetRole || ''}
         />
       )}
 

@@ -89,39 +89,39 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
   const config = statusConfig[status];
   const Icon = config.icon;
 
-  // Enhanced steps with better visuals
+  // Enhanced steps with premium copy
   const steps = [
     {
       id: 'start',
-      label: 'Start',
+      label: 'Förbereder',
       icon: Zap,
       completed: true,
       active: status === 'pending'
     },
     {
       id: 'analyze',
-      label: 'Analys',
+      label: 'Utvärderar kompetens',
       icon: Brain,
       completed: status !== 'pending',
       active: status === 'analyzing'
     },
     {
       id: 'gaps',
-      label: 'Hitta gap',
+      label: 'Identifierar möjligheter',
       icon: Target,
       completed: ['processing_gaps', 'completed'].includes(status),
       active: status === 'processing_gaps' && processedGaps === 0
     },
     {
       id: 'courses',
-      label: 'Sök kurser',
+      label: 'Matchar utbildningar',
       icon: BookOpen,
       completed: status === 'completed',
       active: status === 'processing_gaps' && (processedGaps ?? 0) > 0
     },
     {
       id: 'done',
-      label: 'Resultat',
+      label: 'Rekommendationer klara',
       icon: Sparkles,
       completed: status === 'completed',
       active: false
