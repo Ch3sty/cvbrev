@@ -310,6 +310,11 @@ const LearningJourneyDashboard: React.FC<LearningJourneyDashboardProps> = ({
             matchScore,
             learningSuggestions
           }}
+          selectedCoursesByStep={{
+            step1: new Set(),
+            step2: new Set(),
+            step3: new Set()
+          }}
         />
       )}
     </div>
