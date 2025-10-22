@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { logUserActivity } from '@/lib/activity-logger';
+import { determineStrategy, getStrategyConfig, mapLegacyPath } from '@/lib/learning/course-prioritization';
+import type { LegacyLearningPath } from '@/lib/learning/course-prioritization';
 
 export const maxDuration = 10;
 
@@ -33,13 +35,13 @@ export async function POST(request: NextRequest) {
             jobId,
             title,
             targetRole,
-            learningPath,
-            timeCommitmentHours,
+            learningPath, // Optional - now auto-determined if not provided
+            timeCommitmentHours, // Optional - now auto-determined if not provided
             selectedSkills
         } = body;
 
-        // Validate required fields
-        if (!jobId || !title || !targetRole || !learningPath) {
+        // Validate required fields (learningPath and timeCommitmentHours now optional)
+        if (!jobId || !title || !targetRole) {
             return NextResponse.json(
                 { error: 'Saknade obligatoriska fält' },
                 { status: 400 }
@@ -62,8 +64,29 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        // Determine learning strategy automatically if not provided
+        let finalStrategy = learningPath;
+        let isAutoStrategy = false;
+
+        if (!learningPath || ['quick', 'balanced', 'comprehensive'].includes(learningPath)) {
+            // Auto-determine strategy based on match score
+            const autoStrategy = determineStrategy(job.match_score || 50);
+            const strategyConfig = getStrategyConfig(autoStrategy);
+            finalStrategy = autoStrategy;
+            isAutoStrategy = true;
+
+            console.log(`--- API /learning-plans/create: Auto-determined strategy: ${autoStrategy} (match score: ${job.match_score}%)`);
+        } else if (['quick', 'balanced', 'comprehensive'].includes(learningPath)) {
+            // Map legacy values
+            finalStrategy = mapLegacyPath(learningPath as LegacyLearningPath);
+            console.log(`--- API /learning-plans/create: Mapped legacy path ${learningPath} to ${finalStrategy}`);
+        }
+
+        // Get strategy config for default hours
+        const strategyConfig = getStrategyConfig(finalStrategy as any);
+
         // Calculate estimated completion date based on learning path and commitment
-        const hoursPerWeek = timeCommitmentHours || 10;
+        const hoursPerWeek = timeCommitmentHours || strategyConfig.defaultHoursPerWeek;
         const totalHours = selectedSkills.reduce((sum: number, skill: any) =>
             sum + (skill.estimatedHours || 40), 0
         );
@@ -79,7 +102,7 @@ export async function POST(request: NextRequest) {
                 title,
                 target_role: targetRole,
                 created_from_job_id: jobId,
-                learning_path: learningPath,
+                learning_path: finalStrategy,
                 time_commitment_hours: hoursPerWeek,
                 estimated_completion_date: estimatedCompletionDate.toISOString(),
                 status: 'active',
@@ -89,7 +112,10 @@ export async function POST(request: NextRequest) {
                 metadata: {
                     created_from: 'competence_analysis',
                     original_gaps: job.skill_gaps,
-                    analysis_mode: job.analysis_mode
+                    analysis_mode: job.analysis_mode,
+                    auto_strategy: isAutoStrategy,
+                    strategy_config: strategyConfig,
+                    original_learning_path: learningPath // Store original for backwards compatibility
                 }
             })
             .select()
@@ -138,11 +164,12 @@ export async function POST(request: NextRequest) {
         await logUserActivity(
             userId,
             'learning_plan_created' as any,
-            `Skapade lärandeplan: ${title}`,
+            `Skapade utvecklingsplan: ${title}`,
             {
                 planId: learningPlan.id,
                 targetRole,
-                learningPath,
+                learningPath: finalStrategy,
+                autoStrategy: isAutoStrategy,
                 totalSkills: selectedSkills.length,
                 estimatedWeeks: weeksNeeded
             }
@@ -154,7 +181,10 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({
             success: true,
             planId: learningPlan.id,
-            message: 'Lärandeplan skapad!',
+            message: 'Utvecklingsplan skapad!',
+            strategy: finalStrategy,
+            strategyTitle: strategyConfig.title,
+            autoStrategy: isAutoStrategy,
             estimatedCompletion: estimatedCompletionDate.toISOString(),
             totalHours,
             weeksNeeded

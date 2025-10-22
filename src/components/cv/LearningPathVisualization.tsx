@@ -1,7 +1,7 @@
 // src/components/cv/LearningPathVisualization.tsx
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   BookOpen, Clock, DollarSign, AlertTriangle, ChevronRight,
   ExternalLink, Target, Award, Users, Calendar, Filter,
@@ -9,6 +9,8 @@ import {
 } from 'lucide-react';
 import LearningJourneyDashboard from './LearningJourneyDashboard';
 import SkillTreeVisualization from './SkillTreeVisualization';
+import { prioritizeCourses, getCourseBadges } from '@/lib/learning/course-prioritization';
+import type { Course } from '@/lib/learning/course-prioritization';
 
 interface LearningSuggestion {
   type: 'course' | 'certification' | 'self-study' | 'project';
@@ -90,7 +92,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
   };
 
   // Get type icon
-  const TypeIcon = ({ type }: { type: string }) => {
+  const TypeIcon = ({ type }: { type?: string }) => {
     switch (type) {
       case 'certification':
         return <Award className="w-4 h-4" />;
@@ -103,11 +105,27 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
     }
   };
 
-  // Filter suggestions
-  const filteredSuggestions = learningSuggestions.filter(gap => {
-    if (filterPriority === 'all') return true;
-    return gap.importance === filterPriority;
-  });
+  // Filter and prioritize suggestions
+  const filteredSuggestions = useMemo(() => {
+    const filtered = learningSuggestions.filter(gap => {
+      if (filterPriority === 'all') return true;
+      return gap.importance === filterPriority;
+    });
+
+    // Sort suggestions within each gap using prioritizeCourses
+    return filtered.map(gap => ({
+      ...gap,
+      suggestions: prioritizeCourses(
+        gap.suggestions.map(s => ({
+          ...s,
+          cost: s.cost || '',
+          duration: s.duration || '',
+          provider: s.provider || '',
+        })) as Course[],
+        matchScore
+      )
+    }));
+  }, [learningSuggestions, filterPriority, matchScore]);
 
   // Calculate total time and cost (using MINIMUM per gap, not SUM of all alternatives)
   const calculateTotals = () => {
@@ -220,7 +238,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
             }`}
           >
             <Map className="w-5 h-5" />
-            <span>Din lärandresa</span>
+            <span>Utvecklingsresa</span>
           </button>
           <button
             onClick={() => setActiveTab('skills')}
@@ -396,7 +414,18 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
                             <TypeIcon type={suggestion.type} />
                           </div>
                           <div className="flex-1">
-                            <h4 className="font-semibold text-gray-900 mb-1">{suggestion.title}</h4>
+                            <div className="flex items-start gap-2 mb-1">
+                              <h4 className="font-semibold text-gray-900">{suggestion.title}</h4>
+                              {getCourseBadges(suggestion as Course).map((badge, idx) => (
+                                <span key={idx} className={`px-2 py-0.5 text-xs font-medium rounded-full ${
+                                  badge === 'Gratis' || badge.includes('CSN') ? 'bg-green-100 text-green-700' :
+                                  badge === 'Komvux' || badge === 'Högskola' ? 'bg-blue-100 text-blue-700' :
+                                  'bg-gray-100 text-gray-700'
+                                }`}>
+                                  {badge}
+                                </span>
+                              ))}
+                            </div>
                             {suggestion.provider && (
                               <p className="text-sm text-gray-600 mb-2">{suggestion.provider}</p>
                             )}

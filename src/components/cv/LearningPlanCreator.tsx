@@ -13,25 +13,27 @@ interface LearningPlanCreatorProps {
     matchScore: number;
     learningSuggestions: any[];
   };
-  learningPath: 'quick' | 'balanced' | 'comprehensive';
-  timeCommitment: number;
+  // learningPath and timeCommitment are now determined automatically based on matchScore
 }
 
 const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
   isOpen,
   onClose,
-  jobData,
-  learningPath,
-  timeCommitment
+  jobData
 }) => {
   const [planTitle, setPlanTitle] = useState(`Min väg till ${jobData.targetRole}`);
   const [selectedSkills, setSelectedSkills] = useState<any[]>([]);
   const [isCreating, setIsCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Initialize selected skills based on learning path
+  // Initialize selected skills - auto-select based on match score
   useMemo(() => {
     if (!jobData.learningSuggestions) return;
+
+    // Determine strategy based on match score
+    const isCareerChange = jobData.matchScore < 40;
+    const isAdaptation = jobData.matchScore >= 40 && jobData.matchScore < 70;
+    const isRefinement = jobData.matchScore >= 70;
 
     const skills = jobData.learningSuggestions.map((gap, index) => ({
       id: `skill-${index}`,
@@ -49,13 +51,13 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
         cost: s.cost
       })) || [],
       selected: gap.importance === 'essential' ||
-                (learningPath === 'comprehensive') ||
-                (learningPath === 'balanced' && index < 10) ||
-                (learningPath === 'quick' && index < 5)
+                (isCareerChange) ||  // Career change: select all
+                (isAdaptation && index < 10) ||  // Adaptation: balanced selection
+                (isRefinement && index < 5)  // Refinement: quick selection
     }));
 
     setSelectedSkills(skills.filter(s => s.selected));
-  }, [jobData, learningPath]);
+  }, [jobData]);
 
   const toggleSkill = (skillId: string) => {
     setSelectedSkills(prev => {
@@ -86,14 +88,21 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
     });
   };
 
+  // Determine automatic time commitment based on match score
+  const timeCommitmentHours = useMemo(() => {
+    if (jobData.matchScore < 40) return 15; // Career change: 15h/week
+    if (jobData.matchScore < 70) return 10; // Adaptation: 10h/week
+    return 5; // Refinement: 5h/week
+  }, [jobData.matchScore]);
+
   const totalHours = useMemo(() =>
     selectedSkills.reduce((sum, skill) => sum + skill.estimatedHours, 0),
     [selectedSkills]
   );
 
   const estimatedWeeks = useMemo(() =>
-    Math.ceil(totalHours / timeCommitment),
-    [totalHours, timeCommitment]
+    Math.ceil(totalHours / timeCommitmentHours),
+    [totalHours, timeCommitmentHours]
   );
 
   const handleCreatePlan = async () => {
@@ -115,9 +124,8 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
           jobId: jobData.jobId,
           title: planTitle,
           targetRole: jobData.targetRole,
-          learningPath,
-          timeCommitmentHours: timeCommitment,
           selectedSkills
+          // learningPath and timeCommitmentHours are now auto-determined by backend
         }),
       });
 
@@ -148,10 +156,10 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
             <div>
               <h2 className="text-2xl font-bold text-white flex items-center gap-2">
                 <Sparkles className="w-6 h-6 text-yellow-400" />
-                Skapa din lärandeplan
+                Skapa din utvecklingsplan
               </h2>
               <p className="text-sm text-gray-400 mt-1">
-                Anpassa din väg mot {jobData.targetRole}
+                Din väg mot {jobData.targetRole}
               </p>
             </div>
             <button
@@ -198,7 +206,7 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
             <div className="bg-navy-900 rounded-lg p-4 border border-navy-700">
               <div className="flex items-center justify-between mb-2">
                 <Calendar className="w-5 h-5 text-green-400" />
-                <span className="text-2xl font-bold text-white">{timeCommitment}h/v</span>
+                <span className="text-2xl font-bold text-white">{timeCommitmentHours}h/v</span>
               </div>
               <p className="text-sm text-gray-400">Per vecka</p>
             </div>
@@ -286,7 +294,7 @@ const LearningPlanCreator: React.FC<LearningPlanCreatorProps> = ({
               ) : (
                 <>
                   <BookOpen className="w-5 h-5" />
-                  Skapa lärandeplan
+                  Aktivera min plan
                   <ChevronRight className="w-4 h-4" />
                 </>
               )}

@@ -132,7 +132,7 @@ export default function DashboardSidebar() {
     },
     {
       path: '/dashboard/learning-plans',
-      label: 'Mina Lärandeplaner',
+      label: 'Min Utvecklingsplan',
       icon: <GraduationCap className="w-5 h-5" />,
       section: 'learning'
     },
@@ -293,11 +293,11 @@ export default function DashboardSidebar() {
           </ul>
         </div>
 
-        {/* Lärande Sektion */}
+        {/* Kompetensutveckling Sektion */}
         <div>
           {!collapsed && (
             <h3 className="px-4 py-2 text-xs font-bold text-slate-600 uppercase tracking-wider">
-              Lärande
+              Kompetensutveckling
             </h3>
           )}
           <ul className="space-y-1">

@@ -21,7 +21,7 @@ interface LearningPlan {
   total_skills: number;
   completed_skills: number;
   estimated_completion_date: string;
-  learning_path: 'quick' | 'balanced' | 'comprehensive';
+  learning_path: 'career_change' | 'adaptation' | 'refinement' | 'quick' | 'balanced' | 'comprehensive';
   time_commitment_hours: number;
 }
 
@@ -57,7 +57,7 @@ export default function LearningPlansPage() {
       setPlans(data || []);
     } catch (err: any) {
       console.error('Error fetching learning plans:', err);
-      setError('Kunde inte hämta lärandeplaner');
+      setError('Kunde inte hämta utvecklingsplaner');
     } finally {
       setLoading(false);
     }
@@ -70,15 +70,23 @@ export default function LearningPlansPage() {
 
   const getPathLabel = (path: string) => {
     const labels: Record<string, string> = {
-      'quick': 'Snabbspår',
-      'balanced': 'Balanserad',
-      'comprehensive': 'Omfattande'
+      'career_change': 'Strukturerad',
+      'adaptation': 'Skräddarsydd',
+      'refinement': 'Förfining',
+      // Legacy support
+      'quick': 'Förfining',
+      'balanced': 'Skräddarsydd',
+      'comprehensive': 'Strukturerad'
     };
     return labels[path] || path;
   };
 
   const getPathColor = (path: string) => {
     const colors: Record<string, string> = {
+      'career_change': 'bg-purple-500',
+      'adaptation': 'bg-blue-500',
+      'refinement': 'bg-green-500',
+      // Legacy support
       'quick': 'bg-green-500',
       'balanced': 'bg-blue-500',
       'comprehensive': 'bg-purple-500'
@@ -99,8 +107,8 @@ export default function LearningPlansPage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="text-center">
-          <Loader2 className="w-12 h-12 animate-spin text-pink-500 mx-auto mb-4" />
-          <p className="text-gray-400">Laddar dina lärandeplaner...</p>
+          <Loader2 className="w-12 h-12 animate-spin text-blue-600 mx-auto mb-4" />
+          <p className="text-gray-600">Laddar dina utvecklingsplaner...</p>
         </div>
       </div>
     );
@@ -127,7 +135,7 @@ export default function LearningPlansPage() {
         <div className="flex items-center justify-between mb-2">
           <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
             <GraduationCap className="w-8 h-8 text-blue-600" />
-            Mina Lärandeplaner
+            Min Utvecklingsplan
           </h1>
           <Link
             href="/dashboard/kompetensutveckling"
@@ -138,7 +146,7 @@ export default function LearningPlansPage() {
           </Link>
         </div>
         <p className="text-gray-600">
-          Hantera dina personliga lärandeplaner och följ din utveckling
+          Följ din kompetensutveckling och håll koll på din framsteg
         </p>
       </div>
 
@@ -186,10 +194,10 @@ export default function LearningPlansPage() {
         <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-12 border border-gray-200/50 shadow-xl text-center">
           <GraduationCap className="w-16 h-16 text-gray-400 mx-auto mb-4" />
           <h3 className="text-xl font-semibold text-gray-900 mb-2">
-            Inga lärandeplaner än
+            Ingen utvecklingsplan än
           </h3>
           <p className="text-gray-600 mb-6">
-            Börja din kompetensutveckling genom att skapa din första lärandeplan
+            Börja din kompetensutveckling genom att skapa din första plan
           </p>
           <Link
             href="/dashboard/kompetensutveckling"
@@ -276,11 +284,11 @@ export default function LearningPlansPage() {
                       href={`/dashboard/learning-plan/${plan.id}`}
                       className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg font-medium transition-all shadow-md hover:shadow-lg"
                     >
-                      Fortsätt lärande
+                      Fortsätt utveckling
                       <ChevronRight className="w-4 h-4" />
                     </Link>
                     <button
-                      className="px-4 py-2 bg-navy-700 hover:bg-navy-600 text-white rounded-lg transition-colors"
+                      className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors"
                     >
                       <TrendingUp className="w-5 h-5" />
                     </button>
