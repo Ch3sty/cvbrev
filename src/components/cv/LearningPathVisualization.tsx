@@ -187,13 +187,13 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
   return (
     <div className="w-full space-y-6">
       {/* Match Score and Summary */}
-      <div className="bg-navy-800 rounded-lg p-6 border border-navy-700">
+      <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-xl">
         <div className="flex items-start justify-between mb-4">
           <div>
-            <h2 className="text-2xl font-bold text-white mb-2">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">
               Din kompetensmatchning{targetRole ? ` mot ${targetRole}` : ''}
             </h2>
-            <p className="text-gray-400 text-sm">Baserat på analys av ditt CV</p>
+            <p className="text-gray-600 text-sm">Baserat på analys av ditt CV</p>
           </div>
           <div className={`px-6 py-3 rounded-lg border-2 ${getScoreColor(matchScore)}`}>
             <div className="text-3xl font-bold">{matchScore}%</div>
@@ -202,21 +202,21 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
         </div>
 
         {cvSummary && (
-          <div className="bg-navy-900/50 rounded-lg p-4 mt-4">
-            <p className="text-gray-300 leading-relaxed">{cvSummary}</p>
+          <div className="bg-gray-50 rounded-lg p-4 mt-4">
+            <p className="text-gray-700 leading-relaxed">{cvSummary}</p>
           </div>
         )}
       </div>
 
       {/* Tab Navigation */}
-      <div className="bg-navy-800 rounded-lg p-2 border border-navy-700">
+      <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-2 border border-gray-200/50 shadow-xl">
         <div className="flex gap-2">
           <button
             onClick={() => setActiveTab('journey')}
             className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all ${
               activeTab === 'journey'
-                ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg'
-                : 'bg-navy-900/50 text-gray-400 hover:text-white hover:bg-navy-700'
+                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
+                : 'bg-gray-50 text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }`}
           >
             <Map className="w-5 h-5" />
@@ -226,8 +226,8 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
             onClick={() => setActiveTab('skills')}
             className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all ${
               activeTab === 'skills'
-                ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg'
-                : 'bg-navy-900/50 text-gray-400 hover:text-white hover:bg-navy-700'
+                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
+                : 'bg-gray-50 text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }`}
           >
             <TreePine className="w-5 h-5" />
@@ -237,8 +237,8 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
             onClick={() => setActiveTab('courses')}
             className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-medium transition-all ${
               activeTab === 'courses'
-                ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg'
-                : 'bg-navy-900/50 text-gray-400 hover:text-white hover:bg-navy-700'
+                ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg'
+                : 'bg-gray-50 text-gray-600 hover:text-gray-900 hover:bg-gray-100'
             }`}
           >
             <BookOpenCheck className="w-5 h-5" />
@@ -271,55 +271,55 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
           {/* Overview Stats */}
           {learningSuggestions.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="bg-navy-800 rounded-lg p-4 border border-navy-700">
+          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-gray-200/50 shadow-xl">
             <div className="flex items-center justify-between">
-              <Target className="w-5 h-5 text-blue-400" />
-              <span className="text-2xl font-bold text-white">{skillGaps.length}</span>
+              <Target className="w-5 h-5 text-blue-600" />
+              <span className="text-2xl font-bold text-gray-900">{skillGaps.length}</span>
             </div>
-            <p className="text-sm text-gray-400 mt-2">Utvecklingsområden</p>
+            <p className="text-sm text-gray-600 mt-2">Utvecklingsområden</p>
           </div>
 
-          <div className="bg-navy-800 rounded-lg p-4 border border-navy-700">
+          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-gray-200/50 shadow-xl">
             <div className="flex items-center justify-between">
-              <BookOpen className="w-5 h-5 text-green-400" />
-              <span className="text-2xl font-bold text-white">
+              <BookOpen className="w-5 h-5 text-green-600" />
+              <span className="text-2xl font-bold text-gray-900">
                 {learningSuggestions.reduce((acc, gap) => acc + gap.suggestions.length, 0)}
               </span>
             </div>
-            <p className="text-sm text-gray-400 mt-2">Kurser funna</p>
+            <p className="text-sm text-gray-600 mt-2">Kurser funna</p>
           </div>
 
-          <div className="bg-navy-800 rounded-lg p-4 border border-navy-700">
+          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-gray-200/50 shadow-xl">
             <div className="flex items-center justify-between">
-              <Clock className="w-5 h-5 text-yellow-400" />
-              <span className="text-2xl font-bold text-white">~{totalWeeks}v</span>
+              <Clock className="w-5 h-5 text-yellow-600" />
+              <span className="text-2xl font-bold text-gray-900">~{totalWeeks}v</span>
             </div>
-            <p className="text-sm text-gray-400 mt-2">Total studietid</p>
+            <p className="text-sm text-gray-600 mt-2">Total studietid</p>
           </div>
 
-          <div className="bg-navy-800 rounded-lg p-4 border border-navy-700">
+          <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-4 border border-gray-200/50 shadow-xl">
             <div className="flex items-center justify-between">
-              <DollarSign className="w-5 h-5 text-pink-400" />
-              <span className="text-2xl font-bold text-white">
+              <DollarSign className="w-5 h-5 text-indigo-600" />
+              <span className="text-2xl font-bold text-gray-900">
                 {minTotalCost === 0 && maxTotalCost === 0 ? 'Varierar' :
                  minTotalCost === maxTotalCost ? `${minTotalCost.toLocaleString('sv-SE')} kr` :
                  `${minTotalCost.toLocaleString('sv-SE')} - ${maxTotalCost.toLocaleString('sv-SE')} kr`}
               </span>
             </div>
-            <p className="text-sm text-gray-400 mt-2">Uppskattad kostnad</p>
+            <p className="text-sm text-gray-600 mt-2">Uppskattad kostnad</p>
           </div>
         </div>
           )}
 
           {/* Filter */}
           <div className="flex items-center gap-4">
-            <Filter className="w-5 h-5 text-gray-400" />
+            <Filter className="w-5 h-5 text-gray-600" />
             <button
               onClick={() => setFilterPriority('all')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 filterPriority === 'all'
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-navy-800 text-gray-400 hover:text-white'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-white text-gray-600 hover:text-gray-900 border border-gray-200'
               }`}
             >
               Alla ({learningSuggestions.length})
@@ -328,8 +328,8 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
               onClick={() => setFilterPriority('essential')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 filterPriority === 'essential'
-                  ? 'bg-red-500 text-white'
-                  : 'bg-navy-800 text-gray-400 hover:text-white'
+                  ? 'bg-red-600 text-white'
+                  : 'bg-white text-gray-600 hover:text-gray-900 border border-gray-200'
               }`}
             >
               Kritiska ({learningSuggestions.filter(g => g.importance === 'essential').length})
@@ -338,8 +338,8 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
               onClick={() => setFilterPriority('desirable')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 filterPriority === 'desirable'
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-navy-800 text-gray-400 hover:text-white'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-white text-gray-600 hover:text-gray-900 border border-gray-200'
               }`}
             >
               Rekommenderade ({learningSuggestions.filter(g => g.importance === 'desirable').length})
@@ -351,12 +351,12 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
             {filteredSuggestions.map((gap, index) => (
               <div
                 key={index}
-                className="bg-navy-800 rounded-lg border border-navy-700 overflow-hidden"
+                className="bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-xl overflow-hidden"
               >
                 {/* Gap Header */}
                 <button
                   onClick={() => toggleGap(index)}
-                  className="w-full px-6 py-4 flex items-center justify-between hover:bg-navy-700 transition-colors"
+                  className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
                 >
                   <div className="flex items-center gap-3">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
@@ -365,8 +365,8 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
                       {gap.importance === 'essential' ? <AlertTriangle className="w-4 h-4 text-white" /> : <TrendingUp className="w-4 h-4 text-white" />}
                     </div>
                     <div className="text-left">
-                      <h3 className="text-lg font-semibold text-white">{gap.skill}</h3>
-                      <p className="text-sm text-gray-400">
+                      <h3 className="text-lg font-semibold text-gray-900">{gap.skill}</h3>
+                      <p className="text-sm text-gray-600">
                         {gap.suggestions.length} {gap.suggestions.length === 1 ? 'kurs' : 'kurser'} tillgängliga
                       </p>
                     </div>
@@ -374,31 +374,31 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
                   <div className="flex items-center gap-3">
                     <PriorityBadge importance={gap.importance} />
                     {expandedGaps.has(index) ? (
-                      <ChevronUp className="w-5 h-5 text-gray-400" />
+                      <ChevronUp className="w-5 h-5 text-gray-600" />
                     ) : (
-                      <ChevronDown className="w-5 h-5 text-gray-400" />
+                      <ChevronDown className="w-5 h-5 text-gray-600" />
                     )}
                   </div>
                 </button>
 
                 {/* Expanded Content */}
                 {expandedGaps.has(index) && (
-                  <div className="px-6 pb-6 border-t border-navy-700">
+                  <div className="px-6 pb-6 border-t border-gray-200">
                     <div className="space-y-3 mt-4">
                       {gap.suggestions.map((suggestion, suggIndex) => (
                         <div
                           key={suggIndex}
-                          className="bg-navy-900/50 rounded-lg p-4 hover:bg-navy-900 transition-colors"
+                          className="bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors"
                     >
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex items-start gap-3">
-                          <div className="p-2 bg-navy-700 rounded-lg">
+                          <div className="p-2 bg-blue-100 rounded-lg">
                             <TypeIcon type={suggestion.type} />
                           </div>
                           <div className="flex-1">
-                            <h4 className="font-semibold text-white mb-1">{suggestion.title}</h4>
+                            <h4 className="font-semibold text-gray-900 mb-1">{suggestion.title}</h4>
                             {suggestion.provider && (
-                              <p className="text-sm text-gray-400 mb-2">{suggestion.provider}</p>
+                              <p className="text-sm text-gray-600 mb-2">{suggestion.provider}</p>
                             )}
                           </div>
                         </div>
@@ -407,7 +407,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
                             href={suggestion.direct_url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-medium transition-colors"
+                            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg text-sm font-medium transition-all shadow-md hover:shadow-lg"
                           >
                             Gå till kurs
                             <ExternalLink className="w-4 h-4" />
@@ -418,25 +418,24 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
                       {/* Course Details */}
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-3">
                         {suggestion.duration && (
-                          <div className="flex items-center gap-2 text-sm text-gray-400">
+                          <div className="flex items-center gap-2 text-sm text-gray-600">
                             <Clock className="w-4 h-4" />
                             {suggestion.duration}
                           </div>
                         )}
                         {suggestion.cost && (
-                          <div className="flex items-center gap-2 text-sm text-gray-400">
-                            <DollarSign className="w-4 h-4" />
-                            {suggestion.cost}
+                          <div className="flex items-center gap-2 text-sm text-gray-600">
+                            <span className="text-indigo-600 font-medium">{suggestion.cost.replace(/^\$\s*/, '')}</span>
                           </div>
                         )}
                         {suggestion.start_date && (
-                          <div className="flex items-center gap-2 text-sm text-gray-400">
+                          <div className="flex items-center gap-2 text-sm text-gray-600">
                             <Calendar className="w-4 h-4" />
                             {suggestion.start_date}
                           </div>
                         )}
                         {suggestion.study_format && (
-                          <div className="flex items-center gap-2 text-sm text-gray-400">
+                          <div className="flex items-center gap-2 text-sm text-gray-600">
                             <Users className="w-4 h-4" />
                             {suggestion.study_format}
                           </div>
@@ -445,7 +444,7 @@ const LearningPathVisualization: React.FC<LearningPathVisualizationProps> = ({
 
                       {/* Description */}
                       {suggestion.description && (
-                        <p className="text-sm text-gray-300 leading-relaxed">
+                        <p className="text-sm text-gray-700 leading-relaxed">
                           {suggestion.description}
                         </p>
                       )}
