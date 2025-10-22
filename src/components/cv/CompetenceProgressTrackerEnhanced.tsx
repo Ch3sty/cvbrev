@@ -58,10 +58,10 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
     },
     analyzing: {
       icon: Brain,
-      color: 'text-blue-400',
+      color: 'text-blue-600',
       bgColor: 'bg-blue-500',
       message: 'Analyserar ditt CV...',
-      description: 'GPT-5 analyserar ditt CV mot målrollen'
+      description: 'Vi analyserar ditt CV mot målrollen'
     },
     processing_gaps: {
       icon: Search,
@@ -162,10 +162,10 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
 
   return (
     <div className="w-full">
-      <div className="relative bg-gradient-to-br from-navy-800 to-navy-900 rounded-xl border border-navy-700 overflow-hidden">
+      <div className="relative bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-xl overflow-hidden">
         {/* Animated background effect */}
         <div className="absolute inset-0 opacity-10">
-          <div className={`absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 ${
+          <div className={`absolute inset-0 bg-gradient-to-r from-blue-500 to-indigo-500 ${
             pulseAnimation ? 'opacity-30' : 'opacity-10'
           } transition-opacity duration-2000`} />
         </div>
@@ -180,13 +180,13 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
                 <Icon className={`w-6 h-6 ${config.color}`} />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
                   {config.message}
                   {(status === 'analyzing' || status === 'processing_gaps') && (
-                    <Loader2 className="w-4 h-4 animate-spin text-gray-400" />
+                    <Loader2 className="w-4 h-4 animate-spin text-gray-600" />
                   )}
                 </h3>
-                <p className="text-sm text-gray-400 mt-1">{config.description}</p>
+                <p className="text-sm text-gray-600 mt-1">{config.description}</p>
                 {getTimeEstimate() && (
                   <p className="text-xs text-gray-500 mt-1 flex items-center gap-1">
                     <Clock className="w-3 h-3" />
@@ -198,7 +198,7 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
             {onCancel && status !== 'completed' && status !== 'failed' && (
               <button
                 onClick={onCancel}
-                className="p-2 text-gray-400 hover:text-white hover:bg-navy-700 rounded-lg transition-all hover:scale-110"
+                className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all hover:scale-110"
                 aria-label="Avbryt analys"
               >
                 <X className="w-5 h-5" />
@@ -224,7 +224,7 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
                           ? 'bg-gradient-to-br from-green-500 to-green-600 text-white scale-100'
                           : step.active
                           ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white scale-110'
-                          : 'bg-navy-700 text-gray-500 border border-navy-600'}
+                          : 'bg-gray-200 text-gray-500 border border-gray-300'}
                         ${step.active ? 'animate-pulse' : ''}
                       `}>
                         {step.completed && !step.active ? (
@@ -235,14 +235,14 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
                       </div>
                     </div>
                     {index < steps.length - 1 && (
-                      <div className="flex-1 mx-3 h-1 rounded-full bg-navy-700 overflow-hidden">
+                      <div className="flex-1 mx-3 h-1 rounded-full bg-gray-200 overflow-hidden">
                         <div className={`
                           h-full transition-all duration-500 rounded-full
                           ${step.completed
                             ? 'bg-gradient-to-r from-green-500 to-green-400'
                             : step.active
                             ? 'bg-gradient-to-r from-blue-500 to-blue-400 w-1/2'
-                            : 'bg-navy-700'}
+                            : 'bg-gray-200'}
                         `} />
                       </div>
                     )}
@@ -269,14 +269,14 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
           {/* Main progress bar */}
           <div className="mb-4">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-sm text-gray-400">Total progress</span>
+              <span className="text-sm text-gray-600">Totalt framsteg</span>
               <span className={`text-sm font-bold ${
-                status === 'completed' ? 'text-green-400' : 'text-white'
+                status === 'completed' ? 'text-green-600' : 'text-gray-900'
               }`}>
                 {animatedProgress}%
               </span>
             </div>
-            <div className="relative h-4 bg-navy-900 rounded-full overflow-hidden">
+            <div className="relative h-4 bg-gray-200 rounded-full overflow-hidden">
               {/* Animated stripes for active processing */}
               {(status === 'analyzing' || status === 'processing_gaps') && (
                 <div className="absolute inset-0 opacity-20">
@@ -295,21 +295,21 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
 
           {/* Detailed progress for gap processing */}
           {status === 'processing_gaps' && totalGaps && processedGaps !== undefined && (
-            <div className="bg-navy-900/50 backdrop-blur rounded-lg p-4 border border-navy-700">
+            <div className="bg-gray-50 backdrop-blur rounded-lg p-4 border border-gray-200">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center space-x-2">
-                  <TrendingUp className="w-4 h-4 text-yellow-400" />
-                  <span className="text-sm text-white font-medium">
+                  <TrendingUp className="w-4 h-4 text-yellow-600" />
+                  <span className="text-sm text-gray-900 font-medium">
                     Kompetensgap-analys
                   </span>
                 </div>
-                <span className="text-sm text-gray-400">
+                <span className="text-sm text-gray-600">
                   {processedGaps} av {totalGaps} klara
                 </span>
               </div>
 
               {/* Mini progress bar for gaps */}
-              <div className="h-2 bg-navy-800 rounded-full overflow-hidden">
+              <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div
                   className="h-full bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full transition-all duration-300"
                   style={{ width: `${(processedGaps / totalGaps) * 100}%` }}
@@ -317,7 +317,7 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
               </div>
 
               {getDetailMessage() && (
-                <p className="text-xs text-gray-400 mt-3 italic truncate">
+                <p className="text-xs text-gray-600 mt-3 italic truncate">
                   {getDetailMessage()}
                 </p>
               )}
@@ -340,7 +340,7 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
           {/* Success animation */}
           {status === 'completed' && (
             <div className="flex justify-center mt-4">
-              <div className="flex items-center space-x-2 text-green-400">
+              <div className="flex items-center space-x-2 text-green-600">
                 <Sparkles className="w-5 h-5" />
                 <span className="text-sm font-medium">Resultat redo att visas!</span>
               </div>
