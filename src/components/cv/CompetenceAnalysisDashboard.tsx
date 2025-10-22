@@ -102,8 +102,6 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
     }
 
     try {
-      showNotification('loading', 'Startar analys...', null);
-
       const response = await fetch('/api/cv/kompetensutveckling/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -111,7 +109,6 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
       });
 
       const data = await response.json();
-      closeNotification();
 
       if (!response.ok) {
         if (response.status === 429) {
@@ -324,17 +321,8 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
                       : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   }`}
                 >
-                  {loading ? (
-                    <>
-                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                      Startar analys...
-                    </>
-                  ) : (
-                    <>
-                      <PlayCircle className="w-5 h-5 mr-2" />
-                      Starta analys
-                    </>
-                  )}
+                  <PlayCircle className="w-5 h-5 mr-2" />
+                  Starta analys
                 </button>
               )}
             </div>
