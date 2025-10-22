@@ -5,7 +5,7 @@ import React, { useState, useMemo } from 'react';
 import {
   BookOpen, Bookmark, BookmarkCheck, ChevronRight, ChevronDown,
   Clock, Target, TrendingUp, Award, Sparkles, MapPin,
-  CheckCircle2, Circle, ArrowRight, Zap
+  CheckCircle2, Circle, ArrowRight, Zap, Info
 } from 'lucide-react';
 import { groupCourses, shouldDisplayAsGroup, getGroupDisplayText, getCourseVariants } from '@/lib/learning/course-grouping';
 import type { CourseGroup } from '@/lib/learning/course-grouping';
@@ -173,16 +173,21 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
     });
   };
 
-  const toggleCourseSelection = (courseTitle: string) => {
+  const toggleCourseSelection = (courseId: string) => {
     setSelectedCourses(prev => {
       const newSet = new Set(prev);
-      if (newSet.has(courseTitle)) {
-        newSet.delete(courseTitle);
+      if (newSet.has(courseId)) {
+        newSet.delete(courseId);
       } else {
-        newSet.add(courseTitle);
+        newSet.add(courseId);
       }
       return newSet;
     });
+  };
+
+  // Helper function to generate unique course ID
+  const getCourseId = (course: Course) => {
+    return `${course.title}|||${course.provider || 'unknown'}`;
   };
 
   const handleSaveRoadmap = () => {
@@ -259,6 +264,24 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
         </div>
       </div>
 
+      {/* Information Box: Why select courses */}
+      <div className="bg-blue-50 border border-blue-200 rounded-xl p-5">
+        <div className="flex items-start gap-3">
+          <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+          <div>
+            <h4 className="font-semibold text-gray-900 mb-1">
+              💡 Bygg din personliga utvecklingsplan
+            </h4>
+            <p className="text-sm text-gray-700 mb-2">
+              Välj de utbildningar som passar dig bäst från varje steg nedan. Vi rekommenderar minst en utbildning per steg för bästa resultat.
+            </p>
+            <p className="text-sm text-gray-600">
+              Dina valda utbildningar sparas i din personliga utvecklingsplan som du kan följa, uppdatera och använda för att nå ditt mål.
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Horizontal Flow Roadmap (Desktop) / Vertical (Mobile) */}
       <div className="relative">
         {/* Desktop: Horizontal Flow */}
@@ -324,6 +347,7 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
                               onToggle={() => toggleGroup(group.id)}
                               selectedCourses={selectedCourses}
                               onSelectCourse={toggleCourseSelection}
+                              getCourseId={getCourseId}
                             />
                           ))}
                         </div>
@@ -399,6 +423,7 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
                             onToggle={() => toggleGroup(group.id)}
                             selectedCourses={selectedCourses}
                             onSelectCourse={toggleCourseSelection}
+                            getCourseId={getCourseId}
                           />
                         ))}
                       </div>
@@ -421,16 +446,18 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
       {/* CTA: Save Roadmap */}
       <div className="bg-white/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 shadow-xl text-center">
         <h4 className="text-lg font-semibold text-gray-900 mb-2">
-          {selectedCourses.size > 0 ? 'Redo att starta din utveckling?' : 'Välj kurser för att skapa din plan'}
+          {selectedCourses.size > 0
+            ? `Aktivera din utvecklingsplan (${selectedCourses.size} utbildningar)`
+            : 'Börja bygga din utvecklingsplan'}
         </h4>
         <p className="text-sm text-gray-600 mb-4">
           {selectedCourses.size > 0
-            ? `Du har valt ${selectedCourses.size} kurser. Spara din plan för att komma igång!`
-            : 'Välj de kurser som passar dig bäst och spara din utvecklingsplan.'}
+            ? 'Din plan sparas och du kan börja följa dina framsteg under "Min Utvecklingsplan" i menyn'
+            : 'Välj utbildningar från stegen ovan för att skapa din personliga utvecklingsplan'}
         </p>
         <button
           onClick={handleSaveRoadmap}
-          disabled={!jobId}
+          disabled={!jobId || selectedCourses.size === 0}
           className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition-all shadow-md ${
             jobId && selectedCourses.size > 0
               ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 hover:shadow-lg'
@@ -439,10 +466,15 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
         >
           <Sparkles className="w-5 h-5" />
           {selectedCourses.size > 0
-            ? `Spara plan med ${selectedCourses.size} kurser`
-            : 'Skapa min utvecklingsplan'}
+            ? 'Aktivera min utvecklingsplan'
+            : 'Välj utbildningar först'}
           <ChevronRight className="w-4 h-4" />
         </button>
+        {selectedCourses.size > 0 && (
+          <p className="text-xs text-gray-500 mt-3">
+            Efter aktivering hittar du din plan under "Min Utvecklingsplan" där du kan följa framsteg och uppdatera status
+          </p>
+        )}
       </div>
 
       {/* Learning Plan Creator Modal */}
@@ -468,7 +500,8 @@ interface CourseGroupCardProps {
   isExpanded: boolean;
   onToggle: () => void;
   selectedCourses: Set<string>;
-  onSelectCourse: (courseTitle: string) => void;
+  onSelectCourse: (courseId: string) => void;
+  getCourseId: (course: Course) => string;
 }
 
 const CourseGroupCard: React.FC<CourseGroupCardProps> = ({
@@ -476,7 +509,8 @@ const CourseGroupCard: React.FC<CourseGroupCardProps> = ({
   isExpanded,
   onToggle,
   selectedCourses,
-  onSelectCourse
+  onSelectCourse,
+  getCourseId
 }) => {
   const shouldGroup = shouldDisplayAsGroup(group);
   const displayText = getGroupDisplayText(group);
@@ -484,7 +518,8 @@ const CourseGroupCard: React.FC<CourseGroupCardProps> = ({
   if (!shouldGroup) {
     // Single course - display directly
     const course = group.courses[0];
-    const isSelected = selectedCourses.has(course.title);
+    const courseId = getCourseId(course);
+    const isSelected = selectedCourses.has(courseId);
 
     return (
       <div className="bg-gray-50 rounded-lg p-4 border border-gray-200/50">
@@ -515,7 +550,8 @@ const CourseGroupCard: React.FC<CourseGroupCardProps> = ({
             </div>
           </div>
           <button
-            onClick={() => onSelectCourse(course.title)}
+            onClick={() => onSelectCourse(courseId)}
+            title={isSelected ? 'Ta bort från min plan' : 'Lägg till i min utvecklingsplan'}
             className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
               isSelected
                 ? 'bg-blue-600 text-white'
@@ -523,9 +559,9 @@ const CourseGroupCard: React.FC<CourseGroupCardProps> = ({
             }`}
           >
             {isSelected ? (
-              <><BookmarkCheck className="w-4 h-4" />Vald</>
+              <><BookmarkCheck className="w-4 h-4" />✓ Tillagd</>
             ) : (
-              <><Bookmark className="w-4 h-4" />Välj</>
+              <><Bookmark className="w-4 h-4" />Lägg till</>
             )}
           </button>
         </div>
@@ -569,7 +605,8 @@ const CourseGroupCard: React.FC<CourseGroupCardProps> = ({
       {isExpanded && (
         <div className="px-4 pb-4 space-y-2 border-t border-gray-200/50">
           {variants.map((course, idx) => {
-            const isSelected = selectedCourses.has(course.title);
+            const courseId = getCourseId(course);
+            const isSelected = selectedCourses.has(courseId);
             return (
               <div key={idx} className="bg-white rounded-lg p-3 border border-gray-200/50">
                 <div className="flex items-start justify-between">
@@ -583,7 +620,8 @@ const CourseGroupCard: React.FC<CourseGroupCardProps> = ({
                     )}
                   </div>
                   <button
-                    onClick={() => onSelectCourse(course.title)}
+                    onClick={() => onSelectCourse(courseId)}
+                    title={isSelected ? 'Ta bort från min plan' : 'Lägg till i min utvecklingsplan'}
                     className={`flex items-center gap-1 px-2 py-1 rounded text-xs font-medium transition-colors ${
                       isSelected
                         ? 'bg-blue-600 text-white'
@@ -591,9 +629,9 @@ const CourseGroupCard: React.FC<CourseGroupCardProps> = ({
                     }`}
                   >
                     {isSelected ? (
-                      <><CheckCircle2 className="w-3 h-3" />Vald</>
+                      <><CheckCircle2 className="w-3 h-3" />✓</>
                     ) : (
-                      <><Circle className="w-3 h-3" />Välj</>
+                      <><Circle className="w-3 h-3" />Lägg till</>
                     )}
                   </button>
                 </div>
