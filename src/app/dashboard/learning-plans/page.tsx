@@ -8,7 +8,7 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import {
   GraduationCap, Plus, Target, Calendar, Clock,
   TrendingUp, ChevronRight, Loader2, Award,
-  BookOpen, Zap
+  BookOpen, Zap, Trash2
 } from 'lucide-react';
 
 interface LearningPlan {
@@ -30,6 +30,7 @@ export default function LearningPlansPage() {
   const [plans, setPlans] = useState<LearningPlan[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   useEffect(() => {
     fetchLearningPlans();
@@ -101,6 +102,39 @@ export default function LearningPlansPage() {
       'completed': { color: 'bg-blue-500/20 text-blue-400 border-blue-500/30', label: 'Slutförd' }
     };
     return badges[status] || badges.active;
+  };
+
+  const handleDeletePlan = async (planId: string, planTitle: string) => {
+    const confirmed = window.confirm(
+      `Är du säker på att du vill radera "${planTitle}"?\n\nDetta kommer permanent radera planen och alla dess kompetenser. Denna åtgärd kan inte ångras.`
+    );
+
+    if (!confirmed) return;
+
+    setDeletingId(planId);
+
+    try {
+      const response = await fetch(`/api/learning-plans/${planId}`, {
+        method: 'DELETE',
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Kunde inte radera planen');
+      }
+
+      // Remove from local state
+      setPlans(prevPlans => prevPlans.filter(p => p.id !== planId));
+
+      // Show success message (optional - could use a toast notification)
+      alert('Planen har raderats');
+    } catch (err: any) {
+      console.error('Error deleting plan:', err);
+      setError(err.message || 'Kunde inte radera planen');
+    } finally {
+      setDeletingId(null);
+    }
   };
 
   if (loading) {
@@ -289,8 +323,21 @@ export default function LearningPlansPage() {
                     </Link>
                     <button
                       className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors"
+                      title="Visa statistik"
                     >
                       <TrendingUp className="w-5 h-5" />
+                    </button>
+                    <button
+                      onClick={() => handleDeletePlan(plan.id, plan.title)}
+                      disabled={deletingId === plan.id}
+                      className="px-4 py-2 bg-red-50 hover:bg-red-100 text-red-600 hover:text-red-700 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                      title="Radera plan"
+                    >
+                      {deletingId === plan.id ? (
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                      ) : (
+                        <Trash2 className="w-5 h-5" />
+                      )}
                     </button>
                   </div>
                 </div>
