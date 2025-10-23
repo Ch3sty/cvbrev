@@ -244,26 +244,14 @@ export async function POST(request: NextRequest) {
             subscriptionTier
         });
 
-        // Trigger INITIAL ANALYSIS + PARALLEL WORKERS (fire and forget)
+        // Trigger edge function to process the job (fire and forget)
         const projectUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
         const functionUrl = `${projectUrl}/functions/v1/process-competence-analysis`;
         const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
-        const WORKERS = 4;
-        const GAPS_PER_WORKER = 5;
+        console.log(`--- API /start: Triggering edge function at ${functionUrl}`);
 
-        console.log(`--- API /start: Triggering initial analysis + ${WORKERS} parallel workers at ${functionUrl}`);
-
-        // First, update job to set total_workers
-        supabase
-            .from('competence_analysis_jobs')
-            .update({ total_workers: WORKERS })
-            .eq('id', newJob.id)
-            .then(() => {
-                console.log(`--- API /start: Set total_workers=${WORKERS} for job ${newJob.id}`);
-            });
-
-        // Step 1: Trigger INITIAL analysis (non-parallel) to do GPT-5 analysis
+        // Trigger the edge function (fire and forget)
         fetch(functionUrl, {
             method: 'POST',
             headers: {
@@ -271,71 +259,16 @@ export async function POST(request: NextRequest) {
                 'Authorization': `Bearer ${serviceKey}`
             },
             body: JSON.stringify({
-                jobId: newJob.id,
-                batchStartIndex: 0,
-                batchSize: 0, // Don't process any gaps, just do GPT-5 analysis
-                isParallel: false,
-                isInitialAnalysis: true
+                jobId: newJob.id
             })
-        }).then(async (response) => {
-            if (!response.ok) {
-                console.error(`--- API /start: Initial analysis failed with ${response.status}`);
-                throw new Error(`Initial analysis failed: ${response.status}`);
-            }
-
-            console.log('--- API /start: Initial GPT-5 analysis completed, now triggering parallel workers');
-
-            // Step 2: Trigger all workers in parallel (fire and forget)
-            const workerPromises = [];
-            for (let i = 0; i < WORKERS; i++) {
-                const batchStart = i * GAPS_PER_WORKER;
-
-                const promise = fetch(functionUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${serviceKey}`
-                    },
-                    body: JSON.stringify({
-                        jobId: newJob.id,
-                        batchStartIndex: batchStart,
-                        batchSize: GAPS_PER_WORKER,
-                        isParallel: true,
-                        workerIndex: i
-                    })
-                });
-
-                workerPromises.push(promise);
-            }
-
-            // Monitor all workers (fire and forget)
-            return Promise.all(workerPromises).then(responses => {
-                const successCount = responses.filter(r => r.ok).length;
-                console.log(`--- API /start: ${successCount}/${WORKERS} workers started successfully for job ${newJob.id}`);
-
-                if (successCount === 0) {
-                    // All workers failed - update job status
-                    supabase
-                        .from('competence_analysis_jobs')
-                        .update({
-                            status: 'failed',
-                            error_message: 'Failed to start any workers',
-                            completed_at: new Date().toISOString()
-                        })
-                        .eq('id', newJob.id)
-                        .then(() => {
-                            console.log('--- API /start: Job marked as failed - no workers started');
-                        });
-                }
-            });
         }).catch(err => {
-            console.error('--- API /start: Failed to trigger initial analysis or workers:', err.message);
+            console.error('--- API /start: Failed to trigger edge function:', err.message);
             // Update job status asynchronously
             supabase
                 .from('competence_analysis_jobs')
                 .update({
                     status: 'failed',
-                    current_step: 'Initial analys misslyckades',
+                    current_step: 'Kunde inte starta analys',
                     error_message: `Trigger error: ${err.message}`
                 })
                 .eq('id', newJob.id)
