@@ -55,8 +55,8 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
       icon: Zap,
       color: 'text-blue-600',
       bgColor: 'bg-blue-500',
-      message: 'Initierar analys',
-      description: 'Förbereder systemet och laddar data'
+      message: 'Initierar system',
+      description: 'Förbereder analysmotor'
     },
     analyzing: {
       icon: Cpu,

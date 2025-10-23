@@ -339,16 +339,16 @@ const CompetenceAnalysisDashboard: React.FC<CompetenceAnalysisDashboardProps> = 
                   </p>
                   <div className="space-y-2 text-xs text-gray-700">
                     <p>
-                      <span className="font-medium text-gray-900">1. Vi analyserar ditt CV:</span> Vi går igenom ditt CV och identifierar dina befintliga kompetenser.
+                      <span className="font-medium text-gray-900">1. Analyserar ditt CV:</span> Vi går igenom ditt CV och identifierar dina befintliga kompetenser.
                     </p>
                     <p>
-                      <span className="font-medium text-gray-900">2. Vi matchar mot jobbannons:</span> Vi analyserar jobbannonsen och extraherar alla krav och önskemål.
+                      <span className="font-medium text-gray-900">2. Matchar mot målrollen:</span> Vi analyserar målrollen och extraherar alla krav och önskemål.
                     </p>
                     <p>
-                      <span className="font-medium text-gray-900">3. Vi söker efter utbildningar:</span> Vi söker igenom utbildningar från svenska lärosäten, internationella plattformar och certifieringsorgan.
+                      <span className="font-medium text-gray-900">3. Söker efter utbildningar:</span> Vi söker igenom utbildningar från svenska lärosäten, internationella plattformar och certifieringsorgan.
                     </p>
                     <p>
-                      <span className="font-medium text-gray-900">4. Vi rekommenderar kurser:</span> Kurserna prioriteras baserat på relevans, kvalitet, pris och tidsinvestering.
+                      <span className="font-medium text-gray-900">4. Rekommenderar kurser:</span> Kurserna prioriteras baserat på relevans, kvalitet, pris och tidsinvestering.
                     </p>
                   </div>
                 </div>

@@ -266,15 +266,91 @@ Returnera ENDAST ett JSON-objekt med följande struktur:
 }
 
 // ============================================================================
-// COURSE SEARCH WITH WEB SEARCH
+// COURSE SEARCH WITH WEB SEARCH + CACHE
 // ============================================================================
 
+const COURSE_CACHE_TTL_DAYS = 365; // Cache for 1 year
+
 /**
- * Find courses using gpt-4o-search-preview with web search
+ * Check cache for existing course search results
+ */
+async function getCachedCourses(skillName: string, targetRole: string, userLocation: string) {
+  const cacheKey = `${skillName.toLowerCase()}|${targetRole.toLowerCase()}|${userLocation.toLowerCase()}`;
+
+  try {
+    const cutoffDate = new Date();
+    cutoffDate.setDate(cutoffDate.getDate() - COURSE_CACHE_TTL_DAYS);
+
+    const { data, error } = await supabase
+      .from('course_search_cache')
+      .select('courses_json, created_at')
+      .eq('skill_name', skillName.toLowerCase())
+      .eq('target_role', targetRole.toLowerCase())
+      .eq('user_location', userLocation.toLowerCase())
+      .gte('created_at', cutoffDate.toISOString())
+      .maybeSingle();
+
+    if (error) {
+      console.error(`Cache lookup error for "${skillName}":`, error.message);
+      return null;
+    }
+
+    if (data) {
+      console.log(`✓ Cache HIT for "${skillName}" (age: ${Math.round((Date.now() - new Date(data.created_at).getTime()) / (1000 * 60 * 60 * 24))} days)`);
+      return data.courses_json;
+    }
+
+    console.log(`✗ Cache MISS for "${skillName}"`);
+    return null;
+
+  } catch (error: any) {
+    console.error(`Cache lookup failed for "${skillName}":`, error.message);
+    return null;
+  }
+}
+
+/**
+ * Save course search results to cache
+ */
+async function saveCourseCache(skillName: string, targetRole: string, userLocation: string, courses: any[]) {
+  try {
+    const { error } = await supabase
+      .from('course_search_cache')
+      .upsert({
+        skill_name: skillName.toLowerCase(),
+        target_role: targetRole.toLowerCase(),
+        user_location: userLocation.toLowerCase(),
+        courses_json: courses,
+        created_at: new Date().toISOString()
+      }, {
+        onConflict: 'skill_name,target_role,user_location'
+      });
+
+    if (error) {
+      console.error(`Failed to save cache for "${skillName}":`, error.message);
+    } else {
+      console.log(`✓ Saved to cache: "${skillName}"`);
+    }
+  } catch (error: any) {
+    console.error(`Cache save failed for "${skillName}":`, error.message);
+  }
+}
+
+/**
+ * Find courses using gpt-4o-search-preview with web search (with cache)
  */
 async function findRealCoursesWithWebSearch(gap: any, targetRole: string, openaiApiKey: string, openaiProjectId?: string, userLocation?: string) {
-  console.log(`Searching for courses: ${gap.skill}${userLocation ? ` (region: ${userLocation})` : ''}`);
+  const location = userLocation || 'Stockholm';
+  console.log(`Searching for courses: ${gap.skill} (region: ${location})`);
 
+  // Check cache first
+  const cachedCourses = await getCachedCourses(gap.skill, targetRole, location);
+  if (cachedCourses && Array.isArray(cachedCourses)) {
+    console.log(`Using ${cachedCourses.length} cached courses for "${gap.skill}"`);
+    return cachedCourses;
+  }
+
+  // Cache miss - perform web search
   try {
     const headers: any = {
       'Content-Type': 'application/json',
@@ -407,7 +483,16 @@ Returnera ENDAST denna JSON-struktur (inget annat):
     const verifiedCourses = courses.filter((c: any) => c.is_verified);
     console.log(`Found ${verifiedCourses.length} verified courses for "${gap.skill}"`);
 
-    return verifiedCourses.slice(0, 3);
+    const resultCourses = verifiedCourses.slice(0, 3);
+
+    // Save to cache for future use (fire-and-forget)
+    if (resultCourses.length > 0) {
+      saveCourseCache(gap.skill, targetRole, location, resultCourses).catch(err => {
+        console.error(`Background cache save failed:`, err);
+      });
+    }
+
+    return resultCourses;
 
   } catch (error: any) {
     console.error(`ERROR: Web search failed for ${gap.skill}:`, error.message);

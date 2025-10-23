@@ -56,7 +56,6 @@ const CircularProgress: React.FC<CircularProgressProps> = ({
           strokeLinecap="round"
           className="transition-all duration-700 ease-out"
           style={{
-            filter: 'drop-shadow(0 0 4px currentColor)',
             opacity: 0.9
           }}
         />
