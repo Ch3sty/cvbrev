@@ -116,7 +116,7 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
       id: 'gaps',
       label: 'Identifierar möjligheter',
       icon: Target,
-      completed: ['processing_gaps', 'completed'].includes(status),
+      completed: ['processing_gaps', 'partial_complete', 'completed'].includes(status),
       active: status === 'processing_gaps' && processedGaps === 0
     },
     {
@@ -124,7 +124,7 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
       label: 'Matchar utbildningar',
       icon: BookOpen,
       completed: status === 'completed',
-      active: status === 'processing_gaps' && (processedGaps ?? 0) > 0
+      active: (status === 'processing_gaps' || status === 'partial_complete') && (processedGaps ?? 0) > 0
     },
     {
       id: 'done',
@@ -143,9 +143,9 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
       return 'Analyserar (10-20 sekunder)';
     }
 
-    if (totalGaps && processedGaps !== undefined) {
+    if ((status === 'processing_gaps' || status === 'partial_complete') && totalGaps && processedGaps !== undefined) {
       const remaining = totalGaps - processedGaps;
-      const estimatedSeconds = remaining * 8; // Faster estimate
+      const estimatedSeconds = remaining * 30; // 30s per gap (realistic for web search)
       if (estimatedSeconds < 60) {
         return `~${estimatedSeconds} sekunder kvar`;
       }
@@ -158,7 +158,7 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
 
   // Detail message for current processing
   const getDetailMessage = () => {
-    if (status === 'processing_gaps' && currentStep) {
+    if ((status === 'processing_gaps' || status === 'partial_complete') && currentStep) {
       const match = currentStep.match(/"([^"]+)"/);
       if (match) {
         return `Söker kurser för: ${match[1]}`;
