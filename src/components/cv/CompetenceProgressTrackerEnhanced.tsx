@@ -4,8 +4,10 @@
 import React, { useEffect, useState } from 'react';
 import {
   Loader2, Check, AlertTriangle, Clock, Target, BookOpen, X,
-  Zap, Search, Brain, Sparkles, TrendingUp
+  Zap, Search, Brain, Sparkles, TrendingUp, Database, Cpu, Network
 } from 'lucide-react';
+import CircularProgress from '@/components/ui/CircularProgress';
+import AnimatedParticles from '@/components/ui/AnimatedParticles';
 
 interface CompetenceProgressTrackerEnhancedProps {
   status: 'pending' | 'analyzing' | 'processing_gaps' | 'partial_complete' | 'completed' | 'failed';
@@ -47,88 +49,93 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
     }
   }, [status]);
 
-  // Status configurations
+  // Status configurations - premium descriptions without AI buzzwords
   const statusConfig = {
     pending: {
-      icon: Clock,
+      icon: Zap,
       color: 'text-blue-600',
       bgColor: 'bg-blue-500',
-      message: 'Startar...',
-      description: 'Förbereder din analys'
+      message: 'Initierar analys',
+      description: 'Förbereder systemet och laddar data'
     },
     analyzing: {
-      icon: Search,
+      icon: Cpu,
       color: 'text-blue-600',
       bgColor: 'bg-blue-500',
-      message: 'Analyserar...',
-      description: 'Går igenom ditt CV och målrollen'
+      message: 'Analyserar CV-data',
+      description: 'Utvärderar kompetenser och erfarenhet mot målroll'
     },
     processing_gaps: {
-      icon: BookOpen,
+      icon: Database,
       color: 'text-indigo-600',
       bgColor: 'bg-indigo-500',
-      message: 'Söker kurser...',
-      description: 'Hittar relevanta utbildningar för dig'
+      message: 'Processar kompetensgap',
+      description: 'Söker och matchar relevanta utbildningar'
     },
     partial_complete: {
-      icon: TrendingUp,
+      icon: Network,
       color: 'text-indigo-600',
       bgColor: 'bg-indigo-500',
-      message: 'Fortsätter...',
-      description: 'Söker fler kurser'
+      message: 'Kurerar utbildningsväg',
+      description: 'Fortsätter med nästa batch av kompetensgap'
     },
     completed: {
       icon: Check,
       color: 'text-green-600',
       bgColor: 'bg-green-500',
-      message: 'Klart!',
-      description: 'Dina rekommendationer är redo'
+      message: 'Färdigställd analys',
+      description: 'Rekommendationer kompletta och redo att visa'
     },
     failed: {
       icon: AlertTriangle,
       color: 'text-red-600',
       bgColor: 'bg-red-500',
-      message: 'Något gick fel',
-      description: errorMessage || 'Analysen kunde inte slutföras'
+      message: 'Systemfel uppstod',
+      description: errorMessage || 'Analysen kunde inte slutföras - försök igen'
     }
   };
 
   const config = statusConfig[status];
   const Icon = config.icon;
 
-  // Simplified step labels without AI buzzwords
+  // Premium step labels with professional tone (no AI buzzwords)
   const steps = [
     {
       id: 'start',
-      label: 'Startar',
+      label: 'Initierar system',
+      subtitle: 'Förbereder analysmotor',
       icon: Zap,
       completed: true,
       active: status === 'pending'
     },
     {
       id: 'analyze',
-      label: 'Analyserar CV',
-      icon: Search,
+      label: 'Analyserar CV-data',
+      subtitle: 'Utvärderar kompetenser och erfarenhet',
+      icon: Cpu,
       completed: status !== 'pending',
       active: status === 'analyzing'
     },
     {
       id: 'gaps',
-      label: 'Hittar kurser',
-      icon: BookOpen,
+      label: 'Processar kompetensgap',
+      subtitle: 'Identifierar utvecklingsområden',
+      icon: Database,
       completed: ['processing_gaps', 'partial_complete', 'completed'].includes(status),
       active: status === 'processing_gaps' && processedGaps === 0
     },
     {
       id: 'courses',
-      label: 'Väljer utbildningar',
-      icon: Target,
+      label: 'Kurerar utbildningsväg',
+      subtitle: 'Söker och matchar utbildningar',
+      icon: Network,
       completed: status === 'completed',
       active: (status === 'processing_gaps' || status === 'partial_complete') && (processedGaps ?? 0) > 0
     },
     {
       id: 'done',
-      label: 'Klar',
+      label: 'Färdigställer rekommendationer',
+      subtitle: 'Komplett analys klar',
       icon: Check,
       completed: status === 'completed',
       active: false
@@ -164,10 +171,27 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
     if ((status === 'processing_gaps' || status === 'partial_complete') && currentStep) {
       const match = currentStep.match(/"([^"]+)"/);
       if (match) {
-        return `Söker kurser för: ${match[1]}`;
+        return `Processar: ${match[1]}`;
       }
     }
     return currentStep;
+  };
+
+  // Calculate individual step progress
+  const getStepProgress = (step: typeof steps[0]) => {
+    if (step.completed && !step.active) return 100;
+    if (step.active) {
+      // For active step, show animated progress based on overall progress
+      if (step.id === 'analyze') return Math.min(progress * 2, 100);
+      if (step.id === 'gaps' || step.id === 'courses') {
+        if (totalGaps && processedGaps !== undefined) {
+          return (processedGaps / totalGaps) * 100;
+        }
+        return progress;
+      }
+      return progress;
+    }
+    return 0;
   };
 
   return (
@@ -216,64 +240,130 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
             )}
           </div>
 
-          {/* Enhanced step indicators */}
-          <div className="mb-6">
-            <div className="flex items-start justify-between">
-              {steps.map((step, index) => {
-                const StepIcon = step.icon;
-                return (
-                  <React.Fragment key={step.id}>
-                    <div className="flex flex-col items-center flex-1">
-                      <div className="relative mb-2">
-                        {/* Glow effect for active step */}
-                        {step.active && (
-                          <div className="absolute inset-0 rounded-full bg-blue-500 blur-lg opacity-50 animate-pulse" />
-                        )}
+          {/* Premium Vertical Timeline */}
+          <div className="mb-6 space-y-1">
+            {steps.map((step, index) => {
+              const StepIcon = step.icon;
+              const stepProgress = getStepProgress(step);
+              const isLast = index === steps.length - 1;
+
+              return (
+                <div key={step.id} className="relative">
+                  {/* Timeline item */}
+                  <div className="flex items-start gap-4">
+                    {/* Left: CircularProgress with Icon */}
+                    <div className="relative flex-shrink-0">
+                      {/* Glow effect for active step */}
+                      {step.active && (
+                        <div className="absolute inset-0 rounded-full bg-blue-500 blur-xl opacity-40 animate-pulse" />
+                      )}
+
+                      <CircularProgress
+                        percentage={stepProgress}
+                        size={60}
+                        strokeWidth={3}
+                        color={
+                          step.completed ? '#10b981' : // green-500
+                          step.active ? '#3b82f6' : // blue-500
+                          '#d1d5db' // gray-300
+                        }
+                        backgroundColor="#f3f4f6"
+                      >
                         <div className={`
-                          relative w-10 h-10 rounded-full flex items-center justify-center transition-all
+                          w-12 h-12 rounded-full flex items-center justify-center transition-all
                           ${step.completed
-                            ? 'bg-gradient-to-br from-green-500 to-green-600 text-white scale-100'
+                            ? 'bg-gradient-to-br from-green-500 to-green-600'
                             : step.active
-                            ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white scale-110'
-                            : 'bg-gray-200 text-gray-500 border border-gray-300'}
-                          ${step.active ? 'animate-pulse' : ''}
+                            ? 'bg-gradient-to-br from-blue-500 to-indigo-600'
+                            : 'bg-gray-200'}
                         `}>
                           {step.completed && !step.active ? (
-                            <Check className="w-5 h-5" />
+                            <Check className="w-6 h-6 text-white" />
                           ) : (
-                            <StepIcon className="w-5 h-5" />
+                            <StepIcon className={`w-6 h-6 ${
+                              step.active ? 'text-white' : 'text-gray-500'
+                            }`} />
                           )}
                         </div>
-                      </div>
-                      <span className={`
-                        text-xs transition-colors text-center px-1
-                        ${step.completed
-                          ? 'text-green-400'
-                          : step.active
-                          ? 'text-blue-400 font-semibold'
-                          : 'text-gray-500'}
-                      `}>
-                        {step.label}
-                      </span>
+                      </CircularProgress>
                     </div>
-                    {index < steps.length - 1 && (
-                      <div className="flex items-center flex-1 pb-6">
-                        <div className="w-full h-1 rounded-full bg-gray-200 overflow-hidden mx-2">
-                          <div className={`
-                            h-full transition-all duration-500 rounded-full
-                            ${step.completed
-                              ? 'bg-gradient-to-r from-green-500 to-green-400 w-full'
-                              : step.active
-                              ? 'bg-gradient-to-r from-blue-500 to-blue-400 w-1/2'
-                              : 'bg-gray-200 w-0'}
-                          `} />
-                        </div>
+
+                    {/* Right: Content */}
+                    <div className="flex-1 pb-6">
+                      <div className={`
+                        transition-all
+                        ${step.active ? 'transform scale-105' : ''}
+                      `}>
+                        <h4 className={`
+                          text-sm font-bold transition-colors
+                          ${step.completed
+                            ? 'text-green-600'
+                            : step.active
+                            ? 'text-blue-600'
+                            : 'text-gray-500'}
+                        `}>
+                          {step.label}
+                          {step.active && (
+                            <Loader2 className="inline-block w-3 h-3 ml-2 animate-spin" />
+                          )}
+                        </h4>
+                        <p className="text-xs text-gray-600 mt-0.5">
+                          {step.subtitle}
+                        </p>
+
+                        {/* Live status for active step */}
+                        {step.active && getDetailMessage() && (
+                          <div className="mt-2 text-xs text-gray-500 italic bg-gray-50 rounded px-2 py-1 inline-block">
+                            {getDetailMessage()}
+                          </div>
+                        )}
+
+                        {/* Progress for gap processing */}
+                        {step.active && (step.id === 'gaps' || step.id === 'courses') && totalGaps && processedGaps !== undefined && (
+                          <div className="mt-2">
+                            <div className="flex items-center justify-between text-xs text-gray-600 mb-1">
+                              <span>Framsteg</span>
+                              <span className="font-medium">{processedGaps} / {totalGaps}</span>
+                            </div>
+                            <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                              <div
+                                className="h-full bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full transition-all duration-500"
+                                style={{ width: `${stepProgress}%` }}
+                              />
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </React.Fragment>
-                );
-              })}
-            </div>
+                    </div>
+                  </div>
+
+                  {/* Connecting line with animated particles */}
+                  {!isLast && (
+                    <div className="absolute left-[30px] top-[60px] w-0.5 h-full">
+                      {/* Background line */}
+                      <div className={`
+                        w-full h-full transition-all duration-500
+                        ${step.completed
+                          ? 'bg-gradient-to-b from-green-500 to-green-400'
+                          : step.active
+                          ? 'bg-gradient-to-b from-blue-500 to-gray-300'
+                          : 'bg-gray-300'}
+                      `} />
+
+                      {/* Animated particles flowing down */}
+                      {step.active && (
+                        <AnimatedParticles
+                          count={3}
+                          color={step.completed ? '#10b981' : '#3b82f6'}
+                          speed="medium"
+                          direction="down"
+                        />
+                      )}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
 
           {/* Main progress bar */}
@@ -303,36 +393,6 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
             </div>
           </div>
 
-          {/* Detailed progress for gap processing */}
-          {status === 'processing_gaps' && totalGaps && processedGaps !== undefined && (
-            <div className="bg-gray-50 backdrop-blur rounded-lg p-4 border border-gray-200">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center space-x-2">
-                  <BookOpen className="w-4 h-4 text-indigo-600" />
-                  <span className="text-sm text-gray-900 font-medium">
-                    Kurssökning
-                  </span>
-                </div>
-                <span className="text-sm text-gray-600">
-                  {processedGaps} av {totalGaps} klara
-                </span>
-              </div>
-
-              {/* Mini progress bar for gaps */}
-              <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full transition-all duration-300"
-                  style={{ width: `${(processedGaps / totalGaps) * 100}%` }}
-                />
-              </div>
-
-              {getDetailMessage() && (
-                <p className="text-xs text-gray-600 mt-3 italic truncate">
-                  {getDetailMessage()}
-                </p>
-              )}
-            </div>
-          )}
 
           {/* Error display */}
           {status === 'failed' && errorMessage && (
@@ -350,9 +410,11 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
           {/* Success animation */}
           {status === 'completed' && (
             <div className="flex justify-center mt-4">
-              <div className="flex items-center space-x-2 text-green-600">
-                <Check className="w-5 h-5" />
-                <span className="text-sm font-medium">Klart! Dina rekommendationer visas nedan</span>
+              <div className="flex items-center space-x-3 text-green-600 bg-green-50 px-4 py-2 rounded-lg border border-green-200">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                  <Check className="w-5 h-5 text-white" />
+                </div>
+                <span className="text-sm font-semibold">Analys färdigställd - rekommendationer redo att visa</span>
               </div>
             </div>
           )}
