@@ -594,7 +594,13 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
                             </p>
                           )}
 
-                          <div className="flex flex-wrap gap-2">
+                          {course.description && (
+                            <p className="text-xs text-gray-700 mb-3 line-clamp-2">
+                              {course.description}
+                            </p>
+                          )}
+
+                          <div className="flex flex-wrap gap-2 mb-3">
                             {course.duration && (
                               <span className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-md font-medium">
                                 {course.duration}
@@ -610,6 +616,19 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
                               </span>
                             )}
                           </div>
+
+                          {course.direct_url && (
+                            <a
+                              href={course.direct_url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-xs text-blue-600 hover:text-blue-800 underline flex items-center gap-1"
+                              onClick={(e) => e.stopPropagation()}
+                            >
+                              Se kursinformation
+                              <ChevronRight className="w-3 h-3" />
+                            </a>
+                          )}
                         </div>
                       );
                     } else {
@@ -636,7 +655,7 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
                                       : 'border-gray-200 hover:border-blue-300'
                                   }`}
                                 >
-                                  <div className="flex items-start justify-between">
+                                  <div className="flex items-start justify-between mb-2">
                                     <div className="flex-1">
                                       <p className="text-xs font-medium text-gray-900 flex items-center gap-1 mb-1">
                                         <MapPin className="w-3 h-3" />
@@ -659,6 +678,23 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
                                       {isSelected && <CheckCircle2 className="w-3 h-3 text-white" />}
                                     </button>
                                   </div>
+                                  {course.description && (
+                                    <p className="text-xs text-gray-700 mb-2 line-clamp-2">
+                                      {course.description}
+                                    </p>
+                                  )}
+                                  {course.direct_url && (
+                                    <a
+                                      href={course.direct_url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="text-xs text-blue-600 hover:text-blue-800 underline flex items-center gap-1"
+                                      onClick={(e) => e.stopPropagation()}
+                                    >
+                                      Se kursinformation
+                                      <ChevronRight className="w-3 h-3" />
+                                    </a>
+                                  )}
                                 </div>
                               );
                             })}
@@ -679,7 +715,7 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
         <h4 className="text-2xl font-bold text-gray-900 mb-2 flex items-center justify-center gap-2">
           <Sparkles className="w-6 h-6 text-blue-600" />
           {totalSelectedCourses > 0
-            ? `Aktivera din utvecklingsplan`
+            ? `Spara din utvecklingsplan`
             : 'Börja bygga din utvecklingsplan'}
         </h4>
         <p className="text-sm text-gray-600 mb-6 max-w-2xl mx-auto">
@@ -698,7 +734,7 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
         >
           <Sparkles className="w-6 h-6" />
           {totalSelectedCourses > 0
-            ? 'Aktivera min utvecklingsplan'
+            ? 'Spara min utvecklingsplan'
             : 'Välj utbildningar först'}
           <ArrowRight className="w-5 h-5" />
         </button>

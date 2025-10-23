@@ -51,42 +51,42 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
   const statusConfig = {
     pending: {
       icon: Clock,
-      color: 'text-gray-400',
-      bgColor: 'bg-gray-500',
-      message: 'Förbereder analys...',
-      description: 'Systemet startar upp och förbereder din analys'
-    },
-    analyzing: {
-      icon: Brain,
       color: 'text-blue-600',
       bgColor: 'bg-blue-500',
-      message: 'Analyserar ditt CV...',
-      description: 'Vi analyserar ditt CV mot målrollen'
+      message: 'Startar...',
+      description: 'Förbereder din analys'
+    },
+    analyzing: {
+      icon: Search,
+      color: 'text-blue-600',
+      bgColor: 'bg-blue-500',
+      message: 'Analyserar...',
+      description: 'Går igenom ditt CV och målrollen'
     },
     processing_gaps: {
-      icon: Search,
-      color: 'text-yellow-400',
-      bgColor: 'bg-yellow-500',
-      message: 'Söker utbildningar...',
-      description: 'Hittar kurser och certifieringar för dina kompetensgap'
+      icon: BookOpen,
+      color: 'text-indigo-600',
+      bgColor: 'bg-indigo-500',
+      message: 'Söker kurser...',
+      description: 'Hittar relevanta utbildningar för dig'
     },
     partial_complete: {
       icon: TrendingUp,
-      color: 'text-indigo-400',
+      color: 'text-indigo-600',
       bgColor: 'bg-indigo-500',
-      message: 'Fortsätter sökning...',
-      description: 'Processar fler kompetensgap i nästa batch'
+      message: 'Fortsätter...',
+      description: 'Söker fler kurser'
     },
     completed: {
       icon: Check,
-      color: 'text-green-400',
+      color: 'text-green-600',
       bgColor: 'bg-green-500',
-      message: 'Analys klar!',
-      description: 'Dina resultat och rekommendationer är redo'
+      message: 'Klart!',
+      description: 'Dina rekommendationer är redo'
     },
     failed: {
       icon: AlertTriangle,
-      color: 'text-red-400',
+      color: 'text-red-600',
       bgColor: 'bg-red-500',
       message: 'Något gick fel',
       description: errorMessage || 'Analysen kunde inte slutföras'
@@ -96,40 +96,40 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
   const config = statusConfig[status];
   const Icon = config.icon;
 
-  // Enhanced steps with premium copy
+  // Simplified step labels without AI buzzwords
   const steps = [
     {
       id: 'start',
-      label: 'Förbereder',
+      label: 'Startar',
       icon: Zap,
       completed: true,
       active: status === 'pending'
     },
     {
       id: 'analyze',
-      label: 'Utvärderar kompetens',
-      icon: Brain,
+      label: 'Analyserar CV',
+      icon: Search,
       completed: status !== 'pending',
       active: status === 'analyzing'
     },
     {
       id: 'gaps',
-      label: 'Identifierar möjligheter',
-      icon: Target,
+      label: 'Hittar kurser',
+      icon: BookOpen,
       completed: ['processing_gaps', 'partial_complete', 'completed'].includes(status),
       active: status === 'processing_gaps' && processedGaps === 0
     },
     {
       id: 'courses',
-      label: 'Matchar utbildningar',
-      icon: BookOpen,
+      label: 'Väljer utbildningar',
+      icon: Target,
       completed: status === 'completed',
       active: (status === 'processing_gaps' || status === 'partial_complete') && (processedGaps ?? 0) > 0
     },
     {
       id: 'done',
-      label: 'Rekommendationer klara',
-      icon: Sparkles,
+      label: 'Klar',
+      icon: Check,
       completed: status === 'completed',
       active: false
     }
@@ -308,9 +308,9 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
             <div className="bg-gray-50 backdrop-blur rounded-lg p-4 border border-gray-200">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center space-x-2">
-                  <TrendingUp className="w-4 h-4 text-yellow-600" />
+                  <BookOpen className="w-4 h-4 text-indigo-600" />
                   <span className="text-sm text-gray-900 font-medium">
-                    Kompetensgap-analys
+                    Kurssökning
                   </span>
                 </div>
                 <span className="text-sm text-gray-600">
@@ -321,7 +321,7 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
               {/* Mini progress bar for gaps */}
               <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full transition-all duration-300"
+                  className="h-full bg-gradient-to-r from-indigo-500 to-blue-500 rounded-full transition-all duration-300"
                   style={{ width: `${(processedGaps / totalGaps) * 100}%` }}
                 />
               </div>
@@ -351,8 +351,8 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
           {status === 'completed' && (
             <div className="flex justify-center mt-4">
               <div className="flex items-center space-x-2 text-green-600">
-                <Sparkles className="w-5 h-5" />
-                <span className="text-sm font-medium">Resultat redo att visas!</span>
+                <Check className="w-5 h-5" />
+                <span className="text-sm font-medium">Klart! Dina rekommendationer visas nedan</span>
               </div>
             </div>
           )}
