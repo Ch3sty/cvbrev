@@ -1,9 +1,9 @@
-console.log('🚀 [STARTUP] Edge function module loading...');
+console.log('[STARTUP] Edge function module loading...');
 
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 
-console.log('✅ [STARTUP] Imports loaded');
+console.log('[STARTUP] Imports loaded');
 
 // API key hantering - använd OPENAI_API_KEY (inte ADMIN)
 const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
@@ -11,19 +11,19 @@ const OPENAI_PROJECT_ID = Deno.env.get('OPENAI_PROJECT_ID');
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
 
-console.log('✅ [STARTUP] Environment variables loaded');
+console.log('[STARTUP] Environment variables loaded');
 
 // Validera miljövariabler
 if (!OPENAI_API_KEY) {
-  console.error('❌ OPENAI_API_KEY är inte konfigurerad');
+  console.error('ERROR: OPENAI_API_KEY är inte konfigurerad');
 }
 if (!OPENAI_PROJECT_ID) {
-  console.error('⚠️ OPENAI_PROJECT_ID är inte konfigurerad - kan orsaka permissions problem');
+  console.error('WARNING: OPENAI_PROJECT_ID är inte konfigurerad - kan orsaka permissions problem');
 }
 
 const supabase = createClient(SUPABASE_URL!, SUPABASE_SERVICE_KEY!);
 
-console.log('✅ [STARTUP] Supabase client initialized');
+console.log('[STARTUP] Supabase client initialized');
 
 // ============================================================================
 // TAXONOMY ENRICHMENT (from match-jobs)
@@ -154,24 +154,24 @@ async function getCachedTaxonomy(occupation: string): Promise<TaxonomyEnrichment
 
 // Analyze CV with GPT-5 using chat/completions endpoint
 async function analyzeCV(cvText: string, targetInfo: any) {
-  console.log('🤖 Starting CV analysis with GPT-5...');
-  console.log(`🔑 Using project: ${OPENAI_PROJECT_ID ? 'cvbrev (proj_WlM3ZDwbSPysgXRdp4m8dEGg)' : 'default'}`);
+  console.log('Starting CV analysis with GPT-5...');
+  console.log(`Using project: ${OPENAI_PROJECT_ID ? 'cvbrev (proj_WlM3ZDwbSPysgXRdp4m8dEGg)' : 'default'}`);
 
   const truncatedCV = cvText.substring(0, 8000);
-  console.log(`📄 CV length: ${cvText.length} chars (truncated to ${truncatedCV.length})`);
+  console.log(`CV length: ${cvText.length} chars (truncated to ${truncatedCV.length})`);
 
   let targetPrompt = '';
   if (targetInfo.mode === 'role') {
     targetPrompt = `Målet är yrkesrollen "${targetInfo.targetRole}" i Sverige.`;
-    console.log(`🎯 Analysis mode: role-based (${targetInfo.targetRole})`);
+    console.log(`Analysis mode: role-based (${targetInfo.targetRole})`);
   } else {
     targetPrompt = `Målet är att matcha mot följande jobbannons: ${targetInfo.jobAdText?.substring(0, 4000)}`;
-    console.log(`🎯 Analysis mode: job ad matching`);
+    console.log(`Analysis mode: job ad matching`);
   }
 
   try {
-    console.log('🚀 Calling GPT-5 API...');
-    console.log(`🔨 Headers: Authorization: Bearer sk-...${OPENAI_API_KEY?.slice(-4)}, OpenAI-Project: ${OPENAI_PROJECT_ID || 'not set'}`);
+    console.log('Calling GPT-5 API...');
+    console.log(`Headers: Authorization: Bearer sk-...${OPENAI_API_KEY?.slice(-4)}, OpenAI-Project: ${OPENAI_PROJECT_ID || 'not set'}`);
 
     const headers: any = {
       'Content-Type': 'application/json',
@@ -220,14 +220,14 @@ Returnera ENDAST ett JSON-objekt med följande struktur:
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error(`❌ GPT-5 analysis failed (${response.status}):`, errorText);
+      console.error(`ERROR: GPT-5 analysis failed (${response.status}):`, errorText);
 
       // Logga response headers för debugging
       const headers: any = {};
       response.headers.forEach((value, key) => {
         headers[key] = value;
       });
-      console.error('🔍 Response headers:', JSON.stringify(headers, null, 2));
+      console.error('Response headers:', JSON.stringify(headers, null, 2));
 
       // Specifik hantering för scope errors
       if (errorText.includes('Missing scopes: model.request')) {
@@ -238,7 +238,7 @@ Returnera ENDAST ett JSON-objekt med följande struktur:
     }
 
     const data = await response.json();
-    console.log('✅ GPT-5 response received successfully');
+    console.log('GPT-5 response received successfully');
 
     const result = JSON.parse(data.choices[0].message.content);
 
@@ -250,18 +250,18 @@ Returnera ENDAST ett JSON-objekt med följande struktur:
       identifiedSkillGaps: result.identifiedSkillGaps || []
     };
 
-    console.log(`✅ GPT-5 Analysis complete: Score=${structuredResult.matchScore}%, Gaps=${structuredResult.identifiedSkillGaps.length}`);
+    console.log(`GPT-5 Analysis complete: Score=${structuredResult.matchScore}%, Gaps=${structuredResult.identifiedSkillGaps.length}`);
     return structuredResult;
 
   } catch (error: any) {
-    console.error(`🔥 GPT-5 request failed:`, error.message);
+    console.error(`ERROR: GPT-5 request failed:`, error.message);
     throw error;
   }
 }
 
 // Find courses using gpt-4o-search-preview with web search
 async function findRealCoursesWithWebSearch(gap: any, targetRole: string, userLocation?: string) {
-  console.log(`🔍 Searching for courses: ${gap.skill}${userLocation ? ` (region: ${userLocation})` : ''}`);
+  console.log(`Searching for courses: ${gap.skill}${userLocation ? ` (region: ${userLocation})` : ''}`);
 
   try {
     const headers: any = {
@@ -338,7 +338,7 @@ Returnera ENDAST denna JSON-struktur (inget annat):
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error(`❌ Web search failed (${response.status}):`, errorText);
+      console.error(`ERROR: Web search failed (${response.status}):`, errorText);
       return [];
     }
 
@@ -356,7 +356,7 @@ Returnera ENDAST denna JSON-struktur (inget annat):
         parsed = JSON.parse(content);
       }
     } catch (parseError: any) {
-      console.error(`⚠️ Failed to parse web search response for ${gap.skill}:`, parseError.message);
+      console.error(`WARNING: Failed to parse web search response for ${gap.skill}:`, parseError.message);
       console.log('Raw response:', content.substring(0, 500));
       return [];
     }
@@ -376,21 +376,21 @@ Returnera ENDAST denna JSON-struktur (inget annat):
     }));
 
     const verifiedCourses = courses.filter((c: any) => c.is_verified);
-    console.log(`✅ Found ${verifiedCourses.length} verified courses for "${gap.skill}"`);
+    console.log(`Found ${verifiedCourses.length} verified courses for "${gap.skill}"`);
 
     return verifiedCourses.slice(0, 3);
 
   } catch (error: any) {
-    console.error(`❌ Web search failed for ${gap.skill}:`, error.message);
+    console.error(`ERROR: Web search failed for ${gap.skill}:`, error.message);
     return [];
   }
 }
 
-console.log('✅ [STARTUP] Functions defined, registering Deno.serve...');
+console.log('[STARTUP] Functions defined, registering Deno.serve...');
 
 Deno.serve(async (req) => {
   console.log('='.repeat(60));
-  console.log(`📥 Request received: ${req.method} ${req.url}`);
+  console.log(`Request received: ${req.method} ${req.url}`);
   console.log('='.repeat(60));
 
   // Handle OPTIONS requests
@@ -412,10 +412,10 @@ Deno.serve(async (req) => {
     // Parse request body
     try {
       const bodyText = await req.text();
-      console.log(`📦 Request body received, length: ${bodyText.length}`);
+      console.log(`Request body received, length: ${bodyText.length}`);
 
       if (!bodyText || bodyText.trim() === '') {
-        console.error('❌ Empty request body');
+        console.error('ERROR: Empty request body');
         return new Response(
           JSON.stringify({ error: 'Empty request body' }),
           { status: 400, headers: { 'Content-Type': 'application/json' } }
@@ -424,10 +424,10 @@ Deno.serve(async (req) => {
 
       requestBody = JSON.parse(bodyText);
       jobId = requestBody.jobId;
-      console.log('🚀 Processing competence analysis job:', jobId);
+      console.log('Processing competence analysis job:', jobId);
 
     } catch (parseError: any) {
-      console.error('❌ Failed to parse request body:', parseError.message);
+      console.error('ERROR: Failed to parse request body:', parseError.message);
       return new Response(
         JSON.stringify({ error: 'Invalid JSON in request body', details: parseError.message }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
@@ -443,15 +443,15 @@ Deno.serve(async (req) => {
 
     // Verify API key
     if (!OPENAI_API_KEY) {
-      console.error('❌ No OpenAI API key configured');
+      console.error('ERROR: No OpenAI API key configured');
       return new Response(
         JSON.stringify({ error: 'OpenAI API key not configured' }),
         { status: 500, headers: { 'Content-Type': 'application/json' } }
       );
     }
 
-    console.log(`🔑 API key configured: sk-...${OPENAI_API_KEY.slice(-4)}`);
-    console.log(`🎯 Project ID: ${OPENAI_PROJECT_ID || 'not configured (will use default)'}`);
+    console.log(`API key configured: sk-...${OPENAI_API_KEY.slice(-4)}`);
+    console.log(`Project ID: ${OPENAI_PROJECT_ID || 'not configured (will use default)'}`);
 
     // Get job details
     const { data: job, error: jobError } = await supabase
@@ -461,7 +461,7 @@ Deno.serve(async (req) => {
       .single();
 
     if (jobError || !job) {
-      console.error('❌ Job not found:', jobError);
+      console.error('ERROR: Job not found:', jobError);
       return new Response(
         JSON.stringify({ error: 'Job not found' }),
         { status: 404, headers: { 'Content-Type': 'application/json' } }
@@ -495,28 +495,28 @@ Deno.serve(async (req) => {
     const userLocation = cvParsed?.location || cvParsed?.municipalities?.[0] || 'Stockholm';
     const userRegion = cvParsed?.location || 'Stockholms län';
 
-    console.log(`📍 User location: ${userLocation}, Region: ${userRegion}`);
+    console.log(`User location: ${userLocation}, Region: ${userRegion}`);
 
     // Normalize target role with Taxonomy API (before GPT-5 analysis)
     let normalizedRole = job.target_role;
     if (job.target_role) {
-      console.log(`🏷️ Normalizing occupation: "${job.target_role}"`);
+      console.log(`Normalizing occupation: "${job.target_role}"`);
       try {
         const taxonomy = await getCachedTaxonomy(job.target_role);
         if (taxonomy.preferredLabel) {
           normalizedRole = taxonomy.preferredLabel;
-          console.log(`✅ Normalized: "${job.target_role}" → "${normalizedRole}"`);
+          console.log(`Normalized: "${job.target_role}" -> "${normalizedRole}"`);
         } else {
-          console.log(`⚠️ No preferred label found for "${job.target_role}", using original`);
+          console.log(`WARNING: No preferred label found for "${job.target_role}", using original`);
         }
       } catch (taxonomyError: any) {
-        console.warn(`⚠️ Taxonomy normalization failed for "${job.target_role}":`, taxonomyError.message);
+        console.warn(`WARNING: Taxonomy normalization failed for "${job.target_role}":`, taxonomyError.message);
         // Continue with original role on error
       }
     }
 
     if (cvError || !cvData) {
-      console.error('❌ CV not found:', cvError);
+      console.error('ERROR: CV not found:', cvError);
       await supabase
         .from('competence_analysis_jobs')
         .update({
@@ -542,7 +542,7 @@ Deno.serve(async (req) => {
       .eq('id', jobId);
 
     // Step 1: Analysis with GPT-5
-    console.log('📋 Starting CV analysis with GPT-5...');
+    console.log('Starting CV analysis with GPT-5...');
     let analysisResult: any;
 
     try {
@@ -553,7 +553,7 @@ Deno.serve(async (req) => {
       });
 
     } catch (analysisError: any) {
-      console.error('❌ GPT-5 Analysis failed:', analysisError);
+      console.error('ERROR: GPT-5 Analysis failed:', analysisError);
       await supabase
         .from('competence_analysis_jobs')
         .update({
@@ -566,7 +566,7 @@ Deno.serve(async (req) => {
       throw analysisError;
     }
 
-    console.log(`📊 GPT-5 Analysis complete. Score: ${analysisResult.matchScore}%, Gaps: ${analysisResult.identifiedSkillGaps?.length}`);
+    console.log(`GPT-5 Analysis complete. Score: ${analysisResult.matchScore}%, Gaps: ${analysisResult.identifiedSkillGaps?.length}`);
 
     // Update with initial results
     await supabase
@@ -585,7 +585,7 @@ Deno.serve(async (req) => {
       .eq('id', jobId);
 
     // Step 2: Find courses IN PARALLEL
-    console.log('🎓 Starting PARALLEL course search with web search...');
+    console.log('Starting PARALLEL course search with web search...');
     const gaps = analysisResult.identifiedSkillGaps || [];
     const allSuggestions: any[] = [];
 
@@ -593,13 +593,13 @@ Deno.serve(async (req) => {
     const BATCH_SIZE = 5; // 5 web searches simultaneously
     const totalBatches = Math.ceil(gaps.length / BATCH_SIZE);
 
-    console.log(`📦 Processing ${gaps.length} gaps in ${totalBatches} parallel batches...`);
+    console.log(`Processing ${gaps.length} gaps in ${totalBatches} parallel batches...`);
 
     for (let i = 0; i < gaps.length; i += BATCH_SIZE) {
       const batch = gaps.slice(i, i + BATCH_SIZE);
       const batchIndex = Math.floor(i / BATCH_SIZE) + 1;
 
-      console.log(`📦 Batch ${batchIndex}/${totalBatches}: Processing ${batch.length} gaps (${i + 1}-${Math.min(i + BATCH_SIZE, gaps.length)} of ${gaps.length})`);
+      console.log(`Batch ${batchIndex}/${totalBatches}: Processing ${batch.length} gaps (${i + 1}-${Math.min(i + BATCH_SIZE, gaps.length)} of ${gaps.length})`);
 
       // Update progress before batch
       await supabase
@@ -615,7 +615,7 @@ Deno.serve(async (req) => {
       const batchResults = await Promise.allSettled(
         batch.map((gap, batchGapIndex) => {
           const globalIndex = i + batchGapIndex;
-          console.log(`  🔍 [${globalIndex + 1}/${gaps.length}] Searching for: "${gap.skill}"`);
+          console.log(`  [${globalIndex + 1}/${gaps.length}] Searching for: "${gap.skill}"`);
 
           return findRealCoursesWithWebSearch(gap, normalizedRole || 'yrkesrollen', userLocation)
             .then(courses => ({ gap, courses }));
@@ -623,14 +623,14 @@ Deno.serve(async (req) => {
       );
 
       const batchDuration = Date.now() - batchStartTime;
-      console.log(`✅ Batch ${batchIndex} completed in ${batchDuration}ms`);
+      console.log(`Batch ${batchIndex} completed in ${batchDuration}ms`);
 
       // Collect results
       batchResults.forEach((result, batchIndex) => {
         const globalIndex = i + batchIndex;
         if (result.status === 'fulfilled') {
           const { gap, courses } = result.value;
-          console.log(`  ✅ [${globalIndex + 1}/${gaps.length}] Found ${courses.length} courses for "${gap.skill}"`);
+          console.log(`  [${globalIndex + 1}/${gaps.length}] Found ${courses.length} courses for "${gap.skill}"`);
           allSuggestions.push({
             skill: gap.skill,
             importance: gap.importance || 'important',
@@ -638,7 +638,7 @@ Deno.serve(async (req) => {
             suggestions: courses
           });
         } else {
-          console.error(`  ❌ [${globalIndex + 1}/${gaps.length}] Failed to find courses for "${batch[batchIndex].skill}":`, result.reason?.message || result.reason);
+          console.error(`  ERROR: [${globalIndex + 1}/${gaps.length}] Failed to find courses for "${batch[batchIndex].skill}":`, result.reason?.message || result.reason);
           // Add empty suggestion for failed searches
           allSuggestions.push({
             skill: batch[batchIndex].skill,
@@ -676,7 +676,7 @@ Deno.serve(async (req) => {
     );
 
     console.log('='.repeat(60));
-    console.log(`✅ Job completed successfully with GPT-5!`);
+    console.log(`Job completed successfully with GPT-5!`);
     console.log(`   Project: ${OPENAI_PROJECT_ID ? 'cvbrev' : 'default'}`);
     console.log(`   Model: gpt-5-2025-08-07`);
     console.log(`   Courses found: ${totalCoursesFound}`);
@@ -694,7 +694,7 @@ Deno.serve(async (req) => {
     );
 
   } catch (error: any) {
-    console.error('💥 Edge function error:', error);
+    console.error('ERROR: Edge function error:', error);
 
     // Mark job as failed if we have a jobId
     if (jobId) {

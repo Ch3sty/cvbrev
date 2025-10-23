@@ -246,7 +246,7 @@ export async function POST(request: NextRequest) {
 
         // Trigger edge function to process the job (fire and forget)
         const projectUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-        const functionUrl = `${projectUrl}/functions/v1/process-competence-analysis`;
+        const functionUrl = `${projectUrl}/functions/v1/Kompetensutveckling`;
         const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
         console.log(`--- API /start: Triggering edge function at ${functionUrl}`);
