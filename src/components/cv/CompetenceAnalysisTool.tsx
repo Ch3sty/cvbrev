@@ -140,7 +140,7 @@ const CompetenceAnalysisTool: React.FC<CompetenceAnalysisToolProps> = ({
             '📖 Läser igenom ditt CV...',
             '🔍 Analyserar dina färdigheter...',
             '🎯 Matchar mot målrollen...',
-            '🧠 AI:n tänker djupt...',
+            '🧠 Processar kompetensdata...',
             '📊 Beräknar matchningspoäng...',
             '💡 Identifierar utvecklingsområden...',
             '🎓 Söker efter relevanta kurser...',

@@ -197,7 +197,7 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
 
   return (
     <div className="w-full">
-      <div className="relative bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200/50 shadow-xl overflow-hidden">
+      <div className="relative bg-transparent rounded-2xl overflow-hidden">
         {/* Animated background effect */}
         <div className="absolute inset-0 opacity-10">
           <div className={`absolute inset-0 bg-gradient-to-r from-blue-500 to-indigo-500 ${
