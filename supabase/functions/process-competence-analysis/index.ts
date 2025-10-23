@@ -1,11 +1,17 @@
+console.log('🚀 [STARTUP] Edge function module loading...');
+
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from 'jsr:@supabase/supabase-js@2';
+
+console.log('✅ [STARTUP] Imports loaded');
 
 // API key hantering - använd OPENAI_API_KEY (inte ADMIN)
 const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
 const OPENAI_PROJECT_ID = Deno.env.get('OPENAI_PROJECT_ID');
 const SUPABASE_URL = Deno.env.get('SUPABASE_URL');
 const SUPABASE_SERVICE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+
+console.log('✅ [STARTUP] Environment variables loaded');
 
 // Validera miljövariabler
 if (!OPENAI_API_KEY) {
@@ -16,6 +22,8 @@ if (!OPENAI_PROJECT_ID) {
 }
 
 const supabase = createClient(SUPABASE_URL!, SUPABASE_SERVICE_KEY!);
+
+console.log('✅ [STARTUP] Supabase client initialized');
 
 // ============================================================================
 // TAXONOMY ENRICHMENT (from match-jobs)
@@ -377,6 +385,8 @@ Returnera ENDAST denna JSON-struktur (inget annat):
     return [];
   }
 }
+
+console.log('✅ [STARTUP] Functions defined, registering Deno.serve...');
 
 Deno.serve(async (req) => {
   console.log('='.repeat(60));
