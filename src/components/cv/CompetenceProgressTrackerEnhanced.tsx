@@ -241,18 +241,18 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
           </div>
 
           {/* Premium Vertical Timeline */}
-          <div className="mb-6 space-y-1">
+          <div className="mb-6">
             {steps.map((step, index) => {
               const StepIcon = step.icon;
               const stepProgress = getStepProgress(step);
               const isLast = index === steps.length - 1;
 
               return (
-                <div key={step.id} className="relative">
+                <div key={step.id} className="relative pb-8 last:pb-0">
                   {/* Timeline item */}
                   <div className="flex items-start gap-4">
                     {/* Left: CircularProgress with Icon */}
-                    <div className="relative flex-shrink-0">
+                    <div className="relative flex-shrink-0 z-10">
                       {/* Glow effect for active step */}
                       {step.active && (
                         <div className="absolute inset-0 rounded-full bg-blue-500 blur-xl opacity-40 animate-pulse" />
@@ -260,8 +260,8 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
 
                       <CircularProgress
                         percentage={stepProgress}
-                        size={60}
-                        strokeWidth={3}
+                        size={64}
+                        strokeWidth={4}
                         color={
                           step.completed ? '#10b981' : // green-500
                           step.active ? '#3b82f6' : // blue-500
@@ -272,9 +272,9 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
                         <div className={`
                           w-12 h-12 rounded-full flex items-center justify-center transition-all
                           ${step.completed
-                            ? 'bg-gradient-to-br from-green-500 to-green-600'
+                            ? 'bg-gradient-to-br from-green-500 to-green-600 shadow-lg'
                             : step.active
-                            ? 'bg-gradient-to-br from-blue-500 to-indigo-600'
+                            ? 'bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg'
                             : 'bg-gray-200'}
                         `}>
                           {step.completed && !step.active ? (
@@ -289,7 +289,7 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
                     </div>
 
                     {/* Right: Content */}
-                    <div className="flex-1 pb-6">
+                    <div className="flex-1 pt-2">
                       <div className={`
                         transition-all
                         ${step.active ? 'transform scale-105' : ''}
@@ -339,10 +339,10 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
 
                   {/* Connecting line with animated particles */}
                   {!isLast && (
-                    <div className="absolute left-[30px] top-[60px] w-0.5 h-full">
+                    <div className="absolute left-[32px] top-[64px] w-1 h-[calc(100%-64px)] z-0">
                       {/* Background line */}
                       <div className={`
-                        w-full h-full transition-all duration-500
+                        w-full h-full rounded-full transition-all duration-500
                         ${step.completed
                           ? 'bg-gradient-to-b from-green-500 to-green-400'
                           : step.active

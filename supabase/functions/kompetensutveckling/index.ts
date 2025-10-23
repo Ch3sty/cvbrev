@@ -552,7 +552,7 @@ Deno.serve(async (req) => {
       .from('competence_analysis_jobs')
       .update({
         progress: 20,
-        current_step: 'Analyserar CV med GPT-5...'
+        current_step: 'Analyserar ditt CV mot målrollen...'
       })
       .eq('id', jobId);
 
