@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 
 interface CompetenceProgressTrackerEnhancedProps {
-  status: 'pending' | 'analyzing' | 'processing_gaps' | 'completed' | 'failed';
+  status: 'pending' | 'analyzing' | 'processing_gaps' | 'partial_complete' | 'completed' | 'failed';
   progress: number;
   currentStep?: string;
   totalGaps?: number;
@@ -39,7 +39,7 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
 
   // Pulse animation when processing
   useEffect(() => {
-    if (status === 'analyzing' || status === 'processing_gaps') {
+    if (status === 'analyzing' || status === 'processing_gaps' || status === 'partial_complete') {
       const interval = setInterval(() => {
         setPulseAnimation(prev => !prev);
       }, 2000);
@@ -69,6 +69,13 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
       bgColor: 'bg-yellow-500',
       message: 'Söker utbildningar...',
       description: 'Hittar kurser och certifieringar för dina kompetensgap'
+    },
+    partial_complete: {
+      icon: TrendingUp,
+      color: 'text-indigo-400',
+      bgColor: 'bg-indigo-500',
+      message: 'Fortsätter sökning...',
+      description: 'Processar fler kompetensgap i nästa batch'
     },
     completed: {
       icon: Check,
