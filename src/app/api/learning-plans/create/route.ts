@@ -37,13 +37,63 @@ export async function POST(request: NextRequest) {
             targetRole,
             learningPath, // Optional - now auto-determined if not provided
             timeCommitmentHours, // Optional - now auto-determined if not provided
-            selectedSkills
+            selectedSkills,
+            selectedCoursesByStep, // New format from timeline
+            matchScore
         } = body;
 
         // Validate required fields (learningPath and timeCommitmentHours now optional)
         if (!jobId || !title || !targetRole) {
             return NextResponse.json(
                 { error: 'Saknade obligatoriska fält' },
+                { status: 400 }
+            );
+        }
+
+        // Handle both old (selectedSkills) and new (selectedCoursesByStep) formats
+        let skillsToProcess = selectedSkills;
+        if (!skillsToProcess && selectedCoursesByStep) {
+            // Convert selectedCoursesByStep to selectedSkills format
+            skillsToProcess = [];
+
+            if (selectedCoursesByStep.step1 && selectedCoursesByStep.step1.length > 0) {
+                skillsToProcess.push(...selectedCoursesByStep.step1.map((courseId: string, index: number) => ({
+                    name: courseId,
+                    level: 'foundation',
+                    importance: 'essential',
+                    estimatedHours: 40,
+                    courses: [courseId],
+                    step: 'step1'
+                })));
+            }
+
+            if (selectedCoursesByStep.step2 && selectedCoursesByStep.step2.length > 0) {
+                skillsToProcess.push(...selectedCoursesByStep.step2.map((courseId: string, index: number) => ({
+                    name: courseId,
+                    level: 'intermediate',
+                    importance: 'desirable',
+                    estimatedHours: 40,
+                    courses: [courseId],
+                    step: 'step2'
+                })));
+            }
+
+            if (selectedCoursesByStep.step3 && selectedCoursesByStep.step3.length > 0) {
+                skillsToProcess.push(...selectedCoursesByStep.step3.map((courseId: string, index: number) => ({
+                    name: courseId,
+                    level: 'advanced',
+                    importance: 'desirable',
+                    estimatedHours: 40,
+                    courses: [courseId],
+                    step: 'step3'
+                })));
+            }
+        }
+
+        // Validate we have skills to process
+        if (!skillsToProcess || skillsToProcess.length === 0) {
+            return NextResponse.json(
+                { error: 'Inga kurser valda' },
                 { status: 400 }
             );
         }
@@ -87,7 +137,7 @@ export async function POST(request: NextRequest) {
 
         // Calculate estimated completion date based on learning path and commitment
         const hoursPerWeek = timeCommitmentHours || strategyConfig.defaultHoursPerWeek;
-        const totalHours = selectedSkills.reduce((sum: number, skill: any) =>
+        const totalHours = skillsToProcess.reduce((sum: number, skill: any) =>
             sum + (skill.estimatedHours || 40), 0
         );
         const weeksNeeded = Math.ceil(totalHours / hoursPerWeek);
@@ -107,7 +157,7 @@ export async function POST(request: NextRequest) {
                 estimated_completion_date: estimatedCompletionDate.toISOString(),
                 status: 'active',
                 match_score: job.match_score,
-                total_skills: selectedSkills.length,
+                total_skills: skillsToProcess.length,
                 completed_skills: 0,
                 metadata: {
                     created_from: 'competence_analysis',
@@ -130,7 +180,7 @@ export async function POST(request: NextRequest) {
         }
 
         // Create skill entries for the plan
-        const skillEntries = selectedSkills.map((skill: any, index: number) => ({
+        const skillEntries = skillsToProcess.map((skill: any, index: number) => ({
             plan_id: learningPlan.id,
             skill_name: skill.name,
             skill_level: skill.level || 'foundation',
@@ -139,7 +189,8 @@ export async function POST(request: NextRequest) {
             estimated_hours: skill.estimatedHours || 40,
             courses: skill.courses || [],
             prerequisites: skill.prerequisites || [],
-            order_index: index
+            order_index: index,
+            step: skill.step // Preserve step information if available
         }));
 
         const { error: skillsError } = await supabase
@@ -170,7 +221,7 @@ export async function POST(request: NextRequest) {
                 targetRole,
                 learningPath: finalStrategy,
                 autoStrategy: isAutoStrategy,
-                totalSkills: selectedSkills.length,
+                totalSkills: skillsToProcess.length,
                 estimatedWeeks: weeksNeeded
             }
         );
