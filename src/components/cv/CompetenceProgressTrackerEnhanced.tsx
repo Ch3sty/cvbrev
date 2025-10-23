@@ -268,7 +268,7 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
                           step.active ? '#3b82f6' : // blue-500
                           '#d1d5db' // gray-300
                         }
-                        backgroundColor="#f3f4f6"
+                        backgroundColor="transparent"
                       >
                         <div className={`
                           w-12 h-12 rounded-full flex items-center justify-center transition-all
