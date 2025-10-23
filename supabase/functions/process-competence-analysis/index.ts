@@ -326,10 +326,11 @@ Deno.serve(async (req) => {
     const batchStartIndex = requestBody.batchStartIndex || 0;
     const batchSize = requestBody.batchSize || 5; // Default 5 gaps per worker
     const isParallel = requestBody.isParallel || false;
+    const isInitialAnalysis = requestBody.isInitialAnalysis || false;
     const workerIndex = requestBody.workerIndex ?? 0;
-    const isBatchContinuation = batchStartIndex > 0 && !isParallel;
+    const isBatchContinuation = batchStartIndex > 0 && !isParallel && !isInitialAnalysis;
 
-    console.log(`📦 Processing mode: ${isParallel ? `PARALLEL worker ${workerIndex}` : (isBatchContinuation ? `Sequential continuation from ${batchStartIndex}` : 'Initial run')}`);
+    console.log(`📦 Processing mode: ${isInitialAnalysis ? 'INITIAL ANALYSIS ONLY' : (isParallel ? `PARALLEL worker ${workerIndex}` : (isBatchContinuation ? `Sequential continuation from ${batchStartIndex}` : 'Initial run'))}`);
     console.log(`📦 Batch: start=${batchStartIndex}, size=${batchSize}`);
 
     let analysisResult: any;
@@ -463,6 +464,23 @@ Deno.serve(async (req) => {
           current_step: 'Söker kurser med web search...'
         })
         .eq('id', jobId);
+
+      // If this is initial analysis only, return here without processing gaps
+      if (isInitialAnalysis) {
+        console.log('✅ Initial analysis complete - parallel workers will handle course search');
+        return new Response(
+          JSON.stringify({
+            success: true,
+            message: 'Initial analysis completed successfully',
+            model: 'gpt-5-2025-08-07',
+            project: OPENAI_PROJECT_ID ? 'cvbrev' : 'default',
+            matchScore: analysisResult.matchScore,
+            totalGaps: gaps.length,
+            isInitialAnalysis: true
+          }),
+          { headers: { 'Content-Type': 'application/json' } }
+        );
+      }
     }
 
     // Step 2: Find courses (PARALLEL/BATCH PROCESSING)
