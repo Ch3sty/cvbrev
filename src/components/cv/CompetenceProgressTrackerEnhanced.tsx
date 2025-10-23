@@ -166,12 +166,13 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
     return 'Beräknar tid...';
   };
 
-  // Detail message for current processing
+  // Detail message for current processing - simplified
   const getDetailMessage = () => {
     if ((status === 'processing_gaps' || status === 'partial_complete') && currentStep) {
       const match = currentStep.match(/"([^"]+)"/);
       if (match) {
-        return `Processar: ${match[1]}`;
+        // Return just the skill name without extra text
+        return match[1];
       }
     }
     return currentStep;
@@ -289,11 +290,8 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
                     </div>
 
                     {/* Right: Content */}
-                    <div className="flex-1 pt-2">
-                      <div className={`
-                        transition-all
-                        ${step.active ? 'transform scale-105' : ''}
-                      `}>
+                    <div className="flex-1 pt-2 min-w-0">
+                      <div className="transition-all">
                         <h4 className={`
                           text-sm font-bold transition-colors
                           ${step.completed
@@ -313,7 +311,7 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
 
                         {/* Live status for active step */}
                         {step.active && getDetailMessage() && (
-                          <div className="mt-2 text-xs text-gray-500 italic bg-gray-50 rounded px-2 py-1 inline-block">
+                          <div className="mt-2 text-xs text-gray-500 italic bg-gray-50 rounded px-2 py-1 inline-block max-w-full truncate">
                             {getDetailMessage()}
                           </div>
                         )}
