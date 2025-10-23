@@ -45,25 +45,27 @@ const AnimatedParticles: React.FC<AnimatedParticlesProps> = ({
         );
       })}
 
-      <style jsx>{`
-        @keyframes particleFlow {
-          0% {
-            transform: translateY(${direction === 'down' ? '0' : '0'}) scale(0);
-            opacity: 0;
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          @keyframes particleFlow {
+            0% {
+              transform: translateY(${direction === 'down' ? '0' : '0'}) scale(0);
+              opacity: 0;
+            }
+            10% {
+              opacity: 0.6;
+              transform: scale(1);
+            }
+            90% {
+              opacity: 0.4;
+            }
+            100% {
+              transform: translateY(${direction === 'down' ? '100%' : '-100%'}) scale(0.5);
+              opacity: 0;
+            }
           }
-          10% {
-            opacity: 0.6;
-            transform: scale(1);
-          }
-          90% {
-            opacity: 0.4;
-          }
-          100% {
-            transform: translateY(${direction === 'down' ? '100%' : '-100%'}) scale(0.5);
-            opacity: 0;
-          }
-        }
-      `}</style>
+        `
+      }} />
     </div>
   );
 };
