@@ -25,6 +25,7 @@ export interface Course {
   relevance?: string;
   priority?: 'essential' | 'recommended' | 'optional';
   language?: 'sv' | 'en' | 'other';
+  course_level?: 'foundation' | 'intermediate' | 'advanced';
 }
 
 export interface StrategyConfig {

@@ -318,7 +318,24 @@ REGIONAL PRIORITERING:
 - PRIORITERA kurser i ${userLocation || 'Stockholm'} eller närliggande områden
 - Distans/Online-kurser är alltid OK och HÖGT prioriterade
 - För platskurser: inkludera endast inom rimligt avstånd från ${userLocation || 'Stockholm'}
-- UNDVIK kurser i avlägsna regioner om de inte är distans/online`
+- UNDVIK kurser i avlägsna regioner om de inte är distans/online
+
+KURS-NIVÅ MÄRKNING (course_level):
+- "foundation": Grundutbildningar för att BÖRJA i yrket
+  * YH-program (1-2 år), Högskoleprogram (3-5 år), Komvux
+  * Vårdförberedande, Förberedande kurser
+  * Exempel: "Sjuksköterskeprogrammet", "YH-Fastighetstekniker", "Komvux Naturkunskap"
+
+- "intermediate": Vidareutbildning EFTER grundutbildning
+  * Specialistkurser, Certifieringar, Fördjupningskurser (3-12 månader)
+  * Kräver ofta tidigare erfarenhet eller grundexamen
+  * Exempel: "Specialistsjuksköterska", "Projektledarcertifiering", "Fördjupningskurs i..."
+
+- "advanced": Avancerade specialistkurser och arbetsplatskurser
+  * För ERFARNA yrkesverksamma, Handledarutbildning, Arbetsplatsspecifika system
+  * Exempel: "För erfarna...", "Handledarutbildning VFU", "TakeCare-journalsystem", "För chefer..."
+
+VIKTIGT: Märk ALLTID varje kurs med rätt nivå baserat på målgrupp och förkunskapskrav!`
           },
           {
             role: 'user',
@@ -337,7 +354,8 @@ Returnera ENDAST denna JSON-struktur (inget annat):
       "cost": "Kostnad eller Gratis",
       "description": "Kort beskrivning",
       "location": "Plats eller Distans/Online",
-      "delivery_method": "Distans eller Plats"
+      "delivery_method": "Distans eller Plats",
+      "course_level": "foundation" | "intermediate" | "advanced"
     }
   ]
 }`

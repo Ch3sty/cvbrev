@@ -10,6 +10,7 @@ import {
 import { groupCourses, shouldDisplayAsGroup, getGroupDisplayText, getCourseVariants } from '@/lib/learning/course-grouping';
 import type { CourseGroup } from '@/lib/learning/course-grouping';
 import type { Course } from '@/lib/learning/course-prioritization';
+import { parseDurationToHours } from '@/lib/learning/course-prioritization';
 import LearningPlanCreator from './LearningPlanCreator';
 
 interface LearningSuggestion {
@@ -70,19 +71,39 @@ const InteractiveLearningTimeline: React.FC<InteractiveLearningTimelineProps> = 
 
   // Build timeline steps with grouped courses
   const timelineSteps = useMemo<TimelineStep[]>(() => {
-    const coursesPerStep = Math.ceil(optimizedCourses.length / 3);
-
-    // Step 1: Foundation (first third of courses)
-    const step1Courses = optimizedCourses.slice(0, coursesPerStep);
+    // Filter courses by level instead of dividing into thirds
+    // Step 1: Foundation courses (YH-programs, University degrees, Komvux for beginners)
+    const step1Courses = optimizedCourses.filter(c => {
+      if (c.course_level === 'foundation') return true;
+      // Fallback: If no level, use duration (6+ months = foundation) or difficulty
+      if (!c.course_level) {
+        if (c.difficulty === 'beginner') return true;
+        const durationHours = parseDurationToHours(c.duration);
+        if (durationHours >= 960) return true; // 6+ months
+      }
+      return false;
+    });
     const step1Groups = groupCourses(step1Courses);
 
-    // Step 2: Development (middle third)
-    const step2Courses = optimizedCourses.slice(coursesPerStep, coursesPerStep * 2);
-    const step2Groups = groupCourses(step2Courses);
-
-    // Step 3: Specialization (last third)
-    const step3Courses = optimizedCourses.slice(coursesPerStep * 2);
+    // Step 3: Advanced courses (for experienced professionals, workplace-specific)
+    const step3Courses = optimizedCourses.filter(c => {
+      if (c.course_level === 'advanced') return true;
+      // Fallback: Check for "erfarna" or advanced difficulty
+      if (!c.course_level) {
+        if (c.difficulty === 'advanced') return true;
+        const title = c.title.toLowerCase();
+        if (title.includes('erfarna') || title.includes('handledar') ||
+            title.includes('för chefer') || title.includes('arbetsplats')) return true;
+      }
+      return false;
+    });
     const step3Groups = groupCourses(step3Courses);
+
+    // Step 2: Intermediate courses (everything not in step1 or step3)
+    const step2Courses = optimizedCourses.filter(c =>
+      !step1Courses.includes(c) && !step3Courses.includes(c)
+    );
+    const step2Groups = groupCourses(step2Courses);
 
     const steps: TimelineStep[] = [
       {
