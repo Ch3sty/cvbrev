@@ -52,7 +52,7 @@ async function analyzeCV(cvText: string, targetInfo: any) {
       method: 'POST',
       headers,
       body: JSON.stringify({
-        model: 'gpt-5-2025-08-07', // Använd det officiella GPT-5 modellnamnet
+        model: 'gpt-5-2025-08-07',
         messages: [
           {
             role: 'system',
@@ -320,108 +320,151 @@ Deno.serve(async (req) => {
       );
     }
 
-    // Update status
-    await supabase
-      .from('competence_analysis_jobs')
-      .update({
-        status: 'analyzing',
-        progress: 10,
-        current_step: 'Hämtar CV-text...'
-      })
-      .eq('id', jobId);
+    // ========================================================================
+    // BATCH PROCESSING LOGIC
+    // ========================================================================
+    const batchStartIndex = requestBody.batchStartIndex || 0;
+    const isBatchContinuation = batchStartIndex > 0;
 
-    // Get CV text
-    const { data: cvData, error: cvError } = await supabase
-      .from('cv_texts')
-      .select('cv_text')
-      .eq('id', job.cv_id)
-      .single();
+    console.log(`📦 Batch mode: ${isBatchContinuation ? `Continuation from index ${batchStartIndex}` : 'Initial run'}`);
 
-    if (cvError || !cvData) {
-      console.error('❌ CV not found:', cvError);
-      await supabase
-        .from('competence_analysis_jobs')
-        .update({
-          status: 'failed',
-          error_message: 'CV kunde inte hittas',
-          completed_at: new Date().toISOString()
-        })
-        .eq('id', jobId);
-
-      return new Response(
-        JSON.stringify({ error: 'CV not found' }),
-        { status: 404, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    // Update progress
-    await supabase
-      .from('competence_analysis_jobs')
-      .update({
-        progress: 20,
-        current_step: 'Analyserar CV med GPT-5...'
-      })
-      .eq('id', jobId);
-
-    // Step 1: Analysis with GPT-5
-    console.log('📋 Starting CV analysis with GPT-5...');
     let analysisResult: any;
+    let gaps: any[] = [];
 
-    try {
-      analysisResult = await analyzeCV(cvData.cv_text, {
-        mode: job.analysis_mode,
-        targetRole: job.target_role,
-        jobAdText: job.job_ad_text
-      });
+    if (isBatchContinuation) {
+      // Batch continuation - use existing analysis results
+      console.log('📋 Loading existing analysis results from job...');
 
-    } catch (analysisError: any) {
-      console.error('❌ GPT-5 Analysis failed:', analysisError);
+      if (!job.skill_gaps || job.skill_gaps.length === 0) {
+        throw new Error('No skill gaps found in job - cannot continue batch');
+      }
+
+      analysisResult = {
+        matchScore: job.match_score,
+        cvSummaryForTarget: job.cv_summary,
+        identifiedRelevantSkills: job.identified_skills,
+        identifiedSkillGaps: job.skill_gaps
+      };
+
+      gaps = job.skill_gaps;
+
+      console.log(`📊 Continuing from batch ${batchStartIndex}, Total gaps: ${gaps.length}`);
+
+    } else {
+      // Initial run - update status and fetch CV
       await supabase
         .from('competence_analysis_jobs')
         .update({
-          status: 'failed',
-          error_message: `GPT-5 analys misslyckades: ${analysisError.message}`,
-          completed_at: new Date().toISOString()
+          status: 'analyzing',
+          progress: 10,
+          current_step: 'Hämtar CV-text...'
         })
         .eq('id', jobId);
 
-      throw analysisError;
+      // Get CV text
+      const { data: cvData, error: cvError } = await supabase
+        .from('cv_texts')
+        .select('cv_text')
+        .eq('id', job.cv_id)
+        .single();
+
+      if (cvError || !cvData) {
+        console.error('❌ CV not found:', cvError);
+        await supabase
+          .from('competence_analysis_jobs')
+          .update({
+            status: 'failed',
+            error_message: 'CV kunde inte hittas',
+            completed_at: new Date().toISOString()
+          })
+          .eq('id', jobId);
+
+        return new Response(
+          JSON.stringify({ error: 'CV not found' }),
+          { status: 404, headers: { 'Content-Type': 'application/json' } }
+        );
+      }
+
+      // Update progress
+      await supabase
+        .from('competence_analysis_jobs')
+        .update({
+          progress: 20,
+          current_step: 'Analyserar CV med GPT-5...'
+        })
+        .eq('id', jobId);
+
+      // Step 1: Analysis with GPT-5
+      console.log('📋 Starting CV analysis with GPT-5...');
+
+      try {
+        analysisResult = await analyzeCV(cvData.cv_text, {
+          mode: job.analysis_mode,
+          targetRole: job.target_role,
+          jobAdText: job.job_ad_text
+        });
+
+      } catch (analysisError: any) {
+        console.error('❌ GPT-5 Analysis failed:', analysisError);
+        await supabase
+          .from('competence_analysis_jobs')
+          .update({
+            status: 'failed',
+            error_message: `GPT-5 analys misslyckades: ${analysisError.message}`,
+            completed_at: new Date().toISOString()
+          })
+          .eq('id', jobId);
+
+        throw analysisError;
+      }
+
+      console.log(`📊 GPT-5 Analysis complete. Score: ${analysisResult.matchScore}%, Gaps: ${analysisResult.identifiedSkillGaps?.length}`);
+
+      gaps = analysisResult.identifiedSkillGaps || [];
+
+      // Update with initial results
+      await supabase
+        .from('competence_analysis_jobs')
+        .update({
+          status: 'processing_gaps',
+          progress: 40,
+          match_score: analysisResult.matchScore,
+          cv_summary: analysisResult.cvSummaryForTarget,
+          identified_skills: analysisResult.identifiedRelevantSkills,
+          skill_gaps: analysisResult.identifiedSkillGaps,
+          total_gaps: gaps.length,
+          processed_gaps: 0,
+          current_step: 'Söker kurser med web search...'
+        })
+        .eq('id', jobId);
     }
 
-    console.log(`📊 GPT-5 Analysis complete. Score: ${analysisResult.matchScore}%, Gaps: ${analysisResult.identifiedSkillGaps?.length}`);
+    // Step 2: Find courses (BATCH PROCESSING)
+    console.log('🎓 Starting batch course search with web search...');
 
-    // Update with initial results
-    await supabase
-      .from('competence_analysis_jobs')
-      .update({
-        status: 'processing_gaps',
-        progress: 40,
-        match_score: analysisResult.matchScore,
-        cv_summary: analysisResult.cvSummaryForTarget,
-        identified_skills: analysisResult.identifiedRelevantSkills,
-        skill_gaps: analysisResult.identifiedSkillGaps,
-        total_gaps: analysisResult.identifiedSkillGaps?.length || 0,
-        processed_gaps: 0,
-        current_step: 'Söker kurser med web search...'
-      })
-      .eq('id', jobId);
+    // Get existing suggestions if batch continuation
+    const existingSuggestions = isBatchContinuation && job.learning_suggestions
+      ? (Array.isArray(job.learning_suggestions) ? job.learning_suggestions : [])
+      : [];
 
-    // Step 2: Find courses
-    console.log('🎓 Starting course search with web search...');
-    const gaps = analysisResult.identifiedSkillGaps || [];
-    const allSuggestions: any[] = [];
+    const BATCH_SIZE = 3; // Process 3 gaps per batch (safe for 150s timeout)
+    const batchEndIndex = Math.min(batchStartIndex + BATCH_SIZE, gaps.length);
+    const gapsToProcess = gaps.slice(batchStartIndex, batchEndIndex);
 
-    const gapsToProcess = gaps.slice(0, 5); // Max 5 gaps
+    console.log(`📦 Processing gaps ${batchStartIndex + 1}-${batchEndIndex} of ${gaps.length}`);
+
+    const newSuggestions: any[] = [];
 
     for (let i = 0; i < gapsToProcess.length; i++) {
       const gap = gapsToProcess[i];
+      const globalIndex = batchStartIndex + i;
 
       await supabase
         .from('competence_analysis_jobs')
         .update({
-          processed_gaps: i + 1,
-          progress: 40 + Math.round(((i + 1) / gapsToProcess.length) * 50),
-          current_step: `Söker kurser för: "${gap.skill}" (${i + 1}/${gapsToProcess.length})...`
+          processed_gaps: globalIndex + 1,
+          progress: 40 + Math.round(((globalIndex + 1) / gaps.length) * 50),
+          current_step: `Söker kurser för: "${gap.skill}" (${globalIndex + 1}/${gaps.length})...`
         })
         .eq('id', jobId);
 
@@ -430,7 +473,7 @@ Deno.serve(async (req) => {
         job.target_role || 'yrkesrollen'
       );
 
-      allSuggestions.push({
+      newSuggestions.push({
         skill: gap.skill,
         importance: gap.importance || 'important',
         reasoning: gap.reasoning || '',
@@ -438,15 +481,32 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Complete the job
+    // Merge suggestions
+    const allSuggestions = [...existingSuggestions, ...newSuggestions];
+
+    // Check if more batches needed
+    const hasMoreBatches = batchEndIndex < gaps.length;
+    const nextBatchIndex = hasMoreBatches ? batchEndIndex : null;
+    const finalStatus = hasMoreBatches ? 'partial_complete' : 'completed';
+    const finalProgress = hasMoreBatches
+      ? 40 + Math.round((batchEndIndex / gaps.length) * 50)
+      : 100;
+
+    console.log(`📊 Batch complete: ${allSuggestions.length}/${gaps.length} gaps processed`);
+    console.log(`📦 Next batch: ${nextBatchIndex !== null ? `Start at ${nextBatchIndex}` : 'None (complete)'}`);
+
+    // Update job with batch results
     await supabase
       .from('competence_analysis_jobs')
       .update({
-        status: 'completed',
-        progress: 100,
+        status: finalStatus,
+        progress: finalProgress,
         learning_suggestions: allSuggestions,
-        completed_at: new Date().toISOString(),
-        current_step: 'Analys klar!'
+        next_batch_index: nextBatchIndex,
+        completed_at: hasMoreBatches ? null : new Date().toISOString(),
+        current_step: hasMoreBatches
+          ? `Batch klar! ${allSuggestions.length}/${gaps.length} gaps processade...`
+          : 'Analys klar!'
       })
       .eq('id', jobId);
 
@@ -456,19 +516,27 @@ Deno.serve(async (req) => {
     );
 
     console.log('='.repeat(60));
-    console.log(`✅ Job completed successfully with GPT-5!`);
+    console.log(`✅ Batch ${hasMoreBatches ? 'partially' : 'fully'} completed with GPT-5!`);
     console.log(`   Project: ${OPENAI_PROJECT_ID ? 'cvbrev' : 'default'}`);
     console.log(`   Model: gpt-5-2025-08-07`);
+    console.log(`   Gaps processed: ${allSuggestions.length}/${gaps.length}`);
     console.log(`   Courses found: ${totalCoursesFound}`);
+    console.log(`   Next batch: ${nextBatchIndex !== null ? nextBatchIndex : 'None'}`);
     console.log('='.repeat(60));
 
     return new Response(
       JSON.stringify({
         success: true,
-        message: 'Job processed successfully with GPT-5',
+        message: hasMoreBatches
+          ? `Batch processed successfully. ${gaps.length - batchEndIndex} gaps remaining.`
+          : 'Job completed successfully with GPT-5',
         model: 'gpt-5-2025-08-07',
         project: OPENAI_PROJECT_ID ? 'cvbrev' : 'default',
-        coursesFound: totalCoursesFound
+        coursesFound: totalCoursesFound,
+        gapsProcessed: allSuggestions.length,
+        totalGaps: gaps.length,
+        hasMoreBatches,
+        nextBatchIndex
       }),
       { headers: { 'Content-Type': 'application/json' } }
     );
