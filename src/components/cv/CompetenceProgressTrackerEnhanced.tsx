@@ -218,61 +218,61 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
 
           {/* Enhanced step indicators */}
           <div className="mb-6">
-            <div className="flex items-center justify-between">
+            <div className="flex items-start justify-between">
               {steps.map((step, index) => {
                 const StepIcon = step.icon;
                 return (
-                  <div key={step.id} className="flex items-center flex-1">
-                    <div className="relative">
-                      {/* Glow effect for active step */}
-                      {step.active && (
-                        <div className="absolute inset-0 rounded-full bg-blue-500 blur-lg opacity-50 animate-pulse" />
-                      )}
-                      <div className={`
-                        relative w-10 h-10 rounded-full flex items-center justify-center transition-all
-                        ${step.completed
-                          ? 'bg-gradient-to-br from-green-500 to-green-600 text-white scale-100'
-                          : step.active
-                          ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white scale-110'
-                          : 'bg-gray-200 text-gray-500 border border-gray-300'}
-                        ${step.active ? 'animate-pulse' : ''}
-                      `}>
-                        {step.completed && !step.active ? (
-                          <Check className="w-5 h-5" />
-                        ) : (
-                          <StepIcon className="w-5 h-5" />
+                  <React.Fragment key={step.id}>
+                    <div className="flex flex-col items-center flex-1">
+                      <div className="relative mb-2">
+                        {/* Glow effect for active step */}
+                        {step.active && (
+                          <div className="absolute inset-0 rounded-full bg-blue-500 blur-lg opacity-50 animate-pulse" />
                         )}
+                        <div className={`
+                          relative w-10 h-10 rounded-full flex items-center justify-center transition-all
+                          ${step.completed
+                            ? 'bg-gradient-to-br from-green-500 to-green-600 text-white scale-100'
+                            : step.active
+                            ? 'bg-gradient-to-br from-blue-500 to-blue-600 text-white scale-110'
+                            : 'bg-gray-200 text-gray-500 border border-gray-300'}
+                          ${step.active ? 'animate-pulse' : ''}
+                        `}>
+                          {step.completed && !step.active ? (
+                            <Check className="w-5 h-5" />
+                          ) : (
+                            <StepIcon className="w-5 h-5" />
+                          )}
+                        </div>
                       </div>
+                      <span className={`
+                        text-xs transition-colors text-center px-1
+                        ${step.completed
+                          ? 'text-green-400'
+                          : step.active
+                          ? 'text-blue-400 font-semibold'
+                          : 'text-gray-500'}
+                      `}>
+                        {step.label}
+                      </span>
                     </div>
                     {index < steps.length - 1 && (
-                      <div className="flex-1 mx-3 h-1 rounded-full bg-gray-200 overflow-hidden">
-                        <div className={`
-                          h-full transition-all duration-500 rounded-full
-                          ${step.completed
-                            ? 'bg-gradient-to-r from-green-500 to-green-400'
-                            : step.active
-                            ? 'bg-gradient-to-r from-blue-500 to-blue-400 w-1/2'
-                            : 'bg-gray-200'}
-                        `} />
+                      <div className="flex items-center flex-1 pb-6">
+                        <div className="w-full h-1 rounded-full bg-gray-200 overflow-hidden mx-2">
+                          <div className={`
+                            h-full transition-all duration-500 rounded-full
+                            ${step.completed
+                              ? 'bg-gradient-to-r from-green-500 to-green-400 w-full'
+                              : step.active
+                              ? 'bg-gradient-to-r from-blue-500 to-blue-400 w-1/2'
+                              : 'bg-gray-200 w-0'}
+                          `} />
+                        </div>
                       </div>
                     )}
-                  </div>
+                  </React.Fragment>
                 );
               })}
-            </div>
-            <div className="flex justify-between mt-2">
-              {steps.map((step) => (
-                <span key={step.id} className={`
-                  text-xs transition-colors flex-1 text-center
-                  ${step.completed
-                    ? 'text-green-400'
-                    : step.active
-                    ? 'text-blue-400 font-semibold'
-                    : 'text-gray-500'}
-                `}>
-                  {step.label}
-                </span>
-              ))}
             </div>
           </div>
 
