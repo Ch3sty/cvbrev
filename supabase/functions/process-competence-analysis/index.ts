@@ -321,18 +321,44 @@ Deno.serve(async (req) => {
     }
 
     // ========================================================================
-    // BATCH PROCESSING LOGIC
+    // PARALLEL BATCH PROCESSING LOGIC
     // ========================================================================
     const batchStartIndex = requestBody.batchStartIndex || 0;
-    const isBatchContinuation = batchStartIndex > 0;
+    const batchSize = requestBody.batchSize || 5; // Default 5 gaps per worker
+    const isParallel = requestBody.isParallel || false;
+    const workerIndex = requestBody.workerIndex ?? 0;
+    const isBatchContinuation = batchStartIndex > 0 && !isParallel;
 
-    console.log(`📦 Batch mode: ${isBatchContinuation ? `Continuation from index ${batchStartIndex}` : 'Initial run'}`);
+    console.log(`📦 Processing mode: ${isParallel ? `PARALLEL worker ${workerIndex}` : (isBatchContinuation ? `Sequential continuation from ${batchStartIndex}` : 'Initial run')}`);
+    console.log(`📦 Batch: start=${batchStartIndex}, size=${batchSize}`);
 
     let analysisResult: any;
     let gaps: any[] = [];
 
-    if (isBatchContinuation) {
-      // Batch continuation - use existing analysis results
+    if (isParallel) {
+      // Parallel mode - use existing analysis results from job
+      console.log(`📋 PARALLEL WORKER ${workerIndex}: Loading existing analysis from job...`);
+
+      if (!job.skill_gaps || job.skill_gaps.length === 0) {
+        throw new Error('No skill gaps found in job - parallel workers need pre-analyzed data');
+      }
+
+      analysisResult = {
+        matchScore: job.match_score,
+        cvSummaryForTarget: job.cv_summary,
+        identifiedRelevantSkills: job.identified_skills,
+        identifiedSkillGaps: job.skill_gaps
+      };
+
+      gaps = job.skill_gaps;
+
+      // Register this worker as active
+      await supabase.rpc('increment_active_workers', { p_job_id: jobId });
+
+      console.log(`📊 Worker ${workerIndex}: Will process gaps ${batchStartIndex}-${Math.min(batchStartIndex + batchSize, gaps.length)} of ${gaps.length}`);
+
+    } else if (isBatchContinuation) {
+      // Sequential batch continuation - use existing analysis results
       console.log('📋 Loading existing analysis results from job...');
 
       if (!job.skill_gaps || job.skill_gaps.length === 0) {
@@ -439,19 +465,14 @@ Deno.serve(async (req) => {
         .eq('id', jobId);
     }
 
-    // Step 2: Find courses (BATCH PROCESSING)
-    console.log('🎓 Starting batch course search with web search...');
+    // Step 2: Find courses (PARALLEL/BATCH PROCESSING)
+    console.log('🎓 Starting course search with web search...');
 
-    // Get existing suggestions if batch continuation
-    const existingSuggestions = isBatchContinuation && job.learning_suggestions
-      ? (Array.isArray(job.learning_suggestions) ? job.learning_suggestions : [])
-      : [];
-
-    const BATCH_SIZE = 3; // Process 3 gaps per batch (safe for 150s timeout)
-    const batchEndIndex = Math.min(batchStartIndex + BATCH_SIZE, gaps.length);
+    const batchEndIndex = Math.min(batchStartIndex + batchSize, gaps.length);
     const gapsToProcess = gaps.slice(batchStartIndex, batchEndIndex);
 
-    console.log(`📦 Processing gaps ${batchStartIndex + 1}-${batchEndIndex} of ${gaps.length}`);
+    const workerLabel = isParallel ? `Worker ${workerIndex}` : 'Batch';
+    console.log(`📦 ${workerLabel}: Processing gaps ${batchStartIndex + 1}-${batchEndIndex} of ${gaps.length}`);
 
     const newSuggestions: any[] = [];
 
@@ -459,14 +480,12 @@ Deno.serve(async (req) => {
       const gap = gapsToProcess[i];
       const globalIndex = batchStartIndex + i;
 
-      await supabase
-        .from('competence_analysis_jobs')
-        .update({
-          processed_gaps: globalIndex + 1,
-          progress: 40 + Math.round(((globalIndex + 1) / gaps.length) * 50),
-          current_step: `Söker kurser för: "${gap.skill}" (${globalIndex + 1}/${gaps.length})...`
-        })
-        .eq('id', jobId);
+      // Update progress using atomic function
+      await supabase.rpc('update_worker_progress', {
+        p_job_id: jobId,
+        p_current_step: `Söker kurser för: "${gap.skill}" (${globalIndex + 1}/${gaps.length})...`,
+        p_processed_count: globalIndex + 1
+      });
 
       const courses = await findRealCoursesWithWebSearch(
         gap,
@@ -481,62 +500,81 @@ Deno.serve(async (req) => {
       });
     }
 
-    // Merge suggestions
-    const allSuggestions = [...existingSuggestions, ...newSuggestions];
+    // Merge suggestions using atomic function
+    await supabase.rpc('merge_learning_suggestions', {
+      p_job_id: jobId,
+      p_new_suggestions: newSuggestions,
+      p_processed_count: batchEndIndex
+    });
 
-    // Check if more batches needed
-    const hasMoreBatches = batchEndIndex < gaps.length;
-    const nextBatchIndex = hasMoreBatches ? batchEndIndex : null;
-    const finalStatus = hasMoreBatches ? 'partial_complete' : 'completed';
-    const finalProgress = hasMoreBatches
-      ? 40 + Math.round((batchEndIndex / gaps.length) * 50)
-      : 100;
+    console.log(`📊 ${workerLabel}: Processed ${newSuggestions.length} gaps (${batchStartIndex + 1}-${batchEndIndex})`);
 
-    console.log(`📊 Batch complete: ${allSuggestions.length}/${gaps.length} gaps processed`);
-    console.log(`📦 Next batch: ${nextBatchIndex !== null ? `Start at ${nextBatchIndex}` : 'None (complete)'}`);
+    // Handle completion based on mode
+    if (isParallel) {
+      // Parallel mode - mark worker as complete and check if all workers done
+      await supabase.rpc('complete_worker', { p_job_id: jobId });
+      console.log(`✅ Worker ${workerIndex} completed. Atomic check will set job to 'completed' if all workers done.`);
+    } else {
+      // Sequential mode - handle next batch or completion
+      const hasMoreBatches = batchEndIndex < gaps.length;
+      const nextBatchIndex = hasMoreBatches ? batchEndIndex : null;
+      const finalStatus = hasMoreBatches ? 'partial_complete' : 'completed';
+      const finalProgress = hasMoreBatches
+        ? 40 + Math.round((batchEndIndex / gaps.length) * 50)
+        : 100;
 
-    // Update job with batch results
-    await supabase
+      console.log(`📦 Next batch: ${nextBatchIndex !== null ? `Start at ${nextBatchIndex}` : 'None (complete)'}`);
+
+      await supabase
+        .from('competence_analysis_jobs')
+        .update({
+          status: finalStatus,
+          progress: finalProgress,
+          next_batch_index: nextBatchIndex,
+          completed_at: hasMoreBatches ? null : new Date().toISOString(),
+          current_step: hasMoreBatches
+            ? `Batch klar! ${batchEndIndex}/${gaps.length} gaps processade...`
+            : 'Analys klar!'
+        })
+        .eq('id', jobId);
+    }
+
+    // Get final count for response
+    const { data: finalJob } = await supabase
       .from('competence_analysis_jobs')
-      .update({
-        status: finalStatus,
-        progress: finalProgress,
-        learning_suggestions: allSuggestions,
-        next_batch_index: nextBatchIndex,
-        completed_at: hasMoreBatches ? null : new Date().toISOString(),
-        current_step: hasMoreBatches
-          ? `Batch klar! ${allSuggestions.length}/${gaps.length} gaps processade...`
-          : 'Analys klar!'
-      })
-      .eq('id', jobId);
+      .select('learning_suggestions')
+      .eq('id', jobId)
+      .single();
 
-    const totalCoursesFound = allSuggestions.reduce(
-      (acc, s) => acc + s.suggestions.length,
+    const totalCoursesFound = (finalJob?.learning_suggestions || []).reduce(
+      (acc: number, s: any) => acc + (s.suggestions?.length || 0),
       0
     );
 
     console.log('='.repeat(60));
-    console.log(`✅ Batch ${hasMoreBatches ? 'partially' : 'fully'} completed with GPT-5!`);
+    console.log(`✅ ${workerLabel} completed with GPT-5!`);
     console.log(`   Project: ${OPENAI_PROJECT_ID ? 'cvbrev' : 'default'}`);
     console.log(`   Model: gpt-5-2025-08-07`);
-    console.log(`   Gaps processed: ${allSuggestions.length}/${gaps.length}`);
-    console.log(`   Courses found: ${totalCoursesFound}`);
-    console.log(`   Next batch: ${nextBatchIndex !== null ? nextBatchIndex : 'None'}`);
+    console.log(`   Gaps processed in this batch: ${batchEndIndex - batchStartIndex}`);
+    console.log(`   Total courses found so far: ${totalCoursesFound}`);
+    if (isParallel) {
+      console.log(`   Worker ${workerIndex} finished processing gaps ${batchStartIndex}-${batchEndIndex}`);
+    }
     console.log('='.repeat(60));
 
     return new Response(
       JSON.stringify({
         success: true,
-        message: hasMoreBatches
-          ? `Batch processed successfully. ${gaps.length - batchEndIndex} gaps remaining.`
-          : 'Job completed successfully with GPT-5',
+        message: isParallel
+          ? `Worker ${workerIndex} processed gaps ${batchStartIndex + 1}-${batchEndIndex} successfully`
+          : `Batch processed successfully`,
         model: 'gpt-5-2025-08-07',
         project: OPENAI_PROJECT_ID ? 'cvbrev' : 'default',
         coursesFound: totalCoursesFound,
-        gapsProcessed: allSuggestions.length,
+        gapsProcessed: batchEndIndex,
         totalGaps: gaps.length,
-        hasMoreBatches,
-        nextBatchIndex
+        workerIndex: isParallel ? workerIndex : null,
+        isParallel
       }),
       { headers: { 'Content-Type': 'application/json' } }
     );

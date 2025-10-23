@@ -145,7 +145,10 @@ const CompetenceProgressTrackerEnhanced: React.FC<CompetenceProgressTrackerEnhan
 
     if ((status === 'processing_gaps' || status === 'partial_complete') && totalGaps && processedGaps !== undefined) {
       const remaining = totalGaps - processedGaps;
-      const estimatedSeconds = remaining * 30; // 30s per gap (realistic for web search)
+      // Parallel processing: 4 workers processing ~5 gaps each
+      // Each gap takes ~25s, but workers run in parallel
+      // Effective time per gap: 25s / 4 workers = ~6-7s per gap
+      const estimatedSeconds = Math.ceil(remaining * 7);
       if (estimatedSeconds < 60) {
         return `~${estimatedSeconds} sekunder kvar`;
       }

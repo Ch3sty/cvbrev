@@ -106,50 +106,9 @@ export function useCompetenceJob(jobId: string | null): UseCompetenceJobResult {
     return () => clearInterval(interval);
   }, [jobId, job, fetchJob]);
 
-  // Auto-trigger next batch when partial_complete
-  useEffect(() => {
-    if (!jobId || !job) return;
-
-    // Check if we need to trigger next batch
-    if (job.status === 'partial_complete' && job.next_batch_index !== null && job.next_batch_index !== undefined) {
-      console.log(`🔄 Auto-triggering next batch starting at index ${job.next_batch_index}`);
-
-      // Trigger next batch
-      const triggerNextBatch = async () => {
-        try {
-          const response = await fetch('https://dbvbnbkvadvlhjhomibg.supabase.co/functions/v1/process-competence-analysis', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              jobId: jobId,
-              batchStartIndex: job.next_batch_index
-            })
-          });
-
-          if (!response.ok) {
-            throw new Error(`Batch continuation failed: ${response.status}`);
-          }
-
-          const data = await response.json();
-          console.log('✅ Next batch triggered successfully:', data);
-
-          // Fetch updated job status
-          fetchJob();
-
-        } catch (error: any) {
-          console.error('❌ Failed to trigger next batch:', error);
-          setError(`Batch continuation failed: ${error.message}`);
-        }
-      };
-
-      // Trigger after a short delay to allow UI to update
-      const timeout = setTimeout(triggerNextBatch, 1000);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [jobId, job, fetchJob]);
+  // NOTE: Auto-trigger removed - now using parallel worker architecture
+  // All workers are triggered simultaneously from the API route
+  // No need for sequential batch continuation
 
   return {
     job,

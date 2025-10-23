@@ -244,41 +244,69 @@ export async function POST(request: NextRequest) {
             subscriptionTier
         });
 
-        // Trigger the Edge Function to process the job (fire and forget)
+        // Trigger PARALLEL WORKERS to process the job (fire and forget)
         const projectUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
         const functionUrl = `${projectUrl}/functions/v1/process-competence-analysis`;
         const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
-        console.log(`--- API /start: Triggering edge function at ${functionUrl}`);
+        const WORKERS = 4;
+        const GAPS_PER_WORKER = 5;
 
-        // Fire and forget - don't wait for the response to avoid Vercel timeout
-        fetch(functionUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${serviceKey}`
-            },
-            body: JSON.stringify({ jobId: newJob.id })
-        }).then(response => {
-            if (response.ok) {
-                console.log(`--- API /start: Edge function triggered successfully for job ${newJob.id}`);
-            } else {
-                console.error(`--- API /start: Edge function returned ${response.status}`);
-                // Update job status asynchronously
+        console.log(`--- API /start: Triggering ${WORKERS} parallel workers at ${functionUrl}`);
+
+        // First, update job to set total_workers
+        supabase
+            .from('competence_analysis_jobs')
+            .update({ total_workers: WORKERS })
+            .eq('id', newJob.id)
+            .then(() => {
+                console.log(`--- API /start: Set total_workers=${WORKERS} for job ${newJob.id}`);
+            });
+
+        // Trigger all workers in parallel (fire and forget)
+        const workerPromises = [];
+        for (let i = 0; i < WORKERS; i++) {
+            const batchStart = i * GAPS_PER_WORKER;
+
+            const promise = fetch(functionUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${serviceKey}`
+                },
+                body: JSON.stringify({
+                    jobId: newJob.id,
+                    batchStartIndex: batchStart,
+                    batchSize: GAPS_PER_WORKER,
+                    isParallel: true,
+                    workerIndex: i
+                })
+            });
+
+            workerPromises.push(promise);
+        }
+
+        // Monitor all workers (fire and forget)
+        Promise.all(workerPromises).then(responses => {
+            const successCount = responses.filter(r => r.ok).length;
+            console.log(`--- API /start: ${successCount}/${WORKERS} workers started successfully for job ${newJob.id}`);
+
+            if (successCount === 0) {
+                // All workers failed - update job status
                 supabase
                     .from('competence_analysis_jobs')
                     .update({
-                        status: 'queued',
-                        current_step: 'Väntar på bearbetning...',
-                        error_message: `Edge function error: ${response.status}`
+                        status: 'failed',
+                        error_message: 'Failed to start any workers',
+                        completed_at: new Date().toISOString()
                     })
                     .eq('id', newJob.id)
                     .then(() => {
-                        console.log('--- API /start: Job status updated to queued');
+                        console.log('--- API /start: Job marked as failed - no workers started');
                     });
             }
         }).catch(err => {
-            console.error('--- API /start: Failed to trigger edge function:', err.message);
+            console.error('--- API /start: Failed to trigger parallel workers:', err.message);
             // Update job status asynchronously
             supabase
                 .from('competence_analysis_jobs')
