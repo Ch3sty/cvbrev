@@ -230,7 +230,7 @@ ${optimizedSections.skills.optimized}` : ''}`
                 scoreBefore={optimizedSections.education.score_before}
                 scoreAfter={optimizedSections.education.score_after}
                 improvements={optimizedSections.education.improvements}
-                onCopy={() => copyToClipboard(optimizedSections.education.optimized, 'education')}
+                onCopy={() => copyToClipboard(optimizedSections.education?.optimized ?? '', 'education')}
                 isCopied={copiedSection === 'education'}
               />
             </>
@@ -247,7 +247,7 @@ ${optimizedSections.skills.optimized}` : ''}`
                 scoreBefore={optimizedSections.skills.score_before}
                 scoreAfter={optimizedSections.skills.score_after}
                 improvements={optimizedSections.skills.improvements}
-                onCopy={() => copyToClipboard(optimizedSections.skills.optimized, 'skills')}
+                onCopy={() => copyToClipboard(optimizedSections.skills?.optimized ?? '', 'skills')}
                 isCopied={copiedSection === 'skills'}
               />
             </>

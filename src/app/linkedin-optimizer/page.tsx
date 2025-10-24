@@ -17,13 +17,13 @@ interface LinkedInSections {
 
 interface OptimizationResults {
   sections: {
-    about?: {
+    about: {
       optimized: string
       score_before: number
       score_after: number
       improvements: string[]
     }
-    experience?: {
+    experience: {
       optimized: string
       score_before: number
       score_after: number
