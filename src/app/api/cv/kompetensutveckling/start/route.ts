@@ -249,64 +249,90 @@ export async function POST(request: NextRequest) {
         const functionUrl = `${projectUrl}/functions/v1/Kompetensutveckling`;
         const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
-        console.log(`--- API /start: Triggering edge function at ${functionUrl}`);
+        console.log('--- API /start: [TRIGGER] Preparing to trigger edge function...');
+        console.log(`--- API /start: [TRIGGER] Project URL: ${projectUrl}`);
+        console.log(`--- API /start: [TRIGGER] Function URL: ${functionUrl}`);
+        console.log(`--- API /start: [TRIGGER] Service key configured: ${serviceKey ? `YES (key length: ${serviceKey.length}, starts with: ${serviceKey.substring(0, 20)}...)` : 'NO - MISSING!'}`);
+        console.log(`--- API /start: [TRIGGER] Job ID to send: ${newJob.id}`);
 
         // Trigger the edge function with timeout and retry
         const triggerEdgeFunction = async (retryCount = 0): Promise<void> => {
             const MAX_RETRIES = 2;
             const TIMEOUT_MS = 10000; // 10 second timeout for trigger
 
+            console.log(`--- API /start: [TRIGGER] Attempt ${retryCount + 1}/${MAX_RETRIES + 1} - Starting fetch...`);
+
             try {
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
+                const timeoutId = setTimeout(() => {
+                    console.log(`--- API /start: [TRIGGER] Timeout reached (${TIMEOUT_MS}ms), aborting...`);
+                    controller.abort();
+                }, TIMEOUT_MS);
 
+                const requestBody = JSON.stringify({ jobId: newJob.id });
+                console.log(`--- API /start: [TRIGGER] Request body: ${requestBody}`);
+                console.log(`--- API /start: [TRIGGER] Sending POST request to ${functionUrl}...`);
+
+                const fetchStartTime = Date.now();
                 const response = await fetch(functionUrl, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${serviceKey}`
                     },
-                    body: JSON.stringify({
-                        jobId: newJob.id
-                    }),
+                    body: requestBody,
                     signal: controller.signal
                 });
 
+                const fetchDuration = Date.now() - fetchStartTime;
                 clearTimeout(timeoutId);
 
+                console.log(`--- API /start: [TRIGGER] Fetch completed in ${fetchDuration}ms`);
+                console.log(`--- API /start: [TRIGGER] Response status: ${response.status} ${response.statusText}`);
+                console.log(`--- API /start: [TRIGGER] Response headers:`, JSON.stringify([...response.headers.entries()]));
+
                 if (!response.ok) {
-                    console.error(`--- API /start: Edge function returned ${response.status}: ${await response.text()}`);
+                    const errorText = await response.text();
+                    console.error(`--- API /start: [TRIGGER ERROR] Edge function returned ${response.status}: ${errorText}`);
 
                     // Retry on 5xx errors
                     if (response.status >= 500 && retryCount < MAX_RETRIES) {
-                        console.log(`--- API /start: Retrying edge function trigger (attempt ${retryCount + 2}/${MAX_RETRIES + 1})...`);
+                        console.log(`--- API /start: [TRIGGER] Retrying edge function trigger (attempt ${retryCount + 2}/${MAX_RETRIES + 1})...`);
                         await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1))); // Exponential backoff
                         return triggerEdgeFunction(retryCount + 1);
                     }
 
-                    throw new Error(`Edge function returned ${response.status}`);
+                    throw new Error(`Edge function returned ${response.status}: ${errorText}`);
                 } else {
-                    console.log(`--- API /start: Edge function triggered successfully`);
+                    const responseText = await response.text();
+                    console.log(`--- API /start: [TRIGGER SUCCESS] Edge function triggered successfully!`);
+                    console.log(`--- API /start: [TRIGGER SUCCESS] Response body: ${responseText.substring(0, 500)}`);
                 }
             } catch (err: any) {
+                console.error(`--- API /start: [TRIGGER ERROR] Catch block entered`);
+                console.error(`--- API /start: [TRIGGER ERROR] Error name: ${err.name}`);
+                console.error(`--- API /start: [TRIGGER ERROR] Error message: ${err.message}`);
+                console.error(`--- API /start: [TRIGGER ERROR] Error stack: ${err.stack}`);
+
                 if (err.name === 'AbortError') {
-                    console.error(`--- API /start: Edge function trigger timeout after ${TIMEOUT_MS}ms`);
+                    console.error(`--- API /start: [TRIGGER ERROR] Edge function trigger timeout after ${TIMEOUT_MS}ms`);
 
                     // Don't fail the job on timeout - edge function might still be running
                     if (retryCount < MAX_RETRIES) {
-                        console.log(`--- API /start: Retrying after timeout (attempt ${retryCount + 2}/${MAX_RETRIES + 1})...`);
+                        console.log(`--- API /start: [TRIGGER] Retrying after timeout (attempt ${retryCount + 2}/${MAX_RETRIES + 1})...`);
                         await new Promise(resolve => setTimeout(resolve, 2000));
                         return triggerEdgeFunction(retryCount + 1);
                     }
 
-                    console.warn(`--- API /start: Edge function may still be running despite timeout`);
+                    console.warn(`--- API /start: [TRIGGER WARNING] Edge function may still be running despite timeout`);
                     return; // Don't mark as failed - let edge function complete
                 }
 
-                console.error('--- API /start: Failed to trigger edge function:', err.message);
+                console.error(`--- API /start: [TRIGGER ERROR] Non-timeout error: ${err.message}`);
 
                 // Only update to failed if all retries exhausted
                 if (retryCount >= MAX_RETRIES) {
+                    console.log(`--- API /start: [TRIGGER ERROR] All retries exhausted, marking job as failed...`);
                     await supabase
                         .from('competence_analysis_jobs')
                         .update({
@@ -316,14 +342,20 @@ export async function POST(request: NextRequest) {
                         })
                         .eq('id', newJob.id);
 
-                    console.log('--- API /start: Job status updated to failed after all retries exhausted');
+                    console.log('--- API /start: [TRIGGER ERROR] Job status updated to failed');
+                } else {
+                    console.log(`--- API /start: [TRIGGER ERROR] Retrying (attempt ${retryCount + 2}/${MAX_RETRIES + 1})...`);
+                    await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1)));
+                    return triggerEdgeFunction(retryCount + 1);
                 }
             }
         };
 
         // Trigger asynchronously (fire and forget with retry)
+        console.log('--- API /start: [TRIGGER] Starting async trigger (fire and forget)...');
         triggerEdgeFunction().catch(err => {
-            console.error('--- API /start: Unexpected error in trigger function:', err);
+            console.error('--- API /start: [TRIGGER ERROR] Unexpected error in trigger function:', err);
+            console.error('--- API /start: [TRIGGER ERROR] Stack:', err.stack);
         });
 
         const responseTime = Date.now() - startTime;
