@@ -1,15 +1,18 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Sparkles, Target, ChevronRight, ChevronLeft } from 'lucide-react'
+import { Sparkles, Target, ChevronRight, ChevronLeft, Globe } from 'lucide-react'
 
 type OptimizationMode = 'stand_out' | 'target_role'
+type Language = 'sv' | 'en'
 
 interface OptimizationModeStepProps {
   mode: OptimizationMode
   targetRole: string
+  language: Language
   onModeChange: (mode: OptimizationMode) => void
   onTargetRoleChange: (role: string) => void
+  onLanguageChange: (language: Language) => void
   onNext: () => void
   onBack: () => void
 }
@@ -17,8 +20,10 @@ interface OptimizationModeStepProps {
 export default function OptimizationModeStep({
   mode,
   targetRole,
+  language,
   onModeChange,
   onTargetRoleChange,
+  onLanguageChange,
   onNext,
   onBack
 }: OptimizationModeStepProps) {
@@ -48,34 +53,51 @@ export default function OptimizationModeStep({
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1 }}
           onClick={() => onModeChange('stand_out')}
-          className={`cursor-pointer bg-white rounded-2xl p-8 border-2 transition-all ${
+          whileHover={{ scale: 1.02, y: -5 }}
+          whileTap={{ scale: 0.98 }}
+          className={`cursor-pointer bg-white rounded-2xl p-8 border-2 transition-all relative overflow-hidden ${
             mode === 'stand_out'
-              ? 'border-[#0A66C2] shadow-lg shadow-[#0A66C2]/20'
-              : 'border-gray-200 hover:border-[#0A66C2]/50'
+              ? 'border-[#0A66C2] shadow-xl shadow-[#0A66C2]/30'
+              : 'border-gray-200 hover:border-[#0A66C2]/50 hover:shadow-lg'
           }`}
         >
-          <div className="flex items-start gap-4">
+          {/* Gradient overlay on hover/active */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-0"
+            animate={{ opacity: mode === 'stand_out' ? 0.5 : 0 }}
+            whileHover={{ opacity: 0.3 }}
+            transition={{ duration: 0.3 }}
+          />
+          <div className="flex items-start gap-4 relative z-10">
             <div className="flex-shrink-0">
-              <div
-                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+              <motion.div
+                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
                   mode === 'stand_out'
-                    ? 'border-[#0A66C2] bg-[#0A66C2]'
+                    ? 'border-[#0A66C2] bg-[#0A66C2] shadow-lg shadow-blue-500/50'
                     : 'border-gray-300'
                 }`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 {mode === 'stand_out' && (
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 15 }}
                     className="w-3 h-3 bg-white rounded-full"
                   />
                 )}
-              </div>
+              </motion.div>
             </div>
 
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <Sparkles className="w-6 h-6 text-[#0A66C2]" />
+                <motion.div
+                  whileHover={{ rotate: 180, scale: 1.1 }}
+                  transition={{ type: 'spring', stiffness: 400 }}
+                >
+                  <Sparkles className="w-6 h-6 text-[#0A66C2]" />
+                </motion.div>
                 <h3 className="text-2xl font-bold text-gray-900">
                   Få min profil att sticka ut mer
                 </h3>
@@ -110,34 +132,51 @@ export default function OptimizationModeStep({
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
           onClick={() => onModeChange('target_role')}
-          className={`cursor-pointer bg-white rounded-2xl p-8 border-2 transition-all ${
+          whileHover={{ scale: 1.02, y: -5 }}
+          whileTap={{ scale: 0.98 }}
+          className={`cursor-pointer bg-white rounded-2xl p-8 border-2 transition-all relative overflow-hidden ${
             mode === 'target_role'
-              ? 'border-[#0A66C2] shadow-lg shadow-[#0A66C2]/20'
-              : 'border-gray-200 hover:border-[#0A66C2]/50'
+              ? 'border-[#0A66C2] shadow-xl shadow-[#0A66C2]/30'
+              : 'border-gray-200 hover:border-[#0A66C2]/50 hover:shadow-lg'
           }`}
         >
-          <div className="flex items-start gap-4">
+          {/* Gradient overlay on hover/active */}
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-br from-orange-50 to-transparent opacity-0"
+            animate={{ opacity: mode === 'target_role' ? 0.5 : 0 }}
+            whileHover={{ opacity: 0.3 }}
+            transition={{ duration: 0.3 }}
+          />
+          <div className="flex items-start gap-4 relative z-10">
             <div className="flex-shrink-0">
-              <div
-                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+              <motion.div
+                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${
                   mode === 'target_role'
-                    ? 'border-[#0A66C2] bg-[#0A66C2]'
+                    ? 'border-[#0A66C2] bg-[#0A66C2] shadow-lg shadow-blue-500/50'
                     : 'border-gray-300'
                 }`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 {mode === 'target_role' && (
                   <motion.div
                     initial={{ scale: 0 }}
                     animate={{ scale: 1 }}
+                    transition={{ type: 'spring', stiffness: 500, damping: 15 }}
                     className="w-3 h-3 bg-white rounded-full"
                   />
                 )}
-              </div>
+              </motion.div>
             </div>
 
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <Target className="w-6 h-6 text-[#0A66C2]" />
+                <motion.div
+                  whileHover={{ scale: 1.1, rotate: -10 }}
+                  transition={{ type: 'spring', stiffness: 400 }}
+                >
+                  <Target className="w-6 h-6 text-[#0A66C2]" />
+                </motion.div>
                 <h3 className="text-2xl font-bold text-gray-900">
                   Optimera för en specifik roll
                 </h3>
@@ -191,6 +230,80 @@ export default function OptimizationModeStep({
           </div>
         </motion.div>
       </div>
+
+      {/* Language Selection */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="bg-white rounded-2xl p-6 border-2 border-gray-200 mb-12"
+      >
+        <div className="flex items-start gap-4">
+          <div className="flex-shrink-0">
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center">
+              <Globe className="w-6 h-6 text-[#0A66C2]" />
+            </div>
+          </div>
+
+          <div className="flex-1">
+            <h3 className="text-lg font-bold text-gray-900 mb-2">
+              Välj språk för optimering
+            </h3>
+            <p className="text-sm text-gray-600 mb-4">
+              Vilken LinkedIn-profil vill du optimera texten för?
+            </p>
+
+            {/* Language Toggle */}
+            <div className="inline-flex items-center gap-2 p-1 bg-gray-100 rounded-xl">
+              <motion.button
+                onClick={() => onLanguageChange('sv')}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`px-6 py-3 rounded-lg font-semibold transition-all flex items-center gap-2 relative ${
+                  language === 'sv'
+                    ? 'bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/80 text-white shadow-lg shadow-blue-500/30'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                {language === 'sv' && (
+                  <motion.div
+                    layoutId="language-indicator"
+                    className="absolute inset-0 bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/80 rounded-lg"
+                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                  />
+                )}
+                <span className="text-xl relative z-10">🇸🇪</span>
+                <span className="relative z-10">Svenska</span>
+              </motion.button>
+
+              <motion.button
+                onClick={() => onLanguageChange('en')}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`px-6 py-3 rounded-lg font-semibold transition-all flex items-center gap-2 relative ${
+                  language === 'en'
+                    ? 'bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/80 text-white shadow-lg shadow-blue-500/30'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
+              >
+                {language === 'en' && (
+                  <motion.div
+                    layoutId="language-indicator"
+                    className="absolute inset-0 bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/80 rounded-lg"
+                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                  />
+                )}
+                <span className="text-xl relative z-10">🇬🇧</span>
+                <span className="relative z-10">English</span>
+              </motion.button>
+            </div>
+
+            <p className="text-xs text-gray-500 mt-3">
+              💡 Texten kommer att genereras på det valda språket
+            </p>
+          </div>
+        </div>
+      </motion.div>
 
       {/* Navigation Buttons */}
       <div className="flex justify-between items-center">

@@ -115,17 +115,31 @@ export default function SectionInputStep({
         {/* Progress Dots */}
         <div className="flex justify-center gap-2 mt-6">
           {SECTION_CONFIG.map((s, index) => (
-            <button
+            <motion.button
               key={s.key}
               onClick={() => setCurrentSection(index)}
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
               className={`h-2 rounded-full transition-all ${
                 index === currentSection
-                  ? 'w-8 bg-[#0A66C2]'
+                  ? 'w-8 bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/80 shadow-lg shadow-blue-500/30'
                   : index < currentSection
-                  ? 'w-2 bg-[#83941f]'
+                  ? 'w-2 bg-[#83941f] shadow-sm'
                   : 'w-2 bg-gray-300'
               }`}
-            />
+            >
+              {index === currentSection && (
+                <motion.div
+                  className="h-full bg-white/30 rounded-full"
+                  animate={{ x: ['-100%', '200%'] }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: 'linear'
+                  }}
+                />
+              )}
+            </motion.button>
           ))}
         </div>
       </motion.div>
@@ -175,41 +189,118 @@ export default function SectionInputStep({
       <AnimatePresence mode="wait">
         <motion.div
           key={section.key}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.2 }}
-          className="bg-white rounded-2xl border-2 border-gray-200 p-8 shadow-sm"
+          initial={{ opacity: 0, x: 20, scale: 0.95 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          exit={{ opacity: 0, x: -20, scale: 0.95 }}
+          transition={{ duration: 0.3, type: "spring", stiffness: 300 }}
+          className="bg-white rounded-2xl border-2 border-gray-200 p-8 shadow-xl shadow-slate-900/5 relative overflow-hidden"
         >
+          {/* Premium gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-purple-50/30 pointer-events-none" />
           {/* Section Header */}
-          <div className="flex items-center gap-3 mb-4">
-            <div className="text-3xl">{section.icon}</div>
+          <div className="flex items-center gap-3 mb-4 relative z-10">
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ type: "spring", stiffness: 400, delay: 0.1 }}
+              className="text-3xl"
+            >
+              {section.icon}
+            </motion.div>
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+              <motion.h2
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 }}
+                className="text-2xl font-bold text-gray-900 flex items-center gap-2"
+              >
                 {section.title}
                 {section.required && (
-                  <span className="text-sm font-normal text-red-500">*</span>
+                  <motion.span
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ delay: 0.3, type: "spring" }}
+                    className="text-sm font-normal text-red-500"
+                  >
+                    *
+                  </motion.span>
                 )}
-              </h2>
-              <p className="text-sm text-gray-500">{section.tip}</p>
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="text-sm text-gray-500"
+              >
+                {section.tip}
+              </motion.p>
             </div>
           </div>
 
           {/* Textarea */}
-          <div className="relative">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25 }}
+            className="relative z-10"
+          >
             <textarea
               value={sections[section.key]}
               onChange={(e) => onSectionChange(section.key, e.target.value)}
               rows={section.rows}
               placeholder={section.placeholder}
-              className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0A66C2] focus:border-transparent resize-none transition-all text-gray-900 placeholder-gray-400"
+              className="w-full px-4 py-3 border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-[#0A66C2] focus:border-transparent resize-none transition-all text-gray-900 placeholder-gray-400 bg-white/80 backdrop-blur-sm hover:border-gray-400 focus:bg-white"
             />
 
-            {/* Character Count */}
-            <div className="absolute bottom-3 right-3 text-xs text-gray-400">
-              {sections[section.key].length} tecken
+            {/* Character Count with circular progress */}
+            <div className="absolute bottom-3 right-3 flex items-center gap-2">
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.4 }}
+                className="relative w-8 h-8"
+              >
+                <svg className="w-8 h-8 transform -rotate-90">
+                  <circle
+                    cx="16"
+                    cy="16"
+                    r="14"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    fill="none"
+                    className="text-gray-200"
+                  />
+                  <motion.circle
+                    cx="16"
+                    cy="16"
+                    r="14"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    fill="none"
+                    strokeDasharray={`${2 * Math.PI * 14}`}
+                    strokeDashoffset={`${2 * Math.PI * 14 * (1 - Math.min(sections[section.key].length / 500, 1))}`}
+                    className={`${
+                      sections[section.key].length > 500
+                        ? 'text-green-500'
+                        : sections[section.key].length > 200
+                        ? 'text-blue-500'
+                        : 'text-gray-400'
+                    }`}
+                    strokeLinecap="round"
+                    animate={{
+                      strokeDashoffset: 2 * Math.PI * 14 * (1 - Math.min(sections[section.key].length / 500, 1))
+                    }}
+                  />
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-[10px] font-medium text-gray-600">
+                    {Math.min(Math.round((sections[section.key].length / 500) * 100), 100)}
+                  </span>
+                </div>
+              </motion.div>
+              <span className="text-xs text-gray-400">{sections[section.key].length} tecken</span>
             </div>
-          </div>
+          </motion.div>
 
           {/* Completion Indicator */}
           {sections[section.key].trim().length > 0 && (

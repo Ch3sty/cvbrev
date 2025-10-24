@@ -16,6 +16,7 @@ interface OptimizationRequest {
   }
   mode: 'stand_out' | 'target_role'
   target_role?: string
+  language?: 'sv' | 'en'
 }
 
 interface SectionResult {
@@ -26,12 +27,18 @@ interface SectionResult {
 }
 
 // GPT-4o optimization for "Om mig" section
-async function optimizeAbout(text: string, mode: string, targetRole?: string): Promise<SectionResult> {
-  const modeDescription = mode === 'stand_out'
-    ? 'Få profilen att sticka ut mer'
-    : `Optimera för rollen: ${targetRole}`
+async function optimizeAbout(text: string, mode: string, targetRole?: string, language: string = 'sv'): Promise<SectionResult> {
+  const isSwedish = language === 'sv'
 
-  const prompt = `Du är en LinkedIn-expert som optimerar "Om mig"-sektioner.
+  const modeDescription = mode === 'stand_out'
+    ? (isSwedish ? 'Få profilen att sticka ut mer' : 'Make the profile stand out more')
+    : (isSwedish ? `Optimera för rollen: ${targetRole}` : `Optimize for the role: ${targetRole}`)
+
+  const languageInstruction = isSwedish
+    ? 'Använd svenska språket professionellt'
+    : 'Use professional English language'
+
+  const prompt = `You are a LinkedIn expert optimizing "About" sections.
 
 MODE: ${modeDescription}
 
@@ -40,33 +47,34 @@ ORIGINAL TEXT:
 ${text}
 ---
 
-OPTIMERA FÖR:
-1. Stark opening hook (första meningen måste fånga uppmärksamhet)
-2. Mätbara achievements (år, procent, antal, regioner, etc.)
-3. Konkreta resultat (inte bara "ansvar för" utan "ökade", "sänkte", "byggde")
-4. Strukturerad läsbarhet med bullet points för nyckelresultat
-5. ATS-keywords relevanta för ${targetRole || 'professionell utveckling'}
-6. Max 300 ord
-7. Använd svenska språket professionellt
+OPTIMIZE FOR:
+1. Strong opening hook (first sentence must capture attention)
+2. Measurable achievements (years, percentages, numbers, regions, etc.)
+3. Concrete results (not just "responsible for" but "increased", "reduced", "built")
+4. Structured readability with bullet points for key results
+5. ATS-keywords relevant for ${targetRole || 'professional development'}
+6. Max 300 words
+7. ${languageInstruction}
 
-RETURNERA JSON:
+RETURN JSON:
 {
-  "optimized": "Optimerad text här med bullets (använd • för bullets)",
+  "optimized": "Optimized text here with bullets (use • for bullets)",
   "score_before": 46,
   "score_after": 89,
   "improvements": [
-    "Lagt till mätbara resultat (10+ år, 5 regioner)",
-    "Strukturerat med bullets för läsbarhet",
-    "Starkare opening hook",
-    "Fokus på prestationer istället för bara uppgifter"
+    "${isSwedish ? 'Lagt till mätbara resultat (10+ år, 5 regioner)' : 'Added measurable results (10+ years, 5 regions)'}",
+    "${isSwedish ? 'Strukturerat med bullets för läsbarhet' : 'Structured with bullets for readability'}",
+    "${isSwedish ? 'Starkare opening hook' : 'Stronger opening hook'}",
+    "${isSwedish ? 'Fokus på prestationer istället för bara uppgifter' : 'Focus on achievements instead of just responsibilities'}"
   ]
 }
 
-VIKTIGT:
-- Behåll all faktisk information från originaltexten
-- Lägg inte till falsk information
-- Förbättra strukturen och formuleringar
-- Kvantifiera där det är möjligt baserat på originaltexten`
+IMPORTANT:
+- Keep all factual information from the original text
+- Don't add false information
+- Improve structure and wording
+- Quantify where possible based on the original text
+- Write ALL content in ${isSwedish ? 'Swedish' : 'English'}`
 
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
@@ -79,12 +87,13 @@ VIKTIGT:
 }
 
 // GPT-4o optimization for "Erfarenhet" section
-async function optimizeExperience(text: string, mode: string, targetRole?: string): Promise<SectionResult> {
+async function optimizeExperience(text: string, mode: string, targetRole?: string, language: string = 'sv'): Promise<SectionResult> {
+  const isSwedish = language === 'sv'
   const modeDescription = mode === 'stand_out'
-    ? 'Få erfarenheten att sticka ut mer'
-    : `Optimera för rollen: ${targetRole}`
+    ? (isSwedish ? 'Få erfarenheten att sticka ut mer' : 'Make experience stand out more')
+    : (isSwedish ? `Optimera för rollen: ${targetRole}` : `Optimize for the role: ${targetRole}`)
 
-  const prompt = `Du är en LinkedIn-expert som optimerar "Erfarenhet"-sektioner.
+  const prompt = `You are a LinkedIn expert optimizing "Experience" sections.
 
 MODE: ${modeDescription}
 
@@ -93,32 +102,33 @@ ORIGINAL TEXT:
 ${text}
 ---
 
-OPTIMERA FÖR:
-1. Parse varje jobb (titel, företag, datum, beskrivning)
-2. Använd STAR-format (Situation, Task, Action, Result) för varje roll
-3. Bullet points - max 5 per roll, börja med action verbs
-4. Kvantifiering överallt (siffror, procent, antal, tidsspann)
-5. Action verbs: "Grundade", "Ledde", "Ökade", "Utvecklade", "Implementerade"
-6. Fokus på RESULTAT, inte bara arbetsuppgifter
-7. Behåll kronologisk ordning
+OPTIMIZE FOR:
+1. Parse each job (title, company, dates, description)
+2. Use STAR format (Situation, Task, Action, Result) for each role
+3. Bullet points - max 5 per role, start with action verbs
+4. Quantification everywhere (numbers, percentages, amounts, time spans)
+5. Action verbs: ${isSwedish ? '"Grundade", "Ledde", "Ökade", "Utvecklade", "Implementerade"' : '"Founded", "Led", "Increased", "Developed", "Implemented"'}
+6. Focus on RESULTS, not just job duties
+7. Keep chronological order
+8. Write ALL content in ${isSwedish ? 'Swedish' : 'English'}
 
-RETURNERA JSON:
+RETURN JSON:
 {
-  "optimized": "Optimerad erfarenhetstext med strukturerade jobb och bullets",
+  "optimized": "Optimized experience text with structured jobs and bullets",
   "score_before": 52,
   "score_after": 87,
   "improvements": [
-    "Omvandlat prosa till konkreta bullet points",
-    "Lagt till kvantifiering överallt",
-    "Använt action verbs ('Grundade', 'Expanderade')",
-    "Fokus på resultat istället för bara arbetsuppgifter"
+    "${isSwedish ? 'Omvandlat prosa till konkreta bullet points' : 'Converted prose to concrete bullet points'}",
+    "${isSwedish ? 'Lagt till kvantifiering överallt' : 'Added quantification throughout'}",
+    "${isSwedish ? 'Använt action verbs' : 'Used action verbs'}",
+    "${isSwedish ? 'Fokus på resultat istället för bara arbetsuppgifter' : 'Focus on results instead of just job duties'}"
   ]
 }
 
-VIKTIGT:
-- Behåll alla faktiska jobb, titlar och företagsnamn
-- Lägg inte till falska achievements
-- Strukturera om beskrivningar till bullets med mätbara resultat`
+IMPORTANT:
+- Keep all factual jobs, titles, and company names
+- Don't add fake achievements
+- Restructure descriptions into bullets with measurable results`
 
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
@@ -131,34 +141,36 @@ VIKTIGT:
 }
 
 // GPT-4o optimization for "Utbildning" section
-async function optimizeEducation(text: string, mode: string, targetRole?: string): Promise<SectionResult> {
-  const prompt = `Du är en LinkedIn-expert som optimerar "Utbildning"-sektioner.
+async function optimizeEducation(text: string, mode: string, targetRole?: string, language: string = 'sv'): Promise<SectionResult> {
+  const isSwedish = language === 'sv'
+  const prompt = `You are a LinkedIn expert optimizing "Education" sections.
 
 ORIGINAL TEXT:
 ---
 ${text}
 ---
 
-OPTIMERA FÖR:
-1. Framhäv relevant utbildning för ${targetRole || 'professionell utveckling'}
-2. Lägg till särskilda achievements om de finns (ex-jobb, priser, betyg)
-3. Inkludera relevanta certifieringar
-4. Behåll tydlig struktur: Skola, Program, Årtal
+OPTIMIZE FOR:
+1. Highlight relevant education for ${targetRole || 'professional development'}
+2. Add special achievements if they exist (student jobs, awards, grades)
+3. Include relevant certifications
+4. Keep clear structure: School, Program, Year
+5. Write ALL content in ${isSwedish ? 'Swedish' : 'English'}
 
-RETURNERA JSON:
+RETURN JSON:
 {
-  "optimized": "Optimerad utbildningstext",
+  "optimized": "Optimized education text",
   "score_before": 68,
   "score_after": 75,
   "improvements": [
-    "Framhävt relevant utbildning",
-    "Lagt till specifika kurser/inriktningar"
+    "${isSwedish ? 'Framhävt relevant utbildning' : 'Highlighted relevant education'}",
+    "${isSwedish ? 'Lagt till specifika kurser/inriktningar' : 'Added specific courses/specializations'}"
   ]
 }
 
-VIKTIGT:
-- Behåll alla faktiska skolor och utbildningar
-- Lägg inte till falska certifieringar`
+IMPORTANT:
+- Keep all factual schools and education
+- Don't add fake certifications`
 
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
@@ -171,39 +183,45 @@ VIKTIGT:
 }
 
 // GPT-4o optimization for "Kompetenser" section
-async function optimizeSkills(text: string, mode: string, targetRole?: string): Promise<SectionResult> {
-  const prompt = `Du är en LinkedIn-expert som optimerar "Kompetenser"-sektioner.
+async function optimizeSkills(text: string, mode: string, targetRole?: string, language: string = 'sv'): Promise<SectionResult> {
+  const isSwedish = language === 'sv'
+  const modeDescription = mode === 'stand_out'
+    ? (isSwedish ? 'Allmän förbättring' : 'General improvement')
+    : (isSwedish ? `Optimera för ${targetRole}` : `Optimize for ${targetRole}`)
 
-MODE: ${mode === 'stand_out' ? 'Allmän förbättring' : `Optimera för ${targetRole}`}
+  const prompt = `You are a LinkedIn expert optimizing "Skills" sections.
+
+MODE: ${modeDescription}
 
 ORIGINAL TEXT:
 ---
 ${text}
 ---
 
-OPTIMERA FÖR:
-1. Gruppera kompetenser i 3-4 tydliga kategorier (t.ex. "Ledarskap & Affärsutveckling", "Digital Marknadsföring", "Teknisk Expertis")
-2. Prioritera mest relevanta skills först (för ${targetRole || 'allmän professionell utveckling'})
-3. Ta bort generiska skills som "Microsoft Office", "Email", "Excel" (om inte extremt relevanta)
-4. Lägg till saknade uppenbara skills baserat på erfarenhet (om de syns implicit)
-5. Använd bullets (•) för varje skill inom kategorin
+OPTIMIZE FOR:
+1. Group skills into 3-4 clear categories (e.g., ${isSwedish ? '"Ledarskap & Affärsutveckling", "Digital Marknadsföring", "Teknisk Expertis"' : '"Leadership & Business Development", "Digital Marketing", "Technical Expertise"'})
+2. Prioritize most relevant skills first (for ${targetRole || (isSwedish ? 'allmän professionell utveckling' : 'general professional development')})
+3. Remove generic skills like "Microsoft Office", "Email", "Excel" (unless extremely relevant)
+4. Add missing obvious skills based on experience (if they are implicit)
+5. Use bullets (•) for each skill within the category
+6. Write ALL content in ${isSwedish ? 'Swedish' : 'English'}
 
-RETURNERA JSON:
+RETURN JSON:
 {
-  "optimized": "Optimerad kompetenstext med kategorier och bullets",
+  "optimized": "Optimized skills text with categories and bullets",
   "score_before": 58,
   "score_after": 82,
   "improvements": [
-    "Grupperat i 3 tydliga kategorier",
-    "Prioriterat ledarskap först (relevant för målroll)",
-    "Tagit bort generiska skills",
-    "Lagt till 'Entreprenörskap' (saknades men uppenbart från erfarenhet)"
+    "${isSwedish ? 'Grupperat i 3 tydliga kategorier' : 'Grouped into 3 clear categories'}",
+    "${isSwedish ? 'Prioriterat ledarskap först (relevant för målroll)' : 'Prioritized leadership first (relevant for target role)'}",
+    "${isSwedish ? 'Tagit bort generiska skills' : 'Removed generic skills'}",
+    "${isSwedish ? 'Lagt till relevanta skills baserat på erfarenhet' : 'Added relevant skills based on experience'}"
   ]
 }
 
-VIKTIGT:
-- Lägg bara till skills som är uppenbara från erfarenheten
-- Ta inte bort unika/specialiserade skills`
+IMPORTANT:
+- Only add skills that are obvious from the experience
+- Don't remove unique/specialized skills`
 
   const response = await openai.chat.completions.create({
     model: 'gpt-4o',
@@ -253,7 +271,7 @@ function calculateOverallScore(results: {
 export async function POST(req: NextRequest) {
   try {
     const body: OptimizationRequest = await req.json()
-    const { sections, mode, target_role } = body
+    const { sections, mode, target_role, language = 'sv' } = body
 
     // Validation
     if (!sections.about?.trim()) {
@@ -320,10 +338,10 @@ export async function POST(req: NextRequest) {
 
     // Optimize each section in parallel
     const [aboutResult, experienceResult, educationResult, skillsResult] = await Promise.all([
-      optimizeAbout(sections.about, mode, target_role),
-      optimizeExperience(sections.experience, mode, target_role),
-      sections.education ? optimizeEducation(sections.education, mode, target_role) : Promise.resolve(null),
-      sections.skills ? optimizeSkills(sections.skills, mode, target_role) : Promise.resolve(null)
+      optimizeAbout(sections.about, mode, target_role, language),
+      optimizeExperience(sections.experience, mode, target_role, language),
+      sections.education ? optimizeEducation(sections.education, mode, target_role, language) : Promise.resolve(null),
+      sections.skills ? optimizeSkills(sections.skills, mode, target_role, language) : Promise.resolve(null)
     ])
 
     // Calculate overall scores

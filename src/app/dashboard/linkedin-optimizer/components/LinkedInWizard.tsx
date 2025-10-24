@@ -23,6 +23,7 @@ const STEPS = [
 ]
 
 type OptimizationMode = 'stand_out' | 'target_role'
+type Language = 'sv' | 'en'
 
 interface LinkedInSections {
   about: string
@@ -75,6 +76,7 @@ export default function LinkedInWizard() {
   const [currentStep, setCurrentStep] = useState(0)
   const [mode, setMode] = useState<OptimizationMode>('stand_out')
   const [targetRole, setTargetRole] = useState('')
+  const [language, setLanguage] = useState<Language>('sv')
   const [sections, setSections] = useState<LinkedInSections>({
     about: '',
     experience: '',
@@ -129,7 +131,8 @@ export default function LinkedInWizard() {
         body: JSON.stringify({
           sections,
           mode,
-          target_role: mode === 'target_role' ? targetRole : undefined
+          target_role: mode === 'target_role' ? targetRole : undefined,
+          language
         })
       })
 
@@ -153,6 +156,7 @@ export default function LinkedInWizard() {
     setCurrentStep(0)
     setMode('stand_out')
     setTargetRole('')
+    setLanguage('sv')
     setSections({ about: '', experience: '', education: '', skills: '' })
     setResults(null)
     setError(null)
@@ -168,8 +172,10 @@ export default function LinkedInWizard() {
           <OptimizationModeStep
             mode={mode}
             targetRole={targetRole}
+            language={language}
             onModeChange={setMode}
             onTargetRoleChange={setTargetRole}
+            onLanguageChange={setLanguage}
             onNext={handleNext}
             onBack={handleBack}
           />
