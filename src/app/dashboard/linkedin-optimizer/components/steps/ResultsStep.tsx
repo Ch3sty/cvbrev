@@ -34,11 +34,11 @@ interface ResultsStepProps {
 }
 
 const SECTIONS = [
-  { key: 'headline', title: '💡 Rubrik', icon: '💡' },
-  { key: 'about', title: '📝 Om mig', icon: '📝' },
-  { key: 'experience', title: '💼 Erfarenhet', icon: '💼' },
-  { key: 'education', title: '🎓 Utbildning', icon: '🎓', optional: true },
-  { key: 'skills', title: '🔧 Kompetenser', icon: '🔧', optional: true }
+  { key: 'headline', title: 'Rubrik', icon: '💡' },
+  { key: 'about', title: 'Om mig', icon: '📝' },
+  { key: 'experience', title: 'Erfarenhet', icon: '💼' },
+  { key: 'education', title: 'Utbildning', icon: '🎓', optional: true },
+  { key: 'skills', title: 'Kompetenser', icon: '🔧', optional: true }
 ]
 
 export default function ResultsStep({
@@ -213,7 +213,7 @@ export default function ResultsStep({
             )}
             <span className="relative z-10">
               <span className="mr-2">{section.icon}</span>
-              {section.title.replace(/[📝💼🎓🔧]\s/, '')}
+              {section.title}
             </span>
           </motion.button>
         ))}
