@@ -2,8 +2,10 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Check, Copy, ArrowRight, ChevronLeft, ChevronRight, Eye, EyeOff } from 'lucide-react'
+import { Check, Copy, ArrowRight, ChevronLeft, ChevronRight, Eye, EyeOff, Sparkles, User, Briefcase, GraduationCap, Wrench, type LucideIcon } from 'lucide-react'
 import { toast } from 'react-toastify'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 interface SectionResult {
   optimized: string
@@ -33,12 +35,17 @@ interface ResultsStepProps {
   onBack: () => void
 }
 
-const SECTIONS = [
-  { key: 'headline', title: 'Rubrik', icon: '💡' },
-  { key: 'about', title: 'Om mig', icon: '📝' },
-  { key: 'experience', title: 'Erfarenhet', icon: '💼' },
-  { key: 'education', title: 'Utbildning', icon: '🎓', optional: true },
-  { key: 'skills', title: 'Kompetenser', icon: '🔧', optional: true }
+const SECTIONS: Array<{
+  key: string
+  title: string
+  icon: LucideIcon
+  optional?: boolean
+}> = [
+  { key: 'headline', title: 'Rubrik', icon: Sparkles },
+  { key: 'about', title: 'Om mig', icon: User },
+  { key: 'experience', title: 'Erfarenhet', icon: Briefcase },
+  { key: 'education', title: 'Utbildning', icon: GraduationCap, optional: true },
+  { key: 'skills', title: 'Kompetenser', icon: Wrench, optional: true }
 ]
 
 export default function ResultsStep({
@@ -57,10 +64,13 @@ export default function ResultsStep({
   const currentSection = optimizedSections[currentSectionKey]
   const currentOriginal = originalSections[currentSectionKey]
 
-  // Skip optional sections if not present
-  const availableSections = SECTIONS.filter(s =>
-    !s.optional || optimizedSections[s.key as keyof typeof optimizedSections]
-  )
+  // Skip optional sections if not present (check both optimized and original)
+  const availableSections = SECTIONS.filter(s => {
+    const key = s.key as keyof typeof optimizedSections
+    if (!s.optional) return true // Always include required sections
+    // Include optional sections if they exist in either original or optimized
+    return optimizedSections[key] !== null && optimizedSections[key] !== undefined
+  })
 
   const handleCopy = async (text: string, sectionName: string) => {
     try {
@@ -211,8 +221,8 @@ export default function ResultsStep({
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
             )}
-            <span className="relative z-10">
-              <span className="mr-2">{section.icon}</span>
+            <span className="relative z-10 flex items-center gap-2">
+              <section.icon className="w-4 h-4" />
               {section.title}
             </span>
           </motion.button>
@@ -266,11 +276,27 @@ export default function ResultsStep({
 
           {/* Text Content */}
           <div className={`p-6 ${showOriginal ? 'bg-white' : 'bg-gradient-to-br from-blue-50/50 to-white'}`}>
-            <div className="prose max-w-none">
-              <p className="text-gray-800 whitespace-pre-wrap leading-relaxed">
-                {showOriginal ? currentOriginal : currentSection.optimized}
-              </p>
-            </div>
+            <div className="prose prose-slate max-w-none">
+              {showOriginal ? (
+                <p className="text-gray-800 whitespace-pre-wrap leading-relaxed">
+                  {currentOriginal}
+                </p>
+              ) : (
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    p: ({ children }) => <p className="text-gray-800 leading-relaxed mb-4">{children}</p>,
+                    strong: ({ children }) => <strong className="font-bold text-gray-900">{children}</strong>,
+                    ul: ({ children }) => <ul className="list-disc list-inside space-y-1 my-2">{children}</ul>,
+                    li: ({ children }) => <li className="text-gray-800">{children}</li>,
+                    h1: ({ children }) => <h1 className="text-xl font-bold text-gray-900 mt-4 mb-2">{children}</h1>,
+                    h2: ({ children }) => <h2 className="text-lg font-bold text-gray-900 mt-3 mb-2">{children}</h2>,
+                    h3: ({ children }) => <h3 className="text-base font-semibold text-gray-900 mt-2 mb-1">{children}</h3>,
+                  }}
+                >
+                  {currentSection.optimized}
+                </ReactMarkdown>
+              )}</div>
 
             {!showOriginal && (
               <div className="mt-6 pt-6 border-t border-gray-200">

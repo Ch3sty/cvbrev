@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight, AlertCircle, Check, Linkedin } from 'lucide-react'
+import { ChevronLeft, ChevronRight, AlertCircle, Check, Linkedin, Sparkles, User, Briefcase, GraduationCap, Wrench, type LucideIcon } from 'lucide-react'
 
 interface LinkedInSections {
   headline: string
@@ -20,47 +20,55 @@ interface SectionInputStepProps {
   error: string | null
 }
 
-const SECTION_CONFIG = [
+const SECTION_CONFIG: Array<{
+  key: keyof LinkedInSections
+  title: string
+  icon: LucideIcon
+  placeholder: string
+  rows: number
+  required: boolean
+  tip: string
+}> = [
   {
-    key: 'headline' as keyof LinkedInSections,
+    key: 'headline',
     title: 'Rubrik',
-    icon: '💡',
+    icon: Sparkles,
     placeholder: 'Exempel: "Projektledare | Digital Expert | Driving Innovation"',
     rows: 2,
     required: false,
     tip: 'Din LinkedIn-rubrik (visas under ditt namn). Valfritt - vi skapar en om du inte fyller i.'
   },
   {
-    key: 'about' as keyof LinkedInSections,
+    key: 'about',
     title: 'Om mig',
-    icon: '📝',
+    icon: User,
     placeholder: 'Exempel: Med passion och engagemang leder jag...',
     rows: 8,
     required: true,
     tip: 'Summera din professionella bakgrund och vad du kan erbjuda'
   },
   {
-    key: 'experience' as keyof LinkedInSections,
+    key: 'experience',
     title: 'Erfarenhet',
-    icon: '💼',
+    icon: Briefcase,
     placeholder: 'Inkludera företag, titlar, datum och beskrivningar',
     rows: 12,
     required: true,
     tip: 'Kopiera all din arbetserfarenhet från LinkedIn'
   },
   {
-    key: 'education' as keyof LinkedInSections,
+    key: 'education',
     title: 'Utbildning',
-    icon: '🎓',
+    icon: GraduationCap,
     placeholder: 'Inkludera skolor, program och datum',
     rows: 6,
     required: false,
     tip: 'Valfritt men rekommenderas för bättre resultat'
   },
   {
-    key: 'skills' as keyof LinkedInSections,
+    key: 'skills',
     title: 'Kompetenser',
-    icon: '🔧',
+    icon: Wrench,
     placeholder: 'Exempel: "SEO, WordPress, Marknadsföring..."',
     rows: 5,
     required: false,
@@ -213,9 +221,9 @@ export default function SectionInputStep({
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ type: "spring", stiffness: 400, delay: 0.1 }}
-              className="text-3xl"
+              className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0A66C2] to-[#0A66C2]/80 flex items-center justify-center"
             >
-              {section.icon}
+              <section.icon className="w-6 h-6 text-white" />
             </motion.div>
             <div>
               <motion.h2
