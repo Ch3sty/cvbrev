@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { cookies } from 'next/headers'
+import { createServerClient } from '@/lib/supabase/server'
 import type { CVMetadata } from '@/lib/cv/cv-metadata'
 
 export async function POST(req: NextRequest) {
@@ -11,7 +12,8 @@ export async function POST(req: NextRequest) {
     }
 
     // Get current user
-    const supabase = await createClient()
+    const cookieStore = await cookies()
+    const supabase = createServerClient({ cookies: cookieStore })
     const { data: { user }, error: userError } = await supabase.auth.getUser()
 
     if (userError || !user || user.id !== userId) {
