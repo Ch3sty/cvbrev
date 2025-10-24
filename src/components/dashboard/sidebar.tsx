@@ -22,7 +22,8 @@ import {
   Target,
   Search,
   Crown,
-  Settings
+  Settings,
+  Linkedin
 } from 'lucide-react';
 export default function DashboardSidebar() {
   const pathname = usePathname();
@@ -98,6 +99,13 @@ export default function DashboardSidebar() {
       label: 'CV-Analys',
       icon: <Search className="w-5 h-5" />,
       section: 'tools'
+    },
+    {
+      path: '/linkedin-optimizer',
+      label: 'LinkedIn Profiloptimering',
+      icon: <Linkedin className="w-5 h-5" />,
+      section: 'tools',
+      highlight: true
     },
     {
       path: '/dashboard/jobbmatchning',
@@ -272,7 +280,9 @@ export default function DashboardSidebar() {
                   <span className="flex-shrink-0">{item.icon}</span>
                   {!collapsed && <span className="ml-3">{item.label}</span>}
                   {'highlight' in item && item.highlight && !collapsed && (
-                    <span className="absolute right-2 top-1/2 -translate-y-1/2 w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                    <span className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-gradient-to-r from-green-400 to-emerald-500 text-white text-xs font-bold rounded-full animate-pulse shadow-lg">
+                      NY
+                    </span>
                   )}
                 </Link>
               </li>
