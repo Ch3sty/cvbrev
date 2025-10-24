@@ -272,6 +272,54 @@ Returnera ENDAST ett JSON-objekt med följande struktur:
 const COURSE_CACHE_TTL_DAYS = 365; // Cache for 1 year
 
 /**
+ * Infer course level from title and description
+ */
+function inferCourseLevel(title: string, description: string, targetRole: string): 'foundation' | 'intermediate' | 'advanced' {
+  const text = (title + ' ' + description).toLowerCase();
+
+  // Foundation: Grundutbildningar för att BÖRJA i yrket
+  // YH-program, Högskoleprogram, Komvux, Förberedande kurser
+  if (text.match(/yrkeshögskol|högskoleprogram|universitetsutbildning|komvux|förberedande|grundutbildning|grundkurs(?!.*erfaren)/)) {
+    console.log(`Inferred foundation for: ${title}`);
+    return 'foundation';
+  }
+
+  // Check for specific program names that are foundation
+  if (text.match(/sjuksköterskeprogrammet|lärarprogrammet|ingenjörsprogram|ekonomprogrammet/)) {
+    console.log(`Inferred foundation (program) for: ${title}`);
+    return 'foundation';
+  }
+
+  // Advanced: För erfarna med erfarenhet
+  // Handledarutbildning, För chefer, Arbetsplatsspecifikt, För erfarna
+  if (text.match(/för erfarna|erfarna\s+(sjuksköterskor|yrkesverksamma)|handledarutbildning|handledar\s+|för chefer|ledningskurs|arbetsplatsspecifik|verksamhetsförlagd\s+utbildning|vfu\s+handledar/)) {
+    console.log(`Inferred advanced for: ${title}`);
+    return 'advanced';
+  }
+
+  // Specialist-kurser: intermediate OM det är "Specialistsjuksköterskeprogrammet", annars advanced
+  if (text.includes('specialist')) {
+    if (text.includes('program')) {
+      console.log(`Inferred intermediate (specialist program) for: ${title}`);
+      return 'intermediate';
+    } else {
+      console.log(`Inferred advanced (specialist course) for: ${title}`);
+      return 'advanced';
+    }
+  }
+
+  // Kompletterande utbildning för utländsk examen: intermediate/advanced
+  if (text.match(/kompletterande\s+utbildning|för\s+(läkare|sjuksköterskor).*utländsk/)) {
+    console.log(`Inferred advanced (kompletterande) for: ${title}`);
+    return 'advanced';
+  }
+
+  // Default: intermediate (vidareutbildning, certifiering, kortare kurser)
+  console.log(`Inferred intermediate (default) for: ${title}`);
+  return 'intermediate';
+}
+
+/**
  * Check cache for existing course search results
  */
 async function getCachedCourses(skillName: string, targetRole: string, userLocation: string) {
@@ -339,15 +387,42 @@ async function saveCourseCache(skillName: string, targetRole: string, userLocati
 /**
  * Find courses using gpt-4o-search-preview with web search (with cache)
  */
-async function findRealCoursesWithWebSearch(gap: any, targetRole: string, openaiApiKey: string, openaiProjectId?: string, userLocation?: string) {
+async function findRealCoursesWithWebSearch(gap: any, targetRole: string, openaiApiKey: string, openaiProjectId?: string, userLocation?: string, matchScore?: number) {
   const location = userLocation || 'Stockholm';
-  console.log(`Searching for courses: ${gap.skill} (region: ${location})`);
+  console.log(`Searching for courses: ${gap.skill} (region: ${location}, matchScore: ${matchScore}%)`);
 
   // Check cache first
   const cachedCourses = await getCachedCourses(gap.skill, targetRole, location);
   if (cachedCourses && Array.isArray(cachedCourses)) {
     console.log(`Using ${cachedCourses.length} cached courses for "${gap.skill}"`);
     return cachedCourses;
+  }
+
+  // Determine context based on matchScore
+  let experienceContext = '';
+  if (matchScore !== undefined && matchScore < 20) {
+    experienceContext = `
+
+KRITISKT - ANVÄNDARENS ERFARENHETSNIVÅ:
+- Användaren har INGEN eller MYCKET LITE erfarenhet av ${targetRole}
+- Du MÅSTE PRIORITERA grundutbildningar (YH-program, Högskoleprogram, Komvux)
+- Du MÅSTE UNDVIKA specialistkurser, handledarutbildningar, kurser för erfarna
+- course_level MÅSTE vara "foundation" för huvuddelen av kurserna`;
+  } else if (matchScore !== undefined && matchScore < 50) {
+    experienceContext = `
+
+ANVÄNDARENS ERFARENHETSNIVÅ:
+- Användaren har viss grundläggande erfarenhet av ${targetRole}
+- PRIORITERA vidareutbildningar, certifieringar och specialistkurser
+- OK med kurser som bygger på grundutbildning
+- Balansera mellan "intermediate" och "advanced"`;
+  } else if (matchScore !== undefined) {
+    experienceContext = `
+
+ANVÄNDARENS ERFARENHETSNIVÅ:
+- Användaren har god erfarenhet av ${targetRole}
+- PRIORITERA avancerade kurser, specialiseringar och certifieringar
+- Fokusera på "intermediate" och "advanced" nivåer`;
   }
 
   // Cache miss - perform web search
@@ -411,7 +486,7 @@ KURS-NIVÅ MÄRKNING (course_level):
   * För ERFARNA yrkesverksamma, Handledarutbildning, Arbetsplatsspecifika system
   * Exempel: "För erfarna...", "Handledarutbildning VFU", "TakeCare-journalsystem", "För chefer..."
 
-VIKTIGT: Märk ALLTID varje kurs med rätt nivå baserat på målgrupp och förkunskapskrav!`
+VIKTIGT: Märk ALLTID varje kurs med rätt nivå baserat på målgrupp och förkunskapskrav!${experienceContext}`
           },
           {
             role: 'user',
@@ -477,7 +552,8 @@ Returnera ENDAST denna JSON-struktur (inget annat):
       priority: gap.importance === 'essential' ? 'essential' : 'recommended',
       relevance: `För ${gap.skill}`,
       is_verified: course.direct_url?.startsWith('http'),
-      search_source: 'gpt4o_web_search'
+      search_source: 'gpt4o_web_search',
+      course_level: course.course_level || inferCourseLevel(course.title || '', course.description || '', targetRole)
     }));
 
     const verifiedCourses = courses.filter((c: any) => c.is_verified);
@@ -745,7 +821,8 @@ Deno.serve(async (req) => {
             normalizedRole || 'yrkesrollen',
             OPENAI_API_KEY,
             OPENAI_PROJECT_ID,
-            userLocation
+            userLocation,
+            analysisResult.matchScore
           ).then(courses => ({ gap, courses }));
         })
       );
