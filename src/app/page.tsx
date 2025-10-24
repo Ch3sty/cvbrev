@@ -903,48 +903,6 @@ export default function HomePage() {
       {/* Enhanced Final CTA - Nordic Elegance */}
       <EnhancedFinalCTA />
 
-      {/* Footer */}
-      <footer className="bg-slate-900 text-slate-300 py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h3 className="font-bold text-white mb-4">Jobbcoach.ai</h3>
-              <p className="text-sm">Din smarta karriärpartner för svenska arbetsmarknaden.</p>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white mb-4">Produkt</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="#" className="hover:text-white transition-colors">Funktioner</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">Priser</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">CV-mallar</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">Integrationer</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white mb-4">Företag</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="#" className="hover:text-white transition-colors">Om oss</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">Karriär</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">Press</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">Kontakt</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white mb-4">Support</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link href="#" className="hover:text-white transition-colors">Hjälpcenter</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">GDPR</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">Villkor</Link></li>
-                <li><Link href="#" className="hover:text-white transition-colors">API</Link></li>
-              </ul>
-            </div>
-          </div>
-          <div className="pt-8 border-t border-slate-800 text-center text-sm">
-            <p>&copy; 2024 Jobbcoach.ai. Alla rättigheter förbehållna. Utvecklad med ❤️ i Sverige.</p>
-          </div>
-        </div>
-      </footer>
-
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
