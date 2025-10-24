@@ -1,0 +1,215 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
+import { Linkedin, Sparkles, TrendingUp, FileText, Award } from 'lucide-react'
+
+interface AnalysisProgressStepProps {
+  isAnalyzing: boolean
+}
+
+const ANALYSIS_STEPS = [
+  { icon: FileText, label: 'Läser din profil', duration: 2000 },
+  { icon: TrendingUp, label: 'Analyserar språk och ton', duration: 2500 },
+  { icon: Sparkles, label: 'Identifierar förbättringsområden', duration: 3000 },
+  { icon: Award, label: 'Genererar optimerad text', duration: 2500 }
+]
+
+export default function AnalysisProgressStep({ isAnalyzing }: AnalysisProgressStepProps) {
+  const [currentStepIndex, setCurrentStepIndex] = useState(0)
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    if (!isAnalyzing) return
+
+    // Progress animation
+    const progressInterval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 95) return prev
+        return prev + 1
+      })
+    }, 100)
+
+    // Step progression
+    const totalDuration = ANALYSIS_STEPS.reduce((acc, step) => acc + step.duration, 0)
+    let elapsed = 0
+
+    const stepInterval = setInterval(() => {
+      elapsed += 100
+      const stepProgress = ANALYSIS_STEPS.reduce((acc, step, index) => {
+        if (index < currentStepIndex) return acc + step.duration
+        return acc
+      }, 0)
+
+      if (elapsed > stepProgress + ANALYSIS_STEPS[currentStepIndex]?.duration) {
+        setCurrentStepIndex(prev => Math.min(prev + 1, ANALYSIS_STEPS.length - 1))
+      }
+    }, 100)
+
+    return () => {
+      clearInterval(progressInterval)
+      clearInterval(stepInterval)
+    }
+  }, [isAnalyzing, currentStepIndex])
+
+  return (
+    <div className="max-w-2xl mx-auto">
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center mb-12"
+      >
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-full mb-6">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+          >
+            <Sparkles className="w-5 h-5 text-[#0A66C2]" />
+          </motion.div>
+          <span className="text-sm font-semibold text-[#0A66C2]">AI arbetar</span>
+        </div>
+
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          Optimerar din LinkedIn-profil
+        </h1>
+        <p className="text-lg text-gray-600">
+          Vi analyserar varje sektion och skapar en förbättrad version
+        </p>
+      </motion.div>
+
+      {/* LinkedIn Logo Animation */}
+      <div className="flex justify-center mb-12">
+        <motion.div
+          animate={{
+            scale: [1, 1.1, 1],
+            rotate: [0, 5, -5, 0]
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: 'easeInOut'
+          }}
+          className="w-24 h-24 bg-gradient-to-br from-[#0A66C2] to-[#0A66C2]/80 rounded-2xl flex items-center justify-center shadow-xl"
+        >
+          <Linkedin className="w-14 h-14 text-white" />
+        </motion.div>
+      </div>
+
+      {/* Progress Bar */}
+      <div className="mb-12">
+        <div className="flex justify-between items-center mb-2">
+          <span className="text-sm font-medium text-gray-700">Framsteg</span>
+          <span className="text-sm font-bold text-[#0A66C2]">{Math.round(progress)}%</span>
+        </div>
+        <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+          <motion.div
+            className="h-full bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/70 rounded-full relative"
+            initial={{ width: '0%' }}
+            animate={{ width: `${progress}%` }}
+            transition={{ duration: 0.3 }}
+          >
+            {/* Shimmer effect */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+              animate={{ x: ['-100%', '200%'] }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: 'linear'
+              }}
+            />
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Analysis Steps */}
+      <div className="space-y-4">
+        {ANALYSIS_STEPS.map((step, index) => {
+          const StepIcon = step.icon
+          const isActive = index === currentStepIndex
+          const isCompleted = index < currentStepIndex
+
+          return (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.1 }}
+              className={`flex items-center gap-4 p-4 rounded-xl transition-all ${
+                isActive
+                  ? 'bg-blue-50 border-2 border-[#0A66C2]'
+                  : isCompleted
+                  ? 'bg-green-50 border-2 border-[#83941f]'
+                  : 'bg-white border-2 border-gray-200'
+              }`}
+            >
+              {/* Icon */}
+              <div
+                className={`w-12 h-12 rounded-full flex items-center justify-center ${
+                  isActive
+                    ? 'bg-[#0A66C2] animate-pulse'
+                    : isCompleted
+                    ? 'bg-[#83941f]'
+                    : 'bg-gray-300'
+                }`}
+              >
+                <StepIcon className="w-6 h-6 text-white" />
+              </div>
+
+              {/* Label */}
+              <div className="flex-1">
+                <div
+                  className={`font-semibold ${
+                    isActive
+                      ? 'text-[#0A66C2]'
+                      : isCompleted
+                      ? 'text-[#83941f]'
+                      : 'text-gray-500'
+                  }`}
+                >
+                  {step.label}
+                </div>
+              </div>
+
+              {/* Status */}
+              {isActive && (
+                <motion.div
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                  className="text-xs font-medium text-[#0A66C2]"
+                >
+                  Pågår...
+                </motion.div>
+              )}
+              {isCompleted && (
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="text-xs font-medium text-[#83941f]"
+                >
+                  ✓ Klar
+                </motion.div>
+              )}
+            </motion.div>
+          )
+        })}
+      </div>
+
+      {/* Fun Facts */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+        className="mt-12 text-center"
+      >
+        <div className="inline-block bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl px-6 py-4 border border-purple-200">
+          <p className="text-sm text-gray-700">
+            💡 <strong>Visste du?</strong> En optimerad LinkedIn-profil får i genomsnitt{' '}
+            <span className="text-[#0A66C2] font-bold">3x fler</span> profilvisningar
+          </p>
+        </div>
+      </motion.div>
+    </div>
+  )
+}

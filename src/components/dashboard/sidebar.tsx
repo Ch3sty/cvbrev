@@ -101,7 +101,7 @@ export default function DashboardSidebar() {
       section: 'tools'
     },
     {
-      path: '/linkedin-optimizer',
+      path: '/dashboard/linkedin-optimizer',
       label: 'LinkedIn Profiloptimering',
       icon: <Linkedin className="w-5 h-5" />,
       section: 'tools',
