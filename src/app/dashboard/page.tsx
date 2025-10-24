@@ -370,16 +370,6 @@ export default function DashboardPage() {
                 href="/dashboard/cv-analys"
               />
               <QuotaCard
-                title="Kompetensutveckling"
-                icon={<GraduationCap className="w-5 h-5" />}
-                used={stats.weeklyCompetenceCount || 0}
-                limit={1}
-                remaining={Math.max(0, 1 - (stats.weeklyCompetenceCount || 0))}
-                resetDate={stats.competenceResetDate}
-                resetType="weekly"
-                href="/dashboard/kompetensutveckling"
-              />
-              <QuotaCard
                 title="Uppladdade CV"
                 icon={<FileText className="w-5 h-5" />}
                 used={stats.cvCount || 0}

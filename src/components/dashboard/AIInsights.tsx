@@ -93,9 +93,9 @@ export default function AIInsights({
         id: 'advanced-tips',
         icon: <Lightbulb className="w-5 h-5" />,
         title: 'Avancerade karriärtips',
-        description: 'Du har skapat flera brev! Utforska kompetensutveckling för att ytterligare förbättra din ansökningsprocess.',
-        action: 'Utforska verktyg',
-        href: '/dashboard/kompetensutveckling',
+        description: 'Du har skapat flera brev! Utforska våra CV-mallar för att ytterligare förbättra din ansökningsprocess.',
+        action: 'Se CV-mallar',
+        href: '/dashboard/cv-mallar',
         color: 'from-green-500 to-emerald-500',
         priority: 'low'
       });

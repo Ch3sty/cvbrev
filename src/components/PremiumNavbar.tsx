@@ -124,14 +124,6 @@ export default function PremiumNavbar() {
           description: 'Få feedback på ditt CV',
           gradient: 'from-orange-500 to-red-500',
           requireLogin: true
-        },
-        {
-          name: 'Kompetensutveckling',
-          href: '/dashboard/kompetensutveckling',
-          icon: GraduationCap,
-          description: 'Utveckla dina färdigheter',
-          gradient: 'from-indigo-500 to-purple-500',
-          requireLogin: true
         }
       ]
     }

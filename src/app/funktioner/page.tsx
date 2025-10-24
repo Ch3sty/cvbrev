@@ -128,22 +128,6 @@ export default function FunktionerPage() {
       gradient: 'from-indigo-400/20 to-blue-400/20'
     },
     {
-      id: 'competence-development',
-      icon: GraduationCap,
-      title: 'Personlig kompetensutveckling',
-      description: 'Få AI-genererade utvecklingsplaner baserat på dina karriärmål och marknadens krav.',
-      badge: 'Ny',
-      badgeColor: 'from-pink-500 to-pink-600',
-      stats: 'Skräddarsydd plan',
-      demoPoints: [
-        'Analyserar kompetenser',
-        'Identifierar luckor',
-        'Skapar lärandeplan',
-        'Spårar framsteg'
-      ],
-      gradient: 'from-pink-400/20 to-rose-400/20'
-    },
-    {
       id: 'data-security',
       icon: Shield,
       title: 'Säker datahantering',

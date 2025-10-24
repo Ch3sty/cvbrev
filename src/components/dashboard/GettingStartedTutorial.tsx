@@ -286,48 +286,6 @@ const tutorialSteps = [
     actionText: 'Välj mall',
     href: '/dashboard/cv-mallar',
     color: 'from-blue-500 to-indigo-600'
-  },
-  {
-    id: 6,
-    icon: Target,
-    title: 'Kompetensutveckling',
-    shortDescription: 'Personlig utvecklingsplan baserad på dina mål',
-    fullDescription: `
-      <div class="space-y-4">
-        <div>
-          <h5 class="font-bold text-slate-900 mb-2">
-            Så fungerar det
-          </h5>
-          <ol class="list-decimal list-inside space-y-1 ml-2 text-slate-700">
-            <li>Välj ditt CV</li>
-            <li>Ange din målroll eller utvecklingsmål</li>
-            <li>Vi analyserar kompetensglapp mellan nuläge och önskat mål</li>
-            <li>Du får en personlig utvecklingsplan</li>
-          </ol>
-        </div>
-
-        <div>
-          <h5 class="font-bold text-slate-900 mb-2">
-            Utvecklingsplanen innehåller
-          </h5>
-          <ul class="list-disc list-inside space-y-1 ml-4 text-slate-700">
-            <li>Kompetenser att förvärva</li>
-            <li>Rekommenderade kurser och certifieringar</li>
-            <li>Projektförslag för att bygga upp erfarenhet</li>
-            <li>Tidsplan (tre, sex eller tolv månader)</li>
-          </ul>
-        </div>
-
-        <div class="bg-blue-50/50 border border-blue-100 rounded-lg p-3">
-          <p class="text-sm text-slate-700">
-            <strong>Premium:</strong> Tillgänglig varje vecka för Premium-användare.
-          </p>
-        </div>
-      </div>
-    `,
-    actionText: 'Starta analys',
-    href: '/dashboard/kompetensutveckling',
-    color: 'from-blue-500 to-indigo-600'
   }
 ];
 

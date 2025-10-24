@@ -112,12 +112,6 @@ export default function DashboardSidebar() {
       section: 'tools'
     },
     {
-      path: '/dashboard/kompetensutveckling',
-      label: 'Kompetensutveckling',
-      icon: <GraduationCap className="w-5 h-5" />,
-      section: 'tools'
-    },
-    {
       path: '/dashboard/cv-mallar',
       label: 'CV-Mallar',
       icon: <Palette className="w-5 h-5" />,
@@ -129,12 +123,6 @@ export default function DashboardSidebar() {
       icon: <FileText className="w-5 h-5" />,
       section: 'cvs',
       highlight: true
-    },
-    {
-      path: '/dashboard/learning-plans',
-      label: 'Min Utvecklingsplan',
-      icon: <GraduationCap className="w-5 h-5" />,
-      section: 'learning'
     },
     {
       path: '/dashboard/mina-brev',
@@ -176,7 +164,6 @@ export default function DashboardSidebar() {
   // Gruppera navigation items
   const toolsItems = navItems.filter(item => item.section === 'tools');
   const cvsItems = navItems.filter(item => item.section === 'cvs');
-  const learningItems = navItems.filter(item => item.section === 'learning');
   const documentsItems = navItems.filter(item => item.section === 'documents');
   const overviewItems = navItems.filter(item => item.section === 'main');
   
@@ -287,35 +274,6 @@ export default function DashboardSidebar() {
                   {'highlight' in item && item.highlight && !collapsed && (
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                   )}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Kompetensutveckling Sektion */}
-        <div>
-          {!collapsed && (
-            <h3 className="px-4 py-2 text-xs font-bold text-slate-600 uppercase tracking-wider">
-              Kompetensutveckling
-            </h3>
-          )}
-          <ul className="space-y-1">
-            {learningItems.map((item) => (
-              <li key={item.path}>
-                <Link
-                  href={item.path}
-                  className={`
-                    flex items-center px-4 py-2.5
-                    ${pathname === item.path || pathname.startsWith(item.path + '/')
-                      ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold rounded-lg'
-                      : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm rounded-lg'
-                    }
-                    ${collapsed ? 'justify-center' : ''}
-                  `}
-                >
-                  <span className="flex-shrink-0">{item.icon}</span>
-                  {!collapsed && <span className="ml-3">{item.label}</span>}
                 </Link>
               </li>
             ))}

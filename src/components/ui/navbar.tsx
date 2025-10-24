@@ -57,7 +57,6 @@ const toolLinks: NavLinkItem[] = [
   { href: '/create-letter', label: 'Skapa personligt brev', icon: Edit3, requireLogin: true, isSpecial: true },
   { href: '/cv-mallar', label: 'CV-Mallar', icon: Palette, requireLogin: false, isSpecial: true },
   { href: '/analysera-cv', label: 'CV-Analys', icon: SearchCheck, requireLogin: true, isSpecial: true },
-  { href: '/kompetensutveckling', label: 'Kompetensutveckling', icon: GraduationCap, requireLogin: true, isSpecial: true },
 ];
 
 const myLettersLink: NavLinkItem = { href: '/dashboard/mina-brev', label: 'Mina Brev', icon: FileText, requireLogin: true, isSpecial: true };

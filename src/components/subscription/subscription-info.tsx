@@ -32,8 +32,6 @@ export default function SubscriptionInfo() {
     maxSavedLetters,
     remainingWeeklyAnalyses,
     weeklyAnalysisLimit,
-    weeklyCompetenceCount,
-    weeklyCompetenceLimit,
     loading: profileLoading
   } = useProfile();
 
@@ -43,7 +41,6 @@ export default function SubscriptionInfo() {
   const currentCvLimit = !isFinite(maxCvCount) ? Infinity : maxCvCount ?? 0;
   const currentSavedLettersLimit = !isFinite(maxSavedLetters) ? Infinity : maxSavedLetters ?? 0;
   const currentAnalysisLimit = !isFinite(weeklyAnalysisLimit) ? Infinity : weeklyAnalysisLimit ?? 0;
-  const currentCompetenceLimit = !isFinite(weeklyCompetenceLimit) ? Infinity : weeklyCompetenceLimit ?? 0;
 
 
   // Visa laddningsindikator om profildata fortfarande hämtas
@@ -135,29 +132,7 @@ export default function SubscriptionInfo() {
           </div>
         </div>
 
-        {/* 3. Kompetensutveckling - 1/vecka gratis */}
-        <div className="flex items-center justify-between py-3 border-b border-gray-200">
-          <div className="flex items-center text-sm">
-            <GraduationCap className="w-4 h-4 mr-3 text-purple-600 flex-shrink-0" />
-            <span className="text-gray-700 font-medium">Kompetensutveckling (per vecka)</span>
-          </div>
-          <div className="text-sm font-semibold">
-            {subscriptionTier === 'premium' ? (
-              <div className="text-gray-900 flex items-center">
-                <InfinityIcon className="w-4 h-4 mr-1 text-purple-600" />
-                <span>Obegränsat</span>
-              </div>
-            ) : (
-              <div className="text-gray-900">
-                <span className={(weeklyCompetenceCount ?? 0) >= currentCompetenceLimit ? 'text-red-600 font-bold' : ''}>
-                  {weeklyCompetenceCount ?? 0}
-                </span> / {currentCompetenceLimit}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* 4. Uppladdade CV - 2 gratis, 50 premium */}
+        {/* 3. Uppladdade CV - 2 gratis, 50 premium */}
         <div className="flex items-center justify-between py-3 border-b border-gray-200">
           <div className="flex items-center text-sm">
             <FileText className="w-4 h-4 mr-3 text-indigo-600 flex-shrink-0" />
