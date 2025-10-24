@@ -26,6 +26,7 @@ type OptimizationMode = 'stand_out' | 'target_role'
 type Language = 'sv' | 'en'
 
 interface LinkedInSections {
+  headline: string
   about: string
   experience: string
   education: string
@@ -34,6 +35,12 @@ interface LinkedInSections {
 
 interface OptimizationResults {
   sections: {
+    headline: {
+      optimized: string
+      score_before: number
+      score_after: number
+      improvements: string[]
+    }
     about: {
       optimized: string
       score_before: number
@@ -78,6 +85,7 @@ export default function LinkedInWizard() {
   const [targetRole, setTargetRole] = useState('')
   const [language, setLanguage] = useState<Language>('sv')
   const [sections, setSections] = useState<LinkedInSections>({
+    headline: '',
     about: '',
     experience: '',
     education: '',
@@ -157,7 +165,7 @@ export default function LinkedInWizard() {
     setMode('stand_out')
     setTargetRole('')
     setLanguage('sv')
-    setSections({ about: '', experience: '', education: '', skills: '' })
+    setSections({ headline: '', about: '', experience: '', education: '', skills: '' })
     setResults(null)
     setError(null)
     setIsAnalyzing(false)

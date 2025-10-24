@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, AlertCircle, Check, Linkedin } from 'lucide-react'
 
 interface LinkedInSections {
+  headline: string
   about: string
   experience: string
   education: string
@@ -20,6 +21,15 @@ interface SectionInputStepProps {
 }
 
 const SECTION_CONFIG = [
+  {
+    key: 'headline' as keyof LinkedInSections,
+    title: 'Rubrik',
+    icon: '💡',
+    placeholder: 'Exempel: "Projektledare | Digital Expert | Driving Innovation"',
+    rows: 2,
+    required: false,
+    tip: 'Din LinkedIn-rubrik (visas under ditt namn). Valfritt - vi skapar en om du inte fyller i.'
+  },
   {
     key: 'about' as keyof LinkedInSections,
     title: 'Om mig',

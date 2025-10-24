@@ -14,12 +14,14 @@ interface SectionResult {
 
 interface ResultsStepProps {
   originalSections: {
+    headline?: string
     about: string
     experience: string
     education?: string
     skills?: string
   }
   optimizedSections: {
+    headline: SectionResult
     about: SectionResult
     experience: SectionResult
     education?: SectionResult
@@ -32,6 +34,7 @@ interface ResultsStepProps {
 }
 
 const SECTIONS = [
+  { key: 'headline', title: '💡 Rubrik', icon: '💡' },
   { key: 'about', title: '📝 Om mig', icon: '📝' },
   { key: 'experience', title: '💼 Erfarenhet', icon: '💼' },
   { key: 'education', title: '🎓 Utbildning', icon: '🎓', optional: true },
