@@ -82,6 +82,7 @@ const StepSkeleton = () => (
 
 export default function LinkedInWizard() {
   const [currentStep, setCurrentStep] = useState(0)
+  const [completedSteps, setCompletedSteps] = useState<number[]>([0]) // Track which steps have been completed
   const [mode, setMode] = useState<OptimizationMode>('stand_out')
   const [targetRole, setTargetRole] = useState('')
   const [language, setLanguage] = useState<Language>('sv')
@@ -98,13 +99,26 @@ export default function LinkedInWizard() {
 
   const handleNext = () => {
     if (currentStep < STEPS.length - 1) {
-      setCurrentStep(currentStep + 1)
+      const nextStep = currentStep + 1
+      setCurrentStep(nextStep)
+      // Mark current and next step as completed
+      setCompletedSteps(prev => {
+        const updated = new Set([...prev, currentStep, nextStep])
+        return Array.from(updated)
+      })
     }
   }
 
   const handleBack = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1)
+    }
+  }
+
+  const handleStepClick = (stepIndex: number) => {
+    // Allow navigation to completed steps or previous steps
+    if (completedSteps.includes(stepIndex) || stepIndex < currentStep) {
+      setCurrentStep(stepIndex)
     }
   }
 
@@ -132,6 +146,7 @@ export default function LinkedInWizard() {
 
     setIsAnalyzing(true)
     setCurrentStep(3) // Move to Analysis step
+    setCompletedSteps(prev => [...new Set([...prev, 0, 1, 2, 3])])
 
     try {
       // Get Supabase client and user
@@ -164,6 +179,7 @@ export default function LinkedInWizard() {
       setResults(data)
       setIsAnalyzing(false)
       setCurrentStep(4) // Move to Results step
+      setCompletedSteps(prev => [...new Set([...prev, 4])])
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Något gick fel. Försök igen.')
       setIsAnalyzing(false)
@@ -173,6 +189,7 @@ export default function LinkedInWizard() {
 
   const handleStartOver = () => {
     setCurrentStep(0)
+    setCompletedSteps([0])
     setMode('stand_out')
     setTargetRole('')
     setLanguage('sv')
@@ -237,7 +254,12 @@ export default function LinkedInWizard() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
       {/* Progress Bar */}
-      <LinkedInProgressBar currentStep={currentStep} steps={STEPS} />
+      <LinkedInProgressBar
+        currentStep={currentStep}
+        steps={STEPS}
+        onStepClick={handleStepClick}
+        completedSteps={completedSteps}
+      />
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">

@@ -6,14 +6,20 @@ import { Check } from 'lucide-react'
 interface LinkedInProgressBarProps {
   currentStep: number
   steps: Array<{ id: number; title: string; subtitle?: string }>
+  onStepClick?: (stepIndex: number) => void
+  completedSteps?: number[]
 }
 
-export default function LinkedInProgressBar({ currentStep, steps }: LinkedInProgressBarProps) {
+export default function LinkedInProgressBar({ currentStep, steps, onStepClick, completedSteps = [] }: LinkedInProgressBarProps) {
   return (
     <div className="w-full bg-white border-b border-gray-200 py-6 px-8 sticky top-0 z-50 shadow-sm backdrop-blur-sm bg-white/95">
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between">
-          {steps.map((step, index) => (
+          {steps.map((step, index) => {
+            const isCompleted = completedSteps.includes(index)
+            const isClickable = onStepClick && (isCompleted || index < currentStep)
+
+            return (
             <div key={step.id} className="flex items-center flex-1">
               {/* Step Circle */}
               <div className="flex flex-col items-center">
@@ -23,13 +29,14 @@ export default function LinkedInProgressBar({ currentStep, steps }: LinkedInProg
                     scale: currentStep === index ? 1.1 : 1,
                   }}
                   transition={{ duration: 0.3, type: 'spring', stiffness: 300 }}
+                  onClick={() => isClickable && onStepClick(index)}
                   className={`w-10 h-10 rounded-full flex items-center justify-center relative transition-all ${
                     currentStep > index
                       ? 'bg-gradient-to-br from-[#0A66C2] to-[#0A66C2]/80 text-white shadow-lg shadow-blue-500/30'
                       : currentStep === index
                       ? 'bg-gradient-to-br from-[#0A66C2] to-[#0A66C2]/80 text-white shadow-lg shadow-blue-500/30'
                       : 'bg-gray-200 text-gray-400'
-                  }`}
+                  } ${isClickable ? 'cursor-pointer hover:scale-110 hover:shadow-xl' : ''}`}
                 >
                   {currentStep > index ? (
                     <Check className="w-5 h-5" />
@@ -112,7 +119,8 @@ export default function LinkedInProgressBar({ currentStep, steps }: LinkedInProg
                 </div>
               )}
             </div>
-          ))}
+            )
+          })}
         </div>
 
         {/* Mobile: Current Step Title */}

@@ -214,7 +214,7 @@ ${optimizedSections.skills.optimized}` : ''}`
             ) : (
               <>
                 <Download className="w-5 h-5" />
-                <span>Spara som CV i Jobbcoach.ai</span>
+                <span>Spara som CV på Jobbcoach.ai</span>
               </>
             )}
           </button>
