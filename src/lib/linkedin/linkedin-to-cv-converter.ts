@@ -29,12 +29,12 @@ function parseExperience(experienceText: string): CVExperience[] {
   const experiences: CVExperience[] = []
 
   // Split by common delimiters (multiple newlines, horizontal rules, etc.)
-  const jobBlocks = experienceText.split(/\n{2,}|━━━|---/).filter(block => block.trim())
+  const jobBlocks = experienceText.split(/\n{2,}|━━━|---/).filter((block: string) => block.trim())
 
   let currentJob: Partial<CVExperience> = {}
 
   for (const block of jobBlocks) {
-    const lines = block.split('\n').map(l => l.trim()).filter(l => l)
+    const lines = block.split('\n').map((l: string) => l.trim()).filter((l: string) => l)
 
     if (lines.length === 0) continue
 
@@ -103,10 +103,10 @@ function parseExperience(experienceText: string): CVExperience[] {
 function parseEducation(educationText: string): CVEducation[] {
   const educations: CVEducation[] = []
 
-  const blocks = educationText.split(/\n{2,}|━━━|---/).filter(block => block.trim())
+  const blocks = educationText.split(/\n{2,}|━━━|---/).filter((block: string) => block.trim())
 
   for (const block of blocks) {
-    const lines = block.split('\n').map(l => l.trim()).filter(l => l)
+    const lines = block.split('\n').map((l: string) => l.trim()).filter((l: string) => l)
 
     if (lines.length === 0) continue
 
@@ -178,7 +178,7 @@ function parseSkills(skillsText: string | any): CVSkill[] {
 
   if (hasCategories) {
     // Parse categorized skills
-    const sections = skillsText.split(/^([A-ZÅÄÖ\s&]+):\s*$/m).filter(s => s.trim())
+    const sections = skillsText.split(/^([A-ZÅÄÖ\s&]+):\s*$/m).filter((s: string) => s.trim())
 
     for (let i = 0; i < sections.length; i += 2) {
       const category = sections[i]?.trim()
@@ -189,8 +189,8 @@ function parseSkills(skillsText: string | any): CVSkill[] {
       // Extract skills from bullets
       const skillItems = skillsList
         .split('\n')
-        .map(line => line.replace(/^[•\-*]\s*/, '').trim())
-        .filter(skill => skill.length > 0)
+        .map((line: string) => line.replace(/^[•\-*]\s*/, '').trim())
+        .filter((skill: string) => skill.length > 0)
 
       if (skillItems.length > 0) {
         skills.push({
@@ -203,8 +203,8 @@ function parseSkills(skillsText: string | any): CVSkill[] {
     // Parse flat skill list (comma-separated or bullet-separated)
     const skillsList = skillsText
       .split(/[,•\-\n]/)
-      .map(s => s.trim())
-      .filter(s => s.length > 0)
+      .map((s: string) => s.trim())
+      .filter((s: string) => s.length > 0)
 
     if (skillsList.length > 0) {
       skills.push({
