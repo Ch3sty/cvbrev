@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, AlertCircle, Check, Linkedin, Sparkles, User, Briefcase, GraduationCap, Wrench, ExternalLink, MousePointerClick, Copy, ClipboardPaste, type LucideIcon } from 'lucide-react'
+import Kbd from '@/components/ui/Kbd'
 
 interface LinkedInSections {
   headline: string
@@ -223,8 +224,15 @@ export default function SectionInputStep({
               <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-green-600 to-green-500 flex items-center justify-center mb-3 shadow-lg shadow-green-500/30">
                 <Copy className="w-8 h-8 text-white" />
               </div>
-              <div className="text-xs font-semibold text-gray-900 mb-1">3. Kopiera text</div>
-              <div className="text-xs text-gray-600">Ctrl+C / ⌘+C</div>
+              <div className="text-xs font-semibold text-gray-900 mb-2">3. Kopiera text</div>
+              <div className="flex items-center gap-1">
+                <Kbd>Ctrl</Kbd>
+                <span className="text-gray-400">+</span>
+                <Kbd>C</Kbd>
+              </div>
+              <div className="flex items-center gap-1 mt-1 text-xs text-gray-500">
+                eller <Kbd className="ml-1">⌘</Kbd><span className="mx-0.5">+</span><Kbd>C</Kbd>
+              </div>
             </motion.div>
 
             {/* Step 4: Paste Here */}
@@ -237,8 +245,15 @@ export default function SectionInputStep({
               <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-orange-600 to-orange-500 flex items-center justify-center mb-3 shadow-lg shadow-orange-500/30">
                 <ClipboardPaste className="w-8 h-8 text-white" />
               </div>
-              <div className="text-xs font-semibold text-gray-900 mb-1">4. Klistra in</div>
-              <div className="text-xs text-gray-600">Ctrl+V / ⌘+V</div>
+              <div className="text-xs font-semibold text-gray-900 mb-2">4. Klistra in</div>
+              <div className="flex items-center gap-1">
+                <Kbd>Ctrl</Kbd>
+                <span className="text-gray-400">+</span>
+                <Kbd>V</Kbd>
+              </div>
+              <div className="flex items-center gap-1 mt-1 text-xs text-gray-500">
+                eller <Kbd className="ml-1">⌘</Kbd><span className="mx-0.5">+</span><Kbd>V</Kbd>
+              </div>
             </motion.div>
           </div>
 

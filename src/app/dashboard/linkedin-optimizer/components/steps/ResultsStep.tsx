@@ -59,7 +59,7 @@ export default function ResultsStep({
   const [activeSection, setActiveSection] = useState(0)
   const [copiedSection, setCopiedSection] = useState<string | null>(null)
   const [copiedAll, setCopiedAll] = useState(false)
-  const [viewMode, setViewMode] = useState<'split' | 'optimized'>('split')
+  const [viewedSections, setViewedSections] = useState<Set<number>>(new Set([0]))
 
   const currentSectionKey = SECTIONS[activeSection].key as keyof typeof optimizedSections
   const currentSection = optimizedSections[currentSectionKey]
@@ -263,12 +263,17 @@ export default function ResultsStep({
         {availableSections.map((section, index) => (
           <motion.button
             key={section.key}
-            onClick={() => setActiveSection(index)}
+            onClick={() => {
+              setActiveSection(index)
+              setViewedSections(prev => new Set([...prev, index]))
+            }}
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             className={`px-4 py-2 rounded-lg font-medium whitespace-nowrap transition-all relative ${
               activeSection === index
                 ? 'bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/80 text-white shadow-lg shadow-blue-500/30'
+                : viewedSections.has(index)
+                ? 'bg-green-50 text-green-700 border border-green-200'
                 : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
             }`}
           >
@@ -287,29 +292,13 @@ export default function ResultsStep({
         ))}
       </div>
 
-      {/* View Mode Toggle */}
+      {/* Progress Indicator */}
       <div className="flex justify-center mb-6">
-        <div className="inline-flex bg-gray-100 rounded-lg p-1">
-          <button
-            onClick={() => setViewMode('split')}
-            className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
-              viewMode === 'split'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            Jämför före/efter
-          </button>
-          <button
-            onClick={() => setViewMode('optimized')}
-            className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
-              viewMode === 'optimized'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            Endast optimerad
-          </button>
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-50 rounded-lg border border-gray-200">
+          <Check className="w-4 h-4 text-green-600" />
+          <span className="text-sm text-gray-700">
+            <span className="font-semibold text-gray-900">{viewedSections.size}</span> av <span className="font-semibold text-gray-900">{availableSections.length}</span> sektioner granskade
+          </span>
         </div>
       </div>
 
@@ -326,37 +315,47 @@ export default function ResultsStep({
         </div>
       )}
 
-      {/* Main Content - Split View or Single */}
+      {/* Main Content - Always Split View */}
       {currentSection && (
         <motion.div
-          key={`${currentSectionKey}-${viewMode}`}
+          key={currentSectionKey}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           className="bg-white rounded-2xl border-2 border-gray-200 shadow-lg overflow-hidden"
         >
-          {viewMode === 'split' ? (
-            /* Split View */
-            <div className="grid grid-cols-2 divide-x divide-gray-200">
+          {/* Split View */}
+          <div className="grid grid-cols-2 divide-x divide-gray-200">
               {/* BEFORE */}
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+                  <h3 className="text-xs uppercase tracking-wide font-bold text-gray-500 flex items-center gap-2">
                     <span className="w-2 h-2 bg-red-500 rounded-full"></span>
                     FÖRE ({currentSection.score_before}p)
                   </h3>
                 </div>
-                <div className="prose prose-slate max-w-none">
-                  <p className="text-gray-700 whitespace-pre-wrap leading-relaxed text-sm">
-                    {currentOriginal || '(Ingen original text)'}
-                  </p>
-                </div>
+                {currentSectionKey === 'headline' ? (
+                  <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <div className="text-base font-medium text-gray-800 leading-relaxed">
+                      {currentOriginal || '(Ingen original rubrik)'}
+                    </div>
+                    <div className="mt-2 text-xs text-gray-500">
+                      {currentOriginal?.length || 0} / 220 tecken
+                    </div>
+                  </div>
+                ) : (
+                  <div className="prose prose-slate max-w-none">
+                    <div className="text-gray-700 whitespace-pre-line leading-relaxed text-sm">
+                      {currentOriginal || '(Ingen original text)'}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* AFTER */}
               <div className="p-6 bg-gradient-to-br from-blue-50/30 to-white">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+                  <h3 className="text-xs uppercase tracking-wide font-bold text-green-600 flex items-center gap-2">
                     <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                     EFTER ({currentSection.score_after}p)
                   </h3>
@@ -377,77 +376,48 @@ export default function ResultsStep({
                     )}
                   </button>
                 </div>
-                <div className="prose prose-slate max-w-none">
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    components={{
-                      p: ({ children }) => <p className="text-gray-800 leading-relaxed mb-3 text-sm">{children}</p>,
-                      strong: ({ children }) => <strong className="font-bold text-gray-900">{children}</strong>,
-                      ul: ({ children }) => <ul className="list-disc list-inside space-y-1 my-2">{children}</ul>,
-                      li: ({ children }) => <li className="text-gray-800 text-sm">{children}</li>,
-                    }}
-                  >
-                    {currentSection.optimized}
-                  </ReactMarkdown>
-                </div>
+                {currentSectionKey === 'headline' ? (
+                  <div className="p-4 bg-white rounded-lg border-2 border-green-200 shadow-sm">
+                    <div className="text-base font-medium text-gray-900 leading-relaxed">
+                      {currentSection.optimized}
+                    </div>
+                    <div className="mt-2 flex items-center justify-between">
+                      <div className={`text-xs font-medium ${currentSection.optimized.length <= 220 ? 'text-green-600' : 'text-red-600'}`}>
+                        {currentSection.optimized.length} / 220 tecken
+                      </div>
+                      {currentSection.optimized.length <= 220 && (
+                        <div className="text-xs text-green-600 flex items-center gap-1">
+                          <Check className="w-3 h-3" />
+                          Passar LinkedIn
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="prose prose-slate max-w-none">
+                    <div className="text-gray-800 whitespace-pre-line leading-relaxed text-sm">
+                      {currentSection.optimized}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
-          ) : (
-            /* Single Optimized View */
-            <>
-              <div className="bg-gradient-to-br from-blue-50/30 to-white p-6">
-                <div className="prose prose-slate max-w-none">
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    components={{
-                      p: ({ children }) => <p className="text-gray-800 leading-relaxed mb-4">{children}</p>,
-                      strong: ({ children }) => <strong className="font-bold text-gray-900">{children}</strong>,
-                      ul: ({ children }) => <ul className="list-disc list-inside space-y-1 my-2">{children}</ul>,
-                      li: ({ children }) => <li className="text-gray-800">{children}</li>,
-                    }}
-                  >
-                    {currentSection.optimized}
-                  </ReactMarkdown>
-                </div>
-              </div>
 
-              {/* Improvements */}
-              <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
-                <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
-                  <Check className="w-5 h-5 text-green-600" />
-                  Vad har vi förbättrat?
-                </h4>
-                <ul className="space-y-2">
-                  {currentSection.improvements.map((improvement, index) => (
-                    <li key={index} className="flex items-start gap-2 text-gray-700">
-                      <Check className="w-4 h-4 text-green-600 flex-shrink-0 mt-1" />
-                      <span className="text-sm">{improvement}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Copy Button */}
-              <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
-                <button
-                  onClick={() => handleCopy(currentSection.optimized, currentSectionKey)}
-                  className="w-full px-4 py-3 bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/80 text-white font-semibold rounded-lg hover:shadow-lg transition-all flex items-center justify-center gap-2"
-                >
-                  {copiedSection === currentSectionKey ? (
-                    <>
-                      <Check className="w-5 h-5" />
-                      Kopierat!
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-5 h-5" />
-                      Kopiera text
-                    </>
-                  )}
-                </button>
-              </div>
-            </>
-          )}
+            {/* Improvements Section Below */}
+            <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
+              <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
+                <Check className="w-5 h-5 text-green-600" />
+                Vad har vi förbättrat?
+              </h4>
+              <ul className="grid grid-cols-2 gap-x-6 gap-y-2">
+                {currentSection.improvements.map((improvement, index) => (
+                  <li key={index} className="flex items-start gap-2 text-gray-700">
+                    <Check className="w-4 h-4 text-green-600 flex-shrink-0 mt-1" />
+                    <span className="text-sm">{improvement}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
         </motion.div>
       )}
 
@@ -464,7 +434,11 @@ export default function ResultsStep({
         <div className="flex items-center gap-3">
           {activeSection < availableSections.length - 1 && (
             <button
-              onClick={() => setActiveSection(activeSection + 1)}
+              onClick={() => {
+                const nextSection = activeSection + 1
+                setActiveSection(nextSection)
+                setViewedSections(prev => new Set([...prev, nextSection]))
+              }}
               className="px-6 py-3 text-gray-600 font-medium rounded-xl hover:bg-gray-100 transition-all flex items-center gap-2"
             >
               <span>Nästa sektion</span>
@@ -472,13 +446,20 @@ export default function ResultsStep({
             </button>
           )}
 
-          <button
-            onClick={onNext}
-            className="px-8 py-3 bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/80 text-white font-semibold rounded-xl hover:shadow-lg hover:scale-105 transition-all flex items-center gap-2"
-          >
-            <span>Fortsätt till export</span>
-            <ArrowRight className="w-5 h-5" />
-          </button>
+          {viewedSections.size === availableSections.length ? (
+            <button
+              onClick={onNext}
+              className="px-8 py-3 bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/80 text-white font-semibold rounded-xl hover:shadow-lg hover:scale-105 transition-all flex items-center gap-2"
+            >
+              <span>Fortsätt till export</span>
+              <ArrowRight className="w-5 h-5" />
+            </button>
+          ) : (
+            <div className="px-8 py-3 bg-gray-100 text-gray-400 font-semibold rounded-xl flex items-center gap-2 cursor-not-allowed" title="Granska alla sektioner först">
+              <span>Fortsätt till export</span>
+              <ArrowRight className="w-5 h-5" />
+            </div>
+          )}
         </div>
       </div>
     </div>
