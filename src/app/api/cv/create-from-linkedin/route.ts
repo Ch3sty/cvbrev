@@ -23,15 +23,19 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // Create CV in database
+    // Create CV in database (save to cv_texts table)
+    const timestamp = Date.now()
+    const formattedDate = new Date().toLocaleDateString('sv-SE')
+
     const { data: cv, error: cvError } = await supabase
-      .from('cvs')
+      .from('cv_texts')
       .insert({
         user_id: userId,
-        title: `LinkedIn-profil - ${new Date().toLocaleDateString('sv-SE')}`,
-        content: cvData,
-        source: source || 'linkedin_optimization',
-        status: 'draft'
+        file_name: `LinkedIn CV ${formattedDate}`,
+        original_file_path: `linkedin/${userId}/${timestamp}.json`,
+        cv_text: JSON.stringify(cvData, null, 2),
+        structured_data: cvData,
+        text_extraction_failed: false
       })
       .select()
       .single()
