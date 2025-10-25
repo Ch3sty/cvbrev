@@ -146,10 +146,32 @@ function parseEducation(educationText: string): CVEducation[] {
 
 /**
  * Parse LinkedIn "Skills" section into CV skill categories
+ * Handles both JSON object format (from LinkedIn Optimizer) and string format (legacy)
  */
-function parseSkills(skillsText: string): CVSkill[] {
+function parseSkills(skillsText: string | any): CVSkill[] {
   const skills: CVSkill[] = []
 
+  // Handle JSON object format (from LinkedIn Optimizer)
+  if (typeof skillsText === 'object' && skillsText !== null) {
+    const { strong_skills = [], suggested_skills = [] } = skillsText
+
+    // Combine strong skills and suggested skills
+    const allSkills = [
+      ...strong_skills,
+      ...suggested_skills.map((s: any) => typeof s === 'object' ? s.skill : s)
+    ]
+
+    if (allSkills.length > 0) {
+      skills.push({
+        category: 'Kompetenser',
+        skills: allSkills
+      })
+    }
+
+    return skills
+  }
+
+  // Handle string format (legacy)
   // Check if skills are already categorized (contains headers like "LEDARSKAP & AFFÄRSUTVECKLING:")
   const categoryPattern = /^([A-ZÅÄÖ\s&]+):\s*$/m
   const hasCategories = categoryPattern.test(skillsText)
