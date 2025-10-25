@@ -59,10 +59,10 @@ function parseExperience(experienceText: string): CVExperience[] {
     const startDate = dateMatch ? dateMatch[1].trim() : dateRange
     const endDate = dateMatch && dateMatch[2].match(/nu|nutid|nuvarande/i) ? undefined : dateMatch?.[2]?.trim()
 
-    // Lines 3+: Description bullets (remove markdown bullet syntax)
+    // Lines 3+: Description bullets (remove markdown bullet syntax and bold markers)
     const description = lines.slice(2)
       .filter((l: string) => l.startsWith('-'))
-      .map((l: string) => l.replace(/^-\s*/, '').trim())
+      .map((l: string) => l.replace(/^-\s*/, '').replace(/\*\*/g, '').trim())
 
     experiences.push({
       position,
@@ -86,26 +86,41 @@ function parseExperience(experienceText: string): CVExperience[] {
 function parseEducation(educationText: string): CVEducation[] {
   const educations: CVEducation[] = []
 
+  console.log('🔍 parseEducation input:', educationText)
+
   // Split by education headers (lines starting with **Degree**)
   const blocks = educationText.split(/(?=^\*\*[^*]+\*\*$)/m).filter((block: string) => block.trim())
+  console.log('🔍 Education blocks found:', blocks.length, blocks)
 
   for (const block of blocks) {
     const lines = block.split('\n').map((l: string) => l.trim()).filter((l: string) => l)
+    console.log('🔍 Processing block lines:', lines)
 
-    if (lines.length < 2) continue
+    if (lines.length < 2) {
+      console.log('⚠️ Block has less than 2 lines, skipping')
+      continue
+    }
 
     // Line 1: **Degree/Program**
     const degreeMatch = lines[0]?.match(/\*\*(.+?)\*\*/)
-    if (!degreeMatch) continue
+    if (!degreeMatch) {
+      console.log('⚠️ No degree match found in:', lines[0])
+      continue
+    }
 
     const degree = degreeMatch[1]
+    console.log('✓ Degree found:', degree)
 
     // Line 2: Institution | Location | Years
     const metaMatch = lines[1]?.match(/^(.+?)\s*\|\s*(.+?)\s*\|\s*(.+)$/)
-    if (!metaMatch) continue
+    if (!metaMatch) {
+      console.log('⚠️ No meta match found in:', lines[1])
+      continue
+    }
 
     const institution = metaMatch[1].trim()
     const yearRange = metaMatch[3].trim()
+    console.log('✓ Institution:', institution, 'Year range:', yearRange)
 
     // Parse graduation year (last year in range: "2009–2012" → "2012")
     const yearMatch = yearRange.match(/(\d{4})\s*[–—-]\s*(\d{4})/)
@@ -117,6 +132,8 @@ function parseEducation(educationText: string): CVEducation[] {
       graduationYear
     })
   }
+
+  console.log('✅ Final parsed educations:', educations)
 
   return educations
 }
@@ -311,9 +328,11 @@ export function convertLinkedInToCV(
   const experience = parseExperience(optimizedSections.experience.optimized)
 
   // Parse education
+  console.log('🎓 Education data received:', optimizedSections.education)
   const education = optimizedSections.education
     ? parseEducation(optimizedSections.education.optimized)
     : []
+  console.log('🎓 Parsed education:', education)
 
   // Parse skills
   const skills = optimizedSections.skills
