@@ -225,13 +225,23 @@ export default function SectionInputStep({
                 <Copy className="w-8 h-8 text-white" />
               </div>
               <div className="text-xs font-semibold text-gray-900 mb-2">3. Kopiera text</div>
-              <div className="flex items-center gap-1">
-                <Kbd>Ctrl</Kbd>
-                <span className="text-gray-400">+</span>
-                <Kbd>C</Kbd>
+              {/* Windows */}
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-medium text-gray-600">Windows:</span>
+                <div className="flex items-center gap-1">
+                  <Kbd>Ctrl</Kbd>
+                  <span className="text-gray-400">+</span>
+                  <Kbd>C</Kbd>
+                </div>
               </div>
-              <div className="flex items-center gap-1 mt-1 text-xs text-gray-500">
-                eller <Kbd className="ml-1">⌘</Kbd><span className="mx-0.5">+</span><Kbd>C</Kbd>
+              {/* Mac */}
+              <div className="flex items-center gap-2 mt-1.5">
+                <span className="text-[10px] font-medium text-gray-600">Mac:</span>
+                <div className="flex items-center gap-1">
+                  <Kbd>⌘</Kbd>
+                  <span className="text-gray-400">+</span>
+                  <Kbd>C</Kbd>
+                </div>
               </div>
             </motion.div>
 
@@ -246,13 +256,23 @@ export default function SectionInputStep({
                 <ClipboardPaste className="w-8 h-8 text-white" />
               </div>
               <div className="text-xs font-semibold text-gray-900 mb-2">4. Klistra in</div>
-              <div className="flex items-center gap-1">
-                <Kbd>Ctrl</Kbd>
-                <span className="text-gray-400">+</span>
-                <Kbd>V</Kbd>
+              {/* Windows */}
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-medium text-gray-600">Windows:</span>
+                <div className="flex items-center gap-1">
+                  <Kbd>Ctrl</Kbd>
+                  <span className="text-gray-400">+</span>
+                  <Kbd>V</Kbd>
+                </div>
               </div>
-              <div className="flex items-center gap-1 mt-1 text-xs text-gray-500">
-                eller <Kbd className="ml-1">⌘</Kbd><span className="mx-0.5">+</span><Kbd>V</Kbd>
+              {/* Mac */}
+              <div className="flex items-center gap-2 mt-1.5">
+                <span className="text-[10px] font-medium text-gray-600">Mac:</span>
+                <div className="flex items-center gap-1">
+                  <Kbd>⌘</Kbd>
+                  <span className="text-gray-400">+</span>
+                  <Kbd>V</Kbd>
+                </div>
               </div>
             </motion.div>
           </div>

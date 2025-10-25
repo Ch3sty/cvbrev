@@ -457,7 +457,7 @@ IMPORTANT:
   return await callOpenAI([{ role: 'user', content: prompt }], 0.7);
 }
 
-// GPT-4o optimization for Skills section
+// GPT-4o optimization for Skills section - JSON analysis format
 async function optimizeSkills(
   text: string,
   experienceText: string,
@@ -471,43 +471,68 @@ async function optimizeSkills(
 
   const prompt = `${SYSTEM_PROMPT}
 
-TASK: Optimize LinkedIn Skills Section
+TASK: Analyze and Optimize LinkedIn Skills
 
 MODE: ${mode === 'stand_out' ? (isSwedish ? 'Allmän förbättring' : 'General improvement') : (isSwedish ? `Optimera för ${targetRole}` : `Optimize for ${targetRole}`)}
 LANGUAGE: ${isSwedish ? 'Swedish' : 'English'}
 EXPERIENCE LEVEL: ${context.experienceLevel} (${context.careerStage})
 PRIMARY INDUSTRY: ${context.primaryIndustry}
+TARGET ROLE: ${targetRole || (isSwedish ? 'Allmän karriärutveckling' : 'General career advancement')}
 
 ORIGINAL SKILLS:
 ---
 ${text}
 ---
 
-CONTEXT FROM PROFILE (for adding implicit skills):
+CONTEXT FROM PROFILE:
 Experience: ${experienceText.substring(0, 500)}...
 About: ${aboutText.substring(0, 300)}...
 
-OPTIMIZATION GUIDELINES:
-1. **Skill Organization**: 3-4 categories with bullets (•)
-2. **Prioritization**: Most relevant skills for ${targetRole || 'career goals'} first
-3. **Remove generic fluff**: "Microsoft Office", "Email", etc.
-4. **Add implicit skills**: Skills obvious from experience but not listed
-5. **Keywords for ATS**: Industry-standard terms
+🎯 LINKEDIN SKILLS - VIKTIGT ATT FÖRSTÅ:
+LinkedIn använder **sökbara dropdown-menyer** för skills, INTE fritext!
+- Du kan inte skriva in vilken skill som helst
+- Skills måste matcha LinkedIns fördefinierade lista
+- Skills visas som **badges/pills** på profilen
+- Recruiters söker på specifika skill-termer
 
-RETURN JSON:
+DIN UPPGIFT:
+Analysera personens skills och ge **konkreta rekommendationer** för:
+
+1. **Starka skills** (behåll dessa - redan bra)
+2. **Svaga/generiska skills** (ta bort/ersätt dessa)
+3. **Föreslagna skills** (lägg till dessa baserat på erfarenhet)
+
+VIKTIGA RIKTLINJER:
+✅ Föreslå **specifika, sökbara skills** som recruiters söker efter
+✅ Basera förslag på FAKTISK erfarenhet från profilen
+✅ Prioritera skills relevanta för ${targetRole || 'deras bransch'}
+✅ Ta bort generiska skills: "Microsoft Office", "Email", "Teamwork"
+❌ Föreslå ALDRIG skills personen inte har erfarenhet av
+❌ Använd INTE kategorier eller fritext-beskrivningar
+
+EXEMPEL - SKILLS ANALYS:
+Original skills: "Kommunikation, Excel, Projektledning, Microsoft Office, Teamwork"
+
+Starka skills: ["Projektledning", "Excel"]
+Svaga skills: ["Kommunikation" → för generisk, "Microsoft Office" → irrelevant, "Teamwork" → buzzword]
+Föreslagna skills: ["Agile Project Management", "Stakeholder Management", "Budget Planning", "Data Analysis"]
+
+RETURN JSON (write analysis in ${isSwedish ? 'Swedish' : 'English'}):
 {
-  "optimized": "Organized skills with 3-4 categories, bullets (•), prioritized by relevance",
+  "optimized": ${isSwedish ? '{"strong_skills": ["Skill 1", "Skill 2", ...], "weak_skills": [{"skill": "Generisk skill", "reason": "Varför den är svag", "replace_with": "Bättre alternativ"}], "suggested_skills": [{"skill": "Ny skill", "reason": "Varför relevant baserat på erfarenhet"}]}' : '{"strong_skills": ["Skill 1", "Skill 2", ...], "weak_skills": [{"skill": "Generic skill", "reason": "Why it\'s weak", "replace_with": "Better alternative"}], "suggested_skills": [{"skill": "New skill", "reason": "Why relevant based on experience"}]}'},
   "score_before": 58,
   "score_after": 85,
   "improvements": [
-    "${isSwedish ? 'Organiserat i 3 relevanta kategorier' : 'Organized into 3 relevant categories'}",
-    "${isSwedish ? 'Tagit bort generiska skills' : 'Removed generic skills'}"
+    "${isSwedish ? 'Identifierat X starka skills att behålla' : 'Identified X strong skills to keep'}",
+    "${isSwedish ? 'Föreslagit Y nya relevanta skills baserat på erfarenhet' : 'Suggested Y new relevant skills based on experience'}",
+    "${isSwedish ? 'Markerat Z svaga skills att ta bort' : 'Flagged Z weak skills to remove'}"
   ]
 }
 
-IMPORTANT:
-- Only add skills truly evident from the experience/about sections
-- Write ALL content in ${isSwedish ? 'Swedish' : 'English'}`;
+KRITISKT:
+- Analysera ENDAST skills som faktiskt finns i erfarenheten
+- Föreslå skills i ${isSwedish ? 'Swedish' : 'English'} beroende på språkval
+- Håll skill-namn korta och specifika (inte "Erfarenhet av projektledning", bara "Projektledning")`;
 
   return await callOpenAI([{ role: 'user', content: prompt }], 0.7);
 }

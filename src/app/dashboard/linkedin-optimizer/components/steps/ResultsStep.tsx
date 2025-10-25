@@ -6,6 +6,7 @@ import { Check, Copy, ArrowRight, ChevronLeft, ChevronRight, Sparkles, User, Bri
 import { toast } from 'react-toastify'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import SkillsResult from './SkillsResult'
 
 interface SectionResult {
   optimized: string
@@ -324,58 +325,62 @@ export default function ResultsStep({
           exit={{ opacity: 0, x: -20 }}
           className="bg-white rounded-2xl border-2 border-gray-200 shadow-lg overflow-hidden"
         >
-          {/* Split View */}
-          <div className="grid grid-cols-2 divide-x divide-gray-200">
-              {/* BEFORE */}
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xs uppercase tracking-wide font-bold text-gray-500 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-red-500 rounded-full"></span>
-                    FÖRE ({currentSection.score_before}p)
-                  </h3>
+          {/* Split View or Full Width for Skills */}
+          <div className={currentSectionKey === 'skills' ? '' : 'grid grid-cols-2 divide-x divide-gray-200'}>
+              {/* BEFORE - Hidden for Skills */}
+              {currentSectionKey !== 'skills' && (
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xs uppercase tracking-wide font-bold text-gray-500 flex items-center gap-2">
+                      <span className="w-2 h-2 bg-red-500 rounded-full"></span>
+                      FÖRE ({currentSection.score_before}p)
+                    </h3>
+                  </div>
+                  {currentSectionKey === 'headline' ? (
+                    <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                      <div className="text-base font-medium text-gray-800 leading-relaxed">
+                        {currentOriginal || '(Ingen original rubrik)'}
+                      </div>
+                      <div className="mt-2 text-xs text-gray-500">
+                        {currentOriginal?.length || 0} / 220 tecken
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="prose prose-slate max-w-none">
+                      <div className="text-gray-700 whitespace-pre-line leading-relaxed text-sm">
+                        {currentOriginal || '(Ingen original text)'}
+                      </div>
+                    </div>
+                  )}
                 </div>
-                {currentSectionKey === 'headline' ? (
-                  <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                    <div className="text-base font-medium text-gray-800 leading-relaxed">
-                      {currentOriginal || '(Ingen original rubrik)'}
-                    </div>
-                    <div className="mt-2 text-xs text-gray-500">
-                      {currentOriginal?.length || 0} / 220 tecken
-                    </div>
-                  </div>
-                ) : (
-                  <div className="prose prose-slate max-w-none">
-                    <div className="text-gray-700 whitespace-pre-line leading-relaxed text-sm">
-                      {currentOriginal || '(Ingen original text)'}
-                    </div>
-                  </div>
-                )}
-              </div>
+              )}
 
               {/* AFTER */}
-              <div className="p-6 bg-gradient-to-br from-blue-50/30 to-white">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xs uppercase tracking-wide font-bold text-green-600 flex items-center gap-2">
-                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                    EFTER ({currentSection.score_after}p)
-                  </h3>
-                  <button
-                    onClick={() => handleCopy(currentSection.optimized, currentSectionKey)}
-                    className="px-3 py-1.5 bg-[#0A66C2] text-white text-sm font-medium rounded-lg hover:bg-[#0A66C2]/90 transition-all flex items-center gap-1.5"
-                  >
-                    {copiedSection === currentSectionKey ? (
-                      <>
-                        <Check className="w-3.5 h-3.5" />
-                        Kopierat
-                      </>
-                    ) : (
-                      <>
-                        <Copy className="w-3.5 h-3.5" />
-                        Kopiera
-                      </>
-                    )}
-                  </button>
-                </div>
+              <div className={`p-6 ${currentSectionKey === 'skills' ? '' : 'bg-gradient-to-br from-blue-50/30 to-white'}`}>
+                {currentSectionKey !== 'skills' && (
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xs uppercase tracking-wide font-bold text-green-600 flex items-center gap-2">
+                      <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                      EFTER ({currentSection.score_after}p)
+                    </h3>
+                    <button
+                      onClick={() => handleCopy(currentSection.optimized, currentSectionKey)}
+                      className="px-3 py-1.5 bg-[#0A66C2] text-white text-sm font-medium rounded-lg hover:bg-[#0A66C2]/90 transition-all flex items-center gap-1.5"
+                    >
+                      {copiedSection === currentSectionKey ? (
+                        <>
+                          <Check className="w-3.5 h-3.5" />
+                          Kopierat
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5" />
+                          Kopiera
+                        </>
+                      )}
+                    </button>
+                  </div>
+                )}
                 {currentSectionKey === 'headline' ? (
                   <div className="p-4 bg-white rounded-lg border-2 border-green-200 shadow-sm">
                     <div className="text-base font-medium text-gray-900 leading-relaxed">
@@ -393,11 +398,46 @@ export default function ResultsStep({
                       )}
                     </div>
                   </div>
+                ) : currentSectionKey === 'skills' ? (
+                  <div className="px-2">
+                    <SkillsResult
+                      analysis={typeof currentSection.optimized === 'string' ? JSON.parse(currentSection.optimized) : currentSection.optimized}
+                      scoreImprovement={sectionImprovement}
+                    />
+                  </div>
                 ) : (
                   <div className="prose prose-slate max-w-none">
-                    <div className="text-gray-800 whitespace-pre-line leading-relaxed text-sm">
+                    <ReactMarkdown
+                      remarkPlugins={[remarkGfm]}
+                      components={{
+                        p: ({ children }) => (
+                          <p className="text-gray-800 leading-relaxed mb-4 text-sm">
+                            {children}
+                          </p>
+                        ),
+                        h3: ({ children }) => (
+                          <h3 className="text-base font-bold text-gray-900 mt-5 mb-2">
+                            {children}
+                          </h3>
+                        ),
+                        strong: ({ children }) => (
+                          <strong className="font-semibold text-gray-900">
+                            {children}
+                          </strong>
+                        ),
+                        ul: ({ children }) => (
+                          <ul className="space-y-1.5 my-3">{children}</ul>
+                        ),
+                        li: ({ children }) => (
+                          <li className="flex items-start gap-2 text-sm">
+                            <span className="text-green-600 mt-1 text-xs">•</span>
+                            <span className="text-gray-700">{children}</span>
+                          </li>
+                        ),
+                      }}
+                    >
                       {currentSection.optimized}
-                    </div>
+                    </ReactMarkdown>
                   </div>
                 )}
               </div>
