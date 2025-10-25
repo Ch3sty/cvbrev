@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { createServerClient } from '@/lib/supabase/server'
 import type { CVMetadata } from '@/lib/cv/cv-metadata'
+import { formatCVMetadataAsText } from '@/lib/linkedin/linkedin-to-cv-converter'
 
 export async function POST(req: NextRequest) {
   try {
@@ -33,7 +34,7 @@ export async function POST(req: NextRequest) {
         user_id: userId,
         file_name: `LinkedIn CV ${formattedDate}`,
         original_file_path: `linkedin/${userId}/${timestamp}.json`,
-        cv_text: JSON.stringify(cvData, null, 2),
+        cv_text: formatCVMetadataAsText(cvData),
         structured_data: cvData,
         text_extraction_failed: false
       })

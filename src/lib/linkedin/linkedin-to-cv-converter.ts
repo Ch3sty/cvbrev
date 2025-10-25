@@ -195,6 +195,103 @@ function parseSkills(skillsText: string | any): CVSkill[] {
 }
 
 /**
+ * Format CVMetadata as human-readable text (not JSON)
+ * Used for cv_text field in database
+ */
+export function formatCVMetadataAsText(cvData: CVMetadata): string {
+  let text = ''
+
+  // Personal Info
+  text += `${cvData.personalInfo.fullName}\n`
+  text += `${cvData.personalInfo.email}\n`
+  if (cvData.personalInfo.phone) text += `${cvData.personalInfo.phone}\n`
+  if (cvData.personalInfo.address) text += `${cvData.personalInfo.address}\n`
+  if (cvData.personalInfo.location) text += `${cvData.personalInfo.location}\n`
+  text += '\n'
+
+  // Summary
+  if (cvData.summary) {
+    text += `SAMMANFATTNING\n`
+    text += `${cvData.summary}\n\n`
+  }
+
+  // Experience
+  if (cvData.experience && cvData.experience.length > 0) {
+    text += `ERFARENHET\n\n`
+    for (const exp of cvData.experience) {
+      text += `${exp.position}\n`
+      text += `${exp.company}`
+      if (exp.location) text += ` | ${exp.location}`
+      text += ` | ${exp.startDate}`
+      if (exp.endDate) text += `–${exp.endDate}`
+      else text += '–nu'
+      text += '\n'
+
+      if (exp.description && exp.description.length > 0) {
+        for (const desc of exp.description) {
+          text += `- ${desc}\n`
+        }
+      }
+      text += '\n'
+    }
+  }
+
+  // Education
+  if (cvData.education && cvData.education.length > 0) {
+    text += `UTBILDNING\n\n`
+    for (const edu of cvData.education) {
+      text += `${edu.degree}\n`
+      text += `${edu.institution}`
+      if (edu.location) text += ` | ${edu.location}`
+      if (edu.graduationYear) text += ` | ${edu.graduationYear}`
+      text += '\n'
+      if (edu.description) text += `${edu.description}\n`
+      text += '\n'
+    }
+  }
+
+  // Skills
+  if (cvData.skills && cvData.skills.length > 0) {
+    text += `KOMPETENSER\n`
+    for (const skillCat of cvData.skills) {
+      if (skillCat.category && skillCat.category !== 'Kompetenser') {
+        text += `\n${skillCat.category}:\n`
+      }
+      if (skillCat.skills && skillCat.skills.length > 0) {
+        text += skillCat.skills.join(', ')
+        text += '\n'
+      }
+    }
+    text += '\n'
+  }
+
+  // Projects
+  if (cvData.projects && cvData.projects.length > 0) {
+    text += `PROJEKT\n\n`
+    for (const project of cvData.projects) {
+      const projectName = project.name || project.title || ''
+      text += `${projectName}\n`
+      text += `${project.description}\n`
+      if (project.technologies && project.technologies.length > 0) {
+        text += `Teknologier: ${project.technologies.join(', ')}\n`
+      }
+      text += '\n'
+    }
+  }
+
+  // Languages
+  if (cvData.languages && cvData.languages.length > 0) {
+    text += `SPRÅK\n`
+    for (const lang of cvData.languages) {
+      text += `${lang.language} - ${lang.proficiency}\n`
+    }
+    text += '\n'
+  }
+
+  return text
+}
+
+/**
  * Convert LinkedIn profile optimization to CV format
  */
 export function convertLinkedInToCV(

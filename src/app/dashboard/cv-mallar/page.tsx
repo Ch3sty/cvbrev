@@ -9,7 +9,6 @@ import { Download, FileText, Upload, Check, Crown, Sparkles, ArrowRight } from '
 import Link from 'next/link';
 import { useCVStore } from '@/store/cv-store';
 import { useProfile } from '@/hooks/use-profile';
-import Notification from '@/components/ui/notification';
 import SimpleTemplateGallery from '@/components/cv/simple-template-gallery';
 import { getTemplateById } from '@/lib/cv/simple-templates';
 import { motion } from 'framer-motion';
@@ -29,11 +28,6 @@ export default function CVMallarPage() {
   
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [notification, setNotification] = useState({
-    isVisible: false,
-    message: '',
-    type: 'loading' as 'loading' | 'success' | 'error'
-  });
   const [showGenerationModal, setShowGenerationModal] = useState(false);
 
   // Initialize data
@@ -58,36 +52,22 @@ export default function CVMallarPage() {
     }
   }, [cvs, selectedCV, selectCV, selectedTemplate]);
 
-  const showNotification = (type: 'loading' | 'success' | 'error', message: string) => {
-    setNotification({ isVisible: true, message, type });
-    if (type !== 'loading') {
-      setTimeout(() => setNotification(prev => ({ ...prev, isVisible: false })), 4000);
-    }
-  };
-
-  const closeNotification = () => {
-    setNotification(prev => ({ ...prev, isVisible: false }));
-  };
-
   const handleUpgradeClick = () => {
     router.push('/priser');
   };
 
   const handleGenerateCV = async (options: any = {}) => {
     if (!selectedTemplate || !selectedCV) {
-      showNotification('error', 'Välj både ett CV och en mall först.');
       return;
     }
 
     const template = getTemplateById(selectedTemplate);
     if (template?.tier === 'premium' && subscriptionTier !== 'premium') {
-      showNotification('error', 'Premium-mallar kräver en Premium-prenumeration.');
       handleUpgradeClick();
       return;
     }
 
     setIsGenerating(true);
-    showNotification('loading', 'Skapar ditt CV...');
 
     try {
       const fileName = `cv-${template?.name.toLowerCase().replace(/\s+/g, '-')}-${selectedCV.file_name.replace(/\.[^/.]+$/, '')}.pdf`;
@@ -128,8 +108,6 @@ export default function CVMallarPage() {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
 
-      showNotification('success', `CV skapat! Nedladdning startar automatiskt.`);
-
       // Success celebration animation
       const celebration = document.createElement('div');
       celebration.innerHTML = '🎉';
@@ -148,11 +126,9 @@ export default function CVMallarPage() {
         celebration.remove();
         setShowGenerationModal(false); // Close modal after success
       }, 2000);
-      
+
     } catch (error: any) {
       console.error('Fel vid CV-skapande:', error);
-      closeNotification();
-      showNotification('error', error.message || 'Ett fel uppstod vid CV-skapande.');
     } finally {
       setIsGenerating(false);
     }
@@ -245,15 +221,6 @@ export default function CVMallarPage() {
           }}
         />
       </motion.div>
-      {/* Notification */}
-      {notification.isVisible && (
-        <Notification
-          isVisible={notification.isVisible}
-          message={notification.message}
-          type={notification.type}
-          onClose={closeNotification}
-        />
-      )}
 
       <div className="max-w-7xl mx-auto px-4 py-8 relative z-10">
         {/* Header */}
