@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Check, Copy, ArrowRight, ChevronLeft, ChevronRight, Eye, EyeOff, Sparkles, User, Briefcase, GraduationCap, Wrench, type LucideIcon } from 'lucide-react'
+import { Check, Copy, ArrowRight, ChevronLeft, ChevronRight, Sparkles, User, Briefcase, GraduationCap, Wrench, Files, type LucideIcon } from 'lucide-react'
 import { toast } from 'react-toastify'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -58,17 +58,17 @@ export default function ResultsStep({
 }: ResultsStepProps) {
   const [activeSection, setActiveSection] = useState(0)
   const [copiedSection, setCopiedSection] = useState<string | null>(null)
-  const [showOriginal, setShowOriginal] = useState(false)
+  const [copiedAll, setCopiedAll] = useState(false)
+  const [viewMode, setViewMode] = useState<'split' | 'optimized'>('split')
 
   const currentSectionKey = SECTIONS[activeSection].key as keyof typeof optimizedSections
   const currentSection = optimizedSections[currentSectionKey]
   const currentOriginal = originalSections[currentSectionKey]
 
-  // Skip optional sections if not present (check both optimized and original)
+  // Skip optional sections if not present
   const availableSections = SECTIONS.filter(s => {
     const key = s.key as keyof typeof optimizedSections
-    if (!s.optional) return true // Always include required sections
-    // Include optional sections if they exist in either original or optimized
+    if (!s.optional) return true
     return optimizedSections[key] !== null && optimizedSections[key] !== undefined
   })
 
@@ -77,9 +77,45 @@ export default function ResultsStep({
       await navigator.clipboard.writeText(text)
       setCopiedSection(sectionName)
       setTimeout(() => setCopiedSection(null), 2000)
-      toast.success('✓ Kopierat!', {
+      toast.success('✓ Kopierat till urklipp!', {
         position: 'bottom-right',
-        autoClose: 2000
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light'
+      })
+    } catch (error) {
+      toast.error('Kunde inte kopiera', { position: 'bottom-right' })
+    }
+  }
+
+  const handleCopyAll = async () => {
+    try {
+      let allText = ''
+
+      // Compile all optimized sections
+      availableSections.forEach((section) => {
+        const key = section.key as keyof typeof optimizedSections
+        const optimized = optimizedSections[key]
+        if (optimized) {
+          allText += `=== ${section.title.toUpperCase()} ===\n\n`
+          allText += optimized.optimized + '\n\n'
+        }
+      })
+
+      await navigator.clipboard.writeText(allText)
+      setCopiedAll(true)
+      setTimeout(() => setCopiedAll(false), 3000)
+      toast.success('✓ Alla sektioner kopierade!', {
+        position: 'bottom-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: 'light'
       })
     } catch (error) {
       toast.error('Kunde inte kopiera', { position: 'bottom-right' })
@@ -90,7 +126,7 @@ export default function ResultsStep({
   const sectionImprovement = currentSection ? currentSection.score_after - currentSection.score_before : 0
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-6xl mx-auto">
       {/* Header with Score */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -200,6 +236,28 @@ export default function ResultsStep({
         </div>
       </motion.div>
 
+      {/* Copy All Button */}
+      <div className="flex justify-center mb-6">
+        <motion.button
+          onClick={handleCopyAll}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+        >
+          {copiedAll ? (
+            <>
+              <Check className="w-5 h-5" />
+              Alla sektioner kopierade!
+            </>
+          ) : (
+            <>
+              <Files className="w-5 h-5" />
+              Kopiera alla sektioner
+            </>
+          )}
+        </motion.button>
+      </div>
+
       {/* Section Navigation */}
       <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
         {availableSections.map((section, index) => (
@@ -229,6 +287,32 @@ export default function ResultsStep({
         ))}
       </div>
 
+      {/* View Mode Toggle */}
+      <div className="flex justify-center mb-6">
+        <div className="inline-flex bg-gray-100 rounded-lg p-1">
+          <button
+            onClick={() => setViewMode('split')}
+            className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+              viewMode === 'split'
+                ? 'bg-white text-gray-900 shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            Jämför före/efter
+          </button>
+          <button
+            onClick={() => setViewMode('optimized')}
+            className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+              viewMode === 'optimized'
+                ? 'bg-white text-gray-900 shadow-sm'
+                : 'text-gray-600 hover:text-gray-900'
+            }`}
+          >
+            Endast optimerad
+          </button>
+        </div>
+      </div>
+
       {/* Section Score */}
       {currentSection && (
         <div className="flex items-center justify-center gap-3 mb-6">
@@ -242,64 +326,93 @@ export default function ResultsStep({
         </div>
       )}
 
-      {/* Main Content */}
+      {/* Main Content - Split View or Single */}
       {currentSection && (
         <motion.div
-          key={currentSectionKey}
+          key={`${currentSectionKey}-${viewMode}`}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -20 }}
           className="bg-white rounded-2xl border-2 border-gray-200 shadow-lg overflow-hidden"
         >
-          {/* Toggle View */}
-          <div className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-            <h3 className="font-semibold text-gray-900">
-              {showOriginal ? 'Din ursprungliga version' : 'Optimerad version'}
-            </h3>
-            <button
-              onClick={() => setShowOriginal(!showOriginal)}
-              className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 hover:bg-white rounded-lg transition-all"
-            >
-              {showOriginal ? (
-                <>
-                  <Eye className="w-4 h-4" />
-                  Visa optimerad
-                </>
-              ) : (
-                <>
-                  <EyeOff className="w-4 h-4" />
-                  Visa original
-                </>
-              )}
-            </button>
-          </div>
+          {viewMode === 'split' ? (
+            /* Split View */
+            <div className="grid grid-cols-2 divide-x divide-gray-200">
+              {/* BEFORE */}
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+                    <span className="w-2 h-2 bg-red-500 rounded-full"></span>
+                    FÖRE ({currentSection.score_before}p)
+                  </h3>
+                </div>
+                <div className="prose prose-slate max-w-none">
+                  <p className="text-gray-700 whitespace-pre-wrap leading-relaxed text-sm">
+                    {currentOriginal || '(Ingen original text)'}
+                  </p>
+                </div>
+              </div>
 
-          {/* Text Content */}
-          <div className={`p-6 ${showOriginal ? 'bg-white' : 'bg-gradient-to-br from-blue-50/50 to-white'}`}>
-            <div className="prose prose-slate max-w-none">
-              {showOriginal ? (
-                <p className="text-gray-800 whitespace-pre-wrap leading-relaxed">
-                  {currentOriginal}
-                </p>
-              ) : (
-                <ReactMarkdown
-                  remarkPlugins={[remarkGfm]}
-                  components={{
-                    p: ({ children }) => <p className="text-gray-800 leading-relaxed mb-4">{children}</p>,
-                    strong: ({ children }) => <strong className="font-bold text-gray-900">{children}</strong>,
-                    ul: ({ children }) => <ul className="list-disc list-inside space-y-1 my-2">{children}</ul>,
-                    li: ({ children }) => <li className="text-gray-800">{children}</li>,
-                    h1: ({ children }) => <h1 className="text-xl font-bold text-gray-900 mt-4 mb-2">{children}</h1>,
-                    h2: ({ children }) => <h2 className="text-lg font-bold text-gray-900 mt-3 mb-2">{children}</h2>,
-                    h3: ({ children }) => <h3 className="text-base font-semibold text-gray-900 mt-2 mb-1">{children}</h3>,
-                  }}
-                >
-                  {currentSection.optimized}
-                </ReactMarkdown>
-              )}</div>
+              {/* AFTER */}
+              <div className="p-6 bg-gradient-to-br from-blue-50/30 to-white">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+                    <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                    EFTER ({currentSection.score_after}p)
+                  </h3>
+                  <button
+                    onClick={() => handleCopy(currentSection.optimized, currentSectionKey)}
+                    className="px-3 py-1.5 bg-[#0A66C2] text-white text-sm font-medium rounded-lg hover:bg-[#0A66C2]/90 transition-all flex items-center gap-1.5"
+                  >
+                    {copiedSection === currentSectionKey ? (
+                      <>
+                        <Check className="w-3.5 h-3.5" />
+                        Kopierat
+                      </>
+                    ) : (
+                      <>
+                        <Copy className="w-3.5 h-3.5" />
+                        Kopiera
+                      </>
+                    )}
+                  </button>
+                </div>
+                <div className="prose prose-slate max-w-none">
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      p: ({ children }) => <p className="text-gray-800 leading-relaxed mb-3 text-sm">{children}</p>,
+                      strong: ({ children }) => <strong className="font-bold text-gray-900">{children}</strong>,
+                      ul: ({ children }) => <ul className="list-disc list-inside space-y-1 my-2">{children}</ul>,
+                      li: ({ children }) => <li className="text-gray-800 text-sm">{children}</li>,
+                    }}
+                  >
+                    {currentSection.optimized}
+                  </ReactMarkdown>
+                </div>
+              </div>
+            </div>
+          ) : (
+            /* Single Optimized View */
+            <>
+              <div className="bg-gradient-to-br from-blue-50/30 to-white p-6">
+                <div className="prose prose-slate max-w-none">
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      p: ({ children }) => <p className="text-gray-800 leading-relaxed mb-4">{children}</p>,
+                      strong: ({ children }) => <strong className="font-bold text-gray-900">{children}</strong>,
+                      ul: ({ children }) => <ul className="list-disc list-inside space-y-1 my-2">{children}</ul>,
+                      li: ({ children }) => <li className="text-gray-800">{children}</li>,
+                    }}
+                  >
+                    {currentSection.optimized}
+                  </ReactMarkdown>
+                </div>
+              </div>
 
-            {!showOriginal && (
-              <div className="mt-6 pt-6 border-t border-gray-200">
+              {/* Improvements */}
+              <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
                 <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
                   <Check className="w-5 h-5 text-green-600" />
                   Vad har vi förbättrat?
@@ -313,28 +426,28 @@ export default function ResultsStep({
                   ))}
                 </ul>
               </div>
-            )}
-          </div>
 
-          {/* Actions */}
-          <div className="bg-gray-50 px-6 py-4 border-t border-gray-200 flex gap-3">
-            <button
-              onClick={() => handleCopy(currentSection.optimized, currentSectionKey)}
-              className="flex-1 px-4 py-2.5 bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/80 text-white font-semibold rounded-lg hover:shadow-lg transition-all flex items-center justify-center gap-2"
-            >
-              {copiedSection === currentSectionKey ? (
-                <>
-                  <Check className="w-4 h-4" />
-                  Kopierat!
-                </>
-              ) : (
-                <>
-                  <Copy className="w-4 h-4" />
-                  Kopiera text
-                </>
-              )}
-            </button>
-          </div>
+              {/* Copy Button */}
+              <div className="bg-gray-50 px-6 py-4 border-t border-gray-200">
+                <button
+                  onClick={() => handleCopy(currentSection.optimized, currentSectionKey)}
+                  className="w-full px-4 py-3 bg-gradient-to-r from-[#0A66C2] to-[#0A66C2]/80 text-white font-semibold rounded-lg hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                >
+                  {copiedSection === currentSectionKey ? (
+                    <>
+                      <Check className="w-5 h-5" />
+                      Kopierat!
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-5 h-5" />
+                      Kopiera text
+                    </>
+                  )}
+                </button>
+              </div>
+            </>
+          )}
         </motion.div>
       )}
 

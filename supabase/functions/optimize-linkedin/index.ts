@@ -52,7 +52,60 @@ Your optimization should create a coherent narrative where:
 4. Education → Supports the journey
 5. Skills → Reinforces the expertise
 
-Everything should point toward the target role (or general expertise if no target specified).`;
+Everything should point toward the target role (or general expertise if no target specified).
+
+🚨 KRITISKA REGLER - MÅSTE FÖLJAS:
+
+1. ❌ ALDRIG hitta på, anta eller tolka information som inte finns
+2. ❌ ALDRIG ändra fakta: årtal, företagsnamn, skolnamn, examensnamn, titlar
+3. ❌ ALDRIG omvandla "deltog i kurs" → "undervisade i kurs"
+4. ❌ ALDRIG lägg till påståenden om ansvar personen inte hade
+5. ✅ BEHÅLL exakt all faktisk information från originalet
+6. ✅ FÖRBÄTTRA endast formulering, struktur och presentation
+7. ✅ Om osäker på något - behåll originalformuleringen
+
+BUZZWORD-FILTER (undvik generiska fraser):
+❌ ALDRIG använd: "Driven professional", "Results-oriented", "Passionate about", "Innovative thinker",
+   "Go-getter", "Team player", "Hard worker", "Self-starter", "Detail-oriented"
+✅ ANVÄND istället: Konkreta exempel, siffror, specifika prestationer, mätbara resultat
+
+EXEMPEL PÅ FEL ATT UNDVIKA:
+❌ Fel: "Internationell licens som personlig tränare. Undervisade anatomi på engelska."
+   (Personen DELTOG i kursen, undervisade INTE)
+✅ Rätt: "Internationell licens som personlig tränare och kostrådgivare. Fördjupad kunskap inom anatomi, muskellära och skelett från engelskspråkig utbildning."
+
+❌ Fel: "Driven sales professional with passion for results"
+✅ Rätt: "Ökade försäljningen med 40% på 6 månader genom strategisk kundbearbetning"
+
+SPRÅK & GRAMMATIK:
+- Svenska: Perfekt svensk grammatik, naturligt flyt, korrekt böjning
+- Engelska: Professional business English, no Swenglish
+- Dubbelkolla ALLA pluralformer, verb-böjningar, bestämd/obestämd form
+- Läs igenom texten mentalt - låter den naturlig för en infödd talare?
+
+LINKEDIN-FORMATBEGRÄNSNINGAR:
+- Headline: Max 220 tecken (HÅRT tak - får EJ överskridas)
+- About: 3-4 korta stycken, totalt 250-350 ord (ej längre - blir oläsligt)
+- Experience: Använd bullets (•), max 5 per roll, fokus på resultat
+- Education: Kort format - Examen | Skola | År (+ eventuell specialisering på 1 rad)
+
+KONKRETA EXEMPEL FÖRE/EFTER:
+
+Original: "Jobbar som lärare och har gjort det i många år"
+❌ Dåligt: "Passionate educator with extensive experience inspiring students"
+✅ Bra: "Gymnasielärare i Engelska & Historia sedan 2015 | 300+ elever undervisade | Specialiserad på digitala läromedel"
+
+Original: "Gick en kurs i ekonomi"
+❌ Dåligt: "Educated in advanced financial economics"
+✅ Bra: "Ekonomikurs vid Stockholms Universitet (2020)"
+
+VALIDERING INNAN RETURN:
+Innan du returnerar svaret, fråga dig själv:
+1. Har jag lagt till något som INTE stod i originalet? → TA BORT
+2. Har jag ändrat någon faktisk information? → ÅTERSTÄLL
+3. Finns det buzzwords som kan bytas mot konkreta exempel? → ERSÄTT
+4. Är grammatiken perfekt på målspråket? → DUBBELKOLLA
+5. Passar texten LinkedIn's format och längd? → JUSTERA`;
 
 interface OptimizationRequest {
   sections: {
@@ -367,9 +420,24 @@ ${text}
 ---
 
 OPTIMIZATION GUIDELINES:
-- Junior: Expand with thesis, coursework, achievements
+- Junior: Expand with thesis, coursework, achievements (IF they exist in original)
 - Mid/Senior: Keep concise, emphasize certifications
 - Adapt detail level to experience level
+
+⚠️ KRITISKT FÖR UTBILDNING:
+- Om personen "gick en kurs" → använd ALDRIG "undervisade", "lärde ut", "föreläste"
+- Om personen var STUDENT → använd "studerade", "fördjupade kunskaper i", "fick utbildning i"
+- Om personen var LÄRARE → då kan du använda "undervisade" (men bara om det TYDLIGT framgår)
+
+EXEMPEL - KORREKT TOLKNING:
+Original: "Internationell licens som personlig tränare samt kostrådgivare."
+❌ FEL: "Undervisade anatomi på engelska med latinska termer"
+✅ RÄTT: "Internationell licens som personlig tränare och kostrådgivare. Fördjupad kunskap inom anatomi, muskellära och skelett från engelskspråkig utbildning."
+
+LINKEDIN-FORMAT FÖR UTBILDNING:
+**[Examen/Certifiering]**
+[Skola/Institution] | [Ort (om relevant)] | [År/Period]
+[Ev. specialisering eller kortfattat tillägg på MAX 1 rad]
 
 RETURN JSON:
 {
@@ -382,7 +450,8 @@ RETURN JSON:
 }
 
 IMPORTANT:
-- Keep ALL factual schools, degrees, and years
+- Keep ALL factual schools, degrees, and years EXACTLY as stated
+- NEVER change person's role from student to teacher
 - Write ENTIRELY in ${isSwedish ? 'Swedish' : 'English'}`;
 
   return await callOpenAI([{ role: 'user', content: prompt }], 0.7);

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight, AlertCircle, Check, Linkedin, Sparkles, User, Briefcase, GraduationCap, Wrench, type LucideIcon } from 'lucide-react'
+import { ChevronLeft, ChevronRight, AlertCircle, Check, Linkedin, Sparkles, User, Briefcase, GraduationCap, Wrench, ExternalLink, MousePointerClick, Copy, ClipboardPaste, type LucideIcon } from 'lucide-react'
 
 interface LinkedInSections {
   headline: string
@@ -162,44 +162,98 @@ export default function SectionInputStep({
         </div>
       </motion.div>
 
-      {/* Instructions Toggle */}
+      {/* Instructions Toggle - Visual Guide with Icons */}
       {showInstructions && (
         <motion.div
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           exit={{ opacity: 0, height: 0 }}
-          className="bg-gradient-to-br from-blue-50 to-white border border-blue-200 rounded-xl p-6 mb-8"
+          className="bg-gradient-to-br from-blue-50 to-white border border-blue-200 rounded-xl p-6 mb-8 overflow-hidden"
         >
-          <div className="flex items-start justify-between mb-4">
+          <div className="flex items-start justify-between mb-6">
             <h3 className="font-semibold text-gray-900 flex items-center gap-2">
               <Linkedin className="w-5 h-5 text-[#0A66C2]" />
               Så kopierar du från LinkedIn
             </h3>
             <button
               onClick={() => setShowInstructions(false)}
-              className="text-sm text-gray-500 hover:text-gray-700"
+              className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
             >
               Dölj
             </button>
           </div>
-          <ol className="space-y-2 text-sm text-gray-700">
-            <li className="flex gap-2">
-              <span className="font-semibold">1.</span>
-              <span>Öppna din LinkedIn-profil i en ny flik</span>
-            </li>
-            <li className="flex gap-2">
-              <span className="font-semibold">2.</span>
-              <span>Scrolla till sektionen "{section.title}"</span>
-            </li>
-            <li className="flex gap-2">
-              <span className="font-semibold">3.</span>
-              <span>Markera all text och kopiera (Ctrl+C / Cmd+C)</span>
-            </li>
-            <li className="flex gap-2">
-              <span className="font-semibold">4.</span>
-              <span>Klistra in här (Ctrl+V / Cmd+V)</span>
-            </li>
-          </ol>
+
+          {/* Visual Step-by-Step Guide */}
+          <div className="grid grid-cols-4 gap-4">
+            {/* Step 1: Open LinkedIn */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="flex flex-col items-center text-center"
+            >
+              <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-[#0A66C2] to-[#0A66C2]/80 flex items-center justify-center mb-3 shadow-lg shadow-blue-500/30">
+                <ExternalLink className="w-8 h-8 text-white" />
+              </div>
+              <div className="text-xs font-semibold text-gray-900 mb-1">1. Öppna LinkedIn</div>
+              <div className="text-xs text-gray-600">Din profilsida</div>
+            </motion.div>
+
+            {/* Step 2: Find Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="flex flex-col items-center text-center"
+            >
+              <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-600 to-purple-500 flex items-center justify-center mb-3 shadow-lg shadow-purple-500/30">
+                <MousePointerClick className="w-8 h-8 text-white" />
+              </div>
+              <div className="text-xs font-semibold text-gray-900 mb-1">2. Hitta sektion</div>
+              <div className="text-xs text-gray-600">"{section.title}"</div>
+            </motion.div>
+
+            {/* Step 3: Copy Text */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-col items-center text-center"
+            >
+              <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-green-600 to-green-500 flex items-center justify-center mb-3 shadow-lg shadow-green-500/30">
+                <Copy className="w-8 h-8 text-white" />
+              </div>
+              <div className="text-xs font-semibold text-gray-900 mb-1">3. Kopiera text</div>
+              <div className="text-xs text-gray-600">Ctrl+C / ⌘+C</div>
+            </motion.div>
+
+            {/* Step 4: Paste Here */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="flex flex-col items-center text-center"
+            >
+              <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-orange-600 to-orange-500 flex items-center justify-center mb-3 shadow-lg shadow-orange-500/30">
+                <ClipboardPaste className="w-8 h-8 text-white" />
+              </div>
+              <div className="text-xs font-semibold text-gray-900 mb-1">4. Klistra in</div>
+              <div className="text-xs text-gray-600">Ctrl+V / ⌘+V</div>
+            </motion.div>
+          </div>
+
+          {/* Quick tip */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="mt-6 p-3 bg-white rounded-lg border border-blue-200"
+          >
+            <p className="text-xs text-gray-600 flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
+              <span><strong>Tips:</strong> Du behöver inte formatera texten - kopiera precis som den ser ut på LinkedIn.</span>
+            </p>
+          </motion.div>
         </motion.div>
       )}
 
