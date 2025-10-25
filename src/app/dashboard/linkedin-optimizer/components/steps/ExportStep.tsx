@@ -6,6 +6,7 @@ import { Copy, Check, FileText, Loader2, AlertCircle, Download, Linkedin, Rotate
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import { createCVFromLinkedIn } from '@/lib/linkedin/linkedin-to-cv-converter'
+import { createClient } from '@/lib/supabase/client'
 
 interface SectionResult {
   optimized: string
@@ -73,12 +74,13 @@ ${optimizedSections.skills.optimized}` : ''}`
     setSaveError(null)
 
     try {
-      const response = await fetch('/api/auth/user')
-      if (!response.ok) {
+      // Get authenticated user from Supabase client
+      const supabase = createClient()
+      const { data: { user }, error: authError } = await supabase.auth.getUser()
+
+      if (authError || !user) {
         throw new Error('Du måste vara inloggad')
       }
-
-      const { user } = await response.json()
 
       const cvId = await createCVFromLinkedIn(
         user.id,

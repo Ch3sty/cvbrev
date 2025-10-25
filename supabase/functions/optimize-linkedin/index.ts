@@ -375,20 +375,81 @@ CORE OPTIMIZATION GUIDELINES:
 4. **Red Thread**: Show progression toward target role
 5. **Chronological Order**: Most recent first
 
+⏰ TEMPUSHANTERING (KRITISKT VIKTIGT):
+Analysera varje roll i originaltexten - är den PÅGÅENDE eller AVSLUTAD?
+
+**PÅGÅENDE ROLLER** (slutdatum: "nu", "nutid", "nuvarande", saknas, eller tydligt pågående):
+✅ Använd NUTID/PRESENS för alla verb
+✅ SVENSKA exempel:
+   - "Grundar och leder företaget Begone Skadedjur & Sanering..."
+   - "Ansvarar för strategisk utveckling..."
+   - "Driver verksamheten med fokus på..."
+✅ ENGELSKA exempel:
+   - "Found and lead the company Begone..."
+   - "Oversee strategic development..."
+   - "Drive operations with focus on..."
+
+**AVSLUTADE ROLLER** (slutdatum: årtal, tydligt avslutat):
+✅ Använd DÅTID/IMPERFEKT för alla verb
+✅ SVENSKA exempel:
+   - "Grundade och ledde företaget..."
+   - "Ansvarade för strategisk utveckling..."
+   - "Drev verksamheten med fokus på..."
+✅ ENGELSKA exempel:
+   - "Founded and led the company..."
+   - "Oversaw strategic development..."
+   - "Drove operations with focus on..."
+
+📝 FORMATERING FÖR STYCKEINDELNING:
+Separera VARJE roll tydligt med dubbla radbrytningar (\n\n) enligt detta mönster:
+
+**[Titel]**
+[Företag] | [Plats (om relevant)] | [Period]
+
+• [Bullet point 1 - kvantifierbart resultat]
+• [Bullet point 2 - kvantifierbart resultat]
+• [Bullet point 3 - kvantifierbart resultat]
+
+**[Nästa titel]**
+[Företag] | [Plats] | [Period]
+
+• [Bullet point 1]
+• [Bullet point 2]
+
+EXEMPEL - KORREKT TEMPUS & FORMATERING:
+
+Original: "VD, Begone Skadedjur & Sanering, maj 2022-nu"
+✅ RÄTT (pågående, nutid):
+**VD**
+Begone Skadedjur & Sanering | Stockholm, Sverige | maj 2022–nu
+
+• Grundar och leder företaget med fokus på att förändra skadedjursbranschen genom att erbjuda snabbare och mer omfattande tjänster
+• Expanderar verksamheten till att täcka Stockholms län, Uppsala, Gävle, Norrköping och Linköping, vilket resulterar i en bredare kundbas
+• Implementerar effektiva skadedjurslösningar som minskar kundernas kostnader med 20-30% jämfört med tidigare leverantörer
+
+**Webbdesigner**
+Mitt enskilda företag | Greater Stockholm Metropolitan Area | 2013–maj 2022
+
+• Designade och optimerade företagswebbplatser med tekniker som CMS (WordPress/Shopify)
+• Förbättrade SEO och SEM, vilket resulterade i ökad synlighet och trafik till kundernas webbplatser
+
 RETURN JSON:
 {
-  "optimized": "Structured experience section showing clear progression and results",
+  "optimized": "Structured experience section with correct tense and clear role separation",
   "score_before": 52,
   "score_after": 87,
   "improvements": [
     "${isSwedish ? 'Omstrukturerat till STAR-format med tydliga resultat' : 'Restructured to STAR format with clear results'}",
-    "${isSwedish ? 'Lagt till kvantifiering på alla achievements' : 'Added quantification to all achievements'}"
+    "${isSwedish ? 'Lagt till kvantifiering på alla achievements' : 'Added quantification to all achievements'}",
+    "${isSwedish ? 'Korrekt tempus: nutid för pågående, dåtid för avslutade roller' : 'Correct tense: present for ongoing, past for completed roles'}"
   ]
 }
 
 IMPORTANT:
 - Keep ALL factual job information (company, title, dates)
 - Don't invent achievements - only enhance presentation
+- ALWAYS check if role is ongoing or completed - USE CORRECT TENSE
+- Separate each role with double line breaks (\n\n) for clear visual separation
 - Write ENTIRELY in ${isSwedish ? 'Swedish' : 'English'}`;
 
   return await callOpenAI([{ role: 'user', content: prompt }], 0.7);
