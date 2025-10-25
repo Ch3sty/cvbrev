@@ -155,12 +155,16 @@ export default function SkillsResult({ analysis, scoreImprovement }: SkillsResul
                       <span className="font-semibold text-red-900">{weakSkill.skill}</span>
                       <X className="w-4 h-4 text-red-500" />
                     </div>
-                    <p className="text-xs text-red-700 mb-1">
+                    <p className="text-xs text-red-700 mb-2">
                       <strong>Varför:</strong> {weakSkill.reason}
                     </p>
-                    <p className="text-xs text-gray-600">
-                      <strong>Ersätt med:</strong> {weakSkill.replace_with}
-                    </p>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-gray-600 font-medium">Ersätt med:</span>
+                      <span className="px-3 py-1 bg-green-100 border-2 border-green-300 rounded-lg text-sm font-semibold text-green-800 flex items-center gap-1.5 shadow-sm">
+                        <Plus className="w-3.5 h-3.5" />
+                        {weakSkill.replace_with}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </motion.div>

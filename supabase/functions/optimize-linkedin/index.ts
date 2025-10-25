@@ -378,19 +378,36 @@ CORE OPTIMIZATION GUIDELINES:
 ⏰ TEMPUSHANTERING (KRITISKT VIKTIGT):
 Analysera varje roll i originaltexten - är den PÅGÅENDE eller AVSLUTAD?
 
-**PÅGÅENDE ROLLER** (slutdatum: "nu", "nutid", "nuvarande", saknas, eller tydligt pågående):
-✅ Använd NUTID/PRESENS för alla verb
+**PÅGÅENDE ROLLER** (slutdatum: "nu", "nutid", "nuvarande", saknas):
+Använd KORREKT TEMPUS beroende på verbtyp:
+
+1. **ENGÅNGSHANDLINGAR** (startmoment som skedde EN gång) → DÅTID:
+   ✅ SVENSKA: "Grundade", "Startade", "Öppnade", "Lanserade", "Initierade", "Etablerade"
+   ✅ ENGELSKA: "Founded", "Started", "Opened", "Launched", "Initiated", "Established"
+
+2. **PÅGÅENDE AKTIVITETER** (sker kontinuerligt) → NUTID:
+   ✅ SVENSKA: "Leder", "Ansvarar för", "Driver", "Utvecklar", "Hanterar", "Bygger"
+   ✅ ENGELSKA: "Lead", "Oversee", "Drive", "Develop", "Manage", "Build"
+
+**KOMBINERA KORREKT I PÅGÅENDE ROLLER:**
 ✅ SVENSKA exempel:
-   - "Grundar och leder företaget Begone Skadedjur & Sanering..."
-   - "Ansvarar för strategisk utveckling..."
-   - "Driver verksamheten med fokus på..."
+   - "**Grundade** och leder företaget Begone Skadedjur & Sanering..."
+   - "**Startade** och driver verksamheten med fokus på..."
+   - "**Öppnade** kontor i Stockholm och ansvarar för expansion..."
+   - "**Lanserade** produkten och utvecklar den kontinuerligt..."
+
 ✅ ENGELSKA exempel:
-   - "Found and lead the company Begone..."
-   - "Oversee strategic development..."
-   - "Drive operations with focus on..."
+   - "**Founded** and lead the company Begone..."
+   - "**Started** and drive operations with focus on..."
+   - "**Opened** office in Stockholm and oversee expansion..."
+
+❌ FEL - använd INTE nutid för engångshandlingar:
+   - "Grundar och leder företaget..." (grammatiskt fel - kan inte grunda kontinuerligt)
+   - "Startar och driver verksamheten..." (fel - startade en gång, driver nu)
+   - "Found and lead..." (engelska fel - "found" är rätt, "found" som verb = grundade)
 
 **AVSLUTADE ROLLER** (slutdatum: årtal, tydligt avslutat):
-✅ Använd DÅTID/IMPERFEKT för alla verb
+✅ Använd DÅTID för ALLA verb
 ✅ SVENSKA exempel:
    - "Grundade och ledde företaget..."
    - "Ansvarade för strategisk utveckling..."
@@ -419,11 +436,11 @@ Separera VARJE roll tydligt med dubbla radbrytningar (\n\n) enligt detta mönste
 EXEMPEL - KORREKT TEMPUS & FORMATERING:
 
 Original: "VD, Begone Skadedjur & Sanering, maj 2022-nu"
-✅ RÄTT (pågående, nutid):
+✅ RÄTT (pågående - kombination av dåtid för engångshandling + nutid för pågående):
 **VD**
 Begone Skadedjur & Sanering | Stockholm, Sverige | maj 2022–nu
 
-• Grundar och leder företaget med fokus på att förändra skadedjursbranschen genom att erbjuda snabbare och mer omfattande tjänster
+• **Grundade** och leder företaget med fokus på att förändra skadedjursbranschen genom att erbjuda snabbare och mer omfattande tjänster
 • Expanderar verksamheten till att täcka Stockholms län, Uppsala, Gävle, Norrköping och Linköping, vilket resulterar i en bredare kundbas
 • Implementerar effektiva skadedjurslösningar som minskar kundernas kostnader med 20-30% jämfört med tidigare leverantörer
 

@@ -426,12 +426,14 @@ export default function ResultsStep({
                           </strong>
                         ),
                         ul: ({ children }) => (
-                          <ul className="space-y-1.5 my-3">{children}</ul>
+                          <ul className="space-y-2 my-3 ml-0 pl-0">{children}</ul>
                         ),
                         li: ({ children }) => (
-                          <li className="flex items-start gap-2 text-sm">
-                            <span className="text-green-600 mt-1 text-xs">•</span>
-                            <span className="text-gray-700">{children}</span>
+                          <li className="text-sm text-gray-700 ml-0 pl-0 list-none">
+                            <div className="flex items-start gap-3">
+                              <span className="text-green-600 text-base flex-shrink-0 leading-tight">•</span>
+                              <span className="flex-1 leading-relaxed">{children}</span>
+                            </div>
                           </li>
                         ),
                       }}
