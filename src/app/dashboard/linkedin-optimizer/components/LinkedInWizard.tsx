@@ -4,6 +4,7 @@ import { useState, lazy, Suspense } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import LinkedInProgressBar from './LinkedInProgressBar'
+import { createClient } from '@/lib/supabase/client'
 
 // Lazy load steps
 const WelcomeStep = lazy(() => import('./steps/WelcomeStep'))
@@ -133,21 +134,31 @@ export default function LinkedInWizard() {
     setCurrentStep(3) // Move to Analysis step
 
     try {
-      const response = await fetch('/api/linkedin/optimize', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      // Get Supabase client and user
+      const supabase = createClient()
+      const { data: { user }, error: userError } = await supabase.auth.getUser()
+
+      if (userError || !user) {
+        throw new Error('Du måste vara inloggad för att använda denna funktion')
+      }
+
+      // Call edge function instead of API route
+      const { data, error } = await supabase.functions.invoke('optimize-linkedin', {
+        body: {
           sections,
           mode,
           target_role: mode === 'target_role' ? targetRole : undefined,
-          language
-        })
+          language,
+          user_id: user.id
+        }
       })
 
-      const data = await response.json()
+      if (error) {
+        throw new Error(error.message || 'Något gick fel')
+      }
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Något gick fel')
+      if (data.error) {
+        throw new Error(data.error)
       }
 
       setResults(data)
