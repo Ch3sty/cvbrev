@@ -102,7 +102,7 @@ export default function DashboardSidebar() {
     },
     {
       path: '/dashboard/linkedin-optimizer',
-      label: 'LinkedIn Profiloptimering',
+      label: 'LinkedIn\nProfiloptimering',
       icon: <Linkedin className="w-5 h-5" />,
       section: 'tools',
       highlight: true
@@ -244,7 +244,7 @@ export default function DashboardSidebar() {
                   `}
                 >
                   <span className="flex-shrink-0">{item.icon}</span>
-                  {!collapsed && <span className="ml-3">{item.label}</span>}
+                  {!collapsed && <span className="ml-3 whitespace-pre-line">{item.label}</span>}
                   {'highlight' in item && item.highlight && !collapsed && (
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 text-black text-xs font-bold rounded-full animate-pulse">
                       NY
@@ -278,7 +278,7 @@ export default function DashboardSidebar() {
                   `}
                 >
                   <span className="flex-shrink-0">{item.icon}</span>
-                  {!collapsed && <span className="ml-3">{item.label}</span>}
+                  {!collapsed && <span className="ml-3 whitespace-pre-line">{item.label}</span>}
                   {'highlight' in item && item.highlight && !collapsed && (
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-gradient-to-r from-green-400 to-emerald-500 text-white text-xs font-bold rounded-full animate-pulse shadow-lg">
                       NY
@@ -344,7 +344,7 @@ export default function DashboardSidebar() {
                   `}
                 >
                   <span className="flex-shrink-0">{item.icon}</span>
-                  {!collapsed && <span className="ml-3">{item.label}</span>}
+                  {!collapsed && <span className="ml-3 whitespace-pre-line">{item.label}</span>}
                 </Link>
               </li>
             ))}

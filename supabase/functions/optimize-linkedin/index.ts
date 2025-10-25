@@ -417,21 +417,23 @@ Använd KORREKT TEMPUS beroende på verbtyp:
    - "Oversaw strategic development..."
    - "Drove operations with focus on..."
 
-📝 FORMATERING FÖR STYCKEINDELNING:
+📝 FORMATERING FÖR STYCKEINDELNING (VIKTIGT - ANVÄND MARKDOWN-SYNTAX):
 Separera VARJE roll tydligt med dubbla radbrytningar (\n\n) enligt detta mönster:
 
 **[Titel]**
 [Företag] | [Plats (om relevant)] | [Period]
 
-• [Bullet point 1 - kvantifierbart resultat]
-• [Bullet point 2 - kvantifierbart resultat]
-• [Bullet point 3 - kvantifierbart resultat]
+- [Bullet point 1 - kvantifierbart resultat]
+- [Bullet point 2 - kvantifierbart resultat]
+- [Bullet point 3 - kvantifierbart resultat]
 
 **[Nästa titel]**
 [Företag] | [Plats] | [Period]
 
-• [Bullet point 1]
-• [Bullet point 2]
+- [Bullet point 1]
+- [Bullet point 2]
+
+⚠️ KRITISKT: Använd MARKDOWN-LISTA-SYNTAX (bindestreck "-" följt av mellanslag), INTE bullet-tecken "•"!
 
 EXEMPEL - KORREKT TEMPUS & FORMATERING:
 
@@ -440,15 +442,15 @@ Original: "VD, Begone Skadedjur & Sanering, maj 2022-nu"
 **VD**
 Begone Skadedjur & Sanering | Stockholm, Sverige | maj 2022–nu
 
-• **Grundade** och leder företaget med fokus på att förändra skadedjursbranschen genom att erbjuda snabbare och mer omfattande tjänster
-• Expanderar verksamheten till att täcka Stockholms län, Uppsala, Gävle, Norrköping och Linköping, vilket resulterar i en bredare kundbas
-• Implementerar effektiva skadedjurslösningar som minskar kundernas kostnader med 20-30% jämfört med tidigare leverantörer
+- **Grundade** och leder företaget med fokus på att förändra skadedjursbranschen genom att erbjuda snabbare och mer omfattande tjänster
+- Expanderar verksamheten till att täcka Stockholms län, Uppsala, Gävle, Norrköping och Linköping, vilket resulterar i en bredare kundbas
+- Implementerar effektiva skadedjurslösningar som minskar kundernas kostnader med 20-30% jämfört med tidigare leverantörer
 
 **Webbdesigner**
 Mitt enskilda företag | Greater Stockholm Metropolitan Area | 2013–maj 2022
 
-• Designade och optimerade företagswebbplatser med tekniker som CMS (WordPress/Shopify)
-• Förbättrade SEO och SEM, vilket resulterade i ökad synlighet och trafik till kundernas webbplatser
+- Designade och optimerade företagswebbplatser med tekniker som CMS (WordPress/Shopify)
+- Förbättrade SEO och SEM, vilket resulterade i ökad synlighet och trafik till kundernas webbplatser
 
 RETURN JSON:
 {
