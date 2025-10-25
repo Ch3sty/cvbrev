@@ -23,75 +23,55 @@ interface LinkedInOptimizationResult {
 
 /**
  * Parse LinkedIn "Experience" section into CV experience entries
- * Handles various formats including bullet points and paragraphs
+ * Handles LinkedIn Optimizer markdown format:
+ * **Position**
+ * Company | Location | Dates
+ * - Description bullet 1
+ * - Description bullet 2
  */
 function parseExperience(experienceText: string): CVExperience[] {
   const experiences: CVExperience[] = []
 
-  // Split by common delimiters (multiple newlines, horizontal rules, etc.)
-  const jobBlocks = experienceText.split(/\n{2,}|━━━|---/).filter((block: string) => block.trim())
+  // Split by job headers (lines starting with **Title**)
+  const blocks = experienceText.split(/(?=^\*\*[^*]+\*\*$)/m).filter((block: string) => block.trim())
 
-  let currentJob: Partial<CVExperience> = {}
-
-  for (const block of jobBlocks) {
+  for (const block of blocks) {
     const lines = block.split('\n').map((l: string) => l.trim()).filter((l: string) => l)
 
-    if (lines.length === 0) continue
+    if (lines.length < 2) continue
 
-    // Try to detect job title and company
-    // Common patterns:
-    // 1. "VD" (title on its own)
-    // 2. "Begone Skadedjur & Sanering" (company)
-    // 3. "jan. 2022 - nu" or "2022-2024" (dates)
+    // Line 1: **Position**
+    const titleMatch = lines[0]?.match(/\*\*(.+?)\*\*/)
+    if (!titleMatch) continue
 
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i]
+    const position = titleMatch[1]
 
-      // Check if it's a date line
-      const datePattern = /(\d{4}|\w{3,}\.\s*\d{4})\s*[-–—]\s*(nu|nutid|nuvarande|\d{4}|\w{3,}\.\s*\d{4})/i
-      const dateMatch = line.match(datePattern)
+    // Line 2: Company | Location | Dates
+    const metaMatch = lines[1]?.match(/^(.+?)\s*\|\s*(.+?)\s*\|\s*(.+)$/)
+    if (!metaMatch) continue
 
-      if (dateMatch && !currentJob.position) {
-        // Previous lines likely contain title and company
-        if (i >= 2) {
-          currentJob.position = lines[i - 2]
-          currentJob.company = lines[i - 1]
-        } else if (i === 1) {
-          currentJob.position = lines[0]
-          currentJob.company = 'Företag' // Default
-        }
+    const company = metaMatch[1].trim()
+    const location = metaMatch[2].trim()
+    const dateRange = metaMatch[3].trim()
 
-        currentJob.startDate = dateMatch[1]
-        currentJob.endDate = dateMatch[2].match(/nu|nutid|nuvarande/i) ? undefined : dateMatch[2]
-      }
+    // Parse dates from format: "maj 2022–nu" or "2013–maj 2022"
+    const dateMatch = dateRange.match(/(.+?)\s*[–—-]\s*(.+)/)
+    const startDate = dateMatch ? dateMatch[1].trim() : dateRange
+    const endDate = dateMatch && dateMatch[2].match(/nu|nutid|nuvarande/i) ? undefined : dateMatch?.[2]?.trim()
 
-      // Check if line contains bullet points or description
-      if (line.startsWith('•') || line.startsWith('-') || line.startsWith('*')) {
-        if (!currentJob.description) {
-          currentJob.description = []
-        }
-        currentJob.description.push(line.replace(/^[•\-*]\s*/, ''))
-      } else if (currentJob.position && currentJob.company && !dateMatch) {
-        // It's likely a description paragraph
-        if (!currentJob.description) {
-          currentJob.description = []
-        }
-        currentJob.description.push(line)
-      }
-    }
+    // Lines 3+: Description bullets (remove markdown bullet syntax)
+    const description = lines.slice(2)
+      .filter((l: string) => l.startsWith('-'))
+      .map((l: string) => l.replace(/^-\s*/, '').trim())
 
-    // If we have a complete job, save it
-    if (currentJob.position && currentJob.company) {
-      experiences.push({
-        position: currentJob.position,
-        company: currentJob.company,
-        startDate: currentJob.startDate || '',
-        endDate: currentJob.endDate,
-        description: currentJob.description || [],
-        location: currentJob.location
-      })
-      currentJob = {}
-    }
+    experiences.push({
+      position,
+      company,
+      location,
+      startDate,
+      endDate,
+      description
+    })
   }
 
   return experiences
@@ -99,46 +79,43 @@ function parseExperience(experienceText: string): CVExperience[] {
 
 /**
  * Parse LinkedIn "Education" section into CV education entries
+ * Handles LinkedIn Optimizer markdown format:
+ * **Degree/Program**
+ * Institution | Location | Years
  */
 function parseEducation(educationText: string): CVEducation[] {
   const educations: CVEducation[] = []
 
-  const blocks = educationText.split(/\n{2,}|━━━|---/).filter((block: string) => block.trim())
+  // Split by education headers (lines starting with **Degree**)
+  const blocks = educationText.split(/(?=^\*\*[^*]+\*\*$)/m).filter((block: string) => block.trim())
 
   for (const block of blocks) {
     const lines = block.split('\n').map((l: string) => l.trim()).filter((l: string) => l)
 
-    if (lines.length === 0) continue
+    if (lines.length < 2) continue
 
-    let institution = ''
-    let degree = ''
-    let graduationYear = ''
+    // Line 1: **Degree/Program**
+    const degreeMatch = lines[0]?.match(/\*\*(.+?)\*\*/)
+    if (!degreeMatch) continue
 
-    // Common pattern:
-    // Line 1: Institution name
-    // Line 2: Degree/Program
-    // Line 3: Years (e.g., "2015 - 2018" or "2015-2018")
+    const degree = degreeMatch[1]
 
-    if (lines.length >= 1) institution = lines[0]
-    if (lines.length >= 2) degree = lines[1]
+    // Line 2: Institution | Location | Years
+    const metaMatch = lines[1]?.match(/^(.+?)\s*\|\s*(.+?)\s*\|\s*(.+)$/)
+    if (!metaMatch) continue
 
-    // Look for year pattern
-    const yearPattern = /(\d{4})\s*[-–—]\s*(\d{4})/
-    for (const line of lines) {
-      const yearMatch = line.match(yearPattern)
-      if (yearMatch) {
-        graduationYear = yearMatch[2]
-        break
-      }
-    }
+    const institution = metaMatch[1].trim()
+    const yearRange = metaMatch[3].trim()
 
-    if (institution && degree) {
-      educations.push({
-        institution,
-        degree,
-        graduationYear: graduationYear || undefined
-      })
-    }
+    // Parse graduation year (last year in range: "2009–2012" → "2012")
+    const yearMatch = yearRange.match(/(\d{4})\s*[–—-]\s*(\d{4})/)
+    const graduationYear = yearMatch ? yearMatch[2] : yearRange.match(/\d{4}/)?.[0]
+
+    educations.push({
+      institution,
+      degree,
+      graduationYear
+    })
   }
 
   return educations

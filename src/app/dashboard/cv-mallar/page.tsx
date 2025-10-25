@@ -127,8 +127,7 @@ export default function CVMallarPage() {
       a.click();
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
-      
-      closeNotification();
+
       showNotification('success', `CV skapat! Nedladdning startar automatiskt.`);
 
       // Success celebration animation
