@@ -79,58 +79,191 @@ function parseExperience(experienceText: string): CVExperience[] {
 
 /**
  * Parse LinkedIn "Education" section into CV education entries
- * Handles LinkedIn Optimizer markdown format:
- * **Degree/Program**
- * Institution | Location | Years
+ * Handles both:
+ * 1. LinkedIn Optimizer markdown format:
+ *    **Degree/Program**
+ *    Institution | Location | Years
+ * 2. Raw LinkedIn format (duplicated text with year ranges)
  */
 function parseEducation(educationText: string): CVEducation[] {
   const educations: CVEducation[] = []
 
   console.log('🔍 parseEducation input:', educationText)
 
-  // Split by education headers (lines starting with **Degree**)
-  const blocks = educationText.split(/(?=^\*\*[^*]+\*\*$)/m).filter((block: string) => block.trim())
-  console.log('🔍 Education blocks found:', blocks.length, blocks)
+  // First, try to parse markdown format (optimized from Edge Function)
+  const hasMarkdown = /^\*\*[^*]+\*\*$/m.test(educationText)
 
-  for (const block of blocks) {
-    const lines = block.split('\n').map((l: string) => l.trim()).filter((l: string) => l)
-    console.log('🔍 Processing block lines:', lines)
+  if (hasMarkdown) {
+    console.log('📝 Detected markdown format')
+    // Split by education headers (lines starting with **Degree**)
+    const blocks = educationText.split(/(?=^\*\*[^*]+\*\*$)/m).filter((block: string) => block.trim())
+    console.log('🔍 Education blocks found:', blocks.length)
 
-    if (lines.length < 2) {
-      console.log('⚠️ Block has less than 2 lines, skipping')
-      continue
+    for (const block of blocks) {
+      const lines = block.split('\n').map((l: string) => l.trim()).filter((l: string) => l)
+      console.log('🔍 Processing block lines:', lines)
+
+      if (lines.length < 2) {
+        console.log('⚠️ Block has less than 2 lines, skipping')
+        continue
+      }
+
+      // Line 1: **Degree/Program**
+      const degreeMatch = lines[0]?.match(/\*\*(.+?)\*\*/)
+      if (!degreeMatch) {
+        console.log('⚠️ No degree match found in:', lines[0])
+        continue
+      }
+
+      const degree = degreeMatch[1]
+      console.log('✓ Degree found:', degree)
+
+      // Line 2: Institution | Location | Years
+      const metaMatch = lines[1]?.match(/^(.+?)\s*\|\s*(.+?)\s*\|\s*(.+)$/)
+      if (!metaMatch) {
+        console.log('⚠️ No meta match found in:', lines[1])
+        continue
+      }
+
+      const institution = metaMatch[1].trim()
+      const yearRange = metaMatch[3].trim()
+      console.log('✓ Institution:', institution, 'Year range:', yearRange)
+
+      // Parse graduation year (last year in range: "2009–2012" → "2012")
+      const yearMatch = yearRange.match(/(\d{4})\s*[–—-]\s*(\d{4})/)
+      const graduationYear = yearMatch ? yearMatch[2] : yearRange.match(/\d{4}/)?.[0]
+
+      educations.push({
+        institution,
+        degree,
+        graduationYear
+      })
+    }
+  } else {
+    console.log('📄 Detected raw LinkedIn format - attempting to parse')
+
+    // Parse raw LinkedIn format (duplicated text with embedded years)
+    // Example pattern per education:
+    // Line 1: Institution name (may be duplicated)
+    // Line 2: Institution duplicated OR degree
+    // Line 3: Degree with year range (may be duplicated)
+    // Line 4+: Optional description (indented, duplicated)
+
+    // First pass: Process the text line by line
+    // Strategy: Each education entry typically has 3-4 lines before the next entry
+    // Pattern: Institution (duplicated), Degree with years (duplicated), Description (indented, duplicated)
+    const lines = educationText.split('\n')
+    const blocks: string[] = []
+    let currentBlock: string[] = []
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i]
+      const trimmed = line.trim()
+
+      // Skip empty lines
+      if (!trimmed) {
+        if (currentBlock.length > 0) {
+          blocks.push(currentBlock.join('\n'))
+          currentBlock = []
+        }
+        continue
+      }
+
+      // If line is heavily indented (8+ spaces), it's a description - signals end of block
+      if (/^\s{8,}/.test(line)) {
+        if (currentBlock.length > 0) {
+          blocks.push(currentBlock.join('\n'))
+          currentBlock = []
+        }
+        continue
+      }
+
+      // Add to current block
+      currentBlock.push(trimmed)
     }
 
-    // Line 1: **Degree/Program**
-    const degreeMatch = lines[0]?.match(/\*\*(.+?)\*\*/)
-    if (!degreeMatch) {
-      console.log('⚠️ No degree match found in:', lines[0])
-      continue
+    // Don't forget the last block
+    if (currentBlock.length > 0) {
+      blocks.push(currentBlock.join('\n'))
     }
 
-    const degree = degreeMatch[1]
-    console.log('✓ Degree found:', degree)
+    console.log('🔍 Found', blocks.length, 'potential education blocks')
 
-    // Line 2: Institution | Location | Years
-    const metaMatch = lines[1]?.match(/^(.+?)\s*\|\s*(.+?)\s*\|\s*(.+)$/)
-    if (!metaMatch) {
-      console.log('⚠️ No meta match found in:', lines[1])
-      continue
+    const seenEducations = new Set<string>() // Track duplicates
+
+    for (const block of blocks) {
+      const lines = block.split('\n').map((l: string) => l.trim()).filter((l: string) => l)
+
+      if (lines.length === 0) continue
+
+      let institution = ''
+      let degree = ''
+      let graduationYear = ''
+
+      // Strategy: Look for the line with a year range - that's our anchor
+      let yearLineIndex = -1
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i]
+        const yearMatch = line.match(/(\d{4})\s*[–—-]\s*(\d{4})/)
+
+        if (yearMatch) {
+          yearLineIndex = i
+          graduationYear = yearMatch[2]
+
+          // Get degree from the part before the year
+          const beforeYear = line.substring(0, yearMatch.index).trim()
+          const deduplicatedDegree = beforeYear.match(/^(.+?)\1+$/)
+          degree = deduplicatedDegree ? deduplicatedDegree[1].trim() : beforeYear
+          break
+        }
+      }
+
+      // If we found a year line, look backwards for institution
+      if (yearLineIndex >= 0 && degree) {
+        // Institution should be in one of the lines before the year line
+        for (let i = 0; i < yearLineIndex; i++) {
+          const line = lines[i]
+
+          // Skip if it looks like a duplicate of the degree
+          if (line.includes(degree)) continue
+
+          // Deduplicate the line
+          const dedup = line.match(/^(.+?)\1+$/)
+          const candidate = dedup ? dedup[1].trim() : line.trim()
+
+          if (candidate && candidate.length > 2 && !institution) {
+            institution = candidate
+            break
+          }
+        }
+      }
+
+      // Fallback: If still no institution, use first line
+      if (!institution && lines[0]) {
+        const dedup = lines[0].match(/^(.+?)\1+$/)
+        institution = dedup ? dedup[1].trim() : lines[0].trim()
+      }
+
+      // If we have valid data, add it (avoiding duplicates)
+      if (institution && degree && institution.length > 2 && degree.length > 2) {
+        const uniqueKey = `${institution}|${degree}|${graduationYear || ''}`
+
+        if (!seenEducations.has(uniqueKey)) {
+          seenEducations.add(uniqueKey)
+          console.log('✓ Parsed education:', { institution, degree, graduationYear })
+          educations.push({
+            institution,
+            degree,
+            graduationYear: graduationYear || undefined
+          })
+        } else {
+          console.log('⚠️ Skipping duplicate:', { institution, degree })
+        }
+      } else {
+        console.log('⚠️ Could not parse block:', block.substring(0, 100))
+      }
     }
-
-    const institution = metaMatch[1].trim()
-    const yearRange = metaMatch[3].trim()
-    console.log('✓ Institution:', institution, 'Year range:', yearRange)
-
-    // Parse graduation year (last year in range: "2009–2012" → "2012")
-    const yearMatch = yearRange.match(/(\d{4})\s*[–—-]\s*(\d{4})/)
-    const graduationYear = yearMatch ? yearMatch[2] : yearRange.match(/\d{4}/)?.[0]
-
-    educations.push({
-      institution,
-      degree,
-      graduationYear
-    })
   }
 
   console.log('✅ Final parsed educations:', educations)
