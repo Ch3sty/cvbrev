@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -15,7 +15,9 @@ import { motion } from 'framer-motion';
 import CVGenerationModal from '@/components/cv/CVGenerationModal';
 import UnifiedCVSelector from '@/components/cv/unified-cv-selector';
 
-export default function CVMallarPage() {
+function CVMallarContent() {
+  const searchParams = useSearchParams();
+  const cvIdFromUrl = searchParams.get('cv');
   const router = useRouter();
   const { 
     cvs, 
@@ -42,15 +44,32 @@ export default function CVMallarPage() {
     fetchCVs();
   }, [profile, profileLoading, router, fetchCVs]);
 
-  // Auto-select first CV and template
+  // Auto-select CV from URL or latest CV
   useEffect(() => {
-    if (cvs.length > 0 && !selectedCV) {
-      selectCV(cvs[0].id);
+    if (cvs.length === 0) return;
+
+    // Om CV-ID finns i URL, välj det CV:t
+    if (cvIdFromUrl && !selectedCV) {
+      const cvFromUrl = cvs.find(cv => cv.id === cvIdFromUrl);
+      if (cvFromUrl) {
+        console.log('✅ Auto-selecting CV from URL:', cvFromUrl.file_name);
+        selectCV(cvFromUrl.id);
+      } else {
+        console.log('⚠️ CV from URL not found, selecting latest CV');
+        selectCV(cvs[0].id); // Fallback till senaste CV:t
+      }
     }
-    if (!selectedTemplate && cvs.length > 0) {
+    // Annars välj senaste CV:t om inget är valt
+    else if (!selectedCV) {
+      console.log('📋 Auto-selecting latest CV:', cvs[0].file_name);
+      selectCV(cvs[0].id); // cvs[0] = senaste CV:t (sorterat efter created_at DESC)
+    }
+
+    // Auto-select template
+    if (!selectedTemplate) {
       setSelectedTemplate('modern-minimal');
     }
-  }, [cvs, selectedCV, selectCV, selectedTemplate]);
+  }, [cvs, selectedCV, selectCV, selectedTemplate, cvIdFromUrl]);
 
   const handleUpgradeClick = () => {
     router.push('/priser');
@@ -434,5 +453,21 @@ export default function CVMallarPage() {
         }
       `}} />
     </div>
+  );
+}
+
+// Export wrappat i Suspense för useSearchParams
+export default function CVMallarPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white via-blue-50/30 to-slate-50/50">
+        <div className="text-center">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-pink-600 mb-4"></div>
+          <p className="text-gray-600 font-medium">Laddar CV-mallar...</p>
+        </div>
+      </div>
+    }>
+      <CVMallarContent />
+    </Suspense>
   );
 }
