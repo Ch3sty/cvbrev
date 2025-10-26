@@ -515,9 +515,34 @@ Original: "Internationell licens som personlig tränare samt kostrådgivare."
 ✅ RÄTT: "Internationell licens som personlig tränare och kostrådgivare. Fördjupad kunskap inom anatomi, muskellära och skelett från engelskspråkig utbildning."
 
 LINKEDIN-FORMAT FÖR UTBILDNING:
+
+⚠️ KRITISKT: Du MÅSTE följa EXAKT detta format för varje utbildning:
+
 **[Examen/Certifiering]**
 [Skola/Institution] | [Ort (om relevant)] | [År/Period]
-[Ev. specialisering eller kortfattat tillägg på MAX 1 rad]
+
+REGLER:
+1. Rad 1 MÅSTE börja och sluta med ** (dubbel asterisk)
+2. Rad 2 MÅSTE innehålla minst EN pipe-separator |
+3. År/Period ska vara sista delen efter sista |
+4. Separera olika utbildningar med dubbel radbrytning (\n\n)
+5. INGEN extra beskrivning - håll det kompakt
+
+EXEMPEL PÅ KORREKT FORMAT:
+
+**Civilingenjör, Datateknik**
+Kungliga Tekniska Högskolan (KTH) | Stockholm | 2015–2019
+
+**Internationell PT-licens**
+The Academy of Sports Nutrition | 2020
+
+**Gymnasieexamen, Bygg- och Anläggningsprogrammet**
+Södertörns Hantverksgymnasium | Stockholm | 2009–2012
+
+EXEMPEL PÅ FELAKTIGT FORMAT (använd INTE):
+❌ Civilingenjör, Datateknik (utan **)
+❌ **Civilingenjör, Datateknik** KTH Stockholm 2015-2019 (saknar |)
+❌ **Civilingenjör** \n KTH | Stockholm | 2015-2019 \n Specialisering i maskininlärning (extra rad)
 
 RETURN JSON:
 {
@@ -726,6 +751,7 @@ Deno.serve(async (req) => {
     }
 
     console.log('[LinkedIn Optimizer] Starting optimization...');
+    console.log('[LinkedIn Optimizer] Education input:', sections.education ? `"${sections.education.substring(0, 100)}..."` : 'NONE');
 
     // Optimize each section in parallel
     const [headlineResult, aboutResult, experienceResult, educationResult, skillsResult] = await Promise.all([
@@ -736,19 +762,22 @@ Deno.serve(async (req) => {
       sections.skills ? optimizeSkills(sections.skills, sections.experience, sections.about, mode, target_role, language) : Promise.resolve(null)
     ]);
 
+    console.log('[LinkedIn Optimizer] Education result:', educationResult ? 'SUCCESS' : 'NULL');
+
     // Calculate overall scores
     const results = {
       headline: headlineResult,
       about: aboutResult,
       experience: experienceResult,
-      ...(educationResult && { education: educationResult }),
-      ...(skillsResult && { skills: skillsResult })
+      ...(educationResult ? { education: educationResult } : {}),
+      ...(skillsResult ? { skills: skillsResult } : {})
     };
 
     const overall_score_before = calculateOverallScore(results as any, 'before');
     const overall_score_after = calculateOverallScore(results as any, 'after');
 
     console.log(`[LinkedIn Optimizer] Optimization complete. Score: ${overall_score_before} → ${overall_score_after}`);
+    console.log('[LinkedIn Optimizer] Results object keys:', Object.keys(results));
 
     // Save to database
     const { data: savedOptimization, error: saveError } = await supabase
