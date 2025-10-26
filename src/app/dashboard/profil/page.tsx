@@ -12,7 +12,6 @@ import {
   AlertTriangle,
   Info,
   Mail,
-  Phone,
   Building2,
   Lightbulb,
   Trophy,
@@ -37,7 +36,6 @@ export default function ProfilPage() {
 
   const [formData, setFormData] = useState({
     full_name: '',
-    phone: '',
     linkedin_url: '',
     profile_photo_url: '',
     preferred_tonality: 'professional' as 'professional' | 'creative' | 'enthusiastic' | 'confident' | 'balanced' | 'auto'
@@ -62,7 +60,6 @@ export default function ProfilPage() {
     if (profile) {
       setFormData({
         full_name: profile.full_name || '',
-        phone: profile.phone || '',
         linkedin_url: profile.linkedin_url || '',
         profile_photo_url: profile.profile_photo_url || '',
         preferred_tonality: (profile.preferred_tonality || 'professional') as 'professional' | 'creative' | 'enthusiastic' | 'confident' | 'balanced' | 'auto'
@@ -219,23 +216,6 @@ export default function ProfilPage() {
               <Info className="w-3 h-3 mr-1" />
               Fullständigt namn är obligatoriskt (minst 2 tecken)
             </p>
-          </div>
-
-          {/* Telefon */}
-          <div className="relative">
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2 flex items-center">
-              <Phone className="w-4 h-4 mr-2 text-green-600" />
-              Telefonnummer
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="Ditt telefonnummer (valfritt)"
-              className="w-full px-4 py-3 rounded-xl bg-white text-gray-900 border border-gray-200 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all"
-            />
           </div>
 
           {/* Profilbild */}

@@ -10,7 +10,6 @@ export default function RegisterForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [fullName, setFullName] = useState('')
-  const [phone, setPhone] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<React.ReactNode | null>(null);
   const [message, setMessage] = useState<string | null>(null);
@@ -44,8 +43,7 @@ export default function RegisterForm() {
         password,
         options: {
           data: {
-            full_name: fullName,
-            phone: phone
+            full_name: fullName
           },
           // emailRedirectTo: `${window.location.origin}/auth/callback`
         }
@@ -220,23 +218,6 @@ export default function RegisterForm() {
             placeholder="din.email@example.com"
             className="appearance-none block w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:text-sm bg-white text-gray-900 transition-all"
             autoComplete="email"
-          />
-        </div>
-
-        {/* Telefonnummer */}
-        <div>
-          <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
-            Telefonnummer <span className="text-gray-500 font-normal">(Valfritt)</span>
-          </label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            placeholder="+46701234567"
-            className="appearance-none block w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent sm:text-sm bg-white text-gray-900 transition-all"
-            autoComplete="tel"
           />
         </div>
 
