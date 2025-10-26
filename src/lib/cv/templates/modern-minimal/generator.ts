@@ -59,7 +59,9 @@ function generateModernMinimalHTML(cvData: CVMetadata, options: any = {}): strin
                 color: #64748b;
                 font-size: 14px;
                 line-height: 1.6;
+                padding: 12px 0;
                 margin-top: 12px;
+                margin-bottom: 0;
             }
             
             /* Section Styling */

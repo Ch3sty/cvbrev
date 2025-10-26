@@ -51,6 +51,7 @@ function generateCreativeEdgeHTML(cvData: CVMetadata, options: any = {}): string
             .header .title {
                 color: rgba(255,255,255,0.9);
                 font-size: 16px;
+                padding: 12px 0;
                 margin: 5px 0;
             }
             

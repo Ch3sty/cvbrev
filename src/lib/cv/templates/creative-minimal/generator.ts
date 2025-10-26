@@ -138,6 +138,8 @@ function generateCreativeMinimalHTML(cvData: CVMetadata, options: CreativeMinima
                 font-size: 13px; /* En storlek mindre än title */
                 color: rgba(124,58,237,0.8); /* Samma färg som title */
                 line-height: 1.5;
+                padding: 12px 0;
+                margin-top: 12px;
                 margin-bottom: 8px;
                 max-width: 100%;
                 font-weight: 400; /* Normal weight, inte fetstil */

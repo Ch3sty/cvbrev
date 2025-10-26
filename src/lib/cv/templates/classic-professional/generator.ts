@@ -60,7 +60,9 @@ function generateClassicProfessionalHTML(cvData: CVMetadata, options: any = {}):
                 color: #64748b;
                 font-size: 13px;
                 line-height: 1.6;
+                padding: 12px 0;
                 margin-top: 8px;
+                margin-bottom: 0;
             }
             
             /* Section Styling */

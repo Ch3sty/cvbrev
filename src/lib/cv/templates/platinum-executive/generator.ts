@@ -131,6 +131,9 @@ function generatePlatinumExecutiveHTML(cvData: CVMetadata, options: PlatinumExec
                 color: rgba(255, 255, 255, 0.8);
                 line-height: 1.4;
                 max-width: 300px;
+                padding: 12px 0;
+                margin-top: 12px;
+                margin-bottom: 0;
             }
             
             /* Contact & LinkedIn Section */

@@ -80,7 +80,9 @@ function generateExecutivePremiumHTML(cvData: CVMetadata, options: any = {}): st
                 color: rgba(255, 255, 255, 0.9);
                 font-size: 14px;
                 line-height: 1.6;
+                padding: 12px 0;
                 margin-top: 12px;
+                margin-bottom: 0;
                 font-style: italic;
             }
             

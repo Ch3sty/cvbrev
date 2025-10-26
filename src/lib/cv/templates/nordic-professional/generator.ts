@@ -316,6 +316,9 @@ function generateNordicProfessionalHTML(cvData: CVMetadata, options: NordicProfe
                 text-align: justify;
                 font-weight: 500;
                 max-width: 450px;
+                padding: 12px 0;
+                margin-top: 12px;
+                margin-bottom: 0;
             }
             
             /* Section Styling */
