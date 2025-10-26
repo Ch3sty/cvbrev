@@ -88,69 +88,34 @@ function parseExperience(experienceText: string): CVExperience[] {
 function parseEducation(educationText: string): CVEducation[] {
   const educations: CVEducation[] = []
 
-  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
-  console.log('🔍 parseEducation CALLED')
-  console.log('📥 Input length:', educationText.length, 'characters')
-  console.log('📥 Input text (full):', educationText)
-  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
-
   // First, try to parse markdown format (optimized from Edge Function)
   // Check for lines that start with ** (more lenient than strict markdown)
   const hasMarkdown = /^\*\*[^*]+\*\*$/m.test(educationText) || /^\*\*[^*]+\*\*/m.test(educationText)
-  console.log('🔎 Markdown detection test result:', hasMarkdown)
-  console.log('🔎 Testing against patterns:')
-  console.log('   - Strict: /^\\*\\*[^*]+\\*\\*$/m (line contains only **text**)')
-  console.log('   - Lenient: /^\\*\\*[^*]+\\*\\*/m (line starts with **text**)')
-  console.log('🔎 Contains ** at all?', educationText.includes('**'))
 
   if (hasMarkdown) {
-    console.log('✅ PARSING MARKDOWN FORMAT')
     // Split by education headers (lines starting with **Degree**)
     const blocks = educationText.split(/(?=^\*\*[^*]+\*\*$)/m).filter((block: string) => block.trim())
-    console.log('📦 Education blocks found:', blocks.length)
-    blocks.forEach((block, idx) => {
-      console.log(`📦 Block ${idx + 1}:`, block.substring(0, 100) + '...')
-    })
 
     for (let i = 0; i < blocks.length; i++) {
       const block = blocks[i]
-      console.log(`\n🔄 Processing block ${i + 1}/${blocks.length}`)
       const lines = block.split('\n').map((l: string) => l.trim()).filter((l: string) => l)
-      console.log('📋 Block lines:', lines)
 
-      if (lines.length < 2) {
-        console.log('❌ SKIP: Block has less than 2 lines')
-        continue
-      }
+      if (lines.length < 2) continue
 
       // Line 1: **Degree/Program**
-      console.log('🔎 Checking line 0 for degree pattern **[text]**:', lines[0])
       const degreeMatch = lines[0]?.match(/\*\*(.+?)\*\*/)
-      if (!degreeMatch) {
-        console.log('❌ SKIP: No degree match found in line 0:', lines[0])
-        console.log('   Expected pattern: **[Degree/Program]**')
-        continue
-      }
+      if (!degreeMatch) continue
 
       const degree = degreeMatch[1]
-      console.log('✅ Degree extracted:', degree)
 
       // Line 2: Institution | Location | Years
-      console.log('🔎 Checking line 1 for metadata pattern [inst] | [loc] | [years]:', lines[1])
       const metaMatch = lines[1]?.match(/^(.+?)\s*\|\s*(.+?)\s*\|\s*(.+)$/)
       if (!metaMatch) {
-        console.log('❌ SKIP: No metadata match found in line 1:', lines[1])
-        console.log('   Expected pattern: Institution | Location | Years')
-        console.log('   Trying alternative pattern without location...')
-
         // Try alternative: Institution | Years (no location)
         const altMatch = lines[1]?.match(/^(.+?)\s*\|\s*(.+)$/)
         if (altMatch) {
-          console.log('✅ Alternative match found (no location)')
           const institution = altMatch[1].trim()
           const yearRange = altMatch[2].trim()
-          console.log('✅ Institution:', institution, '| Year range:', yearRange)
-
           const yearMatch = yearRange.match(/(\d{4})\s*[–—-]\s*(\d{4})/)
           const graduationYear = yearMatch ? yearMatch[2] : yearRange.match(/\d{4}/)?.[0]
 
@@ -159,18 +124,15 @@ function parseEducation(educationText: string): CVEducation[] {
             degree,
             graduationYear
           })
-          console.log('✅ Education entry added:', { institution, degree, graduationYear })
           continue
         }
 
         // Try ultra-fallback: Just Institution and degree on two lines, try to extract year from degree line
-        console.log('   Trying ultra-fallback: institution on line 1, year anywhere...')
         const institution = lines[1].trim()
         const yearInDegreeOrInstitution = degree.match(/(\d{4})\s*[–—-]\s*(\d{4})/) || institution.match(/(\d{4})\s*[–—-]\s*(\d{4})/)
         const singleYear = degree.match(/\d{4}/) || institution.match(/\d{4}/)
 
         if (institution && institution.length > 2 && !institution.includes('**')) {
-          console.log('✅ Ultra-fallback match: using institution as-is')
           const graduationYear = yearInDegreeOrInstitution ? yearInDegreeOrInstitution[2] : singleYear?.[0]
 
           educations.push({
@@ -178,32 +140,27 @@ function parseEducation(educationText: string): CVEducation[] {
             degree: degree.replace(/\d{4}\s*[–—-]\s*\d{4}/, '').replace(/\d{4}/, '').trim(),
             graduationYear
           })
-          console.log('✅ Education entry added (ultra-fallback):', { institution, degree, graduationYear })
           continue
         }
 
-        console.log('❌ SKIP: No pattern matched at all')
         continue
       }
 
       const institution = metaMatch[1].trim()
       const yearRange = metaMatch[3].trim()
-      console.log('✅ Institution:', institution, '| Year range:', yearRange)
 
       // Parse graduation year (last year in range: "2009–2012" → "2012")
       const yearMatch = yearRange.match(/(\d{4})\s*[–—-]\s*(\d{4})/)
       const graduationYear = yearMatch ? yearMatch[2] : yearRange.match(/\d{4}/)?.[0]
-      console.log('✅ Graduation year parsed:', graduationYear)
 
       educations.push({
         institution,
         degree,
         graduationYear
       })
-      console.log('✅ Education entry added:', { institution, degree, graduationYear })
     }
   } else {
-    console.log('📄 Detected raw LinkedIn format - attempting to parse')
+    // Parse raw LinkedIn format (duplicated text with embedded years)
 
     // Parse raw LinkedIn format (duplicated text with embedded years)
     // Example pattern per education:
@@ -314,34 +271,20 @@ function parseEducation(educationText: string): CVEducation[] {
 
         if (!seenEducations.has(uniqueKey)) {
           seenEducations.add(uniqueKey)
-          console.log('✓ Parsed education:', { institution, degree, graduationYear })
           educations.push({
             institution,
             degree,
             graduationYear: graduationYear || undefined
           })
-        } else {
-          console.log('⚠️ Skipping duplicate:', { institution, degree })
         }
-      } else {
-        console.log('⚠️ Could not parse block:', block.substring(0, 100))
       }
     }
   }
 
-  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
-  console.log('✅ parseEducation COMPLETE')
-  console.log('📤 Returning', educations.length, 'education entries')
+  // Critical warning if no educations parsed
   if (educations.length === 0) {
-    console.log('⚠️⚠️⚠️ WARNING: NO EDUCATIONS PARSED! ⚠️⚠️⚠️')
-    console.log('   This will result in empty education section in CV')
-  } else {
-    console.log('📤 Education entries:')
-    educations.forEach((edu, idx) => {
-      console.log(`   ${idx + 1}. ${edu.degree} - ${edu.institution} (${edu.graduationYear || 'no year'})`)
-    })
+    console.warn('⚠️ WARNING: NO EDUCATIONS PARSED - Education section will be empty in CV')
   }
-  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
 
   return educations
 }
@@ -536,24 +479,9 @@ export function convertLinkedInToCV(
   const experience = parseExperience(optimizedSections.experience.optimized)
 
   // Parse education
-  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
-  console.log('🎓 convertLinkedInToCV: Processing education')
-  console.log('🎓 Education section exists?', !!optimizedSections.education)
-  if (optimizedSections.education) {
-    console.log('🎓 Education optimized text length:', optimizedSections.education.optimized?.length || 0)
-    console.log('🎓 Education optimized text:', optimizedSections.education.optimized)
-    console.log('🎓 Calling parseEducation()...')
-  } else {
-    console.log('⚠️ No education section in optimizedSections!')
-  }
-
   const education = optimizedSections.education
     ? parseEducation(optimizedSections.education.optimized)
     : []
-
-  console.log('🎓 Parsed education result:', education)
-  console.log('🎓 Parsed education count:', education.length)
-  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
 
   // Parse skills
   const skills = optimizedSections.skills
