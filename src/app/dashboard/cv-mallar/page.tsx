@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, Suspense, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,6 +18,7 @@ import UnifiedCVSelector from '@/components/cv/unified-cv-selector';
 function CVMallarContent() {
   const searchParams = useSearchParams();
   const cvIdFromUrl = searchParams.get('cv');
+  const hasSelectedFromUrl = useRef(false);
   const router = useRouter();
   const { 
     cvs, 
@@ -48,21 +49,29 @@ function CVMallarContent() {
   useEffect(() => {
     if (cvs.length === 0) return;
 
-    // Om CV-ID finns i URL, välj det CV:t
-    if (cvIdFromUrl && !selectedCV) {
+    // PRIORITET 1: Om CV-ID finns i URL och vi inte redan valt från URL
+    if (cvIdFromUrl && !hasSelectedFromUrl.current) {
       const cvFromUrl = cvs.find(cv => cv.id === cvIdFromUrl);
       if (cvFromUrl) {
-        console.log('✅ Auto-selecting CV from URL:', cvFromUrl.file_name);
+        console.log('✅ Auto-selecting CV from URL:', cvFromUrl.file_name, 'ID:', cvIdFromUrl);
         selectCV(cvFromUrl.id);
+        hasSelectedFromUrl.current = true; // Markera att vi valt från URL
+        return; // Avsluta här - vänta på nästa render
       } else {
-        console.log('⚠️ CV from URL not found, selecting latest CV');
-        selectCV(cvs[0].id); // Fallback till senaste CV:t
+        console.log('⚠️ CV from URL not found:', cvIdFromUrl);
+        console.log('📋 Available CVs:', cvs.map(cv => ({ id: cv.id, name: cv.file_name })));
+        // Fallback till senaste CV:t
+        console.log('📋 Falling back to latest CV:', cvs[0].file_name);
+        selectCV(cvs[0].id);
+        hasSelectedFromUrl.current = true;
+        return;
       }
     }
-    // Annars välj senaste CV:t om inget är valt
-    else if (!selectedCV) {
-      console.log('📋 Auto-selecting latest CV:', cvs[0].file_name);
-      selectCV(cvs[0].id); // cvs[0] = senaste CV:t (sorterat efter created_at DESC)
+
+    // PRIORITET 2: Fallback till senaste CV om inget är valt och ingen URL-parameter
+    if (!selectedCV && !cvIdFromUrl) {
+      console.log('📋 No URL parameter - auto-selecting latest CV:', cvs[0].file_name);
+      selectCV(cvs[0].id);
     }
 
     // Auto-select template
