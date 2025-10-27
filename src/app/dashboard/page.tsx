@@ -46,11 +46,11 @@ interface DashboardStats {
   // Nya dynamiska 7-dagars kvoter
   weeklyLetterCount?: number;
   weeklyAnalysisCount?: number;
-  weeklyCompetenceCount?: number;
+  weeklyLinkedInCount?: number;
   cvCount?: number;
   letterResetDate?: Date;
   analysisResetDate?: Date;
-  competenceResetDate?: Date;
+  linkedInResetDate?: Date;
 }
 
 export default function DashboardPage() {
@@ -84,17 +84,6 @@ export default function DashboardPage() {
           new Date(letter.created_at) >= startOfMonth
         ) || [];
 
-        // Räkna CV-analyser denna vecka (för gratis-användare)
-        const startOfWeek = new Date(now);
-        startOfWeek.setDate(now.getDate() - now.getDay()); // Söndag som första dag
-        startOfWeek.setHours(0, 0, 0, 0);
-
-        const { data: analyses } = await supabase
-          .from('competence_analysis_jobs')
-          .select('id, created_at')
-          .eq('user_id', user.id)
-          .gte('created_at', startOfWeek.toISOString());
-
         // Hämta användarens profil med prenumerationsinfo och nya kvotfält
         const { data: profile } = await supabase
           .from('profiles')
@@ -106,8 +95,8 @@ export default function DashboardPage() {
             weekly_letter_reset_at,
             weekly_analysis_count,
             weekly_analysis_reset_at,
-            weekly_competence_analysis_count,
-            weekly_competence_reset_at
+            weekly_linkedin_count,
+            weekly_linkedin_reset_at
           `)
           .eq('id', user.id)
           .single();
@@ -158,11 +147,11 @@ export default function DashboardPage() {
           // Nya dynamiska 7-dagars kvoter
           weeklyLetterCount: profile?.weekly_letter_count || 0,
           weeklyAnalysisCount: profile?.weekly_analysis_count || 0,
-          weeklyCompetenceCount: profile?.weekly_competence_analysis_count || 0,
+          weeklyLinkedInCount: profile?.weekly_linkedin_count || 0,
           cvCount: cvCount || 0,
           letterResetDate: profile?.weekly_letter_reset_at ? new Date(profile.weekly_letter_reset_at) : undefined,
           analysisResetDate: profile?.weekly_analysis_reset_at ? new Date(profile.weekly_analysis_reset_at) : undefined,
-          competenceResetDate: profile?.weekly_competence_reset_at ? new Date(profile.weekly_competence_reset_at) : undefined,
+          linkedInResetDate: profile?.weekly_linkedin_reset_at ? new Date(profile.weekly_linkedin_reset_at) : undefined,
           currentLevel: rewardsData.currentLevel,
           levelTitle: rewardsData.levelTitle,
           availableRewards: rewardsData.availableRewards,
@@ -377,6 +366,16 @@ export default function DashboardPage() {
                 remaining={Math.max(0, 2 - (stats.cvCount || 0))}
                 resetType="permanent"
                 href="/dashboard/profil/cv"
+              />
+              <QuotaCard
+                title="LinkedIn-optimering"
+                icon={<Users className="w-5 h-5" />}
+                used={stats.weeklyLinkedInCount || 0}
+                limit={1}
+                remaining={Math.max(0, 1 - (stats.weeklyLinkedInCount || 0))}
+                resetDate={stats.linkedInResetDate}
+                resetType="weekly"
+                href="/dashboard/linkedin-optimizer"
               />
             </>
           )}
