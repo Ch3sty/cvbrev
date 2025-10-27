@@ -687,7 +687,7 @@ export default function StatisticsPage() {
     <div className="relative min-h-screen overflow-hidden">
       {/* Premium Dynamic Background */}
       <motion.div
-        className="fixed inset-0 pointer-events-none z-0"
+        className="fixed inset-0 pointer-events-none -z-10"
         style={{ opacity: 0.9 }}
       >
         {/* Primary gradient foundation */}
@@ -768,7 +768,7 @@ export default function StatisticsPage() {
         colors={['bg-pink-400/8', 'bg-purple-400/8', 'bg-blue-400/8', 'bg-indigo-400/8', 'bg-emerald-400/8']}
         size="lg"
         speed="slow"
-        className="fixed inset-0 pointer-events-none z-5"
+        className="fixed inset-0 pointer-events-none -z-5"
       />
 
       <div className="container mx-auto px-4 py-8 relative z-10">
