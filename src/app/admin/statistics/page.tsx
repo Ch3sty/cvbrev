@@ -1032,25 +1032,65 @@ export default function StatisticsPage() {
                   transition={{ duration: 0.5 }}
                   className="bg-white/90 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300">
                   <h2 className="text-2xl font-bold text-slate-900 mb-6">Funktionsanvändning</h2>
-                  <ResponsiveContainer width="100%" height={300}>
+                  <ResponsiveContainer width="100%" height={350}>
                     <PieChart>
+                      <defs>
+                        <linearGradient id="pieGrad1" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#ec4899" stopOpacity={0.9}/>
+                          <stop offset="100%" stopColor="#f472b6" stopOpacity={0.7}/>
+                        </linearGradient>
+                        <linearGradient id="pieGrad2" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.9}/>
+                          <stop offset="100%" stopColor="#a78bfa" stopOpacity={0.7}/>
+                        </linearGradient>
+                        <linearGradient id="pieGrad3" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#3b82f6" stopOpacity={0.9}/>
+                          <stop offset="100%" stopColor="#60a5fa" stopOpacity={0.7}/>
+                        </linearGradient>
+                        <linearGradient id="pieGrad4" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#10b981" stopOpacity={0.9}/>
+                          <stop offset="100%" stopColor="#34d399" stopOpacity={0.7}/>
+                        </linearGradient>
+                        <linearGradient id="pieGrad5" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#f59e0b" stopOpacity={0.9}/>
+                          <stop offset="100%" stopColor="#fbbf24" stopOpacity={0.7}/>
+                        </linearGradient>
+                      </defs>
                       <Pie
                         data={Object.entries(stats.engagement.feature_adoption)
                           .slice(0, 5)
                           .map(([key, value]) => ({ name: key, value }))}
                         cx="50%"
                         cy="50%"
-                        labelLine={false}
-                        label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
-                        outerRadius={80}
-                        fill="#8884d8"
+                        innerRadius={70}
+                        outerRadius={110}
+                        paddingAngle={3}
                         dataKey="value"
                       >
                         {Object.entries(stats.engagement.feature_adoption).slice(0, 5).map((_, index) => (
-                          <Cell key={`cell-${index}`} fill={Object.values(COLORS)[index % Object.values(COLORS).length]} />
+                          <Cell
+                            key={`cell-${index}`}
+                            fill={`url(#pieGrad${index + 1})`}
+                            stroke="#fff"
+                            strokeWidth={2}
+                          />
                         ))}
                       </Pie>
-                      <Tooltip />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                          border: 'none',
+                          borderRadius: '12px',
+                          boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                          padding: '12px'
+                        }}
+                      />
+                      <Legend
+                        verticalAlign="bottom"
+                        height={36}
+                        iconType="circle"
+                        wrapperStyle={{ paddingTop: '20px' }}
+                      />
                     </PieChart>
                   </ResponsiveContainer>
                 </motion.div>
@@ -1061,8 +1101,18 @@ export default function StatisticsPage() {
                   transition={{ duration: 0.5 }}
                   className="bg-white/90 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300">
                   <h2 className="text-2xl font-bold text-slate-900 mb-6">Användarfördelning</h2>
-                  <ResponsiveContainer width="100%" height={300}>
+                  <ResponsiveContainer width="100%" height={350}>
                     <PieChart>
+                      <defs>
+                        <linearGradient id="pieUserPremium" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#ec4899" stopOpacity={0.9}/>
+                          <stop offset="100%" stopColor="#f472b6" stopOpacity={0.7}/>
+                        </linearGradient>
+                        <linearGradient id="pieUserFree" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.9}/>
+                          <stop offset="100%" stopColor="#a78bfa" stopOpacity={0.7}/>
+                        </linearGradient>
+                      </defs>
                       <Pie
                         data={[
                           { name: 'Premium', value: stats.users.premium },
@@ -1070,16 +1120,29 @@ export default function StatisticsPage() {
                         ]}
                         cx="50%"
                         cy="50%"
-                        labelLine={false}
-                        label={({ name, value }) => `${name}: ${value}`}
-                        outerRadius={80}
-                        fill="#8884d8"
+                        innerRadius={70}
+                        outerRadius={110}
+                        paddingAngle={3}
                         dataKey="value"
                       >
-                        <Cell fill={COLORS.primary} />
-                        <Cell fill={COLORS.secondary} />
+                        <Cell fill="url(#pieUserPremium)" stroke="#fff" strokeWidth={2} />
+                        <Cell fill="url(#pieUserFree)" stroke="#fff" strokeWidth={2} />
                       </Pie>
-                      <Tooltip />
+                      <Tooltip
+                        contentStyle={{
+                          backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                          border: 'none',
+                          borderRadius: '12px',
+                          boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                          padding: '12px'
+                        }}
+                      />
+                      <Legend
+                        verticalAlign="bottom"
+                        height={36}
+                        iconType="circle"
+                        wrapperStyle={{ paddingTop: '20px' }}
+                      />
                     </PieChart>
                   </ResponsiveContainer>
                 </motion.div>
