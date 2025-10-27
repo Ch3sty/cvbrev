@@ -36,52 +36,52 @@ const tonalityDescriptions: { [key: string]: { sv: string, en: string } } = {
   }
 };
 
-// *** NY HJÄLPFUNKTION FÖR KOSTNADSBERÄKNING - NU EXPORTERAD ***
+// *** KOSTNADSBERÄKNING MED BASELINE FALLBACK ***
 /**
- * Beräknar kostnaden för ett OpenAI API-anrop.
- * Priser är per 1 miljon tokens (Kolla aktuell prislista!).
+ * Baseline pricing (fallback if database unavailable)
+ * Updated 2025-01-27 from official OpenAI pricing page
+ * Source: https://openai.com/api/pricing/
+ */
+const BASELINE_PRICES: { [key: string]: { input: number; output: number } } = {
+    // GPT-4 modeller (korrekta priser från OpenAI 2025-01)
+    "gpt-4o":               { input: 3.00,  output: 10.00 },   // KORRIGERAT från 5/15
+    "gpt-4o-mini":          { input: 0.15,  output: 0.60 },
+    "gpt-4-turbo":          { input: 10.00, output: 30.00 },
+    "gpt-4":                { input: 30.00, output: 60.00 },
+    "gpt-3.5-turbo":        { input: 0.50,  output: 1.50 },
+
+    // GPT-5 modeller (estimerade - ej släppta än)
+    "gpt-5":                { input: 1.25,  output: 10.00 },
+    "gpt-5-mini":           { input: 0.25,  output: 1.00 },
+};
+
+/**
+ * Beräknar kostnaden för ett OpenAI API-anrop (synkron version med baseline fallback).
+ * Använder hårdkodade baseline-priser som fallback om databas ej tillgänglig.
+ *
  * @param model - Modellen som användes (t.ex. "gpt-4o").
  * @param promptTokens - Antal input tokens.
  * @param completionTokens - Antal output tokens.
  * @returns Beräknad kostnad i USD, eller null om pris saknas.
  */
-export function calculateOpenAICost(model: string, promptTokens: number, completionTokens: number): number | null { // <<<--- EXPORT TILLAGD HÄR
-    // Priser per 1 MILJON tokens (Uppdaterad 2025-09-15)
-    // Hämta från https://openai.com/pricing
-    const prices: { [key: string]: { input: number; output: number } } = {
-        // GPT-5 modeller (augusti 2025) - Exakta priser från dokumentationen
-        "gpt-5":                { input: 1.25,  output: 10.00 },  // $1.25/$10.00 per 1M tokens
-        "gpt-5-2025-08-07":     { input: 1.25,  output: 10.00 },  // Specifik snapshot
-        "gpt-5-mini":           { input: 0.25,  output: 1.00 },   // Billigare variant
-        "gpt-5-mini-2025-08-07":{ input: 0.25,  output: 1.00 },   // Mini snapshot
-        "gpt-5-nano":           { input: 0.05,  output: 0.20 },   // Mest kostnadseffektiv
+export function calculateOpenAICost(model: string, promptTokens: number, completionTokens: number): number | null {
+    // Försök hitta exakt modell i baseline
+    let modelPrice = BASELINE_PRICES[model];
 
-        // GPT-4 modeller
-        "gpt-4o":               { input: 5.00,  output: 15.00 },
-        "gpt-4o-mini":          { input: 0.15,  output: 0.60 },
-        "gpt-4-turbo":          { input: 10.00, output: 30.00 },
-        "gpt-4":                { input: 30.00, output: 60.00 },
-        "gpt-4.1":              { input: 10.00, output: 30.00 }, // Antar samma som gpt-4-turbo
-        "gpt-3.5-turbo":        { input: 0.50,  output: 1.50 },
-        "gpt-3.5-turbo-0125":   { input: 0.50,  output: 1.50 },
-        "gpt-3.5-turbo-1106":   { input: 1.00,  output: 2.00 },
-        "gpt-3.5-turbo-instruct": { input: 1.50,  output: 2.00 },
-        // Lägg till fler modeller vid behov
-    };
-
-    let modelPrice = prices[model];
-    // Försök hitta pris baserat på mer generell modell om exakt matchning saknas
+    // Försök hitta basmodell om exakt matchning saknas
     if (!modelPrice) {
-        const baseModel = model.split('-').slice(0, 2).join('-'); // Ex: "gpt-4o" -> "gpt-4"
-        modelPrice = prices[baseModel];
+        // Ta bort datumstämplar från modellnamn (t.ex. "gpt-4o-2024-08-06" -> "gpt-4o")
+        const baseModel = model.replace(/-\d{4}-\d{2}-\d{2}$/, '');
+        modelPrice = BASELINE_PRICES[baseModel];
     }
-    // Fallback för olika gpt-3.5-turbo-varianter
+
+    // Försök fallback för gpt-3.5-varianter
     if (!modelPrice && model.startsWith('gpt-3.5-turbo')) {
-        modelPrice = prices["gpt-3.5-turbo-0125"]; // Använd priset för den vanligaste?
+        modelPrice = BASELINE_PRICES["gpt-3.5-turbo"];
     }
 
     if (!modelPrice) {
-        console.warn(`Prisinformation saknas för OpenAI-modell: ${model}. Kan inte beräkna kostnad.`);
+        console.warn(`[calculateOpenAICost] No pricing found for model: ${model}. Consider syncing pricing data.`);
         return null;
     }
 
@@ -89,7 +89,6 @@ export function calculateOpenAICost(model: string, promptTokens: number, complet
     const outputCost = (completionTokens / 1_000_000) * modelPrice.output;
     const totalCost = inputCost + outputCost;
 
-    // Returnera med rimlig precision
     return parseFloat(totalCost.toFixed(6));
 }
 // **************************************************

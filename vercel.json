@@ -3,5 +3,11 @@
     "src/app/api/**/*.ts": {
       "maxDuration": 60
     }
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/pricing-sync",
+      "schedule": "0 2 * * *"
+    }
+  ]
 }
