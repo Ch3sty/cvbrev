@@ -22,6 +22,7 @@ import {
   AlertTriangle
 } from 'lucide-react';
 import Link from 'next/link';
+import CVGenerationChart from '@/components/admin/charts/CVGenerationChart';
 
 // Typdefinitioner
 interface CVText {
@@ -76,6 +77,10 @@ export default function AdminCVsPage() {
   });
   
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+
+  // State för graf
+  const [dateRange, setDateRange] = useState<number>(30);
+  const [cvGrowthData, setCvGrowthData] = useState<any[]>([]);
 
   const supabase = getSupabaseClient();
 
@@ -152,6 +157,68 @@ export default function AdminCVsPage() {
     return result;
   }, [cvs, searchTerm, dateFilter, sortField, sortDirection]);
 
+  // Funktion för att beräkna graf-data
+  const calculateGraphData = useCallback((cvsData: CVText[]) => {
+    const now = new Date();
+    const startDate = new Date();
+
+    // Bestäm startdatum baserat på dateRange
+    if (dateRange === 9999) {
+      // "Från början" - använd äldsta CV:ts datum
+      if (cvsData.length > 0) {
+        const oldestDate = new Date(cvsData[cvsData.length - 1].created_at);
+        startDate.setTime(oldestDate.getTime());
+      } else {
+        startDate.setDate(now.getDate() - 30);
+      }
+    } else {
+      startDate.setDate(now.getDate() - dateRange);
+    }
+    startDate.setHours(0, 0, 0, 0);
+
+    // Skapa map för alla datum i intervallet
+    const dataMap = new Map<string, { new_cvs: number; total_cvs: number; }>();
+
+    for (let d = new Date(startDate); d <= now; d.setDate(d.getDate() + 1)) {
+      const dateStr = d.toISOString().split('T')[0];
+      dataMap.set(dateStr, {
+        new_cvs: 0,
+        total_cvs: 0
+      });
+    }
+
+    // Räkna nya CV:n per dag
+    cvsData.forEach(cv => {
+      const cvDate = new Date(cv.created_at);
+      if (cvDate >= startDate) {
+        const dateStr = cvDate.toISOString().split('T')[0];
+        const data = dataMap.get(dateStr);
+        if (data) {
+          data.new_cvs++;
+        }
+      }
+    });
+
+    // Beräkna kumulativ summa
+    let totalCount = 0;
+    const sortedDates = Array.from(dataMap.keys()).sort();
+
+    sortedDates.forEach(dateStr => {
+      const data = dataMap.get(dateStr)!;
+      totalCount += data.new_cvs;
+      data.total_cvs = totalCount;
+    });
+
+    // Skapa graf-data
+    const growthData = sortedDates.map(date => ({
+      date,
+      new_cvs: dataMap.get(date)!.new_cvs,
+      total_cvs: dataMap.get(date)!.total_cvs
+    }));
+
+    setCvGrowthData(growthData);
+  }, [dateRange]);
+
   // Hämta CV:n från databasen
   useEffect(() => {
     async function fetchCVs() {
@@ -195,8 +262,9 @@ export default function AdminCVsPage() {
         
         setCVs(transformedData);
         calculateStats(transformedData);
+        calculateGraphData(transformedData);
         setLastUpdated(new Date());
-        
+
       } catch (err: any) {
         console.error('Fel vid hämtning av CV:n:', err);
         setError(err.message || 'Ett fel uppstod vid hämtning av CV:n');
@@ -207,6 +275,13 @@ export default function AdminCVsPage() {
     
     fetchCVs();
   }, [supabase]);
+
+  // Uppdatera graf när dateRange ändras
+  useEffect(() => {
+    if (cvs.length > 0) {
+      calculateGraphData(cvs);
+    }
+  }, [dateRange, cvs, calculateGraphData]);
 
   // Beräkna statistik
   const calculateStats = (data: CVText[]) => {
@@ -337,19 +412,33 @@ export default function AdminCVsPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-md border border-gray-200 shadow-sm">
-          <Clock className="w-4 h-4 text-gray-500" />
-          <span className="text-gray-700 text-sm whitespace-nowrap">
-            Uppdaterad: {lastUpdated ? lastUpdated.toLocaleTimeString('sv-SE') : '...'}
-          </span>
-
-          <button
-            onClick={() => window.location.reload()}
-            className="ml-2 text-pink-600 hover:text-pink-700"
-            aria-label="Uppdatera data"
+        <div className="flex items-center gap-4">
+          <select
+            value={dateRange}
+            onChange={(e) => setDateRange(Number(e.target.value))}
+            className="bg-white border border-gray-200 text-gray-900 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-pink-500"
           >
-            <RefreshCw className="w-4 h-4" />
-          </button>
+            <option value={30}>30 dagar</option>
+            <option value={90}>3 månader</option>
+            <option value={180}>6 månader</option>
+            <option value={365}>12 månader</option>
+            <option value={9999}>Från början</option>
+          </select>
+
+          <div className="flex items-center gap-2 bg-white px-3 py-1.5 rounded-md border border-gray-200 shadow-sm">
+            <Clock className="w-4 h-4 text-gray-500" />
+            <span className="text-gray-700 text-sm whitespace-nowrap">
+              Uppdaterad: {lastUpdated ? lastUpdated.toLocaleTimeString('sv-SE') : '...'}
+            </span>
+
+            <button
+              onClick={() => window.location.reload()}
+              className="ml-2 text-pink-600 hover:text-pink-700"
+              aria-label="Uppdatera data"
+            >
+              <RefreshCw className="w-4 h-4" />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -375,7 +464,10 @@ export default function AdminCVsPage() {
           <h3 className="text-xl font-bold text-gray-900 mt-1">{stats.thisWeekCVs}</h3>
         </div>
       </div>
-      
+
+      {/* Graf */}
+      <CVGenerationChart data={cvGrowthData} isLoading={isLoading} />
+
       {/* Sök och filter */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div className="flex flex-col sm:flex-row gap-2 items-stretch flex-grow">
