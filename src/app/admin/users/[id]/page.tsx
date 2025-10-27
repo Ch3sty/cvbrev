@@ -8,7 +8,6 @@ import {
   User,
   ChevronLeft,
   Mail,
-  Phone,
   FileText,
   Clock,
   Crown,
@@ -303,14 +302,6 @@ export default function AdminUserDetailsPage({ params }: AdminUserDetailsPagePro
               <div>
                 <p className="text-sm text-gray-600">E-post</p>
                 <p className="text-gray-900">{profile.email}</p>
-              </div>
-            </div>
-
-            <div className="flex items-start">
-              <Phone className="w-5 h-5 text-gray-500 mr-3 mt-0.5" />
-              <div>
-                <p className="text-sm text-gray-600">Telefon</p>
-                <p className="text-gray-900">{profile.phone || 'Ej angivet'}</p>
               </div>
             </div>
 
