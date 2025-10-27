@@ -190,9 +190,9 @@ export async function POST(request: Request) {
       error = insertError;
     }
 
-    if (error) {
+    if (error || !data || data.length === 0) {
       console.error('Fel vid skapande av brev:', error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      return NextResponse.json({ error: error?.message || 'Kunde inte skapa brev' }, { status: 500 });
     }
 
     // Award XP for creating a letter
