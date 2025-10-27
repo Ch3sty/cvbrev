@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, type JSX } from 'react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import {
   FileText, Clock, Search, ChevronDown, Eye, MoreHorizontal, Filter,
