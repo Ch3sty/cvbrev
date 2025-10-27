@@ -1,23 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { cookies } from 'next/headers';
+import { createServerClient } from '@/lib/supabase/server';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
   try {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+    const cookieStore = cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
 
-    // Check if user is admin
-    const authHeader = request.headers.get('cookie');
-    if (!authHeader) {
-      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+    // Check authentication and admin status
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+    if (authError || !user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Check if user is admin
     const { data: isAdminData, error: adminError } = await supabase.rpc('is_admin');
     if (adminError || !isAdminData) {
-      return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+      return NextResponse.json({ error: 'Forbidden - Admin access required' }, { status: 403 });
     }
 
     // Get query parameters

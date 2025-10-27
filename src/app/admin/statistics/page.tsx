@@ -117,8 +117,8 @@ interface DashboardStats {
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-navy-900 p-3 rounded-lg border border-gray-700 shadow-lg">
-        <p className="text-gray-300 text-sm">{label}</p>
+      <div className="bg-white p-3 rounded-lg border border-gray-200 shadow-lg">
+        <p className="text-gray-700 text-sm font-medium">{label}</p>
         {payload.map((entry: any, index: number) => (
           <p key={index} className="text-sm" style={{ color: entry.color }}>
             {entry.name}: {typeof entry.value === 'number' ?
@@ -629,10 +629,10 @@ export default function StatisticsPage() {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-navy-950">
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="text-center">
-          <RefreshCw className="w-12 h-12 text-blue-500 animate-spin mx-auto mb-4" />
-          <p className="text-gray-300">Laddar statistik...</p>
+          <RefreshCw className="w-12 h-12 text-blue-600 animate-spin mx-auto mb-4" />
+          <p className="text-gray-600">Laddar statistik...</p>
         </div>
       </div>
     );
@@ -640,12 +640,12 @@ export default function StatisticsPage() {
 
   if (error) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-navy-950">
+      <div className="flex items-center justify-center min-h-screen bg-gray-50">
         <div className="text-center">
-          <p className="text-red-400 mb-4">{error}</p>
+          <p className="text-red-600 mb-4">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 shadow-sm"
           >
             Försök igen
           </button>
@@ -679,12 +679,12 @@ export default function StatisticsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-navy-950 text-white">
+    <div className="min-h-screen bg-gray-50 text-gray-900">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Admin Dashboard</h1>
-          <p className="text-gray-400">Fullständig översikt av Jobbcoach.ai</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
+          <p className="text-gray-600">Fullständig översikt av Jobbcoach.ai</p>
         </div>
 
         {/* Date Range Selector */}
@@ -693,10 +693,10 @@ export default function StatisticsPage() {
             <button
               key={range}
               onClick={() => setDateRange(range)}
-              className={`px-4 py-2 rounded-lg transition-colors ${
+              className={`px-4 py-2 rounded-lg transition-colors shadow-sm ${
                 dateRange === range
                   ? 'bg-blue-600 text-white'
-                  : 'bg-navy-800 text-gray-400 hover:bg-navy-700'
+                  : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
               }`}
             >
               {range === 'day' && 'Idag'}
@@ -709,65 +709,65 @@ export default function StatisticsPage() {
 
         {/* KPI Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
             <div className="flex items-center justify-between mb-4">
-              <Euro className="w-8 h-8 text-green-400" />
-              <span className="text-sm text-gray-400">Total intäkt</span>
+              <Euro className="w-8 h-8 text-green-600" />
+              <span className="text-sm text-gray-600">Total intäkt</span>
             </div>
-            <div className="text-2xl font-bold text-white">
+            <div className="text-2xl font-bold text-gray-900">
               {stripeRevenue ? stripeRevenue.revenue.total.toLocaleString('sv-SE') : stats.revenue.total_revenue.toLocaleString('sv-SE')} kr
             </div>
             {stripeRevenue && (
-              <div className="text-xs text-green-400 mt-1">Faktisk från Stripe</div>
+              <div className="text-xs text-green-600 mt-1">Faktisk från Stripe</div>
             )}
-            <div className="text-sm text-green-400 mt-2">
+            <div className="text-sm text-green-600 mt-2">
               MRR: {stripeRevenue ? stripeRevenue.subscriptions.mrr.toLocaleString('sv-SE') : stats.revenue.mrr.toLocaleString('sv-SE')} kr
             </div>
           </div>
 
-          <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
             <div className="flex items-center justify-between mb-4">
-              <TrendingUp className="w-8 h-8 text-blue-400" />
-              <span className="text-sm text-gray-400">Nettovinst</span>
+              <TrendingUp className="w-8 h-8 text-blue-600" />
+              <span className="text-sm text-gray-600">Nettovinst</span>
             </div>
-            <div className="text-2xl font-bold text-white">
+            <div className="text-2xl font-bold text-gray-900">
               {stats.profit.net_profit.toLocaleString('sv-SE')} kr
             </div>
-            <div className="text-sm text-blue-400 mt-2">
+            <div className="text-sm text-blue-600 mt-2">
               Marginal: {stats.profit.net_margin.toFixed(0)}%
             </div>
           </div>
 
-          <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
             <div className="flex items-center justify-between mb-4">
-              <Users className="w-8 h-8 text-purple-400" />
-              <span className="text-sm text-gray-400">Aktiva användare</span>
+              <Users className="w-8 h-8 text-purple-600" />
+              <span className="text-sm text-gray-600">Aktiva användare</span>
             </div>
-            <div className="text-2xl font-bold text-white">
+            <div className="text-2xl font-bold text-gray-900">
               {stats.engagement.monthly_active_users}
             </div>
-            <div className="text-sm text-purple-400 mt-2">
+            <div className="text-sm text-purple-600 mt-2">
               Av totalt {stats.users.total} användare
             </div>
           </div>
 
-          <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
             <div className="flex items-center justify-between mb-4">
-              <UserCheck className="w-8 h-8 text-amber-400" />
-              <span className="text-sm text-gray-400">Konvertering</span>
+              <UserCheck className="w-8 h-8 text-amber-600" />
+              <span className="text-sm text-gray-600">Konvertering</span>
             </div>
-            <div className="text-2xl font-bold text-white">
+            <div className="text-2xl font-bold text-gray-900">
               {stats.users.conversion_rate}%
             </div>
-            <div className="text-sm text-amber-400 mt-2">
+            <div className="text-sm text-amber-600 mt-2">
               {stats.users.premium} premium av {stats.users.total}
             </div>
           </div>
         </div>
 
         {/* Main Overview Chart - Always visible */}
-        <div className="bg-navy-800 rounded-lg p-6 border border-gray-700 mb-8">
-          <h2 className="text-xl font-semibold text-white mb-4">
+        <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">
             Trendöversikt {dateRange === 'day' && 'idag'}
             {dateRange === 'week' && 'senaste veckan'}
             {dateRange === 'month' && 'senaste månaden'}
@@ -806,7 +806,7 @@ export default function StatisticsPage() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 mb-6 bg-navy-900 rounded-lg p-1">
+        <div className="flex gap-1 mb-6 bg-gray-100 rounded-lg p-1">
           {tabs.map((tab) => {
             const Icon = tab.icon;
             return (
@@ -815,8 +815,8 @@ export default function StatisticsPage() {
                 onClick={() => setSelectedTab(tab.id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors flex-1 ${
                   selectedTab === tab.id
-                    ? 'bg-blue-600 text-white'
-                    : 'text-gray-400 hover:bg-navy-800'
+                    ? 'bg-blue-600 text-white shadow-sm'
+                    : 'text-gray-700 hover:bg-white'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -832,8 +832,8 @@ export default function StatisticsPage() {
             <>
               {/* Feature Adoption Pie Chart */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-                  <h2 className="text-xl font-semibold text-white mb-4">Funktionsanvändning</h2>
+                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Funktionsanvändning</h2>
                   <ResponsiveContainer width="100%" height={300}>
                     <PieChart>
                       <Pie
@@ -857,8 +857,8 @@ export default function StatisticsPage() {
                   </ResponsiveContainer>
                 </div>
 
-                <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-                  <h2 className="text-xl font-semibold text-white mb-4">Användarfördelning</h2>
+                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Användarfördelning</h2>
                   <ResponsiveContainer width="100%" height={300}>
                     <PieChart>
                       <Pie
@@ -886,8 +886,8 @@ export default function StatisticsPage() {
           )}
 
           {selectedTab === 'activity' && (
-            <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-              <h2 className="text-xl font-semibold text-white mb-4">Aktivitet per dag</h2>
+            <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">Aktivitet per dag</h2>
               <ResponsiveContainer width="100%" height={400}>
                 <AreaChart data={chartData.activity}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
@@ -908,8 +908,8 @@ export default function StatisticsPage() {
           )}
 
           {selectedTab === 'revenue' && (
-            <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-              <h2 className="text-xl font-semibold text-white mb-4">Intäkter per dag</h2>
+            <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">Intäkter per dag</h2>
               <ResponsiveContainer width="100%" height={400}>
                 <BarChart data={chartData.revenue}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
@@ -920,7 +920,7 @@ export default function StatisticsPage() {
                 </BarChart>
               </ResponsiveContainer>
               {stripeRevenue && (
-                <div className="mt-4 p-4 bg-navy-900 rounded-lg">
+                <div className="mt-4 p-4 bg-gray-50 rounded-lg">
                   <p className="text-sm text-green-400">
                     Aktiva prenumerationer: {stripeRevenue.subscriptions.active} |
                     MRR: {stripeRevenue.subscriptions.mrr.toLocaleString('sv-SE')} kr |
@@ -932,8 +932,8 @@ export default function StatisticsPage() {
           )}
 
           {selectedTab === 'costs' && (
-            <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-              <h2 className="text-xl font-semibold text-white mb-4">Kostnader per dag</h2>
+            <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">Kostnader per dag</h2>
               <ResponsiveContainer width="100%" height={400}>
                 <BarChart data={chartData.costs}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
@@ -943,7 +943,7 @@ export default function StatisticsPage() {
                   <Bar dataKey="value" fill={COLORS.danger} name="Kostnader (kr)" />
                 </BarChart>
               </ResponsiveContainer>
-              <div className="mt-4 p-4 bg-navy-900 rounded-lg">
+              <div className="mt-4 p-4 bg-gray-50 rounded-lg">
                 <p className="text-sm text-red-400">
                   Total AI-kostnad: {stats.costs.total_ai_cost.toFixed(2)} kr |
                   {openaiUsage?.data?.totalCost && (
@@ -956,8 +956,8 @@ export default function StatisticsPage() {
           )}
 
           {selectedTab === 'profit' && (
-            <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-              <h2 className="text-xl font-semibold text-white mb-4">Vinst per dag</h2>
+            <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">Vinst per dag</h2>
               <ResponsiveContainer width="100%" height={400}>
                 <AreaChart data={chartData.profit}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
@@ -975,13 +975,13 @@ export default function StatisticsPage() {
                 </AreaChart>
               </ResponsiveContainer>
               <div className="mt-4 grid grid-cols-2 gap-4">
-                <div className="p-4 bg-navy-900 rounded-lg">
-                  <p className="text-sm text-gray-400">Bruttomarginal</p>
-                  <p className="text-2xl font-bold text-white">{stats.profit.gross_margin.toFixed(1)}%</p>
+                <div className="p-4 bg-gray-50 rounded-lg">
+                  <p className="text-sm text-gray-600">Bruttomarginal</p>
+                  <p className="text-2xl font-bold text-gray-900">{stats.profit.gross_margin.toFixed(1)}%</p>
                 </div>
-                <div className="p-4 bg-navy-900 rounded-lg">
-                  <p className="text-sm text-gray-400">Nettomarginal</p>
-                  <p className="text-2xl font-bold text-white">{stats.profit.net_margin.toFixed(1)}%</p>
+                <div className="p-4 bg-gray-50 rounded-lg">
+                  <p className="text-sm text-gray-600">Nettomarginal</p>
+                  <p className="text-2xl font-bold text-gray-900">{stats.profit.net_margin.toFixed(1)}%</p>
                 </div>
               </div>
             </div>
@@ -994,7 +994,7 @@ export default function StatisticsPage() {
                 <select
                   value={aiMetric}
                   onChange={(e) => setAiMetric(e.target.value as 'calls' | 'cost' | 'tokens')}
-                  className="px-4 py-2 bg-navy-800 text-white rounded-lg border border-gray-700"
+                  className="px-4 py-2 bg-white text-gray-900 rounded-lg border border-gray-200 shadow-sm"
                 >
                   <option value="cost">Kostnad (SEK)</option>
                   <option value="calls">Antal anrop</option>
@@ -1003,7 +1003,7 @@ export default function StatisticsPage() {
                 <select
                   value={aiTimeGrouping}
                   onChange={(e) => setAiTimeGrouping(e.target.value as 'day' | 'week' | 'month')}
-                  className="px-4 py-2 bg-navy-800 text-white rounded-lg border border-gray-700"
+                  className="px-4 py-2 bg-white text-gray-900 rounded-lg border border-gray-200 shadow-sm"
                 >
                   <option value="day">Per dag</option>
                   <option value="week">Per vecka</option>
@@ -1013,24 +1013,24 @@ export default function StatisticsPage() {
 
               {/* Feature Usage Chart */}
               {aiFeatureData && aiFeatureData.length > 0 && (
-                <div className="bg-navy-800 rounded-lg p-6 border border-gray-700 mb-6">
-                  <h2 className="text-xl font-semibold text-white mb-4">Användning per funktion</h2>
+                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm mb-6">
+                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Användning per funktion</h2>
                   <FeatureUsageChart data={aiFeatureData} metric={aiMetric} />
                 </div>
               )}
 
               {/* Cost Breakdown */}
               {aiFeatureData && aiFeatureData.length > 0 && (
-                <div className="bg-navy-800 rounded-lg p-6 border border-gray-700 mb-6">
-                  <h2 className="text-xl font-semibold text-white mb-4">Kostnadsfördelning</h2>
+                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm mb-6">
+                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Kostnadsfördelning</h2>
                   <FeatureCostBreakdown data={aiFeatureData} />
                 </div>
               )}
 
               {/* Time Series */}
               {aiTimeSeries && aiTimeSeries.length > 0 && (
-                <div className="bg-navy-800 rounded-lg p-6 border border-gray-700 mb-6">
-                  <h2 className="text-xl font-semibold text-white mb-4">Kostnadsutveckling över tid</h2>
+                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm mb-6">
+                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Kostnadsutveckling över tid</h2>
                   <CostTimeSeriesChart
                     data={aiTimeSeries}
                     groupBy={aiTimeGrouping}
@@ -1041,8 +1041,8 @@ export default function StatisticsPage() {
 
               {/* Top Users Table */}
               {aiUserCosts && aiUserCosts.length > 0 && (
-                <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-                  <h2 className="text-xl font-semibold text-white mb-4">Topp 20 användare efter kostnad</h2>
+                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Topp 20 användare efter kostnad</h2>
                   <TopUsersTable data={aiUserCosts} />
                 </div>
               )}
@@ -1050,7 +1050,7 @@ export default function StatisticsPage() {
               {(!aiFeatureData || aiFeatureData.length === 0) && (
                 <div className="bg-navy-800 rounded-lg p-12 border border-gray-700 text-center">
                   <Brain className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-                  <p className="text-gray-400">Ingen AI-kostnadsdata hittades för vald period</p>
+                  <p className="text-gray-600">Ingen AI-kostnadsdata hittades för vald period</p>
                 </div>
               )}
             </>
@@ -1063,7 +1063,7 @@ export default function StatisticsPage() {
                 <select
                   value={usageMetric}
                   onChange={(e) => setUsageMetric(e.target.value as 'calls' | 'users' | 'avgCalls' | 'successRate')}
-                  className="px-4 py-2 bg-navy-800 text-white rounded-lg border border-gray-700"
+                  className="px-4 py-2 bg-white text-gray-900 rounded-lg border border-gray-200 shadow-sm"
                 >
                   <option value="calls">Totalt antal anrop</option>
                   <option value="users">Unika användare</option>
@@ -1074,17 +1074,17 @@ export default function StatisticsPage() {
 
               {/* Usage Statistics Chart */}
               {usageStats && usageStats.length > 0 && (
-                <div className="bg-navy-800 rounded-lg p-6 border border-gray-700 mb-6">
-                  <h2 className="text-xl font-semibold text-white mb-4">Användningsstatistik per funktion</h2>
+                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm mb-6">
+                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Användningsstatistik per funktion</h2>
                   <UsageStatisticsChart data={usageStats} metric={usageMetric} />
                 </div>
               )}
 
               {/* Feature Popularity Over Time */}
               {usageStats && usageStats.length > 0 && (
-                <div className="bg-navy-800 rounded-lg p-6 border border-gray-700 mb-6">
+                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm mb-6">
                   <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-xl font-semibold text-white">Popularitetsutveckling</h2>
+                    <h2 className="text-xl font-semibold text-gray-900">Popularitetsutveckling</h2>
                     <div className="flex gap-2 flex-wrap">
                       {usageStats.map((feature: any) => (
                         <button
@@ -1101,7 +1101,7 @@ export default function StatisticsPage() {
                           className={`px-3 py-1 text-xs rounded-full border transition-colors ${
                             selectedFeaturesForPopularity.includes(feature.featureName)
                               ? 'bg-blue-600 border-blue-600 text-white'
-                              : 'bg-navy-900 border-gray-600 text-gray-400 hover:border-gray-500'
+                              : 'bg-navy-900 border-gray-300 text-gray-700 hover:border-gray-400'
                           }`}
                         >
                           {feature.featureName}
@@ -1118,10 +1118,10 @@ export default function StatisticsPage() {
 
               {/* User Engagement Table */}
               {userEngagement && userEngagement.length > 0 && (
-                <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-                  <h2 className="text-xl font-semibold text-white mb-4">
+                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+                  <h2 className="text-xl font-semibold text-gray-900 mb-4">
                     Användarengagemang
-                    <span className="text-sm text-gray-400 ml-2">
+                    <span className="text-sm text-gray-600 ml-2">
                       ({userEngagement.length} användare)
                     </span>
                   </h2>
@@ -1132,7 +1132,7 @@ export default function StatisticsPage() {
               {(!usageStats || usageStats.length === 0) && (
                 <div className="bg-navy-800 rounded-lg p-12 border border-gray-700 text-center">
                   <Zap className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-                  <p className="text-gray-400">Ingen användningsdata hittades för vald period</p>
+                  <p className="text-gray-600">Ingen användningsdata hittades för vald period</p>
                 </div>
               )}
             </>
@@ -1142,76 +1142,76 @@ export default function StatisticsPage() {
         {/* Detailed Stats Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
           {/* Users Section */}
-          <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-            <h2 className="text-xl font-semibold text-white mb-4">Användaranalys</h2>
+          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Användaranalys</h2>
             <div className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-gray-400">Premium-användare</span>
+                <span className="text-gray-600">Premium-användare</span>
                 <span className="text-green-400 font-semibold">{stats.users.premium}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Gratisanvändare</span>
+                <span className="text-gray-600">Gratisanvändare</span>
                 <span className="text-blue-400 font-semibold">{stats.users.free}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Aktiva idag</span>
-                <span className="text-white">{stats.users.active_today}</span>
+                <span className="text-gray-600">Aktiva idag</span>
+                <span className="text-gray-900">{stats.users.active_today}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Nya denna vecka</span>
-                <span className="text-white">{stats.users.new_week}</span>
+                <span className="text-gray-600">Nya denna vecka</span>
+                <span className="text-gray-900">{stats.users.new_week}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Retention Rate</span>
-                <span className="text-white">{stats.users.retention_rate}%</span>
+                <span className="text-gray-600">Retention Rate</span>
+                <span className="text-gray-900">{stats.users.retention_rate}%</span>
               </div>
             </div>
           </div>
 
           {/* Revenue Section */}
-          <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-            <h2 className="text-xl font-semibold text-white mb-4">Ekonomi</h2>
+          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Ekonomi</h2>
             <div className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-gray-400">Total intäkt</span>
+                <span className="text-gray-600">Total intäkt</span>
                 <span className="text-green-400 font-semibold">
                   {(stripeRevenue?.revenue.total || stats.revenue.total_revenue).toLocaleString('sv-SE')} kr
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">AI-kostnader</span>
+                <span className="text-gray-600">AI-kostnader</span>
                 <span className="text-red-400 font-semibold">{stats.costs.total_ai_cost.toFixed(2)} kr</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Nettovinst</span>
+                <span className="text-gray-600">Nettovinst</span>
                 <span className="text-blue-400 font-semibold">{stats.profit.net_profit.toFixed(0)} kr</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">LTV</span>
-                <span className="text-white">{stats.revenue.lifetime_value} kr</span>
+                <span className="text-gray-600">LTV</span>
+                <span className="text-gray-900">{stats.revenue.lifetime_value} kr</span>
               </div>
             </div>
           </div>
 
           {/* Usage Section */}
-          <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
-            <h2 className="text-xl font-semibold text-white mb-4">Användning</h2>
+          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Användning</h2>
             <div className="space-y-3">
               <div className="flex justify-between">
-                <span className="text-gray-400">CV:n</span>
-                <span className="text-white">{stats.usage.total_cvs}</span>
+                <span className="text-gray-600">CV:n</span>
+                <span className="text-gray-900">{stats.usage.total_cvs}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Brev genererade</span>
-                <span className="text-white">{stats.usage.total_letters}</span>
+                <span className="text-gray-600">Brev genererade</span>
+                <span className="text-gray-900">{stats.usage.total_letters}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">Sparfrekvens</span>
-                <span className="text-white">{stats.usage.save_rate}%</span>
+                <span className="text-gray-600">Sparfrekvens</span>
+                <span className="text-gray-900">{stats.usage.save_rate}%</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-400">CV-analyser</span>
-                <span className="text-white">{stats.usage.cv_analyses}</span>
+                <span className="text-gray-600">CV-analyser</span>
+                <span className="text-gray-900">{stats.usage.cv_analyses}</span>
               </div>
             </div>
           </div>
