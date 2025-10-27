@@ -81,8 +81,7 @@ export default function AdminLettersPage() {
     averageCost: 0,
     svLetters: 0,
     enLetters: 0,
-    actualCost: 0,
-    costDifference: 0
+    actualCost: 0
   });
 
   const supabase = getSupabaseClient();
@@ -202,7 +201,7 @@ export default function AdminLettersPage() {
       setLastUpdated(new Date());
 
       try {
-        const response = await fetch(`/api/admin/openai-usage?days=${dateRange}`);
+        const response = await fetch(`/api/admin/openai-usage?days=${dateRange}&source=letters`);
         if (response.ok) {
           const data = await response.json();
           setOpenAICosts(data);
@@ -223,7 +222,7 @@ export default function AdminLettersPage() {
     if (!data.length) {
       setStats({
         totalLetters: 0, savedLetters: 0, totalCost: 0, averageCost: 0,
-        svLetters: 0, enLetters: 0, actualCost: 0, costDifference: 0
+        svLetters: 0, enLetters: 0, actualCost: 0
       });
       return;
     }
@@ -243,7 +242,6 @@ export default function AdminLettersPage() {
 
     const averageCost = lettersWithCost > 0 ? totalCost / lettersWithCost : 0;
     const actualCost = openAICosts?.data?.totalCost || 0;
-    const costDifference = actualCost - totalCost;
 
     setStats({
       totalLetters: data.length,
@@ -252,8 +250,7 @@ export default function AdminLettersPage() {
       averageCost,
       svLetters: data.filter(letter => letter.language === 'sv').length,
       enLetters: data.filter(letter => letter.language === 'en').length,
-      actualCost,
-      costDifference
+      actualCost
     });
   };
 
@@ -456,14 +453,12 @@ export default function AdminLettersPage() {
           <h3 className="text-xl font-bold text-gray-900 mt-1">{formatCost(stats.averageCost)}</h3>
         </div>
         <div className="bg-white rounded-lg p-4 border border-gray-200">
-          <p className="text-xs text-gray-600">Faktisk kostnad (OpenAI)</p>
+          <p className="text-xs text-gray-600">Total kostnad (Letters)</p>
           <h3 className="text-xl font-bold text-gray-900 mt-1">{formatCost(stats.actualCost)}</h3>
         </div>
         <div className="bg-white rounded-lg p-4 border border-gray-200">
-          <p className="text-xs text-gray-600">Kostnadsdifferens</p>
-          <h3 className={`text-xl font-bold mt-1 ${stats.costDifference > 0 ? 'text-red-600' : 'text-green-600'}`}>
-            {stats.costDifference > 0 ? '+' : ''}{formatCost(Math.abs(stats.costDifference))}
-          </h3>
+          <p className="text-xs text-gray-600">Tokens totalt</p>
+          <h3 className="text-xl font-bold text-gray-900 mt-1">{(openAICosts?.data?.totalTokens || 0).toLocaleString()}</h3>
         </div>
       </div>
 

@@ -39,12 +39,114 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const days = parseInt(searchParams.get('days') || '30');
     const useCache = searchParams.get('cache') !== 'false';
+    const source = searchParams.get('source'); // 'letters', 'cv-analysis', etc.
 
     // Beräkna datumintervall
     const endDate = new Date();
     const startDate = new Date();
-    startDate.setDate(startDate.getDate() - days);
 
+    // Hantera "från början" för letters (days=9999)
+    if (days === 9999 && source === 'letters') {
+      // Hämta äldsta brevet för att sätta startDate
+      const { data: oldestLetter } = await supabase
+        .from('letters')
+        .select('created_at')
+        .not('ai_cost', 'is', null)
+        .order('created_at', { ascending: true })
+        .limit(1)
+        .single();
+
+      if (oldestLetter) {
+        startDate.setTime(new Date(oldestLetter.created_at).getTime());
+      } else {
+        startDate.setDate(endDate.getDate() - 30); // Fallback till 30 dagar
+      }
+    } else {
+      startDate.setDate(endDate.getDate() - days);
+    }
+
+    // Om source=letters, hämta endast från letters-tabellen
+    if (source === 'letters') {
+      const { data: lettersData } = await supabase
+        .from('letters')
+        .select('ai_cost, ai_tokens, ai_model, created_at')
+        .not('ai_cost', 'is', null)
+        .gte('created_at', startDate.toISOString())
+        .lte('created_at', endDate.toISOString())
+        .order('created_at', { ascending: true });
+
+      if (!lettersData) {
+        return NextResponse.json({
+          success: true,
+          data: {
+            totalCost: 0,
+            totalTokens: 0,
+            byModel: {},
+            dailyCosts: []
+          },
+          period: {
+            startDate: startDate.toISOString(),
+            endDate: endDate.toISOString(),
+            days
+          }
+        });
+      }
+
+      // Beräkna totalkostnad och tokens
+      let totalCost = 0;
+      let totalTokens = 0;
+      const byModel: Record<string, { cost: number; tokens: number; requests: number }> = {};
+      const dailyCostsMap = new Map<string, { cost: number; tokens: number }>();
+
+      lettersData.forEach(letter => {
+        const cost = parseFloat(letter.ai_cost?.toString() || '0');
+        const tokens = letter.ai_tokens || 0;
+        const model = letter.ai_model || 'unknown';
+        const date = new Date(letter.created_at).toISOString().split('T')[0];
+
+        totalCost += cost;
+        totalTokens += tokens;
+
+        // Per modell
+        if (!byModel[model]) {
+          byModel[model] = { cost: 0, tokens: 0, requests: 0 };
+        }
+        byModel[model].cost += cost;
+        byModel[model].tokens += tokens;
+        byModel[model].requests += 1;
+
+        // Per dag
+        if (!dailyCostsMap.has(date)) {
+          dailyCostsMap.set(date, { cost: 0, tokens: 0 });
+        }
+        const dailyData = dailyCostsMap.get(date)!;
+        dailyData.cost += cost;
+        dailyData.tokens += tokens;
+      });
+
+      // Konvertera Map till array och sortera
+      const dailyCosts = Array.from(dailyCostsMap.entries())
+        .map(([date, data]) => ({ date, ...data }))
+        .sort((a, b) => a.date.localeCompare(b.date));
+
+      return NextResponse.json({
+        success: true,
+        source: 'letters',
+        data: {
+          totalCost,
+          totalTokens,
+          byModel,
+          dailyCosts
+        },
+        period: {
+          startDate: startDate.toISOString(),
+          endDate: endDate.toISOString(),
+          days
+        }
+      });
+    }
+
+    // Standard-flöde för andra källor eller ingen source angiven
     // Hämta estimerad data från usage_log och letters först (behövs i båda fallen)
     const { data: estimatedData } = await supabase
       .from('usage_log')
