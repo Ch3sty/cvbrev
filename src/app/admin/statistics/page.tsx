@@ -137,6 +137,29 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
+// Formatera feature-namn till läsbar text
+const formatFeatureName = (key: string): string => {
+  const featureNames: Record<string, string> = {
+    'cv_analysis_started': 'CV-analys',
+    'cv_uploaded': 'CV-uppladdning',
+    'letter_generated': 'Brevgenerering',
+    'letter_saved': 'Brev sparade',
+    'registered': 'Registreringar',
+    'competence_analysis_started': 'Kompetensanalys',
+    'learning_plan_created': 'Utbildningsplan skapad',
+    'learning_plan_deleted': 'Utbildningsplan borttagen',
+    'profile_updated': 'Profil uppdaterad',
+    'linkedin_optimized': 'LinkedIn-optimering',
+    'job_match_searched': 'Jobbmatchning',
+    'test_started': 'Test påbörjat',
+    'test_completed': 'Test avslutat'
+  };
+
+  return featureNames[key] || key.split('_').map(word =>
+    word.charAt(0).toUpperCase() + word.slice(1)
+  ).join(' ');
+};
+
 export default function StatisticsPage() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -185,23 +208,30 @@ export default function StatisticsPage() {
         { data: letters },
         { data: activities },
         { data: usageLogs },
-        { data: revenues }
+        { data: revenues },
+        { data: aiCosts }
       ] = await Promise.all([
         supabase.from('profiles').select('*'),
         supabase.from('cv_texts').select('*'),
         supabase.from('letters').select('*'),
         supabase.from('user_activities').select('*').order('created_at', { ascending: false }),
         supabase.from('usage_log').select('*'),
-        supabase.from('revenue_tracking').select('*').eq('status', 'completed')
+        supabase.from('revenue_tracking').select('*').eq('status', 'completed'),
+        supabase.from('ai_usage_costs').select('*')
       ]);
 
       // Beräkna användarstatistik
       const premiumUsers = profiles?.filter(p => p.subscription_tier === 'premium') || [];
       const freeUsers = profiles?.filter(p => p.subscription_tier === 'free' || !p.subscription_tier) || [];
 
-      const activeToday = profiles?.filter(p => p.last_active && new Date(p.last_active) >= today) || [];
-      const activeWeek = profiles?.filter(p => p.last_active && new Date(p.last_active) >= weekAgo) || [];
-      const activeMonth = profiles?.filter(p => p.last_active && new Date(p.last_active) >= monthAgo) || [];
+      // Räkna aktiva användare baserat på faktiska aktiviteter istället för last_active
+      const uniqueUsersToday = new Set(activities?.filter(a => new Date(a.created_at) >= today).map(a => a.user_id));
+      const uniqueUsersWeek = new Set(activities?.filter(a => new Date(a.created_at) >= weekAgo).map(a => a.user_id));
+      const uniqueUsersMonth = new Set(activities?.filter(a => new Date(a.created_at) >= monthAgo).map(a => a.user_id));
+
+      const activeToday = Array.from(uniqueUsersToday);
+      const activeWeek = Array.from(uniqueUsersWeek);
+      const activeMonth = Array.from(uniqueUsersMonth);
 
       const newToday = profiles?.filter(p => new Date(p.created_at) >= today) || [];
       const newWeek = profiles?.filter(p => new Date(p.created_at) >= weekAgo) || [];
@@ -226,20 +256,23 @@ export default function StatisticsPage() {
       const mrr = stripeRevenue ? stripeRevenue.subscriptions.mrr : premiumUsers.length * monthlyPrice;
       const arr = stripeRevenue ? stripeRevenue.subscriptions.arr : mrr * 12;
 
-      // Beräkna AI-kostnader från både usage_log och letters tabellen
-      const usageLogCost = usageLogs?.reduce((sum, log) => sum + (log.cost || 0), 0) || 0;
+      // Beräkna AI-kostnader från ai_usage_costs (primär källa)
+      const aiUsageCost = aiCosts?.reduce((sum, cost) =>
+        sum + (parseFloat(cost.cost_sek) || 0), 0) || 0;
+
+      // Fallback: Beräkna från letters om ai_usage_costs är tom
       const lettersCost = letters?.reduce((sum, letter) =>
-        sum + (parseFloat(letter.ai_cost?.toString() || '0') || 0), 0) || 0;
+        sum + (parseFloat(letter.ai_cost?.toString() || '0') * 10.5 || 0), 0) || 0;
 
-      // Använd det högsta värdet (letters har troligen mer komplett data)
-      const totalAICost = Math.max(usageLogCost, lettersCost);
+      // Använd ai_usage_costs om det finns data, annars fallback till letters
+      const totalAICost = aiUsageCost > 0 ? aiUsageCost : lettersCost;
 
-      const aiCostToday = letters?.filter(l => new Date(l.created_at) >= today)
-        .reduce((sum, l) => sum + (parseFloat(l.ai_cost?.toString() || '0') || 0), 0) || 0;
-      const aiCostWeek = letters?.filter(l => new Date(l.created_at) >= weekAgo)
-        .reduce((sum, l) => sum + (parseFloat(l.ai_cost?.toString() || '0') || 0), 0) || 0;
-      const aiCostMonth = letters?.filter(l => new Date(l.created_at) >= monthAgo)
-        .reduce((sum, l) => sum + (parseFloat(l.ai_cost?.toString() || '0') || 0), 0) || 0;
+      const aiCostToday = aiCosts?.filter(c => new Date(c.created_at) >= today)
+        .reduce((sum, c) => sum + (parseFloat(c.cost_sek) || 0), 0) || 0;
+      const aiCostWeek = aiCosts?.filter(c => new Date(c.created_at) >= weekAgo)
+        .reduce((sum, c) => sum + (parseFloat(c.cost_sek) || 0), 0) || 0;
+      const aiCostMonth = aiCosts?.filter(c => new Date(c.created_at) >= monthAgo)
+        .reduce((sum, c) => sum + (parseFloat(c.cost_sek) || 0), 0) || 0;
 
       const infrastructureCost = 100; // Estimerad infrastrukturkostnad
 
@@ -329,9 +362,14 @@ export default function StatisticsPage() {
           }
         }
 
-        // Beräkna dagskostnader från letters (där vi har faktisk data)
-        // ai_cost är redan numeriskt, multiplicera direkt med 10.5 för SEK
-        const dayCost = letters?.filter(letter => {
+        // Beräkna dagskostnader från ai_usage_costs (primär källa)
+        const aiCostDayCost = aiCosts?.filter(cost => {
+          const costDate = new Date(cost.created_at);
+          return format(costDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
+        }).reduce((sum, cost) => sum + (parseFloat(cost.cost_sek) || 0), 0) || 0;
+
+        // Fallback: Beräkna från letters om ai_usage_costs är tom
+        const lettersDayCost = letters?.filter(letter => {
           const letterDate = new Date(letter.created_at);
           return format(letterDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
         }).reduce((sum, letter) => {
@@ -339,14 +377,8 @@ export default function StatisticsPage() {
           return sum + (typeof cost === 'number' ? cost * 10.5 : 0);
         }, 0) || 0;
 
-        // Beräkna även från usage_log om det finns data där
-        const usageLogDayCost = usageLogs?.filter(log => {
-          const logDate = new Date(log.created_at);
-          return format(logDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd');
-        }).reduce((sum, log) => sum + (log.cost || 0) * 10.5, 0) || 0;
-
-        // Använd det högsta värdet
-        const totalDayCost = Math.max(dayCost, usageLogDayCost);
+        // Använd ai_usage_costs om det finns, annars letters
+        const totalDayCost = aiCostDayCost > 0 ? aiCostDayCost : lettersDayCost;
 
         return {
           date: dateStr,
@@ -398,12 +430,12 @@ export default function StatisticsPage() {
           churn_rate: Math.round(churnRate * 10) / 10
         },
         costs: {
-          total_ai_cost: totalAICost * 10.5,
-          ai_cost_today: aiCostToday * 10.5,
-          ai_cost_week: aiCostWeek * 10.5,
-          ai_cost_month: aiCostMonth * 10.5,
-          cost_per_user: profiles?.length ? (totalAICost * 10.5) / profiles.length : 0,
-          cost_per_generation: letters?.length ? (totalAICost * 10.5) / letters.length : 0,
+          total_ai_cost: totalAICost,
+          ai_cost_today: aiCostToday,
+          ai_cost_week: aiCostWeek,
+          ai_cost_month: aiCostMonth,
+          cost_per_user: profiles?.length ? totalAICost / profiles.length : 0,
+          cost_per_generation: letters?.length ? totalAICost / letters.length : 0,
           infrastructure_cost: infrastructureCost
         },
         profit: {
@@ -1059,7 +1091,7 @@ export default function StatisticsPage() {
                       <Pie
                         data={Object.entries(stats.engagement.feature_adoption)
                           .slice(0, 5)
-                          .map(([key, value]) => ({ name: key, value }))}
+                          .map(([key, value]) => ({ name: formatFeatureName(key), value }))}
                         cx="50%"
                         cy="50%"
                         innerRadius={70}
