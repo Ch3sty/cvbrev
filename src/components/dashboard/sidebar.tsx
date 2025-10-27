@@ -23,12 +23,14 @@ import {
   Search,
   Crown,
   Settings,
-  Linkedin
+  Linkedin,
+  Shield
 } from 'lucide-react';
 export default function DashboardSidebar() {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const [isPremium, setIsPremium] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const supabase = getSupabaseClient();
 
   useEffect(() => {
@@ -65,6 +67,16 @@ export default function DashboardSidebar() {
           const hasPremiumUntil = profile?.premium_until && new Date(profile.premium_until) > new Date();
           const hasPremiumTier = profile?.subscription_tier === 'premium';
           setIsPremium(hasPremiumUntil || hasPremiumTier);
+
+          // Check admin status
+          const { data: adminData } = await supabase
+            .from('admin_users')
+            .select('role')
+            .eq('id', userId)
+            .eq('role', 'super_admin')
+            .single();
+
+          setIsAdmin(!!adminData);
         }
       } catch (error) {
         console.error('Error checking premium status:', error);
@@ -402,6 +414,25 @@ export default function DashboardSidebar() {
           <Mail className="w-5 h-5" />
           {!collapsed && <span className="ml-3">Kontakt</span>}
         </Link>
+
+        {/* ADMIN PANEL KNAPP - Endast för super_admin */}
+        {isAdmin && (
+          <Link
+            href="/admin"
+            className={`
+              flex items-center py-3 px-3 rounded-xl transition-all shadow-lg hover:shadow-2xl font-bold
+              bg-gradient-to-r from-red-600 via-pink-600 to-purple-600
+              text-white
+              hover:from-red-700 hover:via-pink-700 hover:to-purple-700
+              ring-2 ring-red-500/50 hover:ring-red-500
+              animate-pulse hover:animate-none
+              ${collapsed ? 'justify-center' : 'w-full'}
+            `}
+          >
+            <Shield className="w-5 h-5" />
+            {!collapsed && <span className="ml-3">Admin Panel</span>}
+          </Link>
+        )}
 
         <button
           onClick={handleLogout}
