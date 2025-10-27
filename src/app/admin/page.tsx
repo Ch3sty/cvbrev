@@ -60,6 +60,7 @@ export default function AdminDashboardPage() {
   const [recentPremium, setRecentPremium] = useState<PremiumUser[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [dateRange, setDateRange] = useState<number>(30); // Days to show
 
   const supabase = getSupabaseClient();
 
@@ -68,7 +69,7 @@ export default function AdminDashboardPage() {
     // Uppdatera var 5:e minut
     const interval = setInterval(fetchAllData, 300000);
     return () => clearInterval(interval);
-  }, []);
+  }, [dateRange]);
 
   async function fetchAllData() {
     setIsLoading(true);
@@ -172,13 +173,13 @@ export default function AdminDashboardPage() {
 
   async function fetchUserGrowthFallback(): Promise<UserGrowthData[]> {
     try {
-      const thirtyDaysAgo = new Date();
-      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      const daysAgo = new Date();
+      daysAgo.setDate(daysAgo.getDate() - dateRange);
 
       const { data: profiles } = await supabase
         .from('profiles')
         .select('created_at')
-        .gte('created_at', thirtyDaysAgo.toISOString())
+        .gte('created_at', daysAgo.toISOString())
         .order('created_at', { ascending: true });
 
       if (!profiles) return [];
@@ -190,20 +191,23 @@ export default function AdminDashboardPage() {
         groupedByDay[date] = (groupedByDay[date] || 0) + 1;
       });
 
-      // Konvertera till array med kumulativ summa
-      let totalUsers = 0;
+      // Fyll i alla dagar (även dagar med 0 nya användare)
       const result: UserGrowthData[] = [];
-      const sortedDates = Object.keys(groupedByDay).sort();
+      const startDate = new Date(daysAgo);
+      const endDate = new Date();
+      let totalUsers = 0;
 
-      sortedDates.forEach(date => {
-        const newUsers = groupedByDay[date];
+      for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+        const dateStr = d.toISOString().split('T')[0];
+        const newUsers = groupedByDay[dateStr] || 0;
         totalUsers += newUsers;
+
         result.push({
-          date,
+          date: dateStr,
           new_users: newUsers,
           total_users: totalUsers
         });
-      });
+      }
 
       return result;
     } catch (err) {
@@ -214,42 +218,51 @@ export default function AdminDashboardPage() {
 
   async function fetchPremiumBreakdown(): Promise<PremiumData[]> {
     try {
-      const thirtyDaysAgo = new Date();
-      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
+      // Hämta ALLA premium-användare (oavsett när de skapades)
       const { data: premiumUsers } = await supabase
         .from('profiles')
         .select('created_at, subscription_status, stripe_customer_id, premium_source')
         .eq('subscription_tier', 'premium')
-        .gte('created_at', thirtyDaysAgo.toISOString())
         .order('created_at', { ascending: true });
 
-      if (!premiumUsers) return [];
+      if (!premiumUsers || premiumUsers.length === 0) return [];
 
-      // Gruppera per dag och typ
-      const groupedByDay: Record<string, { stripe: number; admin: number; guest: number }> = {};
+      // Skapa en kumulativ fördelning över vald tidsperiod
+      const daysAgo = new Date();
+      daysAgo.setDate(daysAgo.getDate() - dateRange);
 
-      premiumUsers.forEach(user => {
-        const date = new Date(user.created_at).toISOString().split('T')[0];
+      const result: PremiumData[] = [];
+      const startDate = new Date(daysAgo);
+      const endDate = new Date();
 
-        if (!groupedByDay[date]) {
-          groupedByDay[date] = { stripe: 0, admin: 0, guest: 0 };
-        }
+      for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+        const dateStr = d.toISOString().split('T')[0];
+        const currentDate = new Date(dateStr);
 
-        if (user.stripe_customer_id && user.subscription_status === 'active') {
-          groupedByDay[date].stripe += 1;
-        } else if (user.premium_source === 'admin') {
-          groupedByDay[date].admin += 1;
-        } else if (user.premium_source === 'guest_invitation') {
-          groupedByDay[date].guest += 1;
-        }
-      });
+        // Räkna hur många premium-användare som fanns på detta datum
+        const counts = { stripe: 0, admin: 0, guest: 0 };
 
-      // Konvertera till array
-      return Object.entries(groupedByDay).map(([date, counts]) => ({
-        date,
-        ...counts
-      })).sort((a, b) => a.date.localeCompare(b.date));
+        premiumUsers.forEach(user => {
+          const userCreatedDate = new Date(user.created_at);
+          // Inkludera användare som skapades innan eller på detta datum
+          if (userCreatedDate <= currentDate) {
+            if (user.stripe_customer_id && user.subscription_status === 'active') {
+              counts.stripe += 1;
+            } else if (user.premium_source === 'admin') {
+              counts.admin += 1;
+            } else if (user.premium_source === 'guest_invitation') {
+              counts.guest += 1;
+            }
+          }
+        });
+
+        result.push({
+          date: dateStr,
+          ...counts
+        });
+      }
+
+      return result;
 
     } catch (err) {
       console.error('Error fetching premium breakdown:', err);
@@ -300,9 +313,28 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-6">
       {/* Page header */}
-      <div>
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-gray-600 mt-1">Översikt över plattformens användare och aktivitet</p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+          <p className="text-gray-600 mt-1">Översikt över plattformens användare och aktivitet</p>
+        </div>
+
+        {/* Date range selector */}
+        <div className="flex items-center gap-2">
+          <label htmlFor="dateRange" className="text-sm text-gray-600">Tidsperiod:</label>
+          <select
+            id="dateRange"
+            value={dateRange}
+            onChange={(e) => setDateRange(Number(e.target.value))}
+            className="px-3 py-2 bg-white border border-gray-300 rounded-lg text-gray-900 text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
+          >
+            <option value={7}>7 dagar</option>
+            <option value={30}>30 dagar</option>
+            <option value={90}>90 dagar</option>
+            <option value={180}>6 månader</option>
+            <option value={365}>1 år</option>
+          </select>
+        </div>
       </div>
 
       {/* Stats Cards */}

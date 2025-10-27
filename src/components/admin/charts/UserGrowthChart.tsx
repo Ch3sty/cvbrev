@@ -18,9 +18,12 @@ interface UserGrowthChartProps {
 
 export default function UserGrowthChart({ data, isLoading }: UserGrowthChartProps) {
   const chartData = useMemo(() => {
+    // Format based on data length
+    const formatPattern = data.length > 90 ? 'MMM yyyy' : data.length > 30 ? 'd MMM' : 'd MMM';
+
     return data.map(item => ({
       ...item,
-      dateFormatted: format(new Date(item.date), 'd MMM', { locale: sv })
+      dateFormatted: format(new Date(item.date), formatPattern, { locale: sv })
     }));
   }, [data]);
 
@@ -46,7 +49,7 @@ export default function UserGrowthChart({ data, isLoading }: UserGrowthChartProp
 
   return (
     <div className="bg-white rounded-lg border border-gray-200 p-6">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Användartillväxt - Senaste 30 dagarna</h3>
+      <h3 className="text-lg font-semibold text-gray-900 mb-4">Användartillväxt</h3>
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />

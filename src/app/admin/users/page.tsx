@@ -33,6 +33,7 @@ interface User {
   stripe_customer_id: string | null;
   subscription_status: string | null;
   created_at: string;
+  last_active: string | null;
   saved_letters_count?: number;
   cv_count?: number;
 }
@@ -135,7 +136,7 @@ export default function AdminUsersPage() {
       try {
         const { data: profiles, error: profilesError } = await supabase
           .from('profiles')
-          .select('id, email, full_name, subscription_tier, premium_source, stripe_customer_id, subscription_status, created_at')
+          .select('id, email, full_name, subscription_tier, premium_source, stripe_customer_id, subscription_status, created_at, last_active')
           .order('created_at', { ascending: false });
 
         if (profilesError) throw profilesError;
@@ -541,6 +542,16 @@ export default function AdminUsersPage() {
                         {getSortIcon('created_at')}
                       </div>
                     </th>
+                    <th
+                      scope="col"
+                      className="hidden xl:table-cell px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
+                      onClick={() => handleSort('last_active')}
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>Senast aktiv</span>
+                        {getSortIcon('last_active')}
+                      </div>
+                    </th>
                     <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-700 uppercase tracking-wider">
                       Åtgärder
                     </th>
@@ -549,7 +560,7 @@ export default function AdminUsersPage() {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredUsers.length === 0 ? (
                     <tr>
-                      <td colSpan={7} className="px-6 py-12 text-center">
+                      <td colSpan={8} className="px-6 py-12 text-center">
                         <div className="flex flex-col items-center">
                           <Users className="w-12 h-12 mx-auto text-gray-400 mb-3" />
                           <h3 className="text-lg font-semibold text-gray-900 mb-1">Inga användare hittades</h3>
@@ -595,6 +606,11 @@ export default function AdminUsersPage() {
                         </td>
                         <td className="hidden lg:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           {formatDate(user.created_at)}
+                        </td>
+                        <td className="hidden xl:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                          {user.last_active ? formatDate(user.last_active) : (
+                            <span className="text-gray-400 italic">Aldrig</span>
+                          )}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                           <button
@@ -708,6 +724,13 @@ export default function AdminUsersPage() {
 
                 <div className="text-gray-600 font-medium">Registrerad:</div>
                 <div className="text-gray-900">{formatDate(selectedUser.created_at)}</div>
+
+                <div className="text-gray-600 font-medium">Senast aktiv:</div>
+                <div className="text-gray-900">
+                  {selectedUser.last_active ? formatDate(selectedUser.last_active) : (
+                    <span className="text-gray-400 italic">Aldrig</span>
+                  )}
+                </div>
 
                 <div className="text-gray-600 font-medium">Sparade brev:</div>
                 <div className="text-gray-900">{selectedUser.saved_letters_count ?? 0}</div>
