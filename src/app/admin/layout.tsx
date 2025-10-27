@@ -69,10 +69,10 @@ export default function AdminLayout({
   // Visa en laddningsskärm medan vi kontrollerar behörigheten
   if (isLoading) {
     return (
-      <div className="flex h-screen items-center justify-center bg-navy-950 text-white">
+      <div className="flex h-screen items-center justify-center bg-gray-50">
         <div className="flex flex-col items-center">
           <div className="w-12 h-12 border-t-2 border-b-2 border-pink-500 rounded-full animate-spin mb-4"></div>
-          <p>Kontrollerar behörighet...</p>
+          <p className="text-gray-700">Kontrollerar behörighet...</p>
         </div>
       </div>
     );
@@ -84,17 +84,17 @@ export default function AdminLayout({
   }
   // Om användaren är admin, visa admin-gränssnittet
   return (
-    <div className="flex h-screen bg-navy-950 text-white">
+    <div className="flex h-screen bg-gray-50">
       {/* Admin Sidebar */}
       <AdminSidebar />
-      
+
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Admin Header */}
         <AdminHeader />
-        
+
         {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto p-4">
+        <main className="flex-1 overflow-y-auto p-6">
           {children}
         </main>
       </div>
