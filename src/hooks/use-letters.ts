@@ -98,10 +98,7 @@ export const useLetters = () => {
   
   // Förhindra oönskade anrop vid monteringsskedet
   const initialLoadingDoneRef = useRef(false);
-  
-  // Kontroll för max antal brev (10)
-  const [hasReachedLimit, setHasReachedLimit] = useState(false);
-  
+
   // Memoizera fetchLettersWithOptions för att kunna använda den i andra useCallback
   const memoizedFetchLettersWithOptions = useCallback(async (savedOnly = false, useCache = true) => {
     // Förhindra samtidiga anrop
@@ -114,10 +111,7 @@ export const useLetters = () => {
     try {
       // Direkt anrop utan caching om useCache=false
       await storeFetchLetters(savedOnly);
-      
-      // Kontrollera om användaren har nått maxantalet brev
-      setHasReachedLimit(letters.length >= 10);
-      
+
       return letters;
     } catch (error) {
       console.error('Error fetching letters:', error);
@@ -157,21 +151,16 @@ export const useLetters = () => {
     }
   }, [currentLetter, storeFetchLetter]);
   
-  // Uppdaterad createLetter-funktion med språkstöd och maxantalskontroll
+  // Uppdaterad createLetter-funktion med språkstöd
   const createLetter = useCallback(async (params: GenerateLetterParams) => {
     if (!isMountedRef.current) return null;
-    
+
     // Förhindra dubblettanrop om generering redan pågår
     if (generatingLetterRef.current || isGenerating) {
       console.log('Förhindrar dubblett brevgenerering, en generering pågår redan');
       return null;
     }
-    
-    // Kontrollera om användaren har nått maxantalet brev om brevet ska sparas
-    if (params.save && hasReachedLimit) {
-      throw new Error('Du har nått maximal gräns på 10 sparade brev. Ta bort något brev först.');
-    }
-    
+
     // Markera att generering pågår
     generatingLetterRef.current = true;
     
@@ -233,16 +222,11 @@ export const useLetters = () => {
       // Säkerställ att genereringsflaggan återställs
       generatingLetterRef.current = false;
     }
-  }, [storeGenerateLetter, isGenerating, memoizedFetchLetters, hasReachedLimit]);
+  }, [storeGenerateLetter, isGenerating, memoizedFetchLetters]);
   
-  // Ny funktion för att spara ett tidigare genererat brev med maxantalskontroll
+  // Ny funktion för att spara ett tidigare genererat brev
   const saveLetter = useCallback(async (letterData: any) => {
     if (!isMountedRef.current) return null;
-
-    // Kontrollera om användaren har nått maxantalet brev
-    if (hasReachedLimit) {
-      throw new Error('Du har nått maximal gräns på 10 sparade brev. Ta bort något brev först.');
-    }
 
     try {
       const response = await fetch('/api/letters', {
@@ -274,7 +258,7 @@ export const useLetters = () => {
       console.error('Error saving letter:', error);
       throw error; // Kasta vidare felet för att hantera i UI
     }
-  }, [memoizedFetchLetters, hasReachedLimit]);
+  }, [memoizedFetchLetters]);
   
   // Funktion för att uppdatera ett brev - kan inte vara cachad eftersom den har sidoeffekter
   const editLetter = useCallback(async (id: string, updates: UpdateLetterParams) => {
@@ -319,10 +303,7 @@ export const useLetters = () => {
       if (success) {
         // Inget behov av att hämta brev igen om vi redan har uppdaterat lokalt
         // Vi förlitar oss på att store:n har uppdaterats korrekt
-        
-        // Uppdatera hasReachedLimit baserat på den nya listan
-        setHasReachedLimit(updatedLetters.length >= 10);
-        
+
         return true;
       } else {
         // Om borttagningen misslyckades, tvinga en ny hämtning för att återställa korrekt läge
@@ -378,8 +359,7 @@ export const useLetters = () => {
     isDeleting,
     isGenerating,
     error,
-    hasReachedLimit,
-    
+
     // Funktioner
     fetchLetters: memoizedFetchLetters,
     fetchLetter: memoizedGetLetter,
