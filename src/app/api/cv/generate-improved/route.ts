@@ -9,6 +9,9 @@ import {
   type ImprovementContext
 } from '@/lib/cv/improvement-prompts';
 import type { Suggestion } from '@/components/cv/SuggestionSelector';
+import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
+import { trackAIUsage, AI_FEATURES } from '@/lib/ai-cost-tracker';
+import { logUserActivity } from '@/lib/activity-logger';
 
 // Initialize OpenAI
 const openai = new OpenAI({
@@ -38,6 +41,8 @@ async function getOriginalFilename(supabase: any, userId: string, cvId: string):
 }
 
 export async function POST(request: NextRequest) {
+  const startTime = Date.now();
+
   try {
     // Initialize Supabase with proper server client
     const cookieStore = cookies();
@@ -49,6 +54,14 @@ export async function POST(request: NextRequest) {
       console.error('API generate-improved: Authentication failed.', authError);
       return NextResponse.json({ error: 'Autentisering krävs.' }, { status: 401 });
     }
+
+    // Log activity: CV improvement started
+    await logUserActivity(
+      user.id,
+      'cv_improvement_started',
+      'Användare startade CV-förbättring',
+      {}
+    );
 
     // Get request body (userId no longer needed as we get it from auth)
     const { cvId, originalContent, selectedSuggestions, analysisDetails, skipSave }: {
@@ -162,36 +175,61 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Try to log AI usage for cost tracking (non-critical)
+    // Track AI usage and costs with new unified system
     try {
-      if (completion.usage?.total_tokens && completion.usage?.prompt_tokens && completion.usage?.completion_tokens) {
-        const estimatedCost = (completion.usage.prompt_tokens * 0.01 + completion.usage.completion_tokens * 0.03) / 1000; // GPT-4 pricing estimate
+      if (completion.usage) {
+        const promptTokens = completion.usage.prompt_tokens || 0;
+        const completionTokens = completion.usage.completion_tokens || 0;
+        const generationTimeMs = Date.now() - startTime;
 
-        const { error: usageLogError } = await supabase.from('usage_log').insert({
-          user_id: user.id,
-          feature_type: 'cv_improvement',
+        // Calculate cost using model pricing database
+        const costUsd = await calculateCostFromDatabase(
+          supabase,
+          'gpt-4-turbo-preview',
+          promptTokens,
+          completionTokens
+        );
+
+        // Track usage in unified ai_usage_costs table
+        await trackAIUsage({
+          supabase,
+          userId: user.id,
+          featureName: AI_FEATURES.CV_IMPROVEMENT,
+          endpoint: '/api/cv/generate-improved',
           model: 'gpt-4-turbo-preview',
-          tokens: completion.usage.total_tokens,
-          cost: estimatedCost,
-          related_id: cvId,
+          promptTokens,
+          completionTokens,
+          costUsd,
+          generationTimeMs,
           metadata: {
             cv_id: cvId,
             suggestions_count: selectedSuggestions.length,
-            cost_sek: estimatedCost * 10.5,
-            prompt_tokens: completion.usage.prompt_tokens,
-            completion_tokens: completion.usage.completion_tokens
+            improved_words: improvedWords,
+            original_words: originalWords
           }
         });
 
-        if (usageLogError) {
-          console.error('Non-critical: Failed to log usage to usage_log:', usageLogError);
-        } else {
-          console.log(`Logged AI usage: $${estimatedCost} for CV improvement`);
-        }
+        console.log('[CV Improvement] AI usage tracked:', {
+          totalTokens: promptTokens + completionTokens,
+          costUsd: costUsd.toFixed(6),
+          generationTimeMs
+        });
       }
-    } catch (usageLogError) {
-      console.error('Non-critical: Usage logging failed:', usageLogError);
+    } catch (trackingError) {
+      console.error('[CV Improvement] Failed to track AI usage:', trackingError);
     }
+
+    // Log activity: CV improvement completed
+    await logUserActivity(
+      user.id,
+      'cv_improvement_completed',
+      'CV-förbättring slutfördes framgångsrikt',
+      {
+        cv_id: cvId,
+        suggestions_applied: selectedSuggestions.length,
+        metrics
+      }
+    );
 
     // Return the improved CV and metrics
     return NextResponse.json({
@@ -202,6 +240,25 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error generating improved CV:', error);
+
+    // Try to log failed activity
+    try {
+      const cookieStore = cookies();
+      const supabase = createServerClient({ cookies: cookieStore });
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (user) {
+        await logUserActivity(
+          user.id,
+          'cv_improvement_failed',
+          'CV-förbättring misslyckades',
+          { error: error instanceof Error ? error.message : 'Unknown error' }
+        );
+      }
+    } catch (logError) {
+      console.error('Failed to log error activity:', logError);
+    }
+
     return NextResponse.json(
       { error: 'Failed to generate improved CV' },
       { status: 500 }

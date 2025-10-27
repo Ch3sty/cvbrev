@@ -6,6 +6,9 @@ import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase/server';
 import { openai, calculateOpenAICost } from '@/lib/openai/api';
 import type { CVMetadata } from '@/lib/cv/cv-metadata';
+import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
+import { trackAIUsage, AI_FEATURES } from '@/lib/ai-cost-tracker';
+import { logUserActivity } from '@/lib/activity-logger';
 
 // Interface för AI-parsning resultat med metadata (samma som cv-parser-ai.ts)
 export interface AIParseResult {
@@ -44,31 +47,70 @@ export async function POST(request: NextRequest) {
     // Autentisering - samma mönster som andra AI API routes
     const cookieStore = await cookies();
     const supabase = createServerClient({ cookies: cookieStore });
-    
+
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    // Log activity: CV parsing started
+    await logUserActivity(
+      session.user.id,
+      'cv_parsing_started',
+      'Användare startade CV-parsing',
+      {}
+    );
+
     // Extrahera CV-text från request
     const { cvText } = await request.json();
-    
+
     if (!cvText || typeof cvText !== 'string') {
-      return NextResponse.json({ 
-        error: 'CV text is required' 
+      return NextResponse.json({
+        error: 'CV text is required'
       }, { status: 400 });
     }
 
     // Utför AI-parsing (flyttad från cv-parser-ai.ts)
-    const result = await parseCVWithAIServerSide(cvText);
-    
+    const result = await parseCVWithAIServerSide(cvText, supabase, session.user.id);
+
+    // Log activity: CV parsing completed
+    await logUserActivity(
+      session.user.id,
+      'cv_parsing_completed',
+      'CV-parsing slutfördes framgångsrikt',
+      {
+        model: result.metadata.model,
+        processing_time_ms: result.metadata.processingTime,
+        confidence_score: result.metadata.confidenceScore
+      }
+    );
+
     return NextResponse.json(result);
 
   } catch (error: any) {
     console.error('CV parsing API error:', error);
-    return NextResponse.json({ 
-      error: 'Failed to parse CV', 
-      details: error.message 
+
+    // Try to log failed activity
+    try {
+      const cookieStore = await cookies();
+      const supabase = createServerClient({ cookies: cookieStore });
+      const { data: { session } } = await supabase.auth.getSession();
+
+      if (session) {
+        await logUserActivity(
+          session.user.id,
+          'cv_parsing_failed',
+          'CV-parsing misslyckades',
+          { error: error.message }
+        );
+      }
+    } catch (logError) {
+      console.error('Failed to log error activity:', logError);
+    }
+
+    return NextResponse.json({
+      error: 'Failed to parse CV',
+      details: error.message
     }, { status: 500 });
   }
 }
@@ -76,7 +118,11 @@ export async function POST(request: NextRequest) {
 /**
  * Server-side CV parsing funktion (exporterad för intern användning)
  */
-export async function parseCVWithAIServerSide(cvText: string): Promise<AIParseResult> {
+export async function parseCVWithAIServerSide(
+  cvText: string,
+  supabase?: any,
+  userId?: string
+): Promise<AIParseResult> {
   const startTime = Date.now();
   
   // Begränsa input för att hålla kostnader nere
@@ -208,6 +254,44 @@ VIKTIGA INSTRUKTIONER:
         total: usage.total_tokens ?? (promptTokens + completionTokens)
       };
       calculatedCost = calculateOpenAICost(modelToUse, promptTokens, completionTokens);
+
+      // Track AI usage if supabase and userId are provided
+      if (supabase && userId) {
+        try {
+          const costUsd = await calculateCostFromDatabase(
+            supabase,
+            modelToUse,
+            promptTokens,
+            completionTokens
+          );
+
+          const processingTimeMs = Date.now() - startTime;
+
+          await trackAIUsage({
+            supabase,
+            userId,
+            featureName: AI_FEATURES.CV_PARSING,
+            endpoint: '/api/cv/parse',
+            model: modelToUse,
+            promptTokens,
+            completionTokens,
+            costUsd,
+            generationTimeMs: processingTimeMs,
+            metadata: {
+              cv_length: cvText.length,
+              truncated: cvText.length > 8000
+            }
+          });
+
+          console.log('[CV Parse] AI usage tracked:', {
+            totalTokens: promptTokens + completionTokens,
+            costUsd: costUsd.toFixed(6),
+            processingTimeMs
+          });
+        } catch (trackingError) {
+          console.error('[CV Parse] Failed to track AI usage:', trackingError);
+        }
+      }
     }
 
     const processingTime = Date.now() - startTime;

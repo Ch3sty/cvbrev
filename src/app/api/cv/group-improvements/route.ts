@@ -10,12 +10,46 @@ import {
   type ImprovementToGroup
 } from '@/lib/cv/improvement-grouping';
 import { validateAIResponse } from '@/lib/cv/role-based-improvements';
+import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
+import { trackAIUsage, AI_FEATURES } from '@/lib/ai-cost-tracker';
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY!,
 });
 
+// Global usage tracker for this request
+interface UsageTracker {
+  totalPromptTokens: number;
+  totalCompletionTokens: number;
+  calls: Array<{ model: string; promptTokens: number; completionTokens: number }>;
+}
+
+let requestUsageTracker: UsageTracker = {
+  totalPromptTokens: 0,
+  totalCompletionTokens: 0,
+  calls: []
+};
+
+function trackOpenAICall(model: string, usage: any) {
+  if (usage) {
+    const promptTokens = usage.prompt_tokens || 0;
+    const completionTokens = usage.completion_tokens || 0;
+
+    requestUsageTracker.totalPromptTokens += promptTokens;
+    requestUsageTracker.totalCompletionTokens += completionTokens;
+    requestUsageTracker.calls.push({ model, promptTokens, completionTokens });
+  }
+}
+
 export async function POST(request: NextRequest) {
+  const startTime = Date.now();
+
+  // Reset tracker for this request
+  requestUsageTracker = {
+    totalPromptTokens: 0,
+    totalCompletionTokens: 0,
+    calls: []
+  };
   try {
     const cookieStore = cookies();
     const supabase = createServerClient({ cookies: cookieStore });
@@ -121,6 +155,54 @@ export async function POST(request: NextRequest) {
     console.log('🎯 General improvements extraction complete:', {
       generalCount: generalImprovements.length
     });
+
+    // Track AI usage and costs
+    try {
+      if (requestUsageTracker.totalPromptTokens > 0) {
+        const generationTimeMs = Date.now() - startTime;
+
+        // Calculate weighted average cost for mixed models (gpt-4o and gpt-4o-mini)
+        let totalCostUsd = 0;
+
+        for (const call of requestUsageTracker.calls) {
+          const callCost = await calculateCostFromDatabase(
+            supabase,
+            call.model,
+            call.promptTokens,
+            call.completionTokens
+          );
+          totalCostUsd += callCost;
+        }
+
+        // Track aggregated usage
+        await trackAIUsage({
+          supabase,
+          userId: user.id,
+          featureName: AI_FEATURES.GROUP_IMPROVEMENTS,
+          endpoint: '/api/cv/group-improvements',
+          model: 'mixed', // Multiple models used
+          promptTokens: requestUsageTracker.totalPromptTokens,
+          completionTokens: requestUsageTracker.totalCompletionTokens,
+          costUsd: totalCostUsd,
+          generationTimeMs,
+          metadata: {
+            api_calls: requestUsageTracker.calls.length,
+            improvements_processed: improvementsToProcess.length,
+            groups_created: enhancedGroups.length,
+            models_used: [...new Set(requestUsageTracker.calls.map(c => c.model))]
+          }
+        });
+
+        console.log('[Group Improvements] AI usage tracked:', {
+          totalTokens: requestUsageTracker.totalPromptTokens + requestUsageTracker.totalCompletionTokens,
+          apiCalls: requestUsageTracker.calls.length,
+          costUsd: totalCostUsd.toFixed(6),
+          generationTimeMs
+        });
+      }
+    } catch (trackingError) {
+      console.error('[Group Improvements] Failed to track AI usage:', trackingError);
+    }
 
     return NextResponse.json({
       success: true,
@@ -319,6 +401,9 @@ OUTPUT:`;
       temperature: 0.1, // Låg temperatur för konsekvent korrigering
       max_tokens: 150
     });
+
+    // Track usage
+    trackOpenAICall('gpt-4o-mini', response.usage);
 
     const corrected = response.choices[0].message.content?.trim();
 
@@ -524,6 +609,9 @@ Du skapar text som är värd att ha i ett riktigt CV. Texten ska vara övertygan
       temperature: 0.7, // Högre temperatur för mer variation mellan anrop
       max_tokens: 300 // Ökad gräns för fullständiga svar
     });
+
+    // Track usage
+    trackOpenAICall('gpt-4o', response.usage);
 
     const aiResponse = response.choices[0].message.content;
 

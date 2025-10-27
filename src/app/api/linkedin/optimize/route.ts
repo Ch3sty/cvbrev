@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import OpenAI from 'openai'
 import { createServerClient } from '@/lib/supabase/server'
+import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync'
+import { trackAIUsage, AI_FEATURES } from '@/lib/ai-cost-tracker'
+import { logUserActivity } from '@/lib/activity-logger'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
@@ -218,7 +221,10 @@ IMPORTANT:
     temperature: 0.7
   })
 
-  return JSON.parse(response.choices[0].message.content || '{}')
+  const result = JSON.parse(response.choices[0].message.content || '{}')
+  // Attach usage data to result
+  result._usage = response.usage
+  return result
 }
 
 // GPT-4o optimization for "Om mig" section
@@ -351,7 +357,10 @@ IMPORTANT:
     temperature: 0.7
   })
 
-  return JSON.parse(response.choices[0].message.content || '{}')
+  const result = JSON.parse(response.choices[0].message.content || '{}')
+  // Attach usage data to result
+  result._usage = response.usage
+  return result
 }
 
 // GPT-4o optimization for "Erfarenhet" section
@@ -499,7 +508,10 @@ IMPORTANT:
     temperature: 0.7
   })
 
-  return JSON.parse(response.choices[0].message.content || '{}')
+  const result = JSON.parse(response.choices[0].message.content || '{}')
+  // Attach usage data to result
+  result._usage = response.usage
+  return result
 }
 
 // GPT-4o optimization for "Utbildning" section
@@ -631,7 +643,10 @@ IMPORTANT:
     temperature: 0.7
   })
 
-  return JSON.parse(response.choices[0].message.content || '{}')
+  const result = JSON.parse(response.choices[0].message.content || '{}')
+  // Attach usage data to result
+  result._usage = response.usage
+  return result
 }
 
 // GPT-4o optimization for "Kompetenser" section
@@ -784,7 +799,10 @@ IMPORTANT:
     temperature: 0.7
   })
 
-  return JSON.parse(response.choices[0].message.content || '{}')
+  const result = JSON.parse(response.choices[0].message.content || '{}')
+  // Attach usage data to result
+  result._usage = response.usage
+  return result
 }
 
 // Calculate overall score
@@ -828,6 +846,8 @@ function calculateOverallScore(results: {
 }
 
 export async function POST(req: NextRequest) {
+  const startTime = Date.now()
+
   try {
     const body: OptimizationRequest = await req.json()
     const { sections, mode, target_role, language = 'sv' } = body
@@ -865,6 +885,14 @@ export async function POST(req: NextRequest) {
         { status: 401 }
       )
     }
+
+    // Log activity: LinkedIn optimization started
+    await logUserActivity(
+      user.id,
+      'linkedin_optimization_started',
+      'Användare startade LinkedIn-optimering',
+      { mode, target_role, language }
+    )
 
     // Check if user is premium
     const { data: profile } = await supabase
@@ -909,6 +937,67 @@ export async function POST(req: NextRequest) {
       sections.skills ? optimizeSkills(sections.skills, sections.experience, sections.about, mode, target_role, language) : Promise.resolve(null)
     ])
 
+    // Track AI usage and costs
+    try {
+      const generationTimeMs = Date.now() - startTime
+
+      // Collect usage from all optimization calls
+      let totalPromptTokens = 0
+      let totalCompletionTokens = 0
+
+      // Extract usage from each result
+      const usageData = [headlineResult, aboutResult, experienceResult, educationResult, skillsResult]
+        .filter(result => result && (result as any)._usage)
+        .map(result => (result as any)._usage)
+
+      usageData.forEach((usage: any) => {
+        totalPromptTokens += usage.prompt_tokens || 0
+        totalCompletionTokens += usage.completion_tokens || 0
+      })
+
+      // Calculate cost using model pricing
+      const costUsd = await calculateCostFromDatabase(
+        supabase,
+        'gpt-4o',
+        totalPromptTokens,
+        totalCompletionTokens
+      )
+
+      // Track usage in database
+      await trackAIUsage({
+        supabase,
+        userId: user.id,
+        featureName: AI_FEATURES.LINKEDIN_OPTIMIZATION,
+        endpoint: '/api/linkedin/optimize',
+        model: 'gpt-4o',
+        promptTokens: totalPromptTokens,
+        completionTokens: totalCompletionTokens,
+        costUsd,
+        generationTimeMs,
+        metadata: {
+          mode,
+          target_role: target_role || null,
+          language,
+          sections_optimized: [
+            'headline',
+            'about',
+            'experience',
+            educationResult ? 'education' : null,
+            skillsResult ? 'skills' : null
+          ].filter(Boolean)
+        }
+      })
+
+      console.log('[LinkedIn Optimize] AI usage tracked:', {
+        totalTokens: totalPromptTokens + totalCompletionTokens,
+        costUsd: costUsd.toFixed(6),
+        generationTimeMs
+      })
+    } catch (trackingError) {
+      // Don't fail the request if tracking fails
+      console.error('[LinkedIn Optimize] Failed to track AI usage:', trackingError)
+    }
+
     // Calculate overall scores
     const results = {
       headline: headlineResult,
@@ -949,6 +1038,19 @@ export async function POST(req: NextRequest) {
       // Don't fail the request if saving fails, just log it
     }
 
+    // Log activity: LinkedIn optimization completed
+    await logUserActivity(
+      user.id,
+      'linkedin_optimization_completed',
+      'LinkedIn-optimering slutfördes framgångsrikt',
+      {
+        optimization_id: savedOptimization?.id,
+        overall_score_before,
+        overall_score_after,
+        score_improvement: overall_score_after - overall_score_before
+      }
+    )
+
     return NextResponse.json({
       sections: results,
       overall_score_before,
@@ -958,6 +1060,26 @@ export async function POST(req: NextRequest) {
 
   } catch (error) {
     console.error('LinkedIn optimization error:', error)
+
+    // Try to log failed activity if we have user context
+    try {
+      const cookieStore = await cookies()
+      const supabase = createServerClient({ cookies: cookieStore })
+      const { data: { user } } = await supabase.auth.getUser()
+
+      if (user) {
+        await logUserActivity(
+          user.id,
+          'linkedin_optimization_failed',
+          'LinkedIn-optimering misslyckades',
+          { error: error instanceof Error ? error.message : 'Unknown error' }
+        )
+      }
+    } catch (logError) {
+      // Silently fail if activity logging fails
+      console.error('Failed to log error activity:', logError)
+    }
+
     return NextResponse.json(
       { error: 'Något gick fel. Försök igen.' },
       { status: 500 }

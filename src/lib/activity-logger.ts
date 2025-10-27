@@ -28,9 +28,18 @@ export type ActivityType =
   | 'upgrade_clicked'           // Klickade på uppgraderingsknapp
   | 'premium_feature_attempt'   // Försökte använda premium-funktion (som gratis)
   | 'setting_changed'          // Ändrade inställning (t.ex. språk, tonalitet)
-  | 'competence_analysis_started'   // <-- NYTT: Kompetensanalys startades
-  | 'competence_analysis_completed' // <-- NYTT: Kompetensanalys slutfördes
-  | 'competence_analysis_failed';    // <-- NYTT: Kompetensanalys misslyckades
+  | 'competence_analysis_started'   // Kompetensanalys startades
+  | 'competence_analysis_completed' // Kompetensanalys slutfördes
+  | 'competence_analysis_failed'    // Kompetensanalys misslyckades
+  | 'cv_parsing_started'            // CV-parsing startades
+  | 'cv_parsing_completed'          // CV-parsing slutfördes
+  | 'cv_parsing_failed'             // CV-parsing misslyckades
+  | 'cv_improvement_started'        // CV-förbättring startades
+  | 'cv_improvement_completed'      // CV-förbättring slutfördes
+  | 'cv_improvement_failed'         // CV-förbättring misslyckades
+  | 'linkedin_optimization_started' // LinkedIn-optimering startades
+  | 'linkedin_optimization_completed' // LinkedIn-optimering slutfördes
+  | 'linkedin_optimization_failed'; // LinkedIn-optimering misslyckades
   // Lägg till fler typer vid behov
 
 /**

@@ -40,6 +40,13 @@ import {
 } from 'lucide-react';
 import { format, subDays, subMonths, startOfDay } from 'date-fns';
 import { sv } from 'date-fns/locale';
+import FeatureUsageChart from '@/components/admin/FeatureUsageChart';
+import FeatureCostBreakdown from '@/components/admin/FeatureCostBreakdown';
+import TopUsersTable from '@/components/admin/TopUsersTable';
+import CostTimeSeriesChart from '@/components/admin/CostTimeSeriesChart';
+import UsageStatisticsChart from '@/components/admin/UsageStatisticsChart';
+import FeaturePopularityChart from '@/components/admin/FeaturePopularityChart';
+import UserEngagementTable from '@/components/admin/UserEngagementTable';
 
 interface DashboardStats {
   users: {
@@ -140,6 +147,19 @@ export default function StatisticsPage() {
     profit: [],
     users: []
   });
+
+  // NEW: AI Cost Analytics state
+  const [aiFeatureData, setAiFeatureData] = useState<any>(null);
+  const [aiUserCosts, setAiUserCosts] = useState<any>(null);
+  const [aiTimeSeries, setAiTimeSeries] = useState<any>(null);
+  const [aiTimeGrouping, setAiTimeGrouping] = useState<'day' | 'week' | 'month'>('day');
+  const [aiMetric, setAiMetric] = useState<'calls' | 'cost' | 'tokens'>('cost');
+
+  // NEW: Usage Analytics state
+  const [usageStats, setUsageStats] = useState<any>(null);
+  const [userEngagement, setUserEngagement] = useState<any>(null);
+  const [usageMetric, setUsageMetric] = useState<'calls' | 'users' | 'avgCalls' | 'successRate'>('calls');
+  const [selectedFeaturesForPopularity, setSelectedFeaturesForPopularity] = useState<string[]>([]);
 
   const supabase = getSupabaseClient();
 
@@ -461,22 +481,144 @@ export default function StatisticsPage() {
     }
   };
 
+  // NEW: Fetch AI feature usage data
+  const fetchAIFeatureData = async () => {
+    try {
+      const params = new URLSearchParams();
+      if (dateRange === 'week') {
+        params.append('dateFrom', subDays(new Date(), 7).toISOString());
+      } else if (dateRange === 'month') {
+        params.append('dateFrom', subMonths(new Date(), 1).toISOString());
+      }
+
+      const response = await fetch(`/api/admin/statistics/feature-usage?${params.toString()}`);
+      const result = await response.json();
+
+      if (result.success) {
+        setAiFeatureData(result.features);
+      }
+    } catch (error) {
+      console.error('Fel vid hämtning av AI-funktionsdata:', error);
+    }
+  };
+
+  // NEW: Fetch AI user costs
+  const fetchAIUserCosts = async () => {
+    try {
+      const params = new URLSearchParams();
+      params.append('limit', '20');
+      if (dateRange === 'week') {
+        params.append('dateFrom', subDays(new Date(), 7).toISOString());
+      } else if (dateRange === 'month') {
+        params.append('dateFrom', subMonths(new Date(), 1).toISOString());
+      }
+
+      const response = await fetch(`/api/admin/statistics/user-costs?${params.toString()}`);
+      const result = await response.json();
+
+      if (result.success) {
+        setAiUserCosts(result.users);
+      }
+    } catch (error) {
+      console.error('Fel vid hämtning av AI-användarkostnader:', error);
+    }
+  };
+
+  // NEW: Fetch AI time series data
+  const fetchAITimeSeries = async () => {
+    try {
+      const params = new URLSearchParams();
+      params.append('groupBy', aiTimeGrouping);
+      if (dateRange === 'week') {
+        params.append('dateFrom', subDays(new Date(), 7).toISOString());
+      } else if (dateRange === 'month') {
+        params.append('dateFrom', subMonths(new Date(), 1).toISOString());
+      }
+
+      const response = await fetch(`/api/admin/statistics/cost-timeseries?${params.toString()}`);
+      const result = await response.json();
+
+      if (result.success) {
+        setAiTimeSeries(result.timeSeries);
+      }
+    } catch (error) {
+      console.error('Fel vid hämtning av AI-tidsseriedata:', error);
+    }
+  };
+
+  // NEW: Fetch usage statistics
+  const fetchUsageStatistics = async () => {
+    try {
+      const params = new URLSearchParams();
+      if (dateRange === 'week') {
+        params.append('dateFrom', subDays(new Date(), 7).toISOString());
+      } else if (dateRange === 'month') {
+        params.append('dateFrom', subMonths(new Date(), 1).toISOString());
+      }
+
+      const response = await fetch(`/api/admin/statistics/usage-stats?${params.toString()}`);
+      const result = await response.json();
+
+      if (result.success) {
+        setUsageStats(result.features);
+        // Set top 3 features as selected by default for popularity chart
+        if (result.features && result.features.length > 0) {
+          const top3 = result.features.slice(0, 3).map((f: any) => f.featureName);
+          setSelectedFeaturesForPopularity(top3);
+        }
+      }
+    } catch (error) {
+      console.error('Fel vid hämtning av användningsstatistik:', error);
+    }
+  };
+
+  // NEW: Fetch user engagement data
+  const fetchUserEngagement = async () => {
+    try {
+      const params = new URLSearchParams();
+      if (dateRange === 'week') {
+        params.append('dateFrom', subDays(new Date(), 7).toISOString());
+      } else if (dateRange === 'month') {
+        params.append('dateFrom', subMonths(new Date(), 1).toISOString());
+      }
+
+      const response = await fetch(`/api/admin/statistics/user-engagement?${params.toString()}`);
+      const result = await response.json();
+
+      if (result.success) {
+        setUserEngagement(result.users);
+      }
+    } catch (error) {
+      console.error('Fel vid hämtning av användarengagemang:', error);
+    }
+  };
+
   // Automatisk synkning vid sidladdning och datumändring
   useEffect(() => {
     // Initial laddning
     fetchStatistics();
     fetchOpenAIUsage();
     fetchStripeRevenue();
+    fetchAIFeatureData();
+    fetchAIUserCosts();
+    fetchAITimeSeries();
+    fetchUsageStatistics();
+    fetchUserEngagement();
 
     // Uppdatera var 2:e minut
     const interval = setInterval(() => {
       fetchStatistics();
       fetchOpenAIUsage();
       fetchStripeRevenue();
+      fetchAIFeatureData();
+      fetchAIUserCosts();
+      fetchAITimeSeries();
+      fetchUsageStatistics();
+      fetchUserEngagement();
     }, 120000);
 
     return () => clearInterval(interval);
-  }, [dateRange]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [dateRange, aiTimeGrouping]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Uppdatera statistik när Stripe-data ändras
   useEffect(() => {
@@ -531,7 +673,9 @@ export default function StatisticsPage() {
     { id: 'activity', label: 'Aktivitet', icon: Activity },
     { id: 'revenue', label: 'Intäkter', icon: TrendingUp },
     { id: 'costs', label: 'Kostnader', icon: TrendingDown },
-    { id: 'profit', label: 'Vinst', icon: Euro }
+    { id: 'profit', label: 'Vinst', icon: Euro },
+    { id: 'ai_costs', label: 'AI-kostnader', icon: Brain },
+    { id: 'usage', label: 'Användning', icon: Zap }
   ];
 
   return (
@@ -841,6 +985,157 @@ export default function StatisticsPage() {
                 </div>
               </div>
             </div>
+          )}
+
+          {selectedTab === 'ai_costs' && (
+            <>
+              {/* Metric selector */}
+              <div className="flex gap-2 mb-6">
+                <select
+                  value={aiMetric}
+                  onChange={(e) => setAiMetric(e.target.value as 'calls' | 'cost' | 'tokens')}
+                  className="px-4 py-2 bg-navy-800 text-white rounded-lg border border-gray-700"
+                >
+                  <option value="cost">Kostnad (SEK)</option>
+                  <option value="calls">Antal anrop</option>
+                  <option value="tokens">Tokens</option>
+                </select>
+                <select
+                  value={aiTimeGrouping}
+                  onChange={(e) => setAiTimeGrouping(e.target.value as 'day' | 'week' | 'month')}
+                  className="px-4 py-2 bg-navy-800 text-white rounded-lg border border-gray-700"
+                >
+                  <option value="day">Per dag</option>
+                  <option value="week">Per vecka</option>
+                  <option value="month">Per månad</option>
+                </select>
+              </div>
+
+              {/* Feature Usage Chart */}
+              {aiFeatureData && aiFeatureData.length > 0 && (
+                <div className="bg-navy-800 rounded-lg p-6 border border-gray-700 mb-6">
+                  <h2 className="text-xl font-semibold text-white mb-4">Användning per funktion</h2>
+                  <FeatureUsageChart data={aiFeatureData} metric={aiMetric} />
+                </div>
+              )}
+
+              {/* Cost Breakdown */}
+              {aiFeatureData && aiFeatureData.length > 0 && (
+                <div className="bg-navy-800 rounded-lg p-6 border border-gray-700 mb-6">
+                  <h2 className="text-xl font-semibold text-white mb-4">Kostnadsfördelning</h2>
+                  <FeatureCostBreakdown data={aiFeatureData} />
+                </div>
+              )}
+
+              {/* Time Series */}
+              {aiTimeSeries && aiTimeSeries.length > 0 && (
+                <div className="bg-navy-800 rounded-lg p-6 border border-gray-700 mb-6">
+                  <h2 className="text-xl font-semibold text-white mb-4">Kostnadsutveckling över tid</h2>
+                  <CostTimeSeriesChart
+                    data={aiTimeSeries}
+                    groupBy={aiTimeGrouping}
+                    features={aiFeatureData?.map((f: any) => f.featureName) || []}
+                  />
+                </div>
+              )}
+
+              {/* Top Users Table */}
+              {aiUserCosts && aiUserCosts.length > 0 && (
+                <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+                  <h2 className="text-xl font-semibold text-white mb-4">Topp 20 användare efter kostnad</h2>
+                  <TopUsersTable data={aiUserCosts} />
+                </div>
+              )}
+
+              {(!aiFeatureData || aiFeatureData.length === 0) && (
+                <div className="bg-navy-800 rounded-lg p-12 border border-gray-700 text-center">
+                  <Brain className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+                  <p className="text-gray-400">Ingen AI-kostnadsdata hittades för vald period</p>
+                </div>
+              )}
+            </>
+          )}
+
+          {selectedTab === 'usage' && (
+            <>
+              {/* Metric selector */}
+              <div className="flex gap-2 mb-6">
+                <select
+                  value={usageMetric}
+                  onChange={(e) => setUsageMetric(e.target.value as 'calls' | 'users' | 'avgCalls' | 'successRate')}
+                  className="px-4 py-2 bg-navy-800 text-white rounded-lg border border-gray-700"
+                >
+                  <option value="calls">Totalt antal anrop</option>
+                  <option value="users">Unika användare</option>
+                  <option value="avgCalls">Snitt anrop/användare</option>
+                  <option value="successRate">Success rate (%)</option>
+                </select>
+              </div>
+
+              {/* Usage Statistics Chart */}
+              {usageStats && usageStats.length > 0 && (
+                <div className="bg-navy-800 rounded-lg p-6 border border-gray-700 mb-6">
+                  <h2 className="text-xl font-semibold text-white mb-4">Användningsstatistik per funktion</h2>
+                  <UsageStatisticsChart data={usageStats} metric={usageMetric} />
+                </div>
+              )}
+
+              {/* Feature Popularity Over Time */}
+              {usageStats && usageStats.length > 0 && (
+                <div className="bg-navy-800 rounded-lg p-6 border border-gray-700 mb-6">
+                  <div className="flex justify-between items-center mb-4">
+                    <h2 className="text-xl font-semibold text-white">Popularitetsutveckling</h2>
+                    <div className="flex gap-2 flex-wrap">
+                      {usageStats.map((feature: any) => (
+                        <button
+                          key={feature.featureName}
+                          onClick={() => {
+                            if (selectedFeaturesForPopularity.includes(feature.featureName)) {
+                              setSelectedFeaturesForPopularity(
+                                selectedFeaturesForPopularity.filter(f => f !== feature.featureName)
+                              );
+                            } else {
+                              setSelectedFeaturesForPopularity([...selectedFeaturesForPopularity, feature.featureName]);
+                            }
+                          }}
+                          className={`px-3 py-1 text-xs rounded-full border transition-colors ${
+                            selectedFeaturesForPopularity.includes(feature.featureName)
+                              ? 'bg-blue-600 border-blue-600 text-white'
+                              : 'bg-navy-900 border-gray-600 text-gray-400 hover:border-gray-500'
+                          }`}
+                        >
+                          {feature.featureName}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <FeaturePopularityChart
+                    data={usageStats}
+                    selectedFeatures={selectedFeaturesForPopularity}
+                  />
+                </div>
+              )}
+
+              {/* User Engagement Table */}
+              {userEngagement && userEngagement.length > 0 && (
+                <div className="bg-navy-800 rounded-lg p-6 border border-gray-700">
+                  <h2 className="text-xl font-semibold text-white mb-4">
+                    Användarengagemang
+                    <span className="text-sm text-gray-400 ml-2">
+                      ({userEngagement.length} användare)
+                    </span>
+                  </h2>
+                  <UserEngagementTable data={userEngagement} />
+                </div>
+              )}
+
+              {(!usageStats || usageStats.length === 0) && (
+                <div className="bg-navy-800 rounded-lg p-12 border border-gray-700 text-center">
+                  <Zap className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+                  <p className="text-gray-400">Ingen användningsdata hittades för vald period</p>
+                </div>
+              )}
+            </>
           )}
         </div>
 
