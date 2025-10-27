@@ -192,30 +192,59 @@ export async function POST(request: Request) {
         coverLetterResult.tokens?.completion || 0
       );
 
-      // Returnera det genererade brevet utan att spara i databasen
+      // Spara preview i databasen med is_saved = false
+      const { data: previewData, error: insertError } = await supabase
+        .from('letters')
+        .insert({
+          user_id: user.id,
+          title: jobInfo.title || (language === 'en' ? 'Job Application' : 'Ansökningsbrev'),
+          company: jobInfo.company,
+          job_title: jobInfo.position,
+          content: coverLetterContent,
+          tonality: tonality || 'professional',
+          language: language || 'sv',
+          job_description: job_description,
+          cv_text: cvData.cv_text,
+          is_saved: false, // ✅ Preview-status
+          cv_path: cvData.original_file_path,
+          ai_model: coverLetterResult.model,
+          ai_tokens: coverLetterResult.tokens?.total || null,
+          ai_cost: actualCost,
+          generation_time_ms: generationTimeMs
+        })
+        .select()
+        .single();
+
+      if (insertError) {
+        console.error('Fel vid skapande av preview:', insertError);
+        throw new Error('Kunde inte spara preview');
+      }
+
+      // Returnera preview-data med ID
       return {
-        title: jobInfo.title || (language === 'en' ? 'Job Application' : 'Ansökningsbrev'),
-        company: jobInfo.company,
-        job_title: jobInfo.position,
-        content: coverLetterContent, // Använd innehållet från resultatobjektet
-        tonality: tonality || 'professional',
-        language: language || 'sv',
-        job_description: job_description,
-        cv_text: cvData.cv_text,
+        id: previewData.id, // ✅ Lägg till ID för exakt matchning vid sparning
+        title: previewData.title,
+        company: previewData.company,
+        job_title: previewData.job_title,
+        content: previewData.content,
+        tonality: previewData.tonality,
+        language: previewData.language,
+        job_description: previewData.job_description,
+        cv_text: previewData.cv_text,
         is_saved: false,
-        cv_path: cvData.original_file_path,
+        cv_path: previewData.cv_path,
         cv_id: cv_id,
-        user_id: user.id,
-        // Lägg till AI-metadata direkt som huvudegenskaper (använd databas-beräknad kostnad)
-        ai_model: coverLetterResult.model,
-        ai_tokens: coverLetterResult.tokens?.total || null,
-        ai_cost: actualCost, // ✅ Använder databas-beräknad kostnad
-        generation_time_ms: generationTimeMs,
+        user_id: previewData.user_id,
+        ai_model: previewData.ai_model,
+        ai_tokens: previewData.ai_tokens,
+        ai_cost: previewData.ai_cost,
+        generation_time_ms: previewData.generation_time_ms,
+        created_at: previewData.created_at,
         // Behåll även det gamla ai_metadata för kompatibilitet
         ai_metadata: {
-          model: coverLetterResult.model,
+          model: previewData.ai_model,
           tokens: coverLetterResult.tokens,
-          cost: actualCost // ✅ Uppdaterad även här
+          cost: previewData.ai_cost
         }
       };
     })();

@@ -113,38 +113,82 @@ export async function POST(request: Request) {
     }
 
     // Extrahera AI-metadata från letterData eller ai_metadata objekt
-    const aiModel = letterData.ai_model || 
+    const aiModel = letterData.ai_model ||
                   (letterData.ai_metadata && letterData.ai_metadata.model);
-    const aiTokens = letterData.ai_tokens || 
+    const aiTokens = letterData.ai_tokens ||
                    (letterData.ai_metadata && letterData.ai_metadata.tokens?.total) ||
                    (letterData.ai_metadata && letterData.ai_metadata.tokens);
     const aiCost = letterData.ai_cost ||
                  (letterData.ai_metadata && letterData.ai_metadata.cost);
     const generationTimeMs = letterData.generation_time_ms;
 
-    // Spara brevet i databasen
-    const { data, error } = await supabase
-      .from('letters')
-      .insert({
-        user_id: user.id,
-        title: letterData.title || 'Ansökningsbrev',
-        company: letterData.company,
-        job_title: letterData.job_title,
-        content: letterData.content,
-        tonality: letterData.tonality || 'professional',
-        job_description: letterData.job_description,
-        cv_text: letterData.cv_text,
-        is_saved: letterData.is_saved !== undefined ? letterData.is_saved : true,
-        cv_path: letterData.cv_path,
-        // Tar bort cv_id: letterData.cv_id, eftersom kolumnen inte existerar
-        language: letterData.language || 'sv',
-        // Lägg till AI-metadata
-        ai_model: aiModel,
-        ai_tokens: aiTokens,
-        ai_cost: aiCost,
-        generation_time_ms: generationTimeMs
-      })
-      .select();
+    // Försök hitta befintlig preview (is_saved = false) om preview_id finns
+    let existingPreview = null;
+    if (letterData.id) {
+      // Exakt matchning via ID (bästa metoden)
+      const { data: previewById } = await supabase
+        .from('letters')
+        .select('*')
+        .eq('id', letterData.id)
+        .eq('user_id', user.id)
+        .eq('is_saved', false)
+        .single();
+
+      existingPreview = previewById;
+    }
+
+    let data, error;
+
+    if (existingPreview) {
+      // Uppdatera befintlig preview till sparad
+      console.log(`Uppdaterar befintlig preview ${existingPreview.id} till is_saved=true`);
+
+      const { data: updatedData, error: updateError } = await supabase
+        .from('letters')
+        .update({
+          is_saved: true,
+          // Uppdatera content om det har ändrats (t.ex. användare redigerade)
+          content: letterData.content,
+          // Uppdatera övriga fält om de finns
+          title: letterData.title || existingPreview.title,
+          company: letterData.company || existingPreview.company,
+          job_title: letterData.job_title || existingPreview.job_title,
+          tonality: letterData.tonality || existingPreview.tonality
+        })
+        .eq('id', existingPreview.id)
+        .select();
+
+      data = updatedData;
+      error = updateError;
+    } else {
+      // Ingen befintlig preview - skapa nytt brev (fallback för manuella brev)
+      console.log('Ingen befintlig preview hittades, skapar nytt brev');
+
+      const { data: insertedData, error: insertError } = await supabase
+        .from('letters')
+        .insert({
+          user_id: user.id,
+          title: letterData.title || 'Ansökningsbrev',
+          company: letterData.company,
+          job_title: letterData.job_title,
+          content: letterData.content,
+          tonality: letterData.tonality || 'professional',
+          job_description: letterData.job_description,
+          cv_text: letterData.cv_text,
+          is_saved: letterData.is_saved !== undefined ? letterData.is_saved : true,
+          cv_path: letterData.cv_path,
+          language: letterData.language || 'sv',
+          // Lägg till AI-metadata
+          ai_model: aiModel,
+          ai_tokens: aiTokens,
+          ai_cost: aiCost,
+          generation_time_ms: generationTimeMs
+        })
+        .select();
+
+      data = insertedData;
+      error = insertError;
+    }
 
     if (error) {
       console.error('Fel vid skapande av brev:', error);

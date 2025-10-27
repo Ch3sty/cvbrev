@@ -238,12 +238,12 @@ export const useLetters = () => {
   // Ny funktion för att spara ett tidigare genererat brev med maxantalskontroll
   const saveLetter = useCallback(async (letterData: any) => {
     if (!isMountedRef.current) return null;
-    
+
     // Kontrollera om användaren har nått maxantalet brev
     if (hasReachedLimit) {
       throw new Error('Du har nått maximal gräns på 10 sparade brev. Ta bort något brev först.');
     }
-    
+
     try {
       const response = await fetch('/api/letters', {
         method: 'POST',
@@ -252,6 +252,7 @@ export const useLetters = () => {
         },
         body: JSON.stringify({
           ...letterData,
+          id: letterData.id, // ✅ Skicka med preview ID för exakt matchning
           is_saved: true
         }),
       });
