@@ -331,3 +331,63 @@ export async function getCachedModelPricing(
 export function clearPricingCache(): void {
   pricingCache.clear();
 }
+
+/**
+ * Calculates cost for a specific API call using database pricing
+ * Falls back to baseline prices if model not found in database
+ */
+export async function calculateCostFromDatabase(
+  supabase: SupabaseClient,
+  model: string,
+  promptTokens: number,
+  completionTokens: number
+): Promise<number> {
+  try {
+    // Try to get pricing from database (with cache)
+    const pricing = await getCachedModelPricing(supabase, model);
+
+    if (pricing) {
+      // Calculate cost using database prices
+      const inputCost = (promptTokens / 1_000_000) * pricing.input_cost_per_million;
+      const outputCost = (completionTokens / 1_000_000) * pricing.output_cost_per_million;
+      const totalCost = inputCost + outputCost;
+
+      console.log(`[Cost Calculation] Model: ${model}, Database pricing used`, {
+        inputCost: inputCost.toFixed(6),
+        outputCost: outputCost.toFixed(6),
+        totalCost: totalCost.toFixed(6),
+        promptTokens,
+        completionTokens
+      });
+
+      return parseFloat(totalCost.toFixed(6));
+    }
+
+    // Fallback to baseline prices
+    console.warn(`[Cost Calculation] Model ${model} not found in database, using baseline pricing`);
+
+    // Import baseline calculation from api.ts
+    const { calculateOpenAICost } = await import('./api');
+    const baselineCost = calculateOpenAICost(model, promptTokens, completionTokens);
+
+    if (baselineCost !== null) {
+      return baselineCost;
+    }
+
+    // Ultimate fallback - return 0 if model completely unknown
+    console.error(`[Cost Calculation] Model ${model} not found in database OR baseline - returning 0`);
+    return 0;
+
+  } catch (error: any) {
+    console.error(`[Cost Calculation] Error calculating cost for ${model}:`, error);
+
+    // Fallback on error
+    try {
+      const { calculateOpenAICost } = await import('./api');
+      const baselineCost = calculateOpenAICost(model, promptTokens, completionTokens);
+      return baselineCost !== null ? baselineCost : 0;
+    } catch {
+      return 0;
+    }
+  }
+}

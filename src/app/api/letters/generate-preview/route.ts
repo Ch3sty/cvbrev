@@ -2,6 +2,7 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { generateCoverLetter, extractJobInfo } from '@/lib/openai/api';
+import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
 
 // Enkel cache för att spåra pågående genereringar och förhindra dubbletter
 // Denna cache finns på serversidan och delas mellan alla användare
@@ -183,6 +184,14 @@ export async function POST(request: Request) {
       const coverLetterContent = coverLetterResult.content;
       const generationTimeMs = Date.now() - startTime; // Beräkna total tidsåtgång
 
+      // Beräkna faktisk kostnad från databas (med fallback till baseline)
+      const actualCost = await calculateCostFromDatabase(
+        supabase,
+        coverLetterResult.model,
+        coverLetterResult.tokens?.prompt || 0,
+        coverLetterResult.tokens?.completion || 0
+      );
+
       // Returnera det genererade brevet utan att spara i databasen
       return {
         title: jobInfo.title || (language === 'en' ? 'Job Application' : 'Ansökningsbrev'),
@@ -197,16 +206,16 @@ export async function POST(request: Request) {
         cv_path: cvData.original_file_path,
         cv_id: cv_id,
         user_id: user.id,
-        // Lägg till AI-metadata direkt som huvudegenskaper
+        // Lägg till AI-metadata direkt som huvudegenskaper (använd databas-beräknad kostnad)
         ai_model: coverLetterResult.model,
         ai_tokens: coverLetterResult.tokens?.total || null,
-        ai_cost: coverLetterResult.cost,
+        ai_cost: actualCost, // ✅ Använder databas-beräknad kostnad
         generation_time_ms: generationTimeMs,
         // Behåll även det gamla ai_metadata för kompatibilitet
         ai_metadata: {
           model: coverLetterResult.model,
           tokens: coverLetterResult.tokens,
-          cost: coverLetterResult.cost
+          cost: actualCost // ✅ Uppdaterad även här
         }
       };
     })();
