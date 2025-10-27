@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   LineChart,
   Line,
@@ -36,7 +37,10 @@ import {
   Globe,
   ChartBar,
   ChartLine,
-  ChartPie
+  ChartPie,
+  ArrowUp,
+  ArrowDown,
+  Sparkles
 } from 'lucide-react';
 import { format, subDays, subMonths, startOfDay } from 'date-fns';
 import { sv } from 'date-fns/locale';
@@ -47,6 +51,7 @@ import CostTimeSeriesChart from '@/components/admin/CostTimeSeriesChart';
 import UsageStatisticsChart from '@/components/admin/UsageStatisticsChart';
 import FeaturePopularityChart from '@/components/admin/FeaturePopularityChart';
 import UserEngagementTable from '@/components/admin/UserEngagementTable';
+import FloatingParticles from '@/components/dashboard/FloatingParticles';
 
 interface DashboardStats {
   users: {
@@ -679,152 +684,341 @@ export default function StatisticsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
-          <p className="text-gray-600">Fullständig översikt av Jobbcoach.ai</p>
-        </div>
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Premium Dynamic Background */}
+      <motion.div
+        className="fixed inset-0 pointer-events-none z-0"
+        style={{ opacity: 0.9 }}
+      >
+        {/* Primary gradient foundation */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white via-blue-50/30 to-slate-50/50" />
 
-        {/* Date Range Selector */}
-        <div className="flex gap-2 mb-6">
-          {['day', 'week', 'month', 'year'].map((range) => (
-            <button
+        {/* Animated morphing gradient orbs */}
+        <motion.div
+          className="absolute top-[10%] left-[5%] w-[500px] h-[500px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, rgba(147, 51, 234, 0.05) 40%, transparent 70%)',
+            filter: 'blur(60px)',
+          }}
+          animate={{
+            x: [0, 150, 0],
+            y: [0, -100, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            repeatType: 'reverse',
+            ease: "easeInOut"
+          }}
+        />
+
+        <motion.div
+          className="absolute top-[30%] right-[10%] w-[600px] h-[600px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, rgba(139, 92, 246, 0.04) 40%, transparent 70%)',
+            filter: 'blur(80px)',
+          }}
+          animate={{
+            x: [0, -200, 0],
+            y: [0, 150, 0],
+            scale: [1, 0.8, 1],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            repeatType: 'reverse',
+            ease: "easeInOut"
+          }}
+        />
+
+        <motion.div
+          className="absolute bottom-[20%] left-[15%] w-[400px] h-[400px]"
+          style={{
+            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.03) 40%, transparent 70%)',
+            filter: 'blur(70px)',
+          }}
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -80, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            repeatType: 'reverse',
+            ease: "easeInOut"
+          }}
+        />
+
+        {/* Subtle pattern overlay */}
+        <div
+          className="absolute inset-0"
+          style={{
+            opacity: 0.015,
+            backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'40\' height=\'40\' viewBox=\'0 0 40 40\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'%23000000\' fill-opacity=\'1\'%3E%3Cpath d=\'M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z\'/%3E%3C/g%3E%3C/svg%3E")',
+            backgroundSize: '40px 40px',
+          }}
+        />
+      </motion.div>
+
+      {/* Floating particles */}
+      <FloatingParticles
+        count={15}
+        colors={['bg-pink-400/8', 'bg-purple-400/8', 'bg-blue-400/8', 'bg-indigo-400/8', 'bg-emerald-400/8']}
+        size="lg"
+        speed="slow"
+        className="fixed inset-0 pointer-events-none z-5"
+      />
+
+      <div className="container mx-auto px-4 py-8 relative z-10">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-8"
+        >
+          <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-slate-900 via-purple-600 to-pink-600 bg-clip-text text-transparent hover:from-pink-600 hover:via-purple-600 hover:to-pink-600 transition-all duration-500 mb-2">
+            Admin Dashboard
+          </h1>
+          <p className="text-slate-600 text-lg">Fullständig översikt av Jobbcoach.ai</p>
+        </motion.div>
+
+        {/* Date Range Selector - Premium pill-style */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.5 }}
+          className="flex gap-2 mb-8"
+        >
+          {['day', 'week', 'month', 'year'].map((range, index) => (
+            <motion.button
               key={range}
               onClick={() => setDateRange(range)}
-              className={`px-4 py-2 rounded-lg transition-colors shadow-sm ${
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 + index * 0.05 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
                 dateRange === range
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                  ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-lg shadow-pink-500/30'
+                  : 'bg-white/80 backdrop-blur-sm text-slate-700 hover:bg-white hover:shadow-md border border-slate-200'
               }`}
             >
               {range === 'day' && 'Idag'}
               {range === 'week' && 'Vecka'}
               {range === 'month' && 'Månad'}
               {range === 'year' && 'År'}
-            </button>
+            </motion.button>
           ))}
-        </div>
+        </motion.div>
 
-        {/* KPI Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-            <div className="flex items-center justify-between mb-4">
-              <Euro className="w-8 h-8 text-green-600" />
-              <span className="text-sm text-gray-600">Total intäkt</span>
+        {/* KPI Cards - Premium glassmorphism */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10"
+        >
+          {/* Total Revenue Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+            whileHover={{ scale: 1.02, y: -4 }}
+            className="group bg-white/80 backdrop-blur-lg border border-white/20 rounded-2xl p-6 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:shadow-slate-300/50 transition-all duration-300"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="p-3 bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-xl group-hover:from-green-500/20 group-hover:to-emerald-500/20 transition-all">
+                <Euro className="w-6 h-6 text-green-600" />
+              </div>
+              <span className="text-xs font-medium text-slate-500 uppercase tracking-wide">Total intäkt</span>
             </div>
-            <div className="text-2xl font-bold text-gray-900">
+            <div className="text-3xl font-bold text-slate-900 mb-1">
               {stripeRevenue ? stripeRevenue.revenue.total.toLocaleString('sv-SE') : stats.revenue.total_revenue.toLocaleString('sv-SE')} kr
             </div>
             {stripeRevenue && (
-              <div className="text-xs text-green-600 mt-1">Faktisk från Stripe</div>
+              <div className="text-xs text-green-600 mb-2 flex items-center gap-1">
+                <Sparkles className="w-3 h-3" />
+                Faktisk från Stripe
+              </div>
             )}
-            <div className="text-sm text-green-600 mt-2">
+            <div className="text-sm text-slate-600 font-medium">
               MRR: {stripeRevenue ? stripeRevenue.subscriptions.mrr.toLocaleString('sv-SE') : stats.revenue.mrr.toLocaleString('sv-SE')} kr
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-            <div className="flex items-center justify-between mb-4">
-              <TrendingUp className="w-8 h-8 text-blue-600" />
-              <span className="text-sm text-gray-600">Nettovinst</span>
+          {/* Net Profit Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, type: "spring", stiffness: 200 }}
+            whileHover={{ scale: 1.02, y: -4 }}
+            className="group bg-white/80 backdrop-blur-lg border border-white/20 rounded-2xl p-6 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:shadow-slate-300/50 transition-all duration-300"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="p-3 bg-gradient-to-br from-blue-500/10 to-indigo-500/10 rounded-xl group-hover:from-blue-500/20 group-hover:to-indigo-500/20 transition-all">
+                <TrendingUp className="w-6 h-6 text-blue-600" />
+              </div>
+              <span className="text-xs font-medium text-slate-500 uppercase tracking-wide">Nettovinst</span>
             </div>
-            <div className="text-2xl font-bold text-gray-900">
+            <div className="text-3xl font-bold text-slate-900 mb-2">
               {stats.profit.net_profit.toLocaleString('sv-SE')} kr
             </div>
-            <div className="text-sm text-blue-600 mt-2">
-              Marginal: {stats.profit.net_margin.toFixed(0)}%
+            <div className="flex items-center gap-1 text-sm font-medium">
+              <span className="text-slate-600">Marginal:</span>
+              <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-blue-500/10 text-blue-700">
+                {stats.profit.net_margin > 0 ? <ArrowUp className="w-3 h-3" /> : <ArrowDown className="w-3 h-3" />}
+                {stats.profit.net_margin.toFixed(0)}%
+              </span>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-            <div className="flex items-center justify-between mb-4">
-              <Users className="w-8 h-8 text-purple-600" />
-              <span className="text-sm text-gray-600">Aktiva användare</span>
+          {/* Active Users Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, type: "spring", stiffness: 200 }}
+            whileHover={{ scale: 1.02, y: -4 }}
+            className="group bg-white/80 backdrop-blur-lg border border-white/20 rounded-2xl p-6 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:shadow-slate-300/50 transition-all duration-300"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="p-3 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-xl group-hover:from-purple-500/20 group-hover:to-pink-500/20 transition-all">
+                <Users className="w-6 h-6 text-purple-600" />
+              </div>
+              <span className="text-xs font-medium text-slate-500 uppercase tracking-wide">Aktiva användare</span>
             </div>
-            <div className="text-2xl font-bold text-gray-900">
+            <div className="text-3xl font-bold text-slate-900 mb-2">
               {stats.engagement.monthly_active_users}
             </div>
-            <div className="text-sm text-purple-600 mt-2">
+            <div className="text-sm text-slate-600 font-medium">
               Av totalt {stats.users.total} användare
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-            <div className="flex items-center justify-between mb-4">
-              <UserCheck className="w-8 h-8 text-amber-600" />
-              <span className="text-sm text-gray-600">Konvertering</span>
+          {/* Conversion Rate Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.45, type: "spring", stiffness: 200 }}
+            whileHover={{ scale: 1.02, y: -4 }}
+            className="group bg-white/80 backdrop-blur-lg border border-white/20 rounded-2xl p-6 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:shadow-slate-300/50 transition-all duration-300"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="p-3 bg-gradient-to-br from-amber-500/10 to-orange-500/10 rounded-xl group-hover:from-amber-500/20 group-hover:to-orange-500/20 transition-all">
+                <UserCheck className="w-6 h-6 text-amber-600" />
+              </div>
+              <span className="text-xs font-medium text-slate-500 uppercase tracking-wide">Konvertering</span>
             </div>
-            <div className="text-2xl font-bold text-gray-900">
+            <div className="text-3xl font-bold text-slate-900 mb-2">
               {stats.users.conversion_rate}%
             </div>
-            <div className="text-sm text-amber-600 mt-2">
+            <div className="text-sm text-slate-600 font-medium">
               {stats.users.premium} premium av {stats.users.total}
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        {/* Main Overview Chart - Always visible */}
-        <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">
+        {/* Main Overview Chart - Premium glassmorphism */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.6 }}
+          className="bg-white/90 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-shadow duration-500 mb-10"
+        >
+          <h2 className="text-2xl font-bold text-slate-900 mb-6">
             Trendöversikt {dateRange === 'day' && 'idag'}
             {dateRange === 'week' && 'senaste veckan'}
             {dateRange === 'month' && 'senaste månaden'}
             {dateRange === 'year' && 'senaste året'}
           </h2>
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={350}>
             <LineChart data={chartData.combined}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
-              <XAxis dataKey="date" stroke="#9ca3af" />
-              <YAxis stroke="#9ca3af" />
+              <defs>
+                <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor={COLORS.primary} stopOpacity={0.1}/>
+                  <stop offset="95%" stopColor={COLORS.primary} stopOpacity={0}/>
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" opacity={0.5} />
+              <XAxis dataKey="date" stroke="#64748b" style={{ fontSize: '12px' }} />
+              <YAxis stroke="#64748b" style={{ fontSize: '12px' }} />
               <Tooltip content={<CustomTooltip />} />
-              <Legend />
+              <Legend wrapperStyle={{ paddingTop: '20px' }} />
               <Line
                 type="monotone"
                 dataKey="revenue"
                 stroke={COLORS.primary}
                 name="Intäkter (kr)"
-                strokeWidth={2}
+                strokeWidth={3}
+                dot={{ fill: COLORS.primary, r: 4 }}
+                activeDot={{ r: 6 }}
+                animationDuration={1500}
               />
               <Line
                 type="monotone"
                 dataKey="cost"
                 stroke={COLORS.danger}
                 name="Kostnader (kr)"
-                strokeWidth={2}
+                strokeWidth={3}
+                dot={{ fill: COLORS.danger, r: 4 }}
+                activeDot={{ r: 6 }}
+                animationDuration={1500}
               />
               <Line
                 type="monotone"
                 dataKey="profit"
                 stroke={COLORS.secondary}
                 name="Vinst (kr)"
-                strokeWidth={2}
+                strokeWidth={3}
+                dot={{ fill: COLORS.secondary, r: 4 }}
+                activeDot={{ r: 6 }}
+                animationDuration={1500}
               />
             </LineChart>
           </ResponsiveContainer>
-        </div>
+        </motion.div>
 
-        {/* Tabs */}
-        <div className="flex gap-1 mb-6 bg-gray-100 rounded-lg p-1">
-          {tabs.map((tab) => {
-            const Icon = tab.icon;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setSelectedTab(tab.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors flex-1 ${
-                  selectedTab === tab.id
-                    ? 'bg-blue-600 text-white shadow-sm'
-                    : 'text-gray-700 hover:bg-white'
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
-        </div>
+        {/* Tabs - Premium design with animations */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className="bg-white/60 backdrop-blur-md rounded-2xl p-2 shadow-lg mb-8"
+        >
+          <div className="flex gap-1">
+            {tabs.map((tab, index) => {
+              const Icon = tab.icon;
+              const isSelected = selectedTab === tab.id;
+              return (
+                <motion.button
+                  key={tab.id}
+                  onClick={() => setSelectedTab(tab.id)}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`flex items-center justify-center gap-2 px-4 py-3 rounded-xl transition-all duration-300 flex-1 font-medium ${
+                    isSelected
+                      ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-lg shadow-pink-500/30'
+                      : 'text-slate-700 hover:bg-white/80 hover:shadow-sm'
+                  }`}
+                >
+                  <motion.div
+                    animate={{
+                      rotate: isSelected ? 360 : 0,
+                      scale: isSelected ? 1.1 : 1
+                    }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Icon className="w-4 h-4" />
+                  </motion.div>
+                  <span className="hidden sm:inline">{tab.label}</span>
+                </motion.button>
+              );
+            })}
+          </div>
+        </motion.div>
 
         {/* Tab Content with Charts */}
         <div className="space-y-6">
@@ -832,8 +1026,12 @@ export default function StatisticsPage() {
             <>
               {/* Feature Adoption Pie Chart */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Funktionsanvändning</h2>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="bg-white/90 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-6">Funktionsanvändning</h2>
                   <ResponsiveContainer width="100%" height={300}>
                     <PieChart>
                       <Pie
@@ -855,10 +1053,14 @@ export default function StatisticsPage() {
                       <Tooltip />
                     </PieChart>
                   </ResponsiveContainer>
-                </div>
+                </motion.div>
 
-                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Användarfördelning</h2>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="bg-white/90 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-6">Användarfördelning</h2>
                   <ResponsiveContainer width="100%" height={300}>
                     <PieChart>
                       <Pie
@@ -880,14 +1082,19 @@ export default function StatisticsPage() {
                       <Tooltip />
                     </PieChart>
                   </ResponsiveContainer>
-                </div>
+                </motion.div>
               </div>
             </>
           )}
 
           {selectedTab === 'activity' && (
-            <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Aktivitet per dag</h2>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="bg-white/90 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300"
+            >
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">Aktivitet per dag</h2>
               <ResponsiveContainer width="100%" height={400}>
                 <AreaChart data={chartData.activity}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
@@ -904,12 +1111,17 @@ export default function StatisticsPage() {
                   />
                 </AreaChart>
               </ResponsiveContainer>
-            </div>
+            </motion.div>
           )}
 
           {selectedTab === 'revenue' && (
-            <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Intäkter per dag</h2>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="bg-white/90 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300"
+            >
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">Intäkter per dag</h2>
               <ResponsiveContainer width="100%" height={400}>
                 <BarChart data={chartData.revenue}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
@@ -920,20 +1132,25 @@ export default function StatisticsPage() {
                 </BarChart>
               </ResponsiveContainer>
               {stripeRevenue && (
-                <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                  <p className="text-sm text-green-400">
+                <div className="mt-4 p-4 bg-slate-50 rounded-xl">
+                  <p className="text-sm text-green-600 font-medium">
                     Aktiva prenumerationer: {stripeRevenue.subscriptions.active} |
                     MRR: {stripeRevenue.subscriptions.mrr.toLocaleString('sv-SE')} kr |
                     ARR: {stripeRevenue.subscriptions.arr.toLocaleString('sv-SE')} kr
                   </p>
                 </div>
               )}
-            </div>
+            </motion.div>
           )}
 
           {selectedTab === 'costs' && (
-            <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Kostnader per dag</h2>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="bg-white/90 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300"
+            >
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">Kostnader per dag</h2>
               <ResponsiveContainer width="100%" height={400}>
                 <BarChart data={chartData.costs}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
@@ -943,8 +1160,8 @@ export default function StatisticsPage() {
                   <Bar dataKey="value" fill={COLORS.danger} name="Kostnader (kr)" />
                 </BarChart>
               </ResponsiveContainer>
-              <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-red-400">
+              <div className="mt-4 p-4 bg-slate-50 rounded-xl">
+                <p className="text-sm text-red-600 font-medium">
                   Total AI-kostnad: {stats.costs.total_ai_cost.toFixed(2)} kr |
                   {openaiUsage?.data?.totalCost && (
                     <>Faktisk från OpenAI: {(openaiUsage.data.totalCost * 10.5).toFixed(2)} kr | </>
@@ -952,12 +1169,17 @@ export default function StatisticsPage() {
                   Tokens: {openaiUsage?.data?.totalTokens?.toLocaleString() || 'N/A'}
                 </p>
               </div>
-            </div>
+            </motion.div>
           )}
 
           {selectedTab === 'profit' && (
-            <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">Vinst per dag</h2>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="bg-white/90 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300"
+            >
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">Vinst per dag</h2>
               <ResponsiveContainer width="100%" height={400}>
                 <AreaChart data={chartData.profit}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
@@ -975,16 +1197,16 @@ export default function StatisticsPage() {
                 </AreaChart>
               </ResponsiveContainer>
               <div className="mt-4 grid grid-cols-2 gap-4">
-                <div className="p-4 bg-gray-50 rounded-lg">
-                  <p className="text-sm text-gray-600">Bruttomarginal</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.profit.gross_margin.toFixed(1)}%</p>
+                <div className="p-4 bg-slate-50 rounded-xl">
+                  <p className="text-sm text-slate-600">Bruttomarginal</p>
+                  <p className="text-2xl font-bold text-slate-900">{stats.profit.gross_margin.toFixed(1)}%</p>
                 </div>
-                <div className="p-4 bg-gray-50 rounded-lg">
-                  <p className="text-sm text-gray-600">Nettomarginal</p>
-                  <p className="text-2xl font-bold text-gray-900">{stats.profit.net_margin.toFixed(1)}%</p>
+                <div className="p-4 bg-slate-50 rounded-xl">
+                  <p className="text-sm text-slate-600">Nettomarginal</p>
+                  <p className="text-2xl font-bold text-slate-900">{stats.profit.net_margin.toFixed(1)}%</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           )}
 
           {selectedTab === 'ai_costs' && (
@@ -994,7 +1216,7 @@ export default function StatisticsPage() {
                 <select
                   value={aiMetric}
                   onChange={(e) => setAiMetric(e.target.value as 'calls' | 'cost' | 'tokens')}
-                  className="px-4 py-2 bg-white text-gray-900 rounded-lg border border-gray-200 shadow-sm"
+                  className="px-4 py-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-xl shadow-md focus:ring-2 focus:ring-pink-500/20 focus:border-pink-500 transition-all duration-200 cursor-pointer hover:bg-white text-slate-900 font-medium"
                 >
                   <option value="cost">Kostnad (SEK)</option>
                   <option value="calls">Antal anrop</option>
@@ -1003,7 +1225,7 @@ export default function StatisticsPage() {
                 <select
                   value={aiTimeGrouping}
                   onChange={(e) => setAiTimeGrouping(e.target.value as 'day' | 'week' | 'month')}
-                  className="px-4 py-2 bg-white text-gray-900 rounded-lg border border-gray-200 shadow-sm"
+                  className="px-4 py-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-xl shadow-md focus:ring-2 focus:ring-pink-500/20 focus:border-pink-500 transition-all duration-200 cursor-pointer hover:bg-white text-slate-900 font-medium"
                 >
                   <option value="day">Per dag</option>
                   <option value="week">Per vecka</option>
@@ -1013,45 +1235,53 @@ export default function StatisticsPage() {
 
               {/* Feature Usage Chart */}
               {aiFeatureData && aiFeatureData.length > 0 && (
-                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm mb-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Användning per funktion</h2>
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="bg-white/90 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-6">Användning per funktion</h2>
                   <FeatureUsageChart data={aiFeatureData} metric={aiMetric} />
-                </div>
+                </motion.div>
               )}
 
               {/* Cost Breakdown */}
               {aiFeatureData && aiFeatureData.length > 0 && (
-                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm mb-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Kostnadsfördelning</h2>
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="bg-white/90 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-6">Kostnadsfördelning</h2>
                   <FeatureCostBreakdown data={aiFeatureData} />
-                </div>
+                </motion.div>
               )}
 
               {/* Time Series */}
               {aiTimeSeries && aiTimeSeries.length > 0 && (
-                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm mb-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Kostnadsutveckling över tid</h2>
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="bg-white/90 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-6">Kostnadsutveckling över tid</h2>
                   <CostTimeSeriesChart
                     data={aiTimeSeries}
                     groupBy={aiTimeGrouping}
                     features={aiFeatureData?.map((f: any) => f.featureName) || []}
                   />
-                </div>
+                </motion.div>
               )}
 
               {/* Top Users Table */}
               {aiUserCosts && aiUserCosts.length > 0 && (
-                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Topp 20 användare efter kostnad</h2>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="bg-white/90 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-6">Topp 20 användare efter kostnad</h2>
                   <TopUsersTable data={aiUserCosts} />
-                </div>
+                </motion.div>
               )}
 
               {(!aiFeatureData || aiFeatureData.length === 0) && (
-                <div className="bg-navy-800 rounded-lg p-12 border border-gray-700 text-center">
-                  <Brain className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-                  <p className="text-gray-600">Ingen AI-kostnadsdata hittades för vald period</p>
-                </div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="bg-gradient-to-br from-slate-50 to-blue-50/30 rounded-2xl p-12 text-center border border-slate-200"
+                >
+                  <Brain className="w-16 h-16 text-slate-400 mx-auto mb-4" />
+                  <p className="text-slate-600">Ingen AI-kostnadsdata hittades för vald period</p>
+                </motion.div>
               )}
             </>
           )}
@@ -1063,7 +1293,7 @@ export default function StatisticsPage() {
                 <select
                   value={usageMetric}
                   onChange={(e) => setUsageMetric(e.target.value as 'calls' | 'users' | 'avgCalls' | 'successRate')}
-                  className="px-4 py-2 bg-white text-gray-900 rounded-lg border border-gray-200 shadow-sm"
+                  className="px-4 py-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-xl shadow-md focus:ring-2 focus:ring-pink-500/20 focus:border-pink-500 transition-all duration-200 cursor-pointer hover:bg-white text-slate-900 font-medium"
                 >
                   <option value="calls">Totalt antal anrop</option>
                   <option value="users">Unika användare</option>
@@ -1074,15 +1304,15 @@ export default function StatisticsPage() {
 
               {/* Usage Statistics Chart */}
               {usageStats && usageStats.length > 0 && (
-                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm mb-6">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">Användningsstatistik per funktion</h2>
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="bg-white/90 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-6">Användningsstatistik per funktion</h2>
                   <UsageStatisticsChart data={usageStats} metric={usageMetric} />
-                </div>
+                </motion.div>
               )}
 
               {/* Feature Popularity Over Time */}
               {usageStats && usageStats.length > 0 && (
-                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm mb-6">
+                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="bg-white/90 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300">
                   <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-semibold text-gray-900">Popularitetsutveckling</h2>
                     <div className="flex gap-2 flex-wrap">
@@ -1113,109 +1343,140 @@ export default function StatisticsPage() {
                     data={usageStats}
                     selectedFeatures={selectedFeaturesForPopularity}
                   />
-                </div>
+                </motion.div>
               )}
 
               {/* User Engagement Table */}
               {userEngagement && userEngagement.length > 0 && (
-                <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-                  <h2 className="text-xl font-semibold text-gray-900 mb-4">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="bg-white/90 backdrop-blur-lg border border-white/20 rounded-2xl p-8 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300">
+                  <h2 className="text-2xl font-bold text-slate-900 mb-6">
                     Användarengagemang
                     <span className="text-sm text-gray-600 ml-2">
                       ({userEngagement.length} användare)
                     </span>
                   </h2>
                   <UserEngagementTable data={userEngagement} />
-                </div>
+                </motion.div>
               )}
 
               {(!usageStats || usageStats.length === 0) && (
-                <div className="bg-navy-800 rounded-lg p-12 border border-gray-700 text-center">
-                  <Zap className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-                  <p className="text-gray-600">Ingen användningsdata hittades för vald period</p>
-                </div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="bg-gradient-to-br from-slate-50 to-blue-50/30 rounded-2xl p-12 text-center border border-slate-200"
+                >
+                  <Zap className="w-16 h-16 text-slate-400 mx-auto mb-4" />
+                  <p className="text-slate-600">Ingen användningsdata hittades för vald period</p>
+                </motion.div>
               )}
             </>
           )}
         </div>
 
-        {/* Detailed Stats Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
+        {/* Detailed Stats Grid - Premium cards */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.7 }}
+          className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-10"
+        >
           {/* Users Section */}
-          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Användaranalys</h2>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.75 }}
+            whileHover={{ y: -4 }}
+            className="bg-white/90 backdrop-blur-lg rounded-2xl p-6 border border-white/20 shadow-lg shadow-slate-200/50 hover:shadow-xl transition-all duration-300"
+          >
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">Användaranalys</h2>
             <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Premium-användare</span>
-                <span className="text-green-400 font-semibold">{stats.users.premium}</span>
+              <div className="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 transition-colors">
+                <span className="text-slate-600">Premium-användare</span>
+                <span className="text-green-600 font-semibold">{stats.users.premium}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Gratisanvändare</span>
-                <span className="text-blue-400 font-semibold">{stats.users.free}</span>
+              <div className="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 transition-colors">
+                <span className="text-slate-600">Gratisanvändare</span>
+                <span className="text-blue-600 font-semibold">{stats.users.free}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Aktiva idag</span>
-                <span className="text-gray-900">{stats.users.active_today}</span>
+              <div className="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 transition-colors">
+                <span className="text-slate-600">Aktiva idag</span>
+                <span className="text-slate-900 font-medium">{stats.users.active_today}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Nya denna vecka</span>
-                <span className="text-gray-900">{stats.users.new_week}</span>
+              <div className="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 transition-colors">
+                <span className="text-slate-600">Nya denna vecka</span>
+                <span className="text-slate-900 font-medium">{stats.users.new_week}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Retention Rate</span>
-                <span className="text-gray-900">{stats.users.retention_rate}%</span>
+              <div className="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 transition-colors">
+                <span className="text-slate-600">Retention Rate</span>
+                <span className="text-slate-900 font-medium">{stats.users.retention_rate}%</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Revenue Section */}
-          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Ekonomi</h2>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            whileHover={{ y: -4 }}
+            className="bg-white/90 backdrop-blur-lg rounded-2xl p-6 border border-white/20 shadow-lg shadow-slate-200/50 hover:shadow-xl transition-all duration-300"
+          >
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">Ekonomi</h2>
             <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Total intäkt</span>
-                <span className="text-green-400 font-semibold">
+              <div className="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 transition-colors">
+                <span className="text-slate-600">Total intäkt</span>
+                <span className="text-green-600 font-semibold">
                   {(stripeRevenue?.revenue.total || stats.revenue.total_revenue).toLocaleString('sv-SE')} kr
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">AI-kostnader</span>
-                <span className="text-red-400 font-semibold">{stats.costs.total_ai_cost.toFixed(2)} kr</span>
+              <div className="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 transition-colors">
+                <span className="text-slate-600">AI-kostnader</span>
+                <span className="text-red-600 font-semibold">{stats.costs.total_ai_cost.toFixed(2)} kr</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Nettovinst</span>
-                <span className="text-blue-400 font-semibold">{stats.profit.net_profit.toFixed(0)} kr</span>
+              <div className="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 transition-colors">
+                <span className="text-slate-600">Nettovinst</span>
+                <span className="text-blue-600 font-semibold">{stats.profit.net_profit.toFixed(0)} kr</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">LTV</span>
-                <span className="text-gray-900">{stats.revenue.lifetime_value} kr</span>
+              <div className="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 transition-colors">
+                <span className="text-slate-600">LTV</span>
+                <span className="text-slate-900 font-medium">{stats.revenue.lifetime_value} kr</span>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Usage Section */}
-          <div className="bg-white rounded-lg p-6 border border-gray-200 shadow-sm">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">Användning</h2>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.85 }}
+            whileHover={{ y: -4 }}
+            className="bg-white/90 backdrop-blur-lg rounded-2xl p-6 border border-white/20 shadow-lg shadow-slate-200/50 hover:shadow-xl transition-all duration-300"
+          >
+            <h2 className="text-2xl font-bold text-slate-900 mb-6">Användning</h2>
             <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-600">CV:n</span>
-                <span className="text-gray-900">{stats.usage.total_cvs}</span>
+              <div className="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 transition-colors">
+                <span className="text-slate-600">CV:n</span>
+                <span className="text-slate-900 font-medium">{stats.usage.total_cvs}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Brev genererade</span>
-                <span className="text-gray-900">{stats.usage.total_letters}</span>
+              <div className="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 transition-colors">
+                <span className="text-slate-600">Brev genererade</span>
+                <span className="text-slate-900 font-medium">{stats.usage.total_letters}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Sparfrekvens</span>
-                <span className="text-gray-900">{stats.usage.save_rate}%</span>
+              <div className="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 transition-colors">
+                <span className="text-slate-600">Sparfrekvens</span>
+                <span className="text-slate-900 font-medium">{stats.usage.save_rate}%</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">CV-analyser</span>
-                <span className="text-gray-900">{stats.usage.cv_analyses}</span>
+              <div className="flex justify-between items-center p-2 rounded-lg hover:bg-slate-50 transition-colors">
+                <span className="text-slate-600">CV-analyser</span>
+                <span className="text-slate-900 font-medium">{stats.usage.cv_analyses}</span>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );
