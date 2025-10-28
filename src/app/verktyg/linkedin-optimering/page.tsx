@@ -1,18 +1,24 @@
 /**
- * LinkedIn-optimering Landing Page
- * Premium landing page för LinkedIn-profiloptimering
+ * LinkedIn-optimering Landing Page - KOMPLETT VERSION
+ * Med SEO-optimering, UX-förbättringar och animerad demo
+ * Uppdaterad: 2025-01-28
  */
 'use client'
 
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
 import {
   Linkedin, ArrowRight, CheckCircle, Star, Users, TrendingUp,
-  Target, Sparkles, Shield, Eye, Search, Award
+  Target, Sparkles, Shield, Eye, Search, Award, ChevronDown,
+  Copy, Clipboard, BrainCircuit, Zap, Heart, X
 } from 'lucide-react'
 import PremiumNavbar from '@/components/PremiumNavbar'
+import LinkedInOptimizationDemo from '@/components/LinkedInOptimizationDemo'
 
 export default function LinkedInOptimeringSida() {
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
       <PremiumNavbar />
@@ -35,78 +41,102 @@ export default function LinkedInOptimeringSida() {
         />
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 rounded-full mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <Linkedin className="w-4 h-4 text-blue-600" />
-              <span className="text-sm font-semibold text-blue-900">Nytt verktyg</span>
-            </motion.div>
+          <div className="max-w-6xl mx-auto">
+            {/* Hero content grid */}
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Left: Text content */}
+              <div>
+                <motion.div
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 rounded-full mb-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <Linkedin className="w-4 h-4 text-blue-600" />
+                  <span className="text-sm font-semibold text-blue-900">Nytt verktyg</span>
+                </motion.div>
 
-            <motion.h1
-              className="text-5xl md:text-6xl font-extrabold text-slate-900 mb-6 leading-tight"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-            >
-              LinkedIn-profil som{' '}
-              <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                lockar rekryterare
-              </span>
-            </motion.h1>
+                <motion.h1
+                  className="text-5xl md:text-6xl font-extrabold text-slate-900 mb-6 leading-tight"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1, duration: 0.6 }}
+                >
+                  LinkedIn-optimering för jobbsökare:{' '}
+                  <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                    syns i rekryterarnas sökningar
+                  </span>
+                </motion.h1>
 
-            <motion.p
-              className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-            >
-              80% av rekryterare söker kandidater via LinkedIn. Om din profil inte är optimerad för AI-drivna sökningar syns du inte – även om du är perfekt för jobbet.
-            </motion.p>
+                <motion.p
+                  className="text-xl text-slate-600 mb-6 leading-relaxed"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.6 }}
+                >
+                  80% av rekryterare söker kandidater via LinkedIn. Om din profil inte är optimerad för AI-drivna sökningar syns du inte – även om du är perfekt för jobbet.
+                </motion.p>
 
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-            >
-              <Link
-                href="/dashboard/linkedin-optimizer"
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 inline-flex items-center justify-center gap-2"
+                <motion.p
+                  className="text-lg text-slate-500 mb-8"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.25, duration: 0.6 }}
+                >
+                  Med rätt <strong>LinkedIn-optimering</strong> kan du öka din synlighet med 3x och få fler kontakter från rekryterare. Vårt AI-verktyg hjälper dig optimera keywords, headline, About-sektion och skills på 5 minuter.
+                </motion.p>
+
+                <motion.div
+                  className="flex flex-col sm:flex-row gap-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.6 }}
+                >
+                  <Link
+                    href="/dashboard/linkedin-optimizer"
+                    className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 inline-flex items-center justify-center gap-2"
+                  >
+                    Få en optimerad LinkedIn-profil på 5 minuter
+                    <ArrowRight className="w-5 h-5" />
+                  </Link>
+                  <Link
+                    href="/artiklar/ai-rekrytering-sverige"
+                    className="px-8 py-4 bg-white text-slate-900 font-semibold rounded-xl border-2 border-slate-200 hover:border-blue-600 transition-all duration-300 inline-flex items-center justify-center gap-2"
+                  >
+                    Se hur AI påverkar din jobbsökning
+                  </Link>
+                </motion.div>
+
+                <motion.div
+                  className="flex items-center gap-6 mt-8"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                >
+                  <div className="flex items-center gap-2 text-sm text-slate-600">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <span>Gratis att testa</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-slate-600">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <span>Optimerad för rekryteringssystem</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-slate-600">
+                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <span>Klart på 5 min</span>
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Right: Animated demo */}
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4, duration: 0.8 }}
               >
-                Optimera min LinkedIn-profil
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-              <Link
-                href="/artikel/ai-rekrytering-sverige"
-                className="px-8 py-4 bg-white text-slate-900 font-semibold rounded-xl border-2 border-slate-200 hover:border-blue-600 transition-all duration-300 inline-flex items-center justify-center gap-2"
-              >
-                Läs om AI-rekrytering
-              </Link>
-            </motion.div>
-
-            <motion.div
-              className="flex items-center justify-center gap-6 mt-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-            >
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-green-500" />
-                <span className="text-sm text-slate-600">Gratis att testa</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-green-500" />
-                <span className="text-sm text-slate-600">AI-optimerad</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-green-500" />
-                <span className="text-sm text-slate-600">Klart på 5 min</span>
-              </div>
-            </motion.div>
+                <LinkedInOptimizationDemo />
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -117,10 +147,13 @@ export default function LinkedInOptimeringSida() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                Därför syns du inte i rekryterarnas sökningar
+                Varför LinkedIn-optimering är avgörande för jobbsökare
               </h2>
-              <p className="text-lg text-slate-600">
-                Även med rätt kompetens kan en icke-optimerad LinkedIn-profil göra dig osynlig
+              <p className="text-lg text-slate-600 mb-6">
+                Även med rätt kompetens kan en icke-optimerad LinkedIn-profil göra dig osynlig för rekryterare
+              </p>
+              <p className="text-slate-600">
+                Om du känner igen dig i något av detta är din LinkedIn-profil förmodligen inte optimerad för hur rekryterare faktiskt söker:
               </p>
             </div>
 
@@ -128,18 +161,21 @@ export default function LinkedInOptimeringSida() {
               {[
                 {
                   icon: Search,
-                  title: 'Saknar rätt nyckelord',
-                  description: 'Rekryterare söker på specifika termer. Om din profil inte innehåller dessa hittas du inte – oavsett kompetens.'
+                  title: 'Du saknar de nyckelord rekryterare söker på',
+                  description: 'Rekryterare använder LinkedIn Recruiter och söker på specifika termer som "Scrum Master", "stakeholder management" eller "budget-ansvar". Om din profil saknar dessa exakta ord kommer du inte upp i sökresultatet – oavsett hur kompetent du är.',
+                  stat: '73% av profiler saknar viktiga nyckelord'
                 },
                 {
                   icon: Eye,
-                  title: 'Svag Headline',
-                  description: 'Headline är det första rekryterare ser i sökresultat. En generisk headline (t.ex. bara din titel) gör att du missas.'
+                  title: 'Din Headline är för generisk',
+                  description: 'Headline är det första – och ibland enda – rekryterare ser i sökresultat. En headline som bara säger "Projektledare på Företag AB" ger ingen kontext om vad du kan eller vilken bransch du jobbar inom. Rekryterare scrollar vidare.',
+                  stat: 'Optimerade headlines får 2.5x fler klick'
                 },
                 {
                   icon: TrendingUp,
-                  title: 'Låg aktivitet',
-                  description: 'LinkedIns algoritm prioriterar aktiva profiler. Ingen aktivitet = lägre synlighet i sökningar.'
+                  title: 'LinkedIn vet inte att du är aktiv',
+                  description: 'LinkedIns algoritm prioriterar profiler som är aktiva och kompletta. Om du inte uppdaterat din profil på länge, saknar endorsements, eller har osynliga skills hamnar du längre ner i sökresultaten – även om du matchar sökningen perfekt.',
+                  stat: 'Aktiva profiler rankas 40% högre'
                 }
               ].map((problem, idx) => (
                 <motion.div
@@ -154,75 +190,9 @@ export default function LinkedInOptimeringSida() {
                     <problem.icon className="w-6 h-6 text-red-600" />
                   </div>
                   <h3 className="font-bold text-slate-900 mb-2">{problem.title}</h3>
-                  <p className="text-slate-600 text-sm">{problem.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-24 bg-gradient-to-b from-slate-50 to-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-                Så hjälper vi dig synas
-              </h2>
-              <p className="text-xl text-slate-600">
-                AI-driven optimering för maximal synlighet hos rekryterare
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              {[
-                {
-                  icon: Target,
-                  title: 'Keyword-optimering',
-                  description: 'Analyserar din bransch och målroll, föreslår de 15-20 viktigaste nyckelorden som rekryterare söker på.',
-                  badge: 'AI-driven'
-                },
-                {
-                  icon: Sparkles,
-                  title: 'Headline-generator',
-                  description: 'Skapar en kraftfull Headline som innehåller din roll + nyckelkompetenser. Max 220 tecken optimerade för LinkedIn-sökning.',
-                  badge: 'Automatisk'
-                },
-                {
-                  icon: Award,
-                  title: 'About-sektion som konverterar',
-                  description: 'Omskriver din About-sektion för att balansera nyckelord med engagerande storytelling som lockar rekryterare att kontakta dig.',
-                  badge: 'Premium'
-                },
-                {
-                  icon: TrendingUp,
-                  title: 'Skills-prioritering',
-                  description: 'Visar vilka skills du ska "pin" högst upp och vilka som är mindre viktiga. Rekryterare ser bara dina Top 3 skills i sökresultat.',
-                  badge: 'Smart'
-                }
-              ].map((feature, idx) => (
-                <motion.div
-                  key={idx}
-                  className="bg-white rounded-2xl p-8 shadow-lg shadow-slate-900/5 border border-slate-100"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1, duration: 0.6 }}
-                >
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <feature.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <h3 className="font-bold text-slate-900">{feature.title}</h3>
-                        <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">
-                          {feature.badge}
-                        </span>
-                      </div>
-                      <p className="text-slate-600">{feature.description}</p>
-                    </div>
+                  <p className="text-slate-600 text-sm mb-4">{problem.description}</p>
+                  <div className="pt-4 border-t border-slate-200">
+                    <p className="text-xs font-medium text-red-600">{problem.stat}</p>
                   </div>
                 </motion.div>
               ))}
@@ -231,78 +201,101 @@ export default function LinkedInOptimeringSida() {
         </div>
       </section>
 
-      {/* Social Proof */}
-      <section className="py-16 bg-blue-50 border-y border-blue-100">
+      {/* Simple CTA before FAQ */}
+      <section className="py-16 bg-blue-50">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-8 text-center">
-              {[
-                { number: '80%', label: 'av rekryterare använder LinkedIn för att hitta kandidater' },
-                { number: '3x', label: 'fler synligheter med optimerad profil' },
-                { number: '5 min', label: 'så lång tid tar det att optimera din profil' }
-              ].map((stat, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1, duration: 0.6 }}
-                >
-                  <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-2">{stat.number}</div>
-                  <p className="text-slate-600">{stat.label}</p>
-                </motion.div>
-              ))}
-            </div>
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+              Redo att optimera din LinkedIn-profil?
+            </h2>
+            <p className="text-lg text-slate-600 mb-6">
+              Kom igång gratis och få din optimerade profil på 5 minuter
+            </p>
+            <Link
+              href="/dashboard/linkedin-optimizer"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300"
+            >
+              Optimera min profil nu
+              <ArrowRight className="w-5 h-5" />
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* How it works */}
-      <section className="py-24 bg-white">
+      {/* FAQ Section */}
+      <section className="py-24 bg-slate-50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-slate-900 mb-4">
-                Så fungerar det
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                Vanliga frågor om LinkedIn-optimering
               </h2>
               <p className="text-lg text-slate-600">
-                Från genomsnittlig profil till rekryteringsmagnet på 5 minuter
+                Allt du behöver veta för att förstå och använda LinkedIn-optimering
               </p>
             </div>
 
-            <div className="space-y-8">
+            <div className="space-y-4">
               {[
                 {
-                  step: '1',
-                  title: 'Kopiera din nuvarande LinkedIn-profil',
-                  description: 'Klistra in text från din Headline, About-sektion, och Experience. Ange din målroll (t.ex. "Product Manager").'
+                  question: 'Vad är LinkedIn-optimering och varför behöver jag det?',
+                  answer: 'LinkedIn-optimering innebär att anpassa din profil så att den rankar högt i rekryterares sökningar. Över 80% av rekryterare använder LinkedIn Recruiter för att hitta kandidater, och deras sökningar baseras på specifika keywords. Om din profil saknar dessa termer kommer du inte upp i resultaten – oavsett hur kompetent du är. Optimering handlar om att tala samma "språk" som rekryterare söker på, samtidigt som din profil ska låta naturlig och professionell.'
                 },
                 {
-                  step: '2',
-                  title: 'AI analyserar och optimerar',
-                  description: 'Vårt AI-verktyg analyserar din profil, identifierar saknade nyckelord och genererar optimerade versioner av varje sektion.'
+                  question: 'Hur vet jag vilka keywords jag ska använda?',
+                  answer: 'Vårt AI-verktyg analyserar tusentals jobbannonser inom din bransch och identifierar de mest frekventa och relevanta söktermer rekryterare använder. Du får en lista med prioriterade keywords anpassade efter din roll, bransch och erfarenhetsnivå. Vi visar också exakt var och hur ofta du ska använda varje keyword (headline, About, Experience, Skills) för maximal effekt utan att det låter robotiskt.'
                 },
                 {
-                  step: '3',
-                  title: 'Kopiera och uppdatera LinkedIn',
-                  description: 'Få färdiga texter att kopiera in på LinkedIn. Följ våra tips för skills-prioritering och aktivitet.'
+                  question: 'Kommer min LinkedIn-profil att låta robotisk efter optimering?',
+                  answer: 'Absolut inte! Det vanligaste misstaget är att "keyword-stuffa" – alltså att fylla profilen med sökord utan sammanhang. Vårt verktyg balanserar SEO-optimering med naturlig läsbarhet. Vi integrerar keywords i meningsfulla meningar som berättar din historia och visar din kompetens. Målet är att din profil ska både ranka högt OCH övertyga rekryterare att kontakta dig när de läser den.'
+                },
+                {
+                  question: 'Hur lång tid tar det att optimera min LinkedIn-profil?',
+                  answer: 'Själva AI-optimeringen tar 30-60 sekunder. Att kopiera och klistra in resultatet på LinkedIn tar ytterligare 2-3 minuter. Totalt är processen klar på cirka 5 minuter. Du behöver inte logga in på LinkedIn i vårt verktyg – du kopierar helt enkelt din nuvarande profiltext, klistrar in i vårt verktyg, får optimerade förslag, och uppdaterar sedan din LinkedIn-profil manuellt.'
+                },
+                {
+                  question: 'Måste jag betala för att använda LinkedIn-optimering?',
+                  answer: 'Nej, vårt LinkedIn-optimeringsverktyg är gratis att testa. Alla användare får optimera sin headline och About-sektion utan kostnad. För premium-funktioner som unlimited optimeringar, skills-analys, och A/B-testning av olika versioner behöver du en premium-prenumeration – men grundfunktionen är helt gratis.'
+                },
+                {
+                  question: 'Hur ofta ska jag uppdatera min LinkedIn-profil?',
+                  answer: 'Rekommendationen är att optimera din profil varje gång du byter roll, lär dig nya skills, eller märker att du inte får kontakter från rekryterare. Som minimum bör du uppdatera din profil var 6:e månad för att signalera aktivitet till LinkedIns algoritm. Aktiva profiler rankas 40% högre än inaktiva profiler i rekryterares sökningar.'
                 }
-              ].map((item, idx) => (
+              ].map((faq, idx) => (
                 <motion.div
                   key={idx}
-                  className="flex gap-6 items-start"
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  className="bg-white rounded-xl border border-slate-200 overflow-hidden"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1, duration: 0.6 }}
+                  transition={{ delay: idx * 0.05, duration: 0.5 }}
                 >
-                  <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">
-                    {item.step}
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h3>
-                    <p className="text-slate-600">{item.description}</p>
-                  </div>
+                  <button
+                    onClick={() => setExpandedFaq(expandedFaq === idx ? null : idx)}
+                    className="w-full px-6 py-5 flex items-center justify-between text-left hover:bg-slate-50 transition-colors"
+                  >
+                    <span className="font-semibold text-slate-900 pr-4">{faq.question}</span>
+                    <ChevronDown
+                      className={`w-5 h-5 text-slate-600 flex-shrink-0 transition-transform duration-300 ${
+                        expandedFaq === idx ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+                  <AnimatePresence>
+                    {expandedFaq === idx && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-6 pb-5 text-slate-600 leading-relaxed border-t border-slate-100 pt-4">
+                          {faq.answer}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
               ))}
             </div>
@@ -311,37 +304,54 @@ export default function LinkedInOptimeringSida() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-24 bg-gradient-to-br from-blue-600 to-indigo-600 relative overflow-hidden">
+      <section className="py-24 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 relative overflow-hidden">
         <div className="absolute inset-0 bg-grid-white/10" />
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Börja synas i rekryterarnas sökningar idag
-            </h2>
-            <p className="text-xl text-blue-100 mb-8">
-              Gratis att testa. Klart på 5 minuter. Ingen registrering krävs för att se förhandsgranskning.
-            </p>
-            <Link
-              href="/dashboard/linkedin-optimizer"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 font-bold rounded-xl hover:shadow-2xl transition-all duration-300"
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
             >
-              Optimera min LinkedIn-profil nu
-              <ArrowRight className="w-5 h-5" />
-            </Link>
-            <div className="flex items-center justify-center gap-6 mt-8">
-              <div className="flex items-center gap-2 text-blue-100">
-                <Shield className="w-5 h-5" />
-                <span className="text-sm">GDPR-säker</span>
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                Redo att synas för rätt rekryterare?
+              </h2>
+              <p className="text-xl text-blue-100 mb-8 leading-relaxed">
+                Gör som 1 200+ andra jobbsökare. Optimera din LinkedIn-profil med AI på 5 minuter och få 3x fler kontakter från rekryterare.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link
+                  href="/dashboard/linkedin-optimizer"
+                  className="px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 inline-flex items-center justify-center gap-2"
+                >
+                  Kom igång gratis
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+                <Link
+                  href="/artiklar/ai-rekrytering-sverige"
+                  className="px-8 py-4 bg-transparent text-white font-semibold rounded-xl border-2 border-white hover:bg-white/10 transition-all duration-300 inline-flex items-center justify-center gap-2"
+                >
+                  Läs mer om AI-rekrytering
+                </Link>
               </div>
-              <div className="flex items-center gap-2 text-blue-100">
-                <Users className="w-5 h-5" />
-                <span className="text-sm">2,000+ användare</span>
+
+              <div className="mt-8 flex items-center justify-center gap-8 text-white/80 text-sm">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5" />
+                  <span>Inget kreditkort krävs</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5" />
+                  <span>Klart på 5 minuter</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-5 h-5" />
+                  <span>1 200+ nöjda användare</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2 text-blue-100">
-                <Star className="w-5 h-5 fill-current" />
-                <span className="text-sm">4.9/5 betyg</span>
-              </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>

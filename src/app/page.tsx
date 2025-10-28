@@ -389,7 +389,7 @@ export default function HomePage() {
                     Våra verktyg hjälper dig att passera både AI-systemen OCH imponera på rekryterarna.
                   </p>
                   <Link
-                    href="/artikel/ai-rekrytering-sverige"
+                    href="/artiklar/ai-rekrytering-sverige"
                     className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold transition-colors"
                   >
                     Läs vår djupanalys om AI-rekrytering
