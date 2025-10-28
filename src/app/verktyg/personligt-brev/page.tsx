@@ -144,7 +144,7 @@ export default function PersonligtBrevSida() {
       "@type": "Offer",
       "price": "0",
       "priceCurrency": "SEK",
-      "description": "Gratis att testa, premium från 99 kr/mån"
+      "description": "Gratis att testa, premium från 149 kr/mån"
     },
     "aggregateRating": {
       "@type": "AggregateRating",

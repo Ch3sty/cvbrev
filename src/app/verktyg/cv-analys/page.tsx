@@ -1013,7 +1013,7 @@ export default function CVAnalysisLandingPage() {
                 <div className="mb-6">
                   <h3 className="text-2xl font-bold text-slate-900 mb-2">Premium</h3>
                   <p className="text-4xl font-bold text-slate-900 mb-1">
-                    199 kr
+                    149 kr
                     <span className="text-lg font-normal text-slate-600">/månad</span>
                   </p>
                   <p className="text-sm text-slate-600">För seriösa jobbsökare</p>

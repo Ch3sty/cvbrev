@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import {
-  FileText, Download, Eye, CheckCircle, Sparkles,
+  FileText, Download, CheckCircle, Sparkles,
   Upload, Clock, ArrowRight
 } from 'lucide-react'
 
@@ -70,20 +70,20 @@ const scenarios: TemplateScenario[] = [
 const processSteps = [
   {
     icon: Upload,
-    title: 'Välj mall',
+    title: 'Ladda upp ditt CV',
+    subtitle: 'Spara en gång på profilen',
+    color: 'from-purple-600 to-pink-600'
+  },
+  {
+    icon: FileText,
+    title: 'Välj din mall',
     subtitle: 'Bläddra bland 8 mallar',
     color: 'from-blue-600 to-cyan-600'
   },
   {
-    icon: FileText,
-    title: 'Ladda upp CV',
-    subtitle: 'Vi läser din information',
-    color: 'from-purple-600 to-pink-600'
-  },
-  {
-    icon: Eye,
-    title: 'Förhandsgranska',
-    subtitle: 'Kontrollera resultatet',
+    icon: Sparkles,
+    title: 'Vi flyttar allt automatiskt',
+    subtitle: 'Matchar info med designen',
     color: 'from-orange-600 to-red-600'
   },
   {

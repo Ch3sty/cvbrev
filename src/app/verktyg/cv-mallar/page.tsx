@@ -44,7 +44,7 @@ export default function CVMallarLandingPage() {
       },
       "offers": {
         "@type": "Offer",
-        "price": template.tier === 'free' ? "0" : "199",
+        "price": template.tier === 'free' ? "0" : "149",
         "priceCurrency": "SEK",
         "availability": "https://schema.org/InStock",
         "url": `https://jobbcoach.ai/verktyg/cv-mallar#${template.id}`
@@ -633,7 +633,7 @@ export default function CVMallarLandingPage() {
                 <div className="mb-6">
                   <h3 className="text-2xl font-bold text-slate-900 mb-2">Premium-mallar</h3>
                   <p className="text-4xl font-bold text-slate-900 mb-1">
-                    299 kr
+                    149 kr
                     <span className="text-lg font-normal text-slate-600">/månad</span>
                   </p>
                   <p className="text-sm text-slate-600">Ingår i Premium</p>
