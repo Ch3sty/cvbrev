@@ -112,11 +112,11 @@ export default function PremiumNavbar() {
         },
         {
           name: 'CV-Mallar',
-          href: '/dashboard/cv-mallar',
+          href: '/verktyg/cv-mallar',
           icon: Palette,
           description: 'Professionella CV-mallar',
           gradient: 'from-green-500 to-teal-500',
-          requireLogin: true
+          requireLogin: false
         },
         {
           name: 'CV-Analys',
