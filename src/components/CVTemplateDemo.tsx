@@ -347,16 +347,17 @@ export default function CVTemplateDemo() {
           ))}
         </div>
 
-        {/* Features reveal */}
-        <AnimatePresence>
-          {showFeatures && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
-              className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border-2 border-green-200"
-            >
+        {/* Features reveal - Fixed height container to prevent layout shift */}
+        <div className="min-h-[240px]">
+          <AnimatePresence>
+            {showFeatures && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.4 }}
+                className="p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border-2 border-green-200"
+              >
               <div className="flex items-center gap-2 mb-4">
                 <Sparkles className="w-5 h-5 text-green-600" />
                 <h4 className="font-bold text-slate-900">
@@ -398,6 +399,7 @@ export default function CVTemplateDemo() {
             </motion.div>
           )}
         </AnimatePresence>
+        </div>
       </motion.div>
     </div>
   )

@@ -236,45 +236,48 @@ export default function RecruitmentTestDemo() {
           </div>
         </div>
 
-        {/* Example question card */}
-        <AnimatePresence mode="wait">
-          {showExample && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="bg-white rounded-xl border-2 border-slate-200 p-5 shadow-md"
-            >
-              <div className="flex items-start gap-3 mb-3">
-                <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${scenario.gradient} flex items-center justify-center flex-shrink-0`}>
-                  <Icon className="w-4 h-4 text-white" />
-                </div>
-                <div className="flex-1">
-                  <p className="text-sm font-semibold text-slate-900 mb-1">Exempelfråga:</p>
-                  <p className="text-sm text-slate-700">{scenario.example.question}</p>
-                </div>
-              </div>
-
-              <div className="pl-11 space-y-2">
-                <div className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="text-xs font-semibold text-green-900">Korrekt svar:</p>
-                    <p className="text-sm text-slate-700">{scenario.example.answer}</p>
+        {/* Example question card - Fixed height container to prevent layout shift */}
+        <div className="min-h-[180px]">
+          <AnimatePresence mode="wait">
+            {showExample && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="bg-white rounded-xl border-2 border-slate-200 p-5 shadow-md"
+              >
+                <div className="flex items-start gap-3 mb-3">
+                  <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${scenario.gradient} flex items-center justify-center flex-shrink-0`}>
+                    <Icon className="w-4 h-4 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-sm font-semibold text-slate-900 mb-1">Exempelfråga:</p>
+                    <p className="text-sm text-slate-700">{scenario.example.question}</p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-2">
-                  <Brain className={`w-4 h-4 text-${scenario.color}-600 mt-0.5 flex-shrink-0`} />
-                  <div>
-                    <p className="text-xs font-semibold text-slate-900">Förklaring:</p>
-                    <p className="text-sm text-slate-600">{scenario.example.explanation}</p>
+                <div className="pl-11 space-y-2">
+                  <div className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-xs font-semibold text-green-900">Korrekt svar:</p>
+                      <p className="text-sm text-slate-700">{scenario.example.answer}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-2">
+                    <Brain className={`w-4 h-4 text-${scenario.color}-600 mt-0.5 flex-shrink-0`} />
+                    <div>
+                      <p className="text-xs font-semibold text-slate-900">Förklaring:</p>
+                      <p className="text-sm text-slate-600">{scenario.example.explanation}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         {/* Progress bar */}
         <div className="mt-6">

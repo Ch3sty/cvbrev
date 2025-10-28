@@ -247,41 +247,46 @@ export default function CVAnalysisDemo() {
             />
           </div>
 
-          {/* Issue Legend */}
+          {/* Issue Legend - Fixed height container to prevent layout shift */}
           <div className="space-y-2">
             <p className="text-xs font-semibold text-slate-600 mb-2">Identifierade problem:</p>
-            <AnimatePresence>
-              {highlightedIssues.includes('passive') && (
-                <motion.div
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="flex items-center gap-2 text-xs"
-                >
-                  <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
-                  <span className="text-slate-600">Passiva verb</span>
-                </motion.div>
-              )}
-              {highlightedIssues.includes('no-numbers') && (
-                <motion.div
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="flex items-center gap-2 text-xs"
-                >
-                  <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                  <span className="text-slate-600">Saknar siffror/resultat</span>
-                </motion.div>
-              )}
-              {highlightedIssues.includes('generic') && (
-                <motion.div
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="flex items-center gap-2 text-xs"
-                >
-                  <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                  <span className="text-slate-600">Generiska beskrivningar</span>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <div className="min-h-[72px]">
+              <AnimatePresence>
+                {highlightedIssues.includes('passive') && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex items-center gap-2 text-xs"
+                  >
+                    <div className="w-3 h-3 bg-orange-400 rounded-full"></div>
+                    <span className="text-slate-600">Passiva verb</span>
+                  </motion.div>
+                )}
+                {highlightedIssues.includes('no-numbers') && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex items-center gap-2 text-xs"
+                  >
+                    <div className="w-3 h-3 bg-red-400 rounded-full"></div>
+                    <span className="text-slate-600">Saknar siffror/resultat</span>
+                  </motion.div>
+                )}
+                {highlightedIssues.includes('generic') && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="flex items-center gap-2 text-xs"
+                  >
+                    <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                    <span className="text-slate-600">Generiska beskrivningar</span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </motion.div>
 
@@ -419,34 +424,38 @@ export default function CVAnalysisDemo() {
               <p className="text-sm font-semibold text-slate-700 mb-2">
                 Förbättringsförslag:
               </p>
-              <AnimatePresence>
-                {scenario.improvements.map((improvement, idx) =>
-                  visibleImprovements.includes(idx) ? (
-                    <motion.div
-                      key={idx}
-                      className="p-3 bg-white rounded-lg border border-green-200"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                    >
-                      <div className="flex items-start gap-2">
-                        <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs font-semibold text-slate-800 mb-1">
-                            {improvement.title}
-                          </p>
-                          <p className="text-xs text-slate-600 leading-relaxed">
-                            {improvement.description}
-                          </p>
+              {/* Fixed height container to prevent layout shift */}
+              <div className="min-h-[320px]">
+                <AnimatePresence>
+                  {scenario.improvements.map((improvement, idx) =>
+                    visibleImprovements.includes(idx) ? (
+                      <motion.div
+                        key={idx}
+                        className="p-3 bg-white rounded-lg border border-green-200 mb-3"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <div className="flex items-start gap-2">
+                          <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-semibold text-slate-800 mb-1">
+                              {improvement.title}
+                            </p>
+                            <p className="text-xs text-slate-600 leading-relaxed">
+                              {improvement.description}
+                            </p>
+                          </div>
+                          {improvement.impact === 'high' && (
+                            <Award className="w-4 h-4 text-orange-500 flex-shrink-0" />
+                          )}
                         </div>
-                        {improvement.impact === 'high' && (
-                          <Award className="w-4 h-4 text-orange-500 flex-shrink-0" />
-                        )}
-                      </div>
-                    </motion.div>
-                  ) : null
-                )}
-              </AnimatePresence>
+                      </motion.div>
+                    ) : null
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           )}
 

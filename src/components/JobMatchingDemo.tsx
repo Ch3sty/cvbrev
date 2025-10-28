@@ -272,55 +272,58 @@ export default function JobMatchingDemo() {
           </AnimatePresence>
         </div>
 
-        {/* Job Results */}
-        <AnimatePresence mode="wait">
-          {showJobs && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="space-y-3"
-            >
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-sm font-semibold text-slate-900">
-                  {scenario.jobs.length} matchade jobb
-                </p>
-                <TrendingUp className="w-4 h-4 text-green-600" />
-              </div>
+        {/* Job Results - Fixed height container to prevent layout shift */}
+        <div className="min-h-[280px]">
+          <AnimatePresence mode="wait">
+            {showJobs && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-3"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <p className="text-sm font-semibold text-slate-900">
+                    {scenario.jobs.length} matchade jobb
+                  </p>
+                  <TrendingUp className="w-4 h-4 text-green-600" />
+                </div>
 
-              {scenario.jobs.map((job, idx) => (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.15 }}
-                  className="bg-white rounded-xl border border-slate-200 p-4 hover:shadow-lg transition-all"
-                >
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-slate-900 text-sm">{job.title}</h4>
-                      <div className="flex items-center gap-3 mt-1">
-                        <span className="text-xs text-slate-600 flex items-center gap-1">
-                          <Briefcase className="w-3 h-3" />
-                          {job.company}
-                        </span>
-                        <span className="text-xs text-slate-600 flex items-center gap-1">
-                          <MapPin className="w-3 h-3" />
-                          {job.location}
-                        </span>
+                {scenario.jobs.map((job, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.15 }}
+                    className="bg-white rounded-xl border border-slate-200 p-4 hover:shadow-lg transition-all"
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-slate-900 text-sm">{job.title}</h4>
+                        <div className="flex items-center gap-3 mt-1">
+                          <span className="text-xs text-slate-600 flex items-center gap-1">
+                            <Briefcase className="w-3 h-3" />
+                            {job.company}
+                          </span>
+                          <span className="text-xs text-slate-600 flex items-center gap-1">
+                            <MapPin className="w-3 h-3" />
+                            {job.location}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Match badge */}
+                      <div className={`px-3 py-1 rounded-full text-white text-xs font-bold bg-gradient-to-r ${getMatchColor(job.match)}`}>
+                        {job.match}%
                       </div>
                     </div>
-
-                    {/* Match badge */}
-                    <div className={`px-3 py-1 rounded-full text-white text-xs font-bold bg-gradient-to-r ${getMatchColor(job.match)}`}>
-                      {job.match}%
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
+                  </motion.div>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         {/* Progress bar */}
         <div className="mt-6">
