@@ -23,7 +23,7 @@ export default function CVAnalysisLandingPage() {
     "@type": "WebApplication",
     "name": "Jobbcoach.ai CV-Analys",
     "url": "https://jobbcoach.ai/verktyg/cv-analys",
-    "description": "Gratis AI-driven CV-analys som ger detaljerad feedback på svenska CV:n på 60 sekunder",
+    "description": "Gratis CV-analys som ger detaljerad feedback på svenska CV:n på 60 sekunder",
     "applicationCategory": "BusinessApplication",
     "operatingSystem": "Web browser",
     "offers": {
@@ -51,7 +51,7 @@ export default function CVAnalysisLandingPage() {
         "name": "Hur fungerar CV-analysen?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ladda upp ditt CV i PDF, DOCX eller TXT-format. Vår AI analyserar ditt CV mot över 50 kvalitetskriterier inklusive ATS-kompatibilitet, struktur, språk och roll-baserad relevans. Du får din feedback på 60 sekunder."
+          "text": "Ladda upp ditt CV i PDF, DOCX eller TXT-format. Vi analyserar ditt CV mot över 50 kvalitetskriterier inklusive ATS-kompatibilitet, struktur, språk och roll-baserad relevans. Du får din feedback på 60 sekunder."
         }
       },
       {
@@ -115,7 +115,7 @@ export default function CVAnalysisLandingPage() {
         "name": "Vad är kvantifieringsförslag?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Vårt AI-verktyg identifierar platser i ditt CV där du kan lägga till mätbara resultat och siffror. Till exempel: istället för 'förbättrade försäljningen' föreslår vi 'ökade försäljningen med 35% på 6 månader'. Detta gör ditt CV mycket mer övertygande."
+          "text": "Vi identifierar platser i ditt CV där du kan lägga till mätbara resultat och siffror. Till exempel: istället för 'förbättrade försäljningen' föreslår vi 'ökade försäljningen med 35% på 6 månader'. Detta gör ditt CV mycket mer övertygande."
         }
       },
       {
@@ -123,7 +123,7 @@ export default function CVAnalysisLandingPage() {
         "name": "Fungerar analysen för alla typer av jobb?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja! Vår AI är tränad på hundratusentals CV:n och jobbannonser inom alla branscher. Du får både generella förbättringsförslag OCH roll-specifika tips baserat på din önskade position."
+          "text": "Ja! Vi har analyserat hundratusentals CV:n och jobbannonser inom alla branscher. Du får både generella förbättringsförslag OCH roll-specifika tips baserat på din önskade position."
         }
       }
     ]
@@ -132,8 +132,8 @@ export default function CVAnalysisLandingPage() {
   const howToSchema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    "name": "Så analyserar du ditt CV med AI",
-    "description": "Steg-för-steg guide för att få AI-feedback på ditt CV",
+    "name": "Så analyserar du ditt CV",
+    "description": "Steg-för-steg guide för att få feedback på ditt CV",
     "totalTime": "PT60S",
     "step": [
       {
@@ -144,8 +144,8 @@ export default function CVAnalysisLandingPage() {
       },
       {
         "@type": "HowToStep",
-        "name": "AI analyserar",
-        "text": "Vår AI analyserar ditt CV på 50-60 sekunder. Vi kontrollerar ATS-vänlighet, struktur, språk, kvantifiering och ger roll-baserade förbättringsförslag.",
+        "name": "Vi analyserar",
+        "text": "Vi analyserar ditt CV på 50-60 sekunder. Vi kontrollerar ATS-vänlighet, struktur, språk, kvantifiering och ger roll-baserade förbättringsförslag.",
         "position": 2
       },
       {
@@ -157,7 +157,7 @@ export default function CVAnalysisLandingPage() {
       {
         "@type": "HowToStep",
         "name": "Välj förbättringar",
-        "text": "Granska AI:ns förslag och välj vilka förbättringar du vill implementera. Du har full kontroll över vilka ändringar som appliceras på ditt CV.",
+        "text": "Granska våra förslag och välj vilka förbättringar du vill implementera. Du har full kontroll över vilka ändringar som appliceras på ditt CV.",
         "position": 4
       },
       {
@@ -232,9 +232,9 @@ export default function CVAnalysisLandingPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
                 >
-                  Gratis CV-Analys med AI –
+                  Gratis CV-analys –
                   <span className="block mt-2 bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
-                    Få Feedback på 60 Sekunder
+                    Få feedback på 60 sekunder
                   </span>
                 </motion.h1>
 
@@ -375,7 +375,7 @@ export default function CVAnalysisLandingPage() {
                 transition={{ duration: 0.6 }}
               >
                 <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                  Så Fungerar CV-Analysen
+                  Så fungerar CV-analysen
                 </h2>
                 <p className="text-lg text-slate-600">
                   Från uppladdning till förbättrat CV på 5 enkla steg
@@ -404,9 +404,9 @@ export default function CVAnalysisLandingPage() {
                     step: 2,
                     icon: Sparkles,
                     iconColor: 'from-red-600 to-red-500',
-                    title: 'AI Analyserar Automatiskt',
+                    title: 'Vi analyserar automatiskt',
                     subtitle: 'Djupanalys mot 50+ kvalitetskriterier',
-                    description: 'Vår AI läser och analyserar ditt CV på 50-60 sekunder. Vi kontrollerar ATS-kompatibilitet, strukturell tydlighet, språklig styrka, kvantifiering av resultat, och ger roll-specifika förbättringsförslag baserat på din erfarenhet.',
+                    description: 'Vi läser och analyserar ditt CV på 50-60 sekunder. Vi kontrollerar ATS-kompatibilitet, strukturell tydlighet, språklig styrka, kvantifiering av resultat, och ger roll-specifika förbättringsförslag baserat på din erfarenhet.',
                     badge: '50-60 sekunder',
                     highlight: true
                   },
@@ -423,16 +423,16 @@ export default function CVAnalysisLandingPage() {
                     step: 4,
                     icon: CheckCircle,
                     iconColor: 'from-blue-600 to-blue-500',
-                    title: 'Välj Vilka Förbättringar Som Implementeras',
+                    title: 'Välj vilka förbättringar som implementeras',
                     subtitle: 'Du har full kontroll över ditt CV',
-                    description: 'Granska AI:ns förslag och välj exakt vilka förbättringar du vill applicera. Se före/efter-jämförelse för varje ändring. Du kan redigera texten direkt om du vill justera något innan det sparas.',
+                    description: 'Granska våra förslag och välj exakt vilka förbättringar du vill applicera. Se före/efter-jämförelse för varje ändring. Du kan redigera texten direkt om du vill justera något innan det sparas.',
                     badge: '2-5 minuter'
                   },
                   {
                     step: 5,
                     icon: Download,
                     iconColor: 'from-green-600 to-green-500',
-                    title: 'Spara och Välj Professionell Mall',
+                    title: 'Spara och välj professionell mall',
                     subtitle: 'Färdigt CV klart att skickas',
                     description: 'Spara din förbättrade CV-version på plattformen för framtida referens. Välj en av våra professionella ATS-optimerade mallar, eller behåll din nuvarande design. Ladda ner som PDF eller Word-dokument.',
                     badge: 'Klart!'
@@ -537,7 +537,7 @@ export default function CVAnalysisLandingPage() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                Vad Vår CV-Analys Kontrollerar
+                Vad vår CV-analys kontrollerar
               </h2>
               <p className="text-lg text-slate-600">
                 Djupanalys mot över 50 kvalitetskriterier som rekryterare och ATS-system värderar
@@ -620,7 +620,7 @@ export default function CVAnalysisLandingPage() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                Förstå Din CV-Poäng
+                Förstå din CV-poäng
               </h2>
               <p className="text-lg text-slate-600">
                 Vi ger ditt CV en poäng mellan 0-100 baserat på ATS-vänlighet och kvalitetskriterier
@@ -676,10 +676,10 @@ export default function CVAnalysisLandingPage() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                Före och Efter: Se Skillnaden
+                Före och efter: Se skillnaden
               </h2>
               <p className="text-lg text-slate-600">
-                Konkreta exempel på hur AI-feedbacken transformerar ditt CV
+                Konkreta exempel på hur feedbacken transformerar ditt CV
               </p>
             </div>
 
@@ -782,7 +782,7 @@ export default function CVAnalysisLandingPage() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                7 Praktiska CV-Tips Du Kan Använda Direkt
+                7 praktiska CV-tips du kan använda direkt
               </h2>
               <p className="text-lg text-slate-600">
                 Actionable råd som förbättrar ditt CV – även innan du använder vårt verktyg
@@ -793,7 +793,7 @@ export default function CVAnalysisLandingPage() {
               {[
                 {
                   number: 1,
-                  title: 'Börja varje meningmed ett starkt verb',
+                  title: 'Börja varje mening med ett starkt verb',
                   description: 'Ledde, Drev, Ökade, Implementerade, Utvecklade – inte "Var ansvarig för" eller "Hjälpte till med".',
                   icon: Zap
                 },
@@ -871,7 +871,7 @@ export default function CVAnalysisLandingPage() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                Vad Användare Säger
+                Vad användare säger
               </h2>
               <p className="text-lg text-slate-600">
                 Verkliga resultat från jobbsökare som använt vår CV-analys
@@ -884,7 +884,7 @@ export default function CVAnalysisLandingPage() {
                   name: 'Marcus L.',
                   role: 'Projektledare',
                   avatar: 'M',
-                  quote: 'Efter 30 ansökningar utan svar insåg jag att mitt CV var problemet. Jobbcoach.ai:s analys visade att jag hade 0 kvantifierade resultat. Jag fixade det på en timme och fick 2 intervjuer på mina nästa 5 ansökningar.',
+                  quote: 'Efter 30 ansökningar utan svar insåg jag att mitt CV var problemet. Analysen visade att jag hade 0 kvantifierade resultat. Jag fixade det på en timme och fick 2 intervjuer på mina nästa 5 ansökningar.',
                   result: '30 ansökningar utan svar → 2 intervjuer på 5 ansökningar',
                   rating: 5
                 },
@@ -892,7 +892,7 @@ export default function CVAnalysisLandingPage() {
                   name: 'Sofia K.',
                   role: 'UX Designer',
                   avatar: 'S',
-                  quote: 'Min ATS-poäng var 58/100 vilket förklarade varför jag inte fick respons. Efter att ha implementerat AI:ns förslag (tog 2 timmar) var jag uppe i 87. Fick jobbet på Klarna 3 veckor senare!',
+                  quote: 'Min ATS-poäng var 58/100 vilket förklarade varför jag inte fick respons. Efter att ha implementerat förslagen (tog 2 timmar) var jag uppe i 87. Fick jobbet på Klarna 3 veckor senare!',
                   result: 'ATS-poäng 58 → 87, jobbat på Klarna',
                   rating: 5
                 },
@@ -900,7 +900,7 @@ export default function CVAnalysisLandingPage() {
                   name: 'Ahmed R.',
                   role: 'Försäljare',
                   avatar: 'A',
-                  quote: 'Jag trodde mitt CV var bra men AI:n hittade 14 ställen där jag kunde lägga till konkreta siffror. Nu visar jag 142% försäljningsökning istället för att bara säga "ökade försäljningen". Jag får faktiskt svar nu.',
+                  quote: 'Jag trodde mitt CV var bra men analysen hittade 14 ställen där jag kunde lägga till konkreta siffror. Nu visar jag 142% försäljningsökning istället för att bara säga "ökade försäljningen". Jag får faktiskt svar nu.',
                   result: 'Från generiska beskrivningar till 14 kvantifierade resultat',
                   rating: 5
                 }
@@ -949,7 +949,7 @@ export default function CVAnalysisLandingPage() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                Välj Din Plan
+                Välj din plan
               </h2>
               <p className="text-lg text-slate-600">
                 Börja gratis eller få obegränsad tillgång med Premium
@@ -1066,7 +1066,7 @@ export default function CVAnalysisLandingPage() {
               {[
                 {
                   question: 'Hur fungerar CV-analysen?',
-                  answer: 'Ladda upp ditt CV i PDF, DOCX eller TXT-format. Vår AI analyserar ditt CV mot över 50 kvalitetskriterier inklusive ATS-kompatibilitet, struktur, språk och roll-baserad relevans. Du får din feedback på 60 sekunder.'
+                  answer: 'Ladda upp ditt CV i PDF, DOCX eller TXT-format. Vi analyserar ditt CV mot över 50 kvalitetskriterier inklusive ATS-kompatibilitet, struktur, språk och roll-baserad relevans. Du får din feedback på 60 sekunder.'
                 },
                 {
                   question: 'Är CV-analysen verkligen gratis?',
@@ -1098,11 +1098,11 @@ export default function CVAnalysisLandingPage() {
                 },
                 {
                   question: 'Vad är kvantifieringsförslag?',
-                  answer: 'Vårt AI-verktyg identifierar platser i ditt CV där du kan lägga till mätbara resultat och siffror. Till exempel: istället för "förbättrade försäljningen" föreslår vi "ökade försäljningen med 35% på 6 månader". Detta gör ditt CV mycket mer övertygande.'
+                  answer: 'Vi identifierar platser i ditt CV där du kan lägga till mätbara resultat och siffror. Till exempel: istället för "förbättrade försäljningen" föreslår vi "ökade försäljningen med 35% på 6 månader". Detta gör ditt CV mycket mer övertygande.'
                 },
                 {
                   question: 'Fungerar analysen för alla typer av jobb?',
-                  answer: 'Ja! Vår AI är tränad på hundratusentals CV:n och jobbannonser inom alla branscher. Du får både generella förbättringsförslag OCH roll-specifika tips baserat på din önskade position.'
+                  answer: 'Ja! Vi har analyserat hundratusentals CV:n och jobbannonser inom alla branscher. Du får både generella förbättringsförslag OCH roll-specifika tips baserat på din önskade position.'
                 }
               ].map((faq, idx) => (
                 <motion.div
@@ -1152,7 +1152,7 @@ export default function CVAnalysisLandingPage() {
                 Få Jobbet Du Förtjänar
               </h2>
               <p className="text-xl text-white/90 mb-8 leading-relaxed">
-                Sluta skicka ansökningar som sorteras bort av AI-system innan någon läser dem.
+                Sluta skicka ansökningar som sorteras bort av ATS-system innan någon läser dem.
                 Få professionell feedback på ditt CV på 60 sekunder – helt gratis.
               </p>
 
