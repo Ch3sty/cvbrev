@@ -127,12 +127,20 @@ export default function PremiumNavbar() {
           requireLogin: true
         },
         {
+          name: 'Personligt brev',
+          href: '/verktyg/personligt-brev',
+          icon: FileText,
+          description: 'Skapa ATS-optimerade personliga brev',
+          gradient: 'from-purple-600 to-blue-600',
+          requireLogin: false
+        },
+        {
           name: 'LinkedIn-optimering',
-          href: '/dashboard/linkedin-optimizer',
+          href: '/verktyg/linkedin-optimering',
           icon: Linkedin,
           description: 'Optimera din LinkedIn-profil',
           gradient: 'from-blue-600 to-indigo-600',
-          requireLogin: true
+          requireLogin: false
         }
       ]
     }
