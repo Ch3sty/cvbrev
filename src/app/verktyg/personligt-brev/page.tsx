@@ -101,27 +101,33 @@ export default function PersonligtBrevSida() {
     "step": [
       {
         "@type": "HowToStep",
-        "name": "Klistra in jobbannonsen",
-        "text": "Kopiera hela jobbannonsen från företagets hemsida eller LinkedIn och klistra in i vårt verktyg. Vår AI analyserar omedelbart vilka nyckelord, kompetenser och värderingar som är viktigast för rollen.",
+        "name": "Ladda upp ditt CV",
+        "text": "Ladda upp ditt CV en gång på Jobbcoach.ai. Plattformen sparar din information säkert så du kan återanvända den för alla framtida ansökningar.",
         "position": 1
       },
       {
         "@type": "HowToStep",
-        "name": "Lägg till din bakgrund",
-        "text": "Berätta kort om din erfarenhet, utbildning och varför du söker jobbet. Du behöver inte skriva hela meningar – stödord räcker. Vår AI förstår sammanhanget och fyller i resten.",
+        "name": "Klistra in jobbannonsen",
+        "text": "Kopiera hela jobbannonsen från företagets hemsida eller LinkedIn och klistra in i verktyget. AI:n analyserar omedelbart vilka krav och kompetenser som efterfrågas.",
         "position": 2
       },
       {
         "@type": "HowToStep",
-        "name": "Välj ton och stil",
-        "text": "Välj om brevet ska vara professionellt och formellt, entusiastiskt och personligt, eller självsäkert och resultatfokuserat. Välj den ton som passar din bransch och personlighet.",
+        "name": "AI analyserar och matchar",
+        "text": "Vår AI jämför automatiskt jobbannonsens krav med din CV. Den identifierar relevanta erfarenheter, kompetenser och nyckelord som matchar positionen – helt utan att du behöver göra något.",
         "position": 3
       },
       {
         "@type": "HowToStep",
-        "name": "Få ditt färdiga brev på 2 minuter",
-        "text": "Du får ett komplett personligt brev som är ATS-optimerat, anpassat efter jobbannonsen, och redo att skickas. Du kan redigera, spara och ladda ner direkt.",
+        "name": "Välj ton och stil",
+        "text": "Anpassa brevets ton efter din bransch och personlighet. Välj mellan professionellt formell, entusiastiskt personlig, eller självsäkert resultatfokuserad stil.",
         "position": 4
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Få, redigera och spara",
+        "text": "På 2 minuter får du ett färdigt personligt brev optimerat för både ATS-system och mänskliga rekryterare. Redigera direkt i plattformen, spara för framtida referens, eller ladda ner som PDF/Word.",
+        "position": 5
       }
     ]
   }
@@ -362,86 +368,182 @@ export default function PersonligtBrevSida() {
         </div>
       </section>
 
-      {/* "Så fungerar det" Section */}
-      <section className="py-24 bg-gradient-to-b from-slate-50 to-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                Från jobbannons till färdigt brev på 4 enkla steg
-              </h2>
-              <p className="text-lg text-slate-600">
-                Vårt verktyg gör jobbet åt dig – så du kan fokusera på att söka fler jobb istället för att sitta fast i Word.
-              </p>
+      {/* "Så fungerar det" Section - Timeline */}
+      <section className="py-24 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-50/50 via-transparent to-blue-50/50 pointer-events-none" />
+
+        <div className="container mx-auto px-4 relative">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-20">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                  Så fungerar det – enkelt och automatiskt
+                </h2>
+                <p className="text-lg text-slate-600">
+                  Din CV gör jobbet. Du klistrar bara in jobbannonser – AI:n sköter resten.
+                </p>
+              </motion.div>
             </div>
 
-            <div className="grid md:grid-cols-4 gap-8">
-              {[
-                {
-                  step: 1,
-                  icon: Upload,
-                  title: 'Klistra in jobbannonsen',
-                  description: 'Kopiera hela jobbannonsen från företagets hemsida eller LinkedIn och klistra in i vårt verktyg. Vår AI analyserar omedelbart vilka nyckelord, kompetenser och värderingar som är viktigast för rollen.'
-                },
-                {
-                  step: 2,
-                  icon: User,
-                  title: 'Lägg till din bakgrund',
-                  description: 'Berätta kort om din erfarenhet, utbildning och varför du söker jobbet. Du behöver inte skriva hela meningar – stödord räcker. Vår AI förstår sammanhanget och fyller i resten.'
-                },
-                {
-                  step: 3,
-                  icon: Sparkles,
-                  title: 'Välj ton och stil',
-                  description: 'Ska brevet vara professionellt och formellt? Entusiastiskt och personligt? Självsäkert och resultatfokuserat? Välj den ton som passar din bransch och personlighet.'
-                },
-                {
-                  step: 4,
-                  icon: Download,
-                  title: 'Få ditt färdiga brev på 2 minuter',
-                  description: 'Klart! Du får ett komplett personligt brev som är ATS-optimerat, anpassat efter jobbannonsen, och redo att skickas. Du kan redigera, spara och ladda ner direkt.'
-                }
-              ].map((item, idx) => (
-                <motion.div
-                  key={idx}
-                  className="relative"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: idx * 0.1, duration: 0.6 }}
-                >
-                  {idx < 3 && (
-                    <div className="hidden md:block absolute top-12 left-full w-full h-0.5 bg-gradient-to-r from-purple-200 to-blue-200 -z-10" />
-                  )}
-                  <div className="bg-white rounded-2xl p-6 border border-slate-200 hover:border-purple-300 hover:shadow-lg transition-all duration-300">
-                    <div className="w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 text-white rounded-xl flex items-center justify-center mb-4 font-bold text-lg">
-                      {item.step}
+            {/* Vertical Timeline */}
+            <div className="relative">
+              {/* Timeline line */}
+              <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-purple-200 via-blue-200 to-purple-200" />
+
+              {/* Timeline steps */}
+              <div className="space-y-16">
+                {[
+                  {
+                    step: 1,
+                    icon: Upload,
+                    iconColor: 'from-purple-600 to-purple-500',
+                    title: 'Ladda upp ditt CV',
+                    subtitle: 'Engångshändelse – sparas säkert på plattformen',
+                    description: 'Ladda upp ditt CV en enda gång. Vi sparar din information säkert och GDPR-compliant så du kan återanvända den för alla framtida ansökningar. Du behöver aldrig fylla i din bakgrund manuellt igen.',
+                    badge: 'En gång'
+                  },
+                  {
+                    step: 2,
+                    icon: FileText,
+                    iconColor: 'from-blue-600 to-blue-500',
+                    title: 'Klistra in jobbannonsen',
+                    subtitle: 'För varje jobb du söker',
+                    description: 'Kopiera hela jobbannonsen från företagets hemsida eller LinkedIn och klistra in. AI:n analyserar omedelbart vilka krav, kompetenser och nyckelord som är viktigast för den specifika rollen.',
+                    badge: '10 sekunder'
+                  },
+                  {
+                    step: 3,
+                    icon: Sparkles,
+                    iconColor: 'from-indigo-600 to-indigo-500',
+                    title: 'AI analyserar och matchar automatiskt',
+                    subtitle: 'Helt automatiskt – du behöver inte göra något',
+                    description: 'Vår AI jämför jobbannonsens krav med ditt CV. Den identifierar relevanta erfarenheter, projekt, kompetenser och resultat som matchar positionen. AI:n väljer automatiskt rätt nyckelord för ATS-system och formulerar övertygande argument baserat på din faktiska bakgrund.',
+                    badge: 'Automatiskt',
+                    highlight: true
+                  },
+                  {
+                    step: 4,
+                    icon: Target,
+                    iconColor: 'from-cyan-600 to-cyan-500',
+                    title: 'Välj ton och stil',
+                    subtitle: 'Anpassa efter bransch och personlighet',
+                    description: 'Välj den tonalitet som passar din bransch: professionellt formell för finans/juridik, entusiastiskt personlig för startup/kreativa roller, eller självsäkert resultatfokuserad för ledande befattningar.',
+                    badge: '5 sekunder'
+                  },
+                  {
+                    step: 5,
+                    icon: Download,
+                    iconColor: 'from-green-600 to-green-500',
+                    title: 'Få, redigera och spara ditt brev',
+                    subtitle: 'Klart på 2 minuter totalt',
+                    description: 'Du får ett komplett personligt brev optimerat för både ATS-system och mänskliga rekryterare. Redigera direkt i verktyget om du vill justera något, spara på plattformen för framtida referens, eller ladda ner som PDF eller Word-dokument.',
+                    badge: 'Klart!'
+                  }
+                ].map((item, idx) => (
+                  <motion.div
+                    key={idx}
+                    className="relative"
+                    initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ delay: idx * 0.15, duration: 0.6 }}
+                  >
+                    <div className={`flex flex-col md:flex-row items-start md:items-center gap-8 ${
+                      idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                    }`}>
+                      {/* Content card */}
+                      <div className="flex-1 ml-20 md:ml-0">
+                        <div className={`bg-white rounded-2xl p-6 md:p-8 border-2 ${
+                          item.highlight
+                            ? 'border-indigo-200 shadow-xl shadow-indigo-100/50 bg-gradient-to-br from-white to-indigo-50/30'
+                            : 'border-slate-200 hover:border-purple-200 hover:shadow-lg'
+                        } transition-all duration-300`}>
+                          <div className="flex items-start justify-between mb-4">
+                            <div className="flex-1">
+                              <div className="flex items-center gap-3 mb-2">
+                                <h3 className="text-xl md:text-2xl font-bold text-slate-900">
+                                  {item.title}
+                                </h3>
+                                {item.badge && (
+                                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                                    item.highlight
+                                      ? 'bg-indigo-100 text-indigo-700'
+                                      : 'bg-purple-100 text-purple-700'
+                                  }`}>
+                                    {item.badge}
+                                  </span>
+                                )}
+                              </div>
+                              <p className="text-sm text-purple-600 font-medium mb-3">
+                                {item.subtitle}
+                              </p>
+                              <p className="text-slate-600 leading-relaxed">
+                                {item.description}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Timeline node */}
+                      <div className="absolute left-8 md:relative md:left-0 flex-shrink-0">
+                        <motion.div
+                          className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.iconColor} shadow-lg flex items-center justify-center relative z-10`}
+                          whileInView={{ scale: [0.8, 1.1, 1] }}
+                          viewport={{ once: true }}
+                          transition={{ delay: idx * 0.15 + 0.3, duration: 0.4 }}
+                        >
+                          <item.icon className="w-8 h-8 text-white" />
+
+                          {/* Step number badge */}
+                          <div className="absolute -top-2 -right-2 w-7 h-7 bg-white rounded-full shadow-md flex items-center justify-center border-2 border-slate-100">
+                            <span className="text-xs font-bold text-slate-700">{item.step}</span>
+                          </div>
+                        </motion.div>
+                      </div>
+
+                      {/* Spacer for alignment on larger screens */}
+                      <div className="hidden md:block flex-1" />
                     </div>
-                    <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                      <item.icon className="w-5 h-5 text-purple-600" />
-                    </div>
-                    <h3 className="font-bold text-slate-900 mb-2">{item.title}</h3>
-                    <p className="text-sm text-slate-600">{item.description}</p>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                ))}
+              </div>
             </div>
 
+            {/* CTA */}
             <motion.div
-              className="mt-12 text-center"
+              className="mt-20 text-center"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.4, duration: 0.6 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
             >
               <Link
                 href="/dashboard/skapa-brev"
-                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-300"
+                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 text-lg"
               >
                 Skapa mitt brev nu – helt gratis
                 <ArrowRight className="w-5 h-5" />
               </Link>
-              <p className="text-sm text-slate-500 mt-4">Inget kreditkort krävs • Klart på 2 minuter • GDPR-säker</p>
+              <p className="text-sm text-slate-500 mt-4">
+                Inget kreditkort krävs • Klart på 2 minuter • GDPR-säker
+              </p>
+              <div className="flex items-center justify-center gap-6 mt-6 text-sm text-slate-600">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-green-500" />
+                  <span>Ladda upp CV en gång</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="w-4 h-4 text-green-500" />
+                  <span>Använd för alla ansökningar</span>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>

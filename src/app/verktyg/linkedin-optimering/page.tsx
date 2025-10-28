@@ -123,12 +123,56 @@ export default function LinkedInOptimeringSida() {
     ]
   }
 
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Hur optimerar man sin LinkedIn-profil för rekryterare",
+    "description": "Steg-för-steg guide för att optimera din LinkedIn-profil så att rekryterare hittar dig i sina sökningar",
+    "totalTime": "PT5M",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Kopiera din nuvarande LinkedIn-profiltext",
+        "text": "Kopiera texten från din LinkedIn Headline, About-sektion och eventuellt dina Experience-beskrivningar. Du behöver inte logga in i vårt verktyg – allt görs manuellt på din egen LinkedIn-profil.",
+        "position": 1
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Klistra in i LinkedIn-optimeringsverktyget",
+        "text": "Klistra in din profiltext i vårt AI-verktyg. Välj din bransch och erfarenhetsnivå så att AI:n kan anpassa keywords efter rätt målgrupp.",
+        "position": 2
+      },
+      {
+        "@type": "HowToStep",
+        "name": "AI analyserar och genererar optimerad version",
+        "text": "Vårt AI-verktyg analyserar din text och identifierar vilka keywords rekryterare söker efter inom din bransch. AI:n genererar en optimerad version som både rankar högt i sökningar och låter professionell.",
+        "position": 3
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Granska och redigera förslag",
+        "text": "Få en optimerad version av din Headline och About-sektion med keywords markerade. Du kan se exakt vilka förändringar som gjorts och varför. Redigera om du vill anpassa tonaliteten.",
+        "position": 4
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Uppdatera din LinkedIn-profil",
+        "text": "Kopiera den optimerade texten och klistra in på din LinkedIn-profil. Klart! Din profil är nu optimerad för att synas i rekryterares sökningar.",
+        "position": 5
+      }
+    ]
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
       {/* Schema.org markup */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
       <script
         type="application/ld+json"
