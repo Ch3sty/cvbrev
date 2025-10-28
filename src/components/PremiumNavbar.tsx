@@ -26,7 +26,8 @@ import {
   LogIn,
   Zap,
   Lock,
-  Linkedin
+  Linkedin,
+  Target
 } from 'lucide-react'
 
 interface NavItem {
@@ -140,6 +141,14 @@ export default function PremiumNavbar() {
           icon: Linkedin,
           description: 'Optimera din LinkedIn-profil',
           gradient: 'from-blue-600 to-indigo-600',
+          requireLogin: false
+        },
+        {
+          name: 'Jobbmatchning',
+          href: '/verktyg/jobbmatchning',
+          icon: Target,
+          description: 'AI-matchning mot Arbetsförmedlingen',
+          gradient: 'from-pink-500 to-rose-500',
           requireLogin: false
         }
       ]
