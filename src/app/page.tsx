@@ -19,7 +19,8 @@ import {
   Rocket, Eye, Heart, MessageCircle, DollarSign,
   ChevronLeft, PenTool, Palette, Trophy, Gift,
   GraduationCap, User, Building2, Layers, Settings,
-  Timer, RefreshCw, Gauge, BookOpen, Code, Database
+  Timer, RefreshCw, Gauge, BookOpen, Code, Database,
+  Linkedin
 } from 'lucide-react'
 
 // Custom components
@@ -194,7 +195,7 @@ export default function HomePage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.8 }}
                 >
-                  Landa drömjobbet{' '}
+                  Därför får du{' '}
                   <motion.span
                     className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent"
                     animate={{
@@ -209,13 +210,13 @@ export default function HomePage() {
                       backgroundSize: '200% 200%',
                     }}
                   >
-                    snabbare än någonsin
+                    inte svar på dina ansökningar
                   </motion.span>
                 </motion.h1>
 
                 {/* Underrubrik */}
                 <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-                  Skapa vinnande personliga brev på 60 sekunder med smarta verktyg som förstår svenska arbetsmarknaden.
+                  Över 70% av alla CV sorteras bort av AI-system innan någon människa ser dem. Vi hjälper dig ta dig förbi robotarna – så att dina kvalifikationer faktiskt når fram.
                   <span className="font-semibold text-slate-900"> 89% av våra användare får intervju inom 2 veckor.</span>
                 </p>
 
@@ -263,7 +264,7 @@ export default function HomePage() {
                           Laddar...
                         </span>
                       ) : (
-                        <>Starta gratis idag</>
+                        <>Analysera mitt CV gratis</>
                       )}
                       </motion.button>
                     </div>
@@ -271,7 +272,7 @@ export default function HomePage() {
                   <div className="flex items-center gap-4 mt-4 text-sm text-slate-500">
                     <span className="flex items-center gap-1">
                       <CheckCircle className="w-4 h-4 text-green-500" />
-                      Gratis CV-analys
+                      ATS-optimerad analys
                     </span>
                     <span className="flex items-center gap-1">
                       <CheckCircle className="w-4 h-4 text-green-500" />
@@ -330,6 +331,73 @@ export default function HomePage() {
                 <AILiveWriting />
               </motion.div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sveriges Radio - Trovärdighet & AI-sållning */}
+      <section className="py-16 bg-gradient-to-b from-blue-50/50 to-white border-y border-blue-100">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <motion.div
+              className="text-center mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 rounded-full mb-4">
+                <Shield className="w-4 h-4 text-blue-600" />
+                <span className="text-sm font-semibold text-blue-900">Bekräftat av Sveriges Radio</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                AI-system sållar bort din ansökan – här är lösningen
+              </h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                Sveriges Radio bekräftar: Allt fler rekryterare använder AI för att automatiskt sålla kandidater.
+                Om ditt CV inte är optimerat för dessa system når det aldrig en mänsklig rekryterare.
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="bg-white rounded-2xl shadow-xl shadow-slate-900/5 border border-slate-200 p-8 mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+            >
+              <div className="aspect-video w-full rounded-xl overflow-hidden mb-6 bg-slate-100">
+                <iframe
+                  title="Inbäddat innehåll från Sveriges Radio"
+                  width="100%"
+                  height="100%"
+                  src="https://www.sverigesradio.se/embed/publication/9064965"
+                  frameBorder="0"
+                  className="w-full h-full"
+                ></iframe>
+              </div>
+              <div className="flex items-start gap-4 p-6 bg-blue-50 rounded-xl">
+                <div className="flex-shrink-0">
+                  <BrainCircuit className="w-6 h-6 text-blue-600" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 mb-2">
+                    Varför det här spelar roll för dig
+                  </h3>
+                  <p className="text-slate-600 mb-4">
+                    Även om du är perfekt kvalificerad för jobbet kan ett icke-optimerat CV sorteras bort automatiskt.
+                    Våra verktyg hjälper dig att passera både AI-systemen OCH imponera på rekryterarna.
+                  </p>
+                  <Link
+                    href="/artikel/ai-rekrytering-sverige"
+                    className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold transition-colors"
+                  >
+                    Läs vår djupanalys om AI-rekrytering
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -538,7 +606,8 @@ export default function HomePage() {
                   badge: 'Mest använd',
                   badgeColor: 'from-blue-500 to-blue-600',
                   stats: '10,000+ brev skapade',
-                  delay: 0
+                  delay: 0,
+                  link: '/dashboard/skapa-brev'
                 },
                 {
                   icon: FileSearch,
@@ -547,7 +616,8 @@ export default function HomePage() {
                   badge: 'Gratis',
                   badgeColor: 'from-green-500 to-green-600',
                   stats: '4.9/5 användarbetyg',
-                  delay: 0.1
+                  delay: 0.1,
+                  link: '/dashboard/cv-analys'
                 },
                 {
                   icon: Palette,
@@ -556,7 +626,18 @@ export default function HomePage() {
                   badge: 'Premium',
                   badgeColor: 'from-purple-500 to-purple-600',
                   stats: 'ATS-optimerade',
-                  delay: 0.2
+                  delay: 0.2,
+                  link: '/cv-mallar'
+                },
+                {
+                  icon: Linkedin,
+                  title: 'LinkedIn-profiloptimering',
+                  description: '80% av rekryterare söker kandidater via LinkedIn. Optimera din profil för både AI-sökning och mänskliga rekryterare.',
+                  badge: 'Nytt',
+                  badgeColor: 'from-pink-500 to-pink-600',
+                  stats: 'AI-optimerad',
+                  delay: 0.3,
+                  link: '/dashboard/linkedin-optimizer'
                 },
                 {
                   icon: Target,
@@ -565,16 +646,8 @@ export default function HomePage() {
                   badge: 'Smart',
                   badgeColor: 'from-indigo-500 to-indigo-600',
                   stats: '3x bättre matchning',
-                  delay: 0.3
-                },
-                {
-                  icon: GraduationCap,
-                  title: 'Personlig kompetensutveckling',
-                  description: 'Få skräddarsydda utvecklingsplaner baserat på dina karriärmål och marknadens krav.',
-                  badge: 'Ny',
-                  badgeColor: 'from-pink-500 to-pink-600',
-                  stats: 'Skräddarsydd plan',
-                  delay: 0.4
+                  delay: 0.4,
+                  link: '/dashboard'
                 },
                 {
                   icon: Shield,
@@ -583,7 +656,8 @@ export default function HomePage() {
                   badge: 'Trygg',
                   badgeColor: 'from-slate-500 to-slate-600',
                   stats: '100% GDPR-säker',
-                  delay: 0.5
+                  delay: 0.5,
+                  link: '/integritetspolicy'
                 }
               ].map((feature, idx) => (
                 <motion.div
@@ -856,8 +930,16 @@ export default function HomePage() {
             <div className="space-y-4">
               {[
                 {
+                  q: 'Vad är ATS och varför är det viktigt för mitt CV?',
+                  a: 'ATS (Applicant Tracking System) är AI-program som över 70% av svenska rekryterare använder för att automatiskt sålla kandidater. Om ditt CV inte är ATS-optimerat kan det sorteras bort innan någon människa ser det – även om du är perfekt för jobbet.'
+                },
+                {
+                  q: 'Hur hjälper jobbcoach.ai mig ta mig förbi AI-screeningen?',
+                  a: 'Våra verktyg är tränade på 50,000+ svenska jobbannonser och identifierar automatiskt vilka nyckelord och struktur som krävs för att passera ATS-system. Vi optimerar både ditt CV och personliga brev för maximal träffsäkerhet.'
+                },
+                {
                   q: 'Hur snabbt kan jag skapa ett personligt brev?',
-                  a: 'Med våra smarta verktyg tar det bara 60 sekunder att skapa ett unikt, anpassat personligt brev för varje jobbansökan.'
+                  a: 'Med våra smarta verktyg tar det bara 60 sekunder att skapa ett unikt, ATS-optimerat personligt brev för varje jobbansökan.'
                 },
                 {
                   q: 'Fungerar det för alla branscher?',
@@ -868,12 +950,8 @@ export default function HomePage() {
                   a: 'Absolut. Vi är GDPR-certifierade och all data lagras säkert i Sverige. Din data raderas automatiskt efter 30 dagar.'
                 },
                 {
-                  q: 'Kan jag avsluta när som helst?',
-                  a: 'Ja, du kan avsluta din prenumeration när som helst utan bindningstid eller dolda avgifter.'
-                },
-                {
                   q: 'Vad ingår i gratisversionen?',
-                  a: 'Du får en gratis CV-analys och kan skapa 3 personliga brev. Perfekt för att testa tjänsten innan du uppgraderar.'
+                  a: 'Du får en gratis ATS-optimerad CV-analys och kan skapa personliga brev. Perfekt för att testa tjänsten innan du uppgraderar.'
                 }
               ].map((item, idx) => (
                 <div key={idx} className="bg-white rounded-xl border border-slate-200 overflow-hidden">
