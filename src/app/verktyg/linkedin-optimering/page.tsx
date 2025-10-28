@@ -19,8 +19,126 @@ import LinkedInOptimizationDemo from '@/components/LinkedInOptimizationDemo'
 export default function LinkedInOptimeringSida() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
 
+  // Schema markup data
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Vad är LinkedIn-optimering och varför behöver jag det?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "LinkedIn-optimering innebär att anpassa din profil så att den rankar högt i rekryterares sökningar. Över 80% av rekryterare använder LinkedIn Recruiter för att hitta kandidater, och deras sökningar baseras på specifika keywords. Om din profil saknar dessa termer kommer du inte upp i resultaten – oavsett hur kompetent du är. Optimering handlar om att tala samma språk som rekryterare söker på, samtidigt som din profil ska låta naturlig och professionell."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Hur vet jag vilka keywords jag ska använda?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Vårt AI-verktyg analyserar tusentals jobbannonser inom din bransch och identifierar de mest frekventa och relevanta söktermer rekryterare använder. Du får en lista med prioriterade keywords anpassade efter din roll, bransch och erfarenhetsnivå. Vi visar också exakt var och hur ofta du ska använda varje keyword (headline, About, Experience, Skills) för maximal effekt utan att det låter robotiskt."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Kommer min LinkedIn-profil att låta robotisk efter optimering?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolut inte! Det vanligaste misstaget är att keyword-stuffa – alltså att fylla profilen med sökord utan sammanhang. Vårt verktyg balanserar SEO-optimering med naturlig läsbarhet. Vi integrerar keywords i meningsfulla meningar som berättar din historia och visar din kompetens. Målet är att din profil ska både ranka högt OCH övertyga rekryterare att kontakta dig när de läser den."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Hur lång tid tar det att optimera min LinkedIn-profil?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Själva AI-optimeringen tar 30-60 sekunder. Att kopiera och klistra in resultatet på LinkedIn tar ytterligare 2-3 minuter. Totalt är processen klar på cirka 5 minuter. Du behöver inte logga in på LinkedIn i vårt verktyg – du kopierar helt enkelt din nuvarande profiltext, klistrar in i vårt verktyg, får optimerade förslag, och uppdaterar sedan din LinkedIn-profil manuellt."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Måste jag betala för att använda LinkedIn-optimering?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nej, vårt LinkedIn-optimeringsverktyg är gratis att testa. Alla användare får optimera sin headline och About-sektion utan kostnad. För premium-funktioner som unlimited optimeringar, skills-analys, och A/B-testning av olika versioner behöver du en premium-prenumeration – men grundfunktionen är helt gratis."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Hur ofta ska jag uppdatera min LinkedIn-profil?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Rekommendationen är att optimera din profil varje gång du byter roll, lär dig nya skills, eller märker att du inte får kontakter från rekryterare. Som minimum bör du uppdatera din profil var 6:e månad för att signalera aktivitet till LinkedIns algoritm. Aktiva profiler rankas 40% högre än inaktiva profiler i rekryterares sökningar."
+        }
+      }
+    ]
+  }
+
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Jobbcoach.ai - LinkedIn-optimeringsverktyg",
+    "url": "https://jobbcoach.ai/verktyg/linkedin-optimering",
+    "description": "AI-verktyg som optimerar din LinkedIn-profil för rekryterares sökningar. Få 3x fler synligheter och kontakter från rekryterare.",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "SEK",
+      "description": "Gratis att testa"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.7",
+      "reviewCount": "1200",
+      "bestRating": "5",
+      "worstRating": "1"
+    }
+  }
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Hem",
+        "item": "https://jobbcoach.ai"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Verktyg",
+        "item": "https://jobbcoach.ai/verktyg"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "LinkedIn-optimering",
+        "item": "https://jobbcoach.ai/verktyg/linkedin-optimering"
+      }
+    ]
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
+      {/* Schema.org markup */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       <PremiumNavbar />
 
       {/* Hero Section */}

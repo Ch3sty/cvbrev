@@ -20,8 +20,180 @@ import AILiveWriting from '@/components/AILiveWriting'
 export default function PersonligtBrevSida() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
 
+  // Schema markup data
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Kommer mitt brev att låta robotiskt om det är AI-genererat?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Nej. Vårt verktyg är tränat på tusentals framgångsrika personliga brev skrivna av människor – inte robottexter. Resultatet är ett brev som balanserar ATS-optimering med naturlig, personlig ton. Du kan alltid redigera och lägga till din egen touch innan du skickar. Tänk på verktyget som en skribent som ger dig ett perfekt första utkast – som du sedan kan anpassa efter behov."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Hur vet jag att brevet faktiskt passar jobbannonsen?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Verktyget analyserar jobbannonsen i realtid och identifierar de viktigaste nyckelorden, kompetenserna och värderingarna som företaget letar efter. Brevet inkluderar automatiskt dessa termer på ett naturligt sätt – så att det både passerar ATS-screeningen OCH visar rekryteraren att du förstår rollen."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Kan jag använda samma brev för flera jobb?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolut inte – och det är precis poängen med vårt verktyg. Varje jobb kräver ett unikt brev anpassat efter den specifika jobbannonsen. Med vårt verktyg tar det bara 2 minuter att skapa ett nytt brev för varje ansökan, så du slipper frestelsen att använda samma generiska text överallt."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Vad är skillnaden mellan gratisversionen och premium?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Gratisversionen låter dig generera 3 personliga brev per vecka – perfekt för att testa verktyget. Premium ger obegränsade genereringar, möjlighet att spara alla brev, AI-val av optimal ton, och prioriterad support. Om du söker många jobb samtidigt rekommenderar vi premium för att spara tid och hålla koll på alla versioner."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Fungerar det för alla branscher?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja. Verktyget är tränat på jobbannonser från alla stora svenska branscher – tech, finans, vård, offentlig sektor, detaljhandel, konsult, och mer. Du väljer själv vilken ton som passar din bransch: formell och professionell för traditionella sektorer, eller mer personlig och entusiastisk för startups och kreativa roller."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Hur lång tid tar det att skapa ett brev?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Själva genereringen tar 30-60 sekunder. Att fylla i din bakgrund och klistra in jobbannonsen tar cirka 1 minut. Totalt är du klar på under 2 minuter – jämfört med 1-2 timmar om du skulle skriva från scratch."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Är mina uppgifter säkra?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja. All data lagras krypterat i Sverige enligt GDPR. Vi säljer aldrig din information till tredje part. Du kan när som helst radera ditt konto och all associerad data direkt från din profil. Vi använder endast din data för att generera dina brev – ingenting annat."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Kan jag redigera brevet efter att det är genererat?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Absolut. Du kan redigera direkt i verktyget innan du laddar ner, eller kopiera texten till Word/Google Docs och anpassa där. Många användare lägger till en personlig avslutning eller justerar specifika formuleringar – det är helt upp till dig."
+        }
+      }
+    ]
+  }
+
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Hur skapar man ett personligt brev med AI",
+    "description": "Steg-för-steg guide för att skapa ATS-optimerat personligt brev med AI på 2 minuter",
+    "totalTime": "PT2M",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Klistra in jobbannonsen",
+        "text": "Kopiera hela jobbannonsen från företagets hemsida eller LinkedIn och klistra in i vårt verktyg. Vår AI analyserar omedelbart vilka nyckelord, kompetenser och värderingar som är viktigast för rollen.",
+        "position": 1
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Lägg till din bakgrund",
+        "text": "Berätta kort om din erfarenhet, utbildning och varför du söker jobbet. Du behöver inte skriva hela meningar – stödord räcker. Vår AI förstår sammanhanget och fyller i resten.",
+        "position": 2
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Välj ton och stil",
+        "text": "Välj om brevet ska vara professionellt och formellt, entusiastiskt och personligt, eller självsäkert och resultatfokuserat. Välj den ton som passar din bransch och personlighet.",
+        "position": 3
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Få ditt färdiga brev på 2 minuter",
+        "text": "Du får ett komplett personligt brev som är ATS-optimerat, anpassat efter jobbannonsen, och redo att skickas. Du kan redigera, spara och ladda ner direkt.",
+        "position": 4
+      }
+    ]
+  }
+
+  const webAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Jobbcoach.ai - AI-verktyg för personliga brev",
+    "url": "https://jobbcoach.ai/verktyg/personligt-brev",
+    "description": "AI-verktyg som genererar ATS-optimerade personliga brev baserat på jobbannons och CV. Klart på 2 minuter.",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "SEK",
+      "description": "Gratis att testa, premium från 99 kr/mån"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "1400",
+      "bestRating": "5",
+      "worstRating": "1"
+    }
+  }
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Hem",
+        "item": "https://jobbcoach.ai"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Verktyg",
+        "item": "https://jobbcoach.ai/verktyg"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Personligt brev",
+        "item": "https://jobbcoach.ai/verktyg/personligt-brev"
+      }
+    ]
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
+      {/* Schema.org markup */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       <PremiumNavbar />
 
       {/* Hero Section */}
