@@ -8,6 +8,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import { useState } from 'react'
+import PremiumNavbar from '@/components/PremiumNavbar'
 import RecruitmentTestDemo from '@/components/RecruitmentTestDemo'
 
 const testTypes = [
@@ -183,7 +184,7 @@ export default function RekryteringstesterPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-white">
       {/* Schema.org JSON-LD */}
       <script
         type="application/ld+json"
@@ -288,8 +289,10 @@ export default function RekryteringstesterPage() {
         }}
       />
 
+      <PremiumNavbar />
+
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-16 md:py-24">
+      <section className="container mx-auto px-4 pt-32 pb-16 md:pb-24">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -803,6 +806,6 @@ export default function RekryteringstesterPage() {
           </motion.div>
         </div>
       </section>
-    </main>
+    </div>
   )
 }
