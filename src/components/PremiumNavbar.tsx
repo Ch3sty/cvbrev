@@ -27,7 +27,8 @@ import {
   Zap,
   Lock,
   Linkedin,
-  Target
+  Target,
+  Brain
 } from 'lucide-react'
 
 interface NavItem {
@@ -96,22 +97,6 @@ export default function PremiumNavbar() {
       icon: Wrench,
       items: [
         {
-          name: 'Skapa personligt brev',
-          href: '/dashboard/skapa-brev',
-          icon: Edit3,
-          description: 'AI-genererade personliga brev',
-          gradient: 'from-blue-500 to-cyan-500',
-          requireLogin: true
-        },
-        {
-          name: 'Mina Brev',
-          href: '/dashboard/mina-brev',
-          icon: FileText,
-          description: 'Se dina sparade brev',
-          gradient: 'from-purple-500 to-pink-500',
-          requireLogin: true
-        },
-        {
           name: 'CV-Mallar',
           href: '/verktyg/cv-mallar',
           icon: Palette,
@@ -149,6 +134,14 @@ export default function PremiumNavbar() {
           icon: Target,
           description: 'AI-matchning mot Arbetsförmedlingen',
           gradient: 'from-pink-500 to-rose-500',
+          requireLogin: false
+        },
+        {
+          name: 'Rekryteringstester',
+          href: '/verktyg/rekryteringstester',
+          icon: Brain,
+          description: 'Träna på logiska tester',
+          gradient: 'from-purple-600 to-indigo-600',
           requireLogin: false
         }
       ]
