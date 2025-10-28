@@ -120,11 +120,11 @@ export default function PremiumNavbar() {
         },
         {
           name: 'CV-Analys',
-          href: '/dashboard/cv-analys',
+          href: '/verktyg/cv-analys',
           icon: SearchCheck,
-          description: 'Få feedback på ditt CV',
+          description: 'Få AI-feedback på ditt CV',
           gradient: 'from-orange-500 to-red-500',
-          requireLogin: true
+          requireLogin: false
         },
         {
           name: 'Personligt brev',
