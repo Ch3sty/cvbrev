@@ -13,6 +13,7 @@ import { extractHeadingsFromContent, filterH2Headings } from '@/lib/extractHeadi
 import CustomImage from '@/components/mdx/Image';
 import FAQContainer from '@/components/mdx/FAQContainer';
 import FAQItem from '@/components/mdx/FAQItem';
+import PersonligtBrevExample from '@/components/mdx/PersonligtBrevExample';
 
 // Importera artikelkomponenter
 import ArticleClientWrapper from '@/components/artiklar/ArticleClientWrapper';
@@ -245,6 +246,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         // Lägg till konverteringskomponenter som kan användas i MDX
         BroadConversionBanner: BroadConversionBanner,
         CVTemplateShowcase: CVTemplateShowcase,
+        PersonligtBrevExample: PersonligtBrevExample,
         // Automatisk ID-generering för h2 headings - SEO-optimerad
         h2: (props: any) => {
             const text = typeof props.children === 'string' ? props.children : '';
