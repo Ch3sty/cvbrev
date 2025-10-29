@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Download, Eye, FileText } from 'lucide-react';
+import { Download, Eye, FileText, Copy } from 'lucide-react';
 
 const EXEMPEL_BREV = `Sara Lindström
 Björkvägen 12
@@ -34,16 +34,14 @@ Sara Lindström`;
 
 export default function PersonligtBrevExample() {
   const [showPreview, setShowPreview] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const handleDownload = () => {
-    // Create a blob with the text content
     const blob = new Blob([EXEMPEL_BREV], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
-
-    // Create a temporary link and trigger download
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'personligt-brev-underskоterska-exempel.txt';
+    link.download = 'personligt-brev-underskoterska-exempel.txt';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -52,22 +50,23 @@ export default function PersonligtBrevExample() {
 
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText(EXEMPEL_BREV);
-    alert('Personligt brev kopierat till urklipp!');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className="my-8 border border-gray-200 rounded-lg overflow-hidden bg-white shadow-md">
+    <div className="my-8 border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
       {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 text-white">
+      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 border-b border-gray-200">
         <div className="flex items-start gap-4">
-          <div className="bg-white/20 p-3 rounded-lg">
-            <FileText className="w-6 h-6" />
+          <div className="bg-blue-100 p-3 rounded-lg">
+            <FileText className="w-6 h-6 text-blue-600" />
           </div>
           <div>
-            <h3 className="text-xl font-bold mb-2">
-              Personligt Brev Exempel – Undersköterska Vårdcentral
+            <h3 className="text-xl font-bold mb-2 text-gray-900">
+              Personligt brev exempel – undersköterska vårdcentral
             </h3>
-            <p className="text-indigo-100 text-sm">
+            <p className="text-gray-600 text-sm">
               Ett realistiskt exempel skrivet för tjänst på vårdcentral. Anpassa det efter din egen bakgrund och den tjänst du söker.
             </p>
           </div>
@@ -78,20 +77,20 @@ export default function PersonligtBrevExample() {
       <div className="p-4 bg-gray-50 border-b border-gray-200">
         <button
           onClick={() => setShowPreview(!showPreview)}
-          className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 font-medium transition-colors"
+          className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors"
         >
           <Eye className="w-5 h-5" />
-          {showPreview ? 'Dölj förhandsgranskning' : 'Visa förhandsgranskning'}
+          {showPreview ? 'Dölj exempel' : 'Visa exempel på personligt brev undersköterska'}
         </button>
       </div>
 
       {/* Preview Content */}
       {showPreview && (
         <div className="p-6 bg-white">
-          <div className="prose prose-sm max-w-none">
-            <pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed text-gray-800 bg-gray-50 p-6 rounded-lg border border-gray-200">
+          <div className="max-w-3xl mx-auto">
+            <div className="whitespace-pre-wrap font-serif text-base leading-relaxed text-gray-800 bg-white p-8 rounded-lg border border-gray-200 shadow-sm">
               {EXEMPEL_BREV}
-            </pre>
+            </div>
           </div>
         </div>
       )}
@@ -100,24 +99,24 @@ export default function PersonligtBrevExample() {
       <div className="p-6 bg-gray-50 flex flex-col sm:flex-row gap-3">
         <button
           onClick={handleDownload}
-          className="flex-1 flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+          className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors shadow-sm"
         >
           <Download className="w-5 h-5" />
           Ladda ned exempel (.txt)
         </button>
         <button
           onClick={handleCopyToClipboard}
-          className="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-indigo-600 font-semibold py-3 px-6 rounded-lg border-2 border-indigo-600 transition-colors"
+          className="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-blue-600 font-semibold py-3 px-6 rounded-lg border-2 border-blue-200 transition-colors"
         >
-          <FileText className="w-5 h-5" />
-          Kopiera text
+          <Copy className="w-5 h-5" />
+          {copied ? 'Kopierat!' : 'Kopiera text'}
         </button>
       </div>
 
       {/* Footer Info */}
-      <div className="p-4 bg-indigo-50 border-t border-indigo-100">
-        <p className="text-sm text-indigo-900">
-          <strong>Tips:</strong> Detta är ett exempel. Anpassa innehållet efter din egen erfarenhet,
+      <div className="p-4 bg-blue-50 border-t border-blue-100">
+        <p className="text-sm text-gray-700">
+          <strong className="text-gray-900">Tips:</strong> Detta är ett exempel. Anpassa innehållet efter din egen erfarenhet,
           den specifika tjänsten du söker och arbetsplatsens behov. Ett personligt brev ska alltid vara unikt!
         </p>
       </div>
