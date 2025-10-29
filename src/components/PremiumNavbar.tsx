@@ -182,11 +182,11 @@ export default function PremiumNavbar() {
               className="group flex items-center text-xl font-bold transition-all duration-300 hover:scale-105"
               onClick={closeAllDropdowns}
             >
-              <span className="text-2xl font-bold text-gray-900 hover:opacity-90 transition-opacity">
+              <span className="text-xl sm:text-2xl font-bold text-gray-900 hover:opacity-90 transition-opacity">
                 Jobbcoach
               </span>
               <div className="relative">
-                <span className="text-2xl font-bold text-white bg-gradient-to-r from-pink-600 to-purple-600 rounded-md px-1.5 py-0.5 ml-1 leading-tight hover:opacity-90 transition-opacity shadow-sm">
+                <span className="text-xl sm:text-2xl font-bold text-white bg-gradient-to-r from-pink-600 to-purple-600 rounded-md px-1.5 py-0.5 ml-1 leading-tight hover:opacity-90 transition-opacity shadow-sm">
                   .ai
                 </span>
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-pulse" />
@@ -377,7 +377,7 @@ export default function PremiumNavbar() {
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className="lg:hidden bg-white/95 backdrop-blur-xl border-t border-gray-200/80"
           >
-            <div className="container mx-auto px-4 py-6">
+            <div className="container mx-auto px-4 py-6 max-h-[80vh] overflow-y-auto">
               <div className="space-y-6">
 
                 {/* Mobile Direct Links */}
@@ -418,16 +418,16 @@ export default function PremiumNavbar() {
                             key={item.name}
                             href={effectiveHref}
                             onClick={() => setMobileMenuOpen(false)}
-                            className={`flex items-center gap-3 p-3 rounded-lg transition-all ${
+                            className={`flex items-center gap-3 p-2 sm:p-3 rounded-lg transition-all ${
                               isLocked
                                 ? 'text-gray-500 hover:text-gray-600 hover:bg-gray-100/50'
                                 : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100/80'
                             }`}
                           >
-                            <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${item.gradient} flex items-center justify-center ${
+                            <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-br ${item.gradient} flex items-center justify-center ${
                               isLocked ? 'opacity-60' : ''
                             }`}>
-                              <item.icon className="w-4 h-4 text-white" />
+                              <item.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
                             </div>
                             <div className="flex-1">
                               <div className="flex items-center gap-2">

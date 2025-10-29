@@ -176,7 +176,7 @@ export default function HomePage() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-6 md:gap-12 items-center">
               {/* Vänster kolumn - Text */}
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
@@ -190,7 +190,7 @@ export default function HomePage() {
 
                 {/* Huvudrubrik with animation */}
                 <motion.h1
-                  className="text-5xl md:text-6xl font-extrabold text-slate-900 mb-6 leading-[1.1]"
+                  className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 mb-6 leading-[1.1]"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.8 }}
@@ -215,7 +215,7 @@ export default function HomePage() {
                 </motion.h1>
 
                 {/* Underrubrik */}
-                <p className="text-xl text-slate-600 mb-8 leading-relaxed">
+                <p className="text-lg sm:text-xl text-slate-600 mb-8 leading-relaxed">
                   Över 70% av alla CV sorteras bort av AI-system innan någon människa ser dem. Vi hjälper dig ta dig förbi robotarna – så att dina kvalifikationer faktiskt når fram.
                   <span className="font-semibold text-slate-900"> 89% av våra användare får intervju inom 2 veckor.</span>
                 </p>
@@ -269,7 +269,7 @@ export default function HomePage() {
                       </motion.button>
                     </div>
                   </div>
-                  <div className="flex items-center gap-4 mt-4 text-sm text-slate-500">
+                  <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-4 text-xs sm:text-sm text-slate-500">
                     <span className="flex items-center gap-1">
                       <CheckCircle className="w-4 h-4 text-green-500" />
                       ATS-optimerad analys
@@ -408,9 +408,9 @@ export default function HomePage() {
           <p className="text-center text-sm font-medium text-slate-500 mb-8">
             Våra användare har använt vår tjänst för att söka roller hos:
           </p>
-          <div className="grid grid-cols-3 md:grid-cols-7 gap-8 items-center justify-items-center opacity-60 hover:opacity-100 transition-opacity">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-4 md:gap-8 items-center justify-items-center opacity-60 hover:opacity-100 transition-opacity">
             {['Spotify', 'Friskis & Svettis', 'H&M', 'Anticimex', 'IKEA', 'SEB', 'Klarna'].map((company) => (
-              <div key={company} className="text-xl font-bold text-slate-400 hover:text-slate-600 transition-colors">
+              <div key={company} className="text-base sm:text-lg md:text-xl font-bold text-slate-400 hover:text-slate-600 transition-colors">
                 {company}
               </div>
             ))}
@@ -480,8 +480,8 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white rounded-2xl p-8 shadow-xl shadow-slate-900/5 border border-slate-100">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+              <div className="bg-white rounded-2xl p-6 md:p-8 shadow-xl shadow-slate-900/5 border border-slate-100">
                 <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mb-6">
                   <Target className="w-7 h-7 text-white" />
                 </div>
@@ -500,7 +500,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-2xl p-8 shadow-xl shadow-slate-900/5 border border-slate-100">
+              <div className="bg-white rounded-2xl p-6 md:p-8 shadow-xl shadow-slate-900/5 border border-slate-100">
                 <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mb-6">
                   <Clock className="w-7 h-7 text-white" />
                 </div>
@@ -526,7 +526,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-2xl p-8 shadow-xl shadow-slate-900/5 border border-slate-100">
+              <div className="bg-white rounded-2xl p-6 md:p-8 shadow-xl shadow-slate-900/5 border border-slate-100">
                 <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mb-6">
                   <Award className="w-7 h-7 text-white" />
                 </div>
@@ -669,7 +669,7 @@ export default function HomePage() {
                   transition={{ delay: feature.delay, duration: 0.5 }}
                 >
                   <motion.div
-                    className="relative h-full bg-white rounded-xl border border-slate-200 p-6 cursor-pointer overflow-hidden"
+                    className="relative h-full bg-white rounded-xl border border-slate-200 p-4 sm:p-6 cursor-pointer overflow-hidden"
                     whileHover={{
                       y: -8,
                       transition: { duration: 0.3, ease: "easeOut" }
@@ -784,13 +784,13 @@ export default function HomePage() {
           <div className="relative max-w-7xl mx-auto">
             <button
               onClick={() => swiperInstance?.slidePrev()}
-              className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white border border-slate-200 rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-all duration-300 hover:scale-110"
+              className="hidden sm:flex absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white border border-slate-200 rounded-full shadow-lg items-center justify-center hover:shadow-xl transition-all duration-300 hover:scale-110"
             >
               <ChevronLeft className="w-5 h-5 text-slate-600" />
             </button>
             <button
               onClick={() => swiperInstance?.slideNext()}
-              className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white border border-slate-200 rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-all duration-300 hover:scale-110"
+              className="hidden sm:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white border border-slate-200 rounded-full shadow-lg items-center justify-center hover:shadow-xl transition-all duration-300 hover:scale-110"
             >
               <ChevronRight className="w-5 h-5 text-slate-600" />
             </button>
@@ -871,7 +871,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
               {[
                 {
                   name: 'Anna Lindberg',
@@ -895,7 +895,7 @@ export default function HomePage() {
                   increase: '5 intervjuer första veckan'
                 }
               ].map((testimonial, idx) => (
-                <div key={idx} className="bg-white rounded-xl p-6 shadow-lg shadow-slate-900/5 border border-slate-100">
+                <div key={idx} className="bg-white rounded-xl p-4 sm:p-6 shadow-lg shadow-slate-900/5 border border-slate-100">
                   <div className="flex items-center gap-1 mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
                       <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
@@ -957,9 +957,9 @@ export default function HomePage() {
                 <div key={idx} className="bg-white rounded-xl border border-slate-200 overflow-hidden">
                   <button
                     onClick={() => setExpandedFaq(expandedFaq === idx ? null : idx)}
-                    className="w-full px-6 py-4 flex items-center justify-between hover:bg-slate-50 transition-colors"
+                    className="w-full px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between hover:bg-slate-50 transition-colors"
                   >
-                    <span className="font-medium text-slate-900 text-left">{item.q}</span>
+                    <span className="font-medium text-slate-900 text-left text-sm sm:text-base">{item.q}</span>
                     {expandedFaq === idx ? (
                       <ChevronUp className="w-5 h-5 text-slate-500" />
                     ) : (

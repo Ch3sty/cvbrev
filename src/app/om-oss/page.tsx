@@ -131,7 +131,7 @@ export default function OmOssPage() {
                 </span>
               </h1>
 
-              <p className="max-w-3xl mx-auto text-xl text-gray-600 leading-relaxed">
+              <p className="max-w-3xl mx-auto text-lg sm:text-xl text-gray-600 leading-relaxed">
                 Jobbcoach.ai är mer än bara ett verktyg – vi är din digitala partner,
                 dedikerade till att förenkla och förbättra din resa mot drömjobbet med hjälp av smart AI.
               </p>
@@ -158,7 +158,7 @@ export default function OmOssPage() {
         {/* === Vår Resa Section === */}
         <section className="py-16 lg:py-24 bg-gradient-to-b from-slate-50/50 to-white">
           <div className="container px-4 mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-6 md:gap-12 items-center">
               {/* Visual Element */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
@@ -214,7 +214,7 @@ export default function OmOssPage() {
                   </p>
                 </div>
 
-                <div className="mt-8 grid grid-cols-2 gap-6">
+                <div className="mt-8 grid grid-cols-2 gap-4 sm:gap-6">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
                       <CheckCircle className="w-5 h-5 text-green-600" />
@@ -271,7 +271,7 @@ export default function OmOssPage() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 max-w-6xl mx-auto">
               {teamMembers.map((member, index) => (
                 <TeamMemberCard key={member.name} member={member} index={index} />
               ))}

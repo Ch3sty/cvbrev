@@ -222,7 +222,7 @@ export default function PersonligtBrevSida() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-6xl mx-auto">
             {/* Hero content grid */}
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-6 md:gap-12 items-center">
               {/* Left: Text content */}
               <div>
                 <motion.div
@@ -236,7 +236,7 @@ export default function PersonligtBrevSida() {
                 </motion.div>
 
                 <motion.h1
-                  className="text-5xl md:text-6xl font-extrabold text-slate-900 mb-6 leading-tight"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 mb-6 leading-tight"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1, duration: 0.6 }}
@@ -248,7 +248,7 @@ export default function PersonligtBrevSida() {
                 </motion.h1>
 
                 <motion.p
-                  className="text-xl text-slate-600 mb-6 leading-relaxed"
+                  className="text-lg sm:text-xl text-slate-600 mb-6 leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.6 }}
@@ -324,7 +324,7 @@ export default function PersonligtBrevSida() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
               {[
                 {
                   icon: Search,
@@ -347,7 +347,7 @@ export default function PersonligtBrevSida() {
               ].map((problem, idx) => (
                 <motion.div
                   key={idx}
-                  className="bg-slate-50 rounded-xl p-6 border border-slate-200"
+                  className="bg-slate-50 rounded-xl p-4 sm:p-6 border border-slate-200"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}

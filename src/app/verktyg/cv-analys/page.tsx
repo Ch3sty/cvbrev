@@ -223,11 +223,11 @@ export default function CVAnalysisLandingPage() {
 
         <div className="container mx-auto px-4 relative">
           <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-6 md:gap-12 items-center">
               {/* Left: Content */}
               <div>
                 <motion.h1
-                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
@@ -239,7 +239,7 @@ export default function CVAnalysisLandingPage() {
                 </motion.h1>
 
                 <motion.p
-                  className="text-xl text-slate-600 mb-8 leading-relaxed"
+                  className="text-lg sm:text-xl text-slate-600 mb-8 leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.6 }}
@@ -316,7 +316,7 @@ export default function CVAnalysisLandingPage() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
               {[
                 {
                   icon: TrendingDown,
@@ -339,7 +339,7 @@ export default function CVAnalysisLandingPage() {
               ].map((problem, idx) => (
                 <motion.div
                   key={idx}
-                  className="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:border-orange-300 hover:shadow-lg transition-all duration-300"
+                  className="bg-slate-50 rounded-xl p-4 sm:p-6 border border-slate-200 hover:border-orange-300 hover:shadow-lg transition-all duration-300"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
