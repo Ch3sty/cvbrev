@@ -29,7 +29,7 @@ interface GamificationStats {
   recentXP: any[];
 }
 
-export default function DashboardHeader({ user }: DashboardHeaderProps) {
+export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderProps) {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [gamificationStats, setGamificationStats] = useState<GamificationStats | null>(null);
   const [showXPAnimation, setShowXPAnimation] = useState(false);
