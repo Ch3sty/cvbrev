@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Download, Eye, FileText, Copy } from 'lucide-react';
+import { Download, Copy } from 'lucide-react';
 
 const EXEMPEL_BREV = `Sara Lindström
 Björkvägen 12
@@ -33,7 +33,6 @@ Med vänlig hälsning,
 Sara Lindström`;
 
 export default function PersonligtBrevExample() {
-  const [showPreview, setShowPreview] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const handleDownload = () => {
@@ -56,47 +55,17 @@ export default function PersonligtBrevExample() {
 
   return (
     <div className="my-8 border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
-      {/* Header */}
-      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 border-b border-gray-200">
-        <div className="flex items-start gap-4">
-          <div className="bg-blue-100 p-3 rounded-lg">
-            <FileText className="w-6 h-6 text-blue-600" />
-          </div>
-          <div>
-            <h3 className="text-xl font-bold mb-2 text-gray-900">
-              Personligt brev exempel – undersköterska vårdcentral
-            </h3>
-            <p className="text-gray-600 text-sm">
-              Ett realistiskt exempel skrivet för tjänst på vårdcentral. Anpassa det efter din egen bakgrund och den tjänst du söker.
-            </p>
+      {/* Example Content - Always Visible */}
+      <div className="p-6 bg-white">
+        <div className="max-w-3xl mx-auto">
+          <div className="whitespace-pre-wrap font-serif text-base leading-relaxed text-gray-800 bg-gray-50 p-8 rounded-lg border border-gray-200">
+            {EXEMPEL_BREV}
           </div>
         </div>
       </div>
-
-      {/* Preview Toggle */}
-      <div className="p-4 bg-gray-50 border-b border-gray-200">
-        <button
-          onClick={() => setShowPreview(!showPreview)}
-          className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors"
-        >
-          <Eye className="w-5 h-5" />
-          {showPreview ? 'Dölj exempel' : 'Visa exempel på personligt brev undersköterska'}
-        </button>
-      </div>
-
-      {/* Preview Content */}
-      {showPreview && (
-        <div className="p-6 bg-white">
-          <div className="max-w-3xl mx-auto">
-            <div className="whitespace-pre-wrap font-serif text-base leading-relaxed text-gray-800 bg-white p-8 rounded-lg border border-gray-200 shadow-sm">
-              {EXEMPEL_BREV}
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Action Buttons */}
-      <div className="p-6 bg-gray-50 flex flex-col sm:flex-row gap-3">
+      <div className="p-6 bg-gray-50 flex flex-col sm:flex-row gap-3 border-t border-gray-200">
         <button
           onClick={handleDownload}
           className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors shadow-sm"
