@@ -176,7 +176,7 @@ export default function HomePage() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-6 md:gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 items-center">
               {/* Vänster kolumn - Text */}
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
@@ -251,7 +251,7 @@ export default function HomePage() {
                       <motion.button
                         type="submit"
                         disabled={isLoading}
-                        className="px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-lg hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 disabled:opacity-50 whitespace-nowrap"
+                        className="min-h-[44px] touch-manipulation px-6 sm:px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-lg hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 disabled:opacity-50 whitespace-nowrap text-sm sm:text-base"
                         whileHover={{ scale: 1.02, y: -2 }}
                         whileTap={{ scale: 0.98 }}
                       >
@@ -264,22 +264,25 @@ export default function HomePage() {
                           Laddar...
                         </span>
                       ) : (
-                        <>Analysera mitt CV gratis</>
+                        <span className="hidden sm:inline">Analysera mitt CV gratis</span>
+                      )}
+                      {!isLoading && (
+                        <span className="sm:hidden">Analysera CV gratis</span>
                       )}
                       </motion.button>
                     </div>
                   </div>
                   <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-4 text-xs sm:text-sm text-slate-500">
-                    <span className="flex items-center gap-1">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
+                    <span className="flex items-center gap-1 touch-manipulation">
+                      <CheckCircle className="w-5 h-5 sm:w-4 sm:h-4 text-green-500" />
                       ATS-optimerad analys
                     </span>
-                    <span className="flex items-center gap-1">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
+                    <span className="flex items-center gap-1 touch-manipulation">
+                      <CheckCircle className="w-5 h-5 sm:w-4 sm:h-4 text-green-500" />
                       Inga bindningar
                     </span>
-                    <span className="flex items-center gap-1">
-                      <CheckCircle className="w-4 h-4 text-green-500" />
+                    <span className="flex items-center gap-1 touch-manipulation">
+                      <CheckCircle className="w-5 h-5 sm:w-4 sm:h-4 text-green-500" />
                       GDPR-säker
                     </span>
                   </div>
@@ -481,7 +484,7 @@ export default function HomePage() {
             </div>
 
             <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
-              <div className="bg-white rounded-2xl p-6 md:p-8 shadow-xl shadow-slate-900/5 border border-slate-100">
+              <div className="bg-white rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl shadow-slate-900/5 border border-slate-100">
                 <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center mb-6">
                   <Target className="w-7 h-7 text-white" />
                 </div>
@@ -500,7 +503,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-2xl p-6 md:p-8 shadow-xl shadow-slate-900/5 border border-slate-100">
+              <div className="bg-white rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl shadow-slate-900/5 border border-slate-100">
                 <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center mb-6">
                   <Clock className="w-7 h-7 text-white" />
                 </div>
@@ -526,7 +529,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-2xl p-6 md:p-8 shadow-xl shadow-slate-900/5 border border-slate-100">
+              <div className="bg-white rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl shadow-slate-900/5 border border-slate-100">
                 <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center mb-6">
                   <Award className="w-7 h-7 text-white" />
                 </div>
@@ -784,13 +787,13 @@ export default function HomePage() {
           <div className="relative max-w-7xl mx-auto">
             <button
               onClick={() => swiperInstance?.slidePrev()}
-              className="hidden sm:flex absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white border border-slate-200 rounded-full shadow-lg items-center justify-center hover:shadow-xl transition-all duration-300 hover:scale-110"
+              className="flex absolute -left-4 top-1/2 -translate-y-1/2 z-10 min-w-[44px] min-h-[44px] w-12 h-12 bg-white border border-slate-200 rounded-full shadow-lg items-center justify-center hover:shadow-xl transition-all duration-300 hover:scale-110 touch-manipulation"
             >
               <ChevronLeft className="w-5 h-5 text-slate-600" />
             </button>
             <button
               onClick={() => swiperInstance?.slideNext()}
-              className="hidden sm:flex absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white border border-slate-200 rounded-full shadow-lg items-center justify-center hover:shadow-xl transition-all duration-300 hover:scale-110"
+              className="flex absolute -right-4 top-1/2 -translate-y-1/2 z-10 min-w-[44px] min-h-[44px] w-12 h-12 bg-white border border-slate-200 rounded-full shadow-lg items-center justify-center hover:shadow-xl transition-all duration-300 hover:scale-110 touch-manipulation"
             >
               <ChevronRight className="w-5 h-5 text-slate-600" />
             </button>
@@ -957,7 +960,7 @@ export default function HomePage() {
                 <div key={idx} className="bg-white rounded-xl border border-slate-200 overflow-hidden">
                   <button
                     onClick={() => setExpandedFaq(expandedFaq === idx ? null : idx)}
-                    className="w-full px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between hover:bg-slate-50 transition-colors"
+                    className="w-full min-h-[44px] touch-manipulation px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between hover:bg-slate-50 transition-colors"
                   >
                     <span className="font-medium text-slate-900 text-left text-sm sm:text-base">{item.q}</span>
                     {expandedFaq === idx ? (

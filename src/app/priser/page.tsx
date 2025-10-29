@@ -665,9 +665,9 @@ export default function PriserPage() {
                               whileHover={{ scale: 1.2, rotate: 360 }}
                               transition={{ duration: 0.3 }}
                             >
-                              <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                              <CheckCircle className="w-6 h-6 sm:w-5 sm:h-5 text-green-500 mr-3 flex-shrink-0" />
                             </motion.div>
-                            <span className="text-slate-700 group-hover/item:text-slate-900 transition-colors">{feature}</span>
+                            <span className="text-sm sm:text-base text-slate-700 group-hover/item:text-slate-900 transition-colors">{feature}</span>
                           </motion.div>
                         ))}
 
@@ -691,9 +691,9 @@ export default function PriserPage() {
                                 whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
                                 transition={{ duration: 0.5 }}
                               >
-                                <Lock className="w-5 h-5 text-gray-400 mr-3 flex-shrink-0" />
+                                <Lock className="w-6 h-6 sm:w-5 sm:h-5 text-gray-400 mr-3 flex-shrink-0" />
                               </motion.div>
-                              <span className="text-slate-500 group-hover/locked:text-slate-600 transition-colors">{feature}</span>
+                              <span className="text-sm sm:text-base text-slate-500 group-hover/locked:text-slate-600 transition-colors">{feature}</span>
                             </motion.div>
                           ))}
                         </div>
@@ -705,7 +705,7 @@ export default function PriserPage() {
                     <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                       <Link
                         href="/register"
-                        className="flex items-center justify-center w-full px-6 py-4 font-semibold text-slate-700 bg-gradient-to-r from-gray-100 to-gray-50 hover:from-gray-200 hover:to-gray-100 rounded-2xl transition-all duration-300 group border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md relative overflow-hidden"
+                        className="flex items-center justify-center w-full min-h-[44px] touch-manipulation px-6 py-4 font-semibold text-slate-700 bg-gradient-to-r from-gray-100 to-gray-50 hover:from-gray-200 hover:to-gray-100 rounded-2xl transition-all duration-300 group border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md relative overflow-hidden"
                       >
                         {/* Button shine effect */}
                         <motion.div
@@ -963,12 +963,12 @@ export default function PriserPage() {
                         <SubscribeButton
                           priceId={premiumMonthlyPriceId}
                           planName="Premium"
-                          className="flex items-center justify-center w-full px-8 py-5 font-bold text-white bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:from-pink-700 hover:via-purple-700 hover:to-indigo-700 rounded-2xl transition-all duration-300 shadow-xl hover:shadow-2xl group relative overflow-hidden border border-white/20"
+                          className="flex items-center justify-center w-full min-h-[44px] touch-manipulation px-8 py-5 font-bold text-white bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:from-pink-700 hover:via-purple-700 hover:to-indigo-700 rounded-2xl transition-all duration-300 shadow-xl hover:shadow-2xl group relative overflow-hidden border border-white/20"
                         />
                       ) : (
                         <Link
                           href="/register?plan=premium"
-                          className="flex items-center justify-center w-full px-8 py-5 font-bold text-white bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:from-pink-700 hover:via-purple-700 hover:to-indigo-700 rounded-2xl transition-all duration-300 shadow-xl hover:shadow-2xl group relative overflow-hidden border border-white/20"
+                          className="flex items-center justify-center w-full min-h-[44px] touch-manipulation px-6 sm:px-8 py-5 font-bold text-sm sm:text-base text-white bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:from-pink-700 hover:via-purple-700 hover:to-indigo-700 rounded-2xl transition-all duration-300 shadow-xl hover:shadow-2xl group relative overflow-hidden border border-white/20"
                         >
                           {/* Button magical effect */}
                           <motion.div
@@ -978,9 +978,10 @@ export default function PriserPage() {
                               transition: { duration: 0.8, ease: "easeInOut" }
                             }}
                           />
-                          <Sparkles className="w-5 h-5 mr-3" />
-                          Uppgradera till Premium
-                          <ArrowRight className="w-5 h-5 ml-3 transition-transform group-hover:translate-x-2" />
+                          <Sparkles className="w-5 h-5 mr-2 sm:mr-3" />
+                          <span className="hidden sm:inline">Uppgradera till Premium</span>
+                          <span className="sm:hidden">Till Premium</span>
+                          <ArrowRight className="w-5 h-5 ml-2 sm:ml-3 transition-transform group-hover:translate-x-2" />
                         </Link>
                       )}
 
@@ -1284,7 +1285,7 @@ export default function PriserPage() {
 
                   <div className="space-y-6">
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
+                      <label className="block text-xs sm:text-sm font-medium text-slate-700 mb-2">
                         Hur många jobb söker du per månad?
                       </label>
                       <div className="flex items-center gap-4">
@@ -1294,17 +1295,17 @@ export default function PriserPage() {
                           max="30"
                           value={applicationsPerMonth}
                           onChange={(e) => setApplicationsPerMonth(Number(e.target.value))}
-                          className="flex-1 accent-blue-600"
+                          className="flex-1 accent-blue-600 touch-manipulation min-h-[44px]"
                           whileFocus={{ scale: 1.02 }}
                         />
-                        <div className="w-16 text-center font-bold text-slate-900">
+                        <div className="w-12 sm:w-16 text-center font-bold text-slate-900 text-sm sm:text-base">
                           {applicationsPerMonth}
                         </div>
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-slate-700 mb-2">
+                      <label className="block text-xs sm:text-sm font-medium text-slate-700 mb-2">
                         Timmar per personligt brev (manuellt)
                       </label>
                       <div className="flex items-center gap-4">
@@ -1315,10 +1316,10 @@ export default function PriserPage() {
                           step="0.5"
                           value={timePerLetter}
                           onChange={(e) => setTimePerLetter(Number(e.target.value))}
-                          className="flex-1 accent-blue-600"
+                          className="flex-1 accent-blue-600 touch-manipulation min-h-[44px]"
                           whileFocus={{ scale: 1.02 }}
                         />
-                        <div className="w-16 text-center font-bold text-slate-900">
+                        <div className="w-12 sm:w-16 text-center font-bold text-slate-900 text-sm sm:text-base">
                           {timePerLetter}h
                         </div>
                       </div>

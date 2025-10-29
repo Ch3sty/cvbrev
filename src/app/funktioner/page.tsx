@@ -281,7 +281,7 @@ export default function FunktionerPage() {
 
             {/* Interactive CTA */}
             <motion.button
-              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-xl"
+              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-xl min-h-[44px] touch-manipulation"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setShowInteractiveDemo(true)}
@@ -330,7 +330,7 @@ export default function FunktionerPage() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr">
               {features.map((feature, idx) => (
-                <div key={feature.id} className="min-h-[400px]">
+                <div key={feature.id} className="min-h-[300px] sm:min-h-[350px] md:min-h-[400px]">
                   <StaticFeatureCard
                     feature={feature}
                     delay={idx * 0.1}
@@ -500,18 +500,18 @@ export default function FunktionerPage() {
             </motion.div>
 
             <div className="bg-white rounded-2xl border border-slate-200 shadow-xl overflow-hidden">
-              <div className="grid grid-cols-4 bg-gradient-to-r from-slate-50 to-white">
-                <div className="p-6 font-semibold text-slate-900">Funktion</div>
-                <div className="p-6 text-center">
-                  <div className="font-bold text-blue-600">Jobbcoach.ai</div>
+              <div className="grid grid-cols-4 sticky top-0 z-10 bg-gradient-to-r from-slate-50 to-white">
+                <div className="p-4 sm:p-6 font-semibold text-slate-900 text-sm sm:text-base">Funktion</div>
+                <div className="p-4 sm:p-6 text-center">
+                  <div className="font-bold text-blue-600 text-sm sm:text-base">Jobbcoach.ai</div>
                   <div className="text-xs text-slate-600">Premium</div>
                 </div>
-                <div className="p-6 text-center">
-                  <div className="font-medium text-slate-700">ChatGPT</div>
+                <div className="p-4 sm:p-6 text-center">
+                  <div className="font-medium text-slate-700 text-sm sm:text-base">ChatGPT</div>
                   <div className="text-xs text-slate-600">Generell AI</div>
                 </div>
-                <div className="p-6 text-center">
-                  <div className="font-medium text-slate-700">Traditionell</div>
+                <div className="p-4 sm:p-6 text-center">
+                  <div className="font-medium text-slate-700 text-sm sm:text-base">Traditionell</div>
                   <div className="text-xs text-slate-600">Manuell process</div>
                 </div>
               </div>
@@ -527,8 +527,8 @@ export default function FunktionerPage() {
                 { feature: 'Obegränsad användning', us: '149 kr/månad', chatgpt: '200+ kr/månad', traditional: 'Gratis men tidskrävande' },
               ].map((row, idx) => (
                 <div key={idx} className={`grid grid-cols-4 border-t border-slate-200 ${idx % 2 === 0 ? 'bg-slate-50/50' : ''}`}>
-                  <div className="p-6 font-medium text-slate-700">{row.feature}</div>
-                  <div className="p-6 text-center">
+                  <div className="p-4 sm:p-6 font-medium text-slate-700 text-sm sm:text-base">{row.feature}</div>
+                  <div className="p-4 sm:p-6 text-center">
                     {typeof row.us === 'boolean' ? (
                       row.us ? (
                         <CheckCircle className="w-6 h-6 text-green-500 mx-auto" />
@@ -541,7 +541,7 @@ export default function FunktionerPage() {
                       <span className="font-semibold text-green-600">{row.us}</span>
                     )}
                   </div>
-                  <div className="p-6 text-center">
+                  <div className="p-4 sm:p-6 text-center">
                     {typeof row.chatgpt === 'boolean' ? (
                       row.chatgpt ? (
                         <CheckCircle className="w-6 h-6 text-green-500 mx-auto" />
@@ -551,10 +551,10 @@ export default function FunktionerPage() {
                     ) : row.chatgpt === 'partial' ? (
                       <div className="w-6 h-6 bg-yellow-400 rounded-full mx-auto" />
                     ) : (
-                      <span className="text-slate-600">{row.chatgpt}</span>
+                      <span className="text-slate-600 text-xs sm:text-sm">{row.chatgpt}</span>
                     )}
                   </div>
-                  <div className="p-6 text-center">
+                  <div className="p-4 sm:p-6 text-center">
                     {typeof row.traditional === 'boolean' ? (
                       row.traditional ? (
                         <CheckCircle className="w-6 h-6 text-green-500 mx-auto" />
@@ -564,7 +564,7 @@ export default function FunktionerPage() {
                     ) : row.traditional === 'partial' ? (
                       <div className="w-6 h-6 bg-yellow-400 rounded-full mx-auto" />
                     ) : (
-                      <span className="text-slate-600">{row.traditional}</span>
+                      <span className="text-slate-600 text-xs sm:text-sm">{row.traditional}</span>
                     )}
                   </div>
                 </div>
@@ -605,7 +605,7 @@ export default function FunktionerPage() {
                 >
                   <button
                     onClick={() => setExpandedFaq(expandedFaq === idx ? null : idx)}
-                    className="w-full px-6 py-5 flex items-center justify-between hover:bg-slate-50 transition-colors"
+                    className="w-full px-6 py-5 flex items-center justify-between hover:bg-slate-50 transition-colors min-h-[44px] touch-manipulation"
                   >
                     <span className="font-medium text-slate-900 text-left">{item.question}</span>
                     <motion.div
@@ -655,7 +655,7 @@ export default function FunktionerPage() {
               </p>
 
               <motion.button
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all"
+                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all min-h-[44px] touch-manipulation"
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => window.location.href = '/register'}

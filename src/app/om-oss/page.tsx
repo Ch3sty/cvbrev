@@ -214,7 +214,7 @@ export default function OmOssPage() {
                   </p>
                 </div>
 
-                <div className="mt-8 grid grid-cols-2 gap-4 sm:gap-6">
+                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
                       <CheckCircle className="w-5 h-5 text-green-600" />
@@ -271,7 +271,7 @@ export default function OmOssPage() {
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
               {teamMembers.map((member, index) => (
                 <TeamMemberCard key={member.name} member={member} index={index} />
               ))}
@@ -315,7 +315,7 @@ export default function OmOssPage() {
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
                   <Link
                     href={session ? "/dashboard" : "/register"}
-                    className="inline-flex items-center justify-center w-full px-8 py-4 text-lg font-medium text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-purple-600 rounded-xl shadow-lg hover:shadow-xl group sm:w-auto"
+                    className="inline-flex items-center justify-center w-full px-8 py-4 text-lg font-medium text-white transition-all duration-300 bg-gradient-to-r from-pink-600 to-purple-600 rounded-xl shadow-lg hover:shadow-xl group sm:w-auto min-h-[44px] touch-manipulation"
                   >
                     <Sparkles className="w-5 h-5 mr-2" />
                     {session ? "Gå till dashboard" : "Kom igång gratis"}
@@ -326,7 +326,7 @@ export default function OmOssPage() {
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
                   <Link
                     href="/funktioner"
-                    className="inline-flex items-center justify-center w-full px-8 py-4 text-lg font-medium text-gray-700 transition-all duration-300 bg-white border-2 border-gray-200 rounded-xl hover:border-pink-300 hover:text-pink-600 sm:w-auto shadow-sm hover:shadow-md"
+                    className="inline-flex items-center justify-center w-full px-8 py-4 text-lg font-medium text-gray-700 transition-all duration-300 bg-white border-2 border-gray-200 rounded-xl hover:border-pink-300 hover:text-pink-600 sm:w-auto shadow-sm hover:shadow-md min-h-[44px] touch-manipulation"
                   >
                     Se alla funktioner
                   </Link>

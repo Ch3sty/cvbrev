@@ -7,7 +7,7 @@ export default function PremiumFooter() {
   return (
     <footer className="bg-gradient-to-b from-slate-50 to-white border-t border-gray-200">
       <div className="container px-4 py-16 mx-auto">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-5">
+        <div className="grid grid-cols-1 gap-6 sm:gap-8 md:gap-10 md:grid-cols-2 lg:grid-cols-5">
 
           {/* Kolumn 1: Om Jobbcoach.ai */}
           <div className="lg:col-span-2">
@@ -141,10 +141,10 @@ export default function PremiumFooter() {
 
         {/* Copyright Section */}
         <div className="pt-8 mt-12 border-t border-gray-200 flex flex-col items-center space-y-4 md:flex-row md:justify-between md:space-y-0">
-          <p className="text-sm text-gray-600 text-center md:text-left">
+          <p className="text-xs sm:text-sm text-gray-600 text-center md:text-left">
             © 2024 Jobbcoach.ai. Alla rättigheter förbehållna.
           </p>
-          <p className="text-sm text-gray-600 flex items-center gap-1">
+          <p className="text-xs sm:text-sm text-gray-600 flex items-center gap-1">
             Utvecklad med <Heart className="w-4 h-4 text-pink-500 fill-pink-500" /> i Sverige
           </p>
         </div>
