@@ -129,22 +129,22 @@ export default function ProfilPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="mb-4 sm:mb-6 md:mb-8"
       >
-        <div className="flex items-center gap-4 mb-4">
-          <div className="p-4 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl shadow-lg">
-            <User className="w-10 h-10 text-white" />
+        <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
+          <div className="p-3 sm:p-4 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl sm:rounded-2xl shadow-lg flex-shrink-0">
+            <User className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" />
           </div>
-          <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent truncate">
               Profilinformation
             </h1>
-            <p className="text-slate-600 mt-1 font-medium">Hantera dina personliga uppgifter</p>
+            <p className="text-xs sm:text-sm text-slate-600 mt-0.5 sm:mt-1 font-medium">Hantera dina personliga uppgifter</p>
           </div>
         </div>
       </motion.div>
@@ -155,7 +155,7 @@ export default function ProfilPage() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className={`mb-6 p-4 rounded-xl border-l-4 ${
+          className={`mb-4 sm:mb-6 p-3 sm:p-4 rounded-lg sm:rounded-xl border-l-4 text-sm sm:text-base ${
             notification.type === 'success' ? 'bg-green-50 border-green-500 text-green-800' :
             notification.type === 'error' ? 'bg-red-50 border-red-500 text-red-800' :
             notification.type === 'loading' ? 'bg-blue-50 border-blue-500 text-blue-800' :
@@ -171,9 +171,9 @@ export default function ProfilPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="bg-white/80 backdrop-blur-xl rounded-2xl p-8 border border-gray-200/50 shadow-xl"
+        className="bg-white/80 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-gray-200/50 shadow-xl"
       >
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {/* Email */}
           <div className="relative">
             <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
@@ -186,7 +186,7 @@ export default function ProfilPage() {
               id="email"
               value={profile?.email || ''}
               disabled
-              className="w-full px-4 py-3 rounded-xl bg-gray-50 text-gray-600 border border-gray-200 cursor-not-allowed"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-gray-50 text-gray-600 border border-gray-200 cursor-not-allowed text-sm sm:text-base"
             />
             <p className="mt-2 text-xs text-gray-500 flex items-center">
               <Info className="w-3 h-3 mr-1" />
@@ -210,7 +210,7 @@ export default function ProfilPage() {
               placeholder="Ditt namn"
               required
               minLength={2}
-              className="w-full px-4 py-3 rounded-xl bg-white text-gray-900 border border-gray-200 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white text-gray-900 border border-gray-200 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all text-sm sm:text-base"
             />
             <p className="mt-2 text-xs text-gray-500 flex items-center">
               <Info className="w-3 h-3 mr-1" />
@@ -263,7 +263,7 @@ export default function ProfilPage() {
               Din standardton när du skapar nya personliga brev.
             </p>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3 mb-3 sm:mb-4">
               {tonalityOptions
                 .filter(option => !(option.value === 'auto' && subscriptionTier !== 'premium'))
                 .map((option) => (
@@ -272,7 +272,7 @@ export default function ProfilPage() {
                   type="button"
                   onClick={() => handleTonalitySelect(option.value)}
                   className={`
-                    flex flex-col items-center justify-center p-4 rounded-xl text-center border-2 transition-all
+                    flex flex-col items-center justify-center p-3 sm:p-4 rounded-lg sm:rounded-xl text-center border-2 transition-all touch-manipulation
                     ${formData.preferred_tonality === option.value
                       ? 'border-pink-500 bg-pink-50 shadow-lg shadow-pink-500/20'
                       : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-md'
@@ -284,8 +284,8 @@ export default function ProfilPage() {
                   whileHover={{ scale: option.value === 'auto' && subscriptionTier !== 'premium' ? 1 : 1.02 }}
                   whileTap={{ scale: option.value === 'auto' && subscriptionTier !== 'premium' ? 1 : 0.98 }}
                 >
-                  <div className="mb-2">{option.icon}</div>
-                  <span className={`text-sm font-medium ${formData.preferred_tonality === option.value ? 'text-gray-900' : 'text-gray-700'}`}>
+                  <div className="mb-1.5 sm:mb-2">{option.icon}</div>
+                  <span className={`text-xs sm:text-sm font-medium ${formData.preferred_tonality === option.value ? 'text-gray-900' : 'text-gray-700'}`}>
                     {option.label}
                     {option.value === 'auto' && (
                       <span className="ml-1 text-xs text-pink-600">(Premium)</span>
@@ -324,28 +324,28 @@ export default function ProfilPage() {
           </div>
 
           {/* Spara-knapp */}
-          <div className="pt-6">
+          <div className="pt-4 sm:pt-6">
             <motion.button
               onClick={handleSaveProfile}
               disabled={saving}
-              className="flex items-center justify-center w-full md:w-auto px-8 py-4 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl hover:from-pink-700 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex items-center justify-center w-full md:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-lg sm:rounded-xl font-semibold shadow-lg hover:shadow-xl hover:from-pink-700 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation text-sm sm:text-base"
               whileHover={!saving ? { scale: 1.02, y: -2 } : {}}
               whileTap={!saving ? { scale: 0.98 } : {}}
             >
               {saving ? (
                 <>
                   <motion.div
-                    className="w-5 h-5 mr-2 border-t-2 border-b-2 border-white rounded-full"
+                    className="w-4 h-4 sm:w-5 sm:h-5 mr-2 border-t-2 border-b-2 border-white rounded-full"
                     animate={{ rotate: 360 }}
                     transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                   />
-                  Sparar...
+                  <span className="text-sm sm:text-base">Sparar...</span>
                 </>
               ) : (
                 <>
-                  <Save className="w-5 h-5 mr-2" />
-                  Spara ändringar
-                  <Sparkles className="w-5 h-5 ml-2" />
+                  <Save className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                  <span className="text-sm sm:text-base">Spara ändringar</span>
+                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
                 </>
               )}
             </motion.button>

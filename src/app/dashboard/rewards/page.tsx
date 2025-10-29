@@ -206,22 +206,22 @@ export default function RewardsPage() {
         />
       </div>
 
-      <div className="container mx-auto py-6 px-4 max-w-7xl relative z-10">
+      <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-7xl relative z-10">
         {/* Main Content */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid grid-cols-2 w-full max-w-md mx-auto">
-          <TabsTrigger value="overview" className="flex items-center gap-2">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4 sm:space-y-6">
+        <TabsList className={`grid w-full mx-auto ${rewardStatus.isPremium ? 'grid-cols-2 max-w-md' : 'grid-cols-1 max-w-xs'}`}>
+          <TabsTrigger value="overview" className="flex items-center gap-2 text-sm sm:text-base">
             Översikt
           </TabsTrigger>
           {rewardStatus.isPremium && (
-            <TabsTrigger value="guests" className="flex items-center gap-2">
-              <Users className="w-4 h-4" />
+            <TabsTrigger value="guests" className="flex items-center gap-2 text-sm sm:text-base">
+              <Users className="w-3 h-3 sm:w-4 sm:h-4" />
               Gästinbjudningar
             </TabsTrigger>
           )}
         </TabsList>
 
-        <TabsContent value="overview" className="space-y-6">
+        <TabsContent value="overview" className="space-y-4 sm:space-y-6">
           <GameifiedRewardsView
             userLevel={{
               current_level: rewardStatus.currentLevel,
@@ -239,7 +239,7 @@ export default function RewardsPage() {
         {/* Milestones tab removed - integrated in main overview */}
 
         {rewardStatus.isPremium && (
-          <TabsContent value="guests" className="space-y-6">
+          <TabsContent value="guests" className="space-y-4 sm:space-y-6">
             <GuestInvitationCard
               allowance={{
                 base_allowance: 1,
@@ -275,11 +275,11 @@ export default function RewardsPage() {
             />
 
             {/* Invitation Benefits - Redesigned for Light Premium Theme */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
               {/* Guest Benefits Card */}
               <Card className="relative overflow-hidden bg-white border border-gray-200/80 shadow-sm hover:shadow-lg transition-all duration-300 group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-pink-600/20 to-purple-600/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <CardContent className="relative p-6">
+                <CardContent className="relative p-4 sm:p-6">
                   <div className="flex items-center space-x-3 mb-4">
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-50 to-purple-50 flex items-center justify-center border border-pink-200/50">
                       <Users className="w-6 h-6 text-pink-600" />
@@ -304,7 +304,7 @@ export default function RewardsPage() {
               {/* Premium Rewards Card */}
               <Card className="relative overflow-hidden bg-white border border-gray-200/80 shadow-sm hover:shadow-lg transition-all duration-300 group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <CardContent className="relative p-6">
+                <CardContent className="relative p-4 sm:p-6">
                   <div className="flex items-center space-x-3 mb-4">
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center border border-purple-200/50">
                       <Gift className="w-6 h-6 text-purple-600" />
@@ -329,7 +329,7 @@ export default function RewardsPage() {
               {/* Level Progression Card */}
               <Card className="relative overflow-hidden bg-white border border-gray-200/80 shadow-sm hover:shadow-lg transition-all duration-300 group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <CardContent className="relative p-6">
+                <CardContent className="relative p-4 sm:p-6">
                   <div className="flex items-center space-x-3 mb-4">
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center border border-blue-200/50">
                       <Trophy className="w-6 h-6 text-blue-600" />

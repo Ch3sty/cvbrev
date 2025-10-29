@@ -70,31 +70,31 @@ const BentoCard = ({ children, className = "", spotlight = false, ...props }: an
 );
 
 const StatWidget = ({ title, value, change, icon: Icon, trend, color }: any) => (
-  <BentoCard className="p-6">
-    <div className="flex items-start justify-between mb-4">
-      <div className={`p-3 rounded-xl bg-gradient-to-br ${color} shadow-lg`}>
-        <Icon className="w-6 h-6 text-white" />
+  <BentoCard className="p-3 sm:p-4 md:p-6">
+    <div className="flex items-start justify-between mb-2 sm:mb-3 md:mb-4">
+      <div className={`p-2 sm:p-2.5 md:p-3 rounded-lg sm:rounded-xl bg-gradient-to-br ${color} shadow-lg flex-shrink-0`}>
+        <Icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-white" />
       </div>
       <motion.div
-        className={`flex items-center text-sm font-medium ${
+        className={`flex items-center text-xs sm:text-sm font-medium ${
           trend === 'up' ? 'text-green-600' : trend === 'down' ? 'text-red-500' : 'text-gray-500'
         }`}
         animate={{ y: trend === 'up' ? [-2, 0] : trend === 'down' ? [2, 0] : 0 }}
         transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
       >
-        {trend === 'up' && <ArrowUpRight className="w-4 h-4 mr-1" />}
-        {trend === 'down' && <ArrowDownRight className="w-4 h-4 mr-1" />}
+        {trend === 'up' && <ArrowUpRight className="w-3 h-3 sm:w-4 sm:h-4 mr-0.5 sm:mr-1" />}
+        {trend === 'down' && <ArrowDownRight className="w-3 h-3 sm:w-4 sm:h-4 mr-0.5 sm:mr-1" />}
         {change}
       </motion.div>
     </div>
     <motion.h3
-      className="text-3xl font-bold text-gray-900 mb-1"
+      className="text-2xl sm:text-3xl font-bold text-gray-900 mb-0.5 sm:mb-1"
       animate={{ scale: [1, 1.02, 1] }}
       transition={{ duration: 2, repeat: Infinity }}
     >
       {value}
     </motion.h3>
-    <p className="text-gray-600 text-sm">{title}</p>
+    <p className="text-gray-600 text-xs sm:text-sm truncate">{title}</p>
   </BentoCard>
 );
 
@@ -108,22 +108,22 @@ const LetterPreviewCard = ({ letter, onView, onEdit, onDelete, isDeleting }: any
       onMouseLeave={() => setIsHovered(false)}
       spotlight={isHovered}
     >
-      <div className="p-6">
+      <div className="p-3 sm:p-4 md:p-6">
         {/* Header */}
-        <div className="flex items-start justify-between mb-4">
-          <div className="flex items-center space-x-3">
+        <div className="flex items-start justify-between mb-3 sm:mb-4 gap-2">
+          <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
             <motion.div
-              className="p-2 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 shadow-lg"
+              className="p-1.5 sm:p-2 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-500 shadow-lg flex-shrink-0"
               animate={{ rotate: isHovered ? 360 : 0 }}
               transition={{ duration: 0.8 }}
             >
-              <FileText className="w-5 h-5 text-white" />
+              <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
             </motion.div>
-            <div>
-              <h3 className="font-semibold text-gray-900 truncate max-w-48">
+            <div className="min-w-0 flex-1">
+              <h3 className="font-semibold text-sm sm:text-base text-gray-900 truncate">
                 {letter.title || 'Ansökningsbrev'}
               </h3>
-              <p className="text-sm text-gray-500">
+              <p className="text-xs sm:text-sm text-gray-500 truncate">
                 {formatDistanceToNow(new Date(letter.updated_at || letter.created_at || new Date()), {
                   addSuffix: true,
                   locale: sv
@@ -134,17 +134,17 @@ const LetterPreviewCard = ({ letter, onView, onEdit, onDelete, isDeleting }: any
 
           {/* Action menu */}
           <motion.div
-            className="opacity-0 group-hover:opacity-100 transition-opacity"
+            className="opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0"
             whileHover={{ scale: 1.1 }}
           >
-            <button className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
-              <MoreVertical className="w-4 h-4 text-gray-500" />
+            <button className="p-1.5 sm:p-2 rounded-lg hover:bg-gray-100 transition-colors touch-manipulation">
+              <MoreVertical className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-500" />
             </button>
           </motion.div>
         </div>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-3 sm:mb-4">
           {letter.company && (
             <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200">
               <Building2 className="w-3 h-3 mr-1" />
@@ -174,38 +174,38 @@ const LetterPreviewCard = ({ letter, onView, onEdit, onDelete, isDeleting }: any
         </div>
 
         {/* Action buttons */}
-        <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
+        <div className="flex items-center gap-1.5 sm:gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
           <motion.button
             onClick={() => onView(letter.id)}
-            className="flex-1 px-3 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg text-sm font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
+            className="flex-1 px-2 sm:px-3 py-1.5 sm:py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg text-xs sm:text-sm font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 touch-manipulation flex items-center justify-center gap-1"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
           >
-            <Eye className="w-4 h-4 mr-1 inline" />
-            Visa
+            <Eye className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+            <span className="truncate">Visa</span>
           </motion.button>
 
           <motion.button
             onClick={() => onEdit(letter.id)}
-            className="flex-1 px-3 py-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-lg text-sm font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
+            className="flex-1 px-2 sm:px-3 py-1.5 sm:py-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-lg text-xs sm:text-sm font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 touch-manipulation flex items-center justify-center gap-1"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
           >
-            <Pencil className="w-4 h-4 mr-1 inline" />
-            Redigera
+            <Pencil className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+            <span className="truncate">Redigera</span>
           </motion.button>
 
           <motion.button
             onClick={() => onDelete(letter.id)}
             disabled={isDeleting}
-            className="px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-50"
+            className="px-2 sm:px-3 py-1.5 sm:py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs sm:text-sm font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 disabled:opacity-50 touch-manipulation flex-shrink-0"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
           >
             {isDeleting ? (
-              <RefreshCw className="w-4 h-4 animate-spin" />
+              <RefreshCw className="w-3 h-3 sm:w-4 sm:h-4 animate-spin" />
             ) : (
-              <Trash2 className="w-4 h-4" />
+              <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
             )}
           </motion.button>
         </div>
@@ -467,10 +467,10 @@ export default function MinaBrevPage() {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 py-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8">
         {/* Hero Header */}
         <motion.div
-          className="mb-12"
+          className="mb-6 sm:mb-8 md:mb-12"
           style={{ y: headerY }}
         >
           <motion.div
@@ -478,12 +478,12 @@ export default function MinaBrevPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h1 className="text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 bg-clip-text text-transparent mb-3">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6 mb-4 sm:mb-6">
+              <div className="min-w-0 flex-1">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-purple-800 bg-clip-text text-transparent mb-2 sm:mb-3 truncate">
                   Mina Brev
                 </h1>
-                <p className="text-xl text-gray-600 max-w-2xl">
+                <p className="text-sm sm:text-base md:text-xl text-gray-600 max-w-2xl">
                   Din AI-drivna brevsamling. Hantera, redigera och optimera dina ansökningar med stil.
                 </p>
               </div>
@@ -491,20 +491,21 @@ export default function MinaBrevPage() {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                className="w-full sm:w-auto flex-shrink-0"
               >
                 <Link
                   href="/dashboard/skapa-brev"
-                  className="px-8 py-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 flex items-center space-x-2"
+                  className="w-full sm:w-auto px-4 sm:px-6 md:px-8 py-3 sm:py-3.5 md:py-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base touch-manipulation"
                 >
-                  <Plus className="w-5 h-5" />
-                  <span>Skapa nytt brev</span>
-                  <Sparkles className="w-5 h-5" />
+                  <Plus className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                  <span className="truncate">Skapa nytt brev</span>
+                  <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                 </Link>
               </motion.div>
             </div>
 
             {/* Quick stats */}
-            <div className="grid grid-cols-4 gap-4 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
               <StatWidget
                 title="Totalt antal brev"
                 value={stats.total || 0}
@@ -540,34 +541,34 @@ export default function MinaBrevPage() {
             </div>
 
             {/* Search and controls */}
-            <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center space-x-4">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-4 flex-1">
+                <div className="relative flex-1 sm:max-w-xs md:max-w-sm">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                   <input
                     type="text"
                     placeholder="Sök i dina brev..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 pr-4 py-3 bg-white/70 backdrop-blur-xl border border-gray-200/50 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 transition-all w-80"
+                    className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 bg-white/70 backdrop-blur-xl border border-gray-200/50 rounded-lg sm:rounded-xl text-sm sm:text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/20 transition-all"
                   />
                 </div>
 
                 <motion.button
                   onClick={() => setShowFilters(!showFilters)}
-                  className="px-4 py-3 bg-white hover:bg-gray-50 text-gray-900 rounded-xl font-medium border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 flex items-center space-x-2"
+                  className="px-3 sm:px-4 py-2.5 sm:py-3 bg-white hover:bg-gray-50 text-gray-900 rounded-lg sm:rounded-xl font-medium border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2 text-sm sm:text-base touch-manipulation"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <Filter className="w-4 h-4" />
+                  <Filter className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   <span>Filter</span>
                 </motion.button>
               </div>
 
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center gap-2 justify-end sm:justify-start">
                 <motion.button
                   onClick={() => setSelectedView('grid')}
-                  className={`p-3 rounded-xl transition-all ${
+                  className={`p-2 sm:p-3 rounded-lg sm:rounded-xl transition-all touch-manipulation ${
                     selectedView === 'grid'
                       ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-lg'
                       : 'bg-white hover:bg-gray-50 text-gray-600 border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md'
@@ -575,11 +576,11 @@ export default function MinaBrevPage() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Grid3x3 className="w-5 h-5" />
+                  <Grid3x3 className="w-4 h-4 sm:w-5 sm:h-5" />
                 </motion.button>
                 <motion.button
                   onClick={() => setSelectedView('list')}
-                  className={`p-3 rounded-xl transition-all ${
+                  className={`p-2 sm:p-3 rounded-lg sm:rounded-xl transition-all touch-manipulation ${
                     selectedView === 'list'
                       ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white shadow-lg'
                       : 'bg-white hover:bg-gray-50 text-gray-600 border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow-md'
@@ -587,7 +588,7 @@ export default function MinaBrevPage() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <LayoutGrid className="w-5 h-5" />
+                  <LayoutGrid className="w-4 h-4 sm:w-5 sm:h-5" />
                 </motion.button>
               </div>
             </div>
@@ -596,9 +597,9 @@ export default function MinaBrevPage() {
 
         {/* Letters Grid */}
         {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
             {[...Array(6)].map((_, i) => (
-              <BentoCard key={i} className="p-6 animate-pulse">
+              <BentoCard key={i} className="p-4 sm:p-6 animate-pulse">
                 <div className="flex items-center space-x-3 mb-4">
                   <div className="w-12 h-12 bg-gray-200 rounded-lg" />
                   <div className="flex-1">
@@ -623,19 +624,19 @@ export default function MinaBrevPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center py-20"
+            className="text-center py-12 sm:py-16 md:py-20"
           >
             <motion.div
-              className="w-32 h-32 mx-auto mb-8 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-3xl flex items-center justify-center"
+              className="w-24 h-24 sm:w-32 sm:h-32 mx-auto mb-6 sm:mb-8 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-2xl sm:rounded-3xl flex items-center justify-center"
               animate={{ y: [-5, 5, -5] }}
               transition={{ duration: 3, repeat: Infinity }}
             >
-              <FileText className="w-16 h-16 text-gray-400" />
+              <FileText className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400" />
             </motion.div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4 px-4">
               {searchTerm ? 'Inga brev hittades' : 'Inga brev ännu'}
             </h3>
-            <p className="text-gray-600 mb-8 max-w-md mx-auto">
+            <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8 max-w-md mx-auto px-4">
               {searchTerm
                 ? 'Prova att ändra din sökning eller ta bort filter.'
                 : 'Det ser lite tomt ut här. Skapa ditt första AI-genererade brev!'
@@ -645,21 +646,22 @@ export default function MinaBrevPage() {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                className="px-4"
               >
                 <Link
                   href="/dashboard/skapa-brev"
-                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 space-x-2"
+                  className="inline-flex items-center px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200 gap-2 text-sm sm:text-base touch-manipulation"
                 >
-                  <Plus className="w-5 h-5" />
-                  <span>Skapa ditt första brev</span>
-                  <Rocket className="w-5 h-5" />
+                  <Plus className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                  <span className="truncate">Skapa ditt första brev</span>
+                  <Rocket className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                 </Link>
               </motion.div>
             )}
           </motion.div>
         ) : (
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6"
             variants={{
               hidden: { opacity: 0 },
               visible: {

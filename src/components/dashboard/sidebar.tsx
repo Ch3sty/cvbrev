@@ -24,9 +24,16 @@ import {
   Crown,
   Settings,
   Linkedin,
-  Shield
+  Shield,
+  X
 } from 'lucide-react';
-export default function DashboardSidebar() {
+
+interface DashboardSidebarProps {
+  onClose?: () => void;
+  isMobile?: boolean;
+}
+
+export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebarProps = {}) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const [isPremium, setIsPremium] = useState(false);
@@ -190,7 +197,7 @@ export default function DashboardSidebar() {
   return (
     <div
       className={`bg-white h-full ${
-        collapsed ? 'w-16' : 'w-64'
+        collapsed ? 'w-16' : 'w-64 sm:w-72'
       } transition-all duration-300 border-r border-slate-300 flex flex-col shadow-2xl relative z-10`}
     >
       {/* Logo och Collapse-knapp */}
@@ -205,17 +212,30 @@ export default function DashboardSidebar() {
         {collapsed && (
           <span className="text-white bg-gradient-to-r from-pink-600 to-purple-600 rounded-md px-2 py-1 text-xl font-bold mx-auto">J</span>
         )}
-        
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-700 hover:text-slate-900 transition-colors shadow-sm hover:shadow-md"
-        >
-          {collapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
-        </button>
+
+        <div className="flex items-center gap-2">
+          {/* Mobile close button */}
+          {isMobile && onClose && (
+            <button
+              onClick={onClose}
+              className="p-2 rounded-lg hover:bg-slate-100 text-slate-700 hover:text-slate-900 transition-colors lg:hidden"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          )}
+
+          {/* Desktop collapse button */}
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-700 hover:text-slate-900 transition-colors shadow-sm hover:shadow-md hidden lg:block"
+          >
+            {collapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
       
-      {/* Navigation Links */}
-      <nav className="flex-1 py-4 space-y-6">
+      {/* Navigation Links - med scrollbar på mobil */}
+      <nav className="flex-1 py-4 space-y-6 overflow-y-auto">
         {/* Premium Gästinbjudan - flyttad till rätt plats */}
         {isPremium && (
           <div className="px-4">

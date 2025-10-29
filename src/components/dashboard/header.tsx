@@ -1,11 +1,12 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Trophy, Zap, TrendingUp, Target, Star, Crown, CheckCircle2, Sparkles, ChevronRight } from 'lucide-react';
+import { Trophy, Zap, TrendingUp, Target, Star, Crown, CheckCircle2, Sparkles, ChevronRight, Menu } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import Link from 'next/link';
 
 interface DashboardHeaderProps {
   user: any;
+  onMenuClick?: () => void;
 }
 
 interface GamificationStats {
@@ -199,11 +200,33 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
   };
 
   return (
-    <header className="bg-white border-b border-slate-300 px-6 py-4 shadow-lg relative z-10">
-      <div className="flex items-center justify-between">
+    <header className="bg-white border-b border-slate-300 px-3 sm:px-4 md:px-6 py-3 md:py-4 shadow-lg relative z-10">
+      <div className="flex items-center justify-between gap-2 sm:gap-4">
+        {/* Mobile Hamburger Menu */}
+        {onMenuClick && (
+          <button
+            onClick={onMenuClick}
+            className="p-2 rounded-lg hover:bg-slate-100 text-slate-700 hover:text-slate-900 transition-colors lg:hidden touch-manipulation"
+            aria-label="Öppna meny"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
+        )}
+
         {/* Vänster sida - Välkomstmeddelande */}
-        <div className="flex items-center space-x-6">
-          <div className="flex flex-col">
+        <div className="flex items-center space-x-2 sm:space-x-4 lg:space-x-6 flex-1 min-w-0">
+          {/* Mobile: Compact welcome */}
+          <div className="flex flex-col lg:hidden min-w-0">
+            <h1 className="text-base sm:text-lg font-bold text-slate-900 truncate">
+              Hej, {getUserName().split(' ')[0]}!
+            </h1>
+            <p className="text-xs text-slate-700 font-medium">
+              {formatTime(currentTime)}
+            </p>
+          </div>
+
+          {/* Desktop: Full welcome */}
+          <div className="hidden lg:flex flex-col">
             <h1 className="text-2xl font-bold text-slate-900">
               Välkommen tillbaka, {getUserName()}!
             </h1>
@@ -212,9 +235,32 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
             </p>
           </div>
 
-          {/* Gamification Stats */}
+          {/* Mobile: Mini Gamification Badge */}
           {gamificationStats && (
-            <div className="flex items-center space-x-4 pl-6 border-l border-slate-300">
+            <Link href="/dashboard/rewards" className="lg:hidden touch-manipulation">
+              <div className="flex items-center gap-2 px-2 py-1.5 bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg border border-pink-300 hover:border-pink-400 transition-all shadow-sm">
+                <div className="relative">
+                  <div className="w-8 h-8 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center">
+                    <Crown className="w-4 h-4 text-white" />
+                  </div>
+                  <div className="absolute -bottom-0.5 -right-0.5 bg-yellow-500 text-navy-900 text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                    {gamificationStats.stats.current_level}
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs font-bold text-slate-900">Lvl {gamificationStats.stats.current_level}</span>
+                  <div className="flex items-center gap-0.5">
+                    <Zap className="w-2.5 h-2.5 text-yellow-500" />
+                    <span className="text-[10px] text-slate-700 font-medium">{gamificationStats.stats.total_xp.toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          )}
+
+          {/* Desktop: Full Gamification Stats */}
+          {gamificationStats && (
+            <div className="hidden lg:flex items-center space-x-4 pl-6 border-l border-slate-300">
               {/* Compact Gamified Level Badge */}
               <Link href="/dashboard/rewards" className="relative group">
                 <div className="flex items-center gap-3 px-4 py-2 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-300 hover:border-pink-400 hover:shadow-xl transition-all duration-300 shadow-lg">
@@ -290,11 +336,21 @@ export default function DashboardHeader({ user }: DashboardHeaderProps) {
         </div>
 
         {/* Höger sida - Användarinfo och snabblänkar */}
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-2 sm:space-x-4">
+          {/* Mobile: Compact User Avatar Only */}
+          <Link href="/dashboard/profil" className="lg:hidden touch-manipulation">
+            <div className="relative">
+              <div className="w-9 h-9 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                <span className="text-white font-bold text-sm">
+                  {getUserName().charAt(0).toUpperCase()}
+                </span>
+              </div>
+              <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
+            </div>
+          </Link>
 
-
-          {/* Enhanced User Info */}
-          <Link href="/dashboard/profil" className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100 transition-all duration-300 group shadow-sm hover:shadow-md">
+          {/* Desktop: Enhanced User Info */}
+          <Link href="/dashboard/profil" className="hidden lg:flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100 transition-all duration-300 group shadow-sm hover:shadow-md">
             <div className="relative">
               <div className="w-10 h-10 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
                 <span className="text-white font-bold text-sm">

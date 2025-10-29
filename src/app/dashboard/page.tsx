@@ -273,7 +273,7 @@ export default function DashboardPage() {
       />
 
       {/* Live Activity Indicator - MOVED to bottom right to fix overlap */}
-      <LiveActivityIndicator className="fixed bottom-6 right-6 z-40" showBadge={false} />
+      <LiveActivityIndicator className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40" showBadge={false} />
 
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
@@ -284,9 +284,9 @@ export default function DashboardPage() {
           type: "spring",
           stiffness: 100
         }}
-        className="space-y-8 relative z-10"
+        className="space-y-4 sm:space-y-6 md:space-y-8 relative z-10"
       >
-      <div className="space-y-8">
+      <div className="space-y-4 sm:space-y-6 md:space-y-8">
         {/* Welcome Hero Section - Redesigned */}
         <WelcomeHero
           currentLevel={stats.currentLevel}
@@ -299,7 +299,7 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4"
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4"
         >
           {stats.isPremium ? (
             // Premium Cards
@@ -389,7 +389,7 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6"
         >
           <ActivityFeed
             recentLetters={stats.recentLetters}
@@ -411,19 +411,19 @@ export default function DashboardPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0, duration: 0.6 }}
-            className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl border border-pink-200/40 p-8 text-center"
+            className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl sm:rounded-2xl border border-pink-200/40 p-4 sm:p-6 md:p-8 text-center"
           >
-            <h3 className="text-2xl font-bold text-slate-900 mb-4">
+            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3 sm:mb-4">
               Uppgradera till Premium
             </h3>
-            <p className="text-slate-600 mb-6 max-w-lg mx-auto">
+            <p className="text-sm sm:text-base text-slate-600 mb-4 sm:mb-6 max-w-lg mx-auto">
               Få tillgång till obegränsade CV-analyser, avancerade AI-funktioner och mycket mer för endast 149 SEK/månad.
             </p>
             <Link href="/priser">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-pink-500/25 transition-all duration-300"
+                className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-xl font-semibold shadow-lg hover:shadow-pink-500/25 transition-all duration-300 text-sm sm:text-base touch-manipulation"
               >
                 Uppgradera för 149 SEK/månad
               </motion.button>

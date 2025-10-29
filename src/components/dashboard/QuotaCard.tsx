@@ -95,11 +95,11 @@ export default function QuotaCard({
     if (isPremium) return null;
 
     return (
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-1 sm:gap-1.5">
         {Array.from({ length: limit }, (_, i) => (
           <motion.span
             key={i}
-            className={`text-2xl transition-all duration-300 ${
+            className={`text-lg sm:text-xl md:text-2xl transition-all duration-300 ${
               i < used ? colorClasses[color].dot : 'text-gray-300'
             }`}
             initial={{ scale: 0 }}
@@ -153,7 +153,7 @@ export default function QuotaCard({
         bg-white/80 backdrop-blur-xl rounded-2xl border
         shadow-lg ${colorClasses[color].cardGlow} ${colorClasses[color].hoverGlow}
         transition-all duration-500 ease-out
-        ${href ? 'cursor-pointer' : ''}
+        ${href ? 'cursor-pointer touch-manipulation' : ''}
         ${colorClasses[color].border}
         group
       `}
@@ -185,19 +185,19 @@ export default function QuotaCard({
       />
 
       {/* Content wrapper with padding */}
-      <div className="relative p-6">
+      <div className="relative p-3 sm:p-4 md:p-6">
         {/* Header with icon and title */}
-        <div className="flex items-center gap-3 mb-5">
+        <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 md:mb-5">
           <motion.div
-            className={`${colorClasses[color].iconBg} rounded-xl p-2.5 shadow-sm`}
+            className={`${colorClasses[color].iconBg} rounded-lg sm:rounded-xl p-2 sm:p-2.5 shadow-sm`}
             whileHover={{ rotate: [0, -5, 5, 0], scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
-            <div className={`w-5 h-5 ${colorClasses[color].iconText}`}>
+            <div className={`w-4 h-4 sm:w-5 sm:h-5 ${colorClasses[color].iconText}`}>
               {icon}
             </div>
           </motion.div>
-          <h3 className="font-bold text-slate-900 text-sm leading-tight flex-1">
+          <h3 className="font-bold text-slate-900 text-xs sm:text-sm leading-tight flex-1">
             {title}
           </h3>
         </div>
@@ -222,7 +222,7 @@ export default function QuotaCard({
             <div className="relative">
               {/* Large premium text or number */}
               <motion.div
-                className="text-4xl font-black text-slate-900 mb-2"
+                className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 mb-2"
                 style={{
                   textShadow: '0 2px 10px rgba(59, 130, 246, 0.1)'
                 }}
@@ -234,7 +234,7 @@ export default function QuotaCard({
               </motion.div>
 
               {/* Premium badge with shimmer */}
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-full border border-blue-200/50 shadow-sm">
+              <div className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-0.5 sm:py-1 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-full border border-blue-200/50 shadow-sm">
                 <motion.div
                   className="w-1.5 h-1.5 bg-blue-500 rounded-full"
                   animate={{
@@ -247,7 +247,7 @@ export default function QuotaCard({
                     ease: "easeInOut"
                   }}
                 />
-                <span className="text-xs font-bold text-blue-700">
+                <span className="text-[10px] sm:text-xs font-bold text-blue-700">
                   Premium
                 </span>
               </div>
@@ -255,35 +255,35 @@ export default function QuotaCard({
           </div>
         ) : (
           // Quota card content with enhanced visuals
-          <div className="space-y-4">
+          <div className="space-y-2 sm:space-y-3 md:space-y-4">
             {/* Visual dots */}
-            <div className="mb-3">
+            <div className="mb-2 sm:mb-3">
               {renderDots()}
             </div>
 
             {/* Usage display with large numbers */}
-            <div className="flex items-baseline gap-2">
+            <div className="flex items-baseline gap-1.5 sm:gap-2">
               <motion.span
-                className="text-4xl font-black text-slate-900"
+                className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900"
                 initial={{ scale: 0.8 }}
                 animate={{ scale: 1 }}
                 transition={{ type: 'spring', stiffness: 200 }}
               >
                 {used}
               </motion.span>
-              <span className="text-2xl font-semibold text-slate-400">/</span>
-              <span className="text-2xl font-bold text-slate-600">{limit}</span>
+              <span className="text-xl sm:text-2xl font-semibold text-slate-400">/</span>
+              <span className="text-xl sm:text-2xl font-bold text-slate-600">{limit}</span>
             </div>
 
             {/* Remaining count with premium styling */}
-            <div className={`text-sm font-bold ${colorClasses[color].text}`}>
+            <div className={`text-xs sm:text-sm font-bold ${colorClasses[color].text}`}>
               {remaining} {remaining === 1 ? 'kvar' : 'kvar'}
             </div>
 
             {/* Countdown timer with pulse animation */}
             {countdown && (
               <motion.div
-                className="flex items-center gap-2 px-3 py-1.5 bg-slate-50/80 rounded-lg border border-slate-200/60"
+                className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-slate-50/80 rounded-lg border border-slate-200/60"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
@@ -298,9 +298,9 @@ export default function QuotaCard({
                     ease: "easeInOut"
                   }}
                 >
-                  <Clock className="w-3.5 h-3.5 text-slate-500" />
+                  <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-500" />
                 </motion.div>
-                <span className="text-xs font-semibold text-slate-600">
+                <span className="text-[10px] sm:text-xs font-semibold text-slate-600">
                   {countdown}
                 </span>
               </motion.div>
