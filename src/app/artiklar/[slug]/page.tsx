@@ -14,6 +14,16 @@ import CustomImage from '@/components/mdx/Image';
 import FAQContainer from '@/components/mdx/FAQContainer';
 import FAQItem from '@/components/mdx/FAQItem';
 import PersonligtBrevExample from '@/components/mdx/PersonligtBrevExample';
+import PersonligtBrevExampleLarare from '@/components/mdx/PersonligtBrevExampleLarare';
+import PersonligtBrevExampleBarnskotare from '@/components/mdx/PersonligtBrevExampleBarnskotare';
+import PersonligtBrevExampleLakare from '@/components/mdx/PersonligtBrevExampleLakare';
+import PersonligtBrevExampleSommarjobb from '@/components/mdx/PersonligtBrevExampleSommarjobb';
+import PersonligtBrevExampleSjukskoterska from '@/components/mdx/PersonligtBrevExampleSjukskoterska';
+import PersonligtBrevExamplePersonligAssistent from '@/components/mdx/PersonligtBrevExamplePersonligAssistent';
+import PersonligtBrevExampleAdministrator from '@/components/mdx/PersonligtBrevExampleAdministrator';
+import PersonligtBrevExampleSaljare from '@/components/mdx/PersonligtBrevExampleSaljare';
+import PersonligtBrevExampleForskollarare from '@/components/mdx/PersonligtBrevExampleForskollarare';
+import PersonligtBrevExampleButikssaljare from '@/components/mdx/PersonligtBrevExampleButikssaljare';
 
 // Importera artikelkomponenter
 import ArticleClientWrapper from '@/components/artiklar/ArticleClientWrapper';
@@ -247,6 +257,16 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         BroadConversionBanner: BroadConversionBanner,
         CVTemplateShowcase: CVTemplateShowcase,
         PersonligtBrevExample: PersonligtBrevExample,
+        PersonligtBrevExampleLarare: PersonligtBrevExampleLarare,
+        PersonligtBrevExampleBarnskotare: PersonligtBrevExampleBarnskotare,
+        PersonligtBrevExampleLakare: PersonligtBrevExampleLakare,
+        PersonligtBrevExampleSommarjobb: PersonligtBrevExampleSommarjobb,
+        PersonligtBrevExampleSjukskoterska: PersonligtBrevExampleSjukskoterska,
+        PersonligtBrevExamplePersonligAssistent: PersonligtBrevExamplePersonligAssistent,
+        PersonligtBrevExampleAdministrator: PersonligtBrevExampleAdministrator,
+        PersonligtBrevExampleSaljare: PersonligtBrevExampleSaljare,
+        PersonligtBrevExampleForskollarare: PersonligtBrevExampleForskollarare,
+        PersonligtBrevExampleButikssaljare: PersonligtBrevExampleButikssaljare,
         // Automatisk ID-generering för h2 headings - SEO-optimerad
         h2: (props: any) => {
             const text = typeof props.children === 'string' ? props.children : '';
