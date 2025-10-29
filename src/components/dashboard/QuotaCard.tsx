@@ -331,7 +331,7 @@ export default function QuotaCard({
   // Wrap in Link if href provided
   if (href) {
     return (
-      <Link href={href} className="block">
+      <Link href={href} className="block touch-manipulation">
         {cardContent}
       </Link>
     );

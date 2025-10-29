@@ -234,33 +234,33 @@ const DocumentPreview = ({ letter, onClose }: any) => {
         layout
       >
         {/* Toolbar */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
-          <div className="flex items-center space-x-4">
-            <h3 className="font-semibold text-gray-900">{letter.title}</h3>
-            <div className="flex items-center space-x-2">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-0 p-3 sm:p-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 flex-1 min-w-0">
+            <h3 className="font-semibold text-gray-900 text-sm sm:text-base truncate">{letter.title}</h3>
+            <div className="flex items-center gap-1 sm:gap-2">
               <button
                 onClick={() => setZoom(Math.max(50, zoom - 10))}
-                className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                className="p-2 sm:p-2 rounded-lg hover:bg-gray-100 transition-colors touch-manipulation min-w-[40px] min-h-[40px] sm:min-w-0 sm:min-h-0 flex items-center justify-center"
               >
                 <ZoomOut className="w-4 h-4" />
               </button>
-              <span className="text-sm text-gray-600 min-w-16 text-center">{zoom}%</span>
+              <span className="text-xs sm:text-sm text-gray-600 min-w-12 sm:min-w-16 text-center">{zoom}%</span>
               <button
                 onClick={() => setZoom(Math.min(200, zoom + 10))}
-                className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                className="p-2 sm:p-2 rounded-lg hover:bg-gray-100 transition-colors touch-manipulation min-w-[40px] min-h-[40px] sm:min-w-0 sm:min-h-0 flex items-center justify-center"
               >
                 <ZoomIn className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setIsFullscreen(!isFullscreen)}
-                className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                className="p-2 sm:p-2 rounded-lg hover:bg-gray-100 transition-colors touch-manipulation min-w-[40px] min-h-[40px] sm:min-w-0 sm:min-h-0 flex items-center justify-center"
               >
                 {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
               </button>
             </div>
           </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-2 self-end sm:self-auto">
             <DownloadButton
               format="pdf"
               letterContent={letter.content || ''}
@@ -269,13 +269,13 @@ const DocumentPreview = ({ letter, onClose }: any) => {
                 company: letter.company,
                 position: letter.job_title
               }}
-              className="!px-4 !py-2"
+              className="!px-3 sm:!px-4 !py-2 !text-sm sm:!text-base !min-h-[40px] sm:!min-h-0"
               showTemplateSelector={false}
               showPreview={false}
             />
             <button
               onClick={onClose}
-              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+              className="p-2 rounded-lg hover:bg-gray-100 transition-colors touch-manipulation min-w-[40px] min-h-[40px] sm:min-w-0 sm:min-h-0 flex items-center justify-center"
             >
               <X className="w-4 h-4" />
             </button>
@@ -283,7 +283,7 @@ const DocumentPreview = ({ letter, onClose }: any) => {
         </div>
 
         {/* Document view */}
-        <div className="flex-1 overflow-auto bg-gradient-to-br from-gray-50 to-gray-100 p-8">
+        <div className="flex-1 overflow-auto bg-gradient-to-br from-gray-50 to-gray-100 p-4 sm:p-8" style={{ WebkitOverflowScrolling: 'touch', overscrollBehavior: 'contain' }}>
           <motion.div
             className="max-w-3xl mx-auto bg-white shadow-2xl rounded-lg overflow-hidden"
             style={{
@@ -293,9 +293,9 @@ const DocumentPreview = ({ letter, onClose }: any) => {
             layout
           >
             {/* A4 Paper simulation */}
-            <div className="aspect-[210/297] p-12 bg-white">
+            <div className="aspect-[210/297] p-6 sm:p-12 bg-white">
               <div
-                className="prose max-w-none text-gray-900 leading-relaxed"
+                className="prose prose-sm sm:prose max-w-none text-gray-900 leading-relaxed"
                 dangerouslySetInnerHTML={{ __html: letter.content || '' }}
               />
             </div>

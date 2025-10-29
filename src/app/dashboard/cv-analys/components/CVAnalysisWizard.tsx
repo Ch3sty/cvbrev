@@ -963,26 +963,26 @@ export default function CVAnalysisWizard({
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 py-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-4 py-4 sm:py-6 md:py-8 relative z-10">
         {/* Header */}
         <motion.header
-          className="mb-8"
+          className="mb-4 sm:mb-6 md:mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="text-center mb-6">
-            <h1 className="text-4xl font-bold text-gray-900 mb-3">
+          <div className="text-center mb-4 sm:mb-6">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2 sm:mb-3">
               CV-Analys & Förbättring
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-2">
               Få konkreta förbättringsförslag baserat på svenska rekryterare
             </p>
           </div>
         </motion.header>
 
         {/* Progress Bar */}
-        <div className="mb-8">
+        <div className="mb-4 sm:mb-6 md:mb-8">
           <AnalysisProgressBar
             steps={STEPS}
             currentStep={currentStep}
@@ -993,13 +993,13 @@ export default function CVAnalysisWizard({
 
         {/* Main Card */}
         <motion.div
-          className="bg-white/95 backdrop-blur-xl shadow-xl border border-gray-200/80 rounded-2xl overflow-hidden"
+          className="bg-white/95 backdrop-blur-xl shadow-xl border border-gray-200/80 rounded-xl sm:rounded-2xl overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           {/* Step Content */}
-          <div className="p-8 min-h-[500px]">
+          <div className="p-4 sm:p-6 md:p-8 min-h-[400px] sm:min-h-[450px] md:min-h-[500px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentStep}
@@ -1017,26 +1017,26 @@ export default function CVAnalysisWizard({
 
           {/* Navigation Footer */}
           {currentStep < STEPS.length - 1 && currentStep !== 1 && (
-            <div className="px-8 py-6 border-t border-gray-200 bg-gray-50">
-              <div className="flex items-center justify-between">
+            <div className="px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 border-t border-gray-200 bg-gray-50">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0">
                 <Button
                   variant="outline"
                   onClick={handlePrevious}
                   disabled={currentStep === 0}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 touch-manipulation min-h-[44px] w-full sm:w-auto order-2 sm:order-1"
                 >
                   <ChevronLeft className="w-4 h-4" />
                   Tillbaka
                 </Button>
 
-                <div className="text-sm text-gray-600">
+                <div className="text-xs sm:text-sm text-gray-600 order-1 sm:order-2">
                   Steg {currentStep + 1} av {STEPS.length}
                 </div>
 
                 <Button
                   onClick={handleNext}
                   disabled={!canNavigateNext() || isSaving}
-                  className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white flex items-center gap-2"
+                  className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white flex items-center gap-2 touch-manipulation min-h-[44px] w-full sm:w-auto order-3"
                 >
                   Nästa
                   <ChevronRight className="w-4 h-4" />

@@ -82,11 +82,11 @@ export default function WizardContainer({
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50/50">
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-4 py-4 sm:py-6 md:py-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Skapa Personligt Brev</h1>
-          <p className="text-gray-600">Låt AI hjälpa dig skapa det perfekta personliga brevet</p>
+        <div className="mb-4 sm:mb-6 md:mb-8">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">Skapa Personligt Brev</h1>
+          <p className="text-sm sm:text-base text-gray-600">Låt AI hjälpa dig skapa det perfekta personliga brevet</p>
         </div>
 
         {/* Progress Bar */}
@@ -102,21 +102,21 @@ export default function WizardContainer({
         />
 
         {/* Main Content */}
-        <div className="mt-8">
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+        <div className="mt-4 sm:mt-6 md:mt-8">
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6 md:p-8">
             {/* Step Header */}
-            <div className="mb-8 text-center">
+            <div className="mb-6 sm:mb-8 text-center">
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                className={`w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br ${steps[currentStep].color} flex items-center justify-center`}
+                className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 mx-auto mb-3 sm:mb-4 rounded-full bg-gradient-to-br ${steps[currentStep].color} flex items-center justify-center`}
               >
-                {React.createElement(steps[currentStep].icon, { className: "w-8 h-8 text-white" })}
+                {React.createElement(steps[currentStep].icon, { className: "w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" })}
               </motion.div>
-              <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-900 mb-1 sm:mb-2">
                 {steps[currentStep].title}
               </h2>
-              <p className="text-gray-600">{steps[currentStep].description}</p>
+              <p className="text-sm sm:text-base text-gray-600">{steps[currentStep].description}</p>
             </div>
 
             {/* Step Content */}
@@ -128,31 +128,31 @@ export default function WizardContainer({
                 animate="visible"
                 exit="exit"
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                className="min-h-[400px]"
+                className="min-h-[300px] sm:min-h-[350px] md:min-h-[400px]"
               >
                 {steps[currentStep].component}
               </motion.div>
             </AnimatePresence>
 
             {/* Navigation */}
-            <div className="flex justify-between items-center mt-12 pt-8 border-t border-gray-200">
+            <div className="flex flex-col sm:flex-row justify-between items-center mt-8 sm:mt-10 md:mt-12 pt-6 sm:pt-8 border-t border-gray-200 gap-4 sm:gap-0">
               <Button
                 variant="outline"
                 onClick={handlePrevious}
                 disabled={currentStep === 0}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 touch-manipulation min-h-[44px] w-full sm:w-auto order-2 sm:order-1"
               >
                 <ChevronLeft className="w-4 h-4" />
                 Tillbaka
               </Button>
 
-              <div className="flex items-center gap-2 text-sm text-gray-600">
+              <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600 order-1 sm:order-2">
                 Steg {currentStep + 1} av {steps.length}
               </div>
 
               <Button
                 onClick={handleNext}
-                className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white flex items-center gap-2"
+                className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white flex items-center gap-2 touch-manipulation min-h-[44px] w-full sm:w-auto order-3"
               >
                 {currentStep === steps.length - 1 ? 'Slutför' : 'Nästa'}
                 <ChevronRight className="w-4 h-4" />

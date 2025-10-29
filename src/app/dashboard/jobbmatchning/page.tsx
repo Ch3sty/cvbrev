@@ -393,15 +393,15 @@ export default function JobbmatchningPage() {
           className="mb-8"
         >
           <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <div className="p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-lg">
-                <Sparkles className="w-8 h-8 text-white" />
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="p-2 sm:p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl sm:rounded-2xl shadow-lg flex-shrink-0">
+                <Sparkles className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
               </div>
-              <div>
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              <div className="min-w-0 flex-1">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent truncate">
                   Jobbmatchning
                 </h1>
-                <p className="text-gray-600 mt-1">
+                <p className="text-sm sm:text-base text-gray-600 mt-0.5 sm:mt-1 truncate">
                   {showSearchView
                     ? 'Matchade jobbannonser baserat på ditt CV'
                     : activeCV
@@ -418,10 +418,10 @@ export default function JobbmatchningPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 onClick={handleBackToCVs}
-                className="flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-xl border border-gray-200 hover:bg-white transition-all"
+                className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-2 bg-white/80 backdrop-blur-sm rounded-lg sm:rounded-xl border border-gray-200 hover:bg-white transition-all touch-manipulation min-h-[44px] sm:min-h-0 text-sm sm:text-base"
               >
-                <ArrowLeft className="w-4 h-4" />
-                Tillbaka till CV-val
+                <ArrowLeft className="w-4 h-4 flex-shrink-0" />
+                <span className="truncate">Tillbaka till CV-val</span>
               </motion.button>
             )}
           </div>
@@ -435,21 +435,21 @@ export default function JobbmatchningPage() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-8"
           >
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Dina CV:n</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Dina CV:n</h2>
 
             {loadingCVs ? (
               <div className="flex items-center justify-center py-12">
                 <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
               </div>
             ) : cvs.length === 0 ? (
-              <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-gray-200 p-8 text-center">
-                <p className="text-gray-600 mb-4">Du har inga uppladdade CV:n än.</p>
+              <div className="bg-white/70 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-gray-200 p-6 sm:p-8 text-center">
+                <p className="text-sm sm:text-base text-gray-600 mb-4">Du har inga uppladdade CV:n än.</p>
                 <a
                   href="/dashboard/cv"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all"
+                  className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg sm:rounded-xl hover:shadow-lg transition-all touch-manipulation min-h-[44px] text-sm sm:text-base font-medium"
                 >
                   Ladda upp CV
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 flex-shrink-0" />
                 </a>
               </div>
             ) : (
@@ -474,10 +474,10 @@ export default function JobbmatchningPage() {
 
                   {/* If no active CV, show empty state on the right */}
                   {!activeCVId && (
-                    <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-slate-200 p-8 flex items-center justify-center min-h-[300px]">
+                    <div className="bg-white/70 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-slate-200 p-6 sm:p-8 flex items-center justify-center min-h-[200px] sm:min-h-[300px]">
                       <div className="text-center">
-                        <p className="text-slate-600 mb-2">Inget aktivt CV</p>
-                        <p className="text-sm text-slate-500">Klicka på ett CV nedan för att aktivera det</p>
+                        <p className="text-sm sm:text-base text-slate-600 mb-2">Inget aktivt CV</p>
+                        <p className="text-xs sm:text-sm text-slate-500">Klicka på ett CV nedan för att aktivera det</p>
                       </div>
                     </div>
                   )}
@@ -486,10 +486,10 @@ export default function JobbmatchningPage() {
                 {/* Inactive CV Cards Grid - Below */}
                 {cvs.filter(cv => cv.id !== activeCVId).length > 0 && (
                   <div>
-                    <h3 className="text-lg font-semibold text-slate-900 mb-4">
+                    <h3 className="text-base sm:text-lg font-semibold text-slate-900 mb-3 sm:mb-4">
                       {activeCVId ? 'Andra CV:n' : 'Välj ett CV att aktivera'}
                     </h3>
-                    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3">
                       {cvs
                         .filter(cv => cv.id !== activeCVId)
                         .map((cv) => (
@@ -516,23 +516,23 @@ export default function JobbmatchningPage() {
             className="space-y-6"
           >
               {/* Custom Search */}
-              <form onSubmit={handleSearch} className="mb-6">
+              <form onSubmit={handleSearch} className="mb-4 sm:mb-6">
                 <div className="relative">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <Search className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
                   <input
                     type="text"
                     value={customSearch}
                     onChange={(e) => setCustomSearch(e.target.value)}
                     placeholder="Förfina sökningen, t.ex. 'JavaScript utvecklare'..."
-                    className="w-full pl-12 pr-4 py-4 rounded-2xl border border-gray-200 bg-white/70 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+                    className="w-full pl-10 sm:pl-12 pr-20 sm:pr-28 py-3 sm:py-4 rounded-xl sm:rounded-2xl border border-gray-200 bg-white/70 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all text-sm sm:text-base"
                   />
                   <button
                     type="submit"
                     disabled={loadingJobs}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 px-6 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl hover:shadow-lg transition-all disabled:opacity-50"
+                    className="absolute right-2 top-1/2 transform -translate-y-1/2 px-4 sm:px-6 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg sm:rounded-xl hover:shadow-lg transition-all disabled:opacity-50 touch-manipulation min-h-[40px] text-sm sm:text-base font-medium"
                   >
                     {loadingJobs ? (
-                      <Loader2 className="w-5 h-5 animate-spin" />
+                      <Loader2 className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" />
                     ) : (
                       'Sök'
                     )}
@@ -545,9 +545,9 @@ export default function JobbmatchningPage() {
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="bg-red-50 border border-red-200 rounded-2xl p-4"
+                  className="bg-red-50 border border-red-200 rounded-xl sm:rounded-2xl p-3 sm:p-4"
                 >
-                  <p className="text-red-600">{error}</p>
+                  <p className="text-sm sm:text-base text-red-600">{error}</p>
                 </motion.div>
               )}
 
@@ -556,19 +556,19 @@ export default function JobbmatchningPage() {
                 const nearbyCount = jobs.filter(j => !j.distance || j.distance <= 100).length;
                 const distantCount = jobs.filter(j => j.distance && j.distance > 100).length;
                 return (
-                  <div className="flex items-center justify-end gap-3 bg-white/50 backdrop-blur-sm rounded-xl p-4 border border-gray-200">
-                    <label className="flex items-center gap-2 cursor-pointer group">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3 bg-white/50 backdrop-blur-sm rounded-lg sm:rounded-xl p-3 sm:p-4 border border-gray-200">
+                    <label className="flex items-center gap-2 cursor-pointer group touch-manipulation">
                       <input
                         type="checkbox"
                         checked={showDistantJobs}
                         onChange={(e) => setShowDistantJobs(e.target.checked)}
-                        className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                        className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500 touch-manipulation"
                       />
-                      <span className="text-sm text-gray-700 group-hover:text-indigo-600 transition-colors">
+                      <span className="text-xs sm:text-sm text-gray-700 group-hover:text-indigo-600 transition-colors">
                         Visa jobb &gt;100 km bort
                       </span>
                     </label>
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-gray-500 ml-6 sm:ml-0">
                       ({nearbyCount} nära, {distantCount} långt)
                     </div>
                   </div>
@@ -596,25 +596,25 @@ export default function JobbmatchningPage() {
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="mt-6 bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl border-2 border-pink-200/40 p-8 text-center"
+                        className="mt-4 sm:mt-6 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl sm:rounded-2xl border-2 border-pink-200/40 p-6 sm:p-8 text-center"
                       >
-                        <div className="flex items-center justify-center gap-2 mb-4">
-                          <Crown className="w-8 h-8 text-pink-600" />
-                          <h3 className="text-2xl font-bold text-slate-900">
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 mb-3 sm:mb-4">
+                          <Crown className="w-7 h-7 sm:w-8 sm:h-8 text-pink-600 flex-shrink-0" />
+                          <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
                             {filteredJobs.length - FREE_TIER_JOB_LIMIT} fler jobb tillgängliga
                           </h3>
                         </div>
-                        <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
+                        <p className="text-sm sm:text-base text-slate-600 mb-5 sm:mb-6 max-w-2xl mx-auto">
                           Vi hittade totalt <strong>{filteredJobs.length} matchande jobb</strong> baserat på ditt CV.
                           Som gratis-användare kan du se de {FREE_TIER_JOB_LIMIT} bästa matchningarna.
                           Uppgradera till Premium för att se alla resultat och få obegränsad tillgång till jobbmatchning.
                         </p>
                         <button
                           onClick={() => router.push('/priser')}
-                          className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-pink-500/25 transition-all duration-300 hover:scale-105"
+                          className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 sm:px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-pink-500/25 transition-all duration-300 hover:scale-105 touch-manipulation min-h-[44px] text-sm sm:text-base"
                         >
-                          <Crown className="w-5 h-5" />
-                          Uppgradera för 149 SEK/månad
+                          <Crown className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
+                          <span className="truncate">Uppgradera för 149 SEK/månad</span>
                         </button>
                       </motion.div>
                     )}
@@ -624,9 +624,9 @@ export default function JobbmatchningPage() {
 
               {/* No results message */}
               {!loadingJobs && jobs.length === 0 && (
-                <div className="bg-white/70 backdrop-blur-sm rounded-2xl border border-gray-200 p-12 text-center">
-                  <Briefcase className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                  <p className="text-gray-600">Inga jobb hittades. Prova att söka igen.</p>
+                <div className="bg-white/70 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-gray-200 p-8 sm:p-12 text-center">
+                  <Briefcase className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400 mx-auto mb-3 sm:mb-4" />
+                  <p className="text-sm sm:text-base text-gray-600">Inga jobb hittades. Prova att söka igen.</p>
                 </div>
               )}
 
@@ -651,14 +651,19 @@ export default function JobbmatchningPage() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="bg-white rounded-3xl p-8 max-w-3xl w-full max-h-[85vh] overflow-y-auto"
+              className="bg-white rounded-3xl p-4 sm:p-6 md:p-8 max-w-3xl w-full max-h-[90vh] sm:max-h-[85vh] overflow-y-auto"
+              style={{
+                WebkitOverflowScrolling: 'touch',
+                overscrollBehavior: 'contain'
+              }}
             >
               {/* Close button */}
               <button
                 onClick={() => setSelectedJob(null)}
-                className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
+                className="absolute top-4 right-4 p-3 sm:p-2 hover:bg-gray-100 rounded-full transition-colors touch-manipulation min-w-[44px] min-h-[44px] sm:min-w-0 sm:min-h-0 flex items-center justify-center"
+                aria-label="Stäng jobbdetaljer"
               >
-                <X className="w-5 h-5 text-gray-500" />
+                <X className="w-5 h-5 sm:w-5 sm:h-5 text-gray-500" />
               </button>
 
               {/* Logo + Relevance */}
@@ -692,7 +697,7 @@ export default function JobbmatchningPage() {
                 </div>
               </div>
 
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">
                 {selectedJob.headline}
               </h2>
 
@@ -1035,10 +1040,10 @@ export default function JobbmatchningPage() {
                     href={applicationUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-4 rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                    className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-3 sm:py-4 rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2 touch-manipulation min-h-[44px] text-sm sm:text-base"
                   >
-                    {buttonText}
-                    <ExternalLink className="w-5 h-5" />
+                    <span className="truncate">{buttonText}</span>
+                    <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0" />
                   </a>
                 );
               })()}

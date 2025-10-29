@@ -206,7 +206,7 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
         {onMenuClick && (
           <button
             onClick={onMenuClick}
-            className="p-2 rounded-lg hover:bg-slate-100 text-slate-700 hover:text-slate-900 transition-colors lg:hidden touch-manipulation"
+            className="p-2 sm:p-2.5 rounded-lg hover:bg-slate-100 text-slate-700 hover:text-slate-900 transition-colors lg:hidden touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Öppna meny"
           >
             <Menu className="w-6 h-6" />
@@ -237,10 +237,10 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
 
           {/* Mobile: Mini Gamification Badge */}
           {gamificationStats && (
-            <Link href="/dashboard/rewards" className="lg:hidden touch-manipulation">
-              <div className="flex items-center gap-2 px-2 py-1.5 bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg border border-pink-300 hover:border-pink-400 transition-all shadow-sm">
+            <Link href="/dashboard/rewards" className="lg:hidden touch-manipulation min-h-[44px] flex items-center">
+              <div className="flex items-center gap-2 px-2 py-2 sm:py-1.5 bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg border border-pink-300 hover:border-pink-400 transition-all shadow-sm min-h-[44px]">
                 <div className="relative">
-                  <div className="w-8 h-8 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 sm:w-8 sm:h-8 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center">
                     <Crown className="w-4 h-4 text-white" />
                   </div>
                   <div className="absolute -bottom-0.5 -right-0.5 bg-yellow-500 text-navy-900 text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
@@ -338,9 +338,9 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
         {/* Höger sida - Användarinfo och snabblänkar */}
         <div className="flex items-center space-x-2 sm:space-x-4">
           {/* Mobile: Compact User Avatar Only */}
-          <Link href="/dashboard/profil" className="lg:hidden touch-manipulation">
+          <Link href="/dashboard/profil" className="lg:hidden touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center">
             <div className="relative">
-              <div className="w-9 h-9 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+              <div className="w-10 h-10 sm:w-9 sm:h-9 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
                 <span className="text-white font-bold text-sm">
                   {getUserName().charAt(0).toUpperCase()}
                 </span>

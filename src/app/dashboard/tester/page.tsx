@@ -19,22 +19,22 @@ export default function TesterPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
+    <div className="max-w-6xl mx-auto p-3 sm:p-4 md:p-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="mb-6 sm:mb-8"
       >
-        <div className="flex items-center gap-3 mb-2">
-          <div className="p-3 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl shadow-lg">
-            <Brain className="w-8 h-8 text-white" />
+        <div className="flex items-center gap-2 sm:gap-3 mb-2">
+          <div className="p-2 sm:p-3 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl sm:rounded-2xl shadow-lg flex-shrink-0">
+            <Brain className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
           </div>
-          <div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent truncate">
               Kognitiva Tester
             </h1>
-            <p className="text-slate-600 mt-1">
+            <p className="text-sm sm:text-base text-slate-600 mt-0.5 sm:mt-1 truncate">
               Träna inför rekryteringsprocesser
             </p>
           </div>
@@ -46,14 +46,14 @@ export default function TesterPage() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
-        className="mb-8"
+        className="mb-6 sm:mb-8"
       >
-        <h2 className="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
-          <Grid3x3 className="w-6 h-6 text-purple-600" />
+        <h2 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+          <Grid3x3 className="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" />
           Matrislogik
         </h2>
-        <div className="flex items-center justify-between mb-3">
-          <p className="text-slate-600">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0 mb-3">
+          <p className="text-sm sm:text-base text-slate-600">
             Identifiera logiska mönster och relationer i visuella matriser
           </p>
           <div className="relative">
@@ -61,17 +61,17 @@ export default function TesterPage() {
               onMouseEnter={() => setHoveredTooltip('matrislogik')}
               onMouseLeave={() => setHoveredTooltip(null)}
               onClick={() => setHoveredTooltip(hoveredTooltip === 'matrislogik' ? null : 'matrislogik')}
-              className="p-2 hover:bg-purple-100 rounded-full transition-colors"
+              className="p-2 hover:bg-purple-100 rounded-full transition-colors touch-manipulation min-w-[40px] min-h-[40px] flex items-center justify-center"
             >
-              <Info className="w-5 h-5 text-purple-600" />
+              <Info className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
             </button>
             {hoveredTooltip === 'matrislogik' && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="absolute right-0 top-full mt-2 w-80 bg-purple-50 border-2 border-purple-500 p-4 rounded-lg shadow-lg z-10"
+                className="absolute right-0 top-full mt-2 w-72 sm:w-80 bg-purple-50 border-2 border-purple-500 p-3 sm:p-4 rounded-lg shadow-lg z-10"
               >
-                <div className="text-sm text-slate-700">
+                <div className="text-xs sm:text-sm text-slate-700">
                   <p className="font-semibold text-purple-900 mb-1">Varför detta test?</p>
                   <p>Matrislogik mäter abstrakt tänkande och problemlösningsförmåga – viktigt för roller som kräver analytiskt arbete. <span className="font-medium">Tips:</span> Sök efter mönster systematiskt (färg, form, rotation, antal) och eliminera omöjliga alternativ.</p>
                 </div>
@@ -80,31 +80,31 @@ export default function TesterPage() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-3 sm:gap-4">
           {/* Matrislogik Grund */}
           <Link href="/dashboard/tester/matrislogik-grund">
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="bg-white rounded-xl p-6 border-2 border-slate-200 hover:border-indigo-400 transition-all shadow-md hover:shadow-lg group cursor-pointer"
+              className="bg-white rounded-xl p-4 sm:p-6 border-2 border-slate-200 hover:border-indigo-400 transition-all shadow-md hover:shadow-lg group cursor-pointer touch-manipulation"
             >
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg">
-                    <Grid3x3 className="w-5 h-5 text-white" />
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                  <div className="p-1.5 sm:p-2 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex-shrink-0">
+                    <Grid3x3 className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-slate-900">Grundnivå</h3>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900 truncate">Grundnivå</h3>
                     <p className="text-xs text-slate-500">Nivå 1-3</p>
                   </div>
                 </div>
-                <ArrowRight className="w-5 h-5 text-indigo-600 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600 group-hover:translate-x-1 transition-transform flex-shrink-0" />
               </div>
 
-              <p className="text-sm text-slate-600 mb-4">
+              <p className="text-xs sm:text-sm text-slate-600 mb-3 sm:mb-4 line-clamp-2">
                 Träna din förmåga att identifiera grundläggande logiska mönster i visuella matriser.
               </p>
 
-              <div className="flex items-center gap-3 text-xs">
+              <div className="flex items-center gap-2 sm:gap-3 text-xs flex-wrap">
                 <span className="flex items-center gap-1 px-2 py-1 bg-blue-50 text-blue-700 rounded-md font-medium">
                   <Target className="w-3 h-3" />
                   15 frågor
@@ -172,11 +172,11 @@ export default function TesterPage() {
               <motion.button
                 onClick={handlePremiumClick}
                 whileHover={{ scale: 1.02 }}
-                className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg transition-all"
+                className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg transition-all touch-manipulation min-h-[44px] text-sm sm:text-base"
               >
-                <Lock className="h-4 w-4" />
-                <span>Lås upp med Premium</span>
-                <ArrowRight className="h-4 w-4" />
+                <Lock className="h-4 w-4 flex-shrink-0" />
+                <span className="truncate">Lås upp med Premium</span>
+                <ArrowRight className="h-4 w-4 flex-shrink-0" />
               </motion.button>
             )}
           </div>
@@ -226,7 +226,7 @@ export default function TesterPage() {
           <Link href="/dashboard/tester/verbal-resonemang">
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="bg-white rounded-xl p-6 border-2 border-slate-200 hover:border-green-400 transition-all shadow-md hover:shadow-lg group cursor-pointer"
+              className="bg-white rounded-xl p-4 sm:p-6 border-2 border-slate-200 hover:border-green-400 transition-all shadow-md hover:shadow-lg group cursor-pointer"
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-3">
@@ -313,11 +313,11 @@ export default function TesterPage() {
               <motion.button
                 onClick={handlePremiumClick}
                 whileHover={{ scale: 1.02 }}
-                className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg transition-all"
+                className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg transition-all touch-manipulation min-h-[44px] text-sm sm:text-base"
               >
-                <Lock className="h-4 w-4" />
-                <span>Lås upp med Premium</span>
-                <ArrowRight className="h-4 w-4" />
+                <Lock className="h-4 w-4 flex-shrink-0" />
+                <span className="truncate">Lås upp med Premium</span>
+                <ArrowRight className="h-4 w-4 flex-shrink-0" />
               </motion.button>
             )}
           </div>
@@ -368,7 +368,7 @@ export default function TesterPage() {
           <Link href="/dashboard/tester/numeriskt-test">
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="bg-white rounded-xl p-6 border-2 border-slate-200 hover:border-blue-400 transition-all shadow-md hover:shadow-lg group cursor-pointer relative overflow-hidden"
+              className="bg-white rounded-xl p-4 sm:p-6 border-2 border-slate-200 hover:border-blue-400 transition-all shadow-md hover:shadow-lg group cursor-pointer relative overflow-hidden"
             >
               <div className="absolute top-2 right-2">
                 <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">
@@ -461,11 +461,11 @@ export default function TesterPage() {
               <motion.button
                 onClick={handlePremiumClick}
                 whileHover={{ scale: 1.02 }}
-                className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg transition-all"
+                className="mt-3 w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl font-semibold shadow-lg transition-all touch-manipulation min-h-[44px] text-sm sm:text-base"
               >
-                <Lock className="h-4 w-4" />
-                <span>Lås upp med Premium</span>
-                <ArrowRight className="h-4 w-4" />
+                <Lock className="h-4 w-4 flex-shrink-0" />
+                <span className="truncate">Lås upp med Premium</span>
+                <ArrowRight className="h-4 w-4 flex-shrink-0" />
               </motion.button>
             )}
           </div>

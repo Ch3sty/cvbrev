@@ -218,7 +218,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           {isMobile && onClose && (
             <button
               onClick={onClose}
-              className="p-2 rounded-lg hover:bg-slate-100 text-slate-700 hover:text-slate-900 transition-colors lg:hidden"
+              className="p-2 rounded-lg hover:bg-slate-100 text-slate-700 hover:text-slate-900 transition-colors lg:hidden touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
             >
               <X className="w-5 h-5" />
             </button>
@@ -235,13 +235,19 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       </div>
       
       {/* Navigation Links - med scrollbar på mobil */}
-      <nav className="flex-1 py-4 space-y-6 overflow-y-auto">
+      <nav
+        className="flex-1 py-4 space-y-6 overflow-y-auto"
+        style={{
+          WebkitOverflowScrolling: 'touch',
+          overscrollBehavior: 'contain'
+        }}
+      >
         {/* Premium Gästinbjudan - flyttad till rätt plats */}
         {isPremium && (
           <div className="px-4">
             <Link
               href="/dashboard/invite-friends"
-              className="flex items-center justify-between p-3 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-300 hover:border-pink-400 hover:shadow-xl transition-all duration-300 group shadow-lg"
+              className="flex items-center justify-between p-3 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-300 hover:border-pink-400 hover:shadow-xl transition-all duration-300 group shadow-lg touch-manipulation min-h-[44px]"
             >
               <div className="flex items-center gap-3">
                 <Gift className="w-5 h-5 text-pink-600 group-hover:text-pink-700" />
@@ -267,7 +273,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
                 <Link
                   href={item.path}
                   className={`
-                    flex items-center px-4 py-2.5 rounded-lg relative transition-all duration-200
+                    flex items-center px-4 py-3 sm:py-2.5 rounded-lg relative transition-all duration-200 touch-manipulation min-h-[44px]
                     ${pathname === item.path
                       ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
                       : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
@@ -301,7 +307,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
                 <Link
                   href={item.path}
                   className={`
-                    flex items-center px-4 py-2.5 rounded-lg transition-all duration-200 relative
+                    flex items-center px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 relative touch-manipulation min-h-[44px]
                     ${pathname === item.path
                       ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
                       : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
@@ -335,7 +341,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
                 <Link
                   href={item.path}
                   className={`
-                    flex items-center px-4 py-2.5 rounded-lg transition-all duration-200 relative
+                    flex items-center px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 relative touch-manipulation min-h-[44px]
                     ${pathname === item.path || pathname.startsWith(item.path + '/')
                       ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
                       : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
@@ -367,7 +373,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
                 <Link
                   href={item.path}
                   className={`
-                    flex items-center px-4 py-2.5 rounded-lg transition-all duration-200
+                    flex items-center px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 touch-manipulation min-h-[44px]
                     ${pathname === item.path
                       ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
                       : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
@@ -396,7 +402,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
                 <Link
                   href={subItem.path}
                   className={`
-                    flex items-center px-4 py-2.5 rounded-lg transition-all duration-200 relative
+                    flex items-center px-4 py-3 sm:py-2.5 rounded-lg transition-all duration-200 relative touch-manipulation min-h-[44px]
                     ${pathname === subItem.path
                       ? 'bg-gradient-to-r from-pink-100 to-purple-100 text-pink-700 border-l-4 border-pink-600 shadow-lg font-semibold'
                       : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
@@ -427,7 +433,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
         <Link
           href="/kontakt"
           className={`
-            flex items-center text-slate-700 hover:text-slate-900 hover:bg-slate-100 py-2 px-2 rounded-lg transition-all shadow-sm hover:shadow-md font-medium
+            flex items-center text-slate-700 hover:text-slate-900 hover:bg-slate-100 py-3 sm:py-2 px-2 rounded-lg transition-all shadow-sm hover:shadow-md font-medium touch-manipulation min-h-[44px]
             ${collapsed ? 'justify-center' : ''}
           `}
         >
@@ -440,7 +446,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           <Link
             href="/admin"
             className={`
-              flex items-center py-3 px-3 rounded-xl transition-all shadow-lg hover:shadow-2xl font-bold
+              flex items-center py-3 px-3 rounded-xl transition-all shadow-lg hover:shadow-2xl font-bold touch-manipulation min-h-[44px]
               bg-gradient-to-r from-red-600 via-pink-600 to-purple-600
               text-white
               hover:from-red-700 hover:via-pink-700 hover:to-purple-700
@@ -457,7 +463,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
         <button
           onClick={handleLogout}
           className={`
-            flex items-center text-slate-700 hover:text-red-600 hover:bg-red-50 py-2 px-2 rounded-lg transition-all shadow-sm hover:shadow-md font-medium
+            flex items-center text-slate-700 hover:text-red-600 hover:bg-red-50 py-3 sm:py-2 px-2 rounded-lg transition-all shadow-sm hover:shadow-md font-medium touch-manipulation min-h-[44px]
             ${collapsed ? 'justify-center' : 'w-full'}
           `}
         >
