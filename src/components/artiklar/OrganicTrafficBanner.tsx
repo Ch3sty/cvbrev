@@ -77,15 +77,15 @@ const OrganicTrafficBanner = () => {
             <div className="hidden md:flex items-center gap-6 text-sm">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-yellow-300" />
-                <span className="opacity-90">Obegränsade AI-brev</span>
+                <span className="opacity-90">Brev matchade mot jobbet</span>
               </div>
               <div className="flex items-center gap-2">
                 <Users className="w-4 h-4 text-yellow-300" />
-                <span className="opacity-90">8 CV-mallar</span>
+                <span className="opacity-90">8 professionella mallar</span>
               </div>
               <div className="flex items-center gap-2">
                 <TrendingUp className="w-4 h-4 text-yellow-300" />
-                <span className="opacity-90">Obegränsad CV-analys</span>
+                <span className="opacity-90">Feedback när du vill</span>
               </div>
             </div>
           </div>

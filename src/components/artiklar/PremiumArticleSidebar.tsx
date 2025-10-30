@@ -158,17 +158,17 @@ const PremiumArticleSidebar: React.FC<PremiumArticleSidebarProps> = ({
 
           <h3 className="text-xl font-bold mb-2">Testa premium gratis i 7 dagar</h3>
           <p className="text-white/90 text-sm mb-6">
-            Obegränsade AI-brev och CV-analyser istället för 5 per vecka. Inget kreditkort krävs – avregistrering sker automatiskt.
+            Skräddarsydda personliga brev och CV-feedback istället för 5 per vecka. Inget kreditkort krävs – avregistrering sker automatiskt.
           </p>
 
           <div className="space-y-2 mb-6">
             <div className="flex items-center gap-2 text-sm">
               <Zap className="w-4 h-4 text-yellow-400" />
-              <span>Obegränsade AI-brev <span className="text-white/60">(vs 5/vecka gratis)</span></span>
+              <span>Skräddarsydda brev för varje ansökan <span className="text-white/60">(vs 5/vecka gratis)</span></span>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <TrendingUp className="w-4 h-4 text-yellow-400" />
-              <span>Obegränsad CV-analys <span className="text-white/60">(vs 1/vecka gratis)</span></span>
+              <span>Obegränsad CV-feedback <span className="text-white/60">(vs 1/vecka gratis)</span></span>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <Star className="w-4 h-4 text-yellow-400" />
@@ -176,7 +176,7 @@ const PremiumArticleSidebar: React.FC<PremiumArticleSidebarProps> = ({
             </div>
             <div className="flex items-center gap-2 text-sm">
               <Sparkles className="w-4 h-4 text-yellow-400" />
-              <span>Auto-tonalitet & LinkedIn-optimering</span>
+              <span>Brev anpassade till företagskulturen</span>
             </div>
           </div>
 
