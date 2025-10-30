@@ -431,7 +431,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       {/* Hjälp & Support */}
       <div className="p-4 border-t border-slate-300 space-y-2 bg-gradient-to-r from-white to-slate-50/50">
         <Link
-          href="/kontakt"
+          href="/dashboard/kontakt"
           className={`
             flex items-center text-slate-700 hover:text-slate-900 hover:bg-slate-100 py-3 sm:py-2 px-2 rounded-lg transition-all shadow-sm hover:shadow-md font-medium touch-manipulation min-h-[44px]
             ${collapsed ? 'justify-center' : ''}
