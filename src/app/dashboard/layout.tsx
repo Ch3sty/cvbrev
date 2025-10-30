@@ -82,14 +82,22 @@ export default function DashboardLayout({
           )}
         </AnimatePresence>
 
-        {/* Dashboard Sidebar - Responsive */}
+        {/* Dashboard Sidebar - Desktop (alltid synlig) */}
+        <div className="hidden lg:block lg:relative lg:z-20">
+          <DashboardSidebar
+            onClose={() => setIsMobileMenuOpen(false)}
+            isMobile={false}
+          />
+        </div>
+
+        {/* Dashboard Sidebar - Mobile (drawer) */}
         <motion.div
           initial={false}
           animate={{
             x: isMobileMenuOpen ? 0 : '-100%'
           }}
           transition={{ type: 'tween', duration: 0.3 }}
-          className="fixed inset-y-0 left-0 z-50 lg:relative lg:z-20 lg:translate-x-0"
+          className="fixed inset-y-0 left-0 z-50 lg:hidden"
         >
           <DashboardSidebar
             onClose={() => setIsMobileMenuOpen(false)}
