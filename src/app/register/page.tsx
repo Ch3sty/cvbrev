@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import RegisterForm from '@/components/auth/register-form'
 import { motion } from 'framer-motion'
+import { Suspense } from 'react'
 
 export default function RegisterPage() {
   return (
@@ -51,7 +52,9 @@ export default function RegisterPage() {
       {/* Content */}
       <div className="relative flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-6">
-          <RegisterForm />
+          <Suspense fallback={<div className="text-center">Laddar...</div>}>
+            <RegisterForm />
+          </Suspense>
 
           {/* Länk för att logga in */}
           <div className="text-center">

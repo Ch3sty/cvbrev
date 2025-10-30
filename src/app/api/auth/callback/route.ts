@@ -8,6 +8,8 @@ import { type Database } from '@/types/database.types'; // Antag att du har denn
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get('code');
+  const wantsTrial = requestUrl.searchParams.get('trial') === 'true';
+  const redirectTo = requestUrl.searchParams.get('redirect') || '/dashboard';
   const origin = requestUrl.origin; // Använd origin för säkrare omdirigering
 
   if (code) {
@@ -51,16 +53,40 @@ export async function GET(request: NextRequest) {
 
     try {
         // Försök att byta OAuth-code mot en session
-        const { error } = await supabase.auth.exchangeCodeForSession(code);
+        const { error, data } = await supabase.auth.exchangeCodeForSession(code);
 
-        if (!error) {
-            // Om allt gick bra, omdirigera till profilsidan
-            console.log("OAuth code exchange successful. Redirecting to /profile.");
-            // Omdirigera till /profile, använd origin
-            return NextResponse.redirect(`${origin}/profile`);
+        if (!error && data.user) {
+            // Om allt gick bra, aktivera trial om requested
+            if (wantsTrial && data.session) {
+              try {
+                const trialResponse = await fetch(`${origin}/api/trial/auto-activate`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${data.session.access_token}`
+                  },
+                  body: JSON.stringify({
+                    userId: data.user.id,
+                    source: 'oauth_signup_trial'
+                  })
+                });
+
+                if (!trialResponse.ok) {
+                  console.error('Failed to activate trial for OAuth user:', await trialResponse.text());
+                } else {
+                  console.log('7-day trial activated for OAuth user');
+                }
+              } catch (trialError) {
+                console.error('Error activating trial for OAuth user:', trialError);
+              }
+            }
+
+            console.log("OAuth code exchange successful. Redirecting to:", redirectTo);
+            // Omdirigera till önskad destination
+            return NextResponse.redirect(`${origin}${redirectTo}`);
         } else {
             // Om Supabase returnerade ett fel vid bytet
-            console.error("Supabase error exchanging code for session:", error.message);
+            console.error("Supabase error exchanging code for session:", error?.message);
         }
     } catch(e: any) {
         // Om något annat oväntat fel inträffade

@@ -2,7 +2,7 @@
 'use client'
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { logUserActivity } from '@/lib/activity-logger'; // <-- 1. Importera loggern
 
@@ -15,6 +15,9 @@ export default function RegisterForm() {
   const [message, setMessage] = useState<string | null>(null);
 
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const wantsTrial = searchParams.get('trial') === 'true'
+  const redirectTo = searchParams.get('redirect') || '/dashboard'
   const supabase = createClient()
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -69,7 +72,33 @@ export default function RegisterForm() {
             console.log('Data Layer event pushed: user_registered');
         } else { console.warn('Data Layer not available.'); }
 
-        // 4. Skicka EGEN bekräftelse-email via Resend (inte Supabase)
+        // 4. Aktivera trial om requested (NYTT - före email)
+        if (wantsTrial && data.session) {
+          try {
+            const trialResponse = await fetch('/api/trial/auto-activate', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${data.session.access_token}`
+              },
+              body: JSON.stringify({
+                userId: data.user.id,
+                source: 'signup_trial'
+              })
+            })
+
+            if (!trialResponse.ok) {
+              console.error('Failed to activate trial:', await trialResponse.text())
+              // Fortsätt ändå - användaren är registrerad
+            } else {
+              console.log('7-day trial activated successfully')
+            }
+          } catch (trialError) {
+            console.error('Error activating trial:', trialError)
+          }
+        }
+
+        // 5. Skicka EGEN bekräftelse-email via Resend (inte Supabase)
         try {
           const emailResponse = await fetch('/api/auth/send-confirmation', {
             method: 'POST',
@@ -93,12 +122,15 @@ export default function RegisterForm() {
           // Vi fortsätter ändå - användaren är registrerad
         }
 
-        // 5. Omdirigera till bekräftelsesida
+        // 6. Omdirigera till bekräftelsesida
         // Eftersom email confirmations är disabled, kommer användaren troligen ha session direkt
         if (data.session) {
             // Användare direkt inloggad (email confirmations disabled)
-            setMessage('Konto skapat! Kontrollera din e-post för att bekräfta din adress.')
-            router.push('/dashboard');
+            const successMsg = wantsTrial
+              ? 'Konto skapat! Din 7-dagars Premium-trial är nu aktiv.'
+              : 'Konto skapat! Kontrollera din e-post för att bekräfta din adress.'
+            setMessage(successMsg)
+            router.push(redirectTo);
             router.refresh();
         } else {
             // E-postverifiering krävs (om du har confirmations enabled)
@@ -132,16 +164,21 @@ export default function RegisterForm() {
     }
   }
 
-  // Google Register-funktion (oförändrad - loggning sker i callback)
+  // Google Register-funktion (uppdaterad - inkludera trial-parameter)
   const handleGoogleRegister = async () => {
     setLoading(true)
     setError(null)
     setMessage(null);
     try {
+      // Inkludera trial-parameter i OAuth redirect
+      const callbackUrl = wantsTrial
+        ? `${window.location.origin}/auth/callback?trial=true&redirect=${encodeURIComponent(redirectTo)}`
+        : `${window.location.origin}/auth/callback`
+
       const { error: oauthError } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`
+          redirectTo: callbackUrl
         }
       })
       if (oauthError) throw oauthError

@@ -70,22 +70,22 @@ const OrganicTrafficBanner = () => {
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-yellow-300 animate-pulse" />
-                <span className="font-bold text-lg">Välkommen till vår växande AI-karriärcoach!</span>
+                <span className="font-bold text-lg">Testa allt gratis i 7 dagar – inget kreditkort krävs</span>
               </div>
             </div>
 
             <div className="hidden md:flex items-center gap-6 text-sm">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="opacity-90">{liveCount} aktiva nu</span>
+                <Sparkles className="w-4 h-4 text-yellow-300" />
+                <span className="opacity-90">Obegränsade AI-brev</span>
               </div>
               <div className="flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-green-300" />
-                <span className="opacity-90">65% bättre svar</span>
+                <Users className="w-4 h-4 text-yellow-300" />
+                <span className="opacity-90">8 CV-mallar</span>
               </div>
               <div className="flex items-center gap-2">
-                <Users className="w-4 h-4 text-blue-300" />
-                <span className="opacity-90">{counters.totalUsers}+ jobbsökare</span>
+                <TrendingUp className="w-4 h-4 text-yellow-300" />
+                <span className="opacity-90">Obegränsad CV-analys</span>
               </div>
             </div>
           </div>
@@ -94,17 +94,17 @@ const OrganicTrafficBanner = () => {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
               <Link
-                href="/create-letter"
+                href="/register?trial=true"
                 className="inline-flex items-center px-6 py-2.5 bg-white text-gray-900 font-semibold rounded-xl
                          hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105
                          focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-purple-600"
               >
-                <Clock className="w-4 h-4 mr-2" />
-                Skapa brev på 2 min
+                <Sparkles className="w-4 h-4 mr-2" />
+                Starta din 7-dagars trial
               </Link>
 
               <div className="hidden lg:block text-right">
-                <div className="text-xs opacity-80">Gratis att testa</div>
+                <div className="text-xs opacity-80">Helt gratis</div>
                 <div className="text-xs opacity-80">Inget kreditkort krävs</div>
               </div>
             </div>
