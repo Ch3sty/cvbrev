@@ -36,6 +36,8 @@ import PersonligtBrevExampleKurator from '@/components/mdx/PersonligtBrevExample
 import PersonligtBrevExampleStadare from '@/components/mdx/PersonligtBrevExampleStadare';
 import PersonligtBrevExampleHandlaggare from '@/components/mdx/PersonligtBrevExampleHandlaggare';
 import PersonligtBrevExampleUtbildning from '@/components/mdx/PersonligtBrevExampleUtbildning';
+import LayoutFormatExample from '@/components/mdx/LayoutFormatExample';
+import CoverLetterHeaderExample from '@/components/mdx/CoverLetterHeaderExample';
 
 // Importera artikelkomponenter
 import ArticleClientWrapper from '@/components/artiklar/ArticleClientWrapper';
@@ -291,6 +293,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         PersonligtBrevExampleStadare: PersonligtBrevExampleStadare,
         PersonligtBrevExampleHandlaggare: PersonligtBrevExampleHandlaggare,
         PersonligtBrevExampleUtbildning: PersonligtBrevExampleUtbildning,
+        LayoutFormatExample: LayoutFormatExample,
+        CoverLetterHeaderExample: CoverLetterHeaderExample,
         // Automatisk ID-generering för h2 headings - SEO-optimerad
         h2: (props: any) => {
             const text = typeof props.children === 'string' ? props.children : '';
