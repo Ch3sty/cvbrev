@@ -31,68 +31,56 @@ export default function PersonligtBrevExampleEkonomiassistent() {
   const [copied, setCopied] = useState(false);
 
   const handleDownload = () => {
-    const element = document.createElement('a');
-    const file = new Blob([EXEMPEL_BREV], { type: 'text/plain' });
-    element.href = URL.createObjectURL(file);
-    element.download = 'personligt-brev-ekonomiassistent.txt';
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
+    const blob = new Blob([EXEMPEL_BREV], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'personligt-brev-ekonomiassistent-exempel.txt';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(EXEMPEL_BREV);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      console.error('Kunde inte kopiera texten:', err);
-    }
+  const handleCopyToClipboard = () => {
+    navigator.clipboard.writeText(EXEMPEL_BREV);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className="my-8">
-      <div className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
-        <div className="bg-white border-b border-gray-200 px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900">
-                Exempel på personligt brev för ekonomiassistent
-              </h3>
-              <p className="text-sm text-gray-600 mt-1">
-                Med erfarenhet från Fortnox och Visma
-              </p>
-            </div>
-            <div className="flex gap-2">
-              <button
-                onClick={handleCopy}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-                aria-label="Kopiera exempel på personligt brev för ekonomiassistent"
-              >
-                <Copy className="w-4 h-4" />
-                {copied ? 'Kopierat!' : 'Kopiera'}
-              </button>
-              <button
-                onClick={handleDownload}
-                className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm"
-                aria-label="Ladda ner exempel på personligt brev för ekonomiassistent"
-              >
-                <Download className="w-4 h-4" />
-                Ladda ner
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="px-6 py-6">
-          <pre className="whitespace-pre-wrap font-serif text-gray-800 leading-relaxed text-base">
+    <div className="my-8 border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
+      {/* Example Content - Always Visible */}
+      <div className="p-6 bg-white">
+        <div className="max-w-3xl mx-auto">
+          <div className="whitespace-pre-wrap font-serif text-base leading-relaxed text-gray-800 bg-gray-50 p-8 rounded-lg border border-gray-200">
             {EXEMPEL_BREV}
-          </pre>
+          </div>
         </div>
       </div>
 
-      <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <p className="text-sm text-blue-800">
-          <strong>Tips:</strong> Detta exempel lyfter konkreta system (Fortnox, Visma), kvantifierbara resultat (noll fel vid revision) och visar noggrannhet – viktiga egenskaper för ekonomiassistent-roller.
+      {/* Action Buttons */}
+      <div className="p-6 bg-gray-50 flex flex-col sm:flex-row gap-3 border-t border-gray-200">
+        <button
+          onClick={handleDownload}
+          className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors shadow-sm"
+        >
+          <Download className="w-5 h-5" />
+          Ladda ned exempel (.txt)
+        </button>
+        <button
+          onClick={handleCopyToClipboard}
+          className="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-blue-600 font-semibold py-3 px-6 rounded-lg border-2 border-blue-200 transition-colors"
+        >
+          <Copy className="w-5 h-5" />
+          {copied ? 'Kopierat!' : 'Kopiera text'}
+        </button>
+      </div>
+
+      {/* Footer Info */}
+      <div className="p-4 bg-blue-50 border-t border-blue-100">
+        <p className="text-sm text-gray-700">
+          <strong className="text-gray-900">Tips:</strong> Detta exempel lyfter konkreta system (Fortnox, Visma), kvantifierbara resultat (noll fel vid revision) och visar noggrannhet – viktiga egenskaper för ekonomiassistent-roller.
         </p>
       </div>
     </div>

@@ -53,113 +53,104 @@ export default function PersonligtBrevExampleEngelska() {
   const [copiedEngelska, setCopiedEngelska] = useState(false);
 
   const handleDownload = (text: string, filename: string) => {
-    const element = document.createElement('a');
-    const file = new Blob([text], { type: 'text/plain' });
-    element.href = URL.createObjectURL(file);
-    element.download = filename;
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
+    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
-  const handleCopy = async (text: string, language: 'svenska' | 'engelska') => {
-    try {
-      await navigator.clipboard.writeText(text);
-      if (language === 'svenska') {
-        setCopiedSvenska(true);
-        setTimeout(() => setCopiedSvenska(false), 2000);
-      } else {
-        setCopiedEngelska(true);
-        setTimeout(() => setCopiedEngelska(false), 2000);
-      }
-    } catch (err) {
-      console.error('Kunde inte kopiera texten:', err);
+  const handleCopy = (text: string, language: 'svenska' | 'engelska') => {
+    navigator.clipboard.writeText(text);
+    if (language === 'svenska') {
+      setCopiedSvenska(true);
+      setTimeout(() => setCopiedSvenska(false), 2000);
+    } else {
+      setCopiedEngelska(true);
+      setTimeout(() => setCopiedEngelska(false), 2000);
     }
   };
 
   return (
     <div className="my-8 space-y-6">
       {/* Svenska exemplet */}
-      <div className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
-        <div className="bg-white border-b border-gray-200 px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900">
-                Exempel på svenska (för svenskt företag med internationell profil)
-              </h3>
-              <p className="text-sm text-gray-600 mt-1">
-                Personligt brev för tjänst i Sverige där engelska används i arbetet
-              </p>
-            </div>
-            <div className="flex gap-2">
-              <button
-                onClick={() => handleCopy(EXEMPEL_BREV_SVENSKA, 'svenska')}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-                aria-label="Kopiera svenskt exempel"
-              >
-                <Copy className="w-4 h-4" />
-                {copiedSvenska ? 'Kopierat!' : 'Kopiera'}
-              </button>
-              <button
-                onClick={() => handleDownload(EXEMPEL_BREV_SVENSKA, 'personligt-brev-svenska.txt')}
-                className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm"
-                aria-label="Ladda ner svenskt exempel"
-              >
-                <Download className="w-4 h-4" />
-                Ladda ner
-              </button>
+      <div className="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
+        <div className="p-6 bg-white border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">
+            Exempel på svenska (för svenskt företag med internationell profil)
+          </h3>
+          <p className="text-sm text-gray-600 mt-1">
+            Personligt brev för tjänst i Sverige där engelska används i arbetet
+          </p>
+        </div>
+        <div className="p-6 bg-white">
+          <div className="max-w-3xl mx-auto">
+            <div className="whitespace-pre-wrap font-serif text-base leading-relaxed text-gray-800 bg-gray-50 p-8 rounded-lg border border-gray-200">
+              {EXEMPEL_BREV_SVENSKA}
             </div>
           </div>
         </div>
-        <div className="px-6 py-6">
-          <pre className="whitespace-pre-wrap font-serif text-gray-800 leading-relaxed text-base">
-            {EXEMPEL_BREV_SVENSKA}
-          </pre>
+        <div className="p-6 bg-gray-50 flex flex-col sm:flex-row gap-3 border-t border-gray-200">
+          <button
+            onClick={() => handleDownload(EXEMPEL_BREV_SVENSKA, 'personligt-brev-svenska-exempel.txt')}
+            className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors shadow-sm"
+          >
+            <Download className="w-5 h-5" />
+            Ladda ned exempel (.txt)
+          </button>
+          <button
+            onClick={() => handleCopy(EXEMPEL_BREV_SVENSKA, 'svenska')}
+            className="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-blue-600 font-semibold py-3 px-6 rounded-lg border-2 border-blue-200 transition-colors"
+          >
+            <Copy className="w-5 h-5" />
+            {copiedSvenska ? 'Kopierat!' : 'Kopiera text'}
+          </button>
         </div>
       </div>
 
       {/* Engelska exemplet */}
-      <div className="bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
-        <div className="bg-white border-b border-gray-200 px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900">
-                English Example (for international application)
-              </h3>
-              <p className="text-sm text-gray-600 mt-1">
-                Cover letter for position at international company
-              </p>
-            </div>
-            <div className="flex gap-2">
-              <button
-                onClick={() => handleCopy(EXEMPEL_BREV_ENGELSKA, 'engelska')}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
-                aria-label="Copy English example"
-              >
-                <Copy className="w-4 h-4" />
-                {copiedEngelska ? 'Copied!' : 'Copy'}
-              </button>
-              <button
-                onClick={() => handleDownload(EXEMPEL_BREV_ENGELSKA, 'cover-letter-english.txt')}
-                className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm"
-                aria-label="Download English example"
-              >
-                <Download className="w-4 h-4" />
-                Download
-              </button>
+      <div className="border border-gray-200 rounded-xl overflow-hidden bg-white shadow-sm">
+        <div className="p-6 bg-white border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">
+            English Example (for international application)
+          </h3>
+          <p className="text-sm text-gray-600 mt-1">
+            Cover letter for position at international company
+          </p>
+        </div>
+        <div className="p-6 bg-white">
+          <div className="max-w-3xl mx-auto">
+            <div className="whitespace-pre-wrap font-serif text-base leading-relaxed text-gray-800 bg-gray-50 p-8 rounded-lg border border-gray-200">
+              {EXEMPEL_BREV_ENGELSKA}
             </div>
           </div>
         </div>
-        <div className="px-6 py-6">
-          <pre className="whitespace-pre-wrap font-serif text-gray-800 leading-relaxed text-base">
-            {EXEMPEL_BREV_ENGELSKA}
-          </pre>
+        <div className="p-6 bg-gray-50 flex flex-col sm:flex-row gap-3 border-t border-gray-200">
+          <button
+            onClick={() => handleDownload(EXEMPEL_BREV_ENGELSKA, 'cover-letter-english-example.txt')}
+            className="flex-1 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors shadow-sm"
+          >
+            <Download className="w-5 h-5" />
+            Download example (.txt)
+          </button>
+          <button
+            onClick={() => handleCopy(EXEMPEL_BREV_ENGELSKA, 'engelska')}
+            className="flex-1 flex items-center justify-center gap-2 bg-white hover:bg-gray-50 text-blue-600 font-semibold py-3 px-6 rounded-lg border-2 border-blue-200 transition-colors"
+          >
+            <Copy className="w-5 h-5" />
+            {copiedEngelska ? 'Copied!' : 'Copy text'}
+          </button>
         </div>
       </div>
 
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <p className="text-sm text-blue-800">
-          <strong>Tips:</strong> Observera skillnaderna mellan svenska och engelska format. Det engelska brevet är mer direkt i tonen och följer brittisk/amerikansk struktur med &quot;Dear Hiring Manager&quot; och &quot;Kind regards&quot;.
+      {/* Tips section */}
+      <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <p className="text-sm text-gray-700">
+          <strong className="text-gray-900">Tips:</strong> Observera skillnaderna mellan svenska och engelska format. Det engelska brevet är mer direkt i tonen och följer brittisk/amerikansk struktur med "Dear Hiring Manager" och "Kind regards".
         </p>
       </div>
     </div>
