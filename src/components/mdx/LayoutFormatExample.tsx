@@ -6,8 +6,14 @@ interface LayoutFormatExampleProps {
   variant: 'spacing' | 'accent' | 'conservative' | 'modern' | 'balanced';
 }
 
+interface ExampleData {
+  title: string;
+  subtitle?: string;
+  content: string;
+}
+
 export default function LayoutFormatExample({ variant }: LayoutFormatExampleProps) {
-  const examples = {
+  const examples: Record<string, ExampleData> = {
     spacing: {
       title: 'Exempel på rätt radavstånd',
       content: `Anna Andersson
