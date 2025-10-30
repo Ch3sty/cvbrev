@@ -87,7 +87,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const articlePages: MetadataRoute.Sitemap = posts.map((post) => {
     const postDate = new Date(post.date);
-    const isNewArticle = postDate >= new Date('2025-01-30'); // Nya artiklar från 30 jan 2025
+    const isNewArticle = postDate >= new Date('2025-10-30'); // Nya artiklar från 30 okt 2025
 
     return {
       url: `${baseUrl}/artiklar/${post.slug}`,
