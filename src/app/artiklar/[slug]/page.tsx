@@ -24,6 +24,18 @@ import PersonligtBrevExampleAdministrator from '@/components/mdx/PersonligtBrevE
 import PersonligtBrevExampleSaljare from '@/components/mdx/PersonligtBrevExampleSaljare';
 import PersonligtBrevExampleForskollarare from '@/components/mdx/PersonligtBrevExampleForskollarare';
 import PersonligtBrevExampleButikssaljare from '@/components/mdx/PersonligtBrevExampleButikssaljare';
+import PersonligtBrevExampleEngelska from '@/components/mdx/PersonligtBrevExampleEngelska';
+import PersonligtBrevExampleLagerarbetare from '@/components/mdx/PersonligtBrevExampleLagerarbetare';
+import PersonligtBrevExampleVardOmsorg from '@/components/mdx/PersonligtBrevExampleVardOmsorg';
+import PersonligtBrevExampleEkonomiassistent from '@/components/mdx/PersonligtBrevExampleEkonomiassistent';
+import PersonligtBrevExampleReceptionist from '@/components/mdx/PersonligtBrevExampleReceptionist';
+import PersonligtBrevExampleUtanErfarenhet from '@/components/mdx/PersonligtBrevExampleUtanErfarenhet';
+import PersonligtBrevExampleIngenjor from '@/components/mdx/PersonligtBrevExampleIngenjor';
+import PersonligtBrevExampleIT from '@/components/mdx/PersonligtBrevExampleIT';
+import PersonligtBrevExampleKurator from '@/components/mdx/PersonligtBrevExampleKurator';
+import PersonligtBrevExampleStadare from '@/components/mdx/PersonligtBrevExampleStadare';
+import PersonligtBrevExampleHandlaggare from '@/components/mdx/PersonligtBrevExampleHandlaggare';
+import PersonligtBrevExampleUtbildning from '@/components/mdx/PersonligtBrevExampleUtbildning';
 
 // Importera artikelkomponenter
 import ArticleClientWrapper from '@/components/artiklar/ArticleClientWrapper';
@@ -267,6 +279,18 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         PersonligtBrevExampleSaljare: PersonligtBrevExampleSaljare,
         PersonligtBrevExampleForskollarare: PersonligtBrevExampleForskollarare,
         PersonligtBrevExampleButikssaljare: PersonligtBrevExampleButikssaljare,
+        PersonligtBrevExampleEngelska: PersonligtBrevExampleEngelska,
+        PersonligtBrevExampleLagerarbetare: PersonligtBrevExampleLagerarbetare,
+        PersonligtBrevExampleVardOmsorg: PersonligtBrevExampleVardOmsorg,
+        PersonligtBrevExampleEkonomiassistent: PersonligtBrevExampleEkonomiassistent,
+        PersonligtBrevExampleReceptionist: PersonligtBrevExampleReceptionist,
+        PersonligtBrevExampleUtanErfarenhet: PersonligtBrevExampleUtanErfarenhet,
+        PersonligtBrevExampleIngenjor: PersonligtBrevExampleIngenjor,
+        PersonligtBrevExampleIT: PersonligtBrevExampleIT,
+        PersonligtBrevExampleKurator: PersonligtBrevExampleKurator,
+        PersonligtBrevExampleStadare: PersonligtBrevExampleStadare,
+        PersonligtBrevExampleHandlaggare: PersonligtBrevExampleHandlaggare,
+        PersonligtBrevExampleUtbildning: PersonligtBrevExampleUtbildning,
         // Automatisk ID-generering för h2 headings - SEO-optimerad
         h2: (props: any) => {
             const text = typeof props.children === 'string' ? props.children : '';
