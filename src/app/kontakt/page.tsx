@@ -14,7 +14,7 @@ import KontaktInfo from '@/components/kontakt/KontaktInfo'
 
 export default function KontaktPage() {
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-b from-white via-slate-50 to-white">
+    <div className="flex flex-col min-h-screen bg-gradient-to-b from-white via-slate-50 to-white pt-16">
       {/* Hero Section */}
       <KontaktHero />
 

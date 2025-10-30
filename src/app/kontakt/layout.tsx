@@ -5,7 +5,7 @@
  * Layout för kontaktsidan som lägger till navbar.
  * Footer läggs till automatiskt via root layout.
  */
-import Navbar from '@/components/ui/navbar'
+import PremiumNavbar from '@/components/PremiumNavbar'
 
 export default function KontaktLayout({
   children,
@@ -14,7 +14,7 @@ export default function KontaktLayout({
 }) {
   return (
     <>
-      <Navbar />
+      <PremiumNavbar />
       {children}
     </>
   )
