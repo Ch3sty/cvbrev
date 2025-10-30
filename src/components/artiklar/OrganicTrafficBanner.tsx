@@ -2,14 +2,11 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { X, Sparkles, Clock, Users, TrendingUp } from 'lucide-react';
+import { X, Check, Award, Clock } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { useGlobalCounters } from '@/contexts/GlobalCountersContext';
 
 const OrganicTrafficBanner = () => {
   const [isVisible, setIsVisible] = useState(true);
-  const { counters } = useGlobalCounters();
-  const liveCount = counters.activeUsers;
 
   // Check if user has dismissed banner recently
   useEffect(() => {
@@ -39,11 +36,11 @@ const OrganicTrafficBanner = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -50 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="relative overflow-hidden bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 text-white"
+      className="relative overflow-hidden bg-gradient-to-r from-indigo-600 via-purple-600 to-purple-700 text-white"
     >
       {/* Animated background pattern */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-600/90 to-purple-600/90"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-indigo-600/80 to-purple-700/80"></div>
         <motion.div
           animate={{
             backgroundPosition: ['0% 0%', '100% 100%'],
@@ -53,61 +50,53 @@ const OrganicTrafficBanner = () => {
             repeat: Infinity,
             repeatType: "reverse"
           }}
-          className="absolute inset-0 opacity-10"
+          className="absolute inset-0 opacity-5"
           style={{
             backgroundImage: `radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                             radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-                             radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%)`,
+                             radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
+                             radial-gradient(circle at 40% 40%, rgba(99, 102, 241, 0.3) 0%, transparent 50%)`,
             backgroundSize: '100% 100%'
           }}
         />
       </div>
 
-      <div className="container max-w-6xl mx-auto px-4 py-4 relative z-10">
-        <div className="flex items-center justify-between">
+      <div className="container max-w-6xl mx-auto px-4 py-3.5 relative z-10">
+        <div className="flex items-center justify-between gap-4">
           {/* Left side - Value proposition */}
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-yellow-300 animate-pulse" />
-                <span className="font-bold text-lg">Testa allt gratis i 7 dagar – inget kreditkort krävs</span>
-              </div>
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2">
+              <Award className="w-5 h-5 text-yellow-300" />
+              <span className="font-bold text-base md:text-lg">Testa allt gratis i 7 dagar – inget kreditkort krävs</span>
             </div>
 
-            <div className="hidden md:flex items-center gap-6 text-sm">
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-yellow-300" />
+            <div className="hidden md:flex items-center gap-4 text-sm ml-7">
+              <div className="flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-emerald-300" />
                 <span className="opacity-90">Brev matchade mot jobbet</span>
               </div>
-              <div className="flex items-center gap-2">
-                <Users className="w-4 h-4 text-yellow-300" />
+              <div className="flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-emerald-300" />
                 <span className="opacity-90">8 professionella mallar</span>
               </div>
-              <div className="flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-yellow-300" />
+              <div className="flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-emerald-300" />
                 <span className="opacity-90">Feedback när du vill</span>
               </div>
             </div>
           </div>
 
-          {/* Right side - CTA & Close */}
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3">
-              <Link
-                href="/register?trial=true"
-                className="inline-flex items-center px-6 py-2.5 bg-white text-gray-900 font-semibold rounded-xl
-                         hover:bg-gray-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105
-                         focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-purple-600"
-              >
-                <Sparkles className="w-4 h-4 mr-2" />
-                Starta din 7-dagars trial
-              </Link>
-
-              <div className="hidden lg:block text-right">
-                <div className="text-xs opacity-80">Helt gratis</div>
-                <div className="text-xs opacity-80">Inget kreditkort krävs</div>
-              </div>
-            </div>
+          {/* Center - CTA (more prominent) */}
+          <div className="flex items-center gap-3">
+            <Link
+              href="/register?trial=true"
+              className="inline-flex items-center px-5 md:px-8 py-2.5 md:py-3 bg-white text-purple-700 font-bold rounded-xl text-sm md:text-base
+                       hover:bg-gray-50 transition-all duration-200 shadow-xl hover:shadow-2xl transform hover:scale-105
+                       focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-purple-600
+                       whitespace-nowrap"
+            >
+              <Clock className="w-4 h-4 mr-2" />
+              Starta din trial
+            </Link>
 
             <button
               onClick={handleDismiss}
@@ -119,14 +108,21 @@ const OrganicTrafficBanner = () => {
           </div>
         </div>
 
-        {/* Mobile CTA row */}
-        <div className="md:hidden mt-3 pt-3 border-t border-white/20">
-          <div className="flex items-center justify-between text-sm">
-            <div className="flex items-center gap-4">
-              <span className="opacity-90">{liveCount} aktiva</span>
-              <span className="opacity-90">65% bättre svar</span>
+        {/* Mobile benefits row */}
+        <div className="md:hidden mt-2.5 pt-2.5 border-t border-white/20">
+          <div className="flex items-center gap-3 text-xs">
+            <div className="flex items-center gap-1">
+              <Check className="w-3 h-3 text-emerald-300" />
+              <span className="opacity-90">Brev för varje jobb</span>
             </div>
-            <span className="text-xs opacity-75">Gratis test • Inga kort</span>
+            <div className="flex items-center gap-1">
+              <Check className="w-3 h-3 text-emerald-300" />
+              <span className="opacity-90">8 mallar</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Check className="w-3 h-3 text-emerald-300" />
+              <span className="opacity-90">Obegränsad feedback</span>
+            </div>
           </div>
         </div>
       </div>

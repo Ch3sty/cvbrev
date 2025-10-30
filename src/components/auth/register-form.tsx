@@ -74,6 +74,15 @@ export default function RegisterForm() {
 
         // 4. Aktivera trial om requested (NYTT - före email)
         if (wantsTrial && data.session) {
+          console.log('[TRIAL] Attempting trial activation:', {
+            userId: data.user.id,
+            email: data.user.email,
+            hasSession: !!data.session,
+            hasAccessToken: !!data.session.access_token,
+            wantsTrial,
+            timestamp: new Date().toISOString()
+          })
+
           try {
             const trialResponse = await fetch('/api/trial/auto-activate', {
               method: 'POST',
@@ -87,15 +96,58 @@ export default function RegisterForm() {
               })
             })
 
+            const trialData = await trialResponse.json()
+
             if (!trialResponse.ok) {
-              console.error('Failed to activate trial:', await trialResponse.text())
-              // Fortsätt ändå - användaren är registrerad
+              console.error('[TRIAL] Trial activation FAILED:', {
+                status: trialResponse.status,
+                statusText: trialResponse.statusText,
+                error: trialData,
+                userId: data.user.id
+              })
+
+              // Visa användaren att trial INTE aktiverades
+              setError(
+                <>
+                  Ditt konto skapades men Premium trial kunde inte aktiveras.
+                  Kontakta{' '}
+                  <a href="mailto:support@jobbcoach.ai" className="underline font-semibold">
+                    support@jobbcoach.ai
+                  </a>
+                  {' '}för hjälp.
+                </>
+              )
             } else {
-              console.log('7-day trial activated successfully')
+              console.log('[TRIAL] Trial activated successfully:', {
+                data: trialData,
+                userId: data.user.id
+              })
             }
           } catch (trialError) {
-            console.error('Error activating trial:', trialError)
+            console.error('[TRIAL] Trial activation exception:', {
+              error: trialError,
+              message: trialError instanceof Error ? trialError.message : 'Unknown error',
+              userId: data.user.id
+            })
+
+            // Visa användaren att något gick fel
+            setError(
+              <>
+                Ditt konto skapades men Premium trial kunde inte aktiveras.
+                Kontakta{' '}
+                <a href="mailto:support@jobbcoach.ai" className="underline font-semibold">
+                  support@jobbcoach.ai
+                </a>
+                {' '}för hjälp.
+              </>
+            )
           }
+        } else if (wantsTrial && !data.session) {
+          console.warn('[TRIAL] User wants trial but no session available:', {
+            userId: data.user.id,
+            email: data.user.email,
+            wantsTrial
+          })
         }
 
         // 5. Skicka EGEN bekräftelse-email via Resend (inte Supabase)

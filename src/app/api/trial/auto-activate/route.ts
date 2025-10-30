@@ -16,7 +16,15 @@ export async function POST(request: NextRequest) {
     const body: TrialActivationRequest = await request.json()
     const { userId, source } = body
 
+    console.log('[TRIAL API] Request received:', {
+      userId,
+      source,
+      timestamp: new Date().toISOString(),
+      hasAuthHeader: !!request.headers.get('authorization')
+    })
+
     if (!userId) {
+      console.error('[TRIAL API] Missing userId in request body')
       return NextResponse.json({
         error: 'User ID is required'
       }, { status: 400 })
@@ -25,11 +33,27 @@ export async function POST(request: NextRequest) {
     // Verify authenticated user matches requested userId
     const { data: { user }, error: authError } = await supabase.auth.getUser()
 
+    console.log('[TRIAL API] Auth check:', {
+      hasUser: !!user,
+      userId: user?.id,
+      requestedUserId: userId,
+      matches: user?.id === userId,
+      authError: authError?.message
+    })
+
     if (authError || !user || user.id !== userId) {
+      console.error('[TRIAL API] Authorization FAILED:', {
+        hasAuthError: !!authError,
+        hasUser: !!user,
+        userIdMatch: user?.id === userId,
+        userId
+      })
       return NextResponse.json({
         error: 'Unauthorized'
       }, { status: 401 })
     }
+
+    console.log('[TRIAL API] Authorization SUCCESS - fetching profile')
 
     // Check if user already has premium
     const { data: profile, error: profileError } = await supabase
@@ -39,17 +63,32 @@ export async function POST(request: NextRequest) {
       .single()
 
     if (profileError) {
-      console.error('Error fetching profile:', profileError)
+      console.error('[TRIAL API] Profile fetch FAILED:', {
+        error: profileError,
+        userId
+      })
       return NextResponse.json({
         error: 'Failed to fetch user profile'
       }, { status: 500 })
     }
+
+    console.log('[TRIAL API] Profile fetched:', {
+      userId,
+      premiumUntil: profile?.premium_until,
+      subscriptionTier: profile?.subscription_tier
+    })
 
     // Check if already premium
     const alreadyPremium = profile?.premium_until && new Date(profile.premium_until) > new Date()
     const hasPremiumTier = profile?.subscription_tier === 'premium'
 
     if (alreadyPremium || hasPremiumTier) {
+      console.log('[TRIAL API] User already has premium - skipping activation:', {
+        userId,
+        alreadyPremium,
+        hasPremiumTier,
+        premiumUntil: profile.premium_until
+      })
       return NextResponse.json({
         success: true,
         message: 'User already has premium access',
@@ -58,9 +97,17 @@ export async function POST(request: NextRequest) {
       })
     }
 
+    console.log('[TRIAL API] User eligible for trial - activating')
+
     // Activate 7-day trial
     const trialEndDate = new Date()
     trialEndDate.setDate(trialEndDate.getDate() + 7)
+
+    console.log('[TRIAL API] Updating profile with trial:', {
+      userId,
+      trialEndDate: trialEndDate.toISOString(),
+      source: source || 'signup_trial'
+    })
 
     const { error: updateError } = await supabase
       .from('profiles')
@@ -71,11 +118,17 @@ export async function POST(request: NextRequest) {
       .eq('id', userId)
 
     if (updateError) {
-      console.error('Error activating trial:', updateError)
+      console.error('[TRIAL API] Profile update FAILED:', {
+        error: updateError,
+        userId,
+        trialEndDate: trialEndDate.toISOString()
+      })
       return NextResponse.json({
         error: 'Failed to activate trial'
       }, { status: 500 })
     }
+
+    console.log('[TRIAL API] Trial activated successfully - awarding XP')
 
     // Award bonus XP for starting trial (non-blocking)
     const { error: xpError } = await supabase.rpc('add_xp_with_cap_check', {
@@ -86,9 +139,13 @@ export async function POST(request: NextRequest) {
     })
 
     if (xpError) {
-      console.warn('Failed to award trial XP:', xpError)
+      console.warn('[TRIAL API] XP award failed (non-critical):', xpError)
       // Non-critical, continue
+    } else {
+      console.log('[TRIAL API] XP awarded successfully')
     }
+
+    console.log('[TRIAL API] Creating notification')
 
     // Create notification (non-blocking)
     const { error: notifError } = await supabase
@@ -105,9 +162,17 @@ export async function POST(request: NextRequest) {
       })
 
     if (notifError) {
-      console.warn('Failed to create notification:', notifError)
+      console.warn('[TRIAL API] Notification creation failed (non-critical):', notifError)
       // Non-critical, continue
+    } else {
+      console.log('[TRIAL API] Notification created successfully')
     }
+
+    console.log('[TRIAL API] Trial activation COMPLETE:', {
+      userId,
+      premiumUntil: trialEndDate.toISOString(),
+      source
+    })
 
     return NextResponse.json({
       success: true,
@@ -120,7 +185,11 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Unexpected error activating trial:', error)
+    console.error('[TRIAL API] Unexpected error:', {
+      error,
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : undefined
+    })
     return NextResponse.json({
       error: 'Internal server error',
       details: error instanceof Error ? error.message : 'Unknown error'
