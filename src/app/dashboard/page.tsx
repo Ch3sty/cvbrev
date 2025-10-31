@@ -341,7 +341,7 @@ export default function DashboardPage() {
                   const isTrialUser = stats.premiumSource === 'signup_trial' || stats.premiumSource === 'oauth_signup_trial';
                   if (isTrialUser && stats.premiumUntil) {
                     const daysLeft = Math.ceil((new Date(stats.premiumUntil).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
-                    return daysLeft > 0 ? `Prova på (${daysLeft} ${daysLeft === 1 ? 'dag' : 'dagar'} kvar)` : 'Aktiv';
+                    return daysLeft > 0 ? `Trial · ${daysLeft}d kvar` : 'Aktiv';
                   }
                   return 'Aktiv';
                 })()}
