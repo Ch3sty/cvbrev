@@ -160,84 +160,113 @@ export default function PrenumerationPage() {
               <SubscriptionInfo />
             </div>
 
-            <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border-2 border-yellow-500/30 shadow-2xl">
-              <div className="flex items-center mb-4">
-                <div className="p-2 sm:p-3 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-lg sm:rounded-xl mr-2 sm:mr-3 flex-shrink-0">
-                  <Gift className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                </div>
-                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Du testar Premium gratis!</h3>
-              </div>
+            <div className="relative overflow-hidden bg-gradient-to-br from-blue-50/80 via-indigo-50/60 to-purple-50/80 rounded-2xl p-6 md:p-8 border border-blue-200/40 shadow-xl shadow-blue-500/10">
+              {/* Animated gradient orb background */}
+              <motion.div
+                className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.15, 0.25, 0.15]
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  repeatType: 'reverse',
+                  ease: 'easeInOut'
+                }}
+              />
 
-              {/* Countdown */}
-              {timeRemaining && !timeRemaining.expired && (
-                <div className="bg-white/60 backdrop-blur rounded-lg p-4 mb-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-5 h-5 text-orange-600" />
-                      <span className="font-semibold text-gray-900">Tid kvar av provperioden</span>
+              {/* Content */}
+              <div className="relative z-10">
+                {/* Header with gradient icon */}
+                <div className="flex items-center mb-6">
+                  <div className="p-3 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl mr-3 flex-shrink-0 shadow-lg">
+                    <Gift className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                    Du testar Premium gratis!
+                  </h3>
+                </div>
+
+                {/* Countdown with glassmorphism */}
+                {timeRemaining && !timeRemaining.expired && (
+                  <div className="bg-white/80 backdrop-blur-xl rounded-xl p-5 mb-6 border border-blue-200/30 shadow-lg">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <motion.div
+                          animate={{
+                            scale: [1, 1.1, 1]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        >
+                          <Clock className="w-5 h-5 text-blue-600" />
+                        </motion.div>
+                        <span className="font-semibold text-slate-900">Tid kvar av provperioden</span>
+                      </div>
+                    </div>
+                    <div className="text-4xl font-black bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3">
+                      {timeRemaining.days}d {timeRemaining.hours}h
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-slate-600">
+                      <Calendar className="w-4 h-4" />
+                      <span>
+                        Går ut: {premiumUntil && new Date(premiumUntil).toLocaleDateString('sv-SE', {
+                          day: 'numeric',
+                          month: 'long',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}
+                      </span>
                     </div>
                   </div>
-                  <div className="text-2xl sm:text-3xl font-bold text-orange-600 mb-2">
-                    {timeRemaining.days} dag{timeRemaining.days !== 1 ? 'ar' : ''} {timeRemaining.hours} tim
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <Calendar className="w-4 h-4" />
-                    <span>
-                      Provperioden går ut: {premiumUntil && new Date(premiumUntil).toLocaleDateString('sv-SE', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                      })}
-                    </span>
-                  </div>
-                </div>
-              )}
+                )}
 
-              {/* Info om vad som händer */}
-              <div className="space-y-3 mb-6">
-                <div className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Tillgång till <strong>alla premium-funktioner</strong> under provperioden</span>
+                {/* Benefits list - clean checkmarks */}
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-slate-700">Tillgång till <strong>alla premium-funktioner</strong> under provperioden</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-slate-700">Efter provperioden <strong>återgår du till gratis nivå</strong></span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-slate-700"><strong>Inget kreditkort krävs</strong> - ingen automatisk debitering</span>
+                  </div>
                 </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">Efter provperioden <strong>återgår du till gratis nivå</strong></span>
-                </div>
-                <div className="flex items-start gap-2">
-                  <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-gray-700"><strong>Inget kreditkort krävs</strong> - ingen automatisk debitering</span>
-                </div>
-              </div>
 
-              {/* Källa-information */}
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-6">
-                <div className="flex items-center gap-2">
-                  <Info className="w-4 h-4 text-blue-600 flex-shrink-0" />
-                  <span className="text-sm text-gray-700">
+                {/* Source badge - subtle */}
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50/80 rounded-full border border-blue-200/50 mb-6">
+                  <Info className="w-4 h-4 text-blue-600" />
+                  <span className="text-xs font-medium text-blue-700">
                     Aktiverades via: <strong>{premiumSource === 'signup_trial' ? 'Registrering' : 'Google-inloggning'}</strong>
                   </span>
                 </div>
-              </div>
 
-              {/* Upgrade CTA */}
-              <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg p-6 text-white mb-4">
-                <div className="flex items-center gap-3 mb-3">
-                  <Zap className="w-6 h-6 flex-shrink-0" />
-                  <h4 className="font-bold text-lg">Fortsätt med Premium utan avbrott</h4>
+                {/* CTA button - consistent with landing page */}
+                <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-6 text-white shadow-lg">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Zap className="w-6 h-6 flex-shrink-0" />
+                    <h4 className="font-bold text-lg">Fortsätt med Premium utan avbrott</h4>
+                  </div>
+                  <p className="text-white/90 text-sm mb-4">
+                    Uppgradera nu och behåll alla dina premium-funktioner. Ingen bindningstid - avsluta när du vill.
+                  </p>
+                  <SubscribeButton
+                    priceId={premiumMonthlyPriceId}
+                    planName="Premium Månad"
+                    className="w-full bg-white text-blue-600 hover:bg-blue-50 font-bold touch-manipulation"
+                  />
+                  <p className="text-center text-white/80 text-xs mt-3">
+                    149 kr/månad • Ingen bindningstid
+                  </p>
                 </div>
-                <p className="text-white/90 text-sm mb-4">
-                  Uppgradera nu och behåll alla dina premium-funktioner. Ingen bindningstid - avsluta när du vill.
-                </p>
-                <SubscribeButton
-                  priceId={premiumMonthlyPriceId}
-                  planName="Premium Månad"
-                  className="w-full font-bold touch-manipulation"
-                />
-                <p className="text-center text-white/80 text-xs mt-3">
-                  149 kr/månad • Ingen bindningstid
-                </p>
               </div>
             </div>
           </>

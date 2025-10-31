@@ -341,10 +341,15 @@ export default function DashboardPage() {
                   const isTrialUser = stats.premiumSource === 'signup_trial' || stats.premiumSource === 'oauth_signup_trial';
                   if (isTrialUser && stats.premiumUntil) {
                     const daysLeft = Math.ceil((new Date(stats.premiumUntil).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
-                    return daysLeft > 0 ? `Trial · ${daysLeft}d kvar` : 'Aktiv';
+                    return daysLeft > 0 ? `Trial · ${daysLeft}d` : 'Aktiv';
                   }
                   return 'Aktiv';
                 })()}
+                resetDate={(() => {
+                  const isTrialUser = stats.premiumSource === 'signup_trial' || stats.premiumSource === 'oauth_signup_trial';
+                  return (isTrialUser && stats.premiumUntil) ? new Date(stats.premiumUntil) : undefined;
+                })()}
+                resetType="weekly"
                 href="/dashboard/profil/prenumeration"
               />
             </>
