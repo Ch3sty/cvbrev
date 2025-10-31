@@ -113,7 +113,8 @@ export async function POST(request: NextRequest) {
       .from('profiles')
       .update({
         premium_until: trialEndDate.toISOString(),
-        premium_source: source || 'signup_trial'
+        premium_source: source || 'signup_trial',
+        subscription_tier: 'premium'
       })
       .eq('id', userId)
 
