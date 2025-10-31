@@ -541,7 +541,7 @@ export const useProfile = () => {
 
       // Sanera linkedin_url för att förhindra constraint-fel
       const sanitizedData = { ...profileData };
-      if (sanitizedData.linkedin_url !== undefined) {
+      if (sanitizedData.linkedin_url !== undefined && sanitizedData.linkedin_url !== null) {
         const trimmed = sanitizedData.linkedin_url.trim();
         // Konvertera tom sträng till null för databas-constraint
         sanitizedData.linkedin_url = trimmed === '' ? null : trimmed;
