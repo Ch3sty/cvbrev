@@ -38,6 +38,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
   const [isPremium, setIsPremium] = useState(false);
+  const [isTrialUser, setIsTrialUser] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const supabase = getSupabaseClient();
 
@@ -62,7 +63,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
 
           const { data: profile, error: profileError } = await supabase
             .from('profiles')
-            .select('premium_until, subscription_tier')
+            .select('premium_until, subscription_tier, premium_source')
             .eq('id', userId)
             .single();
 
@@ -75,6 +76,10 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           const hasPremiumUntil = profile?.premium_until && new Date(profile.premium_until) > new Date();
           const hasPremiumTier = profile?.subscription_tier === 'premium';
           setIsPremium(hasPremiumUntil || hasPremiumTier);
+
+          // Check if trial user
+          const isTrialSource = profile?.premium_source === 'signup_trial' || profile?.premium_source === 'oauth_signup_trial';
+          setIsTrialUser(isTrialSource && hasPremiumUntil);
 
           // Check admin status
           const { data: adminData } = await supabase
@@ -243,8 +248,8 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           overscrollBehavior: 'contain'
         }}
       >
-        {/* Premium Gästinbjudan - flyttad till rätt plats */}
-        {isPremium && (
+        {/* Premium Gästinbjudan - dölj för trial-användare */}
+        {isPremium && !isTrialUser && (
           <div className="px-4">
             <Link
               href="/dashboard/invite-friends"
