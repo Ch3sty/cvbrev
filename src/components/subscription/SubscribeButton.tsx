@@ -68,22 +68,21 @@ export function SubscribeButton({ priceId, planName, className = '', disabled = 
   };
 
   return (
-    // Omslutande div, tar emot eventuella extra klasser
-    <div className={className}>
+    <div>
       {/* Standard HTML-knapp med Tailwind-klasser */}
       <button
         onClick={handleSubscribe}
         disabled={loading || disabled || !stripePromise}
-        // Tailwind-klasser (behåll dina befintliga)
-        className={`
-          flex items-center justify-center w-full px-6 py-3 
-          text-base font-medium rounded-md shadow-sm 
-          text-white bg-pink-600 hover:bg-pink-700 
+        // Tailwind-klasser - custom className överskrider defaults
+        className={
+          className ||
+          `flex items-center justify-center w-full px-6 py-3
+          text-base font-medium rounded-md shadow-sm
+          text-white bg-pink-600 hover:bg-pink-700
           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500
           transition-colors duration-150 ease-in-out
-          disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed
-          ${className} // Lägger till eventuella extra klasser från props
-        `}
+          disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed`
+        }
       >
         {loading ? (
           <>

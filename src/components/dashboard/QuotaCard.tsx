@@ -117,7 +117,15 @@ export default function QuotaCard({
   const [countdown, setCountdown] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!resetDate || isPremium || resetType === 'permanent') {
+    // Show countdown if resetDate exists and not permanent
+    // Allow countdown for premium trial users (resetType === 'weekly' with resetDate)
+    if (!resetDate || resetType === 'permanent') {
+      setCountdown(null);
+      return;
+    }
+
+    // Hide countdown for non-trial premium users (no resetDate or resetType)
+    if (isPremium && resetType !== 'weekly') {
       setCountdown(null);
       return;
     }
