@@ -104,7 +104,7 @@ export function LinkedInInput({
           <Linkedin className="w-4 h-4 mr-2 text-blue-600" />
           LinkedIn-profil <span className="text-xs text-gray-500 font-normal ml-1">(Valfritt)</span>
         </label>
-        <div className="flex items-center text-xs text-white bg-gradient-to-r from-pink-600 to-purple-600 px-3 py-1 rounded-full shadow-sm">
+        <div className="flex items-center text-xs text-pink-700 bg-gradient-to-r from-pink-50 to-purple-50 border border-pink-300 px-3 py-1 rounded-full shadow-sm">
           <Crown className="w-3 h-3 mr-1" />
           Premium
         </div>

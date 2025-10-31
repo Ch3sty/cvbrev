@@ -539,10 +539,18 @@ export const useProfile = () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) { console.error('useProfile update: User not logged in.'); return false; }
 
+      // Sanera linkedin_url för att förhindra constraint-fel
+      const sanitizedData = { ...profileData };
+      if (sanitizedData.linkedin_url !== undefined) {
+        const trimmed = sanitizedData.linkedin_url.trim();
+        // Konvertera tom sträng till null för databas-constraint
+        sanitizedData.linkedin_url = trimmed === '' ? null : trimmed;
+      }
+
       const { data, error } = await supabase
         .from('profiles')
         .update({
-          ...profileData,
+          ...sanitizedData,
           updated_at: new Date().toISOString()
         })
         .eq('id', session.user.id)

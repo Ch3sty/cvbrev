@@ -259,6 +259,32 @@ export default function QuotaCard({
                   Premium
                 </span>
               </div>
+
+              {/* Countdown timer - ENDAST för trial-användare */}
+              {countdown && resetType === 'weekly' && (
+                <motion.div
+                  className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-blue-50/80 rounded-lg border border-blue-200/60 mt-3"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <motion.div
+                    animate={{
+                      scale: [1, 1.1, 1]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  >
+                    <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-600" />
+                  </motion.div>
+                  <span className="text-[10px] sm:text-xs font-semibold text-blue-700">
+                    {countdown}
+                  </span>
+                </motion.div>
+              )}
             </div>
           </div>
         ) : (

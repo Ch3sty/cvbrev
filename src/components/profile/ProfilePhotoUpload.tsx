@@ -129,7 +129,7 @@ export function ProfilePhotoUpload({
             Används endast för att personalisera dina CV-mallar. Ingen annan kan se denna bild.
           </p>
         </div>
-        <div className="flex items-center text-xs text-pink-400 bg-pink-500/10 px-2 py-1 rounded-full">
+        <div className="flex items-center text-xs text-pink-700 bg-gradient-to-r from-pink-50 to-purple-50 border border-pink-300 px-2 py-1 rounded-full">
           <Crown className="w-3 h-3 mr-1" />
           Premium
         </div>
