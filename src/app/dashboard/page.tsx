@@ -340,10 +340,13 @@ export default function DashboardPage() {
                 premiumText={(() => {
                   const isTrialUser = stats.premiumSource === 'signup_trial' || stats.premiumSource === 'oauth_signup_trial';
                   if (isTrialUser && stats.premiumUntil) {
-                    const daysLeft = Math.ceil((new Date(stats.premiumUntil).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
-                    return daysLeft > 0 ? `Trial · ${daysLeft}d` : 'Aktiv';
+                    return 'Provperiod';
                   }
                   return 'Aktiv';
+                })()}
+                premiumStatus={(() => {
+                  const isTrialUser = stats.premiumSource === 'signup_trial' || stats.premiumSource === 'oauth_signup_trial';
+                  return (isTrialUser && stats.premiumUntil) ? 'trial' : 'active';
                 })()}
                 resetDate={(() => {
                   const isTrialUser = stats.premiumSource === 'signup_trial' || stats.premiumSource === 'oauth_signup_trial';
@@ -386,14 +389,16 @@ export default function DashboardPage() {
                 href="/dashboard/profil/cv"
               />
               <QuotaCard
-                title="LinkedIn-optimering"
-                icon={<Users className="w-5 h-5" />}
-                used={stats.weeklyLinkedInCount || 0}
-                limit={1}
-                remaining={Math.max(0, 1 - (stats.weeklyLinkedInCount || 0))}
-                resetDate={stats.linkedInResetDate}
-                resetType="weekly"
-                href="/dashboard/linkedin-optimizer"
+                title="Premium"
+                icon={<Star className="w-5 h-5" />}
+                used={0}
+                limit={0}
+                remaining={0}
+                isPremium={true}
+                premiumText="Gratisanvändare"
+                premiumStatus="free"
+                premiumSubtext="Från 149 kr/månad"
+                href="/dashboard/profil/prenumeration"
               />
             </>
           )}

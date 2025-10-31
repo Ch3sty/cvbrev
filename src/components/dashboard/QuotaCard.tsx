@@ -15,6 +15,8 @@ interface QuotaCardProps {
   href?: string;
   isPremium?: boolean;
   premiumText?: string;
+  premiumStatus?: 'active' | 'trial' | 'free'; // New: explicit status for premium card
+  premiumSubtext?: string; // New: additional info like price
 }
 
 export default function QuotaCard({
@@ -27,7 +29,9 @@ export default function QuotaCard({
   resetType,
   href,
   isPremium = false,
-  premiumText
+  premiumText,
+  premiumStatus,
+  premiumSubtext
 }: QuotaCardProps) {
   // Calculate color based on remaining quota
   const getColor = () => {
@@ -141,9 +145,14 @@ export default function QuotaCard({
 
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
 
-      setCountdown(`${days}d ${hours}h ${minutes}m`);
+      // For premium trial cards, show cleaner format without minutes
+      if (isPremium && resetType === 'weekly') {
+        setCountdown(`${days} dagar ${hours} timmar`);
+      } else {
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        setCountdown(`${days}d ${hours}h ${minutes}m`);
+      }
     };
 
     updateCountdown(); // Initial update
@@ -260,30 +269,59 @@ export default function QuotaCard({
                 </span>
               </div>
 
-              {/* Countdown timer - ENDAST för trial-användare */}
-              {countdown && resetType === 'weekly' && (
+              {/* Countdown timer - för trial-användare MED större text */}
+              {countdown && premiumStatus === 'trial' && (
                 <motion.div
-                  className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-blue-50/80 rounded-lg border border-blue-200/60 mt-3"
+                  className="mt-4 space-y-2"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  <motion.div
-                    animate={{
-                      scale: [1, 1.1, 1]
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                  >
-                    <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-600" />
-                  </motion.div>
-                  <span className="text-[10px] sm:text-xs font-semibold text-blue-700">
-                    {countdown}
-                  </span>
+                  {/* Större countdown display */}
+                  <div className="flex items-center justify-center gap-2 px-3 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200/60">
+                    <motion.div
+                      animate={{
+                        scale: [1, 1.15, 1]
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      <Clock className="w-4 h-4 text-blue-600" />
+                    </motion.div>
+                    <span className="text-base sm:text-lg font-bold text-blue-700">
+                      {countdown.replace('m', '').trim()}
+                    </span>
+                  </div>
+
+                  {/* Progress bar */}
+                  {resetDate && (
+                    <div className="w-full bg-blue-100 rounded-full h-1.5 overflow-hidden">
+                      <motion.div
+                        className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full"
+                        initial={{ width: "100%" }}
+                        animate={{
+                          width: `${Math.max(0, Math.min(100, ((resetDate.getTime() - new Date().getTime()) / (7 * 24 * 60 * 60 * 1000)) * 100))}%`
+                        }}
+                        transition={{ duration: 0.5 }}
+                      />
+                    </div>
+                  )}
                 </motion.div>
+              )}
+
+              {/* Subtext för gratisanvändare eller extra info */}
+              {premiumSubtext && (
+                <motion.p
+                  className="text-xs sm:text-sm text-slate-600 mt-3 font-medium"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  {premiumSubtext}
+                </motion.p>
               )}
             </div>
           </div>
