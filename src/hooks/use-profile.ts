@@ -767,6 +767,13 @@ export const useProfile = () => {
     }
   }, [fetchCvCount, fetchCvInfo]);
 
+  // Helper functions for premium source detection
+  const premiumUntil = profile?.premium_until ? new Date(profile.premium_until) : null;
+  const premiumSource = profile?.premium_source || null;
+  const isTrialUser = ['signup_trial', 'oauth_signup_trial'].includes(premiumSource || '');
+  const isAdminGranted = premiumSource === 'admin';
+  const hasActiveTrialOrPremium = premiumUntil ? premiumUntil > new Date() : false;
+
   return {
     // Grundläggande profildata
     profile,
@@ -780,6 +787,13 @@ export const useProfile = () => {
     weeklyLetterCount,
     remainingWeeklyLetters,
     weeklyLetterLimit,
+
+    // Premium source data (NEW)
+    premiumUntil,
+    premiumSource,
+    isTrialUser,
+    isAdminGranted,
+    hasActiveTrialOrPremium,
 
     // Gränser och antal
     cvCount,

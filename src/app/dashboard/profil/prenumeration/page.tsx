@@ -6,14 +6,43 @@ import { motion } from 'framer-motion';
 import SubscriptionInfo from '@/components/subscription/subscription-info';
 import { SubscribeButton } from '@/components/subscription/SubscribeButton';
 import { ManageSubscriptionButton } from '@/components/subscription/ManageSubscriptionButton';
-import { Crown, CheckCircle } from 'lucide-react';
+import { Crown, CheckCircle, Clock, Gift, Shield, Calendar, Zap, Info } from 'lucide-react';
 
 export default function PrenumerationPage() {
-  const { subscriptionTier, loading: profileLoading } = useProfile();
+  const {
+    subscriptionTier,
+    loading: profileLoading,
+    premiumUntil,
+    premiumSource,
+    isTrialUser,
+    isAdminGranted
+  } = useProfile();
 
   // *** STRIPE PRICE ID (Månad) ***
   const premiumMonthlyPriceId = "price_1R7eyuAB6xHzwmWvtzFJdaOU";
   // ******************************
+
+  // Helper function to calculate time remaining
+  const getTimeRemaining = () => {
+    if (!premiumUntil) return null;
+
+    const now = new Date();
+    const expiry = new Date(premiumUntil);
+    const diffMs = expiry.getTime() - now.getTime();
+
+    if (diffMs <= 0) return { expired: true, days: 0, hours: 0, minutes: 0 };
+
+    const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diffMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+
+    return { expired: false, days, hours, minutes };
+  };
+
+  const timeRemaining = getTimeRemaining();
+
+  // Determine subscription UI type
+  const isStripePremium = subscriptionTier === 'premium' && !isTrialUser && !isAdminGranted;
 
   return (
     <div className="max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
@@ -124,25 +153,156 @@ export default function PrenumerationPage() {
               </div>
             </div>
           </div>
-        ) : subscriptionTier === 'premium' ? (
-          // PREMIUM-ANVÄNDARE: Vertikal layout (behåller original)
+        ) : isTrialUser ? (
+          // TRIAL-ANVÄNDARE: Prova på med countdown
+          <>
+            <div>
+              <SubscriptionInfo />
+            </div>
+
+            <div className="bg-gradient-to-br from-yellow-50 to-orange-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border-2 border-yellow-500/30 shadow-2xl">
+              <div className="flex items-center mb-4">
+                <div className="p-2 sm:p-3 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-lg sm:rounded-xl mr-2 sm:mr-3 flex-shrink-0">
+                  <Gift className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Du testar Premium gratis!</h3>
+              </div>
+
+              {/* Countdown */}
+              {timeRemaining && !timeRemaining.expired && (
+                <div className="bg-white/60 backdrop-blur rounded-lg p-4 mb-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <Clock className="w-5 h-5 text-orange-600" />
+                      <span className="font-semibold text-gray-900">Tid kvar av provperioden</span>
+                    </div>
+                  </div>
+                  <div className="text-2xl sm:text-3xl font-bold text-orange-600 mb-2">
+                    {timeRemaining.days} dag{timeRemaining.days !== 1 ? 'ar' : ''} {timeRemaining.hours} tim
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <Calendar className="w-4 h-4" />
+                    <span>
+                      Provperioden går ut: {premiumUntil && new Date(premiumUntil).toLocaleDateString('sv-SE', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })}
+                    </span>
+                  </div>
+                </div>
+              )}
+
+              {/* Info om vad som händer */}
+              <div className="space-y-3 mb-6">
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-gray-700">Tillgång till <strong>alla premium-funktioner</strong> under provperioden</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-gray-700">Efter provperioden <strong>återgår du till gratis nivå</strong></span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-gray-700"><strong>Inget kreditkort krävs</strong> - ingen automatisk debitering</span>
+                </div>
+              </div>
+
+              {/* Källa-information */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-6">
+                <div className="flex items-center gap-2">
+                  <Info className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                  <span className="text-sm text-gray-700">
+                    Aktiverades via: <strong>{premiumSource === 'signup_trial' ? 'Registrering' : 'Google-inloggning'}</strong>
+                  </span>
+                </div>
+              </div>
+
+              {/* Upgrade CTA */}
+              <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg p-6 text-white mb-4">
+                <div className="flex items-center gap-3 mb-3">
+                  <Zap className="w-6 h-6 flex-shrink-0" />
+                  <h4 className="font-bold text-lg">Fortsätt med Premium utan avbrott</h4>
+                </div>
+                <p className="text-white/90 text-sm mb-4">
+                  Uppgradera nu och behåll alla dina premium-funktioner. Ingen bindningstid - avsluta när du vill.
+                </p>
+                <SubscribeButton
+                  priceId={premiumMonthlyPriceId}
+                  planName="Premium Månad"
+                  className="w-full bg-white text-purple-600 hover:bg-gray-100 font-bold touch-manipulation"
+                />
+                <p className="text-center text-white/80 text-xs mt-3">
+                  149 kr/månad • Ingen bindningstid
+                </p>
+              </div>
+            </div>
+          </>
+        ) : isAdminGranted ? (
+          // ADMIN-GRANTED PREMIUM: Utan slutdatum
+          <>
+            <div>
+              <SubscriptionInfo />
+            </div>
+
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border-2 border-blue-500/30 shadow-2xl">
+              <div className="flex items-center mb-4">
+                <div className="p-2 sm:p-3 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg sm:rounded-xl mr-2 sm:mr-3 flex-shrink-0">
+                  <Shield className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Du har Premium via admin</h3>
+              </div>
+
+              <div className="space-y-3 mb-6">
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-gray-700"><strong>Aktivt utan slutdatum</strong></span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-gray-700">Din premium-åtkomst har beviljats av en administratör</span>
+                </div>
+              </div>
+
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div className="flex items-start gap-2">
+                  <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-sm text-gray-700 mb-2">
+                      Kontakta support om du har frågor om din premium-åtkomst.
+                    </p>
+                    <a
+                      href="mailto:support@jobbcoach.ai"
+                      className="text-sm text-blue-600 hover:text-blue-700 font-medium underline"
+                    >
+                      support@jobbcoach.ai
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : isStripePremium ? (
+          // STRIPE-KÖPT PREMIUM: Original design
           <>
             <div>
               <SubscriptionInfo />
             </div>
 
             <div className="bg-gradient-to-br from-yellow-50 to-amber-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border-2 border-yellow-500/30 shadow-2xl">
-
-            <div className="flex items-center mb-3 sm:mb-4">
-              <div className="p-2 sm:p-3 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-lg sm:rounded-xl mr-2 sm:mr-3 flex-shrink-0">
-                <Crown className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+              <div className="flex items-center mb-3 sm:mb-4">
+                <div className="p-2 sm:p-3 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-lg sm:rounded-xl mr-2 sm:mr-3 flex-shrink-0">
+                  <Crown className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                </div>
+                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Hantera din Premium-prenumeration</h3>
               </div>
-              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Hantera din Premium-prenumeration</h3>
-            </div>
-            <p className="text-xs sm:text-sm md:text-base text-gray-700 mb-4 sm:mb-6 leading-relaxed">
-              Via Stripes kundportal kan du se dina fakturor, uppdatera din betalningsmetod eller avsluta din prenumeration.
-            </p>
-            <ManageSubscriptionButton className="w-full touch-manipulation" />
+              <p className="text-xs sm:text-sm md:text-base text-gray-700 mb-4 sm:mb-6 leading-relaxed">
+                Via Stripes kundportal kan du se dina fakturor, uppdatera din betalningsmetod eller avsluta din prenumeration.
+              </p>
+              <ManageSubscriptionButton className="w-full touch-manipulation" />
             </div>
           </>
         ) : (

@@ -19,7 +19,8 @@ import {
   AlertCircle,
   CreditCard,
   Shield,
-  Users as UsersIcon
+  Users as UsersIcon,
+  Clock
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -30,6 +31,7 @@ interface User {
   full_name: string | null;
   subscription_tier: string | null;
   premium_source: string | null;
+  premium_until: string | null;
   stripe_customer_id: string | null;
   subscription_status: string | null;
   created_at: string;
@@ -93,6 +95,11 @@ export default function AdminUsersPage() {
           user.subscription_tier === 'premium' &&
           user.premium_source === 'guest_invitation'
         );
+      } else if (subscriptionFilter === 'trial') {
+        result = result.filter(user =>
+          user.subscription_tier === 'premium' &&
+          (user.premium_source === 'signup_trial' || user.premium_source === 'oauth_signup_trial')
+        );
       }
     }
 
@@ -136,7 +143,7 @@ export default function AdminUsersPage() {
       try {
         const { data: profiles, error: profilesError } = await supabase
           .from('profiles')
-          .select('id, email, full_name, subscription_tier, premium_source, stripe_customer_id, subscription_status, created_at, last_active')
+          .select('id, email, full_name, subscription_tier, premium_source, premium_until, stripe_customer_id, subscription_status, created_at, last_active')
           .order('created_at', { ascending: false });
 
         if (profilesError) throw profilesError;
@@ -218,6 +225,32 @@ export default function AdminUsersPage() {
         <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-emerald-100 text-emerald-800">
           <CreditCard className="w-3 h-3 mr-1" />
           Stripe
+        </span>
+      );
+    }
+
+    if (user.premium_source === 'signup_trial') {
+      const expiryDate = user.premium_until ? new Date(user.premium_until).toLocaleString('sv-SE') : 'Okänt';
+      return (
+        <span
+          className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800 cursor-help"
+          title={`Går ut: ${expiryDate}`}
+        >
+          <Clock className="w-3 h-3 mr-1" />
+          Prova på - Banner
+        </span>
+      );
+    }
+
+    if (user.premium_source === 'oauth_signup_trial') {
+      const expiryDate = user.premium_until ? new Date(user.premium_until).toLocaleString('sv-SE') : 'Okänt';
+      return (
+        <span
+          className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-yellow-100 text-yellow-800 cursor-help"
+          title={`Går ut: ${expiryDate}`}
+        >
+          <Clock className="w-3 h-3 mr-1" />
+          Prova på - OAuth
         </span>
       );
     }
@@ -458,6 +491,7 @@ export default function AdminUsersPage() {
             <option value="free">Gratis</option>
             <option value="premium">Premium (alla)</option>
             <option value="stripe">Premium - Stripe</option>
+            <option value="trial">Premium - Trial (Prova på)</option>
             <option value="admin">Premium - Admin</option>
             <option value="guest">Premium - Gäst</option>
           </select>

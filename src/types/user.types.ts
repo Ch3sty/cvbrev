@@ -22,9 +22,15 @@ export interface Profile {
   weekly_competence_analysis_count?: number;
   last_competence_analysis_reset?: string;
 
+  // LinkedIn-optimeringar kvot
+  weekly_linkedin_count?: number;
+  weekly_linkedin_reset_at?: string;
+  weekly_linkedin_first_used_at?: string;
+
   // Premium gästinbjudningar
   guest_invitations_remaining?: number;
   premium_until?: string;
+  premium_source?: string | null;
 
   created_at?: string;
   updated_at?: string;
