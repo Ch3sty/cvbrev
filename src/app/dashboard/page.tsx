@@ -51,6 +51,9 @@ interface DashboardStats {
   letterResetDate?: Date;
   analysisResetDate?: Date;
   linkedInResetDate?: Date;
+  // Premium source data
+  premiumUntil?: string | null;
+  premiumSource?: string | null;
 }
 
 export default function DashboardPage() {
@@ -156,7 +159,10 @@ export default function DashboardPage() {
           levelTitle: rewardsData.levelTitle,
           availableRewards: rewardsData.availableRewards,
           isPremium,
-          monthlyLetters: monthlyLetters.length
+          monthlyLetters: monthlyLetters.length,
+          // Premium source data
+          premiumUntil: profile?.premium_until || null,
+          premiumSource: profile?.premium_source || null
         });
       } catch (error) {
         console.error('Fel vid hämtning av dashboard-data:', error);
@@ -331,7 +337,14 @@ export default function DashboardPage() {
                 limit={0}
                 remaining={0}
                 isPremium={true}
-                premiumText="Aktiv"
+                premiumText={(() => {
+                  const isTrialUser = stats.premiumSource === 'signup_trial' || stats.premiumSource === 'oauth_signup_trial';
+                  if (isTrialUser && stats.premiumUntil) {
+                    const daysLeft = Math.ceil((new Date(stats.premiumUntil).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24));
+                    return daysLeft > 0 ? `Prova på (${daysLeft} ${daysLeft === 1 ? 'dag' : 'dagar'} kvar)` : 'Aktiv';
+                  }
+                  return 'Aktiv';
+                })()}
                 href="/dashboard/profil/prenumeration"
               />
             </>

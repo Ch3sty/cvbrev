@@ -1,5 +1,5 @@
 'use client';
-import { FileText, PenTool, Brain, Briefcase, Palette, Target } from 'lucide-react';
+import { FileText, PenTool, Brain, Briefcase, Palette, Target, Linkedin } from 'lucide-react';
 import { motion } from 'framer-motion';
 import FloatingParticles from './FloatingParticles';
 import FeatureSection from './FeatureSection';
@@ -174,6 +174,64 @@ const tutorialSteps = [
   },
   {
     id: 4,
+    icon: Linkedin,
+    title: 'Optimera din LinkedIn-profil',
+    shortDescription: 'Gör din LinkedIn-profil mer attraktiv för rekryterare',
+    fullDescription: `
+      <div class="space-y-4">
+        <div>
+          <h5 class="font-bold text-slate-900 mb-2">
+            Så fungerar det
+          </h5>
+          <ol class="list-decimal list-inside space-y-1 ml-2 text-slate-700">
+            <li>Klistra in dina nuvarande LinkedIn-sektioner (Headline, About, Experience, etc.)</li>
+            <li>Välj om du vill sticka ut generellt eller rikta dig mot en specifik roll</li>
+            <li>Få optimerade versioner av dina texter</li>
+            <li>Se före/efter-jämförelser</li>
+          </ol>
+        </div>
+
+        <div>
+          <h5 class="font-bold text-slate-900 mb-2">
+            Vad du får
+          </h5>
+          <p class="text-slate-700 mb-2">Vi optimerar dina texter så att de:</p>
+
+          <div class="space-y-2 ml-2">
+            <div class="flex items-start gap-2">
+              <span class="text-blue-600 font-bold flex-shrink-0">•</span>
+              <div class="text-slate-700">
+                <strong>Blir tydligare och mer professionella</strong> – Struktur och formuleringar som gör intryck
+              </div>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-blue-600 font-bold flex-shrink-0">•</span>
+              <div class="text-slate-700">
+                <strong>Syns bättre i rekryterares sökningar</strong> – Rätt nyckelord för din bransch och roll
+              </div>
+            </div>
+            <div class="flex items-start gap-2">
+              <span class="text-blue-600 font-bold flex-shrink-0">•</span>
+              <div class="text-slate-700">
+                <strong>Optimeras för LinkedIn:s algoritm</strong> – Struktur som ökar profilens synlighet
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-blue-50/50 border border-blue-100 rounded-lg p-3">
+          <p class="text-sm text-slate-700">
+            <strong>Gratis:</strong> 1 optimering per vecka. <strong>Premium:</strong> Obegränsade optimeringar.
+          </p>
+        </div>
+      </div>
+    `,
+    actionText: 'Optimera LinkedIn',
+    href: '/dashboard/linkedin-optimering',
+    color: 'from-blue-500 to-indigo-600'
+  },
+  {
+    id: 5,
     icon: Briefcase,
     title: 'Hitta matchande tjänster',
     shortDescription: 'Automatisk matchning mot tusentals lediga tjänster',
@@ -231,7 +289,7 @@ const tutorialSteps = [
     color: 'from-blue-500 to-indigo-600'
   },
   {
-    id: 5,
+    id: 6,
     icon: Palette,
     title: 'Exportera i professionell design',
     shortDescription: 'Välj mellan professionella mallar',

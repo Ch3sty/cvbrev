@@ -233,7 +233,7 @@ export default function PrenumerationPage() {
                 <SubscribeButton
                   priceId={premiumMonthlyPriceId}
                   planName="Premium Månad"
-                  className="w-full bg-white text-purple-600 hover:bg-gray-100 font-bold touch-manipulation"
+                  className="w-full font-bold touch-manipulation"
                 />
                 <p className="text-center text-white/80 text-xs mt-3">
                   149 kr/månad • Ingen bindningstid
