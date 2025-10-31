@@ -389,16 +389,14 @@ export default function DashboardPage() {
                 href="/dashboard/profil/cv"
               />
               <QuotaCard
-                title="Premium"
-                icon={<Star className="w-5 h-5" />}
-                used={0}
-                limit={0}
-                remaining={0}
-                isPremium={true}
-                premiumText="Gratisanvändare"
-                premiumStatus="free"
-                premiumSubtext="Från 149 kr/månad"
-                href="/dashboard/profil/prenumeration"
+                title="LinkedIn-optimering"
+                icon={<Users className="w-5 h-5" />}
+                used={stats.weeklyLinkedInCount || 0}
+                limit={1}
+                remaining={Math.max(0, 1 - (stats.weeklyLinkedInCount || 0))}
+                resetDate={stats.linkedInResetDate}
+                resetType="weekly"
+                href="/dashboard/linkedin-optimizer"
               />
             </>
           )}
