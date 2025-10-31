@@ -3,7 +3,7 @@ export interface Profile {
   email: string;
   full_name?: string;
   phone?: string;
-  linkedin_url?: string; // LinkedIn profile URL
+  linkedin_url?: string | null; // LinkedIn profile URL
   profile_photo_url?: string; // Profile photo URL
   profile_photo_path?: string; // Profile photo storage path
   profile_photo_uploaded_at?: string; // Profile photo upload timestamp
@@ -45,7 +45,7 @@ export interface CV {
 export interface ProfileUpdateParams {
   full_name?: string;
   phone?: string;
-  linkedin_url?: string; // LinkedIn profile URL
+  linkedin_url?: string | null; // LinkedIn profile URL
   profile_photo_url?: string; // Profile photo URL
   profile_photo_path?: string; // Profile photo storage path
   profile_photo_uploaded_at?: string; // Profile photo upload timestamp
