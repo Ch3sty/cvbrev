@@ -16,7 +16,10 @@ import {
   Lightbulb,
   Trophy,
   Scale,
-  Bot
+  Bot,
+  Users,
+  Clock,
+  Zap
 } from 'lucide-react';
 
 export default function ProfilPage() {
@@ -40,6 +43,11 @@ export default function ProfilPage() {
     profile_photo_url: '',
     preferred_tonality: 'professional' as 'professional' | 'creative' | 'enthusiastic' | 'confident' | 'balanced' | 'auto'
   });
+
+  const [linkedinQuota, setLinkedinQuota] = useState<{
+    count: number;
+    resetAt: Date | null;
+  }>({ count: 0, resetAt: null });
 
   // Tonalitetsalternativ
   const tonalityOptions: Array<{
@@ -66,6 +74,35 @@ export default function ProfilPage() {
       });
     }
   }, [profile]);
+
+  // Hämta LinkedIn quota-data
+  useEffect(() => {
+    async function fetchLinkedInQuota() {
+      if (!profile?.id) return;
+
+      try {
+        const { getSupabaseClient } = await import('@/lib/supabase/client-manager');
+        const supabase = getSupabaseClient();
+
+        const { data } = await supabase
+          .from('profiles')
+          .select('weekly_linkedin_count, weekly_linkedin_reset_at')
+          .eq('id', profile.id)
+          .single();
+
+        if (data) {
+          setLinkedinQuota({
+            count: data.weekly_linkedin_count || 0,
+            resetAt: data.weekly_linkedin_reset_at ? new Date(data.weekly_linkedin_reset_at) : null
+          });
+        }
+      } catch (error) {
+        console.error('Failed to fetch LinkedIn quota:', error);
+      }
+    }
+
+    fetchLinkedInQuota();
+  }, [profile?.id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -252,6 +289,108 @@ export default function ProfilPage() {
             }}
             disabled={saving}
           />
+
+          {/* LinkedIn Quota Information Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-6"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-blue-100 rounded-lg">
+                  <Users className="w-5 h-5 text-blue-600" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900">LinkedIn-optimering</h3>
+                  <p className="text-sm text-gray-600">
+                    {subscriptionTier === 'premium' ? 'Obegränsade optimeringar' : '1 optimering per vecka'}
+                  </p>
+                </div>
+              </div>
+              {subscriptionTier === 'premium' && (
+                <span className="px-3 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-semibold rounded-full">
+                  Premium
+                </span>
+              )}
+            </div>
+
+            {subscriptionTier !== 'premium' && (
+              <>
+                {/* Usage Bar */}
+                <div className="mb-4">
+                  <div className="flex items-center justify-between text-sm mb-2">
+                    <span className="text-gray-700 font-medium">Användning denna vecka</span>
+                    <span className="text-gray-900 font-semibold">{linkedinQuota.count}/1</span>
+                  </div>
+                  <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${(linkedinQuota.count / 1) * 100}%` }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                      className={`h-full ${
+                        linkedinQuota.count >= 1
+                          ? 'bg-gradient-to-r from-red-400 to-red-500'
+                          : 'bg-gradient-to-r from-blue-400 to-indigo-500'
+                      }`}
+                    />
+                  </div>
+                </div>
+
+                {/* Reset Timer or Quota Full */}
+                {linkedinQuota.count >= 1 ? (
+                  <div className="flex items-center gap-2 text-sm text-gray-600 bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4">
+                    <AlertTriangle className="w-4 h-4 text-yellow-600 flex-shrink-0" />
+                    <span>
+                      Kvoten full. {linkedinQuota.resetAt ? (
+                        <>Återställs <strong>{linkedinQuota.resetAt.toLocaleDateString('sv-SE')}</strong></>
+                      ) : (
+                        'Väntar på återställning'
+                      )}
+                    </span>
+                  </div>
+                ) : linkedinQuota.resetAt && linkedinQuota.resetAt > new Date() ? (
+                  <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
+                    <Clock className="w-4 h-4 text-blue-600" />
+                    <span>
+                      Återställs {linkedinQuota.resetAt.toLocaleDateString('sv-SE', {
+                        month: 'short',
+                        day: 'numeric'
+                      })}
+                    </span>
+                  </div>
+                ) : null}
+
+                {/* Upgrade CTA */}
+                <a
+                  href="/priser"
+                  className="flex items-center justify-center gap-2 w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+                >
+                  <Zap className="w-4 h-4" />
+                  <span>Uppgradera för obegränsad LinkedIn-optimering</span>
+                </a>
+              </>
+            )}
+
+            {subscriptionTier === 'premium' && (
+              <div className="flex items-center gap-2 text-sm text-gray-700 bg-white/60 rounded-lg p-3">
+                <Info className="w-4 h-4 text-blue-600 flex-shrink-0" />
+                <span>
+                  Med Premium har du obegränsad tillgång till LinkedIn-optimering. Förbättra din profil så ofta du vill!
+                </span>
+              </div>
+            )}
+
+            {/* Link to LinkedIn Optimizer */}
+            <a
+              href="/dashboard/linkedin-optimizer"
+              className="mt-4 flex items-center justify-center gap-2 text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors"
+            >
+              <Users className="w-4 h-4" />
+              <span>Gå till LinkedIn-optimering →</span>
+            </a>
+          </motion.div>
 
           {/* Föredragen tonalitet */}
           <div>

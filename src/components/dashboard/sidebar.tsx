@@ -82,7 +82,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
             .select('role')
             .eq('id', userId)
             .eq('role', 'super_admin')
-            .single();
+            .maybeSingle();
 
           setIsAdmin(!!adminData);
         }
