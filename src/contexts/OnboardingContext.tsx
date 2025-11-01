@@ -31,17 +31,73 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
         return;
       }
 
+      // Fetch profile data
       const { data: profile } = await supabase
         .from('profiles')
-        .select('onboarding_steps_completed, onboarding_completed, onboarding_reward_claimed')
+        .select('onboarding_steps_completed, onboarding_completed, onboarding_reward_claimed, experience, education')
         .eq('id', user.id)
         .single();
 
-      if (profile) {
-        setCompletedSteps(profile.onboarding_steps_completed || []);
-        setOnboardingCompleted(profile.onboarding_completed || false);
-        setRewardClaimed(profile.onboarding_reward_claimed || false);
+      if (!profile) {
+        setIsLoading(false);
+        return;
       }
+
+      // Fetch actual counts from feature tables for hybrid validation
+      const [
+        { count: cvCount },
+        { count: letterCount },
+        { count: analysisCount },
+        { count: linkedinCount },
+        { count: applicationCount }
+      ] = await Promise.all([
+        supabase.from('user_cvs').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
+        supabase.from('letters').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
+        supabase.from('cv_analysis_jobs').select('id', { count: 'exact', head: true }).eq('user_id', user.id).eq('status', 'completed'),
+        supabase.from('linkedin_optimizations').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
+        supabase.from('job_applications').select('id', { count: 'exact', head: true }).eq('user_id', user.id)
+      ]);
+
+      // Hybrid validation: Check both onboarding_steps_completed array AND actual feature usage
+      const completedStepsArray = profile.onboarding_steps_completed || [];
+      const validatedSteps: string[] = [];
+
+      // Step 1: Upload CV
+      if (completedStepsArray.includes('upload_cv') || (cvCount || 0) > 0) {
+        validatedSteps.push('upload_cv');
+      }
+
+      // Step 2: Create letter
+      if (completedStepsArray.includes('create_letter') || (letterCount || 0) > 0) {
+        validatedSteps.push('create_letter');
+      }
+
+      // Step 3: Analyze CV
+      if (completedStepsArray.includes('analyze_cv') || (analysisCount || 0) > 0) {
+        validatedSteps.push('analyze_cv');
+      }
+
+      // Step 4: Optimize LinkedIn
+      if (completedStepsArray.includes('optimize_linkedin') || (linkedinCount || 0) > 0) {
+        validatedSteps.push('optimize_linkedin');
+      }
+
+      // Step 5: Apply to job
+      if (completedStepsArray.includes('apply_job') || (applicationCount || 0) > 0) {
+        validatedSteps.push('apply_job');
+      }
+
+      // Step 6: Complete profile (experience OR education)
+      const hasExperience = Array.isArray(profile.experience) && profile.experience.length > 0;
+      const hasEducation = Array.isArray(profile.education) && profile.education.length > 0;
+      if (completedStepsArray.includes('complete_profile') || hasExperience || hasEducation) {
+        validatedSteps.push('complete_profile');
+      }
+
+      // Update state with validated steps
+      setCompletedSteps(validatedSteps);
+      setOnboardingCompleted(validatedSteps.length >= 6);
+      setRewardClaimed(profile.onboarding_reward_claimed || false);
     } catch (error) {
       console.error('Error fetching onboarding status:', error);
     } finally {
@@ -68,17 +124,9 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
             filter: `id=eq.${user.id}`
           },
           (payload) => {
-            // Update state with new data from realtime event
-            const newData = payload.new as any;
-            if (newData.onboarding_steps_completed !== undefined) {
-              setCompletedSteps(newData.onboarding_steps_completed || []);
-            }
-            if (newData.onboarding_completed !== undefined) {
-              setOnboardingCompleted(newData.onboarding_completed || false);
-            }
-            if (newData.onboarding_reward_claimed !== undefined) {
-              setRewardClaimed(newData.onboarding_reward_claimed || false);
-            }
+            // When profile updates, refetch with full hybrid validation
+            // This ensures we always have accurate counts from all feature tables
+            fetchOnboardingStatus();
           }
         )
         .subscribe();
