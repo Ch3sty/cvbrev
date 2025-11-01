@@ -58,6 +58,17 @@ export interface Database {
           // *** NYA FÄLT FÖR ANALYS ***
           weekly_analysis_count: number
           last_analysis_reset: string | null
+          // *** ONBOARDING FÄLT ***
+          onboarding_completed: boolean | null
+          onboarding_step: number | null
+          onboarding_steps_completed: Json | null
+          first_cv_uploaded_at: string | null
+          first_letter_created_at: string | null
+          first_cv_analyzed_at: string | null
+          first_linkedin_optimized_at: string | null
+          onboarding_skipped: boolean | null
+          onboarding_started_at: string | null
+          onboarding_completed_at: string | null
         }
         Insert: {
           id: string
@@ -80,6 +91,17 @@ export interface Database {
           // --- ANALYS ---
           weekly_analysis_count?: number
           last_analysis_reset?: string | null
+          // --- ONBOARDING ---
+          onboarding_completed?: boolean | null
+          onboarding_step?: number | null
+          onboarding_steps_completed?: Json | null
+          first_cv_uploaded_at?: string | null
+          first_letter_created_at?: string | null
+          first_cv_analyzed_at?: string | null
+          first_linkedin_optimized_at?: string | null
+          onboarding_skipped?: boolean | null
+          onboarding_started_at?: string | null
+          onboarding_completed_at?: string | null
         }
         Update: {
           id?: string
@@ -102,6 +124,17 @@ export interface Database {
           // --- ANALYS ---
           weekly_analysis_count?: number
           last_analysis_reset?: string | null
+          // --- ONBOARDING ---
+          onboarding_completed?: boolean | null
+          onboarding_step?: number | null
+          onboarding_steps_completed?: Json | null
+          first_cv_uploaded_at?: string | null
+          first_letter_created_at?: string | null
+          first_cv_analyzed_at?: string | null
+          first_linkedin_optimized_at?: string | null
+          onboarding_skipped?: boolean | null
+          onboarding_started_at?: string | null
+          onboarding_completed_at?: string | null
         }
          Relationships: []
       }

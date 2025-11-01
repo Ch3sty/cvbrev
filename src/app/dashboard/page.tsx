@@ -32,6 +32,8 @@ import AIInsights from '@/components/dashboard/AIInsights';
 import LiveActivityIndicator from '@/components/dashboard/LiveActivityIndicator';
 import FloatingParticles from '@/components/dashboard/FloatingParticles';
 import GettingStartedTutorial from '@/components/dashboard/GettingStartedTutorial';
+import OnboardingChecklist from '@/components/dashboard/OnboardingChecklist';
+import FirstTimeUserModal from '@/components/dashboard/FirstTimeUserModal';
 
 interface DashboardStats {
   totalLetters: number;
@@ -64,6 +66,8 @@ export default function DashboardPage() {
     recentLetters: []
   });
   const [loading, setLoading] = useState(true);
+  const [showFirstTimeModal, setShowFirstTimeModal] = useState(false);
+  const [isFirstTimeUser, setIsFirstTimeUser] = useState(false);
 
   useEffect(() => {
     async function fetchDashboardData() {
@@ -87,7 +91,13 @@ export default function DashboardPage() {
           new Date(letter.created_at) >= startOfMonth
         ) || [];
 
-        // Hämta användarens profil med prenumerationsinfo och nya kvotfält
+        // Hämta antal uppladdade CV först
+        const { count: cvCount } = await supabase
+          .from('cv_texts')
+          .select('*', { count: 'exact', head: true })
+          .eq('user_id', user.id);
+
+        // Hämta användarens profil med prenumerationsinfo och nya kvotfält + onboarding
         const { data: profile } = await supabase
           .from('profiles')
           .select(`
@@ -99,16 +109,27 @@ export default function DashboardPage() {
             weekly_analysis_count,
             weekly_analysis_reset_at,
             weekly_linkedin_count,
-            weekly_linkedin_reset_at
+            weekly_linkedin_reset_at,
+            onboarding_completed,
+            onboarding_started_at,
+            onboarding_skipped,
+            created_at
           `)
           .eq('id', user.id)
           .single();
 
-        // Hämta antal uppladdade CV
-        const { count: cvCount } = await supabase
-          .from('cv_texts')
-          .select('*', { count: 'exact', head: true })
-          .eq('user_id', user.id);
+        // Check if user is first-time (never started onboarding and has no CVs/letters)
+        const isNewUser = !profile?.onboarding_started_at &&
+                         !profile?.onboarding_skipped &&
+                         (cvCount || 0) === 0 &&
+                         (letters?.length || 0) === 0;
+
+        setIsFirstTimeUser(isNewUser);
+
+        // Show modal for new users after a short delay
+        if (isNewUser) {
+          setTimeout(() => setShowFirstTimeModal(true), 1000);
+        }
 
         // Hämta gamification stats
         let rewardsData = {
@@ -298,6 +319,7 @@ export default function DashboardPage() {
           currentLevel={stats.currentLevel}
           levelTitle={stats.levelTitle}
           totalLetters={stats.totalLetters}
+          cvCount={stats.cvCount}
         />
 
         {/* Quota Cards / Stats Row */}
@@ -402,8 +424,15 @@ export default function DashboardPage() {
           )}
         </motion.div>
 
+        {/* Onboarding Checklist - Högt prioriterat för nya användare */}
+        {!stats.isPremium && ((stats.cvCount || 0) === 0 || stats.totalLetters === 0) && (
+          <OnboardingChecklist isPremium={stats.isPremium || false} />
+        )}
+
         {/* Tutorial - För ALLA användare */}
-        <GettingStartedTutorial />
+        {stats.isPremium || ((stats.cvCount || 0) > 0 && stats.totalLetters > 0) ? (
+          <GettingStartedTutorial />
+        ) : null}
 
         {/* Senaste Aktivitet & AI Insights Grid */}
         <motion.div
@@ -453,6 +482,14 @@ export default function DashboardPage() {
         )}
       </div>
     </motion.div>
+
+      {/* First Time User Modal */}
+      {showFirstTimeModal && (
+        <FirstTimeUserModal
+          onClose={() => setShowFirstTimeModal(false)}
+          onSkip={() => setShowFirstTimeModal(false)}
+        />
+      )}
 
       {/* CSS Styles for pattern overlay and animations */}
       <style dangerouslySetInnerHTML={{__html: `

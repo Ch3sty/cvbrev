@@ -1,10 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FileText, Clock, Check, Upload, ArrowRight } from 'lucide-react';
+import { FileText, Clock, Check, Upload, ArrowRight, Plus } from 'lucide-react';
 import Link from 'next/link';
 import { useCVStore } from '@/store/cv-store';
 import { formatCVDate } from '@/lib/utils/date-formatter';
+import InlineCVUpload from './InlineCVUpload';
 
 interface UnifiedCVSelectorProps {
   selectedCV: string | null;
@@ -21,9 +23,16 @@ export default function UnifiedCVSelector({
   showEmptyState = true,
   showHeader = true
 }: UnifiedCVSelectorProps) {
-  const { cvs, isLoading } = useCVStore();
+  const { cvs, isLoading, fetchCVs } = useCVStore();
+  const [showInlineUpload, setShowInlineUpload] = useState(false);
 
   // fetchCVs removed - parent component should handle this to avoid race conditions
+
+  async function handleUploadSuccess(cvId: string) {
+    setShowInlineUpload(false);
+    await fetchCVs(); // Refresh CV list
+    onCVSelect(cvId); // Auto-select the uploaded CV
+  }
 
   // Loading state
   if (isLoading) {
@@ -40,6 +49,16 @@ export default function UnifiedCVSelector({
 
   // Empty state
   if (cvs.length === 0 && showEmptyState) {
+    if (showInlineUpload) {
+      return (
+        <InlineCVUpload
+          onSuccess={handleUploadSuccess}
+          onCancel={() => setShowInlineUpload(false)}
+          showCancel={true}
+        />
+      );
+    }
+
     return (
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
@@ -55,15 +74,24 @@ export default function UnifiedCVSelector({
             <FileText className="w-10 h-10 text-blue-600" />
           </motion.div>
           <p className="text-lg font-semibold text-gray-900 mb-2">Inga CV:n uppladdade än</p>
-          <p className="text-sm text-gray-500 mb-4">Ladda upp ditt CV för att komma igång</p>
-          <Link
-            href="/dashboard/profil/cv"
-            className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-pink-600 to-purple-600 text-white rounded-xl hover:from-pink-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl font-medium"
-          >
-            <Upload className="w-4 h-4 mr-2" />
-            Gå till Mina CV:n
-            <ArrowRight className="w-4 h-4 ml-2" />
-          </Link>
+          <p className="text-sm text-gray-500 mb-6">Ladda upp ditt CV för att komma igång</p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button
+              onClick={() => setShowInlineUpload(true)}
+              className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:shadow-lg transition-all font-medium"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Ladda upp här
+            </button>
+            <Link
+              href="/dashboard/profil/cv"
+              className="inline-flex items-center px-6 py-3 bg-white border-2 border-gray-300 text-gray-700 rounded-xl hover:border-gray-400 hover:shadow transition-all font-medium"
+            >
+              <Upload className="w-4 h-4 mr-2" />
+              Gå till Mina CV:n
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Link>
+          </div>
         </div>
       </motion.div>
     );

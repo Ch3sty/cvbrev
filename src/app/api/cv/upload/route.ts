@@ -214,6 +214,17 @@ Alternativt: Ladda upp som .DOCX istället.`,
       return NextResponse.json({ error: `Databasfel: ${cvError.message}` }, { status: 500 });
     }
 
+    // Update onboarding progress - mark upload_cv step as completed
+    try {
+      await supabase.rpc('update_onboarding_progress', {
+        user_id: user.id,
+        step_name: 'upload_cv'
+      });
+    } catch (onboardingError) {
+      // Don't fail the upload if onboarding update fails
+      console.error('Failed to update onboarding progress:', onboardingError);
+    }
+
     return NextResponse.json({
       success: true,
       data: {

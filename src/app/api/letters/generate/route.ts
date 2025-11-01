@@ -305,6 +305,17 @@ export async function POST(request: Request) {
          responseData.limit = WEEKLY_LETTER_LIMIT;
       }
 
+      // Update onboarding progress - mark create_letter step as completed
+      try {
+        await supabase.rpc('update_onboarding_progress', {
+          user_id: user.id,
+          step_name: 'create_letter'
+        });
+      } catch (onboardingError) {
+        // Don't fail the generation if onboarding update fails
+        console.error('Failed to update onboarding progress:', onboardingError);
+      }
+
       console.log(`Generation successful for key: ${requestKey}. Returning data to frontend (without AI meta).`);
       return NextResponse.json(responseData);
 

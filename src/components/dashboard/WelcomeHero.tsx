@@ -8,14 +8,17 @@ interface WelcomeHeroProps {
   currentLevel?: number;
   levelTitle?: string;
   totalLetters?: number;
+  cvCount?: number;
 }
 
 export default function WelcomeHero({
   userName,
   currentLevel = 1,
   levelTitle = 'Novis',
-  totalLetters = 0
+  totalLetters = 0,
+  cvCount = 0
 }: WelcomeHeroProps) {
+  const isNewUser = cvCount === 0 && totalLetters === 0;
   const sparkleHover = useSparkleOnHover();
 
   const getTimeBasedGreeting = () => {
@@ -66,7 +69,10 @@ export default function WelcomeHero({
         </h1>
 
         <p className="text-lg sm:text-xl text-slate-600 max-w-2xl">
-          Du har gjort fantastiska framsteg i din karriärutveckling!
+          {isNewUser
+            ? 'Välkommen! Låt oss skapa ditt första personliga brev tillsammans.'
+            : 'Du har gjort fantastiska framsteg i din karriärutveckling!'
+          }
         </p>
 
         {/* Level Badge */}
