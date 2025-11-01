@@ -25,12 +25,15 @@ export async function createBackgroundJob(
     const supabase = createServerClient({ cookies: cookieStore });
 
     // Skapa job i databasen
+    // NOTE: usage_counted sätts till true direkt eftersom vi räknar usage i /api/cv/analyze
+    // Detta förhindrar dubbelräkning i /api/cv/jobs/[jobId]
     const { data: job, error: insertError } = await supabase
       .from('cv_analysis_jobs')
       .insert({
         user_id: userId,
         cv_id: cvId,
         status: 'pending',
+        usage_counted: true,
       })
       .select('id')
       .single();
