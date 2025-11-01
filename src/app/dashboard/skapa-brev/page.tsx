@@ -222,7 +222,7 @@ export default function CreateLetterPage() {
   };
 
   const handleWizardComplete = () => {
-    router.push('/dashboard/my-letters');
+    router.push('/dashboard/mina-brev');
   };
 
   // Define wizard steps
