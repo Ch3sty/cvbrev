@@ -56,6 +56,8 @@ interface DashboardStats {
   // Premium source data
   premiumUntil?: string | null;
   premiumSource?: string | null;
+  // Onboarding tracking
+  onboardingCompleted?: boolean;
 }
 
 export default function DashboardPage() {
@@ -183,7 +185,9 @@ export default function DashboardPage() {
           monthlyLetters: monthlyLetters.length,
           // Premium source data
           premiumUntil: profile?.premium_until || null,
-          premiumSource: profile?.premium_source || null
+          premiumSource: profile?.premium_source || null,
+          // Onboarding tracking
+          onboardingCompleted: profile?.onboarding_completed || false
         });
       } catch (error) {
         console.error('Fel vid hämtning av dashboard-data:', error);
@@ -424,8 +428,8 @@ export default function DashboardPage() {
           )}
         </motion.div>
 
-        {/* Onboarding Checklist - Högt prioriterat för nya användare */}
-        {!stats.isPremium && ((stats.cvCount || 0) === 0 || stats.totalLetters === 0) && (
+        {/* Onboarding Checklist - Visa tills användaren har slutfört alla steg */}
+        {!stats.onboardingCompleted && (
           <OnboardingChecklist isPremium={stats.isPremium || false} />
         )}
 
