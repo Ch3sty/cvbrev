@@ -1,8 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import { useOnboarding } from '@/contexts/OnboardingContext';
 import {
   LayoutDashboard,
   PenTool,
@@ -37,13 +38,16 @@ interface DashboardSidebarProps {
 
 export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebarProps = {}) {
   const pathname = usePathname();
+  const router = useRouter();
   const [collapsed, setCollapsed] = useState(false);
   const [isPremium, setIsPremium] = useState(false);
   const [isTrialUser, setIsTrialUser] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [onboardingCompleted, setOnboardingCompleted] = useState(false);
-  const [completedStepsCount, setCompletedStepsCount] = useState(0);
+  const [claimingReward, setClaimingReward] = useState(false);
   const supabase = getSupabaseClient();
+
+  // Use OnboardingContext for instant updates
+  const { completedCount, onboardingCompleted, rewardClaimed, markRewardClaimed } = useOnboarding();
 
   useEffect(() => {
     const checkPremiumStatus = async () => {
@@ -66,7 +70,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
 
           const { data: profile, error: profileError } = await supabase
             .from('profiles')
-            .select('premium_until, subscription_tier, premium_source, onboarding_completed, onboarding_steps_completed')
+            .select('premium_until, subscription_tier, premium_source')
             .eq('id', userId)
             .single();
 
@@ -84,55 +88,6 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           const isTrialSource = profile?.premium_source === 'signup_trial' || profile?.premium_source === 'oauth_signup_trial';
           setIsTrialUser(isTrialSource && hasPremiumUntil);
 
-          // Check onboarding status with hybrid logic (validate both array AND actual work)
-          setOnboardingCompleted(profile?.onboarding_completed || false);
-
-          const completedSteps = profile?.onboarding_steps_completed || [];
-
-          // Fetch actual counts from database to validate
-          const { count: cvCount } = await supabase
-            .from('cv_texts')
-            .select('id', { count: 'exact', head: true })
-            .eq('user_id', userId);
-
-          const { count: letterCount } = await supabase
-            .from('letters')
-            .select('id', { count: 'exact', head: true })
-            .eq('user_id', userId);
-
-          const { count: analysisCount } = await supabase
-            .from('cv_analysis_jobs')
-            .select('id', { count: 'exact', head: true })
-            .eq('user_id', userId)
-            .eq('status', 'completed');
-
-          const { count: linkedinCount } = await supabase
-            .from('linkedin_optimizations')
-            .select('id', { count: 'exact', head: true })
-            .eq('user_id', userId);
-
-          const { count: templateCount } = await supabase
-            .from('formatted_cv_downloads')
-            .select('id', { count: 'exact', head: true })
-            .eq('user_id', userId);
-
-          const { count: jobMatchCount } = await supabase
-            .from('job_matchings_cache')
-            .select('id', { count: 'exact', head: true })
-            .eq('user_id', userId);
-
-          // Count steps using hybrid logic (both array check AND actual work validation)
-          const actualStepsCompleted = [
-            completedSteps.includes('upload_cv') || (cvCount || 0) > 0,
-            completedSteps.includes('create_letter') || (letterCount || 0) > 0,
-            completedSteps.includes('analyze_cv') || (analysisCount || 0) > 0,
-            completedSteps.includes('optimize_linkedin') || (linkedinCount || 0) > 0,
-            completedSteps.includes('download_cv_template') || (templateCount || 0) > 0,
-            completedSteps.includes('match_jobs') || (jobMatchCount || 0) > 0
-          ].filter(Boolean).length;
-
-          setCompletedStepsCount(actualStepsCompleted);
-
           // Check admin status
           const { data: adminData } = await supabase
             .from('admin_users')
@@ -149,44 +104,32 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
     };
 
     checkPremiumStatus();
-
-    // Subscribe to profile changes for real-time onboarding progress updates
-    const setupRealtimeSubscription = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user?.id) return null;
-
-      const channel = supabase
-        .channel('profile_onboarding_changes')
-        .on(
-          'postgres_changes',
-          {
-            event: 'UPDATE',
-            schema: 'public',
-            table: 'profiles',
-            filter: `id=eq.${user.id}`
-          },
-          () => {
-            // Re-fetch data when profile updates
-            checkPremiumStatus();
-          }
-        )
-        .subscribe();
-
-      return channel;
-    };
-
-    const channelPromise = setupRealtimeSubscription();
-
-    // Cleanup on unmount
-    return () => {
-      channelPromise.then((channel) => {
-        if (channel) {
-          supabase.removeChannel(channel);
-        }
-      });
-    };
   }, [supabase]);
   
+  // Handler for claiming onboarding reward
+  const handleClaimReward = async () => {
+    setClaimingReward(true);
+    try {
+      const response = await fetch('/api/onboarding/claim-reward', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to claim reward');
+      }
+
+      markRewardClaimed();
+      router.push('/dashboard');
+    } catch (error) {
+      console.error('Error claiming reward:', error);
+      alert('Ett fel uppstod vid hämtning av belöning. Försök igen.');
+    } finally {
+      setClaimingReward(false);
+    }
+  };
+
   // Navigationslänkar för användardashboard
   const navItems = [
     {
@@ -194,9 +137,9 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       label: 'Kom igång',
       icon: <Sparkles className="w-5 h-5" />,
       section: 'onboarding',
-      showOnlyWhen: !onboardingCompleted,
+      showOnlyWhen: !onboardingCompleted || !rewardClaimed,
       pulse: true,
-      badge: completedStepsCount < 6 ? `${completedStepsCount}/6` : null
+      badge: completedCount < 6 ? `${completedCount}/6` : null
     },
     {
       path: '/dashboard',
@@ -348,7 +291,8 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
         }}
       >
         {/* Kom igång - Onboarding (Pulserande, högst upp) */}
-        {onboardingItems.length > 0 && (
+        {/* Onboarding Section - Dynamic based on completion and reward status */}
+        {!rewardClaimed && (
           <div className="px-4">
             <style dangerouslySetInnerHTML={{__html: `
               @keyframes gentle-pulse {
@@ -363,13 +307,14 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
                 animation: gentle-pulse 3s ease-in-out infinite;
               }
             `}} />
-            {onboardingItems.map((item) => (
+
+            {/* State 1: Not completed (0-5 steps) - Show progress link */}
+            {!onboardingCompleted && (
               <Link
-                key={item.path}
-                href={item.path}
+                href="/dashboard/kom-igang"
                 className={`
                   flex items-center justify-between p-3 rounded-xl transition-all duration-300 group shadow-lg hover:shadow-xl touch-manipulation min-h-[44px] relative
-                  ${pathname === item.path
+                  ${pathname === '/dashboard/kom-igang'
                     ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
                     : 'bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600'
                   }
@@ -377,21 +322,57 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
                 `}
               >
                 <div className="flex items-center gap-3 flex-1">
-                  {item.icon}
+                  <Sparkles className="w-5 h-5" />
                   {!collapsed && (
                     <div className="flex-1">
-                      <span className="font-bold">{item.label}</span>
-                      <p className="text-xs text-white/90">Din guide till framgång</p>
+                      <span className="font-bold">Kom igång</span>
+                      <p className="text-xs text-white/90">Genomför guiden – få 1 dag premium</p>
                     </div>
                   )}
                 </div>
-                {!collapsed && 'badge' in item && item.badge && (
+                {!collapsed && completedCount < 6 && (
                   <span className="px-2 py-0.5 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold">
-                    {item.badge}
+                    {completedCount}/6
                   </span>
                 )}
               </Link>
-            ))}
+            )}
+
+            {/* State 2: Completed (6/6) but reward not claimed - Show claim button */}
+            {onboardingCompleted && !rewardClaimed && (
+              <button
+                onClick={handleClaimReward}
+                disabled={claimingReward}
+                className={`
+                  w-full flex items-center justify-between p-3 rounded-xl transition-all duration-300 group shadow-lg hover:shadow-xl touch-manipulation min-h-[44px] relative
+                  ${claimingReward
+                    ? 'bg-gradient-to-r from-emerald-400 to-teal-400 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white hover:from-emerald-600 hover:to-teal-600'
+                  }
+                  ${!collapsed && !claimingReward && 'onboarding-pulse'}
+                `}
+              >
+                <div className="flex items-center gap-3 flex-1">
+                  <Gift className="w-5 h-5" />
+                  {!collapsed && (
+                    <div className="flex-1 text-left">
+                      <span className="font-bold">
+                        {claimingReward ? 'Hämtar...' : 'Hämta 1 dag premium'}
+                      </span>
+                      <p className="text-xs text-white/90">
+                        {claimingReward ? 'Vänligen vänta' : 'Grattis! Du har slutfört guiden'}
+                      </p>
+                    </div>
+                  )}
+                </div>
+                {!collapsed && !claimingReward && (
+                  <ChevronRight className="w-5 h-5 opacity-75 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                )}
+                {!collapsed && claimingReward && (
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                )}
+              </button>
+            )}
           </div>
         )}
 

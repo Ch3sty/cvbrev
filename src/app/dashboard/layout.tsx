@@ -6,6 +6,7 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import DashboardSidebar from '@/components/dashboard/sidebar';
 import DashboardHeader from '@/components/dashboard/header';
 import AchievementManager from '@/components/gamification/AchievementManager';
+import { OnboardingProvider } from '@/contexts/OnboardingContext';
 
 export default function DashboardLayout({
   children,
@@ -64,10 +65,11 @@ export default function DashboardLayout({
 
   // Om användaren är inloggad, visa dashboard-gränssnittet
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white via-slate-50/30 to-slate-100/20">
-      <div className="flex h-screen flex-col lg:flex-row">
-        {/* Achievement Notifications */}
-        {user && <AchievementManager userId={user.id} />}
+    <OnboardingProvider>
+      <div className="min-h-screen bg-gradient-to-br from-white via-slate-50/30 to-slate-100/20">
+        <div className="flex h-screen flex-col lg:flex-row">
+          {/* Achievement Notifications */}
+          {user && <AchievementManager userId={user.id} />}
 
         {/* Mobile Menu Overlay */}
         <AnimatePresence>
@@ -123,6 +125,7 @@ export default function DashboardLayout({
           </main>
         </div>
       </div>
-    </div>
+      </div>
+    </OnboardingProvider>
   );
 }

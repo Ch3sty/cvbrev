@@ -20,7 +20,8 @@ import {
   CreditCard,
   Shield,
   Users as UsersIcon,
-  Clock
+  Clock,
+  GraduationCap
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -269,6 +270,19 @@ export default function AdminUsersPage() {
         <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800">
           <UsersIcon className="w-3 h-3 mr-1" />
           Gäst
+        </span>
+      );
+    }
+
+    if (user.premium_source === 'onboarding_completion') {
+      const expiryDate = user.premium_until ? new Date(user.premium_until).toLocaleString('sv-SE') : 'Okänt';
+      return (
+        <span
+          className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800 cursor-help"
+          title={`Går ut: ${expiryDate}`}
+        >
+          <GraduationCap className="w-3 h-3 mr-1" />
+          Genomförd guide
         </span>
       );
     }

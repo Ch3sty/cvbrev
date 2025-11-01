@@ -14,10 +14,13 @@ import {
   Sparkles,
   ArrowRight,
   Palette,
-  Briefcase
+  Briefcase,
+  Gift
 } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import { useOnboarding } from '@/contexts/OnboardingContext';
 
 interface OnboardingStep {
   id: string;
@@ -38,8 +41,12 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
   const [isExpanded, setIsExpanded] = useState(true);
   const [loading, setLoading] = useState(true);
   const [showCelebration, setShowCelebration] = useState(false);
+  const [claiming, setClaiming] = useState(false);
+  const [claimError, setClaimError] = useState<string | null>(null);
 
+  const router = useRouter();
   const supabase = getSupabaseClient();
+  const { rewardClaimed, markRewardClaimed } = useOnboarding();
 
   useEffect(() => {
     fetchOnboardingProgress();
@@ -173,6 +180,36 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
     } catch (error) {
       console.error('Error fetching onboarding progress:', error);
       setLoading(false);
+    }
+  }
+
+  async function handleClaimReward() {
+    setClaiming(true);
+    setClaimError(null);
+
+    try {
+      const response = await fetch('/api/onboarding/claim-reward', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to claim reward');
+      }
+
+      markRewardClaimed();
+      setShowCelebration(true);
+
+      // Redirect to dashboard after a short delay
+      setTimeout(() => {
+        router.push('/dashboard');
+      }, 2000);
+    } catch (error) {
+      console.error('Error claiming reward:', error);
+      setClaimError(error instanceof Error ? error.message : 'Ett fel uppstod vid hämtning av belöning');
+    } finally {
+      setClaiming(false);
     }
   }
 
@@ -358,32 +395,61 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
           )}
         </AnimatePresence>
 
-        {/* Premium upsell for free users who completed onboarding */}
-        {allCompleted && !isPremium && isExpanded && (
+        {/* Reward claim card - shown when completed but reward not claimed */}
+        {allCompleted && !rewardClaimed && isExpanded && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-6 p-4 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200"
+            className="mt-6 p-6 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 border-2 border-emerald-300"
           >
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center flex-shrink-0">
-                <Trophy className="w-5 h-5 text-white" />
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center flex-shrink-0">
+                <Gift className="w-6 h-6 text-white" />
               </div>
               <div className="flex-1">
-                <p className="font-semibold text-slate-900 mb-1">
-                  Redo för nästa steg?
+                <h4 className="font-bold text-slate-900 text-lg mb-1">
+                  Hämta din belöning
+                </h4>
+                <p className="text-sm text-slate-700 mb-4">
+                  Grattis! Du har slutfört alla onboarding-steg. Hämta 1 dag kostnadsfri Premium som tack.
                 </p>
-                <p className="text-sm text-slate-600 mb-3">
-                  Uppgradera till Premium för obegränsade brev, analyser och LinkedIn-optimeringar.
-                </p>
-                <Link
-                  href="/dashboard/profil/prenumeration"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-lg font-medium hover:shadow-lg transition-shadow"
+                {claimError && (
+                  <p className="text-sm text-red-600 mb-3">{claimError}</p>
+                )}
+                <button
+                  onClick={handleClaimReward}
+                  disabled={claiming}
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-lg font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Utforska Premium
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
+                  {claiming ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      Hämtar...
+                    </>
+                  ) : (
+                    <>
+                      <Gift className="w-5 h-5" />
+                      Hämta 1 dag Premium
+                    </>
+                  )}
+                </button>
               </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Success message after reward claimed */}
+        {allCompleted && rewardClaimed && isExpanded && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-6 p-4 rounded-xl bg-slate-100 border border-slate-200"
+          >
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+              <p className="text-sm text-slate-600">
+                Belöning hämtad! Din Premium-tid har aktiverats.
+              </p>
             </div>
           </motion.div>
         )}
