@@ -341,7 +341,7 @@ export default function MinaCVPage() {
               <p className="text-gray-700 text-xs sm:text-sm mb-3">
                 {subscriptionTier === 'premium'
                   ? 'Du har nått gränsen för antal CV:n. Ta bort ett befintligt CV för att ladda upp ett nytt.'
-                  : 'Som gratisanvändare kan du ha 1 CV. Ta bort ditt nuvarande CV för att ladda upp ett nytt, eller uppgradera till Premium för obegränsade uppladdningar.'}
+                  : 'Som gratisanvändare kan du ha 2 CV. Ta bort ett CV för att ladda upp ett nytt, eller uppgradera till Premium för obegränsade uppladdningar.'}
               </p>
               {subscriptionTier === 'free' && (
                 <motion.button

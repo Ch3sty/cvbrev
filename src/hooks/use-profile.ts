@@ -9,7 +9,7 @@ const SUBSCRIPTION_LIMITS = {
     maxSavedLetters: 2,
     dailyLetterLimit: 2,      // Nytt: 2 brev per dag (ersätter weeklyLetterLimit)
     weeklyLetterLimit: 5,     // Behålls för bakåtkompatibilitet
-    maxCVCount: 1,
+    maxCVCount: 2,
     weeklyAnalysisLimit: 1,   // Ändrat: 1 analys per vecka (från 2)
     availableTonalities: ['professional', 'enthusiastic', 'confident', 'balanced', 'creative'],
   },

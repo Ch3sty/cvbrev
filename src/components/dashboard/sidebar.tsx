@@ -147,7 +147,44 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
         console.error('Error checking premium status:', error);
       }
     };
+
     checkPremiumStatus();
+
+    // Subscribe to profile changes for real-time onboarding progress updates
+    const setupRealtimeSubscription = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user?.id) return null;
+
+      const channel = supabase
+        .channel('profile_onboarding_changes')
+        .on(
+          'postgres_changes',
+          {
+            event: 'UPDATE',
+            schema: 'public',
+            table: 'profiles',
+            filter: `id=eq.${user.id}`
+          },
+          () => {
+            // Re-fetch data when profile updates
+            checkPremiumStatus();
+          }
+        )
+        .subscribe();
+
+      return channel;
+    };
+
+    const channelPromise = setupRealtimeSubscription();
+
+    // Cleanup on unmount
+    return () => {
+      channelPromise.then((channel) => {
+        if (channel) {
+          supabase.removeChannel(channel);
+        }
+      });
+    };
   }, [supabase]);
   
   // Navigationslänkar för användardashboard

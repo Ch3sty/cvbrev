@@ -55,9 +55,9 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: 'Kunde inte verifiera antal CV:n' }, { status: 500 });
       }
 
-      if (count !== null && count >= 1) {
+      if (count !== null && count >= 2) {
         return NextResponse.json(
-          { error: 'Som gratisanvändare kan du bara ha 1 CV. Uppgradera till premium för att hantera flera CV:n.', code: 'CV_LIMIT_REACHED' },
+          { error: 'Som gratisanvändare kan du bara ha 2 CV. Uppgradera till premium för att hantera flera CV:n.', code: 'CV_LIMIT_REACHED' },
           { status: 403 }
         );
       }

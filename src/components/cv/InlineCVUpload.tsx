@@ -253,7 +253,7 @@ export default function InlineCVUpload({
 
                 {subscriptionTier === 'free' && (
                   <p className="text-xs text-center text-slate-500">
-                    Som gratisanvändare kan du ladda upp 1 CV. Uppgradera till Premium för obegränsade CV:n.
+                    Som gratisanvändare kan du ladda upp upp till 2 CV. Uppgradera till Premium för obegränsade CV:n.
                   </p>
                 )}
               </div>
