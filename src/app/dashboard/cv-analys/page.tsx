@@ -101,7 +101,7 @@ export default function CVAnalysisPage() {
         updateRemainingAnalyses(result.remainingAnalyses);
       }
       if (result.nextResetDate) {
-        updateNextAnalysisResetDate(result.nextResetDate);
+        updateNextAnalysisResetDate(new Date(result.nextResetDate));
       }
 
       if (profile?.id) {
