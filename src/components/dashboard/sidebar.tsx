@@ -84,12 +84,54 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           const isTrialSource = profile?.premium_source === 'signup_trial' || profile?.premium_source === 'oauth_signup_trial';
           setIsTrialUser(isTrialSource && hasPremiumUntil);
 
-          // Check onboarding status
+          // Check onboarding status with hybrid logic (validate both array AND actual work)
           setOnboardingCompleted(profile?.onboarding_completed || false);
-          const stepsCompleted = Array.isArray(profile?.onboarding_steps_completed)
-            ? profile.onboarding_steps_completed.length
-            : 0;
-          setCompletedStepsCount(stepsCompleted);
+
+          const completedSteps = profile?.onboarding_steps_completed || [];
+
+          // Fetch actual counts from database to validate
+          const { count: cvCount } = await supabase
+            .from('cv_texts')
+            .select('id', { count: 'exact', head: true })
+            .eq('user_id', userId);
+
+          const { count: letterCount } = await supabase
+            .from('letters')
+            .select('id', { count: 'exact', head: true })
+            .eq('user_id', userId);
+
+          const { count: analysisCount } = await supabase
+            .from('cv_analysis_jobs')
+            .select('id', { count: 'exact', head: true })
+            .eq('user_id', userId)
+            .eq('status', 'completed');
+
+          const { count: linkedinCount } = await supabase
+            .from('linkedin_optimizations')
+            .select('id', { count: 'exact', head: true })
+            .eq('user_id', userId);
+
+          const { count: templateCount } = await supabase
+            .from('formatted_cv_downloads')
+            .select('id', { count: 'exact', head: true })
+            .eq('user_id', userId);
+
+          const { count: jobMatchCount } = await supabase
+            .from('job_matchings_cache')
+            .select('id', { count: 'exact', head: true })
+            .eq('user_id', userId);
+
+          // Count steps using hybrid logic (both array check AND actual work validation)
+          const actualStepsCompleted = [
+            completedSteps.includes('upload_cv') || (cvCount || 0) > 0,
+            completedSteps.includes('create_letter') || (letterCount || 0) > 0,
+            completedSteps.includes('analyze_cv') || (analysisCount || 0) > 0,
+            completedSteps.includes('optimize_linkedin') || (linkedinCount || 0) > 0,
+            completedSteps.includes('download_cv_template') || (templateCount || 0) > 0,
+            completedSteps.includes('match_jobs') || (jobMatchCount || 0) > 0
+          ].filter(Boolean).length;
+
+          setCompletedStepsCount(actualStepsCompleted);
 
           // Check admin status
           const { data: adminData } = await supabase

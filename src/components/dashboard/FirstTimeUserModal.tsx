@@ -7,7 +7,8 @@ import {
   FileText,
   Sparkles,
   ArrowRight,
-  CheckCircle
+  CheckCircle,
+  Briefcase
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
@@ -193,6 +194,15 @@ export default function FirstTimeUserModal({ onClose, onSkip }: FirstTimeUserMod
                         </div>
                         <p className="text-sm text-slate-600">
                           Designa professionella CV:n med premiummallar
+                        </p>
+                      </div>
+                      <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+                        <div className="flex items-center gap-3 mb-2">
+                          <CheckCircle className="w-5 h-5 text-emerald-500" />
+                          <h4 className="font-semibold text-slate-900">Hitta matchande jobb</h4>
+                        </div>
+                        <p className="text-sm text-slate-600">
+                          Upptäck jobb som passar din profil med AI-matchning
                         </p>
                       </div>
                     </div>

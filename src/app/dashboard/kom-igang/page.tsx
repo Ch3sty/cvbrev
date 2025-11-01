@@ -62,7 +62,63 @@ export default function KomIgangPage() {
       );
 
       setIsPremium(isPremiumUser);
-      setCompletedSteps(profile?.onboarding_steps_completed || []);
+
+      // Fetch actual counts from database to validate completed steps
+      const completedStepsArray = profile?.onboarding_steps_completed || [];
+
+      const { count: cvCount } = await supabase
+        .from('cv_texts')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user.id);
+
+      const { count: letterCount } = await supabase
+        .from('letters')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user.id);
+
+      const { count: analysisCount } = await supabase
+        .from('cv_analysis_jobs')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user.id)
+        .eq('status', 'completed');
+
+      const { count: linkedinCount } = await supabase
+        .from('linkedin_optimizations')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user.id);
+
+      const { count: templateCount } = await supabase
+        .from('formatted_cv_downloads')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user.id);
+
+      const { count: jobMatchCount } = await supabase
+        .from('job_matchings_cache')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user.id);
+
+      // Build validated steps array using hybrid logic
+      const validatedSteps: string[] = [];
+      if (completedStepsArray.includes('upload_cv') || (cvCount || 0) > 0) {
+        validatedSteps.push('upload_cv');
+      }
+      if (completedStepsArray.includes('create_letter') || (letterCount || 0) > 0) {
+        validatedSteps.push('create_letter');
+      }
+      if (completedStepsArray.includes('analyze_cv') || (analysisCount || 0) > 0) {
+        validatedSteps.push('analyze_cv');
+      }
+      if (completedStepsArray.includes('optimize_linkedin') || (linkedinCount || 0) > 0) {
+        validatedSteps.push('optimize_linkedin');
+      }
+      if (completedStepsArray.includes('download_cv_template') || (templateCount || 0) > 0) {
+        validatedSteps.push('download_cv_template');
+      }
+      if (completedStepsArray.includes('match_jobs') || (jobMatchCount || 0) > 0) {
+        validatedSteps.push('match_jobs');
+      }
+
+      setCompletedSteps(validatedSteps);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching user status:', error);
