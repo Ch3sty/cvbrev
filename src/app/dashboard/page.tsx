@@ -19,7 +19,8 @@ import {
   Target,
   Search,
   GraduationCap,
-  Crown
+  Crown,
+  Sparkles
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { motion } from 'framer-motion';
@@ -31,8 +32,6 @@ import ActivityFeed from '@/components/dashboard/ActivityFeed';
 import AIInsights from '@/components/dashboard/AIInsights';
 import LiveActivityIndicator from '@/components/dashboard/LiveActivityIndicator';
 import FloatingParticles from '@/components/dashboard/FloatingParticles';
-import GettingStartedTutorial from '@/components/dashboard/GettingStartedTutorial';
-import OnboardingChecklist from '@/components/dashboard/OnboardingChecklist';
 import FirstTimeUserModal from '@/components/dashboard/FirstTimeUserModal';
 
 interface DashboardStats {
@@ -428,15 +427,46 @@ export default function DashboardPage() {
           )}
         </motion.div>
 
-        {/* Onboarding Checklist - Visa tills användaren har slutfört alla steg */}
+        {/* Onboarding Banner - Välkomstbanner för nya användare */}
         {!stats.onboardingCompleted && (
-          <OnboardingChecklist isPremium={stats.isPremium || false} />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+          >
+            <Link href="/dashboard/kom-igang">
+              <motion.div
+                whileHover={{ scale: 1.01, y: -2 }}
+                className="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 rounded-2xl p-6 border-2 border-blue-200 hover:border-blue-300 shadow-lg hover:shadow-xl transition-all cursor-pointer group"
+              >
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-4 flex-1">
+                    <div className="flex-shrink-0 w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg">
+                      <Sparkles className="w-7 h-7 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-slate-900 mb-1 flex items-center gap-2">
+                        👋 Välkommen till Jobbcoach.ai!
+                      </h3>
+                      <p className="text-slate-600">
+                        Börja din resa mot drömjobbet. Följ vår guide för att upptäcka alla funktioner.
+                      </p>
+                    </div>
+                  </div>
+                  <motion.div
+                    whileHover={{ x: 4 }}
+                    className="flex-shrink-0"
+                  >
+                    <div className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold shadow-lg group-hover:shadow-xl transition-shadow">
+                      <span>Kom igång</span>
+                      <ArrowRight className="w-5 h-5" />
+                    </div>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </Link>
+          </motion.div>
         )}
-
-        {/* Tutorial - För ALLA användare */}
-        {stats.isPremium || ((stats.cvCount || 0) > 0 && stats.totalLetters > 0) ? (
-          <GettingStartedTutorial />
-        ) : null}
 
         {/* Senaste Aktivitet & AI Insights Grid */}
         <motion.div

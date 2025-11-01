@@ -26,7 +26,8 @@ import {
   Linkedin,
   Shield,
   X,
-  Bug
+  Bug,
+  Sparkles
 } from 'lucide-react';
 
 interface DashboardSidebarProps {
@@ -40,6 +41,8 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   const [isPremium, setIsPremium] = useState(false);
   const [isTrialUser, setIsTrialUser] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [onboardingCompleted, setOnboardingCompleted] = useState(false);
+  const [completedStepsCount, setCompletedStepsCount] = useState(0);
   const supabase = getSupabaseClient();
 
   useEffect(() => {
@@ -63,7 +66,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
 
           const { data: profile, error: profileError } = await supabase
             .from('profiles')
-            .select('premium_until, subscription_tier, premium_source')
+            .select('premium_until, subscription_tier, premium_source, onboarding_completed, onboarding_steps_completed')
             .eq('id', userId)
             .single();
 
@@ -80,6 +83,13 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           // Check if trial user
           const isTrialSource = profile?.premium_source === 'signup_trial' || profile?.premium_source === 'oauth_signup_trial';
           setIsTrialUser(isTrialSource && hasPremiumUntil);
+
+          // Check onboarding status
+          setOnboardingCompleted(profile?.onboarding_completed || false);
+          const stepsCompleted = Array.isArray(profile?.onboarding_steps_completed)
+            ? profile.onboarding_steps_completed.length
+            : 0;
+          setCompletedStepsCount(stepsCompleted);
 
           // Check admin status
           const { data: adminData } = await supabase
@@ -100,6 +110,15 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   
   // Navigationslänkar för användardashboard
   const navItems = [
+    {
+      path: '/dashboard/kom-igang',
+      label: 'Kom igång',
+      icon: <Sparkles className="w-5 h-5" />,
+      section: 'onboarding',
+      showOnlyWhen: !onboardingCompleted,
+      pulse: true,
+      badge: completedStepsCount < 4 ? `${completedStepsCount}/4` : null
+    },
     {
       path: '/dashboard',
       label: 'Översikt',
@@ -195,6 +214,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   };
   
   // Gruppera navigation items
+  const onboardingItems = navItems.filter(item => item.section === 'onboarding' && ('showOnlyWhen' in item ? item.showOnlyWhen : true));
   const toolsItems = navItems.filter(item => item.section === 'tools');
   const cvsItems = navItems.filter(item => item.section === 'cvs');
   const documentsItems = navItems.filter(item => item.section === 'documents');
@@ -248,6 +268,54 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           overscrollBehavior: 'contain'
         }}
       >
+        {/* Kom igång - Onboarding (Pulserande, högst upp) */}
+        {onboardingItems.length > 0 && (
+          <div className="px-4">
+            <style dangerouslySetInnerHTML={{__html: `
+              @keyframes gentle-pulse {
+                0%, 100% {
+                  box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+                }
+                50% {
+                  box-shadow: 0 0 0 8px rgba(59, 130, 246, 0);
+                }
+              }
+              .onboarding-pulse {
+                animation: gentle-pulse 3s ease-in-out infinite;
+              }
+            `}} />
+            {onboardingItems.map((item) => (
+              <Link
+                key={item.path}
+                href={item.path}
+                className={`
+                  flex items-center justify-between p-3 rounded-xl transition-all duration-300 group shadow-lg hover:shadow-xl touch-manipulation min-h-[44px] relative
+                  ${pathname === item.path
+                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
+                    : 'bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600'
+                  }
+                  ${!collapsed && 'onboarding-pulse'}
+                `}
+              >
+                <div className="flex items-center gap-3 flex-1">
+                  {item.icon}
+                  {!collapsed && (
+                    <div className="flex-1">
+                      <span className="font-bold">{item.label}</span>
+                      <p className="text-xs text-white/90">Din guide till framgång</p>
+                    </div>
+                  )}
+                </div>
+                {!collapsed && 'badge' in item && item.badge && (
+                  <span className="px-2 py-0.5 bg-white/20 backdrop-blur-sm rounded-full text-xs font-bold">
+                    {item.badge}
+                  </span>
+                )}
+              </Link>
+            ))}
+          </div>
+        )}
+
         {/* Premium Gästinbjudan - dölj för trial-användare */}
         {isPremium && !isTrialUser && (
           <div className="px-4">
