@@ -12,7 +12,9 @@ import {
   FileText,
   Brain,
   Linkedin,
-  CheckCircle
+  CheckCircle,
+  Palette,
+  Briefcase
 } from 'lucide-react';
 import Link from 'next/link';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
@@ -100,6 +102,22 @@ export default function KomIgangPage() {
       href: '/dashboard/linkedin-optimizer',
       gradient: 'from-orange-500 to-red-600',
       completed: completedSteps.includes('optimize_linkedin')
+    },
+    {
+      title: 'Ladda ner CV-mall',
+      description: 'Välj en professionell mall och ladda ner ditt CV',
+      icon: Palette,
+      href: '/dashboard/cv-mallar',
+      gradient: 'from-rose-500 to-pink-600',
+      completed: completedSteps.includes('download_cv_template')
+    },
+    {
+      title: 'Hitta matchande jobb',
+      description: 'Upptäck jobb som passar din profil med AI-matchning',
+      icon: Briefcase,
+      href: '/dashboard/jobbmatchning',
+      gradient: 'from-amber-500 to-orange-600',
+      completed: completedSteps.includes('match_jobs')
     }
   ];
 
@@ -231,7 +249,7 @@ export default function KomIgangPage() {
           >
             <Target className="w-4 h-4 text-blue-600" />
             <span className="text-sm font-medium text-slate-700">
-              {completedSteps.length}/4 steg slutförda
+              {completedSteps.length}/6 steg slutförda
             </span>
           </motion.div>
         </motion.div>
@@ -257,7 +275,7 @@ export default function KomIgangPage() {
             <h2 className="text-2xl font-bold text-slate-900">Snabbgenvägar</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {quickStartCards.map((card, index) => {
               const Icon = card.icon;
               return (

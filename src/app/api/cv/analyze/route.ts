@@ -307,6 +307,17 @@ export async function POST(request: NextRequest) {
             }
         }
 
+        // Track onboarding progress for CV analysis
+        try {
+            await supabase.rpc('update_onboarding_progress', {
+                user_id: userId,
+                step_name: 'analyze_cv'
+            });
+        } catch (onboardingError) {
+            console.error('Failed to update onboarding progress:', onboardingError);
+            // Don't fail the analysis if onboarding tracking fails
+        }
+
         // Return 202 Accepted immediately with job info
         return NextResponse.json(
             {

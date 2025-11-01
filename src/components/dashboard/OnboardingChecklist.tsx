@@ -12,7 +12,9 @@ import {
   ChevronUp,
   Trophy,
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  Palette,
+  Briefcase
 } from 'lucide-react';
 import Link from 'next/link';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
@@ -80,6 +82,18 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
         .select('id', { count: 'exact', head: true })
         .eq('user_id', user.id);
 
+      // Hämta CV template downloads count (från formatted_cv_downloads eller generation count)
+      const { count: templateDownloadCount } = await supabase
+        .from('formatted_cv_downloads')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user.id);
+
+      // Hämta job matching count
+      const { count: jobMatchingCount } = await supabase
+        .from('job_matchings_cache')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user.id);
+
       const completedSteps = profile?.onboarding_steps_completed || [];
 
       const allSteps: OnboardingStep[] = [
@@ -118,6 +132,24 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
           link: '/dashboard/linkedin-optimizer',
           icon: Linkedin,
           order: 4
+        },
+        {
+          id: 'download_cv_template',
+          title: 'Ladda ner ditt CV i en professionell mall',
+          description: 'Välj bland våra premium CV-mallar och ladda ner',
+          completed: completedSteps.includes('download_cv_template') || (templateDownloadCount || 0) > 0,
+          link: '/dashboard/cv-mallar',
+          icon: Palette,
+          order: 5
+        },
+        {
+          id: 'match_jobs',
+          title: 'Hitta matchande jobb',
+          description: 'Upptäck jobb som passar din profil med AI-matchning',
+          completed: completedSteps.includes('match_jobs') || (jobMatchingCount || 0) > 0,
+          link: '/dashboard/jobbmatchning',
+          icon: Briefcase,
+          order: 6
         }
       ];
 
@@ -127,13 +159,13 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
       const previousCompletedCount = steps.filter(s => s.completed).length;
 
       // Visa celebration om användaren precis slutförde alla steg
-      if (completedCount === 4 && previousCompletedCount < 4 && steps.length > 0) {
+      if (completedCount === 6 && previousCompletedCount < 6 && steps.length > 0) {
         setShowCelebration(true);
         setTimeout(() => setShowCelebration(false), 5000);
       }
 
       // Auto-collapse efter att alla steg är klara
-      if (profile?.onboarding_completed && completedCount === 4) {
+      if (profile?.onboarding_completed && completedCount === 6) {
         setIsExpanded(false);
       }
 
@@ -243,7 +275,7 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
             <p className="text-sm text-slate-600">
               {allCompleted
                 ? 'Fantastiskt! Du har upptäckt alla våra huvudfunktioner.'
-                : `${completedCount} av ${totalSteps} steg klara • ${Math.round(5 - (completedCount * 1.25))} min kvar`
+                : `${completedCount} av ${totalSteps} steg klara • ${Math.round(8 - (completedCount * 1.3))} min kvar`
               }
             </p>
           </div>

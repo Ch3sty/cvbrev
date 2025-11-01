@@ -303,6 +303,18 @@ Deno.serve(async (req) => {
 
     console.log(`[Match-Jobs-V2] Returning top ${initialJobs.length} jobs initially`);
 
+    // Track onboarding progress for job matching
+    try {
+      await supabase.rpc('update_onboarding_progress', {
+        user_id: userId,
+        step_name: 'match_jobs'
+      });
+      console.log('[Match-Jobs-V2] ✅ Onboarding progress tracked');
+    } catch (onboardingError) {
+      console.error('[Match-Jobs-V2] Failed to update onboarding progress:', onboardingError);
+      // Don't fail the job matching if onboarding tracking fails
+    }
+
     return new Response(
       JSON.stringify({
         success: true,

@@ -117,7 +117,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       section: 'onboarding',
       showOnlyWhen: !onboardingCompleted,
       pulse: true,
-      badge: completedStepsCount < 4 ? `${completedStepsCount}/4` : null
+      badge: completedStepsCount < 6 ? `${completedStepsCount}/6` : null
     },
     {
       path: '/dashboard',

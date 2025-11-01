@@ -2248,9 +2248,34 @@ export async function POST(request: NextRequest) {
       .replace(/[^a-zA-Z0-9-]/g, '-');
     
     const filename = `cv-${sanitizedTemplate}.pdf`;
-    
+
     console.log('CV genererat framgångsrikt:', filename);
-    
+
+    // Track onboarding progress for CV template download
+    try {
+      const cookieStore = await cookies();
+      const supabase = createServerClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.SUPABASE_SERVICE_ROLE_KEY!,
+        {
+          cookies: {
+            get: (name: string) => cookieStore.get(name)?.value,
+          },
+        }
+      );
+
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        await supabase.rpc('update_onboarding_progress', {
+          user_id: user.id,
+          step_name: 'download_cv_template'
+        });
+      }
+    } catch (onboardingError) {
+      console.error('Failed to update onboarding progress:', onboardingError);
+      // Don't fail the CV generation if onboarding tracking fails
+    }
+
     return new NextResponse(pdfBuffer, {
       headers: {
         'Content-Type': 'application/pdf',
