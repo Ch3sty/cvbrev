@@ -10,6 +10,11 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 })
 
+// Quota limits
+const WEEKLY_LINKEDIN_LIMIT_FREE = 1
+const WEEKLY_LINKEDIN_LIMIT_PREMIUM = 999
+const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000
+
 // System prompt for all LinkedIn optimizations
 const SYSTEM_PROMPT = `You are an expert LinkedIn career coach with 15+ years of experience optimizing profiles for:
 - Job seekers at all levels (entry-level to C-suite)
@@ -894,33 +899,73 @@ export async function POST(req: NextRequest) {
       { mode, target_role, language }
     )
 
-    // Check if user is premium
+    // Check if user is premium and fetch quota fields
     const { data: profile } = await supabase
       .from('profiles')
-      .select('subscription_status')
+      .select('subscription_status, weekly_linkedin_count, weekly_linkedin_first_used_at, weekly_linkedin_reset_at, premium_until')
       .eq('id', user.id)
       .single()
 
-    const isPremium = profile?.subscription_status === 'active'
+    const now = new Date()
+    const isPremium = profile?.subscription_status === 'active' ||
+      (profile?.premium_until && new Date(profile.premium_until) > now)
 
-    // Check quota for free users
-    if (!isPremium) {
-      const { data: weeklyCount, error: countError } = await supabase
-        .rpc('get_weekly_linkedin_optimizations_count', { p_user_id: user.id })
+    // Initialize and check quota
+    let currentCount = profile?.weekly_linkedin_count || 0
+    let firstUsedAt = profile?.weekly_linkedin_first_used_at ? new Date(profile.weekly_linkedin_first_used_at) : null
+    let resetAt = profile?.weekly_linkedin_reset_at ? new Date(profile.weekly_linkedin_reset_at) : null
 
-      if (countError) {
-        console.error('Error checking quota:', countError)
+    // Initialize quota tracking on first use
+    if (!firstUsedAt || !resetAt) {
+      firstUsedAt = now
+      resetAt = new Date(now.getTime() + SEVEN_DAYS_MS)
+      currentCount = 0
+
+      const { error: initError } = await supabase
+        .from('profiles')
+        .update({
+          weekly_linkedin_first_used_at: firstUsedAt.toISOString(),
+          weekly_linkedin_reset_at: resetAt.toISOString(),
+          weekly_linkedin_count: 0
+        })
+        .eq('id', user.id)
+
+      if (initError) {
+        console.error('Error initializing LinkedIn quota:', initError)
       }
+    }
+    // Reset quota if 7 days have passed
+    else if (now.getTime() >= resetAt.getTime()) {
+      firstUsedAt = now
+      resetAt = new Date(now.getTime() + SEVEN_DAYS_MS)
+      currentCount = 0
 
-      if (weeklyCount && weeklyCount >= 1) {
-        return NextResponse.json(
-          {
-            error: 'Du har använt din gratis optimering denna vecka. Uppgradera till Premium för obegränsade optimeringar!',
-            quota_exceeded: true
-          },
-          { status: 403 }
-        )
+      const { error: resetError } = await supabase
+        .from('profiles')
+        .update({
+          weekly_linkedin_first_used_at: firstUsedAt.toISOString(),
+          weekly_linkedin_reset_at: resetAt.toISOString(),
+          weekly_linkedin_count: 0
+        })
+        .eq('id', user.id)
+
+      if (resetError) {
+        console.error('Error resetting LinkedIn quota:', resetError)
       }
+    }
+
+    // Check quota limits
+    const limit = isPremium ? WEEKLY_LINKEDIN_LIMIT_PREMIUM : WEEKLY_LINKEDIN_LIMIT_FREE
+    if (currentCount >= limit) {
+      return NextResponse.json(
+        {
+          error: isPremium
+            ? 'Du har nått din veckovisa gräns. Kontakta support om du behöver fler optimeringar.'
+            : 'Du har använt din gratis optimering denna vecka. Uppgradera till Premium för obegränsade optimeringar!',
+          quota_exceeded: true
+        },
+        { status: 429 }
+      )
     }
 
     // Optimize each section in parallel
@@ -1036,6 +1081,21 @@ export async function POST(req: NextRequest) {
     if (saveError) {
       console.error('Error saving optimization:', saveError)
       // Don't fail the request if saving fails, just log it
+    }
+
+    // Increment quota count after successful optimization
+    if (!saveError && savedOptimization) {
+      const newCount = currentCount + 1
+      const { error: incrementError } = await supabase
+        .from('profiles')
+        .update({ weekly_linkedin_count: newCount })
+        .eq('id', user.id)
+
+      if (incrementError) {
+        console.error('Error incrementing LinkedIn quota count:', incrementError)
+      } else {
+        console.log(`[LinkedIn Quota] Updated count: ${newCount}/${limit}`)
+      }
     }
 
     // Log activity: LinkedIn optimization completed
