@@ -197,7 +197,7 @@ export default function MinaCVPage() {
               {/* Dynamisk räknare */}
               <div className="px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 bg-gray-100 rounded-lg sm:rounded-xl flex-shrink-0">
                 <span className="text-xs sm:text-sm font-semibold text-gray-700 whitespace-nowrap">
-                  {cvCount} / {subscriptionTier === 'premium' ? '∞' : '1'}
+                  {cvCount} / {subscriptionTier === 'premium' ? '∞' : '2'}
                 </span>
               </div>
             </div>
@@ -326,7 +326,7 @@ export default function MinaCVPage() {
       )}
 
       {/* CV Upload Zone - SIST! */}
-      {cvCount >= (subscriptionTier === 'premium' ? 999 : 1) ? (
+      {cvCount >= (subscriptionTier === 'premium' ? 999 : 2) ? (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

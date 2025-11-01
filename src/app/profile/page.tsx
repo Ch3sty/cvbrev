@@ -651,7 +651,7 @@ export default function ProfilePage() {
               Dina CV:n
               {/* Dynamisk räknare */}
               <span className="ml-2 text-sm font-normal text-gray-400">
-                ({cvCount} / {subscriptionTier === 'premium' ? '∞' : '1'})
+                ({cvCount} / {subscriptionTier === 'premium' ? '∞' : '2'})
               </span>
             </h2>
 
@@ -790,7 +790,7 @@ export default function ProfilePage() {
           </div>
           
           {/* CV Uploader */}
-          {cvCount >= (subscriptionTier === 'premium' ? 999 : 1) ? (
+          {cvCount >= (subscriptionTier === 'premium' ? 999 : 2) ? (
             <div className="p-5 bg-navy-800 border-l-4 border-yellow-500 rounded-lg">
               <div className="flex items-start">
                 <Info className="w-5 h-5 text-yellow-500 mr-3 flex-shrink-0 mt-0.5" />
@@ -799,7 +799,7 @@ export default function ProfilePage() {
                   <p className="text-gray-300 text-sm">
                     {subscriptionTier === 'premium'
                       ? 'Du har nått gränsen för antal CV:n. Ta bort ett befintligt CV för att ladda upp ett nytt.'
-                      : 'Som gratisanvändare kan du ha 1 CV. Ta bort ditt nuvarande CV för att ladda upp ett nytt, eller uppgradera till Premium för obegränsade uppladdningar.'}
+                      : 'Som gratisanvändare kan du ha 2 CV. Ta bort ett CV för att ladda upp ett nytt, eller uppgradera till Premium för obegränsade uppladdningar.'}
                   </p>
                   {subscriptionTier === 'free' && (
                     <button
