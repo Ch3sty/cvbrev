@@ -41,6 +41,7 @@ interface User {
   // Primary metrics: Usage per feature
   letters_generated_count: number;
   cv_analyses_count: number;
+  cv_templates_downloaded_count: number;
   job_matches_count: number;
   linkedin_optimizations_count: number;
 
@@ -115,6 +116,7 @@ export default function AdminUsersPage() {
     result.sort((a, b) => {
       const valA = sortField === 'letters_generated_count' ? (a.letters_generated_count || 0) :
                    sortField === 'cv_analyses_count' ? (a.cv_analyses_count || 0) :
+                   sortField === 'cv_templates_downloaded_count' ? (a.cv_templates_downloaded_count || 0) :
                    sortField === 'job_matches_count' ? (a.job_matches_count || 0) :
                    sortField === 'linkedin_optimizations_count' ? (a.linkedin_optimizations_count || 0) :
                    sortField === 'saved_letters_count' ? (a.saved_letters_count || 0) :
@@ -122,6 +124,7 @@ export default function AdminUsersPage() {
                    a[sortField as keyof User];
       const valB = sortField === 'letters_generated_count' ? (b.letters_generated_count || 0) :
                    sortField === 'cv_analyses_count' ? (b.cv_analyses_count || 0) :
+                   sortField === 'cv_templates_downloaded_count' ? (b.cv_templates_downloaded_count || 0) :
                    sortField === 'job_matches_count' ? (b.job_matches_count || 0) :
                    sortField === 'linkedin_optimizations_count' ? (b.linkedin_optimizations_count || 0) :
                    sortField === 'saved_letters_count' ? (b.saved_letters_count || 0) :
@@ -172,6 +175,7 @@ export default function AdminUsersPage() {
             last_active,
             letters_generated_count,
             cv_analyses_count,
+            cv_templates_downloaded_count,
             job_matches_count,
             linkedin_optimizations_count,
             saved_letters_count,
@@ -212,6 +216,7 @@ export default function AdminUsersPage() {
             last_active: user.last_active,
             letters_generated_count: user.letters_generated_count || 0,
             cv_analyses_count: user.cv_analyses_count || 0,
+            cv_templates_downloaded_count: user.cv_templates_downloaded_count || 0,
             job_matches_count: user.job_matches_count || 0,
             linkedin_optimizations_count: user.linkedin_optimizations_count || 0,
             saved_letters_count: user.saved_letters_count || 0,
@@ -470,11 +475,13 @@ export default function AdminUsersPage() {
     freeUsers: users.filter(u => u.subscription_tier === 'free' || !u.subscription_tier).length,
     totalLettersGenerated: users.reduce((sum, u) => sum + (u.letters_generated_count || 0), 0),
     totalCVAnalyses: users.reduce((sum, u) => sum + (u.cv_analyses_count || 0), 0),
+    totalCVTemplates: users.reduce((sum, u) => sum + (u.cv_templates_downloaded_count || 0), 0),
     totalJobMatches: users.reduce((sum, u) => sum + (u.job_matches_count || 0), 0),
     totalLinkedInOpts: users.reduce((sum, u) => sum + (u.linkedin_optimizations_count || 0), 0),
     totalSavedLetters: users.reduce((sum, u) => sum + (u.saved_letters_count || 0), 0),
     totalSavedCVs: users.reduce((sum, u) => sum + (u.saved_cvs_count || 0), 0),
     usersWithLetters: users.filter(u => (u.letters_generated_count || 0) > 0).length,
+    usersWithCVTemplates: users.filter(u => (u.cv_templates_downloaded_count || 0) > 0).length,
     usersWithCVs: users.filter(u => (u.saved_cvs_count || 0) > 0).length,
     usersWithoutName: users.filter(u => !u.full_name).length
   };
@@ -507,6 +514,18 @@ export default function AdminUsersPage() {
             totalt genomförda
           </div>
         </div>
+        <div className="bg-white p-4 rounded-lg border border-gray-200 relative overflow-hidden">
+          <FileText className="absolute right-2 top-2 w-8 h-8 text-orange-300" />
+          <div className="text-2xl font-bold text-gray-900">{totalStats.totalCVTemplates}</div>
+          <div className="text-sm text-gray-600">CV-mallar</div>
+          <div className="text-xs text-gray-500 mt-1">
+            {totalStats.usersWithCVTemplates} aktiva användare
+          </div>
+        </div>
+      </div>
+
+      {/* Second row of stats */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <div className="bg-white p-4 rounded-lg border border-gray-200 relative overflow-hidden">
           <AlertCircle className="absolute right-2 top-2 w-8 h-8 text-gray-300" />
           <div className="text-2xl font-bold text-gray-900">
@@ -632,6 +651,17 @@ export default function AdminUsersPage() {
                     </th>
                     <th
                       scope="col"
+                      className="hidden lg:table-cell px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
+                      onClick={() => handleSort('cv_templates_downloaded_count')}
+                      title="Antal CV-mallar nedladdade"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>CV-mallar</span>
+                        {getSortIcon('cv_templates_downloaded_count')}
+                      </div>
+                    </th>
+                    <th
+                      scope="col"
                       className="hidden xl:table-cell px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
                       onClick={() => handleSort('job_matches_count')}
                       title="Antal jobbmatchningssökningar"
@@ -703,7 +733,7 @@ export default function AdminUsersPage() {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredUsers.length === 0 ? (
                     <tr>
-                      <td colSpan={12} className="px-6 py-12 text-center">
+                      <td colSpan={13} className="px-6 py-12 text-center">
                         <div className="flex flex-col items-center">
                           <Users className="w-12 h-12 mx-auto text-gray-400 mb-3" />
                           <h3 className="text-lg font-semibold text-gray-900 mb-1">Inga användare hittades</h3>
@@ -750,6 +780,11 @@ export default function AdminUsersPage() {
                         <td className="hidden lg:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
                           <span className={user.cv_analyses_count > 0 ? 'font-medium text-blue-600' : 'text-gray-400'}>
                             {user.cv_analyses_count}
+                          </span>
+                        </td>
+                        <td className="hidden lg:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
+                          <span className={user.cv_templates_downloaded_count > 0 ? 'font-medium text-orange-600' : 'text-gray-400'}>
+                            {user.cv_templates_downloaded_count}
                           </span>
                         </td>
                         <td className="hidden xl:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
@@ -908,6 +943,13 @@ export default function AdminUsersPage() {
                 <div className="text-gray-900">
                   <span className={selectedUser.cv_analyses_count > 0 ? 'font-medium text-blue-600' : ''}>
                     {selectedUser.cv_analyses_count}
+                  </span>
+                </div>
+
+                <div className="text-gray-600 font-medium">CV-mallar:</div>
+                <div className="text-gray-900">
+                  <span className={selectedUser.cv_templates_downloaded_count > 0 ? 'font-medium text-orange-600' : ''}>
+                    {selectedUser.cv_templates_downloaded_count}
                   </span>
                 </div>
 
