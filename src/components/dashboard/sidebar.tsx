@@ -47,7 +47,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
   const supabase = getSupabaseClient();
 
   // Use OnboardingContext for instant updates
-  const { completedCount, onboardingCompleted, rewardClaimed, markRewardClaimed } = useOnboarding();
+  const { completedCount, onboardingCompleted, rewardClaimed, markRewardClaimed, isLoading } = useOnboarding();
 
   useEffect(() => {
     const checkPremiumStatus = async () => {
@@ -292,7 +292,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       >
         {/* Kom igång - Onboarding (Pulserande, högst upp) */}
         {/* Onboarding Section - Dynamic based on completion and reward status */}
-        {!rewardClaimed && (
+        {!isLoading && !rewardClaimed && (
           <div className="px-4">
             <style dangerouslySetInnerHTML={{__html: `
               @keyframes gentle-pulse {
