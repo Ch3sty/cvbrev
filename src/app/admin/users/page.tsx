@@ -37,8 +37,16 @@ interface User {
   subscription_status: string | null;
   created_at: string;
   last_active: string | null;
-  saved_letters_count?: number;
-  cv_count?: number;
+
+  // Primary metrics: Usage per feature
+  letters_generated_count: number;
+  cv_analyses_count: number;
+  job_matches_count: number;
+  linkedin_optimizations_count: number;
+
+  // Secondary metrics: Saved documents
+  saved_letters_count: number;
+  saved_cvs_count: number;
 }
 
 export default function AdminUsersPage() {
@@ -105,11 +113,19 @@ export default function AdminUsersPage() {
     }
 
     result.sort((a, b) => {
-      const valA = sortField === 'saved_letters_count' ? (a.saved_letters_count || 0) :
-                   sortField === 'cv_count' ? (a.cv_count || 0) :
+      const valA = sortField === 'letters_generated_count' ? (a.letters_generated_count || 0) :
+                   sortField === 'cv_analyses_count' ? (a.cv_analyses_count || 0) :
+                   sortField === 'job_matches_count' ? (a.job_matches_count || 0) :
+                   sortField === 'linkedin_optimizations_count' ? (a.linkedin_optimizations_count || 0) :
+                   sortField === 'saved_letters_count' ? (a.saved_letters_count || 0) :
+                   sortField === 'saved_cvs_count' ? (a.saved_cvs_count || 0) :
                    a[sortField as keyof User];
-      const valB = sortField === 'saved_letters_count' ? (b.saved_letters_count || 0) :
-                   sortField === 'cv_count' ? (b.cv_count || 0) :
+      const valB = sortField === 'letters_generated_count' ? (b.letters_generated_count || 0) :
+                   sortField === 'cv_analyses_count' ? (b.cv_analyses_count || 0) :
+                   sortField === 'job_matches_count' ? (b.job_matches_count || 0) :
+                   sortField === 'linkedin_optimizations_count' ? (b.linkedin_optimizations_count || 0) :
+                   sortField === 'saved_letters_count' ? (b.saved_letters_count || 0) :
+                   sortField === 'saved_cvs_count' ? (b.saved_cvs_count || 0) :
                    b[sortField as keyof User];
 
       if (valA == null && valB == null) return 0;
@@ -142,41 +158,68 @@ export default function AdminUsersPage() {
       setError(null);
 
       try {
+        // Fetch all user data from the new view (includes usage stats + saved counts)
+        const { data: usersData, error: usersError } = await supabase
+          .from('user_feature_usage_stats')
+          .select(`
+            user_id,
+            email,
+            full_name,
+            subscription_tier,
+            premium_source,
+            premium_until,
+            created_at,
+            last_active,
+            letters_generated_count,
+            cv_analyses_count,
+            job_matches_count,
+            linkedin_optimizations_count,
+            saved_letters_count,
+            saved_cvs_count
+          `)
+          .order('created_at', { ascending: false });
+
+        if (usersError) throw usersError;
+
+        // Fetch additional data not in view (stripe info)
         const { data: profiles, error: profilesError } = await supabase
           .from('profiles')
-          .select('id, email, full_name, subscription_tier, premium_source, premium_until, stripe_customer_id, subscription_status, created_at, last_active')
-          .order('created_at', { ascending: false });
+          .select('id, stripe_customer_id, subscription_status');
 
         if (profilesError) throw profilesError;
 
-        const { data: letterCounts, error: letterError } = await supabase
-          .rpc('get_letter_counts_by_user', { is_saved_param: true });
+        // Create a map for stripe data
+        const stripeDataMap = new Map(
+          profiles?.map(p => [p.id, {
+            stripe_customer_id: p.stripe_customer_id,
+            subscription_status: p.subscription_status
+          }]) || []
+        );
 
-        const { data: cvCounts, error: cvError } = await supabase
-          .rpc('get_cv_counts_by_user');
+        // Merge data
+        const enrichedUsers = usersData?.map((user): User => {
+          const stripeData = stripeDataMap.get(user.user_id);
+          return {
+            id: user.user_id,
+            email: user.email,
+            full_name: user.full_name,
+            subscription_tier: user.subscription_tier || 'free',
+            premium_source: user.premium_source,
+            premium_until: user.premium_until,
+            stripe_customer_id: stripeData?.stripe_customer_id || null,
+            subscription_status: stripeData?.subscription_status || null,
+            created_at: user.created_at,
+            last_active: user.last_active,
+            letters_generated_count: user.letters_generated_count || 0,
+            cv_analyses_count: user.cv_analyses_count || 0,
+            job_matches_count: user.job_matches_count || 0,
+            linkedin_optimizations_count: user.linkedin_optimizations_count || 0,
+            saved_letters_count: user.saved_letters_count || 0,
+            saved_cvs_count: user.saved_cvs_count || 0,
+          };
+        }) || [];
 
-        const letterCountMap = new Map<string, number>();
-        if (letterCounts) {
-          letterCounts.forEach((item: any) => {
-            letterCountMap.set(item.user_id, typeof item.count === 'string' ? parseInt(item.count, 10) : item.count);
-          });
-        }
-
-        const cvCountMap = new Map<string, number>();
-        if (cvCounts) {
-          cvCounts.forEach((item: any) => {
-            cvCountMap.set(item.user_id, typeof item.count === 'string' ? parseInt(item.count, 10) : item.count);
-          });
-        }
-
-        const enrichedProfiles = profiles?.map((profile): User => ({
-          ...profile,
-          subscription_tier: profile.subscription_tier || 'free',
-          saved_letters_count: letterCountMap.get(profile.id) || 0,
-          cv_count: cvCountMap.get(profile.id) || 0
-        })) || [];
-
-        setUsers(enrichedProfiles);
+        setUsers(enrichedUsers);
       } catch (err: any) {
         console.error('Error fetching users:', err);
         setError(err.message || 'Ett fel uppstod vid hämtning av användare');
@@ -425,10 +468,14 @@ export default function AdminUsersPage() {
     totalUsers: users.length,
     premiumUsers: users.filter(u => u.subscription_tier === 'premium').length,
     freeUsers: users.filter(u => u.subscription_tier === 'free' || !u.subscription_tier).length,
-    totalLetters: users.reduce((sum, u) => sum + (u.saved_letters_count || 0), 0),
-    totalCVs: users.reduce((sum, u) => sum + (u.cv_count || 0), 0),
-    usersWithLetters: users.filter(u => (u.saved_letters_count || 0) > 0).length,
-    usersWithCVs: users.filter(u => (u.cv_count || 0) > 0).length,
+    totalLettersGenerated: users.reduce((sum, u) => sum + (u.letters_generated_count || 0), 0),
+    totalCVAnalyses: users.reduce((sum, u) => sum + (u.cv_analyses_count || 0), 0),
+    totalJobMatches: users.reduce((sum, u) => sum + (u.job_matches_count || 0), 0),
+    totalLinkedInOpts: users.reduce((sum, u) => sum + (u.linkedin_optimizations_count || 0), 0),
+    totalSavedLetters: users.reduce((sum, u) => sum + (u.saved_letters_count || 0), 0),
+    totalSavedCVs: users.reduce((sum, u) => sum + (u.saved_cvs_count || 0), 0),
+    usersWithLetters: users.filter(u => (u.letters_generated_count || 0) > 0).length,
+    usersWithCVs: users.filter(u => (u.saved_cvs_count || 0) > 0).length,
     usersWithoutName: users.filter(u => !u.full_name).length
   };
 
@@ -445,19 +492,19 @@ export default function AdminUsersPage() {
           </div>
         </div>
         <div className="bg-white p-4 rounded-lg border border-gray-200 relative overflow-hidden">
-          <FileText className="absolute right-2 top-2 w-8 h-8 text-gray-300" />
-          <div className="text-2xl font-bold text-gray-900">{totalStats.totalLetters}</div>
-          <div className="text-sm text-gray-600">Sparade brev</div>
+          <FileText className="absolute right-2 top-2 w-8 h-8 text-pink-300" />
+          <div className="text-2xl font-bold text-gray-900">{totalStats.totalLettersGenerated}</div>
+          <div className="text-sm text-gray-600">Genererade brev</div>
           <div className="text-xs text-gray-500 mt-1">
-            från {totalStats.usersWithLetters} användare
+            {totalStats.usersWithLetters} aktiva användare
           </div>
         </div>
         <div className="bg-white p-4 rounded-lg border border-gray-200 relative overflow-hidden">
-          <ScrollText className="absolute right-2 top-2 w-8 h-8 text-gray-300" />
-          <div className="text-2xl font-bold text-gray-900">{totalStats.totalCVs}</div>
-          <div className="text-sm text-gray-600">Skapade CV:n</div>
+          <ScrollText className="absolute right-2 top-2 w-8 h-8 text-blue-300" />
+          <div className="text-2xl font-bold text-gray-900">{totalStats.totalCVAnalyses}</div>
+          <div className="text-sm text-gray-600">CV-analyser</div>
           <div className="text-xs text-gray-500 mt-1">
-            från {totalStats.usersWithCVs} användare
+            totalt genomförda
           </div>
         </div>
         <div className="bg-white p-4 rounded-lg border border-gray-200 relative overflow-hidden">
@@ -560,24 +607,72 @@ export default function AdminUsersPage() {
                     >
                       <span>Premium-källa</span>
                     </th>
+                    {/* PRIMARY: Användningsstatistik (aktivitet) */}
+                    <th
+                      scope="col"
+                      className="hidden lg:table-cell px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
+                      onClick={() => handleSort('letters_generated_count')}
+                      title="Totalt antal genererade brev"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>Genererade brev</span>
+                        {getSortIcon('letters_generated_count')}
+                      </div>
+                    </th>
+                    <th
+                      scope="col"
+                      className="hidden lg:table-cell px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
+                      onClick={() => handleSort('cv_analyses_count')}
+                      title="Antal CV-analyser genomförda"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>CV-analyser</span>
+                        {getSortIcon('cv_analyses_count')}
+                      </div>
+                    </th>
+                    <th
+                      scope="col"
+                      className="hidden xl:table-cell px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
+                      onClick={() => handleSort('job_matches_count')}
+                      title="Antal jobbmatchningssökningar"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>Jobbmatchningar</span>
+                        {getSortIcon('job_matches_count')}
+                      </div>
+                    </th>
+                    <th
+                      scope="col"
+                      className="hidden xl:table-cell px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
+                      onClick={() => handleSort('linkedin_optimizations_count')}
+                      title="Antal LinkedIn-optimeringar"
+                    >
+                      <div className="flex items-center gap-1">
+                        <span>LinkedIn-opt.</span>
+                        {getSortIcon('linkedin_optimizations_count')}
+                      </div>
+                    </th>
+                    {/* SECONDARY: Sparade dokument (retention) */}
                     <th
                       scope="col"
                       className="hidden md:table-cell px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
                       onClick={() => handleSort('saved_letters_count')}
+                      title="Antal brev sparade i biblioteket"
                     >
                       <div className="flex items-center gap-1">
-                        <span>Brev</span>
+                        <span>Sparade brev</span>
                         {getSortIcon('saved_letters_count')}
                       </div>
                     </th>
                     <th
                       scope="col"
                       className="hidden md:table-cell px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
-                      onClick={() => handleSort('cv_count')}
+                      onClick={() => handleSort('saved_cvs_count')}
+                      title="Antal CV:n uppladdade"
                     >
                       <div className="flex items-center gap-1">
-                        <span>CV:n</span>
-                        {getSortIcon('cv_count')}
+                        <span>Sparade CV:n</span>
+                        {getSortIcon('saved_cvs_count')}
                       </div>
                     </th>
                     <th
@@ -608,7 +703,7 @@ export default function AdminUsersPage() {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredUsers.length === 0 ? (
                     <tr>
-                      <td colSpan={8} className="px-6 py-12 text-center">
+                      <td colSpan={12} className="px-6 py-12 text-center">
                         <div className="flex flex-col items-center">
                           <Users className="w-12 h-12 mx-auto text-gray-400 mb-3" />
                           <h3 className="text-lg font-semibold text-gray-900 mb-1">Inga användare hittades</h3>
@@ -646,11 +741,33 @@ export default function AdminUsersPage() {
                         <td className="px-6 py-4 whitespace-nowrap">
                           {getPremiumSourceBadge(user)}
                         </td>
-                        <td className="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
-                          {user.saved_letters_count ?? 0}
+                        {/* PRIMARY: Användningsstatistik */}
+                        <td className="hidden lg:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
+                          <span className={user.letters_generated_count > 0 ? 'font-medium text-pink-600' : 'text-gray-400'}>
+                            {user.letters_generated_count}
+                          </span>
                         </td>
-                        <td className="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
-                          {user.cv_count ?? 0}
+                        <td className="hidden lg:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
+                          <span className={user.cv_analyses_count > 0 ? 'font-medium text-blue-600' : 'text-gray-400'}>
+                            {user.cv_analyses_count}
+                          </span>
+                        </td>
+                        <td className="hidden xl:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
+                          <span className={user.job_matches_count > 0 ? 'font-medium text-purple-600' : 'text-gray-400'}>
+                            {user.job_matches_count}
+                          </span>
+                        </td>
+                        <td className="hidden xl:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-center">
+                          <span className={user.linkedin_optimizations_count > 0 ? 'font-medium text-cyan-600' : 'text-gray-400'}>
+                            {user.linkedin_optimizations_count}
+                          </span>
+                        </td>
+                        {/* SECONDARY: Sparade dokument */}
+                        <td className="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                          {user.saved_letters_count}
+                        </td>
+                        <td className="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                          {user.saved_cvs_count}
                         </td>
                         <td className="hidden lg:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                           {formatDate(user.created_at)}
@@ -780,11 +897,39 @@ export default function AdminUsersPage() {
                   )}
                 </div>
 
-                <div className="text-gray-600 font-medium">Sparade brev:</div>
-                <div className="text-gray-900">{selectedUser.saved_letters_count ?? 0}</div>
+                <div className="text-gray-600 font-medium">Genererade brev:</div>
+                <div className="text-gray-900">
+                  <span className={selectedUser.letters_generated_count > 0 ? 'font-medium text-pink-600' : ''}>
+                    {selectedUser.letters_generated_count}
+                  </span>
+                </div>
 
-                <div className="text-gray-600 font-medium">CV:n:</div>
-                <div className="text-gray-900">{selectedUser.cv_count ?? 0}</div>
+                <div className="text-gray-600 font-medium">CV-analyser:</div>
+                <div className="text-gray-900">
+                  <span className={selectedUser.cv_analyses_count > 0 ? 'font-medium text-blue-600' : ''}>
+                    {selectedUser.cv_analyses_count}
+                  </span>
+                </div>
+
+                <div className="text-gray-600 font-medium">Jobbmatchningar:</div>
+                <div className="text-gray-900">
+                  <span className={selectedUser.job_matches_count > 0 ? 'font-medium text-purple-600' : ''}>
+                    {selectedUser.job_matches_count}
+                  </span>
+                </div>
+
+                <div className="text-gray-600 font-medium">LinkedIn-opt.:</div>
+                <div className="text-gray-900">
+                  <span className={selectedUser.linkedin_optimizations_count > 0 ? 'font-medium text-cyan-600' : ''}>
+                    {selectedUser.linkedin_optimizations_count}
+                  </span>
+                </div>
+
+                <div className="text-gray-600 font-medium text-sm">Sparade brev:</div>
+                <div className="text-gray-500 text-sm">{selectedUser.saved_letters_count}</div>
+
+                <div className="text-gray-600 font-medium text-sm">Sparade CV:n:</div>
+                <div className="text-gray-500 text-sm">{selectedUser.saved_cvs_count}</div>
               </div>
             </div>
 
