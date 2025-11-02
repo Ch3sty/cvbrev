@@ -206,7 +206,7 @@ export async function generateCoverLetter(
     const truncatedCV = cvText.substring(0, 3000); // Justera vid behov
     const truncatedJobDesc = jobDescription.substring(0, 2000); // Justera vid behov
 
-    // Skapa en prompt som instruerar AI:n (oförändrat)
+    // Skapa en prompt som instruerar AI:n
     // Hämta tonalitetsbeskrivning
     const tonalityInstruction = tonality === 'auto'
       ? (language === 'sv'
@@ -214,7 +214,68 @@ export async function generateCoverLetter(
           : 'Analyze the job posting and adapt the tone to optimally fit the position, company culture and industry')
       : `Använd en ${tonalityDescriptions[tonality]?.[language as 'sv' | 'en'] || tonalityDescriptions.balanced[language as 'sv' | 'en']}`;
 
-    // Språkspecifika instruktioner (oförändrat)
+    // Premium auto-prompt: Djupare analys för bästa resultat
+    const premiumAutoInstructions = tonality === 'auto' ? (language === 'sv' ? `
+
+**PREMIUM AUTO-ANPASSNING:**
+
+Innan du skriver brevet, genomför en djup analys:
+
+1. **Branschanalys:**
+   - Identifiera bransch och företagstyp (tech-startup, traditionellt företag, offentlig sektor, konsultbolag, etc.)
+   - Anpassa formell nivå därefter (startup = informellt och dynamiskt, finans/juridik = formellt, offentlig = balanserat)
+
+2. **Kulturanalys:**
+   - Leta efter signaler om företagskultur i jobbannonsen (ord som "innovativ", "traditionell", "familjär", "professionell")
+   - Anpassa ton efter kultur (innovativ vs traditionell, platt vs hierarkisk, teamorienterad vs individuell)
+
+3. **Kravprofil:**
+   - Identifiera och rangordna de 3-5 viktigaste kraven i annonsen
+   - Prioritera dessa i brevet med konkreta exempel från CV:t som matchar varje krav
+
+4. **Nyckelordsintegration:**
+   - Identifiera 8-12 kritiska nyckelord från jobbannonsen (kompetenser, verktyg, metoder, mjuka färdigheter)
+   - Integrera naturligt med 2-3 upprepningar av de viktigaste nyckelorden
+   - Använd exakt samma terminologi som jobbannonsen
+
+5. **Differentieringsstrategi:**
+   - Hitta den unika kombinationen av erfarenheter i CV:t som passar bäst för just denna roll
+   - Framhäv detta som kandidatens unika styrka för positionen
+   - Koppla till företagets specifika behov och utmaningar
+
+Baserat på denna analys, skriv ett brev som känns PERFEKT skräddarsytt för både tjänsten OCH företaget.
+` : `
+
+**PREMIUM AUTO-ADAPTATION:**
+
+Before writing the letter, conduct a deep analysis:
+
+1. **Industry Analysis:**
+   - Identify industry and company type (tech-startup, traditional company, public sector, consultancy, etc.)
+   - Adapt formality level accordingly (startup = informal and dynamic, finance/legal = formal, public = balanced)
+
+2. **Culture Analysis:**
+   - Look for signals about company culture in the job posting (words like "innovative", "traditional", "family-like", "professional")
+   - Adapt tone to culture (innovative vs traditional, flat vs hierarchical, team-oriented vs individual)
+
+3. **Requirements Profile:**
+   - Identify and rank the 3-5 most important requirements in the posting
+   - Prioritize these in the letter with concrete examples from the CV matching each requirement
+
+4. **Keyword Integration:**
+   - Identify 8-12 critical keywords from the job posting (skills, tools, methods, soft skills)
+   - Integrate naturally with 2-3 repetitions of the most important keywords
+   - Use the exact same terminology as the job posting
+
+5. **Differentiation Strategy:**
+   - Find the unique combination of experiences in the CV that best fits this specific role
+   - Highlight this as the candidate's unique strength for the position
+   - Connect to the company's specific needs and challenges
+
+Based on this analysis, write a letter that feels PERFECTLY tailored to both the position AND the company.
+`) : '';
+
+    // Språkspecifika instruktioner
     const languageSpecificInstructions = {
       sv: {
         title: 'svenska',
@@ -245,6 +306,7 @@ Returnera BARA brevet i slutgiltigt format, redo att skickas.
 ---
 
 Du har fått tillgång till användarens CV och den aktuella jobbannonsen. Din uppgift är att skriva ett personligt brev på svenska som är helt anpassat efter den sökta tjänsten och företaget. Följ dessa riktlinjer:
+${premiumAutoInstructions}
     1. **Målgruppsanpassning:**
       - Läs igenom både CV:t och jobbannonsen noggrant. Identifiera de nyckelkrav och önskade kompetenser som anges i annonsen.
       - Koppla dessa krav direkt till användarens erfarenheter och meriter som framgår av CV:t. Ange konkreta exempel, siffror eller prestationer när det är möjligt.
@@ -280,14 +342,40 @@ Du har fått tillgång till användarens CV och den aktuella jobbannonsen. Din u
         - "Jag är övertygad om att..."
       - Skriv istället på ett naturligt sätt som varierar mellan olika brev.
 
+      **Svenska kulturella justeringar:**
+      - Balansera självsäkerhet med ödmjukhet (svensk "lagom"-balans)
+      - Använd "jag" för personliga prestationer men erkänn också teamwork där relevant
+      - Exempel: "Tillsammans med teamet lyckades jag..." eller "Jag bidrog till..."
+      - Undvik överdrivet säljande språk eller skryt
+      - Var självsäker men inte arrogant
+      - Kvantifiera resultat men gör det naturligt (inte i varje mening)
+
     5. **Anpassning:**
       - Skräddarsy brevet mot tjänsten. Referera till specifika punkter i jobbannonsen där relevant.
-      - Visa förståelse för företaget om information finns i annonsen.
+      - Visa förståelse för företaget genom att nämna:
+        * Specifika projekt eller produkter om de nämns
+        * Företagets värderingar om de framgår
+        * Bransch-specifika utmaningar
+      - Koppla din erfarenhet till företagets behov, inte bara till jobbeskrivningen.
 
     6. **Kvalitet:**
       - Kontrollera att brevet är grammatiskt korrekt.
       - Var koncis och engagerande – varje mening ska ha ett syfte.
       - Låt brevet låta som en riktig person skrev det, inte som en genererad text.
+
+    7. **ATS-optimering (Applicant Tracking Systems):**
+      - Identifiera nyckelord från jobbannonsen (kompetenser, verktyg, metoder, mjuka färdigheter)
+      - Integrera dessa nyckelord naturligt i brevet minst 2-3 gånger för viktiga termer
+      - Använd exakt samma terminologi som jobbannonsen (t.ex. "projektledning" om annonsen säger det, inte "projektledarskap")
+      - Inkludera både hårda färdigheter (teknisk kompetens) och mjuka färdigheter (ledarskap, kommunikation)
+      - VIKTIGT: Nyckelorden ska flyta naturligt i meningar - använd dem INTE som en lista
+
+    8. **Kvantifiering av prestationer:**
+      - Sök aktivt efter siffror och mätbara resultat i CV:t
+      - Inkludera minst 2-3 kvantifierbara exempel om sådana finns (budget, procentuell förbättring, antal projekt, teamstorlek, omsättning, besparingar)
+      - Exempel: "Jag ökade försäljningen med 25%" istället för "Jag förbättrade försäljningen"
+      - Exempel: "Jag ledde ett team på 8 personer och levererade 12 projekt" istället för "Jag ledde projekt"
+      - Om inga exakta siffror finns i CV:t, fokusera på konkreta resultat och omfattning
 
     Skriv nu det personliga brevet. Returnera ENDAST det färdiga brevet, inget annat.`
     :
@@ -303,6 +391,7 @@ Return ONLY the letter in final format, ready to send.
 ---
 
 You have been given access to the user's CV and the current job posting. Your task is to write a cover letter in English that is completely customized for the specific position and company. Follow these guidelines:
+${premiumAutoInstructions}
     1. **Target audience adaptation:**
       - Read through both the CV and job posting carefully. Identify the key requirements and desired competencies mentioned in the ad.
       - Connect these requirements directly to the user's experiences and merits as shown in the CV. Provide concrete examples, figures, or achievements when possible.
@@ -340,12 +429,30 @@ You have been given access to the user's CV and the current job posting. Your ta
 
     5. **Customization:**
       - Tailor the letter to the position. Refer to specific points in the job posting where relevant.
-      - Show understanding of the company if information is available in the posting.
+      - Show understanding of the company by mentioning:
+        * Specific projects or products if mentioned
+        * Company values if evident
+        * Industry-specific challenges
+      - Connect your experience to the company's needs, not just the job description.
 
     6. **Quality:**
       - Ensure the letter is grammatically correct.
       - Be concise and engaging – every sentence should have a purpose.
       - Make the letter sound like a real person wrote it, not like generated text.
+
+    7. **ATS optimization (Applicant Tracking Systems):**
+      - Identify keywords from the job posting (skills, tools, methods, soft skills)
+      - Integrate these keywords naturally in the letter at least 2-3 times for important terms
+      - Use the exact same terminology as the job posting (e.g., "project management" if the ad says that, not "project leadership")
+      - Include both hard skills (technical competence) and soft skills (leadership, communication)
+      - IMPORTANT: Keywords should flow naturally in sentences - do NOT use them as a list
+
+    8. **Quantification of achievements:**
+      - Actively search for numbers and measurable results in the CV
+      - Include at least 2-3 quantifiable examples if available (budget, percentage improvement, number of projects, team size, revenue, savings)
+      - Example: "I increased sales by 25%" instead of "I improved sales"
+      - Example: "I led a team of 8 people and delivered 12 projects" instead of "I led projects"
+      - If no exact numbers are in the CV, focus on concrete results and scope
 
     Write the cover letter now. Return ONLY the finished letter, nothing else.`;
 
