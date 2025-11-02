@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Eye, Download, Edit3, Copy, Check, FileText, ZoomIn, ZoomOut, Save } from 'lucide-react';
+import { Eye, Download, Edit3, Copy, Check, FileText, Save, Info } from 'lucide-react';
 
 interface PreviewStepProps {
   letterContent: string;
@@ -20,7 +20,6 @@ export default function PreviewStep({
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(letterContent);
   const [copied, setCopied] = useState(false);
-  const [zoom, setZoom] = useState(0.7);
   const previewRef = useRef<HTMLDivElement>(null);
 
   const handleCopy = async () => {
@@ -53,77 +52,75 @@ export default function PreviewStep({
 
   return (
     <div className="space-y-6">
-      {/* Action Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4 p-4 bg-white rounded-xl border border-gray-200">
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setZoom(Math.max(0.5, zoom - 0.1))}
-            className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
-          >
-            <ZoomOut className="w-4 h-4" />
-          </button>
-          <span className="text-sm text-gray-600 min-w-[60px] text-center">
-            {Math.round(zoom * 100)}%
-          </span>
-          <button
-            onClick={() => setZoom(Math.min(1, zoom + 0.1))}
-            className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
-          >
-            <ZoomIn className="w-4 h-4" />
-          </button>
+      {/* Friendly Info Banner */}
+      <div className="bg-blue-50/50 border border-blue-200 rounded-xl p-4">
+        <div className="flex items-center gap-3">
+          <Info className="w-5 h-5 text-blue-600 flex-shrink-0" />
+          <p className="text-sm text-blue-900">
+            <span className="font-medium">Ditt brev är klart!</span> Kom ihåg att spara eller ladda ner ditt brev så att du kan använda det senare.
+          </p>
         </div>
+      </div>
 
-        <div className="flex items-center gap-2">
-          <motion.button
-            onClick={handleCopy}
-            className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            {copied ? (
-              <>
-                <Check className="w-4 h-4 text-green-600" />
-                <span className="text-sm">Kopierat!</span>
-              </>
-            ) : (
-              <>
-                <Copy className="w-4 h-4" />
-                <span className="text-sm">Kopiera</span>
-              </>
-            )}
-          </motion.button>
-
-          <motion.button
-            onClick={() => setIsEditing(!isEditing)}
-            className="flex items-center gap-2 px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Edit3 className="w-4 h-4" />
-            <span className="text-sm">{isEditing ? 'Avbryt' : 'Redigera'}</span>
-          </motion.button>
-
-          {onSave && (
+      {/* Action Bar - Sticky during scroll */}
+      <div className="sticky top-4 z-10 bg-white rounded-xl border-2 border-gray-200 shadow-lg p-4">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          {/* Left side: Secondary actions */}
+          <div className="flex items-center gap-2">
             <motion.button
-              onClick={onSave}
-              className="flex items-center gap-2 px-4 py-2 text-white bg-green-600 rounded-lg hover:bg-green-700 transition-colors"
+              onClick={() => setIsEditing(!isEditing)}
+              className="flex items-center gap-2 px-4 py-2.5 text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all font-medium"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <Save className="w-4 h-4" />
-              <span className="text-sm font-medium">Spara brev</span>
+              <Edit3 className="w-4 h-4" />
+              <span className="text-sm">{isEditing ? 'Avbryt' : 'Redigera'}</span>
             </motion.button>
-          )}
 
-          <motion.button
-            onClick={onDownload}
-            className="flex items-center gap-2 px-4 py-2 text-white bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg hover:from-pink-700 hover:to-purple-700 transition-all"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
-            <Download className="w-4 h-4" />
-            <span className="text-sm font-medium">Ladda ner PDF</span>
-          </motion.button>
+            <motion.button
+              onClick={handleCopy}
+              className="flex items-center gap-2 px-4 py-2.5 text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all font-medium"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              {copied ? (
+                <>
+                  <Check className="w-4 h-4 text-green-600" />
+                  <span className="text-sm">Kopierat!</span>
+                </>
+              ) : (
+                <>
+                  <Copy className="w-4 h-4" />
+                  <span className="text-sm">Kopiera</span>
+                </>
+              )}
+            </motion.button>
+          </div>
+
+          {/* Right side: Primary actions */}
+          <div className="flex items-center gap-2">
+            {onSave && (
+              <motion.button
+                onClick={onSave}
+                className="flex items-center gap-2 px-5 py-2.5 text-white bg-gradient-to-r from-green-500 to-green-600 rounded-lg hover:from-green-600 hover:to-green-700 transition-all shadow-md hover:shadow-lg font-medium"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Save className="w-4 h-4" />
+                <span className="text-sm">Spara</span>
+              </motion.button>
+            )}
+
+            <motion.button
+              onClick={onDownload}
+              className="flex items-center gap-2 px-5 py-2.5 text-white bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg hover:from-purple-600 hover:to-pink-700 transition-all shadow-md hover:shadow-lg font-medium"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Download className="w-4 h-4" />
+              <span className="text-sm">Ladda ner</span>
+            </motion.button>
+          </div>
         </div>
       </div>
 
@@ -162,13 +159,7 @@ export default function PreviewStep({
         ) : (
           <motion.div
             ref={previewRef}
-            className="bg-white shadow-2xl rounded-lg overflow-hidden"
-            style={{
-              width: '210mm',
-              minHeight: '297mm',
-              transform: `scale(${zoom})`,
-              transformOrigin: 'top center'
-            }}
+            className="bg-white shadow-2xl rounded-lg overflow-hidden w-full max-w-4xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             whileHover={{ boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.25)' }}

@@ -75,6 +75,8 @@ export default function CreateLetterPage() {
   const [error, setError] = useState<string | null>(null);
   const [currentWizardStep, setCurrentWizardStep] = useState(initialStep);
   const [hasTriggeredGeneration, setHasTriggeredGeneration] = useState(false);
+  const [hasDownloadedOrSaved, setHasDownloadedOrSaved] = useState(false);
+  const [showExitWarning, setShowExitWarning] = useState(false);
 
   const isPremium = subscriptionTier === 'premium';
 
@@ -148,6 +150,13 @@ export default function CreateLetterPage() {
     }
   }, [currentWizardStep, generatedLetter, isGenerating, hasTriggeredGeneration, handleGenerateLetter]);
 
+  // Auto-advance to preview as soon as letter is ready
+  useEffect(() => {
+    if (currentWizardStep === 3 && generatedLetter && !isGenerating) {
+      setCurrentWizardStep(4);
+    }
+  }, [currentWizardStep, generatedLetter, isGenerating]);
+
   const handleEditLetter = (content: string) => {
     setGeneratedLetter(content);
     if (letterData) {
@@ -178,6 +187,7 @@ export default function CreateLetterPage() {
       const savedLetter = await saveLetter(dataToSave);
 
       if (savedLetter) {
+        setHasDownloadedOrSaved(true);
         // Navigate to my letters after successful save
         router.push('/dashboard/mina-brev');
       }
@@ -213,6 +223,7 @@ export default function CreateLetterPage() {
         a.download = `personligt-brev.${format}`;
         a.click();
         URL.revokeObjectURL(url);
+        setHasDownloadedOrSaved(true);
       } else {
         console.error('Download failed:', await response.text());
       }
@@ -222,6 +233,11 @@ export default function CreateLetterPage() {
   };
 
   const handleWizardComplete = () => {
+    // Check if user has saved or downloaded the letter
+    if (!hasDownloadedOrSaved && currentWizardStep === 4 && generatedLetter) {
+      setShowExitWarning(true);
+      return;
+    }
     router.push('/dashboard/mina-brev');
   };
 
@@ -309,12 +325,53 @@ export default function CreateLetterPage() {
   ];
 
   return (
-    <WizardContainer
-      steps={wizardSteps}
-      onComplete={handleWizardComplete}
-      onStepChange={setCurrentWizardStep}
-      initialStep={initialStep}
-      initialCompletedSteps={initialCompletedSteps}
-    />
+    <>
+      <WizardContainer
+        steps={wizardSteps}
+        onComplete={handleWizardComplete}
+        onStepChange={setCurrentWizardStep}
+        initialStep={initialStep}
+        initialCompletedSteps={initialCompletedSteps}
+      />
+
+      {/* Exit Warning Modal */}
+      {showExitWarning && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 space-y-4">
+            <div className="flex items-start gap-3">
+              <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <Info className="w-5 h-5 text-blue-600" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  Vill du spara eller ladda ner först?
+                </h3>
+                <p className="text-sm text-gray-600">
+                  Ditt personliga brev är färdigt! Om du går vidare utan att spara eller ladda ner kan du inte komma åt det senare.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex gap-3 pt-2">
+              <button
+                onClick={() => setShowExitWarning(false)}
+                className="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+              >
+                Ja, gå tillbaka
+              </button>
+              <button
+                onClick={() => {
+                  setShowExitWarning(false);
+                  router.push('/dashboard/mina-brev');
+                }}
+                className="flex-1 px-4 py-2.5 bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 rounded-lg font-medium transition-colors"
+              >
+                Nej, avsluta ändå
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
