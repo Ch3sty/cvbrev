@@ -160,7 +160,8 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       label: 'Gästinbjudningar',
       icon: <Users className="w-5 h-5" />,
       section: 'main',
-      showOnlyWhen: isPremium
+      requiresPremium: true,
+      locked: !isPremium
     },
     {
       path: '/dashboard/skapa-brev',
@@ -421,10 +422,15 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
                       : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900 hover:shadow-sm'
                     }
                     ${collapsed ? 'justify-center' : ''}
+                    ${'locked' in item && item.locked ? 'opacity-60 cursor-not-allowed' : ''}
                   `}
+                  {...('locked' in item && item.locked ? { onClick: (e: React.MouseEvent) => e.preventDefault() } : {})}
                 >
                   <span className="flex-shrink-0">{item.icon}</span>
                   {!collapsed && <span className="ml-3 whitespace-pre-line">{item.label}</span>}
+                  {'locked' in item && item.locked && !collapsed && (
+                    <Crown className="w-4 h-4 ml-auto text-yellow-600" />
+                  )}
                   {'highlight' in item && item.highlight && !collapsed && (
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 text-black text-xs font-bold rounded-full animate-pulse">
                       NY
