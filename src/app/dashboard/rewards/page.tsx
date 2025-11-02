@@ -5,10 +5,8 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { useRouter } from 'next/navigation'
 import GameifiedRewardsView from '@/components/rewards/GameifiedRewardsView'
 import RewardClaimModal from '@/components/rewards/RewardClaimModal'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { Loader2, Trophy } from 'lucide-react'
 
 interface RewardStatus {
@@ -157,14 +155,7 @@ export default function RewardsPage() {
 
       <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-7xl relative z-10">
         {/* Main Content */}
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4 sm:space-y-6">
-        <TabsList className="grid w-full mx-auto grid-cols-1 max-w-xs">
-          <TabsTrigger value="overview" className="flex items-center gap-2 text-sm sm:text-base">
-            Översikt
-          </TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="overview" className="space-y-4 sm:space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           <GameifiedRewardsView
             userLevel={{
               current_level: rewardStatus.currentLevel,
@@ -176,13 +167,10 @@ export default function RewardsPage() {
             }}
             onClaimReward={(rewardId) => handleClaimReward(rewardStatus.availableRewards.find(r => r.id === rewardId))}
           />
-
-        </TabsContent>
+        </div>
 
         {/* Milestones tab removed - integrated in main overview */}
         {/* Guest invitations moved to separate page: /dashboard/gastinbjudningar */}
-
-        </Tabs>
 
         {/* Claim Modal */}
         {showClaimModal && selectedReward && (

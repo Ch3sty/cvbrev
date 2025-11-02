@@ -168,11 +168,12 @@ export default function GastinbjudningarPage() {
           }}
           invitations={invitations.map(inv => ({
             id: inv.id,
-            email: inv.guest_email || '',
+            guest_email: inv.guest_email || '',
             status: inv.status,
             invitation_code: inv.invitation_code,
             created_at: inv.created_at,
-            expires_at: inv.expires_at
+            expires_at: inv.expires_at,
+            trial_duration_days: 2
           }))}
           onCreateInvitation={handleCreateInvitation}
           onCopyLink={(code) => {
