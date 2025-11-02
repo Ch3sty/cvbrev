@@ -1,8 +1,12 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Users, Gift, Crown, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
+import HeroSection from '@/components/guest-invitations/HeroSection';
+import QuickInviteForm from '@/components/guest-invitations/QuickInviteForm';
+import BenefitsShowcase from '@/components/guest-invitations/BenefitsShowcase';
+import SimplifiedJourney from '@/components/guest-invitations/SimplifiedJourney';
 import GuestInvitationCard from '@/components/rewards/GuestInvitationCard';
 
 interface InvitationData {
@@ -35,6 +39,7 @@ export default function GastinbjudningarPage() {
   const [loading, setLoading] = useState(true);
   const [invitations, setInvitations] = useState<InvitationData[]>([]);
   const [rewardStatus, setRewardStatus] = useState<RewardStatus | null>(null);
+  const formRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     loadData();
@@ -82,6 +87,16 @@ export default function GastinbjudningarPage() {
     }
   };
 
+  const scrollToForm = () => {
+    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
+  const calculateEarnedDays = () => {
+    // Calculate days earned from accepted/converted invitations
+    // For now, return 0 - this can be enhanced later based on invitation statuses
+    return invitations.filter(inv => inv.status === 'accepted').length * 7;
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -91,73 +106,34 @@ export default function GastinbjudningarPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-4 sm:mb-6 md:mb-8"
-      >
-        <div className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4">
-          <div className="p-3 sm:p-4 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl sm:rounded-2xl shadow-lg flex-shrink-0">
-            <Users className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 text-white" />
-          </div>
-          <div className="min-w-0 flex-1">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent truncate">
-              Gästinbjudningar
-            </h1>
-            <p className="text-xs sm:text-sm text-slate-600 mt-1 truncate">
-              Belönas med premium
-            </p>
-          </div>
-        </div>
-        <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-          Bjud in dina vänner och kollegor att testa Jobbcoach.ai Premium. När de accepterar får de 2 dagars gratis premium,
-          och när de sedan konverterar till betalande kunder får du 7 dagars premium som tack!
-        </p>
-      </motion.div>
+    <div className="max-w-7xl mx-auto p-3 sm:p-4 md:p-6 space-y-8 sm:space-y-12">
+      {/* Hero Section */}
+      <HeroSection
+        earnedDays={calculateEarnedDays()}
+        onCTAClick={scrollToForm}
+      />
 
-      {/* Reward Info Banner */}
+      {/* Quick Invite Form */}
+      <div ref={formRef}>
+        <QuickInviteForm
+          onSubmit={handleCreateInvitation}
+          remainingQuota={rewardStatus?.guestInvitations?.remaining || 5}
+          totalQuota={rewardStatus?.guestInvitations?.total || 5}
+          resetAt={rewardStatus?.guestInvitations?.resetAt}
+        />
+      </div>
+
+      {/* Benefits Showcase */}
+      <BenefitsShowcase />
+
+      {/* Simplified Journey */}
+      <SimplifiedJourney />
+
+      {/* Detailed Invitation Tracking */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="mb-6 p-4 sm:p-6 bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200/50 rounded-xl shadow-sm"
-      >
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* Guest reward */}
-          <div className="flex items-start gap-3">
-            <div className="p-2.5 bg-white rounded-lg shadow-sm flex-shrink-0">
-              <Gift className="w-5 h-5 text-purple-600" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 text-sm sm:text-base">Gäst får</h3>
-              <p className="text-xs sm:text-sm text-slate-600 mt-0.5">
-                2 dagars gratis Premium vid acceptans
-              </p>
-            </div>
-          </div>
-
-          {/* Inviter reward */}
-          <div className="flex items-start gap-3">
-            <div className="p-2.5 bg-white rounded-lg shadow-sm flex-shrink-0">
-              <Crown className="w-5 h-5 text-yellow-600" />
-            </div>
-            <div>
-              <h3 className="font-semibold text-slate-900 text-sm sm:text-base">Du får</h3>
-              <p className="text-xs sm:text-sm text-slate-600 mt-0.5">
-                7 dagars Premium när gästen konverterar till betalande
-              </p>
-            </div>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Guest Invitation Card */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
+        transition={{ delay: 0.3 }}
       >
         <GuestInvitationCard
           allowance={{
