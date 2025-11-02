@@ -36,19 +36,37 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
 
       console.log('[OnboardingContext] 👤 User ID:', user.id);
 
-      // Fetch profile data
-      const { data: profile } = await supabase
+      // Fetch profile data with proper error handling
+      const { data: profile, error: profileError } = await supabase
         .from('profiles')
-        .select('onboarding_steps_completed, onboarding_completed, onboarding_reward_claimed, experience, education')
+        .select('*')
         .eq('id', user.id)
         .single();
 
+      // Handle profile fetch errors
+      if (profileError) {
+        console.error('[OnboardingContext] ❌ Profile query error:', profileError);
+        console.error('[OnboardingContext] Error code:', profileError.code);
+        console.error('[OnboardingContext] Error message:', profileError.message);
+
+        // Only return if it's a real error, not just "no rows found"
+        if (profileError.code !== 'PGRST116') {
+          console.error('[OnboardingContext] Critical database error - aborting');
+          setIsLoading(false);
+          return;
+        }
+
+        // If PGRST116 (no rows), profile doesn't exist yet
+        console.log('[OnboardingContext] Profile not found (PGRST116) - this is OK for new users');
+      }
+
       if (!profile) {
-        console.log('[OnboardingContext] ❌ No profile found');
+        console.log('[OnboardingContext] ❌ No profile data available');
         setIsLoading(false);
         return;
       }
 
+      console.log('[OnboardingContext] ✅ Profile found successfully');
       console.log('[OnboardingContext] 📋 Profile onboarding_steps_completed:', profile.onboarding_steps_completed);
 
       // Fetch actual counts from feature tables for hybrid validation
@@ -119,7 +137,16 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
       setOnboardingCompleted(validatedSteps.length >= 6);
       setRewardClaimed(profile.onboarding_reward_claimed || false);
     } catch (error) {
-      console.error('Error fetching onboarding status:', error);
+      console.error('[OnboardingContext] ❌ CRITICAL ERROR in fetchOnboardingStatus:', error);
+
+      // Log detailed error information
+      if (error instanceof Error) {
+        console.error('[OnboardingContext] Error name:', error.name);
+        console.error('[OnboardingContext] Error message:', error.message);
+        console.error('[OnboardingContext] Error stack:', error.stack);
+      } else {
+        console.error('[OnboardingContext] Error details:', JSON.stringify(error, null, 2));
+      }
     } finally {
       setIsLoading(false);
     }
