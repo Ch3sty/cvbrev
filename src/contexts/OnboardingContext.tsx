@@ -49,13 +49,15 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
         { count: letterCount },
         { count: analysisCount },
         { count: linkedinCount },
-        { count: applicationCount }
+        { count: templateDownloadCount },
+        { count: jobMatchCount }
       ] = await Promise.all([
         supabase.from('user_cvs').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
         supabase.from('letters').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
         supabase.from('cv_analysis_jobs').select('id', { count: 'exact', head: true }).eq('user_id', user.id).eq('status', 'completed'),
         supabase.from('linkedin_optimizations').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
-        supabase.from('job_applications').select('id', { count: 'exact', head: true }).eq('user_id', user.id)
+        supabase.from('formatted_cv_downloads').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
+        supabase.from('job_matchings_cache').select('id', { count: 'exact', head: true }).eq('user_id', user.id)
       ]);
 
       // Hybrid validation: Check both onboarding_steps_completed array AND actual feature usage
@@ -82,16 +84,14 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
         validatedSteps.push('optimize_linkedin');
       }
 
-      // Step 5: Apply to job
-      if (completedStepsArray.includes('apply_job') || (applicationCount || 0) > 0) {
-        validatedSteps.push('apply_job');
+      // Step 5: Download CV template
+      if (completedStepsArray.includes('download_cv_template') || (templateDownloadCount || 0) > 0) {
+        validatedSteps.push('download_cv_template');
       }
 
-      // Step 6: Complete profile (experience OR education)
-      const hasExperience = Array.isArray(profile.experience) && profile.experience.length > 0;
-      const hasEducation = Array.isArray(profile.education) && profile.education.length > 0;
-      if (completedStepsArray.includes('complete_profile') || hasExperience || hasEducation) {
-        validatedSteps.push('complete_profile');
+      // Step 6: Match jobs
+      if (completedStepsArray.includes('match_jobs') || (jobMatchCount || 0) > 0) {
+        validatedSteps.push('match_jobs');
       }
 
       // Update state with validated steps
@@ -108,12 +108,13 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     fetchOnboardingStatus();
 
-    // Subscribe to profile changes for real-time updates
+    // Subscribe to profile and feature table changes for real-time updates
     const setupRealtimeSubscription = async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user?.id) return null;
+      if (!user?.id) return [];
 
-      const channel = supabase
+      // Subscribe to profiles table
+      const profileChannel = supabase
         .channel('onboarding_profile_changes')
         .on(
           'postgres_changes',
@@ -123,25 +124,81 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
             table: 'profiles',
             filter: `id=eq.${user.id}`
           },
-          (payload) => {
-            // When profile updates, refetch with full hybrid validation
-            // This ensures we always have accurate counts from all feature tables
-            fetchOnboardingStatus();
-          }
+          () => fetchOnboardingStatus()
         )
         .subscribe();
 
-      return channel;
+      // Subscribe to user_cvs table
+      const cvChannel = supabase
+        .channel('onboarding_cv_changes')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'user_cvs',
+            filter: `user_id=eq.${user.id}`
+          },
+          () => fetchOnboardingStatus()
+        )
+        .subscribe();
+
+      // Subscribe to letters table
+      const letterChannel = supabase
+        .channel('onboarding_letter_changes')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'letters',
+            filter: `user_id=eq.${user.id}`
+          },
+          () => fetchOnboardingStatus()
+        )
+        .subscribe();
+
+      // Subscribe to formatted_cv_downloads table
+      const downloadChannel = supabase
+        .channel('onboarding_download_changes')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'formatted_cv_downloads',
+            filter: `user_id=eq.${user.id}`
+          },
+          () => fetchOnboardingStatus()
+        )
+        .subscribe();
+
+      // Subscribe to job_matchings_cache table
+      const matchChannel = supabase
+        .channel('onboarding_match_changes')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'job_matchings_cache',
+            filter: `user_id=eq.${user.id}`
+          },
+          () => fetchOnboardingStatus()
+        )
+        .subscribe();
+
+      return [profileChannel, cvChannel, letterChannel, downloadChannel, matchChannel];
     };
 
-    const channelPromise = setupRealtimeSubscription();
+    const channelsPromise = setupRealtimeSubscription();
 
     // Cleanup on unmount
     return () => {
-      channelPromise.then((channel) => {
-        if (channel) {
+      channelsPromise.then((channels) => {
+        channels.forEach(channel => {
           supabase.removeChannel(channel);
-        }
+        });
       });
     };
   }, [supabase, fetchOnboardingStatus]);

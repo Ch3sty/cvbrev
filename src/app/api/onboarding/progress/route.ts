@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Valid step names
-    const validSteps = ['upload_cv', 'create_letter', 'analyze_cv', 'optimize_linkedin'];
+    const validSteps = ['upload_cv', 'create_letter', 'analyze_cv', 'optimize_linkedin', 'download_cv_template', 'match_jobs'];
     if (!validSteps.includes(step_name)) {
       return NextResponse.json(
         { success: false, error: 'Invalid step_name' },

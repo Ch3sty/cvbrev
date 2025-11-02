@@ -289,6 +289,18 @@ Deno.serve(async (req) => {
         });
 
         console.log('[Match-Jobs-V2] ✅ Cached matching for 1 hour');
+
+        // Update onboarding progress for job matching
+        try {
+          await supabase.rpc('update_onboarding_progress', {
+            user_id: userId,
+            step_name: 'match_jobs'
+          });
+          console.log('[Match-Jobs-V2] ✅ Updated onboarding progress');
+        } catch (onboardingError) {
+          console.error('[Match-Jobs-V2] Onboarding progress error:', onboardingError);
+          // Non-blocking, continue
+        }
       } catch (cacheError) {
         console.error('[Match-Jobs-V2] Cache save error:', cacheError);
         // Non-blocking error, continue

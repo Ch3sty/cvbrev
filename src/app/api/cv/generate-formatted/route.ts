@@ -2266,6 +2266,14 @@ export async function POST(request: NextRequest) {
 
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
+        // Record download in formatted_cv_downloads table
+        await supabase.from('formatted_cv_downloads').insert({
+          user_id: user.id,
+          template_id: template,
+          downloaded_at: new Date().toISOString()
+        });
+
+        // Update onboarding progress
         await supabase.rpc('update_onboarding_progress', {
           user_id: user.id,
           step_name: 'download_cv_template'
