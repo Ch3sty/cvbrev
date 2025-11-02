@@ -279,8 +279,8 @@ export default function CVGenerationModal({
             </h3>
             <p className="text-gray-600 max-w-md mx-auto">
               {isGenerating
-                ? 'AI:n arbetar med att skapa ett professionellt CV baserat på din information och valda mall.'
-                : 'Klicka på "Skapa CV" för att låta AI:n generera ditt professionella CV.'
+                ? 'Vi arbetar med att skapa ett professionellt CV baserat på din information och valda mall.'
+                : 'Klicka på "Skapa CV" för att generera ditt professionella CV.'
               }
             </p>
 
@@ -340,7 +340,7 @@ export default function CVGenerationModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden bg-white/95 backdrop-blur-xl border border-gray-200/80">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden bg-white/95 backdrop-blur-xl border border-gray-200/80 mx-auto">
         <DialogHeader className="border-b border-gray-200 pb-4">
           <DialogTitle className="text-2xl font-bold text-gray-900 flex items-center gap-2">
             <Wand2 className="w-6 h-6 text-pink-600" />

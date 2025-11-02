@@ -85,7 +85,6 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
 }) => {
   const [newGuestEmail, setNewGuestEmail] = useState('');
   const [isCreating, setIsCreating] = useState(false);
-  const [activeTab, setActiveTab] = useState<'create' | 'journey'>('journey');
 
   // Journey stages definition
   const journeyStages: JourneyStage[] = [
@@ -428,57 +427,20 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
                 <p className="text-sm text-gray-600">Följ varje inbjudans resa mot konvertering</p>
               </div>
             </div>
-
-            {/* Tab Navigation */}
-            <div className="flex space-x-1 p-1 bg-gray-100 rounded-lg">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setActiveTab('journey')}
-                className={`
-                  ${activeTab === 'journey'
-                    ? 'bg-white text-gray-900 shadow-sm border border-gray-200'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                  } transition-all duration-200
-                `}
-              >
-                Timelinevy ({invitations.length})
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setActiveTab('create')}
-                className={`
-                  ${activeTab === 'create'
-                    ? 'bg-white text-gray-900 shadow-sm border border-gray-200'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                  } transition-all duration-200
-                `}
-              >
-                Skapa ny
-              </Button>
-            </div>
           </div>
         </CardHeader>
 
         <CardContent className="relative p-6 space-y-6">
-          {activeTab === 'journey' ? (
-            <div className="space-y-6">
+          <div className="space-y-6">
               {invitations.length === 0 ? (
                 <div className="text-center py-12">
                   <div className="w-16 h-16 mx-auto mb-4 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center border border-gray-200">
                     <Users className="w-8 h-8 text-gray-400" />
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-2">Inga inbjudningar ännu</h3>
-                  <p className="text-gray-600 mb-4">
+                  <p className="text-gray-600">
                     Skicka din första inbjudan för att se resan mot konvertering!
                   </p>
-                  <Button
-                    onClick={() => setActiveTab('create')}
-                    className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white"
-                  >
-                    Skapa första inbjudan
-                  </Button>
                 </div>
               ) : (
                 <div className="space-y-6">
@@ -654,138 +616,6 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
                 </div>
               )}
             </div>
-          ) : (
-            <div className="space-y-6">
-              {/* Email Input Section */}
-              <div className="space-y-3">
-                <label className="block text-sm font-semibold text-gray-700">
-                  E-postadress till gäst
-                </label>
-                <div className="flex space-x-3">
-                  <div className="flex-1 relative">
-                    <input
-                      type="email"
-                      value={newGuestEmail}
-                      onChange={(e) => setNewGuestEmail(e.target.value)}
-                      placeholder="exempel@email.com"
-                      className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all duration-200"
-                      disabled={isCreating || allowance.remaining_invitations <= 0}
-                    />
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-4">
-                      <Mail className="w-4 h-4 text-gray-400" />
-                    </div>
-                  </div>
-                  <Button
-                    onClick={handleCreateInvitation}
-                    disabled={!newGuestEmail.trim() || isCreating || allowance.remaining_invitations <= 0}
-                    className="px-6 py-3 bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-                  >
-                    {isCreating ? (
-                      <RefreshCw className="w-5 h-5 animate-spin" />
-                    ) : (
-                      <>
-                        <Mail className="w-5 h-5 mr-2" />
-                        Skicka inbjudan
-                      </>
-                    )}
-                  </Button>
-                </div>
-              </div>
-
-              {/* Remaining Invitations Display */}
-              <div className="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg border border-blue-200/60">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <UserPlus className="w-5 h-5 text-blue-600" />
-                    <div>
-                      <p className="font-medium text-blue-800">
-                        {allowance.remaining_invitations} inbjudningar kvar
-                      </p>
-                      <p className="text-sm text-blue-700">
-                        av {allowance.total_allowance} denna vecka
-                      </p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="w-16 bg-blue-100 rounded-full h-2">
-                      <div
-                        className="bg-blue-500 h-2 rounded-full transition-all duration-300"
-                        style={{ width: `${Math.max(0, (allowance.remaining_invitations / allowance.total_allowance) * 100)}%` }}
-                      />
-                    </div>
-                    <p className="text-xs text-blue-600 mt-1">
-                      {allowance.resetAt ? (() => {
-                        const resetDate = new Date(allowance.resetAt);
-                        const now = new Date();
-                        const diffMs = resetDate.getTime() - now.getTime();
-                        const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
-                        return `Reset om ${diffDays} ${diffDays === 1 ? 'dag' : 'dagar'}`;
-                      })() : 'Inte aktiverad än'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Quota Warning */}
-              {allowance.remaining_invitations <= 0 && (
-                <div className="p-5 bg-gradient-to-br from-orange-50 to-red-50 border border-orange-200/60 rounded-xl">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-10 h-10 rounded-lg bg-orange-100 flex items-center justify-center">
-                      <AlertCircle className="w-5 h-5 text-orange-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-orange-800">Ingen kvot kvar denna vecka</h4>
-                      <p className="text-sm text-orange-700 mt-1">
-                        Du har använt alla dina inbjudningar denna vecka. {allowance.resetAt ? (() => {
-                          const resetDate = new Date(allowance.resetAt);
-                          const now = new Date();
-                          const diffMs = resetDate.getTime() - now.getTime();
-                          const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
-                          return `Fler blir tillgängliga om ${diffDays} ${diffDays === 1 ? 'dag' : 'dagar'}.`;
-                        })() : 'Fler blir tillgängliga om 7 dagar efter första användning.'}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Guest Benefits Preview */}
-              <div className="p-5 bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200/60 rounded-xl">
-                <div className="flex items-center space-x-3 mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
-                    <Gift className="w-5 h-5 text-green-600" />
-                  </div>
-                  <h4 className="font-semibold text-green-800">Vad får din gäst?</h4>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  <div className="flex items-center space-x-2 text-sm text-green-700">
-                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                    <span>7 dagars gratis Premium</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-sm text-green-700">
-                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                    <span>Obegränsade personliga brev</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-sm text-green-700">
-                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                    <span>Avancerad CV-analys</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-sm text-green-700">
-                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                    <span>Prioriterad support</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-sm text-green-700">
-                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                    <span>Automatisk tonalitetsanpassning</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-sm text-green-700">
-                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                    <span>Kompetensanalys</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
         </CardContent>
       </Card>
     </div>

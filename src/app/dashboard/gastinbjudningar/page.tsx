@@ -111,6 +111,7 @@ export default function GastinbjudningarPage() {
       <HeroSection
         earnedDays={calculateEarnedDays()}
         onCTAClick={scrollToForm}
+        hasInvitations={invitations.length > 0}
       />
 
       {/* Quick Invite Form */}

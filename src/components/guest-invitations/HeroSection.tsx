@@ -7,9 +7,10 @@ import { Button } from '@/components/ui/button';
 interface HeroSectionProps {
   earnedDays?: number;
   onCTAClick: () => void;
+  hasInvitations?: boolean;
 }
 
-export default function HeroSection({ earnedDays = 0, onCTAClick }: HeroSectionProps) {
+export default function HeroSection({ earnedDays = 0, onCTAClick, hasInvitations = false }: HeroSectionProps) {
   return (
     <section className="relative overflow-hidden">
       {/* Animated background gradient */}
@@ -104,22 +105,24 @@ export default function HeroSection({ earnedDays = 0, onCTAClick }: HeroSectionP
           får du en hel vecka extra Premium. Gratis. Inga krångliga villkor.
         </motion.p>
 
-        {/* Primary CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="mb-6 sm:mb-8"
-        >
-          <Button
-            size="lg"
-            onClick={onCTAClick}
-            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-base sm:text-lg px-8 py-6 sm:py-7 shadow-xl hover:shadow-2xl transition-all duration-300 group"
+        {/* Primary CTA - Only show if no invitations sent yet */}
+        {!hasInvitations && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="mb-6 sm:mb-8"
           >
-            <Zap className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-            Skicka första inbjudan
-          </Button>
-        </motion.div>
+            <Button
+              size="lg"
+              onClick={onCTAClick}
+              className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-base sm:text-lg px-8 py-6 sm:py-7 shadow-xl hover:shadow-2xl transition-all duration-300 group"
+            >
+              <Zap className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+              Skicka första inbjudan
+            </Button>
+          </motion.div>
+        )}
 
         {/* Earned badge */}
         {earnedDays > 0 && (
