@@ -65,8 +65,8 @@ const tonalityOptions = [
   },
   {
     id: 'auto' as Tonality,
-    label: 'AI-val',
-    description: 'AI anpassar optimalt',
+    label: 'Smart-anpassad',
+    description: 'Vi väljer optimal ton för jobbet',
     icon: Bot,
     recommendedFor: 'Max effekt',
     color: 'from-purple-500 to-indigo-600',
@@ -195,7 +195,7 @@ export default function SettingsStep({
                 Lås upp Premium-funktioner
               </h4>
               <p className="text-sm text-gray-700 mb-3">
-                Få tillgång till AI-val tonalitet och andra avancerade funktioner som ger dina ansökningar extra kraft.
+                Få tillgång till Smart-anpassad tonalitet och andra avancerade funktioner som ger dina ansökningar extra kraft.
               </p>
               <button className="text-sm font-medium text-purple-600 hover:text-purple-700 underline">
                 Uppgradera till Premium →

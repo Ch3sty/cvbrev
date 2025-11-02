@@ -86,7 +86,7 @@ export default function WizardContainer({
         {/* Header */}
         <div className="mb-4 sm:mb-6 md:mb-8">
           <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">Skapa Personligt Brev</h1>
-          <p className="text-sm sm:text-base text-gray-600">Låt AI hjälpa dig skapa det perfekta personliga brevet</p>
+          <p className="text-sm sm:text-base text-gray-600">Vi hjälper dig skapa det perfekta personliga brevet – professionellt och personligt</p>
         </div>
 
         {/* Progress Bar */}

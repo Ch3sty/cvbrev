@@ -38,13 +38,21 @@ export default function JobDescriptionStep({
           <Info className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
           <div className="space-y-2">
             <p className="text-sm font-medium text-blue-900">
-              Tips för bästa resultat:
+              Så här hjälper vi dig skapa det perfekta personliga brevet:
             </p>
             <ul className="text-sm text-blue-800 space-y-1">
-              <li>• Klistra in hela jobbannonsen för mest exakt matchning</li>
-              <li>• Inkludera företagsnamn och position</li>
-              <li>• AI kommer analysera kraven och anpassa ditt brev</li>
+              <li>• Klistra in hela jobbannonsen – ju mer information, desto bättre matchning</li>
+              <li>• Vi analyserar företagets krav och ton, sedan matchar vi det mot din unika kompetens</li>
+              <li>• Vårt system extraherar nyckelord och anpassar formuleringar för maximal effekt</li>
+              <li>• Vi optimerar brevet för både rekryterare och ATS-system</li>
+              <li>• Resultatet: Ett unikt, skräddarsytt brev som verkligen sticker ut</li>
             </ul>
+            <div className="mt-3 pt-2 border-t border-blue-200">
+              <p className="text-xs text-blue-700 flex items-center gap-1">
+                <Sparkles className="w-3 h-3" />
+                <span className="font-medium">Tips:</span> Inkludera företagsnamn, position och alla krav från annonsen för bästa resultat
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -57,7 +65,7 @@ export default function JobDescriptionStep({
             onChange={(e) => onJobDescriptionChange(e.target.value)}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            placeholder="Klistra in jobbannonsen här eller beskriv positionen du söker..."
+            placeholder="Klistra in hela jobbannonsen här...&#10;&#10;Vi läser mellan raderna och hjälper dig skapa ett personligt brev som matchar både företagets krav och din erfarenhet perfekt."
             className={`
               w-full h-64 p-6 pr-32
               border-2 rounded-xl
@@ -77,7 +85,7 @@ export default function JobDescriptionStep({
             {jobDescription.length} tecken
           </div>
 
-          {/* AI Keywords Overlay */}
+          {/* Keywords Overlay */}
           <AnimatePresence>
             {detectedKeywords.length > 0 && (
               <motion.div
@@ -88,7 +96,7 @@ export default function JobDescriptionStep({
               >
                 <div className="flex items-center gap-2 mb-2">
                   <Sparkles className="w-4 h-4 text-pink-500" />
-                  <span className="text-xs font-medium text-gray-700">AI-detekterade nyckelord</span>
+                  <span className="text-xs font-medium text-gray-700">Upptäckta nyckelkompetenser</span>
                 </div>
                 <div className="flex flex-wrap gap-1">
                   {detectedKeywords.map((keyword, index) => (
@@ -109,31 +117,6 @@ export default function JobDescriptionStep({
         </div>
       </div>
 
-      {/* Quick Templates */}
-      <div className="space-y-3">
-        <p className="text-sm font-medium text-gray-700">Snabbmallar:</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {[
-            { icon: Briefcase, label: 'Allmän ansökan', text: 'Jag söker en position som [roll] hos [företag]...' },
-            { icon: Target, label: 'Specifik roll', text: 'Med hänvisning till er annons om [position] på [plattform]...' }
-          ].map((template) => (
-            <motion.button
-              key={template.label}
-              onClick={() => onJobDescriptionChange(template.text)}
-              className="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-gray-300 transition-all text-left"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <template.icon className="w-5 h-5 text-gray-600" />
-              <div>
-                <p className="text-sm font-medium text-gray-900">{template.label}</p>
-                <p className="text-xs text-gray-600 truncate">{template.text}</p>
-              </div>
-            </motion.button>
-          ))}
-        </div>
-      </div>
-
       {/* Progress Indicator */}
       {jobDescription.length > 0 && (
         <motion.div
@@ -144,12 +127,12 @@ export default function JobDescriptionStep({
           {jobDescription.length < 50 ? (
             <>
               <div className="w-2 h-2 bg-yellow-400 rounded-full" />
-              <span className="text-gray-600">Fortsätt skriva för bättre resultat...</span>
+              <span className="text-gray-600">Fortsätt skriva – ju mer information, desto bättre resultat...</span>
             </>
           ) : (
             <>
               <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              <span className="text-gray-600">Bra! AI har tillräcklig information</span>
+              <span className="text-gray-600">Perfekt! Vi har tillräcklig information för att hjälpa dig skapa ditt brev</span>
             </>
           )}
         </motion.div>
