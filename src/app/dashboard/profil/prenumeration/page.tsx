@@ -43,6 +43,7 @@ export default function PrenumerationPage() {
 
   // Determine subscription UI type
   const isStripePremium = subscriptionTier === 'premium' && !isTrialUser && !isAdminGranted;
+  const isOnboardingReward = premiumSource === 'onboarding_completion';
 
   return (
     <div className="max-w-7xl mx-auto p-3 sm:p-4 md:p-6">
@@ -262,6 +263,123 @@ export default function PrenumerationPage() {
                     priceId={premiumMonthlyPriceId}
                     planName="Premium Månad"
                     className="w-full bg-white text-blue-600 hover:bg-blue-50 font-bold touch-manipulation"
+                  />
+                  <p className="text-center text-white/80 text-xs mt-3">
+                    149 kr/månad • Ingen bindningstid
+                  </p>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : isOnboardingReward ? (
+          // ONBOARDING REWARD: 1-dagars belöning från introduktionen
+          <>
+            <div>
+              <SubscriptionInfo />
+            </div>
+
+            <div className="relative overflow-hidden bg-gradient-to-br from-green-50/80 via-emerald-50/60 to-teal-50/80 rounded-2xl p-6 md:p-8 border border-green-200/40 shadow-xl shadow-green-500/10">
+              {/* Animated gradient orb background */}
+              <motion.div
+                className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-green-400/20 to-teal-400/20 rounded-full blur-3xl"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.15, 0.25, 0.15]
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  repeatType: 'reverse',
+                  ease: 'easeInOut'
+                }}
+              />
+
+              {/* Content */}
+              <div className="relative z-10">
+                {/* Header with gradient icon */}
+                <div className="flex items-center mb-6">
+                  <div className="p-3 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl mr-3 flex-shrink-0 shadow-lg">
+                    <Gift className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+                    Grattis! Din introduktionsbelöning är aktiv
+                  </h3>
+                </div>
+
+                {/* Countdown with glassmorphism */}
+                {timeRemaining && !timeRemaining.expired && (
+                  <div className="bg-white/80 backdrop-blur-xl rounded-xl p-5 mb-6 border border-green-200/30 shadow-lg">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <motion.div
+                          animate={{
+                            scale: [1, 1.1, 1]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }}
+                        >
+                          <Clock className="w-5 h-5 text-green-600" />
+                        </motion.div>
+                        <span className="font-semibold text-slate-900">Tid kvar av din belöning</span>
+                      </div>
+                    </div>
+                    <div className="text-4xl font-black bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent mb-3">
+                      {timeRemaining.days > 0 ? `${timeRemaining.days}d ` : ''}{timeRemaining.hours}h {timeRemaining.minutes}m
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-slate-600">
+                      <Calendar className="w-4 h-4" />
+                      <span>
+                        Går ut: {premiumUntil && new Date(premiumUntil).toLocaleDateString('sv-SE', {
+                          day: 'numeric',
+                          month: 'long',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Benefits list - clean checkmarks */}
+                <div className="space-y-3 mb-6">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-slate-700">Tillgång till <strong>alla premium-funktioner</strong> under belöningsperioden</span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-slate-700">Efter belöningsperioden <strong>återgår du till gratis nivå</strong></span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm text-slate-700"><strong>Inget kreditkort krävs</strong> - ingen automatisk debitering</span>
+                  </div>
+                </div>
+
+                {/* Source badge - subtle */}
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-50/80 rounded-full border border-green-200/50 mb-6">
+                  <Info className="w-4 h-4 text-green-600" />
+                  <span className="text-xs font-medium text-green-700">
+                    Aktiverades via: <strong>Slutförd introduktion (6/6 steg)</strong>
+                  </span>
+                </div>
+
+                {/* CTA button - consistent with landing page */}
+                <div className="bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl p-6 text-white shadow-lg">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Zap className="w-6 h-6 flex-shrink-0" />
+                    <h4 className="font-bold text-lg">Fortsätt med Premium utan avbrott</h4>
+                  </div>
+                  <p className="text-white/90 text-sm mb-4">
+                    Uppgradera nu och behåll alla dina premium-funktioner. Ingen bindningstid - avsluta när du vill.
+                  </p>
+                  <SubscribeButton
+                    priceId={premiumMonthlyPriceId}
+                    planName="Premium Månad"
+                    className="w-full bg-white text-green-600 hover:bg-green-50 font-bold touch-manipulation"
                   />
                   <p className="text-center text-white/80 text-xs mt-3">
                     149 kr/månad • Ingen bindningstid

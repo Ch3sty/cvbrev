@@ -17,6 +17,7 @@ interface QuotaCardProps {
   premiumText?: string;
   premiumStatus?: 'active' | 'trial' | 'free'; // New: explicit status for premium card
   premiumSubtext?: string; // New: additional info like price
+  premiumSource?: string; // New: source of premium (signup_trial, onboarding_completion, etc)
 }
 
 export default function QuotaCard({
@@ -31,7 +32,8 @@ export default function QuotaCard({
   isPremium = false,
   premiumText,
   premiumStatus,
-  premiumSubtext
+  premiumSubtext,
+  premiumSource
 }: QuotaCardProps) {
   // Calculate color based on remaining quota
   const getColor = () => {
@@ -303,7 +305,19 @@ export default function QuotaCard({
                         className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full"
                         initial={{ width: "100%" }}
                         animate={{
-                          width: `${Math.max(0, Math.min(100, ((resetDate.getTime() - new Date().getTime()) / (7 * 24 * 60 * 60 * 1000)) * 100))}%`
+                          width: `${Math.max(0, Math.min(100, (() => {
+                            const now = new Date().getTime();
+                            const end = resetDate.getTime();
+                            const diff = end - now;
+
+                            // For onboarding reward: 1 day period
+                            if (premiumSource === 'onboarding_completion') {
+                              return (diff / (1 * 24 * 60 * 60 * 1000)) * 100;
+                            }
+
+                            // For trial users: 7 day period
+                            return (diff / (7 * 24 * 60 * 60 * 1000)) * 100;
+                          })()))}%`
                         }}
                         transition={{ duration: 0.5 }}
                       />

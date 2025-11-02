@@ -364,19 +364,26 @@ export default function DashboardPage() {
                 isPremium={true}
                 premiumText={(() => {
                   const isTrialUser = stats.premiumSource === 'signup_trial' || stats.premiumSource === 'oauth_signup_trial';
+                  const isOnboardingReward = stats.premiumSource === 'onboarding_completion';
                   if (isTrialUser && stats.premiumUntil) {
                     return 'Provperiod';
+                  }
+                  if (isOnboardingReward && stats.premiumUntil) {
+                    return 'Belöning aktiv';
                   }
                   return 'Aktiv';
                 })()}
                 premiumStatus={(() => {
                   const isTrialUser = stats.premiumSource === 'signup_trial' || stats.premiumSource === 'oauth_signup_trial';
-                  return (isTrialUser && stats.premiumUntil) ? 'trial' : 'active';
+                  const isOnboardingReward = stats.premiumSource === 'onboarding_completion';
+                  return ((isTrialUser || isOnboardingReward) && stats.premiumUntil) ? 'trial' : 'active';
                 })()}
                 resetDate={(() => {
                   const isTrialUser = stats.premiumSource === 'signup_trial' || stats.premiumSource === 'oauth_signup_trial';
-                  return (isTrialUser && stats.premiumUntil) ? new Date(stats.premiumUntil) : undefined;
+                  const isOnboardingReward = stats.premiumSource === 'onboarding_completion';
+                  return ((isTrialUser || isOnboardingReward) && stats.premiumUntil) ? new Date(stats.premiumUntil) : undefined;
                 })()}
+                premiumSource={stats.premiumSource || undefined}
                 resetType="weekly"
                 href="/dashboard/profil/prenumeration"
               />
