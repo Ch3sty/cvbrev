@@ -233,65 +233,121 @@ export async function generateCoverLetter(
 
     // Skapa systemprompten baserat på språket (oförändrat - behåller dina detaljerade prompts)
     const systemPrompt = language === 'sv' ?
-    `Du har fått tillgång till användarens CV och den aktuella jobbannonsen. Din uppgift är att skriva ett personligt brev på svenska som är helt anpassat efter den sökta tjänsten och företaget. Följ dessa riktlinjer:
+    `VIKTIGT: Du ska ENDAST returnera det färdiga personliga brevet. Inkludera INTE:
+- Jobbannonstexten
+- CV-innehåll
+- Headers som "## CV:" eller "## Jobbannons:"
+- Kommentarer om kandidatens lämplighet eller behörighet
+- Metadata eller förklaringar
+
+Returnera BARA brevet i slutgiltigt format, redo att skickas.
+
+---
+
+Du har fått tillgång till användarens CV och den aktuella jobbannonsen. Din uppgift är att skriva ett personligt brev på svenska som är helt anpassat efter den sökta tjänsten och företaget. Följ dessa riktlinjer:
     1. **Målgruppsanpassning:**
       - Läs igenom både CV:t och jobbannonsen noggrant. Identifiera de nyckelkrav och önskade kompetenser som anges i annonsen.
       - Koppla dessa krav direkt till användarens erfarenheter och meriter som framgår av CV:t. Ange konkreta exempel, siffror eller prestationer när det är möjligt.
-    2. **Struktur:**
-      - **Inledning:** Ange vilken tjänst som söks, nämn företagets namn och förklara kort varför du är intresserad. Inledningen ska vara stark och fånga läsarens uppmärksamhet.
+
+      **VIKTIGT om kompetensbrister:**
+      - Om kandidaten saknar viss formell kompetens (t.ex. specifik utbildning eller legitimation), skriv ÄNDÅ ett brev.
+      - Fokusera på överförbar kompetens, relevant erfarenhet och motivation.
+      - Skriv ALDRIG "du är inte behörig" eller liknande bedömningar.
+      - Din uppgift är att skriva det bästa möjliga brevet, inte att värdera lämplighet.
+
+    2. **Struktur och naturlighet:**
+      - **Inledning:** Ange vilken tjänst som söks. Var direkt och tydlig.
       - **Huvuddel:**
-        - Beskriv dina mest relevanta erfarenheter och kompetenser. Använd konkreta exempel från CV:t som matchar jobbannonsens krav.
-        - Lyft fram specifika prestationer (t.ex. "ökat försäljningen med 20%", "drivit projekt som resulterat i…").
-        - Förklara hur dina erfarenheter och egenskaper gör att du är rätt kandidat för just denna tjänst och hur du kan bidra till företagets framgång.
-      - **Avslutning:** Sammanfatta varför du är rätt kandidat, uttryck din entusiasm och önskan om att gå vidare till en intervju. Avsluta med en artig hälsningsfras (t.ex. "Med vänliga hälsningar") och ditt namn.
+        - Beskriv relevanta erfarenheter kopplat till jobbet. Använd konkreta exempel.
+        - Variera meningslängd naturligt. Blanda korta och längre meningar.
+        - Lyft specifika prestationer där relevant (t.ex. resultat, projekt).
+        - Visa hur din bakgrund passar tjänsten utan att överdriva.
+      - **Avslutning:** Kort sammanfattning och nästa steg. Var artig men naturlig.
+      - **Längdvariationer:** Tillåt att olika stycken har olika längd. Alla stycken behöver inte vara lika.
+      - **Mänsklig ton:** Skriv som en riktig person skulle skriva, inte som en mall.
     3. **Längd:**
       - Brevet bör vara mellan 250–400 ord (ungefär en halv till en hel A4-sida).
     4. **Tonläge och språk:**
       - ${tonalityInstruction}.
       - Använd ett aktivt och tydligt språk. Undvik klichéer och generiska fraser.
-      - Inkludera effektiva formuleringar som:
-        - "Jag blev mycket intresserad av er annons eftersom…"
-        - "I mig får ni en medarbetare som…"
-        - "Jag ser fram emot möjligheten att…"
+      - Variera meningsstrukturerna naturligt. Använd olika sätt att inleda meningar.
+      - VIKTIGT: Låt varje brev vara unikt. Använd INTE samma fraser i varje brev.
+      - Undvik dessa AI-markörer:
+        - "Jag blev mycket intresserad av..."
+        - "I mig får ni en medarbetare som..."
+        - "Jag ser fram emot möjligheten att..."
+        - "Med över X års erfarenhet..."
+        - "Jag är övertygad om att..."
+      - Skriv istället på ett naturligt sätt som varierar mellan olika brev.
 
-    5. **Anpassning och precision:**
-      - Se till att varje stycke är skräddarsytt mot den aktuella tjänsten. Referera gärna direkt till specifika punkter i jobbannonsen, exempelvis företagets mission, värderingar eller specifika krav.
-      - Visa att du gjort din research genom att nämna unika detaljer om företaget, om sådana finns i annonsen.
-    6. **Kvalitetskontroll:**
-      - Kontrollera att brevet är grammatiskt korrekt och felfritt.
-      - Se till att brevet är koncist, informativt och engagerande – varje mening ska ha ett syfte.
+    5. **Anpassning:**
+      - Skräddarsy brevet mot tjänsten. Referera till specifika punkter i jobbannonsen där relevant.
+      - Visa förståelse för företaget om information finns i annonsen.
 
-    Skriv ett personligt brev enligt ovanstående riktlinjer som integrerar och matchar de relevanta delarna från både CV:t och jobbannonsen. Anpassa texten så att det framgår tydligt varför kandidaten är perfekt för rollen.`
+    6. **Kvalitet:**
+      - Kontrollera att brevet är grammatiskt korrekt.
+      - Var koncis och engagerande – varje mening ska ha ett syfte.
+      - Låt brevet låta som en riktig person skrev det, inte som en genererad text.
+
+    Skriv nu det personliga brevet. Returnera ENDAST det färdiga brevet, inget annat.`
     :
-    `You have been given access to the user's CV and the current job posting. Your task is to write a cover letter in English that is completely customized for the specific position and company. Follow these guidelines:
+    `IMPORTANT: Return ONLY the finished cover letter. Do NOT include:
+- The job posting text
+- CV content
+- Headers like "## CV:" or "## Job posting:"
+- Comments about candidate suitability or qualifications
+- Metadata or explanations
+
+Return ONLY the letter in final format, ready to send.
+
+---
+
+You have been given access to the user's CV and the current job posting. Your task is to write a cover letter in English that is completely customized for the specific position and company. Follow these guidelines:
     1. **Target audience adaptation:**
       - Read through both the CV and job posting carefully. Identify the key requirements and desired competencies mentioned in the ad.
       - Connect these requirements directly to the user's experiences and merits as shown in the CV. Provide concrete examples, figures, or achievements when possible.
-    2. **Structure:**
-      - **Introduction:** State the position being applied for, mention the company name, and briefly explain why you are interested. The introduction should be strong and capture the reader's attention.
+
+      **IMPORTANT about competency gaps:**
+      - If the candidate lacks certain formal qualifications (e.g., specific education or certification), STILL write a letter.
+      - Focus on transferable skills, relevant experience, and motivation.
+      - NEVER write "you are not qualified" or similar assessments.
+      - Your task is to write the best possible letter, not to evaluate suitability.
+
+    2. **Structure and naturalness:**
+      - **Introduction:** State the position being applied for. Be direct and clear.
       - **Main body:**
-        - Describe your most relevant experiences and competencies. Use concrete examples from the CV that match the job posting requirements.
-        - Highlight specific achievements (e.g., "increased sales by 20%", "led projects that resulted in...").
-        - Explain how your experiences and qualities make you the right candidate for this specific position and how you can contribute to the company's success.
-      - **Conclusion:** Summarize why you are the right candidate, express your enthusiasm and desire to proceed to an interview. End with a polite greeting (e.g., "Sincerely" or "Kind regards") and your name.
+        - Describe relevant experiences related to the job. Use concrete examples.
+        - Vary sentence length naturally. Mix short and longer sentences.
+        - Highlight specific achievements where relevant (e.g., results, projects).
+        - Show how your background fits the position without exaggerating.
+      - **Conclusion:** Brief summary and next steps. Be polite but natural.
+      - **Length variations:** Allow different paragraphs to have different lengths. Not all paragraphs need to be equal.
+      - **Human tone:** Write as a real person would write, not as a template.
     3. **Length:**
       - The letter should be between 250-400 words (approximately half to a full A4 page).
     4. **Tone and language:**
       - ${tonalityInstruction}.
       - Use active and clear language. Avoid clichés and generic phrases.
-      - Include effective formulations such as:
-        - "I was very interested in your advertisement because..."
+      - Vary sentence structures naturally. Use different ways to begin sentences.
+      - IMPORTANT: Let each letter be unique. Do NOT use the same phrases in every letter.
+      - Avoid these AI markers:
+        - "I was very interested in..."
         - "In me, you will find an employee who..."
         - "I look forward to the opportunity to..."
+        - "With over X years of experience..."
+        - "I am confident that..."
+      - Instead, write in a natural way that varies between different letters.
 
-    5. **Customization and precision:**
-      - Ensure that each paragraph is tailored to the current position. Feel free to refer directly to specific points in the job posting, such as the company's mission, values, or specific requirements.
-      - Show that you've done your research by mentioning unique details about the company, if such information is in the job posting.
-    6. **Quality control:**
-      - Ensure the letter is grammatically correct and error-free.
-      - Make sure the letter is concise, informative, and engaging – every sentence should have a purpose.
+    5. **Customization:**
+      - Tailor the letter to the position. Refer to specific points in the job posting where relevant.
+      - Show understanding of the company if information is available in the posting.
 
-    Write a cover letter according to the above guidelines that integrates and matches the relevant parts from both the CV and the job posting. Adapt the text to clearly show why the candidate is perfect for the role.`;
+    6. **Quality:**
+      - Ensure the letter is grammatically correct.
+      - Be concise and engaging – every sentence should have a purpose.
+      - Make the letter sound like a real person wrote it, not like generated text.
+
+    Write the cover letter now. Return ONLY the finished letter, nothing else.`;
 
     // Skapa användarprompten med CV och jobbannons (oförändrat)
     const userPrompt = language === 'sv' ? `
@@ -331,9 +387,36 @@ export async function generateCoverLetter(
       throw new Error('Inget svar mottaget från OpenAI');
     }
     const letterContent = completion.choices[0].message.content || '';
+
+    // Validering av output - kontrollera att inget ogiltigt innehåll returneras
+    const invalidPatterns = [
+      /##\s*(CV|Jobbannons|Job posting):/i,  // Headers från input
+      /(inte|not)\s+(behörig|qualified)/i,   // Behörighetsmeddelanden
+      /följande\s+(CV|jobbannons)/i,         // Referens till input-struktur
+      /baserat på följande/i,                // Referens till prompt-struktur
+      /write a cover letter based on/i       // Engelsk prompt-läckage
+    ];
+
+    const hasInvalidContent = invalidPatterns.some(pattern => pattern.test(letterContent));
+
+    if (hasInvalidContent) {
+      console.error('AI returnerade ogiltigt innehåll (jobbannons/behörighetsmeddelande)', {
+        letterPreview: letterContent.substring(0, 300)
+      });
+      throw new Error(
+        language === 'sv'
+          ? 'Det genererade brevet innehöll ogiltigt format. Försök igen.'
+          : 'The generated letter contained invalid format. Please try again.'
+      );
+    }
+
     if (!letterContent || letterContent.trim().length < 50) { // Kontrollera att brevet inte är för kort
       console.error('Genererat brev är för kort eller tomt', { letterContent });
-      throw new Error('Det genererade brevet är ogiltigt');
+      throw new Error(
+        language === 'sv'
+          ? 'Det genererade brevet är ogiltigt'
+          : 'The generated letter is invalid'
+      );
     }
 
     // *** NY KOD: EXTRAHERA USAGE OCH BERÄKNA KOSTNAD ***
