@@ -100,7 +100,7 @@ export default function HeroSection({ earnedDays = 0, onCTAClick }: HeroSectionP
           transition={{ delay: 0.4 }}
           className="text-base text-slate-600 mb-8 sm:mb-10 max-w-3xl mx-auto leading-relaxed"
         >
-          Varje vecka får du 5 nya inbjudningar. När dina vänner uppgraderar till betalande
+          Varje vecka får du 5 nya inbjudningar. När dina vänner blir betalande premiumanvändare
           får du en hel vecka extra Premium. Gratis. Inga krångliga villkor.
         </motion.p>
 
