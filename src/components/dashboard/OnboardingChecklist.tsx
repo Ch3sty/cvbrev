@@ -66,7 +66,7 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
 
       // Hämta CV count
       const { count: cvCount } = await supabase
-        .from('user_cvs')
+        .from('cv_texts')
         .select('id', { count: 'exact', head: true })
         .eq('user_id', user.id);
 

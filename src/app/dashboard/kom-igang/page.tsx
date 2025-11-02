@@ -67,7 +67,7 @@ export default function KomIgangPage() {
       const completedStepsArray = profile?.onboarding_steps_completed || [];
 
       const { count: cvCount } = await supabase
-        .from('user_cvs')
+        .from('cv_texts')
         .select('id', { count: 'exact', head: true })
         .eq('user_id', user.id);
 

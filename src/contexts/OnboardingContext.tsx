@@ -25,11 +25,16 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
 
   const fetchOnboardingStatus = useCallback(async () => {
     try {
+      console.log('[OnboardingContext] 🔄 Fetching onboarding status...');
+
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) {
+        console.log('[OnboardingContext] ❌ No user found');
         setIsLoading(false);
         return;
       }
+
+      console.log('[OnboardingContext] 👤 User ID:', user.id);
 
       // Fetch profile data
       const { data: profile } = await supabase
@@ -39,9 +44,12 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
         .single();
 
       if (!profile) {
+        console.log('[OnboardingContext] ❌ No profile found');
         setIsLoading(false);
         return;
       }
+
+      console.log('[OnboardingContext] 📋 Profile onboarding_steps_completed:', profile.onboarding_steps_completed);
 
       // Fetch actual counts from feature tables for hybrid validation
       const [
@@ -52,13 +60,22 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
         { count: templateDownloadCount },
         { count: jobMatchCount }
       ] = await Promise.all([
-        supabase.from('user_cvs').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
+        supabase.from('cv_texts').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
         supabase.from('letters').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
         supabase.from('cv_analysis_jobs').select('id', { count: 'exact', head: true }).eq('user_id', user.id).eq('status', 'completed'),
         supabase.from('linkedin_optimizations').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
         supabase.from('formatted_cv_downloads').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
         supabase.from('job_matchings_cache').select('id', { count: 'exact', head: true }).eq('user_id', user.id)
       ]);
+
+      console.log('[OnboardingContext] 📊 Feature table counts:', {
+        cvCount,
+        letterCount,
+        analysisCount,
+        linkedinCount,
+        templateDownloadCount,
+        jobMatchCount
+      });
 
       // Hybrid validation: Check both onboarding_steps_completed array AND actual feature usage
       const completedStepsArray = profile.onboarding_steps_completed || [];
@@ -93,6 +110,9 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
       if (completedStepsArray.includes('match_jobs') || (jobMatchCount || 0) > 0) {
         validatedSteps.push('match_jobs');
       }
+
+      console.log('[OnboardingContext] ✅ Validated steps:', validatedSteps);
+      console.log('[OnboardingContext] 📈 Completed count:', validatedSteps.length, '/ 6');
 
       // Update state with validated steps
       setCompletedSteps(validatedSteps);
@@ -158,6 +178,36 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
         )
         .subscribe();
 
+      // Subscribe to cv_analysis_jobs table
+      const analysisChannel = supabase
+        .channel('onboarding_analysis_changes')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'cv_analysis_jobs',
+            filter: `user_id=eq.${user.id}`
+          },
+          () => fetchOnboardingStatus()
+        )
+        .subscribe();
+
+      // Subscribe to linkedin_optimizations table
+      const linkedinChannel = supabase
+        .channel('onboarding_linkedin_changes')
+        .on(
+          'postgres_changes',
+          {
+            event: '*',
+            schema: 'public',
+            table: 'linkedin_optimizations',
+            filter: `user_id=eq.${user.id}`
+          },
+          () => fetchOnboardingStatus()
+        )
+        .subscribe();
+
       // Subscribe to formatted_cv_downloads table
       const downloadChannel = supabase
         .channel('onboarding_download_changes')
@@ -188,7 +238,7 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
         )
         .subscribe();
 
-      return [profileChannel, cvChannel, letterChannel, downloadChannel, matchChannel];
+      return [profileChannel, cvChannel, letterChannel, analysisChannel, linkedinChannel, downloadChannel, matchChannel];
     };
 
     const channelsPromise = setupRealtimeSubscription();
