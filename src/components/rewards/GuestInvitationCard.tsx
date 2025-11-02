@@ -30,13 +30,13 @@ import {
 } from 'lucide-react';
 
 // Types for guest invitations
-interface MonthlyAllowance {
+interface WeeklyAllowance {
   base_allowance: number;
-  bonus_allowance: number;
   total_allowance: number;
   used_invitations: number;
   remaining_invitations: number;
-  month_year: string;
+  resetAt: string | null;
+  firstUsedAt: string | null;
 }
 
 interface GuestInvitation {
@@ -54,7 +54,7 @@ interface GuestInvitation {
 }
 
 interface GuestInvitationCardProps {
-  allowance: MonthlyAllowance;
+  allowance: WeeklyAllowance;
   invitations: GuestInvitation[];
   onCreateInvitation: (email: string) => Promise<void>;
   onCopyLink: (code: string) => void;
@@ -322,7 +322,7 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
               <div>
                 <div className="text-2xl font-bold text-gray-900">{actualUsedInvitations}</div>
                 <div className="text-sm text-gray-600">Använda inbjudningar</div>
-                <div className="text-xs text-gray-500 mt-1">av {allowance.total_allowance} denna månad</div>
+                <div className="text-xs text-gray-500 mt-1">av {allowance.total_allowance} denna vecka</div>
               </div>
               <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center border border-blue-200/50">
                 <Mail className="w-6 h-6 text-blue-600" />
@@ -702,7 +702,7 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
                         {allowance.remaining_invitations} inbjudningar kvar
                       </p>
                       <p className="text-sm text-blue-700">
-                        av {allowance.total_allowance} för {allowance.month_year}
+                        av {allowance.total_allowance} denna vecka
                       </p>
                     </div>
                   </div>
@@ -714,7 +714,13 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
                       />
                     </div>
                     <p className="text-xs text-blue-600 mt-1">
-                      Reset nästa månad
+                      {allowance.resetAt ? (() => {
+                        const resetDate = new Date(allowance.resetAt);
+                        const now = new Date();
+                        const diffMs = resetDate.getTime() - now.getTime();
+                        const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+                        return `Reset om ${diffDays} ${diffDays === 1 ? 'dag' : 'dagar'}`;
+                      })() : 'Inte aktiverad än'}
                     </p>
                   </div>
                 </div>
@@ -728,9 +734,15 @@ const GuestInvitationCard: React.FC<GuestInvitationCardProps> = ({
                       <AlertCircle className="w-5 h-5 text-orange-600" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-orange-800">Ingen kvot kvar denna månad</h4>
+                      <h4 className="font-semibold text-orange-800">Ingen kvot kvar denna vecka</h4>
                       <p className="text-sm text-orange-700 mt-1">
-                        Du har använt alla dina inbjudningar för {allowance.month_year}. Fler blir tillgängliga nästa månad.
+                        Du har använt alla dina inbjudningar denna vecka. {allowance.resetAt ? (() => {
+                          const resetDate = new Date(allowance.resetAt);
+                          const now = new Date();
+                          const diffMs = resetDate.getTime() - now.getTime();
+                          const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+                          return `Fler blir tillgängliga om ${diffDays} ${diffDays === 1 ? 'dag' : 'dagar'}.`;
+                        })() : 'Fler blir tillgängliga om 7 dagar efter första användning.'}
                       </p>
                     </div>
                   </div>

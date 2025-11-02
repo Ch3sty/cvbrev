@@ -134,34 +134,28 @@ export async function GET(request: NextRequest) {
     // Get guest invitation allowance if premium
     let guestInvitations = null
     if (isPremium) {
-      const currentMonth = new Date().toISOString().slice(0, 7) + '-01'
-
       const { data: allowance } = await supabase
-        .from('monthly_guest_allowances')
+        .from('weekly_guest_allowances')
         .select('*')
         .eq('user_id', user.id)
-        .eq('month', currentMonth)
         .single()
 
       if (allowance) {
         guestInvitations = {
-          total: allowance.base_allowance + allowance.bonus_allowance,
+          total: allowance.base_allowance,
           used: allowance.used_invitations,
-          remaining: allowance.base_allowance + allowance.bonus_allowance - allowance.used_invitations
+          remaining: allowance.base_allowance - allowance.used_invitations,
+          resetAt: allowance.reset_at,
+          firstUsedAt: allowance.first_used_at
         }
       } else {
-        // Calculate bonus based on level
-        let bonus = 0
-        if (currentLevel >= 50) bonus = 999 // Unlimited
-        else if (currentLevel >= 40) bonus = 4
-        else if (currentLevel >= 30) bonus = 3
-        else if (currentLevel >= 20) bonus = 2
-        else if (currentLevel >= 10) bonus = 1
-
+        // No allowance record yet - will be created on first use
         guestInvitations = {
-          total: 1 + bonus,
+          total: 5,
           used: 0,
-          remaining: 1 + bonus
+          remaining: 5,
+          resetAt: null,
+          firstUsedAt: null
         }
       }
 

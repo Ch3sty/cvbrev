@@ -51,71 +51,99 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Premium membership required' }, { status: 403 })
     }
 
-    // Check monthly allowance (skip for admin users)
+    // Check weekly allowance (skip for admin users)
     let allowance = null
 
     if (!isAdmin) {
-      const currentMonth = new Date().toISOString().slice(0, 7) + '-01'
+      const now = new Date()
+      const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000
 
-      const { data: monthlyAllowance } = await supabase
-        .from('monthly_guest_allowances')
+      // Get existing weekly allowance
+      const { data: weeklyAllowance } = await supabase
+        .from('weekly_guest_allowances')
         .select('*')
         .eq('user_id', user.id)
-        .eq('month_year', currentMonth)
         .single()
 
-      allowance = monthlyAllowance
+      allowance = weeklyAllowance
 
-      // Create allowance if it doesn't exist
+      // Initialize or reset if needed
       if (!allowance) {
-      // Calculate bonus based on user level
-      const { data: userStats } = await supabase
-        .from('global_user_stats')
-        .select('current_level')
-        .eq('user_id', user.id)
-        .single()
+        // Create new allowance (will be initialized on first use below)
+        const { data: newAllowance, error: allowanceError } = await supabase
+          .from('weekly_guest_allowances')
+          .insert({
+            user_id: user.id,
+            base_allowance: 5, // 5 invitations per week for premium users
+            used_invitations: 0,
+            first_used_at: null,
+            reset_at: null
+          })
+          .select()
+          .single()
 
-      const level = userStats?.current_level || 1
-      let bonus = 0
-      if (level >= 50) bonus = 999 // Unlimited
-      else if (level >= 40) bonus = 4
-      else if (level >= 30) bonus = 3
-      else if (level >= 20) bonus = 2
-      else if (level >= 10) bonus = 1
-
-      // Premium-användare får 3 inbjudningar per månad (inte 10)
-      // Gratis-användare får 1 inbjudan per månad
-      const baseAllowance = isPremium ? 3 : 1
-
-      const { data: newAllowance, error: allowanceError } = await supabase
-        .from('monthly_guest_allowances')
-        .insert({
-          user_id: user.id,
-          month_year: currentMonth,
-          base_allowance: baseAllowance,
-          bonus_allowance: bonus,
-          used_invitations: 0
-        })
-        .select()
-        .single()
-
-      if (allowanceError) {
-        console.error('Error creating allowance:', allowanceError)
-        return NextResponse.json({ error: 'Failed to create allowance' }, { status: 500 })
-      }
+        if (allowanceError) {
+          console.error('Error creating allowance:', allowanceError)
+          return NextResponse.json({ error: 'Failed to create allowance' }, { status: 500 })
+        }
 
         allowance = newAllowance
+      } else {
+        // Check if we need to reset (7 days have passed)
+        if (allowance.reset_at && now.getTime() >= new Date(allowance.reset_at).getTime()) {
+          // Reset the weekly allowance
+          const { data: resetAllowance, error: resetError } = await supabase
+            .from('weekly_guest_allowances')
+            .update({
+              used_invitations: 0,
+              first_used_at: null,
+              reset_at: null
+            })
+            .eq('user_id', user.id)
+            .select()
+            .single()
+
+          if (resetError) {
+            console.error('Error resetting allowance:', resetError)
+            return NextResponse.json({ error: 'Failed to reset allowance' }, { status: 500 })
+          }
+
+          allowance = resetAllowance
+        }
+      }
+
+      // Initialize timestamps on first use in the period
+      if (!allowance.first_used_at) {
+        const resetAt = new Date(now.getTime() + SEVEN_DAYS_MS)
+
+        const { data: updatedAllowance, error: updateError } = await supabase
+          .from('weekly_guest_allowances')
+          .update({
+            first_used_at: now.toISOString(),
+            reset_at: resetAt.toISOString()
+          })
+          .eq('user_id', user.id)
+          .select()
+          .single()
+
+        if (updateError) {
+          console.error('Error updating allowance timestamps:', updateError)
+          return NextResponse.json({ error: 'Failed to update allowance' }, { status: 500 })
+        }
+
+        allowance = updatedAllowance
       }
 
       // Check if user has invitations left
-      const totalAllowance = allowance.base_allowance + allowance.bonus_allowance
-      if (allowance.used_invitations >= totalAllowance && totalAllowance < 999) {
+      const totalAllowance = allowance.base_allowance
+      if (allowance.used_invitations >= totalAllowance) {
         return NextResponse.json({
-          error: 'No invitations remaining this month',
+          error: 'No invitations remaining this week',
           allowance: {
             total: totalAllowance,
             used: allowance.used_invitations,
-            remaining: 0
+            remaining: 0,
+            resetAt: allowance.reset_at
           }
         }, { status: 403 })
       }
@@ -150,7 +178,7 @@ export async function POST(request: NextRequest) {
         invitation_code: invitationCode,
         status: 'pending',
         trial_duration_days: 2,
-        source: 'monthly_allowance',
+        source: 'weekly_allowance',
         expires_at: expiresAt.toISOString()
       })
       .select()
@@ -163,12 +191,10 @@ export async function POST(request: NextRequest) {
 
     // Update used invitations count (only for non-admin users)
     if (!isAdmin && allowance) {
-      const currentMonth = new Date().toISOString().slice(0, 7) + '-01'
       await supabase
-        .from('monthly_guest_allowances')
+        .from('weekly_guest_allowances')
         .update({ used_invitations: allowance.used_invitations + 1 })
         .eq('user_id', user.id)
-        .eq('month_year', currentMonth)
     }
 
     // Send invitation email
@@ -219,7 +245,7 @@ export async function POST(request: NextRequest) {
     // Calculate remaining invitations for response
     let remainingInvitations = 999 // Unlimited for admin
     if (!isAdmin && allowance) {
-      const totalAllowance = allowance.base_allowance + allowance.bonus_allowance
+      const totalAllowance = allowance.base_allowance
       remainingInvitations = totalAllowance - allowance.used_invitations - 1
     }
 

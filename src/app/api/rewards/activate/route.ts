@@ -94,34 +94,33 @@ export async function POST(request: NextRequest) {
       message = `Premium aktiverat! Du har nu Premium till ${newPremiumUntil.toLocaleDateString('sv-SE')}.`
 
     } else if (reward.reward_type === 'guest_invitation') {
-      // Add extra guest invitations
-      const currentMonth = new Date().toISOString().slice(0, 7) + '-01'
+      // Add extra guest invitations to weekly allowance
       const extraInvites = rewardValue.extra_invitations || 0
 
       const { data: allowance } = await supabase
-        .from('monthly_guest_allowances')
+        .from('weekly_guest_allowances')
         .select('*')
         .eq('user_id', user.id)
-        .eq('month', currentMonth)
         .single()
 
       if (allowance) {
+        // Add extra invites to base allowance for current week
         await supabase
-          .from('monthly_guest_allowances')
+          .from('weekly_guest_allowances')
           .update({
-            bonus_allowance: allowance.bonus_allowance + extraInvites
+            base_allowance: allowance.base_allowance + extraInvites
           })
           .eq('user_id', user.id)
-          .eq('month', currentMonth)
       } else {
+        // Create new allowance with extra invites
         await supabase
-          .from('monthly_guest_allowances')
+          .from('weekly_guest_allowances')
           .insert({
             user_id: user.id,
-            month: currentMonth,
-            base_allowance: 0, // User might not be premium
-            bonus_allowance: extraInvites,
-            used_invitations: 0
+            base_allowance: 5 + extraInvites,
+            used_invitations: 0,
+            first_used_at: null,
+            reset_at: null
           })
       }
 
@@ -129,7 +128,7 @@ export async function POST(request: NextRequest) {
         extra_invitations: extraInvites
       }
 
-      message = `Du har fått ${extraInvites} extra gästinbjudningar denna månad!`
+      message = `Du har fått ${extraInvites} extra gästinbjudningar denna vecka!`
     }
 
     // Update claim status

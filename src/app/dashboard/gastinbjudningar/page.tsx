@@ -26,6 +26,8 @@ interface RewardStatus {
     used: number;
     remaining: number;
     pendingCount: number;
+    resetAt: string | null;
+    firstUsedAt: string | null;
   } | null;
 }
 
@@ -159,12 +161,12 @@ export default function GastinbjudningarPage() {
       >
         <GuestInvitationCard
           allowance={{
-            base_allowance: 0,
-            bonus_allowance: 0,
-            total_allowance: rewardStatus?.guestInvitations?.total || 0,
+            base_allowance: rewardStatus?.guestInvitations?.total || 5,
+            total_allowance: rewardStatus?.guestInvitations?.total || 5,
             used_invitations: rewardStatus?.guestInvitations?.used || 0,
-            remaining_invitations: rewardStatus?.guestInvitations?.remaining || 0,
-            month_year: new Date().toISOString().slice(0, 7) + '-01'
+            remaining_invitations: rewardStatus?.guestInvitations?.remaining || 5,
+            resetAt: rewardStatus?.guestInvitations?.resetAt || null,
+            firstUsedAt: rewardStatus?.guestInvitations?.firstUsedAt || null
           }}
           invitations={invitations.map(inv => ({
             id: inv.id,
