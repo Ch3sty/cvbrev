@@ -365,23 +365,29 @@ export default function DashboardPage() {
                 premiumText={(() => {
                   const isTrialUser = stats.premiumSource === 'signup_trial' || stats.premiumSource === 'oauth_signup_trial';
                   const isOnboardingReward = stats.premiumSource === 'onboarding_completion';
+                  const isGuestInvitation = stats.premiumSource === 'guest_invitation';
                   if (isTrialUser && stats.premiumUntil) {
                     return 'Provperiod';
                   }
                   if (isOnboardingReward && stats.premiumUntil) {
                     return 'Belöning aktiv';
                   }
+                  if (isGuestInvitation && stats.premiumUntil) {
+                    return 'Gästinbjudan aktiv';
+                  }
                   return 'Aktiv';
                 })()}
                 premiumStatus={(() => {
                   const isTrialUser = stats.premiumSource === 'signup_trial' || stats.premiumSource === 'oauth_signup_trial';
                   const isOnboardingReward = stats.premiumSource === 'onboarding_completion';
-                  return ((isTrialUser || isOnboardingReward) && stats.premiumUntil) ? 'trial' : 'active';
+                  const isGuestInvitation = stats.premiumSource === 'guest_invitation';
+                  return ((isTrialUser || isOnboardingReward || isGuestInvitation) && stats.premiumUntil) ? 'trial' : 'active';
                 })()}
                 resetDate={(() => {
                   const isTrialUser = stats.premiumSource === 'signup_trial' || stats.premiumSource === 'oauth_signup_trial';
                   const isOnboardingReward = stats.premiumSource === 'onboarding_completion';
-                  return ((isTrialUser || isOnboardingReward) && stats.premiumUntil) ? new Date(stats.premiumUntil) : undefined;
+                  const isGuestInvitation = stats.premiumSource === 'guest_invitation';
+                  return ((isTrialUser || isOnboardingReward || isGuestInvitation) && stats.premiumUntil) ? new Date(stats.premiumUntil) : undefined;
                 })()}
                 premiumSource={stats.premiumSource || undefined}
                 resetType="weekly"

@@ -11,6 +11,7 @@ import {
   Brain,
   Palette,
   User,
+  Users,
   ChevronRight,
   ChevronLeft,
   LogOut,
@@ -149,10 +150,17 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
     },
     {
       path: '/dashboard/rewards',
-      label: 'Belöningar & Förmåner',
+      label: 'Belöningar',
       icon: <Trophy className="w-5 h-5" />,
       section: 'main',
       highlight: true
+    },
+    {
+      path: '/dashboard/gastinbjudningar',
+      label: 'Gästinbjudningar',
+      icon: <Users className="w-5 h-5" />,
+      section: 'main',
+      showOnlyWhen: isPremium
     },
     {
       path: '/dashboard/skapa-brev',

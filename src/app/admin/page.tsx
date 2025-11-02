@@ -352,7 +352,7 @@ export default function AdminDashboardPage() {
           title="Premium-användare"
           value={stats?.premium_users ?? 0}
           icon={<Crown className="w-6 h-6" />}
-          subtitle={`${stats?.premium_breakdown.stripe ?? 0} Stripe, ${stats?.premium_breakdown.admin ?? 0} Admin, ${stats?.premium_breakdown.guest ?? 0} Gäst`}
+          subtitle={`${stats?.premium_breakdown.stripe ?? 0} Stripe, ${stats?.premium_breakdown.admin ?? 0} Admin, ${stats?.premium_breakdown.guest ?? 0} Gästinbjudan`}
           iconBgColor="bg-yellow-100"
           iconColor="text-yellow-600"
         />

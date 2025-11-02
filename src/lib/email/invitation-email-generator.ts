@@ -58,7 +58,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                 </p>
               </div>
               <h1 style="color: #ffffff; font-size: 36px; margin: 0 0 16px 0; font-weight: 700; line-height: 1.2;" class="mobile-text">
-                7 dagar gratis Premium
+                2 dagar gratis Premium
               </h1>
               <p style="color: rgba(255,255,255,0.9); font-size: 18px; margin: 0; font-weight: 400;">
                 Värd 149 kr - helt kostnadsfritt för dig
@@ -80,7 +80,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                     </h2>
                     <p style="color: #64748b; font-size: 18px; line-height: 1.6; margin: 0 auto; max-width: 480px;">
                       Du har fått en personlig inbjudan att uppleva Sveriges mest avancerade karriärverktyg.
-                      Helt kostnadsfritt i en hel vecka.
+                      Helt kostnadsfritt i 2 dagar.
                     </p>
                   </td>
                 </tr>
@@ -231,7 +231,7 @@ export function generateInvitationEmailHTML(data: InvitationEmailData): string {
                   ✓ Ingen betalningsinformation krävs
                 </p>
                 <p style="color: #94a3b8; font-size: 14px; margin: 0;">
-                  ✓ Avregistreras automatiskt efter 7 dagar
+                  ✓ Avregistreras automatiskt efter 2 dagar
                 </p>
               </div>
             </td>
@@ -301,7 +301,7 @@ export function generateInvitationEmailText(data: InvitationEmailData): string {
 
 ${inviterName} tänkte på dig!
 
-Du har fått en personlig inbjudan att uppleva Sveriges mest avancerade karriärverktyg helt kostnadsfritt i 7 dagar.
+Du har fått en personlig inbjudan att uppleva Sveriges mest avancerade karriärverktyg helt kostnadsfritt i 2 dagar.
 
 Värd 149 kr - helt gratis för dig.
 
@@ -325,7 +325,7 @@ Strategisk rådgivning för din karriärutveckling och nästa steg framåt
 ${inviteUrl}
 
 ✓ Ingen betalningsinformation krävs
-✓ Avregistreras automatiskt efter 7 dagar
+✓ Avregistreras automatiskt efter 2 dagar
 
 🎉 TACK FÖR ATT DU SPRIDER ORDET!
 När du blir Premium-medlem får ${inviterName} en hel månad extra Premium som tack för rekommendationen!

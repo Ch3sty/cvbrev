@@ -70,7 +70,7 @@ export default function PremiumBreakdownChart({ data, isLoading, totals }: Premi
             </div>
             <div className="flex items-center gap-1.5">
               <Users className="w-4 h-4 text-purple-600" />
-              <span className="text-gray-600">Gäst:</span>
+              <span className="text-gray-600">Gästinbjudan:</span>
               <span className="font-semibold text-gray-900">{totals.guest}</span>
             </div>
           </div>
@@ -104,7 +104,7 @@ export default function PremiumBreakdownChart({ data, isLoading, totals }: Premi
           />
           <Bar dataKey="stripe" fill="#10b981" name="Stripe (betalande)" radius={[4, 4, 0, 0]} />
           <Bar dataKey="admin" fill="#3b82f6" name="Admin (manuella)" radius={[4, 4, 0, 0]} />
-          <Bar dataKey="guest" fill="#8b5cf6" name="Gäst (inbjudna)" radius={[4, 4, 0, 0]} />
+          <Bar dataKey="guest" fill="#8b5cf6" name="Gästinbjudan (inbjudna)" radius={[4, 4, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </div>

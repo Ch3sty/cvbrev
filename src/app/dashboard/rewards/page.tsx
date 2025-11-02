@@ -4,28 +4,12 @@ import { useState, useEffect } from 'react'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { useRouter } from 'next/navigation'
 import GameifiedRewardsView from '@/components/rewards/GameifiedRewardsView'
-import GuestInvitationCard from '@/components/rewards/GuestInvitationCard'
 import RewardClaimModal from '@/components/rewards/RewardClaimModal'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { Loader2, Trophy, Gift, Users } from 'lucide-react'
-
-interface InvitationData {
-  id: string;
-  email: string;
-  guest_email?: string;
-  status: 'pending' | 'accepted' | 'expired';
-  created_at: string;
-  expires_at: string;
-  invitation_code: string;
-  guest?: {
-    id: string;
-    email: string;
-    full_name: string;
-  };
-}
+import { Loader2, Trophy } from 'lucide-react'
 
 interface RewardStatus {
   currentLevel: number
@@ -56,14 +40,11 @@ export default function RewardsPage() {
   const [rewardStatus, setRewardStatus] = useState<RewardStatus | null>(null)
   const [selectedReward, setSelectedReward] = useState<any>(null)
   const [showClaimModal, setShowClaimModal] = useState(false)
-  const [activeTab, setActiveTab] = useState('overview')
-  const [invitations, setInvitations] = useState<InvitationData[]>([])
   const supabase = getSupabaseClient()
   const router = useRouter()
 
   useEffect(() => {
     loadRewardStatus()
-    loadInvitations()
   }, [])
 
   const loadRewardStatus = async () => {
@@ -91,42 +72,10 @@ export default function RewardsPage() {
     setShowClaimModal(true)
   }
 
-  const loadInvitations = async () => {
-    try {
-      const response = await fetch('/api/invitations');
-      if (response.ok) {
-        const data = await response.json();
-        setInvitations(data.invitations || []);
-      }
-    } catch (error) {
-      console.error('Error loading invitations:', error);
-    }
-  };
-
   const handleClaimSuccess = async () => {
     setShowClaimModal(false)
     setSelectedReward(null)
     await loadRewardStatus() // Reload status
-  }
-
-  const handleCreateInvitation = async (email: string) => {
-    try {
-      const response = await fetch('/api/guest/invite', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          guestEmail: email,
-          personalMessage: ''
-        })
-      });
-
-      if (response.ok) {
-        await loadInvitations();
-        await loadRewardStatus();
-      }
-    } catch (error) {
-      console.error('Error sending invitation:', error);
-    }
   }
 
   if (loading) {
@@ -209,16 +158,10 @@ export default function RewardsPage() {
       <div className="container mx-auto py-4 sm:py-6 px-3 sm:px-4 max-w-7xl relative z-10">
         {/* Main Content */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4 sm:space-y-6">
-        <TabsList className={`grid w-full mx-auto ${rewardStatus.isPremium ? 'grid-cols-2 max-w-md' : 'grid-cols-1 max-w-xs'}`}>
+        <TabsList className="grid w-full mx-auto grid-cols-1 max-w-xs">
           <TabsTrigger value="overview" className="flex items-center gap-2 text-sm sm:text-base">
             Översikt
           </TabsTrigger>
-          {rewardStatus.isPremium && (
-            <TabsTrigger value="guests" className="flex items-center gap-2 text-sm sm:text-base">
-              <Users className="w-3 h-3 sm:w-4 sm:h-4" />
-              Gästinbjudningar
-            </TabsTrigger>
-          )}
         </TabsList>
 
         <TabsContent value="overview" className="space-y-4 sm:space-y-6">
@@ -237,122 +180,8 @@ export default function RewardsPage() {
         </TabsContent>
 
         {/* Milestones tab removed - integrated in main overview */}
+        {/* Guest invitations moved to separate page: /dashboard/gastinbjudningar */}
 
-        {rewardStatus.isPremium && (
-          <TabsContent value="guests" className="space-y-4 sm:space-y-6">
-            <GuestInvitationCard
-              allowance={{
-                base_allowance: 1,
-                bonus_allowance: Math.max(0, rewardStatus.guestInvitations!.total - 1),
-                total_allowance: rewardStatus.guestInvitations!.total,
-                used_invitations: rewardStatus.guestInvitations!.used,
-                remaining_invitations: rewardStatus.guestInvitations!.remaining,
-                month_year: new Date().toLocaleDateString('sv-SE', { year: 'numeric', month: 'long' })
-              }}
-              invitations={invitations.map(inv => ({
-                id: inv.id,
-                invitation_code: inv.invitation_code,
-                guest_email: inv.email || inv.guest_email || '',
-                guest_name: inv.guest?.full_name,
-                status: inv.status,
-                trial_duration_days: 7,
-                expires_at: inv.expires_at,
-                accepted_at: inv.guest ? inv.created_at : undefined,
-                converted_to_paid: false,
-                created_at: inv.created_at
-              }))}
-              onCreateInvitation={handleCreateInvitation}
-              onCopyLink={(code) => navigator.clipboard.writeText(`${window.location.origin}/invite/${code}`)}
-              onShareSocial={(code, platform) => {
-                const url = `${window.location.origin}/invite/${code}`;
-                const text = 'Prova Jobbcoach.ai Premium gratis i 7 dagar!';
-                if (platform === 'twitter') {
-                  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`);
-                } else if (platform === 'linkedin') {
-                  window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`);
-                }
-              }}
-            />
-
-            {/* Invitation Benefits - Redesigned for Light Premium Theme */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-              {/* Guest Benefits Card */}
-              <Card className="relative overflow-hidden bg-white border border-gray-200/80 shadow-sm hover:shadow-lg transition-all duration-300 group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-pink-600/20 to-purple-600/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <CardContent className="relative p-4 sm:p-6">
-                  <div className="flex items-center space-x-3 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-50 to-purple-50 flex items-center justify-center border border-pink-200/50">
-                      <Users className="w-6 h-6 text-pink-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">7 dagars gratis test</h4>
-                      <p className="text-sm text-gray-600">För din gäst</p>
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    Din gäst får full tillgång till alla Premium-funktioner helt kostnadsfritt i en hel vecka
-                  </p>
-                  <div className="mt-4 pt-4 border-t border-gray-100">
-                    <div className="flex items-center text-xs text-gray-500">
-                      <span className="w-2 h-2 bg-pink-400 rounded-full mr-2"></span>
-                      Obegränsade personliga brev
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Premium Rewards Card */}
-              <Card className="relative overflow-hidden bg-white border border-gray-200/80 shadow-sm hover:shadow-lg transition-all duration-300 group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <CardContent className="relative p-4 sm:p-6">
-                  <div className="flex items-center space-x-3 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center border border-purple-200/50">
-                      <Gift className="w-6 h-6 text-purple-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Extra Premium-tid</h4>
-                      <p className="text-sm text-gray-600">Vid konvertering</p>
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    När din gäst uppgraderar får ni båda 1 vecka extra Premium som bonus
-                  </p>
-                  <div className="mt-4 pt-4 border-t border-gray-100">
-                    <div className="flex items-center text-xs text-gray-500">
-                      <span className="w-2 h-2 bg-purple-400 rounded-full mr-2"></span>
-                      Automatisk förlängning
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Level Progression Card */}
-              <Card className="relative overflow-hidden bg-white border border-gray-200/80 shadow-sm hover:shadow-lg transition-all duration-300 group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <CardContent className="relative p-4 sm:p-6">
-                  <div className="flex items-center space-x-3 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center border border-blue-200/50">
-                      <Trophy className="w-6 h-6 text-blue-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">Fler inbjudningar</h4>
-                      <p className="text-sm text-gray-600">Högre level</p>
-                    </div>
-                  </div>
-                  <p className="text-sm text-gray-600 leading-relaxed">
-                    Få fler månatliga inbjudningar när du når högre levels
-                  </p>
-                  <div className="mt-4 pt-4 border-t border-gray-100">
-                    <div className="flex items-center text-xs text-gray-500">
-                      <span className="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
-                      Level 10+: 2/månad • Level 20+: 3/månad
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-        )}
         </Tabs>
 
         {/* Claim Modal */}

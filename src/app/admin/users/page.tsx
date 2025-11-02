@@ -269,7 +269,7 @@ export default function AdminUsersPage() {
       return (
         <span className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-800">
           <UsersIcon className="w-3 h-3 mr-1" />
-          Gäst
+          Gästinbjudan
         </span>
       );
     }
@@ -507,7 +507,7 @@ export default function AdminUsersPage() {
             <option value="stripe">Premium - Stripe</option>
             <option value="trial">Premium - Trial (Prova på)</option>
             <option value="admin">Premium - Admin</option>
-            <option value="guest">Premium - Gäst</option>
+            <option value="guest">Premium - Gästinbjudan</option>
           </select>
         </div>
       </div>

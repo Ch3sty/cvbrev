@@ -315,6 +315,11 @@ export default function QuotaCard({
                               return (diff / (1 * 24 * 60 * 60 * 1000)) * 100;
                             }
 
+                            // For guest invitation: 2 day period
+                            if (premiumSource === 'guest_invitation') {
+                              return (diff / (2 * 24 * 60 * 60 * 1000)) * 100;
+                            }
+
                             // For trial users: 7 day period
                             return (diff / (7 * 24 * 60 * 60 * 1000)) * 100;
                           })()))}%`
