@@ -62,62 +62,62 @@ export default function PreviewStep({
         </div>
       </div>
 
-      {/* Action Bar - Sticky during scroll */}
-      <div className="sticky top-4 z-10 bg-white rounded-xl border-2 border-gray-200 shadow-lg p-4">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          {/* Left side: Secondary actions */}
-          <div className="flex items-center gap-2">
+      {/* Action Bar - Fixed bottom på mobil, sticky på desktop */}
+      <div className="fixed sm:sticky bottom-0 sm:top-4 left-0 right-0 sm:left-auto sm:right-auto z-20 bg-white sm:rounded-xl border-t-2 sm:border-2 border-gray-200 shadow-2xl sm:shadow-lg p-3 sm:p-4">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          {/* Sekundära actions */}
+          <div className="flex items-center gap-2 justify-center sm:justify-start">
             <motion.button
               onClick={() => setIsEditing(!isEditing)}
-              className="flex items-center gap-2 px-4 py-2.5 text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all font-medium"
+              className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all font-medium flex-1 sm:flex-initial min-h-[44px]"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <Edit3 className="w-4 h-4" />
+              <Edit3 className="w-4 h-4 flex-shrink-0" />
               <span className="text-sm">{isEditing ? 'Avbryt' : 'Redigera'}</span>
             </motion.button>
 
             <motion.button
               onClick={handleCopy}
-              className="flex items-center gap-2 px-4 py-2.5 text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all font-medium"
+              className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all font-medium flex-1 sm:flex-initial min-h-[44px]"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               {copied ? (
                 <>
-                  <Check className="w-4 h-4 text-green-600" />
+                  <Check className="w-4 h-4 text-green-600 flex-shrink-0" />
                   <span className="text-sm">Kopierat!</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-4 h-4" />
+                  <Copy className="w-4 h-4 flex-shrink-0" />
                   <span className="text-sm">Kopiera</span>
                 </>
               )}
             </motion.button>
           </div>
 
-          {/* Right side: Primary actions */}
-          <div className="flex items-center gap-2">
+          {/* Primära actions */}
+          <div className="flex items-center gap-2 justify-center sm:justify-end">
             {onSave && (
               <motion.button
                 onClick={onSave}
-                className="flex items-center gap-2 px-5 py-2.5 text-white bg-gradient-to-r from-green-500 to-green-600 rounded-lg hover:from-green-600 hover:to-green-700 transition-all shadow-md hover:shadow-lg font-medium"
+                className="flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 text-white bg-gradient-to-r from-green-500 to-green-600 rounded-lg hover:from-green-600 hover:to-green-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial min-h-[44px]"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Save className="w-4 h-4" />
+                <Save className="w-4 h-4 flex-shrink-0" />
                 <span className="text-sm">Spara</span>
               </motion.button>
             )}
 
             <motion.button
               onClick={onDownload}
-              className="flex items-center gap-2 px-5 py-2.5 text-white bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg hover:from-purple-600 hover:to-pink-700 transition-all shadow-md hover:shadow-lg font-medium"
+              className="flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 text-white bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg hover:from-purple-600 hover:to-pink-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial min-h-[44px]"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <Download className="w-4 h-4" />
+              <Download className="w-4 h-4 flex-shrink-0" />
               <span className="text-sm">Ladda ner</span>
             </motion.button>
           </div>
@@ -125,7 +125,7 @@ export default function PreviewStep({
       </div>
 
       {/* Document Preview */}
-      <div className="bg-gray-50 rounded-2xl p-6 min-h-[600px] flex items-center justify-center">
+      <div className="bg-gray-50 rounded-2xl p-4 sm:p-6 min-h-[400px] sm:min-h-[600px] flex items-center justify-center mb-24 sm:mb-0">
         {isEditing ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -174,7 +174,7 @@ export default function PreviewStep({
 
             {/* Page Content */}
             <div
-              className="p-16 text-gray-800"
+              className="p-6 sm:p-12 md:p-16 text-gray-800"
               style={{ fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
               dangerouslySetInnerHTML={{ __html: formatContent(editedContent) }}
             />

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { FileText, MessageSquare, SlidersHorizontal, Brain, Eye } from 'lucide-react';
+import { FileText, MessageSquare, SlidersHorizontal, Brain, Eye, Info } from 'lucide-react';
 
 // Store & Hooks
 import { useCVStore } from '@/store/cv-store';
@@ -79,6 +79,20 @@ export default function CreateLetterPage() {
   const [showExitWarning, setShowExitWarning] = useState(false);
 
   const isPremium = subscriptionTier === 'premium';
+
+  // Escape-hantering för modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && showExitWarning) {
+        setShowExitWarning(false);
+      }
+    };
+
+    if (showExitWarning) {
+      window.addEventListener('keydown', handleEscape);
+      return () => window.removeEventListener('keydown', handleEscape);
+    }
+  }, [showExitWarning]);
 
   // Clear prefill data after initial mount
   useEffect(() => {
@@ -336,14 +350,23 @@ export default function CreateLetterPage() {
 
       {/* Exit Warning Modal */}
       {showExitWarning && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 space-y-4">
+        <div
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+          onClick={() => setShowExitWarning(false)}
+        >
+          <div
+            className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 space-y-4"
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+          >
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
                 <Info className="w-5 h-5 text-blue-600" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                <h3 id="modal-title" className="text-lg font-semibold text-gray-900 mb-2">
                   Vill du spara eller ladda ner först?
                 </h3>
                 <p className="text-sm text-gray-600">
@@ -352,21 +375,21 @@ export default function CreateLetterPage() {
               </div>
             </div>
 
-            <div className="flex gap-3 pt-2">
-              <button
-                onClick={() => setShowExitWarning(false)}
-                className="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
-              >
-                Ja, gå tillbaka
-              </button>
+            <div className="flex flex-col-reverse sm:flex-row gap-3 pt-2">
               <button
                 onClick={() => {
                   setShowExitWarning(false);
                   router.push('/dashboard/mina-brev');
                 }}
-                className="flex-1 px-4 py-2.5 bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 rounded-lg font-medium transition-colors"
+                className="flex-1 px-4 py-3 bg-white hover:bg-gray-50 text-gray-700 border border-gray-300 rounded-lg font-medium transition-colors min-h-[44px]"
               >
                 Nej, avsluta ändå
+              </button>
+              <button
+                onClick={() => setShowExitWarning(false)}
+                className="flex-1 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors min-h-[44px]"
+              >
+                Ja, gå tillbaka
               </button>
             </div>
           </div>
