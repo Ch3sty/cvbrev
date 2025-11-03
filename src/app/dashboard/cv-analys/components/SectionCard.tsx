@@ -154,25 +154,25 @@ export default function SectionCard({
         {/* Improvement Tags */}
         <div className="mt-3 flex flex-wrap gap-2">
           {improvements && !improvements.hasQuantification && (
-            <Badge className="bg-blue-50 text-blue-700 border border-blue-300 text-xs">
+            <Badge className="bg-blue-50 text-blue-700 border border-blue-300 text-sm md:text-xs">
               <BarChart3 className="w-3 h-3 mr-1" />
               Behöver kvantifiering
             </Badge>
           )}
           {improvements && (improvements.keywords?.length || 0) > 0 && (
-            <Badge className="bg-purple-50 text-purple-700 border border-purple-300 text-xs">
+            <Badge className="bg-purple-50 text-purple-700 border border-purple-300 text-sm md:text-xs">
               <Key className="w-3 h-3 mr-1" />
               {improvements?.keywords?.length || 0} nyckelord
             </Badge>
           )}
           {improvements && (improvements.grammarIssues?.length || 0) > 0 && (
-            <Badge className="bg-orange-50 text-orange-700 border border-orange-300 text-xs">
+            <Badge className="bg-orange-50 text-orange-700 border border-orange-300 text-sm md:text-xs">
               <Type className="w-3 h-3 mr-1" />
               {improvements?.grammarIssues?.length || 0} grammatikfel
             </Badge>
           )}
           {improvements && improvements.atsOptimization && (
-            <Badge className="bg-green-50 text-green-700 border border-green-300 text-xs">
+            <Badge className="bg-green-50 text-green-700 border border-green-300 text-sm md:text-xs">
               <Sparkles className="w-3 h-3 mr-1" />
               ATS-optimering
             </Badge>
@@ -243,8 +243,9 @@ export default function SectionCard({
                       <textarea
                         value={editedText}
                         onChange={(e) => setEditedText(e.target.value)}
-                        className="w-full min-h-[120px] p-3 text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full min-h-[160px] md:min-h-[120px] p-4 md:p-3 text-base md:text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                         placeholder="Redigera AI:ns förslag här..."
+                        rows={6}
                       />
                     </div>
                     <div className="flex gap-2 justify-end">

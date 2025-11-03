@@ -84,7 +84,7 @@ export default function SaveAndTemplateStep({
             type="button"
             onClick={() => setSaveChoice('save')}
             disabled={!canSave}
-            className={`relative p-4 rounded-xl border-2 transition-all ${
+            className={`relative p-5 md:p-4 rounded-xl border-2 transition-all min-h-[80px] touch-manipulation ${
               saveChoice === 'save'
                 ? 'border-green-500 bg-green-50 shadow-lg'
                 : canSave
@@ -93,7 +93,7 @@ export default function SaveAndTemplateStep({
             }`}
           >
             <div className="flex items-start gap-3">
-              <div className={`flex-shrink-0 w-5 h-5 rounded-full border-2 mt-0.5 ${
+              <div className={`flex-shrink-0 w-7 h-7 md:w-5 md:h-5 rounded-full border-2 mt-0.5 ${
                 saveChoice === 'save'
                   ? 'border-green-500 bg-green-500'
                   : 'border-gray-300 bg-white'
@@ -130,14 +130,14 @@ export default function SaveAndTemplateStep({
           <button
             type="button"
             onClick={() => setSaveChoice('download')}
-            className={`relative p-4 rounded-xl border-2 transition-all ${
+            className={`relative p-5 md:p-4 rounded-xl border-2 transition-all min-h-[80px] touch-manipulation ${
               saveChoice === 'download'
                 ? 'border-purple-500 bg-purple-50 shadow-lg'
                 : 'border-gray-300 bg-white hover:border-purple-300 hover:bg-purple-50/50'
             }`}
           >
             <div className="flex items-start gap-3">
-              <div className={`flex-shrink-0 w-5 h-5 rounded-full border-2 mt-0.5 ${
+              <div className={`flex-shrink-0 w-7 h-7 md:w-5 md:h-5 rounded-full border-2 mt-0.5 ${
                 saveChoice === 'download'
                   ? 'border-purple-500 bg-purple-500'
                   : 'border-gray-300 bg-white'
@@ -174,7 +174,7 @@ export default function SaveAndTemplateStep({
                 value={customName}
                 onChange={(e) => setCustomName(e.target.value)}
                 placeholder={nameSuggestions[0] || "Mitt CV 2025"}
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white text-gray-900"
+                className="w-full px-4 py-3 md:py-2.5 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white text-gray-900 min-h-[48px]"
               />
             </label>
 

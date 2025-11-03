@@ -963,7 +963,7 @@ export default function CVAnalysisWizard({
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-4 py-4 sm:py-6 md:py-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-6 sm:py-8 md:py-10 relative z-10">
         {/* Header */}
         <motion.header
           className="mb-4 sm:mb-6 md:mb-8"
@@ -999,7 +999,7 @@ export default function CVAnalysisWizard({
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           {/* Step Content */}
-          <div className="p-4 sm:p-6 md:p-8 min-h-[400px] sm:min-h-[450px] md:min-h-[500px]">
+          <div className="p-5 sm:p-6 md:p-8 min-h-[300px] md:min-h-[400px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentStep}
@@ -1018,28 +1018,28 @@ export default function CVAnalysisWizard({
           {/* Navigation Footer */}
           {currentStep < STEPS.length - 1 && currentStep !== 1 && (
             <div className="px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6 border-t border-gray-200 bg-gray-50">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0">
+              <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-3 sm:gap-4">
                 <Button
                   variant="outline"
                   onClick={handlePrevious}
                   disabled={currentStep === 0}
-                  className="flex items-center gap-2 touch-manipulation min-h-[44px] w-full sm:w-auto order-2 sm:order-1"
+                  className="flex items-center justify-center gap-2 touch-manipulation min-h-[48px] md:min-h-[44px] w-full sm:w-auto"
                 >
-                  <ChevronLeft className="w-4 h-4" />
-                  Tillbaka
+                  <ChevronLeft className="w-5 h-5 md:w-4 md:h-4" />
+                  <span className="text-base md:text-sm">Tillbaka</span>
                 </Button>
 
-                <div className="text-xs sm:text-sm text-gray-600 order-1 sm:order-2">
+                <div className="text-sm md:text-xs text-gray-600 font-medium">
                   Steg {currentStep + 1} av {STEPS.length}
                 </div>
 
                 <Button
                   onClick={handleNext}
                   disabled={!canNavigateNext() || isSaving}
-                  className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white flex items-center gap-2 touch-manipulation min-h-[44px] w-full sm:w-auto order-3"
+                  className="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white flex items-center justify-center gap-2 touch-manipulation min-h-[48px] md:min-h-[44px] w-full sm:w-auto"
                 >
-                  Nästa
-                  <ChevronRight className="w-4 h-4" />
+                  <span className="text-base md:text-sm">Nästa</span>
+                  <ChevronRight className="w-5 h-5 md:w-4 md:h-4" />
                 </Button>
               </div>
             </div>
