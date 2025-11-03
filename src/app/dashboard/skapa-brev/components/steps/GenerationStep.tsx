@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Brain, CheckCircle2, Loader2, Sparkles, Zap, FileText, Target } from 'lucide-react';
+import Image from 'next/image';
+import { CheckCircle2, Sparkles } from 'lucide-react';
 
 interface GenerationStepProps {
   isGenerating: boolean;
@@ -10,86 +11,186 @@ interface GenerationStepProps {
   error: string | null;
 }
 
-const aiSteps = [
-  { label: 'Analyserar ditt CV...', icon: FileText, delay: 0 },
-  { label: 'Extraherar nyckelkompetenser...', icon: Target, delay: 1 },
-  { label: 'Matchar mot jobbkrav...', icon: Zap, delay: 2 },
-  { label: 'Genererar personligt brev...', icon: Brain, delay: 3 },
-  { label: 'Optimerar för ATS-system...', icon: Sparkles, delay: 4 }
+const mascotStages = [
+  {
+    image: '/images/maskot/personligt-brev-1.svg',
+    text: 'Analyserar ditt CV',
+    color: 'from-blue-500/20 to-indigo-500/20',
+    glowColor: 'rgba(59, 130, 246, 0.5)',
+    accentColor: '#3B82F6',
+    particleCount: 8
+  },
+  {
+    image: '/images/maskot/personligt-brev-2.svg',
+    text: 'Extraherar nyckelkompetenser',
+    color: 'from-violet-500/20 to-purple-500/20',
+    glowColor: 'rgba(139, 92, 246, 0.5)',
+    accentColor: '#8B5CF6',
+    particleCount: 15
+  },
+  {
+    image: '/images/maskot/personligt-brev-3.svg',
+    text: 'Matchar mot jobbkrav',
+    color: 'from-fuchsia-500/20 to-pink-500/20',
+    glowColor: 'rgba(217, 70, 239, 0.5)',
+    accentColor: '#D946EF',
+    particleCount: 20
+  },
+  {
+    image: '/images/maskot/personligt-brev-4.svg',
+    text: 'Genererar personligt brev',
+    color: 'from-amber-500/20 to-orange-500/20',
+    glowColor: 'rgba(251, 146, 60, 0.5)',
+    accentColor: '#FB923C',
+    particleCount: 28
+  },
+  {
+    image: '/images/maskot/personligt-brev-5.svg',
+    text: 'Optimerar för ATS-system',
+    color: 'from-emerald-500/20 to-green-500/20',
+    glowColor: 'rgba(16, 185, 129, 0.6)',
+    accentColor: '#10B981',
+    particleCount: 35
+  }
 ];
+
+// Particle component for floating effects
+const Particle = ({ delay, duration, x, y, type }: {
+  delay: number;
+  duration: number;
+  x: number;
+  y: number;
+  type: 'document' | 'ink' | 'star';
+}) => {
+  const getParticleStyle = () => {
+    switch (type) {
+      case 'document':
+        return 'w-3 h-4 bg-gradient-to-br from-blue-400 to-indigo-400 rounded-sm';
+      case 'ink':
+        return 'w-2 h-2 bg-gradient-to-b from-orange-400 to-amber-600 rounded-full';
+      case 'star':
+        return 'w-2 h-2 bg-gradient-to-br from-yellow-400 to-amber-500';
+      default:
+        return 'w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-400';
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0, x, y }}
+      animate={{
+        opacity: [0, 1, 0],
+        scale: type === 'ink' ? [0, 1.2, 1, 0.5] : [0, 1, 0.5],
+        y: [y, y - (type === 'ink' ? 80 : 100)],
+        x: [x, x + (Math.random() - 0.5) * 50],
+        rotate: type === 'document' ? [0, 360] : 0
+      }}
+      transition={{
+        duration,
+        delay,
+        repeat: Infinity,
+        ease: type === 'ink' ? 'easeOut' : 'easeOut'
+      }}
+      className={`absolute ${getParticleStyle()}`}
+    />
+  );
+};
+
+// Confetti component for completion
+const Confetti = ({ delay }: { delay: number }) => {
+  const colors = ['#EC4899', '#8B5CF6', '#10B981', '#F59E0B', '#3B82F6', '#10B981'];
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  const startX = (Math.random() - 0.5) * 200;
+  const shape = Math.random() > 0.5 ? 'rounded-sm' : 'rounded-full';
+
+  return (
+    <motion.div
+      initial={{ opacity: 1, scale: 1, x: startX, y: -50, rotate: 0 }}
+      animate={{
+        opacity: [1, 1, 0],
+        y: [0, 300],
+        x: [startX, startX + (Math.random() - 0.5) * 100],
+        rotate: [0, Math.random() * 720 - 360]
+      }}
+      transition={{
+        duration: 2,
+        delay,
+        ease: 'easeIn'
+      }}
+      className={`absolute w-3 h-3 ${shape}`}
+      style={{ backgroundColor: color }}
+    />
+  );
+};
 
 export default function GenerationStep({
   isGenerating,
   generatedLetter,
   error
 }: GenerationStepProps) {
-  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
-  const [currentStep, setCurrentStep] = useState(0);
-  const [animationComplete, setAnimationComplete] = useState(false);
+  const [currentStage, setCurrentStage] = useState(0);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
-  // Debug logging
-  console.log('🔍 GenerationStep rendered:', { isGenerating, generatedLetter: !!generatedLetter, error });
-
+  // Preload all SVG images immediately
   useEffect(() => {
-    console.log('📊 GenerationStep useEffect triggered, isGenerating:', isGenerating, 'generatedLetter:', !!generatedLetter);
+    const preloadImages = async () => {
+      const imagePromises = mascotStages.map((stage) => {
+        return new Promise((resolve, reject) => {
+          const img = new window.Image();
+          img.src = stage.image;
+          img.onload = resolve;
+          img.onerror = reject;
+        });
+      });
 
-    // Start animation when component mounts if letter is not yet generated
-    if (!generatedLetter && !error) {
-      console.log('🚀 GenerationStep: Starting animation sequence (letter not generated yet)');
-      setCompletedSteps([]);
-      setCurrentStep(0);
-      setAnimationComplete(false);
+      try {
+        await Promise.all(imagePromises);
+        setImagesLoaded(true);
+      } catch (error) {
+        console.error('Error preloading letter mascot images:', error);
+        setImagesLoaded(true); // Show anyway
+      }
+    };
 
-      // Start immediately with step 0
-      let currentStepIndex = 0;
-      const stepDuration = 2500; // 2.5 seconds per step for clear visibility
+    preloadImages();
+  }, []);
 
-      // Function to advance to next step
-      const advanceStep = () => {
-        console.log(`🔄 GenerationStep: Advancing from step ${currentStepIndex}`);
+  // Check for reduced motion preference
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
 
-        // Mark current step as completed and move to next
-        if (currentStepIndex < aiSteps.length - 1) {
-          setCompletedSteps(prev => [...prev, currentStepIndex]);
-          currentStepIndex++;
-          setCurrentStep(currentStepIndex);
-          console.log(`👉 Now on step ${currentStepIndex}: ${aiSteps[currentStepIndex].label}`);
+    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
+
+  // Cycle through mascot stages
+  useEffect(() => {
+    if (!generatedLetter && !error && isGenerating) {
+      let stageIndex = 0;
+      const stageDuration = 2500; // 2.5 seconds per stage
+
+      const stageInterval = setInterval(() => {
+        stageIndex++;
+        if (stageIndex < mascotStages.length) {
+          setCurrentStage(stageIndex);
         } else {
-          // We're on the last step, mark animation as complete
-          setCompletedSteps(aiSteps.map((_, i) => i));
-          setCurrentStep(aiSteps.length);
-          setAnimationComplete(true);
-          console.log('🏁 Animation cycle completed');
+          clearInterval(stageInterval);
         }
-      };
+      }, stageDuration);
 
-      // Use setInterval to advance through steps continuously
-      const stepInterval = setInterval(() => {
-        advanceStep();
-
-        // Stoppa intervallet när vi nått sista steget - ingen looping
-        if (currentStepIndex >= aiSteps.length - 1) {
-          clearInterval(stepInterval);
-          console.log('🏁 Animation completed - waiting for letter generation');
-        }
-      }, stepDuration);
-
-      // Cleanup interval on component unmount or when generation stops
-      return () => {
-        console.log('🧹 GenerationStep: Cleaning up interval');
-        clearInterval(stepInterval);
-      };
+      return () => clearInterval(stageInterval);
     }
   }, [generatedLetter, error, isGenerating]);
 
-  // Handle completion separately
+  // Trigger confetti when letter is complete
   useEffect(() => {
     if (generatedLetter && !isGenerating) {
-      console.log('✨ GenerationStep: Letter generated, showing completion');
-      // Mark all steps as completed when letter is done
-      setCompletedSteps(aiSteps.map((_, i) => i));
-      setCurrentStep(aiSteps.length);
-      setAnimationComplete(true);
+      setCurrentStage(mascotStages.length - 1);
+      setShowConfetti(true);
     }
   }, [generatedLetter, isGenerating]);
 
@@ -158,137 +259,191 @@ export default function GenerationStep({
     );
   }
 
+  // Generate particles based on current stage
+  const currentMascotStage = mascotStages[currentStage];
+
+  const particles = useMemo(() => {
+    if (prefersReducedMotion) return [];
+    const particleType = currentStage <= 1 ? 'document' : currentStage === 3 ? 'ink' : currentStage === 4 ? 'star' : 'document';
+    return Array.from({ length: currentMascotStage.particleCount }, (_, i) => ({
+      id: `particle-${currentStage}-${i}`,
+      delay: i * 0.2,
+      duration: 2 + Math.random() * 2,
+      x: (Math.random() - 0.5) * 150,
+      y: Math.random() * 50,
+      type: particleType as 'document' | 'ink' | 'star'
+    }));
+  }, [currentStage, currentMascotStage.particleCount, prefersReducedMotion]);
+
+  // Confetti pieces
+  const confettiPieces = useMemo(() => {
+    if (!showConfetti || prefersReducedMotion) return [];
+    return Array.from({ length: 50 }, (_, i) => ({
+      id: `confetti-${i}`,
+      delay: i * 0.03
+    }));
+  }, [showConfetti, prefersReducedMotion]);
+
+  // Stage-specific animation variants
+  const stageVariants = {
+    0: {
+      initial: { opacity: 0, scale: 0.8, rotate: -10, y: 20 },
+      animate: { opacity: 1, scale: 1, rotate: 0, y: [0, -10, 0] },
+      exit: { opacity: 0, scale: 0.9, rotate: 10, x: -20, transition: { duration: 0.3 } }
+    },
+    1: {
+      initial: { opacity: 0, scale: 0.8, x: 30 },
+      animate: { opacity: 1, scale: [1, 1.05, 1], x: 0, y: [0, -12, 0] },
+      exit: { opacity: 0, scale: 0.85, x: -30, transition: { duration: 0.3 } }
+    },
+    2: {
+      initial: { opacity: 0, scale: 0.7, rotate: 15 },
+      animate: { opacity: 1, scale: [1, 1.08, 1], rotate: [0, -3, 3, 0], y: [0, -15, 0] },
+      exit: { opacity: 0, scale: 0.8, rotate: -15, transition: { duration: 0.3 } }
+    },
+    3: {
+      initial: { opacity: 0, scale: 0.9, y: 30 },
+      animate: { opacity: 1, scale: [1, 1.1, 1.05, 1], y: [0, -18, 0] },
+      exit: { opacity: 0, scale: 0.9, y: -20, transition: { duration: 0.3 } }
+    },
+    4: {
+      initial: { opacity: 0, scale: 0.6, y: 30 },
+      animate: { opacity: 1, scale: [1, 1.15, 1.1], rotate: [0, -5, 5, 0], y: [0, -20, 0] },
+      exit: { opacity: 0, scale: 1.2, y: -30, transition: { duration: 0.4 } }
+    }
+  };
+
+  const variant = stageVariants[currentStage as keyof typeof stageVariants];
+
   return (
-    <div className="py-8">
-      <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8">
-        {/* AI Brain Animation */}
+    <div className="flex flex-col items-center justify-center py-12 overflow-hidden">
+      {/* Main mascot container with glow and particles */}
+      <div className="relative w-64 h-64 mb-8">
+        {/* Animated gradient background */}
         <motion.div
-          className="text-center mb-8"
+          key={`bg-${currentStage}`}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8 }}
+          className={`absolute inset-0 rounded-full bg-gradient-to-br ${currentMascotStage.color} blur-3xl`}
+        />
+
+        {/* Dynamic glow effect */}
+        <motion.div
           animate={{
-            scale: [1, 1.05, 1],
+            boxShadow: [
+              `0 0 40px ${currentMascotStage.glowColor}`,
+              `0 0 80px ${currentMascotStage.glowColor}`,
+              `0 0 40px ${currentMascotStage.glowColor}`
+            ]
           }}
           transition={{
             duration: 2,
             repeat: Infinity,
             ease: 'easeInOut'
           }}
-        >
-          <div className="relative inline-block">
-            <Brain className="w-20 h-20 text-blue-600 mx-auto" />
+          className="absolute inset-8 rounded-full"
+        />
 
-            {/* Animated Rings */}
+        {/* Particles */}
+        {!prefersReducedMotion && particles.map(particle => (
+          <Particle key={particle.id} {...particle} />
+        ))}
+
+        {/* Confetti */}
+        {!prefersReducedMotion && confettiPieces.map(piece => (
+          <Confetti key={piece.id} delay={piece.delay} />
+        ))}
+
+        {/* Animated Mascot */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <AnimatePresence mode="wait">
             <motion.div
-              className="absolute inset-0 rounded-full border-2 border-blue-400"
-              animate={{
-                scale: [1, 1.5, 2],
-                opacity: [0.8, 0.4, 0]
-              }}
+              key={currentStage}
+              initial={variant.initial}
+              animate={variant.animate}
+              exit={variant.exit}
               transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: 'easeOut'
+                opacity: { duration: 0.2 },
+                scale: { duration: 0.3 },
+                rotate: { duration: 0.3 },
+                x: { duration: 0.3 },
+                y: {
+                  duration: prefersReducedMotion ? 0 : 2.5,
+                  repeat: prefersReducedMotion ? 0 : Infinity,
+                  ease: 'easeInOut'
+                }
               }}
-            />
-            <motion.div
-              className="absolute inset-0 rounded-full border-2 border-purple-400"
-              animate={{
-                scale: [1, 1.5, 2],
-                opacity: [0.8, 0.4, 0]
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: 'easeOut',
-                delay: 0.5
-              }}
-            />
-          </div>
-          <h3 className="text-xl font-semibold text-gray-900 mt-4 mb-2">
-            Vi skapar ditt brev
-          </h3>
-          <p className="text-gray-600">
-            Analyserar och optimerar för bästa resultat...
-          </p>
-        </motion.div>
-
-        {/* Process Steps */}
-        <div className="space-y-3 max-w-md mx-auto">
-          {aiSteps.map((step, index) => {
-            const isCompleted = completedSteps.includes(index);
-            const isCurrent = currentStep === index;
-
-            return (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: step.delay * 0.3 }}
-                className={`
-                  flex items-center gap-4 p-4 rounded-lg transition-all duration-500
-                  ${isCurrent
-                    ? 'bg-white shadow-lg border-2 border-blue-500 scale-105 transform'
-                    : isCompleted
-                    ? 'bg-green-50 border border-green-200'
-                    : 'bg-white/50 border border-gray-200'
-                  }
-                `}
-              >
-                <div className="flex-shrink-0">
-                  {isCompleted ? (
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: 'spring', stiffness: 300 }}
-                    >
-                      <CheckCircle2 className="w-6 h-6 text-green-500" />
-                    </motion.div>
-                  ) : isCurrent ? (
-                    <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
-                    >
-                      <Loader2 className="w-6 h-6 text-blue-600" />
-                    </motion.div>
-                  ) : (
-                    <step.icon className="w-6 h-6 text-gray-400" />
-                  )}
+              className="relative w-48 h-48"
+            >
+              {imagesLoaded ? (
+                <Image
+                  src={currentMascotStage.image}
+                  alt={currentMascotStage.text}
+                  width={192}
+                  height={192}
+                  unoptimized
+                  className="w-full h-full object-contain drop-shadow-2xl"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <div className="w-16 h-16 border-4 border-pink-600 border-t-transparent rounded-full animate-spin" />
                 </div>
-
-                <div className="flex-1">
-                  <p className={`font-medium transition-colors duration-300 ${
-                    isCompleted ? 'text-green-800' : isCurrent ? 'text-blue-900 font-semibold' : 'text-gray-500'
-                  }`}>
-                    {step.label}
-                  </p>
-                  {isCurrent && (
-                    <motion.div
-                      className="h-1.5 bg-blue-200 rounded-full mt-2 overflow-hidden"
-                    >
-                      <motion.div
-                        className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
-                        initial={{ width: '0%' }}
-                        animate={{ width: '100%' }}
-                        transition={{ duration: 2.5, ease: 'linear' }}
-                      />
-                    </motion.div>
-                  )}
-                </div>
-              </motion.div>
-            );
-          })}
+              )}
+            </motion.div>
+          </AnimatePresence>
         </div>
+      </div>
 
-        {/* Fun Facts */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="mt-8 text-center"
+      {/* Activity Text */}
+      <AnimatePresence mode="wait">
+        <motion.h3
+          key={currentStage}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.4 }}
+          className="text-2xl font-semibold text-gray-900 mb-2"
         >
-          <p className="text-sm text-gray-600">
-            💡 Visste du att vi analyserar över 50 parametrar för att skapa det perfekta brevet?
-          </p>
-        </motion.div>
+          {currentMascotStage.text}
+        </motion.h3>
+      </AnimatePresence>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3 }}
+        className="text-gray-600 mb-8"
+      >
+        Detta tar vanligtvis 10-15 sekunder
+      </motion.p>
+
+      {/* Activity Indicators */}
+      <div className="flex gap-2 mt-4">
+        {mascotStages.map((_, index) => (
+          <motion.div
+            key={index}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{
+              scale: index <= currentStage ? 1 : 0.8,
+              opacity: 1
+            }}
+            transition={{
+              delay: index * 0.1,
+              type: 'spring',
+              stiffness: 260,
+              damping: 20
+            }}
+            className={`h-1.5 w-12 rounded-full transition-all duration-500 ${
+              index < currentStage
+                ? 'bg-gradient-to-r from-pink-600 to-purple-600'
+                : index === currentStage
+                ? 'bg-gradient-to-r from-pink-600 to-purple-600 shadow-lg shadow-pink-500/50'
+                : 'bg-gray-200'
+            }`}
+          />
+        ))}
       </div>
     </div>
   );
