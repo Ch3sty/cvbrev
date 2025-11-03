@@ -300,7 +300,16 @@ export default function GenerationStep({
 
     // Bounds-check to prevent logic errors when currentStage exceeds array length
     const safeStage = Math.min(currentStage, mascotStages.length - 1);
-    const particleType = safeStage <= 1 ? 'document' : safeStage === 3 ? 'ink' : safeStage === 4 ? 'star' : 'document';
+    let particleType: 'document' | 'ink' | 'star';
+    if (safeStage <= 1) {
+      particleType = 'document';
+    } else if (safeStage === 2) {
+      particleType = 'document';
+    } else if (safeStage === 3) {
+      particleType = 'ink';
+    } else {
+      particleType = 'star';
+    }
 
     return Array.from({ length: count }, (_, i) => ({
       id: `particle-${currentStage}-${i}`,
@@ -352,8 +361,8 @@ export default function GenerationStep({
   };
 
   // Bounds-check to prevent undefined variant when currentStage exceeds array length
-  const safeStageForVariant = Math.min(currentStage, mascotStages.length - 1);
-  const variant = stageVariants[safeStageForVariant as keyof typeof stageVariants];
+  const safeStageForVariant = Math.min(currentStage, mascotStages.length - 1) as 0 | 1 | 2 | 3 | 4;
+  const variant = stageVariants[safeStageForVariant] || stageVariants[0]; // Fallback to stage 0 if undefined
 
   return (
     <div className="flex flex-col items-center justify-center py-8 sm:py-12 overflow-hidden">
