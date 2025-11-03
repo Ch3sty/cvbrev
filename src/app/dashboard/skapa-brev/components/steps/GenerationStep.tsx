@@ -4,6 +4,7 @@ import { useEffect, useState, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { CheckCircle2, Sparkles } from 'lucide-react';
+import { useDeviceType } from '@/hooks/useDeviceType';
 
 interface GenerationStepProps {
   isGenerating: boolean;
@@ -46,7 +47,7 @@ const mascotStages = [
   },
   {
     image: '/images/maskot/personligt-brev-5.svg',
-    text: 'Optimerar för ATS-system',
+    text: 'Optimerar för ATS',
     color: 'from-emerald-500/20 to-green-500/20',
     glowColor: 'rgba(16, 185, 129, 0.6)',
     accentColor: '#10B981',
@@ -98,7 +99,7 @@ const Particle = ({ delay, duration, x, y, type }: {
 
 // Confetti component for completion
 const Confetti = ({ delay }: { delay: number }) => {
-  const colors = ['#EC4899', '#8B5CF6', '#10B981', '#F59E0B', '#3B82F6', '#10B981'];
+  const colors = ['#EC4899', '#8B5CF6', '#10B981', '#F59E0B', '#3B82F6'];
   const color = colors[Math.floor(Math.random() * colors.length)];
   const startX = (Math.random() - 0.5) * 200;
   const shape = Math.random() > 0.5 ? 'rounded-sm' : 'rounded-full';
@@ -117,7 +118,7 @@ const Confetti = ({ delay }: { delay: number }) => {
         delay,
         ease: 'easeIn'
       }}
-      className={`absolute w-3 h-3 ${shape}`}
+      className={`absolute w-2 h-2 sm:w-3 sm:h-3 ${shape}`}
       style={{ backgroundColor: color }}
     />
   );
@@ -132,8 +133,12 @@ export default function GenerationStep({
   const [showConfetti, setShowConfetti] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const { isMobile } = useDeviceType();
 
-  // Preload all SVG images immediately
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const stageIndexRef = useRef(0);
+
+  // Preload all SVG images immediately (skip on slow connections for mobile)
   useEffect(() => {
     const preloadImages = async () => {
       const imagePromises = mascotStages.map((stage) => {
@@ -168,24 +173,35 @@ export default function GenerationStep({
   }, []);
 
   // Cycle through mascot stages
-  const stageIndexRef = useRef(0);
-
   useEffect(() => {
+    // Clear any existing interval first
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+
     if (!generatedLetter && !error) {
       stageIndexRef.current = 0;
+      setCurrentStage(0);
       const stageDuration = 2500; // 2.5 seconds per stage
 
-      const stageInterval = setInterval(() => {
+      intervalRef.current = setInterval(() => {
         stageIndexRef.current++;
         if (stageIndexRef.current < mascotStages.length) {
           setCurrentStage(stageIndexRef.current);
         } else {
-          clearInterval(stageInterval);
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+          }
         }
       }, stageDuration);
 
       return () => {
-        clearInterval(stageInterval);
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
         stageIndexRef.current = 0;
       };
     }
@@ -194,6 +210,11 @@ export default function GenerationStep({
   // Trigger confetti when letter is complete
   useEffect(() => {
     if (generatedLetter && !isGenerating) {
+      // Clear interval to prevent race condition
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
       setCurrentStage(mascotStages.length - 1);
       setShowConfetti(true);
     }
@@ -264,30 +285,39 @@ export default function GenerationStep({
     );
   }
 
-  // Generate particles based on current stage
+  // Generate particles based on current stage - mobile optimized
   const currentMascotStage = mascotStages[currentStage];
 
   const particles = useMemo(() => {
     if (prefersReducedMotion) return [];
+
+    // Mobile: reduce particle count by 75%
+    const baseCount = currentMascotStage.particleCount;
+    const count = isMobile
+      ? Math.min(Math.floor(baseCount / 4), 8) // Max 8 particles on mobile
+      : baseCount;
+
     const particleType = currentStage <= 1 ? 'document' : currentStage === 3 ? 'ink' : currentStage === 4 ? 'star' : 'document';
-    return Array.from({ length: currentMascotStage.particleCount }, (_, i) => ({
+
+    return Array.from({ length: count }, (_, i) => ({
       id: `particle-${currentStage}-${i}`,
       delay: i * 0.2,
       duration: 2 + Math.random() * 2,
-      x: (Math.random() - 0.5) * 150,
-      y: Math.random() * 50,
+      x: (Math.random() - 0.5) * (isMobile ? 100 : 150),
+      y: Math.random() * (isMobile ? 30 : 50),
       type: particleType as 'document' | 'ink' | 'star'
     }));
-  }, [currentStage, currentMascotStage.particleCount, prefersReducedMotion]);
+  }, [currentStage, currentMascotStage.particleCount, prefersReducedMotion, isMobile]);
 
-  // Confetti pieces
+  // Confetti pieces - mobile optimized
   const confettiPieces = useMemo(() => {
     if (!showConfetti || prefersReducedMotion) return [];
-    return Array.from({ length: 50 }, (_, i) => ({
+    const count = isMobile ? 12 : 30; // Reduce from 50 to 30 desktop, 12 mobile
+    return Array.from({ length: count }, (_, i) => ({
       id: `confetti-${i}`,
-      delay: i * 0.03
+      delay: i * (isMobile ? 0.05 : 0.03)
     }));
-  }, [showConfetti, prefersReducedMotion]);
+  }, [showConfetti, prefersReducedMotion, isMobile]);
 
   // Stage-specific animation variants
   const stageVariants = {
@@ -321,9 +351,9 @@ export default function GenerationStep({
   const variant = stageVariants[currentStage as keyof typeof stageVariants];
 
   return (
-    <div className="flex flex-col items-center justify-center py-12 overflow-hidden">
-      {/* Main mascot container with glow and particles */}
-      <div className="relative w-64 h-64 mb-8">
+    <div className="flex flex-col items-center justify-center py-8 sm:py-12 overflow-hidden">
+      {/* Main mascot container with glow and particles - Responsive sizing */}
+      <div className="relative w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 mb-6 sm:mb-8">
         {/* Animated gradient background */}
         <motion.div
           key={`bg-${currentStage}`}
@@ -334,22 +364,24 @@ export default function GenerationStep({
           className={`absolute inset-0 rounded-full bg-gradient-to-br ${currentMascotStage.color} blur-3xl`}
         />
 
-        {/* Dynamic glow effect */}
-        <motion.div
-          animate={{
-            boxShadow: [
-              `0 0 40px ${currentMascotStage.glowColor}`,
-              `0 0 80px ${currentMascotStage.glowColor}`,
-              `0 0 40px ${currentMascotStage.glowColor}`
-            ]
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: 'easeInOut'
-          }}
-          className="absolute inset-8 rounded-full"
-        />
+        {/* Dynamic glow effect - Hidden on mobile to save performance */}
+        {!isMobile && (
+          <motion.div
+            animate={{
+              boxShadow: [
+                `0 0 40px ${currentMascotStage.glowColor}`,
+                `0 0 80px ${currentMascotStage.glowColor}`,
+                `0 0 40px ${currentMascotStage.glowColor}`
+              ]
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: 'easeInOut'
+            }}
+            className="absolute inset-8 rounded-full"
+          />
+        )}
 
         {/* Particles */}
         {!prefersReducedMotion && particles.map(particle => (
@@ -361,7 +393,7 @@ export default function GenerationStep({
           <Confetti key={piece.id} delay={piece.delay} />
         ))}
 
-        {/* Animated Mascot */}
+        {/* Animated Mascot - Responsive sizing */}
         <div className="absolute inset-0 flex items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.div
@@ -375,12 +407,12 @@ export default function GenerationStep({
                 rotate: { duration: 0.3 },
                 x: { duration: 0.3 },
                 y: {
-                  duration: prefersReducedMotion ? 0 : 2.5,
-                  repeat: prefersReducedMotion ? 0 : Infinity,
+                  duration: prefersReducedMotion ? 0 : (isMobile ? 2 : 2.5),
+                  repeat: prefersReducedMotion ? 0 : (isMobile ? 5 : Infinity),
                   ease: 'easeInOut'
                 }
               }}
-              className="relative w-48 h-48"
+              className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48"
             >
               {imagesLoaded ? (
                 <Image
@@ -393,7 +425,7 @@ export default function GenerationStep({
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <div className="w-16 h-16 border-4 border-pink-600 border-t-transparent rounded-full animate-spin" />
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-pink-600 border-t-transparent rounded-full animate-spin" />
                 </div>
               )}
             </motion.div>
@@ -401,7 +433,7 @@ export default function GenerationStep({
         </div>
       </div>
 
-      {/* Activity Text */}
+      {/* Activity Text - Responsive typography */}
       <AnimatePresence mode="wait">
         <motion.h3
           key={currentStage}
@@ -409,7 +441,7 @@ export default function GenerationStep({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.4 }}
-          className="text-2xl font-semibold text-gray-900 mb-2"
+          className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2 text-center px-4"
         >
           {currentMascotStage.text}
         </motion.h3>
@@ -419,13 +451,13 @@ export default function GenerationStep({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
-        className="text-gray-600 mb-8"
+        className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8 text-center px-4"
       >
         Detta tar vanligtvis 10-15 sekunder
       </motion.p>
 
-      {/* Activity Indicators */}
-      <div className="flex gap-2 mt-4">
+      {/* Activity Indicators - Responsive sizing */}
+      <div className="flex gap-1.5 sm:gap-2 mt-4 px-4">
         {mascotStages.map((_, index) => (
           <motion.div
             key={index}
@@ -440,7 +472,7 @@ export default function GenerationStep({
               stiffness: 260,
               damping: 20
             }}
-            className={`h-1.5 w-12 rounded-full transition-all duration-500 ${
+            className={`h-1.5 w-8 sm:w-12 rounded-full transition-all duration-500 ${
               index < currentStage
                 ? 'bg-gradient-to-r from-pink-600 to-purple-600'
                 : index === currentStage
