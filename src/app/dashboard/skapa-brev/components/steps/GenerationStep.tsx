@@ -135,9 +135,6 @@ export default function GenerationStep({
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const { isMobile } = useDeviceType();
 
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const stageIndexRef = useRef(0);
-
   // Preload all SVG images immediately (skip on slow connections for mobile)
   useEffect(() => {
     const preloadImages = async () => {
@@ -172,53 +169,37 @@ export default function GenerationStep({
     return () => mediaQuery.removeEventListener('change', handler);
   }, []);
 
-  // Cycle through mascot stages
+  // Cycle through mascot stages using time-based approach (prevents race conditions)
   useEffect(() => {
-    // Clear any existing interval first
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
+    if (generatedLetter || error) return;
 
-    if (!generatedLetter && !error) {
-      stageIndexRef.current = 0;
-      setCurrentStage(0);
-      const stageDuration = 2500; // 2.5 seconds per stage
+    const startTime = Date.now();
+    const STAGE_DURATION = 2500; // 2.5 seconds per stage
 
-      intervalRef.current = setInterval(() => {
-        stageIndexRef.current++;
-        if (stageIndexRef.current < mascotStages.length) {
-          setCurrentStage(stageIndexRef.current);
-        } else {
-          if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-            intervalRef.current = null;
-          }
-        }
-      }, stageDuration);
+    const updateStage = () => {
+      const elapsed = Date.now() - startTime;
+      const calculatedStage = Math.min(
+        Math.floor(elapsed / STAGE_DURATION),
+        mascotStages.length - 1  // Max index 4
+      );
+      setCurrentStage(calculatedStage);
+    };
 
-      return () => {
-        if (intervalRef.current) {
-          clearInterval(intervalRef.current);
-          intervalRef.current = null;
-        }
-        stageIndexRef.current = 0;
-      };
-    }
+    // Initial update
+    updateStage();
+
+    // Update every 100ms for smooth transitions
+    const interval = setInterval(updateStage, 100);
+
+    return () => clearInterval(interval);
   }, [generatedLetter, error]);
 
   // Trigger confetti when letter is complete
   useEffect(() => {
-    if (generatedLetter && !isGenerating) {
-      // Clear interval to prevent race condition
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-      setCurrentStage(mascotStages.length - 1);
+    if (generatedLetter && !isGenerating && !showConfetti) {
       setShowConfetti(true);
     }
-  }, [generatedLetter, isGenerating]);
+  }, [generatedLetter, isGenerating, showConfetti]);
 
   if (error) {
     return (
@@ -286,8 +267,7 @@ export default function GenerationStep({
   }
 
   // Generate particles based on current stage - mobile optimized
-  // Bounds-check to prevent undefined when currentStage exceeds array length
-  const currentMascotStage = mascotStages[Math.min(currentStage, mascotStages.length - 1)];
+  const currentMascotStage = mascotStages[currentStage];
 
   const particles = useMemo(() => {
     if (prefersReducedMotion) return [];
@@ -298,14 +278,13 @@ export default function GenerationStep({
       ? Math.min(Math.floor(baseCount / 4), 8) // Max 8 particles on mobile
       : baseCount;
 
-    // Bounds-check to prevent logic errors when currentStage exceeds array length
-    const safeStage = Math.min(currentStage, mascotStages.length - 1);
+    // Determine particle type based on current stage
     let particleType: 'document' | 'ink' | 'star';
-    if (safeStage <= 1) {
+    if (currentStage <= 1) {
       particleType = 'document';
-    } else if (safeStage === 2) {
+    } else if (currentStage === 2) {
       particleType = 'document';
-    } else if (safeStage === 3) {
+    } else if (currentStage === 3) {
       particleType = 'ink';
     } else {
       particleType = 'star';
@@ -360,9 +339,8 @@ export default function GenerationStep({
     }
   };
 
-  // Bounds-check to prevent undefined variant when currentStage exceeds array length
-  const safeStageForVariant = Math.min(currentStage, mascotStages.length - 1) as 0 | 1 | 2 | 3 | 4;
-  const variant = stageVariants[safeStageForVariant] || stageVariants[0]; // Fallback to stage 0 if undefined
+  // Get animation variant for current stage
+  const variant = stageVariants[currentStage as keyof typeof stageVariants];
 
   return (
     <div className="flex flex-col items-center justify-center py-8 sm:py-12 overflow-hidden">
