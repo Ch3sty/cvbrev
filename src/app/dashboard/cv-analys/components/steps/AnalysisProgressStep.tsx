@@ -3,7 +3,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 
 interface AnalysisProgressStepProps {
   progress: number; // 0-100
@@ -103,6 +103,32 @@ export default function AnalysisProgressStep({
   const [activityIndex, setActivityIndex] = useState(0);
   const [showConfetti, setShowConfetti] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
+  // Preload all SVG images immediately
+  useEffect(() => {
+    const preloadImages = async () => {
+      const imagePromises = mascotStages.map((stage) => {
+        return new Promise((resolve, reject) => {
+          const img = new window.Image();
+          img.src = stage.image;
+          img.onload = resolve;
+          img.onerror = reject;
+        });
+      });
+
+      try {
+        await Promise.all(imagePromises);
+        setImagesLoaded(true);
+      } catch (error) {
+        console.error('Error preloading images:', error);
+        // Set loaded anyway to show the component
+        setImagesLoaded(true);
+      }
+    };
+
+    preloadImages();
+  }, []);
 
   // Check for reduced motion preference
   useEffect(() => {
@@ -161,7 +187,7 @@ export default function AnalysisProgressStep({
         rotate: 0,
         y: [0, -10, 0]
       },
-      exit: { opacity: 0, scale: 0.9, rotate: 10, x: -20 }
+      exit: { opacity: 0, scale: 0.9, rotate: 10, x: -20, transition: { duration: 0.3 } }
     },
     1: {
       initial: { opacity: 0, scale: 0.8, x: 30 },
@@ -171,7 +197,7 @@ export default function AnalysisProgressStep({
         x: 0,
         y: [0, -12, 0]
       },
-      exit: { opacity: 0, scale: 0.85, x: -30 }
+      exit: { opacity: 0, scale: 0.85, x: -30, transition: { duration: 0.3 } }
     },
     2: {
       initial: { opacity: 0, scale: 0.7, rotate: 15 },
@@ -181,7 +207,7 @@ export default function AnalysisProgressStep({
         rotate: [0, -3, 3, 0],
         y: [0, -15, 0]
       },
-      exit: { opacity: 0, scale: 0.8, rotate: -15 }
+      exit: { opacity: 0, scale: 0.8, rotate: -15, transition: { duration: 0.3 } }
     },
     3: {
       initial: { opacity: 0, scale: 0.9, y: 30 },
@@ -190,17 +216,17 @@ export default function AnalysisProgressStep({
         scale: [1, 1.1, 1.05, 1],
         y: [0, -18, 0]
       },
-      exit: { opacity: 0, scale: 0.9, y: -20 }
+      exit: { opacity: 0, scale: 0.9, y: -20, transition: { duration: 0.3 } }
     },
     4: {
-      initial: { opacity: 0, scale: 0.6 },
+      initial: { opacity: 0, scale: 0.6, y: 30 },
       animate: {
         opacity: 1,
         scale: [1, 1.15, 1.1],
         rotate: [0, -5, 5, 0],
         y: [0, -20, 0]
       },
-      exit: { opacity: 1, scale: 1.1 }
+      exit: { opacity: 0, scale: 1.2, y: -30, transition: { duration: 0.4 } }
     }
   };
 
@@ -284,10 +310,10 @@ export default function AnalysisProgressStep({
               animate={variant.animate}
               exit={variant.exit}
               transition={{
-                opacity: { duration: 0.4 },
-                scale: { duration: 0.6 },
-                rotate: { duration: 0.5 },
-                x: { duration: 0.5 },
+                opacity: { duration: 0.2 },
+                scale: { duration: 0.3 },
+                rotate: { duration: 0.3 },
+                x: { duration: 0.3 },
                 y: {
                   duration: prefersReducedMotion ? 0 : 2.5,
                   repeat: prefersReducedMotion ? 0 : Infinity,
@@ -296,14 +322,20 @@ export default function AnalysisProgressStep({
               }}
               className="relative w-48 h-48"
             >
-              <Image
-                src={currentStage.image}
-                alt={currentStage.text}
-                width={192}
-                height={192}
-                priority={activityIndex <= 1}
-                className="w-full h-full object-contain drop-shadow-2xl"
-              />
+              {imagesLoaded ? (
+                <Image
+                  src={currentStage.image}
+                  alt={currentStage.text}
+                  width={192}
+                  height={192}
+                  unoptimized
+                  className="w-full h-full object-contain drop-shadow-2xl"
+                />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <div className="w-16 h-16 border-4 border-pink-600 border-t-transparent rounded-full animate-spin" />
+                </div>
+              )}
             </motion.div>
           </AnimatePresence>
         </div>
