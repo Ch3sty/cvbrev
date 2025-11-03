@@ -4,6 +4,7 @@
 import Link from 'next/link'
 import LoginForm from '@/components/auth/login-form'
 import { motion } from 'framer-motion'
+import { Suspense } from 'react'
 
 export default function LoginPage() {
   return (
@@ -52,7 +53,9 @@ export default function LoginPage() {
       {/* Content */}
       <div className="relative flex items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-6">
-          <LoginForm />
+          <Suspense fallback={<div className="text-center">Laddar...</div>}>
+            <LoginForm />
+          </Suspense>
 
           {/* Länk för att registrera */}
           <div className="text-center">
