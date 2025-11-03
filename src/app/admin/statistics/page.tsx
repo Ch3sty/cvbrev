@@ -40,7 +40,8 @@ import {
   ChartPie,
   ArrowUp,
   ArrowDown,
-  Sparkles
+  Sparkles,
+  ShieldCheck
 } from 'lucide-react';
 import { format, subDays, subMonths, startOfDay } from 'date-fns';
 import { sv } from 'date-fns/locale';
@@ -66,6 +67,9 @@ interface DashboardStats {
     new_month: number;
     conversion_rate: number;
     retention_rate: number;
+    verified: number;
+    unverified: number;
+    verification_rate: number;
   };
   revenue: {
     mrr: number;
@@ -241,6 +245,11 @@ export default function StatisticsPage() {
       const retentionRate = activeMonth.length > 0 && profiles?.length ?
         (activeMonth.length / profiles.length) * 100 : 0;
 
+      // Beräkna verifieringsstatistik
+      const verifiedUsers = profiles?.filter(p => p.email_verified_at !== null) || [];
+      const unverifiedUsers = profiles?.filter(p => p.email_verified_at === null) || [];
+      const verificationRate = profiles?.length ? (verifiedUsers.length / profiles.length) * 100 : 0;
+
       // Beräkna intäkter (använd Stripe-data om tillgänglig)
       const actualRevenue = stripeRevenue ? stripeRevenue.revenue.total :
         revenues?.reduce((sum, r) => sum + (r.amount || 0), 0) || 0;
@@ -415,7 +424,10 @@ export default function StatisticsPage() {
           new_week: newWeek.length,
           new_month: newMonth.length,
           conversion_rate: Math.round(conversionRate * 10) / 10,
-          retention_rate: Math.round(retentionRate * 10) / 10
+          retention_rate: Math.round(retentionRate * 10) / 10,
+          verified: verifiedUsers.length,
+          unverified: unverifiedUsers.length,
+          verification_rate: Math.round(verificationRate * 10) / 10
         },
         revenue: {
           mrr,
@@ -852,7 +864,7 @@ export default function StatisticsPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 mb-10"
         >
           {/* Total Revenue Card */}
           <motion.div
@@ -949,6 +961,28 @@ export default function StatisticsPage() {
             </div>
             <div className="text-sm text-slate-600 font-medium">
               {stats.users.premium} premium av {stats.users.total}
+            </div>
+          </motion.div>
+
+          {/* Email Verification Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
+            whileHover={{ scale: 1.02, y: -4 }}
+            className="group bg-white/80 backdrop-blur-lg border border-white/20 rounded-2xl p-6 shadow-lg shadow-slate-200/50 hover:shadow-xl hover:shadow-slate-300/50 transition-all duration-300"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <div className="p-3 bg-gradient-to-br from-teal-500/10 to-cyan-500/10 rounded-xl group-hover:from-teal-500/20 group-hover:to-cyan-500/20 transition-all">
+                <ShieldCheck className="w-6 h-6 text-teal-600" />
+              </div>
+              <span className="text-xs font-medium text-slate-500 uppercase tracking-wide">Verifiering</span>
+            </div>
+            <div className="text-3xl font-bold text-slate-900 mb-2">
+              {stats.users.verification_rate}%
+            </div>
+            <div className="text-sm text-slate-600 font-medium">
+              {stats.users.verified} av {stats.users.total} användare
             </div>
           </motion.div>
         </motion.div>

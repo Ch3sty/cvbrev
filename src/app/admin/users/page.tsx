@@ -21,7 +21,9 @@ import {
   Shield,
   Users as UsersIcon,
   Clock,
-  GraduationCap
+  GraduationCap,
+  Check,
+  X
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -37,6 +39,7 @@ interface User {
   subscription_status: string | null;
   created_at: string;
   last_active: string | null;
+  email_verified_at: string | null;
 
   // Primary metrics: Usage per feature
   letters_generated_count: number;
@@ -185,18 +188,19 @@ export default function AdminUsersPage() {
 
         if (usersError) throw usersError;
 
-        // Fetch additional data not in view (stripe info)
+        // Fetch additional data not in view (stripe info + email verification)
         const { data: profiles, error: profilesError } = await supabase
           .from('profiles')
-          .select('id, stripe_customer_id, subscription_status');
+          .select('id, stripe_customer_id, subscription_status, email_verified_at');
 
         if (profilesError) throw profilesError;
 
-        // Create a map for stripe data
+        // Create a map for additional profile data
         const stripeDataMap = new Map(
           profiles?.map(p => [p.id, {
             stripe_customer_id: p.stripe_customer_id,
-            subscription_status: p.subscription_status
+            subscription_status: p.subscription_status,
+            email_verified_at: p.email_verified_at
           }]) || []
         );
 
@@ -212,6 +216,7 @@ export default function AdminUsersPage() {
             premium_until: user.premium_until,
             stripe_customer_id: stripeData?.stripe_customer_id || null,
             subscription_status: stripeData?.subscription_status || null,
+            email_verified_at: stripeData?.email_verified_at || null,
             created_at: user.created_at,
             last_active: user.last_active,
             letters_generated_count: user.letters_generated_count || 0,
@@ -602,6 +607,13 @@ export default function AdminUsersPage() {
                   <tr>
                     <th
                       scope="col"
+                      className="px-3 py-3 text-center text-xs font-medium text-gray-700 uppercase tracking-wider"
+                      title="E-post verifierad"
+                    >
+                      <Check className="w-4 h-4 mx-auto" />
+                    </th>
+                    <th
+                      scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-gray-100 transition-colors"
                       onClick={() => handleSort('full_name')}
                     >
@@ -733,7 +745,7 @@ export default function AdminUsersPage() {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {filteredUsers.length === 0 ? (
                     <tr>
-                      <td colSpan={13} className="px-6 py-12 text-center">
+                      <td colSpan={14} className="px-6 py-12 text-center">
                         <div className="flex flex-col items-center">
                           <Users className="w-12 h-12 mx-auto text-gray-400 mb-3" />
                           <h3 className="text-lg font-semibold text-gray-900 mb-1">Inga användare hittades</h3>
@@ -748,6 +760,13 @@ export default function AdminUsersPage() {
                   ) : (
                     getCurrentPageUsers().map((user) => (
                       <tr key={user.id} className="hover:bg-gray-50 transition-colors group">
+                        <td className="px-3 py-4 whitespace-nowrap text-center">
+                          {user.email_verified_at ? (
+                            <Check className="w-5 h-5 text-green-600 mx-auto" title="E-post verifierad" />
+                          ) : (
+                            <X className="w-5 h-5 text-red-400 mx-auto" title="E-post ej verifierad" />
+                          )}
+                        </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
                             <div className="flex-shrink-0 h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center">
