@@ -262,24 +262,25 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Ogiltig JSON i begäran' }, { status: 400 });
     }
     
-    const { content, format, metadata, template } = parsedBody;
-    
+    // Accept flat primitive values instead of nested metadata object
+    const { content, format, title, company, position, template } = parsedBody;
+
     if (!content) {
       return NextResponse.json({ error: 'Inget innehåll angivet' }, { status: 400 });
     }
-    
+
     // Hämta användarens profil för att lägga till namn m.m.
     const { data: profileData } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', user.id)
       .single();
-      
+
     // Förbered metadata med användarens information
     const enhancedMetadata: LetterMetadata = {
-      title: metadata?.title || 'Ansökningsbrev',
-      company: metadata?.company || '',
-      position: metadata?.position || metadata?.job_title || '',
+      title: title || 'Ansökningsbrev',
+      company: company || '',
+      position: position || '',
       author: profileData?.full_name || user.email?.split('@')[0] || 'Användare',
       email: user.email || '',
       phone: profileData?.phone || '',

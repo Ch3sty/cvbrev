@@ -222,24 +222,18 @@ export default function CreateLetterPage() {
     if (!generatedLetter) return;
 
     try {
-      // Create safe metadata object with only primitive values to avoid cyclic object errors
-      const safeMetadata = {
-        name: String(profile?.full_name || 'Användare'),
-        email: String(profile?.email || ''),
-        phone: String(profile?.phone || ''),
-        date: new Date().toISOString(),
-        ...(letterData?.title && { title: String(letterData.title) }),
-        ...(letterData?.company && { company: String(letterData.company) }),
-        ...(letterData?.job_title && { position: String(letterData.job_title) })
-      };
-
+      // Send only primitive values directly in body - no nested objects
+      // This avoids cyclic object errors that occur when NextJS tries to serialize nested objects
       const response = await fetch('/api/letters/download', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           content: generatedLetter,
           format,
-          metadata: safeMetadata
+          // Flat primitive values only - no metadata object
+          title: letterData?.title || 'Ansökningsbrev',
+          company: letterData?.company || '',
+          position: letterData?.job_title || ''
         })
       });
 
