@@ -84,6 +84,7 @@ export async function GET(request: NextRequest) {
       await logUserActivity(
         confirmation.user_id,
         'email_verified',
+        'E-postadressen har verifierats',
         { email: confirmation.email }
       )
     } catch (logError) {
