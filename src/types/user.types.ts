@@ -32,6 +32,9 @@ export interface Profile {
   premium_until?: string;
   premium_source?: string | null;
 
+  // Email verification
+  email_verified_at?: string | null;
+
   created_at?: string;
   updated_at?: string;
 }
