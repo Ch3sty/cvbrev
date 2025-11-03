@@ -132,11 +132,12 @@ export const useLetters = () => {
   const memoizedFetchLetters = useCallback(async (savedOnly = false, useCache = true) => {
     // Förhindra anrop om komponenten avmonterats eller om en borttagningsoperation pågår
     if (!isMountedRef.current || activeOperations.deleting) {
-      return Promise.resolve(letters);
+      // Use getState() instead of closure variable to avoid infinite loop
+      return Promise.resolve(useLetterStore.getState().letters);
     }
-    
+
     return memoizedFetchLettersWithOptions(savedOnly, useCache);
-  }, [letters, memoizedFetchLettersWithOptions]); // Ta bort forceUpdate härifrån
+  }, [memoizedFetchLettersWithOptions]); // Removed 'letters' to prevent infinite loop
   
   const memoizedGetLetter = useCallback(async (id: string) => {
     // Förhindra anrop om komponenten avmonterats eller redan hämtar detta ID

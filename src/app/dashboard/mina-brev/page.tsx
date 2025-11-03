@@ -340,20 +340,27 @@ export default function MinaBrevPage() {
       // Always force a fresh fetch to ensure newly saved letters appear
       refreshLetters();
     }
-  }, [profile, refreshLetters]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [profile]); // Removed refreshLetters from dependencies to prevent infinite loop
 
-  // Additional effect to refresh when router changes (user navigates to this page)
+  // Use ref to avoid adding refreshLetters to dependencies
+  const refreshLettersRef = useRef(refreshLetters);
+  useEffect(() => {
+    refreshLettersRef.current = refreshLetters;
+  }, [refreshLetters]);
+
+  // Additional effect to refresh when page becomes visible again
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (!document.hidden && profile) {
-        // Refresh when page becomes visible again
-        refreshLetters();
+        // Use ref to call latest refreshLetters without adding it to dependencies
+        refreshLettersRef.current();
       }
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
     return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
-  }, [profile, refreshLetters]);
+  }, [profile]); // Removed refreshLetters from dependencies to prevent infinite loop
 
   // Filter letters
   const filteredLetters = useMemo(() => {
