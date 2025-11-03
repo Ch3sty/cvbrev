@@ -284,7 +284,7 @@ export default function CreateLetterPage() {
       description: 'Välj från dina sparade CV:n',
       icon: FileText,
       color: 'from-blue-500 to-cyan-500',
-      component: (
+      component: () => (
         <CVSelectionStep
           selectedCV={selectedCV}
           onCVSelect={setSelectedCV}
@@ -298,7 +298,7 @@ export default function CreateLetterPage() {
       description: 'Klistra in jobbannonsen eller beskriv rollen',
       icon: MessageSquare,
       color: 'from-purple-500 to-pink-500',
-      component: (
+      component: () => (
         <JobDescriptionStep
           jobDescription={jobDescription}
           onJobDescriptionChange={setJobDescription}
@@ -312,7 +312,7 @@ export default function CreateLetterPage() {
       description: 'Välj tonalitet, språk och personliga preferenser',
       icon: SlidersHorizontal,
       color: 'from-green-500 to-emerald-500',
-      component: (
+      component: () => (
         <SettingsStep
           tonality={tonality}
           language={language}
@@ -329,7 +329,7 @@ export default function CreateLetterPage() {
       description: 'Vänta medan vi analyserar och genererar',
       icon: Brain,
       color: 'from-orange-500 to-red-500',
-      component: (
+      component: () => (
         <GenerationStep
           isGenerating={isGenerating}
           generatedLetter={generatedLetter}
@@ -344,7 +344,7 @@ export default function CreateLetterPage() {
       description: 'Förhandsgranska, redigera och exportera',
       icon: Eye,
       color: 'from-indigo-500 to-blue-500',
-      component: generatedLetter ? (
+      component: () => generatedLetter ? (
         <PreviewStep
           letterContent={generatedLetter}
           onEdit={handleEditLetter}
