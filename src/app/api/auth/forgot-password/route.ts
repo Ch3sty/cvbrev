@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@/lib/supabase/server'
-import { logUserActivity } from '@/lib/activity-logger'
+import { Resend } from 'resend'
 import { createClient as createServiceClient } from '@supabase/supabase-js'
-import { cookies } from 'next/headers'
+import { generatePasswordResetEmailHTML, generatePasswordResetEmailText } from '@/lib/email/password-reset-email-generator'
+import { logUserActivity } from '@/lib/activity-logger'
 
-// Service role client for checking user existence
+const resend = new Resend(process.env.RESEND_API_KEY)
+
+// Service role client for admin operations
 const getServiceSupabase = () => {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
   const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
@@ -27,47 +29,95 @@ export async function POST(request: NextRequest) {
       }, { status: 400 })
     }
 
-    const serviceSupabase = getServiceSupabase()
+    const supabase = getServiceSupabase()
 
-    // Check if user exists with this email (for activity logging)
-    const { data: profile } = await serviceSupabase
+    // Check if user exists with this email
+    const { data: profile, error: profileError } = await supabase
       .from('profiles')
       .select('id, full_name, email')
       .eq('email', email)
       .single()
 
-    // Use Supabase client library's resetPasswordForEmail
-    // This will use Supabase's built-in email system with proper token handling
-    const cookieStore = await cookies()
-    const supabase = createServerClient({ cookies: cookieStore })
-    const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.jobbcoach.ai'}/auth/reset-password`
+    // For security reasons, always return success even if email doesn't exist
+    // This prevents email enumeration attacks
+    if (profileError || !profile) {
+      console.log('No user found with email:', email)
+      return NextResponse.json({
+        success: true,
+        message: 'Om e-postadressen finns i vårt system kommer du få ett mejl med instruktioner.'
+      }, { status: 200 })
+    }
+
+    // Generate recovery token using admin API
+    const { data: linkData, error: linkError } = await supabase.auth.admin.generateLink({
+      type: 'recovery',
+      email: email,
+      options: {
+        redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.jobbcoach.ai'}/auth/reset-password`
+      }
     })
 
-    if (resetError) {
-      console.error('Error sending reset email:', resetError)
-      // Still return success to prevent email enumeration
+    if (linkError || !linkData) {
+      console.error('Error generating reset link:', linkError)
+      throw new Error('Kunde inte generera återställningslänk')
     }
 
-    // Log the password reset request if user exists
-    if (profile) {
-      try {
-        await logUserActivity(
-          profile.id,
-          'password_reset',
-          'Begäran om lösenordsåterställning skickad',
-          { email: profile.email }
-        )
-      } catch (logError) {
-        console.error('Error logging password reset activity:', logError)
-        // Continue anyway - logging is not critical
-      }
+    // Extract the token_hash from the generated link
+    // The hashed_token is what we need for the verifyOtp call
+    const tokenHash = linkData.properties.hashed_token
+
+    if (!tokenHash) {
+      console.error('No token hash generated')
+      throw new Error('Kunde inte generera återställningstoken')
     }
 
-    // Always return success to prevent email enumeration attacks
+    // Construct the reset URL with token_hash
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.jobbcoach.ai'
+    const resetUrl = `${siteUrl}/auth/confirm?token_hash=${tokenHash}&type=recovery&redirect_to=/auth/reset-password`
+
+    // Generate email content
+    const userName = profile.full_name || 'användare'
+    const emailHTML = generatePasswordResetEmailHTML({
+      userEmail: email,
+      userName,
+      resetUrl
+    })
+    const emailText = generatePasswordResetEmailText({
+      userEmail: email,
+      userName,
+      resetUrl
+    })
+
+    // Send email via Resend
+    const { error: emailError } = await resend.emails.send({
+      from: 'Jobbcoach.ai <noreply@jobbcoach.ai>',
+      to: email,
+      subject: 'Återställ ditt lösenord - Jobbcoach.ai',
+      html: emailHTML,
+      text: emailText
+    })
+
+    if (emailError) {
+      console.error('Error sending reset email:', emailError)
+      throw new Error('Kunde inte skicka återställningsmejl')
+    }
+
+    // Log the password reset request
+    try {
+      await logUserActivity(
+        profile.id,
+        'password_reset',
+        'Begäran om lösenordsåterställning skickad',
+        { email: profile.email }
+      )
+    } catch (logError) {
+      console.error('Error logging password reset activity:', logError)
+      // Continue anyway - logging is not critical
+    }
+
     return NextResponse.json({
       success: true,
-      message: 'Om e-postadressen finns i vårt system kommer du få ett mejl med instruktioner.'
+      message: 'Ett mejl med instruktioner har skickats om e-postadressen finns i vårt system.'
     }, { status: 200 })
 
   } catch (error) {
