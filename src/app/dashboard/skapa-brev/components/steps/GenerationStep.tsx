@@ -298,7 +298,9 @@ export default function GenerationStep({
       ? Math.min(Math.floor(baseCount / 4), 8) // Max 8 particles on mobile
       : baseCount;
 
-    const particleType = currentStage <= 1 ? 'document' : currentStage === 3 ? 'ink' : currentStage === 4 ? 'star' : 'document';
+    // Bounds-check to prevent logic errors when currentStage exceeds array length
+    const safeStage = Math.min(currentStage, mascotStages.length - 1);
+    const particleType = safeStage <= 1 ? 'document' : safeStage === 3 ? 'ink' : safeStage === 4 ? 'star' : 'document';
 
     return Array.from({ length: count }, (_, i) => ({
       id: `particle-${currentStage}-${i}`,
@@ -349,7 +351,9 @@ export default function GenerationStep({
     }
   };
 
-  const variant = stageVariants[currentStage as keyof typeof stageVariants];
+  // Bounds-check to prevent undefined variant when currentStage exceeds array length
+  const safeStageForVariant = Math.min(currentStage, mascotStages.length - 1);
+  const variant = stageVariants[safeStageForVariant as keyof typeof stageVariants];
 
   return (
     <div className="flex flex-col items-center justify-center py-8 sm:py-12 overflow-hidden">
