@@ -761,11 +761,13 @@ export default function AdminUsersPage() {
                     getCurrentPageUsers().map((user) => (
                       <tr key={user.id} className="hover:bg-gray-50 transition-colors group">
                         <td className="px-3 py-4 whitespace-nowrap text-center">
-                          {user.email_verified_at ? (
-                            <Check className="w-5 h-5 text-green-600 mx-auto" title="E-post verifierad" />
-                          ) : (
-                            <X className="w-5 h-5 text-red-400 mx-auto" title="E-post ej verifierad" />
-                          )}
+                          <div title={user.email_verified_at ? "E-post verifierad" : "E-post ej verifierad"} className="inline-block">
+                            {user.email_verified_at ? (
+                              <Check className="w-5 h-5 text-green-600" />
+                            ) : (
+                              <X className="w-5 h-5 text-red-400" />
+                            )}
+                          </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
                           <div className="flex items-center">
