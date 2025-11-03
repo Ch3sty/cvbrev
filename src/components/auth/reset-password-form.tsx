@@ -16,22 +16,62 @@ export default function ResetPasswordForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [validationError, setValidationError] = useState<string | null>(null)
+  const [sessionReady, setSessionReady] = useState(false)
 
   const router = useRouter()
   const searchParams = useSearchParams()
   const supabase = createClient()
 
-  // Check if we have a valid access token (from email link)
+  // Handle the recovery token from email link
   useEffect(() => {
-    const checkAuth = async () => {
-      const { data: { session }, error } = await supabase.auth.getSession()
+    // Listen for auth state changes to capture the recovery session
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        // User has clicked the reset link and Supabase has created a session
+        console.log('Password recovery session established')
+        setSessionReady(true)
+        setError(null)
+      } else if (event === 'SIGNED_IN' && session) {
+        // Session is ready
+        console.log('User signed in with recovery token')
+        setSessionReady(true)
+        setError(null)
+      }
+    })
 
-      if (error || !session) {
-        setError('Ogiltig eller utgången återställningslänk. Begär en ny länk.')
+    // Also check if we already have a session (in case auth state change already happened)
+    const checkSession = async () => {
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+
+      if (sessionError) {
+        console.error('Error getting session:', sessionError)
+        setError('Ett fel uppstod. Försök begära en ny återställningslänk.')
+        return
+      }
+
+      if (session) {
+        setSessionReady(true)
+        setError(null)
+      } else {
+        // No session yet - wait for onAuthStateChange
+        // Only show error after a delay to give Supabase time to process the hash
+        setTimeout(() => {
+          supabase.auth.getSession().then(({ data: { session } }) => {
+            if (!session) {
+              setError('Ogiltig eller utgången återställningslänk. Begär en ny länk.')
+            }
+          })
+        }, 2000)
       }
     }
 
-    checkAuth()
+    // Wait a moment for Supabase to process the hash fragment from URL
+    const timer = setTimeout(checkSession, 500)
+
+    return () => {
+      subscription.unsubscribe()
+      clearTimeout(timer)
+    }
   }, [supabase.auth])
 
   const validatePassword = (pwd: string) => {
@@ -145,6 +185,20 @@ export default function ResetPasswordForm() {
       {error && (
         <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
           <p className="text-sm text-red-800">{error}</p>
+          {error.includes('Ogiltig eller utgången') && (
+            <Link
+              href="/auth/forgot-password"
+              className="text-sm font-medium text-blue-600 hover:text-blue-700 mt-2 inline-block"
+            >
+              Begär ny återställningslänk →
+            </Link>
+          )}
+        </div>
+      )}
+
+      {!sessionReady && !error && (
+        <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <p className="text-sm text-blue-800">Verifierar återställningslänk...</p>
         </div>
       )}
 
@@ -162,7 +216,7 @@ export default function ResetPasswordForm() {
               required
               placeholder="Minst 8 tecken"
               className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-              disabled={loading}
+              disabled={loading || !sessionReady}
             />
             <button
               type="button"
@@ -190,7 +244,7 @@ export default function ResetPasswordForm() {
               required
               placeholder="Ange lösenordet igen"
               className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-              disabled={loading}
+              disabled={loading || !sessionReady}
             />
             <button
               type="button"
@@ -222,7 +276,7 @@ export default function ResetPasswordForm() {
 
         <button
           type="submit"
-          disabled={loading || !!validationError || !password || !confirmPassword}
+          disabled={loading || !!validationError || !password || !confirmPassword || !sessionReady}
           className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? 'Återställer...' : 'Återställ lösenord'}
