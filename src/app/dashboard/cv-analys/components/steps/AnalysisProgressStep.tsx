@@ -1,8 +1,8 @@
 // src/components/cv/analysis/steps/AnalysisProgressStep.tsx
 'use client';
 
-import { motion } from 'framer-motion';
-import { Sparkles, Zap, Target, CheckCircle2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 interface AnalysisProgressStepProps {
@@ -11,11 +11,12 @@ interface AnalysisProgressStepProps {
   estimatedTimeRemaining: number; // seconds
 }
 
-const activities = [
-  { icon: Sparkles, text: 'Analyserar ditt CV', color: 'from-pink-600 to-purple-600' },
-  { icon: Target, text: 'Identifierar förbättringsmöjligheter', color: 'from-purple-600 to-blue-600' },
-  { icon: Zap, text: 'Optimerar för ATS-system', color: 'from-blue-600 to-cyan-600' },
-  { icon: CheckCircle2, text: 'Förbereder rekommendationer', color: 'from-cyan-600 to-teal-600' }
+const mascotStages = [
+  { image: '/images/maskot/cv-analys-1.webp', text: 'Tar emot ditt CV' },
+  { image: '/images/maskot/cv-analys-2.webp', text: 'AI-analys pågår' },
+  { image: '/images/maskot/cv-analys-3.webp', text: 'Bearbetar och optimerar' },
+  { image: '/images/maskot/cv-analys-4.webp', text: 'Slutför optimering' },
+  { image: '/images/maskot/cv-analys-5.webp', text: 'Nästan klart!' }
 ];
 
 export default function AnalysisProgressStep({
@@ -25,33 +26,53 @@ export default function AnalysisProgressStep({
 }: AnalysisProgressStepProps) {
   const [activityIndex, setActivityIndex] = useState(0);
 
-  // Cycle through activities based on progress
+  // Cycle through mascot stages based on progress
   useEffect(() => {
-    if (progress < 25) setActivityIndex(0);
-    else if (progress < 50) setActivityIndex(1);
-    else if (progress < 75) setActivityIndex(2);
-    else setActivityIndex(3);
+    if (progress < 20) setActivityIndex(0);
+    else if (progress < 40) setActivityIndex(1);
+    else if (progress < 60) setActivityIndex(2);
+    else if (progress < 80) setActivityIndex(3);
+    else setActivityIndex(4);
   }, [progress]);
 
-  const activity = activities[activityIndex];
+  const currentStage = mascotStages[activityIndex];
 
   return (
     <div className="flex flex-col items-center justify-center py-12">
-      {/* Animated Icon */}
-      <motion.div
-        animate={{
-          scale: [1, 1.1, 1],
-          rotate: [0, 5, -5, 0]
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: 'easeInOut'
-        }}
-        className={`w-24 h-24 rounded-full bg-gradient-to-br ${activity.color} flex items-center justify-center mb-8 shadow-lg`}
-      >
-        <activity.icon className="w-12 h-12 text-white" />
-      </motion.div>
+      {/* Animated Mascot */}
+      <div className="relative w-48 h-48 mb-8">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activityIndex}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: [0, -8, 0]
+            }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{
+              opacity: { duration: 0.3 },
+              scale: { duration: 0.3 },
+              y: {
+                duration: 2,
+                repeat: Infinity,
+                ease: 'easeInOut'
+              }
+            }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={currentStage.image}
+              alt={currentStage.text}
+              width={192}
+              height={192}
+              priority
+              className="w-full h-full object-contain drop-shadow-xl"
+            />
+          </motion.div>
+        </AnimatePresence>
+      </div>
 
       {/* Activity Text */}
       <motion.h3
@@ -60,7 +81,7 @@ export default function AnalysisProgressStep({
         animate={{ opacity: 1, y: 0 }}
         className="text-2xl font-semibold text-gray-900 mb-2"
       >
-        {activity.text}
+        {currentStage.text}
       </motion.h3>
 
       <p className="text-gray-600 mb-8">
@@ -93,7 +114,7 @@ export default function AnalysisProgressStep({
 
       {/* Activity Indicators */}
       <div className="flex gap-2 mt-8">
-        {activities.map((_, index) => (
+        {mascotStages.map((_, index) => (
           <div
             key={index}
             className={`h-1.5 w-12 rounded-full transition-colors duration-300 ${
