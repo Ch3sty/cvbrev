@@ -83,7 +83,7 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
         supabase.from('cv_analysis_jobs').select('id', { count: 'exact', head: true }).eq('user_id', user.id).eq('status', 'completed'),
         supabase.from('linkedin_optimizations').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
         supabase.from('formatted_cv_downloads').select('id', { count: 'exact', head: true }).eq('user_id', user.id),
-        supabase.from('job_matchings_cache').select('id', { count: 'exact', head: true }).eq('user_id', user.id)
+        supabase.from('job_matchings_cache').select('*', { count: 'exact', head: true }).eq('user_id', user.id)
       ]);
 
       console.log('[OnboardingContext] 📊 Feature table counts:', {

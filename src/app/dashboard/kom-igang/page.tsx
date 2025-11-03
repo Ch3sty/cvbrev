@@ -94,7 +94,7 @@ export default function KomIgangPage() {
 
       const { count: jobMatchCount } = await supabase
         .from('job_matchings_cache')
-        .select('id', { count: 'exact', head: true })
+        .select('*', { count: 'exact', head: true })
         .eq('user_id', user.id);
 
       // Build validated steps array using hybrid logic

@@ -98,7 +98,7 @@ export default function OnboardingChecklist({ isPremium }: OnboardingChecklistPr
       // Hämta job matching count
       const { count: jobMatchingCount } = await supabase
         .from('job_matchings_cache')
-        .select('id', { count: 'exact', head: true })
+        .select('*', { count: 'exact', head: true })
         .eq('user_id', user.id);
 
       const completedSteps = profile?.onboarding_steps_completed || [];
