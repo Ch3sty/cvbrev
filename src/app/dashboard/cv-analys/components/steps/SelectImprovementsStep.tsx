@@ -237,15 +237,15 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
         </div>
       </div>
 
-      {/* Sticky ATS Potential Card */}
+      {/* Sticky ATS Potential Card (non-sticky on mobile) */}
       {currentAtsScore > 0 && (
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="sticky top-4 z-10"
+          className="md:sticky md:top-4"
         >
           <Card className="bg-gradient-to-r from-blue-600 to-cyan-600 border-0 shadow-lg">
-            <div className="p-4">
+            <div className="p-3 md:p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
@@ -304,7 +304,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
               {/* Category Header */}
               <button
                 onClick={() => toggleCategory(category.id)}
-                className="w-full p-6 flex items-center gap-4 hover:bg-gray-50 transition-colors"
+                className="w-full p-4 md:p-6 flex items-center gap-3 md:gap-4 hover:bg-gray-50 transition-colors min-h-[60px] md:min-h-auto touch-manipulation"
               >
                 <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${category.color} flex items-center justify-center flex-shrink-0`}>
                   <category.icon className="w-6 h-6 text-white" />
@@ -323,7 +323,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
                   {category.count > 1 && category.id !== 'general' && (
                     <Button
                       variant="outline"
-                      size="sm"
+                      size="default"
                       onClick={(e) => {
                         e.stopPropagation();
                         if (allSelected) {
@@ -332,7 +332,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
                           selectAllInCategory(category.id);
                         }
                       }}
-                      className="text-xs"
+                      className="text-sm md:text-xs min-h-[44px] md:min-h-[36px] px-4 md:px-3 touch-manipulation"
                     >
                       {allSelected ? (
                         <>
@@ -382,7 +382,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
                         type="checkbox"
                         checked={selectedRoles.has(index)}
                         onChange={() => onToggleRole(index)}
-                        className="absolute top-4 left-4 z-10 w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        className="absolute top-4 left-4 z-10 w-6 h-6 md:w-5 md:h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 cursor-pointer touch-manipulation"
                       />
                       <div className="ml-8">
                         <SectionCard

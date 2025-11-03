@@ -38,7 +38,7 @@ export default function ProfileSummaryCard({
   };
 
   return (
-    <Card className={`p-6 transition-all ${
+    <Card className={`p-5 md:p-6 transition-all ${
       selected ? 'border-2 border-pink-600 bg-pink-50/30' : 'border-gray-200'
     }`}>
       {/* Header */}
@@ -47,7 +47,7 @@ export default function ProfileSummaryCard({
           type="checkbox"
           checked={selected}
           onChange={onToggle}
-          className="mt-1 w-5 h-5 rounded border-gray-300 text-pink-600 focus:ring-pink-500"
+          className="mt-1 w-6 h-6 md:w-5 md:h-5 rounded border-gray-300 text-pink-600 focus:ring-pink-500 cursor-pointer touch-manipulation"
         />
 
         <div className="flex-1">
@@ -59,7 +59,7 @@ export default function ProfileSummaryCard({
               +{atsImpact} ATS-poäng
             </Badge>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-base md:text-sm text-gray-600">
             Din inledning har optimerats för ATS och engagemang
           </p>
         </div>
@@ -125,7 +125,8 @@ export default function ProfileSummaryCard({
                     <textarea
                       value={editedText}
                       onChange={(e) => setEditedText(e.target.value)}
-                      className="w-full min-h-[100px] p-3 border border-green-300 rounded-lg text-sm text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      className="w-full min-h-[140px] md:min-h-[100px] p-4 md:p-3 border border-green-300 rounded-lg text-base md:text-sm text-gray-900 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      rows={5}
                     />
                     <div className="flex gap-2 justify-end">
                       <button

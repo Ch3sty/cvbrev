@@ -69,6 +69,7 @@ export default function CVComparisonViewer({
 }: CVComparisonViewerProps) {
   const [zoomLevel, setZoomLevel] = useState(100);
   const [highlightChanges, setHighlightChanges] = useState(true);
+  const [mobileView, setMobileView] = useState<'original' | 'improved'>('improved');
 
   const handleZoomIn = () => setZoomLevel(prev => Math.min(prev + 10, 150));
   const handleZoomOut = () => setZoomLevel(prev => Math.max(prev - 10, 70));
@@ -198,8 +199,85 @@ export default function CVComparisonViewer({
         </Button>
       </div>
 
-      {/* Comparison View */}
-      <div className="grid md:grid-cols-2 gap-4">
+      {/* Mobile: Tab Navigation */}
+      <div className="lg:hidden">
+        <div className="flex gap-2 p-1 bg-gray-100 rounded-lg mb-4">
+          <button
+            onClick={() => setMobileView('original')}
+            className={`flex-1 px-4 py-3 rounded-md text-sm font-medium transition-all touch-manipulation ${
+              mobileView === 'original'
+                ? 'bg-white text-gray-900 shadow-sm'
+                : 'text-gray-600'
+            }`}
+          >
+            Nuvarande
+          </button>
+          <button
+            onClick={() => setMobileView('improved')}
+            className={`flex-1 px-4 py-3 rounded-md text-sm font-medium transition-all touch-manipulation ${
+              mobileView === 'improved'
+                ? 'bg-white text-gray-900 shadow-sm'
+                : 'text-gray-600'
+            }`}
+          >
+            Förbättrad
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile: Single view */}
+      <div className="lg:hidden">
+        {mobileView === 'original' ? (
+          <div className="border border-gray-200 rounded-lg overflow-hidden">
+            <div className="bg-gray-100 border-b border-gray-200 px-4 py-3">
+              <h4 className="font-semibold text-gray-900">Nuvarande CV</h4>
+            </div>
+            <div
+              className="p-6 bg-white overflow-auto max-h-[600px]"
+              style={{ fontSize: `${zoomLevel}%` }}
+            >
+              <div className="space-y-4 font-sans text-gray-900">
+                {originalCV.split(/\n\n+/).map((paragraph, index) => (
+                  <p key={index} className="whitespace-pre-wrap leading-relaxed">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="border border-green-200 rounded-lg overflow-hidden">
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-b border-green-200 px-4 py-3">
+              <h4 className="font-semibold text-gray-900">Förbättrat CV</h4>
+              <p className="text-xs text-gray-600 mt-1">
+                {highlightChanges ? 'Grönt = nytt, Rött = borttaget' : 'Markeringar dolda'}
+              </p>
+            </div>
+            <div
+              className="p-6 bg-white overflow-auto max-h-[600px] relative"
+              style={{ fontSize: `${zoomLevel}%` }}
+            >
+              <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-green-50/30 to-emerald-50/30" />
+              {highlightChanges && blockDiff ? (
+                <div className="font-sans text-gray-900 relative z-10">
+                  {renderBlockDiff(blockDiff)}
+                </div>
+              ) : (
+                <div className="space-y-4 font-sans text-gray-900 relative z-10">
+                  {improvedCV.split(/\n\n+/).map((paragraph, index) => (
+                    <p key={index} className="whitespace-pre-wrap leading-relaxed">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Desktop: Side by side */}
+      <div className="hidden lg:grid lg:grid-cols-2 gap-4">
         {/* Original CV */}
         <div className="border border-gray-200 rounded-lg overflow-hidden">
           <div className="bg-gray-100 border-b border-gray-200 px-4 py-3">

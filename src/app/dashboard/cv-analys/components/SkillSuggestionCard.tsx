@@ -47,7 +47,7 @@ export default function SkillSuggestionCard({
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.2 }}
     >
-      <Card className={`p-4 transition-all hover:shadow-md ${
+      <Card className={`p-5 md:p-4 transition-all hover:shadow-md ${
         selected ? 'border-2 border-purple-600 bg-purple-50/30' : 'border-gray-200'
       }`}>
         <div className="flex items-start gap-3">
@@ -55,7 +55,7 @@ export default function SkillSuggestionCard({
             type="checkbox"
             checked={selected}
             onChange={onToggle}
-            className="mt-1 w-5 h-5 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+            className="mt-1 w-6 h-6 md:w-5 md:h-5 rounded border-gray-300 text-purple-600 focus:ring-purple-500 cursor-pointer touch-manipulation"
           />
 
           <div className="flex-1">
@@ -69,19 +69,19 @@ export default function SkillSuggestionCard({
 
             <div className="space-y-3">
               <div>
-                <div className="text-xs font-medium text-gray-700 mb-1">
+                <div className="text-sm md:text-xs font-medium text-gray-700 mb-1">
                   Källa från din arbetserfarenhet:
                 </div>
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                  <p className="text-sm text-blue-900 font-medium">{suggestion.source || 'Din tidigare erfarenhet'}</p>
+                  <p className="text-base md:text-sm text-blue-900 font-medium">{suggestion.source || 'Din tidigare erfarenhet'}</p>
                 </div>
               </div>
 
               <div>
-                <div className="text-xs font-medium text-gray-700 mb-1">
+                <div className="text-sm md:text-xs font-medium text-gray-700 mb-1">
                   Varför denna kompetens:
                 </div>
-                <p className="text-sm text-gray-700">{suggestion.reasoning}</p>
+                <p className="text-base md:text-sm text-gray-700">{suggestion.reasoning}</p>
               </div>
             </div>
           </div>

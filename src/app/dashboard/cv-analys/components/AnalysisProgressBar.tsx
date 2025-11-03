@@ -27,8 +27,30 @@ export default function AnalysisProgressBar({
   const isStepCurrent = (stepIndex: number) => stepIndex === currentStep;
 
   return (
-    <div className="w-full mb-8">
-      <div className="flex items-center justify-between">
+    <div className="w-full mb-6 md:mb-8">
+      {/* Mobile: Simple progress bar */}
+      <div className="md:hidden">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-base font-semibold text-gray-900">
+            Steg {currentStep + 1} av {steps.length}
+          </span>
+          <span className="text-sm text-gray-600">
+            {steps[currentStep].title}
+          </span>
+        </div>
+        {/* Progress bar */}
+        <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+          <motion.div
+            initial={{ width: 0 }}
+            animate={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
+            transition={{ duration: 0.3 }}
+            className="h-full bg-gradient-to-r from-pink-600 to-purple-600"
+          />
+        </div>
+      </div>
+
+      {/* Desktop: Full step visualization */}
+      <div className="hidden md:flex items-center justify-between">
         {steps.map((step, index) => {
           const completed = isStepCompleted(index);
           const current = isStepCurrent(index);
