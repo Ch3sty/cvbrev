@@ -26,7 +26,7 @@ export default function CreateLetterPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { fetchCVs } = useCVStore();
-  const { createLetter, saveLetter, isGenerating } = useLetters();
+  const { createLetter, saveLetter, isGenerating, refreshLetters } = useLetters();
   const { profile, subscriptionTier, remainingWeeklyLetters, updateRemainingLetters } = useProfile();
   const { prefillData, clearPrefillData } = useCoverLetterStore();
 
@@ -202,6 +202,14 @@ export default function CreateLetterPage() {
 
       if (savedLetter) {
         setHasDownloadedOrSaved(true);
+
+        // Wait for data to refresh in store before navigation
+        // This ensures the saved letter appears immediately on mina-brev page
+        await refreshLetters();
+
+        // Small delay to ensure state is fully updated
+        await new Promise(resolve => setTimeout(resolve, 200));
+
         // Navigate to my letters after successful save
         router.push('/dashboard/mina-brev');
       }
@@ -214,18 +222,24 @@ export default function CreateLetterPage() {
     if (!generatedLetter) return;
 
     try {
+      // Create safe metadata object with only primitive values to avoid cyclic object errors
+      const safeMetadata = {
+        name: String(profile?.full_name || 'Användare'),
+        email: String(profile?.email || ''),
+        phone: String(profile?.phone || ''),
+        date: new Date().toISOString(),
+        ...(letterData?.title && { title: String(letterData.title) }),
+        ...(letterData?.company && { company: String(letterData.company) }),
+        ...(letterData?.job_title && { position: String(letterData.job_title) })
+      };
+
       const response = await fetch('/api/letters/download', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           content: generatedLetter,
           format,
-          metadata: {
-            name: profile?.full_name || 'Användare',
-            email: profile?.email || '',
-            phone: profile?.phone || '',
-            date: new Date().toISOString()
-          }
+          metadata: safeMetadata
         })
       });
 

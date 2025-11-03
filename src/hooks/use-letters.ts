@@ -102,17 +102,22 @@ export const useLetters = () => {
   // Memoizera fetchLettersWithOptions för att kunna använda den i andra useCallback
   const memoizedFetchLettersWithOptions = useCallback(async (savedOnly = false, useCache = true) => {
     // Förhindra samtidiga anrop
-    if (activeOperations.fetching && useCache) return letters;
-    
+    if (activeOperations.fetching && useCache) {
+      // Wait for ongoing fetch to complete instead of returning stale data
+      await new Promise(resolve => setTimeout(resolve, 100));
+      return useLetterStore.getState().letters;
+    }
+
     // Markera att hämtning pågår
     activeOperations.fetching = true;
     setLocalIsLoading(true);
-    
+
     try {
       // Direkt anrop utan caching om useCache=false
       await storeFetchLetters(savedOnly);
 
-      return letters;
+      // Return fresh data from store, not from closure
+      return useLetterStore.getState().letters;
     } catch (error) {
       console.error('Error fetching letters:', error);
       throw error;
@@ -120,7 +125,7 @@ export const useLetters = () => {
       activeOperations.fetching = false;
       setLocalIsLoading(false);
     }
-  }, [letters, storeFetchLetters]);
+  }, [storeFetchLetters]);
   
   // Memoizera funktionerna för att förhindra oändliga rerenderingar
   // Ta bort forceUpdate från beroendelistan eftersom det ger en onödig/oanvänd beroendeparameter

@@ -308,7 +308,7 @@ const DocumentPreview = ({ letter, onClose }: any) => {
 
 export default function MinaBrevPage() {
   const router = useRouter();
-  const { letters, fetchLetters, isLoading, removeLetter } = useLetters();
+  const { letters, fetchLetters, isLoading, removeLetter, refreshLetters } = useLetters();
   const { maxSavedLetters, subscriptionTier, profile, hasReachedLetterLimit } = useProfile();
 
   // UI State
@@ -334,12 +334,26 @@ export default function MinaBrevPage() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Fetch letters on mount
+  // Fetch letters on mount and force refresh when navigating to this page
   useEffect(() => {
     if (profile) {
-      fetchLetters();
+      // Always force a fresh fetch to ensure newly saved letters appear
+      refreshLetters();
     }
-  }, [profile, fetchLetters]);
+  }, [profile, refreshLetters]);
+
+  // Additional effect to refresh when router changes (user navigates to this page)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!document.hidden && profile) {
+        // Refresh when page becomes visible again
+        refreshLetters();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+  }, [profile, refreshLetters]);
 
   // Filter letters
   const filteredLetters = useMemo(() => {

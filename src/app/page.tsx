@@ -47,6 +47,7 @@ export default function HomePage() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true)
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [swiperInstance, setSwiperInstance] = useState<any>(null)
   const [playVideo, setPlayVideo] = useState(false)
@@ -60,16 +61,32 @@ export default function HomePage() {
 
   // Redirect logged-in users to dashboard
   useEffect(() => {
-    const checkAuth = async () => {
-      const supabase = getSupabaseClient()
-      const { data: { user } } = await supabase.auth.getUser()
+    let isMounted = true
 
-      if (user) {
-        router.push('/dashboard')
+    const checkAuth = async () => {
+      try {
+        const supabase = getSupabaseClient()
+        const { data: { user } } = await supabase.auth.getUser()
+
+        if (user && isMounted) {
+          router.push('/dashboard')
+        } else if (isMounted) {
+          // Only show content when we know user is not logged in
+          setIsCheckingAuth(false)
+        }
+      } catch (error) {
+        console.error('Auth check error:', error)
+        if (isMounted) {
+          setIsCheckingAuth(false)
+        }
       }
     }
 
     checkAuth()
+
+    return () => {
+      isMounted = false
+    }
   }, [router])
 
   // Track mouse for gradient effect
@@ -103,6 +120,18 @@ export default function HomePage() {
     { id: 7, name: 'Platinum Executive', industry: 'VD/Direktion', svg: '/mallar/platinum-executive.svg', premium: true, users: '450' },
     { id: 8, name: 'Creative Minimal', industry: 'Kreativa yrken', svg: '/mallar/creative-minimal.svg', premium: true, users: '680' }
   ]
+
+  // Show minimal loading state while checking auth
+  if (isCheckingAuth) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-white to-slate-50/50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-slate-600">Laddar...</p>
+        </div>
+      </div>
+    )
+  }
 
   // Use cases för olika målgrupper
   return (
