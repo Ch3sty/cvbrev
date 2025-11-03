@@ -12,7 +12,7 @@ export interface WizardStep {
   description: string;
   icon: any;
   color: string;
-  component: () => ReactNode;
+  component: ReactNode;
   canNavigateNext?: () => boolean;
 }
 
@@ -130,7 +130,7 @@ export default function WizardContainer({
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                 className="min-h-[300px] sm:min-h-[350px] md:min-h-[400px]"
               >
-                {steps[currentStep].component()}
+                {steps[currentStep].component}
               </motion.div>
             </AnimatePresence>
 
