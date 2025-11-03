@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { createServerClient } from '@/lib/supabase/server'
 import { logUserActivity } from '@/lib/activity-logger'
 import { createClient as createServiceClient } from '@supabase/supabase-js'
+import { cookies } from 'next/headers'
 
 // Service role client for checking user existence
 const getServiceSupabase = () => {
@@ -37,7 +38,8 @@ export async function POST(request: NextRequest) {
 
     // Use Supabase client library's resetPasswordForEmail
     // This will use Supabase's built-in email system with proper token handling
-    const supabase = await createClient()
+    const cookieStore = await cookies()
+    const supabase = createServerClient({ cookies: cookieStore })
     const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.jobbcoach.ai'}/auth/reset-password`
     })
