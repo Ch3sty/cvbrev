@@ -344,18 +344,22 @@ export default function CreateLetterPage() {
       description: 'Förhandsgranska, redigera och exportera',
       icon: Eye,
       color: 'from-indigo-500 to-blue-500',
-      component: generatedLetter ? (
-        <PreviewStep
-          letterContent={generatedLetter}
-          onEdit={handleEditLetter}
-          onDownload={handleDownloadLetter}
-          onSave={handleSaveLetter}
-          saveError={saveError}
-        />
-      ) : (
-        <div className="text-center py-12 text-gray-600">
-          Inget brev att visa ännu
-        </div>
+      component: (
+        <>
+          {generatedLetter ? (
+            <PreviewStep
+              letterContent={generatedLetter}
+              onEdit={handleEditLetter}
+              onDownload={handleDownloadLetter}
+              onSave={handleSaveLetter}
+              saveError={saveError}
+            />
+          ) : (
+            <div className="text-center py-12 text-gray-600">
+              Inget brev att visa ännu
+            </div>
+          )}
+        </>
       )
     }
   ];
