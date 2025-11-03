@@ -28,6 +28,12 @@ export default function EmailVerificationBanner() {
       const response = await fetch('/api/auth/send-confirmation', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: profile.email,
+          fullName: profile.full_name || '',
+          userId: profile.id,
+          isInvitation: false
+        })
       });
 
       if (response.ok) {
@@ -50,7 +56,7 @@ export default function EmailVerificationBanner() {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
-        className="bg-gradient-to-r from-yellow-50 to-orange-50 border-l-4 border-yellow-400 shadow-sm"
+        className="relative z-20 bg-gradient-to-r from-yellow-50 to-orange-50 border-l-4 border-yellow-400 shadow-sm"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-start gap-4">
