@@ -279,7 +279,7 @@ export default function InvitePage() {
                 // Check if user already exists
                 if (signUpError.message?.includes('already registered') ||
                     signUpError.message?.includes('already exists')) {
-                  setError('Den här e-postadressen är redan registrerad. Vänligen logga in med ditt befintliga lösenord eller använd "Glömt lösenord" för att återställa det.')
+                  setError('Den här e-postadressen är redan registrerad. Vänligen logga in på /login eller återställ ditt lösenord på /auth/forgot-password.')
                 } else {
                   setError(`Kunde inte skapa konto: ${signUpError.message}`)
                 }

@@ -143,9 +143,17 @@ export default function LoginForm() {
 
         {/* Lösenord */}
         <div>
-          <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-2">
-            Lösenord
-          </label>
+          <div className="flex items-center justify-between mb-2">
+            <label htmlFor="password" className="block text-sm font-semibold text-gray-700">
+              Lösenord
+            </label>
+            <a
+              href="/auth/forgot-password"
+              className="text-sm font-medium text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text hover:from-blue-700 hover:to-purple-700 transition-all"
+            >
+              Glömt lösenord?
+            </a>
+          </div>
           <input
             id="password"
             name="password"
