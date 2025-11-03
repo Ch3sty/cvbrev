@@ -7,15 +7,17 @@ import { Eye, Download, Edit3, Copy, Check, FileText, Save, Info } from 'lucide-
 interface PreviewStepProps {
   letterContent: string;
   onEdit: (content: string) => void;
-  onDownload: () => void;
+  onDownload: (format: 'pdf' | 'docx') => void;
   onSave?: () => void;
+  saveError?: string | null;
 }
 
 export default function PreviewStep({
   letterContent,
   onEdit,
   onDownload,
-  onSave
+  onSave,
+  saveError
 }: PreviewStepProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(letterContent);
@@ -62,6 +64,23 @@ export default function PreviewStep({
         </div>
       </div>
 
+      {/* Error Banner */}
+      {saveError && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-red-50 border border-red-200 rounded-xl p-4"
+        >
+          <div className="flex items-start gap-3">
+            <Info className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <p className="text-sm font-medium text-red-900 mb-1">Kunde inte spara brevet</p>
+              <p className="text-sm text-red-700">{saveError}</p>
+            </div>
+          </div>
+        </motion.div>
+      )}
+
       {/* Action Bar - Fixed bottom på mobil, sticky på desktop */}
       <div className="fixed sm:sticky bottom-0 sm:top-4 left-0 right-0 sm:left-auto sm:right-auto z-20 bg-white sm:rounded-xl border-t-2 sm:border-2 border-gray-200 shadow-2xl sm:shadow-lg p-3 sm:p-4">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
@@ -98,11 +117,11 @@ export default function PreviewStep({
           </div>
 
           {/* Primära actions */}
-          <div className="flex items-center gap-2 justify-center sm:justify-end">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 flex-1 sm:flex-initial">
             {onSave && (
               <motion.button
                 onClick={onSave}
-                className="flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 text-white bg-gradient-to-r from-green-500 to-green-600 rounded-lg hover:from-green-600 hover:to-green-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial min-h-[44px]"
+                className="flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 text-white bg-gradient-to-r from-green-500 to-green-600 rounded-lg hover:from-green-600 hover:to-green-700 transition-all shadow-md hover:shadow-lg font-medium min-h-[44px]"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -111,15 +130,31 @@ export default function PreviewStep({
               </motion.button>
             )}
 
-            <motion.button
-              onClick={onDownload}
-              className="flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 text-white bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg hover:from-purple-600 hover:to-pink-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial min-h-[44px]"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Download className="w-4 h-4 flex-shrink-0" />
-              <span className="text-sm">Ladda ner</span>
-            </motion.button>
+            {/* Download section with label and two buttons */}
+            <div className="flex flex-col gap-2">
+              <span className="text-xs text-gray-600 font-medium px-1 hidden sm:block">Ladda ned som:</span>
+              <div className="flex items-center gap-2">
+                <motion.button
+                  onClick={() => onDownload('pdf')}
+                  className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 text-white bg-gradient-to-r from-red-500 to-pink-600 rounded-lg hover:from-red-600 hover:to-pink-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial min-h-[44px]"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Download className="w-4 h-4 flex-shrink-0" />
+                  <span className="text-sm">PDF</span>
+                </motion.button>
+
+                <motion.button
+                  onClick={() => onDownload('docx')}
+                  className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial min-h-[44px]"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Download className="w-4 h-4 flex-shrink-0" />
+                  <span className="text-sm">DOCX</span>
+                </motion.button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

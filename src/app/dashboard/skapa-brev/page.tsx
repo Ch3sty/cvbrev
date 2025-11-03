@@ -73,6 +73,7 @@ export default function CreateLetterPage() {
   const [generatedLetter, setGeneratedLetter] = useState<string | null>(null);
   const [letterData, setLetterData] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [saveError, setSaveError] = useState<string | null>(null);
   const [currentWizardStep, setCurrentWizardStep] = useState(initialStep);
   const [hasTriggeredGeneration, setHasTriggeredGeneration] = useState(false);
   const [hasDownloadedOrSaved, setHasDownloadedOrSaved] = useState(false);
@@ -182,6 +183,8 @@ export default function CreateLetterPage() {
     if (!generatedLetter || !selectedCV) return;
 
     try {
+      setSaveError(null); // Clear any previous errors
+
       // Use all data from letterData to preserve title, company, and job_title
       const dataToSave = letterData ? {
         ...letterData,
@@ -213,8 +216,10 @@ export default function CreateLetterPage() {
         // Navigate to my letters after successful save
         router.push('/dashboard/mina-brev');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Save error:', error);
+      const errorMessage = error?.message || 'Kunde inte spara brevet. Försök igen.';
+      setSaveError(errorMessage);
     }
   };
 
@@ -222,6 +227,14 @@ export default function CreateLetterPage() {
     if (!generatedLetter) return;
 
     try {
+      // Extract only primitive values BEFORE JSON.stringify to avoid cyclic object errors
+      // Create a clean object with no references to letterData
+      const safeMetadata = {
+        title: (letterData && typeof letterData === 'object' && letterData.title) ? String(letterData.title) : 'Ansökningsbrev',
+        company: (letterData && typeof letterData === 'object' && letterData.company) ? String(letterData.company) : '',
+        position: (letterData && typeof letterData === 'object' && letterData.job_title) ? String(letterData.job_title) : ''
+      };
+
       // Send only primitive values directly in body - no nested objects
       // This avoids cyclic object errors that occur when NextJS tries to serialize nested objects
       const response = await fetch('/api/letters/download', {
@@ -231,9 +244,9 @@ export default function CreateLetterPage() {
           content: generatedLetter,
           format,
           // Flat primitive values only - no metadata object
-          title: letterData?.title || 'Ansökningsbrev',
-          company: letterData?.company || '',
-          position: letterData?.job_title || ''
+          title: safeMetadata.title,
+          company: safeMetadata.company,
+          position: safeMetadata.position
         })
       });
 
@@ -337,6 +350,7 @@ export default function CreateLetterPage() {
           onEdit={handleEditLetter}
           onDownload={handleDownloadLetter}
           onSave={handleSaveLetter}
+          saveError={saveError}
         />
       ) : (
         <div className="text-center py-12 text-gray-600">
