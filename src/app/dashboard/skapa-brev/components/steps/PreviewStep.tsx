@@ -59,7 +59,7 @@ export default function PreviewStep({
         <div className="flex items-center gap-3">
           <Info className="w-5 h-5 text-blue-600 flex-shrink-0" />
           <p className="text-sm text-blue-900">
-            <span className="font-medium">Ditt brev är klart!</span> Kom ihåg att spara eller ladda ner ditt brev så att du kan använda det senare.
+            <span className="font-medium">Ditt personliga brev är klart!</span> Läs gärna igenom innehållet och lägg till dina kontaktuppgifter (telefon, e-post, adress) innan du laddar ner. Du kan redigera direkt i texten.
           </p>
         </div>
       </div>
@@ -84,7 +84,7 @@ export default function PreviewStep({
       {/* Action Bar - Fixed bottom på mobil, sticky på desktop */}
       <div className="fixed sm:sticky bottom-0 sm:top-4 left-0 right-0 sm:left-auto sm:right-auto z-20 bg-white sm:rounded-xl border-t-2 sm:border-2 border-gray-200 shadow-2xl sm:shadow-lg p-3 sm:p-4">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-          {/* Sekundära actions */}
+          {/* Sekundära actions - Left side */}
           <div className="flex items-center gap-2 justify-center sm:justify-start">
             <motion.button
               onClick={() => setIsEditing(!isEditing)}
@@ -116,45 +116,50 @@ export default function PreviewStep({
             </motion.button>
           </div>
 
-          {/* Primära actions */}
+          {/* Primära actions - Right side with consistent alignment */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 flex-1 sm:flex-initial">
+            {/* Optional label for desktop - positioned above all buttons */}
+            <span className="text-xs text-gray-600 font-medium px-1 hidden sm:block sm:sr-only">
+              Primära åtgärder:
+            </span>
+
+            {/* All primary action buttons at same level for proper alignment */}
             {onSave && (
               <motion.button
                 onClick={onSave}
                 className="flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 text-white bg-gradient-to-r from-green-500 to-green-600 rounded-lg hover:from-green-600 hover:to-green-700 transition-all shadow-md hover:shadow-lg font-medium min-h-[44px]"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
+                title="Spara brevet"
               >
                 <Save className="w-4 h-4 flex-shrink-0" />
                 <span className="text-sm">Spara</span>
               </motion.button>
             )}
 
-            {/* Download section with label and two buttons */}
-            <div className="flex flex-col gap-2">
-              <span className="text-xs text-gray-600 font-medium px-1 hidden sm:block">Ladda ned som:</span>
-              <div className="flex items-center gap-2">
-                <motion.button
-                  onClick={() => onDownload('pdf')}
-                  className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 text-white bg-gradient-to-r from-red-500 to-pink-600 rounded-lg hover:from-red-600 hover:to-pink-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial min-h-[44px]"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Download className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-sm">PDF</span>
-                </motion.button>
+            {/* PDF Download Button - same level as Save */}
+            <motion.button
+              onClick={() => onDownload('pdf')}
+              className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 text-white bg-gradient-to-r from-red-500 to-pink-600 rounded-lg hover:from-red-600 hover:to-pink-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial min-h-[44px]"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              title="Ladda ned som PDF"
+            >
+              <Download className="w-4 h-4 flex-shrink-0" />
+              <span className="text-sm">PDF</span>
+            </motion.button>
 
-                <motion.button
-                  onClick={() => onDownload('docx')}
-                  className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial min-h-[44px]"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Download className="w-4 h-4 flex-shrink-0" />
-                  <span className="text-sm">DOCX</span>
-                </motion.button>
-              </div>
-            </div>
+            {/* DOCX Download Button - same level as Save and PDF */}
+            <motion.button
+              onClick={() => onDownload('docx')}
+              className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial min-h-[44px]"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              title="Ladda ned som DOCX"
+            >
+              <Download className="w-4 h-4 flex-shrink-0" />
+              <span className="text-sm">DOCX</span>
+            </motion.button>
           </div>
         </div>
       </div>
@@ -225,7 +230,7 @@ export default function PreviewStep({
           transition={{ delay: 0.5 }}
           className="text-center text-sm text-gray-600"
         >
-          💡 Tips: Du kan redigera texten direkt eller ladda ner som PDF
+          💡 Klicka var som helst i brevet för att redigera. Bra att lägga till: telefonnummer, e-post och adress längst upp.
         </motion.div>
       )}
     </div>
