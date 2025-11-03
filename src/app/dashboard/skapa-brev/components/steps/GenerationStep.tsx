@@ -14,7 +14,7 @@ interface GenerationStepProps {
 
 const mascotStages = [
   {
-    image: '/images/maskot/personligt-brev-1.png',
+    image: '/images/maskot/personligt-brev-1.svg',
     text: 'Analyserar ditt CV',
     color: 'from-blue-500/20 to-indigo-500/20',
     glowColor: 'rgba(59, 130, 246, 0.5)',
@@ -22,7 +22,7 @@ const mascotStages = [
     particleCount: 8
   },
   {
-    image: '/images/maskot/personligt-brev-2.png',
+    image: '/images/maskot/personligt-brev-2.svg',
     text: 'Extraherar nyckelkompetenser',
     color: 'from-violet-500/20 to-purple-500/20',
     glowColor: 'rgba(139, 92, 246, 0.5)',
@@ -30,7 +30,7 @@ const mascotStages = [
     particleCount: 15
   },
   {
-    image: '/images/maskot/personligt-brev-3.png',
+    image: '/images/maskot/personligt-brev-3.svg',
     text: 'Matchar mot jobbkrav',
     color: 'from-fuchsia-500/20 to-pink-500/20',
     glowColor: 'rgba(217, 70, 239, 0.5)',
@@ -38,7 +38,7 @@ const mascotStages = [
     particleCount: 20
   },
   {
-    image: '/images/maskot/personligt-brev-4.png',
+    image: '/images/maskot/personligt-brev-4.svg',
     text: 'Genererar personligt brev',
     color: 'from-amber-500/20 to-orange-500/20',
     glowColor: 'rgba(251, 146, 60, 0.5)',
@@ -46,7 +46,7 @@ const mascotStages = [
     particleCount: 28
   },
   {
-    image: '/images/maskot/personligt-brev-5.png',
+    image: '/images/maskot/personligt-brev-5.svg',
     text: 'Optimerar för ATS',
     color: 'from-emerald-500/20 to-green-500/20',
     glowColor: 'rgba(16, 185, 129, 0.6)',
