@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { logUserActivity } from '@/lib/activity-logger'
 
 // Service role client for admin operations
 const getServiceSupabase = () => {
@@ -65,6 +66,29 @@ export async function GET(request: NextRequest) {
       return NextResponse.redirect(
         new URL('/login?error=confirmation_failed', request.url)
       )
+    }
+
+    // Update email_verified_at in profiles table
+    const { error: profileError } = await supabase
+      .from('profiles')
+      .update({ email_verified_at: new Date().toISOString() })
+      .eq('id', confirmation.user_id)
+
+    if (profileError) {
+      console.error('Error updating profile verification status:', profileError)
+      // Continue anyway - the auth confirmation succeeded
+    }
+
+    // Log activity
+    try {
+      await logUserActivity(
+        confirmation.user_id,
+        'email_verified',
+        { email: confirmation.email }
+      )
+    } catch (logError) {
+      console.error('Error logging email verification activity:', logError)
+      // Continue anyway - logging is not critical
     }
 
     // Delete the used token

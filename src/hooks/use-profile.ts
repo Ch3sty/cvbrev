@@ -789,6 +789,9 @@ export const useProfile = () => {
     gdprConsent,
     loading,
 
+    // Email verification
+    isEmailVerified: profile?.email_verified_at !== null,
+
     // Prenumerationsrelaterad data
     subscriptionTier,
     isUpgrading,

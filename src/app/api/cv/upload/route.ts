@@ -35,7 +35,7 @@ export async function POST(request: Request) {
     // --- (Kod för prenumerationskontroll - oförändrad) ---
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
-      .select('subscription_tier')
+      .select('subscription_tier, email_verified_at')
       .eq('id', user.id)
       .single();
 
@@ -44,6 +44,31 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Kunde inte hämta användarprofil' }, { status: 500 });
     }
 
+    // Check email verification for free users FIRST (before saved CV limit)
+    if (profile.subscription_tier === 'free' && !profile.email_verified_at) {
+      const { count: cvCount, error: cvCountError } = await supabase
+        .from('cv_texts')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user.id);
+
+      if (cvCountError) {
+        console.error('Fel vid räkning av CV:n:', cvCountError);
+        return NextResponse.json({ error: 'Kunde inte verifiera antal CV:n' }, { status: 500 });
+      }
+
+      if (cvCount !== null && cvCount >= 1) {
+        return NextResponse.json(
+          {
+            error: 'Du måste verifiera din e-post för att ladda upp fler CV:n. Kontrollera din inkorg eller begär ett nytt verifieringsmejl.',
+            code: 'EMAIL_NOT_VERIFIED',
+            verification_required: true
+          },
+          { status: 403 }
+        );
+      }
+    }
+
+    // Check saved CV limit for free users (existing check)
     if (profile.subscription_tier === 'free') {
       const { count, error: countError } = await supabase
         .from('cv_texts')

@@ -62,51 +62,78 @@ export async function POST(request: Request) {
     // Hämta användarens prenumerationsnivå
     const { data: profile, error: profileError } = await supabase
       .from('profiles')
-      .select('subscription_tier')
+      .select('subscription_tier, email_verified_at')
       .eq('id', user.id)
       .single();
 
     if (profileError) {
       console.error('Fel vid hämtning av användarprofil:', profileError);
       return NextResponse.json(
-        { error: 'Kunde inte hämta användarprofil' }, 
+        { error: 'Kunde inte hämta användarprofil' },
         { status: 500 }
       );
     }
 
     // Hämta begäransdata
     const letterData = await request.json();
-    
+
     // Validera nödvändiga fält
     if (!letterData.content) {
       return NextResponse.json(
-        { error: 'Brevinnehåll krävs' }, 
+        { error: 'Brevinnehåll krävs' },
         { status: 400 }
       );
     }
 
-    // För gratisanvändare: kontrollera om användaren har nått maxantalet brev (2)
+    // Check email verification for free users FIRST (before saved letter limit)
+    if (profile.subscription_tier === 'free' && !profile.email_verified_at) {
+      const { count: totalLetterCount, error: totalCountError } = await supabase
+        .from('letters')
+        .select('id', { count: 'exact', head: true })
+        .eq('user_id', user.id);
+
+      if (totalCountError) {
+        console.error('Fel vid räkning av totala brev:', totalCountError);
+        return NextResponse.json(
+          { error: 'Kunde inte verifiera antal brev' },
+          { status: 500 }
+        );
+      }
+
+      if (totalLetterCount !== null && totalLetterCount >= 1) {
+        return NextResponse.json(
+          {
+            error: 'Du måste verifiera din e-post för att skapa fler brev. Kontrollera din inkorg eller begär ett nytt verifieringsmejl.',
+            code: 'EMAIL_NOT_VERIFIED',
+            verification_required: true
+          },
+          { status: 403 }
+        );
+      }
+    }
+
+    // För gratisanvändare: kontrollera om användaren har nått maxantalet sparade brev (2)
     if (profile.subscription_tier === 'free') {
       const { count, error: countError } = await supabase
         .from('letters')
         .select('id', { count: 'exact', head: true })
         .eq('user_id', user.id)
         .eq('is_saved', true);
-      
+
       if (countError) {
         console.error('Fel vid räkning av brev:', countError);
         return NextResponse.json(
-          { error: 'Kunde inte verifiera antal brev' }, 
+          { error: 'Kunde inte verifiera antal brev' },
           { status: 500 }
         );
       }
-      
+
       if (count !== null && count >= 2) {
         return NextResponse.json(
-          { 
-            error: 'Som gratisanvändare kan du spara max 2 brev. Uppgradera till premium för obegränsad lagring.', 
+          {
+            error: 'Som gratisanvändare kan du spara max 2 brev. Uppgradera till premium för obegränsad lagring.',
             code: 'SAVED_LETTERS_LIMIT'
-          }, 
+          },
           { status: 403 }
         );
       }

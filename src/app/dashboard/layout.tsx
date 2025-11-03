@@ -6,6 +6,7 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import DashboardSidebar from '@/components/dashboard/sidebar';
 import DashboardHeader from '@/components/dashboard/header';
 import AchievementManager from '@/components/gamification/AchievementManager';
+import EmailVerificationBanner from '@/components/dashboard/email-verification-banner';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 
 export default function DashboardLayout({
@@ -116,6 +117,9 @@ export default function DashboardLayout({
               onMenuClick={() => setIsMobileMenuOpen(true)}
             />
           </div>
+
+          {/* Email Verification Banner */}
+          <EmailVerificationBanner />
 
           {/* Main Content Area - responsiv padding */}
           <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 relative bg-gradient-to-br from-white/50 via-slate-50/30 to-slate-100/10">
