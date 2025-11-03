@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { CheckCircle2, Sparkles } from 'lucide-react';
@@ -168,23 +168,28 @@ export default function GenerationStep({
   }, []);
 
   // Cycle through mascot stages
+  const stageIndexRef = useRef(0);
+
   useEffect(() => {
-    if (!generatedLetter && !error && isGenerating) {
-      let stageIndex = 0;
+    if (!generatedLetter && !error) {
+      stageIndexRef.current = 0;
       const stageDuration = 2500; // 2.5 seconds per stage
 
       const stageInterval = setInterval(() => {
-        stageIndex++;
-        if (stageIndex < mascotStages.length) {
-          setCurrentStage(stageIndex);
+        stageIndexRef.current++;
+        if (stageIndexRef.current < mascotStages.length) {
+          setCurrentStage(stageIndexRef.current);
         } else {
           clearInterval(stageInterval);
         }
       }, stageDuration);
 
-      return () => clearInterval(stageInterval);
+      return () => {
+        clearInterval(stageInterval);
+        stageIndexRef.current = 0;
+      };
     }
-  }, [generatedLetter, error, isGenerating]);
+  }, [generatedLetter, error]);
 
   // Trigger confetti when letter is complete
   useEffect(() => {
