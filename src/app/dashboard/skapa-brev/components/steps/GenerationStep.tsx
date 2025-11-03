@@ -286,7 +286,8 @@ export default function GenerationStep({
   }
 
   // Generate particles based on current stage - mobile optimized
-  const currentMascotStage = mascotStages[currentStage];
+  // Bounds-check to prevent undefined when currentStage exceeds array length
+  const currentMascotStage = mascotStages[Math.min(currentStage, mascotStages.length - 1)];
 
   const particles = useMemo(() => {
     if (prefersReducedMotion) return [];

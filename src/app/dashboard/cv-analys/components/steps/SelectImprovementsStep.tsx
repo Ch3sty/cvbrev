@@ -323,7 +323,7 @@ export default function SelectImprovementsStep(props: SelectImprovementsStepProp
                   {category.count > 1 && category.id !== 'general' && (
                     <Button
                       variant="outline"
-                      size="default"
+                      size="sm"
                       onClick={(e) => {
                         e.stopPropagation();
                         if (allSelected) {
