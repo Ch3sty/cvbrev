@@ -631,7 +631,13 @@ export default function JobbmatchningPage() {
               )}
 
               {/* Loading State */}
-              {loadingJobs && <JobSearchLoader />}
+              {loadingJobs && (
+                <JobSearchLoader
+                  isSearching={loadingJobs}
+                  jobsFound={loadingJobs ? null : (jobs.length > 0)}
+                  error={error}
+                />
+              )}
           </motion.div>
         )}
       </div>
