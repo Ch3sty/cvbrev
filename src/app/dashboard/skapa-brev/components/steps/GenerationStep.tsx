@@ -12,12 +12,17 @@ interface GenerationStepProps {
 }
 
 // Floating particle component
-const Particle = ({ delay, color }: { delay: number; color: string }) => {
+const Particle = ({ delay, color, prefersReducedMotion }: { delay: number; color: string; prefersReducedMotion: boolean }) => {
   const startX = Math.random() * 160 - 80; // Start position -80 to 80
   const startY = Math.random() * 160 - 80;
   const randomX = Math.random() * 200 - 100; // Movement range -100 to 100
   const randomY = Math.random() * 200 - 100;
   const size = Math.random() * 8 + 4; // 4-12px
+
+  // Don't render particles if user prefers reduced motion
+  if (prefersReducedMotion) {
+    return null;
+  }
 
   return (
     <motion.div
@@ -52,13 +57,18 @@ const Particle = ({ delay, color }: { delay: number; color: string }) => {
 };
 
 // Confetti piece component
-const ConfettiPiece = ({ delay, index }: { delay: number; index: number }) => {
+const ConfettiPiece = ({ delay, index, prefersReducedMotion }: { delay: number; index: number; prefersReducedMotion: boolean }) => {
   const colors = ['#3B82F6', '#8B5CF6', '#D946EF', '#FB923C', '#10B981', '#F59E0B', '#EC4899'];
   const color = colors[index % colors.length];
   const startX = (Math.random() - 0.5) * 100; // -50 to 50
   const endX = startX + (Math.random() - 0.5) * 300; // Random horizontal drift
   const rotation = Math.random() * 720 - 360; // -360 to 360 degrees
   const size = Math.random() * 8 + 6; // 6-14px
+
+  // Don't render confetti if user prefers reduced motion
+  if (prefersReducedMotion) {
+    return null;
+  }
 
   return (
     <motion.div
@@ -133,6 +143,11 @@ export default function GenerationStep({
   const [currentStage, setCurrentStage] = useState(0);
   const [showSuccess, setShowSuccess] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+
+  // Check if user prefers reduced motion
+  const prefersReducedMotion = typeof window !== 'undefined'
+    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    : false;
 
   // Preload all mascot images
   useEffect(() => {
@@ -213,14 +228,17 @@ export default function GenerationStep({
         {/* Confetti effect */}
         <div className="absolute inset-0 pointer-events-none">
           {[...Array(30)].map((_, i) => (
-            <ConfettiPiece key={i} delay={i * 0.03} index={i} />
+            <ConfettiPiece key={i} delay={i * 0.03} index={i} prefersReducedMotion={prefersReducedMotion} />
           ))}
         </div>
 
         <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
+          initial={prefersReducedMotion ? { opacity: 0 } : { scale: 0.8, opacity: 0 }}
+          animate={prefersReducedMotion ? { opacity: 1 } : { scale: 1, opacity: 1 }}
+          transition={{
+            duration: prefersReducedMotion ? 0.2 : 0.5,
+            ease: prefersReducedMotion ? "linear" : [0.34, 1.56, 0.64, 1]
+          }}
         >
           <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle2 className="w-10 h-10 text-green-600" />
@@ -253,13 +271,13 @@ export default function GenerationStep({
           style={{
             boxShadow: `0 0 60px 20px ${stage.glowColor}`
           }}
-          animate={{
+          animate={prefersReducedMotion ? {} : {
             scale: [1, 1.1, 1],
             opacity: [0.5, 0.8, 0.5]
           }}
           transition={{
             duration: 2,
-            repeat: Infinity,
+            repeat: prefersReducedMotion ? 0 : Infinity,
             ease: "easeInOut"
           }}
         />
@@ -271,6 +289,7 @@ export default function GenerationStep({
               key={`${currentStage}-${i}`}
               delay={i * 0.3}
               color={stage.glowColor}
+              prefersReducedMotion={prefersReducedMotion}
             />
           ))}
         </div>
@@ -308,12 +327,12 @@ export default function GenerationStep({
           <AnimatePresence mode="wait">
             <motion.div
               key={currentStage}
-              initial={{ scale: 0.8, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.8, opacity: 0, y: -20 }}
+              initial={prefersReducedMotion ? { opacity: 0 } : { scale: 0.8, opacity: 0, y: 20 }}
+              animate={prefersReducedMotion ? { opacity: 1 } : { scale: 1, opacity: 1, y: 0 }}
+              exit={prefersReducedMotion ? { opacity: 0 } : { scale: 0.8, opacity: 0, y: -20 }}
               transition={{
-                duration: 0.3,
-                ease: [0.34, 1.56, 0.64, 1] // Custom bounce easing
+                duration: prefersReducedMotion ? 0.15 : 0.3,
+                ease: prefersReducedMotion ? "linear" : [0.34, 1.56, 0.64, 1] // Custom bounce easing
               }}
             >
               <Image
@@ -333,10 +352,10 @@ export default function GenerationStep({
       <AnimatePresence mode="wait">
         <motion.h3
           key={currentStage}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.3 }}
+          initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+          animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          exit={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: -10 }}
+          transition={{ duration: prefersReducedMotion ? 0.15 : 0.3 }}
           className="text-2xl font-semibold text-gray-900 mb-2"
         >
           {stage.text}
@@ -380,9 +399,9 @@ export default function GenerationStep({
             className="relative"
             initial={false}
             animate={{
-              scale: index === currentStage ? 1.2 : 1
+              scale: (prefersReducedMotion || index !== currentStage) ? 1 : 1.2
             }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: prefersReducedMotion ? 0.1 : 0.3 }}
           >
             {/* Indicator dot */}
             <div
