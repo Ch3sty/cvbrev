@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { CheckCircle2, Loader2 } from 'lucide-react';
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface GenerationStepProps {
   isGenerating: boolean;
@@ -140,23 +141,45 @@ export default function GenerationStep({
           />
         </svg>
 
-        {/* Mascot Image */}
+        {/* Mascot Image with Framer Motion */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <Image
-            src={stage.image}
-            alt={stage.text}
-            width={192}
-            height={192}
-            unoptimized
-            className="w-48 h-48 object-contain drop-shadow-2xl"
-          />
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentStage}
+              initial={{ scale: 0.8, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.8, opacity: 0, y: -20 }}
+              transition={{
+                duration: 0.5,
+                ease: [0.34, 1.56, 0.64, 1] // Custom bounce easing
+              }}
+            >
+              <Image
+                src={stage.image}
+                alt={stage.text}
+                width={192}
+                height={192}
+                unoptimized
+                className="w-48 h-48 object-contain drop-shadow-2xl"
+              />
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
 
-      {/* Stage text */}
-      <h3 className="text-2xl font-semibold text-gray-900 mb-2">
-        {stage.text}
-      </h3>
+      {/* Stage text with animation */}
+      <AnimatePresence mode="wait">
+        <motion.h3
+          key={currentStage}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.3 }}
+          className="text-2xl font-semibold text-gray-900 mb-2"
+        >
+          {stage.text}
+        </motion.h3>
+      </AnimatePresence>
 
       {/* Spinner */}
       <div className="flex items-center justify-center mb-4">
