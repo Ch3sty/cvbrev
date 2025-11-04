@@ -2,6 +2,7 @@
 
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react'
 import Notification from '@/components/ui/notification'
+import MascotNotification from '@/components/ui/mascot-notification'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { ActivityType, logUserActivity } from '@/lib/activity-logger'
 
@@ -63,14 +64,32 @@ interface NotificationContextType {
   
   loadingWithActivity: (
     message: string,
-    activityType: ActivityType, 
-    description: string, 
+    activityType: ActivityType,
+    description: string,
     metadata?: Record<string, any>
   ) => void
-  
+
+  // Maskot-notifikationer (NYA)
+  successWithMascot: (
+    message: string,
+    mascotImage: string,
+    duration?: number,
+    showConfetti?: boolean
+  ) => void
+
+  successWithMascotAndActivity: (
+    message: string,
+    mascotImage: string,
+    activityType: ActivityType,
+    description: string,
+    metadata?: Record<string, any>,
+    duration?: number,
+    showConfetti?: boolean
+  ) => void
+
   // Stäng nuvarande notifikation
   closeNotification: () => void
-  
+
   // Aktuell användare
   currentUser: any
 }
@@ -86,6 +105,10 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   const [type, setType] = useState<NotificationType>('info')
   const [duration, setDuration] = useState<number | undefined>(undefined)
   const [currentUser, setCurrentUser] = useState<any>(null)
+
+  // State för maskot-notifikationer (NYA)
+  const [mascotImage, setMascotImage] = useState<string | undefined>(undefined)
+  const [showConfetti, setShowConfetti] = useState(true)
   
   // Hämta och lyssna på användarändringar
   useEffect(() => {
@@ -197,11 +220,37 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   
   const loadingWithActivity = (
     message: string,
-    activityType: ActivityType, 
-    description: string, 
+    activityType: ActivityType,
+    description: string,
     metadata?: Record<string, any>
   ) => notifyWithActivity(message, 'loading', activityType, description, metadata)
-  
+
+  // Maskot-notifikationer (NYA funktioner)
+  const successWithMascot = (
+    message: string,
+    mascotImage: string,
+    duration: number = 4000,
+    showConfetti: boolean = true
+  ) => {
+    setMascotImage(mascotImage)
+    setShowConfetti(showConfetti)
+    showNotification(message, 'success', duration)
+  }
+
+  const successWithMascotAndActivity = async (
+    message: string,
+    mascotImage: string,
+    activityType: ActivityType,
+    description: string,
+    metadata?: Record<string, any>,
+    duration: number = 4000,
+    showConfettiParam: boolean = true
+  ) => {
+    setMascotImage(mascotImage)
+    setShowConfetti(showConfettiParam)
+    await notifyWithActivity(message, 'success', activityType, description, metadata, duration)
+  }
+
   // Kontextvärdet som exponeras
   const contextValue: NotificationContextType = {
     showNotification,
@@ -215,6 +264,8 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
     errorWithActivity,
     infoWithActivity,
     loadingWithActivity,
+    successWithMascot,
+    successWithMascotAndActivity,
     closeNotification,
     currentUser
   }
@@ -222,13 +273,29 @@ export function NotificationProvider({ children }: { children: ReactNode }) {
   return (
     <NotificationContext.Provider value={contextValue}>
       {children}
-      <Notification 
-        isVisible={isVisible}
-        message={message}
-        type={type}
-        onClose={closeNotification}
-        duration={duration}
-      />
+      {/* Render maskot-notification om mascotImage finns, annars standard */}
+      {mascotImage ? (
+        <MascotNotification
+          isVisible={isVisible}
+          message={message}
+          type={type}
+          mascotImage={mascotImage}
+          onClose={() => {
+            closeNotification()
+            setMascotImage(undefined) // Återställ maskot för nästa notifikation
+          }}
+          duration={duration}
+          showConfetti={showConfetti}
+        />
+      ) : (
+        <Notification
+          isVisible={isVisible}
+          message={message}
+          type={type}
+          onClose={closeNotification}
+          duration={duration}
+        />
+      )}
     </NotificationContext.Provider>
   )
 }

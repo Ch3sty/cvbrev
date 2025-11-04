@@ -19,12 +19,13 @@ export default function CVUploader({ onSuccess, onError }: CVUploaderProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
   
   // Använd notifikationskontext istället för prop
-  const { 
-    loading: notificationLoading, 
-    success, 
-    error: showError, 
-    loadingWithActivity, 
+  const {
+    loading: notificationLoading,
+    success,
+    error: showError,
+    loadingWithActivity,
     successWithActivity,
+    successWithMascotAndActivity,
     errorWithActivity
   } = useNotification()
   
@@ -137,9 +138,10 @@ export default function CVUploader({ onSuccess, onError }: CVUploaderProps) {
           fileInputRef.current.value = ''
         }
         
-        // Visa success-notifikation och logga framgångsrik uppladdning
-        successWithActivity(
+        // Visa success-notifikation med maskot och logga framgångsrik uppladdning
+        successWithMascotAndActivity(
           'CV uppladdad framgångsrikt!',
+          '/images/maskot/success-cv-uploaded.svg',
           'cv_uploaded',
           'laddade upp ett CV',
           {
@@ -147,7 +149,9 @@ export default function CVUploader({ onSuccess, onError }: CVUploaderProps) {
             file_size: file.size,
             file_type: file.type,
             title: title
-          }
+          },
+          4000,
+          true
         );
         
         onSuccess?.()
