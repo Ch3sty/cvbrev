@@ -211,7 +211,7 @@ export default function GenerationStep({
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.8, opacity: 0, y: -20 }}
               transition={{
-                duration: 0.5,
+                duration: 0.3,
                 ease: [0.34, 1.56, 0.64, 1] // Custom bounce easing
               }}
             >
@@ -271,19 +271,42 @@ export default function GenerationStep({
         </span>
       </div>
 
-      {/* Stage indicators */}
-      <div className="flex gap-2 justify-center">
-        {mascotStages.map((_, index) => (
-          <div
+      {/* Enhanced Stage indicators */}
+      <div className="flex gap-3 justify-center items-center">
+        {mascotStages.map((stageItem, index) => (
+          <motion.div
             key={index}
-            className={`h-2 w-12 rounded-full transition-all duration-300 ${
-              index === currentStage
-                ? 'bg-pink-600'
-                : index < currentStage
-                ? 'bg-pink-300'
-                : 'bg-gray-200'
-            }`}
-          />
+            className="relative"
+            initial={false}
+            animate={{
+              scale: index === currentStage ? 1.2 : 1
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            {/* Indicator dot */}
+            <div
+              className={`h-3 w-3 rounded-full transition-all duration-300 ${
+                index === currentStage
+                  ? 'ring-2 ring-offset-2'
+                  : ''
+              }`}
+              style={{
+                backgroundColor: index <= currentStage ? stageItem.glowColor : 'rgb(229, 231, 235)',
+                ringColor: index === currentStage ? stageItem.glowColor : 'transparent'
+              }}
+            />
+
+            {/* Connecting line */}
+            {index < mascotStages.length - 1 && (
+              <div
+                className="absolute top-1/2 -right-3 w-3 h-0.5 -translate-y-1/2 transition-all duration-500"
+                style={{
+                  backgroundColor: index < currentStage ? stageItem.glowColor : 'rgb(229, 231, 235)',
+                  opacity: index < currentStage ? 0.6 : 0.3
+                }}
+              />
+            )}
+          </motion.div>
         ))}
       </div>
     </div>
