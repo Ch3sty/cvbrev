@@ -117,28 +117,32 @@ export default function MascotNotification({
     switch (type) {
       case 'success':
         return {
-          bg: 'bg-green-900/30',
+          bg: 'bg-gradient-to-r from-green-50 to-emerald-50',
           border: 'border-green-500',
-          glow: 'rgba(16, 185, 129, 0.6)'
+          glow: 'rgba(16, 185, 129, 0.6)',
+          textColor: 'text-slate-900'
         }
       case 'error':
         return {
-          bg: 'bg-red-900/30',
+          bg: 'bg-gradient-to-r from-red-50 to-rose-50',
           border: 'border-red-500',
-          glow: 'rgba(239, 68, 68, 0.6)'
+          glow: 'rgba(239, 68, 68, 0.6)',
+          textColor: 'text-slate-900'
         }
       case 'info':
         return {
-          bg: 'bg-blue-900/30',
+          bg: 'bg-gradient-to-r from-blue-50 to-indigo-50',
           border: 'border-blue-500',
-          glow: 'rgba(59, 130, 246, 0.6)'
+          glow: 'rgba(59, 130, 246, 0.6)',
+          textColor: 'text-slate-900'
         }
       case 'loading':
       default:
         return {
-          bg: 'bg-pink-900/30',
+          bg: 'bg-gradient-to-r from-pink-50 to-purple-50',
           border: 'border-pink-500',
-          glow: 'rgba(236, 72, 153, 0.6)'
+          glow: 'rgba(236, 72, 153, 0.6)',
+          textColor: 'text-slate-900'
         }
     }
   }
@@ -173,7 +177,7 @@ export default function MascotNotification({
           </div>
         )}
 
-        <div className="bg-navy-800 border border-navy-700/50 rounded-xl shadow-xl overflow-hidden backdrop-blur-sm">
+        <div className="bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 overflow-hidden">
           <div className={`px-4 py-4 ${colors.bg} border-l-4 ${colors.border}`}>
             <div className="flex items-start gap-4">
               {/* Mascot Image */}
@@ -215,7 +219,7 @@ export default function MascotNotification({
 
               {/* Message */}
               <div className="flex-1 pt-2">
-                <p className="text-base font-semibold text-gray-100 leading-relaxed">
+                <p className={`text-base font-semibold ${colors.textColor} leading-relaxed`}>
                   {message}
                 </p>
               </div>
@@ -228,7 +232,7 @@ export default function MascotNotification({
                     setVisible(false)
                     onClose()
                   }}
-                  className="flex-shrink-0 inline-flex rounded-md p-1.5 text-gray-400 hover:text-white hover:bg-navy-700/60 focus:outline-none focus:ring-2 focus:ring-pink-500 transition-colors"
+                  className="flex-shrink-0 inline-flex rounded-lg p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300 transition-colors"
                   aria-label="Stäng notifikation"
                 >
                   <X className="h-5 w-5" />
