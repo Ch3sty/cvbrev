@@ -36,6 +36,17 @@ export default function PreviewStep({
   };
 
   const formatContent = (content: string) => {
+    // Safety check to prevent React error #300
+    if (typeof content !== 'string') {
+      console.error('❌ formatContent received non-string:', typeof content, content);
+      return '<div class="p-4 bg-red-50 border border-red-200 rounded"><p class="text-red-600">Fel: Kunde inte formatera innehållet. Vänligen kontakta support.</p></div>';
+    }
+
+    if (content.trim() === '') {
+      console.warn('⚠️ formatContent received empty string');
+      return '<div class="p-4 bg-yellow-50 border border-yellow-200 rounded"><p class="text-yellow-600">Tomt innehåll mottaget.</p></div>';
+    }
+
     // Simple formatting for preview
     return content
       .split('\n')

@@ -140,14 +140,24 @@ export default function CreateLetterPage() {
 
       if (result) {
         // Flexible content handling - supports both { content: string } and direct string response
-        const letterContent = result.content || result;
+        const letterContent = typeof result === 'string'
+          ? result
+          : (result.content || '');
 
-        // Validate we got a string (not an object) to prevent React error #300
-        if (typeof letterContent !== 'string') {
+        // Stricter validation with logging to prevent React error #300
+        if (!letterContent ||
+            typeof letterContent !== 'string' ||
+            letterContent.trim() === '') {
+          console.error('❌ Invalid letter content:', {
+            type: typeof letterContent,
+            value: letterContent,
+            result: result
+          });
           setError('Brevinnehållet kunde inte laddas korrekt');
           return;
         }
 
+        console.log('✅ Valid letter content, length:', letterContent.length);
         setGeneratedLetter(letterContent);
         setLetterData(result);
 
@@ -176,7 +186,12 @@ export default function CreateLetterPage() {
 
   // Auto-advance to preview as soon as letter is ready
   useEffect(() => {
-    if (currentWizardStep === 3 && generatedLetter && !isGenerating) {
+    if (currentWizardStep === 3 &&
+        generatedLetter &&
+        typeof generatedLetter === 'string' &&
+        generatedLetter.trim().length > 0 &&
+        !isGenerating) {
+      console.log('✅ Auto-advancing to preview');
       setCurrentWizardStep(4);
     }
   }, [currentWizardStep, generatedLetter, isGenerating]);

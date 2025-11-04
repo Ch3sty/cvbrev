@@ -142,7 +142,7 @@ export default function GenerationStep({
 
   // Simulate progress while generating
   useEffect(() => {
-    if (!isGenerating || generatedLetter) {
+    if (!isGenerating) {
       return;
     }
 
@@ -164,7 +164,7 @@ export default function GenerationStep({
     }, 500);
 
     return () => clearInterval(interval);
-  }, [isGenerating, generatedLetter]);
+  }, [isGenerating]);
 
   // Jump to 100% when complete
   useEffect(() => {
