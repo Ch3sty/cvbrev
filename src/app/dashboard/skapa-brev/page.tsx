@@ -139,13 +139,16 @@ export default function CreateLetterPage() {
       console.log('Letter generation result:', result);
 
       if (result) {
-        // Validate that we got valid content
-        if (!result.content || typeof result.content !== 'string') {
+        // Flexible content handling - supports both { content: string } and direct string response
+        const letterContent = result.content || result;
+
+        // Validate we got a string (not an object) to prevent React error #300
+        if (typeof letterContent !== 'string') {
           setError('Brevinnehållet kunde inte laddas korrekt');
           return;
         }
 
-        setGeneratedLetter(result.content);
+        setGeneratedLetter(letterContent);
         setLetterData(result);
 
         // Update remaining letters
