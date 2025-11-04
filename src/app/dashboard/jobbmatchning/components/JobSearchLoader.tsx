@@ -176,7 +176,14 @@ export default function JobSearchLoader({
   const progress = ((currentStage + 1) / mascotStages.length) * 100;
 
   return (
-    <div className="text-center py-12">
+    <div className="flex flex-col items-center justify-center py-16 px-4">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3 }}
+        className="w-full max-w-2xl bg-white/80 backdrop-blur-sm rounded-3xl border-2 border-indigo-200 p-8 shadow-xl"
+      >
+        <div className="text-center">
       {/* SVG Mascot */}
       <div className="w-64 h-64 mx-auto mb-8 relative">
         {/* Animated gradient background */}
@@ -348,6 +355,8 @@ export default function JobSearchLoader({
           </motion.div>
         ))}
       </div>
+        </div>
+      </motion.div>
     </div>
   );
 }
