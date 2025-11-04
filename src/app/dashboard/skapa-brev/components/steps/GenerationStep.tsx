@@ -132,9 +132,30 @@ export default function GenerationStep({
 }: GenerationStepProps) {
   const [currentStage, setCurrentStage] = useState(0);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
+  // Preload all mascot images
+  useEffect(() => {
+    const imagePromises = mascotStages.map((stage) => {
+      return new Promise<void>((resolve, reject) => {
+        const img = new window.Image();
+        img.src = stage.image;
+        img.onload = () => resolve();
+        img.onerror = () => reject();
+      });
+    });
+
+    Promise.all(imagePromises)
+      .then(() => setImagesLoaded(true))
+      .catch(() => setImagesLoaded(true)); // Continue even if some images fail
+  }, []);
 
   // Cycle through stages while generating
   useEffect(() => {
+    // Wait for images to load before starting animation
+    if (!imagesLoaded) {
+      return;
+    }
     // Stop animation only when letter is ready
     if (generatedLetter) {
       // Ensure we're at the last stage
@@ -158,7 +179,17 @@ export default function GenerationStep({
     }, 2500); // Change stage every 2.5 seconds
 
     return () => clearInterval(interval);
-  }, [generatedLetter]); // Only depend on generatedLetter
+  }, [generatedLetter, imagesLoaded]); // Depend on generatedLetter and imagesLoaded
+
+  // Loading images state
+  if (!imagesLoaded && !error && !generatedLetter) {
+    return (
+      <div className="text-center py-12">
+        <Loader2 className="w-10 h-10 text-pink-600 animate-spin mx-auto mb-4" />
+        <p className="text-gray-600">Förbereder...</p>
+      </div>
+    );
+  }
 
   // Error state
   if (error) {
