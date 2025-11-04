@@ -240,7 +240,7 @@ export default function TestMascotNotifications() {
                 successWithMascotAndActivity(
                   'Testat med aktivitetsloggning!',
                   '/images/maskot/success-letter-generated.svg',
-                  'letter_generated',
+                  'letter_created',
                   'testade maskot-notifikation med aktivitetsloggning',
                   { test: true, timestamp: new Date().toISOString() },
                   5000,
