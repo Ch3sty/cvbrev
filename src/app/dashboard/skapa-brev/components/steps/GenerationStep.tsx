@@ -11,6 +11,39 @@ interface GenerationStepProps {
   error: string | null;
 }
 
+// Floating particle component
+const Particle = ({ delay, color }: { delay: number; color: string }) => {
+  const randomX = Math.random() * 200 - 100; // -100 to 100
+  const randomY = Math.random() * 200 - 100;
+  const size = Math.random() * 8 + 4; // 4-12px
+
+  return (
+    <motion.div
+      className="absolute rounded-full"
+      style={{
+        width: size,
+        height: size,
+        backgroundColor: color,
+        left: '50%',
+        top: '50%',
+        opacity: 0.4
+      }}
+      animate={{
+        x: [0, randomX, 0],
+        y: [0, randomY, 0],
+        scale: [1, 1.5, 1],
+        opacity: [0.4, 0.7, 0.4]
+      }}
+      transition={{
+        duration: 4 + Math.random() * 2,
+        repeat: Infinity,
+        delay,
+        ease: "easeInOut"
+      }}
+    />
+  );
+};
+
 const mascotStages = [
   {
     image: '/images/maskot/personligt-brev-1.svg',
@@ -129,6 +162,17 @@ export default function GenerationStep({
             ease: "easeInOut"
           }}
         />
+
+        {/* Floating particles */}
+        <div className="absolute inset-0 overflow-visible pointer-events-none">
+          {[...Array(8)].map((_, i) => (
+            <Particle
+              key={`${currentStage}-${i}`}
+              delay={i * 0.3}
+              color={stage.glowColor}
+            />
+          ))}
+        </div>
 
         {/* Circular progress ring */}
         <svg className="absolute inset-0 w-full h-full -rotate-90">
