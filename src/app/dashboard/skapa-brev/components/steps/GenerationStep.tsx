@@ -51,7 +51,8 @@ export default function GenerationStep({
     const interval = setInterval(() => {
       setCurrentStage((prev) => {
         const next = prev + 1;
-        return next >= mascotStages.length ? 0 : next;
+        // Stop at last stage instead of looping back to 0
+        return next >= mascotStages.length ? mascotStages.length - 1 : next;
       });
     }, 2500); // Change stage every 2.5 seconds
 
