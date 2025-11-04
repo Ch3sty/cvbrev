@@ -117,32 +117,28 @@ export default function MascotNotification({
     switch (type) {
       case 'success':
         return {
-          bg: 'bg-gradient-to-r from-green-50 to-emerald-50',
-          border: 'border-green-500',
-          glow: 'rgba(16, 185, 129, 0.6)',
-          textColor: 'text-slate-900'
+          glow: 'rgba(16, 185, 129, 0.5)',
+          shadow: 'shadow-green-500/15',
+          accentText: 'text-green-700'
         }
       case 'error':
         return {
-          bg: 'bg-gradient-to-r from-red-50 to-rose-50',
-          border: 'border-red-500',
-          glow: 'rgba(239, 68, 68, 0.6)',
-          textColor: 'text-slate-900'
+          glow: 'rgba(239, 68, 68, 0.5)',
+          shadow: 'shadow-red-500/15',
+          accentText: 'text-red-700'
         }
       case 'info':
         return {
-          bg: 'bg-gradient-to-r from-blue-50 to-indigo-50',
-          border: 'border-blue-500',
-          glow: 'rgba(59, 130, 246, 0.6)',
-          textColor: 'text-slate-900'
+          glow: 'rgba(59, 130, 246, 0.5)',
+          shadow: 'shadow-blue-500/15',
+          accentText: 'text-blue-700'
         }
       case 'loading':
       default:
         return {
-          bg: 'bg-gradient-to-r from-pink-50 to-purple-50',
-          border: 'border-pink-500',
-          glow: 'rgba(236, 72, 153, 0.6)',
-          textColor: 'text-slate-900'
+          glow: 'rgba(236, 72, 153, 0.5)',
+          shadow: 'shadow-pink-500/15',
+          accentText: 'text-pink-700'
         }
     }
   }
@@ -152,24 +148,24 @@ export default function MascotNotification({
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed top-5 right-5 z-[100] max-w-sm w-full"
-        initial={{ scale: 0.8, opacity: 0, y: -20 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.9, opacity: 0, y: -10 }}
+        className="fixed top-5 right-5 z-[100] max-w-md w-full"
+        initial={{ scale: 0.9, opacity: 0, x: 100 }}
+        animate={{ scale: 1, opacity: 1, x: 0 }}
+        exit={{ scale: 0.95, opacity: 0, x: 50 }}
         transition={{
-          duration: prefersReducedMotion ? 0.2 : 0.5,
-          ease: prefersReducedMotion ? 'linear' : [0.34, 1.56, 0.64, 1]
+          duration: prefersReducedMotion ? 0.2 : 0.4,
+          ease: prefersReducedMotion ? 'linear' : [0.16, 1, 0.3, 1]
         }}
         role="alert"
         aria-live="polite"
       >
-        {/* Confetti */}
+        {/* Confetti - reduced amount */}
         {showConfetti && type === 'success' && !prefersReducedMotion && (
           <div className="absolute inset-0 pointer-events-none overflow-visible">
-            {[...Array(25)].map((_, i) => (
+            {[...Array(12)].map((_, i) => (
               <ConfettiPiece
                 key={i}
-                delay={i * 0.03}
+                delay={i * 0.05}
                 index={i}
                 prefersReducedMotion={prefersReducedMotion}
               />
@@ -177,74 +173,83 @@ export default function MascotNotification({
           </div>
         )}
 
-        <div className="bg-white/95 backdrop-blur-xl border border-slate-200 rounded-2xl shadow-2xl shadow-slate-900/10 overflow-hidden">
-          <div className={`px-4 py-4 ${colors.bg} border-l-4 ${colors.border}`}>
-            <div className="flex items-start gap-4">
+        <div className={`bg-white/98 backdrop-blur-xl border border-slate-200/60 rounded-2xl shadow-2xl ${colors.shadow} overflow-hidden`}>
+          <div className="px-6 py-5">
+            <div className="flex items-center gap-6">
               {/* Mascot Image */}
-              <div className="flex-shrink-0 relative w-28 h-28">
-                {/* Glow effect behind */}
+              <div className="flex-shrink-0 relative w-20 h-20">
+                {/* Subtle glow effect */}
                 {!prefersReducedMotion && (
                   <motion.div
                     className="absolute inset-0 rounded-full"
                     style={{
-                      boxShadow: `0 0 60px 20px ${colors.glow}`,
-                      filter: 'blur(10px)'
+                      boxShadow: `0 0 40px 15px ${colors.glow}`,
+                      filter: 'blur(8px)'
                     }}
                     animate={{
-                      scale: [1, 1.15, 1],
-                      opacity: [0.4, 0.7, 0.4]
+                      scale: [1, 1.1, 1],
+                      opacity: [0.3, 0.5, 0.3]
                     }}
                     transition={{
-                      duration: 2.5,
+                      duration: 3,
                       repeat: Infinity,
                       ease: "easeInOut"
                     }}
                   />
                 )}
 
-                {/* Circular background */}
-                <div className="absolute inset-0 bg-white rounded-full shadow-lg" />
-
-                {/* Mascot image - circular crop */}
+                {/* Mascot image - direct render, no extra container */}
                 {mascotImage && !imageError ? (
-                  <div className="relative w-full h-full rounded-full overflow-hidden">
+                  <motion.div
+                    className="relative w-full h-full"
+                    initial={{ scale: 0.8, rotate: -10 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
+                  >
                     <Image
                       src={mascotImage}
                       alt="Success mascot"
                       fill
                       unoptimized
-                      className="object-cover scale-150"
+                      className="object-contain drop-shadow-lg"
                       style={{ objectPosition: 'center' }}
                       onError={() => setImageError(true)}
                     />
-                  </div>
+                  </motion.div>
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-green-100 to-emerald-100 rounded-full">
-                    <CheckCircle className="w-12 h-12 text-green-600" />
+                  <div className="w-full h-full flex items-center justify-center">
+                    <CheckCircle className={`w-12 h-12 ${colors.accentText}`} />
                   </div>
                 )}
               </div>
 
-              {/* Message */}
-              <div className="flex-1 pt-2">
-                <p className={`text-base font-semibold ${colors.textColor} leading-relaxed`}>
-                  {message}
-                </p>
+              {/* Message with hierarchy */}
+              <div className="flex-1 min-w-0">
+                <h3 className="text-lg font-bold text-slate-900 leading-tight mb-1">
+                  {message.split('!')[0]}!
+                </h3>
+                {message.split('!')[1] && (
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    {message.split('!')[1].trim()}
+                  </p>
+                )}
               </div>
 
               {/* Close Button */}
               {onClose && (
-                <button
+                <motion.button
                   type="button"
                   onClick={() => {
                     setVisible(false)
                     onClose()
                   }}
-                  className="flex-shrink-0 inline-flex rounded-lg p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300 transition-colors"
+                  whileHover={{ scale: 1.1, rotate: 90 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="flex-shrink-0 inline-flex rounded-full p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-slate-300 transition-colors"
                   aria-label="Stäng notifikation"
                 >
-                  <X className="h-5 w-5" />
-                </button>
+                  <X className="h-4 w-4" />
+                </motion.button>
               )}
             </div>
           </div>
