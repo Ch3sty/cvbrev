@@ -181,38 +181,46 @@ export default function MascotNotification({
           <div className={`px-4 py-4 ${colors.bg} border-l-4 ${colors.border}`}>
             <div className="flex items-start gap-4">
               {/* Mascot Image */}
-              <div className="flex-shrink-0 relative w-32 h-32 overflow-hidden rounded-2xl">
+              <div className="flex-shrink-0 relative w-28 h-28">
+                {/* Glow effect behind */}
                 {!prefersReducedMotion && (
                   <motion.div
-                    className="absolute inset-0"
-                    style={{ boxShadow: `0 0 40px 10px ${colors.glow}` }}
+                    className="absolute inset-0 rounded-full"
+                    style={{
+                      boxShadow: `0 0 60px 20px ${colors.glow}`,
+                      filter: 'blur(10px)'
+                    }}
                     animate={{
-                      scale: [1, 1.1, 1],
-                      opacity: [0.5, 0.8, 0.5]
+                      scale: [1, 1.15, 1],
+                      opacity: [0.4, 0.7, 0.4]
                     }}
                     transition={{
-                      duration: 2,
+                      duration: 2.5,
                       repeat: Infinity,
                       ease: "easeInOut"
                     }}
                   />
                 )}
 
+                {/* Circular background */}
+                <div className="absolute inset-0 bg-white rounded-full shadow-lg" />
+
+                {/* Mascot image - circular crop */}
                 {mascotImage && !imageError ? (
-                  <div className="relative w-full h-full">
+                  <div className="relative w-full h-full rounded-full overflow-hidden">
                     <Image
                       src={mascotImage}
                       alt="Success mascot"
                       fill
                       unoptimized
-                      className="object-cover scale-150 drop-shadow-2xl"
+                      className="object-cover scale-150"
                       style={{ objectPosition: 'center' }}
                       onError={() => setImageError(true)}
                     />
                   </div>
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-green-100">
-                    <CheckCircle className="w-16 h-16 text-green-600" />
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-green-100 to-emerald-100 rounded-full">
+                    <CheckCircle className="w-12 h-12 text-green-600" />
                   </div>
                 )}
               </div>
