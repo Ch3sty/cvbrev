@@ -102,12 +102,43 @@ export default function GenerationStep({
   // Generating state - Show current stage
   const stage = mascotStages[currentStage];
 
+  // Calculate progress based on current stage (0-100%)
+  const progress = ((currentStage + 1) / mascotStages.length) * 100;
+
   return (
     <div className="text-center py-12">
       {/* SVG Mascot */}
       <div className="w-64 h-64 mx-auto mb-8 relative">
         {/* Animated gradient background */}
         <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${stage.color} blur-3xl transition-colors duration-700`} />
+
+        {/* Circular progress ring */}
+        <svg className="absolute inset-0 w-full h-full -rotate-90">
+          {/* Background circle */}
+          <circle
+            cx="50%"
+            cy="50%"
+            r="120"
+            stroke="rgba(229, 231, 235, 0.3)"
+            strokeWidth="4"
+            fill="none"
+          />
+          {/* Animated progress circle */}
+          <circle
+            cx="50%"
+            cy="50%"
+            r="120"
+            stroke={stage.glowColor}
+            strokeWidth="4"
+            fill="none"
+            strokeLinecap="round"
+            style={{
+              strokeDasharray: `${2 * Math.PI * 120}`,
+              strokeDashoffset: `${2 * Math.PI * 120 * (1 - progress / 100)}`,
+              transition: 'stroke-dashoffset 0.5s ease-out, stroke 0.7s ease-out'
+            }}
+          />
+        </svg>
 
         {/* Mascot Image */}
         <div className="absolute inset-0 flex items-center justify-center">
