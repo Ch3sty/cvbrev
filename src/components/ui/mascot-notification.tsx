@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 export interface MascotNotificationProps {
   isVisible: boolean
   message: string
-  type?: 'success' | 'error' | 'info'
+  type?: 'loading' | 'success' | 'error' | 'info'
   mascotImage?: string
   onClose?: () => void
   duration?: number
@@ -132,6 +132,13 @@ export default function MascotNotification({
           bg: 'bg-blue-900/30',
           border: 'border-blue-500',
           glow: 'rgba(59, 130, 246, 0.6)'
+        }
+      case 'loading':
+      default:
+        return {
+          bg: 'bg-pink-900/30',
+          border: 'border-pink-500',
+          glow: 'rgba(236, 72, 153, 0.6)'
         }
     }
   }
