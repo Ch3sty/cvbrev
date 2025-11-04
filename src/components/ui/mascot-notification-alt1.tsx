@@ -175,10 +175,10 @@ export default function MascotNotificationAlt1({
         )}
 
         <div className={`bg-white/98 backdrop-blur-xl border border-slate-200/60 rounded-2xl shadow-2xl ${colors.shadow} overflow-hidden`}>
-          <div className="p-4">
-            <div className="flex items-center gap-5">
-              {/* ALT 1: Ren SVG med multi-layer drop-shadow */}
-              <div className="flex-shrink-0 relative w-32 h-32">
+          <div className="p-3">
+            <div className="flex items-center gap-4">
+              {/* ALT 1: Stor SVG med multi-layer drop-shadow */}
+              <div className="flex-shrink-0 relative w-40 h-40">
                 {/* Animated glow ring */}
                 {!prefersReducedMotion && (
                   <motion.div
@@ -188,7 +188,7 @@ export default function MascotNotificationAlt1({
                     }}
                     animate={{
                       scale: [1, 1.2, 1],
-                      opacity: [0.2, 0.4, 0.2]
+                      opacity: [0.2, 0.5, 0.2]
                     }}
                     transition={{
                       duration: 3,
@@ -208,23 +208,24 @@ export default function MascotNotificationAlt1({
                     <Image
                       src={mascotImage}
                       alt="Success mascot"
-                      width={128}
-                      height={128}
+                      width={160}
+                      height={160}
                       unoptimized
                       className="w-full h-full object-contain relative z-10"
                       style={{
                         filter: `
-                          drop-shadow(0 4px 6px rgba(0,0,0,0.07))
-                          drop-shadow(0 10px 15px rgba(0,0,0,0.05))
-                          drop-shadow(0 0 30px ${colors.glowRGB})
-                        `
+                          drop-shadow(0 6px 10px rgba(0,0,0,0.1))
+                          drop-shadow(0 12px 20px rgba(0,0,0,0.08))
+                          drop-shadow(0 0 40px ${colors.glowRGB})
+                        `,
+                        transform: 'scale(1.15)'
                       }}
                       onError={() => setImageError(true)}
                     />
                   </motion.div>
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
-                    <CheckCircle className={`w-16 h-16 ${colors.accentText}`} />
+                    <CheckCircle className={`w-20 h-20 ${colors.accentText}`} />
                   </div>
                 )}
               </div>
