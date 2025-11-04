@@ -42,10 +42,12 @@ export default function GenerationStep({
 
   // Cycle through stages while generating
   useEffect(() => {
-    if (!isGenerating || generatedLetter) {
+    // Stop animation only when letter is ready
+    if (generatedLetter) {
       return;
     }
 
+    // Start interval immediately when component mounts
     const interval = setInterval(() => {
       setCurrentStage((prev) => {
         const next = prev + 1;
@@ -54,7 +56,7 @@ export default function GenerationStep({
     }, 2500); // Change stage every 2.5 seconds
 
     return () => clearInterval(interval);
-  }, [isGenerating, generatedLetter]);
+  }, [generatedLetter]); // Only depend on generatedLetter
 
   // Error state
   if (error) {
