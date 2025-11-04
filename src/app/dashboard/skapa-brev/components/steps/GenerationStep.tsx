@@ -13,23 +13,33 @@ interface GenerationStepProps {
 const mascotStages = [
   {
     image: '/images/maskot/personligt-brev-1.svg',
-    text: 'Analyserar ditt CV'
+    text: 'Analyserar ditt CV',
+    color: 'from-blue-500/20 to-indigo-500/20',
+    glowColor: 'rgba(59, 130, 246, 0.5)'
   },
   {
     image: '/images/maskot/personligt-brev-2.svg',
-    text: 'Extraherar nyckelkompetenser'
+    text: 'Extraherar nyckelkompetenser',
+    color: 'from-violet-500/20 to-purple-500/20',
+    glowColor: 'rgba(139, 92, 246, 0.5)'
   },
   {
     image: '/images/maskot/personligt-brev-3.svg',
-    text: 'Matchar mot jobbkrav'
+    text: 'Matchar mot jobbkrav',
+    color: 'from-fuchsia-500/20 to-pink-500/20',
+    glowColor: 'rgba(217, 70, 239, 0.5)'
   },
   {
     image: '/images/maskot/personligt-brev-4.svg',
-    text: 'Genererar personligt brev'
+    text: 'Genererar personligt brev',
+    color: 'from-amber-500/20 to-orange-500/20',
+    glowColor: 'rgba(251, 146, 60, 0.5)'
   },
   {
     image: '/images/maskot/personligt-brev-5.svg',
-    text: 'Optimerar för ATS'
+    text: 'Optimerar för ATS',
+    color: 'from-emerald-500/20 to-green-500/20',
+    glowColor: 'rgba(16, 185, 129, 0.6)'
   }
 ];
 
@@ -95,15 +105,21 @@ export default function GenerationStep({
   return (
     <div className="text-center py-12">
       {/* SVG Mascot */}
-      <div className="w-48 h-48 mx-auto mb-6 relative">
-        <Image
-          src={stage.image}
-          alt={stage.text}
-          width={192}
-          height={192}
-          unoptimized
-          className="w-full h-full object-contain"
-        />
+      <div className="w-64 h-64 mx-auto mb-8 relative">
+        {/* Animated gradient background */}
+        <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${stage.color} blur-3xl transition-colors duration-700`} />
+
+        {/* Mascot Image */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Image
+            src={stage.image}
+            alt={stage.text}
+            width={192}
+            height={192}
+            unoptimized
+            className="w-48 h-48 object-contain drop-shadow-2xl"
+          />
+        </div>
       </div>
 
       {/* Stage text */}
