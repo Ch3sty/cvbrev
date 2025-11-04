@@ -139,7 +139,13 @@ export default function CreateLetterPage() {
       console.log('Letter generation result:', result);
 
       if (result) {
-        setGeneratedLetter(result.content || result);
+        // Validate that we got valid content
+        if (!result.content || typeof result.content !== 'string') {
+          setError('Brevinnehållet kunde inte laddas korrekt');
+          return;
+        }
+
+        setGeneratedLetter(result.content);
         setLetterData(result);
 
         // Update remaining letters
