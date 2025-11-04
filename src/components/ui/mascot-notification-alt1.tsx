@@ -179,6 +179,38 @@ export default function MascotNotificationAlt1({
             <div className="flex items-center gap-4">
               {/* ALT 1: Stor SVG med multi-layer drop-shadow */}
               <div className="flex-shrink-0 relative w-40 h-40">
+                {/* Circular progress ring */}
+                {duration && (
+                  <svg className="absolute inset-0 w-full h-full -rotate-90" style={{ zIndex: 5 }}>
+                    {/* Background circle (light) */}
+                    <circle
+                      cx="80"
+                      cy="80"
+                      r="76"
+                      fill="none"
+                      stroke={colors.glow.replace('0.5', '0.15')}
+                      strokeWidth="4"
+                    />
+                    {/* Progress circle (animates from full to empty) */}
+                    <motion.circle
+                      cx="80"
+                      cy="80"
+                      r="76"
+                      fill="none"
+                      stroke={colors.glow.replace('0.5', '0.6')}
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                      strokeDasharray={2 * Math.PI * 76}
+                      initial={{ strokeDashoffset: 0 }}
+                      animate={{ strokeDashoffset: 2 * Math.PI * 76 }}
+                      transition={{
+                        duration: (duration || 5000) / 1000,
+                        ease: "linear"
+                      }}
+                    />
+                  </svg>
+                )}
+
                 {/* Animated glow ring */}
                 {!prefersReducedMotion && (
                   <motion.div
