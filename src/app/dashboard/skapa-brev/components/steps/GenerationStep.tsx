@@ -163,12 +163,32 @@ export default function GenerationStep({
         <Loader2 className="w-6 h-6 text-pink-600 animate-spin" />
       </div>
 
-      <p className="text-gray-600">
+      <p className="text-gray-600 mb-8">
         Detta tar vanligtvis 10-15 sekunder
       </p>
 
+      {/* Enhanced Progress Bar with Shimmer */}
+      <div className="w-full max-w-md mx-auto mb-4">
+        <div className="h-3 bg-gray-200 rounded-full overflow-hidden relative">
+          <div
+            style={{ width: `${progress}%` }}
+            className="h-full bg-gradient-to-r from-pink-600 via-purple-600 to-pink-600 rounded-full relative transition-all duration-500"
+          >
+            {/* Shimmer effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
+          </div>
+        </div>
+      </div>
+
+      {/* Progress Percentage */}
+      <div className="flex items-center justify-center w-full max-w-md mx-auto text-sm mb-8">
+        <span className="text-gray-600 font-medium">
+          {Math.round(progress)}% klart
+        </span>
+      </div>
+
       {/* Stage indicators */}
-      <div className="flex gap-2 mt-8 justify-center">
+      <div className="flex gap-2 justify-center">
         {mascotStages.map((_, index) => (
           <div
             key={index}
