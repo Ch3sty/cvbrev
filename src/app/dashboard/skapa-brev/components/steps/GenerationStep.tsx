@@ -51,6 +51,47 @@ const Particle = ({ delay, color }: { delay: number; color: string }) => {
   );
 };
 
+// Confetti piece component
+const ConfettiPiece = ({ delay, index }: { delay: number; index: number }) => {
+  const colors = ['#3B82F6', '#8B5CF6', '#D946EF', '#FB923C', '#10B981', '#F59E0B', '#EC4899'];
+  const color = colors[index % colors.length];
+  const startX = (Math.random() - 0.5) * 100; // -50 to 50
+  const endX = startX + (Math.random() - 0.5) * 300; // Random horizontal drift
+  const rotation = Math.random() * 720 - 360; // -360 to 360 degrees
+  const size = Math.random() * 8 + 6; // 6-14px
+
+  return (
+    <motion.div
+      className="absolute"
+      style={{
+        width: size,
+        height: size,
+        backgroundColor: color,
+        left: '50%',
+        top: -20,
+        borderRadius: Math.random() > 0.5 ? '50%' : '2px'
+      }}
+      initial={{
+        x: startX,
+        y: -20,
+        rotate: 0,
+        opacity: 1
+      }}
+      animate={{
+        x: endX,
+        y: 600,
+        rotate: rotation,
+        opacity: [1, 1, 0.8, 0]
+      }}
+      transition={{
+        duration: 2.5 + Math.random() * 1,
+        delay,
+        ease: [0.32, 0, 0.67, 0]
+      }}
+    />
+  );
+};
+
 const mascotStages = [
   {
     image: '/images/maskot/personligt-brev-1.svg',
@@ -137,14 +178,27 @@ export default function GenerationStep({
   // Success state
   if (showSuccess && generatedLetter) {
     return (
-      <div className="text-center py-12">
-        <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-          <CheckCircle2 className="w-10 h-10 text-green-600" />
+      <div className="text-center py-12 relative overflow-hidden">
+        {/* Confetti effect */}
+        <div className="absolute inset-0 pointer-events-none">
+          {[...Array(30)].map((_, i) => (
+            <ConfettiPiece key={i} delay={i * 0.03} index={i} />
+          ))}
         </div>
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">Ditt brev är klart!</h3>
-        <p className="text-gray-600">
-          Vi har skapat ett personligt brev optimerat för din ansökan
-        </p>
+
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
+        >
+          <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle2 className="w-10 h-10 text-green-600" />
+          </div>
+          <h3 className="text-2xl font-bold text-gray-900 mb-2">Ditt brev är klart!</h3>
+          <p className="text-gray-600">
+            Vi har skapat ett personligt brev optimerat för din ansökan
+          </p>
+        </motion.div>
       </div>
     );
   }
