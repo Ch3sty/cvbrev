@@ -13,7 +13,9 @@ interface GenerationStepProps {
 
 // Floating particle component
 const Particle = ({ delay, color }: { delay: number; color: string }) => {
-  const randomX = Math.random() * 200 - 100; // -100 to 100
+  const startX = Math.random() * 160 - 80; // Start position -80 to 80
+  const startY = Math.random() * 160 - 80;
+  const randomX = Math.random() * 200 - 100; // Movement range -100 to 100
   const randomY = Math.random() * 200 - 100;
   const size = Math.random() * 8 + 4; // 4-12px
 
@@ -26,11 +28,16 @@ const Particle = ({ delay, color }: { delay: number; color: string }) => {
         backgroundColor: color,
         left: '50%',
         top: '50%',
+        opacity: 0
+      }}
+      initial={{
+        x: startX,
+        y: startY,
         opacity: 0.4
       }}
       animate={{
-        x: [0, randomX, 0],
-        y: [0, randomY, 0],
+        x: [startX, randomX, startX],
+        y: [startY, randomY, startY],
         scale: [1, 1.5, 1],
         opacity: [0.4, 0.7, 0.4]
       }}
@@ -83,12 +90,21 @@ export default function GenerationStep({
   error
 }: GenerationStepProps) {
   const [currentStage, setCurrentStage] = useState(0);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   // Cycle through stages while generating
   useEffect(() => {
     // Stop animation only when letter is ready
     if (generatedLetter) {
-      return;
+      // Ensure we're at the last stage
+      setCurrentStage(mascotStages.length - 1);
+
+      // Show last stage for 1 second before showing success
+      const successTimer = setTimeout(() => {
+        setShowSuccess(true);
+      }, 1000);
+
+      return () => clearTimeout(successTimer);
     }
 
     // Start interval immediately when component mounts
@@ -119,7 +135,7 @@ export default function GenerationStep({
   }
 
   // Success state
-  if (generatedLetter) {
+  if (showSuccess && generatedLetter) {
     return (
       <div className="text-center py-12">
         <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
