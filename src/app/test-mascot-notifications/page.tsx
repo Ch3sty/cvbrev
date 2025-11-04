@@ -1,11 +1,47 @@
 'use client'
 
-import { useNotification } from '@/context/notificationcontext'
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
+import MascotNotificationAlt1 from '@/components/ui/mascot-notification-alt1'
+import MascotNotificationAlt2 from '@/components/ui/mascot-notification-alt2'
+import MascotNotificationAlt3 from '@/components/ui/mascot-notification-alt3'
+import MascotNotificationAlt4 from '@/components/ui/mascot-notification-alt4'
+
+type DesignVariant = 'alt1' | 'alt2' | 'alt3' | 'alt4'
 
 export default function TestMascotNotifications() {
-  const { successWithMascot, successWithMascotAndActivity } = useNotification()
+  const [selectedDesign, setSelectedDesign] = useState<DesignVariant>('alt1')
+  const [showNotification, setShowNotification] = useState(false)
+  const [currentMessage, setCurrentMessage] = useState('')
+  const [currentMascot, setCurrentMascot] = useState('')
+
+  const designOptions = [
+    {
+      id: 'alt1' as DesignVariant,
+      name: 'ALT 1: Ren SVG',
+      description: 'Ingen crop, multi-layer drop-shadow med glow-ring',
+      icon: '✨'
+    },
+    {
+      id: 'alt2' as DesignVariant,
+      name: 'ALT 2: Gradient Blob',
+      description: 'Organisk morphing blob med mjuka färger',
+      icon: '💎'
+    },
+    {
+      id: 'alt3' as DesignVariant,
+      name: 'ALT 3: Hexagon',
+      description: 'Geometrisk hexagon med gradient-border',
+      icon: '🎯'
+    },
+    {
+      id: 'alt4' as DesignVariant,
+      name: 'ALT 4: Polaroid Card',
+      description: 'Flytande kort med rotation och elevation',
+      icon: '🌟'
+    }
+  ]
 
   const testCases = [
     {
@@ -82,9 +118,41 @@ export default function TestMascotNotifications() {
     }
   ]
 
+  const showTestNotification = (message: string, mascot: string) => {
+    setCurrentMessage(message)
+    setCurrentMascot(mascot)
+    setShowNotification(true)
+  }
+
+  const renderNotification = () => {
+    const props = {
+      isVisible: showNotification,
+      message: currentMessage,
+      type: 'success' as const,
+      mascotImage: currentMascot,
+      onClose: () => setShowNotification(false),
+      duration: 5000,
+      showConfetti: true
+    }
+
+    switch (selectedDesign) {
+      case 'alt1':
+        return <MascotNotificationAlt1 {...props} />
+      case 'alt2':
+        return <MascotNotificationAlt2 {...props} />
+      case 'alt3':
+        return <MascotNotificationAlt3 {...props} />
+      case 'alt4':
+        return <MascotNotificationAlt4 {...props} />
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 py-12 px-4">
       <div className="container mx-auto max-w-7xl">
+        {/* Render active notification */}
+        {renderNotification()}
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -95,22 +163,69 @@ export default function TestMascotNotifications() {
             🎨 Maskot-Notifikationer Test
           </h1>
           <p className="text-xl text-gray-600 mb-8">
-            Klicka på en maskot för att se notifikationen med konfetti och animationer!
+            Välj design och klicka på en maskot för att testa!
           </p>
 
-          {/* Info boxes */}
-          <div className="flex flex-wrap gap-4 justify-center mb-8">
-            <div className="bg-blue-100 border border-blue-300 rounded-lg px-4 py-2">
-              <span className="text-blue-800 text-sm font-medium">✨ Konfetti-animation</span>
+        </motion.div>
+
+        {/* Design Selector */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.2 }}
+          className="mb-12"
+        >
+          <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border-2 border-purple-200">
+            <h2 className="text-3xl font-bold mb-6 text-center text-gray-900">
+              Välj Design-Variant
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {designOptions.map((option) => (
+                <motion.button
+                  key={option.id}
+                  onClick={() => setSelectedDesign(option.id)}
+                  whileHover={{ scale: 1.03, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`relative p-6 rounded-2xl border-3 transition-all ${
+                    selectedDesign === option.id
+                      ? 'bg-gradient-to-br from-purple-500 to-pink-500 border-purple-600 text-white shadow-xl'
+                      : 'bg-white border-slate-200 text-gray-900 hover:border-purple-300 shadow-md'
+                  }`}
+                >
+                  {/* Checkmark for selected */}
+                  {selectedDesign === option.id && (
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="absolute top-3 right-3 w-6 h-6 bg-white rounded-full flex items-center justify-center"
+                    >
+                      <span className="text-purple-600 text-sm">✓</span>
+                    </motion.div>
+                  )}
+
+                  <div className="text-4xl mb-3">{option.icon}</div>
+                  <h3 className={`font-bold text-lg mb-2 ${
+                    selectedDesign === option.id ? 'text-white' : 'text-gray-900'
+                  }`}>
+                    {option.name}
+                  </h3>
+                  <p className={`text-sm ${
+                    selectedDesign === option.id ? 'text-white/90' : 'text-gray-600'
+                  }`}>
+                    {option.description}
+                  </p>
+                </motion.button>
+              ))}
             </div>
-            <div className="bg-purple-100 border border-purple-300 rounded-lg px-4 py-2">
-              <span className="text-purple-800 text-sm font-medium">🎭 Smooth transitions</span>
-            </div>
-            <div className="bg-pink-100 border border-pink-300 rounded-lg px-4 py-2">
-              <span className="text-pink-800 text-sm font-medium">💫 Glow effects</span>
-            </div>
-            <div className="bg-green-100 border border-green-300 rounded-lg px-4 py-2">
-              <span className="text-green-800 text-sm font-medium">⌨️ ESC to close</span>
+
+            {/* Current selection indicator */}
+            <div className="mt-6 text-center">
+              <div className="inline-flex items-center gap-2 px-6 py-3 bg-purple-100 border-2 border-purple-300 rounded-full">
+                <span className="text-purple-900 font-semibold">
+                  Vald design: {designOptions.find(d => d.id === selectedDesign)?.name}
+                </span>
+              </div>
             </div>
           </div>
         </motion.div>
@@ -125,7 +240,7 @@ export default function TestMascotNotifications() {
               transition={{ delay: index * 0.05 }}
               whileHover={{ scale: 1.05, y: -5 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => successWithMascot(test.message, test.mascot, 5000, true)}
+              onClick={() => showTestNotification(test.message, test.mascot)}
               className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-2xl transition-all p-6 border-2 border-transparent hover:border-purple-300 group"
             >
               {/* Mascot Image */}
@@ -159,7 +274,7 @@ export default function TestMascotNotifications() {
           ))}
         </div>
 
-        {/* Test Checklist */}
+        {/* Design Comparison Info */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -167,111 +282,68 @@ export default function TestMascotNotifications() {
           className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-8 border-2 border-gray-200"
         >
           <h2 className="text-2xl font-bold mb-6 text-gray-900 flex items-center gap-2">
-            <span>📋</span> Test Checklist
+            <span>💡</span> Designjämförelse
           </h2>
 
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="space-y-3">
-              <h3 className="font-semibold text-gray-700 mb-2">Visuella Element:</h3>
-              <label className="flex items-center gap-3 text-gray-600 cursor-pointer hover:text-gray-900">
-                <input type="checkbox" className="w-5 h-5 rounded border-gray-300" />
-                <span>Maskot visas korrekt</span>
-              </label>
-              <label className="flex items-center gap-3 text-gray-600 cursor-pointer hover:text-gray-900">
-                <input type="checkbox" className="w-5 h-5 rounded border-gray-300" />
-                <span>Konfetti-animation fungerar</span>
-              </label>
-              <label className="flex items-center gap-3 text-gray-600 cursor-pointer hover:text-gray-900">
-                <input type="checkbox" className="w-5 h-5 rounded border-gray-300" />
-                <span>Glow-effekt runt maskot</span>
-              </label>
-              <label className="flex items-center gap-3 text-gray-600 cursor-pointer hover:text-gray-900">
-                <input type="checkbox" className="w-5 h-5 rounded border-gray-300" />
-                <span>Smooth fade-in/fade-out</span>
-              </label>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="font-semibold text-gray-700 mb-3">Fördelar per design:</h3>
+              <div className="space-y-3 text-sm">
+                <div className="p-3 bg-purple-50 rounded-lg">
+                  <span className="font-semibold text-purple-900">ALT 1 (✨):</span>
+                  <span className="text-gray-700"> Modern, luftig, visar hela maskoten</span>
+                </div>
+                <div className="p-3 bg-pink-50 rounded-lg">
+                  <span className="font-semibold text-pink-900">ALT 2 (💎):</span>
+                  <span className="text-gray-700"> Playful, organisk, dynamisk animation</span>
+                </div>
+                <div className="p-3 bg-blue-50 rounded-lg">
+                  <span className="font-semibold text-blue-900">ALT 3 (🎯):</span>
+                  <span className="text-gray-700"> Tech-känsla, geometrisk, distinktiv</span>
+                </div>
+                <div className="p-3 bg-green-50 rounded-lg">
+                  <span className="font-semibold text-green-900">ALT 4 (🌟):</span>
+                  <span className="text-gray-700"> Polaroid-stil, nostalgisk, elegant</span>
+                </div>
+              </div>
             </div>
 
-            <div className="space-y-3">
-              <h3 className="font-semibold text-gray-700 mb-2">Funktionalitet:</h3>
-              <label className="flex items-center gap-3 text-gray-600 cursor-pointer hover:text-gray-900">
-                <input type="checkbox" className="w-5 h-5 rounded border-gray-300" />
-                <span>Auto-stängning efter 5 sekunder</span>
-              </label>
-              <label className="flex items-center gap-3 text-gray-600 cursor-pointer hover:text-gray-900">
-                <input type="checkbox" className="w-5 h-5 rounded border-gray-300" />
-                <span>Manuell stängning med X-knapp</span>
-              </label>
-              <label className="flex items-center gap-3 text-gray-600 cursor-pointer hover:text-gray-900">
-                <input type="checkbox" className="w-5 h-5 rounded border-gray-300" />
-                <span>ESC-tangent stänger notifikation</span>
-              </label>
-              <label className="flex items-center gap-3 text-gray-600 cursor-pointer hover:text-gray-900">
-                <input type="checkbox" className="w-5 h-5 rounded border-gray-300" />
-                <span>Fungerar på mobil</span>
-              </label>
+            <div>
+              <h3 className="font-semibold text-gray-700 mb-3">Vad du bör testa:</h3>
+              <div className="space-y-2 text-sm text-gray-600">
+                <div className="flex items-start gap-2">
+                  <span className="text-green-600 mt-0.5">✓</span>
+                  <span>Vilket alternativ ser mest premium ut?</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-green-600 mt-0.5">✓</span>
+                  <span>Är maskoten tillräckligt synlig?</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-green-600 mt-0.5">✓</span>
+                  <span>Passar designen med resten av sidan?</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-green-600 mt-0.5">✓</span>
+                  <span>Fungerar animationerna smooth?</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-green-600 mt-0.5">✓</span>
+                  <span>Hur ser det ut på mobil?</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-green-600 mt-0.5">✓</span>
+                  <span>Testar ESC-tangent för att stänga</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-sm text-blue-900">
-              <strong>💡 Tips:</strong> Testa flera notifikationer efter varandra för att se hur de köas.
-              Prova också att reducera motion i dina systeminställningar för att verifiera accessibility-stöd.
+          <div className="mt-6 p-4 bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-lg">
+            <p className="text-sm text-purple-900">
+              <strong>🎯 Rekommendation:</strong> ALT 1 är mest minimalistisk och modern, ALT 2 är mest playful,
+              ALT 3 är mest tech-orienterad, och ALT 4 är mest unik. Välj baserat på din brand-identitet!
             </p>
-          </div>
-        </motion.div>
-
-        {/* Test with Activity Logging */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="mt-8 bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl shadow-xl p-8 border-2 border-purple-200"
-        >
-          <h2 className="text-2xl font-bold mb-4 text-gray-900 flex items-center gap-2">
-            <span>🔬</span> Test Med Aktivitetsloggning
-          </h2>
-          <p className="text-gray-700 mb-6">
-            Dessa knappar testar maskot-notifikationer <strong>med</strong> aktivitetsloggning till databasen.
-          </p>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <button
-              onClick={() =>
-                successWithMascotAndActivity(
-                  'Testat med aktivitetsloggning!',
-                  '/images/maskot/success-letter-generated.svg',
-                  'letter_created',
-                  'testade maskot-notifikation med aktivitetsloggning',
-                  { test: true, timestamp: new Date().toISOString() },
-                  5000,
-                  true
-                )
-              }
-              className="bg-white hover:bg-purple-50 border-2 border-purple-300 rounded-xl px-6 py-4 font-semibold text-purple-700 hover:text-purple-900 transition-all hover:shadow-lg"
-            >
-              Test med Activity
-            </button>
-
-            <button
-              onClick={() => successWithMascot('Test utan konfetti', '/images/maskot/success-profile-updated.svg', 5000, false)}
-              className="bg-white hover:bg-blue-50 border-2 border-blue-300 rounded-xl px-6 py-4 font-semibold text-blue-700 hover:text-blue-900 transition-all hover:shadow-lg"
-            >
-              Utan Konfetti
-            </button>
-
-            <button
-              onClick={() => successWithMascot('Kort duration (2s)', '/images/maskot/success-match-score.svg', 2000, true)}
-              className="bg-white hover:bg-green-50 border-2 border-green-300 rounded-xl px-6 py-4 font-semibold text-green-700 hover:text-green-900 transition-all hover:shadow-lg"
-            >
-              2s Duration
-            </button>
-
-            <button
-              onClick={() => successWithMascot('Lång duration (10s)', '/images/maskot/success-premium-activated.svg', 10000, true)}
-              className="bg-white hover:bg-orange-50 border-2 border-orange-300 rounded-xl px-6 py-4 font-semibold text-orange-700 hover:text-orange-900 transition-all hover:shadow-lg"
-            >
-              10s Duration
-            </button>
           </div>
         </motion.div>
 
