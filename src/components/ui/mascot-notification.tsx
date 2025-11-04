@@ -174,21 +174,21 @@ export default function MascotNotification({
         )}
 
         <div className={`bg-white/98 backdrop-blur-xl border border-slate-200/60 rounded-2xl shadow-2xl ${colors.shadow} overflow-hidden`}>
-          <div className="px-6 py-5">
-            <div className="flex items-center gap-6">
-              {/* Mascot Image */}
-              <div className="flex-shrink-0 relative w-20 h-20">
+          <div className="p-4">
+            <div className="flex items-center gap-5">
+              {/* Mascot Image - Large */}
+              <div className="flex-shrink-0 relative w-28 h-28 overflow-hidden rounded-full">
                 {/* Subtle glow effect */}
                 {!prefersReducedMotion && (
                   <motion.div
-                    className="absolute inset-0 rounded-full"
+                    className="absolute inset-0 rounded-full -z-10"
                     style={{
-                      boxShadow: `0 0 40px 15px ${colors.glow}`,
-                      filter: 'blur(8px)'
+                      boxShadow: `0 0 50px 20px ${colors.glow}`,
+                      filter: 'blur(10px)'
                     }}
                     animate={{
-                      scale: [1, 1.1, 1],
-                      opacity: [0.3, 0.5, 0.3]
+                      scale: [1, 1.15, 1],
+                      opacity: [0.3, 0.6, 0.3]
                     }}
                     transition={{
                       duration: 3,
@@ -198,7 +198,7 @@ export default function MascotNotification({
                   />
                 )}
 
-                {/* Mascot image - direct render, no extra container */}
+                {/* Mascot image - zoomed in with circular crop */}
                 {mascotImage && !imageError ? (
                   <motion.div
                     className="relative w-full h-full"
@@ -211,13 +211,13 @@ export default function MascotNotification({
                       alt="Success mascot"
                       fill
                       unoptimized
-                      className="object-contain drop-shadow-lg"
+                      className="object-cover scale-[1.8] drop-shadow-2xl"
                       style={{ objectPosition: 'center' }}
                       onError={() => setImageError(true)}
                     />
                   </motion.div>
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center">
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200 rounded-full">
                     <CheckCircle className={`w-12 h-12 ${colors.accentText}`} />
                   </div>
                 )}
