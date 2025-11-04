@@ -292,7 +292,9 @@ export default function GenerationStep({
               }`}
               style={{
                 backgroundColor: index <= currentStage ? stageItem.glowColor : 'rgb(229, 231, 235)',
-                ringColor: index === currentStage ? stageItem.glowColor : 'transparent'
+                ...(index === currentStage && {
+                  '--tw-ring-color': stageItem.glowColor
+                } as React.CSSProperties)
               }}
             />
 
