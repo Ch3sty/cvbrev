@@ -113,6 +113,23 @@ export default function GenerationStep({
         {/* Animated gradient background */}
         <div className={`absolute inset-0 rounded-full bg-gradient-to-br ${stage.color} blur-3xl transition-colors duration-700`} />
 
+        {/* Pulsating glow effect */}
+        <motion.div
+          className="absolute inset-0 rounded-full"
+          style={{
+            boxShadow: `0 0 60px 20px ${stage.glowColor}`
+          }}
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.5, 0.8, 0.5]
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+
         {/* Circular progress ring */}
         <svg className="absolute inset-0 w-full h-full -rotate-90">
           {/* Background circle */}
