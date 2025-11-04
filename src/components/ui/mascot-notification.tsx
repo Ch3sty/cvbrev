@@ -177,10 +177,10 @@ export default function MascotNotification({
           <div className={`px-4 py-4 ${colors.bg} border-l-4 ${colors.border}`}>
             <div className="flex items-start gap-4">
               {/* Mascot Image */}
-              <div className="flex-shrink-0 relative">
+              <div className="flex-shrink-0 relative w-32 h-32 overflow-hidden rounded-2xl">
                 {!prefersReducedMotion && (
                   <motion.div
-                    className="absolute inset-0 rounded-full"
+                    className="absolute inset-0"
                     style={{ boxShadow: `0 0 40px 10px ${colors.glow}` }}
                     animate={{
                       scale: [1, 1.1, 1],
@@ -195,18 +195,20 @@ export default function MascotNotification({
                 )}
 
                 {mascotImage && !imageError ? (
-                  <Image
-                    src={mascotImage}
-                    alt="Success mascot"
-                    width={96}
-                    height={96}
-                    unoptimized
-                    className="w-24 h-24 object-contain relative z-10 drop-shadow-2xl"
-                    onError={() => setImageError(true)}
-                  />
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={mascotImage}
+                      alt="Success mascot"
+                      fill
+                      unoptimized
+                      className="object-cover scale-150 drop-shadow-2xl"
+                      style={{ objectPosition: 'center' }}
+                      onError={() => setImageError(true)}
+                    />
+                  </div>
                 ) : (
-                  <div className="w-24 h-24 flex items-center justify-center bg-green-100 rounded-full">
-                    <CheckCircle className="w-12 h-12 text-green-600" />
+                  <div className="w-full h-full flex items-center justify-center bg-green-100">
+                    <CheckCircle className="w-16 h-16 text-green-600" />
                   </div>
                 )}
               </div>
