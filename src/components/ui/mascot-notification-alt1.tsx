@@ -117,21 +117,24 @@ export default function MascotNotificationAlt1({
           glow: 'rgba(16, 185, 129, 0.5)',
           glowRGB: 'rgba(16, 185, 129, 0.2)',
           shadow: 'shadow-green-500/15',
-          accentText: 'text-green-700'
+          accentText: 'text-green-700',
+          bgGradient: 'from-green-50/40 via-transparent to-emerald-50/20'
         }
       case 'error':
         return {
           glow: 'rgba(239, 68, 68, 0.5)',
           glowRGB: 'rgba(239, 68, 68, 0.2)',
           shadow: 'shadow-red-500/15',
-          accentText: 'text-red-700'
+          accentText: 'text-red-700',
+          bgGradient: 'from-red-50/40 via-transparent to-rose-50/20'
         }
       case 'info':
         return {
           glow: 'rgba(59, 130, 246, 0.5)',
           glowRGB: 'rgba(59, 130, 246, 0.2)',
           shadow: 'shadow-blue-500/15',
-          accentText: 'text-blue-700'
+          accentText: 'text-blue-700',
+          bgGradient: 'from-blue-50/40 via-transparent to-sky-50/20'
         }
       case 'loading':
       default:
@@ -139,7 +142,8 @@ export default function MascotNotificationAlt1({
           glow: 'rgba(236, 72, 153, 0.5)',
           glowRGB: 'rgba(236, 72, 153, 0.2)',
           shadow: 'shadow-pink-500/15',
-          accentText: 'text-pink-700'
+          accentText: 'text-pink-700',
+          bgGradient: 'from-pink-50/40 via-transparent to-fuchsia-50/20'
         }
     }
   }
@@ -174,7 +178,7 @@ export default function MascotNotificationAlt1({
           </div>
         )}
 
-        <div className={`bg-white/98 backdrop-blur-xl border border-slate-200/60 rounded-2xl shadow-2xl ${colors.shadow} overflow-hidden`}>
+        <div className={`bg-gradient-to-br ${colors.bgGradient} backdrop-blur-xl border border-slate-200/60 rounded-2xl shadow-2xl ${colors.shadow} overflow-hidden`}>
           <div className="p-3">
             <div className="flex items-center gap-4">
               {/* ALT 1: Stor SVG med multi-layer drop-shadow */}

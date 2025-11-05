@@ -15,6 +15,7 @@ export default function TestMascotNotifications() {
   const [showNotification, setShowNotification] = useState(false)
   const [currentMessage, setCurrentMessage] = useState('')
   const [currentMascot, setCurrentMascot] = useState('')
+  const [currentType, setCurrentType] = useState<'success' | 'error' | 'info' | 'loading'>('success')
 
   const designOptions = [
     {
@@ -118,9 +119,10 @@ export default function TestMascotNotifications() {
     }
   ]
 
-  const showTestNotification = (message: string, mascot: string) => {
+  const showTestNotification = (message: string, mascot: string, type: 'success' | 'error' | 'info' | 'loading' = 'success') => {
     setCurrentMessage(message)
     setCurrentMascot(mascot)
+    setCurrentType(type)
     setShowNotification(true)
   }
 
@@ -128,11 +130,11 @@ export default function TestMascotNotifications() {
     const props = {
       isVisible: showNotification,
       message: currentMessage,
-      type: 'success' as const,
+      type: currentType,
       mascotImage: currentMascot,
       onClose: () => setShowNotification(false),
       duration: 5000,
-      showConfetti: true
+      showConfetti: currentType === 'success'
     }
 
     switch (selectedDesign) {
@@ -226,6 +228,85 @@ export default function TestMascotNotifications() {
                   Vald design: {designOptions.find(d => d.id === selectedDesign)?.name}
                 </span>
               </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Color Type Tester */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3 }}
+          className="mb-12"
+        >
+          <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border-2 border-slate-200">
+            <h2 className="text-3xl font-bold mb-6 text-center text-gray-900">
+              Testa Färgvarianter
+            </h2>
+            <p className="text-center text-gray-600 mb-6">
+              Klicka på en färgtyp för att se hur bakgrunden anpassar sig
+            </p>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <motion.button
+                onClick={() => showTestNotification(
+                  'Success! Detta är en framgångsnotifikation med grön bakgrund.',
+                  '/images/maskot/success-cv-uploaded.svg',
+                  'success'
+                )}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="p-6 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 text-white shadow-lg hover:shadow-xl transition-all"
+              >
+                <div className="text-4xl mb-2">✅</div>
+                <h3 className="font-bold text-lg mb-1">Success</h3>
+                <p className="text-sm text-white/90">Grön bakgrund</p>
+              </motion.button>
+
+              <motion.button
+                onClick={() => showTestNotification(
+                  'Error! Detta är en felnotifikation med röd bakgrund.',
+                  '/images/maskot/success-account-deleted.svg',
+                  'error'
+                )}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="p-6 rounded-2xl bg-gradient-to-br from-red-500 to-rose-600 text-white shadow-lg hover:shadow-xl transition-all"
+              >
+                <div className="text-4xl mb-2">❌</div>
+                <h3 className="font-bold text-lg mb-1">Error</h3>
+                <p className="text-sm text-white/90">Röd bakgrund</p>
+              </motion.button>
+
+              <motion.button
+                onClick={() => showTestNotification(
+                  'Info! Detta är en informationsnotifikation med blå bakgrund.',
+                  '/images/maskot/success-profile-updated.svg',
+                  'info'
+                )}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="p-6 rounded-2xl bg-gradient-to-br from-blue-500 to-sky-600 text-white shadow-lg hover:shadow-xl transition-all"
+              >
+                <div className="text-4xl mb-2">ℹ️</div>
+                <h3 className="font-bold text-lg mb-1">Info</h3>
+                <p className="text-sm text-white/90">Blå bakgrund</p>
+              </motion.button>
+
+              <motion.button
+                onClick={() => showTestNotification(
+                  'Loading! Detta är en laddar-notifikation med rosa bakgrund.',
+                  '/images/maskot/success-premium-activated.svg',
+                  'loading'
+                )}
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+                className="p-6 rounded-2xl bg-gradient-to-br from-pink-500 to-fuchsia-600 text-white shadow-lg hover:shadow-xl transition-all"
+              >
+                <div className="text-4xl mb-2">⏳</div>
+                <h3 className="font-bold text-lg mb-1">Loading</h3>
+                <p className="text-sm text-white/90">Rosa bakgrund</p>
+              </motion.button>
             </div>
           </div>
         </motion.div>
