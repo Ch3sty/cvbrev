@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import { useNotification } from '@/context/notificationcontext';
 
 // Components
 import OnboardingChecklist from '@/components/dashboard/OnboardingChecklist';
@@ -37,6 +38,7 @@ export default function KomIgangPage() {
   const [isPremium, setIsPremium] = useState(false);
   const [loading, setLoading] = useState(true);
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
+  const { successWithMascot } = useNotification();
 
   const supabase = getSupabaseClient();
 
@@ -51,7 +53,7 @@ export default function KomIgangPage() {
 
       const { data: profile } = await supabase
         .from('profiles')
-        .select('subscription_tier, premium_until, premium_source, onboarding_steps_completed')
+        .select('subscription_tier, premium_until, premium_source, onboarding_steps_completed, onboarding_completed')
         .eq('id', user.id)
         .single();
 
@@ -120,6 +122,26 @@ export default function KomIgangPage() {
 
       setCompletedSteps(validatedSteps);
       setLoading(false);
+
+      // Check if ALL steps are completed (onboarding complete)
+      const allSteps = ['upload_cv', 'create_letter', 'analyze_cv', 'optimize_linkedin', 'download_cv_template', 'match_jobs'];
+      const allCompleted = allSteps.every(step => validatedSteps.includes(step));
+
+      // Show completion notification if just completed and not already shown
+      if (allCompleted && !profile?.onboarding_completed) {
+        // Update onboarding_completed in database
+        await supabase
+          .from('profiles')
+          .update({ onboarding_completed: true })
+          .eq('id', user.id);
+
+        // Show mascot notification
+        successWithMascot(
+          'Grattis! Du har slutfört introduktionen och är redo att kickstarta din jobbsökning.',
+          '/images/maskot/success-onboarding-complete.svg',
+          6000
+        );
+      }
     } catch (error) {
       console.error('Error fetching user status:', error);
       setLoading(false);

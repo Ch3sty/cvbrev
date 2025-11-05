@@ -39,7 +39,10 @@ export type ActivityType =
   | 'cv_improvement_failed'         // CV-förbättring misslyckades
   | 'linkedin_optimization_started' // LinkedIn-optimering startades
   | 'linkedin_optimization_completed' // LinkedIn-optimering slutfördes
-  | 'linkedin_optimization_failed'; // LinkedIn-optimering misslyckades
+  | 'linkedin_optimization_failed' // LinkedIn-optimering misslyckades
+  | 'cv_generated'                  // Formatterat CV genererades och laddades ner
+  | 'jobs_searched'                 // Jobbmatchning utfördes
+  | 'premium_activated';            // Premium-prenumeration aktiverades via Stripe
   // Lägg till fler typer vid behov
 
 /**

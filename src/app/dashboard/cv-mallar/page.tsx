@@ -14,21 +14,23 @@ import { getTemplateById } from '@/lib/cv/simple-templates';
 import { motion } from 'framer-motion';
 import CVGenerationModal from '@/components/cv/CVGenerationModal';
 import UnifiedCVSelector from '@/components/cv/unified-cv-selector';
+import { useNotification } from '@/context/notificationcontext';
 
 function CVMallarContent() {
   const searchParams = useSearchParams();
   const cvIdFromUrl = searchParams.get('cv');
   const hasSelectedFromUrl = useRef(false);
   const router = useRouter();
-  const { 
-    cvs, 
-    fetchCVs, 
-    isLoading: cvsLoading, 
-    selectedCV, 
+  const {
+    cvs,
+    fetchCVs,
+    isLoading: cvsLoading,
+    selectedCV,
     selectCV
   } = useCVStore();
   const { profile, loading: profileLoading, subscriptionTier } = useProfile();
-  
+  const { successWithMascotAndActivity } = useNotification();
+
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
   const [showGenerationModal, setShowGenerationModal] = useState(false);
@@ -136,24 +138,21 @@ function CVMallarContent() {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
 
-      // Success celebration animation
-      const celebration = document.createElement('div');
-      celebration.innerHTML = '🎉';
-      celebration.style.cssText = `
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 3rem;
-        z-index: 9999;
-        pointer-events: none;
-        animation: celebration 2s ease-out forwards;
-      `;
-      document.body.appendChild(celebration);
-      setTimeout(() => {
-        celebration.remove();
-        setShowGenerationModal(false); // Close modal after success
-      }, 2000);
+      // Close modal and show mascot notification
+      setShowGenerationModal(false);
+
+      successWithMascotAndActivity(
+        'Ditt CV är klart! PDF:en har laddats ner till din enhet.',
+        '/images/maskot/success-cv-created.svg',
+        'cv_generated',
+        'skapade ett professionellt CV',
+        {
+          template: selectedTemplate,
+          cv_id: selectedCV.id,
+          file_name: fileName
+        },
+        5000
+      );
 
     } catch (error: any) {
       console.error('Fel vid CV-skapande:', error);

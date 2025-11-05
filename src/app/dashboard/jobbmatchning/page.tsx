@@ -24,6 +24,7 @@ import {
 } from 'lucide-react';
 import { useProfile } from '@/hooks/use-profile';
 import { useRouter } from 'next/navigation';
+import { useNotification } from '@/context/notificationcontext';
 
 // Components
 import CVActivationCard from './components/CVActivationCard';
@@ -62,6 +63,7 @@ export default function JobbmatchningPage() {
   // Hooks
   const { subscriptionTier } = useProfile();
   const router = useRouter();
+  const { successWithMascotAndActivity } = useNotification();
   const isPremium = subscriptionTier === 'premium';
 
   // State
@@ -233,6 +235,22 @@ export default function JobbmatchningPage() {
       if (data.success) {
         setJobs(data.jobs || []);
         setHasMore(data.hasMore || false); // Spara hasMore flag
+
+        // Show notification when jobs are found
+        if (data.jobs && data.jobs.length > 0) {
+          successWithMascotAndActivity(
+            `${data.jobs.length} jobb hittade! Utforska dina matchningar nedan.`,
+            '/images/maskot/success-jobs-found.svg',
+            'jobs_searched',
+            'sökte matchande jobb',
+            {
+              jobs_count: data.jobs.length,
+              search_query: searchQuery || 'auto',
+              cv_id: activeCVId
+            },
+            4000
+          );
+        }
       }
     } catch (err) {
       console.error('Error fetching jobs:', err);

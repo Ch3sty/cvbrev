@@ -7,11 +7,13 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Settings, LogOut, Trash2, AlertTriangle } from 'lucide-react';
 import { logUserActivity } from '@/lib/activity-logger';
+import { useNotification } from '@/context/notificationcontext';
 
 export default function InstallningarPage() {
   const router = useRouter();
   const supabase = getSupabaseClient();
   const { profile, subscriptionTier } = useProfile();
+  const { successWithMascot } = useNotification();
 
   // State för kontoborttagning
   const [showDeleteAccountConfirm, setShowDeleteAccountConfirm] = useState(false);
@@ -88,8 +90,18 @@ export default function InstallningarPage() {
         }
       }
 
-      // 5. Videbefordra till startsidan
-      router.push('/');
+      // 5. Show notification before redirecting
+      successWithMascot(
+        'Ditt konto har raderats. Tack för att du använde Jobbcoach.ai!',
+        '/images/maskot/success-account-deleted.svg',
+        4000,
+        false // No confetti for account deletion
+      );
+
+      // 6. Delay redirect to allow user to see notification
+      setTimeout(() => {
+        router.push('/');
+      }, 2000);
 
     } catch (error: any) {
       console.error('Fel vid borttagning av konto:', error);

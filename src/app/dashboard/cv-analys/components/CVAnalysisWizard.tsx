@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createClient } from '@/lib/supabase/client';
+import { useNotification } from '@/context/notificationcontext';
 
 // Lazy load steps for performance
 const CVSelectionStep = lazy(() => import('./steps/CVSelectionStep'));
@@ -53,6 +54,7 @@ export default function CVAnalysisWizard({
   onComplete
 }: CVAnalysisWizardProps) {
   const supabase = createClient();
+  const { successWithMascotAndActivity } = useNotification();
 
   const [currentStep, setCurrentStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
@@ -417,6 +419,21 @@ export default function CVAnalysisWizard({
       if (improvedStructured) {
         await updateAnalysisWithImprovements(improvedStructured);
       }
+    }
+
+    // Show mascot notification when reaching completion step
+    if (currentStep === 5) {
+      successWithMascotAndActivity(
+        'CV-analysen är klar! Dina förbättringar väntar.',
+        '/images/maskot/success-cv-analysis.svg',
+        'cv_analysis_completed',
+        'slutförde en CV-analys',
+        {
+          cv_id: selectedCV,
+          improvements_selected: selectedRoles.size + selectedSkills.size + selectedGeneral.size + (selectedProfile ? 1 : 0)
+        },
+        5000
+      );
     }
 
     if (currentStep < STEPS.length - 1) {

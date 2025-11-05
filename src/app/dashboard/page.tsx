@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import {
   PenTool,
   Brain,
@@ -24,6 +25,7 @@ import {
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import { motion } from 'framer-motion';
+import { useNotification } from '@/context/notificationcontext';
 
 // Import premium components
 import WelcomeHero from '@/components/dashboard/WelcomeHero';
@@ -60,6 +62,9 @@ interface DashboardStats {
 }
 
 export default function DashboardPage() {
+  const searchParams = useSearchParams();
+  const { successWithMascotAndActivity } = useNotification();
+
   const [stats, setStats] = useState<DashboardStats>({
     totalLetters: 0,
     totalAnalyses: 0,
@@ -197,6 +202,28 @@ export default function DashboardPage() {
 
     fetchDashboardData();
   }, []);
+
+  // Check for premium activation success from Stripe checkout
+  useEffect(() => {
+    const premiumActivated = searchParams.get('premium_activated');
+    if (premiumActivated === 'true' && stats.subscriptionTier === 'premium') {
+      successWithMascotAndActivity(
+        'Premium aktiverat! Välkommen till en värld av obegränsade möjligheter.',
+        '/images/maskot/success-premium-activated.svg',
+        'premium_activated',
+        'aktiverade Premium-prenumeration',
+        {
+          tier: 'premium'
+        },
+        6000
+      );
+
+      // Clear the query param to avoid showing notification again on refresh
+      const url = new URL(window.location.href);
+      url.searchParams.delete('premium_activated');
+      window.history.replaceState({}, '', url.toString());
+    }
+  }, [searchParams, stats.subscriptionTier]);
 
   // Remove Smart Quick Actions helper function since we're using static layout now
 

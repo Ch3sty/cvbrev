@@ -18,6 +18,7 @@ import {
   Info,
   AlertTriangle
 } from 'lucide-react';
+import { useNotification } from '@/context/notificationcontext';
 
 export default function ProfilPage() {
   const {
@@ -26,6 +27,7 @@ export default function ProfilPage() {
     updateProfile,
     subscriptionTier
   } = useProfile();
+  const { successWithMascot } = useNotification();
 
   const [saving, setSaving] = useState(false);
   const [notification, setNotification] = useState<{
@@ -100,6 +102,13 @@ export default function ProfilPage() {
           type: 'success',
           isVisible: true
         });
+
+        // Show mascot notification
+        successWithMascot(
+          'Din profil har uppdaterats! Ändringarna är nu sparade.',
+          '/images/maskot/success-profile-updated.svg',
+          4000
+        );
       } else {
         throw new Error('Kunde inte spara profilen');
       }
