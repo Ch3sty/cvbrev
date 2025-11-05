@@ -142,7 +142,7 @@ export default function TestMascotNotifications() {
               Klicka på en färgtyp för att se hur bakgrunden anpassar sig
             </p>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <motion.button
                 onClick={() => showTestNotification(
                   'Success! Detta är en framgångsnotifikation med grön bakgrund.',
@@ -186,21 +186,6 @@ export default function TestMascotNotifications() {
                 <div className="text-4xl mb-2">ℹ️</div>
                 <h3 className="font-bold text-lg mb-1">Info</h3>
                 <p className="text-sm text-white/90">Blå bakgrund</p>
-              </motion.button>
-
-              <motion.button
-                onClick={() => showTestNotification(
-                  'Loading! Detta är en laddar-notifikation med rosa bakgrund.',
-                  '/images/maskot/success-premium-activated.svg',
-                  'loading'
-                )}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                className="p-6 rounded-2xl bg-gradient-to-br from-pink-500 to-fuchsia-600 text-white shadow-lg hover:shadow-xl transition-all"
-              >
-                <div className="text-4xl mb-2">⏳</div>
-                <h3 className="font-bold text-lg mb-1">Loading</h3>
-                <p className="text-sm text-white/90">Rosa bakgrund</p>
               </motion.button>
             </div>
           </div>
