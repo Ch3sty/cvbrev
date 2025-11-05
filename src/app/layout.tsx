@@ -175,7 +175,7 @@ export default function RootLayout({
           }}
         />
 
-        <title>Jobbcoach.ai - Skapa CV och Personligt Brev med AI</title>
+        <title>Jobbcoach.ai - CV, personligt brev och jobbmatchning i Sverige</title>
         <meta name="description" content="Skapa professionella CV:n och personliga brev snabbt och enkelt med hjälp av AI från Jobbcoach.ai." />
         {/* Andra head-element */}
       </head>
