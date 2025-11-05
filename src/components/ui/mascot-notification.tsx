@@ -15,7 +15,7 @@ export interface MascotNotificationProps {
   showConfetti?: boolean
 }
 
-// Confetti piece component (adapted from GenerationStep.tsx)
+// Confetti piece component
 const ConfettiPiece = ({ delay, index, prefersReducedMotion }: {
   delay: number
   index: number
@@ -23,12 +23,11 @@ const ConfettiPiece = ({ delay, index, prefersReducedMotion }: {
 }) => {
   const colors = ['#3B82F6', '#8B5CF6', '#D946EF', '#FB923C', '#10B981', '#F59E0B', '#EC4899']
   const color = colors[index % colors.length]
-  const startX = (Math.random() - 0.5) * 100 // -50 to 50
-  const endX = startX + (Math.random() - 0.5) * 300 // Random horizontal drift
-  const rotation = Math.random() * 720 - 360 // -360 to 360 degrees
-  const size = Math.random() * 8 + 6 // 6-14px
+  const startX = (Math.random() - 0.5) * 100
+  const endX = startX + (Math.random() - 0.5) * 300
+  const rotation = Math.random() * 720 - 360
+  const size = Math.random() * 8 + 6
 
-  // Don't render confetti if user prefers reduced motion
   if (prefersReducedMotion) {
     return null
   }
@@ -65,7 +64,8 @@ const ConfettiPiece = ({ delay, index, prefersReducedMotion }: {
   )
 }
 
-export default function MascotNotification({
+// ALT 1: INGEN CROP - Ren SVG med subtil skugga
+export default function MascotNotificationAlt1({
   isVisible,
   message,
   type = 'success',
@@ -81,15 +81,13 @@ export default function MascotNotification({
     ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
     : false
 
-  // Sync visibility
   useEffect(() => {
     setVisible(isVisible)
     if (isVisible) {
-      setImageError(false) // Reset image error on new notification
+      setImageError(false)
     }
   }, [isVisible])
 
-  // Auto-close
   useEffect(() => {
     if (!visible || !duration) return
     const timer = setTimeout(() => {
@@ -99,7 +97,6 @@ export default function MascotNotification({
     return () => clearTimeout(timer)
   }, [visible, duration, onClose])
 
-  // Handle escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && visible) {
@@ -118,27 +115,35 @@ export default function MascotNotification({
       case 'success':
         return {
           glow: 'rgba(16, 185, 129, 0.5)',
+          glowRGB: 'rgba(16, 185, 129, 0.2)',
           shadow: 'shadow-green-500/15',
-          accentText: 'text-green-700'
+          accentText: 'text-green-700',
+          bgGradient: 'from-green-50/40 via-transparent to-emerald-50/20'
         }
       case 'error':
         return {
           glow: 'rgba(239, 68, 68, 0.5)',
+          glowRGB: 'rgba(239, 68, 68, 0.2)',
           shadow: 'shadow-red-500/15',
-          accentText: 'text-red-700'
+          accentText: 'text-red-700',
+          bgGradient: 'from-red-50/40 via-transparent to-rose-50/20'
         }
       case 'info':
         return {
           glow: 'rgba(59, 130, 246, 0.5)',
+          glowRGB: 'rgba(59, 130, 246, 0.2)',
           shadow: 'shadow-blue-500/15',
-          accentText: 'text-blue-700'
+          accentText: 'text-blue-700',
+          bgGradient: 'from-blue-50/40 via-transparent to-sky-50/20'
         }
       case 'loading':
       default:
         return {
           glow: 'rgba(236, 72, 153, 0.5)',
+          glowRGB: 'rgba(236, 72, 153, 0.2)',
           shadow: 'shadow-pink-500/15',
-          accentText: 'text-pink-700'
+          accentText: 'text-pink-700',
+          bgGradient: 'from-pink-50/40 via-transparent to-fuchsia-50/20'
         }
     }
   }
@@ -159,7 +164,7 @@ export default function MascotNotification({
         role="alert"
         aria-live="polite"
       >
-        {/* Confetti - reduced amount */}
+        {/* Confetti */}
         {showConfetti && type === 'success' && !prefersReducedMotion && (
           <div className="absolute inset-0 pointer-events-none overflow-visible">
             {[...Array(12)].map((_, i) => (
@@ -173,22 +178,53 @@ export default function MascotNotification({
           </div>
         )}
 
-        <div className={`bg-white/98 backdrop-blur-xl border border-slate-200/60 rounded-2xl shadow-2xl ${colors.shadow} overflow-hidden`}>
-          <div className="p-4">
-            <div className="flex items-center gap-5">
-              {/* Mascot Image - Large */}
-              <div className="flex-shrink-0 relative w-28 h-28 overflow-hidden rounded-full">
-                {/* Subtle glow effect */}
+        <div className={`bg-gradient-to-br ${colors.bgGradient} backdrop-blur-xl border border-slate-200/60 rounded-2xl shadow-2xl ${colors.shadow} overflow-hidden`}>
+          <div className="p-3">
+            <div className="flex items-center gap-4">
+              {/* ALT 1: Stor SVG med multi-layer drop-shadow */}
+              <div className="flex-shrink-0 relative w-40 h-40">
+                {/* Circular progress ring */}
+                {duration && (
+                  <svg className="absolute inset-0 w-full h-full -rotate-90" style={{ zIndex: 5 }}>
+                    {/* Background circle (light) */}
+                    <circle
+                      cx="80"
+                      cy="80"
+                      r="76"
+                      fill="none"
+                      stroke={colors.glow.replace('0.5', '0.15')}
+                      strokeWidth="4"
+                    />
+                    {/* Progress circle (animates from full to empty) */}
+                    <motion.circle
+                      cx="80"
+                      cy="80"
+                      r="76"
+                      fill="none"
+                      stroke={colors.glow.replace('0.5', '0.6')}
+                      strokeWidth="4"
+                      strokeLinecap="round"
+                      strokeDasharray={2 * Math.PI * 76}
+                      initial={{ strokeDashoffset: 0 }}
+                      animate={{ strokeDashoffset: 2 * Math.PI * 76 }}
+                      transition={{
+                        duration: (duration || 5000) / 1000,
+                        ease: "linear"
+                      }}
+                    />
+                  </svg>
+                )}
+
+                {/* Animated glow ring */}
                 {!prefersReducedMotion && (
                   <motion.div
                     className="absolute inset-0 rounded-full -z-10"
                     style={{
-                      boxShadow: `0 0 50px 20px ${colors.glow}`,
-                      filter: 'blur(10px)'
+                      background: `radial-gradient(circle, ${colors.glow} 0%, transparent 70%)`
                     }}
                     animate={{
-                      scale: [1, 1.15, 1],
-                      opacity: [0.3, 0.6, 0.3]
+                      scale: [1, 1.2, 1],
+                      opacity: [0.2, 0.5, 0.2]
                     }}
                     transition={{
                       duration: 3,
@@ -198,32 +234,39 @@ export default function MascotNotification({
                   />
                 )}
 
-                {/* Mascot image - zoomed in with circular crop */}
                 {mascotImage && !imageError ? (
                   <motion.div
                     className="relative w-full h-full"
-                    initial={{ scale: 0.8, rotate: -10 }}
+                    initial={{ scale: 0.8, rotate: -5 }}
                     animate={{ scale: 1, rotate: 0 }}
                     transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
                   >
                     <Image
                       src={mascotImage}
                       alt="Success mascot"
-                      fill
+                      width={160}
+                      height={160}
                       unoptimized
-                      className="object-cover scale-[1.8] drop-shadow-2xl"
-                      style={{ objectPosition: 'center' }}
+                      className="w-full h-full object-contain relative z-10"
+                      style={{
+                        filter: `
+                          drop-shadow(0 6px 10px rgba(0,0,0,0.1))
+                          drop-shadow(0 12px 20px rgba(0,0,0,0.08))
+                          drop-shadow(0 0 40px ${colors.glowRGB})
+                        `,
+                        transform: 'scale(1.15)'
+                      }}
                       onError={() => setImageError(true)}
                     />
                   </motion.div>
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200 rounded-full">
-                    <CheckCircle className={`w-12 h-12 ${colors.accentText}`} />
+                  <div className="w-full h-full flex items-center justify-center">
+                    <CheckCircle className={`w-20 h-20 ${colors.accentText}`} />
                   </div>
                 )}
               </div>
 
-              {/* Message with hierarchy */}
+              {/* Message */}
               <div className="flex-1 min-w-0">
                 <h3 className="text-lg font-bold text-slate-900 leading-tight mb-1">
                   {message.split('!')[0]}!

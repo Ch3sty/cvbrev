@@ -15,6 +15,7 @@ export interface MascotNotificationProps {
   showConfetti?: boolean
 }
 
+// Confetti piece component (adapted from GenerationStep.tsx)
 const ConfettiPiece = ({ delay, index, prefersReducedMotion }: {
   delay: number
   index: number
@@ -22,12 +23,15 @@ const ConfettiPiece = ({ delay, index, prefersReducedMotion }: {
 }) => {
   const colors = ['#3B82F6', '#8B5CF6', '#D946EF', '#FB923C', '#10B981', '#F59E0B', '#EC4899']
   const color = colors[index % colors.length]
-  const startX = (Math.random() - 0.5) * 100
-  const endX = startX + (Math.random() - 0.5) * 300
-  const rotation = Math.random() * 720 - 360
-  const size = Math.random() * 8 + 6
+  const startX = (Math.random() - 0.5) * 100 // -50 to 50
+  const endX = startX + (Math.random() - 0.5) * 300 // Random horizontal drift
+  const rotation = Math.random() * 720 - 360 // -360 to 360 degrees
+  const size = Math.random() * 8 + 6 // 6-14px
 
-  if (prefersReducedMotion) return null
+  // Don't render confetti if user prefers reduced motion
+  if (prefersReducedMotion) {
+    return null
+  }
 
   return (
     <motion.div
@@ -40,15 +44,28 @@ const ConfettiPiece = ({ delay, index, prefersReducedMotion }: {
         top: -20,
         borderRadius: Math.random() > 0.5 ? '50%' : '2px'
       }}
-      initial={{ x: startX, y: -20, rotate: 0, opacity: 1 }}
-      animate={{ x: endX, y: 400, rotate: rotation, opacity: [1, 1, 0.8, 0] }}
-      transition={{ duration: 2.5 + Math.random() * 1, delay, ease: [0.32, 0, 0.67, 0] }}
+      initial={{
+        x: startX,
+        y: -20,
+        rotate: 0,
+        opacity: 1
+      }}
+      animate={{
+        x: endX,
+        y: 400,
+        rotate: rotation,
+        opacity: [1, 1, 0.8, 0]
+      }}
+      transition={{
+        duration: 2.5 + Math.random() * 1,
+        delay,
+        ease: [0.32, 0, 0.67, 0]
+      }}
     />
   )
 }
 
-// ALT 3: HEXAGON/POLYGON SHAPE
-export default function MascotNotificationAlt3({
+export default function MascotNotification({
   isVisible,
   message,
   type = 'success',
@@ -64,11 +81,15 @@ export default function MascotNotificationAlt3({
     ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
     : false
 
+  // Sync visibility
   useEffect(() => {
     setVisible(isVisible)
-    if (isVisible) setImageError(false)
+    if (isVisible) {
+      setImageError(false) // Reset image error on new notification
+    }
   }, [isVisible])
 
+  // Auto-close
   useEffect(() => {
     if (!visible || !duration) return
     const timer = setTimeout(() => {
@@ -78,6 +99,7 @@ export default function MascotNotificationAlt3({
     return () => clearTimeout(timer)
   }, [visible, duration, onClose])
 
+  // Handle escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && visible) {
@@ -95,31 +117,27 @@ export default function MascotNotificationAlt3({
     switch (type) {
       case 'success':
         return {
-          gradient: 'from-green-400 via-emerald-500 to-teal-500',
-          shadow: 'shadow-green-500/25',
-          glow: 'rgba(16, 185, 129, 0.4)',
+          glow: 'rgba(16, 185, 129, 0.5)',
+          shadow: 'shadow-green-500/15',
           accentText: 'text-green-700'
         }
       case 'error':
         return {
-          gradient: 'from-red-400 via-rose-500 to-pink-500',
-          shadow: 'shadow-red-500/25',
-          glow: 'rgba(239, 68, 68, 0.4)',
+          glow: 'rgba(239, 68, 68, 0.5)',
+          shadow: 'shadow-red-500/15',
           accentText: 'text-red-700'
         }
       case 'info':
         return {
-          gradient: 'from-blue-400 via-indigo-500 to-purple-500',
-          shadow: 'shadow-blue-500/25',
-          glow: 'rgba(59, 130, 246, 0.4)',
+          glow: 'rgba(59, 130, 246, 0.5)',
+          shadow: 'shadow-blue-500/15',
           accentText: 'text-blue-700'
         }
       case 'loading':
       default:
         return {
-          gradient: 'from-pink-400 via-purple-500 to-fuchsia-500',
-          shadow: 'shadow-pink-500/25',
-          glow: 'rgba(236, 72, 153, 0.4)',
+          glow: 'rgba(236, 72, 153, 0.5)',
+          shadow: 'shadow-pink-500/15',
           accentText: 'text-pink-700'
         }
     }
@@ -141,10 +159,16 @@ export default function MascotNotificationAlt3({
         role="alert"
         aria-live="polite"
       >
+        {/* Confetti - reduced amount */}
         {showConfetti && type === 'success' && !prefersReducedMotion && (
           <div className="absolute inset-0 pointer-events-none overflow-visible">
             {[...Array(12)].map((_, i) => (
-              <ConfettiPiece key={i} delay={i * 0.05} index={i} prefersReducedMotion={prefersReducedMotion} />
+              <ConfettiPiece
+                key={i}
+                delay={i * 0.05}
+                index={i}
+                prefersReducedMotion={prefersReducedMotion}
+              />
             ))}
           </div>
         )}
@@ -152,83 +176,54 @@ export default function MascotNotificationAlt3({
         <div className={`bg-white/98 backdrop-blur-xl border border-slate-200/60 rounded-2xl shadow-2xl ${colors.shadow} overflow-hidden`}>
           <div className="p-4">
             <div className="flex items-center gap-5">
-              {/* ALT 3: Hexagon shape with gradient border */}
-              <div className="flex-shrink-0 relative w-32 h-32">
-                {/* Hexagon container */}
-                <motion.div
-                  className="relative w-full h-full"
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                >
-                  {/* Gradient border (hexagon) */}
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} p-[3px]`}
+              {/* Mascot Image - Large */}
+              <div className="flex-shrink-0 relative w-28 h-28 overflow-hidden rounded-full">
+                {/* Subtle glow effect */}
+                {!prefersReducedMotion && (
+                  <motion.div
+                    className="absolute inset-0 rounded-full -z-10"
                     style={{
-                      clipPath: 'polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)'
+                      boxShadow: `0 0 50px 20px ${colors.glow}`,
+                      filter: 'blur(10px)'
                     }}
+                    animate={{
+                      scale: [1, 1.15, 1],
+                      opacity: [0.3, 0.6, 0.3]
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                  />
+                )}
+
+                {/* Mascot image - zoomed in with circular crop */}
+                {mascotImage && !imageError ? (
+                  <motion.div
+                    className="relative w-full h-full"
+                    initial={{ scale: 0.8, rotate: -10 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
                   >
-                    {/* White background */}
-                    <div
-                      className="w-full h-full bg-white"
-                      style={{
-                        clipPath: 'polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)'
-                      }}
+                    <Image
+                      src={mascotImage}
+                      alt="Success mascot"
+                      fill
+                      unoptimized
+                      className="object-cover scale-[1.8] drop-shadow-2xl"
+                      style={{ objectPosition: 'center' }}
+                      onError={() => setImageError(true)}
                     />
+                  </motion.div>
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200 rounded-full">
+                    <CheckCircle className={`w-12 h-12 ${colors.accentText}`} />
                   </div>
-
-                  {/* Glow effect */}
-                  {!prefersReducedMotion && (
-                    <motion.div
-                      className="absolute inset-0"
-                      style={{
-                        clipPath: 'polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)',
-                        boxShadow: `0 0 40px 10px ${colors.glow}`
-                      }}
-                      animate={{
-                        opacity: [0.3, 0.6, 0.3]
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                    />
-                  )}
-
-                  {/* Mascot image */}
-                  {mascotImage && !imageError ? (
-                    <motion.div
-                      className="absolute inset-0 flex items-center justify-center"
-                      initial={{ scale: 0.8, rotate: -5 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
-                      style={{
-                        clipPath: 'polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)'
-                      }}
-                    >
-                      <Image
-                        src={mascotImage}
-                        alt="Success mascot"
-                        width={100}
-                        height={100}
-                        unoptimized
-                        className="object-contain drop-shadow-lg"
-                        onError={() => setImageError(true)}
-                      />
-                    </motion.div>
-                  ) : (
-                    <div
-                      className="absolute inset-0 flex items-center justify-center bg-slate-50"
-                      style={{
-                        clipPath: 'polygon(30% 0%, 70% 0%, 100% 50%, 70% 100%, 30% 100%, 0% 50%)'
-                      }}
-                    >
-                      <CheckCircle className={`w-12 h-12 ${colors.accentText}`} />
-                    </div>
-                  )}
-                </motion.div>
+                )}
               </div>
 
+              {/* Message with hierarchy */}
               <div className="flex-1 min-w-0">
                 <h3 className="text-lg font-bold text-slate-900 leading-tight mb-1">
                   {message.split('!')[0]}!
@@ -240,6 +235,7 @@ export default function MascotNotificationAlt3({
                 )}
               </div>
 
+              {/* Close Button */}
               {onClose && (
                 <motion.button
                   type="button"
