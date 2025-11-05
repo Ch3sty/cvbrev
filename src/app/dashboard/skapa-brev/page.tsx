@@ -9,6 +9,7 @@ import { useCVStore } from '@/store/cv-store';
 import { useLetters } from '@/hooks/use-letters';
 import { useProfile } from '@/hooks/use-profile';
 import { useCoverLetterStore } from '@/store/cover-letter-store';
+import { useNotification } from '@/context/notificationcontext';
 
 // Wizard Components
 import WizardContainer, { WizardStep } from './components/WizardContainer';
@@ -29,6 +30,7 @@ export default function CreateLetterPage() {
   const { createLetter, saveLetter, isGenerating, refreshLetters } = useLetters();
   const { profile, subscriptionTier, remainingWeeklyLetters, updateRemainingLetters } = useProfile();
   const { prefillData, clearPrefillData } = useCoverLetterStore();
+  const { successWithMascotAndActivity } = useNotification();
 
   // Calculate initial wizard step and completed steps based on prefill data
   const getInitialWizardState = () => {
@@ -193,8 +195,22 @@ export default function CreateLetterPage() {
         !isGenerating) {
       console.log('✅ Auto-advancing to preview');
       setCurrentWizardStep(4);
+
+      // Show mascot notification
+      successWithMascotAndActivity(
+        'Ditt brev är klart! Granska och spara när du är redo.',
+        '/images/maskot/success-letter-generated.svg',
+        'letter_created',
+        'genererade ett personligt brev',
+        {
+          tonality,
+          language,
+          job_description_length: jobDescription.length
+        },
+        6000
+      );
     }
-  }, [currentWizardStep, generatedLetter, isGenerating]);
+  }, [currentWizardStep, generatedLetter, isGenerating, successWithMascotAndActivity, tonality, language, jobDescription]);
 
   const handleEditLetter = (content: string) => {
     setGeneratedLetter(content);
