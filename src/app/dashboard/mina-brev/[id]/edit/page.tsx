@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLetters } from '@/hooks/use-letters';
+import { useNotification } from '@/context/notificationcontext';
 import Link from 'next/link';
 import { use } from 'react';
 import { motion } from 'framer-motion';
@@ -56,6 +57,7 @@ const LetterTag = ({
 export default function EditLetterPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const { getLetter, currentLetter, isLoading, error, editLetter } = useLetters();
+  const { successWithMascot } = useNotification();
 
   // Unwrap params with React.use()
   const resolvedParams = use(params);
@@ -135,6 +137,11 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
       });
 
       if (success) {
+        successWithMascot(
+          'Brevet har sparats! Du hittar det under "Mina brev".',
+          '/images/maskot/success-letter-saved.svg',
+          4000
+        );
         router.push(`/dashboard/mina-brev/${id}`);
       } else {
         setSaveError('Ett fel uppstod när brevet skulle sparas');

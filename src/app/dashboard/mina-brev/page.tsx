@@ -9,6 +9,7 @@ import { useEffect, useState, useCallback, useRef, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLetters } from '@/hooks/use-letters';
 import { useProfile } from '@/hooks/use-profile';
+import { useNotification } from '@/context/notificationcontext';
 import Link from 'next/link';
 import { formatDistanceToNow } from 'date-fns';
 import { sv } from 'date-fns/locale';
@@ -309,6 +310,7 @@ const DocumentPreview = ({ letter, onClose }: any) => {
 export default function MinaBrevPage() {
   const router = useRouter();
   const { letters, fetchLetters, isLoading, removeLetter, refreshLetters } = useLetters();
+  const { successWithMascot } = useNotification();
   const { maxSavedLetters, subscriptionTier, profile, hasReachedLetterLimit } = useProfile();
 
   // UI State
@@ -412,11 +414,12 @@ export default function MinaBrevPage() {
     if (confirm('Är du säker på att du vill ta bort detta brev?')) {
       try {
         await removeLetter(letterId);
-        setNotification({
-          message: 'Brevet har tagits bort',
-          type: 'success',
-          isVisible: true
-        });
+        successWithMascot(
+          'Brevet har tagits bort',
+          '/images/maskot/success-letter-deleted.svg',
+          3000,
+          false // No confetti for deletion
+        );
       } catch (error) {
         setNotification({
           message: 'Kunde inte ta bort brevet',
