@@ -62,14 +62,13 @@ export async function POST(request: NextRequest) {
     }
 
     // 4. Mark token as used
-    const updateData: Database['public']['Tables']['login_tokens']['Update'] = {
-      used: true,
-      used_at: now.toISOString()
-    }
-    await supabaseAdmin
+    await (supabaseAdmin
       .from('login_tokens')
-      .update(updateData)
-      .eq('id', tokenData.id)
+      .update({
+        used: true,
+        used_at: now.toISOString()
+      } as Database['public']['Tables']['login_tokens']['Update'])
+      .eq('id', tokenData.id))
 
     console.log(`[TRIAL LOGIN] Token marked as used for user: ${tokenData.user_id}`)
 
