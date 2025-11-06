@@ -8,7 +8,8 @@ import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { headers } from 'next/headers';
 import { stripe } from '@/lib/stripe/server';
-import { getSupabaseAdmin } from '@/lib/supabase/admin'; 
+import { getSupabaseAdmin } from '@/lib/supabase/admin';
+import type { Database } from '@/types/database.types'; 
 
 // Funktion för att uppdatera användarprofilen i Supabase (inklusive subscription_tier)
 const updateUserSubscription = async (customerId: string, subscription: Stripe.Subscription) => {
@@ -290,18 +291,19 @@ export async function POST(request: Request) {
                    expiresAt.setHours(expiresAt.getHours() + 1) // 1 hour expiry
 
                    // Lagra token i databas
+                   const insertData: Database['public']['Tables']['login_tokens']['Insert'] = {
+                     user_id: userId,
+                     token: loginToken,
+                     expires_at: expiresAt.toISOString(),
+                     metadata: {
+                       checkout_session_id: eventData.id,
+                       trial_source: eventData.metadata.trialSource || 'unknown',
+                       email: userEmail
+                     }
+                   }
                    const { error: tokenError } = await supabaseAdmin
                      .from('login_tokens')
-                     .insert({
-                       user_id: userId,
-                       token: loginToken,
-                       expires_at: expiresAt.toISOString(),
-                       metadata: {
-                         checkout_session_id: eventData.id,
-                         trial_source: eventData.metadata.trialSource || 'unknown',
-                         email: userEmail
-                       }
-                     })
+                     .insert(insertData)
 
                    if (tokenError) {
                      console.error('[TRIAL WEBHOOK] Failed to store login token:', tokenError)
