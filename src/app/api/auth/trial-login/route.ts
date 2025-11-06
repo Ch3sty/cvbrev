@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
       .from('login_tokens')
       .select('*')
       .eq('token', token)
-      .single<LoginToken>()
+      .single() as { data: LoginToken | null, error: any }
 
     if (tokenError || !tokenData) {
       console.error('[TRIAL LOGIN] Token not found:', tokenError)
