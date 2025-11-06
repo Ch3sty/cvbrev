@@ -33,7 +33,8 @@ export async function POST(request: NextRequest) {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.jobbcoach.ai'
 
     // Create Stripe embedded checkout session
-    // For trials: we require payment method upfront (not at end of trial)
+    // For trials: Default behavior collects payment method immediately
+    // Do NOT specify payment_method_collection - let Stripe use default
     const session = await stripe.checkout.sessions.create({
       ui_mode: 'embedded',
       mode: 'subscription',
@@ -52,8 +53,6 @@ export async function POST(request: NextRequest) {
           trialSource: 'trial-signup-page'
         }
       },
-      // Require payment method during signup (not trial_settings which creates SetupIntent)
-      payment_method_collection: 'always',
       return_url: `${baseUrl}/trial-signup/return?session_id={CHECKOUT_SESSION_ID}`,
       metadata: {
         userId,
