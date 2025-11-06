@@ -29,6 +29,7 @@ function TrialLoginContent() {
     // Validate token and create session
     const validateToken = async () => {
       try {
+        // Step 1: Validate our custom token
         const response = await fetch('/api/auth/trial-login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -50,18 +51,35 @@ function TrialLoginContent() {
           return
         }
 
-        // Success - redirect to the action link which will set up the session
+        // Step 2: Use the token hash to create a Supabase session
+        if (!data.tokenHash) {
+          setState('error')
+          setErrorMessage('Kunde inte skapa session')
+          return
+        }
+
+        // Create Supabase client and verify the OTP hash
+        const { createClient } = await import('@/lib/supabase/client')
+        const supabase = createClient()
+
+        const { error: verifyError } = await supabase.auth.verifyOtp({
+          token_hash: data.tokenHash,
+          type: data.type as any
+        })
+
+        if (verifyError) {
+          console.error('[TRIAL LOGIN] Session verification error:', verifyError)
+          setState('error')
+          setErrorMessage('Kunde inte skapa session. Försök igen.')
+          return
+        }
+
+        // Success! User is now logged in
         setState('success')
 
-        if (data.actionLink) {
-          // The action link from Supabase includes session tokens in URL
-          window.location.href = data.actionLink
-        } else {
-          // Fallback: redirect to dashboard
-          setTimeout(() => {
-            router.push('/dashboard')
-          }, 1500)
-        }
+        setTimeout(() => {
+          router.push('/dashboard')
+        }, 1500)
 
       } catch (error: any) {
         console.error('[TRIAL LOGIN] Error:', error)

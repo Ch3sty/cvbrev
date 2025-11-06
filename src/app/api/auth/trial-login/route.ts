@@ -72,7 +72,8 @@ export async function POST(request: NextRequest) {
 
     console.log(`[TRIAL LOGIN] Token marked as used for user: ${tokenData.user_id}`)
 
-    // 5. Create session for the user using admin API
+    // 5. Create a session for the user using admin API
+    // We use generateLink to get session tokens, then return them to frontend
     const metadata = tokenData.metadata as { email?: string } | null
     const { data: sessionData, error: sessionError } = await supabaseAdmin.auth.admin.generateLink({
       type: 'magiclink',
@@ -90,12 +91,36 @@ export async function POST(request: NextRequest) {
       }, { status: 500 })
     }
 
-    console.log(`[TRIAL LOGIN] Session created for user: ${tokenData.user_id}`)
+    console.log(`[TRIAL LOGIN] Session link generated for user: ${tokenData.user_id}`)
 
-    // Return the action link (contains session tokens)
+    // Extract the token hash from the action link to verify session on frontend
+    const actionLink = sessionData.properties?.action_link
+    if (!actionLink) {
+      console.error('[TRIAL LOGIN] No action link in session data')
+      return NextResponse.json({
+        error: 'Kunde inte generera inloggningslänk.',
+        code: 'SESSION_ERROR'
+      }, { status: 500 })
+    }
+
+    // Extract hash and hashed_token from the URL for frontend to verify
+    const url = new URL(actionLink)
+    const tokenHash = url.searchParams.get('token_hash')
+    const type = url.searchParams.get('type') || 'magiclink'
+
+    if (!tokenHash) {
+      console.error('[TRIAL LOGIN] No token hash in action link')
+      return NextResponse.json({
+        error: 'Ogiltig session-data.',
+        code: 'SESSION_ERROR'
+      }, { status: 500 })
+    }
+
+    // Return the hash for frontend to verify and create session
     return NextResponse.json({
       success: true,
-      actionLink: sessionData.properties?.action_link,
+      tokenHash,
+      type,
       userId: tokenData.user_id
     })
 
