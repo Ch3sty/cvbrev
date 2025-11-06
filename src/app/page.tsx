@@ -44,8 +44,6 @@ import 'swiper/css/effect-fade'
 
 export default function HomePage() {
   const router = useRouter()
-  const [email, setEmail] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
   const [isCheckingAuth, setIsCheckingAuth] = useState(true)
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
   const [swiperInstance, setSwiperInstance] = useState<any>(null)
@@ -96,50 +94,6 @@ export default function HomePage() {
     window.addEventListener('mousemove', handleMouseMove)
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
-
-  // Hantera email-formulär - Trial initiation
-  const [error, setError] = useState<string | null>(null)
-
-  const handleEmailSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email) return
-
-    setIsLoading(true)
-    setError(null)
-
-    try {
-      // Kalla trial initiation API
-      const response = await fetch('/api/trial/initiate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email,
-          trialSource: 'homepage_cta'
-        })
-      })
-
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Något gick fel')
-      }
-
-      // Store email in sessionStorage for trial-pending page
-      sessionStorage.setItem('trial_email', email)
-
-      // Redirect till Stripe Checkout
-      if (data.checkoutUrl) {
-        window.location.href = data.checkoutUrl
-      } else {
-        throw new Error('Ingen checkout-URL returnerades')
-      }
-
-    } catch (error: any) {
-      console.error('Trial initiation error:', error)
-      setError(error.message)
-      setIsLoading(false)
-    }
-  }
 
   // CV-mallar data
   const cvTemplates = [
@@ -278,87 +232,54 @@ export default function HomePage() {
                   <span className="font-semibold text-slate-900"> 89% av våra användare får intervju inom 2 veckor.</span>
                 </p>
 
-                {/* CTA-formulär with magnetic effect */}
-                <motion.form
-                  onSubmit={handleEmailSubmit}
+                {/* CTA-knapp with magnetic effect */}
+                <motion.div
                   className="mb-6"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4, duration: 0.8 }}
                 >
-                  <div className="relative">
+                  <div className="relative inline-block w-full sm:w-auto">
                     <motion.div
-                      className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-lg blur opacity-20"
+                      className="absolute -inset-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-2xl blur opacity-30"
                       animate={{
-                        opacity: [0.2, 0.3, 0.2],
+                        opacity: [0.3, 0.5, 0.3],
                       }}
                       transition={{
                         duration: 3,
                         repeat: Infinity,
                       }}
                     />
-                    <div className="relative flex flex-col sm:flex-row gap-3 bg-white rounded-lg p-2">
-                      <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="din@email.se"
-                        className="flex-1 px-5 py-3.5 bg-transparent text-base focus:outline-none"
-                        required
-                      />
+                    <Link href="/trial-signup">
                       <motion.button
-                        type="submit"
-                        disabled={isLoading}
-                        className="min-h-[44px] touch-manipulation px-6 sm:px-8 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-lg hover:shadow-xl hover:shadow-blue-500/25 transition-all duration-300 disabled:opacity-50 whitespace-nowrap text-sm sm:text-base"
-                        whileHover={{ scale: 1.02, y: -2 }}
-                        whileTap={{ scale: 0.98 }}
+                        className="relative w-full sm:w-auto min-h-[56px] touch-manipulation px-10 py-4 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white font-bold text-lg rounded-2xl hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-300"
+                        whileHover={{ scale: 1.05, y: -3 }}
+                        whileTap={{ scale: 0.95 }}
                       >
-                      {isLoading ? (
-                        <span className="flex items-center gap-2">
-                          <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                          </svg>
-                          Laddar...
+                        <span className="flex items-center justify-center gap-3">
+                          <Sparkles className="w-6 h-6" />
+                          <span>Prova kostnadsfritt i 7 dagar</span>
+                          <ArrowRight className="w-5 h-5" />
                         </span>
-                      ) : (
-                        <span className="hidden sm:inline">Få 7 dagars Premium gratis</span>
-                      )}
-                      {!isLoading && (
-                        <span className="sm:hidden">Få 7 dagar gratis</span>
-                      )}
                       </motion.button>
-                    </div>
-                  </div>
-                  <div className="flex flex-wrap items-center gap-3 sm:gap-4 mt-4 text-xs sm:text-sm text-slate-500">
-                    <span className="flex items-center gap-1 touch-manipulation">
-                      <CheckCircle className="w-5 h-5 sm:w-4 sm:h-4 text-green-500" />
-                      ATS-optimerad analys
-                    </span>
-                    <span className="flex items-center gap-1 touch-manipulation">
-                      <CheckCircle className="w-5 h-5 sm:w-4 sm:h-4 text-green-500" />
-                      Inga bindningar
-                    </span>
-                    <span className="flex items-center gap-1 touch-manipulation">
-                      <CheckCircle className="w-5 h-5 sm:w-4 sm:h-4 text-green-500" />
-                      GDPR-säker
-                    </span>
+                    </Link>
                   </div>
 
-                  {/* Error message */}
-                  {error && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg"
-                    >
-                      <div className="flex items-center gap-2 text-red-800">
-                        <AlertCircle className="w-5 h-5 flex-shrink-0" />
-                        <p className="text-sm font-medium">{error}</p>
-                      </div>
-                    </motion.div>
-                  )}
-                </motion.form>
+                  <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-5 text-xs sm:text-sm text-slate-600">
+                    <span className="flex items-center gap-1.5 touch-manipulation">
+                      <CheckCircle className="w-5 h-5 sm:w-4 sm:h-4 text-green-500" />
+                      Ingen bindningstid
+                    </span>
+                    <span className="flex items-center gap-1.5 touch-manipulation">
+                      <CheckCircle className="w-5 h-5 sm:w-4 sm:h-4 text-green-500" />
+                      Inget betalkort krävs
+                    </span>
+                    <span className="flex items-center gap-1.5 touch-manipulation">
+                      <CheckCircle className="w-5 h-5 sm:w-4 sm:h-4 text-green-500" />
+                      Avsluta när du vill
+                    </span>
+                  </div>
+                </motion.div>
 
                 {/* Animated social proof */}
                 <motion.div
