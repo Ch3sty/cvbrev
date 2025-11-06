@@ -284,6 +284,8 @@ export async function POST(request: Request) {
                  console.log(`[TRIAL WEBHOOK] Generating login token for new user: ${userId}`)
 
                  try {
+                   const supabaseAdmin = getSupabaseAdmin() as any
+
                    // Generera one-time login token
                    const crypto = await import('crypto')
                    const loginToken = crypto.randomBytes(32).toString('hex')

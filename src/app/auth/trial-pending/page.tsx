@@ -5,12 +5,12 @@
 // Page shown after successful Stripe checkout
 // Instructs user to check email for login link
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { Mail, CheckCircle, Sparkles, Clock, Shield } from 'lucide-react'
+import { Mail, CheckCircle, Sparkles, Clock, Shield, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 
-export default function TrialPendingPage() {
+function TrialPendingContent() {
   const searchParams = useSearchParams()
   const [email, setEmail] = useState<string | null>(null)
 
@@ -160,5 +160,26 @@ export default function TrialPendingPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function TrialPendingPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
+          <div className="space-y-4">
+            <div className="flex justify-center">
+              <Loader2 className="w-16 h-16 text-pink-600 animate-spin" />
+            </div>
+            <h1 className="text-2xl font-bold text-gray-900">
+              Laddar...
+            </h1>
+          </div>
+        </div>
+      </div>
+    }>
+      <TrialPendingContent />
+    </Suspense>
   )
 }

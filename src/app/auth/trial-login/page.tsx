@@ -5,13 +5,13 @@
 // Frontend page for one-time login token authentication
 // Validates token and redirects to dashboard with active session
 
-import { useEffect, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Loader2, CheckCircle2, XCircle, AlertCircle } from 'lucide-react'
 
 type LoginState = 'validating' | 'success' | 'error' | 'expired' | 'used'
 
-export default function TrialLoginPage() {
+function TrialLoginContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [state, setState] = useState<LoginState>('validating')
@@ -189,5 +189,26 @@ export default function TrialLoginPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function TrialLoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
+          <div className="space-y-4">
+            <div className="flex justify-center">
+              <Loader2 className="w-16 h-16 text-pink-600 animate-spin" />
+            </div>
+            <h1 className="text-2xl font-bold text-gray-900">
+              Laddar...
+            </h1>
+          </div>
+        </div>
+      </div>
+    }>
+      <TrialLoginContent />
+    </Suspense>
   )
 }
