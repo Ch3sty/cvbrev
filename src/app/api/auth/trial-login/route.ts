@@ -7,6 +7,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getSupabaseAdmin } from '@/lib/supabase/admin'
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
+import type { Database } from '@/types/database.types'
+
+type LoginToken = Database['public']['Tables']['login_tokens']['Row']
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,7 +30,7 @@ export async function POST(request: NextRequest) {
       .from('login_tokens')
       .select('*')
       .eq('token', token)
-      .single()
+      .single<LoginToken>()
 
     if (tokenError || !tokenData) {
       console.error('[TRIAL LOGIN] Token not found:', tokenError)
@@ -70,9 +73,10 @@ export async function POST(request: NextRequest) {
     console.log(`[TRIAL LOGIN] Token marked as used for user: ${tokenData.user_id}`)
 
     // 5. Create session for the user using admin API
+    const metadata = tokenData.metadata as { email?: string } | null
     const { data: sessionData, error: sessionError } = await supabaseAdmin.auth.admin.generateLink({
       type: 'magiclink',
-      email: tokenData.metadata?.email || '',
+      email: metadata?.email || '',
       options: {
         redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/dashboard`
       }
