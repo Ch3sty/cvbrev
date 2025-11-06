@@ -10,7 +10,6 @@ import { PostMeta } from '@/lib/blog';
 
 // Import komponenter
 import PremiumNavbar from '@/components/PremiumNavbar';
-import FloatingAIAssistant from '@/components/FloatingAIAssistant';
 import PremiumArticleSidebar from '@/components/artiklar/PremiumArticleSidebar';
 import { Heading } from '@/lib/extractHeadings';
 import AuthorBox from '@/components/artiklar/AuthorBox';
@@ -87,9 +86,6 @@ export default function ArticleClientWrapper({
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50/50">
       {/* Premium Navbar */}
       <PremiumNavbar />
-
-      {/* Floating AI Assistant */}
-      <FloatingAIAssistant />
 
       {/* Reading Progress Bar */}
       <motion.div

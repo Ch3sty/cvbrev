@@ -18,7 +18,6 @@ import {
 
 // Custom components
 import PremiumNavbar from '@/components/PremiumNavbar'
-import FloatingAIAssistant from '@/components/FloatingAIAssistant'
 import StaticFeatureCard from '@/components/StaticFeatureCard'
 import LiveAIDemo from '@/components/LiveAIDemo'
 import BeforeAfterSlider from '@/components/BeforeAfterSlider'
@@ -174,9 +173,6 @@ export default function FunktionerPage() {
 
       {/* Premium Navigation Bar */}
       <PremiumNavbar />
-
-      {/* Floating AI Assistant */}
-      <FloatingAIAssistant />
 
       {/* Hero Section with Interactive Background */}
       <section className="relative pt-32 pb-24 overflow-hidden">

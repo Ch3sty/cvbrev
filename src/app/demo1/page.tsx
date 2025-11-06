@@ -24,7 +24,6 @@ import {
 // Custom components
 import AILiveWriting from '@/components/AILiveWriting'
 import DynamicTrustIndicator from '@/components/DynamicTrustIndicator'
-import FloatingAIAssistant from '@/components/FloatingAIAssistant'
 import InteractiveSteps from '@/components/InteractiveSteps'
 import PersonalizedUserJourney from '@/components/PersonalizedUserJourney'
 import EnhancedFinalCTA from '@/components/EnhancedFinalCTA'
@@ -92,9 +91,6 @@ export default function Demo1Page() {
 
       {/* Premium Navigation Bar */}
       <PremiumNavbar />
-
-      {/* Floating AI Assistant - Always visible */}
-      <FloatingAIAssistant />
 
       {/* Premium Hero Section with WOW factor */}
       <section className="relative pt-32 pb-24 overflow-hidden">

@@ -13,7 +13,6 @@ import { useInView } from 'react-intersection-observer'
 
 // Custom components
 import PremiumNavbar from '@/components/PremiumNavbar'
-import FloatingAIAssistant from '@/components/FloatingAIAssistant'
 import DynamicTrustIndicator from '@/components/DynamicTrustIndicator'
 import StatCard from '@/components/StatCard'
 import { SubscribeButton } from '@/components/subscription/SubscribeButton'
@@ -346,9 +345,6 @@ export default function PriserPage() {
 
         {/* Premium Navigation */}
         <PremiumNavbar />
-
-        {/* Floating AI Assistant */}
-        <FloatingAIAssistant />
 
         {/* Hero Section */}
         <section className="relative pt-32 pb-16 overflow-hidden">
