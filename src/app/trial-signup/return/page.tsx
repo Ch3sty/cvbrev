@@ -22,6 +22,7 @@ function ReturnContent() {
   useEffect(() => {
     const handleReturn = async () => {
       const sessionId = searchParams.get('session_id')
+      const token = searchParams.get('token')
 
       if (!sessionId) {
         setStatus('error')
@@ -29,42 +30,32 @@ function ReturnContent() {
         return
       }
 
+      if (!token) {
+        setStatus('error')
+        setError('Ingen login-token hittades. Försök logga in manuellt.')
+        return
+      }
+
       console.log('[TRIAL RETURN] Processing session:', sessionId)
 
       try {
-        // Get stored credentials
-        const email = sessionStorage.getItem('trial_email')
-        const password = sessionStorage.getItem('trial_password')
-
-        if (!email || !password) {
-          console.error('[TRIAL RETURN] Missing credentials in sessionStorage')
-          setStatus('error')
-          setError('Kunde inte hitta inloggningsuppgifter. Försök logga in manuellt.')
-          return
-        }
-
-        // Create Supabase client and sign in
-        const supabase = createClient()
-
-        console.log('[TRIAL RETURN] Attempting auto-login for:', email)
-
-        const { data, error: signInError } = await supabase.auth.signInWithPassword({
-          email,
-          password
+        // Verify and use login token for auto-login
+        const response = await fetch('/api/auth/verify-login-token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token })
         })
 
-        if (signInError || !data.user) {
-          console.error('[TRIAL RETURN] Auto-login failed:', signInError)
+        const data = await response.json()
+
+        if (!response.ok || data.error) {
+          console.error('[TRIAL RETURN] Token verification failed:', data.error)
           setStatus('error')
-          setError('Kunde inte logga in automatiskt. Försök logga in manuellt.')
+          setError(data.error || 'Kunde inte verifiera login-token. Försök logga in manuellt.')
           return
         }
 
-        console.log('[TRIAL RETURN] Auto-login successful, user:', data.user.id)
-
-        // Clear stored credentials
-        sessionStorage.removeItem('trial_email')
-        sessionStorage.removeItem('trial_password')
+        console.log('[TRIAL RETURN] Auto-login successful via token')
 
         // Show success briefly before redirect
         setStatus('success')

@@ -53,9 +53,7 @@ export default function EmbeddedCheckout({ signupData, onBack }: EmbeddedCheckou
         setClientSecret(data.clientSecret)
         setIsLoading(false)
 
-        // Store password temporarily for auto-login after payment
-        sessionStorage.setItem('trial_password', signupData.password)
-        sessionStorage.setItem('trial_email', signupData.email)
+        // Auto-login is now handled via database token (not sessionStorage)
 
       } catch (error: any) {
         console.error('[EMBEDDED CHECKOUT] Error:', error)

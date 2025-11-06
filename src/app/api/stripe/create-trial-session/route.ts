@@ -5,6 +5,8 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { stripe } from '@/lib/stripe/server'
+import { getSupabaseAdmin } from '@/lib/supabase/admin'
+import { randomUUID } from 'crypto'
 
 export async function POST(request: NextRequest) {
   try {
@@ -53,7 +55,7 @@ export async function POST(request: NextRequest) {
           trialSource: 'trial-signup-page'
         }
       },
-      return_url: `${baseUrl}/trial-signup/return?session_id={CHECKOUT_SESSION_ID}`,
+      return_url: `${baseUrl}/trial-signup/return?session_id={CHECKOUT_SESSION_ID}&token={TOKEN_PLACEHOLDER}`,
       metadata: {
         userId,
         email,
@@ -64,8 +66,42 @@ export async function POST(request: NextRequest) {
 
     console.log(`[CREATE TRIAL SESSION] Session created: ${session.id}`)
 
+    // Generate login token for auto-login after payment
+    const loginToken = randomUUID()
+    const supabaseAdmin = getSupabaseAdmin() as any
+
+    try {
+      const { error: tokenError } = await supabaseAdmin
+        .from('login_tokens')
+        .insert({
+          user_id: userId,
+          token: loginToken,
+          expires_at: new Date(Date.now() + 3600000).toISOString(), // 1 hour
+          used: false,
+          metadata: {
+            source: 'trial-checkout',
+            session_id: session.id,
+            email
+          }
+        })
+
+      if (tokenError) {
+        console.error('[CREATE TRIAL SESSION] Failed to create login token:', tokenError)
+        // Continue anyway - user can still login manually
+      } else {
+        console.log(`[CREATE TRIAL SESSION] Login token created for user ${userId}`)
+      }
+    } catch (dbError: any) {
+      console.error('[CREATE TRIAL SESSION] Database error creating token:', dbError)
+      // Continue anyway
+    }
+
+    // Update return URL with actual token
+    const returnUrl = `${baseUrl}/trial-signup/return?session_id=${session.id}&token=${loginToken}`
+
     return NextResponse.json({
-      clientSecret: session.client_secret
+      clientSecret: session.client_secret,
+      returnUrl
     })
 
   } catch (error: any) {
