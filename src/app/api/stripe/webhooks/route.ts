@@ -13,7 +13,7 @@ import type { Database } from '@/types/database.types';
 
 // Funktion för att uppdatera användarprofilen i Supabase (inklusive subscription_tier)
 const updateUserSubscription = async (customerId: string, subscription: Stripe.Subscription) => {
-    const supabaseAdmin = getSupabaseAdmin(); 
+    const supabaseAdmin = getSupabaseAdmin() as any; 
     console.log(`Webhook: Looking for profile with stripe_customer_id: ${customerId}`);
     const { data: profile, error: profileError } = await supabaseAdmin
         .from('profiles') 
@@ -302,7 +302,7 @@ export async function POST(request: Request) {
                          trial_source: eventData.metadata.trialSource || 'unknown',
                          email: userEmail
                        }
-                     } as Database['public']['Tables']['login_tokens']['Insert'])
+                     })
 
                    if (tokenError) {
                      console.error('[TRIAL WEBHOOK] Failed to store login token:', tokenError)

@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
 
     console.log(`[TRIAL] Initiating trial for: ${email}`)
 
-    const supabaseAdmin = getSupabaseAdmin()
+    const supabaseAdmin = getSupabaseAdmin() as any
 
     // 1. Kolla om användare redan finns
     const { data: existingProfile } = await supabaseAdmin

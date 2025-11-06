@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
 
     console.log(`[TRIAL LOGIN] Validating token: ${token.substring(0, 8)}...`)
 
-    const supabaseAdmin = getSupabaseAdmin()
+    const supabaseAdmin = getSupabaseAdmin() as any
 
     // 1. Validate token and check expiration
     const { data: tokenData, error: tokenError } = await supabaseAdmin
@@ -62,13 +62,13 @@ export async function POST(request: NextRequest) {
     }
 
     // 4. Mark token as used
-    await (supabaseAdmin
+    await supabaseAdmin
       .from('login_tokens')
       .update({
         used: true,
         used_at: now.toISOString()
-      } as Database['public']['Tables']['login_tokens']['Update'])
-      .eq('id', tokenData.id))
+      })
+      .eq('id', tokenData.id)
 
     console.log(`[TRIAL LOGIN] Token marked as used for user: ${tokenData.user_id}`)
 
