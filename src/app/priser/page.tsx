@@ -192,7 +192,7 @@ export default function PriserPage() {
   const backgroundOpacity = useTransform(scrollY, [0, 300], [1, 0.8])
 
   // Stripe Price ID - endast månadsplan
-  const premiumMonthlyPriceId = "price_1R7eyuAB6xHzwmWvtzFJdaOU"
+  const premiumMonthlyPriceId = "price_1SQSVlPWMWdjmTDjx1yo9m00"
   const premiumMonthlyPrice = 149
 
   // Track mouse for gradient effect

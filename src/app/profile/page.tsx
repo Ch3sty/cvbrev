@@ -90,7 +90,7 @@ export default function ProfilePage() {
   const authCheckedRef = useRef(false);
 
   // *** STRIPE PRICE ID (Månad) ***
-  const premiumMonthlyPriceId = "price_1R7eyuAB6xHzwmWvtzFJdaOU";
+  const premiumMonthlyPriceId = "price_1SQSVlPWMWdjmTDjx1yo9m00";
   // ******************************
 
   const tonalityOptions = [
