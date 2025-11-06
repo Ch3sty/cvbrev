@@ -204,12 +204,42 @@ export default function RootLayout({
           {/* === COOKIE BANNER === */}
           <CookieConsent
             location={OPTIONS.BOTTOM}
-            buttonText="Jag förstår och accepterar"
+            buttonText="Acceptera"
             declineButtonText="Avvisa"
             cookieName={COOKIE_NAME}
-            style={{ background: "rgba(255, 255, 255, 0.95)", backdropFilter: "blur(8px)", fontSize: "14px", borderTop: "1px solid rgb(229 231 235)", color: "rgb(31 41 55)" }}
-            buttonStyle={{ background: "#db2777", color: "white", fontSize: "13px", borderRadius: "6px", padding: "8px 15px", fontWeight: "500" }}
-            declineButtonStyle={{ background: "#e5e7eb", color: "#374151", fontSize: "13px", borderRadius: "6px", margin: "0 10px", padding: "8px 15px", fontWeight: "500" }}
+            style={{
+              background: "rgba(255, 255, 255, 0.98)",
+              backdropFilter: "blur(12px)",
+              fontSize: "13px",
+              borderTop: "1px solid rgb(226 232 240)",
+              color: "rgb(51 65 85)",
+              padding: "12px 20px",
+              boxShadow: "0 -4px 12px rgba(0, 0, 0, 0.08)"
+            }}
+            buttonStyle={{
+              background: "linear-gradient(to right, rgb(219 39 119), rgb(147 51 234))",
+              color: "white",
+              fontSize: "13px",
+              borderRadius: "8px",
+              padding: "8px 20px",
+              fontWeight: "600",
+              border: "none",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              boxShadow: "0 4px 12px rgba(219, 39, 119, 0.2)"
+            }}
+            declineButtonStyle={{
+              background: "rgb(241 245 249)",
+              color: "rgb(71 85 105)",
+              fontSize: "13px",
+              borderRadius: "8px",
+              margin: "0 8px",
+              padding: "8px 20px",
+              fontWeight: "600",
+              border: "1px solid rgb(226 232 240)",
+              cursor: "pointer",
+              transition: "all 0.3s ease"
+            }}
             expires={180}
             enableDeclineButton
             onAccept={handleAcceptCookie}
@@ -218,10 +248,16 @@ export default function RootLayout({
             ariaDeclineLabel="Avvisa cookies"
             overlay={false}
           >
-             Vi använder cookies för att förbättra din upplevelse och förstå hur webbplatsen används (analys). Genom att klicka "Acceptera" samtycker du till användningen av analyscookies.{" "}
-            <Link href="/integritetspolicy#cookies" className="font-semibold text-pink-600 underline hover:text-pink-700">
-               Läs mer om cookies i vår integritetspolicy
-            </Link>.
+            <span style={{ fontSize: "13px", lineHeight: "1.5" }}>
+              Vi använder cookies för att förbättra din upplevelse.
+            </span>{" "}
+            <Link
+              href="/integritetspolicy#cookies"
+              className="font-semibold underline hover:text-pink-700 transition-colors"
+              style={{ color: "rgb(219 39 119)" }}
+            >
+              Läs mer
+            </Link>
           </CookieConsent>
           {/* === COOKIE BANNER SLUT === */}
           </NotificationProvider>
