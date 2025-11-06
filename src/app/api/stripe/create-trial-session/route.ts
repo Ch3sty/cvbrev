@@ -44,6 +44,11 @@ export async function POST(request: NextRequest) {
       }],
       subscription_data: {
         trial_period_days: 7,
+        trial_settings: {
+          end_behavior: {
+            missing_payment_method: 'cancel'
+          }
+        },
         metadata: {
           userId,
           email,
@@ -51,6 +56,7 @@ export async function POST(request: NextRequest) {
           trialSource: 'trial-signup-page'
         }
       },
+      payment_method_collection: 'always',
       return_url: `${baseUrl}/trial-signup/return?session_id={CHECKOUT_SESSION_ID}`,
       metadata: {
         userId,
