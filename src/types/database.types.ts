@@ -219,6 +219,49 @@ export interface Database {
         }
          Relationships: []
       }
+
+      // --- Definition för login_tokens ---
+      login_tokens: {
+        Row: {
+          id: string // uuid
+          user_id: string // uuid
+          token: string // text
+          expires_at: string // timestamptz
+          used: boolean // boolean
+          used_at: string | null // timestamptz
+          created_at: string | null // timestamptz
+          metadata: Json | null // jsonb
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          token: string
+          expires_at: string
+          used?: boolean
+          used_at?: string | null
+          created_at?: string | null
+          metadata?: Json | null
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          token?: string
+          expires_at?: string
+          used?: boolean
+          used_at?: string | null
+          created_at?: string | null
+          metadata?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "login_tokens_user_id_fkey"
+            columns: ["user_id"]
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      // --- Slut login_tokens ---
     } // Slut Tables
     Views: { // --- Definition för system_statistics ---
       system_statistics: {

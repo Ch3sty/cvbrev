@@ -20,7 +20,7 @@ import {
   ChevronLeft, PenTool, Palette, Trophy, Gift,
   GraduationCap, User, Building2, Layers, Settings,
   Timer, RefreshCw, Gauge, BookOpen, Code, Database,
-  Linkedin
+  Linkedin, AlertCircle
 } from 'lucide-react'
 
 // Custom components
@@ -97,14 +97,47 @@ export default function HomePage() {
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
-  // Hantera email-formulär
-  const handleEmailSubmit = (e: React.FormEvent) => {
+  // Hantera email-formulär - Trial initiation
+  const [error, setError] = useState<string | null>(null)
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (email) {
-      setIsLoading(true)
-      setTimeout(() => {
-        window.location.href = `/register?email=${encodeURIComponent(email)}`
-      }, 500)
+    if (!email) return
+
+    setIsLoading(true)
+    setError(null)
+
+    try {
+      // Kalla trial initiation API
+      const response = await fetch('/api/trial/initiate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          trialSource: 'homepage_cta'
+        })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Något gick fel')
+      }
+
+      // Store email in sessionStorage for trial-pending page
+      sessionStorage.setItem('trial_email', email)
+
+      // Redirect till Stripe Checkout
+      if (data.checkoutUrl) {
+        window.location.href = data.checkoutUrl
+      } else {
+        throw new Error('Ingen checkout-URL returnerades')
+      }
+
+    } catch (error: any) {
+      console.error('Trial initiation error:', error)
+      setError(error.message)
+      setIsLoading(false)
     }
   }
 
@@ -289,10 +322,10 @@ export default function HomePage() {
                           Laddar...
                         </span>
                       ) : (
-                        <span className="hidden sm:inline">Analysera mitt CV gratis</span>
+                        <span className="hidden sm:inline">Få 7 dagars Premium gratis</span>
                       )}
                       {!isLoading && (
-                        <span className="sm:hidden">Analysera CV gratis</span>
+                        <span className="sm:hidden">Få 7 dagar gratis</span>
                       )}
                       </motion.button>
                     </div>
@@ -311,6 +344,20 @@ export default function HomePage() {
                       GDPR-säker
                     </span>
                   </div>
+
+                  {/* Error message */}
+                  {error && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg"
+                    >
+                      <div className="flex items-center gap-2 text-red-800">
+                        <AlertCircle className="w-5 h-5 flex-shrink-0" />
+                        <p className="text-sm font-medium">{error}</p>
+                      </div>
+                    </motion.div>
+                  )}
                 </motion.form>
 
                 {/* Animated social proof */}

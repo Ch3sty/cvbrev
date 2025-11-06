@@ -7,6 +7,7 @@ import DashboardSidebar from '@/components/dashboard/sidebar';
 import DashboardHeader from '@/components/dashboard/header';
 import AchievementManager from '@/components/gamification/AchievementManager';
 import EmailVerificationBanner from '@/components/dashboard/email-verification-banner';
+import SetPasswordPrompt from '@/components/dashboard/SetPasswordPrompt';
 import { OnboardingProvider } from '@/contexts/OnboardingContext';
 
 export default function DashboardLayout({
@@ -18,6 +19,7 @@ export default function DashboardLayout({
   const [user, setUser] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showPasswordPrompt, setShowPasswordPrompt] = useState(false);
 
   useEffect(() => {
     async function checkAuth() {
@@ -35,6 +37,14 @@ export default function DashboardLayout({
         
         console.log("Användare inloggad, visar dashboard");
         setUser(user);
+
+        // Check if user needs to set password (trial users)
+        const passwordSet = user.user_metadata?.password_set
+        const dismissedThisSession = localStorage.getItem('password_prompt_dismissed') === 'true'
+
+        if (passwordSet === false && !dismissedThisSession) {
+          setShowPasswordPrompt(true)
+        }
       } catch (error) {
         console.error("Fel vid auth-kontroll:", error);
         router.push('/login');
@@ -120,6 +130,19 @@ export default function DashboardLayout({
 
           {/* Email Verification Banner */}
           <EmailVerificationBanner />
+
+          {/* Set Password Prompt for trial users */}
+          {showPasswordPrompt && user && (
+            <div className="px-3 sm:px-4 md:px-6 pt-3 sm:pt-4 md:pt-6">
+              <div className="max-w-7xl mx-auto">
+                <SetPasswordPrompt
+                  userId={user.id}
+                  onDismiss={() => setShowPasswordPrompt(false)}
+                  onPasswordSet={() => setShowPasswordPrompt(false)}
+                />
+              </div>
+            </div>
+          )}
 
           {/* Main Content Area - responsiv padding */}
           <main className="flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 relative bg-gradient-to-br from-white/50 via-slate-50/30 to-slate-100/10">

@@ -273,7 +273,71 @@ export async function POST(request: Request) {
              break;
         case 'checkout.session.completed':
              console.log(`Checkout session completed: ${eventData.id}. Mode: ${eventData.mode}`);
-             // Viktigt: Agera inte direkt på denna, vänta på subscription/invoice events
+
+             // Hantera trial-checkout specifikt (nya användare från landing page)
+             if (eventData.metadata?.isNewUser === 'true') {
+               const userId = eventData.metadata.supabaseUUID
+               const userEmail = eventData.metadata.email
+
+               if (userId && userEmail) {
+                 console.log(`[TRIAL WEBHOOK] Generating login token for new user: ${userId}`)
+
+                 try {
+                   // Generera one-time login token
+                   const crypto = await import('crypto')
+                   const loginToken = crypto.randomBytes(32).toString('hex')
+                   const expiresAt = new Date()
+                   expiresAt.setHours(expiresAt.getHours() + 1) // 1 hour expiry
+
+                   // Lagra token i databas
+                   const { error: tokenError } = await supabaseAdmin
+                     .from('login_tokens')
+                     .insert({
+                       user_id: userId,
+                       token: loginToken,
+                       expires_at: expiresAt.toISOString(),
+                       metadata: {
+                         checkout_session_id: eventData.id,
+                         trial_source: eventData.metadata.trialSource || 'unknown',
+                         email: userEmail
+                       }
+                     })
+
+                   if (tokenError) {
+                     console.error('[TRIAL WEBHOOK] Failed to store login token:', tokenError)
+                   } else {
+                     console.log(`[TRIAL WEBHOOK] Login token stored successfully for user: ${userId}`)
+
+                     // Skicka välkomst-email med login-länk
+                     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.jobbcoach.ai'
+                     const loginUrl = `${baseUrl}/auth/trial-login?token=${loginToken}`
+
+                     // Anropa email API
+                     try {
+                       const emailResponse = await fetch(`${baseUrl}/api/email/send-trial-welcome`, {
+                         method: 'POST',
+                         headers: { 'Content-Type': 'application/json' },
+                         body: JSON.stringify({
+                           email: userEmail,
+                           loginUrl,
+                           userId
+                         })
+                       })
+
+                       if (emailResponse.ok) {
+                         console.log(`[TRIAL WEBHOOK] Welcome email sent to: ${userEmail}`)
+                       } else {
+                         console.error('[TRIAL WEBHOOK] Failed to send welcome email:', await emailResponse.text())
+                       }
+                     } catch (emailError) {
+                       console.error('[TRIAL WEBHOOK] Error sending welcome email:', emailError)
+                     }
+                   }
+                 } catch (error) {
+                   console.error('[TRIAL WEBHOOK] Error in trial completion handler:', error)
+                 }
+               }
+             }
              break;
          default:
              console.log(`Webhook Info: Unhandled event type ${event.type}.`);
