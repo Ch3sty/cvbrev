@@ -39,7 +39,7 @@ function ReturnContent() {
       console.log('[TRIAL RETURN] Processing session:', sessionId)
 
       try {
-        // Verify and use login token for auto-login
+        // Verify login token and get magic link hash
         const response = await fetch('/api/auth/verify-login-token', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -55,7 +55,21 @@ function ReturnContent() {
           return
         }
 
-        console.log('[TRIAL RETURN] Auto-login successful via token')
+        // Use the hashed token to verify and create session
+        const supabase = createClient()
+        const { error: verifyError } = await supabase.auth.verifyOtp({
+          token_hash: data.tokenHash,
+          type: 'magiclink'
+        })
+
+        if (verifyError) {
+          console.error('[TRIAL RETURN] OTP verification failed:', verifyError)
+          setStatus('error')
+          setError('Kunde inte aktivera session. Försök logga in manuellt.')
+          return
+        }
+
+        console.log('[TRIAL RETURN] Auto-login successful via magic link')
 
         // Show success briefly before redirect
         setStatus('success')

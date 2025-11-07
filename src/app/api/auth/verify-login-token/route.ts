@@ -74,42 +74,40 @@ export async function POST(request: NextRequest) {
       }, { status: 404 })
     }
 
-    // Create a magic link session for the user
+    // Generate a one-time magic link for auto-login
+    // This is the most reliable way to create a session from server-side
     const { data: linkData, error: linkError } = await supabaseAdmin.auth.admin.generateLink({
       type: 'magiclink',
       email: user.email!
     })
 
     if (linkError || !linkData) {
-      console.error('[VERIFY LOGIN TOKEN] Failed to generate session:', linkError)
+      console.error('[VERIFY LOGIN TOKEN] Failed to generate magic link:', linkError)
       return NextResponse.json({
-        error: 'Kunde inte skapa session'
+        error: 'Kunde inte skapa inloggningslänk'
       }, { status: 500 })
     }
 
-    // Extract the session tokens from the magic link
-    // The hashed_token in linkData can be used to create a session
-    const cookieStore = await cookies()
-    const supabase = createServerClient({ cookies: cookieStore })
+    // Extract the hashed token from the generated link
+    // Format: https://...?token_hash=XXX&type=magiclink
+    const url = new URL(linkData.properties.action_link)
+    const hashedToken = url.searchParams.get('token_hash')
 
-    // Set the session using the generated link's session data
-    const { error: sessionError } = await supabase.auth.setSession({
-      access_token: linkData.properties.access_token,
-      refresh_token: linkData.properties.refresh_token
-    })
-
-    if (sessionError) {
-      console.error('[VERIFY LOGIN TOKEN] Failed to set session:', sessionError)
+    if (!hashedToken) {
+      console.error('[VERIFY LOGIN TOKEN] No hashed token in magic link')
       return NextResponse.json({
-        error: 'Kunde inte aktivera session'
+        error: 'Kunde inte generera auto-login token'
       }, { status: 500 })
     }
 
-    console.log(`[VERIFY LOGIN TOKEN] Session created for user: ${user.id}`)
+    console.log(`[VERIFY LOGIN TOKEN] Magic link generated for user: ${user.id}`)
 
+    // Return the hashed token for frontend to verify and create session
     return NextResponse.json({
       success: true,
-      userId: user.id
+      userId: user.id,
+      tokenHash: hashedToken,
+      email: user.email
     })
 
   } catch (error: any) {
