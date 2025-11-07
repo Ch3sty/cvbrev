@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
           trialSource: 'trial-signup-page'
         }
       },
-      return_url: `${baseUrl}/trial-signup/return?session_id={CHECKOUT_SESSION_ID}&token=${loginToken}`,
+      return_url: `${baseUrl}/trial-signup?session_id={CHECKOUT_SESSION_ID}&token=${loginToken}`,
       metadata: {
         userId,
         email,
