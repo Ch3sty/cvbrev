@@ -41,17 +41,10 @@ export async function POST(request: NextRequest) {
     // Base URL for return
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.jobbcoach.ai'
 
-    // Create Customer Portal configuration session
+    // Create Customer Portal session
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: profile.stripe_customer_id,
       return_url: `${baseUrl}/dashboard/profil/prenumeration`,
-      // Configure what the customer can do in the portal
-      flow_data: {
-        type: 'subscription_update_confirm',
-        subscription_update_confirm: {
-          subscription: undefined, // Will show all subscriptions
-        }
-      }
     })
 
     console.log(`[CREATE CUSTOMER PORTAL SESSION] Session created: ${portalSession.id}`)
