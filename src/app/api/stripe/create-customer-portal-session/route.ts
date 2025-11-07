@@ -4,13 +4,15 @@
 // Användaren kan hantera sin prenumeration direkt på sidan
 
 import { NextRequest, NextResponse } from 'next/server'
+import { cookies } from 'next/headers'
 import { stripe } from '@/lib/stripe/server'
-import { createClient } from '@/lib/supabase/server'
+import { createServerClient } from '@/lib/supabase/server'
 
 export async function POST(request: NextRequest) {
   try {
     // Get the current user from Supabase
-    const supabase = await createClient()
+    const cookieStore = await cookies()
+    const supabase = createServerClient({ cookies: cookieStore })
     const { data: { user }, error: userError } = await supabase.auth.getUser()
 
     if (userError || !user) {
