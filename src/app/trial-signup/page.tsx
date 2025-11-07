@@ -7,10 +7,10 @@
 // Steg 2: Stripe embedded checkout
 // Steg 3: Payment processing & auto-login
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Loader2 } from 'lucide-react'
 import Link from 'next/link'
 
 import SignupForm from '@/components/trial/SignupForm'
@@ -27,7 +27,7 @@ interface SignupData {
   password: string
 }
 
-export default function TrialSignupPage() {
+function TrialSignupContent() {
   const searchParams = useSearchParams()
   const [currentStep, setCurrentStep] = useState<Step>('signup')
   const [signupData, setSignupData] = useState<SignupData | null>(null)
@@ -231,5 +231,17 @@ export default function TrialSignupPage() {
         </footer>
       )}
     </div>
+  )
+}
+
+export default function TrialSignupPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 flex items-center justify-center">
+        <Loader2 className="w-12 h-12 text-blue-600 animate-spin" />
+      </div>
+    }>
+      <TrialSignupContent />
+    </Suspense>
   )
 }
