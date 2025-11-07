@@ -89,6 +89,7 @@ function ReturnContent() {
   const [error, setError] = useState<string>('')
   const [showNotification, setShowNotification] = useState(false)
   const [imagesLoaded, setImagesLoaded] = useState(false)
+  const [loginComplete, setLoginComplete] = useState(false)
 
   const prefersReducedMotion = typeof window !== 'undefined'
     ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -136,6 +137,7 @@ function ReturnContent() {
     return () => clearInterval(progressInterval)
   }, [status, currentStage])
 
+  // Handle login verification (only once)
   useEffect(() => {
     const handleReturn = async () => {
       const sessionId = searchParams.get('session_id')
@@ -187,20 +189,7 @@ function ReturnContent() {
         }
 
         console.log('[TRIAL RETURN] Auto-login successful via magic link')
-
-        // Wait for progress to complete, then show success
-        const checkProgress = setInterval(() => {
-          if (progress >= 100) {
-            clearInterval(checkProgress)
-            setStatus('success')
-            setShowNotification(true)
-
-            // Redirect to dashboard after notification
-            setTimeout(() => {
-              router.push('/dashboard')
-            }, 3000)
-          }
-        }, 100)
+        setLoginComplete(true)
 
       } catch (error: any) {
         console.error('[TRIAL RETURN] Unexpected error:', error)
@@ -210,7 +199,20 @@ function ReturnContent() {
     }
 
     handleReturn()
-  }, [searchParams, router, progress])
+  }, [searchParams, router])
+
+  // Handle success transition when both login and progress are complete
+  useEffect(() => {
+    if (loginComplete && progress >= 100) {
+      setStatus('success')
+      setShowNotification(true)
+
+      // Redirect to dashboard after notification
+      setTimeout(() => {
+        router.push('/dashboard')
+      }, 3000)
+    }
+  }, [loginComplete, progress, router])
 
   // Loading images state
   if (!imagesLoaded && status === 'verifying') {
