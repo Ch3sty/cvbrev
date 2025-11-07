@@ -88,13 +88,21 @@ export async function POST(request: NextRequest) {
       }, { status: 500 })
     }
 
-    // Extract the hashed token from the generated link
-    // Format: https://...?token_hash=XXX&type=magiclink
-    const url = new URL(linkData.properties.action_link)
-    const hashedToken = url.searchParams.get('token_hash')
+    // Debug: Log the entire linkData structure
+    console.log('[VERIFY LOGIN TOKEN] linkData structure:', JSON.stringify(linkData, null, 2))
+    console.log('[VERIFY LOGIN TOKEN] properties:', JSON.stringify(linkData.properties, null, 2))
+
+    // Check if hashed_token is directly available
+    let hashedToken = linkData.properties.hashed_token
+
+    // If not, try to extract from action_link URL
+    if (!hashedToken && linkData.properties.action_link) {
+      const url = new URL(linkData.properties.action_link)
+      hashedToken = url.searchParams.get('token_hash')
+    }
 
     if (!hashedToken) {
-      console.error('[VERIFY LOGIN TOKEN] No hashed token in magic link')
+      console.error('[VERIFY LOGIN TOKEN] No hashed token found. Available properties:', Object.keys(linkData.properties))
       return NextResponse.json({
         error: 'Kunde inte generera auto-login token'
       }, { status: 500 })
