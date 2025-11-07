@@ -5,7 +5,7 @@ import { useProfile } from '@/hooks/use-profile';
 import { motion } from 'framer-motion';
 import SubscriptionInfo from '@/components/subscription/subscription-info';
 import { SubscribeButton } from '@/components/subscription/SubscribeButton';
-import { ManageSubscriptionButton } from '@/components/subscription/ManageSubscriptionButton';
+import { EmbeddedCustomerPortal } from '@/components/subscription/EmbeddedCustomerPortal';
 import { Crown, CheckCircle, Clock, Gift, Shield, Calendar, Zap, Info } from 'lucide-react';
 
 export default function PrenumerationPage() {
@@ -557,18 +557,7 @@ export default function PrenumerationPage() {
               <SubscriptionInfo />
             </div>
 
-            <div className="bg-gradient-to-br from-yellow-50 to-amber-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border-2 border-yellow-500/30 shadow-2xl">
-              <div className="flex items-center mb-3 sm:mb-4">
-                <div className="p-2 sm:p-3 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-lg sm:rounded-xl mr-2 sm:mr-3 flex-shrink-0">
-                  <Crown className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                </div>
-                <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">Hantera din Premium-prenumeration</h3>
-              </div>
-              <p className="text-xs sm:text-sm md:text-base text-gray-700 mb-4 sm:mb-6 leading-relaxed">
-                Via Stripes kundportal kan du se dina fakturor, uppdatera din betalningsmetod eller avsluta din prenumeration.
-              </p>
-              <ManageSubscriptionButton className="w-full touch-manipulation" />
-            </div>
+            <EmbeddedCustomerPortal />
           </>
         ) : (
           // Fallback om status är okänd
