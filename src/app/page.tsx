@@ -30,7 +30,6 @@ import InteractiveSteps from '@/components/InteractiveSteps'
 import PersonalizedUserJourney from '@/components/PersonalizedUserJourney'
 import EnhancedFinalCTA from '@/components/EnhancedFinalCTA'
 import PremiumNavbar from '@/components/PremiumNavbar'
-import DualPricingCards from '@/components/pricing/DualPricingCards'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 
 // Swiper components
@@ -739,19 +738,6 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Pricing Cards Section */}
-      <section className="py-16 bg-gradient-to-b from-white to-slate-50/30">
-        <div className="max-w-6xl mx-auto px-4 mb-12 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-            Välj din plan
-          </h2>
-          <p className="text-xl text-slate-600">
-            Börja gratis eller få obegränsad tillgång till alla funktioner
-          </p>
-        </div>
-        <DualPricingCards showPricing={true} />
       </section>
 
       {/* Personalized User Journey - Interactive personas with wow factor */}

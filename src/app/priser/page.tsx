@@ -16,7 +16,6 @@ import PremiumNavbar from '@/components/PremiumNavbar'
 import DynamicTrustIndicator from '@/components/DynamicTrustIndicator'
 import StatCard from '@/components/StatCard'
 import { SubscribeButton } from '@/components/subscription/SubscribeButton'
-import DualPricingCards from '@/components/pricing/DualPricingCards'
 
 // Lazy load heavy components for performance
 const AILiveWriting = lazy(() => import('@/components/AILiveWriting'))
@@ -393,11 +392,6 @@ export default function PriserPage() {
           </div>
         </section>
 
-        {/* Pricing Cards Section */}
-        <section className="py-12 bg-gradient-to-b from-white to-slate-50/30">
-          <DualPricingCards showPricing={true} />
-        </section>
-
         {/* Interactive Demo Section - Show Premium Features in Action */}
         <section className="py-20 bg-white overflow-hidden">
           <div className="container mx-auto px-4">
@@ -648,11 +642,13 @@ export default function PriserPage() {
 
                       <div className="space-y-3">
                         {[
-                          '5 personliga brev per vecka',
-                          '2 CV-analyser per vecka',
-                          '2 kompetensanalyser per vecka',
-                          '2 grundläggande CV-mallar',
-                          'Spara upp till 2 brev'
+                          '7 personliga brev per vecka',
+                          '1 CV-analys per vecka',
+                          '2 uppladdade CV:n',
+                          '1 LinkedIn-optimering per månad',
+                          '3 rekryteringstester',
+                          'Begränsad jobbmatchning',
+                          '2 gratis CV-mallar'
                         ].map((feature, idx) => (
                           <motion.div
                             key={idx}
@@ -676,10 +672,11 @@ export default function PriserPage() {
                         {/* Locked features with animated locks */}
                         <div className="pt-4 border-t border-gray-100">
                           {[
-                            'Obegränsade brev (Premium)',
-                            '6 extra CV-mallar (Premium)',
-                            'Auto-tonalitet (Premium)',
-                            'Export till Word/PDF (Premium)'
+                            'Obegränsade personliga brev (Premium)',
+                            'Obegränsade CV-analyser (Premium)',
+                            'Alla 6 rekryteringstester (Premium)',
+                            'Helt obegränsad jobbmatchning (Premium)',
+                            'Alla premium CV-mallar (Premium)'
                           ].map((feature, idx) => (
                             <motion.div
                               key={idx}
@@ -981,8 +978,8 @@ export default function PriserPage() {
                             }}
                           />
                           <Sparkles className="w-5 h-5 mr-2 sm:mr-3" />
-                          <span className="hidden sm:inline">Uppgradera till Premium</span>
-                          <span className="sm:hidden">Till Premium</span>
+                          <span className="hidden sm:inline">Prova 7 dagar kostnadsfritt</span>
+                          <span className="sm:hidden">Testa 7 dagar gratis</span>
                           <ArrowRight className="w-5 h-5 ml-2 sm:ml-3 transition-transform group-hover:translate-x-2" />
                         </Link>
                       )}
