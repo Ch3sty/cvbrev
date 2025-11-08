@@ -377,29 +377,6 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
           </div>
         )}
 
-        {/* Premium Gästinbjudan - dölj för trial-användare */}
-        {isPremium && !isTrialUser && (
-          <div className="px-4">
-            <Link
-              href="/dashboard/gastinbjudningar"
-              className="flex items-center justify-between p-3 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-300 hover:border-pink-400 hover:shadow-xl transition-all duration-300 group shadow-lg touch-manipulation min-h-[44px]"
-            >
-              <div className="flex items-center gap-3">
-                <Gift className="w-5 h-5 text-pink-600 group-hover:text-pink-700" />
-                {!collapsed && (
-                  <div>
-                    <span className="text-sm font-bold text-slate-900">Bjud in en vän</span>
-                    <p className="text-xs text-slate-700">Få 7 dagar Premium</p>
-                  </div>
-                )}
-              </div>
-              {!collapsed && (
-                <ChevronRight className="w-4 h-4 text-pink-600 opacity-50 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
-              )}
-            </Link>
-          </div>
-        )}
-
         {/* Översikt */}
         <div>
           <ul className="space-y-1">

@@ -336,15 +336,45 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
         </div>
 
         {/* Höger sida - Användarinfo och snabblänkar */}
-        <div className="flex items-center space-x-2 sm:space-x-4">
+        <div className="flex items-center space-x-2 sm:space-x-3">
+          {/* Invite Friends Button - Desktop */}
+          {subscriptionTier === 'premium' && (
+            <Link
+              href="/dashboard/invite-friends"
+              className="hidden lg:flex items-center gap-2 px-3 py-2 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white transition-all duration-300 shadow-md hover:shadow-lg group"
+            >
+              <Gift className="w-4 h-4" />
+              <span className="text-sm font-medium">Bjud in vän</span>
+              <div className="w-1 h-1 bg-yellow-400 rounded-full animate-pulse" />
+            </Link>
+          )}
+
+          {/* Invite Friends Button - Mobile (Icon only) */}
+          {subscriptionTier === 'premium' && (
+            <Link
+              href="/dashboard/invite-friends"
+              className="lg:hidden touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 shadow-md"
+            >
+              <Gift className="w-5 h-5 text-white" />
+            </Link>
+          )}
+
           {/* Mobile: Compact User Avatar Only */}
           <Link href="/dashboard/profil" className="lg:hidden touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center">
             <div className="relative">
-              <div className="w-10 h-10 sm:w-9 sm:h-9 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-sm">
-                  {getUserName().charAt(0).toUpperCase()}
-                </span>
-              </div>
+              {user?.user_metadata?.avatar_url ? (
+                <img
+                  src={user.user_metadata.avatar_url}
+                  alt={getUserName()}
+                  className="w-10 h-10 sm:w-9 sm:h-9 rounded-full object-cover shadow-lg border-2 border-pink-600"
+                />
+              ) : (
+                <div className="w-10 h-10 sm:w-9 sm:h-9 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                  <span className="text-white font-bold text-sm">
+                    {getUserName().charAt(0).toUpperCase()}
+                  </span>
+                </div>
+              )}
               <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
             </div>
           </Link>
@@ -352,11 +382,19 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
           {/* Desktop: Enhanced User Info */}
           <Link href="/dashboard/profil" className="hidden lg:flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-slate-100 transition-all duration-300 group shadow-sm hover:shadow-md">
             <div className="relative">
-              <div className="w-10 h-10 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-sm">
-                  {getUserName().charAt(0).toUpperCase()}
-                </span>
-              </div>
+              {user?.user_metadata?.avatar_url ? (
+                <img
+                  src={user.user_metadata.avatar_url}
+                  alt={getUserName()}
+                  className="w-10 h-10 rounded-full object-cover shadow-lg border-2 border-pink-600"
+                />
+              ) : (
+                <div className="w-10 h-10 bg-gradient-to-br from-pink-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                  <span className="text-white font-bold text-sm">
+                    {getUserName().charAt(0).toUpperCase()}
+                  </span>
+                </div>
+              )}
               <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white" />
             </div>
             <div>
