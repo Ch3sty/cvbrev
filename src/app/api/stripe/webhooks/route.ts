@@ -134,22 +134,49 @@ const handleReferralConversion = async (customerId: string) => {
             try {
                 // Check if inviter has an active Stripe subscription
                 if (inviterProfile.subscription_id) {
-                    console.log(`Extending Stripe trial for inviter ${invitation.inviter_id}, subscription ${inviterProfile.subscription_id}`);
+                    console.log(`Processing referral reward for inviter ${invitation.inviter_id}, subscription ${inviterProfile.subscription_id}`);
 
                     // Retrieve the current subscription from Stripe
                     const subscription = await stripe.subscriptions.retrieve(inviterProfile.subscription_id);
 
-                    // Calculate new trial end date (current trial_end + 7 days)
-                    const currentTrialEnd = subscription.trial_end || Math.floor(Date.now() / 1000);
-                    const newTrialEnd = currentTrialEnd + (7 * 24 * 60 * 60); // Add 7 days in seconds
+                    // Different handling for trial vs active paying customers
+                    if (subscription.status === 'trialing' && subscription.trial_end) {
+                        // User is on trial - extend trial period
+                        const currentTrialEnd = subscription.trial_end;
+                        const newTrialEnd = currentTrialEnd + (7 * 24 * 60 * 60); // Add 7 days in seconds
 
-                    // Update the subscription to extend trial
-                    await stripe.subscriptions.update(inviterProfile.subscription_id, {
-                        trial_end: newTrialEnd,
-                        proration_behavior: 'none' // Don't prorate when extending trial
-                    });
+                        await stripe.subscriptions.update(inviterProfile.subscription_id, {
+                            trial_end: newTrialEnd,
+                            proration_behavior: 'none'
+                        });
 
-                    console.log(`Extended Stripe trial to ${new Date(newTrialEnd * 1000).toISOString()} for inviter ${invitation.inviter_id}`);
+                        console.log(`Extended trial from ${new Date(currentTrialEnd * 1000).toISOString()} to ${new Date(newTrialEnd * 1000).toISOString()}`);
+                    } else if (subscription.status === 'active') {
+                        // User is paying customer - give them a credit/discount
+                        // Calculate credit: 7 days worth of subscription (price / 30 * 7)
+                        const priceId = subscription.items.data[0]?.price.id;
+                        if (priceId) {
+                            const price = await stripe.prices.retrieve(priceId);
+                            const monthlyAmount = price.unit_amount || 0; // Amount in cents
+                            const creditAmount = Math.round((monthlyAmount / 30) * 7); // 7 days worth
+
+                            // Create a credit balance transaction
+                            await stripe.customers.createBalanceTransaction(
+                                subscription.customer as string,
+                                {
+                                    amount: -creditAmount, // Negative = credit
+                                    currency: price.currency,
+                                    description: `Referral bonus: 7 dagars kredit (vän blev Premium-medlem)`
+                                }
+                            );
+
+                            console.log(`Applied ${creditAmount / 100} ${price.currency.toUpperCase()} credit (7 days) to paying customer ${invitation.inviter_id}`);
+                        } else {
+                            console.warn(`Could not find price for subscription ${inviterProfile.subscription_id}`);
+                        }
+                    } else {
+                        console.log(`Subscription status ${subscription.status} - no action taken`);
+                    }
                 } else if (inviterProfile.stripe_customer_id) {
                     // Inviter has no active subscription but has a Stripe customer ID
                     // Create a new trial subscription for them
