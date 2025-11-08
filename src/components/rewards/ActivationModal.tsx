@@ -19,10 +19,11 @@ interface ActivationModalProps {
       durationDays?: number;
       newExpiryDate?: string;
       daysAdded?: number;
-      promoCode?: string;
+      promoCode?: string | null;
       couponId?: string;
       discountPercentage?: number;
       savedForLater?: boolean;
+      autoApplied?: boolean;
       estimatedValue?: number;
     };
   } | null;
@@ -171,7 +172,7 @@ const ActivationModal: React.FC<ActivationModalProps> = ({
               </div>
             </div>
             <p className="text-xs text-gray-600 mt-3">
-              Koden är sparad och kan användas när du vill bli Premium
+              Koden är sparad och kan användas när du uppgraderar till Premium
             </p>
           </div>
 
@@ -183,74 +184,132 @@ const ActivationModal: React.FC<ActivationModalProps> = ({
               Visa Mina Rabatter
             </Link>
             <Link
-              href={`/trial-signup?promo=${data.promoCode}`}
+              href="/dashboard/profil/prenumeration"
               className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200"
             >
-              Använd Rabattkoden Nu
+              Uppgradera till Premium
             </Link>
           </div>
         </div>
       );
     }
 
-    // DISCOUNT CREATED (Paying users getting Stripe promo code)
-    if (type === 'discount_created' && data?.promoCode) {
-      return (
-        <div className="text-center">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: 'spring', duration: 0.5 }}
-            className="mx-auto w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center mb-6"
-          >
-            <Gift className="w-10 h-10 text-white" />
-          </motion.div>
+    // DISCOUNT CREATED (Paying users getting Stripe discount)
+    if (type === 'discount_created') {
+      // Auto-applied discount (no promo code needed)
+      if (data?.autoApplied) {
+        return (
+          <div className="text-center">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: 'spring', duration: 0.5 }}
+              className="mx-auto w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center mb-6"
+            >
+              <Check className="w-10 h-10 text-white" />
+            </motion.div>
 
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">
-            Rabattkod Skapad!
-          </h3>
-          <p className="text-lg text-gray-600 mb-6">{message}</p>
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">
+              Rabatt Automatiskt Applicerad!
+            </h3>
+            <p className="text-lg text-gray-600 mb-6">{message}</p>
 
-          <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-6 mb-6">
-            <div className="text-3xl font-bold text-orange-600 mb-4">
-              {data.discountPercentage}% rabatt
+            <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 mb-6">
+              <div className="text-3xl font-bold text-emerald-600 mb-4">
+                {data.discountPercentage}% rabatt
+              </div>
+
+              <div className="bg-emerald-100 rounded-lg p-4 mb-4">
+                <p className="text-sm text-emerald-900 font-semibold mb-2">
+                  ✓ Rabatten är nu aktiv på din prenumeration
+                </p>
+                <p className="text-xs text-emerald-800">
+                  Du får automatiskt {data.discountPercentage}% rabatt på din nästa månadsbetalning. Ingen kod behövs!
+                </p>
+              </div>
+
+              <p className="text-xs text-gray-600">
+                Du kan se din rabatt i din prenumerationsöversikt
+              </p>
             </div>
 
-            <div className="bg-white rounded-lg p-4 border-2 border-orange-300 mb-4">
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex-1">
-                  <div className="text-xs text-gray-600 mb-1">Din rabattkod:</div>
-                  <div className="text-lg font-mono font-bold text-gray-900">
-                    {data.promoCode}
+            <div className="flex gap-3 justify-center">
+              <button
+                onClick={onClose}
+                className="px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-colors duration-200"
+              >
+                Stäng
+              </button>
+              <Link
+                href="/dashboard/profil/prenumeration"
+                className="px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white font-semibold rounded-lg hover:from-green-700 hover:to-emerald-700 transition-all duration-200"
+              >
+                Visa Prenumeration
+              </Link>
+            </div>
+          </div>
+        );
+      }
+
+      // Manual promo code (shouldn't happen, but fallback)
+      if (data?.promoCode) {
+        return (
+          <div className="text-center">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: 'spring', duration: 0.5 }}
+              className="mx-auto w-20 h-20 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center mb-6"
+            >
+              <Gift className="w-10 h-10 text-white" />
+            </motion.div>
+
+            <h3 className="text-2xl font-bold text-gray-900 mb-2">
+              Rabattkod Skapad!
+            </h3>
+            <p className="text-lg text-gray-600 mb-6">{message}</p>
+
+            <div className="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-6 mb-6">
+              <div className="text-3xl font-bold text-orange-600 mb-4">
+                {data.discountPercentage}% rabatt
+              </div>
+
+              <div className="bg-white rounded-lg p-4 border-2 border-orange-300 mb-4">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex-1">
+                    <div className="text-xs text-gray-600 mb-1">Din rabattkod:</div>
+                    <div className="text-lg font-mono font-bold text-gray-900">
+                      {data.promoCode}
+                    </div>
                   </div>
+                  <button
+                    onClick={handleCopyCode}
+                    className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+                    title="Kopiera kod"
+                  >
+                    {copied ? (
+                      <Check className="w-5 h-5 text-green-600" />
+                    ) : (
+                      <Copy className="w-5 h-5 text-gray-600" />
+                    )}
+                  </button>
                 </div>
-                <button
-                  onClick={handleCopyCode}
-                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors duration-200"
-                  title="Kopiera kod"
-                >
-                  {copied ? (
-                    <Check className="w-5 h-5 text-green-600" />
-                  ) : (
-                    <Copy className="w-5 h-5 text-gray-600" />
-                  )}
-                </button>
+              </div>
+
+              <div className="bg-orange-100 rounded-lg p-3 text-sm text-gray-700">
+                <strong>OBS:</strong> Koden kan bara användas en gång och gäller för din nästa betalning.
               </div>
             </div>
 
-            <div className="bg-orange-100 rounded-lg p-3 text-sm text-gray-700">
-              <strong>OBS:</strong> Koden kan bara användas en gång och gäller för din nästa betalning.
-            </div>
+            <button
+              onClick={onClose}
+              className="px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-colors duration-200"
+            >
+              Stäng
+            </button>
           </div>
-
-          <button
-            onClick={onClose}
-            className="px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-colors duration-200"
-          >
-            Stäng
-          </button>
-        </div>
-      );
+        );
+      }
     }
 
     // SUBSCRIPTION CREDIT (Paying users getting days added)
