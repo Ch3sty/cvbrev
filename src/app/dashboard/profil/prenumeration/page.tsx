@@ -77,80 +77,79 @@ export default function PrenumerationPage() {
             />
           </div>
         ) : subscriptionTier === 'free' ? (
-          // GRATIS-ANVÄNDARE: Side-by-side layout
+          // GRATIS-ANVÄNDARE: Unified card + Upgrade CTA
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-            {/* Vänster kolumn: Prenumerationsstatus */}
+            {/* Vänster kolumn: Unified Subscription Card */}
             <div>
-              <SubscriptionInfo />
+              <UnifiedSubscriptionCard />
             </div>
 
             {/* Höger kolumn: Uppgradera till Premium */}
             <div className="h-fit">
-              <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border-2 border-pink-500/30 shadow-2xl"
-            >
-            <div className="flex items-center mb-4 sm:mb-6">
-              <div className="p-2 sm:p-3 bg-gradient-to-br from-pink-600 to-purple-600 rounded-lg sm:rounded-xl mr-2 sm:mr-3 flex-shrink-0">
-                <Crown className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-              </div>
-              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 truncate">Uppgradera till Premium</h3>
-            </div>
+              <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border-2 border-pink-500/30 shadow-2xl">
+                <div className="flex items-center mb-4 sm:mb-6">
+                  <div className="p-2 sm:p-3 bg-gradient-to-br from-pink-600 to-purple-600 rounded-lg sm:rounded-xl mr-2 sm:mr-3 flex-shrink-0">
+                    <Crown className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                  </div>
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 truncate">Uppgradera till Premium</h3>
+                </div>
 
-            {/* Kompakt lista med alla premium-funktioner */}
-            <div className="space-y-2 sm:space-y-2.5 mb-4 sm:mb-6">
-              {/* Obegränsat användande */}
-              <div className="flex items-start gap-2 sm:gap-2.5">
-                <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-xs sm:text-sm text-gray-700"><strong>Obegränsade personliga brev</strong></span>
-              </div>
-              <div className="flex items-start gap-2 sm:gap-2.5">
-                <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-xs sm:text-sm text-gray-700"><strong>Obegränsade CV-analyser</strong></span>
-              </div>
-              <div className="flex items-start gap-2 sm:gap-2.5">
-                <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-xs sm:text-sm text-gray-700"><strong>50 uppladdade CV</strong></span>
-              </div>
-              <div className="flex items-start gap-2 sm:gap-2.5">
-                <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-xs sm:text-sm text-gray-700"><strong>Obegränsade sparade brev</strong></span>
-              </div>
+                {/* Kompakt lista med alla premium-funktioner */}
+                <div className="space-y-2 sm:space-y-2.5 mb-4 sm:mb-6">
+                  {/* Obegränsat användande */}
+                  <div className="flex items-start gap-2 sm:gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-xs sm:text-sm text-gray-700"><strong>Obegränsade personliga brev</strong></span>
+                  </div>
+                  <div className="flex items-start gap-2 sm:gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-xs sm:text-sm text-gray-700"><strong>Obegränsade CV-analyser</strong></span>
+                  </div>
+                  <div className="flex items-start gap-2 sm:gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-xs sm:text-sm text-gray-700"><strong>50 uppladdade CV</strong></span>
+                  </div>
+                  <div className="flex items-start gap-2 sm:gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-xs sm:text-sm text-gray-700"><strong>Obegränsade sparade brev</strong></span>
+                  </div>
 
-              {/* Separator */}
-              <div className="h-2 sm:h-3"></div>
+                  {/* Separator */}
+                  <div className="h-2 sm:h-3"></div>
 
-              {/* Premium CV-mallar */}
-              <div className="flex items-start gap-2 sm:gap-2.5">
-                <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-xs sm:text-sm text-gray-700"><strong>8 Premium CV-mallar</strong></span>
-              </div>
+                  {/* Premium CV-mallar */}
+                  <div className="flex items-start gap-2 sm:gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-xs sm:text-sm text-gray-700"><strong>8 Premium CV-mallar</strong></span>
+                  </div>
 
-              {/* Avancerade tester */}
-              <div className="flex items-start gap-2 sm:gap-2.5">
-                <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-xs sm:text-sm text-gray-700"><strong>3 Avancerade kognitiva tester</strong></span>
-              </div>
+                  {/* Avancerade tester */}
+                  <div className="flex items-start gap-2 sm:gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-xs sm:text-sm text-gray-700"><strong>3 Avancerade kognitiva tester</strong></span>
+                  </div>
 
-              {/* Separator */}
-              <div className="h-2 sm:h-3"></div>
+                  {/* Separator */}
+                  <div className="h-2 sm:h-3"></div>
 
-              {/* Smarta funktioner */}
-              <div className="flex items-start gap-2 sm:gap-2.5">
-                <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-xs sm:text-sm text-gray-700"><strong>Automatisk tonalitetsanpassning</strong> (5+1 val)</span>
-              </div>
-              <div className="flex items-start gap-2 sm:gap-2.5">
-                <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                <span className="text-xs sm:text-sm text-gray-700"><strong>Obegränsad lagring</strong> av brev och analyser</span>
-              </div>
-            </div>
-            <SubscribeButton
-              priceId={premiumMonthlyPriceId}
-              planName="Premium Månad"
-              className="w-full touch-manipulation"
-            />
-            <p className="text-center text-xs sm:text-sm text-gray-600 mt-3 sm:mt-4">
-              149 kr/månad • Ingen bindningstid • Avsluta när du vill
-            </p>
+                  {/* Smarta funktioner */}
+                  <div className="flex items-start gap-2 sm:gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-xs sm:text-sm text-gray-700"><strong>Automatisk tonalitetsanpassning</strong> (5+1 val)</span>
+                  </div>
+                  <div className="flex items-start gap-2 sm:gap-2.5">
+                    <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                    <span className="text-xs sm:text-sm text-gray-700"><strong>Obegränsad lagring</strong> av brev och analyser</span>
+                  </div>
+                </div>
+                <SubscribeButton
+                  priceId={premiumMonthlyPriceId}
+                  planName="Premium Månad"
+                  className="w-full touch-manipulation"
+                />
+                <p className="text-center text-xs sm:text-sm text-gray-600 mt-3 sm:mt-4">
+                  149 kr/månad • Ingen bindningstid • Avsluta när du vill
+                </p>
               </div>
             </div>
           </div>
