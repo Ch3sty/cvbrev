@@ -228,7 +228,7 @@ export async function createStripePromoCode(
 
 /**
  * Add premium time to paid subscription
- * For Stripe subscribers, we add metadata and track extensions
+ * For Stripe subscribers, we extend trial_end in Stripe subscription
  */
 export async function addSubscriptionCredit(
   supabase: SupabaseClient,
@@ -238,12 +238,31 @@ export async function addSubscriptionCredit(
   rewardId: string
 ): Promise<RewardActivationResult> {
   try {
-    // 1. Update Stripe subscription metadata
+    // 1. Get the Stripe subscription
     const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+
+    const now = Math.floor(Date.now() / 1000); // Current Unix timestamp
+    let newTrialEnd: number;
+
+    // 2. Calculate new trial_end
+    if (subscription.trial_end && subscription.trial_end > now) {
+      // Subscription has an active trial - extend it
+      newTrialEnd = subscription.trial_end + (durationDays * 24 * 60 * 60);
+    } else if (subscription.current_period_end) {
+      // No active trial - extend from current period end
+      newTrialEnd = subscription.current_period_end + (durationDays * 24 * 60 * 60);
+    } else {
+      // Fallback - extend from now
+      newTrialEnd = now + (durationDays * 24 * 60 * 60);
+    }
+
+    // 3. Update Stripe subscription with new trial_end
     const currentBonusDays = parseInt(subscription.metadata.bonus_days_added || '0');
     const newBonusDays = currentBonusDays + durationDays;
 
     await stripe.subscriptions.update(subscriptionId, {
+      trial_end: newTrialEnd,
+      proration_behavior: 'none', // Don't prorate
       metadata: {
         bonus_days_added: newBonusDays.toString(),
         last_bonus_date: new Date().toISOString(),
@@ -251,7 +270,18 @@ export async function addSubscriptionCredit(
       }
     });
 
-    // 2. Log extension in database
+    // 4. Update premium_until in profiles to match
+    const newPremiumUntil = new Date(newTrialEnd * 1000);
+
+    await supabase
+      .from('profiles')
+      .update({
+        premium_until: newPremiumUntil.toISOString(),
+        premium_source: 'reward_extension'
+      })
+      .eq('id', userId);
+
+    // 5. Log extension in database
     await supabase
       .from('premium_extensions')
       .insert({
@@ -261,20 +291,19 @@ export async function addSubscriptionCredit(
         subscription_id: subscriptionId,
         metadata: {
           reward_id: rewardId,
-          total_bonus_days: newBonusDays
+          total_bonus_days: newBonusDays,
+          new_trial_end: newTrialEnd,
+          new_premium_until: newPremiumUntil.toISOString()
         }
       });
-
-    // 3. Calculate estimated value (149 kr/month = ~4.97 kr/day)
-    const estimatedValue = Math.round((durationDays / 30) * 149);
 
     return {
       success: true,
       type: 'subscription_credit',
       message: `${durationDays} dagar tillagda på din prenumeration!`,
       data: {
-        daysAdded: durationDays
-        // Removed estimatedValue - too low to display
+        daysAdded: durationDays,
+        newExpiryDate: newPremiumUntil.toISOString()
       }
     };
 

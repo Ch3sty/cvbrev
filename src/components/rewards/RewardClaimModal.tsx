@@ -237,10 +237,10 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
 
       {/* Modal */}
       <div className="relative w-full max-w-md mx-auto">
-        <div className="bg-navy-900 border border-navy-700 rounded-2xl shadow-2xl overflow-hidden modal-container">
+        <div className="bg-white border border-gray-200/50 rounded-2xl shadow-2xl overflow-hidden modal-container">
           {/* Celebration Animation Overlay */}
           {showCelebration && (
-            <div className="absolute inset-0 z-10 flex items-center justify-center bg-navy-900/95">
+            <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/95 backdrop-blur-sm">
               <div className="text-center">
                 <div className="relative mb-6">
                   <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center shadow-xl animate-bounce">
@@ -264,8 +264,8 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
                   </div>
                 </div>
 
-                <h3 className="text-2xl font-bold text-white mb-2">Grattis!</h3>
-                <p className="text-gray-300">Din belöning har aktiverats</p>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Grattis!</h3>
+                <p className="text-gray-600">Din belöning har aktiverats</p>
               </div>
             </div>
           )}
@@ -273,22 +273,22 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
           {/* Header */}
           <div className="relative">
             <div className={`p-1 bg-gradient-to-r ${getRewardGradient(reward.reward_type)}`}>
-              <div className="bg-navy-900 px-6 py-4 rounded-t-2xl">
+              <div className="bg-white px-6 py-4 rounded-t-2xl">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${getRewardGradient(reward.reward_type)} flex items-center justify-center text-white shadow-lg`}>
                       {getRewardIcon(reward.reward_type, reward.icon)}
                     </div>
                     <div>
-                      <h2 className="text-xl font-bold text-white">{reward.name}</h2>
-                      <p className="text-sm text-gray-400">Level {reward.trigger_value} belöning</p>
+                      <h2 className="text-xl font-bold text-gray-900">{reward.name}</h2>
+                      <p className="text-sm text-gray-600">Level {reward.trigger_value} belöning</p>
                     </div>
                   </div>
                   <button
                     onClick={onClose}
-                    className="p-2 rounded-full hover:bg-navy-800 transition-colors"
+                    className="p-2 rounded-full hover:bg-gray-100 transition-colors"
                   >
-                    <X className="w-5 h-5 text-gray-400 hover:text-white" />
+                    <X className="w-5 h-5 text-gray-600 hover:text-gray-900" />
                   </button>
                 </div>
               </div>
@@ -299,27 +299,27 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
           <div className="p-6 space-y-6">
             {/* Reward Value */}
             <div className="text-center">
-              <Badge variant="secondary" className="text-lg px-4 py-2 bg-gradient-to-r from-pink-600/20 to-purple-600/20 border-pink-500/50">
+              <Badge variant="secondary" className="text-lg px-4 py-2 bg-gradient-to-r from-pink-100 to-purple-100 text-purple-900 border-purple-200">
                 {getRewardValue()}
               </Badge>
             </div>
 
             {/* Description */}
             <div>
-              <p className="text-gray-300 text-center">{reward.description}</p>
+              <p className="text-gray-700 text-center">{reward.description}</p>
             </div>
 
             {/* Features */}
             <div>
-              <h3 className="font-semibold text-white mb-3 flex items-center">
+              <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
                 <Sparkles className="w-4 h-4 mr-2 text-pink-500" />
                 {details.title}
               </h3>
               <div className="space-y-2">
                 {details.features.map((feature, index) => (
                   <div key={index} className="flex items-center space-x-2">
-                    <CheckCircle2 className="w-4 h-4 text-green-400 flex-shrink-0" />
-                    <span className="text-sm text-gray-300">{feature}</span>
+                    <CheckCircle2 className="w-4 h-4 text-green-600 flex-shrink-0" />
+                    <span className="text-sm text-gray-700">{feature}</span>
                   </div>
                 ))}
               </div>
@@ -327,10 +327,10 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
 
             {/* Expiry Info */}
             {details.expires && (
-              <div className="p-3 bg-orange-500/10 border border-orange-500/20 rounded-lg">
+              <div className="p-3 bg-orange-50 border border-orange-200 rounded-lg">
                 <div className="flex items-center space-x-2">
-                  <Calendar className="w-4 h-4 text-orange-400" />
-                  <span className="text-sm text-orange-300">
+                  <Calendar className="w-4 h-4 text-orange-600" />
+                  <span className="text-sm text-orange-700">
                     {reward.reward_type === 'status' ? 'Permanent belöning' : `Gäller i ${details.expires}`}
                   </span>
                 </div>
@@ -339,22 +339,22 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
 
             {/* Discount Code Display (for activated discount rewards) */}
             {activationStep === 'activated' && reward.reward_type === 'discount' && discountCode && (
-              <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
-                <h4 className="font-semibold text-green-400 mb-2">Din rabattkod</h4>
+              <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                <h4 className="font-semibold text-green-700 mb-2">Din rabattkod</h4>
                 <div className="flex items-center space-x-2">
-                  <code className="flex-1 px-3 py-2 bg-navy-800 border border-navy-600 rounded text-white font-mono">
+                  <code className="flex-1 px-3 py-2 bg-white border border-gray-300 rounded text-gray-900 font-mono">
                     {discountCode}
                   </code>
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={copyDiscountCode}
-                    className="hover:bg-green-600 hover:text-white"
+                    className="hover:bg-green-100"
                   >
                     <Copy className="w-4 h-4" />
                   </Button>
                 </div>
-                <p className="text-xs text-green-300 mt-2">
+                <p className="text-xs text-green-700 mt-2">
                   Koden appliceras automatiskt vid betalning
                 </p>
               </div>

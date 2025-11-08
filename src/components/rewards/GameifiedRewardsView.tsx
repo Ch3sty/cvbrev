@@ -37,9 +37,8 @@ interface GameifiedReward {
   level: number;
   name: string;
   description: string;
-  reward_type: 'trial' | 'discount' | 'premium_time' | 'status';
+  reward_type: 'trial' | 'discount' | 'premium_time' | 'status' | 'guest_invitations';
   reward_data: any;
-  icon?: string;
   is_unlocked: boolean;
   is_claimed: boolean;
   is_special?: boolean;
@@ -58,23 +57,6 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
 }) => {
   const [hoveredReward, setHoveredReward] = useState<number | null>(null);
 
-  // Emoji mapping for different levels
-  const getLevelEmoji = (level: number): string => {
-    const emojiMap: Record<number, string> = {
-      5: '🎯',
-      10: '🚀',
-      15: '💰',
-      20: '🎓',
-      25: '🏆',
-      30: '⭐',
-      35: '💎',
-      40: '👑',
-      45: '🌟',
-      50: '🔥'
-    };
-    return emojiMap[level] || '🎁';
-  };
-
   // Map database rewards to component format
   const milestoneRewards: GameifiedReward[] = rewards.map(reward => ({
     id: reward.id,
@@ -83,7 +65,6 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
     description: reward.description,
     reward_type: reward.reward_type,
     reward_data: reward.reward_data,
-    icon: getLevelEmoji(reward.trigger_value || reward.milestone_level),
     is_unlocked: reward.is_unlocked,
     is_claimed: reward.is_claimed,
     is_special: (reward.trigger_value || reward.milestone_level) >= 40
@@ -111,7 +92,8 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
       trial: <Zap className="w-5 h-5" />,
       discount: <Percent className="w-5 h-5" />,
       premium_time: <Clock className="w-5 h-5" />,
-      status: <Trophy className="w-5 h-5" />
+      status: <Trophy className="w-5 h-5" />,
+      guest_invitations: <Users className="w-5 h-5" />
     };
 
     return iconMap[type as keyof typeof iconMap] || <Gift className="w-5 h-5" />;
@@ -126,7 +108,8 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
       trial: 'from-blue-500 to-cyan-500',
       discount: 'from-green-500 to-emerald-500',
       premium_time: 'from-purple-500 to-pink-500',
-      status: 'from-pink-500 to-purple-600'
+      status: 'from-pink-500 to-purple-600',
+      guest_invitations: 'from-indigo-500 to-blue-500'
     };
 
     return gradients[type as keyof typeof gradients] || 'from-purple-500 to-pink-500';
@@ -143,7 +126,9 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
       case 'premium_time':
         return `${data.duration_days} dagar`;
       case 'status':
-        return `${data.status} + ${data.duration_days} dagar`;
+        return `${data.status || 'genesis'} + ${data.duration_days || 0} dagar`;
+      case 'guest_invitations':
+        return 'Belöning';
       default:
         return 'Belöning';
     }
@@ -205,7 +190,9 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
             {nextMilestone && (
               <div className="text-right">
                 <div className="text-sm text-gray-500 mb-1">Nästa belöning:</div>
-                <div className="text-3xl font-bold mb-1">{nextMilestone.icon}</div>
+                <div className="text-3xl font-bold mb-1 text-purple-600">
+                  {getRewardIcon(nextMilestone.reward_type, undefined, nextMilestone.is_special)}
+                </div>
                 <div className="text-lg font-semibold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
                   {levelsToNext} {levelsToNext === 1 ? 'nivå' : 'nivåer'} kvar!
                 </div>
@@ -365,7 +352,7 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
                       <div className="bg-white/95 backdrop-blur-lg border border-gray-200/50 rounded-xl p-6 shadow-2xl min-w-72 max-w-sm">
                         <div className="flex items-center space-x-4 mb-4">
                           <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${getRewardGradient(reward.reward_type, reward.is_special)} flex items-center justify-center text-white shadow-lg`}>
-                            <span className="text-xl">{reward.icon}</span>
+                            {getRewardIcon(reward.reward_type, undefined, reward.is_special)}
                           </div>
                           <div>
                             <h4 className="font-bold text-gray-900">{reward.name}</h4>
