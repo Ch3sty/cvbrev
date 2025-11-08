@@ -152,28 +152,17 @@ const handleReferralConversion = async (customerId: string) => {
 
                         console.log(`Extended trial from ${new Date(currentTrialEnd * 1000).toISOString()} to ${new Date(newTrialEnd * 1000).toISOString()}`);
                     } else if (subscription.status === 'active') {
-                        // User is paying customer - give them a credit/discount
-                        // Calculate credit: 7 days worth of subscription (price / 30 * 7)
-                        const priceId = subscription.items.data[0]?.price.id;
-                        if (priceId) {
-                            const price = await stripe.prices.retrieve(priceId);
-                            const monthlyAmount = price.unit_amount || 0; // Amount in cents
-                            const creditAmount = Math.round((monthlyAmount / 30) * 7); // 7 days worth
+                        // User is paying customer - extend their billing cycle by 7 days
+                        // This delays the next payment by 7 days (e.g., 10 days left → 17 days left)
+                        const currentPeriodEnd = subscription.current_period_end;
+                        const newPeriodEnd = currentPeriodEnd + (7 * 24 * 60 * 60); // Add 7 days in seconds
 
-                            // Create a credit balance transaction
-                            await stripe.customers.createBalanceTransaction(
-                                subscription.customer as string,
-                                {
-                                    amount: -creditAmount, // Negative = credit
-                                    currency: price.currency,
-                                    description: `Referral bonus: 7 dagars kredit (vän blev Premium-medlem)`
-                                }
-                            );
+                        await stripe.subscriptions.update(inviterProfile.subscription_id, {
+                            trial_end: newPeriodEnd,
+                            proration_behavior: 'none'
+                        });
 
-                            console.log(`Applied ${creditAmount / 100} ${price.currency.toUpperCase()} credit (7 days) to paying customer ${invitation.inviter_id}`);
-                        } else {
-                            console.warn(`Could not find price for subscription ${inviterProfile.subscription_id}`);
-                        }
+                        console.log(`Extended billing cycle from ${new Date(currentPeriodEnd * 1000).toISOString()} to ${new Date(newPeriodEnd * 1000).toISOString()} for paying customer ${invitation.inviter_id}`);
                     } else {
                         console.log(`Subscription status ${subscription.status} - no action taken`);
                     }
