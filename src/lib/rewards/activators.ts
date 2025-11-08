@@ -112,7 +112,7 @@ export async function saveDiscountForLater(
     .insert({
       code,
       user_id: userId,
-      milestone_level: reward.milestone_level,
+      milestone_level: reward.trigger_value || reward.milestone_level || 0,
       discount_percentage: percentage,
       discount_type: 'once', // Always one-time use
       saved_for_future: true,
@@ -204,7 +204,7 @@ export async function createStripePromoCode(
       .insert({
         code: `AUTO-REWARD${percentage}`, // Auto-applied, no code needed
         user_id: userId,
-        milestone_level: reward.milestone_level,
+        milestone_level: reward.trigger_value || reward.milestone_level || 0,
         discount_percentage: percentage,
         discount_type: 'once',
         stripe_coupon_id: coupon.id,

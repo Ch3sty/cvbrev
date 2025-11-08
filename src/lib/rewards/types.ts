@@ -55,4 +55,5 @@ export interface PremiumReward {
     bonus_invitations_per_month?: number;
   };
   milestone_level?: number;
+  trigger_value?: number; // Level milestone value
 }
