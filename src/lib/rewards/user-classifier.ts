@@ -22,6 +22,14 @@ export async function classifyUser(
     throw new Error('Failed to fetch user profile');
   }
 
+  console.log('[classifyUser] Profile data:', {
+    userId,
+    subscription_status: profile.subscription_status,
+    subscription_id: profile.subscription_id,
+    stripe_customer_id: profile.stripe_customer_id,
+    premium_until: profile.premium_until
+  });
+
   const hasStripeSub = !!profile.subscription_id &&
     (profile.subscription_status === 'active' || profile.subscription_status === 'trialing');
   const isTrialing = profile.subscription_status === 'trialing';
@@ -37,7 +45,7 @@ export async function classifyUser(
     type = 'temporary_premium';
   }
 
-  return {
+  const classification = {
     type,
     hasStripeSub,
     hasTemporaryPremium,
@@ -45,6 +53,10 @@ export async function classifyUser(
     stripeCustomerId: profile.stripe_customer_id,
     subscriptionId: profile.subscription_id
   };
+
+  console.log('[classifyUser] Classification result:', classification);
+
+  return classification;
 }
 
 /**

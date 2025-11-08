@@ -361,8 +361,17 @@ export async function activateReward(
 
   // DISCOUNT rewards
   if (rewardType === 'discount') {
+    console.log('[activateReward] Processing discount reward:', {
+      userId,
+      userClassType: userClass.type,
+      hasStripeSub: userClass.hasStripeSub,
+      stripeCustomerId: userClass.stripeCustomerId,
+      subscriptionId: userClass.subscriptionId
+    });
+
     if (userClass.hasStripeSub && userClass.stripeCustomerId) {
       // Paying customer: Create Stripe Promotion Code
+      console.log('[activateReward] Creating Stripe promo code for paying customer');
       return await createStripePromoCode(
         supabase,
         userId,
@@ -372,6 +381,7 @@ export async function activateReward(
       );
     } else {
       // Free user: Save for later
+      console.log('[activateReward] Saving discount for later (free user)');
       return await saveDiscountForLater(supabase, userId, reward, claimId);
     }
   }
