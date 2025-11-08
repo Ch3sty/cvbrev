@@ -3,9 +3,8 @@
 import React from 'react';
 import { useProfile } from '@/hooks/use-profile';
 import { motion } from 'framer-motion';
-import SubscriptionInfo from '@/components/subscription/subscription-info';
+import { UnifiedSubscriptionCard } from '@/components/subscription/UnifiedSubscriptionCard';
 import { SubscribeButton } from '@/components/subscription/SubscribeButton';
-import { StripeSubscriptionDetails } from '@/components/subscription/StripeSubscriptionDetails';
 import { Crown, CheckCircle, Clock, Gift, Shield, Calendar, Zap, Info } from 'lucide-react';
 
 export default function PrenumerationPage() {
@@ -551,14 +550,8 @@ export default function PrenumerationPage() {
             </div>
           </>
         ) : isStripePremium ? (
-          // STRIPE-KÖPT PREMIUM: Detailed subscription info
-          <>
-            <div>
-              <SubscriptionInfo />
-            </div>
-
-            <StripeSubscriptionDetails />
-          </>
+          // STRIPE-KÖPT PREMIUM: Unified subscription card
+          <UnifiedSubscriptionCard />
         ) : (
           // Fallback om status är okänd
           <div className="bg-white/80 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-gray-200/50">
