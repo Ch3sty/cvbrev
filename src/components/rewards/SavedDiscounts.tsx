@@ -14,6 +14,7 @@ interface DiscountCode {
   expires_at: string | null;
   is_used: boolean;
   saved_for_future: boolean;
+  can_use_without_stripe: boolean;
   metadata: any;
 }
 
@@ -208,16 +209,30 @@ const SavedDiscounts: React.FC = () => {
                   )}
                 </div>
 
-                {/* Right side - Action button */}
+                {/* Right side - Action button or status */}
                 {!expired && (
                   <div className="flex flex-col gap-2">
-                    <Link
-                      href={`/trial-signup?promo=${discount.code}`}
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-200 whitespace-nowrap text-sm"
-                    >
-                      Använd Nu
-                      <ExternalLink className="w-4 h-4" />
-                    </Link>
+                    {discount.metadata?.auto_applied ? (
+                      // Auto-applied to Stripe subscription
+                      <div className="px-4 py-2 bg-green-50 border-2 border-green-200 rounded-lg">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Check className="w-4 h-4 text-green-600" />
+                          <span className="text-sm font-semibold text-green-800">Automatiskt tillämpad</span>
+                        </div>
+                        <p className="text-xs text-green-700">
+                          Rabatten appliceras på din nästa betalning
+                        </p>
+                      </div>
+                    ) : (
+                      // Saved for future use - link to subscription page
+                      <Link
+                        href="/dashboard/profil/prenumeration"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-200 whitespace-nowrap text-sm"
+                      >
+                        Uppgradera till Premium
+                        <ExternalLink className="w-4 h-4" />
+                      </Link>
+                    )}
                   </div>
                 )}
               </div>
@@ -233,9 +248,9 @@ const SavedDiscounts: React.FC = () => {
           Om dina rabattkoder
         </h4>
         <ul className="text-sm text-gray-700 space-y-1">
-          <li>• Rabattkoder kan bara användas en gång</li>
-          <li>• Koder gäller automatiskt vid nästa betalning om du uppgraderar</li>
-          <li>• Sparade koder kan användas när du är redo att bli Premium</li>
+          <li>• Rabattkoder kan bara användas en gång och gäller för en betalning</li>
+          <li>• <strong>Premium-användare:</strong> Rabatten appliceras automatiskt på nästa månadsbetalning</li>
+          <li>• <strong>Gratis-användare:</strong> Klicka på "Uppgradera till Premium" för att aktivera rabatten</li>
           <li>• Utgångna koder kan inte användas – lås upp nya belöningar för fler rabatter</li>
         </ul>
       </div>
