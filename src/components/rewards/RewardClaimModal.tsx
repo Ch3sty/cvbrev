@@ -126,10 +126,10 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
         return {
           title: 'Provperiod',
           features: data.features || [
-            'Obegränsade personliga brev',
-            'Avancerad CV-analys',
-            'Automatisk tonalitetsanpassning',
-            'Prioriterad support'
+            'Skapa obegränsat med personliga brev',
+            'Vi analyserar ditt CV och ger förbättringstips',
+            'Automatisk anpassning av ton och stil',
+            'Du får svar snabbare från vår support'
           ],
           expires: data.duration_days ? `${data.duration_days} dagar` : undefined
         };
@@ -138,10 +138,10 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
         return {
           title: 'Rabattkupong',
           features: [
-            `${data.percentage}% rabatt på premium`,
-            data.discount_type === 'annual' ? 'Gäller årsprenumeration' : 'Gäller månadsprenumeration',
-            'Kan användas en gång',
-            'Rabatten läggs på automatiskt vid betalning'
+            `Du får ${data.percentage}% rabatt när du blir medlem`,
+            data.discount_type === 'annual' ? 'Gäller för årsprenumeration' : 'Gäller för månadsprenumeration',
+            'Använd koden en gång vid betalning',
+            'Rabatten dras av direkt i kassan'
           ],
           expires: '30 dagar'
         };
@@ -150,10 +150,10 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
         return {
           title: 'Premium utan kostnad',
           features: [
-            'Aktiveras automatiskt',
-            'Alla premium-funktioner',
-            'Pausar befintlig prenumeration',
-            'Ingen bindningstid'
+            'Startar direkt när du aktiverar',
+            'Allt premium-innehåll ingår',
+            'Din befintliga prenumeration pausas automatiskt',
+            'Ingen betalning krävs'
           ],
           expires: data.duration_days ? `${data.duration_days} dagar` : undefined
         };
@@ -162,10 +162,10 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
         return {
           title: 'Extra Gästinbjudningar',
           features: [
-            `+${data.bonus_invitations_per_month} extra inbjudningar`,
-            'Gäller varje månad',
-            '7-dagars premium för gäster',
-            'Bonus för varje konvertering'
+            `Du kan bjuda in ${data.bonus_invitations_per_month} extra personer varje månad`,
+            'Dina gäster får premium i 7 dagar',
+            'Du får bonus när gästen blir medlem',
+            'Inbjudningarna förnyas automatiskt'
           ],
           expires: '12 månader'
         };
@@ -174,11 +174,11 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
         return {
           title: 'Exklusiv Status',
           features: [
-            `${data.status} status-märke`,
-            data.lifetime_discount ? `${data.lifetime_discount}% livstidsrabatt` : undefined,
-            data.priority_support ? 'Prioriterad support' : undefined,
-            data.beta_access ? 'Tidig tillgång till nya funktioner' : undefined,
-            'Exklusiva evenemang och innehåll'
+            `Du får ett ${data.status}-märke i din profil`,
+            data.lifetime_discount ? `${data.lifetime_discount}% rabatt så länge du är medlem` : undefined,
+            data.priority_support ? 'Snabbare svar från vår support' : undefined,
+            data.beta_access ? 'Testa nya funktioner före alla andra' : undefined,
+            'Tillgång till medlemsevenemang och exklusivt innehåll'
           ].filter(Boolean) as string[],
           expires: 'Permanent'
         };

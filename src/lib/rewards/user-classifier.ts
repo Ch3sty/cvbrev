@@ -22,7 +22,9 @@ export async function classifyUser(
     throw new Error('Failed to fetch user profile');
   }
 
-  const hasStripeSub = !!profile.subscription_id && profile.subscription_status === 'active';
+  const hasStripeSub = !!profile.subscription_id &&
+    (profile.subscription_status === 'active' || profile.subscription_status === 'trialing');
+  const isTrialing = profile.subscription_status === 'trialing';
   const premiumUntil = profile.premium_until ? new Date(profile.premium_until) : null;
   const hasValidPremiumUntil = premiumUntil && premiumUntil > new Date();
   const hasTemporaryPremium = !!(hasValidPremiumUntil && !hasStripeSub);
@@ -30,7 +32,7 @@ export async function classifyUser(
   let type: UserType = 'free';
 
   if (hasStripeSub) {
-    type = 'paid_premium';
+    type = isTrialing ? 'trial_premium' : 'paid_premium';
   } else if (hasTemporaryPremium) {
     type = 'temporary_premium';
   }

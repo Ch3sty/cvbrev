@@ -229,6 +229,7 @@ export async function createStripePromoCode(
 /**
  * Add premium time to paid subscription
  * For Stripe subscribers, we extend trial_end in Stripe subscription
+ * Handles both trialing and active subscriptions correctly
  */
 export async function addSubscriptionCredit(
   supabase: SupabaseClient,
@@ -243,24 +244,29 @@ export async function addSubscriptionCredit(
 
     const now = Math.floor(Date.now() / 1000); // Current Unix timestamp
     let newTrialEnd: number;
+    const durationSeconds = durationDays * 24 * 60 * 60;
 
-    // 2. Calculate new trial_end
-    if (subscription.trial_end && subscription.trial_end > now) {
-      // Subscription has an active trial - extend it
-      newTrialEnd = subscription.trial_end + (durationDays * 24 * 60 * 60);
-    } else if (subscription.current_period_end) {
-      // No active trial - extend from current period end
-      newTrialEnd = subscription.current_period_end + (durationDays * 24 * 60 * 60);
+    // 2. Calculate new trial_end based on subscription status
+    if (subscription.status === 'trialing' && subscription.trial_end && subscription.trial_end > now) {
+      // Subscription has an active trial - extend trial_end
+      newTrialEnd = subscription.trial_end + durationSeconds;
+      console.log(`[activators] Extending active trial from ${new Date(subscription.trial_end * 1000).toISOString()} to ${new Date(newTrialEnd * 1000).toISOString()}`);
+    } else if (subscription.status === 'active' && subscription.current_period_end) {
+      // Active paying subscription - create/extend trial period from current_period_end
+      // This effectively delays the next billing by durationDays
+      newTrialEnd = subscription.current_period_end + durationSeconds;
+      console.log(`[activators] Creating trial period for active subscription, delaying billing from ${new Date(subscription.current_period_end * 1000).toISOString()} to ${new Date(newTrialEnd * 1000).toISOString()}`);
     } else {
       // Fallback - extend from now
-      newTrialEnd = now + (durationDays * 24 * 60 * 60);
+      newTrialEnd = now + durationSeconds;
+      console.log(`[activators] Fallback: Creating trial period from now until ${new Date(newTrialEnd * 1000).toISOString()}`);
     }
 
     // 3. Update Stripe subscription with new trial_end
     const currentBonusDays = parseInt(subscription.metadata.bonus_days_added || '0');
     const newBonusDays = currentBonusDays + durationDays;
 
-    await stripe.subscriptions.update(subscriptionId, {
+    const updatedSubscription = await stripe.subscriptions.update(subscriptionId, {
       trial_end: newTrialEnd,
       proration_behavior: 'none', // Don't prorate
       metadata: {
@@ -269,6 +275,8 @@ export async function addSubscriptionCredit(
         last_reward_id: rewardId
       }
     });
+
+    console.log(`[activators] Stripe subscription updated successfully. New trial_end: ${updatedSubscription.trial_end}`);
 
     // 4. Update premium_until in profiles to match
     const newPremiumUntil = new Date(newTrialEnd * 1000);
@@ -291,16 +299,22 @@ export async function addSubscriptionCredit(
         subscription_id: subscriptionId,
         metadata: {
           reward_id: rewardId,
+          subscription_status: subscription.status,
           total_bonus_days: newBonusDays,
-          new_trial_end: newTrialEnd,
+          old_trial_end: subscription.trial_end ? new Date(subscription.trial_end * 1000).toISOString() : null,
+          new_trial_end: new Date(newTrialEnd * 1000).toISOString(),
           new_premium_until: newPremiumUntil.toISOString()
         }
       });
 
+    const message = subscription.status === 'trialing'
+      ? `Din provperiod har förlängts med ${durationDays} dagar!`
+      : `Din nästa betalning har skjutits upp ${durationDays} dagar!`;
+
     return {
       success: true,
       type: 'subscription_credit',
-      message: `${durationDays} dagar tillagda på din prenumeration!`,
+      message,
       data: {
         daysAdded: durationDays,
         newExpiryDate: newPremiumUntil.toISOString()
@@ -308,6 +322,7 @@ export async function addSubscriptionCredit(
     };
 
   } catch (error) {
+    console.error('[activators] Failed to add subscription credit:', error);
     throw new Error(`Failed to add subscription credit: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }

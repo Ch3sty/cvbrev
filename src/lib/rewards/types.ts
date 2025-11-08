@@ -4,7 +4,7 @@
  * Defines all types used in the reward activation system
  */
 
-export type UserType = 'free' | 'temporary_premium' | 'paid_premium';
+export type UserType = 'free' | 'temporary_premium' | 'trial_premium' | 'paid_premium';
 
 export type RewardType = 'trial' | 'premium_time' | 'discount' | 'guest_invitations';
 

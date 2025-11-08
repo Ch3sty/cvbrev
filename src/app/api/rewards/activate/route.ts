@@ -36,7 +36,6 @@ export async function POST(request: NextRequest) {
       `)
       .eq('id', claimId)
       .eq('user_id', user.id)
-      .eq('activation_code', activationCode)
       .single();
 
     if (claimError || !claim) {
@@ -45,13 +44,21 @@ export async function POST(request: NextRequest) {
       }, { status: 404 });
     }
 
-    if (claim.claim_status === 'activated' || claim.claim_status === 'active') {
+    // Verify activation code from activation_data
+    const storedCode = claim.activation_data?.activation_code || claim.metadata?.activation_code;
+    if (storedCode !== activationCode) {
+      return NextResponse.json({
+        error: 'Invalid activation code'
+      }, { status: 403 });
+    }
+
+    if (claim.status === 'activated' || claim.status === 'used') {
       return NextResponse.json({
         error: 'Reward already activated'
       }, { status: 400 });
     }
 
-    if (claim.claim_status !== 'ready' && claim.claim_status !== 'pending') {
+    if (claim.status !== 'claimed') {
       return NextResponse.json({
         error: 'Reward not ready for activation'
       }, { status: 400 });
@@ -88,9 +95,13 @@ export async function POST(request: NextRequest) {
     const { error: updateError } = await supabase
       .from('user_reward_claims')
       .update({
-        claim_status: 'active',
+        status: 'activated',
         activated_at: new Date().toISOString(),
-        activation_metadata: result.data || {}
+        activation_data: {
+          ...claim.activation_data,
+          ...result.data,
+          activated: true
+        }
       })
       .eq('id', claimId);
 
