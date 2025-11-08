@@ -60,7 +60,7 @@ export async function GET(request: NextRequest) {
         premium_rewards (
           reward_type,
           reward_data,
-          milestone_level,
+          trigger_value,
           description,
           name
         )
@@ -83,7 +83,7 @@ export async function GET(request: NextRequest) {
       .eq('trigger_type', 'level_milestone')
       .lte('trigger_value', currentLevel)
       .eq('is_active', true)
-      .order('milestone_level', { ascending: false })
+      .order('trigger_value', { ascending: false })
 
     if (availableError) {
       console.error('Error fetching available rewards:', availableError)
@@ -101,17 +101,18 @@ export async function GET(request: NextRequest) {
     const { data: allMilestoneRewards } = await supabase
       .from('premium_rewards')
       .select('*')
-      .in('milestone_level', allMilestoneLevels)
-      .order('milestone_level', { ascending: true })
+      .in('trigger_value', allMilestoneLevels)
+      .eq('trigger_type', 'level_milestone')
+      .order('trigger_value', { ascending: true })
 
     // Process milestones to add status
     const processedMilestones = allMilestoneRewards?.map(reward => {
-      const levelDiff = reward.milestone_level - currentLevel
+      const levelDiff = reward.trigger_value - currentLevel
       let status = 'locked'
 
-      if (claimedRewards?.some((c: any) => c.premium_rewards?.milestone_level === reward.milestone_level)) {
+      if (claimedRewards?.some((c: any) => c.premium_rewards?.trigger_value === reward.trigger_value)) {
         status = 'claimed'
-      } else if (currentLevel >= reward.milestone_level) {
+      } else if (currentLevel >= reward.trigger_value) {
         status = 'available'
       } else if (levelDiff <= 3) {
         status = 'upcoming'
@@ -121,10 +122,11 @@ export async function GET(request: NextRequest) {
 
       return {
         ...reward,
+        milestone_level: reward.trigger_value, // Add this for backwards compatibility
         status,
-        is_unlocked: currentLevel >= reward.milestone_level,
+        is_unlocked: currentLevel >= reward.trigger_value,
         is_claimed: status === 'claimed',
-        levels_until_unlock: Math.max(0, reward.milestone_level - currentLevel)
+        levels_until_unlock: Math.max(0, reward.trigger_value - currentLevel)
       }
     }) || []
 
