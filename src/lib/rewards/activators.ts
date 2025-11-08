@@ -158,19 +158,27 @@ export async function createStripePromoCode(
   const percentage = reward.reward_data.percentage || 0;
 
   try {
-    // 1. Get customer's subscription
+    // 1. Get customer's subscription (including trialing subscriptions)
     const subscriptions = await stripe.subscriptions.list({
       customer: stripeCustomerId,
-      status: 'active',
       limit: 1
     });
 
-    if (subscriptions.data.length === 0) {
-      // No active subscription, save for later
+    // Filter for active or trialing subscriptions
+    const activeSubscription = subscriptions.data.find(
+      sub => sub.status === 'active' || sub.status === 'trialing'
+    );
+
+    if (!activeSubscription) {
+      // No active or trialing subscription, save for later
+      console.log('[createStripePromoCode] No active/trialing subscription found, saving for later');
       return await saveDiscountForLater(supabase, userId, reward, claimId);
     }
 
-    const subscription = subscriptions.data[0];
+    console.log('[createStripePromoCode] Found subscription:', {
+      id: activeSubscription.id,
+      status: activeSubscription.status
+    });
 
     // 2. Create Stripe Coupon (one-time use, for next invoice only)
     const coupon = await stripe.coupons.create({
@@ -187,10 +195,10 @@ export async function createStripePromoCode(
     });
 
     // 3. Apply coupon directly to subscription (automatic discount)
-    await stripe.subscriptions.update(subscription.id, {
+    await stripe.subscriptions.update(activeSubscription.id, {
       coupon: coupon.id,
       metadata: {
-        ...subscription.metadata,
+        ...activeSubscription.metadata,
         last_reward_discount: percentage.toString(),
         last_reward_date: new Date().toISOString()
       }
@@ -218,7 +226,7 @@ export async function createStripePromoCode(
           claim_id: claimId,
           created_at: new Date().toISOString(),
           auto_applied: true,
-          subscription_id: subscription.id
+          subscription_id: activeSubscription.id
         }
       });
 
