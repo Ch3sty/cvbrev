@@ -420,14 +420,6 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
                 >
                   <span className="flex-shrink-0">{item.icon}</span>
                   {!collapsed && <span className="ml-3 whitespace-pre-line">{item.label}</span>}
-                  {'locked' in item && item.locked && !collapsed && (
-                    <Crown className="w-4 h-4 ml-auto text-yellow-600" />
-                  )}
-                  {'highlight' in item && item.highlight && !collapsed && (
-                    <span className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-gradient-to-r from-yellow-400 to-orange-500 text-black text-xs font-bold rounded-full animate-pulse">
-                      NY
-                    </span>
-                  )}
                 </Link>
               </li>
             ))}
