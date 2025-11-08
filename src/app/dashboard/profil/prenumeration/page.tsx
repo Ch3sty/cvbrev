@@ -4,6 +4,7 @@ import React from 'react';
 import { useProfile } from '@/hooks/use-profile';
 import { motion } from 'framer-motion';
 import { UnifiedSubscriptionCard } from '@/components/subscription/UnifiedSubscriptionCard';
+import SubscriptionInfo from '@/components/subscription/subscription-info';
 import { SubscribeButton } from '@/components/subscription/SubscribeButton';
 import { Crown, CheckCircle, Clock, Gift, Shield, Calendar, Zap, Info } from 'lucide-react';
 
@@ -77,81 +78,92 @@ export default function PrenumerationPage() {
             />
           </div>
         ) : subscriptionTier === 'free' ? (
-          // GRATIS-ANVÄNDARE: Unified card + Upgrade CTA
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
-            {/* Vänster kolumn: Unified Subscription Card */}
-            <div>
-              <UnifiedSubscriptionCard />
-            </div>
+          // GRATIS-ANVÄNDARE: Single unified card with upgrade CTA
+          <div className="space-y-6">
+            {/* Unified Card with Usage Stats */}
+            <UnifiedSubscriptionCard />
 
-            {/* Höger kolumn: Uppgradera till Premium */}
-            <div className="h-fit">
-              <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border-2 border-pink-500/30 shadow-2xl">
-                <div className="flex items-center mb-4 sm:mb-6">
-                  <div className="p-2 sm:p-3 bg-gradient-to-br from-pink-600 to-purple-600 rounded-lg sm:rounded-xl mr-2 sm:mr-3 flex-shrink-0">
-                    <Crown className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+            {/* Upgrade to Premium Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50 rounded-2xl p-6 md:p-8 border-2 border-pink-500/30 shadow-2xl relative overflow-hidden"
+            >
+              {/* Decorative gradient orbs */}
+              <div className="absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br from-pink-400/30 to-purple-400/30 rounded-full blur-3xl" />
+              <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-gradient-to-br from-purple-400/30 to-indigo-400/30 rounded-full blur-3xl" />
+
+              <div className="relative z-10">
+                {/* Header */}
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="p-3 bg-gradient-to-br from-pink-600 to-purple-600 rounded-xl shadow-lg">
+                    <Crown className="w-8 h-8 text-white" />
                   </div>
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 truncate">Uppgradera till Premium</h3>
+                  <div>
+                    <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                      Uppgradera till Premium
+                    </h3>
+                    <p className="text-sm text-gray-600 mt-1">Lås upp alla funktioner och obegränsad användning</p>
+                  </div>
                 </div>
 
-                {/* Kompakt lista med alla premium-funktioner */}
-                <div className="space-y-2 sm:space-y-2.5 mb-4 sm:mb-6">
-                  {/* Obegränsat användande */}
-                  <div className="flex items-start gap-2 sm:gap-2.5">
-                    <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-xs sm:text-sm text-gray-700"><strong>Obegränsade personliga brev</strong></span>
+                {/* Features Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-6">
+                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
+                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                    <span className="text-sm font-medium text-gray-900">Obegränsade personliga brev</span>
                   </div>
-                  <div className="flex items-start gap-2 sm:gap-2.5">
-                    <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-xs sm:text-sm text-gray-700"><strong>Obegränsade CV-analyser</strong></span>
+                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
+                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                    <span className="text-sm font-medium text-gray-900">Obegränsade CV-analyser</span>
                   </div>
-                  <div className="flex items-start gap-2 sm:gap-2.5">
-                    <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-xs sm:text-sm text-gray-700"><strong>50 uppladdade CV</strong></span>
+                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
+                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                    <span className="text-sm font-medium text-gray-900">50 uppladdade CV</span>
                   </div>
-                  <div className="flex items-start gap-2 sm:gap-2.5">
-                    <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-xs sm:text-sm text-gray-700"><strong>Obegränsade sparade brev</strong></span>
+                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
+                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                    <span className="text-sm font-medium text-gray-900">Obegränsade sparade brev</span>
                   </div>
-
-                  {/* Separator */}
-                  <div className="h-2 sm:h-3"></div>
-
-                  {/* Premium CV-mallar */}
-                  <div className="flex items-start gap-2 sm:gap-2.5">
-                    <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-xs sm:text-sm text-gray-700"><strong>8 Premium CV-mallar</strong></span>
+                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
+                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                    <span className="text-sm font-medium text-gray-900">8 Premium CV-mallar</span>
                   </div>
-
-                  {/* Avancerade tester */}
-                  <div className="flex items-start gap-2 sm:gap-2.5">
-                    <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-xs sm:text-sm text-gray-700"><strong>3 Avancerade kognitiva tester</strong></span>
+                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
+                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                    <span className="text-sm font-medium text-gray-900">3 Kognitiva tester</span>
                   </div>
-
-                  {/* Separator */}
-                  <div className="h-2 sm:h-3"></div>
-
-                  {/* Smarta funktioner */}
-                  <div className="flex items-start gap-2 sm:gap-2.5">
-                    <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-xs sm:text-sm text-gray-700"><strong>Automatisk tonalitetsanpassning</strong> (5+1 val)</span>
+                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
+                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                    <span className="text-sm font-medium text-gray-900">Tonalitetsanpassning</span>
                   </div>
-                  <div className="flex items-start gap-2 sm:gap-2.5">
-                    <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                    <span className="text-xs sm:text-sm text-gray-700"><strong>Obegränsad lagring</strong> av brev och analyser</span>
+                  <div className="flex items-center gap-2 p-3 bg-white/60 backdrop-blur-sm rounded-lg">
+                    <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+                    <span className="text-sm font-medium text-gray-900">Obegränsad lagring</span>
                   </div>
                 </div>
-                <SubscribeButton
-                  priceId={premiumMonthlyPriceId}
-                  planName="Premium Månad"
-                  className="w-full touch-manipulation"
-                />
-                <p className="text-center text-xs sm:text-sm text-gray-600 mt-3 sm:mt-4">
-                  149 kr/månad • Ingen bindningstid • Avsluta när du vill
-                </p>
+
+                {/* CTA */}
+                <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-pink-200/50">
+                  <div className="flex items-center justify-between mb-4">
+                    <div>
+                      <p className="text-3xl font-bold text-gray-900">149 kr</p>
+                      <p className="text-sm text-gray-600">per månad</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm text-gray-600">Ingen bindningstid</p>
+                      <p className="text-sm text-gray-600">Avsluta när du vill</p>
+                    </div>
+                  </div>
+                  <SubscribeButton
+                    priceId={premiumMonthlyPriceId}
+                    planName="Premium Månad"
+                    className="w-full touch-manipulation"
+                  />
+                </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         ) : isTrialUser ? (
           // TRIAL-ANVÄNDARE: Prova på med countdown
