@@ -104,15 +104,15 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
 
     switch (reward.reward_type) {
       case 'trial':
-        return `${data.duration_days} dagars provperiod`;
+        return `${data.duration_days || 7} dagar gratis Premium`;
       case 'discount':
-        return `${data.percentage}% rabatt`;
+        return `${data.percentage || 10}% rabatt`;
       case 'premium_time':
-        return `${data.duration_days} dagars premium utan kostnad`;
+        return `${data.duration_days || 7} dagar Premium helt gratis`;
       case 'guest_invitations':
-        return `+${data.bonus_invitations_per_month} extra inbjudningar per månad`;
+        return `${data.bonus_invitations_per_month || 3} extra inbjudningar/månad`;
       case 'status':
-        return `${data.status} status med exklusiva fördelar`;
+        return data.status ? `${data.status}-status` : 'Exklusiv status';
       default:
         return 'Exklusiv belöning';
     }
@@ -124,69 +124,69 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
     switch (reward.reward_type) {
       case 'trial':
         return {
-          title: 'Provperiod',
-          features: data.features || [
+          title: 'Vad ingår i din provperiod?',
+          features: [
             'Skapa obegränsat med personliga brev',
             'Vi analyserar ditt CV och ger förbättringstips',
             'Automatisk anpassning av ton och stil',
-            'Du får svar snabbare från vår support'
+            'Prioriterad support - snabbare svar från oss'
           ],
           expires: data.duration_days ? `${data.duration_days} dagar` : undefined
         };
 
       case 'discount':
         return {
-          title: 'Rabattkupong',
+          title: 'Så fungerar din rabatt',
           features: [
-            `Du får ${data.percentage}% rabatt på nästa faktura`,
-            'Rabatten appliceras automatiskt om du har Premium',
-            'Eller sparas så du kan använda den senare',
-            'Gäller i 30 dagar, kan användas en gång'
+            `Du får ${data.percentage}% rabatt på din nästa betalning`,
+            'Har du Premium appliceras rabatten automatiskt',
+            'Är du gratis sparas rabatten tills du uppgraderar',
+            'Gäller i 30 dagar och kan användas en gång'
           ],
           expires: '30 dagar'
         };
 
       case 'premium_time':
         return {
-          title: 'Premium utan kostnad',
+          title: 'Premium helt utan kostnad',
           features: [
-            'Startar direkt när du aktiverar',
-            'Allt premium-innehåll ingår',
-            'Din befintliga prenumeration pausas automatiskt',
-            'Ingen betalning krävs'
+            'Aktiveras direkt och startar omedelbart',
+            'Alla premiumfunktioner ingår',
+            'Har du redan Premium förlängs din tid automatiskt',
+            'Ingen betalning krävs - helt gratis'
           ],
           expires: data.duration_days ? `${data.duration_days} dagar` : undefined
         };
 
       case 'guest_invitations':
         return {
-          title: 'Extra Gästinbjudningar',
+          title: 'Extra gästinbjudningar',
           features: [
-            `Du kan bjuda in ${data.bonus_invitations_per_month} extra personer varje månad`,
-            'Dina gäster får premium i 7 dagar',
-            'Du får bonus när gästen blir medlem',
-            'Inbjudningarna förnyas automatiskt'
+            `Bjud in ${data.bonus_invitations_per_month} extra personer per månad`,
+            'Dina gäster får 7 dagars premium gratis',
+            'Du tjänar XP och kan låsa upp belöningar när de blir medlemmar',
+            'Inbjudningarna fylls på automatiskt varje månad'
           ],
           expires: '12 månader'
         };
 
       case 'status':
         return {
-          title: 'Exklusiv Status',
+          title: 'Din exklusiva status',
           features: [
-            `Du får ett ${data.status}-märke i din profil`,
-            data.lifetime_discount ? `${data.lifetime_discount}% rabatt så länge du är medlem` : undefined,
-            data.priority_support ? 'Snabbare svar från vår support' : undefined,
-            data.beta_access ? 'Testa nya funktioner före alla andra' : undefined,
-            'Tillgång till medlemsevenemang och exklusivt innehåll'
+            `Du får ett ${data.status}-märke synligt i din profil`,
+            data.lifetime_discount ? `${data.lifetime_discount}% permanent rabatt så länge du är medlem` : undefined,
+            data.priority_support ? 'Prioriterad support med snabbare svarstider' : undefined,
+            data.beta_access ? 'Exklusiv tidig tillgång till nya funktioner' : undefined,
+            'Inbjudningar till medlemsevenemang och exklusivt innehåll'
           ].filter(Boolean) as string[],
           expires: 'Permanent'
         };
 
       default:
         return {
-          title: 'Exklusiv belöning',
-          features: ['Exklusiva fördelar'],
+          title: 'Din belöning',
+          features: ['Exklusiva fördelar väntar'],
           expires: undefined
         };
     }
@@ -194,26 +194,59 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
 
   const handleActivate = async () => {
     try {
+      // Step 1: Claim the reward first (creates claim record)
+      const claimResponse = await fetch('/api/rewards/claim', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rewardId: reward.id })
+      });
+
+      if (!claimResponse.ok) {
+        const errorData = await claimResponse.json();
+        throw new Error(errorData.error || 'Failed to claim reward');
+      }
+
+      const claimResult = await claimResponse.json();
+      const { claimId, activationCode, discountCode: claimedDiscountCode } = claimResult.data;
+
+      // Set discount code if provided
+      if (claimedDiscountCode) {
+        setDiscountCode(claimedDiscountCode);
+      }
+
+      // Step 2: Activate the claimed reward
+      const activateResponse = await fetch('/api/rewards/activate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          claimId,
+          activationCode: activationCode || 'AUTO' // Use AUTO for instant activation
+        })
+      });
+
+      if (!activateResponse.ok) {
+        const errorData = await activateResponse.json();
+        throw new Error(errorData.error || 'Failed to activate reward');
+      }
+
+      const activationResult = await activateResponse.json();
+
+      // Step 3: Show celebration animation
       setShowCelebration(true);
       setActivationStep('celebrate');
 
-      // Generate discount code for discount rewards
-      let activationData = {};
-      if (reward.reward_type === 'discount') {
-        const code = `SAVE${reward.reward_data.percentage}-${Date.now().toString().slice(-6)}`;
-        setDiscountCode(code);
-        activationData = { discount_code: code };
-      }
-
-      await onActivate(activationData);
-
-      // Show celebration for 3 seconds
+      // Show celebration for 3 seconds, then mark as activated
       setTimeout(() => {
         setActivationStep('activated');
         setShowCelebration(false);
+
+        // Pass result to parent
+        onActivate(activationResult.data);
       }, 3000);
 
     } catch (error) {
+      console.error('Failed to activate reward:', error);
+      alert(error instanceof Error ? error.message : 'Det gick inte att aktivera belöningen. Försök igen.');
       setShowCelebration(false);
       setActivationStep('claim');
     }
