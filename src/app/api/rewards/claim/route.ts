@@ -47,17 +47,19 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify user has reached the required level
-    const { data: profile } = await supabase
-      .from('profiles')
+    const { data: userStats } = await supabase
+      .from('global_user_stats')
       .select('current_level')
-      .eq('id', user.id)
+      .eq('user_id', user.id)
       .single()
 
-    if (!profile || profile.current_level < reward.trigger_value) {
+    const currentLevel = userStats?.current_level || 1
+
+    if (currentLevel < reward.trigger_value) {
       return NextResponse.json({
         error: 'You have not reached the required level for this reward',
         required_level: reward.trigger_value,
-        current_level: profile?.current_level || 0
+        current_level: currentLevel
       }, { status: 403 })
     }
 
