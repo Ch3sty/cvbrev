@@ -22,34 +22,47 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    // Get the reward
+    // Get the reward (rewards are global, not per-user)
     const { data: reward, error: rewardError } = await supabase
       .from('premium_rewards')
       .select('*')
       .eq('id', rewardId)
-      .eq('user_id', user.id)
+      .eq('is_active', true)
       .single()
 
     if (rewardError || !reward) {
       return NextResponse.json({ error: 'Reward not found' }, { status: 404 })
     }
 
-    if (reward.status !== 'available') {
-      return NextResponse.json({ error: 'Reward is not available' }, { status: 400 })
-    }
-
-    // Start transaction
-    const { error: updateError } = await supabase
-      .from('premium_rewards')
-      .update({ status: 'claimed' })
-      .eq('id', rewardId)
+    // Check if user has already claimed this reward
+    const { data: existingClaim } = await supabase
+      .from('user_reward_claims')
+      .select('id')
       .eq('user_id', user.id)
-      .eq('status', 'available')
+      .eq('reward_id', rewardId)
+      .single()
 
-    if (updateError) {
-      console.error('Error updating reward status:', updateError)
-      return NextResponse.json({ error: 'Failed to claim reward' }, { status: 500 })
+    if (existingClaim) {
+      return NextResponse.json({ error: 'Reward already claimed' }, { status: 400 })
     }
+
+    // Verify user has reached the required level
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('current_level')
+      .eq('id', user.id)
+      .single()
+
+    if (!profile || profile.current_level < reward.trigger_value) {
+      return NextResponse.json({
+        error: 'You have not reached the required level for this reward',
+        required_level: reward.trigger_value,
+        current_level: profile?.current_level || 0
+      }, { status: 403 })
+    }
+
+    // Generate activation code
+    const activationCode = `ACT${Date.now().toString(36).toUpperCase()}`;
 
     // Create claim record
     const { data: claim, error: claimError } = await supabase
@@ -57,50 +70,24 @@ export async function POST(request: NextRequest) {
       .insert({
         user_id: user.id,
         reward_id: rewardId,
-        claim_status: 'pending',
-        claimed_at: new Date().toISOString()
+        status: 'claimed',
+        claimed_at: new Date().toISOString(),
+        activation_data: {
+          activation_code: activationCode
+        }
       })
       .select()
       .single()
 
     if (claimError) {
       console.error('Error creating claim record:', claimError)
-
-      // Rollback reward status
-      await supabase
-        .from('premium_rewards')
-        .update({ status: 'available' })
-        .eq('id', rewardId)
-
       return NextResponse.json({ error: 'Failed to create claim record' }, { status: 500 })
     }
 
-    // Generate activation code based on reward type
-    let activationCode = null
+    // Generate discount code if needed (for UI display)
     let discountCode = null
-
     if (reward.reward_type === 'discount') {
-      // Generate discount code
-      discountCode = `JC${reward.milestone_level}${Date.now().toString(36).toUpperCase()}`
-
-      await supabase
-        .from('user_reward_claims')
-        .update({
-          stripe_discount_code: discountCode,
-          claim_status: 'active'
-        })
-        .eq('id', claim.id)
-    } else if (reward.reward_type === 'trial' || reward.reward_type === 'full_premium') {
-      // Generate activation code for trials/full premium
-      activationCode = `PREMIUM${Date.now().toString(36).toUpperCase()}`
-
-      await supabase
-        .from('user_reward_claims')
-        .update({
-          activation_code: activationCode,
-          claim_status: 'ready'
-        })
-        .eq('id', claim.id)
+      discountCode = `REWARD${reward.trigger_value || 0}-${Date.now().toString(36).toUpperCase()}`
     }
 
     // Award XP for claiming reward
