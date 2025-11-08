@@ -156,14 +156,6 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       highlight: true
     },
     {
-      path: '/dashboard/gastinbjudningar',
-      label: 'Gästinbjudningar',
-      icon: <Users className="w-5 h-5" />,
-      section: 'main',
-      requiresPremium: true,
-      locked: !isPremium
-    },
-    {
       path: '/dashboard/skapa-brev',
       label: 'Skapa personligt brev',
       icon: <PenTool className="w-5 h-5" />,
@@ -389,7 +381,7 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
         {isPremium && !isTrialUser && (
           <div className="px-4">
             <Link
-              href="/dashboard/invite-friends"
+              href="/dashboard/gastinbjudningar"
               className="flex items-center justify-between p-3 bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-300 hover:border-pink-400 hover:shadow-xl transition-all duration-300 group shadow-lg touch-manipulation min-h-[44px]"
             >
               <div className="flex items-center gap-3">
