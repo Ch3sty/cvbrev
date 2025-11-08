@@ -31,10 +31,11 @@ export interface RewardActivationResult {
     daysAdded?: number;
 
     // For discounts
-    promoCode?: string;
+    promoCode?: string | null;
     couponId?: string;
     discountPercentage?: number;
     savedForLater?: boolean;
+    autoApplied?: boolean;
 
     // For subscription credits
     estimatedValue?: number;
