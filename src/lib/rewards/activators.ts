@@ -93,6 +93,7 @@ export async function extendTemporaryPremium(
 
 /**
  * Save discount for later use (free users without Stripe)
+ * Valid for 30 days, one-time use
  */
 export async function saveDiscountForLater(
   supabase: SupabaseClient,
@@ -101,7 +102,7 @@ export async function saveDiscountForLater(
   claimId: string
 ): Promise<RewardActivationResult> {
   const percentage = reward.reward_data.percentage || 0;
-  const expiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000); // 90 days
+  const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
 
   // Generate a unique code (will be used when user upgrades)
   const code = `REWARD${percentage}-${userId.substring(0, 8).toUpperCase()}`;
@@ -113,7 +114,7 @@ export async function saveDiscountForLater(
       user_id: userId,
       milestone_level: reward.milestone_level,
       discount_percentage: percentage,
-      discount_type: reward.reward_data.discount_type || 'once',
+      discount_type: 'once', // Always one-time use
       saved_for_future: true,
       can_use_without_stripe: false,
       is_used: false,
@@ -121,7 +122,8 @@ export async function saveDiscountForLater(
       metadata: {
         reward_id: reward.id,
         claim_id: claimId,
-        saved_at: new Date().toISOString()
+        saved_at: new Date().toISOString(),
+        valid_for_months: 1
       }
     });
 
@@ -132,17 +134,19 @@ export async function saveDiscountForLater(
   return {
     success: true,
     type: 'discount_saved',
-    message: 'Rabattkoden är sparad och kan användas när du blir Premium.',
+    message: `Din ${percentage}% rabattkod är sparad! Använd den när du blir premium.`,
     data: {
       promoCode: code,
       discountPercentage: percentage,
-      savedForLater: true
+      savedForLater: true,
+      expiresAt: expiresAt.toISOString()
     }
   };
 }
 
 /**
  * Create Stripe Promotion Code for paying customers
+ * Automatically applies to next invoice (1 month)
  */
 export async function createStripePromoCode(
   supabase: SupabaseClient,
@@ -154,75 +158,91 @@ export async function createStripePromoCode(
   const percentage = reward.reward_data.percentage || 0;
 
   try {
-    // 1. Create Stripe Coupon (one-time use)
+    // 1. Get customer's subscription
+    const subscriptions = await stripe.subscriptions.list({
+      customer: stripeCustomerId,
+      status: 'active',
+      limit: 1
+    });
+
+    if (subscriptions.data.length === 0) {
+      // No active subscription, save for later
+      return await saveDiscountForLater(supabase, userId, reward, claimId);
+    }
+
+    const subscription = subscriptions.data[0];
+
+    // 2. Create Stripe Coupon (one-time use, for next invoice only)
     const coupon = await stripe.coupons.create({
       percent_off: percentage,
-      duration: 'once', // Only applies to next payment
+      duration: 'once', // Only applies to next invoice
       max_redemptions: 1,
       metadata: {
         user_id: userId,
         reward_id: reward.id,
         claim_id: claimId,
-        source: 'reward_system'
+        source: 'reward_system',
+        auto_applied: 'true'
       }
     });
 
-    // 2. Create Promotion Code (customer-specific)
-    const promoCode = await stripe.promotionCodes.create({
+    // 3. Apply coupon directly to subscription (automatic discount)
+    await stripe.subscriptions.update(subscription.id, {
       coupon: coupon.id,
-      code: `REWARD${percentage}-${userId.substring(0, 6).toUpperCase()}`,
-      max_redemptions: 1,
-      customer: stripeCustomerId, // Restrict to this customer only
       metadata: {
-        user_id: userId,
-        reward_id: reward.id
+        ...subscription.metadata,
+        last_reward_discount: percentage.toString(),
+        last_reward_date: new Date().toISOString()
       }
     });
 
-    // 3. Save to database
-    const expiresAt = new Date(Date.now() + 90 * 24 * 60 * 60 * 1000); // 90 days
+    // 4. Save to database
+    const expiresAt = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
 
     const { error } = await supabase
       .from('discount_codes')
       .insert({
-        code: promoCode.code,
+        code: `AUTO-REWARD${percentage}`, // Auto-applied, no code needed
         user_id: userId,
         milestone_level: reward.milestone_level,
         discount_percentage: percentage,
         discount_type: 'once',
         stripe_coupon_id: coupon.id,
-        stripe_promotion_code_id: promoCode.id,
+        stripe_promotion_code_id: null, // No promo code, directly applied
         saved_for_future: false,
         can_use_without_stripe: false,
-        is_used: false,
+        is_used: true, // Immediately used (auto-applied)
         expires_at: expiresAt.toISOString(),
         metadata: {
           reward_id: reward.id,
           claim_id: claimId,
-          created_at: new Date().toISOString()
+          created_at: new Date().toISOString(),
+          auto_applied: true,
+          subscription_id: subscription.id
         }
       });
 
     if (error) {
-      // Rollback: Delete Stripe resources
-      await stripe.promotionCodes.update(promoCode.id, { active: false });
-      throw new Error(`Failed to save promo code: ${error.message}`);
+      console.error('[activators] Failed to save discount to database:', error);
+      // Don't fail - Stripe coupon is already applied
     }
 
     return {
       success: true,
       type: 'discount_created',
-      message: `Din ${percentage}% rabattkod är skapad!`,
+      message: `${percentage}% rabatt applicerad! Gäller din nästa faktura.`,
       data: {
-        promoCode: promoCode.code,
+        promoCode: null,
         couponId: coupon.id,
         discountPercentage: percentage,
-        savedForLater: false
+        savedForLater: false,
+        autoApplied: true
       }
     };
 
   } catch (error) {
-    throw new Error(`Failed to create Stripe promo code: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    console.error('[activators] Failed to create/apply Stripe discount:', error);
+    throw new Error(`Failed to create Stripe discount: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
 }
 
