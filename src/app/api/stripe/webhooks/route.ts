@@ -123,52 +123,76 @@ const handleReferralConversion = async (customerId: string) => {
             description_param: 'Vän blev Premium-medlem'
         });
 
-        // Grant 7 days premium to inviter (consistent with accept logic)
+        // Grant 7 days premium to inviter by extending their Stripe trial
         const { data: inviterProfile, error: inviterError } = await supabaseAdmin
             .from('profiles')
-            .select('premium_until')
+            .select('id, subscription_id, subscription_status, stripe_customer_id')
             .eq('id', invitation.inviter_id)
             .single();
 
         if (!inviterError && inviterProfile) {
             try {
-                const inviterPremiumEndDate = new Date()
-                inviterPremiumEndDate.setDate(inviterPremiumEndDate.getDate() + 7)
+                // Check if inviter has an active Stripe subscription
+                if (inviterProfile.subscription_id) {
+                    console.log(`Extending Stripe trial for inviter ${invitation.inviter_id}, subscription ${inviterProfile.subscription_id}`);
 
-                let newInviterPremiumUntil
-                if (inviterProfile.premium_until) {
-                    const currentPremiumEnd = new Date(inviterProfile.premium_until)
-                    const now = new Date()
+                    // Retrieve the current subscription from Stripe
+                    const subscription = await stripe.subscriptions.retrieve(inviterProfile.subscription_id);
 
-                    if (currentPremiumEnd > now) {
-                        // Add 7 days to existing premium
-                        newInviterPremiumUntil = new Date(currentPremiumEnd)
-                        newInviterPremiumUntil.setDate(newInviterPremiumUntil.getDate() + 7)
-                    } else {
-                        // Start fresh 7-day premium
-                        newInviterPremiumUntil = inviterPremiumEndDate
+                    // Calculate new trial end date (current trial_end + 7 days)
+                    const currentTrialEnd = subscription.trial_end || Math.floor(Date.now() / 1000);
+                    const newTrialEnd = currentTrialEnd + (7 * 24 * 60 * 60); // Add 7 days in seconds
+
+                    // Update the subscription to extend trial
+                    await stripe.subscriptions.update(inviterProfile.subscription_id, {
+                        trial_end: newTrialEnd,
+                        proration_behavior: 'none' // Don't prorate when extending trial
+                    });
+
+                    console.log(`Extended Stripe trial to ${new Date(newTrialEnd * 1000).toISOString()} for inviter ${invitation.inviter_id}`);
+                } else if (inviterProfile.stripe_customer_id) {
+                    // Inviter has no active subscription but has a Stripe customer ID
+                    // Create a new trial subscription for them
+                    console.log(`Creating new trial subscription for inviter ${invitation.inviter_id}`);
+
+                    const priceId = process.env.NEXT_PUBLIC_STRIPE_PRICE_ID;
+                    if (!priceId) {
+                        throw new Error('Missing STRIPE_PRICE_ID environment variable');
                     }
+
+                    await stripe.subscriptions.create({
+                        customer: inviterProfile.stripe_customer_id,
+                        items: [{ price: priceId }],
+                        trial_period_days: 7,
+                        payment_behavior: 'default_incomplete',
+                        payment_settings: {
+                            save_default_payment_method: 'on_subscription'
+                        }
+                    });
+
+                    console.log(`Created new 7-day trial subscription for inviter ${invitation.inviter_id}`);
                 } else {
-                    // Start fresh 7-day premium
-                    newInviterPremiumUntil = inviterPremiumEndDate
+                    // Fallback: No Stripe integration, use old premium_until method
+                    console.log(`Inviter has no Stripe subscription, using fallback premium_until method`);
+                    const inviterPremiumEndDate = new Date();
+                    inviterPremiumEndDate.setDate(inviterPremiumEndDate.getDate() + 7);
+
+                    await supabaseAdmin
+                        .from('profiles')
+                        .update({
+                            premium_until: inviterPremiumEndDate.toISOString(),
+                            premium_source: 'referral'
+                        })
+                        .eq('id', invitation.inviter_id);
                 }
-
-                // Update inviter's premium
-                await supabaseAdmin
-                    .from('profiles')
-                    .update({
-                        premium_until: newInviterPremiumUntil.toISOString(),
-                        premium_source: 'referral'
-                    })
-                    .eq('id', invitation.inviter_id)
-
-                console.log(`Granted 7 days premium to inviter ${invitation.inviter_id}`);
 
                 // Mark reward as granted
                 await supabaseAdmin
                     .from('guest_invitations')
                     .update({ reward_granted: true })
                     .eq('id', invitation.id);
+
+                console.log(`Granted 7 days premium to inviter ${invitation.inviter_id}`);
 
             } catch (premiumError) {
                 console.error('Failed to grant premium to inviter:', premiumError);
