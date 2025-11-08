@@ -5,7 +5,7 @@ import { useProfile } from '@/hooks/use-profile';
 import { motion } from 'framer-motion';
 import SubscriptionInfo from '@/components/subscription/subscription-info';
 import { SubscribeButton } from '@/components/subscription/SubscribeButton';
-import { EmbeddedCustomerPortal } from '@/components/subscription/EmbeddedCustomerPortal';
+import { StripeSubscriptionDetails } from '@/components/subscription/StripeSubscriptionDetails';
 import { Crown, CheckCircle, Clock, Gift, Shield, Calendar, Zap, Info } from 'lucide-react';
 
 export default function PrenumerationPage() {
@@ -551,13 +551,13 @@ export default function PrenumerationPage() {
             </div>
           </>
         ) : isStripePremium ? (
-          // STRIPE-KÖPT PREMIUM: Original design
+          // STRIPE-KÖPT PREMIUM: Detailed subscription info
           <>
             <div>
               <SubscriptionInfo />
             </div>
 
-            <EmbeddedCustomerPortal />
+            <StripeSubscriptionDetails />
           </>
         ) : (
           // Fallback om status är okänd
