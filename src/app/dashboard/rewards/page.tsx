@@ -27,6 +27,7 @@ interface RewardStatus {
   availableRewards: any[]
   claimedRewards: any[]
   upcomingRewards: any[]
+  allMilestones?: any[] // All milestone rewards with status
   guestInvitations: {
     total: number
     used: number
@@ -177,7 +178,14 @@ export default function RewardsPage() {
               total_xp_for_current_level: rewardStatus.totalXp - (rewardStatus.nextLevel?.xpProgress || 0),
               total_xp_for_next_level: rewardStatus.nextLevel?.xpRequired || 0
             }}
-            onClaimReward={(rewardId) => handleClaimReward(rewardStatus.availableRewards.find(r => r.id === rewardId))}
+            rewards={rewardStatus.allMilestones || rewardStatus.upcomingRewards || []}
+            onClaimReward={(rewardId) => {
+              // Find reward in allMilestones
+              const reward = (rewardStatus.allMilestones || []).find((r: any) => r.id === rewardId);
+              if (reward) {
+                handleClaimReward(reward);
+              }
+            }}
           />
 
           {/* Saved Discounts Section */}

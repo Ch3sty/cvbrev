@@ -112,6 +112,7 @@ const GameifiedRewardsDemo: React.FC = () => {
       {/* Gamified Rewards View */}
       <GameifiedRewardsView
         userLevel={mockUserLevel}
+        rewards={[]} // Empty for demo
         onClaimReward={handleClaimReward}
       />
 

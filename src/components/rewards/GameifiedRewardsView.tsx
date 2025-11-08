@@ -47,129 +47,48 @@ interface GameifiedReward {
 
 interface GameifiedRewardsViewProps {
   userLevel: UserLevel;
+  rewards: any[]; // Rewards from API
   onClaimReward: (rewardId: string) => void;
 }
 
 const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
   userLevel,
+  rewards,
   onClaimReward
 }) => {
   const [hoveredReward, setHoveredReward] = useState<number | null>(null);
 
-  // Define the actual reward structure based on requirements
-  const milestoneRewards: GameifiedReward[] = [
-    {
-      id: 'level-5',
-      level: 5,
-      name: 'Första Smaken',
-      description: '2 dagars Premium för att testa alla funktioner',
-      reward_type: 'trial',
-      reward_data: { duration_days: 2 },
-      icon: '🎯',
-      is_unlocked: userLevel.current_level >= 5,
-      is_claimed: false
-    },
-    {
-      id: 'level-10',
-      level: 10,
-      name: 'Dedikerad Användare',
-      description: '5 dagars Premium för kontinuerlig användning',
-      reward_type: 'trial',
-      reward_data: { duration_days: 5 },
-      icon: '🚀',
-      is_unlocked: userLevel.current_level >= 10,
-      is_claimed: false
-    },
-    {
-      id: 'level-15',
-      level: 15,
-      name: 'Smart Sparare',
-      description: '15% rabatt på nästa Premium-period',
-      reward_type: 'discount',
-      reward_data: { percentage: 15 },
-      icon: '💰',
-      is_unlocked: userLevel.current_level >= 15,
-      is_claimed: false
-    },
-    {
-      id: 'level-20',
-      level: 20,
-      name: 'Erfaren Expert',
-      description: '7 dagars Premium för din expertis',
-      reward_type: 'premium_time',
-      reward_data: { duration_days: 7 },
-      icon: '🎓',
-      is_unlocked: userLevel.current_level >= 20,
-      is_claimed: false
-    },
-    {
-      id: 'level-25',
-      level: 25,
-      name: 'Premium Vän',
-      description: '25% rabatt för lojalitet',
-      reward_type: 'discount',
-      reward_data: { percentage: 25 },
-      icon: '🏆',
-      is_unlocked: userLevel.current_level >= 25,
-      is_claimed: false
-    },
-    {
-      id: 'level-30',
-      level: 30,
-      name: 'Karriärmästare',
-      description: '14 dagars Premium för din framgång',
-      reward_type: 'premium_time',
-      reward_data: { duration_days: 14 },
-      icon: '⭐',
-      is_unlocked: userLevel.current_level >= 30,
-      is_claimed: false
-    },
-    {
-      id: 'level-35',
-      level: 35,
-      name: 'Storsparare',
-      description: '35% rabatt för avancerade användare',
-      reward_type: 'discount',
-      reward_data: { percentage: 35 },
-      icon: '💎',
-      is_unlocked: userLevel.current_level >= 35,
-      is_claimed: false
-    },
-    {
-      id: 'level-40',
-      level: 40,
-      name: 'Elite Medlem',
-      description: 'Hela 30 dagars Premium åtkomst',
-      reward_type: 'premium_time',
-      reward_data: { duration_days: 30 },
-      icon: '👑',
-      is_unlocked: userLevel.current_level >= 40,
-      is_claimed: false
-    },
-    {
-      id: 'level-45',
-      level: 45,
-      name: 'Mästarrabatt',
-      description: 'Exklusiv 45% rabatt för mästare',
-      reward_type: 'discount',
-      reward_data: { percentage: 45 },
-      icon: '🌟',
-      is_unlocked: userLevel.current_level >= 45,
-      is_claimed: false
-    },
-    {
-      id: 'level-50',
-      level: 50,
-      name: 'Genesis Status',
-      description: 'Exklusiv Genesis Status + 90 dagars Premium',
-      reward_type: 'status',
-      reward_data: { status: 'Genesis', duration_days: 90 },
-      icon: '🔥',
-      is_unlocked: userLevel.current_level >= 50,
-      is_claimed: false,
-      is_special: true
-    }
-  ];
+  // Emoji mapping for different levels
+  const getLevelEmoji = (level: number): string => {
+    const emojiMap: Record<number, string> = {
+      5: '🎯',
+      10: '🚀',
+      15: '💰',
+      20: '🎓',
+      25: '🏆',
+      30: '⭐',
+      35: '💎',
+      40: '👑',
+      45: '🌟',
+      50: '🔥'
+    };
+    return emojiMap[level] || '🎁';
+  };
+
+  // Map database rewards to component format
+  const milestoneRewards: GameifiedReward[] = rewards.map(reward => ({
+    id: reward.id,
+    level: reward.trigger_value || reward.milestone_level,
+    name: reward.name,
+    description: reward.description,
+    reward_type: reward.reward_type,
+    reward_data: reward.reward_data,
+    icon: getLevelEmoji(reward.trigger_value || reward.milestone_level),
+    is_unlocked: reward.is_unlocked,
+    is_claimed: reward.is_claimed,
+    is_special: (reward.trigger_value || reward.milestone_level) >= 40
+  }));
+
 
   // Calculate progress percentage for current level
   const progressPercentage = userLevel.total_xp_for_next_level > 0
