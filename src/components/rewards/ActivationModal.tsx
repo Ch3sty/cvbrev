@@ -118,9 +118,9 @@ const ActivationModal: React.FC<ActivationModalProps> = ({
             <div className="text-3xl font-bold text-emerald-600 mb-2">
               +{data.daysAdded} dagar
             </div>
-            <div className="text-sm text-gray-600 mb-3">har lagts till din Premium-period</div>
+            <div className="text-sm text-gray-600 mb-3">tillagda på din premiumtid</div>
             <div className="pt-3 border-t border-emerald-200">
-              <div className="text-sm text-gray-700 mb-1">Ny utgångsdatum:</div>
+              <div className="text-sm text-gray-700 mb-1">Nytt utgångsdatum:</div>
               <div className="text-lg font-semibold text-gray-900">
                 {newDate.toLocaleDateString('sv-SE', {
                   year: 'numeric',
@@ -171,7 +171,7 @@ const ActivationModal: React.FC<ActivationModalProps> = ({
               </div>
             </div>
             <p className="text-xs text-gray-600 mt-3">
-              Denna kod sparas åt dig och kan användas när du uppgraderar till Premium
+              Koden är sparad och kan användas när du vill bli Premium
             </p>
           </div>
 
@@ -239,7 +239,7 @@ const ActivationModal: React.FC<ActivationModalProps> = ({
             </div>
 
             <div className="bg-orange-100 rounded-lg p-3 text-sm text-gray-700">
-              <strong>OBS:</strong> Denna kod kan endast användas EN gång och gäller för din nästa betalning.
+              <strong>OBS:</strong> Koden kan bara användas en gång och gäller för din nästa betalning.
             </div>
           </div>
 
@@ -275,21 +275,13 @@ const ActivationModal: React.FC<ActivationModalProps> = ({
             <div className="text-3xl font-bold text-purple-600 mb-2">
               +{data.daysAdded} dagar
             </div>
-            <div className="text-sm text-gray-600 mb-4">
-              har lagts till din prenumeration
+            <div className="text-sm text-gray-600">
+              tillagda på din prenumeration
             </div>
-            {data.estimatedValue && (
-              <div className="pt-3 border-t border-purple-200">
-                <div className="text-sm text-gray-700">Uppskattat värde:</div>
-                <div className="text-lg font-semibold text-purple-700">
-                  ~{data.estimatedValue} kr
-                </div>
-              </div>
-            )}
           </div>
 
           <p className="text-sm text-gray-600 mb-6">
-            Dina bonus-dagar har lagts till i Stripe och kommer att krediteras vid nästa betalning.
+            Dina bonusdagar har registrerats och du får tillbaka dem vid nästa betalning.
           </p>
 
           <button

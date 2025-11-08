@@ -102,7 +102,7 @@ const SavedDiscounts: React.FC = () => {
           Inga sparade rabattkoder
         </h3>
         <p className="text-gray-600">
-          När du låser upp rabatt-belöningar kommer de att visas här.
+          När du låser upp rabattbelöningar visas de här.
         </p>
       </div>
     );
@@ -201,7 +201,7 @@ const SavedDiscounts: React.FC = () => {
                   {!expired && (
                     <div className="mt-3 p-3 bg-purple-50 rounded-lg">
                       <p className="text-xs text-gray-700">
-                        <strong>OBS:</strong> Koden kan endast användas EN gång och gäller för{' '}
+                        <strong>OBS:</strong> Koden kan bara användas en gång och gäller för{' '}
                         {discount.discount_type === 'once' ? 'din nästa betalning' : 'hela prenumerationen'}.
                       </p>
                     </div>
@@ -233,10 +233,10 @@ const SavedDiscounts: React.FC = () => {
           Om dina rabattkoder
         </h4>
         <ul className="text-sm text-gray-700 space-y-1">
-          <li>• Rabattkoder kan endast användas en gång per kod</li>
+          <li>• Rabattkoder kan bara användas en gång</li>
           <li>• Koder gäller automatiskt vid nästa betalning om du uppgraderar</li>
           <li>• Sparade koder kan användas när du är redo att bli Premium</li>
-          <li>• Utgångna koder kan inte användas - lås upp nya belöningar för fler rabatter!</li>
+          <li>• Utgångna koder kan inte användas – lås upp nya belöningar för fler rabatter</li>
         </ul>
       </div>
     </div>

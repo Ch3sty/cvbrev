@@ -36,7 +36,7 @@ export async function activateTemporaryPremium(
   return {
     success: true,
     type: 'temporary_premium',
-    message: `Du har nu Premium i ${durationDays} dagar!`,
+    message: `Du har fått Premium i ${durationDays} dagar!`,
     data: {
       expiresAt: expiresAt.toISOString(),
       durationDays
@@ -83,7 +83,7 @@ export async function extendTemporaryPremium(
   return {
     success: true,
     type: 'extension',
-    message: `${durationDays} dagar har lagts till din Premium-period!`,
+    message: `${durationDays} dagar tillagda på din premiumtid!`,
     data: {
       daysAdded: durationDays,
       newExpiryDate: newEnd.toISOString()
@@ -132,7 +132,7 @@ export async function saveDiscountForLater(
   return {
     success: true,
     type: 'discount_saved',
-    message: 'Rabattkoden har sparats! Använd den när du uppgraderar till Premium.',
+    message: 'Rabattkoden är sparad och kan användas när du blir Premium.',
     data: {
       promoCode: code,
       discountPercentage: percentage,
@@ -212,7 +212,7 @@ export async function createStripePromoCode(
     return {
       success: true,
       type: 'discount_created',
-      message: `Din ${percentage}% rabattkod är redo!`,
+      message: `Din ${percentage}% rabattkod är skapad!`,
       data: {
         promoCode: promoCode.code,
         couponId: coupon.id,
@@ -271,10 +271,10 @@ export async function addSubscriptionCredit(
     return {
       success: true,
       type: 'subscription_credit',
-      message: `${durationDays} dagar har lagts till din prenumeration!`,
+      message: `${durationDays} dagar tillagda på din prenumeration!`,
       data: {
-        daysAdded: durationDays,
-        estimatedValue
+        daysAdded: durationDays
+        // Removed estimatedValue - too low to display
       }
     };
 
