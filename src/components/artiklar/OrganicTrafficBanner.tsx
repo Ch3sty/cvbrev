@@ -66,21 +66,21 @@ const OrganicTrafficBanner = () => {
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
               <Award className="w-5 h-5 text-yellow-300" />
-              <span className="font-bold text-base md:text-lg">Testa allt gratis i 7 dagar – inget kreditkort krävs</span>
+              <span className="font-bold text-base md:text-lg">Testa alla verktyg gratis i 7 dagar – betala bara om du vill fortsätta</span>
             </div>
 
             <div className="hidden md:flex items-center gap-4 text-sm ml-7">
               <div className="flex items-center gap-1.5">
                 <Check className="w-3.5 h-3.5 text-emerald-300" />
-                <span className="opacity-90">Brev matchade mot jobbet</span>
+                <span className="opacity-90">Obegränsad tillgång till alla funktioner</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <Check className="w-3.5 h-3.5 text-emerald-300" />
-                <span className="opacity-90">8 professionella mallar</span>
+                <span className="opacity-90">Skapa brev, CV och LinkedIn-profiler som sticker ut</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <Check className="w-3.5 h-3.5 text-emerald-300" />
-                <span className="opacity-90">Feedback när du vill</span>
+                <span className="opacity-90">Avsluta kostnadsfritt innan provperioden går ut</span>
               </div>
             </div>
           </div>
@@ -88,14 +88,14 @@ const OrganicTrafficBanner = () => {
           {/* Center - CTA (more prominent) */}
           <div className="flex items-center gap-3">
             <Link
-              href="/register?trial=true"
+              href="/trial-signup"
               className="inline-flex items-center px-5 md:px-8 py-2.5 md:py-3 bg-white text-purple-700 font-bold rounded-xl text-sm md:text-base
                        hover:bg-gray-50 transition-all duration-200 shadow-xl hover:shadow-2xl transform hover:scale-105
                        focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-purple-600
                        whitespace-nowrap"
             >
               <Clock className="w-4 h-4 mr-2" />
-              Starta din trial
+              Testa gratis nu
             </Link>
 
             <button
@@ -113,15 +113,15 @@ const OrganicTrafficBanner = () => {
           <div className="flex items-center gap-3 text-xs">
             <div className="flex items-center gap-1">
               <Check className="w-3 h-3 text-emerald-300" />
-              <span className="opacity-90">Brev för varje jobb</span>
+              <span className="opacity-90">Alla funktioner</span>
             </div>
             <div className="flex items-center gap-1">
               <Check className="w-3 h-3 text-emerald-300" />
-              <span className="opacity-90">8 mallar</span>
+              <span className="opacity-90">Avsluta när du vill</span>
             </div>
             <div className="flex items-center gap-1">
               <Check className="w-3 h-3 text-emerald-300" />
-              <span className="opacity-90">Obegränsad feedback</span>
+              <span className="opacity-90">Ingen bindningstid</span>
             </div>
           </div>
         </div>

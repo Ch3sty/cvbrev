@@ -156,35 +156,35 @@ const PremiumArticleSidebar: React.FC<PremiumArticleSidebarProps> = ({
             </span>
           </div>
 
-          <h3 className="text-xl font-bold mb-2">Testa premium gratis i 7 dagar</h3>
+          <h3 className="text-xl font-bold mb-2">Testa alla verktyg gratis i 7 dagar</h3>
           <p className="text-white/90 text-sm mb-6">
-            Skräddarsydda personliga brev och CV-feedback istället för 5 per vecka. Inget kreditkort krävs – avregistrering sker automatiskt.
+            Betala bara om du vill fortsätta. Avsluta kostnadsfritt innan provperioden går ut.
           </p>
 
           <div className="space-y-2 mb-6">
             <div className="flex items-center gap-2 text-sm">
+              <Sparkles className="w-4 h-4 text-yellow-400" />
+              <span>Obegränsad tillgång till alla funktioner</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm">
               <Zap className="w-4 h-4 text-yellow-400" />
-              <span>Skräddarsydda brev för varje ansökan <span className="text-white/60">(vs 5/vecka gratis)</span></span>
+              <span>Skapa brev, CV och LinkedIn-profiler som sticker ut</span>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <TrendingUp className="w-4 h-4 text-yellow-400" />
-              <span>Obegränsad CV-feedback <span className="text-white/60">(vs 1/vecka gratis)</span></span>
+              <span>Personliga brev anpassade till varje jobb</span>
             </div>
             <div className="flex items-center gap-2 text-sm">
               <Star className="w-4 h-4 text-yellow-400" />
-              <span>6 premium CV-mallar <span className="text-white/60">(2 gratis alltid)</span></span>
-            </div>
-            <div className="flex items-center gap-2 text-sm">
-              <Sparkles className="w-4 h-4 text-yellow-400" />
-              <span>Brev anpassade till företagskulturen</span>
+              <span>Avsluta när du vill – ingen bindningstid</span>
             </div>
           </div>
 
           <Link
-            href="/register?trial=true"
+            href="/trial-signup"
             className="block w-full py-3 px-4 bg-white text-purple-600 font-semibold rounded-lg text-center hover:bg-gray-50 transition-colors duration-200 shadow-lg"
           >
-            Börja din 7-dagars trial
+            Testa gratis nu
           </Link>
         </div>
         </motion.div>
