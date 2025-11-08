@@ -271,7 +271,7 @@ const GameifiedRewardsView: React.FC<GameifiedRewardsViewProps> = ({
                         {status === 'claimed' ? (
                           <CheckCircle2 className="w-10 h-10 text-white" />
                         ) : (
-                          reward.icon || getRewardIcon(reward.reward_type, undefined, reward.is_special)
+                          getRewardIcon(reward.reward_type, undefined, reward.is_special)
                         )}
                       </div>
 

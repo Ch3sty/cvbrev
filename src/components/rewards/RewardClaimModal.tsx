@@ -104,17 +104,17 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
 
     switch (reward.reward_type) {
       case 'trial':
-        return `${data.duration_days} dagars premium-test`;
+        return `${data.duration_days} dagars provperiod`;
       case 'discount':
         return `${data.percentage}% rabatt`;
       case 'premium_time':
-        return `${data.duration_days} dagars gratis premium`;
+        return `${data.duration_days} dagars premium utan kostnad`;
       case 'guest_invitations':
         return `+${data.bonus_invitations_per_month} extra inbjudningar per månad`;
       case 'status':
         return `${data.status} status med exklusiva fördelar`;
       default:
-        return 'Premium belöning';
+        return 'Exklusiv belöning';
     }
   };
 
@@ -124,7 +124,7 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
     switch (reward.reward_type) {
       case 'trial':
         return {
-          title: 'Premium-provperiod',
+          title: 'Provperiod',
           features: data.features || [
             'Obegränsade personliga brev',
             'Avancerad CV-analys',
@@ -141,14 +141,14 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
             `${data.percentage}% rabatt på premium`,
             data.discount_type === 'annual' ? 'Gäller årsprenumeration' : 'Gäller månadsprenumeration',
             'Kan användas en gång',
-            'Automatisk applicering vid betalning'
+            'Rabatten läggs på automatiskt vid betalning'
           ],
           expires: '30 dagar'
         };
 
       case 'premium_time':
         return {
-          title: 'Gratis Premium-tid',
+          title: 'Premium utan kostnad',
           features: [
             'Aktiveras automatiskt',
             'Alla premium-funktioner',
@@ -185,7 +185,7 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
 
       default:
         return {
-          title: 'Premium Belöning',
+          title: 'Exklusiv belöning',
           features: ['Exklusiva fördelar'],
           expires: undefined
         };
@@ -281,7 +281,7 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
                     </div>
                     <div>
                       <h2 className="text-xl font-bold text-gray-900">{reward.name}</h2>
-                      <p className="text-sm text-gray-600">Level {reward.trigger_value} belöning</p>
+                      <p className="text-sm text-gray-600">Nivå {reward.trigger_value}-belöning</p>
                     </div>
                   </div>
                   <button
@@ -331,7 +331,7 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
                 <div className="flex items-center space-x-2">
                   <Calendar className="w-4 h-4 text-orange-600" />
                   <span className="text-sm text-orange-700">
-                    {reward.reward_type === 'status' ? 'Permanent belöning' : `Gäller i ${details.expires}`}
+                    {reward.reward_type === 'status' ? 'Permanent belöning' : `Giltig i ${details.expires}`}
                   </span>
                 </div>
               </div>
@@ -355,7 +355,7 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
                   </Button>
                 </div>
                 <p className="text-xs text-green-700 mt-2">
-                  Koden appliceras automatiskt vid betalning
+                  Rabatten läggs på automatiskt vid betalning
                 </p>
               </div>
             )}
@@ -388,7 +388,7 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
                       className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
                     >
                       <ExternalLink className="w-4 h-4 mr-2" />
-                      Använd rabatt nu
+                      Använd rabatten nu
                     </Button>
                   ) : reward.reward_type === 'guest_invitations' ? (
                     <Button
@@ -404,7 +404,7 @@ const RewardClaimModal: React.FC<RewardClaimModalProps> = ({
                       className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
                     >
                       <Star className="w-4 h-4 mr-2" />
-                      Gå till dashboard
+                      Gå till din översikt
                     </Button>
                   )}
                   <Button
