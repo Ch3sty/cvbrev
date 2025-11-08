@@ -52,26 +52,14 @@ export async function GET(request: NextRequest) {
       .eq('level', currentLevel + 1)
       .single()
 
-    // Get available rewards based on level
-    const { data: availableRewards, error: availableError } = await supabase
-      .from('premium_rewards')
-      .select('*')
-      .eq('user_id', user.id)
-      .eq('status', 'available')
-      .order('milestone_level', { ascending: false })
-
-    if (availableError) {
-      console.error('Error fetching available rewards:', availableError)
-    }
-
-    // Get claimed rewards
+    // Get claimed reward IDs first
     const { data: claimedRewards, error: claimedError } = await supabase
       .from('user_reward_claims')
       .select(`
         *,
         premium_rewards (
           reward_type,
-          reward_value,
+          reward_data,
           milestone_level,
           description,
           name
@@ -84,6 +72,27 @@ export async function GET(request: NextRequest) {
     if (claimedError) {
       console.error('Error fetching claimed rewards:', claimedError)
     }
+
+    // Get IDs of already claimed rewards
+    const claimedRewardIds = claimedRewards?.map((c: any) => c.reward_id) || []
+
+    // Get available rewards based on level (excluding already claimed ones)
+    const { data: allEligibleRewards, error: availableError } = await supabase
+      .from('premium_rewards')
+      .select('*')
+      .eq('trigger_type', 'level_milestone')
+      .lte('trigger_value', currentLevel)
+      .eq('is_active', true)
+      .order('milestone_level', { ascending: false })
+
+    if (availableError) {
+      console.error('Error fetching available rewards:', availableError)
+    }
+
+    // Filter out claimed rewards
+    const availableRewards = allEligibleRewards?.filter(
+      (reward: any) => !claimedRewardIds.includes(reward.id)
+    ) || []
 
     // Get ALL milestones to show full progression path
     const allMilestoneLevels = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
