@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
       data: {
         claimId: claim.id,
         rewardType: reward.reward_type,
-        rewardValue: reward.reward_value,
+        rewardData: reward.reward_data,
         activationCode,
         discountCode,
         message: getClaimMessage(reward)
@@ -122,20 +122,20 @@ export async function POST(request: NextRequest) {
 }
 
 function getClaimMessage(reward: any): string {
-  const value = reward.reward_value
+  const data = reward.reward_data
 
   switch (reward.reward_type) {
     case 'trial':
-      return `Grattis! Du har låst upp ${value.days} dagars gratis Premium. Använd aktiveringskoden för att starta din provperiod.`
+      return `Grattis! Du har låst upp ${data.duration_days || 7} dagars gratis Premium!`
 
     case 'discount':
-      return `Fantastiskt! Du har fått ${value.discount_percent}% rabatt på ${value.duration_months} månaders Premium.`
+      return `Fantastiskt! Du har fått ${data.percentage || 10}% rabatt!`
 
-    case 'full_premium':
-      return `Otroligt! Du har låst upp ${value.days} dagars helt gratis Premium. Njut av alla fördelar!`
+    case 'premium_time':
+      return `Otroligt! Du har låst upp ${data.duration_days || 7} dagars helt gratis Premium!`
 
-    case 'guest_invitation':
-      return `Du har fått ${value.extra_invitations} extra gästinbjudningar denna månad!`
+    case 'guest_invitations':
+      return `Du har fått ${data.bonus_invitations_per_month || 3} extra gästinbjudningar!`
 
     default:
       return 'Din belöning har hämtats!'
