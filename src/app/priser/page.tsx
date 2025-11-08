@@ -16,6 +16,7 @@ import PremiumNavbar from '@/components/PremiumNavbar'
 import DynamicTrustIndicator from '@/components/DynamicTrustIndicator'
 import StatCard from '@/components/StatCard'
 import { SubscribeButton } from '@/components/subscription/SubscribeButton'
+import DualPricingCards from '@/components/pricing/DualPricingCards'
 
 // Lazy load heavy components for performance
 const AILiveWriting = lazy(() => import('@/components/AILiveWriting'))
@@ -390,6 +391,11 @@ export default function PriserPage() {
               </motion.div>
             </motion.div>
           </div>
+        </section>
+
+        {/* Pricing Cards Section */}
+        <section className="py-12 bg-gradient-to-b from-white to-slate-50/30">
+          <DualPricingCards showPricing={true} />
         </section>
 
         {/* Interactive Demo Section - Show Premium Features in Action */}
@@ -963,7 +969,7 @@ export default function PriserPage() {
                         />
                       ) : (
                         <Link
-                          href="/register?plan=premium"
+                          href="/trial-signup"
                           className="flex items-center justify-center w-full min-h-[44px] touch-manipulation px-6 sm:px-8 py-5 font-bold text-sm sm:text-base text-white bg-gradient-to-r from-pink-600 via-purple-600 to-indigo-600 hover:from-pink-700 hover:via-purple-700 hover:to-indigo-700 rounded-2xl transition-all duration-300 shadow-xl hover:shadow-2xl group relative overflow-hidden border border-white/20"
                         >
                           {/* Button magical effect */}
@@ -1560,7 +1566,7 @@ export default function PriserPage() {
                   <>
                     {/* Premium CTA */}
                     <Link
-                      href="/register?plan=premium"
+                      href="/trial-signup"
                       className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-blue-600 bg-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 min-w-[280px] overflow-hidden"
                     >
                       {/* Shine effect */}

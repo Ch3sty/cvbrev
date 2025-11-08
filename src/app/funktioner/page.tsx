@@ -24,6 +24,7 @@ import BeforeAfterSlider from '@/components/BeforeAfterSlider'
 import InteractiveFunctionExplorer from '@/components/InteractiveFunctionExplorer'
 import DynamicTrustIndicator from '@/components/DynamicTrustIndicator'
 import StatCard from '@/components/StatCard'
+import DualPricingCards from '@/components/pricing/DualPricingCards'
 
 export default function FunktionerPage() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -633,53 +634,17 @@ export default function FunktionerPage() {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-24 bg-gradient-to-br from-blue-50 to-indigo-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
-                Redo att revolutionera din jobbsökning?
-              </h2>
-              <p className="text-xl text-slate-600 mb-8">
-                Gå med 2,000+ svenskar som redan landat drömjobbet med våra AI-verktyg
-              </p>
-
-              <motion.button
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all min-h-[44px] touch-manipulation"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => window.location.href = '/register'}
-              >
-                <span className="flex items-center gap-2">
-                  <Sparkles className="w-5 h-5" />
-                  Starta gratis idag
-                  <ArrowRight className="w-5 h-5" />
-                </span>
-              </motion.button>
-
-              <div className="mt-6 flex items-center justify-center gap-6 text-sm text-slate-600">
-                <span className="flex items-center gap-1">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  Ingen bindningstid
-                </span>
-                <span className="flex items-center gap-1">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  Gratis CV-analys
-                </span>
-                <span className="flex items-center gap-1">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
-                  GDPR-säker
-                </span>
-              </div>
-            </motion.div>
-          </div>
+      {/* Pricing Cards Section */}
+      <section className="py-16 bg-gradient-to-b from-white to-slate-50/30">
+        <div className="max-w-6xl mx-auto px-4 mb-12 text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+            Redo att revolutionera din jobbsökning?
+          </h2>
+          <p className="text-xl text-slate-600">
+            Gå med 2,000+ svenskar som redan landat drömjobbet med våra AI-verktyg
+          </p>
         </div>
+        <DualPricingCards showPricing={true} />
       </section>
 
       {/* Interactive Demo Modal */}
