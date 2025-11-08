@@ -30,6 +30,7 @@ import InteractiveSteps from '@/components/InteractiveSteps'
 import PersonalizedUserJourney from '@/components/PersonalizedUserJourney'
 import EnhancedFinalCTA from '@/components/EnhancedFinalCTA'
 import PremiumNavbar from '@/components/PremiumNavbar'
+import PremiumPricingSection from '@/components/pricing/PremiumPricingSection'
 import { getSupabaseClient } from '@/lib/supabase/client-manager'
 
 // Swiper components
@@ -739,6 +740,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <PremiumPricingSection />
 
       {/* Personalized User Journey - Interactive personas with wow factor */}
       <section className="py-24 bg-gradient-to-b from-white to-slate-50 overflow-hidden">

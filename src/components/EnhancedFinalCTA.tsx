@@ -231,7 +231,7 @@ export default function EnhancedFinalCTA() {
                 transition={{ delay: 0.6, duration: 0.6, type: "spring" }}
               >
                 <motion.button
-                  onClick={() => window.location.href = '/register'}
+                  onClick={() => window.location.href = '/trial-signup'}
                   className="group relative w-full px-8 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold text-lg rounded-2xl shadow-2xl shadow-blue-500/25 overflow-hidden"
                   whileHover={{ scale: 1.02, y: -3 }}
                   whileTap={{ scale: 0.98 }}
@@ -270,7 +270,7 @@ export default function EnhancedFinalCTA() {
 
                   <span className="relative z-10 flex items-center justify-center gap-3">
                     <Sparkles className="w-5 h-5 opacity-80" />
-                    Kom igång gratis
+                    Prova 7 dagar kostnadsfritt
                     <motion.div
                       animate={{ x: [0, 5, 0] }}
                       transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
