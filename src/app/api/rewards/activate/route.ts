@@ -1,187 +1,130 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { createServerClient } from '@/lib/supabase/server'
-import { cookies } from 'next/headers'
+import { NextRequest, NextResponse } from 'next/server';
+import { createServerClient } from '@/lib/supabase/server';
+import { cookies } from 'next/headers';
+import { classifyUser } from '@/lib/rewards/user-classifier';
+import { activateReward } from '@/lib/rewards/activators';
+import { PremiumReward } from '@/lib/rewards/types';
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
   try {
-    const cookieStore = await cookies()
-    const supabase = createServerClient({ cookies: cookieStore })
-    const body = await request.json()
-    const { claimId, activationCode } = body
+    const cookieStore = await cookies();
+    const supabase = createServerClient({ cookies: cookieStore });
+    const body = await request.json();
+    const { claimId, activationCode } = body;
 
     if (!claimId || !activationCode) {
       return NextResponse.json({
         error: 'Claim ID and activation code are required'
-      }, { status: 400 })
+      }, { status: 400 });
     }
 
     // Get current user
-    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
 
     if (authError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Get the claim
+    // Get the claim with reward details
     const { data: claim, error: claimError } = await supabase
       .from('user_reward_claims')
       .select(`
         *,
-        premium_rewards (
-          reward_type,
-          reward_value,
-          name,
-          description
-        )
+        premium_rewards (*)
       `)
       .eq('id', claimId)
       .eq('user_id', user.id)
       .eq('activation_code', activationCode)
-      .single()
+      .single();
 
     if (claimError || !claim) {
-      return NextResponse.json({ error: 'Invalid claim or activation code' }, { status: 404 })
+      return NextResponse.json({
+        error: 'Invalid claim or activation code'
+      }, { status: 404 });
     }
 
-    if (claim.claim_status === 'activated') {
-      return NextResponse.json({ error: 'Reward already activated' }, { status: 400 })
+    if (claim.claim_status === 'activated' || claim.claim_status === 'active') {
+      return NextResponse.json({
+        error: 'Reward already activated'
+      }, { status: 400 });
     }
 
-    if (claim.claim_status !== 'ready') {
-      return NextResponse.json({ error: 'Reward not ready for activation' }, { status: 400 })
+    if (claim.claim_status !== 'ready' && claim.claim_status !== 'pending') {
+      return NextResponse.json({
+        error: 'Reward not ready for activation'
+      }, { status: 400 });
     }
 
-    const reward = claim.premium_rewards
-    const rewardValue = reward.reward_value
+    // Cast reward to our type
+    const reward = claim.premium_rewards as unknown as PremiumReward;
 
-    // Handle different reward types
-    let updateData: any = {}
-    let message = ''
-
-    if (reward.reward_type === 'trial' || reward.reward_type === 'full_premium') {
-      // Calculate new premium end date
-      const days = rewardValue.days || 0
-      const currentPremiumUntil = await getCurrentPremiumUntil(supabase, user.id)
-
-      const startDate = currentPremiumUntil && currentPremiumUntil > new Date()
-        ? currentPremiumUntil
-        : new Date()
-
-      const newPremiumUntil = new Date(startDate)
-      newPremiumUntil.setDate(newPremiumUntil.getDate() + days)
-
-      // Update user's premium status
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .update({
-          premium_until: newPremiumUntil.toISOString(),
-          premium_source: 'reward_activation'
-        })
-        .eq('id', user.id)
-
-      if (profileError) {
-        console.error('Error updating premium status:', profileError)
-        return NextResponse.json({ error: 'Failed to activate premium' }, { status: 500 })
-      }
-
-      updateData = {
-        premium_until: newPremiumUntil.toISOString(),
-        days_added: days
-      }
-
-      message = `Premium aktiverat! Du har nu Premium till ${newPremiumUntil.toLocaleDateString('sv-SE')}.`
-
-    } else if (reward.reward_type === 'guest_invitation') {
-      // Add extra guest invitations to weekly allowance
-      const extraInvites = rewardValue.extra_invitations || 0
-
-      const { data: allowance } = await supabase
-        .from('weekly_guest_allowances')
-        .select('*')
-        .eq('user_id', user.id)
-        .single()
-
-      if (allowance) {
-        // Add extra invites to base allowance for current week
-        await supabase
-          .from('weekly_guest_allowances')
-          .update({
-            base_allowance: allowance.base_allowance + extraInvites
-          })
-          .eq('user_id', user.id)
-      } else {
-        // Create new allowance with extra invites
-        await supabase
-          .from('weekly_guest_allowances')
-          .insert({
-            user_id: user.id,
-            base_allowance: 5 + extraInvites,
-            used_invitations: 0,
-            first_used_at: null,
-            reset_at: null
-          })
-      }
-
-      updateData = {
-        extra_invitations: extraInvites
-      }
-
-      message = `Du har fått ${extraInvites} extra gästinbjudningar denna vecka!`
+    if (!reward) {
+      return NextResponse.json({
+        error: 'Reward details not found'
+      }, { status: 404 });
     }
+
+    // Classify user to determine activation strategy
+    const userClass = await classifyUser(supabase, user.id);
+
+    console.log('[rewards/activate] User classification:', {
+      userId: user.id,
+      type: userClass.type,
+      rewardType: reward.reward_type
+    });
+
+    // Activate reward using appropriate strategy
+    const result = await activateReward(
+      supabase,
+      user.id,
+      userClass,
+      reward,
+      claimId
+    );
 
     // Update claim status
     const { error: updateError } = await supabase
       .from('user_reward_claims')
       .update({
-        claim_status: 'activated',
+        claim_status: 'active',
         activated_at: new Date().toISOString(),
-        activation_metadata: updateData
+        activation_metadata: result.data || {}
       })
-      .eq('id', claimId)
+      .eq('id', claimId);
 
     if (updateError) {
-      console.error('Error updating claim status:', updateError)
-      return NextResponse.json({ error: 'Failed to update claim status' }, { status: 500 })
+      console.error('[rewards/activate] Error updating claim status:', updateError);
+      // Don't fail the request - reward is already activated
     }
 
     // Award XP for activation
-    await supabase.rpc('add_xp_with_cap_check', {
-      user_id_param: user.id,
-      xp_amount: 25,
-      source_param: 'reward_activation',
-      description_param: `Aktiverade: ${reward.name}`
-    })
+    try {
+      await supabase.rpc('add_xp_with_cap_check', {
+        user_id_param: user.id,
+        xp_amount: 25,
+        source_param: 'reward_activation',
+        description_param: `Aktiverade: ${reward.name}`
+      });
+    } catch (xpError) {
+      console.warn('[rewards/activate] XP award failed (non-critical):', xpError);
+    }
 
     return NextResponse.json({
       success: true,
       data: {
-        message,
-        rewardType: reward.reward_type,
-        updateData
+        ...result,
+        rewardName: reward.name,
+        rewardType: reward.reward_type
       }
-    })
+    });
 
   } catch (error) {
-    console.error('Unexpected error activating reward:', error)
+    console.error('[rewards/activate] Unexpected error:', error);
     return NextResponse.json({
       error: 'Internal server error',
       details: error instanceof Error ? error.message : 'Unknown error'
-    }, { status: 500 })
+    }, { status: 500 });
   }
-}
-
-async function getCurrentPremiumUntil(supabase: any, userId: string): Promise<Date | null> {
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('premium_until')
-    .eq('id', userId)
-    .single()
-
-  if (profile?.premium_until) {
-    return new Date(profile.premium_until)
-  }
-
-  return null
 }

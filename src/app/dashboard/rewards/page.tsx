@@ -5,6 +5,8 @@ import { getSupabaseClient } from '@/lib/supabase/client-manager'
 import { useRouter } from 'next/navigation'
 import GameifiedRewardsView from '@/components/rewards/GameifiedRewardsView'
 import RewardClaimModal from '@/components/rewards/RewardClaimModal'
+import ActivationModal from '@/components/rewards/ActivationModal'
+import SavedDiscounts from '@/components/rewards/SavedDiscounts'
 import { Card, CardContent } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Loader2, Trophy } from 'lucide-react'
@@ -38,6 +40,8 @@ export default function RewardsPage() {
   const [rewardStatus, setRewardStatus] = useState<RewardStatus | null>(null)
   const [selectedReward, setSelectedReward] = useState<any>(null)
   const [showClaimModal, setShowClaimModal] = useState(false)
+  const [showActivationModal, setShowActivationModal] = useState(false)
+  const [activationResult, setActivationResult] = useState<any>(null)
   const supabase = getSupabaseClient()
   const router = useRouter()
 
@@ -70,10 +74,18 @@ export default function RewardsPage() {
     setShowClaimModal(true)
   }
 
-  const handleClaimSuccess = async () => {
+  const handleClaimSuccess = async (result: any) => {
     setShowClaimModal(false)
     setSelectedReward(null)
-    await loadRewardStatus() // Reload status
+
+    // Show activation modal with result
+    if (result) {
+      setActivationResult(result)
+      setShowActivationModal(true)
+    }
+
+    // Reload status
+    await loadRewardStatus()
   }
 
   if (loading) {
@@ -167,6 +179,9 @@ export default function RewardsPage() {
             }}
             onClaimReward={(rewardId) => handleClaimReward(rewardStatus.availableRewards.find(r => r.id === rewardId))}
           />
+
+          {/* Saved Discounts Section */}
+          <SavedDiscounts />
         </div>
 
         {/* Milestones tab removed - integrated in main overview */}
@@ -178,12 +193,22 @@ export default function RewardsPage() {
             isOpen={showClaimModal}
             reward={selectedReward}
             onClose={() => setShowClaimModal(false)}
-            onActivate={async () => {
-              await handleClaimSuccess();
+            onActivate={async (result) => {
+              await handleClaimSuccess(result);
             }}
             isActivating={false}
           />
         )}
+
+        {/* Activation Result Modal */}
+        <ActivationModal
+          isOpen={showActivationModal}
+          onClose={() => {
+            setShowActivationModal(false);
+            setActivationResult(null);
+          }}
+          activationResult={activationResult}
+        />
       </div>
 
       {/* CSS Animations for background orbs */}
