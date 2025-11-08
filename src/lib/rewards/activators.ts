@@ -114,7 +114,7 @@ export async function saveDiscountForLater(
       user_id: userId,
       milestone_level: reward.trigger_value || reward.milestone_level || 0,
       discount_percentage: percentage,
-      discount_type: 'once', // Always one-time use
+      discount_type: 'one_time', // Always one-time use
       saved_for_future: true,
       can_use_without_stripe: false,
       is_used: false,
@@ -206,7 +206,7 @@ export async function createStripePromoCode(
         user_id: userId,
         milestone_level: reward.trigger_value || reward.milestone_level || 0,
         discount_percentage: percentage,
-        discount_type: 'once',
+        discount_type: 'one_time',
         stripe_coupon_id: coupon.id,
         stripe_promotion_code_id: null, // No promo code, directly applied
         saved_for_future: false,
