@@ -1530,7 +1530,7 @@ export default function PriserPage() {
               </h2>
 
               <p className="max-w-2xl mx-auto text-xl md:text-2xl text-white mb-12 leading-relaxed drop-shadow-sm">
-                Börja gratis idag. Uppgradera till Premium när du vill ha obegränsad tillgång. Ingen bindningstid.
+                Testa alla verktyg gratis i 7 dagar. Betala bara om du vill fortsätta. Ingen bindningstid.
               </p>
 
               {/* Enhanced Trust Indicators with better contrast */}
@@ -1561,7 +1561,7 @@ export default function PriserPage() {
               >
                 {!session ? (
                   <>
-                    {/* Premium CTA */}
+                    {/* Trial CTA */}
                     <Link
                       href="/trial-signup"
                       className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-blue-600 bg-white rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 min-w-[280px] overflow-hidden"
@@ -1570,7 +1570,7 @@ export default function PriserPage() {
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
 
                       <Sparkles className="w-5 h-5 mr-3 text-blue-600" />
-                      Uppgradera till Premium
+                      Prova 7 dagar kostnadsfritt
                       <ArrowRight className="w-5 h-5 ml-3 transition-transform duration-300 group-hover:translate-x-1" />
                     </Link>
 
@@ -1579,7 +1579,7 @@ export default function PriserPage() {
                       href="/register"
                       className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white/50 hover:border-white rounded-2xl hover:bg-white/10 backdrop-blur-sm transition-all duration-300 min-w-[280px]"
                     >
-                      Starta gratis
+                      Börja gratis
                       <ArrowRight className="w-5 h-5 ml-3 transition-transform duration-300 group-hover:translate-x-1" />
                     </Link>
                   </>
