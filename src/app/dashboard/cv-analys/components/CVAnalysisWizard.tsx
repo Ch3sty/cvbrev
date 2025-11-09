@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { createClient } from '@/lib/supabase/client';
 import { useNotification } from '@/context/notificationcontext';
+import { generateCVNameSuggestions } from '@/lib/cv/cvNameSuggestions';
 
 // Lazy load steps for performance
 const CVSelectionStep = lazy(() => import('./steps/CVSelectionStep'));
@@ -89,6 +90,11 @@ export default function CVAnalysisWizard({
   const [isSaving, setIsSaving] = useState(false);
   const [savedCvId, setSavedCvId] = useState<string | undefined>();
   const [savedFileName, setSavedFileName] = useState('');
+
+  // SaveAndTemplateStep state (lifted from component)
+  const [saveChoice, setSaveChoice] = useState<'save-and-download' | 'download' | 'save' | null>(null);
+  const [selectedTemplate, setSelectedTemplate] = useState<string | null>('modern-minimal');
+  const [customCVName, setCustomCVName] = useState('');
 
   // Dynamic potential state - uppdateras när användaren väljer förbättringar
   const [dynamicPotentialScore, setDynamicPotentialScore] = useState(0);
@@ -408,6 +414,226 @@ export default function CVAnalysisWizard({
   };
 
   const handleNext = async () => {
+    // Special handling for step 5 (SaveAndTemplateStep) - execute save/download action
+    if (currentStep === 5) {
+      if (!saveChoice || !selectedTemplate) {
+        alert('Välj ett alternativ och en CV-mall');
+        return;
+      }
+
+      setIsSaving(true);
+      const fileName = customCVName || generateCVNameSuggestions()[0];
+      setSavedFileName(fileName);
+
+      try {
+        // Generate improved structured CV with selected changes
+        let improvedStructuredCV: any = null;
+        if (structuredCV && analysisResult) {
+          improvedStructuredCV = JSON.parse(JSON.stringify(structuredCV));
+
+          // Apply profile summary if selected
+          if (selectedProfile && analysisResult.profileSummary) {
+            const profileText = editedProfileText || analysisResult.profileSummary.improvedText;
+            improvedStructuredCV.summary = profileText.trim().replace(/\s+/g, ' ');
+          }
+
+          // Apply role improvements for selected roles
+          if (analysisResult.roleBasedImprovements && improvedStructuredCV.experience && selectedRoles.size > 0) {
+            Array.from(selectedRoles).forEach(roleIndex => {
+              const improvement = analysisResult.roleBasedImprovements[roleIndex];
+              if (improvement && roleIndex < improvedStructuredCV.experience.length) {
+                const newDescription = editedRoleTexts.get(roleIndex) || improvement.suggestedText;
+                improvedStructuredCV.experience[roleIndex].description =
+                  newDescription
+                    .split(/\n+/)
+                    .map((line: string) => line.trim().replace(/\s+/g, ' '))
+                    .filter((line: string) => line.length > 0);
+              }
+            });
+          }
+
+          // Apply skill improvements
+          if (analysisResult.skillSuggestions && selectedSkills.size > 0) {
+            const skillsToAdd: string[] = [];
+            Array.from(selectedSkills).forEach(skillIndex => {
+              const suggestion = analysisResult.skillSuggestions[skillIndex];
+              if (suggestion?.skill) {
+                skillsToAdd.push(suggestion.skill);
+              }
+            });
+            if (skillsToAdd.length > 0) {
+              if (!improvedStructuredCV.skills) {
+                improvedStructuredCV.skills = [];
+              }
+
+              let supplementaryCategory = improvedStructuredCV.skills.find(
+                (cat: any) => cat.category === 'Kompletterande färdigheter'
+              );
+
+              if (!supplementaryCategory) {
+                supplementaryCategory = { category: 'Kompletterande färdigheter', skills: [] };
+                improvedStructuredCV.skills.push(supplementaryCategory);
+              }
+
+              skillsToAdd.forEach(skill => {
+                if (!supplementaryCategory.skills.includes(skill)) {
+                  supplementaryCategory.skills.push(skill);
+                }
+              });
+            }
+          }
+        }
+
+        const shouldSave = saveChoice === 'save-and-download' || saveChoice === 'save';
+
+        if (shouldSave) {
+          // Save to database
+          const response = await fetch('/api/cv/save-improved', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              fileName,
+              improvedText: improvedCV,
+              structuredData: improvedStructuredCV,
+              originalCvId: selectedCV
+            })
+          });
+
+          if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Kunde inte spara CV');
+          }
+
+          const { cvId: newCvId } = await response.json();
+          setSavedCvId(newCvId);
+
+          // Update the original analysis's display_name to match the CV name
+          if (currentAnalysisId) {
+            try {
+              await supabase
+                .from('cv_analysis_jobs')
+                .update({ display_name: fileName })
+                .eq('id', currentAnalysisId);
+            } catch (updateError) {
+              console.error('Failed to update analysis display name:', updateError);
+            }
+          }
+
+          // Save improved analysis for job matching
+          if (analysisResult && newCvId) {
+            const improvedAnalysisResult = {
+              ...analysisResult,
+              atsFriendliness: {
+                ...analysisResult.atsFriendliness,
+                score: Math.round(dynamicPotentialScore)
+              },
+              profileSummary: selectedProfile && analysisResult.profileSummary ? {
+                ...analysisResult.profileSummary,
+                currentText: editedProfileText || analysisResult.profileSummary.improvedText
+              } : analysisResult.profileSummary,
+              roleBasedImprovements: analysisResult.roleBasedImprovements?.map((role: any, i: number) =>
+                selectedRoles.has(i) ? {
+                  ...role,
+                  currentText: editedRoleTexts.get(i) || role.suggestedText
+                } : role
+              ),
+              implementedSkills: Array.from(selectedSkills).map(i =>
+                analysisResult.skillSuggestions[i]
+              ),
+              selectedImprovements: {
+                profile: selectedProfile,
+                roles: Array.from(selectedRoles),
+                skills: Array.from(selectedSkills),
+                general: Array.from(selectedGeneral)
+              }
+            };
+
+            try {
+              await fetch('/api/cv/save-improved-analysis', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  originalAnalysisId: analysisResult.id,
+                  improvedResult: improvedAnalysisResult,
+                  displayName: fileName,
+                  cvId: newCvId
+                })
+              });
+            } catch (analysisError) {
+              console.error('Failed to save improved analysis:', analysisError);
+            }
+          }
+        }
+
+        // Generate and download PDF (for all options)
+        const pdfFileName = `${fileName.replace(/\.[^/.]+$/, '')}.pdf`;
+        const requestBody: any = {
+          template: selectedTemplate,
+          format: 'pdf',
+          templateOptions: {}
+        };
+
+        if (improvedStructuredCV) {
+          requestBody.structuredData = improvedStructuredCV;
+        } else if (structuredCV) {
+          requestBody.structuredData = structuredCV;
+        } else {
+          const fixedCVText = improvedCV
+            .replace(/([a-zåäö])([A-ZÅÄÖ])/g, '$1 $2')
+            .replace(/([0-9])([A-ZÅÄÖ])/g, '$1 $2')
+            .replace(/([a-zåäö])([0-9])/g, '$1 $2');
+          requestBody.cvText = fixedCVText;
+        }
+
+        const pdfResponse = await fetch('/api/cv/generate-formatted', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(requestBody)
+        });
+
+        if (!pdfResponse.ok) {
+          const errorData = await pdfResponse.json();
+          throw new Error(errorData.error || 'Kunde inte generera PDF');
+        }
+
+        const blob = await pdfResponse.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = pdfFileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        // Show mascot notification
+        successWithMascotAndActivity(
+          'CV-analysen är klar! Dina förbättringar väntar.',
+          '/images/maskot/success-cv-analysis.svg',
+          'cv_analysis_completed',
+          'slutförde en CV-analys',
+          {
+            cv_id: selectedCV,
+            improvements_selected: selectedRoles.size + selectedSkills.size + selectedGeneral.size + (selectedProfile ? 1 : 0)
+          },
+          5000
+        );
+
+        // Success - advance to next step
+        setIsSaving(false);
+        if (!completedSteps.includes(currentStep)) {
+          setCompletedSteps([...completedSteps, currentStep]);
+        }
+        setCurrentStep(currentStep + 1);
+      } catch (error: any) {
+        console.error('Save error:', error);
+        alert(error.message || 'Ett fel uppstod vid sparande');
+        setIsSaving(false);
+      }
+      return; // Don't execute normal flow
+    }
+
+    // Normal step advancement
     if (!completedSteps.includes(currentStep)) {
       setCompletedSteps([...completedSteps, currentStep]);
     }
@@ -415,25 +641,9 @@ export default function CVAnalysisWizard({
     // Generate improved CV when moving to preview step
     if (currentStep === 3) {
       const improvedStructured = generateImprovedCV();
-      // Update the analysis record with the improvements
       if (improvedStructured) {
         await updateAnalysisWithImprovements(improvedStructured);
       }
-    }
-
-    // Show mascot notification when reaching completion step
-    if (currentStep === 5) {
-      successWithMascotAndActivity(
-        'CV-analysen är klar! Dina förbättringar väntar.',
-        '/images/maskot/success-cv-analysis.svg',
-        'cv_analysis_completed',
-        'slutförde en CV-analys',
-        {
-          cv_id: selectedCV,
-          improvements_selected: selectedRoles.size + selectedSkills.size + selectedGeneral.size + (selectedProfile ? 1 : 0)
-        },
-        5000
-      );
     }
 
     if (currentStep < STEPS.length - 1) {
@@ -463,6 +673,10 @@ export default function CVAnalysisWizard({
         selectedSkills.size +
         selectedGeneral.size;
       return totalSelected > 0;
+    }
+    if (currentStep === 5) {
+      // User must select a choice and a template
+      return saveChoice !== null && selectedTemplate !== null;
     }
     return true;
   };
@@ -657,211 +871,12 @@ export default function CVAnalysisWizard({
         return (
           <SaveAndTemplateStep
             improvedCV={improvedCV}
-            onSaveAndDownload={async (templateId, fileName, saveToLibrary) => {
-              setIsSaving(true);
-              setSavedFileName(fileName);
-
-              try {
-                // Generate improved structured CV with selected changes
-                let improvedStructuredCV: any = null;
-                if (structuredCV && analysisResult) {
-                  improvedStructuredCV = JSON.parse(JSON.stringify(structuredCV));
-
-                  // Apply profile summary if selected
-                  if (selectedProfile && analysisResult.profileSummary) {
-                    // Use edited text if available, otherwise use AI suggestion
-                    const profileText = editedProfileText || analysisResult.profileSummary.improvedText;
-                    improvedStructuredCV.summary = profileText.trim().replace(/\s+/g, ' ');
-                  }
-
-                  // Apply role improvements for selected roles
-                  if (analysisResult.roleBasedImprovements && improvedStructuredCV.experience && selectedRoles.size > 0) {
-                    Array.from(selectedRoles).forEach(roleIndex => {
-                      const improvement = analysisResult.roleBasedImprovements[roleIndex];
-                      if (improvement && roleIndex < improvedStructuredCV.experience.length) {
-                        // Use edited text if available, otherwise use AI suggestion
-                        const newDescription = editedRoleTexts.get(roleIndex) || improvement.suggestedText;
-                        improvedStructuredCV.experience[roleIndex].description =
-                          newDescription
-                            .split(/\n+/)
-                            .map((line: string) => line.trim().replace(/\s+/g, ' '))  // Trim + normalisera mellanrum
-                            .filter((line: string) => line.length > 0);
-                      }
-                    });
-                  }
-
-                  // Apply skill improvements
-                  if (analysisResult.skillSuggestions && selectedSkills.size > 0) {
-                    const skillsToAdd: string[] = [];
-                    Array.from(selectedSkills).forEach(skillIndex => {
-                      const suggestion = analysisResult.skillSuggestions[skillIndex];
-                      if (suggestion?.skill) {
-                        skillsToAdd.push(suggestion.skill);
-                      }
-                    });
-                    if (skillsToAdd.length > 0) {
-                      if (!improvedStructuredCV.skills) {
-                        improvedStructuredCV.skills = [];
-                      }
-
-                      // Hitta eller skapa kategorin "Kompletterande färdigheter"
-                      let supplementaryCategory = improvedStructuredCV.skills.find(
-                        (cat: any) => cat.category === 'Kompletterande färdigheter'
-                      );
-
-                      if (!supplementaryCategory) {
-                        supplementaryCategory = { category: 'Kompletterande färdigheter', skills: [] };
-                        improvedStructuredCV.skills.push(supplementaryCategory);
-                      }
-
-                      // Lägg till nya skills (undvik dubletter)
-                      skillsToAdd.forEach(skill => {
-                        if (!supplementaryCategory.skills.includes(skill)) {
-                          supplementaryCategory.skills.push(skill);
-                        }
-                      });
-                    }
-                  }
-                }
-
-                if (saveToLibrary) {
-                  // Save to database
-                  const response = await fetch('/api/cv/save-improved', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                      fileName,
-                      improvedText: improvedCV,
-                      structuredData: improvedStructuredCV,
-                      originalCvId: selectedCV
-                    })
-                  });
-
-                  if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.message || 'Kunde inte spara CV');
-                  }
-
-                  const { cvId: newCvId } = await response.json();
-                  setSavedCvId(newCvId);
-
-                  // Update the original analysis's display_name to match the CV name
-                  if (currentAnalysisId) {
-                    try {
-                      await supabase
-                        .from('cv_analysis_jobs')
-                        .update({ display_name: fileName })
-                        .eq('id', currentAnalysisId);
-                    } catch (updateError) {
-                      console.error('Failed to update analysis display name:', updateError);
-                      // Don't block user flow if this fails
-                    }
-                  }
-
-                  // Save improved analysis for job matching
-                  if (analysisResult && newCvId) {
-                    // Build improved analysis result with user's selections
-                    const improvedAnalysisResult = {
-                      ...analysisResult,
-                      atsFriendliness: {
-                        ...analysisResult.atsFriendliness,
-                        score: Math.round(dynamicPotentialScore) // Updated score
-                      },
-                      // Update profile with improved text
-                      profileSummary: selectedProfile && analysisResult.profileSummary ? {
-                        ...analysisResult.profileSummary,
-                        currentText: editedProfileText || analysisResult.profileSummary.improvedText
-                      } : analysisResult.profileSummary,
-
-                      // Update selected roles with improved text
-                      roleBasedImprovements: analysisResult.roleBasedImprovements?.map((role: any, i: number) =>
-                        selectedRoles.has(i) ? {
-                          ...role,
-                          currentText: editedRoleTexts.get(i) || role.suggestedText
-                        } : role
-                      ),
-
-                      // Add implemented skills
-                      implementedSkills: Array.from(selectedSkills).map(i =>
-                        analysisResult.skillSuggestions[i]
-                      ),
-
-                      // Track which improvements were selected
-                      selectedImprovements: {
-                        profile: selectedProfile,
-                        roles: Array.from(selectedRoles),
-                        skills: Array.from(selectedSkills),
-                        general: Array.from(selectedGeneral)
-                      }
-                    };
-
-                    // Save improved analysis (don't block on error)
-                    try {
-                      await fetch('/api/cv/save-improved-analysis', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                          originalAnalysisId: analysisResult.id,
-                          improvedResult: improvedAnalysisResult,
-                          displayName: fileName, // Use CV name from user input
-                          cvId: newCvId
-                        })
-                      });
-                    } catch (analysisError) {
-                      console.error('Failed to save improved analysis:', analysisError);
-                      // Don't block the user flow if this fails
-                    }
-                  }
-                }
-
-                // Generate and download PDF
-                const pdfFileName = `${fileName.replace(/\.[^/.]+$/, '')}.pdf`;
-                const requestBody: any = {
-                  template: templateId,
-                  format: 'pdf',
-                  templateOptions: {}
-                };
-
-                if (improvedStructuredCV) {
-                  requestBody.structuredData = improvedStructuredCV;
-                } else if (structuredCV) {
-                  requestBody.structuredData = structuredCV;
-                } else {
-                  const fixedCVText = improvedCV
-                    .replace(/([a-zåäö])([A-ZÅÄÖ])/g, '$1 $2')
-                    .replace(/([0-9])([A-ZÅÄÖ])/g, '$1 $2')
-                    .replace(/([a-zåäö])([0-9])/g, '$1 $2');
-                  requestBody.cvText = fixedCVText;
-                }
-
-                const pdfResponse = await fetch('/api/cv/generate-formatted', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify(requestBody)
-                });
-
-                if (!pdfResponse.ok) {
-                  const errorData = await pdfResponse.json();
-                  throw new Error(errorData.error || 'Kunde inte generera PDF');
-                }
-
-                const blob = await pdfResponse.blob();
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = pdfFileName;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(url);
-              } catch (error: any) {
-                console.error('Save error:', error);
-                alert(error.message || 'Ett fel uppstod vid sparande');
-              } finally {
-                setIsSaving(false);
-              }
-            }}
-            onComplete={handleNext}
+            saveChoice={saveChoice}
+            onChoiceChange={setSaveChoice}
+            selectedTemplate={selectedTemplate}
+            onTemplateChange={setSelectedTemplate}
+            customName={customCVName}
+            onNameChange={setCustomCVName}
             isSaving={isSaving}
           />
         );

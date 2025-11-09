@@ -2,9 +2,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Save, Download, Lightbulb, CheckCircle2, Loader2 } from 'lucide-react';
+import { Save, Download, Lightbulb } from 'lucide-react';
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import CVQuotaManager from '../CVQuotaManager';
 import TemplateSelector from '../TemplateSelector';
 import TemplateOptions from '../TemplateOptions';
@@ -15,23 +14,27 @@ import { useProfile } from '@/hooks/use-profile';
 
 interface SaveAndTemplateStepProps {
   improvedCV: string;
-  onSaveAndDownload: (templateId: string, fileName: string, saveToLibrary: boolean) => Promise<void>;
-  onComplete: () => void;
+  saveChoice: 'save-and-download' | 'download' | 'save' | null;
+  onChoiceChange: (choice: 'save-and-download' | 'download' | 'save') => void;
+  selectedTemplate: string | null;
+  onTemplateChange: (templateId: string | null) => void;
+  customName: string;
+  onNameChange: (name: string) => void;
   isSaving: boolean;
 }
 
 export default function SaveAndTemplateStep({
   improvedCV,
-  onSaveAndDownload,
-  onComplete,
+  saveChoice,
+  onChoiceChange,
+  selectedTemplate,
+  onTemplateChange,
+  customName,
+  onNameChange,
   isSaving
 }: SaveAndTemplateStepProps) {
   const { cvCount, maxCvs, canSave, subscriptionTier, loading } = useCvQuota();
   const { profile } = useProfile();
-  const [saveChoice, setSaveChoice] = useState<'save-and-download' | 'download' | 'save' | null>(null);
-  const [actionCompleted, setActionCompleted] = useState(false);
-  const [customName, setCustomName] = useState('');
-  const [selectedTemplate, setSelectedTemplate] = useState<string | null>('modern-minimal');
   const [quotaRefreshKey, setQuotaRefreshKey] = useState(0);
   const [showTips, setShowTips] = useState(false);
 
@@ -42,25 +45,6 @@ export default function SaveAndTemplateStep({
   const userProfile = {
     hasPhoto: !!profile?.profile_photo_url,
     hasLinkedIn: !!profile?.linkedin_url
-  };
-
-  const handleAction = async (action: 'save-and-download' | 'download' | 'save') => {
-    if (!selectedTemplate) {
-      alert('Välj en CV-mall först');
-      return;
-    }
-
-    setSaveChoice(action);
-
-    try {
-      const shouldSave = action === 'save-and-download' || action === 'save';
-      await onSaveAndDownload(selectedTemplate, customName || nameSuggestions[0], shouldSave);
-      setActionCompleted(true);
-    } catch (error) {
-      console.error('Action error:', error);
-      alert('Ett fel uppstod. Försök igen.');
-      setActionCompleted(false);
-    }
   };
 
   const handleQuotaRefresh = () => {
@@ -89,8 +73,8 @@ export default function SaveAndTemplateStep({
           {/* 1. Spara & Ladda ned */}
           <button
             type="button"
-            onClick={() => handleAction('save-and-download')}
-            disabled={!selectedTemplate || isSaving || !canSave}
+            onClick={() => onChoiceChange('save-and-download')}
+            disabled={isSaving || !canSave}
             className={`relative p-5 rounded-xl border-2 transition-all min-h-[88px] touch-manipulation ${
               saveChoice === 'save-and-download'
                 ? 'border-green-500 bg-green-50 shadow-lg'
@@ -122,17 +106,14 @@ export default function SaveAndTemplateStep({
                   </p>
                 )}
               </div>
-              {saveChoice === 'save-and-download' && actionCompleted && (
-                <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0" />
-              )}
             </div>
           </button>
 
           {/* 2. Bara ladda ned */}
           <button
             type="button"
-            onClick={() => handleAction('download')}
-            disabled={!selectedTemplate || isSaving}
+            onClick={() => onChoiceChange('download')}
+            disabled={isSaving}
             className={`relative p-5 rounded-xl border-2 transition-all min-h-[88px] touch-manipulation ${
               saveChoice === 'download'
                 ? 'border-purple-500 bg-purple-50 shadow-lg'
@@ -152,17 +133,14 @@ export default function SaveAndTemplateStep({
                   Du kan alltid ladda upp det senare
                 </p>
               </div>
-              {saveChoice === 'download' && actionCompleted && (
-                <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0" />
-              )}
             </div>
           </button>
 
           {/* 3. Bara spara */}
           <button
             type="button"
-            onClick={() => handleAction('save')}
-            disabled={!selectedTemplate || isSaving || !canSave}
+            onClick={() => onChoiceChange('save')}
+            disabled={isSaving || !canSave}
             className={`relative p-5 rounded-xl border-2 transition-all min-h-[88px] touch-manipulation ${
               saveChoice === 'save'
                 ? 'border-blue-500 bg-blue-50 shadow-lg'
@@ -191,48 +169,19 @@ export default function SaveAndTemplateStep({
                   </p>
                 )}
               </div>
-              {saveChoice === 'save' && actionCompleted && (
-                <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0" />
-              )}
             </div>
           </button>
         </div>
 
-        {/* Status-indikator */}
-        {saveChoice && (
-          <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            {isSaving && (
-              <div className="flex items-center gap-3">
-                <Loader2 className="w-5 h-5 animate-spin text-blue-600" />
-                <span className="text-sm font-medium text-blue-900">
-                  {saveChoice === 'save-and-download' ? 'Sparar och laddar ned...' :
-                   saveChoice === 'download' ? 'Laddar ned...' :
-                   'Sparar...'}
-                </span>
-              </div>
-            )}
-            {actionCompleted && !isSaving && (
-              <div className="flex items-center gap-3">
-                <CheckCircle2 className="w-5 h-5 text-green-600" />
-                <span className="text-sm font-medium text-green-900">
-                  {saveChoice === 'save-and-download' ? 'Sparat och nedladdat!' :
-                   saveChoice === 'download' ? 'Nedladdat!' :
-                   'Sparat!'}
-                </span>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Namn input - visas bara om man väljer att spara (och innan action utförs) */}
-        {(saveChoice === 'save' || saveChoice === 'save-and-download') && !actionCompleted && (
+        {/* Namn input - visas bara om man väljer att spara */}
+        {(saveChoice === 'save' || saveChoice === 'save-and-download') && (
           <div className="space-y-3">
             <label className="block">
               <span className="text-sm font-medium text-gray-700 mb-2 block">CV-namn</span>
               <input
                 type="text"
                 value={customName}
-                onChange={(e) => setCustomName(e.target.value)}
+                onChange={(e) => onNameChange(e.target.value)}
                 placeholder={nameSuggestions[0] || "Mitt CV 2025"}
                 className="w-full px-4 py-3 md:py-2.5 text-base md:text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white text-gray-900 min-h-[48px]"
               />
@@ -240,6 +189,7 @@ export default function SaveAndTemplateStep({
 
             {/* Tips-sektion - fällbar */}
             <button
+              type="button"
               onClick={() => setShowTips(!showTips)}
               className="mt-3 w-full text-left flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
             >
@@ -262,7 +212,7 @@ export default function SaveAndTemplateStep({
         )}
 
         {/* Quota manager - visas om biblioteket är fullt */}
-        {!canSave && (saveChoice === 'save' || saveChoice === 'save-and-download') && !actionCompleted && (
+        {!canSave && (saveChoice === 'save' || saveChoice === 'save-and-download') && (
           <div className="mt-3 pt-3 border-t border-gray-200">
             <CVQuotaManager
               key={quotaRefreshKey}
@@ -278,7 +228,7 @@ export default function SaveAndTemplateStep({
       {/* Template Selector med Carousel */}
       <TemplateSelector
         selectedTemplateId={selectedTemplate}
-        onSelectTemplate={setSelectedTemplate}
+        onSelectTemplate={onTemplateChange}
         subscriptionTier={subscriptionTier as 'free' | 'premium'}
       />
 
@@ -287,27 +237,6 @@ export default function SaveAndTemplateStep({
         template={selectedTemplateData}
         userProfile={userProfile}
       />
-
-      {/* Slutför Button - Endast för att gå vidare i wizarden */}
-      <Button
-        onClick={onComplete}
-        disabled={!actionCompleted || isSaving}
-        className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white h-12 text-base font-semibold shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {isSaving ? (
-          <>
-            <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-            Bearbetar...
-          </>
-        ) : !actionCompleted ? (
-          <>Välj ett alternativ ovan för att fortsätta</>
-        ) : (
-          <>
-            <CheckCircle2 className="w-5 h-5 mr-2" />
-            Slutför
-          </>
-        )}
-      </Button>
     </div>
   );
 }
