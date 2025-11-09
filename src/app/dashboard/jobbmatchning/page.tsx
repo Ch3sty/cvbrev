@@ -463,7 +463,7 @@ export default function JobbmatchningPage() {
               <div className="bg-white/70 backdrop-blur-sm rounded-xl sm:rounded-2xl border border-gray-200 p-6 sm:p-8 text-center">
                 <p className="text-sm sm:text-base text-gray-600 mb-4">Du har inga uppladdade CV:n än.</p>
                 <a
-                  href="/dashboard/cv"
+                  href="/dashboard/profil/cv"
                   className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-lg sm:rounded-xl hover:shadow-lg transition-all touch-manipulation min-h-[44px] text-sm sm:text-base font-medium"
                 >
                   Ladda upp CV

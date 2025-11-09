@@ -111,7 +111,7 @@ export default function CompletionStep({
 
         {savedCvId && (
           <Button
-            onClick={() => window.location.href = '/profile?tab=cv'}
+            onClick={() => window.location.href = '/dashboard/profil/cv'}
             variant="outline"
             className="flex-1"
           >

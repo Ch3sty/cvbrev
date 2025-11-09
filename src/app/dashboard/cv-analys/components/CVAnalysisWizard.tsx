@@ -854,9 +854,6 @@ export default function CVAnalysisWizard({
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
-
-                // Move to completion step
-                handleNext();
               } catch (error: any) {
                 console.error('Save error:', error);
                 alert(error.message || 'Ett fel uppstod vid sparande');
@@ -864,6 +861,7 @@ export default function CVAnalysisWizard({
                 setIsSaving(false);
               }
             }}
+            onComplete={handleNext}
             isSaving={isSaving}
           />
         );

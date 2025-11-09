@@ -2,7 +2,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Save, Download, Lightbulb } from 'lucide-react';
+import { Save, Download, Lightbulb, CheckCircle2, Loader2 } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import CVQuotaManager from '../CVQuotaManager';
@@ -16,17 +16,20 @@ import { useProfile } from '@/hooks/use-profile';
 interface SaveAndTemplateStepProps {
   improvedCV: string;
   onSaveAndDownload: (templateId: string, fileName: string, saveToLibrary: boolean) => Promise<void>;
+  onComplete: () => void;
   isSaving: boolean;
 }
 
 export default function SaveAndTemplateStep({
   improvedCV,
   onSaveAndDownload,
+  onComplete,
   isSaving
 }: SaveAndTemplateStepProps) {
   const { cvCount, maxCvs, canSave, subscriptionTier, loading } = useCvQuota();
   const { profile } = useProfile();
-  const [saveChoice, setSaveChoice] = useState<'save' | 'download' | null>(null);
+  const [saveChoice, setSaveChoice] = useState<'save-and-download' | 'download' | 'save' | null>(null);
+  const [actionCompleted, setActionCompleted] = useState(false);
   const [customName, setCustomName] = useState('');
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>('modern-minimal');
   const [quotaRefreshKey, setQuotaRefreshKey] = useState(0);
@@ -41,19 +44,23 @@ export default function SaveAndTemplateStep({
     hasLinkedIn: !!profile?.linkedin_url
   };
 
-  const handleSave = async () => {
+  const handleAction = async (action: 'save-and-download' | 'download' | 'save') => {
     if (!selectedTemplate) {
-      alert('Välj en CV-mall');
+      alert('Välj en CV-mall först');
       return;
     }
 
-    if (!saveChoice) {
-      alert('Välj om du vill spara CV:t på Jobbcoach.ai eller bara ladda ned det');
-      return;
-    }
+    setSaveChoice(action);
 
-    const shouldSave = saveChoice === 'save';
-    await onSaveAndDownload(selectedTemplate, customName || nameSuggestions[0], shouldSave);
+    try {
+      const shouldSave = action === 'save-and-download' || action === 'save';
+      await onSaveAndDownload(selectedTemplate, customName || nameSuggestions[0], shouldSave);
+      setActionCompleted(true);
+    } catch (error) {
+      console.error('Action error:', error);
+      alert('Ett fel uppstod. Försök igen.');
+      setActionCompleted(false);
+    }
   };
 
   const handleQuotaRefresh = () => {
@@ -76,41 +83,33 @@ export default function SaveAndTemplateStep({
 
       {/* Välj hur du vill hantera ditt CV */}
       <Card className="p-6 bg-white border border-gray-200">
-        <h4 className="text-lg font-semibold text-gray-900 mb-4">Hur vill du hantera ditt förbättrade CV?</h4>
+        <h4 className="text-lg font-semibold text-gray-900 mb-4">Välj vad du vill göra med ditt förbättrade CV:</h4>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-          {/* Spara på Jobbcoach.ai */}
+        <div className="grid grid-cols-1 gap-4 mb-6">
+          {/* 1. Spara & Ladda ned */}
           <button
             type="button"
-            onClick={() => setSaveChoice('save')}
-            disabled={!canSave}
-            className={`relative p-5 md:p-4 rounded-xl border-2 transition-all min-h-[80px] touch-manipulation ${
-              saveChoice === 'save'
+            onClick={() => handleAction('save-and-download')}
+            disabled={!selectedTemplate || isSaving || !canSave}
+            className={`relative p-5 rounded-xl border-2 transition-all min-h-[88px] touch-manipulation ${
+              saveChoice === 'save-and-download'
                 ? 'border-green-500 bg-green-50 shadow-lg'
-                : canSave
-                ? 'border-gray-300 bg-white hover:border-green-300 hover:bg-green-50/50'
-                : 'border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed'
+                : !canSave
+                ? 'border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed'
+                : isSaving
+                ? 'border-gray-300 bg-gray-100 cursor-wait'
+                : 'border-gray-300 bg-white hover:border-green-300 hover:bg-green-50/50'
             }`}
           >
-            <div className="flex items-start gap-3">
-              <div className={`flex-shrink-0 w-7 h-7 md:w-5 md:h-5 rounded-full border-2 mt-0.5 ${
-                saveChoice === 'save'
-                  ? 'border-green-500 bg-green-500'
-                  : 'border-gray-300 bg-white'
-              }`}>
-                {saveChoice === 'save' && (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-white"></div>
-                  </div>
-                )}
+            <div className="flex items-center gap-4">
+              <div className="flex gap-2">
+                <Save className="w-5 h-5 text-green-600" />
+                <Download className="w-5 h-5 text-green-600" />
               </div>
               <div className="flex-1 text-left">
-                <div className="flex items-center gap-2 mb-1">
-                  <Save className="w-4 h-4 text-green-600" />
-                  <span className="font-semibold text-gray-900">Spara på Jobbcoach.ai</span>
-                </div>
+                <div className="font-semibold text-gray-900 mb-1">Spara på Jobbcoach.ai & Ladda ned</div>
                 <p className="text-sm text-gray-600">
-                  Spara i ditt CV-bibliotek och ladda ned PDF
+                  Spara i ditt CV-bibliotek och ladda ned PDF automatiskt
                 </p>
                 {canSave && (
                   <p className="text-xs text-green-700 mt-1 font-medium">
@@ -123,49 +122,110 @@ export default function SaveAndTemplateStep({
                   </p>
                 )}
               </div>
+              {saveChoice === 'save-and-download' && actionCompleted && (
+                <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0" />
+              )}
             </div>
           </button>
 
-          {/* Bara ladda ned */}
+          {/* 2. Bara ladda ned */}
           <button
             type="button"
-            onClick={() => setSaveChoice('download')}
-            className={`relative p-5 md:p-4 rounded-xl border-2 transition-all min-h-[80px] touch-manipulation ${
+            onClick={() => handleAction('download')}
+            disabled={!selectedTemplate || isSaving}
+            className={`relative p-5 rounded-xl border-2 transition-all min-h-[88px] touch-manipulation ${
               saveChoice === 'download'
                 ? 'border-purple-500 bg-purple-50 shadow-lg'
+                : isSaving
+                ? 'border-gray-300 bg-gray-100 cursor-wait'
                 : 'border-gray-300 bg-white hover:border-purple-300 hover:bg-purple-50/50'
             }`}
           >
-            <div className="flex items-start gap-3">
-              <div className={`flex-shrink-0 w-7 h-7 md:w-5 md:h-5 rounded-full border-2 mt-0.5 ${
-                saveChoice === 'download'
-                  ? 'border-purple-500 bg-purple-500'
-                  : 'border-gray-300 bg-white'
-              }`}>
-                {saveChoice === 'download' && (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-white"></div>
-                  </div>
-                )}
-              </div>
+            <div className="flex items-center gap-4">
+              <Download className="w-5 h-5 text-purple-600" />
               <div className="flex-1 text-left">
-                <div className="flex items-center gap-2 mb-1">
-                  <Download className="w-4 h-4 text-purple-600" />
-                  <span className="font-semibold text-gray-900">Bara ladda ned PDF</span>
-                </div>
+                <div className="font-semibold text-gray-900 mb-1">Ladda ned CV</div>
                 <p className="text-sm text-gray-600">
-                  Ladda ned direkt utan att spara i biblioteket
+                  Ladda ned PDF direkt utan att spara i biblioteket
                 </p>
                 <p className="text-xs text-gray-500 mt-1">
                   Du kan alltid ladda upp det senare
                 </p>
               </div>
+              {saveChoice === 'download' && actionCompleted && (
+                <CheckCircle2 className="w-6 h-6 text-purple-600 flex-shrink-0" />
+              )}
+            </div>
+          </button>
+
+          {/* 3. Bara spara */}
+          <button
+            type="button"
+            onClick={() => handleAction('save')}
+            disabled={!selectedTemplate || isSaving || !canSave}
+            className={`relative p-5 rounded-xl border-2 transition-all min-h-[88px] touch-manipulation ${
+              saveChoice === 'save'
+                ? 'border-blue-500 bg-blue-50 shadow-lg'
+                : !canSave
+                ? 'border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed'
+                : isSaving
+                ? 'border-gray-300 bg-gray-100 cursor-wait'
+                : 'border-gray-300 bg-white hover:border-blue-300 hover:bg-blue-50/50'
+            }`}
+          >
+            <div className="flex items-center gap-4">
+              <Save className="w-5 h-5 text-blue-600" />
+              <div className="flex-1 text-left">
+                <div className="font-semibold text-gray-900 mb-1">Spara CV på Jobbcoach.ai</div>
+                <p className="text-sm text-gray-600">
+                  Spara i ditt CV-bibliotek (ingen nedladdning)
+                </p>
+                {canSave && (
+                  <p className="text-xs text-blue-700 mt-1 font-medium">
+                    {cvCount}/{maxCvs} platser använda
+                  </p>
+                )}
+                {!canSave && (
+                  <p className="text-xs text-red-600 mt-1 font-medium">
+                    Fullt ({cvCount}/{maxCvs}) - Ta bort gamla CV:n först
+                  </p>
+                )}
+              </div>
+              {saveChoice === 'save' && actionCompleted && (
+                <CheckCircle2 className="w-6 h-6 text-blue-600 flex-shrink-0" />
+              )}
             </div>
           </button>
         </div>
 
-        {/* Namn input - visas bara om man väljer att spara */}
-        {saveChoice === 'save' && (
+        {/* Status-indikator */}
+        {saveChoice && (
+          <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            {isSaving && (
+              <div className="flex items-center gap-3">
+                <Loader2 className="w-5 h-5 animate-spin text-blue-600" />
+                <span className="text-sm font-medium text-blue-900">
+                  {saveChoice === 'save-and-download' ? 'Sparar och laddar ned...' :
+                   saveChoice === 'download' ? 'Laddar ned...' :
+                   'Sparar...'}
+                </span>
+              </div>
+            )}
+            {actionCompleted && !isSaving && (
+              <div className="flex items-center gap-3">
+                <CheckCircle2 className="w-5 h-5 text-green-600" />
+                <span className="text-sm font-medium text-green-900">
+                  {saveChoice === 'save-and-download' ? 'Sparat och nedladdat!' :
+                   saveChoice === 'download' ? 'Nedladdat!' :
+                   'Sparat!'}
+                </span>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Namn input - visas bara om man väljer att spara (och innan action utförs) */}
+        {(saveChoice === 'save' || saveChoice === 'save-and-download') && !actionCompleted && (
           <div className="space-y-3">
             <label className="block">
               <span className="text-sm font-medium text-gray-700 mb-2 block">CV-namn</span>
@@ -202,7 +262,7 @@ export default function SaveAndTemplateStep({
         )}
 
         {/* Quota manager - visas om biblioteket är fullt */}
-        {!canSave && saveChoice === 'save' && (
+        {!canSave && (saveChoice === 'save' || saveChoice === 'save-and-download') && !actionCompleted && (
           <div className="mt-3 pt-3 border-t border-gray-200">
             <CVQuotaManager
               key={quotaRefreshKey}
@@ -228,25 +288,23 @@ export default function SaveAndTemplateStep({
         userProfile={userProfile}
       />
 
-      {/* Action Button */}
+      {/* Slutför Button - Endast för att gå vidare i wizarden */}
       <Button
-        onClick={handleSave}
-        disabled={!selectedTemplate || isSaving || !saveChoice}
-        className="w-full bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white h-12 text-base font-semibold shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+        onClick={onComplete}
+        disabled={!actionCompleted || isSaving}
+        className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white h-12 text-base font-semibold shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isSaving ? (
-          <>Bearbetar...</>
-        ) : !saveChoice ? (
-          <>Välj ett alternativ ovan</>
-        ) : saveChoice === 'save' ? (
           <>
-            <Save className="w-5 h-5 mr-2" />
-            Spara & Ladda ner PDF
+            <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+            Bearbetar...
           </>
+        ) : !actionCompleted ? (
+          <>Välj ett alternativ ovan för att fortsätta</>
         ) : (
           <>
-            <Download className="w-5 h-5 mr-2" />
-            Ladda ner PDF
+            <CheckCircle2 className="w-5 h-5 mr-2" />
+            Slutför
           </>
         )}
       </Button>
