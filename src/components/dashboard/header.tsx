@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { Trophy, Zap, TrendingUp, Target, Star, Crown, CheckCircle2, Sparkles, ChevronRight, Menu } from 'lucide-react';
+import { Trophy, Zap, TrendingUp, Target, Star, Crown, CheckCircle2, Sparkles, ChevronRight, Menu, Gift } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 import Link from 'next/link';
 
