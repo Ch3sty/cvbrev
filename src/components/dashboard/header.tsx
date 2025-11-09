@@ -340,7 +340,7 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
           {/* Invite Friends Button - Desktop */}
           {subscriptionTier === 'premium' && (
             <Link
-              href="/dashboard/invite-friends"
+              href="/dashboard/gastinbjudningar"
               className="hidden lg:flex items-center gap-2 px-3 py-2 rounded-xl bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white transition-all duration-300 shadow-md hover:shadow-lg group"
             >
               <Gift className="w-4 h-4" />
@@ -352,7 +352,7 @@ export default function DashboardHeader({ user, onMenuClick }: DashboardHeaderPr
           {/* Invite Friends Button - Mobile (Icon only) */}
           {subscriptionTier === 'premium' && (
             <Link
-              href="/dashboard/invite-friends"
+              href="/dashboard/gastinbjudningar"
               className="lg:hidden touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center rounded-lg bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 shadow-md"
             >
               <Gift className="w-5 h-5 text-white" />
