@@ -22,7 +22,6 @@ import { useNotification } from '@/context/notificationcontext';
 
 // Components
 import OnboardingChecklist from '@/components/dashboard/OnboardingChecklist';
-import GettingStartedTutorial from '@/components/dashboard/GettingStartedTutorial';
 import FloatingParticles from '@/components/dashboard/FloatingParticles';
 
 interface QuickStartCard {
@@ -315,8 +314,21 @@ export default function KomIgangPage() {
           </h1>
 
           <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto">
-            Välkommen till Jobbcoach.ai! Följ stegen nedan för att komma igång och upptäck hur AI kan förvandla din jobbsökning.
+            Välkommen till Jobbcoach.ai! Genomför alla 6 steg och <strong className="text-blue-600">få 1 dag gratis Premium</strong> att testa alla funktioner.
           </p>
+
+          {/* Reward Badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3, type: "spring" }}
+            className="inline-flex items-center gap-2 px-5 py-3 bg-gradient-to-r from-yellow-50 to-amber-50 border-2 border-yellow-300/50 rounded-full shadow-lg mb-2"
+          >
+            <Trophy className="w-5 h-5 text-yellow-600" />
+            <span className="text-sm font-bold text-yellow-900">
+              🎁 Slutför alla 6 steg = 1 dag gratis Premium
+            </span>
+          </motion.div>
 
           {/* Progress indicator */}
           <motion.div
@@ -404,21 +416,6 @@ export default function KomIgangPage() {
               );
             })}
           </div>
-        </motion.div>
-
-        {/* Getting Started Tutorial */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
-          className="space-y-4"
-        >
-          <div className="flex items-center gap-3 mb-6">
-            <Trophy className="w-6 h-6 text-purple-600" />
-            <h2 className="text-2xl font-bold text-slate-900">Komplett guide</h2>
-          </div>
-
-          <GettingStartedTutorial />
         </motion.div>
 
         {/* Motivational Footer */}

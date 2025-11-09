@@ -24,12 +24,12 @@ import {
   Target,
   Search,
   Crown,
-  Settings,
   Linkedin,
   Shield,
   X,
   Bug,
-  Sparkles
+  Sparkles,
+  Info
 } from 'lucide-react';
 
 interface DashboardSidebarProps {
@@ -149,6 +149,12 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       section: 'main'
     },
     {
+      path: '/dashboard/introduktion',
+      label: 'Introduktion',
+      icon: <Info className="w-5 h-5 text-blue-600" />,
+      section: 'main'
+    },
+    {
       path: '/dashboard/rewards',
       label: 'Belöningar',
       icon: <Trophy className="w-5 h-5" />,
@@ -221,12 +227,6 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       icon: <Crown className="w-4 h-4" />,
       highlight: true,
       highlightType: 'premium'
-    },
-    {
-      path: '/dashboard/profil/installningar',
-      label: 'Inställningar',
-      icon: <Settings className="w-4 h-4" />,
-      highlight: false
     }
   ];
   

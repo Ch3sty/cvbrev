@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { useProfile } from '@/hooks/use-profile';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ProfilePhotoUpload } from '@/components/profile/ProfilePhotoUpload';
 import { LinkedInInput } from '@/components/profile/LinkedInInput';
 import {
@@ -16,11 +17,17 @@ import {
   Scale,
   Bot,
   Info,
-  AlertTriangle
+  AlertTriangle,
+  LogOut,
+  Trash2
 } from 'lucide-react';
 import { useNotification } from '@/context/notificationcontext';
+import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import { logUserActivity } from '@/lib/activity-logger';
 
 export default function ProfilPage() {
+  const router = useRouter();
+  const supabase = getSupabaseClient();
   const {
     profile,
     loading: profileLoading,
@@ -42,6 +49,12 @@ export default function ProfilPage() {
     profile_photo_url: '',
     preferred_tonality: 'professional' as 'professional' | 'creative' | 'enthusiastic' | 'confident' | 'balanced' | 'auto'
   });
+
+  // State för kontoborttagning
+  const [showDeleteAccountConfirm, setShowDeleteAccountConfirm] = useState(false);
+  const [deleteAccountConfirmText, setDeleteAccountConfirmText] = useState('');
+  const [deleteAccountLoading, setDeleteAccountLoading] = useState(false);
+  const [deleteAccountError, setDeleteAccountError] = useState('');
 
   // Tonalitetsalternativ
   const tonalityOptions: Array<{
@@ -122,6 +135,95 @@ export default function ProfilPage() {
     } finally {
       setSaving(false);
       setTimeout(() => setNotification(null), 3000);
+    }
+  };
+
+  // Funktion för att radera konto
+  const confirmDeleteAccount = async () => {
+    if (deleteAccountConfirmText !== 'radera mitt konto') {
+      return;
+    }
+
+    try {
+      setDeleteAccountLoading(true);
+      setDeleteAccountError('');
+
+      // 1. Logga aktiviteten först
+      if (profile) {
+        await logUserActivity(
+          profile.id,
+          'registered',
+          'Användaren raderade sitt konto',
+          {
+            email: profile.email,
+            subscription_tier: subscriptionTier,
+            timestamp: new Date().toISOString()
+          }
+        );
+      }
+
+      // 2. Ta bort alla CV-filer och relaterad data
+      const cvDeleteResponse = await fetch('/api/cv', {
+        method: 'DELETE'
+      });
+
+      if (!cvDeleteResponse.ok) {
+        console.warn('Kunde inte ta bort alla CV-data, men fortsätter med kontoborttagning');
+      }
+
+      // 3. Ta bort alla sparade brev
+      try {
+        const letterDeleteResponse = await fetch('/api/letters', {
+          method: 'DELETE'
+        });
+
+        if (!letterDeleteResponse.ok) {
+          console.warn('Kunde inte ta bort alla brev, men fortsätter med kontoborttagning');
+        }
+      } catch (err) {
+        console.warn('API-rutt för borttagning av brev saknas eller är otillgänglig');
+      }
+
+      // 4. Ta bort kontot via Supabase Auth API
+      const { error: deleteError } = await supabase.auth.admin.deleteUser(
+        profile?.id || ''
+      );
+
+      if (deleteError) {
+        if (deleteError.message.includes('permissions')) {
+          // Fallback: Om vi inte har admin-rättigheter
+          try {
+            await supabase.auth.signOut();
+            const { error: clientDeleteError } = await supabase.rpc('delete_user_account');
+
+            if (clientDeleteError) {
+              throw clientDeleteError;
+            }
+          } catch (rpcError: any) {
+            throw new Error(`Kontoborttagning via RPC misslyckades: ${rpcError.message}`);
+          }
+        } else {
+          throw deleteError;
+        }
+      }
+
+      // 5. Show notification before redirecting
+      successWithMascot(
+        'Ditt konto har raderats. Tack för att du använde Jobbcoach.ai!',
+        '/images/maskot/success-account-deleted.svg',
+        4000,
+        false // No confetti for account deletion
+      );
+
+      // 6. Delay redirect to allow user to see notification
+      setTimeout(() => {
+        router.push('/');
+      }, 2000);
+
+    } catch (error: any) {
+      console.error('Fel vid borttagning av konto:', error);
+      setDeleteAccountError('Ett fel uppstod vid borttagning av kontot: ' + (error.message || 'Okänt fel'));
+      setDeleteAccountLoading(false);
     }
   };
 
@@ -359,8 +461,199 @@ export default function ProfilPage() {
               )}
             </motion.button>
           </div>
+
+          {/* Separator */}
+          <div className="pt-8 sm:pt-10 mt-8 sm:mt-10 border-t-2 border-gray-200">
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6">Kontoinställningar</h2>
+          </div>
+
+          {/* Sessionshantering */}
+          <div className="space-y-4">
+            <div className="pb-4 sm:pb-5">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-1.5 sm:mb-2 flex items-center">
+                <div className="p-1.5 sm:p-2 bg-blue-100 rounded-lg mr-2 flex-shrink-0">
+                  <LogOut className="w-4 h-4 text-blue-600" />
+                </div>
+                Sessionshantering
+              </h3>
+              <p className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
+                Hantera aktiva sessioner och inloggningsstatus för ditt konto.
+              </p>
+              <motion.button
+                onClick={async () => {
+                  if (profile) {
+                    logUserActivity(
+                      profile.id,
+                      'logout',
+                      'Användaren loggade ut',
+                      { from_page: 'profile' }
+                    ).catch(e => console.error('Loggningsfel:', e));
+                  }
+
+                  await supabase.auth.signOut();
+                  router.push('/login');
+                }}
+                className="flex items-center px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-gray-600 to-gray-700 text-white rounded-lg font-medium shadow-md hover:shadow-lg hover:from-gray-700 hover:to-gray-800 transition-all touch-manipulation text-sm sm:text-base"
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Logga ut
+              </motion.button>
+            </div>
+
+            {/* Kontoborttagning */}
+            <div className="pt-4 border-t border-gray-200">
+              <h3 className="text-base sm:text-lg font-semibold text-red-600 mb-1.5 sm:mb-2 flex items-center">
+                <div className="p-1.5 sm:p-2 bg-red-100 rounded-lg mr-2 flex-shrink-0">
+                  <Trash2 className="w-4 h-4 text-red-600" />
+                </div>
+                Radera konto
+              </h3>
+              <p className="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-5">
+                Om du raderar ditt konto tas all din data, CV:n och personliga brev bort permanent.
+                Denna åtgärd kan inte ångras.
+              </p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-yellow-50 p-3 sm:p-4 border border-yellow-200 rounded-lg mb-3 sm:mb-4"
+              >
+                <div className="flex items-start">
+                  <div className="p-1.5 sm:p-2 bg-yellow-100 rounded-lg mr-2 sm:mr-3 flex-shrink-0">
+                    <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-600" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <h4 className="text-yellow-900 font-semibold mb-1.5 text-sm sm:text-base">Viktigt att tänka på</h4>
+                    <ul className="text-xs sm:text-sm text-yellow-800 list-disc pl-4 space-y-1">
+                      <li>All din personliga information kommer att raderas</li>
+                      <li>Dina uppladdade CV:n och sparade brev förloras</li>
+                      <li>Du kan inte återställa ditt konto efter borttagning</li>
+                      {subscriptionTier === 'premium' && (
+                        <li className="font-medium">Din premium-prenumeration kommer inte att avslutas automatiskt. Du måste separat avsluta den via Stripe kundportal.</li>
+                      )}
+                    </ul>
+                  </div>
+                </div>
+              </motion.div>
+
+              <motion.button
+                onClick={() => setShowDeleteAccountConfirm(true)}
+                className="flex items-center px-4 sm:px-6 py-2.5 sm:py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium shadow-md hover:shadow-lg transition-all touch-manipulation text-sm sm:text-base"
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Trash2 className="w-4 h-4 mr-2" />
+                Radera mitt konto
+              </motion.button>
+            </div>
+          </div>
         </div>
       </motion.div>
+
+      {/* Delete Account confirmation modal */}
+      <AnimatePresence>
+        {showDeleteAccountConfirm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-3 sm:p-4"
+            onClick={() => {
+              setShowDeleteAccountConfirm(false);
+              setDeleteAccountConfirmText('');
+              setDeleteAccountError('');
+            }}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-white rounded-2xl max-w-md w-full shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-6 border-b border-gray-200">
+                <h3 className="text-xl font-semibold text-gray-900 flex items-center">
+                  <div className="p-2 bg-red-100 rounded-lg mr-2 flex-shrink-0">
+                    <AlertTriangle className="w-5 h-5 text-red-600" />
+                  </div>
+                  Radera konto
+                </h3>
+              </div>
+
+              <div className="p-6">
+                <p className="text-sm text-gray-700 mb-4">
+                  Är du absolut säker på att du vill radera ditt konto? Denna åtgärd kan <span className="text-red-600 font-bold">inte ångras</span>.
+                </p>
+
+                <div className="mb-5">
+                  <label htmlFor="delete-confirm" className="text-sm font-medium text-gray-700 mb-2 block">
+                    Skriv "<span className="font-semibold text-gray-900">radera mitt konto</span>" för att bekräfta:
+                  </label>
+                  <input
+                    id="delete-confirm"
+                    type="text"
+                    value={deleteAccountConfirmText}
+                    onChange={(e) => setDeleteAccountConfirmText(e.target.value)}
+                    placeholder="radera mitt konto"
+                    className="w-full px-4 py-3 rounded-xl bg-white text-gray-900 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all text-sm"
+                  />
+                </div>
+
+                {deleteAccountError && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mb-4 p-4 bg-red-50 border-l-4 border-red-500 rounded-r"
+                  >
+                    <p className="text-red-700 text-sm">{deleteAccountError}</p>
+                  </motion.div>
+                )}
+              </div>
+
+              <div className="p-6 border-t border-gray-200 flex justify-end gap-3 bg-gray-50">
+                <motion.button
+                  onClick={() => {
+                    setShowDeleteAccountConfirm(false);
+                    setDeleteAccountConfirmText('');
+                    setDeleteAccountError('');
+                  }}
+                  className="px-6 py-2 bg-white text-gray-700 rounded-xl border border-gray-300 hover:bg-gray-50 transition-colors font-medium text-sm touch-manipulation"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  Avbryt
+                </motion.button>
+                <motion.button
+                  onClick={confirmDeleteAccount}
+                  disabled={deleteAccountConfirmText !== 'radera mitt konto' || deleteAccountLoading}
+                  className={`px-6 py-2 bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl flex items-center justify-center transition-all font-medium shadow-lg touch-manipulation text-sm
+                    ${deleteAccountConfirmText !== 'radera mitt konto' ? 'opacity-50 cursor-not-allowed' : 'hover:from-red-700 hover:to-pink-700'}`}
+                  whileHover={deleteAccountConfirmText === 'radera mitt konto' && !deleteAccountLoading ? { scale: 1.02, y: -2 } : {}}
+                  whileTap={deleteAccountConfirmText === 'radera mitt konto' && !deleteAccountLoading ? { scale: 0.98 } : {}}
+                >
+                  {deleteAccountLoading ? (
+                    <>
+                      <motion.div
+                        className="w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                      />
+                      <span>Tar bort...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Trash2 className="w-4 h-4 mr-2"/>
+                      <span>Radera permanent</span>
+                    </>
+                  )}
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
