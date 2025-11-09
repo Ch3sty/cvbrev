@@ -15,6 +15,7 @@ const AnalysisOverviewStep = lazy(() => import('./steps/AnalysisOverviewStep'));
 const SelectImprovementsStep = lazy(() => import('./steps/SelectImprovementsStep'));
 const PreviewComparisonStep = lazy(() => import('./steps/PreviewComparisonStep'));
 const SaveAndTemplateStep = lazy(() => import('./steps/SaveAndTemplateStep'));
+const SaveProgressStep = lazy(() => import('./steps/SaveProgressStep'));
 const CompletionStep = lazy(() => import('./steps/CompletionStep'));
 
 // Import progress bar
@@ -95,6 +96,10 @@ export default function CVAnalysisWizard({
   const [saveChoice, setSaveChoice] = useState<'save-and-download' | 'download' | 'save' | null>(null);
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>('modern-minimal');
   const [customCVName, setCustomCVName] = useState('');
+
+  // Save progress state
+  const [showSaveProgress, setShowSaveProgress] = useState(false);
+  const [saveProgress, setSaveProgress] = useState(0);
 
   // Dynamic potential state - uppdateras när användaren väljer förbättringar
   const [dynamicPotentialScore, setDynamicPotentialScore] = useState(0);
@@ -421,7 +426,16 @@ export default function CVAnalysisWizard({
         return;
       }
 
+      // Show progress screen
+      setShowSaveProgress(true);
+      setSaveProgress(0);
       setIsSaving(true);
+
+      // Start progress simulation
+      const progressInterval = setInterval(() => {
+        setSaveProgress(prev => Math.min(95, prev + 5));
+      }, 300);
+
       const fileName = customCVName || generateCVNameSuggestions()[0];
       setSavedFileName(fileName);
 
@@ -606,6 +620,10 @@ export default function CVAnalysisWizard({
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
 
+        // Clear progress interval and set to 100%
+        clearInterval(progressInterval);
+        setSaveProgress(100);
+
         // Show mascot notification
         successWithMascotAndActivity(
           'CV-analysen är klar! Dina förbättringar väntar.',
@@ -619,16 +637,24 @@ export default function CVAnalysisWizard({
           5000
         );
 
-        // Success - advance to next step
-        setIsSaving(false);
-        if (!completedSteps.includes(currentStep)) {
-          setCompletedSteps([...completedSteps, currentStep]);
-        }
-        setCurrentStep(currentStep + 1);
+        // Wait a moment to show 100% completion
+        setTimeout(() => {
+          // Success - advance to next step
+          setIsSaving(false);
+          setShowSaveProgress(false);
+          setSaveProgress(0);
+          if (!completedSteps.includes(currentStep)) {
+            setCompletedSteps([...completedSteps, currentStep]);
+          }
+          setCurrentStep(currentStep + 1);
+        }, 1000);
       } catch (error: any) {
         console.error('Save error:', error);
+        clearInterval(progressInterval);
         alert(error.message || 'Ett fel uppstod vid sparande');
         setIsSaving(false);
+        setShowSaveProgress(false);
+        setSaveProgress(0);
       }
       return; // Don't execute normal flow
     }
@@ -868,6 +894,11 @@ export default function CVAnalysisWizard({
         );
 
       case 5:
+        // Show progress screen while saving/downloading
+        if (showSaveProgress) {
+          return <SaveProgressStep progress={saveProgress} />;
+        }
+
         return (
           <SaveAndTemplateStep
             improvedCV={improvedCV}
