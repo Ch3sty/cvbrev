@@ -33,7 +33,7 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: siteMetadata.backgroundColors.white,
+          background: siteMetadata.backgroundColors.slate50,
           fontFamily: 'system-ui, -apple-system, sans-serif',
           padding: 60,
         }}
@@ -46,7 +46,7 @@ export default async function Image() {
             left: 0,
             right: 0,
             bottom: 0,
-            background: `linear-gradient(135deg, ${siteMetadata.brandColors.blue}08 0%, ${siteMetadata.brandColors.indigo}08 50%, ${siteMetadata.brandColors.purple}08 100%)`,
+            background: `linear-gradient(135deg, ${siteMetadata.brandColors.blue}12 0%, ${siteMetadata.brandColors.indigo}12 50%, ${siteMetadata.brandColors.purple}12 100%)`,
           }}
         />
 
@@ -96,8 +96,8 @@ export default async function Image() {
                   flexDirection: 'column',
                   padding: 24,
                   gap: 12,
-                  border: `2px solid ${siteMetadata.backgroundColors.slate100}`,
-                  boxShadow: '0 8px 24px rgba(15, 23, 42, 0.12)',
+                  border: `2px solid ${siteMetadata.backgroundColors.slate200}`,
+                  boxShadow: '0 10px 30px rgba(15, 23, 42, 0.15), 0 4px 10px rgba(15, 23, 42, 0.08)',
                 }}
               >
                 {/* Header bar with accent color */}

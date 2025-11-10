@@ -26,6 +26,7 @@ export const siteMetadata = {
     white: '#FFFFFF',
     slate50: '#F8FAFC',
     slate100: '#F1F5F9',
+    slate200: '#E2E8F0',  // För borders med bättre kontrast
   },
 
   // Default OG-bild dimensioner
