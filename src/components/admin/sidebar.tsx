@@ -16,7 +16,8 @@ import {
   Database, // Ikon för underhåll
   Search, // Ny ikon för SEO
   TrendingUp, // Ytterligare ikon för analytics
-  DollarSign // Ikon för modellpriser
+  DollarSign, // Ikon för modellpriser
+  BookOpen // Ikon för AI Documents
 } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
@@ -31,6 +32,7 @@ export default function AdminSidebar() {
     { path: '/admin/users', label: 'Användare', icon: <Users className="w-5 h-5" /> },
     { path: '/admin/letters', label: 'Brev', icon: <FileText className="w-5 h-5" /> },
     { path: '/admin/cvs', label: 'CV:n', icon: <File className="w-5 h-5" /> },
+    { path: '/admin/ai-documents', label: 'AI Dokument', icon: <BookOpen className="w-5 h-5" /> },
     { path: '/admin/statistics', label: 'Statistik', icon: <BarChart2 className="w-5 h-5" /> },
     { path: '/admin/seo', label: 'SEO & Content', icon: <Search className="w-5 h-5" /> },
     { path: '/admin/analytics', label: 'Analytics', icon: <TrendingUp className="w-5 h-5" /> },
