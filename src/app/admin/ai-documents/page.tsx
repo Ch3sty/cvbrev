@@ -39,6 +39,82 @@ export default function AIDocumentsPage() {
     fileContent: '',
   });
 
+  // Auto-format function to convert raw text to clean Markdown
+  function autoFormatToMarkdown(rawText: string): string {
+    let text = rawText;
+
+    // Extract and store sources/references section
+    const sourcesMatch = text.match(/_{8,}\s*((\[\d+\].*?\n.*?https?:\/\/.*?\n?)+)/s);
+    const sources: Record<string, string> = {};
+
+    if (sourcesMatch) {
+      const sourcesSection = sourcesMatch[1];
+      // Parse sources: [1][2][3] Title\nURL
+      const sourceLines = sourcesSection.match(/\[[\d\s,]+\]\s*(.+?)\s+(https?:\/\/\S+)/gm);
+
+      if (sourceLines) {
+        sourceLines.forEach(line => {
+          const match = line.match(/\[([\d\s,]+)\]\s*(.+?)\s+(https?:\/\/\S+)/);
+          if (match) {
+            const nums = match[1].split(/[\s,]+/).filter(n => n);
+            const title = match[2].trim();
+            const url = match[3].trim();
+
+            nums.forEach(num => {
+              sources[num] = `[${title}](${url})`;
+            });
+          }
+        });
+      }
+
+      // Remove sources section
+      text = text.replace(/_{8,}[\s\S]*$/, '').trim();
+    }
+
+    // Replace citation numbers [1][2] with actual links
+    text = text.replace(/\[(\d+)\](?:\[(\d+)\])?(?:\[(\d+)\])?(?:\[(\d+)\])?/g, (match, n1, n2, n3, n4) => {
+      const nums = [n1, n2, n3, n4].filter(Boolean);
+      const links = nums.map(n => sources[n] || '').filter(Boolean);
+      return links.length > 0 ? ` (${links.join(', ')})` : '';
+    });
+
+    // Convert bullet points (•) to proper Markdown lists
+    text = text.replace(/^•\s+(.+)$/gm, '- $1');
+
+    // Convert bold sections that look like headings
+    text = text.replace(/^(.{3,60}):$/gm, '### $1');
+
+    // Add proper heading hierarchy
+    const lines = text.split('\n');
+    const formatted: string[] = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      let line = lines[i].trim();
+
+      if (!line) {
+        formatted.push('');
+        continue;
+      }
+
+      // First line is H1
+      if (i === 0 && !line.startsWith('#')) {
+        formatted.push(`# ${line}`);
+        continue;
+      }
+
+      // Lines that end with ":" and are short = headings
+      if (line.endsWith(':') && line.length < 80 && !line.startsWith('-')) {
+        line = line.slice(0, -1); // Remove :
+        formatted.push(`\n## ${line}\n`);
+        continue;
+      }
+
+      formatted.push(line);
+    }
+
+    return formatted.join('\n').trim();
+  }
+
   const supabase = getSupabaseClient();
 
   useEffect(() => {
@@ -287,9 +363,22 @@ export default function AIDocumentsPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Innehåll *
-                </label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Innehåll *
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const formatted = autoFormatToMarkdown(formData.fileContent);
+                      setFormData({ ...formData, fileContent: formatted });
+                    }}
+                    disabled={!formData.fileContent}
+                    className="px-3 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                  >
+                    🪄 Auto-formatera till Markdown
+                  </button>
+                </div>
                 <textarea
                   value={formData.fileContent}
                   onChange={(e) => setFormData({ ...formData, fileContent: e.target.value })}
@@ -299,7 +388,7 @@ export default function AIDocumentsPage() {
                   required
                 />
                 <p className="text-sm text-gray-500 mt-1">
-                  Klistra in text direkt eller konvertera din PDF till text först. Stöder Markdown-formatering.
+                  Klistra in text från Word/PDF → Klicka "Auto-formatera" → Konverterar automatiskt [1][2] till länkar, bullet points till listor, och skapar rubriker.
                 </p>
               </div>
 
