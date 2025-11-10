@@ -29,7 +29,8 @@ import {
   X,
   Bug,
   Sparkles,
-  Info
+  Info,
+  MessageCircle
 } from 'lucide-react';
 
 interface DashboardSidebarProps {
@@ -177,6 +178,13 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       path: '/dashboard/linkedin-optimizer',
       label: 'LinkedIn\nProfiloptimering',
       icon: <Linkedin className="w-5 h-5" />,
+      section: 'tools',
+      highlight: true
+    },
+    {
+      path: '/dashboard/ai-coach',
+      label: 'AI Coach',
+      icon: <MessageCircle className="w-5 h-5" />,
       section: 'tools',
       highlight: true
     },
