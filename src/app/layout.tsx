@@ -176,28 +176,28 @@ export default function RootLayout({
         />
 
         {/* Basic meta tags */}
-        <title>Jobbcoach.ai - CV, personligt brev och jobbmatchning i Sverige</title>
-        <meta name="description" content="Skapa professionella CV:n och personliga brev snabbt med Jobbcoach.ai. Gratis verktyg för jobbsökare i Sverige." />
+        <title>Jobbcoach.ai - CV, personligt brev, jobbmatchning & rekryteringstester</title>
+        <meta name="description" content="Skapa ATS-anpassade CV:n och personliga brev, få jobbmatchning och träna på rekryteringstester. Ett effektivt verktyg för arbetssökande i Sverige." />
 
         {/* Open Graph meta tags */}
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="Jobbcoach.ai" />
-        <meta property="og:title" content="Jobbcoach.ai - CV, personligt brev och jobbmatchning i Sverige" />
-        <meta property="og:description" content="Skapa professionella CV:n och personliga brev snabbt med Jobbcoach.ai. Gratis verktyg för jobbsökare i Sverige." />
+        <meta property="og:title" content="Jobbcoach.ai - CV, personligt brev, jobbmatchning & rekryteringstester" />
+        <meta property="og:description" content="Skapa ATS-anpassade CV:n och personliga brev, få jobbmatchning och träna på rekryteringstester. Ett effektivt verktyg för arbetssökande i Sverige." />
         <meta property="og:url" content="https://jobbcoach.ai" />
         <meta property="og:locale" content="sv_SE" />
         <meta property="og:image" content="https://jobbcoach.ai/opengraph-image" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="Jobbcoach.ai - CV, personligt brev och jobbmatchning i Sverige" />
+        <meta property="og:image:alt" content="Skapa ATS-anpassade CV:n, personliga brev och träna på rekryteringstester med Jobbcoach.ai" />
 
         {/* Twitter Card meta tags */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@jobbcoach_ai" />
-        <meta name="twitter:title" content="Jobbcoach.ai - CV, personligt brev och jobbmatchning i Sverige" />
-        <meta name="twitter:description" content="Skapa professionella CV:n och personliga brev snabbt med Jobbcoach.ai. Gratis verktyg för jobbsökare i Sverige." />
+        <meta name="twitter:title" content="Jobbcoach.ai - CV, personligt brev, jobbmatchning & rekryteringstester" />
+        <meta name="twitter:description" content="Skapa ATS-anpassade CV:n och personliga brev, få jobbmatchning och träna på rekryteringstester. Ett effektivt verktyg för arbetssökande i Sverige." />
         <meta name="twitter:image" content="https://jobbcoach.ai/opengraph-image" />
-        <meta name="twitter:image:alt" content="Jobbcoach.ai - CV, personligt brev och jobbmatchning i Sverige" />
+        <meta name="twitter:image:alt" content="Skapa ATS-anpassade CV:n, personliga brev och träna på rekryteringstester med Jobbcoach.ai" />
 
         {/* Canonical URL */}
         <link rel="canonical" href="https://jobbcoach.ai" />

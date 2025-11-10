@@ -11,6 +11,13 @@ export const size = {
 export const contentType = 'image/png';
 
 export default async function Image() {
+  const features = [
+    { emoji: '📝', text: 'Skapa ATS-anpassade personliga brev & CV:n' },
+    { emoji: '🎯', text: 'Hitta tjänster som matchar dina kompetenser' },
+    { emoji: '🎨', text: 'Ändra din CV-design med några få knapptryck' },
+    { emoji: '🧠', text: 'Träna obegränsat på rekryteringstester' },
+  ];
+
   return new ImageResponse(
     (
       <div
@@ -21,67 +28,123 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: `linear-gradient(135deg, ${siteMetadata.brandColors.blue} 0%, ${siteMetadata.brandColors.purple} 50%, ${siteMetadata.brandColors.pink} 100%)`,
+          background: siteMetadata.backgroundColors.white,
           fontFamily: 'system-ui, -apple-system, sans-serif',
+          padding: 60,
         }}
       >
-        {/* Logotype */}
+        {/* Background gradient overlay (subtle) */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: `linear-gradient(135deg, ${siteMetadata.brandColors.blue}08 0%, ${siteMetadata.brandColors.indigo}08 50%, ${siteMetadata.brandColors.purple}08 100%)`,
+          }}
+        />
+
+        {/* Content container */}
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            marginBottom: 60,
+            gap: 40,
+            zIndex: 1,
           }}
         >
+          {/* Logo */}
           <div
             style={{
-              fontSize: 96,
+              fontSize: 80,
               fontWeight: 'bold',
-              color: 'white',
-              letterSpacing: '-0.05em',
-              textAlign: 'center',
+              background: `linear-gradient(135deg, ${siteMetadata.brandColors.blue} 0%, ${siteMetadata.brandColors.indigo} 50%, ${siteMetadata.brandColors.purple} 100%)`,
+              backgroundClip: 'text',
+              color: 'transparent',
+              letterSpacing: '-0.02em',
             }}
           >
             Jobbcoach.ai
           </div>
-        </div>
 
-        {/* Tagline */}
-        <div
-          style={{
-            display: 'flex',
-            fontSize: 48,
-            fontWeight: '500',
-            color: 'rgba(255, 255, 255, 0.95)',
-            textAlign: 'center',
-            maxWidth: 1000,
-            lineHeight: 1.4,
-            paddingLeft: 80,
-            paddingRight: 80,
-          }}
-        >
-          CV, personligt brev och jobbmatchning i Sverige
-        </div>
+          {/* Subtitle */}
+          <div
+            style={{
+              fontSize: 32,
+              fontWeight: '600',
+              color: '#0F172A',
+              textAlign: 'center',
+              maxWidth: 900,
+            }}
+          >
+            CV, personligt brev, jobbmatchning & rekryteringstester
+          </div>
 
-        {/* Decorative elements */}
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 40,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 20,
-          }}
-        >
+          {/* Features grid */}
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              gap: 20,
+              justifyContent: 'center',
+              maxWidth: 1000,
+              marginTop: 20,
+            }}
+          >
+            {features.map((feature, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  background: siteMetadata.backgroundColors.white,
+                  padding: '16px 24px',
+                  borderRadius: 16,
+                  border: `2px solid ${siteMetadata.backgroundColors.slate100}`,
+                  boxShadow: '0 4px 12px rgba(15, 23, 42, 0.08)',
+                  width: 460,
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 32,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {feature.emoji}
+                </div>
+                <div
+                  style={{
+                    fontSize: 20,
+                    fontWeight: '500',
+                    color: '#475569',
+                    flex: 1,
+                    lineHeight: 1.3,
+                  }}
+                >
+                  {feature.text}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Tagline */}
           <div
             style={{
               fontSize: 28,
-              color: 'rgba(255, 255, 255, 0.8)',
+              fontWeight: '600',
+              color: '#64748B',
+              textAlign: 'center',
+              marginTop: 20,
             }}
           >
-            Gratis verktyg för jobbsökare
+            {siteMetadata.tagline}
           </div>
         </div>
       </div>

@@ -11,6 +11,18 @@ export const size = {
 export const contentType = 'image/png';
 
 export default async function Image() {
+  const templates = [
+    { color: siteMetadata.brandColors.blue },
+    { color: siteMetadata.brandColors.indigo },
+    { color: siteMetadata.brandColors.purple },
+  ];
+
+  const features = [
+    'ATS-optimerade',
+    'Branschspecifika',
+    'Ändra design med ett knapptryck',
+  ];
+
   return new ImageResponse(
     (
       <div
@@ -21,12 +33,24 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: `linear-gradient(135deg, ${siteMetadata.brandColors.blue} 0%, ${siteMetadata.brandColors.purple} 50%, ${siteMetadata.brandColors.pink} 100%)`,
+          background: siteMetadata.backgroundColors.white,
           fontFamily: 'system-ui, -apple-system, sans-serif',
-          padding: 80,
+          padding: 60,
         }}
       >
-        {/* Main content */}
+        {/* Background gradient overlay (subtle) */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: `linear-gradient(135deg, ${siteMetadata.brandColors.blue}08 0%, ${siteMetadata.brandColors.indigo}08 50%, ${siteMetadata.brandColors.purple}08 100%)`,
+          }}
+        />
+
+        {/* Content container */}
         <div
           style={{
             display: 'flex',
@@ -34,6 +58,7 @@ export default async function Image() {
             alignItems: 'center',
             justifyContent: 'center',
             gap: 40,
+            zIndex: 1,
           }}
         >
           {/* Title */}
@@ -41,84 +66,121 @@ export default async function Image() {
             style={{
               fontSize: 72,
               fontWeight: 'bold',
-              color: 'white',
+              background: `linear-gradient(135deg, ${siteMetadata.brandColors.blue} 0%, ${siteMetadata.brandColors.indigo} 50%, ${siteMetadata.brandColors.purple} 100%)`,
+              backgroundClip: 'text',
+              color: 'transparent',
               textAlign: 'center',
-              lineHeight: 1.2,
+              lineHeight: 1.1,
             }}
           >
             50+ professionella CV-mallar
           </div>
 
-          {/* Visual representation of CV templates */}
+          {/* Template mockups */}
           <div
             style={{
               display: 'flex',
-              gap: 20,
+              gap: 24,
               marginTop: 20,
             }}
           >
-            {/* Template preview boxes */}
-            {[1, 2, 3].map((i) => (
+            {templates.map((template, i) => (
               <div
                 key={i}
                 style={{
-                  width: 200,
-                  height: 280,
-                  background: 'rgba(255, 255, 255, 0.95)',
-                  borderRadius: 12,
+                  width: 220,
+                  height: 300,
+                  background: siteMetadata.backgroundColors.white,
+                  borderRadius: 16,
                   display: 'flex',
                   flexDirection: 'column',
-                  padding: 20,
-                  gap: 10,
+                  padding: 24,
+                  gap: 12,
+                  border: `2px solid ${siteMetadata.backgroundColors.slate100}`,
+                  boxShadow: '0 8px 24px rgba(15, 23, 42, 0.12)',
                 }}
               >
-                {/* Mock CV content */}
+                {/* Header bar with accent color */}
                 <div
                   style={{
                     width: '100%',
-                    height: 20,
-                    background: 'rgba(37, 99, 235, 0.3)',
+                    height: 24,
+                    background: `linear-gradient(135deg, ${template.color}CC, ${template.color}FF)`,
+                    borderRadius: 8,
+                  }}
+                />
+                {/* Subheader */}
+                <div
+                  style={{
+                    width: '70%',
+                    height: 16,
+                    background: `${template.color}40`,
                     borderRadius: 4,
                   }}
                 />
                 <div
                   style={{
-                    width: '80%',
+                    width: '50%',
+                    height: 16,
+                    background: `${template.color}30`,
+                    borderRadius: 4,
+                  }}
+                />
+                {/* Divider */}
+                <div
+                  style={{
+                    marginTop: 8,
+                    width: '100%',
+                    height: 2,
+                    background: siteMetadata.backgroundColors.slate100,
+                  }}
+                />
+                {/* Content lines */}
+                <div
+                  style={{
+                    width: '100%',
                     height: 12,
-                    background: 'rgba(37, 99, 235, 0.2)',
+                    background: '#E2E8F0',
                     borderRadius: 4,
                   }}
                 />
                 <div
                   style={{
-                    width: '60%',
+                    width: '100%',
                     height: 12,
-                    background: 'rgba(37, 99, 235, 0.2)',
+                    background: '#E2E8F0',
                     borderRadius: 4,
                   }}
                 />
                 <div
                   style={{
-                    marginTop: 10,
+                    width: '85%',
+                    height: 12,
+                    background: '#E2E8F0',
+                    borderRadius: 4,
+                  }}
+                />
+                <div
+                  style={{
+                    marginTop: 8,
                     width: '100%',
-                    height: 8,
-                    background: 'rgba(0, 0, 0, 0.1)',
-                    borderRadius: 4,
+                    height: 2,
+                    background: siteMetadata.backgroundColors.slate100,
                   }}
                 />
                 <div
                   style={{
                     width: '100%',
-                    height: 8,
-                    background: 'rgba(0, 0, 0, 0.1)',
+                    height: 12,
+                    background: '#E2E8F0',
                     borderRadius: 4,
                   }}
                 />
                 <div
                   style={{
-                    width: '90%',
-                    height: 8,
-                    background: 'rgba(0, 0, 0, 0.1)',
+                    width: '95%',
+                    height: 12,
+                    background: '#E2E8F0',
                     borderRadius: 4,
                   }}
                 />
@@ -126,30 +188,55 @@ export default async function Image() {
             ))}
           </div>
 
-          {/* Subtitle */}
+          {/* Features */}
           <div
             style={{
-              fontSize: 36,
-              color: 'rgba(255, 255, 255, 0.9)',
-              textAlign: 'center',
+              display: 'flex',
+              gap: 40,
               marginTop: 20,
             }}
           >
-            Optimerade för svenska rekryterare och ATS-system
+            {features.map((feature, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 24,
+                    color: siteMetadata.brandColors.green,
+                  }}
+                >
+                  ✓
+                </div>
+                <div
+                  style={{
+                    fontSize: 22,
+                    fontWeight: '600',
+                    color: '#475569',
+                  }}
+                >
+                  {feature}
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
 
-        {/* Logo */}
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 40,
-            fontSize: 32,
-            fontWeight: 'bold',
-            color: 'white',
-          }}
-        >
-          Jobbcoach.ai
+          {/* Logo */}
+          <div
+            style={{
+              fontSize: 28,
+              fontWeight: 'bold',
+              color: '#64748B',
+              marginTop: 10,
+            }}
+          >
+            Jobbcoach.ai
+          </div>
         </div>
       </div>
     ),
