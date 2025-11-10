@@ -28,7 +28,7 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: siteMetadata.backgroundColors.slate50,
+          background: `linear-gradient(135deg, #EEF2FF 0%, #F8FAFC 50%, #FDF4FF 100%)`,
           fontFamily: 'system-ui, -apple-system, sans-serif',
           padding: 60,
         }}

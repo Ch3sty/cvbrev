@@ -190,6 +190,7 @@ export default function RootLayout({
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="Skapa ATS-anpassade CV:n, personliga brev och träna på rekryteringstester med Jobbcoach.ai" />
+        <meta property="fb:app_id" content="1234567890" />
 
         {/* Twitter Card meta tags */}
         <meta name="twitter:card" content="summary_large_image" />
