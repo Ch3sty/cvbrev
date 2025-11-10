@@ -44,7 +44,7 @@ export default function AIDocumentsPage() {
     let text = rawText;
 
     // Extract and store sources/references section
-    const sourcesMatch = text.match(/_{8,}\s*((\[\d+\].*?\n.*?https?:\/\/.*?\n?)+)/s);
+    const sourcesMatch = text.match(/_{8,}\s*((\[\d+\][\s\S]*?\n[\s\S]*?https?:\/\/[\s\S]*?\n?)+)/);
     const sources: Record<string, string> = {};
 
     if (sourcesMatch) {
