@@ -10,14 +10,6 @@ export const size = {
 };
 export const contentType = 'image/png';
 
-// Helper function to convert hex to rgba with alpha
-function hexToRgba(hex: string, alpha: number): string {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
-
 export default async function Image() {
   const templates = [
     { color: siteMetadata.brandColors.blue },
@@ -46,18 +38,6 @@ export default async function Image() {
           padding: 60,
         }}
       >
-        {/* Background gradient overlay (subtle) */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: `linear-gradient(135deg, ${hexToRgba(siteMetadata.brandColors.blue, 0.07)} 0%, ${hexToRgba(siteMetadata.brandColors.indigo, 0.07)} 50%, ${hexToRgba(siteMetadata.brandColors.purple, 0.07)} 100%)`,
-          }}
-        />
-
         {/* Content container */}
         <div
           style={{
@@ -111,7 +91,7 @@ export default async function Image() {
                   style={{
                     width: '100%',
                     height: 24,
-                    background: `linear-gradient(135deg, ${hexToRgba(template.color, 0.80)}, ${hexToRgba(template.color, 1.0)})`,
+                    background: `linear-gradient(135deg, ${template.color}CC, ${template.color}FF)`,
                     borderRadius: 8,
                   }}
                 />
@@ -120,7 +100,7 @@ export default async function Image() {
                   style={{
                     width: '70%',
                     height: 16,
-                    background: hexToRgba(template.color, 0.25),
+                    background: `${template.color}40`,
                     borderRadius: 4,
                   }}
                 />
@@ -128,7 +108,7 @@ export default async function Image() {
                   style={{
                     width: '50%',
                     height: 16,
-                    background: hexToRgba(template.color, 0.19),
+                    background: `${template.color}30`,
                     borderRadius: 4,
                   }}
                 />

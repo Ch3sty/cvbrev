@@ -10,14 +10,6 @@ export const size = {
 };
 export const contentType = 'image/png';
 
-// Helper function to convert hex to rgba with alpha
-function hexToRgba(hex: string, alpha: number): string {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
-
 export default async function Image() {
   const tools = [
     { emoji: '📄', name: 'CV-analys', desc: 'Få expertfeedback', color: siteMetadata.brandColors.green },
@@ -42,18 +34,6 @@ export default async function Image() {
           padding: 60,
         }}
       >
-        {/* Background gradient overlay (subtle) */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: `linear-gradient(135deg, ${hexToRgba(siteMetadata.brandColors.blue, 0.07)} 0%, ${hexToRgba(siteMetadata.brandColors.indigo, 0.07)} 50%, ${hexToRgba(siteMetadata.brandColors.purple, 0.07)} 100%)`,
-          }}
-        />
-
         {/* Content container */}
         <div
           style={{
@@ -102,7 +82,7 @@ export default async function Image() {
                   padding: 24,
                   borderRadius: 16,
                   border: `2px solid ${siteMetadata.backgroundColors.slate200}`,
-                  boxShadow: '0 8px 24px rgba(15, 23, 42, 0.12), 0 4px 8px rgba(15, 23, 42, 0.06)',
+                  boxShadow: '0 4px 16px rgba(15, 23, 42, 0.08)',
                   width: 320,
                 }}
               >
@@ -114,7 +94,7 @@ export default async function Image() {
                     justifyContent: 'center',
                     width: 72,
                     height: 72,
-                    background: `linear-gradient(135deg, ${hexToRgba(tool.color, 0.80)}, ${hexToRgba(tool.color, 1.0)})`,
+                    background: `linear-gradient(135deg, ${tool.color}CC, ${tool.color}FF)`,
                     borderRadius: 16,
                     fontSize: 40,
                   }}
@@ -168,7 +148,7 @@ export default async function Image() {
                   padding: 24,
                   borderRadius: 16,
                   border: `2px solid ${siteMetadata.backgroundColors.slate200}`,
-                  boxShadow: '0 8px 24px rgba(15, 23, 42, 0.12), 0 4px 8px rgba(15, 23, 42, 0.06)',
+                  boxShadow: '0 4px 16px rgba(15, 23, 42, 0.08)',
                   width: 320,
                 }}
               >
@@ -180,7 +160,7 @@ export default async function Image() {
                     justifyContent: 'center',
                     width: 72,
                     height: 72,
-                    background: `linear-gradient(135deg, ${hexToRgba(tool.color, 0.80)}, ${hexToRgba(tool.color, 1.0)})`,
+                    background: `linear-gradient(135deg, ${tool.color}CC, ${tool.color}FF)`,
                     borderRadius: 16,
                     fontSize: 40,
                   }}
