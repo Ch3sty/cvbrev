@@ -177,18 +177,41 @@ Svara på svenska med konkreta råd baserat på kontexten ovan. Inkludera källo
             })}\n\n`)
           );
 
-          // Send sources
+          // Send sources - extract URLs from markdown links in chunks
           if (contextChunks.length > 0) {
+            // Extract all unique URLs from markdown links in the chunks
+            const extractedSources: Array<{ title: string; url: string }> = [];
+            const seenUrls = new Set<string>();
+
+            contextChunks.forEach((c: any) => {
+              // Find all markdown links: [text](url)
+              const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+              let match;
+
+              while ((match = linkRegex.exec(c.content)) !== null) {
+                const title = match[1];
+                const url = match[2];
+
+                // Only add unique URLs
+                if (!seenUrls.has(url)) {
+                  seenUrls.add(url);
+                  extractedSources.push({ title, url });
+                }
+              }
+            });
+
             controller.enqueue(
               encoder.encode(`data: ${JSON.stringify({
                 type: 'sources',
-                sources: contextChunks.map((c: any) => ({
-                  heading: c.heading,
-                  source_url: c.source_url,
-                  storage_path: c.storage_path,
-                  published_at: c.published_at,
-                  topic: c.topic,
-                }))
+                sources: extractedSources.length > 0
+                  ? extractedSources
+                  : contextChunks.map((c: any) => ({
+                      heading: c.heading,
+                      source_url: c.source_url,
+                      storage_path: c.storage_path,
+                      published_at: c.published_at,
+                      topic: c.topic,
+                    }))
               })}\n\n`)
             );
           }

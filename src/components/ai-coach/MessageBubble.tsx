@@ -108,31 +108,45 @@ export default function MessageBubble({
             >
               <p className="text-xs text-slate-600 font-medium mb-1">Källor:</p>
               <div className="space-y-1">
-                {sources.map((source, idx) => (
-                  <div
-                    key={idx}
-                    className="text-xs text-slate-600 flex items-start gap-1"
-                  >
-                    <span className="text-blue-600 font-medium">[{idx + 1}]</span>
-                    {source.source_url ? (
-                      <a
-                        href={source.source_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline flex-1"
-                      >
-                        {source.heading || source.source_url}
-                      </a>
-                    ) : (
-                      <span className="flex-1">
-                        {source.heading || 'Dokument'}
-                        {source.published_at && (
-                          <span className="text-slate-500"> ({source.published_at})</span>
-                        )}
-                      </span>
-                    )}
-                  </div>
-                ))}
+                {sources.map((source, idx) => {
+                  // Check if source has title and url (extracted from markdown links)
+                  const hasExtractedLink = source.title && source.url;
+
+                  return (
+                    <div
+                      key={idx}
+                      className="text-xs text-slate-600 flex items-start gap-1"
+                    >
+                      <span className="text-blue-600 font-medium">[{idx + 1}]</span>
+                      {hasExtractedLink ? (
+                        <a
+                          href={source.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline flex-1"
+                        >
+                          {source.title}
+                        </a>
+                      ) : source.source_url ? (
+                        <a
+                          href={source.source_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:underline flex-1"
+                        >
+                          {source.heading || source.source_url}
+                        </a>
+                      ) : (
+                        <span className="flex-1">
+                          {source.heading || 'Dokument'}
+                          {source.published_at && (
+                            <span className="text-slate-500"> ({source.published_at})</span>
+                          )}
+                        </span>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             </motion.div>
           )}

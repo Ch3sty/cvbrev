@@ -33,7 +33,6 @@ export default function AIDocumentsPage() {
   const [formData, setFormData] = useState({
     title: '',
     topic: '',
-    sourceUrl: '',
     publishedAt: '',
     isPublic: true,
     fileContent: '',
@@ -168,7 +167,7 @@ export default function AIDocumentsPage() {
             fileContent: formData.fileContent,
             title: formData.title,
             topic: formData.topic || null,
-            sourceUrl: formData.sourceUrl || null,
+            sourceUrl: null,
             publishedAt: formData.publishedAt || null,
             isPublic: formData.isPublic,
           }),
@@ -192,7 +191,6 @@ export default function AIDocumentsPage() {
       setFormData({
         title: '',
         topic: '',
-        sourceUrl: '',
         publishedAt: '',
         isPublic: true,
         fileContent: '',
@@ -323,19 +321,6 @@ export default function AIDocumentsPage() {
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Käll-URL
-                  </label>
-                  <input
-                    type="url"
-                    value={formData.sourceUrl}
-                    onChange={(e) => setFormData({ ...formData, sourceUrl: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                    placeholder="https://..."
-                  />
-                </div>
-
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Publiceringsdatum
