@@ -9,8 +9,8 @@ const openai = new OpenAI({
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
-// System prompt for AI Coach
-const SYSTEM_PROMPT = `Du är "AI Coach" för jobbcoach.ai - en expert på den svenska arbetsmarknaden och karriärutveckling.
+// System prompt for Karriärguiden
+const SYSTEM_PROMPT = `Du är "Karriärguiden" på jobbcoach.ai - en expert på den svenska arbetsmarknaden och karriärutveckling.
 
 Din roll:
 - Ge konkreta, handlingsorienterade råd om jobb, CV, intervjuer, lön och arbetsmarknadsfrågor

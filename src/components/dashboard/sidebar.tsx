@@ -182,8 +182,8 @@ export default function DashboardSidebar({ onClose, isMobile }: DashboardSidebar
       highlight: true
     },
     {
-      path: '/dashboard/ai-coach',
-      label: 'AI Coach',
+      path: '/dashboard/karriarguiden',
+      label: 'Karriärguiden',
       icon: <MessageCircle className="w-5 h-5" />,
       section: 'tools',
       highlight: true
