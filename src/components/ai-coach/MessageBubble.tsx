@@ -5,6 +5,10 @@ import { Sparkles, User } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
 interface Source {
+  // Extracted from markdown links
+  title?: string;
+  url?: string;
+  // Original document metadata (fallback)
   heading?: string;
   source_url?: string;
   storage_path?: string;
