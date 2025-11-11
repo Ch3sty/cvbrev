@@ -43,37 +43,65 @@ export default function AIDocumentsPage() {
     let text = rawText;
 
     // Extract and store sources/references section
-    const sourcesMatch = text.match(/_{8,}\s*((\[\d+\][\s\S]*?\n[\s\S]*?https?:\/\/[\s\S]*?\n?)+)/);
-    const sources: Record<string, string> = {};
+    const sourcesMatch = text.match(/_{8,}([\s\S]+)$/);
+    const sources: Record<string, { title: string; url: string }> = {};
+    let sourcesSectionMarkdown = '';
 
     if (sourcesMatch) {
       const sourcesSection = sourcesMatch[1];
-      // Parse sources: [1][2][3] Title\nURL
-      const sourceLines = sourcesSection.match(/\[[\d\s,]+\]\s*(.+?)\s+(https?:\/\/\S+)/gm);
 
-      if (sourceLines) {
-        sourceLines.forEach(line => {
-          const match = line.match(/\[([\d\s,]+)\]\s*(.+?)\s+(https?:\/\/\S+)/);
-          if (match) {
-            const nums = match[1].split(/[\s,]+/).filter(n => n);
-            const title = match[2].trim();
-            const url = match[3].trim();
+      // Parse sources - handle format: [1] [2] [3] Title\nURL or [1] Title\nURL
+      // Split into blocks by looking for patterns that start with [number]
+      const sourceBlocks = sourcesSection.split(/(?=\[[\d\s,\]]+\s+[^\[])/);
 
-            nums.forEach(num => {
-              sources[num] = `[${title}](${url})`;
-            });
-          }
-        });
+      sourceBlocks.forEach(block => {
+        const trimmedBlock = block.trim();
+        if (!trimmedBlock) return;
+
+        // Match pattern: [numbers...] Title (on line 1) followed by URL (on line 2 or same line)
+        const blockMatch = trimmedBlock.match(/^\[([\d\s,\]]+)\s+(.+?)[\r\n]+(https?:\/\/\S+)/);
+
+        if (blockMatch) {
+          // Extract all numbers from the brackets (handles [1] [2] [3] or [1, 2, 3])
+          const numbersStr = blockMatch[1];
+          const nums = numbersStr
+            .replace(/\]\s*\[/g, ' ') // Convert ][  to space
+            .replace(/[\[\]]/g, '') // Remove brackets
+            .split(/[\s,]+/) // Split by space or comma
+            .filter(n => n && /^\d+$/.test(n)); // Only keep valid numbers
+
+          const title = blockMatch[2].trim();
+          const url = blockMatch[3].trim();
+
+          nums.forEach(num => {
+            sources[num] = { title, url };
+          });
+        }
+      });
+
+      // Build Markdown sources section
+      if (Object.keys(sources).length > 0) {
+        const sortedNums = Object.keys(sources).sort((a, b) => parseInt(a) - parseInt(b));
+        sourcesSectionMarkdown = '\n\n## Källor\n\n' + sortedNums.map(num => {
+          const { title, url } = sources[num];
+          return `[${num}]: [${title}](${url})`;
+        }).join('\n');
       }
 
-      // Remove sources section
+      // Remove old sources section
       text = text.replace(/_{8,}[\s\S]*$/, '').trim();
     }
 
-    // Replace citation numbers [1][2] with actual links
+    // Replace citation numbers [1][2] with actual inline markdown links
     text = text.replace(/\[(\d+)\](?:\[(\d+)\])?(?:\[(\d+)\])?(?:\[(\d+)\])?/g, (match, n1, n2, n3, n4) => {
       const nums = [n1, n2, n3, n4].filter(Boolean);
-      const links = nums.map(n => sources[n] || '').filter(Boolean);
+      const links = nums.map(n => {
+        if (sources[n]) {
+          return `[${sources[n].title}](${sources[n].url})`;
+        }
+        return '';
+      }).filter(Boolean);
+
       return links.length > 0 ? ` (${links.join(', ')})` : '';
     });
 
@@ -111,7 +139,8 @@ export default function AIDocumentsPage() {
       formatted.push(line);
     }
 
-    return formatted.join('\n').trim();
+    // Append sources section at the end in Markdown format
+    return formatted.join('\n').trim() + sourcesSectionMarkdown;
   }
 
   const supabase = getSupabaseClient();
