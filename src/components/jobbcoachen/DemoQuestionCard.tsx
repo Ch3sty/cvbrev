@@ -26,7 +26,8 @@ export default function DemoQuestionCard({
       whileHover={{ scale: 1.02, y: -2 }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      className="group bg-white border border-slate-200 rounded-xl p-4 text-left hover:border-blue-500 hover:shadow-lg transition-all duration-300 w-full min-h-[88px] relative overflow-hidden"
+      className="group bg-white border border-slate-200 rounded-xl p-4 text-left hover:border-blue-500 hover:shadow-lg transition-all duration-300 w-full min-h-[96px] relative overflow-hidden"
+      aria-label={`Fråga: ${question}`}
     >
       {/* Subtle gradient overlay on hover */}
       <motion.div

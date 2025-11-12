@@ -220,9 +220,10 @@ export default function JobbcoachenPage() {
 
         <div className="container mx-auto px-4 relative">
           <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Left: Text */}
-              <div>
+            {/* IMPROVED: Flexbox instead of grid for better mobile control */}
+            <div className="flex flex-col xl:flex-row xl:items-center gap-8 lg:gap-12">
+              {/* Left: Text - ALWAYS FIRST on mobile/tablet */}
+              <div className="flex-1 xl:max-w-xl">
                 <motion.div
                   className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 rounded-full mb-6"
                   initial={{ opacity: 0, y: 20 }}
@@ -234,7 +235,7 @@ export default function JobbcoachenPage() {
                 </motion.div>
 
                 <motion.h1
-                  className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight"
+                  className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-slate-900 mb-4 sm:mb-6 leading-tight"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1, duration: 0.6 }}
@@ -243,7 +244,7 @@ export default function JobbcoachenPage() {
                 </motion.h1>
 
                 <motion.p
-                  className="text-xl text-slate-600 mb-8 leading-relaxed"
+                  className="text-base sm:text-lg lg:text-xl text-slate-600 mb-6 sm:mb-8 leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.6 }}
@@ -252,52 +253,53 @@ export default function JobbcoachenPage() {
                 </motion.p>
 
                 <motion.div
-                  className="flex flex-col sm:flex-row gap-4 mb-8"
+                  className="flex flex-col sm:flex-row gap-3 sm:gap-4 mb-6 sm:mb-8"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3, duration: 0.6 }}
                 >
                   <Link
                     href="/register"
-                    className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 inline-flex items-center justify-center gap-2"
+                    className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 inline-flex items-center justify-center gap-2 text-base sm:text-lg min-h-[48px]"
                   >
                     Ställ din första fråga gratis
                     <ArrowRight className="w-5 h-5" />
                   </Link>
                   <Link
                     href="#exempel"
-                    className="px-8 py-4 bg-white text-slate-900 font-semibold rounded-xl border-2 border-slate-200 hover:border-blue-600 transition-all duration-300 inline-flex items-center justify-center gap-2"
+                    className="px-6 sm:px-8 py-3 sm:py-4 bg-white text-slate-900 font-semibold rounded-xl border-2 border-slate-200 hover:border-blue-600 transition-all duration-300 inline-flex items-center justify-center gap-2 text-base sm:text-lg min-h-[48px]"
                   >
                     Se exempel på frågor
                   </Link>
                 </motion.div>
 
                 <motion.div
-                  className="flex flex-wrap items-center gap-6"
+                  className="flex flex-col sm:flex-row sm:flex-wrap items-start sm:items-center gap-3 sm:gap-6"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.4, duration: 0.6 }}
                 >
                   <div className="flex items-center gap-2 text-sm text-slate-600">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
                     <span>Byggd på svenska källor</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-slate-600">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
                     <span>Svar på sekunder</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-slate-600">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
                     <span>Allt från CV till arbetsrätt</span>
                   </div>
                 </motion.div>
               </div>
 
-              {/* Right: Demo */}
+              {/* Right: Demo - Shows AFTER text on mobile/tablet */}
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.4, duration: 0.8 }}
+                className="flex-1 xl:max-w-2xl"
               >
                 <JobbcoachenLiveDemo />
               </motion.div>
@@ -379,11 +381,11 @@ export default function JobbcoachenPage() {
 
             {/* Vertical Timeline */}
             <div className="relative">
-              {/* Timeline line */}
-              <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-200 via-purple-200 to-blue-200" />
+              {/* Timeline line - only visible on desktop */}
+              <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-200 via-purple-200 to-blue-200" />
 
               {/* Timeline steps */}
-              <div className="space-y-16">
+              <div className="space-y-8 md:space-y-16">
                 {[
                   {
                     step: 1,
@@ -435,50 +437,86 @@ export default function JobbcoachenPage() {
                   <motion.div
                     key={idx}
                     className="relative"
-                    initial={{ opacity: 0, x: idx % 2 === 0 ? -50 : 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-100px" }}
-                    transition={{ delay: idx * 0.15, duration: 0.6 }}
+                    transition={{ delay: idx * 0.1, duration: 0.5 }}
                   >
-                    <div className={`flex flex-col md:flex-row items-start md:items-center gap-8 ${
-                      idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                    {/* Mobile: Simple vertical cards */}
+                    <div className="md:hidden">
+                      <div className={`bg-white rounded-2xl p-6 border-2 ${
+                        item.highlight
+                          ? 'border-purple-200 shadow-xl shadow-purple-100/50 bg-gradient-to-br from-white to-purple-50/30'
+                          : 'border-slate-200'
+                      }`}>
+                        {/* Mobile header with icon and step */}
+                        <div className="flex items-center gap-4 mb-4">
+                          <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${item.iconColor} shadow-lg flex items-center justify-center flex-shrink-0`}>
+                            <item.icon className="w-7 h-7 text-white" />
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="text-sm font-bold text-slate-500">Steg {item.step}</span>
+                              {item.badge && (
+                                <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
+                                  item.highlight
+                                    ? 'bg-purple-100 text-purple-700'
+                                    : 'bg-blue-100 text-blue-700'
+                                }`}>
+                                  {item.badge}
+                                </span>
+                              )}
+                            </div>
+                            <h3 className="text-lg font-bold text-slate-900">
+                              {item.title}
+                            </h3>
+                          </div>
+                        </div>
+                        <p className="text-sm text-blue-600 font-medium mb-3">
+                          {item.subtitle}
+                        </p>
+                        <p className="text-slate-600 leading-relaxed text-sm">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Desktop: Traditional timeline layout */}
+                    <div className={`hidden md:flex items-center gap-8 ${
+                      idx % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
                     }`}>
                       {/* Content card */}
-                      <div className="flex-1 ml-20 md:ml-0">
-                        <div className={`bg-white rounded-2xl p-6 md:p-8 border-2 ${
+                      <div className="flex-1">
+                        <div className={`bg-white rounded-2xl p-8 border-2 ${
                           item.highlight
                             ? 'border-purple-200 shadow-xl shadow-purple-100/50 bg-gradient-to-br from-white to-purple-50/30'
                             : 'border-slate-200 hover:border-blue-200 hover:shadow-lg'
                         } transition-all duration-300`}>
-                          <div className="flex items-start justify-between mb-4">
-                            <div className="flex-1">
-                              <div className="flex items-center gap-3 mb-2">
-                                <h3 className="text-xl md:text-2xl font-bold text-slate-900">
-                                  {item.title}
-                                </h3>
-                                {item.badge && (
-                                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                                    item.highlight
-                                      ? 'bg-purple-100 text-purple-700'
-                                      : 'bg-blue-100 text-blue-700'
-                                  }`}>
-                                    {item.badge}
-                                  </span>
-                                )}
-                              </div>
-                              <p className="text-sm text-blue-600 font-medium mb-3">
-                                {item.subtitle}
-                              </p>
-                              <p className="text-slate-600 leading-relaxed">
-                                {item.description}
-                              </p>
-                            </div>
+                          <div className="flex items-center gap-3 mb-2">
+                            <h3 className="text-2xl font-bold text-slate-900">
+                              {item.title}
+                            </h3>
+                            {item.badge && (
+                              <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                                item.highlight
+                                  ? 'bg-purple-100 text-purple-700'
+                                  : 'bg-blue-100 text-blue-700'
+                              }`}>
+                                {item.badge}
+                              </span>
+                            )}
                           </div>
+                          <p className="text-sm text-blue-600 font-medium mb-3">
+                            {item.subtitle}
+                          </p>
+                          <p className="text-slate-600 leading-relaxed">
+                            {item.description}
+                          </p>
                         </div>
                       </div>
 
                       {/* Timeline node */}
-                      <div className="absolute left-8 md:relative md:left-0 flex-shrink-0">
+                      <div className="flex-shrink-0">
                         <motion.div
                           className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${item.iconColor} shadow-lg flex items-center justify-center relative z-10`}
                           whileInView={{ scale: [0.8, 1.1, 1] }}
@@ -494,8 +532,8 @@ export default function JobbcoachenPage() {
                         </motion.div>
                       </div>
 
-                      {/* Spacer for alignment on larger screens */}
-                      <div className="hidden md:block flex-1" />
+                      {/* Spacer for alignment */}
+                      <div className="flex-1" />
                     </div>
                   </motion.div>
                 ))}
@@ -728,14 +766,18 @@ export default function JobbcoachenPage() {
                 >
                   <button
                     onClick={() => setExpandedFaq(expandedFaq === idx ? null : idx)}
-                    className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-slate-50 transition-colors"
+                    className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-slate-50 transition-colors min-h-[64px]"
+                    aria-expanded={expandedFaq === idx}
+                    aria-label={`Fråga: ${faq.name}`}
                   >
                     <span className="font-semibold text-slate-900 pr-4">{faq.name}</span>
-                    <ChevronDown
-                      className={`w-5 h-5 text-slate-600 flex-shrink-0 transition-transform duration-300 ${
-                        expandedFaq === idx ? 'rotate-180' : ''
-                      }`}
-                    />
+                    <div className="p-2 -mr-2">
+                      <ChevronDown
+                        className={`w-6 h-6 text-slate-600 flex-shrink-0 transition-transform duration-300 ${
+                          expandedFaq === idx ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </div>
                   </button>
                   {expandedFaq === idx && (
                     <div className="px-6 pb-4">

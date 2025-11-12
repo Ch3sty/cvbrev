@@ -59,7 +59,7 @@ export default function MessageCounter({
           : 'Inga meddelanden kvar'}
       </span>
       {messagesRemaining > 0 && messagesRemaining <= 2 && (
-        <AlertCircle className="w-4 h-4" />
+        <AlertCircle className="w-5 h-5" />
       )}
     </motion.div>
   )

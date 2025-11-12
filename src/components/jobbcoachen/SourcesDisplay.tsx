@@ -32,17 +32,18 @@ export default function SourcesDisplay({ sources }: SourcesDisplayProps) {
         {hasMore && (
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1 transition-colors"
+            className="text-xs text-blue-600 hover:text-blue-700 font-medium flex items-center gap-1 transition-colors px-3 py-2 -mr-3 -mt-1 min-h-[44px]"
+            aria-label={isExpanded ? 'Visa färre källor' : 'Visa alla källor'}
           >
             {isExpanded ? (
               <>
                 Visa färre
-                <ChevronUp className="w-3 h-3" />
+                <ChevronUp className="w-4 h-4" />
               </>
             ) : (
               <>
                 Visa alla
-                <ChevronDown className="w-3 h-3" />
+                <ChevronDown className="w-4 h-4" />
               </>
             )}
           </button>
@@ -61,9 +62,9 @@ export default function SourcesDisplay({ sources }: SourcesDisplayProps) {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2, delay: idx * 0.05 }}
-              className="flex items-start gap-2 p-2 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-blue-300 transition-all group text-left"
+              className="flex items-start gap-2 p-3 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-blue-300 transition-all group text-left min-h-[48px]"
             >
-              <ExternalLink className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+              <ExternalLink className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-slate-900 line-clamp-1 group-hover:text-blue-600 transition-colors">
                   {source.title}

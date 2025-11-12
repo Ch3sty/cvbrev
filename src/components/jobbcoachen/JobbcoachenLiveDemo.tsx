@@ -141,10 +141,20 @@ export default function JobbcoachenLiveDemo() {
   const [isTyping, setIsTyping] = useState(false)
   const [messagesRemaining, setMessagesRemaining] = useState(5)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     setMessagesRemaining(getDemoMessagesRemaining())
+
+    // Mobile detection
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
   useEffect(() => {
@@ -230,10 +240,28 @@ Testa gärna någon av våra föreslagna frågor för att se hur Jobbcoachen fun
     }, 1500)
   }
 
+  const handleInputFocus = () => {
+    if (isMobile && inputRef.current) {
+      setTimeout(() => {
+        inputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      }, 300)
+    }
+  }
+
   const isLocked = isDemoLimitReached()
 
+  const containerHeight = isMobile
+    ? 'h-[calc(100vh-200px)] min-h-[400px] max-h-[600px]'
+    : 'h-[600px]'
+
   return (
-    <div className="bg-white rounded-2xl border-2 border-slate-200 shadow-xl overflow-hidden flex flex-col h-[600px] max-w-2xl mx-auto">
+    <div
+      className={`bg-white rounded-2xl border-2 border-slate-200 shadow-xl overflow-hidden flex flex-col ${containerHeight} max-w-2xl mx-auto`}
+      style={{
+        WebkitOverflowScrolling: 'touch',
+        overscrollBehavior: 'contain'
+      }}
+    >
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-4 py-3 flex items-center justify-between">
         <div>
@@ -257,7 +285,7 @@ Testa gärna någon av våra föreslagna frågor för att se hur Jobbcoachen fun
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 min-[500px]:grid-cols-2 gap-3">
               {DEMO_QUESTIONS.map((q, idx) => (
                 <DemoQuestionCard
                   key={idx}
@@ -320,18 +348,24 @@ Testa gärna någon av våra föreslagna frågor för att se hur Jobbcoachen fun
         ) : (
           <div className="flex gap-2">
             <input
+              ref={inputRef}
               type="text"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleCustomQuestion()}
+              onFocus={handleInputFocus}
               placeholder="Skriv din egen fråga..."
               className="flex-1 px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
               disabled={isTyping}
+              aria-label="Skriv din karriärfråga"
+              aria-describedby="demo-question-hint"
+              autoComplete="off"
             />
             <button
               onClick={handleCustomQuestion}
               disabled={isTyping || !inputValue.trim()}
               className="px-4 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              aria-label="Skicka fråga"
             >
               <Send className="w-5 h-5" />
             </button>
