@@ -17,9 +17,9 @@ import {
   CheckCircle,
   ExternalLink
 } from 'lucide-react';
-import MessageBubble from '@/components/karriarguiden/MessageBubble';
-import TypingIndicator from '@/components/karriarguiden/TypingIndicator';
-import ChatInput from '@/components/karriarguiden/ChatInput';
+import MessageBubble from '@/components/jobbcoachen/MessageBubble';
+import TypingIndicator from '@/components/jobbcoachen/TypingIndicator';
+import ChatInput from '@/components/jobbcoachen/ChatInput';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
 interface Message {
@@ -87,7 +87,7 @@ const SUGGESTED_QUESTIONS = [
   },
 ];
 
-export default function KarriargueidenPage() {
+export default function JobbcoachenPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [conversationId, setConversationId] = useState<string | null>(null);
@@ -105,7 +105,7 @@ export default function KarriargueidenPage() {
 
   // Load conversation ID from localStorage
   useEffect(() => {
-    const savedConvId = localStorage.getItem('karriarguiden_conversation_id');
+    const savedConvId = localStorage.getItem('jobbcoachen_conversation_id');
     if (savedConvId) {
       setConversationId(savedConvId);
     }
@@ -127,7 +127,7 @@ export default function KarriargueidenPage() {
         throw new Error('Du måste vara inloggad');
       }
 
-      const response = await fetch('/api/karriarguiden/chat', {
+      const response = await fetch('/api/jobbcoachen/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -165,7 +165,7 @@ export default function KarriargueidenPage() {
                 if (data.type === 'conversation_id') {
                   const newConvId = data.conversationId;
                   setConversationId(newConvId);
-                  localStorage.setItem('karriarguiden_conversation_id', newConvId);
+                  localStorage.setItem('jobbcoachen_conversation_id', newConvId);
                 } else if (data.type === 'sources') {
                   sources = data.sources;
                 } else if (data.type === 'text') {
@@ -267,17 +267,17 @@ export default function KarriargueidenPage() {
 
             <div className="flex-1 min-w-0">
               <h1 className="text-xl sm:text-2xl font-bold text-slate-900">
-                Karriärguiden
+                Jobbcoachen
               </h1>
               <p className="text-xs sm:text-sm text-slate-600 truncate">
-                Svensk arbetsmarknadskunskap
+                Din AI-karriärcoach för svenska arbetsmarknaden
               </p>
             </div>
 
             <button
               onClick={() => setShowInfoModal(true)}
               className="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors touch-manipulation flex-shrink-0"
-              aria-label="Information om Karriärguiden"
+              aria-label="Information om Jobbcoachen"
             >
               <Info className="w-4 h-4 text-slate-600" />
             </button>
@@ -302,7 +302,7 @@ export default function KarriargueidenPage() {
                 </div>
 
                 <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-3">
-                  Välkommen till Karriärguiden
+                  Välkommen till Jobbcoachen
                 </h2>
 
                 <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto mb-6">
@@ -430,7 +430,7 @@ export default function KarriargueidenPage() {
         onSend={handleSendMessage}
         disabled={isLoading}
         placeholder={
-          isLoading ? 'Karriärguiden tänker...' : 'Ställ en fråga om arbetsmarknaden...'
+          isLoading ? 'Jobbcoachen tänker...' : 'Ställ en fråga om arbetsmarknaden...'
         }
       />
 
@@ -452,7 +452,7 @@ export default function KarriargueidenPage() {
               </div>
               <div className="flex-1">
                 <h2 className="text-2xl font-bold text-slate-900 mb-2">
-                  Om Karriärguiden
+                  Om Jobbcoachen
                 </h2>
                 <p className="text-slate-600">
                   Din guide till svensk arbetsmarknad med pålitliga källor
@@ -464,10 +464,10 @@ export default function KarriargueidenPage() {
               <div>
                 <h3 className="text-lg font-semibold text-slate-900 mb-2 flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-green-600" />
-                  Vad kan Karriärguiden hjälpa dig med?
+                  Vad kan Jobbcoachen hjälpa dig med?
                 </h3>
                 <p className="text-slate-700 mb-3">
-                  Karriärguiden ger dig svar baserat på svensk arbetsmarknadsdata från officiella källor som:
+                  Jobbcoachen ger dig svar baserat på svensk arbetsmarknadsdata från officiella källor som:
                 </p>
                 <ul className="space-y-2 text-sm text-slate-700">
                   <li className="flex items-start gap-2">
