@@ -20,7 +20,7 @@ import {
   Palette,
   Menu,
   X,
-  Sparkles,
+  MessageCircle,
   User as UserIcon,
   LogOut,
   LogIn,
@@ -100,7 +100,7 @@ export default function PremiumNavbar() {
           name: 'CV-Mallar',
           href: '/verktyg/cv-mallar',
           icon: Palette,
-          description: 'Professionella CV-mallar',
+          description: 'Ladda ner professionella CV-mallar direkt',
           gradient: 'from-green-500 to-teal-500',
           requireLogin: false
         },
@@ -108,7 +108,7 @@ export default function PremiumNavbar() {
           name: 'CV-Analys',
           href: '/verktyg/cv-analys',
           icon: SearchCheck,
-          description: 'Få AI-feedback på ditt CV',
+          description: 'Få konkret feedback som förbättrar ditt CV',
           gradient: 'from-orange-500 to-red-500',
           requireLogin: false
         },
@@ -116,15 +116,15 @@ export default function PremiumNavbar() {
           name: 'Personligt brev',
           href: '/verktyg/personligt-brev',
           icon: FileText,
-          description: 'Skapa ATS-optimerade personliga brev',
+          description: 'Skapa personliga brev som går igenom systemen',
           gradient: 'from-purple-600 to-blue-600',
           requireLogin: false
         },
         {
           name: 'Jobbcoachen',
           href: '/verktyg/jobbcoachen',
-          icon: Sparkles,
-          description: 'AI-karriärcoach med svensk arbetsmarknadsdata',
+          icon: MessageCircle,
+          description: 'Diskutera karriär, lön och jobbval med din coach',
           gradient: 'from-blue-600 to-indigo-600',
           requireLogin: false
         },
@@ -132,7 +132,7 @@ export default function PremiumNavbar() {
           name: 'LinkedIn-optimering',
           href: '/verktyg/linkedin-optimering',
           icon: Linkedin,
-          description: 'Optimera din LinkedIn-profil',
+          description: 'Gör din LinkedIn-profil mer attraktiv för rekryterare',
           gradient: 'from-blue-600 to-indigo-600',
           requireLogin: false
         },
@@ -140,7 +140,7 @@ export default function PremiumNavbar() {
           name: 'Jobbmatchning',
           href: '/verktyg/jobbmatchning',
           icon: Target,
-          description: 'AI-matchning mot Arbetsförmedlingen',
+          description: 'Hitta lediga jobb som passar just dig',
           gradient: 'from-pink-500 to-rose-500',
           requireLogin: false
         },
@@ -148,7 +148,7 @@ export default function PremiumNavbar() {
           name: 'Rekryteringstester',
           href: '/verktyg/rekryteringstester',
           icon: Brain,
-          description: 'Träna på logiska tester',
+          description: 'Öva på tester som används vid rekrytering',
           gradient: 'from-purple-600 to-indigo-600',
           requireLogin: false
         }
