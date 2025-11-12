@@ -198,7 +198,7 @@ export default function JobbcoachenLiveDemo() {
     }, 1500)
   }
 
-  const handleCustomQuestion = () => {
+  const handleCustomQuestion = async () => {
     if (!inputValue.trim() || isDemoLimitReached()) {
       if (isDemoLimitReached()) {
         setShowUpgradeModal(true)
@@ -206,11 +206,13 @@ export default function JobbcoachenLiveDemo() {
       return
     }
 
+    const questionText = inputValue
+
     // Add user message
     const userMessage: DemoMessage = {
       id: `user-${Date.now()}`,
       role: 'user',
-      content: inputValue
+      content: questionText
     }
     setMessages(prev => [...prev, userMessage])
     setInputValue('')
@@ -220,24 +222,104 @@ export default function JobbcoachenLiveDemo() {
     incrementDemoMessageCount()
     setMessagesRemaining(getDemoMessagesRemaining())
 
-    // Generic response for custom questions
-    setTimeout(() => {
-      setIsTyping(false)
-      const assistantMessage: DemoMessage = {
-        id: `assistant-${Date.now()}`,
-        role: 'assistant',
-        content: `Tack för din fråga! För att få fullständiga svar på anpassade frågor behöver du skapa ett gratis konto. Då får du tillgång till hela Jobbcoachen med aktuell information från Arbetsförmedlingen, fackförbund och karriärexperter.
+    try {
+      // Call demo API for real AI response
+      const response = await fetch('/api/jobbcoachen/demo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: questionText,
+        }),
+      })
 
-Testa gärna någon av våra föreslagna frågor för att se hur Jobbcoachen fungerar!`,
-        sources: []
+      if (!response.ok) {
+        throw new Error('Failed to get response')
       }
-      setMessages(prev => [...prev, assistantMessage])
+
+      const reader = response.body?.getReader()
+      const decoder = new TextDecoder()
+      let assistantContent = ''
+      let sources: { title: string; url: string; domain: string }[] = []
+
+      if (reader) {
+        while (true) {
+          const { done, value } = await reader.read()
+          if (done) break
+
+          const chunk = decoder.decode(value)
+          const lines = chunk.split('\n')
+
+          for (const line of lines) {
+            if (line.startsWith('data: ')) {
+              try {
+                const data = JSON.parse(line.substring(6))
+
+                if (data.type === 'text') {
+                  assistantContent += data.content
+                  // Update message in real-time
+                  setMessages(prev => {
+                    const lastMessage = prev[prev.length - 1]
+                    if (lastMessage && lastMessage.role === 'assistant') {
+                      return [
+                        ...prev.slice(0, -1),
+                        { ...lastMessage, content: assistantContent }
+                      ]
+                    } else {
+                      return [
+                        ...prev,
+                        {
+                          id: `assistant-${Date.now()}`,
+                          role: 'assistant',
+                          content: assistantContent,
+                          sources: []
+                        }
+                      ]
+                    }
+                  })
+                } else if (data.type === 'sources') {
+                  sources = data.sources
+                } else if (data.type === 'done') {
+                  // Update final message with sources
+                  setMessages(prev => {
+                    const lastMessage = prev[prev.length - 1]
+                    if (lastMessage && lastMessage.role === 'assistant') {
+                      return [
+                        ...prev.slice(0, -1),
+                        { ...lastMessage, sources }
+                      ]
+                    }
+                    return prev
+                  })
+                }
+              } catch (e) {
+                // Ignore parse errors
+              }
+            }
+          }
+        }
+      }
+
+      setIsTyping(false)
 
       // Check if limit reached
       if (getDemoMessagesRemaining() === 0) {
         setTimeout(() => setShowUpgradeModal(true), 1000)
       }
-    }, 1500)
+    } catch (error) {
+      console.error('Error fetching response:', error)
+      setIsTyping(false)
+
+      // Fallback error message
+      const errorMessage: DemoMessage = {
+        id: `assistant-${Date.now()}`,
+        role: 'assistant',
+        content: 'Ett fel uppstod när jag försökte svara på din fråga. Försök igen eller testa en av de föreslagna frågorna.',
+        sources: []
+      }
+      setMessages(prev => [...prev, errorMessage])
+    }
   }
 
   const handleInputFocus = () => {
