@@ -142,7 +142,7 @@ export default function JobbcoachenLiveDemo() {
   const [messagesRemaining, setMessagesRemaining] = useState(5)
   const [showUpgradeModal, setShowUpgradeModal] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const messagesContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -157,8 +157,22 @@ export default function JobbcoachenLiveDemo() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
+  // Smart scroll: only scroll if user is near bottom
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    if (messagesContainerRef.current) {
+      const container = messagesContainerRef.current
+      const isNearBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 100
+
+      if (isNearBottom || messages.length === 1) {
+        // Small delay to ensure DOM has updated
+        setTimeout(() => {
+          const lastMessage = container.querySelector('.message-bubble:last-of-type')
+          if (lastMessage) {
+            lastMessage.scrollIntoView({ behavior: 'smooth', block: 'end' })
+          }
+        }, 50)
+      }
+    }
   }, [messages, isTyping])
 
   const handleDemoQuestion = (question: DemoQuestion) => {
@@ -354,7 +368,7 @@ export default function JobbcoachenLiveDemo() {
       </div>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
+      <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
         {messages.length === 0 ? (
           <div className="space-y-4">
             <motion.div
@@ -388,7 +402,7 @@ export default function JobbcoachenLiveDemo() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3 }}
-                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                className={`message-bubble flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
                   className={`max-w-[85%] rounded-xl p-4 ${
@@ -415,7 +429,6 @@ export default function JobbcoachenLiveDemo() {
             )}
           </>
         )}
-        <div ref={messagesEndRef} />
       </div>
 
       {/* Input Area */}
