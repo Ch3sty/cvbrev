@@ -121,6 +121,14 @@ export default function PremiumNavbar() {
           requireLogin: false
         },
         {
+          name: 'Jobbcoachen',
+          href: '/verktyg/jobbcoachen',
+          icon: Sparkles,
+          description: 'AI-karriärcoach med svensk arbetsmarknadsdata',
+          gradient: 'from-blue-600 to-indigo-600',
+          requireLogin: false
+        },
+        {
           name: 'LinkedIn-optimering',
           href: '/verktyg/linkedin-optimering',
           icon: Linkedin,
