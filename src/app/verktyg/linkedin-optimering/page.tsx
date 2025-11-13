@@ -15,6 +15,7 @@ import {
 } from 'lucide-react'
 import PremiumNavbar from '@/components/PremiumNavbar'
 import LinkedInOptimizationDemo from '@/components/LinkedInOptimizationDemo'
+import Breadcrumb from '@/components/Breadcrumb'
 
 export default function LinkedInOptimeringSida() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
@@ -98,30 +99,11 @@ export default function LinkedInOptimeringSida() {
     }
   }
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Hem",
-        "item": "https://jobbcoach.ai"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Verktyg",
-        "item": "https://jobbcoach.ai/verktyg"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "LinkedIn-optimering",
-        "item": "https://jobbcoach.ai/verktyg/linkedin-optimering"
-      }
-    ]
-  }
+  const breadcrumbItems = [
+    { name: 'Hem', href: '/' },
+    { name: 'Verktyg', href: '/verktyg' },
+    { name: 'LinkedIn-optimering', href: '/verktyg/linkedin-optimering' }
+  ]
 
   const howToSchema = {
     "@context": "https://schema.org",
@@ -178,12 +160,12 @@ export default function LinkedInOptimeringSida() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
 
       <PremiumNavbar />
+
+      <div className="container mx-auto px-4 pt-24">
+        <Breadcrumb items={breadcrumbItems} />
+      </div>
 
       {/* Hero Section */}
       <section className="pt-32 pb-24 relative overflow-hidden">

@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import PremiumNavbar from '@/components/PremiumNavbar'
 import JobbcoachenLiveDemo from '@/components/jobbcoachen/JobbcoachenLiveDemo'
+import Breadcrumb from '@/components/Breadcrumb'
 
 export default function JobbcoachenPage() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
@@ -166,30 +167,11 @@ export default function JobbcoachenPage() {
     }
   }
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Hem",
-        "item": "https://jobbcoach.ai"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Verktyg",
-        "item": "https://jobbcoach.ai/verktyg"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Karriärguiden",
-        "item": "https://jobbcoach.ai/verktyg/jobbcoachen"
-      }
-    ]
-  }
+  const breadcrumbItems = [
+    { name: 'Hem', href: '/' },
+    { name: 'Verktyg', href: '/verktyg' },
+    { name: 'Jobbcoachen', href: '/verktyg/jobbcoachen' }
+  ]
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
@@ -206,12 +188,12 @@ export default function JobbcoachenPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
 
       <PremiumNavbar />
+
+      <div className="container mx-auto px-4 pt-24">
+        <Breadcrumb items={breadcrumbItems} />
+      </div>
 
       {/* HERO SECTION */}
       <section className="pt-32 pb-24 relative overflow-hidden">

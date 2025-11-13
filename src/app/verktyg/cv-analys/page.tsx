@@ -13,6 +13,7 @@ import {
 // Components
 import PremiumNavbar from '@/components/PremiumNavbar'
 import CVAnalysisDemo from '@/components/CVAnalysisDemo'
+import Breadcrumb from '@/components/Breadcrumb'
 
 export default function CVAnalysisLandingPage() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null)
@@ -169,30 +170,11 @@ export default function CVAnalysisLandingPage() {
     ]
   }
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Hem",
-        "item": "https://jobbcoach.ai"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Verktyg",
-        "item": "https://jobbcoach.ai/verktyg"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "CV-Analys",
-        "item": "https://jobbcoach.ai/verktyg/cv-analys"
-      }
-    ]
-  }
+  const breadcrumbItems = [
+    { name: 'Hem', href: '/' },
+    { name: 'Verktyg', href: '/verktyg' },
+    { name: 'CV-Analys', href: '/verktyg/cv-analys' }
+  ]
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
@@ -209,12 +191,12 @@ export default function CVAnalysisLandingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
 
       <PremiumNavbar />
+
+      <div className="container mx-auto px-4 pt-24">
+        <Breadcrumb items={breadcrumbItems} />
+      </div>
 
       {/* Hero Section */}
       <section className="pt-32 pb-24 relative overflow-hidden">
