@@ -223,7 +223,7 @@ export default function PersonligtBrevSida() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1, duration: 0.6 }}
                 >
-                  Sluta stirra på tomt dokument. Vi skriver ditt personliga brev på 2 minuter
+                  Sluta stirra på tomma dokument. Vi skriver ditt personliga brev på 2 minuter
                 </motion.h1>
 
                 <motion.p
@@ -232,7 +232,7 @@ export default function PersonligtBrevSida() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.6 }}
                 >
-                  Du har suttit med Google Docs öppet i 90 minuter. Du har skrivit första meningen 5 gånger. Du vet inte vad rekryteraren vill höra. Vi klistrar in jobbannonsen, läser ditt CV och skriver ett färdigt brev som matchar exakt vad de söker.
+                  Du har suttit med Google Docs öppet i 90 minuter. Du har skrivit första meningen 5 gånger. Du vet kanske inte vad rekryteraren vill höra. Vi klistrar in jobbannonsen, läser ditt CV och skriver ett färdigt brev som matchar exakt vad de söker.
                 </motion.p>
 
                 <motion.div

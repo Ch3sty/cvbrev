@@ -223,7 +223,7 @@ export default function CVAnalysisLandingPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.6 }}
                 >
-                  Vi analyserar ditt CV på 60 sekunder och ger konkreta förbättringar. Du ser exakt vad du ska ändra och varför.
+                  Vi analyserar ditt CV på 60 sekunder och ger konkreta förbättringsförslag. Du ser exakt vad du ska ändra och varför.
                 </motion.p>
 
                 <motion.div

@@ -221,7 +221,7 @@ export default function CVMallarLandingPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.6 }}
                 >
-                  Ditt CV ser slarvig ut även om innehållet är bra. Vi har designat mallar som funkar med ATS-system OCH imponerar på rekryterare. Ladda upp ditt innehåll, välj design, klart på 5 minuter.
+                  Ditt CV ser kanske slarvigt ut även om innehållet är bra. Vi har designat mallar som fungerar med ATS-system OCH imponerar på rekryterare. Ladda upp ditt innehåll, välj design, klart på 5 minuter.
                 </motion.p>
 
                 <motion.div

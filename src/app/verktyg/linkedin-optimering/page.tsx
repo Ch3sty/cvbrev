@@ -215,7 +215,7 @@ export default function LinkedInOptimeringSida() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.6 }}
                 >
-                  Din LinkedIn-profil är full av kompetens, men rekryterare ser dig aldrig i sina sökningar. Du saknar specifika nyckelord de söker efter. Vi analyserar din profil, lägger till rätt termer och gör dig synlig. Rekryterare börjar kontakta dig istället för att du måste jaga dem.
+                  Din LinkedIn-profil är full av kompetens, men rekryterare ser dig aldrig i sina sökningar. Du saknar de specifika nyckelord de söker efter. Vi analyserar din profil, lägger till rätt termer och gör dig synlig. Rekryterare börjar kontakta dig istället för att du måste jaga dem.
                 </motion.p>
 
                 <motion.div

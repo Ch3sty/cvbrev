@@ -287,7 +287,7 @@ export default function RekryteringstesterPage() {
               </span>
             </h1>
             <p className="text-xl text-slate-600 mb-8">
-              Öka dina chanser att klara rekryteringstester. Träna på matrislogik, verbalt och numeriskt resonemang med realistiska frågor. Starta direkt – inget konto krävs.
+              Öka dina chanser att klara rekryteringstester. Träna på matrislogik, verbalt och numeriskt resonemang med realistiska frågor. Skapa konto och starta direkt.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-8">
