@@ -212,7 +212,7 @@ export default function CVMallarLandingPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
                 >
-                  Gratis CV-mallar som får dig till intervju
+                  Sluta kämpa med Word-tabeller. Ladda ner färdiga CV-mallar som ser proffsiga ut
                 </motion.h1>
 
                 <motion.p
@@ -221,7 +221,7 @@ export default function CVMallarLandingPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.6 }}
                 >
-                  Professionellt designade mallar som passar alla branscher – ladda ner direkt som PDF eller Word och börja ansöka idag.
+                  Ditt CV ser slarvig ut även om innehållet är bra. Vi har designat mallar som funkar med ATS-system OCH imponerar på rekryterare. Ladda upp ditt innehåll, välj design, klart på 5 minuter.
                 </motion.p>
 
                 <motion.div
@@ -253,15 +253,15 @@ export default function CVMallarLandingPage() {
                 >
                   <div className="flex items-center gap-2 text-sm text-slate-600">
                     <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span>8 professionella mallar</span>
+                    <span>Du sparar 3 timmar – inget pillande med marginaler eller typsnitt</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-slate-600">
                     <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span>14 000+ nedladdningar</span>
+                    <span>Fungerar med ATS-system som de flesta företag använder</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-slate-600">
                     <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span>ATS-kompatibla</span>
+                    <span>Du vet att designen signalerar kompetens innan någon läst en rad</span>
                   </div>
                 </motion.div>
               </div>

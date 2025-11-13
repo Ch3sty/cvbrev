@@ -214,10 +214,7 @@ export default function CVAnalysisLandingPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
                 >
-                  Gratis CV-analys –
-                  <span className="block mt-2 bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
-                    Få feedback på 60 sekunder
-                  </span>
+                  Sluta gissa varför ditt CV sorteras bort
                 </motion.h1>
 
                 <motion.p
@@ -226,8 +223,7 @@ export default function CVAnalysisLandingPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.6 }}
                 >
-                  75% av alla CV:n sorteras bort av ATS-system innan en människa läser dem.
-                  Vi hjälper dig säkerställa att ditt CV når fram – och imponerar när det gör det.
+                  Vi analyserar ditt CV på 60 sekunder och ger konkreta förbättringar. Du ser exakt vad du ska ändra och varför.
                 </motion.p>
 
                 <motion.div
@@ -259,15 +255,15 @@ export default function CVAnalysisLandingPage() {
                 >
                   <div className="flex items-center gap-2 text-sm text-slate-600">
                     <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span>2 gratis analyser/vecka</span>
+                    <span>Du ser hur du slutar bli bortsorterad av ATS-system</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-slate-600">
                     <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span>Klart på 60 sekunder</span>
+                    <span>Du får en poäng 0-100 så du vet om ditt CV är konkurrenskraftigt</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-slate-600">
                     <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span>1 400+ användare</span>
+                    <span>Vi pekar ut var du skrev vaga påståenden istället för konkreta resultat</span>
                   </div>
                 </motion.div>
               </div>
