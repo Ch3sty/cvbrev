@@ -223,10 +223,7 @@ export default function PersonligtBrevSida() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1, duration: 0.6 }}
                 >
-                  Därför går ditt personliga brev inte igenom –{' '}
-                  <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                    och hur du fixar det på 2 minuter
-                  </span>
+                  Sluta stirra på tomt dokument. Vi skriver ditt personliga brev på 2 minuter
                 </motion.h1>
 
                 <motion.p
@@ -235,7 +232,7 @@ export default function PersonligtBrevSida() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.6 }}
                 >
-                  Över 70% av ansökningar filtreras bort av automatiska system innan någon läser ditt brev. Vi hjälper dig skriva personliga brev som både tar sig förbi AI-screeningen och övertygar rekryterare – på 2 minuter istället för 2 timmar.
+                  Du har suttit med Google Docs öppet i 90 minuter. Du har skrivit första meningen 5 gånger. Du vet inte vad rekryteraren vill höra. Vi klistrar in jobbannonsen, läser ditt CV och skriver ett färdigt brev som matchar exakt vad de söker.
                 </motion.p>
 
                 <motion.div
@@ -267,15 +264,15 @@ export default function PersonligtBrevSida() {
                 >
                   <div className="flex items-center gap-2 text-sm text-slate-600">
                     <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span>ATS-optimerat för svenska rekryteringssystem</span>
+                    <span>Du slipper 2 timmars gissande – vi skriver hela brevet åt dig</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-slate-600">
                     <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span>Klart på 2 minuter</span>
+                    <span>Varje brev är anpassat för jobbet du söker (inte samma mall överallt)</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-slate-600">
                     <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span>1 400+ jobbsökare använder verktyget</span>
+                    <span>Vi använder nyckelord från annonsen så du passerar ATS-screeningen (där de flesta brev fastnar)</span>
                   </div>
                 </motion.div>
               </div>

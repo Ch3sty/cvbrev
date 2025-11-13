@@ -206,28 +206,16 @@ export default function LinkedInOptimeringSida() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1, duration: 0.6 }}
                 >
-                  LinkedIn-optimering för jobbsökare:{' '}
-                  <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                    syns i rekryterarnas sökningar
-                  </span>
+                  Rekryterare hittar aldrig dig på LinkedIn. Vi fixar det på 5 minuter
                 </motion.h1>
 
                 <motion.p
-                  className="text-xl text-slate-600 mb-6 leading-relaxed"
+                  className="text-xl text-slate-600 mb-8 leading-relaxed"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.6 }}
                 >
-                  80% av rekryterare söker kandidater via LinkedIn. Om din profil inte är optimerad för AI-drivna sökningar syns du inte – även om du är perfekt för jobbet.
-                </motion.p>
-
-                <motion.p
-                  className="text-lg text-slate-500 mb-8"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.25, duration: 0.6 }}
-                >
-                  Med rätt <strong>LinkedIn-optimering</strong> kan du öka din synlighet med 3x och få fler kontakter från rekryterare. Vårt AI-verktyg hjälper dig optimera keywords, headline, About-sektion och skills på 5 minuter.
+                  Din LinkedIn-profil är full av kompetens, men rekryterare ser dig aldrig i sina sökningar. Du saknar specifika nyckelord de söker efter. Vi analyserar din profil, lägger till rätt termer och gör dig synlig. Rekryterare börjar kontakta dig istället för att du måste jaga dem.
                 </motion.p>
 
                 <motion.div
@@ -252,22 +240,22 @@ export default function LinkedInOptimeringSida() {
                 </motion.div>
 
                 <motion.div
-                  className="flex items-center gap-6 mt-8"
+                  className="flex flex-col gap-3 mt-8"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.4, duration: 0.6 }}
                 >
-                  <div className="flex items-center gap-2 text-sm text-slate-600">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span>Gratis att testa</span>
+                  <div className="flex items-start gap-3 text-sm text-slate-700">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>Du får konkreta nyckelord att lägga till (inte vaga råd som "skriv mer engagerande")</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-slate-600">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span>Optimerad för rekryteringssystem</span>
+                  <div className="flex items-start gap-3 text-sm text-slate-700">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>Vi visar exakt var du ska lägga varje term så LinkedIn Recruiter hittar dig</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-slate-600">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span>Klart på 5 min</span>
+                  <div className="flex items-start gap-3 text-sm text-slate-700">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>Rekryterare börjar kontakta dig istället för att du måste jaga dem</span>
                   </div>
                 </motion.div>
               </div>

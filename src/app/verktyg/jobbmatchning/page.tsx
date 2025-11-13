@@ -255,10 +255,7 @@ export default function JobbmatchningLandingPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.1, duration: 0.6 }}
                 >
-                  Hitta jobb som matchar ditt CV –{' '}
-                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    på några sekunder
-                  </span>
+                  Sluta scrolla Arbetsförmedlingen. Vi hittar alla jobb som matchar ditt CV
                 </motion.h1>
 
                 <motion.p
@@ -267,7 +264,7 @@ export default function JobbmatchningLandingPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.6 }}
                 >
-                  Sluta spendera timmar på att leta jobb. Vi analyserar ditt CV och matchar dig automatiskt mot tusentals lediga tjänster från Arbetsförmedlingen – så att du kan fokusera på att ansöka.
+                  Du har scrollat Arbetsförmedlingen i 90 minuter. Du har läst 40 annonser. Du har ingen aning vilka jobb som faktiskt passar. Vi laddar upp ditt CV, analyserar det och visar alla jobb som matchar. Du får ett poäng 0-100% för varje jobb så du vet exakt hur väl du passar in.
                 </motion.p>
 
                 <motion.div
@@ -292,22 +289,22 @@ export default function JobbmatchningLandingPage() {
                 </motion.div>
 
                 <motion.div
-                  className="flex items-center gap-6 mt-8"
+                  className="flex flex-col gap-3 mt-8"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.4, duration: 0.6 }}
                 >
-                  <div className="flex items-center gap-2 text-sm text-slate-600">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span>10 gratis matchningar</span>
+                  <div className="flex items-start gap-3 text-sm text-slate-700">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>Du sparar 11 timmar per vecka (genomsnitt för jobbsökare som söker manuellt)</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-slate-600">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span>Arbetsförmedlingens databas</span>
+                  <div className="flex items-start gap-3 text-sm text-slate-700">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>Vi visar alla jobb som matchar (inte bara de första 10 du orkar läsa)</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-slate-600">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span>Klart på 30 sek</span>
+                  <div className="flex items-start gap-3 text-sm text-slate-700">
+                    <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span>Du får exakt poäng 0-100% så du vet om du passar (slut på att gissa)</span>
                   </div>
                 </motion.div>
               </div>
