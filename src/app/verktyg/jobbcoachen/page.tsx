@@ -23,82 +23,82 @@ export default function JobbcoachenPage() {
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Är svaren verkligen anpassade för svensk arbetsmarknad?",
+        "name": "Vilka typer av karriärfrågor kan Jobbcoachen hjälpa mig med?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja. Jobbcoachen är specifikt tränad på svenska källor – Arbetsförmedlingen, kollektivavtal, LAS, svenska karriärguider och fackförbund. Vi citerar inte amerikanska tips som inte fungerar här. Allt är anpassat efter svensk företagskultur och arbetsrätt."
+          "text": "Jobbcoachen hjälper med CV-skrivning, intervjuförberedelse, löneförhandling, karriärbyte, arbetsrätt (LAS, uppsägning), LinkedIn-optimering, nätverkande, kompetensväxling och branschspecifika frågor. Ställ frågor som 'Hur förhandlar jag lön som junior?' eller 'Vilka certifieringar behövs för molnarkitektur?'."
         }
       },
       {
         "@type": "Question",
-        "name": "Vad skiljer Jobbcoachen från ChatGPT?",
+        "name": "Hur ställer jag en bra fråga till Jobbcoachen?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "ChatGPT är generell och ger ofta internationella tips som inte stämmer i Sverige (t.ex. tips om 'resume' istället för CV). Jobbcoachen är specialiserad på svenska arbetsmarknaden – med aktuella regler om LAS, kollektivavtal, ATS-system, och intervjukultur. Vi citerar alltid källor så du kan verifiera informationen."
+          "text": "Ju mer kontext, desto bättre svar. Inkludera din bransch, erfarenhetsnivå och situation. Exempel: 'Jag är civilekonom med 3 års erfarenhet och vill byta från redovisning till controlling. Vad ska jag lyfta i mitt CV?' ger mycket bättre svar än bara 'Tips på CV?'."
         }
       },
       {
         "@type": "Question",
-        "name": "Är Jobbcoachen gratis?",
+        "name": "Kan Jobbcoachen ge råd om svensk arbetsrätt och LAS?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Jobbcoachen ingår i vårt kostnadsfria baspaket. Du kan ställa upp till 25 frågor per månad helt gratis. Premium-medlemmar får obegränsade frågor, längre och mer detaljerade svar, samt prioriterad support."
+          "text": "Ja, Jobbcoachen ger generell information om LAS, uppsägning, provanställning, semester och kollektivavtal. Vi citerar alltid paragraf och källa. För specifika tvister eller juridisk rådgivning hänvisar vi alltid till ditt fackförbund eller jurist."
         }
       },
       {
         "@type": "Question",
-        "name": "Vilka frågor kan jag ställa?",
+        "name": "Hjälper Jobbcoachen med löneförhandling och lönefrågor?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Allt från CV-tips, intervjuförberedelse, löneförhandling, arbetsrätt (LAS, uppsägning, semester), omställning, LinkedIn-strategi, nätverkande, kompetensväxling, till branschspecifika karriärråd. Om det gäller din jobbsökning eller karriär i Sverige – fråga!"
+          "text": "Absolut! Fråga om marknadslöner för din roll och erfarenhetsnivå, hur du förhandlar högre lön, vilka argument som fungerar, och när rätt tillfälle är. Vi baserar råden på svenska lönestatistik från SCB, kollektivavtal och branschorganisationer."
         }
       },
       {
         "@type": "Question",
-        "name": "Hur snabbt får jag svar?",
+        "name": "Kan jag använda Jobbcoachen för intervjuförberedelse?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Omedelbart. Svaret genereras på 5-15 sekunder beroende på hur komplex din fråga är. Inget väntetid, inga bokade möten. Ställ frågan när du behöver svaret – mitt i natten eller på lunchen."
+          "text": "Ja! Klistra in jobbannonsen och fråga 'Vilka intervjufrågor kan jag förvänta mig?' eller 'Hur svarar jag på svaghetsfrågor?'. Du får rollspecifika exempelfrågor, STAR-metodtips och branschanpassade svar. Perfekt för att öva innan intervjun."
         }
       },
       {
         "@type": "Question",
-        "name": "Kan jag lita på svaren juridiskt?",
+        "name": "Hur hanterar Jobbcoachen frågor om karriärbyte?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Jobbcoachen ger generell vägledning baserad på svenska lagar och kollektivavtal. För specifika juridiska frågor eller tvister rekommenderar vi alltid att du kontaktar ditt fackförbund eller juridisk rådgivare. Vi citerar källor så du kan dubbelkolla informationen själv."
+          "text": "Jobbcoachen hjälper dig identifiera överförbara kompetenser, formulera karriärbytet positivt i CV och brev, hitta överbryggande roller, och föreslå relevanta kompetensutvecklingar. Exempel: 'Hur byter jag från lärare till HR?' ger konkret vägledning för just det bytet."
         }
       },
       {
         "@type": "Question",
-        "name": "Sparas mina frågor?",
+        "name": "Kan Jobbcoachen hjälpa mig hitta rätt karriärväg?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja, om du har ett konto sparas dina konversationer så du kan gå tillbaka och läsa gamla svar. All data lagras säkert i Sverige enligt GDPR. Du kan radera din historik när som helst. Vi använder aldrig dina frågor för att träna AI-modeller utan ditt samtycke."
+          "text": "Ja! Beskriv dina intressen, kompetenser och värderingar så föreslår Jobbcoachen relevanta roller och karriärvägar i Sverige. Du får också tips på hur du testar olika alternativ (praktik, sidoprojekt, mentorskap) innan du gör stora karriärval."
         }
       },
       {
         "@type": "Question",
-        "name": "Fungerar det för alla branscher?",
+        "name": "Hur många uppföljningsfrågor kan jag ställa i samma konversation?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja. Jobbcoachen har kunskap om alla stora svenska branscher – tech, finans, vård, offentlig sektor, industri, detaljhandel, bygg, utbildning, och mer. Specificera din bransch i frågan så får du branschanpassade svar."
+          "text": "Obegränsat inom samma konversation! Jobbcoachen kommer ihåg kontext från tidigare meddelanden. Om du frågade om CV-tips för controller-roll kan du följa upp med 'Hur skriver jag om mina redovisningserfarenheter?' utan att upprepa hela kontexten."
         }
       },
       {
         "@type": "Question",
-        "name": "Kan jag få hjälp med en specifik jobbannons?",
+        "name": "Ger Jobbcoachen branschspecifika råd?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Absolut. Klistra in hela jobbannonsen i din fråga och be om tips – t.ex. 'Hur anpassar jag mitt CV för denna roll?' eller 'Vilka frågor bör jag förbereda för intervjun?'. Jobbcoachen analyserar annonsen och ger skräddarsydda råd."
+          "text": "Ja! Specificera din bransch (tech, finans, vård, offentlig sektor etc.) så anpassas svaren. Råd om CV för IT-utvecklare skiljer sig från CV för sjuksköterska – Jobbcoachen vet vilka kompetenser och format som uppskattas i varje bransch."
         }
       },
       {
         "@type": "Question",
-        "name": "Vad händer om jag inte är nöjd med svaret?",
+        "name": "Kan jag be Jobbcoachen granska mitt CV eller personliga brev?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ställ en uppföljningsfråga eller formulera om din fråga mer specifikt. Jobbcoachen lär sig från konversationen. Om du fortfarande inte får ett bra svar kontaktar du vår support – vi hjälper dig hitta rätt information eller förbättrar verktyget baserat på din feedback."
+          "text": "Ja! Kopiera in text från ditt CV eller brev och be om feedback. Du får konkreta förbättringsförslag på struktur, språk, nyckelord och formatering. För djupare analys med poäng rekommenderar vi vårt dedikerade CV-analysverktyg."
         }
       }
     ]

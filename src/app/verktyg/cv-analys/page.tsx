@@ -49,82 +49,82 @@ export default function CVAnalysisLandingPage() {
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Hur fungerar CV-analysen?",
+        "name": "Vad betyder ATS-poängen i analysen?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ladda upp ditt CV i PDF, DOCX eller TXT-format. Vi analyserar ditt CV mot över 50 kvalitetskriterier inklusive ATS-kompatibilitet, struktur, språk och roll-baserad relevans. Du får din feedback på 60 sekunder."
+          "text": "ATS-poängen visar hur väl ditt CV fungerar med Applicant Tracking Systems som rekryterare använder. 70+ betyder goda chanser att passera, 80+ är utmärkt, 90+ är toppnivå. Vi testar struktur, nyckelord, formatering och läsbarhet mot vanliga svenska ATS-system."
         }
       },
       {
         "@type": "Question",
-        "name": "Är CV-analysen verkligen gratis?",
+        "name": "Hur lång tid tar det att få analysresultat?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja! Du kan analysera ditt CV gratis 2 gånger per vecka. Premium-användare får obegränsade analyser samt tillgång till avancerade funktioner som djupgående roll-baserade förslag och alla professionella CV-mallar."
+          "text": "Analysen tar 50-70 sekunder från att du laddat upp ditt CV. Du får direkt poäng på struktur, språk, nyckelord och ATS-kompatibilitet, plus konkreta förbättringsförslag du kan implementera direkt."
         }
       },
       {
         "@type": "Question",
-        "name": "Vad är ATS och varför är det viktigt för mitt CV?",
+        "name": "Vilka förbättringsförslag får jag i analysen?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "ATS (Applicant Tracking System) är rekryteringssystem som 97% av Sveriges 500 största företag använder. Enligt Forbes sorteras 75% av alla CV:n bort av ATS innan en rekryterare läser dem. Vår analys säkerställer att ditt CV är optimerat för att passera dessa system."
+          "text": "Du får kategoriserade förslag inom Struktur (rubrikordning, avsnittslängd), Språk (aktiva verb, svammelord), Nyckelord (branschtermer som saknas), Kvantifiering (var du kan lägga till siffror) och Design (typsnitt, marginaler, vita ytor)."
         }
       },
       {
         "@type": "Question",
-        "name": "Vilken CV-poäng bör jag sikta på?",
+        "name": "Kan jag jämföra olika versioner av mitt CV?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Vi rekommenderar minst 70/100 för att ha goda chanser att passera ATS-system. 80+ är utmärkt och 90+ är toppnivå. Vår analys visar exakt var du kan förbättra din poäng."
+          "text": "Ja! Premium-användare kan spara upp till 10 CV-versioner och jämföra poäng sida vid sida. Du ser exakt vilka ändringar som förbättrade eller försämrade din ATS-poäng. Perfekt när du testar olika versioner inför ansökningar."
         }
       },
       {
         "@type": "Question",
-        "name": "Hur skiljer sig jobbcoach.ai från andra CV-granskare?",
+        "name": "Varför fick mitt CV låg poäng på nyckelord?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Vi är den enda tjänsten som kombinerar ATS-analys, roll-baserade förslag, kvantifieringstips OCH direktintegration med professionella CV-mallar. Dessutom är det gratis (ingen medlemskap krävs) och du får feedback på 60 sekunder."
+          "text": "Låg nyckelordspoäng betyder att ditt CV saknar branschspecifika termer som rekryterare söker efter. Vi visar vilka nyckelord som saknas för din roll (t.ex. 'projektledning', 'Scrum', 'budget'). Lägg till dessa i relevanta avsnitt för högre poäng."
         }
       },
       {
         "@type": "Question",
-        "name": "Kan jag analysera mitt CV flera gånger?",
+        "name": "Vad innebär låg kvantifieringspoäng?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja! Gratis-användare får 2 analyser per vecka. Vi rekommenderar att du analyserar ditt CV varje gång du uppdaterar det eller söker en ny typ av roll. Premium-användare får obegränsade analyser."
+          "text": "Kvantifieringspoäng mäter hur många mätbara resultat du visar. Låg poäng betyder för få siffror och konkreta achievements. Istället för 'ansvarig för försäljning' ska du skriva 'ökade försäljningen med 40% på 8 månader'. Siffror gör CV:t 3x mer övertygande."
         }
       },
       {
         "@type": "Question",
-        "name": "Vilka filformat stöds?",
+        "name": "Hur kan jag förbättra min strukturpoäng?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Vi accepterar PDF, DOCX och TXT-filer. Vi rekommenderar PDF för bästa resultat då det är det vanligaste formatet som rekryterare och ATS-system förväntar sig."
+          "text": "Strukturpoäng baseras på rubrikordning, konsekvent datumformat, tydliga avsnitt och läsbar längd. Vi förbättrar genom att flagga: saknade rubriker, inkonsekventa datum, för långa stycken (över 4 rader) och onödiga avsnitt som 'Fritidsintressen'."
         }
       },
       {
         "@type": "Question",
-        "name": "Sparas mitt CV efter analysen?",
+        "name": "Kan analysen hjälpa mig anpassa CV:t för specifika jobb?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Din integritet är viktig för oss. Vi analyserar ditt CV och ger feedback, men sparar inte innehållet permanent på våra servrar. Premium-användare kan välja att spara sina CV-versioner i sitt konto för jämförelse."
+          "text": "Ja! Premium-analysen kan analysera både ditt CV och en jobbannons samtidigt. Du får exakt matchningspoäng och ser vilka nyckelord från annonsen som saknas i ditt CV. Lägg till dessa termer för att öka chansen att bli kallad till intervju."
         }
       },
       {
         "@type": "Question",
-        "name": "Vad är kvantifieringsförslag?",
+        "name": "Vad är skillnaden mellan gratis och premium-analys?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Vi identifierar platser i ditt CV där du kan lägga till mätbara resultat och siffror. Till exempel: istället för 'förbättrade försäljningen' föreslår vi 'ökade försäljningen med 35% på 6 månader'. Detta gör ditt CV mycket mer övertygande."
+          "text": "Gratis-analys ger övergripande poäng och grundläggande förslag (2 analyser/vecka). Premium ger obegränsade analyser, detaljerade förbättringsförslag per avsnitt, före/efter-jämförelser, jobbannons-matchning och möjlighet att spara alla versioner."
         }
       },
       {
         "@type": "Question",
-        "name": "Fungerar analysen för alla typer av jobb?",
+        "name": "Varför visar analysen att mitt CV är för långt?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja! Vi har analyserat hundratusentals CV:n och jobbannonser inom alla branscher. Du får både generella förbättringsförslag OCH roll-specifika tips baserat på din önskade position."
+          "text": "ATS-system och rekryterare föredrar 1-2 sidor (max 3 för seniora roller). För långt CV ökar risken att viktiga achievements missas. Vi föreslår vilket innehåll du kan korta ner eller ta bort för att hålla CV:t koncist och relevant."
         }
       }
     ]

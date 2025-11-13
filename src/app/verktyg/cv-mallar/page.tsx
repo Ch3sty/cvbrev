@@ -59,82 +59,82 @@ export default function CVMallarLandingPage() {
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Är CV-mallarna verkligen gratis?",
+        "name": "Vilken CV-mall passar min bransch bäst?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja, två av våra mallar är helt gratis utan dolda avgifter eller tidsbegränsningar. Du kan ladda ner dem som PDF och använda direkt. Om du vill ha tillgång till alla 8 mallar och Word-format ingår det i Premium."
+          "text": "Moderna mallar passar tech, konsult och startup-företag. Traditionella mallar fungerar bra för ekonomi, juridik och vård. Kreativa mallar är perfekta för design, marknadsföring och media. Varje mall är märkt med rekommenderade branscher så du enkelt kan hitta rätt stil."
         }
       },
       {
         "@type": "Question",
-        "name": "Vilka format kan jag ladda ner?",
+        "name": "Hur vet jag om en CV-mall är ATS-kompatibel?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Gratis mallar kommer som PDF. Premium-medlemmar får både PDF och Word-dokument. PDF är perfekt för att skicka in ansökningar eftersom layouten ser likadan ut överallt, medan Word gör det enkelt att uppdatera information senare."
+          "text": "Alla våra mallar är testade mot vanliga ATS-system som Teamtailor, Recruitly och Workday. Vi använder standardiserad struktur med tydliga rubriker, inga komplexa tabeller, och läsbara typsnitt. Varje mall är märkt med 'ATS-kompatibel' så du kan vara säker."
         }
       },
       {
         "@type": "Question",
-        "name": "Kan jag anpassa mallarna?",
+        "name": "Kan jag byta mall efter nedladdning?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja, du kan ändra all text, justera avsnitt och anpassa innehållet efter varje jobb du söker. Grundlayouten och designen förblir professionell medan du har full kontroll över vad som står. Premium ger fler anpassningsmöjligheter."
+          "text": "Ja! Ditt CV-innehåll sparas i ditt konto. Du kan när som helst välja en annan mall och ditt innehåll fylls automatiskt i den nya designen. Premium-medlemmar kan testa obegränsade mallar och ladda ner flera versioner."
         }
       },
       {
         "@type": "Question",
-        "name": "Vad är skillnaden mellan gratis och premium?",
+        "name": "Vad är skillnaden mellan PDF och Word-format?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Gratis ger dig 2 solida mallar som PDF. Premium ger alla 8 exklusiva mallar, både PDF och Word-format, obegränsade nedladdningar och tillgång till alla andra verktyg på plattformen. Du får också nya mallar när vi släpper dem."
+          "text": "PDF-mallar behåller exakt design och fungerar på alla enheter – perfekt för att skicka till arbetsgivare. Word-mallar är redigerbara om du vill göra ändringar i t.ex. Google Docs eller Pages. Premium ger båda formaten så du kan välja efter behov."
         }
       },
       {
         "@type": "Question",
-        "name": "Hur laddar jag ner min mall?",
+        "name": "Hur lång tid tar det att fylla i en mall?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Välj en mall, ladda upp ditt befintliga CV så fylls mallen automatiskt. Förhandsgranska resultatet och klicka sedan på nedladdningsknappen. Filen sparas direkt på din dator och är redo att skickas till arbetsgivare."
+          "text": "Om du laddar upp ditt befintliga CV fylls mallen automatiskt på 30 sekunder. Om du fyller i från scratch tar det 5-10 minuter beroende på hur mycket erfarenhet du har. Mallens struktur guidar dig genom varje sektion."
         }
       },
       {
         "@type": "Question",
-        "name": "Fungerar mallarna med Word?",
+        "name": "Fungerar mallarna på Mac och Windows?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Premium-mallar levereras som redigerbara Word-dokument där du kan ändra allt innehåll. Layouten och designen är redan fixad så du slipper krångla med formatering. Öppna, redigera och spara – det bara fungerar."
+          "text": "Ja, PDF-mallar öppnas i alla PDF-läsare på Mac, Windows och Linux. Word-mallar (.docx) fungerar i Microsoft Word, Google Docs, Pages och LibreOffice. Layouten ser likadan ut oavsett vilken dator du använder."
         }
       },
       {
         "@type": "Question",
-        "name": "Är mallarna ATS-vänliga?",
+        "name": "Kan jag ändra färger och typsnitt i mallarna?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja, alla våra mallar är byggda för att fungera med ATS-system (Applicant Tracking Systems). Det betyder att automatiska system kan läsa din information korrekt och du inte sorteras bort av tekniska skäl. Strukturen är testad mot vanliga rekryteringsplattformar."
+          "text": "Premium Word-mallar låter dig ändra färger, typsnitt och avstånd direkt i dokumentet. PDF-mallar har fast design för att garantera professionellt utseende. Om du vill full kontroll rekommenderar vi Word-versionen i Premium."
         }
       },
       {
         "@type": "Question",
-        "name": "Kan jag lägga till foto?",
+        "name": "Vilka mallar inkluderar plats för profilbild?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja, vissa mallar har plats för profilbild om du vill använda det. I Sverige är foto frivilligt och praxis varierar mellan branscher. Du bestämmer själv om du vill inkludera bild eller lämna det utrymmet tomt."
+          "text": "Modern Minimal, Creative Bold och Executive Professional har dedikerat utrymme för profilbild. Övriga mallar fokuserar på text-baserad design utan foto. Du kan se bildplacering i förhandsvisningen innan du väljer mall."
         }
       },
       {
         "@type": "Question",
-        "name": "Hur många mallar finns det?",
+        "name": "Hur många gånger kan jag ladda ner samma mall?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Vi har 8 professionella mallar totalt. 2 är gratis för alla, och 6 exklusiva premium-mallar för medlemmar. Varje mall finns i olika stilar – moderna, traditionella och kreativa – så det finns något för alla branscher."
+          "text": "Gratis-användare kan ladda ner varje mall en gång per vecka. Premium-medlemmar får obegränsade nedladdningar – ladda ner samma mall hur många gånger du vill när du uppdaterar ditt CV eller söker nya jobb."
         }
       },
       {
         "@type": "Question",
-        "name": "Behöver jag skapa konto?",
+        "name": "Kan jag använda mallen för både svenska och engelska CV?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja, du behöver ett gratis konto för att ladda upp ditt CV och hämta mallar. Det tar 30 sekunder att registrera dig. Kontot låter dig också spara dina CV:n och komma tillbaka för att ladda ner igen om du behöver."
+          "text": "Absolut! Mallarna har neutral design som fungerar på alla språk. Rubrikerna kan du ändra själv till engelska (Experience, Education, Skills). Samma mall fungerar för både ditt svenska och internationella CV."
         }
       }
     ]

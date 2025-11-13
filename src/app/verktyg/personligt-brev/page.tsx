@@ -28,66 +28,66 @@ export default function PersonligtBrevSida() {
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Kommer mitt brev att låta robotiskt om det är AI-genererat?",
+        "name": "Hur anpassar jag tonaliteten i mitt personliga brev?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Nej. Vårt verktyg är tränat på tusentals framgångsrika personliga brev skrivna av människor – inte robottexter. Resultatet är ett brev som balanserar ATS-optimering med naturlig, personlig ton. Du kan alltid redigera och lägga till din egen touch innan du skickar. Tänk på verktyget som en skribent som ger dig ett perfekt första utkast – som du sedan kan anpassa efter behov."
+          "text": "Du väljer ton direkt i genereringssteget: Formell & Professionell (bank, juridik), Entusiastisk & Personlig (startup, media), eller Resultatfokuserad & Självsäker (sälj, ledning). Verktyget justerar automatiskt ordval, meningslängd och graden av personlighet efter vald ton."
         }
       },
       {
         "@type": "Question",
-        "name": "Hur vet jag att brevet faktiskt passar jobbannonsen?",
+        "name": "Hur långt ska mitt personliga brev vara?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Verktyget analyserar jobbannonsen i realtid och identifierar de viktigaste nyckelorden, kompetenserna och värderingarna som företaget letar efter. Brevet inkluderar automatiskt dessa termer på ett naturligt sätt – så att det både passerar ATS-screeningen OCH visar rekryteraren att du förstår rollen."
+          "text": "Våra genererade brev är alltid 250-350 ord (3/4 A4-sida) – den optimala längden enligt svenska rekryterare. Kortare än så känns ointresserat, längre än så läses sällan. Vi strukturerar brevet i 3-4 stycken för maximal läsbarhet."
         }
       },
       {
         "@type": "Question",
-        "name": "Kan jag använda samma brev för flera jobb?",
+        "name": "Vad händer om jobbannonsen är vag eller kort?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Absolut inte – och det är precis poängen med vårt verktyg. Varje jobb kräver ett unikt brev anpassat efter den specifika jobbannonsen. Med vårt verktyg tar det bara 2 minuter att skapa ett nytt brev för varje ansökan, så du slipper frestelsen att använda samma generiska text överallt."
+          "text": "Verktyget extraherar nyckelord från det som finns och kompletterar med branschspecifika kompetenser baserat på jobbtiteln. För mycket vaga annonser kan du lägga till extra kontext (t.ex. företagets värderingar från hemsidan) i fritextfältet."
         }
       },
       {
         "@type": "Question",
-        "name": "Vad är skillnaden mellan gratisversionen och premium?",
+        "name": "Kan jag lägga till personliga anekdoter i brevet?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Gratisversionen låter dig generera 3 personliga brev per vecka – perfekt för att testa verktyget. Premium ger obegränsade genereringar, möjlighet att spara alla brev, AI-val av optimal ton, och prioriterad support. Om du söker många jobb samtidigt rekommenderar vi premium för att spara tid och hålla koll på alla versioner."
+          "text": "Ja! Efter generering kan du redigera och lägga till personliga exempel, anekdoter eller specifika projekt. Många användare lägger till 1-2 meningar om varför de är passionerade för just detta företag eller denna bransch – det gör brevet mer äkta."
         }
       },
       {
         "@type": "Question",
-        "name": "Fungerar det för alla branscher?",
+        "name": "Hur hanterar verktyget karriärbyten i brevet?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja. Verktyget är tränat på jobbannonser från alla stora svenska branscher – tech, finans, vård, offentlig sektor, detaljhandel, konsult, och mer. Du väljer själv vilken ton som passar din bransch: formell och professionell för traditionella sektorer, eller mer personlig och entusiastisk för startups och kreativa roller."
+          "text": "Om ditt CV visar karriärbyte (t.ex. lärare → HR) kan du specificera detta i briefen. Verktyget formulerar då överbryggande kompetenser (pedagogik → utbildning av personal) och ramar in bytet som en styrka snarare än ett problem."
         }
       },
       {
         "@type": "Question",
-        "name": "Hur lång tid tar det att skapa ett brev?",
+        "name": "Hur många versioner kan jag generera för samma jobb?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Själva genereringen tar 30-60 sekunder. Att fylla i din bakgrund och klistra in jobbannonsen tar cirka 1 minut. Totalt är du klar på under 2 minuter – jämfört med 1-2 timmar om du skulle skriva från scratch."
+          "text": "Gratis: 3 brev/vecka totalt. Premium: obegränsade brev. Du kan testa olika toner, formuleringar och vinklingar för samma jobbannons och jämföra sidvid-sida. Många genererar 2-3 versioner och väljer den bästa."
         }
       },
       {
         "@type": "Question",
-        "name": "Är mina uppgifter säkra?",
+        "name": "Inkluderar brevet automatiskt företagsnamn och kontaktperson?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Ja. All data lagras krypterat i Sverige enligt GDPR. Vi säljer aldrig din information till tredje part. Du kan när som helst radera ditt konto och all associerad data direkt från din profil. Vi använder endast din data för att generera dina brev – ingenting annat."
+          "text": "Ja! Om jobbannonsen innehåller företagsnamn och kontaktperson (t.ex. 'Ansök till Anna Svensson, HR-chef') inkluderas detta automatiskt i brevets inledning och avslutning. Du kan också lägga till manuellt om det saknas i annonsen."
         }
       },
       {
         "@type": "Question",
-        "name": "Kan jag redigera brevet efter att det är genererat?",
+        "name": "Kan jag spara mina genererade brev för framtida referens?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Absolut. Du kan redigera direkt i verktyget innan du laddar ner, eller kopiera texten till Word/Google Docs och anpassa där. Många användare lägger till en personlig avslutning eller justerar specifika formuleringar – det är helt upp till dig."
+          "text": "Premium-användare kan spara obegränsade brev i sitt konto. Perfekt för att hålla koll på vilka brev du skickat till vilka företag, och för att återanvända formuleringar som fungerat bra tidigare. Gratis-användare kan kopiera och spara lokalt."
         }
       }
     ]
