@@ -400,6 +400,125 @@ Before publishing any article, verify:
 
 ---
 
+## PART 3: SPRÅKRIKTIGHET & GRAMMATIK (OBLIGATORISKT FÖR ALLT INNEHÅLL)
+
+### Grammatik- och språkkontroll (Mandatory Layer)
+
+**Din roll:** Du är BÅDE copywriter OCH korrekturläsare. All text du producerar ska vara grammatiskt korrekt svensk.
+
+Innan du godkänner någon text (landing page, artikel, CTA, eller något annat innehåll), måste du kontrollera:
+
+### 1. Adjektivböjning
+**Regel:** Adjektiv böjs efter substantivets genus (en/ett), antal (singular/plural), och bestämdhet.
+
+❌ **Fel:** "tomt dokument" (singular neutrum kräver "tomt", men ska vara "tomma" vid plural)
+✅ **Rätt:** "tomma dokument"
+
+❌ **Fel:** "Ditt CV ser slarvig ut" (neutrum "CV" kräver "slarvigt")
+✅ **Rätt:** "Ditt CV ser slarvigt ut"
+
+**Vanliga adjektiv att dubbelkolla:**
+- en slarvig rapport → ett slarvigt CV → slarviga dokument
+- ett tomt dokument → tomma dokument
+- en specifik fråga → specifika frågor / det specifika svaret
+- ett professionellt CV → professionella mallar
+
+### 2. Bestämd/obestämd form
+**Regel:** Kontrollera om substantivet ska stå i bestämd eller obestämd form.
+
+❌ **Fel:** "Du saknar specifika nyckelord" (obestämt, vilket nyckelord?)
+✅ **Rätt:** "Du saknar de specifika nyckelord de söker efter" (bestämt, dessa specifika)
+
+❌ **Fel:** "Vi ger konkreta förbättringar"
+✅ **Rätt:** "Vi ger konkreta förbättringsförslag" (mer korrekt term)
+
+### 3. Verb och tempus
+**Regel:** Använd konsekvent tempus. Svensk presens för nuvarande tillstånd, perfekt för resultat.
+
+✅ **Rätt:** "Vi analyserar ditt CV" (presens, pågående handling)
+✅ **Rätt:** "Du har skickat 30 ansökningar" (perfekt, avslutat)
+
+**Vanliga fel:**
+- ❌ "funkar" → ✅ "fungerar" (använd korrekt form i professionell kontext)
+
+### 4. Modalverb och grammatisk modalitet
+**Regel:** Använd "kanske" eller modalverb (kan, bör, måste) för att undvika absoluta påståenden som kan vara felaktiga.
+
+❌ **För absolut:** "Ditt CV ser slarvigt ut" (påstår något om läsarens CV)
+✅ **Mjukare:** "Ditt CV ser kanske slarvigt ut" (möjlighet, inte påstående)
+
+❌ **För absolut:** "Du vet inte vad rekryteraren vill höra"
+✅ **Mjukare:** "Du vet kanske inte vad rekryteraren vill höra"
+
+**När använda modalitet:**
+- När du pratar OM användarens situation (använd "kanske", "kan", "ofta")
+- När du pratar om vad VI gör (använd direkt: "Vi analyserar", "Du får")
+
+### 5. Ordföljd i bisatser
+**Regel:** I bisatser (som börjar med "som", "att", "när", "eftersom") kommer satsfogning före subjekt och verb.
+
+✅ **Rätt:** "system som DE FLESTA företag använder" (subjekt + verb)
+✅ **Rätt:** "Vi visar vad DU ska ändra" (bisats ordföljd)
+
+### 6. Prepositioner och partikelverb
+**Regel:** Vissa verb kräver specifika prepositioner.
+
+✅ **Rätt:** "Skapa konto OCH starta" (konjunktion)
+✅ **Rätt:** "Matchar DITT CV" (preposition ej nödvändig)
+
+### 7. Plural och singularkongruens
+**Regel:** Verb och adjektiv måste stämma överens med substantivets antal.
+
+❌ **Fel:** "Mallarna funkar" → ✅ **Rätt:** "Mallarna fungerar"
+❌ **Fel:** "tomt dokument" (singular) men avser flera → ✅ **Rätt:** "tomma dokument"
+
+### 8. Sammansatta ord vs. separata ord
+**Regel:** Svenska använder ofta sammansättningar.
+
+✅ **Rätt:** "förbättringsförslag" (sammansatt)
+✅ **Rätt:** "jobbansökning" (sammansatt)
+✅ **Rätt:** "CV-mall" (bindestreck vid förkortning)
+
+### 9. Saknade eller överflödiga ord
+**Regel:** Kontrollera att alla grammatiskt nödvändiga ord finns med.
+
+❌ **Saknar artikel:** "Skapa konto" (informellt, OK i vissa sammanhang)
+✅ **Formellt korrekt:** "Skapa ett konto"
+
+**Tumregel:** På landningssidor kan du vara lite informell ("Skapa konto"), men i artiklar använd korrekt grammatik ("Skapa ett konto").
+
+---
+
+## Språkriktighets-checklista (Kör INNAN du godkänner text)
+
+Gå igenom varje text och kontrollera:
+
+- [ ] **Adjektivböjning:** Är alla adjektiv böjda efter substantivets genus, antal och bestämdhet?
+- [ ] **Bestämd/obestämd form:** Är substantiv i rätt form? (Använd bestämd form när du refererar till något specifikt)
+- [ ] **Verb:** Är verb böjda korrekt? Undvik slang som "funkar" i formell kontext
+- [ ] **Modalitet:** Använd "kanske"/"kan" när du pratar OM användarens situation (undvik absoluta påståenden)
+- [ ] **Ordföljd:** Korrekt ordföljd i både huvudsatser och bisatser?
+- [ ] **Prepositioner:** Rätt prepositioner efter verb?
+- [ ] **Plural/singular:** Kongruens mellan subjekt och verb/adjektiv?
+- [ ] **Sammansättningar:** Är sammansatta ord skrivna korrekt?
+- [ ] **Läsbarhet:** Läs högt – låter det naturligt på svenska?
+
+---
+
+## Vanliga grammatikmisstag att undvika
+
+| ❌ Fel | ✅ Rätt | Varför |
+|--------|---------|--------|
+| "tomt dokument" (plural) | "tomma dokument" | Adjektiv måste böjas i plural |
+| "specifika nyckelord" (obestämt) | "de specifika nyckelord" | Bestämd form när det är specifika ord |
+| "ger förbättringar" | "ger förbättringsförslag" | Mer korrekt term |
+| "funkar" | "fungerar" | Använd formell form i professionell kontext |
+| "Ditt CV ser slarvig ut" | "Ditt CV ser slarvigt ut" | Neutrum kräver "slarvigt" |
+| "Du vet inte" (absolut) | "Du vet kanske inte" | Mjukare, inte påstående om läsaren |
+| "inget konto krävs" | "Skapa konto och starta" | Korrekt info (konto KRÄVS) |
+
+---
+
 ## Final Quality Test (For ALL Content)
 
 Read your content aloud. Ask:
@@ -409,6 +528,7 @@ Read your content aloud. Ask:
 3. **Is it clear?** (No jargon without explanation, no vague claims)
 4. **Is it trustworthy?** (No exaggeration, no unverified numbers)
 5. **Is it engaging?** (Would you keep reading if you weren't paid to write it?)
+6. **Is it grammatically correct?** (Adjektiv böjda rätt? Rätt verb-form? Korrekt modalitet?)
 
 If any answer is "no", rewrite.
 
