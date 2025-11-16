@@ -28,7 +28,7 @@ export default function PremiumFooter() {
             {/* Social Media Icons */}
             <div className="flex gap-4">
               <a
-                href="https://www.facebook.com/CVbrev/"
+                href="https://www.facebook.com/jobbcoachai"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
