@@ -22,11 +22,7 @@ import TypingIndicator from '@/components/jobbcoachen/TypingIndicator';
 import ChatInput from '@/components/jobbcoachen/ChatInput';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
-interface Message {
-  role: 'user' | 'assistant';
-  content: string;
-  sources?: any[];
-}
+import type { Message, MessageAttachment } from '@/types/jobbcoachen';
 
 interface Category {
   id: string;
@@ -51,37 +47,37 @@ const CATEGORIES: Category[] = [
 const SUGGESTED_QUESTIONS = [
   {
     icon: <FileText className="w-5 h-5 text-blue-600" />,
-    question: 'Hur skriver jag ett ATS-optimerat CV?',
+    question: 'Vilka nyckelord ska jag inkludera för att passera ATS-system?',
     category: 'CV-tips',
     categoryId: 'cv-tips'
   },
   {
     icon: <MessageSquare className="w-5 h-5 text-purple-600" />,
-    question: 'Vilka frågor bör jag ställa på en intervju?',
+    question: 'Hur svarar jag på "Berätta om en gång du misslyckades"?',
     category: 'Intervju',
     categoryId: 'intervju'
   },
   {
     icon: <TrendingUp className="w-5 h-5 text-green-600" />,
-    question: 'Vad är medellönen för min yrkesroll?',
+    question: 'Vad är marknadsmässig lön för systemutvecklare med 5 års erfarenhet?',
     category: 'Lön',
     categoryId: 'lon'
   },
   {
     icon: <Scale className="w-5 h-5 text-orange-600" />,
-    question: 'Vad gäller vid uppsägning i Sverige?',
+    question: 'Hur påverkar LAS min uppsägningstid om jag jobbat i 3 år?',
     category: 'Arbetsrätt',
     categoryId: 'arbetsratt'
   },
   {
     icon: <Lightbulb className="w-5 h-5 text-yellow-600" />,
-    question: 'Hur byter jag karriär efter 40?',
+    question: 'Vilka steg behöver jag ta för att byta från lärare till UX-designer?',
     category: 'Karriär',
     categoryId: 'karriar'
   },
   {
     icon: <Globe className="w-5 h-5 text-teal-600" />,
-    question: 'Vilka arbetsmarknadsprogram finns för nyanlända?',
+    question: 'Kan jag få etableringsstöd från Arbetsförmedlingen som nyutexaminerad?',
     category: 'Nyanlända',
     categoryId: 'nyanlanda'
   },
@@ -111,10 +107,11 @@ export default function JobbcoachenPage() {
     }
   }, []);
 
-  const handleSendMessage = async (messageText: string) => {
+  const handleSendMessage = async (messageText: string, attachments?: MessageAttachment[]) => {
     const userMessage: Message = {
       role: 'user',
       content: messageText,
+      ...(attachments && { attachments }),
     };
 
     setMessages((prev) => [...prev, userMessage]);
@@ -136,6 +133,7 @@ export default function JobbcoachenPage() {
         body: JSON.stringify({
           message: messageText,
           conversationId,
+          ...(attachments && { attachments }),
         }),
       });
 
@@ -305,26 +303,37 @@ export default function JobbcoachenPage() {
                   Välkommen till Jobbcoachen
                 </h2>
 
-                <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto mb-6">
-                  Få professionell vägledning om den svenska arbetsmarknaden.
-                  Alla svar baseras på aktuella källor från Arbetsförmedlingen,
-                  fackförbund och karriärexperter.
+                <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto mb-4">
+                  Få konkret vägledning om svensk arbetsmarknad baserat på verifierade källor.
                 </p>
 
-                {/* Trust indicators */}
-                <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-slate-500 mb-8">
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    <span>Svensk kunskap</span>
+                {/* Source credibility - subtle but clear */}
+                <div className="max-w-xl mx-auto mb-6 bg-slate-50 border border-slate-200 rounded-lg p-4">
+                  <p className="text-xs font-semibold text-slate-700 mb-2">Baserat på information från:</p>
+                  <div className="grid grid-cols-2 gap-2 text-xs text-slate-600">
+                    <div className="flex items-center gap-1.5">
+                      <Building className="w-3.5 h-3.5 text-blue-600" />
+                      <span>Arbetsförmedlingen</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <Users className="w-3.5 h-3.5 text-blue-600" />
+                      <span>Fackförbund</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <TrendingUp className="w-3.5 h-3.5 text-blue-600" />
+                      <span>SCB Statistik</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <Briefcase className="w-3.5 h-3.5 text-blue-600" />
+                      <span>Karriärexperter</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    <span>Verifierade källor</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle className="w-4 h-4 text-green-600" />
-                    <span>Alltid uppdaterat</span>
-                  </div>
+                </div>
+
+                {/* Feature highlight - file upload */}
+                <div className="flex items-center justify-center gap-2 text-xs text-slate-500 mb-6 bg-blue-50 border border-blue-100 rounded-lg px-4 py-2 max-w-md mx-auto">
+                  <FileText className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Bifoga ditt CV eller personliga brev för personlig feedback</span>
                 </div>
               </div>
 
@@ -391,6 +400,7 @@ export default function JobbcoachenPage() {
                   role={msg.role}
                   content={msg.content}
                   sources={msg.sources}
+                  attachments={msg.attachments}
                   isStreaming={
                     idx === messages.length - 1 &&
                     msg.role === 'assistant' &&
@@ -429,6 +439,7 @@ export default function JobbcoachenPage() {
       <ChatInput
         onSend={handleSendMessage}
         disabled={isLoading}
+        conversationId={conversationId}
         placeholder={
           isLoading ? 'Jobbcoachen tänker...' : 'Ställ en fråga om arbetsmarknaden...'
         }

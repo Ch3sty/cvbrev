@@ -1,8 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Briefcase, User, ArrowUpRight } from 'lucide-react';
+import { Briefcase, User, ArrowUpRight, FileText, Download } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import type { MessageAttachment } from '@/types/jobbcoachen';
 
 interface Source {
   // Extracted from markdown links
@@ -20,6 +21,7 @@ interface MessageBubbleProps {
   role: 'user' | 'assistant';
   content: string;
   sources?: Source[];
+  attachments?: MessageAttachment[];
   isStreaming?: boolean;
 }
 
@@ -27,8 +29,15 @@ export default function MessageBubble({
   role,
   content,
   sources,
+  attachments,
   isStreaming = false,
 }: MessageBubbleProps) {
+  const formatFileSize = (bytes: number): string => {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  };
+
   if (role === 'user') {
     return (
       <motion.div
@@ -38,10 +47,41 @@ export default function MessageBubble({
         className="flex justify-end mb-4"
       >
         <div className="flex items-end gap-2 max-w-[85%] sm:max-w-[75%]">
-          <div className="bg-blue-600 text-white px-4 py-3 rounded-2xl rounded-br-sm shadow-md">
-            <p className="text-sm sm:text-base whitespace-pre-wrap break-words">
-              {content}
-            </p>
+          <div className="flex flex-col items-end gap-2">
+            {/* Attachments */}
+            {attachments && attachments.length > 0 && (
+              <div className="flex flex-col gap-1.5">
+                {attachments.map((attachment, idx) => (
+                  <a
+                    key={idx}
+                    href={attachment.public_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition-colors group max-w-[250px]"
+                  >
+                    <FileText className="w-4 h-4 flex-shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-medium truncate">
+                        {attachment.file_name}
+                      </p>
+                      <p className="text-xs opacity-90">
+                        {formatFileSize(attachment.file_size)}
+                      </p>
+                    </div>
+                    <Download className="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+                  </a>
+                ))}
+              </div>
+            )}
+
+            {/* Message content */}
+            {content && (
+              <div className="bg-blue-600 text-white px-4 py-3 rounded-2xl rounded-br-sm shadow-md">
+                <p className="text-sm sm:text-base whitespace-pre-wrap break-words">
+                  {content}
+                </p>
+              </div>
+            )}
           </div>
           <div className="w-8 h-8 bg-slate-200 rounded-full flex items-center justify-center flex-shrink-0">
             <User className="w-4 h-4 text-slate-600" />

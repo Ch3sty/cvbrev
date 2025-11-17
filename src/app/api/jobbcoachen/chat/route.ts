@@ -34,9 +34,9 @@ export async function POST(req: NextRequest) {
   try {
     // Get request body
     const body = await req.json();
-    const { message, conversationId } = body;
+    const { message, conversationId, attachments } = body;
 
-    if (!message || typeof message !== 'string') {
+    if ((!message || typeof message !== 'string') && (!attachments || attachments.length === 0)) {
       return new Response('Invalid message', { status: 400 });
     }
 
@@ -74,12 +74,15 @@ export async function POST(req: NextRequest) {
       convId = conversation.id;
     }
 
-    // Save user message
+    // Save user message (with optional attachments)
     await supabase.from('ai_messages').insert({
       conversation_id: convId,
       user_id: user.id,
       role: 'user',
-      content: { text: message },
+      content: {
+        text: message || '',
+        ...(attachments && attachments.length > 0 && { attachments })
+      },
     });
 
     // Get user profile for context
@@ -133,6 +136,15 @@ Stad: ${profile.city || 'Ej angivet'}
 Bransch: ${profile.industry || 'Ej angivet'}`
       : 'Ingen profilinformation tillgänglig';
 
+    // Build attachment context if present
+    let attachmentContext = '';
+    if (attachments && attachments.length > 0) {
+      attachmentContext = '\n\nBIFOGADE DOKUMENT:\n';
+      attachments.forEach((att: any, idx: number) => {
+        attachmentContext += `\n[Dokument ${idx + 1}] ${att.file_name} (${att.file_type.toUpperCase()}):\n${att.extracted_text}\n---\n`;
+      });
+    }
+
     // Prepare messages for OpenAI
     const messages: any[] = [
       {
@@ -145,12 +157,12 @@ Bransch: ${profile.industry || 'Ej angivet'}`
 ${userContext}
 
 KONTEXT FRÅN KUNSKAPSBAS:
-${context || 'Ingen relevant information hittades i kunskapsbasen.'}
+${context || 'Ingen relevant information hittades i kunskapsbasen.'}${attachmentContext}
 
 ANVÄNDARENS FRÅGA:
-${message}
+${message || '(Användaren har bifogat dokument för granskning)'}
 
-Svara på svenska med konkreta råd baserat på kontexten ovan. Inkludera källor och avsluta med nästa steg.`,
+Svara på svenska med konkreta råd baserat på kontexten ovan. Om användaren bifogat ett CV eller personligt brev, ge konstruktiv feedback med specifika förbättringsförslag. Inkludera källor och avsluta med nästa steg.`,
       },
     ];
 
