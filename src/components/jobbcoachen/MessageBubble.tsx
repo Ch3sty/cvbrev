@@ -319,32 +319,30 @@ export default function MessageBubble({
                       {/* Premium gradient header */}
                       <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${sourceInfo.color}`} />
 
-                      {/* Source badge and info */}
-                      <div className="flex items-center gap-2 mb-2">
-                        <div className={`p-1.5 rounded-lg bg-gradient-to-br ${sourceInfo.color} text-white shadow-sm`}>
-                          <SourceIcon className="w-3.5 h-3.5" />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
-                            <span className={`text-xs font-bold ${sourceInfo.textColor}`}>
-                              {sourceInfo.type}
-                            </span>
-                            <span className={`text-xs px-2 py-0.5 ${sourceInfo.badgeBg} rounded-full font-medium ${sourceInfo.badgeText}`}>
-                              {sourceInfo.badge}
-                            </span>
+                      {/* Source organization badge (small, at top) */}
+                      <div className="flex items-center justify-between gap-2 mb-2">
+                        <div className="flex items-center gap-2">
+                          <div className={`p-1 rounded-md bg-gradient-to-br ${sourceInfo.color} text-white shadow-sm`}>
+                            <SourceIcon className="w-3 h-3" />
                           </div>
+                          <span className={`text-xs font-semibold ${sourceInfo.textColor}`}>
+                            {sourceInfo.type}
+                          </span>
+                          <span className={`text-xs px-1.5 py-0.5 ${sourceInfo.badgeBg} rounded-full font-medium ${sourceInfo.badgeText}`}>
+                            {sourceInfo.badge}
+                          </span>
                         </div>
-                        <Shield className="w-3.5 h-3.5 text-green-600" />
+                        <Shield className="w-3 h-3 text-green-600 flex-shrink-0" />
                       </div>
 
-                      {/* Source title */}
-                      <p className="text-sm font-medium text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2">
+                      {/* Actual source title (prominent) */}
+                      <p className="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-1">
                         {title}
                       </p>
 
                       {/* Published date */}
                       {source.published_at && (
-                        <div className="flex items-center gap-1 text-xs text-slate-500">
+                        <div className="flex items-center gap-1 text-xs text-slate-500 mt-2">
                           <Clock className="w-3 h-3" />
                           <span>{source.published_at}</span>
                         </div>
