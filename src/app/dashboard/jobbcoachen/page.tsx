@@ -42,10 +42,6 @@ const CATEGORIES: Category[] = [
   { id: 'arbetsratt', label: 'Arbetsrätt', icon: <Scale className="w-4 h-4" />, color: 'orange' },
   { id: 'karriar', label: 'Karriär', icon: <Lightbulb className="w-4 h-4" />, color: 'yellow' },
   { id: 'nyanlanda', label: 'Nyanlända', icon: <Globe className="w-4 h-4" />, color: 'teal' },
-  { id: 'malgrupper', label: 'Målgrupper', icon: <Users className="w-4 h-4" />, color: 'pink' },
-  { id: 'digitalt', label: 'Digitalt', icon: <Monitor className="w-4 h-4" />, color: 'indigo' },
-  { id: 'bransch', label: 'Bransch', icon: <Building className="w-4 h-4" />, color: 'cyan' },
-  { id: 'ekonomi', label: 'Ekonomi', icon: <TrendingUp className="w-4 h-4" />, color: 'emerald' },
 ];
 
 const SUGGESTED_QUESTIONS = [
@@ -421,25 +417,26 @@ export default function JobbcoachenPage() {
                 </motion.div>
               </div>
 
-              {/* Category Pills */}
+              {/* Category Pills - Grid layout */}
               <div className="mb-6">
                 <h3 className="text-sm font-semibold text-slate-700 mb-3 px-1">
                   Populära områden:
                 </h3>
-                <div className="flex gap-2 overflow-x-auto pb-2 elegant-scrollbar">
+                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
                   {CATEGORIES.map(cat => (
                     <button
                       key={cat.id}
                       onClick={() => handleCategoryClick(cat.id)}
-                      className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all touch-manipulation ${
+                      className={`px-3 py-2 rounded-full text-xs sm:text-sm font-medium transition-all touch-manipulation ${
                         selectedCategory === cat.id
                           ? 'bg-blue-600 text-white border border-blue-600'
                           : 'bg-white border border-slate-200 text-slate-700 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50'
                       }`}
                     >
-                      <span className="flex items-center gap-1.5">
+                      <span className="flex items-center justify-center gap-1.5">
                         {cat.icon}
-                        {cat.label}
+                        <span className="hidden sm:inline">{cat.label}</span>
+                        <span className="sm:hidden">{cat.label.split('-')[0]}</span>
                       </span>
                     </button>
                   ))}
@@ -527,6 +524,7 @@ export default function JobbcoachenPage() {
         onSend={handleSendMessage}
         disabled={isLoading}
         conversationId={conversationId}
+        hasMessages={messages.length > 0}
         placeholder={
           isLoading ? 'Jobbcoachen tänker...' : 'Ställ en fråga om arbetsmarknaden...'
         }

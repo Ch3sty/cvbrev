@@ -2,9 +2,10 @@
 
 import { useState, useRef, useEffect, KeyboardEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, FileText, X } from 'lucide-react';
+import { Send, FileText, X, ChevronRight, Sparkles } from 'lucide-react';
 import type { MessageAttachment } from '@/types/jobbcoachen';
 import DocumentSelector from './DocumentSelector';
+import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
 interface Document {
   id: string;
@@ -19,6 +20,7 @@ interface ChatInputProps {
   disabled?: boolean;
   placeholder?: string;
   conversationId?: string | null;
+  hasMessages?: boolean; // To control banner visibility
 }
 
 export default function ChatInput({
@@ -26,11 +28,45 @@ export default function ChatInput({
   disabled = false,
   placeholder = 'Skriv ditt meddelande...',
   conversationId = null,
+  hasMessages = false,
 }: ChatInputProps) {
   const [message, setMessage] = useState('');
   const [selectedDocs, setSelectedDocs] = useState<Document[]>([]);
   const [showDocSelector, setShowDocSelector] = useState(false);
+  const [cvCount, setCvCount] = useState(0);
+  const [letterCount, setLetterCount] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const supabase = getSupabaseClient();
+
+  // Load document counts
+  useEffect(() => {
+    const loadDocCounts = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+
+        // Count CVs
+        const { count: cvs } = await supabase
+          .from('cv_texts')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', user.id);
+
+        // Count Letters (only saved ones)
+        const { count: letters } = await supabase
+          .from('letters')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', user.id)
+          .eq('is_saved', true);
+
+        setCvCount(cvs || 0);
+        setLetterCount(letters || 0);
+      } catch (error) {
+        console.error('Error loading document counts:', error);
+      }
+    };
+
+    loadDocCounts();
+  }, [supabase]);
 
   // Auto-resize textarea
   useEffect(() => {
@@ -93,6 +129,42 @@ export default function ChatInput({
     <>
       <div className="sticky bottom-0 border-t border-slate-200 bg-white/95 backdrop-blur-xl px-4 py-3 sm:py-4 z-10" style={{ paddingBottom: 'calc(0.75rem + env(safe-area-inset-bottom))' }}>
         <div className="max-w-4xl mx-auto">
+          {/* Call-out banner for document sharing - only shown when no messages */}
+          <AnimatePresence>
+            {!hasMessages && (cvCount + letterCount) > 0 && selectedDocs.length === 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                className="mb-3 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-4"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="p-2 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg shadow-sm flex-shrink-0">
+                    <FileText className="w-5 h-5 text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-slate-900 mb-1">
+                      Du har {cvCount + letterCount} sparade dokument
+                    </p>
+                    <p className="text-sm text-slate-600 mb-3">
+                      Dela ditt CV eller personliga brev för personlig feedback och förslag
+                    </p>
+                    <motion.button
+                      onClick={() => setShowDocSelector(true)}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1 group"
+                    >
+                      <span>Välj dokument att dela</span>
+                      <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                    </motion.button>
+                  </div>
+                  <Sparkles className="w-5 h-5 text-blue-600 flex-shrink-0" />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           {/* Selected documents preview */}
           <AnimatePresence>
             {selectedDocs.length > 0 && (
@@ -138,18 +210,33 @@ export default function ChatInput({
             <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl opacity-0 group-focus-within:opacity-20 blur-lg transition-opacity" />
 
             <div className="relative flex items-end gap-2 sm:gap-3">
-              {/* Document selector button with hover effect */}
+              {/* Document selector button with premium styling and badge */}
               <motion.div className="relative flex-shrink-0">
                 <motion.button
                   onClick={() => setShowDocSelector(true)}
                   disabled={disabled}
                   whileHover={{ scale: disabled ? 1 : 1.05 }}
                   whileTap={{ scale: disabled ? 1 : 0.95 }}
-                  className="p-3 border-2 border-slate-300 rounded-xl hover:bg-slate-50 hover:border-blue-500 hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] min-w-[48px] flex items-center justify-center touch-manipulation"
+                  className="relative p-3 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-300 rounded-xl hover:from-blue-100 hover:to-indigo-100 hover:border-blue-400 hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] min-w-[48px] flex items-center justify-center touch-manipulation group"
                   aria-label="Dela CV eller personligt brev"
-                  title="Dela CV eller personligt brev"
+                  title={
+                    (cvCount + letterCount) > 0
+                      ? `Du har ${cvCount + letterCount} sparade dokument`
+                      : 'Dela CV eller personligt brev'
+                  }
                 >
-                  <FileText className="w-5 h-5 text-slate-600" />
+                  <FileText className="w-5 h-5 text-blue-600 group-hover:text-blue-700 transition-colors" />
+
+                  {/* Document count badge */}
+                  {(cvCount + letterCount) > 0 && (
+                    <motion.span
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      className="absolute -top-1 -right-1 bg-gradient-to-br from-blue-600 to-indigo-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-lg"
+                    >
+                      {cvCount + letterCount}
+                    </motion.span>
+                  )}
                 </motion.button>
               </motion.div>
 
