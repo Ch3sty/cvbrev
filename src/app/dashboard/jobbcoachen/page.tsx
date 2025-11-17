@@ -330,10 +330,10 @@ export default function JobbcoachenPage() {
                   </div>
                 </div>
 
-                {/* Feature highlight - file upload */}
+                {/* Feature highlight */}
                 <div className="flex items-center justify-center gap-2 text-xs text-slate-500 mb-6 bg-blue-50 border border-blue-100 rounded-lg px-4 py-2 max-w-md mx-auto">
                   <FileText className="w-3.5 h-3.5 text-blue-600" />
-                  <span>Bifoga ditt CV eller personliga brev för personlig feedback</span>
+                  <span>Dela dina sparade CV eller personliga brev för personlig feedback</span>
                 </div>
               </div>
 
