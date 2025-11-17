@@ -51,6 +51,7 @@ const CATEGORIES: Category[] = [
 ];
 
 const SUGGESTED_QUESTIONS = [
+  // CV-tips (3 frågor)
   {
     icon: <FileText className="w-5 h-5 text-blue-600" />,
     question: 'Vilka nyckelord ska jag inkludera för att passera ATS-system?',
@@ -58,11 +59,39 @@ const SUGGESTED_QUESTIONS = [
     categoryId: 'cv-tips'
   },
   {
+    icon: <FileText className="w-5 h-5 text-blue-600" />,
+    question: 'Hur långt ska mitt CV vara och vad ska jag ta med?',
+    category: 'CV-tips',
+    categoryId: 'cv-tips'
+  },
+  {
+    icon: <FileText className="w-5 h-5 text-blue-600" />,
+    question: 'Ska jag inkludera en profilbild på mitt svenska CV?',
+    category: 'CV-tips',
+    categoryId: 'cv-tips'
+  },
+
+  // Intervju (3 frågor)
+  {
     icon: <MessageSquare className="w-5 h-5 text-purple-600" />,
     question: 'Hur svarar jag på "Berätta om en gång du misslyckades"?',
     category: 'Intervju',
     categoryId: 'intervju'
   },
+  {
+    icon: <MessageSquare className="w-5 h-5 text-purple-600" />,
+    question: 'Vilka frågor ska jag ställa till arbetsgivaren i slutet av intervjun?',
+    category: 'Intervju',
+    categoryId: 'intervju'
+  },
+  {
+    icon: <MessageSquare className="w-5 h-5 text-purple-600" />,
+    question: 'Hur förbereder jag mig bäst för en videointervju?',
+    category: 'Intervju',
+    categoryId: 'intervju'
+  },
+
+  // Lön (3 frågor)
   {
     icon: <TrendingUp className="w-5 h-5 text-green-600" />,
     question: 'Vad är marknadsmässig lön för systemutvecklare med 5 års erfarenhet?',
@@ -70,11 +99,39 @@ const SUGGESTED_QUESTIONS = [
     categoryId: 'lon'
   },
   {
+    icon: <TrendingUp className="w-5 h-5 text-green-600" />,
+    question: 'Hur förhandlar jag om högre lön vid jobberbjudande?',
+    category: 'Lön',
+    categoryId: 'lon'
+  },
+  {
+    icon: <TrendingUp className="w-5 h-5 text-green-600" />,
+    question: 'När är rätt tid att begära lönerevision på befintligt jobb?',
+    category: 'Lön',
+    categoryId: 'lon'
+  },
+
+  // Arbetsrätt (3 frågor)
+  {
     icon: <Scale className="w-5 h-5 text-orange-600" />,
     question: 'Hur påverkar LAS min uppsägningstid om jag jobbat i 3 år?',
     category: 'Arbetsrätt',
     categoryId: 'arbetsratt'
   },
+  {
+    icon: <Scale className="w-5 h-5 text-orange-600" />,
+    question: 'Vad innebär turordningsregler vid uppsägning och hur fungerar de?',
+    category: 'Arbetsrätt',
+    categoryId: 'arbetsratt'
+  },
+  {
+    icon: <Scale className="w-5 h-5 text-orange-600" />,
+    question: 'Kan arbetsgivaren säga upp mig under provanställning?',
+    category: 'Arbetsrätt',
+    categoryId: 'arbetsratt'
+  },
+
+  // Karriär (3 frågor)
   {
     icon: <Lightbulb className="w-5 h-5 text-yellow-600" />,
     question: 'Vilka steg behöver jag ta för att byta från lärare till UX-designer?',
@@ -82,11 +139,39 @@ const SUGGESTED_QUESTIONS = [
     categoryId: 'karriar'
   },
   {
+    icon: <Lightbulb className="w-5 h-5 text-yellow-600" />,
+    question: 'Hur vet jag om det är rätt tid att söka ny tjänst?',
+    category: 'Karriär',
+    categoryId: 'karriar'
+  },
+  {
+    icon: <Lightbulb className="w-5 h-5 text-yellow-600" />,
+    question: 'Vilka kompetenser är mest efterfrågade på arbetsmarknaden 2025?',
+    category: 'Karriär',
+    categoryId: 'karriar'
+  },
+
+  // Nyanlända (3 frågor)
+  {
     icon: <Globe className="w-5 h-5 text-teal-600" />,
     question: 'Kan jag få etableringsstöd från Arbetsförmedlingen som nyutexaminerad?',
     category: 'Nyanlända',
     categoryId: 'nyanlanda'
   },
+  {
+    icon: <Globe className="w-5 h-5 text-teal-600" />,
+    question: 'Hur validerar jag min utländska examen i Sverige?',
+    category: 'Nyanlända',
+    categoryId: 'nyanlanda'
+  },
+  {
+    icon: <Globe className="w-5 h-5 text-teal-600" />,
+    question: 'Vilka rättigheter har jag som arbetssökande med arbetstillstånd?',
+    category: 'Nyanlända',
+    categoryId: 'nyanlanda'
+  },
+
+  // Jobbsök (3 frågor)
   {
     icon: <Search className="w-5 h-5 text-indigo-600" />,
     question: 'Hur hittar jag dolda jobbannonser som inte publiceras öppet?',
@@ -94,8 +179,34 @@ const SUGGESTED_QUESTIONS = [
     categoryId: 'jobbsok'
   },
   {
+    icon: <Search className="w-5 h-5 text-indigo-600" />,
+    question: 'Ska jag skicka spontanansökningar eller bara svara på annonser?',
+    category: 'Jobbsök',
+    categoryId: 'jobbsok'
+  },
+  {
+    icon: <Search className="w-5 h-5 text-indigo-600" />,
+    question: 'Hur optimerar jag min LinkedIn-profil för rekryterare?',
+    category: 'Jobbsök',
+    categoryId: 'jobbsok'
+  },
+
+  // Nätverk (3 frågor)
+  {
     icon: <UserPlus className="w-5 h-5 text-pink-600" />,
     question: 'Hur bygger jag ett professionellt nätverk på LinkedIn från scratch?',
+    category: 'Nätverk',
+    categoryId: 'natverk'
+  },
+  {
+    icon: <UserPlus className="w-5 h-5 text-pink-600" />,
+    question: 'Hur följer jag upp efter networking-events på ett professionellt sätt?',
+    category: 'Nätverk',
+    categoryId: 'natverk'
+  },
+  {
+    icon: <UserPlus className="w-5 h-5 text-pink-600" />,
+    question: 'Hur ber jag om ett informellt möte utan att verka påstridig?',
     category: 'Nätverk',
     categoryId: 'natverk'
   },
@@ -111,6 +222,7 @@ export default function JobbcoachenPage() {
   const [cvCount, setCvCount] = useState(0);
   const [letterCount, setLetterCount] = useState(0);
   const [showDocSelector, setShowDocSelector] = useState(false);
+  const [showAllQuestions, setShowAllQuestions] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const supabase = getSupabaseClient();
@@ -279,6 +391,9 @@ export default function JobbcoachenPage() {
   const filteredQuestions = selectedCategory
     ? SUGGESTED_QUESTIONS.filter(q => q.categoryId === selectedCategory)
     : SUGGESTED_QUESTIONS;
+
+  // Visa bara 4 frågor initialt, sedan alla när användaren klickar
+  const displayedQuestions = showAllQuestions ? filteredQuestions : filteredQuestions.slice(0, 4);
 
   return (
     <div className="flex flex-col h-screen bg-gradient-to-b from-white via-slate-50/30 to-slate-100/50 relative overflow-hidden">
@@ -460,33 +575,53 @@ export default function JobbcoachenPage() {
               </div>
 
               {/* Suggested Questions - Clean design */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {filteredQuestions.map((item, idx) => (
-                  <motion.button
-                    key={idx}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 + idx * 0.03 }}
-                    whileHover={{ scale: 1.01 }}
-                    whileTap={{ scale: 0.99 }}
-                    onClick={() => handleSuggestedQuestion(item.question)}
-                    className="group bg-white border border-slate-200 rounded-lg p-3 text-left hover:border-blue-300 hover:bg-blue-50/50 transition-all touch-manipulation"
-                  >
-                    <div className="flex items-start gap-2.5">
-                      <div className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors">
-                        {item.icon}
+              <div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {displayedQuestions.map((item, idx) => (
+                    <motion.button
+                      key={idx}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 + idx * 0.03 }}
+                      whileHover={{ scale: 1.01 }}
+                      whileTap={{ scale: 0.99 }}
+                      onClick={() => handleSuggestedQuestion(item.question)}
+                      className="group bg-white border border-slate-200 rounded-lg p-3 text-left hover:border-blue-300 hover:bg-blue-50/50 transition-all touch-manipulation"
+                    >
+                      <div className="flex items-start gap-2.5">
+                        <div className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors">
+                          {item.icon}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[10px] font-semibold text-slate-500 mb-0.5 uppercase tracking-wide">
+                            {item.category}
+                          </p>
+                          <p className="text-sm font-medium text-slate-900 group-hover:text-blue-700 transition-colors line-clamp-2 leading-snug">
+                            {item.question}
+                          </p>
+                        </div>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-[10px] font-semibold text-slate-500 mb-0.5 uppercase tracking-wide">
-                          {item.category}
-                        </p>
-                        <p className="text-sm font-medium text-slate-900 group-hover:text-blue-700 transition-colors line-clamp-2 leading-snug">
-                          {item.question}
-                        </p>
-                      </div>
-                    </div>
-                  </motion.button>
-                ))}
+                    </motion.button>
+                  ))}
+                </div>
+
+                {/* Visa fler-knapp */}
+                {filteredQuestions.length > 4 && (
+                  <div className="flex justify-center mt-4">
+                    <motion.button
+                      onClick={() => setShowAllQuestions(!showAllQuestions)}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="px-5 py-2.5 bg-white border-2 border-slate-200 hover:border-blue-300 rounded-lg text-sm font-medium text-slate-700 hover:text-blue-700 hover:bg-blue-50/50 transition-all"
+                    >
+                      {showAllQuestions ? (
+                        <>Visa färre frågor</>
+                      ) : (
+                        <>Visa {filteredQuestions.length - 4} fler frågor</>
+                      )}
+                    </motion.button>
+                  </div>
+                )}
               </div>
             </motion.div>
           ) : (

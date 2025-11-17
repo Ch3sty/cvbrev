@@ -240,6 +240,16 @@ export default function ChatInput({
               </motion.div>
 
               <div className="flex-1 relative">
+                {/* Diskret dokumentnotis */}
+                {(cvCount + letterCount) > 0 && selectedDocs.length === 0 && (
+                  <div className="absolute -top-6 left-0 right-0 flex items-center justify-center">
+                    <p className="text-[10px] text-slate-500 bg-white px-2 py-0.5 rounded-full border border-slate-200">
+                      <FileText className="w-2.5 h-2.5 inline mr-1 text-blue-600" />
+                      {cvCount + letterCount} dokument redo att dela
+                    </p>
+                  </div>
+                )}
+
                 <textarea
                   ref={textareaRef}
                   value={message}
