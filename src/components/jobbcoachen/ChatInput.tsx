@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, KeyboardEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, FileText, X, ChevronRight, Sparkles } from 'lucide-react';
+import { Send, FileText, X, Sparkles } from 'lucide-react';
 import type { MessageAttachment } from '@/types/jobbcoachen';
 import DocumentSelector from './DocumentSelector';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
@@ -129,42 +129,6 @@ export default function ChatInput({
     <>
       <div className="sticky bottom-0 border-t border-slate-200 bg-white/95 backdrop-blur-xl px-4 py-3 sm:py-4 z-10" style={{ paddingBottom: 'calc(0.75rem + env(safe-area-inset-bottom))' }}>
         <div className="max-w-4xl mx-auto">
-          {/* Call-out banner for document sharing - only shown when no messages */}
-          <AnimatePresence>
-            {!hasMessages && (cvCount + letterCount) > 0 && selectedDocs.length === 0 && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                className="mb-3 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl p-4"
-              >
-                <div className="flex items-start gap-3">
-                  <div className="p-2 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-lg shadow-sm flex-shrink-0">
-                    <FileText className="w-5 h-5 text-white" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-slate-900 mb-1">
-                      Du har {cvCount + letterCount} sparade dokument
-                    </p>
-                    <p className="text-sm text-slate-600 mb-3">
-                      Dela ditt CV eller personliga brev för personlig feedback och förslag
-                    </p>
-                    <motion.button
-                      onClick={() => setShowDocSelector(true)}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="text-sm font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1 group"
-                    >
-                      <span>Välj dokument att dela</span>
-                      <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                    </motion.button>
-                  </div>
-                  <Sparkles className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
           {/* Selected documents preview */}
           <AnimatePresence>
             {selectedDocs.length > 0 && (
