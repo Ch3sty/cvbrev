@@ -198,7 +198,7 @@ export default function ChatInput({
                   aria-label="Dela CV eller personligt brev"
                   title={
                     (cvCount + letterCount) > 0
-                      ? `Du har ${cvCount + letterCount} sparade dokument`
+                      ? `Dela ${cvCount + letterCount} sparade dokument för feedback`
                       : 'Dela CV eller personligt brev'
                   }
                 >

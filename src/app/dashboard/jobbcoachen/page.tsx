@@ -19,7 +19,8 @@ import {
   Shield,
   Sparkles,
   Building2,
-  ArrowRight
+  ArrowRight,
+  MessageCircle
 } from 'lucide-react';
 import MessageBubble from '@/components/jobbcoachen/MessageBubble';
 import TypingIndicator from '@/components/jobbcoachen/TypingIndicator';
@@ -370,7 +371,7 @@ export default function JobbcoachenPage() {
                   >
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl blur-2xl opacity-30 animate-pulse" />
                     <div className="relative w-20 h-20 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl shadow-2xl flex items-center justify-center">
-                      <Briefcase className="w-10 h-10 text-white" />
+                      <MessageCircle className="w-10 h-10 text-white" />
                     </div>
                   </motion.div>
                 </div>
@@ -393,85 +394,18 @@ export default function JobbcoachenPage() {
                   Få konkret vägledning om svensk arbetsmarknad baserat på verifierade källor.
                 </motion.p>
 
-                {/* Compact Trust Badge - Redesigned for better UX */}
+                {/* Diskret källhint */}
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
                   transition={{ delay: 0.4 }}
                   className="max-w-xl mx-auto mb-6"
                 >
-                  <div className="relative rounded-xl border-2 border-blue-200 bg-gradient-to-br from-blue-50 via-white to-indigo-50 p-4 shadow-lg overflow-hidden">
-                    {/* Premium top accent */}
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600" />
-
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 shadow-md">
-                          <Shield className="w-5 h-5 text-white" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-bold text-slate-900">Verifierade källor</p>
-                          <p className="text-xs text-slate-600">4 officiella databaser</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-1 text-xs text-green-600 font-medium">
-                        <CheckCircle className="w-3.5 h-3.5" />
-                        <span className="hidden sm:inline">Pålitlig</span>
-                      </div>
-                    </div>
-
-                    {/* Kompakt källlista */}
-                    <div className="mt-3 flex flex-wrap gap-1.5">
-                      {['Arbetsförmedlingen', 'Fackförbund', 'SCB', 'Karriärexperter'].map((source) => (
-                        <span
-                          key={source}
-                          className="px-2 py-0.5 bg-white/80 rounded-full text-[10px] sm:text-xs font-medium text-blue-700 border border-blue-200"
-                        >
-                          {source}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                  <p className="text-xs text-center text-slate-500">
+                    <CheckCircle className="w-3 h-3 inline mr-1 text-green-600" />
+                    Svar baseras på verifierade källor och redovisas alltid med källhänvisning
+                  </p>
                 </motion.div>
-
-                {/* Document Sharing CTA - Moved from ChatInput for better visibility */}
-                {!messages.length && (cvCount + letterCount) > 0 && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                    className="max-w-xl mx-auto mb-6"
-                  >
-                    <div
-                      onClick={() => setShowDocSelector(true)}
-                      className="relative rounded-xl border-2 border-green-200 bg-gradient-to-br from-green-50 via-white to-emerald-50 p-4 shadow-md overflow-hidden group hover:shadow-lg transition-all cursor-pointer"
-                    >
-                      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-600 to-emerald-600" />
-
-                      <div className="flex items-start gap-3">
-                        <div className="p-2 bg-gradient-to-br from-green-600 to-emerald-600 rounded-lg shadow-sm flex-shrink-0">
-                          <FileText className="w-5 h-5 text-white" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="font-semibold text-slate-900 mb-1">
-                            Du har {cvCount + letterCount} sparade dokument
-                          </p>
-                          <p className="text-sm text-slate-600 mb-3">
-                            Dela ditt CV eller personliga brev för personlig feedback och förslag
-                          </p>
-                          <motion.button
-                            whileHover={{ scale: 1.02, x: 2 }}
-                            className="text-sm font-semibold text-green-600 hover:text-green-700 flex items-center gap-1"
-                          >
-                            <span>Välj dokument att dela</span>
-                            <ArrowRight className="w-4 h-4" />
-                          </motion.button>
-                        </div>
-                        <Sparkles className="w-5 h-5 text-green-600 flex-shrink-0" />
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
               </div>
 
               {/* Category Pills - Grid layout */}
