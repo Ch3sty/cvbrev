@@ -203,31 +203,25 @@ Svara på svenska med konkreta råd baserat på kontexten ovan. Om användaren b
             }
           }
 
-          // Extract sources from AI's actual response (after streaming is complete)
-          const extractedSources: Array<{ title: string; url: string }> = [];
-          const seenUrls = new Set<string>();
+          // Build sources from RAG chunks with full metadata
+          const sources = contextChunks.map((chunk: any) => ({
+            // Extracted link data (preferred)
+            title: chunk.heading,
+            url: chunk.source_url,
+            // Original document metadata (fallback)
+            heading: chunk.heading,
+            source_url: chunk.source_url,
+            storage_path: chunk.storage_path,
+            published_at: chunk.published_at,
+            topic: chunk.topic,
+          }));
 
-          // Find all markdown links: [text](url) in the AI's response
-          const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
-          let match;
-
-          while ((match = linkRegex.exec(fullResponse)) !== null) {
-            const title = match[1];
-            const url = match[2];
-
-            // Only add unique URLs
-            if (!seenUrls.has(url)) {
-              seenUrls.add(url);
-              extractedSources.push({ title, url });
-            }
-          }
-
-          // Send sources only if AI actually used any
-          if (extractedSources.length > 0) {
+          // Send sources if we have any
+          if (sources.length > 0) {
             controller.enqueue(
               encoder.encode(`data: ${JSON.stringify({
                 type: 'sources',
-                sources: extractedSources
+                sources
               })}\n\n`)
             );
           }
@@ -239,7 +233,7 @@ Svara på svenska med konkreta råd baserat på kontexten ovan. Om användaren b
             role: 'assistant',
             content: {
               text: fullResponse,
-              sources: extractedSources // Save only the sources AI actually used
+              sources: sources // Save the sources from RAG chunks
             },
             model: 'gpt-4o-mini',
             tokens: Math.ceil(fullResponse.length / 4), // Rough estimate
