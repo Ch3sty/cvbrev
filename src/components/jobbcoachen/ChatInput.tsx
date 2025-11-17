@@ -132,54 +132,68 @@ export default function ChatInput({
             )}
           </AnimatePresence>
 
-          <div className="flex items-end gap-2 sm:gap-3">
-            {/* Document selector button */}
-            <div className="relative flex-shrink-0">
-              <button
-                onClick={() => setShowDocSelector(true)}
-                disabled={disabled}
-                className="p-3 border border-slate-300 rounded-xl hover:bg-slate-50 hover:border-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] min-w-[48px] flex items-center justify-center touch-manipulation"
-                aria-label="Dela CV eller personligt brev"
-                title="Dela CV eller personligt brev"
-              >
-                <FileText className="w-5 h-5 text-slate-600" />
-              </button>
-            </div>
+          {/* Premium input with glow effect */}
+          <div className="relative group">
+            {/* Glow effect on focus */}
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl opacity-0 group-focus-within:opacity-20 blur-lg transition-opacity" />
 
-            <div className="flex-1 relative">
-              <textarea
-                ref={textareaRef}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                onKeyDown={handleKeyDown}
-                disabled={disabled}
-                placeholder={placeholder}
-                rows={1}
-                className="w-full px-4 py-3 pr-12 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none disabled:bg-slate-100 disabled:cursor-not-allowed text-slate-900 placeholder-slate-500"
-                style={{
-                  fontSize: '16px', // Prevent iOS zoom
-                  minHeight: '48px',
-                  maxHeight: '120px'
-                }}
-              />
-              {/* Character count - only on desktop */}
-              {message.length > 0 && (
-                <div className="hidden sm:block absolute bottom-2 right-2 text-xs text-slate-400">
-                  {message.length}
-                </div>
-              )}
-            </div>
+            <div className="relative flex items-end gap-2 sm:gap-3">
+              {/* Document selector button with hover effect */}
+              <motion.div className="relative flex-shrink-0">
+                <motion.button
+                  onClick={() => setShowDocSelector(true)}
+                  disabled={disabled}
+                  whileHover={{ scale: disabled ? 1 : 1.05 }}
+                  whileTap={{ scale: disabled ? 1 : 0.95 }}
+                  className="p-3 border-2 border-slate-300 rounded-xl hover:bg-slate-50 hover:border-blue-500 hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] min-w-[48px] flex items-center justify-center touch-manipulation"
+                  aria-label="Dela CV eller personligt brev"
+                  title="Dela CV eller personligt brev"
+                >
+                  <FileText className="w-5 h-5 text-slate-600" />
+                </motion.button>
+              </motion.div>
 
-            <motion.button
-              onClick={handleSubmit}
-              disabled={disabled || (!message.trim() && selectedDocs.length === 0)}
-              whileHover={{ scale: (disabled || (!message.trim() && selectedDocs.length === 0)) ? 1 : 1.02 }}
-              whileTap={{ scale: (disabled || (!message.trim() && selectedDocs.length === 0)) ? 1 : 0.98 }}
-              className="px-4 sm:px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-semibold shadow-md hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0 min-h-[48px] min-w-[48px] flex items-center justify-center touch-manipulation"
-            >
-              <Send className="w-5 h-5" />
-              <span className="hidden sm:inline ml-2">Skicka</span>
-            </motion.button>
+              <div className="flex-1 relative">
+                <textarea
+                  ref={textareaRef}
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  disabled={disabled}
+                  placeholder={placeholder}
+                  rows={1}
+                  className="w-full px-4 py-3 pr-12 border-2 border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all resize-none disabled:bg-slate-100 disabled:cursor-not-allowed text-slate-900 placeholder-slate-500 focus:shadow-lg"
+                  style={{
+                    fontSize: '16px', // Prevent iOS zoom
+                    minHeight: '48px',
+                    maxHeight: '120px'
+                  }}
+                />
+                {/* Character count - only on desktop */}
+                {message.length > 0 && (
+                  <div className="hidden sm:block absolute bottom-2 right-2 text-xs text-slate-400">
+                    {message.length}
+                  </div>
+                )}
+              </div>
+
+              {/* Premium send button with enhanced effects */}
+              <motion.div className="relative group/send flex-shrink-0">
+                {/* Glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl blur-md opacity-50 group-hover/send:opacity-75 transition-opacity" />
+
+                <motion.button
+                  onClick={handleSubmit}
+                  disabled={disabled || (!message.trim() && selectedDocs.length === 0)}
+                  whileHover={{ scale: (disabled || (!message.trim() && selectedDocs.length === 0)) ? 1 : 1.05 }}
+                  whileTap={{ scale: (disabled || (!message.trim() && selectedDocs.length === 0)) ? 1 : 0.95 }}
+                  className="relative px-4 sm:px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] min-w-[48px] flex items-center justify-center touch-manipulation"
+                >
+                  <Send className="w-5 h-5" />
+                  <span className="hidden sm:inline ml-2">Skicka</span>
+                </motion.button>
+              </motion.div>
+            </div>
           </div>
 
           {/* Keyboard hint - desktop only */}

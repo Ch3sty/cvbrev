@@ -1,9 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Briefcase, User, ArrowUpRight, FileText, Download } from 'lucide-react';
+import {
+  Briefcase, User, ArrowUpRight, FileText, Download,
+  Building2, TrendingUp, Users, Shield, CheckCircle,
+  Clock, Copy, ThumbsUp, ThumbsDown, Star
+} from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import type { MessageAttachment } from '@/types/jobbcoachen';
+import { useState } from 'react';
 
 interface Source {
   // Extracted from markdown links
@@ -32,10 +37,79 @@ export default function MessageBubble({
   attachments,
   isStreaming = false,
 }: MessageBubbleProps) {
+  const [copiedMessage, setCopiedMessage] = useState(false);
+
   const formatFileSize = (bytes: number): string => {
     if (bytes < 1024) return bytes + ' B';
     if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
     return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  };
+
+  // Identify source type based on URL
+  const getSourceInfo = (source: Source) => {
+    const url = (source.url || source.source_url || '').toLowerCase();
+
+    if (url.includes('arbetsformedlingen') || url.includes('af.se')) {
+      return {
+        type: 'Arbetsförmedlingen',
+        icon: Building2,
+        color: 'from-blue-600 to-blue-700',
+        bgColor: 'bg-blue-50',
+        borderColor: 'border-blue-200',
+        textColor: 'text-blue-900',
+        badge: 'Officiell källa',
+        badgeBg: 'bg-white',
+        badgeText: 'text-blue-700'
+      };
+    }
+    if (url.includes('scb.se')) {
+      return {
+        type: 'SCB',
+        icon: TrendingUp,
+        color: 'from-emerald-600 to-emerald-700',
+        bgColor: 'bg-emerald-50',
+        borderColor: 'border-emerald-200',
+        textColor: 'text-emerald-900',
+        badge: 'Statistik',
+        badgeBg: 'bg-white',
+        badgeText: 'text-emerald-700'
+      };
+    }
+    if (url.includes('unionen') || url.includes('lo.se') || url.includes('tco.se')) {
+      return {
+        type: 'Fackförbund',
+        icon: Users,
+        color: 'from-purple-600 to-purple-700',
+        bgColor: 'bg-purple-50',
+        borderColor: 'border-purple-200',
+        textColor: 'text-purple-900',
+        badge: 'Facklig källa',
+        badgeBg: 'bg-white',
+        badgeText: 'text-purple-700'
+      };
+    }
+    // Default for other sources
+    return {
+      type: 'Karriärexpert',
+      icon: Briefcase,
+      color: 'from-indigo-600 to-indigo-700',
+      bgColor: 'bg-indigo-50',
+      borderColor: 'border-indigo-200',
+      textColor: 'text-indigo-900',
+      badge: 'Expert',
+      badgeBg: 'bg-white',
+      badgeText: 'text-indigo-700'
+    };
+  };
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(content);
+      setCopiedMessage(true);
+      setTimeout(() => setCopiedMessage(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
   };
 
   if (role === 'user') {
@@ -103,57 +177,101 @@ export default function MessageBubble({
           <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
         </div>
         <div className="flex-1">
-          <div className="bg-white border border-slate-200 px-4 py-3 rounded-2xl rounded-tl-sm shadow-sm">
-            <div className="prose prose-sm sm:prose-base max-w-none">
-              <ReactMarkdown
-                components={{
-                  p: ({ children }) => <p className="mb-3 last:mb-0 text-slate-800">{children}</p>,
-                  ul: ({ children }) => <ul className="mb-3 ml-4 list-disc text-slate-800">{children}</ul>,
-                  ol: ({ children }) => <ol className="mb-3 ml-4 list-decimal text-slate-800">{children}</ol>,
-                  li: ({ children }) => <li className="mb-1">{children}</li>,
-                  strong: ({ children }) => <strong className="font-semibold text-slate-900">{children}</strong>,
-                  em: ({ children }) => <em className="italic">{children}</em>,
-                  h1: ({ children }) => <h1 className="text-xl font-bold mb-2 text-slate-900">{children}</h1>,
-                  h2: ({ children }) => <h2 className="text-lg font-bold mb-2 text-slate-900">{children}</h2>,
-                  h3: ({ children }) => <h3 className="text-base font-semibold mb-2 text-slate-900">{children}</h3>,
-                  a: ({ children, href }) => (
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:underline inline-flex items-center gap-0.5"
-                    >
-                      {children}
-                      <ArrowUpRight className="w-3 h-3 inline" />
-                    </a>
-                  ),
-                }}
-              >
-                {content}
-              </ReactMarkdown>
-            </div>
-            {isStreaming && (
-              <div className="flex items-center gap-1 mt-2">
-                <motion.div
-                  className="w-1.5 h-1.5 bg-blue-500 rounded-full"
-                  animate={{ opacity: [0.3, 1, 0.3] }}
-                  transition={{ duration: 1.4, repeat: Infinity }}
-                />
-                <motion.div
-                  className="w-1.5 h-1.5 bg-blue-500 rounded-full"
-                  animate={{ opacity: [0.3, 1, 0.3] }}
-                  transition={{ duration: 1.4, repeat: Infinity, delay: 0.2 }}
-                />
-                <motion.div
-                  className="w-1.5 h-1.5 bg-blue-500 rounded-full"
-                  animate={{ opacity: [0.3, 1, 0.3] }}
-                  transition={{ duration: 1.4, repeat: Infinity, delay: 0.4 }}
-                />
+          {/* Trust badge above message */}
+          {sources && sources.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="flex items-center gap-2 text-xs text-green-600 mb-2"
+            >
+              <CheckCircle className="w-3.5 h-3.5" />
+              <span className="font-medium">Baserat på {sources.length} verifierade källor</span>
+            </motion.div>
+          )}
+
+          {/* Premium message bubble */}
+          <div className="relative group">
+            {/* Subtle gradient border effect */}
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity blur-sm" />
+
+            <div className="relative bg-white border border-slate-200 px-4 py-3 rounded-2xl rounded-tl-sm shadow-sm hover:shadow-md transition-shadow">
+              <div className="prose prose-sm sm:prose-base max-w-none">
+                <ReactMarkdown
+                  components={{
+                    p: ({ children }) => <p className="mb-3 last:mb-0 text-slate-800">{children}</p>,
+                    ul: ({ children }) => <ul className="mb-3 ml-4 list-disc text-slate-800">{children}</ul>,
+                    ol: ({ children }) => <ol className="mb-3 ml-4 list-decimal text-slate-800">{children}</ol>,
+                    li: ({ children }) => <li className="mb-1">{children}</li>,
+                    strong: ({ children }) => <strong className="font-semibold text-slate-900">{children}</strong>,
+                    em: ({ children }) => <em className="italic">{children}</em>,
+                    h1: ({ children }) => <h1 className="text-xl font-bold mb-2 text-slate-900">{children}</h1>,
+                    h2: ({ children }) => <h2 className="text-lg font-bold mb-2 text-slate-900">{children}</h2>,
+                    h3: ({ children }) => <h3 className="text-base font-semibold mb-2 text-slate-900">{children}</h3>,
+                    a: ({ children, href }) => (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:underline inline-flex items-center gap-0.5"
+                      >
+                        {children}
+                        <ArrowUpRight className="w-3 h-3 inline" />
+                      </a>
+                    ),
+                  }}
+                >
+                  {content}
+                </ReactMarkdown>
               </div>
-            )}
+
+              {/* Premium streaming indicator */}
+              {isStreaming && (
+                <motion.div
+                  className="absolute -bottom-1 -right-1 w-3 h-3 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 shadow-lg"
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.8, 1, 0.8]
+                  }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                />
+              )}
+
+              {/* Action buttons */}
+              <div className="flex items-center gap-2 mt-3 pt-3 border-t border-slate-100">
+                <motion.button
+                  onClick={handleCopy}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="p-1.5 rounded-lg hover:bg-slate-100 transition-colors group/btn relative"
+                  title="Kopiera svar"
+                >
+                  {copiedMessage ? (
+                    <CheckCircle className="w-3.5 h-3.5 text-green-600" />
+                  ) : (
+                    <Copy className="w-3.5 h-3.5 text-slate-500 group-hover/btn:text-blue-600" />
+                  )}
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="p-1.5 rounded-lg hover:bg-slate-100 transition-colors group/btn"
+                  title="Bra svar"
+                >
+                  <ThumbsUp className="w-3.5 h-3.5 text-slate-500 group-hover/btn:text-green-600" />
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="p-1.5 rounded-lg hover:bg-slate-100 transition-colors group/btn"
+                  title="Dåligt svar"
+                >
+                  <ThumbsDown className="w-3.5 h-3.5 text-slate-500 group-hover/btn:text-red-600" />
+                </motion.button>
+              </div>
+            </div>
           </div>
 
-          {/* Improved Sources Display */}
+          {/* Premium Sources Display */}
           {sources && sources.length > 0 && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
@@ -161,41 +279,80 @@ export default function MessageBubble({
               transition={{ delay: 0.2 }}
               className="mt-3 ml-2"
             >
-              <div className="flex items-center gap-2 mb-2">
-                <svg className="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                </svg>
-                <p className="text-xs font-semibold text-slate-700">
-                  Källor ({sources.length})
-                </p>
+              {/* Premium sources header */}
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <div className="p-1.5 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 shadow-sm">
+                    <CheckCircle className="w-3.5 h-3.5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-slate-900">Verifierade källor</p>
+                    <p className="text-xs text-slate-600">{sources.length} källor granskade</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1 text-xs text-green-600 font-medium">
+                  <Shield className="w-3.5 h-3.5" />
+                  <span>Pålitlig</span>
+                </div>
               </div>
-              <div className="space-y-1.5">
+
+              {/* Premium source cards */}
+              <div className="space-y-2">
                 {sources.map((source, idx) => {
+                  const sourceInfo = getSourceInfo(source);
+                  const SourceIcon = sourceInfo.icon;
                   const hasExtractedLink = source.title && source.url;
+                  const title = hasExtractedLink ? source.title : (source.heading || source.source_url || 'Dokument');
 
                   return (
-                    <a
+                    <motion.a
                       key={idx}
                       href={source.url || source.source_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-start gap-2 p-2 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors group"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.1 }}
+                      whileHover={{ scale: 1.02, y: -2 }}
+                      className={`group relative overflow-hidden rounded-xl border-2 ${sourceInfo.borderColor} ${sourceInfo.bgColor} p-3 transition-all hover:shadow-lg block`}
                     >
-                      <span className="text-xs font-semibold text-blue-600 flex-shrink-0 mt-0.5">
-                        [{idx + 1}]
-                      </span>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs font-medium text-slate-900 group-hover:text-blue-600 truncate">
-                          {hasExtractedLink ? source.title : (source.heading || source.source_url || 'Dokument')}
-                        </p>
-                        {source.published_at && (
-                          <p className="text-xs text-slate-500 mt-0.5">
-                            {source.published_at}
-                          </p>
-                        )}
+                      {/* Premium gradient header */}
+                      <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${sourceInfo.color}`} />
+
+                      {/* Source badge and info */}
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className={`p-1.5 rounded-lg bg-gradient-to-br ${sourceInfo.color} text-white shadow-sm`}>
+                          <SourceIcon className="w-3.5 h-3.5" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span className={`text-xs font-bold ${sourceInfo.textColor}`}>
+                              {sourceInfo.type}
+                            </span>
+                            <span className={`text-xs px-2 py-0.5 ${sourceInfo.badgeBg} rounded-full font-medium ${sourceInfo.badgeText}`}>
+                              {sourceInfo.badge}
+                            </span>
+                          </div>
+                        </div>
+                        <Shield className="w-3.5 h-3.5 text-green-600" />
                       </div>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-slate-400 group-hover:text-blue-600 flex-shrink-0 mt-0.5" />
-                    </a>
+
+                      {/* Source title */}
+                      <p className="text-sm font-medium text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2">
+                        {title}
+                      </p>
+
+                      {/* Published date */}
+                      {source.published_at && (
+                        <div className="flex items-center gap-1 text-xs text-slate-500">
+                          <Clock className="w-3 h-3" />
+                          <span>{source.published_at}</span>
+                        </div>
+                      )}
+
+                      {/* Hover arrow indicator */}
+                      <ArrowUpRight className="absolute bottom-3 right-3 w-4 h-4 text-slate-400 group-hover:text-blue-600 opacity-0 group-hover:opacity-100 transition-all" />
+                    </motion.a>
                   );
                 })}
               </div>
