@@ -20,7 +20,9 @@ import {
   Sparkles,
   Building2,
   ArrowRight,
-  MessageCircle
+  MessageCircle,
+  Search,
+  UserPlus
 } from 'lucide-react';
 import MessageBubble from '@/components/jobbcoachen/MessageBubble';
 import TypingIndicator from '@/components/jobbcoachen/TypingIndicator';
@@ -44,6 +46,8 @@ const CATEGORIES: Category[] = [
   { id: 'arbetsratt', label: 'Arbetsrätt', icon: <Scale className="w-4 h-4" />, color: 'orange' },
   { id: 'karriar', label: 'Karriär', icon: <Lightbulb className="w-4 h-4" />, color: 'yellow' },
   { id: 'nyanlanda', label: 'Nyanlända', icon: <Globe className="w-4 h-4" />, color: 'teal' },
+  { id: 'jobbsok', label: 'Jobbsök', icon: <Search className="w-4 h-4" />, color: 'indigo' },
+  { id: 'natverk', label: 'Nätverk', icon: <UserPlus className="w-4 h-4" />, color: 'pink' },
 ];
 
 const SUGGESTED_QUESTIONS = [
@@ -82,6 +86,18 @@ const SUGGESTED_QUESTIONS = [
     question: 'Kan jag få etableringsstöd från Arbetsförmedlingen som nyutexaminerad?',
     category: 'Nyanlända',
     categoryId: 'nyanlanda'
+  },
+  {
+    icon: <Search className="w-5 h-5 text-indigo-600" />,
+    question: 'Hur hittar jag dolda jobbannonser som inte publiceras öppet?',
+    category: 'Jobbsök',
+    categoryId: 'jobbsok'
+  },
+  {
+    icon: <UserPlus className="w-5 h-5 text-pink-600" />,
+    question: 'Hur bygger jag ett professionellt nätverk på LinkedIn från scratch?',
+    category: 'Nätverk',
+    categoryId: 'natverk'
   },
 ];
 
@@ -408,11 +424,11 @@ export default function JobbcoachenPage() {
                 </motion.div>
               </div>
 
-              {/* Category Pills - Grid layout */}
-              <div className="mb-8">
-                <div className="flex items-center justify-between mb-4 px-1">
-                  <h3 className="text-base font-bold text-slate-900">
-                    Välj ämnesområde:
+              {/* Category Pills - Cleanare design */}
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-3 px-1">
+                  <h3 className="text-sm font-semibold text-slate-700">
+                    Välj ämne:
                   </h3>
                   {selectedCategory && (
                     <button
@@ -423,70 +439,52 @@ export default function JobbcoachenPage() {
                     </button>
                   )}
                 </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {CATEGORIES.map(cat => (
                     <motion.button
                       key={cat.id}
                       onClick={() => handleCategoryClick(cat.id)}
-                      whileHover={{ scale: 1.03, y: -2 }}
-                      whileTap={{ scale: 0.97 }}
-                      className={`min-h-[44px] min-w-[44px] px-4 py-3 rounded-full text-sm font-medium transition-all touch-manipulation flex items-center justify-center ${
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`min-h-[44px] px-3 py-2 rounded-lg text-xs font-medium transition-all touch-manipulation flex items-center gap-1.5 ${
                         selectedCategory === cat.id
-                          ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-2 border-blue-600 shadow-lg'
-                          : 'bg-white border-2 border-slate-200 text-slate-700 hover:border-blue-400 hover:bg-blue-50/80 hover:shadow-md'
+                          ? 'bg-blue-600 text-white shadow-md'
+                          : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                       }`}
                     >
-                      <span className="flex items-center gap-2">
-                        {cat.icon}
-                        <span>{cat.label}</span>
-                      </span>
+                      {cat.icon}
+                      <span>{cat.label}</span>
                     </motion.button>
                   ))}
                 </div>
               </div>
 
-              {/* Suggested Questions */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {/* Suggested Questions - Clean design */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {filteredQuestions.map((item, idx) => (
                   <motion.button
                     key={idx}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2 + idx * 0.05 }}
-                    whileHover={{ y: -4, scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
+                    transition={{ delay: 0.1 + idx * 0.03 }}
+                    whileHover={{ scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
                     onClick={() => handleSuggestedQuestion(item.question)}
-                    className="group relative overflow-hidden bg-white border-2 border-slate-200 rounded-xl p-4 text-left hover:border-blue-500 hover:shadow-lg transition-all touch-manipulation min-h-[100px]"
+                    className="group bg-white border border-slate-200 rounded-lg p-3 text-left hover:border-blue-300 hover:bg-blue-50/50 transition-all touch-manipulation"
                   >
-                    {/* Animated gradient background on hover */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity"
-                    />
-
-                    <div className="relative z-10 flex items-start gap-3">
-                      <motion.div
-                        whileHover={{ rotate: 5, scale: 1.1 }}
-                        transition={{ type: "spring", stiffness: 400 }}
-                        className="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm group-hover:shadow-md transition-shadow"
-                      >
+                    <div className="flex items-start gap-2.5">
+                      <div className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-blue-100 transition-colors">
                         {item.icon}
-                      </motion.div>
+                      </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-bold text-blue-600 mb-1.5 uppercase tracking-wide">
+                        <p className="text-[10px] font-semibold text-slate-500 mb-0.5 uppercase tracking-wide">
                           {item.category}
                         </p>
-                        <p className="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2">
+                        <p className="text-sm font-medium text-slate-900 group-hover:text-blue-700 transition-colors line-clamp-2 leading-snug">
                           {item.question}
                         </p>
                       </div>
                     </div>
-
-                    {/* Hover sparkle effect */}
-                    <motion.div
-                      className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"
-                    >
-                      <Sparkles className="w-4 h-4 text-blue-500" />
-                    </motion.div>
                   </motion.button>
                 ))}
               </div>
