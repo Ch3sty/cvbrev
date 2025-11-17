@@ -313,8 +313,12 @@ export default function MessageBubble({
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: idx * 0.1 }}
-                      whileHover={{ scale: 1.02, y: -2 }}
-                      className={`group relative overflow-hidden rounded-xl border-2 ${sourceInfo.borderColor} ${sourceInfo.bgColor} p-3 transition-all hover:shadow-lg block`}
+                      whileHover={{
+                        scale: 1.03,
+                        y: -4,
+                      }}
+                      style={{ willChange: 'transform' }}
+                      className={`group relative overflow-hidden rounded-xl border-2 ${sourceInfo.borderColor} ${sourceInfo.bgColor} p-3 transition-all hover:shadow-xl block`}
                     >
                       {/* Premium gradient header */}
                       <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${sourceInfo.color}`} />
