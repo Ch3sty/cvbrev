@@ -44,16 +44,16 @@ export default function DocumentSelector({ onSelect, onClose, selectedDocs }: Do
 
       // Load Letters
       const { data: letterData } = await supabase
-        .from('personliga_brev')
-        .select('id, title, content, created_at')
+        .from('letters')
+        .select('id, job_title, letter_text, created_at')
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
 
       setCvs((cvData || []).map(cv => ({ ...cv, type: 'cv' as const })));
       setLetters((letterData || []).map(letter => ({
         id: letter.id,
-        file_name: letter.title || 'Utan titel',
-        cv_text: letter.content,
+        file_name: letter.job_title || 'Utan titel',
+        cv_text: letter.letter_text,
         created_at: letter.created_at,
         type: 'letter' as const
       })));
