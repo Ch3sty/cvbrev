@@ -20,6 +20,7 @@ import {
 import MessageBubble from '@/components/jobbcoachen/MessageBubble';
 import TypingIndicator from '@/components/jobbcoachen/TypingIndicator';
 import ChatInput from '@/components/jobbcoachen/ChatInput';
+import ExampleConversations from '@/components/jobbcoachen/ExampleConversations';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
 import type { Message, MessageAttachment } from '@/types/jobbcoachen';
@@ -361,6 +362,9 @@ export default function JobbcoachenPage() {
                   ))}
                 </div>
               </div>
+
+              {/* Example Conversations */}
+              <ExampleConversations />
 
               {/* Suggested Questions */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
