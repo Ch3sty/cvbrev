@@ -42,18 +42,19 @@ export default function DocumentSelector({ onSelect, onClose, selectedDocs }: Do
         .eq('user_id', user.id)
         .order('created_at', { ascending: false });
 
-      // Load Letters
+      // Load Letters (only saved ones, not previews)
       const { data: letterData } = await supabase
         .from('letters')
-        .select('id, job_title, letter_text, created_at')
+        .select('id, job_title, content, created_at')
         .eq('user_id', user.id)
+        .eq('is_saved', true)
         .order('created_at', { ascending: false });
 
       setCvs((cvData || []).map(cv => ({ ...cv, type: 'cv' as const })));
       setLetters((letterData || []).map(letter => ({
         id: letter.id,
         file_name: letter.job_title || 'Utan titel',
-        cv_text: letter.letter_text,
+        cv_text: letter.content,
         created_at: letter.created_at,
         type: 'letter' as const
       })));
