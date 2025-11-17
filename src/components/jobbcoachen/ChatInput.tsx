@@ -210,14 +210,27 @@ export default function ChatInput({
             <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl opacity-0 group-focus-within:opacity-20 blur-lg transition-opacity" />
 
             <div className="relative flex items-end gap-2 sm:gap-3">
-              {/* Document selector button with premium styling and badge */}
+              {/* Document selector button with premium glow effects */}
               <motion.div className="relative flex-shrink-0">
+                {/* Animated glow effect */}
+                <motion.div
+                  className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl blur-md opacity-0 group-hover:opacity-40 transition-opacity"
+                  animate={{
+                    opacity: (cvCount + letterCount) > 0 ? [0.2, 0.4, 0.2] : 0
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+
                 <motion.button
                   onClick={() => setShowDocSelector(true)}
                   disabled={disabled}
-                  whileHover={{ scale: disabled ? 1 : 1.05 }}
+                  whileHover={{ scale: disabled ? 1 : 1.08, rotate: disabled ? 0 : 3 }}
                   whileTap={{ scale: disabled ? 1 : 0.95 }}
-                  className="relative p-3 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-300 rounded-xl hover:from-blue-100 hover:to-indigo-100 hover:border-blue-400 hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] min-w-[48px] flex items-center justify-center touch-manipulation group"
+                  className="relative p-3 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-300 rounded-xl hover:from-blue-100 hover:to-indigo-100 hover:border-blue-400 hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] min-w-[48px] flex items-center justify-center touch-manipulation group"
                   aria-label="Dela CV eller personligt brev"
                   title={
                     (cvCount + letterCount) > 0
@@ -227,15 +240,37 @@ export default function ChatInput({
                 >
                   <FileText className="w-5 h-5 text-blue-600 group-hover:text-blue-700 transition-colors" />
 
-                  {/* Document count badge */}
+                  {/* Premium pulse badge */}
                   {(cvCount + letterCount) > 0 && (
-                    <motion.span
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      className="absolute -top-1 -right-1 bg-gradient-to-br from-blue-600 to-indigo-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-lg"
-                    >
-                      {cvCount + letterCount}
-                    </motion.span>
+                    <>
+                      <motion.span
+                        className="absolute -top-1 -right-1 bg-gradient-to-br from-blue-600 to-indigo-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow-lg"
+                        animate={{
+                          scale: [1, 1.15, 1]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        {cvCount + letterCount}
+                      </motion.span>
+
+                      {/* Pulse ring */}
+                      <motion.span
+                        className="absolute -top-1 -right-1 w-5 h-5 rounded-full border-2 border-blue-600"
+                        animate={{
+                          scale: [1, 1.6, 1],
+                          opacity: [0.6, 0, 0.6]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeOut"
+                        }}
+                      />
+                    </>
                   )}
                 </motion.button>
               </motion.div>
@@ -264,17 +299,31 @@ export default function ChatInput({
                 )}
               </div>
 
-              {/* Premium send button with enhanced effects */}
+              {/* Premium send button with multi-layer glow */}
               <motion.div className="relative group/send flex-shrink-0">
-                {/* Glow effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl blur-md opacity-50 group-hover/send:opacity-75 transition-opacity" />
+                {/* Outer glow ring */}
+                <motion.div
+                  className="absolute -inset-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-xl blur-lg opacity-40"
+                  animate={{
+                    opacity: [0.3, 0.6, 0.3],
+                    scale: [0.95, 1.05, 0.95]
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+
+                {/* Middle glow layer */}
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl blur-md opacity-50 group-hover/send:opacity-75 transition-opacity" />
 
                 <motion.button
                   onClick={handleSubmit}
                   disabled={disabled || (!message.trim() && selectedDocs.length === 0)}
-                  whileHover={{ scale: (disabled || (!message.trim() && selectedDocs.length === 0)) ? 1 : 1.05 }}
+                  whileHover={{ scale: (disabled || (!message.trim() && selectedDocs.length === 0)) ? 1 : 1.08, y: (disabled || (!message.trim() && selectedDocs.length === 0)) ? 0 : -2 }}
                   whileTap={{ scale: (disabled || (!message.trim() && selectedDocs.length === 0)) ? 1 : 0.95 }}
-                  className="relative px-4 sm:px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] min-w-[48px] flex items-center justify-center touch-manipulation"
+                  className="relative px-5 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-semibold shadow-xl hover:shadow-2xl transition-all disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] min-w-[48px] flex items-center justify-center touch-manipulation"
                 >
                   <Send className="w-5 h-5" />
                   <span className="hidden sm:inline ml-2">Skicka</span>

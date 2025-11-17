@@ -18,12 +18,13 @@ import {
   ExternalLink,
   Shield,
   Sparkles,
-  Building2
+  Building2,
+  ArrowRight
 } from 'lucide-react';
 import MessageBubble from '@/components/jobbcoachen/MessageBubble';
 import TypingIndicator from '@/components/jobbcoachen/TypingIndicator';
 import ChatInput from '@/components/jobbcoachen/ChatInput';
-import ExampleConversations from '@/components/jobbcoachen/ExampleConversations';
+import DocumentSelector from '@/components/jobbcoachen/DocumentSelector';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
 
 import type { Message, MessageAttachment } from '@/types/jobbcoachen';
@@ -90,9 +91,42 @@ export default function JobbcoachenPage() {
   const [error, setError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [showInfoModal, setShowInfoModal] = useState(false);
+  const [cvCount, setCvCount] = useState(0);
+  const [letterCount, setLetterCount] = useState(0);
+  const [showDocSelector, setShowDocSelector] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const supabase = getSupabaseClient();
+
+  // Load document counts
+  useEffect(() => {
+    const loadDocCounts = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) return;
+
+        // Count CVs
+        const { count: cvs } = await supabase
+          .from('cv_texts')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', user.id);
+
+        // Count Letters (only saved ones)
+        const { count: letters } = await supabase
+          .from('letters')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', user.id)
+          .eq('is_saved', true);
+
+        setCvCount(cvs || 0);
+        setLetterCount(letters || 0);
+      } catch (error) {
+        console.error('Error loading document counts:', error);
+      }
+    };
+
+    loadDocCounts();
+  }, [supabase]);
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -286,10 +320,10 @@ export default function JobbcoachenPage() {
 
             <button
               onClick={() => setShowInfoModal(true)}
-              className="w-9 h-9 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors touch-manipulation flex-shrink-0"
+              className="w-11 h-11 rounded-lg bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition-colors touch-manipulation flex-shrink-0"
               aria-label="Information om Jobbcoachen"
             >
-              <Info className="w-4 h-4 text-slate-600" />
+              <Info className="w-5 h-5 text-slate-600" />
             </button>
           </div>
         </div>
@@ -359,92 +393,123 @@ export default function JobbcoachenPage() {
                   Få konkret vägledning om svensk arbetsmarknad baserat på verifierade källor.
                 </motion.p>
 
-                {/* Premium source credibility card */}
+                {/* Compact Trust Badge - Redesigned for better UX */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="relative max-w-xl mx-auto mb-6 overflow-hidden rounded-xl border-2 border-blue-200 bg-gradient-to-br from-blue-50 via-white to-indigo-50 p-5 shadow-lg"
+                  className="max-w-xl mx-auto mb-6"
                 >
-                  {/* Premium top accent */}
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600" />
+                  <div className="relative rounded-xl border-2 border-blue-200 bg-gradient-to-br from-blue-50 via-white to-indigo-50 p-4 shadow-lg overflow-hidden">
+                    {/* Premium top accent */}
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600" />
 
-                  <div className="flex items-start gap-3 mb-4">
-                    <div className="p-2 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 shadow-md">
-                      <Shield className="w-5 h-5 text-white" />
-                    </div>
-                    <div className="flex-1 text-left">
-                      <p className="text-sm font-bold text-slate-900">Verifierade källor</p>
-                      <p className="text-xs text-slate-600">Alla svar baserade på officiell information</p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    {[
-                      { icon: Building2, label: 'Arbetsförmedlingen', color: 'blue' },
-                      { icon: Users, label: 'Fackförbund', color: 'purple' },
-                      { icon: TrendingUp, label: 'SCB Statistik', color: 'emerald' },
-                      { icon: Briefcase, label: 'Karriärexperter', color: 'indigo' }
-                    ].map((source, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.5 + (0.1 * i) }}
-                        className="flex items-center gap-2 p-2 bg-white rounded-lg border border-slate-200 shadow-sm hover:shadow-md transition-shadow"
-                      >
-                        <div className={`p-1.5 rounded-md bg-${source.color}-100`}>
-                          <source.icon className={`w-3.5 h-3.5 text-${source.color}-600`} />
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 shadow-md">
+                          <Shield className="w-5 h-5 text-white" />
                         </div>
-                        <span className="text-xs font-medium text-slate-700 flex-1">{source.label}</span>
-                        <CheckCircle className="w-3 h-3 text-green-600" />
-                      </motion.div>
-                    ))}
+                        <div>
+                          <p className="text-sm font-bold text-slate-900">Verifierade källor</p>
+                          <p className="text-xs text-slate-600">4 officiella databaser</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1 text-xs text-green-600 font-medium">
+                        <CheckCircle className="w-3.5 h-3.5" />
+                        <span className="hidden sm:inline">Pålitlig</span>
+                      </div>
+                    </div>
+
+                    {/* Kompakt källlista */}
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {['Arbetsförmedlingen', 'Fackförbund', 'SCB', 'Karriärexperter'].map((source) => (
+                        <span
+                          key={source}
+                          className="px-2 py-0.5 bg-white/80 rounded-full text-[10px] sm:text-xs font-medium text-blue-700 border border-blue-200"
+                        >
+                          {source}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </motion.div>
 
-                {/* Premium feature highlight */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.9 }}
-                  className="relative flex items-center justify-center gap-2 text-xs text-blue-700 mb-6 bg-blue-50 border-2 border-blue-200 rounded-xl px-4 py-3 max-w-md mx-auto overflow-hidden group hover:border-blue-300 transition-all"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-100/50 to-indigo-100/50 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <FileText className="w-4 h-4 text-blue-600 relative z-10" />
-                  <span className="font-medium relative z-10">Dela dina sparade CV eller personliga brev för personlig feedback</span>
-                  <Sparkles className="w-4 h-4 text-blue-600 relative z-10" />
-                </motion.div>
+                {/* Document Sharing CTA - Moved from ChatInput for better visibility */}
+                {!messages.length && (cvCount + letterCount) > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="max-w-xl mx-auto mb-6"
+                  >
+                    <div
+                      onClick={() => setShowDocSelector(true)}
+                      className="relative rounded-xl border-2 border-green-200 bg-gradient-to-br from-green-50 via-white to-emerald-50 p-4 shadow-md overflow-hidden group hover:shadow-lg transition-all cursor-pointer"
+                    >
+                      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-green-600 to-emerald-600" />
+
+                      <div className="flex items-start gap-3">
+                        <div className="p-2 bg-gradient-to-br from-green-600 to-emerald-600 rounded-lg shadow-sm flex-shrink-0">
+                          <FileText className="w-5 h-5 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-semibold text-slate-900 mb-1">
+                            Du har {cvCount + letterCount} sparade dokument
+                          </p>
+                          <p className="text-sm text-slate-600 mb-3">
+                            Dela ditt CV eller personliga brev för personlig feedback och förslag
+                          </p>
+                          <motion.button
+                            whileHover={{ scale: 1.02, x: 2 }}
+                            className="text-sm font-semibold text-green-600 hover:text-green-700 flex items-center gap-1"
+                          >
+                            <span>Välj dokument att dela</span>
+                            <ArrowRight className="w-4 h-4" />
+                          </motion.button>
+                        </div>
+                        <Sparkles className="w-5 h-5 text-green-600 flex-shrink-0" />
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
               </div>
 
               {/* Category Pills - Grid layout */}
-              <div className="mb-6">
-                <h3 className="text-sm font-semibold text-slate-700 mb-3 px-1">
-                  Populära områden:
-                </h3>
-                <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-                  {CATEGORIES.map(cat => (
+              <div className="mb-8">
+                <div className="flex items-center justify-between mb-4 px-1">
+                  <h3 className="text-base font-bold text-slate-900">
+                    Välj ämnesområde:
+                  </h3>
+                  {selectedCategory && (
                     <button
+                      onClick={() => setSelectedCategory(null)}
+                      className="text-xs font-medium text-blue-600 hover:text-blue-700 transition-colors"
+                    >
+                      Visa alla
+                    </button>
+                  )}
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+                  {CATEGORIES.map(cat => (
+                    <motion.button
                       key={cat.id}
                       onClick={() => handleCategoryClick(cat.id)}
-                      className={`px-3 py-2 rounded-full text-xs sm:text-sm font-medium transition-all touch-manipulation ${
+                      whileHover={{ scale: 1.03, y: -2 }}
+                      whileTap={{ scale: 0.97 }}
+                      className={`min-h-[44px] min-w-[44px] px-4 py-3 rounded-full text-sm font-medium transition-all touch-manipulation flex items-center justify-center ${
                         selectedCategory === cat.id
-                          ? 'bg-blue-600 text-white border border-blue-600'
-                          : 'bg-white border border-slate-200 text-slate-700 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50'
+                          ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white border-2 border-blue-600 shadow-lg'
+                          : 'bg-white border-2 border-slate-200 text-slate-700 hover:border-blue-400 hover:bg-blue-50/80 hover:shadow-md'
                       }`}
                     >
-                      <span className="flex items-center justify-center gap-1.5">
+                      <span className="flex items-center gap-2">
                         {cat.icon}
-                        <span className="hidden sm:inline">{cat.label}</span>
-                        <span className="sm:hidden">{cat.label.split('-')[0]}</span>
+                        <span>{cat.label}</span>
                       </span>
-                    </button>
+                    </motion.button>
                   ))}
                 </div>
               </div>
-
-              {/* Example Conversations */}
-              <ExampleConversations />
 
               {/* Suggested Questions */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -454,24 +519,40 @@ export default function JobbcoachenPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 + idx * 0.05 }}
-                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileHover={{ y: -4, scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => handleSuggestedQuestion(item.question)}
-                    className="group bg-white border border-slate-200 rounded-xl p-4 text-left hover:border-blue-500 hover:shadow-md transition-all touch-manipulation min-h-[88px]"
+                    className="group relative overflow-hidden bg-white border-2 border-slate-200 rounded-xl p-4 text-left hover:border-blue-500 hover:shadow-lg transition-all touch-manipulation min-h-[100px]"
                   >
-                    <div className="flex items-start gap-3">
-                      <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:from-blue-200 group-hover:to-indigo-200 transition-colors">
+                    {/* Animated gradient background on hover */}
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-br from-blue-50 to-indigo-50 opacity-0 group-hover:opacity-100 transition-opacity"
+                    />
+
+                    <div className="relative z-10 flex items-start gap-3">
+                      <motion.div
+                        whileHover={{ rotate: 5, scale: 1.1 }}
+                        transition={{ type: "spring", stiffness: 400 }}
+                        className="w-12 h-12 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm group-hover:shadow-md transition-shadow"
+                      >
                         {item.icon}
-                      </div>
+                      </motion.div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-semibold text-blue-600 mb-1">
+                        <p className="text-xs font-bold text-blue-600 mb-1.5 uppercase tracking-wide">
                           {item.category}
                         </p>
-                        <p className="text-sm font-medium text-slate-800 line-clamp-2">
+                        <p className="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2">
                           {item.question}
                         </p>
                       </div>
                     </div>
+
+                    {/* Hover sparkle effect */}
+                    <motion.div
+                      className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                      <Sparkles className="w-4 h-4 text-blue-500" />
+                    </motion.div>
                   </motion.button>
                 ))}
               </div>
@@ -616,6 +697,18 @@ export default function JobbcoachenPage() {
             </button>
           </motion.div>
         </div>
+      )}
+
+      {/* Document Selector Modal */}
+      {showDocSelector && (
+        <DocumentSelector
+          onSelect={(doc) => {
+            // Handle document selection - will be passed to ChatInput
+            setShowDocSelector(false);
+          }}
+          onClose={() => setShowDocSelector(false)}
+          selectedDocs={[]}
+        />
       )}
     </div>
   );
