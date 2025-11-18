@@ -60,12 +60,69 @@ export function EmbeddedSubscribeButton({
   if (showCheckout && clientSecret) {
     return (
       <div className="w-full">
-        <EmbeddedCheckoutProvider
-          stripe={stripePromise}
-          options={{ clientSecret }}
+        {/* Back button */}
+        <button
+          onClick={() => {
+            setShowCheckout(false)
+            setClientSecret(null)
+            setLoading(false)
+          }}
+          className="mb-4 flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
         >
-          <EmbeddedCheckout />
-        </EmbeddedCheckoutProvider>
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Tillbaka
+        </button>
+
+        {/* Embedded Checkout with better styling */}
+        <div className="bg-white rounded-2xl shadow-xl border border-gray-200/50 overflow-hidden p-6">
+          <EmbeddedCheckoutProvider
+            stripe={stripePromise}
+            options={{
+              clientSecret,
+              appearance: {
+                theme: 'stripe',
+                variables: {
+                  colorPrimary: '#db2777', // pink-600
+                  colorBackground: '#ffffff',
+                  colorText: '#1f2937', // gray-800
+                  colorDanger: '#dc2626',
+                  fontFamily: 'system-ui, -apple-system, sans-serif',
+                  spacingUnit: '4px',
+                  borderRadius: '12px',
+                },
+                rules: {
+                  '.Tab': {
+                    border: '1px solid #e5e7eb',
+                    boxShadow: 'none',
+                  },
+                  '.Tab:hover': {
+                    color: '#db2777',
+                    borderColor: '#db2777',
+                  },
+                  '.Tab--selected': {
+                    borderColor: '#db2777',
+                    color: '#db2777',
+                  },
+                  '.Input': {
+                    boxShadow: 'none',
+                    borderColor: '#e5e7eb',
+                  },
+                  '.Input:focus': {
+                    borderColor: '#db2777',
+                    boxShadow: '0 0 0 3px rgba(219, 39, 119, 0.1)',
+                  },
+                  '.Label': {
+                    fontWeight: '500',
+                  },
+                }
+              }
+            }}
+          >
+            <EmbeddedCheckout />
+          </EmbeddedCheckoutProvider>
+        </div>
       </div>
     )
   }
