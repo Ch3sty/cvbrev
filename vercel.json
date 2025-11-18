@@ -7,10 +7,6 @@
   "crons": [
     {
       "path": "/api/cron/pricing-sync",
-      "schedule": "0 2 * * *"
-    },
-    {
-      "path": "/api/cron/expire-premiums",
       "schedule": "0 * * * *"
     }
   ]
