@@ -5,7 +5,7 @@ import { useProfile } from '@/hooks/use-profile';
 import { motion } from 'framer-motion';
 import { UnifiedSubscriptionCard } from '@/components/subscription/UnifiedSubscriptionCard';
 import SubscriptionInfo from '@/components/subscription/subscription-info';
-import { SubscribeButton } from '@/components/subscription/SubscribeButton';
+import { EmbeddedSubscribeButton } from '@/components/subscription/EmbeddedSubscribeButton';
 import { Crown, CheckCircle, Clock, Gift, Shield, Calendar, Zap, Info } from 'lucide-react';
 
 export default function PrenumerationPage() {
@@ -156,7 +156,7 @@ export default function PrenumerationPage() {
                       <p className="text-sm text-gray-600">Avsluta när du vill</p>
                     </div>
                   </div>
-                  <SubscribeButton
+                  <EmbeddedSubscribeButton
                     priceId={premiumMonthlyPriceId}
                     planName="Premium Månad"
                     className="w-full touch-manipulation"
@@ -270,7 +270,7 @@ export default function PrenumerationPage() {
                   <p className="text-white/90 text-sm mb-4">
                     Uppgradera nu och behåll alla dina premium-funktioner. Ingen bindningstid - avsluta när du vill.
                   </p>
-                  <SubscribeButton
+                  <EmbeddedSubscribeButton
                     priceId={premiumMonthlyPriceId}
                     planName="Premium Månad"
                     className="w-full bg-white text-blue-600 hover:bg-blue-50 font-bold touch-manipulation"
@@ -387,7 +387,7 @@ export default function PrenumerationPage() {
                   <p className="text-white/90 text-sm mb-4">
                     Uppgradera nu och behåll alla dina premium-funktioner. Ingen bindningstid - avsluta när du vill.
                   </p>
-                  <SubscribeButton
+                  <EmbeddedSubscribeButton
                     priceId={premiumMonthlyPriceId}
                     planName="Premium Månad"
                     className="w-full bg-white text-green-600 hover:bg-green-50 font-bold touch-manipulation"
@@ -504,7 +504,7 @@ export default function PrenumerationPage() {
                   <p className="text-white/90 text-sm mb-4">
                     Uppgradera nu och behåll alla dina premium-funktioner. Ingen bindningstid - avsluta när du vill.
                   </p>
-                  <SubscribeButton
+                  <EmbeddedSubscribeButton
                     priceId={premiumMonthlyPriceId}
                     planName="Premium Månad"
                     className="w-full bg-white text-purple-600 hover:bg-purple-50 font-bold touch-manipulation"

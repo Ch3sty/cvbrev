@@ -362,6 +362,25 @@ export async function POST(request: Request) {
                  }
                }
              }
+             // Hantera uppgraderingar från befintliga användare
+             else if (eventData.metadata?.upgradeFlow === 'existing-user-upgrade' && customerId && relevantSubscriptionId) {
+               console.log(`[UPGRADE WEBHOOK] Processing upgrade for customer: ${customerId}`)
+
+               try {
+                 // Hämta den fullständiga subscription från Stripe
+                 const fullSubscription = await stripe.subscriptions.retrieve(relevantSubscriptionId);
+
+                 // Uppdatera subscription_tier baserat på Stripe status (active = premium)
+                 await updateUserSubscription(customerId, fullSubscription);
+
+                 // Check if this is a referral conversion
+                 await handleReferralConversion(customerId);
+
+                 console.log(`[UPGRADE WEBHOOK] Subscription updated successfully for customer: ${customerId}`)
+               } catch (error) {
+                 console.error('[UPGRADE WEBHOOK] Error handling subscription upgrade:', error)
+               }
+             }
              break;
          default:
              console.log(`Webhook Info: Unhandled event type ${event.type}.`);
