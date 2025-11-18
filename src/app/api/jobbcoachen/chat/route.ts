@@ -120,8 +120,8 @@ export async function POST(req: NextRequest) {
     const contextChunks = chunks || [];
     const context = contextChunks
       .map((chunk: any, idx: number) => {
-        return `[Källa ${idx + 1}] ${chunk.heading || 'Utan rubrik'}
-Dokument: ${chunk.storage_path || chunk.source_url || 'Okänd källa'}
+        return `[Källa ${idx + 1}] ${chunk.title || chunk.heading || 'Utan rubrik'}
+Ämne: ${chunk.topic || 'Allmänt'}
 ${chunk.published_at ? `Datum: ${chunk.published_at}` : ''}
 Innehåll:
 ${chunk.content}
@@ -205,8 +205,8 @@ Svara på svenska med konkreta råd baserat på kontexten ovan. Om användaren b
 
           // Build sources from RAG chunks with full metadata
           const sources = contextChunks.map((chunk: any) => ({
-            // Extracted link data (preferred)
-            title: chunk.heading,
+            // Use document title as the primary display title
+            title: chunk.title || chunk.heading,
             url: chunk.source_url,
             // Original document metadata (fallback)
             heading: chunk.heading,

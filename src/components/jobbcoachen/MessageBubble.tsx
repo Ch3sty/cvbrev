@@ -45,11 +45,13 @@ export default function MessageBubble({
     return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
   };
 
-  // Identify source type based on URL
+  // Identify source type based on title or URL
   const getSourceInfo = (source: Source) => {
     const url = (source.url || source.source_url || '').toLowerCase();
+    const title = (source.title || source.heading || '').toLowerCase();
 
-    if (url.includes('arbetsformedlingen') || url.includes('af.se')) {
+    // Check title first (since many sources don't have URLs)
+    if (title.includes('arbetsförmedlingen') || url.includes('arbetsformedlingen') || url.includes('af.se')) {
       return {
         type: 'Arbetsförmedlingen',
         icon: Building2,
@@ -62,7 +64,7 @@ export default function MessageBubble({
         badgeText: 'text-blue-700'
       };
     }
-    if (url.includes('scb.se')) {
+    if (title.includes('scb') || url.includes('scb.se')) {
       return {
         type: 'SCB',
         icon: TrendingUp,
@@ -75,7 +77,8 @@ export default function MessageBubble({
         badgeText: 'text-emerald-700'
       };
     }
-    if (url.includes('unionen') || url.includes('lo.se') || url.includes('tco.se')) {
+    if (title.includes('unionen') || title.includes('facklig') || title.includes('a-kassa') ||
+        url.includes('unionen') || url.includes('lo.se') || url.includes('tco.se')) {
       return {
         type: 'Fackförbund',
         icon: Users,
@@ -88,6 +91,46 @@ export default function MessageBubble({
         badgeText: 'text-purple-700'
       };
     }
+    if (title.includes('försäkringskassan') || url.includes('forsakringskassan.se')) {
+      return {
+        type: 'Försäkringskassan',
+        icon: Shield,
+        color: 'from-orange-600 to-orange-700',
+        bgColor: 'bg-orange-50',
+        borderColor: 'border-orange-200',
+        textColor: 'text-orange-900',
+        badge: 'Myndighet',
+        badgeBg: 'bg-white',
+        badgeText: 'text-orange-700'
+      };
+    }
+    if (title.includes('csn') || url.includes('csn.se')) {
+      return {
+        type: 'CSN',
+        icon: Building2,
+        color: 'from-cyan-600 to-cyan-700',
+        bgColor: 'bg-cyan-50',
+        borderColor: 'border-cyan-200',
+        textColor: 'text-cyan-900',
+        badge: 'Studiestöd',
+        badgeBg: 'bg-white',
+        badgeText: 'text-cyan-700'
+      };
+    }
+    if (title.includes('skatteverket') || url.includes('skatteverket.se')) {
+      return {
+        type: 'Skatteverket',
+        icon: Building2,
+        color: 'from-slate-600 to-slate-700',
+        bgColor: 'bg-slate-50',
+        borderColor: 'border-slate-200',
+        textColor: 'text-slate-900',
+        badge: 'Myndighet',
+        badgeBg: 'bg-white',
+        badgeText: 'text-slate-700'
+      };
+    }
+
     // Default for other sources
     return {
       type: 'Karriärexpert',
