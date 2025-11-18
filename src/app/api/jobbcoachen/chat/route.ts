@@ -203,18 +203,47 @@ Svara på svenska med konkreta råd baserat på kontexten ovan. Om användaren b
             }
           }
 
-          // Build sources from RAG chunks with full metadata
-          const sources = contextChunks.map((chunk: any) => ({
-            // Use document title as the primary display title
-            title: chunk.title || chunk.heading,
-            url: chunk.source_url,
-            // Original document metadata (fallback)
-            heading: chunk.heading,
-            source_url: chunk.source_url,
-            storage_path: chunk.storage_path,
-            published_at: chunk.published_at,
-            topic: chunk.topic,
-          }));
+          // Extract actual sources from chunk content (markdown links)
+          const extractedSources: any[] = [];
+          const seenUrls = new Set<string>();
+
+          contextChunks.forEach((chunk: any) => {
+            if (!chunk.content) return;
+
+            // Extract all markdown links: [title](url)
+            const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g;
+            let match;
+
+            while ((match = linkRegex.exec(chunk.content)) !== null) {
+              const title = match[1];
+              const url = match[2];
+
+              // Deduplicate by URL
+              if (!seenUrls.has(url)) {
+                seenUrls.add(url);
+                extractedSources.push({
+                  title,
+                  url,
+                  source_url: url, // Fallback field
+                  published_at: chunk.published_at,
+                  topic: chunk.topic,
+                });
+              }
+            }
+          });
+
+          // Use extracted sources if available, otherwise fall back to document metadata
+          const sources = extractedSources.length > 0
+            ? extractedSources
+            : contextChunks.map((chunk: any) => ({
+                title: chunk.title || chunk.heading,
+                url: chunk.source_url,
+                heading: chunk.heading,
+                source_url: chunk.source_url,
+                storage_path: chunk.storage_path,
+                published_at: chunk.published_at,
+                topic: chunk.topic,
+              }));
 
           // Send sources if we have any
           if (sources.length > 0) {
