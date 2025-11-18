@@ -71,19 +71,23 @@ export function EmbeddedSubscribeButton({
   }
 
   return (
-    <div>
+    <div className="w-full">
       <button
         onClick={handleUpgrade}
         disabled={loading || disabled}
-        className={
-          className ||
-          `flex items-center justify-center w-full px-6 py-3
-          text-base font-medium rounded-md shadow-sm
-          text-white bg-pink-600 hover:bg-pink-700
-          focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-pink-500
-          transition-colors duration-150 ease-in-out
-          disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed`
-        }
+        className={`
+          flex items-center justify-center w-full px-6 py-4
+          text-base font-bold rounded-xl shadow-lg
+          bg-gradient-to-r from-pink-600 to-purple-600
+          hover:from-pink-700 hover:to-purple-700
+          text-white
+          focus:outline-none focus:ring-4 focus:ring-pink-500/50
+          transition-all duration-200 ease-in-out
+          disabled:from-gray-400 disabled:to-gray-500
+          disabled:cursor-not-allowed
+          transform hover:scale-[1.02] active:scale-[0.98]
+          ${className}
+        `}
       >
         {loading ? (
           <>
@@ -98,7 +102,11 @@ export function EmbeddedSubscribeButton({
         )}
       </button>
 
-      {error && <p className="mt-2 text-sm text-red-500 text-center">{error}</p>}
+      {error && (
+        <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-lg">
+          <p className="text-sm text-red-600 text-center">{error}</p>
+        </div>
+      )}
     </div>
   )
 }
