@@ -46,14 +46,22 @@ const updateUserSubscription = async (customerId: string, subscription: Stripe.S
     }
 
     // Skapa dataobjektet för uppdatering (inkluderar nu subscription_tier)
-    const subscriptionData = {
+    const subscriptionData: any = {
         subscription_id: subscription.id,
         subscription_status: subscription.status, // Behåll den detaljerade Stripe-statusen
-        price_id: priceId, 
+        price_id: priceId,
         current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
         // Lägg till den uppdaterade tier-statusen:
-        subscription_tier: newSubscriptionTier 
+        subscription_tier: newSubscriptionTier
     };
+
+    // Om subscription är canceled/incomplete/unpaid, rensa premium_until och premium_source
+    // Detta förhindrar att gamla onboarding/trial-premiums kolliderar med Stripe-status
+    if (!isActiveOrTrialing) {
+        subscriptionData.premium_until = null;
+        subscriptionData.premium_source = null;
+        console.log(`Webhook: Clearing premium_until/premium_source for canceled/inactive subscription`);
+    }
 
      console.log(`Webhook: Updating profile for user ${userId} with data:`, JSON.stringify(subscriptionData));
 

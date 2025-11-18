@@ -372,8 +372,33 @@ export const useProfile = () => {
         setProfile(data);
 
         // Hantera prenumerations- och Stripe-data
-        const dbTier = (data.subscription_tier === 'premium' ? 'premium' : 'free');
-        console.log("useProfile: Determined tier from DB:", dbTier);
+        // VIKTIGT: Validera premium_until för att säkerställa att utgångna premiums blir 'free'
+        let dbTier: 'free' | 'premium' = 'free';
+
+        if (data.subscription_tier === 'premium') {
+          // Om användaren har premium_until, validera att det inte löpt ut
+          if (data.premium_until) {
+            const premiumUntilDate = new Date(data.premium_until);
+            const now = new Date();
+
+            if (premiumUntilDate > now) {
+              // Premium är fortfarande aktivt
+              dbTier = 'premium';
+              console.log("useProfile: Premium active until:", premiumUntilDate.toISOString());
+            } else {
+              // Premium har löpt ut - downgrade till free
+              dbTier = 'free';
+              console.warn("useProfile: Premium expired at:", premiumUntilDate.toISOString(), "- Downgrading to free");
+            }
+          } else {
+            // Ingen premium_until - antingen Stripe subscription eller äldre system
+            // Lita på subscription_tier från DB (webhook hanterar Stripe-status)
+            dbTier = 'premium';
+            console.log("useProfile: Premium without expiry (Stripe subscription)");
+          }
+        }
+
+        console.log("useProfile: Final determined tier:", dbTier);
         setSubscriptionTier(dbTier);
 
         setMaxCvCount(SUBSCRIPTION_LIMITS[dbTier].maxCVCount);
