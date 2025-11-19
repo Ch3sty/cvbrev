@@ -282,7 +282,7 @@ export default function PreviewStep({
       </div>
 
       {/* Document Preview */}
-      <div className="bg-gray-50 rounded-2xl p-4 sm:p-6 min-h-[400px] sm:min-h-[600px] flex items-center justify-center mb-24 sm:mb-0 relative">
+      <div className={`bg-gray-50 rounded-2xl p-4 sm:p-6 min-h-[400px] sm:min-h-[600px] mb-24 sm:mb-0 relative ${isTemplateHTML(editedContent) ? '' : 'flex items-center justify-center'}`}>
         {/* Loading Overlay for Template Regeneration */}
         {isRegeneratingTemplate && (
           <motion.div
@@ -334,18 +334,24 @@ export default function PreviewStep({
         ) : (
           <motion.div
             ref={previewRef}
-            className="bg-white shadow-2xl rounded-lg overflow-hidden w-full max-w-4xl"
+            className={
+              isTemplateHTML(editedContent)
+                ? 'w-full' // Full width for template HTML (templates handle their own layout)
+                : 'bg-white shadow-2xl rounded-lg overflow-hidden w-full max-w-4xl' // Legacy styling for plain text
+            }
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            whileHover={{ boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.25)' }}
+            whileHover={isTemplateHTML(editedContent) ? {} : { boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.25)' }}
           >
-            {/* Page Header */}
-            <div className="border-b border-gray-100 px-8 py-4 bg-gradient-to-r from-gray-50 to-white">
-              <div className="flex items-center gap-2">
-                <FileText className="w-5 h-5 text-gray-400" />
-                <span className="text-sm text-gray-600">Personligt brev</span>
+            {/* Page Header - Only for plain text (legacy) */}
+            {!isTemplateHTML(editedContent) && (
+              <div className="border-b border-gray-100 px-8 py-4 bg-gradient-to-r from-gray-50 to-white">
+                <div className="flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-gray-400" />
+                  <span className="text-sm text-gray-600">Personligt brev</span>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Page Content */}
             <div
