@@ -80,44 +80,7 @@ export function EmbeddedSubscribeButton({
           <EmbeddedCheckoutProvider
             stripe={stripePromise}
             options={{
-              clientSecret,
-              appearance: {
-                theme: 'stripe',
-                variables: {
-                  colorPrimary: '#db2777', // pink-600
-                  colorBackground: '#ffffff',
-                  colorText: '#1f2937', // gray-800
-                  colorDanger: '#dc2626',
-                  fontFamily: 'system-ui, -apple-system, sans-serif',
-                  spacingUnit: '4px',
-                  borderRadius: '12px',
-                },
-                rules: {
-                  '.Tab': {
-                    border: '1px solid #e5e7eb',
-                    boxShadow: 'none',
-                  },
-                  '.Tab:hover': {
-                    color: '#db2777',
-                    borderColor: '#db2777',
-                  },
-                  '.Tab--selected': {
-                    borderColor: '#db2777',
-                    color: '#db2777',
-                  },
-                  '.Input': {
-                    boxShadow: 'none',
-                    borderColor: '#e5e7eb',
-                  },
-                  '.Input:focus': {
-                    borderColor: '#db2777',
-                    boxShadow: '0 0 0 3px rgba(219, 39, 119, 0.1)',
-                  },
-                  '.Label': {
-                    fontWeight: '500',
-                  },
-                }
-              }
+              clientSecret
             }}
           >
             <EmbeddedCheckout />

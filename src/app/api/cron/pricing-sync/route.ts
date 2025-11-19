@@ -62,7 +62,7 @@ export async function GET(request: NextRequest) {
       } else {
         console.log(`[Premium Expiration] Found ${expiredUsers.length} expired users`);
 
-        const userIds = expiredUsers.map(u => u.id);
+        const userIds = expiredUsers.map((u: any) => u.id);
         const { error: updateError } = await supabaseAdmin
           .from('profiles')
           .update({ subscription_tier: 'free' })

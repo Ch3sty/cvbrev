@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
     console.log(`[EXPIRE PREMIUMS] Found ${expiredUsers.length} expired users`)
 
     // Downgrade each user to free tier
-    const userIds = expiredUsers.map(u => u.id)
+    const userIds = expiredUsers.map((u: any) => u.id)
 
     const { error: updateError } = await supabaseAdmin
       .from('profiles')
@@ -69,7 +69,7 @@ export async function GET(request: NextRequest) {
       success: true,
       message: `Expired ${expiredUsers.length} premium accounts`,
       expired: expiredUsers.length,
-      users: expiredUsers.map(u => ({
+      users: expiredUsers.map((u: any) => ({
         id: u.id,
         email: u.email,
         source: u.premium_source,
