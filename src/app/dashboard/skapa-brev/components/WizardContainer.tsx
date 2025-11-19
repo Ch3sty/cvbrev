@@ -103,7 +103,7 @@ export default function WizardContainer({
 
         {/* Main Content */}
         <div className="mt-4 sm:mt-6 md:mt-8">
-          <div className="bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6 md:p-8">
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-sm border border-gray-200 p-3 sm:p-4 md:p-6 lg:p-8">
             {/* Step Header */}
             <div className="mb-6 sm:mb-8 text-center">
               <motion.div
@@ -127,7 +127,7 @@ export default function WizardContainer({
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
                 className="min-h-[300px] sm:min-h-[350px] md:min-h-[400px]"
               >
                 {steps[currentStep].component}

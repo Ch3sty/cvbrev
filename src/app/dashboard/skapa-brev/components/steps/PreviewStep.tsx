@@ -336,7 +336,7 @@ export default function PreviewStep({
             ref={previewRef}
             className={
               isTemplateHTML(editedContent)
-                ? 'w-full max-w-5xl mx-auto' // Template HTML: max width with auto margin for centering
+                ? 'w-full mx-auto' // Template HTML: full width, let parent control constraints
                 : 'bg-white shadow-2xl rounded-lg overflow-hidden w-full max-w-4xl' // Legacy styling for plain text
             }
             initial={{ opacity: 0, y: 20 }}
