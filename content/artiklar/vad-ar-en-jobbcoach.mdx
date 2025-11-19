@@ -268,71 +268,129 @@ Klistra in jobbannonsen i vårt [verktyg för personliga brev](/verktyg/personli
 - Inkluderar nyckelord från annonsen automatiskt
 - Är skräddarsytt för det här företaget och rollen
 
-<div className="my-8 space-y-6">
-  <div className="border-2 border-red-300 rounded-lg p-6 bg-red-50">
-    <div className="flex items-center gap-2 mb-4">
-      <span className="text-2xl">❌</span>
-      <h4 className="font-bold text-lg">INNAN: Generiskt personligt brev (sorteras bort)</h4>
+## Exempel: Så ser ett bra personligt brev ut
+
+För att visa skillnaden mellan ett generiskt brev (som sorteras bort) och ett skräddarsytt brev (som får intervju), har vi skapat två realistiska exempel för en Content Manager-tjänst.
+
+### ❌ INNAN: Generiskt brev (sorteras bort automatiskt)
+
+<div className="my-6 bg-red-50 border-2 border-red-300 rounded-lg p-6">
+  <div className="bg-white rounded-lg p-6 shadow-sm font-serif text-sm leading-relaxed space-y-4">
+    <div className="space-y-1">
+      <p>Sara Andersson</p>
+      <p>sara.andersson@email.com</p>
+      <p>070-123 45 67</p>
     </div>
-    <div className="bg-white p-5 rounded border border-red-200 text-sm leading-relaxed space-y-3">
-      <p className="text-slate-700">Jag heter Sara Andersson och jag söker jobbet som Content Manager på Acme AB. Jag såg er annons på LinkedIn och blev genast intresserad.</p>
 
-      <p className="text-slate-700">Jag har arbetat med content marketing i två år och har erfarenhet av att skriva blogginlägg och sociala medier. Jag tycker att content är spännande och jag vill utvecklas mer inom området.</p>
+    <p className="pt-4">Stockholm, 19 november 2025</p>
 
-      <p className="text-slate-700">Jag ser den här rollen som ett perfekt nästa steg i min karriär. Jag vill lära mig mer om er bransch och utveckla mina färdigheter inom SEO och dataanalys.</p>
-
-      <p className="text-slate-700">Ert företag verkar som en spännande och framåtlutad organisation där jag skulle trivas väl. Ni har en bra kultur och intressanta produkter.</p>
-
-      <p className="text-slate-700">Hoppas vi kan prata mer snart!</p>
-
-      <p className="text-slate-700">Mvh,<br/>Sara</p>
+    <div className="space-y-1">
+      <p>Rekryteringsansvarig</p>
+      <p>Acme AB</p>
     </div>
-    <div className="mt-4 p-4 bg-red-100 rounded">
-      <p className="font-semibold text-red-800 mb-2">❌ Varför det här brevet sorteras bort:</p>
-      <ul className="space-y-1 text-sm text-red-700">
-        <li>• <strong>Börjar med "Jag heter..."</strong> – Rekryteraren vet redan vad du heter</li>
-        <li>• <strong>Fokus på vad DU vill</strong> – "Jag vill utvecklas", "Jag vill lära mig" (företaget bryr sig om vad du kan ge dem)</li>
-        <li>• <strong>Inga konkreta resultat</strong> – "Har erfarenhet av att skriva" säger ingenting</li>
-        <li>• <strong>Generiskt</strong> – Kunde skickas till vilket företag som helst</li>
-        <li>• <strong>Informell avslutning</strong> – "Hoppas vi kan prata snart!" och "Mvh"</li>
-        <li>• <strong>Inga nyckelord från annonsen</strong> – ATS får låg matchningspoäng</li>
-      </ul>
+
+    <p className="font-semibold pt-4">Ansökan till tjänsten som Content Manager</p>
+
+    <div className="space-y-3">
+      <p>Hej,</p>
+
+      <p>Jag heter Sara Andersson och jag söker jobbet som Content Manager på Acme AB. Jag såg er annons på LinkedIn och blev genast intresserad.</p>
+
+      <p>Jag har arbetat med content marketing i två år och har erfarenhet av att skriva blogginlägg och sociala medier. Jag tycker att content är spännande och jag vill utvecklas mer inom området.</p>
+
+      <p>Jag ser den här rollen som ett perfekt nästa steg i min karriär. Jag vill lära mig mer om er bransch och utveckla mina färdigheter inom SEO och dataanalys.</p>
+
+      <p>Ert företag verkar som en spännande och framåtlutad organisation där jag skulle trivas väl. Ni har en bra kultur och intressanta produkter.</p>
+
+      <p>Hoppas vi kan prata mer snart!</p>
+
+      <p>Mvh,<br/>Sara</p>
     </div>
   </div>
 
-  <div className="border-2 border-green-300 rounded-lg p-6 bg-green-50">
-    <div className="flex items-center gap-2 mb-4">
-      <span className="text-2xl">✅</span>
-      <h4 className="font-bold text-lg">EFTER: Skräddarsytt och värdefokuserat (får intervju)</h4>
-    </div>
-    <div className="bg-white p-5 rounded border border-green-200 text-sm leading-relaxed space-y-3">
-      <p className="text-slate-700">Jag söker tjänsten som Content Manager på Acme AB. Ni söker någon som kan öka er organiska trafik med datadrivet content – under de senaste två åren har jag gjort exakt det. Jag ökade min nuvarande arbetsgivares blogg-trafik från 8 000 till 45 000 besökare/månad genom SEO-optimerat content och strategisk keyword research.</p>
-
-      <p className="text-slate-700">På min nuvarande roll som Content Strategist på Digital Growth har jag skapat över 120 SEO-optimerade artiklar, 15 whitepapers och 40+ LinkedIn-kampanjer. Ett konkret exempel: Min content-serie om AI i marknadsföring genererade 2 400 kvalificerade leads på sex månader – 3x mer än målsättningen.</p>
-
-      <p className="text-slate-700">Er lansering av Acme AI-verktyget i november och era case studies kring prediktiv analytics visar att ni är seriösa med content-driven tillväxt. Min erfarenhet från HubSpot, Google Analytics 4 och Semrush, kombinerat med min analytiska approach till content performance, gör att jag förstår både den kreativa och datadrivna sidan av modern B2B-content.</p>
-
-      <p className="text-slate-700">Jag ser fram emot att berätta mer om hur min SEO-strategi och resultatfokus kan accelerera er expansion inom nordiska marknaden. Hör gärna av er för en intervju.</p>
-
-      <p className="text-slate-700">Med vänlig hälsning,<br/>Sara Andersson</p>
-    </div>
-    <div className="mt-4 p-4 bg-green-100 rounded">
-      <p className="font-semibold text-green-800 mb-2">✅ Varför det här brevet får intervju:</p>
-      <ul className="space-y-1 text-sm text-green-700">
-        <li>• <strong>Börjar med värde direkt</strong> – Visar resultat i första meningen (8 000 → 45 000 besökare)</li>
-        <li>• <strong>Konkreta siffror överallt</strong> – 120 artiklar, 2 400 leads, 3x målsättning</li>
-        <li>• <strong>Företagsspecifik forskning</strong> – Nämner deras AI-verktyg och case studies</li>
-        <li>• <strong>Relevanta verktyg</strong> – HubSpot, Google Analytics 4, Semrush (nyckelord från annonsen)</li>
-        <li>• <strong>Professionell ton</strong> – "Med vänlig hälsning" (inte "Mvh" eller "Hoppas vi hörs")</li>
-        <li>• <strong>ATS-optimerat</strong> – Innehåller nyckelord: "SEO", "content", "analytisk", "datadriven"</li>
-      </ul>
-    </div>
+  <div className="mt-4 p-4 bg-red-100 rounded-lg">
+    <p className="font-semibold text-red-900 mb-2">❌ Varför det här brevet sorteras bort:</p>
+    <ul className="space-y-1 text-sm text-red-800">
+      <li>• <strong>Börjar med "Jag heter..."</strong> – Rekryteraren vet redan vad du heter från CV:t</li>
+      <li>• <strong>Fokus på vad DU vill</strong> – "Jag vill utvecklas", "Jag vill lära mig" (företaget bryr sig om värde)</li>
+      <li>• <strong>Inga konkreta resultat</strong> – "Har erfarenhet av att skriva" säger ingenting om kvalitet</li>
+      <li>• <strong>Generiskt</strong> – Exakt samma brev kunde skickas till 50 olika företag</li>
+      <li>• <strong>Informell avslutning</strong> – "Hoppas vi kan prata!" och "Mvh" är för casual</li>
+      <li>• <strong>Saknar nyckelord</strong> – Nämner aldrig SEO-verktyg, metrics, eller konkreta resultat</li>
+    </ul>
   </div>
 </div>
 
-<div className="my-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded">
-  <p className="text-sm font-semibold text-blue-900">💡 Skapa ditt brev på 60 sekunder:</p>
-  <p className="text-sm text-blue-800 mt-1">Klistra in jobbannonsen i <a href="/verktyg/personligt-brev" className="underline font-medium">vårt verktyg</a> så skapar vi ett skräddarsytt brev med rätt nyckelord och värdefokus.</p>
+### ✅ EFTER: Skräddarsytt och värdefokuserat (får intervju)
+
+<div className="my-6 bg-green-50 border-2 border-green-300 rounded-lg p-6">
+  <div className="bg-white rounded-lg p-6 shadow-sm font-serif text-sm leading-relaxed space-y-4">
+    <div className="space-y-1">
+      <p>Sara Andersson</p>
+      <p>sara.andersson@email.com</p>
+      <p>070-123 45 67</p>
+    </div>
+
+    <p className="pt-4">Stockholm, 19 november 2025</p>
+
+    <div className="space-y-1">
+      <p>Anna Bergström, HR Manager</p>
+      <p>Acme AB</p>
+      <p>Box 1234</p>
+      <p>111 22 Stockholm</p>
+    </div>
+
+    <p className="font-semibold pt-4">Ansökan till tjänsten som Content Manager</p>
+
+    <div className="space-y-3">
+      <p>Hej Anna,</p>
+
+      <p>Jag söker tjänsten som Content Manager på Acme AB. Ni söker någon som kan öka er organiska trafik med datadrivet content – under de senaste två åren har jag gjort exakt det. Jag ökade min nuvarande arbetsgivares blogg-trafik från 8 000 till 45 000 besökare/månad genom SEO-optimerat content och strategisk keyword research.</p>
+
+      <p>På min nuvarande roll som Content Strategist på Digital Growth har jag skapat över 120 SEO-optimerade artiklar, 15 whitepapers och 40+ LinkedIn-kampanjer. Ett konkret exempel: Min content-serie om AI i marknadsföring genererade 2 400 kvalificerade leads på sex månader – 3x mer än målsättningen.</p>
+
+      <p>Er lansering av Acme AI-verktyget i november och era case studies kring prediktiv analytics visar att ni är seriösa med content-driven tillväxt. Min erfarenhet från HubSpot, Google Analytics 4 och Semrush, kombinerat med min analytiska approach till content performance, gör att jag förstår både den kreativa och datadrivna sidan av modern B2B-content.</p>
+
+      <p>Jag ser fram emot att berätta mer om hur min SEO-strategi och resultatfokus kan accelerera er expansion inom nordiska marknaden. Hör gärna av er för en intervju.</p>
+
+      <p>Med vänlig hälsning,<br/>Sara Andersson</p>
+    </div>
+  </div>
+
+  <div className="mt-4 p-4 bg-green-100 rounded-lg">
+    <p className="font-semibold text-green-900 mb-2">✅ Varför det här brevet får intervju:</p>
+    <ul className="space-y-1 text-sm text-green-800">
+      <li>• <strong>Personlig hälsning</strong> – Nämner HR Managers namn (visar research)</li>
+      <li>• <strong>Börjar med värde</strong> – Visar konkret resultat i första meningen (8 000 → 45 000 besökare)</li>
+      <li>• <strong>Kvantifierade resultat</strong> – 120 artiklar, 2 400 leads, 3x målsättning</li>
+      <li>• <strong>Företagsspecifik</strong> – Nämner deras AI-verktyg och case studies</li>
+      <li>• <strong>Relevanta verktyg</strong> – HubSpot, Google Analytics 4, Semrush (nyckelord från annonsen)</li>
+      <li>• <strong>Professionell ton</strong> – "Med vänlig hälsning" genomgående professionellt</li>
+    </ul>
+  </div>
+
+  <div className="mt-4 flex gap-3">
+    <a
+      href="/api/download-exempel?type=personligt-brev-content-manager"
+      className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium"
+    >
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+      Ladda ner detta exempel (Word)
+    </a>
+    <a
+      href="/verktyg/personligt-brev"
+      className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium"
+    >
+      Skapa ditt eget brev med AI
+    </a>
+  </div>
+</div>
+
+<div className="my-6 p-4 bg-blue-50 border-l-4 border-blue-500 rounded-lg">
+  <p className="text-sm font-semibold text-blue-900">💡 Tips:</p>
+  <p className="text-sm text-blue-800 mt-1">Det "goda" exemplet ovan lyfter konkreta resultat (8 000 → 45 000 besökare, 2 400 leads), nämner relevanta verktyg (HubSpot, Google Analytics 4) och visar företagsspecifik research (deras AI-verktyg). Detta är vad som skiljer ett brev som får intervju från ett som sorteras bort.</p>
 </div>
 
 ## Din kompletta checklista: Innan du skickar din ansökan
