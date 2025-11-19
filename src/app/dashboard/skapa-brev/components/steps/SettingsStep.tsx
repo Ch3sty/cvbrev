@@ -140,32 +140,21 @@ export default function SettingsStep({
                   </motion.div>
                 )}
 
-                {/* Template Preview Image */}
-                <div className="relative w-full h-40 mb-3 bg-gray-100 rounded-lg overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Layout className="w-12 h-12 text-gray-300" />
-                  </div>
-                  {/* Placeholder for actual preview images */}
-                  {/* <Image
-                    src={`/images/templates/${id}-preview.jpg`}
-                    alt={template.name}
-                    fill
-                    className="object-cover"
-                  /> */}
-
-                  {/* Mock preview text */}
-                  <div className="absolute inset-0 p-3 text-[6px] leading-tight text-gray-600 overflow-hidden">
-                    <div className="font-bold mb-1">Ditt Namn</div>
-                    <div className="mb-2">din@email.com</div>
-                    <div className="mb-2">Företag AB</div>
-                    <div className="mb-1">19 november 2025</div>
-                    <div className="mb-1">Hej,</div>
-                    <div className="space-y-1">
-                      <div className="h-1 bg-gray-300 rounded"></div>
-                      <div className="h-1 bg-gray-300 rounded w-5/6"></div>
-                      <div className="h-1 bg-gray-300 rounded"></div>
-                    </div>
-                  </div>
+                {/* Template Preview - Live iframe preview */}
+                <div className="relative w-full h-48 mb-3 bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
+                  <iframe
+                    src={`/images/templates/${id}-preview.html`}
+                    className="w-full h-full pointer-events-none"
+                    style={{
+                      transform: 'scale(0.25)',
+                      transformOrigin: 'top left',
+                      width: '400%',
+                      height: '400%'
+                    }}
+                    title={`Preview av ${template.name}`}
+                  />
+                  {/* Overlay för att indikera att detta är en preview */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent pointer-events-none" />
                 </div>
 
                 <div className="text-left">
