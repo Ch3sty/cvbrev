@@ -1,9 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Building2, Sparkles, Lightbulb, Trophy, Scale, Bot,
-  Languages, Crown, Lock, FileText, Layout
+  Languages, Crown, Lock, FileText, Layout, X, Maximize2
 } from 'lucide-react';
 import { LETTER_TEMPLATES, type TemplateId } from '@/lib/letters/letter-templates';
 import Image from 'next/image';
@@ -87,6 +88,22 @@ export default function SettingsStep({
   onTemplateChange,
   isPremium
 }: SettingsStepProps) {
+  const [previewTemplateId, setPreviewTemplateId] = useState<string | null>(null);
+
+  // ESC key handler for modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && previewTemplateId) {
+        setPreviewTemplateId(null);
+      }
+    };
+
+    if (previewTemplateId) {
+      window.addEventListener('keydown', handleEscape);
+      return () => window.removeEventListener('keydown', handleEscape);
+    }
+  }, [previewTemplateId]);
+
   return (
     <div className="space-y-8">
       {/* Template Selection */}
@@ -141,7 +158,13 @@ export default function SettingsStep({
                 )}
 
                 {/* Template Preview - Live iframe preview */}
-                <div className="relative w-full h-48 mb-3 bg-gray-50 rounded-lg overflow-hidden border border-gray-200">
+                <div
+                  className="relative w-full h-48 mb-3 bg-gray-50 rounded-lg overflow-hidden border border-gray-200 cursor-pointer group"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setPreviewTemplateId(id);
+                  }}
+                >
                   <iframe
                     src={`/images/templates/${id}-preview.html`}
                     className="w-full h-full pointer-events-none"
@@ -155,6 +178,13 @@ export default function SettingsStep({
                   />
                   {/* Overlay för att indikera att detta är en preview */}
                   <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-transparent to-transparent pointer-events-none" />
+
+                  {/* Expand button overlay */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    <div className="bg-white rounded-full p-3 shadow-lg">
+                      <Maximize2 className="w-6 h-6 text-gray-700" />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="text-left">
@@ -303,6 +333,97 @@ export default function SettingsStep({
           </div>
         </motion.div>
       )}
+
+      {/* Template Preview Modal */}
+      <AnimatePresence>
+        {previewTemplateId && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={() => setPreviewTemplateId(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gradient-to-r from-gray-50 to-white">
+                <div className="flex items-center gap-3">
+                  <FileText className="w-5 h-5 text-gray-600" />
+                  <div>
+                    <h3 className="font-semibold text-gray-900">
+                      {LETTER_TEMPLATES[previewTemplateId]?.name}
+                    </h3>
+                    <p className="text-sm text-gray-600">
+                      {LETTER_TEMPLATES[previewTemplateId]?.description}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setPreviewTemplateId(null)}
+                  className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <X className="w-5 h-5 text-gray-600" />
+                </button>
+              </div>
+
+              {/* Modal Content - Scrollable iframe */}
+              <div className="flex-1 overflow-auto bg-gray-50 p-8">
+                <div className="max-w-[21cm] mx-auto bg-white shadow-xl rounded-lg overflow-hidden">
+                  <iframe
+                    src={`/images/templates/${previewTemplateId}-preview.html`}
+                    className="w-full border-0"
+                    style={{
+                      height: '842px', // A4 height in pixels at 96 DPI
+                      minHeight: '842px'
+                    }}
+                    title={`Full preview av ${LETTER_TEMPLATES[previewTemplateId]?.name}`}
+                  />
+                </div>
+              </div>
+
+              {/* Modal Footer */}
+              <div className="p-4 border-t border-gray-200 bg-gray-50 flex items-center justify-between">
+                <p className="text-sm text-gray-600">
+                  Klicka utanför för att stänga eller tryck ESC
+                </p>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setPreviewTemplateId(null)}
+                    className="px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    Stäng
+                  </button>
+                  {LETTER_TEMPLATES[previewTemplateId]?.tier !== 'premium' || isPremium ? (
+                    <button
+                      onClick={() => {
+                        onTemplateChange(previewTemplateId);
+                        setPreviewTemplateId(null);
+                      }}
+                      className="px-4 py-2 text-white bg-gradient-to-r from-pink-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 rounded-lg transition-colors font-medium"
+                    >
+                      Välj denna mall
+                    </button>
+                  ) : (
+                    <button
+                      disabled
+                      className="px-4 py-2 text-white bg-gray-400 rounded-lg cursor-not-allowed flex items-center gap-2"
+                    >
+                      <Lock className="w-4 h-4" />
+                      Premium krävs
+                    </button>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
