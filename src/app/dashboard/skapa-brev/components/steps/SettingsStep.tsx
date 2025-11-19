@@ -357,10 +357,10 @@ export default function SettingsStep({
                   <FileText className="w-5 h-5 text-gray-600" />
                   <div>
                     <h3 className="font-semibold text-gray-900">
-                      {LETTER_TEMPLATES[previewTemplateId]?.name}
+                      {DOCX_TEMPLATES[previewTemplateId as keyof typeof DOCX_TEMPLATES]?.name}
                     </h3>
                     <p className="text-sm text-gray-600">
-                      {LETTER_TEMPLATES[previewTemplateId]?.description}
+                      {DOCX_TEMPLATES[previewTemplateId as keyof typeof DOCX_TEMPLATES]?.description}
                     </p>
                   </div>
                 </div>
@@ -382,7 +382,7 @@ export default function SettingsStep({
                       height: '842px', // A4 height in pixels at 96 DPI
                       minHeight: '842px'
                     }}
-                    title={`Full preview av ${LETTER_TEMPLATES[previewTemplateId]?.name}`}
+                    title={`Full preview av ${DOCX_TEMPLATES[previewTemplateId as keyof typeof DOCX_TEMPLATES]?.name}`}
                   />
                 </div>
               </div>
@@ -399,7 +399,7 @@ export default function SettingsStep({
                   >
                     Stäng
                   </button>
-                  {LETTER_TEMPLATES[previewTemplateId]?.tier !== 'premium' || isPremium ? (
+                  {DOCX_TEMPLATES[previewTemplateId as keyof typeof DOCX_TEMPLATES]?.tier !== 'premium' || isPremium ? (
                     <button
                       onClick={() => {
                         onTemplateChange(previewTemplateId);
