@@ -71,9 +71,16 @@ export const classicTemplate: LetterTemplate = {
       font-size: 12pt;
       line-height: 1.6;
       color: #000;
-      max-width: 21cm;
-      margin: 0 auto;
-      padding: 2.54cm;
+      max-width: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 1.5rem;
+    }
+    @media print {
+      body {
+        max-width: 21cm;
+        padding: 2.54cm;
+      }
     }
     .header {
       margin-bottom: 2rem;
@@ -172,9 +179,16 @@ export const minimalistTemplate: LetterTemplate = {
       font-size: 11pt;
       line-height: 1.8;
       color: #333;
-      max-width: 21cm;
-      margin: 0 auto;
-      padding: 3cm;
+      max-width: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 1.5rem;
+    }
+    @media print {
+      body {
+        max-width: 21cm;
+        padding: 3cm;
+      }
     }
     .header {
       margin-bottom: 3rem;
@@ -297,9 +311,16 @@ export const modernTemplate: LetterTemplate = {
       font-size: 11pt;
       line-height: 1.7;
       color: #2c3e50;
-      max-width: 21cm;
-      margin: 0 auto;
-      padding: 2.5cm;
+      max-width: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 1.5rem;
+    }
+    @media print {
+      body {
+        max-width: 21cm;
+        padding: 2.5cm;
+      }
     }
     .header {
       margin-bottom: 2.5rem;
@@ -417,9 +438,16 @@ export const executiveTemplate: LetterTemplate = {
       font-size: 11pt;
       line-height: 1.7;
       color: #1a1a1a;
-      max-width: 21cm;
-      margin: 0 auto;
-      padding: 2cm;
+      max-width: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 1.5rem;
+    }
+    @media print {
+      body {
+        max-width: 21cm;
+        padding: 2cm;
+      }
     }
     .container {
       display: flex;
@@ -550,9 +578,16 @@ export const creativeTemplate: LetterTemplate = {
       font-size: 11pt;
       line-height: 1.7;
       color: #1a202c;
-      max-width: 21cm;
-      margin: 0 auto;
-      padding: 2cm;
+      max-width: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 1.5rem;
+    }
+    @media print {
+      body {
+        max-width: 21cm;
+        padding: 2cm;
+      }
     }
     .header {
       margin-bottom: 2.5rem;
@@ -673,9 +708,16 @@ export const traditionalTemplate: LetterTemplate = {
       font-size: 12pt;
       line-height: 1.8;
       color: #000000;
-      max-width: 21cm;
-      margin: 0 auto;
-      padding: 3cm 2.5cm;
+      max-width: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 1.5rem;
+    }
+    @media print {
+      body {
+        max-width: 21cm;
+        padding: 3cm 2.5cm;
+      }
     }
     .header {
       margin-bottom: 2.5rem;
