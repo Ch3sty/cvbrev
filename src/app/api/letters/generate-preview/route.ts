@@ -3,6 +3,8 @@ import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { generateCoverLetter, extractJobInfo } from '@/lib/openai/api';
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
+import { getLetterTemplate, type TemplateId } from '@/lib/letters/letter-templates';
+import type { ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
 
 // Enkel cache för att spåra pågående genereringar och förhindra dubbletter
 // Denna cache finns på serversidan och delas mellan alla användare
@@ -115,8 +117,8 @@ export async function POST(request: Request) {
       }, { status: 403 });
     }
 
-    // Hämta begäransdata (CV-ID, jobbannons, tonalitet och språk)
-    const { cv_id, job_description, tonality, language = 'sv' } = await request.json();
+    // Hämta begäransdata (CV-ID, jobbannons, tonalitet, språk och mall)
+    const { cv_id, job_description, tonality, language = 'sv', template_id = 'classic' } = await request.json();
     
     if (!cv_id || !job_description) {
       return NextResponse.json(
@@ -126,8 +128,8 @@ export async function POST(request: Request) {
     }
     
     // Skapa en unik nyckel för denna specifika kombination
-    // Inkludera språket i nyckeln för att hålla isär genereringar på olika språk
-    const requestKey = `${user.id}:${cv_id}:${job_description.length}:${language}`;
+    // Inkludera språket och mallen i nyckeln för att hålla isär genereringar på olika språk och mallar
+    const requestKey = `${user.id}:${cv_id}:${job_description.length}:${language}:${template_id}`;
     
     // Kontrollera om en generering redan pågår för denna kombination
     if (activeGenerations.has(requestKey)) {
@@ -180,8 +182,8 @@ export async function POST(request: Request) {
         language || 'sv'
       );
 
-      // Extrahera innehållet från returvärdet
-      const coverLetterContent = coverLetterResult.content;
+      // Extrahera innehållet från returvärdet (AI-genererad brevkropp)
+      const aiGeneratedBody = coverLetterResult.content;
       const generationTimeMs = Date.now() - startTime; // Beräkna total tidsåtgång
 
       // Beräkna faktisk kostnad från databas (med fallback till baseline)
@@ -192,6 +194,47 @@ export async function POST(request: Request) {
         coverLetterResult.tokens?.completion || 0
       );
 
+      // Hämta användarens profildata för att inkludera i brevet
+      const { data: profileData, error: profileError } = await supabase
+        .from('profiles')
+        .select('full_name, email, phone, location, include_phone_in_letters, include_location_in_letters')
+        .eq('id', user.id)
+        .single();
+
+      if (profileError || !profileData) {
+        console.error('Kunde inte hämta profildata:', profileError);
+        throw new Error('Kunde inte hämta användarens profildata');
+      }
+
+      // Bygg profilobjekt för template
+      const profileForLetter: ProfileDataForLetter = {
+        full_name: profileData.full_name || 'Ditt namn',
+        email: profileData.email,
+        phone: profileData.phone || undefined,
+        location: profileData.location || undefined,
+        include_phone_in_letters: profileData.include_phone_in_letters || false,
+        include_location_in_letters: profileData.include_location_in_letters || false
+      };
+
+      // Hämta vald mall
+      const selectedTemplate = getLetterTemplate(template_id as TemplateId);
+
+      // Säkerställ att jobInfo har required fields för JobInfo-typen
+      const jobInfoForTemplate: JobInfo = {
+        title: jobInfo.title || (language === 'en' ? 'Job Application' : 'Ansökningsbrev'),
+        company: jobInfo.company || 'Företag',
+        position: jobInfo.position || jobInfo.title || 'Position',
+        recipient: (jobInfo as any).recipient // recipient är optional i extractJobInfo
+      };
+
+      // Generera komplett HTML med mall + profildata
+      console.log(`Genererar komplett brev med mall: ${selectedTemplate.name}`);
+      const completeLetterHTML = selectedTemplate.generateHTML(
+        profileForLetter,
+        jobInfoForTemplate,
+        aiGeneratedBody // AI-genererad brevkropp
+      );
+
       // Spara preview i databasen med is_saved = false
       const { data: previewData, error: insertError } = await supabase
         .from('letters')
@@ -200,9 +243,10 @@ export async function POST(request: Request) {
           title: jobInfo.title || (language === 'en' ? 'Job Application' : 'Ansökningsbrev'),
           company: jobInfo.company,
           job_title: jobInfo.position,
-          content: coverLetterContent,
+          content: completeLetterHTML, // ✅ Använd komplett HTML med mall
           tonality: tonality || 'professional',
           language: language || 'sv',
+          template_id: template_id, // ✅ Spara mall-ID
           job_description: job_description,
           cv_text: cvData.cv_text,
           is_saved: false, // ✅ Preview-status
@@ -229,6 +273,7 @@ export async function POST(request: Request) {
         content: previewData.content,
         tonality: previewData.tonality,
         language: previewData.language,
+        template_id: previewData.template_id, // ✅ Inkludera mall-ID
         job_description: previewData.job_description,
         cv_text: previewData.cv_text,
         is_saved: false,

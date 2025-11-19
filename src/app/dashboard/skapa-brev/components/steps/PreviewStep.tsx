@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Eye, Download, Edit3, Copy, Check, FileText, Save, Info, Layout, Crown, Lock } from 'lucide-react';
+import { Eye, Download, Edit3, Copy, Check, FileText, Save, Info, Layout, Crown, Lock, Loader2 } from 'lucide-react';
 import { LETTER_TEMPLATES, type TemplateId } from '@/lib/letters/letter-templates';
 
 interface PreviewStepProps {
@@ -14,6 +14,7 @@ interface PreviewStepProps {
   onTemplateChange?: (templateId: string) => void;
   saveError?: string | null;
   isPremium?: boolean;
+  isRegeneratingTemplate?: boolean;
 }
 
 export default function PreviewStep({
@@ -24,7 +25,8 @@ export default function PreviewStep({
   onSave,
   onTemplateChange,
   saveError,
-  isPremium = false
+  isPremium = false,
+  isRegeneratingTemplate = false
 }: PreviewStepProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(letterContent);
@@ -33,6 +35,11 @@ export default function PreviewStep({
   const previewRef = useRef<HTMLDivElement>(null);
 
   const currentTemplate = LETTER_TEMPLATES[templateId];
+
+  // Update editedContent when letterContent changes (e.g., after template regeneration)
+  useEffect(() => {
+    setEditedContent(letterContent);
+  }, [letterContent]);
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(editedContent);
@@ -275,7 +282,25 @@ export default function PreviewStep({
       </div>
 
       {/* Document Preview */}
-      <div className="bg-gray-50 rounded-2xl p-4 sm:p-6 min-h-[400px] sm:min-h-[600px] flex items-center justify-center mb-24 sm:mb-0">
+      <div className="bg-gray-50 rounded-2xl p-4 sm:p-6 min-h-[400px] sm:min-h-[600px] flex items-center justify-center mb-24 sm:mb-0 relative">
+        {/* Loading Overlay for Template Regeneration */}
+        {isRegeneratingTemplate && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-white/90 backdrop-blur-sm rounded-2xl z-10 flex items-center justify-center"
+          >
+            <div className="flex flex-col items-center gap-4">
+              <Loader2 className="w-12 h-12 text-pink-600 animate-spin" />
+              <div className="text-center">
+                <p className="text-lg font-medium text-gray-900">Uppdaterar brevmall...</p>
+                <p className="text-sm text-gray-600 mt-1">Genererar om brevet med den nya designen</p>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
         {isEditing ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}

@@ -44,6 +44,7 @@ export interface Letter {
   job_title: string | null;
   content: string;
   tonality: string | null;
+  template_id: string | null; // Mall-ID för brevet
   job_description: string | null;
   cv_text: string | null;
   is_saved: boolean | null;
@@ -57,6 +58,7 @@ interface LetterGenerationParams {
   job_description: string;
   tonality: string;
   language?: string; // Lägg till språkparameter här
+  template_id?: string; // Mall-ID för brevgenerering
 }
 
 interface LetterUpdateParams {

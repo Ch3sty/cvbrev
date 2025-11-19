@@ -11,7 +11,8 @@
       "Bash(npx supabase:*)",
       "Bash(psql:*)",
       "Bash(find:*)",
-      "Bash(node scripts/generate-template-previews.js:*)"
+      "Bash(node scripts/generate-template-previews.js:*)",
+      "Bash(tee:*)"
     ],
     "deny": [],
     "ask": []

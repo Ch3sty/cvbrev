@@ -180,7 +180,8 @@ export async function POST(request: Request) {
           title: letterData.title || existingPreview.title,
           company: letterData.company || existingPreview.company,
           job_title: letterData.job_title || existingPreview.job_title,
-          tonality: letterData.tonality || existingPreview.tonality
+          tonality: letterData.tonality || existingPreview.tonality,
+          template_id: letterData.template_id || existingPreview.template_id || 'classic'
         })
         .eq('id', existingPreview.id)
         .select();
@@ -200,6 +201,7 @@ export async function POST(request: Request) {
           job_title: letterData.job_title,
           content: letterData.content,
           tonality: letterData.tonality || 'professional',
+          template_id: letterData.template_id || 'classic', // ✅ Spara mall-ID
           job_description: letterData.job_description,
           cv_text: letterData.cv_text,
           is_saved: letterData.is_saved !== undefined ? letterData.is_saved : true,

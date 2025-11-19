@@ -1,0 +1,29 @@
+
+> cvbrev@0.1.1 build
+> next build
+
+   ▲ Next.js 15.5.2
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+Browserslist: browsers data (caniuse-lite) is 9 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+ ✓ Compiled successfully in 30.1s
+   Linting and checking validity of types ...
+Failed to compile.
+
+./src/app/api/letters/generate-preview/route.ts:226:9
+Type error: Argument of type '{ title?: string | undefined; company?: string | undefined; position?: string | undefined; }' is not assignable to parameter of type 'JobInfo'.
+  Types of property 'title' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'.
+
+[0m [90m 224 |[39m       [36mconst[39m completeLetterHTML [33m=[39m selectedTemplate[33m.[39mgenerateHTML(
+ [90m 225 |[39m         profileForLetter[33m,[39m
+[31m[1m>[22m[39m[90m 226 |[39m         jobInfo[33m,[39m
+ [90m     |[39m         [31m[1m^[22m[39m
+ [90m 227 |[39m         aiGeneratedBody [90m// AI-genererad brevkropp[39m
+ [90m 228 |[39m       )[33m;[39m
+ [90m 229 |[39m[0m
+Next.js build worker exited with code: 1 and signal: null

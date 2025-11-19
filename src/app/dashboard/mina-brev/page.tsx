@@ -28,6 +28,7 @@ import {
 // Premium UI Components
 import Notification from '@/components/ui/notification';
 import DownloadButton from '@/components/letters/download-button';
+import { LETTER_TEMPLATES } from '@/lib/letters/letter-templates';
 
 // New Premium Components - We'll create these inline for now
 const BentoCard = ({ children, className = "", spotlight = false, ...props }: any) => (
@@ -156,6 +157,12 @@ const LetterPreviewCard = ({ letter, onView, onEdit, onDelete, isDeleting }: any
             <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-50 text-purple-700 border border-purple-200">
               <Briefcase className="w-3 h-3 mr-1" />
               {letter.job_title}
+            </span>
+          )}
+          {letter.template_id && LETTER_TEMPLATES[letter.template_id] && (
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-700 border border-green-200">
+              <Palette className="w-3 h-3 mr-1" />
+              {LETTER_TEMPLATES[letter.template_id].name}
             </span>
           )}
           {letter.tonality && (

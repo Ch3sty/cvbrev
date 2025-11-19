@@ -186,7 +186,8 @@ export const useLetters = () => {
             cv_id: params.cv_id,
             job_description: params.job_description,
             tonality: params.tonality,
-            language: params.language || 'sv' // Skicka med språket
+            language: params.language || 'sv', // Skicka med språket
+            template_id: params.template_id || 'classic' // Skicka med vald mall
           }),
         });
         
@@ -213,7 +214,8 @@ export const useLetters = () => {
         cv_id: params.cv_id,
         job_description: params.job_description,
         tonality: params.tonality,
-        language: params.language || 'sv' // Skicka med språket
+        language: params.language || 'sv', // Skicka med språket
+        template_id: params.template_id || 'classic' // Skicka med vald mall
       });
       
       // Efter framgångsrik generering, uppdatera brevlistan - men bara om inget borttagningsanrop pågår

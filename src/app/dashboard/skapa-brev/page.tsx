@@ -81,13 +81,49 @@ export default function CreateLetterPage() {
   const [hasTriggeredGeneration, setHasTriggeredGeneration] = useState(false);
   const [hasDownloadedOrSaved, setHasDownloadedOrSaved] = useState(false);
   const [showExitWarning, setShowExitWarning] = useState(false);
+  const [isRegeneratingTemplate, setIsRegeneratingTemplate] = useState(false);
 
   const isPremium = subscriptionTier === 'premium';
 
-  // Template change handler
-  const handleTemplateChange = useCallback((newTemplateId: string) => {
+  // Template change handler - regenerates letter when template changes in preview
+  const handleTemplateChange = useCallback(async (newTemplateId: string) => {
     setTemplateId(newTemplateId);
-  }, []);
+
+    // If we're in the preview step (step 4, 0-indexed) and have a generated letter,
+    // regenerate it with the new template
+    if (currentWizardStep === 4 && generatedLetter && selectedCV && jobDescription) {
+      console.log('Template changed in preview - regenerating letter with new template:', newTemplateId);
+      setIsRegeneratingTemplate(true);
+
+      try {
+        const result = await createLetter({
+          cv_id: selectedCV,
+          job_description: jobDescription,
+          tonality,
+          language,
+          template_id: newTemplateId,
+          save: false
+        });
+
+        if (result) {
+          const letterContent = typeof result === 'string'
+            ? result
+            : (result.content || '');
+
+          if (letterContent && typeof letterContent === 'string' && letterContent.trim() !== '') {
+            console.log('✅ Letter regenerated with new template');
+            setGeneratedLetter(letterContent);
+            setLetterData(result);
+          }
+        }
+      } catch (error) {
+        console.error('Failed to regenerate letter with new template:', error);
+        // Don't show error to user - just keep the old letter
+      } finally {
+        setIsRegeneratingTemplate(false);
+      }
+    }
+  }, [currentWizardStep, generatedLetter, selectedCV, jobDescription, tonality, language, createLetter]);
 
   // Escape-hantering för modal
   useEffect(() => {
@@ -405,6 +441,7 @@ export default function CreateLetterPage() {
               onTemplateChange={handleTemplateChange}
               saveError={saveError}
               isPremium={isPremium}
+              isRegeneratingTemplate={isRegeneratingTemplate}
             />
           ) : (
             <div className="text-center py-12 text-gray-600">

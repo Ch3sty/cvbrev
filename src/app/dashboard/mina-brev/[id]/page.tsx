@@ -26,11 +26,13 @@ import {
   Copy,
   Check,
   ZoomIn,
-  ZoomOut
+  ZoomOut,
+  Palette
 } from 'lucide-react';
 
 // Import DownloadButton for PDF functionality
 import DownloadButton from '@/components/letters/download-button';
+import { LETTER_TEMPLATES } from '@/lib/letters/letter-templates';
 
 // Reuse LetterTag component with light theme
 const LetterTag = ({
@@ -40,13 +42,14 @@ const LetterTag = ({
 }: {
   label: string;
   value: string | null;
-  type: 'company' | 'job' | 'tone'
+  type: 'company' | 'job' | 'tone' | 'template'
 }) => {
   if (!value) return null;
   const iconAndColor = {
     company: { icon: <Building2 className="w-3 h-3 mr-1" />, bgClass: "bg-blue-50 text-blue-700 border-blue-200" },
     job: { icon: <Briefcase className="w-3 h-3 mr-1" />, bgClass: "bg-purple-50 text-purple-700 border-purple-200" },
-    tone: { icon: <MessageSquare className="w-3 h-3 mr-1" />, bgClass: "bg-pink-50 text-pink-700 border-pink-200" }
+    tone: { icon: <MessageSquare className="w-3 h-3 mr-1" />, bgClass: "bg-pink-50 text-pink-700 border-pink-200" },
+    template: { icon: <Palette className="w-3 h-3 mr-1" />, bgClass: "bg-green-50 text-green-700 border-green-200" }
   };
   const { icon, bgClass } = iconAndColor[type];
   const displayValue = type === 'tone' ? value.charAt(0).toUpperCase() + value.slice(1) : value;
@@ -211,6 +214,11 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
         <div className="flex flex-wrap gap-2 mb-4">
           <LetterTag label="Företag" value={currentLetter.company} type="company" />
           <LetterTag label="Tjänst" value={currentLetter.job_title} type="job" />
+          <LetterTag
+            label="Mall"
+            value={currentLetter.template_id && LETTER_TEMPLATES[currentLetter.template_id] ? LETTER_TEMPLATES[currentLetter.template_id].name : null}
+            type="template"
+          />
           <LetterTag label="Tonalitet" value={currentLetter.tonality} type="tone" />
         </div>
       </motion.div>
