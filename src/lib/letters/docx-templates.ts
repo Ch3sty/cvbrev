@@ -26,7 +26,7 @@ import {
 } from 'docx';
 import { ProfileDataForLetter, JobInfo } from './template-merger';
 
-export type DocxTemplateId = 'classic' | 'sidebar' | 'minimal' | 'centered' | 'modern' | 'executive';
+export type DocxTemplateId = 'classic' | 'sidebar' | 'minimal' | 'centered';
 
 export interface DocxTemplate {
   id: DocxTemplateId;
@@ -1117,9 +1117,7 @@ export const DOCX_TEMPLATES: Record<DocxTemplateId, DocxTemplate> = {
   classic: classicDocxTemplate,
   sidebar: sidebarDocxTemplate,
   minimal: minimalDocxTemplate,
-  centered: centeredDocxTemplate,
-  modern: classicDocxTemplate, // Alias till classic för nu
-  executive: sidebarDocxTemplate // Alias till sidebar för nu
+  centered: centeredDocxTemplate
 };
 
 export function getDocxTemplate(templateId: DocxTemplateId = 'classic'): DocxTemplate {

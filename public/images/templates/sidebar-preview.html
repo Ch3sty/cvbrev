@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidofält Mall - Preview</title>
+  <style>
+    @page { size: A4; margin: 2.5cm 2cm 2cm 2cm; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Arial', sans-serif;
+      font-size: 12pt;
+      line-height: 1.5;
+      color: #000000;
+      max-width: 21cm;
+      margin: 0 auto;
+      padding: 2.5cm 2cm;
+      background: white;
+    }
+    .container { display: flex; gap: 2rem; }
+    .sidebar {
+      flex: 0 0 30%;
+      border-right: 2px solid #666666;
+      padding-right: 1.5rem;
+    }
+    .sidebar p { margin-bottom: 0.75rem; font-size: 11pt; }
+    .sidebar .name { font-weight: bold; font-size: 12pt; }
+    .content { flex: 1; padding-left: 1.5rem; }
+    .date { margin-bottom: 2rem; font-size: 11pt; }
+    .recipient { margin-bottom: 2rem; }
+    .recipient .company { font-weight: bold; margin-bottom: 0.5rem; }
+    .recipient .position { font-weight: bold; }
+    .greeting { margin-bottom: 1.5rem; }
+    .body-content p { margin-bottom: 1.5rem; text-align: justify; }
+    .closing { margin-top: 2.5rem; margin-bottom: 3rem; }
+    .signature { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <p class="name">Anna Andersson</p>
+      <p>Stockholm</p>
+      <p>070 000 00 00</p>
+      <p>anna.andersson@gmail.com</p>
+    </div>
+
+    <div class="content">
+      <div class="date">19 november 2025</div>
+
+      <div class="recipient">
+        <p class="company">Företag AB</p>
+        <p class="position">Ansökan: Marknadsansvarig</p>
+      </div>
+
+      <div class="greeting">
+        <p>Hej,</p>
+      </div>
+
+      <div class="body-content">
+        <p>Jag söker härmed tjänsten som Marknadsansvarig hos er, en roll som passar perfekt med min bakgrund och passion för strategisk marknadskommunikation.</p>
+
+        <p>Med fem års erfarenhet från digital marknadsföring och varumärkesutveckling har jag byggt upp en bred kompetens inom både strategisk planering och praktiskt genomförande. På mitt nuvarande uppdrag hos en snabbväxande tech-startup har jag framgångsrikt lett lanseringen av tre nya produkter, vilket resulterade i en 200% ökning av varumärkeskännedom och 45% tillväxt i kundbasen.</p>
+
+        <p>Min styrka ligger i att kombinera kreativ problemlösning med datadriven analys. Jag är van att leda tvärfunktionella team och har erfarenhet av att arbeta med både traditionella och digitala marknadsföringskanaler.</p>
+      </div>
+
+      <div class="closing">
+        <p>Med vänliga hälsningar,</p>
+      </div>
+
+      <div class="signature">
+        <p>Anna Andersson</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
