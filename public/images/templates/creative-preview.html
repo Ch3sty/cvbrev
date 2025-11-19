@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kreativ Mall - Preview</title>
+  <style>
+    @page { size: A4; margin: 2cm; }
+    body {
+      font-family: 'Arial', 'Helvetica', sans-serif;
+      font-size: 11pt;
+      line-height: 1.6;
+      color: #2d3748;
+      max-width: 21cm;
+      margin: 0 auto;
+      padding: 2cm;
+      background: white;
+    }
+    .header {
+      position: relative;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+    }
+    .header::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, #f6ad55 0%, #fc8181 50%, #9f7aea 100%);
+    }
+    .name {
+      font-size: 22pt;
+      font-weight: bold;
+      color: #2d3748;
+      margin-bottom: 0.5rem;
+    }
+    .contact {
+      font-size: 10pt;
+      color: #718096;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .date { margin-bottom: 1.5rem; color: #718096; font-size: 10pt; }
+    .recipient { margin-bottom: 1.5rem; }
+    .subject {
+      background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: bold;
+      font-size: 14pt;
+      margin-bottom: 1.5rem;
+    }
+    .body { margin-bottom: 2rem; white-space: pre-wrap; }
+    .signature { margin-top: 2rem; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="name">Anna Andersson</div>
+    <div class="contact">
+      <span>070 000 00 00</span>
+      <span>anna.andersson@gmail.com</span>
+      <span>Stockholm</span>
+    </div>
+  </div>
+
+  <div class="date">19 november 2025</div>
+
+  <div class="recipient">
+    <div style="font-weight: 600;">Företag AB</div>
+    <div>Att: Rekryteringsansvarig</div>
+  </div>
+
+  <div class="subject">Ansökan som Marknadsansvarig</div>
+
+  <div class="body">Jag söker härmed tjänsten som Marknadsansvarig hos er, en roll som passar perfekt med min bakgrund och passion för strategisk marknadskommunikation.
+
+Med fem års erfarenhet från digital marknadsföring och varumärkesutveckling har jag byggt upp en bred kompetens inom både strategisk planering och praktiskt genomförande. På mitt nuvarande uppdrag hos en snabbväxande tech-startup har jag framgångsrikt lett lanseringen av tre nya produkter, vilket resulterade i en 200% ökning av varumärkeskännedom och 45% tillväxt i kundbasen.
+
+Min styrka ligger i att kombinera kreativ problemlösning med datadriven analys. Jag är van att leda tvärfunktionella team och har erfarenhet av att arbeta med både traditionella och digitala marknadsföringskanaler. Jag tror starkt på vikten av att förstå kundens behov och bygga långsiktiga relationer.
+
+Jag ser fram emot möjligheten att bidra till ert företags fortsatta tillväxt och utveckling.</div>
+
+  <div class="signature">
+    <p style="margin: 0;">Med entusiasm och passion,</p>
+    <p style="margin: 0.5rem 0 0 0; font-weight: 600;">Anna Andersson</p>
+  </div>
+</body>
+</html>

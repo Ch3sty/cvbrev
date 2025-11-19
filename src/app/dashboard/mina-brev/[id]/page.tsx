@@ -107,8 +107,20 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
     }
   };
 
+  const isTemplateHTML = (content: string) => {
+    // Check if content is already formatted HTML from a template
+    return content.includes('<div') || content.includes('<style');
+  };
+
   const formatContent = (content: string) => {
-    // Simple formatting for preview
+    // If content is already template HTML, return it as-is
+    if (isTemplateHTML(content)) {
+      console.log('✅ Rendering template HTML with profile data');
+      return content;
+    }
+
+    // Otherwise, format plain text for display (fallback for legacy content)
+    console.log('⚠️ Formatting plain text content (legacy fallback)');
     return content
       .split('\n')
       .map(line => {
@@ -258,8 +270,23 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
               <span className="text-sm">Redigera</span>
             </motion.button>
 
+            {/* PDF Download */}
             <DownloadButton
               format="pdf"
+              letterContent={currentLetter.content || ''}
+              metadata={{
+                title: currentLetter.title || undefined,
+                company: currentLetter.company || undefined,
+                position: currentLetter.job_title || undefined
+              }}
+              className="!px-4 !py-2"
+              showTemplateSelector={false}
+              showPreview={false}
+            />
+
+            {/* DOCX Download */}
+            <DownloadButton
+              format="docx"
               letterContent={currentLetter.content || ''}
               metadata={{
                 title: currentLetter.title || undefined,
@@ -314,8 +341,8 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
 
             {/* Page Content */}
             <div
-              className="p-16 text-gray-800"
-              style={{ fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
+              className={isTemplateHTML(currentLetter.content || '') ? '' : 'p-16 text-gray-800'}
+              style={isTemplateHTML(currentLetter.content || '') ? {} : { fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
               dangerouslySetInnerHTML={{ __html: formatContent(currentLetter.content || '') }}
             />
 

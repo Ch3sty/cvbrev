@@ -45,6 +45,11 @@ export default function PreviewStep({
     setIsEditing(false);
   };
 
+  const isTemplateHTML = (content: string) => {
+    // Check if content is already formatted HTML from a template
+    return content.includes('<div') || content.includes('<style');
+  };
+
   const formatContent = (content: string) => {
     // Safety check to prevent React error #300
     if (typeof content !== 'string') {
@@ -57,7 +62,14 @@ export default function PreviewStep({
       return '<div class="p-4 bg-yellow-50 border border-yellow-200 rounded"><p class="text-yellow-600">Tomt innehåll mottaget.</p></div>';
     }
 
-    // Simple formatting for preview
+    // If content is already template HTML, return it as-is
+    if (isTemplateHTML(content)) {
+      console.log('✅ Rendering template HTML with profile data');
+      return content;
+    }
+
+    // Otherwise, format plain text for display (fallback for legacy content)
+    console.log('⚠️ Formatting plain text content (legacy fallback)');
     return content
       .split('\n')
       .map(line => {
@@ -312,8 +324,8 @@ export default function PreviewStep({
 
             {/* Page Content */}
             <div
-              className="p-6 sm:p-12 md:p-16 text-gray-800"
-              style={{ fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
+              className={isTemplateHTML(editedContent) ? '' : 'p-6 sm:p-12 md:p-16 text-gray-800'}
+              style={isTemplateHTML(editedContent) ? {} : { fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
               dangerouslySetInnerHTML={{ __html: formatContent(editedContent) }}
             />
           </motion.div>

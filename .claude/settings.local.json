@@ -10,7 +10,8 @@
       "Bash(npm run build:*)",
       "Bash(npx supabase:*)",
       "Bash(psql:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(node scripts/generate-template-previews.js:*)"
     ],
     "deny": [],
     "ask": []

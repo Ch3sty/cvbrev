@@ -219,6 +219,11 @@ const DocumentPreview = ({ letter, onClose }: any) => {
   const [zoom, setZoom] = useState(100);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
+  const isTemplateHTML = (content: string) => {
+    // Check if content is already formatted HTML from a template
+    return content.includes('<div') || content.includes('<style');
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
@@ -296,7 +301,7 @@ const DocumentPreview = ({ letter, onClose }: any) => {
             {/* A4 Paper simulation */}
             <div className="aspect-[210/297] p-6 sm:p-12 bg-white">
               <div
-                className="prose prose-sm sm:prose max-w-none text-gray-900 leading-relaxed"
+                className={isTemplateHTML(letter.content || '') ? '' : 'prose prose-sm sm:prose max-w-none text-gray-900 leading-relaxed'}
                 dangerouslySetInnerHTML={{ __html: letter.content || '' }}
               />
             </div>
