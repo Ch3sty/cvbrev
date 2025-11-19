@@ -32,7 +32,7 @@ import {
 
 // Import DownloadButton for PDF functionality
 import DownloadButton from '@/components/letters/download-button';
-import { LETTER_TEMPLATES } from '@/lib/letters/letter-templates';
+import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
 
 // Reuse LetterTag component with light theme
 const LetterTag = ({
@@ -216,7 +216,7 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
           <LetterTag label="Tjänst" value={currentLetter.job_title} type="job" />
           <LetterTag
             label="Mall"
-            value={currentLetter.template_id && LETTER_TEMPLATES[currentLetter.template_id] ? LETTER_TEMPLATES[currentLetter.template_id].name : null}
+            value={currentLetter.template_id && DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES] ? DOCX_TEMPLATES[currentLetter.template_id as keyof typeof DOCX_TEMPLATES].name : null}
             type="template"
           />
           <LetterTag label="Tonalitet" value={currentLetter.tonality} type="tone" />

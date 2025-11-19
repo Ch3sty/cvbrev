@@ -134,7 +134,7 @@ export default function PreviewStep({
                         key={id}
                         onClick={() => {
                           if (!isLocked) {
-                            onTemplateChange(id as TemplateId);
+                            onTemplateChange(id as DocxTemplateId);
                             setShowTemplateDropdown(false);
                           }
                         }}
