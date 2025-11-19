@@ -187,24 +187,29 @@ export interface GenerateLetterResult {
 // ***************************************************
 
 /**
- * Genererar ett personligt brev baserat på CV och jobbannons
+ * Genererar ett personligt brev baserat på ANONYMISERADE CV-data och jobbannons
+ *
+ * SÄKERHET: Denna funktion tar emot ENDAST anonymiserade kompetenser/erfarenheter.
+ * PII (namn, email, telefon, adress) FÅR ALDRIG skickas hit.
+ * Profildata läggs till EFTER AI-generering av template-merger.
+ *
  * --- UPPDATERAD ATT RETURNERA GenerateLetterResult ---
  */
 export async function generateCoverLetter(
-  cvText: string,
+  anonymizedSkills: string, // ÄNDRAT: Endast anonymiserad data
   jobDescription: string,
   tonality: string = 'professional',
   language: string = 'sv'
 ): Promise<GenerateLetterResult> { // <<< ÄNDRAD RETURTYP HÄR
   try {
-    // Validera indata (oförändrat)
-    if (!cvText || !jobDescription) {
-      throw new Error('CV och jobbannons måste innehålla text');
+    // Validera indata
+    if (!anonymizedSkills || !jobDescription) {
+      throw new Error('Anonymiserade kompetenser och jobbannons måste innehålla text');
     }
 
-    // Begränsa storleken på texten (oförändrat)
-    const truncatedCV = cvText.substring(0, 3000); // Justera vid behov
-    const truncatedJobDesc = jobDescription.substring(0, 2000); // Justera vid behov
+    // Begränsa storleken på texten
+    const truncatedSkills = anonymizedSkills.substring(0, 3000); // Anonymiserad data
+    const truncatedJobDesc = jobDescription.substring(0, 2000);
 
     // Skapa en prompt som instruerar AI:n
     // Hämta tonalitetsbeskrivning
@@ -292,20 +297,29 @@ Based on this analysis, write a letter that feels PERFECTLY tailored to both the
     };
     const langInst = languageSpecificInstructions[language as 'sv' | 'en'] || languageSpecificInstructions.sv;
 
-    // Skapa systemprompten baserat på språket (oförändrat - behåller dina detaljerade prompts)
+    // Skapa systemprompten baserat på språket
     const systemPrompt = language === 'sv' ?
-    `VIKTIGT: Du ska ENDAST returnera det färdiga personliga brevet. Inkludera INTE:
+    `VIKTIGT: Du ska ENDAST returnera BREVKROPPEN (main content). Inkludera INTE:
+- Header med namn, adress, telefon (läggs till automatiskt)
+- Datum (läggs till automatiskt)
+- Mottagaradress (läggs till automatiskt)
+- Hälsning som "Hej," eller "Bästa Herrskap," (läggs till automatiskt)
+- Avslutande hälsning som "Med vänliga hälsningar" eller signatur (läggs till automatiskt)
 - Jobbannonstexten
 - CV-innehåll
 - Headers som "## CV:" eller "## Jobbannons:"
 - Kommentarer om kandidatens lämplighet eller behörighet
 - Metadata eller förklaringar
 
-Returnera BARA brevet i slutgiltigt format, redo att skickas.
+Returnera BARA brevkroppen (de stycken som utgör brevets huvudinnehåll), inget annat.
 
 ---
 
-Du har fått tillgång till användarens CV och den aktuella jobbannonsen. Din uppgift är att skriva ett personligt brev på svenska som är helt anpassat efter den sökta tjänsten och företaget. Följ dessa riktlinjer:
+SÄKERHETSINFORMATION:
+Du har fått tillgång till ANONYMISERADE kompetenser och erfarenheter (INGET namn, email, telefon eller adress).
+Du har också fått den aktuella jobbannonsen.
+
+Din uppgift är att skriva ENDAST BREVKROPPEN för ett personligt brev på svenska som är helt anpassat efter den sökta tjänsten och företaget. Följ dessa riktlinjer:
 ${premiumAutoInstructions}
     1. **Målgruppsanpassning:**
       - Läs igenom både CV:t och jobbannonsen noggrant. Identifiera de nyckelkrav och önskade kompetenser som anges i annonsen.
@@ -377,20 +391,29 @@ ${premiumAutoInstructions}
       - Exempel: "Jag ledde ett team på 8 personer och levererade 12 projekt" istället för "Jag ledde projekt"
       - Om inga exakta siffror finns i CV:t, fokusera på konkreta resultat och omfattning
 
-    Skriv nu det personliga brevet. Returnera ENDAST det färdiga brevet, inget annat.`
+    Skriv nu brevkroppen. Returnera ENDAST brevkroppen (main content paragraphs), inget annat.`
     :
-    `IMPORTANT: Return ONLY the finished cover letter. Do NOT include:
+    `IMPORTANT: Return ONLY the LETTER BODY (main content). Do NOT include:
+- Header with name, address, phone (added automatically)
+- Date (added automatically)
+- Recipient address (added automatically)
+- Greeting like "Dear Sir/Madam," or "Hello," (added automatically)
+- Closing like "Sincerely" or signature (added automatically)
 - The job posting text
 - CV content
 - Headers like "## CV:" or "## Job posting:"
 - Comments about candidate suitability or qualifications
 - Metadata or explanations
 
-Return ONLY the letter in final format, ready to send.
+Return ONLY the letter body (the paragraphs that make up the main content), nothing else.
 
 ---
 
-You have been given access to the user's CV and the current job posting. Your task is to write a cover letter in English that is completely customized for the specific position and company. Follow these guidelines:
+SECURITY INFORMATION:
+You have been given access to ANONYMIZED skills and experience (NO name, email, phone, or address).
+You also have the current job posting.
+
+Your task is to write ONLY THE LETTER BODY for a cover letter in English that is completely customized for the specific position and company. Follow these guidelines:
 ${premiumAutoInstructions}
     1. **Target audience adaptation:**
       - Read through both the CV and job posting carefully. Identify the key requirements and desired competencies mentioned in the ad.
@@ -454,25 +477,29 @@ ${premiumAutoInstructions}
       - Example: "I led a team of 8 people and delivered 12 projects" instead of "I led projects"
       - If no exact numbers are in the CV, focus on concrete results and scope
 
-    Write the cover letter now. Return ONLY the finished letter, nothing else.`;
+    Write the letter body now. Return ONLY the letter body (main content paragraphs), nothing else.`;
 
-    // Skapa användarprompten med CV och jobbannons (oförändrat)
+    // Skapa användarprompten med anonymiserade kompetenser och jobbannons
     const userPrompt = language === 'sv' ? `
-    Skriv ett personligt brev baserat på följande CV och jobbannons:
+    Skriv brevkroppen för ett personligt brev baserat på följande anonymiserade kompetenser och jobbannons:
 
-    ## CV:
-    ${truncatedCV}
+    ## Anonymiserade kompetenser och erfarenheter:
+    ${truncatedSkills}
 
     ## Jobbannons:
     ${truncatedJobDesc}
-    ` : `
-    Write a cover letter based on the following CV and job posting:
 
-    ## CV:
-    ${truncatedCV}
+    VIKTIGT: Skriv ENDAST brevkroppen (de stycken som utgör innehållet). INTE header, datum, hälsning eller signatur.
+    ` : `
+    Write the letter body for a cover letter based on the following anonymized skills and job posting:
+
+    ## Anonymized skills and experience:
+    ${truncatedSkills}
 
     ## Job posting:
     ${truncatedJobDesc}
+
+    IMPORTANT: Write ONLY the letter body (the paragraphs that make up the content). NOT header, date, greeting, or signature.
     `;
 
     const modelToUse = "gpt-4o"; // Använd gpt-4o för bästa balans mellan kvalitet och kostnad

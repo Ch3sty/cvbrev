@@ -72,6 +72,7 @@ export default function CreateLetterPage() {
   const [jobDescription, setJobDescription] = useState(initialDescription);
   const [tonality, setTonality] = useState<Tonality>('balanced');
   const [language, setLanguage] = useState<Language>('sv');
+  const [templateId, setTemplateId] = useState<string>('classic');
   const [generatedLetter, setGeneratedLetter] = useState<string | null>(null);
   const [letterData, setLetterData] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -82,6 +83,11 @@ export default function CreateLetterPage() {
   const [showExitWarning, setShowExitWarning] = useState(false);
 
   const isPremium = subscriptionTier === 'premium';
+
+  // Template change handler
+  const handleTemplateChange = useCallback((newTemplateId: string) => {
+    setTemplateId(newTemplateId);
+  }, []);
 
   // Escape-hantering för modal
   useEffect(() => {
@@ -135,6 +141,7 @@ export default function CreateLetterPage() {
         job_description: jobDescription,
         tonality,
         language,
+        template_id: templateId,
         save: false // Generate preview first, save later in preview step
       });
 
@@ -356,8 +363,10 @@ export default function CreateLetterPage() {
         <SettingsStep
           tonality={tonality}
           language={language}
+          templateId={templateId}
           onTonalityChange={setTonality}
           onLanguageChange={setLanguage}
+          onTemplateChange={handleTemplateChange}
           isPremium={isPremium}
         />
       ),
@@ -389,10 +398,13 @@ export default function CreateLetterPage() {
           {generatedLetter ? (
             <PreviewStep
               letterContent={generatedLetter}
+              templateId={templateId}
               onEdit={handleEditLetter}
               onDownload={handleDownloadLetter}
               onSave={handleSaveLetter}
+              onTemplateChange={handleTemplateChange}
               saveError={saveError}
+              isPremium={isPremium}
             />
           ) : (
             <div className="text-center py-12 text-gray-600">

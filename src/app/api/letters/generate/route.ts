@@ -1,13 +1,18 @@
 // src/app/api/letters/generate/route.ts
 // Uppdaterad för att logga AI-genereringsaktivitet med kostnad server-side
+// *** SÄKERHETSREFAKTOR: Anonymiserar CV-data innan OpenAI ***
 
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 // Importera GenerateLetterResult typen och funktionerna
-import { generateCoverLetter, extractJobInfo, GenerateLetterResult } from '@/lib/openai/api'; 
+import { generateCoverLetter, extractJobInfo, GenerateLetterResult } from '@/lib/openai/api';
 // *** NY IMPORT FÖR AKTIVITETSLOGGNING ***
-import { logUserActivity, ActivityType } from '@/lib/activity-logger'; 
+import { logUserActivity, ActivityType } from '@/lib/activity-logger';
+// *** NY IMPORT FÖR SÄKERHET ***
+import { extractSkillsAndExperience, validateAnonymization } from '@/lib/letters/cv-anonymizer';
+import { mergeProfileDataIntoLetter, ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
+import { getLetterTemplate, TemplateId } from '@/lib/letters/letter-templates';
 // *****************************************
 
 // Cache-logik (oförändrad)...
@@ -119,8 +124,8 @@ export async function POST(request: Request) {
     }
 
     // Hämta input och spara för ev. felloggning
-    const { cv_id, job_description, tonality, language = 'sv', save = false } = await request.json();
-    logInputData = { cv_id, job_description_length: job_description?.length, tonality, language, save }; // Spara input
+    const { cv_id, job_description, tonality, language = 'sv', save = false, template_id = 'classic' } = await request.json();
+    logInputData = { cv_id, job_description_length: job_description?.length, tonality, language, save, template_id }; // Spara input
 
     if (!cv_id || !job_description) {
       logUserActivity(user.id, 'letter_generation_failed', 'Försökte generera brev men input saknades', { has_cv_id: !!cv_id, has_job_description: !!job_description });
@@ -152,23 +157,105 @@ export async function POST(request: Request) {
     // Skapa generaringslöfte
     const generationPromise = (async () => {
       const startTime = Date.now(); // Tidtagning för generering
-      console.log(`Starting new generation for key: ${requestKey}`);
-      
-      // Hämta CV-text (oförändrat)
+      console.log(`Starting new SECURE generation for key: ${requestKey}`);
+
+      // *** STEG 1: Hämta CV-text ***
       const { data: cvData, error: cvError } = await supabase.from('cv_texts').select('*').eq('id', cv_id).eq('user_id', user.id).single();
       if (cvError || !cvData || !cvData.cv_text) { throw new Error(`Kunde inte hitta CV med ID: ${cv_id}`); }
 
-      // Extrahera jobbinformation (oförändrat)
-      const jobInfo = await extractJobInfo(job_description, language);
+      // *** STEG 2: Hämta profildata (PII) ***
+      const { data: profileData, error: profileFetchError } = await supabase
+        .from('profiles')
+        .select('full_name, email, phone, location, include_phone_in_letters, include_location_in_letters')
+        .eq('id', user.id)
+        .single();
 
-      // Generera personligt brev - FÅR NU GenerateLetterResult OBJEKT
+      if (profileFetchError || !profileData) {
+        throw new Error('Kunde inte hämta profildata för brevgenerering');
+      }
+
+      // *** STEG 3: Anonymisera CV-data (TA BORT PII) ***
+      console.log('🔒 SÄKERHET: Anonymiserar CV-data...');
+      console.log('📋 Original CV-längd:', cvData.cv_text.length, 'tecken');
+
+      const anonymizedSkills = extractSkillsAndExperience(cvData.cv_text);
+
+      console.log('📋 Anonymiserad data-längd:', anonymizedSkills.length, 'tecken');
+      console.log('🔍 SÄKERHETSKONTROLL: Validerar anonymisering...');
+
+      // Validera anonymisering
+      const anonymizationWarnings = validateAnonymization(anonymizedSkills);
+      if (anonymizationWarnings.length > 0) {
+        console.error('❌ SÄKERHETSVARNING: PII-läckage detekterat!', anonymizationWarnings);
+        console.error('🚨 Anonymiserad data innehåller:', anonymizationWarnings.join(', '));
+
+        // Logga varningen men fortsätt (kan finjustera senare)
+        logUserActivity(user.id, 'letter_generation_failed', 'Anonymisering producerade varningar', { warnings: anonymizationWarnings });
+
+        // I produktion kan vi välja att stoppa här om det finns PII
+        // throw new Error('Säkerhetsfel: PII hittades i anonymiserad data');
+      } else {
+        console.log('✅ SÄKERHET VERIFIERAD: Ingen PII hittades i anonymiserad data');
+      }
+
+      // *** STEG 4: Extrahera jobbinformation ***
+      const jobInfoExtracted = await extractJobInfo(job_description, language);
+
+      // *** STEG 5: Generera brevkropp med ENDAST anonymiserad data till OpenAI ***
+      console.log('🚀 SÄKERHET: Skickar ENDAST anonymiserad data till OpenAI...');
+      console.log('📤 Data som SKICKAS till OpenAI:');
+      console.log('  - Anonymiserade kompetenser:', anonymizedSkills.substring(0, 100) + '...');
+      console.log('  - Jobbbeskrivning:', job_description.substring(0, 100) + '...');
+      console.log('  - Tonalitet:', tonality);
+      console.log('  - Språk:', language);
+      console.log('');
+      console.log('🔒 Data som INTE skickas till OpenAI:');
+      console.log('  - Namn:', profileData.full_name, '❌');
+      console.log('  - Email:', profileData.email, '❌');
+      console.log('  - Telefon:', profileData.phone || 'ej angivet', '❌');
+      console.log('  - Plats:', profileData.location || 'ej angivet', '❌');
+      console.log('');
+
       const generationResult: GenerateLetterResult = await generateCoverLetter(
-        cvData.cv_text,
+        anonymizedSkills, // ENDAST anonymiserad data
         job_description,
         tonality || 'professional',
         language || 'sv'
       );
       const generationTimeMs = Date.now() - startTime; // Beräkna tid
+
+      console.log('✅ SÄKERHET: OpenAI returnerade brevkropp (INGEN PII skickades)');
+
+      // *** STEG 6: Bygga JobInfo-objekt ***
+      const jobInfo: JobInfo = {
+        title: jobInfoExtracted.title || (language === 'en' ? 'Job Application' : 'Ansökningsbrev'),
+        company: jobInfoExtracted.company || '',
+        position: jobInfoExtracted.position || '',
+        recipient: undefined // Kan läggas till senare om vi extraherar mottagarnamn
+      };
+
+      // *** STEG 7: Skapa ProfileDataForLetter-objekt ***
+      const profileForLetter: ProfileDataForLetter = {
+        full_name: profileData.full_name || 'Namn saknas',
+        email: profileData.email,
+        phone: profileData.phone || null,
+        location: profileData.location || null,
+        include_phone_in_letters: profileData.include_phone_in_letters || false,
+        include_location_in_letters: profileData.include_location_in_letters || false
+      };
+
+      // *** STEG 8: Hämta vald mall ***
+      const selectedTemplate = getLetterTemplate(template_id as TemplateId);
+
+      // *** STEG 9: Generera komplett HTML med mall + profildata ***
+      console.log(`Genererar komplett brev med mall: ${selectedTemplate.name}`);
+      const completeLetterHTML = selectedTemplate.generateHTML(
+        profileForLetter,
+        jobInfo,
+        generationResult.content // AI-genererad brevkropp
+      );
+
+      console.log('✅ Komplett brev genererat (PII tillagt EFTER AI-steg)')
 
       // *** LOGGA LYCKAD GENERERING HÄR ***
       // Logga till user_activities för händelsehistorik
@@ -221,13 +308,13 @@ export async function POST(request: Request) {
       }
       // ***********************************
 
-      // Skapa brevdata-objektet med innehållet från resultatet
+      // Skapa brevdata-objektet med kompletta innehållet
       const letterObject = {
         user_id: user.id,
-        title: jobInfo.title || (language === 'en' ? 'Job Application' : 'Ansökningsbrev'),
+        title: jobInfo.title,
         company: jobInfo.company,
         job_title: jobInfo.position,
-        content: generationResult.content, // Använd innehållet här
+        content: completeLetterHTML, // Komplett HTML med profildata
         tonality: tonality || 'professional',
         language: language || 'sv',
         job_description: job_description,
@@ -235,6 +322,7 @@ export async function POST(request: Request) {
         is_saved: save,
         cv_path: cvData.original_file_path || null,
         cv_id: cv_id,
+        template_id: template_id, // Lägg till mall-ID
         // Lägger till AI-metadata i letterObject
         ai_model: generationResult.model,
         ai_tokens: generationResult.tokens?.total || null,

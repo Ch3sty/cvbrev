@@ -3,6 +3,9 @@ export interface Profile {
   email: string;
   full_name?: string;
   phone?: string;
+  location?: string; // Ort/plats för användaren
+  include_phone_in_letters?: boolean; // Inkludera telefon i personliga brev
+  include_location_in_letters?: boolean; // Inkludera plats i personliga brev
   linkedin_url?: string | null; // LinkedIn profile URL
   profile_photo_url?: string; // Profile photo URL
   profile_photo_path?: string; // Profile photo storage path
@@ -48,6 +51,9 @@ export interface CV {
 export interface ProfileUpdateParams {
   full_name?: string;
   phone?: string;
+  location?: string; // Ort/plats
+  include_phone_in_letters?: boolean; // Inkludera telefon i brev
+  include_location_in_letters?: boolean; // Inkludera plats i brev
   linkedin_url?: string | null; // LinkedIn profile URL
   profile_photo_url?: string; // Profile photo URL
   profile_photo_path?: string; // Profile photo storage path

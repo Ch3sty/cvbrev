@@ -19,7 +19,10 @@ import {
   Info,
   AlertTriangle,
   LogOut,
-  Trash2
+  Trash2,
+  Phone,
+  MapPin,
+  Shield
 } from 'lucide-react';
 import { useNotification } from '@/context/notificationcontext';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
@@ -47,7 +50,11 @@ export default function ProfilPage() {
     full_name: '',
     linkedin_url: '',
     profile_photo_url: '',
-    preferred_tonality: 'professional' as 'professional' | 'creative' | 'enthusiastic' | 'confident' | 'balanced' | 'auto'
+    preferred_tonality: 'professional' as 'professional' | 'creative' | 'enthusiastic' | 'confident' | 'balanced' | 'auto',
+    phone: '',
+    location: '',
+    include_phone_in_letters: false,
+    include_location_in_letters: false
   });
 
   // State för kontoborttagning
@@ -77,7 +84,11 @@ export default function ProfilPage() {
         full_name: profile.full_name || '',
         linkedin_url: profile.linkedin_url || '',
         profile_photo_url: profile.profile_photo_url || '',
-        preferred_tonality: (profile.preferred_tonality || 'professional') as 'professional' | 'creative' | 'enthusiastic' | 'confident' | 'balanced' | 'auto'
+        preferred_tonality: (profile.preferred_tonality || 'professional') as 'professional' | 'creative' | 'enthusiastic' | 'confident' | 'balanced' | 'auto',
+        phone: profile.phone || '',
+        location: profile.location || '',
+        include_phone_in_letters: profile.include_phone_in_letters || false,
+        include_location_in_letters: profile.include_location_in_letters || false
       });
     }
   }, [profile]);
@@ -363,6 +374,98 @@ export default function ProfilPage() {
             }}
             disabled={saving}
           />
+
+          {/* Telefonnummer (valfritt) */}
+          <div className="relative">
+            <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+              <Phone className="w-4 h-4 mr-2 text-green-600" />
+              Telefonnummer (valfritt)
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="+46 70 123 45 67"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white text-gray-900 border border-gray-200 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all text-sm sm:text-base"
+            />
+
+            {/* Toggle för att inkludera telefon i brev */}
+            <div className="mt-3 flex items-center gap-3">
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={formData.include_phone_in_letters}
+                  onChange={(e) => setFormData(prev => ({ ...prev, include_phone_in_letters: e.target.checked }))}
+                  className="sr-only peer"
+                />
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pink-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pink-600"></div>
+                <span className="ms-3 text-sm font-medium text-gray-700">
+                  Inkludera i personliga brev
+                </span>
+              </label>
+            </div>
+
+            <p className="mt-2 text-xs text-gray-500 flex items-center">
+              <Info className="w-3 h-3 mr-1 flex-shrink-0" />
+              Används endast för personliga brev & CV:n. Aldrig skickas till AI-tjänster.
+            </p>
+          </div>
+
+          {/* Ort/Plats (valfritt) */}
+          <div className="relative">
+            <label htmlFor="location" className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+              <MapPin className="w-4 h-4 mr-2 text-orange-600" />
+              Ort (valfritt)
+            </label>
+            <input
+              type="text"
+              id="location"
+              name="location"
+              value={formData.location}
+              onChange={handleChange}
+              placeholder="Stockholm"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl bg-white text-gray-900 border border-gray-200 focus:outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 transition-all text-sm sm:text-base"
+            />
+
+            {/* Toggle för att inkludera ort i brev */}
+            <div className="mt-3 flex items-center gap-3">
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={formData.include_location_in_letters}
+                  onChange={(e) => setFormData(prev => ({ ...prev, include_location_in_letters: e.target.checked }))}
+                  className="sr-only peer"
+                />
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-pink-300 rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-pink-600"></div>
+                <span className="ms-3 text-sm font-medium text-gray-700">
+                  Inkludera i personliga brev
+                </span>
+              </label>
+            </div>
+
+            <p className="mt-2 text-xs text-gray-500 flex items-center">
+              <Info className="w-3 h-3 mr-1 flex-shrink-0" />
+              Används endast för personliga brev & CV:n. Aldrig skickas till AI-tjänster.
+            </p>
+          </div>
+
+          {/* Integritets-infobox */}
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl">
+            <div className="flex items-start gap-3">
+              <Shield className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+              <div>
+                <h4 className="font-semibold text-blue-900 text-sm mb-1">
+                  Din integritet är skyddad
+                </h4>
+                <p className="text-sm text-blue-800">
+                  Dina personuppgifter lagras säkert i vår databas och används ENDAST för att formatera dina brev.
+                  Vi skickar ALDRIG dessa till externa AI-tjänster. Din data anonymiseras innan den når OpenAI.
+                </p>
+              </div>
+            </div>
+          </div>
 
           {/* Föredragen tonalitet */}
           <div>

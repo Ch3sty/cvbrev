@@ -7,6 +7,7 @@ interface GenerateLetterParams {
   job_description: string;
   tonality: string;
   language?: string; // Ny parameter för språkval
+  template_id?: string; // Ny parameter för mallval
   save?: boolean; // Parameter för att ange om brevet ska sparas direkt
 }
 

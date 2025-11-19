@@ -3,8 +3,10 @@
 import { motion } from 'framer-motion';
 import {
   Building2, Sparkles, Lightbulb, Trophy, Scale, Bot,
-  Languages, Crown, Lock
+  Languages, Crown, Lock, FileText, Layout
 } from 'lucide-react';
+import { LETTER_TEMPLATES, type TemplateId } from '@/lib/letters/letter-templates';
+import Image from 'next/image';
 
 type Tonality = 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced' | 'auto';
 type Language = 'sv' | 'en';
@@ -12,8 +14,10 @@ type Language = 'sv' | 'en';
 interface SettingsStepProps {
   tonality: Tonality;
   language: Language;
+  templateId: string;
   onTonalityChange: (tonality: Tonality) => void;
   onLanguageChange: (language: Language) => void;
+  onTemplateChange: (templateId: string) => void;
   isPremium: boolean;
 }
 
@@ -77,12 +81,118 @@ const tonalityOptions = [
 export default function SettingsStep({
   tonality,
   language,
+  templateId,
   onTonalityChange,
   onLanguageChange,
+  onTemplateChange,
   isPremium
 }: SettingsStepProps) {
   return (
     <div className="space-y-8">
+      {/* Template Selection */}
+      <div>
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">Välj brevmall</h3>
+        <p className="text-sm text-gray-600 mb-4">
+          Alla mallar är ATS-optimerade och fungerar perfekt för både PDF och Word-export
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {Object.entries(LETTER_TEMPLATES).map(([id, template]) => {
+            const isSelected = templateId === id;
+            const isLocked = template.tier === 'premium' && !isPremium;
+
+            return (
+              <motion.button
+                key={id}
+                onClick={() => !isLocked && onTemplateChange(id as TemplateId)}
+                disabled={isLocked}
+                className={`
+                  relative p-4 rounded-xl border-2 transition-all
+                  ${isSelected
+                    ? 'border-pink-500 bg-gradient-to-br from-pink-50 to-purple-50'
+                    : isLocked
+                    ? 'border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed'
+                    : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50/50'
+                  }
+                `}
+                whileHover={!isLocked ? { scale: 1.02, y: -2 } : {}}
+                whileTap={!isLocked ? { scale: 0.98 } : {}}
+              >
+                {/* Premium Badge */}
+                {template.tier === 'premium' && (
+                  <div className="absolute top-2 right-2 z-10">
+                    <div className={`${isLocked ? 'bg-gray-800' : 'bg-gradient-to-r from-purple-600 to-pink-600'} text-white text-xs px-2 py-1 rounded-full flex items-center gap-1`}>
+                      {isLocked ? <Lock className="w-3 h-3" /> : <Crown className="w-3 h-3" />}
+                      Premium
+                    </div>
+                  </div>
+                )}
+
+                {/* Selection Indicator */}
+                {isSelected && (
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center z-10"
+                  >
+                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </motion.div>
+                )}
+
+                {/* Template Preview Image */}
+                <div className="relative w-full h-40 mb-3 bg-gray-100 rounded-lg overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <Layout className="w-12 h-12 text-gray-300" />
+                  </div>
+                  {/* Placeholder for actual preview images */}
+                  {/* <Image
+                    src={`/images/templates/${id}-preview.jpg`}
+                    alt={template.name}
+                    fill
+                    className="object-cover"
+                  /> */}
+
+                  {/* Mock preview text */}
+                  <div className="absolute inset-0 p-3 text-[6px] leading-tight text-gray-600 overflow-hidden">
+                    <div className="font-bold mb-1">Ditt Namn</div>
+                    <div className="mb-2">din@email.com</div>
+                    <div className="mb-2">Företag AB</div>
+                    <div className="mb-1">19 november 2025</div>
+                    <div className="mb-1">Hej,</div>
+                    <div className="space-y-1">
+                      <div className="h-1 bg-gray-300 rounded"></div>
+                      <div className="h-1 bg-gray-300 rounded w-5/6"></div>
+                      <div className="h-1 bg-gray-300 rounded"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="text-left">
+                  <h4 className="font-semibold text-gray-900 flex items-center gap-2">
+                    {template.name}
+                    {template.tier === 'free' && (
+                      <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Gratis</span>
+                    )}
+                  </h4>
+                  <p className="text-sm text-gray-600 mt-1">{template.description}</p>
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {template.industries.slice(0, 2).map((industry, idx) => (
+                      <span key={idx} className="text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full">
+                        {industry}
+                      </span>
+                    ))}
+                    {template.industries.length > 2 && (
+                      <span className="text-xs text-gray-500">+{template.industries.length - 2}</span>
+                    )}
+                  </div>
+                </div>
+              </motion.button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Tonality Selection */}
       <div>
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Välj tonalitet</h3>

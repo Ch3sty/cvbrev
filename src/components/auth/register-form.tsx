@@ -10,6 +10,8 @@ export default function RegisterForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [fullName, setFullName] = useState('')
+  const [phone, setPhone] = useState('') // Nytt valfritt fält
+  const [location, setLocation] = useState('') // Nytt valfritt fält
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<React.ReactNode | null>(null);
   const [message, setMessage] = useState<string | null>(null);
@@ -46,7 +48,9 @@ export default function RegisterForm() {
         password,
         options: {
           data: {
-            full_name: fullName
+            full_name: fullName,
+            phone: phone.trim() || null, // Valfritt - null om tomt
+            location: location.trim() || null // Valfritt - null om tomt
           },
           // emailRedirectTo: `${window.location.origin}/auth/callback`
         }
@@ -332,6 +336,52 @@ export default function RegisterForm() {
               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
             </svg>
             Minst 6 tecken
+          </p>
+        </div>
+
+        {/* Telefonnummer (valfritt) */}
+        <div>
+          <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">
+            Telefonnummer (valfritt)
+          </label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            placeholder="+46 70 123 45 67"
+            className="appearance-none block w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base bg-white text-gray-900 transition-all"
+            autoComplete="tel"
+          />
+          <p className="mt-2 text-xs text-gray-500 flex items-center gap-1">
+            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+            </svg>
+            Används endast för personliga brev & CV:n
+          </p>
+        </div>
+
+        {/* Plats/Ort (valfritt) */}
+        <div>
+          <label htmlFor="location" className="block text-sm font-semibold text-gray-700 mb-2">
+            Ort (valfritt)
+          </label>
+          <input
+            id="location"
+            name="location"
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            placeholder="Stockholm"
+            className="appearance-none block w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base bg-white text-gray-900 transition-all"
+            autoComplete="address-level2"
+          />
+          <p className="mt-2 text-xs text-gray-500 flex items-center gap-1">
+            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1 a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+            </svg>
+            Används endast för personliga brev & CV:n
           </p>
         </div>
 

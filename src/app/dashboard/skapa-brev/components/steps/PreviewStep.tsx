@@ -2,27 +2,37 @@
 
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Eye, Download, Edit3, Copy, Check, FileText, Save, Info } from 'lucide-react';
+import { Eye, Download, Edit3, Copy, Check, FileText, Save, Info, Layout, Crown, Lock } from 'lucide-react';
+import { LETTER_TEMPLATES, type TemplateId } from '@/lib/letters/letter-templates';
 
 interface PreviewStepProps {
   letterContent: string;
+  templateId: string;
   onEdit: (content: string) => void;
   onDownload: (format: 'pdf' | 'docx') => void;
   onSave?: () => void;
+  onTemplateChange?: (templateId: string) => void;
   saveError?: string | null;
+  isPremium?: boolean;
 }
 
 export default function PreviewStep({
   letterContent,
+  templateId,
   onEdit,
   onDownload,
   onSave,
-  saveError
+  onTemplateChange,
+  saveError,
+  isPremium = false
 }: PreviewStepProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(letterContent);
   const [copied, setCopied] = useState(false);
+  const [showTemplateDropdown, setShowTemplateDropdown] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
+
+  const currentTemplate = LETTER_TEMPLATES[templateId];
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(editedContent);
@@ -65,6 +75,83 @@ export default function PreviewStep({
 
   return (
     <div className="space-y-6">
+      {/* Template Selector */}
+      {onTemplateChange && (
+        <div className="bg-white border border-gray-200 rounded-xl p-4">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <Layout className="w-5 h-5 text-gray-600" />
+              <div>
+                <label className="text-sm font-medium text-gray-900">Brevmall</label>
+                <p className="text-xs text-gray-600">Byt design när som helst</p>
+              </div>
+            </div>
+            <div className="relative">
+              <button
+                onClick={() => setShowTemplateDropdown(!showTemplateDropdown)}
+                className="flex items-center gap-2 px-4 py-2 bg-white border-2 border-gray-300 rounded-lg hover:border-gray-400 transition-colors min-w-[180px]"
+              >
+                <span className="text-sm font-medium flex-1 text-left">{currentTemplate.name}</span>
+                {currentTemplate.tier === 'premium' && (
+                  <Crown className="w-4 h-4 text-purple-600" />
+                )}
+                <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              {showTemplateDropdown && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="absolute top-full right-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-xl z-50 overflow-hidden"
+                >
+                  {Object.entries(LETTER_TEMPLATES).map(([id, template]) => {
+                    const isSelected = templateId === id;
+                    const isLocked = template.tier === 'premium' && !isPremium;
+
+                    return (
+                      <button
+                        key={id}
+                        onClick={() => {
+                          if (!isLocked) {
+                            onTemplateChange(id as TemplateId);
+                            setShowTemplateDropdown(false);
+                          }
+                        }}
+                        disabled={isLocked}
+                        className={`
+                          w-full text-left px-4 py-3 flex items-center justify-between gap-3 transition-colors
+                          ${isSelected ? 'bg-pink-50 text-pink-900' : ''}
+                          ${isLocked ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-50'}
+                        `}
+                      >
+                        <div className="flex-1">
+                          <div className="font-medium text-sm">{template.name}</div>
+                          <div className="text-xs text-gray-600">{template.description}</div>
+                        </div>
+                        {template.tier === 'premium' && (
+                          <div className="flex-shrink-0">
+                            {isLocked ? (
+                              <Lock className="w-4 h-4 text-gray-500" />
+                            ) : (
+                              <Crown className="w-4 h-4 text-purple-600" />
+                            )}
+                          </div>
+                        )}
+                        {isSelected && (
+                          <Check className="w-4 h-4 text-pink-600 flex-shrink-0" />
+                        )}
+                      </button>
+                    );
+                  })}
+                </motion.div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Friendly Info Banner */}
       <div className="bg-blue-50/50 border border-blue-200 rounded-xl p-4">
         <div className="flex items-center gap-3">

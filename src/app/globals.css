@@ -100,6 +100,191 @@ body {
   background-clip: text;
 }
 
+/* ========================================
+   COVER LETTER TEMPLATE STYLES
+   ======================================== */
+
+/* Base letter styles - ATS-compatible */
+.letter-template {
+  /* Standard A4 dimensions for print/PDF */
+  max-width: 21cm;
+  margin: 0 auto;
+  padding: 2.54cm; /* 1 inch margins */
+  background: white;
+
+  /* Typography for professional appearance */
+  line-height: 1.6;
+  color: #1a1a1a;
+
+  /* Ensure proper print behavior */
+  page-break-inside: avoid;
+}
+
+/* Print-specific styles */
+@media print {
+  .letter-template {
+    padding: 1in;
+    margin: 0;
+    box-shadow: none;
+  }
+
+  /* Hide interactive elements when printing */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Ensure good text rendering */
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* Classic Template - Traditional Swedish format */
+.letter-classic {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.letter-classic h1 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.letter-classic p {
+  margin-bottom: 0.75rem;
+}
+
+/* Minimalist Template - Clean and modern */
+.letter-minimalist {
+  font-family: Calibri, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.letter-minimalist h1 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+/* Modern Template - Contemporary with accents */
+.letter-modern {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.letter-modern .header {
+  border-left: 4px solid #3b82f6;
+  padding-left: 1rem;
+  margin-bottom: 2rem;
+}
+
+.letter-modern h1 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e3a8a;
+}
+
+/* Executive Template - Premium two-column layout */
+.letter-executive {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.letter-executive .sidebar {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.letter-executive h1 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* Creative Template - Modern with personality */
+.letter-creative {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.letter-creative .header-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 8px 8px 0 0;
+}
+
+.letter-creative h1 {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+/* Traditional Template - Formal and conservative */
+.letter-traditional {
+  font-family: Garamond, 'Times New Roman', serif;
+}
+
+.letter-traditional .header-centered {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #d4af37;
+}
+
+.letter-traditional h1 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+/* Common letter elements */
+.letter-date {
+  margin-bottom: 1.5rem;
+  font-style: italic;
+  color: #666;
+}
+
+.letter-greeting {
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.letter-body {
+  white-space: pre-wrap;
+  margin-bottom: 1.5rem;
+}
+
+.letter-signature {
+  margin-top: 2rem;
+  font-style: italic;
+}
+
+/* Ensure proper spacing in letter content */
+.letter-paragraph {
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+/* Contact information styling */
+.letter-contact-info {
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.letter-contact-info div {
+  margin-bottom: 0.25rem;
+}
+
+/* Recipient address styling */
+.letter-recipient {
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+/* ========================================
+   END COVER LETTER TEMPLATE STYLES
+   ======================================== */
+
 /* NYTT: Subtil bakgrundspattern (optionellt) */
 /* body::before {
   content: '';
