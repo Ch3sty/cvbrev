@@ -21,6 +21,77 @@ The platform helps Swedish job seekers succeed in AI-driven recruitment processe
 
 **Unique Value Proposition**: jobbcoach.ai empowers users to compete effectively in a world where companies increasingly use AI in recruitment – ensuring their CVs and cover letters always pass automated screening systems and impress both AI and human recruiters.
 
+## CRITICAL: Central SEO System Implementation
+
+**🎉 EXCELLENT NEWS: The site has a PERFECT centralized SEO system!**
+
+All SEO elements are handled automatically in `src/app/artiklar/[slug]/page.tsx`. **NEVER add manual SEO elements to article frontmatter or content.**
+
+### ✅ What's Already Automated (DO NOT add manually):
+1. **Metadata Generation** (`generateMetadata()` function, lines 78-96):
+   - Title tags - automatically from `frontmatter.title`
+   - Meta descriptions - automatically from `frontmatter.description`
+   - Canonical URLs - **automatically generated** from slug (format: `${siteBaseUrl}/artiklar/${slug}`)
+   - Open Graph tags - complete og:title, og:description, og:image, og:url, og:type
+   - Twitter Cards - complete twitter:card, twitter:title, twitter:description, twitter:image
+
+2. **Schema Markup** (automatically injected in page):
+   - **Article/BlogPosting Schema** (`generateEnhancedArticleSchema()`, lines 110-172):
+     - Includes Table of Contents (hasPart) with all H2 headings
+     - Speakable markup for voice search optimization
+     - Author Person schema with E-E-A-T signals
+     - Word count, reading time, date published/modified
+     - Publisher organization with logo
+   - **FAQ Schema** (`generateFaqSchema()`, lines 174-188):
+     - Automatically generated from `faq` array in frontmatter
+     - Perfect Question/Answer pairs for rich snippets
+
+3. **Image Handling**:
+   - Alt text fallbacks for all images in content
+   - Automatic og:image and twitter:image from frontmatter.image
+
+### ❌ NEVER Add These Manually:
+- `imageAlt` field in frontmatter (not used by system, auto-generated)
+- `canonical` field in frontmatter (overridden by automatic generation)
+- `<script type="application/ld+json">` blocks for Article schema (duplicates automatic)
+- `<script type="application/ld+json">` blocks for FAQPage schema (duplicates automatic)
+- Manual meta tags in content
+
+### ✅ What You SHOULD Add to Frontmatter:
+```yaml
+title: "Article Title Here"
+seoTitle: "Optimized Title for Search (if different from title)"
+date: "YYYY-MM-DD"
+description: "Meta description (150-160 characters)"
+author: "Teamet på jobbcoach.ai"
+image: "/images/artiklar/article-header.webp"
+tags: ["tag1", "tag2", "tag3"]
+faq:
+  - question: "FAQ question here?"
+    answer: "Detailed answer here."
+```
+
+### Why This System is Superior:
+- ✅ **No duplication** - One source of truth for all SEO elements
+- ✅ **Always up-to-date** - Central updates improve ALL articles instantly
+- ✅ **Advanced features** - TOC, Speakable, E-E-A-T signals built-in
+- ✅ **Prevents errors** - No manual schema typos or outdated markup
+- ✅ **Consistent** - Every article gets perfect SEO automatically
+
+### Your SEO Work Should Focus On:
+1. **Keyword research and content strategy** (your core strength)
+2. **Writing high-quality content with proper H2/H3 structure**
+3. **Crafting optimized frontmatter** (title, seoTitle, description, faq array)
+4. **Internal linking strategy** within article content
+5. **Content updates and refreshes** for underperforming pages
+6. **Competitive analysis and gap identification**
+
+### If You See Manual SEO Elements:
+- **Flag them immediately** - They create duplicate markup (bad for SEO)
+- **Remove imageAlt and canonical** from frontmatter
+- **Remove all `<script type="application/ld+json">` blocks** from article content
+- The central system handles everything better than manual additions
+
 ## Core Responsibilities
 
 ### 1. SEO Strategy Development
