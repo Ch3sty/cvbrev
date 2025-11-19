@@ -198,14 +198,14 @@ export default function PreviewStep({
         </motion.div>
       )}
 
-      {/* Action Bar - Fixed bottom på mobil, sticky på desktop */}
-      <div className="fixed sm:sticky bottom-0 sm:top-4 left-0 right-0 sm:left-auto sm:right-auto z-20 bg-white sm:rounded-xl border-t-2 sm:border-2 border-gray-200 shadow-2xl sm:shadow-lg p-3 sm:p-4">
+      {/* Action Bar - Sticky på desktop, normal flow på mobil */}
+      <div className="bg-white rounded-xl border-2 border-gray-200 shadow-lg p-3 sm:p-4">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           {/* Sekundära actions - Left side */}
           <div className="flex items-center gap-2 justify-center sm:justify-start">
             <motion.button
               onClick={() => setIsEditing(!isEditing)}
-              className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all font-medium flex-1 sm:flex-initial min-h-[44px]"
+              className="flex items-center justify-center gap-2 px-4 py-2.5 text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all font-medium flex-1 sm:flex-initial"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -215,7 +215,7 @@ export default function PreviewStep({
 
             <motion.button
               onClick={handleCopy}
-              className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all font-medium flex-1 sm:flex-initial min-h-[44px]"
+              className="flex items-center justify-center gap-2 px-4 py-2.5 text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all font-medium flex-1 sm:flex-initial"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -244,7 +244,7 @@ export default function PreviewStep({
             {onSave && (
               <motion.button
                 onClick={onSave}
-                className="flex items-center justify-center gap-2 px-5 py-3 sm:py-2.5 text-white bg-gradient-to-r from-green-500 to-green-600 rounded-lg hover:from-green-600 hover:to-green-700 transition-all shadow-md hover:shadow-lg font-medium min-h-[44px]"
+                className="flex items-center justify-center gap-2 px-5 py-2.5 text-white bg-gradient-to-r from-green-500 to-green-600 rounded-lg hover:from-green-600 hover:to-green-700 transition-all shadow-md hover:shadow-lg font-medium"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 title="Spara brevet"
@@ -257,7 +257,7 @@ export default function PreviewStep({
             {/* PDF Download Button - same level as Save */}
             <motion.button
               onClick={() => onDownload('pdf')}
-              className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 text-white bg-gradient-to-r from-red-500 to-pink-600 rounded-lg hover:from-red-600 hover:to-pink-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial min-h-[44px]"
+              className="flex items-center justify-center gap-2 px-4 py-2.5 text-white bg-gradient-to-r from-red-500 to-pink-600 rounded-lg hover:from-red-600 hover:to-pink-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               title="Ladda ned som PDF"
@@ -269,7 +269,7 @@ export default function PreviewStep({
             {/* DOCX Download Button - same level as Save and PDF */}
             <motion.button
               onClick={() => onDownload('docx')}
-              className="flex items-center justify-center gap-2 px-4 py-3 sm:py-2.5 text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial min-h-[44px]"
+              className="flex items-center justify-center gap-2 px-4 py-2.5 text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               title="Ladda ned som DOCX"
@@ -282,7 +282,7 @@ export default function PreviewStep({
       </div>
 
       {/* Document Preview */}
-      <div className={`bg-gray-50 rounded-2xl p-4 sm:p-6 min-h-[400px] sm:min-h-[600px] mb-24 sm:mb-0 relative ${isTemplateHTML(editedContent) ? '' : 'flex items-center justify-center'}`}>
+      <div className={`bg-white rounded-2xl border border-gray-200 p-4 sm:p-6 min-h-[400px] relative ${isTemplateHTML(editedContent) ? '' : 'flex items-center justify-center'}`}>
         {/* Loading Overlay for Template Regeneration */}
         {isRegeneratingTemplate && (
           <motion.div

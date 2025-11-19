@@ -12,7 +12,9 @@
       "Bash(psql:*)",
       "Bash(find:*)",
       "Bash(node scripts/generate-template-previews.js:*)",
-      "Bash(tee:*)"
+      "Bash(tee:*)",
+      "Bash(npm run dev:*)",
+      "Bash(timeout 10 bash:*)"
     ],
     "deny": [],
     "ask": []
