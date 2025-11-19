@@ -6,7 +6,7 @@ import {
   Building2, Sparkles, Lightbulb, Trophy, Scale, Bot,
   Languages, Crown, Lock, FileText, Layout, X, Maximize2
 } from 'lucide-react';
-import { LETTER_TEMPLATES, type TemplateId } from '@/lib/letters/letter-templates';
+import { DOCX_TEMPLATES, type DocxTemplateId } from '@/lib/letters/docx-templates';
 import Image from 'next/image';
 
 type Tonality = 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced' | 'auto';
@@ -113,14 +113,14 @@ export default function SettingsStep({
           Alla mallar är ATS-optimerade och fungerar perfekt för både PDF och Word-export
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {Object.entries(LETTER_TEMPLATES).map(([id, template]) => {
+          {Object.entries(DOCX_TEMPLATES).map(([id, template]) => {
             const isSelected = templateId === id;
             const isLocked = template.tier === 'premium' && !isPremium;
 
             return (
               <motion.button
                 key={id}
-                onClick={() => !isLocked && onTemplateChange(id as TemplateId)}
+                onClick={() => !isLocked && onTemplateChange(id as DocxTemplateId)}
                 disabled={isLocked}
                 className={`
                   relative p-4 rounded-xl border-2 transition-all

@@ -12,7 +12,7 @@ import { logUserActivity, ActivityType } from '@/lib/activity-logger';
 // *** NY IMPORT FÖR SÄKERHET ***
 import { extractSkillsAndExperience, validateAnonymization } from '@/lib/letters/cv-anonymizer';
 import { mergeProfileDataIntoLetter, ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
-import { getLetterTemplate, TemplateId } from '@/lib/letters/letter-templates';
+import { getDocxTemplate, DocxTemplateId } from '@/lib/letters/docx-templates';
 // *****************************************
 
 // Cache-logik (oförändrad)...
@@ -244,11 +244,11 @@ export async function POST(request: Request) {
         include_location_in_letters: profileData.include_location_in_letters || false
       };
 
-      // *** STEG 8: Hämta vald mall ***
-      const selectedTemplate = getLetterTemplate(template_id as TemplateId);
+      // *** STEG 8: Hämta vald DOCX-template (används för både PDF och DOCX) ***
+      const selectedTemplate = getDocxTemplate(template_id as DocxTemplateId);
 
-      // *** STEG 9: Generera komplett HTML med mall + profildata ***
-      console.log(`Genererar komplett brev med mall: ${selectedTemplate.name}`);
+      // *** STEG 9: Generera komplett HTML med DOCX-template + profildata ***
+      console.log(`Genererar komplett brev med DOCX-template: ${selectedTemplate.name}`);
       const completeLetterHTML = selectedTemplate.generateHTML(
         profileForLetter,
         jobInfo,

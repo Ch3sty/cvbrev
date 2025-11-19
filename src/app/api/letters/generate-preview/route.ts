@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { generateCoverLetter, extractJobInfo } from '@/lib/openai/api';
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
-import { getLetterTemplate, type TemplateId } from '@/lib/letters/letter-templates';
+import { getDocxTemplate, type DocxTemplateId } from '@/lib/letters/docx-templates';
 import type { ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
 
 // Enkel cache för att spåra pågående genereringar och förhindra dubbletter
@@ -216,8 +216,8 @@ export async function POST(request: Request) {
         include_location_in_letters: profileData.include_location_in_letters || false
       };
 
-      // Hämta vald mall
-      const selectedTemplate = getLetterTemplate(template_id as TemplateId);
+      // Hämta vald DOCX-template (använder samma template för både PDF och DOCX)
+      const selectedTemplate = getDocxTemplate(template_id as DocxTemplateId);
 
       // Säkerställ att jobInfo har required fields för JobInfo-typen
       const jobInfoForTemplate: JobInfo = {
@@ -227,8 +227,8 @@ export async function POST(request: Request) {
         recipient: (jobInfo as any).recipient // recipient är optional i extractJobInfo
       };
 
-      // Generera komplett HTML med mall + profildata
-      console.log(`Genererar komplett brev med mall: ${selectedTemplate.name}`);
+      // Generera komplett HTML med DOCX-template (som används för både förhandsvisning och PDF)
+      console.log(`Genererar komplett brev med DOCX-template: ${selectedTemplate.name}`);
       const completeLetterHTML = selectedTemplate.generateHTML(
         profileForLetter,
         jobInfoForTemplate,

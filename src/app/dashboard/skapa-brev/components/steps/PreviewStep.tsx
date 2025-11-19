@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Eye, Download, Edit3, Copy, Check, FileText, Save, Info, Layout, Crown, Lock, Loader2 } from 'lucide-react';
-import { LETTER_TEMPLATES, type TemplateId } from '@/lib/letters/letter-templates';
+import { DOCX_TEMPLATES, type DocxTemplateId } from '@/lib/letters/docx-templates';
 
 interface PreviewStepProps {
   letterContent: string;
@@ -34,7 +34,7 @@ export default function PreviewStep({
   const [showTemplateDropdown, setShowTemplateDropdown] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
 
-  const currentTemplate = LETTER_TEMPLATES[templateId];
+  const currentTemplate = DOCX_TEMPLATES[templateId as DocxTemplateId];
 
   // Update editedContent when letterContent changes (e.g., after template regeneration)
   useEffect(() => {
@@ -125,7 +125,7 @@ export default function PreviewStep({
                   animate={{ opacity: 1, y: 0 }}
                   className="absolute top-full right-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-xl z-50 overflow-hidden"
                 >
-                  {Object.entries(LETTER_TEMPLATES).map(([id, template]) => {
+                  {Object.entries(DOCX_TEMPLATES).map(([id, template]) => {
                     const isSelected = templateId === id;
                     const isLocked = template.tier === 'premium' && !isPremium;
 

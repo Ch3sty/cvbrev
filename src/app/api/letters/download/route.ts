@@ -3,8 +3,10 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { LetterMetadata } from '@/lib/pdf/letter-templates';
+import { getDocxTemplate, type DocxTemplateId } from '@/lib/letters/docx-templates';
+import { ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
+import { Packer } from 'docx';
 import { cleanLetterContent } from '@/lib/pdf/clean-letter-content';
-import { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } from 'docx';
 
 
 
@@ -65,12 +67,16 @@ async function createProfessionalPDF(htmlContent: string): Promise<Buffer> {
 }
 
 /**
- * Genererar riktig DOCX med docx-biblioteket
+ * Genererar riktig DOCX med docx-biblioteket och våra native templates
  */
-async function createProfessionalDocx(content: string, metadata: LetterMetadata): Promise<Buffer> {
+async function createProfessionalDocx(
+  content: string,
+  metadata: LetterMetadata,
+  templateId: DocxTemplateId = 'classic'
+): Promise<Buffer> {
   try {
-    console.log('Generating DOCX with docx library');
-    
+    console.log(`Generating DOCX with template: ${templateId}`);
+
     // Extrahera body-innehåll från komplett HTML-dokument
     let bodyContent = content;
     const bodyMatch = content.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
@@ -78,10 +84,8 @@ async function createProfessionalDocx(content: string, metadata: LetterMetadata)
       bodyContent = bodyMatch[1];
     }
 
-    // Ta bort style tags och deras innehåll
+    // Ta bort style och script tags med deras innehåll
     bodyContent = bodyContent.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
-
-    // Ta bort script tags och deras innehåll
     bodyContent = bodyContent.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
 
     // Rensa dubblerat innehåll innan HTML-rensning
@@ -94,189 +98,41 @@ async function createProfessionalDocx(content: string, metadata: LetterMetadata)
       .replace(/&amp;/g, '&')
       .replace(/&lt;/g, '<')
       .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
       .trim();
-    
-    // Dela upp innehållet i paragrafer
-    const paragraphs = cleanContent.split('\n').filter(para => para.trim().length > 0);
-    
-    // Skapa DOCX-dokumentet
-    const doc = new Document({
-      sections: [
-        {
-          properties: {
-            page: {
-              margin: {
-                top: 1440, // 2.5cm i twips (1440 twips = 1 inch)
-                right: 1152, // 2cm
-                bottom: 1152, // 2cm
-                left: 1152, // 2cm
-              },
-            },
-          },
-          children: [
-            // Personlig information - högerjusterad
-            ...(metadata.author ? [
-              new Paragraph({
-                alignment: AlignmentType.RIGHT,
-                children: [
-                  new TextRun({
-                    text: metadata.author,
-                    bold: true,
-                    size: 22, // 11pt
-                  }),
-                ],
-                spacing: { after: 120 },
-              })
-            ] : []),
-            
-            ...(metadata.email ? [
-              new Paragraph({
-                alignment: AlignmentType.RIGHT,
-                children: [
-                  new TextRun({
-                    text: metadata.email,
-                    size: 22,
-                  }),
-                ],
-                spacing: { after: 120 },
-              })
-            ] : []),
-            
-            ...(metadata.phone ? [
-              new Paragraph({
-                alignment: AlignmentType.RIGHT,
-                children: [
-                  new TextRun({
-                    text: metadata.phone,
-                    size: 22,
-                  }),
-                ],
-                spacing: { after: 120 },
-              })
-            ] : []),
-            
-            ...(metadata.address ? [
-              new Paragraph({
-                alignment: AlignmentType.RIGHT,
-                children: [
-                  new TextRun({
-                    text: metadata.address,
-                    size: 22,
-                  }),
-                ],
-                spacing: { after: 200 },
-              })
-            ] : []),
-            
-            // Datum - högerjusterat
-            new Paragraph({
-              alignment: AlignmentType.RIGHT,
-              children: [
-                new TextRun({
-                  text: metadata.date || new Date().toLocaleDateString('sv-SE'),
-                  size: 22,
-                }),
-              ],
-              spacing: { after: 400 },
-            }),
-            
-            // Mottagare
-            ...(metadata.company ? [
-              new Paragraph({
-                alignment: AlignmentType.LEFT,
-                children: [
-                  new TextRun({
-                    text: metadata.company,
-                    bold: true,
-                    size: 22,
-                  }),
-                ],
-                spacing: { after: 200 },
-              })
-            ] : []),
-            
-            // Ämnesrad
-            ...(metadata.position ? [
-              new Paragraph({
-                alignment: AlignmentType.LEFT,
-                children: [
-                  new TextRun({
-                    text: `Ansökan: ${metadata.position}`,
-                    bold: true,
-                    size: 22,
-                  }),
-                ],
-                spacing: { after: 480 }, // Mer luft mellan rubrik och brödtext
-              })
-            ] : []),
-            
-            // Brevtitel som rubrik
-            new Paragraph({
-              heading: HeadingLevel.HEADING_1,
-              alignment: AlignmentType.CENTER,
-              children: [
-                new TextRun({
-                  text: metadata.title || 'Ansökningsbrev',
-                  bold: true,
-                  size: 28, // 14pt
-                }),
-              ],
-              spacing: { after: 600 }, // Mer luft mellan titel och brödtext
-            }),
-            
-            // Brevinnehåll - varje paragraf blir en paragraph
-            ...paragraphs.map(para => 
-              new Paragraph({
-                alignment: AlignmentType.JUSTIFIED,
-                children: [
-                  new TextRun({
-                    text: para,
-                    size: 24, // 12pt
-                  }),
-                ],
-                spacing: { 
-                  after: 240, // Avstånd efter paragraf
-                  line: 288, // Radavstånd 1.2 (240*1.2=288)
-                  lineRule: "auto"
-                },
-              })
-            ),
-            
-            // Avslutning
-            new Paragraph({
-              alignment: AlignmentType.LEFT,
-              children: [
-                new TextRun({
-                  text: "Med vänliga hälsningar,",
-                  size: 24,
-                }),
-              ],
-              spacing: { 
-                before: 400, // Extra utrymme innan avslutning
-                after: 600  // Utrymme för signatur
-              },
-            }),
-            
-            // Namn
-            new Paragraph({
-              alignment: AlignmentType.LEFT,
-              children: [
-                new TextRun({
-                  text: metadata.author || '[Ditt namn]',
-                  bold: true,
-                  size: 24,
-                }),
-              ],
-            }),
-          ],
-        },
-      ],
-    });
-    
+
+    // Skapa ProfileDataForLetter objekt från metadata
+    const profileData: ProfileDataForLetter = {
+      full_name: metadata.author || 'Användare',
+      email: metadata.email || '',
+      phone: metadata.phone || null,
+      location: metadata.address || null,
+      include_phone_in_letters: !!metadata.phone,
+      include_location_in_letters: !!metadata.address
+    };
+
+    // Skapa JobInfo objekt från metadata
+    const jobInfo: JobInfo = {
+      title: metadata.title || 'Ansökningsbrev',
+      company: metadata.company || '',
+      position: metadata.position || '',
+      recipient: undefined
+    };
+
+    // Hämta rätt template och generera dokumentet
+    const template = getDocxTemplate(templateId);
+    const doc = template.generateDocument(
+      profileData,
+      jobInfo,
+      cleanContent,
+      metadata.date
+    );
+
     // Generera DOCX-buffer
     const buffer = await Packer.toBuffer(doc);
     return buffer;
-    
+
   } catch (error) {
     console.error('DOCX generation error:', error);
     throw new Error(`DOCX generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
@@ -343,7 +199,7 @@ export async function POST(request: Request) {
     
     // Generera fil baserat på önskat format
     if (format === 'docx') {
-      fileData = await createProfessionalDocx(content, enhancedMetadata);
+      fileData = await createProfessionalDocx(content, enhancedMetadata, template as DocxTemplateId);
       fileType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
       fileName += '.docx';
     } else if (format === 'pdf') {
