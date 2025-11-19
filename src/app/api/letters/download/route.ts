@@ -22,7 +22,7 @@ async function createProfessionalPDF(htmlContent: string): Promise<Buffer> {
 
     // Starta browser
     const browser = await puppeteer.default.launch({
-      headless: 'new',
+      headless: true,
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
