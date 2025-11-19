@@ -50,7 +50,19 @@ export async function POST(request: NextRequest) {
 
     let customerId = profile?.stripe_customer_id
 
-    // Create Stripe customer if doesn't exist
+    // Validate existing customer ID or create new one
+    if (customerId) {
+      try {
+        // Try to retrieve the customer to verify it exists in Stripe
+        await stripe.customers.retrieve(customerId)
+        console.log(`[CREATE UPGRADE SESSION] Verified existing Stripe customer: ${customerId}`)
+      } catch (error: any) {
+        console.warn(`[CREATE UPGRADE SESSION] Customer ${customerId} not found in Stripe. Creating new customer.`, error.message)
+        customerId = null // Force creation of new customer
+      }
+    }
+
+    // Create Stripe customer if doesn't exist or was invalid
     if (!customerId) {
       console.log(`[CREATE UPGRADE SESSION] Creating new Stripe customer for user ${user.id}`)
       const customer = await stripe.customers.create({
