@@ -371,7 +371,7 @@ export default function PreviewStep({
           transition={{ delay: 0.5 }}
           className="text-center text-sm text-gray-600"
         >
-          💡 Klicka var som helst i brevet för att redigera. Bra att lägga till: telefonnummer, e-post och adress längst upp.
+          💡 Dina kontaktuppgifter från profilen är redan inkluderade. Klicka på "Redigera" om du vill göra ändringar.
         </motion.div>
       )}
     </div>

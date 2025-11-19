@@ -2,31 +2,62 @@
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createServerClient } from '@/lib/supabase/server';
-import { generateLetterPDF } from '@/lib/pdf/puppeteer-pdf';
-import { LetterMetadata, TemplateType } from '@/lib/pdf/letter-templates';
+import { LetterMetadata } from '@/lib/pdf/letter-templates';
 import { cleanLetterContent } from '@/lib/pdf/clean-letter-content';
 import { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } from 'docx';
 
 
 
 /**
- * Genererar PDF med Puppeteer
+ * Genererar PDF med Puppeteer från redan genererad HTML
  */
-async function createProfessionalPDF(content: string, metadata: LetterMetadata, templateType: TemplateType = 'formal'): Promise<Buffer> {
+async function createProfessionalPDF(htmlContent: string): Promise<Buffer> {
   try {
-    console.log('Generating PDF with Puppeteer');
-    const pdfBuffer = await generateLetterPDF(content, metadata, {
-      template: templateType,
-      format: 'A4',
-      margins: {
-        top: '2.5cm',
-        right: '2cm',
-        bottom: '2cm',
-        left: '2cm'
-      }
+    console.log('Generating PDF with Puppeteer from template HTML');
+
+    // Dynamisk import av Puppeteer
+    const puppeteer = await import('puppeteer');
+
+    // Starta browser
+    const browser = await puppeteer.default.launch({
+      headless: 'new',
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-gpu'
+      ]
     });
-    
-    return pdfBuffer;
+
+    try {
+      const page = await browser.newPage();
+
+      // Sätt viewport för A4
+      await page.setViewport({ width: 794, height: 1123 });
+
+      // Sätt HTML-innehållet (som redan är komplett HTML från template)
+      await page.setContent(htmlContent, {
+        waitUntil: 'networkidle0',
+        timeout: 30000
+      });
+
+      // Generera PDF
+      const pdfBuffer = await page.pdf({
+        format: 'A4',
+        printBackground: true,
+        margin: {
+          top: '0',
+          right: '0',
+          bottom: '0',
+          left: '0'
+        },
+        preferCSSPageSize: true
+      });
+
+      return Buffer.from(pdfBuffer);
+    } finally {
+      await browser.close();
+    }
   } catch (error) {
     console.error('Puppeteer PDF generation error:', error);
     throw new Error(`PDF generation failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
@@ -40,9 +71,22 @@ async function createProfessionalDocx(content: string, metadata: LetterMetadata)
   try {
     console.log('Generating DOCX with docx library');
     
+    // Extrahera body-innehåll från komplett HTML-dokument
+    let bodyContent = content;
+    const bodyMatch = content.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+    if (bodyMatch) {
+      bodyContent = bodyMatch[1];
+    }
+
+    // Ta bort style tags och deras innehåll
+    bodyContent = bodyContent.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
+
+    // Ta bort script tags och deras innehåll
+    bodyContent = bodyContent.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
+
     // Rensa dubblerat innehåll innan HTML-rensning
-    const cleanedContent = cleanLetterContent(content, metadata);
-    
+    const cleanedContent = cleanLetterContent(bodyContent, metadata);
+
     // Förbered text innehållet genom att ta bort HTML-taggar och formatera paragrafer
     const cleanContent = cleanedContent
       .replace(/<[^>]*>/g, '') // Ta bort HTML-taggar
@@ -297,15 +341,14 @@ export async function POST(request: Request) {
       .replace(/[^a-zA-Z0-9\s]/g, '')
       .replace(/\s+/g, '_');
     
-    const templateType = (template as TemplateType) || 'formal';
-    
     // Generera fil baserat på önskat format
     if (format === 'docx') {
       fileData = await createProfessionalDocx(content, enhancedMetadata);
       fileType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
       fileName += '.docx';
     } else if (format === 'pdf') {
-      fileData = await createProfessionalPDF(content, enhancedMetadata, templateType);
+      // content är redan komplett HTML från template, skicka direkt
+      fileData = await createProfessionalPDF(content);
       fileType = 'application/pdf';
       fileName += '.pdf';
     } else {
