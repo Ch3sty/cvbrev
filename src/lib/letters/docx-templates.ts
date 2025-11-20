@@ -408,8 +408,9 @@ export const sidebarDocxTemplate: DocxTemplate = {
     .sidebar p {
       margin-bottom: 0.75rem;
       font-size: 10pt;
-      word-break: break-word;
+      word-break: break-all;
       overflow-wrap: break-word;
+      hyphens: none;
     }
 
     .sidebar .name {
