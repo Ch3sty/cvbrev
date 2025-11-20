@@ -142,9 +142,9 @@ async function createProfessionalDocx(
       full_name: metadata.author || 'Användare',
       email: metadata.email || '',
       phone: metadata.phone || null,
-      location: metadata.address || null,
+      location: metadata.location || null,
       include_phone_in_letters: !!metadata.phone,
-      include_location_in_letters: !!metadata.address
+      include_location_in_letters: !!metadata.location
     };
 
     // Skapa JobInfo objekt från metadata
@@ -219,7 +219,7 @@ export async function POST(request: Request) {
       author: profileData?.full_name || user.email?.split('@')[0] || 'Användare',
       email: user.email || '',
       phone: profileData?.phone || '',
-      address: profileData?.address || '',
+      location: profileData?.location || '',
       date: new Date().toLocaleDateString('sv-SE')
     };
     

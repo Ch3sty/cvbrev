@@ -189,9 +189,9 @@ export const classicDocxTemplate: DocxTemplate = {
 <body>
   <div class="header-info">
     <p class="name">${profile.full_name}</p>
-    ${profile.include_location_in_letters && profile.location ? `<p>${profile.location}</p>` : ''}
     ${profile.include_phone_in_letters && profile.phone ? `<p>${profile.phone}</p>` : ''}
     <p>${profile.email}</p>
+    ${profile.include_location_in_letters && profile.location ? `<p>${profile.location}</p>` : ''}
   </div>
 
   <div class="date">${date}</div>
@@ -246,53 +246,68 @@ export const classicDocxTemplate: DocxTemplate = {
                 size: 24
               })
             ],
-            spacing: { after: 120 }
+            spacing: { after: 120 },
+            indent: { firstLine: 0 }
           }),
-
-          ...(profile.include_location_in_letters && profile.location ? [
-            new Paragraph({
-              children: [new TextRun({ text: profile.location, size: 22 })],
-              spacing: { after: 120 }
-            })
-          ] : []),
 
           ...(profile.include_phone_in_letters && profile.phone ? [
             new Paragraph({
               children: [new TextRun({ text: profile.phone, size: 22 })],
-              spacing: { after: 120 }
+              spacing: { after: 120 },
+              indent: { firstLine: 0 }
             })
           ] : []),
 
           new Paragraph({
             children: [new TextRun({ text: profile.email, size: 22 })],
-            spacing: { after: 400 }
+            spacing: { after: 120 },
+            indent: { firstLine: 0 }
           }),
+
+          ...(profile.include_location_in_letters && profile.location ? [
+            new Paragraph({
+              children: [new TextRun({ text: profile.location, size: 22 })],
+              spacing: { after: 400 },
+              indent: { firstLine: 0 }
+            })
+          ] : []),
+
+          ...(!profile.include_location_in_letters || !profile.location ? [
+            new Paragraph({
+              text: '',
+              spacing: { after: 280 }
+            })
+          ] : []),
 
           // Datum
           new Paragraph({
             children: [new TextRun({ text: date, size: 22 })],
-            spacing: { after: 400 }
+            spacing: { after: 400 },
+            indent: { firstLine: 0 }
           }),
 
           // Mottagare
           ...(jobInfo.company ? [
             new Paragraph({
               children: [new TextRun({ text: jobInfo.company, bold: true, size: 22 })],
-              spacing: { after: 120 }
+              spacing: { after: 120 },
+              indent: { firstLine: 0 }
             })
           ] : []),
 
           ...(jobInfo.position ? [
             new Paragraph({
               children: [new TextRun({ text: `Ansökan: ${jobInfo.position}`, bold: true, size: 22 })],
-              spacing: { after: 480 }
+              spacing: { after: 480 },
+              indent: { firstLine: 0 }
             })
           ] : []),
 
           // Hälsning
           new Paragraph({
             children: [new TextRun({ text: 'Hej,', size: 24 })],
-            spacing: { after: 240 }
+            spacing: { after: 240 },
+            indent: { firstLine: 0 }
           }),
 
           // Body paragraphs
@@ -300,18 +315,21 @@ export const classicDocxTemplate: DocxTemplate = {
             new Paragraph({
               children: [new TextRun({ text: para, size: 24 })],
               alignment: AlignmentType.LEFT,
-              spacing: { after: 240, line: 360, lineRule: 'auto' }
+              spacing: { after: 240, line: 360, lineRule: 'auto' },
+              indent: { firstLine: 0 }
             })
           ),
 
           // Avslutning
           new Paragraph({
             children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 24 })],
-            spacing: { before: 480, after: 600 }
+            spacing: { before: 480, after: 600 },
+            indent: { firstLine: 0 }
           }),
 
           new Paragraph({
-            children: [new TextRun({ text: profile.full_name, bold: true, size: 24 })]
+            children: [new TextRun({ text: profile.full_name, bold: true, size: 24 })],
+            indent: { firstLine: 0 }
           })
         ]
       }]
@@ -468,8 +486,8 @@ export const sidebarDocxTemplate: DocxTemplate = {
     <div class="sidebar">
       <p class="name">${profile.full_name}</p>
       ${profile.include_phone_in_letters && profile.phone ? `<p>${profile.phone}</p>` : ''}
-      ${profile.include_location_in_letters && profile.location ? `<p>${profile.location}</p>` : ''}
       <p>${profile.email}</p>
+      ${profile.include_location_in_letters && profile.location ? `<p>${profile.location}</p>` : ''}
     </div>
 
     <div class="content">
@@ -512,11 +530,11 @@ export const sidebarDocxTemplate: DocxTemplate = {
         ? [{ text: profile.phone, bold: false }]
         : []
       ),
+      { text: profile.email, bold: false },
       ...(profile.include_location_in_letters && profile.location
         ? [{ text: profile.location, bold: false }]
         : []
-      ),
-      { text: profile.email, bold: false }
+      )
     ];
 
     return new Document({
@@ -773,6 +791,7 @@ export const minimalDocxTemplate: DocxTemplate = {
       <p class="name">${profile.full_name}</p>
       ${profile.include_phone_in_letters && profile.phone ? `<p>${profile.phone}</p>` : ''}
       <p>${profile.email}</p>
+      ${profile.include_location_in_letters && profile.location ? `<p>${profile.location}</p>` : ''}
     </div>
 
     <div class="to-section">
@@ -831,21 +850,32 @@ export const minimalDocxTemplate: DocxTemplate = {
                     children: [
                       new Paragraph({
                         children: [new TextRun({ text: 'Från', bold: true, size: 20 })],
-                        spacing: { after: 120 }
+                        spacing: { after: 120 },
+                        indent: { firstLine: 0 }
                       }),
                       new Paragraph({
                         children: [new TextRun({ text: profile.full_name, size: 22 })],
-                        spacing: { after: 80 }
+                        spacing: { after: 80 },
+                        indent: { firstLine: 0 }
                       }),
                       ...(profile.include_phone_in_letters && profile.phone ? [
                         new Paragraph({
                           children: [new TextRun({ text: profile.phone, size: 20 })],
-                          spacing: { after: 80 }
+                          spacing: { after: 80 },
+                          indent: { firstLine: 0 }
                         })
                       ] : []),
                       new Paragraph({
-                        children: [new TextRun({ text: profile.email, size: 20 })]
-                      })
+                        children: [new TextRun({ text: profile.email, size: 20 })],
+                        spacing: { after: 80 },
+                        indent: { firstLine: 0 }
+                      }),
+                      ...(profile.include_location_in_letters && profile.location ? [
+                        new Paragraph({
+                          children: [new TextRun({ text: profile.location, size: 20 })],
+                          indent: { firstLine: 0 }
+                        })
+                      ] : [])
                     ]
                   }),
 
@@ -855,17 +885,20 @@ export const minimalDocxTemplate: DocxTemplate = {
                     children: [
                       new Paragraph({
                         children: [new TextRun({ text: 'Till', bold: true, size: 20 })],
-                        spacing: { after: 120 }
+                        spacing: { after: 120 },
+                        indent: { firstLine: 0 }
                       }),
                       ...(jobInfo.company ? [
                         new Paragraph({
                           children: [new TextRun({ text: jobInfo.company, size: 22 })],
-                          spacing: { after: 80 }
+                          spacing: { after: 80 },
+                          indent: { firstLine: 0 }
                         })
                       ] : []),
                       ...(jobInfo.position ? [
                         new Paragraph({
-                          children: [new TextRun({ text: jobInfo.position, size: 20 })]
+                          children: [new TextRun({ text: jobInfo.position, size: 20 })],
+                          indent: { firstLine: 0 }
                         })
                       ] : [])
                     ]
@@ -882,13 +915,15 @@ export const minimalDocxTemplate: DocxTemplate = {
           // Datum
           new Paragraph({
             children: [new TextRun({ text: date, size: 22 })],
-            spacing: { after: 400 }
+            spacing: { after: 400 },
+            indent: { firstLine: 0 }
           }),
 
           // Hälsning
           new Paragraph({
             children: [new TextRun({ text: 'Hej,', size: 24 })],
-            spacing: { after: 240 }
+            spacing: { after: 240 },
+            indent: { firstLine: 0 }
           }),
 
           // Body
@@ -896,18 +931,21 @@ export const minimalDocxTemplate: DocxTemplate = {
             new Paragraph({
               children: [new TextRun({ text: para, size: 24 })],
               alignment: AlignmentType.LEFT,
-              spacing: { after: 240, line: 360, lineRule: 'auto' }
+              spacing: { after: 240, line: 360, lineRule: 'auto' },
+              indent: { firstLine: 0 }
             })
           ),
 
           // Avslutning
           new Paragraph({
             children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 24 })],
-            spacing: { before: 480, after: 600 }
+            spacing: { before: 480, after: 600 },
+            indent: { firstLine: 0 }
           }),
 
           new Paragraph({
-            children: [new TextRun({ text: profile.full_name, bold: true, size: 24 })]
+            children: [new TextRun({ text: profile.full_name, bold: true, size: 24 })],
+            indent: { firstLine: 0 }
           })
         ]
       }]
@@ -1030,8 +1068,9 @@ export const centeredDocxTemplate: DocxTemplate = {
 <body>
   <div class="centered-header">
     <p class="name">${profile.full_name}</p>
-    <p class="contact">${profile.email}</p>
     ${profile.include_phone_in_letters && profile.phone ? `<p class="contact">${profile.phone}</p>` : ''}
+    <p class="contact">${profile.email}</p>
+    ${profile.include_location_in_letters && profile.location ? `<p class="contact">${profile.location}</p>` : ''}
   </div>
 
   <div class="header-divider"></div>
@@ -1083,20 +1122,39 @@ export const centeredDocxTemplate: DocxTemplate = {
           new Paragraph({
             children: [new TextRun({ text: profile.full_name, bold: true, size: 26 })],
             alignment: AlignmentType.CENTER,
-            spacing: { after: 120 }
-          }),
-
-          new Paragraph({
-            children: [new TextRun({ text: profile.email, size: 22 })],
-            alignment: AlignmentType.CENTER,
-            spacing: { after: profile.include_phone_in_letters && profile.phone ? 80 : 240 }
+            spacing: { after: 120 },
+            indent: { firstLine: 0 }
           }),
 
           ...(profile.include_phone_in_letters && profile.phone ? [
             new Paragraph({
               children: [new TextRun({ text: profile.phone, size: 22 })],
               alignment: AlignmentType.CENTER,
-              spacing: { after: 240 }
+              spacing: { after: 80 },
+              indent: { firstLine: 0 }
+            })
+          ] : []),
+
+          new Paragraph({
+            children: [new TextRun({ text: profile.email, size: 22 })],
+            alignment: AlignmentType.CENTER,
+            spacing: { after: 80 },
+            indent: { firstLine: 0 }
+          }),
+
+          ...(profile.include_location_in_letters && profile.location ? [
+            new Paragraph({
+              children: [new TextRun({ text: profile.location, size: 22 })],
+              alignment: AlignmentType.CENTER,
+              spacing: { after: 240 },
+              indent: { firstLine: 0 }
+            })
+          ] : []),
+
+          ...(!profile.include_location_in_letters || !profile.location ? [
+            new Paragraph({
+              text: '',
+              spacing: { after: 160 }
             })
           ] : []),
 
@@ -1116,13 +1174,15 @@ export const centeredDocxTemplate: DocxTemplate = {
           // Till/Mottagare
           new Paragraph({
             children: [new TextRun({ text: 'Till', bold: true, size: 20 })],
-            spacing: { after: 120 }
+            spacing: { after: 120 },
+            indent: { firstLine: 0 }
           }),
 
           ...(jobInfo.company ? [
             new Paragraph({
               children: [new TextRun({ text: jobInfo.company, size: 22 })],
-              spacing: { after: 80 }
+              spacing: { after: 80 },
+              indent: { firstLine: 0 }
             })
           ] : []),
 
@@ -1131,13 +1191,15 @@ export const centeredDocxTemplate: DocxTemplate = {
           // Datum
           new Paragraph({
             children: [new TextRun({ text: date, size: 22 })],
-            spacing: { after: 400 }
+            spacing: { after: 400 },
+            indent: { firstLine: 0 }
           }),
 
           // Hälsning
           new Paragraph({
             children: [new TextRun({ text: 'Hej,', size: 24 })],
-            spacing: { after: 240 }
+            spacing: { after: 240 },
+            indent: { firstLine: 0 }
           }),
 
           // Body
@@ -1145,18 +1207,21 @@ export const centeredDocxTemplate: DocxTemplate = {
             new Paragraph({
               children: [new TextRun({ text: para, size: 24 })],
               alignment: AlignmentType.LEFT,
-              spacing: { after: 240, line: 360, lineRule: 'auto' }
+              spacing: { after: 240, line: 360, lineRule: 'auto' },
+              indent: { firstLine: 0 }
             })
           ),
 
           // Avslutning
           new Paragraph({
             children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 24 })],
-            spacing: { before: 480, after: 600 }
+            spacing: { before: 480, after: 600 },
+            indent: { firstLine: 0 }
           }),
 
           new Paragraph({
-            children: [new TextRun({ text: profile.full_name, bold: true, size: 24 })]
+            children: [new TextRun({ text: profile.full_name, bold: true, size: 24 })],
+            indent: { firstLine: 0 }
           })
         ]
       }]

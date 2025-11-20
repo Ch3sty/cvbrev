@@ -10,7 +10,7 @@ export interface LetterMetadata {
   author: string;
   email: string;
   phone?: string;
-  address?: string;
+  location?: string;
   date?: string;
   recipientAddress?: string;
 }
