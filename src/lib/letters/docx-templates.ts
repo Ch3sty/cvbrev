@@ -171,7 +171,7 @@ export const classicDocxTemplate: DocxTemplate = {
 
     .body-content p {
       margin-bottom: 1.5rem;
-      text-align: justify;
+      text-align: left;
     }
 
     .closing {
@@ -297,7 +297,7 @@ export const classicDocxTemplate: DocxTemplate = {
           ...paragraphs.map(para =>
             new Paragraph({
               children: [new TextRun({ text: para, size: 24 })],
-              alignment: AlignmentType.JUSTIFIED,
+              alignment: AlignmentType.LEFT,
               spacing: { after: 240, line: 360, lineRule: 'auto' }
             })
           ),
@@ -420,7 +420,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
 
     .body-content p {
       margin-bottom: 1.5rem;
-      text-align: justify;
+      text-align: left;
     }
 
     .closing {
@@ -606,7 +606,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
                       ...paragraphs.map(para =>
                         new Paragraph({
                           children: [new TextRun({ text: para, size: 24 })],
-                          alignment: AlignmentType.JUSTIFIED,
+                          alignment: AlignmentType.LEFT,
                           spacing: { after: 240, line: 360, lineRule: 'auto' }
                         })
                       ),
@@ -722,7 +722,7 @@ export const minimalDocxTemplate: DocxTemplate = {
 
     .body-content p {
       margin-bottom: 1.5rem;
-      text-align: justify;
+      text-align: left;
     }
 
     .closing {
@@ -870,7 +870,7 @@ export const minimalDocxTemplate: DocxTemplate = {
           ...paragraphs.map(para =>
             new Paragraph({
               children: [new TextRun({ text: para, size: 24 })],
-              alignment: AlignmentType.JUSTIFIED,
+              alignment: AlignmentType.LEFT,
               spacing: { after: 240, line: 360, lineRule: 'auto' }
             })
           ),
@@ -987,7 +987,7 @@ export const centeredDocxTemplate: DocxTemplate = {
 
     .body-content p {
       margin-bottom: 1.5rem;
-      text-align: justify;
+      text-align: left;
     }
 
     .closing {
@@ -1117,7 +1117,7 @@ export const centeredDocxTemplate: DocxTemplate = {
           ...paragraphs.map(para =>
             new Paragraph({
               children: [new TextRun({ text: para, size: 24 })],
-              alignment: AlignmentType.JUSTIFIED,
+              alignment: AlignmentType.LEFT,
               spacing: { after: 240, line: 360, lineRule: 'auto' }
             })
           ),
