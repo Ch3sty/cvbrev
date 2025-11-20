@@ -517,9 +517,9 @@ export const sidebarDocxTemplate: DocxTemplate = {
           page: {
             margin: {
               top: 1440,
-              right: 1152,
+              right: 288,
               bottom: 1152,
-              left: 1152
+              left: 288
             }
           }
         },
@@ -537,9 +537,9 @@ export const sidebarDocxTemplate: DocxTemplate = {
             rows: [
               new TableRow({
                 children: [
-                  // Sidebar cell (20% width)
+                  // Sidebar cell (23% width)
                   new TableCell({
-                    width: { size: 20, type: WidthType.PERCENTAGE },
+                    width: { size: 23, type: WidthType.PERCENTAGE },
                     borders: {
                       top: { style: BorderStyle.NONE },
                       bottom: { style: BorderStyle.NONE },
