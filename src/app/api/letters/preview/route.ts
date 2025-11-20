@@ -48,7 +48,7 @@ export async function POST(request: Request) {
       author: profileData?.full_name || user.email?.split('@')[0] || 'Användare',
       email: user.email || '',
       phone: profileData?.phone || '',
-      address: profileData?.address || '',
+      location: profileData?.location || '',
       date: new Date().toLocaleDateString('sv-SE')
     };
     
