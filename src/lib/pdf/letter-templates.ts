@@ -119,7 +119,7 @@ export const formalLetterTemplate: LetterTemplate = {
             <strong>${metadata.author}</strong><br>
             ${metadata.email}<br>
             ${metadata.phone ? metadata.phone + '<br>' : ''}
-            ${metadata.address ? metadata.address : ''}
+            ${metadata.location ? metadata.location : ''}
           </div>
           
           ${metadata.company ? `
@@ -283,7 +283,7 @@ export const modernLetterTemplate: LetterTemplate = {
               <div class="sender-contact">
                 ${metadata.email}<br>
                 ${metadata.phone ? metadata.phone + '<br>' : ''}
-                ${metadata.address ? metadata.address : ''}
+                ${metadata.location ? metadata.location : ''}
               </div>
             </div>
             <div class="date-info">
@@ -443,7 +443,7 @@ export const semiFormalLetterTemplate: LetterTemplate = {
               <div class="sender-contact">
                 ${metadata.email}<br>
                 ${metadata.phone ? metadata.phone + '<br>' : ''}
-                ${metadata.address ? metadata.address : ''}
+                ${metadata.location ? metadata.location : ''}
               </div>
             </div>
             <div class="date-line">

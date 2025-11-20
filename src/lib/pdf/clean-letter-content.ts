@@ -49,10 +49,10 @@ function removeHeaderDuplicates(content: string, metadata: LetterMetadata): stri
     // Telefon
     /^(\+46|0)[\d\s-]{8,15}$/,
 
-    // Adress/Ort (om det matchar metadata.address)
-    ...(metadata.address ? [new RegExp(`^${escapeRegex(metadata.address)}$`, 'i')] : []),
+    // Adress/Ort (om det matchar metadata.location)
+    ...(metadata.location ? [new RegExp(`^${escapeRegex(metadata.location)}$`, 'i')] : []),
 
-    // Vanliga svenska orter och städer (för att fånga ort även om metadata.address saknas)
+    // Vanliga svenska orter och städer (för att fånga ort även om metadata.location saknas)
     /^(stockholm|göteborg|malmö|uppsala|västerås|örebro|linköping|helsingborg|jönköping|norrköping|lund|umeå|gävle|borås|eskilstuna|södertälje|karlstad|täby|växjö|halmstad|sundsvall|luleå|trollhättan|östersund|borlänge|falun|kalmar|kristianstad|karlskrona|skellefteå|uddevalla|skövde|varberg|mariestad)$/i,
 
     // Företagsnamn (om det matchar metadata.company)
