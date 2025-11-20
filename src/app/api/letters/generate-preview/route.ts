@@ -5,6 +5,7 @@ import { generateCoverLetter, extractJobInfo } from '@/lib/openai/api';
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
 import { getDocxTemplate, type DocxTemplateId } from '@/lib/letters/docx-templates';
 import type { ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
+import { extractSkillsAndExperience, validateAnonymization } from '@/lib/letters/cv-anonymizer';
 
 // Enkel cache för att spåra pågående genereringar och förhindra dubbletter
 // Denna cache finns på serversidan och delas mellan alla användare
@@ -174,9 +175,22 @@ export async function POST(request: Request) {
       // Använd AI för att extrahera jobbinformation från jobbannonsen
       const jobInfo = await extractJobInfo(job_description, language);
 
-      // Generera personligt brev med OpenAI, skicka med språket
+      // *** SÄKERHET: Anonymisera CV-data innan AI-generering ***
+      console.log('🔒 SÄKERHET (Preview): Anonymiserar CV-data...');
+      const anonymizedSkills = extractSkillsAndExperience(cvData.cv_text);
+
+      // Validera anonymisering
+      const anonymizationWarnings = validateAnonymization(anonymizedSkills);
+      if (anonymizationWarnings.length > 0) {
+        console.error('❌ SÄKERHETSVARNING (Preview): PII-läckage detekterat!', anonymizationWarnings);
+      } else {
+        console.log('✅ SÄKERHET VERIFIERAD (Preview): Ingen PII i anonymiserad data');
+      }
+
+      // Generera personligt brev med OpenAI, skicka ENDAST anonymiserad data
+      console.log('🚀 SÄKERHET (Preview): Skickar ENDAST anonymiserad data till OpenAI...');
       const coverLetterResult = await generateCoverLetter(
-        cvData.cv_text,
+        anonymizedSkills, // ✅ ENDAST anonymiserad data, INTE cvData.cv_text
         job_description,
         tonality || 'professional',
         language || 'sv'
@@ -184,6 +198,7 @@ export async function POST(request: Request) {
 
       // Extrahera innehållet från returvärdet (AI-genererad brevkropp)
       const aiGeneratedBody = coverLetterResult.content;
+      console.log('✅ SÄKERHET (Preview): OpenAI returnerade brevkropp (INGEN PII skickades)');
       const generationTimeMs = Date.now() - startTime; // Beräkna total tidsåtgång
 
       // Beräkna faktisk kostnad från databas (med fallback till baseline)
