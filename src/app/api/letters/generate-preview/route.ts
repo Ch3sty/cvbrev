@@ -5,7 +5,6 @@ import { generateCoverLetter, extractJobInfo } from '@/lib/openai/api';
 import { calculateCostFromDatabase } from '@/lib/openai/pricing-sync';
 import { getDocxTemplate, type DocxTemplateId } from '@/lib/letters/docx-templates';
 import type { ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
-import { extractSkillsAndExperience, validateAnonymization } from '@/lib/letters/cv-anonymizer';
 
 // Enkel cache för att spåra pågående genereringar och förhindra dubbletter
 // Denna cache finns på serversidan och delas mellan alla användare
@@ -175,22 +174,35 @@ export async function POST(request: Request) {
       // Använd AI för att extrahera jobbinformation från jobbannonsen
       const jobInfo = await extractJobInfo(job_description, language);
 
-      // *** SÄKERHET: Anonymisera CV-data innan AI-generering ***
-      console.log('🔒 SÄKERHET (Preview): Anonymiserar CV-data...');
-      const anonymizedSkills = extractSkillsAndExperience(cvData.cv_text);
+      // *** SÄKERHET: Enkel PII-rensning från CV-text ***
+      console.log('🔒 SÄKERHET (Preview): Rensar PII från CV-data...');
 
-      // Validera anonymisering
-      const anonymizationWarnings = validateAnonymization(anonymizedSkills);
-      if (anonymizationWarnings.length > 0) {
-        console.error('❌ SÄKERHETSVARNING (Preview): PII-läckage detekterat!', anonymizationWarnings);
-      } else {
-        console.log('✅ SÄKERHET VERIFIERAD (Preview): Ingen PII i anonymiserad data');
-      }
+      // Enkel regex-baserad rensning av PII utan att förstöra innehållet
+      let cleanedCV = cvData.cv_text;
 
-      // Generera personligt brev med OpenAI, skicka ENDAST anonymiserad data
-      console.log('🚀 SÄKERHET (Preview): Skickar ENDAST anonymiserad data till OpenAI...');
+      // Ta bort email
+      cleanedCV = cleanedCV.replace(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g, '');
+
+      // Ta bort svenska telefonnummer
+      cleanedCV = cleanedCV.replace(/(\+46|0046|0)[\s-]?7[\s-]?\d{1}[\s-]?\d{3}[\s-]?\d{2}[\s-]?\d{2}/g, '');
+      cleanedCV = cleanedCV.replace(/\b\d{3}[\s-]?\d{2}[\s-]?\d{2}[\s-]?\d{2}\b/g, '');
+
+      // Ta bort postnummer
+      cleanedCV = cleanedCV.replace(/\b\d{3}\s?\d{2}\b/g, '');
+
+      // Ta bort personnummer
+      cleanedCV = cleanedCV.replace(/\b\d{6}[-\s]?\d{4}\b/g, '');
+
+      // Rensa onödiga mellanslag och newlines
+      cleanedCV = cleanedCV.replace(/\s+/g, ' ').trim();
+
+      console.log('📋 Original CV-längd:', cvData.cv_text.length, 'tecken');
+      console.log('📋 Rensad CV-längd:', cleanedCV.length, 'tecken');
+
+      // Generera personligt brev med OpenAI, skicka CV UTAN PII
+      console.log('🚀 SÄKERHET (Preview): Skickar CV utan PII till OpenAI...');
       const coverLetterResult = await generateCoverLetter(
-        anonymizedSkills, // ✅ ENDAST anonymiserad data, INTE cvData.cv_text
+        cleanedCV, // ✅ CV-text med PII borttaget
         job_description,
         tonality || 'professional',
         language || 'sv'
