@@ -177,10 +177,12 @@ export const classicDocxTemplate: DocxTemplate = {
     .closing {
       margin-top: 2.5rem;
       margin-bottom: 3rem;
+      font-size: 10pt;
     }
 
     .signature {
       font-weight: bold;
+      font-size: 11pt;
     }
   </style>
 </head>
@@ -387,14 +389,14 @@ export const sidebarDocxTemplate: DocxTemplate = {
 
     .sidebar p {
       margin-bottom: 0.75rem;
-      font-size: 11pt;
+      font-size: 10pt;
       word-break: break-word;
       overflow-wrap: break-word;
     }
 
     .sidebar .name {
       font-weight: bold;
-      font-size: 12pt;
+      font-size: 11pt;
     }
 
     .content {
@@ -404,7 +406,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
 
     .date {
       margin-bottom: 2rem;
-      font-size: 11pt;
+      font-size: 10pt;
     }
 
     .recipient {
@@ -414,28 +416,34 @@ export const sidebarDocxTemplate: DocxTemplate = {
     .recipient .company {
       font-weight: bold;
       margin-bottom: 0.5rem;
+      font-size: 11pt;
     }
 
     .recipient .position {
       font-weight: bold;
+      font-size: 11pt;
     }
 
     .greeting {
       margin-bottom: 1.5rem;
+      font-size: 10pt;
     }
 
     .body-content p {
       margin-bottom: 1.5rem;
       text-align: left;
+      font-size: 10pt;
     }
 
     .closing {
       margin-top: 2.5rem;
       margin-bottom: 3rem;
+      font-size: 10pt;
     }
 
     .signature {
       font-weight: bold;
+      font-size: 11pt;
     }
 
     @media (max-width: 768px) {
@@ -559,7 +567,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
                         children: [
                           new TextRun({
                             text: item.text,
-                            size: item.bold ? 24 : 22,
+                            size: item.bold ? 22 : 20,
                             bold: item.bold,
                             font: 'Arial'
                           })
@@ -585,7 +593,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
                     children: [
                       // Datum
                       new Paragraph({
-                        children: [new TextRun({ text: date, size: 22, font: 'Arial' })],
+                        children: [new TextRun({ text: date, size: 20, font: 'Arial' })],
                         spacing: { after: 400 },
                         indent: { firstLine: 0 }
                       }),
@@ -609,7 +617,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
 
                       // Hälsning
                       new Paragraph({
-                        children: [new TextRun({ text: 'Hej,', size: 24, font: 'Arial' })],
+                        children: [new TextRun({ text: 'Hej,', size: 20, font: 'Arial' })],
                         spacing: { after: 240 },
                         indent: { firstLine: 0 }
                       }),
@@ -617,7 +625,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
                       // Body
                       ...paragraphs.map(para =>
                         new Paragraph({
-                          children: [new TextRun({ text: para, size: 24, font: 'Arial' })],
+                          children: [new TextRun({ text: para, size: 20, font: 'Arial' })],
                           alignment: AlignmentType.LEFT,
                           spacing: { after: 240, line: 360, lineRule: 'auto' },
                           indent: { firstLine: 0 }
@@ -626,13 +634,13 @@ export const sidebarDocxTemplate: DocxTemplate = {
 
                       // Avslutning
                       new Paragraph({
-                        children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 24, font: 'Arial' })],
+                        children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 20, font: 'Arial' })],
                         spacing: { before: 480, after: 600 },
                         indent: { firstLine: 0 }
                       }),
 
                       new Paragraph({
-                        children: [new TextRun({ text: profile.full_name, bold: true, size: 24, font: 'Arial' })],
+                        children: [new TextRun({ text: profile.full_name, bold: true, size: 22, font: 'Arial' })],
                         indent: { firstLine: 0 }
                       })
                     ]
@@ -743,10 +751,12 @@ export const minimalDocxTemplate: DocxTemplate = {
     .closing {
       margin-top: 2.5rem;
       margin-bottom: 3rem;
+      font-size: 10pt;
     }
 
     .signature {
       font-weight: bold;
+      font-size: 11pt;
     }
 
     @media (max-width: 768px) {
@@ -1008,10 +1018,12 @@ export const centeredDocxTemplate: DocxTemplate = {
     .closing {
       margin-top: 2.5rem;
       margin-bottom: 3rem;
+      font-size: 10pt;
     }
 
     .signature {
       font-weight: bold;
+      font-size: 11pt;
     }
   </style>
 </head>
