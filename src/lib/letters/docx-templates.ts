@@ -560,10 +560,12 @@ export const sidebarDocxTemplate: DocxTemplate = {
                           new TextRun({
                             text: item.text,
                             size: item.bold ? 24 : 22,
-                            bold: item.bold
+                            bold: item.bold,
+                            font: 'Arial'
                           })
                         ],
-                        spacing: { after: 120 }
+                        spacing: { after: 120 },
+                        indent: { firstLine: 0 }
                       })
                     )
                   }),
@@ -583,48 +585,55 @@ export const sidebarDocxTemplate: DocxTemplate = {
                     children: [
                       // Datum
                       new Paragraph({
-                        children: [new TextRun({ text: date, size: 22 })],
-                        spacing: { after: 400 }
+                        children: [new TextRun({ text: date, size: 22, font: 'Arial' })],
+                        spacing: { after: 400 },
+                        indent: { firstLine: 0 }
                       }),
 
                       // Mottagare
                       ...(jobInfo.company ? [
                         new Paragraph({
-                          children: [new TextRun({ text: jobInfo.company, bold: true, size: 22 })],
-                          spacing: { after: 120 }
+                          children: [new TextRun({ text: jobInfo.company, bold: true, size: 22, font: 'Arial' })],
+                          spacing: { after: 120 },
+                          indent: { firstLine: 0 }
                         })
                       ] : []),
 
                       ...(jobInfo.position ? [
                         new Paragraph({
-                          children: [new TextRun({ text: `Ansökan: ${jobInfo.position}`, bold: true, size: 22 })],
-                          spacing: { after: 480 }
+                          children: [new TextRun({ text: `Ansökan: ${jobInfo.position}`, bold: true, size: 22, font: 'Arial' })],
+                          spacing: { after: 480 },
+                          indent: { firstLine: 0 }
                         })
                       ] : []),
 
                       // Hälsning
                       new Paragraph({
-                        children: [new TextRun({ text: 'Hej,', size: 24 })],
-                        spacing: { after: 240 }
+                        children: [new TextRun({ text: 'Hej,', size: 24, font: 'Arial' })],
+                        spacing: { after: 240 },
+                        indent: { firstLine: 0 }
                       }),
 
                       // Body
                       ...paragraphs.map(para =>
                         new Paragraph({
-                          children: [new TextRun({ text: para, size: 24 })],
+                          children: [new TextRun({ text: para, size: 24, font: 'Arial' })],
                           alignment: AlignmentType.LEFT,
-                          spacing: { after: 240, line: 360, lineRule: 'auto' }
+                          spacing: { after: 240, line: 360, lineRule: 'auto' },
+                          indent: { firstLine: 0 }
                         })
                       ),
 
                       // Avslutning
                       new Paragraph({
-                        children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 24 })],
-                        spacing: { before: 480, after: 600 }
+                        children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 24, font: 'Arial' })],
+                        spacing: { before: 480, after: 600 },
+                        indent: { firstLine: 0 }
                       }),
 
                       new Paragraph({
-                        children: [new TextRun({ text: profile.full_name, bold: true, size: 24 })]
+                        children: [new TextRun({ text: profile.full_name, bold: true, size: 24, font: 'Arial' })],
+                        indent: { firstLine: 0 }
                       })
                     ]
                   })
