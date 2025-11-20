@@ -375,7 +375,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
     }
 
     .sidebar {
-      flex: 0 0 25%;
+      flex: 0 0 20%;
       border-right: 2px solid #666666;
       padding-right: 2rem;
       margin-right: 2rem;
@@ -491,13 +491,19 @@ export const sidebarDocxTemplate: DocxTemplate = {
     const date = dateStr || formatSwedishDate();
     const paragraphs = splitIntoParagraphs(bodyContent);
 
-    // Kontaktinfo för sidebar
+    // Kontaktinfo för sidebar - BEHÅLL tomma strängar för spacing
     const sidebarContent = [
-      profile.full_name,
-      profile.include_location_in_letters && profile.location ? profile.location : '',
-      profile.include_phone_in_letters && profile.phone ? profile.phone : '',
-      profile.email
-    ].filter(Boolean);
+      { text: profile.full_name, bold: true },
+      ...(profile.include_location_in_letters && profile.location
+        ? [{ text: profile.location, bold: false }]
+        : []
+      ),
+      ...(profile.include_phone_in_letters && profile.phone
+        ? [{ text: profile.phone, bold: false }]
+        : []
+      ),
+      { text: profile.email, bold: false }
+    ];
 
     return new Document({
       sections: [{
@@ -525,9 +531,9 @@ export const sidebarDocxTemplate: DocxTemplate = {
             rows: [
               new TableRow({
                 children: [
-                  // Sidebar cell (25% width)
+                  // Sidebar cell (20% width)
                   new TableCell({
-                    width: { size: 25, type: WidthType.PERCENTAGE },
+                    width: { size: 20, type: WidthType.PERCENTAGE },
                     borders: {
                       top: { style: BorderStyle.NONE },
                       bottom: { style: BorderStyle.NONE },
@@ -542,13 +548,13 @@ export const sidebarDocxTemplate: DocxTemplate = {
                       right: 300
                     },
                     verticalAlign: VerticalAlign.TOP,
-                    children: sidebarContent.map((text, idx) =>
+                    children: sidebarContent.map((item, idx) =>
                       new Paragraph({
                         children: [
                           new TextRun({
-                            text,
-                            size: idx === 0 ? 24 : 22,
-                            bold: idx === 0
+                            text: item.text,
+                            size: item.bold ? 24 : 22,
+                            bold: item.bold
                           })
                         ],
                         spacing: { after: 120 }
@@ -556,9 +562,9 @@ export const sidebarDocxTemplate: DocxTemplate = {
                     )
                   }),
 
-                  // Content cell (75% width)
+                  // Content cell (80% width)
                   new TableCell({
-                    width: { size: 75, type: WidthType.PERCENTAGE },
+                    width: { size: 80, type: WidthType.PERCENTAGE },
                     borders: {
                       top: { style: BorderStyle.NONE },
                       bottom: { style: BorderStyle.NONE },

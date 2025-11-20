@@ -34,24 +34,30 @@ function removeHeaderDuplicates(content: string, metadata: LetterMetadata): stri
     /^(personligt\s+brev|ansökningsbrev|ansökan|brev)/i,
     /^(ansökan\s*(till|om)\s*(tjänsten\s+som)?)/i,
     /^(angående|avseende|gällande)/i,
-    
+
     // Datum i olika format
     /^\d{4}-\d{2}-\d{2}$/,
     /^\d{1,2}\s+(januari|februari|mars|april|maj|juni|juli|augusti|september|oktober|november|december)\s+\d{4}$/i,
     /^\d{1,2}\/\d{1,2}[-\/]\d{2,4}$/,
-    
+
     // Namn (om det matchar metadata.author)
     new RegExp(`^${escapeRegex(metadata.author || '')}$`, 'i'),
-    
+
     // E-post
     /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-    
+
     // Telefon
     /^(\+46|0)[\d\s-]{8,15}$/,
-    
+
+    // Adress/Ort (om det matchar metadata.address)
+    ...(metadata.address ? [new RegExp(`^${escapeRegex(metadata.address)}$`, 'i')] : []),
+
+    // Vanliga svenska orter och städer (för att fånga ort även om metadata.address saknas)
+    /^(stockholm|göteborg|malmö|uppsala|västerås|örebro|linköping|helsingborg|jönköping|norrköping|lund|umeå|gävle|borås|eskilstuna|södertälje|karlstad|täby|växjö|halmstad|sundsvall|luleå|trollhättan|östersund|borlänge|falun|kalmar|kristianstad|karlskrona|skellefteå|uddevalla|skövde|varberg|mariestad)$/i,
+
     // Företagsnamn (om det matchar metadata.company)
     ...(metadata.company ? [new RegExp(`^${escapeRegex(metadata.company)}$`, 'i')] : []),
-    
+
     // Tjänstetitel (om den matchar metadata.position)
     ...(metadata.position ? [new RegExp(`^(ansökan:?\\s*)?${escapeRegex(metadata.position)}$`, 'i')] : []),
   ];
