@@ -370,13 +370,15 @@ export const sidebarDocxTemplate: DocxTemplate = {
 
     .container {
       display: flex;
-      gap: 2rem;
+      gap: 0;
+      position: relative;
     }
 
     .sidebar {
-      flex: 0 0 30%;
+      flex: 0 0 25%;
       border-right: 2px solid #666666;
-      padding-right: 1.5rem;
+      padding-right: 2rem;
+      margin-right: 2rem;
     }
 
     .sidebar p {
@@ -391,7 +393,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
 
     .content {
       flex: 1;
-      padding-left: 1.5rem;
+      padding-left: 0;
     }
 
     .date {
@@ -512,13 +514,24 @@ export const sidebarDocxTemplate: DocxTemplate = {
         children: [
           // Table layout: sidebar + content
           new Table({
+            borders: {
+              top: { style: BorderStyle.NONE },
+              bottom: { style: BorderStyle.NONE },
+              left: { style: BorderStyle.NONE },
+              right: { style: BorderStyle.NONE },
+              insideHorizontal: { style: BorderStyle.NONE },
+              insideVertical: { style: BorderStyle.NONE }
+            },
             rows: [
               new TableRow({
                 children: [
-                  // Sidebar cell (30% width)
+                  // Sidebar cell (25% width)
                   new TableCell({
-                    width: { size: 30, type: WidthType.PERCENTAGE },
+                    width: { size: 25, type: WidthType.PERCENTAGE },
                     borders: {
+                      top: { style: BorderStyle.NONE },
+                      bottom: { style: BorderStyle.NONE },
+                      left: { style: BorderStyle.NONE },
                       right: {
                         style: BorderStyle.SINGLE,
                         size: 15,
@@ -526,7 +539,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
                       }
                     },
                     margins: {
-                      right: 200
+                      right: 300
                     },
                     verticalAlign: VerticalAlign.TOP,
                     children: sidebarContent.map((text, idx) =>
@@ -543,9 +556,15 @@ export const sidebarDocxTemplate: DocxTemplate = {
                     )
                   }),
 
-                  // Content cell (70% width)
+                  // Content cell (75% width)
                   new TableCell({
-                    width: { size: 70, type: WidthType.PERCENTAGE },
+                    width: { size: 75, type: WidthType.PERCENTAGE },
+                    borders: {
+                      top: { style: BorderStyle.NONE },
+                      bottom: { style: BorderStyle.NONE },
+                      left: { style: BorderStyle.NONE },
+                      right: { style: BorderStyle.NONE }
+                    },
                     margins: {
                       left: 300
                     },

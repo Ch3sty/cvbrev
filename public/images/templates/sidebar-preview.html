@@ -17,15 +17,16 @@
       padding: 2.5cm 2cm;
       background: white;
     }
-    .container { display: flex; gap: 2rem; }
+    .container { display: flex; gap: 0; position: relative; }
     .sidebar {
-      flex: 0 0 30%;
+      flex: 0 0 25%;
       border-right: 2px solid #666666;
-      padding-right: 1.5rem;
+      padding-right: 2rem;
+      margin-right: 2rem;
     }
     .sidebar p { margin-bottom: 0.75rem; font-size: 11pt; }
     .sidebar .name { font-weight: bold; font-size: 12pt; }
-    .content { flex: 1; padding-left: 1.5rem; }
+    .content { flex: 1; padding-left: 0; }
     .date { margin-bottom: 2rem; font-size: 11pt; }
     .recipient { margin-bottom: 2rem; }
     .recipient .company { font-weight: bold; margin-bottom: 0.5rem; }
