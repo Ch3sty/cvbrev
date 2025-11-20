@@ -316,7 +316,7 @@ export const classicDocxTemplate: DocxTemplate = {
               children: [new TextRun({ text: para, size: 24 })],
               alignment: AlignmentType.LEFT,
               spacing: { after: 240, line: 360, lineRule: 'auto' },
-              indent: { firstLine: 0 }
+              indent: { left: 0, right: 0, firstLine: 0 }
             })
           ),
 
@@ -646,7 +646,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
                           children: [new TextRun({ text: para, size: 20, font: 'Arial' })],
                           alignment: AlignmentType.LEFT,
                           spacing: { after: 240, line: 360, lineRule: 'auto' },
-                          indent: { firstLine: 0 }
+                          indent: { left: 0, right: 0, firstLine: 0 }
                         })
                       ),
 
@@ -932,7 +932,7 @@ export const minimalDocxTemplate: DocxTemplate = {
               children: [new TextRun({ text: para, size: 24 })],
               alignment: AlignmentType.LEFT,
               spacing: { after: 240, line: 360, lineRule: 'auto' },
-              indent: { firstLine: 0 }
+              indent: { left: 0, right: 0, firstLine: 0 }
             })
           ),
 
@@ -1208,7 +1208,7 @@ export const centeredDocxTemplate: DocxTemplate = {
               children: [new TextRun({ text: para, size: 24 })],
               alignment: AlignmentType.LEFT,
               spacing: { after: 240, line: 360, lineRule: 'auto' },
-              indent: { firstLine: 0 }
+              indent: { left: 0, right: 0, firstLine: 0 }
             })
           ),
 
