@@ -341,7 +341,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
   <style>
     @page {
       size: A4;
-      margin: 2.5cm 2cm 2cm 2cm;
+      margin: 2.5cm 0.5cm 2cm 0.5cm;
     }
 
     * {
@@ -373,11 +373,11 @@ export const sidebarDocxTemplate: DocxTemplate = {
       gap: 0;
       position: relative;
       width: 100%;
-      padding: 2.5cm 0.2cm 2cm 0.2cm;
+      padding: 0;
     }
 
     .sidebar {
-      width: 25%;
+      width: 23%;
       flex-shrink: 0;
       flex-grow: 0;
       border-right: 2px solid #666666;
