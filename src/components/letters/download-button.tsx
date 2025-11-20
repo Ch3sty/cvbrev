@@ -66,7 +66,7 @@ export default function DownloadButton({
           content: letterContent,
           format,
           metadata,
-          template: format === 'pdf' ? selectedTemplate : undefined
+          template: selectedTemplate  // Använd template för både PDF och DOCX
         }),
       });
 

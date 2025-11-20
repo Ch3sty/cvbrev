@@ -329,7 +329,8 @@ export default function CreateLetterPage() {
           // Flat primitive values only - no metadata object
           title: safeMetadata.title,
           company: safeMetadata.company,
-          position: safeMetadata.position
+          position: safeMetadata.position,
+          template: templateId  // Använd vald template för både PDF och DOCX
         })
       });
 

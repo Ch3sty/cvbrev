@@ -14,7 +14,8 @@
       "Bash(node scripts/generate-template-previews.js:*)",
       "Bash(tee:*)",
       "Bash(npm run dev:*)",
-      "Bash(timeout 10 bash:*)"
+      "Bash(timeout 10 bash:*)",
+      "Bash(npm install:*)"
     ],
     "deny": [],
     "ask": []

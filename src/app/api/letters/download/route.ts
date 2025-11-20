@@ -20,16 +20,48 @@ async function createProfessionalPDF(htmlContent: string): Promise<Buffer> {
     // Dynamisk import av Puppeteer
     const puppeteer = await import('puppeteer');
 
-    // Starta browser
-    const browser = await puppeteer.default.launch({
-      headless: true,
+    // Check if we're in a serverless environment
+    const isServerless = process.env.AWS_LAMBDA_FUNCTION_NAME || process.env.VERCEL;
+
+    const launchOptions: any = {
+      headless: 'new',
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
         '--disable-dev-shm-usage',
-        '--disable-gpu'
+        '--disable-accelerated-2d-canvas',
+        '--no-first-run',
+        '--no-zygote',
+        '--disable-gpu',
+        '--disable-background-timer-throttling',
+        '--disable-backgrounding-occluded-windows',
+        '--disable-renderer-backgrounding',
+        '--disable-web-security',
+        '--disable-features=site-per-process'
       ]
-    });
+    };
+
+    if (isServerless) {
+      // Use Sparticuz Chromium for serverless environments
+      try {
+        const chromium = await import('@sparticuz/chromium');
+        launchOptions.executablePath = await chromium.default.executablePath();
+        launchOptions.args = [
+          ...launchOptions.args,
+          ...chromium.default.args,
+          '--single-process'
+        ];
+        console.log('Using Sparticuz Chromium for serverless');
+      } catch (error) {
+        console.warn('Sparticuz Chromium not available, falling back to system chrome');
+        launchOptions.executablePath = process.platform === 'win32'
+          ? 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
+          : '/usr/bin/google-chrome-stable';
+      }
+    }
+
+    // Starta browser
+    const browser = await puppeteer.default.launch(launchOptions);
 
     try {
       const page = await browser.newPage();
