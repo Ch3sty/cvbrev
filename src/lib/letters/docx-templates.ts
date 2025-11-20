@@ -373,7 +373,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
       gap: 0;
       position: relative;
       width: 100%;
-      padding: 2.5cm 2cm 2cm 2cm;
+      padding: 2.5cm 1cm 2cm 1cm;
     }
 
     .sidebar {
