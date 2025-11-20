@@ -606,14 +606,14 @@ export const sidebarDocxTemplate: DocxTemplate = {
                       right: { style: BorderStyle.NONE }
                     },
                     margins: {
-                      left: 300
+                      left: 0
                     },
                     children: [
                       // Datum
                       new Paragraph({
                         children: [new TextRun({ text: date, size: 20, font: 'Arial' })],
                         spacing: { after: 400 },
-                        indent: { firstLine: 0 }
+                        indent: { left: 400, firstLine: 0 }
                       }),
 
                       // Mottagare
@@ -621,7 +621,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
                         new Paragraph({
                           children: [new TextRun({ text: jobInfo.company, bold: true, size: 22, font: 'Arial' })],
                           spacing: { after: 120 },
-                          indent: { firstLine: 0 }
+                          indent: { left: 400, firstLine: 0 }
                         })
                       ] : []),
 
@@ -629,7 +629,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
                         new Paragraph({
                           children: [new TextRun({ text: `Ansökan: ${jobInfo.position}`, bold: true, size: 22, font: 'Arial' })],
                           spacing: { after: 480 },
-                          indent: { firstLine: 0 }
+                          indent: { left: 400, firstLine: 0 }
                         })
                       ] : []),
 
@@ -637,7 +637,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
                       new Paragraph({
                         children: [new TextRun({ text: 'Hej,', size: 20, font: 'Arial' })],
                         spacing: { after: 240 },
-                        indent: { firstLine: 0 }
+                        indent: { left: 400, firstLine: 0 }
                       }),
 
                       // Body
@@ -646,7 +646,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
                           children: [new TextRun({ text: para, size: 20, font: 'Arial' })],
                           alignment: AlignmentType.LEFT,
                           spacing: { after: 240, line: 360, lineRule: 'auto' },
-                          indent: { left: 0, right: 0, firstLine: 0 }
+                          indent: { left: 400, right: 0, firstLine: 0 }
                         })
                       ),
 
@@ -654,12 +654,12 @@ export const sidebarDocxTemplate: DocxTemplate = {
                       new Paragraph({
                         children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 20, font: 'Arial' })],
                         spacing: { before: 480, after: 600 },
-                        indent: { firstLine: 0 }
+                        indent: { left: 400, firstLine: 0 }
                       }),
 
                       new Paragraph({
-                        children: [new TextRun({ text: profile.full_name, bold: true, size: 22, font: 'Arial' })],
-                        indent: { firstLine: 0 }
+                        children: [new TextRun({ text: profile.full_name, bold: true, size: 20, font: 'Arial' })],
+                        indent: { left: 400, firstLine: 0 }
                       })
                     ]
                   })
