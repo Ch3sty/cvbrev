@@ -372,10 +372,13 @@ export const sidebarDocxTemplate: DocxTemplate = {
       display: flex;
       gap: 0;
       position: relative;
+      width: 100%;
     }
 
     .sidebar {
-      flex: 0 0 20%;
+      width: 20%;
+      flex-shrink: 0;
+      flex-grow: 0;
       border-right: 2px solid #666666;
       padding-right: 2rem;
       margin-right: 2rem;
