@@ -646,7 +646,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
                           children: [new TextRun({ text: para, size: 20, font: 'Arial' })],
                           alignment: AlignmentType.LEFT,
                           spacing: { after: 240, line: 360, lineRule: 'auto' },
-                          indent: { left: 400, right: 0, firstLine: 0 }
+                          indent: { left: 400, right: 0, hanging: 0 }
                         })
                       ),
 
