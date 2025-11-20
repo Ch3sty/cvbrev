@@ -6,7 +6,6 @@ import { LetterMetadata } from '@/lib/pdf/letter-templates';
 import { getDocxTemplate, type DocxTemplateId } from '@/lib/letters/docx-templates';
 import { ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
 import { Packer } from 'docx';
-import { cleanLetterContent } from '@/lib/pdf/clean-letter-content';
 
 
 
@@ -99,6 +98,32 @@ async function createProfessionalPDF(htmlContent: string): Promise<Buffer> {
 }
 
 /**
+ * Extraherar ENDAST brevkropp från HTML, tar bort all personinfo och headers
+ */
+function extractBodyContentFromHTML(html: string): string {
+  // Leta efter body-content div som innehåller AI-genererad text
+  const bodyMatch = html.match(/<div class="body-content">([\s\S]*?)<\/div>/);
+  if (bodyMatch) {
+    // Extrahera paragrafer och konvertera till ren text
+    return bodyMatch[1]
+      .replace(/<p>/g, '')
+      .replace(/<\/p>/g, '\n\n')
+      .replace(/<[^>]*>/g, '') // Ta bort övriga HTML-taggar
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .trim();
+  }
+
+  // Fallback: Om body-content div inte hittas, använd hela innehållet
+  console.warn('Could not find body-content div in HTML, using full content');
+  return html;
+}
+
+/**
  * Genererar riktig DOCX med docx-biblioteket och våra native templates
  */
 async function createProfessionalDocx(
@@ -109,30 +134,8 @@ async function createProfessionalDocx(
   try {
     console.log(`Generating DOCX with template: ${templateId}`);
 
-    // Extrahera body-innehåll från komplett HTML-dokument
-    let bodyContent = content;
-    const bodyMatch = content.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
-    if (bodyMatch) {
-      bodyContent = bodyMatch[1];
-    }
-
-    // Ta bort style och script tags med deras innehåll
-    bodyContent = bodyContent.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
-    bodyContent = bodyContent.replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '');
-
-    // Rensa dubblerat innehåll innan HTML-rensning
-    const cleanedContent = cleanLetterContent(bodyContent, metadata);
-
-    // Förbered text innehållet genom att ta bort HTML-taggar och formatera paragrafer
-    const cleanContent = cleanedContent
-      .replace(/<[^>]*>/g, '') // Ta bort HTML-taggar
-      .replace(/&nbsp;/g, ' ') // Ersätt HTML-entiteter
-      .replace(/&amp;/g, '&')
-      .replace(/&lt;/g, '<')
-      .replace(/&gt;/g, '>')
-      .replace(/&quot;/g, '"')
-      .replace(/&#39;/g, "'")
-      .trim();
+    // ✅ Extrahera ENDAST brevkropp, INGEN personinfo från HTML
+    const cleanContent = extractBodyContentFromHTML(content);
 
     // Skapa ProfileDataForLetter objekt från metadata
     const profileData: ProfileDataForLetter = {
