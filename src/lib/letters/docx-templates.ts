@@ -123,13 +123,13 @@ export const classicDocxTemplate: DocxTemplate = {
       max-width: 100%;
       width: 100%;
       margin: 0;
-      padding: 1.5rem;
+      padding: 0.75rem;
     }
 
     @media print {
       body {
         max-width: 21cm;
-        padding: 2.5cm 2cm;
+        padding: 1.5cm 1cm;
       }
     }
 
@@ -387,6 +387,8 @@ export const sidebarDocxTemplate: DocxTemplate = {
     .sidebar p {
       margin-bottom: 0.75rem;
       font-size: 11pt;
+      word-break: break-word;
+      overflow-wrap: break-word;
     }
 
     .sidebar .name {
@@ -456,8 +458,8 @@ export const sidebarDocxTemplate: DocxTemplate = {
   <div class="container">
     <div class="sidebar">
       <p class="name">${profile.full_name}</p>
-      ${profile.include_location_in_letters && profile.location ? `<p>${profile.location}</p>` : ''}
       ${profile.include_phone_in_letters && profile.phone ? `<p>${profile.phone}</p>` : ''}
+      ${profile.include_location_in_letters && profile.location ? `<p>${profile.location}</p>` : ''}
       <p>${profile.email}</p>
     </div>
 
@@ -497,12 +499,12 @@ export const sidebarDocxTemplate: DocxTemplate = {
     // Kontaktinfo för sidebar - BEHÅLL tomma strängar för spacing
     const sidebarContent = [
       { text: profile.full_name, bold: true },
-      ...(profile.include_location_in_letters && profile.location
-        ? [{ text: profile.location, bold: false }]
-        : []
-      ),
       ...(profile.include_phone_in_letters && profile.phone
         ? [{ text: profile.phone, bold: false }]
+        : []
+      ),
+      ...(profile.include_location_in_letters && profile.location
+        ? [{ text: profile.location, bold: false }]
         : []
       ),
       { text: profile.email, bold: false }
@@ -676,13 +678,13 @@ export const minimalDocxTemplate: DocxTemplate = {
       max-width: 100%;
       width: 100%;
       margin: 0;
-      padding: 1.5rem;
+      padding: 0.75rem;
     }
 
     @media print {
       body {
         max-width: 21cm;
-        padding: 2.5cm 2cm;
+        padding: 1.5cm 1cm;
       }
     }
 
@@ -933,13 +935,13 @@ export const centeredDocxTemplate: DocxTemplate = {
       max-width: 100%;
       width: 100%;
       margin: 0;
-      padding: 1.5rem;
+      padding: 0.75rem;
     }
 
     @media print {
       body {
         max-width: 21cm;
-        padding: 2.5cm 2cm;
+        padding: 1.5cm 1cm;
       }
     }
 
