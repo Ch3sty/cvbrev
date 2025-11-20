@@ -358,13 +358,13 @@ export const sidebarDocxTemplate: DocxTemplate = {
       max-width: 100%;
       width: 100%;
       margin: 0;
-      padding: 1.5rem;
+      padding: 0;
     }
 
     @media print {
       body {
         max-width: 21cm;
-        padding: 2.5cm 2cm;
+        padding: 0;
       }
     }
 
@@ -373,6 +373,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
       gap: 0;
       position: relative;
       width: 100%;
+      padding: 2.5cm 2cm 2cm 2cm;
     }
 
     .sidebar {
