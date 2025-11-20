@@ -313,7 +313,7 @@ export const classicDocxTemplate: DocxTemplate = {
           // Body paragraphs
           ...paragraphs.map(para =>
             new Paragraph({
-              children: [new TextRun({ text: para, size: 24 })],
+              children: [new TextRun({ text: para.trim(), size: 24 })],
               alignment: AlignmentType.LEFT,
               spacing: { after: 240, line: 360, lineRule: 'auto' },
               indent: { left: 0, right: 0, firstLine: 0 }
@@ -643,7 +643,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
                       // Body
                       ...paragraphs.map(para =>
                         new Paragraph({
-                          children: [new TextRun({ text: para, size: 20, font: 'Arial' })],
+                          children: [new TextRun({ text: para.trim(), size: 20, font: 'Arial' })],
                           alignment: AlignmentType.LEFT,
                           spacing: { after: 240, line: 360, lineRule: 'auto' },
                           indent: { left: 400, right: 0, hanging: 0 }
