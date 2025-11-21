@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Eye, Download, Edit3, Copy, Check, FileText, Save, Info, Layout, Crown, Lock, Loader2 } from 'lucide-react';
 import { DOCX_TEMPLATES, type DocxTemplateId } from '@/lib/letters/docx-templates';
+import { extractEditableContent, isTemplateHTML as checkIsTemplateHTML } from '@/lib/letters/extract-editable-content';
 
 interface PreviewStepProps {
   letterContent: string;
@@ -30,6 +31,7 @@ export default function PreviewStep({
 }: PreviewStepProps) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(letterContent);
+  const [editableText, setEditableText] = useState(''); // Clean text för redigering
   const [copied, setCopied] = useState(false);
   const [showTemplateDropdown, setShowTemplateDropdown] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
@@ -42,14 +44,34 @@ export default function PreviewStep({
   }, [letterContent]);
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(editedContent);
+    // Kopiera clean text istället för HTML
+    const textToCopy = checkIsTemplateHTML(editedContent)
+      ? extractEditableContent(editedContent)
+      : editedContent;
+    await navigator.clipboard.writeText(textToCopy);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleStartEdit = () => {
+    // Extrahera clean text när edit-läge startar
+    const cleanText = checkIsTemplateHTML(editedContent)
+      ? extractEditableContent(editedContent)
+      : editedContent;
+    setEditableText(cleanText);
+    setIsEditing(true);
+  };
+
   const handleSaveEdit = () => {
-    onEdit(editedContent);
+    // När användaren sparar, skicka den redigerade texten (INTE HTML)
+    // Parent-komponenten måste regenerera HTML med nya texten
+    onEdit(editableText);
     setIsEditing(false);
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+    setEditableText('');
   };
 
   const isTemplateHTML = (content: string) => {
@@ -204,7 +226,7 @@ export default function PreviewStep({
           {/* Sekundära actions - Left side */}
           <div className="flex items-center gap-2 justify-center sm:justify-start">
             <motion.button
-              onClick={() => setIsEditing(!isEditing)}
+              onClick={isEditing ? handleCancelEdit : handleStartEdit}
               className="flex items-center justify-center gap-2 px-4 py-2.5 text-gray-700 bg-white border-2 border-gray-300 rounded-lg hover:bg-gray-50 hover:border-gray-400 transition-all font-medium flex-1 sm:flex-initial"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -308,17 +330,15 @@ export default function PreviewStep({
             className="w-full max-w-4xl"
           >
             <textarea
-              value={editedContent}
-              onChange={(e) => setEditedContent(e.target.value)}
+              value={editableText}
+              onChange={(e) => setEditableText(e.target.value)}
               className="w-full h-[600px] p-8 bg-white border border-gray-200 rounded-xl text-gray-900 resize-none focus:outline-none focus:ring-2 focus:ring-pink-500"
               style={{ fontFamily: 'Georgia, serif' }}
+              placeholder="Skriv ditt brev här..."
             />
             <div className="flex justify-end gap-2 mt-4">
               <button
-                onClick={() => {
-                  setIsEditing(false);
-                  setEditedContent(letterContent);
-                }}
+                onClick={handleCancelEdit}
                 className="px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50"
               >
                 Avbryt

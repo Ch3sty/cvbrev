@@ -27,6 +27,7 @@ import {
 
 // Import DownloadButton for PDF functionality
 import DownloadButton from '@/components/letters/download-button';
+import { extractEditableContent, isTemplateHTML } from '@/lib/letters/extract-editable-content';
 
 // Reuse LetterTag component for consistency
 const LetterTag = ({
@@ -73,7 +74,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
   const [isSaving, setIsSaving] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
-  const [editedContent, setEditedContent] = useState('');
+  const [editableText, setEditableText] = useState(''); // Clean text för redigering
   const [copied, setCopied] = useState(false);
   const [zoom, setZoom] = useState(0.7);
   const previewRef = useRef<HTMLDivElement>(null);
@@ -98,7 +99,6 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
         job_title: currentLetter.job_title || '',
         content: currentLetter.content || ''
       });
-      setEditedContent(currentLetter.content || '');
     }
   }, [currentLetter]);
 
@@ -123,7 +123,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
         return;
       }
 
-      const contentToSave = isEditing ? editedContent : formData.content;
+      const contentToSave = isEditing ? editableText : formData.content;
       if (!contentToSave.trim()) {
         setSaveError('Brevinnehåll är obligatoriskt');
         return;
@@ -153,16 +153,37 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
     }
   };
 
+  const handleStartEdit = () => {
+    // Extrahera clean text när edit-läge startar
+    const content = formData.content || '';
+    const cleanText = isTemplateHTML(content)
+      ? extractEditableContent(content)
+      : content;
+    setEditableText(cleanText);
+    setIsEditing(true);
+  };
+
   const handleCopy = async () => {
-    const contentToCopy = isEditing ? editedContent : formData.content;
-    await navigator.clipboard.writeText(contentToCopy.replace(/<[^>]*>/g, ''));
+    const content = formData.content || '';
+    const textToCopy = isTemplateHTML(content)
+      ? extractEditableContent(content)
+      : content;
+    await navigator.clipboard.writeText(textToCopy);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   const handleSaveEdit = () => {
-    setFormData(prev => ({ ...prev, content: editedContent }));
+    // OBS: editableText innehåller nu ren text, inte HTML
+    // Vi sparar texten, men behåller originalinnehållet som fallback
+    // Parent-komponenten/databasen bör hantera template-regenerering vid behov
+    setFormData(prev => ({ ...prev, content: editableText }));
     setIsEditing(false);
+  };
+
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+    setEditableText('');
   };
 
   const formatContent = (content: string) => {
@@ -371,7 +392,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
             </motion.button>
 
             <motion.button
-              onClick={() => setIsEditing(!isEditing)}
+              onClick={isEditing ? handleCancelEdit : handleStartEdit}
               className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-200"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
@@ -402,7 +423,7 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
 
             <DownloadButton
               format="pdf"
-              letterContent={isEditing ? editedContent : formData.content}
+              letterContent={formData.content}
               metadata={{
                 title: formData.title || undefined,
                 company: formData.company || undefined,
@@ -424,17 +445,15 @@ export default function EditLetterPage({ params }: { params: Promise<{ id: strin
               className="w-full max-w-4xl"
             >
               <textarea
-                value={editedContent}
-                onChange={(e) => setEditedContent(e.target.value)}
+                value={editableText}
+                onChange={(e) => setEditableText(e.target.value)}
                 className="w-full h-[600px] p-8 bg-white border border-gray-200 rounded-xl text-gray-900 resize-none focus:outline-none focus:ring-2 focus:ring-pink-500"
                 style={{ fontFamily: 'Georgia, serif' }}
+                placeholder="Skriv ditt brev här..."
               />
               <div className="flex justify-end gap-2 mt-4">
                 <motion.button
-                  onClick={() => {
-                    setIsEditing(false);
-                    setEditedContent(formData.content);
-                  }}
+                  onClick={handleCancelEdit}
                   className="px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 hover:scale-105 transition-all duration-200 shadow-sm hover:shadow-md"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
