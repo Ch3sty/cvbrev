@@ -1223,8 +1223,8 @@ export const twocolumnDocxTemplate: DocxTemplate = {
 
     // Formatera datum med plats om den finns
     const dateWithLocation = profile.include_location_in_letters && profile.location
-      ? `${profile.location}, ${date.split(' ').join('/')},`
-      : `${date.split(' ').join('/')},`;
+      ? `${profile.location}, ${date},`
+      : `${date},`;
 
     return `<!DOCTYPE html>
 <html lang="sv">
@@ -1406,8 +1406,8 @@ export const twocolumnDocxTemplate: DocxTemplate = {
 
     // Formatera datum med plats om den finns
     const dateWithLocation = profile.include_location_in_letters && profile.location
-      ? `${profile.location}, ${date.split(' ').join('/')},`
-      : `${date.split(' ').join('/')},`;
+      ? `${profile.location}, ${date},`
+      : `${date},`;
 
     return new Document({
       sections: [{
