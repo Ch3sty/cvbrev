@@ -324,28 +324,42 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
         </div>
 
         {/* Document Preview - EXACT copy from PreviewStep */}
-        <div className="bg-gray-50 rounded-2xl p-6 min-h-[600px] flex items-center justify-center">
+        <div className={`bg-white rounded-2xl border border-gray-200 p-4 sm:p-6 min-h-[400px] relative ${isTemplateHTML(currentLetter.content || '') ? '' : 'flex items-center justify-center'}`}>
           <motion.div
             ref={previewRef}
-            className="bg-white shadow-2xl rounded-lg overflow-hidden"
-            style={{
-              width: '210mm',
-              minHeight: '297mm',
-              transform: `scale(${zoom})`,
-              transformOrigin: 'top center',
-              transition: 'transform 0.3s ease'
-            }}
+            className={
+              isTemplateHTML(currentLetter.content || '')
+                ? 'w-full mx-auto' // Template HTML: full width, let parent control constraints
+                : 'bg-white shadow-2xl rounded-lg overflow-hidden w-full max-w-4xl' // Legacy styling for plain text
+            }
+            style={
+              isTemplateHTML(currentLetter.content || '')
+                ? {
+                    transform: `scale(${zoom})`,
+                    transformOrigin: 'top center',
+                    transition: 'transform 0.3s ease'
+                  }
+                : {
+                    width: '210mm',
+                    minHeight: '297mm',
+                    transform: `scale(${zoom})`,
+                    transformOrigin: 'top center',
+                    transition: 'transform 0.3s ease'
+                  }
+            }
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            whileHover={{ boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.25)' }}
+            whileHover={isTemplateHTML(currentLetter.content || '') ? {} : { boxShadow: '0 30px 60px -12px rgba(0, 0, 0, 0.25)' }}
           >
-            {/* Page Header */}
-            <div className="border-b border-gray-100 px-8 py-4 bg-gradient-to-r from-gray-50 to-white">
-              <div className="flex items-center gap-2">
-                <FileText className="w-5 h-5 text-gray-400" />
-                <span className="text-sm text-gray-600">Personligt brev</span>
+            {/* Page Header - Only for plain text (legacy) */}
+            {!isTemplateHTML(currentLetter.content || '') && (
+              <div className="border-b border-gray-100 px-8 py-4 bg-gradient-to-r from-gray-50 to-white">
+                <div className="flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-gray-400" />
+                  <span className="text-sm text-gray-600">Personligt brev</span>
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Page Content */}
             <div
@@ -354,12 +368,14 @@ export default function ViewLetterPage({ params }: { params: Promise<{ id: strin
               dangerouslySetInnerHTML={{ __html: formatContent(currentLetter.content || '') }}
             />
 
-            {/* Page Footer */}
-            <div className="border-t border-gray-100 px-8 py-4 bg-gradient-to-r from-white to-gray-50">
-              <p className="text-xs text-gray-400 text-center">
-                Genererat med Jobbcoach.ai
-              </p>
-            </div>
+            {/* Page Footer - Only for plain text (legacy) */}
+            {!isTemplateHTML(currentLetter.content || '') && (
+              <div className="border-t border-gray-100 px-8 py-4 bg-gradient-to-r from-white to-gray-50">
+                <p className="text-xs text-gray-400 text-center">
+                  Genererat med Jobbcoach.ai
+                </p>
+              </div>
+            )}
           </motion.div>
         </div>
 
