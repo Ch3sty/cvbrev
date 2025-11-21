@@ -842,6 +842,14 @@ export const minimalDocxTemplate: DocxTemplate = {
         children: [
           // From/To layout
           new Table({
+            borders: {
+              top: { style: BorderStyle.NONE },
+              bottom: { style: BorderStyle.NONE },
+              left: { style: BorderStyle.NONE },
+              right: { style: BorderStyle.NONE },
+              insideHorizontal: { style: BorderStyle.NONE },
+              insideVertical: { style: BorderStyle.NONE }
+            },
             rows: [
               new TableRow({
                 children: [
@@ -930,7 +938,7 @@ export const minimalDocxTemplate: DocxTemplate = {
           // Body
           ...paragraphs.map(para =>
             new Paragraph({
-              children: [new TextRun({ text: para, size: 24 })],
+              children: [new TextRun({ text: para.trim(), size: 24 })],
               alignment: AlignmentType.LEFT,
               spacing: { after: 240, line: 360, lineRule: 'auto' },
               indent: { left: 0, right: 0, firstLine: 0 }
@@ -1206,7 +1214,7 @@ export const centeredDocxTemplate: DocxTemplate = {
           // Body
           ...paragraphs.map(para =>
             new Paragraph({
-              children: [new TextRun({ text: para, size: 24 })],
+              children: [new TextRun({ text: para.trim(), size: 24 })],
               alignment: AlignmentType.LEFT,
               spacing: { after: 240, line: 360, lineRule: 'auto' },
               indent: { left: 0, right: 0, firstLine: 0 }
