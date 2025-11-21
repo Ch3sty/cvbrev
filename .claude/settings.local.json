@@ -15,7 +15,8 @@
       "Bash(tee:*)",
       "Bash(npm run dev:*)",
       "Bash(timeout 10 bash:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(npx tsc:*)"
     ],
     "deny": [],
     "ask": []

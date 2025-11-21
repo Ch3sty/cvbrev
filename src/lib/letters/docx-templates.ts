@@ -26,7 +26,7 @@ import {
 } from 'docx';
 import { ProfileDataForLetter, JobInfo } from './template-merger';
 
-export type DocxTemplateId = 'classic' | 'sidebar' | 'minimal' | 'centered';
+export type DocxTemplateId = 'classic' | 'sidebar' | 'minimal' | 'centered' | 'compact';
 
 export interface DocxTemplate {
   id: DocxTemplateId;
@@ -963,6 +963,250 @@ export const minimalDocxTemplate: DocxTemplate = {
 };
 
 /**
+ * COMPACT Template - Inline contact info, space-efficient
+ */
+export const compactDocxTemplate: DocxTemplate = {
+  id: 'compact',
+  name: 'Kompakt',
+  description: 'Sparar vertikalt utrymme med inline kontaktinfo',
+  tier: 'free',
+  industries: ['Tech', 'Fintech', 'Consulting', 'Alla moderna branscher'],
+
+  generateHTML: (profile, jobInfo, bodyContent, dateStr) => {
+    const date = dateStr || formatSwedishDate();
+    const paragraphs = splitIntoParagraphs(bodyContent);
+
+    // Build inline contact info with pipe separator
+    const contactParts = [profile.full_name];
+    if (profile.email) contactParts.push(profile.email);
+    if (profile.include_phone_in_letters && profile.phone) contactParts.push(profile.phone);
+    if (profile.include_location_in_letters && profile.location) contactParts.push(profile.location);
+    const contactLine = contactParts.join(' | ');
+
+    return `<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${jobInfo.title || 'Ansökningsbrev'}</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 2cm;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      font-size: 12pt;
+      line-height: 1.5;
+      color: #000000;
+      max-width: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0.75rem;
+    }
+
+    @media print {
+      body {
+        max-width: 21cm;
+        padding: 1.5cm 1cm;
+      }
+    }
+
+    .header-compact {
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .header-compact p {
+      margin: 0;
+      font-size: 10pt;
+      color: #333;
+    }
+
+    .date {
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: right;
+      font-size: 10pt;
+      color: #666;
+    }
+
+    .recipient {
+      margin-bottom: 1.5rem;
+    }
+
+    .recipient p {
+      margin-bottom: 0.5rem;
+      font-size: 11pt;
+    }
+
+    .recipient .company {
+      font-weight: bold;
+    }
+
+    .greeting {
+      margin-bottom: 1.5rem;
+      font-size: 11pt;
+    }
+
+    .body-content p {
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .closing {
+      margin-top: 2.5rem;
+      margin-bottom: 3rem;
+      font-size: 10pt;
+    }
+
+    .signature {
+      font-weight: bold;
+      font-size: 11pt;
+    }
+  </style>
+</head>
+<body>
+  <div class="header-compact">
+    <p>${contactLine}</p>
+  </div>
+
+  <div class="date">${date}</div>
+
+  <div class="recipient">
+    ${jobInfo.company ? `<p class="company">${jobInfo.company}</p>` : ''}
+    ${jobInfo.position ? `<p>Ansökan: ${jobInfo.position}</p>` : ''}
+  </div>
+
+  <div class="greeting">
+    <p>Hej,</p>
+  </div>
+
+  <div class="body-content">
+    ${paragraphs.map(p => `<p>${p}</p>`).join('\n    ')}
+  </div>
+
+  <div class="closing">
+    <p>Med vänliga hälsningar,</p>
+  </div>
+
+  <div class="signature">
+    <p>${profile.full_name}</p>
+  </div>
+</body>
+</html>`;
+  },
+
+  generateDocument: (profile, jobInfo, bodyContent, dateStr) => {
+    const date = dateStr || formatSwedishDate();
+    const paragraphs = splitIntoParagraphs(bodyContent);
+
+    // Build inline contact info with pipe separator
+    const contactParts = [profile.full_name];
+    if (profile.email) contactParts.push(profile.email);
+    if (profile.include_phone_in_letters && profile.phone) contactParts.push(profile.phone);
+    if (profile.include_location_in_letters && profile.location) contactParts.push(profile.location);
+    const contactLine = contactParts.join(' | ');
+
+    return new Document({
+      sections: [{
+        properties: {
+          page: {
+            margin: {
+              top: 1152, // 2cm
+              right: 1152,
+              bottom: 1152,
+              left: 1152
+            }
+          }
+        },
+        children: [
+          // Compact header with border
+          new Paragraph({
+            children: [new TextRun({ text: contactLine, size: 20, color: '333333' })],
+            spacing: { after: 120 },
+            border: {
+              bottom: {
+                color: 'DDDDDD',
+                space: 1,
+                style: BorderStyle.SINGLE,
+                size: 6
+              }
+            },
+            indent: { firstLine: 0 }
+          }),
+
+          // Space after header
+          new Paragraph({ text: '', spacing: { after: 240 } }),
+
+          // Datum (right aligned)
+          new Paragraph({
+            children: [new TextRun({ text: date, size: 20, color: '666666' })],
+            alignment: AlignmentType.RIGHT,
+            spacing: { after: 400 },
+            indent: { firstLine: 0 }
+          }),
+
+          // Mottagare
+          ...(jobInfo.company ? [
+            new Paragraph({
+              children: [new TextRun({ text: jobInfo.company, bold: true, size: 22 })],
+              spacing: { after: 120 },
+              indent: { firstLine: 0 }
+            })
+          ] : []),
+
+          ...(jobInfo.position ? [
+            new Paragraph({
+              children: [new TextRun({ text: `Ansökan: ${jobInfo.position}`, size: 22 })],
+              spacing: { after: 480 },
+              indent: { firstLine: 0 }
+            })
+          ] : []),
+
+          // Hälsning
+          new Paragraph({
+            children: [new TextRun({ text: 'Hej,', size: 24 })],
+            spacing: { after: 240 },
+            indent: { firstLine: 0 }
+          }),
+
+          // Body paragraphs
+          ...paragraphs.map(para =>
+            new Paragraph({
+              children: [new TextRun({ text: para.trim(), size: 24 })],
+              alignment: AlignmentType.LEFT,
+              spacing: { after: 240, line: 360, lineRule: 'auto' },
+              indent: { left: 0, right: 0, firstLine: 0 }
+            })
+          ),
+
+          // Avslutning
+          new Paragraph({
+            children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 24 })],
+            spacing: { before: 480, after: 600 },
+            indent: { firstLine: 0 }
+          }),
+
+          new Paragraph({
+            children: [new TextRun({ text: profile.full_name, bold: true, size: 24 })],
+            indent: { firstLine: 0 }
+          })
+        ]
+      }]
+    });
+  }
+};
+
+/**
  * CENTERED Template - Centrerad header med horisontell linje (liknande Therese Bodin)
  */
 export const centeredDocxTemplate: DocxTemplate = {
@@ -1243,6 +1487,7 @@ export const DOCX_TEMPLATES: Record<DocxTemplateId, DocxTemplate> = {
   classic: classicDocxTemplate,
   sidebar: sidebarDocxTemplate,
   minimal: minimalDocxTemplate,
+  compact: compactDocxTemplate,
   centered: centeredDocxTemplate
 };
 

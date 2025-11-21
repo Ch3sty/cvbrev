@@ -681,6 +681,126 @@ export const creativeTemplate: LetterTemplate = {
 };
 
 /**
+ * COMPACT Template - Inline contact info, space-efficient
+ * FREE tier
+ */
+export const compactTemplate: LetterTemplate = {
+  id: 'compact',
+  name: 'Kompakt',
+  description: 'Sparar vertikalt utrymme med inline kontaktinfo',
+  tier: 'free',
+  industries: ['Tech', 'Fintech', 'Consulting', 'Alla moderna branscher'],
+  generateHTML: (profile, jobInfo, bodyContent, dateStr) => {
+    const date = dateStr || formatSwedishDate();
+
+    // Build inline contact info with pipe separator
+    const contactParts = [profile.full_name];
+    if (profile.email) contactParts.push(profile.email);
+    if (profile.include_phone_in_letters && profile.phone) contactParts.push(profile.phone);
+    if (profile.include_location_in_letters && profile.location) contactParts.push(profile.location);
+    const contactLine = contactParts.join(' | ');
+
+    return `
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @page {
+      size: A4;
+      margin: 2cm;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      font-size: 12pt;
+      line-height: 1.6;
+      color: #000;
+      max-width: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 1.5rem;
+    }
+    @media print {
+      body {
+        max-width: 21cm;
+        padding: 2cm;
+      }
+    }
+    .header-compact {
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #ddd;
+    }
+    .header-compact p {
+      margin: 0;
+      font-size: 10pt;
+      color: #333;
+    }
+    .date {
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: right;
+      font-size: 10pt;
+      color: #666;
+    }
+    .recipient {
+      margin-bottom: 1.5rem;
+    }
+    .recipient p {
+      margin: 0.25rem 0;
+    }
+    .greeting {
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+    .body {
+      margin-bottom: 2rem;
+    }
+    .body p {
+      margin-bottom: 1rem;
+    }
+    .signature {
+      margin-top: 2rem;
+    }
+    .signature p {
+      margin: 0.5rem 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="header-compact">
+    <p>${contactLine}</p>
+  </div>
+
+  <div class="date">
+    <p>${date}</p>
+  </div>
+
+  <div class="recipient">
+    ${jobInfo.recipient ? `<p>${jobInfo.recipient}</p>` : ''}
+    <p><strong>${jobInfo.company}</strong></p>
+    ${jobInfo.position ? `<p>Ansökan: ${jobInfo.position}</p>` : ''}
+  </div>
+
+  <div class="greeting">
+    <p>${jobInfo.recipient ? `Hej ${jobInfo.recipient},` : 'Hej,'}</p>
+  </div>
+
+  <div class="body">
+    ${bodyContent.split('\n\n').map(p => `<p>${p.trim()}</p>`).join('\n')}
+  </div>
+
+  <div class="signature">
+    <p>Med vänliga hälsningar,</p>
+    <p><strong>${profile.full_name}</strong></p>
+  </div>
+</body>
+</html>
+    `.trim();
+  }
+};
+
+/**
  * TRADITIONAL Template - Conservative design for formal industries
  * PREMIUM tier
  */
@@ -806,6 +926,7 @@ export const traditionalTemplate: LetterTemplate = {
 export const LETTER_TEMPLATES: Record<string, LetterTemplate> = {
   classic: classicTemplate,
   minimalist: minimalistTemplate,
+  compact: compactTemplate,
   modern: modernTemplate,
   executive: executiveTemplate,
   creative: creativeTemplate,
