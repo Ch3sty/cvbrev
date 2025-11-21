@@ -91,7 +91,9 @@ export function htmlToPlainText(html: string | null | undefined): string {
     console.error('Error converting HTML to plain text:', error);
     // Fallback till regex om DOM-parsing misslyckas
     return html
-      .replace(/<[^>]*>/g, '') // Ta bort HTML-taggar
+      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '') // Ta bort style-taggar och deras innehåll
+      .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '') // Ta bort script-taggar och deras innehåll
+      .replace(/<[^>]*>/g, '') // Ta bort resterande HTML-taggar
       .replace(/&nbsp;/g, ' ') // Ersätt &nbsp; med space
       .replace(/&lt;/g, '<')   // Konvertera vanliga entities
       .replace(/&gt;/g, '>')
