@@ -78,14 +78,21 @@ export function htmlToPlainText(html: string | null | undefined): string {
   if (!html) return '';
 
   try {
-    // Skapa en temporary DOM element för säker parsing
-    const temp = document.createElement('div');
-    temp.innerHTML = html;
+    // STEG 1: Ta bort <style>, <script> och <head> FÖRST (före DOM-parsing)
+    // Detta säkerställer att CSS-kod aldrig når textContent
+    const cleaned = html
+      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '') // Ta bort style-taggar och deras innehåll
+      .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '') // Ta bort script-taggar och deras innehåll
+      .replace(/<head[^>]*>[\s\S]*?<\/head>/gi, ''); // Ta bort head-taggen och dess innehåll
 
-    // Extrahera textinnehåll (hanterar automatiskt HTML-entities)
+    // STEG 2: Skapa DOM element för säker parsing av den rensade HTML:en
+    const temp = document.createElement('div');
+    temp.innerHTML = cleaned;
+
+    // STEG 3: Extrahera textinnehåll (hanterar automatiskt HTML-entities)
     const text = temp.textContent || temp.innerText || '';
 
-    // Normalisera whitespace: ersätt multipla spaces/newlines med single space
+    // STEG 4: Normalisera whitespace: ersätt multipla spaces/newlines med single space
     return text.replace(/\s+/g, ' ').trim();
   } catch (error) {
     console.error('Error converting HTML to plain text:', error);
@@ -93,6 +100,7 @@ export function htmlToPlainText(html: string | null | undefined): string {
     return html
       .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '') // Ta bort style-taggar och deras innehåll
       .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '') // Ta bort script-taggar och deras innehåll
+      .replace(/<head[^>]*>[\s\S]*?<\/head>/gi, '') // Ta bort head-taggen och dess innehåll
       .replace(/<[^>]*>/g, '') // Ta bort resterande HTML-taggar
       .replace(/&nbsp;/g, ' ') // Ersätt &nbsp; med space
       .replace(/&lt;/g, '<')   // Konvertera vanliga entities
