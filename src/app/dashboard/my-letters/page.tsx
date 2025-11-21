@@ -37,6 +37,7 @@ import {
 } from 'lucide-react';
 import Notification from '@/components/ui/notification';
 import DownloadButton from '@/components/letters/download-button';
+import { htmlToPlainText, createPreview } from '@/utils/helpers';
 
 // Taggkomponent - Anpassad stil för att passa in bättre - memoizerad för prestanda
 const LetterTag = memo(({
@@ -348,16 +349,7 @@ export default function MyLettersPage() {
 
   // Förhandsvisning med memoization för bättre prestanda
   const getPreview = useCallback((content: string | null) => {
-    if (!content) return '';
-    try {
-        const plainText = content.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-        return plainText.length > 150
-          ? plainText.substring(0, 150) + '...'
-          : plainText;
-    } catch (error) {
-        console.error("Error generating preview:", error);
-        return '';
-    }
+    return createPreview(htmlToPlainText(content), 150);
   }, []);
 
   // Hantera borttagning

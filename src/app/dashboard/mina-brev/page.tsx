@@ -29,6 +29,7 @@ import {
 import Notification from '@/components/ui/notification';
 import DownloadButton from '@/components/letters/download-button';
 import { DOCX_TEMPLATES } from '@/lib/letters/docx-templates';
+import { htmlToPlainText, createPreview } from '@/utils/helpers';
 
 // New Premium Components - We'll create these inline for now
 const BentoCard = ({ children, className = "", spotlight = false, ...props }: any) => (
@@ -176,7 +177,7 @@ const LetterPreviewCard = ({ letter, onView, onEdit, onDelete, isDeleting }: any
         {/* Preview text with gradient fade */}
         <div className="relative mb-4">
           <div className="text-sm text-gray-700 leading-relaxed line-clamp-3 italic">
-            {letter.content?.replace(/<[^>]*>/g, '').slice(0, 120)}...
+            {createPreview(htmlToPlainText(letter.content), 120)}
           </div>
           <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-white to-transparent pointer-events-none" />
         </div>

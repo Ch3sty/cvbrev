@@ -67,4 +67,54 @@ export function sanitizeStorageKey(filename: string): string {
   }
 
 
+/**
+ * Konverterar HTML till ren text genom att ta bort alla taggar och HTML-entities.
+ * Hanterar även whitespace på ett korrekt sätt.
+ *
+ * @param html - HTML-strängen att konvertera
+ * @returns Ren text utan HTML-formatering
+ */
+export function htmlToPlainText(html: string | null | undefined): string {
+  if (!html) return '';
+
+  try {
+    // Skapa en temporary DOM element för säker parsing
+    const temp = document.createElement('div');
+    temp.innerHTML = html;
+
+    // Extrahera textinnehåll (hanterar automatiskt HTML-entities)
+    const text = temp.textContent || temp.innerText || '';
+
+    // Normalisera whitespace: ersätt multipla spaces/newlines med single space
+    return text.replace(/\s+/g, ' ').trim();
+  } catch (error) {
+    console.error('Error converting HTML to plain text:', error);
+    // Fallback till regex om DOM-parsing misslyckas
+    return html
+      .replace(/<[^>]*>/g, '') // Ta bort HTML-taggar
+      .replace(/&nbsp;/g, ' ') // Ersätt &nbsp; med space
+      .replace(/&lt;/g, '<')   // Konvertera vanliga entities
+      .replace(/&gt;/g, '>')
+      .replace(/&amp;/g, '&')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/\s+/g, ' ')    // Normalisera whitespace
+      .trim();
+  }
+}
+
+/**
+ * Skapa en förhandsvisning av text med maxlängd.
+ *
+ * @param text - Texten att förhandsgranska
+ * @param maxLength - Max antal tecken (default: 150)
+ * @returns Förkortad text med ellipsis om nödvändigt
+ */
+export function createPreview(text: string, maxLength: number = 150): string {
+  if (!text) return '';
+  const trimmed = text.trim();
+  if (trimmed.length <= maxLength) return trimmed;
+  return trimmed.substring(0, maxLength).trim() + '...';
+}
+
 // Du kan lägga till fler hjälpfunktioner här i framtiden om det behövs.
