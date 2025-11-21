@@ -26,7 +26,7 @@ import {
 } from 'docx';
 import { ProfileDataForLetter, JobInfo } from './template-merger';
 
-export type DocxTemplateId = 'classic' | 'sidebar' | 'minimal' | 'centered' | 'compact';
+export type DocxTemplateId = 'classic' | 'sidebar' | 'minimal' | 'centered' | 'compact' | 'twocolumn';
 
 export interface DocxTemplate {
   id: DocxTemplateId;
@@ -1207,6 +1207,494 @@ export const compactDocxTemplate: DocxTemplate = {
 };
 
 /**
+ * TWOCOLUMN Template - Professional Split Layout (70/30)
+ * Layout: Vänster kolumn med namn, företag, datum, innehåll. Höger kolumn med Till/Från info.
+ */
+export const twocolumnDocxTemplate: DocxTemplate = {
+  id: 'twocolumn',
+  name: 'Professional Split',
+  description: 'Två-kolumns layout med kontaktinfo till höger',
+  tier: 'premium',
+  industries: ['Alla branscher', 'Moderna företag', 'Tech', 'Consulting'],
+
+  generateHTML: (profile, jobInfo, bodyContent, dateStr) => {
+    const date = dateStr || formatSwedishDate();
+    const paragraphs = splitIntoParagraphs(bodyContent);
+
+    // Formatera datum med plats om den finns
+    const dateWithLocation = profile.include_location_in_letters && profile.location
+      ? `${profile.location}, ${date.split(' ').join('/')},`
+      : `${date.split(' ').join('/')},`;
+
+    return `<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${jobInfo.title || 'Ansökningsbrev'}</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 2.5cm 2cm 2cm 2cm;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      font-size: 12pt;
+      line-height: 1.5;
+      color: #000000;
+      max-width: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0.75rem;
+    }
+
+    @media print {
+      body {
+        max-width: 21cm;
+        padding: 1.5cm 1cm;
+      }
+    }
+
+    .container {
+      display: flex;
+      gap: 2rem;
+      position: relative;
+      width: 100%;
+    }
+
+    .left-column {
+      width: 70%;
+      flex-shrink: 0;
+    }
+
+    .right-column {
+      width: 30%;
+      flex-shrink: 0;
+    }
+
+    .left-column .name {
+      font-weight: bold;
+      font-size: 18pt;
+      margin-bottom: 0.5rem;
+    }
+
+    .left-column .company {
+      color: #666666;
+      font-size: 11pt;
+      margin-bottom: 1.5rem;
+    }
+
+    .left-column .date {
+      font-size: 11pt;
+      margin-bottom: 2rem;
+    }
+
+    .left-column .greeting {
+      font-size: 12pt;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+    }
+
+    .left-column .body-content p {
+      margin-bottom: 1.5rem;
+      text-align: left;
+      font-size: 11pt;
+      line-height: 1.6;
+    }
+
+    .left-column .closing {
+      margin-top: 2rem;
+      margin-bottom: 3rem;
+      font-size: 11pt;
+    }
+
+    .left-column .signature {
+      font-weight: bold;
+      font-size: 11pt;
+    }
+
+    .right-column {
+      padding-top: 0;
+    }
+
+    .info-section {
+      margin-bottom: 2rem;
+    }
+
+    .info-section .label {
+      font-weight: bold;
+      font-size: 10pt;
+      margin-bottom: 0.75rem;
+    }
+
+    .info-section p {
+      font-size: 10pt;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .info-section .contact-email {
+      color: #0066cc;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .left-column, .right-column {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left-column">
+      <p class="name">${profile.full_name}</p>
+      ${jobInfo.company ? `<p class="company">${jobInfo.company}</p>` : ''}
+
+      <p class="date">${dateWithLocation}</p>
+
+      <p class="greeting">Hej!</p>
+
+      <div class="body-content">
+        ${paragraphs.map(p => `<p>${p}</p>`).join('\n        ')}
+      </div>
+
+      <div class="closing">
+        <p>Vänliga hälsningar,</p>
+      </div>
+
+      <div class="signature">
+        <p>${profile.full_name}</p>
+      </div>
+    </div>
+
+    <div class="right-column">
+      ${jobInfo.company || jobInfo.position ? `
+      <div class="info-section">
+        <p class="label">Till</p>
+        ${jobInfo.company ? `<p>${jobInfo.company}</p>` : ''}
+        ${jobInfo.position ? `<p>${jobInfo.position}</p>` : ''}
+      </div>
+      ` : ''}
+
+      <div class="info-section">
+        <p class="label">Från</p>
+        <p>${profile.full_name}</p>
+        ${jobInfo.position ? `<p>${jobInfo.position}</p>` : ''}
+        ${profile.include_location_in_letters && profile.location ? `<p>${profile.location}</p>` : ''}
+        ${profile.include_phone_in_letters && profile.phone ? `<p>${profile.phone}</p>` : ''}
+        <p class="contact-email">${profile.email}</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>`;
+  },
+
+  generateDocument: (profile, jobInfo, bodyContent, dateStr) => {
+    const date = dateStr || formatSwedishDate();
+    const paragraphs = splitIntoParagraphs(bodyContent);
+
+    // Formatera datum med plats om den finns
+    const dateWithLocation = profile.include_location_in_letters && profile.location
+      ? `${profile.location}, ${date.split(' ').join('/')},`
+      : `${date.split(' ').join('/')},`;
+
+    return new Document({
+      sections: [{
+        properties: {
+          page: {
+            margin: {
+              top: 1440, // 2.5cm
+              right: 1152, // 2cm
+              bottom: 1152,
+              left: 1152
+            }
+          }
+        },
+        children: [
+          // Two-column layout using Table
+          new Table({
+            borders: {
+              top: { style: BorderStyle.NONE },
+              bottom: { style: BorderStyle.NONE },
+              left: { style: BorderStyle.NONE },
+              right: { style: BorderStyle.NONE },
+              insideHorizontal: { style: BorderStyle.NONE },
+              insideVertical: { style: BorderStyle.NONE }
+            },
+            rows: [
+              new TableRow({
+                children: [
+                  // Left column (70%)
+                  new TableCell({
+                    width: { size: 70, type: WidthType.PERCENTAGE },
+                    borders: {
+                      top: { style: BorderStyle.NONE },
+                      bottom: { style: BorderStyle.NONE },
+                      left: { style: BorderStyle.NONE },
+                      right: { style: BorderStyle.NONE }
+                    },
+                    margins: { left: 0, right: 300 },
+                    verticalAlign: VerticalAlign.TOP,
+                    children: [
+                      // Namn (stor, bold)
+                      new Paragraph({
+                        children: [
+                          new TextRun({
+                            text: profile.full_name,
+                            bold: true,
+                            size: 36, // 18pt
+                            font: 'Arial'
+                          })
+                        ],
+                        spacing: { after: 120 },
+                        indent: { firstLine: 0 }
+                      }),
+
+                      // Företagsnamn (grå)
+                      ...(jobInfo.company ? [
+                        new Paragraph({
+                          children: [
+                            new TextRun({
+                              text: jobInfo.company,
+                              size: 22, // 11pt
+                              color: '666666',
+                              font: 'Arial'
+                            })
+                          ],
+                          spacing: { after: 300 },
+                          indent: { firstLine: 0 }
+                        })
+                      ] : []),
+
+                      // Datum med plats
+                      new Paragraph({
+                        children: [
+                          new TextRun({
+                            text: dateWithLocation,
+                            size: 22, // 11pt
+                            font: 'Arial'
+                          })
+                        ],
+                        spacing: { after: 400 },
+                        indent: { firstLine: 0 }
+                      }),
+
+                      // Hälsning: "Hej!" (bold)
+                      new Paragraph({
+                        children: [
+                          new TextRun({
+                            text: 'Hej!',
+                            bold: true,
+                            size: 24, // 12pt
+                            font: 'Arial'
+                          })
+                        ],
+                        spacing: { after: 300 },
+                        indent: { firstLine: 0 }
+                      }),
+
+                      // Body paragraphs
+                      ...paragraphs.map(para =>
+                        new Paragraph({
+                          children: [
+                            new TextRun({
+                              text: para.trim(),
+                              size: 22, // 11pt
+                              font: 'Arial'
+                            })
+                          ],
+                          alignment: AlignmentType.LEFT,
+                          spacing: { after: 300, line: 360, lineRule: 'auto' },
+                          indent: { left: 0, right: 0, hanging: 0 }
+                        })
+                      ),
+
+                      // Avslutning
+                      new Paragraph({
+                        children: [
+                          new TextRun({
+                            text: 'Vänliga hälsningar,',
+                            size: 22, // 11pt
+                            font: 'Arial'
+                          })
+                        ],
+                        spacing: { before: 400, after: 600 },
+                        indent: { firstLine: 0 }
+                      }),
+
+                      // Signatur
+                      new Paragraph({
+                        children: [
+                          new TextRun({
+                            text: profile.full_name,
+                            bold: true,
+                            size: 22, // 11pt
+                            font: 'Arial'
+                          })
+                        ],
+                        indent: { firstLine: 0 }
+                      })
+                    ]
+                  }),
+
+                  // Right column (30%)
+                  new TableCell({
+                    width: { size: 30, type: WidthType.PERCENTAGE },
+                    borders: {
+                      top: { style: BorderStyle.NONE },
+                      bottom: { style: BorderStyle.NONE },
+                      left: { style: BorderStyle.NONE },
+                      right: { style: BorderStyle.NONE }
+                    },
+                    margins: { left: 0 },
+                    verticalAlign: VerticalAlign.TOP,
+                    children: [
+                      // "Till" sektion (om företag/position finns)
+                      ...(jobInfo.company || jobInfo.position ? [
+                        new Paragraph({
+                          children: [
+                            new TextRun({
+                              text: 'Till',
+                              bold: true,
+                              size: 20, // 10pt
+                              font: 'Arial'
+                            })
+                          ],
+                          spacing: { after: 150 },
+                          indent: { firstLine: 0 }
+                        }),
+                        ...(jobInfo.company ? [
+                          new Paragraph({
+                            children: [
+                              new TextRun({
+                                text: jobInfo.company,
+                                size: 20,
+                                font: 'Arial'
+                              })
+                            ],
+                            spacing: { after: 100 },
+                            indent: { firstLine: 0 }
+                          })
+                        ] : []),
+                        ...(jobInfo.position ? [
+                          new Paragraph({
+                            children: [
+                              new TextRun({
+                                text: jobInfo.position,
+                                size: 20,
+                                font: 'Arial'
+                              })
+                            ],
+                            spacing: { after: 400 },
+                            indent: { firstLine: 0 }
+                          })
+                        ] : [])
+                      ] : []),
+
+                      // "Från" sektion
+                      new Paragraph({
+                        children: [
+                          new TextRun({
+                            text: 'Från',
+                            bold: true,
+                            size: 20, // 10pt
+                            font: 'Arial'
+                          })
+                        ],
+                        spacing: { after: 150 },
+                        indent: { firstLine: 0 }
+                      }),
+
+                      new Paragraph({
+                        children: [
+                          new TextRun({
+                            text: profile.full_name,
+                            size: 20,
+                            font: 'Arial'
+                          })
+                        ],
+                        spacing: { after: 100 },
+                        indent: { firstLine: 0 }
+                      }),
+
+                      ...(jobInfo.position ? [
+                        new Paragraph({
+                          children: [
+                            new TextRun({
+                              text: jobInfo.position,
+                              size: 20,
+                              font: 'Arial'
+                            })
+                          ],
+                          spacing: { after: 100 },
+                          indent: { firstLine: 0 }
+                        })
+                      ] : []),
+
+                      ...(profile.include_location_in_letters && profile.location ? [
+                        new Paragraph({
+                          children: [
+                            new TextRun({
+                              text: profile.location,
+                              size: 20,
+                              font: 'Arial'
+                            })
+                          ],
+                          spacing: { after: 100 },
+                          indent: { firstLine: 0 }
+                        })
+                      ] : []),
+
+                      ...(profile.include_phone_in_letters && profile.phone ? [
+                        new Paragraph({
+                          children: [
+                            new TextRun({
+                              text: profile.phone,
+                              size: 20,
+                              font: 'Arial'
+                            })
+                          ],
+                          spacing: { after: 100 },
+                          indent: { firstLine: 0 }
+                        })
+                      ] : []),
+
+                      new Paragraph({
+                        children: [
+                          new TextRun({
+                            text: profile.email,
+                            size: 20,
+                            color: '0066cc', // Blå färg
+                            font: 'Arial'
+                          })
+                        ],
+                        indent: { firstLine: 0 }
+                      })
+                    ]
+                  })
+                ]
+              })
+            ],
+            width: { size: 100, type: WidthType.PERCENTAGE }
+          })
+        ]
+      }]
+    });
+  }
+};
+
+/**
  * CENTERED Template - Centrerad header med horisontell linje (liknande Therese Bodin)
  */
 export const centeredDocxTemplate: DocxTemplate = {
@@ -1488,7 +1976,8 @@ export const DOCX_TEMPLATES: Record<DocxTemplateId, DocxTemplate> = {
   sidebar: sidebarDocxTemplate,
   minimal: minimalDocxTemplate,
   compact: compactDocxTemplate,
-  centered: centeredDocxTemplate
+  centered: centeredDocxTemplate,
+  twocolumn: twocolumnDocxTemplate
 };
 
 export function getDocxTemplate(templateId: DocxTemplateId = 'classic'): DocxTemplate {

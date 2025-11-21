@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional Split - Preview</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 2.5cm 2cm 2cm 2cm;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      font-size: 12pt;
+      line-height: 1.5;
+      color: #000000;
+      max-width: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0.75rem;
+    }
+
+    @media print {
+      body {
+        max-width: 21cm;
+        padding: 1.5cm 1cm;
+      }
+    }
+
+    .container {
+      display: flex;
+      gap: 2rem;
+      position: relative;
+      width: 100%;
+    }
+
+    .left-column {
+      width: 70%;
+      flex-shrink: 0;
+    }
+
+    .right-column {
+      width: 30%;
+      flex-shrink: 0;
+    }
+
+    .left-column .name {
+      font-weight: bold;
+      font-size: 18pt;
+      margin-bottom: 0.5rem;
+    }
+
+    .left-column .company {
+      color: #666666;
+      font-size: 11pt;
+      margin-bottom: 1.5rem;
+    }
+
+    .left-column .date {
+      font-size: 11pt;
+      margin-bottom: 2rem;
+    }
+
+    .left-column .greeting {
+      font-size: 12pt;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+    }
+
+    .left-column .body-content p {
+      margin-bottom: 1.5rem;
+      text-align: left;
+      font-size: 11pt;
+      line-height: 1.6;
+    }
+
+    .left-column .closing {
+      margin-top: 2rem;
+      margin-bottom: 3rem;
+      font-size: 11pt;
+    }
+
+    .left-column .signature {
+      font-weight: bold;
+      font-size: 11pt;
+    }
+
+    .right-column {
+      padding-top: 0;
+    }
+
+    .info-section {
+      margin-bottom: 2rem;
+    }
+
+    .info-section .label {
+      font-weight: bold;
+      font-size: 10pt;
+      margin-bottom: 0.75rem;
+    }
+
+    .info-section p {
+      font-size: 10pt;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+
+    .info-section .contact-email {
+      color: #0066cc;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .left-column, .right-column {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left-column">
+      <p class="name">Anna Andersson</p>
+      <p class="company">Tech Innovations AB</p>
+
+      <p class="date">Stockholm, 22/november/2025,</p>
+
+      <p class="greeting">Hej!</p>
+
+      <div class="body-content">
+        <p>Jag söker härmed tjänsten som Marknadsansvarig hos er. Med fem års erfarenhet från digital marknadsföring och en passion för att skapa engagerande kampagner, tror jag att jag kan tillföra stort värde till ert team.</p>
+
+        <p>Min bakgrund inom både strategisk planering och praktiskt genomförande gör att jag kan se helheten samtidigt som jag levererar konkreta resultat. Jag har framgångsrikt lett kampanjer som ökat varumärkeskännedomen med 45% och drivit försäljningstillväxt på över 30%.</p>
+
+        <p>Jag ser fram emot möjligheten att diskutera hur jag kan bidra till er fortsatta tillväxt och framgång.</p>
+      </div>
+
+      <div class="closing">
+        <p>Vänliga hälsningar,</p>
+      </div>
+
+      <div class="signature">
+        <p>Anna Andersson</p>
+      </div>
+    </div>
+
+    <div class="right-column">
+      <div class="info-section">
+        <p class="label">Till</p>
+        <p>Tech Innovations AB</p>
+        <p>Marknadsansvarig</p>
+      </div>
+
+      <div class="info-section">
+        <p class="label">Från</p>
+        <p>Anna Andersson</p>
+        <p>Marknadsansvarig</p>
+        <p>Stockholm</p>
+        <p>070 123 45 67</p>
+        <p class="contact-email">anna.andersson@email.com</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
