@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Palette, Type, Eye, Download, Sparkles, Crown, CheckCircle } from 'lucide-react'
+import { Palette, Type, Eye, Download, Sparkles, Crown, CheckCircle, ChevronDown, Check } from 'lucide-react'
 
 interface InteractiveLetterPreviewProps {
   exempelBrev: {
@@ -105,11 +105,45 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
   const [selectedTemplate, setSelectedTemplate] = useState('classic')
   const [selectedFont, setSelectedFont] = useState('calibri')
   const [isClient, setIsClient] = useState(false)
+  const [isTemplateOpen, setIsTemplateOpen] = useState(false)
+  const [isFontOpen, setIsFontOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  const templateDropdownRef = useRef<HTMLDivElement>(null)
+  const fontDropdownRef = useRef<HTMLDivElement>(null)
 
   // SEO: Progressive enhancement - visa statiskt innehåll först
   useEffect(() => {
     setIsClient(true)
   }, [])
+
+  // Detect mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  // Close dropdowns on click outside (desktop only)
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (templateDropdownRef.current && !templateDropdownRef.current.contains(event.target as Node)) {
+        setIsTemplateOpen(false)
+      }
+      if (fontDropdownRef.current && !fontDropdownRef.current.contains(event.target as Node)) {
+        setIsFontOpen(false)
+      }
+    }
+
+    if (!isMobile) {
+      document.addEventListener('mousedown', handleClickOutside)
+      return () => document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isMobile])
 
   const template = TEMPLATES.find(t => t.id === selectedTemplate) || TEMPLATES[0]
   const font = FONTS.find(f => f.id === selectedFont) || FONTS[0]
@@ -162,125 +196,344 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
       {isClient && (
         <>
           {/* Controls */}
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
-        <div className="flex items-center gap-2 mb-4">
-          <Sparkles className="w-5 h-5 text-blue-600" />
-          <h3 className="font-bold text-slate-900">Anpassa förhandsvisningen</h3>
-        </div>
-        <p className="text-sm text-slate-600 mb-6">
-          Testa olika mallar och typsnitt för att se hur ditt personliga brev kan se ut
-        </p>
-
-        {/* Template Selector */}
-        <div className="mb-6">
-          <div className="flex items-center gap-2 mb-3">
-            <Palette className="w-4 h-4 text-slate-600" />
-            <label className="text-sm font-semibold text-slate-900">Välj mall</label>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-            {TEMPLATES.map((tmpl) => {
-              const isSelected = selectedTemplate === tmpl.id
-              const isPremium = tmpl.tier === 'premium'
-
-              return (
-                <motion.button
-                  key={tmpl.id}
-                  onClick={() => setSelectedTemplate(tmpl.id)}
-                  className={`relative p-3 rounded-lg border-2 transition-all text-left ${
-                    isSelected
-                      ? 'border-blue-600 bg-blue-50 shadow-md'
-                      : 'border-slate-200 bg-white hover:border-blue-300 hover:shadow-sm'
-                  }`}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {isPremium && (
-                    <div className="absolute top-2 right-2">
-                      <Crown className="w-3 h-3 text-amber-500" />
-                    </div>
-                  )}
-                  {isSelected && (
-                    <div className="absolute top-2 left-2">
-                      <CheckCircle className="w-4 h-4 text-blue-600" />
-                    </div>
-                  )}
-                  <div className={`text-sm font-semibold ${isSelected ? 'text-blue-900' : 'text-slate-900'} ${isPremium ? 'pr-5' : ''}`}>
-                    {tmpl.name}
-                  </div>
-                  <div className="text-xs text-slate-600 mt-0.5">
-                    {tmpl.description}
-                  </div>
-                </motion.button>
-              )
-            })}
-          </div>
-        </div>
-
-        {/* Font Selector */}
-        <div>
-          <div className="flex items-center gap-2 mb-3">
-            <Type className="w-4 h-4 text-slate-600" />
-            <label className="text-sm font-semibold text-slate-900">Välj typsnitt</label>
-          </div>
-
-          {/* Group fonts by category */}
-          {['ATS-Säkra', 'Moderna', 'Formella', 'Premium'].map((category) => {
-            const categoryFonts = FONTS.filter(f => f.category === category)
-            if (categoryFonts.length === 0) return null
-
-            return (
-              <div key={category} className="mb-4">
-                <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">
-                  {category}
-                </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                  {categoryFonts.map((fnt) => {
-                    const isSelected = selectedFont === fnt.id
-                    const isPremium = fnt.tier === 'premium'
-
-                    return (
-                      <motion.button
-                        key={fnt.id}
-                        onClick={() => setSelectedFont(fnt.id)}
-                        className={`p-2 rounded-lg border-2 transition-all text-left ${
-                          isSelected
-                            ? 'border-blue-600 bg-blue-50'
-                            : 'border-slate-200 bg-white hover:border-blue-300'
-                        }`}
-                        style={{ fontFamily: fnt.family }}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <div className={`text-sm font-semibold flex items-center gap-1 ${isSelected ? 'text-blue-900' : 'text-slate-900'}`}>
-                          {fnt.name}
-                          {isPremium && <Crown className="w-3 h-3 text-amber-500" />}
-                        </div>
-                        <div className="text-xs text-slate-600">
-                          {category}
-                        </div>
-                      </motion.button>
-                    )
-                  })}
-                </div>
-              </div>
-            )
-          })}
-        </div>
-
-        {/* Premium Notice */}
-        {template.tier === 'premium' && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-2"
-          >
-            <Crown className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
-            <div className="text-xs text-amber-900">
-              <span className="font-semibold">{template.name}</span> är en premium-mall. Uppgradera till Premium för tillgång till alla mallar och obegränsade nedladdningar.
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 sm:p-6 border border-blue-100">
+            <div className="flex items-center gap-2 mb-2">
+              <Sparkles className="w-5 h-5 text-blue-600" />
+              <h3 className="font-bold text-slate-900">Anpassa förhandsvisningen</h3>
             </div>
-          </motion.div>
-        )}
-      </div>
+            <p className="text-sm text-slate-600 mb-6">
+              Testa olika mallar och typsnitt för att se hur ditt personliga brev kan se ut
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {/* Template Dropdown */}
+              <div ref={templateDropdownRef} className="relative">
+                <label className="flex items-center gap-2 text-sm font-semibold text-slate-900 mb-2">
+                  <Palette className="w-4 h-4 text-slate-600" />
+                  Välj mall
+                </label>
+
+                <button
+                  onClick={() => {
+                    setIsTemplateOpen(!isTemplateOpen)
+                    setIsFontOpen(false)
+                  }}
+                  className="w-full px-4 py-3 bg-white border-2 border-slate-300 rounded-lg hover:border-blue-400 transition-all flex items-center justify-between group"
+                >
+                  <div className="flex items-center gap-2">
+                    {template.tier === 'premium' && (
+                      <Crown className="w-4 h-4 text-amber-500 flex-shrink-0" />
+                    )}
+                    <span className="text-sm font-medium text-slate-900">{template.name}</span>
+                  </div>
+                  <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform ${isTemplateOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {/* Desktop Dropdown */}
+                {!isMobile && isTemplateOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-slate-200 rounded-xl shadow-xl z-50 overflow-hidden max-h-[400px] overflow-y-auto"
+                  >
+                    {TEMPLATES.map((tmpl) => {
+                      const isSelected = selectedTemplate === tmpl.id
+                      const isPremium = tmpl.tier === 'premium'
+
+                      return (
+                        <button
+                          key={tmpl.id}
+                          onClick={() => {
+                            setSelectedTemplate(tmpl.id)
+                            setIsTemplateOpen(false)
+                          }}
+                          className={`w-full px-4 py-3 flex items-start gap-3 transition-colors border-l-4 ${
+                            isSelected
+                              ? 'bg-blue-50 border-blue-600'
+                              : 'bg-white border-transparent hover:bg-slate-50'
+                          }`}
+                        >
+                          <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${
+                            isSelected ? 'border-blue-600 bg-blue-600' : 'border-slate-300'
+                          }`}>
+                            {isSelected && <Check className="w-3 h-3 text-white" />}
+                          </div>
+
+                          <div className="flex-1 text-left">
+                            <div className="font-semibold text-sm text-slate-900 flex items-center gap-2">
+                              {tmpl.name}
+                              {isPremium && <Crown className="w-3.5 h-3.5 text-amber-500" />}
+                            </div>
+                            <p className="text-xs text-slate-600 mt-0.5">{tmpl.description}</p>
+                          </div>
+                        </button>
+                      )
+                    })}
+                  </motion.div>
+                )}
+
+                {/* Mobile Modal */}
+                <AnimatePresence>
+                  {isMobile && isTemplateOpen && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="fixed inset-0 bg-black/50 z-50 flex items-end"
+                      onClick={() => setIsTemplateOpen(false)}
+                    >
+                      <motion.div
+                        initial={{ y: '100%' }}
+                        animate={{ y: 0 }}
+                        exit={{ y: '100%' }}
+                        transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+                        className="bg-white rounded-t-2xl w-full max-h-[85vh] overflow-hidden flex flex-col"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <div className="flex items-center justify-between p-4 border-b border-slate-200 sticky top-0 bg-white z-10">
+                          <h3 className="text-lg font-semibold text-slate-900">Välj mall</h3>
+                          <button
+                            onClick={() => setIsTemplateOpen(false)}
+                            className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+                          >
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+
+                        <div className="overflow-y-auto flex-1 p-2">
+                          {TEMPLATES.map((tmpl) => {
+                            const isSelected = selectedTemplate === tmpl.id
+                            const isPremium = tmpl.tier === 'premium'
+
+                            return (
+                              <button
+                                key={tmpl.id}
+                                onClick={() => {
+                                  setSelectedTemplate(tmpl.id)
+                                  setIsTemplateOpen(false)
+                                }}
+                                className={`w-full px-4 py-4 mb-2 rounded-lg border-2 flex items-start gap-3 transition-all ${
+                                  isSelected
+                                    ? 'bg-blue-50 border-blue-600'
+                                    : 'bg-white border-slate-200'
+                                }`}
+                              >
+                                <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                                  isSelected ? 'border-blue-600 bg-blue-600' : 'border-slate-300'
+                                }`}>
+                                  {isSelected && <Check className="w-4 h-4 text-white" />}
+                                </div>
+
+                                <div className="flex-1 text-left">
+                                  <div className="font-semibold text-sm text-slate-900 flex items-center gap-2">
+                                    {tmpl.name}
+                                    {isPremium && <Crown className="w-4 h-4 text-amber-500" />}
+                                  </div>
+                                  <p className="text-xs text-slate-600 mt-1">{tmpl.description}</p>
+                                </div>
+                              </button>
+                            )
+                          })}
+                        </div>
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Font Dropdown */}
+              <div ref={fontDropdownRef} className="relative">
+                <label className="flex items-center gap-2 text-sm font-semibold text-slate-900 mb-2">
+                  <Type className="w-4 h-4 text-slate-600" />
+                  Välj typsnitt
+                </label>
+
+                <button
+                  onClick={() => {
+                    setIsFontOpen(!isFontOpen)
+                    setIsTemplateOpen(false)
+                  }}
+                  className="w-full px-4 py-3 bg-white border-2 border-slate-300 rounded-lg hover:border-blue-400 transition-all flex items-center justify-between group"
+                  style={{ fontFamily: font.family }}
+                >
+                  <div className="flex items-center gap-2">
+                    {font.tier === 'premium' && (
+                      <Crown className="w-4 h-4 text-amber-500 flex-shrink-0" />
+                    )}
+                    <span className="text-sm font-medium text-slate-900">{font.name}</span>
+                  </div>
+                  <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform ${isFontOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {/* Desktop Dropdown */}
+                {!isMobile && isFontOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-slate-200 rounded-xl shadow-xl z-50 overflow-hidden max-h-[400px] overflow-y-auto"
+                  >
+                    {['ATS-Säkra', 'Moderna', 'Formella', 'Premium'].map((category) => {
+                      const categoryFonts = FONTS.filter(f => f.category === category)
+                      if (categoryFonts.length === 0) return null
+
+                      return (
+                        <div key={category}>
+                          <div className="px-4 py-2 bg-slate-50 border-b border-slate-200">
+                            <span className="text-xs font-semibold text-slate-600 uppercase tracking-wide">
+                              {category}
+                            </span>
+                          </div>
+
+                          {categoryFonts.map((fnt) => {
+                            const isSelected = selectedFont === fnt.id
+                            const isPremium = fnt.tier === 'premium'
+
+                            return (
+                              <button
+                                key={fnt.id}
+                                onClick={() => {
+                                  setSelectedFont(fnt.id)
+                                  setIsFontOpen(false)
+                                }}
+                                className={`w-full px-4 py-3 flex items-center gap-3 transition-colors border-l-4 ${
+                                  isSelected
+                                    ? 'bg-blue-50 border-blue-600'
+                                    : 'bg-white border-transparent hover:bg-slate-50'
+                                }`}
+                                style={{ fontFamily: fnt.family }}
+                              >
+                                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                                  isSelected ? 'border-blue-600 bg-blue-600' : 'border-slate-300'
+                                }`}>
+                                  {isSelected && <Check className="w-3 h-3 text-white" />}
+                                </div>
+
+                                <div className="flex-1 text-left">
+                                  <div className="font-medium text-sm text-slate-900 flex items-center gap-2">
+                                    {fnt.name}
+                                    {isPremium && <Crown className="w-3.5 h-3.5 text-amber-500" />}
+                                  </div>
+                                  <div className="text-xs text-slate-600" style={{ fontFamily: fnt.family }}>
+                                    Johanna Andersson
+                                  </div>
+                                </div>
+                              </button>
+                            )
+                          })}
+                        </div>
+                      )
+                    })}
+                  </motion.div>
+                )}
+
+                {/* Mobile Modal */}
+                <AnimatePresence>
+                  {isMobile && isFontOpen && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      className="fixed inset-0 bg-black/50 z-50 flex items-end"
+                      onClick={() => setIsFontOpen(false)}
+                    >
+                      <motion.div
+                        initial={{ y: '100%' }}
+                        animate={{ y: 0 }}
+                        exit={{ y: '100%' }}
+                        transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+                        className="bg-white rounded-t-2xl w-full max-h-[85vh] overflow-hidden flex flex-col"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <div className="flex items-center justify-between p-4 border-b border-slate-200 sticky top-0 bg-white z-10">
+                          <h3 className="text-lg font-semibold text-slate-900">Välj typsnitt</h3>
+                          <button
+                            onClick={() => setIsFontOpen(false)}
+                            className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+                          >
+                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+
+                        <div className="overflow-y-auto flex-1">
+                          {['ATS-Säkra', 'Moderna', 'Formella', 'Premium'].map((category) => {
+                            const categoryFonts = FONTS.filter(f => f.category === category)
+                            if (categoryFonts.length === 0) return null
+
+                            return (
+                              <div key={category} className="mb-6">
+                                <div className="px-4 py-2 bg-slate-50 border-b border-slate-200 sticky top-0">
+                                  <span className="text-xs font-semibold text-slate-600 uppercase tracking-wide">
+                                    {category}
+                                  </span>
+                                </div>
+
+                                <div className="p-2">
+                                  {categoryFonts.map((fnt) => {
+                                    const isSelected = selectedFont === fnt.id
+                                    const isPremium = fnt.tier === 'premium'
+
+                                    return (
+                                      <button
+                                        key={fnt.id}
+                                        onClick={() => {
+                                          setSelectedFont(fnt.id)
+                                          setIsFontOpen(false)
+                                        }}
+                                        className={`w-full px-4 py-4 mb-2 rounded-lg border-2 flex items-center gap-3 transition-all ${
+                                          isSelected
+                                            ? 'bg-blue-50 border-blue-600'
+                                            : 'bg-white border-slate-200'
+                                        }`}
+                                        style={{ fontFamily: fnt.family }}
+                                      >
+                                        <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
+                                          isSelected ? 'border-blue-600 bg-blue-600' : 'border-slate-300'
+                                        }`}>
+                                          {isSelected && <Check className="w-4 h-4 text-white" />}
+                                        </div>
+
+                                        <div className="flex-1 text-left">
+                                          <div className="font-medium text-sm text-slate-900 flex items-center gap-2">
+                                            {fnt.name}
+                                            {isPremium && <Crown className="w-4 h-4 text-amber-500" />}
+                                          </div>
+                                          <div className="text-sm text-slate-600 mt-1" style={{ fontFamily: fnt.family }}>
+                                            Johanna Andersson
+                                          </div>
+                                        </div>
+                                      </button>
+                                    )
+                                  })}
+                                </div>
+                              </div>
+                            )
+                          })}
+                        </div>
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
+
+            {/* Premium Notice */}
+            {template.tier === 'premium' && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                className="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-2"
+              >
+                <Crown className="w-4 h-4 text-amber-600 mt-0.5 flex-shrink-0" />
+                <div className="text-xs text-amber-900">
+                  <span className="font-semibold">{template.name}</span> är en premium-mall. Uppgradera till Premium för tillgång till alla mallar och obegränsade nedladdningar.
+                </div>
+              </motion.div>
+            )}
+          </div>
 
       {/* Live Preview */}
       <AnimatePresence mode="wait">
@@ -344,28 +597,13 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                   <p className="font-bold text-slate-900">Ansökan: {exempelBrev.roll}</p>
                 </div>
 
-                {/* Greeting */}
-                <div className="mb-6">
-                  <p className="text-slate-900">Hej,</p>
-                </div>
-
-                {/* Body */}
+                {/* Body - includes greeting, content, closing and signature */}
                 <div className="space-y-6">
                   {exempelBrev.brevText.split('\n\n').map((paragraph, idx) => (
                     <p key={idx} className="text-slate-700 leading-relaxed">
                       {paragraph.trim()}
                     </p>
                   ))}
-                </div>
-
-                {/* Closing */}
-                <div className="mt-10 mb-12">
-                  <p className="text-sm text-slate-700">Med vänliga hälsningar,</p>
-                </div>
-
-                {/* Signature */}
-                <div>
-                  <p className="font-bold text-slate-900">{exempelBrev.namn}</p>
                 </div>
               </div>
             )}
@@ -394,28 +632,13 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                     <p className="font-bold text-sm text-slate-900">Ansökan: {exempelBrev.roll}</p>
                   </div>
 
-                  {/* Greeting */}
-                  <div className="mb-6">
-                    <p className="text-xs text-slate-900">Hej,</p>
-                  </div>
-
-                  {/* Body */}
+                  {/* Body - brevText contains everything: greeting, content, closing, signature */}
                   <div className="space-y-6">
                     {exempelBrev.brevText.split('\n\n').map((paragraph, idx) => (
                       <p key={idx} className="text-xs text-slate-700 leading-relaxed">
                         {paragraph.trim()}
                       </p>
                     ))}
-                  </div>
-
-                  {/* Closing */}
-                  <div className="mt-10 mb-12">
-                    <p className="text-xs text-slate-700">Med vänliga hälsningar,</p>
-                  </div>
-
-                  {/* Signature */}
-                  <div>
-                    <p className="font-bold text-sm text-slate-900">{exempelBrev.namn}</p>
                   </div>
                 </div>
               </div>
@@ -448,28 +671,13 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                   <p className="text-sm text-slate-700">{exempelBrev.datum}</p>
                 </div>
 
-                {/* Greeting */}
-                <div className="mb-6">
-                  <p className="text-slate-900">Hej,</p>
-                </div>
-
-                {/* Body */}
+                {/* Body - brevText contains everything: greeting, content, closing, signature */}
                 <div className="space-y-6">
                   {exempelBrev.brevText.split('\n\n').map((paragraph, idx) => (
                     <p key={idx} className="text-slate-700 leading-relaxed">
                       {paragraph.trim()}
                     </p>
                   ))}
-                </div>
-
-                {/* Closing */}
-                <div className="mt-10 mb-12">
-                  <p className="text-sm text-slate-700">Med vänliga hälsningar,</p>
-                </div>
-
-                {/* Signature */}
-                <div>
-                  <p className="font-bold text-slate-900">{exempelBrev.namn}</p>
                 </div>
               </div>
             )}
@@ -495,28 +703,13 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                   <p className="text-sm text-slate-900">Ansökan: {exempelBrev.roll}</p>
                 </div>
 
-                {/* Greeting */}
-                <div className="mb-6">
-                  <p className="text-sm text-slate-900">Hej,</p>
-                </div>
-
-                {/* Body */}
+                {/* Body - brevText contains everything: greeting, content, closing, signature */}
                 <div className="space-y-6">
                   {exempelBrev.brevText.split('\n\n').map((paragraph, idx) => (
                     <p key={idx} className="text-slate-700 leading-relaxed">
                       {paragraph.trim()}
                     </p>
                   ))}
-                </div>
-
-                {/* Closing */}
-                <div className="mt-10 mb-12">
-                  <p className="text-sm text-slate-700">Med vänliga hälsningar,</p>
-                </div>
-
-                {/* Signature */}
-                <div>
-                  <p className="font-bold text-slate-900">{exempelBrev.namn}</p>
                 </div>
               </div>
             )}
@@ -550,28 +743,13 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                   <p className="text-sm text-slate-700">{exempelBrev.datum}</p>
                 </div>
 
-                {/* Greeting */}
-                <div className="mb-6">
-                  <p className="text-slate-900">Hej,</p>
-                </div>
-
-                {/* Body */}
+                {/* Body - brevText contains everything: greeting, content, closing, signature */}
                 <div className="space-y-6">
                   {exempelBrev.brevText.split('\n\n').map((paragraph, idx) => (
                     <p key={idx} className="text-slate-700 leading-relaxed">
                       {paragraph.trim()}
                     </p>
                   ))}
-                </div>
-
-                {/* Closing */}
-                <div className="mt-10 mb-12">
-                  <p className="text-sm text-slate-700">Med vänliga hälsningar,</p>
-                </div>
-
-                {/* Signature */}
-                <div>
-                  <p className="font-bold text-slate-900">{exempelBrev.namn}</p>
                 </div>
               </div>
             )}
@@ -590,26 +768,13 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
                   {/* Date with location */}
                   <p className="text-sm text-slate-700 mb-8">{exempelBrev.adress}, {exempelBrev.datum},</p>
 
-                  {/* Greeting (bold) */}
-                  <p className="font-bold text-slate-900 mb-6">Hej!</p>
-
-                  {/* Body */}
+                  {/* Body - brevText contains everything: greeting, content, closing, signature */}
                   <div className="space-y-6">
                     {exempelBrev.brevText.split('\n\n').map((paragraph, idx) => (
                       <p key={idx} className="text-sm text-slate-700 leading-relaxed">
                         {paragraph.trim()}
                       </p>
                     ))}
-                  </div>
-
-                  {/* Closing */}
-                  <div className="mt-8 mb-12">
-                    <p className="text-sm text-slate-700">Vänliga hälsningar,</p>
-                  </div>
-
-                  {/* Signature */}
-                  <div>
-                    <p className="font-bold text-sm text-slate-900">{exempelBrev.namn}</p>
                   </div>
                 </div>
 
