@@ -388,7 +388,11 @@ export default function PersonligtBrevExempelPage({ data }: { data: ExampleData 
                             </div>
                             <div>
                               <h3 className="font-bold text-slate-900 mb-2">{tip.rubrik}</h3>
-                              <p className="text-slate-600 leading-relaxed">{tip.text}</p>
+                              <div className="text-slate-600 leading-relaxed space-y-4">
+                                {tip.text.split('\n\n').map((paragraph, pIdx) => (
+                                  <p key={pIdx}>{paragraph.trim()}</p>
+                                ))}
+                              </div>
                             </div>
                           </div>
                         </div>
