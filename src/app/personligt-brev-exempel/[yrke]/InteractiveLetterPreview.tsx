@@ -805,7 +805,7 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-white text-center sm:text-left">
               <p className="font-semibold">Gillar du vad du ser?</p>
-              <p className="text-sm text-blue-100">Skapa ditt eget personliga brev på 60 sekunder</p>
+              <p className="text-sm text-blue-100">Vi matchar ditt CV med jobbannonsen och skapar det perfekta brevet åt dig på mindre än 60 sekunder</p>
             </div>
             <a
               href="/dashboard/skapa-brev"
