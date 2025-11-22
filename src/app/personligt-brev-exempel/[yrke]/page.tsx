@@ -718,7 +718,7 @@ emma.andersson@exempel.se`
       }
     ],
 
-    tipsForYrke: [
+    tips: [
       {
         rubrik: 'Var konkret med din tillgänglighet',
         text: 'Skriv exakt vilka datum du kan jobba, inte bara "hela sommaren". Arbetsgivare behöver veta om du är ledig från skolavslutning till terminsstart eller bara delar av sommaren.\n\nInkludera också om du kan jobba helger, kvällar och tidiga morgnar. För många sommarjobb är detta avgörande, och genom att nämna det direkt visar du att du förstår vad jobbet kräver.'
@@ -743,40 +743,40 @@ emma.andersson@exempel.se`
 
     faq: [
       {
-        fraga: 'Vad skriver jag i personligt brev om jag aldrig har haft ett jobb tidigare?',
-        svar: 'Fokusera på exempel från skola, fritid och föreningsliv som visar att du är pålitlig och lätt att jobba med. Har du haft ansvar i grupparbeten? Varit punktlig till träningar? Klarat tuffa kurser? Arbetsgivare som anställer sommarjobbare förväntar sig inte lång erfarenhet – de vill se rätt inställning. Lyft konkreta exempel som visar att du kan ta ansvar, lära dig snabbt och är någon man kan lita på. Det är bättre att ha tre konkreta exempel från skolan än att hitta på arbetslivserfarenhet.'
+        q: 'Vad skriver jag i personligt brev om jag aldrig har haft ett jobb tidigare?',
+        a: 'Fokusera på exempel från skola, fritid och föreningsliv som visar att du är pålitlig och lätt att jobba med. Har du haft ansvar i grupparbeten? Varit punktlig till träningar? Klarat tuffa kurser? Arbetsgivare som anställer sommarjobbare förväntar sig inte lång erfarenhet – de vill se rätt inställning. Lyft konkreta exempel som visar att du kan ta ansvar, lära dig snabbt och är någon man kan lita på. Det är bättre att ha tre konkreta exempel från skolan än att hitta på arbetslivserfarenhet.'
       },
       {
-        fraga: 'Hur långt ska personligt brev för sommarjobb vara?',
-        svar: 'Mellan 250-350 ord, vilket motsvarar cirka en halv A4-sida. Sommarjobbsansökningar behöver inte vara lika formella eller långa som ansökningar till heltidstjänster. Arbetsgivare vill snabbt kunna läsa vem du är, när du kan jobba och varför du är rätt person. Ett kortare, välskrivet brev läses oftare än ett långt och krångligt. Fokusera på det viktigaste: din tillgänglighet, vad du kan bidra med och varför du vill jobba just där.'
+        q: 'Hur långt ska personligt brev för sommarjobb vara?',
+        a: 'Mellan 250-350 ord, vilket motsvarar cirka en halv A4-sida. Sommarjobbsansökningar behöver inte vara lika formella eller långa som ansökningar till heltidstjänster. Arbetsgivare vill snabbt kunna läsa vem du är, när du kan jobba och varför du är rätt person. Ett kortare, välskrivet brev läses oftare än ett långt och krångligt. Fokusera på det viktigaste: din tillgänglighet, vad du kan bidra med och varför du vill jobba just där.'
       },
       {
-        fraga: 'Måste jag skriva personnummer i ansökan till sommarjobb?',
-        svar: 'Nej, du behöver inte skriva ditt personnummer i personligt brev eller CV förrän arbetsgivaren ber om det – vanligtvis i samband med anställning. Det räcker med namn, telefonnummer, e-post och eventuellt adress. Vissa arbetsgivare ber om personnummer i ansökningsformuläret för att kolla ålder (för arbeten med åldersgräns), men då finns det ett särskilt fält för det. Skriv aldrig personnummer i själva brevtexten.'
+        q: 'Måste jag skriva personnummer i ansökan till sommarjobb?',
+        a: 'Nej, du behöver inte skriva ditt personnummer i personligt brev eller CV förrän arbetsgivaren ber om det – vanligtvis i samband med anställning. Det räcker med namn, telefonnummer, e-post och eventuellt adress. Vissa arbetsgivare ber om personnummer i ansökningsformuläret för att kolla ålder (för arbeten med åldersgräns), men då finns det ett särskilt fält för det. Skriv aldrig personnummer i själva brevtexten.'
       },
       {
-        fraga: 'Hur länge ska jag kunna jobba för att få sommarjobb?',
-        svar: 'De flesta arbetsgivare söker sommarjobbare som kan jobba minst 6-8 veckor, ofta från juni till augusti. Ju längre du kan jobba, desto mer attraktiv är du som kandidat eftersom det tar tid att lära upp nya medarbetare. Om du bara kan jobba 3-4 veckor är det fortfarande värt att söka, men var tydlig med dina datum direkt i ansökan så att arbetsgivaren kan bedöma om det passar deras behov. Flexibilitet kring startdatum kan också vara en fördel.'
+        q: 'Hur länge ska jag kunna jobba för att få sommarjobb?',
+        a: 'De flesta arbetsgivare söker sommarjobbare som kan jobba minst 6-8 veckor, ofta från juni till augusti. Ju längre du kan jobba, desto mer attraktiv är du som kandidat eftersom det tar tid att lära upp nya medarbetare. Om du bara kan jobba 3-4 veckor är det fortfarande värt att söka, men var tydlig med dina datum direkt i ansökan så att arbetsgivaren kan bedöma om det passar deras behov. Flexibilitet kring startdatum kan också vara en fördel.'
       },
       {
-        fraga: 'Ska jag anpassa personligt brev för varje sommarjobb jag söker?',
-        svar: 'Ja, du bör alltid anpassa brevet – åtminstone företagsnamnet och eventuellt några meningar om varför du vill jobba just där. Det behöver inte vara stora förändringar, men ett brev som är skrivet specifikt till "Coop Vällingby" gör mycket bättre intryck än ett generiskt brev till "Er butik". Om du söker liknande jobb kan du ha en grundmall och justera 2-3 stycken för varje ansökan. Det tar fem minuter extra men ökar dina chanser markant.'
+        q: 'Ska jag anpassa personligt brev för varje sommarjobb jag söker?',
+        a: 'Ja, du bör alltid anpassa brevet – åtminstone företagsnamnet och eventuellt några meningar om varför du vill jobba just där. Det behöver inte vara stora förändringar, men ett brev som är skrivet specifikt till "Coop Vällingby" gör mycket bättre intryck än ett generiskt brev till "Er butik". Om du söker liknande jobb kan du ha en grundmall och justera 2-3 stycken för varje ansökan. Det tar fem minuter extra men ökar dina chanser markant.'
       },
       {
-        fraga: 'Vad är viktigast att lyfta som ung sommarjobbssökande?',
-        svar: 'Pålitlighet, flexibilitet och rätt inställning. Arbetsgivare som anställer sommarjobbare vet att ni är unga och lär er fortfarande – de vill ha någon som kommer i tid, gör vad som förväntas, är trevlig mot kunder och kollegor, och inte försvinner efter två veckor. Visa genom konkreta exempel att du är någon man kan lita på. Om du har referenser från tidigare sommarjobb, skola eller barnvaktsjobb som kan bekräfta detta, nämn det gärna.'
+        q: 'Vad är viktigast att lyfta som ung sommarjobbssökande?',
+        a: 'Pålitlighet, flexibilitet och rätt inställning. Arbetsgivare som anställer sommarjobbare vet att ni är unga och lär er fortfarande – de vill ha någon som kommer i tid, gör vad som förväntas, är trevlig mot kunder och kollegor, och inte försvinner efter två veckor. Visa genom konkreta exempel att du är någon man kan lita på. Om du har referenser från tidigare sommarjobb, skola eller barnvaktsjobb som kan bekräfta detta, nämn det gärna.'
       },
       {
-        fraga: 'Hur skriver jag om jag inte vet exakt vilken roll jag söker?',
-        svar: 'Många sommarjobb utlyses brett som "sommarjobbare inom butik" eller "sommarvikarier". Då kan du skriva att du är öppen för olika arbetsuppgifter och villig att jobba där det behövs. Nämn gärna om du har några preferenser eller styrkor ("Jag trivs särskilt bra med kundkontakt men är också van vid fysiskt arbete"), men visa framförallt att du är flexibel. Arbetsgivare uppskattar sommarjobbare som kan hoppa in där det behövs.'
+        q: 'Hur skriver jag om jag inte vet exakt vilken roll jag söker?',
+        a: 'Många sommarjobb utlyses brett som "sommarjobbare inom butik" eller "sommarvikarier". Då kan du skriva att du är öppen för olika arbetsuppgifter och villig att jobba där det behövs. Nämn gärna om du har några preferenser eller styrkor ("Jag trivs särskilt bra med kundkontakt men är också van vid fysiskt arbete"), men visa framförallt att du är flexibel. Arbetsgivare uppskattar sommarjobbare som kan hoppa in där det behövs.'
       },
       {
-        fraga: 'Behöver jag ha referenser med i ansökan?',
-        svar: 'Du behöver inte skriva ut hela referenslistan i ditt personliga brev, men ha 1-2 referenser redo att uppge om arbetsgivaren frågar. Detta kan vara en tidigare arbetsgivare (även sommarjobb), lärare, tränare eller någon du barnvakat åt. Fråga personen först om det är okej att uppge dem som referens. I brevet kan du skriva "Referenser lämnas på begäran" eller helt enkelt vänta tills arbetsgivaren frågar efter dem vid en eventuell intervju.'
+        q: 'Behöver jag ha referenser med i ansökan?',
+        a: 'Du behöver inte skriva ut hela referenslistan i ditt personliga brev, men ha 1-2 referenser redo att uppge om arbetsgivaren frågar. Detta kan vara en tidigare arbetsgivare (även sommarjobb), lärare, tränare eller någon du barnvakat åt. Fråga personen först om det är okej att uppge dem som referens. I brevet kan du skriva "Referenser lämnas på begäran" eller helt enkelt vänta tills arbetsgivaren frågar efter dem vid en eventuell intervju.'
       },
       {
-        fraga: 'Ska jag skicka CV tillsammans med personligt brev till sommarjobb?',
-        svar: 'Ja, skicka alltid både CV och personligt brev om inget annat anges i jobbannonsen. Även om ditt CV är kort på grund av begränsad erfarenhet ska det finnas med – det visar att du kan presentera dig professionellt. Ditt CV kompletterar brevet med struktur och tydlighet kring utbildning, eventuell erfarenhet och kompetenser. För sommarjobb kan ditt CV vara kort (en sida) och enkelt, men det ska alltid finnas med.'
+        q: 'Ska jag skicka CV tillsammans med personligt brev till sommarjobb?',
+        a: 'Ja, skicka alltid både CV och personligt brev om inget annat anges i jobbannonsen. Även om ditt CV är kort på grund av begränsad erfarenhet ska det finnas med – det visar att du kan presentera dig professionellt. Ditt CV kompletterar brevet med struktur och tydlighet kring utbildning, eventuell erfarenhet och kompetenser. För sommarjobb kan ditt CV vara kort (en sida) och enkelt, men det ska alltid finnas med.'
       }
     ],
 
