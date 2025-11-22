@@ -104,6 +104,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'larare',
     'sjukskoterska',
     'butikssaljare',
+    'saljare',
     // Lägg till fler yrken här när de skapas
   ];
 
