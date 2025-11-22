@@ -36,6 +36,9 @@ export default function PreviewStep({
   const [editedContent, setEditedContent] = useState(letterContent);
   const [editableText, setEditableText] = useState(''); // Clean text för redigering
   const [copied, setCopied] = useState(false);
+  const [isPdfGenerating, setIsPdfGenerating] = useState(false);
+  const [isDocxGenerating, setIsDocxGenerating] = useState(false);
+  const [showSaveSuccess, setShowSaveSuccess] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
 
   const selectedFontData = FONTS[selectedFont];
@@ -76,6 +79,32 @@ export default function PreviewStep({
   const handleCancelEdit = () => {
     setIsEditing(false);
     setEditableText('');
+  };
+
+  const handleSave = async () => {
+    if (onSave) {
+      await onSave();
+      setShowSaveSuccess(true);
+      setTimeout(() => setShowSaveSuccess(false), 3000);
+    }
+  };
+
+  const handleDownloadPdf = async () => {
+    setIsPdfGenerating(true);
+    try {
+      await onDownload('pdf');
+    } finally {
+      setIsPdfGenerating(false);
+    }
+  };
+
+  const handleDownloadDocx = async () => {
+    setIsDocxGenerating(true);
+    try {
+      await onDownload('docx');
+    } finally {
+      setIsDocxGenerating(false);
+    }
   };
 
   const isTemplateHTML = (content: string) => {
@@ -120,22 +149,22 @@ export default function PreviewStep({
 
   return (
     <div className="space-y-6">
-      {/* Font Selector */}
-      <FontSelector
-        selectedFont={selectedFont}
-        onFontChange={onFontChange}
-        isPremium={isPremium}
-      />
-
-      {/* Friendly Info Banner */}
-      <div className="bg-blue-50/50 border border-blue-200 rounded-xl p-4">
-        <div className="flex items-center gap-3">
-          <Info className="w-5 h-5 text-blue-600 flex-shrink-0" />
-          <p className="text-sm text-blue-900">
-            <span className="font-medium">Ditt personliga brev är klart!</span> Läs gärna igenom innehållet och lägg till dina kontaktuppgifter (telefon, e-post, adress) innan du laddar ner. Du kan redigera direkt i texten.
-          </p>
-        </div>
-      </div>
+      {/* Success Banner */}
+      {showSaveSuccess && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-green-50 border border-green-200 rounded-xl p-4"
+        >
+          <div className="flex items-start gap-3">
+            <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <p className="text-sm font-medium text-green-900">Brevet är sparat!</p>
+              <p className="text-sm text-green-700">Du kan ladda ner det nedan eller hitta det senare under "Mina Brev".</p>
+            </div>
+          </div>
+        </motion.div>
+      )}
 
       {/* Error Banner */}
       {saveError && (
@@ -199,7 +228,7 @@ export default function PreviewStep({
             {/* All primary action buttons at same level for proper alignment */}
             {onSave && (
               <motion.button
-                onClick={onSave}
+                onClick={handleSave}
                 className="flex items-center justify-center gap-2 px-5 py-2.5 text-white bg-gradient-to-r from-green-500 to-green-600 rounded-lg hover:from-green-600 hover:to-green-700 transition-all shadow-md hover:shadow-lg font-medium"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -212,30 +241,57 @@ export default function PreviewStep({
 
             {/* PDF Download Button - same level as Save */}
             <motion.button
-              onClick={() => onDownload('pdf')}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 text-white bg-gradient-to-r from-red-500 to-pink-600 rounded-lg hover:from-red-600 hover:to-pink-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              onClick={handleDownloadPdf}
+              disabled={isPdfGenerating}
+              className="flex items-center justify-center gap-2 px-4 py-2.5 text-white bg-gradient-to-r from-red-500 to-pink-600 rounded-lg hover:from-red-600 hover:to-pink-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial disabled:opacity-50 disabled:cursor-not-allowed"
+              whileHover={isPdfGenerating ? {} : { scale: 1.02 }}
+              whileTap={isPdfGenerating ? {} : { scale: 0.98 }}
               title="Ladda ned som PDF"
             >
-              <Download className="w-4 h-4 flex-shrink-0" />
-              <span className="text-sm">PDF</span>
+              {isPdfGenerating ? (
+                <>
+                  <Loader2 className="w-4 h-4 flex-shrink-0 animate-spin" />
+                  <span className="text-sm">Genererar PDF...</span>
+                </>
+              ) : (
+                <>
+                  <Download className="w-4 h-4 flex-shrink-0" />
+                  <span className="text-sm">PDF</span>
+                </>
+              )}
             </motion.button>
 
             {/* DOCX Download Button - same level as Save and PDF */}
             <motion.button
-              onClick={() => onDownload('docx')}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              onClick={handleDownloadDocx}
+              disabled={isDocxGenerating}
+              className="flex items-center justify-center gap-2 px-4 py-2.5 text-white bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg hover:from-blue-600 hover:to-purple-700 transition-all shadow-md hover:shadow-lg font-medium flex-1 sm:flex-initial disabled:opacity-50 disabled:cursor-not-allowed"
+              whileHover={isDocxGenerating ? {} : { scale: 1.02 }}
+              whileTap={isDocxGenerating ? {} : { scale: 0.98 }}
               title="Ladda ned som DOCX"
             >
-              <Download className="w-4 h-4 flex-shrink-0" />
-              <span className="text-sm">DOCX</span>
+              {isDocxGenerating ? (
+                <>
+                  <Loader2 className="w-4 h-4 flex-shrink-0 animate-spin" />
+                  <span className="text-sm">Genererar DOCX...</span>
+                </>
+              ) : (
+                <>
+                  <Download className="w-4 h-4 flex-shrink-0" />
+                  <span className="text-sm">DOCX</span>
+                </>
+              )}
             </motion.button>
           </div>
         </div>
       </div>
+
+      {/* Font Selector */}
+      <FontSelector
+        selectedFont={selectedFont}
+        onFontChange={onFontChange}
+        isPremium={isPremium}
+      />
 
       {/* Document Preview */}
       <div className={`bg-white rounded-2xl border border-gray-200 p-4 sm:p-6 min-h-[400px] relative ${isTemplateHTML(editedContent) ? '' : 'flex items-center justify-center'}`}>
