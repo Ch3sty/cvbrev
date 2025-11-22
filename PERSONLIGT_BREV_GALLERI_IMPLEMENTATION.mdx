@@ -404,6 +404,7 @@ export interface ExampleData {
   // === SEO ===
   seoTitle: string;                // "Personligt Brev Projektledare - Färdigt exempel (2025)"
   seoDescription: string;          // 150-160 tecken
+  seoIntro: string;                // 200-300 ord SEO-rik introduktion, MÅSTE ha \n\n mellan stycken för läsbarhet
 
   // === RELATERADE EXEMPEL ===
   relateradeYrken: string[];       // ["scrum-master", "produktchef", "teamledare"]
@@ -557,7 +558,56 @@ export interface ExampleData {
 
 ---
 
-### 4. faq[] - Vanliga frågor
+### 4. seoIntro - SEO-optimerad introduktion
+
+**Syfte:** Ge en SEO-rik introduktion som förklarar vad exemplet visar och hur det hjälper läsaren
+
+**Längd:** 200-300 ord totalt, uppdelat i **3 naturliga stycken**
+
+**Struktur:**
+```typescript
+{
+  seoIntro: string;  // MÅSTE innehålla \n\n mellan stycken
+}
+```
+
+**KRITISKT VIKTIGT - Styckeindelning:**
+- Texten MÅSTE ha dubbla radbrytningar (`\n\n`) mellan stycken
+- Använd exakt 3 stycken för optimal läsbarhet
+- Första stycket: Huvudvärde och vad exemplet visar (60-100 ord)
+- Andra stycket: Specifika detaljer och exempel (60-100 ord)
+- Tredje stycket: Tillämpning och praktisk användning (40-80 ord)
+
+**SEO-krav:**
+- Inkludera primärt keyword 2-3 gånger naturligt
+- Nämn bransch-specifika termer och kompetenser
+- Referera till ATS-optimering
+- Inkludera årtal (2025) för freshness
+- Använd svensk arbetsmarknadskontext
+
+**Exempel (Sommarjobb) - KORREKT formatering:**
+```typescript
+seoIntro: 'Sök sommarjobb med ett personligt brev som visar entusiasm och pålitlighet – även om du inte har jobbat mycket ännu. Det här exemplet visar hur Emma (19 år, student) söker sommarjobb på Coop och får fram sina styrkor trots begränsad arbetslivserfarenhet.\n\nDu får se exakt hur hon lyfter konkreta exempel från tidigare sommarjobb, barnvaktsjobb och skola för att visa pålitlighet, flexibilitet och rätt inställning. Brevet innehåller tydlig tillgänglighet (9 juni-18 augusti), visar varför arbetsgivare kan lita på henne och använder en naturlig, entusiastisk ton som passar unga sökande.\n\nPerfekt för dig som söker ditt första eller andra sommarjobb inom detaljhandel, lager, restaurang eller kontor. Anpassa efter din egen erfarenhet och använd våra tips för att kompensera för begränsad arbetslivserfarenhet.'
+```
+
+**Rendering:**
+Texten renderas med `.split('\n\n')` i PersonligtBrevExempelPage.tsx, vilket skapar separata `<p>`-taggar för varje stycke. Detta ger betydligt bättre läsbarhet än en massiv textklump.
+
+**Exempel på DÅLIG formatering (undvik):**
+```typescript
+// ❌ FELAKTIGT - hela texten i ett stycke utan \n\n
+seoIntro: 'Sök sommarjobb med ett personligt brev som visar entusiasm och pålitlighet – även om du inte har jobbat mycket ännu. Det här exemplet visar hur Emma (19 år, student) söker sommarjobb på Coop och får fram sina styrkor trots begränsad arbetslivserfarenhet. Du får se exakt hur hon lyfter konkreta exempel...'
+```
+
+**Varför viktigt:**
+- Förbättrar läsbarhet dramatiskt (3 stycken vs 1 massiv klump)
+- Ger användaren naturliga pauser i texten
+- Ser mer professionellt och genomtänkt ut
+- Ökar chansen att användaren läser hela texten
+
+---
+
+### 5. faq[] - Vanliga frågor
 
 **Syfte:** Svara på de vanligaste frågorna läsare har om att skriva personliga brev för detta specifika yrke
 
@@ -834,6 +884,10 @@ Använd denna checklista innan du godkänner ett nytt personligt brev-exempel:
 
 - [ ] seoTitle innehåller yrke + "Personligt Brev" + "exempel"
 - [ ] seoDescription är 150-160 tecken
+- [ ] **seoIntro är 200-300 ord uppdelat i EXAKT 3 stycken med `\n\n` mellan**
+- [ ] **seoIntro har naturliga styckeindelningar (inte en massiv textklump)**
+- [ ] seoIntro innehåller primärt keyword 2-3 gånger
+- [ ] seoIntro nämner bransch-specifika termer och ATS-optimering
 - [ ] Kategori är korrekt vald
 - [ ] Relaterade yrken är relevanta (3 stycken)
 - [ ] Alla fält är ifyllda (inga tomma strängar)
