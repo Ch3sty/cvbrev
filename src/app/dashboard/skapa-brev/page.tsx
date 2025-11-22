@@ -18,6 +18,7 @@ import JobDescriptionStep from './components/steps/JobDescriptionStep';
 import SettingsStep from './components/steps/SettingsStep';
 import GenerationStep from './components/steps/GenerationStep';
 import PreviewStep from './components/steps/PreviewStep';
+import { type FontId } from './components/FontSelector';
 
 // Types
 type Tonality = 'professional' | 'enthusiastic' | 'creative' | 'confident' | 'balanced' | 'auto';
@@ -73,6 +74,7 @@ export default function CreateLetterPage() {
   const [tonality, setTonality] = useState<Tonality>('balanced');
   const [language, setLanguage] = useState<Language>('sv');
   const [templateId, setTemplateId] = useState<string>('classic');
+  const [selectedFont, setSelectedFont] = useState<FontId>('arial');
   const [generatedLetter, setGeneratedLetter] = useState<string | null>(null);
   const [letterData, setLetterData] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -439,7 +441,8 @@ export default function CreateLetterPage() {
               onEdit={handleEditLetter}
               onDownload={handleDownloadLetter}
               onSave={handleSaveLetter}
-              onTemplateChange={handleTemplateChange}
+              selectedFont={selectedFont}
+              onFontChange={setSelectedFont}
               saveError={saveError}
               isPremium={isPremium}
               isRegeneratingTemplate={isRegeneratingTemplate}

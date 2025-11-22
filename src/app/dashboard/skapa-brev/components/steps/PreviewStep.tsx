@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Eye, Download, Edit3, Copy, Check, FileText, Save, Info, Layout, Crown, Lock, Loader2 } from 'lucide-react';
 import { DOCX_TEMPLATES, type DocxTemplateId } from '@/lib/letters/docx-templates';
 import { extractEditableContent, isTemplateHTML as checkIsTemplateHTML } from '@/lib/letters/extract-editable-content';
+import FontSelector, { type FontId, FONTS } from '../FontSelector';
 
 interface PreviewStepProps {
   letterContent: string;
@@ -12,7 +13,8 @@ interface PreviewStepProps {
   onEdit: (content: string) => void;
   onDownload: (format: 'pdf' | 'docx') => void;
   onSave?: () => void;
-  onTemplateChange?: (templateId: string) => void;
+  selectedFont: FontId;
+  onFontChange: (fontId: FontId) => void;
   saveError?: string | null;
   isPremium?: boolean;
   isRegeneratingTemplate?: boolean;
@@ -24,7 +26,8 @@ export default function PreviewStep({
   onEdit,
   onDownload,
   onSave,
-  onTemplateChange,
+  selectedFont,
+  onFontChange,
   saveError,
   isPremium = false,
   isRegeneratingTemplate = false
@@ -33,8 +36,9 @@ export default function PreviewStep({
   const [editedContent, setEditedContent] = useState(letterContent);
   const [editableText, setEditableText] = useState(''); // Clean text för redigering
   const [copied, setCopied] = useState(false);
-  const [showTemplateDropdown, setShowTemplateDropdown] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
+
+  const selectedFontData = FONTS[selectedFont];
 
   const currentTemplate = DOCX_TEMPLATES[templateId as DocxTemplateId];
 
@@ -116,82 +120,12 @@ export default function PreviewStep({
 
   return (
     <div className="space-y-6">
-      {/* Template Selector */}
-      {onTemplateChange && (
-        <div className="bg-white border border-gray-200 rounded-xl p-4">
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <Layout className="w-5 h-5 text-gray-600" />
-              <div>
-                <label className="text-sm font-medium text-gray-900">Brevmall</label>
-                <p className="text-xs text-gray-600">Byt design när som helst</p>
-              </div>
-            </div>
-            <div className="relative">
-              <button
-                onClick={() => setShowTemplateDropdown(!showTemplateDropdown)}
-                className="flex items-center gap-2 px-4 py-2 bg-white border-2 border-gray-300 rounded-lg hover:border-gray-400 transition-colors min-w-[180px]"
-              >
-                <span className="text-sm font-medium flex-1 text-left">{currentTemplate.name}</span>
-                {currentTemplate.tier === 'premium' && (
-                  <Crown className="w-4 h-4 text-purple-600" />
-                )}
-                <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-
-              {showTemplateDropdown && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="absolute top-full right-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-xl z-50 overflow-hidden"
-                >
-                  {Object.entries(DOCX_TEMPLATES).map(([id, template]) => {
-                    const isSelected = templateId === id;
-                    const isLocked = template.tier === 'premium' && !isPremium;
-
-                    return (
-                      <button
-                        key={id}
-                        onClick={() => {
-                          if (!isLocked) {
-                            onTemplateChange(id as DocxTemplateId);
-                            setShowTemplateDropdown(false);
-                          }
-                        }}
-                        disabled={isLocked}
-                        className={`
-                          w-full text-left px-4 py-3 flex items-center justify-between gap-3 transition-colors
-                          ${isSelected ? 'bg-pink-50 text-pink-900' : ''}
-                          ${isLocked ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-50'}
-                        `}
-                      >
-                        <div className="flex-1">
-                          <div className="font-medium text-sm">{template.name}</div>
-                          <div className="text-xs text-gray-600">{template.description}</div>
-                        </div>
-                        {template.tier === 'premium' && (
-                          <div className="flex-shrink-0">
-                            {isLocked ? (
-                              <Lock className="w-4 h-4 text-gray-500" />
-                            ) : (
-                              <Crown className="w-4 h-4 text-purple-600" />
-                            )}
-                          </div>
-                        )}
-                        {isSelected && (
-                          <Check className="w-4 h-4 text-pink-600 flex-shrink-0" />
-                        )}
-                      </button>
-                    );
-                  })}
-                </motion.div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Font Selector */}
+      <FontSelector
+        selectedFont={selectedFont}
+        onFontChange={onFontChange}
+        isPremium={isPremium}
+      />
 
       {/* Friendly Info Banner */}
       <div className="bg-blue-50/50 border border-blue-200 rounded-xl p-4">
@@ -333,7 +267,7 @@ export default function PreviewStep({
               value={editableText}
               onChange={(e) => setEditableText(e.target.value)}
               className="w-full h-[600px] p-8 bg-white border border-gray-200 rounded-xl text-gray-900 resize-none focus:outline-none focus:ring-2 focus:ring-pink-500"
-              style={{ fontFamily: 'Georgia, serif' }}
+              style={{ fontFamily: selectedFontData.fallback }}
               placeholder="Skriv ditt brev här..."
             />
             <div className="flex justify-end gap-2 mt-4">
@@ -376,7 +310,11 @@ export default function PreviewStep({
             {/* Page Content */}
             <div
               className={isTemplateHTML(editedContent) ? '' : 'p-6 sm:p-12 md:p-16 text-gray-800'}
-              style={isTemplateHTML(editedContent) ? {} : { fontFamily: 'Georgia, serif', lineHeight: '1.8' }}
+              style={
+                isTemplateHTML(editedContent)
+                  ? { fontFamily: selectedFontData.fallback }
+                  : { fontFamily: selectedFontData.fallback, lineHeight: '1.8' }
+              }
               dangerouslySetInnerHTML={{ __html: formatContent(editedContent) }}
             />
           </motion.div>
