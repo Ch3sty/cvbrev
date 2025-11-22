@@ -130,14 +130,6 @@ export default function PersonligtBrevExempelPage({ data }: { data: ExampleData 
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-100 rounded-full mb-6">
-                <TrendingUp className="w-4 h-4 text-blue-600" />
-                <span className="text-sm font-semibold text-blue-900">
-                  {data.sokvolym}+ söker efter detta exempel varje månad
-                </span>
-              </div>
-
               <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
                 Personligt brev exempel: {data.yrke}
               </h1>

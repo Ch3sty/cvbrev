@@ -491,12 +491,6 @@ export default function PersonligtBrevGalleri() {
                           <span className="text-sm">Visa komplett exempel</span>
                           <ArrowRight className="w-4 h-4" />
                         </div>
-
-                        {/* Search volume badge */}
-                        <div className="absolute bottom-4 left-4 px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded-full flex items-center gap-1">
-                          <TrendingUp className="w-3 h-3" />
-                          {example.sokvolym}+ sök/mån
-                        </div>
                       </div>
                     </motion.div>
                   </Link>
@@ -608,11 +602,7 @@ export default function PersonligtBrevGalleri() {
                           </div>
 
                           {/* Footer */}
-                          <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                            <span className="text-xs text-slate-500 flex items-center gap-1">
-                              <TrendingUp className="w-3 h-3" />
-                              {example.sokvolym} sök/mån
-                            </span>
+                          <div className="pt-4 border-t border-slate-100 flex items-center justify-end">
                             <motion.div
                               className="flex items-center gap-1 text-blue-600 font-semibold text-sm"
                               initial={{ x: 0 }}
