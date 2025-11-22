@@ -10,7 +10,7 @@ import {
 } from 'lucide-react'
 
 import PremiumNavbar from '@/components/PremiumNavbar'
-import TemplateShowcase from './TemplateShowcase'
+import InteractiveLetterPreview from './InteractiveLetterPreview'
 
 interface ExampleData {
   yrke: string
@@ -296,68 +296,9 @@ export default function PersonligtBrevExempelPage({ data }: { data: ExampleData 
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
                       transition={{ duration: 0.3 }}
+                      id="exempel"
                     >
-                      <div id="exempel" className="bg-white rounded-2xl border-2 border-slate-200 overflow-hidden shadow-lg">
-                        {/* Letter Header */}
-                        <div className="bg-gradient-to-r from-slate-50 to-slate-100 px-6 py-4 border-b border-slate-200">
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <h3 className="font-bold text-slate-900">Personligt brev</h3>
-                              <p className="text-sm text-slate-600">{data.exempelBrev.namn}</p>
-                            </div>
-                            <button
-                              onClick={handleCopy}
-                              className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-lg hover:border-blue-600 hover:text-blue-600 transition-all"
-                            >
-                              <Copy className="w-4 h-4" />
-                              <span className="text-sm font-semibold">Kopiera</span>
-                            </button>
-                          </div>
-                        </div>
-
-                        {/* Letter Content */}
-                        <div className="p-6 sm:p-8">
-                          {/* Contact Info */}
-                          <div className="mb-6 text-sm text-slate-600">
-                            <p>{data.exempelBrev.namn}</p>
-                            <p>{data.exempelBrev.adress}</p>
-                            <p>{data.exempelBrev.telefon}</p>
-                            <p>{data.exempelBrev.epost}</p>
-                          </div>
-
-                          <div className="mb-6 text-sm text-slate-600">
-                            <p>{data.exempelBrev.arbetsgivare}</p>
-                            <p className="font-semibold">{data.exempelBrev.roll}</p>
-                          </div>
-
-                          <div className="mb-6 text-sm text-slate-600">
-                            <p>{data.exempelBrev.datum}</p>
-                          </div>
-
-                          {/* Letter Body */}
-                          <div className="prose prose-slate max-w-none">
-                            {data.exempelBrev.brevText.split('\n\n').map((paragraph, idx) => (
-                              <p key={idx} className="mb-4 text-slate-700 leading-relaxed">
-                                {paragraph}
-                              </p>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Warning */}
-                      <div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-xl p-4 flex gap-3">
-                        <AlertCircle className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
-                        <div>
-                          <p className="text-sm font-semibold text-yellow-900 mb-1">
-                            Kopiera inte detta exempel direkt
-                          </p>
-                          <p className="text-sm text-yellow-800">
-                            Detta är ett exempel för inspiration. Rekryterare ser igenom generiska brev direkt.
-                            Använd vårt verktyg för att skapa ett unikt brev – ladda upp CV, klistra in annons, välj mall. DIN profil anpassad för det SPECIFIKA jobbet.
-                          </p>
-                        </div>
-                      </div>
+                      <InteractiveLetterPreview exempelBrev={data.exempelBrev} />
                     </motion.div>
                   )}
 
@@ -452,8 +393,6 @@ export default function PersonligtBrevExempelPage({ data }: { data: ExampleData 
         </section>
       )}
 
-      {/* Template Showcase */}
-      <TemplateShowcase />
 
       {/* FAQ Section */}
       <section className="py-16 bg-white">
