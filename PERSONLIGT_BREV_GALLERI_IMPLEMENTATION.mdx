@@ -1,0 +1,1101 @@
+# PERSONLIGT BREV GALLERI - AGGRESSIV KONSOLIDERINGS-STRATEGI
+
+## EXECUTIVE SUMMARY: REKOMMENDATION
+
+### ✅ JA - Detta är den RÄTTA strategin för en ny sajt
+
+**Klart svar:** Användaren har helt rätt. För en ny sajt som jobbcoach.ai där artiklarna knappt rankar än är den aggressiva konsolideringsstrategin **betydligt smartare** än en försiktig hybrid-approach.
+
+**Varför detta är rätt för er:**
+
+1. **Ni har inget att förlora** - Befintliga artiklar rankar knappt, så risk för traffic-förlust är minimal
+2. **Bygga rätt från start** - Bättre att konsolidera NU än om 6 månader när ni faktiskt har traffic
+3. **Starkare SEO-signal** - 20 dedikerade exempel-sidor slår 20 spridda blogginlägg varje dag i veckan
+4. **Bättre UX från dag 1** - Användare får omedelbart vad de söker (visuella exempel) istället för en lång bloggtext
+5. **Conversion-focused** - Galleri + CTA är byggt för konvertering, inte bara information
+
+### KONSOLIDERINGS-OMFATTNING
+
+**Rekommendation: Skapa 20 dedikerade exempel-sidor (TOP 20 yrken)**
+
+- **FAS 1 (Launch):** 10 högprioriterade yrken - implementera OMEDELBART
+- **FAS 2 (Månad 2):** 10 medelprioriterade yrken
+- **FAS 3 (Månad 3-6):** Resterande nisch-yrken efter analys av FAS 1-2 prestanda
+
+Sweet spot är 20 sidor: tillräckligt många för att täcka huvudmarknaden, inte så många att kvaliteten sjunker.
+
+---
+
+## 1. STRATEGISK UTVÄRDERING
+
+### Fördelar med "Redirecta allt och börja om"-strategin
+
+| Fördel | Varför det är viktigt för jobbcoach.ai |
+|--------|----------------------------------------|
+| **Ingen befintlig traffic att förlora** | Sajten är ny - artiklar har knappt några placeringar än |
+| **Konsoliderad SEO-kraft** | 20 starka sidor > 30 svaga artiklar för Google |
+| **Bättre intern linking** | En tydlig hub-struktur med starkt flöde av "link juice" |
+| **User Intent Match** | Söker "personligt brev exempel undersköterska" → Får VISUELLT exempel direkt, inte 2000 ord text först |
+| **Conversion optimization** | Varje sida optimerad för ONE goal: visa exempel → öppna verktyg |
+| **Brandad upplevelse** | Galleri känns modernt och professionellt vs. generisk blogg |
+| **Lättare att underhålla** | 20 dedikerade sidor att hålla uppdaterade vs. 30+ artiklar |
+| **ATS-vänlig struktur** | Tydliga silos (hub + spokes) som Google älskar |
+
+### Risker och Mitigation
+
+| Risk | Sannolikhet | Impact | Mitigation |
+|------|------------|--------|------------|
+| **Förlust av befintliga placeringar** | LÅG (artiklar rankar knappt) | Låg | 301-redirects bevara vad som finns + monitor GSC |
+| **Google indexerar inte nya sidor snabbt** | MEDEL | Medel | Submit sitemap, internal linking, skapa några backlinks |
+| **Användare klickar inte på galleri-kort** | LÅG | Medel | A/B-testa design, tydliga CTAs, ifyllda mallar syns direkt |
+| **För mycket utvecklingsarbete** | MEDEL | Låg | Fas-baserad rollout (10+10 istället för 30) |
+| **Duplicate content risk** | LÅG | Låg | Varje exempel-sida unik guide + unikt exempel för yrke |
+
+**Övergripande risknivå: LÅG till MEDEL - VÄRT ATT GENOMFÖRA**
+
+---
+
+## 2. URL-STRUKTUR OCH REDIRECTS
+
+### Exakt URL-arkitektur
+
+```
+/personligt-brev-exempel (HUB - Galleri-sida)
+├── /personligt-brev-exempel/underskoterska
+├── /personligt-brev-exempel/skoterska
+├── /personligt-brev-exempel/larare
+├── /personligt-brev-exempel/student
+├── /personligt-brev-exempel/butikssaljare
+├── /personligt-brev-exempel/ekonomiassistent
+├── /personligt-brev-exempel/personlig-assistent
+├── /personligt-brev-exempel/lagerarbetare
+├── /personligt-brev-exempel/administrator
+├── /personligt-brev-exempel/ingenjor
+├── /personligt-brev-exempel/it
+├── /personligt-brev-exempel/saljare
+├── /personligt-brev-exempel/receptionist
+├── /personligt-brev-exempel/forskollarare
+├── /personligt-brev-exempel/handlaggare
+├── /personligt-brev-exempel/kurator
+├── /personligt-brev-exempel/stadare
+├── /personligt-brev-exempel/lakare
+├── /personligt-brev-exempel/barnskotare
+└── /personligt-brev-exempel/sommarjobb
+```
+
+**Varför denna struktur:**
+- ✅ Ren, förutsägbar, skalbar
+- ✅ Keyword-rik URL (bra för SEO)
+- ✅ Lätt för användare att förstå var de är
+- ✅ Tydlig hierarki (hub → spoke)
+
+### Komplett lista på 301-redirects
+
+**Next.js implementation i `next.config.js`:**
+
+```javascript
+async redirects() {
+  return [
+    // === YRKESSPECIFIKA EXEMPEL ===
+    {
+      source: '/artiklar/personligt-brev-underskoterska',
+      destination: '/personligt-brev-exempel/underskoterska',
+      permanent: true,
+    },
+    {
+      source: '/artiklar/personligt-brev-sjukskoterska',
+      destination: '/personligt-brev-exempel/sjukskoterska',
+      permanent: true,
+    },
+    {
+      source: '/artiklar/personligt-brev-larare',
+      destination: '/personligt-brev-exempel/larare',
+      permanent: true,
+    },
+    {
+      source: '/artiklar/personligt-brev-butikssaljare',
+      destination: '/personligt-brev-exempel/butikssaljare',
+      permanent: true,
+    },
+    {
+      source: '/artiklar/personligt-brev-ekonomiassistent',
+      destination: '/personligt-brev-exempel/ekonomiassistent',
+      permanent: true,
+    },
+    {
+      source: '/artiklar/personligt-brev-personlig-assistent',
+      destination: '/personligt-brev-exempel/personlig-assistent',
+      permanent: true,
+    },
+    {
+      source: '/artiklar/personligt-brev-lagerarbetare',
+      destination: '/personligt-brev-exempel/lagerarbetare',
+      permanent: true,
+    },
+    {
+      source: '/artiklar/personligt-brev-administrator',
+      destination: '/personligt-brev-exempel/administrator',
+      permanent: true,
+    },
+    {
+      source: '/artiklar/personligt-brev-ingenjor',
+      destination: '/personligt-brev-exempel/ingenjor',
+      permanent: true,
+    },
+    {
+      source: '/artiklar/personligt-brev-it',
+      destination: '/personligt-brev-exempel/it',
+      permanent: true,
+    },
+    {
+      source: '/artiklar/personligt-brev-saljare',
+      destination: '/personligt-brev-exempel/saljare',
+      permanent: true,
+    },
+    {
+      source: '/artiklar/personligt-brev-receptionist',
+      destination: '/personligt-brev-exempel/receptionist',
+      permanent: true,
+    },
+    {
+      source: '/artiklar/personligt-brev-forskollarare',
+      destination: '/personligt-brev-exempel/forskollarare',
+      permanent: true,
+    },
+    {
+      source: '/artiklar/personligt-brev-handlaggare',
+      destination: '/personligt-brev-exempel/handlaggare',
+      permanent: true,
+    },
+    {
+      source: '/artiklar/personligt-brev-kurator',
+      destination: '/personligt-brev-exempel/kurator',
+      permanent: true,
+    },
+    {
+      source: '/artiklar/personligt-brev-stadare',
+      destination: '/personligt-brev-exempel/stadare',
+      permanent: true,
+    },
+    {
+      source: '/artiklar/personligt-brev-lakare',
+      destination: '/personligt-brev-exempel/lakare',
+      permanent: true,
+    },
+    {
+      source: '/artiklar/personligt-brev-barnskotare',
+      destination: '/personligt-brev-exempel/barnskotare',
+      permanent: true,
+    },
+
+    // === SITUATIONSBASERADE EXEMPEL ===
+    // BEHÅLL situationsbaserade som de är (ej yrken):
+    // - /artiklar/personligt-brev-sommarjobb → /personligt-brev-exempel/sommarjobb
+    // - /artiklar/personligt-brev-utan-erfarenhet → BEHÅLL som guide-artikel
+    // - /artiklar/personligt-brev-spontanansokan → BEHÅLL som guide-artikel
+
+    {
+      source: '/artiklar/personligt-brev-sommarjobb',
+      destination: '/personligt-brev-exempel/sommarjobb',
+      permanent: true,
+    },
+
+    // === GENERELLA HUB-ARTIKLAR ===
+    // Redirect gamla exempel-hubbar till nya galleri-hubben:
+    {
+      source: '/artiklar/personligt-brev-exempel-roller',
+      destination: '/personligt-brev-exempel',
+      permanent: true,
+    },
+    {
+      source: '/artiklar/personligt-brev-exempel-generella',
+      destination: '/personligt-brev-exempel',
+      permanent: true,
+    },
+
+    // === VÅRD OCH OMSORG KATEGORI ===
+    // Redirect kategorin till hub (låt hub visa alla vårdyrken):
+    {
+      source: '/artiklar/personligt-brev-vard-omsorg',
+      destination: '/personligt-brev-exempel',
+      permanent: true,
+    },
+  ];
+}
+```
+
+**Vad händer med övriga artiklar?**
+
+| Artikel | Handling | Motivering |
+|---------|----------|------------|
+| `personligt-brev-utan-erfarenhet` | BEHÅLL som guide | Informational intent, inte yrke |
+| `personligt-brev-spontanansokan` | BEHÅLL som guide | Taktisk guide, kompletterar exempel |
+| `personligt-brev-layout` | BEHÅLL som guide | Teknisk guide om formatering |
+| `personligt-brev-struktur-innehall` | BEHÅLL som guide | Grundguide för alla yrken |
+| `personligt-brev-kompetenser-egenskaper` | BEHÅLL som guide | Djupdykning i specifikt område |
+| `personligt-brev-mall-gratis` | OMARBETA till mall-download hub | Eget värde, men uppdatera med CTA till exempel-galleriet |
+| `personligt-brev-pa-engelska` | BEHÅLL som guide | Separat use case |
+
+---
+
+## 3. GALLERI HUB-SIDA STRUKTUR (`/personligt-brev-exempel`)
+
+### SEO Metadata
+
+```yaml
+title: "Personligt Brev Exempel - 20+ färdiga mallar för alla yrken (2025)"
+description: "Välj ditt yrke och få ett professionellt personligt brev-exempel på 2 minuter. Gratis mallar för undersköterska, lärare, säljare, IT m.fl."
+canonical: https://jobbcoach.ai/personligt-brev-exempel
+```
+
+### Sida-struktur (Wireframe i text)
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ HERO SECTION                                             │
+│ ─────────────────────────────────────────────────────── │
+│ H1: Personligt Brev Exempel - Välj ditt yrke            │
+│                                                          │
+│ Intro-text (120-150 ord):                               │
+│ "Hitta professionella personligt brev-exempel anpassade │
+│ för ditt yrke. Varje mall är optimerad för ATS-system   │
+│ och innehåller branschspecifika nyckelord som           │
+│ rekryterare söker efter. Klicka på ditt yrke för att    │
+│ se färdiga exempel och skapa ditt eget på 2 minuter."   │
+│                                                          │
+│ [Sökfält: "Sök efter ditt yrke..."]                     │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│ GALLERI GRID (3 kolumner desktop, 1 kolumn mobil)       │
+│ ─────────────────────────────────────────────────────── │
+│                                                          │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐    │
+│  │ 📋 MALL      │  │ 📋 MALL      │  │ 📋 MALL      │    │
+│  │ Förhandsvisn.│  │ Förhandsvisn.│  │ Förhandsvisn.│    │
+│  │              │  │              │  │              │    │
+│  │ Undersköterska│ │ Sjuksköterska│ │ Lärare       │    │
+│  │              │  │              │  │              │    │
+│  │ [Se exempel →]│  │ [Se exempel →]│  │ [Se exempel →]│    │
+│  └─────────────┘  └─────────────┘  └─────────────┘    │
+│                                                          │
+│  [20 kort totalt, 3x7 grid med scroll]                  │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│ SEO CONTENT SECTION (Under galleriet)                   │
+│ ─────────────────────────────────────────────────────── │
+│                                                          │
+│ H2: Varför använda våra personligt brev-exempel?        │
+│                                                          │
+│ 400-500 ord text om:                                    │
+│ - Varför yrkesspecifika exempel är viktiga              │
+│ - Hur vi skapar våra mallar (AI + HR-expertis)          │
+│ - Vad som skiljer en bra mall från en dålig             │
+│ - 3 tips för att anpassa exemplet till din ansökan      │
+│                                                          │
+│ H2: Så använder du våra exempel                         │
+│                                                          │
+│ 1. Välj ditt yrke från galleriet ovan                   │
+│ 2. Läs vår kompletta guide och se färdiga exempel       │
+│ 3. Använd vårt AI-verktyg för att skapa din version     │
+│ 4. Ladda ner som DOCX/PDF                               │
+│                                                          │
+│ [CTA: Skapa mitt personliga brev nu →]                  │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│ FAQ SECTION                                             │
+│ ─────────────────────────────────────────────────────── │
+│                                                          │
+│ H2: Vanliga frågor om personligt brev-exempel           │
+│                                                          │
+│ - Hur anpassar jag ett exempel till min ansökan?        │
+│ - Är det okej att använda en mall?                      │
+│ - Vad är skillnaden mellan CV och personligt brev?      │
+│ - Hur långt ska ett personligt brev vara?               │
+│ - Ska jag inkludera bild i personligt brev?             │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+```
+
+### SEO-krav för hub-sidan
+
+**Ordantal:**
+- **Total:** 800-1200 ord
+  - Hero intro: 120-150 ord
+  - SEO content under grid: 400-500 ord
+  - FAQ-svar: 300-400 ord totalt
+
+**Varför denna längd?**
+- ✅ Tillräckligt för att ranka för "personligt brev exempel" (12,100 sök/mån, KD 28)
+- ✅ Inte så mycket att det stör UX (galleriet är hero, inte texten)
+- ✅ Google älskar FAQ-schema för featured snippets
+
+**Keyword-densitet:**
+- Primary: "personligt brev exempel" - 8-10 gånger
+- Secondary: "personligt brev mall", "exempel personligt brev", "gratis personligt brev" - 3-5 gånger varje
+- Long-tail: Yrken i H2/H3 (undersköterska, lärare etc.)
+
+### Internal Linking från hub
+
+Varje galleri-kort länkar till:
+- Dedikerad exempel-sida (`/personligt-brev-exempel/[yrke]`)
+
+Footer-länkar:
+- [Hur man skriver personligt brev - komplett guide](/artiklar/personligt-brev-struktur-innehall)
+- [Personligt brev utan erfarenhet](/artiklar/personligt-brev-utan-erfarenhet)
+- [Gratis CV-mallar](/cv-mallar)
+
+---
+
+## 4. EXEMPEL-SIDA STRUKTUR (per yrke)
+
+### Template för `/personligt-brev-exempel/underskoterska`
+
+#### SEO Metadata
+
+```yaml
+title: "Personligt Brev Undersköterska - Färdigt exempel och mall (2025)"
+description: "Professionellt personligt brev-exempel för undersköterska. Se färdig mall, få tips från HR-experter och skapa ditt brev på 2 minuter."
+canonical: https://jobbcoach.ai/personligt-brev-exempel/underskoterska
+```
+
+#### Sida-struktur (Wireframe)
+
+```
+┌─────────────────────────────────────────────────────────┐
+│ BREADCRUMBS                                             │
+│ Hem > Personligt Brev Exempel > Undersköterska         │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│ HERO SECTION                                             │
+│ ─────────────────────────────────────────────────────── │
+│                                                          │
+│ H1: Personligt Brev Undersköterska - Färdigt Exempel    │
+│                                                          │
+│ Kort intro (100 ord):                                   │
+│ "Se ett professionellt personligt brev för              │
+│ undersköterska och lär dig hur du anpassar det för      │
+│ din ansökan. Vårt exempel innehåller de nyckelord och   │
+│ kompetenser som vårdarbetsgivare letar efter."          │
+│                                                          │
+│ [CTA: Skapa ditt personliga brev på 2 min →]            │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│ IFYLLD MALL - VISUAL PREVIEW                            │
+│ ─────────────────────────────────────────────────────── │
+│                                                          │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │ 📄 PERSONLIGT BREV                                │  │
+│  │                                                   │  │
+│  │ Emma Andersson                                    │  │
+│  │ emma.andersson@email.com | 070-123 45 67          │  │
+│  │                                                   │  │
+│  │ Stockholm, 2025-01-15                             │  │
+│  │                                                   │  │
+│  │ Till vårdcentralen Globen                         │  │
+│  │                                                   │  │
+│  │ Ansökan om tjänst som undersköterska              │  │
+│  │                                                   │  │
+│  │ Jag söker tjänsten som undersköterska på          │  │
+│  │ Vårdcentralen Globen. Med sex års erfarenhet      │  │
+│  │ från äldreomsorg och gedigen kunskap inom basal   │  │
+│  │ hygien och omvårdnad tror jag att jag kan bidra   │  │
+│  │ till ert team med professionell och empatisk vård.│  │
+│  │                                                   │  │
+│  │ Under mina år på Solbackens äldreboende har jag   │  │
+│  │ arbetat nära äldre med både somatiska och         │  │
+│  │ kognitiva sjukdomar. Jag har gedigen erfarenhet av│  │
+│  │ sondmatning, såromläggning, insulinadministrering │  │
+│  │ och katetervård...                                │  │
+│  │                                                   │  │
+│  │ [RESTEN AV BREVET - VISUELLT]                     │  │
+│  │                                                   │  │
+│  └───────────────────────────────────────────────────┘  │
+│                                                          │
+│  [Ladda ner mall som DOCX] [Ladda ner som PDF]          │
+│  [Skapa ditt eget med AI →]                             │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│ GUIDE SECTION                                           │
+│ ─────────────────────────────────────────────────────── │
+│                                                          │
+│ H2: Så skriver du ett vinnande personligt brev som      │
+│     undersköterska                                       │
+│                                                          │
+│ [800-1000 ord guide med:                                │
+│  - Vilka kompetenser ska framhävas                      │
+│  - Vanliga misstag att undvika                          │
+│  - Hur du anpassar till vårdcentral vs äldreboende      │
+│  - 3-5 konkreta tips från HR-experter]                  │
+│                                                          │
+│ H3: Viktiga nyckelord för undersköterskor               │
+│ - Basal hygien                                          │
+│ - Omvårdnad                                             │
+│ - Sondmatning                                           │
+│ - Dokumentation (VAS, Procapita)                        │
+│ - Teamwork                                              │
+│                                                          │
+│ H3: Exempel på kompetenser att lyfta fram               │
+│ [Lista med 8-10 konkreta kompetenser]                   │
+│                                                          │
+│ [CTA MID-PAGE: Skapa ditt brev på 2 minuter →]          │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│ RELATERADE MALLAR                                       │
+│ ─────────────────────────────────────────────────────── │
+│                                                          │
+│ H2: Relaterade personligt brev-exempel                  │
+│                                                          │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐    │
+│  │ Sjuksköterska│  │ Vårdbiträde  │  │ Barnskötare │    │
+│  └─────────────┘  └─────────────┘  └─────────────┘    │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│ FAQ SECTION (yrkes-specifik)                            │
+│ ─────────────────────────────────────────────────────── │
+│                                                          │
+│ H2: Vanliga frågor - Personligt brev för undersköterska │
+│                                                          │
+│ - Hur långt ska brevet vara?                            │
+│ - Vad ska jag skriva om medicinsk delegering?           │
+│ - Ska jag nämna systemkunskaper (VAS/Procapita)?        │
+│ - Hur visar jag empati i brevet?                        │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────┐
+│ FOOTER CTA                                              │
+│ ─────────────────────────────────────────────────────── │
+│                                                          │
+│ H2: Redo att skapa ditt personliga brev?                │
+│                                                          │
+│ "Använd vårt AI-verktyg för att skapa ett skräddarsytt  │
+│ personligt brev baserat på detta exempel och din egen   │
+│ erfarenhet. Klart på 2 minuter."                        │
+│                                                          │
+│ [Skapa mitt personliga brev nu →] (primär CTA)          │
+│                                                          │
+└─────────────────────────────────────────────────────────┘
+```
+
+### Content Requirements per exempel-sida
+
+| Sektion | Ord-antal | Nyckel-krav |
+|---------|-----------|-------------|
+| **Hero intro** | 80-100 ord | Keyword-rik, tydlig value prop |
+| **Ifylld mall (visuell)** | 300-400 ord | Komplett, professionellt exempel |
+| **Guide-sektion** | 800-1000 ord | Yrkesspecifika tips, nyckelord, kompetenser |
+| **FAQ** | 200-300 ord | 4-5 frågor med korta svar |
+| **TOTALT** | **1400-1800 ord** | Tillräckligt för ranking utan att överväldiga |
+
+### CTA-placering
+
+| Position | CTA-typ | Copy |
+|----------|---------|------|
+| **Hero (ovanför mall)** | Primär knapp | "Skapa ditt personliga brev på 2 min →" |
+| **Efter mall-preview** | Sekundär knapp | "Använd AI-verktyget för att anpassa detta exempel →" |
+| **Mitt i guide** | Inline länk | "Prova vårt gratis verktyg →" |
+| **Footer** | Stor primär CTA | "Skapa mitt personliga brev nu →" |
+
+**CTA-strategi:**
+- Minst 3 CTAs per sida (top, mid, bottom)
+- Primära CTAs går till `/skapa-personligt-brev` med pre-filled yrke
+- Sekundära CTAs går till mall-download
+
+---
+
+## 5. PRIORITERING - FAS 1, 2, 3
+
+### FAS 1 (Launch - OMEDELBAR implementation)
+
+**10 yrken att bygga FÖRST (prioriterat efter Sökvolym × Conversion Intent × Effort)**
+
+| # | Yrke | Slug | Sökvolym (månad) | KD | Motivering |
+|---|------|------|------------------|-----|------------|
+| 1 | **Undersköterska** | `underskoterska` | 750/mån kombinerat | 6-9 | HÖGSTA prioritet: Låg KD, hög volym, tydlig intent |
+| 2 | **Student** | `student` | 590/mån | 11 | Brett segment, låg konkurrens |
+| 3 | **Lärare** | `larare` | 230/mån kombinerat | 6-7 | Professionell grupp, hög conversion potential |
+| 4 | **Sjuksköterska** | `sjukskoterska` | 150/mån | - | Vårdsektor (som undersköterska) |
+| 5 | **Butikssäljare** | `butikssaljare` | 90/mån kombinerat | 9-11 | Stor arbetsmarknad, många sökande |
+| 6 | **Säljare** | `saljare` | 110/mån kombinerat | - | Brett yrke, hög konkurrens om jobb |
+| 7 | **Sommarjobb** | `sommarjobb` | 110/mån kombinerat | - | Säsongsbetonat, ung målgrupp |
+| 8 | **Ekonomiassistent** | `ekonomiassistent` | 60/mån kombinerat | - | Professionell grupp, betalvilliga |
+| 9 | **Barnskötare** | `barnskotare` | 50/mån kombinerat | 6 | Vårdsektor, tydligt behov |
+| 10 | **Personlig assistent** | `personlig-assistent` | 50/mån | - | Vårdsektor, växande bransch |
+
+**FAS 1 Total Sökvolym: ~2000 sökningar/mån**
+
+### FAS 2 (Månad 2 - efter analys av FAS 1)
+
+**10 medelprioriterade yrken**
+
+| # | Yrke | Slug | Sökvolym | Motivering |
+|---|------|------|----------|------------|
+| 11 | Lagerarbetare | `lagerarbetare` | 60/mån | Stor arbetsmarknad |
+| 12 | Administratör | `administrator` | 40/mån | Professionell grupp |
+| 13 | Ingenjör | `ingenjor` | 50/mån | Hög betalvilja |
+| 14 | IT | `it` | 40/mån | Tech-sektor |
+| 15 | Receptionist | `receptionist` | 40/mån | Service-yrke |
+| 16 | Förskollärare | `forskollarare` | 40/mån | Pedagogisk sektor |
+| 17 | Handläggare | `handlaggare` | 40/mån | Offentlig sektor |
+| 18 | Kurator | `kurator` | 20/mån | Nisch men tydligt behov |
+| 19 | Städare | `stadare` | 20/mån | Stor arbetsmarknad |
+| 20 | Läkare | `lakare` | 30/mån | Professionell grupp |
+
+**FAS 2 Total Sökvolym: ~380 sökningar/mån**
+
+### FAS 3 (Månad 3-6 - Data-driven expansion)
+
+**Efter FAS 1-2:** Analysera prestanda i GSC och GA4:
+- Vilka sidor får mest organisk traffic?
+- Vilka har bäst conversion rate?
+- Vilka keywords får vi featured snippets för?
+
+**Baserat på data, lägg till:**
+- Nisch-yrken med hög conversion (även om låg volym)
+- Yrken där vi rankar bra i FAS 1-2 (dublera framgången)
+- Nya trending yrken (AI-roller, hållbarhetsyrken etc.)
+
+**Möjliga FAS 3-tillägg:**
+- Chef / Teamledare
+- Projektledare
+- HR-specialist
+- Ekonom
+- Redovisningskonsult
+- Socionom
+- Fastighetsskötare
+- Restaurang/Café-personal
+
+---
+
+## 6. MIGRATION PLAN - TEKNISK IMPLEMENTATION
+
+### Timing: OMEDELBAR implementering
+
+**Varför vänta ÄR fel:**
+- ✅ Ju tidigare ni konsoliderar, desto snabbare bygger ni SEO-authority
+- ✅ Inget befintligt traffic att skydda = ingen risk
+- ✅ Google behöver 2-3 månader för att indexera och ranka nya sidor → Start NU
+
+### Implementation Checklist
+
+**VECKA 1: Setup**
+- [ ] Skapa Next.js-rutter för `/personligt-brev-exempel` (hub) och `/personligt-brev-exempel/[slug]` (dynamic route)
+- [ ] Implementera 301-redirects i `next.config.js` (lista ovan)
+- [ ] Designa galleri-kort komponenter (preview card)
+- [ ] Skapa template för exempel-sidor
+
+**VECKA 2-3: Content Creation FAS 1**
+- [ ] Skriv content för HUB-sidan (800-1200 ord)
+- [ ] Skapa 10 färdiga personligt brev-exempel (en per yrke i FAS 1)
+- [ ] Skriv guide-content för varje exempel-sida (800-1000 ord per sida)
+- [ ] Skapa FAQ-schema för hub + alla 10 exempel-sidor
+
+**VECKA 4: Launch FAS 1**
+- [ ] Publish hub-sida + 10 exempel-sidor
+- [ ] Aktivera 301-redirects för dessa 10 yrken
+- [ ] Submit updated sitemap till Google Search Console
+- [ ] Skapa internal links från befintliga guide-artiklar till nya exempel-sidor
+
+**VECKA 5-6: Monitor & Optimize**
+- [ ] Övervaka GSC för crawl errors
+- [ ] Kontrollera att 301s fungerar korrekt
+- [ ] A/B-testa galleri-kortens design (klickfrekvens)
+- [ ] Analysera user behavior i GA4 (scroll depth, CTA clicks)
+
+**VECKA 7-10: FAS 2 Implementation**
+- [ ] Bygga 10 ytterligare exempel-sidor
+- [ ] Aktivera ytterligare redirects
+- [ ] Uppdatera hub-galleriet med nya kort
+
+### Next.js Teknisk Implementation
+
+**1. Dynamic Route: `/app/personligt-brev-exempel/[slug]/page.tsx`**
+
+```typescript
+import { notFound } from 'next/navigation';
+import { getExampleBySlug, getAllExampleSlugs } from '@/lib/examples';
+
+export async function generateStaticParams() {
+  const slugs = await getAllExampleSlugs();
+  return slugs.map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const example = await getExampleBySlug(params.slug);
+
+  if (!example) return {};
+
+  return {
+    title: example.seoTitle,
+    description: example.description,
+    openGraph: {
+      title: example.seoTitle,
+      description: example.description,
+      images: [example.image],
+    },
+  };
+}
+
+export default async function ExamplePage({ params }: { params: { slug: string } }) {
+  const example = await getExampleBySlug(params.slug);
+
+  if (!example) notFound();
+
+  return (
+    <main>
+      <Breadcrumbs />
+      <HeroSection example={example} />
+      <LetterPreview content={example.letterContent} />
+      <GuideSection guide={example.guide} />
+      <RelatedExamples related={example.related} />
+      <FAQSection faqs={example.faqs} />
+      <CTASection />
+    </main>
+  );
+}
+```
+
+**2. Data Structure: `/lib/examples.ts`**
+
+```typescript
+export interface PersonligtBrevExample {
+  slug: string;
+  title: string;
+  seoTitle: string;
+  description: string;
+  image: string;
+  letterContent: string; // Färdigt brev-exempel
+  guide: {
+    title: string;
+    sections: Array<{
+      heading: string;
+      content: string;
+      keywords?: string[];
+    }>;
+  };
+  faqs: Array<{
+    question: string;
+    answer: string;
+  }>;
+  related: string[]; // Slugs till relaterade exempel
+  keywords: string[];
+  category: 'vard' | 'kontor' | 'service' | 'pedagogik' | 'tech' | 'other';
+}
+
+const examples: PersonligtBrevExample[] = [
+  {
+    slug: 'underskoterska',
+    title: 'Undersköterska',
+    seoTitle: 'Personligt Brev Undersköterska - Färdigt exempel och mall (2025)',
+    description: 'Professionellt personligt brev-exempel för undersköterska. Se färdig mall, få tips från HR-experter och skapa ditt brev på 2 minuter.',
+    image: '/images/personligt-brev/underskoterska.webp',
+    letterContent: `Emma Andersson
+emma.andersson@email.com | 070-123 45 67
+
+Stockholm, 2025-01-15
+
+Till vårdcentralen Globen
+
+Ansökan om tjänst som undersköterska
+
+Jag söker tjänsten som undersköterska på Vårdcentralen Globen...`,
+    guide: {
+      title: 'Så skriver du ett vinnande personligt brev som undersköterska',
+      sections: [
+        {
+          heading: 'Viktiga nyckelord för undersköterskor',
+          content: 'När du skriver ditt personliga brev som undersköterska är det viktigt att inkludera...',
+          keywords: ['basal hygien', 'omvårdnad', 'sondmatning', 'dokumentation'],
+        },
+        // ... fler sektioner
+      ],
+    },
+    faqs: [
+      {
+        question: 'Hur långt ska ett personligt brev för undersköterska vara?',
+        answer: 'Max 1 A4-sida (250-400 ord). Vårdchefer har begränsad tid...',
+      },
+      // ... fler FAQs
+    ],
+    related: ['sjukskoterska', 'barnskotare', 'personlig-assistent'],
+    keywords: [
+      'personligt brev undersköterska',
+      'exempel personligt brev undersköterska',
+      'personligt brev undersköterska mall',
+    ],
+    category: 'vard',
+  },
+  // ... alla andra exempel
+];
+
+export async function getExampleBySlug(slug: string) {
+  return examples.find((ex) => ex.slug === slug);
+}
+
+export async function getAllExampleSlugs() {
+  return examples.map((ex) => ex.slug);
+}
+
+export async function getExamplesByCategory(category: string) {
+  return examples.filter((ex) => ex.category === category);
+}
+```
+
+---
+
+## 7. RISKER OCH MONITORING PLAN
+
+### Vad kan gå fel?
+
+| Risk | Sannolikhet | Impact | Mitigation Plan |
+|------|-------------|--------|-----------------|
+| **301-redirects fungerar inte** | LÅG | HÖG | Testa varje redirect manuellt före launch, använd redirect-checker verktyg |
+| **Google indexerar inte nya sidor** | MEDEL | MEDEL | Submit sitemap, skapa backlinks från sociala medier, internal linking |
+| **Duplicate content mellan exempel-sidor** | MEDEL | HÖG | Varje exempel-sida MÅste ha unikt guide-content (800+ ord), ej copy-paste |
+| **Låg klickfrekvens på galleri-kort** | MEDEL | MEDEL | A/B-testa design, testa olika preview-texter, lägg till "Populärast"-badges |
+| **Användare hittar inte sitt yrke** | LÅG | MEDEL | Lägg till sökfunktion på hub, kategorisera efter bransch |
+| **Conversion rate lägre än förväntat** | MEDEL | HÖG | Optimera CTAs, förenkla path till verktyget, A/B-testa olika copy |
+
+### Google Search Console Monitoring Checklist
+
+**DAGLIG övervakning (första 2 veckorna efter launch):**
+- [ ] Coverage-rapporten: Finns crawl errors för nya sidor?
+- [ ] Index-status: Är nya sidor indexerade?
+- [ ] 301-redirect felrapporter
+
+**VECKOVIS övervakning (månad 1-3):**
+- [ ] Vilka keywords börjar ranka för nya exempel-sidor?
+- [ ] Genomsnittlig position för "personligt brev exempel [yrke]"
+- [ ] Klickfrekvens (CTR) från SERP
+- [ ] Impressions-trend: Ökar eller minskar synlighet?
+
+**MÅNADSVIS analys:**
+- [ ] Organisk traffic till exempel-sidor vs gamla artiklar
+- [ ] Conversion rate per exempel-sida
+- [ ] Vilka sidor får featured snippets?
+- [ ] Internal linking effectiveness (vilka hubbar driver mest traffic?)
+
+### GA4 Metrics att övervaka
+
+| Metric | Vad det säger | Mål |
+|--------|---------------|-----|
+| **Bounce Rate** på exempel-sidor | Är innehållet relevant? | <60% |
+| **Scroll Depth** | Läser användare guiderna? | >40% når FAQ-sektion |
+| **CTA Click Rate** | Hur många klickar "Skapa brev"? | >8% från exempel-sidor |
+| **Time on Page** | Engagerar innehållet? | >2 minuter |
+| **Exit Rate** från hub | Fungerar galleriet? | <50% |
+
+### Success Metrics (3 månader efter launch)
+
+| KPI | Baseline (idag) | Mål (Månad 3) | Stretch Goal |
+|-----|-----------------|---------------|--------------|
+| **Organisk traffic till "personligt brev"-sidor** | ~100 users/mån | 1500 users/mån | 2500 users/mån |
+| **Ranking för "personligt brev exempel"** | Ej i top 100 | Top 20 | Top 10 |
+| **Featured snippets** | 0 | 3-5 snippets | 8+ snippets |
+| **Conversion rate från exempel-sidor** | N/A | 5% | 8% |
+| **Backlinks till exempel-sidor** | 0 | 5-10 | 15+ |
+
+---
+
+## 8. CONTENT CREATION WORKFLOW
+
+### Template för att skapa varje exempel-sida
+
+**STEG 1: Keyword Research (15 min per yrke)**
+- Primärt keyword: "personligt brev exempel [yrke]"
+- Sekundära: "personligt brev [yrke]", "exempel personligt brev [yrke]"
+- Related: "[yrke] ansökan", "cv [yrke]"
+
+**STEG 2: Skriv färdigt personligt brev-exempel (30-45 min)**
+- 300-400 ord
+- Professionell ton
+- Inkludera yrkesspecifika nyckelord (t.ex. "basal hygien" för undersköterska)
+- Strukturera enligt best practice: intro → erfarenhet → motivation → avslut
+
+**STEG 3: Skriv guide-content (60-90 min)**
+- 800-1000 ord uppdelade i:
+  - H2: Så skriver du ett vinnande personligt brev som [yrke]
+  - H3: Viktiga nyckelord för [yrke]
+  - H3: Kompetenser att lyfta fram
+  - H3: Vanliga misstag att undvika
+  - H3: Hur du anpassar brevet till olika arbetsgivare
+
+**STEG 4: Skapa FAQ (20-30 min)**
+- 4-5 frågor specifika för yrket
+- Använd "People Also Ask" från Google
+- Optimera för featured snippets (korta, direkta svar)
+
+**STEG 5: SEO Optimization (15 min)**
+- Säkerställ keyword-densitet
+- Lägg till internal links (minst 3)
+- Optimera meta description
+- Lägg till schema markup
+
+**Total tid per exempel-sida: 2.5-3 timmar**
+
+**För FAS 1 (10 sidor): ~25-30 timmar content creation**
+
+### Content Outsourcing Strategi
+
+**Alternativ 1: Gör själva (bäst kvalitet)**
+- Ni känner er produkt och målgrupp
+- Kan justera i realtid
+- Tid: 25-30 timmar för FAS 1
+
+**Alternativ 2: Hybrid (rekommenderat)**
+- Outsourca färdiga personligt brev-exempel till frilansare med HR-bakgrund
+- Skriv guiderna själva (behöver produktkunskap)
+- Tid: 15 timmar för er
+
+**Alternativ 3: Full outsourcing**
+- Anlita SEO content writer med erfarenhet av karriär-content
+- Ge tydliga briefs med keywords, struktur, exempel
+- Tid: 5-10 timmar briefing + QA
+
+---
+
+## 9. EXEMPEL: KOMPLETT CONTENT FÖR EN SIDA
+
+### Personligt Brev Exempel: Undersköterska (KOMPLETT)
+
+**URL:** `/personligt-brev-exempel/underskoterska`
+
+**Metadata:**
+```yaml
+title: "Personligt Brev Undersköterska - Färdigt exempel och mall (2025)"
+description: "Professionellt personligt brev-exempel för undersköterska. Se färdig mall, få tips från HR-experter och skapa ditt brev på 2 minuter."
+```
+
+**Hero Section:**
+
+# Personligt Brev Undersköterska - Färdigt Exempel
+
+Söker du jobb som undersköterska? Se vårt professionella personligt brev-exempel anpassat för vårdcentraler, äldreboenden och hemtjänst. Exemplet innehåller de nyckelord och kompetenser som svenska vårdarbetsgivare aktivt letar efter. Använd det som inspiration och skapa sedan ditt egna personligt brev på 2 minuter med vårt AI-verktyg.
+
+[Skapa ditt personliga brev på 2 min →]
+
+---
+
+**Färdigt Personligt Brev - Undersköterska:**
+
+```
+Emma Andersson
+emma.andersson@email.com | 070-123 45 67
+Storgatan 12, 123 45 Stockholm
+
+Stockholm, 2025-01-15
+
+Vårdcentralen Globen
+Rekryteringsansvarig
+Globenvägen 5
+121 77 Johanneshov
+
+Ansökan om tjänst som undersköterska
+
+Jag söker tjänsten som undersköterska på Vårdcentralen Globen. Med sex års erfarenhet från äldreomsorg och gedigen kunskap inom basal hygien och omvårdnad tror jag att jag kan bidra till ert team med professionell och empatisk vård.
+
+Under mina år på Solbackens äldreboende har jag arbetat nära äldre med både somatiska och kognitiva sjukdomar. Jag har gedigen erfarenhet av sondmatning, såromläggning, insulinadministrering och katetervård. Dessutom har jag vidareutbildat mig inom palliativ vård och demensomvårdnad, vilket har gett mig verktyg för att möta patienter med respekt och trygghet även i svåra situationer.
+
+Jag trivs med det varierande arbetet på vårdcentral, där varje dag bjuder på nya utmaningar och möjligheten att möta patienter i olika åldrar och med skiftande vårdbehov. Er profil inom närsjukvård och hembesök tilltalar mig särskilt, eftersom jag tror starkt på vikten av att möta patienter i deras hemmiljö där de känner sig trygga.
+
+Det som driver mig i mitt yrke är möjligheten att göra skillnad i människors vardag. Att kunna läsa av en patients behov, skapa trygghet genom lugn och närvaro, och se till att vården blir både säker och värdig – det är det som motiverar mig. Jag är van vid dokumentation i VAS-systemet och trivs med att arbeta i team tillsammans med sjuksköterskor, läkare och annan vårdpersonal.
+
+Jag ser fram emot möjligheten att bidra till Vårdcentralen Globens arbete med god och säker vård. Hör gärna av er om ni vill veta mer om mig och min bakgrund.
+
+Med vänlig hälsning,
+
+Emma Andersson
+```
+
+[Ladda ner mall som DOCX] [Ladda ner som PDF] [Skapa ditt eget med AI →]
+
+---
+
+## Så skriver du ett vinnande personligt brev som undersköterska
+
+Ett framgångsrikt personligt brev för undersköterskor handlar om att visa både din medicinska kompetens och din empatiska förmåga. Vårdarbetsgivare letar efter kandidater som kan kombinera teknisk skicklighet med ett varmt och professionellt bemötande.
+
+### Viktiga nyckelord för undersköterskor
+
+När du skriver ditt personliga brev som undersköterska är det viktigt att inkludera de termer och kompetenser som arbetsgivare aktivt söker efter. Här är de viktigaste nyckelorden att ta med:
+
+**Medicinska kompetenser:**
+- Basal hygien och omvårdnad
+- Sondmatning och nutrition
+- Såromläggning och hudvård
+- Insulinadministrering och diabetesvård
+- Katetervård och inkontinenshantering
+- Palliativ vård och smärtlindring
+
+**Systemkunskaper:**
+- VAS (Vård- och Omsorgssystem)
+- Procapita
+- Treserva
+- PMO (Pascal Medical Omsorg)
+
+**Mjuka kompetenser:**
+- Empatisk kommunikation
+- Personcentrerad vård
+- Teamwork och samarbete
+- Stresshantering
+- Flexibilitet (skiftarbete, jour)
+
+### Kompetenser att lyfta fram
+
+Beroende på var du söker jobb bör du betona olika aspekter av din erfarenhet:
+
+**För vårdcentral:**
+- Bred medicinsk kompetens
+- Erfarenhet av akuta situationer
+- Förmåga att arbeta i högt tempo
+- Samarbete med sjuksköterskor och läkare
+
+**För äldreboende:**
+- Demenskunskap och BPSD-hantering
+- Kontinuitet i omsorgsarbete
+- Relationsskapande med boende och anhöriga
+- Tålamod och lugn i stressade situationer
+
+**För hemtjänst:**
+- Självständighet i arbetet
+- Flexibilitet i schemaläggning
+- Anpassningsförmåga till olika hemmiljöer
+- Respekt för brukarens självbestämmande
+
+### Vanliga misstag att undvika
+
+1. **För generiska formuleringar:** Undvik standardfraser som "Jag är noggrann och ansvarstagande". Ge istället konkreta exempel på situationer där du visat dessa egenskaper.
+
+2. **Upprepa CV:t:** Det personliga brevet ska komplettera ditt CV, inte upprepa det. Välj ut 1-2 nyckelupplevelser och fördjupa dig i vad du lärde dig.
+
+3. **Glömma att anpassa:** Ett generiskt brev som skickas till alla arbetsplatser syns direkt. Researcha verksamheten och visa att du förstår deras specifika behov.
+
+4. **För långt brev:** Max 1 A4-sida. Vårdchefer har begränsad tid – håll det kortfattat och relevant.
+
+5. **Utelämna kontaktinformation:** Se till att ditt namn, telefonnummer och e-post finns tydligt i brevet.
+
+### Hur du anpassar brevet till olika arbetsgivare
+
+**Steg 1: Läs platsannonsen noga**
+Vilka specifika kompetenser efterfrågas? Vilka ord och fraser används? Använd samma terminologi i ditt brev.
+
+**Steg 2: Researcha arbetsplatsen**
+Besök deras hemsida. Vad säger de om sina värderingar? Har de speciella arbetsmetoder eller profileringar (t.ex. palliativ vård, demensboende)?
+
+**Steg 3: Matcha din erfarenhet mot deras behov**
+Om de söker någon med demenskunskap – lyft fram din utbildning och konkreta exempel från arbete med demenssjuka. Om de betonar teamwork – ge exempel på framgångsrikt samarbete.
+
+**Steg 4: Visa genuint intresse**
+Förklara varför just denna arbetsplats attraherar dig. Vad tilltalar dig med deras verksamhet? Vad kan du bidra med specifikt till dem?
+
+[Skapa ditt personliga brev på 2 minuter →]
+
+---
+
+## Relaterade personligt brev-exempel
+
+Se även våra exempel för andra vårdyrken:
+
+- [Sjuksköterska →](/personligt-brev-exempel/sjukskoterska)
+- [Barnskötare →](/personligt-brev-exempel/barnskotare)
+- [Personlig assistent →](/personligt-brev-exempel/personlig-assistent)
+
+---
+
+## Vanliga frågor - Personligt brev för undersköterska
+
+**Hur långt ska ett personligt brev för undersköterska vara?**
+
+Max 1 A4-sida (250-400 ord). Vårdchefer har begränsad tid, så håll det kortfattat och relevant. Fokusera på dina viktigaste erfarenheter och varför du vill arbeta just där.
+
+**Vad ska jag skriva om medicinsk delegering?**
+
+Om du har erfarenhet av medicinsk delegering (t.ex. insulinhantering, läkemedelsadministrering) – lyft fram det! Det är en meriterande kompetens som många vårdarbetsgivare letar efter. Nämn vilka specifika uppgifter du har delegerats och hur länge du arbetat med dem.
+
+**Ska jag nämna systemkunskaper (VAS/Procapita)?**
+
+Absolut. IT-kompetens är alltmer viktigt inom vården. Nämn vilka journalsystem du har erfarenhet av. Om du är van användare av VAS, Procapita eller andra system – skriv det tydligt. Det visar att du kan börja arbeta snabbt utan lång introduktion.
+
+**Hur visar jag empati i brevet?**
+
+Istället för att säga "Jag är empatisk", ge konkreta exempel. Till exempel: "När en patient med demens blev orolig använde jag validerande samtal och lugn närvaro, vilket gjorde att situationen kunde lösas utan tvång." Konkreta berättelser visar din empati bättre än adjektiv.
+
+**Ska jag inkludera mina arbetserfarenheter i det personliga brevet?**
+
+Ja, men undvik att upprepa CV:t. Välj 1-2 relevanta erfarenheter och beskriv vad du lärde dig och hur det har format dig som undersköterska. Fokusera på vad som är mest relevant för den tjänst du söker.
+
+---
+
+## Redo att skapa ditt personliga brev?
+
+Använd vårt AI-verktyg för att skapa ett skräddarsytt personligt brev baserat på detta exempel och din egen erfarenhet. Verktyget analyserar din bakgrund och jobbannonsen för att generera ett professionellt brev som är optimerat för både ATS-system och mänskliga rekryterare.
+
+Klart på 2 minuter.
+
+[Skapa mitt personliga brev nu →]
+
+---
+
+**DETTA är en komplett exempel-sida.** Multiplicera denna struktur för alla 20 yrken i FAS 1-2.
+
+---
+
+## 10. SLUTSATS OCH NÄSTA STEG
+
+### Är strategin rätt? JA - absolut.
+
+För en ny sajt som jobbcoach.ai där befintliga artiklar knappt rankar är den aggressiva konsolideringsstrategin **100% rätt väg framåt**. Ni har:
+
+✅ **Inget att förlora** (minimal befintlig traffic)
+✅ **Allt att vinna** (starkare SEO-signal, bättre UX, högre conversion)
+✅ **Rätt timing** (bygga rätt från start istället för att refaktorera senare)
+
+### Action Plan - Nästa 30 dagar
+
+**VECKA 1:**
+1. Godkänn denna strategi med stakeholders
+2. Sätt upp Next.js-rutter och redirects
+3. Designa galleri-kort komponenter
+
+**VECKA 2-3:**
+4. Skriv content för HUB-sidan
+5. Skapa 10 färdiga personligt brev-exempel (FAS 1)
+6. Skriv guide-content för alla 10 exempel-sidor
+
+**VECKA 4:**
+7. Launch HUB + FAS 1 (10 exempel-sidor)
+8. Aktivera 301-redirects
+9. Submit sitemap till GSC
+
+**VECKA 5+:**
+10. Monitor GSC och GA4 dagligen
+11. Optimera baserat på data
+12. Planera FAS 2
+
+### Förväntade Resultat (3 månader)
+
+- **Organisk traffic:** 100 → 1500+ users/mån
+- **Keywords ranking:** 0 → 15-20 keywords i top 30
+- **Featured snippets:** 0 → 3-5 snippets
+- **Conversion rate:** N/A → 5-8% från exempel-sidor
+
+### Ni har rätt. Kör på detta. Nu.
+
+Användaren är 100% korrekt: En ny sajt ska vara aggressiv. Konsolidera NU, bygg rätt från början, och se resultaten komma inom 90 dagar.
+
+**Lycka till med implementeringen!**
+
+---
+
+**Dokument skapad:** 2025-11-22
+**Status:** REDO FÖR IMPLEMENTATION
+**Nästa steg:** Godkännande och VECKA 1 setup

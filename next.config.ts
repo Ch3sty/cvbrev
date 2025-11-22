@@ -71,6 +71,39 @@ const nextConfig: NextConfig = {
   
   // Ta bort swcMinify eftersom det inte längre känns igen i din version av Next.js
   // Minifiering hanteras numera automatiskt av Next.js
+
+  // 301 Redirects för personligt brev exempel-galleri
+  async redirects() {
+    return [
+      // Yrkesspecifika personliga brev exempel
+      {
+        source: '/artiklar/personligt-brev-underskoterska',
+        destination: '/personligt-brev-exempel/underskoterska',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-sjukskoterska',
+        destination: '/personligt-brev-exempel/sjukskoterska',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-larare',
+        destination: '/personligt-brev-exempel/larare',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-student',
+        destination: '/personligt-brev-exempel/student',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-sommarjobb',
+        destination: '/personligt-brev-exempel/sommarjobb',
+        permanent: true,
+      },
+      // Lägg till fler redirects här när fler exempel-sidor skapas
+    ]
+  },
 };
 
 export default nextConfig;
