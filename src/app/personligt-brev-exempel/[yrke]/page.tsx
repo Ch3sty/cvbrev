@@ -659,6 +659,139 @@ Sofia Andersson`
     ]
   },
 
+  'sommarjobb': {
+    yrke: 'Sommarjobb',
+    sokvolym: 3200,
+    metaTitle: 'Personligt Brev Sommarjobb - Exempel & Mallar för Unga 2025',
+    metaDescription: 'Få ditt sommarjobb med ett professionellt personligt brev. Komplett exempel, konkreta tips för dig utan erfarenhet, och mall att använda direkt. Perfekt för studenter!',
+
+    seoIntro: 'Sök sommarjobb med ett personligt brev som visar entusiasm och pålitlighet – även om du inte har jobbat mycket ännu. Det här exemplet visar hur Emma (19 år, student) söker sommarjobb på Coop och får fram sina styrkor trots begränsad arbetslivserfarenhet. Du får se exakt hur hon lyfter konkreta exempel från tidigare sommarjobb, barnvaktsjobb och skola för att visa pålitlighet, flexibilitet och rätt inställning. Brevet innehåller tydlig tillgänglighet (9 juni-18 augusti), visar varför arbetsgivare kan lita på henne och använder en naturlig, entusiastisk ton som passar unga sökande. Perfekt för dig som söker ditt första eller andra sommarjobb inom detaljhandel, lager, restaurang eller kontor. Anpassa efter din egen erfarenhet och använd våra tips för att kompensera för begränsad arbetslivserfarenhet.',
+
+    intro: 'Ett professionellt personligt brev för sommarjobb som visar entusiasm, pålitlighet och rätt inställning. Detta exempel är skrivet för unga sökande utan lång erfarenhet och visar hur du lyfter rätt egenskaper.',
+
+    exempelBrev: {
+      namn: 'Emma Andersson',
+      telefon: '070-XXX XX XX',
+      epost: 'emma.andersson@exempel.se',
+      arbetsgivare: 'Coop Vällingby',
+      roll: 'Sommarjobb',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Hej!
+
+Jag heter Emma Andersson och söker sommarjobb på Coop Vällingby för juni-augusti 2025. Jag är 19 år och läser andra året på samhällsprogrammet. Jag är helt ledig från 9 juni till 18 augusti.
+
+Jag har jobbat ett tidigare sommar på ICA Maxi där jag packade upp varor, hjälpte kunder och höll ordning i butiken. Där lärde jag mig ta eget ansvar, jobba snabbt när det är mycket att göra och vara trevlig även när det är stressigt. Min arbetsgivare sa att jag var pålitlig och hade lätt att lära mig nya arbetsuppgifter.
+
+Under terminerna jobbar jag extra som barnvakt åt två familjer i området. Det har lärt mig punktlighet och att folk måste kunna lita på mig. I skolan har jag alltid klarat mina deadlines och jag gillar när det finns tydliga rutiner att följa.
+
+Jag är van vid tidiga morgnar eftersom jag tränar simning före skolan, och jag kan jobba helger och kvällar utan problem. Social som jag är gillar jag att prata med kunder och frågar om jag är osäker på något.
+
+Jag skulle verkligen uppskatta att få jobba hos er i sommar och hoppas att vi kan ses för en intervju!
+
+Vänliga hälsningar,
+Emma Andersson
+070-XXX XX XX
+emma.andersson@exempel.se`
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Visar tydlig tillgänglighet med exakta datum',
+        beskrivning: 'Arbetsgivare behöver sommarjobbare som kan jobba hela sommaren. Emma anger exakt när hon är ledig (9 juni-18 augusti) vilket gör det enkelt att bedöma om hon passar deras behov. Detta är mycket mer värdefullt än vagt "hela sommaren".'
+      },
+      {
+        titel: 'Lyfter konkret erfarenhet och visar vad personen lärde sig',
+        beskrivning: 'Emma beskriver inte bara VAD hon gjorde på ICA Maxi utan VAD HON LÄRDE SIG: ta eget ansvar, jobba snabbt under stress, vara trevlig även när det är kaotiskt. Detta visar självinsikt och att hon förstår vad arbetsgivare söker.'
+      },
+      {
+        titel: 'Betonar pålitlighet med exempel från barnvaktsjobb',
+        beskrivning: 'Barnvaktsjobb är perfekt exempel för att visa pålitlighet – föräldrar måste kunna lita på dig. Emma kopplar detta direkt till att "folk måste kunna lita på mig", vilket visar att hon förstår vad som är viktigt i arbetslivet.'
+      },
+      {
+        titel: 'Adresserar praktiska krav direkt i brevet',
+        beskrivning: 'Emma nämner att hon kan jobba tidiga morgnar, helger och kvällar – praktiska krav som många sommarjobb har. Genom att ta upp detta direkt visar hon realism och att hon förstår vad jobbet kräver.'
+      },
+      {
+        titel: 'Använder naturlig, entusiastisk ton som passar en ung sökande',
+        beskrivning: 'Brevet låter inte stelt eller överformellt utan har en ärlig, positiv ton som passar en 19-åring. "Jag skulle verkligen uppskatta" är entusiastiskt utan att vara överdrivet, och "frågar om jag är osäker" visar ödmjukhet.'
+      }
+    ],
+
+    tipsForYrke: [
+      {
+        rubrik: 'Var konkret med din tillgänglighet',
+        text: 'Skriv exakt vilka datum du kan jobba, inte bara "hela sommaren". Arbetsgivare behöver veta om du är ledig från skolavslutning till terminsstart eller bara delar av sommaren.\n\nInkludera också om du kan jobba helger, kvällar och tidiga morgnar. För många sommarjobb är detta avgörande, och genom att nämna det direkt visar du att du förstår vad jobbet kräver.'
+      },
+      {
+        rubrik: 'Kompensera för begränsad erfarenhet med rätt exempel',
+        text: 'Om du inte har jobbat mycket tidigare kan du lyfta exempel från skola, föreningsliv eller fritid som visar relevanta egenskaper. Har du alltid kommit i tid till träningar? Tagit ansvar i grupparbeten? Jobbat extra hårt för att klara en tuff kurs?\n\nArbetsgivare som anställer sommarjobbare vet att ni inte har lång erfarenhet – de letar efter tecken på att du är ansvarsfull, lätt att jobba med och villig att lära dig.'
+      },
+      {
+        rubrik: 'Fokusera på inställning och personliga egenskaper',
+        text: 'För sommarjobb värderas ofta din inställning högre än specifik erfarenhet. Visa att du är positiv, flexibel och någon som är lätt att ha i ett arbetslag.\n\nUndvik klyschiga fraser som "driven och ambitiös" – visa istället genom konkreta exempel. "Jag gillar att ha mycket att göra och jobbar snabbt när det är fullt i butiken" säger mer än "jag är stresstålig".'
+      },
+      {
+        rubrik: 'Skriv inte för långt eller komplicerat',
+        text: 'Ditt personliga brev behöver inte vara lika formellt eller långt som för ett heltidsjobb. 250-350 ord är lagom. Skriv enkelt och naturligt – försök inte låta äldre eller mer erfaren än du är.\n\nArbetsgivare vill se att du kan kommunicera tydligt och professionellt, inte att du behärskar formella affärsbrev. En ärlig, entusiastisk ton fungerar bättre än stelt formellt språk.'
+      },
+      {
+        rubrik: 'Inkludera konkreta kontaktuppgifter och var tydlig med uppföljning',
+        text: 'Se till att ditt mobilnummer och e-post är tydligt angivna – arbetsgivare kontaktar ofta snabbt när de hittar rätt kandidat. Använd en seriös e-postadress (förnamn.efternamn@), inte smeknamn eller ålderdomliga adresser.\n\nOm du söker till flera ställen, håll koll på var du har sökt så att du kan svara professionellt när de ringer. Många sommarjobb fylls snabbt i april-maj, så var beredd att kunna komma på intervju med kort varsel.'
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad skriver jag i personligt brev om jag aldrig har haft ett jobb tidigare?',
+        svar: 'Fokusera på exempel från skola, fritid och föreningsliv som visar att du är pålitlig och lätt att jobba med. Har du haft ansvar i grupparbeten? Varit punktlig till träningar? Klarat tuffa kurser? Arbetsgivare som anställer sommarjobbare förväntar sig inte lång erfarenhet – de vill se rätt inställning. Lyft konkreta exempel som visar att du kan ta ansvar, lära dig snabbt och är någon man kan lita på. Det är bättre att ha tre konkreta exempel från skolan än att hitta på arbetslivserfarenhet.'
+      },
+      {
+        fraga: 'Hur långt ska personligt brev för sommarjobb vara?',
+        svar: 'Mellan 250-350 ord, vilket motsvarar cirka en halv A4-sida. Sommarjobbsansökningar behöver inte vara lika formella eller långa som ansökningar till heltidstjänster. Arbetsgivare vill snabbt kunna läsa vem du är, när du kan jobba och varför du är rätt person. Ett kortare, välskrivet brev läses oftare än ett långt och krångligt. Fokusera på det viktigaste: din tillgänglighet, vad du kan bidra med och varför du vill jobba just där.'
+      },
+      {
+        fraga: 'Måste jag skriva personnummer i ansökan till sommarjobb?',
+        svar: 'Nej, du behöver inte skriva ditt personnummer i personligt brev eller CV förrän arbetsgivaren ber om det – vanligtvis i samband med anställning. Det räcker med namn, telefonnummer, e-post och eventuellt adress. Vissa arbetsgivare ber om personnummer i ansökningsformuläret för att kolla ålder (för arbeten med åldersgräns), men då finns det ett särskilt fält för det. Skriv aldrig personnummer i själva brevtexten.'
+      },
+      {
+        fraga: 'Hur länge ska jag kunna jobba för att få sommarjobb?',
+        svar: 'De flesta arbetsgivare söker sommarjobbare som kan jobba minst 6-8 veckor, ofta från juni till augusti. Ju längre du kan jobba, desto mer attraktiv är du som kandidat eftersom det tar tid att lära upp nya medarbetare. Om du bara kan jobba 3-4 veckor är det fortfarande värt att söka, men var tydlig med dina datum direkt i ansökan så att arbetsgivaren kan bedöma om det passar deras behov. Flexibilitet kring startdatum kan också vara en fördel.'
+      },
+      {
+        fraga: 'Ska jag anpassa personligt brev för varje sommarjobb jag söker?',
+        svar: 'Ja, du bör alltid anpassa brevet – åtminstone företagsnamnet och eventuellt några meningar om varför du vill jobba just där. Det behöver inte vara stora förändringar, men ett brev som är skrivet specifikt till "Coop Vällingby" gör mycket bättre intryck än ett generiskt brev till "Er butik". Om du söker liknande jobb kan du ha en grundmall och justera 2-3 stycken för varje ansökan. Det tar fem minuter extra men ökar dina chanser markant.'
+      },
+      {
+        fraga: 'Vad är viktigast att lyfta som ung sommarjobbssökande?',
+        svar: 'Pålitlighet, flexibilitet och rätt inställning. Arbetsgivare som anställer sommarjobbare vet att ni är unga och lär er fortfarande – de vill ha någon som kommer i tid, gör vad som förväntas, är trevlig mot kunder och kollegor, och inte försvinner efter två veckor. Visa genom konkreta exempel att du är någon man kan lita på. Om du har referenser från tidigare sommarjobb, skola eller barnvaktsjobb som kan bekräfta detta, nämn det gärna.'
+      },
+      {
+        fraga: 'Hur skriver jag om jag inte vet exakt vilken roll jag söker?',
+        svar: 'Många sommarjobb utlyses brett som "sommarjobbare inom butik" eller "sommarvikarier". Då kan du skriva att du är öppen för olika arbetsuppgifter och villig att jobba där det behövs. Nämn gärna om du har några preferenser eller styrkor ("Jag trivs särskilt bra med kundkontakt men är också van vid fysiskt arbete"), men visa framförallt att du är flexibel. Arbetsgivare uppskattar sommarjobbare som kan hoppa in där det behövs.'
+      },
+      {
+        fraga: 'Behöver jag ha referenser med i ansökan?',
+        svar: 'Du behöver inte skriva ut hela referenslistan i ditt personliga brev, men ha 1-2 referenser redo att uppge om arbetsgivaren frågar. Detta kan vara en tidigare arbetsgivare (även sommarjobb), lärare, tränare eller någon du barnvakat åt. Fråga personen först om det är okej att uppge dem som referens. I brevet kan du skriva "Referenser lämnas på begäran" eller helt enkelt vänta tills arbetsgivaren frågar efter dem vid en eventuell intervju.'
+      },
+      {
+        fraga: 'Ska jag skicka CV tillsammans med personligt brev till sommarjobb?',
+        svar: 'Ja, skicka alltid både CV och personligt brev om inget annat anges i jobbannonsen. Även om ditt CV är kort på grund av begränsad erfarenhet ska det finnas med – det visar att du kan presentera dig professionellt. Ditt CV kompletterar brevet med struktur och tydlighet kring utbildning, eventuell erfarenhet och kompetenser. För sommarjobb kan ditt CV vara kort (en sida) och enkelt, men det ska alltid finnas med.'
+      }
+    ],
+
+    relatedArticles: [
+      'cv-tips-for-studenter-utan-erfarenhet',
+      'personligt-brev-guide',
+      'intervjutips-forsta-jobbet'
+    ],
+
+    relatedTools: [
+      '/verktyg/cv-mallar',
+      '/verktyg/cv-analys',
+      '/verktyg/jobbcoachen'
+    ]
+  },
+
   'butikssaljare': {
     yrke: 'Butikssäljare',
     sokvolym: 650,
