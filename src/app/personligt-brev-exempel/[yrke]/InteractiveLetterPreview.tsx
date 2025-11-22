@@ -29,50 +29,50 @@ const TEMPLATES = [
     borderStyle: 'none' as const
   },
   {
-    id: 'minimal',
-    name: 'Minimal',
-    tier: 'free',
-    description: 'Ren och luftig design',
-    headerAlign: 'left' as const,
-    bodyAlign: 'left' as const,
-    spacing: 'loose' as const,
-    borderStyle: 'none' as const
-  },
-  {
-    id: 'centered',
-    name: 'Centrerad',
-    tier: 'premium',
-    description: 'Elegant centrerad layout',
-    headerAlign: 'center' as const,
-    bodyAlign: 'left' as const,
-    spacing: 'normal' as const,
-    borderStyle: 'top' as const
-  },
-  {
     id: 'sidebar',
-    name: 'Sidebar',
-    tier: 'premium',
-    description: 'Modern med sidofält',
+    name: 'Sidofält',
+    tier: 'free',
+    description: 'Vertikal linje som skiljer kontaktinfo från innehåll',
     headerAlign: 'left' as const,
     bodyAlign: 'left' as const,
     spacing: 'compact' as const,
     borderStyle: 'left' as const
   },
   {
+    id: 'minimal',
+    name: 'Minimal',
+    tier: 'free',
+    description: 'Ren från/till struktur',
+    headerAlign: 'left' as const,
+    bodyAlign: 'left' as const,
+    spacing: 'loose' as const,
+    borderStyle: 'none' as const
+  },
+  {
     id: 'compact',
     name: 'Kompakt',
-    tier: 'premium',
-    description: 'Kompakt för mycket innehåll',
+    tier: 'free',
+    description: 'Sparar vertikalt utrymme med inline kontaktinfo',
     headerAlign: 'left' as const,
     bodyAlign: 'left' as const,
     spacing: 'compact' as const,
     borderStyle: 'none' as const
   },
   {
-    id: 'twocolumn',
-    name: 'Två kolumner',
+    id: 'centered',
+    name: 'Centrerad',
     tier: 'premium',
-    description: 'Professionell två-kolumn',
+    description: 'Centrerad header med horisontell linje',
+    headerAlign: 'center' as const,
+    bodyAlign: 'left' as const,
+    spacing: 'normal' as const,
+    borderStyle: 'top' as const
+  },
+  {
+    id: 'twocolumn',
+    name: 'Professional Split',
+    tier: 'premium',
+    description: 'Två-kolumns layout med kontaktinfo till höger',
     headerAlign: 'left' as const,
     bodyAlign: 'left' as const,
     spacing: 'normal' as const,
@@ -81,19 +81,29 @@ const TEMPLATES = [
 ]
 
 const FONTS = [
-  { id: 'inter', name: 'Inter', family: 'Inter, sans-serif', style: 'modern' },
-  { id: 'lora', name: 'Lora', family: 'Lora, serif', style: 'elegant' },
-  { id: 'roboto', name: 'Roboto', family: 'Roboto, sans-serif', style: 'clean' },
-  { id: 'merriweather', name: 'Merriweather', family: 'Merriweather, serif', style: 'traditional' },
-  { id: 'opensans', name: 'Open Sans', family: '"Open Sans", sans-serif', style: 'friendly' },
-  { id: 'playfair', name: 'Playfair Display', family: '"Playfair Display", serif', style: 'sophisticated' },
-  { id: 'montserrat', name: 'Montserrat', family: 'Montserrat, sans-serif', style: 'geometric' },
-  { id: 'georgia', name: 'Georgia', family: 'Georgia, serif', style: 'classic' }
+  // ATS-Safe System Fonts
+  { id: 'calibri', name: 'Calibri', family: 'Calibri, Arial, sans-serif', category: 'ATS-Säkra', tier: 'free' },
+  { id: 'arial', name: 'Arial', family: 'Arial, Helvetica, sans-serif', category: 'ATS-Säkra', tier: 'free' },
+  { id: 'verdana', name: 'Verdana', family: 'Verdana, Geneva, sans-serif', category: 'ATS-Säkra', tier: 'free' },
+
+  // Modern Google Fonts
+  { id: 'lato', name: 'Lato', family: "'Lato', Arial, sans-serif", category: 'Moderna', tier: 'free' },
+  { id: 'open-sans', name: 'Open Sans', family: "'Open Sans', Arial, sans-serif", category: 'Moderna', tier: 'free' },
+  { id: 'roboto', name: 'Roboto', family: "'Roboto', Arial, sans-serif", category: 'Moderna', tier: 'free' },
+  { id: 'poppins', name: 'Poppins', family: "'Poppins', Arial, sans-serif", category: 'Moderna', tier: 'free' },
+
+  // Formal Serif Fonts
+  { id: 'georgia', name: 'Georgia', family: 'Georgia, Times, serif', category: 'Formella', tier: 'free' },
+  { id: 'garamond', name: 'Garamond', family: 'Garamond, Georgia, serif', category: 'Formella', tier: 'free' },
+  { id: 'times', name: 'Times New Roman', family: "'Times New Roman', Times, serif", category: 'Formella', tier: 'free' },
+
+  // Premium
+  { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: 'Premium', tier: 'premium' }
 ]
 
 export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLetterPreviewProps) {
   const [selectedTemplate, setSelectedTemplate] = useState('classic')
-  const [selectedFont, setSelectedFont] = useState('inter')
+  const [selectedFont, setSelectedFont] = useState('calibri')
   const [isClient, setIsClient] = useState(false)
 
   // SEO: Progressive enhancement - visa statiskt innehåll först
@@ -225,33 +235,49 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
             <Type className="w-4 h-4 text-slate-600" />
             <label className="text-sm font-semibold text-slate-900">Välj typsnitt</label>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            {FONTS.map((fnt) => {
-              const isSelected = selectedFont === fnt.id
 
-              return (
-                <motion.button
-                  key={fnt.id}
-                  onClick={() => setSelectedFont(fnt.id)}
-                  className={`p-2 rounded-lg border-2 transition-all text-left ${
-                    isSelected
-                      ? 'border-blue-600 bg-blue-50'
-                      : 'border-slate-200 bg-white hover:border-blue-300'
-                  }`}
-                  style={{ fontFamily: fnt.family }}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className={`text-sm font-semibold ${isSelected ? 'text-blue-900' : 'text-slate-900'}`}>
-                    {fnt.name}
-                  </div>
-                  <div className="text-xs text-slate-600 capitalize">
-                    {fnt.style}
-                  </div>
-                </motion.button>
-              )
-            })}
-          </div>
+          {/* Group fonts by category */}
+          {['ATS-Säkra', 'Moderna', 'Formella', 'Premium'].map((category) => {
+            const categoryFonts = FONTS.filter(f => f.category === category)
+            if (categoryFonts.length === 0) return null
+
+            return (
+              <div key={category} className="mb-4">
+                <div className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">
+                  {category}
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {categoryFonts.map((fnt) => {
+                    const isSelected = selectedFont === fnt.id
+                    const isPremium = fnt.tier === 'premium'
+
+                    return (
+                      <motion.button
+                        key={fnt.id}
+                        onClick={() => setSelectedFont(fnt.id)}
+                        className={`p-2 rounded-lg border-2 transition-all text-left ${
+                          isSelected
+                            ? 'border-blue-600 bg-blue-50'
+                            : 'border-slate-200 bg-white hover:border-blue-300'
+                        }`}
+                        style={{ fontFamily: fnt.family }}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <div className={`text-sm font-semibold flex items-center gap-1 ${isSelected ? 'text-blue-900' : 'text-slate-900'}`}>
+                          {fnt.name}
+                          {isPremium && <Crown className="w-3 h-3 text-amber-500" />}
+                        </div>
+                        <div className="text-xs text-slate-600">
+                          {category}
+                        </div>
+                      </motion.button>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          })}
         </div>
 
         {/* Premium Notice */}
