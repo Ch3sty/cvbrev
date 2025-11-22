@@ -176,9 +176,11 @@ export default function PersonligtBrevExempelPage({ data }: { data: ExampleData 
                 <h2 className="text-2xl font-bold text-slate-900 mb-4">
                   Så skriver du ett personligt brev som {data.yrke.toLowerCase()}
                 </h2>
-                <p className="text-slate-700 leading-relaxed text-lg">
-                  {data.seoIntro}
-                </p>
+                <div className="text-slate-700 leading-relaxed text-lg space-y-4">
+                  {data.seoIntro.split('\n\n').map((paragraph, pIdx) => (
+                    <p key={pIdx}>{paragraph.trim()}</p>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
