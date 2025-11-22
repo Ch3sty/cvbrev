@@ -141,7 +141,7 @@ const coverLetterExamples: CoverLetterExample[] = [
     slug: 'ekonomiassistent',
     kategori: 'ekonomi',
     niva: 'erfaren',
-    sokvolym: 90,
+    sokvolym: 450,
     icon: Calculator,
     gradient: 'from-slate-500 via-gray-500 to-zinc-500',
     preview: {
