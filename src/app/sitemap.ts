@@ -101,6 +101,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const YRKES_EXEMPEL = [
     'underskoterska',
     'student',
+    'larare',
     // Lägg till fler yrken här när de skapas
   ];
 
