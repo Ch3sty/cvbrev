@@ -671,6 +671,7 @@ Sofia Andersson`
 
     exempelBrev: {
       namn: 'Emma Andersson',
+      adress: 'Drottningholmsvägen 32, 168 65 Bromma',
       telefon: '070-XXX XX XX',
       epost: 'emma.andersson@exempel.se',
       arbetsgivare: 'Coop Vällingby',
