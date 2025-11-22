@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   ArrowLeft, ArrowRight, CheckCircle, Sparkles, Download, Copy,
@@ -10,7 +11,24 @@ import {
 } from 'lucide-react'
 
 import PremiumNavbar from '@/components/PremiumNavbar'
-import InteractiveLetterPreview from './InteractiveLetterPreview'
+
+// SEO: Lazy-load InteractiveLetterPreview för bättre Page Speed
+// SSR disabled eftersom komponenten är client-only, men vi har statiskt innehåll som fallback
+const InteractiveLetterPreview = dynamic(
+  () => import('./InteractiveLetterPreview'),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="bg-white rounded-xl border-2 border-slate-200 p-8 shadow-lg animate-pulse">
+        <div className="space-y-4">
+          <div className="h-4 bg-slate-200 rounded w-3/4"></div>
+          <div className="h-4 bg-slate-200 rounded w-1/2"></div>
+          <div className="h-4 bg-slate-200 rounded w-5/6"></div>
+        </div>
+      </div>
+    )
+  }
+)
 
 interface ExampleData {
   yrke: string
@@ -88,6 +106,23 @@ export default function PersonligtBrevExempelPage({ data }: { data: ExampleData 
             <span className="text-slate-400">/</span>
             <span className="text-slate-900 font-semibold">{data.yrke}</span>
           </div>
+        </div>
+      </div>
+
+      {/* SEO: Dolt statiskt brevinnehåll för crawlers - garanterar indexering */}
+      <div className="sr-only" aria-hidden="true">
+        <h2>Komplett personligt brev exempel för {data.yrke}</h2>
+        <div>
+          <p>{data.exempelBrev.namn}</p>
+          <p>{data.exempelBrev.adress}</p>
+          <p>{data.exempelBrev.telefon}</p>
+          <p>{data.exempelBrev.epost}</p>
+          <p>{data.exempelBrev.arbetsgivare}</p>
+          <p>{data.exempelBrev.roll}</p>
+          <p>{data.exempelBrev.datum}</p>
+          {data.exempelBrev.brevText.split('\n\n').map((p, idx) => (
+            <p key={idx}>{p.trim()}</p>
+          ))}
         </div>
       </div>
 

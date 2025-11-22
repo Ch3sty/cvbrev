@@ -127,5 +127,43 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
     notFound()
   }
 
-  return <PersonligtBrevExempelPage data={data} />
+  // SEO: Schema markup för att garantera att brevinnehållet indexeras
+  const letterSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": `Personligt brev exempel för ${data.yrke}`,
+    "description": data.intro,
+    "articleBody": data.exempelBrev.brevText,
+    "author": {
+      "@type": "Organization",
+      "name": "Jobbcoach.ai",
+      "url": "https://jobbcoach.ai"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Jobbcoach.ai",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://jobbcoach.ai/logo.png"
+      }
+    },
+    "datePublished": new Date().toISOString(),
+    "dateModified": new Date().toISOString(),
+    "about": {
+      "@type": "JobPosting",
+      "title": data.yrke
+    },
+    "keywords": `personligt brev, ${data.yrke.toLowerCase()}, jobbansökan, CV, ATS-optimering`
+  }
+
+  return (
+    <>
+      {/* Schema markup för SEO - garanterar att Google indexerar brevinnehållet */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(letterSchema) }}
+      />
+      <PersonligtBrevExempelPage data={data} />
+    </>
+  )
 }

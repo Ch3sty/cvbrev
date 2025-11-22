@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Palette, Type, Eye, Download, Sparkles, Crown, CheckCircle } from 'lucide-react'
 
@@ -94,6 +94,12 @@ const FONTS = [
 export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLetterPreviewProps) {
   const [selectedTemplate, setSelectedTemplate] = useState('classic')
   const [selectedFont, setSelectedFont] = useState('inter')
+  const [isClient, setIsClient] = useState(false)
+
+  // SEO: Progressive enhancement - visa statiskt innehåll först
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   const template = TEMPLATES.find(t => t.id === selectedTemplate) || TEMPLATES[0]
   const font = FONTS.find(f => f.id === selectedFont) || FONTS[0]
@@ -111,10 +117,55 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
     left: 'border-l-4 border-blue-600 pl-6'
   }
 
+  // Statisk brevkomponent för SEO och noscript
+  const StaticLetter = () => (
+    <div className="bg-white rounded-xl border-2 border-slate-200 p-8 shadow-lg">
+      <div className="mb-8 space-y-1 text-sm text-slate-700">
+        <p className="font-semibold text-slate-900">{exempelBrev.namn}</p>
+        <p>{exempelBrev.adress}</p>
+        <p>{exempelBrev.telefon}</p>
+        <p>{exempelBrev.epost}</p>
+      </div>
+
+      <div className="mb-8 space-y-1 text-sm text-slate-700">
+        <p className="font-semibold text-slate-900">{exempelBrev.arbetsgivare}</p>
+        <p className="font-medium text-slate-800">{exempelBrev.roll}</p>
+      </div>
+
+      <div className="mb-8 text-sm text-slate-700">
+        <p>{exempelBrev.datum}</p>
+      </div>
+
+      <div className="space-y-4">
+        {exempelBrev.brevText.split('\n\n').map((paragraph, idx) => (
+          <p key={idx} className="text-slate-700 leading-relaxed">
+            {paragraph.trim()}
+          </p>
+        ))}
+      </div>
+    </div>
+  )
+
   return (
     <div className="space-y-6">
-      {/* Controls */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
+      {/* Noscript fallback för SEO och tillgänglighet */}
+      <noscript>
+        <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg mb-4">
+          <p className="text-sm text-yellow-900 font-semibold">
+            För bästa upplevelse, aktivera JavaScript i din webbläsare.
+          </p>
+        </div>
+        <StaticLetter />
+      </noscript>
+
+      {/* Visa statiskt innehåll innan JavaScript laddat (SEO) */}
+      {!isClient && <StaticLetter />}
+
+      {/* Interaktiva kontroller (endast när JavaScript laddat) */}
+      {isClient && (
+        <>
+          {/* Controls */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100">
         <div className="flex items-center gap-2 mb-4">
           <Sparkles className="w-5 h-5 text-blue-600" />
           <h3 className="font-bold text-slate-900">Anpassa förhandsvisningen</h3>
@@ -326,6 +377,8 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
           </p>
         </div>
       </div>
+        </>
+      )}
     </div>
   )
 }
