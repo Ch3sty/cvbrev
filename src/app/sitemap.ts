@@ -103,6 +103,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'student',
     'larare',
     'sjukskoterska',
+    'butikssaljare',
     // Lägg till fler yrken här när de skapas
   ];
 
