@@ -38,6 +38,7 @@ export default function PreviewStep({
   const [copied, setCopied] = useState(false);
   const [isPdfGenerating, setIsPdfGenerating] = useState(false);
   const [isDocxGenerating, setIsDocxGenerating] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const [showSaveSuccess, setShowSaveSuccess] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
 
@@ -83,9 +84,14 @@ export default function PreviewStep({
 
   const handleSave = async () => {
     if (onSave) {
-      await onSave();
-      setShowSaveSuccess(true);
-      setTimeout(() => setShowSaveSuccess(false), 3000);
+      setIsSaving(true);
+      try {
+        await onSave();
+        setShowSaveSuccess(true);
+        setTimeout(() => setShowSaveSuccess(false), 5000);
+      } finally {
+        setIsSaving(false);
+      }
     }
   };
 
@@ -160,7 +166,13 @@ export default function PreviewStep({
             <Check className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
             <div className="flex-1">
               <p className="text-sm font-medium text-green-900">Brevet är sparat!</p>
-              <p className="text-sm text-green-700">Du kan ladda ner det nedan eller hitta det senare under "Mina Brev".</p>
+              <p className="text-sm text-green-700">
+                Du hittar det under{' '}
+                <a href="/dashboard/mina-brev" className="underline hover:text-green-800 font-medium">
+                  Mina Brev
+                </a>
+                .
+              </p>
             </div>
           </div>
         </motion.div>
@@ -229,13 +241,23 @@ export default function PreviewStep({
             {onSave && (
               <motion.button
                 onClick={handleSave}
-                className="flex items-center justify-center gap-2 px-5 py-2.5 text-white bg-gradient-to-r from-green-500 to-green-600 rounded-lg hover:from-green-600 hover:to-green-700 transition-all shadow-md hover:shadow-lg font-medium"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                disabled={isSaving}
+                className="flex items-center justify-center gap-2 px-5 py-2.5 text-white bg-gradient-to-r from-green-500 to-green-600 rounded-lg hover:from-green-600 hover:to-green-700 transition-all shadow-md hover:shadow-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                whileHover={isSaving ? {} : { scale: 1.02 }}
+                whileTap={isSaving ? {} : { scale: 0.98 }}
                 title="Spara brevet"
               >
-                <Save className="w-4 h-4 flex-shrink-0" />
-                <span className="text-sm">Spara</span>
+                {isSaving ? (
+                  <>
+                    <Loader2 className="w-4 h-4 flex-shrink-0 animate-spin" />
+                    <span className="text-sm">Sparar...</span>
+                  </>
+                ) : (
+                  <>
+                    <Save className="w-4 h-4 flex-shrink-0" />
+                    <span className="text-sm">Spara</span>
+                  </>
+                )}
               </motion.button>
             )}
 
