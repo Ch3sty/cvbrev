@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FileText, X, ChevronDown, CheckCircle } from 'lucide-react';
 import { getSupabaseClient } from '@/lib/supabase/client-manager';
+import { extractEditableContent } from '@/lib/letters/extract-editable-content';
 
 interface Document {
   id: string;
@@ -191,7 +192,7 @@ export default function DocumentSelector({ onSelect, onClose, selectedDocs }: Do
                         {new Date(doc.created_at).toLocaleDateString('sv-SE')}
                       </p>
                       <p className="text-xs text-slate-600 mt-2 line-clamp-2">
-                        {doc.cv_text.substring(0, 120)}...
+                        {extractEditableContent(doc.cv_text).substring(0, 120)}...
                       </p>
                     </div>
                   </div>
