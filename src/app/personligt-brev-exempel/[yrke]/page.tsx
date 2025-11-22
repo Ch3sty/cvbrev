@@ -780,16 +780,37 @@ emma.andersson@exempel.se`
       }
     ],
 
-    relatedArticles: [
-      'cv-tips-for-studenter-utan-erfarenhet',
-      'personligt-brev-guide',
-      'intervjutips-forsta-jobbet'
+    relateradeArtiklar: [
+      {
+        titel: 'CV-tips för studenter utan erfarenhet',
+        slug: 'cv-tips-for-studenter-utan-erfarenhet'
+      },
+      {
+        titel: 'Personligt brev guide - komplett handledning',
+        slug: 'personligt-brev-guide'
+      },
+      {
+        titel: 'Intervjutips för första jobbet',
+        slug: 'intervjutips-forsta-jobbet'
+      }
     ],
 
-    relatedTools: [
-      '/verktyg/cv-mallar',
-      '/verktyg/cv-analys',
-      '/verktyg/jobbcoachen'
+    relateradeVerktyg: [
+      {
+        namn: 'CV-Mallar',
+        slug: '/verktyg/cv-mallar',
+        beskrivning: 'Professionella CV-mallar för studenter och sommarjobbare'
+      },
+      {
+        namn: 'CV-Analys',
+        slug: '/verktyg/cv-analys',
+        beskrivning: 'Analysera ditt CV och få förbättringsförslag'
+      },
+      {
+        namn: 'Jobbcoachen',
+        slug: '/verktyg/jobbcoachen',
+        beskrivning: 'Få personliga råd om din jobbsökning'
+      }
     ]
   },
 
