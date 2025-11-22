@@ -811,6 +811,12 @@ emma.andersson@exempel.se`
         slug: '/verktyg/jobbcoachen',
         beskrivning: 'Få personliga råd om din jobbsökning'
       }
+    ],
+
+    relaterade: [
+      { yrke: 'Student', slug: 'student' },
+      { yrke: 'Butikssäljare', slug: 'butikssaljare' },
+      { yrke: 'Lagerarbetare', slug: 'lagerarbetare' }
     ]
   },
 
