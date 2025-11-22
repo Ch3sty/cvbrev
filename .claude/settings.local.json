@@ -20,7 +20,8 @@
       "Bash(python:*)",
       "Bash(python3:*)",
       "Bash(node:*)",
-      "Bash(timeout 15 bash:*)"
+      "Bash(timeout 15 bash:*)",
+      "Bash(curl -s \"https://jobbcoach.ai/personligt-brev-exempel/underskoterska\")"
     ],
     "deny": [],
     "ask": []

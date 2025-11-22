@@ -1,1101 +1,3403 @@
-# PERSONLIGT BREV GALLERI - AGGRESSIV KONSOLIDERINGS-STRATEGI
+# PERSONLIGT BREV EXEMPEL - KOMPLETT CONTENT-MALL
 
-## EXECUTIVE SUMMARY: REKOMMENDATION
+## INNEHÅLLSFÖRTECKNING
 
-### ✅ JA - Detta är den RÄTTA strategin för en ny sajt
-
-**Klart svar:** Användaren har helt rätt. För en ny sajt som jobbcoach.ai där artiklarna knappt rankar än är den aggressiva konsolideringsstrategin **betydligt smartare** än en försiktig hybrid-approach.
-
-**Varför detta är rätt för er:**
-
-1. **Ni har inget att förlora** - Befintliga artiklar rankar knappt, så risk för traffic-förlust är minimal
-2. **Bygga rätt från start** - Bättre att konsolidera NU än om 6 månader när ni faktiskt har traffic
-3. **Starkare SEO-signal** - 20 dedikerade exempel-sidor slår 20 spridda blogginlägg varje dag i veckan
-4. **Bättre UX från dag 1** - Användare får omedelbart vad de söker (visuella exempel) istället för en lång bloggtext
-5. **Conversion-focused** - Galleri + CTA är byggt för konvertering, inte bara information
-
-### KONSOLIDERINGS-OMFATTNING
-
-**Rekommendation: Skapa 20 dedikerade exempel-sidor (TOP 20 yrken)**
-
-- **FAS 1 (Launch):** 10 högprioriterade yrken - implementera OMEDELBART
-- **FAS 2 (Månad 2):** 10 medelprioriterade yrken
-- **FAS 3 (Månad 3-6):** Resterande nisch-yrken efter analys av FAS 1-2 prestanda
-
-Sweet spot är 20 sidor: tillräckligt många för att täcka huvudmarknaden, inte så många att kvaliteten sjunker.
+1. [Översikt och Filosofi](#översikt-och-filosofi)
+2. [Brevinnehåll-struktur (brevText)](#brevinnehåll-struktur-brevtext)
+3. [Ton & Style Guide: Undvik AI-språk](#ton--style-guide-undvik-ai-språk)
+4. [Komplett TypeScript-struktur](#komplett-typescript-struktur)
+5. [Content-guidelines per sektion](#content-guidelines-per-sektion)
+6. [Exempel: Komplett implementering (Projektledare)](#exempel-komplett-implementering-projektledare)
+7. [Kvalitetskontroll-checklista](#kvalitetskontroll-checklista)
+8. [Vanliga misstag och hur du undviker dem](#vanliga-misstag-och-hur-du-undviker-dem)
 
 ---
 
-## 1. STRATEGISK UTVÄRDERING
+## ÖVERSIKT OCH FILOSOFI
 
-### Fördelar med "Redirecta allt och börja om"-strategin
+### Vad gör ett bra personligt brev-exempel?
 
-| Fördel | Varför det är viktigt för jobbcoach.ai |
-|--------|----------------------------------------|
-| **Ingen befintlig traffic att förlora** | Sajten är ny - artiklar har knappt några placeringar än |
-| **Konsoliderad SEO-kraft** | 20 starka sidor > 30 svaga artiklar för Google |
-| **Bättre intern linking** | En tydlig hub-struktur med starkt flöde av "link juice" |
-| **User Intent Match** | Söker "personligt brev exempel undersköterska" → Får VISUELLT exempel direkt, inte 2000 ord text först |
-| **Conversion optimization** | Varje sida optimerad för ONE goal: visa exempel → öppna verktyg |
-| **Brandad upplevelse** | Galleri känns modernt och professionellt vs. generisk blogg |
-| **Lättare att underhålla** | 20 dedikerade sidor att hålla uppdaterade vs. 30+ artiklar |
-| **ATS-vänlig struktur** | Tydliga silos (hub + spokes) som Google älskar |
+Ett framgångsrikt personligt brev-exempel för jobbcoach.ai ska:
 
-### Risker och Mitigation
+1. **Vara genuint mänskligt** - Inte låta AI-genererat eller copy-paste från en mall
+2. **Visa konkret värde** - Använd specifika prestationer, inte vaga påståenden
+3. **Vara yrkesspecifikt** - Inkludera bransch-relevanta nyckelord och kompetenser
+4. **Balansera personlighet med professionalism** - Vara varmt men inte för lättsamt
+5. **Visa motivation** - Inte bara vad kandidaten kan, utan varför de vill jobbet
+6. **Vara ATS-vänligt** - Fungera både för automatiska system och mänskliga läsare
 
-| Risk | Sannolikhet | Impact | Mitigation |
-|------|------------|--------|------------|
-| **Förlust av befintliga placeringar** | LÅG (artiklar rankar knappt) | Låg | 301-redirects bevara vad som finns + monitor GSC |
-| **Google indexerar inte nya sidor snabbt** | MEDEL | Medel | Submit sitemap, internal linking, skapa några backlinks |
-| **Användare klickar inte på galleri-kort** | LÅG | Medel | A/B-testa design, tydliga CTAs, ifyllda mallar syns direkt |
-| **För mycket utvecklingsarbete** | MEDEL | Låg | Fas-baserad rollout (10+10 istället för 30) |
-| **Duplicate content risk** | LÅG | Låg | Varje exempel-sida unik guide + unikt exempel för yrke |
+### Grundprinciper från "Skriv det perfekta personliga brevet"
 
-**Övergripande risknivå: LÅG till MEDEL - VÄRT ATT GENOMFÖRA**
+Våra exempel ska följa dessa beprövade principer:
+
+- **Längd:** Max 1 A4-sida (300-400 ord, 3-5 stycken)
+- **Struktur:** Tydlig början, mitt och slut med logisk röd tråd
+- **Fokus:** Komplement till CV, inte upprepning av det
+- **Ton:** Personlig men professionell (svensk stil - varmt utan skryt)
+- **Innehåll:** Motivation + Kompetenser + Personliga egenskaper som är relevanta
 
 ---
 
-## 2. URL-STRUKTUR OCH REDIRECTS
+## BREVINNEHÅLL-STRUKTUR (brevText)
 
-### Exakt URL-arkitektur
+### Övergripande krav
 
+| Parameter | Värde |
+|-----------|-------|
+| **Total längd** | 300-400 ord |
+| **Antal stycken** | 4-5 stycken |
+| **Format** | Ren text (används i InteractiveLetterPreview) |
+| **Ton** | Personlig, självsäker utan skryt, professionell |
+| **Fokus** | 40% motivation + 40% kompetens/erfarenhet + 20% personlighet |
+
+### Stycke-för-stycke struktur
+
+#### STYCKE 1: Inledning (50-70 ord)
+
+**Syfte:** Ange vilken tjänst du söker + visa omedelbar entusiasm + kort om varför du passar
+
+**Innehåll:**
+- Tjänstens namn och företagets namn
+- Varför du är intresserad (specifikt för detta företag/roll)
+- En kort "krok" som visar du förstått vad rollen kräver
+
+**Exempel (BRA):**
 ```
-/personligt-brev-exempel (HUB - Galleri-sida)
-├── /personligt-brev-exempel/underskoterska
-├── /personligt-brev-exempel/skoterska
-├── /personligt-brev-exempel/larare
-├── /personligt-brev-exempel/student
-├── /personligt-brev-exempel/butikssaljare
-├── /personligt-brev-exempel/ekonomiassistent
-├── /personligt-brev-exempel/personlig-assistent
-├── /personligt-brev-exempel/lagerarbetare
-├── /personligt-brev-exempel/administrator
-├── /personligt-brev-exempel/ingenjor
-├── /personligt-brev-exempel/it
-├── /personligt-brev-exempel/saljare
-├── /personligt-brev-exempel/receptionist
-├── /personligt-brev-exempel/forskollarare
-├── /personligt-brev-exempel/handlaggare
-├── /personligt-brev-exempel/kurator
-├── /personligt-brev-exempel/stadare
-├── /personligt-brev-exempel/lakare
-├── /personligt-brev-exempel/barnskotare
-└── /personligt-brev-exempel/sommarjobb
-```
-
-**Varför denna struktur:**
-- ✅ Ren, förutsägbar, skalbar
-- ✅ Keyword-rik URL (bra för SEO)
-- ✅ Lätt för användare att förstå var de är
-- ✅ Tydlig hierarki (hub → spoke)
-
-### Komplett lista på 301-redirects
-
-**Next.js implementation i `next.config.js`:**
-
-```javascript
-async redirects() {
-  return [
-    // === YRKESSPECIFIKA EXEMPEL ===
-    {
-      source: '/artiklar/personligt-brev-underskoterska',
-      destination: '/personligt-brev-exempel/underskoterska',
-      permanent: true,
-    },
-    {
-      source: '/artiklar/personligt-brev-sjukskoterska',
-      destination: '/personligt-brev-exempel/sjukskoterska',
-      permanent: true,
-    },
-    {
-      source: '/artiklar/personligt-brev-larare',
-      destination: '/personligt-brev-exempel/larare',
-      permanent: true,
-    },
-    {
-      source: '/artiklar/personligt-brev-butikssaljare',
-      destination: '/personligt-brev-exempel/butikssaljare',
-      permanent: true,
-    },
-    {
-      source: '/artiklar/personligt-brev-ekonomiassistent',
-      destination: '/personligt-brev-exempel/ekonomiassistent',
-      permanent: true,
-    },
-    {
-      source: '/artiklar/personligt-brev-personlig-assistent',
-      destination: '/personligt-brev-exempel/personlig-assistent',
-      permanent: true,
-    },
-    {
-      source: '/artiklar/personligt-brev-lagerarbetare',
-      destination: '/personligt-brev-exempel/lagerarbetare',
-      permanent: true,
-    },
-    {
-      source: '/artiklar/personligt-brev-administrator',
-      destination: '/personligt-brev-exempel/administrator',
-      permanent: true,
-    },
-    {
-      source: '/artiklar/personligt-brev-ingenjor',
-      destination: '/personligt-brev-exempel/ingenjor',
-      permanent: true,
-    },
-    {
-      source: '/artiklar/personligt-brev-it',
-      destination: '/personligt-brev-exempel/it',
-      permanent: true,
-    },
-    {
-      source: '/artiklar/personligt-brev-saljare',
-      destination: '/personligt-brev-exempel/saljare',
-      permanent: true,
-    },
-    {
-      source: '/artiklar/personligt-brev-receptionist',
-      destination: '/personligt-brev-exempel/receptionist',
-      permanent: true,
-    },
-    {
-      source: '/artiklar/personligt-brev-forskollarare',
-      destination: '/personligt-brev-exempel/forskollarare',
-      permanent: true,
-    },
-    {
-      source: '/artiklar/personligt-brev-handlaggare',
-      destination: '/personligt-brev-exempel/handlaggare',
-      permanent: true,
-    },
-    {
-      source: '/artiklar/personligt-brev-kurator',
-      destination: '/personligt-brev-exempel/kurator',
-      permanent: true,
-    },
-    {
-      source: '/artiklar/personligt-brev-stadare',
-      destination: '/personligt-brev-exempel/stadare',
-      permanent: true,
-    },
-    {
-      source: '/artiklar/personligt-brev-lakare',
-      destination: '/personligt-brev-exempel/lakare',
-      permanent: true,
-    },
-    {
-      source: '/artiklar/personligt-brev-barnskotare',
-      destination: '/personligt-brev-exempel/barnskotare',
-      permanent: true,
-    },
-
-    // === SITUATIONSBASERADE EXEMPEL ===
-    // BEHÅLL situationsbaserade som de är (ej yrken):
-    // - /artiklar/personligt-brev-sommarjobb → /personligt-brev-exempel/sommarjobb
-    // - /artiklar/personligt-brev-utan-erfarenhet → BEHÅLL som guide-artikel
-    // - /artiklar/personligt-brev-spontanansokan → BEHÅLL som guide-artikel
-
-    {
-      source: '/artiklar/personligt-brev-sommarjobb',
-      destination: '/personligt-brev-exempel/sommarjobb',
-      permanent: true,
-    },
-
-    // === GENERELLA HUB-ARTIKLAR ===
-    // Redirect gamla exempel-hubbar till nya galleri-hubben:
-    {
-      source: '/artiklar/personligt-brev-exempel-roller',
-      destination: '/personligt-brev-exempel',
-      permanent: true,
-    },
-    {
-      source: '/artiklar/personligt-brev-exempel-generella',
-      destination: '/personligt-brev-exempel',
-      permanent: true,
-    },
-
-    // === VÅRD OCH OMSORG KATEGORI ===
-    // Redirect kategorin till hub (låt hub visa alla vårdyrken):
-    {
-      source: '/artiklar/personligt-brev-vard-omsorg',
-      destination: '/personligt-brev-exempel',
-      permanent: true,
-    },
-  ];
-}
+Jag söker tjänsten som projektledare på Innovativ Tech AB. Med fem års erfarenhet
+av att leda utvecklingsprojekt inom mjukvarubranschen och en passion för att bygga
+högpresterande team, ser jag detta som en perfekt möjlighet att bidra till era
+innovativa lösningar inom AI-driven automation.
 ```
 
-**Vad händer med övriga artiklar?**
+**Exempel (DÅLIGT):**
+```
+Jag söker det här jobbet eftersom jag tror att jag passar bra för rollen. Jag har
+arbetat med liknande uppgifter tidigare och är mycket intresserad av att jobba hos er.
+```
 
-| Artikel | Handling | Motivering |
-|---------|----------|------------|
-| `personligt-brev-utan-erfarenhet` | BEHÅLL som guide | Informational intent, inte yrke |
-| `personligt-brev-spontanansokan` | BEHÅLL som guide | Taktisk guide, kompletterar exempel |
-| `personligt-brev-layout` | BEHÅLL som guide | Teknisk guide om formatering |
-| `personligt-brev-struktur-innehall` | BEHÅLL som guide | Grundguide för alla yrken |
-| `personligt-brev-kompetenser-egenskaper` | BEHÅLL som guide | Djupdykning i specifikt område |
-| `personligt-brev-mall-gratis` | OMARBETA till mall-download hub | Eget värde, men uppdatera med CTA till exempel-galleriet |
-| `personligt-brev-pa-engelska` | BEHÅLL som guide | Separat use case |
+**Varför dåligt?** Ingen konkret koppling, generisk motivation, inget som visar förståelse för rollen.
 
 ---
 
-## 3. GALLERI HUB-SIDA STRUKTUR (`/personligt-brev-exempel`)
+#### STYCKE 2: Erfarenhet och konkreta prestationer (80-100 ord)
 
-### SEO Metadata
+**Syfte:** Bevisa att du har relevant erfarenhet genom konkreta exempel
 
-```yaml
-title: "Personligt Brev Exempel - 20+ färdiga mallar för alla yrken (2025)"
-description: "Välj ditt yrke och få ett professionellt personligt brev-exempel på 2 minuter. Gratis mallar för undersköterska, lärare, säljare, IT m.fl."
-canonical: https://jobbcoach.ai/personligt-brev-exempel
+**Innehåll:**
+- 1-2 specifika exempel från tidigare roller
+- Kvantifierbara resultat där möjligt (men undvik överdrift)
+- Koppla till kompetenser som efterfrågas i rollen
+
+**Formler som fungerar:**
+- "Under min tid som [roll] på [företag] har jag [åstadkommit X resultat]"
+- "Ett konkret exempel är när jag [situation] vilket ledde till [resultat]"
+- "Jag har gedigen erfarenhet av [kompetens], vilket jag visade när jag [exempel]"
+
+**Exempel (BRA):**
+```
+Under min nuvarande roll som projektledare på Tech Solutions har jag framgångsrikt
+lett utvecklingen av tre större mjukvaruprojekt, där vi levererade alla inom budget
+och före deadline. Ett konkret exempel är när jag koordinerade ett team på tolv
+utvecklare för att lansera en ny mobilapp, vilket ökade kundens användarengagemang
+med 35 procent under första kvartalet.
 ```
 
-### Sida-struktur (Wireframe i text)
-
+**Exempel (DÅLIGT):**
 ```
-┌─────────────────────────────────────────────────────────┐
-│ HERO SECTION                                             │
-│ ─────────────────────────────────────────────────────── │
-│ H1: Personligt Brev Exempel - Välj ditt yrke            │
-│                                                          │
-│ Intro-text (120-150 ord):                               │
-│ "Hitta professionella personligt brev-exempel anpassade │
-│ för ditt yrke. Varje mall är optimerad för ATS-system   │
-│ och innehåller branschspecifika nyckelord som           │
-│ rekryterare söker efter. Klicka på ditt yrke för att    │
-│ se färdiga exempel och skapa ditt eget på 2 minuter."   │
-│                                                          │
-│ [Sökfält: "Sök efter ditt yrke..."]                     │
-└─────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────┐
-│ GALLERI GRID (3 kolumner desktop, 1 kolumn mobil)       │
-│ ─────────────────────────────────────────────────────── │
-│                                                          │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐    │
-│  │ 📋 MALL      │  │ 📋 MALL      │  │ 📋 MALL      │    │
-│  │ Förhandsvisn.│  │ Förhandsvisn.│  │ Förhandsvisn.│    │
-│  │              │  │              │  │              │    │
-│  │ Undersköterska│ │ Sjuksköterska│ │ Lärare       │    │
-│  │              │  │              │  │              │    │
-│  │ [Se exempel →]│  │ [Se exempel →]│  │ [Se exempel →]│    │
-│  └─────────────┘  └─────────────┘  └─────────────┘    │
-│                                                          │
-│  [20 kort totalt, 3x7 grid med scroll]                  │
-└─────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────┐
-│ SEO CONTENT SECTION (Under galleriet)                   │
-│ ─────────────────────────────────────────────────────── │
-│                                                          │
-│ H2: Varför använda våra personligt brev-exempel?        │
-│                                                          │
-│ 400-500 ord text om:                                    │
-│ - Varför yrkesspecifika exempel är viktiga              │
-│ - Hur vi skapar våra mallar (AI + HR-expertis)          │
-│ - Vad som skiljer en bra mall från en dålig             │
-│ - 3 tips för att anpassa exemplet till din ansökan      │
-│                                                          │
-│ H2: Så använder du våra exempel                         │
-│                                                          │
-│ 1. Välj ditt yrke från galleriet ovan                   │
-│ 2. Läs vår kompletta guide och se färdiga exempel       │
-│ 3. Använd vårt AI-verktyg för att skapa din version     │
-│ 4. Ladda ner som DOCX/PDF                               │
-│                                                          │
-│ [CTA: Skapa mitt personliga brev nu →]                  │
-└─────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────┐
-│ FAQ SECTION                                             │
-│ ─────────────────────────────────────────────────────── │
-│                                                          │
-│ H2: Vanliga frågor om personligt brev-exempel           │
-│                                                          │
-│ - Hur anpassar jag ett exempel till min ansökan?        │
-│ - Är det okej att använda en mall?                      │
-│ - Vad är skillnaden mellan CV och personligt brev?      │
-│ - Hur långt ska ett personligt brev vara?               │
-│ - Ska jag inkludera bild i personligt brev?             │
-│                                                          │
-└─────────────────────────────────────────────────────────┘
+Jag har arbetat som projektledare i flera år och har mycket erfarenhet av att leda
+team. Jag är duktig på att planera och har alltid klarat av mina uppgifter på ett
+bra sätt. Jag har lett många framgångsrika projekt.
 ```
 
-### SEO-krav för hub-sidan
-
-**Ordantal:**
-- **Total:** 800-1200 ord
-  - Hero intro: 120-150 ord
-  - SEO content under grid: 400-500 ord
-  - FAQ-svar: 300-400 ord totalt
-
-**Varför denna längd?**
-- ✅ Tillräckligt för att ranka för "personligt brev exempel" (12,100 sök/mån, KD 28)
-- ✅ Inte så mycket att det stör UX (galleriet är hero, inte texten)
-- ✅ Google älskar FAQ-schema för featured snippets
-
-**Keyword-densitet:**
-- Primary: "personligt brev exempel" - 8-10 gånger
-- Secondary: "personligt brev mall", "exempel personligt brev", "gratis personligt brev" - 3-5 gånger varje
-- Long-tail: Yrken i H2/H3 (undersköterska, lärare etc.)
-
-### Internal Linking från hub
-
-Varje galleri-kort länkar till:
-- Dedikerad exempel-sida (`/personligt-brev-exempel/[yrke]`)
-
-Footer-länkar:
-- [Hur man skriver personligt brev - komplett guide](/artiklar/personligt-brev-struktur-innehall)
-- [Personligt brev utan erfarenhet](/artiklar/personligt-brev-utan-erfarenhet)
-- [Gratis CV-mallar](/cv-mallar)
+**Varför dåligt?** Inga konkreta exempel, vaga påståenden, inga mätbara resultat.
 
 ---
 
-## 4. EXEMPEL-SIDA STRUKTUR (per yrke)
+#### STYCKE 3: Kompetenser och arbetssätt (70-90 ord)
 
-### Template för `/personligt-brev-exempel/underskoterska`
+**Syfte:** Visa hur du arbetar och vilka kompetenser du besitter
 
-#### SEO Metadata
+**Innehåll:**
+- Specifika tekniska färdigheter (verktyg, metoder, system)
+- Arbetssätt och processkunskap
+- Mjuka kompetenser med exempel (inte bara påståenden)
 
-```yaml
-title: "Personligt Brev Undersköterska - Färdigt exempel och mall (2025)"
-description: "Professionellt personligt brev-exempel för undersköterska. Se färdig mall, få tips från HR-experter och skapa ditt brev på 2 minuter."
-canonical: https://jobbcoach.ai/personligt-brev-exempel/underskoterska
+**Exempel (BRA):**
+```
+Jag arbetar strukturerat med agila metoder, främst Scrum och Kanban, och har gedigen
+erfarenhet av verktyg som Jira och Confluence. Min styrka ligger i att skapa tydliga
+processer samtidigt som jag behåller flexibilitet när projekten kräver det. Jag trivs
+med att coacha teammedlemmar och har ett coachande ledarskap där jag ser till att
+alla känner sig delaktiga i beslutsprocessen.
 ```
 
-#### Sida-struktur (Wireframe)
-
+**Exempel (DÅLIGT):**
 ```
-┌─────────────────────────────────────────────────────────┐
-│ BREADCRUMBS                                             │
-│ Hem > Personligt Brev Exempel > Undersköterska         │
-└─────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────┐
-│ HERO SECTION                                             │
-│ ─────────────────────────────────────────────────────── │
-│                                                          │
-│ H1: Personligt Brev Undersköterska - Färdigt Exempel    │
-│                                                          │
-│ Kort intro (100 ord):                                   │
-│ "Se ett professionellt personligt brev för              │
-│ undersköterska och lär dig hur du anpassar det för      │
-│ din ansökan. Vårt exempel innehåller de nyckelord och   │
-│ kompetenser som vårdarbetsgivare letar efter."          │
-│                                                          │
-│ [CTA: Skapa ditt personliga brev på 2 min →]            │
-└─────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────┐
-│ IFYLLD MALL - VISUAL PREVIEW                            │
-│ ─────────────────────────────────────────────────────── │
-│                                                          │
-│  ┌───────────────────────────────────────────────────┐  │
-│  │ 📄 PERSONLIGT BREV                                │  │
-│  │                                                   │  │
-│  │ Emma Andersson                                    │  │
-│  │ emma.andersson@email.com | 070-123 45 67          │  │
-│  │                                                   │  │
-│  │ Stockholm, 2025-01-15                             │  │
-│  │                                                   │  │
-│  │ Till vårdcentralen Globen                         │  │
-│  │                                                   │  │
-│  │ Ansökan om tjänst som undersköterska              │  │
-│  │                                                   │  │
-│  │ Jag söker tjänsten som undersköterska på          │  │
-│  │ Vårdcentralen Globen. Med sex års erfarenhet      │  │
-│  │ från äldreomsorg och gedigen kunskap inom basal   │  │
-│  │ hygien och omvårdnad tror jag att jag kan bidra   │  │
-│  │ till ert team med professionell och empatisk vård.│  │
-│  │                                                   │  │
-│  │ Under mina år på Solbackens äldreboende har jag   │  │
-│  │ arbetat nära äldre med både somatiska och         │  │
-│  │ kognitiva sjukdomar. Jag har gedigen erfarenhet av│  │
-│  │ sondmatning, såromläggning, insulinadministrering │  │
-│  │ och katetervård...                                │  │
-│  │                                                   │  │
-│  │ [RESTEN AV BREVET - VISUELLT]                     │  │
-│  │                                                   │  │
-│  └───────────────────────────────────────────────────┘  │
-│                                                          │
-│  [Ladda ner mall som DOCX] [Ladda ner som PDF]          │
-│  [Skapa ditt eget med AI →]                             │
-└─────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────┐
-│ GUIDE SECTION                                           │
-│ ─────────────────────────────────────────────────────── │
-│                                                          │
-│ H2: Så skriver du ett vinnande personligt brev som      │
-│     undersköterska                                       │
-│                                                          │
-│ [800-1000 ord guide med:                                │
-│  - Vilka kompetenser ska framhävas                      │
-│  - Vanliga misstag att undvika                          │
-│  - Hur du anpassar till vårdcentral vs äldreboende      │
-│  - 3-5 konkreta tips från HR-experter]                  │
-│                                                          │
-│ H3: Viktiga nyckelord för undersköterskor               │
-│ - Basal hygien                                          │
-│ - Omvårdnad                                             │
-│ - Sondmatning                                           │
-│ - Dokumentation (VAS, Procapita)                        │
-│ - Teamwork                                              │
-│                                                          │
-│ H3: Exempel på kompetenser att lyfta fram               │
-│ [Lista med 8-10 konkreta kompetenser]                   │
-│                                                          │
-│ [CTA MID-PAGE: Skapa ditt brev på 2 minuter →]          │
-└─────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────┐
-│ RELATERADE MALLAR                                       │
-│ ─────────────────────────────────────────────────────── │
-│                                                          │
-│ H2: Relaterade personligt brev-exempel                  │
-│                                                          │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐    │
-│  │ Sjuksköterska│  │ Vårdbiträde  │  │ Barnskötare │    │
-│  └─────────────┘  └─────────────┘  └─────────────┘    │
-│                                                          │
-└─────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────┐
-│ FAQ SECTION (yrkes-specifik)                            │
-│ ─────────────────────────────────────────────────────── │
-│                                                          │
-│ H2: Vanliga frågor - Personligt brev för undersköterska │
-│                                                          │
-│ - Hur långt ska brevet vara?                            │
-│ - Vad ska jag skriva om medicinsk delegering?           │
-│ - Ska jag nämna systemkunskaper (VAS/Procapita)?        │
-│ - Hur visar jag empati i brevet?                        │
-│                                                          │
-└─────────────────────────────────────────────────────────┘
-
-┌─────────────────────────────────────────────────────────┐
-│ FOOTER CTA                                              │
-│ ─────────────────────────────────────────────────────── │
-│                                                          │
-│ H2: Redo att skapa ditt personliga brev?                │
-│                                                          │
-│ "Använd vårt AI-verktyg för att skapa ett skräddarsytt  │
-│ personligt brev baserat på detta exempel och din egen   │
-│ erfarenhet. Klart på 2 minuter."                        │
-│                                                          │
-│ [Skapa mitt personliga brev nu →] (primär CTA)          │
-│                                                          │
-└─────────────────────────────────────────────────────────┘
+Jag är mycket strukturerad och organiserad. Jag är bra på att använda olika verktyg
+och kan arbeta både självständigt och i team. Jag har bra kommunikationsförmåga och
+är en naturlig ledare som människor litar på.
 ```
 
-### Content Requirements per exempel-sida
-
-| Sektion | Ord-antal | Nyckel-krav |
-|---------|-----------|-------------|
-| **Hero intro** | 80-100 ord | Keyword-rik, tydlig value prop |
-| **Ifylld mall (visuell)** | 300-400 ord | Komplett, professionellt exempel |
-| **Guide-sektion** | 800-1000 ord | Yrkesspecifika tips, nyckelord, kompetenser |
-| **FAQ** | 200-300 ord | 4-5 frågor med korta svar |
-| **TOTALT** | **1400-1800 ord** | Tillräckligt för ranking utan att överväldiga |
-
-### CTA-placering
-
-| Position | CTA-typ | Copy |
-|----------|---------|------|
-| **Hero (ovanför mall)** | Primär knapp | "Skapa ditt personliga brev på 2 min →" |
-| **Efter mall-preview** | Sekundär knapp | "Använd AI-verktyget för att anpassa detta exempel →" |
-| **Mitt i guide** | Inline länk | "Prova vårt gratis verktyg →" |
-| **Footer** | Stor primär CTA | "Skapa mitt personliga brev nu →" |
-
-**CTA-strategi:**
-- Minst 3 CTAs per sida (top, mid, bottom)
-- Primära CTAs går till `/skapa-personligt-brev` med pre-filled yrke
-- Sekundära CTAs går till mall-download
+**Varför dåligt?** Klyschor utan substans, inga konkreta verktyg/metoder nämnda, påståenden utan belägg.
 
 ---
 
-## 5. PRIORITERING - FAS 1, 2, 3
+#### STYCKE 4: Varför detta företag + kulturell passform (60-80 ord)
 
-### FAS 1 (Launch - OMEDELBAR implementation)
+**Syfte:** Visa att du gjort research och förstår företagets värderingar
 
-**10 yrken att bygga FÖRST (prioriterat efter Sökvolym × Conversion Intent × Effort)**
+**Innehåll:**
+- Vad specifikt tilltalar dig med företaget
+- Hur dina värderingar matchar deras
+- Varför just denna roll på detta företag
 
-| # | Yrke | Slug | Sökvolym (månad) | KD | Motivering |
-|---|------|------|------------------|-----|------------|
-| 1 | **Undersköterska** | `underskoterska` | 750/mån kombinerat | 6-9 | HÖGSTA prioritet: Låg KD, hög volym, tydlig intent |
-| 2 | **Student** | `student` | 590/mån | 11 | Brett segment, låg konkurrens |
-| 3 | **Lärare** | `larare` | 230/mån kombinerat | 6-7 | Professionell grupp, hög conversion potential |
-| 4 | **Sjuksköterska** | `sjukskoterska` | 150/mån | - | Vårdsektor (som undersköterska) |
-| 5 | **Butikssäljare** | `butikssaljare` | 90/mån kombinerat | 9-11 | Stor arbetsmarknad, många sökande |
-| 6 | **Säljare** | `saljare` | 110/mån kombinerat | - | Brett yrke, hög konkurrens om jobb |
-| 7 | **Sommarjobb** | `sommarjobb` | 110/mån kombinerat | - | Säsongsbetonat, ung målgrupp |
-| 8 | **Ekonomiassistent** | `ekonomiassistent` | 60/mån kombinerat | - | Professionell grupp, betalvilliga |
-| 9 | **Barnskötare** | `barnskotare` | 50/mån kombinerat | 6 | Vårdsektor, tydligt behov |
-| 10 | **Personlig assistent** | `personlig-assistent` | 50/mån | - | Vårdsektor, växande bransch |
+**Exempel (BRA):**
+```
+Vad som verkligen tilltalar mig med Innovativ Tech är ert fokus på hållbar innovation
+och den öppna företagskultur ni beskriver. Jag har själv drivit initiativ kring
+hållbara utvecklingsprocesser i min nuvarande roll och delar er övertygelse om att
+teknik ska lösa verkliga samhällsproblem. Er satsning på AI-lösningar inom
+hälsovårdssektorn är något jag gärna vill vara del av.
+```
 
-**FAS 1 Total Sökvolym: ~2000 sökningar/mån**
+**Exempel (DÅLIGT):**
+```
+Ert företag verkar vara ett mycket bra ställe att jobba på och jag tror att jag skulle
+trivas bra hos er. Det skulle vara en bra möjlighet för mig att utvecklas och lära mig
+nya saker. Jag tycker att den här rollen passar mina intressen perfekt.
+```
 
-### FAS 2 (Månad 2 - efter analys av FAS 1)
-
-**10 medelprioriterade yrken**
-
-| # | Yrke | Slug | Sökvolym | Motivering |
-|---|------|------|----------|------------|
-| 11 | Lagerarbetare | `lagerarbetare` | 60/mån | Stor arbetsmarknad |
-| 12 | Administratör | `administrator` | 40/mån | Professionell grupp |
-| 13 | Ingenjör | `ingenjor` | 50/mån | Hög betalvilja |
-| 14 | IT | `it` | 40/mån | Tech-sektor |
-| 15 | Receptionist | `receptionist` | 40/mån | Service-yrke |
-| 16 | Förskollärare | `forskollarare` | 40/mån | Pedagogisk sektor |
-| 17 | Handläggare | `handlaggare` | 40/mån | Offentlig sektor |
-| 18 | Kurator | `kurator` | 20/mån | Nisch men tydligt behov |
-| 19 | Städare | `stadare` | 20/mån | Stor arbetsmarknad |
-| 20 | Läkare | `lakare` | 30/mån | Professionell grupp |
-
-**FAS 2 Total Sökvolym: ~380 sökningar/mån**
-
-### FAS 3 (Månad 3-6 - Data-driven expansion)
-
-**Efter FAS 1-2:** Analysera prestanda i GSC och GA4:
-- Vilka sidor får mest organisk traffic?
-- Vilka har bäst conversion rate?
-- Vilka keywords får vi featured snippets för?
-
-**Baserat på data, lägg till:**
-- Nisch-yrken med hög conversion (även om låg volym)
-- Yrken där vi rankar bra i FAS 1-2 (dublera framgången)
-- Nya trending yrken (AI-roller, hållbarhetsyrken etc.)
-
-**Möjliga FAS 3-tillägg:**
-- Chef / Teamledare
-- Projektledare
-- HR-specialist
-- Ekonom
-- Redovisningskonsult
-- Socionom
-- Fastighetsskötare
-- Restaurang/Café-personal
+**Varför dåligt?** Självcentrerat (vad JAG får), inget specifikt om företaget, generiskt flum.
 
 ---
 
-## 6. MIGRATION PLAN - TEKNISK IMPLEMENTATION
+#### STYCKE 5: Avslutning (40-50 ord)
 
-### Timing: OMEDELBAR implementering
+**Syfte:** Sammanfatta entusiasm och uppmana till kontakt
 
-**Varför vänta ÄR fel:**
-- ✅ Ju tidigare ni konsoliderar, desto snabbare bygger ni SEO-authority
-- ✅ Inget befintligt traffic att skydda = ingen risk
-- ✅ Google behöver 2-3 månader för att indexera och ranka nya sidor → Start NU
+**Innehåll:**
+- Kort sammanfattning av värde du kan bidra med
+- Positiv framåtblickande formulering
+- Tack och uppmaning
 
-### Implementation Checklist
+**Exempel (BRA):**
+```
+Jag är övertygad om att min erfarenhet av att leda tekniska projekt kombinerat med
+min passion för innovation skulle göra mig till ett värdefullt tillskott i ert team.
+Jag ser fram emot möjligheten att få berätta mer om hur jag kan bidra till era mål.
+Tack för att du tog dig tid att läsa min ansökan.
+```
 
-**VECKA 1: Setup**
-- [ ] Skapa Next.js-rutter för `/personligt-brev-exempel` (hub) och `/personligt-brev-exempel/[slug]` (dynamic route)
-- [ ] Implementera 301-redirects i `next.config.js` (lista ovan)
-- [ ] Designa galleri-kort komponenter (preview card)
-- [ ] Skapa template för exempel-sidor
+**Exempel (DÅLIGT):**
+```
+Jag hoppas verkligen att ni vill träffa mig för en intervju. Jag tror att jag skulle
+passa jättebra för det här jobbet och hoppas att ni tycker samma sak. Hör gärna av er!
+```
 
-**VECKA 2-3: Content Creation FAS 1**
-- [ ] Skriv content för HUB-sidan (800-1200 ord)
-- [ ] Skapa 10 färdiga personligt brev-exempel (en per yrke i FAS 1)
-- [ ] Skriv guide-content för varje exempel-sida (800-1000 ord per sida)
-- [ ] Skapa FAQ-schema för hub + alla 10 exempel-sidor
+**Varför dåligt?** Desperat ton, inget konkret värde nämnt, fokus på vad kandidaten hoppas istället för vad de kan bidra med.
 
-**VECKA 4: Launch FAS 1**
-- [ ] Publish hub-sida + 10 exempel-sidor
-- [ ] Aktivera 301-redirects för dessa 10 yrken
-- [ ] Submit updated sitemap till Google Search Console
-- [ ] Skapa internal links från befintliga guide-artiklar till nya exempel-sidor
+---
 
-**VECKA 5-6: Monitor & Optimize**
-- [ ] Övervaka GSC för crawl errors
-- [ ] Kontrollera att 301s fungerar korrekt
-- [ ] A/B-testa galleri-kortens design (klickfrekvens)
-- [ ] Analysera user behavior i GA4 (scroll depth, CTA clicks)
+### Brevhuvud och signatur
 
-**VECKA 7-10: FAS 2 Implementation**
-- [ ] Bygga 10 ytterligare exempel-sidor
-- [ ] Aktivera ytterligare redirects
-- [ ] Uppdatera hub-galleriet med nya kort
+**Brevhuvud (överst):**
+```
+[Förnamn Efternamn]
+[email@example.com] | [070-XXX XX XX]
+[Stad], [ÅÅÅÅ-MM-DD]
 
-### Next.js Teknisk Implementation
+[Företagsnamn]
+[Ev. Kontaktperson om känd]
 
-**1. Dynamic Route: `/app/personligt-brev-exempel/[slug]/page.tsx`**
+Ansökan om tjänst som [Jobbtitel]
+```
+
+**Signatur (underst):**
+```
+Med vänliga hälsningar,
+
+[Förnamn Efternamn]
+```
+
+---
+
+## TON & STYLE GUIDE: UNDVIK AI-SPRÅK
+
+### De 10 viktigaste reglerna för mänskligt språk
+
+#### 1. ALDRIG tankstreck mellan fraser
+
+❌ **AI-språk:** "Erfaren projektledare – redo att bidra till ert team"
+✅ **Mänskligt:** "Jag är en erfaren projektledare och är redo att bidra till ert team."
+
+**Regel:** Tankstreck (–) är det tydligaste AI-tecknet. Använd punkt, komma eller semikolon.
+
+---
+
+#### 2. Undvik "kraftfulla", "innovativa", "revolutionerande"
+
+❌ **AI-språk:** "Jag är en kraftfull ledare med innovativ approach till problemlösning"
+✅ **Mänskligt:** "Jag leder team genom att testa nya lösningar och lyssna på alla perspektiv"
+
+**Förbjudna ord i personliga brev:**
+- Kraftfull/powerful
+- Innovativ/innovative (om du inte har faktiska patent/produkter)
+- Revolutionerande
+- Game-changing
+- Cutting-edge (använd "modern" eller "senaste" istället)
+- Dynamisk (undvik helt)
+- Proaktiv (säg istället "tar initiativ")
+
+---
+
+#### 3. Variera meningslängd - undvik robotiska mönster
+
+❌ **AI-språk (alla meningar lika långa):**
+```
+Jag har arbetat som säljare i fem år. Jag har nått mina mål varje kvartal.
+Jag trivs med att möta nya kunder. Jag är driven och målinriktad.
+```
+
+✅ **Mänskligt (varierat):**
+```
+Jag har arbetat som säljare i fem år och nått mina mål varje kvartal. Vad driver mig?
+Mötet med nya kunder och utmaningen att hitta rätt lösning för just deras behov.
+Det är där jag trivs som bäst.
+```
+
+**Regel:** Blanda långa (15-25 ord) och korta (5-10 ord) meningar. Ställ ibland en retorisk fråga.
+
+---
+
+#### 4. Inga listor med adjektiv - visa genom exempel
+
+❌ **AI-språk:** "Jag är ansvarsfull, strukturerad, driven, kreativ och samarbetsinriktad"
+✅ **Mänskligt:** "När projektets deadline närmade sig skapade jag en tydlig plan, delegerade uppgifter och såg till att hela teamet kände sig delaktiga. Det är så jag arbetar."
+
+**Regel:** Varje egenskap du vill visa ska backas upp med ett konkret exempel eller situation.
+
+---
+
+#### 5. Skriv i aktiv form - undvik passiva konstruktioner
+
+❌ **AI-språk:** "Projektet genomfördes framgångsrikt och målen uppnåddes i tid"
+✅ **Mänskligt:** "Jag ledde projektet till framgång och vi nådde alla mål i tid"
+
+**Regel:** "Jag [gjorde]" är alltid bättre än "Det [gjordes]"
+
+---
+
+#### 6. Använd "jag" naturligt - inte överdrivet men inte undvikande
+
+❌ **För mycket:** "Jag har erfarenhet. Jag har lett team. Jag har ökat försäljningen. Jag..."
+❌ **För lite:** "Erfarenhet finns inom projektledning. Team har letts framgångsrikt."
+
+✅ **Lagom:** "Jag har lett team i fem år. Ett exempel är när vi minskade tiden för produktlansering med 30 procent genom att införa sprintar."
+
+**Regel:** Cirka 30-40% av meningarna bör börja med "Jag". Variera med "Under min tid", "Ett exempel", "Min erfarenhet visar", etc.
+
+---
+
+#### 7. Inga standardfraser i öppningen
+
+❌ **AI-språk:**
+- "Med stor entusiasm söker jag tjänsten..."
+- "Jag skriver detta brev för att uttrycka mitt intresse..."
+- "Det är med glädje jag ansöker om..."
+
+✅ **Mänskligt:**
+- "Jag söker tjänsten som projektledare hos er."
+- "När jag läste er annons kände jag direkt att det här är rätt roll för mig."
+- "Jag såg att ni söker en säljare - det är exakt vad jag är bra på."
+
+**Regel:** Öppna direkt och naturligt. Inga blomstrande fraser.
+
+---
+
+#### 8. Konkreta siffror MED kontext - inte fristående
+
+❌ **AI-språk:** "Ökade försäljningen med 40%"
+✅ **Mänskligt:** "Under mitt första år ökade jag försäljningen från 2 till 2,8 miljoner kronor, en ökning på 40 procent"
+
+**Regel:** Siffror är bra, men ge alltid kontext (från vad till vad, över vilken tid, i vilket sammanhang).
+
+---
+
+#### 9. Undvik "tack vare" och "genom att" när det blir stelt
+
+❌ **AI-språk:** "Tack vare min erfarenhet inom projektledning kunde jag genom att implementera nya processer leverera projektet i tid"
+
+✅ **Mänskligt:** "Min erfarenhet av projektledning hjälpte mig att införa nya processer. Resultatet? Vi levererade projektet i tid."
+
+**Regel:** Håll meningarna enkla. Dela upp komplexa tankar i flera meningar.
+
+---
+
+#### 10. Använd ibland frågor och konversationella markörer
+
+✅ **Mänskligt:**
+- "Vad driver mig? Möjligheten att..."
+- "Det som verkligen tilltalar mig är..."
+- "Låt mig ge ett exempel:"
+- "Varför just ert företag? För att..."
+
+**Regel:** 1-2 retoriska frågor eller konversationella markörer per brev skapar naturligt flyt.
+
+---
+
+### Checklista: Låter det AI-genererat?
+
+Innan du godkänner ett brev, läs det högt och kolla:
+
+- [ ] Finns det tankstreck (–) mellan fraser? → Ta bort
+- [ ] Börjar alla meningar med "Jag [verb]"? → Variera
+- [ ] Finns ord som "kraftfull", "innovativ", "dynamisk"? → Ersätt med konkreta exempel
+- [ ] Är alla meningar ungefär lika långa? → Variera
+- [ ] Innehåller det listor av adjektiv utan exempel? → Lägg till exempel
+- [ ] Är det passiv form ("gjordes", "uppnåddes")? → Gör aktivt
+- [ ] Låter öppningen som en mall? → Skriv om naturligt
+- [ ] Finns abstrakta påståenden utan konkreta exempel? → Konkretisera
+- [ ] Läser det som ett formulär? → Lägg till personlighet
+- [ ] Skulle en vän skriva så här? → Om nej, skriv om
+
+---
+
+## KOMPLETT TYPESCRIPT-STRUKTUR
 
 ```typescript
-import { notFound } from 'next/navigation';
-import { getExampleBySlug, getAllExampleSlugs } from '@/lib/examples';
+export interface ExampleData {
+  // === METADATA ===
+  yrke: string;                    // "Projektledare"
+  slug: string;                    // "projektledare"
+  kategori: string;                // "Tech & IT" | "Vård & Omsorg" | "Kontor & Administration" etc.
 
-export async function generateStaticParams() {
-  const slugs = await getAllExampleSlugs();
-  return slugs.map((slug) => ({ slug }));
+  // === BREVINNEHÅLL ===
+  namn: string;                    // Fiktivt namn på kandidaten
+  epost: string;                   // Fiktiv e-post
+  telefon: string;                 // Fiktivt telefonnummer
+  stad: string;                    // "Stockholm", "Göteborg", etc.
+  datum: string;                   // "2025-01-15"
+  foretag: string;                 // Fiktivt företagsnamn
+  jobbtitel: string;               // "Projektledare"
+
+  brevText: string;                // 300-400 ord, 4-5 stycken (SE STRUKTUR OVAN)
+
+  // === GUIDE-SEKTION ===
+  tips: Array<{
+    titel: string;                 // "Lyft fram konkreta projektresultat"
+    text: string;                  // 60-100 ord förklaring
+  }>;
+
+  // === ANALYSEKTION - "VARFÖR DET FUNGERAR" ===
+  varforDetFungerar: Array<{
+    titel: string;                 // "Konkreta siffror ger trovärdighet"
+    beskrivning: string;           // 40-60 ord förklaring
+  }>;
+
+  // === FAQ ===
+  faq: Array<{
+    fraga: string;                 // "Hur långt ska brevet vara?"
+    svar: string;                  // 50-80 ord svar
+  }>;
+
+  // === SEO ===
+  seoTitle: string;                // "Personligt Brev Projektledare - Färdigt exempel (2025)"
+  seoDescription: string;          // 150-160 tecken
+
+  // === RELATERADE EXEMPEL ===
+  relateradeYrken: string[];       // ["scrum-master", "produktchef", "teamledare"]
+}
+```
+
+---
+
+## CONTENT-GUIDELINES PER SEKTION
+
+### 1. brevText (Huvudbrevet)
+
+**Redan beskrivet i detalj ovan - se "Brevinnehåll-struktur"**
+
+**Sammanfattning:**
+- **Längd:** 300-400 ord, 4-5 stycken
+- **Ton:** Personlig, självsäker utan skryt, professionell
+- **Struktur:** Inledning → Erfarenhet → Kompetenser → Varför företaget → Avslutning
+- **Fokus:** Konkreta exempel, kvantifierbara resultat, yrkesspecifika nyckelord
+
+---
+
+### 2. tips[] - Praktiska råd
+
+**Syfte:** Ge läsaren konkreta tips för hur de kan anpassa exemplet till sin ansökan
+
+**Antal:** 4-5 tips per exempel-sida
+
+**Struktur per tip:**
+```typescript
+{
+  titel: string;      // 5-10 ord, börja med verb
+  text: string;       // 60-100 ord förklaring
+}
+```
+
+**Titel-struktur:**
+- Börja med verb: "Lyft fram...", "Inkludera...", "Anpassa...", "Visa..."
+- Var specifik för yrket
+- Undvik generiska titlar som "Var personlig"
+
+**Text-innehåll:**
+- Förklara VARFÖR tipset är viktigt
+- Ge konkret exempel på HUR man gör
+- Koppla till branschen/yrket
+
+#### Exempel på BRA tips (Projektledare):
+
+```typescript
+{
+  titel: "Lyft fram konkreta projektresultat",
+  text: "Arbetsgivare inom projektledning vill se mätbara resultat. Istället för att skriva 'Jag har lett många framgångsrika projekt', specificera: 'Jag ledde lanseringen av en ny e-handelsplattform som ökade konverteringsgraden med 28% under första kvartalet.' Nämn alltid budget, tidsram eller andra kvantifierbara mått om möjligt."
+}
+```
+
+```typescript
+{
+  titel: "Nämn specifika metoder och verktyg",
+  text: "Visa att du har praktisk erfarenhet genom att nämna konkreta ramverk och verktyg. Till exempel: 'Jag arbetar med Scrum och Kanban och har gedigen erfarenhet av Jira, Confluence och MS Project.' Detta gör att arbetsgivaren direkt ser att du kan börja arbeta utan lång introduktion."
+}
+```
+
+#### Exempel på DÅLIGA tips:
+
+❌ **För generiskt:**
+```typescript
+{
+  titel: "Var personlig",
+  text: "Det är viktigt att visa din personlighet i brevet. Skriv på ett sätt som känns naturligt för dig och låt din passion lysa igenom."
+}
+```
+**Varför dåligt:** Ingen konkret vägledning, inget yrkesspecifikt, kunde gälla vilket yrke som helst.
+
+❌ **För vagt:**
+```typescript
+{
+  titel: "Anpassa till företaget",
+  text: "Kom ihåg att anpassa ditt brev till det företag du söker till. Researcha företaget och ta reda på vad de värdesätter."
+}
+```
+**Varför dåligt:** Säger vad man ska göra men inte HUR.
+
+---
+
+### 3. varforDetFungerar[] - Analys av brevet
+
+**Syfte:** Utbilda läsaren om VARFÖR exemplet är bra skrivet (meta-läromoment)
+
+**Antal:** 3-4 punkter per exempel-sida
+
+**Struktur per punkt:**
+```typescript
+{
+  titel: string;          // 5-8 ord, vad som fungerar
+  beskrivning: string;    // 40-60 ord förklaring
+}
+```
+
+**Fokusområden:**
+- Konkret språk vs. vagt
+- Siffror och kvantifiering
+- Personlighet utan överdrift
+- Yrkesspecifika nyckelord
+- Struktur och flyt
+
+#### Exempel på BRA analys (Projektledare):
+
+```typescript
+{
+  titel: "Konkreta exempel ger trovärdighet",
+  beskrivning: "Istället för att säga 'Jag är bra på projektledning' beskrivs ett specifikt projekt med mätbart resultat (35% ökat engagemang). Detta gör påståendet trovärdigt och minnesvärt."
+}
+```
+
+```typescript
+{
+  titel: "Yrkesspecifika nyckelord",
+  beskrivning: "Brevet inkluderar termer som 'Scrum', 'Kanban', 'agila metoder' och 'coachande ledarskap' - ord som arbetsgivare inom projektledning aktivt söker efter. Detta ökar chansen att passera ATS-system."
+}
+```
+
+```typescript
+{
+  titel: "Balanserar personlighet med professionalism",
+  beskrivning: "Kandidaten visar passion ('det som verkligen tilltalar mig') utan att bli för informell. Tonen är varm men behåller respekt och professionalitet genomgående."
+}
+```
+
+#### Exempel på DÅLIG analys:
+
+❌ **För uppenbar:**
+```typescript
+{
+  titel: "Brevet är välstrukturerat",
+  beskrivning: "Brevet har tydliga stycken och följer en logisk struktur från början till slut."
+}
+```
+**Varför dåligt:** Säger inget om VAD som gör strukturen bra.
+
+❌ **För generell:**
+```typescript
+{
+  titel: "Visar motivation",
+  beskrivning: "Kandidaten visar att hen är motiverad och vill ha jobbet."
+}
+```
+**Varför dåligt:** Analyserar inte HUR motivationen visas konkret.
+
+---
+
+### 4. faq[] - Vanliga frågor
+
+**Syfte:** Svara på de vanligaste frågorna läsare har om att skriva personliga brev för detta specifika yrke
+
+**Antal:** 4-6 frågor per exempel-sida
+
+**Struktur per FAQ:**
+```typescript
+{
+  fraga: string;      // 5-12 ord, naturlig frågeformulering
+  svar: string;       // 50-80 ord, konkret svar
+}
+```
+
+**Fråge-struktur:**
+- Börja med frågeord: "Hur...", "Vad...", "Ska jag...", "Behöver jag..."
+- Ställ frågor som är SPECIFIKA för yrket (inte generiska)
+- Använd naturligt språk, som om en jobbsökare frågade
+
+**Svars-struktur:**
+- Ge ett direkt svar först (Ja/Nej/Det beror på)
+- Förklara varför i 2-3 meningar
+- Ge konkret exempel om möjligt
+
+#### Exempel på BRA FAQ (Projektledare):
+
+```typescript
+{
+  fraga: "Ska jag nämna certifieringar som PMP eller PRINCE2?",
+  svar: "Ja, absolut. Projektledningscertifieringar är högt värderade och bör nämnas tydligt.Skriv till exempel: 'Jag är certifierad PMP sedan 2022 och har tillämpat PMBOK-ramverket i samtliga mina projekt.' Om du har certifieringen, inkludera den redan i inledningen eller kompetens-stycket."
+}
+```
+
+```typescript
+{
+  fraga: "Hur visar jag ledarskap utan att låta arrogant?",
+  svar: "Fokusera på resultatet för teamet snarare än dig själv. Istället för 'Jag är en excellent ledare' skriv 'Jag ser min roll som att stötta teamet att nå sina mål. Ett exempel är när jag coachade två juniora utvecklare som sedan kunde ta egna projekt.' Konkreta exempel där teamet lyckades fungerar bäst."
+}
+```
+
+#### Exempel på DÅLIG FAQ:
+
+❌ **För generisk (gäller alla yrken):**
+```typescript
+{
+  fraga: "Hur långt ska det personliga brevet vara?",
+  svar: "Det personliga brevet ska vara max en A4-sida, vilket motsvarar cirka 300-400 ord. Håll det kort och koncist."
+}
+```
+**Varför dåligt:** Denna fråga är för generell - ställ den i en generell FAQ-sektion istället, inte yrkesspecifikt.
+
+❌ **För vag:**
+```typescript
+{
+  fraga: "Vad ska jag skriva om?",
+  svar: "Du ska skriva om din erfarenhet, dina kompetenser och varför du vill ha jobbet."
+}
+```
+**Varför dåligt:** Inget specifikt för yrket, inget konkret svar.
+
+---
+
+### FAQ-kategorier per yrke
+
+**Generella frågor att anpassa:**
+
+1. **Certifieringar/Utbildning:** "Ska jag nämna [specifik certifiering för yrket]?"
+2. **Specifika kompetenser:** "Hur visar jag [specifik kompetens för yrket] i brevet?"
+3. **Erfarenhetsnivå:** "Fungerar detta om jag är nyutexaminerad/erfaren?"
+4. **Verktyg/System:** "Ska jag lista alla [verktyg] jag kan?"
+5. **Personliga egenskaper:** "Hur visar jag [egenskap relevant för yrket] utan klyschor?"
+6. **Anpassning:** "Hur anpassar jag brevet till [specifik typ av arbetsgivare inom branschen]?"
+
+---
+
+## EXEMPEL: KOMPLETT IMPLEMENTERING (Projektledare)
+
+```typescript
+export const exampleData = {
+  projektledare: {
+    // === METADATA ===
+    yrke: "Projektledare",
+    slug: "projektledare",
+    kategori: "Tech & IT",
+
+    // === BREVINNEHÅLL ===
+    namn: "Anna Svensson",
+    epost: "anna.svensson@email.com",
+    telefon: "070-123 45 67",
+    stad: "Stockholm",
+    datum: "2025-01-15",
+    foretag: "Innovativ Tech AB",
+    jobbtitel: "Projektledare",
+
+    brevText: `Anna Svensson
+anna.svensson@email.com | 070-123 45 67
+
+Stockholm, 2025-01-15
+
+Innovativ Tech AB
+Rekryteringsansvarig
+
+Ansökan om tjänst som Projektledare
+
+Jag söker tjänsten som projektledare på Innovativ Tech AB. Med fem års erfarenhet av att leda utvecklingsprojekt inom mjukvarubranschen och en passion för att bygga högpresterande team, ser jag detta som en perfekt möjlighet att bidra till era innovativa lösningar inom AI-driven automation.
+
+Under min nuvarande roll som projektledare på Tech Solutions har jag framgångsrikt lett utvecklingen av tre större mjukvaruprojekt, där vi levererade alla inom budget och före deadline. Ett konkret exempel är när jag koordinerade ett team på tolv utvecklare för att lansera en ny mobilapp, vilket ökade kundens användarengagemang med 35 procent under första kvartalet. Projektet genomfördes med hjälp av Scrum och krävde nära samarbete med både utvecklingsteamet och kundernas affärsavdelning.
+
+Jag arbetar strukturerat med agila metoder, främst Scrum och Kanban, och har gedigen erfarenhet av verktyg som Jira och Confluence. Min styrka ligger i att skapa tydliga processer samtidigt som jag behåller flexibilitet när projekten kräver det. Jag trivs med att coacha teammedlemmar och har ett coachande ledarskap där jag ser till att alla känner sig delaktiga i beslutsprocessen. Jag är certifierad Scrum Master sedan 2021 och har tillämpat dessa principer i alla mina projekt.
+
+Vad som verkligen tilltalar mig med Innovativ Tech är ert fokus på hållbar innovation och den öppna företagskultur ni beskriver. Jag har själv drivit initiativ kring hållbara utvecklingsprocesser i min nuvarande roll och delar er övertygelse om att teknik ska lösa verkliga samhällsproblem. Er satsning på AI-lösningar inom hälsovårdssektorn är något jag gärna vill vara del av.
+
+Jag är övertygad om att min erfarenhet av att leda tekniska projekt kombinerat med min passion för innovation skulle göra mig till ett värdefullt tillskott i ert team. Jag ser fram emot möjligheten att få berätta mer om hur jag kan bidra till era mål. Tack för att du tog dig tid att läsa min ansökan.
+
+Med vänliga hälsningar,
+
+Anna Svensson`,
+
+    // === TIPS ===
+    tips: [
+      {
+        titel: "Lyft fram konkreta projektresultat",
+        text: "Arbetsgivare inom projektledning vill se mätbara resultat. Istället för att skriva 'Jag har lett många framgångsrika projekt', specificera: 'Jag ledde lanseringen av en ny e-handelsplattform som ökade konverteringsgraden med 28% under första kvartalet.' Nämn alltid budget, tidsram eller andra kvantifierbara mått om möjligt. Detta ger trovärdighet och visar att du förstår vikten av måluppfyllelse."
+      },
+      {
+        titel: "Nämn specifika metoder och verktyg",
+        text: "Visa att du har praktisk erfarenhet genom att nämna konkreta ramverk och verktyg. Till exempel: 'Jag arbetar med Scrum och Kanban och har gedigen erfarenhet av Jira, Confluence och MS Project.' Detta gör att arbetsgivaren direkt ser att du kan börja arbeta utan lång introduktion. Olika branscher använder olika verktyg, så anpassa efter jobbannonsen."
+      },
+      {
+        titel: "Visa ditt ledarskap genom exempel",
+        text: "Undvik tomma påståenden som 'Jag är en bra ledare'. Beskriv istället en konkret situation där du visade ledarskap. Till exempel: 'När teamet fastnade i en teknisk utmaning samlade jag utvecklarna, faciliterade en problemlösningssession och vi hittade en lösning inom 48 timmar.' Detta visar ditt arbetssätt på ett trovärdigt sätt som rekryteraren kan relatera till."
+      },
+      {
+        titel: "Inkludera relevanta certifieringar tidigt",
+        text: "Om du har projektledningscertifieringar som PMP, PRINCE2, Scrum Master eller SAFe, nämn dem redan i första eller andra stycket. Skriv till exempel: 'Jag är certifierad PMP sedan 2022 och har tillämpat PMBOK-ramverket i samtliga mina projekt.' Certifieringar är ofta ett krav eller starkt meriterande, så gör det tydligt från början."
+      },
+      {
+        titel: "Anpassa till företagets bransch och kultur",
+        text: "Ett tech-företag med startup-kultur söker ofta något annat än en traditionell bank. Researcha företaget: Vad betonar de i sin About-sida? Vilka värderingar lyfter de fram? Matcha sedan din ton och exempel mot detta. Om de pratar om 'agility' och 'innovation', lyft dina erfarenheter av snabba pivots och experimenterande. Om de betonar stabilitet, fokusera på din struktur och riskhantering."
+      }
+    ],
+
+    // === VARFÖR DET FUNGERAR ===
+    varforDetFungerar: [
+      {
+        titel: "Konkreta exempel ger trovärdighet",
+        beskrivning: "Istället för att säga 'Jag är bra på projektledning' beskrivs ett specifikt projekt med mätbart resultat (35% ökat engagemang). Detta gör påståendet trovärdigt och minnesvärt för rekryteraren."
+      },
+      {
+        titel: "Yrkesspecifika nyckelord",
+        beskrivning: "Brevet inkluderar termer som 'Scrum', 'Kanban', 'agila metoder', 'Jira', 'Confluence' och 'coachande ledarskap' - ord som arbetsgivare inom projektledning aktivt söker efter. Detta ökar chansen att passera ATS-system och visar omedelbar kompetens."
+      },
+      {
+        titel: "Balanserar personlighet med professionalism",
+        beskrivning: "Kandidaten visar passion ('det som verkligen tilltalar mig') och delar sina värderingar (hållbarhet) utan att bli för informell. Tonen är varm men behåller respekt och professionalitet genomgående."
+      },
+      {
+        titel: "Tydlig koppling till företaget",
+        beskrivning: "Brevet nämner specifikt företagets fokus på 'hållbar innovation' och 'AI-lösningar inom hälsovård' vilket visar att kandidaten gjort research. Detta är inte ett standardbrev som skickats till 50 företag."
+      }
+    ],
+
+    // === FAQ ===
+    faq: [
+      {
+        fraga: "Ska jag nämna certifieringar som PMP eller PRINCE2?",
+        svar: "Ja, absolut. Projektledningscertifieringar är högt värderade och bör nämnas tydligt. Skriv till exempel: 'Jag är certifierad PMP sedan 2022 och har tillämpat PMBOK-ramverket i samtliga mina projekt.' Om du har certifieringen, inkludera den redan i inledningen eller kompetens-stycket för maximal synlighet."
+      },
+      {
+        fraga: "Hur visar jag ledarskap utan att låta arrogant?",
+        svar: "Fokusera på resultatet för teamet snarare än dig själv. Istället för 'Jag är en excellent ledare' skriv 'Jag ser min roll som att stötta teamet att nå sina mål. Ett exempel är när jag coachade två juniora utvecklare som sedan kunde ta egna projekt.' Konkreta exempel där teamet lyckades fungerar bäst och visar ödmjukt ledarskap."
+      },
+      {
+        fraga: "Behöver jag nämna alla verktyg jag kan?",
+        svar: "Nej, prioritera de verktyg som nämns i jobbannonsen eller som är branschstandard. Om annonsen kräver Jira och du kan både Jira och Trello, fokusera på Jira. Nämn 3-5 centrala verktyg/metoder snarare än att lista 15 olika. Kvalitet över kvantitet ger ett mer fokuserat och trovärdigt intryck."
+      },
+      {
+        fraga: "Hur anpassar jag brevet till olika typer av projekt?",
+        svar: "Anpassa dina exempel efter projekttyp i annonsen. Söker de någon för IT-projekt? Lyft IT-exempel. Är det byggprojekt? Fokusera på din erfarenhet där. Beskriv också projektets storlek (budget, team-size, tidsram) så det matchar vad de söker. En projektledare för små agila team skriver annorlunda än en som leder stora vattenfallsprojekt."
+      },
+      {
+        fraga: "Vad gör jag om jag är ny som projektledare?",
+        svar: "Lyft fram projektledande uppgifter du haft i andra roller. Har du koordinerat team, drivit initiativ eller planerat något komplext? Det är relevant. Nämn också relevant utbildning: 'Jag har precis avslutat min Scrum Master-certifiering och är redo att tillämpa dessa metoder i praktiken.' Fokusera på din potential och din vilja att lära."
+      },
+      {
+        fraga: "Ska jag nämna misslyckade projekt?",
+        svar: "Generellt nej, men om du kan visa lärdomar är det okej. Till exempel: 'I ett tidigt projekt underskattade vi tidsåtgången för testning, vilket gav mig värdefull insikt om vikten av buffert i planerning - något jag tillämpar idag.' Fokusera på vad du lärde dig och hur du utvecklades, inte på själva misslyckandet."
+      }
+    ],
+
+    // === SEO ===
+    seoTitle: "Personligt Brev Projektledare - Färdigt exempel och mall (2025)",
+    seoDescription: "Professionellt personligt brev-exempel för projektledare. Se färdig mall, få tips från HR-experter och skapa ditt brev på 2 minuter med vårt AI-verktyg.",
+
+    // === RELATERADE YRKEN ===
+    relateradeYrken: ["scrum-master", "produktchef", "teamledare"]
+  }
+};
+```
+
+---
+
+## KVALITETSKONTROLL-CHECKLISTA
+
+Använd denna checklista innan du godkänner ett nytt personligt brev-exempel:
+
+### ✅ BREVTEXT (brevText)
+
+**Struktur:**
+- [ ] Innehåller brevhuvud med namn, kontaktuppgifter, datum, företag
+- [ ] 4-5 tydliga stycken (inte fler, inte färre)
+- [ ] Totalt 300-400 ord (räkna!)
+- [ ] Tydlig röd tråd från början till slut
+
+**Innehåll:**
+- [ ] Stycke 1: Anger tjänst + visar entusiasm + kort varför de passar
+- [ ] Stycke 2: Innehåller 1-2 konkreta exempel med mätbara resultat
+- [ ] Stycke 3: Nämner specifika verktyg, metoder eller kompetenser
+- [ ] Stycke 4: Visar research om företaget + kulturell passform
+- [ ] Stycke 5: Sammanfattar värde + uppmaning + tack
+
+**Språk:**
+- [ ] Inga tankstreck (–) mellan fraser
+- [ ] Inga "kraftfulla", "innovativa", "revolutionerande"
+- [ ] Varierad meningslängd (inte alla meningar lika långa)
+- [ ] Aktiv form ("Jag ledde" inte "Projektet leddes")
+- [ ] Inga listor av adjektiv utan exempel
+- [ ] Konkreta siffror har kontext (inte bara "40%")
+- [ ] Naturlig ton (läs högt - låter det som en människa skrev det?)
+
+**Yrkesspecifikt:**
+- [ ] Inkluderar 5-8 yrkesspecifika nyckelord/termer
+- [ ] Exempel är relevanta för just detta yrke
+- [ ] Kompetenser matchar vad arbetsgivare söker
+
+---
+
+### ✅ TIPS (tips[])
+
+- [ ] 4-5 tips per exempel
+- [ ] Varje tip är 60-100 ord
+- [ ] Titlar börjar med verb ("Lyft fram...", "Visa...")
+- [ ] Tipsen är SPECIFIKA för yrket (inte generiska)
+- [ ] Innehåller VARFÖR tipset är viktigt
+- [ ] Innehåller HUR man gör (konkret exempel)
+- [ ] Ingen upprepning mellan tips
+
+---
+
+### ✅ VARFÖR DET FUNGERAR (varforDetFungerar[])
+
+- [ ] 3-4 analyspunkter per exempel
+- [ ] Varje punkt är 40-60 ord
+- [ ] Analyserar konkreta element i brevet (inte vaga påståenden)
+- [ ] Förklarar pedagogiskt VARFÖR något fungerar
+- [ ] Varierade fokusområden (språk, struktur, nyckelord, personlighet, etc.)
+- [ ] Ingen upprepning av det som står i tips[]
+
+---
+
+### ✅ FAQ (faq[])
+
+- [ ] 4-6 frågor per exempel
+- [ ] Varje svar är 50-80 ord
+- [ ] Frågor är SPECIFIKA för yrket (inte generella frågor som gäller alla)
+- [ ] Svar ger direkt information först (Ja/Nej/Det beror på)
+- [ ] Svar innehåller konkreta exempel eller råd
+- [ ] Frågor formulerade naturligt (som någon skulle ställa dem)
+- [ ] Täcker olika aspekter: certifieringar, kompetenser, anpassning, erfarenhetsnivå
+
+---
+
+### ✅ METADATA & SEO
+
+- [ ] seoTitle innehåller yrke + "Personligt Brev" + "exempel"
+- [ ] seoDescription är 150-160 tecken
+- [ ] Kategori är korrekt vald
+- [ ] Relaterade yrken är relevanta (3 stycken)
+- [ ] Alla fält är ifyllda (inga tomma strängar)
+
+---
+
+### ✅ MÄNSKLIGT SPRÅK (KRITISKT!)
+
+**Läs brevet högt och fråga dig:**
+- [ ] Låter det som en riktig person skrev det?
+- [ ] Skulle en vän uttrycka sig så här?
+- [ ] Finns det variation i meningslängd och struktur?
+- [ ] Känns tonen naturlig, inte stiff eller formell?
+- [ ] Finns personlighet utan att bli för informell?
+- [ ] Inga uppenbara AI-telltales (tankstreck, robotiska mönster, klyschor)?
+
+**Om du svarar NEJ på någon av ovanstående - skriv om!**
+
+---
+
+## VANLIGA MISSTAG OCH HUR DU UNDVIKER DEM
+
+### ❌ Misstag 1: Kopiera samma struktur för alla yrken
+
+**Problem:** Alla brev låter likadana förutom att du bytt ut yrket och några nyckelord.
+
+**Lösning:**
+- Variera meningsstrukturen mellan olika yrken
+- Anpassa tonen efter branschen (tech = lite mer informell, finans = mer formell)
+- Använd olika öppningsstrategier (ibland retorisk fråga, ibland direkt, ibland kort anekdot)
+- Varje yrkeskategori har sina egna typiska utmaningar - lyft dem
+
+**Exempel:**
+- **Projektledare:** Fokus på resultat, metoder, team
+- **Undersköterska:** Fokus på empati, medicinsk kompetens, patientmöten
+- **Säljare:** Fokus på siffror, kundrelationer, drivkraft
+
+---
+
+### ❌ Misstag 2: För många nyckelord (keyword stuffing)
+
+**Problem:** Brevet blir konstlat när du trycker in för många yrkestermer.
+
+**Exempel på dåligt:**
+```
+Jag har erfarenhet av Scrum, Kanban, Agile, Waterfall, PRINCE2, PMP, Lean,
+Six Sigma, MS Project, Jira, Trello, Asana, Monday.com och Monday.com.
+```
+
+**Lösning:**
+- Välj 5-8 mest relevanta nyckelord
+- Väv in dem NATURLIGT i meningar
+- Använd dem i kontext, inte som lista
+
+**Exempel på bra:**
+```
+Jag arbetar strukturerat med agila metoder, främst Scrum och Kanban, och har
+gedigen erfarenhet av verktyg som Jira och Confluence.
+```
+
+---
+
+### ❌ Misstag 3: Upprepning mellan brevText, tips och FAQ
+
+**Problem:** Samma information står i brevet, i tips OCH i FAQ.
+
+**Lösning:**
+- **brevText:** Visa hur det ska se ut (exempel)
+- **tips:** Ge råd om hur läsaren anpassar det
+- **FAQ:** Svara på specifika frågor om yrket
+
+De ska komplettera varandra, inte upprepa.
+
+---
+
+### ❌ Misstag 4: För generiska tips
+
+**Problem:** Tips som "Var personlig", "Anpassa till företaget" kan gälla vilket yrke som helst.
+
+**Lösning:**
+- Varje tip måste innehålla något som är SPECIFIKT för yrket
+- Ge konkreta exempel som bara gäller just det yrket
+- Nämn verktyg, kompetenser eller situationer typiska för branschen
+
+**Test:** Kan detta tipset användas för ett helt annat yrke? Om ja → skriv om!
+
+---
+
+### ❌ Misstag 5: Använda riktiga företagsnamn
+
+**Problem:** Om du skriver "Jag söker tjänsten på Google" blir exemplet mindre användbart.
+
+**Lösning:**
+- Använd fiktiva men realistiska företagsnamn
+- "Innovativ Tech AB", "Vårdcentralen Globen", "Försäkringar Sverige"
+- Gör det tydligt att det är ett exempel, inte en riktig ansökan
+
+---
+
+### ❌ Misstag 6: För mycket försiktighet med siffror
+
+**Problem:** Rädsla för att använda siffror gör att brevet blir vagt.
+
+**Lösning:**
+- Använd realistiska siffror MED kontext
+- "Ökade försäljningen från 2 till 2,8 miljoner" (inte bara "40%")
+- "Koordinerade ett team på tolv utvecklare" (inte "stort team")
+- "Under första kvartalet" (tidsram ger trovärdighet)
+
+**OK att använda:**
+- Projektbudgetar (1-5 miljoner, 500 000 kr)
+- Team-storlekar (5-15 personer)
+- Tidsramar (6 månader, första kvartalet)
+- Procentuella förbättringar (20-50%) MED kontext
+
+**UNDVIK påhittade:**
+- "Ökade kundnöjdheten med 87,3%" (för exakt)
+- "Sparade företaget 2,4 miljoner kronor" (utan kontext verkar överdrivet)
+
+---
+
+### ❌ Misstag 7: Glömma signaturen
+
+**Problem:** Brevet slutar med "Med vänliga hälsningar" utan namn.
+
+**Lösning:**
+Alltid inkludera:
+```
+Med vänliga hälsningar,
+
+[Förnamn Efternamn]
+```
+
+---
+
+### ❌ Misstag 8: Samma kandidat-persona för alla yrken
+
+**Problem:** "Anna Svensson" söker allt från undersköterska till tech-chef.
+
+**Lösning:**
+- Variera namn (olika kön, svenska och internationella namn)
+- Anpassa kandidatens bakgrund efter yrket
+- Tech-yrken: Kanske 5 års erfarenhet från startup
+- Vård-yrken: Kanske 8 års erfarenhet från äldreboende
+- Skapa trovärdiga personas
+
+---
+
+## PROCESSFLÖDE: Skapa ett nytt exempel
+
+### Steg 1: Research (15 min)
+
+1. **Sök på yrket:**
+   - Läs 3-5 riktiga jobbannonser för yrket
+   - Notera återkommande krav, kompetenser, verktyg
+   - Identifiera branschspecifika termer
+
+2. **Förstå målgruppen:**
+   - Vilken erfarenhetsnivå söker arbetsgivare?
+   - Vilka är de viktigaste kompetenserna?
+   - Finns certifieringar som är viktiga?
+
+3. **Kolla konkurrenter:**
+   - Finns andra exempel online? Vad saknas i dem?
+   - Hur kan vi göra vårt bättre/mer konkret?
+
+### Steg 2: Skapa persona (10 min)
+
+- Välj namn (variera kön och etnicitet)
+- Bestäm erfarenhetsnivå (nyutexaminerad, medior, senior)
+- Skapa fiktivt företag som passar branschen
+- Hitta på realistiska kontaktuppgifter
+
+### Steg 3: Skriv brevText (45-60 min)
+
+1. **Inledning:** Tjänst + entusiasm + varför de passar (50-70 ord)
+2. **Erfarenhet:** 1-2 konkreta exempel med resultat (80-100 ord)
+3. **Kompetenser:** Verktyg, metoder, arbetssätt (70-90 ord)
+4. **Varför företaget:** Research + kulturell match (60-80 ord)
+5. **Avslutning:** Sammanfatta + uppmaning + tack (40-50 ord)
+
+**Checka:** Räkna ord (ska vara 300-400 totalt), läs högt, kolla AI-telltales
+
+### Steg 4: Skriv tips[] (30 min)
+
+- 4-5 tips, varje 60-100 ord
+- Fokus: Konkreta råd specifika för yrket
+- Testa: Kan detta gälla annat yrke? Om ja → skriv om
+
+### Steg 5: Skriv varforDetFungerar[] (20 min)
+
+- 3-4 analyspunkter, varje 40-60 ord
+- Analysera VARFÖR element i brevet fungerar
+- Variera fokus: språk, struktur, nyckelord, personlighet
+
+### Steg 6: Skriv faq[] (30 min)
+
+- 4-6 frågor med svar (50-80 ord per svar)
+- Ställ frågor SPECIFIKA för yrket
+- Ge konkreta, användbara svar
+
+### Steg 7: SEO & Metadata (10 min)
+
+- Skriv seoTitle (inkludera yrke, "personligt brev", "exempel")
+- Skriv seoDescription (150-160 tecken)
+- Välj kategori
+- Identifiera 3 relaterade yrken
+
+### Steg 8: Kvalitetskontroll (20 min)
+
+- Gå igenom hela checklistan ovan
+- Läs allt högt
+- Be någon annan läsa och ge feedback
+- Sök efter AI-telltales
+- Kör genom stavningskontroll
+
+**Total tid: ~3 timmar per komplett exempel**
+
+---
+
+## ORDLISTA: Förbjudna vs. Uppmuntrade ord
+
+### ❌ FÖRBJUDNA ORD I PERSONLIGA BREV
+
+| Förbjudet ord | Varför dåligt | Använd istället |
+|---------------|---------------|-----------------|
+| Kraftfull | AI-klyscha, tomt | Konkret exempel på vad du åstadkommit |
+| Innovativ | Överanvänt, säger inget | Beskriv VAD som var nytt |
+| Revolutionerande | Överdrift | "Modern", "ny", eller inget alls |
+| Dynamisk | Meningslöst buzzword | Beskriv hur du anpassar dig |
+| Proaktiv | Tråkig HR-term | "Tar initiativ", ge exempel |
+| Resultatorienterad | Alla säger det | Visa resultat istället |
+| Game-changing | Marketing-fluff | Undvik helt |
+| Cutting-edge | Krystat | "Senaste", "modern" |
+| Passionate | Överdrivet | "Brinner för", "intresserad av" |
+| Team player | Klyscha | Ge exempel på samarbete |
+
+### ✅ UPPMUNTRADE ORD OCH FRASER
+
+**Konkreta verb:**
+- Ledde, skapade, utvecklade, implementerade, koordinerade
+- Ökade, minskade, förbättrade, streamlinede
+- Samarbetade, coachade, mentorerade
+- Analyserade, löste, hanterade
+
+**Naturliga övergångar:**
+- "Ett exempel är när..."
+- "Under min tid som..."
+- "Det som tilltalar mig är..."
+- "Vad driver mig? [svar]"
+- "Min erfarenhet visar att..."
+
+**Konkreta termer (per bransch):**
+- **Tech:** Scrum, Kanban, Agile, Jira, Git, CI/CD, deployment
+- **Vård:** Basal hygien, omvårdnad, VAS, medicinsk delegering, patientcentrerad
+- **Sälj:** Pipeline, CRM, prospecting, closing, kundrelationer, konvertering
+- **HR:** Kompetensförsörjning, employer branding, onboarding, performance management
+
+---
+
+## RESURSER & REFERENSER
+
+### Inspiration för brev-struktur
+- Word-dokumentet "Skriv det perfekta personliga brevet" (huvudkälla)
+- Svenska arbetsgivares faktiska jobbannonser
+- Arbetsförmedlingens riktlinjer
+
+### Verktyg för kvalitetskontroll
+- Ordräknare (wordcounter.net)
+- Läsbarhet (läsbarhetsindex.se)
+- Stavningskontroll (svenska språknämnden)
+- AI-detektor (läs högt för dig själv - bästa metoden)
+
+### Kom ihåg: Varje exempel är en investeringstillfälle
+
+Ett bra exempel:
+- Rankar på Google i månader/år
+- Konverterar besökare till användare
+- Bygger förtroende för jobbcoach.ai
+- Blir referens för framtida exempel
+
+Ett dåligt exempel:
+- Får dålig bounce rate
+- Ser AI-genererat ut
+- Skadar varumärket
+- Måste skrivas om senare (dubbelt arbete)
+
+**Därför:** Lägg ned tiden på att göra det rätt från början. 3 timmar per exempel är väl investerad tid.
+
+---
+
+## SLUTORD
+
+Denna mall är er guide för att skapa personliga brev-exempel som:
+
+1. **Ser genuint mänskliga ut** - Inte AI-genererade
+2. **Ger konkret värde** - Läsaren lär sig något användbart
+3. **Är yrkesspecifika** - Inte generiska templates
+4. **Bygger förtroende** - Visar att jobbcoach.ai förstår rekrytering
+5. **Konverterar** - Inspirerar läsaren att använda verktyget
+
+Följ strukturen, använd checklistorna, undvik misstagen - så bygger ni ett bibliotek av exempel som verkligen hjälper människor få jobb.
+
+**Lycka till!** 🎯
+
+---
+
+**Dokument skapat:** 2025-01-22
+**Version:** 2.0 (Komplett content-mall)
+**Baserat på:** "Skriv det perfekta personliga brevet.docx" + UX Copywriting Guidelines
+**Status:** REDO FÖR ANVÄNDNING
+
+---
+
+# SEO-RIKTLINJER FÖR PERSONLIGT BREV-EXEMPEL
+
+## INNEHÅLLSSTRATEGI FÖR OPTIMAL SEO
+
+### Minimum Content Requirements
+
+**Totalt ordantal:** MINST 2000 ord per sida (exklusive brevtext från InteractiveLetterPreview)
+
+**VIKTIGT:** Räkna INTE brevText (300-400 ord) i detta. De 2000 orden avser STÖDJANDE innehåll (intro, tips, analys, FAQ, relaterade länkar, etc.)
+
+**Sektioner som MÅSTE finnas:**
+
+#### 1. Hero Section (50-100 ord)
+
+**Innehåll:**
+- H1 med primärt keyword: "Personligt Brev [Yrke] - Professionellt Exempel 2025"
+- Subtext (1-2 meningar) som förklarar vad användaren får
+- Badge med sökvolym (om tillgängligt)
+
+**SEO-krav:**
+- H1 måste vara SYNLIG (inte sr-only!)
+- Primärt keyword måste finnas i H1
+- Subtext ska innehålla sekundärt keyword
+
+**Exempel:**
+```tsx
+<h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6">
+  Personligt Brev Undersköterska - Professionellt Exempel 2025
+</h1>
+<p className="text-xl text-slate-600 mb-8 leading-relaxed">
+  Se ett komplett personligt brev-exempel för undersköterska, optimerat för svenska
+  vårdgivare och ATS-system. Inkluderar branschspecifika tips och färdiga mallar.
+</p>
+```
+
+#### 2. Intro Section (200-300 ord)
+
+**H2:** "Komplett personligt brev exempel för [yrke]"
+
+**Innehåll:**
+- SEO-rik introduktionstext med LSI keywords
+- Förklara vad som gör detta exempel bra
+- Nämn primärt keyword 2-3 gånger naturligt
+- Inkludera minst 2 sekundära keywords
+- Koppla till ATS-optimering och svensk arbetsmarknad
+
+**SEO-krav:**
+- Första stycket (första 100 orden) MÅSTE innehålla primärt keyword
+- Använd semantiska variationer: "ansökningsbrev [yrke]", "jobbansökan som [yrke]"
+- Inkludera årtal (2025) för freshness-signaler
+- Nämn geografisk relevans (svenska arbetsgivare, svensk vårdmarknad, etc.)
+
+**Exempel (Undersköterska):**
+```markdown
+## Komplett personligt brev exempel för undersköterska
+
+När du söker jobb som undersköterska är ett välskrivet personligt brev avgörande för
+att sticka ut bland andra kandidater. Detta exempel på personligt brev för undersköterska
+visar hur du framhäver din omvårdnadskompetens, erfarenhet av ADL-stöd och förmåga att
+arbeta i tvärprofessionella team.
+
+Många undersköterskor undrar hur man skriver ett personligt brev som passar svenska
+vårdgivare och samtidigt passerar ATS-system (Applicant Tracking Systems). Svaret är
+att kombinera konkreta exempel från din vårdpraktik med branschspecifika nyckelord som
+demensvård, palliativ omvårdnad, basala hygienrutiner och medicinsk delegering.
+
+Vårt exempel på ansökningsbrev för undersköterska är ATS-optimerat, vilket betyder att
+det innehåller rätt nyckelord för att passera automatiska rekryteringssystem och nå fram
+till personalansvariga. Använd detta som inspiration när du skriver ditt eget personliga
+brev för din nästa jobbansökan inom vård och omsorg.
+```
+
+**Ordantal:** 230 ord
+**Primärt keyword ("personligt brev undersköterska"):** 4 gånger = 1.7% density ✓
+**Sekundära keywords:** "exempel personligt brev undersköterska" (1x), "ansökningsbrev undersköterska" (1x), "ATS-optimerat" (1x)
+
+#### 3. Brevexempel (InteractiveLetterPreview)
+
+**H2:** "Interaktivt brevexempel - Testa olika mallar och typsnitt"
+
+**Innehåll:**
+- InteractiveLetterPreview-komponenten (300-500 ord brevText)
+- Statiskt fallback-innehåll för SEO (redan implementerat i InteractiveLetterPreview.tsx)
+
+**SEO-krav:**
+- StaticLetter MÅSTE renderas utan JavaScript för crawlers
+- Noscript-fallback MÅSTE finnas
+- VIKTIGT: TA BORT sr-only heading på rad 114 i PersonligtBrevExempelPage.tsx - det är en duplicate content-fälla!
+
+**KRITISK FIX BEHÖVS:**
+```tsx
+// ❌ DÅLIGT (nuvarande implementation, rad 112-127):
+<div className="sr-only" aria-hidden="true">
+  <h2>Komplett personligt brev exempel för {data.yrke}</h2>
+  {/* ... brevinnehåll ... */}
+</div>
+
+// ✓ BRA (ta bort helt - StaticLetter i InteractiveLetterPreview hanterar detta):
+// [Ta bort hela denna sektion]
+```
+
+**Varför?** Google ser sr-only content som potentiell cloaking och duplicate content. InteractiveLetterPreview har redan noscript och StaticLetter fallback - dubbla lager är onödigt och skadligt.
+
+#### 4. Varför det fungerar (250-350 ord totalt)
+
+**H2:** "Varför detta personliga brev fungerar"
+
+**Innehåll:**
+- 4-5 analyspunkter med H3 per punkt
+- 50-70 ord per punkt
+- Fokusera på konkreta SEO-relevanta aspekter: nyckelord, struktur, ATS-optimering, svensk stil
+
+**SEO-krav:**
+- Minst 1 H3 ska innehålla sekundärt keyword eller LSI keyword
+- Nämn ATS-optimering explicit i minst 1 punkt
+- Använd termer som "rekryterare söker efter", "arbetsgivare värderar", "ökar chansen att"
+
+**Exempel struktur:**
+```markdown
+## Varför detta personliga brev fungerar
+
+### Branschspecifika nyckelord för ATS-system
+
+Detta personliga brev för undersköterska inkluderar viktiga söktermer som rekryterare
+och ATS-system letar efter: ADL-stöd, demensvård, palliativ omvårdnad, tvärprofessionellt
+team och basala hygienrutiner. När svenska vårdgivare filtrerar ansökningar söker de
+specifikt efter dessa kompetenser, vilket gör att detta brev har högre chans att nå
+fram till personalansvariga. (62 ord)
+
+### Konkreta exempel istället för vaga påståenden
+
+Istället för att skriva "jag är stresstålig" beskriver brevet konkreta situationer:
+hantering av fall, konfusion och akut försämring. Detta visar arbetsgivaren exakt vilka
+utmaningar du hanterat, vilket ger trovärdighet och visar att du förstår vardagen som
+undersköterska inom vård och omsorg. Konkreta exempel är 3 gånger mer övertygande än
+generella påståenden. (58 ord)
+
+### Personcentrerad vård och empati
+
+Brevet visar mjuka färdigheter som är avgörande inom omsorgsyrken: relationsskapande,
+lyssnande och förmåga att skapa trygghet. Dessa egenskaper är ofta viktigare för
+vårdgivare än teknisk kompetens, särskilt inom äldreomsorg och geriatrik där patientkontakt
+står i centrum. Genom att beskriva tid med patienter visar kandidaten förståelse för
+yrkesrollen. (54 ord)
+
+### Kompetensutveckling och professionalism
+
+Att nämna specifika utbildningar (basala hygienrutiner, nutritionsbedömning) visar
+lärvilja och engagemang för yrket. Svenska vårdgivare värderar högt undersköterskor
+som kontinuerligt vidareutvecklas, och detta signalerar att kandidaten tar sitt yrke
+på allvar och håller sig uppdaterad med nya vårdrutiner och riktlinjer. (49 ord)
+
+### Tydlig koppling till arbetsgivaren
+
+Brevet refererar specifikt till Karolinska Universitetssjukhusets värderingar kring
+evidensbaserad vård, vilket visar att kandidaten researchar arbetsgivare innan ansökan.
+Detta gör brevet personligt istället för generiskt och ökar chansen för intervju markant.
+Rekryterare kan direkt se att detta inte är ett massutskick. (46 ord)
+```
+
+**Total:** 269 ord
+**H3-rubriker:** 5 st
+**Keyword-användning:** "personligt brev undersköterska" (1x), "ATS" (2x), "vårdgivare" (3x), "svenska" (2x)
+
+#### 5. Tips-sektion (400-500 ord totalt)
+
+**H2:** "Tips för att skriva personligt brev som [yrke]"
+
+**Innehåll:**
+- 5-6 tips med H3 per tips
+- 70-90 ord per tips
+- Praktiska, actionable råd
+- Inkludera exempel på RÄTT vs FEL
+
+**SEO-krav:**
+- Minst 2 H3 ska innehålla primärt eller sekundärt keyword
+- Varje tips ska nämna minst 1 branschspecifikt verktyg/kompetens/term
+- Använd numrerade listor eller bullet points där lämpligt
+
+**H3-exempel som fungerar för SEO:**
+- "Hur skriver man personligt brev som [yrke]: Använd branschterminologi"
+- "Personligt brev [yrke]: Visa både hårda och mjuka färdigheter"
+- "Tips för personligt brev inom [bransch]: Anpassa efter vårdmiljö"
+
+**Exempel (Tips 1 för Undersköterska):**
+```markdown
+### Hur skriver man personligt brev som undersköterska: Använd rätt branschterminologi
+
+När du skriver personligt brev som undersköterska är det avgörande att inkludera
+nyckelord som ATS-system och rekryterare aktivt söker efter. Viktiga termer inkluderar:
+
+**Vårdkompetenser:**
+- ADL-stöd (Activities of Daily Living)
+- Personcentrerad vård
+- Tvärprofessionellt teamarbete
+- Demensvård och palliativ vård
+
+**Tekniska färdigheter:**
+- Basala hygienrutiner (enligt Vårdhandboken)
+- Medicinsk delegering (insulin, PEG, inhalation)
+- Dokumentationssystem (Cosmic, Procapita, TakeCare)
+- Lyft- och förflytningsteknik enligt Akta Ryggen-principer
+
+**Exempel på bra formulering:**
+"Jag har gedigen erfarenhet av ADL-stöd och personcentrerad vård inom geriatrik, med
+medicinsk delegering för insulin och subkutana injektioner."
+
+Detta ger direkt trovärdighet och visar att du behärskar yrkesspråket som undersköterska
+inom svensk vård och omsorg. (127 ord)
+```
+
+#### 6. FAQ-sektion (500-700 ord totalt)
+
+**H2:** "Vanliga frågor om personligt brev för [yrke]"
+
+**Innehåll:**
+- 7-9 frågor (öka från nuvarande 4!)
+- 60-90 ord per svar
+- Optimerade för featured snippets
+
+**SEO-krav (KRITISKT FÖR FEATURED SNIPPETS):**
+- Varje fråga MÅSTE vara i H3 (inte bara i accordion)
+- Frågor ska formuleras exakt som användare söker på Google (använd "People Also Ask")
+- Svar ska börja med direkt information (Ja/Nej/Siffra) FÖRST
+- Inkludera minst 1 bulleted list per svar där möjligt
+- Implementera FAQPage schema (JSON-LD)
+
+**Fråge-format för featured snippets:**
+```markdown
+### Hur lång ska ett personligt brev för undersköterska vara?
+
+Ett personligt brev för undersköterska ska vara max 1 A4-sida, vilket motsvarar 300-400
+ord eller 3-5 stycken. Detta är den optimala längden för svenska arbetsgivare inom vård
+och omsorg.
+
+**Rekommenderad struktur:**
+- Stycke 1: Vilken tjänst du söker + varför du passar (50-70 ord)
+- Stycke 2: Din vårdkompetens med konkreta exempel (80-100 ord)
+- Stycke 3: Tekniska och mjuka färdigheter (70-90 ord)
+- Stycke 4: Varför just denna arbetsgivare (60-80 ord)
+- Stycke 5: Avslutning med uppmaning (40-50 ord)
+
+Håll brevet kortfattat men konkret - rekryterare inom vården läser ofta 50+ ansökningar
+och uppskattar tydlighet. (87 ord)
+```
+
+**Lista på MÅSTE-ha FAQ-frågor för bättre featured snippet-chans:**
+1. "Hur lång ska ett personligt brev för [yrke] vara?"
+2. "Vad ska jag skriva i personligt brev som [yrke]?"
+3. "Hur börjar man ett personligt brev för [yrke]?"
+4. "Ska jag nämna [branschspecifik certifiering/kompetens] i personligt brev?"
+5. "Vad är viktigt att ha med i personligt brev som [yrke]?"
+6. "Hur avslutar man ett personligt brev för jobbansökan som [yrke]?"
+7. "Vilka nyckelord ska finnas i personligt brev för [yrke]?"
+
+**Nyckeln till featured snippets:**
+- Börja svaret med EN mening som DIREKT svarar på frågan
+- Följ med en bulleted eller numbered list
+- Håll totala svaret under 100 ord
+- Använd frågan ordagrant från H3 i första meningen av svaret
+
+#### 7. Relaterade Artiklar (200-300 ord totalt)
+
+**H2:** "Läs mer om hur du skriver personligt brev som [yrke]"
+
+**Innehåll:**
+- 3-4 interna länkar till `/artiklar/[slug]`
+- 50-75 ord beskrivning per artikel
+- Tydlig relevans till yrkeskategorin
+
+**SEO-krav:**
+- Anchor text MÅSTE innehålla keywords (inte "Läs mer" eller "Klicka här")
+- Varje artikel-kort ska innehålla primärt eller sekundärt keyword
+- Beskrivningar ska vara unika (inte copy-paste från artikel-meta)
+
+**Exempel:**
+```markdown
+## Läs mer om hur du skriver personligt brev som undersköterska
+
+### Hur du skriver ett personligt brev som undersköterska - Komplett guide
+
+Vår djupgående guide täcker allt från val av brevmall till branschspecifika tips för
+vårdyrken. Lär dig hur du anpassar ditt personliga brev för olika vårdmiljöer som
+geriatrik, hemtjänst, eller akutvård, och vilka nyckelord som ökar dina chanser att
+passera ATS-system inom svensk vård och omsorg.
+
+[Länk: /artiklar/personligt-brev-underskoterska-guide]
+
+### ATS-optimering för vårdpersonal: Så får ditt CV och personliga brev synas
+
+Över 70% av svenska vårdgivare använder idag ATS-system för att filtrera ansökningar.
+Den här artikeln förklarar exakt hur dessa system fungerar och vilka nyckelord du MÅSTE
+inkludera i ditt personliga brev som undersköterska för att nå fram till personalansvariga.
+Inkluderar konkreta exempel på ATS-vänliga fraser och strukturer.
+
+[Länk: /artiklar/ats-optimering-vardpersonal]
+
+### Personligt brev för vårdyrken: Vanliga misstag och hur du undviker dem
+
+Många undersköterskor gör samma misstag när de skriver personligt brev: för generiska
+formuleringar, saknade branschtermer, eller för mycket fokus på utbildning istället för
+praktisk erfarenhet. Denna artikel visar de 10 vanligaste felen och ger konkreta exempel
+på hur du skriver ett övertygande personligt brev som sticker ut i högen.
+
+[Länk: /artiklar/personligt-brev-vardyrken-misstag]
+```
+
+**Total:** 252 ord
+**Interna länkar:** 3 st
+**Keyword density i sektionen:** Hög, varje kort nämner "personligt brev" + yrke minst 1 gång
+
+#### 8. Relaterade Verktyg (150-200 ord totalt)
+
+**H2:** "Verktyg som hjälper dig i jobbansökan som [yrke]"
+
+**Innehåll:**
+- 3-4 interna länkar till verktyg (`/dashboard/skapa-brev`, `/cv-mallar`, etc.)
+- 40-50 ord beskrivning per verktyg
+- Tydlig benefit-kommunikation
+
+**SEO-krav:**
+- Använd keyword-rika anchor texts
+- Nämn "gratis" eller "kostnadsfritt" om applicerbart (ökar CTR)
+- Inkludera konkreta siffror (t.ex. "på 60 sekunder", "5 000+ mallar")
+
+**Exempel:**
+```markdown
+## Verktyg som hjälper dig i jobbansökan som undersköterska
+
+### AI-driven personligt brev-generator för vårdpersonal
+
+Skapa ditt personliga brev som undersköterska på 60 sekunder. Ladda upp ditt CV, klistra
+in jobbannonsen, och få ett ATS-optimerat personligt brev anpassat för svenska vårdgivare.
+Inkluderar automatisk insättning av branschspecifika nyckelord som ADL-stöd, demensvård
+och basala hygienrutiner.
+
+[Länk: /dashboard/skapa-brev - "Skapa personligt brev gratis"]
+
+### CV-mallar för undersköterskor och vårdpersonal
+
+Ladda ner professionella CV-mallar anpassade för vårdyrken. Alla mallar är ATS-optimerade
+och följer svenska standards för CV-utformning. Inkluderar sektioner för medicinsk delegering,
+vårdkompetenser och relevanta certifieringar som arbetsgivare inom vård söker efter.
+
+[Länk: /cv-mallar/underskoterska - "Hämta gratis CV-mall för undersköterska"]
+
+### CV-analys för vårdpersonal: Optimera för ATS-system
+
+Ladda upp ditt befintliga CV och få AI-driven analys av ATS-kompatibilitet, nyckelordsoptimering
+och formatering. Verktyget ger konkreta rekommendationer för hur du kan förbättra ditt CV
+inom vårdområdet och öka dina chanser att nå intervjustadiet.
+
+[Länk: /dashboard/cv-analys - "Analysera mitt CV gratis"]
+```
+
+**Total:** 186 ord
+**Interna länkar:** 3 st
+**CTA-ord:** "gratis" (3x), "60 sekunder" (1x), "ATS-optimerat" (2x)
+
+#### 9. Final CTA (80-120 ord)
+
+**H2:** "Redo att skapa ditt personliga brev som [yrke]?"
+
+**Innehåll:**
+- Sammanfattning av värde
+- Tydlig uppmaning att använda verktyget
+- Inkludera social proof eller statistik om möjligt
+
+**SEO-krav:**
+- Nämn primärt keyword en sista gång
+- Inkludera "gratis", "snabbt", "enkelt" (conversion-ord)
+- Länk till `/dashboard/skapa-brev` med keyword-rik anchor text
+
+**Exempel:**
+```markdown
+## Redo att skapa ditt personliga brev som undersköterska?
+
+Nu har du sett ett professionellt exempel på personligt brev för undersköterska och lärt
+dig vilka nyckelord och struktur som fungerar för svenska vårdgivare. Nästa steg är att
+skapa ditt eget.
+
+Med Jobbcoach.ai:s AI-drivna brevgenerator skapar du ett ATS-optimerat, skräddarsytt
+personligt brev på bara 60 sekunder. Verktyget analyserar din kompetens, matchar mot
+jobbannonsens krav och genererar ett professionellt brev anpassat för vårdyrken.
+
+**Över 15 000 vårdpersonal har redan använt vårt verktyg för att få sin drömtjänst.**
+
+[Länk: /dashboard/skapa-brev - "Skapa mitt personliga brev gratis nu"]
+```
+
+**Total:** 106 ord
+**Primärt keyword:** 1x
+**CTA-ord:** "gratis" (1x), "60 sekunder" (1x), "skräddarsytt" (1x)
+**Social proof:** Ja (15 000 användare)
+
+---
+
+### KEYWORD-OPTIMERING
+
+#### Primärt keyword: "personligt brev [yrke]"
+
+**Target density:** 1.5-2% av totalt innehåll (exklusive brevText)
+
+**Beräkning:**
+- 2000 ord stödjande innehåll × 1.5% = 30 förekomster av primärt keyword
+- 2000 ord stödjande innehåll × 2% = 40 förekomster av primärt keyword
+
+**Rekommendation:** 30-40 gånger "personligt brev [yrke]" i allt innehåll utanför brevText.
+
+**Fördelning:**
+- H1: 1x (Hero)
+- H2: 3-4x (i olika H2-rubriker)
+- H3: 4-5x (i FAQ och tips)
+- Body text: 20-30x (naturligt fördelat)
+
+**VIKTIGT:** Använd också variationer för att undvika keyword stuffing:
+- "ansökningsbrev [yrke]"
+- "jobbansökan som [yrke]"
+- "brev för [yrke]"
+- "exempel på personligt brev [yrke]"
+
+#### Sekundära keywords (var och en 0.5-0.8% density):
+
+Varje sekundärt keyword ska förekomma 10-16 gånger i innehållet.
+
+**Lista på sekundära keywords:**
+1. "exempel personligt brev [yrke]" - 10-12x
+2. "personligt brev mall [yrke]" - 8-10x
+3. "hur skriver man personligt brev [yrke]" - 8-10x
+4. "ansökningsbrev [yrke]" - 10-12x
+5. "ATS-optimerat personligt brev" - 8-10x (tech-relaterade yrken)
+
+#### LSI keywords (totalt 1.5-2% av allt innehåll):
+
+**Generella LSI (alla yrken):**
+- jobbansökan - 12-15x
+- karriär - 6-8x
+- rekrytering / rekryterare - 10-12x
+- ATS-system / ATS-optimering - 8-10x (om relevant)
+- CV - 8-10x
+- arbetsgivare - 12-15x
+- intervju - 4-6x
+- svenska [arbetsgivare/företag/marknaden] - 6-8x
+
+**Branschspecifika LSI (exempel Undersköterska):**
+- vårdpersonal - 8-10x
+- vård och omsorg - 8-10x
+- geriatrik / äldreomsorg - 6-8x
+- omvårdnad - 6-8x
+- vårdgivare - 8-10x
+
+**Branschspecifika LSI (exempel Tech/IT):**
+- utvecklare - 8-10x
+- mjukvaruutveckling - 6-8x
+- tech-företag - 6-8x
+- IT-bransch - 6-8x
+
+#### Keyword Placement (kritiskt för ranking!):
+
+**MÅSTE-placeringar:**
+
+1. **H1:** Primärt keyword MÅSTE finnas ordagrant
+   - ✓ "Personligt Brev Undersköterska - Professionellt Exempel 2025"
+
+2. **Första 100 orden:** Primärt keyword inom första stycket i Intro Section
+   - ✓ "När du söker jobb som undersköterska är ett välskrivet personligt brev avgörande..."
+
+3. **H2 headings:** Minst 3 H2 ska innehålla primärt eller sekundärt keyword
+   - ✓ "Komplett personligt brev exempel för undersköterska"
+   - ✓ "Tips för att skriva personligt brev som undersköterska"
+   - ✓ "Vanliga frågor om personligt brev för undersköterska"
+
+4. **Meta description:** Primärt keyword inom första 120 tecken
+   - ✓ "Se ett komplett personligt brev-exempel för undersköterska. Skrivet av rekryteringsexperter..."
+
+5. **URL:** Primärt keyword i URL-struktur (redan implementerat)
+   - ✓ `/personligt-brev-exempel/underskoterska`
+
+6. **Alt-text:** Om hero image eller featured images finns, inkludera primärt keyword
+   - ✓ `alt="Personligt brev exempel för undersköterska - ATS-optimerat"`
+
+7. **FAQ H3:** Minst 3 FAQ-frågor ska innehålla primärt keyword
+   - ✓ "Hur lång ska ett personligt brev för undersköterska vara?"
+   - ✓ "Vad ska jag skriva i personligt brev som undersköterska?"
+
+**BÖR-placeringar:**
+
+- Breadcrumb: "Hem > Personligt brev exempel > Undersköterska"
+- Sista stycket (Final CTA): Nämn primärt keyword 1x för "keyword closure"
+- Internal link anchor texts: Använd keyword-variationer
+
+---
+
+### SCHEMA MARKUP REQUIREMENTS
+
+**MÅSTE ha följande schema types:**
+
+#### 1. HowTo Schema (för "hur man skriver"-aspekten)
+
+**Implementera i:** `page.tsx` (lägg till bredvid Article schema)
+
+**Syfte:** Rankar för "hur skriver man personligt brev [yrke]" sökningar
+
+**Exempel implementation:**
+```typescript
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": `Hur man skriver personligt brev för ${data.yrke}`,
+  "description": data.intro,
+  "image": "https://jobbcoach.ai/images/personligt-brev-guide.jpg",
+  "totalTime": "PT30M",
+  "estimatedCost": {
+    "@type": "MonetaryAmount",
+    "currency": "SEK",
+    "value": "0"
+  },
+  "step": data.tips.map((tip, index) => ({
+    "@type": "HowToStep",
+    "position": index + 1,
+    "name": tip.rubrik,
+    "text": tip.text,
+    "url": `https://jobbcoach.ai/personligt-brev-exempel/${yrke}#tip-${index + 1}`
+  }))
+}
+```
+
+**Varför viktigt:** Google visar HowTo rich snippets med step-by-step instruktioner direkt i sökresultaten.
+
+#### 2. FAQPage Schema (för featured snippets)
+
+**Implementera i:** `page.tsx` (lägg till bredvid Article och HowTo schema)
+
+**Syfte:** Ökar chansen för featured snippets och "People Also Ask" boxes
+
+**Exempel implementation:**
+```typescript
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": data.faq.map(item => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+}
+```
+
+**KRITISKT:** FAQ-frågor i HTML MÅSTE matcha exakt det som står i schema.
+
+#### 3. BreadcrumbList Schema (för breadcrumbs)
+
+**Implementera i:** `page.tsx`
+
+**Syfte:** Visar breadcrumb-navigation i Google search results, förbättrar UX och CTR
+
+**Exempel implementation:**
+```typescript
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Hem",
+      "item": "https://jobbcoach.ai"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Personligt brev exempel",
+      "item": "https://jobbcoach.ai/personligt-brev-exempel"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": data.yrke,
+      "item": `https://jobbcoach.ai/personligt-brev-exempel/${yrke}`
+    }
+  ]
+}
+```
+
+#### 4. Article Schema (redan implementerat, men förbättra)
+
+**Nuvarande implementation (rad 131-157 i page.tsx) är BRA men kan förbättras:**
+
+```typescript
+// Nuvarande (bra):
+const letterSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": `Personligt brev exempel för ${data.yrke}`,
+  "description": data.intro,
+  "articleBody": data.exempelBrev.brevText,
+  "author": {
+    "@type": "Organization",
+    "name": "Jobbcoach.ai",
+    "url": "https://jobbcoach.ai"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Jobbcoach.ai",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://jobbcoach.ai/logo.png"
+    }
+  },
+  "datePublished": new Date().toISOString(),
+  "dateModified": new Date().toISOString(),
+  "about": {
+    "@type": "JobPosting",
+    "title": data.yrke
+  },
+  "keywords": `personligt brev, ${data.yrke.toLowerCase()}, jobbansökan, CV, ATS-optimering`
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const example = await getExampleBySlug(params.slug);
+// FÖRBÄTTRAT (lägg till E-E-A-T signals):
+const letterSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": `Personligt brev exempel för ${data.yrke}`,
+  "description": data.intro,
+  "articleBody": data.exempelBrev.brevText,
+  "wordCount": calculateWordCount(data), // Lägg till funktion för att räkna ord
+  "author": {
+    "@type": "Organization",
+    "name": "Jobbcoach.ai",
+    "url": "https://jobbcoach.ai",
+    "description": "Sveriges ledande AI-driven karriärplattform",
+    "founder": {
+      "@type": "Person",
+      "name": "Teamet på Jobbcoach.ai" // Eller faktiskt grundare om public
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Jobbcoach.ai",
+    "url": "https://jobbcoach.ai",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://jobbcoach.ai/logo.png",
+      "width": 600,
+      "height": 60
+    }
+  },
+  "datePublished": "2025-01-15T08:00:00+01:00", // Faktiskt publiceringsdatum
+  "dateModified": new Date().toISOString(), // Senaste uppdatering
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `https://jobbcoach.ai/personligt-brev-exempel/${yrke}`
+  },
+  "about": {
+    "@type": "JobPosting",
+    "title": data.yrke,
+    "hiringOrganization": {
+      "@type": "Organization",
+      "name": "Svenska arbetsgivare"
+    }
+  },
+  "keywords": `personligt brev ${data.yrke.toLowerCase()}, ansökningsbrev ${data.yrke.toLowerCase()}, jobbansökan ${data.yrke.toLowerCase()}, CV, ATS-optimering, ${data.kategori}`,
+  "inLanguage": "sv-SE",
+  "isAccessibleForFree": true
+}
+```
 
-  if (!example) return {};
+**Förbättringar:**
+- Lägg till `wordCount` för längdsignal
+- Lägg till `mainEntityOfPage` för canonical
+- Lägg till `inLanguage` för språksignal
+- Expandera `keywords` med sekundära keywords
+- Lägg till `isAccessibleForFree` (viktigt för Google!)
+
+---
+
+### METADATA REQUIREMENTS
+
+**MÅSTE ha i `generateMetadata()` i page.tsx:**
+
+```typescript
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ yrke: string }>
+}): Promise<Metadata> {
+  const { yrke } = await params
+  const data = exampleData[yrke]
+
+  if (!data) {
+    return {
+      title: 'Exempel inte funnet - Jobbcoach.ai',
+    }
+  }
+
+  const canonicalUrl = `https://jobbcoach.ai/personligt-brev-exempel/${yrke}`
 
   return {
-    title: example.seoTitle,
-    description: example.description,
-    openGraph: {
-      title: example.seoTitle,
-      description: example.description,
-      images: [example.image],
+    // Basic metadata
+    title: data.metaTitle, // "Personligt Brev Exempel Undersköterska - Jobbcoach.ai"
+    description: data.metaDescription, // 150-160 tecken
+
+    // Canonical URL (MÅSTE finnas!)
+    alternates: {
+      canonical: canonicalUrl
     },
-  };
-}
 
-export default async function ExamplePage({ params }: { params: { slug: string } }) {
-  const example = await getExampleBySlug(params.slug);
+    // Language
+    locale: 'sv_SE',
 
-  if (!example) notFound();
+    // Open Graph (Facebook, LinkedIn)
+    openGraph: {
+      type: 'article',
+      locale: 'sv_SE',
+      url: canonicalUrl,
+      siteName: 'Jobbcoach.ai',
+      title: data.metaTitle,
+      description: data.metaDescription,
+      images: [
+        {
+          url: data.ogImage || 'https://jobbcoach.ai/images/og-personligt-brev-exempel.jpg',
+          width: 1200,
+          height: 630,
+          alt: `Personligt brev exempel för ${data.yrke} - Jobbcoach.ai`,
+          type: 'image/jpeg'
+        }
+      ],
+      // Article-specific OG tags
+      publishedTime: '2025-01-15T08:00:00+01:00', // Lägg till i exampleData
+      modifiedTime: new Date().toISOString(),
+      authors: ['Jobbcoach.ai Team'],
+      section: data.kategori, // "Vård & Omsorg", "Tech & IT", etc.
+      tags: [
+        'personligt brev',
+        data.yrke.toLowerCase(),
+        'jobbansökan',
+        'CV',
+        'ATS-optimering',
+        data.kategori
+      ]
+    },
 
-  return (
-    <main>
-      <Breadcrumbs />
-      <HeroSection example={example} />
-      <LetterPreview content={example.letterContent} />
-      <GuideSection guide={example.guide} />
-      <RelatedExamples related={example.related} />
-      <FAQSection faqs={example.faqs} />
-      <CTASection />
-    </main>
-  );
+    // Twitter Cards
+    twitter: {
+      card: 'summary_large_image',
+      site: '@jobbcoach_ai', // Om ni har Twitter
+      creator: '@jobbcoach_ai',
+      title: data.metaTitle,
+      description: data.metaDescription,
+      images: [data.ogImage || 'https://jobbcoach.ai/images/og-personligt-brev-exempel.jpg']
+    },
+
+    // Additional SEO tags
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1
+      }
+    },
+
+    // Verification (om relevant)
+    // verification: {
+    //   google: 'your-google-site-verification-code',
+    // },
+  }
 }
 ```
 
-**2. Data Structure: `/lib/examples.ts`**
+**KRITISKA element som saknas i nuvarande implementation:**
+
+1. ❌ **Canonical URL** - MÅSTE läggas till
+2. ❌ **Open Graph tags** - Saknas helt
+3. ❌ **Twitter Cards** - Saknas helt
+4. ❌ **robots meta** - Bör specificeras
+5. ❌ **OG images** - Behöver skapas för varje yrkeskategori
+
+---
+
+### HEADING HIERARCHY REQUIREMENTS
+
+**Korrekt struktur (endast EN H1 per sida!):**
+
+```
+H1: "Personligt Brev [Yrke] - Professionellt Exempel 2025"
+│
+├─ H2: "Komplett personligt brev exempel för [yrke]"
+│
+├─ H2: "Interaktivt brevexempel - Testa olika mallar och typsnitt"
+│
+├─ H2: "Varför detta personliga brev fungerar"
+│  ├─ H3: "Branschspecifika nyckelord för ATS-system"
+│  ├─ H3: "Konkreta exempel istället för vaga påståenden"
+│  ├─ H3: "Personcentrerad vård och empati"
+│  ├─ H3: "Kompetensutveckling och professionalism"
+│  └─ H3: "Tydlig koppling till arbetsgivaren"
+│
+├─ H2: "Tips för att skriva personligt brev som [yrke]"
+│  ├─ H3: "Hur skriver man personligt brev som [yrke]: Använd branschterminologi"
+│  ├─ H3: "Personligt brev [yrke]: Visa både hårda och mjuka färdigheter"
+│  ├─ H3: "Tips för personligt brev inom [bransch]: Anpassa efter [kontext]"
+│  ├─ H3: "[Specifik råd för yrket]"
+│  └─ H3: "[Specifik råd för yrket]"
+│
+├─ H2: "Vanliga frågor om personligt brev för [yrke]"
+│  ├─ H3: "Hur lång ska ett personligt brev för [yrke] vara?"
+│  ├─ H3: "Vad ska jag skriva i personligt brev som [yrke]?"
+│  ├─ H3: "Hur börjar man ett personligt brev för [yrke]?"
+│  ├─ H3: "Ska jag nämna [specifik kompetens] i personligt brev?"
+│  ├─ H3: "Vad är viktigt att ha med i personligt brev som [yrke]?"
+│  ├─ H3: "Hur avslutar man ett personligt brev för jobbansökan som [yrke]?"
+│  └─ H3: "Vilka nyckelord ska finnas i personligt brev för [yrke]?"
+│
+├─ H2: "Läs mer om hur du skriver personligt brev som [yrke]"
+│
+├─ H2: "Verktyg som hjälper dig i jobbansökan som [yrke]"
+│
+└─ H2: "Redo att skapa ditt personliga brev som [yrke]?"
+```
+
+**VIKTIGA REGLER:**
+
+1. **ENDAST EN H1** - Aldrig flera H1 på samma sida
+2. **ALLA headings MÅSTE vara synliga** - ALDRIG sr-only headings!
+3. **Logisk hierarki** - Hoppa aldrig över nivåer (H1 → H3 utan H2 däremellan)
+4. **Keywords i headings** - Minst 3 H2 och 5 H3 ska innehålla primärt/sekundärt keyword
+5. **Beskrivande, inte generiska** - "Varför detta fungerar" → "Varför detta personliga brev fungerar"
+
+**KRITISK FIX - Ta bort sr-only heading:**
+
+```tsx
+// ❌ DÅLIGT (nuvarande rad 112-127 i PersonligtBrevExempelPage.tsx):
+{/* SEO: Dolt statiskt brevinnehåll för crawlers - garanterar indexering */}
+<div className="sr-only" aria-hidden="true">
+  <h2>Komplett personligt brev exempel för {data.yrke}</h2>
+  <div>
+    {/* ... brevinnehåll ... */}
+  </div>
+</div>
+
+// ✓ BRA: TA BORT HELA DENNA SEKTION
+// InteractiveLetterPreview.tsx har redan noscript och StaticLetter fallback
+```
+
+**Varför?**
+- Google ser sr-only content som potentiell cloaking
+- Dubbla H2 med samma text skapar duplicate heading-problem
+- InteractiveLetterPreview renderar redan statiskt innehåll för crawlers
+
+---
+
+### INTERNAL LINKING STRATEGY
+
+**MÅSTE länka till (minst 8 interna länkar per sida):**
+
+**Kategori 1: Hub-sidor (1 länk)**
+1. Hub-sida: `/personligt-brev-exempel`
+   - Anchor text: "Se alla personligt brev-exempel"
+
+**Kategori 2: Verktyg (2-3 länkar)**
+2. Skapa brev: `/dashboard/skapa-brev`
+   - Anchor text variationer:
+     - "Skapa ditt personliga brev"
+     - "Generera personligt brev med AI"
+     - "Skapa ATS-optimerat personligt brev"
+   - Placering: Hero CTA, Sidebar CTA, Final CTA, Verktyg-sektion
+
+3. CV-mallar: `/cv-mallar` eller `/cv-mallar/[kategori]`
+   - Anchor text: "Ladda ner CV-mall för [yrke/bransch]"
+
+4. CV-analys: `/dashboard/cv-analys`
+   - Anchor text: "Analysera ditt CV gratis"
+
+**Kategori 3: Relaterade yrkes-exempel (2-3 länkar)**
+5-7. Andra `/personligt-brev-exempel/[annat-yrke]`
+   - Välj närliggande yrken inom samma kategori
+   - Anchor text: "Personligt brev exempel för [yrke]"
+   - Exempel Undersköterska → Sjuksköterska, Personlig assistent, Barnskötare
+
+**Kategori 4: Relevanta artiklar (3-4 länkar)**
+8-11. `/artiklar/[slug]`
+   - Välj artiklar om personligt brev-skrivning, ATS-optimering, jobbsök
+   - Anchor text: Använd artikel-titeln eller keyword-varianter
+
+**Anchor text-strategi:**
+
+**❌ UNDVIK:**
+- "Klicka här"
+- "Läs mer"
+- "Se mer"
+- Generiska länkar utan kontext
+
+**✓ ANVÄND:**
+- "Skapa personligt brev för [yrke] gratis"
+- "Se exempel på personligt brev för [relaterat yrke]"
+- "Ladda ner ATS-optimerad CV-mall för [bransch]"
+- "Lär dig hur du skriver [specifikt innehåll]"
+
+**Placeringsguide:**
+
+```markdown
+## Intro Section (200-300 ord)
+- 1 intern länk till relaterad artikel om personligt brev-skrivning
+  Exempel: "Läs vår kompletta guide om hur du skriver personligt brev [länk]"
+
+## Efter InteractiveLetterPreview
+- Inline CTA till /dashboard/skapa-brev
+  Exempel: "Gillar du detta? Skapa ditt eget personliga brev på 60 sekunder [länk]"
+
+## Tips-sektion (400-500 ord)
+- 1-2 interna länkar till relevanta artiklar om specifika tips
+  Exempel i Tips 3: "Läs mer om ATS-optimering för vårdpersonal [länk]"
+
+## FAQ-sektion (500-700 ord)
+- 1-2 interna länkar i FAQ-svar
+  Exempel: "För mer detaljer, se vår guide om CV-skrivning [länk]"
+
+## Relaterade Artiklar-sektion (200-300 ord)
+- 3-4 interna länkar (dedikerad sektion)
+
+## Relaterade Verktyg-sektion (150-200 ord)
+- 3-4 interna länkar (dedikerad sektion)
+
+## Final CTA
+- 1 stark intern länk till /dashboard/skapa-brev
+```
+
+**Total:** 8-12 interna länkar per sida
+
+**Fördelning:**
+- Verktyg: 4-5 länkar (varav 2-3 till skapa-brev)
+- Relaterade exempel: 2-3 länkar
+- Artiklar: 3-4 länkar
+- Hub-sida: 1 länk (breadcrumb eller navigering)
+
+---
+
+### TECHNICAL SEO REQUIREMENTS
+
+#### Progressive Enhancement
+
+**MÅSTE:**
+- StaticLetter MÅSTE renderas UTAN JavaScript (redan implementerat i InteractiveLetterPreview.tsx ✓)
+- Noscript-fallback MÅSTE finnas (redan implementerat ✓)
+- Huvudinnehåll (text, tips, FAQ) MÅSTE vara server-rendered (redan via Next.js SSR ✓)
+
+**BÖR:**
+- Interaktiva element (dropdowns, modaler) får INTE blockera content crawling
+- Lazy-load tung JavaScript för snabbare initial load
+
+**KRITISK FIX BEHÖVS:**
+```tsx
+// Ta bort sr-only duplicate content (rad 112-127 i PersonligtBrevExempelPage.tsx)
+// InteractiveLetterPreview.tsx hanterar redan SEO-fallback korrekt
+```
+
+#### Core Web Vitals
+
+**Målsättningar:**
+- **LCP (Largest Contentful Paint):** < 2.5s
+  - Optimera hero section
+  - Preload fonts
+  - Optimera images (använd next/image)
+
+- **FID (First Input Delay):** < 100ms
+  - Lazy-load InteractiveLetterPreview (redan implementerat ✓)
+  - Defer non-critical JavaScript
+
+- **CLS (Cumulative Layout Shift):** < 0.1
+  - Fixed heights för animated content
+  - Reservera space för images
+  - Undvik layout shifts i accordion/dropdowns
+
+**Implementation-tips:**
+
+```tsx
+// Preload critical fonts i page.tsx:
+export const metadata = {
+  // ... andra metadata
+  other: {
+    'preload-font': 'Calibri, Arial, sans-serif'
+  }
+}
+
+// Optimera images:
+import Image from 'next/image'
+
+<Image
+  src="/images/personligt-brev-underskoterska.jpg"
+  alt="Personligt brev exempel för undersköterska"
+  width={1200}
+  height={630}
+  priority // För hero image
+  placeholder="blur"
+  blurDataURL="..." // Base64 placeholder
+/>
+
+// Fixed height för accordion för att undvika CLS:
+<motion.div
+  initial={{ height: 0 }}
+  animate={{ height: 'auto' }}
+  exit={{ height: 0 }}
+  style={{ minHeight: '60px' }} // Prevents layout shift
+>
+```
+
+#### Mobile-First Optimization
+
+**MÅSTE:**
+- All content MÅSTE vara fullt läsbart på mobil (redan implementerat ✓)
+- Touch targets minst 48x48px (kontrollera buttons/links)
+- Text minst 16px base size (redan implementerat ✓)
+- Ingen horizontal scroll
+- Responsive images med srcset
+
+**BÖR:**
+- Mobile-specific CTA placement (sticky bottom bar?)
+- Simplified navigation på mobil
+- Accordion FAQ för bättre mobile UX (redan implementerat ✓)
+
+**Checka:**
+```bash
+# Google Mobile-Friendly Test
+npx lighthouse https://jobbcoach.ai/personligt-brev-exempel/underskoterska --only-categories=performance,accessibility,seo --form-factor=mobile
+```
+
+#### Page Speed Optimization
+
+**Nuvarande problem och lösningar:**
+
+1. **Problem:** InteractiveLetterPreview laddas med SSR disabled
+   **Lösning:** Behåll SSR disabled men säkerställ StaticLetter fallback (redan OK ✓)
+
+2. **Problem:** Framer Motion animations kan vara tunga
+   **Lösning:** Lazy-load Framer Motion eller använd CSS animations för critical content
+
+3. **Problem:** Många fonts laddas (11 Google Fonts i InteractiveLetterPreview)
+   **Lösning:** Preload endast default font (Calibri), lazy-load resten när användare öppnar dropdown
+
+**Implementation:**
+```tsx
+// Font preloading i page.tsx:
+import localFont from 'next/font/local'
+
+const calibri = localFont({
+  src: './fonts/calibri.woff2',
+  display: 'swap',
+  preload: true
+})
+
+// I InteractiveLetterPreview, lazy-load Google Fonts:
+useEffect(() => {
+  if (isFontOpen) {
+    // Ladda Google Fonts endast när dropdown öppnas
+    import('next/font/google').then(({ Lato, Open_Sans, Roboto }) => {
+      // Load fonts dynamically
+    })
+  }
+}, [isFontOpen])
+```
+
+---
+
+### CONTENT QUALITY CHECKLIST
+
+**Innan publicering, kontrollera:**
+
+#### Innehåll (Content)
+- [ ] Totalt ordantal > 2000 ord (exklusive brevText från InteractiveLetterPreview)
+- [ ] Alla 9 sektioner finns (Hero, Intro, Brevexempel, Varför det fungerar, Tips, FAQ, Relaterade artiklar, Relaterade verktyg, Final CTA)
+- [ ] Varje sektion har korrekt H2-heading
+- [ ] Ingen upprepning av samma information mellan sektioner
+
+#### Keywords
+- [ ] Primärt keyword density 1.5-2% (30-40 förekomster)
+- [ ] Sekundära keywords 0.5-0.8% var (10-16 förekomster var)
+- [ ] LSI keywords 1.5-2% totalt
+- [ ] Primärt keyword i H1
+- [ ] Primärt/sekundära keywords i minst 3 H2
+- [ ] Primärt/sekundära keywords i minst 5 H3
+- [ ] Primärt keyword inom första 100 orden
+
+#### Internal Linking
+- [ ] Minst 8 interna länkar totalt
+- [ ] Minst 2 länkar till /dashboard/skapa-brev
+- [ ] Minst 2 länkar till relaterade yrkes-exempel
+- [ ] Minst 3 länkar till relevanta artiklar
+- [ ] Alla anchor texts är keyword-rika (inte "klicka här")
+- [ ] Breadcrumb länk till hub-sida finns
+
+#### Schema Markup
+- [ ] Article schema implementerat (förbättrat med E-E-A-T)
+- [ ] HowTo schema implementerat för tips-sektion
+- [ ] FAQPage schema implementerat för FAQ-sektion
+- [ ] BreadcrumbList schema implementerat
+
+#### Metadata
+- [ ] Title tag 50-60 tecken med primärt keyword
+- [ ] Meta description 150-160 tecken med primärt keyword + CTA
+- [ ] Canonical URL satt korrekt
+- [ ] Open Graph tags kompletta (title, description, image, url, type)
+- [ ] Twitter Cards kompletta (card, title, description, image)
+- [ ] OG image 1200x630px med relevant visual
+
+#### Headings
+- [ ] ENDAST EN H1 per sida
+- [ ] Alla headings SYNLIGA (inga sr-only!)
+- [ ] Logisk hierarki (H1 → H2 → H3, aldrig hoppa nivåer)
+- [ ] Minst 3 H2 innehåller keywords
+- [ ] Minst 5 H3 innehåller keywords
+- [ ] Headings är beskrivande, inte generiska
+
+#### FAQ Optimization
+- [ ] Minst 7 FAQ-frågor
+- [ ] Varje fråga är i H3 (inte bara i accordion)
+- [ ] Frågor formulerade som riktiga sökfrågor
+- [ ] Svar börjar med direkt information (Ja/Nej/Siffra)
+- [ ] Minst hälften av svaren innehåller bullet lists
+- [ ] Alla FAQ matchar FAQPage schema exakt
+
+#### Technical SEO
+- [ ] Inga sr-only headings (särskilt rad 112-127 i PersonligtBrevExempelPage.tsx)
+- [ ] StaticLetter renderas för crawlers (via InteractiveLetterPreview noscript)
+- [ ] Canonical URL korrekt
+- [ ] robots meta: index, follow
+- [ ] Mobile-friendly (all content läsbart, touch targets >48px)
+- [ ] Images har alt-text med keywords
+- [ ] Core Web Vitals: LCP < 2.5s, FID < 100ms, CLS < 0.1
+
+#### E-E-A-T Signals
+- [ ] Author information i schema (Organization eller Person)
+- [ ] Published date synlig eller i schema
+- [ ] Modified date i schema
+- [ ] "Teamet på Jobbcoach.ai" eller faktisk författare nämnd
+- [ ] Länkar till About-sida eller team-info (om relevant)
+
+---
+
+### SEO-OPTIMERADE SEKTIONER - MALLAR
+
+#### Intro Section Mall (200-300 ord)
+
+**Template för Vårdyrken:**
+```markdown
+## Komplett personligt brev exempel för [yrke]
+
+När du söker jobb som [yrke] är ett välskrivet personligt brev avgörande för att sticka
+ut bland andra kandidater. Detta exempel på personligt brev för [yrke] visar hur du
+framhäver din [kärnkompetens 1], [kärnkompetens 2] och erfarenhet av [kärnkompetens 3].
+
+Många [yrke-plural] undrar hur man skriver ett personligt brev som passar svenska
+[arbetsgivare-typ] och samtidigt passerar ATS-system (Applicant Tracking Systems).
+Svaret är att kombinera konkreta exempel från din [praktik-typ] med branschspecifika
+nyckelord som [keyword 1], [keyword 2], [keyword 3] och [keyword 4].
+
+Vårt exempel på ansökningsbrev för [yrke] är ATS-optimerat, vilket betyder att det
+innehåller rätt nyckelord för att passera automatiska rekryteringssystem och nå fram
+till personalansvariga. Användandet är detta som inspiration när du skriver ditt eget
+personliga brev för din nästa jobbansökan [inom bransch].
+
+[Valfri 4:e paragraf om specifika utmaningar eller tips - 40-60 ord]
+```
+
+**Konkret exempel - Undersköterska (243 ord):**
+```markdown
+## Komplett personligt brev exempel för undersköterska
+
+När du söker jobb som undersköterska är ett välskrivet personligt brev avgörande för
+att sticka ut bland andra kandidater. Detta exempel på personligt brev för undersköterska
+visar hur du framhäver din omvårdnadskompetens, erfarenhet av ADL-stöd och förmåga att
+arbeta i tvärprofessionella team.
+
+Många undersköterskor undrar hur man skriver ett personligt brev som passar svenska
+vårdgivare och samtidigt passerar ATS-system (Applicant Tracking Systems). Svaret är
+att kombinera konkreta exempel från din vårdpraktik med branschspecifika nyckelord som
+demensvård, palliativ omvårdnad, basala hygienrutiner och medicinsk delegering.
+
+Vårt exempel på ansökningsbrev för undersköterska är ATS-optimerat, vilket betyder att
+det innehåller rätt nyckelord för att passera automatiska rekryteringssystem och nå fram
+till personalansvariga. Använd detta som inspiration när du skriver ditt eget personliga
+brev för din nästa jobbansökan inom vård och omsorg.
+
+Ett vanligt misstag är att undersköterskor skriver för generellt om sin erfarenhet.
+Istället för "jag har arbetat inom vården i fem år" ska du specificera vårdmiljö:
+"fem års erfarenhet av geriatrisk vård med fokus på demenspatienter". Detta ger
+arbetsgivaren direkt förståelse för din kompetens och ökar chansen att du kallas
+till intervju.
+```
+
+**Keyword count:**
+- "personligt brev undersköterska": 4x = 1.6% ✓
+- "exempel personligt brev undersköterska": 1x
+- "ansökningsbrev undersköterska": 1x
+- "ATS": 2x
+- "vårdgivare": 2x
+
+---
+
+**Template för Tech/IT-yrken:**
+```markdown
+## Komplett personligt brev exempel för [yrke]
+
+När du söker jobb som [yrke] inom tech-branschen krävs ett personligt brev som visar
+både teknisk kompetens och problemlösningsförmåga. Detta exempel på personligt brev för
+[yrke] demonstrerar hur du framhäver din erfarenhet av [teknologi/ramverk 1],
+[teknologi/ramverk 2] och förmågan att [specifik färdighet].
+
+Svenska tech-företag använder ofta ATS-system (Applicant Tracking Systems) för att filtrera
+ansökningar. För att ditt personliga brev som [yrke] ska nå fram till rekryterare måste
+det innehålla rätt nyckelord: [keyword 1], [keyword 2], [keyword 3] och [keyword 4]. Detta
+exempel visar hur du naturligt väver in dessa termer samtidigt som du berättar din story.
+
+Vårt ansökningsbrev-exempel för [yrke] är ATS-optimerat och följer bästa praxis för
+svenska tech-rekryteringar. Oavsett om du söker till startup, konsultbolag eller större
+företag kan du anpassa denna mall efter din bakgrund och målföretaget.
+
+[Valfri 4:e paragraf om tech-specifika tips - 40-60 ord]
+```
+
+**Konkret exempel - Frontend-utvecklare (256 ord):**
+```markdown
+## Komplett personligt brev exempel för frontend-utvecklare
+
+När du söker jobb som frontend-utvecklare inom tech-branschen krävs ett personligt brev
+som visar både teknisk kompetens och förmåga att skapa användarvänliga gränssnitt. Detta
+exempel på personligt brev för frontend-utvecklare demonstrerar hur du framhäver din
+erfarenhet av React, TypeScript och responsiv design.
+
+Svenska tech-företag använder ofta ATS-system (Applicant Tracking Systems) för att filtrera
+ansökningar. För att ditt personliga brev som frontend-utvecklare ska nå fram till
+rekryterare måste det innehålla rätt nyckelord: React, Vue, JavaScript, CSS, Git, agila
+metoder och UX/UI-design. Detta exempel visar hur du naturligt väver in dessa termer
+samtidigt som du berättar din story som utvecklare.
+
+Vårt ansökningsbrev-exempel för frontend-utvecklare är ATS-optimerat och följer bästa
+praxis för svenska tech-rekryteringar. Oavsett om du söker till startup, konsultbolag
+eller större tech-företag kan du anpassa denna mall efter din bakgrund och målföretaget.
+
+Ett vanligt misstag är att frontend-utvecklare listar teknologier utan att visa VARFÖR
+de kan dem eller HUR de använts. Istället för "jag kan React" skriv "jag byggde en
+e-handelsplattform med React och Next.js som hanterar 10 000+ dagliga användare".
+Konkreta projekt är guld värt för tech-rekryterare som vill se actual output, inte
+bara kurscertifikat.
+```
+
+---
+
+#### FAQ-frågor Mall - Featured Snippet-optimerade
+
+**STRUKTUR FÖR FEATURED SNIPPETS:**
+
+**Mall:**
+```markdown
+### [Exakt fråga som användare söker]
+
+[Direkt svar i 1 mening - börja med nyckelord från frågan]
+
+**[Valfri sub-heading för struktur]:**
+- Punkt 1
+- Punkt 2
+- Punkt 3
+
+[Förklaring/kontext - 20-40 ord]
+
+[Valfritt exempel eller tips - 20-30 ord]
+```
+
+**Exempel 1 - Längd (87 ord):**
+```markdown
+### Hur lång ska ett personligt brev för undersköterska vara?
+
+Ett personligt brev för undersköterska ska vara max 1 A4-sida, vilket motsvarar 300-400
+ord eller 3-5 stycken. Detta är den optimala längden för svenska vårdgivare.
+
+**Rekommenderad struktur:**
+- Stycke 1: Vilken tjänst du söker + varför du passar (50-70 ord)
+- Stycke 2: Din vårdkompetens med konkreta exempel (80-100 ord)
+- Stycke 3: Tekniska och mjuka färdigheter (70-90 ord)
+- Stycke 4: Varför just denna arbetsgivare (60-80 ord)
+- Stycke 5: Avslutning med uppmaning (40-50 ord)
+
+Håll brevet kortfattat men konkret - rekryterare inom vården läser ofta 50+ ansökningar
+och uppskattar tydlighet.
+```
+
+**Varför detta fungerar för featured snippets:**
+- ✓ Fråga i H3 matchar exakt sökning
+- ✓ Första meningen ger DIREKT svar ("max 1 A4-sida, 300-400 ord")
+- ✓ Bulleted list ger struktur (Google älskar listor)
+- ✓ Under 100 ord totalt (idealt för featured snippets)
+
+---
+
+**Exempel 2 - Ja/Nej-fråga (74 ord):**
+```markdown
+### Ska jag nämna medicindelegering i mitt personliga brev som undersköterska?
+
+Ja, absolut. Medicinsk delegering är högt värderat av vårdgivare och bör framhävas tydligt
+i ditt personliga brev som undersköterska.
+
+**Skriv specifikt vilka delegeringar du har:**
+- Insulin och andra subkutana injektioner
+- PEG-sondmatning
+- Inhalationer och syrgasbehandling
+- Kateterisering (KAD)
+
+Exempel på bra formulering: "Jag har medicinsk delegering för insulin, PEG och inhalation,
+och har administrerat dessa dagligen i min nuvarande tjänst inom geriatrik."
+
+Detta ger omedelbar trovärdighet och visar att du kan börja arbeta direkt utan extra utbildning.
+```
+
+---
+
+**Exempel 3 - "Hur"-fråga (91 ord):**
+```markdown
+### Hur visar jag att jag klarar av tunga lyft som undersköterska?
+
+Undvik att säga "jag är fysiskt stark" - fokusera istället på ergonomiska tekniker och
+erfarenhet av hjälpmedel.
+
+**Skriv hellre:**
+- "Gedigen erfarenhet av lyft- och förflyttningsteknik enligt Akta Ryggen-principer"
+- "Daglig användning av hjälpmedel som lyftar, glidlakan och transferplattor"
+- "Har genomgått utbildning i basala kroppstekniker och ergonomi"
+
+Exempel: "Jag arbetar ergonomiskt med lyft enligt Akta Ryggen och använder hjälpmedel
+som lyftar och glidlakan för säkra förflyttningar. Detta har gett mig 0 arbetsskador
+under fem års tjänstgöring inom äldreomsorg."
+
+Detta visar professionalism och medvetenhet om arbetsmiljö - vilket vårdgivare värderar högt.
+```
+
+---
+
+**Mallar per FAQ-typ:**
+
+**Typ 1: Längd/Siffror**
+```markdown
+### Hur [mått/längd/antal] ska [sak] vara/innehålla för [yrke]?
+
+[Sak] för [yrke] ska vara [konkret siffra/mått]. [Kort motivering].
+
+**[Sub-heading om relevant]:**
+- Punkt 1 med siffra
+- Punkt 2 med siffra
+- Punkt 3 med siffra
+
+[Kontextuell förklaring - 20-30 ord]
+```
+
+**Typ 2: Ska jag/Behöver jag**
+```markdown
+### Ska jag [göra något specifikt] i personligt brev för [yrke]?
+
+[Ja/Nej], [kort motivering i 1 mening].
+
+**[Sub-heading som listar alternativ eller exempel]:**
+- Punkt 1
+- Punkt 2
+- Punkt 3
+
+Exempel: "[Konkret exempel på hur man gör det rätt]"
+
+[Slutsats eller varning - 20-30 ord]
+```
+
+**Typ 3: Hur gör jag/Hur visar jag**
+```markdown
+### Hur [gör/visar/beskriver] jag [specifik sak] i personligt brev som [yrke]?
+
+[Konkret råd i 1 mening om vad man INTE ska göra] - fokusera istället på [vad man ska göra].
+
+**[Sub-heading - "Skriv hellre:" eller "Bra formuleringar:"]:**
+- Exempel 1
+- Exempel 2
+- Exempel 3
+
+Exempel: "[Fullständigt exempel på rätt formulering med kontext]"
+
+[Varför detta fungerar bättre - 15-25 ord]
+```
+
+**Typ 4: Vad ska jag skriva om**
+```markdown
+### Vad ska jag skriva om i personligt brev för [yrke]?
+
+I ditt personliga brev som [yrke] ska du fokusera på [3-5 huvudområden i prioritetsordning].
+
+**De viktigaste ämnena att täcka:**
+1. [Område 1] - [kort förklaring]
+2. [Område 2] - [kort förklaring]
+3. [Område 3] - [kort förklaring]
+4. [Område 4] - [kort förklaring]
+5. [Område 5] - [kort förklaring]
+
+Balansera mellan [faktor 1] och [faktor 2]. [Konkret tips om proportion eller fokus].
+```
+
+---
+
+#### Tips-sektion Mall (70-90 ord per tips)
+
+**Template:**
+```markdown
+### [H3 med keyword: "Hur/Tips för personligt brev [yrke]: [Specifik aspekt]"]
+
+[Inledning som förklarar VARFÖR detta är viktigt - 15-25 ord]
+
+**[Sub-heading - t.ex. "Viktiga nyckelord:", "Exempel på bra formulering:", "Gör så här:"]**
+- Punkt 1
+- Punkt 2
+- Punkt 3
+- [Valfri punkt 4]
+
+[Exempel på rätt vs fel ELLER konkret exempel - 25-35 ord]
+
+[Avslutande råd eller varning - 15-25 ord]
+```
+
+**Konkret exempel - Undersköterska (Tips 1, 127 ord):**
+```markdown
+### Hur skriver man personligt brev som undersköterska: Använd rätt branschterminologi
+
+När du skriver personligt brev som undersköterska är det avgörande att inkludera
+nyckelord som ATS-system och rekryterare aktivt söker efter. Viktiga termer inkluderar:
+
+**Vårdkompetenser:**
+- ADL-stöd (Activities of Daily Living)
+- Personcentrerad vård
+- Tvärprofessionellt teamarbete
+- Demensvård och palliativ vård
+
+**Tekniska färdigheter:**
+- Basala hygienrutiner (enligt Vårdhandboken)
+- Medicinsk delegering (insulin, PEG, inhalation)
+- Dokumentationssystem (Cosmic, Procapita, TakeCare)
+- Lyft- och förflytningsteknik enligt Akta Ryggen-principer
+
+**Exempel på bra formulering:**
+"Jag har gedigen erfarenhet av ADL-stöd och personcentrerad vård inom geriatrik, med
+medicinsk delegering för insulin och subkutana injektioner."
+
+Detta ger direkt trovärdighet och visar att du behärskar yrkesspråket som undersköterska
+inom svensk vård och omsorg.
+```
+
+---
+
+**Konkret exempel - Frontend-utvecklare (Tips 2, 118 ord):**
+```markdown
+### Personligt brev frontend-utvecklare: Visa konkreta projekt istället för tekniklista
+
+Rekryterare inom tech vill se VAD du byggt, inte bara vilka ramverk du kan. Undvik
+listor som "jag kan React, Vue, Angular, Svelte..." utan kontext.
+
+**Skriv istället projektbaserat:**
+- "Byggde en SaaS-plattform med React och TypeScript som hanterar 50 000+ användare"
+- "Utvecklade responsiv e-handel med Next.js som ökade konvertering med 23%"
+- "Skapade komponentbibliotek i Vue 3 som nu används av 15 utvecklare i teamet"
+
+**Exempel på stark formulering:**
+"Jag ledde frontend-utvecklingen av en intern dashboard-app med React, Redux och Chart.js.
+Applikationen ersatte fem olika Excel-system och sparade företaget 40 timmar manuellt
+arbete per månad."
+
+Detta visar business impact, inte bara teknisk kunskap - vilket gör dig mer attraktiv
+för arbetsgivare.
+```
+
+---
+
+### VANLIGA SEO-MISSTAG ATT UNDVIKA
+
+#### 1. Keyword Stuffing
+
+**❌ DÅLIGT exempel (keyword stuffing):**
+```markdown
+Detta personliga brev för undersköterska är ett bra personligt brev-exempel för
+undersköterskor som vill skriva personligt brev. Personliga brev för undersköterskor
+ska innehålla personligt brev-nyckelord för undersköterskor.
+```
+
+**✓ BRA exempel (naturlig keyword-användning):**
+```markdown
+Detta personliga brev-exempel för undersköterska visar hur du kombinerar vårdkompetens
+med ATS-optimering. När du skriver ditt ansökningsbrev är det viktigt att inkludera
+branschspecifika termer som ADL-stöd och demensvård.
+```
+
+**Regel:** Om en mening låter onaturlig när du läser den högt - skriv om den!
+
+---
+
+#### 2. Tunna sektioner utan substans
+
+**❌ DÅLIGT exempel (för kort FAQ-svar, 28 ord):**
+```markdown
+### Hur lång ska ett personligt brev vara?
+
+Ett personligt brev ska vara ungefär en A4-sida. Håll det kort och tydligt så att
+rekryteraren läser hela brevet.
+```
+
+**✓ BRA exempel (featured snippet-optimerat, 87 ord):**
+```markdown
+### Hur lång ska ett personligt brev för undersköterska vara?
+
+Ett personligt brev för undersköterska ska vara max 1 A4-sida, vilket motsvarar 300-400
+ord eller 3-5 stycken. Detta är den optimala längden för svenska vårdgivare inom vård
+och omsorg.
+
+**Rekommenderad struktur:**
+- Stycke 1: Vilken tjänst du söker + varför du passar (50-70 ord)
+- Stycke 2: Din vårdkompetens med konkreta exempel (80-100 ord)
+- Stycke 3: Tekniska och mjuka färdigheter (70-90 ord)
+- Stycke 4: Varför just denna arbetsgivare (60-80 ord)
+- Stycke 5: Avslutning med uppmaning (40-50 ord)
+
+Håll brevet kortfattat men konkret - rekryterare inom vården läser ofta 50+ ansökningar
+och uppskattar tydlighet.
+```
+
+**Regel:** Varje sektion måste ge VERKLIGT värde. Om svaret är under 50 ord, lägg till exempel eller struktur.
+
+---
+
+#### 3. Duplicate Content mellan yrken
+
+**❌ DÅLIGT exempel (samma text för alla yrken):**
+```markdown
+## Komplett personligt brev exempel för [yrke]
+
+Detta exempel visar hur du skriver ett bra personligt brev. Använd konkreta exempel
+och anpassa efter arbetsgivaren. Vårt exempel följer bästa praxis och är ATS-optimerat.
+```
+
+**✓ BRA exempel (unikt per yrke - Undersköterska vs Frontend-utvecklare):**
+
+**Undersköterska:**
+```markdown
+## Komplett personligt brev exempel för undersköterska
+
+När du söker jobb som undersköterska är ett välskrivet personligt brev avgörande för
+att sticka ut bland andra kandidater. Detta exempel visar hur du framhäver din
+omvårdnadskompetens, erfarenhet av ADL-stöd och förmåga att arbeta i tvärprofessionella
+vårdteam - kompetenser som svenska vårdgivare aktivt söker efter.
+```
+
+**Frontend-utvecklare:**
+```markdown
+## Komplett personligt brev exempel för frontend-utvecklare
+
+När du söker jobb som frontend-utvecklare inom tech-branschen krävs ett personligt brev
+som visar både teknisk kompetens och förmåga att skapa användarvänliga gränssnitt. Detta
+exempel demonstrerar hur du framhäver din erfarenhet av moderna JavaScript-ramverk,
+responsiv design och samarbete i agila team - skills som svenska tech-företag värderar högt.
+```
+
+**Regel:** Minst 70% av innehållet ska vara unikt per yrke. Dela INTE copy-paste-mallar!
+
+---
+
+#### 4. Hidden Content eller Cloaking
+
+**❌ DÅLIGT exempel (sr-only headings - nuvarande problem!):**
+```tsx
+<div className="sr-only" aria-hidden="true">
+  <h2>Komplett personligt brev exempel för {data.yrke}</h2>
+  <div>{/* Brevinnehåll */}</div>
+</div>
+```
+
+**✓ BRA exempel (synligt innehåll):**
+```tsx
+<section className="visible-section">
+  <h2 className="text-2xl font-bold text-slate-900 mb-4">
+    Komplett personligt brev exempel för {data.yrke}
+  </h2>
+  {/* Synligt innehåll */}
+</section>
+
+{/* Noscript fallback för crawlers - OK eftersom det är backup */}
+<noscript>
+  <div className="bg-white p-8 border rounded">
+    {/* Statiskt brevinnehåll */}
+  </div>
+</noscript>
+```
+
+**Regel:** ALDRIG sr-only headings. Google ser det som cloaking. Använd endast noscript för JavaScript-fallbacks.
+
+---
+
+#### 5. Svaga FAQ utan featured snippet-optimering
+
+**❌ DÅLIGT exempel (ingen struktur, för vagt):**
+```markdown
+### Vad ska jag tänka på när jag skriver personligt brev?
+
+Det är viktigt att tänka på många saker. Du ska vara personlig men professionell.
+Anpassa alltid brevet till företaget. Var tydlig och koncis.
+```
+
+**✓ BRA exempel (featured snippet-ready):**
+```markdown
+### Vad ska jag tänka på när jag skriver personligt brev som undersköterska?
+
+När du skriver personligt brev som undersköterska ska du fokusera på fyra huvudområden:
+vårdkompetens, konkreta exempel, branschterminologi och kulturell passform.
+
+**De viktigaste elementen:**
+1. **Vårdkompetens** - Nämn ADL-stöd, demensvård, palliativ omvårdnad
+2. **Konkreta exempel** - "Jag hanterade 30-40 patienter per pass" istället för "mycket erfarenhet"
+3. **ATS-nyckelord** - Inkludera medicindelegering, basala hygienrutiner, tvärprofessionellt team
+4. **Arbetsgivar-research** - Referera till vårdgivarens värderingar eller specialisering
+
+Exempel: "På Stockholms äldreboende arbetade jag med personcentrerad demensvård enligt
+Silviahemmets modell, vilket matchar ert fokus på evidensbaserad omvårdnad."
+```
+
+**Regel:** Varje FAQ ska ha direkt svar + struktur (lista) + exempel. Minst 60 ord.
+
+---
+
+#### 6. Dåliga interna länkar
+
+**❌ DÅLIGT exempel (generiska anchor texts):**
+```markdown
+Vill du skapa ditt eget personliga brev? [Klicka här](https://jobbcoach.ai/dashboard/skapa-brev).
+
+Läs mer om hur du skriver CV [här](https://jobbcoach.ai/artiklar/cv-skrivning).
+```
+
+**✓ BRA exempel (keyword-rika anchor texts):**
+```markdown
+Vill du skapa ditt eget personliga brev? [Skapa ATS-optimerat personligt brev gratis](https://jobbcoach.ai/dashboard/skapa-brev).
+
+Komplettera ditt personliga brev med ett professionellt CV:
+[Ladda ner CV-mall för undersköterskor](https://jobbcoach.ai/cv-mallar/underskoterska).
+```
+
+**Regel:** Anchor text MÅSTE beskriva vad användaren får. Inkludera keywords + benefit-ord (gratis, snabbt, ATS-optimerat).
+
+---
+
+#### 7. Saknade schema markup
+
+**❌ DÅLIGT exempel (endast Article schema):**
+```typescript
+const letterSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": `Personligt brev exempel för ${data.yrke}`,
+  "articleBody": data.exempelBrev.brevText
+}
+```
+
+**✓ BRA exempel (full schema suite):**
+```typescript
+// Article schema
+const articleSchema = { /* ... */ }
+
+// HowTo schema för tips
+const howToSchema = { /* ... */ }
+
+// FAQPage schema för FAQ
+const faqSchema = { /* ... */ }
+
+// BreadcrumbList schema för navigation
+const breadcrumbSchema = { /* ... */ }
+
+// Implementera ALLA fyra:
+<script type="application/ld+json">
+  {JSON.stringify([articleSchema, howToSchema, faqSchema, breadcrumbSchema])}
+</script>
+```
+
+**Regel:** ALLA fyra schema types MÅSTE finnas. Article alone är inte nog för featured snippets.
+
+---
+
+#### 8. Dålig meta description
+
+**❌ DÅLIGT exempel (för kort, generisk, saknar CTA):**
+```
+Exempel på personligt brev för undersköterska. Se hur du skriver ett bra brev.
+```
+**Längd:** 89 tecken (för kort!)
+**Problem:** Ingen CTA, inget värde-förslag, saknar sekundära keywords
+
+**✓ BRA exempel (optimerad för CTR):**
+```
+Se ett komplett personligt brev-exempel för undersköterska. Skrivet av rekryteringsexperter, ATS-optimerat och anpassat efter svenska vårdmiljöer. Inkluderar tips och branschspecifika nyckelord.
+```
+**Längd:** 198 tecken ✓
+**Innehåller:** Primärt keyword (1x), "ATS-optimerat" (trust signal), "svenska" (lokalisering), "gratis" eller benefit-ord, CTA implicit
+
+**Regel:** Meta description 150-160 tecken, innehålla primärt keyword inom första 120 tecken, inkludera benefit/trust signal.
+
+---
+
+#### 9. För kort content totalt
+
+**❌ DÅLIGT exempel (nuvarande problem - 800-1000 ord):**
+
+Nuvarande undersköterska-sidan har:
+- Hero: 50 ord
+- Intro: SAKNAS (eller för kort)
+- Brevexempel: 400 ord
+- Varför det fungerar: 200 ord
+- Tips: 250 ord
+- FAQ: 200 ord (4 frågor)
+- Relaterade exempel: 50 ord
+- **TOTALT:** ~1150 ord
+
+**✓ BRA exempel (2000+ ord target):**
+
+Förbättrad struktur:
+- Hero: 80 ord
+- **Intro: 250 ord** (NY SEKTION!)
+- Brevexempel: 400 ord
+- Varför det fungerar: 300 ord (utökad från 200)
+- Tips: 500 ord (utökad från 250, fler tips)
+- FAQ: 650 ord (utökad från 200, 7-9 frågor istället för 4)
+- **Relaterade artiklar: 250 ord** (NY SEKTION!)
+- **Relaterade verktyg: 180 ord** (NY SEKTION!)
+- Final CTA: 100 ord
+- **TOTALT:** ~2710 ord ✓
+
+**Regel:** MINST 2000 ord stödjande innehåll (exklusive brevText). Under 1500 ord är för lite för konkurrensutsatta keywords.
+
+---
+
+#### 10. Ingen E-E-A-T signaling
+
+**❌ DÅLIGT exempel (saknar experience/expertise/authoritativeness/trustworthiness signals):**
 
 ```typescript
-export interface PersonligtBrevExample {
-  slug: string;
-  title: string;
-  seoTitle: string;
-  description: string;
-  image: string;
-  letterContent: string; // Färdigt brev-exempel
-  guide: {
-    title: string;
-    sections: Array<{
-      heading: string;
-      content: string;
-      keywords?: string[];
-    }>;
-  };
-  faqs: Array<{
-    question: string;
-    answer: string;
-  }>;
-  related: string[]; // Slugs till relaterade exempel
-  keywords: string[];
-  category: 'vard' | 'kontor' | 'service' | 'pedagogik' | 'tech' | 'other';
-}
-
-const examples: PersonligtBrevExample[] = [
-  {
-    slug: 'underskoterska',
-    title: 'Undersköterska',
-    seoTitle: 'Personligt Brev Undersköterska - Färdigt exempel och mall (2025)',
-    description: 'Professionellt personligt brev-exempel för undersköterska. Se färdig mall, få tips från HR-experter och skapa ditt brev på 2 minuter.',
-    image: '/images/personligt-brev/underskoterska.webp',
-    letterContent: `Emma Andersson
-emma.andersson@email.com | 070-123 45 67
-
-Stockholm, 2025-01-15
-
-Till vårdcentralen Globen
-
-Ansökan om tjänst som undersköterska
-
-Jag söker tjänsten som undersköterska på Vårdcentralen Globen...`,
-    guide: {
-      title: 'Så skriver du ett vinnande personligt brev som undersköterska',
-      sections: [
-        {
-          heading: 'Viktiga nyckelord för undersköterskor',
-          content: 'När du skriver ditt personliga brev som undersköterska är det viktigt att inkludera...',
-          keywords: ['basal hygien', 'omvårdnad', 'sondmatning', 'dokumentation'],
-        },
-        // ... fler sektioner
-      ],
-    },
-    faqs: [
-      {
-        question: 'Hur långt ska ett personligt brev för undersköterska vara?',
-        answer: 'Max 1 A4-sida (250-400 ord). Vårdchefer har begränsad tid...',
-      },
-      // ... fler FAQs
-    ],
-    related: ['sjukskoterska', 'barnskotare', 'personlig-assistent'],
-    keywords: [
-      'personligt brev undersköterska',
-      'exempel personligt brev undersköterska',
-      'personligt brev undersköterska mall',
-    ],
-    category: 'vard',
+const articleSchema = {
+  "@type": "Article",
+  "author": {
+    "@type": "Organization",
+    "name": "Jobbcoach.ai"
   },
-  // ... alla andra exempel
-];
-
-export async function getExampleBySlug(slug: string) {
-  return examples.find((ex) => ex.slug === slug);
-}
-
-export async function getAllExampleSlugs() {
-  return examples.map((ex) => ex.slug);
-}
-
-export async function getExamplesByCategory(category: string) {
-  return examples.filter((ex) => ex.category === category);
+  "datePublished": new Date().toISOString() // Dynamiskt datum = DÅLIGT
 }
 ```
 
----
+**✓ BRA exempel (E-E-A-T signals):**
 
-## 7. RISKER OCH MONITORING PLAN
-
-### Vad kan gå fel?
-
-| Risk | Sannolikhet | Impact | Mitigation Plan |
-|------|-------------|--------|-----------------|
-| **301-redirects fungerar inte** | LÅG | HÖG | Testa varje redirect manuellt före launch, använd redirect-checker verktyg |
-| **Google indexerar inte nya sidor** | MEDEL | MEDEL | Submit sitemap, skapa backlinks från sociala medier, internal linking |
-| **Duplicate content mellan exempel-sidor** | MEDEL | HÖG | Varje exempel-sida MÅste ha unikt guide-content (800+ ord), ej copy-paste |
-| **Låg klickfrekvens på galleri-kort** | MEDEL | MEDEL | A/B-testa design, testa olika preview-texter, lägg till "Populärast"-badges |
-| **Användare hittar inte sitt yrke** | LÅG | MEDEL | Lägg till sökfunktion på hub, kategorisera efter bransch |
-| **Conversion rate lägre än förväntat** | MEDEL | HÖG | Optimera CTAs, förenkla path till verktyget, A/B-testa olika copy |
-
-### Google Search Console Monitoring Checklist
-
-**DAGLIG övervakning (första 2 veckorna efter launch):**
-- [ ] Coverage-rapporten: Finns crawl errors för nya sidor?
-- [ ] Index-status: Är nya sidor indexerade?
-- [ ] 301-redirect felrapporter
-
-**VECKOVIS övervakning (månad 1-3):**
-- [ ] Vilka keywords börjar ranka för nya exempel-sidor?
-- [ ] Genomsnittlig position för "personligt brev exempel [yrke]"
-- [ ] Klickfrekvens (CTR) från SERP
-- [ ] Impressions-trend: Ökar eller minskar synlighet?
-
-**MÅNADSVIS analys:**
-- [ ] Organisk traffic till exempel-sidor vs gamla artiklar
-- [ ] Conversion rate per exempel-sida
-- [ ] Vilka sidor får featured snippets?
-- [ ] Internal linking effectiveness (vilka hubbar driver mest traffic?)
-
-### GA4 Metrics att övervaka
-
-| Metric | Vad det säger | Mål |
-|--------|---------------|-----|
-| **Bounce Rate** på exempel-sidor | Är innehållet relevant? | <60% |
-| **Scroll Depth** | Läser användare guiderna? | >40% når FAQ-sektion |
-| **CTA Click Rate** | Hur många klickar "Skapa brev"? | >8% från exempel-sidor |
-| **Time on Page** | Engagerar innehållet? | >2 minuter |
-| **Exit Rate** från hub | Fungerar galleriet? | <50% |
-
-### Success Metrics (3 månader efter launch)
-
-| KPI | Baseline (idag) | Mål (Månad 3) | Stretch Goal |
-|-----|-----------------|---------------|--------------|
-| **Organisk traffic till "personligt brev"-sidor** | ~100 users/mån | 1500 users/mån | 2500 users/mån |
-| **Ranking för "personligt brev exempel"** | Ej i top 100 | Top 20 | Top 10 |
-| **Featured snippets** | 0 | 3-5 snippets | 8+ snippets |
-| **Conversion rate från exempel-sidor** | N/A | 5% | 8% |
-| **Backlinks till exempel-sidor** | 0 | 5-10 | 15+ |
-
----
-
-## 8. CONTENT CREATION WORKFLOW
-
-### Template för att skapa varje exempel-sida
-
-**STEG 1: Keyword Research (15 min per yrke)**
-- Primärt keyword: "personligt brev exempel [yrke]"
-- Sekundära: "personligt brev [yrke]", "exempel personligt brev [yrke]"
-- Related: "[yrke] ansökan", "cv [yrke]"
-
-**STEG 2: Skriv färdigt personligt brev-exempel (30-45 min)**
-- 300-400 ord
-- Professionell ton
-- Inkludera yrkesspecifika nyckelord (t.ex. "basal hygien" för undersköterska)
-- Strukturera enligt best practice: intro → erfarenhet → motivation → avslut
-
-**STEG 3: Skriv guide-content (60-90 min)**
-- 800-1000 ord uppdelade i:
-  - H2: Så skriver du ett vinnande personligt brev som [yrke]
-  - H3: Viktiga nyckelord för [yrke]
-  - H3: Kompetenser att lyfta fram
-  - H3: Vanliga misstag att undvika
-  - H3: Hur du anpassar brevet till olika arbetsgivare
-
-**STEG 4: Skapa FAQ (20-30 min)**
-- 4-5 frågor specifika för yrket
-- Använd "People Also Ask" från Google
-- Optimera för featured snippets (korta, direkta svar)
-
-**STEG 5: SEO Optimization (15 min)**
-- Säkerställ keyword-densitet
-- Lägg till internal links (minst 3)
-- Optimera meta description
-- Lägg till schema markup
-
-**Total tid per exempel-sida: 2.5-3 timmar**
-
-**För FAS 1 (10 sidor): ~25-30 timmar content creation**
-
-### Content Outsourcing Strategi
-
-**Alternativ 1: Gör själva (bäst kvalitet)**
-- Ni känner er produkt och målgrupp
-- Kan justera i realtid
-- Tid: 25-30 timmar för FAS 1
-
-**Alternativ 2: Hybrid (rekommenderat)**
-- Outsourca färdiga personligt brev-exempel till frilansare med HR-bakgrund
-- Skriv guiderna själva (behöver produktkunskap)
-- Tid: 15 timmar för er
-
-**Alternativ 3: Full outsourcing**
-- Anlita SEO content writer med erfarenhet av karriär-content
-- Ge tydliga briefs med keywords, struktur, exempel
-- Tid: 5-10 timmar briefing + QA
-
----
-
-## 9. EXEMPEL: KOMPLETT CONTENT FÖR EN SIDA
-
-### Personligt Brev Exempel: Undersköterska (KOMPLETT)
-
-**URL:** `/personligt-brev-exempel/underskoterska`
-
-**Metadata:**
-```yaml
-title: "Personligt Brev Undersköterska - Färdigt exempel och mall (2025)"
-description: "Professionellt personligt brev-exempel för undersköterska. Se färdig mall, få tips från HR-experter och skapa ditt brev på 2 minuter."
+```typescript
+const articleSchema = {
+  "@type": "Article",
+  "author": {
+    "@type": "Organization",
+    "name": "Jobbcoach.ai",
+    "url": "https://jobbcoach.ai",
+    "description": "Sveriges ledande AI-driven karriärplattform med över 15 000 användare",
+    "founder": {
+      "@type": "Person",
+      "name": "Teamet på Jobbcoach.ai",
+      "jobTitle": "Rekryteringsexperter och karriärcoacher"
+    }
+  },
+  "datePublished": "2025-01-15T08:00:00+01:00", // FAST datum
+  "dateModified": "2025-01-22T14:30:00+01:00", // Senaste uppdatering
+  "reviewer": {
+    "@type": "Person",
+    "name": "Anna Svensson",
+    "jobTitle": "Senior HR-konsult med 10 års erfarenhet"
+  }
+}
 ```
 
-**Hero Section:**
-
-# Personligt Brev Undersköterska - Färdigt Exempel
-
-Söker du jobb som undersköterska? Se vårt professionella personligt brev-exempel anpassat för vårdcentraler, äldreboenden och hemtjänst. Exemplet innehåller de nyckelord och kompetenser som svenska vårdarbetsgivare aktivt letar efter. Använd det som inspiration och skapa sedan ditt egna personligt brev på 2 minuter med vårt AI-verktyg.
-
-[Skapa ditt personliga brev på 2 min →]
-
+Synliga E-E-A-T signals på sidan:
+```markdown
 ---
-
-**Färdigt Personligt Brev - Undersköterska:**
-
-```
-Emma Andersson
-emma.andersson@email.com | 070-123 45 67
-Storgatan 12, 123 45 Stockholm
-
-Stockholm, 2025-01-15
-
-Vårdcentralen Globen
-Rekryteringsansvarig
-Globenvägen 5
-121 77 Johanneshov
-
-Ansökan om tjänst som undersköterska
-
-Jag söker tjänsten som undersköterska på Vårdcentralen Globen. Med sex års erfarenhet från äldreomsorg och gedigen kunskap inom basal hygien och omvårdnad tror jag att jag kan bidra till ert team med professionell och empatisk vård.
-
-Under mina år på Solbackens äldreboende har jag arbetat nära äldre med både somatiska och kognitiva sjukdomar. Jag har gedigen erfarenhet av sondmatning, såromläggning, insulinadministrering och katetervård. Dessutom har jag vidareutbildat mig inom palliativ vård och demensomvårdnad, vilket har gett mig verktyg för att möta patienter med respekt och trygghet även i svåra situationer.
-
-Jag trivs med det varierande arbetet på vårdcentral, där varje dag bjuder på nya utmaningar och möjligheten att möta patienter i olika åldrar och med skiftande vårdbehov. Er profil inom närsjukvård och hembesök tilltalar mig särskilt, eftersom jag tror starkt på vikten av att möta patienter i deras hemmiljö där de känner sig trygga.
-
-Det som driver mig i mitt yrke är möjligheten att göra skillnad i människors vardag. Att kunna läsa av en patients behov, skapa trygghet genom lugn och närvaro, och se till att vården blir både säker och värdig – det är det som motiverar mig. Jag är van vid dokumentation i VAS-systemet och trivs med att arbeta i team tillsammans med sjuksköterskor, läkare och annan vårdpersonal.
-
-Jag ser fram emot möjligheten att bidra till Vårdcentralen Globens arbete med god och säker vård. Hör gärna av er om ni vill veta mer om mig och min bakgrund.
-
-Med vänlig hälsning,
-
-Emma Andersson
+**Författare:** Teamet på Jobbcoach.ai
+**Publicerad:** 15 januari 2025
+**Senast uppdaterad:** 22 januari 2025
+**Granskad av:** Anna Svensson, Senior HR-konsult
+---
 ```
 
-[Ladda ner mall som DOCX] [Ladda ner som PDF] [Skapa ditt eget med AI →]
+**Regel:** Lägg till author, published date, modified date, och reviewer (om möjligt) både i schema och synligt på sidan.
 
 ---
 
-## Så skriver du ett vinnande personligt brev som undersköterska
+### KONKURRENSSTRATEGI PER KEYWORD DIFFICULTY
 
-Ett framgångsrikt personligt brev för undersköterskor handlar om att visa både din medicinska kompetens och din empatiska förmåga. Vårdarbetsgivare letar efter kandidater som kan kombinera teknisk skicklighet med ett varmt och professionellt bemötande.
+#### Hur man bedömer keyword difficulty (KD)
 
-### Viktiga nyckelord för undersköterskor
+Använd verktyg som Ahrefs, SEMrush eller Ubersuggest för att få KD-score (0-100).
 
-När du skriver ditt personliga brev som undersköterska är det viktigt att inkludera de termer och kompetenser som arbetsgivare aktivt söker efter. Här är de viktigaste nyckelorden att ta med:
+**Generella riktlinjer:**
+- **KD 0-20:** Låg konkurrens (relativt enkelt att ranka)
+- **KD 21-40:** Medel-låg konkurrens
+- **KD 41-60:** Medel konkurrens (kräver kvalitetsinnehåll + backlinks)
+- **KD 61-80:** Hög konkurrens (kräver omfattande innehåll + starka backlinks)
+- **KD 81-100:** Extremt hög konkurrens (kräver domain authority + massiva resurser)
 
-**Medicinska kompetenser:**
-- Basal hygien och omvårdnad
-- Sondmatning och nutrition
-- Såromläggning och hudvård
-- Insulinadministrering och diabetesvård
-- Katetervård och inkontinenshantering
-- Palliativ vård och smärtlindring
+#### Strategi: Låg konkurrens (KD < 30)
 
-**Systemkunskaper:**
-- VAS (Vård- och Omsorgssystem)
-- Procapita
-- Treserva
-- PMO (Pascal Medical Omsorg)
+**Exempel keywords:**
+- "personligt brev personlig assistent"
+- "personligt brev barnskötare"
+- "ansökningsbrev telefonförsäljare"
 
-**Mjuka kompetenser:**
-- Empatisk kommunikation
-- Personcentrerad vård
-- Teamwork och samarbete
-- Stresshantering
-- Flexibilitet (skiftarbete, jour)
+**Minimum requirements:**
+- 1500-2000 ord totalt innehåll
+- 5-6 interna länkar
+- Basic schema suite:
+  - Article schema
+  - FAQPage schema (minst 5 frågor)
+- 5-6 FAQ-frågor
+- 4-5 tips
 
-### Kompetenser att lyfta fram
+**Fokusområden:**
+- Grundläggande keyword-optimering (1.5% density)
+- Tydlig H1-H2-H3 struktur
+- Mobile-friendly
+- Basic metadata (title, description, canonical)
 
-Beroende på var du söker jobb bör du betona olika aspekter av din erfarenhet:
-
-**För vårdcentral:**
-- Bred medicinsk kompetens
-- Erfarenhet av akuta situationer
-- Förmåga att arbeta i högt tempo
-- Samarbete med sjuksköterskor och läkare
-
-**För äldreboende:**
-- Demenskunskap och BPSD-hantering
-- Kontinuitet i omsorgsarbete
-- Relationsskapande med boende och anhöriga
-- Tålamod och lugn i stressade situationer
-
-**För hemtjänst:**
-- Självständighet i arbetet
-- Flexibilitet i schemaläggning
-- Anpassningsförmåga till olika hemmiljöer
-- Respekt för brukarens självbestämmande
-
-### Vanliga misstag att undvika
-
-1. **För generiska formuleringar:** Undvik standardfraser som "Jag är noggrann och ansvarstagande". Ge istället konkreta exempel på situationer där du visat dessa egenskaper.
-
-2. **Upprepa CV:t:** Det personliga brevet ska komplettera ditt CV, inte upprepa det. Välj ut 1-2 nyckelupplevelser och fördjupa dig i vad du lärde dig.
-
-3. **Glömma att anpassa:** Ett generiskt brev som skickas till alla arbetsplatser syns direkt. Researcha verksamheten och visa att du förstår deras specifika behov.
-
-4. **För långt brev:** Max 1 A4-sida. Vårdchefer har begränsad tid – håll det kortfattat och relevant.
-
-5. **Utelämna kontaktinformation:** Se till att ditt namn, telefonnummer och e-post finns tydligt i brevet.
-
-### Hur du anpassar brevet till olika arbetsgivare
-
-**Steg 1: Läs platsannonsen noga**
-Vilka specifika kompetenser efterfrågas? Vilka ord och fraser används? Använd samma terminologi i ditt brev.
-
-**Steg 2: Researcha arbetsplatsen**
-Besök deras hemsida. Vad säger de om sina värderingar? Har de speciella arbetsmetoder eller profileringar (t.ex. palliativ vård, demensboende)?
-
-**Steg 3: Matcha din erfarenhet mot deras behov**
-Om de söker någon med demenskunskap – lyft fram din utbildning och konkreta exempel från arbete med demenssjuka. Om de betonar teamwork – ge exempel på framgångsrikt samarbete.
-
-**Steg 4: Visa genuint intresse**
-Förklara varför just denna arbetsplats attraherar dig. Vad tilltalar dig med deras verksamhet? Vad kan du bidra med specifikt till dem?
-
-[Skapa ditt personliga brev på 2 minuter →]
+**Timeline till ranking:** 2-4 månader
 
 ---
 
-## Relaterade personligt brev-exempel
+#### Strategi: Medel konkurrens (KD 30-60)
 
-Se även våra exempel för andra vårdyrken:
+**Exempel keywords:**
+- "personligt brev undersköterska" (KD ~45)
+- "personligt brev säljare" (KD ~40)
+- "personligt brev projektledare" (KD ~38)
 
-- [Sjuksköterska →](/personligt-brev-exempel/sjukskoterska)
-- [Barnskötare →](/personligt-brev-exempel/barnskotare)
-- [Personlig assistent →](/personligt-brev-exempel/personlig-assistent)
+**Minimum requirements:**
+- 2000-2500 ord totalt innehåll
+- 8-10 interna länkar
+- Full schema suite:
+  - Article schema (med E-E-A-T)
+  - HowTo schema
+  - FAQPage schema (minst 7 frågor)
+  - BreadcrumbList schema
+- 7-9 FAQ-frågor (featured snippet-optimerade)
+- 5-6 tips (minst 80 ord var)
+- Relaterade artiklar-sektion (3-4 länkar)
+- Relaterade verktyg-sektion (3 länkar)
 
----
+**Fokusområden:**
+- Avancerad keyword-optimering (1.5-2% density primärt, 0.5-0.8% sekundära)
+- Featured snippet-optimering (FAQ + listor)
+- E-E-A-T signals (author, published date, expertise)
+- Strong internal linking (minst 8 länkar)
+- Open Graph + Twitter Cards
+- Mobile + Core Web Vitals optimization
 
-## Vanliga frågor - Personligt brev för undersköterska
+**Extra boost-strategier:**
+- Skapa 1-2 stödjande artiklar som länkar till exempel-sidan
+  - "Hur du skriver personligt brev som [yrke] - Komplett guide 2025"
+  - "ATS-optimering för [yrke]: 10 tips för ditt personliga brev"
+- Lägg till video-embed (YouTube) med brevexempel om möjligt
+- Inkludera infographic med do's and don'ts
 
-**Hur långt ska ett personligt brev för undersköterska vara?**
-
-Max 1 A4-sida (250-400 ord). Vårdchefer har begränsad tid, så håll det kortfattat och relevant. Fokusera på dina viktigaste erfarenheter och varför du vill arbeta just där.
-
-**Vad ska jag skriva om medicinsk delegering?**
-
-Om du har erfarenhet av medicinsk delegering (t.ex. insulinhantering, läkemedelsadministrering) – lyft fram det! Det är en meriterande kompetens som många vårdarbetsgivare letar efter. Nämn vilka specifika uppgifter du har delegerats och hur länge du arbetat med dem.
-
-**Ska jag nämna systemkunskaper (VAS/Procapita)?**
-
-Absolut. IT-kompetens är alltmer viktigt inom vården. Nämn vilka journalsystem du har erfarenhet av. Om du är van användare av VAS, Procapita eller andra system – skriv det tydligt. Det visar att du kan börja arbeta snabbt utan lång introduktion.
-
-**Hur visar jag empati i brevet?**
-
-Istället för att säga "Jag är empatisk", ge konkreta exempel. Till exempel: "När en patient med demens blev orolig använde jag validerande samtal och lugn närvaro, vilket gjorde att situationen kunde lösas utan tvång." Konkreta berättelser visar din empati bättre än adjektiv.
-
-**Ska jag inkludera mina arbetserfarenheter i det personliga brevet?**
-
-Ja, men undvik att upprepa CV:t. Välj 1-2 relevanta erfarenheter och beskriv vad du lärde dig och hur det har format dig som undersköterska. Fokusera på vad som är mest relevant för den tjänst du söker.
-
----
-
-## Redo att skapa ditt personliga brev?
-
-Använd vårt AI-verktyg för att skapa ett skräddarsytt personligt brev baserat på detta exempel och din egen erfarenhet. Verktyget analyserar din bakgrund och jobbannonsen för att generera ett professionellt brev som är optimerat för både ATS-system och mänskliga rekryterare.
-
-Klart på 2 minuter.
-
-[Skapa mitt personliga brev nu →]
+**Timeline till ranking:** 3-6 månader
 
 ---
 
-**DETTA är en komplett exempel-sida.** Multiplicera denna struktur för alla 20 yrken i FAS 1-2.
+#### Strategi: Hög konkurrens (KD > 60)
+
+**Exempel keywords:**
+- "personligt brev lärare" (KD ~65)
+- "personligt brev ekonom" (KD ~58)
+- "personligt brev jurist" (KD ~72)
+
+**Minimum requirements:**
+- 2500-3500+ ord totalt innehåll
+- 10-15+ interna länkar
+- Full schema suite (samma som medel + extra)
+- 9-12 FAQ-frågor (extensive featured snippet-optimering)
+- 6-8 tips (90-120 ord var)
+- Relaterade artiklar-sektion (4-5 länkar)
+- Relaterade verktyg-sektion (4 länkar)
+- **Video-innehåll** (embedded YouTube med exempel-genomgång)
+- **Infographic** eller visual content
+
+**Fokusområden:**
+- Maximum keyword-optimering (2% density primärt, 0.8% sekundära)
+- Extensive E-E-A-T:
+  - Named expert author (inte bara "Teamet")
+  - Detailed author bio med credentials
+  - Published + Modified dates synliga
+  - Expert quotes eller citat från branschkunniga
+- **Backlink-strategi:**
+  - Skapa 3-5 stödjande artiklar som länkar hit
+  - Gästinlägg på relevanta karriär-bloggar
+  - Partnerships med utbildningsinstitutioner (t.ex. universiteter för "personligt brev ekonom")
+  - HARO (Help A Reporter Out) för PR och backlinks
+- **Social proof:**
+  - Testimonials från användare inom yrket
+  - Statistik: "15 000+ [yrke-plural] har använt vårt verktyg"
+  - Case studies eller success stories
+
+**Extra boost-strategier:**
+- Skapa cluster av 5-10 relaterade artiklar:
+  - Main: "Personligt brev [yrke] - Exempel"
+  - Support 1: "Hur du skriver personligt brev som [yrke] - Steg-för-steg guide"
+  - Support 2: "[Yrke] CV-guide: Optimera ditt CV för svenska arbetsgivare"
+  - Support 3: "10 vanligaste misstagen i personligt brev för [yrke]"
+  - Support 4: "ATS-optimering för [yrke]: Fullständig guide"
+  - Support 5: "Intervjutips för [yrke]: Hur du lyckas med jobbintervjun"
+- Video-series:
+  - Del 1: Brevexempel-genomgång
+  - Del 2: Live-skrivning av personligt brev
+  - Del 3: HR-expert kommenterar brev
+- Interactive tools:
+  - "Personligt brev-grader" - analysera användares brev live
+  - "Keyword checker" - kolla om brevet innehåller rätt nyckelord
+- Regular updates:
+  - Uppdatera content kvartalsvis
+  - Lägg till nya FAQ baserat på "People Also Ask"
+  - Refresh examples med nya trender
+
+**Timeline till ranking:** 6-12 månader (med backlinks)
 
 ---
 
-## 10. SLUTSATS OCH NÄSTA STEG
+### MONTHLY MAINTENANCE CHECKLIST
 
-### Är strategin rätt? JA - absolut.
+**Varje månad (för alla sidor):**
 
-För en ny sajt som jobbcoach.ai där befintliga artiklar knappt rankar är den aggressiva konsolideringsstrategin **100% rätt väg framåt**. Ni har:
+- [ ] Uppdatera `dateModified` i Article schema om content ändras
+- [ ] Kontrollera att alla interna länkar fungerar (inga 404s)
+- [ ] Granska Google Search Console för:
+  - Nya keyword-möjligheter (lägg till i content)
+  - Click-through rate (CTR) - optimera meta description om låg
+  - Average position - identifiera sidor nära top 10 (push dem)
+- [ ] Optimera FAQ baserat på "People Also Ask" i Google
+  - Sök på primärt keyword
+  - Notera nya frågor i "People Also Ask"
+  - Lägg till som nya FAQ på sidan
+- [ ] Lägg till nya relaterade artiklar när de publiceras
+  - Uppdatera "Relaterade artiklar"-sektion
+  - Lägg till interna länkar från nya artiklar till denna sida
+- [ ] Uppdatera statistik/data om relevant:
+  - "2025" → "2026" när nytt år börjar
+  - Användarsiffror ("15 000 användare" → "25 000 användare")
+  - Branschstatistik om tillgänglig
 
-✅ **Inget att förlora** (minimal befintlig traffic)
-✅ **Allt att vinna** (starkare SEO-signal, bättre UX, högre conversion)
-✅ **Rätt timing** (bygga rätt från start istället för att refaktorera senare)
+**Kvartalsvis (varje 3:e månad):**
 
-### Action Plan - Nästa 30 dagar
+- [ ] Full SEO-audit av sidan:
+  - Kör Lighthouse audit (Performance, SEO, Accessibility)
+  - Kontrollera Core Web Vitals i PageSpeed Insights
+  - Validera schema markup med Google Rich Results Test
+  - Kontrollera mobile-friendliness med Google Mobile-Friendly Test
+- [ ] A/B-testa olika H1-varianter:
+  - Nuvarande: "Personligt Brev Undersköterska - Professionellt Exempel 2025"
+  - Test 1: "Personligt Brev Undersköterska: Gratis Mall & Exempel 2025"
+  - Test 2: "Personligt Brev Exempel Undersköterska - ATS-Optimerat & Gratis"
+  - Mät CTR i Search Console efter 4 veckor
+- [ ] Uppdatera brevexempel om branschstandarder ändrats:
+  - Nya vårdrutiner eller guidelines
+  - Nya dokumentationssystem (t.ex. Cosmic → nytt system)
+  - Nya certifieringskrav
+- [ ] Granska och uppdatera meta description för bättre CTR:
+  - Analysera CTR i Search Console
+  - Om CTR < 3% för top 10 ranking → testa ny meta description
+  - Lägg till power words: "gratis", "2025", "expertgranskat", "ATS-säkert"
+- [ ] Content refresh:
+  - Läs igenom allt innehåll
+  - Uppdatera föråldrad information
+  - Lägg till nya exempel eller statistik
+  - Expandera tunna sektioner (under 100 ord)
 
-**VECKA 1:**
-1. Godkänn denna strategi med stakeholders
-2. Sätt upp Next.js-rutter och redirects
-3. Designa galleri-kort komponenter
+**Årligen (varje år):**
 
-**VECKA 2-3:**
-4. Skriv content för HUB-sidan
-5. Skapa 10 färdiga personligt brev-exempel (FAS 1)
-6. Skriv guide-content för alla 10 exempel-sidor
-
-**VECKA 4:**
-7. Launch HUB + FAS 1 (10 exempel-sidor)
-8. Aktivera 301-redirects
-9. Submit sitemap till GSC
-
-**VECKA 5+:**
-10. Monitor GSC och GA4 dagligen
-11. Optimera baserat på data
-12. Planera FAS 2
-
-### Förväntade Resultat (3 månader)
-
-- **Organisk traffic:** 100 → 1500+ users/mån
-- **Keywords ranking:** 0 → 15-20 keywords i top 30
-- **Featured snippets:** 0 → 3-5 snippets
-- **Conversion rate:** N/A → 5-8% från exempel-sidor
-
-### Ni har rätt. Kör på detta. Nu.
-
-Användaren är 100% korrekt: En ny sajt ska vara aggressiv. Konsolidera NU, bygg rätt från början, och se resultaten komma inom 90 dagar.
-
-**Lycka till med implementeringen!**
+- [ ] Major content overhaul:
+  - Uppdatera årtal i alla mentions ("2025" → "2026")
+  - Refresh brevexempel med nya trender
+  - Lägg till minst 500 ord nytt innehåll
+  - Omstrukturera FAQ om nya frågor uppkommit
+- [ ] Competitive analysis:
+  - Analysera top 3 konkurrenter för primärt keyword
+  - Identifiera vad de har som vi saknar
+  - Skapa plan för att överträffa deras innehåll
+- [ ] Backlink audit:
+  - Kolla vilka sidor som länkar till oss
+  - Identifiera broken backlinks och fixa
+  - Outreach för nya backlinks
+- [ ] Schema markup review:
+  - Kontrollera om nya schema types är tillgängliga
+  - Uppdatera till senaste schema.org-version
+  - Lägg till nya properties om Google stödjer dem
+- [ ] User behavior analysis:
+  - Analysera bounce rate, time on page, scroll depth
+  - Identifiera var användare lämnar sidan
+  - Optimera dessa sektioner för bättre engagement
 
 ---
 
-**Dokument skapad:** 2025-11-22
+### IMPLEMENTATION CHECKLIST FÖR NY YRKES-SIDA
+
+När du skapar en ny `/personligt-brev-exempel/[yrke]` sida:
+
+#### Pre-Launch (Research Phase)
+
+- [ ] **Keyword research för [yrke]**
+  - Primärt keyword + sökvolym från Ahrefs/SEMrush
+  - 4-5 sekundära keywords med sökvolym
+  - LSI keywords (branschspecifika termer)
+  - Keyword difficulty (KD) score
+  - Bestäm strategi (låg/medel/hög konkurrens)
+
+- [ ] **Analysera top 3 konkurrerande sidor**
+  - Ordantal på varje sida
+  - Antal FAQ-frågor
+  - Schema markup de använder
+  - Vad de har som vi kan göra bättre
+  - Content gaps (vad saknar de?)
+
+- [ ] **Identifiera branschspecifika nyckelord**
+  - Verktyg/system (t.ex. "Cosmic" för undersköterskor)
+  - Metoder (t.ex. "Scrum" för projektledare)
+  - Certifieringar (t.ex. "PMP" för projektledare)
+  - Kompetenser (t.ex. "ADL-stöd" för undersköterskor)
+
+- [ ] **Samla 3-5 riktiga jobbannonser för [yrke]**
+  - Notera återkommande krav
+  - Identifiera vanligaste kompetenser
+  - Hitta ATS-vänliga nyckelord
+
+#### Content Creation Phase
+
+- [ ] **Skriv brevText (300-500 ord)**
+  - Följ struktur från PERSONLIGT_BREV_GALLERI_IMPLEMENTATION.mdx
+  - Inkludera branschspecifika nyckelord
+  - Konkreta exempel med siffror
+  - Undvik AI-telltales (inga tankstreck, variera meningslängd)
+  - Läs högt för att checka naturlighet
+
+- [ ] **Skriv Intro Section (200-300 ord)**
+  - Använd mall från "SEO-OPTIMERADE SEKTIONER - MALLAR"
+  - Primärt keyword 3-4 gånger
+  - Sekundära keywords 1-2 gånger var
+  - LSI keywords naturligt fördelat
+  - Första 100 orden MÅSTE innehålla primärt keyword
+
+- [ ] **Skriv varforDetFungerar[] (4-5 punkter)**
+  - 50-70 ord per punkt
+  - Fokusera på SEO-relevanta aspekter:
+    - Branschspecifika nyckelord för ATS
+    - Konkreta exempel vs vaga påståenden
+    - Personlighet + professionalism balans
+    - Koppling till arbetsgivare
+    - Struktur och läsbarhet
+
+- [ ] **Skriv tips[] (5-6 tips)**
+  - 80-100 ord per tips
+  - H3 med keyword i minst 2 tips
+  - Praktiska, actionable råd
+  - Inkludera exempel på RÄTT vs FEL
+  - Branschspecifika verktyg/metoder/termer i varje tips
+
+- [ ] **Skriv FAQ[] (7-9 frågor)**
+  - 60-90 ord per svar
+  - Featured snippet-optimerade:
+    - Fråga i H3 (exakt som användare söker)
+    - Direkt svar i första meningen
+    - Bullet list i minst hälften av svaren
+  - Använd "People Also Ask" från Google
+  - Mix av frågetyper: Längd, Ska jag, Hur gör jag, Vad ska jag
+
+- [ ] **Identifiera relaterade artiklar (3-4 st)**
+  - Relevanta för yrket
+  - Skriv unika beskrivningar (50-75 ord var)
+  - Keyword-rika anchor texts
+
+- [ ] **Identifiera relaterade verktyg (3-4 st)**
+  - /dashboard/skapa-brev
+  - /cv-mallar eller /cv-mallar/[kategori]
+  - /dashboard/cv-analys
+  - Andra relevanta verktyg
+  - Skriv beskrivningar (40-50 ord var)
+
+#### Technical Implementation Phase
+
+- [ ] **Lägg till yrket i `exampleData` i page.tsx**
+  - Kopiera struktur från existerande exempel
+  - Fyll i all data (yrke, metaTitle, metaDescription, etc.)
+  - Sätt kategori korrekt
+  - Lägg till sokvolym (från keyword research)
+
+- [ ] **Implementera metadata (`generateMetadata()`)**
+  - title: "[SEO-optimerad titel 50-60 tecken]"
+  - description: "[SEO-optimerad beskrivning 150-160 tecken]"
+  - canonical: `https://jobbcoach.ai/personligt-brev-exempel/[yrke]`
+  - locale: 'sv_SE'
+  - openGraph: Komplett OG-data (title, description, image, url, type, tags)
+  - twitter: Komplett Twitter Cards (card, title, description, image)
+  - robots: index, follow
+
+- [ ] **Implementera Article schema (förbättrad version)**
+  - headline, description, articleBody
+  - wordCount (lägg till calculating function)
+  - author med E-E-A-T (organization + founder)
+  - publisher med logo
+  - datePublished (FAST datum, inte dynamic)
+  - dateModified
+  - mainEntityOfPage
+  - keywords (expanderad med sekundära)
+  - inLanguage: "sv-SE"
+  - isAccessibleForFree: true
+
+- [ ] **Implementera HowTo schema**
+  - name: "Hur man skriver personligt brev för [yrke]"
+  - description: från intro
+  - totalTime: "PT30M"
+  - estimatedCost: { currency: "SEK", value: "0" }
+  - step: map från tips[] array
+
+- [ ] **Implementera FAQPage schema**
+  - mainEntity: map från faq[] array
+  - Question + acceptedAnswer för varje FAQ
+  - Säkerställ exakt match mellan HTML och schema
+
+- [ ] **Implementera BreadcrumbList schema**
+  - Position 1: Hem
+  - Position 2: Personligt brev exempel
+  - Position 3: [Yrke]
+
+- [ ] **Skapa OG image för yrket (1200x630px)**
+  - Design med yrkestitel
+  - Jobbcoach.ai branding
+  - Lägg i /public/images/og/
+  - Referera i openGraph.images
+
+#### Quality Control Phase
+
+- [ ] **Content quality check**
+  - [ ] Totalt ordantal > 2000 ord (exklusive brevText) ✓
+  - [ ] Keyword density korrekt (primärt 1.5-2%, sekundära 0.5-0.8%) ✓
+  - [ ] Inga AI-telltales (tankstreck, robotiska mönster, klyschor) ✓
+  - [ ] Varje sektion ger verkligt värde (inga tunna sektioner < 100 ord) ✓
+  - [ ] Unik content per yrke (minst 70% unikt) ✓
+
+- [ ] **Heading hierarchy check**
+  - [ ] ENDAST EN H1 ✓
+  - [ ] Alla headings SYNLIGA (inga sr-only!) ✓
+  - [ ] Logisk hierarki (H1 → H2 → H3, inga hopp) ✓
+  - [ ] Minst 3 H2 innehåller keywords ✓
+  - [ ] Minst 5 H3 innehåller keywords ✓
+
+- [ ] **Internal linking check**
+  - [ ] Minst 8 interna länkar totalt ✓
+  - [ ] Minst 2 länkar till /dashboard/skapa-brev ✓
+  - [ ] Alla anchor texts keyword-rika (inte "klicka här") ✓
+  - [ ] Breadcrumb länk till hub-sida ✓
+
+- [ ] **Schema validation**
+  - [ ] Validera med [Google Rich Results Test](https://search.google.com/test/rich-results)
+  - [ ] Kontrollera att alla 4 schema types är valid ✓
+  - [ ] FAQ schema matchar HTML exakt ✓
+  - [ ] Inga errors i schema markup ✓
+
+- [ ] **Metadata validation**
+  - [ ] Title 50-60 tecken ✓
+  - [ ] Meta description 150-160 tecken med primärt keyword + CTA ✓
+  - [ ] Canonical URL korrekt ✓
+  - [ ] OG image 1200x630px exists ✓
+  - [ ] All required OG + Twitter tags finns ✓
+
+- [ ] **Technical SEO check**
+  - [ ] Mobile-friendly (test med Google Mobile-Friendly Test)
+  - [ ] Core Web Vitals: LCP < 2.5s, FID < 100ms, CLS < 0.1
+  - [ ] Images har alt-text med keywords
+  - [ ] Inga sr-only content (särskilt headings!)
+  - [ ] StaticLetter fallback finns i InteractiveLetterPreview
+
+- [ ] **FAQ featured snippet optimization**
+  - [ ] Frågor i H3 matchar riktiga sökfrågor ✓
+  - [ ] Svar börjar med direkt information ✓
+  - [ ] Minst hälften av svaren har bullet lists ✓
+  - [ ] Varje svar 60-90 ord ✓
+
+#### Post-Launch Phase
+
+- [ ] **Submit URL till Google Search Console**
+  - Gå till Search Console
+  - URL Inspection tool
+  - Request Indexing
+
+- [ ] **Lägg till i sitemap.ts**
+  - Lägg till `/personligt-brev-exempel/[yrke]` i sitemap
+  - Priority: 0.8
+  - Change frequency: monthly
+
+- [ ] **Lägg till i internal linking från hub-sida**
+  - Uppdatera `/personligt-brev-exempel` hub-page
+  - Lägg till kort + beskrivning för nya yrket
+  - Keyword-rik anchor text
+
+- [ ] **Skapa 1-2 stödjande artiklar som länkar hit**
+  - Artikel 1: "Hur du skriver personligt brev som [yrke] - Komplett guide 2025"
+  - Artikel 2: "ATS-optimering för [yrke]: [X] tips för ditt personliga brev"
+  - Båda ska ha stark intern länk till exempel-sidan
+
+- [ ] **Övervaka rankings i Google Search Console**
+  - Vecka 1: Kolla att sidan indexeras
+  - Vecka 2-4: Börja se impressions
+  - Månad 2-3: Börja se clicks
+  - Månad 3-6: Tracking ranking position för primärt keyword
+
+- [ ] **Set up tracking i analytics**
+  - Skapa mål för "Skapa brev"-klick från sidan
+  - Spåra scroll depth
+  - Spåra bounce rate
+  - Spåra time on page
+
+---
+
+## SLUTORD
+
+Dessa SEO-riktlinjer säkerställer att varje `/personligt-brev-exempel/[yrke]` sida:
+
+1. **Har tillräckligt med content** (2000+ ord) för att konkurrera med stora karriärsajter
+2. **Rankar för featured snippets** genom optimerade FAQ och listor
+3. **Passar ATS och användare** genom balanserad keyword-optimering
+4. **Byggs enligt Google E-E-A-T** med author, dates, expertise signals
+5. **Får organisk trafik** genom stark schema markup och internal linking
+6. **Konverterar besökare** till användare av jobbcoach.ai-verktyget
+
+**Följ denna guide noggrant för varje ny yrkes-sida du skapar.**
+
+**Minsta tid per sida:** 4-6 timmar (research + writing + implementation + QC)
+
+**Förväntad ROI:** En väloptimerad sida kan generera 500-2000 organiska besök/månad inom 6 månader.
+
+**Nästa steg:**
+1. Fixa kritiska brister på undersköterska-sidan (ta bort sr-only heading, lägg till saknade schema, utöka content)
+2. Skapa SEO-optimerade brevexempel för 5-10 högvolym-yrken
+3. Bygg topic cluster med stödjande artiklar
+4. Monthly maintenance enligt checklist
+
+Lycka till med att dominera "personligt brev [yrke]"-sökningar i Sverige! 🚀
+
+---
+
+**Dokument skapat:** 2025-01-22
+**Version:** 3.0 (Komplett content-mall + SEO-riktlinjer)
+**Baserat på:** "Skriv det perfekta personliga brevet.docx" + UX Copywriting Guidelines + SEO Best Practices 2025
 **Status:** REDO FÖR IMPLEMENTATION
-**Nästa steg:** Godkännande och VECKA 1 setup

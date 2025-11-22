@@ -97,6 +97,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  // 3. Kombinera statiska och dynamiska sidor
-  return [...staticPages, ...articlePages];
+  // 3. Lägg till personligt brev exempel-sidor
+  const YRKES_EXEMPEL = [
+    'underskoterska',
+    // Lägg till fler yrken här när de skapas
+  ];
+
+  const yrkesExempelPages: MetadataRoute.Sitemap = YRKES_EXEMPEL.map((yrke) => ({
+    url: `${baseUrl}/personligt-brev-exempel/${yrke}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.85, // Högt prio för SEO-viktiga sidor
+  }));
+
+  // 4. Kombinera statiska, artikel- och exempel-sidor
+  return [...staticPages, ...articlePages, ...yrkesExempelPages];
 }

@@ -6,8 +6,8 @@ import dynamic from 'next/dynamic'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   ArrowLeft, ArrowRight, CheckCircle, Sparkles, Download, Copy,
-  ChevronDown, ChevronUp, Eye, FileText, Target, Lightbulb,
-  Award, TrendingUp, Users, Clock, Star, Play, X, AlertCircle, Zap
+  ChevronDown, ChevronUp, ChevronRight, Eye, FileText, Target, Lightbulb,
+  Award, TrendingUp, Users, Clock, Star, Play, X, AlertCircle, Zap, BookOpen
 } from 'lucide-react'
 
 import PremiumNavbar from '@/components/PremiumNavbar'
@@ -34,6 +34,7 @@ interface ExampleData {
   yrke: string
   sokvolym: number
   intro: string
+  seoIntro?: string // SEO-rik introduktionstext
   exempelBrev: {
     namn: string
     adress: string
@@ -59,6 +60,15 @@ interface ExampleData {
   faq: Array<{
     q: string
     a: string
+  }>
+  relateradeArtiklar?: Array<{
+    titel: string
+    slug: string
+  }>
+  relateradeVerktyg?: Array<{
+    namn: string
+    slug: string
+    beskrivning: string
   }>
 }
 
@@ -106,23 +116,6 @@ export default function PersonligtBrevExempelPage({ data }: { data: ExampleData 
             <span className="text-slate-400">/</span>
             <span className="text-slate-900 font-semibold">{data.yrke}</span>
           </div>
-        </div>
-      </div>
-
-      {/* SEO: Dolt statiskt brevinnehåll för crawlers - garanterar indexering */}
-      <div className="sr-only" aria-hidden="true">
-        <h2>Komplett personligt brev exempel för {data.yrke}</h2>
-        <div>
-          <p>{data.exempelBrev.namn}</p>
-          <p>{data.exempelBrev.adress}</p>
-          <p>{data.exempelBrev.telefon}</p>
-          <p>{data.exempelBrev.epost}</p>
-          <p>{data.exempelBrev.arbetsgivare}</p>
-          <p>{data.exempelBrev.roll}</p>
-          <p>{data.exempelBrev.datum}</p>
-          {data.exempelBrev.brevText.split('\n\n').map((p, idx) => (
-            <p key={idx}>{p.trim()}</p>
-          ))}
         </div>
       </div>
 
@@ -181,6 +174,24 @@ export default function PersonligtBrevExempelPage({ data }: { data: ExampleData 
           </div>
         </div>
       </section>
+
+      {/* SEO Intro Section */}
+      {data.seoIntro && (
+        <section className="py-12 bg-slate-50">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
+                <h2 className="text-2xl font-bold text-slate-900 mb-4">
+                  Så skriver du ett personligt brev som {data.yrke.toLowerCase()}
+                </h2>
+                <p className="text-slate-700 leading-relaxed text-lg">
+                  {data.seoIntro}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Main Content */}
       <section className="py-16">
@@ -473,6 +484,82 @@ export default function PersonligtBrevExempelPage({ data }: { data: ExampleData 
           </div>
         </div>
       </section>
+
+      {/* Relaterade Artiklar Section */}
+      {data.relateradeArtiklar && data.relateradeArtiklar.length > 0 && (
+        <section className="py-16 bg-slate-50">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">
+                Läs mer om att söka jobb som {data.yrke.toLowerCase()}
+              </h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                {data.relateradeArtiklar.map((artikel: any, idx: number) => (
+                  <motion.div
+                    key={idx}
+                    className="bg-white rounded-xl p-6 border border-slate-200 hover:border-blue-600 transition-all cursor-pointer group"
+                    whileHover={{ y: -4 }}
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <BookOpen className="w-6 h-6 text-blue-600" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                          {artikel.titel}
+                        </h3>
+                        <p className="text-sm text-slate-500">Kommer snart</p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Relaterade Verktyg Section */}
+      {data.relateradeVerktyg && data.relateradeVerktyg.length > 0 && (
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-slate-900 mb-4 text-center">
+                Verktyg som hjälper dig i din jobbsökning
+              </h2>
+              <p className="text-slate-600 text-center mb-8 max-w-2xl mx-auto">
+                Använd våra kostnadsfria verktyg för att skapa ett komplett och professionellt ansökningspaket
+              </p>
+              <div className="grid md:grid-cols-3 gap-6">
+                {data.relateradeVerktyg.map((verktyg: any, idx: number) => (
+                  <Link key={idx} href={verktyg.slug}>
+                    <motion.div
+                      className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-100 hover:border-blue-600 transition-all cursor-pointer group h-full"
+                      whileHover={{ y: -4 }}
+                    >
+                      <div className="flex flex-col h-full">
+                        <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center mb-4">
+                          <Sparkles className="w-6 h-6 text-white" />
+                        </div>
+                        <h3 className="font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                          {verktyg.namn}
+                        </h3>
+                        <p className="text-sm text-slate-600 flex-grow">
+                          {verktyg.beskrivning}
+                        </p>
+                        <div className="mt-4 flex items-center gap-2 text-blue-600 font-semibold text-sm">
+                          <span>Använd verktyget</span>
+                          <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </div>
+                    </motion.div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Final CTA */}
       <section className="py-16 bg-gradient-to-br from-blue-600 to-purple-600">
