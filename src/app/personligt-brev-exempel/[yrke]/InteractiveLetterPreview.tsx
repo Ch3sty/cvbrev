@@ -114,19 +114,6 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
   const template = TEMPLATES.find(t => t.id === selectedTemplate) || TEMPLATES[0]
   const font = FONTS.find(f => f.id === selectedFont) || FONTS[0]
 
-  const spacingClasses = {
-    compact: 'space-y-3',
-    normal: 'space-y-4',
-    loose: 'space-y-6'
-  }
-
-  const borderStyles = {
-    none: '',
-    top: 'border-t-4 border-blue-600 pt-6',
-    bottom: 'border-b-4 border-blue-600 pb-6',
-    left: 'border-l-4 border-blue-600 pl-6'
-  }
-
   // Statisk brevkomponent för SEO och noscript
   const StaticLetter = () => (
     <div className="bg-white rounded-xl border-2 border-slate-200 p-8 shadow-lg">
@@ -335,45 +322,318 @@ export default function InteractiveLetterPreview({ exempelBrev }: InteractiveLet
               overflowY: 'auto'
             }}
           >
-            <div className={borderStyles[template.borderStyle]}>
-              {/* Header */}
-              <div
-                className={`mb-8 ${template.headerAlign === 'center' ? 'text-center' : 'text-left'}`}
-              >
-                <div className={`${template.spacing === 'compact' ? 'space-y-0.5' : template.spacing === 'loose' ? 'space-y-2' : 'space-y-1'} text-sm text-slate-700`}>
-                  <p className="font-semibold text-slate-900">{exempelBrev.namn}</p>
-                  <p>{exempelBrev.adress}</p>
-                  <p>{exempelBrev.telefon}</p>
-                  <p>{exempelBrev.epost}</p>
+            {/* Classic Template - Standard vertical layout */}
+            {selectedTemplate === 'classic' && (
+              <div>
+                {/* Header */}
+                <div className="mb-8">
+                  <p className="font-bold text-slate-900 mb-2">{exempelBrev.namn}</p>
+                  <p className="text-sm text-slate-700">{exempelBrev.telefon}</p>
+                  <p className="text-sm text-slate-700">{exempelBrev.epost}</p>
+                  <p className="text-sm text-slate-700">{exempelBrev.adress}</p>
+                </div>
+
+                {/* Date */}
+                <div className="mb-8">
+                  <p className="text-sm text-slate-700">{exempelBrev.datum}</p>
+                </div>
+
+                {/* Recipient */}
+                <div className="mb-8">
+                  <p className="font-bold text-slate-900">{exempelBrev.arbetsgivare}</p>
+                  <p className="font-bold text-slate-900">Ansökan: {exempelBrev.roll}</p>
+                </div>
+
+                {/* Greeting */}
+                <div className="mb-6">
+                  <p className="text-slate-900">Hej,</p>
+                </div>
+
+                {/* Body */}
+                <div className="space-y-6">
+                  {exempelBrev.brevText.split('\n\n').map((paragraph, idx) => (
+                    <p key={idx} className="text-slate-700 leading-relaxed">
+                      {paragraph.trim()}
+                    </p>
+                  ))}
+                </div>
+
+                {/* Closing */}
+                <div className="mt-10 mb-12">
+                  <p className="text-sm text-slate-700">Med vänliga hälsningar,</p>
+                </div>
+
+                {/* Signature */}
+                <div>
+                  <p className="font-bold text-slate-900">{exempelBrev.namn}</p>
                 </div>
               </div>
+            )}
 
-              {/* Recipient */}
-              <div className={`mb-8 ${template.spacing === 'compact' ? 'space-y-0.5' : template.spacing === 'loose' ? 'space-y-2' : 'space-y-1'} text-sm text-slate-700`}>
-                <p className="font-semibold text-slate-900">{exempelBrev.arbetsgivare}</p>
-                <p className="font-medium text-slate-800">{exempelBrev.roll}</p>
+            {/* Sidebar Template - 23% left column with vertical border */}
+            {selectedTemplate === 'sidebar' && (
+              <div className="flex gap-8">
+                {/* Left sidebar (23%) */}
+                <div className="w-[23%] border-r-2 border-gray-400 pr-8 flex-shrink-0">
+                  <p className="font-bold text-sm text-slate-900 mb-3 break-words">{exempelBrev.namn}</p>
+                  <p className="text-xs text-slate-700 mb-2 break-words">{exempelBrev.telefon}</p>
+                  <p className="text-xs text-slate-700 mb-2 break-words">{exempelBrev.epost}</p>
+                  <p className="text-xs text-slate-700 break-words">{exempelBrev.adress}</p>
+                </div>
+
+                {/* Right content (77%) */}
+                <div className="flex-1">
+                  {/* Date */}
+                  <div className="mb-8">
+                    <p className="text-xs text-slate-700">{exempelBrev.datum}</p>
+                  </div>
+
+                  {/* Recipient */}
+                  <div className="mb-8">
+                    <p className="font-bold text-sm text-slate-900">{exempelBrev.arbetsgivare}</p>
+                    <p className="font-bold text-sm text-slate-900">Ansökan: {exempelBrev.roll}</p>
+                  </div>
+
+                  {/* Greeting */}
+                  <div className="mb-6">
+                    <p className="text-xs text-slate-900">Hej,</p>
+                  </div>
+
+                  {/* Body */}
+                  <div className="space-y-6">
+                    {exempelBrev.brevText.split('\n\n').map((paragraph, idx) => (
+                      <p key={idx} className="text-xs text-slate-700 leading-relaxed">
+                        {paragraph.trim()}
+                      </p>
+                    ))}
+                  </div>
+
+                  {/* Closing */}
+                  <div className="mt-10 mb-12">
+                    <p className="text-xs text-slate-700">Med vänliga hälsningar,</p>
+                  </div>
+
+                  {/* Signature */}
+                  <div>
+                    <p className="font-bold text-sm text-slate-900">{exempelBrev.namn}</p>
+                  </div>
+                </div>
               </div>
+            )}
 
-              {/* Date */}
-              <div className="mb-8 text-sm text-slate-700">
-                <p>{exempelBrev.datum}</p>
+            {/* Minimal Template - From/To side-by-side */}
+            {selectedTemplate === 'minimal' && (
+              <div>
+                {/* From/To Container */}
+                <div className="flex gap-8 mb-8">
+                  {/* From */}
+                  <div className="flex-1">
+                    <p className="font-bold text-xs text-gray-600 mb-3">Från</p>
+                    <p className="text-sm text-slate-900 mb-2">{exempelBrev.namn}</p>
+                    <p className="text-xs text-slate-700 mb-1">{exempelBrev.telefon}</p>
+                    <p className="text-xs text-slate-700 mb-1">{exempelBrev.epost}</p>
+                    <p className="text-xs text-slate-700">{exempelBrev.adress}</p>
+                  </div>
+
+                  {/* To */}
+                  <div className="flex-1">
+                    <p className="font-bold text-xs text-gray-600 mb-3">Till</p>
+                    <p className="text-sm text-slate-900 mb-2">{exempelBrev.arbetsgivare}</p>
+                    <p className="text-xs text-slate-700">{exempelBrev.roll}</p>
+                  </div>
+                </div>
+
+                {/* Date */}
+                <div className="mb-8">
+                  <p className="text-sm text-slate-700">{exempelBrev.datum}</p>
+                </div>
+
+                {/* Greeting */}
+                <div className="mb-6">
+                  <p className="text-slate-900">Hej,</p>
+                </div>
+
+                {/* Body */}
+                <div className="space-y-6">
+                  {exempelBrev.brevText.split('\n\n').map((paragraph, idx) => (
+                    <p key={idx} className="text-slate-700 leading-relaxed">
+                      {paragraph.trim()}
+                    </p>
+                  ))}
+                </div>
+
+                {/* Closing */}
+                <div className="mt-10 mb-12">
+                  <p className="text-sm text-slate-700">Med vänliga hälsningar,</p>
+                </div>
+
+                {/* Signature */}
+                <div>
+                  <p className="font-bold text-slate-900">{exempelBrev.namn}</p>
+                </div>
               </div>
+            )}
 
-              {/* Body */}
-              <div className={spacingClasses[template.spacing]}>
-                {exempelBrev.brevText.split('\n\n').map((paragraph, idx) => (
-                  <p
-                    key={idx}
-                    className={`text-slate-700 leading-relaxed ${
-                      template.spacing === 'compact' ? 'text-sm' : 'text-base'
-                    }`}
-                    style={{ textAlign: template.bodyAlign }}
-                  >
-                    {paragraph.trim()}
+            {/* Compact Template - Inline contact with pipe separator */}
+            {selectedTemplate === 'compact' && (
+              <div>
+                {/* Compact header with border */}
+                <div className="border-b border-gray-300 pb-2 mb-6">
+                  <p className="text-xs text-gray-700">
+                    {exempelBrev.namn} | {exempelBrev.epost} | {exempelBrev.telefon} | {exempelBrev.adress}
                   </p>
-                ))}
+                </div>
+
+                {/* Date (right aligned) */}
+                <div className="text-right mb-6">
+                  <p className="text-xs text-gray-600">{exempelBrev.datum}</p>
+                </div>
+
+                {/* Recipient */}
+                <div className="mb-6">
+                  <p className="font-bold text-sm text-slate-900">{exempelBrev.arbetsgivare}</p>
+                  <p className="text-sm text-slate-900">Ansökan: {exempelBrev.roll}</p>
+                </div>
+
+                {/* Greeting */}
+                <div className="mb-6">
+                  <p className="text-sm text-slate-900">Hej,</p>
+                </div>
+
+                {/* Body */}
+                <div className="space-y-6">
+                  {exempelBrev.brevText.split('\n\n').map((paragraph, idx) => (
+                    <p key={idx} className="text-slate-700 leading-relaxed">
+                      {paragraph.trim()}
+                    </p>
+                  ))}
+                </div>
+
+                {/* Closing */}
+                <div className="mt-10 mb-12">
+                  <p className="text-sm text-slate-700">Med vänliga hälsningar,</p>
+                </div>
+
+                {/* Signature */}
+                <div>
+                  <p className="font-bold text-slate-900">{exempelBrev.namn}</p>
+                </div>
               </div>
-            </div>
+            )}
+
+            {/* Centered Template - Centered header with horizontal line */}
+            {selectedTemplate === 'centered' && (
+              <div>
+                {/* Centered header */}
+                <div className="text-center mb-6">
+                  <p className="font-bold text-base text-slate-900 mb-2">{exempelBrev.namn}</p>
+                  <p className="text-sm text-slate-700 mb-1">{exempelBrev.telefon}</p>
+                  <p className="text-sm text-slate-700 mb-1">{exempelBrev.epost}</p>
+                  <p className="text-sm text-slate-700">{exempelBrev.adress}</p>
+                </div>
+
+                {/* Horizontal divider */}
+                <div className="border-b border-black mb-8"></div>
+
+                {/* Till label */}
+                <div className="mb-3">
+                  <p className="font-bold text-xs text-slate-900">Till</p>
+                </div>
+
+                {/* Recipient */}
+                <div className="mb-8">
+                  <p className="text-sm text-slate-900">{exempelBrev.arbetsgivare}</p>
+                </div>
+
+                {/* Date */}
+                <div className="mb-8">
+                  <p className="text-sm text-slate-700">{exempelBrev.datum}</p>
+                </div>
+
+                {/* Greeting */}
+                <div className="mb-6">
+                  <p className="text-slate-900">Hej,</p>
+                </div>
+
+                {/* Body */}
+                <div className="space-y-6">
+                  {exempelBrev.brevText.split('\n\n').map((paragraph, idx) => (
+                    <p key={idx} className="text-slate-700 leading-relaxed">
+                      {paragraph.trim()}
+                    </p>
+                  ))}
+                </div>
+
+                {/* Closing */}
+                <div className="mt-10 mb-12">
+                  <p className="text-sm text-slate-700">Med vänliga hälsningar,</p>
+                </div>
+
+                {/* Signature */}
+                <div>
+                  <p className="font-bold text-slate-900">{exempelBrev.namn}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Twocolumn Template - 70/30 split with contact info right */}
+            {selectedTemplate === 'twocolumn' && (
+              <div className="flex gap-8">
+                {/* Left column (70%) */}
+                <div className="w-[70%]">
+                  {/* Name (large, bold) */}
+                  <p className="font-bold text-lg text-slate-900 mb-2">{exempelBrev.namn}</p>
+
+                  {/* Company */}
+                  <p className="text-sm text-gray-600 mb-6">{exempelBrev.arbetsgivare}</p>
+
+                  {/* Date with location */}
+                  <p className="text-sm text-slate-700 mb-8">{exempelBrev.adress}, {exempelBrev.datum},</p>
+
+                  {/* Greeting (bold) */}
+                  <p className="font-bold text-slate-900 mb-6">Hej!</p>
+
+                  {/* Body */}
+                  <div className="space-y-6">
+                    {exempelBrev.brevText.split('\n\n').map((paragraph, idx) => (
+                      <p key={idx} className="text-sm text-slate-700 leading-relaxed">
+                        {paragraph.trim()}
+                      </p>
+                    ))}
+                  </div>
+
+                  {/* Closing */}
+                  <div className="mt-8 mb-12">
+                    <p className="text-sm text-slate-700">Vänliga hälsningar,</p>
+                  </div>
+
+                  {/* Signature */}
+                  <div>
+                    <p className="font-bold text-sm text-slate-900">{exempelBrev.namn}</p>
+                  </div>
+                </div>
+
+                {/* Right column (30%) */}
+                <div className="w-[30%]">
+                  {/* Till section */}
+                  <div className="mb-8">
+                    <p className="font-bold text-xs text-slate-900 mb-3">Till</p>
+                    <p className="text-xs text-slate-700 mb-2">{exempelBrev.arbetsgivare}</p>
+                    <p className="text-xs text-slate-700">{exempelBrev.roll}</p>
+                  </div>
+
+                  {/* Från section */}
+                  <div>
+                    <p className="font-bold text-xs text-slate-900 mb-3">Från</p>
+                    <p className="text-xs text-slate-700 mb-2">{exempelBrev.namn}</p>
+                    <p className="text-xs text-slate-700 mb-2">{exempelBrev.roll}</p>
+                    <p className="text-xs text-slate-700 mb-2">{exempelBrev.adress}</p>
+                    <p className="text-xs text-slate-700 mb-2">{exempelBrev.telefon}</p>
+                    <p className="text-xs text-blue-600">{exempelBrev.epost}</p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* CTA Footer */}
