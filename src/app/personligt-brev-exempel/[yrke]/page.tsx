@@ -168,6 +168,169 @@ Lisa Andersson`
       { yrke: 'Personlig assistent', slug: 'personlig-assistent' },
       { yrke: 'Barnskötare', slug: 'barnskotare' }
     ]
+  },
+
+  'student': {
+    yrke: 'Student',
+    sokvolym: 700,
+    metaTitle: 'Personligt Brev Exempel Student - Sommarjobb & Extrajobb | Jobbcoach.ai',
+    metaDescription: 'Se ett professionellt personligt brev-exempel för studenter som söker sommarjobb eller extrajobb. ATS-optimerat med tips för studenter utan erfarenhet.',
+
+    seoIntro: 'Söker du sommarjobb eller extrajobb som student och vet inte hur du skriver ett övertygande personligt brev? Det här exemplet visar exakt hur du kompenserar för begränsad arbetslivserfarenhet genom att lyfta fram överförbara färdigheter från studier, projektarbeten och extrajobb. Du får se hur du omvandlar akademiska meriter till konkret yrkesnytta och hur du visar arbetsgivare att du kan kombinera jobb och studier. Brevet är anpassat efter Gekås Ullared men fungerar lika bra för detaljhandel, restaurang, kundtjänst eller andra studentjobb. Följ våra specifika tips om hur du kvantifierar även mindre erfarenheter och visar tydlig tillgänglighet. Perfekt för dig som söker sommarjobb student 2025 eller vill få ett extrajobb vid sidan av studierna.',
+
+    intro: 'Ett professionellt personligt brev för studenter som visar hur du omvandlar akademiska meriter och mindre arbetslivserfarenhet till konkret värde för arbetsgivare. Optimerat för sommarjobb och extrajobb.',
+
+    exempelBrev: {
+      namn: 'Erik Johansson',
+      adress: 'Vasagatan 8, 411 24 Göteborg',
+      telefon: '073-456 78 90',
+      epost: 'erik.johansson@student.gu.se',
+      arbetsgivare: 'Gekås Ullared',
+      roll: 'Sommarjobb som säljare',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Hej,
+
+Jag söker sommarjobb som säljare på Gekås Ullared för perioden juni till augusti 2025. Som andraarsstudent på ekonomiprogrammet vid Göteborgs universitet kombinerar jag teoretisk kunskap inom marknadsföring och kommunikation med praktisk erfarenhet från kundmöten och serviceyrkande arbete. Gekås rykte som Sveriges mest besökta affär och ert höga tempo lockar mig. Jag vill lära mig retail i en miljö där ingen dag är den andra lik.
+
+Under mitt sommarjobb på Café Lilla Paris serverade jag 200+ kunder per dag i ett högt tempo. Jag hanterade kassasystem, beställningar och konfliktlösning när kunder var missnöjda med väntetider. Ett konkret exempel var när vårt kösystem krashade en lördagseftermiddag. Jag tog initiativ att manuellt notera ordrar på papper, kommunicerade tydligt med stressade kunder om vad som hänt och fick köket att flyta igen. Min chef lyfte fram att jag behöll lugnet och löste problemet istället för att vänta på hjälp. Som volontär på musikfestivalen Way Out West koordinerade jag information till besökare och arbetade i ett team på 15 personer under tre intensiva dagar.
+
+Mina kurser i marknadsföring och kommunikation ger mig verktyg att förstå kundbeteende och säljteknik. I ett projektarbete analyserade vi försäljningsstrategier inom retail och jämförde olika butikslayouter. Det gav mig insikt i hur man styr kundflöden och optimerar exponering av produkter. Jag är social, flexibel och lär mig snabbt. Kolleger beskriver mig som någon som tar ansvar och bidrar till god stämning även när det är stressigt.
+
+Vad som verkligen tilltalar mig med Gekås är kombinationen av stora kundflöden, brett produktsortiment och högt tempo. Jag vill lära mig hur ni hanterar tusentals kunder per dag och får försäljningen att fungera smidigt trots trycket. Era värderingar om god service och att varje kund ska känna sig välkommen stämmer helt med hur jag jobbar.
+
+Jag är tillgänglig hela sommaren från 1 juni till 31 augusti och kan börja direkt efter min sista tenta den 28 maj. Tveka inte att kontakta mig på 073-456 78 90 eller erik.johansson@student.gu.se.
+
+Varma hälsningar,
+Erik Johansson`
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Omvandlar studier till praktisk yrkesnytta',
+        beskrivning: 'Brevet nämner inte bara "ekonomiprogrammet" utan visar konkret värde: kurser i marknadsföring och kommunikation kopplas till kundbeteende och säljteknik. Projektarbete om försäljningsstrategier och butikslayout visar genuine intresse för retail. Detta gör akademiska meriter relevanta för arbetsgivaren.'
+      },
+      {
+        titel: 'Kvantifierar även mindre erfarenheter',
+        beskrivning: 'Istället för vaga påståenden används konkreta siffror: "200+ kunder per dag", "team på 15 personer", "tre intensiva dagar", "tillgänglig 1 juni till 31 augusti". Detta gör begränsad erfarenhet mer trovärdig och mätbar, vilket arbetsgivare uppskattar.'
+      },
+      {
+        titel: 'Bevisar problemlösningsförmåga med konkret exempel',
+        beskrivning: 'Situationen med krassat kösystem visar hur studenten hanterar stress och tar initiativ utan att vänta på instruktioner. Detta är viktigare än år av erfarenhet för många arbetsgivare som anställer studenter. Exemplet visar handlingskraft, inte bara tomma ord.'
+      },
+      {
+        titel: 'Tydlig tillgänglighet och flexibilitet',
+        beskrivning: 'Brevet anger exakta datum (1 juni - 31 augusti) och när studenten kan börja (28 maj efter sista tentan). Detta är kritiskt för arbetsgivare som planerar sommarscheman. Många studenter glömmer detta, men det kan vara avgörande för anställning.'
+      },
+      {
+        titel: 'Visar motivation utan överdrift',
+        beskrivning: 'Istället för "dröm att jobba här" eller "alltid velat" fokuserar brevet på vad studenten vill lära sig: "hur ni hanterar tusentals kunder per dag". Detta är konkret, trovärdigt och visar genuine intresse för verksamheten.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Lyft överförbara färdigheter från studier och projekt',
+        text: 'Akademiska meriter är inte bara teoretiska. Översätt dem till arbetslivsnytta. Projektarbete = teamwork och projektledning. Presentationer = kommunikation och självförtroende. Uppsatser = research och analytisk förmåga. Om du läst marknadsföring, koppla det till försäljning. Om du läst statsvetenskap, lyft fram argumentationsteknik och kritiskt tänkande. Var konkret: "I vårt projektarbete om kundlojalitet analyserade vi 500 enkätsvar, vilket lärde mig hur man tolkar kundbeteende". Arbetsgivare förstår inte automatiskt att "ekonomiprogrammet" ger relevant kompetens, du måste visa kopplingen.'
+      },
+      {
+        rubrik: 'Kvantifiera all erfarenhet, även extrajobb och volontärarbete',
+        text: 'Även om du jobbat på café i tre månader eller varit volontär på en festival räknas det. Gör erfarenheten konkret med siffror: "Serverade 150-200 kunder per dag under lunch-rushen", "Hanterade kassan och betalningar för ca 80 transaktioner dagligen", "Samarbetade i team på 12 personer under högsäsong". Om du saknar arbetslivserfarenhet, räkna extrajobb, sommarjobb, volontärarbete och föreningsengagemang. Kvantifiera antal timmar, antal personer du arbetat med eller hur länge du haft uppdraget. Detta gör vag erfarenhet trovärdig.'
+      },
+      {
+        rubrik: 'Var kristallklar med tillgänglighet och schema',
+        text: 'Arbetsgivare som anställer studenter vill veta exakt när du kan jobba. Ange specifika datum: "Tillgänglig 1 juni till 31 augusti" eller "Kan arbeta 15-20 timmar per vecka under terminstid, heltid på sommarlovet". Nämn om du kan börja direkt efter tentaperiod eller om du har resor inbokade. Om du söker extrajobb, var tydlig med vilka dagar/kvällar du kan jobba och hur flexibel du är. Detta visar professionalitet och underlättar schemaläggning. Många studenter tappar jobb för att de är vaga med tillgänglighet.'
+      },
+      {
+        rubrik: 'Visa att du kan kombinera ansvar med studier',
+        text: 'Arbetsgivare vill veta att du är pålitlig trots att studierna är prioritet. Visa detta genom exempel: "Under VT24 kombinerade jag 20 timmars extrajobb med heltidsstudier och behöll snitt 4,2 i betyg". Om du har erfarenhet av att jonglera deadlines, projektarbeten och jobb, nämn det. Detta visar tidsplanering och ansvar. Om du saknar sådan erfarenhet, lyft fram studieprestationer som kräver disciplin: "Jag klarade 45 hp förra året samtidigt som jag var aktiv i studentföreningen". Pålitlighet väger tungt för arbetsgivare som anställer studenter.'
+      },
+      {
+        rubrik: 'Fokusera på lärvilja och motivation framför perfekt CV',
+        text: 'Studenter förväntas inte ha tio års erfarenhet. Istället söker arbetsgivare någon som lär snabbt, tar instruktioner väl och har rätt attityd. Visa detta konkret: "Som student är jag van vid att snabbt sätta mig in i nya ämnen och tillämpa teori i praktiken". Ge exempel på när du lärt dig något snabbt: "På mitt förra extrajobb lärde jag mig kassasystemet på två dagar och kunde träna nya kollegor efter en vecka". Betona att du ser jobbet som lärotillfälle, inte bara inkomst: "Jag vill förstå hur retail fungerar i praktiken och ta med mig erfarenheter in i mina framtida studier inom Supply Chain Management".'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur skriver jag personligt brev utan arbetslivserfarenhet?',
+        a: 'Fokusera på överförbara färdigheter från studier, projekt, föreningsengagemang och volontärarbete. Översätt akademiska meriter till arbetslivsnytta: projektarbete = teamwork, presentationer = kommunikation, uppsatser = analytisk förmåga. Nämn även extrajobb, sommarjobb eller deltidsjobb oavsett hur korta de var. Om du verkligen saknar erfarenhet, lyft personliga egenskaper med konkreta bevis: "Jag lär mig snabbt, vilket visades när jag klarade 45 hp med snitt 4,5 förra året". Var ärlig men fokusera på vad du KAN, inte vad du saknar.'
+      },
+      {
+        q: 'Ska jag nämna mitt gymnasiebetyg i det personliga brevet?',
+        a: 'Nämn gymnasiebetyg endast om du söker ditt första jobb och har högt snitt (över 18,0) eller relevanta kurser. Skriv: "Jag tog studenten 2023 med 19,5 i snitt och fördjupning i matematik och ekonomi". Om du redan studerar på universitet fokusera istället på universitetsmeriter: kurser, projekt och betyg därifrån. Gymnasiebetyg blir mindre relevant ju längre du kommit i studierna. För sommarjobb och extrajobb väger praktisk erfarenhet och personlighet tyngre än betyg.'
+      },
+      {
+        q: 'Hur visar jag att jag kan kombinera jobb och studier?',
+        a: 'Ge konkreta exempel på när du gjort det tidigare: "Under VT24 jobbade jag 15 timmar per vecka på café samtidigt som jag läste 30 hp och behöll snitt 4,0". Om du saknar sådan erfarenhet, visa tidsplanering på annat sätt: "Jag klarade 45 hp förra året samtidigt som jag var kassör i studentföreningen och tränade fotboll tre gånger i veckan". Detta bevisar att du kan hantera flera bollar i luften. Betona ansvar och struktur: "Jag använder digitala verktyg för att planera tentor, inlämningar och arbetspass så att inget krockar".'
+      },
+      {
+        q: 'Ska jag vara tydlig med att det är sommarjobb eller extrajobb jag söker?',
+        a: 'Ja, var kristallklar med vad du söker och när du är tillgänglig. Skriv: "Jag söker sommarjobb för perioden 1 juni - 31 augusti" eller "Jag söker extrajobb 15-20 timmar per vecka under terminstid". Detta hjälper arbetsgivaren förstå dina förutsättningar och undviker missförstånd. Om du kan tänka dig att fortsätta efter sommaren, nämn det: "Jag är öppen för att fortsätta på deltid efter sommaren om ni har behov". Detta visar flexibilitet utan att låsa dig.'
+      },
+      {
+        q: 'Hur långt ska brevet vara för student?',
+        a: 'Sikta på 300-400 ord, ungefär 3/4 av en A4-sida. Studenter har ofta mindre erfarenhet att beskriva, så håll brevet koncist och fokuserat. Dela upp i 4-5 stycken: inledning med motivation, erfarenhet från studier och extrajobb, konkreta exempel på färdigheter, koppling till företaget, och avslutning med tillgänglighet. Undvik att fylla ut med fluff om du saknar erfarenhet. Arbetsgivare uppskattar kortfattade brev som går rakt på sak.'
+      },
+      {
+        q: 'Vilka kurser är värda att nämna i det personliga brevet?',
+        a: 'Nämn kurser som är direkt relevanta för jobbet du söker. För försäljning: marknadsföring, kommunikation, psykologi. För ekonomiroller: redovisning, ekonomistyrning, Excel-kurser. För tech-jobb: programmering, dataanalys, statistik. Skriv konkret: "Min kurs i konsumentbeteende gav mig verktyg att förstå köpbeslut och hur man påverkar kunder". Undvik att lista alla kurser, välj 1-3 som verkligen är relevanta. Om du saknar relevanta kurser, fokusera istället på projekt och praktiska färdigheter.'
+      },
+      {
+        q: 'Hur skriver jag om studierelaterade projekt?',
+        a: 'Beskriv projekt som arbetslivserfarenhet med konkreta resultat. Istället för "Jag gjorde ett projektarbete om marknadsföring" skriv: "I ett projektarbete analyserade vi 500 enkätsvar om kundlojalitet och presenterade våra resultat för 60 studenter och lärare. Jag ansvarade för dataanalys och skapade visualiseringar i Excel". Fokusera på vad DU gjorde, vilka verktyg du använde och vad ni åstadkom. Kvantifiera: antal personer i teamet, omfattning av projektet, verktyg ni använde (Excel, PowerPoint, SPSS).'
+      },
+      {
+        q: 'Ska jag nämna studentföreningar och engagemang?',
+        a: 'Ja, absolut om du haft konkreta roller eller ansvar. Studentföreningar visar ledarskap, teamwork och organisationsförmåga. Skriv: "Som kassör i studentföreningen hanterade jag en budget på 200 000 kr och anordnade events för 300+ studenter". Om du bara varit passiv medlem, skippa det. Fokusera på aktivt engagemang: eventansvar, styrelseuppdrag, projektledning. Nämn också volontärarbete, idrottsföreningar eller andra organisationer där du tagit ansvar. Detta kompenserar för bristande arbetslivserfarenhet.'
+      },
+      {
+        q: 'Hur visar jag motivation trots att det är tillfällig anställning?',
+        a: 'Var ärlig om att det är sommarjobb eller extrajobb, men visa att du tar det på allvar. Skriv: "Även om det är ett sommarjobb vill jag bidra fullt ut och lära mig så mycket som möjligt under de tre månaderna". Koppla jobbet till dina studier: "Som ekonomistudent vill jag förstå hur retail fungerar i praktiken". Betona lärvilja: "Jag ser sommarjobbet som ett tillfälle att utveckla färdigheter jag kan ta med mig in i min framtida karriär". Arbetsgivare uppskattar studenter som är professionella och engagerade även i tillfälliga roller.'
+      }
+    ],
+
+    relateradeArtiklar: [
+      {
+        titel: 'Sommarjobb för studenter: guide till ansökan 2025',
+        slug: 'sommarjobb-student-guide'
+      },
+      {
+        titel: 'CV-tips för studenter utan arbetslivserfarenhet',
+        slug: 'cv-tips-student'
+      },
+      {
+        titel: 'Så lyckas du kombinera extrajobb och studier',
+        slug: 'extrajobb-studier'
+      },
+      {
+        titel: 'Traineeprogram för studenter: vad du behöver veta',
+        slug: 'traineeprogram-student'
+      }
+    ],
+
+    relateradeVerktyg: [
+      {
+        namn: 'CV-Mallar för Studenter',
+        slug: '/verktyg/cv-mallar',
+        beskrivning: 'Professionella CV-mallar för studenter och nyutexaminerade'
+      },
+      {
+        namn: 'Jobbcoachen - Karriärråd',
+        slug: '/verktyg/jobbcoachen',
+        beskrivning: 'Få personliga råd om din studentkarriär och första jobbet'
+      },
+      {
+        namn: 'Personligt Brev-verktyget',
+        slug: '/verktyg/personligt-brev',
+        beskrivning: 'Skapa ett skräddarsytt personligt brev för sommarjobb på 5 minuter'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Säljare', slug: 'saljare' },
+      { yrke: 'Kundtjänst', slug: 'kundtjanst' },
+      { yrke: 'Barista', slug: 'barista' }
+    ]
   }
 }
 

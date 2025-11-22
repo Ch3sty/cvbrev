@@ -100,6 +100,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 3. Lägg till personligt brev exempel-sidor
   const YRKES_EXEMPEL = [
     'underskoterska',
+    'student',
     // Lägg till fler yrken här när de skapas
   ];
 
