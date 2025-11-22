@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 
 import PremiumNavbar from '@/components/PremiumNavbar'
+import TemplateShowcase from './TemplateShowcase'
 
 interface ExampleData {
   yrke: string
@@ -250,9 +251,9 @@ export default function PersonligtBrevExempelPage({ data }: { data: ExampleData 
                   <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mb-4">
                     <Zap className="w-6 h-6" />
                   </div>
-                  <h3 className="font-bold mb-2">Skapa ditt unika brev</h3>
+                  <h3 className="font-bold mb-2">Skapa ditt personliga brev</h3>
                   <p className="text-white/90 text-sm mb-4">
-                    Vårt AI-verktyg skapar ett skräddarsytt personligt brev baserat på din profil och jobbannonsen.
+                    Ladda upp ditt CV, klistra in jobbannonsen, välj mall – klart på 60 sekunder. ATS-optimerat och skräddarsytt för jobbet.
                   </p>
                   <Link href="/dashboard/skapa-brev">
                     <button className="w-full px-4 py-3 bg-white text-purple-600 font-semibold rounded-xl hover:shadow-xl transition-all">
@@ -353,7 +354,7 @@ export default function PersonligtBrevExempelPage({ data }: { data: ExampleData 
                           </p>
                           <p className="text-sm text-yellow-800">
                             Detta är ett exempel för inspiration. Rekryterare ser igenom generiska brev direkt.
-                            Använd vårt AI-verktyg för att skapa ett unikt brev baserat på DIN profil och det SPECIFIKA jobbet.
+                            Använd vårt verktyg för att skapa ett unikt brev – ladda upp CV, klistra in annons, välj mall. DIN profil anpassad för det SPECIFIKA jobbet.
                           </p>
                         </div>
                       </div>
@@ -451,6 +452,9 @@ export default function PersonligtBrevExempelPage({ data }: { data: ExampleData 
         </section>
       )}
 
+      {/* Template Showcase */}
+      <TemplateShowcase />
+
       {/* FAQ Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
@@ -504,7 +508,7 @@ export default function PersonligtBrevExempelPage({ data }: { data: ExampleData 
               Redo att skapa ditt personliga brev?
             </h2>
             <p className="text-xl text-white/90 mb-8">
-              Använd vårt AI-verktyg för att skapa ett unikt, skräddarsytt personligt brev på 60 sekunder
+              Skapa ditt personliga brev på 60 sekunder – ladda upp CV, klistra in jobbannonsen, välj mall. Skräddarsytt för jobbet
             </p>
             <Link href="/dashboard/skapa-brev">
               <motion.button

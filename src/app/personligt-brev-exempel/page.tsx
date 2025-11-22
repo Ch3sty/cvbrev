@@ -223,7 +223,7 @@ export default function PersonligtBrevGalleri() {
   const faqItems = [
     {
       q: 'Hur använder jag dessa personliga brev-exempel?',
-      a: 'Klicka på det yrke som stämmer överens med jobbet du söker. Du får se ett komplett, ifyllt exempel som du kan inspireras av. Använd sedan vårt AI-verktyg för att skapa ditt eget personliga brev baserat på din profil och den specifika jobbannonsen.'
+      a: 'Klicka på det yrke som stämmer överens med jobbet du söker. Du får se ett komplett, ifyllt exempel som du kan inspireras av. Använd sedan vårt verktyg för att skapa ditt eget personliga brev – ladda upp ditt CV, klistra in jobbannonsen, välj mall. Klart på 60 sekunder.'
     },
     {
       q: 'Är exemplen ATS-optimerade?',
@@ -231,7 +231,7 @@ export default function PersonligtBrevGalleri() {
     },
     {
       q: 'Kan jag kopiera och klistra in exemplet direkt?',
-      a: 'Vi rekommenderar INTE att kopiera exempel rakt av. Rekryterare ser igenom generiska brev direkt. Använd istället vårt AI-verktyg som skapar ett unikt, skräddarsytt brev baserat på DIN bakgrund och det SPECIFIKA jobbet.'
+      a: 'Vi rekommenderar INTE att kopiera exempel rakt av. Rekryterare ser igenom generiska brev direkt. Använd istället vårt verktyg som skapar ett unikt, skräddarsytt brev baserat på DIN bakgrund och det SPECIFIKA jobbet – automatiskt och på 60 sekunder.'
     },
     {
       q: 'Vad är skillnaden mellan ett bra och dåligt personligt brev?',
@@ -247,11 +247,11 @@ export default function PersonligtBrevGalleri() {
     },
     {
       q: 'Behöver jag skriva ett nytt personligt brev för varje ansökan?',
-      a: 'Ja, definitivt. Generiska brev sorteras bort direkt. Vårt AI-verktyg gör detta enkelt - det tar bara 60 sekunder att generera ett unikt brev för varje jobb du söker.'
+      a: 'Ja, definitivt. Generiska brev sorteras bort direkt. Vårt verktyg gör detta enkelt – ladda upp CV, klistra in annons, välj mall. 60 sekunder senare har du ett unikt brev för det specifika jobbet.'
     },
     {
       q: 'Vad händer om mitt yrke inte finns i galleriet?',
-      a: 'Välj det yrke som liknar ditt mest (t.ex. om du är "Redovisningsekonom", kolla "Ekonomiassistent"). Grundprincipen för personliga brev är likadan oavsett yrke. Eller använd vårt AI-verktyg som fungerar för ALLA yrken.'
+      a: 'Välj det yrke som liknar ditt mest (t.ex. om du är "Redovisningsekonom", kolla "Ekonomiassistent"). Grundprincipen för personliga brev är likadan oavsett yrke. Eller använd vårt verktyg som fungerar för ALLA yrken.'
     }
   ]
 
@@ -676,7 +676,7 @@ export default function PersonligtBrevGalleri() {
                 Redo att skapa ditt eget personliga brev?
               </h2>
               <p className="text-xl text-white/90 mb-8 leading-relaxed">
-                Inspirerad av exemplen? Använd vår AI för att skapa ett unikt personligt brev skräddarsytt för jobbet du söker – på 60 sekunder.
+                Inspirerad av exemplen? Skapa ditt eget personliga brev – ladda upp CV, klistra in jobbannonsen, välj mall. Klart på 60 sekunder, skräddarsytt för jobbet.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
