@@ -332,7 +332,8 @@ export default function CreateLetterPage() {
           title: safeMetadata.title,
           company: safeMetadata.company,
           position: safeMetadata.position,
-          template: templateId  // Använd vald template för både PDF och DOCX
+          template: templateId,  // Använd vald template för både PDF och DOCX
+          font: selectedFont  // Använd vald font
         })
       });
 

@@ -6,13 +6,52 @@ import { LetterMetadata } from '@/lib/pdf/letter-templates';
 import { getDocxTemplate, type DocxTemplateId } from '@/lib/letters/docx-templates';
 import { ProfileDataForLetter, JobInfo } from '@/lib/letters/template-merger';
 import { Packer } from 'docx';
+import { type FontId } from '@/app/dashboard/skapa-brev/components/FontSelector';
 
+/**
+ * Konverterar FontId till CSS font-family string för HTML/PDF
+ */
+function getFontFamilyForHTML(fontId: FontId = 'calibri'): string {
+  const fontMap: Record<FontId, string> = {
+    'calibri': 'Calibri, Arial, sans-serif',
+    'arial': 'Arial, Helvetica, sans-serif',
+    'verdana': 'Verdana, Geneva, sans-serif',
+    'lato': "'Lato', Arial, sans-serif",
+    'open-sans': "'Open Sans', Arial, sans-serif",
+    'roboto': "'Roboto', Arial, sans-serif",
+    'poppins': "'Poppins', Arial, sans-serif",
+    'georgia': 'Georgia, Times, serif',
+    'garamond': 'Garamond, Georgia, serif',
+    'times': "'Times New Roman', Times, serif",
+    'helvetica': 'Helvetica, Arial, sans-serif'
+  };
+  return fontMap[fontId] || fontMap.calibri;
+}
 
+/**
+ * Konverterar FontId till DOCX font name (primary font endast, utan fallbacks)
+ */
+function getFontNameForDocx(fontId: FontId = 'calibri'): string {
+  const fontMap: Record<FontId, string> = {
+    'calibri': 'Calibri',
+    'arial': 'Arial',
+    'verdana': 'Verdana',
+    'lato': 'Lato',
+    'open-sans': 'Open Sans',
+    'roboto': 'Roboto',
+    'poppins': 'Poppins',
+    'georgia': 'Georgia',
+    'garamond': 'Garamond',
+    'times': 'Times New Roman',
+    'helvetica': 'Helvetica'
+  };
+  return fontMap[fontId] || fontMap.calibri;
+}
 
 /**
  * Genererar PDF med Puppeteer från redan genererad HTML
  */
-async function createProfessionalPDF(htmlContent: string): Promise<Buffer> {
+async function createProfessionalPDF(htmlContent: string, fontFamily?: string): Promise<Buffer> {
   try {
     console.log('Generating PDF with Puppeteer from template HTML');
 
@@ -68,8 +107,29 @@ async function createProfessionalPDF(htmlContent: string): Promise<Buffer> {
       // Sätt viewport för A4
       await page.setViewport({ width: 794, height: 1123 });
 
+      // Om font specificerad, injicera Google Fonts och ersätt font-family
+      let enhancedHTML = htmlContent;
+      if (fontFamily) {
+        // Injicera Google Fonts för moderna fonter
+        const googleFontsNeeded = fontFamily.includes('Lato') ||
+                                  fontFamily.includes('Open Sans') ||
+                                  fontFamily.includes('Roboto') ||
+                                  fontFamily.includes('Poppins');
+
+        if (googleFontsNeeded) {
+          const googleFontsLink = `<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Open+Sans:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">`;
+          enhancedHTML = htmlContent.replace('</head>', `${googleFontsLink}\n</head>`);
+        }
+
+        // Ersätt font-family i CSS
+        enhancedHTML = enhancedHTML.replace(
+          /font-family:\s*['"]?[^;'"]+['"]?;/gi,
+          `font-family: ${fontFamily};`
+        );
+      }
+
       // Sätt HTML-innehållet (som redan är komplett HTML från template)
-      await page.setContent(htmlContent, {
+      await page.setContent(enhancedHTML, {
         waitUntil: 'networkidle0',
         timeout: 30000
       });
@@ -129,7 +189,8 @@ function extractBodyContentFromHTML(html: string): string {
 async function createProfessionalDocx(
   content: string,
   metadata: LetterMetadata,
-  templateId: DocxTemplateId = 'classic'
+  templateId: DocxTemplateId = 'classic',
+  fontName?: string
 ): Promise<Buffer> {
   try {
     console.log(`Generating DOCX with template: ${templateId}`);
@@ -161,7 +222,8 @@ async function createProfessionalDocx(
       profileData,
       jobInfo,
       cleanContent,
-      metadata.date
+      metadata.date,
+      fontName
     );
 
     // Generera DOCX-buffer
@@ -198,11 +260,15 @@ export async function POST(request: Request) {
     }
     
     // Accept flat primitive values instead of nested metadata object
-    const { content, format, title, company, position, template } = parsedBody;
+    const { content, format, title, company, position, template, font } = parsedBody;
 
     if (!content) {
       return NextResponse.json({ error: 'Inget innehåll angivet' }, { status: 400 });
     }
+
+    // Konvertera font till rätt format för PDF och DOCX
+    const fontFamily = font ? getFontFamilyForHTML(font as FontId) : undefined;
+    const fontName = font ? getFontNameForDocx(font as FontId) : undefined;
 
     // Hämta användarens profil för att lägga till namn m.m.
     const { data: profileData } = await supabase
@@ -234,12 +300,12 @@ export async function POST(request: Request) {
     
     // Generera fil baserat på önskat format
     if (format === 'docx') {
-      fileData = await createProfessionalDocx(content, enhancedMetadata, template as DocxTemplateId);
+      fileData = await createProfessionalDocx(content, enhancedMetadata, template as DocxTemplateId, fontName);
       fileType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
       fileName += '.docx';
     } else if (format === 'pdf') {
-      // content är redan komplett HTML från template, skicka direkt
-      fileData = await createProfessionalPDF(content);
+      // content är redan komplett HTML från template, skicka med font
+      fileData = await createProfessionalPDF(content, fontFamily);
       fileType = 'application/pdf';
       fileName += '.pdf';
     } else {

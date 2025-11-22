@@ -38,13 +38,15 @@ export interface DocxTemplate {
     profile: ProfileDataForLetter,
     jobInfo: JobInfo,
     bodyContent: string,
-    date?: string
+    date?: string,
+    fontName?: string
   ) => Document;
   generateHTML: (
     profile: ProfileDataForLetter,
     jobInfo: JobInfo,
     bodyContent: string,
-    date?: string
+    date?: string,
+    fontFamily?: string
   ) => string;
 }
 
@@ -93,9 +95,10 @@ export const classicDocxTemplate: DocxTemplate = {
   tier: 'free',
   industries: ['Alla branscher', 'Traditionella företag', 'Offentlig sektor'],
 
-  generateHTML: (profile, jobInfo, bodyContent, dateStr) => {
+  generateHTML: (profile, jobInfo, bodyContent, dateStr, fontFamily) => {
     const date = dateStr || formatSwedishDate();
     const paragraphs = splitIntoParagraphs(bodyContent);
+    const font = fontFamily || 'Arial, sans-serif';
 
     return `<!DOCTYPE html>
 <html lang="sv">
@@ -116,7 +119,7 @@ export const classicDocxTemplate: DocxTemplate = {
     }
 
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: ${font};
       font-size: 12pt;
       line-height: 1.5;
       color: #000000;
@@ -220,9 +223,10 @@ export const classicDocxTemplate: DocxTemplate = {
 </html>`;
   },
 
-  generateDocument: (profile, jobInfo, bodyContent, dateStr) => {
+  generateDocument: (profile, jobInfo, bodyContent, dateStr, fontName) => {
     const date = dateStr || formatSwedishDate();
     const paragraphs = splitIntoParagraphs(bodyContent);
+    const font = fontName || 'Arial';
 
     return new Document({
       sections: [{
@@ -240,11 +244,7 @@ export const classicDocxTemplate: DocxTemplate = {
           // Header - Avsändare
           new Paragraph({
             children: [
-              new TextRun({
-                text: profile.full_name,
-                bold: true,
-                size: 24
-              })
+              new TextRun({ text: profile.full_name, bold: true, size: 24, font })
             ],
             spacing: { after: 120 },
             indent: { firstLine: 0 }
@@ -252,21 +252,21 @@ export const classicDocxTemplate: DocxTemplate = {
 
           ...(profile.include_phone_in_letters && profile.phone ? [
             new Paragraph({
-              children: [new TextRun({ text: profile.phone, size: 22 })],
+              children: [new TextRun({ text: profile.phone, size: 22, font })],
               spacing: { after: 120 },
               indent: { firstLine: 0 }
             })
           ] : []),
 
           new Paragraph({
-            children: [new TextRun({ text: profile.email, size: 22 })],
+            children: [new TextRun({ text: profile.email, size: 22, font })],
             spacing: { after: 120 },
             indent: { firstLine: 0 }
           }),
 
           ...(profile.include_location_in_letters && profile.location ? [
             new Paragraph({
-              children: [new TextRun({ text: profile.location, size: 22 })],
+              children: [new TextRun({ text: profile.location, size: 22, font })],
               spacing: { after: 400 },
               indent: { firstLine: 0 }
             })
@@ -281,7 +281,7 @@ export const classicDocxTemplate: DocxTemplate = {
 
           // Datum
           new Paragraph({
-            children: [new TextRun({ text: date, size: 22 })],
+            children: [new TextRun({ text: date, size: 22, font })],
             spacing: { after: 400 },
             indent: { firstLine: 0 }
           }),
@@ -289,7 +289,7 @@ export const classicDocxTemplate: DocxTemplate = {
           // Mottagare
           ...(jobInfo.company ? [
             new Paragraph({
-              children: [new TextRun({ text: jobInfo.company, bold: true, size: 22 })],
+              children: [new TextRun({ text: jobInfo.company, bold: true, size: 22, font })],
               spacing: { after: 120 },
               indent: { firstLine: 0 }
             })
@@ -297,7 +297,7 @@ export const classicDocxTemplate: DocxTemplate = {
 
           ...(jobInfo.position ? [
             new Paragraph({
-              children: [new TextRun({ text: `Ansökan: ${jobInfo.position}`, bold: true, size: 22 })],
+              children: [new TextRun({ text: `Ansökan: ${jobInfo.position}`, bold: true, size: 22, font })],
               spacing: { after: 480 },
               indent: { firstLine: 0 }
             })
@@ -305,7 +305,7 @@ export const classicDocxTemplate: DocxTemplate = {
 
           // Hälsning
           new Paragraph({
-            children: [new TextRun({ text: 'Hej,', size: 24 })],
+            children: [new TextRun({ text: 'Hej,', size: 24, font })],
             spacing: { after: 240 },
             indent: { firstLine: 0 }
           }),
@@ -313,7 +313,7 @@ export const classicDocxTemplate: DocxTemplate = {
           // Body paragraphs
           ...paragraphs.map(para =>
             new Paragraph({
-              children: [new TextRun({ text: para.trim(), size: 24 })],
+              children: [new TextRun({ text: para.trim(), size: 24, font })],
               alignment: AlignmentType.LEFT,
               spacing: { after: 240, line: 360, lineRule: 'auto' },
               indent: { left: 0, right: 0, firstLine: 0 }
@@ -322,13 +322,13 @@ export const classicDocxTemplate: DocxTemplate = {
 
           // Avslutning
           new Paragraph({
-            children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 24 })],
+            children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 24, font })],
             spacing: { before: 480, after: 600 },
             indent: { firstLine: 0 }
           }),
 
           new Paragraph({
-            children: [new TextRun({ text: profile.full_name, bold: true, size: 24 })],
+            children: [new TextRun({ text: profile.full_name, bold: true, size: 24, font })],
             indent: { firstLine: 0 }
           })
         ]
@@ -348,9 +348,10 @@ export const sidebarDocxTemplate: DocxTemplate = {
   tier: 'free',
   industries: ['Kreativa yrken', 'Design', 'Marknadsföring'],
 
-  generateHTML: (profile, jobInfo, bodyContent, dateStr) => {
+  generateHTML: (profile, jobInfo, bodyContent, dateStr, fontFamily) => {
     const date = dateStr || formatSwedishDate();
     const paragraphs = splitIntoParagraphs(bodyContent);
+    const font = fontFamily || 'Arial, sans-serif';
 
     return `<!DOCTYPE html>
 <html lang="sv">
@@ -371,7 +372,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
     }
 
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: ${font};
       font-size: 12pt;
       line-height: 1.5;
       color: #000000;
@@ -520,9 +521,10 @@ export const sidebarDocxTemplate: DocxTemplate = {
 </html>`;
   },
 
-  generateDocument: (profile, jobInfo, bodyContent, dateStr) => {
+  generateDocument: (profile, jobInfo, bodyContent, dateStr, fontName) => {
     const date = dateStr || formatSwedishDate();
     const paragraphs = splitIntoParagraphs(bodyContent);
+    const font = fontName || 'Arial';
 
     // Kontaktinfo för sidebar - BEHÅLL tomma strängar för spacing
     const sidebarContent = [
@@ -588,7 +590,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
                             text: item.text,
                             size: item.bold ? 22 : 20,
                             bold: item.bold,
-                            font: 'Arial'
+                            font: font
                           })
                         ],
                         spacing: { after: 120 },
@@ -612,7 +614,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
                     children: [
                       // Datum
                       new Paragraph({
-                        children: [new TextRun({ text: date, size: 20, font: 'Arial' })],
+                        children: [new TextRun({ text: date, size: 20, font })],
                         spacing: { after: 400 },
                         indent: { left: 400, firstLine: 0 }
                       }),
@@ -620,7 +622,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
                       // Mottagare
                       ...(jobInfo.company ? [
                         new Paragraph({
-                          children: [new TextRun({ text: jobInfo.company, bold: true, size: 22, font: 'Arial' })],
+                          children: [new TextRun({ text: jobInfo.company, bold: true, size: 22, font })],
                           spacing: { after: 120 },
                           indent: { left: 400, firstLine: 0 }
                         })
@@ -628,7 +630,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
 
                       ...(jobInfo.position ? [
                         new Paragraph({
-                          children: [new TextRun({ text: `Ansökan: ${jobInfo.position}`, bold: true, size: 22, font: 'Arial' })],
+                          children: [new TextRun({ text: `Ansökan: ${jobInfo.position}`, bold: true, size: 22, font })],
                           spacing: { after: 480 },
                           indent: { left: 400, firstLine: 0 }
                         })
@@ -636,7 +638,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
 
                       // Hälsning
                       new Paragraph({
-                        children: [new TextRun({ text: 'Hej,', size: 20, font: 'Arial' })],
+                        children: [new TextRun({ text: 'Hej,', size: 20, font })],
                         spacing: { after: 240 },
                         indent: { left: 400, firstLine: 0 }
                       }),
@@ -644,7 +646,7 @@ export const sidebarDocxTemplate: DocxTemplate = {
                       // Body
                       ...paragraphs.map(para =>
                         new Paragraph({
-                          children: [new TextRun({ text: para.trim(), size: 20, font: 'Arial' })],
+                          children: [new TextRun({ text: para.trim(), size: 20, font })],
                           alignment: AlignmentType.LEFT,
                           spacing: { after: 240, line: 360, lineRule: 'auto' },
                           indent: { left: 400, right: 0, hanging: 0 }
@@ -653,13 +655,13 @@ export const sidebarDocxTemplate: DocxTemplate = {
 
                       // Avslutning
                       new Paragraph({
-                        children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 20, font: 'Arial' })],
+                        children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 20, font })],
                         spacing: { before: 480, after: 600 },
                         indent: { left: 400, firstLine: 0 }
                       }),
 
                       new Paragraph({
-                        children: [new TextRun({ text: profile.full_name, bold: true, size: 20, font: 'Arial' })],
+                        children: [new TextRun({ text: profile.full_name, bold: true, size: 20, font })],
                         indent: { left: 400, firstLine: 0 }
                       })
                     ]
@@ -685,9 +687,10 @@ export const minimalDocxTemplate: DocxTemplate = {
   tier: 'free',
   industries: ['Alla branscher', 'Moderna företag', 'Teknik'],
 
-  generateHTML: (profile, jobInfo, bodyContent, dateStr) => {
+  generateHTML: (profile, jobInfo, bodyContent, dateStr, fontFamily) => {
     const date = dateStr || formatSwedishDate();
     const paragraphs = splitIntoParagraphs(bodyContent);
+    const font = fontFamily || 'Arial, sans-serif';
 
     return `<!DOCTYPE html>
 <html lang="sv">
@@ -708,7 +711,7 @@ export const minimalDocxTemplate: DocxTemplate = {
     }
 
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: ${font};
       font-size: 12pt;
       line-height: 1.5;
       color: #000000;
@@ -823,9 +826,10 @@ export const minimalDocxTemplate: DocxTemplate = {
 </html>`;
   },
 
-  generateDocument: (profile, jobInfo, bodyContent, dateStr) => {
+  generateDocument: (profile, jobInfo, bodyContent, dateStr, fontName) => {
     const date = dateStr || formatSwedishDate();
     const paragraphs = splitIntoParagraphs(bodyContent);
+    const font = fontName || 'Arial';
 
     return new Document({
       sections: [{
@@ -858,30 +862,30 @@ export const minimalDocxTemplate: DocxTemplate = {
                     width: { size: 50, type: WidthType.PERCENTAGE },
                     children: [
                       new Paragraph({
-                        children: [new TextRun({ text: 'Från', bold: true, size: 20 })],
+                        children: [new TextRun({ text: 'Från', bold: true, size: 20, font })],
                         spacing: { after: 120 },
                         indent: { firstLine: 0 }
                       }),
                       new Paragraph({
-                        children: [new TextRun({ text: profile.full_name, size: 22 })],
+                        children: [new TextRun({ text: profile.full_name, size: 22, font })],
                         spacing: { after: 80 },
                         indent: { firstLine: 0 }
                       }),
                       ...(profile.include_phone_in_letters && profile.phone ? [
                         new Paragraph({
-                          children: [new TextRun({ text: profile.phone, size: 20 })],
+                          children: [new TextRun({ text: profile.phone, size: 20, font })],
                           spacing: { after: 80 },
                           indent: { firstLine: 0 }
                         })
                       ] : []),
                       new Paragraph({
-                        children: [new TextRun({ text: profile.email, size: 20 })],
+                        children: [new TextRun({ text: profile.email, size: 20, font })],
                         spacing: { after: 80 },
                         indent: { firstLine: 0 }
                       }),
                       ...(profile.include_location_in_letters && profile.location ? [
                         new Paragraph({
-                          children: [new TextRun({ text: profile.location, size: 20 })],
+                          children: [new TextRun({ text: profile.location, size: 20, font })],
                           indent: { firstLine: 0 }
                         })
                       ] : [])
@@ -893,20 +897,20 @@ export const minimalDocxTemplate: DocxTemplate = {
                     width: { size: 50, type: WidthType.PERCENTAGE },
                     children: [
                       new Paragraph({
-                        children: [new TextRun({ text: 'Till', bold: true, size: 20 })],
+                        children: [new TextRun({ text: 'Till', bold: true, size: 20, font })],
                         spacing: { after: 120 },
                         indent: { firstLine: 0 }
                       }),
                       ...(jobInfo.company ? [
                         new Paragraph({
-                          children: [new TextRun({ text: jobInfo.company, size: 22 })],
+                          children: [new TextRun({ text: jobInfo.company, size: 22, font })],
                           spacing: { after: 80 },
                           indent: { firstLine: 0 }
                         })
                       ] : []),
                       ...(jobInfo.position ? [
                         new Paragraph({
-                          children: [new TextRun({ text: jobInfo.position, size: 20 })],
+                          children: [new TextRun({ text: jobInfo.position, size: 20, font })],
                           indent: { firstLine: 0 }
                         })
                       ] : [])
@@ -923,14 +927,14 @@ export const minimalDocxTemplate: DocxTemplate = {
 
           // Datum
           new Paragraph({
-            children: [new TextRun({ text: date, size: 22 })],
+            children: [new TextRun({ text: date, size: 22, font })],
             spacing: { after: 400 },
             indent: { firstLine: 0 }
           }),
 
           // Hälsning
           new Paragraph({
-            children: [new TextRun({ text: 'Hej,', size: 24 })],
+            children: [new TextRun({ text: 'Hej,', size: 24, font })],
             spacing: { after: 240 },
             indent: { firstLine: 0 }
           }),
@@ -938,7 +942,7 @@ export const minimalDocxTemplate: DocxTemplate = {
           // Body
           ...paragraphs.map(para =>
             new Paragraph({
-              children: [new TextRun({ text: para.trim(), size: 24 })],
+              children: [new TextRun({ text: para.trim(), size: 24, font })],
               alignment: AlignmentType.LEFT,
               spacing: { after: 240, line: 360, lineRule: 'auto' },
               indent: { left: 0, right: 0, firstLine: 0 }
@@ -947,13 +951,13 @@ export const minimalDocxTemplate: DocxTemplate = {
 
           // Avslutning
           new Paragraph({
-            children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 24 })],
+            children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 24, font })],
             spacing: { before: 480, after: 600 },
             indent: { firstLine: 0 }
           }),
 
           new Paragraph({
-            children: [new TextRun({ text: profile.full_name, bold: true, size: 24 })],
+            children: [new TextRun({ text: profile.full_name, bold: true, size: 24, font })],
             indent: { firstLine: 0 }
           })
         ]
@@ -972,9 +976,10 @@ export const compactDocxTemplate: DocxTemplate = {
   tier: 'free',
   industries: ['Tech', 'Fintech', 'Consulting', 'Alla moderna branscher'],
 
-  generateHTML: (profile, jobInfo, bodyContent, dateStr) => {
+  generateHTML: (profile, jobInfo, bodyContent, dateStr, fontFamily) => {
     const date = dateStr || formatSwedishDate();
     const paragraphs = splitIntoParagraphs(bodyContent);
+    const font = fontFamily || 'Arial, sans-serif';
 
     // Build inline contact info with pipe separator
     const contactParts = [profile.full_name];
@@ -1002,7 +1007,7 @@ export const compactDocxTemplate: DocxTemplate = {
     }
 
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: ${font};
       font-size: 12pt;
       line-height: 1.5;
       color: #000000;
@@ -1105,9 +1110,10 @@ export const compactDocxTemplate: DocxTemplate = {
 </html>`;
   },
 
-  generateDocument: (profile, jobInfo, bodyContent, dateStr) => {
+  generateDocument: (profile, jobInfo, bodyContent, dateStr, fontName) => {
     const date = dateStr || formatSwedishDate();
     const paragraphs = splitIntoParagraphs(bodyContent);
+    const font = fontName || 'Arial';
 
     // Build inline contact info with pipe separator
     const contactParts = [profile.full_name];
@@ -1131,7 +1137,7 @@ export const compactDocxTemplate: DocxTemplate = {
         children: [
           // Compact header with border
           new Paragraph({
-            children: [new TextRun({ text: contactLine, size: 20, color: '333333' })],
+            children: [new TextRun({ text: contactLine, size: 20, color: '333333', font })],
             spacing: { after: 120 },
             border: {
               bottom: {
@@ -1149,7 +1155,7 @@ export const compactDocxTemplate: DocxTemplate = {
 
           // Datum (right aligned)
           new Paragraph({
-            children: [new TextRun({ text: date, size: 20, color: '666666' })],
+            children: [new TextRun({ text: date, size: 20, color: '666666', font })],
             alignment: AlignmentType.RIGHT,
             spacing: { after: 400 },
             indent: { firstLine: 0 }
@@ -1158,7 +1164,7 @@ export const compactDocxTemplate: DocxTemplate = {
           // Mottagare
           ...(jobInfo.company ? [
             new Paragraph({
-              children: [new TextRun({ text: jobInfo.company, bold: true, size: 22 })],
+              children: [new TextRun({ text: jobInfo.company, bold: true, size: 22, font })],
               spacing: { after: 120 },
               indent: { firstLine: 0 }
             })
@@ -1166,7 +1172,7 @@ export const compactDocxTemplate: DocxTemplate = {
 
           ...(jobInfo.position ? [
             new Paragraph({
-              children: [new TextRun({ text: `Ansökan: ${jobInfo.position}`, size: 22 })],
+              children: [new TextRun({ text: `Ansökan: ${jobInfo.position}`, size: 22, font })],
               spacing: { after: 480 },
               indent: { firstLine: 0 }
             })
@@ -1174,7 +1180,7 @@ export const compactDocxTemplate: DocxTemplate = {
 
           // Hälsning
           new Paragraph({
-            children: [new TextRun({ text: 'Hej,', size: 24 })],
+            children: [new TextRun({ text: 'Hej,', size: 24, font })],
             spacing: { after: 240 },
             indent: { firstLine: 0 }
           }),
@@ -1182,7 +1188,7 @@ export const compactDocxTemplate: DocxTemplate = {
           // Body paragraphs
           ...paragraphs.map(para =>
             new Paragraph({
-              children: [new TextRun({ text: para.trim(), size: 24 })],
+              children: [new TextRun({ text: para.trim(), size: 24, font })],
               alignment: AlignmentType.LEFT,
               spacing: { after: 240, line: 360, lineRule: 'auto' },
               indent: { left: 0, right: 0, firstLine: 0 }
@@ -1191,13 +1197,13 @@ export const compactDocxTemplate: DocxTemplate = {
 
           // Avslutning
           new Paragraph({
-            children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 24 })],
+            children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 24, font })],
             spacing: { before: 480, after: 600 },
             indent: { firstLine: 0 }
           }),
 
           new Paragraph({
-            children: [new TextRun({ text: profile.full_name, bold: true, size: 24 })],
+            children: [new TextRun({ text: profile.full_name, bold: true, size: 24, font })],
             indent: { firstLine: 0 }
           })
         ]
@@ -1217,9 +1223,10 @@ export const twocolumnDocxTemplate: DocxTemplate = {
   tier: 'premium',
   industries: ['Alla branscher', 'Moderna företag', 'Tech', 'Consulting'],
 
-  generateHTML: (profile, jobInfo, bodyContent, dateStr) => {
+  generateHTML: (profile, jobInfo, bodyContent, dateStr, fontFamily) => {
     const date = dateStr || formatSwedishDate();
     const paragraphs = splitIntoParagraphs(bodyContent);
+    const font = fontFamily || 'Arial, sans-serif';
 
     // Formatera datum med plats om den finns
     const dateWithLocation = profile.include_location_in_letters && profile.location
@@ -1245,7 +1252,7 @@ export const twocolumnDocxTemplate: DocxTemplate = {
     }
 
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: ${font};
       font-size: 12pt;
       line-height: 1.5;
       color: #000000;
@@ -1400,9 +1407,10 @@ export const twocolumnDocxTemplate: DocxTemplate = {
 </html>`;
   },
 
-  generateDocument: (profile, jobInfo, bodyContent, dateStr) => {
+  generateDocument: (profile, jobInfo, bodyContent, dateStr, fontName) => {
     const date = dateStr || formatSwedishDate();
     const paragraphs = splitIntoParagraphs(bodyContent);
+    const font = fontName || 'Arial';
 
     // Formatera datum med plats om den finns
     const dateWithLocation = profile.include_location_in_letters && profile.location
@@ -1454,7 +1462,7 @@ export const twocolumnDocxTemplate: DocxTemplate = {
                             text: profile.full_name,
                             bold: true,
                             size: 36, // 18pt
-                            font: 'Arial'
+                            font
                           })
                         ],
                         spacing: { after: 120 },
@@ -1469,7 +1477,7 @@ export const twocolumnDocxTemplate: DocxTemplate = {
                               text: jobInfo.company,
                               size: 22, // 11pt
                               color: '666666',
-                              font: 'Arial'
+                              font
                             })
                           ],
                           spacing: { after: 300 },
@@ -1483,7 +1491,7 @@ export const twocolumnDocxTemplate: DocxTemplate = {
                           new TextRun({
                             text: dateWithLocation,
                             size: 22, // 11pt
-                            font: 'Arial'
+                            font
                           })
                         ],
                         spacing: { after: 400 },
@@ -1497,7 +1505,7 @@ export const twocolumnDocxTemplate: DocxTemplate = {
                             text: 'Hej!',
                             bold: true,
                             size: 24, // 12pt
-                            font: 'Arial'
+                            font
                           })
                         ],
                         spacing: { after: 300 },
@@ -1511,7 +1519,7 @@ export const twocolumnDocxTemplate: DocxTemplate = {
                             new TextRun({
                               text: para.trim(),
                               size: 22, // 11pt
-                              font: 'Arial'
+                              font
                             })
                           ],
                           alignment: AlignmentType.LEFT,
@@ -1526,7 +1534,7 @@ export const twocolumnDocxTemplate: DocxTemplate = {
                           new TextRun({
                             text: 'Vänliga hälsningar,',
                             size: 22, // 11pt
-                            font: 'Arial'
+                            font
                           })
                         ],
                         spacing: { before: 400, after: 600 },
@@ -1540,7 +1548,7 @@ export const twocolumnDocxTemplate: DocxTemplate = {
                             text: profile.full_name,
                             bold: true,
                             size: 22, // 11pt
-                            font: 'Arial'
+                            font
                           })
                         ],
                         indent: { firstLine: 0 }
@@ -1568,7 +1576,7 @@ export const twocolumnDocxTemplate: DocxTemplate = {
                               text: 'Till',
                               bold: true,
                               size: 20, // 10pt
-                              font: 'Arial'
+                              font
                             })
                           ],
                           spacing: { after: 150 },
@@ -1580,7 +1588,7 @@ export const twocolumnDocxTemplate: DocxTemplate = {
                               new TextRun({
                                 text: jobInfo.company,
                                 size: 20,
-                                font: 'Arial'
+                                font
                               })
                             ],
                             spacing: { after: 100 },
@@ -1593,7 +1601,7 @@ export const twocolumnDocxTemplate: DocxTemplate = {
                               new TextRun({
                                 text: jobInfo.position,
                                 size: 20,
-                                font: 'Arial'
+                                font
                               })
                             ],
                             spacing: { after: 400 },
@@ -1609,7 +1617,7 @@ export const twocolumnDocxTemplate: DocxTemplate = {
                             text: 'Från',
                             bold: true,
                             size: 20, // 10pt
-                            font: 'Arial'
+                            font
                           })
                         ],
                         spacing: { after: 150 },
@@ -1621,7 +1629,7 @@ export const twocolumnDocxTemplate: DocxTemplate = {
                           new TextRun({
                             text: profile.full_name,
                             size: 20,
-                            font: 'Arial'
+                            font
                           })
                         ],
                         spacing: { after: 100 },
@@ -1634,7 +1642,7 @@ export const twocolumnDocxTemplate: DocxTemplate = {
                             new TextRun({
                               text: jobInfo.position,
                               size: 20,
-                              font: 'Arial'
+                              font
                             })
                           ],
                           spacing: { after: 100 },
@@ -1648,7 +1656,7 @@ export const twocolumnDocxTemplate: DocxTemplate = {
                             new TextRun({
                               text: profile.location,
                               size: 20,
-                              font: 'Arial'
+                              font
                             })
                           ],
                           spacing: { after: 100 },
@@ -1662,7 +1670,7 @@ export const twocolumnDocxTemplate: DocxTemplate = {
                             new TextRun({
                               text: profile.phone,
                               size: 20,
-                              font: 'Arial'
+                              font
                             })
                           ],
                           spacing: { after: 100 },
@@ -1676,7 +1684,7 @@ export const twocolumnDocxTemplate: DocxTemplate = {
                             text: profile.email,
                             size: 20,
                             color: '0066cc', // Blå färg
-                            font: 'Arial'
+                            font
                           })
                         ],
                         indent: { firstLine: 0 }
@@ -1704,9 +1712,10 @@ export const centeredDocxTemplate: DocxTemplate = {
   tier: 'premium',
   industries: ['Ledning', 'Chef', 'Konsult'],
 
-  generateHTML: (profile, jobInfo, bodyContent, dateStr) => {
+  generateHTML: (profile, jobInfo, bodyContent, dateStr, fontFamily) => {
     const date = dateStr || formatSwedishDate();
     const paragraphs = splitIntoParagraphs(bodyContent);
+    const font = fontFamily || 'Arial, sans-serif';
 
     return `<!DOCTYPE html>
 <html lang="sv">
@@ -1727,7 +1736,7 @@ export const centeredDocxTemplate: DocxTemplate = {
     }
 
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: ${font};
       font-size: 12pt;
       line-height: 1.5;
       color: #000000;
@@ -1842,9 +1851,10 @@ export const centeredDocxTemplate: DocxTemplate = {
 </html>`;
   },
 
-  generateDocument: (profile, jobInfo, bodyContent, dateStr) => {
+  generateDocument: (profile, jobInfo, bodyContent, dateStr, fontName) => {
     const date = dateStr || formatSwedishDate();
     const paragraphs = splitIntoParagraphs(bodyContent);
+    const font = fontName || 'Arial';
 
     return new Document({
       sections: [{
@@ -1861,7 +1871,7 @@ export const centeredDocxTemplate: DocxTemplate = {
         children: [
           // Centered header
           new Paragraph({
-            children: [new TextRun({ text: profile.full_name, bold: true, size: 26 })],
+            children: [new TextRun({ text: profile.full_name, bold: true, size: 26, font })],
             alignment: AlignmentType.CENTER,
             spacing: { after: 120 },
             indent: { firstLine: 0 }
@@ -1869,7 +1879,7 @@ export const centeredDocxTemplate: DocxTemplate = {
 
           ...(profile.include_phone_in_letters && profile.phone ? [
             new Paragraph({
-              children: [new TextRun({ text: profile.phone, size: 22 })],
+              children: [new TextRun({ text: profile.phone, size: 22, font })],
               alignment: AlignmentType.CENTER,
               spacing: { after: 80 },
               indent: { firstLine: 0 }
@@ -1877,7 +1887,7 @@ export const centeredDocxTemplate: DocxTemplate = {
           ] : []),
 
           new Paragraph({
-            children: [new TextRun({ text: profile.email, size: 22 })],
+            children: [new TextRun({ text: profile.email, size: 22, font })],
             alignment: AlignmentType.CENTER,
             spacing: { after: 80 },
             indent: { firstLine: 0 }
@@ -1885,7 +1895,7 @@ export const centeredDocxTemplate: DocxTemplate = {
 
           ...(profile.include_location_in_letters && profile.location ? [
             new Paragraph({
-              children: [new TextRun({ text: profile.location, size: 22 })],
+              children: [new TextRun({ text: profile.location, size: 22, font })],
               alignment: AlignmentType.CENTER,
               spacing: { after: 240 },
               indent: { firstLine: 0 }
@@ -1914,14 +1924,14 @@ export const centeredDocxTemplate: DocxTemplate = {
 
           // Till/Mottagare
           new Paragraph({
-            children: [new TextRun({ text: 'Till', bold: true, size: 20 })],
+            children: [new TextRun({ text: 'Till', bold: true, size: 20, font })],
             spacing: { after: 120 },
             indent: { firstLine: 0 }
           }),
 
           ...(jobInfo.company ? [
             new Paragraph({
-              children: [new TextRun({ text: jobInfo.company, size: 22 })],
+              children: [new TextRun({ text: jobInfo.company, size: 22, font })],
               spacing: { after: 80 },
               indent: { firstLine: 0 }
             })
@@ -1931,14 +1941,14 @@ export const centeredDocxTemplate: DocxTemplate = {
 
           // Datum
           new Paragraph({
-            children: [new TextRun({ text: date, size: 22 })],
+            children: [new TextRun({ text: date, size: 22, font })],
             spacing: { after: 400 },
             indent: { firstLine: 0 }
           }),
 
           // Hälsning
           new Paragraph({
-            children: [new TextRun({ text: 'Hej,', size: 24 })],
+            children: [new TextRun({ text: 'Hej,', size: 24, font })],
             spacing: { after: 240 },
             indent: { firstLine: 0 }
           }),
@@ -1946,7 +1956,7 @@ export const centeredDocxTemplate: DocxTemplate = {
           // Body
           ...paragraphs.map(para =>
             new Paragraph({
-              children: [new TextRun({ text: para.trim(), size: 24 })],
+              children: [new TextRun({ text: para.trim(), size: 24, font })],
               alignment: AlignmentType.LEFT,
               spacing: { after: 240, line: 360, lineRule: 'auto' },
               indent: { left: 0, right: 0, firstLine: 0 }
@@ -1955,13 +1965,13 @@ export const centeredDocxTemplate: DocxTemplate = {
 
           // Avslutning
           new Paragraph({
-            children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 24 })],
+            children: [new TextRun({ text: 'Med vänliga hälsningar,', size: 24, font })],
             spacing: { before: 480, after: 600 },
             indent: { firstLine: 0 }
           }),
 
           new Paragraph({
-            children: [new TextRun({ text: profile.full_name, bold: true, size: 24 })],
+            children: [new TextRun({ text: profile.full_name, bold: true, size: 24, font })],
             indent: { firstLine: 0 }
           })
         ]
