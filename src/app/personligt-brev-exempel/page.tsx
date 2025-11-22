@@ -154,8 +154,8 @@ const coverLetterExamples: CoverLetterExample[] = [
     yrke: 'Barnskötare',
     slug: 'barnskotare',
     kategori: 'utbildning',
-    niva: 'nybörjare',
-    sokvolym: 150,
+    niva: 'erfaren',
+    sokvolym: 210,
     icon: Heart,
     gradient: 'from-pink-400 via-rose-400 to-red-400',
     preview: {
