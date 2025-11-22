@@ -102,9 +102,10 @@ Lisa Andersson`
 export async function generateMetadata({
   params,
 }: {
-  params: { yrke: string }
+  params: Promise<{ yrke: string }>
 }): Promise<Metadata> {
-  const data = exampleData[params.yrke]
+  const { yrke } = await params
+  const data = exampleData[yrke]
 
   if (!data) {
     return {
@@ -118,8 +119,9 @@ export async function generateMetadata({
   }
 }
 
-export default function Page({ params }: { params: { yrke: string } }) {
-  const data = exampleData[params.yrke]
+export default async function Page({ params }: { params: Promise<{ yrke: string }> }) {
+  const { yrke } = await params
+  const data = exampleData[yrke]
 
   if (!data) {
     notFound()

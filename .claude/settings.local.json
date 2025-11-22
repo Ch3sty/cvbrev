@@ -19,7 +19,8 @@
       "Bash(npx tsc:*)",
       "Bash(python:*)",
       "Bash(python3:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(timeout 15 bash:*)"
     ],
     "deny": [],
     "ask": []
