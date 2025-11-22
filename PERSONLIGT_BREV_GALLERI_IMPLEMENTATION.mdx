@@ -370,6 +370,7 @@ export interface ExampleData {
   yrke: string;                    // "Projektledare"
   slug: string;                    // "projektledare"
   kategori: string;                // "Tech & IT" | "Vård & Omsorg" | "Kontor & Administration" etc.
+  sokvolym: number;                // 750 - ENDAST för intern SEO-tracking, visas EJ för användare
 
   // === BREVINNEHÅLL ===
   namn: string;                    // Fiktivt namn på kandidaten
@@ -448,20 +449,23 @@ export interface ExampleData {
 - Förklara VARFÖR tipset är viktigt
 - Ge konkret exempel på HUR man gör
 - Koppla till branschen/yrket
+- **VIKTIGT: Textstyckning** - För längre tips (över 80 ord), dela upp texten med dubbla radbrytningar (`\n\n`) för bättre läsbarhet. Placera styckeindelningar logiskt efter naturliga tankepunkter eller vid övergångar mellan olika aspekter av tipset.
 
 #### Exempel på BRA tips (Projektledare):
 
-```typescript
-{
-  titel: "Lyft fram konkreta projektresultat",
-  text: "Arbetsgivare inom projektledning vill se mätbara resultat. Istället för att skriva 'Jag har lett många framgångsrika projekt', specificera: 'Jag ledde lanseringen av en ny e-handelsplattform som ökade konverteringsgraden med 28% under första kvartalet.' Nämn alltid budget, tidsram eller andra kvantifierbara mått om möjligt."
-}
-```
-
+**Kort tip (under 80 ord) - ingen styckeindelning:**
 ```typescript
 {
   titel: "Nämn specifika metoder och verktyg",
   text: "Visa att du har praktisk erfarenhet genom att nämna konkreta ramverk och verktyg. Till exempel: 'Jag arbetar med Scrum och Kanban och har gedigen erfarenhet av Jira, Confluence och MS Project.' Detta gör att arbetsgivaren direkt ser att du kan börja arbeta utan lång introduktion."
+}
+```
+
+**Längre tip (över 80 ord) - med styckeindelning:**
+```typescript
+{
+  titel: "Använd korrekt medicinsk terminologi för ATS-system",
+  text: "ATS-system och vårdchefer söker specifika medicinska nyckelord. Inkludera termer som triagering, RETTS/METTS, akut omhändertagande, PVK/CVK, medicindosering, EKG-tolkning, vitala parametrar, patientsäkerhet, evidensbaserad vård och tvärprofessionellt team.\n\nOm jobbannonsen nämner specifika dokumentationssystem som TakeCare, Cosmic, Melior eller PMO, inkludera dem om du har erfarenhet. För specialistområden: nämn ACLS/ATLS för akut, ventilatorbehandling för IVA, sårvård för hemsjukvård eller palliativ vård för äldreboende.\n\nDessa termer signalerar både till ATS-systemet och till rekryteraren att du behärskar yrkets kliniska krav och kan börja arbeta med minimal introduktion."
 }
 ```
 
@@ -799,6 +803,7 @@ Använd denna checklista innan du godkänner ett nytt personligt brev-exempel:
 - [ ] Innehåller VARFÖR tipset är viktigt
 - [ ] Innehåller HUR man gör (konkret exempel)
 - [ ] Ingen upprepning mellan tips
+- [ ] **Textstyckning:** Tips över 80 ord har styckeindelning med `\n\n` för bättre läsbarhet
 
 ---
 
@@ -832,6 +837,7 @@ Använd denna checklista innan du godkänner ett nytt personligt brev-exempel:
 - [ ] Kategori är korrekt vald
 - [ ] Relaterade yrken är relevanta (3 stycken)
 - [ ] Alla fält är ifyllda (inga tomma strängar)
+- [ ] **sokvolym** är ifylld för intern SEO-tracking (men visas ALDRIG i UI för användare)
 
 ---
 
