@@ -3793,6 +3793,118 @@ Maria Johansson`
       { yrke: 'Barnskötare', slug: 'barnskotare' },
       { yrke: 'Lokalvårdare', slug: 'lokalvardare' }
     ]
+  },
+
+  'hemtjanst': {
+    yrke: 'Hemtjänst',
+    sokvolym: 200,
+    metaTitle: 'Personligt Brev Hemtjänst 2025 - Mall & Exempel | Jobbcoach.ai',
+    metaDescription: 'Professionellt personligt brev för hemtjänst. Få konkreta tips om praktiskt stöd, omsorg och dokumentation som gör dig till rätt kandidat.',
+    metaKeywords: ['personligt brev hemtjänst', 'ansökan hemtjänst', 'hemtjänst personligt brev exempel', 'jobbansökan hemtjänst', 'hemtjänst cv och brev'],
+
+    seoIntro: 'Hemtjänst är ett av våra viktigaste välfärdsyrken. Du ger äldre och funktionsnedsatta möjlighet att bo kvar hemma genom praktiskt stöd, personlig omsorg och social kontakt. Arbetet kräver både praktiska färdigheter och förmåga att skapa trygga relationer.\n\nEtt starkt personligt brev för hemtjänst visar din erfarenhet av praktiskt arbete i hemmet. Beskriv konkreta arbetsuppgifter som matlagning, städning, hygieninsatser och medicinadministration. Visa att du klarar ensamarbete och kan dokumentera enligt verksamhetens rutiner. Arbetsgivare söker personal som kombinerar omsorg med struktur och flexibilitet.\n\nVårt exempel ger dig en beprövad struktur. Du ser hur du beskriver praktiska färdigheter, relationsskapande och flexibilitet på ett sätt som gör dig till rätt kandidat. Använd mallen för att skapa ett brev som visar varför just du passar för hemtjänstarbete.',
+
+    intro: 'Ett professionellt personligt brev för hemtjänst som visar din erfarenhet av praktiskt stöd i hemmet, förmåga att arbeta självständigt och respekt för äldres integritet. Optimerat för svenska hemtjänstgivare och ATS-system.',
+
+    exempelBrev: {
+      namn: 'Maria Andersson',
+      adress: 'Björkvägen 15, 413 20 Göteborg',
+      telefon: '070-123 45 67',
+      epost: 'maria.andersson@email.se',
+      arbetsgivare: 'Göteborgs Stad - Hemtjänst Väster',
+      roll: 'Hemtjänstpersonal',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Hej,
+
+Jag söker tjänsten som hemtjänstpersonal inom Hemtjänst Väster och vill bidra med min erfarenhet av personcentrerad omsorg och praktiskt stöd i människors hem. Er verksamhets fokus på trygghet och kontinuitet stämmer perfekt med min arbetsfilosofi.
+
+Jag har arbetat inom hemtjänsten i sex år och besöker idag 8-12 brukare dagligen. Min arbetsdag omfattar allt från personlig hygien och matlagning till social samtal och promenader. Jag har särskild erfarenhet av att stödja personer med demenssjukdomar och har genomgått utbildning i dementiavård. I mitt nuvarande uppdrag har jag byggt långsiktiga relationer med mina brukare, vilket resulterat i ökad trygghet och livskvalitet.
+
+Jag är van vid att dokumentera insatser i TakeCare och följer alltid verksamhetens rutiner för rapportering. Min flexibilitet gör att jag kan arbeta såväl vardagar som helger, och jag trivs med det självständiga arbetet som hemtjänsten innebär. Jag behärskar användning av lyftar och förflyttningshjälpmedel enligt gällande arbetsmiljöregler.
+
+Ett minne som visar vikten av kontinuitet: En av mina brukare hade svårt att äta och började tappa vikt. Genom att lära känna hennes matvanor och laga hennes favoriträtt – köttbullar med lingonsylt – kunde jag få henne att äta bättre. Idag ser jag fram emot varje besök hos henne.
+
+Jag vill fortsätta arbeta med det jag brinner för: att ge äldre människor möjlighet att bo kvar hemma med trygghet och värdighet. Jag ser fram emot att bidra med min erfarenhet och mitt engagemang till ert team.
+
+Varma hälsningar,
+Maria Andersson`
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Visar konkret erfarenhet av praktiskt hemstöd',
+        beskrivning: 'Brevet nämner specifika arbetsuppgifter som matlagning, hygien och ADL-stöd med exempel på 8-12 brukare dagligen. Detta visar arbetsgivare att kandidaten har gedigen praktisk erfarenhet av hemtjänstarbete.'
+      },
+      {
+        titel: 'Betonar relationsskapande och kontinuitet',
+        beskrivning: 'Den personliga anekdoten om köttbullar och viktökning visar hur god omsorg skapar trygghet och bättre livskvalitet. Detta illustrerar empati och problemlösning bättre än att bara skriva "jag är empatisk".'
+      },
+      {
+        titel: 'Nämner dokumentationssystem och arbetsmiljöregler',
+        beskrivning: 'Att referera till TakeCare och förflyttningshjälpmedel visar professionalism och strukturerat arbetssätt. Detta är avgörande för hemtjänstgivare som måste följa socialtjänstlagen och arbetsmiljöregler.'
+      },
+      {
+        titel: 'Framhäver flexibilitet och självständighet',
+        beskrivning: 'Kandidaten är tydlig med flexibilitet gällande arbetstider och trivs med ensamarbete. Detta är kritiskt för hemtjänstens schemaläggning och arbetssätt där personal ofta arbetar självständigt i brukarens hem.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Visa praktisk erfarenhet av hemstöd',
+        text: 'Beskriv konkreta arbetsuppgifter du utfört: matlagning, städning, tvätt, inköp, medicindelning eller hygieninsatser. Ange antal brukare du besöker dagligen och vilken typ av stöd du ger. Nämn erfarenhet av förflyttningshjälpmedel om relevant. Arbetsgivare vill se att du behärskar hela arbetets bredd.'
+      },
+      {
+        rubrik: 'Framhäv dokumentation och rutiner',
+        text: 'Nämn erfarenhet av dokumentationssystem som TakeCare, Lifecare eller PMO. Beskriv hur du rapporterar avvikelser och följer verksamhetens riktlinjer.\n\nVisa att du förstår vikten av korrekt dokumentation för brukarens trygghet och verksamhetens kvalitet. Detta signalerar professionalism.'
+      },
+      {
+        rubrik: 'Betona flexibilitet och schemaanpassning',
+        text: 'Hemtjänst kräver ofta arbete kvällar, helger och roterade scheman. Var tydlig med din tillgänglighet och vilja att arbeta obekväm arbetstid. Nämn erfarenhet av jourtjänst eller vikariat om du har det. Flexibel personal är högt värderad i branschen.'
+      },
+      {
+        rubrik: 'Visa relationsskapande förmåga',
+        text: 'Dela exempel på hur du byggt förtroende med brukare. Beskriv hur du anpassar stödet efter individuella behov och önskemål.\n\nVisa förståelse för ensamhet och social isolering hos äldre. Arbetsgivare söker personal som ser hela människan, inte bara arbetsuppgifterna.'
+      },
+      {
+        rubrik: 'Hantera ensamarbete professionellt',
+        text: 'Hemtjänst innebär ofta arbete ensam i brukarens hem. Visa att du är självgående och kan prioritera arbetsuppgifter utan konstant handledning. Nämn hur du hanterar akuta situationer och vet när du ska larma eller kontakta sjuksköterska. Trygghet i ensamarbete är en nyckelkompetens.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur beskriver jag erfarenhet av hemtjänstarbete?',
+        a: 'Var konkret med arbetsuppgifter och omfattning. Ange antal år i hemtjänst, antal brukare du besöker dagligen och vilken typ av stöd du ger (hygien, matlagning, städning, social kontakt). Nämn erfarenhet av olika brukargrupper som äldre, demenssjuka eller funktionsnedsatta. Kvantifiera din erfarenhet så blir den trovärdig.'
+      },
+      {
+        q: 'Vad ska jag skriva om praktiskt stöd i hemmet?',
+        a: 'Beskriv konkreta arbetsuppgifter: matlagning enligt brukarens önskemål, städning av olika rum, tvätt och bäddning, inköp och ärenden, hjälp med dusch och påklädning. Nämn särskilda kost eller allergikunskaper. Visa att du behärskar hela arbetets bredd och kan anpassa stödet efter individuella behov.'
+      },
+      {
+        q: 'Hur visar jag att jag klarar ensamarbete?',
+        a: 'Ge exempel på självständigt beslutsfattande och prioritering av arbetsuppgifter. Beskriv hur du hanterar oförutsedda situationer eller akuta behov. Nämn att du följer planerade insatser men också kan anpassa efter brukarens dagsform. Visa att du vet när du ska kontakta sjuksköterska eller arbetsledning för stöd.'
+      },
+      {
+        q: 'Ska jag nämna erfarenhet av demenssjuka?',
+        a: 'Ja, om du har det. Demenssjukdomar är vanliga i hemtjänst och erfarenhet är högt värderad. Beskriv hur du kommunicerar och skapar trygghet, hanterar BPSD-symptom eller utmaningar, följer personcentrerade omsorgsmetoder. Nämn relevant utbildning som Silviasystrar eller validationsmetodik. Detta gör dig mer attraktiv som kandidat.'
+      },
+      {
+        q: 'Hur beskriver jag flexibilitet med arbetstider?',
+        a: 'Var konkret med din tillgänglighet. Ange om du kan arbeta kvällar, helger, delade turer eller jourtjänst. Nämn erfarenhet av roterande schema eller vikariat. Hemtjänst är en 24/7-verksamhet och flexibel personal är kritisk för schemaläggning. Undvik vaga formuleringar - var tydlig med vad du kan erbjuda.'
+      },
+      {
+        q: 'Vad ska jag skriva om dokumentation och rapportering?',
+        a: 'Nämn vilka dokumentationssystem du använt (TakeCare, Lifecare, PMO eller andra). Beskriv vad du dokumenterar: utförda insatser, avvikelser, brukarens mående och observationer. Förklara att du följer rutiner för rapportering till sjuksköterska och arbetsledning. Korrekt dokumentation är en professionell kärnkompetens som arbetsgivare värderar högt.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Vårdbiträde', slug: 'vardbitrade' },
+      { yrke: 'Undersköterska', slug: 'underskoterska' },
+      { yrke: 'Personlig assistent', slug: 'personlig-assistent' },
+      { yrke: 'Lokalvårdare', slug: 'lokalvardare' }
+    ]
   }
 }
 
