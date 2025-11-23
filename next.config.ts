@@ -237,6 +237,11 @@ const nextConfig: NextConfig = {
         destination: '/personligt-brev-exempel/kundtjanst',
         permanent: true,
       },
+      {
+        source: '/artiklar/personligt-brev-stadare-ny',
+        destination: '/personligt-brev-exempel/stadare',
+        permanent: true,
+      },
       // Lägg till fler redirects här när fler exempel-sidor skapas
     ]
   },

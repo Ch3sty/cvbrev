@@ -3545,6 +3545,142 @@ Skriv "Jag lär mig snabbt nya produkter och läser alltid uppdateringar om sort
       { yrke: 'Butikssäljare', slug: 'butikssaljare' },
       { yrke: 'Administrator', slug: 'administrator' }
     ]
+  },
+
+  'stadare': {
+    yrke: 'Städare',
+    sokvolym: 240,
+    metaTitle: 'Personligt Brev Exempel Städare - Jobbcoach.ai',
+    metaDescription: 'Se ett komplett personligt brev-exempel för städare. Skrivet av rekryteringsexperter, ATS-optimerat med konkreta exempel från kontorsstäd, hemstäd och institutionsstäd. Inkluderar tips och branschspecifika nyckelord.',
+
+    seoIntro: `Söker du jobb som städare och undrar hur du skriver ett personligt brev som får dig till intervju? Det här exemplet visar hur du skapar ett ATS-optimerat personligt brev som passar svenska städföretag och arbetsgivare.
+
+Du får se exakt hur du lyfter fram din erfarenhet av städmetoder, kemikaliehantering och tidseffektivitet. Brevet visar konkreta exempel från kontorsstäd, skolor och äldreboenden, och betonar noggrannhet, pålitlighet och självständighet – egenskaper som rekryterare inom städbranschen högt värderar.
+
+Använd det som inspiration för din egen jobbansökan städare och anpassa det efter den tjänst du söker. Läs också våra tips om hur du optimerar ditt CV städare för att öka dina chanser till intervju.`,
+
+    intro: 'Ett professionellt personligt brev för städare som visar din erfarenhet av städmetoder, noggrannhet och förmåga att arbeta självständigt. Detta exempel är optimerat för svenska städföretag och ATS-system.',
+
+    exempelBrev: {
+      namn: 'Maria Johansson',
+      adress: 'Västra Gatan 24, 411 23 Göteborg',
+      telefon: '073-456 78 90',
+      epost: 'maria.johansson@email.se',
+      arbetsgivare: 'Göteborgs Stadservice AB',
+      roll: 'Städare inom kontors- och institutionsstäd',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Hej,
+
+Jag söker tjänsten som städare på Göteborgs Stadservice AB. Med fem års erfarenhet av kontorsstäd, institutionsstäd och hemstäd, samt ett genuint engagemang för kvalitet och kundnöjdhet, är jag övertygad om att min kompetens skulle passa väl i ert team. Era värderingar om miljövänlig städning och professionell service stämmer helt överens med hur jag arbetar.
+
+Under mina år på Rent & Fint Städservice har jag städat ett brett spektrum av miljöer: kontor, skolor, äldreboenden och privata hem. Jag har rutin på att städa 800-1200 kvm kontorsyta per dag och arbetar effektivt med både daglig underhållsstädning och grundligare storstädning. Jag är van vid att använda professionell städutrustning som automatskurmaskin, våtdammsugare och ångtvättare, och har gedigen kunskap om kemikaliehantering enligt de 16 miljöfareklasserna. Ett konkret exempel är när jag upptäckte att fel kemikalie användes på linoleumgolv vilket orsakade missfärgning – jag bytte till pH-neutralt rengöringsmedel och golvet återhämtades efter några månader.
+
+Det jag uppskattar mest med städyrket är känslan när en lokal är fräsch och ren. Jag är noggrann med detaljer och ser det som andra kanske missar: damm på lampkupor, fläckar på dörrkarmar och glömda områden bakom möbler. Samtidigt är jag snabb och strukturerad – jag arbetar enligt checklista och städplan för att säkerställa att alla områden täcks in på avsatt tid. När jag städar på äldreboende Solbacken arbetar jag alltid med respekt för de boende, hälsar och tar hänsyn till deras rutiner och integritet.
+
+Vad som verkligen tilltalar mig med Göteborgs Stadservice är er satsning på miljömärkta produkter och grön städning. Jag har arbetat med både Svanen- och EU Ecolabel-märkta produkter och tror starkt på att städning ska vara både effektiv och miljövänlig. Jag är också flexibel gällande arbetstider och kan arbeta både dag-, kväll- och helgpass beroende på verksamhetens behov. Jag har körkort och egen bil, vilket gör att jag kan ta mig till olika objekt smidigt.
+
+Jag ser fram emot att diskutera hur jag kan bidra till er verksamhet och era kunders trivsel. Tveka inte att kontakta mig på 073-456 78 90 eller maria.johansson@email.se.
+
+Varma hälsningar,
+Maria Johansson`,
+      erfarenhet: '5 års erfarenhet av kontors-, institutions- och hemstäd',
+      nyckelkompetenser: [
+        'Kontorsstäd och institutionsstäd',
+        'Städutrustning (automatskurmaskin, våtdammsugare)',
+        'Kemikaliehantering (16 miljöfareklasserna)',
+        'Miljömärkta produkter (Svanen, EU Ecolabel)',
+        'Underhållsstädning och storstädning',
+        'Flexibilitet (dag, kväll, helg)'
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Specifika yrkesnyckelord för ATS',
+        beskrivning: 'Brevet innehåller viktiga sökord som ATS-system letar efter: kontorsstäd, institutionsstäd, städmetoder, kemikaliehantering, automatskurmaskin, underhållsstädning, storstädning och miljömärkta produkter.'
+      },
+      {
+        titel: 'Kvantifierad erfarenhet med konkreta siffror',
+        beskrivning: 'Istället för "jag är erfaren" kvantifieras kompetensen: 800-1200 kvm per dag, fem års erfarenhet, kunskap om de 16 miljöfareklasserna. Detta visar tidseffektivitet och ger konkreta bevis på produktivitet.'
+      },
+      {
+        titel: 'Problemlösning genom verkliga exempel',
+        beskrivning: 'Exemplet om fel kemikalie på linoleumgolv visar både materialkännedom och problemlösningsförmåga. Detta är starkare än att bara säga "jag är kunnig".'
+      },
+      {
+        titel: 'Balans mellan effektivitet och noggrannhet',
+        beskrivning: 'Brevet visar både snabbhet (arbetar enligt checklista och städplan) och detaljfokus (damm på lampkupor, fläckar på dörrkarmar). Denna balans är kritisk i städbranschen.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Använd branschterminologi för att passera ATS',
+        text: `ATS-system söker efter specifika nyckelord inom städbranschen. Inkludera termer som kontorsstäd, institutionsstäd, hemstäd, underhållsstädning, storstädning, grundstädning, fönsterputs, fastighetsskötsel och trapphusrenhold.
+
+Nämn också städutrustning du behärskar: automatskurmaskin, våtdammsugare, dammtrasa, mopp, ångtvättare, högtryckstvätt eller skurvagn. Om du har erfarenhet av miljömärkta produkter (Svanen, EU Ecolabel, Bra Miljöval), ta med det eftersom allt fler arbetsgivare prioriterar grön städning.
+
+Dessa nyckelord signalerar både till ATS-systemet och till rekryteraren att du förstår yrkets krav.`
+      },
+      {
+        rubrik: 'Kvantifiera din arbetskapacitet och erfarenhet',
+        text: `Konkreta siffror gör ditt brev mer trovärdigt. Istället för "jag är snabb" skriv "jag städar 800-1200 kvm kontorsyta per dag" eller "jag hanterar 12-15 kontor dagligen med 30 minuter per objekt". Nämn antal års erfarenhet, antal objekt du hanterat eller specifika uppdrag.
+
+Om du arbetat med olika städtyper, var specifik: "3 års erfarenhet av daglig kontorsstäd och 2 års erfarenhet av hemstäd hos privatpersoner". Siffror hjälper rekryteraren att snabbt bedöma din produktivitet och erfarenhetsnivå, vilket är avgörande i en bransch där tidseffektivitet är central.`
+      },
+      {
+        rubrik: 'Visa materialkännedom och säker kemikaliehantering',
+        text: `Städbranschen kräver kunskap om kemikalier och material för att undvika skador och säkerställa säkerhet. Nämn erfarenhet av kemikaliehantering, kunskap om de 16 miljöfareklasserna, eller utbildning i säker hantering av rengöringsmedel.
+
+Var specifik om materialkännedom: "Jag anpassar städmetod efter ytan – pH-neutralt på linoleum, mikrofibertrasa på skärmar, och alkaliska produkter på industrigolv". Om du har erfarenhet av speciella material som marmor, parkettgolv eller rostfritt stål, lyft fram det. Detta visar professionalism och minskar risken för kostsamma skador.`
+      },
+      {
+        rubrik: 'Betona pålitlighet, noggrannhet och självständighet',
+        text: `Städare arbetar ofta ensamma och måste vara pålitliga och självständiga. Visa dessa egenskaper genom konkreta exempel: "Jag arbetar enligt checklista och säkerställer att alla områden täcks in även när jag arbetar utan tillsyn" eller "Jag har under tre år haft ansvaret för nycklar till 20+ olika objekt utan en enda incident".
+
+Noggrannhet är kritiskt – beskriv hur du säkerställer kvalitet: "Jag kontrollerar alltid mitt arbete innan jag lämnar objektet och använder dagbok för att dokumentera utförda uppgifter". Detta bygger förtroende hos arbetsgivare som inte alltid kan vara på plats.`
+      },
+      {
+        rubrik: 'Anpassa efter städmiljö och arbetsgivarens behov',
+        text: `Olika städmiljöer kräver olika kompetenser. För kontorsstäd: betona effektivitet, kvällsarbete och kunskap om hygienkrav på toaletter och kök. För institutionsstäd (skolor, äldreboenden): fokusera på hygienrutiner, diskretion och hänsyn till brukare. För hemstäd: lyft fram flexibilitet, pålitlighet och förmåga att arbeta i privatpersoners hem.
+
+Läs jobbannonsen noga och anpassa ditt brev så att det matchar arbetsgivarens specifika behov. Om annonsen nämner "flexibel arbetstid" eller "körkort", se till att du adresserar det direkt i brevet.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur lång erfarenhet behöver jag nämna som städare?',
+        svar: 'Nämn alltid antal års erfarenhet om du har det (t.ex. "4 års erfarenhet av kontors- och institutionsstäd"). Om du är ny i branschen, fokusera på relaterad erfarenhet som hushållsarbete, volontärarbete eller praktik. Betona din lärvilja: "Jag är van vid fysiskt arbete och lär mig snabbt nya rutiner och städmetoder". Många arbetsgivare är öppna för nybörjare om du visar pålitlighet och arbetsmoral.'
+      },
+      {
+        fraga: 'Ska jag nämna städutrustning och kemikalier jag kan hantera?',
+        svar: 'Ja, definitivt om du har erfarenhet. Nämn specifik utrustning som automatskurmaskin, våtdammsugare, ångtvättare eller högtryckstvätt. För kemikalier, skriv "Jag har gedigen kunskap om kemikaliehantering och arbetar säkert med både alkaliska, sura och pH-neutrala produkter enligt säkerhetsdatablad". Om du har utbildning i kemikaliehantering eller Hygienkörkort, ta absolut med det. Detta signalerar professionalism och säkerhet.'
+      },
+      {
+        fraga: 'Hur visar jag att jag är noggrann och pålitlig?',
+        svar: 'Undvik vaga påståenden som "jag är noggrann". Visa istället genom exempel: "Jag följer alltid checklista för att säkerställa att alla områden täcks in, inklusive lätt förbisedda områden som lampkupor, dörrkarmar och bakom möbler". Nämn om du hanterat nycklar utan incident, arbetat självständigt utan klagomål eller fått positiv feedback från kunder. Konkreta exempel bygger förtroende mycket starkare än tomma ord.'
+      },
+      {
+        fraga: 'Ska jag nämna schemaflexibilitet i det personliga brevet?',
+        svar: 'Ja, detta är ofta avgörande för städarbetsgivare eftersom mycket städning sker på kvällar och helger. Om du är flexibel, var tydlig: "Jag är fullt flexibel gällande arbetstider och kan arbeta dag-, kväll- och helgpass". Om du har begränsningar, fokusera på vad du KAN: "Jag är tillgänglig för kvällsarbete måndag-fredag". Nämn också om du har körkort och egen bil eftersom många städjobb kräver förflyttning mellan olika objekt.'
+      },
+      {
+        fraga: 'Hur hanterar jag ansökan om jag saknar formell erfarenhet?',
+        svar: 'Fokusera på överförbara färdigheter och personliga egenskaper. Skriv: "Jag har hanterat hushållsarbete i stora familjen i många år och förstår vikten av struktur, noggrannhet och tidseffektivitet". Nämn fysisk förmåga, detaljfokus och pålitlighet. Betona din lärvilja: "Jag är van vid att lära mig snabbt och tar gärna emot instruktioner för att utvecklas i rollen". Många städföretag utbildar nyanställda, så motivation och arbetsmoral väger ofta tyngre än erfarenhet.'
+      },
+      {
+        fraga: 'Vilka certifieringar och utbildningar är värda att nämna?',
+        svar: 'Nämn alltid Hygienkörkort, HLR/första hjälpen, kemikaliehantering, arbetsmiljöutbildning eller truckkort. Även kortare kurser som ergonomi, skyddsutrustning eller miljömärkt städning är relevanta. Skriv konkret: "Jag har Hygienkörkort och har genomgått utbildning i säker kemikaliehantering enligt arbetsmiljöverkets riktlinjer". Om du har branschutbildning som Städakademin eller liknande, lyft fram det tydligt.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Lokalvårdare', slug: 'lokalvardare' },
+      { yrke: 'Hemtjänst', slug: 'hemtjanst' },
+      { yrke: 'Vårdbiträde', slug: 'vardbitrade' },
+      { yrke: 'Köksbiträde', slug: 'koksbitrade' }
+    ]
   }
 }
 

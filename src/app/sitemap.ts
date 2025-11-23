@@ -125,6 +125,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'projektledare',
     'elevassistent',
     'kundtjanst',
+    'stadare',
     // Lägg till fler yrken här när de skapas
   ];
 
