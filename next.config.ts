@@ -217,6 +217,11 @@ const nextConfig: NextConfig = {
         destination: '/personligt-brev-exempel/servitris-restaurangbitrade',
         permanent: true,
       },
+      {
+        source: '/artiklar/personligt-brev-chef',
+        destination: '/personligt-brev-exempel/chef',
+        permanent: true,
+      },
       // Lägg till fler redirects här när fler exempel-sidor skapas
     ]
   },
