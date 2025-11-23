@@ -1750,6 +1750,125 @@ Erik Sandström`
       { yrke: 'Systemutvecklare', slug: 'systemutvecklare' },
       { yrke: 'IT-konsult', slug: 'it-konsult' }
     ]
+  },
+
+  'forskollarare': {
+    yrke: 'Förskollärare',
+    sokvolym: 1200,
+    metaTitle: 'Personligt Brev Förskollärare - Komplett exempel (2025)',
+    metaDescription: 'Exempel på personligt brev för förskollärare med pedagogisk dokumentation, Lpfö 18 och konkreta barngruppserfarenheter. Kopiera och anpassa.',
+
+    seoIntro: 'Som förskollärare avgörs ditt nästa jobb av hur väl du kan visa konkreta exempel på pedagogiskt arbete med Lpfö 18, hur du dokumenterar barns lärande och vilka metoder du använder för språkutveckling och inkludering.\n\nExemplet nedan visar hur du strukturerar ditt brev med konkreta situationer från barngruppen, specifika pedagogiska metoder och tydliga resultat. Använd denna struktur för att visa vad du faktiskt gör i vardagen, inte bara vad du "ansvarar för".',
+
+    intro: 'Exempel för förskollärare som visar hur du konkretiserar Lpfö 18-arbete, pedagogisk dokumentation och språkutveckling med verkliga situationer från barngruppen. Använd som mall för att visa din pedagogiska praktik genom konkreta exempel.',
+
+    exempelBrev: {
+      namn: 'Sara Lindqvist',
+      adress: 'Ringvägen 45, 118 60 Stockholm',
+      telefon: '070-234 56 78',
+      epost: 'sara.lindqvist@gmail.com',
+      arbetsgivare: 'Solskenets förskola, Stockholms stad',
+      roll: 'Förskollärare',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Hej Maria,
+
+Jag söker tjänsten som förskollärare på Solskenets förskola. Under sex år har jag arbetat med barn 1–5 år, där jag fokuserat på språkutveckling och inkluderande miljöer enligt Lpfö 18. Min erfarenhet kombinerar pedagogisk dokumentation med lekbaserat lärande, vilket passar era värderingar om barns egna uttryck och delaktighet.
+
+Förra hösten ledde jag ett språkutvecklingsprojekt där vi använde bildstöd och tecken som extra stöd i vardagliga situationer. Efter tre månader kunde fyra av fem tvååringar uttrycka behov och känslor tydligare, vilket minskade frustration under måltider och påklädning. Jag dokumenterade barnens utveckling genom foton och korta anteckningar som vi delade med vårdnadshavare varje vecka.
+
+När barn behöver extra stöd anpassar jag miljön och aktiviteterna. För ett barn med sensoriska behov skapade jag en lugn läshörna med mjuka kuddar och dämpad belysning. Barnet kunde där reglera sig själv och deltog sedan i gruppaktiviteter på sina egna villkor. Jag arbetar också nära specialpedagoger och logopeder när barn behöver ytterligare insatser.
+
+Jag vill arbeta på Solskenets förskola för att ni värdesätter barnens egna initiativ och har ett etablerat samarbete med föräldrarna. Era utegårdsaktiviteter och projektet om hållbarhet stämmer väl med mitt sätt att arbeta. Jag uppskattar en arbetsplats där man reflekterar tillsammans och lär av varandra i arbetslaget.
+
+Jag kan börja den 1 mars och ser fram emot att berätta mer om mitt arbete med språkutveckling och inkludering.
+
+Med vänliga hälsningar,
+Sara Lindqvist`
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Konkreta exempel från barngruppen',
+        beskrivning: 'Språkutvecklingsprojektet med bildstöd visar resultat (4 av 5 barn) istället för att bara lista ansvarsområden. Rekryterare ser att du inte bara jobbar med språk, du driver faktiska förbättringar.'
+      },
+      {
+        titel: 'Lpfö 18 i praktiken',
+        beskrivning: 'Istället för att säga "jag följer läroplanen" visar du hur du använder barnens uttryck som utgångspunkt. Läshörnan för barnet med sensoriska behov är ett konkret exempel på hur du tillämpar delaktighet och individanpassning.'
+      },
+      {
+        titel: 'Samarbete utan fluff',
+        beskrivning: 'Du nämner specialpedagoger och logopeder utan att överdriva din roll. Det visar att du vet när experthjälp behövs och att du kan arbeta i team.'
+      },
+      {
+        titel: 'Varför just denna förskola',
+        beskrivning: 'Du refererar till specifika delar av deras verksamhet (utegård, hållbarhetsprojekt, föräldrasamarbete). Det visar att du faktiskt undersökt förskolan och inte skickat ett generiskt brev till tio ställen.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Visa Lpfö 18 genom vardagssituationer',
+        text: 'Skriv inte "Jag arbetar enligt Lpfö 18 med fokus på demokratiska värden". Skriv istället hur du faktiskt använder läroplanen. Exempel: "När barnen valde temat för vårt höstprojekt lät jag dem rösta mellan skogen och havet. Vi räknade rösterna tillsammans och pratade om varför alla får vara med och bestämma." Det visar att du tillämpar demokrati och delaktighet utan att använda pedagogiska buzzwords.'
+      },
+      {
+        rubrik: 'Beskriv hur du dokumenterar',
+        text: 'Rekryterare vill veta hur du faktiskt jobbar med pedagogisk dokumentation. Skriv: "Jag fotograferar barnens byggen och teckningar och lägger sedan upp bilderna i barnhöjd med deras egna beskrivningar. Varje fredag sammanställer jag observationer i vår digitala plattform så att vi kan följa utvecklingen över tid." Det är mer användbart än "Jag är van vid pedagogisk dokumentation".'
+      },
+      {
+        rubrik: 'Konkretisera språkutveckling',
+        text: 'Berätta vilka metoder du använt och vad som hände. Exempel: "För barn med svenska som andraspråk använder jag bildstöd vid samling och upprepar nyckelord under hela dagen. Ett barn som först pekade på bilder kunde efter två månader säga hela fraser som \'jag vill ha mer vatten\'." Specificera vad du gjorde och vilket resultat det gav.'
+      },
+      {
+        rubrik: 'Visa hur du hanterar utmanande situationer',
+        text: 'Skriv om en specifik situation där du anpassade verksamheten. Exempel: "Ett barn med behov av tydlig struktur fick en visuell dagskarta med bilder på aktiviteter. Barnet kunde då förutse vad som skulle hända och övergångarna mellan aktiviteter blev lugnare." Det visar problemlösning utan att du behöver skriva "jag är flexibel och anpassningsbar".'
+      },
+      {
+        rubrik: 'Förklara varför du vill jobba där',
+        text: 'Referera till något konkret på förskolans hemsida eller i annonsen. Skriv: "Era naturpedagogiska aktiviteter passar mitt sätt att arbeta. Jag har tidigare lett uteprojekt där barn fick undersöka årstidernas växter och insekter, och jag skulle gärna fortsätta det arbetet hos er." Det visar att du faktiskt valt just denna förskola.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur visar jag Lpfö 18-kunskap utan att låta akademisk?',
+        a: 'Beskriv konkreta situationer där du tillämpat läroplanen. Istället för "Jag arbetar med barnens inflytande" skriv: "Barnen fick välja vilka lekar vi skulle ha ute och vi pratade om varför allas idéer är viktiga." Det visar praktisk tillämpning.'
+      },
+      {
+        q: 'Hur lång erfarenhet behöver jag nämna?',
+        a: 'Fokusera på relevant erfarenhet. Om du jobbat sex år behöver du inte rada upp alla förskolor. Välj 2–3 exempel som visar variation (olika åldrar, språkutveckling, specialpedagogik) och beskriv vad du faktiskt gjorde.'
+      },
+      {
+        q: 'Ska jag nämna specifika metoder jag använder?',
+        a: 'Ja, om de är relevanta. Nämn bildstöd, tecken som AKK, lekbaserat lärande eller dokumentationsverktyg du använt (t.ex. Unikum, Lärande Luppa). Det visar konkret kompetens istället för generella påståenden.'
+      },
+      {
+        q: 'Hur beskriver jag arbete med barn som behöver extra stöd?',
+        a: 'Ge ett konkret exempel utan att dela känslig information. Skriv: "För ett barn med sensoriska behov anpassade jag miljön med en lugn hörna och färre visuella intryck. Barnet kunde då delta i gruppaktiviteter när det kände sig redo." Det visar anpassningsförmåga.'
+      },
+      {
+        q: 'Hur mycket ska jag skriva om föräldrasamarbete?',
+        a: 'Ett kort, konkret exempel räcker. T.ex: "Jag delar barnets lärande genom korta videor och foton varje vecka, och på utvecklingssamtal använder jag dokumentation som visar barnets framsteg." Det bevisar att du faktiskt samarbetar.'
+      },
+      {
+        q: 'Hur undviker jag att låta för självcentrerad?',
+        a: 'Skriv "vi" när du beskriver teamarbete och "jag" när du visar ditt specifika bidrag. Balansera mellan egen kompetens och förmåga att samarbeta. Exempel: "Jag tog initiativ till projektet, och tillsammans med kollegorna utvecklade vi det under hela hösten."'
+      },
+      {
+        q: 'Ska jag nämna fortbildningar?',
+        a: 'Bara om de är relevanta för tjänsten. Om annonsen nämner trauma eller språkutveckling och du gått kurs i det, ta med det. Annars räcker det att visa kompetens genom konkreta exempel från din praktik.'
+      },
+      {
+        q: 'Hur avslutar jag brevet på ett naturligt sätt?',
+        a: 'Skriv när du kan börja och visa intresse för nästa steg. Exempel: "Jag kan börja den 1 mars och ser fram emot att berätta mer om mitt arbete med språkutveckling." Undvik fluffiga fraser som "jag skulle vara en tillgång för er verksamhet".'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Barnskötare', slug: 'barnskotare' },
+      { yrke: 'Lärare', slug: 'larare' },
+      { yrke: 'Fritidspedagog', slug: 'fritidspedagog' },
+      { yrke: 'Specialpedagog', slug: 'specialpedagog' }
+    ]
   }
 }
 
