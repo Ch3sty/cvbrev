@@ -1988,6 +1988,125 @@ Lisa Bergström`
       { yrke: 'Vårdadministratör', slug: 'vardadministrator' },
       { yrke: 'Kundtjänstmedarbetare', slug: 'kundtjanstmedarbetare' }
     ]
+  },
+
+  'lagerarbetare': {
+    yrke: 'Lagerarbetare',
+    sokvolym: 980,
+    metaTitle: 'Personligt Brev Lagerarbetare: Visa ditt truckkort och din effektivitet rätt (2025)',
+    metaDescription: 'Se hur Marcus visar truckkort, plockningseffektivitet (150 rader/timme) och WMS-vana i sitt brev. Konkret exempel för lagerarbetare.',
+
+    seoIntro: 'Rekryterare inom logistik bryr sig inte om fluffiga beskrivningar av "noggrannhet". De vill se truckkort A och B, plockningseffektivitet på 150+ orderrader/timme, och ett fläckfritt säkerhetsrekord. De letar efter kandidater som kan börja jobba dag ett utan omfattande introduktion, som behärskar WMS-system som Ongoing eller Monitor, och som förstår säkerhetsrutiner i en miljö med tunga lyft och trucktrafik.\n\nMarcus leder med truckcertifieringar, skriver konkreta siffror från sitt jobb, och listar WMS-verktyg han använt. Han kombinerar praktisk kompetens med säkerhetsmedvetenhet. Det är vad logistikföretag behöver när de ska välja mellan 50 likadana CV. Använd denna struktur så ser rekryteraren direkt att du kan jobbet.',
+
+    intro: 'Marcus har truckkort A och B, plockar 150 orderrader/timme med 99.8% noggrannhet, och har noll olyckor på tre år. Han nämner truckkorten i första meningen, skriver konkreta siffror, och påpekar säkerhetsrekordet. Han skriver vilket WMS-system han använt (Ongoing) och kopplar sin erfarenhet till PostNords automatiserade lager. Följ strukturen så ser du kompetent ut direkt.',
+
+    exempelBrev: {
+      namn: 'Marcus Andersson',
+      adress: 'Exportgatan 12, 422 46 Hisings Backa',
+      telefon: '070-234 56 78',
+      epost: 'marcus.andersson@email.se',
+      arbetsgivare: 'PostNord Logistics AB',
+      roll: 'Lagerarbetare',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Hej,
+
+Jag söker tjänsten som lagerarbetare på PostNord Logistics i Göteborg. Med tre års erfarenhet från DHLs centrallager och truckkort A och B är jag redo att köra truck och plocka order från dag ett. Jag är van vid e-handelslogistikens högsäsong: Black Friday, jul, rea-perioder.
+
+På DHL plockar jag konsekvent 150 orderrader per timme med 99.8% noggrannhet. Det är bättre än teamgenomsnittet på 120 rader/timme. Under 2024 hanterade jag över 45 000 orderrader och flyttade cirka 8 000 pallar. Jag har aldrig haft en olycka eller incident på tre år.
+
+Jag använder WMS-systemet Ongoing dagligen och kör både motviktstruck och skjutstativtruck, även i trånga utrymmen. Jag följer alla säkerhetsrutiner: LMRA före truckkörning, skyddsutrustning, ergonomiska lyfttekniker. Jag klarar tunga lyft och långa skift, även under högsäsong. Jag jobbar regelbundet 10-timmarsskift.
+
+PostNords automatiserade sorteringssystem och er satsning på säkerhet är anledningen till att jag söker hit. Ni behöver någon som kan jobba självständigt i automatiserade miljöer. Det kan jag. Jag vill jobba för Nordens största logistikföretag. Och jag planerar att ta truckkort C under 2025.
+
+Jag växte upp i Hisings Backa och har sett PostNords terminal varje dag på väg till jobbet. Nu vill jag jobba där. Jag kan börja med kort varsel. Kontakta mig gärna för en intervju.
+
+Med vänlig hälsning,
+Marcus Andersson`
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Truckkort och certifieringar framme direkt',
+        beskrivning: 'Marcus nämner truckkort A och B i första stycket. Det är det första rekryterare letar efter vid screening av lagerarbetare. Ingen måste gissa om han kan köra truck.'
+      },
+      {
+        titel: 'Kvantifierade effektivitetsmått',
+        beskrivning: '150 orderrader/timme, 99.8% noggrannhet, 45 000 orderrader årligen, 8 000 pallar. Siffrorna ger omedelbar trovärdighet och visar att han tillhör toppskiktet. Plus kontext: bättre än teamgenomsnittet på 120 rader/timme.'
+      },
+      {
+        titel: 'Säkerhetsrekord istället för vaga påståenden',
+        beskrivning: '"Aldrig haft en olycka på tre år" slår "jag är säkerhetsmedveten". Han nämner också konkreta rutiner (LMRA, skyddsutrustning, ergonomiska lyfttekniker) utan att låta som en manual.'
+      },
+      {
+        titel: 'Human touch med lokal koppling',
+        beskrivning: 'Marcus växte upp i Hisings Backa och har sett terminalen varje dag. Det visar genuint intresse för just detta företag, inte ett massutskick till alla lager i Göteborg.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Nämn truckcertifieringar tidigt',
+        text: 'Skriv truckkort A (motviktstruck), B (skjutstativtruck), C (traktortruck) eller D (terränglyftare) i första stycket. Lägg till relevanta tilläggscertifieringar som arbetsmiljökort, ADR-certifikat (farligt gods), eller ISO-certifieringar. Om certifikaten har gått ut, skriv "tidigare innehaft" och visa att du är beredd att förnya dem. Rekryterare screener efter detta.'
+      },
+      {
+        rubrik: 'Kvantifiera din effektivitet',
+        text: 'Använd konkreta mått istället för "jag är noggrann". Exempel: "150 orderrader per timme", "99.8% plockningsnoggrannhet", "8 000 pallar hanterade årligen", eller "95% leveransprecision enligt KPI-mål".\n\nOm du arbetat under högsäsong (Black Friday, jul), nämn volymökningar: "Bibehöll 98% noggrannhet trots 200% volymökning under Black Week." Ge kontext: "Bättre än teamgenomsnittet på 120 rader/timme." Siffror ger omedelbar trovärdighet.'
+      },
+      {
+        rubrik: 'Visa säkerhetsmedvetenhet konkret',
+        text: 'Gå bortom "jag är säkerhetsmedveten". Nämn säkerhetsrutiner du följer (LMRA, riskbedömningar före truckkörning), verktyg du använder (skyddsskor, varselväst, handskar), och ditt säkerhetsrekord ("inga arbetsolyckor på 36 månader", "genomfört 12 säkerhetsutbildningar"). Om du deltagit i säkerhetsarbete som brandskyddsombud, skyddsronder eller säkerhetskommittéer, lyft det.'
+      },
+      {
+        rubrik: 'Beskriv systemvana med specifika verktyg',
+        text: 'Nämn WMS-system du behärskar: Ongoing Warehouse, Monitor, SAP EWM, ILS, Manhattan, AutoStore. Nämn hårdvara: handdatorer (Zebra TC-serie, Honeywell), röststyrning (voice picking), streckkodsskannrar, eller RF-terminaler.\n\nOm du arbetat med automatiserade plockningssystem (AutoStore, goods-to-person), lyft detta. Det är meriterande för moderna e-handelslager. Exempel: "Daglig vana av Ongoing WMS och Zebra TC52-handdatorer för orderplockning."'
+      },
+      {
+        rubrik: 'Anpassa till lagertyp',
+        text: 'E-handelslager kräver högt tempo: "Van vid högsäsong, arbete på kvällar/helger". Industrilager betonar tunga lyft: "Van vid pallytor över 500 kg, hantering av långgods". Kyllager kräver uthållighet: "Van vid arbete i frysmiljö -25°C med korrekta kläder och pausrutiner". Lager för farligt gods betonar regelefterlevnad: "ADR-certifierad, van vid ADR-klassificering och separat lagring". Visa att du förstår just deras miljö.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur visar jag noggrannhet utan att låta generisk?',
+        a: 'Undvik "jag är noggrann och ansvarstagande". Kvantifiera istället: "99.8% plockningsnoggrannhet enligt WMS-statistik", "färre än 2 felplockningar per 1000 orderrader", eller "inga reklamationer relaterade till fel produkt under 2024". Om ditt lager har KPI:er för noggrannhet, referera till dessa: "Överträffar lagrets KPI-mål (95%) med konsekvent 98-99%." Konkreta siffror ger omedelbar trovärdighet.'
+      },
+      {
+        q: 'Vilka truckcertifieringar ska jag nämna?',
+        a: 'Nämn alltid dina truckkort tidigt: A (motviktstruck upp till 10 ton), B (skjutstativtruck), C (traktortruck över 10 ton), D (terränglyftare). Utöver truckkort, lyft relevanta tilläggscertifieringar: arbetsmiljökortet, ADR-certifikat (farligt gods), reachtruckcertifiering, höjdarbetskort, kranutbildning, eller ISO-certifieringar. Om du är brandskyddsombud, första hjälpen-utbildad, eller genomgått säkerhetsutbildningar (LMRA, arbetsmiljö), nämn detta.'
+      },
+      {
+        q: 'Hur beskriver jag fysisk förmåga professionellt?',
+        a: 'Undvik "jag är stark" eller "jag gillar att träna". Fokusera på arbetsmässig kapacitet: "Van vid tunga lyft upp till 25 kg och hantering av pallytor över 500 kg med truck", "Bibehåller högt tempo under hela 8-timmarsskift", eller "Van vid arbete i stående och gående under hela arbetsdagen". Om du arbetat i extrema förhållanden (kyllager -25°C, varmlager +30°C), nämn detta som bevis på uthållighet. Lyft ergonomisk kompetens: "Utbildad i ergonomiska lyfttekniker och använder alltid rätt hjälpmedel."'
+      },
+      {
+        q: 'Ska jag nämna specifika WMS-system?',
+        a: 'Ja, absolut. Att nämna konkreta system visar att du kan börja producera snabbt. Lista WMS-system du behärskar: Ongoing Warehouse, Monitor WMS, SAP EWM, ILS, Manhattan, Consafe Logistics. Nämn hårdvara: Zebra TC-serien (handdatorer), Honeywell-skannrar, röststyrd plockning (voice picking), AutoStore (goods-to-person-system), eller RF-terminaler. Exempel: "Daglig vana av Ongoing WMS och Zebra TC52-handdatorer för orderplockning och lagerinventering."'
+      },
+      {
+        q: 'Hur visar jag säkerhetsmedvetenhet trovärdigt?',
+        a: 'Gå bortom "jag är säkerhetsmedveten". Ge konkreta bevis. Nämn ditt säkerhetsrekord: "Inga arbetsolyckor eller tillbud under 36 månader", "Noll arbetsfrånvaro på grund av arbetsskada". Beskriv rutiner du följer: "Utför LMRA före varje truckkörning", "Deltar i månatliga säkerhetsronder", "Rapporterar riskobservationer proaktivt". Om du haft säkerhetsroller (brandskyddsombud, skyddsombud, medlem i skyddskommitté), lyft detta. Nämn korrekt användning av skyddsutrustning: "Använder alltid skyddsskor, varselkläder och handskar."'
+      },
+      {
+        q: 'Hur anpassar jag brevet för e-handel vs industri?',
+        a: 'E-handelslager kräver högt tempo, flexibilitet och småplockartiklar: "Van vid orderplockning med 150+ rader/timme i snabbrörligt e-handelslager", "Erfaren av högsäsonger (Black Week, jul) med 200% volymökning", "Flexibel med skiftarbete, kvällar och helger". Industrilager betonar tunga lyft och bulkhantering: "Van vid hantering av pallytor över 800 kg och långa stålrör med skjutstativtruck", "Erfaren av råvarulager med långtidslagring och FIFO-principer". Kyllager kräver uthållighet: "3 års erfarenhet av arbete i fryslager -25°C med korrekta arbetskläder och pausrutiner".'
+      },
+      {
+        q: 'Ska jag nämna skiftarbete och obekväma tider?',
+        a: 'Ja, särskilt om platsannonsen nämner skift, kvällar eller helgarbete. Logistikbranschen kräver ofta flexibilitet. Exempel: "Van vid 3-skiftsarbete och flexibel med arbetstider", "Erfaren av helgarbete och kvällsskift under högsäsong", "Ingen problematik med tidig morgonstart (05:00) eller sena kvällsskift". Om du arbetat natt: "2 års erfarenhet av nattskift (22:00-06:00) med bibehållen hög produktivitet." Visa att du förstår varför flexibilitet krävs: "Förstår logistikbranschens krav på flexibilitet för att möta kundernas leveransbehov."'
+      },
+      {
+        q: 'Hur avslutar jag brevet professionellt?',
+        a: 'Avsluta med en tydlig, handlingsorienterad mening. Exempel: "Jag kan börja med kort varsel och ser fram emot att diskutera hur min erfarenhet kan bidra till [företagsnamn]s logistikverksamhet." eller "Kontakta mig gärna för en intervju där jag kan berätta mer om min truckvana och erfarenhet från högvolymlager." Om du har särskilt kort uppsägningstid: "Jag har 14 dagars uppsägningstid och kan därefter börja omedelbart." Avsluta alltid med "Med vänlig hälsning" följt av ditt namn. Håll avslutningen kort (40-50 ord).'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Truckförare', slug: 'truckforare' },
+      { yrke: 'Logistikassistent', slug: 'logistikassistent' },
+      { yrke: 'Lagerchef', slug: 'lagerchef' },
+      { yrke: 'Terminalarbetare', slug: 'terminalarbetare' }
+    ]
   }
 }
 
