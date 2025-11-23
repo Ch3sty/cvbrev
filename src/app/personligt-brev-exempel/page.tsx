@@ -402,16 +402,16 @@ const coverLetterExamples: CoverLetterExample[] = [
     }
   },
   {
-    id: 'stadare',
-    yrke: 'Städare',
-    slug: 'stadare',
+    id: 'lokalvardare-alt',
+    yrke: 'Lokalvårdare',
+    slug: 'lokalvardare',
     kategori: 'service',
     niva: 'nybörjare',
-    sokvolym: 240,
+    sokvolym: 850,
     icon: Sparkles,
     gradient: 'from-teal-500 via-emerald-600 to-green-700',
     preview: {
-      intro: 'Betonar noggrannhet, effektivitet och kvalitetsmedvetenhet i städarbete.',
+      intro: 'Betonar noggrannhet, effektivitet och kvalitetsmedvetenhet i professionell lokalvård.',
       highlight: ['Professionella städmetoder', 'Kemikaliekunskap & säkerhet', 'Självständighet & kvalitet']
     }
   },
