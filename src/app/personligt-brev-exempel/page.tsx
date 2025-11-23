@@ -316,6 +316,146 @@ const coverLetterExamples: CoverLetterExample[] = [
       intro: 'Betonar kvalitetsmedvetenhet, hygienkunskap och pålitlighet i professionell städmiljö.',
       highlight: ['Yrkesmässiga städmetoder', 'Kemikaliehantering & HACCP', 'Självständighet & tidsplanering']
     }
+  },
+  {
+    id: 'butiksbitrade',
+    yrke: 'Butiksbiträde',
+    slug: 'butiksbitrade',
+    kategori: 'service',
+    niva: 'nybörjare',
+    sokvolym: 670,
+    icon: ShoppingCart,
+    gradient: 'from-green-400 via-emerald-500 to-teal-600',
+    preview: {
+      intro: 'Framhäver servicemedvetenhet, försäljning och praktiskt butiksarbete för retail.',
+      highlight: ['Kundmöte & kassahantering', 'Lagerrutiner & varuhantering', 'Merförsäljning & butiksordning']
+    }
+  },
+  {
+    id: 'servitris-restaurangbitrade',
+    yrke: 'Servitris/Restaurangbiträde',
+    slug: 'servitris-restaurangbitrade',
+    kategori: 'service',
+    niva: 'nybörjare',
+    sokvolym: 530,
+    icon: Coffee,
+    gradient: 'from-orange-400 via-amber-500 to-yellow-600',
+    preview: {
+      intro: 'Lyfter gästbemötande, tempo och servicekänsla i restaurangmiljö.',
+      highlight: ['Gästservice & beställningshantering', 'Tempo & stresshantering', 'Matsäkerhet & hygienrutiner']
+    }
+  },
+  {
+    id: 'chef',
+    yrke: 'Chef',
+    slug: 'chef',
+    kategori: 'offentlig-sektor',
+    niva: 'chef',
+    sokvolym: 490,
+    icon: Users,
+    gradient: 'from-slate-600 via-gray-700 to-slate-800',
+    preview: {
+      intro: 'Demonstrerar ledarskap, strategisk kompetens och förmåga att driva team.',
+      highlight: ['Strategiskt ledarskap & målstyrning', 'Teamutveckling & medarbetarskap', 'Budget & verksamhetsansvar']
+    }
+  },
+  {
+    id: 'projektledare',
+    yrke: 'Projektledare',
+    slug: 'projektledare',
+    kategori: 'offentlig-sektor',
+    niva: 'erfaren',
+    sokvolym: 290,
+    icon: Target,
+    gradient: 'from-blue-500 via-indigo-600 to-blue-700',
+    preview: {
+      intro: 'Betonar projektplanering, stakeholder management och leverans inom tid och budget.',
+      highlight: ['Agil & traditionell projektmetodik', 'Riskhantering & resursstyrning', 'Stakeholder kommunikation']
+    }
+  },
+  {
+    id: 'elevassistent',
+    yrke: 'Elevassistent',
+    slug: 'elevassistent',
+    kategori: 'utbildning',
+    niva: 'nybörjare',
+    sokvolym: 260,
+    icon: GraduationCap,
+    gradient: 'from-purple-400 via-pink-500 to-purple-600',
+    preview: {
+      intro: 'Visar pedagogiskt stöd, individuell anpassning och tålamod i skolmiljö.',
+      highlight: ['Elevstöd & anpassningar', 'Samarbete med lärare', 'Trygghet & relationsskapande']
+    }
+  },
+  {
+    id: 'kundtjanst',
+    yrke: 'Kundtjänst',
+    slug: 'kundtjanst',
+    kategori: 'service',
+    niva: 'nybörjare',
+    sokvolym: 250,
+    icon: Phone,
+    gradient: 'from-cyan-400 via-blue-500 to-cyan-600',
+    preview: {
+      intro: 'Lyfter kommunikationsförmåga, problemlösning och servicefokus mot kunder.',
+      highlight: ['Telefonservice & chatsupport', 'Ärendehantering & CRM-system', 'Problemlösning & konflikthantering']
+    }
+  },
+  {
+    id: 'stadare',
+    yrke: 'Städare',
+    slug: 'stadare',
+    kategori: 'service',
+    niva: 'nybörjare',
+    sokvolym: 240,
+    icon: Sparkles,
+    gradient: 'from-teal-500 via-emerald-600 to-green-700',
+    preview: {
+      intro: 'Betonar noggrannhet, effektivitet och kvalitetsmedvetenhet i städarbete.',
+      highlight: ['Professionella städmetoder', 'Kemikaliekunskap & säkerhet', 'Självständighet & kvalitet']
+    }
+  },
+  {
+    id: 'vardbitrade',
+    yrke: 'Vårdbiträde',
+    slug: 'vardbitrade',
+    kategori: 'vard',
+    niva: 'nybörjare',
+    sokvolym: 220,
+    icon: Heart,
+    gradient: 'from-pink-500 via-rose-600 to-red-700',
+    preview: {
+      intro: 'Framhäver omvårdnad, empati och praktiskt stöd till patienter och brukare.',
+      highlight: ['Personlig omvårdnad & ADL-stöd', 'Hygien & omsorgskvalitet', 'Teamsamarbete i vården']
+    }
+  },
+  {
+    id: 'hemtjanst',
+    yrke: 'Hemtjänst',
+    slug: 'hemtjanst',
+    kategori: 'vard',
+    niva: 'nybörjare',
+    sokvolym: 200,
+    icon: Users,
+    gradient: 'from-indigo-400 via-purple-500 to-indigo-600',
+    preview: {
+      intro: 'Visar flexibilitet, omtanke och förmåga att stötta äldre i hemmet.',
+      highlight: ['Hemvård & social omsorg', 'Praktiskt stöd & ADL', 'Dokumentation & flexibilitet']
+    }
+  },
+  {
+    id: 'kock',
+    yrke: 'Kock',
+    slug: 'kock',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 190,
+    icon: Wrench,
+    gradient: 'from-red-500 via-orange-600 to-red-700',
+    preview: {
+      intro: 'Demonstrerar kulinarisk kompetens, matsäkerhet och effektivitet under press.',
+      highlight: ['Matlagning & menuplanering', 'Hygien & HACCP-kunskap', 'Kreativitet & tempo']
+    }
   }
 ]
 

@@ -197,6 +197,16 @@ const nextConfig: NextConfig = {
         destination: '/personligt-brev-exempel/personlig-assistent',
         permanent: true,
       },
+      {
+        source: '/artiklar/personligt-brev-butiksbitrade',
+        destination: '/personligt-brev-exempel/butiksbitrade',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-butiksmedarbetare',
+        destination: '/personligt-brev-exempel/butiksbitrade',
+        permanent: true,
+      },
       // Lägg till fler redirects här när fler exempel-sidor skapas
     ]
   },

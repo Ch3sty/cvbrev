@@ -119,6 +119,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'lakare',
     'receptionist',
     'lokalvardare',
+    'butiksbitrade',
     // Lägg till fler yrken här när de skapas
   ];
 
