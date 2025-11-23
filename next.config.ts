@@ -232,6 +232,17 @@ const nextConfig: NextConfig = {
         destination: '/personligt-brev-exempel/stadare',
         permanent: true,
       },
+      // Generella exempel-artiklar som redirectar till galleriet
+      {
+        source: '/artiklar/personligt-brev-exempel-roller',
+        destination: '/personligt-brev-exempel',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-exempel-unga',
+        destination: '/personligt-brev-exempel/student',
+        permanent: true,
+      },
       // OBS: Lägg INTE till redirects för nya yrken automatiskt!
       // Endast yrken som hade gamla artiklar under /artiklar/personligt-brev-* behöver redirects
     ]

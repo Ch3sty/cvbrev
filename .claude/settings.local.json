@@ -26,7 +26,8 @@
       "Bash(ls:*)",
       "Bash(nul)",
       "Bash(findstr:*)",
-      "Bash(dir /b \"c:\\Users\\chris\\cvbrev\\src\\app\\personligt-brev-exempel\")"
+      "Bash(dir /b \"c:\\Users\\chris\\cvbrev\\src\\app\\personligt-brev-exempel\")",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": []
