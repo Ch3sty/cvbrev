@@ -2261,20 +2261,20 @@ Anna Bergström`
     },
     varforDetFungerar: [
       {
-        rubrik: 'Erfarenhet från rätt miljöer',
-        text: 'Hon nämner både vårdlokaler och kontorsmiljöer, vilket visar bredd. Att specificera 2 500 kvm och nämna Karolinska gör att arbetsgivaren litar på henne direkt. Arbetsgivare ser att hon jobbat i miljöer där hygien verkligen spelar roll – där dålig hygien kan bli farligt.'
+        titel: 'Erfarenhet från rätt miljöer',
+        beskrivning: 'Hon nämner både vårdlokaler och kontorsmiljöer, vilket visar bredd. Att specificera 2 500 kvm och nämna Karolinska gör att arbetsgivaren litar på henne direkt. Arbetsgivare ser att hon jobbat i miljöer där hygien verkligen spelar roll – där dålig hygien kan bli farligt.'
       },
       {
-        rubrik: 'HACCP-kunskap och säker hantering av kemikalier',
-        text: 'Anna visar sin HACCP-kunskap och utbildning i kemikaliehantering. Det visar att hon har utbildning och erfarenhet, inte bara grundkunskaper. Det visar också att hon kan hantera ansvarsfulla uppdrag där livsmedelsäkerhet och smittskydd är viktigt.'
+        titel: 'HACCP-kunskap och säker hantering av kemikalier',
+        beskrivning: 'Anna visar sin HACCP-kunskap och utbildning i kemikaliehantering. Det visar att hon har utbildning och erfarenhet, inte bara grundkunskaper. Det visar också att hon kan hantera ansvarsfulla uppdrag där livsmedelsäkerhet och smittskydd är viktigt.'
       },
       {
-        rubrik: 'Mätbara resultat ger bevis',
-        text: '97% i kvalitetskontroller är verkligt bevis på att Anna levererar. Istället för att säga "jag är noggrann" visar hon faktiska resultat. Det får rekryteraren att lita på att hon verkligen håller hög standard.'
+        titel: 'Mätbara resultat ger bevis',
+        beskrivning: '97% i kvalitetskontroller är verkligt bevis på att Anna levererar. Istället för att säga "jag är noggrann" visar hon faktiska resultat. Det får rekryteraren att lita på att hon verkligen håller hög standard.'
       },
       {
-        rubrik: 'Självständighet och planering betonas',
-        text: 'Hon visar att hon kan planera sitt arbete och prioritera rätt, vilket är viktigt när man ofta jobbar själv. Hon visar också förståelse för kommunikation med verksamheten, något många lokalvårdare glömmer att nämna.'
+        titel: 'Självständighet och planering betonas',
+        beskrivning: 'Hon visar att hon kan planera sitt arbete och prioritera rätt, vilket är viktigt när man ofta jobbar själv. Hon visar också förståelse för kommunikation med verksamheten, något många lokalvårdare glömmer att nämna.'
       }
     ],
     tips: [
@@ -2377,24 +2377,24 @@ Anna Bergström`
     },
     varforDetFungerar: [
       {
-        rubrik: 'Juridiska nyckelord för ATS-optimering',
-        text: 'Brevet innehåller centrala sökord som ATS-system söker efter. Exempel: SoL, LVU, förvaltningsrätt, BBIC-metodiken, vårdplaner, utredningsmetodik, beslutsunderlag, rättssäkerhet och kvalitetssäkring. Det gör att brevet rankas högt i automatiska system och når rekryteraren.'
+        titel: 'Juridiska nyckelord för ATS-optimering',
+        beskrivning: 'Brevet innehåller centrala sökord som ATS-system söker efter. Exempel: SoL, LVU, förvaltningsrätt, BBIC-metodiken, vårdplaner, utredningsmetodik, beslutsunderlag, rättssäkerhet och kvalitetssäkring. Det gör att brevet rankas högt i automatiska system och når rekryteraren.'
       },
       {
-        rubrik: 'Kvantifierad arbetsbelastning och erfarenhet',
-        text: 'Siffror gör brevet trovärdigt: "25-30 öppna ärenden samtidigt", "sex års erfarenhet". Rekryteraren ser direkt om Anna klarar arbetsbelastningen och har rätt erfarenhet. Istället för allmänna påståenden visar Anna mätbara resultat.'
+        titel: 'Kvantifierad arbetsbelastning och erfarenhet',
+        beskrivning: 'Siffror gör brevet trovärdigt: "25-30 öppna ärenden samtidigt", "sex års erfarenhet". Rekryteraren ser direkt om Anna klarar arbetsbelastningen och har rätt erfarenhet. Istället för allmänna påståenden visar Anna mätbara resultat.'
       },
       {
-        rubrik: 'Juridisk precision med verkliga exempel',
-        text: 'Brevet visar juridisk förståelse genom exempel: utredning som höll vid överprövning i förvaltningsrätten tack vare korrekt rättighetsutredning. Anna visar att hon inte bara känner till lagrum utan använder dem korrekt – även under press och juridisk granskning.'
+        titel: 'Juridisk precision med verkliga exempel',
+        beskrivning: 'Brevet visar juridisk förståelse genom exempel: utredning som höll vid överprövning i förvaltningsrätten tack vare korrekt rättighetsutredning. Anna visar att hon inte bara känner till lagrum utan använder dem korrekt – även under press och juridisk granskning.'
       },
       {
-        rubrik: 'Tväradministrativt samarbete som styrka',
-        text: 'Handläggare arbetar sällan isolerat. Brevet nämner samordning med polis, skola, BUP och familjehemskonsulent, vilket bevisar att Anna förstår att utredningar kräver multiprofessionellt samarbete. Rekryterare söker handläggare som kan samarbeta med andra myndigheter.'
+        titel: 'Tväradministrativt samarbete som styrka',
+        beskrivning: 'Handläggare arbetar sällan isolerat. Brevet nämner samordning med polis, skola, BUP och familjehemskonsulent, vilket bevisar att Anna förstår att utredningar kräver multiprofessionellt samarbete. Rekryterare söker handläggare som kan samarbeta med andra myndigheter.'
       },
       {
-        rubrik: 'Systematiskt kvalitetsarbete och rättssäkerhet',
-        text: 'Anna tar upp kollegial granskning, juristkontakt, processregler och dokumentation. Anna visar att hon förstår att varje beslut kan granskas och att rättssäkerhet är A och O. Rekryterare värderar handläggare som arbetar strukturerat och kvalitetssäkrat.'
+        titel: 'Systematiskt kvalitetsarbete och rättssäkerhet',
+        beskrivning: 'Anna tar upp kollegial granskning, juristkontakt, processregler och dokumentation. Anna visar att hon förstår att varje beslut kan granskas och att rättssäkerhet är A och O. Rekryterare värderar handläggare som arbetar strukturerat och kvalitetssäkrat.'
       }
     ],
     tips: [
