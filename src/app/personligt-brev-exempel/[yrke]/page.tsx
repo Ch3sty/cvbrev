@@ -1632,6 +1632,124 @@ Sofia Lindgren`
       { yrke: 'Boendestödjare', slug: 'boendestod' },
       { yrke: 'LSS-handläggare', slug: 'lss-handlaggare' }
     ]
+  },
+
+  'ingenjor': {
+    yrke: 'Ingenjör',
+    sokvolym: 1400,
+    metaTitle: 'Personligt Brev Ingenjör - Färdigt exempel (2025)',
+    metaDescription: 'Komplett exempel på personligt brev för ingenjör med konkreta prestationer, tekniska kompetenser och ATS-optimering. Kopiera och anpassa direkt.',
+
+    seoIntro: 'Som ingenjör konkurrerar du i en marknad där teknisk kompetens, dokumenterade resultat och förmåga att leverera projekt i tid avgör vem som får jobbet. Ett personligt brev som visar konkreta siffror från dina projekt fungerar betydligt bättre än generiska beskrivningar av vad du "ansvarat för".\n\nExemplet nedan visar hur du strukturerar ditt brev för att bevisa kompetens genom kvantifierbara resultat, tekniska färdigheter och konkreta exempel på problemlösning. Kopiera strukturen och anpassa till din egen bakgrund och den specifika tjänsten du söker.',
+
+    intro: 'Exempel för civilingenjör som visar hur du kvantifierar tekniska resultat (18% energiminskning, 220 000 kr besparingar), nämner specifika verktyg (CATIA, MATLAB, FEM-analys) och kopplar fordonsindustri-erfarenhet till vindkraft. Använd som mall för att visa konkreta prestationer istället för vaga ansvarsområden.',
+
+    exempelBrev: {
+      namn: 'Erik Sandström',
+      adress: 'Vasagatan 22, 411 24 Göteborg',
+      telefon: '070-485 23 16',
+      epost: 'erik.sandstrom@outlook.com',
+      arbetsgivare: 'TechSolutions Nordic AB',
+      roll: 'Civilingenjör, Systemutveckling',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Hej Anna,
+
+Jag söker tjänsten som civilingenjör i systemutveckling hos TechSolutions Nordic AB. Under fem år på Volvo Group har jag levererat tekniska lösningar inom fordonsindustrin, och jag vill nu bidra till era projekt inom hållbar energiteknik. Min bakgrund kombinerar mekanisk konstruktion med systemintegration, vilket matchar era krav på tvärfunktionell kompetens.
+
+Under min tid på Volvo Group ledde jag utvecklingen av ett nytt bromssystem som minskade energiförbrukningen med 18 procent. Projektet krävde samordning mellan fyra avdelningar och levererades tre veckor före deadline. Jag ansvarade för kravspecifikation, CAD-modellering i CATIA samt validering genom FEM-analys. Vårt team lyckades också reducera materialkostnader med 220 000 kronor per år genom optimerad komponentdesign.
+
+Jag arbetar strukturerat med teknisk dokumentation och följer ISO 9001 genom hela utvecklingsprocessen. I mina projekt använder jag SolidWorks för 3D-modellering, MATLAB för simulering samt Git för versionshantering. När komplexa problem uppstår bryter jag ner dem i hanterbara delar, testar lösningar metodiskt och validerar resultaten före implementation. Det här arbetssättet fungerar särskilt bra i projekt med tuffa tidskrav och höga kvalitetsstandarder.
+
+Jag vill arbeta på TechSolutions Nordic för att era vindkraftsprojekt kombinerar mekanisk konstruktion med avancerad reglerteknik, vilket matchar min erfarenhet perfekt. Era senaste offshore-installationer kräver samma typ av systemintegration som jag arbetat med i fordonsindustrin. Jag uppskattar också er kultur av öppen kommunikation och ser fram emot att samarbeta i team där teknisk excellens värderas högt.
+
+Jag är tillgänglig för intervju från och med den 22 januari och ser fram emot att berätta mer om hur min erfarenhet från fordonsindustrin kan bidra till era vindkraftsprojekt.
+
+Med vänliga hälsningar,
+Erik Sandström`
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Konkreta resultat med mätbara siffror och kontext',
+        beskrivning: 'Exemplet visar 18% energiminskning och 220 000 kronor i besparingar med tydlig koppling till hur resultaten uppnåddes. Detta bevisar teknisk kompetens genom verkliga prestationer istället för vaga påståenden.'
+      },
+      {
+        titel: 'Specifika verktyg och standarder för ATS-optimering',
+        beskrivning: 'Nämner CATIA, SolidWorks, MATLAB, FEM-analys och ISO 9001 med exakta namn istället för generiska termer som "CAD-program" eller "kvalitetssystem". Detta hjälper ATS-system att matcha ansökan och visar rekryterare att du har praktisk erfarenhet av verktygen de faktiskt använder.'
+      },
+      {
+        titel: 'Tydlig koppling mellan erfarenhet och ny roll',
+        beskrivning: 'Kopplar fordonsteknik till vindkraft genom gemensamma faktorer: mekanisk konstruktion, systemintegration och validering av roterande komponenter. Visar att sökanden researchat företagets projekt (offshore-installationer) och kan förklara varför tidigare erfarenhet är direkt applicerbar. Detta skiljer ansökan från generiska brev som kunde skickats till vilket teknikföretag som helst.'
+      },
+      {
+        titel: 'Strukturerad problemlösning istället för adjektiv',
+        beskrivning: 'Beskriver systematiskt arbetssätt genom exempel på kravspecifikation, analys, testning och validering. Visar tekniskt tänkande genom process istället för att påstå egenskaper som "analytisk" eller "noggrann".'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera dina tekniska resultat med kontext',
+        text: 'Skriv inte bara siffror utan förklara vad de betyder för verksamheten. Istället för "förbättrade effektiviteten med 15%" skriv "reducerade energiförbrukningen med 15% vilket sparade 340 000 kronor årligen och minskade CO2-utsläppen med 45 ton".\n\nDenna typ av beskrivning visar att du förstår både tekniska och affärsmässiga konsekvenser. Rekryterare söker ingenjörer som kopplar tekniska lösningar till verkligt värde.'
+      },
+      {
+        rubrik: 'Nämn specifika verktyg och standarder du behärskar',
+        text: 'Använd exakta namn på CAD-program, simuleringsprogram och kvalitetsstandarder. Skriv "SolidWorks" istället för "3D-modelleringsprogram" och "ISO 9001" istället för "kvalitetssystem".\n\nDetta hjälper ATS-system att matcha din ansökan och visar rekryterare att du har praktisk erfarenhet av branschverktyg. Välj de verktyg som nämns i platsannonsen eller som är standard inom ditt område.'
+      },
+      {
+        rubrik: 'Beskriv hur du löser tekniska problem metodiskt',
+        text: 'Ge ett konkret exempel på din problemlösningsmetod. Berätta hur du analyserade grundorsaken, testade alternativ och validerade lösningen. Detta visar tekniskt tänkande bättre än att påstå att du är "analytisk" eller "problemlösande".\n\nIngenjörsroller kräver systematiskt arbete. Ett exempel: istället för "löste tekniska problem i projektet", beskriv "identifierade vibrationsproblem genom frekvensanalys, testade tre dämpningslösningar och validerade resultat enligt ISO 16063 innan implementation". Detta visar strukturerat tänkande genom konkret process.'
+      },
+      {
+        rubrik: 'Anpassa brevet till företagets specifika teknikområde',
+        text: 'Läs om företagets produkter och projekt på deras hemsida. Identifiera var din kompetens överlappar med deras behov och nämn det explicit i brevet. Om de arbetar med automation och du har PLC-erfarenhet, förklara hur det är relevant.\n\nDetta visar att du förstår vad jobbet innebär och att du redan tänkt på hur du kan bidra. Generiska ansökningar sorteras bort tidigt i processen.'
+      },
+      {
+        rubrik: 'Visa att du arbetar bra i tvärfunktionella team',
+        text: 'Beskriv ett konkret projekt där du samarbetade med andra avdelningar. Till exempel: "Jag koordinerade med produktion, inköp och kvalitet för att implementera nya testrutiner, vilket krävde att jag översatte tekniska krav till praktiska arbetsprocesser för monteringsteamet."\n\nFörmågan att samarbeta och kommunicera tydligt är lika viktig som teknisk kompetens i moderna ingenjörsroller.'
+      }
+    ],
+
+    faq: [
+      {
+        q: 'Hur lång ska ett personligt brev vara för ingenjörstjänster?',
+        a: 'Håll ditt brev mellan 300 och 400 ord fördelat på fyra till fem stycken. Rekryterare inom teknikbranschen föredrar koncisa brev som snabbt visar relevanta kvalifikationer. Fokusera på dina starkaste tekniska prestationer och hoppa över generella beskrivningar av utbildning som redan finns i CV:t.'
+      },
+      {
+        q: 'Vilka tekniska kompetenser ska jag prioritera i brevet?',
+        a: 'Välj verktyg och metoder som nämns i platsannonsen först. Lägg sedan till 2-3 ytterligare relevanta kompetenser från ditt område. Använd exakta namn på program som SolidWorks eller AutoCAD istället för allmänna termer. Nämn också kvalitetsstandarder som ISO 9001 eller branschspecifika certifieringar om du har dem.'
+      },
+      {
+        q: 'Hur visar jag tekniska resultat utan att avslöja företagshemligheter?',
+        a: 'Använd procentuella förbättringar istället för absoluta värden. Skriv "minskade produktionstiden med 25%" istället för exakta taktider. Du kan också generalisera projektets innehåll medan du behåller dina konkreta resultat. Exempel: "Optimerade testprocessen för fordonssystem vilket reducerade valideringstiden med 30%" säger tillräckligt utan att avslöja känsliga detaljer. Fokusera på metodik och resultat snarare än tekniska specifikationer.'
+      },
+      {
+        q: 'Ska jag nämna akademiska projekt om jag har arbetslivserfarenhet?',
+        a: 'Om du har mer än två års arbetslivserfarenhet, prioritera professionella projekt. Examensarbetet kan nämnas kortfattat om det är direkt relevant för tjänsten eller visar unik kompetens. Nyutexaminerade bör fokusera på examensarbete och större kursprojekt med mätbara resultat och branschverktyg.'
+      },
+      {
+        q: 'Hur skriver jag om projektledning utan formell titel som projektledare?',
+        a: 'Beskriv vad du faktiskt gjorde istället för titlar. Skriv "koordinerade arbetet mellan fyra avdelningar" eller "ansvarade för leveransplan och uppföljning av milstolpar". Nämn projektets omfattning med siffror som budget, antal teammedlemmar eller projektlängd för att ge kontext till ditt ansvar.'
+      },
+      {
+        q: 'Vilka mjuka kompetenser är viktigast att visa för ingenjörer?',
+        a: 'Undvik att bara lista egenskaper som "god kommunikationsförmåga" eller "teamplayer". Istället: "Jag presenterade vår konstruktionslösning för produktionsteamet och justerade designen baserat på deras praktiska input från monteringslinjen, vilket reducerade montagetiden med 40%". Detta visar samarbete, kommunikation OCH resultat i ett exempel.'
+      },
+      {
+        q: 'Hur anpassar jag brevet för olika ingenjörsområden?',
+        a: 'Ändra vilka tekniska verktyg och standarder du lyfter fram baserat på området. För mekanisk konstruktion: fokusera på CAD och FEM-analys. För automation: nämn PLC och SCADA. För elkraft: framhäv MATLAB och simuleringsverktyg. Välj sedan projektexempel som liknar företagets produkter. Söker du till vindkraftsföretag? Beskriv hur du jobbat med roterande system eller utmattningsanalyser.'
+      },
+      {
+        q: 'Ska jag nämna hållbarhet och miljöfokus i mitt brev?',
+        a: 'Ja, om det är relevant för tjänsten eller företaget. Många tekniska företag prioriterar hållbarhet. Om du har erfarenhet av att minska miljöpåverkan, nämn det med konkreta siffror: "Utvecklade kylsystem som reducerade energiförbrukningen med 22%, vilket sparade 180 000 kr årligen och minskade CO2-utsläppen med 35 ton". Detta visar både miljönytta och affärsvärde.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Projektledare', slug: 'projektledare' },
+      { yrke: 'Systemutvecklare', slug: 'systemutvecklare' },
+      { yrke: 'IT-konsult', slug: 'it-konsult' }
+    ]
   }
 }
 
