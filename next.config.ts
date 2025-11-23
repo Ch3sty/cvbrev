@@ -232,6 +232,11 @@ const nextConfig: NextConfig = {
         destination: '/personligt-brev-exempel/elevassistent',
         permanent: true,
       },
+      {
+        source: '/artiklar/personligt-brev-kundtjanst',
+        destination: '/personligt-brev-exempel/kundtjanst',
+        permanent: true,
+      },
       // Lägg till fler redirects här när fler exempel-sidor skapas
     ]
   },
