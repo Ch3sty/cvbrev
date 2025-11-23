@@ -109,6 +109,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'ekonomiassistent',
     'barnskotare',
     'personlig-assistent',
+    'administrator',
+    'forskollarare',
+    'handlaggare',
+    'ingenjor',
+    'it-konsult',
+    'kurator',
+    'lagerarbetare',
+    'lakare',
+    'receptionist',
+    'stadare',
     // Lägg till fler yrken här när de skapas
   ];
 

@@ -10,7 +10,7 @@ import {
   Star, Shield, Zap, Eye, Heart, MessageCircle, Briefcase,
   GraduationCap, Stethoscope, Building2, ShoppingCart, Code,
   Palette, Wrench, Coffee, Calculator, Phone, Mail,
-  Play, X, BookOpen, AlertCircle, Download, Copy
+  Play, X, BookOpen, AlertCircle, Download, Copy, Cog, Package
 } from 'lucide-react'
 
 import PremiumNavbar from '@/components/PremiumNavbar'
@@ -20,8 +20,8 @@ interface CoverLetterExample {
   id: string
   yrke: string
   slug: string
-  kategori: 'vard' | 'tech' | 'service' | 'utbildning' | 'ekonomi' | 'kreativ' | 'övrigt'
-  niva: 'nybörjare' | 'erfaren' | 'chef'
+  kategori: 'vard' | 'tech' | 'service' | 'utbildning' | 'ekonomi' | 'kreativ' | 'övrigt' | 'offentlig-sektor' | 'teknik'
+  niva: 'nybörjare' | 'erfaren' | 'chef' | 'specialist'
   sokvolym: number
   icon: any
   gradient: string
@@ -176,16 +176,157 @@ const coverLetterExamples: CoverLetterExample[] = [
       intro: 'Ett empatiskt brev för assistentyrket. Belyser flexibilitet, empati och förmågan att stötta individer.',
       highlight: ['LSS och personlig assistans', 'Flexibilitet och anpassningsförmåga', 'Respekt och integritet']
     }
+  },
+  {
+    id: 'administrator',
+    yrke: 'Administrator',
+    slug: 'administrator',
+    kategori: 'offentlig-sektor',
+    niva: 'erfaren',
+    sokvolym: 880,
+    icon: Briefcase,
+    gradient: 'from-slate-500 via-gray-600 to-slate-700',
+    preview: {
+      intro: 'Lyfter organisatorisk kompetens, systemkunskap och administrativ precision som arbetsgivare söker.',
+      highlight: ['Processtyrning & koordination', 'Digital systemvana (Office, affärssystem)', 'Kommunikation över avdelningar']
+    }
+  },
+  {
+    id: 'forskollarare',
+    yrke: 'Förskollärare',
+    slug: 'forskollarare',
+    kategori: 'utbildning',
+    niva: 'erfaren',
+    sokvolym: 1200,
+    icon: GraduationCap,
+    gradient: 'from-amber-400 via-orange-500 to-amber-600',
+    preview: {
+      intro: 'Betonar pedagogisk kompetens, läroplanstolkning och barncentrerat förhållningssätt.',
+      highlight: ['Lpfö 18 & pedagogisk dokumentation', 'Barns lärande & utveckling', 'Samarbete vårdnadshavare & kollegor']
+    }
+  },
+  {
+    id: 'handlaggare',
+    yrke: 'Handläggare',
+    slug: 'handlaggare',
+    kategori: 'offentlig-sektor',
+    niva: 'erfaren',
+    sokvolym: 760,
+    icon: FileText,
+    gradient: 'from-indigo-500 via-blue-600 to-indigo-700',
+    preview: {
+      intro: 'Framhäver juridisk förståelse, utredningsförmåga och korrekt beslutsfattande enligt regelverk.',
+      highlight: ['Utredning & beslutsunderlag', 'Regelverkstolkning & lagstiftning', 'Kvalitetssäkring & dokumentation']
+    }
+  },
+  {
+    id: 'ingenjor',
+    yrke: 'Ingenjör',
+    slug: 'ingenjor',
+    kategori: 'teknik',
+    niva: 'specialist',
+    sokvolym: 1400,
+    icon: Cog,
+    gradient: 'from-cyan-500 via-teal-600 to-cyan-700',
+    preview: {
+      intro: 'Demonstrerar teknisk expertis, projektledningsförmåga och problemlösning i komplexa system.',
+      highlight: ['Teknisk problemlösning & innovation', 'CAD/simulering & systemdesign', 'Tvärfunktionellt projektsamarbete']
+    }
+  },
+  {
+    id: 'it-konsult',
+    yrke: 'IT-konsult',
+    slug: 'it-konsult',
+    kategori: 'teknik',
+    niva: 'specialist',
+    sokvolym: 620,
+    icon: Code,
+    gradient: 'from-violet-500 via-purple-600 to-violet-700',
+    preview: {
+      intro: 'Lyfter systemintegration, kundanpassning och teknisk rådgivning i komplexa IT-miljöer.',
+      highlight: ['Systemintegration & API-utveckling', 'Kundanalys & kravspecifikation', 'Agila metoder & leveransförmåga']
+    }
+  },
+  {
+    id: 'kurator',
+    yrke: 'Kurator',
+    slug: 'kurator',
+    kategori: 'vard',
+    niva: 'specialist',
+    sokvolym: 540,
+    icon: Heart,
+    gradient: 'from-rose-400 via-pink-500 to-rose-600',
+    preview: {
+      intro: 'Betonar evidensbaserade samtalsmetoder, psykosocial bedömning och empatisk klienthantering.',
+      highlight: ['Motiverande samtal (MI) & KBT', 'Kris- & traumastöd', 'Tvärdisciplinärt samarbete']
+    }
+  },
+  {
+    id: 'lagerarbetare',
+    yrke: 'Lagerarbetare',
+    slug: 'lagerarbetare',
+    kategori: 'service',
+    niva: 'nybörjare',
+    sokvolym: 980,
+    icon: Package,
+    gradient: 'from-orange-500 via-red-600 to-orange-700',
+    preview: {
+      intro: 'Framhäver logistisk noggrannhet, truckvana och säkerhetsmedvetenhet i lageromgivning.',
+      highlight: ['Truckkort & lagerhantering', 'Orderplockning & packning', 'Säkerhet & arbetsplatskultur']
+    }
+  },
+  {
+    id: 'lakare',
+    yrke: 'Läkare',
+    slug: 'lakare',
+    kategori: 'vard',
+    niva: 'specialist',
+    sokvolym: 720,
+    icon: Stethoscope,
+    gradient: 'from-emerald-500 via-green-600 to-emerald-700',
+    preview: {
+      intro: 'Demonstrerar klinisk excellens, diagnostisk skärpa och patientcentrerad vård enligt evidens.',
+      highlight: ['Evidensbaserad diagnostik & behandling', 'Patientkommunikation & etik', 'MDT-samarbete & verksamhetsutveckling']
+    }
+  },
+  {
+    id: 'receptionist',
+    yrke: 'Receptionist',
+    slug: 'receptionist',
+    kategori: 'service',
+    niva: 'nybörjare',
+    sokvolym: 1100,
+    icon: Phone,
+    gradient: 'from-sky-400 via-blue-500 to-sky-600',
+    preview: {
+      intro: 'Lyfter servicekänsla, multitasking-förmåga och professionell kommunikation i första linjens möte.',
+      highlight: ['Kundservice & telefonhantering', 'Administrativ koordination', 'Stresshantering & problemlösning']
+    }
+  },
+  {
+    id: 'stadare',
+    yrke: 'Städare',
+    slug: 'stadare',
+    kategori: 'service',
+    niva: 'nybörjare',
+    sokvolym: 850,
+    icon: Sparkles,
+    gradient: 'from-teal-400 via-cyan-500 to-teal-600',
+    preview: {
+      intro: 'Betonar kvalitetsmedvetenhet, hygienkunskap och pålitlighet i professionell städmiljö.',
+      highlight: ['Yrkesmässiga städmetoder', 'Kemikaliehantering & HACCP', 'Självständighet & tidsplanering']
+    }
   }
 ]
 
 const categories = [
   { id: 'all', label: 'Alla yrken', icon: Briefcase, color: 'from-blue-600 to-indigo-600' },
   { id: 'vard', label: 'Vård & Omsorg', icon: Stethoscope, color: 'from-blue-500 to-cyan-500' },
-  { id: 'tech', label: 'Tech & IT', icon: Code, color: 'from-purple-500 to-pink-500' },
+  { id: 'teknik', label: 'Teknik & IT', icon: Code, color: 'from-purple-500 to-pink-500' },
   { id: 'service', label: 'Service & Försäljning', icon: ShoppingCart, color: 'from-green-500 to-emerald-500' },
   { id: 'utbildning', label: 'Utbildning', icon: BookOpen, color: 'from-amber-500 to-orange-500' },
   { id: 'ekonomi', label: 'Ekonomi', icon: Calculator, color: 'from-slate-500 to-gray-600' },
+  { id: 'offentlig-sektor', label: 'Offentlig sektor', icon: Building2, color: 'from-indigo-500 to-blue-600' },
   { id: 'kreativ', label: 'Kreativa yrken', icon: Palette, color: 'from-pink-500 to-rose-500' },
 ]
 

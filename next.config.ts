@@ -101,6 +101,81 @@ const nextConfig: NextConfig = {
         destination: '/personligt-brev-exempel/sommarjobb',
         permanent: true,
       },
+      {
+        source: '/artiklar/personligt-brev-administrator',
+        destination: '/personligt-brev-exempel/administrator',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-forskollarare',
+        destination: '/personligt-brev-exempel/forskollarare',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-handlaggare',
+        destination: '/personligt-brev-exempel/handlaggare',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-ingenjor',
+        destination: '/personligt-brev-exempel/ingenjor',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-it',
+        destination: '/personligt-brev-exempel/it-konsult',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-kurator',
+        destination: '/personligt-brev-exempel/kurator',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-lagerarbetare',
+        destination: '/personligt-brev-exempel/lagerarbetare',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-lakare',
+        destination: '/personligt-brev-exempel/lakare',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-receptionist',
+        destination: '/personligt-brev-exempel/receptionist',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-stadare',
+        destination: '/personligt-brev-exempel/stadare',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-barnskotare',
+        destination: '/personligt-brev-exempel/barnskotare',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-butikssaljare',
+        destination: '/personligt-brev-exempel/butikssaljare',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-saljare',
+        destination: '/personligt-brev-exempel/saljare',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-ekonomiassistent',
+        destination: '/personligt-brev-exempel/ekonomiassistent',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-personlig-assistent',
+        destination: '/personligt-brev-exempel/personlig-assistent',
+        permanent: true,
+      },
       // Lägg till fler redirects här när fler exempel-sidor skapas
     ]
   },
