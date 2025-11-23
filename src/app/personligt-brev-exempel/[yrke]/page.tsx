@@ -2488,7 +2488,12 @@ Anna Bergström`
 
     exempelBrev: {
       namn: 'Dr. Erik Lindström',
-      rollTitel: 'ST-läkare, Internmedicin',
+      adress: 'Karlavägen 88, 114 49 Stockholm',
+      telefon: '070-345 67 89',
+      epost: 'erik.lindstrom@lakare.se',
+      arbetsgivare: 'Karolinska Universitetssjukhuset',
+      roll: 'ST-läkare, Internmedicin',
+      datum: new Date().toLocaleDateString('sv-SE'),
       brevText: `Hej Anna,
 
 Jag söker tjänsten som ST-läkare inom internmedicin vid Karolinska Universitetssjukhuset. Under tre år på Danderyds sjukhus har jag arbetat som AT-läkare och underläkare inom akutmedicin, geriatrik och internmedicin. Min bakgrund kombinerar bred klinisk erfarenhet med systematisk diagnostik och kvalitetsförbättringsarbete, vilket matchar era krav på evidensbaserad medicin och tvärprofessionellt samarbete.
@@ -2505,9 +2510,6 @@ Jag är tillgänglig för intervju från den 15 februari och ser fram emot att b
 
 Med vänliga hälsningar,
 Dr. Erik Lindström`,
-
-      befattning: 'ST-läkare inom internmedicin',
-      företag: 'Karolinska Universitetssjukhuset',
       erfarenhet: '3 år som AT-läkare och underläkare',
       nyckelkompetenser: [
         'Klinisk diagnostik med evidensbaserade riktlinjer (Wells, CURB-65, HAS-BLED)',
@@ -2631,7 +2633,12 @@ Dr. Erik Lindström`,
 
     exempelBrev: {
       namn: 'Anna Bergström',
-      rollTitel: 'Skolkurator',
+      adress: 'Vasagatan 28, 111 20 Stockholm',
+      telefon: '070-234 56 78',
+      epost: 'anna.bergstrom@kurator.se',
+      arbetsgivare: 'Vasaskolan',
+      roll: 'Skolkurator',
+      datum: new Date().toLocaleDateString('sv-SE'),
       brevText: `Hej,
 
 Jag söker tjänsten som skolkurator vid Vasaskolan i Stockholm. Under flera år som kurator i Järfälla kommun har jag arbetat med elever i högstadiet. Jag har byggt bred erfarenhet inom motiverande samtal (MI), KBT-baserade stödsamtal och krisstöd. Jag är certifierad i MI och har genomfört över 400 enskilda samtal med elever. Jag ledde också ett förebyggande projekt kring psykisk ohälsa. Detta minskade skolfrånvaron med 22% bland högriskelever.
@@ -2644,9 +2651,6 @@ Jag ser fram emot att bli skolkurator vid Vasaskolan. Där vill jag fortsätta u
 
 Med vänlig hälsning,
 Anna Bergström`,
-
-      befattning: 'Skolkurator',
-      företag: 'Vasaskolan, Stockholm',
       erfarenhet: '5 år som skolkurator',
       nyckelkompetenser: [
         'Motiverande samtal (MI) – certifierad',
@@ -2771,7 +2775,12 @@ Här hittar du ett komplett exempelbrev, konkreta tips för vad du ska ta med oc
 
     exempelBrev: {
       namn: 'Emma Karlsson',
-      rollTitel: 'Butiksbiträde',
+      adress: 'Kungsgatan 45, 111 56 Stockholm',
+      telefon: '070-234 56 78',
+      epost: 'emma.karlsson@email.com',
+      arbetsgivare: 'H&M',
+      roll: 'Butiksbiträde',
+      datum: new Date().toLocaleDateString('sv-SE'),
       brevText: `Jag söker tjänsten som butiksbiträde hos H&M på grund av ert fokus på hållbar mode och inkluderande kundupplevelse. Med tre års erfarenhet av kundservice och försäljning ser jag fram emot att bidra till er butiks säljmål och skapa positiva kundmöten.
 
 Under min tid på Lindex ökade jag personligen merförsäljningen med 20% genom att aktivt föreslå kompletterande produkter och hjälpa kunder hitta rätt storlek och stil. Jag trivs med att bygga relation till stammiskunder och få dem att känna sig välkomna varje gång de besöker butiken.
@@ -2783,9 +2792,6 @@ Kundservice är det jag brinner för. Jag ser varje kund som en möjlighet att s
 Jag har följt H&M:s hållbarhetsarbete och uppskattar hur ni tydligt kommunicerar Conscious-kollektionen till kunderna. Jag vill gärna vara med och berätta om era miljöinitiativ och hjälpa kunder göra mer medvetna val.
 
 Jag ser fram emot att träffa er och berätta mer om hur jag kan bidra till er butik. Jag är tillgänglig för intervju närsomhelst och kan börja arbeta omgående.`,
-
-      befattning: 'Säljare',
-      företag: 'Lindex',
       erfarenhet: '3 år inom detaljhandel med fokus på mode och kundservice',
       nyckelkompetenser: [
         'Kundservice och försäljning',
