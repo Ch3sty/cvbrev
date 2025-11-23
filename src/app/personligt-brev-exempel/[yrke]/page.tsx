@@ -2602,6 +2602,142 @@ Dr. Erik Lindström`,
       { yrke: 'Kurator', slug: 'kurator' },
       { yrke: 'Handläggare', slug: 'handlaggare' }
     ]
+  },
+
+  'kurator': {
+    yrke: 'Kurator',
+    sokvolym: 540,
+
+    metaTitle: 'Personligt Brev Kurator 2025 - Exempel & Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett personligt brev-exempel för kurator med ATS-optimering. Betonar evidensbaserade metoder, MI, KBT, kris-/traumastöd och tvärdisciplinärt samarbete. Gratis mall 2025.',
+
+    seoIntro: `Söker du jobb som kurator inom skola, sjukvård eller socialtjänst? Ditt personliga brev ska visa att du kan evidensbaserade samtalsmetoder, tvärdisciplinärt samarbete och kris-/traumahantering. Du får här ett konkret exempel på hur du skriver ett professionellt personligt brev som kurator – och konkreta tips som faktiskt får dig till intervju.`,
+
+    intro: 'Se hur en erfaren skolkurator beskriver sina samtalsmetoder, kris-/traumakompetens och teamsamarbete. Exemplet visar exakt hur du beskriver klientarbete, dokumentation och psykosocial bedömning – så att både ATS-system och rekryterare ser din kompetens.',
+
+    exempelBrev: {
+      namn: 'Anna Bergström',
+      rollTitel: 'Skolkurator',
+      brevText: `Hej,
+
+Jag söker tjänsten som skolkurator vid Vasaskolan i Stockholm. Under flera år som kurator i Järfälla kommun har jag arbetat med elever i högstadiet. Jag har byggt bred erfarenhet inom motiverande samtal (MI), KBT-baserade stödsamtal och krisstöd. Jag är certifierad i MI och har genomfört över 400 enskilda samtal med elever. Jag ledde också ett förebyggande projekt kring psykisk ohälsa. Detta minskade skolfrånvaron med 22% bland högriskelever.
+
+Jag arbetar strukturerat och använder etablerade samtalsmetoder. Vid ångest och oro tillämpar jag KBT-baserade tekniker. Vid beteendeproblematik använder jag MI för att stärka elevens egen motivation. Vid akuta kriser (suicidtankar, familjevåld, trauma) följer jag skolans krisstödsplan och samverkar med elevhälsan, socialtjänsten och BUP. Vid komplexa fall arbetar jag nära skolsköterskor, specialpedagoger, psykologer och vårdnadshavare. Detta ger oss en helhetsbedömning och säkrare elevstöd.
+
+Under min tid i Järfälla har jag arbetat med 180 elever per läsår. Jag har genomfört 45 riskbedömningar enligt SAMS och deltagit i 30+ interprofessionella elevhälsomöten. Jag dokumenterar enligt skollagen och GDPR. Jag är van vid högt arbetstempo, att prioritera akuta fall och att arbeta förebyggande parallellt med krisinsatser.
+
+Jag ser fram emot att bli skolkurator vid Vasaskolan. Där vill jag fortsätta utveckla elevhälsoarbete, förebyggande insatser och traumamedveten skola.
+
+Med vänlig hälsning,
+Anna Bergström`,
+
+      befattning: 'Skolkurator',
+      företag: 'Vasaskolan, Stockholm',
+      erfarenhet: '5 år som skolkurator',
+      nyckelkompetenser: [
+        'Motiverande samtal (MI) – certifierad',
+        'KBT-baserade samtalsmetoder',
+        'Kris- och traumastöd',
+        'Psykosocial bedömning och riskbedömning (SAMS)',
+        'Tvärdisciplinärt samarbete inom elevhälsa'
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Konkret klientarbete med mätbara resultat',
+        beskrivning: '400+ genomförda samtal och 22% minskning av skolfrånvaro – siffror som gör intryck. Anna kvantifierar både kliniskt arbete och förbättringsresultat. Rekryterare ser att hon kan både samtala med elever OCH förbättra system.'
+      },
+      {
+        titel: 'MI, KBT och SAMS – ATS-optimerade nyckelord',
+        beskrivning: 'MI (Motiverande samtal), KBT-baserade tekniker och SAMS (riskbedömning) finns ofta i platsannonser för kuratorer. ATS-system letar efter just dessa termer.'
+      },
+      {
+        titel: 'Teamsamarbete med alla relevanta partners',
+        beskrivning: 'Skolsköterskor, psykologer, BUP och socialtjänst – Anna nämner alla relevanta samarbetspartners. Arbetsgivare vet att hon klarar teamarbete från dag ett.'
+      },
+      {
+        titel: 'Konkret beskrivning av krisarbete',
+        beskrivning: 'Anna skriver konkret om suicidtankar, familjevåld och trauma – och hur hon följer krisstödsplaner. Skolledare söker kuratorer som klarar akuta kriser under press.'
+      },
+      {
+        titel: 'Dokumentation enligt skollagen och GDPR',
+        beskrivning: 'Anna nämner GDPR och skollagen – hon förstår att kuratorer hanterar känsliga personuppgifter och måste dokumentera korrekt. Detta signalerar juridisk medvetenhet.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Vilka samtalsmetoder söker arbetsgivare?',
+        text: 'Använd etablerade metoder som MI (Motiverande samtal), KBT, lösningsfokuserad terapi, DBT eller ACT. Du visar att du kan arbeta strukturerat och metodiskt – något som både ATS och rekryterare letar efter. Om du är certifierad i MI eller genomgått KBT-utbildning, nämn detta tydligt. Kvantifiera bara det du faktiskt gjort. Om du skriver "400 samtal", se till att du kan backa upp siffran. Rekryterare inom vården och skola vet hur klientarbete ser ut – överdrivna siffror avslöjas snabbt.'
+      },
+      {
+        rubrik: 'Kvantifiera ditt klientarbete',
+        text: 'Om du arbetat med många klienter, ange antal: "genomförde 180 samtal under läsåret", "arbetade med 45 klienter parallellt", "minskade skolfrånvaro med 30% bland högriskelever". Siffror gör ditt arbete trovärdigt och mätbart.'
+      },
+      {
+        rubrik: 'Tvärdisciplinärt samarbete – ge konkreta exempel',
+        text: 'Beskriv hur du samarbetar med läkare, psykologer, socionomer, lärare eller specialpedagoger. Ge konkreta exempel från komplexa klientfall där ni jobbade som team. Nämn elevhälsoteam, vårdplanering eller interprofessionella möten.'
+      },
+      {
+        rubrik: 'Anpassa efter område: skola, sjukvård eller socialtjänst',
+        text: 'Skolkurator: betona pedagogisk förståelse, föräldrasamarbete och skolmiljö. Sjukvårdskurator: betona medicinsk förståelse, palliativ vård och anhörigstöd. Socialtjänstkurator: betona utredningsarbete, lagstiftning och myndighetssamverkan.'
+      },
+      {
+        rubrik: 'Etik och sekretess – visa att du kan hanteringsreglerna',
+        text: 'Nämn hur du hanterar sekretess, dokumentation enligt SOSFS/skollag och etiska dilemman. Skriv konkret: "Jag dokumenterar enligt skollagen och GDPR" eller "Jag hanterar sekretess mellan skola och socialtjänst enligt 10 kap. skollagen". Detta signalerar juridisk medvetenhet.'
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur lång kuratorserfarenhet ska jag nämna i brevet?',
+        svar: 'Ange alltid hur många år eller månader du arbetat som kurator. Om du roterat mellan olika områden (skola, sjukvård, socialtjänst), nämn de som är mest relevanta för tjänsten. Konkreta tidsangivelser gör din erfarenhet trovärdig. Om du är nyutexaminerad socionom/psykolog, fokusera på VFU-perioder och var du gjorde dem.'
+      },
+      {
+        fraga: 'Ska jag nämna min socionom- eller psykologexamen i brevet?',
+        svar: 'Vanligtvis räcker det att nämna din yrkestitel (skolkurator, kurator inom psykiatri). Examen och legitimation hör hemma i CV:t. Fokusera brevet på klinisk kompetens, samtalsmetoder och klientarbete. Om du har specialistutbildning (t.ex. leg. psykoterapeut), nämn detta kortfattat.'
+      },
+      {
+        fraga: 'Hur visar jag evidensbaserade metoder i brevet?',
+        svar: 'Nämn konkreta samtalsmetoder: MI (Motiverande samtal), KBT, lösningsfokuserad terapi, DBT, ACT eller traumafokuserad KBT. Du visar att du kan arbeta strukturerat och följer nationella riktlinjer. Om du är certifierad i MI eller genomgått längre KBT-utbildning, lyft fram detta.'
+      },
+      {
+        fraga: 'Kan jag nämna svåra klientfall i brevet?',
+        svar: 'Ja, men var varsam med sekretess. Beskriv fall generellt: "Jag har arbetat med elever med suicidtankar och självskadebeteende." Fokusera på HUR du hanterade situationen – inte på klientens privata detaljer.'
+      },
+      {
+        fraga: 'Hur betonar jag tvärdisciplinärt samarbete som kurator?',
+        svar: 'Beskriv konkreta situationer där du samarbetat med läkare, psykologer, socionomer, lärare eller specialpedagoger. Ge gärna exempel från komplexa klientfall eller interprofessionella team. Nämn elevhälsomöten, vårdplaneringar eller samverkansmöten med socialtjänst/BUP.'
+      },
+      {
+        fraga: 'Ska jag skriva om krisstöd och traumahantering?',
+        svar: 'Ja, om tjänsten kräver det. Beskriv hur många akuta kriser du hanterat, vilken typ (suicidtankar, familjevåld, trauma) och hur du följer krisstödsplaner. Nämn samverkan med akutpsykiatri, BUP eller socialtjänst vid akuta fall. Du visar att du klarar krishantering under press.'
+      },
+      {
+        fraga: 'Hur hanterar jag byte mellan kuratorsområden (skola → sjukvård)?',
+        svar: 'Förklara kort varför du byter inriktning och hur din tidigare erfarenhet stärker dig i den nya rollen. Exempelvis kan skolkuratorserfarenhet ge dig fördel inom barn- och ungdomspsykiatri. Betona överförbara kompetenser: samtalsmetoder, kris-/traumastöd, tvärdisciplinärt samarbete.'
+      },
+      {
+        fraga: 'Vad ska jag skriva om dokumentation?',
+        svar: 'Nämn vilket system du använt (Treserva, Cosmic, ProCapita) och enligt vilken lagstiftning du dokumenterat (SOSFS, skollagen, patientdatalagen). Skriv konkret: "Jag dokumenterar enligt SOSFS 2005:27 och hanterar sekretess enligt OSL". Detta signalerar juridisk medvetenhet och professionalism.'
+      },
+      {
+        fraga: 'Hur lång ska ett personligt brev för kurator vara?',
+        svar: 'Håll brevet till max 1 A4-sida (ca 250–350 ord). Rekryterare och chefer har begränsad tid. Fokusera på de 3–4 starkaste kompetenserna som matchar tjänsten: samtalsmetoder, klientarbete, teamsamarbete och kris-/traumastöd.'
+      },
+      {
+        fraga: 'Kan jag nämna vidareutbildningar (MI, KBT) i brevet?',
+        svar: 'Ja, definitivt. Vidareutbildningar i MI, KBT, traumabehandling, DBT eller ACT är högt värderade. Skriv konkret: "Jag är certifierad i Motiverande samtal (MI) sedan 2022" eller "Jag har genomgått KBT-grundutbildning 80 poäng". Detta höjer din konkurrenskraft avsevärt.'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Handläggare', slug: 'handlaggare' },
+      { yrke: 'Läkare', slug: 'lakare' },
+      { yrke: 'Sjuksköterska', slug: 'sjukskoterska' },
+      { yrke: 'Undersköterska', slug: 'underskoterska' }
+    ]
   }
 }
 
