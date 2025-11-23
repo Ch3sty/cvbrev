@@ -122,6 +122,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'butiksbitrade',
     'servitris-restaurangbitrade',
     'chef',
+    'projektledare',
     // Lägg till fler yrken här när de skapas
   ];
 

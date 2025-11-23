@@ -23,7 +23,8 @@
       "Bash(timeout 15 bash:*)",
       "Bash(curl -s \"https://jobbcoach.ai/personligt-brev-exempel/underskoterska\")",
       "Bash(cat:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(nul)"
     ],
     "deny": [],
     "ask": []
