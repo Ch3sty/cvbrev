@@ -148,7 +148,18 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/artiklar/personligt-brev-stadare',
-        destination: '/personligt-brev-exempel/stadare',
+        destination: '/personligt-brev-exempel/lokalvardare',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-lokalvardare',
+        destination: '/personligt-brev-exempel/lokalvardare',
+        permanent: true,
+      },
+      // Redirect gamla stadare-URL till lokalvardare
+      {
+        source: '/personligt-brev-exempel/stadare',
+        destination: '/personligt-brev-exempel/lokalvardare',
         permanent: true,
       },
       {

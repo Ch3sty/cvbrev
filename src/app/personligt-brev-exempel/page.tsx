@@ -304,9 +304,9 @@ const coverLetterExamples: CoverLetterExample[] = [
     }
   },
   {
-    id: 'stadare',
-    yrke: 'Städare',
-    slug: 'stadare',
+    id: 'lokalvardare',
+    yrke: 'Lokalvårdare',
+    slug: 'lokalvardare',
     kategori: 'service',
     niva: 'nybörjare',
     sokvolym: 850,

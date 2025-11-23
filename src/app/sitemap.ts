@@ -118,7 +118,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'lagerarbetare',
     'lakare',
     'receptionist',
-    'stadare',
+    'lokalvardare',
     // Lägg till fler yrken här när de skapas
   ];
 
