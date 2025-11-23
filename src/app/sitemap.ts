@@ -123,6 +123,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'servitris-restaurangbitrade',
     'chef',
     'projektledare',
+    'elevassistent',
     // Lägg till fler yrken här när de skapas
   ];
 

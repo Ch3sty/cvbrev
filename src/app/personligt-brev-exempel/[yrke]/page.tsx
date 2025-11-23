@@ -3265,6 +3265,150 @@ Lisa Andersson`,
       { yrke: 'IT-konsult', slug: 'it-konsult' },
       { yrke: 'Chef', slug: 'chef' }
     ]
+  },
+
+  'elevassistent': {
+    yrke: 'Elevassistent',
+    sokvolym: 260,
+    metaTitle: 'Personligt Brev Elevassistent - Färdigt exempel (2025) | Jobbcoach.ai',
+    metaDescription: 'Komplett personligt brev-exempel för elevassistent med NPF-erfarenhet och särskilt stöd. ATS-optimerat med konkreta exempel från svensk skolmiljö. Visa din kompetens inom elevhälsa och inkluderande pedagogik.',
+
+    seoIntro: `Söker du jobb som elevassistent och vill skriva ett personligt brev som visar din kompetens inom särskilt stöd? Det här exemplet demonstrerar hur du beskriver konkret erfarenhet från svensk skolmiljö med fokus på elever i behov av extra stöd.
+
+Du får se hur du balanserar pedagogisk förståelse med praktiskt stöd i klassrummet, visar erfarenhet av NPF-diagnoser (ADHD, autism, dyslexi) och konkretiserar ditt arbete med strukturstöd, anpassningar och elevhälsoarbete. Brevet är ATS-optimerat med nyckelord som svenska skolor söker efter.
+
+Använd exemplet som inspiration när du söker tjänster inom grundskola, gymnasieskola eller särskola. Anpassa innehållet efter den specifika elevgruppen och skolans värderingar för att öka dina chanser till intervju.`,
+
+    intro: 'Ett professionellt personligt brev för elevassistent som visar konkret erfarenhet av att stötta elever med NPF-diagnoser, inlärningssvårigheter och sociala utmaningar. Detta exempel är optimerat för svenska grundskolor, gymnasieskolor och ATS-system.',
+
+    exempelBrev: {
+      namn: 'Anna Bergström',
+      adress: 'Skolvägen 23, 123 45 Uppsala',
+      telefon: '070-345 67 89',
+      epost: 'anna.bergstrom@email.se',
+      arbetsgivare: 'Kärrby Skola, Uppsala kommun',
+      roll: 'Elevassistent inom grundsärskolan',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Hej,
+
+Jag söker tjänsten som elevassistent på Kärrby Skola med fyra års gedigen erfarenhet av att stötta elever i behov av extra anpassningar. Under min tid på Stenhagsskolan i Uppsala har jag arbetat både i ordinarie klassrum och i mindre grupper med elever som har NPF-diagnoser, inlärningssvårigheter och social-emotionella utmaningar. Er satsning på inkluderande pedagogik och elevhälsoteamets nära samarbete stämmer helt överens med hur jag arbetar bäst.
+
+I min nuvarande roll stöttar jag dagligen 6-8 elever i årskurs 4-6, varav flera har ADHD, autism eller dyslexi. Jag arbetar nära klasslärare för att anpassa undervisningsmaterial, strukturera arbetsdagar med visuella scheman och Time Timer, samt ge direkt stöd under lektioner i svenska, matematik och NO. En konkret situation som visar mitt arbetssätt är när en elev med ADHD hade svårt att komma igång med skrivuppgifter. Jag utvecklade en strukturerad startritual med checklistor, korta arbetssessioner på 15 minuter och konkreta delmål. Efter tre veckor kunde eleven självständigt påbörja uppgifter och genomförde sitt första längre skrivprojekt med stolthet – något som både eleven, vårdnadshavare och lärare uppskattade enormt.
+
+Jag har bred erfarenhet av att arbeta med olika pedagogiska verktyg och metoder: TAKK (tecken som alternativ och kompletterande kommunikation) för elever med språksvårigheter, Bornholmsmodellen för läs- och skrivinlärning, samt konkret material som multilink, tiokamrater och mattepussel för matematikstöd. I arbetet med elever med autism använder jag ofta sociala berättelser och förberedande bilder för att skapa förutsägbarhet vid schemaändringar eller nya situationer. Jag dokumenterar regelbundet elevernas progress i Unikum och Skolwebben, och deltar aktivt i elevhälsoteamets möten tillsammans med specialpedagog, kurator och rektor.
+
+Vad som verkligen tilltalar mig med Kärrby Skola är ert systematiska arbete med inkluderande miljöer och er satsning på fortbildning inom NPF och trauma. Jag har själv nyligen genomfört utbildning i självskadebeteende och krishantering, samt deltagit i kommunens fortbildning om ADHD i skolmiljö. Jag trivs i teamarbete och ser elevassistenten som en viktig länk mellan elev, lärare och vårdnadshavare – särskilt för de elever som behöver extra struktur, trygghet och konkret stöd för att nå sina mål.
+
+Jag ser fram emot att bidra med min erfarenhet av NPF-stöd, strukturstöd och anpassad pedagogik till er verksamhet. Kontakta mig gärna på 070-345 67 89 eller anna.bergstrom@email.se.
+
+Varma hälsningar,
+Anna Bergström`,
+      erfarenhet: '4 års erfarenhet som elevassistent med fokus på NPF-stöd',
+      nyckelkompetenser: [
+        'NPF-kompetens (ADHD, autism, dyslexi)',
+        'Strukturstöd och anpassad pedagogik',
+        'Elevhälsoarbete och teamsamarbete',
+        'TAKK och kommunikationsstöd',
+        'Dokumentation i Unikum/Skolwebben',
+        'Bornholmsmodellen och lässtöd'
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'ATS-nyckelord för elevassistent',
+        beskrivning: 'Innehåller kritiska ATS-nyckelord som "NPF", "särskilt stöd", "anpassningar", "elevhälsoteam", "inkluderande pedagogik", "strukturstöd", "ADHD", "autism", "dyslexi" och "Unikum".'
+      },
+      {
+        titel: 'Konkret elevexempel med mätbart resultat',
+        beskrivning: 'Visar inte bara "jag är bra på struktur" utan beskriver konkret situation: elev med ADHD fick strukturerad startritual med checklistor och 15-minuters-sessioner, vilket ledde till självständig arbetsstart efter tre veckor.'
+      },
+      {
+        titel: 'Bred metodkunskap med specifika verktyg',
+        beskrivning: 'Nämner konkreta pedagogiska verktyg: TAKK, Bornholmsmodellen, Time Timer, visuella scheman, sociala berättelser, multilink och tiokamrater. Detta visar både teoretisk kunskap och praktisk erfarenhet.'
+      },
+      {
+        titel: 'Teamarbete och professionellt förhållningssätt',
+        beskrivning: 'Visar förståelse för elevassistentens roll: dokumentation i Unikum/Skolwebben, deltagande i elevhälsoteam, samarbete med specialpedagog och kurator, samt länk mellan elev-lärare-vårdnadshavare.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Använd NPF-terminologi och skolspecifika ATS-nyckelord',
+        text: `Svenska skolor söker efter specifika nyckelord i ATS-system: "NPF" (neuropsykiatriska funktionsnedsättningar), "särskilt stöd", "extra anpassningar", "elevhälsa", "inkluderande pedagogik", "åtgärdsprogram" och "läsa-skriva-räkna-garanti".
+
+Nämn också konkreta diagnoser du har erfarenhet av: ADHD, ADD, autism, Aspergers syndrom, dyslexi, dyskalkyli, Tourettes, eller intellektuell funktionsnedsättning. Om du söker till särskola, använd termer som "grundsärskola", "träningsskola" och "funktionsnedsättning".
+
+Inkludera även dokumentationssystem som Unikum, IST, Skolwebben, Schoolsoft eller Dexter om du har erfarenhet – detta signalerar att du förstår skolans administrativa processer.`
+      },
+      {
+        rubrik: 'Visa konkreta elevexempel med situation-åtgärd-resultat',
+        text: `Rekryterare vill se hur du faktiskt arbetar med elever. Använd SAR-metoden (Situation-Åtgärd-Resultat): "En elev med autism fick svårigheter vid schemaändringar (situation). Jag började använda förberedande bilder och sociala berättelser dagen innan ändringar (åtgärd). Efter två veckor kunde eleven hantera de flesta ändringar utan ångest (resultat)".
+
+Kvantifiera resultat där möjligt: "eleven förbättrade läsflyt från 20 till 45 ord per minut", "självständig arbetsstart ökade från 2 till 8 av 10 lektioner", eller "konflikter i rasten minskade från dagligen till en gång per vecka". Konkreta siffror gör din kompetens trovärdig och mätbar.`
+      },
+      {
+        rubrik: 'Nämn pedagogiska verktyg, metoder och anpassningar specifikt',
+        text: `Visa att du behärskar konkreta verktyg och metoder: Time Timer, visuella scheman, checklistor, tokens/förstärkningssystem, TAKK (tecken som alternativ kommunikation), Bornholmsmodellen, Trugs, multilink, tiokamrater, mattepussel, Frostig, sociala berättelser, Comic Strip Conversations.
+
+Nämn också digitala verktyg: talsyntes (Claro/Read&Write), Legimus, appar för matematik, stavningsprogram, ordprediktering. Om du har erfarenhet av iPads/surfplattor som pedagogiskt verktyg för elever med funktionsnedsättningar, lyft fram det.
+
+Var specifik med anpassningar du gjort: förstora texter, färgkoda material, skapa eget anpassat material, förenkla instruktioner, dela upp arbetsuppgifter i mindre delar, använda laminerade visuella stöd.`
+      },
+      {
+        rubrik: 'Anpassa efter skolform och elevgrupp',
+        text: `Grundskola (F-6): Betona lekbaserat lärande, social träning i rasterna, läs- och skrivinlärning, matematikstöd med konkret material, konflikthantering och samarbete med fritidshem.
+
+Högstadiet (7-9): Fokusera på studieteknik, självständighet, planering, ämnesstöd i SO/NO/språk, plugggrupper, motivation och förberedelse inför gymnasiet.
+
+Gymnasieskola: Lyft fram studievägledning, digitala verktyg, stöd vid praktik/APL, anpassade prov, självständigt arbetssätt och förberedelse för arbetslivet.
+
+Särskola: Betona ADL-träning (personlig hygien, matlagning, ekonomi), kommunikationshjälpmedel, social träning, arbetsträning och samarbete med vårdnadshavare och habiliteringen.`
+      },
+      {
+        rubrik: 'Visa förståelse för elevhälsans organisation och teamarbete',
+        text: `Elevassistenten arbetar i gränslandet mellan pedagogik och elevhälsa. Visa att du förstår skolans organisation: "Jag deltar i elevhälsoteamets möten tillsammans med rektor, specialpedagog, kurator och skolsköterska", "dokumenterar progress enligt åtgärdsprogram", "rapporterar observationer till ansvarig lärare".
+
+Beskriv hur du samarbetar med olika yrkesgrupper: "Arbetar nära klasslärare för att anpassa undervisningsmaterial", "kommunicerar dagligen med specialpedagog om elevens utveckling", "deltar i utvecklingssamtal med vårdnadshavare", "samordnar med fritidspersonal för helhetsperspektiv".
+
+Nämn också vårdnadshavarsamarbete konkret: "Daglig kommunikation via loggbok", "veckovisa telefonsamtal", "hemträning av inlästa ord", "gemensam uppföljning av beteendemål". Detta visar professionalism och förståelse för att stödet måste vara konsekvent mellan hem och skola.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Behöver jag formell utbildning för att arbeta som elevassistent?',
+        svar: 'Det finns ingen krav på specifik utbildning, men många skolor föredrar kandidater med gymnasieutbildning inom vård, omsorg eller pedagogik (barn- och fritidsprogrammet, omvårdnadsprogrammet). Erfarenhet från skolmiljö, fritidshem eller arbete med barn och ungdomar med särskilda behov väger tungt. Allt fler kommuner erbjuder också introduktionsutbildningar i NPF, TAKK och krishantering för nyanställda elevassistenter. Om du saknar formell utbildning, betona relevant erfarenhet, kurser och fortbildningar du genomgått.'
+      },
+      {
+        fraga: 'Hur beskriver jag NPF-erfarenhet om jag inte arbetat i skolan tidigare?',
+        svar: 'Lyft fram relevant erfarenhet från andra sammanhang: fritidshem, LSS-boende, habilitering, daglig verksamhet, familjehem eller ideellt arbete. Beskriv konkret: "Stöttat barn med autism i fritidsverksamhet genom strukturerade aktiviteter och visuella scheman" eller "Arbetat med ungdomar med ADHD på behandlingshem där jag utvecklat tydliga rutiner och förstärkningssystem". Nämn också privata erfarenheter om relevanta: "Som förälder till barn med dyslexi har jag gedigen förståelse för vikten av tidiga insatser och anpassat material".'
+      },
+      {
+        fraga: 'Vilka egenskaper söker skolor hos elevassistenter?',
+        svar: 'Tålamod och lugn är kritiskt – arbetet innebär ofta repetition, utmanande beteenden och långsam progress. Flexibilitet är nödvändigt eftersom scheman och behov ändras dagligen. Struktur och organisation hjälper dig att skapa förutsägbarhet för eleverna. Empati och relationsskapande är grundläggande för att bygga tillit. Kommunikationsförmåga behövs för samarbete med lärare, elevhälsa och vårdnadshavare. Visa dessa egenskaper genom konkreta exempel i ditt brev, inte genom att bara lista dem.'
+      },
+      {
+        fraga: 'Hur hanterar jag utmanande beteenden i det personliga brevet?',
+        svar: 'Var professionell och lösningsfokuserad. Skriv inte "hanterat aggressiva elever" utan "Arbetat med elever som visar utåtagerande beteende genom att identifiera triggers, förebygga eskalering och använda avlastningsstrategier". Beskriv konkret: "När en elev visade frustration under matematiklektioner arbetade jag med kortare arbetspass, fler pauser och alternativa uttryckssätt vilket minskade utbrotten från dagligen till någon gång per vecka". Detta visar förståelse för att beteende är kommunikation och att du arbetar systematiskt och respektfullt.'
+      },
+      {
+        fraga: 'Ska jag nämna fortbildningar och kurser även om de är korta?',
+        svar: 'Absolut ja! Skolor värderar kompetensutveckling högt. Nämn allt relevant: "Genomgått 2-dagars fortbildning i ADHD i skolmiljö", "Deltagit i kommunens utbildning om autism och kommunikation", "Certifierad i Första hjälpen barn och HLR", "Självstudier i TAKK via webbutbildning". Även kortare kurser visar att du tar yrket på allvar och vill utvecklas. Om du har specifika NPF-kurser (NCK – Nationellt Kompetenscentrum Anhöriga, autism- och aspergerförbundets utbildningar) är detta extra värdefullt.'
+      },
+      {
+        fraga: 'Hur visar jag att jag klarar dokumentation och administration?',
+        svar: 'Många elevassistenter underskattar den administrativa delen. Skriv konkret: "Dokumenterar dagligen elevernas progress i Unikum enligt åtgärdsprogram", "För loggbok för kommunikation med vårdnadshavare", "Observerar och rapporterar elevens utveckling vid elevhälsoteamets möten", "Bidrar till uppföljning av individuella utvecklingsplaner". Om du har erfarenhet av Unikum, IST, Skolwebben, Schoolsoft eller andra skolsystem, nämn det specifikt. Detta visar att du förstår att elevassistenten är en professionell roll som kräver mer än "vara snäll med barn".'
+      }
+    ],
+
+    relaterade: [
+      { yrke: 'Barnskötare', slug: 'barnskotare' },
+      { yrke: 'Fritidspedagog', slug: 'fritidspedagog' },
+      { yrke: 'Specialpedagog', slug: 'specialpedagog' },
+      { yrke: 'Personlig assistent', slug: 'personlig-assistent' }
+    ]
   }
 }
 
