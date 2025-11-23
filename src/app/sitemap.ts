@@ -108,6 +108,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'sommarjobb',
     'ekonomiassistent',
     'barnskotare',
+    'personlig-assistent',
     // Lägg till fler yrken här när de skapas
   ];
 

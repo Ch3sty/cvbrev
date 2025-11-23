@@ -168,8 +168,8 @@ const coverLetterExamples: CoverLetterExample[] = [
     yrke: 'Personlig assistent',
     slug: 'personlig-assistent',
     kategori: 'vard',
-    niva: 'nybörjare',
-    sokvolym: 130,
+    niva: 'erfaren',
+    sokvolym: 180,
     icon: Users,
     gradient: 'from-indigo-500 via-purple-500 to-pink-500',
     preview: {
