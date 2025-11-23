@@ -2467,6 +2467,141 @@ Anna Bergström`
       { yrke: 'Förskollärare', slug: 'forskollarare' },
       { yrke: 'Undersköterska', slug: 'underskoterska' }
     ]
+  },
+
+  'lakare': {
+    yrke: 'Läkare',
+    sokvolym: 720,
+
+    metaTitle: 'Personligt Brev Läkare 2025 - Exempel & Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett personligt brev-exempel för läkare med ATS-optimering. Betonar klinisk erfarenhet, evidensbaserad medicin och interprofessionellt samarbete. Gratis mall 2025.',
+
+    seoIntro: `Söker du jobb som läkare inom hälso- och sjukvård? Ditt personliga brev ska bevisa att du kan diagnostisera, samarbeta och arbeta evidensbaserat. Denna sida ger dig ett konkret exempel på hur du skriver ett professionellt personligt brev som läkare – plus tips på vad som faktiskt får dig till intervju.`,
+
+    intro: 'Se hur en erfaren ST-läkare bevisar sina diagnostiska färdigheter, evidensbaserade arbetssätt och teamsamarbete. Exemplet visar exakt hur du beskriver kliniska resultat, vårdkvalitet och interprofessionella relationer – så att både ATS-system och överläkare ser din kompetens.',
+
+    exempelBrev: {
+      namn: 'Dr. Erik Lindström',
+      rollTitel: 'ST-läkare, Internmedicin',
+      brevText: `Hej,
+
+Jag söker tjänsten som ST-läkare inom internmedicin vid Karolinska Universitetssjukhuset. Under mina tre år på Danderyds sjukhus har jag arbetat som AT-läkare och underläkare. Jag har byggt bred erfarenhet inom akutmedicin, geriatrik och internmedicin. Jag är utbildad i ultraljudsdiagnostik (POCUS). Jag ledde också kvalitetsarbete kring antibiotikastewardship – vilket minskade användningen av bredspektrumantibiotika med 18% på avdelningen.
+
+Jag arbetar evidensbaserat och diagnostiserar systematiskt. Vid misstänkt lungemboli använder jag Wells kriterier. Vid pneumoni tillämpar jag CURB-65, och vid antikoagulantia bedömer jag enligt HAS-BLED. Vid komplexa geriatriska fall samarbetar jag nära med sjuksköterskor, fysioterapeuter och arbetsterapeuter. Detta ger oss en helhetsbedömning och säkrare vård.
+
+Under min AT-tid roterade jag på kirurgi, ortopedi, psykiatri och primärvård. Det gav mig bred medicinsk grund och förståelse för hur specialiteter samverkar. Jag är van vid högt arbetstempo, att prioritera när resurserna är knappa och att fatta beslut själv under jourpass.
+
+Jag ser fram emot att bli internmedicinare vid Karolinska. Där vill jag specialisera mig inom diagnostik, akutsjukvård och forskning.
+
+Med vänlig hälsning,
+Dr. Erik Lindström`,
+
+      befattning: 'ST-läkare inom internmedicin',
+      företag: 'Karolinska Universitetssjukhuset',
+      erfarenhet: '3 år som AT-läkare och underläkare',
+      nyckelkompetenser: [
+        'Klinisk diagnostik med evidensbaserade riktlinjer',
+        'POCUS (Point-of-Care Ultrasound)',
+        'Antibiotikastewardship och vårdkvalitetsarbete',
+        'Interprofessionellt samarbete inom geriatrik',
+        'Akutmedicin och prioritering under press'
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        titel: 'Konkret klinisk erfarenhet med mätbara resultat',
+        beskrivning: 'Erik anger exakt hur länge han arbetat (3 år), vilka avdelningar han roterat på och kvantifierar sitt kvalitetsarbete (18% minskning av bredspektrumantibiotika). Han bevisar både klinisk bredd och förmåga till förbättringsarbete – centralt för läkarroller.'
+      },
+      {
+        titel: 'Evidensbaserade verktyg som ATS-optimering',
+        beskrivning: 'Brevet nämner Wells kriterier, CURB-65 och HAS-BLED – standardiserade verktyg som ofta finns i platsannonser och jobbbeskrivningar för internmedicinare. ATS-system prioriterar dessa nyckelord.'
+      },
+      {
+        titel: 'Interprofessionellt samarbete betonas',
+        beskrivning: 'Erik beskriver samarbete med sjuksköterskor, fysioterapeuter och arbetsterapeuter vid geriatriska fall. Han bevisar teamorientering och helhetssyn – kompetenser som vårdorganisationer värderar högt.'
+      },
+      {
+        titel: 'Specialistkompetens med POCUS',
+        beskrivning: 'Point-of-Care Ultrasound är en eftertraktad färdighet inom internmedicin och akutsjukvård. Att nämna detta särskilt ökar Eriks konkurrenskraft. Han går utanför grundutbildningen och skaffar efterfrågad specialistkompetens.'
+      },
+      {
+        titel: 'Både medicinsk kompetens och förmåga att hantera press',
+        beskrivning: 'Brevet bevisar medicinsk kompetens OCH förmåga att hantera högt arbetstempo, resursbrist och självständiga beslut – realistiska krav i svensk sjukvård idag.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Nämn konkreta kliniska fall eller diagnoskriterier',
+        text: 'Använd etablerade verktyg som Wells, CURB-65, NIH Stroke Scale eller liknande. Du bevisar att du arbetar systematiskt och evidensbaserat – något som både ATS och rekryterare letar efter.'
+      },
+      {
+        rubrik: 'Kvantifiera ditt kvalitetsarbete',
+        text: 'Om du deltagit i förbättringsarbete (antibiotikastewardship, fallprevention, wardrounds), ange resultat i procent eller antal. Siffror gör ditt bidrag trovärdigt och mätbart.'
+      },
+      {
+        rubrik: 'Beskriv hur du samarbetar interprofessionellt',
+        text: 'Beskriv hur du samarbetar med sjuksköterskor, specialistläkare, kuratorer eller fysioterapeuter. Ge konkreta exempel från komplexa patientfall där ni jobbade som team.'
+      },
+      {
+        rubrik: 'Anpassa efter specialitet',
+        text: 'Internmedicin, kirurgi, psykiatri och allmänmedicin kräver olika kompetenser. Betona de färdigheter som matchar specialiteten du söker till.'
+      },
+      {
+        rubrik: 'Håll tonen professionell men personlig',
+        text: 'Undvik alltför akademisk jargong. Skriv tydligt och konkret om dina kliniska insatser utan att låta opersonlig. Rekryterare söker både kompetens och personlig matchning.'
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur lång klinisk erfarenhet ska jag nämna i brevet?',
+        svar: 'Ange alltid hur många år eller månader du arbetat som AT-läkare, underläkare eller ST-läkare. Om du roterat på flera avdelningar, nämn de som är mest relevanta för tjänsten. Konkreta tidsangivelser gör din erfarenhet trovärdig och jämförbar.'
+      },
+      {
+        fraga: 'Ska jag nämna min läkarlegitimation i det personliga brevet?',
+        svar: 'Vanligtvis räcker det att nämna din yrkestitel (AT-läkare, ST-läkare, specialist). Legitimationsnummer hör hemma i CV:t eller ansökningsformuläret. Fokusera brevet på klinisk kompetens och erfarenhet.'
+      },
+      {
+        fraga: 'Hur visar jag evidensbaserad medicin i brevet?',
+        svar: 'Nämn konkreta verktyg eller riktlinjer du använder: Wells kriterier, CURB-65, NIH Stroke Scale, svenska sepsisregistret etc. Du bevisar att du arbetar strukturerat och följer nationella vårdprogram.'
+      },
+      {
+        fraga: 'Kan jag nämna forskning eller publikationer?',
+        svar: 'Ja, om du har publicerat eller deltagit i kliniska studier, nämn detta kort. Skriv dock inte hela referenslistan – det hör hemma i CV:t. Fokusera på hur forskningen stärker din kliniska kompetens.'
+      },
+      {
+        fraga: 'Hur betonar jag teamarbete som läkare?',
+        svar: 'Beskriv konkreta situationer där du samarbetat med sjuksköterskor, fysioterapeuter, kuratorer eller specialistläkare. Ge gärna exempel från komplexa patientfall eller interprofessionella team.'
+      },
+      {
+        fraga: 'Ska jag skriva om jourtjänstgöring i brevet?',
+        svar: 'Ja, om tjänsten kräver jour. Beskriv hur många jourpass du hanterat, vilken typ av akutsjukvård du mött och hur du prioriterar under press. Du bevisar att du klarar självständigt ansvar.'
+      },
+      {
+        fraga: 'Hur hanterar jag karriärbyten mellan specialiteter?',
+        svar: 'Förklara kort varför du byter inriktning och hur din tidigare erfarenhet stärker dig i den nya rollen. Exempelvis kan kirurgisk erfarenhet ge dig fördel inom internmedicin vid akuta bukar.'
+      },
+      {
+        fraga: 'Vad ska jag skriva om kvalitetsförbättringsarbete?',
+        svar: 'Beskriv projektet kort och ange konkreta resultat: "Deltog i antibiotikastewardship som minskade bredspektrumantibiotika med 18%". Kvantifierade resultat visar att du bidrar till vårdkvalitet.'
+      },
+      {
+        fraga: 'Hur lång ska ett personligt brev för läkare vara?',
+        svar: 'Håll brevet till max 1 A4-sida (ca 250–350 ord). Rekryterare och överläkare har begränsad tid. Fokusera på de 3–4 starkaste kompetenserna som matchar tjänsten.'
+      },
+      {
+        fraga: 'Kan jag använda medicinska förkortningar i brevet?',
+        svar: 'Ja, men endast etablerade förkortningar som ST, AT, POCUS, CURB-65, NIH etc. Undvik obskyra förkortningar som bara används internt på din klinik. HR kan läsa brevet först – använd bara förkortningar de känner igen.'
+      }
+    ],
+    relaterade: [
+      { yrke: 'Sjuksköterska', slug: 'sjukskoterska' },
+      { yrke: 'Undersköterska', slug: 'underskoterska' },
+      { yrke: 'Kurator', slug: 'kurator' },
+      { yrke: 'Handläggare', slug: 'handlaggare' }
+    ]
   }
 }
 
