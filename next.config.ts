@@ -207,6 +207,16 @@ const nextConfig: NextConfig = {
         destination: '/personligt-brev-exempel/butiksbitrade',
         permanent: true,
       },
+      {
+        source: '/artiklar/personligt-brev-servitris',
+        destination: '/personligt-brev-exempel/servitris-restaurangbitrade',
+        permanent: true,
+      },
+      {
+        source: '/artiklar/personligt-brev-restaurangbitrade',
+        destination: '/personligt-brev-exempel/servitris-restaurangbitrade',
+        permanent: true,
+      },
       // Lägg till fler redirects här när fler exempel-sidor skapas
     ]
   },
