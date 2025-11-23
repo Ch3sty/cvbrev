@@ -126,6 +126,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'elevassistent',
     'kundtjanst',
     'stadare',
+    'vardbitrade',
     // Lägg till fler yrken här när de skapas
   ];
 

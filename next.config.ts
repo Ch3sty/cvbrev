@@ -242,6 +242,11 @@ const nextConfig: NextConfig = {
         destination: '/personligt-brev-exempel/stadare',
         permanent: true,
       },
+      {
+        source: '/artiklar/personligt-brev-vardbitrade',
+        destination: '/personligt-brev-exempel/vardbitrade',
+        permanent: true,
+      },
       // Lägg till fler redirects här när fler exempel-sidor skapas
     ]
   },

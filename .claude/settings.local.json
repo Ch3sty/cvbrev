@@ -24,7 +24,9 @@
       "Bash(curl -s \"https://jobbcoach.ai/personligt-brev-exempel/underskoterska\")",
       "Bash(cat:*)",
       "Bash(ls:*)",
-      "Bash(nul)"
+      "Bash(nul)",
+      "Bash(findstr:*)",
+      "Bash(dir /b \"c:\\Users\\chris\\cvbrev\\src\\app\\personligt-brev-exempel\")"
     ],
     "deny": [],
     "ask": []
