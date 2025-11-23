@@ -3021,15 +3021,15 @@ Använd exemplet som inspiration för din egen jobbansökan chef och anpassa det
 
     intro: 'Som chef är ditt personliga brev din chans att visa konkreta ledarskapsresultat, strategiskt tänkande och förmåga att utveckla medarbetare. Här får du ett komplett exempel på ett personligt brev för chefsroller, plus tips om hur du anpassar innehållet efter din erfarenhetsnivå och bransch.',
 
-    namn: 'Maria Bergström',
-    adress: 'Storgatan 15, 211 42 Malmö',
-    telefon: '070-345 67 89',
-    epost: 'maria.bergstrom@email.se',
-    arbetsgivare: 'Malmö Stad',
-    roll: 'Avdelningschef',
-    datum: new Date().toLocaleDateString('sv-SE'),
-
-    brevText: `Hej,
+    exempelBrev: {
+      namn: 'Maria Bergström',
+      adress: 'Storgatan 15, 211 42 Malmö',
+      telefon: '070-345 67 89',
+      epost: 'maria.bergstrom@email.se',
+      arbetsgivare: 'Malmö Stad',
+      roll: 'Avdelningschef',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Hej,
 
 Jag söker tjänsten som avdelningschef inom Social omsorg på Malmö Stad. Med åtta års erfarenhet av att leda team inom offentlig sektor och en dokumenterad förmåga att förbättra både arbetsmiljö och verksamhetsresultat är jag redo att ta nästa steg. Er verksamhet med fokus på personcentrerad omsorg och medarbetardriven utveckling stämmer väl överens med mitt eget arbetssätt.
 
@@ -3043,17 +3043,16 @@ Er ambition att utveckla sociala omsorgen med fokus på brukarnas självbestämm
 
 Varma hälsningar,
 Maria Bergström`,
-
-    erfarenhet: '8 år som chef inom offentlig sektor med fokus på social omsorg',
-
-    nyckelkompetenser: [
-      'Personalansvar (45 medarbetare)',
-      'Budgetansvar (32 MSEK)',
-      'Arbetsmiljöförbättring (sjuktal från 14% till 7%)',
-      'Strategisk utveckling och implementering',
-      'Medarbetarutveckling och coaching',
-      'Kvalitetsledning och verksamhetsuppföljning'
-    ],
+      erfarenhet: '8 år som chef inom offentlig sektor med fokus på social omsorg',
+      nyckelkompetenser: [
+        'Personalansvar (45 medarbetare)',
+        'Budgetansvar (32 MSEK)',
+        'Arbetsmiljöförbättring (sjuktal från 14% till 7%)',
+        'Strategisk utveckling och implementering',
+        'Medarbetarutveckling och coaching',
+        'Kvalitetsledning och verksamhetsuppföljning'
+      ]
+    },
 
     varforDetFungerar: [
       {
