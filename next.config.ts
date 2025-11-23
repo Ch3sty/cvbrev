@@ -228,31 +228,12 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/artiklar/personligt-brev-elevassistent',
-        destination: '/personligt-brev-exempel/elevassistent',
-        permanent: true,
-      },
-      {
-        source: '/artiklar/personligt-brev-kundtjanst',
-        destination: '/personligt-brev-exempel/kundtjanst',
-        permanent: true,
-      },
-      {
         source: '/artiklar/personligt-brev-stadare-ny',
         destination: '/personligt-brev-exempel/stadare',
         permanent: true,
       },
-      {
-        source: '/artiklar/personligt-brev-vardbitrade',
-        destination: '/personligt-brev-exempel/vardbitrade',
-        permanent: true,
-      },
-      {
-        source: '/artiklar/personligt-brev-hemtjanst',
-        destination: '/personligt-brev-exempel/hemtjanst',
-        permanent: true,
-      },
-      // Lägg till fler redirects här när fler exempel-sidor skapas
+      // OBS: Lägg INTE till redirects för nya yrken automatiskt!
+      // Endast yrken som hade gamla artiklar under /artiklar/personligt-brev-* behöver redirects
     ]
   },
 };
