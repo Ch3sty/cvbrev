@@ -128,6 +128,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'stadare',
     'vardbitrade',
     'hemtjanst',
+    'kock',
     // Lägg till fler yrken här när de skapas
   ];
 

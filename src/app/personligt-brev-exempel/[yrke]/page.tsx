@@ -3905,6 +3905,133 @@ Maria Andersson`
       { yrke: 'Personlig assistent', slug: 'personlig-assistent' },
       { yrke: 'Lokalvårdare', slug: 'lokalvardare' }
     ]
+  },
+
+  'kock': {
+    yrke: 'Kock',
+    sokvolym: 190,
+    metaTitle: 'Personligt Brev Kock 2025 - Exempel & Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett exempel på personligt brev för kock. Visa kulinarisk kompetens, HACCP-kunskap och ledarskap. Konkreta tips för restaurang- och hotellkök.',
+    seoTitle: 'Personligt Brev Kock 2025 - Exempel & Mall | Jobbcoach.ai',
+    seoDescription: 'Komplett exempel på personligt brev för kock. Visa kulinarisk kompetens, HACCP-kunskap och ledarskap. Konkreta tips för restaurang- och hotellkök.',
+
+    intro: 'Detta exempel visar hur en erfaren kock presenterar både teknisk kompetens och ledarskapsförmåga. Brevet balanserar konkreta prestationer (minskade kostnader, förbättrade betyg) med passion för hantverket. Passar dig som söker sous chef- eller köksmästarroller där både kreativitet och ekonomiskt ansvar värderas.',
+
+    seoIntro: `Att skriva ett personligt brev som kock kräver att du visar både tekniska färdigheter och förmåga att leverera under press. Restaurang- och hotellbranschen söker kockar som behärskar grundläggande matlagningstekniker, följer strikta hygienkrav och kan bidra med kreativitet till menyn.
+
+Ditt personliga brev ska innehålla konkreta exempel från din arbetsvardag. Beskriv specifika rätter du utvecklat. Förklara hur du hanterat högtrafik under rushstunder. Visa hur du bidragit till att minska svinn och optimera råvarukostnader. Använd branschtermer som HACCP, mise en place, à la carte och menuplanering. Det visar att du talar kökets språk.
+
+Om du söker jobb på restaurang eller hotell måste du anpassa brevet till verksamhetens profil. En finedining-restaurang söker kreativitet och precision. Ett konferanshotell värdesätter effektivitet och förmåga att hantera stora volymer. Lyft alltid fram din erfarenhet av matsäkerhet och hygienrutiner. Det är icke-förhandlingsbart i branschen.`,
+
+    exempelBrev: {
+      namn: 'Martin Bergström',
+      adress: 'Kungsbackavägen 28, 431 37 Mölndal',
+      telefon: '070-284 19 63',
+      epost: 'martin.bergstrom@email.se',
+      arbetsgivare: 'Restaurang Sjöbris',
+      roll: 'Sous Chef',
+      datum: new Date().toLocaleDateString('sv-SE'),
+      brevText: `Jag söker tjänsten som sous chef på Restaurang Havets Skafferi. Med åtta års erfarenhet från både à la carte-restauranger och hotellkök passar er satsning på nordiskt hantverk perfekt för min matlagningsfilosofi.
+
+På Restaurang Sjöbris har jag sedan 2021 arbetat som sous chef. Jag ansvarar för vår säsongsmeny som vi byter varje kvartal. Genom samarbete med lokala leverantörer har jag utvecklat rätter som höjt gästnöjdheten från 4.1 till 4.7 på TripAdvisor. Samtidigt minskade råvarukostnaderna med 12 procent. Hur? Genom att använda hela råvaran smart. När vår köksmästare var föräldraledig i sex månader ledde jag köket själv. Vi behöll alla stamgäster trots att flera i personalen byttes ut.
+
+Matsäkerhet är grunden i allt jag gör. Jag är certifierad i HACCP. Förra året implementerade jag ett digitalt temperaturloggningssystem via Menutech. Resultatet? Noll avvikelser vid miljöinspektionen. Under hektiska fredags- och lördagskvällar med 120+ gäster håller jag ett lugn som sprider sig till hela teamet. Min erfarenhet från storbandskök på Clarion Hotel lärde mig en sak: effektiv kommunikation och grundlig förberedelse är skillnaden mellan kaos och kontroll.
+
+Kreativitet driver mig. Jag experimenterar regelbundet med fermentering och egen charkuteri. Min signaturrätt – kalvkind med rostad butternutsquash och havtornsmajonnäs – blev vår mest sålda hösträtt 2024. Men jag respekterar också de klassiska grunderna. En perfekt bernaise eller korrekt gjord fond kräver tålamod och precision.
+
+Jag söker nu en miljö där jag kan utvecklas mot en köksmästarroll. Er inriktning på hållbarhet och innovation gör Havets Skafferi till rätt plats för det. Jag ser fram emot att diskutera hur min erfarenhet kan bidra till er framgång.
+
+Varmt välkommen att kontakta mig för ett möte.
+
+Med vänlig hälsning,
+Martin Bergström`
+    },
+
+    tips: [
+      {
+        rubrik: 'Lyft fram konkreta menuexempel och kulinariska prestationer',
+        text: `Rekryterare vill se bevis på din kompetens. Inte bara påståenden. Beskriv specifika rätter du skapat, menyer du planerat eller kulinariska utmaningar du löst. Till exempel: "Utvecklade en 5-rätters vegansk tasting menu som ökade våra vegetariska gäster med 40 procent". Eller: "Omarbetade frukostbuffén vilket minskade matsvinn med 8 kg per dag".
+
+Inkludera gärna tekniker du behärskar – sous vide, fermentering, charkuteri. Visa hur de bidragit till verksamheten. Detta bevisar att du tänker strategiskt kring hur dina kunskaper skapar affärsnytta.`
+      },
+      {
+        rubrik: 'Betona matsäkerhet, HACCP-kunskap och hygienrutiner',
+        text: `Matsäkerhet är A och O i köket. Nämn alltid din HACCP-certifiering om du har en. Beskriv konkret hur du arbetar med hygien och säkerhet. Exempel: "Implementerade digitalt temperaturloggningssystem som eliminerade alla avvikelser vid miljöinspektionen". Eller: "Utbildade ny personal i korrekt hantering av allergener och korsföroreningar".
+
+Om du arbetat med specifika standarder (ISO 22000, Svensk HACCP) eller system (Menutech, Adato) – nämn dem. Det signalerar professionalitet. Det visar att du tar matsäkerhet på största allvar.`
+      },
+      {
+        rubrik: 'Visa hur du hanterar stress och högt tempo under rushtid',
+        text: `Köksarbete innebär intensiva perioder med många samtidiga beställningar. Beskriv hur du behåller lugnet när trycket är som högst. Exempel: "Under fredags- och lördagskvällar med 150+ gäster upprätthåller jag tydlig kommunikation med teamet. Alla rätter går ut enligt standard". Eller: "Min erfarenhet från storbandsköket lärde mig vikten av perfekt mise en place. När förberedelserna är gjorda flyter rushen smidigt".
+
+Visa också att du kan leda andra under press om du söker en ledarroll. Konkreta exempel väger tyngst.`
+      },
+      {
+        rubrik: 'Inkludera exempel på kostnadsmedvetenhet och svinnsminimering',
+        text: `Restaurangverksamhet drivs på små marginaler. Kockar som bidrar till lönsamheten värderas högt. Beskriv hur du minskat kostnader: "Minskade råvarukostnader med 15 procent genom att använda hela råvaran. Fiskrester blev fond. Björksopp-stilkar blev krispig garnering". Eller: "Optimerade portionsstorlekarna vilket sänkte food cost från 34 procent till 29 procent".
+
+Om du arbetat med inventeringssystem, leverantörsförhandlingar eller menuanalys – lyft det. Det visar affärsförståelse utöver själva matlagningen.`
+      },
+      {
+        rubrik: 'Anpassa brevet till restaurangtyp och kökets inriktning',
+        text: `En bistro, ett konferanshotell och en finedining-restaurang söker olika kompetenser. Läs noggrant om arbetsgivaren. Spegla deras värderingar. Om de pratar om "gård-till-bord" – betona din erfarenhet av lokala råvaror. Om de nämner "innovativ gastronomi" – lyft din kreativitet och experimentlusta.
+
+Exempel på anpassning: För ett hotellkök kan du skriva "Erfarenhet av att hantera frukost för 200 gäster samt à la carte-service på kvällen". För en finedining-restaurang fokusera på "Precision i plättering, förståelse för smakkombinationer och erfarenhet av tasting menus med 10+ rätter".`
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Konkreta prestationer med siffror och resultat',
+        text: 'Visar mätbara förbättringar (TripAdvisor-betyg, kostnadsbesparingar) som bevisar din kompetens.'
+      },
+      {
+        rubrik: 'Balans mellan kreativitet och teknisk säkerhet',
+        text: 'Visar både innovation (fermentering, signaturrätter) och grundläggande yrkeskunnande (HACCP, matsäkerhet).'
+      },
+      {
+        rubrik: 'Ledarskap och stresshantering framgår tydligt',
+        text: 'Beskriver erfarenhet av att leda kök under högtryck och täcka för köksmästare. Relevant för sous chef-rollen.'
+      },
+      {
+        rubrik: 'Tydlig koppling till arbetsgivarens profil',
+        text: 'Kopplar egen filosofi om nordiskt hantverk till restaurangens inriktning. Visar att du researcht om arbetsgivaren.'
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska ett personligt brev för kock vara?',
+        svar: 'Ett personligt brev för kock bör vara 300-450 ord, ungefär en A4-sida. Det ger dig utrymme att beskriva relevanta erfarenheter och konkreta exempel från köket. Du kan visa din passion utan att bli för långrandig. Fokusera på kvalitet framför kvantitet.'
+      },
+      {
+        fraga: 'Vilka färdigheter ska jag lyfta fram i mitt brev som kock?',
+        svar: 'Betona tekniska färdigheter (matlagningstekniker, menuplanering), matsäkerhet (HACCP-certifiering, hygienrutiner) och förmåga att arbeta under stress. Visa kreativitet i matlagning och lagarbete. Om du söker ledarroller – inkludera erfarenhet av personalansvar, utbildning och schemaläggning. Konkreta exempel väger tyngre än allmänna påståenden.'
+      },
+      {
+        fraga: 'Ska jag nämna specifika rätter jag lagat i mitt personliga brev?',
+        svar: 'Ja. Att nämna specifika rätter, menyer eller kulinariska projekt gör ditt brev mer konkret och trovärdigt. Till exempel "Utvecklade restaurangens första veganska tasting menu" eller "Min signaturrätt med lokal gös och säsongsrotfrukter blev sommarens bästsäljare". Det visar kompetens och kreativitet på ett sätt som allmänna beskrivningar inte gör.'
+      },
+      {
+        fraga: 'Hur visar jag att jag kan hantera stress i köket?',
+        svar: 'Beskriv konkreta situationer där du presterat under press. Ange antal gäster per kväll. Förklara hur du hanterat oväntade situationer (personalbortfall, slut på råvara). Visa hur din förberedelse bidragit till smidiga rushtider. Exempel: "Under lördagsrushen med 180 gäster upprätthåller jag lugn och säkerställer perfekt timing på alla rätter".'
+      },
+      {
+        fraga: 'Behöver jag nämna HACCP-certifiering i brevet?',
+        svar: 'Ja. Matsäkerhet är grundläggande i köksyrket. HACCP-certifiering visar professionalitet. Nämn gärna certifieringen och hur du tillämpar kunskapen praktiskt: temperaturkontroller, allergenhantering, korsföroreningar. Om du saknar formell certifiering men har gedigen erfarenhet – beskriv hur du arbetar med matsäkerhet i praktiken.'
+      },
+      {
+        fraga: 'Hur anpassar jag brevet till olika typer av restauranger?',
+        svar: 'Researcha restaurangens profil och anpassa därefter. Finedining: betona precision, kreativitet, avancerade tekniker. Bistro/gastropub: lyft fram husmanskost, lokala råvaror, gästfokus. Hotellkök: nämn volymhantering, buffé-erfarenhet, flexibilitet. Catering: organisationsförmåga, planering, stora volymer. Använd språk och exempel som matchar deras verksamhet.'
+      }
+    ],
+
+    kategori: 'service',
+    relaterade: [
+      { yrke: 'Servitris/Restaurangbiträde', slug: 'servitris-restaurangbitrade' },
+      { yrke: 'Butikssäljare', slug: 'butikssaljare' },
+      { yrke: 'Hemtjänst', slug: 'hemtjanst' }
+    ]
   }
 }
 
