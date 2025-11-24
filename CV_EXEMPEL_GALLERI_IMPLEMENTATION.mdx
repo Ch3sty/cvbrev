@@ -12,23 +12,109 @@
 - [x] Footer-länkar
 - [x] Build verification (264 pages, SSG confirmed)
 
-### ❌ SAKNAS - KRITISKT PROBLEM
-**InteractiveCVPreview är felaktigt implementerad!**
+### ✅ FIXAT - InteractiveCVPreview (2025-01-24)
 
-Nuvarande implementation visar bara SVG-bilder av tomma mallar, vilket är **helt oacceptabelt**.
+**InteractiveCVPreview är nu korrekt implementerad!**
 
-**Korrekt implementation** (se `personligt-brev-exempel`):
-- ✅ Personligt brev: Renderar HTML med faktisk brevtext från `exempelBrev`
-- ❌ CV-exempel: Visar bara SVG-bild av tom mall (INTE OK!)
+**Implementation detaljer:**
+- ✅ Använder faktiska Puppeteer template generators från `@/lib/cv/templates`
+- ✅ Renderar HTML med faktisk CV-data från `exempelCV`
+- ✅ Mall-växling mellan 8 templates (Modern, Klassisk, Kreativ, etc.)
+- ✅ Typsnittsbyte (Calibri, Arial, Times New Roman, Georgia)
+- ✅ Type-safe mapping av språknivåer (`mapLanguageProficiency()`)
+- ✅ 100% visuell konsistens mellan preview och PDF nedladdning
 
-**Vad som måste göras:**
-1. Skapa HTML-renderingar av CV-mallar (8 st)
-2. Fylla dem med faktisk data från `exempelCV`
-3. Implementera mall-växling med faktisk data
-4. Implementera typsnittsbyte (Calibri, Arial, etc.)
-5. Testa att allt ser professionellt ut
+**Key Features:**
+- Template selector med dropdown (desktop) och bottom sheet (mobile)
+- Font selector med 4 professionella typsnitt
+- Lazy-loaded med `next/dynamic` för bättre Page Speed
+- Använder samma `CVMetadata` format som PDF-generatorn
+- Type-safe konvertering från `exempelCV` → `CVMetadata`
 
-**Referens:** Se `src/app/personligt-brev-exempel/[yrke]/InteractiveLetterPreview.tsx` rad 578-900+ för hur det ska göras.
+**Tech Implementation:**
+```typescript
+import { getTemplateGenerator } from '@/lib/cv/templates'
+import type { CVMetadata } from '@/lib/cv/types'
+
+// Helper för att mappa språknivåer till strikt TypeScript union type
+const mapLanguageProficiency = (niva: string): 'Nybörjare' | 'Konversation' | 'Flyt' | 'Modersmål' | 'Tvåspråkig' => {
+  // Intelligent mapping från user-friendly text → strict type
+}
+
+// Konvertera exempelCV till CVMetadata
+const convertToCVMetadata = (): CVMetadata => {
+  return {
+    personalInfo: { /* ... */ },
+    professionalSummary: exempelCV.profil,
+    workExperience: exempelCV.erfarenhet.map(/* ... */),
+    education: exempelCV.utbildning.map(/* ... */),
+    skills: exempelCV.kompetenser.tekniska.concat(exempelCV.kompetenser.personliga),
+    certifications: exempelCV.certifieringar.map(/* ... */),
+    languages: exempelCV.sprak.map(lang => ({
+      language: lang.sprak,
+      proficiency: mapLanguageProficiency(lang.niva)
+    }))
+  }
+}
+
+// Rendera med Puppeteer template generator
+const templateGenerator = getTemplateGenerator(selectedTemplate)
+const html = templateGenerator(cvData, { font: selectedFont })
+```
+
+### ✅ UX-FÖRBÄTTRINGAR (2025-01-24)
+
+**Feedback från user + agent konsultation:**
+- User noterade att sidan var för lång och klumpig med för mycket white-space
+- Konsulterade SEO-agent och mobile-UX-designer för optimal struktur
+
+**Implementerade förbättringar:**
+
+1. **CV Preview Layout** (`CVExempelPage.tsx:89`)
+   - **Före:** `max-w-6xl` (1280px) → För mycket white-space
+   - **Efter:** `max-w-[900px]` → Optimal läsbredd, balanserad layout
+   - **Resultat:** Eliminerad onödig white-space, bättre visuell täthet
+
+2. **Tips Section Count** (`TipsSection.tsx:38,49`)
+   - **Före:** Statisk text "Expertråd"
+   - **Efter:** Dynamisk count `{tips.length} expertråd`
+   - **Resultat:** Tydligare value proposition för användaren
+
+3. **Varför det Fungerar - Text Density** (`VarforDetFungerar.tsx:89`)
+   - **Före:** Default 16px text-base
+   - **Efter:** `text-[15px]` för bättre densitet
+   - **Resultat:** Mer scannable cards, bättre mobile UX
+
+4. **Content Visibility Strategy** (baserat på SEO-agent rekommendation)
+   - **Hero + SEO Intro:** 100% synlig (150-200 ord)
+   - **Varför det fungerar:** 100% synlig, 6 cards (480-720 ord)
+   - **Tips:** Accordion, 6 tips (600-900 ord)
+   - **FAQ:** Accordion, 10+ frågor (1000-1500 ord)
+   - **Total:** 3500-4000 ord per sida, 50% synlig / 50% expanderbar
+
+5. **Schema.org FAQ Fix** (både cv-exempel och personligt-brev-exempel)
+   - **Problem:** Google Search Console rapporterade missing 'name' och 'text' fields
+   - **Root Cause:** Tomma FAQ-entries genererade ogiltig Schema.org markup
+   - **Fix:** Lade till `.filter()` för att ta bort entries med tomma fält
+   ```typescript
+   mainEntity: faq
+     .filter(item => item.fraga && item.svar && item.fraga.trim() !== '' && item.svar.trim() !== '')
+     .map(item => ({
+       '@type': 'Question',
+       name: item.fraga,
+       acceptedAnswer: {
+         '@type': 'Answer',
+         text: item.svar
+       }
+     }))
+   ```
+
+**Design Principer (från mobile-UX-designer):**
+- Mobile-first: Touch-friendly accordion buttons (min-height: 56-64px)
+- Scannable: Headers alltid synliga, endast content expanderbar
+- Progressive Disclosure: Viktigt content synligt, detaljer bakom accordion
+- Visual Hierarchy: Gradient badges, numbered tips, icon-system
+- Consistent Spacing: 16px mobile → 24px desktop margins
 
 ---
 
@@ -36,9 +122,10 @@ Nuvarande implementation visar bara SVG-bilder av tomma mallar, vilket är **hel
 
 CV-exempel galleriet är en motsvarighet till `/personligt-brev-exempel` men anpassat för CV-format. Systemet visar professionella CV-exempel för olika yrken med interaktiv mallförhandsvisning, SEO-optimerad copy och praktiska tips.
 
-**Status**: ⚠️ Proof-of-concept med KRITISK BUG (InteractiveCVPreview måste fixas)
+**Status**: ✅ Production-ready med 1 yrke implementerat (Undersköterska)
 **URL**: [https://jobbcoach.ai/cv-exempel](https://jobbcoach.ai/cv-exempel)
 **Build Status**: ✅ SSG fungerar, 264 sidor genererade
+**Next Step**: Skapa data för resterande 29 yrken enligt FAQ-strategi nedan
 
 ---
 
@@ -376,29 +463,108 @@ Baserat på sökvolym från personligt-brev-exempel:
 - Konkreta exempel: "Istället för X, skriv Y"
 - Multi-paragraph för tips >80 ord (använd \n\n)
 
-### FAQ (10 frågor)
+### FAQ (10 frågor) - KRITISK STRATEGI
 
-**Syfte**: Long-tail keywords, vanliga user concerns
+**⚠️ USER FEEDBACK:**
+> "FAQ:n, om vi har så här generiska frågor som inte är kopplat till undersköterska...hur gör vi då när vi ska ha 30st sidor med olika yrken? Borde dem inte vara nischade till det specifika yrket?"
 
-**Format**:
-```typescript
-{
-  fraga: "Fråga formulerad som användaren skulle googla",
-  svar: "Kort, rakt svar (2-3 meningar). Börja med 'Ja/Nej' om applicable."
-}
-```
+**LÖSNING: Hybrid-strategi (3-4 generiska + 6-8 yrkes-specifika)**
 
-**Teman att täcka**:
-1. Hur långt ska CV vara?
-2. Ska jag inkludera X? (t.ex. VFU, profilbild, certifieringar)
-3. Hur visar jag Y? (t.ex. medicinsk delegering, stresstålig)
-4. Hur anpassar jag för olika vårdmiljöer/branscher?
-5. Vad gör jag om luckor i CV?
-6. Hur mycket personlig info ska jag ha?
-7. Ska jag lista alla arbetsgivare?
-8. Hur lyfter jag fram teamarbete?
-9. Branschspecifika frågor (t.ex. "Ska jag nämna truckkort?")
-10. Format/struktur-frågor
+#### Generiska Frågor (3-4 st - återanvändbara för alla yrken)
+
+Dessa frågor är universella och kan användas på alla CV-exempel sidor:
+
+1. **"Hur långt ska mitt CV vara?"**
+   - Svar: "I Sverige rekommenderas 1-2 sidor. För juniora roller (0-5 års erfarenhet) räcker vanligtvis 1 sida, medan seniora yrkespersoner kan behöva 2 sidor för att visa progressionen i sin karriär."
+
+2. **"Ska jag ha en profilbild på mitt CV?"**
+   - Svar: "I Sverige är det vanligt men inte obligatoriskt. Välj en professionell bild med neutral bakgrund och affärsmässig klädsel. Undvik semesterbilder eller selfies."
+
+3. **"Hur hanterar jag luckor i mitt CV?"**
+   - Svar: "Var ärlig och kort om luckor. Vid kortare uppehåll (< 6 månader) behöver du inte förklara. För längre perioder, nämn konstruktiva aktiviteter som vidareutbildning, volontärarbete eller föräldraledighet."
+
+4. **"Ska jag skicka samma CV till alla jobb?"** (VALFRI - kan bytas mot yrkes-specifik)
+   - Svar: "Nej, anpassa alltid ditt CV för varje tjänst. Justera nyckelord, lyft relevant erfarenhet och matcha din kompetens mot kravprofilen. Detta ökar chansen att passera ATS-system och imponera på rekryterare."
+
+#### Yrkes-Specifika Frågor (6-8 st - MÅSTE vara unika per yrke)
+
+**Template för att skapa yrkes-specifika frågor:**
+
+**Kategori 1: Bransch-specifika kompetenser/certifieringar**
+- Exempel Undersköterska: "Ska jag lista medicinsk delegering på mitt CV som undersköterska?"
+- Exempel Lagerarbetare: "Ska jag nämna mitt truckkort på CV:t?"
+- Exempel IT-konsult: "Hur många programmeringsspråk ska jag lista?"
+- Exempel Lärare: "Ska jag inkludera VFU-placeringar i mitt CV?"
+
+**Kategori 2: Praktisk yrkesutövning**
+- Exempel Undersköterska: "Hur visar jag att jag kan hantera fysiskt krävande arbete?"
+- Exempel Receptionist: "Hur beskriver jag erfarenhet av olika telefonsystem?"
+- Exempel Kock: "Hur visar jag erfarenhet från olika typer av kök?"
+- Exempel Administrator: "Ska jag lista alla administrativa system jag kan?"
+
+**Kategori 3: Arbetsmiljö/setting**
+- Exempel Undersköterska: "Hur anpassar jag CV:t för olika vårdmiljöer (äldreboende vs hemtjänst)?"
+- Exempel Butiksbiträde: "Hur visar jag erfarenhet från både stora kedjor och små butiker?"
+- Exempel IT-konsult: "Hur beskriver jag remote vs on-site konsultuppdrag?"
+
+**Kategori 4: Mjuka färdigheter (yrkes-specifikt beskrivet)**
+- Exempel Undersköterska: "Hur visar jag att jag är bra på teamarbete i vården?"
+- Exempel Servitris: "Hur beskriver jag min stresstolerans under rusningar?"
+- Exempel Chef: "Hur visar jag ledarskapsförmåga utan att framstå som skrytsam?"
+
+**Kategori 5: Karriärprogression i branschen**
+- Exempel Undersköterska: "Ska jag lista alla vårdgivare jag jobbat för?"
+- Exempel Handläggare: "Hur visar jag progression inom offentlig sektor?"
+- Exempel Projektledare: "Hur beskriver jag projektportfölj vs individuella projekt?"
+
+**Kategori 6: Bransch-specifika utmaningar**
+- Exempel Förskollärare: "Hur beskriver jag erfarenhet från små vs stora barngrupper?"
+- Exempel Ekonomiassistent: "Ska jag nämna vilka ekonomisystem jag kan?"
+- Exempel Lokalvårdare: "Hur visar jag erfarenhet från olika typer av miljöer?"
+
+#### Implementation Checklist för Varje Yrke
+
+När du skapar FAQ för ett nytt yrke:
+
+1. ✅ Kopiera 3-4 generiska frågor (samma för alla yrken)
+2. ✅ Skapa 6-8 yrkes-specifika frågor enligt kategorierna ovan
+3. ✅ Researcha branschterminologi (t.ex. "Cosmic" för undersköterskor)
+4. ✅ Inkludera long-tail keywords (t.ex. "cv undersköterska medicinsk delegering")
+5. ✅ Testa att frågorna faktiskt är unika (gör Google-sökning)
+6. ✅ Verifiera Schema.org markup (inga tomma fält)
+
+#### Exempel på Yrkes-Specifika FAQ-sets
+
+**Undersköterska (implementerad):**
+- ✅ Medicinsk delegering
+- ✅ Fysiskt krävande arbete
+- ✅ Olika vårdmiljöer
+- ✅ VFU-perioder
+- ✅ Stresstålig i vården
+- ✅ Alla vårdgivare
+- ✅ Teamarbete i vården
+
+**Ingenjör (exempel för nästa implementation):**
+- "Hur många tekniker/ramverk ska jag lista?"
+- "Ska jag inkludera hobbyprojekt på GitHub?"
+- "Hur beskriver jag erfarenhet från olika branscher (bilindustri vs tech)?"
+- "Hur visar jag ledarskap i tekniska team?"
+- "Ska jag nämna patent eller publikationer?"
+- "Hur anpassar jag CV:t för startup vs storföretag?"
+
+**Förskollärare (exempel):**
+- "Ska jag inkludera VFU-perioder från utbildningen?"
+- "Hur beskriver jag erfarenhet från små vs stora barngrupper?"
+- "Hur visar jag erfarenhet av Reggio Emilia eller Montessori-pedagogik?"
+- "Ska jag nämna specifika utvecklingsområden (språk, matematik, skapande)?"
+- "Hur beskriver jag samarbete med föräldrar?"
+- "Hur visar jag digital kompetens (pedagogisk dokumentation)?"
+
+**VIKTIGT:**
+- Varje FAQ-set ska vara **minst 60% unikt** för det specifika yrket
+- Testa frågorna genom att googla dem - om samma fråga finns på 5+ andra CV-sidor, är den för generisk
+- Använd faktiska branschtermer som användare i det yrket googlar
+- Svaren ska vara 2-3 meningar, konkreta och actionable
 
 ---
 
@@ -523,16 +689,124 @@ För frågor om implementation:
 
 ---
 
-## Changelog
+## Quick-Start Guide: Skapa Nytt Yrke (30 min per yrke)
 
-### 2025-01-24 - Initial Implementation
-- ✅ Created CV-exempel gallery structure
-- ✅ Implemented Undersköterska example (proof-of-concept)
-- ✅ Built InteractiveCVPreview with 8 SVG templates
-- ✅ Verified SSG working (264 pages built)
-- ✅ Documentation created
+**Förutsättningar:**
+- 1 yrke redan implementerat (Undersköterska) som referens
+- Tillgång till branschkunskap eller research om yrket
+- Sökvolym-data för prioritering
+
+**Steg-för-steg process:**
+
+### Steg 1: Data Research (10 min)
+1. Researcha branschterminologi (t.ex. "Cosmic" för undersköterskor)
+2. Identifiera 5-7 nyckelkompetenser för yrket
+3. Lista 3-5 vanliga certifieringar/utbildningar
+4. Hitta 2-3 konkreta resultat-exempel (med siffror)
+
+### Steg 2: Skapa exempelCV (10 min)
+```typescript
+// I src/app/cv-exempel/[yrke]/page.tsx
+const exampleData = {
+  'nytt-yrke': {
+    yrke: "Nytt Yrke",
+    sokvolym: 750,
+    kategori: 'vard', // eller 'teknik', 'service', etc.
+
+    exempelCV: {
+      namn: "Förnamn Efternamn",
+      titel: "Professionell Titel",
+      kontakt: { /* ... */ },
+      profil: "3-4 meningar med nyckelord + mätbara resultat",
+      erfarenhet: [
+        {
+          titel: "Senior Position",
+          arbetsgivare: "Företag AB",
+          period: "2020 – Pågående",
+          beskrivning: [
+            "Kvantifierbart resultat med siffror (t.ex. 'minskade X med 25%')",
+            "Specifik branschterminologi och verktyg",
+            "Ledarskap/ansvar (om relevant)"
+          ]
+        }
+      ],
+      // ... fortsätt enligt data structure
+    }
+  }
+}
+```
+
+### Steg 3: Skapa Content (10 min)
+
+**3.1 SEO Intro (150-200 ord)**
+- Stycke 1: Vad utmärker ett bra CV för detta yrke?
+- Stycke 2: Branschspecifika krav (ATS, nyckelord, certifieringar)
+- Stycke 3: Vad exemplet visar (konkreta styrkor)
+
+**3.2 Varför det fungerar (6 punkter, 80-120 ord vardera)**
+- Kvantifierbara resultat
+- ATS-optimering
+- Branschspecifika nyckelord
+- Certifieringar/trovärdighet
+- Balans teknisk/mjuk kompetens
+- Progression/ansvar
+
+**3.3 Tips (6 punkter, 100-150 ord vardera)**
+- Använd imperativ form ("Inkludera...", "Visa...", "Anpassa...")
+- Multi-paragraph med \n\n för 100+ ord
+- Konkreta exempel: "Istället för X, skriv Y"
+
+**3.4 FAQ (3-4 generiska + 6-8 yrkes-specifika)**
+- Kopiera generiska från Undersköterska-exemplet
+- Skapa yrkes-specifika enligt kategorierna i FAQ-strategin ovan
+- Testa uniqueness med Google-sökning
+
+**3.5 Relaterade Yrken (3 st)**
+- Välj yrken i samma kategori eller med överlappande kompetenser
+
+### Steg 4: Verifiera & Testa (5 min)
+```bash
+# Bygg och testa lokalt
+npm run build
+
+# Verifiera att sidan genereras
+# Sök efter "● /cv-exempel/[nytt-yrke]" i build output
+
+# Testa i browser
+npm run dev
+# Besök http://localhost:3000/cv-exempel/nytt-yrke
+```
+
+**Checklist innan commit:**
+- ✅ CV-data fylld med branschspecifik information
+- ✅ Alla beskrivningar har kvantifierbara resultat
+- ✅ FAQ innehåller 60%+ yrkes-specifika frågor
+- ✅ Schema.org validering (inga tomma FAQ-fält)
+- ✅ Relaterade yrken länkade korrekt
+- ✅ InteractiveCVPreview renderar utan errors
+- ✅ SEO metadata korrekt (title, description)
+- ✅ Build fungerar utan TypeScript errors
 
 ---
 
-**Status**: Ready for Phase 2 (scale to 30 yrken)
-**Next Action**: Implement remaining 29 yrken following this guide
+## Changelog
+
+### 2025-01-24 - Production-Ready Implementation
+- ✅ Created CV-exempel gallery structure
+- ✅ Implemented Undersköterska example (complete with all sections)
+- ✅ **FIXED: InteractiveCVPreview** - Nu använder faktiska Puppeteer templates
+- ✅ **FIXED: TypeScript errors** - Language proficiency mapping
+- ✅ **FIXED: Schema.org errors** - FAQ validation filter
+- ✅ **UX-förbättringar**:
+  - CV preview white-space (max-w-[900px])
+  - Tips count i headers ({tips.length})
+  - Text density (text-[15px])
+- ✅ Verified SSG working (264 pages built)
+- ✅ Comprehensive documentation med FAQ-strategi
+- ✅ Quick-start guide för nya yrken
+
+---
+
+**Status**: ✅ Production-ready - Redo för skalning till 30 yrken
+**Next Action**: Använd Quick-Start Guide för att skapa resterande 29 yrken
+**Estimated Time**: 30 min/yrke × 29 yrken = ~15 timmar total implementation
