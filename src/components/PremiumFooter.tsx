@@ -77,6 +77,16 @@ export default function PremiumFooter() {
                 </Link>
               </li>
               <li>
+                <Link href="/cv-exempel" className="text-gray-600 hover:text-pink-600 transition-colors">
+                  CV-exempel
+                </Link>
+              </li>
+              <li>
+                <Link href="/personligt-brev-exempel" className="text-gray-600 hover:text-pink-600 transition-colors">
+                  Personligt brev exempel
+                </Link>
+              </li>
+              <li>
                 <Link href="/integrationer" className="text-gray-600 hover:text-pink-600 transition-colors">
                   Integrationer
                 </Link>
