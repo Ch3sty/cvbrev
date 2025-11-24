@@ -86,7 +86,7 @@ export default function CVExempelPage({ data }: CVExempelPageProps) {
       {/* Interaktiv CV Preview - Lazy loaded */}
       <section id="preview" className="py-12 md:py-16 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-[900px] mx-auto">
             <div className="text-center mb-8">
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
                 Se hur CV:t ser ut

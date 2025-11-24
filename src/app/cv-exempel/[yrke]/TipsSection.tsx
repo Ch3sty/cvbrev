@@ -35,7 +35,7 @@ export default function TipsSection({ tips, yrke }: TipsSectionProps) {
             >
               <Lightbulb className="w-4 h-4 text-amber-600" />
               <span className="text-sm font-semibold text-amber-900">
-                Expertråd
+                {tips.length} expertråd
               </span>
             </motion.div>
 
@@ -46,7 +46,7 @@ export default function TipsSection({ tips, yrke }: TipsSectionProps) {
               transition={{ delay: 0.1 }}
               className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-4"
             >
-              Tips för ditt CV som {yrke}
+              {tips.length} tips för ditt CV som {yrke}
             </motion.h2>
 
             <motion.p

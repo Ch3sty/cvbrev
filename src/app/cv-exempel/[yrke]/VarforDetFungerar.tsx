@@ -86,7 +86,7 @@ export default function VarforDetFungerar({ items, yrke }: VarforDetFungerarProp
                   </h3>
 
                   {/* Text - 80-120 ord, ALLTID SYNLIG */}
-                  <p className="text-slate-600 leading-relaxed">
+                  <p className="text-slate-600 leading-relaxed text-[15px]">
                     {item.text}
                   </p>
                 </motion.div>
