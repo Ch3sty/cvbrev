@@ -4284,14 +4284,21 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": data.faq.map((item: any) => ({
-      "@type": "Question",
-      "name": item.q,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": item.a
-      }
-    }))
+    "mainEntity": data.faq
+      .filter((item: any) => {
+        // Support both q/a and fraga/svar formats
+        const question = item.q || item.fraga
+        const answer = item.a || item.svar
+        return question && answer && question.trim() !== '' && answer.trim() !== ''
+      })
+      .map((item: any) => ({
+        "@type": "Question",
+        "name": item.q || item.fraga,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": item.a || item.svar
+        }
+      }))
   }
 
   // 3. HowTo Schema - för tips-sektionen

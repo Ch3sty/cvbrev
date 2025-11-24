@@ -33,14 +33,16 @@ export default function FAQSection({ faq, yrke }: FAQSectionProps) {
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: faq.map(item => ({
-      '@type': 'Question',
-      name: item.fraga,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: item.svar
-      }
-    }))
+    mainEntity: faq
+      .filter(item => item.fraga && item.svar && item.fraga.trim() !== '' && item.svar.trim() !== '')
+      .map(item => ({
+        '@type': 'Question',
+        name: item.fraga,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.svar
+        }
+      }))
   }
 
   return (
