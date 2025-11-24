@@ -72,11 +72,6 @@ export default function PremiumFooter() {
                 </Link>
               </li>
               <li>
-                <Link href="/cv-mallar" className="text-gray-600 hover:text-pink-600 transition-colors">
-                  CV-mallar
-                </Link>
-              </li>
-              <li>
                 <Link href="/cv-exempel" className="text-gray-600 hover:text-pink-600 transition-colors">
                   CV-exempel
                 </Link>
