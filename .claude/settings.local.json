@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(powershell -Command \"(Get-Item ''c:\\Users\\chris\\cvbrev\\src\\app\\personligt-brev-exempel\\[yrke]\\page.tsx'').Length\")"
+      "Bash(powershell -Command \"(Get-Item ''c:\\Users\\chris\\cvbrev\\src\\app\\personligt-brev-exempel\\[yrke]\\page.tsx'').Length\")",
+      "Bash(npm run build:*)",
+      "Bash(git push:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
