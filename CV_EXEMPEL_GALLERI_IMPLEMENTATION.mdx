@@ -1,10 +1,42 @@
 # CV-Exempel Galleri - Implementationsguide
 
+## ⚠️ IMPLEMENTATION STATUS
+
+### ✅ KLART (Phase 1)
+- [x] Grundstruktur och arkitektur
+- [x] Galleri-sida (`/cv-exempel/page.tsx`) med 10 yrken
+- [x] SSG-implementation med `generateStaticParams()`
+- [x] Data-struktur för CV-exempel (Undersköterska)
+- [x] CVExempelPage komponent (layout och sektioner)
+- [x] SEO metadata och breadcrumbs
+- [x] Footer-länkar
+- [x] Build verification (264 pages, SSG confirmed)
+
+### ❌ SAKNAS - KRITISKT PROBLEM
+**InteractiveCVPreview är felaktigt implementerad!**
+
+Nuvarande implementation visar bara SVG-bilder av tomma mallar, vilket är **helt oacceptabelt**.
+
+**Korrekt implementation** (se `personligt-brev-exempel`):
+- ✅ Personligt brev: Renderar HTML med faktisk brevtext från `exempelBrev`
+- ❌ CV-exempel: Visar bara SVG-bild av tom mall (INTE OK!)
+
+**Vad som måste göras:**
+1. Skapa HTML-renderingar av CV-mallar (8 st)
+2. Fylla dem med faktisk data från `exempelCV`
+3. Implementera mall-växling med faktisk data
+4. Implementera typsnittsbyte (Calibri, Arial, etc.)
+5. Testa att allt ser professionellt ut
+
+**Referens:** Se `src/app/personligt-brev-exempel/[yrke]/InteractiveLetterPreview.tsx` rad 578-900+ för hur det ska göras.
+
+---
+
 ## Översikt
 
 CV-exempel galleriet är en motsvarighet till `/personligt-brev-exempel` men anpassat för CV-format. Systemet visar professionella CV-exempel för olika yrken med interaktiv mallförhandsvisning, SEO-optimerad copy och praktiska tips.
 
-**Status**: Proof-of-concept slutfört med 1 yrke (Undersköterska)
+**Status**: ⚠️ Proof-of-concept med KRITISK BUG (InteractiveCVPreview måste fixas)
 **URL**: [https://jobbcoach.ai/cv-exempel](https://jobbcoach.ai/cv-exempel)
 **Build Status**: ✅ SSG fungerar, 264 sidor genererade
 
