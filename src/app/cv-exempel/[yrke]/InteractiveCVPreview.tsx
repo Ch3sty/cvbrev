@@ -70,6 +70,20 @@ export default function InteractiveCVPreview({ exempelCV, yrke }: InteractiveCVP
   const templateDropdownRef = useRef<HTMLDivElement>(null)
   const fontDropdownRef = useRef<HTMLDivElement>(null)
 
+  // Helper function to map language proficiency levels
+  const mapLanguageProficiency = (niva: string): 'Nybörjare' | 'Konversation' | 'Flyt' | 'Modersmål' | 'Tvåspråkig' => {
+    const lowerNiva = niva.toLowerCase()
+
+    if (lowerNiva.includes('modersmål')) return 'Modersmål'
+    if (lowerNiva.includes('tvåspråkig') || lowerNiva.includes('tvasprakig')) return 'Tvåspråkig'
+    if (lowerNiva.includes('flytande') || lowerNiva.includes('flyt')) return 'Flyt'
+    if (lowerNiva.includes('konversation')) return 'Konversation'
+    if (lowerNiva.includes('nybörjare') || lowerNiva.includes('grundläggande')) return 'Nybörjare'
+
+    // Default fallback
+    return 'Konversation'
+  }
+
   // Convert exempelCV to CVMetadata format
   const convertToCVMetadata = (): CVMetadata => {
     return {
@@ -124,15 +138,15 @@ export default function InteractiveCVPreview({ exempelCV, yrke }: InteractiveCVP
         }
       ],
       projects: [],
-      certifieringar: exempelCV.certifieringar.map(cert => ({
+      certifications: exempelCV.certifieringar.map(cert => ({
         name: cert,
         issuer: '',
         date: '',
-        url: ''
+        credentialId: ''
       })),
       languages: exempelCV.sprak.map(lang => ({
         language: lang.sprak,
-        proficiency: lang.niva
+        proficiency: mapLanguageProficiency(lang.niva)
       })),
       interests: [],
       references: 'Referenser lämnas på begäran'
