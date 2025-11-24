@@ -255,29 +255,10 @@ export default function CVExempelPage({ data }: CVExempelPageProps) {
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8 text-center">
                 Skapa ditt eget CV
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Link
-                  href="/dashboard/cv-mallar"
-                  className="group bg-white rounded-xl p-8 border-2 border-slate-200 hover:border-cyan-600 transition-all duration-300 hover:shadow-xl"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-cyan-600 to-indigo-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                      <FileText className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-xl text-slate-900 mb-2 group-hover:text-cyan-600 transition-colors">
-                        CV-mallar
-                      </h3>
-                      <p className="text-slate-600 leading-relaxed">
-                        Ladda ner professionella, ATS-optimerade CV-mallar och anpassa efter dina behov
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-
+              <div className="max-w-2xl mx-auto">
                 <Link
                   href="/dashboard/skapa-cv"
-                  className="group bg-gradient-to-br from-cyan-600 to-indigo-600 rounded-xl p-8 hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                  className="group bg-gradient-to-br from-cyan-600 to-indigo-600 rounded-xl p-8 hover:shadow-2xl transition-all duration-300 block"
                 >
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center flex-shrink-0">
@@ -285,10 +266,10 @@ export default function CVExempelPage({ data }: CVExempelPageProps) {
                     </div>
                     <div>
                       <h3 className="font-bold text-xl text-white mb-2">
-                        Skapa CV med AI
+                        Få konkret feedback
                       </h3>
                       <p className="text-white/90 leading-relaxed">
-                        Låt vår AI hjälpa dig skapa ett skräddarsytt, professionellt CV på några minuter
+                        Vi pekar ut vad rekryterare saknar och ger förbättringsförslag du kan använda direkt.
                       </p>
                     </div>
                   </div>
@@ -309,12 +290,14 @@ export default function CVExempelPage({ data }: CVExempelPageProps) {
             <p className="text-lg md:text-xl text-slate-600 mb-8 leading-relaxed">
               Ladda upp ditt nuvarande CV så visar vi automatiskt exakt vad som saknas för att passera ATS-filter. Du godkänner ändringarna och laddar ner i valfri professionell design. Alternativt flyttar vi över all din info till ny mall direkt – utan omskrivning.
             </p>
-            <Link href="/dashboard/skapa-cv">
-              <button className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2">
-                <Sparkles className="w-5 h-5" />
-                Kom igång gratis
-              </button>
-            </Link>
+            <div className="flex justify-center">
+              <Link href="/dashboard/skapa-cv">
+                <button className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2">
+                  <Sparkles className="w-5 h-5" />
+                  Kom igång gratis
+                </button>
+              </Link>
+            </div>
             <p className="text-sm text-slate-500 mt-6">
               Analys på 60 sekunder • Fungerar med ATS-system • Professionella mallar
             </p>
