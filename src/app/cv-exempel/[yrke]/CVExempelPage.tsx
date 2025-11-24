@@ -304,27 +304,19 @@ export default function CVExempelPage({ data }: CVExempelPageProps) {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-              Redo att skapa ditt CV?
+              Gör ditt CV redo för ATS-system
             </h2>
             <p className="text-lg md:text-xl text-slate-600 mb-8 leading-relaxed">
-              Använd våra professionella mallar eller låt AI:n hjälpa dig att skapa ett CV som sticker ut
+              Ladda upp ditt nuvarande CV så visar vi automatiskt exakt vad som saknas för att passera ATS-filter. Du godkänner ändringarna och laddar ner i valfri professionell design. Alternativt flyttar vi över all din info till ny mall direkt – utan omskrivning.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/dashboard/cv-mallar">
-                <button className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2">
-                  <FileText className="w-5 h-5" />
-                  Ladda ner CV-mallar
-                </button>
-              </Link>
-              <Link href="/dashboard/skapa-cv">
-                <button className="px-8 py-4 bg-white text-slate-900 font-semibold rounded-xl border-2 border-slate-200 hover:border-cyan-600 transition-all flex items-center justify-center gap-2">
-                  <Sparkles className="w-5 h-5" />
-                  Skapa med AI
-                </button>
-              </Link>
-            </div>
+            <Link href="/dashboard/skapa-cv">
+              <button className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-indigo-600 text-white font-bold rounded-xl hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2">
+                <Sparkles className="w-5 h-5" />
+                Kom igång gratis
+              </button>
+            </Link>
             <p className="text-sm text-slate-500 mt-6">
-              Gratis att börja • ATS-optimerat • Professionellt
+              Analys på 60 sekunder • Fungerar med ATS-system • Professionella mallar
             </p>
           </div>
         </div>

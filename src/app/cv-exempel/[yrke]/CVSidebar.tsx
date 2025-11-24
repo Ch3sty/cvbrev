@@ -99,24 +99,16 @@ export default function CVSidebar({ yrke, viktigtAttTankaPa }: CVSidebarProps) {
         <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mb-4">
           <Zap className="w-6 h-6" />
         </div>
-        <h3 className="font-bold mb-2">Skapa ditt CV</h3>
+        <h3 className="font-bold mb-2">Förbättra ditt CV</h3>
         <p className="text-white/90 text-sm mb-4">
-          Ladda ner professionella CV-mallar eller skapa ditt CV med AI på några minuter.
+          Ladda upp ditt CV så analyserar vi automatiskt vad du ska ändra för att få fler intervjuer. Eller flytta över din info till ny professionell design direkt.
         </p>
-        <div className="space-y-2">
-          <Link href="/dashboard/cv-mallar">
-            <button className="w-full px-4 py-3 bg-white text-cyan-600 font-semibold rounded-xl hover:shadow-xl transition-all flex items-center justify-center gap-2">
-              <FileText className="w-4 h-4" />
-              Ladda ner CV-mallar
-            </button>
-          </Link>
-          <Link href="/dashboard/skapa-cv">
-            <button className="w-full px-4 py-3 bg-white/10 border-2 border-white/30 text-white font-semibold rounded-xl hover:bg-white/20 transition-all flex items-center justify-center gap-2">
-              <Sparkles className="w-4 h-4" />
-              Skapa med AI
-            </button>
-          </Link>
-        </div>
+        <Link href="/dashboard/skapa-cv">
+          <button className="w-full px-4 py-3 bg-white text-cyan-600 font-semibold rounded-xl hover:shadow-xl transition-all flex items-center justify-center gap-2">
+            <Sparkles className="w-4 h-4" />
+            Kom igång gratis
+          </button>
+        </Link>
       </motion.div>
     </div>
   )
