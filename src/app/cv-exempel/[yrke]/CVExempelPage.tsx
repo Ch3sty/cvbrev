@@ -1,13 +1,15 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
-import { ArrowLeft, FileText, Sparkles } from 'lucide-react'
+import { ArrowLeft, FileText, Sparkles, Target, Lightbulb, CheckCircle } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
 
 import PremiumNavbar from '@/components/PremiumNavbar'
 import HeroWithSEOIntro from './HeroWithSEOIntro'
-import VarforDetFungerar from './VarforDetFungerar'
-import TipsSection from './TipsSection'
+import CVSidebar from './CVSidebar'
+import TipsSectionFlat from './TipsSectionFlat'
 import FAQSection from './FAQSection'
 
 // SEO: Lazy-load InteractiveCVPreview för bättre Page Speed (client-only, tungt)
@@ -57,6 +59,11 @@ interface CVExempelPageProps {
 }
 
 export default function CVExempelPage({ data }: CVExempelPageProps) {
+  const [activeTab, setActiveTab] = useState<'preview' | 'varfor' | 'tips'>('preview')
+
+  // Icon mapping för "Varför det fungerar" cards
+  const ICONS = [CheckCircle, Target, Sparkles, FileText, CheckCircle, Target]
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-slate-50">
       <PremiumNavbar />
@@ -83,38 +90,127 @@ export default function CVExempelPage({ data }: CVExempelPageProps) {
         seoIntro={data.seoIntro}
       />
 
-      {/* Interaktiv CV Preview - Lazy loaded */}
-      <section id="preview" className="py-12 md:py-16 bg-white">
+      {/* NY: Tab Layout Section */}
+      <section className="py-12 md:py-16 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-[900px] mx-auto">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                Se hur CV:t ser ut
-              </h2>
-              <p className="text-lg text-slate-600">
-                Välj mellan olika mallar och typsnitt för att hitta din perfekta stil
-              </p>
-            </div>
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-12 gap-8">
 
-            <InteractiveCVPreview
-              exempelCV={data.exempelCV}
-              yrke={data.yrke}
-            />
+              {/* Sidebar - Vänster kolumn */}
+              <div className="lg:col-span-4 order-2 lg:order-1">
+                <div className="lg:sticky lg:top-6">
+                  <CVSidebar
+                    yrke={data.yrke}
+                    viktigtAttTankaPa={[
+                      'Använd ATS-optimerade nyckelord från jobbannonsen',
+                      'Kvantifiera resultat med konkreta siffror',
+                      'Anpassa profiltext för varje ansökan',
+                      'Inkludera branschspecifika certifieringar',
+                      'Balansera tekniska och mjuka färdigheter'
+                    ]}
+                  />
+                </div>
+              </div>
+
+              {/* Main Content - Höger kolumn */}
+              <div className="lg:col-span-8 order-1 lg:order-2">
+                {/* Tab Navigation */}
+                <div className="border-b border-slate-200 mb-6">
+                  <div className="flex flex-col sm:flex-row gap-1">
+                    {[
+                      { id: 'preview' as const, label: 'Se hur CV:t ser ut', icon: FileText },
+                      { id: 'varfor' as const, label: 'Varför det fungerar', icon: Target },
+                      { id: 'tips' as const, label: 'Tips för ditt yrke', icon: Lightbulb }
+                    ].map((tab) => (
+                      <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                        className={`flex items-center justify-center sm:justify-start gap-2 px-4 sm:px-6 py-3 font-semibold transition-all duration-200 border-b-2 min-h-[48px] touch-manipulation ${
+                          activeTab === tab.id
+                            ? 'text-cyan-600 border-cyan-600 bg-cyan-50/50'
+                            : 'text-slate-600 border-transparent hover:text-slate-900 hover:border-slate-300 hover:bg-slate-50'
+                        }`}
+                      >
+                        <tab.icon className="w-4 h-4 flex-shrink-0" />
+                        <span className="text-sm sm:text-base">{tab.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Tab Content */}
+                <AnimatePresence mode="wait">
+                  {activeTab === 'preview' && (
+                    <motion.div
+                      key="preview"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <InteractiveCVPreview
+                        exempelCV={data.exempelCV}
+                        yrke={data.yrke}
+                      />
+                    </motion.div>
+                  )}
+
+                  {activeTab === 'varfor' && (
+                    <motion.div
+                      key="varfor"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {data.varforDetFungerar.map((item, idx) => {
+                          const Icon = ICONS[idx] || CheckCircle
+                          return (
+                            <motion.div
+                              key={idx}
+                              initial={{ opacity: 0, y: 20 }}
+                              whileInView={{ opacity: 1, y: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: idx * 0.05 }}
+                              className="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:shadow-md hover:border-cyan-200 transition-all"
+                            >
+                              <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-indigo-600 rounded-xl flex items-center justify-center mb-4">
+                                <Icon className="w-6 h-6 text-white" />
+                              </div>
+                              <h3 className="text-lg font-bold text-slate-900 mb-3">
+                                {item.rubrik}
+                              </h3>
+                              <p className="text-slate-600 leading-relaxed text-[15px]">
+                                {item.text}
+                              </p>
+                            </motion.div>
+                          )
+                        })}
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {activeTab === 'tips' && (
+                    <motion.div
+                      key="tips"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -20 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <TipsSectionFlat
+                        tips={data.tips}
+                        yrke={data.yrke}
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
           </div>
         </div>
       </section>
-
-      {/* Varför det fungerar - ALLTID SYNLIGT */}
-      <VarforDetFungerar
-        items={data.varforDetFungerar}
-        yrke={data.yrke}
-      />
-
-      {/* Tips - Accordion */}
-      <TipsSection
-        tips={data.tips}
-        yrke={data.yrke}
-      />
 
       {/* FAQ - Accordion med Schema.org */}
       <FAQSection
