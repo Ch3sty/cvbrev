@@ -4233,6 +4233,14 @@ export async function generateMetadata({
   }
 }
 
+// Generera statiska paths för alla yrken vid build-time (SSG)
+export async function generateStaticParams() {
+  const yrken = Object.keys(exampleData)
+  return yrken.map((yrke) => ({
+    yrke,
+  }))
+}
+
 export default async function Page({ params }: { params: Promise<{ yrke: string }> }) {
   const { yrke } = await params
   const data = exampleData[yrke]
