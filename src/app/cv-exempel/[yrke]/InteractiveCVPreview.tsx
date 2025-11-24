@@ -471,15 +471,15 @@ export default function InteractiveCVPreview({ exempelCV, yrke }: InteractiveCVP
 
               <div className="bg-gradient-to-r from-cyan-600 to-indigo-600 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="text-white text-center sm:text-left">
-                  <p className="font-semibold">Gillar du vad du ser?</p>
-                  <p className="text-sm text-cyan-100">Skapa ditt professionella CV på mindre än 5 minuter</p>
+                  <p className="font-semibold">Förbättra ditt nuvarande CV</p>
+                  <p className="text-sm text-cyan-100">Ladda upp ditt CV. Vi pekar ut vad som saknas och flyttar över din info till professionell design.</p>
                 </div>
                 <a
-                  href="/verktyg/cv-mallar"
-                  className="px-6 py-3 bg-white text-cyan-600 font-bold rounded-xl hover:shadow-2xl transition-all flex items-center gap-2"
+                  href="/dashboard/skapa-cv"
+                  className="px-6 py-3 bg-white text-cyan-600 font-bold rounded-xl hover:shadow-2xl transition-all flex items-center gap-2 whitespace-nowrap"
                 >
                   <Sparkles className="w-5 h-5" />
-                  Skapa mitt CV
+                  Kom igång gratis
                 </a>
               </div>
             </motion.div>
