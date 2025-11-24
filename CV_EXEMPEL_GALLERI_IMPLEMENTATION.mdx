@@ -1,0 +1,506 @@
+# CV-Exempel Galleri - Implementationsguide
+
+## Översikt
+
+CV-exempel galleriet är en motsvarighet till `/personligt-brev-exempel` men anpassat för CV-format. Systemet visar professionella CV-exempel för olika yrken med interaktiv mallförhandsvisning, SEO-optimerad copy och praktiska tips.
+
+**Status**: Proof-of-concept slutfört med 1 yrke (Undersköterska)
+**URL**: [https://jobbcoach.ai/cv-exempel](https://jobbcoach.ai/cv-exempel)
+**Build Status**: ✅ SSG fungerar, 264 sidor genererade
+
+---
+
+## Arkitektur
+
+### Filstruktur
+
+```
+src/app/cv-exempel/
+├── page.tsx                        # Galleri-sida med alla CV-exempel
+├── [yrke]/
+│   ├── page.tsx                    # Data + SSG för specifikt yrke
+│   ├── CVExempelPage.tsx           # Client component för presentation
+│   └── InteractiveCVPreview.tsx    # Interaktiv mallförhandsvisning
+```
+
+### Key Differences från Personligt Brev-exempel
+
+| Aspekt | Personligt Brev | CV-exempel |
+|--------|-----------------|------------|
+| **Preview** | HTML-genererad brevtext | SVG-baserade mallar (från `/mallar/*.svg`) |
+| **Data Structure** | `exempelBrev.brevText` | `exempelCV` med strukturerad data |
+| **Fokus** | Brevskrivning, tone-of-voice | Struktur, kvantifierbara resultat, ATS-optimering |
+| **CTA** | "Skapa mitt personliga brev" | "Ladda ner CV-mallar" |
+| **Färgschema** | Blue-purple gradient | Cyan-indigo gradient |
+
+---
+
+## Data Structure
+
+### CV-exempel objekt
+
+```typescript
+{
+  yrke: string                // "Undersköterska"
+  sokvolym: number            // 750
+  metaTitle: string           // SEO title
+  metaDescription: string     // SEO description
+
+  seoIntro: string            // Multi-paragraph SEO-rik text
+  intro: string               // Kort beskrivning för hero
+
+  exempelCV: {
+    namn: string
+    titel: string             // Jobbtitel / Professionell titel
+    kontakt: {
+      telefon: string
+      epost: string
+      plats: string           // "Stockholm"
+      linkedin?: string
+    }
+
+    profil: string            // 3-4 meningar sammanfattning
+
+    erfarenhet: Array<{
+      titel: string
+      arbetsgivare: string
+      period: string          // "2019 – Pågående"
+      beskrivning: string[]   // Array av bullet points
+    }>
+
+    utbildning: Array<{
+      titel: string
+      skola: string
+      period: string
+      beskrivning?: string
+    }>
+
+    kompetenser: {
+      tekniska: string[]      // Hårda färdigheter
+      personliga: string[]    // Mjuka färdigheter
+    }
+
+    certifieringar: string[]  // "Medicinsk delegering – Insulin (2023)"
+
+    sprak: Array<{
+      sprak: string
+      niva: string            // "Modersmål", "Flytande"
+    }>
+  }
+
+  varforDetFungerar: Array<{
+    rubrik: string
+    text: string
+  }>
+
+  tips: Array<{
+    rubrik: string
+    text: string              // Multi-paragraph med \n\n
+  }>
+
+  faq: Array<{
+    fraga: string             // Frågan
+    svar: string              // Svaret
+  }>
+
+  kategori: 'vard' | 'teknik' | 'service' | 'utbildning' | 'ekonomi' | 'offentlig-sektor'
+
+  relaterade: Array<{
+    yrke: string
+    slug: string
+  }>
+}
+```
+
+---
+
+## Komponenter
+
+### 1. Galleri-sida (`/cv-exempel/page.tsx`)
+
+**Syfte**: Visa alla CV-exempel i ett filtrerbart galleri
+
+**Features**:
+- 10 yrken i proof-of-concept (kan skalas till 30+)
+- Kategorisering: Vård, Teknik, Service, Utbildning, Ekonomi, Offentlig sektor
+- Sökfunktion
+- Featured examples (3 mest populära)
+- FAQ-sektion
+- CTA till `/verktyg/cv-mallar`
+
+**Key Metrics**:
+- Sökvolym visas per yrke
+- "Populär" badge för top 3
+
+### 2. CV-exempel sida (`/cv-exempel/[yrke]/page.tsx`)
+
+**Syfte**: Data-lager med SSG-konfiguration
+
+**Innehåller**:
+- `exampleData` objekt med alla yrken
+- `generateMetadata()` för SEO
+- `generateStaticParams()` för SSG (viktig!)
+- Default export som renderar `CVExempelPage`
+
+**SSG-implementation**:
+```typescript
+// VIKTIGT: params är Promise i Next.js 15
+export async function generateMetadata({ params }: { params: Promise<{ yrke: string }> }) {
+  const { yrke } = await params
+  // ...
+}
+
+export async function generateStaticParams() {
+  const yrken = Object.keys(exampleData)
+  return yrken.map((yrke) => ({ yrke }))
+}
+
+export default async function Page({ params }: { params: Promise<{ yrke: string }> }) {
+  const { yrke } = await params
+  // ...
+}
+```
+
+### 3. CVExempelPage (`CVExempelPage.tsx`)
+
+**Syfte**: Client-side presentation component
+
+**Sektioner**:
+1. **Hero**: Title, intro, CTA buttons
+2. **SEO Intro**: Multi-paragraph fördjupad text
+3. **Interactive CV Preview**: Mallförhandsvisning med växling
+4. **Varför det fungerar**: 6 kort med principer
+5. **Tips**: Expanderbara accordion-kort (6 tips)
+6. **FAQ**: Expanderbara frågor (10 frågor)
+7. **Relaterade exempel**: 3 andra yrken
+8. **CTA**: Final call-to-action till CV-mallar
+
+**Design**:
+- Cyan-indigo färgschema
+- Framer Motion animations
+- Lucide icons
+- Tailwind CSS
+
+### 4. InteractiveCVPreview (`InteractiveCVPreview.tsx`)
+
+**Syfte**: Visa CV i olika mallar (SVG-baserat)
+
+**Key Features**:
+- Template selector: Dropdown (desktop) / Bottom sheet (mobile)
+- 8 CV-mallar från `SIMPLE_TEMPLATES` (src/lib/cv/simple-templates.ts)
+- Visar SVG-bild från `/mallar/*.svg`
+- Free vs Premium badge med Crown icon
+- CTA till `/verktyg/cv-mallar` för nedladdning
+
+**Tech Stack**:
+- Next.js Image component för SVG rendering
+- Framer Motion för transitions
+- Click-outside detection (desktop only)
+- Mobile-responsive med bottom sheet
+
+**Templates användning**:
+```typescript
+import { SIMPLE_TEMPLATES } from '@/lib/cv/simple-templates'
+
+// Templates innehåller:
+// - id, name, description
+// - imagePath: '/mallar/modern-minimal.svg'
+// - category: 'modern' | 'traditional' | 'creative'
+// - tier: 'free' | 'premium'
+```
+
+---
+
+## SEO-strategi
+
+### Keywords per yrke
+
+**Primary**: `cv exempel [yrke]`, `cv mall [yrke]`
+**Secondary**: `professionellt cv [yrke]`, `ats-optimerat cv [yrke]`
+
+### Content Structure
+
+1. **Meta Title**: `CV Exempel [Yrke] 2025 - Professionell Mall | Jobbcoach.ai`
+2. **Meta Description**: Konkret värde, nyckelord, call-to-action (max 160 tecken)
+3. **H1**: `CV-exempel: [Yrke]`
+4. **seoIntro**: 2-3 stycken fördjupad text med nyckelord
+5. **FAQ**: 10 frågor med long-tail keywords
+
+### Intern länkning
+
+- Galleri → Yrke-sida
+- Yrke-sida → Relaterade yrken
+- CTA → `/verktyg/cv-mallar`
+- Breadcrumb: Hem → CV-exempel → [Yrke]
+
+### Sitemap
+
+Lägg till i `src/app/sitemap.ts`:
+```typescript
+const CV_YRKEN = [
+  'underskoterska',
+  'ingenjor',
+  'forskollarare',
+  // ... 27 more
+]
+
+const cvExempelUrls = CV_YRKEN.map((yrke) => ({
+  url: `https://jobbcoach.ai/cv-exempel/${yrke}`,
+  lastModified: new Date(),
+  changeFrequency: 'monthly' as const,
+  priority: 0.7,
+}))
+```
+
+---
+
+## Nästa 29 yrken att implementera
+
+Baserat på sökvolym från personligt-brev-exempel:
+
+### Prioritet 1 (Top 10 - redan i galleri)
+1. ✅ Ingenjör (1400)
+2. ✅ Förskollärare (1200)
+3. ✅ Receptionist (1100)
+4. ✅ Lagerarbetare (980)
+5. ✅ Administrator (880)
+6. ✅ Lokalvårdare (850)
+7. ✅ Handläggare (760)
+8. ✅ Undersköterska (750) - KLAR
+9. ✅ Läkare (720)
+10. ✅ Butiksbiträde (670)
+11. ✅ IT-konsult (620)
+
+### Prioritet 2 (Nästa 10)
+12. Student/Första jobbet (590)
+13. Kurator (540)
+14. Servitris/Restaurangbiträde (530)
+15. Chef (490)
+16. Ekonomiassistent (450)
+17. Lärare (360)
+18. Projektledare (290)
+19. Elevassistent (260)
+20. Kundtjänst (250)
+21. Sommarjobb (230)
+
+### Prioritet 3 (Nästa 10)
+22. Säljare (220)
+23. Vårdbiträde (220)
+24. Barnskötare (210)
+25. Hemtjänst (200)
+26. Kock (190)
+27. Sjuksköterska (180)
+28. Personlig assistent (180)
+29. Butikssäljare (160)
+30. (lägg till fler vid behov)
+
+---
+
+## Skrivguide för CV-exempel
+
+### Varför det fungerar (6 punkter)
+
+**Syfte**: Pedagogisk, förklara VARFÖR exemplet är bra
+
+**Format**:
+```typescript
+{
+  rubrik: "Kort, påståendefull rubrik",
+  text: "1-2 meningar förklaring. Ska vara konkret och educational."
+}
+```
+
+**Teman att täcka**:
+1. ATS-optimering (nyckelord, struktur)
+2. Kvantifierbara resultat (siffror, mätbart)
+3. Balans teknisk/mjuk kompetens
+4. Certifieringar/trovärdighet
+5. Profiltext som säljande sammanfattning
+6. Progression/ansvar
+
+### Tips (6 punkter)
+
+**Syfte**: Actionable, praktiska råd för läsaren
+
+**Format**:
+```typescript
+{
+  rubrik: "Imperativ formulering - vad läsaren ska göra",
+  text: "2-3 stycken (separerade med \n\n). Första stycket: varför. Andra stycket: hur. Tredje stycket: exempel."
+}
+```
+
+**Teman**:
+1. Branschspecifika nyckelord
+2. Kvantifiera erfarenhet
+3. Visa konkreta resultat (inte bara ansvar)
+4. Anpassa profiltext per jobb
+5. Lyft fram certifieringar
+6. Balansera tekniska/mjuka färdigheter med bevis
+
+**Tips-stil**:
+- Inga tankstreck som skiljetecken
+- Actionorienterat: "Inkludera...", "Visa...", "Anpassa..."
+- Konkreta exempel: "Istället för X, skriv Y"
+- Multi-paragraph för tips >80 ord (använd \n\n)
+
+### FAQ (10 frågor)
+
+**Syfte**: Long-tail keywords, vanliga user concerns
+
+**Format**:
+```typescript
+{
+  fraga: "Fråga formulerad som användaren skulle googla",
+  svar: "Kort, rakt svar (2-3 meningar). Börja med 'Ja/Nej' om applicable."
+}
+```
+
+**Teman att täcka**:
+1. Hur långt ska CV vara?
+2. Ska jag inkludera X? (t.ex. VFU, profilbild, certifieringar)
+3. Hur visar jag Y? (t.ex. medicinsk delegering, stresstålig)
+4. Hur anpassar jag för olika vårdmiljöer/branscher?
+5. Vad gör jag om luckor i CV?
+6. Hur mycket personlig info ska jag ha?
+7. Ska jag lista alla arbetsgivare?
+8. Hur lyfter jag fram teamarbete?
+9. Branschspecifika frågor (t.ex. "Ska jag nämna truckkort?")
+10. Format/struktur-frågor
+
+---
+
+## Exempel: Undersköterska CV-data
+
+Se `src/app/cv-exempel/[yrke]/page.tsx` för fullständig implementation.
+
+**Key highlights**:
+- **Profiltext**: 3-4 meningar sammanfattning med nyckelord (ADL-stöd, medicinsk delegering, Cosmic) och personliga egenskaper (empati, stresstålig)
+- **Erfarenhet**: Konkreta resultat ("minskade akuta inläggningar med 15%", "20+ patienter med medicinsk delegering")
+- **Kompetenser**: Uppdelat i tekniska (7 items) och personliga (5 items)
+- **Certifieringar**: 5 certifieringar med årtal ("Akta Ryggen (2022)")
+- **Varför det fungerar**: 6 punkter om ATS, kvantifiering, balans, certifieringar, profiltext, progression
+- **Tips**: 6 expanderbara tips om nyckelord, kvantifiering, resultat, anpassning, certifieringar, balans
+- **FAQ**: 10 frågor om längd, VFU, delegering, fysiskt arbete, profilbild, anpassning, luckor, stresstålig, arbetsgivare, personlig info, teamarbete
+
+---
+
+## Tech Stack
+
+- **Framework**: Next.js 15.5.2 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Images**: Next.js Image (för SVG templates)
+- **Rendering**: SSG (Static Site Generation)
+
+---
+
+## Performance
+
+### Build Metrics
+- **Total pages**: 264 (före: 262)
+- **CV-exempel pages**: 2 (galleri + 1 yrke)
+- **Build time**: ~17s compilation
+- **Bundle size**:
+  - Galleri: 6.66 kB (209 kB First Load JS)
+  - Yrke-sida: 3.06 kB (201 kB First Load JS)
+
+### SSG Verification
+```
+├ ○ /cv-exempel                         6.66 kB  209 kB
+├ ● /cv-exempel/[yrke]                  3.06 kB  201 kB
+├   └ /cv-exempel/underskoterska
+```
+✅ ● (SSG) marker bekräftar Static Site Generation
+
+---
+
+## Roadmap
+
+### Phase 1: Proof-of-Concept ✅
+- [x] Skapa galleri-sida
+- [x] Implementera 1 yrke (Undersköterska)
+- [x] InteractiveCVPreview med SVG templates
+- [x] Verifiera SSG fungerar
+- [x] Dokumentation
+
+### Phase 2: Scale to 30 yrken
+- [ ] Implementera övriga 29 yrken enligt prioritet
+- [ ] Lägg till i sitemap.ts
+- [ ] Testa alla yrken bygger korrekt
+- [ ] SEO-optimering per yrke
+
+### Phase 3: Enhancements
+- [ ] A/B-test olika CTA-placeringar
+- [ ] Tracking: GA4 events för mall-växlingar
+- [ ] Schema markup för FAQ (rich snippets)
+- [ ] Internal linking mellan CV-exempel och personligt-brev-exempel
+
+### Phase 4: Content Marketing
+- [ ] Promote top 10 yrken på sociala medier
+- [ ] Backlinks från CV-mallar-sidan
+- [ ] Email-kampanj till existerande users
+
+---
+
+## Maintenance
+
+### Content Updates
+- **Frequency**: Quarterly review (Q1, Q2, Q3, Q4)
+- **What to update**:
+  - Certifieringar (om nya standards införs)
+  - Sökvolym-data (justera prioritet)
+  - Branschterminologi (t.ex. nya dokumentationssystem)
+  - FAQ (baserat på user feedback)
+
+### Technical Maintenance
+- **Dependencies**: Följ Next.js updates
+- **Images**: Lägg till nya mallar när de skapas
+- **Performance**: Övervaka First Load JS (<210 kB target)
+
+---
+
+## Troubleshooting
+
+### Build errors
+
+**Problem**: `params is not a Promise`
+**Solution**: Next.js 15 kräver `params: Promise<{ yrke: string }>` och `await params`
+
+**Problem**: SSG inte aktiverat
+**Solution**: Verifiera att `generateStaticParams()` finns och returnerar alla yrken
+
+### Preview issues
+
+**Problem**: SVG templates visas inte
+**Solution**: Kontrollera att `imagePath` i `SIMPLE_TEMPLATES` matchar filer i `/public/mallar/*.svg`
+
+**Problem**: Mobile bottom sheet stängs inte
+**Solution**: Verifiera click-outside detection är disabled på mobile (`!isMobile` check)
+
+---
+
+## Contact
+
+För frågor om implementation:
+- **Developer**: Se conversation history
+- **Tech Stack**: Next.js 15, TypeScript, Tailwind
+- **Repo**: cvbrev (Jobbcoach.ai)
+
+---
+
+## Changelog
+
+### 2025-01-24 - Initial Implementation
+- ✅ Created CV-exempel gallery structure
+- ✅ Implemented Undersköterska example (proof-of-concept)
+- ✅ Built InteractiveCVPreview with 8 SVG templates
+- ✅ Verified SSG working (264 pages built)
+- ✅ Documentation created
+
+---
+
+**Status**: Ready for Phase 2 (scale to 30 yrken)
+**Next Action**: Implement remaining 29 yrken following this guide
