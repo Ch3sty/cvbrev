@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import CVExempelPage from './CVExempelPage'
+import { convertToCVMetadata } from '@/lib/cv/cv-metadata-converter'
+import { getTemplateGenerator } from '@/lib/cv/templates'
 
 // Example data for all professions
 const exampleData: Record<string, any> = {
@@ -583,5 +585,19 @@ export default async function Page({ params }: { params: Promise<{ yrke: string 
     notFound()
   }
 
-  return <CVExempelPage data={data} />
+  // PRE-RENDER CV HTML på servern för optimal SEO och CLS
+  let initialHTML = ''
+  try {
+    const cvMetadata = convertToCVMetadata(data.exempelCV)
+    const templateGenerator = getTemplateGenerator('modern-minimal')
+
+    if (templateGenerator) {
+      initialHTML = templateGenerator.generate(cvMetadata, {})
+    }
+  } catch (error) {
+    console.error('Error pre-rendering CV HTML:', error)
+    // Fallback: låt client-side hantera rendering
+  }
+
+  return <CVExempelPage data={data} initialHTML={initialHTML} />
 }

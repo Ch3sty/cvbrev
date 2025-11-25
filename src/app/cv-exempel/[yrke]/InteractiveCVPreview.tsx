@@ -6,6 +6,7 @@ import { Eye, Crown, ChevronDown, Check, Sparkles, Type, Palette } from 'lucide-
 import { SIMPLE_TEMPLATES } from '@/lib/cv/simple-templates'
 import { getTemplateGenerator } from '@/lib/cv/templates'
 import type { CVMetadata } from '@/lib/cv/cv-metadata'
+import { convertToCVMetadata } from '@/lib/cv/cv-metadata-converter'
 
 interface InteractiveCVPreviewProps {
   exempelCV: {
@@ -41,6 +42,7 @@ interface InteractiveCVPreviewProps {
     }>
   }
   yrke: string
+  initialHTML: string
 }
 
 // Font options (typsnittsbytet appliceras via CSS)
@@ -58,107 +60,30 @@ const FONTS = [
   { id: 'helvetica', name: 'Helvetica', family: 'Helvetica, Arial, sans-serif', category: 'Premium', tier: 'premium' }
 ]
 
-export default function InteractiveCVPreview({ exempelCV, yrke }: InteractiveCVPreviewProps) {
+export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: InteractiveCVPreviewProps) {
   const [selectedTemplate, setSelectedTemplate] = useState('modern-minimal')
   const [selectedFont, setSelectedFont] = useState('calibri')
   const [isClient, setIsClient] = useState(false)
   const [isTemplateOpen, setIsTemplateOpen] = useState(false)
   const [isFontOpen, setIsFontOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
-  const [generatedHTML, setGeneratedHTML] = useState('')
+  const [generatedHTML, setGeneratedHTML] = useState(initialHTML)
 
   const templateDropdownRef = useRef<HTMLDivElement>(null)
   const fontDropdownRef = useRef<HTMLDivElement>(null)
 
-  // Helper function to map language proficiency levels
-  const mapLanguageProficiency = (niva: string): 'Nybörjare' | 'Konversation' | 'Flyt' | 'Modersmål' | 'Tvåspråkig' => {
-    const lowerNiva = niva.toLowerCase()
-
-    if (lowerNiva.includes('modersmål')) return 'Modersmål'
-    if (lowerNiva.includes('tvåspråkig') || lowerNiva.includes('tvasprakig')) return 'Tvåspråkig'
-    if (lowerNiva.includes('flytande') || lowerNiva.includes('flyt')) return 'Flyt'
-    if (lowerNiva.includes('konversation')) return 'Konversation'
-    if (lowerNiva.includes('nybörjare') || lowerNiva.includes('grundläggande')) return 'Nybörjare'
-
-    // Default fallback
-    return 'Konversation'
-  }
-
-  // Convert exempelCV to CVMetadata format
-  const convertToCVMetadata = (): CVMetadata => {
-    return {
-      personalInfo: {
-        fullName: exempelCV.namn,
-        email: exempelCV.kontakt.epost,
-        phone: exempelCV.kontakt.telefon,
-        address: exempelCV.kontakt.plats,
-        linkedIn: exempelCV.kontakt.linkedin || '',
-        linkedin: exempelCV.kontakt.linkedin || '',
-        website: '',
-        github: ''
-      },
-      summary: exempelCV.profil,
-      experience: exempelCV.erfarenhet.map(exp => {
-        const periodParts = exp.period.split(' - ')
-        const startDate = periodParts[0] || ''
-        const endDate = periodParts[1] === 'Nuvarande' ? undefined : (periodParts[1] || '')
-
-        return {
-          position: exp.titel,
-          company: exp.arbetsgivare,
-          location: '',
-          startDate,
-          endDate,
-          description: exp.beskrivning,
-          achievements: []
-        }
-      }),
-      education: exempelCV.utbildning.map(edu => {
-        const periodParts = edu.period.split(' - ')
-        const graduationYear = periodParts[1] || periodParts[0] || ''
-
-        return {
-          degree: edu.titel,
-          institution: edu.skola,
-          location: '',
-          graduationYear,
-          startDate: periodParts[0] || '',
-          endDate: periodParts[1] || '',
-          honors: edu.beskrivning || ''
-        }
-      }),
-      skills: [
-        {
-          category: 'Tekniska kompetenser',
-          skills: exempelCV.kompetenser.tekniska
-        },
-        {
-          category: 'Personliga egenskaper',
-          skills: exempelCV.kompetenser.personliga
-        }
-      ],
-      projects: [],
-      certifications: exempelCV.certifieringar.map(cert => ({
-        name: cert,
-        issuer: '',
-        date: '',
-        credentialId: ''
-      })),
-      languages: exempelCV.sprak.map(lang => ({
-        language: lang.sprak,
-        proficiency: mapLanguageProficiency(lang.niva)
-      })),
-      interests: [],
-      references: 'Referenser lämnas på begäran'
-    }
-  }
 
   // Generate HTML using the actual template generator (same as Puppeteer)
   useEffect(() => {
-    if (!isClient) return
+    // Skip first render - use initialHTML from SSR
+    if (!isClient) {
+      setIsClient(true)
+      return
+    }
 
+    // Only regenerate when user changes template or font
     try {
-      const cvMetadata = convertToCVMetadata()
+      const cvMetadata = convertToCVMetadata(exempelCV)
       const templateGenerator = getTemplateGenerator(selectedTemplate as any)
 
       if (templateGenerator) {
@@ -176,11 +101,7 @@ export default function InteractiveCVPreview({ exempelCV, yrke }: InteractiveCVP
     } catch (error) {
       console.error('Error generating CV HTML:', error)
     }
-  }, [selectedTemplate, selectedFont, isClient])
-
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
+  }, [selectedTemplate, selectedFont, isClient, exempelCV])
 
   useEffect(() => {
     const checkMobile = () => {
@@ -256,13 +177,7 @@ export default function InteractiveCVPreview({ exempelCV, yrke }: InteractiveCVP
             För bästa upplevelse, aktivera JavaScript i din webbläsare.
           </p>
         </div>
-        <StaticCV />
       </noscript>
-
-      {!isClient && <StaticCV />}
-
-      {isClient && (
-        <>
           <div className="bg-gradient-to-r from-cyan-50 to-indigo-50 rounded-xl p-4 sm:p-6 border border-cyan-100 mb-8">
             <div className="flex items-center gap-2 mb-2">
               <Sparkles className="w-5 h-5 text-cyan-600" />
@@ -513,8 +428,6 @@ export default function InteractiveCVPreview({ exempelCV, yrke }: InteractiveCVP
               </p>
             </div>
           </div>
-        </>
-      )}
     </div>
   )
 }

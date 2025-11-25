@@ -57,9 +57,10 @@ interface CVExampleData {
 
 interface CVExempelPageProps {
   data: CVExampleData
+  initialHTML: string
 }
 
-export default function CVExempelPage({ data }: CVExempelPageProps) {
+export default function CVExempelPage({ data, initialHTML }: CVExempelPageProps) {
   const [activeTab, setActiveTab] = useState<'preview' | 'varfor' | 'tips'>('preview')
 
   // Icon mapping för "Varför det fungerar" cards
@@ -146,6 +147,7 @@ export default function CVExempelPage({ data }: CVExempelPageProps) {
                       key="preview"
                       exempelCV={data.exempelCV}
                       yrke={data.yrke}
+                      initialHTML={initialHTML}
                     />
                   )}
 
