@@ -69,7 +69,7 @@ export interface CVCertification {
 
 export interface CVLanguage {
   language: string;
-  proficiency: 'Nybörjare' | 'Konversation' | 'Flyt' | 'Modersmål' | 'Tvåspråkig';
+  proficiency: 'Nybörjare' | 'Konversation' | 'Flytande' | 'Modersmål' | 'Tvåspråkig';
 }
 
 export interface CVMetadata {

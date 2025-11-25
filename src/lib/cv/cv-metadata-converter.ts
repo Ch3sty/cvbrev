@@ -1,12 +1,12 @@
 import type { CVMetadata } from './cv-metadata'
 
 // Helper function to map language proficiency levels
-function mapLanguageProficiency(niva: string): 'Nybörjare' | 'Konversation' | 'Flyt' | 'Modersmål' | 'Tvåspråkig' {
+function mapLanguageProficiency(niva: string): 'Nybörjare' | 'Konversation' | 'Flytande' | 'Modersmål' | 'Tvåspråkig' {
   const lowerNiva = niva.toLowerCase()
 
   if (lowerNiva.includes('modersmål')) return 'Modersmål'
   if (lowerNiva.includes('tvåspråkig') || lowerNiva.includes('tvasprakig')) return 'Tvåspråkig'
-  if (lowerNiva.includes('flytande') || lowerNiva.includes('flyt')) return 'Flyt'
+  if (lowerNiva.includes('flytande') || lowerNiva.includes('flyt')) return 'Flytande'
   if (lowerNiva.includes('konversation')) return 'Konversation'
   if (lowerNiva.includes('nybörjare') || lowerNiva.includes('grundläggande')) return 'Nybörjare'
 
