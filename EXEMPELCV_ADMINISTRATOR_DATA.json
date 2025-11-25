@@ -1,0 +1,127 @@
+{
+  "yrke": "Administratör",
+  "slug": "administrator",
+  "sokvolym": 590,
+  "kategori": "kontor",
+  "metaTitle": "CV Exempel Administratör 2025 - ATS-Optimerad Mall | Jobbcoach.ai",
+  "metaDescription": "Professionellt CV-exempel för administratör med ärendehantering, Microsoft 365 och systemstöd. ATS-optimerat med kvantifierbara resultat. Gratis nedladdning 2025.",
+  "exempelCV": {
+    "namn": "Anna Bergström",
+    "titel": "Senior Administratör - Ärendehantering & Systemstöd",
+    "kontakt": {
+      "telefon": "070-123 45 67",
+      "epost": "anna.bergstrom@exempel.se",
+      "plats": "Stockholm",
+      "linkedin": "linkedin.com/in/annabergstrom"
+    },
+    "profil": "Erfaren administratör med 8+ års erfarenhet från både offentlig och privat sektor. Specialist på effektiv ärendehantering, dokumentation och systemstöd med djup kunskap i Microsoft 365, Visma och diarieföringssystem. Driven av att skapa strukturerade arbetsflöden som ökar teamets produktivitet – har implementerat rutiner som minskat handläggningstid med 30%. Söker nu en roll där strategiskt administrativt stöd och processutveckling står i fokus.",
+    "erfarenhet": [
+      {
+        "titel": "Senior Administratör & Teamkoordinator",
+        "arbetsgivare": "Stockholms Stad, Utbildningsförvaltningen, Stockholm",
+        "period": "2021 – Pågående",
+        "beskrivning": [
+          "Ansvarar för ärendehantering och systemstöd för team med 25 medarbetare – koordinerar 200+ ärenden per månad med 98% leveransprecision",
+          "Implementerade digitalt diarieföringssystem (W3D3) som reducerade handläggningstid med 30% och ökade transparens för interna kunder",
+          "Utbildar och supporterar kollegor i Microsoft 365, Visma och interna ärendesystem – genomfört 15+ utbildningstillfällen med 4.8/5 i utvärdering",
+          "Driver processutveckling för administrativa rutiner i enlighet med OSL (offentlighets- och sekretesslagen) och GDPR – etablerade nya standarder som antogs av hela förvaltningen",
+          "Hanterar kontakt med externa leverantörer och upphandlingar via Proceedo – säkerställer kvalitet och kostnadseffektivitet för kontorsmaterial och tjänster"
+        ]
+      },
+      {
+        "titel": "Administratör",
+        "arbetsgivare": "Konsultbolaget Teamwork AB, Stockholm",
+        "period": "2018 – 2021",
+        "beskrivning": [
+          "Ansvarade för kundadministration, fakturering och ekonomiskt stöd för konsultuppdrag värderade till 15+ miljoner kronor årligen",
+          "Administrerade timrapportering och löneunderlag för 40 konsulter i Visma Lön – säkerställde korrekt utbetalning med 99.5% noggrannhet",
+          "Samordnade mötesbokning, reseadministration och eventplanering för ledningsgrupp och kunder – hanterade 30+ evenemang per år",
+          "Utvecklade mallar och rutiner i Microsoft 365 (Word, Excel, PowerPoint) som standardiserades över hela organisationen",
+          "Stöttade HR-avdelningen med rekryteringsadministration, onboarding och personalärenden – förbättrade kandidatupplevelse med 25% enligt exit-enkäter"
+        ]
+      },
+      {
+        "titel": "Administrativ Assistent",
+        "arbetsgivare": "Swedish Tech Solutions AB, Solna",
+        "period": "2016 – 2018",
+        "beskrivning": [
+          "Hanterade reception, telefoni och besöksadministration för kontor med 80+ medarbetare – mottog 50+ besökare och 100+ samtal per dag",
+          "Administrerade resebokning, tidrapportering och utläggshantering via Agresso – processade 200+ utlägg per månad",
+          "Ansvarade för kontorsfaciliteter, beställningar och lagerhantering – optimerade inköp som sänkte kostnader med 15%",
+          "Stöttade säljavdelningen med offertframtagning, kundkommunikation och CRM-uppdatering (Salesforce)",
+          "Koordinerade företagsevent och personalaktiviteter – arrangerade kvartalsträffar för 80+ deltagare med 95% närvaro"
+        ]
+      }
+    ],
+    "utbildning": [
+      {
+        "examen": "Administratörsprogrammet",
+        "skola": "Jensen Yrkeshögskola, Stockholm",
+        "period": "2014 – 2016",
+        "beskrivning": "Fokus på affärsadministration, ekonomi, projektledning och kontorsystemstöd. Inkluderade LIA-praktik hos Stockholms Stad."
+      }
+    ],
+    "kompetenser": {
+      "tekniska": [
+        "Microsoft 365 (Expert, 8+ år) - Word, Excel, PowerPoint, Outlook, Teams, SharePoint",
+        "Visma (Avancerad, 5+ år) - Visma Lön, Visma Administration",
+        "Ärendehanteringssystem (Avancerad, 4+ år) - W3D3, ecos",
+        "Diarieföring & Dokumenthantering - Enligt OSL och GDPR",
+        "Upphandlingssystem - Proceedo, Agresso",
+        "CRM-system - Salesforce, Lime CRM",
+        "Datainmatning & Kvalitetssäkring - 99.5% noggrannhet",
+        "Kalendersystem & Mötesbokning - Outlook, Google Calendar"
+      ],
+      "personliga": [
+        "Strukturerad & Detaljorienterad (99.5% noggrannhet i datahantering)",
+        "Pedagogisk (4.8/5 i utbildningsutvärderingar)",
+        "Serviceinriktad (98% leveransprecision)",
+        "Initiativtagande (implementerat 3 nya system/processer)",
+        "Stresstålig (hanterar 200+ ärenden/månad med hög kvalitet)"
+      ]
+    },
+    "certifieringar": [
+      "Microsoft 365 Certified: Fundamentals (2023)",
+      "GDPR och Dataskydd i Offentlig Sektor (2022)",
+      "Visma Administration Grundkurs (2019)",
+      "OSL - Offentlighets- och Sekretesslagen (2021)"
+    ],
+    "sprak": [
+      {
+        "sprak": "Svenska",
+        "niva": "Modersmål"
+      },
+      {
+        "sprak": "Engelska",
+        "niva": "Flytande i tal och skrift"
+      }
+    ]
+  },
+  "relaterade": [
+    {
+      "yrke": "Handläggare",
+      "slug": "handlaggare"
+    },
+    {
+      "yrke": "Receptionist",
+      "slug": "receptionist"
+    },
+    {
+      "yrke": "Ekonomiassistent",
+      "slug": "ekonomiassistent"
+    },
+    {
+      "yrke": "HR-administratör",
+      "slug": "hr-administrator"
+    }
+  ],
+  "kvalitetsPoang": {
+    "totalt": 4.9,
+    "kvantifierbarhet": 5.0,
+    "atsPotential": 5.0,
+    "kompetensFokus": 4.8,
+    "progression": 5.0,
+    "nyckelord": 4.8,
+    "motivering": "Starkt CV med tydlig progression från Administrativ Assistent till Senior Administratör. Alla erfarenhetsposter har kvantifierbara resultat. Exakt 8 tekniska kompetenser där TOP 3 har kompetensnivå. Innehåller branschspecifika system (W3D3, Visma, Proceedo, OSL). Certifieringar med årtal. Profiltext följer strukturen perfekt."
+  }
+}
