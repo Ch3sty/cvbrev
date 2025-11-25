@@ -93,7 +93,7 @@ export default function CVExempelPage({ data, initialHTML }: CVExempelPageProps)
       />
 
       {/* NY: Tab Layout Section */}
-      <section className="py-12 md:py-16 bg-white">
+      <section id="preview" className="py-12 md:py-16 bg-white scroll-mt-4">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-12 gap-8">
