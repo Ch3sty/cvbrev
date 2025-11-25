@@ -65,7 +65,8 @@ export function convertToCVMetadata(exempelCV: ExempelCV): CVMetadata {
     },
     summary: exempelCV.profil,
     experience: exempelCV.erfarenhet.map(exp => {
-      const periodParts = exp.period.split(' - ')
+      // Hanterar både - (hyphen) och – (em-dash) i period-strängar
+      const periodParts = exp.period.split(/\s*[-–]\s*/)
       const startDate = periodParts[0] || ''
       const endDate = periodParts[1] === 'Nuvarande' || periodParts[1] === 'Pågående'
         ? undefined
@@ -82,7 +83,8 @@ export function convertToCVMetadata(exempelCV: ExempelCV): CVMetadata {
       }
     }),
     education: exempelCV.utbildning.map(edu => {
-      const periodParts = edu.period.split(' - ')
+      // Hanterar både - (hyphen) och – (em-dash) i period-strängar
+      const periodParts = edu.period.split(/\s*[-–]\s*/)
       const graduationYear = periodParts[1] || periodParts[0] || ''
 
       return {
