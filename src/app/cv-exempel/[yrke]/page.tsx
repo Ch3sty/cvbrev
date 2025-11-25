@@ -70,12 +70,12 @@ Använd det som inspiration för ditt eget CV undersköterska och anpassa det ef
 
       kompetenser: {
         tekniska: [
+          'Dokumentationssystem: Cosmic och Procapita (Expert, 6+ år daglig användning)',
+          'Medicinsk delegering – insulin, PEG, subkutana injektioner (Avancerad, 5+ år)',
+          'Demensvård och BPSD-hantering (Expert, 5+ år inom geriatrik)',
           'ADL-stöd och personcentrerad vård',
-          'Medicinsk delegering (insulin, PEG, subkutana injektioner)',
-          'Demensvård och BPSD-hantering',
           'Palliativ omvårdnad och smärtlindring',
           'Såromläggning och PVK-skötsel',
-          'Dokumentationssystem: Cosmic, Procapita',
           'Akta Ryggen-certifierad förflyttningsteknik'
         ],
         personliga: [
@@ -112,19 +112,25 @@ Genom att använda branschspecifik terminologi visar du att du förstår vårdmi
       },
       {
         rubrik: 'Kvantifierbara resultat istället för ansvarsområden',
-        text: `Istället för vaga beskrivningar som "ansvarig för patientvård" visar CV:t konkreta resultat som kan mätas: "minskade akuta inläggningar med 15%", "reducerade fall med 20%", "omvårdnad av 25-30 patienter dagligen", "medicinsk delegering för 20+ patienter".
+        text: `Istället för vaga beskrivningar som "ansvarig för patientvård" visar CV:t konkreta resultat:
+- "Omvårdnad av 25-30 patienter dagligen"
+- "Minskade akuta inläggningar med 15%"
+- "Reducerade fall med 20%"
+- "Medicinsk delegering för 20+ patienter"
 
-Siffror gör din kompetens trovärdigt och jämförbar. Rekryterare kan direkt se omfattningen av ditt ansvar och vilken effekt du haft på vårdkvalitet. Detta skiljer dig från kandidater som bara listar arbetsuppgifter utan kontext.
+Varför detta fungerar: Rekryterare inom vård ser hundratals CV:n där undersköterskor skriver "ansvarig för patientvård" eller "hanterade medicindelegering" utan kontext. Vad betyder "ansvarig för patientvård"? Tio patienter eller 40? En timme per dag eller hela skiftet?
 
-Kvantifierbara resultat visar också initiativförmåga och klinisk blick. Att du uppmärksammat tidiga sjukdomstecken och faktiskt mätt effekten demonstrerar att du tänker bortom rutinuppgifter och bidrar aktivt till patientsäkerhet.`
+Siffror ger omfattning och trovärdighet. Skillnaden mellan "omvårdnad av patienter" och "omvårdnad av 25-30 patienter dagligen" är enorm – det visar att du kan hantera hög arbetsbelastning i stressiga miljöer. Kvantifierbara resultat visar också initiativförmåga och klinisk blick. Att du uppmärksammade tidiga sjukdomstecken och faktiskt mätte effekten (15% minskade inläggningar) demonstrerar att du tänker bortom rutinuppgifter och bidrar aktivt till patientsäkerhet.`
       },
       {
         rubrik: 'Balans mellan tekniska och mjuka färdigheter',
         text: `CV:t kombinerar teknisk kompetens (medicinsk delegering, förflyttningsteknik, Cosmic/Procapita) med empatiska egenskaper (relationsskapande, lyhördhet, kommunikation). Denna balans är avgörande eftersom vårdyrket kräver både praktiska färdigheter och förmågan att skapa trygghet.
 
-Båda delarna backas upp med konkreta exempel från arbetserfarenheten. Du säger inte bara "empatisk" utan visar det genom "byggde förtroendefulla relationer med brukare och anhöriga genom lyhördhet och respektfull kommunikation". Detta gör egenskaperna trovärdiga.
+Båda delarna backas upp med konkreta exempel från arbetserfarenheten. Du säger inte bara "empatisk" utan visar det genom "byggde förtroendefulla relationer med brukare och anhöriga genom lyhördhet och respektfull kommunikation".
 
-Rekryterare söker undersköterskor som både kan utföra medicinska arbetsuppgifter OCH hantera den relationella dimensionen av vård. Genom att visa båda aspekterna med tydliga exempel positionerar du dig som en komplett vårdprofessionell.`
+Varför inte bara buzzwords: Istället för att lista "empatisk, kommunikativ, flexibel, stresstålig" (klassisk buzzword bingo utan substans) visar CV:t dessa egenskaper genom konkreta exempel. Detta är avgörande – rekryterare läser "empatisk och kommunikativ" i nio av tio undersköterske-CV:n, men konkreta bevis sticker ut.
+
+Att skriva "stresstålig" betyder inget. Att skriva "hanterade 25-30 patienter dagligen i högt tempo med samtidiga medicineringar, måltider och akuta försämringar" visar att du faktiskt arbetat i stressiga miljöer. Vårdgivare söker undersköterskor som både kan utföra medicinska arbetsuppgifter och hantera den relationella dimensionen av vård.`
       },
       {
         rubrik: 'Certifieringar som trovärdighetsmarkör',
