@@ -38,12 +38,12 @@ const SWEDISH_EDUCATION_LEVELS = [
 ];
 
 // Svenska språknivåer
-const SWEDISH_LANGUAGE_LEVELS: Record<string, 'Nybörjare' | 'Konversation' | 'Flyt' | 'Modersmål' | 'Tvåspråkig'> = {
+const SWEDISH_LANGUAGE_LEVELS: Record<string, 'Nybörjare' | 'Konversation' | 'Flytande' | 'Modersmål' | 'Tvåspråkig'> = {
   'nybörjare': 'Nybörjare',
   'grundläggande': 'Nybörjare',
   'konversation': 'Konversation',
-  'flyt': 'Flyt',
-  'flytande': 'Flyt',
+  'flyt': 'Flytande',
+  'flytande': 'Flytande',
   'modersmål': 'Modersmål',
   'native': 'Modersmål',
   'tvåspråkig': 'Tvåspråkig',

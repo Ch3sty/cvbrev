@@ -326,9 +326,9 @@ function extractBasicSkills(rawText: string) {
  * Extrahera grundläggande språkkunskaper
  */
 function extractBasicLanguages(rawText: string) {
-  const languages: { language: string; proficiency: 'Nybörjare' | 'Konversation' | 'Flyt' | 'Modersmål' | 'Tvåspråkig' }[] = [];
+  const languages: { language: string; proficiency: 'Nybörjare' | 'Konversation' | 'Flytande' | 'Modersmål' | 'Tvåspråkig' }[] = [];
   const lowerText = rawText.toLowerCase();
-  
+
   const languagePatterns = {
     'Svenska': ['svenska', 'swedish', 'modersmål'],
     'Engelska': ['engelska', 'english', 'fluent', 'flyt'],
@@ -336,22 +336,22 @@ function extractBasicLanguages(rawText: string) {
     'Franska': ['franska', 'french'],
     'Spanska': ['spanska', 'spanish']
   };
-  
+
   Object.entries(languagePatterns).forEach(([lang, patterns]) => {
     if (patterns.some(pattern => lowerText.includes(pattern))) {
-      let level: 'Nybörjare' | 'Konversation' | 'Flyt' | 'Modersmål' | 'Tvåspråkig' = 'Nybörjare';
+      let level: 'Nybörjare' | 'Konversation' | 'Flytande' | 'Modersmål' | 'Tvåspråkig' = 'Nybörjare';
       if (lowerText.includes('modersmål') || lowerText.includes('native')) {
         level = 'Modersmål';
       } else if (lowerText.includes('flyt') || lowerText.includes('fluent')) {
-        level = 'Flyt';
+        level = 'Flytande';
       } else if (lowerText.includes('konversation')) {
         level = 'Konversation';
       }
-      
+
       languages.push({ language: lang, proficiency: level });
     }
   });
-  
+
   return languages;
 }
 
