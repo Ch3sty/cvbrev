@@ -147,6 +147,20 @@ const cvExamples: CVExample[] = [
     }
   },
   {
+    id: 'underskoterska',
+    yrke: 'Undersköterska',
+    slug: 'underskoterska',
+    kategori: 'vard',
+    niva: 'erfaren',
+    sokvolym: 690,
+    icon: Stethoscope,
+    gradient: 'from-blue-500 via-cyan-600 to-blue-700',
+    preview: {
+      intro: 'Betonar omvårdnadskompetens, patientnära arbete och professionellt förhållningssätt inom vård och omsorg.',
+      highlight: ['Grundläggande och personlig omvårdnad', 'Medicinteknisk utrustning och dokumentation', 'Teamsamarbete och person-centrerad vård']
+    }
+  },
+  {
     id: 'butiksbitrade',
     yrke: 'Butiksbiträde',
     slug: 'butiksbitrade',

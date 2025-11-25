@@ -1,0 +1,2034 @@
+# CV-Exempel Galleri - Production Implementation Guide v2.0
+
+**Status**: ✅ Production-Ready med 1 yrke implementerat (Undersköterska)
+**Live URL**: [https://jobbcoach.ai/cv-exempel/underskoterska](https://jobbcoach.ai/cv-exempel/underskoterska)
+**Target**: 30 yrken implementerade inom 5 veckor
+**Datum**: 2025-01-24
+
+---
+
+## 📊 ANALYS AV LIVE-SIDAN (Undersköterska)
+
+### SEO-Struktur
+
+#### H1/H2/H3 Hierarki
+```
+H1: "CV-exempel: Undersköterska" (1)
+H2: (10 huvudsektioner)
+├── "Så skriver du ett CV som undersköterska"
+├── "Viktigt att tänka på"
+├── "Statistik"
+├── "Förbättra ditt CV"
+├── "Varför det fungerar"
+├── "Tips för ditt yrke"
+├── "Vanliga frågor om CV för Undersköterska"
+├── "Relaterade CV-exempel"
+└── "Skapa ditt eget CV"
+```
+
+**SEO Wins:**
+- ✅ Tydlig H1 med primary keyword "CV-exempel: [Yrke]"
+- ✅ H2-rubriker använder naturliga long-tail keywords
+- ✅ Logisk sekvens: Problem → Lösning → Education → Conversion
+- ✅ Ingen keyword stuffing – naturlig språkflöde
+
+#### Keyword Placement & Density
+
+**Primary Keyword**: "cv undersköterska" (och varianter)
+
+| Placement | Text | SEO Impact |
+|-----------|------|------------|
+| **Meta Title** | "CV Exempel Undersköterska 2025 - Professionell Mall \| Jobbcoach.ai" | ⭐⭐⭐⭐⭐ Optimal längd (65 tecken), år, brand |
+| **Meta Description** | "ATS-optimerat, strukturerat för svensk vård och visar teknisk + empatisk kompetens" | ⭐⭐⭐⭐⭐ Under 160 tecken, värde-driven |
+| **First Sentence** | "Söker du jobb som **undersköterska** och behöver ett CV som sticker ut?" | ⭐⭐⭐⭐⭐ Keyword inom första 16 ord |
+| **H1** | "CV-exempel: **Undersköterska**" | ⭐⭐⭐⭐⭐ Exact match |
+| **SEO Intro** | Keyword nämns 3 gånger i 185 ord (1.6% density) | ⭐⭐⭐⭐ Optimal density (1-3%) |
+
+**LSI Keywords (Latent Semantic Indexing):**
+- ADL-stöd, medicindelegering, dokumentationssystem
+- Geriatrisk vård, hemtjänst, demensvård
+- Cosmic, Procapita (branschspecifika system)
+- Palliativ omvårdnad, personcentrerad vård
+- ATS-optimerat, svenska vårdmiljöer
+
+**Long-Tail Keywords (via FAQ):**
+- "cv undersköterska medicinsk delegering"
+- "cv undersköterska nyutexaminerad"
+- "cv undersköterska vfu-perioder"
+- "cv undersköterska geriatrik vs hemtjänst"
+
+#### Internal Linking Strategi
+
+```
+Breadcrumb:
+  Hem → CV-exempel → Undersköterska
+  (Canonical structure för alla yrken)
+
+Related CVs:
+  → Sjuksköterska (/cv-exempel/sjukskoterska)
+  → Vårdbiträde (/cv-exempel/vardbitrade)
+  → Personlig assistent (/cv-exempel/personlig-assistent)
+  (3 relaterade yrken per sida)
+
+CTAs:
+  → Ladda ner CV-mallar (/verktyg/cv-mallar)
+  → Kom igång gratis (/dashboard/skapa-cv)
+  → Personligt brev-exempel (/personligt-brev-exempel/underskoterska)
+  (Cross-linking mellan CV och personligt brev)
+
+Footer:
+  → CV-exempel (index)
+  → Artiklar (blog)
+  → Priser
+```
+
+**Internal Linking Best Practices:**
+- ✅ Cluster-strategi: CV-exempel ↔ Personligt brev-exempel (samma yrke)
+- ✅ Sidolänkar: 3 relaterade yrken inom samma kategori
+- ✅ Conversion-länkar: Mallar + Dashboard strategiskt placerade
+- ✅ Breadcrumb för site architecture
+
+#### Schema.org Markup
+
+**Implementerad:**
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Hur långt ska mitt CV som undersköterska vara?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "För undersköterskor med 0-5 års erfarenhet: 1 sida..."
+      }
+    }
+    // ... 10 frågor totalt
+  ]
+}
+```
+
+**Validation:**
+- ✅ Inga tomma fält (`.filter()` applicerad)
+- ✅ 10 frågor inkluderade i markup
+- ✅ Google Rich Snippet eligible
+
+**Möjlig Expansion:**
+- 📌 Article schema för sidan (BlogPosting type)
+- 📌 BreadcrumbList schema
+- 📌 HowTo schema för "Tips"-sektionen
+
+---
+
+### Content-Struktur & Ordantal
+
+#### Content Inventory
+
+| Sektion | Typ | Ordantal | Synlig | Expanderbar | SEO Impact |
+|---------|-----|----------|--------|-------------|------------|
+| **Hero** | H1 + intro | ~35 | ✅ 100% | ❌ | ⭐⭐⭐ Första intryck |
+| **SEO Intro** | Multi-paragraph | ~185 | ✅ 100% | ❌ | ⭐⭐⭐⭐⭐ Keyword-rik, crawlable |
+| **Viktigt att tänka på** | Bullet checklist | ~40 | ✅ 100% | ❌ | ⭐⭐ Visual hierarchy |
+| **Statistik** | Visual metrics | ~15 | ✅ 100% | ❌ | ⭐⭐⭐ Trust signals |
+| **CV Preview** | Interactive | ~280 | ✅ 100% | ❌ (tabs) | ⭐⭐⭐ Engagement |
+| **Varför det fungerar** | 6 cards | ~230 | ✅ 100% | ❌ | ⭐⭐⭐⭐⭐ Educational, keyword-rik |
+| **Tips** | 6 accordion tips | ~408 | ⚠️ Headers | ✅ Content | ⭐⭐⭐⭐ Long-form value |
+| **FAQ** | 10 frågor | ~540 | ⚠️ Frågor | ✅ Svar | ⭐⭐⭐⭐⭐ Rich snippets, long-tail |
+| **Relaterade** | 3 CV-länkar | ~30 | ✅ 100% | ❌ | ⭐⭐⭐ Internal linking |
+| **CTA Final** | Call-to-action | ~25 | ✅ 100% | ❌ | ⭐⭐ Conversion |
+| **TOTAL** | — | **~1,788** | ~50% | ~50% | ⭐⭐⭐⭐⭐ |
+
+**Content Visibility Strategy:**
+- **Always Visible (50%)**: Hero, SEO Intro, Varför det fungerar cards, FAQ questions, CTA
+- **Progressive Disclosure (50%)**: Tips content (accordion), FAQ answers (accordion)
+- **Rationale**: Balance SEO content indexing med UX (avoid wall of text)
+
+#### SEO Intro – Deep Dive
+
+**Word Count**: 185 ord (3 stycken)
+**Keyword Density**: 1.6% (3 mentions av "undersköterska")
+**Structure**:
+
+```
+Stycke 1 (60 ord):
+  - Hook: "Söker du jobb som undersköterska...?"
+  - Promise: "Det här exemplet visar hur..."
+  - Primary keyword i första meningen ✅
+
+Stycke 2 (70 ord):
+  - Value: Balans teknisk/mjuk kompetens
+  - Branschterminologi: ADL-stöd, medicindelegering, Cosmic
+  - LSI keywords: ATS-optimerat, svenska vårdmiljöer
+  - Kvantifierbara exempel från CV:t
+
+Stycke 3 (55 ord):
+  - CTA soft: "Använd som inspiration"
+  - Internal link: "personligt brev undersköterska"
+  - Conversion focus: "öka dina chanser till intervju"
+```
+
+**SEO Wins:**
+- ✅ Natural keyword integration (inga tvingade fraser)
+- ✅ Branschspecifika termer (ADL, medicindelegering) för relevans
+- ✅ Internal link till relaterad resurs (personligt brev)
+- ✅ Crawlable text (inte bakom accordion)
+
+#### "Varför det fungerar" – Card Analysis
+
+**Format**: 6 cards, alltid synliga, icke-expanderbara
+**Word Count**: 30-45 ord per card (total ~230 ord)
+
+| Card # | Rubrik | Fokus | Ordantal | Keywords Inkluderade |
+|--------|--------|-------|----------|----------------------|
+| 1 | ATS-optimerad struktur med branschspecifika nyckelord | ATS + keywords | 42 | ADL-stöd, personcentrerad vård, demensvård, Cosmic, Procapita |
+| 2 | Kvantifierbara resultat istället för ansvarsområden | Mätbarhet | 35 | Minskade 15%, reducerade 20%, 25-30 patienter |
+| 3 | Balans mellan tekniska och mjuka färdigheter | Holistic view | 38 | Medicindelegering, empati, relationsskapande |
+| 4 | Certifieringar som trovärdighetsmarkör | Credentials | 32 | Akta Ryggen, HLR, nutritionsbedömning |
+| 5 | Profiltext som säljande sammanfattning | Profiltext SEO | 45 | Nyckelord, personliga egenskaper, matchning |
+| 6 | Tydlig progression och ansvar | Karriärutveckling | 30 | Hemtjänst → Äldreboende, mentorskap |
+
+**Content Patterns:**
+- Varje card börjar med **action word** eller **benefit** (ATS-optimerad, Kvantifierbara, Balans)
+- Minst 1 card nämner **ATS** (Card 1) ✅
+- Minst 2 cards har **kvantifierbara exempel** (Card 2, 6) ✅
+- Cards backar upp påståenden med **konkreta exempel från CV:t**
+
+**SEO Impact:**
+- Text är 100% synlig → fullt crawlbar
+- Branschterminologi → semantic relevans
+- Educational tone → E-E-A-T (Expertise)
+
+#### Tips-sektion – Accordion Strategy
+
+**Format**: 6 accordion tips, headers synliga, content expanderbar
+**Word Count**: 60-85 ord per tip (total ~408 ord)
+
+| Tip # | Rubrik (Synlig) | Content Ordantal | Paragraphs | Keywords |
+|-------|-----------------|------------------|------------|----------|
+| 1 | Inkludera rätt nyckelord för din vårdspecialisering | 78 | 2 | Geriatrik, akutvård, hemtjänst, ADL-stöd, palliativ |
+| 2 | Kvantifiera din erfarenhet för ökad trovärdighet | 65 | 2 | 25-30 patienter, antal år, VFU-perioder |
+| 3 | Visa konkreta resultat från din omvårdnad | 48 | 2 | Minskade 15%, reducerade 20%, initiativförmåga |
+| 4 | Anpassa profiltext efter jobbannonsen | 72 | 2 | Specialisering, demensvård, BPSD-hantering |
+| 5 | Lyft fram certifieringar och kompetensutveckling | 65 | 2 | Medicindelegering, Akta Ryggen, HLR, datum |
+| 6 | Balansera tekniska och mjuka färdigheter med bevis | 80 | 2 | Medicindelegering, empati, exempel-backning |
+
+**Content Patterns:**
+- Rubriker i **imperativ form** ("Inkludera", "Visa", "Anpassa") ✅
+- Multi-paragraph structure: **Varför** (stycke 1) → **Hur/Exempel** (stycke 2) ✅
+- Konkreta exempel: "Istället för X, skriv Y" ✅
+- Tips >60 ord använder `\n\n` för paragraph breaks ✅
+
+**SEO Considerations:**
+- Headers **alltid synliga** → keywords crawlable även när collapsed
+- Content **bakom accordion** → indexable men inte initial viewport
+- Balance: User experience (scannable) + SEO (full content accessible)
+
+#### FAQ-sektion – Hybrid Strategy
+
+**Format**: 10 frågor, accordion, frågor synliga, svar expanderbara
+**Word Count**: ~540 ord totalt (35-85 ord per svar)
+
+**Generiska Frågor (3):**
+1. "Hur långt ska mitt CV som undersköterska vara?" (55 ord)
+2. "Ska jag ha med profilbild på mitt CV?" (48 ord)
+3. "Vad gör jag om jag har luckor i mitt CV?" (65 ord)
+
+**Yrkes-Specifika Frågor (7):**
+1. "Ska jag inkludera VFU-perioder om jag är nyutexaminerad?" (62 ord) → **Kategori: Utbildning/Erfarenhet**
+2. "Hur visar jag medicinsk delegering i mitt CV?" (72 ord) → **Kategori: Branschspecifik kompetens**
+3. "Hur anpassar jag mitt CV för olika vårdmiljöer?" (58 ord) → **Kategori: Arbetsmiljö**
+4. "Hur visar jag att jag är stresstålig utan att bara säga det?" (68 ord) → **Kategori: Mjuka färdigheter**
+5. "Ska jag lista alla arbetsgivare eller bara de viktigaste?" (60 ord) → **Kategori: Karriärprogression**
+6. "Hur mycket personlig information ska jag inkludera?" (52 ord) → **Kategori: Generisk men yrkes-anpassad**
+7. "Hur lyfter jag fram teamarbete och samarbete?" (85 ord) → **Kategori: Mjuka färdigheter + branschspecifikt**
+
+**FAQ Breakdown:**
+- **Generiska**: 30% (3/10) – Återanvändbara för alla yrken
+- **Yrkes-Specifika**: 70% (7/10) – Unika för Undersköterska
+
+**Long-Tail Keyword Coverage:**
+- "cv undersköterska vfu" (Fråga 2)
+- "cv undersköterska medicinsk delegering" (Fråga 3)
+- "cv undersköterska geriatrik hemtjänst" (Fråga 5)
+- "cv undersköterska stresstålig" (Fråga 7)
+
+**Schema.org Implementation:**
+- ✅ FAQPage structured data med 10 frågor
+- ✅ Alla frågor filtrerade för tomma fält
+- ✅ Google Rich Snippet eligible
+
+---
+
+### UX/Conversion Elements
+
+#### Tab-baserad Navigation
+
+**Tabs (Desktop):**
+1. "Se hur CV:t ser ut" (Preview)
+2. "Varför det fungerar" (6 cards)
+3. "Tips för ditt yrke" (6 tips)
+
+**Mobile:**
+- Tabs collapsed till dropdown/accordion
+- Sidebar blir sticky bottom CTA
+
+**Engagement Metrics (Expected):**
+- Tab-switching rate: 60-70% (users explore multiple tabs)
+- Time on page: 3-5 min (reading tips + FAQ)
+
+#### Sidebar – Persistent CTA
+
+**Placement**: Right column (desktop), sticky bottom (mobile)
+
+**CTAs:**
+1. **Primary**: "Kom igång gratis" → `/dashboard/skapa-cv`
+2. **Secondary**: "Ladda ner CV-mallar" → `/verktyg/cv-mallar`
+3. **Tertiary**: "Se alla guider" → `/cv-exempel`
+
+**Copy Strategy:**
+- Action-oriented: "Kom igång", "Ladda ner", "Se alla"
+- Benefit-focused: "gratis", "professionella mallar"
+- Urgency: "Skapa ditt CV på 10 minuter"
+
+#### Progressive Disclosure Strategy
+
+**Rationale**: Prevent information overload, improve scanability
+
+**Implementation:**
+- **Hero + SEO Intro**: 100% visible (220 ord) → Hook users
+- **Varför det fungerar**: 100% visible (230 ord) → Educational value
+- **Tips**: Headers visible, content accordion (408 ord) → Opt-in learning
+- **FAQ**: Questions visible, answers accordion (540 ord) → Search-friendly
+
+**Mobile-First Principles:**
+- Touch-friendly accordion buttons (min-height: 56-64px)
+- Expandable content prevents endless scrolling
+- Clear visual hierarchy (gradient badges, icons)
+
+#### Mobile UX Optimizations
+
+**Observed Features:**
+- Responsive breadcrumb (truncates on small screens)
+- Bottom sheet for template selector (InteractiveCVPreview)
+- Accordion tips/FAQ (swipe-friendly)
+- Sticky sidebar → sticky bottom bar on mobile
+
+**Performance:**
+- InteractiveCVPreview lazy-loaded (`dynamic`, `ssr: false`)
+- Framer Motion animations (smooth, not janky)
+- First Load JS: 201 kB (within budget)
+
+---
+
+### Total Page Metrics
+
+**Content Length:**
+- **Total Word Count**: ~1,788 words
+- **Visible (Initial Load)**: ~50% (~894 words)
+- **Expandable (User Action)**: ~50% (~894 words)
+
+**SEO Balance:**
+- Enough visible content for crawlers (SEO intro + cards)
+- Enough expandable content for engagement (tips + FAQ)
+- Not overwhelming (prevents bounce)
+
+**Keyword Integration:**
+- Primary keyword ("cv undersköterska"): 8 mentions (0.45% density)
+- LSI keywords: 25+ mentions
+- Long-tail keywords: 10+ (via FAQ)
+- Natural language: ✅ No keyword stuffing
+
+**Conversion Funnel:**
+```
+1. Organic Search (Primary keyword)
+   ↓
+2. Landing (SEO intro hooks user)
+   ↓
+3. Education (Varför det fungerar cards)
+   ↓
+4. Deep Learning (Tips accordion opt-in)
+   ↓
+5. Objection Handling (FAQ)
+   ↓
+6. Action (CTA → Mallar eller Dashboard)
+```
+
+---
+
+## 🎯 CONTENT CREATION WORKFLOW
+
+### Översikt: SEO-agent → Copywriter Pipeline
+
+**Total Time per Yrke**: ~90 minuter
+
+| Fas | Ansvarig | Tid | Deliverables |
+|-----|----------|-----|--------------|
+| **Fas 1**: Research & Struktur | SEO-agent | 30 min | Keyword-lista, CV-exempel data, SEO-direktiv |
+| **Fas 2**: Content Creation | Copywriter | 45 min | SEO intro, cards, tips, FAQ |
+| **Fas 3**: Validering & Build | SEO-agent | 15 min | Keyword-check, Schema.org, TypeScript build |
+
+---
+
+### Fas 1: SEO-agent (30 min per yrke)
+
+#### Steg 1.1: Keyword Research (10 min)
+
+**Tools:**
+- Ahrefs/SEMrush (sökvolym Sverige)
+- Google Suggest (autocomplete)
+- Konkurrerande sidor (SERP-analys)
+- AnswerThePublic (long-tail questions)
+
+**Output:**
+```markdown
+### Keyword Research: [Yrke]
+
+**Primary Keyword:**
+- cv [yrke] (Sökvolym: XXX/mån, KD: XX/100)
+
+**Secondary Keywords:**
+- cv mall [yrke] (Sökvolym: XXX/mån)
+- cv exempel [yrke] (Sökvolym: XXX/mån)
+- professionellt cv [yrke] (Sökvolym: XXX/mån)
+
+**LSI Keywords (Branschterminologi):**
+- [system/verktyg yrket använder]
+- [certifieringar specifika för yrket]
+- [teknisk kompetens #1, #2, #3]
+- [mjuka färdigheter yrket kräver]
+
+**Long-Tail Keywords (FAQ):**
+- "cv [yrke] [specifik fråga]" (ex: "cv ingenjör github")
+- "cv [yrke] [certifiering]" (ex: "cv sjuksköterska specialistutbildning")
+- "cv [yrke] [arbetsmiljö]" (ex: "cv förskollärare reggio emilia")
+
+**Konkurrerande Sidor:**
+1. [URL] – Rank #1, Ordantal: XXX, Fokus: [X]
+2. [URL] – Rank #2, Ordantal: XXX, Fokus: [X]
+3. [URL] – Rank #3, Ordantal: XXX, Fokus: [X]
+
+**Content Gap Opportunities:**
+- Saknar: [Branschspecifika tips]
+- Svag: [FAQ coverage]
+- Kan förbättra: [Kvantifierbara exempel]
+```
+
+#### Steg 1.2: Skapa exempelCV Data (15 min)
+
+**Template:**
+```typescript
+const exampleData = {
+  '[yrke-slug]': {
+    yrke: '[Yrke Namn]',
+    sokvolym: XXX,
+    kategori: 'vard' | 'teknik' | 'service' | 'utbildning' | 'ekonomi' | 'offentlig-sektor',
+
+    metaTitle: 'CV Exempel [Yrke] 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för [yrke]. ATS-optimerat, [branschspecifik benefit], [branschspecifik benefit]. Inkluderar tips och nyckelord.',
+
+    exempelCV: {
+      namn: '[Förnamn Efternamn]',
+      titel: '[Professionell Titel] med specialisering i [Nisch]',
+
+      kontakt: {
+        telefon: '070-XXX XX XX',
+        epost: 'fornamn.efternamn@email.se',
+        plats: '[Stad]',
+        linkedin: 'linkedin.com/in/exempel'
+      },
+
+      profil: '[3-4 meningar: Erfarenhet + Specialisering + Tekniska keywords + Mjuka keywords + Certifieringar]',
+
+      erfarenhet: [
+        {
+          titel: '[Senior Position]',
+          arbetsgivare: '[Företag AB]',
+          period: '20XX – Pågående',
+          beskrivning: [
+            '[Kvantifierbart resultat med siffra: "minskade X med 25%"]',
+            '[Branschspecifik teknisk kompetens + verktyg/system]',
+            '[Ledarskap/ansvar om relevant: "mentor för X personer"]',
+            '[Tvärfunktionellt samarbete eller stakeholder management]'
+          ]
+        },
+        {
+          titel: '[Mid-level Position]',
+          arbetsgivare: '[Företag AB]',
+          period: '20XX – 20XX',
+          beskrivning: [
+            '[Konkret resultat eller projekt-achievement]',
+            '[Teknisk evolution eller kompetensutveckling]',
+            '[Problemlösning: identifierade X, implementerade Y]'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: '[Examen/Program]',
+          skola: '[Skola/Universitet]',
+          period: '20XX – 20XX',
+          beskrivning: '[Specialisering, VFU-platser, eller relevant projekt]'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          '[Hård färdighet #1 med specifikt verktyg/system]',
+          '[Hård färdighet #2]',
+          '[Hård färdighet #3]',
+          '[Branschspecifikt system/verktyg #1]',
+          '[Branschspecifikt system/verktyg #2]',
+          '[Certifiering eller standardmetod]',
+          '[Mjukvaruverktyg eller teknisk metod]'
+        ],
+        personliga: [
+          '[Mjuk färdighet #1 relevant för yrket]',
+          '[Mjuk färdighet #2]',
+          '[Mjuk färdighet #3]',
+          '[Mjuk färdighet #4]',
+          '[Mjuk färdighet #5]'
+        ]
+      },
+
+      certifieringar: [
+        '[Certifiering #1] – [Specifik typ] (20XX)',
+        '[Certifiering #2] (20XX)',
+        '[Certifiering #3] (förnyad 20XX)',
+        '[Branschstandard certifiering]',
+        '[Säkerhet/Compliance certifiering om relevant]'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    relaterade: [
+      { yrke: '[Relaterat Yrke 1]', slug: '[slug-1]' },
+      { yrke: '[Relaterat Yrke 2]', slug: '[slug-2]' },
+      { yrke: '[Relaterat Yrke 3]', slug: '[slug-3]' }
+    ]
+  }
+}
+```
+
+**Best Practices för exempelCV:**
+- **Profiltext**: Inkludera antal års erfarenhet, specialisering, 3-4 tekniska keywords, 2 mjuka keywords, certifieringar
+- **Erfarenhet**: Minst 1 kvantifierbart resultat per roll ("minskade X med 25%", "ökade Y med 30 kunder")
+- **Kompetenser**: 7 tekniska, 5 personliga (balans)
+- **Certifieringar**: 4-5 relevanta, med årtal (visar aktualitet)
+- **Språk**: Alltid Svenska + Engelska minimum
+
+#### Steg 1.3: Skapa SEO-direktiv för Copywriter (5 min)
+
+**Template:**
+```markdown
+## SEO-direktiv: [Yrke] CV-exempel
+
+**Skapad av**: SEO-agent
+**Datum**: 2025-XX-XX
+**För**: Copywriter (svensk-ux-copywriter agent)
+
+---
+
+### PRIMARY KEYWORDS
+
+**Huvudkeyword**: cv [yrke]
+**Sökvolym**: XXX/mån
+**Konkurrensnivå**: XX/100
+
+**Varianter**:
+- cv mall [yrke]
+- cv exempel [yrke]
+- professionellt cv [yrke]
+- ats-optimerat cv [yrke]
+
+**Target Keyword Density**: 1.5-2.5% för primary keyword
+
+---
+
+### BRANSCHTERMINOLOGI & LSI KEYWORDS
+
+**Tekniska System/Verktyg**:
+- [System #1] (ex: "Cosmic" för undersköterskor)
+- [System #2]
+- [Verktyg #3]
+
+**Certifieringar/Utbildningar**:
+- [Certifiering #1]
+- [Certifiering #2]
+- [Standard/Ramverk]
+
+**Branschspecifika Termer**:
+- [Term #1] (ex: "ADL-stöd" för vård)
+- [Term #2]
+- [Term #3]
+
+**Mjuka Färdigheter (yrkes-specifikt beskrivet)**:
+- [Färdighet #1] (ex: "stresstålig" för akutvård)
+- [Färdighet #2]
+
+---
+
+### CONTENT REQUIREMENTS
+
+#### 1. SEO Intro (150-200 ord, 3 stycken)
+
+**Keyword Integration:**
+- Primary keyword i **första meningen** (inom 16 ord)
+- Total mentions: 2-3 gånger (1.5-2% density)
+- LSI keywords: 4-6 mentions
+
+**Struktur:**
+```
+Stycke 1 (50-60 ord):
+  - Hook: Fråga eller problemidentifiering
+  - Promise: "Det här exemplet visar..."
+  - Keyword i första meningen ✅
+
+Stycke 2 (60-80 ord):
+  - Value: Balans teknisk/mjuk kompetens
+  - Branschterminologi: [Lista 3-4 termer från LSI]
+  - Konkret benefit: "kvantifierbara resultat", "ATS-optimerat"
+
+Stycke 3 (40-60 ord):
+  - Soft CTA: "Använd som inspiration..."
+  - Internal link till relaterad resurs (personligt brev om finns)
+  - Conversion hint: "öka chanser till intervju"
+```
+
+**Tone:**
+- Professionell men pedagogisk
+- Direkt tilltal ("du", "ditt CV")
+- Action-oriented men inte pushy
+
+---
+
+#### 2. Varför det Fungerar (6 cards, 80-120 ord/card)
+
+**Themes att täcka (i denna ordning):**
+
+1. **ATS-optimering + Branschspecifika Nyckelord**
+   - Nämn 5-7 kritiska keywords för yrket
+   - Förklara varför ATS-system letar efter dessa
+   - Keywords att inkludera: [Lista från LSI]
+
+2. **Kvantifierbara Resultat**
+   - Ge exempel från exempelCV (siffror, procent, antal)
+   - Kontrast: "Istället för X, visar CV:t Y"
+   - Keywords: "mätbar", "konkret", "resultat"
+
+3. **Balans Teknisk/Mjuk Kompetens**
+   - Tekniska: [Lista 3 från exempelCV]
+   - Mjuka: [Lista 2 från exempelCV]
+   - Förklara hur båda backas upp med exempel
+   - Keywords: [Tekniska termer] + [Mjuka färdigheter]
+
+4. **Certifieringar/Trovärdighet**
+   - Nämn 3-4 certifieringar från exempelCV
+   - Förklara varför de är viktiga för yrket
+   - Keywords: "professionalism", "kompetensutveckling", "lärvilja"
+
+5. **Profiltext som Säljande Sammanfattning**
+   - Förklara strukturen: Erfarenhet + Specialisering + Keywords + Egenskaper
+   - Varför profiltext är kritisk för ATS + rekryterare
+   - Keywords: "sammanfattning", "nyckelord", "matchning"
+
+6. **Progression/Ansvar**
+   - Beskriv karriärprogression från exempelCV
+   - Nämn mentorskap/ledarskap om relevant
+   - Keywords: "progression", "ansvar", "seniorroll"
+
+**Format Requirements:**
+- Rubrik: Action word eller benefit ("ATS-optimerad...", "Kvantifierbara...")
+- Text: 2-3 meningar, educational tone
+- Backa upp med konkreta exempel från exempelCV
+- Undvik fluff – varje mening ska tillföra värde
+
+---
+
+#### 3. Tips (6 tips, 100-150 ord/tip)
+
+**Format:**
+- Rubrik: **Imperativ form** ("Inkludera...", "Visa...", "Anpassa...")
+- Text: 2-3 stycken (separerade med `\n\n`)
+  - Stycke 1: **Varför** (40-50 ord)
+  - Stycke 2: **Hur** (40-60 ord)
+  - Stycke 3 (optional): **Exempel** (20-40 ord) – "Istället för X, skriv Y"
+
+**Themes:**
+
+**Tip 1: Branschspecifika Nyckelord**
+- Rubrik: "Inkludera rätt nyckelord för [yrkes-specifik kontext]"
+- Keywords att integrera: [Lista 5-7 LSI keywords]
+- Exempel: "För [yrke i kontext A]: [keywords]. För [yrke i kontext B]: [keywords]."
+- Instruktion: "Läs jobbannonsen noga och matcha dina nyckelord mot deras krav"
+
+**Tip 2: Kvantifiera Erfarenhet**
+- Rubrik: "Kvantifiera din erfarenhet för ökad trovärdighet"
+- Keywords: "antal år", "antal [relevanta metrik]", "konkreta siffror"
+- Exempel: "Istället för 'ansvarig för X', skriv 'Y antal X dagligen'"
+- Tips: Om deltid, räkna om till heltidsekvivalent
+
+**Tip 3: Visa Konkreta Resultat**
+- Rubrik: "Visa konkreta resultat från [yrkes-specifik domän]"
+- Keywords: "resultat", "förbättring", "initiativförmåga"
+- Exempel: "Istället för att lista arbetsuppgifter, visa resultat: '[Konkret exempel från bransch]'"
+- Fallback: Om inga siffror, beskriv situationer
+
+**Tip 4: Anpassa Profiltext**
+- Rubrik: "Anpassa profiltext efter jobbannonsen"
+- Keywords: "specialisering", "skräddarsydd", "matchning"
+- Struktur: Erfarenhet + Specialisering + Tekniska keywords + 1-2 egenskaper
+- Längd: Max 4 meningar
+
+**Tip 5: Lyft Fram Certifieringar**
+- Rubrik: "Lyft fram certifieringar och kompetensutveckling"
+- Keywords: [Branschspecifika certifieringar från research]
+- Tips: Dedikerad sektion, inkludera förnyelsedatum
+- Nämn även intern utbildning om relevant
+
+**Tip 6: Balansera Tekniska/Mjuka Färdigheter**
+- Rubrik: "Balansera tekniska och mjuka färdigheter med bevis"
+- Keywords: [Tekniska från exempelCV] + [Mjuka från exempelCV]
+- Instruktion: Backa upp mjuka egenskaper med exempel i erfarenhetssektionen
+- Exempel: "Istället för bara 'empatisk' i kompetens, visa genom '[exempel från arbete]'"
+
+**Stil-krav:**
+- Inga tankstreck som skiljetecken (använd punkter eller meningar)
+- Multi-paragraph för >80 ord (använd `\n\n`)
+- Konkreta, actionable råd (inte vaga tips som "var dig själv")
+
+---
+
+#### 4. FAQ (10 frågor: 3-4 generiska + 6-7 yrkes-specifika)
+
+**Generiska Frågor (Återanvändbara för alla yrken):**
+
+1. **"Hur långt ska mitt CV vara?"**
+   - Svar: "I Sverige rekommenderas 1-2 sidor. För juniora roller (0-5 års erfarenhet) räcker vanligtvis 1 sida, medan seniora yrkespersoner kan behöva 2 sidor för att visa progressionen i sin karriär."
+
+2. **"Ska jag ha en profilbild på mitt CV?"**
+   - Svar: "I Sverige är det vanligt men inte obligatoriskt. Välj en professionell bild med neutral bakgrund och affärsmässig klädsel. Undvik semesterbilder eller selfies."
+
+3. **"Hur hanterar jag luckor i mitt CV?"**
+   - Svar: "Var ärlig och kort om luckor. Vid kortare uppehåll (< 6 månader) behöver du inte förklara. För längre perioder, nämn konstruktiva aktiviteter som vidareutbildning, volontärarbete eller föräldraledighet."
+
+4. **"Hur mycket personlig information ska jag inkludera?"** (VALFRI – kan bytas mot yrkes-specifik)
+   - Svar: "Minimalt. Du behöver inte ange ålder, personnummer, civilstånd eller barn. Inkludera: namn, telefon, e-post, stad (inte fullständig adress), och eventuellt LinkedIn."
+
+**Yrkes-Specifika Frågor (6-7 st – MÅSTE vara unika):**
+
+**Kategori-guide:**
+
+**A. Branschspecifik Kompetens/Certifiering** (1-2 frågor)
+- Template: "Hur visar jag [specifik certifiering/kompetens] i mitt CV?"
+- Exempel Undersköterska: "Hur visar jag medicinsk delegering?"
+- Exempel Ingenjör: "Ska jag inkludera hobbyprojekt på GitHub?"
+- Exempel Förskollärare: "Ska jag nämna Reggio Emilia/Montessori-pedagogik?"
+
+**B. Praktisk Yrkesutövning** (1-2 frågor)
+- Template: "Hur beskriver jag [yrkes-specifik aktivitet]?"
+- Exempel Undersköterska: "Hur visar jag fysiskt krävande arbete?"
+- Exempel IT-konsult: "Hur beskriver jag remote vs on-site uppdrag?"
+- Exempel Kock: "Hur visar jag erfarenhet från olika typer av kök?"
+
+**C. Arbetsmiljö/Setting** (1 fråga)
+- Template: "Hur anpassar jag CV:t för [kontext A] vs [kontext B]?"
+- Exempel Undersköterska: "Äldreboende vs hemtjänst?"
+- Exempel Butiksbiträde: "Stora kedjor vs små butiker?"
+- Exempel Lärare: "Grundskola vs gymnasium?"
+
+**D. Mjuka Färdigheter (yrkes-specifikt beskrivet)** (1 fråga)
+- Template: "Hur visar jag [mjuk färdighet] utan att bara säga det?"
+- Exempel Undersköterska: "Hur visar jag stresstålig i vården?"
+- Exempel Servitris: "Hur beskriver jag stresstolerans under rusningar?"
+- Exempel Chef: "Hur visar jag ledarskapsförmåga utan att framstå som skrytsam?"
+
+**E. Karriärprogression i Branschen** (1 fråga)
+- Template: "Hur visar jag progression inom [bransch]?"
+- Exempel Undersköterska: "Ska jag lista alla vårdgivare?"
+- Exempel Projektledare: "Hur beskriver jag projektportfölj vs individuella projekt?"
+- Exempel Handläggare: "Hur visar jag progression inom offentlig sektor?"
+
+**F. Branschspecifika Utmaningar** (1 fråga)
+- Template: "Hur beskriver jag [bransch-specifik situation/utmaning]?"
+- Exempel Förskollärare: "Små vs stora barngrupper?"
+- Exempel Ekonomiassistent: "Ska jag nämna vilka ekonomisystem jag kan?"
+- Exempel Lokalvårdare: "Olika typer av miljöer (kontor, sjukhus, skola)?"
+
+**G. Nyutexaminerad/Junior-specifikt** (1 fråga om relevant)
+- Template: "Vad gör jag om jag är nyutexaminerad/har begränsad erfarenhet?"
+- Exempel Undersköterska: "Ska jag inkludera VFU-perioder?"
+- Exempel Ingenjör: "Hur kompenserar jag för brist på yrkeslivserfarenhet?"
+- Exempel Student: "Hur skriver jag CV utan erfarenhet?"
+
+**Svarslängd**: 40-85 ord per svar (2-3 meningar)
+**Tone**: Actionable, konkret, stödjande (inte vag)
+**Keywords**: Integrera long-tail keywords naturligt i frågor
+
+**Uniqueness Test:**
+- Google-sök varje yrkes-specifik fråga
+- Om >5 konkurrerande CV-sidor har exakt samma fråga → för generisk, omformulera
+- Målet: Minst 60% av FAQ ska vara unikt sökbar
+
+---
+
+### BRAND VOICE RIKTLINJER
+
+**AI-FRI COPY (Kritiskt!):**
+- ❌ **Förbjudna fraser**: "vår AI", "AI-driven", "artificiell intelligens", "maskininlärning"
+- ✅ **Tillåtna alternativ**: "vi analyserar automatiskt", "vi pekar ut", "systemet identifierar", "verktyget hjälper"
+
+**Exempel på AI-fri copy:**
+- Istället för: "Vår AI optimerar ditt CV"
+- Skriv: "Vi analyserar automatiskt ditt CV och pekar ut förbättringsområden"
+
+**Ton:**
+- Professionell men pedagogisk (inte akademisk)
+- Direkt tilltal ("du", "ditt CV", inte "man")
+- Action-oriented men inte pushy ("Använd som inspiration" inte "Du MÅSTE göra detta")
+- Konkreta resultat, inte fluff ("minskade X med 25%" inte "förbättrade dramatiskt")
+
+**Svensk Svenska:**
+- Undvik anglicismer där svenska alternativ finns
+- Exempel: "Branschspecifik" (inte "industry-specific")
+- Exempel: "Kompetensutveckling" (inte "upskilling")
+- OK att använda etablerade engelska termer: "ATS-system", "LinkedIn", "remote work"
+
+**Exempel på Bra Copy:**
+> "Inkludera kvantifierbara resultat i din erfarenhetssektion. Istället för 'ansvarig för kundkontakt', skriv 'hanterade 40+ kundärenden dagligen med 95% nöjdhetsgrad'. Detta gör din kompetens mätbar och trovärdigt för både ATS-system och rekryterare."
+
+**Exempel på Dålig Copy (undvik):**
+> "Vår AI hjälper dig att optimera ditt CV så det blir superviktigt och recruiters kommer älska det! Du kan enkelt skapa ett fantastiskt CV som sticker ut bland mängden."
+
+---
+
+### KVALITETSKONTROLL CHECKLIST
+
+Innan du skickar content till SEO-agent, verifiera:
+
+**SEO Intro:**
+- ✅ Keyword i första meningen (inom 16 ord)
+- ✅ Keyword density 1.5-2.5%
+- ✅ Minst 4 LSI keywords inkluderade
+- ✅ 3 stycken (Hook → Value → CTA)
+- ✅ 150-200 ord totalt
+- ✅ AI-fri copy genomgående
+
+**Varför det Fungerar:**
+- ✅ 6 cards
+- ✅ Alla 6 themes täckta (ATS, Kvantifiering, Balans, Certifieringar, Profiltext, Progression)
+- ✅ 80-120 ord per card
+- ✅ Konkreta exempel från exempelCV i varje card
+- ✅ Branschterminologi inkluderad naturligt
+- ✅ Educational tone (förklarar varför, inte bara vad)
+
+**Tips:**
+- ✅ 6 tips
+- ✅ Rubriker i imperativ form
+- ✅ 100-150 ord per tip
+- ✅ Multi-paragraph struktur (Varför → Hur → Exempel)
+- ✅ Konkreta "Istället för X, skriv Y" exempel i minst 3 tips
+- ✅ Branschspecifika keywords i Tip 1 och 5
+- ✅ Inga tankstreck som skiljetecken
+
+**FAQ:**
+- ✅ 10 frågor totalt
+- ✅ 3-4 generiska (från standardlista)
+- ✅ 6-7 yrkes-specifika (unika)
+- ✅ Alla 6-7 FAQ-kategorier täckta (Kompetens, Praktik, Miljö, Mjuka, Progression, Utmaningar)
+- ✅ 40-85 ord per svar
+- ✅ Actionable svar (inte vaga)
+- ✅ Long-tail keywords i yrkes-specifika frågor
+- ✅ Uniqueness test: Google-sök frågor (max 5 duplicates)
+
+**Brand Voice:**
+- ✅ AI-fri copy (inga "AI", "vår AI", "maskininlärning")
+- ✅ Direkt tilltal ("du", "ditt CV")
+- ✅ Svensk svenska (inga anglicismer där svenska alternativ finns)
+- ✅ Konkreta resultat (inte fluff)
+- ✅ Action-oriented men inte pushy
+
+---
+
+## DELIVERABLES
+
+När du skickar tillbaka till SEO-agent, inkludera:
+
+1. **seoIntro** (string, 150-200 ord, 3 stycken med `\n\n`)
+2. **varforDetFungerar** (array av 6 objekt: `{ rubrik, text }`)
+3. **tips** (array av 6 objekt: `{ rubrik, text }` – text kan ha `\n\n`)
+4. **faq** (array av 10 objekt: `{ fraga, svar }`)
+
+**Format:**
+- Plain text, inga Markdown headers
+- Använd `\n\n` för paragraph breaks (INTE `<br>` eller HTML)
+- Inga emoji (såvida inte explicit requested)
+- Svenska språket (inga engelska meningar förutom exempel på engelska termer)
+
+---
+
+**SEO-agent kommer verifiera:**
+- Keyword integration
+- Content length targets
+- FAQ uniqueness (Google-sökning)
+- Schema.org compatibility (inga tomma fält)
+- Brand voice consistency
+```
+
+**Output**: Markdown-dokument som kopieras direkt till Copywriter-agentens prompt
+
+---
+
+### Fas 2: Copywriter (45 min per yrke)
+
+**Input**: SEO-direktiv från agent (se Fas 1.3)
+
+**Process:**
+
+#### Steg 2.1: Läs SEO-direktiv (5 min)
+- Identifiera primary + LSI keywords
+- Notera branschterminologi
+- Förstå yrkets kontext (vård, teknik, service, etc.)
+
+#### Steg 2.2: Skriv SEO Intro (10 min)
+- 3 stycken, 150-200 ord
+- Keyword i första meningen
+- Följ struktur: Hook → Value → CTA
+
+#### Steg 2.3: Skriv "Varför det Fungerar" Cards (15 min)
+- 6 cards, 80-120 ord vardera
+- Följ themes från SEO-direktiv
+- Backa upp med konkreta exempel från exempelCV
+
+#### Steg 2.4: Skriv Tips (10 min)
+- 6 tips, 100-150 ord vardera
+- Rubrik i imperativ form
+- Multi-paragraph: Varför → Hur → Exempel
+
+#### Steg 2.5: Skriv FAQ (5 min)
+- Kopiera 3-4 generiska från standardlista
+- Skriv 6-7 yrkes-specifika enligt kategorier i SEO-direktiv
+- 40-85 ord per svar
+
+**Output**: JSON/Markdown med `seoIntro`, `varforDetFungerar`, `tips`, `faq`
+
+---
+
+### Fas 3: SEO-agent Validering (15 min per yrke)
+
+#### Steg 3.1: Keyword Verification (5 min)
+
+**Checklist:**
+- ✅ Primary keyword i första meningen av SEO intro
+- ✅ Keyword density 1.5-2.5% i SEO intro
+- ✅ LSI keywords inkluderade minst 4 gånger
+- ✅ Long-tail keywords i FAQ-frågor
+- ✅ Branschterminologi i "Varför det fungerar" och Tips
+
+**Tools:**
+- Keyword counter (word count + keyword mentions)
+- Manual read-through för naturlighet
+
+#### Steg 3.2: Content Length Check (2 min)
+
+| Sektion | Target | Actual | Status |
+|---------|--------|--------|--------|
+| SEO Intro | 150-200 ord | XXX | ✅/❌ |
+| Varför Card 1 | 80-120 ord | XXX | ✅/❌ |
+| Varför Card 2 | 80-120 ord | XXX | ✅/❌ |
+| ... | ... | ... | ... |
+| Tip 1 | 100-150 ord | XXX | ✅/❌ |
+| ... | ... | ... | ... |
+| FAQ Svar 1 | 40-85 ord | XXX | ✅/❌ |
+| ... | ... | ... | ... |
+
+#### Steg 3.3: FAQ Uniqueness Test (3 min)
+
+**Process:**
+1. Copy-paste varje yrkes-specifik FAQ-fråga till Google
+2. Räkna antal konkurrerande CV-sidor med exakt samma fråga
+3. Om >5 duplicates → be copywriter omformulera
+
+**Example:**
+- Fråga: "Hur visar jag medicinsk delegering i mitt CV?"
+- Google Results: 2 duplicates → ✅ Unik nog
+- Fråga: "Hur lång ska mitt CV vara?"
+- Google Results: 500+ duplicates → ❌ För generisk (men OK som generisk fråga)
+
+#### Steg 3.4: Schema.org Validation (2 min)
+
+**Checklist:**
+- ✅ Inga tomma frågor (`fraga !== ''`)
+- ✅ Inga tomma svar (`svar !== ''`)
+- ✅ 10 frågor totalt
+- ✅ Frågor är actual questions (har `?`)
+
+**Code Validation:**
+```typescript
+// Verifiera att filter fungerar korrekt
+const validFAQ = faq.filter(item =>
+  item.fraga && item.svar &&
+  item.fraga.trim() !== '' &&
+  item.svar.trim() !== ''
+)
+console.log(`Valid FAQ entries: ${validFAQ.length}/10`)
+```
+
+#### Steg 3.5: Build Test (3 min)
+
+```bash
+# Lägg till yrket i exampleData
+# Kör build
+npm run build
+
+# Verifiera output:
+# ● /cv-exempel/[nytt-yrke]  (● = SSG)
+```
+
+**Checklist:**
+- ✅ No TypeScript errors
+- ✅ SSG marker (●) visas för yrket
+- ✅ Total pages ökar med +1
+- ✅ Preview fungerar i dev mode
+
+---
+
+## 🎨 CONTENT TEMPLATES & EXAMPLES
+
+### SEO Intro Template
+
+```
+[STYCKE 1 – Hook + Promise]
+Söker du jobb som [yrke] och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar [bransch-kontext].
+
+[STYCKE 2 – Value + Branschterminologi]
+Du får se exakt hur du balanserar teknisk kompetens ([teknisk skill 1], [teknisk skill 2], [teknisk skill 3]) med de mjuka färdigheter som rekryterare söker ([mjuk skill 1], [mjuk skill 2], [mjuk skill 3]). CV:t visar konkreta resultat från [arbetsmiljö 1] och [arbetsmiljö 2] med kvantifierbara exempel.
+
+[STYCKE 3 – CTA + Internal Link]
+Använd det som inspiration för ditt eget CV [yrke] och anpassa det efter den tjänst du söker. [Internal link till relaterad resurs om finns].
+```
+
+**Exempel (Undersköterska):**
+> Söker du jobb som undersköterska och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar svenska vårdmiljöer.
+>
+> Du får se exakt hur du balanserar teknisk kompetens (ADL-stöd, medicindelegering, dokumentationssystem) med de mjuka färdigheter som rekryterare söker (empati, kommunikation, samarbete). CV:t visar konkreta resultat från geriatrisk vård och hemtjänst med kvantifierbara exempel.
+>
+> Använd det som inspiration för ditt eget CV undersköterska och anpassa det efter den tjänst du söker. Läs också våra tips om hur du optimerar ditt personliga brev undersköterska för att öka dina chanser till intervju.
+
+---
+
+### "Varför det Fungerar" Card Template
+
+```yaml
+rubrik: "[Action word/Benefit] + [Yrkes-specifik kontext]"
+text: |
+  [Mening 1: Påstående eller princip]
+  [Mening 2: Konkret exempel från exempelCV med keywords]
+  [Mening 3 (optional): Förklara varför detta är viktigt för ATS/rekryterare]
+```
+
+**Exempel (ATS-optimering, Undersköterska):**
+```yaml
+rubrik: "ATS-optimerad struktur med branschspecifika nyckelord"
+text: |
+  CV:t innehåller kritiska sökord som ATS-system letar efter: ADL-stöd, personcentrerad vård, demensvård, palliativ omvårdnad, medicinsk delegering, tvärprofessionellt team, Cosmic/Procapita. Rubriker som "Erfarenhet", "Kompetenser" och "Certifieringar" är standardiserade och läsbara för både ATS och rekryterare.
+```
+
+---
+
+### Tips Template
+
+```yaml
+rubrik: "[Imperativ verb] + [Yrkes-specifik kontext]"
+text: |
+  [STYCKE 1 – Varför (40-50 ord)]
+  [Förklara principen eller problemet]
+
+  [STYCKE 2 – Hur (40-60 ord)]
+  [Ge konkret instruktion eller strategi]
+
+  [STYCKE 3 – Exempel (20-40 ord, optional)]
+  [Konkret exempel: "Istället för X, skriv Y"]
+```
+
+**Exempel (Kvantifiera erfarenhet, Undersköterska):**
+```yaml
+rubrik: "Kvantifiera din erfarenhet för ökad trovärdighet"
+text: |
+  Konkreta siffror gör ditt CV mer trovärdigt. Istället för "ansvarig för patientvård" skriv "omvårdnad av 25-30 patienter dagligen". Nämn antal års erfarenhet, antal VFU-perioder, antal patienter med medicinsk delegering, eller specifika förbättringar du bidragit till.
+
+  Om du jobbat deltid, räkna om till heltidsekvivalent: "3 år, motsvarande 5 års heltid". Var också specifik med schema-flexibilitet: "jour, natt, helger" om du kan det.
+```
+
+---
+
+### FAQ Template
+
+**Generisk Fråga:**
+```yaml
+fraga: "Hur långt ska mitt CV vara?"
+svar: "I Sverige rekommenderas 1-2 sidor. För juniora roller (0-5 års erfarenhet) räcker vanligtvis 1 sida, medan seniora yrkespersoner kan behöva 2 sidor för att visa progressionen i sin karriär."
+```
+
+**Yrkes-Specifik Fråga:**
+```yaml
+fraga: "Hur visar jag [branschspecifik kompetens] i mitt CV?"
+svar: |
+  [Mening 1: Var ska det placeras – sektion]
+  [Mening 2: Hur ska det beskrivas – format/detaljer]
+  [Mening 3 (optional): Fallback om kompetensen saknas]
+```
+
+**Exempel (Undersköterska – Medicinsk delegering):**
+```yaml
+fraga: "Hur visar jag medicinsk delegering i mitt CV?"
+svar: |
+  Skapa en "Certifieringar"-sektion och lista specifikt vad du har delegering för: "Medicinsk delegering – Insulin, PEG-sondmatning, subkutana injektioner (2023)". I erfarenhetssektionen kan du också nämna antal patienter: "Medicinsk delegering för 20+ patienter dagligen". Om du inte har delegering men är villig att ta det, skriv under kompetenser: "Motiverad att genomgå medicindelegering".
+```
+
+---
+
+## 📋 CONTENT CHECKLIST PER YRKE
+
+### SEO-Agent Ansvar
+
+**Före Copywriter:**
+- [ ] Research branschterminologi (Google, SERP-analys, branschsidor)
+- [ ] Identifiera primary + secondary + LSI keywords
+- [ ] Sökvolym-data (Ahrefs/SEMrush) för keyword-prioritering
+- [ ] Konkurrerande sidor-analys (top 3 SERP)
+- [ ] Skapa exempelCV-data med kvantifierbara resultat
+- [ ] Definiera SEO-direktiv för copywriter (keyword-lista, themes, length targets)
+- [ ] Identifiera 3 relaterade yrken för internal linking
+
+**Efter Copywriter:**
+- [ ] Verifiera keyword integration (density, placement)
+- [ ] Content length check (per sektion)
+- [ ] FAQ uniqueness test (Google-sökning, max 5 duplicates)
+- [ ] Schema.org validation (inga tomma fält, `.filter()` applied)
+- [ ] Build test (`npm run build`, SSG marker ●)
+- [ ] Preview test (`npm run dev`, visuell QA)
+- [ ] Commit + push till repo
+
+---
+
+### Copywriter Ansvar
+
+**Content Creation:**
+- [ ] Ta emot SEO-direktiv från agent
+- [ ] Skriva SEO intro enligt keyword-krav (150-200 ord, 3 stycken)
+- [ ] Skriva "Varför det fungerar" (6 cards, 80-120 ord/card, alla themes täckta)
+- [ ] Skriva Tips med konkreta exempel (6 tips, 100-150 ord/tip, imperativ form)
+- [ ] Skriva FAQ (3-4 generiska + 6-7 yrkes-specifika, 40-85 ord/svar)
+
+**Quality Control:**
+- [ ] Verifiera AI-fri copy genomgående (inga "vår AI", "AI-driven")
+- [ ] Verifiera brand voice consistency (direkt tilltal, svensk svenska)
+- [ ] Konkreta exempel i minst 3 tips ("Istället för X, skriv Y")
+- [ ] Multi-paragraph struktur i tips >80 ord (använd `\n\n`)
+- [ ] FAQ-svar är actionable (inte vaga som "det beror på")
+
+---
+
+### Joint Verification (Agent + Copywriter)
+
+**Pre-Deploy Checklist:**
+- [ ] **Keyword density**: Primary keyword 1.5-2.5% i SEO intro
+- [ ] **Content length**: Total 3500-4000 ord per sida (SEO intro + cards + tips + FAQ)
+- [ ] **FAQ uniqueness**: Minst 60% yrkes-specifika frågor, max 5 duplicates på Google
+- [ ] **Schema.org**: FAQPage markup validerad (inga tomma fält)
+- [ ] **Internal linking**: 3 relaterade CV-exempel + crosslink till personligt brev om finns
+- [ ] **Mobile UX**: Accordion fungerar, text-density OK (text-[15px] för cards)
+- [ ] **CTA consistency**: Alla CTAs pekar till rätt destinations
+- [ ] **Build success**: TypeScript kompilerar, SSG genererar sida
+
+---
+
+## 🏆 30 YRKEN – KATEGORISERING & PRIORITERING
+
+### Batch 1: Högprioriterade Vårdyrken (Vecka 1)
+
+| # | Yrke | Slug | Sökvolym | Kategori | Status |
+|---|------|------|----------|----------|--------|
+| 1 | **Undersköterska** | `underskoterska` | 750 | vard | ✅ FÄRDIG |
+| 2 | Sjuksköterska | `sjukskoterska` | 720 | vard | ⏳ Pending |
+| 3 | Vårdbiträde | `vardbitrade` | 220 | vard | ⏳ Pending |
+| 4 | Personlig assistent | `personlig-assistent` | 180 | vard | ⏳ Pending |
+| 5 | Hemtjänst | `hemtjanst` | 200 | vard | ⏳ Pending |
+
+**Estimated Time**: 5 yrken × 90 min = 7.5 timmar
+
+**Branschterminologi att researcha:**
+- Sjuksköterska: Specialistutbildningar, medicinska system (Melior, Cambio COSMIC), sjukdomskategorier
+- Vårdbiträde: ADL-stöd, basala hygienrutiner, dokumentation
+- Personlig assistent: LSS, personlig assistans, funktionsnedsättning
+- Hemtjänst: Biståndshandläggning, Procapita, social omsorg
+
+---
+
+### Batch 2: Service och Handel (Vecka 2)
+
+| # | Yrke | Slug | Sökvolym | Kategori | Status |
+|---|------|------|----------|----------|--------|
+| 6 | Receptionist | `receptionist` | 1100 | service | ⏳ Pending |
+| 7 | Butiksbiträde | `butiksbitrade` | 670 | service | ⏳ Pending |
+| 8 | Butikssäljare | `butikssaljare` | 160 | service | ⏳ Pending |
+| 9 | Säljare | `saljare` | 220 | service | ⏳ Pending |
+| 10 | Servitris/Restaurangbiträde | `servitris` | 530 | service | ⏳ Pending |
+| 11 | Kock | `kock` | 190 | service | ⏳ Pending |
+| 12 | Lokalvårdare | `lokalvardare` | 850 | service | ⏳ Pending |
+
+**Estimated Time**: 7 yrken × 90 min = 10.5 timmar
+
+**Branschterminologi:**
+- Receptionist: Switchboard, telefonsystem, Office 365, kundmottagning
+- Butiksbiträde: Kassasystem, lagerhantering, visuell merchandising
+- Servitris: POS-system, allergikunskap, menykännedom
+- Kock: À la carte, storkök, HACCP, allergihantering
+- Lokalvårdare: Städrutiner, hygienstandard, kemikaliekunskap
+
+---
+
+### Batch 3: Teknik och IT (Vecka 3)
+
+| # | Yrke | Slug | Sökvolym | Kategori | Status |
+|---|------|------|----------|----------|--------|
+| 13 | Ingenjör | `ingenjor` | 1400 | teknik | ⏳ Pending |
+| 14 | IT-konsult | `it-konsult` | 620 | teknik | ⏳ Pending |
+| 15 | Lagerarbetare | `lagerarbetare` | 980 | teknik | ⏳ Pending |
+| 16 | Projektledare | `projektledare` | 290 | teknik | ⏳ Pending |
+
+**Estimated Time**: 4 yrken × 90 min = 6 timmar
+
+**Branschterminologi:**
+- Ingenjör: CAD, MATLAB, Agile, Scrum, tekniska ramverk (beroende på inriktning)
+- IT-konsult: Programmeringsspråk, cloud (AWS/Azure), DevOps, CI/CD
+- Lagerarbetare: Truckkort, WMS (Warehouse Management System), EPT, plockmetoder
+- Projektledare: PMP, Scrum Master, stakeholder management, budgetering
+
+---
+
+### Batch 4: Utbildning och Offentlig Sektor (Vecka 4)
+
+| # | Yrke | Slug | Sökvolym | Kategori | Status |
+|---|------|------|----------|----------|--------|
+| 17 | Förskollärare | `forskollarare` | 1200 | utbildning | ⏳ Pending |
+| 18 | Lärare | `larare` | 360 | utbildning | ⏳ Pending |
+| 19 | Elevassistent | `elevassistent` | 260 | utbildning | ⏳ Pending |
+| 20 | Barnskötare | `barnskotare` | 210 | utbildning | ⏳ Pending |
+| 21 | Handläggare | `handlaggare` | 760 | offentlig-sektor | ⏳ Pending |
+| 22 | Kurator | `kurator` | 540 | offentlig-sektor | ⏳ Pending |
+
+**Estimated Time**: 6 yrken × 90 min = 9 timmar
+
+**Branschterminologi:**
+- Förskollärare: Reggio Emilia, Montessori, läroplan (Lpfö 18), pedagogisk dokumentation
+- Lärare: Lgr 22, Gy 11, formativ bedömning, digitala verktyg (Google Classroom, Unikum)
+- Elevassistent: NPF (neuropsykiatriska funktionsnedsättningar), individanpassning
+- Handläggare: SoL, LVU, LSS, ärendehanteringssystem
+- Kurator: MI (Motiverande samtal), KBT, dokumentation, sekretess
+
+---
+
+### Batch 5: Administration, Ekonomi och Övrigt (Vecka 5)
+
+| # | Yrke | Slug | Sökvolym | Kategori | Status |
+|---|------|------|----------|----------|--------|
+| 23 | Administrator | `administrator` | 880 | ekonomi | ⏳ Pending |
+| 24 | Ekonomiassistent | `ekonomiassistent` | 450 | ekonomi | ⏳ Pending |
+| 25 | Kundtjänst | `kundtjanst` | 250 | service | ⏳ Pending |
+| 26 | Chef | `chef` | 490 | offentlig-sektor | ⏳ Pending |
+| 27 | Student/Första jobbet | `student` | 590 | utbildning | ⏳ Pending |
+| 28 | Sommarjobb | `sommarjobb` | 230 | utbildning | ⏳ Pending |
+
+**Estimated Time**: 6 yrken × 90 min = 9 timmar
+
+**Branschterminologi:**
+- Administrator: Office 365, ärendehantering, mötesbokning, arkivering
+- Ekonomiassistent: Fortnox, Visma, bokföring, fakturahantering, månadsavstämning
+- Kundtjänst: CRM (Salesforce, Zendesk), ärendehantering, NPS, kundnöjdhet
+- Chef: Ledarskap, budgetansvar, medarbetarsamtal, arbetsmiljö
+- Student: Sommarjobb, extrajobb, volontärarbete, akademiska projekt
+
+---
+
+### Implementation Schedule
+
+**Vecka 1 (Batch 1 – Vård):**
+- Måndag: Sjuksköterska
+- Tisdag: Vårdbiträde
+- Onsdag: Personlig assistent
+- Torsdag: Hemtjänst
+- Fredag: Review + buffer
+
+**Vecka 2 (Batch 2 – Service):**
+- Måndag: Receptionist
+- Tisdag: Butiksbiträde + Butikssäljare
+- Onsdag: Säljare + Servitris
+- Torsdag: Kock + Lokalvårdare
+- Fredag: Review + buffer
+
+**Vecka 3 (Batch 3 – Teknik):**
+- Måndag: Ingenjör
+- Tisdag: IT-konsult
+- Onsdag: Lagerarbetare
+- Torsdag: Projektledare
+- Fredag: Review + buffer
+
+**Vecka 4 (Batch 4 – Utbildning/Offentlig):**
+- Måndag: Förskollärare
+- Tisdag: Lärare
+- Onsdag: Elevassistent + Barnskötare
+- Torsdag: Handläggare + Kurator
+- Fredag: Review + buffer
+
+**Vecka 5 (Batch 5 – Admin/Övrigt):**
+- Måndag: Administrator + Ekonomiassistent
+- Tisdag: Kundtjänst + Chef
+- Onsdag: Student + Sommarjobb
+- Torsdag: Final review, SEO validation
+- Fredag: Deploy all, sitemap update, analytics setup
+
+**Total Implementation Time**: 47.5 timmar över 5 veckor (≈10h/vecka)
+
+---
+
+## 🔍 SEO BEST PRACTICES (från Undersköterskan-sidan)
+
+### Content Visibility Strategy (PROVEN)
+
+**Formula:**
+- **Always Visible**: 50% (~900 ord)
+- **Progressive Disclosure**: 50% (~900 ord)
+- **Total**: 1,800-2,000 ord per sida
+
+**Synlig Content (100% crawlbar):**
+1. Hero (H1 + intro): ~35 ord
+2. SEO Intro: ~185 ord
+3. Viktigt att tänka på (bullets): ~40 ord
+4. Statistik (visual): ~15 ord
+5. CV Preview (tabs men visible): ~280 ord
+6. Varför det fungerar (6 cards): ~230 ord
+7. FAQ questions (headers): ~100 ord
+8. Relaterade CV-exempel: ~30 ord
+9. CTA Final: ~25 ord
+
+**Expanderbar Content (crawlbar men collapsed):**
+1. Tips (6 accordion tips): ~408 ord
+2. FAQ (10 answers): ~540 ord
+
+**Rationale:**
+- Google crawlar både synligt och expanderbart content
+- Men UX förbättras av progressive disclosure (användare inte overwhelmed)
+- Headers synliga → keywords accessible även när collapsed
+- Schema.org FAQPage → Rich snippets trots accordion
+
+---
+
+### Keyword Integration Pattern (PROVEN)
+
+**H1:**
+```
+CV-exempel: [Yrke]
+```
+- Exact match primary keyword
+- Simple, clean, SEO-friendly
+
+**First Paragraph (SEO Intro):**
+```
+Söker du jobb som [yrke] och behöver ett CV som sticker ut?
+```
+- Keyword inom första 16 ord ✅
+- Natural question format (matches search intent)
+
+**Card Headers (Varför det fungerar):**
+- "ATS-optimerad struktur med branschspecifika nyckelord"
+- "Kvantifierbara resultat istället för ansvarsområden"
+- "Balans mellan tekniska och mjuka färdigheter"
+- Keywords: ATS, branschspecifika, kvantifierbara, balans
+- Natural language, not stuffed
+
+**FAQ Questions (Long-Tail Keywords):**
+- "Hur långt ska mitt CV som [yrke] vara?"
+- "Hur visar jag [branschspecifik kompetens] i mitt CV?"
+- "Hur anpassar jag mitt CV för [kontext A] vs [kontext B]?"
+- Long-tail format matches "how-to" searches
+
+**Keyword Density:**
+- Primary keyword ("cv undersköterska"): 0.45% total page
+- Primary keyword in SEO intro: 1.6%
+- LSI keywords: 25+ natural mentions
+- **No keyword stuffing** – readability prioriterad
+
+---
+
+### Internal Linking (PROVEN STRUCTURE)
+
+**Breadcrumb (Canonical Navigation):**
+```
+Hem → CV-exempel → Undersköterska
+```
+- Consistent across all yrken
+- Schema.org BreadcrumbList compatible
+
+**Related CVs (Cluster Strategi):**
+```
+Sjuksköterska (/cv-exempel/sjukskoterska)
+Vårdbiträde (/cv-exempel/vardbitrade)
+Personlig assistent (/cv-exempel/personlig-assistent)
+```
+- 3 yrken per sida
+- Same kategori eller överlappande kompetenser
+- Reciprocal linking (bi-directional)
+
+**Cross-Linking (CV ↔ Personligt Brev):**
+```
+SEO Intro: "Läs också våra tips om hur du optimerar ditt personliga brev undersköterska..."
+→ Link: /personligt-brev-exempel/underskoterska
+```
+- Strengthens topical authority
+- Keeps users in content ecosystem
+
+**CTA Links (Conversion):**
+```
+Primary: "Kom igång gratis" → /dashboard/skapa-cv
+Secondary: "Ladda ner CV-mallar" → /verktyg/cv-mallar
+Tertiary: "Se alla CV-exempel" → /cv-exempel
+```
+- Multiple conversion paths
+- Anchor text varies (not over-optimized)
+
+**Link Juice Distribution:**
+- Sidebar CTA: Prominent placement
+- Footer: Återkommande cross-site navigation
+- In-content: Contextual, natural
+
+---
+
+### Schema.org Implementation (PROVEN)
+
+**FAQPage Schema:**
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Hur långt ska mitt CV som undersköterska vara?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "För undersköterskor med 0-5 års erfarenhet: 1 sida..."
+      }
+    }
+    // ... 10 frågor totalt
+  ]
+}
+```
+
+**Validation:**
+- ✅ Filter applicerad för tomma fält
+- ✅ 10 frågor totalt (bra för rich snippets)
+- ✅ Frågor är faktiska questions (har `?`)
+- ✅ Svar är 2-3 meningar (optimal längd för snippets)
+
+**Future Enhancements:**
+1. **Article Schema** (BlogPosting):
+   ```json
+   {
+     "@type": "BlogPosting",
+     "headline": "CV Exempel Undersköterska 2025",
+     "author": { "@type": "Person", "name": "Teamet på jobbcoach.ai" },
+     "datePublished": "2025-01-24",
+     "image": "/images/cv-exempel/underskoterska-hero.webp"
+   }
+   ```
+
+2. **BreadcrumbList Schema**:
+   ```json
+   {
+     "@type": "BreadcrumbList",
+     "itemListElement": [
+       { "@type": "ListItem", "position": 1, "name": "Hem", "item": "https://jobbcoach.ai" },
+       { "@type": "ListItem", "position": 2, "name": "CV-exempel", "item": "https://jobbcoach.ai/cv-exempel" },
+       { "@type": "ListItem", "position": 3, "name": "Undersköterska" }
+     ]
+   }
+   ```
+
+3. **HowTo Schema** (för Tips-sektion):
+   ```json
+   {
+     "@type": "HowTo",
+     "name": "Hur skriver man ett CV som undersköterska",
+     "step": [
+       { "@type": "HowToStep", "name": "Inkludera rätt nyckelord", "text": "..." }
+     ]
+   }
+   ```
+
+---
+
+## 📝 QUICK-START EXEMPEL: Sjuksköterska
+
+### Fas 1: SEO-agent Research (30 min)
+
+**Keyword Research:**
+```markdown
+### Keyword Research: Sjuksköterska
+
+**Primary Keyword:**
+- cv sjuksköterska (Sökvolym: 720/mån, KD: 35/100)
+
+**Secondary Keywords:**
+- cv mall sjuksköterska (320/mån)
+- cv exempel sjuksköterska (280/mån)
+- cv specialistsjuksköterska (180/mån)
+
+**LSI Keywords:**
+- Specialistutbildningar (anestesi, operation, intensivvård, onkologi)
+- Medicinska system: Melior, Cambio COSMIC, TakeCare
+- Kompetenser: Läkemedelshantering, triage, akutsjukvård, patientutbildning
+- Certifieringar: ACLS, PALS, venprovtagning, katetrisering
+
+**Long-Tail Keywords:**
+- "cv sjuksköterska specialistutbildning"
+- "cv sjuksköterska nya legitimation"
+- "cv sjuksköterska akutvård vs geriatrik"
+- "cv sjuksköterska fortbildning"
+
+**Konkurrerande Sidor:**
+1. cv-mallar.net/sjukskoterska – Rank #2, 1200 ord, Fokus: Mallar
+2. karriärcoachen.se – Rank #3, 800 ord, Fokus: Generiska tips
+3. jobbsprånget.se – Rank #5, 600 ord, Fokus: Nyutexaminerade
+
+**Content Gap:**
+- Saknar: Tydlig skillnad specialistutbildningar
+- Saknar: Kvantifierbara resultat-exempel
+- Saknar: FAQ om legitimation och fortbildning
+```
+
+**exempelCV Data:**
+```typescript
+exempelCV: {
+  namn: 'Emma Bergström',
+  titel: 'Specialistsjuksköterska, Intensivvård',
+
+  profil: 'Legitimerad sjuksköterska med 8+ års erfarenhet från akutsjukvård och intensivvård. Specialistutbildad inom anestesi och intensivvård (IVA) med gedigen kompetens i avancerad luftvägshantering, invasiv övervakning och kritiskt sjuka patienter. Teamledare för 6 sjuksköterskor på IVA-avdelning. Certifierad i ACLS, PALS och venprovtagning.',
+
+  erfarenhet: [
+    {
+      titel: 'Specialistsjuksköterska, IVA',
+      arbetsgivare: 'Karolinska Universitetssjukhuset',
+      period: '2020 – Pågående',
+      beskrivning: [
+        'Omvårdnad av 4-6 kritiskt sjuka patienter dagligen på 12-bädds IVA-enhet med fokus på respiratorvård, invasiv övervakning och ECMO-behandling',
+        'Teamledare för 6 sjuksköterskor: schemaläggning, kompetensutveckling och kvalitetssäkring av vård',
+        'Implementerade nytt triage-system som minskade väntetid för akuta fall med 25%',
+        'Dokumenterar i TakeCare och deltar i tvärprofessionella ronder med läkare, fysioterapeuter och dietister',
+        'Handledare för specialiststuderande och nyutexaminerade sjuksköterskor'
+      ]
+    },
+    {
+      titel: 'Sjuksköterska, Akutmottagning',
+      arbetsgivare: 'Södersjukhuset',
+      period: '2017 – 2020',
+      beskrivning: [
+        'Triagering av 30-40 patienter per skift enligt RETTS (Rapid Emergency Triage and Treatment System)',
+        'Akut omhändertagande av trauma, stroke, hjärtinfarkt och andnöd med snabba, livsräddande beslut',
+        'Venprovtagning, EKG, katetrisering och läkemedelsadministration enligt delegation',
+        'Patientutbildning och anhörigkommunikation i stressiga situationer'
+      ]
+    }
+  ],
+
+  kompetenser: {
+    tekniska: [
+      'Intensivvård och respiratorbehandling',
+      'Avancerad luftvägshantering (intubering, trakeostomi)',
+      'Invasiv övervakning (CVK, art-line, ICP)',
+      'RETTS-triagering och akut omhändertagande',
+      'Läkemedelshantering och injektioner',
+      'Medicinska system: TakeCare, Melior, Cambio COSMIC',
+      'Venprovtagning, katetrisering, PVK-läggning'
+    ],
+    personliga: [
+      'Stresstålig i akuta situationer',
+      'Tvärprofessionellt samarbete',
+      'Kommunikation med patienter och anhöriga',
+      'Snabba, välgrundade beslut',
+      'Ledarskap och mentorskap'
+    ]
+  },
+
+  certifieringar: [
+    'Specialistsjuksköterska – Anestesi och Intensivvård (2020)',
+    'ACLS (Advanced Cardiovascular Life Support) – förnyad 2024',
+    'PALS (Pediatric Advanced Life Support) – förnyad 2023',
+    'Venprovtagning (2017)',
+    'Katetrisering och PVK-läggning (2017)'
+  ]
+}
+```
+
+**SEO-direktiv för Copywriter:**
+```markdown
+## SEO-direktiv: Sjuksköterska
+
+**Primary Keyword**: cv sjuksköterska (720/mån)
+**Target Density**: 1.5-2.5%
+
+**LSI Keywords att integrera:**
+- Specialistutbildningar, anestesi, intensivvård, akutsjukvård
+- ACLS, PALS, RETTS, triage
+- TakeCare, Melior, Cambio COSMIC
+- Läkemedelshantering, invasiv övervakning
+- Legitimation, fortbildning, kompetensutveckling
+
+**SEO Intro (150-200 ord):**
+- Keyword i första meningen
+- Nämn skillnad allmän sjuksköterska vs specialist
+- Keywords: legitimation, specialistutbildning, akutsjukvård
+- LSI: ACLS, RETTS, medicinska system
+
+**Varför det fungerar (6 cards):**
+1. ATS-optimering: RETTS, ACLS, PALS, invasiv övervakning, TakeCare
+2. Kvantifiering: 4-6 patienter, 30-40 triageringar, minskade 25%
+3. Balans: Invasiv övervakning (tekniskt) + Kommunikation (mjukt)
+4. Certifieringar: Specialistutbildning, ACLS, PALS, venprovtagning
+5. Profiltext: Legitimerad + specialisering + certifieringar
+6. Progression: Akutmottagning → IVA + Teamledare
+
+**Tips (6 st):**
+1. Specialistutbildningar (vilka, när nämna, hur beskriva)
+2. Kvantifiera: Antal patienter, triage, behandlingar
+3. Resultat: Implementerade system, förbättringar
+4. Legitimation + Fortbildning (hur framhäva kontinuerlig utveckling)
+5. Certifieringar (ACLS, PALS, förnyelsedatum)
+6. Balans teknisk (invasiv övervakning) + mjuk (kommunikation under stress)
+
+**FAQ (10 frågor):**
+- Generiska: 3 (längd, profilbild, luckor)
+- Yrkes-specifika: 7
+  - "Hur visar jag min specialistutbildning i CV:t?"
+  - "Ska jag nämna legitimationsnummer?"
+  - "Hur beskriver jag erfarenhet från flera vårdmiljöer (akut, IVA, geriatrik)?"
+  - "Hur visar jag fortbildning och certifieringar (ACLS, PALS)?"
+  - "Hur lyfter jag fram ledarskap som sjuksköterska?"
+  - "Ska jag lista alla medicinska system jag kan?"
+  - "Hur visar jag stresshantering i akuta situationer?"
+```
+
+---
+
+## 🚀 DEPLOYMENT & MAINTENANCE
+
+### Pre-Deploy Checklist (Per Yrke)
+
+**Code Quality:**
+- [ ] TypeScript kompilerar utan errors
+- [ ] ESLint warnings åtgärdade
+- [ ] Inga console.log kvar i production code
+
+**Content Quality:**
+- [ ] Keyword density 1.5-2.5% i SEO intro
+- [ ] Alla 6 "Varför det fungerar" cards kompletta
+- [ ] Alla 6 Tips kompletta med multi-paragraph struktur
+- [ ] 10 FAQ (3-4 generiska + 6-7 yrkes-specifika)
+- [ ] AI-fri copy validerad
+- [ ] Inga typos eller grammatiska fel
+
+**SEO Validation:**
+- [ ] Primary keyword i H1, meta title, first sentence
+- [ ] LSI keywords inkluderade (5-7 mentions)
+- [ ] Long-tail keywords i FAQ
+- [ ] Internal links fungerar (relaterade CVs, personligt brev)
+- [ ] Schema.org FAQPage validerad (inga tomma fält)
+
+**Build Test:**
+```bash
+npm run build
+# Verifiera:
+# ● /cv-exempel/[yrke]  (SSG marker)
+# Total pages ökar med +1
+```
+
+**Preview Test:**
+```bash
+npm run dev
+# Navigera till http://localhost:3000/cv-exempel/[yrke]
+# Verifiera:
+# - Hero renderar
+# - Tabs fungerar
+# - FAQ accordion fungerar
+# - Relaterade CV-länkar fungerar
+# - CTAs pekar till rätt destinations
+```
+
+---
+
+### Sitemap Update
+
+**File**: `src/app/sitemap.ts`
+
+**Add:**
+```typescript
+const CV_YRKEN = [
+  'underskoterska',
+  'sjukskoterska',
+  'vardbitrade',
+  // ... alla 30 yrken
+]
+
+const cvExempelUrls = CV_YRKEN.map((yrke) => ({
+  url: `https://jobbcoach.ai/cv-exempel/${yrke}`,
+  lastModified: new Date(),
+  changeFrequency: 'monthly' as const,
+  priority: 0.7,
+}))
+
+// Lägg till i main sitemap export
+export default function sitemap(): MetadataRoute.Sitemap {
+  return [
+    // ... existing URLs
+    ...cvExempelUrls,
+  ]
+}
+```
+
+---
+
+### Analytics Setup
+
+**Google Tag Manager Events:**
+
+```javascript
+// CV Preview - Template Changed
+dataLayer.push({
+  event: 'cv_template_changed',
+  cv_profession: 'underskoterska',
+  template_name: 'Modern Minimal',
+  template_tier: 'free'
+})
+
+// Tips Accordion Expanded
+dataLayer.push({
+  event: 'cv_tip_expanded',
+  cv_profession: 'underskoterska',
+  tip_index: 1,
+  tip_title: 'Inkludera rätt nyckelord...'
+})
+
+// FAQ Accordion Expanded
+dataLayer.push({
+  event: 'cv_faq_expanded',
+  cv_profession: 'underskoterska',
+  faq_index: 3,
+  faq_question: 'Hur visar jag medicinsk delegering?'
+})
+
+// CTA Clicked
+dataLayer.push({
+  event: 'cv_cta_clicked',
+  cv_profession: 'underskoterska',
+  cta_location: 'sidebar',
+  cta_text: 'Kom igång gratis',
+  cta_destination: '/dashboard/skapa-cv'
+})
+```
+
+**Key Metrics att spåra:**
+- **Pageviews** per yrke (vilket yrke driver mest trafik)
+- **Avg Time on Page** (engagement indikator)
+- **Scroll Depth** (hur långt users scrollar)
+- **CTA Click Rate** (conversion från content till tools)
+- **FAQ Expansion Rate** (vilka frågor är mest populära)
+- **Bounce Rate** (är content relevant och engaging)
+
+---
+
+### Content Refresh Schedule
+
+**Quarterly Review (Q1, Q2, Q3, Q4):**
+
+**What to Review:**
+1. **Keyword Rankings**
+   - Spåra position för primary keywords
+   - Identifiera yrken som tappat ranking (content refresh needed)
+   - Upptäck nya keyword opportunities
+
+2. **Competitor Content**
+   - SERP-analys för target keywords
+   - Konkurrerande sidor kan ha uppdaterat content
+   - Identifiera nya content gaps
+
+3. **Branschterminologi**
+   - Nya dokumentationssystem (ex: nytt vårdjournal-system)
+   - Nya certifieringar eller standards
+   - Uppdaterade branschtermer
+
+4. **FAQ Performance**
+   - Google Search Console: Vilka frågor driver impressions/clicks
+   - User feedback: Saknas viktiga frågor?
+   - Uppdatera svar baserat på nya insights
+
+**What to Update:**
+- **exempelCV**: Uppdatera årtal (certifieringar, erfarenhet-perioder)
+- **Certifieringar**: Nya standards införda i branschen
+- **Tips**: Nya best practices (ex: nya ATS-system)
+- **FAQ**: Lägg till nya yrkes-specifika frågor baserat på sökdata
+- **Sökvolym**: Uppdatera `sokvolym` field med latest data
+
+**Update Process:**
+1. Identifiera yrken som behöver uppdatering
+2. SEO-agent researchar nya keywords/konkurrerande content
+3. Copywriter uppdaterar relevanta sektioner
+4. SEO-agent validerar keyword integration
+5. Deploy uppdaterad content
+6. Update `lastModified` i sitemap
+
+---
+
+## 🛠 TROUBLESHOOTING & COMMON ISSUES
+
+### Build Errors
+
+**Error**: `params is not a Promise`
+```
+Type 'Promise<{ yrke: string }>' is not assignable to type '{ yrke: string }'
+```
+
+**Solution**: Next.js 15 requires async params
+```typescript
+// ❌ Fel
+export async function generateMetadata({ params }: { params: { yrke: string } }) {
+  const data = exampleData[params.yrke]
+}
+
+// ✅ Rätt
+export async function generateMetadata({ params }: { params: Promise<{ yrke: string }> }) {
+  const { yrke } = await params
+  const data = exampleData[yrke]
+}
+```
+
+---
+
+**Error**: SSG inte aktiverat (○ marker istället för ●)
+```
+○ /cv-exempel/[yrke]  (Static)
+```
+
+**Solution**: Verifiera att `generateStaticParams()` finns och returnerar alla yrken
+```typescript
+export async function generateStaticParams() {
+  const yrken = Object.keys(exampleData)
+  return yrken.map((yrke) => ({ yrke }))
+}
+```
+
+---
+
+**Error**: Schema.org validation errors (Google Search Console)
+```
+Missing field "name" (recommended)
+Missing field "text" (recommended)
+```
+
+**Solution**: Filtrera tomma FAQ-entries
+```typescript
+// ❌ Fel - inkluderar tomma entries
+mainEntity: faq.map(item => ({
+  '@type': 'Question',
+  name: item.fraga,  // kan vara tomt
+  acceptedAnswer: {
+    '@type': 'Answer',
+    text: item.svar  // kan vara tomt
+  }
+}))
+
+// ✅ Rätt - filter applicerad
+mainEntity: faq
+  .filter(item => item.fraga && item.svar && item.fraga.trim() !== '' && item.svar.trim() !== '')
+  .map(item => ({
+    '@type': 'Question',
+    name: item.fraga,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.svar
+    }
+  }))
+```
+
+---
+
+### Content Issues
+
+**Issue**: Keyword density för låg (<1%)
+**Solution**: Öka mentions i SEO intro och card headers naturligt
+
+**Issue**: Keyword density för hög (>3%)
+**Solution**: Omformulera meningar, använd synonymer eller relaterade termer
+
+**Issue**: FAQ frågor är för generiska (många Google duplicates)
+**Solution**: Lägg till yrkes-specifik kontext i frågan
+```
+❌ "Hur skriver jag ett bra CV?"
+✅ "Hur skriver jag ett CV som undersköterska som passar både geriatrik och hemtjänst?"
+```
+
+**Issue**: Tips är för vaga
+**Solution**: Lägg till konkreta exempel ("Istället för X, skriv Y")
+
+**Issue**: AI-terminologi hittat i copy
+**Solution**: Sök och ersätt:
+- "vår AI" → "vi analyserar automatiskt"
+- "AI-driven" → "automatisk"
+- "maskininlärning" → "systemet identifierar"
+
+---
+
+### UX Issues
+
+**Issue**: Accordion stängs inte på mobile
+**Solution**: Verifiera click-outside detection är disabled på mobile
+```typescript
+// CVExempelPage.tsx eller TipsSectionFlat.tsx
+useEffect(() => {
+  if (!isMobile) {
+    // Only enable click-outside on desktop
+  }
+}, [isMobile])
+```
+
+**Issue**: Text-density för hög (svår att läsa)
+**Solution**: Justera font-size i cards
+```typescript
+// VarforDetFungerar.tsx
+<p className="text-[15px] text-slate-600 leading-relaxed">
+  {card.text}
+</p>
+```
+
+**Issue**: För mycket white-space på desktop
+**Solution**: Justera max-width
+```typescript
+// CVExempelPage.tsx
+<div className="max-w-[900px] mx-auto">
+  {/* Content */}
+</div>
+```
+
+---
+
+## 📞 SUPPORT & CONTACT
+
+**För tekniska frågor:**
+- Check conversation history i denna session
+- Review `CV_EXEMPEL_GALLERI_IMPLEMENTATION.mdx` (original doc)
+- Review TypeScript errors i build output
+
+**För content-frågor:**
+- Konsultera SEO-agent (denna agent) för keyword-strategi
+- Konsultera svensk-ux-copywriter agent för tone-of-voice
+- Review live Undersköterska-sidan som referens
+
+**För design-frågor:**
+- Konsultera mobile-UX-designer för layout issues
+- Review Framer Motion documentation för animations
+- Review Tailwind CSS documentation för styling
+
+---
+
+## 🎉 SUCCESS METRICS
+
+### Phase 1 (Vecka 1-2): Launch 15 Yrken
+
+**Target Metrics:**
+- ✅ 15 yrken live
+- ✅ Alla har SSG (● marker)
+- ✅ Alla har FAQPage schema validerad
+- ✅ Alla har unique yrkes-specifika FAQ (60%+)
+- ✅ Sitemap uppdaterad med alla URLs
+
+**SEO Validation:**
+- Google Search Console: Inga schema errors
+- Google Search Console: Indexing status (submitted via sitemap)
+- Ahrefs: Crawl alla nya URLs, verifiera internal linking
+
+---
+
+### Phase 2 (Vecka 3-4): Full 30 Yrken Live
+
+**Target Metrics:**
+- ✅ 30 yrken live
+- ✅ All content AI-fri
+- ✅ All content följer brand voice
+- ✅ FAQ uniqueness >60% per yrke
+
+**Performance:**
+- First Load JS <210 kB för alla yrken
+- Build time <30s
+- 0 TypeScript errors
+- 0 ESLint errors
+
+---
+
+### Phase 3 (Månad 2-3): Organic Growth
+
+**Target Metrics (efter 60 dagar):**
+- 10+ yrken rankar top 10 för primary keyword
+- 20+ yrken rankar top 20
+- 100+ long-tail rankings (FAQ-baserade)
+- 500+ organic sessions/månad från CV-exempel sidor
+- 5%+ conversion rate (organic → mallar eller dashboard)
+
+**Rich Snippets:**
+- 15+ yrken har FAQ rich snippets i SERP
+- 5+ yrken rankar för "People Also Ask" boxes
+
+---
+
+### Phase 4 (Månad 4-6): Dominance
+
+**Target Metrics (efter 6 månader):**
+- 20+ yrken rankar top 5 för primary keyword
+- 1000+ organic sessions/månad från CV-exempel
+- 200+ backlinks till CV-exempel sidor (från artiklar, externa sajter)
+- 10%+ conversion rate
+- Branded searches ökar med 200% (users söker "jobbcoach.ai cv exempel")
+
+---
+
+## 🏁 SLUTORD
+
+Denna guide är din **kompletta roadmap** för att skala CV-exempel galleriet från 1 till 30 yrken.
+
+**Nyckelfaktorer för framgång:**
+
+1. **Konsistens**: Följ samma struktur för alla yrken (proven formula)
+2. **Kvalitet över Kvantitet**: 90 min per yrke är rätt – rusa inte
+3. **SEO + UX Balance**: Optimera för både crawlers och människor
+4. **Brand Voice**: AI-fri, konkret, actionable copy genomgående
+5. **Uniqueness**: 60%+ yrkes-specifikt innehåll (speciellt FAQ)
+
+**Nästa Steg:**
+1. Använd detta dokument som checklist för varje yrke
+2. Börja med Batch 1 (Vårdyrken) – lägsta competition, högsta search volume
+3. Validera varje yrke innan du går vidare (build test, keyword check, FAQ uniqueness)
+4. Deploy batch-vis (5-7 yrken/vecka) för iterativ learning
+5. Monitera Google Search Console för indexing och errors
+
+**Lycka till!** 🚀
+
+---
+
+**Version**: 2.0
+**Datum**: 2025-01-24
+**Skapad av**: SEO-agent (Claude Sonnet 4.5)
+**Baserat på**: Live-analys av jobbcoach.ai/cv-exempel/underskoterska
