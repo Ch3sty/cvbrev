@@ -376,7 +376,7 @@ export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: I
                 )}
               </div>
 
-              <div className="bg-white" style={{ minHeight: '800px', maxHeight: '800px', overflowY: 'auto' }}>
+              <div className="bg-white" style={{ maxHeight: '800px', overflowY: 'auto' }}>
                 {generatedHTML ? (
                   <div dangerouslySetInnerHTML={{ __html: generatedHTML }} />
                 ) : (
