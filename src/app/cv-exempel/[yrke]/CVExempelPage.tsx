@@ -142,18 +142,11 @@ export default function CVExempelPage({ data }: CVExempelPageProps) {
                 {/* Tab Content */}
                 <AnimatePresence mode="wait">
                   {activeTab === 'preview' && (
-                    <motion.div
+                    <InteractiveCVPreview
                       key="preview"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <InteractiveCVPreview
-                        exempelCV={data.exempelCV}
-                        yrke={data.yrke}
-                      />
-                    </motion.div>
+                      exempelCV={data.exempelCV}
+                      yrke={data.yrke}
+                    />
                   )}
 
                   {activeTab === 'varfor' && (
