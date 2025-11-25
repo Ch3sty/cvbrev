@@ -383,20 +383,25 @@ Använd exemplet som inspiration när du skriver ditt eget CV. Fokusera på barn
       },
       {
         rubrik: 'Kvantifierbara resultat istället för vaga beskrivningar',
-        text: `Istället för vaga beskrivningar som "ansvarig för barngrupp" eller "arbetade med språkutveckling" visar CV:t konkreta resultat:
-- "Pedagogisk ansvarig för barngrupp med 22 barn, ålder 1-3 år"
-- "85% av barnen förbättrade fonologisk medvetenhet efter Bornholmsmodellen"
-- "80+ utvecklingssamtal med vårdnadshavare årligen"
+        text: `CV:t visar konkreta siffror: "22 barn, 1-3 år", "85% förbättrade fonologisk medvetenhet", "80+ utvecklingssamtal årligen", "minskade konflikter med 30%".
 
-**Varför detta fungerar**: Rekryterare inom förskola ser hundratals CV:n där förskollärare skriver "ansvarig för barngrupp" utan att specificera antal barn, åldersgrupp eller resultat. Siffror ger omfattning och trovärdighet. Skillnaden mellan "arbetade med språkutveckling" och "85% av barnen förbättrade fonologisk medvetenhet" är enorm. Detta sticker ut i både ATS-screening och mänsklig granskning.`
+**Varför siffror är avgörande för rekryterare**: Rekryterare ser hundratals CV:n där förskollärare skriver "ansvarig för barngrupp" eller "arbetade med språkutveckling" utan någon kontext. Vad betyder "ansvarig för barngrupp"? Åtta barn eller 25? Ett-åringar eller femåringar? Tre månader eller tre år?
+
+Siffror ger omfattning och trovärdighet. Skillnaden mellan "arbetade med språkutveckling" och "85% av barnen förbättrade fonologisk medvetenhet efter Bornholmsmodellen" är enorm – det visar att du faktiskt mäter effekten av ditt pedagogiska arbete.
+
+Detta är ett anti-pattern i många förskollärare-CV:n: Vaga resultat som "bidrog till barnens utveckling". Kvantifierbara resultat gör att du sticker ut och ger rekryteraren något konkret att fråga om under intervjun.`
       },
       {
         rubrik: 'Balans mellan pedagogisk och relationell kompetens',
-        text: `CV:t kombinerar pedagogisk kompetens (Lpfö 18, Unikum, Bornholmsmodellen, teckenspråk) med relationskompetens och konflikthantering.
+        text: `CV:t listar inte bara "empatisk, kommunikativ, flexibel, kreativ" – det klassiska buzzword bingo utan substans. Istället VISAR det dessa egenskaper genom konkreta exempel:
 
-Båda delarna backas upp med exempel från arbetserfarenheten: "Empatisk och lyhörd (skapade trygg miljö för 22 barn med olika behov och kulturell bakgrund)" visar både pedagogisk expertis OCH relationskompetens.
+- "Empatisk och lyhörd" backas upp med "(skapade trygg miljö för 22 barn med olika behov och kulturell bakgrund)"
+- "Pedagogisk kommunikation" visas genom "(genomförde 80+ utvecklingssamtal, 95% positiv feedback)"
+- "Flexibel" exemplifieras med "(hanterade akuta sjukfrånvaron genom omorganisation av dagsprogram)"
 
-**Varför inte bara buzzwords**: Istället för att lista "empatisk, kommunikativ, flexibel, kreativ" (klassisk buzzword bingo utan substans) visar CV:t dessa egenskaper genom konkreta exempel. Detta är avgörande. Rekryterare läser "flexibel och kommunikativ" i nio av tio förskollärare-CV:n, men konkreta bevis sticker ut. Moderna förskolor kräver både pedagogisk expertis OCH förmåga att samarbeta med barn, vårdnadshavare och kollegor.`
+**Varför detta är bättre än tomma påståenden**: Att skriva "empatisk och kommunikativ" betyder ingenting – varje kandidat påstår det. Rekryterare läser "flexibel och kreativ" i nio av tio förskollärare-CV:n, men konkreta bevis sticker ut.
+
+Detta undviker anti-pattern "buzzword bingo" som CV_KVALITET_STANDARD.md varnar för. Moderna förskolor kräver både pedagogisk expertis OCH förmåga att samarbeta med barn, vårdnadshavare och kollegor – och du måste VISA det, inte bara påstå det.`
       },
       {
         rubrik: 'Certifieringar som trovärdighetsmarkör',
@@ -514,6 +519,265 @@ Bevis sticker ut. Rekryterare ser tomma listor i varje tredje CV.`
     ]
   },
 
+  'receptionist': {
+    yrke: 'Receptionist',
+    sokvolym: 920,
+    metaTitle: 'CV Exempel Receptionist 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för receptionist. ATS-optimerat, strukturerat för svenska företag och visar service- och switchboard-kompetens. Inkluderar bokningssystem och flerspråkig kommunikation.',
+
+    // SEO-rik introduktion
+    seoIntro: `Söker du jobb som receptionist och behöver ett CV som sticker ut? Det här exemplet visar hur du balanserar servicekompetens med tekniska färdigheter som switchboard, bokningssystem och flerspråkig kommunikation.
+
+CV:t kombinerar kvantifierbara resultat med branschspecifika nyckelord som svenska företag söker efter. Du ser hur switchboard-erfarenhet beskrivs konkret (200+ samtal dagligen), hur bokningssystem som Lime och Simployer lyfts fram, och hur förbättringar mäts i procent istället för vaga påståenden. Strukturen fungerar för både ATS-system och rekryterare eftersom den innehåller rätt termer från besökshantering, mötesbokning, och professionellt värdskap. Exempel på kvantifierbara resultat inkluderar "förbättrade besöksupplevelsen med 30%" och "reducerade check-in tid med 20%".
+
+Använd detta CV som inspiration när du skriver ditt eget. Genom att visa konkreta siffror och branschspecifika system ökar du dina chanser att få intervju. Se även våra tips för personligt brev om du vill komplettera din ansökan.`,
+
+    intro: 'Ett professionellt CV-exempel för receptionist som visar din servicekompetens, erfarenhet av switchboard och bokningssystem, samt förmåga att skapa positiv kundupplevelse. Detta exempel är optimerat för svenska företag, hotell och ATS-system.',
+
+    exempelCV: {
+      namn: 'Sofia Andersson',
+      titel: 'Erfaren receptionist med specialisering inom företagsreception och kundservice',
+      kontakt: {
+        telefon: '070-234 56 78',
+        epost: 'sofia.andersson@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/sofiaandersson'
+      },
+
+      profil: 'Erfaren receptionist med 6+ års erfarenhet från företagsreception och hotellbranschen. Specialist på switchboard, bokningssystem (Lime, Simployer), kundservice och flerspråkig kommunikation (svenska, engelska, spanska). Professionell värdskap med fokus på positiv kundupplevelse och service där varje besökare känner sig välkommen från första mötet.',
+
+      erfarenhet: [
+        {
+          titel: 'Receptionist, Ansvarig för besökshantering',
+          arbetsgivare: 'Stora konsultbolaget AB, Stockholm',
+          period: '2020 – Pågående',
+          beskrivning: [
+            'Ansvarig för företagsreception med 150+ besökare och 200+ samtal dagligen via switchboard',
+            'Förbättrade besöksupplevelsen med 30% genom implementering av digitalt inchecksystem (Visitor Management System)',
+            'Hanterar bokningssystem (Outlook Calendar, Lime) för 15 mötesrum och 50+ interna möten veckovis',
+            'Flerspråkig kundservice (svenska, engelska, spanska) vilket ökat internationell kundnöjdhet med 25%',
+            'Mentorskap för 2 nya receptionister under introduktionsperiod (3 månader vardera)'
+          ]
+        },
+        {
+          titel: 'Receptionist',
+          arbetsgivare: 'Clarion Hotel, Stockholm',
+          period: '2018 – 2020',
+          beskrivning: [
+            'Ansvarig för hotellreception med 100+ in-/utcheckningar dagligen och hantering av bokningssystem Opera PMS',
+            'Reducerade check-in tid med 20% genom effektivisering av registreringsprocess',
+            'Hanterade 120+ telefonsamtal per skift via switchboard med fokus på gästservice och problemlösning',
+            'Samordnade frukostbokningar, rumservice och taxibeställningar för 80-100 gäster dagligen'
+          ]
+        },
+        {
+          titel: 'Kundtjänstmedarbetare',
+          arbetsgivare: 'Telia Kundservice, Stockholm',
+          period: '2016 – 2018',
+          beskrivning: [
+            'Hanterade 60-80 kundärenden dagligen via telefon och mejl med fokus på teknisk support och fakturafrågor',
+            'Uppnådde 95% kundnöjdhet (mätt via NPS) genom strukturerad problemlösning och empatiskt bemötande',
+            'Fick erfarenhet av CRM-system (Salesforce) och telefonisystem som förberedde för receptionistroll'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Administrativ utbildning med inriktning reception och service',
+          skola: 'Hermods Yrkeshögskola, Stockholm',
+          period: '2015 – 2016',
+          beskrivning: 'Praktikperiod på 2 företagsreceptioner (IT-företag och advokatbyrå) där jag fick erfarenhet av switchboard, bokningssystem och professionellt värdskap.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Switchboard/växelhantering (Expert, 6+ år)',
+          'Bokningssystem – Lime, Simployer, Outlook (Avancerad, 5+ år)',
+          'Opera PMS – hotellsystem (Avancerad, 2+ år)',
+          'Microsoft Office (Word, Excel, PowerPoint, Teams)',
+          'Flerspråkig kommunikation (svenska, engelska, spanska)',
+          'CRM-system (Salesforce, erfarenhet 2 år)',
+          'Visitor Management System (digitalt incheckning)'
+        ],
+        personliga: [
+          'Serviceinriktad och välkomnande (hanterade 150+ besökare dagligen med 95% positiv feedback)',
+          'Professionell kommunikation (hanterade 200+ samtal dagligen via switchboard med tydlighet och vänlighet)',
+          'Multitaskingförmåga (samordnade besökshantering, telefonsamtal och mötesbokning simultant)',
+          'Problemlösare (löste bokningskonflikter och gästklagomål med 90% lösningsgrad på första kontakt)',
+          'Flexibel och stresstålig (hanterade högtrafik under konferenser med 300+ deltagare)'
+        ]
+      },
+
+      certifieringar: [
+        'Första hjälpen och HLR (förnyad 2024)',
+        'Kundserviceutbildning – professionellt bemötande (2023)',
+        'Switchboard och telefonisystem – certifiering (2020)',
+        'GDPR-grundutbildning för reception (2022)',
+        'Konflikthantering och serviceminded kommunikation (2021)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' },
+        { sprak: 'Spanska', niva: 'Goda kunskaper i tal och skrift' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimerad struktur med branschspecifika nyckelord',
+        text: `CV:t innehåller nyckelord som svenska företag och hotell söker efter: switchboard, bokningssystem (Lime, Simployer, Opera PMS), besökshantering, flerspråkig kommunikation, och professionellt värdskap. ATS-system letar efter dessa specifika termer när de filtrerar ansökningar, särskilt switchboard-kompetens och erfarenhet av digitala bokningssystem som används i svenska receptionsmiljöer.`
+      },
+      {
+        rubrik: 'Kvantifierbara resultat istället för vaga ansvarsområden',
+        text: `CV:t använder konkreta siffror som "150+ besökare dagligen", "200+ samtal via switchboard", "förbättrade besöksupplevelsen med 30%", och "reducerade check-in tid med 20%". Detta är avgörande.
+
+Rekryterare ser hundratals CV:n där kandidater bara skriver "ansvarig för reception", "svarade i telefon", eller "hanterade besökare". Sådana beskrivningar säger ingenting om omfattning eller komplexitet. Fungerade du med 20 eller 200 samtal per dag? Var det en liten mottagning eller ett stort konsultbolag med internationella gäster?
+
+Siffror ger kontext och visar din faktiska arbetsbelastning. De gör att du sticker ut och ger rekryteraren något konkret att fråga om under intervjun. Istället för att gissa vad "mycket besökare" betyder, ser de exakt vad du hanterat tidigare.`
+      },
+      {
+        rubrik: 'Balans mellan tekniska och mjuka färdigheter med bevis',
+        text: `CV:t listar tekniska kompetenser som switchboard (Expert, 6+ år), bokningssystem (Lime, Simployer, Outlook), Opera PMS, och CRM-system (Salesforce). Parallellt finns mjuka färdigheter som serviceinriktad, professionell kommunikation, och multitasking.
+
+Här är nyckeln: Varje mjuk färdighet backas upp med konkret bevis från erfarenhetsbeskrivningarna. "Serviceinriktad" visas genom "hanterade 150+ besökare dagligen med 95% positiv feedback". "Professionell kommunikation" kopplas till "200+ samtal dagligen via switchboard". "Multitaskingförmåga" exemplifieras med "samordnade besökshantering, telefonsamtal och mötesbokning simultant".
+
+Detta undviker "buzzword bingo" där kandidater bara listar "kommunikativ, flexibel, driven" utan sammanhang. Rekryterare vill se hur du varit serviceinriktad, inte bara att du påstår det. Bevis sticker ut, tomma ord försvinner i mängden.`
+      },
+      {
+        rubrik: 'Certifieringar som trovärdighetsmarkör',
+        text: `Alla certifieringar har årtal: "Första hjälpen och HLR (förnyad 2024)", "Switchboard-certifiering (2020)", "GDPR-grundutbildning (2022)". Detta visar aktualitet och professionalism. GDPR-utbildning är särskilt relevant för receptionister som hanterar besöksinformation och personuppgifter dagligen.`
+      },
+      {
+        rubrik: 'Profiltext som säljande sammanfattning',
+        text: `Profiltexten följer strukturen: Erfarenhet (6+ år) → Specialisering (företagsreception och hotell) → Tekniska nyckelord (switchboard, Lime, Simployer, flerspråkig kommunikation) → Drivkraft (professionell värdskap, positiv kundupplevelse). Detta ger rekryterare en omedelbar bild av vem du är och vad du kan bidra med.`
+      },
+      {
+        rubrik: 'Tydlig progression och ansvar',
+        text: `Progression syns tydligt: Kundtjänst (60-80 samtal dagligen) → Hotellreceptionist (100+ in-/utcheckningar, 120+ samtal) → Företagsreceptionist ansvarig för besökshantering (150+ besökare, 200+ samtal). Mentorskap för 2 nya receptionister visar ledarskapserfarenhet och förmåga att utbilda kollegor.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera branschspecifika system och verktyg',
+        text: `Nämn alla system du behärskar eftersom det visar teknisk kompetens och att du kan börja arbeta direkt utan lång introduktion. Företag vill veta att du känner till verktyg de redan använder.
+
+Lista switchboard-system, bokningssystem (Lime, Simployer, Outlook Calendar för företag), hotellsystem (Opera PMS eller Mews), Visitor Management System, och eventuella CRM-system. Skriv konkret: "Använder Lime dagligen för bokning av 15 mötesrum och koordinering av 50+ interna möten veckovis". Detta gör din erfarenhet tydlig och mätbar.`
+      },
+      {
+        rubrik: 'Kvantifiera din erfarenhet med samtal och besökare',
+        text: `Ange alltid antal besökare per dag, antal samtal via switchboard, och antal bokningar för att ge rekryterare kontext till din arbetsbelastning och stresstolerans. Vaga formuleringar som "hanterade reception" eller "mycket besökare" säger ingenting om omfattning.
+
+**Exempel på före/efter:**
+
+❌ "Ansvarig för reception och telefonväxel"
+
+✅ "Hanterade företagsreception med 200+ samtal och 50+ besökare dagligen. Switchboard-ansvar för växel med 150 anknytningar."
+
+Detta visar konkret omfattning och att du är van vid hög belastning.`
+      },
+      {
+        rubrik: 'Visa konkreta resultat från din service',
+        text: `Kvantifierbara förbättringar sticker ut och visar att du tar initiativ. Använd procent för förbättringar, kundnöjdhetsmätningar (NPS), eller tidsbesparingar när du beskriver vad du åstadkommit.
+
+**Exempel:**
+
+❌ "Förbättrade mottagningen genom bättre rutiner"
+
+✅ "Förbättrade besöksupplevelsen med 30% genom implementering av digitalt inchecksystem"
+
+✅ "Reducerade check-in tid med 20% genom effektivisering av registreringsprocess"
+
+Detta visar resultatfokus och att du bidrar till verksamhetsutveckling, inte bara utför rutinuppgifter.`
+      },
+      {
+        rubrik: 'Anpassa ditt CV för hotell vs företagsreception',
+        text: `Hotell och företag söker olika kompetenser även om grunderna är desamma. Anpassa vad du lyfter fram beroende på målbransch.
+
+För hotellreception: Betona in-/utcheckning, gästservice, Opera PMS eller Mews, taxibeställningar, rumservice. Exempel: "100+ in-/utcheckningar dagligen under högsäsong".
+
+För företagsreception: Fokusera på besökshantering, mötesbokning, intern service, administrativa uppgifter, switchboard. Exempel: "Mötesadministration för 50+ möten veckovis" och "Ansvarig för företagsreception med säkerhetskontroll av besökare".
+
+Båda miljöer värderar switchboard-kompetens och kundservice högt.`
+      },
+      {
+        rubrik: 'Lyft fram flerspråkig kommunikation som konkurrensfördel',
+        text: `Internationella företag och hotell värderar receptionister som kan kommunicera på flera språk eftersom de ofta har utländska besökare, kunder och kollegor.
+
+Lista alla språk med nivå under en dedikerad Språk-sektion: "Svenska (Modersmål), Engelska (Flytande), Spanska (Goda kunskaper)". Nämn även i profiltexten och i erfarenhetsbeskrivningar där det tillfört värde. Exempel: "Flerspråkig kundservice (svenska, engelska, spanska) vilket ökat internationell kundnöjdhet med 25%". Detta kvantifierar värdet av din språkkompetens.`
+      },
+      {
+        rubrik: 'Balansera tekniska och mjuka färdigheter med bevis',
+        text: `Undvik att bara lista mjuka färdigheter som "serviceinriktad, kommunikativ, flexibel" utan sammanhang. Detta kallas "buzzword bingo" och säger ingenting konkret om din förmåga. Visa istället genom exempel från dina arbetsuppgifter.
+
+**Exempel på före/efter:**
+
+❌ "Serviceinriktad, kommunikativ, flexibel, stresstålig"
+
+✅ "Serviceinriktad (150+ besökare dagligen med 95% positiv feedback enligt NPS-mätning)"
+
+✅ "Professionell kommunikation (200+ samtal dagligen via switchboard med tydlighet och vänlighet)"
+
+✅ "Multitasking (samordnade besökshantering, telefonsamtal och mötesbokning simultant)"
+
+Bevis gör din kompetens trovärdig och konkret.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som receptionist vara?',
+        svar: 'För receptionister med 0-3 års erfarenhet räcker vanligtvis 1 sida. Om du har 3-10+ års erfarenhet och arbetat i olika miljöer (hotell, företag, klinik) kan du använda 1-2 sidor. Fokusera på de senaste 10 åren och lyft fram progression samt branschspecifika system du behärskar.'
+      },
+      {
+        fraga: 'Ska jag ha med profilbild på mitt CV?',
+        svar: 'Det är vanligt men frivilligt i Sverige. För kundnära roller som receptionist kan en professionell bild vara en fördel eftersom den visar hur du presenterar dig. Välj en bild med affärsmässig klädsel, neutral bakgrund och ett välkomnande uttryck. Undvik semesterbilder eller selfies.'
+      },
+      {
+        fraga: 'Vad gör jag om jag har luckor i mitt CV?',
+        svar: 'Var ärlig och förklara kort. För kortare uppehåll (under 6 månader) behöver du inte ge detaljer. Vid längre perioder, nämn konstruktiva aktiviteter: vidareutbildning (t.ex. kundservicekurs, språkstudier), volontärarbete, föräldraledighet, eller vård av anhörig. Fokusera sedan på din erfarenhet och kompetens istället för att dröja vid luckan.'
+      },
+      {
+        fraga: 'Hur visar jag switchboard-kompetens i mitt CV?',
+        svar: 'Lista "Switchboard/växelhantering" under Kompetenser med erfarenhetsnivå, till exempel "Expert, 6+ år". I erfarenhetsbeskrivningar, kvantifiera: "Hanterade 200+ samtal dagligen via switchboard" eller "Ansvarig för 12-linjers växel med 150 interna anknytningar". Om du använt specifika switchboard-system som Ericsson, Panasonic eller Avaya, nämn dem. Detta visar konkret omfattning och att du behärskar tekniken, inte bara svarar i telefon.'
+      },
+      {
+        fraga: 'Vilka bokningssystem ska jag nämna?',
+        svar: 'Nämn alla system du använt: Lime, Simployer, Outlook Calendar (vanliga i företagsmiljöer), Opera PMS eller Mews (hotell), och Visitor Management System (digitala incheckningssystem för besökare). Förklara hur du använt dem: "Använder Lime dagligen för bokning av 15 mötesrum och koordinering av 50+ interna möten veckovis". Detta visar teknisk kompetens och att du är bekant med digitala verktyg som används i svenska receptionsmiljöer, vilket minskar introduktionstiden.'
+      },
+      {
+        fraga: 'Hur anpassar jag mitt CV för hotell vs företagsreception?',
+        svar: 'För hotellreception, lyft fram in-/utcheckning, gästservice, Opera PMS eller Mews, taxibeställningar, rumservice. Exempel: "100+ in-/utcheckningar dagligen under högsäsong" eller "Samordnade frukostbokningar för 80-100 gäster dagligen". För företagsreception, betona besökshantering, mötesbokning, intern service, administrativa uppgifter. Exempel: "Mötesadministration för 50+ möten veckovis" eller "Besökshantering med säkerhetskontroll och registrering i Visitor Management System". Anpassa profiltexten efter målbransch och lyft fram relevant erfarenhet först. Båda miljöer värderar switchboard och kundservice.'
+      },
+      {
+        fraga: 'Hur lyfter jag fram flerspråkig kompetens?',
+        svar: 'Skapa en dedikerad Språk-sektion och lista alla språk med nivå: "Svenska (Modersmål), Engelska (Flytande i tal och skrift), Spanska (Goda kunskaper)". Nämn flerspråkighet i profiltexten: "Flerspråkig kommunikation (svenska, engelska, spanska)". I erfarenhetsbeskrivningar, kvantifiera värdet: "Flerspråkig kundservice vilket ökat internationell kundnöjdhet med 25%". Detta är särskilt viktigt för internationella företag och hotell som har utländska besökare.'
+      },
+      {
+        fraga: 'Hur visar jag kundserviceförmåga utan att bara säga det?',
+        svar: 'Backa upp med konkreta exempel och siffror istället för att bara skriva "god kundservice". Visa genom resultat: "Serviceinriktad och välkomnande (hanterade 150+ besökare dagligen med 95% positiv feedback enligt NPS-mätning)", "Uppnådde 95% kundnöjdhet genom strukturerad problemlösning och empatiskt bemötande", "Reducerade väntetid med 20% genom effektivisering av incheckning", eller "Löste 90% av gästklagomål vid första kontakt". Mätbara resultat är mer trovärdiga än generella påståenden.'
+      },
+      {
+        fraga: 'Hur kvantifierar jag besökshantering och arbetsmängd?',
+        svar: 'Var konkret med antal besökare per dag, antal samtal via switchboard, antal bokningar per vecka. Undvik vaga formuleringar som "ansvarig för reception" eller "hanterade många besökare". Exempel: "Ansvarig för företagsreception med 150+ besökare och 200+ samtal dagligen" eller "Hanterade 100+ in-/utcheckningar dagligen under högsäsong". Detta ger rekryterare kontext till din arbetsbelastning, visar stresstolerans och multitaskingförmåga. Siffror gör din erfarenhet konkret och jämförbar, vilket sticker ut i mängden av vaga CV:n.'
+      },
+      {
+        fraga: 'Vilka certifieringar är viktigast för receptionist?',
+        svar: 'Prioritera dessa certifieringar: Första hjälpen och HLR (med förnyelsedatum!), kundserviceutbildning, switchboard-certifiering, GDPR-grundutbildning (viktigt för hantering av besöksinformation och personuppgifter). Konflikthantering och serviceminded kommunikation är också meriterande. Ange alltid årtal: "Första hjälpen och HLR (förnyad 2024)", "GDPR-grundutbildning (2022)", "Switchboard-certifiering (2020)". För hotell, lägg till specifika hotellcertifieringar om du har, till exempel Opera PMS-certifiering eller Wine & Spirit Education Trust (WSET) om receptionen även hanterar restaurangbokning.'
+      }
+    ],
+
+    kategori: 'service',
+    relaterade: [
+      { yrke: 'Administratör', slug: 'administrator' },
+      { yrke: 'Kundtjänstmedarbetare', slug: 'kundtjanstmedarbetare' },
+      { yrke: 'Kontorsassistent', slug: 'kontorsassistent' }
+    ]
+  },
+
   'ingenjor': {
     yrke: 'Ingenjör',
     sokvolym: 880,
@@ -591,20 +855,20 @@ Använd det som inspiration för ditt eget CV ingenjör och anpassa det efter de
 
       kompetenser: {
         tekniska: [
-          'CAD/CAE: SolidWorks (Expert, 7+ år), AutoCAD (Avancerad), CATIA (Grundläggande), ANSYS (FEM-analys)',
-          'Programmering: Python (Avancerad, automation och dataanalys), MATLAB/Simulink (Expert, simulering), C++ (Grundläggande), SQL',
-          'Projektverktyg: Jira/Confluence (Agile), MS Project (projektledning), Git/GitHub (versionskontroll), Azure DevOps',
-          'Metodik: Lean Six Sigma (DMAIC, FMEA, värdeflödesanalys), Agile/Scrum, Design for Manufacturing (DFM)',
-          'Teknisk analys: FEM-analys, hållfasthetsberäkning, modalanalys, CFD (grundläggande)',
-          'Dokumentation: Tekniska specifikationer, patentansökningar, användarmanualer, CAD-ritningar'
+          'SolidWorks (Expert, 7+ år)',
+          'MATLAB/Simulink (Expert, simulering)',
+          'Python (Avancerad, automation)',
+          'FEM-analys & ANSYS',
+          'Lean Six Sigma Green Belt',
+          'Agile/Scrum & Jira',
+          'Git/GitHub (versionskontroll)'
         ],
         personliga: [
-          'Analytisk problemlösning och metodiskt tänkande',
-          'Projektledning och deadline-hantering',
-          'Tvärfunktionellt samarbete (R&D, produktion, kvalitet, inköp)',
-          'Teknisk kommunikation med icke-teknisk personal',
-          'Innovation och kreativt tänkande',
-          'Kvalitetsmedvetenhet och detalj-fokus'
+          'Analytisk problemlösning (identifierade rotorsak till kvalitetsproblem genom statistisk analys, reducerade defekter från 5% till 0.2%)',
+          'Projektledning (ledde €2M projekt med 5 ingenjörer, levererat i tid och 10% under budget)',
+          'Tvärfunktionellt samarbete (koordinerade R&D, produktion, kvalitet och inköp i produktutvecklingscykler)',
+          'Teknisk kommunikation (patentansökningar, kundspecifikationer, presentationer för icke-teknisk publik)',
+          'Mentorskap (handledde 3 nyutexaminerade civilingenjörer under introduktionsperiod)'
         ]
       },
 
@@ -649,19 +913,25 @@ Att nämna specifika verktyg (SolidWorks, MATLAB, Git) och metoder (Agile, Lean)
       },
       {
         rubrik: 'Kvantifierbara resultat istället för ansvarsområden',
-        text: `Istället för vaga beskrivningar som "ansvarig för produktutveckling" visar CV:t konkreta resultat: "Ledde produktutvecklingsprojekt med €2M budget, levererat i tid och 10% under budget", "Effektiviserade CAD-designprocess med 30% genom Python-automatisering", "Reducerade produktionstid 25% genom DFM-optimering".
+        text: `CV:t använder konkreta siffror: "€2M budget, levererat 10% under budget", "30% effektivisering genom Python-automatisering", "reducerade produktionstid 25%".
 
-Detta gör din kompetens mätbar och trovärdigt. Siffror visar också att du levererar affärsnytta, inte bara tekniskt arbete. Rekryterare kan direkt jämföra din prestation mot andra kandidater och se konkret värde.
+**Varför detta är avgörande**: Rekryterare ser hundratals CV:n där ingenjörer skriver "ansvarig för produktutveckling" eller "arbetade med CAD-modellering" utan kontext. Vad betyder "ansvarig för projekt"? Budget på 50 000 kr eller 5 miljoner? Tre månader eller tre år?
 
-Ingenjörsroller handlar om problemlösning och resultat. Genom att visa både den tekniska lösningen (Python-automatisering) OCH affärsresultatet (30% effektivisering) demonstrerar du att du förstår både teknik och verksamhet.`
+Siffror ger omfattning och trovärdighet. Skillnaden mellan "effektiviserade designprocess" och "effektiviserade designprocess med 30%" är enorm. Det visar att du faktiskt mäter ditt arbete och levererar affärsnytta – inte bara tekniskt arbete.
+
+Detta är ett anti-pattern i många ingenjörs-CV:n: Vaga resultat som "bidrog till produktutveckling" eller "ansvarade för projekt". Kvantifierbara resultat (procent, budget, tid) gör att du sticker ut och ger rekryteraren något konkret att fråga om under intervjun.`
       },
       {
         rubrik: 'Balans mellan tekniska och mjuka färdigheter',
-        text: `CV:t kombinerar teknisk kompetens (SolidWorks, FEM-analys, Python, MATLAB) med projektlednings- och samarbetsförmåga (Agile, stakeholder management, tvärfunktionella team). Båda delarna backas upp med exempel från arbetserfarenheten.
+        text: `CV:t listar inte bara "kommunikativ, flexibel, driven" – det klassiska buzzword bingo som rekryterare ser i nio av tio CV:n. Istället VISAR det mjuka färdigheter genom konkreta exempel:
 
-"Samordnade tvärfunktionella team (R&D, produktion, kvalitet, inköp) för produktlansering" visar både tekniskt ledarskap OCH samarbetsförmåga. "Teknisk dokumentation för patentansökan och kundspecifikationer" visar kommunikationsförmåga med både teknisk och icke-teknisk publik.
+- "Analytisk problemlösning" backas upp med "reducerade defekter från 5% till 0.2%"
+- "Projektledning" visas genom "€2M budget, 5 ingenjörer, levererat i tid"
+- "Tvärfunktionellt samarbete" exemplifieras med "koordinerade R&D, produktion, kvalitet och inköp"
 
-Detta är avgörande eftersom moderna ingenjörsroller kräver mer än teknisk kunskap. Du behöver kunna kommunicera, samarbeta och leda projekt. Genom att visa konkreta exempel på dessa förmågor blir du en mer attraktiv kandidat.`
+**Varför detta fungerar bättre**: Att skriva "god kommunikationsförmåga" betyder ingenting. Varje kandidat påstår det. Men att skriva "patentansökningar, kundspecifikationer, presentationer för icke-teknisk publik" BEVISAR kommunikationsförmåga.
+
+Detta undviker anti-pattern "mjuka kompetenser utan bevis" som CV_KVALITET_STANDARD.md varnar för. Moderna ingenjörsroller kräver mer än teknisk kunskap – du måste visa att du kan kommunicera, samarbeta och leda, inte bara påstå det.`
       },
       {
         rubrik: 'Certifieringar och kontinuerlig kompetensutveckling som trovärdighetsmarkör',
