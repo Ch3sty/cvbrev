@@ -73,13 +73,15 @@ export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: I
   const fontDropdownRef = useRef<HTMLDivElement>(null)
 
 
+  // Set isClient flag (runs once on mount)
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
   // Generate HTML using the actual template generator (same as Puppeteer)
   useEffect(() => {
-    // Skip first render - use initialHTML from SSR
-    if (!isClient) {
-      setIsClient(true)
-      return
-    }
+    // Skip if JavaScript hasn't loaded yet
+    if (!isClient) return
 
     // Only regenerate when user changes template or font
     try {
@@ -101,7 +103,7 @@ export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: I
     } catch (error) {
       console.error('Error generating CV HTML:', error)
     }
-  }, [selectedTemplate, selectedFont, isClient, exempelCV])
+  }, [selectedTemplate, selectedFont, isClient])
 
   useEffect(() => {
     const checkMobile = () => {
@@ -347,7 +349,7 @@ export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: I
           </div>
 
           {/* CV Preview */}
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={`${selectedTemplate}-${selectedFont}`}
               initial={{ opacity: 0, y: 10 }}
