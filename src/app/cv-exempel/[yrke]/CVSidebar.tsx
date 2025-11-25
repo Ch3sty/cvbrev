@@ -103,7 +103,7 @@ export default function CVSidebar({ yrke, viktigtAttTankaPa }: CVSidebarProps) {
         <p className="text-white/90 text-sm mb-4">
           Ladda upp ditt CV så analyserar vi automatiskt vad du ska ändra för att få fler intervjuer. Eller flytta över din info till ny professionell design direkt.
         </p>
-        <Link href="/dashboard/skapa-cv">
+        <Link href="/dashboard/cv-mallar">
           <button className="w-full px-4 py-3 bg-white text-cyan-600 font-semibold rounded-xl hover:shadow-xl transition-all flex items-center justify-center gap-2">
             <Sparkles className="w-4 h-4" />
             Kom igång gratis

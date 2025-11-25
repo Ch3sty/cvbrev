@@ -459,7 +459,7 @@ export default function InteractiveCVPreview({ exempelCV, yrke }: InteractiveCVP
                 )}
               </div>
 
-              <div className="bg-white" style={{ maxHeight: '800px', overflowY: 'auto' }}>
+              <div className="bg-white" style={{ minHeight: '800px', maxHeight: '800px', overflowY: 'auto' }}>
                 {generatedHTML ? (
                   <div dangerouslySetInnerHTML={{ __html: generatedHTML }} />
                 ) : (
@@ -475,7 +475,7 @@ export default function InteractiveCVPreview({ exempelCV, yrke }: InteractiveCVP
                   <p className="text-sm text-cyan-100">Ladda upp ditt CV. Vi pekar ut vad som saknas och flyttar över din info till professionell design.</p>
                 </div>
                 <a
-                  href="/dashboard/skapa-cv"
+                  href="/dashboard/cv-mallar"
                   className="px-6 py-3 bg-white text-cyan-600 font-bold rounded-xl hover:shadow-2xl transition-all flex items-center gap-2 whitespace-nowrap"
                 >
                   <Sparkles className="w-5 h-5" />

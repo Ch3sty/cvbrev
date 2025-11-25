@@ -11,6 +11,7 @@ import HeroWithSEOIntro from './HeroWithSEOIntro'
 import CVSidebar from './CVSidebar'
 import TipsSectionFlat from './TipsSectionFlat'
 import FAQSection from './FAQSection'
+import VarforDetFungerarCard from './VarforDetFungerarCard'
 
 // SEO: Lazy-load InteractiveCVPreview för bättre Page Speed (client-only, tungt)
 const InteractiveCVPreview = dynamic(
@@ -167,24 +168,13 @@ export default function CVExempelPage({ data }: CVExempelPageProps) {
                         {data.varforDetFungerar.map((item, idx) => {
                           const Icon = ICONS[idx] || CheckCircle
                           return (
-                            <motion.div
+                            <VarforDetFungerarCard
                               key={idx}
-                              initial={{ opacity: 0, y: 20 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              viewport={{ once: true }}
-                              transition={{ delay: idx * 0.05 }}
-                              className="bg-slate-50 rounded-xl p-6 border border-slate-200 hover:shadow-md hover:border-cyan-200 transition-all"
-                            >
-                              <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-indigo-600 rounded-xl flex items-center justify-center mb-4">
-                                <Icon className="w-6 h-6 text-white" />
-                              </div>
-                              <h3 className="text-lg font-bold text-slate-900 mb-3">
-                                {item.rubrik}
-                              </h3>
-                              <p className="text-slate-600 leading-relaxed text-[15px]">
-                                {item.text}
-                              </p>
-                            </motion.div>
+                              rubrik={item.rubrik}
+                              text={item.text}
+                              icon={Icon}
+                              index={idx}
+                            />
                           )
                         })}
                       </div>
