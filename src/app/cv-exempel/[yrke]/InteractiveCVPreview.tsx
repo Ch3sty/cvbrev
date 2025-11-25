@@ -152,7 +152,7 @@ export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: I
   )
 
   return (
-    <div className="my-16">
+    <div>
       <div className="text-center mb-8">
         <motion.div
           className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-50 to-indigo-50 rounded-full mb-4 border border-cyan-100"

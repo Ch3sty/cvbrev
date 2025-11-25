@@ -140,24 +140,31 @@ export default function CVExempelPage({ data, initialHTML }: CVExempelPageProps)
                   </div>
                 </div>
 
-                {/* Tab Content */}
+                {/* Tab Content - undvik CLS med konsekvent animation */}
                 <AnimatePresence mode="wait">
                   {activeTab === 'preview' && (
-                    <InteractiveCVPreview
+                    <motion.div
                       key="preview"
-                      exempelCV={data.exempelCV}
-                      yrke={data.yrke}
-                      initialHTML={initialHTML}
-                    />
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <InteractiveCVPreview
+                        exempelCV={data.exempelCV}
+                        yrke={data.yrke}
+                        initialHTML={initialHTML}
+                      />
+                    </motion.div>
                   )}
 
                   {activeTab === 'varfor' && (
                     <motion.div
                       key="varfor"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.3 }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
                     >
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {data.varforDetFungerar.map((item, idx) => {
@@ -179,10 +186,10 @@ export default function CVExempelPage({ data, initialHTML }: CVExempelPageProps)
                   {activeTab === 'tips' && (
                     <motion.div
                       key="tips"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -20 }}
-                      transition={{ duration: 0.3 }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2 }}
                     >
                       <TipsSectionFlat
                         tips={data.tips}
