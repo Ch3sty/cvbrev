@@ -5,7 +5,13 @@
       "Bash(npm run build:*)",
       "Bash(git push:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(Select-String -Pattern \"(error|Error|✓|✗|Page|Route|Generating)\")",
+      "Bash(Select-Object -First 30)",
+      "Bash(npm run dev:*)",
+      "Bash(Select-String -Pattern \"(error|Error|✓|✗|Page|Route|Generating|lagerarbetare)\")",
+      "Bash(Select-Object -First 50)"
     ],
     "deny": [],
     "ask": []

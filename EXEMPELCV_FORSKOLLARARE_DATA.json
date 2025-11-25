@@ -1,0 +1,115 @@
+{
+  "yrke": "Förskollärare",
+  "slug": "forskollarare",
+  "sokvolym": 880,
+  "kategori": "utbildning",
+  "metaTitle": "CV Exempel Förskollärare 2025 - Professionell Mall | Jobbcoach.ai",
+  "metaDescription": "Se ett komplett CV-exempel för förskollärare. ATS-optimerat, strukturerat för Lpfö 18 och visar pedagogisk kompetens. Inkluderar dokumentationssystem och certifieringar.",
+  "exempelCV": {
+    "namn": "Emma Lindström",
+    "titel": "Legitimerad förskollärare med specialisering i språkutveckling och inkluderande pedagogik",
+    "kontakt": {
+      "telefon": "070-123 45 67",
+      "epost": "emma.lindstrom@email.se",
+      "plats": "Stockholm",
+      "linkedin": "linkedin.com/in/emmalindstrom"
+    },
+    "profil": "Legitimerad förskollärare med 8+ års erfarenhet från språkutveckling och inkluderande pedagogik i kommunala förskolor. Specialist på Lpfö 18, Unikum, teckenspråk och konflikthantering med gedigen erfarenhet av att skapa trygg lärandemiljö där varje barns unika förmågor utvecklas. Empatisk och pedagogisk teamplayer som brinner för lekbaserat lärande och barns allsidiga utveckling.",
+    "erfarenhet": [
+      {
+        "titel": "Förskollärare, Avdelningsansvarig",
+        "arbetsgivare": "Södermalms förskola, Stockholm Stad",
+        "period": "2020 – Pågående",
+        "beskrivning": [
+          "Pedagogisk ansvarig för barngrupp med 22 barn, 1-3 år, tillsammans med 2 barnskötare",
+          "Minskade konflikter i barngruppen med 30% genom implementering av teckenspråk och bildstöd",
+          "Utvecklade 5 tematiska lärandeaktiviteter enligt Lpfö 18 med fokus på språkutveckling och naturvetenskap",
+          "Använder Unikum dagligen för pedagogisk dokumentation, utvecklingssamtal och kommunikation med vårdnadshavare",
+          "Mentorskap för 2 nyutexaminerade förskollärare under introduktionsperiod (6 månader vardera)"
+        ]
+      },
+      {
+        "titel": "Förskollärare",
+        "arbetsgivare": "Vasastans förskola, Stockholm Stad",
+        "period": "2017 – 2020",
+        "beskrivning": [
+          "Ansvarig för barngrupp med 18 barn, 3-5 år, med fokus på språkutveckling och förskoleförberedande aktiviteter",
+          "Reducerade övergångsproblem till förskoleklass med 25% genom strukturerad samverkan med F-klass",
+          "Implementerade Bornholmsmodellen för språkutveckling vilket förbättrade fonologisk medvetenhet hos 85% av barnen",
+          "Samordnade 4 utvecklingssamtal per barn och år med strukturerad uppföljning i Pedagog Stockholm"
+        ]
+      },
+      {
+        "titel": "Barnskötare / Vikarie",
+        "arbetsgivare": "Diverse förskolor, Stockholm Stad",
+        "period": "2015 – 2017",
+        "beskrivning": [
+          "Vikarierande barnskötare på 8 olika förskolor vilket gav bred erfarenhet av olika pedagogiska inriktningar (Reggio Emilia, Montessori, traditionell)",
+          "Stöttade förskollärare i daglig verksamhet för barngrupper om 15-25 barn, åldersblandade grupper 1-5 år",
+          "Fick erfarenhet av olika dokumentationssystem (Unikum, Pedagog Stockholm, IST) och AV-media för dokumentation"
+        ]
+      }
+    ],
+    "utbildning": [
+      {
+        "titel": "Förskollärarutbildning, 210 hp",
+        "skola": "Stockholms universitet",
+        "period": "2012 – 2015",
+        "beskrivning": "Specialisering inom språkutveckling och flerspråkighet. VFU-perioder på 4 olika förskolor med fokus på inkluderande pedagogik och barns delaktighet."
+      }
+    ],
+    "kompetenser": {
+      "tekniska": [
+        "Lpfö 18 (Expert, 8+ år)",
+        "Unikum – dokumentationssystem (Avancerad, 5+ år)",
+        "Teckenspråk grundkurs (Avancerad, 6+ år)",
+        "Första hjälpen barn",
+        "Bornholmsmodellen (språkutveckling)",
+        "Konflikthantering och ICDP (International Child Development Programme)",
+        "Pedagog Stockholm och IST (dokumentationssystem)"
+      ],
+      "personliga": [
+        "Empatisk och lyhörd (skapade trygg miljö för 22 barn med olika behov och kulturell bakgrund)",
+        "Pedagogisk kommunikation (genomförde 80+ utvecklingssamtal med vårdnadshavare, 95% positiv feedback)",
+        "Flexibel och lösningsorienterad (hanterade akuta sjukfrånvaron i teamet genom omorganisation av dagsprogram)",
+        "Kreativ problemlösare (utvecklade 5 lekbaserade lärandeaktiviteter för barn med olika inlärningsstilar)",
+        "Samarbetsvillig teamplayer (samordnade verksamhet med 2 barnskötare och 3 kollegor på förskolan)"
+      ]
+    },
+    "certifieringar": [
+      "Första hjälpen barn och HLR (förnyad 2024)",
+      "Teckenspråk grundkurs (2022)",
+      "ICDP – Dialogpedagogik (2021)",
+      "Bornholmsmodellen – språkutveckling (2019)",
+      "Allergi- och astmautbildning för förskola (2023)"
+    ],
+    "sprak": [
+      {
+        "sprak": "Svenska",
+        "niva": "Modersmål"
+      },
+      {
+        "sprak": "Engelska",
+        "niva": "Flytande i tal och skrift"
+      },
+      {
+        "sprak": "Teckenspråk",
+        "niva": "Grundläggande"
+      }
+    ]
+  },
+  "relaterade": [
+    {
+      "yrke": "Grundskollärare",
+      "slug": "grundskollarare"
+    },
+    {
+      "yrke": "Specialpedagog",
+      "slug": "specialpedagog"
+    },
+    {
+      "yrke": "Barnskötare",
+      "slug": "barnskotare"
+    }
+  ]
+}

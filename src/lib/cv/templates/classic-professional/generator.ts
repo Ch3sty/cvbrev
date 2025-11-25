@@ -262,7 +262,7 @@ function generateClassicProfessionalHTML(cvData: CVMetadata, options: any = {}):
                 <h2>Kompetenser</h2>
                 <div class="section-separator"></div>
                 <div class="skills-container">
-                    ${cvData.skills.flatMap(skillGroup => 
+                    ${cvData.skills.flatMap(skillGroup =>
                         skillGroup.skills.filter(skill => !cvData.languages?.some(lang => skill.toLowerCase().includes(lang.language.toLowerCase()))).map(skill => `<span class="skill-tag">${skill}</span>`)
                     ).join('')}
                 </div>

@@ -1064,6 +1064,218 @@ Istället för bara "god kommunikation", skriv: "Teknisk dokumentation och kundp
       { yrke: 'Automationsingenjör', slug: 'automationsingenior' },
       { yrke: 'Konstruktör', slug: 'konstruktor' }
     ]
+  },
+  'lagerarbetare': {
+    yrke: 'Lagerarbetare',
+    sokvolym: 720,
+    metaTitle: 'CV Exempel Lagerarbetare 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för lagerarbetare. ATS-optimerat med truckkort, WMS-system och kvantifierbara resultat. Inkluderar plockning, packning och lagerhantering.',
+
+    seoIntro: `Söker du jobb som lagerarbetare och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som matchar vad rekryterare inom logistik faktiskt letar efter.
+
+Du får se exakt hur du framhäver truckkort (A+B), WMS-system (SAP WM, Astro, M3) och kvantifierbara resultat som plocknoggrannhet och ordervolym per dag. CV:t visar konkreta exempel från högvolymlogistik och e-handel – inklusive hur du demonstrerar progression från operativ lagerarbetare till teamledare.
+
+Använd det som inspiration för ditt eget CV som lagerarbetare och anpassa det efter den tjänst du söker. Med rätt nyckelord och struktur ökar du dina chanser att passera ATS-filtret och nå intervju.`,
+
+    intro: 'Ett professionellt CV-exempel för lagerarbetare som visar truckkort, WMS-kompetens och kvantifierbara resultat från plockning, packning och lagerhantering. Optimerat för svenska logistikföretag och ATS-system.',
+
+    exempelCV: {
+      namn: 'Marcus Pettersson',
+      titel: 'Erfaren lagerarbetare med truckkort A+B och WMS-expertis',
+      kontakt: {
+        telefon: '070-234 56 78',
+        epost: 'marcus.pettersson@email.se',
+        plats: 'Göteborg',
+        linkedin: 'linkedin.com/in/marcuspettersson'
+      },
+
+      profil: 'Resultatinriktad lagerarbetare med 7+ års erfarenhet från högvolymlogistik och e-handel. Specialist på plockning, truckkörning och WMS-system (SAP WM, Astro) med gedigen kunskap i Lean 5S och plocknoggrannhet på 99.8%. Noggrann teamplayer som brinner för effektiv lagerhantering och säker arbetsmiljö.',
+
+      erfarenhet: [
+        {
+          titel: 'Lagerarbetare, Teamledare',
+          arbetsgivare: 'PostNord Logistics AB, Göteborg',
+          period: '2020 – Pågående',
+          beskrivning: [
+            'Teamledare för 6 lagerarbetare med ansvar för daglig planering och kvalitetsuppföljning i högvolymlager',
+            'Ökade plocknoggrannheten från 98.5% till 99.8% genom implementering av dubbelkontrollsystem för högvärdiga produkter',
+            'Hanterar 180-220 plockorder per dag med motviktstruck och ledstaplare (genomsnitt 210 order/dag)',
+            'Använder SAP WM dagligen för orderplockning, godsmottagning, inventering och lageroptimering',
+            'Reducerade skador vid hantering med 35% genom utbildning i ergonomi och riskanalys för teamet'
+          ]
+        },
+        {
+          titel: 'Lagerarbetare',
+          arbetsgivare: 'CEVA Logistics AB, Göteborg',
+          period: '2018 – 2020',
+          beskrivning: [
+            'Ansvarig för godsmottagning, plockning och packning för 3PL-lager med 500+ artiklar (e-handel och detaljhandel)',
+            'Genomförde 150-180 plockorder per dag med 99.5% noggrannhet i Astro WMS-system',
+            'Minskade ledtid för uttag från lager med 20% (från 25 till 20 min/order) genom omstrukturering av lagerlayout enligt Lean 5S',
+            'Truckkörning dagligen (motviktstruck A+B) för plock och godsmottagning av containrar och pallgods'
+          ]
+        },
+        {
+          titel: 'Lagerarbetare / Truckförare',
+          arbetsgivare: 'Ahlsell AB, Borås',
+          period: '2016 – 2018',
+          beskrivning: [
+            'Lagerarbete inom VVS-grossist med ansvar för plockning, packning och uttag av byggmaterial och VVS-produkter',
+            'Hanterade 80-100 plockorder per dag (manuell plockning och truckplock) i M3-system',
+            'Genomförde kvartalsinventering för 2 500 artiklar med 98% inventeringsnoggrannhet',
+            'Utbildade 2 nya kollegor i truckkörning och lagerrutiner under introduktionsperiod (3 månader vardera)'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Gymnasieutbildning Handel och Administration',
+          skola: 'Hvitfeldtska gymnasiet, Göteborg',
+          period: '2013 – 2016',
+          beskrivning: 'Inriktning logistik och lagerhantering. Praktik på DHL Freight under termin 5 (8 veckor).'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Truckkort A+B – Motviktstruck och skjutstativtruck (Expert, 7+ år)',
+          'SAP WM – Warehouse Management (Avancerad, 4+ år)',
+          'Astro WMS-system (Avancerad, 2+ år)',
+          'Lean 5S och kontinuerlig förbättring',
+          'Handdator för plockning (RF-scanner, Zebra)',
+          'M3-system (grundläggande)',
+          'Godsmottagning och kvalitetskontroll',
+          'Inventering och lageroptimering'
+        ],
+        personliga: [
+          'Noggrann och kvalitetsmedveten (99.8% plocknoggrannhet över 12 månader)',
+          'Fysiskt uthållig (hanterar 180-220 order/dag, tunga lyft upp till 25 kg)',
+          'Ansvarstagande teamledare (ledde 6 medarbetare, minskade skador med 35%)',
+          'Säkerhetsfokuserad (genomförde 2 riskanalyser/år, 0 arbetsolyckor sedan 2020)',
+          'Flexibel och lösningsorienterad (hanterade högsäsonger med 40% ökad volym, jul/Black Friday)'
+        ]
+      },
+
+      certifieringar: [
+        'Truckkort A – Motviktstruck (2017, förlängt 2024)',
+        'Truckkort B – Skjutstativtruck (2017, förlängt 2024)',
+        'Heta Arbeten (2021)',
+        'Första hjälpen och HLR (förnyad 2024)',
+        'Arbetsmiljöutbildning – Säkerhet på lager (2022)',
+        'ADR Grundkurs – Farligt gods (2023)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'God i tal och skrift' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Professionell profiltext med rätt nyckelord',
+        text: `Marcus' profiltext följer en beprövad struktur: erfarenhet (7+ år), specialisering (plockning, truckkörning, WMS-system), tekniska nyckelord (SAP WM, Astro, Lean 5S) och personlighetsdrag (noggrann, säkerhetsfokuserad).
+
+Det som gör profilen extra stark är att den redan innehåller ett kvantifierbart resultat – 99.8% plocknoggrannhet. Detta fångar rekryterarens uppmärksamhet direkt och visar att Marcus inte bara beskriver sina arbetsuppgifter, utan faktiskt mäter sin prestation.
+
+ATS-system söker efter specifika termer som "SAP WM", "truckkort" och "plockning". Genom att inkludera dessa i profiltexten ökar sannolikheten att CV:t passerar den automatiska screeningen. Samtidigt signalerar "Lean 5S" att Marcus förstår processförbättring – något som är värdefullt för arbetsgivare som vill effektivisera sin lagerverksamhet.`
+      },
+      {
+        rubrik: 'Kvantifierbara resultat som sticker ut',
+        text: `Marcus' CV använder konkreta siffror som "99.8% plocknoggrannhet" och "180-220 order per dag". Detta är avgörande – många lagerarbetare skriver bara "ansvarade för plockning och packning" utan att visa omfattning eller kvalitet.
+
+Genom att kvantifiera sina resultat visar Marcus både kvalitet (99.8% noggrannhet) och volym (220 order/dag i högvolymlogistik). Han visar också förbättringsinitiativ: "Minskade ledtid för uttag från lager med 20% (från 25 till 20 min/order)" – vilket bevisar att han inte bara utför arbetet, utan aktivt effektiviserar processer.
+
+Rekryterare ser detta och tänker: "Här är en lagerarbetare som kan hantera högt tempo, behålla kvalitet OCH förbättra arbetssätt." Siffror ger kontext och visar värde på ett sätt som vaga beskrivningar aldrig kan.`
+      },
+      {
+        rubrik: 'Truckkort och certifieringar med årtal',
+        text: `Marcus visar tydligt att hans truckkort är giltiga: "Truckkort A – Motviktstruck (2017, förlängt 2024)". Detta är kritiskt eftersom truckkort gäller i 5 år – ett truckkort utan årtal kan vara ogiltigt, vilket gör kandidaten icke-anställningsbar för de flesta lagertjänster.
+
+Utöver grundläggande truckkort har Marcus specialcertifieringar som ADR Grundkurs (farligt gods) och Heta Arbeten. Dessa öppnar dörrar till specialiserade lager inom kemi, läkemedel och industri – områden där konkurrensen är lägre och lönerna ofta högre.
+
+Dedikerade sektionen för certifieringar visar också kontinuerlig kompetensutveckling. Att HLR är "förnyad 2024" och arbetsmiljöutbildning togs 2022 signalerar att Marcus håller sina kunskaper aktuella – något arbetsgivare värderar högt för en säker arbetsplats.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Specificera dina WMS-system istället för "datorvana"',
+        text: `ATS-system söker efter specifika WMS-system, inte generiska termer. "Datorvana" säger ingenting – "SAP WM med 4+ års erfarenhet" visar konkret kompetens som matchar jobbannonsens krav.
+
+**UNDVIK:** "God datorvana och erfarenhet av lagerhanteringssystem"
+**BRA:** "SAP WM – Warehouse Management (Avancerad, 4+ år), Astro WMS-system (Avancerad, 2+ år), M3-system (grundläggande)"
+
+Lista de system du faktiskt behärskar med kompetensnivå för dina starkaste. Vanliga WMS-system att nämna inkluderar SAP WM, Astro, M3, Pyramid, JDA och Manhattan. Om du använt handdatorer och RF-scanners (Zebra, Honeywell), nämn det specifikt – det är standardverktyg i moderna lager.`
+      },
+      {
+        rubrik: 'Kvantifiera din plockning och effektivitet',
+        text: `Rekryterare vill veta hur mycket du kan hantera och hur bra du är på det. Kvantifiera alltid med siffror: antal order per dag, plocknoggrannhet i procent, och eventuella förbättringar du bidragit till.
+
+**UNDVIK:** "Ansvarade för plockning och packning av order"
+**BRA:** "Genomförde 150-180 plockorder per dag med 99.5% noggrannhet i Astro WMS-system"
+
+Om du inte vet exakta siffror, uppskatta konservativt. Fråga dig själv: Hur många order hanterade jag per skift? Hur ofta gjorde jag fel? Jobbade jag med 100, 500 eller 5000 olika artiklar? Dessa detaljer visar omfattning och ger rekryteraren något konkret att relatera till.`
+      },
+      {
+        rubrik: 'Visa truckkort med årtal och förnyelsedatum',
+        text: `Truckkort är ofta ett absolut krav för lagertjänster. Men truckkort utan årtal kan betyda att certifikatet är ogiltigt – truckkort gäller normalt i 5 år och måste förnyas.
+
+**UNDVIK:** "Truckkort A och B"
+**BRA:** "Truckkort A – Motviktstruck (2017, förlängt 2024), Truckkort B – Skjutstativtruck (2017, förlängt 2024)"
+
+Lista vilken typ av truck (motviktstruck, skjutstativtruck, ledstaplare, reach truck) och visa tydligt att certifikatet är aktuellt. Om du har extra certifieringar som ADR (farligt gods) eller Heta Arbeten, inkludera dem – de öppnar dörrar till specialiserade tjänster med mindre konkurrens.`
+      },
+      {
+        rubrik: 'Demonstrera progression i din karriär',
+        text: `Visa att du utvecklats över tid – från operativ lagerarbetare till mer ansvarsfulla roller. Detta signalerar att du har potential att växa inom organisationen.
+
+**UNDVIK:** Tre nästan identiska tjänstebeskrivningar utan synlig utveckling
+**BRA:** Visa progression i volym (80 → 150 → 220 order/dag), ansvar (från plock till teamledare för 6 personer), och kompetens (från grundläggande till Lean-implementering)
+
+Marcus CV visar tydlig progression: han började med 80-100 order/dag på Ahlsell, ökade till 150-180 på CEVA där han implementerade Lean 5S, och hanterar nu 180-220 order/dag som teamledare på PostNord. Rekryterare ser detta och förstår att Marcus är redo för nästa steg.`
+      },
+      {
+        rubrik: 'Framhäv säkerhet och kvalitetsarbete',
+        text: `Arbetsmiljö och säkerhet är prioriterat inom lager och logistik. Visa att du tar säkerhet på allvar genom konkreta exempel och resultat.
+
+**UNDVIK:** "Följde säkerhetsrutiner"
+**BRA:** "Reducerade skador vid hantering med 35% genom utbildning i ergonomi och riskanalys för teamet – 0 arbetsolyckor sedan 2020"
+
+Nämn arbetsmiljöutbildningar, riskanalyser du deltagit i, eller förbättringar du bidragit till. Om du utbildat kollegor i säkerhet eller ergonomi, lyft fram det. Arbetsgivare vill ha medarbetare som aktivt bidrar till en säker arbetsplats – det minskar kostnader för sjukfrånvaro och olyckor.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad ska jag skriva i profiltexten som lagerarbetare?',
+        svar: 'Följ strukturen: Erfarenhet (antal år) + Specialisering (truckkort, typ av lager) + Tekniska nyckelord (SAP WM, Astro, Lean 5S) + Personlighetsdrag (noggrann, säkerhetsfokuserad). Exempel: "Resultatinriktad lagerarbetare med 5+ års erfarenhet från e-handelslager. Truckkort A+B och gedigen kunskap i SAP WM med 99% plocknoggrannhet. Noggrann teamplayer med fokus på säker och effektiv lagerhantering." Inkludera gärna ett kvantifierbart resultat redan i profilen för att fånga uppmärksamhet direkt.'
+      },
+      {
+        fraga: 'Vilka WMS-system ska jag nämna i mitt CV som lagerarbetare?',
+        svar: 'Nämn de system du faktiskt har erfarenhet av – SAP WM, Astro, M3, Pyramid, JDA eller Manhattan är vanliga. Undvik generiska termer som "datorvana" eller "lagerhanteringssystem" – var specifik. Lägg till kompetensnivå för dina starkaste system: "SAP WM (Avancerad, 4+ år)", "M3-system (Grundläggande)". Glöm inte handdatorer och RF-scanners (Zebra, Honeywell) om du använt dem – det är standardverktyg i moderna lager.'
+      },
+      {
+        fraga: 'Måste jag ha truckkort för att jobba som lagerarbetare?',
+        svar: 'De flesta lagertjänster kräver truckkort, särskilt A (motviktstruck) och B (skjutstativtruck/reachtruck). Visa alltid årtal och förnyelsedatum eftersom truckkort gäller i 5 år: "Truckkort A – Motviktstruck (2020, förlängt 2025)". Om du inte har truckkort kan du söka tjänster som fokuserar på manuell plockning eller packning, men karriärmöjligheterna begränsas. Truckkortskurser tar ofta bara 2-5 dagar och är en bra investering.'
+      },
+      {
+        fraga: 'Hur visar jag resultat i mitt CV som lagerarbetare?',
+        svar: 'Kvantifiera med siffror: antal order per dag (80, 150, 220), plocknoggrannhet i procent (98.5%, 99.8%), effektiviseringar (minskade ledtid med 20%), antal artiklar vid inventering (2 500 artiklar), teamstorlek om du haft ansvar (6 medarbetare). Fråga dig själv: Hur många? Hur ofta? Hur bra? "Ansvarade för plockning" säger inget – "Genomförde 180 plockorder per dag med 99.5% noggrannhet" visar konkret värde.'
+      },
+      {
+        fraga: 'Vilka certifieringar ökar mina chanser som lagerarbetare?',
+        svar: 'Truckkort A+B är grundkrav för de flesta tjänster. Utöver det ökar dessa dina möjligheter: ADR Grundkurs (farligt gods) – öppnar dörrar till kemi- och läkemedelslager med högre löner. Heta Arbeten – krävs för lager med svetsning eller kemikalier. Första hjälpen/HLR – visar säkerhetsmedvetenhet. Arbetsmiljöutbildning – uppskattas av arbetsgivare som prioriterar säkerhet. Visa alltid årtal och förnyelsedatum för tidsbegränsade certifieringar.'
+      }
+    ],
+
+    kategori: 'service',
+    relaterade: [
+      { yrke: 'Truckförare', slug: 'truckforare' },
+      { yrke: 'Logistiker', slug: 'logistiker' },
+      { yrke: 'Lagerchef', slug: 'lagerchef' }
+    ]
   }
 }
 
