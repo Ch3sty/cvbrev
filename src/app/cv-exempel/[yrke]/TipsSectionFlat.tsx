@@ -36,9 +36,34 @@ export default function TipsSectionFlat({ tips, yrke }: TipsSectionFlatProps) {
                 {tip.rubrik}
               </h3>
               <div className="text-slate-600 leading-relaxed space-y-3">
-                {tip.text.split('\n\n').map((paragraph, pIdx) => (
-                  <p key={pIdx}>{paragraph.trim()}</p>
-                ))}
+                {tip.text.split('\n\n').map((paragraph, pIdx) => {
+                  // Rendera markdown-liknande fetstil
+                  const parts = paragraph.trim().split(/(\*\*[^*]+\*\*)/)
+                  return (
+                    <p key={pIdx}>
+                      {parts.map((part, i) => {
+                        if (part.startsWith('**') && part.endsWith('**')) {
+                          const text = part.slice(2, -2)
+                          const isUndvik = text === 'UNDVIK:'
+                          const isBra = text === 'BRA:'
+                          return (
+                            <strong
+                              key={i}
+                              className={
+                                isUndvik ? 'text-red-600 font-bold' :
+                                isBra ? 'text-green-600 font-bold' :
+                                'font-semibold'
+                              }
+                            >
+                              {text}
+                            </strong>
+                          )
+                        }
+                        return <span key={i}>{part}</span>
+                      })}
+                    </p>
+                  )
+                })}
               </div>
             </div>
           </div>

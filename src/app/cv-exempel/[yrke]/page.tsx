@@ -163,8 +163,8 @@ Placera nyckelorden strategiskt i profiltext, erfarenhetssektion och kompetensli
         rubrik: 'Kvantifiera din erfarenhet för ökad trovärdighet',
         text: `Konkreta siffror gör ditt CV mer trovärdigt och jämförbart. Transformera vaga påståenden till mätbara fakta genom att alltid fråga dig: hur många, hur länge, hur ofta?
 
-❌ Istället för: "Ansvarig för patientvård"
-✅ Skriv: "Omvårdnad av 25-30 patienter dagligen inom geriatrisk avdelning"
+**UNDVIK:** "Ansvarig för patientvård"
+**BRA:** "Omvårdnad av 25-30 patienter dagligen inom geriatrisk avdelning"
 
 Nämn specifika detaljer som stärker din erfarenhet: antal års erfarenhet (både totalt och inom specialisering), antal VFU-perioder under utbildning, antal patienter med medicinsk delegering, eller specifika förbättringar du bidragit till ("minskade akuta inläggningar med 15%").
 
@@ -174,8 +174,8 @@ Om du arbetat deltid, räkna om till heltidsekvivalent för att ge rätt bild av
         rubrik: 'Visa konkreta resultat från din omvårdnad',
         text: `Rekryterare vill se vad du åstadkommit, inte bara vad du varit ansvarig för. Fokusera på resultat och effekter av ditt arbete istället för att lista rutinuppgifter.
 
-❌ Istället för: "Ansvarig för medicindelegering"
-✅ Skriv: "Medicinsk delegering för 20+ patienter dagligen (insulin, PEG, subkutana injektioner) vilket säkerställde korrekt medicinering utan avvikelser under 18 månader"
+**UNDVIK:** "Ansvarig för medicindelegering"
+**BRA:** "Medicinsk delegering för 20+ patienter dagligen (insulin, PEG, subkutana injektioner) vilket säkerställde korrekt medicinering utan avvikelser under 18 månader"
 
 Om du inte har exakta siffror på förbättringar kan du beskriva situationer som visar din kompetens: "Identifierade tidiga tecken på urinvägsinfektion hos patient med demens, kontaktade läkare och initierade behandling innan tillståndet förvärrades, vilket undvek akut inläggning". Detta demonstrerar klinisk blick, initiativförmåga och förmåga att agera proaktivt.
 
@@ -201,11 +201,11 @@ Glöm inte att inkludera förnyelsedatum för tidsbegränsade certifieringar som
         rubrik: 'Balansera tekniska och mjuka färdigheter med bevis',
         text: `Lista både tekniska färdigheter (medicindelegering, förflyttningsteknik, såromläggning, Cosmic/Procapita) och personliga egenskaper (empati, kommunikation, stresstålig, lagspelare). Men här är nyckeln: backa alltid upp de personliga egenskaperna med konkreta exempel i erfarenhetssektionen.
 
-❌ Istället för: Bara lista "Empatisk" under personliga egenskaper
-✅ Skriv i arbetsbeskrivning: "Byggde förtroendefulla relationer med brukare och anhöriga genom lyhördhet och respektfull kommunikation"
+**UNDVIK:** Bara lista "Empatisk" under personliga egenskaper
+**BRA:** Skriv i arbetsbeskrivning: "Byggde förtroendefulla relationer med brukare och anhöriga genom lyhördhet och respektfull kommunikation"
 
-❌ Istället för: Bara lista "Stresstålig"
-✅ Skriv i arbetsbeskrivning: "Hanterade 25-30 patienter dagligen i högt tempo med samtidiga medicineringar, måltider och akuta försämringar"
+**UNDVIK:** Bara lista "Stresstålig"
+**BRA:** Skriv i arbetsbeskrivning: "Hanterade 25-30 patienter dagligen i högt tempo med samtidiga medicineringar, måltider och akuta försämringar"
 
 Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egenskaper behöver bevis för att bli trovärdiga. Koppla varje personlig egenskap till en specifik situation eller uppgift i din arbetserfarenhet. Detta gör skillnaden mellan ett CV som påstår och ett CV som bevisar.`
       }
