@@ -31,9 +31,33 @@ export default function VarforDetFungerarCard({
         {rubrik}
       </h3>
       <div className="text-slate-600 leading-relaxed text-[15px] space-y-3">
-        {text.split('\n\n').map((paragraph, pIdx) => (
-          <p key={pIdx}>{paragraph.trim()}</p>
-        ))}
+        {text.split('\n\n').map((paragraph, pIdx) => {
+          const trimmed = paragraph.trim()
+
+          // Stilad underrubrik för "Varför detta fungerar:"
+          if (trimmed.startsWith('Varför detta fungerar:')) {
+            const rest = trimmed.replace('Varför detta fungerar:', '')
+            return (
+              <p key={pIdx}>
+                <strong className="text-slate-800">Varför detta fungerar:</strong>
+                {rest}
+              </p>
+            )
+          }
+
+          // Enkel fetstil-parsing för **text**
+          const parts = trimmed.split(/(\*\*[^*]+\*\*)/)
+          return (
+            <p key={pIdx}>
+              {parts.map((part, i) => {
+                if (part.startsWith('**') && part.endsWith('**')) {
+                  return <strong key={i}>{part.slice(2, -2)}</strong>
+                }
+                return part
+              })}
+            </p>
+          )
+        })}
       </div>
     </motion.div>
   )

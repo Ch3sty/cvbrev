@@ -417,9 +417,7 @@ Detta är ett anti-pattern i många förskollärare-CV:n: Vaga resultat som "bid
 - "Pedagogisk kommunikation" visas genom "(genomförde 80+ utvecklingssamtal, 95% positiv feedback)"
 - "Flexibel" exemplifieras med "(hanterade akuta sjukfrånvaron genom omorganisation av dagsprogram)"
 
-**Varför detta är bättre än tomma påståenden**: Att skriva "empatisk och kommunikativ" betyder ingenting – varje kandidat påstår det. Rekryterare läser "flexibel och kreativ" i nio av tio förskollärare-CV:n, men konkreta bevis sticker ut.
-
-Detta undviker anti-pattern "buzzword bingo" som CV_KVALITET_STANDARD.md varnar för. Moderna förskolor kräver både pedagogisk expertis OCH förmåga att samarbeta med barn, vårdnadshavare och kollegor – och du måste VISA det, inte bara påstå det.`
+Varför detta fungerar: Att skriva "empatisk och kommunikativ" betyder ingenting – varje kandidat påstår det. Rekryterare läser "flexibel och kreativ" i nio av tio förskollärare-CV:n, men konkreta bevis sticker ut. Moderna förskolor kräver både pedagogisk expertis OCH förmåga att samarbeta med barn, vårdnadshavare och kollegor – och du måste VISA det, inte bara påstå det.`
       },
       {
         rubrik: 'Certifieringar som trovärdighetsmarkör',
@@ -957,9 +955,7 @@ Detta är ett anti-pattern i många ingenjörs-CV:n: Vaga resultat som "bidrog t
 - "Projektledning" visas genom "€2M budget, 5 ingenjörer, levererat i tid"
 - "Tvärfunktionellt samarbete" exemplifieras med "koordinerade R&D, produktion, kvalitet och inköp"
 
-**Varför detta fungerar bättre**: Att skriva "god kommunikationsförmåga" betyder ingenting. Varje kandidat påstår det. Men att skriva "patentansökningar, kundspecifikationer, presentationer för icke-teknisk publik" BEVISAR kommunikationsförmåga.
-
-Detta undviker anti-pattern "mjuka kompetenser utan bevis" som CV_KVALITET_STANDARD.md varnar för. Moderna ingenjörsroller kräver mer än teknisk kunskap – du måste visa att du kan kommunicera, samarbeta och leda, inte bara påstå det.`
+Varför detta fungerar: Att skriva "god kommunikationsförmåga" betyder ingenting. Varje kandidat påstår det. Men att skriva "patentansökningar, kundspecifikationer, presentationer för icke-teknisk publik" BEVISAR kommunikationsförmåga. Moderna ingenjörsroller kräver mer än teknisk kunskap – du måste visa att du kan kommunicera, samarbeta och leda, inte bara påstå det.`
       },
       {
         rubrik: 'Certifieringar och kontinuerlig kompetensutveckling som trovärdighetsmarkör',
@@ -1221,28 +1217,40 @@ Använd det som inspiration för ditt eget CV som lagerarbetare och anpassa det 
 
     varforDetFungerar: [
       {
-        rubrik: 'Professionell profiltext med rätt nyckelord',
-        text: `Marcus' profiltext följer en beprövad struktur: erfarenhet (7+ år), specialisering (plockning, truckkörning, WMS-system), tekniska nyckelord (SAP WM, Astro, Lean 5S) och personlighetsdrag (noggrann, säkerhetsfokuserad).
+        rubrik: 'Systemkunskap som matchar moderna lager',
+        text: `CV:t nämner specifika lagersystem som SAP WM, Astro WMS och Ongoing Warehouse direkt under Kompetenser. Dessa system återfinns också i jobbeskrivningen med konkreta exempel på användning.
 
-Det som gör profilen extra stark är att den redan innehåller ett kvantifierbart resultat – 99.8% plocknoggrannhet. Detta fångar rekryterarens uppmärksamhet direkt och visar att Marcus inte bara beskriver sina arbetsuppgifter, utan faktiskt mäter sin prestation.
-
-ATS-system söker efter specifika termer som "SAP WM", "truckkort" och "plockning". Genom att inkludera dessa i profiltexten ökar sannolikheten att CV:t passerar den automatiska screeningen. Samtidigt signalerar "Lean 5S" att Marcus förstår processförbättring – något som är värdefullt för arbetsgivare som vill effektivisera sin lagerverksamhet.`
+Varför detta fungerar: Många lager sorterar bort ansökningar automatiskt om systemnamnen saknas. Genom att lista både äldre system (SAP) och moderna molnlösningar (Ongoing) visar kandidaten att hen kan jobba i olika miljöer. Rekryterare ser direkt att ingen längre introduktion behövs, vilket sparar 2-3 veckors utbildningstid.`
       },
       {
-        rubrik: 'Kvantifierbara resultat som sticker ut',
-        text: `Marcus' CV använder konkreta siffror som "99.8% plocknoggrannhet" och "180-220 order per dag". Detta är avgörande – många lagerarbetare skriver bara "ansvarade för plockning och packning" utan att visa omfattning eller kvalitet.
+        rubrik: 'Siffror som bevisar effektivitet och noggrannhet',
+        text: `Under varje arbetsgivare står mätbara resultat: "Hanterade 180-220 order per dag med 99,7% plocknoggrannhet" och "Minskade ledtid för expressorder från 4h till 2h genom optimerad plockrutt".
 
-Genom att kvantifiera sina resultat visar Marcus både kvalitet (99.8% noggrannhet) och volym (220 order/dag i högvolymlogistik). Han visar också förbättringsinitiativ: "Minskade ledtid för uttag från lager med 20% (från 25 till 20 min/order)" – vilket bevisar att han inte bara utför arbetet, utan aktivt effektiviserar processer.
-
-Rekryterare ser detta och tänker: "Här är en lagerarbetare som kan hantera högt tempo, behålla kvalitet OCH förbättra arbetssätt." Siffror ger kontext och visar värde på ett sätt som vaga beskrivningar aldrig kan.`
+Varför detta fungerar: Lagerarbete handlar om tempo och precision. Genom att visa både volym och kvalitet samtidigt bevisar kandidaten att snabbhet inte går ut över noggrannheten. Siffran 99,7% är särskilt stark eftersom den ligger över branschsnittet på 97-98%. Rekryterare kan direkt jämföra prestationen mot befintliga medarbetare.`
       },
       {
-        rubrik: 'Truckkort och certifieringar med årtal',
-        text: `Marcus visar tydligt att hans truckkort är giltiga: "Truckkort A – Motviktstruck (2017, förlängt 2024)". Detta är kritiskt eftersom truckkort gäller i 5 år – ett truckkort utan årtal kan vara ogiltigt, vilket gör kandidaten icke-anställningsbar för de flesta lagertjänster.
+        rubrik: 'Teknisk kompetens kombinerad med säkerhetsmedvetenhet',
+        text: `CV:t balanserar systemkunskap (WMS, ERP-integration, streckkodsläsare) med mjuka färdigheter som lagarbete och kvalitetskontroll. Under varje roll finns exempel på både operativt arbete och säkerhetsansvar.
 
-Utöver grundläggande truckkort har Marcus specialcertifieringar som ADR Grundkurs (farligt gods) och Heta Arbeten. Dessa öppnar dörrar till specialiserade lager inom kemi, läkemedel och industri – områden där konkurrensen är lägre och lönerna ofta högre.
+Varför detta fungerar: Moderna lager kräver båda delar. Tekniska färdigheter visar att kandidaten klarar digitaliseringen, medan säkerhetsfokus minskar risken för arbetsplatsolyckor och produktskador. Att kombinera "Lean 5S-implementering" med "noll arbetsplatsolyckor" signalerar mognad och ansvarstagande, vilket är avgörande för roller med maskinhantering.`
+      },
+      {
+        rubrik: 'Aktuella truckcertifikat med tydliga årtal',
+        text: `Under Certifieringar står "Truckkort A+B (förnyat 2024)", "ADR-intyg farligt gods (2023)" och "Arbetsmiljöutbildning (2024)". Varje certifiering har årtal och förnyelsedatum där det är relevant.
 
-Dedikerade sektionen för certifieringar visar också kontinuerlig kompetensutveckling. Att HLR är "förnyad 2024" och arbetsmiljöutbildning togs 2022 signalerar att Marcus håller sina kunskaper aktuella – något arbetsgivare värderar högt för en säker arbetsplats.`
+Varför detta fungerar: Truckkort är ett måste för de flesta lagerroller, men många glömmer förnya eller anger inte årtal. Genom att visa förnyelsedatum 2024 bekräftar kandidaten att certifieringen är giltig utan att rekryteraren behöver fråga. ADR-intyget öppnar för specialiserade roller inom farligt gods, vilket ofta ger 3000-5000 kr högre månadslön.`
+      },
+      {
+        rubrik: 'Profiltext som säljer in rätt kompetens',
+        text: `Profiltexten inleds med "Erfaren lagerarbetare med 8 års erfarenhet av högtempologistik och WMS-system" och nämner både teknisk kompetens och ledarskapsförmåga på två rader.
+
+Varför detta fungerar: Rekryterare läser profiltexten först och bestämmer på 15 sekunder om de läser vidare. Genom att direkt nämna år, specialisering (högtempologistik) och systemkunskap matchar kandidaten de vanligaste sökkriterierna. Frasen "från plockning till teamledning" visar karriärambition utan att vara för säljig, vilket är viktigt i praktiska yrken.`
+      },
+      {
+        rubrik: 'Tydlig progression från operativ till ledare',
+        text: `Arbetserfarenheten visar utveckling: först Lagerarbetare hos PostNord (plockning, lastning), sedan Lagermedarbetare hos IKEA (systemansvar, utbildning av nyanställda), slutligen Lagerpersonal/Vice lagerchef hos Beijer Byggmaterial med budgetansvar.
+
+Varför detta fungerar: Progressionen visar att kandidaten inte stannat på samma nivå utan tagit mer ansvar över tid. Att gå från operativt arbete till utbildningsansvar och sedan budgetansvar är den klassiska karriärstegen inom lager. Rekryterare ser att kandidaten är redo för nästa steg, vilket gör hen intressant för både specialistroller och mellanchefspositioner.`
       }
     ],
 
@@ -1445,32 +1453,40 @@ Använd exemplet som inspiration när du skriver ditt CV. Fokusera på antal är
 
     varforDetFungerar: [
       {
-        rubrik: 'Professionell profiltext med rätt nyckelord',
-        text: `Profiltexten följer tydlig struktur: "8+ års erfarenhet från ärendehantering, koordination och systemstöd" (omfattning) → "Specialist på Microsoft 365, Visma och W3D3" (konkreta system) → "Strukturerad och serviceinriktad" (drivkrafter).
+        rubrik: 'Branschspecifika systemkunskaper som ATS-system hittar',
+        text: `CV:t nämner konkreta administrativa system som Visma, W3D3, Flex HRM och Microsoft 365 med specifika applikationer. Inte bara "kontorsprogram" utan exakta verktyg som SharePoint, Power Automate och Teams.
 
-De tre meningarna ger rekryteraren direkt överblick av systemkompetens, erfarenhetsnivå och personlighet. ATS-system letar efter specifika termer – Microsoft 365, Visma, W3D3, OSL, ärendehantering – eftersom rekryterare sällan har tid att gräva efter dem längre ner i CV:t. Genom att inkludera dessa i profiltexten ökar sannolikheten att passera den automatiska screeningen.`
+Varför detta fungerar: Rekryterare söker efter kandidater som kan börja jobba direkt utan lång introduktion. När ATS-systemet scannar efter "Visma" eller "W3D3" och hittar dem i ditt CV ökar chansen att bli kallad till intervju. Dessutom visar det att du förstår administratörens digitala verktygslåda, inte bara kan skriva i Word.`
       },
       {
-        rubrik: 'Kvantifierbara resultat som sticker ut',
-        text: `Här är skillnaden mellan ett CV som ignoreras och ett som bokas för intervju: Konkreta siffror.
+        rubrik: 'Siffror som bevisar effektivitet och noggrannhet',
+        text: `CV:t kvantifierar administrativa prestationer: "hanterade 150+ ärenden per månad", "99% leveransprecision i tidsrapportering", "minskade handläggningstid med 30%". Inte vaga påståenden utan konkreta mätetal.
 
-Rekryterare inom administratörsroller ser hundratals CV:n där kandidater skriver "ansvarade för ärendehantering" eller "koordinerade möten". Detta säger ingenting om omfattning, komplexitet eller effektivitet.
-
-**Jämför dessa två:**
-❌ "Ansvarade för ärendehantering och koordination"
-✅ "Koordinerar 200+ ärenden/månad med 98% leveransprecision"
-
-Den första kandidaten kan ha hanterat 10 ärenden/månad. Den andra visar både volym OCH kvalitet. Siffror ger kontext och trovärdighet – och ger rekryteraren något konkret att fråga om under intervjun.`
+Varför detta fungerar: Administration handlar om precision och effektivitet. När du visar att du hanterat 150 ärenden månaden med 99% noggrannhet bevisar du att du klarar högt tryck utan att tappa kvalitet. Rekryterare kan direkt jämföra din kapacitet med deras behov och förstå att du levererar resultat, inte bara utför uppgifter.`
       },
       {
-        rubrik: 'Branschspecifika system och certifieringar',
-        text: `CV:t listar konkreta system med kompetensnivå: Microsoft 365 (Expert, 8+ år), Visma (Avancerad, 5+ år), W3D3 (3+ år). Det räcker inte att bara lista systemen – du måste visa användningslängd och nivå.
+        rubrik: 'Teknisk kompetens balanserad med servicekänsla',
+        text: `CV:t kombinerar systemkunskap (Power Automate, GDPR-hantering, ekonomisystem) med mjuka färdigheter som "serviceinriktad", "proaktiv problemlösning" och "intern kundservice". Båda aspekterna lyfts med konkreta exempel.
 
-**Jämför:**
-❌ "Datorvana", "Goda Office-kunskaper"
-✅ "Microsoft 365 (Expert, 8+ år) – Word, Excel (pivottabeller, LETARAD), Outlook, Teams"
+Varför detta fungerar: Moderna administratörer är både systemexperter och servicehubbar. Rekryterare söker någon som kan automatisera processer OCH hjälpa kollegor med vänlighet. Genom att visa båda sidorna signalerar du att du förstår rollens dubbla natur – du är inte bara en systemadministratör eller bara en receptionist, utan en komplett administrativ resurs.`
+      },
+      {
+        rubrik: 'Certifieringar med årtal skapar trovärdighet',
+        text: `CV:t listar "Microsoft Office Specialist (2023)", "GDPR-certifiering (2022)" och "OSL Offentlig upphandling (2024)". Inte bara påståenden om kunskaper utan verifierbara kompetensbevis med aktuella årtal.
 
-"Datorvana" kan betyda att du kan skicka e-post. Den andra visar exakt vilka verktyg du behärskar och hur länge. Certifieringar med årtal (Microsoft 365 Certified 2023, GDPR 2022, OSL 2021) visar dessutom att kunskapen är aktuell och kontinuerligt uppdaterad.`
+Varför detta fungerar: Certifieringar är det närmaste du kommer objektivt bevis på kompetens. När rekryteraren ser att din GDPR-utbildning är från 2022 vet de att du har aktuell kunskap om dataskyddsförordningen, inte något du "hört talas om". Årtalen visar också att du aktivt vidareutbildar dig, vilket är avgörande i en roll där system och regelverk ständigt uppdateras.`
+      },
+      {
+        rubrik: 'Profiltext som säljer in rätt kompetens direkt',
+        text: `Profiltexten sammanfattar "Erfaren administratör med stark systemkompetens och dokumenterad förmåga att effektivisera administrativa processer". Den nämner både år av erfarenhet och specifika styrkor som processutveckling och mötesadministration.
+
+Varför detta fungerar: Rekryterare läser profiltexten först och avgör på 10 sekunder om de ska läsa vidare. En tydlig sammanfattning som nämner "processutveckling" och "systemkompetens" träffar exakt vad de söker. Istället för generiska formuleringar som "ansvarstagande och noggrann" får de konkret information om vad du faktiskt kan bidra med från dag ett.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression från grund till specialisering',
+        text: `CV:t visar utveckling från Administrativ assistent (2018-2020) via Administratör (2020-2022) till Senior administratör med processansvar (2022-nu). Varje steg har tydligt ökande ansvar: från löpande support till processutveckling och utbildning av kollegor.
+
+Varför detta fungerar: Progression bevisar att du inte stått still utan vuxit i rollen. Rekryterare ser att du börjat med grundläggande administration och utvecklats till att driva förbättringsarbete och utbilda andra. Det signalerar ambition, inlärningsförmåga och att du är redo för nästa steg – oavsett om det är en liknande roll eller ännu mer ansvar.`
       }
     ],
 
