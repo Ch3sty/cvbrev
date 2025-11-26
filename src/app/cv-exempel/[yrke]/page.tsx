@@ -1878,6 +1878,198 @@ Konkreta bevis sticker ut. Rekryterare ser tomma listor i varje tredje CV.`
       { yrke: 'HR-specialist', slug: 'hr-specialist' },
       { yrke: 'Controller', slug: 'controller' }
     ]
+  },
+
+  'lakare': {
+    yrke: 'Läkare',
+    sokvolym: 1200,
+    metaTitle: 'CV Exempel Läkare 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för läkare. ATS-optimerat med legitimation, specialistbevis, kliniska mått och journalsystem (TakeCare, Cosmic, Melior). Perfekt för regionsjukhus och privata vårdgivare.',
+
+    seoIntro: 'Söker du specialist- eller ST-läkartjänst och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar svenska regioner, universitetssjukhus och privata vårdgivare.\n\nDu får se exakt hur du balanserar klinisk kompetens (internmedicin, kardiologi, akutmedicin) med legitimationer och specialistbevis som är obligatoriska. CV:t visar konkreta resultat med kvantifierbara mått som "1 200+ patientmöten/år", "350+ ekokardiografier utförda" och "minskade väntetid för hjärtsviktsutredningar med 25%". Journalsystem som TakeCare, Melior och Cosmic samt certifieringar (ACLS, ATLS) nämns strategiskt för ATS-optimering.\n\nAnvänd det som inspiration för ditt eget CV läkare och anpassa det efter din specialisering – allmänmedicin, kirurgi, anestesi eller annan inriktning.',
+
+    intro: 'Ett professionellt CV-exempel för läkare som visar din kliniska kompetens, specialistmeriter och förmåga att leverera evidensbaserad vård med patientfokus. Detta exempel är optimerat för svenska vårdgivare och ATS-system.',
+
+    exempelCV: {
+      namn: 'Dr. Erik Johansson',
+      titel: 'Specialist i internmedicin med delspecialisering kardiologi',
+      kontakt: {
+        telefon: '070-234 56 78',
+        epost: 'erik.johansson@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/erikjohansson'
+      },
+
+      profil: 'Legitimerad läkare och specialist i internmedicin med 10+ års klinisk erfarenhet från akutmedicin och hjärtsvikt. Delspecialiserad inom kardiologi med gedigen kompetens i ekokardiografi, EKG-tolkning och hjärtsviktsbehandling. Dokumenterad förmåga att hantera 1 200+ patientmöten årligen med fokus på evidensbaserad vård och patientnära beslut. Erfaren i TakeCare, Melior och klinisk forskning med 8 publicerade artiklar inom hjärtsvikt.',
+
+      erfarenhet: [
+        {
+          titel: 'Överläkare, Kardiologiska kliniken',
+          arbetsgivare: 'Karolinska Universitetssjukhuset, Solna',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Ansvarig för hjärtsviktsmottagning med 1 200+ patientmöten årligen – utredning, behandling och uppföljning av hjärtsvikt (HFrEF, HFpEF)',
+            'Utför 350+ ekokardiografier per år (TTE) med fokus på systolisk/diastolisk funktion, klaffsjukdomar och kardiomyopatier',
+            'Minskade väntetid för hjärtsviktsutredningar från 8 till 6 veckor genom implementering av snabbspår för akut försämring',
+            'Handleder 3-4 ST-läkare årligen i ekokardiografi, EKG-tolkning och hjärtsviktsbehandling enligt ESC-guidelines',
+            'Driver kvalitetsarbete inom SWEDEHEART-registret – förbättrade dokumentation av läkemedelsbehandling till 95% (från 78%)',
+            'Använder TakeCare dagligen för journalföring, remisshantering och läkemedelsordinationer'
+          ]
+        },
+        {
+          titel: 'ST-läkare, Internmedicin (slutförd specialisttjänstgöring)',
+          arbetsgivare: 'Danderyds sjukhus, Stockholm',
+          period: '2016 – 2021',
+          beskrivning: [
+            'Specialisttjänstgöring inom internmedicin med rotationstjänstgöring på akutmottagning, kardiologi, gastro och njurmedicin',
+            'Ansvarig för vårdavdelning med 18-22 patienter under jourtjänstgöring – akuta bedömningar, behandlingsplanering och tvärprofessionellt samarbete',
+            'Självständig handläggning av internmedicinska tillstånd: hjärtsvikt, KOL, diabetes, sepsis, njursvikt och elektrolytrubbningar',
+            'Genomförde 500+ akuta bedömningar på akutmottagningen (triagering, initial utredning, ställningstagande till inläggning)',
+            'ACLS-instruktör (2019-2021) – utbildade 40+ vårdpersonal i akut hjärt-lungräddning och arytmihantering'
+          ]
+        },
+        {
+          titel: 'Underläkare (AT/ST)',
+          arbetsgivare: 'Södersjukhuset, Stockholm',
+          period: '2014 – 2016',
+          beskrivning: [
+            'AT-tjänstgöring inom internmedicin, kirurgi, akutmedicin och psykiatri (18 månader basblock + 6 månader valbara delar)',
+            'Ansvarig för initial bedömning och handläggning av akuta patienter under överläkarhandledning',
+            'Deltog i 200+ akuta hjärtstoppslarm och traumateam (ATLS-certifierad 2015)'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Läkarprogrammet, 330 hp',
+          skola: 'Karolinska Institutet, Stockholm',
+          period: '2008 – 2014',
+          beskrivning: 'Läkarexamen med VFU på Karolinska, Danderyds sjukhus och Södersjukhuset. Examensarbete: "Biomarkörer vid akut hjärtsvikt – NT-proBNP och Troponin T" (publicerat i Cardiology, 2014).'
+        },
+        {
+          titel: 'Specialistbevis Internmedicin',
+          skola: 'Socialstyrelsen',
+          period: '2021',
+          beskrivning: 'Specialistläkare i internmedicin efter slutförd ST-tjänstgöring (60 månader) och godkänt SIMKU-prov.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Internmedicin och kardiologi (Expert, 10+ år)',
+          'Ekokardiografi TTE (Avancerad, 5+ år, 1 500+ undersökningar)',
+          'EKG-tolkning och arytmidiagnostik (Expert, 10+ år)',
+          'Hjärtsviktsbehandling enligt ESC-guidelines (Expert, 6+ år)',
+          'TakeCare och Melior (journalsystem, daglig användning)',
+          'ACLS, ATLS och akut internmedicin',
+          'Klinisk forskning och publicering (8 artiklar)'
+        ],
+        personliga: [
+          'Analytisk och evidensbaserad beslutsfattare (1 200+ patientmöten/år med hög diagnostisk precision)',
+          'Pedagogisk handledarroll (handleder 3-4 ST-läkare årligen i ekokardiografi)',
+          'Stresstålig i akuta situationer (500+ akuta bedömningar, traumateam, hjärtstoppslarm)',
+          'Tvärprofessionell samarbetsförmåga (dagligt samarbete med sjuksköterskor, fysioterapeuter, dietister)',
+          'Kvalitetsmedveten (driver förbättringsarbete i SWEDEHEART-registret)'
+        ]
+      },
+
+      certifieringar: [
+        'Specialistbevis Internmedicin – Socialstyrelsen (2021)',
+        'Läkarlegitimation – Socialstyrelsen (2014, förnyad 2024)',
+        'ACLS (Advanced Cardiovascular Life Support) – instruktörscertifierad (förnyad 2024)',
+        'ATLS (Advanced Trauma Life Support) (2015, förnyad 2023)',
+        'Ekokardiografi TTE nivå 2 – Svensk Kardiologisk Förening (2020)',
+        'Strålskyddskurs för läkare (2015)',
+        'Forskningsetik och GCP (Good Clinical Practice) (2019)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande (C2) – medicinska publikationer och konferenser' },
+        { sprak: 'Tyska', niva: 'Grundläggande (B1)' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimerad struktur med medicinska nyckelord',
+        text: 'CV:t innehåller nyckelord som sjukhus, vårdcentraler och privata kliniker söker: specialist internmedicin, kardiologi, ekokardiografi, hjärtsvikt, TakeCare, Melior, ACLS, ATLS, patientmöten, ST-läkare, handledarskap, evidensbaserad vård och klinisk kompetens.\n\nDessa termer matchas direkt mot jobbannonser inom sjukvården. Rubriker som "Arbetslivserfarenhet", "Certifieringar" och "Kompetenser" följer ATS-standard. Specifik terminologi som "specialist i internmedicin med delspecialisering kardiologi" och "1 200+ patientmöten årligen" visar omfattning och erfarenhetsnivå direkt.\n\nAtt nämna både journalsystem (TakeCare, Melior) och diagnostiska metoder (ekokardiografi, ultraljud) ger rekryterare konkret bild av din tekniska kompetens och att du kan börja arbeta utan lång introduktion.'
+      },
+      {
+        rubrik: 'Kvantifierbara kliniska resultat istället för vaga ansvarsområden',
+        text: 'Istället för "ansvarig för patientvård" visar CV:t konkreta siffror: 1 200+ patientmöten årligen, 350+ ekokardiografier per år, minskade väntetid från 8 till 6 veckor, handleder 3-4 ST-läkare årligen, 8 publicerade artiklar.\n\nVarför detta fungerar: Rekryterare inom sjukvården ser hundratals CV:n där läkare skriver "erfarenhet av internmedicin" eller "arbetar med kardiologipatienter". Dessa beskrivningar säger ingenting om volym, specialisering eller kvalitet.\n\nSiffror ger trovärdighet och visar arbetskapacitet. Skillnaden mellan "arbetar med hjärtsviktspatienter" och "minskade väntetid för hjärtsviktsutredningar från 8 till 6 veckor genom effektiv triagering och patientflöde" är enorm. Det visar inte bara klinisk kompetens utan också systemtänk och förbättringsarbete som gynnar patientsäkerheten.'
+      },
+      {
+        rubrik: 'Balans mellan klinisk kompetens och forskningsmeriter',
+        text: 'CV:t kombinerar praktisk erfarenhet (1 200+ patientmöten, 350+ ekokardiografier) med akademiska meriter (8 publicerade artiklar, handledarskap för ST-läkare). Båda är kritiska för läkare som söker specialist- eller överläkartjänster.\n\nVarje kompetens backas upp med konkret bevis. "Erfaren kardiolog" styrks med "350+ ekokardiografier per år". "Pedagogisk förmåga" visas genom "handleder 3-4 ST-läkare årligen med 100% godkända specialiseringsmål". "Forskningsintresse" exemplifieras med "8 publicerade artiklar inom hjärtsvikt i peer-reviewed journals".\n\nDetta undviker tomma påståenden som "kommunikativ, empatisk, analytisk" utan sammanhang – det buzzword bingo som rekryterare ser i varje tredje CV. Konkreta bevis på hur du arbetat med komplexa patientfall, handlett kollegor och bidragit till evidensbaserad vård sticker ut och visar verklig kompetens inom specialistområdet.'
+      },
+      {
+        rubrik: 'Certifieringar och legitimation som trovärdighetsmarkör',
+        text: 'Alla certifieringar har årtal: ACLS (förnyad 2024), ATLS (förnyad 2023), Specialistbevis internmedicin (2021), Läkarlegitimation (2014). Detta visar att du uppfyller formella krav och håller dig uppdaterad med akuta behandlingsprotokoll.\n\nCertifieringar som ACLS och ATLS är branschstandard inom akutsjukvård och internmedicin. De visar att du behärskar avancerad hjärt-lungräddning och traumahantering. Specialistbevis är objektiv bekräftelse på genomförd ST-utbildning och godkända kunskapsmål.\n\nAtt lista läkarlegitimation med årtal (2014) visar 10+ års klinisk erfarenhet sedan legitimation. Förnyelsedatum på ACLS och ATLS visar att certifieringarna är aktuella – kritiskt för patientsäkerhet. Detta fungerar som objektiva bevis på kompetens som arbetsgivare kan verifiera, till skillnad från påståenden om att vara "duktig på akutmedicin".'
+      },
+      {
+        rubrik: 'Profiltext som sammanfattar specialisering och volym',
+        text: 'Profiltexten sammanfattar erfarenhet (10+ års klinisk, specialist sedan 2021), specialisering (internmedicin med delspecialisering kardiologi) och volym (1 200+ patientmöten, 350+ ekokardiografier) på 3-4 meningar. Rekryteraren ser direkt om du matchar tjänstens krav.\n\nTekniska nyckelord (hjärtsvikt, ekokardiografi, evidensbaserad vård, TakeCare, handledarskap) och personliga egenskaper (noggrann diagnostiker, pedagogisk, forskningsintresserad) ger helhetsbild redan i inledningen. Att nämna specifika patientgrupper (hjärtsvikt, hypertoni, arytmier) visar specialistkompetens.\n\nKvantifierbart resultat (minskade väntetid från 8 till 6 veckor, 8 publicerade artiklar) redan i profiltexten fångar uppmärksamhet och visar att du kan hantera hög patientvolym med kvalitet samt bidrar till utveckling av evidensbaserad vård – något som är kritiskt för sjukhus som söker specialister.'
+      },
+      {
+        rubrik: 'Tydlig karriärprogression från AT till specialist',
+        text: 'Karriärutvecklingen syns tydligt: AT-läkare (bred klinisk grund) → ST-läkare internmedicin (specialisering) → Specialist med delspecialisering kardiologi (expertområde). Detta visar en naturlig progression inom svenskt läkarsystem.\n\nProgressionen demonstrerar också bredd: primärvård, akutmedicin och slutenvård. Du har erfarenhet av olika vårdnivåer och patientgrupper. Från bred allmänmedicin till fördjupad specialistkompetens inom kardiologi visar du både bredd och djup.\n\nAtt ha arbetat på både universitetssjukhus och primärvård visar att du kan navigera olika vårdorganisationer och samarbeta med olika professioner (sjuksköterskor, undersköterskor, fysioterapeuter, dietister). Handledarskap för ST-läkare visar ledarskap och pedagogisk mognad – meriterande för kliniker som söker erfarna specialister eller överläkare.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera patientmöten, procedurer och handledning',
+        text: 'Istället för "arbetar med kardiologipatienter" ska du specificera antal patientmöten, typ av undersökningar och volymer. Detta ger rekryterare konkret bild av din kliniska erfarenhet.\n\n**UNDVIK:** "Erfarenhet av ekokardiografi"\n**BRA:** "Utför 350+ ekokardiografier årligen (TTE och TEE) med fokus på hjärtsvikt, klaffsjukdom och kongenital hjärtsjukdom"\n\nSiffror visar omfattning och ger kontext. Om du handleder ST-läkare, kvantifiera: "Handleder 3-4 ST-läkare årligen med 100% godkända specialiseringsmål". Detta visar pedagogisk förmåga och erfarenhet.'
+      },
+      {
+        rubrik: 'Lista legitimation och specialistbevis med utfärdare och år',
+        text: 'Läkarlegitimation och specialistbevis är grundkrav för specialistläkare. Lista alltid utfärdare och årtal för att visa formell kompetens.\n\n**UNDVIK:** "Specialist i internmedicin"\n**BRA:**\n- "Läkarlegitimation, Socialstyrelsen (2014)"\n- "Specialistbevis internmedicin, Socialstyrelsen (2021)"\n- "ACLS – Advanced Cardiovascular Life Support (förnyad 2024)"\n\nÅrtal visar hur länge du arbetat som legitimerad läkare och när du blev specialist. Förnyelsedatum på ACLS/ATLS visar att certifieringarna är aktuella.'
+      },
+      {
+        rubrik: 'Inkludera journalsystem du arbetat i',
+        text: 'Sjukhus och vårdcentraler använder olika journalsystem. Att lista vilka du behärskar minskar introduktionstiden och visar IT-kompetens.\n\n**Vanliga journalsystem att namnge:**\n- TakeCare (region Stockholm)\n- Melior (region Skåne, Västra Götaland)\n- Cosmic (många privata vårdgivare)\n- Cambio (vissa regioner)\n\n**UNDVIK:** "Erfarenhet av journalsystem"\n**BRA:** "TakeCare (daglig användning 5+ år), Melior (grundläggande), Cosmic (VFU-erfarenhet)"'
+      },
+      {
+        rubrik: 'Anpassa CV för olika vårdgivare',
+        text: 'Universitetssjukhus, länssjukhus, vårdcentraler och privata kliniker söker olika kompetenser. Anpassa vad du lyfter fram beroende på tjänsten.\n\n**För universitetssjukhus:** Betona forskningsmeriter (publicerade artiklar, pågående studier), handledarskap för ST-läkare, avancerade procedurer.\n\n**För primärvård/vårdcentral:** Lyft fram bred internmedicinsk kompetens, erfarenhet av kroniska sjukdomar, patientnära arbete.\n\n**För privata specialistkliniker:** Fokusera på specifik specialistkompetens, diagnostiska färdigheter, effektivt patientflöde.'
+      },
+      {
+        rubrik: 'Visa konkreta resultat från kvalitetsförbättringar',
+        text: 'Kvantifierbara förbättringar inom vårdkvalitet, patientsäkerhet eller effektivitet sticker ut. Använd tidsbesparingar, minskade väntetider eller förbättrade utfall.\n\n**UNDVIK:** "Bidrog till förbättrad vårdkvalitet"\n**BRA:** "Minskade väntetid för hjärtsviktsutredningar från 8 till 6 veckor genom implementering av snabbspår och optimerad triagering" eller "Införde strukturerad uppföljningsrutin som minskade återinläggningar med 15%"\n\nOm du saknar exakta siffror, beskriv kvalitetsarbete: "Deltog i vårdprocessförbättring för sepsis" eller "Implementerade checklista för ekokardiografi".'
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som läkare vara?',
+        svar: 'För AT-läkare och nyspecialister räcker ofta 1-2 sidor. För erfarna specialister med 10+ års erfarenhet, forskningsmeriter och handledarskap behövs ofta 2 sidor, ibland 3 för professorer eller överläkare med omfattande publikationslista. Fokusera på de senaste 10-15 åren och lyft fram specialistkompetens, volymer (patientmöten, procedurer) och certifieringar. Akademiska meriter (publikationer, föreläsningar) kan listas separat om de är omfattande.'
+      },
+      {
+        fraga: 'Ska jag skriva ut min läkarlegitimation och specialistbevis?',
+        svar: 'Ja, alltid. Lista läkarlegitimation med årtal och utfärdare (Socialstyrelsen). För specialister: inkludera specialistbevis med område och år. Exempel: "Läkarlegitimation (2014)", "Specialistbevis internmedicin (2021)". Om du har delspecialisering, nämn det: "Delspecialisering kardiologi (pågående/slutförd 2023)". Detta är formella behörighetskrav som rekryterare söker efter och visar hur länge du arbetat som legitimerad läkare respektive specialist.'
+      },
+      {
+        fraga: 'Hur visar jag AT/ST-tjänstgöring i mitt CV?',
+        svar: 'Lista AT och ST som separata erfarenhetsposter med arbetsplats, period och huvudsakliga rotationer/avdelningar. För AT: nämn vilka basblock du genomfört. För ST: specificera specialitet, klinik och antal år. Exempel: "ST-läkare internmedicin, Karolinska Universitetssjukhuset (2017-2022) – Rotationer: kardiologi, gastroenterologi, endokrinologi, akutmedicin". Nämn även handledarskap, deltagande i konferenser och eventuella forskningsprojekt under ST.'
+      },
+      {
+        fraga: 'Vilka certifieringar är viktigast för läkare?',
+        svar: 'Prioritera dessa certifieringar beroende på specialitet: ACLS (Advanced Cardiovascular Life Support) – obligatorisk för internmedicin, akutmedicin, anestesi. ATLS (Advanced Trauma Life Support) – viktigt för akutmedicin, kirurgi. HLR-instruktör om relevant. För specialister: specifika certifieringar som POCUS, endoskopi-certifiering, bronkoskopi-certifiering beroende på område. Ange alltid årtal och förnyelsedatum: "ACLS (förnyad 2024)".'
+      },
+      {
+        fraga: 'Hur kvantifierar jag min kliniska erfarenhet?',
+        svar: 'Använd antal patientmöten per år/månad, antal specifika procedurer, antal handledda ST-läkare och förbättringsresultat. Exempel: "1 200+ patientmöten årligen", "350+ ekokardiografier per år", "Handleder 3-4 ST-läkare årligen". Om du förbättrat processer: "Minskade väntetid från 8 till 6 veckor" eller "Reducerade återinläggningar med 15%". Siffror ger kontext och visar både volym och kvalitet.'
+      }
+    ],
+
+    kategori: 'vard',
+    relaterade: [
+      { yrke: 'Sjuksköterska', slug: 'sjukskoterska' },
+      { yrke: 'Undersköterska', slug: 'underskoterska' },
+      { yrke: 'Fysioterapeut', slug: 'fysioterapeut' }
+    ]
   }
 }
 
