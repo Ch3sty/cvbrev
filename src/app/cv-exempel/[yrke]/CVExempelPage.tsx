@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { ArrowLeft, FileText, Sparkles, Target, Lightbulb, CheckCircle } from 'lucide-react'
@@ -62,6 +62,15 @@ interface CVExempelPageProps {
 
 export default function CVExempelPage({ data, initialHTML }: CVExempelPageProps) {
   const [activeTab, setActiveTab] = useState<'preview' | 'varfor' | 'tips'>('preview')
+
+  // Tvinga scrollbar för att förhindra CLS vid tab-byte
+  useEffect(() => {
+    document.documentElement.style.overflowY = 'scroll'
+
+    return () => {
+      document.documentElement.style.overflowY = ''
+    }
+  }, [])
 
   // Icon mapping för "Varför det fungerar" cards
   const ICONS = [CheckCircle, Target, Sparkles, FileText, CheckCircle, Target]
