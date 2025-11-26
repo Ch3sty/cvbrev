@@ -2070,6 +2070,168 @@ Konkreta bevis sticker ut. Rekryterare ser tomma listor i varje tredje CV.`
       { yrke: 'Undersköterska', slug: 'underskoterska' },
       { yrke: 'Fysioterapeut', slug: 'fysioterapeut' }
     ]
+  },
+
+  'butiksbitrade': {
+    yrke: 'Butiksbiträde',
+    sokvolym: 2400,
+    metaTitle: 'CV Exempel Butiksbiträde 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för butiksbiträde. ATS-optimerat, visar kvantifierbara försäljningsresultat, kassasystem och kundservice-kompetens. Ladda ner gratis mall.',
+
+    seoIntro: 'Söker du jobb som butiksbiträde och behöver ett CV som sticker ut? Det här exemplet visar hur du framhäver försäljningsresultat, kundservice-erfarenhet och teknisk kompetens på ett sätt som både ATS-system och rekryterare uppskattar.\n\nEtt bra CV för butiksbiträde balanserar mjuka kompetenser (servicekänsla, stresstålig) med konkreta resultat och branschspecifik kunskap. I det här exemplet ser du hur Emma kvantifierar sin försäljning (22% ökning, 220k kr/månad), specificerar kassasystem (Extenda, Visma Retail) och visar omfattning (40-60 kunder dagligen). Dessa detaljer gör CV:t trovärdigt och relevant för svenska detaljhandelsarbetsgivare.',
+
+    intro: 'Se hur ett professionellt CV för butiksbiträde struktureras för att lyfta fram försäljningsresultat, kassasystemkunskap och kundservice-erfarenhet.',
+
+    exempelCV: {
+      namn: 'Emma Lindström',
+      titel: 'Butiksbiträde med 6 års erfarenhet inom mode och detaljhandel',
+      kontakt: {
+        telefon: '070-123 45 67',
+        epost: 'emma.lindstrom@exempel.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/emmalindstrom'
+      },
+      profil: 'Serviceinriktad butiksbiträde med 6 års erfarenhet från modebutiker och detaljhandel. Specialist på visuell merchandising och merförsäljning, med gedigen kunskap i kassasystem (Extenda, Visma Retail) och kundrelationer. Driven av att skapa positiva kundupplevelser och öka försäljningen genom personlig service och produktkännedom.',
+      erfarenhet: [
+        {
+          titel: 'Butiksbiträde',
+          foretag: 'H&M Stockholm City',
+          period: '2021 - Nuvarande',
+          beskrivning: '- Ansvarar för 40-60 kundmöten dagligen med fokus på försäljning och service (genomsnittligt köpvärde 850 kr/kund)\n- Ökade personlig försäljning med 22% under 2023 jämfört med föregående år (från 180k till 220k kr/månad)\n- Visuell merchandising för damavdelningen – skapar skyltfönster och kampanjytor som ökade avdelningsförsäljning med 15%\n- Använder Extenda kassasystem dagligen för försäljning, returer och lagerhantering\n- Mentorskap för 3 nya medarbetare under introduktionsperiod (2-4 veckor)'
+        },
+        {
+          titel: 'Butiksbiträde/Säljare',
+          foretag: 'Lindex Gallerian',
+          period: '2019 - 2021',
+          beskrivning: '- Hanterade 30-50 kunder per dag under högsäsong (jul, rea-perioder uppåt 80 kunder/dag)\n- Ansvarade för kassa och daglig kassaavstämning (genomsnitt 120k kr/dag)\n- Merförsäljning av accessoarer och kompletterande produkter – bidrog till 18% merförsäljning i teamet\n- Lagerhantering och varuinleveranser (2-3 leveranser per vecka, 200-400 artiklar)\n- Deltog i inventering och sortimentsplanering'
+        },
+        {
+          titel: 'Extrapersonal Butiksbiträde',
+          foretag: 'Åhléns City',
+          period: '2018 - 2019',
+          beskrivning: '- Arbetade som extrapersonal under helger och högsäsong (jul, Black Friday)\n- Hanterade högt tempo under kampanjperioder (300+ kunder per dag under Black Friday)\n- Kassaansvar och kundservice inom kosmetik- och accessoaravdelningen\n- Fick erfarenhet av olika avdelningar: mode, kosmetik, hem och inredning'
+        }
+      ],
+      utbildning: [
+        {
+          program: 'Handelsprogrammet',
+          skola: 'Kungsholmens Gymnasium',
+          period: '2015 - 2018',
+          beskrivning: 'Inriktning: Handel och administration. Praktik på NK Stockholm (4 veckor, våren 2017).'
+        }
+      ],
+      kompetenser: {
+        tekniska: [
+          'Kassasystem (Extenda, Visma Retail)',
+          'Visuell merchandising',
+          'Lagerhantering och inventering',
+          'Merförsäljning och korsförsäljning',
+          'POS-system och betalningslösningar',
+          'Microsoft Office (Excel för lagerrapporter)'
+        ],
+        personliga: [
+          'Serviceinriktad (40-60 kundmöten dagligen med 4.8/5 i kundnöjdhet)',
+          'Stresstålig (hanterar 300+ kunder under kampanjperioder som Black Friday)',
+          'Säljorienterad (ökade personlig försäljning med 22% år 2023)',
+          'Teamplayer (mentorskap för 3 nya kollegor, samarbetar med 8-12 kollegor per skift)'
+        ]
+      },
+      certifieringar: [
+        'Kassautbildning Extenda (2021)',
+        'Visual Merchandising-kurs (H&M Academy, 2022)',
+        'Merförsäljningstekniker (Retail Academy, 2023)'
+      ],
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande (B2 - tjänstgör engelsktalande kunder dagligen)' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        nummer: 1,
+        titel: 'ATS-optimerad med branschspecifika nyckelord',
+        beskrivning: 'CV:t använder exakta system som svenska detaljhandelsföretag faktiskt söker efter: Extenda, Visma Retail och POS-system. När en rekryterare söker efter "Extenda" i sitt ATS-system kommer detta CV dyka upp direkt – medan konkurrenter som bara skrev "kassavana" sorteras bort. Nyckelorden är strategiskt placerade i både profiltext och arbetslivserfarenhet, vilket ger maximal träffyta utan att kännas påklistrat.'
+      },
+      {
+        nummer: 2,
+        titel: 'Kvantifierbara försäljningsresultat som bevisar påverkan',
+        beskrivning: 'Här är skillnaden mellan att få intervju eller inte: Emma visar "22% ökning personlig försäljning (220k kr/månad)" istället för vagt "ansvarade för försäljning". Varför spelar det roll? Eftersom rekryterare ser hundratals CV där alla påstår sig vara "försäljningsdrivna". Siffror är det enda som gör påståenden trovärdiga. När du skriver "15% avdelningsförsäljningsökning via visuell merchandising" visar du inte bara VAD du kan – du visar exakt HUR BRA du är på det.'
+      },
+      {
+        nummer: 3,
+        titel: 'Balans mellan försäljning och kundservice – med bevis',
+        beskrivning: 'Många butiksbiträden skriver bara "kommunikativ, serviceinriktad, flexibel" i sina CV:n. Det problemet kallas buzzword bingo – tomma ord utan kontext. Emma visar istället balansen genom konkreta exempel: "40-60 kundmöten dagligen med 4.8/5 kundnöjdhet" bevisar servicekompetens, medan "22% ökad försäljning" visar att hon kan sälja. Båda färdigheterna backas upp med siffror.'
+      },
+      {
+        nummer: 4,
+        titel: 'Stresshantering bevisad genom konkreta volymer',
+        beskrivning: 'Istället för att bara skriva "stresstålig" (vilket alla gör), visar Emma konkreta exempel på högt tempo: "300+ kunder under Black Friday" och "40-60 kundmöten dagligen". Detta ger rekryteraren kontext om vad du faktiskt klarar av. Kvantifierade stresstest-situationer är trovärdiga och visar erfarenhet av storköp och kampanjperioder, vilket är meriterande för många butiksroller.'
+      },
+      {
+        nummer: 5,
+        titel: 'Profiltext som säljande pitch på 4 rader',
+        beskrivning: 'Profiltexten följer den beprövade 4-komponent-strukturen: erfarenhet (6 år inom mode) + specialisering (merförsäljning och kundrelationer) + tekniska nyckelord (Extenda, Visma Retail) + drivkrafter (brinner för kundupplevelse). Rekryterare läser profiltexten FÖRST och beslutar inom 10 sekunder om de ska läsa vidare. En generisk "driven och serviceinriktad" säger ingenting – Emma\'s profiltext svarar direkt på frågorna: Hur länge? Vad kan hon? Vilka system?'
+      },
+      {
+        nummer: 6,
+        titel: 'Tydlig progression från extra till specialist',
+        beskrivning: 'CV:t visar karriärutveckling genom konkreta bevis: från "extrapersonal" till "säljare med mentorskap för 3 nya medarbetare" och "15% avdelningsförsäljningsökning via visuell merchandising". Progression är avgörande för erfarna kandidater (5+ år) eftersom det visar att du inte bara gjort samma sak i 6 år – du har utvecklats. Rekryterare letar efter tecken på ansvar och tillväxt.'
+      }
+    ],
+
+    tips: [
+      {
+        titel: 'Kvantifiera dina försäljningsresultat – vagt är värdelöst',
+        beskrivning: '❌ UNDVIK: "Ansvarade för försäljning" eller "Bidrog till butikens resultat"\n\n✅ SKRIV ISTÄLLET: "22% ökning personlig försäljning (från 180k till 220k kr/månad)" eller "Bäst i teamet Q2 2024 med 250k kr försäljning"\n\nKonkreta siffror visar exakt hur bra du är och ger rekryteraren något att fråga om under intervjun.'
+      },
+      {
+        titel: 'Namnge de kassasystem du faktiskt kan',
+        beskrivning: 'Skriv inte bara "kassavana" – det är för generiskt. Namnge specifika system: Extenda, Visma Retail, Sitoo, eller vilket system din arbetsgivare använde. ATS-system söker efter exakta systemmatchningar, och rekryterare inom detaljhandeln letar efter kandidater som kan börja jobba dag 1 utan omfattande kassautbildning.'
+      },
+      {
+        titel: 'Visa stresshantering genom konkreta exempel',
+        beskrivning: '❌ UNDVIK: Bara lista "stresstålig" eller "hanterar högt tempo" under kompetenser\n\n✅ SKRIV ISTÄLLET: "Hanterade 300+ kunder under Black Friday-kampanj" eller "40-60 kundmöten dagligen under högsäsong"\n\nGenom att kvantifiera volymerna visar du att du har erfarenhet av riktigt högt tempo.'
+      },
+      {
+        titel: 'Inkludera visuell merchandising om du jobbat med butikslayout',
+        beskrivning: 'Många butiksbiträden glömmer att nämna arbete med produktplacering, skyltning och butikslayout. Om du arrangerat produkter eller byggt kampanjdisplayer – nämn det! Skriv konkret: "Ansvarade för visuell merchandising – resulterade i 15% ökad avdelningsförsäljning". Det skiljer dig från de som bara sett sin roll som att bemanna kassan.'
+      },
+      {
+        titel: 'Certifieringar och kurser ger dig försprång',
+        beskrivning: 'Ta med alla relevanta kurser eller certifieringar, även interna: Kassautbildning (Extenda), merförsäljningstekniker, Visual Merchandising-kurser. Skriv årtal så rekryteraren vet att kunskapen är aktuell. De visar att du tagit initiativ till att lära dig mer än grunderna och att arbetsgivaren investerat i din utveckling.'
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur skriver jag ett bra CV som butiksbiträde utan formell utbildning?',
+        svar: 'Fokusera på konkret arbetslivserfarenhet och kvantifierbara resultat istället för utbildning. Skriv hur många kunder du hanterar dagligen, vilka kassasystem du kan (Extenda, Visma Retail), och eventuella försäljningsresultat. Inkludera certifieringar som kassautbildning eller merförsäljningskurser – även interna utbildningar räknas. Profiltext blir extra viktig här – använd de 4 raderna för att visa vad du kan, inte vad du saknar.'
+      },
+      {
+        fraga: 'Vilka nyckelord ska jag ha i mitt CV för att få jobb som butiksbiträde?',
+        svar: 'De viktigaste nyckelorden är: kassasystem (t.ex. Extenda, Visma Retail, POS), merförsäljning, kundservice, visuell merchandising, och försäljningsresultat. Integrera dem naturligt i profiltext och arbetslivserfarenhet. Om jobbannonsen nämner specifika system eller krav, matcha exakt samma termer. ATS-system söker efter nyckelordsmatchningar.'
+      },
+      {
+        fraga: 'Hur lång ska mitt CV vara som butiksbiträde?',
+        svar: '1 sida för 0-5 års erfarenhet, 2 sidor för 5+ år. De flesta butiksbiträden bör hålla sig till 1 sida – rekryterare inom detaljhandeln har sällan tid att läsa mer. Fokusera på de senaste 5-7 åren och utelämna tidiga extrajobb om de inte tillför något unikt. Prioritera alltid kvalitet över kvantitet.'
+      },
+      {
+        fraga: 'Ska jag inkludera extrajobb och sommarvikariat i mitt butiksbiträde-CV?',
+        svar: 'Ja, särskilt om du är junior (0-5 år). Extrajobb och vikariat räknas som riktig arbetslivserfarenhet inom detaljhandeln. Beskriv dem konkret: inte bara "Extrapersonal jul 2022" utan "Extrapersonal julhandeln 2022 – hanterade 150+ kunder dagligen, kassaansvar". Om du har 5+ års erfarenhet kan du summera äldre extraroller under en gemensam rubrik.'
+      },
+      {
+        fraga: 'Vad ska jag skriva under kompetenser som butiksbiträde?',
+        svar: 'Fokusera på 5-8 konkreta, tekniska färdigheter: Kassasystem (Extenda, Visma Retail), merförsäljningstekniker, visuell merchandising, lagerhantering, returer och reklamationer. Undvik buzzword-listor som "kommunikativ, flexibel, driven" utan kontext – visa dessa egenskaper genom exempel i arbetslivserfarenhet istället. Om du vill inkludera mjuka kompetenser, backa upp dem med siffror.'
+      }
+    ],
+
+    kategori: 'handel',
+    relaterade: [
+      { yrke: 'Säljare', slug: 'saljare' },
+      { yrke: 'Kassörska', slug: 'kassorska' },
+      { yrke: 'Butikschef', slug: 'butikschef' }
+    ]
   }
 }
 
