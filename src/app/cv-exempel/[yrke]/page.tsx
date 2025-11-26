@@ -1497,12 +1497,7 @@ Konkreta bevis sticker ut. Rekryterare ser tomma listor i varje tredje CV.`
     metaTitle: 'CV Exempel Lokalvårdare 2025 - Professionell Mall | Jobbcoach.ai',
     metaDescription: 'Se ett komplett CV-exempel för lokalvårdare. ATS-optimerat, strukturerat för svenska städföretag och visar städteknisk kompetens, kemikaliehantering och kvantifierbara resultat.',
 
-    // SEO-rik introduktion
-    seoIntro: `Söker du jobb som lokalvårdare och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar svenska städföretag, fastighetsbolag och kommunala verksamheter.
-
-Du får se exakt hur du balanserar teknisk städkompetens (desinfektionsrutiner, golvvård, kemikaliehantering enligt SDS) med de mjuka färdigheter som rekryterare söker (noggrannhet, självständighet, tidsplanering). CV:t visar konkreta resultat från storstädning och daglig lokalvård med kvantifierbara exempel som "ansvarig för 3 500 kvm kontorsyta" och "reducerade kemikalieanvändning med 20%".
-
-Använd det som inspiration för ditt eget CV lokalvårdare och anpassa det efter den tjänst du söker. Läs också våra tips om hur du lyfter fram rätt nyckelord för städbranschen för att öka dina chanser till intervju.`,
+    seoIntro: 'Söker du jobb som lokalvårdare och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar svenska städföretag, fastighetsbolag och kommunala verksamheter.\n\nDu får se exakt hur du balanserar teknisk städkompetens (desinfektionsrutiner, golvvård, kemikaliehantering enligt SDS) med de mjuka färdigheter som rekryterare söker (noggrannhet, självständighet, tidsplanering). CV:t visar konkreta resultat från storstädning och daglig lokalvård med kvantifierbara exempel som "ansvarig för 3 500 kvm kontorsyta" och "reducerade kemikalieanvändning med 20%".\n\nAnvänd det som inspiration för ditt eget CV lokalvårdare och anpassa det efter den tjänst du söker. Läs också våra tips om hur du lyfter fram rätt nyckelord för städbranschen för att öka dina chanser till intervju.',
 
     intro: 'Ett professionellt CV-exempel för lokalvårdare som visar din städtekniska kompetens, erfarenhet av olika städmiljöer och förmåga att leverera kvalitetsresultat. Detta exempel är optimerat för svenska städföretag och ATS-system.',
 
@@ -1601,126 +1596,54 @@ Använd det som inspiration för ditt eget CV lokalvårdare och anpassa det efte
     varforDetFungerar: [
       {
         rubrik: 'ATS-optimerad struktur med branschspecifika nyckelord',
-        text: \`CV:t innehåller nyckelord som städföretag och rekryteringssystem letar efter: lokalvård, kontorsstädning, storstädning, desinfektionsrutiner, kemikaliehantering, SDS (Säkerhetsdatablad), golvvård, hygienprotokoll, och miljömärkta produkter. Dessa termer matchas direkt mot jobbannonser inom städbranschen.
-
-Rubriker som "Erfarenhet", "Kompetenser" och "Certifieringar" följer standard som ATS-system förstår. Specifik terminologi som "boning", "polish" och "maskinstädning" visar att du behärskar fackspråket och kan börja arbeta utan lång introduktion.
-
-Genom att nämna ytor i kvadratmeter (3 500 kvm, 2 000 kvm) ger du rekryterare konkret bild av din kapacitet och arbetsbelastning.\`
+        text: 'CV:t innehåller nyckelord som städföretag och rekryteringssystem letar efter: lokalvård, kontorsstädning, storstädning, desinfektionsrutiner, kemikaliehantering, SDS (Säkerhetsdatablad), golvvård, hygienprotokoll, och miljömärkta produkter. Dessa termer matchas direkt mot jobbannonser inom städbranschen.\n\nRubriker som "Erfarenhet", "Kompetenser" och "Certifieringar" följer standard som ATS-system förstår. Specifik terminologi som "boning", "polish" och "maskinstädning" visar att du behärskar fackspråket och kan börja arbeta utan lång introduktion.\n\nGenom att nämna ytor i kvadratmeter (3 500 kvm, 2 000 kvm) ger du rekryterare konkret bild av din kapacitet och arbetsbelastning.'
       },
       {
         rubrik: 'Kvantifierbara resultat istället för vaga ansvarsområden',
-        text: \`Istället för att skriva "ansvarig för städning" visar CV:t konkreta siffror:
-- "Ansvarig för 3 500 kvm kontorsyta fördelat på 3 våningsplan"
-- "100% godkända hygienkontroller under 3 år"
-- "Reducerade kemikalieanvändning med 20%"
-- "Teamledare för 4 lokalvårdare"
-
-Varför detta fungerar: Rekryterare inom städbranschen ser hundratals CV:n där kandidater skriver "städade kontor" eller "ansvarig för lokalvård". Dessa beskrivningar säger ingenting om omfattning.
-
-Siffror ger trovärdighet och kontext. Skillnaden mellan "städade kontor" och "ansvarig för 3 500 kvm kontorsyta med 200+ arbetsplatser" är enorm – det visar att du kan hantera stora ytor och hög arbetsbelastning effektivt.\`
+        text: 'Istället för att skriva "ansvarig för städning" visar CV:t konkreta siffror:\n- "Ansvarig för 3 500 kvm kontorsyta fördelat på 3 våningsplan"\n- "100% godkända hygienkontroller under 3 år"\n- "Reducerade kemikalieanvändning med 20%"\n- "Teamledare för 4 lokalvårdare"\n\nVarför detta fungerar: Rekryterare inom städbranschen ser hundratals CV:n där kandidater skriver "städade kontor" eller "ansvarig för lokalvård". Dessa beskrivningar säger ingenting om omfattning.\n\nSiffror ger trovärdighet och kontext. Skillnaden mellan "städade kontor" och "ansvarig för 3 500 kvm kontorsyta med 200+ arbetsplatser" är enorm – det visar att du kan hantera stora ytor och hög arbetsbelastning effektivt.'
       },
       {
         rubrik: 'Balans mellan tekniska färdigheter och personliga egenskaper',
-        text: \`CV:t kombinerar teknisk kompetens (golvvård, kemikaliehantering, desinfektionsrutiner) med mjuka färdigheter (noggrannhet, självständighet, flexibilitet). Båda är kritiska inom städbranschen.
-
-Varje personlig egenskap backas upp med konkret bevis. "Noggrann" visas genom "100% godkända hygienkontroller under 3 år på sjukhus". "Självständig" styrks med "eget ansvar för 3 500 kvm utan daglig övervakning". "Flexibel" exemplifieras med "erfarenhet av dag, kväll, helg och jourtjänst".
-
-Detta undviker tomma påståenden som "noggrann och pålitlig" utan sammanhang. Rekryterare ser dessa buzzwords i varje tredje CV – konkreta bevis sticker ut.\`
+        text: 'CV:t kombinerar teknisk kompetens (golvvård, kemikaliehantering, desinfektionsrutiner) med mjuka färdigheter (noggrannhet, självständighet, flexibilitet). Båda är kritiska inom städbranschen.\n\nVarje personlig egenskap backas upp med konkret bevis. "Noggrann" visas genom "100% godkända hygienkontroller under 3 år på sjukhus". "Självständig" styrks med "eget ansvar för 3 500 kvm utan daglig övervakning". "Flexibel" exemplifieras med "erfarenhet av dag, kväll, helg och jourtjänst".\n\nDetta undviker tomma påståenden som "noggrann och pålitlig" utan sammanhang. Rekryterare ser dessa buzzwords i varje tredje CV – konkreta bevis sticker ut.'
       },
       {
         rubrik: 'Certifieringar som trovärdighetsmarkör',
-        text: \`Alla certifieringar har årtal: "Kemikaliehantering enligt SDS (förnyad 2024)", "Hygienutbildning för vård- och omsorgsmiljöer (2018)", "Truckkort A+B (2020)". Detta visar att du håller dig uppdaterad och tar ditt yrke på allvar.
-
-Truckkort och körkort B nämns eftersom dessa ofta är krav för lokalvårdare som behöver transportera material eller arbeta på flera platser. Första hjälpen och HLR visar säkerhetsmedvetenhet.
-
-Certifieringar fungerar som objektiva bevis på kompetens som arbetsgivare kan verifiera, till skillnad från påståenden om att vara "duktig på städning".\`
+        text: 'Alla certifieringar har årtal: "Kemikaliehantering enligt SDS (förnyad 2024)", "Hygienutbildning för vård- och omsorgsmiljöer (2018)", "Truckkort A+B (2020)". Detta visar att du håller dig uppdaterad och tar ditt yrke på allvar.\n\nTruckkort och körkort B nämns eftersom dessa ofta är krav för lokalvårdare som behöver transportera material eller arbeta på flera platser. Första hjälpen och HLR visar säkerhetsmedvetenhet.\n\nCertifieringar fungerar som objektiva bevis på kompetens som arbetsgivare kan verifiera, till skillnad från påståenden om att vara "duktig på städning".'
       },
       {
         rubrik: 'Profiltext som säljande sammanfattning',
-        text: \`Profiltexten sammanfattar erfarenhet (6+ år), specialisering (kontorsstädning, sjukhusmiljöer, storstädning) och unika styrkor på 3-4 meningar. Rekryteraren ser direkt om du matchar tjänsten.
-
-Tekniska nyckelord (desinfektionsrutiner, SDS, golvvård, maskinstädning) och personliga egenskaper (självständig, pålitlig) ger helhetsbild. Att nämna körkort och truckkort redan i profilen visar att du uppfyller vanliga krav.
-
-Kvantifierbart resultat (3 500+ kvm) redan i profiltexten fångar uppmärksamhet och visar kapacitet innan rekryteraren läser vidare.\`
+        text: 'Profiltexten sammanfattar erfarenhet (6+ år), specialisering (kontorsstädning, sjukhusmiljöer, storstädning) och unika styrkor på 3-4 meningar. Rekryteraren ser direkt om du matchar tjänsten.\n\nTekniska nyckelord (desinfektionsrutiner, SDS, golvvård, maskinstädning) och personliga egenskaper (självständig, pålitlig) ger helhetsbild. Att nämna körkort och truckkort redan i profilen visar att du uppfyller vanliga krav.\n\nKvantifierbart resultat (3 500+ kvm) redan i profiltexten fångar uppmärksamhet och visar kapacitet innan rekryteraren läser vidare.'
       },
       {
         rubrik: 'Tydlig progression från städare till teamledare',
-        text: \`Karriärutvecklingen syns tydligt: Städare på Samhall (1 500 kvm, 5 arbetsplatser) → Lokalvårdare på sjukhus (2 000 kvm, hygienprotokoll) → Teamledare (3 500 kvm, 4 medarbetare). Detta visar att du utvecklats från utförare till ledare.
-
-Progressionen demonstrerar också bredd: kontorsstädning, sjukhusmiljö med strikta hygienrutiner, och storstädning. Du kan anpassa dig till olika miljöer och krav.
-
-Att nämna "Månadens medarbetare" och att ha fått ansvar för introduktion av nyanställda signalerar att arbetsgivare litar på dig och ser potential för mer ansvar.\`
+        text: 'Karriärutvecklingen syns tydligt: Städare på Samhall (1 500 kvm, 5 arbetsplatser) → Lokalvårdare på sjukhus (2 000 kvm, hygienprotokoll) → Teamledare (3 500 kvm, 4 medarbetare). Detta visar att du utvecklats från utförare till ledare.\n\nProgressionen demonstrerar också bredd: kontorsstädning, sjukhusmiljö med strikta hygienrutiner, och storstädning. Du kan anpassa dig till olika miljöer och krav.\n\nAtt nämna "Månadens medarbetare" och att ha fått ansvar för introduktion av nyanställda signalerar att arbetsgivare litar på dig och ser potential för mer ansvar.'
       }
     ],
 
     tips: [
       {
         rubrik: 'Kvantifiera städyta och arbetsbelastning',
-        text: \`Istället för "Ansvarig för lokalvård" ska du specificera yta i kvadratmeter, antal rum/arbetsplatser och typ av miljö. Detta ger rekryterare konkret bild av din kapacitet.
-
-**UNDVIK:** "Städade kontor och allmänna utrymmen"
-**BRA:** "Ansvarig för daglig lokalvård av 3 500 kvm kontorsyta fördelat på 3 våningsplan med 200+ arbetsplatser"
-
-Siffror visar att du kan hantera stora ytor effektivt. Om du arbetat på flera platser, summera: "Totalt ansvar för 5 000+ kvm fördelat på 4 arbetsplatser".\`
+        text: 'Istället för "Ansvarig för lokalvård" ska du specificera yta i kvadratmeter, antal rum/arbetsplatser och typ av miljö. Detta ger rekryterare konkret bild av din kapacitet.\n\n**UNDVIK:** "Städade kontor och allmänna utrymmen"\n**BRA:** "Ansvarig för daglig lokalvård av 3 500 kvm kontorsyta fördelat på 3 våningsplan med 200+ arbetsplatser"\n\nSiffror visar att du kan hantera stora ytor effektivt. Om du arbetat på flera platser, summera: "Totalt ansvar för 5 000+ kvm fördelat på 4 arbetsplatser".'
       },
       {
         rubrik: 'Visa konkreta resultat från din städning',
-        text: \`Kvantifierbara förbättringar sticker ut. Använd procent, godkända kontroller eller kostnadsbesparingar för att visa effekten av ditt arbete.
-
-**UNDVIK:** "Utförde städning enligt rutin"
-**BRA:** "Implementerade nya desinfektionsrutiner som resulterade i noll smittspridning under pandemin" eller "Reducerade kemikalieanvändning med 20% genom korrekt dosering enligt SDS"
-
-Om du saknar exakta siffror, beskriv kvalitetsresultat: "100% godkända hygienkontroller under 3 år" eller "Noll kundklagomål under 18 månader".\`
+        text: 'Kvantifierbara förbättringar sticker ut. Använd procent, godkända kontroller eller kostnadsbesparingar för att visa effekten av ditt arbete.\n\n**UNDVIK:** "Utförde städning enligt rutin"\n**BRA:** "Implementerade nya desinfektionsrutiner som resulterade i noll smittspridning under pandemin" eller "Reducerade kemikalieanvändning med 20% genom korrekt dosering enligt SDS"\n\nOm du saknar exakta siffror, beskriv kvalitetsresultat: "100% godkända hygienkontroller under 3 år" eller "Noll kundklagomål under 18 månader".'
       },
       {
         rubrik: 'Lista städtekniska kompetenser med erfarenhetsnivå',
-        text: \`Undvik vaga termer som "städerfarenhet". Lista istället konkreta kompetensområden med nivå och årserfarenhet.
-
-**UNDVIK:** "Erfarenhet av städning"
-**BRA:**
-- "Kontorsstädning och storstädning (Expert, 6+ år)"
-- "Golvvård – boning, polish, maskinstädning (Avancerad, 4+ år)"
-- "Kemikaliehantering enligt SDS (Avancerad, 5+ år)"
-
-Detta visar exakt vad du kan och hur länge du arbetat med det. Rekryterare ser direkt om du matchar deras behov.\`
+        text: 'Undvik vaga termer som "städerfarenhet". Lista istället konkreta kompetensområden med nivå och årserfarenhet.\n\n**UNDVIK:** "Erfarenhet av städning"\n**BRA:**\n- "Kontorsstädning och storstädning (Expert, 6+ år)"\n- "Golvvård – boning, polish, maskinstädning (Avancerad, 4+ år)"\n- "Kemikaliehantering enligt SDS (Avancerad, 5+ år)"\n\nDetta visar exakt vad du kan och hur länge du arbetat med det. Rekryterare ser direkt om du matchar deras behov.'
       },
       {
         rubrik: 'Inkludera relevanta certifieringar med datum',
-        text: \`Certifieringar visar professionalism och att du tar ditt yrke på allvar. Lista alltid årtal, särskilt förnyelsedatum för tidsbegränsade certifikat.
-
-**Viktiga certifieringar för lokalvårdare:**
-- Lokalvårdscertifikat eller städutbildning
-- Kemikaliehantering enligt SDS
-- Hygienutbildning (särskilt för vård/omsorg)
-- Truckkort (om relevant)
-- Ergonomi och säkert lyft
-- Första hjälpen och HLR
-
-Förnyelsedatum är viktigt: "Kemikaliehantering enligt SDS (förnyad 2024)" visar att din kunskap är aktuell.\`
+        text: 'Certifieringar visar professionalism och att du tar ditt yrke på allvar. Lista alltid årtal, särskilt förnyelsedatum för tidsbegränsade certifikat.\n\n**Viktiga certifieringar för lokalvårdare:**\n- Lokalvårdscertifikat eller städutbildning\n- Kemikaliehantering enligt SDS\n- Hygienutbildning (särskilt för vård/omsorg)\n- Truckkort (om relevant)\n- Ergonomi och säkert lyft\n- Första hjälpen och HLR\n\nFörnyelsedatum är viktigt: "Kemikaliehantering enligt SDS (förnyad 2024)" visar att din kunskap är aktuell.'
       },
       {
         rubrik: 'Anpassa CV för olika städmiljöer',
-        text: \`Städföretag söker olika kompetenser beroende på miljö. Anpassa vad du lyfter fram beroende på tjänsten du söker.
-
-**För kontorsstädning:** Betona kontorsytor, storstädning, golvvård, fönsterputsning, flexibla arbetstider.
-
-**För sjukhus/vård:** Lyft fram hygienprotokoll, smittskydd, desinfektionsrutiner, hygienkontroller, samarbete med vårdpersonal.
-
-**För industri/lager:** Fokusera på maskinstädning, tunga ytor, truckkort, säkerhet, fysisk uthållighet.
-
-Behåll samma CV-struktur men justera profiltexten och vilken erfarenhet du expanderar mest på.\`
+        text: 'Städföretag söker olika kompetenser beroende på miljö. Anpassa vad du lyfter fram beroende på tjänsten du söker.\n\n**För kontorsstädning:** Betona kontorsytor, storstädning, golvvård, fönsterputsning, flexibla arbetstider.\n\n**För sjukhus/vård:** Lyft fram hygienprotokoll, smittskydd, desinfektionsrutiner, hygienkontroller, samarbete med vårdpersonal.\n\n**För industri/lager:** Fokusera på maskinstädning, tunga ytor, truckkort, säkerhet, fysisk uthållighet.\n\nBehåll samma CV-struktur men justera profiltexten och vilken erfarenhet du expanderar mest på.'
       },
       {
         rubrik: 'Backa upp personliga egenskaper med konkreta bevis',
-        text: \`Undvik att bara lista "noggrann, pålitlig, självständig" utan sammanhang. Visa istället dessa egenskaper genom konkreta exempel från din arbetserfarenhet.
-
-**UNDVIK:** "Noggrann och pålitlig städare"
-**BRA:** "Noggrann (100% godkända hygienkontroller under 3 år på sjukhus)"
-
-**UNDVIK:** "Självständig och flexibel"
-**BRA:** "Självständig (eget ansvar för 3 500 kvm utan daglig övervakning, flexibel med dag/kväll/helg)"
-
-Bevis gör dina påståenden trovärdiga. Rekryterare läser "noggrann och pålitlig" i varje andra CV – konkreta exempel sticker ut.\`
+        text: 'Undvik att bara lista "noggrann, pålitlig, självständig" utan sammanhang. Visa istället dessa egenskaper genom konkreta exempel från din arbetserfarenhet.\n\n**UNDVIK:** "Noggrann och pålitlig städare"\n**BRA:** "Noggrann (100% godkända hygienkontroller under 3 år på sjukhus)"\n\n**UNDVIK:** "Självständig och flexibel"\n**BRA:** "Självständig (eget ansvar för 3 500 kvm utan daglig övervakning, flexibel med dag/kväll/helg)"\n\nBevis gör dina påståenden trovärdiga. Rekryterare läser "noggrann och pålitlig" i varje andra CV – konkreta exempel sticker ut.'
       }
     ],
 
