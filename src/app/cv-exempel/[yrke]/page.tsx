@@ -2249,6 +2249,181 @@ Konkreta bevis sticker ut. Rekryterare ser tomma listor i varje tredje CV.`
       { yrke: 'Kassörska', slug: 'kassorska' },
       { yrke: 'Butikschef', slug: 'butikschef' }
     ]
+  },
+
+  'it-konsult': {
+    yrke: 'IT-konsult',
+    sokvolym: 620,
+    metaTitle: 'CV Exempel IT-konsult 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för IT-konsult. ATS-optimerat med Azure/AWS, projektlista och kvantifierbara resultat. Visar tech stack, certifieringar och konsultuppdrag.',
+
+    seoIntro: 'Söker du konsultuppdrag som IT-konsult och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar både konsultbolag och direktkunder – med tydlig projektlista och teknisk bredd.\n\nDu får se exakt hur du balanserar cloud-kompetens (Azure, AWS, Kubernetes) med utvecklingsspråk (C#, Python, React) och agila metoder (Scrum, DevOps). CV:t visar konkreta resultat från kunduppdrag: migrerade system, optimerad infrastruktur och levererade projekt i tid och budget.\n\nAnvänd det som inspiration för ditt eget CV som IT-konsult och anpassa det efter den tjänst du söker.',
+
+    intro: 'Ett professionellt CV-exempel för IT-konsult som visar din tekniska bredd, cloud-expertis och förmåga att leverera värde i kunduppdrag. Detta exempel är optimerat för svenska konsultbolag och ATS-system.',
+
+    exempelCV: {
+      namn: 'Erik Bergström',
+      titel: 'IT-konsult med specialisering inom cloud & DevOps',
+      kontakt: {
+        telefon: '070-123 45 67',
+        epost: 'erik.bergstrom@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/erikbergstrom'
+      },
+      profil: 'IT-konsult med 8+ års erfarenhet av cloud-infrastruktur och DevOps-transformationer. Specialist på Azure-miljöer och microservices-arkitektur, med gedigen kunskap i Kubernetes, Terraform och CI/CD-pipelines. Certifierad Azure Solutions Architect och AWS Solutions Architect. Drivs av att leverera skalbara lösningar som möter kundernas affärsmål – från requirement-analys till driftsättning och kunskapsöverföring.',
+      erfarenhet: [
+        {
+          titel: 'Senior IT-konsult',
+          arbetsgivare: 'Norian Consulting AB',
+          period: '2021 – Nuvarande',
+          beskrivning: [
+            'Leder cloud-migrationsprojekt för enterprise-kunder (3-12 månaders uppdrag) med fokus på Azure och AWS – migrerade 15+ applikationer från on-premise till cloud med 99,9% uptime',
+            'Teknisk arkitekt för microservices-plattform (React frontend, .NET Core backend, PostgreSQL) som hanterar 2M+ transaktioner/månad för fintech-kund',
+            'Implementerade CI/CD-pipelines (Azure DevOps, GitLab CI) som reducerade release-tid från 2 veckor till 2 dagar för tillverkningskund',
+            'Mentor för 3 junior-konsulter – coachar i Azure-arkitektur, Infrastructure as Code och Agile-metodik'
+          ]
+        },
+        {
+          titel: 'IT-konsult',
+          arbetsgivare: 'Cornerstone IT AB',
+          period: '2018 – 2021',
+          beskrivning: [
+            'Utvecklade och driftsatte 10+ kundprojekt inom webb och cloud (tech stack: C#, React, Azure, Docker) med genomsnittlig kundnöjdhet 4.7/5',
+            'DevOps-ansvarig för e-handelsplattform (50k användare) – automatiserade infrastruktur med Terraform vilket minskade driftkostnader med 30%',
+            'Requirement-analys och teknisk rådgivning för SME-kunder – översatte affärsbehov till tekniska lösningar med ROI-fokus'
+          ]
+        },
+        {
+          titel: 'Systemutvecklare',
+          arbetsgivare: 'TechSolutions Sweden AB',
+          period: '2016 – 2018',
+          beskrivning: [
+            'Utvecklade interna verktyg i C# och .NET Framework för CRM-integration (Salesforce API) som sparade 15 timmar/vecka i manuellt arbete',
+            'Migrerade legacy-system från Java 7 till Java 11 (6 månaders projekt, noll driftstopp, 20% prestandaförbättring)',
+            'Agile Scrum-team (5 personer) – deltog i sprint planning, daily standups och retrospectives'
+          ]
+        }
+      ],
+      utbildning: [
+        {
+          titel: 'Civilingenjör, Datateknik',
+          skola: 'Kungliga Tekniska Högskolan (KTH)',
+          period: '2011 – 2016',
+          beskrivning: 'Specialisering inom distribuerade system och molninfrastruktur. Examensarbete: "Skalbar microservices-arkitektur för IoT-system".'
+        }
+      ],
+      kompetenser: {
+        tekniska: [
+          'Cloud & DevOps: Azure (Expert, 7+ år), AWS, Kubernetes, Docker, Terraform',
+          'Programmering: C# (.NET Core), Python, JavaScript/TypeScript',
+          'Frontend & Backend: React, Node.js, RESTful API, Microservices',
+          'Databaser: PostgreSQL, SQL Server, MongoDB',
+          'Verktyg & Metodik: Azure DevOps, Git, Jira, Agile/Scrum, CI/CD'
+        ],
+        personliga: [
+          'Stakeholder management (översätter tekniska koncept till affärsspråk för C-level)',
+          'Problemlösning under tidspress (levererat 95% av projekt i tid och budget)',
+          'Kunskapsöverföring (dokumentation och workshops för kundteam)',
+          'Självgående konsult (driver projekt från kravställning till leverans)'
+        ]
+      },
+      certifieringar: [
+        'Microsoft Certified: Azure Solutions Architect Expert (2024)',
+        'AWS Certified Solutions Architect – Associate (2023)',
+        'Certified Kubernetes Administrator (CKA) (2022)',
+        'Professional Scrum Master (PSM I) (2020)'
+      ],
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande (C1)' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        nummer: 1,
+        titel: 'Tech stack som visar bredd utan överdrift',
+        beskrivning: 'CV:t listar tekniker grupperade efter område – inte 40 verktyg i en enda lista. "Azure (Expert, 7+ år), AWS, Kubernetes" ger tydlig nivåindikation på toppkompetensen, medan övriga tekniker listas utan nivå för att undvika upprepning. Detta är avgörande för ATS-system som söker efter specifika nyckelord (Azure, Kubernetes, CI/CD), samtidigt som CV:t förblir läsbart för rekryterare. Erik visar multi-cloud-bredd (Azure + AWS) utan att påstå sig vara expert på allt.'
+      },
+      {
+        nummer: 2,
+        titel: 'Kvantifierbara konsultresultat som visar business impact',
+        beskrivning: 'Varför får Erik intervjuer när andra IT-konsulter sorteras bort? Han skriver "Migrerade 15+ applikationer med 99,9% uptime" istället för "Ansvarig för migrering". Siffror är avgörande – rekryterare läser hundratals CV där kandidater bara skriver "ansvarade för cloud-migration". Erik visar konkret affärsnytta: 2M+ transaktioner/månad (skala), 30% minskade driftkostnader (ekonomi), 99,9% uptime (kvalitet). Detta översätter teknik till affärsspråk som beslutsfattare förstår.'
+      },
+      {
+        nummer: 3,
+        titel: 'Affärsfokus istället för buzzword bingo',
+        beskrivning: 'Erik skriver inte "Kommunikativ, driven problemlösare med god samarbetsförmåga" – han visar det genom konkreta exempel: "Mentor för 3 junior-konsulter" (pedagogik), "Kundnöjdhet 4.7/5 på 10+ kundprojekt" (stakeholder management), "Reducerade release-tid från 2 veckor till 2 dagar" (processutveckling). Problemet med "kommunikativ, flexibel, driven" är att ALLA skriver det. Rekryterare läser dessa tomma påståenden hundratals gånger per dag.'
+      },
+      {
+        nummer: 4,
+        titel: 'Cloud-certifieringar som trovärdighetsmarkör',
+        beskrivning: 'Erik listar 4 certifieringar med årtal: Azure Solutions Architect Expert (2024), AWS Solutions Architect Associate (2023), CKA (2022), PSM I (2020). Detta visar tre saker rekryterare letar efter: 1) Aktiv kompetensutveckling (certifieringar är nya), 2) Multi-cloud-kompetens (både Azure och AWS), 3) Bred expertis (cloud + Kubernetes + Scrum). För konsultuppdrag är certifieringar ofta hårda krav – vissa kunder kräver Azure-certifiering för att ens komma på upphandling.'
+      },
+      {
+        nummer: 5,
+        titel: 'Tydlig progression från utvecklare till senior konsult',
+        beskrivning: 'CV:t visar 8 års resa: Systemutvecklare (2016-2018) → IT-konsult (2018-2021) → Senior IT-konsult (2021-nu). Varje steg har tydligare ansvar: Först byggde han applikationer, sedan ledde han kundprojekt, nu designar han cloud-arkitektur och mentorar andra. Många erfarna utvecklare listar samma typ av arbetsuppgifter för varje jobb, vilket får det att se ut som att de stått still. Erik visar ökad komplexitet och ledarskap.'
+      },
+      {
+        nummer: 6,
+        titel: 'DevOps-resultat som kopplar teknik till tid och pengar',
+        beskrivning: 'Erik skriver "Reducerade release-tid från 2 veckor till 2 dagar" – en klassisk DevOps-metrik som alla beslutsfattare förstår. Snabbare releases = snabbare time-to-market. Han följer upp med "Minskade driftkostnader med 30% via Terraform" – vilket översätter infrastructure-as-code till ekonomisk påverkan. Detta skiljer tekniska CV:n från konsult-CV:n: Erik pratar om affärsresultatet, inte bara den tekniska processen.'
+      }
+    ],
+
+    tips: [
+      {
+        titel: 'Gruppera din tech stack – lista inte alla 40 verktyg',
+        beskrivning: '❌ UNDVIK: Att lista Python, JavaScript, TypeScript, Node.js, React, Angular, Vue, Django, Flask, PostgreSQL, MySQL, MongoDB, Redis, Docker, Kubernetes, AWS, Azure, Terraform, Jenkins, GitLab CI... Det blir oöverskådligt och signalerar osäkerhet.\n\n✅ SKRIV ISTÄLLET: Gruppera efter kategori och håll det till 8-12 totalt. "Cloud: Azure (Expert, 7+ år), AWS | Containers: Kubernetes, Docker | Språk: C#, Python". Ge nivå på TOP 3, resten utan.'
+      },
+      {
+        titel: 'Översätt teknik till affärsspråk för C-level',
+        beskrivning: 'Rekryterare och beslutsfattare förstår inte alltid "microservices" eller "CI/CD-pipelines" – de förstår tid, pengar och risk. "Byggde CI/CD-pipeline" → "Reducerade release-tid från 2 veckor till 2 dagar". "Implementerade Kubernetes" → "Hanterar 2M+ transaktioner/månad med 99,9% uptime". "Terraform" → "Minskade driftkostnader med 30%". Detta gör ditt CV läsbart för både tekniska och icke-tekniska beslutsfattare.'
+      },
+      {
+        titel: 'Lägg till certifieringar med årtal – visar aktiv utveckling',
+        beskrivning: '❌ UNDVIK: "Azure-certifierad" eller "AWS Solutions Architect" utan årtal. Rekryteraren vet inte om du tog certifieringen 2018 eller 2024.\n\n✅ SKRIV ISTÄLLET: "Azure Solutions Architect Expert (2024), AWS Solutions Architect Associate (2023), CKA (2022)". Detta visar att certifieringarna är aktuella och att du utvecklas aktivt. För konsultuppdrag är certifieringar ofta formella krav.'
+      },
+      {
+        titel: 'Visa konsultresultat med kundkontext och omfattning',
+        beskrivning: 'Som IT-konsult jobbar du på många olika uppdrag – ge varje uppdrag kontext. "Migrerade applikationer till Azure" säger ingenting. Skriv istället: "Migrerade 15+ applikationer från on-prem till Azure för fintech-kund (2M+ transaktioner/månad, 99,9% uptime-krav)". Detta visar omfattning, bransch, skala och kvalitetskrav. Kombinera teknisk prestation med affärskontext.'
+      },
+      {
+        titel: 'Skillnaden mellan utvecklare och konsult: Mentorskap och kundnöjdhet',
+        beskrivning: 'Vad skiljer en senior IT-konsult från en senior utvecklare? Konsulter jobbar mot externa kunder, mentorar juniorer och driver projekt. Visa detta: "Mentor för 3 junior-konsulter", "Kundnöjdhet 4.7/5 på 10+ projekt", "Faciliterade tekniska diskussioner mellan utvecklingsteam och C-level". Detta visar mjuka kompetenser utan att skriva "driven, kommunikativ, flexibel".'
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur många tekniker ska jag lista i mitt CV som IT-konsult?',
+        svar: 'Håll det till 8-12 tekniska färdigheter totalt, grupperade efter kategori (Cloud, Språk, Verktyg, Metodik). Ge kompetensnivå på dina TOP 3 färdigheter (t.ex. "Azure (Expert, 7+ år)"), resten utan nivå. Att lista 40 verktyg signalerar osäkerhet – fokusera på vad du faktiskt är expert på. ATS-system söker efter specifika nyckelord, men rekryterare vill se fokuserad expertis.'
+      },
+      {
+        fraga: 'Ska jag ha certifieringar i mitt IT-konsult CV?',
+        svar: 'Ja, certifieringar är ofta hårda krav för konsultuppdrag. Lista dem med årtal: "Azure Solutions Architect Expert (2024), AWS Solutions Architect Associate (2023), CKA (2022)". Detta visar aktiv kompetensutveckling, multi-cloud-kompetens och formell validering. Vissa kunder kräver specifika certifieringar för att ens komma på upphandling – utan dem går du miste om uppdrag.'
+      },
+      {
+        fraga: 'Hur visar jag konsultresultat när jag haft många korta uppdrag?',
+        svar: 'Ge varje uppdrag kontext och kvantifierbara resultat. Istället för "Migrerade till cloud", skriv "Migrerade 15+ applikationer till Azure för fintech-kund (2M+ transaktioner/månad, 99,9% uptime)". Detta visar omfattning, bransch, skala och kvalitetskrav. För kortare uppdrag (3-6 månader), fokusera på vad du levererade, inte hur länge du var där.'
+      },
+      {
+        fraga: 'Vad är skillnaden mellan ett utvecklar-CV och ett IT-konsult-CV?',
+        svar: 'IT-konsult-CV:n betonar: 1) Kundkontext (bransch, omfattning, resultat), 2) Affärsfokus (översätt teknik till tid/pengar), 3) Mjuka kompetenser genom exempel (mentorskap, kundnöjdhet 4.7/5), 4) Multi-cloud eller bred teknisk bredd. Utvecklar-CV:n fokuserar mer på teknisk djup. Som konsult säljer du förmågan att leverera värde i olika kundmiljöer.'
+      },
+      {
+        fraga: 'Hur skriver jag om DevOps-arbete utan att bli för teknisk?',
+        svar: 'Översätt DevOps-resultat till affärsspråk: "Reducerade release-tid från 2 veckor till 2 dagar" (snabbare time-to-market), "Minskade driftkostnader med 30% via infrastructure-as-code" (ekonomi), "Automatiserade deploy-processer vilket eliminerade 15 timmars manuellt arbete/vecka" (effektivitet). Beslutsfattare förstår tid, pengar och risk – använd dessa mätvärden.'
+      }
+    ],
+
+    kategori: 'it',
+    relaterade: [
+      { yrke: 'Systemutvecklare', slug: 'systemutvecklare' },
+      { yrke: 'DevOps Engineer', slug: 'devops-engineer' },
+      { yrke: 'Projektledare IT', slug: 'projektledare-it' }
+    ]
   }
 }
 
