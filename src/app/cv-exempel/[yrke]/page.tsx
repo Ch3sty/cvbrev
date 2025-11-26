@@ -2654,6 +2654,221 @@ Rekryterare som anställer studenter och nyexaminerade förväntar sig inte 10 �
       { yrke: 'Ekonomiassistent', slug: 'ekonomiassistent' },
       { yrke: 'Kundtjänst', slug: 'kundtjanst' }
     ]
+  },
+
+  'larare': {
+    yrke: 'Lärare',
+    sokvolym: 2900,
+    metaTitle: 'CV Exempel Lärare 2025 – Professionell Mall & Tips | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för lärare. ATS-optimerat, anpassat för svenska skolor och visar pedagogisk kompetens + resultat. Inkluderar tips och branschspecifika nyckelord.',
+
+    seoIntro: `Söker du jobb som lärare och vill ha ett CV som verkligen sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat lärar-CV som passar svenska grund- och gymnasieskolor – oavsett om du är nyexaminerad eller har mångårig erfarenhet.
+
+Du får se exakt hur du lyfter fram din lärarlegitimation, ämnesbehörighet och pedagogiska kompetens tillsammans med konkreta resultat från klassrummet. CV:t balanserar teknisk skicklighet (läroplaner, digitala verktyg, bedömningsmetoder) med de mjuka färdigheter som rektorer och HR-avdelningar prioriterar – ledarskap, relationsskapande och elevfokus.
+
+Använd exemplet som inspiration för ditt eget lärar-CV och anpassa det efter den tjänst du söker. Läs också våra tips längre ner om hur du optimerar ditt personliga brev för att öka dina chanser till intervju.`,
+
+    intro: 'Ett professionellt CV-exempel för lärare som visar din pedagogiska kompetens, ämnesbehörighet och passion för undervisning. Detta exempel är optimerat för svenska skolor och ATS-system.',
+
+    exempelCV: {
+      namn: 'Emma Bergström',
+      titel: 'Legitimerad grundskollärare F-6 med behörighet i svenska och SO',
+      kontakt: {
+        telefon: '073-456 78 90',
+        epost: 'emma.bergstrom@email.se',
+        plats: 'Uppsala',
+        linkedin: 'linkedin.com/in/emmabergstrom'
+      },
+
+      profil: 'Legitimerad grundskollärare med 9 års erfarenhet av undervisning i svenska och SO för årskurs F-6. Behörig i ämnena svenska och samhällsorienterande ämnen med dokumenterad förmåga att höja elevresultat – senast 18% förbättring i nationella prov i svenska. Brinner för att skapa en trygg och stimulerande lärmiljö där varje elev får möjlighet att utvecklas.',
+
+      erfarenhet: [
+        {
+          titel: 'Grundskollärare F-6',
+          arbetsgivare: 'Kvarnsvedens skola, Uppsala kommun',
+          period: '2018 – Pågående',
+          beskrivning: [
+            'Undervisar ca 75 elever årligen i svenska och SO för årskurs 4-6 med fokus på differentierad undervisning och formativ bedömning',
+            'Ökade andelen elever som nådde kunskapskraven i svenska med 18% genom strukturerad läsundervisning och individuella utvecklingsplaner',
+            'Mentorsansvar för 25 elever inklusive utvecklingssamtal, åtgärdsprogram och samverkan med elevhälsoteam',
+            'Leder arbetslagets digitala utveckling – implementerade Google Classroom och Skolverkets bedömningsstöd för hela mellanstadiet',
+            'Handleder VFU-studenter och introducerar nyexaminerade lärare i skolans rutiner och pedagogiska modeller'
+          ]
+        },
+        {
+          titel: 'Grundskollärare F-3',
+          arbetsgivare: 'Dalaskolans grundskola, Borlänge kommun',
+          period: '2015 – 2018',
+          beskrivning: [
+            'Ansvarade för undervisning i svenska, SO och bild för årskurs 1-3 med betoning på tidiga läs- och skrivinsatser',
+            'Utvecklade 100+ digitala lektionsresurser i Skolplus och Bingel som ökade elevengagemanget med uppskattningsvis 40%',
+            'Deltog aktivt i skolans systematiska kvalitetsarbete och bidrog till förbättrad dokumentation av elevernas kunskapsutveckling',
+            'Genomförde kollegial handledning för 15 kollegor inom formativ bedömning och Läslyftet'
+          ]
+        },
+        {
+          titel: 'Sommarlägerledare',
+          arbetsgivare: 'Uppsala kommun, Kultur- och fritidsförvaltningen',
+          period: 'Sommaren 2013 – 2015',
+          beskrivning: [
+            'Planerade och ledde aktiviteter för 45 barn (6-12 år) under 8 veckors sommarprogram',
+            'Utvecklade pedagogiska temaaktiviteter kring natur, idrott och skapande som ökade återkommande deltagare med 30%'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Grundlärarexamen F-6, 240 hp',
+          skola: 'Uppsala universitet',
+          period: '2011 – 2015',
+          beskrivning: 'Inriktning svenska och SO. VFU på Tiundaskolan och Eriksbergsskolan i Uppsala.'
+        },
+        {
+          titel: 'Specialpedagogik 1, 7.5 hp',
+          skola: 'Högskolan Dalarna',
+          period: '2020',
+          beskrivning: 'Fördjupning i anpassningar för elever med neuropsykiatriska funktionsnedsättningar.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Läroplaner: Lgr22, kursplaner F-6 (Expert)',
+          'Digitala verktyg: Google Classroom, Skolplus, Bingel (Avancerad)',
+          'Bedömning: Formativ bedömning, nationella prov, IUP (Expert)',
+          'Dokumentation: Unikum, Infomentor (Avancerad)',
+          'Läs- och skrivinlärning: Läslyftet, Bornholmsmodellen',
+          'Specialpedagogik: Extra anpassningar, åtgärdsprogram',
+          'Konflikthantering: Lågaffektivt bemötande',
+          'Elevhälsoarbete: EHT-samverkan, SPSM-material'
+        ],
+        personliga: [
+          'Ledarskap och klassrumsledning (dokumenterat genom VFU-handledarskap)',
+          'Relationsskapande med elever och vårdnadshavare (hög närvaro på utvecklingssamtal)',
+          'Flexibilitet och lösningsfokus (anpassar undervisning efter elevbehov)',
+          'Samarbetsförmåga (aktiv i arbetslag och ämnesteam)',
+          'Engagemang för elevernas utveckling (initierade läxhjälpsgrupp)'
+        ]
+      },
+
+      certifieringar: [
+        'Lärarlegitimation F-6 (2015)',
+        'Specialpedagogik 1 (2020)',
+        'Läslyftet – Skolverket (2019)',
+        'Google Certified Educator Level 1 (2021)',
+        'HLR och första hjälpen (förnyad 2024)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Lärarlegitimation och behörighet syns direkt',
+        text: 'Legitimation och ämnesbehörighet framgår redan i titeln – rektorer ser omedelbart att du uppfyller de formella kraven.'
+      },
+      {
+        rubrik: 'Kvantifierade resultat sticker ut',
+        text: '18% förbättring i nationella prov, 75 elever årligen – konkreta siffror visar din påverkan och gör CV:t minnesvärt.'
+      },
+      {
+        rubrik: 'Balans mellan hårt och mjukt',
+        text: 'Teknisk kompetens (Lgr22, Google Classroom) kombineras med pedagogiskt ledarskap och relationsskapande.'
+      },
+      {
+        rubrik: 'ATS-vänlig struktur',
+        text: 'Relevanta nyckelord som "formativ bedömning", "IUP" och "extra anpassningar" hjälper CV:t passera automatiska filter.'
+      },
+      {
+        rubrik: 'Tydlig karriärutveckling',
+        text: 'Progressionen från VFU till handledarroll visar att du tar ansvar och utvecklas i yrket.'
+      },
+      {
+        rubrik: 'Modern digital kompetens',
+        text: 'Google Classroom, Skolplus och digital certifiering signalerar att du hänger med i skolans digitalisering.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: '1. Sätt legitimation och behörighet överst',
+        text: 'Rektorer scannar CV:n snabbt. Placera din lärarlegitimation och ämnesbehörighet i titeln eller profilen så att de inte missas. Skriv ut vilka ämnen och årskurser du är behörig i – "Legitimerad grundskollärare F-6 med behörighet i svenska och SO" är tydligare än bara "Lärare".'
+      },
+      {
+        rubrik: '2. Kvantifiera dina resultat',
+        text: 'Undvik vaga beskrivningar som "undervisade elever". Ange istället hur många elever du ansvarade för, hur stor förbättring du åstadkom i nationella prov eller hur många kollegor du handlett. Siffror gör ditt CV minnesvärt och visar konkret påverkan.'
+      },
+      {
+        rubrik: '3. Matcha annonsens nyckelord',
+        text: 'Läs jobbannonsen noggrant och identifiera nyckelord – "formativ bedömning", "digitala verktyg", "extra anpassningar". Använd samma formuleringar i ditt CV för att passera ATS-filter och visa att du förstår tjänstens krav.'
+      },
+      {
+        rubrik: '4. Lyft fram pedagogisk utveckling',
+        text: 'Visa att du utvecklas som lärare. Nämn fortbildningar som Läslyftet, Mattelyftet eller specialpedagogiska kurser. Certifieringar som Google Certified Educator eller handledaruppdrag signalerar att du tar ditt yrkeskunnande på allvar.'
+      },
+      {
+        rubrik: '5. Beskriv din klassrumsledning',
+        text: 'Rektorer söker lärare som kan leda ett klassrum. Beskriv hur du skapar struktur, hanterar konflikter eller bygger relationer med elever. "Implementerade lågaffektivt bemötande som minskade störande beteenden" säger mer än "har bra ordning".'
+      },
+      {
+        rubrik: '6. Anpassa efter skolform',
+        text: 'Ett CV för lågstadiet ska betona läs- och skrivinlärning, medan ett för högstadiet lyfter ämnesdjup och nationella prov. Anpassa ordval och exempel efter den specifika tjänsten du söker för att visa att du förstår målgruppen.'
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska ett lärar-CV vara?',
+        svar: 'För lärare med 5+ års erfarenhet rekommenderas två A4-sidor. Nyexaminerade klarar sig ofta med en sida. Det viktigaste är att varje punkt tillför värde – ta bort utfyllnadstext och fokusera på resultat och behörighet.'
+      },
+      {
+        fraga: 'Ska jag inkludera mitt betyg från lärarutbildningen?',
+        svar: 'Om du har höga betyg eller nyligen tagit examen kan det vara relevant. För erfarna lärare väger arbetslivserfarenhet tyngre – skippa betygen och lyft istället fram resultat från klassrummet.'
+      },
+      {
+        fraga: 'Vad ska jag skriva i sammanfattningen/profiltexten?',
+        svar: 'Inled med din legitimation, ämnesbehörighet och antal års erfarenhet. Nämn sedan ett konkret resultat (t.ex. förbättrade provresultat) och avsluta med vad som driver dig som pedagog. Håll det till 3-4 meningar.'
+      },
+      {
+        fraga: 'Hur visar jag att jag kan hantera stökiga klasser?',
+        svar: 'Beskriv konkreta metoder du använt – lågaffektivt bemötande, tydliga lektionsstrukturer eller samarbete med elevhälsan. Undvik negativa formuleringar och fokusera på vad du gjort för att skapa arbetsro.'
+      },
+      {
+        fraga: 'Ska extrajobb som inte är lärarrelaterade vara med?',
+        svar: 'Ja, om de visar överförbara färdigheter. Sommarjobb med barn, ledarskap i föreningar eller kundtjänst kan visa relationsskapande och ansvar. Beskriv vad du lärde dig snarare än arbetsuppgifterna.'
+      },
+      {
+        fraga: 'Hur hanterar jag luckor i min anställning?',
+        svar: 'Var ärlig men kortfattad. Om du vidareutbildade dig, föräldraledigt eller reste – nämn det kort. Fokusera på vad du lärde dig under tiden och hur det gjort dig till en bättre lärare.'
+      },
+      {
+        fraga: 'Vilka digitala verktyg ska jag nämna?',
+        svar: 'Prioritera verktyg som används brett: Google Classroom, Microsoft Teams, Unikum, Infomentor, Skolplus. Nämn även Skolverkets bedömningsstöd och eventuella certifieringar som Google Certified Educator.'
+      },
+      {
+        fraga: 'Ska jag nämna min VFU?',
+        svar: 'Ja, särskilt om du är nyexaminerad. Ange skola, årskurs och vad du fokuserade på. Erfarna lärare kan korta ner VFU-beskrivningen till en rad under utbildningen.'
+      },
+      {
+        fraga: 'Hur lyfter jag fram specialpedagogisk kompetens?',
+        svar: 'Nämn kurser (Specialpedagogik 1, SPSM-utbildningar), erfarenhet av extra anpassningar och åtgärdsprogram samt samarbete med elevhälsoteam. Kvantifiera om möjligt: "Utarbetade åtgärdsprogram för 8 elever med NPF".'
+      },
+      {
+        fraga: 'Ska jag skicka med personligt brev?',
+        svar: 'Ja, nästan alltid. Personligt brev låter dig förklara varför just den här skolan intresserar dig och ge kontext till ditt CV. Anpassa brevet efter varje tjänst och undvik generiska mallar.'
+      }
+    ],
+
+    kategori: 'utbildning',
+    relaterade: [
+      { yrke: 'Förskollärare', slug: 'forskollarare' },
+      { yrke: 'Specialpedagog', slug: 'specialpedagog' },
+      { yrke: 'Fritidspedagog', slug: 'fritidspedagog' }
+    ]
   }
 }
 
