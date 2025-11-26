@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { ArrowLeft, FileText, Sparkles, Target, Lightbulb, CheckCircle } from 'lucide-react'
@@ -19,11 +19,43 @@ const InteractiveCVPreview = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="bg-white rounded-xl border-2 border-slate-200 p-8 shadow-lg animate-pulse">
-        <div className="space-y-4">
-          <div className="h-4 bg-slate-200 rounded w-3/4"></div>
-          <div className="h-4 bg-slate-200 rounded w-1/2"></div>
-          <div className="h-4 bg-slate-200 rounded w-5/6"></div>
+      <div className="bg-white rounded-2xl border-2 border-slate-200 shadow-xl overflow-hidden">
+        {/* Matcha header från InteractiveCVPreview */}
+        <div className="bg-gradient-to-r from-slate-50 to-slate-100 px-6 py-4 border-b border-slate-200">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-slate-200 rounded-lg animate-pulse" />
+            <div className="space-y-2">
+              <div className="h-4 bg-slate-200 rounded w-32 animate-pulse" />
+              <div className="h-3 bg-slate-200 rounded w-24 animate-pulse" />
+            </div>
+          </div>
+        </div>
+        {/* Matcha CV-preview höjd (800px) för att förhindra CLS */}
+        <div className="bg-white p-12 space-y-6 animate-pulse" style={{ minHeight: '800px' }}>
+          <div className="space-y-2">
+            <div className="h-8 bg-slate-200 rounded w-3/4"></div>
+            <div className="h-4 bg-slate-200 rounded w-1/2"></div>
+          </div>
+          <div className="space-y-2">
+            <div className="h-4 bg-slate-200 rounded w-full"></div>
+            <div className="h-4 bg-slate-200 rounded w-5/6"></div>
+            <div className="h-4 bg-slate-200 rounded w-4/5"></div>
+          </div>
+          <div className="space-y-2">
+            <div className="h-6 bg-slate-200 rounded w-1/3"></div>
+            <div className="h-4 bg-slate-200 rounded w-full"></div>
+            <div className="h-4 bg-slate-200 rounded w-5/6"></div>
+          </div>
+        </div>
+        {/* Matcha footer från InteractiveCVPreview */}
+        <div className="bg-gradient-to-r from-cyan-600 to-indigo-600 px-6 py-4">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="space-y-2 text-center sm:text-left">
+              <div className="h-4 bg-white/30 rounded w-40 animate-pulse mx-auto sm:mx-0" />
+              <div className="h-3 bg-white/20 rounded w-64 animate-pulse" />
+            </div>
+            <div className="h-12 w-36 bg-white/30 rounded-xl animate-pulse" />
+          </div>
         </div>
       </div>
     )
@@ -62,15 +94,6 @@ interface CVExempelPageProps {
 
 export default function CVExempelPage({ data, initialHTML }: CVExempelPageProps) {
   const [activeTab, setActiveTab] = useState<'preview' | 'varfor' | 'tips'>('preview')
-
-  // Tvinga scrollbar för att förhindra CLS vid tab-byte
-  useEffect(() => {
-    document.documentElement.style.overflowY = 'scroll'
-
-    return () => {
-      document.documentElement.style.overflowY = ''
-    }
-  }, [])
 
   // Icon mapping för "Varför det fungerar" cards
   const ICONS = [CheckCircle, Target, Sparkles, FileText, CheckCircle, Target]

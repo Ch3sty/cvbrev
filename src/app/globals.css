@@ -330,6 +330,8 @@ body {
 html {
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+  /* Reservera plats för scrollbar för att förhindra CLS vid scrollbar-toggle */
+  scrollbar-gutter: stable;
 }
 
 /* Improve touch scrolling for all scrollable elements */
