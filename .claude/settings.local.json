@@ -12,7 +12,8 @@
       "Bash(npm run dev:*)",
       "Bash(Select-String -Pattern \"(error|Error|✓|✗|Page|Route|Generating|lagerarbetare)\")",
       "Bash(Select-Object -First 50)",
-      "Bash(Select-String -Pattern \"(error|Error|✓|✗|Page|Route|Generating|handlaggare)\")"
+      "Bash(Select-String -Pattern \"(error|Error|✓|✗|Page|Route|Generating|handlaggare)\")",
+      "Bash(Select-String -Pattern \"(error|Error|✓|✗|Page|Route|Generating|student)\")"
     ],
     "deny": [],
     "ask": []

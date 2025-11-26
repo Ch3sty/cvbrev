@@ -2424,6 +2424,236 @@ Konkreta bevis sticker ut. Rekryterare ser tomma listor i varje tredje CV.`
       { yrke: 'DevOps Engineer', slug: 'devops-engineer' },
       { yrke: 'Projektledare IT', slug: 'projektledare-it' }
     ]
+  },
+
+  'student': {
+    yrke: 'Student',
+    sokvolym: 590,
+    metaTitle: 'CV Exempel Student 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för studenter. ATS-optimerat, visar hur du lyfter fram kurser, projektarbeten och extrajobb. Inkluderar tips för första jobbet.',
+
+    seoIntro: `Ett cv student som faktiskt ger intervju kräver mer än bara att lista kurser och extrajobb. Rekryterare letar efter konkreta bevis på att du kan leverera resultat – även om du bara har några års erfarenhet från studier, praktik och deltidsjobb.
+
+Våra CV-exempel för studenter visar hur du lyfter fram relevanta kurser, kvantifierbara resultat från projektarbete och transferable skills från extrajobb. Du ser konkret hur du balanserar utbildning, praktik och kompetenser för att visa vad du kan bidra med – inte bara vad du har läst.
+
+Vill du komplettera ditt CV? Kolla våra exempel på personliga brev för studenter som visar hur du kopplar din utbildning till jobbet du söker.`,
+
+    intro: 'Ett professionellt CV-exempel för studenter som visar hur du lyfter fram utbildning, projektarbeten, praktik och extrajobb. Detta exempel är optimerat för svenska arbetsgivare och ATS-system.',
+
+    exempelCV: {
+      namn: 'Emma Andersson',
+      titel: 'Ekonomistudent med praktisk erfarenhet av redovisning och kundtjänst',
+      kontakt: {
+        telefon: '070-123 45 67',
+        epost: 'emma.andersson@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/emmaandersson'
+      },
+
+      profil: 'Driven ekonomistudent på Stockholms universitet med praktisk erfarenhet från redovisningsbyrå och kundnära extrajobb. Har arbetat med Fortnox, löpande bokföring och fakturahantering under praktikperiod som omfattade 200+ kundunderlag. Brinner för siffror och problemlösning, och trivs i miljöer där noggrannhet och servicekänsla går hand i hand. Söker nu sommarjobb eller traineeprogram inom redovisning eller controller-funktioner.',
+
+      erfarenhet: [
+        {
+          titel: 'Redovisningspraktikant',
+          arbetsgivare: 'Stockholms Redovisningsbyrå AB',
+          period: '2024-01 – 2024-06',
+          beskrivning: [
+            'Hanterade löpande bokföring för 15 mindre företag med totalt 200+ fakturor per månad',
+            'Assisterade vid månadsbokslut och avstämningar i Fortnox, vilket minskade avstämningstiden med 20%',
+            'Digitaliserade fakturahantering för 5 kunder, vilket resulterade i 30% snabbare fakturaflöde',
+            'Sammanställde underlag för momsredovisning och svarade på kundförfrågningar via telefon och mejl'
+          ]
+        },
+        {
+          titel: 'Barista & Skiftledare',
+          arbetsgivare: 'Café Aroma, Stockholm',
+          period: '2022-06 – Pågående',
+          beskrivning: [
+            'Betjänar 150+ kunder dagligen under rusningstid med fokus på snabb och serviceinriktad service',
+            'Ansvarar för kassahantering och daglig avstämning med 99,5% korrekta kassarapporter',
+            'Utbildade 3 nya medarbetare i kassasystem och kaffemaskinhantering',
+            'Hanterar beställningar och lageroptimering, vilket minskat svinn med 15%'
+          ]
+        },
+        {
+          titel: 'Eventansvarig',
+          arbetsgivare: 'Stockholms Ekonomistudentkår',
+          period: '2023-01 – 2024-06',
+          beskrivning: [
+            'Planerade och genomförde 8 studiesociala event med totalt 400+ deltagare',
+            'Hanterade budgetar på upp till 25 000 kr per event med full redovisningsansvar',
+            'Samordnade sponsorsamarbeten som genererade 40 000 kr i intäkter under året',
+            'Ledde ett team på 6 personer och säkerställde tidsplaner och leveranser'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Kandidatprogram i Ekonomi, 180 hp',
+          skola: 'Stockholms universitet',
+          period: '2022 – 2025',
+          beskrivning: 'Fördjupning inom redovisning och finansiell analys. Relevanta kurser: Extern redovisning, Management accounting, Företagsekonomi, Statistik. Genomsnitt: 4.2/5.0'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Fortnox (Avancerad, praktik 6 månader)',
+          'Microsoft Excel (pivottabeller, formler, VLOOKUP)',
+          'Microsoft PowerPoint',
+          'Visma eEkonomi',
+          'Grundläggande SQL',
+          'Google Workspace'
+        ],
+        personliga: [
+          'Noggrannhet (hanterat 200+ fakturor/månad utan fel)',
+          'Kundservice (150+ kundmöten dagligen med positiv feedback)',
+          'Projektledning (genomfört 8 event med 400+ deltagare)',
+          'Problemlösning (optimerat lagerhantering och minskat svinn 15%)',
+          'Lagarbete (samordnat team på 6 personer i studentkåren)'
+        ]
+      },
+
+      certifieringar: [
+        'Fortnox Grundkurs (2024)',
+        'Hygienbevis inom livsmedelsbranschen (2022)',
+        'Excel för ekonomer – Nivå 2 (LinkedIn Learning, 2023)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande (C1)' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimerad struktur med rätt nyckelord för din bransch',
+        text: `Många studenter missar att ATS-system (de automatiska rekryteringssystem som de flesta företag använder) letar efter specifika nyckelord från jobbannonsen. Våra exempel visar hur du integrerar branschspecifika termer naturligt i din profiltext, utbildning och projektbeskrivningar.
+
+Om annonsen nämner "Fortnox", "kundservice" eller "projektledning" tre gånger ska dessa ord finnas i ditt CV – placerade i rätt sektioner. Du ser exakt var och hur du ska inkludera dem utan att det känns konstlat eller upprepat. Detta ökar chansen att ditt CV når en rekryterare.`
+      },
+      {
+        rubrik: 'Konkreta siffror från extrajobb och projekt som bevisar resultat',
+        text: `Skillnaden mellan "jobbade på café" och "serverade 150+ kunder per dag och ökade merförsäljning med 25%" är enorm. Våra exempel visar hur du kvantifierar allt: antal kunder, omsättning, timmar, teamstorlek, projektbudgetar.
+
+Även ditt kandidatarbete får konkreta siffror – "analyserade data från 500 respondenter" säger mer än "genomförde undersökning". Du lär dig vilka siffror som faktiskt spelar roll för rekryterare och hur du räknar fram dem från dina erfarenheter. Siffror gör ditt CV trovärdigt.`
+      },
+      {
+        rubrik: 'Balans mellan tekniska färdigheter och mjuka kompetenser med bevis',
+        text: `Rekryterare vill se både vad du kan (Excel, projektmetodik, språk) och hur du jobbar (problemlösning, samarbete, kommunikation). Våra exempel visar hur du kopplar mjuka kompetenser till konkreta situationer.
+
+"Ledde grupp om 6 studenter i eventplanering, koordinerade deadlines och budget på 25 000 kr" bevisar ledarskap bättre än att bara lista "Ledarskapskompetens". Du ser exakt hur du tar dina erfarenheter från grupparbeten, studentföreningar eller extrajobb och översätter dem till kompetenser arbetsgivare söker.`
+      },
+      {
+        rubrik: 'Utbildning som huvudkompetens med relevanta kurser och projekt',
+        text: `Som student är din utbildning din starkaste tillgång. Våra exempel visar hur du lyfter fram relevanta kurser istället för att bara lista din examen. Om du söker jobb inom ekonomi ska "Extern redovisning", "Management accounting" och "Finansiell analys" synas tydligt under utbildning.
+
+Inkludera specifika projekt med resultat: "Projektarbete: Analyserade lönsamhet för 3 svenska bolag, rekommenderade investeringsstrategier baserat på nyckeltal". Du lär dig att välja vilka kurser som matchar jobbet och hur du beskriver dem så rekryterare förstår värdet.`
+      },
+      {
+        rubrik: 'Profiltext som säljer in din potential och framtida bidrag',
+        text: `Din profiltext ska kompensera för begränsad arbetslivserfarenhet genom att visa vart du är på väg. Våra exempel visar hur du skriver 3-4 meningar som kombinerar utbildning, nyckelkompetenser och konkret mål.
+
+Exempel: "Ekonomistudent med praktisk erfarenhet från redovisningsbyrå. Har arbetat med Fortnox, löpande bokföring och 200+ kundunderlag. Söker praktik där jag kan utveckla min kompetens inom controlling". Du ser hur du balanserar vad du kan idag med vad du vill lära dig – utan att låta osäker.`
+      },
+      {
+        rubrik: 'Transferable skills från extrajobb som är relevanta för karriären',
+        text: `Ditt jobb på café, restaurang eller kundtjänst har gett dig kompetenser som är värdefulla i de flesta yrken. Våra exempel visar hur du översätter "kassaarbete" till "hanterade kassaflöde på 50 000 kr dagligen med 99,5% felfri avstämning".
+
+Eller hur "volontärarbete" blir "koordinerade event för 400+ deltagare, hanterade budget på 25 000 kr". Du lär dig identifiera vilka färdigheter från dina deltidsjobb som matchar jobbet du söker och hur du formulerar dem professionellt.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Lyft fram relevanta kurser och projekt som matchar jobbet',
+        text: `Lista inte bara din examen – visa vilka kurser som är relevanta för jobbet du söker. Om du söker inom ekonomi, inkludera "Finansiell analys", "Redovisning" och "Corporate Finance" under din utbildning. För varje kurs, lägg till ett konkret projekt: "Kandidatarbete: Analyserade lönsamhet för 15 svenska bolag, rekommenderade investeringsstrategier baserat på DCF-modeller".
+
+Fokusera på kurser där du producerade något konkret: rapporter, analyser, prototyper, kampanjer. Undvik att lista generella kurser som alla på din linje läste om de inte är direkt relevanta. Rekryteraren vill se att du kan applicera teori i praktiken – projekten bevisar det.`
+      },
+      {
+        rubrik: 'Kvantifiera dina extrajobb med siffror som bevisar resultat',
+        text: `Varje extrajobb har mätbara resultat om du letar efter dem. Istället för "serverade kunder" skriv "serverade 150+ kunder per dag, ansvarade för kassaflöde på 50 000 kr dagligen". Istället för "lagerarbete" skriv "hanterade 200+ orderplock per dag med 98% packnoggrannhet".
+
+Tänk på: antal kunder, transaktioner per dag, omsättning, lagervärde, teamstorlek, timmar, leveranstid, felprocent. Även om jobbet känns rutinmässigt kan du kvantifiera ansvar, tempo och kvalitet. Siffror gör ditt CV konkret och trovärdigt.`
+      },
+      {
+        rubrik: 'Översätt studentengagemang till professionella kompetenser',
+        text: `Ditt engagemang i studentföreningen, idrottsklubben eller volontärarbetet har gett dig kompetenser som arbetsgivare söker. "Kassör i studentföreningen" blir "Hanterade budget på 150 000 kr, ansvarade för bokföring och ekonomisk rapportering till styrelsen". "Eventansvarig" blir "Planerade och genomförde 8 events för 100-400 deltagare, hanterade sponsorrelationer och leverantörer".
+
+Fokusera på transferable skills: projektledning, budgetansvar, kommunikation, problemlösning, teamarbete. Använd samma typ av språk som i jobbannonsen – om de söker "projektledning" ska du använda den termen, inte "arrangerade".`
+      },
+      {
+        rubrik: 'Anpassa ditt CV för varje jobb med rätt nyckelord',
+        text: `Skicka aldrig samma CV till alla jobb. Läs jobbannonsen, markera nyckelord i kravavsnittet och se till att de finns i ditt CV. Om de skriver "Excel" fem gånger ska "Excel" finnas under Kompetenser och i minst en projektbeskrivning. Om de vill ha "kundkontakt" ska dina erfarenheter från café-jobbet nämna "hanterade daglig kundkontakt".
+
+Detta tar 10 minuter per ansökan men ökar dina chanser enormt – särskilt att komma förbi ATS-system. Spara en masterfil med allt du gjort, skapa sedan anpassade versioner för varje ansökan där du lyfter fram det som matchar just det jobbet.`
+      },
+      {
+        rubrik: 'Inkludera certifieringar och IT-kompetenser med nivå',
+        text: `Lista alla relevanta certifieringar, onlinekurser och IT-verktyg du behärskar. Men specificera nivå – "Excel" säger inget, "Excel: V-lookup, pivottabeller, grundläggande makron" visar vad du faktiskt kan. Samma för språk: "Engelska: Flytande i tal och skrift, genomfört universitetskurser på engelska".
+
+Inkludera gratis certifieringar från Google (Analytics, Ads), HubSpot (Inbound Marketing), LinkedIn Learning. Dessa kostar dig några timmar men visar initiativförmåga och konkret kompetens. Placera dem under en egen sektion "Certifieringar" eller integrera i "Kompetenser" beroende på hur många du har.`
+      },
+      {
+        rubrik: 'Fokusera på potential och lärvilja istället för att ursäkta begränsad erfarenhet',
+        text: `Skriv aldrig "Trots begränsad erfarenhet..." eller "Även om jag bara har studerat...". Fokusera istället på vad du kan och vill lära dig. I profiltexten: "Nyexaminerad civilekonom med praktisk erfarenhet från projektarbeten inom digital marknadsföring. Söker roll där jag kan utveckla min kompetens inom SEO och dataanalys".
+
+Rekryterare som anställer studenter och nyexaminerade förväntar sig inte 10 års erfarenhet. De letar efter motivation, lärvilja och grundkompetenser. Visa att du kan leverera genom konkreta exempel från studier, projekt och extrajobb – det räcker.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som student vara?',
+        svar: 'Ett CV för studenter ska vara max 1-2 sidor. Om du har mindre än 3 års arbetslivserfarenhet räcker ofta en sida. Fokusera på kvalitet över kvantitet – inkludera bara det som är relevant för jobbet du söker. Prioritera utbildning, relevanta projekt, extrajobb och kompetenser som matchar jobbannonsen.'
+      },
+      {
+        fraga: 'Ska jag ha med profilbild på mitt CV?',
+        svar: 'I Sverige är profilbild frivilligt och inte ett krav. Många ATS-system tar bort bilder automatiskt av sekretesskäl. Om du väljer att ha med en bild, använd en professionell porträttbild med neutral bakgrund. För de flesta studenter rekommenderar vi att hoppa över bilden och istället fokusera på att göra innehållet konkret och relevant.'
+      },
+      {
+        fraga: 'Vad gör jag om jag har luckor i mitt CV?',
+        svar: 'Luckor under studietiden är naturliga och behöver sällan förklaras – de flesta förstår att du studerat. Om du haft längre uppehåll, inkludera relevant aktivitet som vidareutbildning, volontärarbete eller egna projekt under den perioden. Var ärlig men fokusera på vad du lärt dig eller uppnått, inte på varför luckan uppstod.'
+      },
+      {
+        fraga: 'Ska jag inkludera min praktik eller VFU-period i arbetserfarenhet?',
+        svar: 'Ja, praktik och VFU räknas som relevant arbetserfarenhet. Placera dem under "Arbetserfarenhet" med tydlig markering att det var praktik. Beskriv dina konkreta arbetsuppgifter och resultat precis som för ett vanligt jobb: "Praktikant, Redovisning – hanterade löpande bokföring för 15 kunder, assisterade vid månadsbokslut i Fortnox".'
+      },
+      {
+        fraga: 'Hur relevant är mitt extrajobb på café eller butik för mitt framtida yrke?',
+        svar: 'Mycket relevant om du beskriver det rätt. Fokusera på transferable skills: kundkontakt, problemlösning, teamarbete, stresshantering, ansvarstagande. Kvantifiera dina resultat: "Hanterade 150+ kundinteraktioner per dag, kassaansvar på 50 000 kr dagligen, tränade två nyanställda". Dessa kompetenser är värdefulla i de flesta yrken.'
+      },
+      {
+        fraga: 'Ska jag ta med ideellt engagemang och studentföreningar?',
+        svar: 'Absolut, särskilt om du har begränsad arbetslivserfarenhet. Ideellt arbete och studentengagemang visar initiativförmåga, ledarskap och praktiska kompetenser. Placera dem under en egen sektion "Ideellt engagemang" eller integrera i "Arbetserfarenhet". Beskriv konkreta resultat: "Eventansvarig, Ekonomföreningen – planerade 8 events för 400+ deltagare, hanterade budget på 25 000 kr".'
+      },
+      {
+        fraga: 'Hur beskriver jag kursprojekt på ett professionellt sätt?',
+        svar: 'Beskriv kursprojekt som konsultuppdrag eller riktiga projekt. Istället för "Grupparbete i marknadsföringskurs" skriv "Utvecklade marknadsföringsstrategi för lokalt företag – analyserade målgrupp, skapade contentplan, rekommenderade kanaler baserat på ROI-analys". Inkludera scope (teamstorlek, tidsram), metodik och konkreta resultat.'
+      },
+      {
+        fraga: 'Ska jag skriva mitt betyg eller GPA på CV:t?',
+        svar: 'Inkludera betyg endast om det stärker din ansökan. Om du har högt snitt (över 4.0 eller motsvarande) kan det vara värt att nämna: "Civilekonom, Stockholms universitet (GPA 4.2/5.0)". Om ditt snitt är genomsnittligt, hoppa över det och fokusera på relevanta kurser och projekt istället. Betyg är aldrig ett krav.'
+      },
+      {
+        fraga: 'Hur hanterar jag sommarjobb som inte är relaterade till min utbildning?',
+        svar: 'Inkludera alla sommarjobb men anpassa beskrivningen efter relevans. Om du söker ekonomijobb och jobbat på lager, lyft fram ansvar och siffror: "Lagerarbetare – hanterade 200+ orderplock dagligen, inventering av lager värt 2 miljoner kr, tränade sommarpersonal". Detta visar arbetsvilja, ansvar och förmåga att leverera.'
+      },
+      {
+        fraga: 'Vem ska jag använda som referenser och hur tar jag upp det?',
+        svar: 'Använd handledare från praktik, tidigare chefer från extrajobb eller lärare från kurser där du gjort större projekt. Skriv "Referenser lämnas på begäran" längst ner i CV:t – lista inte namn direkt. Kontakta dina referenser innan du anger dem och berätta vilket jobb du söker så de kan förbereda sig.'
+      }
+    ],
+
+    kategori: 'utbildning',
+    relaterade: [
+      { yrke: 'Sommarjobb', slug: 'sommarjobb' },
+      { yrke: 'Ekonomiassistent', slug: 'ekonomiassistent' },
+      { yrke: 'Kundtjänst', slug: 'kundtjanst' }
+    ]
   }
 }
 
