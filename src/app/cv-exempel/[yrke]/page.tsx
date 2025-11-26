@@ -2166,57 +2166,51 @@ Konkreta bevis sticker ut. Rekryterare ser tomma listor i varje tredje CV.`
 
     varforDetFungerar: [
       {
-        nummer: 1,
-        titel: 'ATS-optimerad med branschspecifika nyckelord',
-        beskrivning: 'CV:t använder exakta system som svenska detaljhandelsföretag faktiskt söker efter: Extenda, Visma Retail och POS-system. När en rekryterare söker efter "Extenda" i sitt ATS-system kommer detta CV dyka upp direkt – medan konkurrenter som bara skrev "kassavana" sorteras bort. Nyckelorden är strategiskt placerade i både profiltext och arbetslivserfarenhet, vilket ger maximal träffyta utan att kännas påklistrat.'
+        rubrik: 'ATS-optimerad med branschspecifika nyckelord',
+        text: 'CV:t använder exakta system som svenska detaljhandelsföretag faktiskt söker efter: Extenda, Visma Retail och POS-system. När en rekryterare söker efter "Extenda" i sitt ATS-system kommer detta CV dyka upp direkt – medan konkurrenter som bara skrev "kassavana" sorteras bort. Nyckelorden är strategiskt placerade i både profiltext och arbetslivserfarenhet, vilket ger maximal träffyta utan att kännas påklistrat.'
       },
       {
-        nummer: 2,
-        titel: 'Kvantifierbara försäljningsresultat som bevisar påverkan',
-        beskrivning: 'Här är skillnaden mellan att få intervju eller inte: Emma visar "22% ökning personlig försäljning (220k kr/månad)" istället för vagt "ansvarade för försäljning". Varför spelar det roll? Eftersom rekryterare ser hundratals CV där alla påstår sig vara "försäljningsdrivna". Siffror är det enda som gör påståenden trovärdiga. När du skriver "15% avdelningsförsäljningsökning via visuell merchandising" visar du inte bara VAD du kan – du visar exakt HUR BRA du är på det.'
+        rubrik: 'Kvantifierbara försäljningsresultat som bevisar påverkan',
+        text: 'Här är skillnaden mellan att få intervju eller inte: Emma visar "22% ökning personlig försäljning (220k kr/månad)" istället för vagt "ansvarade för försäljning". Varför spelar det roll? Eftersom rekryterare ser hundratals CV där alla påstår sig vara "försäljningsdrivna". Siffror är det enda som gör påståenden trovärdiga. När du skriver "15% avdelningsförsäljningsökning via visuell merchandising" visar du inte bara VAD du kan – du visar exakt HUR BRA du är på det.'
       },
       {
-        nummer: 3,
-        titel: 'Balans mellan försäljning och kundservice – med bevis',
-        beskrivning: 'Många butiksbiträden skriver bara "kommunikativ, serviceinriktad, flexibel" i sina CV:n. Det problemet kallas buzzword bingo – tomma ord utan kontext. Emma visar istället balansen genom konkreta exempel: "40-60 kundmöten dagligen med 4.8/5 kundnöjdhet" bevisar servicekompetens, medan "22% ökad försäljning" visar att hon kan sälja. Båda färdigheterna backas upp med siffror.'
+        rubrik: 'Balans mellan försäljning och kundservice – med bevis',
+        text: 'Många butiksbiträden skriver bara "kommunikativ, serviceinriktad, flexibel" i sina CV:n. Det problemet kallas buzzword bingo – tomma ord utan kontext. Emma visar istället balansen genom konkreta exempel: "40-60 kundmöten dagligen med 4.8/5 kundnöjdhet" bevisar servicekompetens, medan "22% ökad försäljning" visar att hon kan sälja. Båda färdigheterna backas upp med siffror.'
       },
       {
-        nummer: 4,
-        titel: 'Stresshantering bevisad genom konkreta volymer',
-        beskrivning: 'Istället för att bara skriva "stresstålig" (vilket alla gör), visar Emma konkreta exempel på högt tempo: "300+ kunder under Black Friday" och "40-60 kundmöten dagligen". Detta ger rekryteraren kontext om vad du faktiskt klarar av. Kvantifierade stresstest-situationer är trovärdiga och visar erfarenhet av storköp och kampanjperioder, vilket är meriterande för många butiksroller.'
+        rubrik: 'Stresshantering bevisad genom konkreta volymer',
+        text: 'Istället för att bara skriva "stresstålig" (vilket alla gör), visar Emma konkreta exempel på högt tempo: "300+ kunder under Black Friday" och "40-60 kundmöten dagligen". Detta ger rekryteraren kontext om vad du faktiskt klarar av. Kvantifierade stresstest-situationer är trovärdiga och visar erfarenhet av storköp och kampanjperioder, vilket är meriterande för många butiksroller.'
       },
       {
-        nummer: 5,
-        titel: 'Profiltext som säljande pitch på 4 rader',
-        beskrivning: 'Profiltexten följer den beprövade 4-komponent-strukturen: erfarenhet (6 år inom mode) + specialisering (merförsäljning och kundrelationer) + tekniska nyckelord (Extenda, Visma Retail) + drivkrafter (brinner för kundupplevelse). Rekryterare läser profiltexten FÖRST och beslutar inom 10 sekunder om de ska läsa vidare. En generisk "driven och serviceinriktad" säger ingenting – Emma\'s profiltext svarar direkt på frågorna: Hur länge? Vad kan hon? Vilka system?'
+        rubrik: 'Profiltext som säljande pitch på 4 rader',
+        text: 'Profiltexten följer den beprövade 4-komponent-strukturen: erfarenhet (6 år inom mode) + specialisering (merförsäljning och kundrelationer) + tekniska nyckelord (Extenda, Visma Retail) + drivkrafter (brinner för kundupplevelse). Rekryterare läser profiltexten FÖRST och beslutar inom 10 sekunder om de ska läsa vidare. En generisk "driven och serviceinriktad" säger ingenting – Emma\'s profiltext svarar direkt på frågorna: Hur länge? Vad kan hon? Vilka system?'
       },
       {
-        nummer: 6,
-        titel: 'Tydlig progression från extra till specialist',
-        beskrivning: 'CV:t visar karriärutveckling genom konkreta bevis: från "extrapersonal" till "säljare med mentorskap för 3 nya medarbetare" och "15% avdelningsförsäljningsökning via visuell merchandising". Progression är avgörande för erfarna kandidater (5+ år) eftersom det visar att du inte bara gjort samma sak i 6 år – du har utvecklats. Rekryterare letar efter tecken på ansvar och tillväxt.'
+        rubrik: 'Tydlig progression från extra till specialist',
+        text: 'CV:t visar karriärutveckling genom konkreta bevis: från "extrapersonal" till "säljare med mentorskap för 3 nya medarbetare" och "15% avdelningsförsäljningsökning via visuell merchandising". Progression är avgörande för erfarna kandidater (5+ år) eftersom det visar att du inte bara gjort samma sak i 6 år – du har utvecklats. Rekryterare letar efter tecken på ansvar och tillväxt.'
       }
     ],
 
     tips: [
       {
-        titel: 'Kvantifiera dina försäljningsresultat – vagt är värdelöst',
-        beskrivning: '❌ UNDVIK: "Ansvarade för försäljning" eller "Bidrog till butikens resultat"\n\n✅ SKRIV ISTÄLLET: "22% ökning personlig försäljning (från 180k till 220k kr/månad)" eller "Bäst i teamet Q2 2024 med 250k kr försäljning"\n\nKonkreta siffror visar exakt hur bra du är och ger rekryteraren något att fråga om under intervjun.'
+        rubrik: 'Kvantifiera dina försäljningsresultat – vagt är värdelöst',
+        text: '❌ UNDVIK: "Ansvarade för försäljning" eller "Bidrog till butikens resultat"\n\n✅ SKRIV ISTÄLLET: "22% ökning personlig försäljning (från 180k till 220k kr/månad)" eller "Bäst i teamet Q2 2024 med 250k kr försäljning"\n\nKonkreta siffror visar exakt hur bra du är och ger rekryteraren något att fråga om under intervjun.'
       },
       {
-        titel: 'Namnge de kassasystem du faktiskt kan',
-        beskrivning: 'Skriv inte bara "kassavana" – det är för generiskt. Namnge specifika system: Extenda, Visma Retail, Sitoo, eller vilket system din arbetsgivare använde. ATS-system söker efter exakta systemmatchningar, och rekryterare inom detaljhandeln letar efter kandidater som kan börja jobba dag 1 utan omfattande kassautbildning.'
+        rubrik: 'Namnge de kassasystem du faktiskt kan',
+        text: 'Skriv inte bara "kassavana" – det är för generiskt. Namnge specifika system: Extenda, Visma Retail, Sitoo, eller vilket system din arbetsgivare använde. ATS-system söker efter exakta systemmatchningar, och rekryterare inom detaljhandeln letar efter kandidater som kan börja jobba dag 1 utan omfattande kassautbildning.'
       },
       {
-        titel: 'Visa stresshantering genom konkreta exempel',
-        beskrivning: '❌ UNDVIK: Bara lista "stresstålig" eller "hanterar högt tempo" under kompetenser\n\n✅ SKRIV ISTÄLLET: "Hanterade 300+ kunder under Black Friday-kampanj" eller "40-60 kundmöten dagligen under högsäsong"\n\nGenom att kvantifiera volymerna visar du att du har erfarenhet av riktigt högt tempo.'
+        rubrik: 'Visa stresshantering genom konkreta exempel',
+        text: '❌ UNDVIK: Bara lista "stresstålig" eller "hanterar högt tempo" under kompetenser\n\n✅ SKRIV ISTÄLLET: "Hanterade 300+ kunder under Black Friday-kampanj" eller "40-60 kundmöten dagligen under högsäsong"\n\nGenom att kvantifiera volymerna visar du att du har erfarenhet av riktigt högt tempo.'
       },
       {
-        titel: 'Inkludera visuell merchandising om du jobbat med butikslayout',
-        beskrivning: 'Många butiksbiträden glömmer att nämna arbete med produktplacering, skyltning och butikslayout. Om du arrangerat produkter eller byggt kampanjdisplayer – nämn det! Skriv konkret: "Ansvarade för visuell merchandising – resulterade i 15% ökad avdelningsförsäljning". Det skiljer dig från de som bara sett sin roll som att bemanna kassan.'
+        rubrik: 'Inkludera visuell merchandising om du jobbat med butikslayout',
+        text: 'Många butiksbiträden glömmer att nämna arbete med produktplacering, skyltning och butikslayout. Om du arrangerat produkter eller byggt kampanjdisplayer – nämn det! Skriv konkret: "Ansvarade för visuell merchandising – resulterade i 15% ökad avdelningsförsäljning". Det skiljer dig från de som bara sett sin roll som att bemanna kassan.'
       },
       {
-        titel: 'Certifieringar och kurser ger dig försprång',
-        beskrivning: 'Ta med alla relevanta kurser eller certifieringar, även interna: Kassautbildning (Extenda), merförsäljningstekniker, Visual Merchandising-kurser. Skriv årtal så rekryteraren vet att kunskapen är aktuell. De visar att du tagit initiativ till att lära dig mer än grunderna och att arbetsgivaren investerat i din utveckling.'
+        rubrik: 'Certifieringar och kurser ger dig försprång',
+        text: 'Ta med alla relevanta kurser eller certifieringar, även interna: Kassautbildning (Extenda), merförsäljningstekniker, Visual Merchandising-kurser. Skriv årtal så rekryteraren vet att kunskapen är aktuell. De visar att du tagit initiativ till att lära dig mer än grunderna och att arbetsgivaren investerat i din utveckling.'
       }
     ],
 
@@ -2341,61 +2335,55 @@ Konkreta bevis sticker ut. Rekryterare ser tomma listor i varje tredje CV.`
 
     varforDetFungerar: [
       {
-        nummer: 1,
-        titel: 'Tech stack som visar bredd utan överdrift',
-        beskrivning: 'CV:t listar tekniker grupperade efter område – inte 40 verktyg i en enda lista. "Azure (Expert, 7+ år), AWS, Kubernetes" ger tydlig nivåindikation på toppkompetensen, medan övriga tekniker listas utan nivå för att undvika upprepning. Detta är avgörande för ATS-system som söker efter specifika nyckelord (Azure, Kubernetes, CI/CD), samtidigt som CV:t förblir läsbart för rekryterare. Erik visar multi-cloud-bredd (Azure + AWS) utan att påstå sig vara expert på allt.'
+        rubrik: 'Tech stack som visar bredd utan överdrift',
+        text: 'CV:t listar tekniker grupperade efter område – inte 40 verktyg i en enda lista. "Azure (Expert, 7+ år), AWS, Kubernetes" ger tydlig nivåindikation på toppkompetensen, medan övriga tekniker listas utan nivå för att undvika upprepning. Detta är avgörande för ATS-system som söker efter specifika nyckelord (Azure, Kubernetes, CI/CD), samtidigt som CV:t förblir läsbart för rekryterare. Erik visar multi-cloud-bredd (Azure + AWS) utan att påstå sig vara expert på allt.'
       },
       {
-        nummer: 2,
-        titel: 'Kvantifierbara konsultresultat som visar business impact',
-        beskrivning: 'Varför får Erik intervjuer när andra IT-konsulter sorteras bort? Han skriver "Migrerade 15+ applikationer med 99,9% uptime" istället för "Ansvarig för migrering". Siffror är avgörande – rekryterare läser hundratals CV där kandidater bara skriver "ansvarade för cloud-migration". Erik visar konkret affärsnytta: 2M+ transaktioner/månad (skala), 30% minskade driftkostnader (ekonomi), 99,9% uptime (kvalitet). Detta översätter teknik till affärsspråk som beslutsfattare förstår.'
+        rubrik: 'Kvantifierbara konsultresultat som visar business impact',
+        text: 'Varför får Erik intervjuer när andra IT-konsulter sorteras bort? Han skriver "Migrerade 15+ applikationer med 99,9% uptime" istället för "Ansvarig för migrering". Siffror är avgörande – rekryterare läser hundratals CV där kandidater bara skriver "ansvarade för cloud-migration". Erik visar konkret affärsnytta: 2M+ transaktioner/månad (skala), 30% minskade driftkostnader (ekonomi), 99,9% uptime (kvalitet). Detta översätter teknik till affärsspråk som beslutsfattare förstår.'
       },
       {
-        nummer: 3,
-        titel: 'Affärsfokus istället för buzzword bingo',
-        beskrivning: 'Erik skriver inte "Kommunikativ, driven problemlösare med god samarbetsförmåga" – han visar det genom konkreta exempel: "Mentor för 3 junior-konsulter" (pedagogik), "Kundnöjdhet 4.7/5 på 10+ kundprojekt" (stakeholder management), "Reducerade release-tid från 2 veckor till 2 dagar" (processutveckling). Problemet med "kommunikativ, flexibel, driven" är att ALLA skriver det. Rekryterare läser dessa tomma påståenden hundratals gånger per dag.'
+        rubrik: 'Affärsfokus istället för buzzword bingo',
+        text: 'Erik skriver inte "Kommunikativ, driven problemlösare med god samarbetsförmåga" – han visar det genom konkreta exempel: "Mentor för 3 junior-konsulter" (pedagogik), "Kundnöjdhet 4.7/5 på 10+ kundprojekt" (stakeholder management), "Reducerade release-tid från 2 veckor till 2 dagar" (processutveckling). Problemet med "kommunikativ, flexibel, driven" är att ALLA skriver det. Rekryterare läser dessa tomma påståenden hundratals gånger per dag.'
       },
       {
-        nummer: 4,
-        titel: 'Cloud-certifieringar som trovärdighetsmarkör',
-        beskrivning: 'Erik listar 4 certifieringar med årtal: Azure Solutions Architect Expert (2024), AWS Solutions Architect Associate (2023), CKA (2022), PSM I (2020). Detta visar tre saker rekryterare letar efter: 1) Aktiv kompetensutveckling (certifieringar är nya), 2) Multi-cloud-kompetens (både Azure och AWS), 3) Bred expertis (cloud + Kubernetes + Scrum). För konsultuppdrag är certifieringar ofta hårda krav – vissa kunder kräver Azure-certifiering för att ens komma på upphandling.'
+        rubrik: 'Cloud-certifieringar som trovärdighetsmarkör',
+        text: 'Erik listar 4 certifieringar med årtal: Azure Solutions Architect Expert (2024), AWS Solutions Architect Associate (2023), CKA (2022), PSM I (2020). Detta visar tre saker rekryterare letar efter: 1) Aktiv kompetensutveckling (certifieringar är nya), 2) Multi-cloud-kompetens (både Azure och AWS), 3) Bred expertis (cloud + Kubernetes + Scrum). För konsultuppdrag är certifieringar ofta hårda krav – vissa kunder kräver Azure-certifiering för att ens komma på upphandling.'
       },
       {
-        nummer: 5,
-        titel: 'Tydlig progression från utvecklare till senior konsult',
-        beskrivning: 'CV:t visar 8 års resa: Systemutvecklare (2016-2018) → IT-konsult (2018-2021) → Senior IT-konsult (2021-nu). Varje steg har tydligare ansvar: Först byggde han applikationer, sedan ledde han kundprojekt, nu designar han cloud-arkitektur och mentorar andra. Många erfarna utvecklare listar samma typ av arbetsuppgifter för varje jobb, vilket får det att se ut som att de stått still. Erik visar ökad komplexitet och ledarskap.'
+        rubrik: 'Tydlig progression från utvecklare till senior konsult',
+        text: 'CV:t visar 8 års resa: Systemutvecklare (2016-2018) → IT-konsult (2018-2021) → Senior IT-konsult (2021-nu). Varje steg har tydligare ansvar: Först byggde han applikationer, sedan ledde han kundprojekt, nu designar han cloud-arkitektur och mentorar andra. Många erfarna utvecklare listar samma typ av arbetsuppgifter för varje jobb, vilket får det att se ut som att de stått still. Erik visar ökad komplexitet och ledarskap.'
       },
       {
-        nummer: 6,
-        titel: 'DevOps-resultat som kopplar teknik till tid och pengar',
-        beskrivning: 'Erik skriver "Reducerade release-tid från 2 veckor till 2 dagar" – en klassisk DevOps-metrik som alla beslutsfattare förstår. Snabbare releases = snabbare time-to-market. Han följer upp med "Minskade driftkostnader med 30% via Terraform" – vilket översätter infrastructure-as-code till ekonomisk påverkan. Detta skiljer tekniska CV:n från konsult-CV:n: Erik pratar om affärsresultatet, inte bara den tekniska processen.'
+        rubrik: 'DevOps-resultat som kopplar teknik till tid och pengar',
+        text: 'Erik skriver "Reducerade release-tid från 2 veckor till 2 dagar" – en klassisk DevOps-metrik som alla beslutsfattare förstår. Snabbare releases = snabbare time-to-market. Han följer upp med "Minskade driftkostnader med 30% via Terraform" – vilket översätter infrastructure-as-code till ekonomisk påverkan. Detta skiljer tekniska CV:n från konsult-CV:n: Erik pratar om affärsresultatet, inte bara den tekniska processen.'
       }
     ],
 
     tips: [
       {
-        titel: 'Gruppera din tech stack – lista inte alla 40 verktyg',
-        beskrivning: '❌ UNDVIK: Att lista Python, JavaScript, TypeScript, Node.js, React, Angular, Vue, Django, Flask, PostgreSQL, MySQL, MongoDB, Redis, Docker, Kubernetes, AWS, Azure, Terraform, Jenkins, GitLab CI... Det blir oöverskådligt och signalerar osäkerhet.\n\n✅ SKRIV ISTÄLLET: Gruppera efter kategori och håll det till 8-12 totalt. "Cloud: Azure (Expert, 7+ år), AWS | Containers: Kubernetes, Docker | Språk: C#, Python". Ge nivå på TOP 3, resten utan.'
+        rubrik: 'Gruppera din tech stack – lista inte alla 40 verktyg',
+        text: '❌ UNDVIK: Att lista Python, JavaScript, TypeScript, Node.js, React, Angular, Vue, Django, Flask, PostgreSQL, MySQL, MongoDB, Redis, Docker, Kubernetes, AWS, Azure, Terraform, Jenkins, GitLab CI... Det blir oöverskådligt och signalerar osäkerhet.\n\n✅ SKRIV ISTÄLLET: Gruppera efter kategori och håll det till 8-12 totalt. "Cloud: Azure (Expert, 7+ år), AWS | Containers: Kubernetes, Docker | Språk: C#, Python". Ge nivå på TOP 3, resten utan.'
       },
       {
-        titel: 'Översätt teknik till affärsspråk för C-level',
-        beskrivning: 'Rekryterare och beslutsfattare förstår inte alltid "microservices" eller "CI/CD-pipelines" – de förstår tid, pengar och risk. "Byggde CI/CD-pipeline" → "Reducerade release-tid från 2 veckor till 2 dagar". "Implementerade Kubernetes" → "Hanterar 2M+ transaktioner/månad med 99,9% uptime". "Terraform" → "Minskade driftkostnader med 30%". Detta gör ditt CV läsbart för både tekniska och icke-tekniska beslutsfattare.'
+        rubrik: 'Översätt teknik till affärsspråk för C-level',
+        text: 'Rekryterare och beslutsfattare förstår inte alltid "microservices" eller "CI/CD-pipelines" – de förstår tid, pengar och risk. "Byggde CI/CD-pipeline" → "Reducerade release-tid från 2 veckor till 2 dagar". "Implementerade Kubernetes" → "Hanterar 2M+ transaktioner/månad med 99,9% uptime". "Terraform" → "Minskade driftkostnader med 30%". Detta gör ditt CV läsbart för både tekniska och icke-tekniska beslutsfattare.'
       },
       {
-        titel: 'Lägg till certifieringar med årtal – visar aktiv utveckling',
-        beskrivning: '❌ UNDVIK: "Azure-certifierad" eller "AWS Solutions Architect" utan årtal. Rekryteraren vet inte om du tog certifieringen 2018 eller 2024.\n\n✅ SKRIV ISTÄLLET: "Azure Solutions Architect Expert (2024), AWS Solutions Architect Associate (2023), CKA (2022)". Detta visar att certifieringarna är aktuella och att du utvecklas aktivt. För konsultuppdrag är certifieringar ofta formella krav.'
+        rubrik: 'Lägg till certifieringar med årtal – visar aktiv utveckling',
+        text: '❌ UNDVIK: "Azure-certifierad" eller "AWS Solutions Architect" utan årtal. Rekryteraren vet inte om du tog certifieringen 2018 eller 2024.\n\n✅ SKRIV ISTÄLLET: "Azure Solutions Architect Expert (2024), AWS Solutions Architect Associate (2023), CKA (2022)". Detta visar att certifieringarna är aktuella och att du utvecklas aktivt. För konsultuppdrag är certifieringar ofta formella krav.'
       },
       {
-        titel: 'Visa konsultresultat med kundkontext och omfattning',
-        beskrivning: 'Som IT-konsult jobbar du på många olika uppdrag – ge varje uppdrag kontext. "Migrerade applikationer till Azure" säger ingenting. Skriv istället: "Migrerade 15+ applikationer från on-prem till Azure för fintech-kund (2M+ transaktioner/månad, 99,9% uptime-krav)". Detta visar omfattning, bransch, skala och kvalitetskrav. Kombinera teknisk prestation med affärskontext.'
+        rubrik: 'Visa konsultresultat med kundkontext och omfattning',
+        text: 'Som IT-konsult jobbar du på många olika uppdrag – ge varje uppdrag kontext. "Migrerade applikationer till Azure" säger ingenting. Skriv istället: "Migrerade 15+ applikationer från on-prem till Azure för fintech-kund (2M+ transaktioner/månad, 99,9% uptime-krav)". Detta visar omfattning, bransch, skala och kvalitetskrav. Kombinera teknisk prestation med affärskontext.'
       },
       {
-        titel: 'Skillnaden mellan utvecklare och konsult: Mentorskap och kundnöjdhet',
-        beskrivning: 'Vad skiljer en senior IT-konsult från en senior utvecklare? Konsulter jobbar mot externa kunder, mentorar juniorer och driver projekt. Visa detta: "Mentor för 3 junior-konsulter", "Kundnöjdhet 4.7/5 på 10+ projekt", "Faciliterade tekniska diskussioner mellan utvecklingsteam och C-level". Detta visar mjuka kompetenser utan att skriva "driven, kommunikativ, flexibel".'
+        rubrik: 'Skillnaden mellan utvecklare och konsult: Mentorskap och kundnöjdhet',
+        text: 'Vad skiljer en senior IT-konsult från en senior utvecklare? Konsulter jobbar mot externa kunder, mentorar juniorer och driver projekt. Visa detta: "Mentor för 3 junior-konsulter", "Kundnöjdhet 4.7/5 på 10+ projekt", "Faciliterade tekniska diskussioner mellan utvecklingsteam och C-level". Detta visar mjuka kompetenser utan att skriva "driven, kommunikativ, flexibel".'
       },
       {
-        titel: 'Koppla DevOps-resultat till tid och pengar',
-        beskrivning: 'DevOps handlar inte bara om Docker och Kubernetes – det handlar om snabbare leveranser och lägre kostnader. Visa affärspåverkan: "Implementerade CI/CD-pipelines som reducerade release-tid från 2 veckor till 2 dagar" (snabbare time-to-market), "Automatiserade infrastruktur med Terraform vilket minskade driftkostnader med 30%" (ekonomi). Beslutsfattare förstår tid och pengar bättre än tekniska termer.'
+        rubrik: 'Koppla DevOps-resultat till tid och pengar',
+        text: 'DevOps handlar inte bara om Docker och Kubernetes – det handlar om snabbare leveranser och lägre kostnader. Visa affärspåverkan: "Implementerade CI/CD-pipelines som reducerade release-tid från 2 veckor till 2 dagar" (snabbare time-to-market), "Automatiserade infrastruktur med Terraform vilket minskade driftkostnader med 30%" (ekonomi). Beslutsfattare förstår tid och pengar bättre än tekniska termer.'
       }
     ],
 
