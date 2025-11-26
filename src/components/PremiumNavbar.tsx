@@ -320,46 +320,48 @@ export default function PremiumNavbar() {
 
           {/* CTA Buttons Desktop */}
           <div className="hidden lg:flex items-center gap-4">
-            {!isLoadingAuth && (
-              <>
-                {sessionUser ? (
-                  <div className="flex items-center gap-3">
-                    <Link
-                      href="/dashboard/profil"
-                      className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 rounded-lg transition-all duration-300"
-                    >
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center text-white font-semibold">
-                        {sessionUser.email?.charAt(0).toUpperCase() ?? '?'}
-                      </div>
-                      <span className="hidden xl:inline text-gray-700">{sessionUser.email}</span>
-                    </Link>
-                    <button
-                      onClick={handleSignOut}
-                      className="px-4 py-2 text-sm font-medium text-red-500 hover:text-red-600 hover:bg-red-50/80 rounded-lg transition-all duration-300"
-                    >
-                      <LogOut className="w-4 h-4" />
-                    </button>
+            {isLoadingAuth ? (
+              // Skeleton placeholder för att undvika CLS
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-9 bg-gray-100 rounded animate-pulse" />
+                <div className="w-28 h-10 bg-gray-200 rounded-lg animate-pulse" />
+              </div>
+            ) : sessionUser ? (
+              <div className="flex items-center gap-3">
+                <Link
+                  href="/dashboard/profil"
+                  className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 rounded-lg transition-all duration-300"
+                >
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center text-white font-semibold">
+                    {sessionUser.email?.charAt(0).toUpperCase() ?? '?'}
                   </div>
-                ) : (
-                  <>
-                    <Link
-                      href="/login"
-                      className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
-                    >
-                      Logga in
-                    </Link>
-                    <Link
-                      href="/register"
-                      className="group relative px-6 py-2.5 bg-gradient-to-r from-pink-600 to-purple-600 text-white text-sm font-semibold rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-pink-500/25 hover:scale-105"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      <span className="relative flex items-center gap-2">
-                        <Zap className="w-4 h-4" />
-                        Skapa konto
-                      </span>
-                    </Link>
-                  </>
-                )}
+                  <span className="hidden xl:inline text-gray-700">{sessionUser.email}</span>
+                </Link>
+                <button
+                  onClick={handleSignOut}
+                  className="px-4 py-2 text-sm font-medium text-red-500 hover:text-red-600 hover:bg-red-50/80 rounded-lg transition-all duration-300"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
+                >
+                  Logga in
+                </Link>
+                <Link
+                  href="/register"
+                  className="group relative px-6 py-2.5 bg-gradient-to-r from-pink-600 to-purple-600 text-white text-sm font-semibold rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-pink-500/25 hover:scale-105"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-pink-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <span className="relative flex items-center gap-2">
+                    <Zap className="w-4 h-4" />
+                    Skapa konto
+                  </span>
+                </Link>
               </>
             )}
           </div>
@@ -457,53 +459,55 @@ export default function PremiumNavbar() {
 
                 {/* Mobile CTA */}
                 <div className="pt-4 border-t border-gray-200/80 space-y-3">
-                  {!isLoadingAuth && (
-                    <>
-                      {sessionUser ? (
-                        <div className="space-y-3">
-                          <Link
-                            href="/dashboard/profil"
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100/80 rounded-lg transition-all"
-                          >
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center text-white font-semibold">
-                              {sessionUser.email?.charAt(0).toUpperCase() ?? '?'}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="text-sm font-medium text-gray-700 truncate">
-                                {sessionUser.email}
-                              </div>
-                              <div className="text-xs text-gray-500">Visa profil</div>
-                            </div>
-                          </Link>
-                          <button
-                            onClick={() => {
-                              handleSignOut()
-                              setMobileMenuOpen(false)
-                            }}
-                            className="w-full px-4 py-3 text-center text-red-500 hover:text-red-600 hover:bg-red-50/80 rounded-lg transition-all font-medium"
-                          >
-                            Logga ut
-                          </button>
+                  {isLoadingAuth ? (
+                    // Skeleton placeholder för mobile
+                    <div className="space-y-3">
+                      <div className="w-full h-12 bg-gray-100 rounded-lg animate-pulse" />
+                      <div className="w-full h-12 bg-gray-200 rounded-lg animate-pulse" />
+                    </div>
+                  ) : sessionUser ? (
+                    <div className="space-y-3">
+                      <Link
+                        href="/dashboard/profil"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100/80 rounded-lg transition-all"
+                      >
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center text-white font-semibold">
+                          {sessionUser.email?.charAt(0).toUpperCase() ?? '?'}
                         </div>
-                      ) : (
-                        <>
-                          <Link
-                            href="/login"
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="block w-full px-4 py-3 text-center text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 rounded-lg transition-all"
-                          >
-                            Logga in
-                          </Link>
-                          <Link
-                            href="/register"
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="block w-full px-4 py-3 text-center bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all"
-                          >
-                            Skapa konto
-                          </Link>
-                        </>
-                      )}
+                        <div className="flex-1 min-w-0">
+                          <div className="text-sm font-medium text-gray-700 truncate">
+                            {sessionUser.email}
+                          </div>
+                          <div className="text-xs text-gray-500">Visa profil</div>
+                        </div>
+                      </Link>
+                      <button
+                        onClick={() => {
+                          handleSignOut()
+                          setMobileMenuOpen(false)
+                        }}
+                        className="w-full px-4 py-3 text-center text-red-500 hover:text-red-600 hover:bg-red-50/80 rounded-lg transition-all font-medium"
+                      >
+                        Logga ut
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <Link
+                        href="/login"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block w-full px-4 py-3 text-center text-gray-700 hover:text-gray-900 hover:bg-gray-100/80 rounded-lg transition-all"
+                      >
+                        Logga in
+                      </Link>
+                      <Link
+                        href="/register"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block w-full px-4 py-3 text-center bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all"
+                      >
+                        Skapa konto
+                      </Link>
                     </>
                   )}
                 </div>

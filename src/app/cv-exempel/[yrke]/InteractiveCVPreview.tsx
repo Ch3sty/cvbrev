@@ -63,27 +63,21 @@ const FONTS = [
 export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: InteractiveCVPreviewProps) {
   const [selectedTemplate, setSelectedTemplate] = useState('modern-minimal')
   const [selectedFont, setSelectedFont] = useState('calibri')
-  const [isClient, setIsClient] = useState(false)
   const [isTemplateOpen, setIsTemplateOpen] = useState(false)
   const [isFontOpen, setIsFontOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [generatedHTML, setGeneratedHTML] = useState(initialHTML)
+  // Spåra om användaren har ändrat mall/font (för att undvika initial re-render)
+  const [hasUserChanged, setHasUserChanged] = useState(false)
 
   const templateDropdownRef = useRef<HTMLDivElement>(null)
   const fontDropdownRef = useRef<HTMLDivElement>(null)
 
-
-  // Set isClient flag (runs once on mount)
+  // Generera ny HTML bara när användaren aktivt byter mall eller font
   useEffect(() => {
-    setIsClient(true)
-  }, [])
+    // Skippa initial render - använd initialHTML direkt
+    if (!hasUserChanged) return
 
-  // Generate HTML using the actual template generator (same as Puppeteer)
-  useEffect(() => {
-    // Skip if JavaScript hasn't loaded yet
-    if (!isClient) return
-
-    // Only regenerate when user changes template or font
     try {
       const cvMetadata = convertToCVMetadata(exempelCV)
       const templateGenerator = getTemplateGenerator(selectedTemplate as any)
@@ -103,7 +97,7 @@ export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: I
     } catch (error) {
       console.error('Error generating CV HTML:', error)
     }
-  }, [selectedTemplate, selectedFont, isClient])
+  }, [selectedTemplate, selectedFont, hasUserChanged, exempelCV])
 
   useEffect(() => {
     const checkMobile = () => {
@@ -225,6 +219,7 @@ export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: I
                         <button
                           key={t.id}
                           onClick={() => {
+                            setHasUserChanged(true)
                             setSelectedTemplate(t.id)
                             setIsTemplateOpen(false)
                           }}
@@ -254,6 +249,7 @@ export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: I
                         <button
                           key={t.id}
                           onClick={() => {
+                            setHasUserChanged(true)
                             setSelectedTemplate(t.id)
                             setIsTemplateOpen(false)
                           }}
@@ -320,6 +316,7 @@ export default function InteractiveCVPreview({ exempelCV, yrke, initialHTML }: I
                             <button
                               key={fnt.id}
                               onClick={() => {
+                                setHasUserChanged(true)
                                 setSelectedFont(fnt.id)
                                 setIsFontOpen(false)
                               }}

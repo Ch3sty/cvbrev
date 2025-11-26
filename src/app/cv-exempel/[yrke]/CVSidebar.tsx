@@ -1,8 +1,5 @@
-'use client'
-
-import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { Lightbulb, CheckCircle, Zap, FileText, Sparkles } from 'lucide-react'
+import { Lightbulb, CheckCircle, Zap, Sparkles } from 'lucide-react'
 
 interface CVSidebarProps {
   yrke: string
@@ -13,12 +10,7 @@ export default function CVSidebar({ yrke, viktigtAttTankaPa }: CVSidebarProps) {
   return (
     <div className="space-y-6">
       {/* Box 1: Viktigt att tänka på */}
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.2 }}
-        className="bg-gradient-to-br from-cyan-50 to-indigo-50 rounded-2xl p-6 border border-cyan-100"
-      >
+      <div className="bg-gradient-to-br from-cyan-50 to-indigo-50 rounded-2xl p-6 border border-cyan-100">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-10 h-10 bg-gradient-to-br from-cyan-600 to-indigo-600 rounded-lg flex items-center justify-center">
             <Lightbulb className="w-5 h-5 text-white" />
@@ -33,15 +25,10 @@ export default function CVSidebar({ yrke, viktigtAttTankaPa }: CVSidebarProps) {
             </li>
           ))}
         </ul>
-      </motion.div>
+      </div>
 
       {/* Box 2: Statistik */}
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.3 }}
-        className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm"
-      >
+      <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
         <h3 className="font-bold text-slate-900 mb-4">Statistik</h3>
         <div className="space-y-4">
           <div>
@@ -50,11 +37,9 @@ export default function CVSidebar({ yrke, viktigtAttTankaPa }: CVSidebarProps) {
               <span className="text-sm font-bold text-green-600">95%</span>
             </div>
             <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-gradient-to-r from-green-500 to-emerald-500"
-                initial={{ width: 0 }}
-                animate={{ width: '95%' }}
-                transition={{ delay: 0.5, duration: 1 }}
+              <div
+                className="h-full bg-gradient-to-r from-green-500 to-emerald-500 transition-all duration-1000"
+                style={{ width: '95%' }}
               />
             </div>
           </div>
@@ -64,11 +49,9 @@ export default function CVSidebar({ yrke, viktigtAttTankaPa }: CVSidebarProps) {
               <span className="text-sm font-bold text-blue-600">92%</span>
             </div>
             <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-gradient-to-r from-blue-500 to-indigo-500"
-                initial={{ width: 0 }}
-                animate={{ width: '92%' }}
-                transition={{ delay: 0.6, duration: 1 }}
+              <div
+                className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 transition-all duration-1000"
+                style={{ width: '92%' }}
               />
             </div>
           </div>
@@ -78,24 +61,17 @@ export default function CVSidebar({ yrke, viktigtAttTankaPa }: CVSidebarProps) {
               <span className="text-sm font-bold text-purple-600">88%</span>
             </div>
             <div className="h-2 bg-slate-100 rounded-full overflow-hidden">
-              <motion.div
-                className="h-full bg-gradient-to-r from-purple-500 to-pink-500"
-                initial={{ width: 0 }}
-                animate={{ width: '88%' }}
-                transition={{ delay: 0.7, duration: 1 }}
+              <div
+                className="h-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-1000"
+                style={{ width: '88%' }}
               />
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
 
       {/* Box 3: CTA */}
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.4 }}
-        className="bg-gradient-to-br from-cyan-600 to-indigo-600 rounded-2xl p-6 text-white"
-      >
+      <div className="bg-gradient-to-br from-cyan-600 to-indigo-600 rounded-2xl p-6 text-white">
         <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mb-4">
           <Zap className="w-6 h-6" />
         </div>
@@ -109,7 +85,7 @@ export default function CVSidebar({ yrke, viktigtAttTankaPa }: CVSidebarProps) {
             Kom igång gratis
           </button>
         </Link>
-      </motion.div>
+      </div>
     </div>
   )
 }
