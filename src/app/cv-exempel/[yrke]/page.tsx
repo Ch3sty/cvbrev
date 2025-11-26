@@ -2095,28 +2095,45 @@ Konkreta bevis sticker ut. Rekryterare ser tomma listor i varje tredje CV.`
       erfarenhet: [
         {
           titel: 'Butiksbiträde',
-          foretag: 'H&M Stockholm City',
-          period: '2021 - Nuvarande',
-          beskrivning: '- Ansvarar för 40-60 kundmöten dagligen med fokus på försäljning och service (genomsnittligt köpvärde 850 kr/kund)\n- Ökade personlig försäljning med 22% under 2023 jämfört med föregående år (från 180k till 220k kr/månad)\n- Visuell merchandising för damavdelningen – skapar skyltfönster och kampanjytor som ökade avdelningsförsäljning med 15%\n- Använder Extenda kassasystem dagligen för försäljning, returer och lagerhantering\n- Mentorskap för 3 nya medarbetare under introduktionsperiod (2-4 veckor)'
+          arbetsgivare: 'H&M Stockholm City',
+          period: '2021 – Nuvarande',
+          beskrivning: [
+            'Ansvarar för 40-60 kundmöten dagligen med fokus på försäljning och service (genomsnittligt köpvärde 850 kr/kund)',
+            'Ökade personlig försäljning med 22% under 2023 jämfört med föregående år (från 180k till 220k kr/månad)',
+            'Visuell merchandising för damavdelningen – skapar skyltfönster och kampanjytor som ökade avdelningsförsäljning med 15%',
+            'Använder Extenda kassasystem dagligen för försäljning, returer och lagerhantering',
+            'Mentorskap för 3 nya medarbetare under introduktionsperiod (2-4 veckor)'
+          ]
         },
         {
           titel: 'Butiksbiträde/Säljare',
-          foretag: 'Lindex Gallerian',
-          period: '2019 - 2021',
-          beskrivning: '- Hanterade 30-50 kunder per dag under högsäsong (jul, rea-perioder uppåt 80 kunder/dag)\n- Ansvarade för kassa och daglig kassaavstämning (genomsnitt 120k kr/dag)\n- Merförsäljning av accessoarer och kompletterande produkter – bidrog till 18% merförsäljning i teamet\n- Lagerhantering och varuinleveranser (2-3 leveranser per vecka, 200-400 artiklar)\n- Deltog i inventering och sortimentsplanering'
+          arbetsgivare: 'Lindex Gallerian',
+          period: '2019 – 2021',
+          beskrivning: [
+            'Hanterade 30-50 kunder per dag under högsäsong (jul, rea-perioder uppåt 80 kunder/dag)',
+            'Ansvarade för kassa och daglig kassaavstämning (genomsnitt 120k kr/dag)',
+            'Merförsäljning av accessoarer och kompletterande produkter – bidrog till 18% merförsäljning i teamet',
+            'Lagerhantering och varuinleveranser (2-3 leveranser per vecka, 200-400 artiklar)',
+            'Deltog i inventering och sortimentsplanering'
+          ]
         },
         {
           titel: 'Extrapersonal Butiksbiträde',
-          foretag: 'Åhléns City',
-          period: '2018 - 2019',
-          beskrivning: '- Arbetade som extrapersonal under helger och högsäsong (jul, Black Friday)\n- Hanterade högt tempo under kampanjperioder (300+ kunder per dag under Black Friday)\n- Kassaansvar och kundservice inom kosmetik- och accessoaravdelningen\n- Fick erfarenhet av olika avdelningar: mode, kosmetik, hem och inredning'
+          arbetsgivare: 'Åhléns City',
+          period: '2018 – 2019',
+          beskrivning: [
+            'Arbetade som extrapersonal under helger och högsäsong (jul, Black Friday)',
+            'Hanterade högt tempo under kampanjperioder (300+ kunder per dag under Black Friday)',
+            'Kassaansvar och kundservice inom kosmetik- och accessoaravdelningen',
+            'Fick erfarenhet av olika avdelningar: mode, kosmetik, hem och inredning'
+          ]
         }
       ],
       utbildning: [
         {
-          program: 'Handelsprogrammet',
+          titel: 'Handelsprogrammet',
           skola: 'Kungsholmens Gymnasium',
-          period: '2015 - 2018',
+          period: '2015 – 2018',
           beskrivning: 'Inriktning: Handel och administration. Praktik på NK Stockholm (4 veckor, våren 2017).'
         }
       ],
