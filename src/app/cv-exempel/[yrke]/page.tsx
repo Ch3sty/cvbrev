@@ -161,61 +161,79 @@ Progressionen visar också bredd i erfarenhet. Du har arbetat både i hemtjänst
     tips: [
       {
         rubrik: 'Inkludera rätt nyckelord för din vårdspecialisering',
-        text: `ATS-system söker efter specifika termer beroende på vårdmiljö. För geriatrik använd nyckelord som demensvård, BPSD-hantering, palliativ omvårdnad, kroniska sjukdomar och nutritionsbedömning. För akutvård fokusera på triage, vitalparametrar, akuta tillstånd, snabba beslut och prioriteringsförmåga. För hemtjänst betona ADL-stöd, självständigt arbete, hembesök, social omsorg och flexibilitet.
+        text: `ATS-system söker efter specifika termer beroende på vårdmiljö. Identifiera vilka termer som återkommer i jobbannonsen och använd dem ordagrant i ditt CV.
 
-Läs jobbannonsen noga och identifiera vilka termer som återkommer. Om arbetsgivaren söker "erfarenhet av palliativ vård", använd exakt den formuleringen i ditt CV – inte synonymer som "erfarenhet av vård i livets slutskede". ATS-system matchar ofta ordagrant, vilket innebär att felaktig terminologi kan göra att ditt CV sorteras bort trots relevant kompetens.
+**Exempel på före/efter**:
 
-Placera nyckelorden strategiskt i profiltext, erfarenhetssektion och kompetenslista. Detta säkerställer att de identifieras oavsett vilken del av CV:t som ATS-systemet prioriterar vid screening.`
+❌ "Erfarenhet av vård i livets slutskede och omvårdnad av äldre"
+
+✅ "3 års erfarenhet av palliativ omvårdnad inom geriatrik med fokus på BPSD-hantering, nutritionsbedömning och smärtlindring. Ansvarig för 20-25 patienter dagligen med kroniska sjukdomar och demensdiagnoser."
+
+Om arbetsgivaren söker "erfarenhet av palliativ vård", använd exakt den formuleringen – inte synonymer. ATS-system matchar ofta ordagrant, vilket innebär att felaktig terminologi kan göra att ditt CV sorteras bort trots relevant kompetens.`
       },
       {
-        rubrik: 'Kvantifiera din erfarenhet för ökad trovärdighet',
-        text: `Konkreta siffror gör ditt CV mer trovärdigt och jämförbart. Transformera vaga påståenden till mätbara fakta genom att alltid fråga dig: hur många, hur länge, hur ofta?
+        rubrik: 'Kvantifiera din erfarenhet med konkreta siffror',
+        text: `Konkreta siffror gör ditt CV mer trovärdigt och jämförbart. Transformera vaga påståenden till mätbara fakta genom att specificera antal patienter, vårdmiljö och omfattning.
 
-**UNDVIK:** "Ansvarig för patientvård"
-**BRA:** "Omvårdnad av 25-30 patienter dagligen inom geriatrisk avdelning"
+**Exempel på före/efter**:
 
-Nämn specifika detaljer som stärker din erfarenhet: antal års erfarenhet (både totalt och inom specialisering), antal VFU-perioder under utbildning, antal patienter med medicinsk delegering, eller specifika förbättringar du bidragit till ("minskade akuta inläggningar med 15%").
+❌ "Ansvarig för patientvård"
 
-Om du arbetat deltid, räkna om till heltidsekvivalent för att ge rätt bild av din erfarenhet: "3 år deltid (60%), motsvarande 5 års heltidserfarenhet". Var också konkret med schema-flexibilitet om du kan arbeta jour, natt eller helger – detta är ofta avgörande vid rekrytering.`
+✅ "Omvårdnad av 25-30 patienter dagligen inom geriatrisk avdelning. Medicinsk delegering för 20+ patienter (insulin, PEG, subkutana injektioner) med noll avvikelser under 18 månader."
+
+Nämn specifika detaljer som stärker din erfarenhet: antal års erfarenhet inom specialisering, antal patienter med medicinsk delegering, eller förbättringar du bidragit till. Om du arbetat deltid, räkna om till heltidsekvivalent för att ge rätt bild.`
       },
       {
         rubrik: 'Visa konkreta resultat från din omvårdnad',
         text: `Rekryterare vill se vad du åstadkommit, inte bara vad du varit ansvarig för. Fokusera på resultat och effekter av ditt arbete istället för att lista rutinuppgifter.
 
-**UNDVIK:** "Ansvarig för medicindelegering"
-**BRA:** "Medicinsk delegering för 20+ patienter dagligen (insulin, PEG, subkutana injektioner) vilket säkerställde korrekt medicinering utan avvikelser under 18 månader"
+**Exempel på före/efter**:
 
-Om du inte har exakta siffror på förbättringar kan du beskriva situationer som visar din kompetens: "Identifierade tidiga tecken på urinvägsinfektion hos patient med demens, kontaktade läkare och initierade behandling innan tillståndet förvärrades, vilket undvek akut inläggning". Detta demonstrerar klinisk blick, initiativförmåga och förmåga att agera proaktivt.
+❌ "Ansvarig för medicindelegering"
 
-Andra resultat att lyfta fram: fallprevention, nutrition (viktökning hos undernärda patienter), minskad oro hos dementa patienter genom strukturerade aktiviteter, eller förbättrad kommunikation med anhöriga.`
+✅ "Identifierade tidiga tecken på urinvägsinfektion hos patient med demens, kontaktade läkare och initierade behandling innan tillståndet förvärrades, vilket undvek akut inläggning och säkerställde patientens välbefinnande."
+
+Detta demonstrerar klinisk blick, initiativförmåga och förmåga att agera proaktivt. Andra resultat att lyfta fram: fallprevention, viktökning hos undernärda patienter, minskad oro hos dementa patienter genom strukturerade aktiviteter, eller förbättrad kommunikation med anhöriga.`
       },
       {
         rubrik: 'Anpassa profiltext efter jobbannonsen',
-        text: `Din profiltext (den inledande sammanfattningen högst upp i CV:t) bör skräddarsys för varje jobb du söker. Om jobbannonsen söker "undersköterska till demensboende", börja med "Erfaren undersköterska med specialisering i demensvård och BPSD-hantering". För palliativ vård skriv "Undersköterska med gedigen erfarenhet av palliativ omvårdnad och smärtlindring".
+        text: `Din profiltext (den inledande sammanfattningen högst upp i CV:t) bör skräddarsys för varje jobb du söker. Om jobbannonsen söker "undersköterska till demensboende", börja med specialisering i demensvård.
 
-Inkludera alltid dessa element i profiltexten: antal års erfarenhet (totalt och inom specialisering), typ av vårdmiljö du arbetat i, tekniska nyckelkompetenser som är relevanta för tjänsten (medicindelegering, Cosmic/Procapita, specifika vårdformer), och 1-2 personliga egenskaper som matchar jobbannonsen (empatisk, stresstålig, initiativrik).
+**Exempel på före/efter**:
 
-Håll profiltexten till max 4 meningar och skriv den sist – när du vet exakt vad arbetsgivaren söker efter. Detta gör den fokuserad och relevant istället för generisk. Tänk på profiltexten som din 30-sekunders elevator pitch: vad är det viktigaste rekryteraren behöver veta om dig?`
+❌ "Erfaren undersköterska som gillar att arbeta med människor"
+
+✅ "Erfaren undersköterska med specialisering i demensvård och BPSD-hantering. 5 års erfarenhet från särskilt boende med medicinsk delegering för 20+ brukare dagligen. Certifierad i Akta Ryggen, HLR och palliativ vård nivå 2."
+
+Inkludera alltid antal års erfarenhet, typ av vårdmiljö, tekniska nyckelkompetenser som är relevanta för tjänsten, och 1-2 personliga egenskaper som matchar jobbannonsen. Håll profiltexten till max 4 meningar.`
       },
       {
         rubrik: 'Lyft fram certifieringar och kompetensutveckling',
-        text: `Skapa en dedikerad sektion för certifieringar och utbildningar. Detta visar att du är uppdaterad, tar ditt yrke på allvar och investerar i din egen utveckling – egenskaper som vårdgivare värderar högt.
+        text: `Skapa en dedikerad sektion för certifieringar och utbildningar. Detta visar att du är uppdaterad, tar ditt yrke på allvar och investerar i din egen utveckling.
 
-Viktiga certifieringar för undersköterskor inkluderar: Medicinsk delegering (specificera exakt vilka områden: insulin, PEG, subkutana injektioner, inhalation), Akta Ryggen (ergonomiska förflyttningstekniker), Basala hygienrutiner, HLR (med förnyelsedatum), och Nutritionsbedömning. Om du har specialiserade utbildningar som palliativ vård nivå 1-2, demensvård eller diabetesvård, ta definitivt med dessa.
+**Exempel på före/efter**:
 
-Glöm inte att inkludera förnyelsedatum för tidsbegränsade certifieringar som HLR och basala hygienrutiner. Detta visar att du är aktiv och uppdaterad. Om du genomgått intern utbildning på arbetsplatsen (exempelvis "Palliativ vård nivå 1 via Stockholms stad" eller "Diabetesvård", ta med även dessa – de visar arbetsgivarens förtroende och din vilja att utvecklas.`
+❌ "HLR-certifierad och utbildad i medicinsk delegering"
+
+✅ "Medicinsk delegering (insulin, PEG, subkutana injektioner, inhalation) – genomförd 2023
+HLR-certifierad (förnyad 2024-11)
+Palliativ vård nivå 2 (40 timmar, Stockholms stad, 2023)
+Akta Ryggen – ergonomiska förflyttningstekniker (2022)
+Basala hygienrutiner (förnyad 2024)"
+
+Inkludera förnyelsedatum för tidsbegränsade certifieringar som HLR och basala hygienrutiner. Om du genomgått intern utbildning på arbetsplatsen, ta med även dessa – de visar arbetsgivarens förtroende och din vilja att utvecklas.`
       },
       {
         rubrik: 'Balansera tekniska och mjuka färdigheter med bevis',
-        text: `Lista både tekniska färdigheter (medicindelegering, förflyttningsteknik, såromläggning, Cosmic/Procapita) och personliga egenskaper (empati, kommunikation, stresstålig, lagspelare). Men här är nyckeln: backa alltid upp de personliga egenskaperna med konkreta exempel i erfarenhetssektionen.
+        text: `Lista både tekniska färdigheter (medicindelegering, förflyttningsteknik, såromläggning, Cosmic/Procapita) och personliga egenskaper. Men här är nyckeln: backa alltid upp de personliga egenskaperna med konkreta exempel.
 
-**UNDVIK:** Bara lista "Empatisk" under personliga egenskaper
-**BRA:** Skriv i arbetsbeskrivning: "Byggde förtroendefulla relationer med brukare och anhöriga genom lyhördhet och respektfull kommunikation"
+**Exempel på före/efter**:
 
-**UNDVIK:** Bara lista "Stresstålig"
-**BRA:** Skriv i arbetsbeskrivning: "Hanterade 25-30 patienter dagligen i högt tempo med samtidiga medicineringar, måltider och akuta försämringar"
+❌ "Empatisk och stresstålig undersköterska"
 
-Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egenskaper behöver bevis för att bli trovärdiga. Koppla varje personlig egenskap till en specifik situation eller uppgift i din arbetserfarenhet. Detta gör skillnaden mellan ett CV som påstår och ett CV som bevisar.`
+✅ "Byggde förtroendefulla relationer med brukare och anhöriga genom lyhördhet och respektfull kommunikation. Hanterade 25-30 patienter dagligen i högt tempo med samtidiga medicineringar, måltider och akuta försämringar."
+
+Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egenskaper behöver bevis för att bli trovärdiga. Koppla varje personlig egenskap till en specifik situation eller uppgift i din arbetserfarenhet.`
       }
     ],
 
@@ -663,33 +681,37 @@ Detta undviker "buzzword bingo" där kandidater bara listar "kommunikativ, flexi
     tips: [
       {
         rubrik: 'Inkludera branschspecifika system och verktyg',
-        text: `Nämn alla system du behärskar eftersom det visar teknisk kompetens och att du kan börja arbeta direkt utan lång introduktion. Företag vill veta att du känner till verktyg de redan använder.
+        text: `Nämn alla system du behärskar eftersom det visar teknisk kompetens och att du kan börja arbeta direkt utan lång introduktion.
 
-Lista switchboard-system, bokningssystem (Lime, Simployer, Outlook Calendar för företag), hotellsystem (Opera PMS eller Mews), Visitor Management System, och eventuella CRM-system. Skriv konkret: "Använder Lime dagligen för bokning av 15 mötesrum och koordinering av 50+ interna möten veckovis". Detta gör din erfarenhet tydlig och mätbar.`
+**Exempel på före/efter**:
+
+❌ "Ansvarig för reception och administration"
+
+✅ "Använder Lime dagligen för bokning av 15 mötesrum, Simployer för administrativa uppgifter och switchboard för 200+ samtal. Behärskar Visitor Management System för digital incheckning och Outlook Calendar för koordinering av 50+ interna möten veckovis."
+
+Lista switchboard-system, bokningssystem (Lime, Simployer, Outlook Calendar), hotellsystem (Opera PMS, Mews), och eventuella CRM-system (Salesforce) med konkret användningskontext.`
       },
       {
         rubrik: 'Kvantifiera din erfarenhet med samtal och besökare',
-        text: `Ange alltid antal besökare per dag, antal samtal via switchboard, och antal bokningar för att ge rekryterare kontext till din arbetsbelastning och stresstolerans. Vaga formuleringar som "hanterade reception" eller "mycket besökare" säger ingenting om omfattning.
+        text: `Ange alltid antal besökare per dag, antal samtal via switchboard och antal bokningar för att ge rekryterare kontext till din arbetsbelastning och stresstolerans.
 
-**Exempel på före/efter:**
+**Exempel på före/efter**:
 
 ❌ "Ansvarig för reception och telefonväxel"
 
 ✅ "Hanterade företagsreception med 200+ samtal och 50+ besökare dagligen. Switchboard-ansvar för växel med 150 anknytningar."
 
-Detta visar konkret omfattning och att du är van vid hög belastning.`
+Vaga formuleringar som "hanterade reception" eller "mycket besökare" säger ingenting om omfattning eller komplexitet.`
       },
       {
         rubrik: 'Visa konkreta resultat från din service',
-        text: `Kvantifierbara förbättringar sticker ut och visar att du tar initiativ. Använd procent för förbättringar, kundnöjdhetsmätningar (NPS), eller tidsbesparingar när du beskriver vad du åstadkommit.
+        text: `Kvantifierbara förbättringar sticker ut och visar att du tar initiativ. Använd procent för förbättringar, kundnöjdhetsmätningar (NPS) eller tidsbesparingar.
 
-**Exempel:**
+**Exempel på före/efter**:
 
 ❌ "Förbättrade mottagningen genom bättre rutiner"
 
-✅ "Förbättrade besöksupplevelsen med 30% genom implementering av digitalt inchecksystem"
-
-✅ "Reducerade check-in tid med 20% genom effektivisering av registreringsprocess"
+✅ "Förbättrade besöksupplevelsen med 30% genom implementering av digitalt inchecksystem. Reducerade check-in tid med 20% genom effektivisering av registreringsprocess."
 
 Detta visar resultatfokus och att du bidrar till verksamhetsutveckling, inte bara utför rutinuppgifter.`
       },
@@ -697,33 +719,39 @@ Detta visar resultatfokus och att du bidrar till verksamhetsutveckling, inte bar
         rubrik: 'Anpassa ditt CV för hotell vs företagsreception',
         text: `Hotell och företag söker olika kompetenser även om grunderna är desamma. Anpassa vad du lyfter fram beroende på målbransch.
 
-För hotellreception: Betona in-/utcheckning, gästservice, Opera PMS eller Mews, taxibeställningar, rumservice. Exempel: "100+ in-/utcheckningar dagligen under högsäsong".
+**Exempel på före/efter**:
 
-För företagsreception: Fokusera på besökshantering, mötesbokning, intern service, administrativa uppgifter, switchboard. Exempel: "Mötesadministration för 50+ möten veckovis" och "Ansvarig för företagsreception med säkerhetskontroll av besökare".
+❌ "Erfarenhet av reception och kundservice"
 
-Båda miljöer värderar switchboard-kompetens och kundservice högt.`
+✅ För hotell: "100+ in-/utcheckningar dagligen med Opera PMS, gästservice, taxibeställningar och roomservice för 80-100 gäster"
+
+✅ För företag: "Mötesadministration för 50+ möten veckovis, besökshantering med säkerhetskontroll, intern service och switchboard för 150 anknytningar"
+
+Båda miljöer värderar switchboard-kompetens och professionell kundservice högt.`
       },
       {
         rubrik: 'Lyft fram flerspråkig kommunikation som konkurrensfördel',
-        text: `Internationella företag och hotell värderar receptionister som kan kommunicera på flera språk eftersom de ofta har utländska besökare, kunder och kollegor.
+        text: `Internationella företag och hotell värderar receptionister som kan kommunicera på flera språk eftersom de ofta har utländska besökare och kunder.
 
-Lista alla språk med nivå under en dedikerad Språk-sektion: "Svenska (Modersmål), Engelska (Flytande), Spanska (Goda kunskaper)". Nämn även i profiltexten och i erfarenhetsbeskrivningar där det tillfört värde. Exempel: "Flerspråkig kundservice (svenska, engelska, spanska) vilket ökat internationell kundnöjdhet med 25%". Detta kvantifierar värdet av din språkkompetens.`
+**Exempel på före/efter**:
+
+❌ "Talar engelska och spanska"
+
+✅ "Flerspråkig kundservice (svenska, engelska, spanska) vilket ökat internationell kundnöjdhet med 25%. Hanterar dagligen kommunikation med internationella gäster och affärspartners."
+
+Lista alla språk med nivå under en dedikerad Språk-sektion: "Svenska (Modersmål), Engelska (Flytande), Spanska (Goda kunskaper)".`
       },
       {
         rubrik: 'Balansera tekniska och mjuka färdigheter med bevis',
-        text: `Undvik att bara lista mjuka färdigheter som "serviceinriktad, kommunikativ, flexibel" utan sammanhang. Detta kallas "buzzword bingo" och säger ingenting konkret om din förmåga. Visa istället genom exempel från dina arbetsuppgifter.
+        text: `Undvik att bara lista mjuka färdigheter som "serviceinriktad, kommunikativ, flexibel" utan sammanhang. Visa istället dessa egenskaper genom konkreta exempel.
 
-**Exempel på före/efter:**
+**Exempel på före/efter**:
 
 ❌ "Serviceinriktad, kommunikativ, flexibel, stresstålig"
 
-✅ "Serviceinriktad (150+ besökare dagligen med 95% positiv feedback enligt NPS-mätning)"
+✅ "Serviceinriktad (150+ besökare dagligen med 95% positiv feedback enligt NPS-mätning). Professionell kommunikation (200+ samtal dagligen via switchboard). Multitasking (samordnade besökshantering, telefonsamtal och mötesbokning simultant)."
 
-✅ "Professionell kommunikation (200+ samtal dagligen via switchboard med tydlighet och vänlighet)"
-
-✅ "Multitasking (samordnade besökshantering, telefonsamtal och mötesbokning simultant)"
-
-Bevis gör din kompetens trovärdig och konkret.`
+Bevis gör din kompetens trovärdig och konkret. Rekryterare ser tomma listor i varje tredje CV.`
       }
     ],
 
@@ -962,56 +990,75 @@ Patent, publikationer och GitHub-projekt med 500+ stars stärker expertis-profil
     tips: [
       {
         rubrik: 'Inkludera rätt nyckelord för din ingenjörsinriktning',
-        text: `ATS-system söker efter specifika termer beroende på ingenjörsdisciplin. För maskinteknik: CAD (SolidWorks, CATIA), FEM-analys, tillverkningsmetoder, materialval. För elektroteknik: PLC-programmering, SCADA, embedded systems, reglerteknik. För mjukvaruutveckling inom engineering: MATLAB, Python, LabVIEW, Git. För processingenjörer: Lean, Six Sigma, OEE, kontinuerlig förbättring.
+        text: `ATS-system söker efter specifika termer beroende på ingenjörsdisciplin. Läs jobbannonsen noga och matcha dina nyckelord mot deras exakta formuleringar.
 
-Läs jobbannonsen noga och matcha dina nyckelord mot deras krav. Om de söker "erfarenhet av SolidWorks" använd exakt den formuleringen i ditt CV, inte "CAD-kompetens". ATS-system matchar ofta ordagrant, vilket innebär att felaktig terminologi kan göra att ditt CV sorteras bort trots relevant kompetens.
+**Exempel på före/efter**:
 
-Inkludera även projektmetodik (Agile, Scrum, Waterfall) och certifieringar (Lean Six Sigma, PMP). Detta visar att du kan integrera snabbt i deras arbetsprocesser utan omfattande introduktion.`
+❌ "Bred CAD-kompetens och erfarenhet av produktutveckling"
+
+✅ "Expert i SolidWorks (7+ år) med erfarenhet av FEM-analys, tillverkningsmetoder och materialval. För elektroteknik: PLC-programmering, SCADA, embedded systems. Certifierad Lean Six Sigma Green Belt."
+
+Om de söker "erfarenhet av SolidWorks" använd exakt den formuleringen i ditt CV, inte "CAD-kompetens". ATS-system matchar ofta ordagrant.`
       },
       {
-        rubrik: 'Kvantifiera din erfarenhet för ökad trovärdighet',
-        text: `Konkreta siffror gör ditt CV mer trovärdigt och jämförbart. Istället för "ansvarig för produktutveckling" skriv "ledde produktutvecklingsprojekt med €2M budget, 12 månaders tidslinje, levererat i tid och 10% under budget". Nämn projektbudgetar, teamstorlek, tidsramar och kostnadsbesparingar.
+        rubrik: 'Kvantifiera din erfarenhet med budget, tidslinje och resultat',
+        text: `Konkreta siffror gör ditt CV mer trovärdigt och jämförbart. Visa projektbudgetar, teamstorlek, tidsramar och kostnadsbesparingar för att ge omfattning av din erfarenhet.
 
-Om du jobbat med flera projekt samtidigt, kvantifiera det: "hanterade 3 parallella produktutvecklingsprojekt värt totalt €5M". Var också specifik med tekniska prestationer: "reducerade simuleringstid från 8 till 2 timmar genom optimerad MATLAB-kod" eller "förbättrade produktkvalitet från 92% till 98% first-time-right".
+**Exempel på före/efter**:
 
-För nyutexaminerade: kvantifiera examensarbete eller projekt. "Examensarbete i samarbete med Volvo: FEM-analys av chassikomponent som resulterade i 15% viktreducering". Detta kompenserar för brist på arbetslivserfarenhet och visar praktisk tillämpning.`
+❌ "Ansvarig för produktutvecklingsprojekt"
+
+✅ "Ledde produktutvecklingsprojekt med €2M budget, 12 månaders tidslinje, levererat i tid och 10% under budget. Hanterade 3 parallella projekt värt totalt €5M."
+
+För nyutexaminerade: kvantifiera examensarbete. "Examensarbete med Volvo: FEM-analys av chassikomponent som resulterade i 15% viktreducering."`
       },
       {
-        rubrik: 'Visa konkreta resultat från dina ingenjörsprojekt',
-        text: `Istället för att lista arbetsuppgifter, visa resultat och affärsnytta. Exempel: "Implementerade Python-automatisering för CAD-ritningsgenerering vilket minskade designtid med 30%", "Utvecklade FEM-modell som reducerade produktionstid 25% genom optimerad geometri".
+        rubrik: 'Visa konkreta resultat och affärsnytta från dina projekt',
+        text: `Istället för att lista arbetsuppgifter, visa resultat och påverkan på verksamheten. Rekryterare vill veta VAD du uppnådde, inte bara VAD du gjorde.
 
-Om du inte har exakta siffror, beskriv tekniska utmaningar du löst och deras påverkan: "Identifierade och eliminerade vibrationsproblem i prototyp genom modalanalys och designoptimering, vilket möjliggjorde produktlansering i tid och undvek 6 månaders försening".
+**Exempel på före/efter**:
 
-Detta visar initiativförmåga, problemlösningsförmåga och affärsförståelse. Det skiljer också ditt CV från de som bara listar "designade komponenter, körde simuleringar". Rekryterare vill veta VAD du uppnådde, inte bara VAD du gjorde.`
+❌ "Designade komponenter och körde simuleringar"
+
+✅ "Implementerade Python-automatisering för CAD-ritningsgenerering vilket minskade designtid med 30%. Utvecklade FEM-modell som reducerade produktionstid 25% genom optimerad geometri."
+
+Om du inte har exakta siffror: "Identifierade och eliminerade vibrationsproblem genom modalanalys, vilket möjliggjorde produktlansering i tid och undvek 6 månaders försening."`
       },
       {
         rubrik: 'Anpassa profiltext och framhäv relevant teknisk specialisering',
-        text: `Din profiltext (den inledande sammanfattningen) bör vara skräddarsydd för varje jobb. Om jobbannonsen söker "Senior Mechanical Engineer med CAD-expertis", skriv: "Civilingenjör Maskinteknik med 7+ års erfarenhet från produktutveckling. Expert i SolidWorks och FEM-analys med bevisad förmåga att leverera innovativa lösningar."
+        text: `Din profiltext bör vara skräddarsydd för varje jobb. Om jobbannonsen söker "Senior Mechanical Engineer med CAD-expertis", anpassa därefter.
 
-Om de söker projektledare, anpassa: "Erfaren ingenjör med specialistkompetens inom projektledning, Lean Six Sigma och tvärfunktionellt samarbete. PMP-certifierad med track record av projekt levererade i tid och budget."
+**Exempel på före/efter**:
 
-Inkludera alltid: examen (civil/högskoleingenjör), antal års erfarenhet, tekniska kärnkompetenser (top 3 verktyg/metoder) och 1-2 personliga egenskaper (analytisk, resultatdriven). Håll profiltexten till max 4 meningar. Skriv den sist när du vet exakt vad arbetsgivaren söker.`
+❌ "Civilingenjör med bred erfarenhet från produktutveckling och design"
+
+✅ "Civilingenjör Maskinteknik med 7+ års erfarenhet från produktutveckling. Expert i SolidWorks och FEM-analys med bevisad förmåga att leverera innovativa lösningar i tid och budget."
+
+Inkludera alltid: examen (civil/högskoleingenjör), antal års erfarenhet, tekniska kärnkompetenser (top 3 verktyg) och 1-2 personliga egenskaper. Max 4 meningar.`
       },
       {
         rubrik: 'Lyft fram tekniska färdigheter och uppdaterade certifieringar',
         text: `Skapa en dedikerad sektion för tekniska färdigheter och certifieringar. Detta är kritiskt för ATS-matchning i ingenjörsroller.
 
-Viktiga att inkludera för ingenjörer:
-- CAD/CAE: SolidWorks, AutoCAD, CATIA, ANSYS (specificera kompetensnivå: Expert, Avancerad, Grundläggande)
-- Programmering: Python, MATLAB, C++, SQL (nämn konkreta användningsområden: automation, simulering, dataanalys)
-- Projektmetodik: Agile, Scrum, Lean, Six Sigma
-- Certifieringar: Lean Six Sigma (Green/Black Belt), PMP, ISO-revisor, Scrum Master
-- Branschspecifika: Truckkort, Heta Arbeten, CAD-certifieringar
+**Exempel på före/efter**:
 
-Gruppera efter kategori (CAD, Programmering, Projektledning, Certifieringar) för tydlighet. Inkludera kompetensnivå för viktigaste verktygen: "SolidWorks (Expert, 7+ års erfarenhet)", "Python (Avancerad, automation och dataanalys)".`
+❌ "Kompetens i CAD-program, programmering och projektledning"
+
+✅ "SolidWorks (Expert, 7+ år), Python (Avancerad, automation och dataanalys), Lean Six Sigma Green Belt (2023), PMP-certifierad (2022)"
+
+Gruppera efter kategori (CAD, Programmering, Projektledning, Certifieringar). Specificera kompetensnivå och användningsområde för att ge konkret bild av din tekniska kompetens.`
       },
       {
         rubrik: 'Balansera tekniska och mjuka färdigheter med konkreta exempel',
-        text: `Lista både tekniska färdigheter (CAD, FEM, programmering, projektmetodik) och personliga egenskaper (problemlösning, kommunikation, samarbete). Men backa alltid upp de personliga egenskaperna med exempel i erfarenhetssektionen.
+        text: `Lista både tekniska färdigheter och personliga egenskaper, men backa alltid upp de mjuka egenskaperna med exempel från erfarenhetssektionen.
 
-Istället för att bara lista "problemlösare" i kompetenssektionen, visa det genom att skriva: "Identifierade rotorsak till kvalitetsproblem genom statistisk analys och implementerade korrigerande åtgärd som eliminerade defekter (från 5% till 0.2% defektrate)".
+**Exempel på före/efter**:
 
-Istället för bara "god kommunikation", skriv: "Teknisk dokumentation och kundpresentationer för produktspecifikationer. Översatte tekniska krav till icke-teknisk publik (försäljning, ledning)". Detta gör dina mjuka färdigheter konkreta och trovärdiga istället för abstrakta påståenden.`
+❌ "Problemlösare med god kommunikationsförmåga"
+
+✅ "Problemlösare (identifierade rotorsak till kvalitetsproblem genom statistisk analys, eliminerade defekter från 5% till 0.2%). Teknisk kommunikation (översatte tekniska krav till icke-teknisk publik för försäljning och ledning)."
+
+Detta gör dina mjuka färdigheter konkreta och trovärdiga istället för abstrakta påståenden som alla kandidater skriver.`
       }
     ],
 
@@ -1204,8 +1251,11 @@ Dedikerade sektionen för certifieringar visar också kontinuerlig kompetensutve
         rubrik: 'Specificera dina WMS-system istället för "datorvana"',
         text: `ATS-system söker efter specifika WMS-system, inte generiska termer. "Datorvana" säger ingenting – "SAP WM med 4+ års erfarenhet" visar konkret kompetens som matchar jobbannonsens krav.
 
-**UNDVIK:** "God datorvana och erfarenhet av lagerhanteringssystem"
-**BRA:** "SAP WM – Warehouse Management (Avancerad, 4+ år), Astro WMS-system (Avancerad, 2+ år), M3-system (grundläggande)"
+**Exempel på före/efter**:
+
+❌ "God datorvana och erfarenhet av lagerhanteringssystem"
+
+✅ "SAP WM – Warehouse Management (Avancerad, 4+ år), Astro WMS-system (Avancerad, 2+ år), M3-system (grundläggande)"
 
 Lista de system du faktiskt behärskar med kompetensnivå för dina starkaste. Vanliga WMS-system att nämna inkluderar SAP WM, Astro, M3, Pyramid, JDA och Manhattan. Om du använt handdatorer och RF-scanners (Zebra, Honeywell), nämn det specifikt – det är standardverktyg i moderna lager.`
       },
@@ -1213,17 +1263,23 @@ Lista de system du faktiskt behärskar med kompetensnivå för dina starkaste. V
         rubrik: 'Kvantifiera din plockning och effektivitet',
         text: `Rekryterare vill veta hur mycket du kan hantera och hur bra du är på det. Kvantifiera alltid med siffror: antal order per dag, plocknoggrannhet i procent, och eventuella förbättringar du bidragit till.
 
-**UNDVIK:** "Ansvarade för plockning och packning av order"
-**BRA:** "Genomförde 150-180 plockorder per dag med 99.5% noggrannhet i Astro WMS-system"
+**Exempel på före/efter**:
+
+❌ "Ansvarade för plockning och packning av order"
+
+✅ "Genomförde 150-180 plockorder per dag med 99.5% noggrannhet i Astro WMS-system"
 
 Om du inte vet exakta siffror, uppskatta konservativt. Fråga dig själv: Hur många order hanterade jag per skift? Hur ofta gjorde jag fel? Jobbade jag med 100, 500 eller 5000 olika artiklar? Dessa detaljer visar omfattning och ger rekryteraren något konkret att relatera till.`
       },
       {
         rubrik: 'Visa truckkort med årtal och förnyelsedatum',
-        text: `Truckkort är ofta ett absolut krav för lagertjänster. Men truckkort utan årtal kan betyda att certifikatet är ogiltigt – truckkort gäller normalt i 5 år och måste förnyas.
+        text: `Truckkort är ofta ett absolut krav för lagertjänster. Men truckkort utan årtal kan kanske betyda att certifikatet är ogiltigt – truckkort gäller normalt i 5 år och måste förnyas.
 
-**UNDVIK:** "Truckkort A och B"
-**BRA:** "Truckkort A – Motviktstruck (2017, förlängt 2024), Truckkort B – Skjutstativtruck (2017, förlängt 2024)"
+**Exempel på före/efter**:
+
+❌ "Truckkort A och B"
+
+✅ "Truckkort A – Motviktstruck (2017, förlängt 2024), Truckkort B – Skjutstativtruck (2017, förlängt 2024)"
 
 Lista vilken typ av truck (motviktstruck, skjutstativtruck, ledstaplare, reach truck) och visa tydligt att certifikatet är aktuellt. Om du har extra certifieringar som ADR (farligt gods) eller Heta Arbeten, inkludera dem – de öppnar dörrar till specialiserade tjänster med mindre konkurrens.`
       },
@@ -1231,8 +1287,11 @@ Lista vilken typ av truck (motviktstruck, skjutstativtruck, ledstaplare, reach t
         rubrik: 'Demonstrera progression i din karriär',
         text: `Visa att du utvecklats över tid – från operativ lagerarbetare till mer ansvarsfulla roller. Detta signalerar att du har potential att växa inom organisationen.
 
-**UNDVIK:** Tre nästan identiska tjänstebeskrivningar utan synlig utveckling
-**BRA:** Visa progression i volym (80 → 150 → 220 order/dag), ansvar (från plock till teamledare för 6 personer), och kompetens (från grundläggande till Lean-implementering)
+**Exempel på före/efter**:
+
+❌ Tre nästan identiska tjänstebeskrivningar utan synlig utveckling
+
+✅ Visa progression i volym (80 → 150 → 220 order/dag), ansvar (från plock till teamledare för 6 personer), och kompetens (från grundläggande till Lean-implementering)
 
 Marcus CV visar tydlig progression: han började med 80-100 order/dag på Ahlsell, ökade till 150-180 på CEVA där han implementerade Lean 5S, och hanterar nu 180-220 order/dag som teamledare på PostNord. Rekryterare ser detta och förstår att Marcus är redo för nästa steg.`
       },
@@ -1240,8 +1299,11 @@ Marcus CV visar tydlig progression: han började med 80-100 order/dag på Ahlsel
         rubrik: 'Framhäv säkerhet och kvalitetsarbete',
         text: `Arbetsmiljö och säkerhet är prioriterat inom lager och logistik. Visa att du tar säkerhet på allvar genom konkreta exempel och resultat.
 
-**UNDVIK:** "Följde säkerhetsrutiner"
-**BRA:** "Reducerade skador vid hantering med 35% genom utbildning i ergonomi och riskanalys för teamet – 0 arbetsolyckor sedan 2020"
+**Exempel på före/efter**:
+
+❌ "Följde säkerhetsrutiner"
+
+✅ "Reducerade skador vid hantering med 35% genom utbildning i ergonomi och riskanalys för teamet – 0 arbetsolyckor sedan 2020"
 
 Nämn arbetsmiljöutbildningar, riskanalyser du deltagit i, eller förbättringar du bidragit till. Om du utbildat kollegor i säkerhet eller ergonomi, lyft fram det. Arbetsgivare vill ha medarbetare som aktivt bidrar till en säker arbetsplats – det minskar kostnader för sjukfrånvaro och olyckor.`
       }
@@ -2193,24 +2255,63 @@ Konkreta bevis sticker ut. Rekryterare ser tomma listor i varje tredje CV.`
 
     tips: [
       {
-        rubrik: 'Kvantifiera dina försäljningsresultat – vagt är värdelöst',
-        text: '❌ UNDVIK: "Ansvarade för försäljning" eller "Bidrog till butikens resultat"\n\n✅ SKRIV ISTÄLLET: "22% ökning personlig försäljning (från 180k till 220k kr/månad)" eller "Bäst i teamet Q2 2024 med 250k kr försäljning"\n\nKonkreta siffror visar exakt hur bra du är och ger rekryteraren något att fråga om under intervjun.'
+        rubrik: 'Kvantifiera dina försäljningsresultat med konkreta siffror',
+        text: `Vaga beskrivningar som "ansvarade för försäljning" säger ingenting om din prestation. Rekryterare vill se exakt hur bra du är – siffror ger trovärdighet och visar din faktiska kapacitet.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarade för försäljning och bidrog till butikens resultat"
+
+✅ "Ökade personlig försäljning med 22% under 2023 (från 180k till 220k kr/månad). Bäst i teamet Q2 med 250k kr försäljning."
+
+Konkreta siffror ger rekryteraren något att fråga om under intervjun och visar att du mäter din egen prestation.`
       },
       {
-        rubrik: 'Namnge de kassasystem du faktiskt kan',
-        text: 'Skriv inte bara "kassavana" – det är för generiskt. Namnge specifika system: Extenda, Visma Retail, Sitoo, eller vilket system din arbetsgivare använde. ATS-system söker efter exakta systemmatchningar, och rekryterare inom detaljhandeln letar efter kandidater som kan börja jobba dag 1 utan omfattande kassautbildning.'
+        rubrik: 'Namnge specifika kassasystem du behärskar',
+        text: `Istället för "kassavana" ska du lista exakt vilka system du arbetat med. ATS-system söker efter specifika systemmatchningar, och rekryterare letar efter kandidater som kan börja jobba direkt utan omfattande utbildning.
+
+**Exempel på före/efter**:
+
+❌ "God kassavana och datorvana"
+
+✅ "Kassasystem: Extenda (3+ år daglig användning), Visma Retail, POS-system och betalningslösningar (Swish, Apple Pay)"
+
+Specifika system visar att du kan börja jobba dag 1 utan omfattande kassautbildning – det sparar arbetsgivaren tid och pengar.`
       },
       {
-        rubrik: 'Visa stresshantering genom konkreta exempel',
-        text: '❌ UNDVIK: Bara lista "stresstålig" eller "hanterar högt tempo" under kompetenser\n\n✅ SKRIV ISTÄLLET: "Hanterade 300+ kunder under Black Friday-kampanj" eller "40-60 kundmöten dagligen under högsäsong"\n\nGenom att kvantifiera volymerna visar du att du har erfarenhet av riktigt högt tempo.'
+        rubrik: 'Visa stresshantering genom kvantifierade volymer',
+        text: `Undvik att bara lista "stresstålig" eller "hanterar högt tempo" som kompetenser – visa det istället genom konkreta siffror från din arbetserfarenhet.
+
+**Exempel på före/efter**:
+
+❌ "Stresstålig och van vid högt tempo"
+
+✅ "Hanterade 300+ kunder under Black Friday-kampanj med bibehållen servicekvalitet. Betjänar 40-60 kunder dagligen under högsäsong."
+
+Genom att kvantifiera volymerna bevisar du att du faktiskt har erfarenhet av riktigt högt tempo – inte bara säger att du klarar det.`
       },
       {
-        rubrik: 'Inkludera visuell merchandising om du jobbat med butikslayout',
-        text: 'Många butiksbiträden glömmer att nämna arbete med produktplacering, skyltning och butikslayout. Om du arrangerat produkter eller byggt kampanjdisplayer – nämn det! Skriv konkret: "Ansvarade för visuell merchandising – resulterade i 15% ökad avdelningsförsäljning". Det skiljer dig från de som bara sett sin roll som att bemanna kassan.'
+        rubrik: 'Lyft fram visuell merchandising om du arbetat med butikslayout',
+        text: `Många butiksbiträden underskattar sitt arbete med produktplacering och skyltning. Om du arrangerat produkter eller byggt kampanjdisplayer, nämn det med konkreta resultat.
+
+**Exempel på före/efter**:
+
+❌ "Hjälpte till med butikslayout och produktplacering"
+
+✅ "Ansvarade för visuell merchandising på damavdelningen – skapade skyltfönster och kampanjytor som ökade avdelningsförsäljning med 15%"
+
+Detta skiljer dig från de som bara sett sin roll som att bemanna kassan och visar att du förstår hela butiksdriften.`
       },
       {
-        rubrik: 'Certifieringar och kurser ger dig försprång',
-        text: 'Ta med alla relevanta kurser eller certifieringar, även interna: Kassautbildning (Extenda), merförsäljningstekniker, Visual Merchandising-kurser. Skriv årtal så rekryteraren vet att kunskapen är aktuell. De visar att du tagit initiativ till att lära dig mer än grunderna och att arbetsgivaren investerat i din utveckling.'
+        rubrik: 'Inkludera certifieringar och interna kurser med årtal',
+        text: `Alla relevanta kurser och certifieringar visar att du tagit initiativ till att lära dig mer än grunderna. Även interna utbildningar räknas och visar att arbetsgivaren investerat i din utveckling.
+
+Exempel på certifieringar att nämna:
+- Kassautbildning Extenda (2021)
+- Visual Merchandising-kurs (H&M Academy, 2022)
+- Merförsäljningstekniker (Retail Academy, 2023)
+
+Årtal visar att kunskapen är aktuell. Certifieringar signalerar professionalism och ambition att utvecklas inom branschen.`
       }
     ],
 
@@ -2362,28 +2463,76 @@ Konkreta bevis sticker ut. Rekryterare ser tomma listor i varje tredje CV.`
 
     tips: [
       {
-        rubrik: 'Gruppera din tech stack – lista inte alla 40 verktyg',
-        text: '❌ UNDVIK: Att lista Python, JavaScript, TypeScript, Node.js, React, Angular, Vue, Django, Flask, PostgreSQL, MySQL, MongoDB, Redis, Docker, Kubernetes, AWS, Azure, Terraform, Jenkins, GitLab CI... Det blir oöverskådligt och signalerar osäkerhet.\n\n✅ SKRIV ISTÄLLET: Gruppera efter kategori och håll det till 8-12 totalt. "Cloud: Azure (Expert, 7+ år), AWS | Containers: Kubernetes, Docker | Språk: C#, Python". Ge nivå på TOP 3, resten utan.'
+        rubrik: 'Gruppera din tech stack strategiskt – lista inte alla 40 verktyg',
+        text: `En lång lista med 40 verktyg blir oöverskådlig och signalerar osäkerhet. Gruppera istället efter kategori och fokusera på dina starkaste områden.
+
+**Exempel på före/efter**:
+
+❌ "Python, JavaScript, TypeScript, Node.js, React, Angular, Vue, Django, Flask, PostgreSQL, MySQL, MongoDB, Redis, Docker, Kubernetes, AWS, Azure, Terraform..."
+
+✅ "Cloud: Azure (Expert, 7+ år), AWS | Containers: Kubernetes, Docker | Språk: C#, Python | Databaser: PostgreSQL, MongoDB"
+
+Håll det till 8-12 tekniker totalt. Ge kompetensnivå på dina TOP 3, resten utan nivå.`
       },
       {
-        rubrik: 'Översätt teknik till affärsspråk för C-level',
-        text: 'Rekryterare och beslutsfattare förstår inte alltid "microservices" eller "CI/CD-pipelines" – de förstår tid, pengar och risk. "Byggde CI/CD-pipeline" → "Reducerade release-tid från 2 veckor till 2 dagar". "Implementerade Kubernetes" → "Hanterar 2M+ transaktioner/månad med 99,9% uptime". "Terraform" → "Minskade driftkostnader med 30%". Detta gör ditt CV läsbart för både tekniska och icke-tekniska beslutsfattare.'
+        rubrik: 'Översätt teknik till affärsspråk som beslutsfattare förstår',
+        text: `Rekryterare och C-level förstår inte alltid "microservices" eller "CI/CD-pipelines" – men de förstår tid, pengar och risk. Översätt tekniska prestationer till affärsresultat.
+
+**Exempel på före/efter**:
+
+❌ "Byggde CI/CD-pipeline och implementerade Kubernetes för containerbaserad infrastruktur"
+
+✅ "Reducerade release-tid från 2 veckor till 2 dagar genom CI/CD-automatisering. Plattformen hanterar nu 2M+ transaktioner/månad med 99,9% uptime."
+
+Detta gör ditt CV läsbart för både tekniska och icke-tekniska beslutsfattare.`
       },
       {
-        rubrik: 'Lägg till certifieringar med årtal – visar aktiv utveckling',
-        text: '❌ UNDVIK: "Azure-certifierad" eller "AWS Solutions Architect" utan årtal. Rekryteraren vet inte om du tog certifieringen 2018 eller 2024.\n\n✅ SKRIV ISTÄLLET: "Azure Solutions Architect Expert (2024), AWS Solutions Architect Associate (2023), CKA (2022)". Detta visar att certifieringarna är aktuella och att du utvecklas aktivt. För konsultuppdrag är certifieringar ofta formella krav.'
+        rubrik: 'Lista certifieringar med årtal för att visa aktiv utveckling',
+        text: `Certifieringar utan årtal säger ingenting – rekryteraren vet inte om du tog den 2018 eller 2024. Årtal visar att du utvecklas aktivt och håller dig uppdaterad.
+
+**Exempel på före/efter**:
+
+❌ "Azure-certifierad, AWS Solutions Architect, Kubernetes-certifierad"
+
+✅ "Azure Solutions Architect Expert (2024), AWS Solutions Architect Associate (2023), Certified Kubernetes Administrator (2022)"
+
+För konsultuppdrag är certifieringar ofta formella krav – utan dem går du miste om uppdrag helt.`
       },
       {
-        rubrik: 'Visa konsultresultat med kundkontext och omfattning',
-        text: 'Som IT-konsult jobbar du på många olika uppdrag – ge varje uppdrag kontext. "Migrerade applikationer till Azure" säger ingenting. Skriv istället: "Migrerade 15+ applikationer från on-prem till Azure för fintech-kund (2M+ transaktioner/månad, 99,9% uptime-krav)". Detta visar omfattning, bransch, skala och kvalitetskrav. Kombinera teknisk prestation med affärskontext.'
+        rubrik: 'Ge kundkontext och omfattning för varje konsultuppdrag',
+        text: `Som IT-konsult jobbar du på många uppdrag – ge varje uppdrag kontext så rekryteraren förstår komplexiteten och skalan.
+
+**Exempel på före/efter**:
+
+❌ "Migrerade applikationer till Azure"
+
+✅ "Migrerade 15+ applikationer från on-prem till Azure för fintech-kund (2M+ transaktioner/månad, 99,9% uptime-krav, 6 månaders projekt)"
+
+Kombinera teknisk prestation med bransch, skala och kvalitetskrav för att visa omfattningen av din erfarenhet.`
       },
       {
-        rubrik: 'Skillnaden mellan utvecklare och konsult: Mentorskap och kundnöjdhet',
-        text: 'Vad skiljer en senior IT-konsult från en senior utvecklare? Konsulter jobbar mot externa kunder, mentorar juniorer och driver projekt. Visa detta: "Mentor för 3 junior-konsulter", "Kundnöjdhet 4.7/5 på 10+ projekt", "Faciliterade tekniska diskussioner mellan utvecklingsteam och C-level". Detta visar mjuka kompetenser utan att skriva "driven, kommunikativ, flexibel".'
+        rubrik: 'Visa konsultkompetenser genom konkreta exempel',
+        text: `Vad skiljer en senior IT-konsult från en senior utvecklare? Konsulter jobbar mot externa kunder, mentorar juniorer och driver projekt från start till mål.
+
+**Exempel på före/efter**:
+
+❌ "Driven, kommunikativ och flexibel konsult med bred teknisk kompetens"
+
+✅ "Mentor för 3 junior-konsulter inom Azure och DevOps. Kundnöjdhet 4.7/5 på 10+ levererade projekt. Faciliterar tekniska diskussioner mellan utvecklingsteam och C-level."
+
+Konkreta exempel visar mjuka kompetenser utan tomma buzzwords.`
       },
       {
-        rubrik: 'Koppla DevOps-resultat till tid och pengar',
-        text: 'DevOps handlar inte bara om Docker och Kubernetes – det handlar om snabbare leveranser och lägre kostnader. Visa affärspåverkan: "Implementerade CI/CD-pipelines som reducerade release-tid från 2 veckor till 2 dagar" (snabbare time-to-market), "Automatiserade infrastruktur med Terraform vilket minskade driftkostnader med 30%" (ekonomi). Beslutsfattare förstår tid och pengar bättre än tekniska termer.'
+        rubrik: 'Koppla DevOps-resultat till tid och ekonomisk påverkan',
+        text: `DevOps handlar inte bara om verktyg – det handlar om snabbare leveranser och lägre kostnader. Visa affärspåverkan för varje teknisk implementation.
+
+**Exempel på före/efter**:
+
+❌ "Implementerade CI/CD-pipelines och automatiserade infrastruktur med Terraform"
+
+✅ "CI/CD-automatisering reducerade release-tid från 2 veckor till 2 dagar (snabbare time-to-market). Terraform-implementation minskade driftkostnader med 30% årligen."
+
+Beslutsfattare förstår tid och pengar bättre än tekniska termer – översätt alltid till affärsnytta.`
       }
     ],
 
@@ -2581,39 +2730,75 @@ Eller hur "volontärarbete" blir "koordinerade event för 400+ deltagare, hanter
     tips: [
       {
         rubrik: 'Lyft fram relevanta kurser och projekt som matchar jobbet',
-        text: `Lista inte bara din examen – visa vilka kurser som är relevanta för jobbet du söker. Om du söker inom ekonomi, inkludera "Finansiell analys", "Redovisning" och "Corporate Finance" under din utbildning. För varje kurs, lägg till ett konkret projekt: "Kandidatarbete: Analyserade lönsamhet för 15 svenska bolag, rekommenderade investeringsstrategier baserat på DCF-modeller".
+        text: `Lista inte bara din examen – visa vilka kurser som är relevanta för jobbet du söker. Inkludera konkreta projekt där du producerade något mätbart.
 
-Fokusera på kurser där du producerade något konkret: rapporter, analyser, prototyper, kampanjer. Undvik att lista generella kurser som alla på din linje läste om de inte är direkt relevanta. Rekryteraren vill se att du kan applicera teori i praktiken – projekten bevisar det.`
+**Exempel på före/efter**:
+
+❌ "Kandidatexamen i ekonomi, Stockholms universitet (2022-2025)"
+
+✅ "Kandidatexamen i ekonomi, Stockholms universitet. Relevanta kurser: Extern redovisning, Financial Analysis, Corporate Finance. Kandidatarbete: Analyserade lönsamhet för 15 svenska bolag med DCF-modeller."
+
+Rekryteraren vill se att du kan applicera teori i praktiken – projekten bevisar det.`
       },
       {
-        rubrik: 'Kvantifiera dina extrajobb med siffror som bevisar resultat',
-        text: `Varje extrajobb har mätbara resultat om du letar efter dem. Istället för "serverade kunder" skriv "serverade 150+ kunder per dag, ansvarade för kassaflöde på 50 000 kr dagligen". Istället för "lagerarbete" skriv "hanterade 200+ orderplock per dag med 98% packnoggrannhet".
+        rubrik: 'Kvantifiera dina extrajobb med konkreta siffror',
+        text: `Varje extrajobb har mätbara resultat om du letar efter dem. Kvantifiera ansvar, tempo och kvalitet – även för jobb som känns rutinmässiga.
 
-Tänk på: antal kunder, transaktioner per dag, omsättning, lagervärde, teamstorlek, timmar, leveranstid, felprocent. Även om jobbet känns rutinmässigt kan du kvantifiera ansvar, tempo och kvalitet. Siffror gör ditt CV konkret och trovärdigt.`
+**Exempel på före/efter**:
+
+❌ "Serverade kunder på café och ansvarade för kassan"
+
+✅ "Betjänade 150+ kunder dagligen med fokus på snabb service. Kassaansvar med daglig avstämning av 50 000 kr (99,5% korrekta rapporter)."
+
+Tänk på: antal kunder, transaktioner per dag, omsättning, teamstorlek, leveranstid, felprocent. Siffror gör ditt CV konkret och trovärdigt.`
       },
       {
         rubrik: 'Översätt studentengagemang till professionella kompetenser',
-        text: `Ditt engagemang i studentföreningen, idrottsklubben eller volontärarbetet har gett dig kompetenser som arbetsgivare söker. "Kassör i studentföreningen" blir "Hanterade budget på 150 000 kr, ansvarade för bokföring och ekonomisk rapportering till styrelsen". "Eventansvarig" blir "Planerade och genomförde 8 events för 100-400 deltagare, hanterade sponsorrelationer och leverantörer".
+        text: `Ditt engagemang i studentföreningen, idrottsklubben eller volontärarbetet har gett dig kompetenser som arbetsgivare aktivt söker. Beskriv dem med professionellt språk och konkreta resultat.
 
-Fokusera på transferable skills: projektledning, budgetansvar, kommunikation, problemlösning, teamarbete. Använd samma typ av språk som i jobbannonsen – om de söker "projektledning" ska du använda den termen, inte "arrangerade".`
+**Exempel på före/efter**:
+
+❌ "Kassör i studentföreningen och hjälpte till med events"
+
+✅ "Kassör i Ekonomistudentkåren: Hanterade budget på 150 000 kr, ansvarade för bokföring och ekonomisk rapportering till styrelsen. Eventansvarig för 8 studiesociala events med 400+ deltagare."
+
+Använd samma terminologi som i jobbannonsen – om de söker "projektledning" ska du använda den termen.`
       },
       {
         rubrik: 'Anpassa ditt CV för varje jobb med rätt nyckelord',
-        text: `Skicka aldrig samma CV till alla jobb. Läs jobbannonsen, markera nyckelord i kravavsnittet och se till att de finns i ditt CV. Om de skriver "Excel" fem gånger ska "Excel" finnas under Kompetenser och i minst en projektbeskrivning. Om de vill ha "kundkontakt" ska dina erfarenheter från café-jobbet nämna "hanterade daglig kundkontakt".
+        text: `Skicka aldrig samma CV till alla jobb. Läs jobbannonsen, markera nyckelord och se till att de finns i ditt CV – särskilt för att passera ATS-system.
 
-Detta tar 10 minuter per ansökan men ökar dina chanser enormt – särskilt att komma förbi ATS-system. Spara en masterfil med allt du gjort, skapa sedan anpassade versioner för varje ansökan där du lyfter fram det som matchar just det jobbet.`
+**Exempel på före/efter**:
+
+❌ Generiskt CV: "God datorvana och erfarenhet av kundservice"
+
+✅ Anpassat CV (om annonsen nämner Excel och kundkontakt): "Excel (pivottabeller, VLOOKUP) för rapporter. Hanterade daglig kundkontakt med 150+ kunder."
+
+Detta tar 10 minuter per ansökan men ökar dina chanser enormt att komma förbi automatiska filter.`
       },
       {
-        rubrik: 'Inkludera certifieringar och IT-kompetenser med nivå',
-        text: `Lista alla relevanta certifieringar, onlinekurser och IT-verktyg du behärskar. Men specificera nivå – "Excel" säger inget, "Excel: V-lookup, pivottabeller, grundläggande makron" visar vad du faktiskt kan. Samma för språk: "Engelska: Flytande i tal och skrift, genomfört universitetskurser på engelska".
+        rubrik: 'Specificera IT-kompetenser och certifieringar med nivå',
+        text: `Undvik vaga beskrivningar som "Excel" eller "datorvana" – specificera exakt vad du kan och på vilken nivå.
 
-Inkludera gratis certifieringar från Google (Analytics, Ads), HubSpot (Inbound Marketing), LinkedIn Learning. Dessa kostar dig några timmar men visar initiativförmåga och konkret kompetens. Placera dem under en egen sektion "Certifieringar" eller integrera i "Kompetenser" beroende på hur många du har.`
+**Exempel på före/efter**:
+
+❌ "Goda kunskaper i Excel och PowerPoint"
+
+✅ "Excel: Pivottabeller, VLOOKUP, grundläggande makron (Avancerad). PowerPoint: Professionella presentationer. Certifierad: Google Analytics (2024), HubSpot Inbound Marketing (2024)."
+
+Gratis certifieringar från Google, HubSpot och LinkedIn Learning visar initiativförmåga och konkret kompetens.`
       },
       {
-        rubrik: 'Fokusera på potential och lärvilja istället för att ursäkta begränsad erfarenhet',
-        text: `Skriv aldrig "Trots begränsad erfarenhet..." eller "Även om jag bara har studerat...". Fokusera istället på vad du kan och vill lära dig. I profiltexten: "Nyexaminerad civilekonom med praktisk erfarenhet från projektarbeten inom digital marknadsföring. Söker roll där jag kan utveckla min kompetens inom SEO och dataanalys".
+        rubrik: 'Fokusera på potential istället för att ursäkta begränsad erfarenhet',
+        text: `Skriv aldrig "Trots begränsad erfarenhet..." – fokusera istället på vad du kan och vill utveckla.
 
-Rekryterare som anställer studenter och nyexaminerade förväntar sig inte 10 års erfarenhet. De letar efter motivation, lärvilja och grundkompetenser. Visa att du kan leverera genom konkreta exempel från studier, projekt och extrajobb – det räcker.`
+**Exempel på före/efter**:
+
+❌ "Trots att jag är student utan mycket arbetslivserfarenhet är jag motiverad att lära mig"
+
+✅ "Driven ekonomistudent med praktisk erfarenhet från redovisningsbyrå (200+ kundunderlag i Fortnox). Söker traineeroll inom controlling för att utveckla min analytiska kompetens."
+
+Rekryterare som anställer studenter förväntar sig inte 10 års erfarenhet – de letar efter motivation, lärvilja och grundkompetenser.`
       }
     ],
 
@@ -2819,62 +3004,74 @@ Varför detta fungerar: Digitalisering är en av skolans största utmaningar. L�
 
     tips: [
       {
-        rubrik: '1. Sätt legitimation och behörighet överst – det är första filtret',
+        rubrik: 'Sätt legitimation och behörighet överst – det är första filtret',
         text: `Rektorer och skolchefer filtrerar efter behörighet innan de läser resten av ditt CV. Placera din lärarlegitimation och ämnesbehörighet i titeln eller direkt under ditt namn – inte gömt längst ner.
 
-❌ UNDVIK: "Erfaren lärare med bred kompetens och stort engagemang för elevers utveckling"
+**Exempel på före/efter**:
 
-✅ BRA: "Legitimerad grundskollärare F-6 (leg. nr. 20150428-1234) med behörighet i svenska och SO"
+❌ "Erfaren lärare med bred kompetens och stort engagemang för elevers utveckling"
 
-Genom att inkludera legitimationsnummer gör du det enkelt för rekryteraren att verifiera din behörighet direkt.`
+✅ "Legitimerad grundskollärare F-6 med behörighet i svenska och SO"
+
+Genom att inkludera legitimation och behörighet i titeln slipper rekryteraren leta efter informationen och du visar att du förstår att formella behörigheter är avgörande.`
       },
       {
-        rubrik: '2. Kvantifiera dina resultat – siffror slår generella beskrivningar',
-        text: `De flesta lärar-CV:n beskriver vad läraren gjorde, inte vad de åstadkom. Konkreta siffror gör ditt CV minnesvärt och visar att du mäter din egen påverkan.
+        rubrik: 'Kvantifiera dina resultat med konkreta siffror',
+        text: `De flesta lärar-CV:n beskriver vad läraren gjorde, inte vad de åstadkom. Konkreta siffror gör ditt CV minnesvärt och visar att du mäter din egen pedagogiska påverkan.
 
-❌ UNDVIK: "Undervisade elever i svenska med goda resultat"
+**Exempel på före/efter**:
 
-✅ BRA: "Ökade andelen elever som nådde kunskapskraven i svenska från 72% till 89% genom strukturerad läsundervisning"
+❌ "Undervisade elever i svenska med goda resultat"
 
-Andra kvantifierbara resultat: antal elever per klass, procent som nådde kunskapskrav, antal utvecklade lektionsplaneringar, antal handledda studenter.`
+✅ "Ökade andelen elever som nådde kunskapskraven i svenska från 72% till 89% genom strukturerad läsundervisning enligt Läslyftet"
+
+Kvantifierbara resultat: antal elever per klass, procent som nådde kunskapskrav, antal utvecklade lektionsplaneringar, antal handledda VFU-studenter.`
       },
       {
-        rubrik: '3. Matcha annonsens nyckelord för att passera ATS-filtret',
+        rubrik: 'Matcha annonsens nyckelord för att passera ATS-filtret',
         text: `De flesta kommuner och skolkoncerner använder ATS-system som automatiskt filtrerar CV:n efter nyckelord. Om du inte inkluderar rätt termer sorteras du bort innan en människa ser din ansökan.
 
-❌ UNDVIK: Att använda egna formuleringar istället för annonsens terminologi
+**Exempel på före/efter**:
 
-✅ BRA: Kopiera exakta termer från annonsen som "formativ bedömning", "extra anpassningar", "digitala lärverktyg" och "systematiskt kvalitetsarbete"
+❌ "Arbetar med att anpassa undervisningen efter elevernas behov och gör uppföljningar"
 
-Läs annonsen noggrant, markera nyckelord och se till att de finns i ditt CV – men bara om de stämmer med din faktiska kompetens.`
+✅ "Implementerar extra anpassningar enligt skollagen, genomför formativ bedömning och deltar aktivt i systematiskt kvalitetsarbete"
+
+Läs annonsen noggrant, markera nyckelord och använd exakt samma terminologi i ditt CV.`
       },
       {
-        rubrik: '4. Visa pedagogisk utveckling med specifika exempel',
-        text: `Rektorer vill se att du utvecklas som lärare. Generella påståenden om "kontinuerlig kompetensutveckling" är värdelösa – ge istället specifika exempel.
+        rubrik: 'Visa pedagogisk utveckling med specifika fortbildningar',
+        text: `Rektorer vill se att du utvecklas som lärare. Generella påståenden om "kontinuerlig kompetensutveckling" är värdelösa – ge istället specifika exempel med årtal.
 
-❌ UNDVIK: "Deltar regelbundet i fortbildning och vidareutvecklar min pedagogik"
+**Exempel på före/efter**:
 
-✅ BRA: "Genomförde Läslyftet modul 1-4 (2019), specialpedagogik 7,5hp vid Högskolan Dalarna (2020) och certifierad Google Educator Level 1 (2021)"
+❌ "Deltar regelbundet i fortbildning och vidareutvecklar min pedagogik"
+
+✅ "Genomförde Läslyftet modul 1-4 (2019), Specialpedagogik 7,5 hp vid Högskolan Dalarna (2020), certifierad Google Educator Level 1 (2021)"
 
 Fortbildningar som väger tungt: Läslyftet, Mattelyftet, specialpedagogik, NPF-kurser, handledarutbildning och digitala certifieringar.`
       },
       {
-        rubrik: '5. Beskriv din klassrumsledning konkret – inte bara att du "har ordning"',
-        text: `Klassrumsledning är en av de viktigaste färdigheterna rektorer söker. Abstrakta beskrivningar som "skapar trygg lärmiljö" säger ingenting – beskriv istället konkreta metoder och resultat.
+        rubrik: 'Beskriv klassrumsledning med metoder och mätbara resultat',
+        text: `Klassrumsledning är en av de viktigaste färdigheterna rektorer söker. Abstrakta beskrivningar som "skapar trygg lärmiljö" säger ingenting – beskriv konkreta metoder och resultat.
 
-❌ UNDVIK: "Har god ordning i klassrummet och skapar en positiv stämning"
+**Exempel på före/efter**:
 
-✅ BRA: "Implementerade lågaffektivt bemötande och tydliga lektionsstrukturer som minskade konflikter med 60% enligt trivselenkäter"
+❌ "Har god ordning i klassrummet och skapar en positiv stämning"
 
-Nämn specifika metoder: lågaffektivt bemötande, tydlig lektionsstruktur, samarbete med elevhälsa, föräldrakontakt.`
+✅ "Implementerade lågaffektivt bemötande och tydliga lektionsstrukturer som minskade konflikter med 60% enligt trivselenkäter"
+
+Nämn specifika metoder: lågaffektivt bemötande, tydlig lektionsstruktur, samarbete med elevhälsa, strukturerad föräldrakontakt.`
       },
       {
-        rubrik: '6. Anpassa CV:t efter skolform och årskurs',
+        rubrik: 'Anpassa CV:t efter skolform och årskurs',
         text: `Ett CV för förskoleklass ska betona helt andra saker än ett för gymnasiet. Anpassa innehållet efter den specifika tjänsten du söker.
 
-❌ UNDVIK: Ett generiskt CV som du skickar till alla skolor
+**Exempel på före/efter**:
 
-✅ BRA: Lågstadiet – betona läs- och skrivinlärning, Bornholmsmodellen, motorik. Mellanstadiet – fokusera på ämnesdidaktik, digitala verktyg, nationella prov. Högstadiet – lyft ämnesdjup, bedömning och betygsättning.
+❌ Ett generiskt CV som skickas till alla skolor oavsett årskurs
+
+✅ Lågstadiet: Betona läs- och skrivinlärning, Bornholmsmodellen, motorik. Mellanstadiet: Fokusera på ämnesdidaktik, digitala verktyg, nationella prov. Högstadiet: Lyft ämnesdjup, bedömning och betygsättning.
 
 Läs om skolan innan du söker och anpassa profiltexten efter deras profil och värdegrund.`
       }
@@ -3097,28 +3294,76 @@ Varför detta fungerar: Sjuksköterskor med erfarenhet från flera specialiteter
 
     tips: [
       {
-        rubrik: '1. Inkludera rätt nyckelord för din specialisering',
-        text: 'ATS-system som sjukhus använder letar efter specifika termer från jobbannonsen. Om de söker "intensivvårdssjuksköterska" men du skriver "IVA-sjuksköterska" kanske systemet missar matchningen. Läs jobbannonsen noga och använd exakt samma terminologi.\n\nInkludera alltid: din legitimation, specialistutbildning, relevanta certifieringar (ACLS, PALS, RETTS), medicinska system (TakeCare, Melior, Cosmic) och arbetsområden (triagering, akutsjukvård, intensivvård).\n\n❌ Fel: "Jobbar med akut omhändertagande av sjuka patienter"\n✅ Rätt: "Triagerar och omhändertar akut sjuka patienter enligt RETTS"'
+        rubrik: 'Inkludera rätt nyckelord för din specialisering',
+        text: `ATS-system som sjukhus använder letar efter specifika termer från jobbannonsen. Om de söker "intensivvårdssjuksköterska" men du skriver "IVA-sjuksköterska" kanske systemet missar matchningen.
+
+**Exempel på före/efter**:
+
+❌ "Jobbar med akut omhändertagande av sjuka patienter"
+
+✅ "Triagerar och omhändertar akut sjuka patienter enligt RETTS med fokus på hjärtinfarkt, stroke och trauma"
+
+Inkludera alltid: legitimation, specialistutbildning, certifieringar (ACLS, PALS, RETTS), journalsystem (TakeCare, Melior, Cosmic) och specifika arbetsområden.`
       },
       {
-        rubrik: '2. Kvantifiera din erfarenhet för ökad trovärdighet',
-        text: 'Siffror ger konkret bevis på din kapacitet. Istället för att skriva "ansvarig för patientvård", visa omfattningen: Hur många patienter per dag/skift? Hur lång erfarenhet av specifika procedurer?\n\nExempel: "Vårdar 4-6 kritiskt sjuka patienter dagligen", "Genomför 30-40 triageringar per skift", "Leder team om 6 sjuksköterskor", "Handleder 8 studenter årligen".\n\n❌ Fel: "Ansvarig för medicinering"\n✅ Rätt: "Administrerar medicinering för 20-25 patienter dagligen, inklusive intravenösa dropp och smärtlindring"'
+        rubrik: 'Kvantifiera din kliniska erfarenhet med konkreta siffror',
+        text: `Siffror ger konkret bevis på din kapacitet. Visa omfattningen av ditt arbete – hur många patienter per skift och vilka typer av procedurer.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för medicinering och patientvård på avdelningen"
+
+✅ "Administrerar läkemedel för 20-25 patienter dagligen, inklusive intravenösa dropp och avancerad smärtlindring. Hanterar 4-6 kritiskt sjuka IVA-patienter per skift."
+
+Kvantifierbara resultat: antal patienter per dag/skift, antal triageringar, antal handledda studenter, teamstorlek du leder.`
       },
       {
-        rubrik: '3. Visa konkreta resultat från din omvårdnad',
-        text: 'Rekryterare vill se att du inte bara utför arbetsuppgifter, utan aktivt bidrar till förbättrad vårdkvalitet. Har du implementerat nya rutiner? Minskat väntetider? Förbättrat patientsäkerhet?\n\nExempel: "Implementerade nytt triage-system som minskade väntetid med 25%", "Utvecklade utbildningsprogram som minskade introduktionstiden från 8 till 6 veckor", "Förbättrade dokumentationsrutiner vilket ökade efterlevnad med 30%".\n\nResultat visar att du är proaktiv och kan ta initiativ till förbättringar.'
+        rubrik: 'Visa konkreta resultat från din omvårdnad',
+        text: `Rekryterare vill se att du inte bara utför arbetsuppgifter, utan aktivt bidrar till förbättrad vårdkvalitet. Har du implementerat nya rutiner? Minskat väntetider?
+
+**Exempel på före/efter**:
+
+❌ "Deltog i kvalitetsarbete på avdelningen"
+
+✅ "Implementerade nytt triagesystem som minskade väntetider på akuten med 25%. Deltog i kvalitetsförbättringsarbete som reducerade vårdrelaterade infektioner med 18%."
+
+Resultat visar att du är proaktiv och kan ta initiativ till förbättringar som faktiskt gör skillnad.`
       },
       {
-        rubrik: '4. Anpassa profiltext efter jobbannonsen',
-        text: 'Profiltexten är din säljpitch på 3-5 rader. Den ska inte vara generisk, utan anpassad efter varje roll du söker.\n\nFör IVA-roll: "Specialistsjuksköterska inom anestesi och intensivvård med 8+ års erfarenhet av kritiskt sjuka patienter. Leder team om 6 sjuksköterskor med gedigen kompetens inom respiratorvård."\n\nFör akutmottagning: "Erfaren akutsjuksköterska med 8+ års erfarenhet av triagering. RETTS-certifierad och van att fatta snabba beslut. Hanterar 30-40 triageringar per skift."'
+        rubrik: 'Anpassa profiltext efter den specifika rollen',
+        text: `Profiltexten är din säljpitch på 3-5 rader. Den ska inte vara generisk, utan anpassad efter varje roll du söker.
+
+**Exempel på före/efter**:
+
+❌ "Erfaren sjuksköterska med bred kompetens inom olika vårdområden och god samarbetsförmåga"
+
+✅ För IVA: "Specialistsjuksköterska inom anestesi och intensivvård med 8+ års erfarenhet. Teamledare för 6 sjuksköterskor med gedigen kompetens inom respiratorvård och invasiv övervakning."
+
+Anpassa profiltexten efter om du söker IVA, akutmottagning, primärvård eller annan specialisering.`
       },
       {
-        rubrik: '5. Lyft fram specialistutbildning och certifieringar',
-        text: 'Specialistutbildning är en stor merit inom sjukvården. Placera den tydligt både i profiltexten och under Utbildning. Certifieringar ska ha en egen sektion.\n\nInkludera förnyelsedatum för tidsbegränsade certifieringar: "ACLS (förnyad 2024)" visar att du håller dig uppdaterad. Visa även annan kompetensutveckling: kurser i palliativ vård, handledarkompetens, universitetspoäng.\n\nOm du påbörjat en specialistutbildning: "Pågående: Specialistsjuksköterska inom operation" visar din ambition.'
+        rubrik: 'Lyft fram specialistutbildning och certifieringar med årtal',
+        text: `Specialistutbildning är en stor merit inom sjukvården. Placera den tydligt i titel, profiltext och under Utbildning. Certifieringar ska ha en egen sektion med förnyelsedatum.
+
+**Exempel på före/efter**:
+
+❌ "ACLS-certifierad, HLR-utbildad"
+
+✅ "ACLS – Advanced Cardiovascular Life Support (förnyad 2024), PALS – Pediatric Advanced Life Support, Instruktör (förnyad 2024), ATLS (förnyad 2023)"
+
+Förnyelsedatum visar att du håller dig uppdaterad. Pågående utbildningar: "Pågående: Specialistsjuksköterska inom operation" visar din ambition.`
       },
       {
-        rubrik: '6. Balansera tekniska och mjuka färdigheter med bevis',
-        text: 'Skriv inte bara "kommunikativ, stresstålig, teamplayer" under personliga egenskaper. Visa istället dina mjuka färdigheter genom konkreta exempel i erfarenhetsbeskrivningen.\n\n❌ Dåligt: "Kompetenser: Kommunikativ, stresstålig, empatisk"\n\n✅ Bra i erfarenhetsbeskrivning:\n• Hanterar kommunikation med patienter och anhöriga i krissituationer\n• Leder team om 6 sjuksköterskor\n• Fattar snabba kliniska beslut vid 30-40 triageringar per skift\n\nDessa exempel bevisar att du kan kommunicera under press, leda och hantera stress.'
+        rubrik: 'Visa mjuka färdigheter genom konkreta exempel',
+        text: `Undvik att bara lista "kommunikativ, stresstålig, teamplayer" under kompetenser. Visa istället dessa egenskaper genom konkreta exempel i erfarenhetsbeskrivningen.
+
+**Exempel på före/efter**:
+
+❌ "Kompetenser: Kommunikativ, stresstålig, empatisk, teamplayer"
+
+✅ I erfarenhetsbeskrivning: "Hanterar kommunikation med patienter och anhöriga i akuta krissituationer. Leder team om 6 sjuksköterskor. Fattar snabba kliniska beslut vid 30-40 triageringar per skift."
+
+Konkreta exempel bevisar att du kan kommunicera under press, leda och hantera stress – inte bara säger det.`
       }
     ],
 
