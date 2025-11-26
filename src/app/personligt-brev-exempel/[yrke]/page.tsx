@@ -2116,9 +2116,9 @@ Marcus Andersson`
   },
 
   'administrator': {
-    yrke: 'Administrator',
+    yrke: 'Administratör',
     sokvolym: 880,
-    metaTitle: 'Personligt Brev Administrator 2025 - Processer & Systemkunskap',
+    metaTitle: 'Personligt Brev Administratör 2025 - Processer & Systemkunskap',
     metaDescription: 'Exempel på personligt brev för administratör med Office 365, SharePoint och hantering av 50+ processer. Inkluderar konkreta metrics. Kopiera och anpassa.',
     seoIntro: `Vad söker arbetsgivare hos administratörer? Tre saker: hur väl du kan systemen, hur du samordnar arbetet mellan avdelningar, och om du beskriver dina processer med konkreta resultat eller vaga ord.
 
@@ -2136,7 +2136,7 @@ Detta exempel visar hur en erfaren administratör beskriver sina processer och s
       datum: new Date().toLocaleDateString('sv-SE', { year: 'numeric', month: 'long', day: 'numeric' }),
       brevText: `Hej,
 
-Jag söker tjänsten som Administrator hos er eftersom jag vill jobba på en plats där effektiva processer och digitala verktyg är viktiga. Med 4 års erfarenhet av att samordna administrativa flöden och sätta upp digitala lösningar vet jag hur viktigt det är att skapa strukturer som fungerar för hela organisationen.
+Jag söker tjänsten som Administratör hos er eftersom jag vill jobba på en plats där effektiva processer och digitala verktyg är viktiga. Med 4 års erfarenhet av att samordna administrativa flöden och sätta upp digitala lösningar vet jag hur viktigt det är att skapa strukturer som fungerar för hela organisationen.
 
 På Västerviks kommun ansvarar jag för över 50 olika arbetsflöden som täcker sex olika avdelningar. När jag började var månadsrapporteringen manuell och tog 3 arbetsdagar att sammanställa. Jag byggde en automatiserad lösning i SharePoint med Power Automate som minskade tiden till 4 timmar. Det frigör nu 15 timmar per månad för mer kvalificerat arbete.
 
@@ -2468,7 +2468,7 @@ Anna Bergström`
       }
     ],
     relaterade: [
-      { yrke: 'Administrator', slug: 'administrator' },
+      { yrke: 'Administratör', slug: 'administrator' },
       { yrke: 'Kurator', slug: 'kurator' },
       { yrke: 'Förskollärare', slug: 'forskollarare' },
       { yrke: 'Undersköterska', slug: 'underskoterska' }
@@ -3543,7 +3543,7 @@ Skriv "Jag lär mig snabbt nya produkter och läser alltid uppdateringar om sort
       { yrke: 'Receptionist', slug: 'receptionist' },
       { yrke: 'Säljare', slug: 'saljare' },
       { yrke: 'Butikssäljare', slug: 'butikssaljare' },
-      { yrke: 'Administrator', slug: 'administrator' }
+      { yrke: 'Administratör', slug: 'administrator' }
     ]
   },
 
@@ -4040,7 +4040,7 @@ Konsultbolag söker självgående personer som snabbt kan sätta sig in i nya te
     relaterade: [
       { yrke: 'Ingenjör', slug: 'ingenjor' },
       { yrke: 'Projektledare', slug: 'projektledare' },
-      { yrke: 'Administrator', slug: 'administrator' }
+      { yrke: 'Administratör', slug: 'administrator' }
     ]
   },
 

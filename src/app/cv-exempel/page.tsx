@@ -7,7 +7,8 @@ import {
   Search, ChevronDown, ChevronUp, ArrowRight, CheckCircle,
   Sparkles, FileText, TrendingUp, Award, Users,
   Star, Briefcase, GraduationCap, Stethoscope, Building2,
-  ShoppingCart, Code, Calculator, Phone, Package, Cog
+  ShoppingCart, Code, Calculator, Phone, Package, Cog,
+  Heart, Target, Coffee, Wrench, BookOpen
 } from 'lucide-react'
 
 import PremiumNavbar from '@/components/PremiumNavbar'
@@ -92,7 +93,7 @@ const cvExamples: CVExample[] = [
   },
   {
     id: 'administrator',
-    yrke: 'Administrator',
+    yrke: 'Administratör',
     slug: 'administrator',
     kategori: 'offentlig-sektor',
     niva: 'erfaren',
@@ -186,6 +187,258 @@ const cvExamples: CVExample[] = [
     preview: {
       intro: 'Lyfter systemintegration, kundanpassning och teknisk rådgivning i komplexa IT-miljöer.',
       highlight: ['Systemintegration och API-utveckling', 'Kundanalys och kravspecifikation', 'Agila metoder och leveransförmåga']
+    }
+  },
+  {
+    id: 'student',
+    yrke: 'Student',
+    slug: 'student',
+    kategori: 'utbildning',
+    niva: 'nybörjare',
+    sokvolym: 590,
+    icon: GraduationCap,
+    gradient: 'from-purple-500 via-pink-500 to-rose-500',
+    preview: {
+      intro: 'CV-exempel för dig som student eller söker ditt första jobb. Framhäv din potential och lärvilja.',
+      highlight: ['Teoretisk kunskap från utbildning', 'Projektarbeten och grupparbeten', 'Stark inlärningsförmåga']
+    }
+  },
+  {
+    id: 'larare',
+    yrke: 'Lärare',
+    slug: 'larare',
+    kategori: 'utbildning',
+    niva: 'erfaren',
+    sokvolym: 360,
+    icon: BookOpen,
+    gradient: 'from-amber-500 via-orange-500 to-red-500',
+    preview: {
+      intro: 'Visa din pedagogiska kompetens och förmåga att inspirera elever med behörighet och elevresultat.',
+      highlight: ['Didaktik och pedagogiska metoder', 'Individualisering och inkludering', 'Digital kompetens i undervisning']
+    }
+  },
+  {
+    id: 'sjukskoterska',
+    yrke: 'Sjuksköterska',
+    slug: 'sjukskoterska',
+    kategori: 'vard',
+    niva: 'erfaren',
+    sokvolym: 180,
+    icon: Stethoscope,
+    gradient: 'from-blue-600 via-indigo-600 to-purple-600',
+    preview: {
+      intro: 'CV som lyfter din kliniska kompetens, medicinska kunskap och förmåga att arbeta under press.',
+      highlight: ['Klinisk bedömning och omvårdnad', 'Medicinteknisk utrustning', 'Evidensbaserad vård']
+    }
+  },
+  {
+    id: 'butikssaljare',
+    yrke: 'Butikssäljare',
+    slug: 'butikssaljare',
+    kategori: 'service',
+    niva: 'nybörjare',
+    sokvolym: 160,
+    icon: ShoppingCart,
+    gradient: 'from-green-500 via-emerald-500 to-teal-500',
+    preview: {
+      intro: 'Framhäv din servicekänsla och försäljningstalang med konkreta säljresultat.',
+      highlight: ['Kundservice och merförsäljning', 'Kassahantering och lagerarbete', 'Visuell merchandising']
+    }
+  },
+  {
+    id: 'saljare',
+    yrke: 'Säljare',
+    slug: 'saljare',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 220,
+    icon: Target,
+    gradient: 'from-pink-500 via-rose-500 to-red-500',
+    preview: {
+      intro: 'CV för B2B eller B2C-försäljning med fokus på resultat och relationsbyggande.',
+      highlight: ['Affärsutveckling och prospektering', 'Nettoomsättning och KPI:er', 'CRM-system och säljprocesser']
+    }
+  },
+  {
+    id: 'sommarjobb',
+    yrke: 'Sommarjobb',
+    slug: 'sommarjobb',
+    kategori: 'service',
+    niva: 'nybörjare',
+    sokvolym: 230,
+    icon: Coffee,
+    gradient: 'from-yellow-400 via-orange-400 to-red-400',
+    preview: {
+      intro: 'CV för sommarjobb – visa din energi, flexibilitet och vilja att bidra under sommaren.',
+      highlight: ['Tillgänglig hela sommaren', 'Snabbinlärning och flexibilitet', 'Positiv attityd och lagspelare']
+    }
+  },
+  {
+    id: 'ekonomiassistent',
+    yrke: 'Ekonomiassistent',
+    slug: 'ekonomiassistent',
+    kategori: 'ekonomi',
+    niva: 'erfaren',
+    sokvolym: 450,
+    icon: Calculator,
+    gradient: 'from-slate-500 via-gray-500 to-zinc-500',
+    preview: {
+      intro: 'CV för ekonomiroller med fokus på noggrannhet, systemkunskap och bokföringskompetens.',
+      highlight: ['Bokföring och fakturering', 'Ekonomisystem (Fortnox, Visma)', 'Månadsavslut och avstämningar']
+    }
+  },
+  {
+    id: 'barnskotare',
+    yrke: 'Barnskötare',
+    slug: 'barnskotare',
+    kategori: 'utbildning',
+    niva: 'erfaren',
+    sokvolym: 210,
+    icon: Heart,
+    gradient: 'from-pink-400 via-rose-400 to-red-400',
+    preview: {
+      intro: 'CV för arbete med barn – visa din omsorg, kreativitet och pedagogiska kompetens.',
+      highlight: ['Barns utveckling och behov', 'Pedagogiska aktiviteter', 'Trygghet och relationsskapande']
+    }
+  },
+  {
+    id: 'personlig-assistent',
+    yrke: 'Personlig assistent',
+    slug: 'personlig-assistent',
+    kategori: 'vard',
+    niva: 'erfaren',
+    sokvolym: 180,
+    icon: Users,
+    gradient: 'from-indigo-500 via-purple-500 to-pink-500',
+    preview: {
+      intro: 'CV för assistentyrket med fokus på flexibilitet, empati och förmågan att stötta individer.',
+      highlight: ['LSS och personlig assistans', 'Flexibilitet och anpassningsförmåga', 'Respekt och integritet']
+    }
+  },
+  {
+    id: 'kurator',
+    yrke: 'Kurator',
+    slug: 'kurator',
+    kategori: 'vard',
+    niva: 'specialist',
+    sokvolym: 540,
+    icon: Heart,
+    gradient: 'from-rose-400 via-pink-500 to-rose-600',
+    preview: {
+      intro: 'CV som betonar samtalsmetoder, psykosocial bedömning och empatisk klienthantering.',
+      highlight: ['Motiverande samtal (MI) och KBT', 'Kris- och traumastöd', 'Tvärdisciplinärt samarbete']
+    }
+  },
+  {
+    id: 'servitris-restaurangbitrade',
+    yrke: 'Servitris/Restaurangbiträde',
+    slug: 'servitris-restaurangbitrade',
+    kategori: 'service',
+    niva: 'nybörjare',
+    sokvolym: 530,
+    icon: Coffee,
+    gradient: 'from-orange-400 via-amber-500 to-yellow-600',
+    preview: {
+      intro: 'CV som lyfter gästbemötande, tempo och servicekänsla i restaurangmiljö.',
+      highlight: ['Gästservice och beställningshantering', 'Tempo och stresshantering', 'Matsäkerhet och hygienrutiner']
+    }
+  },
+  {
+    id: 'chef',
+    yrke: 'Chef',
+    slug: 'chef',
+    kategori: 'offentlig-sektor',
+    niva: 'chef',
+    sokvolym: 490,
+    icon: Users,
+    gradient: 'from-slate-600 via-gray-700 to-slate-800',
+    preview: {
+      intro: 'CV som demonstrerar ledarskap, strategisk kompetens och förmåga att driva team.',
+      highlight: ['Strategiskt ledarskap och målstyrning', 'Teamutveckling och medarbetarskap', 'Budget och verksamhetsansvar']
+    }
+  },
+  {
+    id: 'projektledare',
+    yrke: 'Projektledare',
+    slug: 'projektledare',
+    kategori: 'offentlig-sektor',
+    niva: 'erfaren',
+    sokvolym: 290,
+    icon: Target,
+    gradient: 'from-blue-500 via-indigo-600 to-blue-700',
+    preview: {
+      intro: 'CV med fokus på projektplanering, stakeholder management och leverans inom tid och budget.',
+      highlight: ['Agil och traditionell projektmetodik', 'Riskhantering och resursstyrning', 'Stakeholder-kommunikation']
+    }
+  },
+  {
+    id: 'elevassistent',
+    yrke: 'Elevassistent',
+    slug: 'elevassistent',
+    kategori: 'utbildning',
+    niva: 'nybörjare',
+    sokvolym: 260,
+    icon: GraduationCap,
+    gradient: 'from-purple-400 via-pink-500 to-purple-600',
+    preview: {
+      intro: 'CV som visar pedagogiskt stöd, individuell anpassning och tålamod i skolmiljö.',
+      highlight: ['Elevstöd och anpassningar', 'Samarbete med lärare', 'Trygghet och relationsskapande']
+    }
+  },
+  {
+    id: 'kundtjanst',
+    yrke: 'Kundtjänst',
+    slug: 'kundtjanst',
+    kategori: 'service',
+    niva: 'nybörjare',
+    sokvolym: 250,
+    icon: Phone,
+    gradient: 'from-cyan-400 via-blue-500 to-cyan-600',
+    preview: {
+      intro: 'CV som lyfter kommunikationsförmåga, problemlösning och servicefokus mot kunder.',
+      highlight: ['Telefonservice och chatsupport', 'Ärendehantering och CRM-system', 'Problemlösning och konflikthantering']
+    }
+  },
+  {
+    id: 'vardbitrade',
+    yrke: 'Vårdbiträde',
+    slug: 'vardbitrade',
+    kategori: 'vard',
+    niva: 'nybörjare',
+    sokvolym: 220,
+    icon: Heart,
+    gradient: 'from-pink-500 via-rose-600 to-red-700',
+    preview: {
+      intro: 'CV som framhäver omvårdnad, empati och praktiskt stöd till patienter och brukare.',
+      highlight: ['Personlig omvårdnad och ADL-stöd', 'Hygien och omsorgskvalitet', 'Teamsamarbete i vården']
+    }
+  },
+  {
+    id: 'hemtjanst',
+    yrke: 'Hemtjänst',
+    slug: 'hemtjanst',
+    kategori: 'vard',
+    niva: 'nybörjare',
+    sokvolym: 200,
+    icon: Users,
+    gradient: 'from-indigo-400 via-purple-500 to-indigo-600',
+    preview: {
+      intro: 'CV som visar flexibilitet, omtanke och förmåga att stötta äldre i hemmet.',
+      highlight: ['Hemvård och social omsorg', 'Praktiskt stöd och ADL', 'Dokumentation och flexibilitet']
+    }
+  },
+  {
+    id: 'kock',
+    yrke: 'Kock',
+    slug: 'kock',
+    kategori: 'service',
+    niva: 'erfaren',
+    sokvolym: 190,
+    icon: Wrench,
+    gradient: 'from-red-500 via-orange-600 to-red-700',
+    preview: {
+      intro: 'CV som demonstrerar kulinarisk kompetens, matsäkerhet och effektivitet under press.',
+      highlight: ['Matlagning och menyplanering', 'Hygien och HACCP-kunskap', 'Kreativitet och tempo']
     }
   }
 ]
@@ -351,7 +604,7 @@ export default function CVExempelGalleri() {
                     backgroundSize: '200% 200%',
                   }}
                 >
-                  10+ yrken
+                  29 yrken
                 </motion.span>
               </h1>
 
@@ -371,7 +624,7 @@ export default function CVExempelGalleri() {
                     <CheckCircle className="w-5 h-5 text-white" />
                   </div>
                   <div className="text-left">
-                    <div className="text-2xl font-bold text-slate-900">10+</div>
+                    <div className="text-2xl font-bold text-slate-900">29</div>
                     <div className="text-xs text-slate-600">Yrkeskategorier</div>
                   </div>
                 </motion.div>

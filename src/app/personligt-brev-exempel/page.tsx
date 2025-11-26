@@ -179,7 +179,7 @@ const coverLetterExamples: CoverLetterExample[] = [
   },
   {
     id: 'administrator',
-    yrke: 'Administrator',
+    yrke: 'Administratör',
     slug: 'administrator',
     kategori: 'offentlig-sektor',
     niva: 'erfaren',
