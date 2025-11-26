@@ -2869,6 +2869,222 @@ Använd exemplet som inspiration för ditt eget lärar-CV och anpassa det efter 
       { yrke: 'Specialpedagog', slug: 'specialpedagog' },
       { yrke: 'Fritidspedagog', slug: 'fritidspedagog' }
     ]
+  },
+
+  'sjukskoterska': {
+    yrke: 'Sjuksköterska',
+    sokvolym: 720,
+    metaTitle: 'CV Exempel Sjuksköterska 2025 – Professionell Mall & Tips | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för sjuksköterska med IVA-specialisering. ATS-optimerat med TakeCare, Melior, ACLS/PALS-certifieringar och kvantifierbara resultat.',
+
+    seoIntro: `Om du ska söka jobb som sjuksköterska behöver ditt CV visa mer än bara var du jobbat. Rekryterare inom sjukvården letar efter legitimation, specialistkompetens, certifieringar och konkreta resultat från din omvårdnad. ATS-system som de flesta sjukhus och vårdcentraler använder sorterar bort ansökningar som saknar nyckelord som "ACLS", "TakeCare" eller "triagering".
+
+Vårt exempel-CV visar hur en specialistsjuksköterska inom anestesi och intensivvård presenterar 8 års erfarenhet med kvantifierbara resultat. Du ser hur hen lyfter fram att ha hanterat 4-6 kritiskt sjuka patienter dagligen, genomfört 30-40 triageringar per skift och implementerat ett triage-system som minskade väntetiden med 25%. Istället för vaga påståenden som "ansvarig för patientvård" visar CV:t exakt vad hen åstadkommit.
+
+Använd detta CV som mall när du skapar ditt eget. Kopiera strukturen, anpassa innehållet till din specialisering och se till att inkludera nyckelord från jobbannonsen du söker.`,
+
+    intro: 'Ett professionellt CV-exempel för sjuksköterska som visar din kliniska kompetens, certifieringar och förmåga att arbeta under press. Detta exempel är optimerat för svenska sjukhus och ATS-system.',
+
+    exempelCV: {
+      namn: 'Anna Lindqvist',
+      titel: 'Specialistsjuksköterska inom anestesi och intensivvård',
+      kontakt: {
+        telefon: '070-123 45 67',
+        epost: 'anna.lindqvist@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/annalindqvist'
+      },
+
+      profil: 'Specialistsjuksköterska med 8+ års erfarenhet från högspecialiserad vård inom IVA, anestesi och akutsjukvård. Specialist inom invasiv övervakning, respiratorvård och RETTS-triagering med gedigen erfarenhet av TakeCare och Melior. Teamledare för 6 sjuksköterskor på IVA med ansvar för kompetensutveckling och handledning av studerande. Drivs av att optimera patientvård genom evidensbaserad praktik och kontinuerlig vidareutveckling av vårdrutiner.',
+
+      erfarenhet: [
+        {
+          titel: 'Specialistsjuksköterska & Teamledare IVA',
+          arbetsgivare: 'Karolinska Universitetssjukhuset',
+          period: '2020 – Pågående',
+          beskrivning: [
+            'Ansvarar för teamledning av 6 sjuksköterskor och koordinering av vård för 4-6 kritiskt sjuka intensivvårdspatienter med komplex medicinteknisk utrustning',
+            'Implementerade nytt triagesystem som minskade väntetider på akuten med 25% och förbättrade patientflödet för 450+ patienter/månad',
+            'Handleder 6-8 specialistsjuksköterskestudenter per termin och genomför regelbundna utbildningar i invasiv övervakning och respiratorvård',
+            'Deltar i kvalitetsförbättringsarbete som reducerade vårdrelaterade infektioner med 18% genom förbättrade hygienrutiner'
+          ]
+        },
+        {
+          titel: 'Specialistsjuksköterska Anestesi/IVA',
+          arbetsgivare: 'Danderyds Sjukhus',
+          period: '2018 – 2020',
+          beskrivning: [
+            'Ansvarade för pre-, per- och postoperativ vård för 200+ patienter/månad inom ortopedi, thoraxkirurgi och allmänkirurgi',
+            'Utförde avancerad smärtlindring och sedering med fokus på multimodal analgesi för komplex postoperativ vård',
+            'Koordinerade vårdövergångar mellan operation och IVA vilket minskade komplikationer med 15% genom förbättrad kommunikation',
+            'Certifierad PALS-instruktör som utbildade 40+ kollegor i pediatrisk akutvård'
+          ]
+        },
+        {
+          titel: 'Sjuksköterska Akutmottagning',
+          arbetsgivare: 'Södersjukhuset',
+          period: '2016 – 2018',
+          beskrivning: [
+            'Utförde RETTS-triagering för 30-40 patienter per skift och ansvarade för initial bedömning och akut omhändertagande',
+            'Hanterade akuta trauma-, stroke- och hjärtinfarktspatienter med snabb prioritering och evidensbaserade vårdinsatser',
+            'Deltog i regionalt projekt för förbättrad strokevård som reducerade dörr-till-nål-tid med 12 minuter i genomsnitt',
+            'Administrerade avancerad läkemedelsbehandling och invasiv övervakning för kritiskt sjuka patienter'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Specialistsjuksköterskeexamen, Anestesisjukvård',
+          skola: 'Karolinska Institutet',
+          period: '2017 – 2018',
+          beskrivning: 'Fördjupning inom anestesi och intensivvård med klinisk praktik på Karolinska Universitetssjukhuset.'
+        },
+        {
+          titel: 'Sjuksköterskeexamen, 180 hp',
+          skola: 'Sophiahemmet Högskola',
+          period: '2013 – 2016',
+          beskrivning: 'VFU på Södersjukhuset och Danderyds sjukhus inom akutsjukvård och medicinsk vård.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'TakeCare (Expert, 6+ år)',
+          'Melior (Avancerad, 4+ år)',
+          'Cosmic (Avancerad, 3+ år)',
+          'Invasiv övervakning & hemodynamisk monitorering',
+          'Respiratorvård (CPAP, BiPAP, mekanisk ventilation)',
+          'RETTS-triagering',
+          'Avancerad läkemedelshantering & infusionspumpar',
+          'EKG-tolkning & arytmihantering'
+        ],
+        personliga: [
+          'Stresstålig (hanterar 4-6 kritiskt sjuka patienter samtidigt)',
+          'Pedagogisk (handleder 6-8 studenter per termin)',
+          'Kommunikativ (teamledare för 6 kollegor)',
+          'Analytisk (implementerar evidensbaserade vårdrutiner)',
+          'Empatisk (bemöter patienter och anhöriga i kris)'
+        ]
+      },
+
+      certifieringar: [
+        'ACLS – Advanced Cardiovascular Life Support (förnyad 2024)',
+        'PALS – Pediatric Advanced Life Support, Instruktör (förnyad 2024)',
+        'ATLS – Advanced Trauma Life Support (förnyad 2023)',
+        'Invasiv blodtrycksövervakning & CVK-hantering (2022)',
+        'Respiratorvård nivå 2 (2021)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande (medicinsk terminologi)' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimerad struktur med branschspecifika nyckelord',
+        text: 'CV:t använder exakt de termer som sjukhus och vårdgivare söker efter: "legitimerad sjuksköterska", "specialistutbildning", "ACLS", "PALS", "RETTS-triagering", "TakeCare", "Melior". Dessa nyckelord är placerade i rätt sektioner där ATS-system letar. När rekryteraren söker efter "intensivvårdssjuksköterska" eller "akutsjukvård" matchar CV:t direkt.'
+      },
+      {
+        rubrik: 'Kvantifierbara resultat istället för ansvarsområden',
+        text: 'Många sjuksköterskor skriver "ansvarig för patientvård" eller "administrerade medicinering". Det säger ingenting om din faktiska kompetens. Detta CV visar konkreta siffror: "Vårdar 4-6 kritiskt sjuka patienter dagligen", "Genomför 30-40 triageringar per skift", "Implementerade nytt triage-system som minskade väntetid med 25%". Siffror ger trovärdighet som generiska påståenden aldrig kan ge.'
+      },
+      {
+        rubrik: 'Balans mellan tekniska och mjuka färdigheter med bevis',
+        text: 'Att skriva "kommunikativ, stresstålig, empatisk" är buzzword bingo som rekryterare ignorerar. Detta CV visar istället mjuka färdigheter genom konkreta exempel: "Leder team om 6 sjuksköterskor" bevisar ledarskap, "Mentorskap för studenter" visar pedagogisk förmåga. För tekniska färdigheter används specifika system: "TakeCare", "Melior", "RETTS-triagering", "respiratorvård".'
+      },
+      {
+        rubrik: 'Certifieringar och specialistkompetens som trovärdighetsmarkör',
+        text: 'Inom sjukvården är certifieringar ditt trovärdighetskort. CV:t listar "ACLS", "PALS" och "ATLS" tydligt med förnyelsedatum. Specialistutbildningen "Specialistsjuksköterska Anestesi/IVA" är placerad strategiskt. Om jobbannonsen nämner "ACLS krävs" och ditt CV saknar det ordet sorteras du bort direkt.'
+      },
+      {
+        rubrik: 'Profiltext som säljande sammanfattning',
+        text: 'Profiltexten packar in det viktigaste på 4 rader: specialisering (anestesi/IVA), erfarenhet (8+ år), ledarskap (teamledare för 6 sjuksköterskor), konkret resultat (implementerade system som minskade väntetid 25%). Rekryteraren förstår på 10 sekunder vem du är och vad du kan.'
+      },
+      {
+        rubrik: 'Tydlig karriärprogression och utveckling',
+        text: 'CV:t visar en logisk karriärväg: Sjuksköterska Akutmottagning → Specialistsjuksköterska IVA → Teamledare. Varje roll visar ökande ansvar och komplexitet. Detta visar progression från kliniskt arbete till både specialist- och ledarkompetens, vilket signalerar ambition och förmåga att ta ansvar.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: '1. Inkludera rätt nyckelord för din specialisering',
+        text: 'ATS-system som sjukhus använder letar efter specifika termer från jobbannonsen. Om de söker "intensivvårdssjuksköterska" men du skriver "IVA-sjuksköterska" kanske systemet missar matchningen. Läs jobbannonsen noga och använd exakt samma terminologi.\n\nInkludera alltid: din legitimation, specialistutbildning, relevanta certifieringar (ACLS, PALS, RETTS), medicinska system (TakeCare, Melior, Cosmic) och arbetsområden (triagering, akutsjukvård, intensivvård).\n\n❌ Fel: "Jobbar med akut omhändertagande av sjuka patienter"\n✅ Rätt: "Triagerar och omhändertar akut sjuka patienter enligt RETTS"'
+      },
+      {
+        rubrik: '2. Kvantifiera din erfarenhet för ökad trovärdighet',
+        text: 'Siffror ger konkret bevis på din kapacitet. Istället för att skriva "ansvarig för patientvård", visa omfattningen: Hur många patienter per dag/skift? Hur lång erfarenhet av specifika procedurer?\n\nExempel: "Vårdar 4-6 kritiskt sjuka patienter dagligen", "Genomför 30-40 triageringar per skift", "Leder team om 6 sjuksköterskor", "Handleder 8 studenter årligen".\n\n❌ Fel: "Ansvarig för medicinering"\n✅ Rätt: "Administrerar medicinering för 20-25 patienter dagligen, inklusive intravenösa dropp och smärtlindring"'
+      },
+      {
+        rubrik: '3. Visa konkreta resultat från din omvårdnad',
+        text: 'Rekryterare vill se att du inte bara utför arbetsuppgifter, utan aktivt bidrar till förbättrad vårdkvalitet. Har du implementerat nya rutiner? Minskat väntetider? Förbättrat patientsäkerhet?\n\nExempel: "Implementerade nytt triage-system som minskade väntetid med 25%", "Utvecklade utbildningsprogram som minskade introduktionstiden från 8 till 6 veckor", "Förbättrade dokumentationsrutiner vilket ökade efterlevnad med 30%".\n\nResultat visar att du är proaktiv och kan ta initiativ till förbättringar.'
+      },
+      {
+        rubrik: '4. Anpassa profiltext efter jobbannonsen',
+        text: 'Profiltexten är din säljpitch på 3-5 rader. Den ska inte vara generisk, utan anpassad efter varje roll du söker.\n\nFör IVA-roll: "Specialistsjuksköterska inom anestesi och intensivvård med 8+ års erfarenhet av kritiskt sjuka patienter. Leder team om 6 sjuksköterskor med gedigen kompetens inom respiratorvård."\n\nFör akutmottagning: "Erfaren akutsjuksköterska med 8+ års erfarenhet av triagering. RETTS-certifierad och van att fatta snabba beslut. Hanterar 30-40 triageringar per skift."'
+      },
+      {
+        rubrik: '5. Lyft fram specialistutbildning och certifieringar',
+        text: 'Specialistutbildning är en stor merit inom sjukvården. Placera den tydligt både i profiltexten och under Utbildning. Certifieringar ska ha en egen sektion.\n\nInkludera förnyelsedatum för tidsbegränsade certifieringar: "ACLS (förnyad 2024)" visar att du håller dig uppdaterad. Visa även annan kompetensutveckling: kurser i palliativ vård, handledarkompetens, universitetspoäng.\n\nOm du påbörjat en specialistutbildning: "Pågående: Specialistsjuksköterska inom operation" visar din ambition.'
+      },
+      {
+        rubrik: '6. Balansera tekniska och mjuka färdigheter med bevis',
+        text: 'Skriv inte bara "kommunikativ, stresstålig, teamplayer" under personliga egenskaper. Visa istället dina mjuka färdigheter genom konkreta exempel i erfarenhetsbeskrivningen.\n\n❌ Dåligt: "Kompetenser: Kommunikativ, stresstålig, empatisk"\n\n✅ Bra i erfarenhetsbeskrivning:\n• Hanterar kommunikation med patienter och anhöriga i krissituationer\n• Leder team om 6 sjuksköterskor\n• Fattar snabba kliniska beslut vid 30-40 triageringar per skift\n\nDessa exempel bevisar att du kan kommunicera under press, leda och hantera stress.'
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som sjuksköterska vara?',
+        svar: 'Ett sjuksköterske-CV ska helst vara 1-2 sidor. Om du har under 5 års erfarenhet räcker vanligtvis en sida. Med 5+ år, specialistutbildning och flera roller kan du använda två sidor. Fokusera på de senaste 10 åren och mest relevanta erfarenheter. Behåll alltid: legitimation, specialistutbildning, certifieringar (ACLS, PALS etc.), senaste rollerna och kvantifierbara resultat.'
+      },
+      {
+        fraga: 'Ska jag ha profilbild på mitt CV?',
+        svar: 'I Sverige är profilbild inte nödvändig och många rekryterare föredrar faktiskt CV utan bild för att undvika omedvetna fördomar. ATS-system kan ibland ha problem med att läsa CV med bilder. Om arbetsgivaren specifikt ber om bild kan du inkludera en, men annars rekommenderas att utelämna den. Fokusera istället på innehållet: din kompetens, erfarenhet och resultat.'
+      },
+      {
+        fraga: 'Hur hanterar jag luckor i mitt CV som sjuksköterska?',
+        svar: 'Luckor är vanliga och inget att skämmas för. Föräldraledighet, studier, sjukskrivning eller omsorg om anhörig är legitima skäl. Om du vidareutbildade dig under perioden (specialistutbildning, certifieringar), lista det under Utbildning med årtal. Om du arbetade som vikarie, inkludera även dessa. Rekryterare inom sjukvården förstår att livet inte alltid går i rät linje.'
+      },
+      {
+        fraga: 'Hur visar jag min specialistutbildning tydligt på CV:t?',
+        svar: 'Specialistutbildning ska synas på tre ställen: 1) I din yrkestitel högst upp ("Specialistsjuksköterska Anestesi/IVA"), 2) I profiltexten ("Specialistsjuksköterska inom anestesi och intensivvård med 8+ års erfarenhet"), 3) Under Utbildning med fullständigt namn, lärosäte och årtal. Om du fortfarande går utbildningen, skriv "Pågående: Specialistsjuksköterska inom [område]".'
+      },
+      {
+        fraga: 'Ska jag nämna mitt legitimationsnummer på CV:t?',
+        svar: 'Du behöver inte inkludera ditt faktiska legitimationsnummer på CV:t, men du ska tydligt skriva att du är legitimerad. Skriv "Legitimerad sjuksköterska" i din yrkestitel eller under Utbildning/Certifieringar. Det viktiga är att ordet "legitimerad" finns med, eftersom ATS-system söker efter detta nyckelord. Själva legitimationsnumret kan du uppge senare i rekryteringsprocessen.'
+      },
+      {
+        fraga: 'Hur anpassar jag mitt CV för olika vårdmiljöer (akut, IVA, primärvård)?',
+        svar: 'Anpassa främst din profiltext och prioritering av erfarenheter. För akutmottagning: Lyft fram triagering, snabba beslut, hög patientvolym. För IVA: Fokusera på kritiskt sjuka patienter, respiratorvård, avancerad övervakning. För primärvård: Betona självständighet, patientrelationer, kroniska sjukdomar. Behåll samma grundstruktur men ändra vilka arbetsuppgifter du lyfter fram.'
+      },
+      {
+        fraga: 'Hur lyfter jag fram ACLS, PALS och andra certifieringar effektivt?',
+        svar: 'Skapa en egen sektion "Certifieringar" direkt under Utbildning. Lista varje certifiering med fullständigt namn och förkortning: "ACLS (Advanced Cardiovascular Life Support)". Lägg till förnyelsedatum för att visa att den är aktuell: "ACLS (förnyad 2024)". Nämn gärna ACLS/PALS i profiltexten också om jobbannonsen kräver det.'
+      },
+      {
+        fraga: 'Hur visar jag ledarskap och mentorskap som sjuksköterska?',
+        svar: 'Även utan formell chefsroll kan du visa ledarskap genom konkreta exempel: "Teamledare för 6 sjuksköterskor", "Mentorskap för nyutexaminerade", "Handleder sjuksköterskestudenter under VFU", "Utbildar kollegor i nya rutiner". Kvantifiera när möjligt: "Handlett 12 sjuksköterskestudenter". Ledarskap handlar om att ta initiativ, dela kunskap och driva förbättringar.'
+      },
+      {
+        fraga: 'Ska jag lista alla medicinska system jag kan?',
+        svar: 'Lista de viktigaste och mest relevanta systemen. Fokusera på: 1) System som nämns i jobbannonsen, 2) Vanliga system i din region (TakeCare, Melior, Cosmic), 3) Specialiserade system för din vårdform. Du kan gruppera dem: "Journalsystem: TakeCare, Melior, Cosmic". Om du behärskar ett system mycket väl: "Avancerad användare av TakeCare".'
+      },
+      {
+        fraga: 'Hur visar jag stresshantering och förmåga att arbeta under press?',
+        svar: 'Visa det genom konkreta exempel istället för att skriva "stresstålig". Exempel: "Genomför 30-40 triageringar per skift", "Hanterar 4-6 kritiskt sjuka patienter samtidigt", "Omhändertar patienter och anhöriga i akuta krissituationer". Dessa exempel visar att du faktiskt jobbar under press dagligen och klarar det. Du kan också lyfta fram erfarenhet från krävande miljöer: akutmottagning, IVA, ambulanssjukvård.'
+      }
+    ],
+
+    kategori: 'vard',
+    relaterade: [
+      { yrke: 'Undersköterska', slug: 'underskoterska' },
+      { yrke: 'Vårdbiträde', slug: 'vardbitrade' },
+      { yrke: 'Personlig assistent', slug: 'personlig-assistent' }
+    ]
   }
 }
 
