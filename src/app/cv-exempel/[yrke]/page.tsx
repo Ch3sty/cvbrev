@@ -1696,6 +1696,188 @@ Konkreta bevis sticker ut. Rekryterare ser tomma listor i varje tredje CV.`
       { yrke: 'Hemtjänstpersonal', slug: 'hemtjanstpersonal' },
       { yrke: 'Servicemedarbetare', slug: 'servicemedarbetare' }
     ]
+  },
+
+  'handlaggare': {
+    yrke: 'Handläggare',
+    sokvolym: 880,
+    metaTitle: 'CV Exempel Handläggare 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för handläggare inom offentlig sektor. ATS-optimerat för kommuner och myndigheter med regelverkskännedom, ärendehantering och kvantifierbara resultat.',
+
+    seoIntro: 'Söker du jobb som handläggare och behöver ett CV som sticker ut? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar kommuner, myndigheter och landsting.\n\nDu får se exakt hur du balanserar juridisk kompetens (SoL, LVU, förvaltningslagen, LAS) med administrativa färdigheter (ärendehantering, utredningsmetodik, dokumentation) och de personliga egenskaper som rekryterare söker (noggrannhet, stresstålighet, kommunikationsförmåga). CV:t visar konkreta resultat från socialförvaltning och arbetsförmedling med kvantifierbara exempel som "hanterade 35 parallella ärenden" och "minskade handläggningstid med 20%".\n\nAnvänd det som inspiration för ditt eget CV handläggare och anpassa det efter den tjänst du söker – socialsekreterare, LSS-handläggare, arbetsförmedlare eller myndighetstjänsteman.',
+
+    intro: 'Ett professionellt CV-exempel för handläggare som visar din juridiska kompetens, erfarenhet av myndighetsutövning och förmåga att leverera kvalitetsresultat inom offentlig sektor. Detta exempel är optimerat för svenska kommuner, myndigheter och ATS-system.',
+
+    exempelCV: {
+      namn: 'Anna Lindström',
+      titel: 'Erfaren handläggare med specialisering i socialrätt och barnavårdsutredningar',
+      kontakt: {
+        telefon: '070-123 45 67',
+        epost: 'anna.lindstrom@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/annalindstrom'
+      },
+
+      profil: 'Erfaren handläggare med 7+ års erfarenhet från socialförvaltning och arbetsmarknad. Specialist på barnavårdsutredningar enligt SoL kap 11, LVU-ärenden och ekonomiskt bistånd. Gedigen kännedom om förvaltningslagen, offentlighet och sekretess samt dokumentationssystem (Treserva, ProCapita, Combine). Noggrann och oberoende beslutsfattare med dokumenterad förmåga att hantera 35+ parallella ärenden samtidigt under hög arbetsbelastning.',
+
+      erfarenhet: [
+        {
+          titel: 'Socialsekreterare, Barn och unga',
+          arbetsgivare: 'Stockholms stad, Socialförvaltning Södermalm',
+          period: '2020 – Pågående',
+          beskrivning: [
+            'Ansvarig för 30-35 barnavårdsärenden parallellt enligt SoL kap 11 och LVU, inklusive utredningar, riskbedömningar och familjeinsatser',
+            'Genomförde 15-20 barn- och familjeutredningar per år med 98% godkända kvalitetsgranskningar (2020-2024)',
+            'Minskade genomsnittlig handläggningstid från 6 till 4,5 månader genom effektiv samordning med skola, BUP och polis',
+            'Samarbetar tvärprofessionellt med socialtjänst, polis, skola, hälso- och sjukvård i komplexa ärenden',
+            'Dokumenterar enligt gällande lagstiftning i ProCapita med hög juridisk precision och korrekt sekretesshantering'
+          ]
+        },
+        {
+          titel: 'Handläggare, Ekonomiskt bistånd',
+          arbetsgivare: 'Huddinge kommun, Socialförvaltning',
+          period: '2018 – 2020',
+          beskrivning: [
+            'Handlade 40-45 ärenden avseende ekonomiskt bistånd enligt SoL kap 4 med fokus på långtidsarbetslösa och nyanlända',
+            'Utredde ansökningar om ekonomiskt bistånd, boendestöd och försörjningsstöd enligt riksnormen och kommunala riktlinjer',
+            'Implementerade ny mall för utredningar vilket minskade kompletteringsbehov med 30% och förbättrade ärendekvalitet',
+            'Ansvarig för budgetuppföljning och statistikrapportering till enhetschef (månadsvis)'
+          ]
+        },
+        {
+          titel: 'Arbetsförmedlare',
+          arbetsgivare: 'Arbetsförmedlingen, Stockholm City',
+          period: '2017 – 2018',
+          beskrivning: [
+            'Coachade 80 arbetssökande per månad i matchning, CV-skrivning, intervjuteknik och omställning',
+            'Ansvarig för arbetsmarknadspolitiska program (t.ex. extratjänster, traineejobb) för 25-30 deltagare samtidigt',
+            'Samarbetade med arbetsgivare för rekryteringsmatchning och uppföljning av arbetssökande'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Socionomprogrammet, 210 hp',
+          skola: 'Stockholms universitet',
+          period: '2013 – 2017',
+          beskrivning: 'Kandidatexamen i socialt arbete med inriktning barn och unga. VFU-perioder inom individ- och familjeomsorg samt öppenvård. Examensarbete: "Barns delaktighet i utredningar enligt SoL kap 11".'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Socialrätt – SoL, LVU, LSS (Expert, 7+ år)',
+          'Barnavårdsutredningar enligt SoL kap 11 (Expert, 4+ år)',
+          'Förvaltningslagen och offentlighet/sekretess (Avancerad, 7+ år)',
+          'ProCapita och Treserva (ärendehanteringssystem)',
+          'Ekonomiskt bistånd och riksnormen',
+          'Utredningsmetodik och riskbedömning (BBIC, FREDA)',
+          'Dokumentation och beslutsfattande'
+        ],
+        personliga: [
+          'Noggrann och juridiskt precis (98% godkända kvalitetsgranskningar över 4 år)',
+          'Stresstålig med hög arbetsbelastning (hanterar 35 parallella ärenden)',
+          'Oberoende beslutsfattare (fattar myndighetsbeslut enligt delegationsordning)',
+          'Kommunikativ i känsliga samtal (barn, familjer, tvärprofessionella möten)',
+          'Empatisk men gränssättande (balanserar stöd och myndighetsutövning)'
+        ]
+      },
+
+      certifieringar: [
+        'Barnkonventionen och barns delaktighet – Socialstyrelsen (2023)',
+        'BBIC (Barns behov i centrum) – grundutbildning (2020)',
+        'FREDA (riskbedömning vid våld i nära relationer) (2021)',
+        'Motiverande samtal (MI) – grundkurs (2019)',
+        'Juridik och beslutsfattande för socialsekreterare (2022)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande (C1)' },
+        { sprak: 'Spanska', niva: 'Grundläggande (A2)' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimerad struktur med branschspecifika nyckelord för offentlig sektor',
+        text: 'CV:t innehåller nyckelord som kommuner, regioner och statliga myndigheter letar efter: socialsekreterare, barnavårdsutredningar, SoL (Socialtjänstlagen), LVU (Lagen med särskilda bestämmelser om vård av unga), ProCapita, BBIC (Barns behov i centrum), förvaltningslagen, tvärprofessionellt samarbete och myndighetsutövning. Dessa termer matchas direkt mot jobbannonser inom offentlig sektor.\n\nRubriker som "Arbetslivserfarenhet", "Kompetenser" och "Certifieringar" följer standard som ATS-system förstår. Specifik terminologi som "barnavårdsutredningar enligt SoL kap 11" och "ekonomiskt bistånd" visar att du behärskar regelverket och kan börja arbeta utan lång introduktion.\n\nGenom att nämna antal ärenden (30-35 parallella ärenden) och IT-system (ProCapita, Treserva, Combine) ger du rekryterare konkret bild av din arbetsbelastning och tekniska kompetens.'
+      },
+      {
+        rubrik: 'Kvantifierbara resultat istället för vaga ansvarsområden',
+        text: 'Istället för att skriva "ansvarig för utredningar" visar CV:t konkreta siffror:\n- "Hanterar 30-35 parallella ärenden"\n- "98% godkända kvalitetsgranskningar (4 år)"\n- "Minskade handläggningstid från 6 till 4,5 månader"\n- "7+ års erfarenhet inom tre olika handläggningsområden"\n\nVarför detta fungerar: Rekryterare inom offentlig sektor ser hundratals CV:n där kandidater skriver "handlade utredningar" eller "arbetade med klienter". Dessa beskrivningar säger ingenting om omfattning, kvalitet eller resultat.\n\nSiffror ger trovärdighet och visar arbetskapacitet. Skillnaden mellan "ansvarig för barnavårdsutredningar" och "hanterar 30-35 parallella ärenden med 98% godkända kvalitetsgranskningar" är enorm – det visar att du kan hantera hög arbetsbelastning med bibehållen kvalitet och rättssäkerhet.'
+      },
+      {
+        rubrik: 'Balans mellan juridisk kompetens och personliga egenskaper',
+        text: 'CV:t kombinerar regelverkskännedom (SoL, LVU, förvaltningslagen) med mjuka färdigheter (empatisk bemötande, beslutsförmåga, konflikthantering). Båda är kritiska för handläggare inom offentlig sektor.\n\nVarje personlig egenskap backas upp med konkret bevis. "Analytisk" visas genom "98% godkända kvalitetsgranskningar under 4 år". "Effektiv" styrks med "minskade handläggningstid från 6 till 4,5 månader". "Samarbetsförmåga" exemplifieras med konkreta exempel på tvärprofessionellt samarbete med polis, skola och BUP.\n\nDetta undviker tomma påståenden som "kommunikativ, flexibel, driven" utan sammanhang – det buzzword bingo som rekryterare ser i varje tredje CV. Konkreta bevis på hur du arbetat med komplexa ärenden och samverkat med andra myndigheter sticker ut och visar verklig kompetens.'
+      },
+      {
+        rubrik: 'Certifieringar och fortbildningar som trovärdighetsmarkör',
+        text: 'Alla certifieringar har årtal: "BBIC – Barns behov i centrum (2020)", "FREDA – strukturerad riskbedömning (2021)", "Motiverande samtal (2019)", "Barnkonventionen i praktiken (2023)". Detta visar att du investerar i kontinuerlig kompetensutveckling och håller dig uppdaterad med nya metoder och lagstiftning.\n\nCertifieringar som BBIC och FREDA är branschstandard inom socialtjänsten och visar att du behärskar strukturerade utredningsmetoder. Motiverande samtal visar kompetens i klientarbete. Barnkonventionsutbildning visar att du följer aktuell lagstiftning (barnkonventionen blev svensk lag 2020).\n\nFortbildningar fungerar som objektiva bevis på kompetens som arbetsgivare kan verifiera, till skillnad från påståenden om att vara "duktig på utredningsarbete". De visar också professionalism och engagemang i yrket.'
+      },
+      {
+        rubrik: 'Profiltext som säljande sammanfattning för myndighetsrekrytering',
+        text: 'Profiltexten sammanfattar erfarenhet (7+ år), specialisering (barnavårdsutredningar, ekonomiskt bistånd) och utbildning (socionomprogrammet) på 3-4 meningar. Rekryteraren ser direkt om du matchar tjänstens krav.\n\nTekniska nyckelord (SoL, LVU, ProCapita, BBIC, tvärprofessionellt samarbete) och personliga egenskaper (analytisk, empatisk, strukturerad) ger helhetsbild redan i inledningen. Att nämna specifika utredningsområden (barnavård, ekonomiskt bistånd, barn och unga) visar bredd.\n\nKvantifierbart resultat (30-35 parallella ärenden, 98% godkända kvalitetsgranskningar) redan i profiltexten fångar uppmärksamhet och visar att du kan hantera hög arbetsbelastning med kvalitet – något som är kritiskt för kommuner som söker handläggare.'
+      },
+      {
+        rubrik: 'Tydlig progression och bredd inom offentlig sektor',
+        text: 'Karriärutvecklingen syns tydligt: Arbetsförmedlingen (myndighetsutövning och klientarbete) → Ekonomiskt bistånd (bedömningar och beslutsfattande) → Barn och unga/barnavård (komplexa utredningar enligt SoL och LVU). Detta visar att du utvecklats från generell handläggning till specialisering inom barnavård.\n\nProgressionen demonstrerar också bredd över handläggningsområden: arbetsmarknad, ekonomiskt stöd och socialtjänst. Du kan anpassa dig till olika regelverk, klientgrupper och myndighetsprocesser. Erfarenhet av både vuxna och barn visar flexibilitet.\n\nAtt ha arbetat på tre olika myndigheter/avdelningar visar att du kan navigera olika organisationskulturer och samarbeta med olika professioner (Arbetsförmedlingen, ekonomiskt bistånd, BUP, polis, skola). Detta är meriterande för kommuner som söker erfarna handläggare.'
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera antal ärenden och arbetsbelastning',
+        text: 'Istället för "ansvarig för utredningar" ska du specificera antal parallella ärenden, typ av ärenden och arbetsbelastning. Detta ger rekryterare konkret bild av din kapacitet.\n\n**UNDVIK:** "Arbetade med barnavårdsutredningar"\n**BRA:** "Hanterade 30-35 parallella barnavårdsärenden enligt SoL kap 11 och LVU med 15-20 slutförda utredningar per år"\n\nSiffror visar att du kan hantera hög arbetsbelastning och ger kontext för din erfarenhet. Om du arbetat med olika ärendetyper, specificera: "20 ärenden ekonomiskt bistånd, 10-15 barnavårdsutredningar".'
+      },
+      {
+        rubrik: 'Visa konkreta resultat från din handläggning',
+        text: 'Kvantifierbara förbättringar och kvalitetsmått sticker ut. Använd procent, godkända granskningar eller minskade handläggningstider för att visa effekten av ditt arbete.\n\n**UNDVIK:** "Arbetade enligt gällande kvalitetskrav"\n**BRA:** "98% godkända kvalitetsgranskningar under 4 år" eller "Minskade genomsnittlig handläggningstid från 6 till 4,5 månader genom effektivare utredningsmetodik"\n\nOm du saknar exakta siffror, beskriv kvalitetsresultat: "Noll överklagade beslut under 2 år" eller "Samtliga utredningar godkända vid internkontroll (2022-2024)".'
+      },
+      {
+        rubrik: 'Lista regelverkskännedom med erfarenhetsnivå',
+        text: 'Undvik vaga termer som "god regelverkskännedom". Lista istället konkreta lagar och förordningar med tillämpningserfarenhet.\n\n**UNDVIK:** "Erfarenhet av socialtjänstlagstiftning"\n**BRA:**\n- "SoL (Socialtjänstlagen) – barnavårdsutredningar kap 11 (Expert, 5+ år)"\n- "LVU (Lagen med särskilda bestämmelser om vård av unga) – Avancerad, 4+ år"\n- "Förvaltningslagen – myndighetsutövning och beslutsfattande (Expert, 7+ år)"\n\nDetta visar exakt vilka regelverk du behärskar och hur länge du arbetat med dem. Rekryterare ser direkt om du matchar kraven i jobbannonsen.'
+      },
+      {
+        rubrik: 'Inkludera relevanta certifieringar och fortbildningar',
+        text: 'Certifieringar visar professionalism och att du håller dig uppdaterad med metodik och lagstiftning. Lista alltid årtal för att visa att kunskapen är aktuell.\n\n**Viktiga certifieringar för handläggare:**\n- BBIC (Barns behov i centrum) – grundutbildning och fördjupning\n- FREDA (strukturerad riskbedömning vid våld i nära relationer)\n- Motiverande samtal (MI)\n- Barnkonventionen i praktiken\n- Utredningsmetodik enligt SoL\n- Förvaltningsrätt och myndighetsutövning\n\nÅrtal är viktigt: "BBIC – Barns behov i centrum (2020)" visar när du genomfört utbildningen.'
+      },
+      {
+        rubrik: 'Anpassa CV för olika handläggningsområden',
+        text: 'Kommuner och myndigheter söker olika kompetenser beroende på handläggningsområde. Anpassa vad du lyfter fram beroende på tjänsten du söker.\n\n**För barnavård/barn och unga:** Betona SoL kap 11, LVU, BBIC, tvärprofessionellt samarbete (BUP, skola, polis), riskbedömningar.\n\n**För ekonomiskt bistånd:** Lyft fram bedömningar enligt SoL kap 4, beslutsfattande, dokumentation, motiverande samtal, samverkan med Arbetsförmedlingen.\n\n**För LSS-handläggning:** Fokusera på LSS (Lagen om stöd och service), personlig assistans, biståndsbedömningar, samordning av insatser.\n\nBehåll samma CV-struktur men justera profiltexten och vilken erfarenhet du expanderar mest på.'
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som handläggare vara?',
+        svar: 'För handläggare med 0-5 års erfarenhet räcker 1-2 sidor. Med 5-10+ års erfarenhet och olika handläggningsområden (barnavård, ekonomiskt bistånd, LSS) behövs ofta 2 sidor. Fokusera på de senaste 10 åren och lyft fram progression samt certifieringar. Offentlig sektor förväntar sig mer detaljerade beskrivningar av regelverkskännedom och ärendekomplexitet än privat sektor, så 2 sidor är helt acceptabelt för erfarna handläggare.'
+      },
+      {
+        fraga: 'Ska jag ha med profilbild på mitt CV?',
+        svar: 'Profilbild är frivilligt i Sverige och inget krav inom offentlig sektor. Fokusera istället på innehållet – kvantifierbara resultat, regelverkskännedom, certifieringar och konkret erfarenhet från olika handläggningsområden. Offentlig sektor värderar kompetens och meriter före allt annat. Om du väljer att ha bild, använd en professionell bild med neutral klädsel och bakgrund.'
+      },
+      {
+        fraga: 'Hur visar jag erfarenhet av olika handläggningsområden?',
+        svar: 'Lista varje handläggningsområde med specifikt regelverk, antal ärenden och typ av arbetsuppgifter. Exempel: "Barnavårdsutredningar enligt SoL kap 11 (30-35 parallella ärenden, 15-20 slutförda utredningar/år)", "Ekonomiskt bistånd enligt SoL kap 4 (40-50 pågående ärenden, bedömningar och beslut)", "LSS-handläggning (personlig assistans, 20-25 pågående ärenden)". Detta visar bredd och att du kan anpassa dig till olika regelverk och klientgrupper.'
+      },
+      {
+        fraga: 'Vilka certifieringar är viktigast för handläggare?',
+        svar: 'Prioritera dessa certifieringar beroende på område: BBIC (Barns behov i centrum) för barnavård, FREDA (riskbedömning våld i nära relationer), Motiverande samtal (MI) för klientarbete, Barnkonventionen i praktiken (aktuell lagstiftning sedan 2020), Utredningsmetodik enligt SoL. För ekonomiskt bistånd: bedömningsmetodik och motiverande samtal. För LSS: LSS-lagstiftning och personlig assistans. Ange alltid årtal för att visa att kunskapen är aktuell.'
+      },
+      {
+        fraga: 'Hur kvantifierar jag min handläggarerfarenhet?',
+        svar: 'Använd antal parallella ärenden, antal slutförda utredningar per år, genomsnittlig handläggningstid och kvalitetsmått. Exempel: "Hanterade 30-35 parallella ärenden" eller "Genomförde 15-20 barnavårdsutredningar per år". Om du förbättrat processer: "Minskade handläggningstid från 6 till 4,5 månader". Kvalitetsmått: "98% godkända kvalitetsgranskningar" eller "Noll överklagade beslut under 2 år". Siffror ger kontext och visar arbetskapacitet samt kvalitet.'
+      }
+    ],
+
+    kategori: 'administration',
+    relaterade: [
+      { yrke: 'Socialsekreterare', slug: 'socialsekreterare' },
+      { yrke: 'HR-specialist', slug: 'hr-specialist' },
+      { yrke: 'Controller', slug: 'controller' }
+    ]
   }
 }
 
