@@ -2768,98 +2768,146 @@ Använd exemplet som inspiration för ditt eget lärar-CV och anpassa det efter 
 
     varforDetFungerar: [
       {
-        rubrik: 'Lärarlegitimation och behörighet syns direkt',
-        text: 'Legitimation och ämnesbehörighet framgår redan i titeln – rektorer ser omedelbart att du uppfyller de formella kraven.'
+        rubrik: 'Lärarlegitimation och behörighet syns direkt i titeln',
+        text: `Legitimationen placeras högst upp i CV:t med tydlig referens till behörighetsområden (svenska och SO, årskurs F-6).
+
+Varför detta fungerar: Rektorer och skolchefer filtrerar bort obehöriga kandidater direkt – särskilt efter skärpta legitimationskrav. Genom att visa "Legitimerad grundskollärare F-6 med behörighet i svenska och SO" i titeln slipper rekryteraren leta efter informationen. Det signalerar också att du förstår att formella behörigheter är avgörande för anställningsbarhet i svensk skola.`
       },
       {
-        rubrik: 'Kvantifierade resultat sticker ut',
-        text: '18% förbättring i nationella prov, 75 elever årligen – konkreta siffror visar din påverkan och gör CV:t minnesvärt.'
+        rubrik: 'Kvantifierade resultat som visar pedagogisk påverkan',
+        text: `CV:t innehåller konkreta siffror som "18% förbättring i nationella prov", "75 elever årligen" och "100+ digitala lektionsresurser".
+
+Varför detta fungerar: De flesta lärar-CV:n beskriver arbetsuppgifter utan att visa resultat. När du kvantifierar din påverkan – hur många elever du undervisat, hur mycket provresultaten förbättrats, hur många kollegor du handlett – sticker du ut. Rektorer vill veta att du levererar mätbara resultat, inte bara att du "undervisar".`
       },
       {
-        rubrik: 'Balans mellan hårt och mjukt',
-        text: 'Teknisk kompetens (Lgr22, Google Classroom) kombineras med pedagogiskt ledarskap och relationsskapande.'
+        rubrik: 'Balans mellan pedagogisk kompetens och mjuka färdigheter',
+        text: `CV:t kombinerar teknisk skicklighet (Lgr22, Google Classroom, formativ bedömning) med ledarskap, relationsskapande och elevfokus.
+
+Varför detta fungerar: Rektorer söker lärare som både behärskar ämnet och kan leda ett klassrum. Ett CV som bara listar kurser och verktyg saknar den mänskliga dimensionen. Genom att visa "mentorsansvar för 25 elever" och "hög närvaro på utvecklingssamtal" bevisar du att du bygger relationer – något som separerar bra lärare från utmärkta.`
       },
       {
-        rubrik: 'ATS-vänlig struktur',
-        text: 'Relevanta nyckelord som "formativ bedömning", "IUP" och "extra anpassningar" hjälper CV:t passera automatiska filter.'
+        rubrik: 'ATS-optimerade nyckelord som matchar jobbannonser',
+        text: `CV:t använder branschspecifika termer som "formativ bedömning", "IUP", "extra anpassningar", "Läslyftet" och "elevhälsoteam".
+
+Varför detta fungerar: Svenska kommuner och skolkoncerner använder ATS-system som filtrerar CV:n efter nyckelord. Om ditt CV saknar termer som "individuella utvecklingsplaner" eller "åtgärdsprogram" kan du sorteras bort innan en människa ens ser din ansökan. Det här CV:t inkluderar rätt terminologi utan att kännas konstlat.`
       },
       {
-        rubrik: 'Tydlig karriärutveckling',
-        text: 'Progressionen från VFU till handledarroll visar att du tar ansvar och utvecklas i yrket.'
+        rubrik: 'Tydlig karriärprogression från VFU till handledarroll',
+        text: `CV:t visar en logisk utveckling: sommarlägerledare → grundskollärare F-3 → grundskollärare F-6 med handledaransvar för VFU-studenter.
+
+Varför detta fungerar: Rektorer vill se att du växer i yrket och tar mer ansvar över tid. Att gå från "undervisade elever" till "handleder nyexaminerade lärare" visar att du utvecklat din kompetens tillräckligt för att lära ut den till andra. Det signalerar också att tidigare arbetsgivare litat på dig med utökade uppdrag.`
       },
       {
-        rubrik: 'Modern digital kompetens',
-        text: 'Google Classroom, Skolplus och digital certifiering signalerar att du hänger med i skolans digitalisering.'
+        rubrik: 'Modern digital kompetens som matchar skolans digitalisering',
+        text: `CV:t lyfter fram Google Classroom, Skolplus, Bingel, Unikum, Infomentor och Google Certified Educator Level 1.
+
+Varför detta fungerar: Digitalisering är en av skolans största utmaningar. Lärare som kan använda digitala verktyg effektivt är eftertraktade – särskilt efter pandemins distansundervisning. Genom att lista specifika plattformar och en certifiering visar du att du inte bara "kan data" utan aktivt utvecklat din digitala kompetens.`
       }
     ],
 
     tips: [
       {
-        rubrik: '1. Sätt legitimation och behörighet överst',
-        text: 'Rektorer scannar CV:n snabbt. Placera din lärarlegitimation och ämnesbehörighet i titeln eller profilen så att de inte missas. Skriv ut vilka ämnen och årskurser du är behörig i – "Legitimerad grundskollärare F-6 med behörighet i svenska och SO" är tydligare än bara "Lärare".'
+        rubrik: '1. Sätt legitimation och behörighet överst – det är första filtret',
+        text: `Rektorer och skolchefer filtrerar efter behörighet innan de läser resten av ditt CV. Placera din lärarlegitimation och ämnesbehörighet i titeln eller direkt under ditt namn – inte gömt längst ner.
+
+❌ UNDVIK: "Erfaren lärare med bred kompetens och stort engagemang för elevers utveckling"
+
+✅ BRA: "Legitimerad grundskollärare F-6 (leg. nr. 20150428-1234) med behörighet i svenska och SO"
+
+Genom att inkludera legitimationsnummer gör du det enkelt för rekryteraren att verifiera din behörighet direkt.`
       },
       {
-        rubrik: '2. Kvantifiera dina resultat',
-        text: 'Undvik vaga beskrivningar som "undervisade elever". Ange istället hur många elever du ansvarade för, hur stor förbättring du åstadkom i nationella prov eller hur många kollegor du handlett. Siffror gör ditt CV minnesvärt och visar konkret påverkan.'
+        rubrik: '2. Kvantifiera dina resultat – siffror slår generella beskrivningar',
+        text: `De flesta lärar-CV:n beskriver vad läraren gjorde, inte vad de åstadkom. Konkreta siffror gör ditt CV minnesvärt och visar att du mäter din egen påverkan.
+
+❌ UNDVIK: "Undervisade elever i svenska med goda resultat"
+
+✅ BRA: "Ökade andelen elever som nådde kunskapskraven i svenska från 72% till 89% genom strukturerad läsundervisning"
+
+Andra kvantifierbara resultat: antal elever per klass, procent som nådde kunskapskrav, antal utvecklade lektionsplaneringar, antal handledda studenter.`
       },
       {
-        rubrik: '3. Matcha annonsens nyckelord',
-        text: 'Läs jobbannonsen noggrant och identifiera nyckelord – "formativ bedömning", "digitala verktyg", "extra anpassningar". Använd samma formuleringar i ditt CV för att passera ATS-filter och visa att du förstår tjänstens krav.'
+        rubrik: '3. Matcha annonsens nyckelord för att passera ATS-filtret',
+        text: `De flesta kommuner och skolkoncerner använder ATS-system som automatiskt filtrerar CV:n efter nyckelord. Om du inte inkluderar rätt termer sorteras du bort innan en människa ser din ansökan.
+
+❌ UNDVIK: Att använda egna formuleringar istället för annonsens terminologi
+
+✅ BRA: Kopiera exakta termer från annonsen som "formativ bedömning", "extra anpassningar", "digitala lärverktyg" och "systematiskt kvalitetsarbete"
+
+Läs annonsen noggrant, markera nyckelord och se till att de finns i ditt CV – men bara om de stämmer med din faktiska kompetens.`
       },
       {
-        rubrik: '4. Lyft fram pedagogisk utveckling',
-        text: 'Visa att du utvecklas som lärare. Nämn fortbildningar som Läslyftet, Mattelyftet eller specialpedagogiska kurser. Certifieringar som Google Certified Educator eller handledaruppdrag signalerar att du tar ditt yrkeskunnande på allvar.'
+        rubrik: '4. Visa pedagogisk utveckling med specifika exempel',
+        text: `Rektorer vill se att du utvecklas som lärare. Generella påståenden om "kontinuerlig kompetensutveckling" är värdelösa – ge istället specifika exempel.
+
+❌ UNDVIK: "Deltar regelbundet i fortbildning och vidareutvecklar min pedagogik"
+
+✅ BRA: "Genomförde Läslyftet modul 1-4 (2019), specialpedagogik 7,5hp vid Högskolan Dalarna (2020) och certifierad Google Educator Level 1 (2021)"
+
+Fortbildningar som väger tungt: Läslyftet, Mattelyftet, specialpedagogik, NPF-kurser, handledarutbildning och digitala certifieringar.`
       },
       {
-        rubrik: '5. Beskriv din klassrumsledning',
-        text: 'Rektorer söker lärare som kan leda ett klassrum. Beskriv hur du skapar struktur, hanterar konflikter eller bygger relationer med elever. "Implementerade lågaffektivt bemötande som minskade störande beteenden" säger mer än "har bra ordning".'
+        rubrik: '5. Beskriv din klassrumsledning konkret – inte bara att du "har ordning"',
+        text: `Klassrumsledning är en av de viktigaste färdigheterna rektorer söker. Abstrakta beskrivningar som "skapar trygg lärmiljö" säger ingenting – beskriv istället konkreta metoder och resultat.
+
+❌ UNDVIK: "Har god ordning i klassrummet och skapar en positiv stämning"
+
+✅ BRA: "Implementerade lågaffektivt bemötande och tydliga lektionsstrukturer som minskade konflikter med 60% enligt trivselenkäter"
+
+Nämn specifika metoder: lågaffektivt bemötande, tydlig lektionsstruktur, samarbete med elevhälsa, föräldrakontakt.`
       },
       {
-        rubrik: '6. Anpassa efter skolform',
-        text: 'Ett CV för lågstadiet ska betona läs- och skrivinlärning, medan ett för högstadiet lyfter ämnesdjup och nationella prov. Anpassa ordval och exempel efter den specifika tjänsten du söker för att visa att du förstår målgruppen.'
+        rubrik: '6. Anpassa CV:t efter skolform och årskurs',
+        text: `Ett CV för förskoleklass ska betona helt andra saker än ett för gymnasiet. Anpassa innehållet efter den specifika tjänsten du söker.
+
+❌ UNDVIK: Ett generiskt CV som du skickar till alla skolor
+
+✅ BRA: Lågstadiet – betona läs- och skrivinlärning, Bornholmsmodellen, motorik. Mellanstadiet – fokusera på ämnesdidaktik, digitala verktyg, nationella prov. Högstadiet – lyft ämnesdjup, bedömning och betygsättning.
+
+Läs om skolan innan du söker och anpassa profiltexten efter deras profil och värdegrund.`
       }
     ],
 
     faq: [
       {
         fraga: 'Hur långt ska ett lärar-CV vara?',
-        svar: 'För lärare med 5+ års erfarenhet rekommenderas två A4-sidor. Nyexaminerade klarar sig ofta med en sida. Det viktigaste är att varje punkt tillför värde – ta bort utfyllnadstext och fokusera på resultat och behörighet.'
+        svar: 'För lärare med 5+ års erfarenhet är två A4-sidor standard – en sida känns för tunt när du har mycket relevant erfarenhet att visa. Nyexaminerade klarar sig med en sida. Det viktigaste är att varje punkt tillför värde: ta bort generiska beskrivningar och fokusera på konkreta resultat, behörigheter och kompetenser som matchar tjänsten du söker.'
       },
       {
         fraga: 'Ska jag inkludera mitt betyg från lärarutbildningen?',
-        svar: 'Om du har höga betyg eller nyligen tagit examen kan det vara relevant. För erfarna lärare väger arbetslivserfarenhet tyngre – skippa betygen och lyft istället fram resultat från klassrummet.'
+        svar: 'Endast om du nyligen tagit examen och har höga betyg. För lärare med 2+ års erfarenhet väger praktisk kompetens tyngre – rektorer bryr sig mer om att du förbättrat elevernas provresultat med 18% än att du hade VG i didaktik. Byt ut betygsinformationen mot konkreta resultat från klassrummet.'
       },
       {
         fraga: 'Vad ska jag skriva i sammanfattningen/profiltexten?',
-        svar: 'Inled med din legitimation, ämnesbehörighet och antal års erfarenhet. Nämn sedan ett konkret resultat (t.ex. förbättrade provresultat) och avsluta med vad som driver dig som pedagog. Håll det till 3-4 meningar.'
+        svar: 'Inled med legitimation, ämnesbehörighet och antal års erfarenhet. Lägg sedan till ett konkret resultat ("18% förbättring i nationella prov") och avsluta med din pedagogiska drivkraft. Håll det till 3-4 meningar och undvik generiska fraser som "brinner för undervisning" – visa istället vad du faktiskt åstadkommit.'
       },
       {
-        fraga: 'Hur visar jag att jag kan hantera stökiga klasser?',
-        svar: 'Beskriv konkreta metoder du använt – lågaffektivt bemötande, tydliga lektionsstrukturer eller samarbete med elevhälsan. Undvik negativa formuleringar och fokusera på vad du gjort för att skapa arbetsro.'
+        fraga: 'Hur visar jag att jag kan hantera utmanande klasser?',
+        svar: 'Beskriv konkreta metoder och resultat. Istället för "har bra ordning" skriv "implementerade lågaffektivt bemötande som minskade konfliktsituationer med 40% enligt trivselenkäter". Nämn samarbete med elevhälsoteam, föräldrakontakt och dokumenterade anpassningar. Undvik negativa formuleringar om eleverna.'
       },
       {
         fraga: 'Ska extrajobb som inte är lärarrelaterade vara med?',
-        svar: 'Ja, om de visar överförbara färdigheter. Sommarjobb med barn, ledarskap i föreningar eller kundtjänst kan visa relationsskapande och ansvar. Beskriv vad du lärde dig snarare än arbetsuppgifterna.'
+        svar: 'Ja, om de visar överförbara färdigheter. Sommarjobb med barn visar att du trivs med målgruppen. Ledarskap i föreningar visar organisationsförmåga. Kundtjänst visar kommunikation under press. Beskriv vad du utvecklade – "ansvarade för 30 barn under sommarläger" är bättre än "jobbade som lägerledare".'
       },
       {
         fraga: 'Hur hanterar jag luckor i min anställning?',
-        svar: 'Var ärlig men kortfattad. Om du vidareutbildade dig, föräldraledigt eller reste – nämn det kort. Fokusera på vad du lärde dig under tiden och hur det gjort dig till en bättre lärare.'
+        svar: 'Var ärlig men lösningsfokuserad. Föräldraledighet är helt normalt. Studier eller resor kan presenteras positivt. Om du var sjukskriven, säg kort "karriärpaus" utan detaljer. Fokusera på vad du gjorde under tiden som utvecklat dig: "Vikarierande läxhjälp under studieuppehåll" visar initiativ även under pauser.'
       },
       {
-        fraga: 'Vilka digitala verktyg ska jag nämna?',
-        svar: 'Prioritera verktyg som används brett: Google Classroom, Microsoft Teams, Unikum, Infomentor, Skolplus. Nämn även Skolverkets bedömningsstöd och eventuella certifieringar som Google Certified Educator.'
+        fraga: 'Vilka digitala verktyg ska jag lyfta fram i CV:t?',
+        svar: 'Prioritera verktyg som används i svenska skolor: Google Classroom/Workspace, Microsoft Teams, Unikum, Infomentor, Skolplus, Bingel. Nämn även Skolverkets digitala bedömningsstöd. Certifieringar som Google Certified Educator eller Microsoft Certified Educator väger extra tungt eftersom de visar verifierad kompetens.'
       },
       {
-        fraga: 'Ska jag nämna min VFU?',
-        svar: 'Ja, särskilt om du är nyexaminerad. Ange skola, årskurs och vad du fokuserade på. Erfarna lärare kan korta ner VFU-beskrivningen till en rad under utbildningen.'
+        fraga: 'Ska jag nämna VFU-perioden i mitt CV?',
+        svar: 'Ja, särskilt om du är nyexaminerad. Ange skola, årskurs, ämnen och ett konkret exempel på vad du utvecklade: "VFU på Tiundaskolan, årskurs 4, utvecklade digitalt läsmaterial som användes av arbetslaget". Erfarna lärare kan korta ner till en rad under utbildningen.'
       },
       {
         fraga: 'Hur lyfter jag fram specialpedagogisk kompetens?',
-        svar: 'Nämn kurser (Specialpedagogik 1, SPSM-utbildningar), erfarenhet av extra anpassningar och åtgärdsprogram samt samarbete med elevhälsoteam. Kvantifiera om möjligt: "Utarbetade åtgärdsprogram för 8 elever med NPF".'
+        svar: 'Nämn specifika kurser (Specialpedagogik 7,5hp, SPSM-utbildningar, NPF-kurser) och praktisk erfarenhet. Kvantifiera: "Utarbetade och följde upp åtgärdsprogram för 12 elever med neuropsykiatriska funktionsnedsättningar". Beskriv också samarbete med elevhälsoteam och specialpedagog för att visa teamkompetens.'
       },
       {
-        fraga: 'Ska jag skicka med personligt brev?',
-        svar: 'Ja, nästan alltid. Personligt brev låter dig förklara varför just den här skolan intresserar dig och ge kontext till ditt CV. Anpassa brevet efter varje tjänst och undvik generiska mallar.'
+        fraga: 'Ska jag skicka med personligt brev till varje ansökan?',
+        svar: 'Ja, nästan alltid inom skolvärlden. Personligt brev låter dig förklara varför just den här skolan intresserar dig och ge kontext som inte ryms i CV:t. Anpassa alltid brevet efter skolans profil och värdegrund. Generiska brev sorteras bort – rektorer märker direkt om du kopierat från en mall.'
       }
     ],
 
@@ -2984,28 +3032,54 @@ Använd detta CV som mall när du skapar ditt eget. Kopiera strukturen, anpassa 
 
     varforDetFungerar: [
       {
-        rubrik: 'ATS-optimerad struktur med branschspecifika nyckelord',
-        text: 'CV:t använder exakt de termer som sjukhus och vårdgivare söker efter: "legitimerad sjuksköterska", "specialistutbildning", "ACLS", "PALS", "RETTS-triagering", "TakeCare", "Melior". Dessa nyckelord är placerade i rätt sektioner där ATS-system letar. När rekryteraren söker efter "intensivvårdssjuksköterska" eller "akutsjukvård" matchar CV:t direkt.'
+        rubrik: 'Specialistkompetens framhävs med certifieringar och legitimation',
+        text: `CV:t visar tydligt legitimation och specialistutbildning direkt i inledningen, följt av relevanta certifieringar som ACLS, PALS och ATLS. Istället för att bara lista "specialistsjuksköterska" specificeras det till "anestesi och intensivvård" med 8+ års erfarenhet.
+
+Varför detta fungerar: Inom sjukvården är legitimation och specialistkompetens avgörande. Rekryterare till IVA-avdelningar söker specifika certifieringar och utbildningar. Genom att placera dessa högt upp i CV:t och vara specifik ("anestesi och intensivvård", inte bara "specialist") visar du direkt att du har rätt kvalifikationer för rollen.`
       },
       {
-        rubrik: 'Kvantifierbara resultat istället för ansvarsområden',
-        text: 'Många sjuksköterskor skriver "ansvarig för patientvård" eller "administrerade medicinering". Det säger ingenting om din faktiska kompetens. Detta CV visar konkreta siffror: "Vårdar 4-6 kritiskt sjuka patienter dagligen", "Genomför 30-40 triageringar per skift", "Implementerade nytt triage-system som minskade väntetid med 25%". Siffror ger trovärdighet som generiska påståenden aldrig kan ge.'
+        rubrik: 'Kvantifierade patientvolymer istället för vaga ansvarsområden',
+        text: `Istället för "ansvarig för patientvård" visar CV:t konkreta siffror:
+- "Vårdar 4-6 kritiskt sjuka patienter dagligen"
+- "Utför 30-40 triageringar per skift"
+- "Handleder 6-8 sjuksköterskestudenter per termin"
+
+Varför detta fungerar: Vårdenhetschefer och verksamhetschefer behöver förstå din kapacitet och arbetsbörda. Genom att kvantifiera antal patienter, triageringar och handledningsansvar ger du en konkret bild av din arbetsbelastning och erfarenhetsnivå. Det visar också att du arbetar i högtempomiljö med stora patientvolymer.`
       },
       {
-        rubrik: 'Balans mellan tekniska och mjuka färdigheter med bevis',
-        text: 'Att skriva "kommunikativ, stresstålig, empatisk" är buzzword bingo som rekryterare ignorerar. Detta CV visar istället mjuka färdigheter genom konkreta exempel: "Leder team om 6 sjuksköterskor" bevisar ledarskap, "Mentorskap för studenter" visar pedagogisk förmåga. För tekniska färdigheter används specifika system: "TakeCare", "Melior", "RETTS-triagering", "respiratorvård".'
+        rubrik: 'Mätbara förbättringsresultat från kvalitetsarbete',
+        text: `CV:t innehåller konkreta exempel på förbättringsarbete:
+- "Implementerade nytt triagesystem som minskade väntetider med 25%"
+- "Ledde kvalitetsgrupp som reducerade vårdrelaterade infektioner"
+
+Varför detta fungerar: Sjukvården driver ständigt kvalitets- och förbättringsprojekt. Rekryterare söker sjuksköterskor som inte bara utför sitt arbete, utan aktivt bidrar till verksamhetsutveckling. Genom att visa mätbara resultat (25% minskade väntetider) bevisar du att du kan driva förändring och förbättra vårdkvaliteten.`
       },
       {
-        rubrik: 'Certifieringar och specialistkompetens som trovärdighetsmarkör',
-        text: 'Inom sjukvården är certifieringar ditt trovärdighetskort. CV:t listar "ACLS", "PALS" och "ATLS" tydligt med förnyelsedatum. Specialistutbildningen "Specialistsjuksköterska Anestesi/IVA" är placerad strategiskt. Om jobbannonsen nämner "ACLS krävs" och ditt CV saknar det ordet sorteras du bort direkt.'
+        rubrik: 'Ledarskaps- och handledarerfarenhet tydligt specificerad',
+        text: `CV:t visar både formellt och informellt ledarskap:
+- "Teamledare för 6 sjuksköterskor på IVA-avdelning"
+- "Handleder 6-8 sjuksköterskestudenter per termin"
+- "Mentor för nyexaminerade specialistsjuksköterskor"
+
+Varför detta fungerar: Erfarna sjuksköterskor förväntas ta ledarroller och handleda studenter. Genom att kvantifiera antal personer du leder och handleder visar du att du har pedagogisk förmåga och kan ta ansvar utöver direktpatientvård. Detta är särskilt värdefullt för sjukhus som utbildar studenter eller söker framtida teamledare.`
       },
       {
-        rubrik: 'Profiltext som säljande sammanfattning',
-        text: 'Profiltexten packar in det viktigaste på 4 rader: specialisering (anestesi/IVA), erfarenhet (8+ år), ledarskap (teamledare för 6 sjuksköterskor), konkret resultat (implementerade system som minskade väntetid 25%). Rekryteraren förstår på 10 sekunder vem du är och vad du kan.'
+        rubrik: 'Systemkompetens med specifika journalsystem namngivna',
+        text: `Istället för "god datorvana" eller "journalsystem" listar CV:t konkreta system:
+- "TakeCare (patientjournal)"
+- "Melior (läkemedelssystem)"
+- "RETTS-triagering (akutmottagning)"
+
+Varför detta fungerar: Olika landsting och sjukhus använder olika journalsystem. Genom att specifikt namnge TakeCare, Melior och RETTS visar du att du behärskar de vanligaste systemen inom svensk sjukvård. Rekryterare kan direkt se om du har erfarenhet av deras system, vilket minskar introduktionstiden vid nyanställning.`
       },
       {
-        rubrik: 'Tydlig karriärprogression och utveckling',
-        text: 'CV:t visar en logisk karriärväg: Sjuksköterska Akutmottagning → Specialistsjuksköterska IVA → Teamledare. Varje roll visar ökande ansvar och komplexitet. Detta visar progression från kliniskt arbete till både specialist- och ledarkompetens, vilket signalerar ambition och förmåga att ta ansvar.'
+        rubrik: 'Bredden i klinisk erfarenhet över flera specialiteter',
+        text: `CV:t visar erfarenhet från olika vårdmiljöer:
+- "IVA (intensivvårdsavdelning)"
+- "Anestesi (operationsavdelning)"
+- "Akutmottagning (triagering och akutsjukvård)"
+
+Varför detta fungerar: Sjuksköterskor med erfarenhet från flera specialiteter är mer flexibla och kan täcka olika behov. IVA-erfarenhet kombinerat med anestesi och akut visar att du behärskar kritisk vård i olika sammanhang. Detta gör dig attraktiv för både specialiserade enheter och sjukhus som söker mångsidig kompetens.`
       }
     ],
 
