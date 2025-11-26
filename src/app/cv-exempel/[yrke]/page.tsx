@@ -2392,6 +2392,10 @@ Konkreta bevis sticker ut. Rekryterare ser tomma listor i varje tredje CV.`
       {
         titel: 'Skillnaden mellan utvecklare och konsult: Mentorskap och kundnöjdhet',
         beskrivning: 'Vad skiljer en senior IT-konsult från en senior utvecklare? Konsulter jobbar mot externa kunder, mentorar juniorer och driver projekt. Visa detta: "Mentor för 3 junior-konsulter", "Kundnöjdhet 4.7/5 på 10+ projekt", "Faciliterade tekniska diskussioner mellan utvecklingsteam och C-level". Detta visar mjuka kompetenser utan att skriva "driven, kommunikativ, flexibel".'
+      },
+      {
+        titel: 'Koppla DevOps-resultat till tid och pengar',
+        beskrivning: 'DevOps handlar inte bara om Docker och Kubernetes – det handlar om snabbare leveranser och lägre kostnader. Visa affärspåverkan: "Implementerade CI/CD-pipelines som reducerade release-tid från 2 veckor till 2 dagar" (snabbare time-to-market), "Automatiserade infrastruktur med Terraform vilket minskade driftkostnader med 30%" (ekonomi). Beslutsfattare förstår tid och pengar bättre än tekniska termer.'
       }
     ],
 
@@ -2415,6 +2419,26 @@ Konkreta bevis sticker ut. Rekryterare ser tomma listor i varje tredje CV.`
       {
         fraga: 'Hur skriver jag om DevOps-arbete utan att bli för teknisk?',
         svar: 'Översätt DevOps-resultat till affärsspråk: "Reducerade release-tid från 2 veckor till 2 dagar" (snabbare time-to-market), "Minskade driftkostnader med 30% via infrastructure-as-code" (ekonomi), "Automatiserade deploy-processer vilket eliminerade 15 timmars manuellt arbete/vecka" (effektivitet). Beslutsfattare förstår tid, pengar och risk – använd dessa mätvärden.'
+      },
+      {
+        fraga: 'Hur långt ska mitt CV vara som IT-konsult?',
+        svar: '2 sidor är standard för erfarna IT-konsulter (5+ år). Du behöver plats för att visa projektlista, tech stack, certifieringar och kundresultat. 1 sida räcker sällan för att visa din bredd. Undvik dock att gå över 2 sidor – fokusera på senaste 10-15 åren och mest relevanta uppdrag. Äldre erfarenhet kan summeras kortfattat eller utelämnas.'
+      },
+      {
+        fraga: 'Ska jag ha en profilbild på mitt CV som IT-konsult?',
+        svar: 'Det är valfritt i Sverige, men vanligare inom konsultbranschen än i andra sektorer. Om du lägger till profilbild, se till att den är professionell (neutral bakgrund, affärskläder eller business casual). Undvik semesterbilder eller för informella foton. Vissa ATS-system kan ha problem med bilder, så ha en bildlös version redo vid behov.'
+      },
+      {
+        fraga: 'Ska jag inkludera GitHub eller portfolio-länkar i mitt CV?',
+        svar: 'Ja, om du har aktiva open source-bidrag eller relevanta projekt. Lägg till länken under kontaktuppgifter: "GitHub: github.com/erikbergstrom" eller "Portfolio: erikbergstrom.dev". Se till att ditt GitHub-konto är uppdaterat och visar kvalitetskod – ett overksamt konto från 2018 ger sämre intryck än inget alls. För konsulter är LinkedIn ofta viktigare än GitHub.'
+      },
+      {
+        fraga: 'Hur beskriver jag remote vs on-site konsultuppdrag?',
+        svar: 'Ange arbetsform om det är relevant för uppdraget: "Senior IT-konsult (remote)" eller "IT-konsult (on-site hos kund i Göteborg)". För hybrida uppdrag, skriv "IT-konsult (hybrid, 3 dagar/vecka on-site)". Detta visar flexibilitet och ger rekryteraren information om din erfarenhet av olika arbetsformer. Remote-erfarenhet har blivit meriterande efter 2020.'
+      },
+      {
+        fraga: 'Hur hanterar jag luckor i mitt CV som IT-konsult?',
+        svar: 'Var transparent och ge kortfattad förklaring. "Föräldraledighet", "Sabbatsår för kompetensutveckling (Azure-certifiering)", "Egen uppdragsverksamhet" är helt OK. Om luckan är längre än 6 månader, nämn vad du gjorde för att hålla dig uppdaterad (kurser, certifieringar, open source-bidrag). För konsulter är korta perioder mellan uppdrag (1-3 månader) normalt – ingen förklaring behövs.'
       }
     ],
 
