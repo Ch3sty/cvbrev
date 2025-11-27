@@ -4809,6 +4809,256 @@ Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egens
       { yrke: 'Controller', slug: 'controller' },
       { yrke: 'Administratör', slug: 'administrator' }
     ]
+  },
+
+  'barnskotare': {
+    yrke: 'Barnskötare',
+    sokvolym: 980,
+    metaTitle: 'CV Exempel Barnskötare 2025 - ATS-optimerad Mall | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för barnskötare med kvantifierbara resultat. Visar Unikum, Lpfö 18 och språkutveckling. ATS-optimerat för svensk förskola.',
+
+    seoIntro: `Ett CV för barnskötare behöver visa mer än att du är "omtänksam" och "bra med barn". Förskoleledare söker konkreta bevis på att du kan hantera barngrupper, dokumentera i Unikum, följa Lpfö 18 och samarbeta med vårdnadshavare. De vill se siffror på hur många inskolningar du klarat, vilka verktyg du behärskar och hur du faktiskt jobbar med språkutveckling eller konflikthantering.
+
+Detta exempel-CV visar hur en barnskötare med 6 års erfarenhet presenterar kvantifierbara resultat istället för vaga beskrivningar. Du ser exakt vilka system hon kan, hur många barn hon arbetat med och vilka certifieringar som gör henne anställningsbar. Strukturen är optimerad för att passera ATS-system som många kommuner och fristående förskolor använder.
+
+Använd detta som mall när du skapar ditt eget CV. Byt ut Annas erfarenheter mot dina egna siffror, verktyg och resultat. Då får du ett CV som faktiskt leder till intervju.`,
+
+    intro: 'Professionellt CV-exempel för barnskötare med fokus på pedagogisk dokumentation, språkutveckling och omsorg. Visar kvantifierbara resultat och branschspecifika system som Unikum och Tyra. ATS-optimerat för svenska förskolor.',
+
+    exempelCV: {
+      namn: 'Anna Bergström',
+      titel: 'Barnskötare med 6 års erfarenhet inom kommunal förskola',
+      kontakt: {
+        telefon: '070-123 45 67',
+        epost: 'anna.bergstrom@exempel.se',
+        plats: 'Uppsala',
+        linkedin: 'linkedin.com/in/annabergstrom'
+      },
+      profil: 'Erfaren och engagerad barnskötare med 6 års erfarenhet från kommunal förskola. Specialist på språkutvecklande arbetssätt och dokumentation i Unikum. Trygghetsskapande och lyhörd med stark förmåga att skapa meningsfulla relationer med barn, föräldrar och kollegor. Driven av att bidra till varje barns utveckling enligt Lpfö 18 genom lek, omsorg och pedagogiska aktiviteter.',
+      erfarenhet: [
+        {
+          titel: 'Barnskötare',
+          arbetsgivare: 'Solängens förskola, Uppsala kommun',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Ansvarar för barngrupp om 18 barn (3-5 år) tillsammans med 2 förskollärare och 1 kollega, skapar trygg och stimulerande lärmiljö enligt Lpfö 18',
+            'Dokumenterar barns lärande och utveckling i Unikum, vilket förbättrade föräldrakommunikationen med 40% enligt vårdnadshavarenkät 2024',
+            'Leder språkutvecklande aktiviteter 3 ggr/vecka med fokus på flerspråkiga barn, vilket resulterade i förbättrad språkförståelse hos 12 av 15 deltagande barn',
+            'Samordnar matsituationer och vilopass för att skapa pedagogiska lärtillfällen kring hälsa, hygien och social samvaro'
+          ]
+        },
+        {
+          titel: 'Barnskötare',
+          arbetsgivare: 'Äventyrets förskola, Eskilstuna kommun',
+          period: '2019 – 2021',
+          beskrivning: [
+            'Arbetade med småbarnsavdelning (1-3 år) med 15 barn, fokus på trygghet, anknytning och tidig språkutveckling',
+            'Implementerade Tecken som Stöd (TAKK) i vardagen, vilket minskade frustration och konflikter med cirka 30%',
+            'Ansvarade för inskolning av 8 nya barn/år med genomsnittlig inskolningstid på 2 veckor (under kommunens mål på 3 veckor)',
+            'Deltog i utveckling av avdelningens rutiner för allergisäkerhet, vilket ledde till noll incidenter under 2 år'
+          ]
+        },
+        {
+          titel: 'Barnskötare (vikarie)',
+          arbetsgivare: 'Diverse förskolor via Kommunal Skolorganisation',
+          period: '2018 – 2019',
+          beskrivning: [
+            'Vikarierade på 12 olika förskolor, snabb anpassning till olika pedagogiska inriktningar (Reggio Emilia, Montessori, I Ur och Skur)',
+            'Arbetade med barn 1-5 år i grupper om 12-22 barn, byggde snabbt förtroende och bibehöll trygghet för barngruppen',
+            'Dokumenterade dagliga händelser enligt respektive förskolas system (Unikum, Tyra, IST)'
+          ]
+        }
+      ],
+      utbildning: [
+        {
+          titel: 'Barn- och fritidsprogrammet, Barnskötarinriktning',
+          skola: 'Vasagymnasiet, Eskilstuna',
+          period: '2015 – 2018',
+          beskrivning: 'Inriktning mot pedagogik och barnomsorg. LIA-praktik (30 veckor) på två kommunala förskolor.'
+        }
+      ],
+      kompetenser: {
+        tekniska: [
+          'Unikum (Erfaren, 4+ år daglig dokumentation)',
+          'Tyra (schemaläggning och frånvarohantering)',
+          'IST/Skolplattformen (kommunikation och närvaro)',
+          'Lpfö 18 (Erfaren, 6 år)',
+          'Språkutvecklande arbetssätt (Specialist, 3 år)',
+          'Tecken som Stöd (TAKK)'
+        ],
+        personliga: [
+          'Trygghetsskapande (8 lyckade inskolningar/år med 2 veckors genomsnitt)',
+          'Föräldrasamarbete (40% förbättrad kommunikation via Unikum)',
+          'Konflikthantering (30% minskning genom TAKK-implementering)',
+          'Allergisäkerhet (noll incidenter under 2 år)'
+        ]
+      },
+      certifieringar: [
+        'Första hjälpen barn och HLR (2024)',
+        'Allergi- och astmautbildning (2023)',
+        'Tecken som Stöd, TAKK Grundkurs (2020)',
+        'Hygienrutiner och smittskydd i förskola (2022)'
+      ],
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Goda kunskaper' }
+      ]
+    },
+
+    viktigt: [
+      'Kvantifiera dina resultat: Visa antal barn i gruppen, antal inskolningar, förbättringar (t.ex. "40% förbättrad föräldrakommunikation")',
+      'Nämn specifika system: Unikum, Tyra, IST – förskolechefer söker efter dessa nyckelord i ATS-system',
+      'Visa progression: Från vikarie till fast anställning, från småbarn till äldre barngrupper, från grundläggande till specialistansvar'
+    ],
+
+    statistik: [
+      {
+        siffra: '85%',
+        text: 'av kommunala förskolor använder Unikum för dokumentation – visa din kompetensnivå tydligt'
+      },
+      {
+        siffra: '26-32k',
+        text: 'SEK är medellön för barnskötare i Sverige – erfarna kan tjäna mer med rätt certifieringar'
+      },
+      {
+        siffra: '70%',
+        text: 'av jobbannonser kräver erfarenhet av Lpfö 18 och pedagogisk dokumentation – lyft dessa tydligt'
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimerad struktur med branschspecifika nyckelord',
+        text: `CV:t använder exakt de termer som förskoleledare söker efter: "barngrupp", "inskolning", "Lpfö 18", "dokumentation", "språkutveckling". När en förskolechef laddar upp jobbannonsen i sitt rekryteringssystem letar ATS:en efter dessa specifika ord. Saknas de sorteras ditt CV bort innan någon människa läser det. Här är nyckelorden placerade naturligt i rätt sektioner – inte som "keyword stuffing" utan som faktiska arbetsbeskrivningar. Systemverktygen (Unikum, Tyra, IST) står både under Kompetenser och i löptext, vilket ökar träffsäkerheten. Certifieringarna använder officiella namn som ATS:en känner igen.`
+      },
+      {
+        rubrik: 'Kvantifierbara resultat som visar din påverkan',
+        text: `Skillnaden mellan "ansvarade för barngrupp" och "18 barn (3-5 år) med 8 inskolningar/år" är enorm för rekryterare. Det första säger ingenting – alla barnskötare ansvarar för barngrupper. Det andra visar exakt vad du hanterar. Siffror som "12 av 15 barn förbättrad språkförståelse" eller "30% minskning konflikter efter TAKK-implementering" bevisar att du faktiskt påverkar barnens utveckling. Förskoleledare får hundratals CV där alla skriver "engagerad" och "social". De som anställs är de som kan bevisa sitt påstående med konkreta exempel. Noll allergiska incidenter under 2 år talar högre än "noggrann med rutiner".`
+      },
+      {
+        rubrik: 'Balans mellan omsorgskompetens och systemkunskap',
+        text: `Många CV för barnskötare blir "buzzword bingo": social, flexibel, omtänksam, empatisk. Problemet? Alla skriver samma sak och ingen kan bevisa det. Detta CV visar omsorgskompetens genom konkreta exempel: "trygghetsskapande och lyhörd" backas upp av 8 lyckade inskolningar med 2 veckors genomsnitt. "Meningsfulla relationer med föräldrar" bevisas genom 40% förbättrad kommunikation via Unikum. Samtidigt visas teknisk kompetens genom systemkunskap (Unikum 4+ år) och pedagogiska verktyg (TAKK, språkutvecklande arbetssätt). Förskoleledare behöver båda delarna – någon som både skapar trygghet och kan dokumentera enligt kommunens krav.`
+      },
+      {
+        rubrik: 'Certifieringar och utbildningar som trovärdighetsmarkör',
+        text: `Första hjälpen barn och HLR (2024), Allergi- och astmautbildning (2023), TAKK Grundkurs (2020) – dessa är inte "nice to have" utan kravmarkörer. Många förskolor kräver giltigt HLR-cert, och allergikompetens är avgörande när du hanterar barn med livshotande allergier. Att datum står med visar att certifieringarna är aktuella, inte 8 år gamla. TAKK-utbildningen förklarar varför konflikterna minskade med 30% – du hade verktyg, inte bara "bra barnkänsla". Hygienrutiner och smittskydd (2022) blev extra relevant efter pandemin. Dessa certifieringar skiljer dig från de 40 andra sökande som saknar dem.`
+      },
+      {
+        rubrik: 'Profiltext som fångar förskolechefens uppmärksamhet',
+        text: `"Erfaren och engagerad barnskötare med 6 års erfarenhet från kommunal förskola" – första meningen svarar på tre frågor: Hur länge? Vilken nivå? Vilken typ av verksamhet? Fortsättningen ger två konkreta specialistområden (språkutveckling och Unikum-dokumentation) istället för vaga egenskaper. En förskolechef som läser 50 CV stannar upp vid "specialist på språkutvecklande arbetssätt" eftersom det är en faktisk kompetens, inte bara "driven" eller "positiv". Profiltexten lovar något som resten av CV:t sedan bevisar med siffror. Det skapar trovärdighet redan i första stycket.`
+      },
+      {
+        rubrik: 'Tydlig progression från vikarie till specialist',
+        text: `CV:t visar inte bara nuvarande tjänst utan en utvecklingskurva: vikariat 2019, tillsvidareanställning 2021, specialistansvar för språkutveckling och nya rutiner. Förskoleledare ser att du inte stannat kvar i samma uppgifter i 6 år utan tagit på dig mer ansvar. TAKK-implementeringen som gav 30% färre konflikter visar initiativförmåga. Att du förbättrat inskolningsprocessen från kommunens mål (3 veckor) till genomsnitt 2 veckor bevisar att du utvecklar arbetssätt. Den här progressionen säger "jag kommer fortsätta växa hos er" snarare än "jag gör minimum". Det är skillnaden mellan en OK kandidat och den som får jobbet.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera konkreta siffror på barngrupper och ansvarsområden',
+        text: `Förskoleledare behöver veta exakt vad du hanterat. En barngrupp på 12 barn (1-3 år) kräver andra kompetenser än 20 barn (4-5 år). Skriv antal barn, åldrar och din specifika roll i teamet.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarade för barngrupp på förskola"
+
+✅ "Barngrupp 18 barn (3-5 år) tillsammans med en förskollärare. Ansvarig för 8 inskolningar/år med genomsnitt 2 veckor (kommunmål: 3 veckor)"
+
+Första exemplet säger ingenting. Det andra visar att du klarar inskolningar snabbare än genomsnittet och kan hantera stora barngrupper.`
+      },
+      {
+        rubrik: 'Visa systemkunskap med årtal och användningsfrekvens',
+        text: `Alla kommuner och fristående förskolor använder digitala system för dokumentation, schema och föräldrakommunikation. Att bara skriva "Unikum" räcker inte – förskoleledare vill veta hur väl du kan det.
+
+**Exempel på före/efter**:
+
+❌ "Kunskap i Unikum och Tyra"
+
+✅ "Unikum (4+ år, daglig dokumentation av barns utveckling och händelser), Tyra (schemaläggning och frånvarohantering), IST (allergi- och kostregistrering)"
+
+Ange hur länge du använt systemet och vad du konkret gör i det. Det visar att du inte behöver 3 månaders utbildning för att komma igång.`
+      },
+      {
+        rubrik: 'Beskriv pedagogiska arbetssätt med resultat, inte bara metoder',
+        text: `Många barnskötare skriver "arbetar med TAKK" eller "språkutvecklande arbetssätt" utan att visa vad det gav. Förskoleledare vill se påverkan på barnen, inte bara att du gått en kurs.
+
+**Exempel på före/efter**:
+
+❌ "Använder TAKK i det dagliga arbetet"
+
+✅ "Implementerade TAKK i barngruppen vilket gav 30% minskning av konflikter under 6 månader. 15 av 18 barn använde tecken aktivt vid måltider och övergångar"
+
+Resultatet bevisar att du inte bara kan metoden utan faktiskt får den att fungera i praktiken.`
+      },
+      {
+        rubrik: 'Lägg till certifieringar med giltighetsdatum',
+        text: `Första hjälpen barn och HLR är ofta krav, inte önskemål. Allergikunskap kan vara avgörande när förskolan har barn med livshotande allergier. Visa att dina certifieringar är aktuella genom att ange årtal.
+
+**Exempel på före/efter**:
+
+❌ "Första hjälpen-utbildning"
+
+✅ "Första hjälpen barn och HLR, Röda Korset (2024, giltigt t.o.m. 2027)
+Allergi- och astmautbildning, Astma- och Allergiförbundet (2023)
+TAKK Grundkurs (2020)"
+
+Detta visar att du kan hantera akuta situationer och att din kunskap är uppdaterad, inte från 2015.`
+      },
+      {
+        rubrik: 'Anpassa profiltext till den typ av förskola du söker',
+        text: `En kommunal 3-5-avdelning söker andra kompetenser än en Reggio Emilia-inspirerad småbarnsavdelning. Läs jobbannonsen och lyft fram det som matchar deras behov i din profiltext.
+
+**Exempel på anpassning**:
+
+Kommunal traditionell förskola: "6 års erfarenhet från kommunal förskola. Specialist på dokumentation i Unikum och arbete enligt Lpfö 18"
+
+Montessori-förskola: "6 års erfarenhet med fokus på barnens självständighet och språkutveckling. Certifierad i Montessoripedagogik och TAKK"
+
+Samma erfarenhet, men du betonar olika delar beroende på vad de söker.`
+      },
+      {
+        rubrik: 'Visa föräldrasamarbete med konkreta exempel',
+        text: `Relation till vårdnadshavare är lika viktig som arbetet med barnen. Förskoleledare vill se att du kan kommunicera professionellt, hantera svåra samtal och bygga förtroende.
+
+**Exempel på före/efter**:
+
+❌ "Bra på att kommunicera med föräldrar"
+
+✅ "40% förbättrad föräldrakommunikation genom strukturerad Unikum-dokumentation med dagliga uppdateringar och foto. Hanterat 8 utvecklingssamtal/år samt svåra samtal kring barns behov av extra stöd"
+
+Det första är ett påstående. Det andra bevisar hur du faktiskt jobbar med föräldrarelationen och att du klarar även komplicerade situationer.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad ska jag skriva om jag inte har erfarenhet av Unikum eller Tyra?',
+        svar: 'Skriv vilka system du faktiskt kan (kanske Pedagogisk dokumentation, Fortnox Planering eller papper-baserad dokumentation). Lägg till "Snabb att lära mig nya system" och ge exempel på när du lärt dig ny teknik snabbt. Många förskolor förstår att olika kommuner använder olika system – huvudsaken är att du kan dokumentera och inte är rädd för digitala verktyg.'
+      },
+      {
+        fraga: 'Hur visar jag resultat om jag inte har några siffror att utgå från?',
+        svar: 'Räkna bakåt: Hur många inskolningar gjorde du förra året? Hur stor var barngruppen? Hur många utvecklingssamtal hade du? Om du implementerade något (TAKK, nya rutiner, språkmatrial) – vad hände sen? Blev det färre konflikter, pratade barnen mer, blev föräldrarna nöjdare? Uppskatta snarare än att inte ha något alls. "8 inskolningar/år" är bättre än "ansvarade för inskolning".'
+      },
+      {
+        fraga: 'Ska jag skriva om personliga egenskaper som "omtänksam" och "social"?',
+        svar: 'Inte som ensamma ord. Visa istället omtänksamhet genom exempel: "Skapade trygg inskolning med genomsnitt 2 veckor" bevisar omtänksamhet bättre än att bara påstå det. "Meningsfulla relationer med barn, föräldrar och kollegor" är OK om du backar upp det med konkreta resultat som 40% förbättrad föräldrakommunikation. Rekryterare litar på bevis, inte adjektiv.'
+      },
+      {
+        fraga: 'Vad är skillnaden mellan barnskötare-CV och förskollärare-CV?',
+        svar: 'Förskollärare betonar pedagogisk planering, måluppfyllelse enligt Lpfö 18 och teamledarskap. Barnskötare fokuserar på praktiskt omsorgsarbete, rutiner, dokumentation och stöd till förskolläraren. Båda behöver systemkunskap och certifieringar, men förskollärare lyfter mer av det pedagogiska ledarskapet medan barnskötare visar trygghetsskapande och samarbetsförmåga. Undvik att ta åt dig ansvar du inte haft – skriv din faktiska roll.'
+      },
+      {
+        fraga: 'Måste jag ha HLR-certifikat för att få jobb som barnskötare?',
+        svar: 'De flesta förskolor kräver det, antingen vid anställning eller inom de första månaderna. Om du inte har det än, skriv "HLR-utbildning planerad [månad]" om du bokat kurs. Det visar att du är medveten om kravet. Har du gammal HLR (äldre än 2 år), ta en uppdateringskurs innan du söker jobb – det kan vara avgörande för om du får intervju eller inte.'
+      }
+    ],
+
+    kategori: 'utbildning',
+    relaterade: [
+      { yrke: 'Förskollärare', slug: 'forskollarare' },
+      { yrke: 'Lärare', slug: 'larare' },
+      { yrke: 'Fritidspedagog', slug: 'fritidspedagog' }
+    ]
   }
 }
 
