@@ -103,58 +103,40 @@ Använd det som inspiration för ditt eget CV undersköterska och anpassa det ef
 
     varforDetFungerar: [
       {
-        rubrik: 'ATS-optimerad struktur med branschspecifika nyckelord',
-        text: `CV:t innehåller kritiska sökord som ATS-system letar efter: ADL-stöd, personcentrerad vård, demensvård, palliativ omvårdnad, medicinsk delegering, tvärprofessionellt team, Cosmic och Procapita. Dessa termer matchas direkt mot jobbannonser och ger dig högre poäng i automatiska screeningsystem.
+        rubrik: 'ATS-system känner igen din kompetens direkt',
+        text: `CV:t nämner specifika system som Cosmic och Procapita tillsammans med konkreta kompetensområden som medicinsk delegering (insulin, PEG, subkutana injektioner) och BPSD-hantering vid demensvård.
 
-Rubriker som "Erfarenhet", "Kompetenser" och "Certifieringar" är standardiserade, vilket gör dem läsbara för både ATS och rekryterare. Detta innebär att systemet kan kategorisera din information korrekt utan att viktig kompetens hamnar i fel sektion.
-
-Genom att använda branschspecifik terminologi visar du att du förstår vårdmiljön och kan börja arbeta direkt utan omfattande introduktion. Rekryterare ser omedelbart att du talar samma språk som deras organisation.`
+Varför detta fungerar: Äldreomsorg och hemtjänst använder dessa system dagligen, och ATS-algoritmer söker efter exakt dessa termer. När du skriver "medicinsk delegering" med specifika exempel istället för bara "medicinering" matchar du både jobbannonsens kravlista och de nyckelord rekryterare filtrerar på. Du visar omedelbart att du kan börja jobba utan omfattande introduktion.`
       },
       {
-        rubrik: 'Kvantifierbara resultat istället för ansvarsområden',
-        text: `Istället för vaga beskrivningar som "ansvarig för patientvård" visar CV:t konkreta resultat:
-- "Omvårdnad av 25-30 patienter dagligen"
-- "Minskade akuta inläggningar med 15%"
-- "Reducerade fall med 20%"
-- "Medicinsk delegering för 20+ patienter"
+        rubrik: 'Siffror visar din faktiska arbetsbelastning',
+        text: `CV:t kvantifierar arbetsinsatser: 25-30 patienter dagligen, medicinsk delegering till 20+ personer, och konkreta resultat som 15% minskade akuta inläggningar och 20% reducerade fall tack vare proaktivt förebyggande arbete.
 
-Varför detta fungerar: Rekryterare inom vård ser hundratals CV:n där undersköterskor skriver "ansvarig för patientvård" eller "hanterade medicindelegering" utan kontext. Vad betyder "ansvarig för patientvård"? Tio patienter eller 40? En timme per dag eller hela skiftet?
-
-Siffror ger omfattning och trovärdighet. Skillnaden mellan "omvårdnad av patienter" och "omvårdnad av 25-30 patienter dagligen" är enorm – det visar att du kan hantera hög arbetsbelastning i stressiga miljöer. Kvantifierbara resultat visar också initiativförmåga och klinisk blick. Att du uppmärksammade tidiga sjukdomstecken och faktiskt mätte effekten (15% minskade inläggningar) demonstrerar att du tänker bortom rutinuppgifter och bidrar aktivt till patientsäkerhet.`
+Varför detta fungerar: "Ansvarig för omvårdnad" säger ingenting om omfattning. "25-30 patienter dagligen" visar att du hanterar hög arbetsbelastning och kan prioritera effektivt. Resultat som "15% minskade akuta inläggningar" bevisar att ditt förebyggande arbete faktiskt fungerar – något som sparar pengar och förbättrar patientvården. Rekryterare ser omedelbart att du levererar mätbara resultat.`
       },
       {
-        rubrik: 'Balans mellan tekniska och mjuka färdigheter',
-        text: `CV:t kombinerar teknisk kompetens (medicinsk delegering, förflyttningsteknik, Cosmic/Procapita) med empatiska egenskaper (relationsskapande, lyhördhet, kommunikation). Denna balans är avgörande eftersom vårdyrket kräver både praktiska färdigheter och förmågan att skapa trygghet.
+        rubrik: 'Teknisk kompetens balanseras med bevisad empati',
+        text: `CV:t kombinerar tekniska färdigheter (Cosmic, Procapita, medicinsk delegering) med personcentrerad vård och konkreta exempel: ADL-stöd anpassat efter individuella behov, delaktighet i tvärprofessionella vårdplaneringsmöten, och palliativ omvårdnad med fokus på smärtlindring och värdighet.
 
-Båda delarna backas upp med konkreta exempel från arbetserfarenheten. Du säger inte bara "empatisk" utan visar det genom "byggde förtroendefulla relationer med brukare och anhöriga genom lyhördhet och respektfull kommunikation".
-
-Varför inte bara buzzwords: Istället för att lista "empatisk, kommunikativ, flexibel, stresstålig" (klassisk buzzword bingo utan substans) visar CV:t dessa egenskaper genom konkreta exempel. Detta är avgörande – rekryterare läser "empatisk och kommunikativ" i nio av tio undersköterske-CV:n, men konkreta bevis sticker ut.
-
-Att skriva "stresstålig" betyder inget. Att skriva "hanterade 25-30 patienter dagligen i högt tempo med samtidiga medicineringar, måltider och akuta försämringar" visar att du faktiskt arbetat i stressiga miljöer. Vårdgivare söker undersköterskor som både kan utföra medicinska arbetsuppgifter och hantera den relationella dimensionen av vård.`
+Varför detta fungerar: Många skriver "empatisk och ansvarsfull" utan att bevisa det. Du visar empati genom handling: personcentrerad vård, deltagande i vårdplaneringsmöten och palliativ omvårdnad. Detta skiljer dig från kandidater som bara listar mjuka färdigheter utan sammanhang. Rekryterare ser att du förstår helheten – både det medicinska och det mellanmänskliga.`
       },
       {
-        rubrik: 'Certifieringar som trovärdighetsmarkör',
-        text: `Dedikerad sektion för certifieringar visar kontinuerlig kompetensutveckling och professionellt engagemang. Att lista Akta Ryggen, basala hygienrutiner, nutritionsbedömning och HLR med förnyelsedatum demonstrerar att du håller dig uppdaterad inom yrket.
+        rubrik: 'Uppdaterade certifieringar visar att du följer standarden',
+        text: `CV:t listar HLR (förnyad 2024), Akta Ryggen-utbildning och specifik delegering för insulin, PEG-sond och subkutana injektioner. Varje certifiering har årtal och tydlig koppling till faktiskt arbete.
 
-Certifieringar fungerar som objektiva bevis på kompetens. Medicinsk delegering med specificerade områden (insulin, PEG, subkutana injektioner) är särskilt viktigt eftersom det direkt påverkar vilka arbetsuppgifter du kan ta ansvar för. Detta kan avgöra om du når intervju eller inte.
-
-Vårdgivare värderar högt medarbetare som tar ansvar för sin egen utveckling. Genom att inkludera både obligatoriska (HLR, basala hygienrutiner) och frivilliga vidareutbildningar (nutritionsbedömning) signalerar du professionalism och lärvilja, två egenskaper som är avgörande för långsiktig anställning inom vård.`
+Varför detta fungerar: Gammal HLR-certifiering är oanvändbar i en akut situation. Genom att skriva "HLR (förnyad 2024)" visar du att du håller kompetensen aktuell. Akta Ryggen och specifik delegering är inte bara kursmeriter – de är lagkrav för många arbetsuppgifter. Rekryterare vet att de kan anställa dig utan att omedelbart skicka dig på obligatoriska kurser.`
       },
       {
-        rubrik: 'Profiltext som säljande sammanfattning',
-        text: `Den inledande profiltexten sammanfattar din erfarenhet (5+ år), specialisering (geriatrik och hemtjänst) och unika styrkor på 3-4 meningar. Detta gör att rekryteraren direkt ser om du matchar tjänsten – även om de bara läser de första raderna av ditt CV.
+        rubrik: 'Profiltext som matchar geriatrik-specialisering',
+        text: `Profiltexten öppnar med "Erfaren undersköterska med 7+ års erfarenhet inom geriatrik och äldreomsorg, specialist på personcentrerad vård och dokumentation i Cosmic". Detta följs direkt av nyckelkompetenser som demensvård, medicinsk delegering och ADL-stöd.
 
-Profiltexten innehåller både tekniska nyckelord (ADL-stöd, demensvård, medicinsk delegering) och personliga egenskaper (stresstålig, empati, lagspelare), vilket ger en helhetsbild av dig som kandidat. Detta är särskilt effektivt när rekryterare screener många CV:n snabbt.
-
-Genom att nämna specifika certifieringar (Akta Ryggen, basala hygienrutiner) redan i profiltexten visar du omedelbart att du uppfyller grundläggande krav. Rekryteraren behöver inte scrolla ner för att verifiera detta, vilket ökar chansen att de läser vidare.`
+Varför detta fungerar: Första meningen avgör om rekryterare läser vidare. "Erfaren undersköterska" är vagt. "7+ års erfarenhet inom geriatrik och äldreomsorg, specialist på Cosmic" visar omedelbart att du har djup erfarenhet inom det specifika område de söker. ATS-system rankar CV:n som har nyckelord tidigt i dokumentet högre, vilket ökar chansen att du kallas till intervju.`
       },
       {
-        rubrik: 'Tydlig progression och ansvar',
-        text: `Från hemtjänst (självständigt arbete med 12-15 brukare) till äldreboende (teamarbete med 25-30 patienter och mentorskap) visar CV:t en naturlig karriärprogression. Detta indikerar att du utvecklats från självständig yrkesutövare till senior medarbetare som kan vägleda andra.
+        rubrik: 'Tydlig karriärprogression från självständigt till mentorskap',
+        text: `Erfarenheten visar utveckling: från hemtjänst med 12-15 brukare dagligen och självständigt ansvar, till äldreboende med teamarbete, tvärprofessionella möten och mentorskap för 6 nya undersköterskor. Varje roll har ökad komplexitet och ansvar.
 
-Att nämna mentorskap för 6 nya undersköterskor visar att arbetsgivaren litar på dig tillräckligt för att anförtro introduktion av nyanställda. Detta är ett tydligt tecken på att du vuxit in i en seniorroll och kan ta pedagogiskt ansvar, vilket är attraktivt för arbetsgivare.
-
-Progressionen visar också bredd i erfarenhet. Du har arbetat både i hemtjänst (flexibilitet, självständighet) och institutionsvård (teamarbete, akuta situationer), vilket gör dig anpassningsbar och kvalificerad för olika vårdmiljöer.`
+Varför detta fungerar: Många undersköterskor listar jobb utan att visa utveckling. Din progression från hemtjänst (självständigt arbete) till äldreboende (team och mentorskap) visar att du inte bara stannat kvar – du har växt. Mentorskap för 6 nya medarbetare bevisar att chefer litar på dig och att du kan dela kunskap. Detta signalerar att du är redo för nästa steg i karriären.`
       }
     ],
 
@@ -396,40 +378,40 @@ Använd exemplet som inspiration när du skriver ditt eget CV. Fokusera på barn
 
     varforDetFungerar: [
       {
-        rubrik: 'ATS-optimerad struktur med branschspecifika nyckelord',
-        text: `CV:t innehåller nyckelord som rekryteringssystem och chefer söker efter: Lpfö 18, Unikum, språkutveckling, inkluderande pedagogik, Bornholmsmodellen, teckenspråk och utvecklingssamtal. Dessa termer visar att du behärskar både moderna läroplanen och de digitala verktyg som används i svenska kommunala förskolor. Detta gör att ditt CV passerar ATS-systemens första screening.`
+        rubrik: 'Nyckelord från Lpfö 18 och dokumentationssystem',
+        text: `CV:t innehåller specifika termer som "Lpfö 18", "Unikum", "Pedagog Stockholm", "språkutveckling", "inkluderande pedagogik" och "Bornholmsmodellen" – exakt de nyckelord som ATS-system söker efter.
+
+Varför detta fungerar: Många förskolor använder automatiserade rekryteringssystem som filtrerar på pedagogiska begrepp och dokumentationsverktyg. När CV:t matchar både läroplanen (Lpfö 18) och de system som kommunen eller fristående förskolan använder (Unikum, IST, Pedagog Stockholm) passerar det automatiskt första sållningen. Rekryteraren ser direkt att kandidaten behärskar de verktyg och pedagogiska ramverk som krävs för tjänsten.`
       },
       {
-        rubrik: 'Kvantifierbara resultat istället för vaga beskrivningar',
-        text: `CV:t visar konkreta siffror: "22 barn, 1-3 år", "85% förbättrade fonologisk medvetenhet", "80+ utvecklingssamtal årligen", "minskade konflikter med 30%".
+        rubrik: 'Konkreta siffror på barngrupper och resultat',
+        text: `Istället för "ansvarig för barngrupp" står det "huvudansvarig för avdelning med 22 barn, åldern 1-3 år" och "85% av barnen förbättrade sin fonologiska medvetenhet med Bornholmsmodellen på 6 månader".
 
-**Varför siffror är avgörande för rekryterare**: Rekryterare ser hundratals CV:n där förskollärare skriver "ansvarig för barngrupp" eller "arbetade med språkutveckling" utan någon kontext. Vad betyder "ansvarig för barngrupp"? Åtta barn eller 25? Ett-åringar eller femåringar? Tre månader eller tre år?
-
-Siffror ger omfattning och trovärdighet. Skillnaden mellan "arbetade med språkutveckling" och "85% av barnen förbättrade fonologisk medvetenhet efter Bornholmsmodellen" är enorm – det visar att du faktiskt mäter effekten av ditt pedagogiska arbete.
-
-Detta är ett anti-pattern i många förskollärare-CV:n: Vaga resultat som "bidrog till barnens utveckling". Kvantifierbara resultat gör att du sticker ut och ger rekryteraren något konkret att fråga om under intervjun.`
+Varför detta fungerar: Rekryterare behöver veta att du klarar den verkliga arbetsbördan – 22 barn i åldersgruppen 1-3 år kräver helt andra kompetenser än 15 femåringar. Kvantifierade resultat (85% förbättring, 30% färre konflikter) visar att du inte bara genomför aktiviteter utan faktiskt mäter och följer upp effekten av ditt pedagogiska arbete. Det signalerar professionalism och resultatfokus, inte bara omsorg.`
       },
       {
-        rubrik: 'Balans mellan pedagogisk och relationell kompetens',
-        text: `CV:t listar inte bara "empatisk, kommunikativ, flexibel, kreativ" – det klassiska buzzword bingo utan substans. Istället VISAR det dessa egenskaper genom konkreta exempel:
+        rubrik: 'Pedagogiska metoder backade med konkreta resultat',
+        text: `CV:t listar inte bara "Reggio Emilia" och "ICDP" som kompetenser, utan visar hur metoderna använts: "Implementerade ICDP-principer vilket minskade konflikter i barngruppen med 30%" och "Introducerade teckenspråk/TAKK för tre barn med försenad språkutveckling".
 
-- "Empatisk och lyhörd" backas upp med "(skapade trygg miljö för 22 barn med olika behov och kulturell bakgrund)"
-- "Pedagogisk kommunikation" visas genom "(genomförde 80+ utvecklingssamtal, 95% positiv feedback)"
-- "Flexibel" exemplifieras med "(hanterade akuta sjukfrånvaron genom omorganisation av dagsprogram)"
+Varför detta fungerar: Många skriver "Montessori" eller "Reggio Emilia" på CV:t utan att visa vad det innebar i praktiken. När du kopplar pedagogiska metoder till konkreta situationer (TAKK för språkfördröjning, ICDP för konflikthantering) bevisar du att du förstår när och varför olika pedagogiker används. Rekryterare ser att du kan anpassa metod efter barngruppens behov, inte bara följer en mall.`
+      },
+      {
+        rubrik: 'Uppdaterade certifieringar med årtal',
+        text: `Certifieringssektionen visar "Första hjälpen barn & HLR (förnyad 2024)", "Teckenspråk/TAKK (2022)", "Bornholmsmodellen (2023)" och "ICDP-certifierad handledare (2024)" – alla med specifika årtal.
 
-Varför detta fungerar: Att skriva "empatisk och kommunikativ" betyder ingenting – varje kandidat påstår det. Rekryterare läser "flexibel och kreativ" i nio av tio förskollärare-CV:n, men konkreta bevis sticker ut. Moderna förskolor kräver både pedagogisk expertis OCH förmåga att samarbeta med barn, vårdnadshavare och kollegor – och du måste VISA det, inte bara påstå det.`
+Varför detta fungerar: Första hjälpen för barn är obligatoriskt i de flesta förskolor och måste förnyas regelbundet. När rekryteraren ser att din certifiering är från 2024 vet de att du uppfyller Arbetsmiljöverkets krav och kan börja arbeta direkt. Årtal på pedagogiska certifieringar (ICDP, Bornholmsmodellen) visar att du aktivt uppdaterar din kompetens, vilket väger tungt när kommuner satsar på specifika metoder och söker certifierade pedagoger.`
       },
       {
-        rubrik: 'Certifieringar som trovärdighetsmarkör',
-        text: `Alla certifieringar har årtal: "Första hjälpen barn och HLR (förnyad 2024)", "Teckenspråk grundkurs (2022)", "ICDP – Dialogpedagogik (2021)". Detta visar att du håller dig uppdaterad med säkerhetsrutiner och pedagogiska metoder. Förnyelsedatum är särskilt viktigt för första hjälpen och HLR som är tidsbegränsade och kräver regelbunden uppdatering.`
+        rubrik: 'Profiltext som kopplar erfarenhet till läroplan',
+        text: `Profiltexten börjar med "Legitimerad förskollärare med 8 års erfarenhet av språkutveckling och inkluderande pedagogik enligt Lpfö 18" istället för generiska fraser som "passionerad om barn" eller "skapar trygga miljöer".
+
+Varför detta fungerar: Rekryterare läser hundratals CV där alla är "engagerade" och "omhändertagande". Denna profiltext anger omedelbart legitimation, år i yrket (8), specialkompetens (språkutveckling) och koppling till gällande läroplan (Lpfö 18). På 15 sekunder vet rekryteraren att du är kvalificerad, erfaren och uppdaterad på pedagogiska styrdokument – allt som krävs för att läsa vidare.`
       },
       {
-        rubrik: 'Profiltext som säljande sammanfattning',
-        text: `Profiltexten följer tydlig struktur: "8+ års erfarenhet" (omfattning) → "Specialist på Lpfö 18, Unikum, teckenspråk" (konkreta system) → "Empatisk och pedagogisk teamplayer" (drivkrafter). De tre meningarna ger rekryteraren direkt överblick av kompetensområden, erfarenhetsnivå och vad som motiverar dig.`
-      },
-      {
-        rubrik: 'Tydlig progression och ansvarsutveckling',
-        text: `Karriärutvecklingen är synlig: Barnskötare/Vikarie (8 förskolor, bred erfarenhet) → Förskollärare (fokus på språkutveckling) → Avdelningsansvarig (mentorskap för 2 nyutexaminerade). Progressionen visar både bredd (olika pedagogiska inriktningar) och djup (specialisering inom språkutveckling och ledarskap). Detta signalerar ambition och kompetensutveckling.`
+        rubrik: 'Tydlig karriärprogression från vikarie till ansvarig',
+        text: `Arbetshistoriken visar utveckling: "Barnskötare/vikarie (2016-2018)" till "Förskollärare (2018-2022)" till "Förskollärare & avdelningsansvarig (2022-idag)" med ökande ansvarsområden som dokumentation, VFU-handledare och metodimplementering.
+
+Varför detta fungerar: Progression visar ambition, stabilitet och ökad kompetens. Att du gått från vikarie till avdelningsansvarig på 8 år signalerar att arbetsgivare litade på dig nog för att ge mer ansvar. Detaljer som "VFU-handledare för studenter från Stockholms universitet" och "introducerade Unikum för hela avdelningen" visar ledarskap och förändringskompetens – avgörande när förskolor söker någon som kan driva utveckling, inte bara följa rutiner.`
       }
     ],
 
@@ -643,36 +625,40 @@ Använd detta CV som inspiration när du skriver ditt eget. Genom att visa konkr
 
     varforDetFungerar: [
       {
-        rubrik: 'ATS-optimerad struktur med branschspecifika nyckelord',
-        text: `CV:t innehåller nyckelord som svenska företag och hotell söker efter: switchboard, bokningssystem (Lime, Simployer, Opera PMS), besökshantering, flerspråkig kommunikation, och professionellt värdskap. ATS-system letar efter dessa specifika termer när de filtrerar ansökningar, särskilt switchboard-kompetens och erfarenhet av digitala bokningssystem som används i svenska receptionsmiljöer.`
-      },
-      {
-        rubrik: 'Kvantifierbara resultat istället för vaga ansvarsområden',
-        text: `CV:t använder konkreta siffror som "150+ besökare dagligen", "200+ samtal via switchboard", "förbättrade besöksupplevelsen med 30%", och "reducerade check-in tid med 20%". Detta är avgörande.
+        rubrik: 'ATS-optimerade nyckelord från receptionsvärlden',
+        text: `CV:t använder exakta branschtermer som "switchboard", "Lime bokningssystem", "Visitor Management System" och "Opera PMS". Verktyg och system namnges specifikt istället för vaga beskrivningar som "bokningsprogram" eller "telefonsystem".
 
-Rekryterare ser hundratals CV:n där kandidater bara skriver "ansvarig för reception", "svarade i telefon", eller "hanterade besökare". Sådana beskrivningar säger ingenting om omfattning eller komplexitet. Fungerade du med 20 eller 200 samtal per dag? Var det en liten mottagning eller ett stort konsultbolag med internationella gäster?
+Varför detta fungerar: ATS-system i receptionist-rekrytering söker efter specifika programvarunamn och tekniska termer. När du skriver "Lime" istället för "bokningssystem" matchar du jobbannonsen exakt. Rekryterare ser direkt att du behärskar deras verktyg utan att behöva gissa vad du menar.`
+      },
+      {
+        rubrik: 'Kvantifierade resultat visar verklig arbetsbelastning',
+        text: `Istället för "ansvarig för reception" visar CV:t konkreta volymer: "200+ samtal dagligen via switchboard", "150+ besökare dagligen", "100+ in- och utcheckningar dagligen". Förbättringar mäts med siffror: "Reducerade check-in tid med 20%" och "Förbättrade besöksupplevelsen med 30% enligt NPS-mätningar".
 
-Siffror ger kontext och visar din faktiska arbetsbelastning. De gör att du sticker ut och ger rekryteraren något konkret att fråga om under intervjun. Istället för att gissa vad "mycket besökare" betyder, ser de exakt vad du hanterat tidigare.`
+Varför detta fungerar: Siffror bevisar att du klarar av högt tempo och faktiskt levererar resultat. En rekryterare som söker någon till en reception med 180 samtal dagligen ser att du hanterat ännu högre volymer. Mätbara förbättringar visar att du inte bara utför arbetet utan också optimerar processer.`
       },
       {
-        rubrik: 'Balans mellan tekniska och mjuka färdigheter med bevis',
-        text: `CV:t listar tekniska kompetenser som switchboard (Expert, 6+ år), bokningssystem (Lime, Simployer, Outlook), Opera PMS, och CRM-system (Salesforce). Parallellt finns mjuka färdigheter som serviceinriktad, professionell kommunikation, och multitasking.
+        rubrik: 'Tekniska system balanseras med mänskliga färdigheter',
+        text: `CV:t listar både hårda färdigheter (Simployer, Microsoft Teams, Salesforce CRM, switchboard-certifiering) och mjuka färdigheter med konkret bevis. "Professionellt bemötande" backas upp av "95% kundnöjdhet enligt NPS-mätningar". "Flerspråkig kommunikation" specificeras till svenska, engelska och spanska med daglig användning.
 
-Här är nyckeln: Varje mjuk färdighet backas upp med konkret bevis från erfarenhetsbeskrivningarna. "Serviceinriktad" visas genom "hanterade 150+ besökare dagligen med 95% positiv feedback". "Professionell kommunikation" kopplas till "200+ samtal dagligen via switchboard". "Multitaskingförmåga" exemplifieras med "samordnade besökshantering, telefonsamtal och mötesbokning simultant".
+Varför detta fungerar: Många receptionist-CV listar "serviceminded" och "professionellt bemötande" utan bevis. Genom att koppla mjuka färdigheter till mätbara resultat och konkret användning undviker du buzzword bingo. Rekryterare ser att påståendena är verklighet, inte tomma ord.`
+      },
+      {
+        rubrik: 'Relevanta certifieringar hålls uppdaterade',
+        text: `Kompetensavsnittet inkluderar "Första hjälpen och HLR-certifiering (förnyad 2024)", "GDPR-utbildning för reception och besökshantering" och "Switchboard-certifiering". Varje certifiering är kopplad till praktisk tillämpning i arbetslivet, som GDPR vid registrering av besökare.
 
-Detta undviker "buzzword bingo" där kandidater bara listar "kommunikativ, flexibel, driven" utan sammanhang. Rekryterare vill se hur du varit serviceinriktad, inte bara att du påstår det. Bevis sticker ut, tomma ord försvinner i mängden.`
+Varför detta fungerar: Många receptionister har gamla certifieringar som inte förnyas. Att visa förnyad HLR 2024 signalerar att du tar säkerhetsansvar på allvar. GDPR-utbildning är kritisk för moderna receptioner som hanterar besöksdata. Switchboard-certifiering bevisar formell kompetens, inte bara erfarenhet.`
       },
       {
-        rubrik: 'Certifieringar som trovärdighetsmarkör',
-        text: `Alla certifieringar har årtal: "Första hjälpen och HLR (förnyad 2024)", "Switchboard-certifiering (2020)", "GDPR-grundutbildning (2022)". Detta visar aktualitet och professionalism. GDPR-utbildning är särskilt relevant för receptionister som hanterar besöksinformation och personuppgifter dagligen.`
+        rubrik: 'Profiltext sammanfattar kärnkompetenser direkt',
+        text: `De första raderna kommunicerar omedelbart: "Erfaren receptionist med 6+ års erfarenhet från hotell- och företagsmiljöer. Specialist på switchboard-hantering, bokningssystem och flerspråkig kundservice. Trygg i högt tempo med 200+ dagliga samtal och ansvar för besökshantering i företag med 150+ besökare dagligen."
+
+Varför detta fungerar: Rekryterare läser profiltexten i 10 sekunder. Denna text kommunicerar direkt: erfarenhet (6+ år), miljöer (hotell + företag), specialistkompetens (switchboard, bokningssystem, flerspråkig) och volym (200+ samtal, 150+ besökare). Inga vaga ord som "driven" eller "ansvarsfull" – bara konkreta bevis på kapacitet.`
       },
       {
-        rubrik: 'Profiltext som säljande sammanfattning',
-        text: `Profiltexten följer strukturen: Erfarenhet (6+ år) → Specialisering (företagsreception och hotell) → Tekniska nyckelord (switchboard, Lime, Simployer, flerspråkig kommunikation) → Drivkraft (professionell värdskap, positiv kundupplevelse). Detta ger rekryterare en omedelbar bild av vem du är och vad du kan bidra med.`
-      },
-      {
-        rubrik: 'Tydlig progression och ansvar',
-        text: `Progression syns tydligt: Kundtjänst (60-80 samtal dagligen) → Hotellreceptionist (100+ in-/utcheckningar, 120+ samtal) → Företagsreceptionist ansvarig för besökshantering (150+ besökare, 200+ samtal). Mentorskap för 2 nya receptionister visar ledarskapserfarenhet och förmåga att utbilda kollegor.`
+        rubrik: 'Tydlig karriärprogression mot ökad komplexitet',
+        text: `Arbetshistoriken visar utveckling från kundtjänstmedarbetare (60-80 samtal dagligen) till hotellreceptionist (120 samtal, bokningssystem Opera PMS) till företagsreceptionist (200+ samtal, 15 mötesrum, mentorskap för 2 nya receptionister). Varje steg innebär fler samtidiga ansvarsområden och högre volymer.
+
+Varför detta fungerar: Progression visar ambition och att du söker dig till mer krävande roller. Mentorskap bevisar att du nått senior-nivå och kan lära upp andra. Rekryterare ser att du inte stannat kvar på samma nivå utan kontinuerligt tagit dig an större utmaningar med fler system och högre tempo.`
       }
     ],
 
@@ -930,56 +916,40 @@ Använd det som inspiration för ditt eget CV ingenjör och anpassa det efter de
 
     varforDetFungerar: [
       {
-        rubrik: 'ATS-optimerad struktur med branschspecifika nyckelord',
-        text: `CV:t innehåller kritiska sökord som ATS-system letar efter: CAD-system, programmeringsspråk, projektmetodik och certifieringar. Konkreta exempel: SolidWorks, MATLAB, Python, Lean Six Sigma, Agile och FEM-analys används naturligt genom hela CV:t.
+        rubrik: 'Teknisk stack som matchar rekryteringssystemet',
+        text: `CV:t listar SolidWorks, AutoCAD, Python och MATLAB redan i kompetensavsnittet, med exakt matchning mot hur verktyg vanligen söks. FEM-analys och designoptimering nämns tillsammans med konkreta användningsområden.
 
-Rubriker som "Tekniska Kompetenser", "Projekt" och "Certifieringar" är standardiserade och läsbara för både ATS och rekryterare. Detta gör att systemet kan kategorisera information korrekt utan att viktig kompetens hamnar i fel sektion.
-
-Att nämna specifika verktyg (SolidWorks, MATLAB, Git) och metoder (Agile, Lean) visar att du är uppdaterad och kan börja arbeta direkt utan omfattande introduktion. För ingenjörsroller väger tekniska nyckelord tungt i ATS-screening.`
+Varför detta fungerar: ATS-system letar efter exakta verktygsnamn i de första sektionerna. Genom att placera SolidWorks och AutoCAD högst upp, tillsammans med programmeringsspråk som Python, säkerställs att CV:t passerar automatisk screening. Lean Six Sigma Green Belt-certifieringen ger ytterligare nyckelordsmatchning för kvalitets- och förbättringsroller inom produktion.`
       },
       {
-        rubrik: 'Kvantifierbara resultat istället för ansvarsområden',
-        text: `CV:t använder konkreta siffror: "€2M budget, levererat 10% under budget", "30% effektivisering genom Python-automatisering", "reducerade produktionstid 25%".
+        rubrik: 'Mätbara resultat i varje ingenjörsuppgift',
+        text: `Varje position redovisar konkreta siffror: €2M projektbudget levererad 10% under budget, 30% effektivisering av CAD-arbetsflöden genom Python-automatisering, 25% reducerad produktionstid via DFM-optimering. 98% tillverkningsbarhet dokumenteras för 50+ designade komponenter.
 
-**Varför detta är avgörande**: Rekryterare ser hundratals CV:n där ingenjörer skriver "ansvarig för produktutveckling" eller "arbetade med CAD-modellering" utan kontext. Vad betyder "ansvarig för projekt"? Budget på 50 000 kr eller 5 miljoner? Tre månader eller tre år?
-
-Siffror ger omfattning och trovärdighet. Skillnaden mellan "effektiviserade designprocess" och "effektiviserade designprocess med 30%" är enorm. Det visar att du faktiskt mäter ditt arbete och levererar affärsnytta – inte bara tekniskt arbete.
-
-Detta är ett anti-pattern i många ingenjörs-CV:n: Vaga resultat som "bidrog till produktutveckling" eller "ansvarade för projekt". Kvantifierbara resultat (procent, budget, tid) gör att du sticker ut och ger rekryteraren något konkret att fråga om under intervjun.`
+Varför detta fungerar: Rekryterare inom fordonsindustri och automation söker ingenjörer som kan kvantifiera impact. Att visa både kostnadseffektivitet (10% under budget), processförbättring (30% snabbare CAD) och kvalitet (98% tillverkningsbarhet) demonstrerar affärsförståelse utöver teknisk kompetens. Detta skiljer kandidaten från de som bara listar arbetsuppgifter.`
       },
       {
-        rubrik: 'Balans mellan tekniska och mjuka färdigheter',
-        text: `CV:t listar inte bara "kommunikativ, flexibel, driven" – det klassiska buzzword bingo som rekryterare ser i nio av tio CV:n. Istället VISAR det mjuka färdigheter genom konkreta exempel:
+        rubrik: 'Teknisk expertis kompletterad med projektledning',
+        text: `CV:t balanserar djup CAD-kompetens med erfarenhet av att leda tvärfunktionella team inom R&D, produktion, kvalitet och inköp. Agile-metodik och DFM-kunskap kopplas till konkreta projektresultat, inte bara listade som färdigheter.
 
-- "Analytisk problemlösning" backas upp med "reducerade defekter från 5% till 0.2%"
-- "Projektledning" visas genom "€2M budget, 5 ingenjörer, levererat i tid"
-- "Tvärfunktionellt samarbete" exemplifieras med "koordinerade R&D, produktion, kvalitet och inköp"
-
-Varför detta fungerar: Att skriva "god kommunikationsförmåga" betyder ingenting. Varje kandidat påstår det. Men att skriva "patentansökningar, kundspecifikationer, presentationer för icke-teknisk publik" BEVISAR kommunikationsförmåga. Moderna ingenjörsroller kräver mer än teknisk kunskap – du måste visa att du kan kommunicera, samarbeta och leda, inte bara påstå det.`
+Varför detta fungerar: Senior ingenjörsroller kräver mer än teknisk skicklighet. Genom att visa hur kandidaten navigerar mellan designarbete och samordning av produktion, kvalitet och inköp signaleras förmåga att äga hela produktutvecklingskedjan. Detta är särskilt värdefullt i fordonsindustri där DFM och tvärfunktionellt samarbete är kritiskt för time-to-market.`
       },
       {
-        rubrik: 'Certifieringar och kontinuerlig kompetensutveckling som trovärdighetsmarkör',
-        text: `Dedikerad sektion för certifieringar och vidareutbildning visar kontinuerlig kompetensutveckling: "Lean Six Sigma Green Belt (2022)", "PMP – Project Management Professional (2023)", "Autodesk Certified Professional SolidWorks (2021)".
+        rubrik: 'Certifieringar med branschrelevans',
+        text: `Lean Six Sigma Green Belt kompletterar den tekniska profilen och visar systematisk förbättringsförmåga. Certifieringarna i FEM-analys och CE-märkning är direkt kopplade till arbetserfarenheten och nämns i samband med konkreta projekt.
 
-Att inkludera både tekniska certifieringar (CAD, programmering) och metodcertifieringar (Lean, PMP, Scrum Master) visar bredd och ambition. Årtal visar att certifieringarna är aktuella och att du aktivt investerar i din utveckling.
-
-Detta signalerar professionalism och lärvilja, två egenskaper som teknikföretag högt värderar. I snabbrörliga branscher där teknologier ständigt utvecklas är förmågan att lära sig nytt lika viktig som befintlig kunskap.`
+Varför detta fungerar: För ingenjörsroller inom automation och fordonsindustri är Lean Six Sigma ett starkt komplement till CAD-färdigheter, då det visar förståelse för produktionseffektivitet. FEM-certifieringen validerar teknisk kompetens, medan CE-märkningskännedom är avgörande för produkter på den europeiska marknaden. Certifieringarna ger ATS-nyckelord och trovärdighet samtidigt.`
       },
       {
-        rubrik: 'Profiltext som säljande sammanfattning',
-        text: `Den inledande profiltexten sammanfattar din erfarenhet, specialisering och unika styrkor på 3-4 meningar: "Civilingenjör Maskinteknik med 7+ års erfarenhet från produktutveckling och projektledning. Expert i CAD-system (SolidWorks, AutoCAD), FEM-analys och designoptimering..."
+        rubrik: 'Profiltext som positionerar specialist',
+        text: `Inledningen etablerar 7+ års erfarenhet inom fordonsindustri och automation, med fokus på CAD-systemdesign och produktutveckling. SolidWorks och Python nämns som kärnverktyg, tillsammans med erfarenhet av hela produktlivscykeln från koncept till serieproduktion.
 
-Detta gör att rekryteraren direkt ser om du matchar tjänsten, även om de bara läser de första raderna. Profiltexten inkluderar både tekniska nyckelord (SolidWorks, FEM, Python) och metodkunskap (Agile, Lean Six Sigma) samt affärsförståelse (reducerar kostnader, förbättrar produktkvalitet).
-
-ATS-system indexerar profiltexten tungt vid automatisk screening. Genom att placera viktigaste nyckelorden här ökar du chansen att passera den första filtreringen och nå en mänsklig rekryterare.`
+Varför detta fungerar: Rekryterare läser profiltexten först. Genom att omedelbart nämna fordonsindustri, automation och specifika verktyg (SolidWorks, Python) matchar CV:t de tyngsta sökorden i branschens jobbannons. 7+ års erfarenhet passerar de flesta senioritetskrav, och "koncept till serieproduktion" visar ägarskap av hela designprocessen – något som är högt värderat i R&D-avdelningar.`
       },
       {
-        rubrik: 'Tydlig karriärprogression och tekniskt ledarskap',
-        text: `Från Mechanical Engineer (CAD-design och produkttestning) till Senior Engineer (FEM-analys och Lean Six Sigma) till Lead Engineer (projektledning och mentorskap) visar CV:t en naturlig utveckling mot mer avancerade och ledande roller.
+        rubrik: 'Tydlig karriärprogression mot ledande roller',
+        text: `Titelprogression från Engineer till Senior Mechanical Engineer och sedan Lead Engineer visas med ökande projektansvar. Budgetstorlek växer från mindre komponenter till €2M-projekt, och teamledning utvecklas från att stödja till att leda tvärfunktionella utvecklingsteam.
 
-Att nämna "Lead Engineer för produktutvecklingsteam (5 ingenjörer)" och "Mentor för 3 nyutexaminerade civilingenjörer" visar att du vuxit in i en seniorroll och kan ta ansvar för både projekt och människor. Detta är särskilt värdefullt för tjänster som kräver tekniskt ledarskap.
-
-Patent, publikationer och GitHub-projekt med 500+ stars stärker expertis-profilen ytterligare. Detta visar inte bara teknisk kompetens utan också förmåga att dela kunskap, innovera och bidra till den tekniska communityn.`
+Varför detta fungerar: Att visa progression från utförande till ledande ingenjörsroller demonstrerar ambition och bevisat ledarskap. För roller som kräver både teknisk djup och projektledning blir denna utveckling avgörande. Att projektstorleken ökar från komponentnivå till helhetsprojekt visar kapacitet att hantera komplexitet, vilket är särskilt relevant för seniora positioner inom produktutveckling.`
       }
     ],
 
@@ -1453,40 +1423,40 @@ Använd exemplet som inspiration när du skriver ditt CV. Fokusera på antal är
 
     varforDetFungerar: [
       {
-        rubrik: 'Branschspecifika systemkunskaper som ATS-system hittar',
-        text: `CV:t nämner konkreta administrativa system som Visma, W3D3, Flex HRM och Microsoft 365 med specifika applikationer. Inte bara "kontorsprogram" utan exakta verktyg som SharePoint, Power Automate och Teams.
+        rubrik: 'ATS-system letar efter specifika systemnamn',
+        text: `CV:t listar konkreta verktyg som Microsoft 365, Visma, W3D3, samt processer som ärendehantering, diarieföring och GDPR-hantering. Många administrativa roller kräver kunskap i specifika system som används inom offentlig sektor eller företag.
 
-Varför detta fungerar: Rekryterare söker efter kandidater som kan börja jobba direkt utan lång introduktion. När ATS-systemet scannar efter "Visma" eller "W3D3" och hittar dem i ditt CV ökar chansen att bli kallad till intervju. Dessutom visar det att du förstår administratörens digitala verktygslåda, inte bara kan skriva i Word.`
+Varför detta fungerar: ATS-system filtrerar ansökningar baserat på nyckelord från jobbannonsen. När en arbetsgivare söker efter någon med Visma-erfarenhet och du har skrivit "ekonomisystem" istället riskerar ditt CV att sorteras bort direkt. Genom att namnge exakta system ökar du chansen att passera den automatiska gallringen och nå en mänsklig rekryterare.`
       },
       {
-        rubrik: 'Siffror som bevisar effektivitet och noggrannhet',
-        text: `CV:t kvantifierar administrativa prestationer: "hanterade 150+ ärenden per månad", "99% leveransprecision i tidsrapportering", "minskade handläggningstid med 30%". Inte vaga påståenden utan konkreta mätetal.
+        rubrik: 'Konkreta siffror visar din faktiska arbetskapacitet',
+        text: `Detta CV kvantifierar prestationer med siffror som 200+ ärenden per månad, 98% leveransprecision, 30% reducerad handläggningstid och 99.5% noggrannhet i dataregistrering. Istället för att skriva "hanterade ärenden" visas exakt volym och kvalitet.
 
-Varför detta fungerar: Administration handlar om precision och effektivitet. När du visar att du hanterat 150 ärenden månaden med 99% noggrannhet bevisar du att du klarar högt tryck utan att tappa kvalitet. Rekryterare kan direkt jämföra din kapacitet med deras behov och förstå att du levererar resultat, inte bara utför uppgifter.`
+Varför detta fungerar: Rekryterare jämför kandidater och behöver veta om du klarar arbetsbelastningen. En kandidat som skriver "ansvarig för ärendehantering" kan ha hanterat 20 eller 200 ärenden per månad. Siffror ger kontext och visar att du inte bara utfört arbetet, utan gjort det med hög precision och effektivitet. Det gör dig omedelbart mer trovärdig.`
       },
       {
-        rubrik: 'Teknisk kompetens balanserad med servicekänsla',
-        text: `CV:t kombinerar systemkunskap (Power Automate, GDPR-hantering, ekonomisystem) med mjuka färdigheter som "serviceinriktad", "proaktiv problemlösning" och "intern kundservice". Båda aspekterna lyfts med konkreta exempel.
+        rubrik: 'Kombinerar systemkunskap med serviceförmåga',
+        text: `CV:t balanserar tekniska färdigheter som superuser i W3D3 och Microsoft 365 med mjuka kompetenser som serviceinriktad kommunikation, strukturerad arbetsmetodik och processutveckling. Det visar både systemkompetens och förmåga att samarbeta.
 
-Varför detta fungerar: Moderna administratörer är både systemexperter och servicehubbar. Rekryterare söker någon som kan automatisera processer OCH hjälpa kollegor med vänlighet. Genom att visa båda sidorna signalerar du att du förstår rollens dubbla natur – du är inte bara en systemadministratör eller bara en receptionist, utan en komplett administrativ resurs.`
+Varför detta fungerar: Arbetsgivare söker administratörer som både behärskar systemen och kan kommunicera effektivt med kollegor och kunder. Att påstå "god samarbetsförmåga" räcker inte. När du istället skriver "utbildade 12 kollegor i nytt ärendesystem" bevisar du din serviceförmåga genom konkret handling. Det gör skillnaden mellan en generisk ansökan och en som sticker ut.`
       },
       {
-        rubrik: 'Certifieringar med årtal skapar trovärdighet',
-        text: `CV:t listar "Microsoft Office Specialist (2023)", "GDPR-certifiering (2022)" och "OSL Offentlig upphandling (2024)". Inte bara påståenden om kunskaper utan verifierbara kompetensbevis med aktuella årtal.
+        rubrik: 'Certifieringar med årtal visar aktualitet',
+        text: `CV:t listar certifieringar med specifika årtal: Microsoft 365 Certified (2023), GDPR-utbildning (2022), OSL-behörighet (2021) och Visma-certifiering. Varje kompetens är tydligt daterad och relevant för moderna administrativa roller.
 
-Varför detta fungerar: Certifieringar är det närmaste du kommer objektivt bevis på kompetens. När rekryteraren ser att din GDPR-utbildning är från 2022 vet de att du har aktuell kunskap om dataskyddsförordningen, inte något du "hört talas om". Årtalen visar också att du aktivt vidareutbildar dig, vilket är avgörande i en roll där system och regelverk ständigt uppdateras.`
+Varför detta fungerar: Årtal visar att din kunskap är aktuell, inte något du läste om för tio år sedan. En GDPR-certifiering från 2022 signalerar att du förstår gällande regler, medan en gammal kurs väcker frågor om dina kunskaper är uppdaterade. Kontinuerlig vidareutbildning talar om att du tar ditt yrke på allvar och håller dig relevant i en föränderlig arbetsmarknad.`
       },
       {
-        rubrik: 'Profiltext som säljer in rätt kompetens direkt',
-        text: `Profiltexten sammanfattar "Erfaren administratör med stark systemkompetens och dokumenterad förmåga att effektivisera administrativa processer". Den nämner både år av erfarenhet och specifika styrkor som processutveckling och mötesadministration.
+        rubrik: 'Profiltexten sammanfattar värde på tio sekunder',
+        text: `Profiltexten lyfter fram 8+ års erfarenhet, ärendehantering, systemstöd och erfarenhet från både offentlig och privat sektor. De viktigaste nyckelorden och kvalifikationerna presenteras direkt i början av CV:t.
 
-Varför detta fungerar: Rekryterare läser profiltexten först och avgör på 10 sekunder om de ska läsa vidare. En tydlig sammanfattning som nämner "processutveckling" och "systemkompetens" träffar exakt vad de söker. Istället för generiska formuleringar som "ansvarstagande och noggrann" får de konkret information om vad du faktiskt kan bidra med från dag ett.`
+Varför detta fungerar: Rekryterare spenderar i genomsnitt 10-15 sekunder på ett första CV-scan. Om de inte omedelbart ser rätt nyckelord går de vidare till nästa kandidat. En stark profiltext fungerar som en elevator pitch som fångar uppmärksamhet och lockar rekryteraren att läsa vidare. Utan denna sammanfattning riskerar dina kvalifikationer att drunkna längre ner i dokumentet.`
       },
       {
-        rubrik: 'Tydlig karriärprogression från grund till specialisering',
-        text: `CV:t visar utveckling från Administrativ assistent (2018-2020) via Administratör (2020-2022) till Senior administratör med processansvar (2022-nu). Varje steg har tydligt ökande ansvar: från löpande support till processutveckling och utbildning av kollegor.
+        rubrik: 'Karriärprogression visar ambition och tillväxt',
+        text: `CV:t visar tydlig utveckling från Administrativ Assistent till Administratör och vidare till Senior Administratör. Progressionen inkluderar ökande ansvar som teamkoordinator, processutveckling och utbildning av kollegor.
 
-Varför detta fungerar: Progression bevisar att du inte stått still utan vuxit i rollen. Rekryterare ser att du börjat med grundläggande administration och utvecklats till att driva förbättringsarbete och utbilda andra. Det signalerar ambition, inlärningsförmåga och att du är redo för nästa steg – oavsett om det är en liknande roll eller ännu mer ansvar.`
+Varför detta fungerar: Arbetsgivare vill se att du kan växa i rollen och ta större ansvar över tid. En karriär som stannat på samma nivå i åtta år väcker frågor om ambition och kapacitet. När du istället visar progression från assistent till senior med konkreta exempel på ökat ansvar signalerar du att du är driven, lär dig snabbt och kan utvecklas vidare i din nästa roll.`
       }
     ],
 
