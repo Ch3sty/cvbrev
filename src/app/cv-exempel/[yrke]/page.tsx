@@ -3176,6 +3176,292 @@ Tekniska färdigheter kan du lista direkt, men mjuka egenskaper behöver bevis f
     ]
   },
 
+  'sommarjobb': {
+    yrke: 'Sommarjobb',
+    sokvolym: 1900,
+    metaTitle: 'CV Exempel Sommarjobb 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för sommarjobb. Visar hur du kvantifierar erfarenhet från extrajobb, skola och idrott. ATS-optimerat för butik, lager och service.',
+
+    seoIntro: `Söker du sommarjobb som student eller gymnasieelev och undrar hur du skapar ett CV utan omfattande arbetslivserfarenhet? Det här CV-exemplet visar hur du kan lyfta fram kompetens från extrajobb, skola, idrott och föreningsengagemang på ett sätt som ökar dina chanser till intervju.
+
+Du behöver inte ha 5 års erfarenhet för att skapa ett starkt CV för sommarjobb. Det handlar om att visa vad du kan genom kvantifierbara exempel: "hanterade 50+ kunder dagligen" väger tyngre än "jobbat med kunder". CV:t visar balans mellan praktisk erfarenhet (café och lager), överförbara färdigheter (lagarbete från fotboll), och branschspecifika kompetenser som kassahantering och lagerkunskap.
+
+Använd det här exemplet som inspiration för ditt första CV. Kom ihåg att pålitlighet, attityd och vilja att lära väger lika tungt som arbetslivserfarenhet för sommarjobb. Med rätt struktur och konkreta exempel kan du sticka ut – även som ung jobbsökare.`,
+
+    intro: 'Ett professionellt CV-exempel för sommarjobb som visar hur du lyfter fram erfarenhet från extrajobb, skola och idrott. Optimerat för unga jobbsökare som söker inom butik, lager och service.',
+
+    exempelCV: {
+      namn: 'Emma Lindqvist',
+      titel: 'Gymnasieelev som söker sommarjobb inom service och butik',
+      kontakt: {
+        telefon: '070-123 45 67',
+        epost: 'emma.lindqvist@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/emmalindqvist'
+      },
+
+      profil: 'Pålitlig och serviceinriktad gymnasieelev (18 år) med 2 års erfarenhet från café och extrajobb i lager. Van vid högt tempo och kundkontakt – hanterade 50+ kunder dagligen under helgpass på café. Läraktig och ansvarsfull lagspelare med 8 års fotbollsengagemang. Söker sommarjobb inom service eller butik där jag kan bidra med positiv attityd och vilja att lära.',
+
+      erfarenhet: [
+        {
+          titel: 'Extrapersonal Café',
+          arbetsgivare: 'Espresso House, Gullmarsplan',
+          period: 'Juni 2023 – Pågående',
+          beskrivning: [
+            'Hanterar 50+ kunder dagligen under helgpass (lördagar och söndagar, 8 timmar/dag)',
+            'Ansvarig för kvällspass ensam efter 3 månaders träning – stänger café, kasskoll och daglig bokföring',
+            'Fick högsta kundbetyg i teamet (4.8/5 i NPS) sommaren 2023',
+            'Kassahantering via EXTENDA-system – hanterat över 10 000 kr dagligen utan kassadifferens',
+            'Serveringserfarenhet både a la carte och snabbservice under lunch (30+ serveringar/timme)'
+          ]
+        },
+        {
+          titel: 'Sommarjobbare Lager',
+          arbetsgivare: 'ICA Maxi Lager, Årsta',
+          period: 'Juni – Augusti 2022',
+          beskrivning: [
+            'Plockning och packning – hanterade 200+ ordrar per dag under högsäsong',
+            'Varumottagning och inventering – noggrann kontroll av 50-100 pallplatser dagligen',
+            'Samarbete i team om 6 personer – roterade ansvar för olika lageravdelningar',
+            'Lärde mig grundläggande lagerhantering och kvalitetskontroll på 8 veckor'
+          ]
+        },
+        {
+          titel: 'Lagkapten Fotbollslag',
+          arbetsgivare: 'Hägersten SK, Div 3 Dam',
+          period: '2016 – 2024 (8 år)',
+          beskrivning: [
+            'Lagkapten för 15 spelare säsongen 2023/24 – ansvarade för träningsupplägg och lagmotivation',
+            '100% närvaro på 40 matcher och träningar säsongen 2023/24 (pålitlighet och engagemang)',
+            'Ledde laget till semifinal i distriktsserien 2023 – bästa placering på 5 år',
+            'Organiserade lagaktiviteter och fundraising (samlade in 8 000 kr för nya matchtröjor 2023)'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Ekonomiprogrammet',
+          skola: 'Globala Gymnasiet, Stockholm',
+          period: '2022 – Pågående (examen juni 2025)',
+          beskrivning: 'Inriktning Juridik. Snittbetyg: 18.2. Projektledare för gymnasiearbete (5 personer, VG-betyg) – analys av lokala företags hållbarhetsarbete.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Kassasystem (EXTENDA) – daglig användning i 1.5 år',
+          'Microsoft Office (Word, Excel, PowerPoint)',
+          'Lagerhantering (plockning, packning, inventering)',
+          'Serveringserfarenhet (a la carte och snabbservice)',
+          'Google Workspace (Docs, Sheets)',
+          'Sociala medier (Instagram, TikTok)'
+        ],
+        personliga: [
+          'Serviceinriktad (högsta kundbetyg i teamet 4.8/5)',
+          'Lagspelare (8 års fotboll, lagkapten 1 år)',
+          'Stresstålig (hanterat högt tempo på café – 50+ kunder/dag)',
+          'Pålitlig (100% närvaro fotboll 2023/24)',
+          'Läraktig (ansvarig kvällspass efter 3 månaders träning)'
+        ]
+      },
+
+      certifieringar: [
+        'B-körkort (2024)',
+        'Första hjälpen-certifikat (2023)',
+        'Alkoholservering 18+ (2024)',
+        'Hygienbevis Livsmedelshantering (2023)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' },
+        { sprak: 'Spanska', niva: 'Grundläggande (3 år i skolan)' }
+      ]
+    },
+
+    viktigt: [
+      'Kvantifiera även "enkel" erfarenhet – "50+ kunder dagligen" är bättre än "jobbat i café"',
+      'Lyft fram överförbara färdigheter från skola och idrott – lagfotboll = teamwork, projektarbete = samarbete',
+      'Visa långvarigt engagemang – 8 års fotboll signalerar pålitlighet och uthållighet',
+      'Profiltext fokuserar på potential och attityd – "läraktig" och "pålitlig" värderas högt för sommarjobb',
+      'Inkludera körkort och certifikat med årtal – öppnar fler jobbmöjligheter',
+      'Anpassa CV:t efter bransch – butik (kassasystem) vs lager (plockning) vs restaurang (tempo)'
+    ],
+
+    statistik: [
+      { label: 'Arbetsgivare som värderar pålitlighet högst', varde: '68%', beskrivning: 'För sommarjobb väger attityd tyngre än erfarenhet' },
+      { label: 'Högre chans till intervju med siffror', varde: '3x', beskrivning: 'Kvantifierade exempel ökar trovärdigheten' },
+      { label: 'Annonser som kräver serviceinriktning', varde: '85%', beskrivning: 'Visa det genom konkreta exempel' }
+    ],
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-optimerat för sommarjobb och extratjänster',
+        text: `CV:t använder exakta branschtermer som faktiskt förekommer i jobbannonser för sommarjobb: **kassahantering**, **lagerhantering**, **kundservice** och **serviceinriktad**. Det inkluderar även specifika verktyg som **kassasystem** och **lagerhanteringssystem** istället för vaga beskrivningar som "jobbat i butik".
+
+Varför detta fungerar: ATS-system söker efter konkreta termer från jobbannonsen. När arbetsgivare skriver "erfaren med kassahantering", letar systemet efter exakt det ordet. Även om du är ung och "bara" jobbat på café eller i butik spelar det ingen roll – om du använder rätt termer hamnar ditt CV högre i rankningen än någon med mer erfarenhet som skriver "skötte kassaapparaten".`
+      },
+      {
+        rubrik: 'Kvantifierade resultat även från extrajobb',
+        text: `Trots att Emma är 18 år visar CV:t konkreta siffror: **50+ kunder dagligen** på caféet, **200+ ordrar per dag** på lagret och **4.8/5 i kundnöjdhet** (NPS-betyg). Hon skriver inte bara "jobbade på café" – hon visar omfattningen och kvaliteten i jobbet.
+
+Varför detta fungerar: Rekryterare får hundratals CV där unga skriver "extrajobb på ICA" eller "sommarjobb på restaurang". Siffror gör att du sticker ut direkt. Det spelar ingen roll att du är ung – **50 kunder dagligen** visar att du klarat högt tempo. **4.8/5 NPS-betyg** visar att chefen litade på dig med kundkontakt. Konkreta resultat slår vag erfarenhet varje gång.`
+      },
+      {
+        rubrik: 'Balans mellan tekniska system och serviceförmåga',
+        text: `CV:t kombinerar teknisk kompetens (**kassasystem**, **lagerhanteringssystem**, **Excel**) med mjuka färdigheter som backas upp med bevis: **serviceinriktad** (4.8/5 NPS-betyg), **pålitlig** (förtroende att öppna/stänga café), **stresstålig** (hanterade 50+ kunder under lunchtoppar).
+
+Varför detta fungerar: Många unga listar bara "social", "ansvarsfull", "flexibel" utan kontext. Men arbetsgivare vet att du KAN säga vad som helst. Genom att skriva "pålitlig – fick ansvar att öppna och stänga caféet" ger du bevis. Genom att skriva "stresstålig" OCH "50+ kunder under lunchtoppar" visar du det istället för att påstå det.`
+      },
+      {
+        rubrik: 'Certifieringar som visar initiativförmåga',
+        text: `CV:t listar **B-körkort (2024)** och **Första hjälpen-certifiering (2023)** med årtal. För en 18-åring som söker sommarjobb är det här trovärdighetsmarkörer som visar att hon tagit egna initiativ utöver skola och extrajobb.
+
+Varför detta fungerar: Körkort kan vara avgörande för lager- eller distributionsjobb där du behöver köra truck eller lasta bilar. Första hjälpen visar säkerhetsmedvetenhet, vilket är viktigt inom restaurang, butik och lager. Men framför allt visar certifieringar att du är **läraktig** och tar eget ansvar för din utveckling – vilket är guld värt för arbetsgivare som anställer sommarvikarier.`
+      },
+      {
+        rubrik: 'Profiltext som fångar uppmärksamhet direkt',
+        text: `Profiltexten börjar med "Pålitlig och serviceinriktad gymnasieelev med 2 års erfarenhet från café och lager". Den använder inga ursäkter ("söker mitt första riktiga jobb") utan framhäver erfarenhet och **konkreta färdigheter**: kassahantering, kundservice, lagarbete. Den nämner även **ledarerfarenhet** från fotboll.
+
+Varför detta fungerar: Rekryterare läser profiltexten i 5-10 sekunder. Om du skriver "gymnasieelev som söker sommarjobb" stannar de inte – alla andra söker också sommarjobb. Men "2 års erfarenhet från café och lager + kassahantering + kundservice" får dem att tänka "okej, den här personen har faktisk erfarenhet". Genom att lyfta fram ledarskap (lagkapten) visar Emma att hon kan ta ansvar.`
+      },
+      {
+        rubrik: 'Överförbara färdigheter från idrott och skola',
+        text: `CV:t inkluderar **lagkapten i fotboll** inte för att fylla ut utrymme, utan för att visa ledarskap och teamarbete. Det nämner även **Ekonomiprogrammet** med konkreta kurser som är relevanta för butik- och servicejobb där du hanterar kassa och försäljningsmål.
+
+Varför detta fungerar: Arbetsgivare vet att unga ofta har begränsad arbetslivserfarenhet. Det de letar efter är **överförbara färdigheter**. Lagkapten visar att du kan leda, kommunicera och ta ansvar – precis som att vara ansvarig för ett skift. Ekonomiprogrammet visar att du förstår siffror och försäljningsmål. Genom att koppla ihop skola och idrott med jobbet du söker visar du att du tänker strategiskt.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera även extrajobb och ideellt arbete',
+        text: `Även om du bara jobbat extrajobb eller sommarvikariat kan du använda konkreta siffror för att visa omfattning och ansvar. Tänk på: Hur många kunder per dag? Hur mycket ansvarade du för (t.ex. dagskassa)? Hur många kollegor jobbade du med?
+
+**Exempel på före/efter**:
+
+❌ "Jobbade på café med kundservice och kassahantering"
+
+✅ "Hanterade 50+ kunder dagligen på café med högt tempo (lunchtoppar 11-14). Ansvarade för kassahantering och dagskassa på 15 000-25 000 kr. Fick förtroende att öppna och stänga caféet självständigt."
+
+Siffror gör att arbetsgivare kan bedöma din erfarenhet konkret.`
+      },
+      {
+        rubrik: 'Lyft fram överförbara färdigheter från skola och idrott',
+        text: `Om du har begränsad arbetslivserfarenhet, komplettera med aktiviteter från skola, föreningar eller idrott. Fokusera på färdigheter som är relevanta för jobbet du söker: ledarskap, teamarbete, kommunikation, ansvarstagande.
+
+**Exempel på före/efter**:
+
+❌ "Övrig erfarenhet: Spelar fotboll, läser Ekonomiprogrammet"
+
+✅ "Ledarskap & Teamarbete: Lagkapten i fotboll (2022-2024) – ledde träningar och motiverade laget. Ekonomiprogrammet med kurser i Företagsekonomi som ger förståelse för försäljningsmål."
+
+Koppla alltid ihop skola/idrott med jobbet du söker.`
+      },
+      {
+        rubrik: 'Visa pålitlighet och ansvarsfullhet konkret',
+        text: `Arbetsgivare som anställer unga utan lång erfarenhet letar efter en sak: **pålitlighet**. Istället för att skriva "pålitlig" eller "ansvarsfull" i Kompetenser, visa det genom konkreta exempel på ansvar du fått.
+
+**Exempel på före/efter**:
+
+❌ "Kompetenser: Pålitlig, ansvarsfull, punktlig"
+
+✅ "Fick förtroende att öppna och stänga caféet självständigt (ansvar för larm, dagskassa och säkerhet). Aldrig sjukanmält under 18 månaders anställning."
+
+Konkreta bevis slår tomma ord varje gång.`
+      },
+      {
+        rubrik: 'Anpassa CV efter typ av sommarjobb',
+        text: `Ett CV för butiksjobb ska fokusera på **kundservice** och **försäljning**. Ett CV för lagerjobb ska fokusera på **fysisk arbetsförmåga** och **noggrannhet**. Ett CV för restaurangjobb ska fokusera på **tempo** och **stresshantering**.
+
+**Exempel på anpassning**:
+
+❌ Samma CV till alla jobb: "Söker sommarjobb inom service och lager"
+
+✅ **För butiksjobb**: "Serviceinriktad med erfarenhet av kundkontakt (50+ kunder dagligen) och kassahantering."
+
+✅ **För lagerjobb**: "Strukturerad med erfarenhet av lagerhantering (200+ ordrar/dag). B-körkort (2024)."
+
+Anpassa även Kompetenser efter varje jobbtyp.`
+      },
+      {
+        rubrik: 'Inkludera relevanta certifikat med årtal',
+        text: `Certifieringar kan vara avgörande för vissa sommarjobb. **B-körkort** krävs ofta för lager- och distributionsjobb. **Första hjälpen** är meriterande inom restaurang, hotell och butik. Lista alltid certifikat med årtal för att visa att de är aktuella.
+
+**Exempel på före/efter**:
+
+❌ "Certifieringar: Körkort, Första hjälpen"
+
+✅ "Certifieringar: B-körkort (2024), Första hjälpen-certifiering (Röda Korset, 2023), Hygienbevis Livsmedelshantering (2023)"
+
+Arbetsgivare vill veta att certifikaten är aktuella. Årtal visar att du är uppdaterad.`
+      },
+      {
+        rubrik: 'Skriv profiltext som kompenserar för begränsad erfarenhet',
+        text: `Din profiltext är den enda platsen där du kan "sälja in" dig själv trots att du kanske bara jobbat extrajobb. Fokusera på **konkreta färdigheter** du faktiskt har istället för att ursäkta dig för att du är ung eller oerfaren.
+
+**Exempel på före/efter**:
+
+❌ "Gymnasieelev som söker mitt första sommarjobb. Motiverad att lära mig och utvecklas."
+
+✅ "Serviceinriktad och pålitlig gymnasieelev med 2 års erfarenhet från café och lager. Erfaren med kassahantering, kundservice och högt tempo (50+ kunder dagligen). Lagkapten i fotboll med ledarskapsförmåga."
+
+Skriv ALDRIG "söker mitt första jobb". Skriv istället om vad du KAN och vad du GJORT.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som sommarjobb-sökare vara?',
+        svar: 'För sommarjobb räcker 1 sida. Du har förmodligen begränsad arbetslivserfarenhet, och det är helt OK. Fokusera på kvalitet framför kvantitet: lyft fram relevanta extrajobb, praktik, föreningsengagemang och certifikat. Rekryterare för sommarjobb läser ofta många CV snabbt, så ett kort och tydligt CV är en fördel.'
+      },
+      {
+        fraga: 'Ska jag ha med profilbild på mitt CV?',
+        svar: 'I Sverige är profilbild vanligt men inte obligatoriskt. Välj en professionell bild med neutral bakgrund och affärsmässig klädsel. Undvik semesterbilder, selfies eller bilder från fester. Om du är osäker, lämna bilden och fokusera på innehållet istället – det är viktigare för sommarjobb.'
+      },
+      {
+        fraga: 'Vad gör jag om jag aldrig jobbat tidigare?',
+        svar: 'Inget problem! Lyft istället fram erfarenhet från skolan (projektarbeten, presentationer), idrott eller föreningsliv (lagarbete, ledarskap), och volontärarbete. Visa överförbara färdigheter: lagidrottare = teamwork, musikelev = disciplin, föreningsaktiv = ansvarstagande. Kom ihåg att alla börjar någonstans.'
+      },
+      {
+        fraga: 'Hur visar jag att jag är pålitlig utan arbetslivserfarenhet?',
+        svar: 'Visa långvarigt engagemang: 8 års fotboll, 4 års körsång, eller 3 somrar som volontär visar uthållighet. Nämn också konkret ansvar: "Ansvarade för kvällspass ensam efter 3 månaders träning" eller "Lagkapten för 15 spelare". Punktlighet kan bevisas genom: "100% närvaro på 40 matcher". Detta väger tyngre än att bara skriva "pålitlig".'
+      },
+      {
+        fraga: 'Ska jag inkludera betyg från gymnasiet?',
+        svar: 'Endast om de är höga och relevanta. Om du har snittbetyg över 18 (gamla systemet), inkludera det: "Gymnasieelev Teknikprogrammet, snittbetyg 18.5". Om du har lägre betyg, utelämna siffran och skriv bara "Gymnasieelev Ekonomiprogrammet, pågående (examen 2025)". För sommarjobb är attityd och erfarenhet viktigare än betyg.'
+      },
+      {
+        fraga: 'Hur anpassar jag mitt CV för butik vs restaurang vs lager?',
+        svar: 'Anpassa nyckelord och kompetenser. För butik: lyft "kundservice", "kassasystem", "produktkunskap". För restaurang: "a la carte", "kassakoll", "högt tempo", "hygienrutiner". För lager: "plockning och packning", "truckkort" (om du har), "fysisk uthållighet", "noggrannhet". Ändra också din profiltext efter varje jobbtyp.'
+      },
+      {
+        fraga: 'Ska jag skriva om mina sociala medier-kunskaper?',
+        svar: 'Ja, om du söker sommarjobb inom marknadsföring, retail, event eller kommunikation. Skriv konkret: "Instagram och TikTok (driver konto med 2 000 följare)" eller "Använder Canva för grafisk design". För mer traditionella sommarjobb (lager, café, butik) är sociala medier mindre relevanta – fokusera då på kundkontakt och kassasystem istället.'
+      },
+      {
+        fraga: 'Hur visar jag att jag klarar högt tempo?',
+        svar: 'Referera till situationer där du presterat under press: "Tävlingsfotboll – 3 matcher per vecka under säsongen" eller "Tentavecka – 5 tentor på 8 dagar". Du kan också nämna extrajobb i kontext: "Hanterade 50+ kunder dagligen på café under helgpass – högt tempo mellan 10-14". Visa situationen och låt rekryteraren dra slutsatsen.'
+      },
+      {
+        fraga: 'Hur beskriver jag extrajobb som bara varat några månader?',
+        svar: 'Helt OK att inkludera kortare extrajobb – sommarjobb-rekryterare förväntar sig inte fleråriga anställningar. Skriv tydligt datum (t.ex. "Juni–Augusti 2023") och kvantifiera vad du gjorde: "Extrapersonal café, 20 tim/vecka, hanterade 50+ kunder dagligen". Fokusera på de mest relevanta jobben och lyft fram vad du lärde dig.'
+      },
+      {
+        fraga: 'Hur mycket personlig information ska jag inkludera om jag är under 18?',
+        svar: 'Inkludera ålder om du är 16-17, eftersom vissa sommarjobb har åldersgränser (alkoholservering kräver 18+, truckkörning 18+). Skriv "17 år" eller "18 år" i profiltexten eller under kontaktinfo. Du behöver INTE inkludera personnummer, adress (bara stad räcker), civilstånd eller föräldrars kontakt.'
+      }
+    ],
+
+    kategori: 'service',
+    relaterade: [
+      { yrke: 'Butiksbiträde', slug: 'butiksbitrade' },
+      { yrke: 'Student', slug: 'student' },
+      { yrke: 'Lagerarbetare', slug: 'lagerarbetare' }
+    ]
+  },
+
   'it-konsult': {
     yrke: 'IT-konsult',
     sokvolym: 620,
