@@ -5583,6 +5583,278 @@ Varje roll visar ökad komplexitet: fler gäster, mer avancerade system och spec
     ]
   },
 
+  'chef': {
+    yrke: 'Chef/Kock',
+    sokvolym: 2050,
+    metaTitle: 'CV Exempel Kock/Chef 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för kock/chef/souschef. ATS-optimerat, strukturerat för restaurangkök med HACCP, à la carte och kvantifierbara resultat.',
+
+    seoIntro: `Söker du jobb som kock, souschef eller kökschef och behöver ett CV som sticker ut? Det här CV-exemplet visar hur du strukturerar din erfarenhet från restaurangkök för att övertyga både ATS-system och rekryterare inom restaurangbranschen.
+
+CV:t kombinerar kvantifierbara resultat (200+ kuvert per kväll, reducerat matsvinn från 12% till 6.5%) med branschspecifika kompetenser som HACCP-certifiering, moderna tekniker (sous vide, fermentering) och ledarskap. Det visar även progression från commis de cuisine till souschef med tydligt budgetansvar.
+
+Använd detta exempel som inspiration när du skriver ditt eget CV som kock – anpassa det efter din erfarenhet och den typ av kök du söker till. Kombinera det med ett starkt personligt brev för att maximera dina chanser till intervju.`,
+
+    intro: 'Professionellt CV-exempel för kock, souschef och kökschef med fokus på à la carte-matlagning, HACCP och ledarskap. Visar kvantifierbara resultat och branschspecifika certifieringar. ATS-optimerat för restaurangbranschen.',
+
+    exempelCV: {
+      namn: 'Marcus Eriksson',
+      titel: 'Souschef med 8+ års erfarenhet inom à la carte och nordisk gastronomi',
+      kontakt: {
+        telefon: '070-234 56 78',
+        epost: 'marcus.eriksson@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/marcuseriksson'
+      },
+      profil: 'Erfaren souschef med 8+ års erfarenhet från à la carte-restauranger och fine dining. Specialist på nordisk gastronomi med moderna tekniker som sous vide och fermentering. HACCP-certifierad (2023) med dokumenterad förmåga att leda köksteam på 8 personer och ansvara för matsedelsplanering med budgetansvar på 2,5 MSEK. Passionerad för hållbar matlagning med fokus på lokala råvaror och svinnreducering.',
+
+      erfarenhet: [
+        {
+          titel: 'Souschef',
+          arbetsgivare: 'Restaurang Nordisk (Fine Dining)',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Leder köksteam på 8 kockar och ansvarar för daglig drift i à la carte-kök med 200+ kuvert per kväll',
+            'Reducerade matsvinn från 12% till 6.5% genom förbättrad mise en place och FIFO-rutiner – besparing på 180 000 kr/år',
+            'Ansvarar för matsedelsplanering och receptutveckling med fokus på nordisk gastronomi och säsongsanpassade menyer',
+            'Budgetansvar: 2,5 miljoner SEK årligen för råvaruinköp och personalplanering',
+            'Ökade gästnöjdhet från 4.3 till 4.7/5.0 på Google Reviews genom förbättrad presentationsteknik och konsekvent kvalitet',
+            'Ansvarar för HACCP-dokumentation och egenkontroll – noll avvikelser vid senaste inspektion (2024)'
+          ]
+        },
+        {
+          titel: 'Stationskock Varmkök',
+          arbetsgivare: 'Grand Hôtel Stockholm',
+          period: '2018 – 2021',
+          beskrivning: [
+            'Ansvarig för varmköksstation med 150 kuvert per kväll på à la carte-restaurang och banketter upp till 300 gäster',
+            'Specialisering på sous vide-teknik och moderna tillagningsmetoder – implementerade ny dessertmeny som ökade försäljningen med 20%',
+            'Utbildade 4 commis-kockar i stationsarbete, hygienrutiner och presentationsteknik',
+            'Minskade reklamationer med 25% genom förbättrade kvalitetskontroller vid utpassering',
+            'Delaktig i matsedelsplanering för säsongsmenyer – 40+ nya rätter utvecklade under perioden'
+          ]
+        },
+        {
+          titel: 'Commis de Cuisine',
+          arbetsgivare: 'Bistro Lumière',
+          period: '2016 – 2018',
+          beskrivning: [
+            'Grundläggande köksarbete på fransk bistro med 80-100 kuvert per kväll',
+            'Rotation mellan kallkök, varmkök och garde manger för bred kompetens',
+            'Ansvarig för mise en place och förberedelser – effektiviserade rutiner som sparade 30 min per skift',
+            'Första erfarenhet av kassasystem Trivec för köksorder och bongsystem'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Restaurang- och livsmedelsprogrammet',
+          skola: 'Restaurangakademin Stockholm',
+          period: '2013 – 2016',
+          beskrivning: 'Inriktning kock. APL på Operakällaren och Mathias Dahlgren. Gesällbrev 2016.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'À la carte-matlagning (Expert, 8+ år)',
+          'HACCP och livsmedelssäkerhet (Expert, 8+ år)',
+          'Moderna tekniker: sous vide, fermentering (Avancerad, 5+ år)',
+          'Matsedelsplanering och receptutveckling',
+          'Kassasystem Trivec och lagerhantering',
+          'Budget- och kostnadsoptimering',
+          'Nordisk gastronomi och säsongsanpassning'
+        ],
+        personliga: [
+          'Ledarskap och teamutveckling (leder 8 kockar dagligen)',
+          'Stresstålig i högt tempo (200+ kuvert per kväll)',
+          'Kvalitetsfokuserad (noll HACCP-avvikelser)',
+          'Kostnadsmedveten (reducerat matsvinn med 46%)',
+          'Kreativ receptutveckling (40+ nya rätter)'
+        ]
+      },
+
+      certifieringar: [
+        'HACCP-certifiering (2023, förnyad årligen)',
+        'Livsmedelshygien Nivå 3 – Livsmedelsverket (2023)',
+        'Allergenkännedom och specialkost (2022)',
+        'Brandskyddskurs för storkök (2024)',
+        'Gesällbrev i kockyrket (2016)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande' }
+      ]
+    },
+
+    viktigt: [
+      'Kvantifiera din kapacitet: Visa antal kuvert, matsvinn i procent, budgetansvar (t.ex. "200+ kuvert per kväll, budgetansvar 2,5 MSEK")',
+      'Nämn HACCP och certifieringar med årtal: Rekryterare söker efter livsmedelssäkerhet och aktuella certifikat',
+      'Visa progression: Från commis/köksbiträde till stationskock till souschef/kökschef med ökande ansvar'
+    ],
+
+    statistik: [
+      {
+        siffra: '95%',
+        text: 'av restauranger kräver HACCP-kunskap – lyft certifieringar tydligt i CV:t'
+      },
+      {
+        siffra: '28-35k',
+        text: 'SEK är medellön för kock i Sverige – souschef och kökschef kan tjäna 40-50k+'
+      },
+      {
+        siffra: '8 sek',
+        text: 'spenderar rekryterare i snitt på första genomläsning – kvantifiera direkt i profiltexten'
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Branschspecifika termer som ATS-system söker efter',
+        text: `CV:t använder exakta kökstermer som "à la carte", "mise en place", "sous vide", "garde manger" och "HACCP" – samma termer som återfinns i jobbannonser för kockar.
+
+Varför detta fungerar: ATS-system och rekryterare söker efter specifika nyckelord. När du skriver "HACCP-certifiering" istället för bara "matlagning" matchar du kravlistan direkt. "Sous vide-teknik" visar modern kompetens som finare restauranger efterfrågar. Generiska termer som "kan laga mat" sorteras bort – branschterminologi får dig genom första urvalet.`
+      },
+      {
+        rubrik: 'Kvantifierade resultat som visar faktisk kapacitet',
+        text: `CV:t innehåller konkreta siffror: 200+ kuvert per kväll, matsvinn reducerat från 12% till 6.5%, budgetansvar 2,5 MSEK, och 8 kockar i teamet.
+
+Varför detta fungerar: "Ansvarig för köket" säger ingenting om omfattning eller kvalitet. "200+ kuvert per kväll" visar att du klarar högt tempo på en stor restaurang. "Reducerade matsvinn med 46%" bevisar att du tänker på lönsamhet – något varje restaurangägare bryr sig om. Rekryterare kan direkt jämföra din kapacitet med vad tjänsten kräver.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression från Commis till Souschef',
+        text: `Erfarenheten visar utveckling: från Commis de Cuisine (grundläggande köksarbete, 80-100 kuvert) till Stationskock Varmkök (150 kuvert, specialisering) till Souschef (200+ kuvert, ledarskap, budgetansvar).
+
+Varför detta fungerar: Rekryterare söker kockar som kan växa i rollen. Din progression från grundutbildning till ledande position visar ambition och förmåga att ta ansvar. Varje steg inkluderar fler kuvert, mer komplexitet och större ansvar – detta signalerar att du är redo för nästa nivå, t.ex. kökschef.`
+      },
+      {
+        rubrik: 'HACCP-certifiering med noll avvikelser',
+        text: `CV:t lyfter fram "HACCP-certifiering (2023, förnyad årligen)" och "noll avvikelser vid senaste inspektion (2024)". Årtal och resultat inkluderas för trovärdighet.
+
+Varför detta fungerar: HACCP är lagkrav för alla restauranger. Genom att visa certifieringsår OCH inspektionsresultat bevisar du att du tar livsmedelssäkerhet på allvar. "Noll avvikelser" är ett konkret resultat som visar att du inte bara har pappret – du tillämpar kunskapen dagligen. Detta minskar risken för arbetsgivaren.`
+      },
+      {
+        rubrik: 'Profiltext som säljer in specialisering direkt',
+        text: `Profiltexten öppnar med "Erfaren souschef med 8+ års erfarenhet från à la carte-restauranger och fine dining. Specialist på nordisk gastronomi med moderna tekniker som sous vide och fermentering."
+
+Varför detta fungerar: Första meningen avgör om rekryterare läser vidare. "8+ års erfarenhet" + "à la carte" + "nordisk gastronomi" + "sous vide" är fyra nyckelord som direkt visar din profil. Rekryterare för fine dining ser omedelbart att du matchar deras kök. ATS-system rankar CV:n med tidiga nyckelord högre.`
+      },
+      {
+        rubrik: 'Ledarskap bevisat med konkreta exempel',
+        text: `CV:t visar ledarskap genom handling: "Leder köksteam på 8 kockar", "Utbildade 4 commis-kockar", "Budgetansvar 2,5 MSEK". Varje påstående har ett mätbart resultat.
+
+Varför detta fungerar: Alla kan skriva "god ledare" eller "teamplayer" – det är meningslöst utan bevis. Att du leder 8 kockar dagligen och har budgetansvar på miljonnivå visar att arbetsgivare har litat på dig med verkligt ansvar. Utbildning av commis-kockar bevisar att du kan dela kunskap och utveckla personal – kritiskt för souschef- och kökschefsroller.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera rätt köksterm för din specialisering',
+        text: `ATS-system söker efter specifika termer beroende på kökstyp. Identifiera vilka termer som återkommer i jobbannonsen och använd dem ordagrant i ditt CV.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av matlagning på restaurang"
+
+✅ "8+ års erfarenhet av à la carte-matlagning med fokus på nordisk gastronomi, sous vide-teknik och säsongsanpassade menyer. HACCP-certifierad med daglig dokumentation av egenkontroll."
+
+Om arbetsgivaren söker "erfarenhet av fine dining" eller "kunskap om fermentering", använd exakt dessa formuleringar.`
+      },
+      {
+        rubrik: 'Kvantifiera din arbetsbelastning och kapacitet',
+        text: `Konkreta siffror gör ditt CV mer trovärdigt och jämförbart. Transformera vaga påståenden till mätbara fakta genom att specificera antal kuvert, teamstorlek och budgetansvar.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för köket på en stor restaurang"
+
+✅ "Leder köksteam på 8 kockar med ansvar för 200+ kuvert per kväll. Budgetansvar: 2,5 MSEK årligen för råvaruinköp och personalplanering."
+
+Nämn även matsvinn i procent, genomsnittlig omsättning eller antal rätter på menyn för att ge rekryteraren konkret kontext.`
+      },
+      {
+        rubrik: 'Visa konkreta förbättringar du implementerat',
+        text: `Rekryterare vill se vad du åstadkommit, inte bara vad du varit ansvarig för. Fokusera på resultat och förbättringar istället för att lista rutinuppgifter.
+
+**Exempel på före/efter**:
+
+❌ "Arbetade med att minska matsvinn"
+
+✅ "Reducerade matsvinn från 12% till 6.5% genom förbättrad mise en place och FIFO-rutiner – besparing på 180 000 kr/år"
+
+Detta visar att du förstår ekonomin bakom restaurangdrift och aktivt bidrar till lönsamhet.`
+      },
+      {
+        rubrik: 'Anpassa profiltext efter köksstil och position',
+        text: `Din profiltext bör skräddarsys för varje jobb du söker. Om jobbannonsen söker "souschef med erfarenhet av bankett", lyft den erfarenheten först.
+
+**Exempel på före/efter**:
+
+❌ "Kock som gillar att laga god mat"
+
+✅ "Erfaren souschef med 8+ års erfarenhet från à la carte-restauranger och banketter upp till 300 gäster. Specialist på nordisk gastronomi med HACCP-certifiering och budgetansvar på miljonnivå."
+
+Inkludera alltid antal års erfarenhet, kökstyp (à la carte/bankett/catering) och 1-2 specialiseringar som matchar jobbannonsen.`
+      },
+      {
+        rubrik: 'Lyft fram certifieringar med årtal och förnyelse',
+        text: `HACCP, livsmedelshygien och brandskydd är ofta lagkrav eller grundkrav för anställning. Lyft dessa tydligt i en dedikerad sektion med årtal.
+
+**Exempel på före/efter**:
+
+❌ "Har gått HACCP-kurs"
+
+✅ "HACCP-certifiering (2023, förnyad årligen), Livsmedelshygien Nivå 3 – Livsmedelsverket (2023), Brandskyddskurs för storkök (2024)"
+
+Årtal visar att certifieringarna är aktuella. "Förnyad årligen" signalerar att du håller dig uppdaterad – ett måste för ledande kökspositioner.`
+      },
+      {
+        rubrik: 'Balansera teknisk kompetens med ledarskap',
+        text: `För souschef- och kökschefsroller räcker det inte med matlagningskompetens – du måste visa att du kan leda team och hantera budget.
+
+**Exempel på före/efter**:
+
+❌ Lista bara tekniska färdigheter som "sous vide, fermentering, garde manger" utan ledarskapsbevis
+
+✅ "Leder köksteam på 8 kockar med ansvar för schemaläggning och kompetensutveckling. Utbildade 4 commis-kockar i stationsarbete och hygienrutiner. Budgetansvar: 2,5 MSEK."
+
+Visa både teknisk expertis OCH förmåga att utveckla personal – det är vad som skiljer en souschef från en stationskock.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som kock/chef vara?',
+        svar: 'För kockar med 0-5 års erfarenhet räcker 1 sida. För souschef eller kökschef med 5+ års erfarenhet kan du använda 2 sidor, men fokusera på relevanta roller från senaste 10 åren. Viktigare att ha djup på senaste rollerna (antal kuvert, budgetansvar, HACCP-resultat) än att lista alla restauranger du jobbat på. Rekryterare läser i snitt 6-8 sekunder – gör det lätt att snabbt se din kapacitet.'
+      },
+      {
+        fraga: 'Ska jag inkludera APL-perioder om jag är nyutexaminerad?',
+        svar: 'Ja, absolut! APL (arbetsplatsförlagt lärande) är relevant erfarenhet, särskilt om du gjort APL på erkända restauranger. Skriv ut restaurangnamn, period och vad du lärde dig: "APL på Operakällaren (2015) – klassisk fransk teknik och garde manger". Om du fick extrajobb efteråt, nämn det som bevis på att de var nöjda med dig. APL visar att du har praktisk erfarenhet utöver skolkök.'
+      },
+      {
+        fraga: 'Hur visar jag HACCP-certifiering i mitt CV?',
+        svar: 'Lista HACCP under en dedikerad sektion "Certifieringar" med årtal: "HACCP-certifiering (2023, förnyad årligen)". Nämn även konkreta resultat i erfarenhetsbeskrivningar: "Ansvarar för HACCP-dokumentation och egenkontroll – noll avvikelser vid senaste inspektion (2024)". Detta visar att du inte bara har pappret utan faktiskt tillämpar kunskapen dagligen.'
+      },
+      {
+        fraga: 'Hur visar jag ledarskap utan att bara säga "god ledare"?',
+        svar: 'Visa ledarskap genom konkreta exempel istället för adjektiv. Skriv antal personer du leder: "Leder köksteam på 8 kockar". Visa utbildningsansvar: "Utbildade 4 commis-kockar i stationsarbete och hygienrutiner". Inkludera budgetansvar: "2,5 MSEK årligen för råvaruinköp". Varje påstående ska ha ett mätbart resultat – detta bevisar ledarskap genom handling.'
+      },
+      {
+        fraga: 'Hur kvantifierar jag mitt arbete om jag inte har exakta siffror?',
+        svar: 'Använd uppskattningar och intervall: "80-100 kuvert per kväll", "team på 5-8 kockar beroende på säsong", "reducerade matsvinn med uppskattningsvis 30%". Om du inte vet exakt, fråga tidigare chef eller gör en rimlig uppskattning baserat på restaurangens storlek. Ungefärliga siffror är alltid bättre än inga siffror alls – de ger rekryteraren kontext om din kapacitet.'
+      }
+    ],
+
+    kategori: 'restaurang',
+    relaterade: [
+      { yrke: 'Servitris & Restaurangbiträde', slug: 'servitris-restaurangbitrade' },
+      { yrke: 'Bartender', slug: 'bartender' },
+      { yrke: 'Konditor', slug: 'konditor' }
+    ]
+  },
+
   'kurator': {
     yrke: 'Kurator',
     sokvolym: 1200,
