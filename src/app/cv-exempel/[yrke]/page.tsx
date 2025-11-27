@@ -1721,28 +1721,88 @@ Varför detta fungerar: Progression visar ambition, förmåga att ta större ans
 
     tips: [
       {
-        rubrik: 'Kvantifiera städyta och arbetsbelastning',
-        text: 'Istället för "Ansvarig för lokalvård" ska du specificera yta i kvadratmeter, antal rum/arbetsplatser och typ av miljö. Detta ger rekryterare konkret bild av din kapacitet.\n\n**UNDVIK:** "Städade kontor och allmänna utrymmen"\n**BRA:** "Ansvarig för daglig lokalvård av 3 500 kvm kontorsyta fördelat på 3 våningsplan med 200+ arbetsplatser"\n\nSiffror visar att du kan hantera stora ytor effektivt. Om du arbetat på flera platser, summera: "Totalt ansvar för 5 000+ kvm fördelat på 4 arbetsplatser".'
+        rubrik: 'Kvantifiera ditt ansvarsområde med konkreta mått',
+        text: `Rekryterare inom lokalvård behöver förstå omfattningen av din erfarenhet. "Ansvarig för städning" säger ingenting om arbetsbelastningen – 500 kvm eller 5 000 kvm? Använd specifika mått som visar att du hanterat ansvar i rätt skala för tjänsten de söker.
+
+Inkludera städyta i kvadratmeter, antal rum eller arbetsplatser, våningsplan, eller frekvens (daglig städning vs storstädning). Detta hjälper arbetsgivaren bedöma om din erfarenhet matchar deras behov.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för städning av kontorslokaler"
+
+✅ "Ansvarig för daglig städning av 3 500 kvm kontorsyta fördelat på 85 arbetsplatser över 4 våningsplan"
+
+Om tjänsten nämner "stort kontorskomplex" eller "ansvar för 2 000+ kvm", matcha den skalan i dina tidigare roller.`
       },
       {
-        rubrik: 'Visa konkreta resultat från din städning',
-        text: 'Kvantifierbara förbättringar sticker ut. Använd procent, godkända kontroller eller kostnadsbesparingar för att visa effekten av ditt arbete.\n\n**UNDVIK:** "Utförde städning enligt rutin"\n**BRA:** "Implementerade nya desinfektionsrutiner som resulterade i noll smittspridning under pandemin" eller "Reducerade kemikalieanvändning med 20% genom korrekt dosering enligt SDS"\n\nOm du saknar exakta siffror, beskriv kvalitetsresultat: "100% godkända hygienkontroller under 3 år" eller "Noll kundklagomål under 18 månader".'
+        rubrik: 'Visa resultat från kvalitetskontroller och inspektioner',
+        text: `Lokalvård handlar om verifierbar kvalitet, inte bara utfört arbete. Arbetsgivare inom vård, industri och offentlig sektor följer strikta hygienkrav och genomför regelbundna kontroller. Att visa att du konsekvent klarat dessa inspektioner bevisar både kompetens och pålitlighet.
+
+Inkludera resultat från hygienkontroller, kundnöjdhetsmätningar, eller avvikelserapporter. Använd procent och tidsperioder för att visa konsistens.
+
+**Exempel på före/efter**:
+
+❌ "Utförde städning enligt gällande hygienrutiner"
+
+✅ "Uppnådde 100% godkända hygienkontroller under 3 år (36 inspektioner) på vårdavdelning med höga krav på desinfektionsrutiner"
+
+Om de söker "erfarenhet av vård" eller "hygienmedveten", backa upp det med dokumenterade kontrollresultat.`
       },
       {
-        rubrik: 'Lista städtekniska kompetenser med erfarenhetsnivå',
-        text: 'Undvik vaga termer som "städerfarenhet". Lista istället konkreta kompetensområden med nivå och årserfarenhet.\n\n**UNDVIK:** "Erfarenhet av städning"\n**BRA:**\n- "Kontorsstädning och storstädning (Expert, 6+ år)"\n- "Golvvård – boning, polish, maskinstädning (Avancerad, 4+ år)"\n- "Kemikaliehantering enligt SDS (Avancerad, 5+ år)"\n\nDetta visar exakt vad du kan och hur länge du arbetat med det. Rekryterare ser direkt om du matchar deras behov.'
+        rubrik: 'Lista städtekniska kompetenser med specifik erfarenhet',
+        text: `"Erfarenhet av lokalvård" täcker allt från grundstädning till specialiserad golvvård och desinfektionsrutiner. Arbetsgivare söker specifika tekniska färdigheter – var konkret om vilka metoder och maskiner du behärskar och hur länge du arbetat med dem.
+
+Bryt ner din kompetens i kategorier: golvvård (boning, polish, maskinstädning), desinfektionsrutiner, kemikaliehantering, eller specialstädning. Inkludera maskintyper om relevant (skurmaskin, högtryckstvätt, bonningsmaskiner).
+
+**Exempel på före/efter**:
+
+❌ "Goda kunskaper i städning och golvvård"
+
+✅ "Specialist på golvvård: boning och polish av linoleumgolv (6 år), maskinstädning med autoscrubber (5 år), våtskurning av industrigolv. Erfaren i desinfektionsrutiner enligt SmiNet-riktlinjer för vårdmiljö."
+
+Använd exakt de termer som står i annonsen – om de skriver "erfarenhet av bonningsmaskiner", använd den formuleringen.`
       },
       {
-        rubrik: 'Inkludera relevanta certifieringar med datum',
-        text: 'Certifieringar visar professionalism och att du tar ditt yrke på allvar. Lista alltid årtal, särskilt förnyelsedatum för tidsbegränsade certifikat.\n\n**Viktiga certifieringar för lokalvårdare:**\n- Lokalvårdscertifikat eller städutbildning\n- Kemikaliehantering enligt SDS\n- Hygienutbildning (särskilt för vård/omsorg)\n- Truckkort (om relevant)\n- Ergonomi och säkert lyft\n- Första hjälpen och HLR\n\nFörnyelsedatum är viktigt: "Kemikaliehantering enligt SDS (förnyad 2024)" visar att din kunskap är aktuell.'
+        rubrik: 'Inkludera relevanta certifieringar med årtal',
+        text: `Lokalvård har specifika certifieringskrav, särskilt inom vård, industri och kemikaliehantering. Många arbetsgivare kräver dokumenterad utbildning i kemikaliesäkerhet (SDS), hygienrutiner, eller truckkort för lager och industrimiljöer. Att lista dessa med årtal visar att du är uppdaterad och arbetstillståndsklar.
+
+Prioritera certifieringar som är branschstandard: Kemikaliehantering enligt SDS, Hygienutbildning, Lokalvårdscertifikat, Truckkort (A/B), Ergonomi och säkert lyft, HLR. Placera dem synligt i en separat sektion.
+
+**Exempel på före/efter**:
+
+❌ "Utbildad inom lokalvård och säkerhet"
+
+✅ "Certifieringar: Kemikaliehantering SDS (2024), Hygienutbildning vård och omsorg (2018), Truckkort A+B (2020), Ergonomi och säkert lyft Prevent (2023)"
+
+Om annonsen nämner "krav på kemikaliehantering SDS" eller "truckkort meriterande", se till att dessa syns tydligt med årtal.`
       },
       {
-        rubrik: 'Anpassa CV för olika städmiljöer',
-        text: 'Städföretag söker olika kompetenser beroende på miljö. Anpassa vad du lyfter fram beroende på tjänsten du söker.\n\n**För kontorsstädning:** Betona kontorsytor, storstädning, golvvård, fönsterputsning, flexibla arbetstider.\n\n**För sjukhus/vård:** Lyft fram hygienprotokoll, smittskydd, desinfektionsrutiner, hygienkontroller, samarbete med vårdpersonal.\n\n**För industri/lager:** Fokusera på maskinstädning, tunga ytor, truckkort, säkerhet, fysisk uthållighet.\n\nBehåll samma CV-struktur men justera profiltexten och vilken erfarenhet du expanderar mest på.'
+        rubrik: 'Anpassa ditt CV för specifika städmiljöer',
+        text: `Lokalvård inom kontor, vård, industri och skolor kräver olika kompetenser och prioriteringar. Ett sjukhus söker desinfektionsrutiner och hygienmedvetenhet, medan en industrikund värdesätter maskinstädning och arbete i tuffa miljöer. Anpassa ditt CV genom att lyfta den erfarenhet som matchar deras verksamhet.
+
+Om de söker till vård: betona desinfektionsrutiner, hygienresultat, SmiNet-riktlinjer. Till industri: lyfta golvvård, maskinstädning, truckkort. Till kontor: framhäv kvalitetsmedvetenhet, flexibilitet, miljöcertifierade metoder.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av lokalvård inom olika branscher"
+
+✅ "6 års erfarenhet av lokalvård inom vårdmiljö: implementerade desinfektionsrutiner enligt SmiNet-riktlinjer, ansvarig för hygienrutiner på kirurgavdelning, 100% godkända hygienkontroller under 3 år"
+
+Läs annonsen noggrant – om de skriver "erfarenhet av vårdmiljö önskvärt", prioritera den typen av erfarenhet i ditt CV.`
       },
       {
         rubrik: 'Backa upp personliga egenskaper med konkreta bevis',
-        text: 'Undvik att bara lista "noggrann, pålitlig, självständig" utan sammanhang. Visa istället dessa egenskaper genom konkreta exempel från din arbetserfarenhet.\n\n**UNDVIK:** "Noggrann och pålitlig städare"\n**BRA:** "Noggrann (100% godkända hygienkontroller under 3 år på sjukhus)"\n\n**UNDVIK:** "Självständig och flexibel"\n**BRA:** "Självständig (eget ansvar för 3 500 kvm utan daglig övervakning, flexibel med dag/kväll/helg)"\n\nBevis gör dina påståenden trovärdiga. Rekryterare läser "noggrann och pålitlig" i varje andra CV – konkreta exempel sticker ut.'
+        text: `"Noggrann", "ansvarstagande" och "självgående" är vanliga ord i CV för lokalvårdare – men de betyder ingenting utan bevis. Arbetsgivare vill se att du faktiskt levererat resultat som kräver dessa egenskaper. Ersätt vaga påståenden med mätbara prestationer.
+
+Om du säger att du är noggrann, visa det med kontrollresultat. Om du är miljömedveten, visa hur du implementerat miljövänliga metoder. Om du är problemlösare, beskriv ett konkret exempel på hur du förbättrat rutiner.
+
+**Exempel på före/efter**:
+
+❌ "Noggrann och miljömedveten lokalvårdare med god problemlösningsförmåga"
+
+✅ "Reducerade kemikalieanvändning med 20% genom implementering av miljöcertifierade metoder och dosersystem, samtidigt som 100% av hygienkontrollerna godkändes"
+
+Istället för att lista egenskaper i en sektion "Om mig", visa dem genom konkreta resultat i din arbetslivserfarenhet.`
       }
     ],
 
@@ -1939,24 +1999,88 @@ Varför detta fungerar: Progressionen visar ambition, förmåga att hantera mer 
 
     tips: [
       {
-        rubrik: 'Kvantifiera antal ärenden och arbetsbelastning',
-        text: 'Istället för "ansvarig för utredningar" ska du specificera antal parallella ärenden, typ av ärenden och arbetsbelastning. Detta ger rekryterare konkret bild av din kapacitet.\n\n**UNDVIK:** "Arbetade med barnavårdsutredningar"\n**BRA:** "Hanterade 30-35 parallella barnavårdsärenden enligt SoL kap 11 och LVU med 15-20 slutförda utredningar per år"\n\nSiffror visar att du kan hantera hög arbetsbelastning och ger kontext för din erfarenhet. Om du arbetat med olika ärendetyper, specificera: "20 ärenden ekonomiskt bistånd, 10-15 barnavårdsutredningar".'
+        rubrik: 'Kvantifiera din arbetsbelastning och ärendemängd',
+        text: `Rekryterare vill veta att du kan hantera den arbetsbelastning som kommer med handläggartjänsten. Antal parallella ärenden och slutförda utredningar per år visar din kapacitet och effektivitet.
+
+Specificera ärendemängd, typ av ärenden och om du höll deadlines. Om du hanterat komplexa utredningar parallellt är det särskilt värdefullt att lyfta.
+
+**Exempel på före/efter**:
+
+❌ "Hanterade barnavårdsärenden och genomförde utredningar"
+
+✅ "Hanterade 30-35 parallella barnavårdsärenden samtidigt och slutförde 15-20 utredningar per år enligt lagstadgade tidsfrister"
+
+Om jobbannonsen nämner "hög arbetsbelastning" eller "många parallella ärenden", använd siffror som visar att du är van vid det tempot.`
       },
       {
-        rubrik: 'Visa konkreta resultat från din handläggning',
-        text: 'Kvantifierbara förbättringar och kvalitetsmått sticker ut. Använd procent, godkända granskningar eller minskade handläggningstider för att visa effekten av ditt arbete.\n\n**UNDVIK:** "Arbetade enligt gällande kvalitetskrav"\n**BRA:** "98% godkända kvalitetsgranskningar under 4 år" eller "Minskade genomsnittlig handläggningstid från 6 till 4,5 månader genom effektivare utredningsmetodik"\n\nOm du saknar exakta siffror, beskriv kvalitetsresultat: "Noll överklagade beslut under 2 år" eller "Samtliga utredningar godkända vid internkontroll (2022-2024)".'
+        rubrik: 'Visa konkreta kvalitetsresultat från din handläggning',
+        text: `Myndigheter granskar handläggares beslut kontinuerligt. Resultat från kvalitetsgranskningar, överklaganden eller förbättrad handläggningstid visar att du arbetar korrekt och effektivt.
+
+Inkludera andel godkända beslut, minskade handläggningstider eller positiva revisionsresultat. Detta bygger förtroende för din förmåga.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för barnavårdsutredningar med hög kvalitet"
+
+✅ "98% godkända kvalitetsgranskningar under 4 år samt minskade genomsnittlig handläggningstid från 6 till 4,5 månader för barnavårdsutredningar"
+
+Siffror på godkända beslut eller förbättrade processer talar starkare än adjektiv som "noggrann" eller "kvalitetsmedveten".`
       },
       {
-        rubrik: 'Lista regelverkskännedom med erfarenhetsnivå',
-        text: 'Undvik vaga termer som "god regelverkskännedom". Lista istället konkreta lagar och förordningar med tillämpningserfarenhet.\n\n**UNDVIK:** "Erfarenhet av socialtjänstlagstiftning"\n**BRA:**\n- "SoL (Socialtjänstlagen) – barnavårdsutredningar kap 11 (Expert, 5+ år)"\n- "LVU (Lagen med särskilda bestämmelser om vård av unga) – Avancerad, 4+ år"\n- "Förvaltningslagen – myndighetsutövning och beslutsfattande (Expert, 7+ år)"\n\nDetta visar exakt vilka regelverk du behärskar och hur länge du arbetat med dem. Rekryterare ser direkt om du matchar kraven i jobbannonsen.'
+        rubrik: 'Lista regelverkskännedom med konkret erfarenhetsnivå',
+        text: `Handläggare arbetar inom strikta juridiska ramar. Visa vilka lagrum du arbetat med, hur länge och i vilken kontext. Detta är ofta avgörande för om du får intervju.
+
+Använd exakta namn på regelverk och ange erfarenhetsnivå i år eller antal ärenden. ATS-system söker efter specifika lagnamn som SoL, LVU, LSS eller Förvaltningslagen.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av socialtjänstlagstiftning och förvaltningsrätt"
+
+✅ "7 års erfarenhet av SoL 11 kap (barnavårdsutredningar), varav 3 år med LVU-ärenden. Arbetat enligt Förvaltningslagen i 200+ beslut"
+
+Om de söker "erfarenhet av LSS" men du skriver "funktionsnedsättningslagstiftning" kan ATS-systemet missa dig. Använd exakta termer.`
       },
       {
-        rubrik: 'Inkludera relevanta certifieringar och fortbildningar',
-        text: 'Certifieringar visar professionalism och att du håller dig uppdaterad med metodik och lagstiftning. Lista alltid årtal för att visa att kunskapen är aktuell.\n\n**Viktiga certifieringar för handläggare:**\n- BBIC (Barns behov i centrum) – grundutbildning och fördjupning\n- FREDA (strukturerad riskbedömning vid våld i nära relationer)\n- Motiverande samtal (MI)\n- Barnkonventionen i praktiken\n- Utredningsmetodik enligt SoL\n- Förvaltningsrätt och myndighetsutövning\n\nÅrtal är viktigt: "BBIC – Barns behov i centrum (2020)" visar när du genomfört utbildningen.'
+        rubrik: 'Inkludera certifieringar och godkända utbildningar',
+        text: `Många handläggartjänster kräver specifika utbildningar som BBIC, FREDA eller Motiverande samtal. Certifieringar visar att du är uppdaterad och godkänd för vissa arbetsuppgifter.
+
+Lista utbildningens namn och årtal. Om certifieringen är obligatorisk för tjänsten (som BBIC för barnavård) måste den synas tydligt i ditt CV.
+
+**Exempel på före/efter**:
+
+❌ "Utbildad i metoder för barnavårdsutredningar"
+
+✅ "BBIC-certifierad (2020), FREDA-utbildning (2019), Motiverande samtal MI grundkurs (2018), Barnkonventionen i praktiken (2021)"
+
+Skriv certifieringens korrekta namn. Om de söker "BBIC-utbildad handläggare" och du skriver "utbildning i barns behov" kan du sorteras bort.`
       },
       {
-        rubrik: 'Anpassa CV för olika handläggningsområden',
-        text: 'Kommuner och myndigheter söker olika kompetenser beroende på handläggningsområde. Anpassa vad du lyfter fram beroende på tjänsten du söker.\n\n**För barnavård/barn och unga:** Betona SoL kap 11, LVU, BBIC, tvärprofessionellt samarbete (BUP, skola, polis), riskbedömningar.\n\n**För ekonomiskt bistånd:** Lyft fram bedömningar enligt SoL kap 4, beslutsfattande, dokumentation, motiverande samtal, samverkan med Arbetsförmedlingen.\n\n**För LSS-handläggning:** Fokusera på LSS (Lagen om stöd och service), personlig assistans, biståndsbedömningar, samordning av insatser.\n\nBehåll samma CV-struktur men justera profiltexten och vilken erfarenhet du expanderar mest på.'
+        rubrik: 'Anpassa ditt CV för olika handläggningsområden',
+        text: `Handläggare inom barnavård, ekonomiskt bistånd, LSS och arbetsförmedling har olika fokusområden. Lyft den erfarenhet som matchar tjänsten du söker.
+
+Om du söker barnavårdstjänst, prioritera SoL/LVU-erfarenhet och BBIC-metodik. För ekonomiskt bistånd, lyft SoL 4 kap och beslut om försörjningsstöd.
+
+**Exempel på före/efter**:
+
+❌ "Handläggare med bred erfarenhet av socialförvaltningens verksamhetsområden"
+
+✅ "Barnavårdshandläggare: 5 år av totalt 7 års erfarenhet inom SoL 11 kap, BBIC-certifierad, hanterat 80+ placeringsärenden och 15 LVU-utredningar"
+
+Om jobbannonsen söker "LSS-handläggare" ska ditt CV framhålla LSS-lagstiftning, inte generell socialförvaltningserfarenhet. Matcha din profil mot deras behov.`
+      },
+      {
+        rubrik: 'Visa samarbetsförmåga över organisationsgränser',
+        text: `Handläggare arbetar sällan ensamma. Du samverkar med polis, skola, vårdgivare, familjehem och andra myndigheter. Konkreta exempel på lyckad samverkan visar att du kan navigera komplexa nätverk.
+
+Beskriv vilka aktörer du samarbetat med och vilket resultat samarbetet gav. Detta är särskilt viktigt för barnavårds- och LSS-handläggare.
+
+**Exempel på före/efter**:
+
+❌ "Samarbetade med externa aktörer i barnavårdsärenden"
+
+✅ "Samordnade insatser mellan skola, BUP och familjehem i 25+ ärenden, vilket resulterade i att 90% av placeringarna blev långsiktigt hållbara (uppföljning efter 12 månader)"
+
+Om annonsen betonar "god samarbetsförmåga" eller "tvärprofessionellt arbete", visa konkret hur du gjort det och vilken effekt det hade.`
       }
     ],
 
@@ -2143,24 +2267,83 @@ Varför detta fungerar: Medicinsk karriär i Sverige följer en tydlig struktur 
 
     tips: [
       {
-        rubrik: 'Kvantifiera patientmöten, procedurer och handledning',
-        text: 'Istället för "arbetar med kardiologipatienter" ska du specificera antal patientmöten, typ av undersökningar och volymer. Detta ger rekryterare konkret bild av din kliniska erfarenhet.\n\n**UNDVIK:** "Erfarenhet av ekokardiografi"\n**BRA:** "Utför 350+ ekokardiografier årligen (TTE och TEE) med fokus på hjärtsvikt, klaffsjukdom och kongenital hjärtsjukdom"\n\nSiffror visar omfattning och ger kontext. Om du handleder ST-läkare, kvantifiera: "Handleder 3-4 ST-läkare årligen med 100% godkända specialiseringsmål". Detta visar pedagogisk förmåga och erfarenhet.'
+        rubrik: 'Kvantifiera ditt kliniska arbete med konkreta siffror',
+        text: `Rekryterande chefer på vårdcentraler och sjukhus vill se omfattningen av din kliniska erfarenhet i mätbara termer. Generella beskrivningar som "bred klinisk erfarenhet" eller "stort antal patientmöten" säger ingenting om din faktiska volym.
+
+Ange antal patientmöten per år, procedurer du utfört och hur många ST-läkare du handlett. Detta visar både din kapacitet och erfarenhetsnivå.
+
+**Exempel på före/efter**:
+
+❌ "Bred klinisk erfarenhet inom kardiologi med fokus på diagnostik"
+
+✅ "1 200+ patientmöten årligen inom kardiologi. Utför 350+ ekokardiografier per år. Handleder 3-4 ST-läkare årligen i klinisk kardiologi och ultraljudsdiagnostik"`
       },
       {
-        rubrik: 'Lista legitimation och specialistbevis med utfärdare och år',
-        text: 'Läkarlegitimation och specialistbevis är grundkrav för specialistläkare. Lista alltid utfärdare och årtal för att visa formell kompetens.\n\n**UNDVIK:** "Specialist i internmedicin"\n**BRA:**\n- "Läkarlegitimation, Socialstyrelsen (2014)"\n- "Specialistbevis internmedicin, Socialstyrelsen (2021)"\n- "ACLS – Advanced Cardiovascular Life Support (förnyad 2024)"\n\nÅrtal visar hur länge du arbetat som legitimerad läkare och när du blev specialist. Förnyelsedatum på ACLS/ATLS visar att certifieringarna är aktuella.'
+        rubrik: 'Lista legitimation och specialistbevis med utfärdare och årtal',
+        text: `Din läkarlegitimation och eventuella specialistbevis är grundkrav för de flesta tjänster. ATS-system söker ofta efter exakta termer som "läkarlegitimation" och "specialistbevis". Om du inte listar dessa tydligt med årtal kan ditt CV sorteras bort direkt.
+
+Skapa en egen sektion för legitimationer och certifieringar. Ange utfärdande myndighet (Socialstyrelsen) och årtal så rekryteraren ser att allt är aktuellt.
+
+**Exempel på före/efter**:
+
+❌ "Legitimerad läkare och specialist"
+
+✅ "Läkarlegitimation (Socialstyrelsen, 2014)
+Specialistbevis internmedicin (Socialstyrelsen, 2021)
+Specialistbevis kardiologi (Socialstyrelsen, 2024)
+ACLS-certifiering (förnyad 2024)"`
       },
       {
-        rubrik: 'Inkludera journalsystem du arbetat i',
-        text: 'Sjukhus och vårdcentraler använder olika journalsystem. Att lista vilka du behärskar minskar introduktionstiden och visar IT-kompetens.\n\n**Vanliga journalsystem att namnge:**\n- TakeCare (region Stockholm)\n- Melior (region Skåne, Västra Götaland)\n- Cosmic (många privata vårdgivare)\n- Cambio (vissa regioner)\n\n**UNDVIK:** "Erfarenhet av journalsystem"\n**BRA:** "TakeCare (daglig användning 5+ år), Melior (grundläggande), Cosmic (VFU-erfarenhet)"'
+        rubrik: 'Inkludera journalsystem du behärskar',
+        text: `Olika vårdgivare använder olika journalsystem och det tar tid att lära sig nya system. Om du redan kan det system de använder är det en stor fördel. Många annonser nämner specifika system som TakeCare, Melior eller Cosmic.
+
+Lista de journalsystem du arbetat i och hur länge. Om annonsen nämner ett specifikt system, framhäv det i din kompetenssektion eller arbetsbeskrivning.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av digitala journalsystem"
+
+✅ "TakeCare (daglig användning sedan 2020)
+Melior (använt 2017-2020)
+Cosmic (grundläggande kunskap från vikariat)"`
       },
       {
-        rubrik: 'Anpassa CV för olika vårdgivare',
-        text: 'Universitetssjukhus, länssjukhus, vårdcentraler och privata kliniker söker olika kompetenser. Anpassa vad du lyfter fram beroende på tjänsten.\n\n**För universitetssjukhus:** Betona forskningsmeriter (publicerade artiklar, pågående studier), handledarskap för ST-läkare, avancerade procedurer.\n\n**För primärvård/vårdcentral:** Lyft fram bred internmedicinsk kompetens, erfarenhet av kroniska sjukdomar, patientnära arbete.\n\n**För privata specialistkliniker:** Fokusera på specifik specialistkompetens, diagnostiska färdigheter, effektivt patientflöde.'
+        rubrik: 'Anpassa CV efter typ av vårdgivare',
+        text: `Ett CV för universitetssjukhus ska framhäva forskning och handledarskap. Ett CV för vårdcentral ska fokusera på primärvårdskompetens och brett kliniskt spektrum. För privata aktörer kan effektivitet och patientnöjdhet vara viktigare.
+
+Läs annonsen noga. Söker de "erfaren kliniker med akademiskt intresse" eller "specialist med fokus på tillgänglighet"? Justera din profil och framhäv relevant erfarenhet högst upp.
+
+**Exempel på före/efter**:
+
+❌ "Specialist i internmedicin med bred klinisk erfarenhet" (samma för alla ansökningar)
+
+✅ För universitetssjukhus: "Specialist internmedicin/kardiologi med 4 publicerade artiklar och handledarskap för 12 ST-läkare"
+
+✅ För vårdcentral: "Specialist internmedicin med erfarenhet av brett patientspektrum och triagering av akuta tillstånd"`
       },
       {
         rubrik: 'Visa konkreta resultat från kvalitetsförbättringar',
-        text: 'Kvantifierbara förbättringar inom vårdkvalitet, patientsäkerhet eller effektivitet sticker ut. Använd tidsbesparingar, minskade väntetider eller förbättrade utfall.\n\n**UNDVIK:** "Bidrog till förbättrad vårdkvalitet"\n**BRA:** "Minskade väntetid för hjärtsviktsutredningar från 8 till 6 veckor genom implementering av snabbspår och optimerad triagering" eller "Införde strukturerad uppföljningsrutin som minskade återinläggningar med 15%"\n\nOm du saknar exakta siffror, beskriv kvalitetsarbete: "Deltog i vårdprocessförbättring för sepsis" eller "Implementerade checklista för ekokardiografi".'
+        text: `Vårdgivare söker läkare som inte bara utför sitt arbete utan aktivt förbättrar verksamheten. Om du minskat väntetider, implementerat nya rutiner eller förbättrat patientsäkerheten är det starkt övertygande.
+
+Beskriv vad du gjorde, hur du gjorde det och vilket resultat det gav. Använd mätbara förbättringar i tid, kvalitet eller patientnöjdhet.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för kvalitetsarbete inom hjärtsviktsmottagningen"
+
+✅ "Implementerade ny triageringsrutin för hjärtsviktsutredningar som minskade väntetid från 8 till 6 veckor. Resulterade i 25% snabbare diagnostik och ökad patientnöjdhet (NPS från 72 till 84)"`
+      },
+      {
+        rubrik: 'Framhäv undervisning och handledning tydligt',
+        text: `Handledarskap för ST-läkare och undervisning av studenter är meriterande för de flesta specialisttjänster, särskilt på universitetssjukhus. Om du handlett läkare under specialiseringstjänstgöring eller undervisat medicinstudenter ska det synas tydligt.
+
+Ange antal handledda ST-läkare, hur länge du handlett och inom vilka områden. Om du fått positiv feedback från evaluationer, nämn det.
+
+**Exempel på före/efter**:
+
+❌ "Handledarerfarenhet av yngre kollegor"
+
+✅ "Handledare för 12 ST-läkare i internmedicin (2020-2024). Undervisar medicinstudenter i klinisk kardiologi (terminsansvarig sedan 2022). Genomsnittligt betyg 4.8/5 i kursutvärderingar"`
       }
     ],
 
