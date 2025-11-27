@@ -1187,40 +1187,40 @@ Använd det som inspiration för ditt eget CV som lagerarbetare och anpassa det 
 
     varforDetFungerar: [
       {
-        rubrik: 'Systemkunskap som matchar moderna lager',
-        text: `CV:t nämner specifika lagersystem som SAP WM, Astro WMS och Ongoing Warehouse direkt under Kompetenser. Dessa system återfinns också i jobbeskrivningen med konkreta exempel på användning.
+        rubrik: 'Profiltext med rätt nyckelord för ATS-system',
+        text: `Marcus börjar med konkret erfarenhet: "7+ års erfarenhet från högvolymlogistik och e-handel". Han listar tekniska keywords som ATS-system söker efter: SAP WM, Astro, Lean 5S, plocknoggrannhet. Många lagerarbetare skriver generiska fraser som "driven och motiverad" utan kontext. Marcus visar istället specialisering (plockning, truckkörning, WMS-system) och kvantifierar direkt i profilen: 99.8% noggrannhet.
 
-Varför detta fungerar: Många lager sorterar bort ansökningar automatiskt om systemnamnen saknas. Genom att lista både äldre system (SAP) och moderna molnlösningar (Ongoing) visar kandidaten att hen kan jobba i olika miljöer. Rekryterare ser direkt att ingen längre introduktion behövs, vilket sparar 2-3 veckors utbildningstid.`
+Varför detta fungerar: ATS-systemet hittar nyckelorden "SAP WM" och "Lean 5S" direkt i profiltexten. Rekryteraren ser att Marcus inte bara kan köra truck, han förstår hela logistikkedjan. Profiltexten avslutas med personlighetsdrag kopplade till yrket: noggrann teamplayer och säkerhetsfokuserad. Det visar både kompetens och kulturell passform.`
       },
       {
-        rubrik: 'Siffror som bevisar effektivitet och noggrannhet',
-        text: `Under varje arbetsgivare står mätbara resultat: "Hanterade 180-220 order per dag med 99,7% plocknoggrannhet" och "Minskade ledtid för expressorder från 4h till 2h genom optimerad plockrutt".
+        rubrik: 'Kvantifierbara resultat som sticker ut',
+        text: `Marcus visar konkreta siffror: 99.8% plocknoggrannhet, 180-220 order per dag, 20% minskad ledtid. De flesta lagerarbetare skriver "ansvarade för plockning och packning" utan att visa omfattning. Marcus visar både kvalitet (99.8%) och volym (220 order/dag i högvolymlogistik). Han bevisar också förbättringsinitiativ: "Reducerade skador vid hantering med 35% genom utbildning i ergonomi".
 
-Varför detta fungerar: Lagerarbete handlar om tempo och precision. Genom att visa både volym och kvalitet samtidigt bevisar kandidaten att snabbhet inte går ut över noggrannheten. Siffran 99,7% är särskilt stark eftersom den ligger över branschsnittet på 97-98%. Rekryterare kan direkt jämföra prestationen mot befintliga medarbetare.`
+Varför detta fungerar: Siffrorna ger kontext. Rekryteraren ser att Marcus kan hantera högt tempo utan att kompromissa på kvalitet. Effektiviseringsmåtten (20% minskad ledtid) visar att han inte bara utför arbetet, han förbättrar processer. Det gör honom mer anställningsbar än kandidater som bara listar arbetsuppgifter. Siffror ger också rekryteraren något konkret att fråga om under intervjun.`
       },
       {
-        rubrik: 'Teknisk kompetens kombinerad med säkerhetsmedvetenhet',
-        text: `CV:t balanserar systemkunskap (WMS, ERP-integration, streckkodsläsare) med mjuka färdigheter som lagarbete och kvalitetskontroll. Under varje roll finns exempel på både operativt arbete och säkerhetsansvar.
+        rubrik: 'Truckkort och certifieringar med årtal',
+        text: `Marcus listar truckkort med exakta datum: "Truckkort A – Motviktstruck (2017, förlängt 2024)". Truckkort gäller bara 5 år, så förnyelsedatum bevisar att de är giltiga. Han har också specialcertifieringar: ADR Grundkurs för farligt gods (2023) och Heta Arbeten (2021). Många kandidater skriver bara "truckkort A+B" utan årtal, vilket gör att rekryterare måste gissa om de är aktuella.
 
-Varför detta fungerar: Moderna lager kräver båda delar. Tekniska färdigheter visar att kandidaten klarar digitaliseringen, medan säkerhetsfokus minskar risken för arbetsplatsolyckor och produktskador. Att kombinera "Lean 5S-implementering" med "noll arbetsplatsolyckor" signalerar mognad och ansvarstagande, vilket är avgörande för roller med maskinhantering.`
+Varför detta fungerar: Truckkort A+B är grundkrav för de flesta lagerarbetartjänster. Genom att visa förnyelsedatum slipper Marcus frågan "är dina truckkort giltiga?". ADR och Heta Arbeten öppnar dörrarna till specialiserade lager (kemikalier, farligt gods, industri) vilket ger konkurrensfördel. Årtal visar också att Marcus håller sina certifieringar uppdaterade, vilket signalerar professionalism.`
       },
       {
-        rubrik: 'Aktuella truckcertifikat med tydliga årtal',
-        text: `Under Certifieringar står "Truckkort A+B (förnyat 2024)", "ADR-intyg farligt gods (2023)" och "Arbetsmiljöutbildning (2024)". Varje certifiering har årtal och förnyelsedatum där det är relevant.
+        rubrik: 'Specifika WMS-system istället för generisk datorvana',
+        text: `Marcus namnger exakta system: SAP WM (4+ års erfarenhet), Astro WMS (2+ år), M3-system, handdator för plockning (RF-scanner, Zebra). Han undviker vaga termer som "god datorvana" eller "erfaren av affärssystem". ATS-systemet scannar efter specifika system som SAP WM eftersom det är branschstandard inom logistik. Marcus visar också kompetensnivå på sina TOP 3 färdigheter: Expert på truckkort, Avancerad på SAP WM och Astro.
 
-Varför detta fungerar: Truckkort är ett måste för de flesta lagerroller, men många glömmer förnya eller anger inte årtal. Genom att visa förnyelsedatum 2024 bekräftar kandidaten att certifieringen är giltig utan att rekryteraren behöver fråga. ADR-intyget öppnar för specialiserade roller inom farligt gods, vilket ofta ger 3000-5000 kr högre månadslön.`
+Varför detta fungerar: "Datorvana" säger ingenting. "SAP WM med 4+ års erfarenhet" visar konkret kompetens som rekryteraren kan verifiera. Handdator och RF-scanner är standard i moderna lager, så att nämna Zebra visar att Marcus är van vid aktuella verktyg. Specifika system matchar nyckelord i jobbannons, vilket ökar chansen att passera ATS-filtret.`
       },
       {
-        rubrik: 'Profiltext som säljer in rätt kompetens',
-        text: `Profiltexten inleds med "Erfaren lagerarbetare med 8 års erfarenhet av högtempologistik och WMS-system" och nämner både teknisk kompetens och ledarskapsförmåga på två rader.
+        rubrik: 'Tydlig progression från operativ roll till teamledare',
+        text: `Marcus visar utveckling genom sina tre anställningar. På Ahlsell (2016-2018) hanterade han 80-100 order/dag och utbildade 2 nya kollegor. På CEVA Logistics (2018-2020) ökade han till 150-180 order/dag och implementerade Lean 5S. På PostNord (2020-pågående) hanterar han 180-220 order/dag och leder 6 medarbetare med 99.8% plocknoggrannhet.
 
-Varför detta fungerar: Rekryterare läser profiltexten först och bestämmer på 15 sekunder om de läser vidare. Genom att direkt nämna år, specialisering (högtempologistik) och systemkunskap matchar kandidaten de vanligaste sökkriterierna. Frasen "från plockning till teamledning" visar karriärambition utan att vara för säljig, vilket är viktigt i praktiska yrken.`
+Varför detta fungerar: Progression visar ambition och ansvarstagande. Rekryterare ser att Marcus inte bara utför samma arbetsuppgifter år efter år, han tar sig an nya utmaningar. Volymen ökar (80 till 220 order/dag), ansvaret växer (från operativ till teamledare), och noggrannheten förbättras (98% till 99.8%). Det här är exakt vad rekryterare letar efter hos erfarna kandidater som kan växa i rollen.`
       },
       {
-        rubrik: 'Tydlig progression från operativ till ledare',
-        text: `Arbetserfarenheten visar utveckling: först Lagerarbetare hos PostNord (plockning, lastning), sedan Lagermedarbetare hos IKEA (systemansvar, utbildning av nyanställda), slutligen Lagerpersonal/Vice lagerchef hos Beijer Byggmaterial med budgetansvar.
+        rubrik: 'Säkerhet och arbetsmiljö konkretiserad med resultat',
+        text: `Marcus visar säkerhetsresultat med siffror: "Reducerade skador vid hantering med 35% genom utbildning i ergonomi och riskanalys" och "0 arbetsolyckor sedan 2020". Han har också Arbetsmiljöutbildning (2022) och Första hjälpen (förnyad 2024). Många lagerarbetare nämner bara "säkerhetsmedveten" utan att backa upp påståendet med bevis.
 
-Varför detta fungerar: Progressionen visar att kandidaten inte stannat på samma nivå utan tagit mer ansvar över tid. Att gå från operativt arbete till utbildningsansvar och sedan budgetansvar är den klassiska karriärstegen inom lager. Rekryterare ser att kandidaten är redo för nästa steg, vilket gör hen intressant för både specialistroller och mellanchefspositioner.`
+Varför detta fungerar: Säkerhet är kritiskt på lager, särskilt vid truckkörning och hantering av tunga godsenheter. Genom att kvantifiera skadereducering (35%) och visa noll olyckor visar Marcus att han inte bara följer säkerhetsrutiner, han förbättrar dem aktivt. Förnyad Första hjälpen-certifiering (2024) visar att han är uppdaterad. Det signalerar ansvar och långsiktigt tänkande, vilket arbetsgivare värderar högt.`
       }
     ],
 
@@ -2422,28 +2422,40 @@ Exempel på certifieringar att nämna:
 
     varforDetFungerar: [
       {
-        rubrik: 'Tech stack som visar bredd utan överdrift',
-        text: 'CV:t listar tekniker grupperade efter område – inte 40 verktyg i en enda lista. "Azure (Expert, 7+ år), AWS, Kubernetes" ger tydlig nivåindikation på toppkompetensen, medan övriga tekniker listas utan nivå för att undvika upprepning. Detta är avgörande för ATS-system som söker efter specifika nyckelord (Azure, Kubernetes, CI/CD), samtidigt som CV:t förblir läsbart för rekryterare. Erik visar multi-cloud-bredd (Azure + AWS) utan att påstå sig vara expert på allt.'
+        rubrik: 'ATS-system söker exakta tech stack-termer',
+        text: `Rekryteringssystem letar efter specifika nyckelord som "Azure", "Kubernetes" och "CI/CD" – inte generiska termer som "molnplattform". Det här CV:t använder branschstandard-terminologi i alla sektioner: "Azure (Expert, 7+ år)" i kompetenser, "tech stack: C#, React, Azure, Docker" i projektbeskrivningar och certifieringstitel "Azure Solutions Architect Expert". När en rekryterare söker efter IT-konsult med Azure-kompetens får detta CV högre ATS-poäng än CV som skriver "molninfrastruktur-erfarenhet".
+
+Varför detta fungerar: Nivåindikation på toppkompetensen separerar Erik från juniora kandidater, medan övriga tekniker listas utan nivå för att visa bredd utan överdrift. Multi-cloud-profilen (Azure + AWS) gör CV:t relevant för fler kundmiljöer och konsultuppdrag.`
       },
       {
-        rubrik: 'Kvantifierbara konsultresultat som visar business impact',
-        text: 'Varför får Erik intervjuer när andra IT-konsulter sorteras bort? Han skriver "Migrerade 15+ applikationer med 99,9% uptime" istället för "Ansvarig för migrering". Siffror är avgörande – rekryterare läser hundratals CV där kandidater bara skriver "ansvarade för cloud-migration". Erik visar konkret affärsnytta: 2M+ transaktioner/månad (skala), 30% minskade driftkostnader (ekonomi), 99,9% uptime (kvalitet). Detta översätter teknik till affärsspråk som beslutsfattare förstår.'
+        rubrik: 'Kvantifierade konsultresultat som syns direkt',
+        text: `Skillnaden mellan "ansvarade för migration" och "migrerade 15+ applikationer med 99,9% uptime" är enorm för rekryterare. Varje projektbeskrivning innehåller konkreta resultat: reducerade release-tid från 2 veckor till 2 dagar, kundnöjdhet 4.7/5, minskade driftkostnader med 30%. Konsultbolag värdesätter detta eftersom de kan visa kundcase med verklig business impact. Det visar också att du förstår att leverera värde, inte bara koda.
+
+Varför detta fungerar: Siffror översätter teknik till affärsspråk som beslutsfattare förstår. Erik visar konkret impact som rekryteraren kan presentera för kunder. Kundnöjdhet 4.7/5 på 10+ projekt bevisar leveransförmåga över tid.`
       },
       {
-        rubrik: 'Affärsfokus istället för buzzword bingo',
-        text: 'Erik skriver inte "Kommunikativ, driven problemlösare med god samarbetsförmåga" – han visar det genom konkreta exempel: "Mentor för 3 junior-konsulter" (pedagogik), "Kundnöjdhet 4.7/5 på 10+ kundprojekt" (stakeholder management), "Reducerade release-tid från 2 veckor till 2 dagar" (processutveckling). Problemet med "kommunikativ, flexibel, driven" är att ALLA skriver det. Rekryterare läser dessa tomma påståenden hundratals gånger per dag.'
+        rubrik: 'Azure-specialisering med multi-cloud-bredd',
+        text: `IT-konsulter behöver balansera djup och bredd. CV:t markerar Azure som djupkompetens ("Expert, 7+ år") men visar samtidigt AWS och Kubernetes för flexibilitet. Certifieringar förstärker detta: både Azure Solutions Architect Expert och AWS Solutions Architect Associate. Detta positionerar kandidaten som multi-cloud-konsult som kan anpassa sig efter kundmiljö, men som har tillräckligt djup i Azure för att leda arkitekturprojekt.
+
+Varför detta fungerar: Konsultuppdrag kräver ofta denna balans. Kunder med Azure-miljö vill ha en expert, men de vill också veta att du kan hantera integrationer mot AWS eller Kubernetes. Dubbla certifieringar visar att du inte är låst till en leverantör.`
       },
       {
-        rubrik: 'Cloud-certifieringar som trovärdighetsmarkör',
-        text: 'Erik listar 4 certifieringar med årtal: Azure Solutions Architect Expert (2024), AWS Solutions Architect Associate (2023), CKA (2022), PSM I (2020). Detta visar tre saker rekryterare letar efter: 1) Aktiv kompetensutveckling (certifieringar är nya), 2) Multi-cloud-kompetens (både Azure och AWS), 3) Bred expertis (cloud + Kubernetes + Scrum). För konsultuppdrag är certifieringar ofta hårda krav – vissa kunder kräver Azure-certifiering för att ens komma på upphandling.'
+        rubrik: 'Certifieringar som öppnar dörrar till kunduppdrag',
+        text: `Azure- och AWS-certifieringar är ofta formella krav i konsultavtal med enterprise-kunder. Det här CV:t listar fyra relevanta certifieringar med årtal: Azure Solutions Architect Expert (2024), AWS Solutions Architect (2023), Certified Kubernetes Administrator (2022) och Professional Scrum Master (2020). Nyligen förnyade certifieringar visar aktiv kompetensutveckling. Kombinationen Azure + AWS + Kubernetes täcker de tre mest efterfrågade områdena för cloud-konsulter.
+
+Varför detta fungerar: Vissa enterprise-kunder kräver Azure-certifiering för att ens komma på upphandling. Årtal visar att certifieringarna är aktuella, inte fem år gamla. Bred expertis (cloud + containers + Agile) ökar chansen att kvalificera sig för fler uppdrag.`
+      },
+      {
+        rubrik: 'Affärsfokus och stakeholder management som skiljer senior från junior',
+        text: `Texten "översätter tekniska koncept till affärsspråk för C-level" är konkret bevis på stakeholder management. CV:t visar affärsfokus genom formuleringar som "ROI-fokus", "minskade driftkostnader med 30%" och "requirement-analys och teknisk rådgivning". Detta skiljer senior IT-konsult från utvecklare – du kan prata med både tekniker och beslutsfattare. Konsultbolag söker konsulter som kan sitta i kundmöten och förklara teknik för ekonomichefer.
+
+Varför detta fungerar: Det som skiljer senior konsult från junior utvecklare är förmågan att kommunicera med beslutsfattare. Erik visar att han kan driva projekt från kravställning till leverans och hantera stakeholders på alla nivåer, inte bara skriva kod.`
       },
       {
         rubrik: 'Tydlig progression från utvecklare till senior konsult',
-        text: 'CV:t visar 8 års resa: Systemutvecklare (2016-2018) → IT-konsult (2018-2021) → Senior IT-konsult (2021-nu). Varje steg har tydligare ansvar: Först byggde han applikationer, sedan ledde han kundprojekt, nu designar han cloud-arkitektur och mentorar andra. Många erfarna utvecklare listar samma typ av arbetsuppgifter för varje jobb, vilket får det att se ut som att de stått still. Erik visar ökad komplexitet och ledarskap.'
-      },
-      {
-        rubrik: 'DevOps-resultat som kopplar teknik till tid och pengar',
-        text: 'Erik skriver "Reducerade release-tid från 2 veckor till 2 dagar" – en klassisk DevOps-metrik som alla beslutsfattare förstår. Snabbare releases = snabbare time-to-market. Han följer upp med "Minskade driftkostnader med 30% via Terraform" – vilket översätter infrastructure-as-code till ekonomisk påverkan. Detta skiljer tekniska CV:n från konsult-CV:n: Erik pratar om affärsresultatet, inte bara den tekniska processen.'
+        text: `Karriärtrappan syns direkt: Systemutvecklare (2016-2018, fast anställning) till IT-konsult (2018-2021, konsultroll) till Senior IT-konsult (2021-nuvarande, mentor och arkitekt). Progression visar genom ökat ansvar: först kodning, sedan projektansvar och DevOps, slutligen arkitektur plus mentorskap för 3 junior-konsulter. Senaste rollen har mest detaljer (4 beskrivningspunkter), vilket följer best practice att fokusera på de senaste åren.
+
+Varför detta fungerar: Progression visar kontinuerlig utveckling och ledarskap. Rekryterare ser att Erik inte bara utför samma arbetsuppgifter år efter år, han tar sig an nya utmaningar och kan växa i rollen. Mentorskap signalerar senioritet och beredskap för ledande roller.`
       }
     ],
 
@@ -3227,54 +3239,40 @@ Använd detta CV som mall när du skapar ditt eget. Kopiera strukturen, anpassa 
 
     varforDetFungerar: [
       {
-        rubrik: 'Specialistkompetens framhävs med certifieringar och legitimation',
-        text: `CV:t visar tydligt legitimation och specialistutbildning direkt i inledningen, följt av relevanta certifieringar som ACLS, PALS och ATLS. Istället för att bara lista "specialistsjuksköterska" specificeras det till "anestesi och intensivvård" med 8+ års erfarenhet.
+        rubrik: 'ATS-optimerad struktur med branschspecifika nyckelord',
+        text: `CV:t innehåller kritiska sökord som ATS-system letar efter: specialistutbildning, ACLS, PALS, RETTS-triagering, invasiv övervakning, respiratorvård, TakeCare och Melior. Rubriker som Erfarenhet, Certifieringar och Specialistkompetens är standardiserade och läsbara för både ATS och rekryterare. Att nämna specifika medicinska system visar att du kan börja arbeta direkt utan omfattande introduktion. Profiltext innehåller både legitimerad sjuksköterska och tekniska nyckelord som invasiv övervakning, vilket hjälper ATS att matcha ditt CV mot rätt tjänster inom akutsjukvård och intensivvård.
 
-Varför detta fungerar: Inom sjukvården är legitimation och specialistkompetens avgörande. Rekryterare till IVA-avdelningar söker specifika certifieringar och utbildningar. Genom att placera dessa högt upp i CV:t och vara specifik ("anestesi och intensivvård", inte bara "specialist") visar du direkt att du har rätt kvalifikationer för rollen.`
+Varför detta fungerar: Sjukhusens ATS-system filtrerar bort CV:n som saknar dessa nyckelord. Genom att placera ACLS, PALS och TakeCare i både profiltext och certifieringssektionen ökar chansen att passera första gallringen. Rekryteraren ser direkt att du har rätt kompetens för intensivvård.`
       },
       {
-        rubrik: 'Kvantifierade patientvolymer istället för vaga ansvarsområden',
-        text: `Istället för "ansvarig för patientvård" visar CV:t konkreta siffror:
-- "Vårdar 4-6 kritiskt sjuka patienter dagligen"
-- "Utför 30-40 triageringar per skift"
-- "Handleder 6-8 sjuksköterskestudenter per termin"
+        rubrik: 'Kvantifierbara resultat istället för ansvarsområden',
+        text: `Istället för vaga beskrivningar som ansvarig för patientvård visar CV:t konkreta resultat: Omvårdnad av 4-6 kritiskt sjuka patienter dagligen, Triagering av 30-40 patienter per skift, Implementerade nytt triage-system som minskade väntetid med 25%. Detta gör din kompetens mätbar och trovärdigt. Siffror visar också att du arbetat i högtempomiljöer och kan hantera arbetsbelastning, vilket rekryterare högt värderar.
 
-Varför detta fungerar: Vårdenhetschefer och verksamhetschefer behöver förstå din kapacitet och arbetsbörda. Genom att kvantifiera antal patienter, triageringar och handledningsansvar ger du en konkret bild av din arbetsbelastning och erfarenhetsnivå. Det visar också att du arbetar i högtempomiljö med stora patientvolymer.`
+Varför detta fungerar: Vårdenhetschefer granskar hundratals CV där kandidater bara skriver "triagering och omvårdnad". Att specificera antal patienter och konkreta förbättringar (25% minskad väntetid) skiljer ditt CV från mängden. Siffror ger rekryteraren något konkret att diskutera under intervjun.`
       },
       {
-        rubrik: 'Mätbara förbättringsresultat från kvalitetsarbete',
-        text: `CV:t innehåller konkreta exempel på förbättringsarbete:
-- "Implementerade nytt triagesystem som minskade väntetider med 25%"
-- "Ledde kvalitetsgrupp som reducerade vårdrelaterade infektioner"
+        rubrik: 'Balans mellan tekniska och mjuka färdigheter',
+        text: `CV:t kombinerar teknisk kompetens som invasiv övervakning, respiratorbehandling och läkemedelshantering med empatiska egenskaper som kommunikation, stresshantering och teamarbete. Båda delarna backas upp med exempel från arbetserfarenheten. Patientutbildning och anhörigkommunikation i stressiga situationer visar både kommunikationsförmåga och stresshantering i praktiken. Tvärprofessionella ronder med läkare, fysioterapeuter och dietister visar samarbetsförmåga.
 
-Varför detta fungerar: Sjukvården driver ständigt kvalitets- och förbättringsprojekt. Rekryterare söker sjuksköterskor som inte bara utför sitt arbete, utan aktivt bidrar till verksamhetsutveckling. Genom att visa mätbara resultat (25% minskade väntetider) bevisar du att du kan driva förändring och förbättra vårdkvaliteten.`
+Varför detta fungerar: Teknisk kompetens ensam räcker inte inom sjukvård. Rekryterare vill se att du behärskar både avancerad utrustning och kan kommunicera med patienter, anhöriga och kollegor. Denna balans är avgörande för tjänster på IVA och akutmottagning där stresshantering är vardag.`
       },
       {
-        rubrik: 'Ledarskaps- och handledarerfarenhet tydligt specificerad',
-        text: `CV:t visar både formellt och informellt ledarskap:
-- "Teamledare för 6 sjuksköterskor på IVA-avdelning"
-- "Handleder 6-8 sjuksköterskestudenter per termin"
-- "Mentor för nyexaminerade specialistsjuksköterskor"
+        rubrik: 'Certifieringar och specialistkompetens som trovärdighetsmarkör',
+        text: `Dedikerad sektion för specialistutbildning och certifieringar visar kontinuerlig kompetensutveckling: Specialistsjuksköterska inom Anestesi och Intensivvård 2020, ACLS förnyad 2024, PALS förnyad 2023. Att inkludera förnyelsedatum för ACLS och PALS visar att du är uppdaterad och tar din profession på allvar. Specialistutbildning placerad direkt efter erfarenhet ger tyngd åt din kompetens och skiljer dig från legitimerade sjuksköterskor utan specialisering.
 
-Varför detta fungerar: Erfarna sjuksköterskor förväntas ta ledarroller och handleda studenter. Genom att kvantifiera antal personer du leder och handleder visar du att du har pedagogisk förmåga och kan ta ansvar utöver direktpatientvård. Detta är särskilt värdefullt för sjukhus som utbildar studenter eller söker framtida teamledare.`
+Varför detta fungerar: Rekryterare till intensivvård och akut söker specifika certifieringar. ACLS och PALS med årtal visar att de är aktuella, inte utgångna. Detta signalerar professionalism och lärvilja, två egenskaper som vårdgivare högt värderar vid rekrytering.`
       },
       {
-        rubrik: 'Systemkompetens med specifika journalsystem namngivna',
-        text: `Istället för "god datorvana" eller "journalsystem" listar CV:t konkreta system:
-- "TakeCare (patientjournal)"
-- "Melior (läkemedelssystem)"
-- "RETTS-triagering (akutmottagning)"
+        rubrik: 'Profiltext som säljande sammanfattning',
+        text: `Den inledande profiltexten sammanfattar din erfarenhet, specialisering och unika styrkor på tre meningar: Legitimerad sjuksköterska med 8+ års erfarenhet från akutsjukvård och intensivvård. Specialistutbildad inom anestesi och intensivvård. Detta gör att rekryteraren direkt ser om du matchar tjänsten, även om de bara läser de första raderna. Texten inkluderar både tekniska nyckelord som invasiv övervakning och ACLS samt personliga egenskaper som teamledare och stresstålig.
 
-Varför detta fungerar: Olika landsting och sjukhus använder olika journalsystem. Genom att specifikt namnge TakeCare, Melior och RETTS visar du att du behärskar de vanligaste systemen inom svensk sjukvård. Rekryterare kan direkt se om du har erfarenhet av deras system, vilket minskar introduktionstiden vid nyanställning.`
+Varför detta fungerar: ATS-system indexerar profiltexten tungt, så nyckelord här är extra viktiga för att passera automatisk screening. Rekryteraren får en komplett bild av din kompetens inom 10 sekunder, vilket avgör om CV:t hamnar i "intervju"-högen.`
       },
       {
-        rubrik: 'Bredden i klinisk erfarenhet över flera specialiteter',
-        text: `CV:t visar erfarenhet från olika vårdmiljöer:
-- "IVA (intensivvårdsavdelning)"
-- "Anestesi (operationsavdelning)"
-- "Akutmottagning (triagering och akutsjukvård)"
+        rubrik: 'Tydlig karriärprogression och ledarskap',
+        text: `Från akutmottagning med triagering och akut omhändertagande till intensivvård med respiratorvård och invasiv övervakning visar CV:t en naturlig specialisering mot mer avancerad vård. Att nämna Teamledare för 6 sjuksköterskor och Handledare för specialiststuderande visar att du vuxit in i en seniorroll och kan ta ansvar. Detta är särskilt värdefullt för tjänster som kräver mentorskap eller koordinering av tvärprofessionellt samarbete.
 
-Varför detta fungerar: Sjuksköterskor med erfarenhet från flera specialiteter är mer flexibla och kan täcka olika behov. IVA-erfarenhet kombinerat med anestesi och akut visar att du behärskar kritisk vård i olika sammanhang. Detta gör dig attraktiv för både specialiserade enheter och sjukhus som söker mångsidig kompetens.`
+Varför detta fungerar: Progression visar ambition och vilja att utvecklas, inte bara göra jobbet. Rekryterare ser att du kan både utföra avancerad omvårdnad och leda andra. Ledarskaps- och handledarerfarenhet öppnar dörrar till tjänster med mer ansvar och högre lön.`
       }
     ],
 
