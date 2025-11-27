@@ -2688,40 +2688,40 @@ Vill du komplettera ditt CV? Kolla våra exempel på personliga brev för studen
 
     varforDetFungerar: [
       {
-        rubrik: 'ATS-optimerad struktur med rätt nyckelord för din bransch',
-        text: `Många studenter missar att ATS-system (de automatiska rekryteringssystem som de flesta företag använder) letar efter specifika nyckelord från jobbannonsen. Våra exempel visar hur du integrerar branschspecifika termer naturligt i din profiltext, utbildning och projektbeskrivningar.
+        rubrik: 'ATS-system känner igen branschspecifika nyckelord direkt',
+        text: `CV:t använder exakta matchningar som Fortnox, löpande bokföring, fakturahantering och kassahantering – termer som ofta står ordagrant i jobbannonser för ekonomiroller och serviceyrken. Istället för vaga beskrivningar som "god datorvana" ser du konkreta verktygsnamn.
 
-Om annonsen nämner "Fortnox", "kundservice" eller "projektledning" tre gånger ska dessa ord finnas i ditt CV – placerade i rätt sektioner. Du ser exakt var och hur du ska inkludera dem utan att det känns konstlat eller upprepat. Detta ökar chansen att ditt CV når en rekryterare.`
+Varför detta fungerar: ATS-system rankar CV:n som matchar jobbannonser ordagrant högre. För studenter med kortare arbetslivserfarenhet är det avgörande att lyfta fram konkreta verktyg och system från praktik och extrajobb. När annonsen kräver Excel ska du inte skriva "Microsoft Office" – skriv "Excel (pivottabeller, VLOOKUP)". Detta gör att ditt CV passerar ATS-filtret och når en rekryterare.`
       },
       {
-        rubrik: 'Konkreta siffror från extrajobb och projekt som bevisar resultat',
-        text: `Skillnaden mellan "jobbade på café" och "serverade 150+ kunder per dag och ökade merförsäljning med 25%" är enorm. Våra exempel visar hur du kvantifierar allt: antal kunder, omsättning, timmar, teamstorlek, projektbudgetar.
+        rubrik: 'Konkreta siffror visar omfattning även för kort erfarenhet',
+        text: `CV:t kvantifierar resultat från praktik och extrajobb: 200+ kundunderlag i Fortnox, 150+ kunder dagligen, budget på 25 000 kr för 8 events, minskade svinn med 15%. Varje erfarenhetspost innehåller mätbara siffror som visar faktisk omfattning.
 
-Även ditt kandidatarbete får konkreta siffror – "analyserade data från 500 respondenter" säger mer än "genomförde undersökning". Du lär dig vilka siffror som faktiskt spelar roll för rekryterare och hur du räknar fram dem från dina erfarenheter. Siffror gör ditt CV trovärdigt.`
+Varför detta fungerar: Siffror ger kontext och trovärdighet. De flesta studenter skriver bara "ansvarade för kundservice" eller "praktik på redovisningsbyrå" utan att visa omfattning. När du istället skriver "hanterade 200+ fakturor per månad" eller "betjänade 150+ kunder dagligen under rusningstid" sticker du ut omedelbart. Rekryterare ser att du kan hantera arbetsbelastning och leverera resultat, vilket är viktigare än antal år i yrket.`
       },
       {
-        rubrik: 'Balans mellan tekniska färdigheter och mjuka kompetenser med bevis',
-        text: `Rekryterare vill se både vad du kan (Excel, projektmetodik, språk) och hur du jobbar (problemlösning, samarbete, kommunikation). Våra exempel visar hur du kopplar mjuka kompetenser till konkreta situationer.
+        rubrik: 'Mjuka färdigheter backas upp med konkreta bevis',
+        text: `CV:t kopplar varje mjuk färdighet till konkreta situationer: Noggrannhet (hanterat 200+ fakturor utan fel), Kundservice (150+ kundmöten dagligen), Projektledning (8 event med 400+ deltagare). Istället för en tom lista med "driven, flexibel, kommunikativ" får varje egenskap ett bevis.
 
-"Ledde grupp om 6 studenter i eventplanering, koordinerade deadlines och budget på 25 000 kr" bevisar ledarskap bättre än att bara lista "Ledarskapskompetens". Du ser exakt hur du tar dina erfarenheter från grupparbeten, studentföreningar eller extrajobb och översätter dem till kompetenser arbetsgivare söker.`
+Varför detta fungerar: Rekryterare ser tusentals studentCV med "driven, flexibel, kommunikativ" – det säger ingenting. Mjuka färdigheter måste backas upp med siffror eller situationer för att bli trovärdiga. Extrajobb ger perfekta bevis: rusningstid på café visar stresshantering, kassaavstämning visar noggrannhet, eventplanering visar projektledning. Visa, säg inte bara.`
       },
       {
-        rubrik: 'Utbildning som huvudkompetens med relevanta kurser och projekt',
-        text: `Som student är din utbildning din starkaste tillgång. Våra exempel visar hur du lyfter fram relevanta kurser istället för att bara lista din examen. Om du söker jobb inom ekonomi ska "Extern redovisning", "Management accounting" och "Finansiell analys" synas tydligt under utbildning.
+        rubrik: 'Utbildning placerad strategiskt med relevanta kurser',
+        text: `CV:t placerar utbildning högt upp och listar relevanta kurser som Extern redovisning, Management accounting och Statistik – inte bara "Kandidatprogram i Ekonomi". Det inkluderar också snittbetyg (4.2/5.0) för att förstärka trovärdigheten.
 
-Inkludera specifika projekt med resultat: "Projektarbete: Analyserade lönsamhet för 3 svenska bolag, rekommenderade investeringsstrategier baserat på nyckeltal". Du lär dig att välja vilka kurser som matchar jobbet och hur du beskriver dem så rekryterare förstår värdet.`
+Varför detta fungerar: För studenter och nyutexaminerade är utbildning den primära kompetensen. Men "Kandidatexamen i Ekonomi" är för vagt – rekryterare vill se konkreta kunskaper. Att lista relevanta kurser visar vad du faktiskt kan göra: Extern redovisning betyder att du kan bokföra, Statistik betyder att du kan analysera data. Beskriv även större projekt som konsultuppdrag med scope och resultat.`
       },
       {
-        rubrik: 'Profiltext som säljer in din potential och framtida bidrag',
-        text: `Din profiltext ska kompensera för begränsad arbetslivserfarenhet genom att visa vart du är på väg. Våra exempel visar hur du skriver 3-4 meningar som kombinerar utbildning, nyckelkompetenser och konkret mål.
+        rubrik: 'Profiltext fokuserad på konkret erfarenhet och tydligt mål',
+        text: `Profiltexten börjar med roll och specialisering (Ekonomistudent med praktisk erfarenhet från redovisningsbyrå), inkluderar konkret resultat (200+ kundunderlag i Fortnox), och avslutar med tydligt mål (söker sommarjobb eller traineeprogram inom redovisning).
 
-Exempel: "Ekonomistudent med praktisk erfarenhet från redovisningsbyrå. Har arbetat med Fortnox, löpande bokföring och 200+ kundunderlag. Söker praktik där jag kan utveckla min kompetens inom controlling". Du ser hur du balanserar vad du kan idag med vad du vill lära dig – utan att låta osäker.`
+Varför detta fungerar: Studenter ska inte ursäkta begränsad erfarenhet med fraser som "Trots att jag är ny...". Istället: Visa vad du kan med konkreta siffror, beskriv vad du brinner för, och tala om vart du är på väg. Rekryterare för traineeroller letar efter riktning och motivation, inte 10 års erfarenhet. En tydlig profiltext med mål rankas högre än vag "söker spännande utmaningar".`
       },
       {
-        rubrik: 'Transferable skills från extrajobb som är relevanta för karriären',
-        text: `Ditt jobb på café, restaurang eller kundtjänst har gett dig kompetenser som är värdefulla i de flesta yrken. Våra exempel visar hur du översätter "kassaarbete" till "hanterade kassaflöde på 50 000 kr dagligen med 99,5% felfri avstämning".
+        rubrik: 'Transferable skills från extrajobb beskrivet professionellt',
+        text: `CV:t översätter extrajobb till affärsterminologi: Betjänade 150+ kunder dagligen (kundorientering), Kassahantering med 99,5% accuracy (ekonomiskt ansvar), Utbildade 3 nya medarbetare (mentorskap), Minskade svinn med 15% (problemlösning och initiativförmåga).
 
-Eller hur "volontärarbete" blir "koordinerade event för 400+ deltagare, hanterade budget på 25 000 kr". Du lär dig identifiera vilka färdigheter från dina deltidsjobb som matchar jobbet du söker och hur du formulerar dem professionellt.`
+Varför detta fungerar: Rekryterare för entry-level-jobb vet att studenter har extrajobb – frågan är hur du beskriver dem. Tänk: Vilka kompetenser är transferable till jobbet du söker? Café och restaurang ger stresshantering och teamarbete i högtempo. Butik ger försäljning och kundorientering. Använd professionellt språk: inte "jobbade på café", utan "betjänade 150+ kunder dagligen med fokus på servicekvalitet".`
       }
     ],
 
