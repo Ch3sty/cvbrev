@@ -18,7 +18,8 @@
       "Bash(findstr:*)",
       "Bash(Select-String -Pattern \"(error|Error|✓|✗|Page|Route|Generating|successfully)\")",
       "Bash(Select-String -Pattern \"(error|Error|✓|✗|Page|Route|Generating|ekonomiassistent)\")",
-      "Bash(Select-String -Pattern \"(error|Error|✓|✗|Page|Route|Generating|personlig-assistent)\")"
+      "Bash(Select-String -Pattern \"(error|Error|✓|✗|Page|Route|Generating|personlig-assistent)\")",
+      "Bash(xargs:*)"
     ],
     "deny": [],
     "ask": []

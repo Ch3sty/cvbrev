@@ -5314,6 +5314,275 @@ Samma assistent kan ha båda erfarenheterna – men betonar olika saker beroende
     ]
   },
 
+  'servitris-restaurangbitrade': {
+    yrke: 'Servitris & Restaurangbiträde',
+    sokvolym: 850,
+    metaTitle: 'CV Exempel Servitris & Restaurangbiträde 2025 | Jobbcoach.ai',
+    metaDescription: 'Professionellt CV-exempel för servitris med kvantifierbara resultat. Visar gästbemötande, kassasystem (Trivec) och serveringstillstånd. ATS-optimerat för restaurangbranschen.',
+
+    seoIntro: `Söker du jobb som servitris eller restaurangbiträde och behöver ett CV som sticker ut? Det här CV-exemplet visar hur du strukturerar din erfarenhet från bordsservice, gästbemötande och kassahantering för att övertyga både ATS-system och rekryterare inom restaurangbranschen.
+
+CV:t kombinerar kvantifierbara resultat (hanterar 40+ gäster per kväll, ökade bordsomsättning med 20%) med branschspecifika kompetenser som serveringstillstånd, kassasystem (Trivec, iZettle) och bokningssystem (OpenTable). Det visar även progression från sommarjobb på café till erfaren servitris på à la carte-restaurang.
+
+Använd detta exempel som inspiration när du skriver ditt eget CV som servitris – anpassa det efter din erfarenhet och den tjänst du söker. Kombinera det med ett starkt personligt brev för att maximera dina chanser till intervju.`,
+
+    intro: 'Professionellt CV-exempel för servitris och restaurangbiträde med fokus på gästbemötande, bordsservice och kassahantering. Visar kvantifierbara resultat och branschspecifika system som Trivec, OpenTable och serveringstillstånd. ATS-optimerat för restaurangbranschen.',
+
+    exempelCV: {
+      namn: 'Sofia Lindqvist',
+      titel: 'Servitris med 4+ års erfarenhet inom à la carte och finare restaurang',
+      kontakt: {
+        telefon: '070-123 45 67',
+        epost: 'sofia.lindqvist@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/sofialindqvist'
+      },
+      profil: 'Erfaren servitris med 4+ års erfarenhet från à la carte-restauranger och finare matsalar. Specialist på gästbemötande, menypresentation och dryckesrekommendationer med gedigen vinkunskap. Serveringstillstånd-certifierad (2020) med kompetens i kassasystem (Trivec, iZettle) och bokningssystem (OpenTable, DinnerBooking). Serviceinriktad lagspelare som trivs i högt tempo och skapar minnesvärda gästupplevelser genom professionell service och uppmärksamhet på detaljer.',
+
+      erfarenhet: [
+        {
+          titel: 'Servitris',
+          arbetsgivare: 'Restaurang Sjöpaviljongen (Fine Dining)',
+          period: '2022 – Pågående',
+          beskrivning: [
+            'Ansvarig för bordsservice till 40-50 gäster per kväll på à la carte-restaurang med 60 sittplatser',
+            'Ökade bordsomsättning med 20% genom effektiv bordsplanering och snabb service under högsäsong (juni-augusti)',
+            'Specialist på vinrekommendationer och menypresentation – sålde 30% fler vinflaskor genom proaktiv försäljning (genomsnitt 15 flaskor/kväll)',
+            'Hanterar kassasystem Trivec dagligen för betalning, dricks och dagskassa (genomsnittlig omsättning 80 000 kr/helg)',
+            'Utbildar 3 nya servitörer i service, menykännedom och kassarutiner under introduktionsperiod',
+            'Tar emot bokningar via OpenTable och DinnerBooking – hanterar sittningsplanering för 100+ gäster på helger'
+          ]
+        },
+        {
+          titel: 'Servitris & Bartender',
+          arbetsgivare: 'Bistro Söder',
+          period: '2020 – 2022',
+          beskrivning: [
+            'Hanterade både bordsservice (30+ gäster per skift) och bardisk med alkoholservering enligt serveringstillstånd',
+            'Flexibel schemaläggning inkl. lunch, middag och helger för att säkerställa god bemanning under rusningar',
+            'Minskade kassakonflikter med 90% genom noggrann kassarutiner och daglig avstämning',
+            'Tog ansvar för allergenkännedom och matlagsinformation till gäster med särskilda kostbehov',
+            'Skapade positiva gästupplevelser vilket resulterade i 4.8/5.0 i genomsnitt på TripAdvisor under min anställning'
+          ]
+        },
+        {
+          titel: 'Servitris (Sommarjobb)',
+          arbetsgivare: 'Café Karlaplan',
+          period: '2019 – 2020',
+          beskrivning: [
+            'Självständigt ansvar för frukostservering och lunchbuffé med 50+ gäster dagligen',
+            'Hanterade kassasystem iZettle och Swish-betalningar (200+ transaktioner/dag)',
+            'Upprätthöll höga hygienrutiner enligt livsmedelshanteringsregler – noll anmärkningar vid inspektion',
+            'Utvecklade snabb serviceförmåga i högt tempo under lunch-rusningar (11:30-13:30)'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Hotell- och restaurangprogrammet',
+          skola: 'Restaurangakademin Stockholm',
+          period: '2017 – 2019',
+          beskrivning: 'Inriktning servering och gästbemötande. VFU på Grand Hôtel Stockholm.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Kassasystem: Trivec och iZettle (Expert, 4+ år)',
+          'Bokningssystem: OpenTable och DinnerBooking (Avancerad, 2+ år)',
+          'Serveringstillstånd – ansvarsfull alkoholservering',
+          'Vinkunskap och dryckesrekommendationer',
+          'Allergenkännedom och kosthållning',
+          'Menypresentation och merförsäljning'
+        ],
+        personliga: [
+          'Serviceinriktad och gästvänlig (4.8/5.0 på TripAdvisor)',
+          'Stresstålig i högt tempo (hanterar 50+ gäster under lunch-rush)',
+          'Teamplayer (utbildar 3 nya kollegor)',
+          'Uppmärksamhet på detaljer (90% minskning av kassakonflikter)'
+        ]
+      },
+
+      certifieringar: [
+        'Serveringstillstånd – ansvarsfull alkoholservering (2020)',
+        'Livsmedelshantering och hygien (2019)',
+        'Allergenkännedom (2022)',
+        'HLR och första hjälpen (förnyad 2023)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande' }
+      ]
+    },
+
+    viktigt: [
+      'Kvantifiera din service: Visa antal gäster, bordsomsättning, försäljningsresultat (t.ex. "Ökade vinförsäljning med 30%")',
+      'Nämn specifika system: Trivec, iZettle, OpenTable – rekryterare söker efter dessa nyckelord i ATS-system',
+      'Visa progression: Från café/sommarjobb till à la carte/fine dining eller från servering till mentorskap av nya kollegor'
+    ],
+
+    statistik: [
+      {
+        siffra: '85%',
+        text: 'av restauranger använder digitala kassasystem (Trivec, iZettle) – visa din kompetensnivå tydligt'
+      },
+      {
+        siffra: '22-28k',
+        text: 'SEK är medellön för servitris i Sverige (exkl. dricks) – erfarna på finare restauranger kan tjäna 30k+ plus dricks'
+      },
+      {
+        siffra: '70%',
+        text: 'av jobbannonser kräver serveringstillstånd och kassasystem-erfarenhet – lyft dessa tydligt i CV:t'
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Branschspecifika system som ATS-system söker efter',
+        text: `CV:t nämner specifika system som Trivec (kassasystem), OpenTable och DinnerBooking (bokningssystem) tillsammans med serveringstillstånd och allergenkännedom.
+
+Varför detta fungerar: Restaurangbranschen använder dessa system dagligen, och ATS-algoritmer söker efter exakt dessa termer. När du skriver "Trivec kassasystem" istället för bara "kassaerfarenhet" matchar du både jobbannonsens kravlista och de nyckelord rekryterare filtrerar på. Du visar omedelbart att du kan börja jobba utan omfattande systemutbildning.`
+      },
+      {
+        rubrik: 'Kvantifierbara resultat som visar omfattning och prestation',
+        text: `CV:t kvantifierar arbetsinsatser: 40-50 gäster per kväll, 20% ökad bordsomsättning, 30% fler vinflaskor sålda, och 4.8/5.0 på TripAdvisor-betyg.
+
+Varför detta fungerar: "Ansvarig för bordsservice" säger ingenting om omfattning eller kvalitet. "40-50 gäster per kväll" och "20% ökad bordsomsättning" visar att du hanterar högt tempo och faktiskt bidrar till restaurangens lönsamhet. Rekryterare vet att du kan hantera stress, sälja aktivt och leverera service som gör att gäster återkommer.`
+      },
+      {
+        rubrik: 'Teknisk kompetens balanserad med bevisad serviceförmåga',
+        text: `CV:t kombinerar tekniska färdigheter (Trivec, OpenTable, serveringstillstånd, allergenkännedom) med konkreta serviceresultat: merförsäljning av vin, positiva TripAdvisor-betyg och mentorskap för nya kollegor.
+
+Varför detta fungerar: Många skriver "serviceinriktad och gästvänlig" utan att bevisa det. Du visar service genom handling: 4.8/5.0 på TripAdvisor, proaktiv försäljning (30% fler vinflaskor), och förmåga att utbilda nya kollegor. Rekryterare ser att du förstår helheten – både den tekniska sidan och det mellanmänskliga.`
+      },
+      {
+        rubrik: 'Uppdaterade certifieringar som är lagkrav i branschen',
+        text: `CV:t listar serveringstillstånd (2020), livsmedelshantering (2019), allergenkännedom (2022) och HLR (förnyad 2023). Varje certifiering har årtal och tydlig koppling till arbetet.
+
+Varför detta fungerar: Serveringstillstånd är lagkrav för alkoholservering i Sverige. Genom att skriva "Serveringstillstånd (2020)" visar du att du uppfyller grundkravet omedelbart. Allergenkännedom är obligatoriskt enligt livsmedelslagstiftning – rekryterare vet att du kan jobba enligt lag från dag 1 utan att skickas på obligatoriska kurser.`
+      },
+      {
+        rubrik: 'Profiltext som säljer in kompetens på 10 sekunder',
+        text: `Profiltexten öppnar med "Erfaren servitris med 4+ års erfarenhet från à la carte-restauranger och finare matsalar. Specialist på gästbemötande, menypresentation och dryckesrekommendationer med gedigen vinkunskap."
+
+Varför detta fungerar: Första meningen avgör om rekryterare läser vidare. "4+ års erfarenhet från à la carte-restauranger, specialist på vinkunskap och menypresentation" visar omedelbart att du har erfarenhet från den typ av restaurang de söker till. ATS-system rankar CV:n som har nyckelord tidigt i dokumentet högre.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression från café till fine dining',
+        text: `Erfarenheten visar utveckling: från sommarjobb på café (frukost/lunch-buffé, 50+ gäster) till bistro med både servering och bar, och vidare till fine dining-restaurang med mentorskap, vinförsäljning och sittningsplanering för 100+ gäster.
+
+Varför detta fungerar: Många servitörer listar jobb utan att visa utveckling. Din progression från café (grundläggande service) till bistro (flexibel roll) till fine dining (specialiserad à la carte + mentorskap) visar att du inte bara stannat kvar – du har växt. Rekryterare ser att du är redo för mer ansvar.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera rätt nyckelord för din restaurangspecialisering',
+        text: `ATS-system söker efter specifika termer beroende på typ av restaurang. Identifiera vilka termer som återkommer i jobbannonsen och använd dem ordagrant i ditt CV.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av servering och kundkontakt på restaurang"
+
+✅ "4+ års erfarenhet av bordsservice på à la carte-restaurang med fokus på menypresentation, dryckesrekommendationer och merförsäljning. Hanterar kassasystem Trivec dagligen och bokningssystem OpenTable."
+
+Om arbetsgivaren söker "erfarenhet av fine dining", använd exakt den formuleringen för att matcha ATS-filtret.`
+      },
+      {
+        rubrik: 'Kvantifiera din service med konkreta siffror',
+        text: `Konkreta siffror gör ditt CV mer trovärdigt och jämförbart. Transformera vaga påståenden till mätbara fakta genom att specificera antal gäster, bordsomsättning och försäljningsresultat.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för bordsservice"
+
+✅ "Hanterade bordsservice för 40-50 gäster per kväll på à la carte-restaurang med 60 sittplatser. Ökade bordsomsättning med 20% genom effektiv bordsplanering under högsäsong."
+
+Nämn specifika detaljer som stärker din erfarenhet: antal gäster per skift, genomsnittlig omsättning, eller försäljningsökningar du bidragit till.`
+      },
+      {
+        rubrik: 'Visa konkreta resultat från ditt arbete',
+        text: `Rekryterare vill se vad du åstadkommit, inte bara vad du varit ansvarig för. Fokusera på resultat och effekter av ditt arbete istället för att lista rutinuppgifter.
+
+**Exempel på före/efter**:
+
+❌ "Tog emot beställningar och serverade mat och dryck"
+
+✅ "Ökade vinförsäljning med 30% genom proaktiva dryckesrekommendationer (genomsnitt 15 flaskor/kväll). Skapade minnesvärda gästupplevelser vilket resulterade i 4.8/5.0 på TripAdvisor."
+
+Detta demonstrerar merförsäljning och förmåga att skapa positiva gästupplevelser.`
+      },
+      {
+        rubrik: 'Anpassa profiltext efter jobbannonsen',
+        text: `Din profiltext bör skräddarsys för varje jobb du söker. Om jobbannonsen söker "servitris med erfarenhet av fine dining och vinkunskap", börja med den specialiseringen.
+
+**Exempel på före/efter**:
+
+❌ "Serviceinriktad servitris som gillar att jobba med människor"
+
+✅ "Erfaren servitris med 4+ års erfarenhet från à la carte-restauranger och finare matsalar. Specialist på gästbemötande, menypresentation och dryckesrekommendationer med gedigen vinkunskap."
+
+Inkludera alltid antal års erfarenhet, typ av restaurang och 1-2 specialiseringar som matchar jobbannonsen.`
+      },
+      {
+        rubrik: 'Lyft fram certifieringar som är lagkrav eller meriterande',
+        text: `Serveringstillstånd, livsmedelshantering och allergenkännedom är ofta lagkrav eller grundkrav för anställning. Lyft dessa tydligt i en dedikerad sektion med årtal.
+
+**Exempel på före/efter**:
+
+❌ "Har gått kurs i livsmedelshantering"
+
+✅ "Serveringstillstånd – ansvarsfull alkoholservering (2020), Livsmedelshantering och hygien (2019), Allergenkännedom (2022), HLR och första hjälpen (förnyad 2023)"
+
+Årtal visar att certifieringarna är aktuella. Om certifieringen förnyas, skriv "förnyad 2023" för att visa att den är uppdaterad.`
+      },
+      {
+        rubrik: 'Visa progression och utveckling i din karriär',
+        text: `Rekryterare söker kandidater som utvecklas och tar på sig mer ansvar över tid. Strukturera dina erfarenheter så att progression blir synlig.
+
+**Exempel på före/efter**:
+
+❌ Lista bara arbetsuppgifter utan att visa utveckling
+
+✅ "2019-2020: Café (sommarjobb, 50+ gäster) → 2020-2022: Bistro (bordsservice + bar, alkoholservering) → 2022-Nu: Fine dining (à la carte, vinrekommendationer, mentorskap för 3 nya kollegor)"
+
+Varje roll visar ökad komplexitet: fler gäster, mer avancerade system och specialisering. Detta bevisar att du är redo för nästa steg.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur skriver jag ett bra CV som servitris utan erfarenhet?',
+        svar: 'Fokusera på transferable skills från andra jobb eller studier: kundkontakt från butik, stresshantering från sommarjobb, eller lagarbete från idrott. Lyft fram utbildning (Hotell- och restaurangprogrammet eller VFU), eventuella certifieringar (serveringstillstånd, livsmedelshantering), och dina personliga egenskaper (serviceinriktad, stresstålig, lagspelare). Använd profiltexten för att sälja in motivation och potential.'
+      },
+      {
+        fraga: 'Vilka kompetenser ska jag inkludera i mitt CV som servitris?',
+        svar: 'Inkludera både tekniska och personliga kompetenser. Tekniska: kassasystem (Trivec, iZettle), bokningssystem (OpenTable), serveringstillstånd, allergenkännedom, vinkunskap. Personliga: serviceinriktad, stresstålig, lagspelare, uppmärksamhet på detaljer. Viktigt: Backa upp personliga egenskaper med konkreta exempel i erfarenhetsbeskrivningarna (t.ex. "Stresstålig – hanterade 50+ gäster under lunch-rush").'
+      },
+      {
+        fraga: 'Ska jag skriva serveringstillstånd i CV:t eller personligt brev?',
+        svar: 'Båda! Skriv serveringstillstånd i CV:t under en dedikerad sektion "Certifieringar" med årtal. Nämn det även kort i profiltexten om jobbet kräver alkoholservering. I personligt brev kan du berätta mer om hur du tillämpar ansvarsfull alkoholservering i praktiken. Serveringstillstånd är ofta ett lagkrav – genom att lyfta det tydligt i CV:t passerar du ATS-systemets första screening.'
+      },
+      {
+        fraga: 'Vilka kassasystem ska jag kunna som servitris?',
+        svar: 'De vanligaste kassasystemen inom svensk restaurangbransch är Trivec (störst marknadsandel), iZettle (mindre restauranger och caféer), Extenda och Sitoo. Nämn de system du faktiskt har använt med antal års erfarenhet (t.ex. "Trivec (4+ år daglig användning)"). Inkludera även betalningsmetoder som Swish, kortbetalning och kontanthantering.'
+      },
+      {
+        fraga: 'Hur beskriver jag gästbemötande på ett CV?',
+        svar: 'Visa gästbemötande genom konkreta resultat istället för att bara skriva "bra på gästbemötande". Exempel: "Skapade minnesvärda gästupplevelser vilket resulterade i 4.8/5.0 på TripAdvisor", "Tog ansvar för allergenkännedom till gäster med särskilda kostbehov", eller "Byggde stamgästrelationer – 30% av mina bord var återkommande gäster".'
+      }
+    ],
+
+    kategori: 'service',
+    relaterade: [
+      { yrke: 'Butiksbiträde', slug: 'butiksbitrade' },
+      { yrke: 'Receptionist', slug: 'receptionist' },
+      { yrke: 'Bartender', slug: 'bartender' }
+    ]
+  },
+
   'kurator': {
     yrke: 'Kurator',
     sokvolym: 1200,
