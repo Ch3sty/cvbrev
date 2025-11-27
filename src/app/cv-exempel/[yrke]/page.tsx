@@ -3011,40 +3011,40 @@ Använd exemplet som inspiration för ditt eget lärar-CV och anpassa det efter 
 
     varforDetFungerar: [
       {
-        rubrik: 'Lärarlegitimation och behörighet syns direkt i titeln',
-        text: `Legitimationen placeras högst upp i CV:t med tydlig referens till behörighetsområden (svenska och SO, årskurs F-6).
+        rubrik: 'Branschspecifika nyckelord som rekryterare letar efter',
+        text: `CV:t innehåller kritiska sökord som rektorer och skoladministratörer söker efter: lärarlegitimation, ämnesbehörighet, Lgr 22, differentieringspedagogik, formativ bedömning, Google Classroom och Unikum. Dessa termer är standardiserade i svenska skolan och gör att CV:t lätt hittas i rekryteringssystem.
 
-Varför detta fungerar: Rektorer och skolchefer filtrerar bort obehöriga kandidater direkt – särskilt efter skärpta legitimationskrav. Genom att visa "Legitimerad grundskollärare F-6 med behörighet i svenska och SO" i titeln slipper rekryteraren leta efter informationen. Det signalerar också att du förstår att formella behörigheter är avgörande för anställningsbarhet i svensk skola.`
+Varför detta fungerar: ATS-system som skolor använder letar efter exakta matchningar. Om jobbannonsen skriver "legitimerad lärare i svenska och engelska" och du använder samma formulering, rankas ditt CV högre. Att nämna Lgr 22 (nya läroplanen från 2022) visar att du är uppdaterad, och digitala verktyg som Google Classroom och Unikum visar att du kan börja undervisa direkt utan omfattande introduktion.`
       },
       {
-        rubrik: 'Kvantifierade resultat som visar pedagogisk påverkan',
-        text: `CV:t innehåller konkreta siffror som "18% förbättring i nationella prov", "75 elever årligen" och "100+ digitala lektionsresurser".
+        rubrik: 'Konkreta siffror istället för "ansvarig för undervisning"',
+        text: `Istället för vaga beskrivningar som "ansvarig för undervisning i svenska" visar CV:t mätbara resultat: "Klasslärare för 25 elever (åk 8)", "Undervisning i 3 parallellklasser (totalt 65 elever)" och "Förbättrade läsförståelse i klassen med 30% (nationella prov 2022-2023)".
 
-Varför detta fungerar: De flesta lärar-CV:n beskriver arbetsuppgifter utan att visa resultat. När du kvantifierar din påverkan – hur många elever du undervisat, hur mycket provresultaten förbättrats, hur många kollegor du handlett – sticker du ut. Rektorer vill veta att du levererar mätbara resultat, inte bara att du "undervisar".`
+Varför detta fungerar: Rektorer läser hundratals CV:n där alla skriver "ansvarig för undervisning". Siffror skiljer dig åt och visar pedagogisk effektivitet. När du kan visa konkreta resultat från nationella prov eller nämner klasstorleksangivelse visar det att du arbetat med realistisk arbetsbelastning. Det ger rekryteraren något konkret att fråga om under intervjun istället för att gissa vad "ansvarig för undervisning" egentligen innebär.`
       },
       {
-        rubrik: 'Balans mellan pedagogisk kompetens och mjuka färdigheter',
-        text: `CV:t kombinerar teknisk skicklighet (Lgr22, Google Classroom, formativ bedömning) med ledarskap, relationsskapande och elevfokus.
+        rubrik: 'Pedagogiska metoder och digitala verktyg med bevis',
+        text: `CV:t listar både pedagogiska metoder (differentieringspedagogik, formativ bedömning, IUP) och digitala verktyg (Google Classroom, Unikum, Kahoot, Smartboard). Men det stannar inte där – varje färdighet backas upp med exempel: "Differentierad undervisning för elever med läs- och skrivsvårigheter: extra anpassningar och IUP för 5 elever" och "Digitaliserad undervisning med Google Classroom och Kahoot vilket ökade elevengagemang".
 
-Varför detta fungerar: Rektorer söker lärare som både behärskar ämnet och kan leda ett klassrum. Ett CV som bara listar kurser och verktyg saknar den mänskliga dimensionen. Genom att visa "mentorsansvar för 25 elever" och "hög närvaro på utvecklingssamtal" bevisar du att du bygger relationer – något som separerar bra lärare från utmärkta.`
+Varför detta fungerar: Att bara lista "pedagogisk, engagerad, kreativ" säger ingenting. Genom att visa HUR du använt metoderna i praktiken blir dina färdigheter trovärdiga. Skolor söker lärare som kan kombinera pedagogisk kunskap med digital kompetens – och bevisa det genom resultat.`
       },
       {
-        rubrik: 'ATS-optimerade nyckelord som matchar jobbannonser',
-        text: `CV:t använder branschspecifika termer som "formativ bedömning", "IUP", "extra anpassningar", "Läslyftet" och "elevhälsoteam".
+        rubrik: 'Lärarlegitimation och fortbildning som trovärdighetsmarkör',
+        text: `CV:t har en dedikerad sektion för lärarlegitimation och fortbildningar: "Legitimerad lärare i svenska och engelska (åk 7-9)", "Ämnesbehörighet: Svenska (åk 7-9), Engelska (åk 7-9)" och "Fortbildning: Lgr 22 (2023), Formativ bedömning (2022), Digital kompetens (2024)".
 
-Varför detta fungerar: Svenska kommuner och skolkoncerner använder ATS-system som filtrerar CV:n efter nyckelord. Om ditt CV saknar termer som "individuella utvecklingsplaner" eller "åtgärdsprogram" kan du sorteras bort innan en människa ens ser din ansökan. Det här CV:t inkluderar rätt terminologi utan att kännas konstlat.`
+Varför detta fungerar: Lärarlegitimation är krav för de flesta grundskole- och gymnasietjänster. Att visa detta tydligt och tidigt sparar tid för rekryteraren. Att inkludera fortbildningar med årtal – särskilt Lgr 22 (nya läroplanen) – visar att du är uppdaterad och tar din profession på allvar. Det signalerar lärvilja och professionell utveckling, inte bara "jag tog min examen och sedan slutade jag lära mig nytt".`
       },
       {
-        rubrik: 'Tydlig karriärprogression från VFU till handledarroll',
-        text: `CV:t visar en logisk utveckling: sommarlägerledare → grundskollärare F-3 → grundskollärare F-6 med handledaransvar för VFU-studenter.
+        rubrik: 'Profiltext som sammanfattar styrkor på 4 meningar',
+        text: `Den inledande profiltexten ger en komplett bild av din kompetens: "Legitimerad lärare i svenska och engelska med 6+ års erfarenhet från grundskola och gymnasiet. Specialist på differentieringspedagogik och formativ bedömning, med gedigen kunskap i Google Classroom, Unikum och digitala undervisningsverktyg. Engagerad klassrumsledare som brinner för att ge elever trygg och stimulerande lärmiljö där alla kan utvecklas."
 
-Varför detta fungerar: Rektorer vill se att du växer i yrket och tar mer ansvar över tid. Att gå från "undervisade elever" till "handleder nyexaminerade lärare" visar att du utvecklat din kompetens tillräckligt för att lära ut den till andra. Det signalerar också att tidigare arbetsgivare litat på dig med utökade uppdrag.`
+Varför detta fungerar: Rektorer läser ofta bara profiltexten och rubriker först. Om de ser att du har rätt ämnesbehörighet, rätt erfarenhet och rätt digitala färdigheter redan i första stycket, fortsätter de läsa. Detta gör att du sticker ut bland de 50 andra CV:n där första meningen är "driven och engagerad lärare med god kommunikationsförmåga".`
       },
       {
-        rubrik: 'Modern digital kompetens som matchar skolans digitalisering',
-        text: `CV:t lyfter fram Google Classroom, Skolplus, Bingel, Unikum, Infomentor och Google Certified Educator Level 1.
+        rubrik: 'Tydlig progression från grundskola till gymnasiet',
+        text: `Arbetslivserfarenheten visar en naturlig karriärprogression: Klasslärare på grundskolan (åk 8, 25 elever, 2018-2021) → Ämneslärare på gymnasiet (3 parallellklasser, 65 elever, 2021-pågående). Dessutom nämns mentorskap: "Handleder VFU-studenter från lärarutbildningen (2-3 studenter årligen)" och "Deltar i kollegialt lärande med 4 kollegor".
 
-Varför detta fungerar: Digitalisering är en av skolans största utmaningar. Lärare som kan använda digitala verktyg effektivt är eftertraktade – särskilt efter pandemins distansundervisning. Genom att lista specifika plattformar och en certifiering visar du att du inte bara "kan data" utan aktivt utvecklat din digitala kompetens.`
+Varför detta fungerar: Progression visar att du vuxit i yrket och tagit på dig mer ansvar. Att nämna VFU-handledning och kollegialt lärande visar att du är en seniorroll som kan ta mentorsansvar. Detta är särskilt värdefullt för tjänster som kräver mentorskap, förstelärare-uppdrag eller ledarskap. Det skiljer dig från de som bara "gjort samma jobb i 10 år" utan att utvecklas.`
       }
     ],
 
