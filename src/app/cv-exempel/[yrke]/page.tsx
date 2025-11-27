@@ -5071,6 +5071,221 @@ Det första är ett påstående. Det andra bevisar hur du faktiskt jobbar med f�
       { yrke: 'Lärare', slug: 'larare' },
       { yrke: 'Fritidspedagog', slug: 'fritidspedagog' }
     ]
+  },
+
+  'personlig-assistent': {
+    metaTitle: 'CV Personlig Assistent: Exempel & Mall 2025 (LSS)',
+    metaDescription: 'Se hur ett starkt CV för personlig assistent ska se ut. Exempeltext, LSS-terminologi och ATS-anpassade formuleringar. Gratis mall för assistansyrket.',
+    title: 'CV-exempel Personlig Assistent',
+    subtitle: 'Se exakt hur ett professionellt CV för personlig assistent ska se ut – med LSS-terminologi, kvantifierbara resultat och ATS-optimering som får dig till intervju.',
+
+    introText: `Som personlig assistent konkurrerar du med kandidater som alla skriver "empatisk och flexibel". Det räcker inte. Arbetsgivare inom LSS och assistansbolag vill se konkreta bevis på att du kan möta brukares unika behov – inte generiska adjektiv.
+
+Det här CV-exemplet visar hur Emma Svensson framhäver sina 5 års erfarenhet med LSS-specifik terminologi, mätbara resultat (60% minskad stressnivå, 12 nya fritidskontakter) och branschverktyg som Laps Care. Samma principer fungerar oavsett om du söker till Humana, Frösunda eller kommunal assistans.
+
+De tre sakerna som skiljer ett framgångsrikt personlig assistent-CV från ett mediokert: rätt LSS-terminologi som passerar ATS-filter, kvantifierbara resultat som bevisar din påverkan, och certifieringar med årtal som visar aktualitet.`,
+
+    exempelCV: {
+      namn: 'Emma Svensson',
+      titel: 'Personlig Assistent',
+      profil: 'Engagerad personlig assistent med 5 års erfarenhet inom LSS och brukarstyrd assistans. Specialiserad på stöd för brukare med NPF och fysiska funktionsvariationer. Dokumenterad förmåga att bygga långvariga relationer, minska stressnivåer (60%) och utöka brukares sociala nätverk med 12 nya fritidskontakter. Certifierad i HLR, lyftteknik och medicindelning. B-körkort.',
+      erfarenheter: [
+        {
+          titel: 'Personlig Assistent',
+          företag: 'Humana Assistans AB',
+          period: '2020 – nu',
+          beskrivning: 'Brukarstyrd assistans för vuxen med ryggmärgsskada och autism (NPF). Ansvar för dagliga rutiner, medicinhantering och samhällsaktiviteter.',
+          punkter: [
+            '60% minskad stressnivå genom implementering av visuellt veckoschema och förberedande kommunikation',
+            '12 nya fritidskontakter genom strukturerat nätverksbyggande under 2 år',
+            '15-20 personförflyttningar dagligen med taklyft och manuella lyfttekniker utan arbetsskador',
+            'Administrerar medicin enligt delegering och dokumenterar i Laps Care'
+          ]
+        },
+        {
+          titel: 'Vårdbiträde',
+          företag: 'Solängens äldreboende',
+          period: '2018 – 2020',
+          beskrivning: 'Grundläggande omvårdnad för äldre med demensdiagnos.',
+          punkter: [
+            '25 brukare per vecka med ADL-stöd och medicinpåminnelse',
+            'Dokumentation i Procapita och levnadsberättelser',
+            'Del av demensteam med validationsmetodik'
+          ]
+        }
+      ],
+      utbildningar: [
+        {
+          namn: 'Vård- och omsorgsprogrammet',
+          skola: 'Praktiska Gymnasiet',
+          period: '2016 – 2018'
+        }
+      ],
+      färdigheter: [
+        'LSS & brukarstyrd assistans',
+        'Laps Care dokumentation',
+        'Taklyft & manuell lyftteknik',
+        'NPF-anpassad kommunikation',
+        'Bildstöd & talsyntes',
+        'Medicinhantering (delegering)',
+        'B-körkort'
+      ],
+      certifieringar: [
+        'HLR vuxen + barn (2024)',
+        'Första hjälpen (2023)',
+        'Lyftteknik & förflyttning (2022)',
+        'Medicindelegering (2021)',
+        'B-körkort (2019)'
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-system känner igen LSS-terminologi direkt',
+        text: `CV:t nämner specifika begrepp som "brukarstyrd assistans enligt LSS", "NPF" och "kommunikationsstöd med bildstöd och talsyntes" tillsammans med verktyget Laps Care.
+
+Varför detta fungerar: Personlig assistans-branschen använder mycket specifik terminologi som skiljer sig från äldreomsorg och hemtjänst. ATS-system hos Humana, Frösunda och kommunala enheter söker efter exakt dessa termer. När du skriver "brukarstyrd assistans" istället för bara "personlig assistent" visar du branschkunnighet och passerar automatiska filter som sorterar bort generiska CV:n.`
+      },
+      {
+        rubrik: 'Kvantifierbara resultat som mäter livskvalitet',
+        text: `Emma visar konkreta siffror: "60% minskad stressnivå", "12 nya fritidskontakter", "15-20 personförflyttningar dagligen utan arbetsskador".
+
+Varför detta fungerar: Inom assistans är resultat ofta svåra att mäta, men Emma har hittat sätt att kvantifiera sin påverkan på brukarens liv. Att stressnivån minskat 60% bevisar att hennes metoder fungerar. Att hon utfört tusentals lyft utan skador visar säkerhetstänk. Rekryterare ser direkt att hon levererar mätbar skillnad – inte bara "är där".`
+      },
+      {
+        rubrik: 'Certifieringar med årtal visar aktualitet',
+        text: `CV:t listar certifieringar med specifika år: "HLR vuxen + barn (2024)", "Medicindelegering (2021)", "Lyftteknik (2022)".
+
+Varför detta fungerar: Arbetsgivare behöver veta att dina certifikat är giltiga. HLR kräver förnyelse vartannat år, medicindelegering varierar mellan kommuner. Genom att visa årtal slipper rekryteraren fråga "är detta fortfarande giltigt?" och du framstår som organiserad och uppdaterad. Gamla certifikat utan datum skapar tvivel.`
+      },
+      {
+        rubrik: 'Specialkompetens inom NPF tydligt framhävd',
+        text: `Profiltexten nämner specifikt "NPF" (neuropsykiatriska funktionsnedsättningar) och CV:t visar konkreta metoder: visuellt schema, förberedande kommunikation, bildstöd.
+
+Varför detta fungerar: NPF-kompetens är eftertraktad då många brukare har autism, ADHD eller liknande diagnoser. Genom att nämna specifika anpassningsmetoder visar Emma att hon förstår målgruppen på djupet – inte bara har "arbetat med NPF" utan faktiskt vet vilka strategier som fungerar. Detta skiljer henne från kandidater med ytlig erfarenhet.`
+      },
+      {
+        rubrik: 'Tekniska hjälpmedel dokumenterade konkret',
+        text: `CV:t nämner specifika verktyg: "Laps Care", "taklyft", "bildstöd och talsyntes", "Procapita".
+
+Varför detta fungerar: Assistansbolag investerar i specifika system och hjälpmedel. När du visar att du redan kan Laps Care (branschens vanligaste dokumentationssystem) behöver de inte utbilda dig. Taklyft och förflyttningskunskap minskar risken för arbetsskador. Konkreta verktygsnamn slår "god datorvana" varje gång.`
+      },
+      {
+        rubrik: 'B-körkort strategiskt placerat',
+        text: `Körkortet finns både i profiltexten och i färdighetslistan, synligt utan att dominera.
+
+Varför detta fungerar: De flesta personlig assistent-tjänster kräver körkort för att kunna följa brukaren till aktiviteter, läkarbesök och sociala sammanhang. Genom att nämna det i profilen fångar du rekryterarens öga direkt – de slipper leta. Samtidigt tar det inte över CV:t eftersom det är en av många kompetenser, inte den enda.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Använd LSS-specifik terminologi konsekvent',
+        text: `Personlig assistans regleras av LSS (Lagen om stöd och service) och har egen terminologi. Att använda rätt begrepp visar att du förstår branschens juridiska och praktiska ramar.
+
+**Exempel på före/efter**:
+
+❌ "Hjälpt funktionshindrade med dagliga sysslor"
+
+✅ "Brukarstyrd assistans enligt LSS för vuxen med fysisk funktionsvariation. Stöd vid ADL, samhällsaktiviteter och social delaktighet"
+
+LSS-terminologi som "brukarstyrd", "funktionsvariation" och "social delaktighet" visar att du är insatt i branschens värdegrund och regelverk.`
+      },
+      {
+        rubrik: 'Kvantifiera din påverkan på brukarens livskvalitet',
+        text: `Inom assistans är "mjuka" resultat lika viktiga som medicinska. Räkna fram hur du påverkat brukarens vardag, sociala liv och självständighet.
+
+**Exempel på före/efter**:
+
+❌ "Hjälpte brukaren med fritidsaktiviteter"
+
+✅ "Utökade brukarens sociala nätverk från 3 till 15 kontakter genom strukturerat aktivitetsstöd. 4 nya regelbundna fritidsaktiviteter under 18 månader"
+
+Siffror bevisar att du inte bara "är med" utan aktivt förbättrar brukarens liv. Rekryterare ser direkt vilken skillnad du kan göra.`
+      },
+      {
+        rubrik: 'Lista certifieringar med årtal och giltighetstid',
+        text: `HLR, medicindelegering och lyftteknik har begränsad giltighet. Visa att dina certifikat är aktuella genom att ange årtal.
+
+**Exempel på före/efter**:
+
+❌ "HLR-utbildad, kan ge medicin, lyftutbildning"
+
+✅ "HLR vuxen + barn, Röda Korset (2024, giltigt t.o.m. 2026)
+Medicindelegering, Region Stockholm (2023)
+Lyftteknik & förflyttning, Praktikertjänst (2022)"
+
+Årtal visar att du är uppdaterad. Utgångna certifikat kan vara diskvalificerande – särskilt för medicindelegering.`
+      },
+      {
+        rubrik: 'Beskriv dokumentationssystem du behärskar',
+        text: `Assistansbolag använder specifika system för tidrapportering och journalföring. Visa att du kan verktygen de använder.
+
+**Exempel på före/efter**:
+
+❌ "God datorvana och dokumentation"
+
+✅ "Daglig dokumentation i Laps Care: insatser, avvikelser och medicinrapportering. Tidigare erfarenhet av Procapita och TES"
+
+Specifika systemnamn visar att du kan börja arbeta utan lång inskolning. "God datorvana" säger ingenting.`
+      },
+      {
+        rubrik: 'Framhäv körkortsinnehav tidigt och tydligt',
+        text: `De flesta personlig assistent-tjänster kräver B-körkort. Gör det synligt direkt – rekryteraren ska inte behöva leta.
+
+**Exempel på före/efter**:
+
+❌ [Körkort nämns inte eller finns längst ner]
+
+✅ Profiltexten: "...B-körkort med vana att köra brukare till aktiviteter och vårdbesök"
+
+Färdighetslistan: "B-körkort (2019)"
+
+Körkortet ska synas både i profilen och i en kompetenssektion. Många rekryterare filtrerar bort kandidater utan körkort redan i första gallringen.`
+      },
+      {
+        rubrik: 'Anpassa CV till specifik målgrupp när möjligt',
+        text: `Assistans varierar enormt: fysisk funktionsvariation, NPF, psykisk ohälsa, barn eller vuxna. Lyft erfarenhet som matchar tjänsten.
+
+**Exempel på anpassning**:
+
+Söker NPF-tjänst: "3 års erfarenhet av brukarstyrd assistans för vuxen med autism. Implementerade visuella scheman och lågaffektivt bemötande vilket minskade stressnivån 60%"
+
+Söker fysisk assistans: "5 års erfarenhet av assistans för brukare med ryggmärgsskada. 15-20 förflyttningar dagligen med taklyft. Certifierad lyftteknik utan arbetsskador"
+
+Samma assistent kan ha båda erfarenheterna – men betonar olika saker beroende på vad tjänsten kräver.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Vad ska jag skriva om jag aldrig använt Laps Care?',
+        svar: 'Skriv de system du faktiskt kan (Procapita, TES, Phoniro, journalsystem). Lägg till "Snabb att lära nya dokumentationssystem" och ge exempel på när du lärt dig ny programvara snabbt. Olika assistansbolag använder olika system – huvudsaken är att du förstår vikten av dokumentation och kan hantera digitala verktyg. Var ärlig; att ljuga om systemkunskap avslöjas under första arbetsdagen.'
+      },
+      {
+        fraga: 'Hur skriver jag CV om jag bara haft en brukare?',
+        svar: 'En långvarig relation är en styrka, inte svaghet. Framhäv djupet: "5 års kontinuerlig assistans för samma brukare" visar stabilitet och förmåga att bygga förtroende. Beskriv hur du utvecklats i rollen, vilka nya kompetenser du lärt dig (kanske lyftteknik, medicindelegering, nya kommunikationsmetoder). Lyft specifika resultat du uppnått under åren. Arbetsgivare uppskattar lojalitet inom assistans.'
+      },
+      {
+        fraga: 'Behöver jag HLR-certifikat för att bli personlig assistent?',
+        svar: 'De flesta seriösa arbetsgivare kräver det, antingen vid anställning eller inom provanställningstiden. Om du inte har HLR, skriv "HLR-utbildning bokad [månad]" om du planerat kurs. Det visar initiativ. Utan HLR-certifikat riskerar du att sorteras bort tidigt, särskilt hos större assistansbolag med strikta säkerhetsrutiner. Prioritera att ta certifikatet innan du börjar söka aktivt.'
+      },
+      {
+        fraga: 'Ska jag nämna att jag har egen erfarenhet av NPF eller funktionsvariation?',
+        svar: 'Det är frivilligt och beror på din komfortnivå. Om du väljer att nämna det, koppla till professionell kompetens: "Egen erfarenhet av autism ger djup förståelse för sensorisk känslighet och behov av förutsägbarhet". Det kan vara en styrka, men du är inte skyldig att dela personlig information. Fokusera på vad du kan bidra med professionellt oavsett om du nämner egen erfarenhet eller inte.'
+      },
+      {
+        fraga: 'Hur hanterar jag luckor i CV:t från perioder utan arbete?',
+        svar: 'Inom assistans är luckor vanliga – uppdrag tar slut när brukares situation förändras. Var ärlig: "Assistansuppdrag avslutades då brukaren flyttade till gruppboende" eller "Sökte nytt uppdrag som matchade min specialisering inom NPF". Om du vidareutbildade dig under luckan (HLR-förnyelse, kurser), lyft det. Rekryterare inom assistans förstår branschens natur med tidsbegränsade uppdrag.'
+      }
+    ],
+
+    kategori: 'vard-omsorg',
+    relaterade: [
+      { yrke: 'Undersköterska', slug: 'underskoterska' },
+      { yrke: 'Vårdbiträde', slug: 'vardbatrade' },
+      { yrke: 'Barnskötare', slug: 'barnskotare' }
+    ]
   }
 }
 
