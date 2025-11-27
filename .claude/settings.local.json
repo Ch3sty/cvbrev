@@ -16,7 +16,8 @@
       "Bash(Select-String -Pattern \"(error|Error|✓|✗|Page|Route|Generating|student)\")",
       "Bash(dir:*)",
       "Bash(findstr:*)",
-      "Bash(Select-String -Pattern \"(error|Error|✓|✗|Page|Route|Generating|successfully)\")"
+      "Bash(Select-String -Pattern \"(error|Error|✓|✗|Page|Route|Generating|successfully)\")",
+      "Bash(Select-String -Pattern \"(error|Error|✓|✗|Page|Route|Generating|ekonomiassistent)\")"
     ],
     "deny": [],
     "ask": []
