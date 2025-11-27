@@ -4929,27 +4929,39 @@ Använd detta som mall när du skapar ditt eget CV. Byt ut Annas erfarenheter mo
     varforDetFungerar: [
       {
         rubrik: 'ATS-optimerad struktur med branschspecifika nyckelord',
-        text: `CV:t använder exakt de termer som förskoleledare söker efter: "barngrupp", "inskolning", "Lpfö 18", "dokumentation", "språkutveckling". När en förskolechef laddar upp jobbannonsen i sitt rekryteringssystem letar ATS:en efter dessa specifika ord. Saknas de sorteras ditt CV bort innan någon människa läser det. Här är nyckelorden placerade naturligt i rätt sektioner – inte som "keyword stuffing" utan som faktiska arbetsbeskrivningar. Systemverktygen (Unikum, Tyra, IST) står både under Kompetenser och i löptext, vilket ökar träffsäkerheten. Certifieringarna använder officiella namn som ATS:en känner igen.`
+        text: `CV:t kombinerar pedagogiska verktyg som Unikum och Tyra med läroplansterminologi (Lpfö 18) och konkreta kompetenser som TAKK, inskolning och allergihantering. Varje arbetsupplevelse nämner både mjuka färdigheter (konflikthantering, föräldrakommunikation) och hårda systemkunskaper.
+
+Varför detta fungerar: Förskolor använder Unikum dagligen för dokumentation, och ATS-system söker efter exakt dessa termer. När du skriver "Unikum" och "Lpfö 18" istället för bara "dokumentation" matchar du både jobbannonsens kravlista och de nyckelord som förskolechefer filtrerar på. Du visar att du kan börja jobba direkt utan lång introduktion i systemen.`
       },
       {
         rubrik: 'Kvantifierbara resultat som visar din påverkan',
-        text: `Skillnaden mellan "ansvarade för barngrupp" och "18 barn (3-5 år) med 8 inskolningar/år" är enorm för rekryterare. Det första säger ingenting – alla barnskötare ansvarar för barngrupper. Det andra visar exakt vad du hanterar. Siffror som "12 av 15 barn förbättrad språkförståelse" eller "30% minskning konflikter efter TAKK-implementering" bevisar att du faktiskt påverkar barnens utveckling. Förskoleledare får hundratals CV där alla skriver "engagerad" och "social". De som anställs är de som kan bevisa sitt påstående med konkreta exempel. Noll allergiska incidenter under 2 år talar högre än "noggrann med rutiner".`
+        text: `CV:t innehåller konkreta siffror: 40% förbättrad föräldrakommunikation, 12 av 15 barn förbättrad språkförståelse, 30% minskning av konflikter, 8 inskolningar per år med 2 veckors genomsnitt mot kommunens mål på 3 veckor. Noll allergiska incidenter på 2 år.
+
+Varför detta fungerar: De flesta barnskötare skriver "ansvarig för inskolning" utan att visa resultatet. När du visar att dina inskolningar tar 2 veckor istället för kommunsnittet på 3, bevisar du att du faktiskt är skicklig på det du påstår dig kunna. Förskolechefer får hundratals CV med "bra med barn" – men du visar 12 av 15 barn som förbättrade sin språkförståelse genom dina insatser.`
       },
       {
         rubrik: 'Balans mellan omsorgskompetens och systemkunskap',
-        text: `Många CV för barnskötare blir "buzzword bingo": social, flexibel, omtänksam, empatisk. Problemet? Alla skriver samma sak och ingen kan bevisa det. Detta CV visar omsorgskompetens genom konkreta exempel: "trygghetsskapande och lyhörd" backas upp av 8 lyckade inskolningar med 2 veckors genomsnitt. "Meningsfulla relationer med föräldrar" bevisas genom 40% förbättrad kommunikation via Unikum. Samtidigt visas teknisk kompetens genom systemkunskap (Unikum 4+ år) och pedagogiska verktyg (TAKK, språkutvecklande arbetssätt). Förskoleledare behöver båda delarna – någon som både skapar trygghet och kan dokumentera enligt kommunens krav.`
+        text: `Varje arbetsupplevelse innehåller både relationella färdigheter (föräldrasamtal, konflikttänkande, inskolning) och teknisk kompetens (Unikum 4+ år, Tyra, IST-dokumentation, avvikelserapportering). CV:t visar att du behärskar både den pedagogiska omsorgen och den administrativa vardagen.
+
+Varför detta fungerar: Moderna förskolor behöver barnskötare som både kan trösta ett gråtande barn och dokumentera dagen i Unikum innan arbetspasset är slut. Många sökande fokuserar bara på omsorg eller bara på system. Du visar att du klarar båda – vilket betyder mindre stress för arbetslaget och färre missade dokumentationskrav från kommunen.`
       },
       {
         rubrik: 'Certifieringar och utbildningar som trovärdighetsmarkör',
-        text: `Första hjälpen barn och HLR (2024), Allergi- och astmautbildning (2023), TAKK Grundkurs (2020) – dessa är inte "nice to have" utan kravmarkörer. Många förskolor kräver giltigt HLR-cert, och allergikompetens är avgörande när du hanterar barn med livshotande allergier. Att datum står med visar att certifieringarna är aktuella, inte 8 år gamla. TAKK-utbildningen förklarar varför konflikterna minskade med 30% – du hade verktyg, inte bara "bra barnkänsla". Hygienrutiner och smittskydd (2022) blev extra relevant efter pandemin. Dessa certifieringar skiljer dig från de 40 andra sökande som saknar dem.`
+        text: `CV:t listar fyra uppdaterade certifieringar: Första hjälpen barn och HLR (2024), Allergi- och astmautbildning (2023), TAKK Grundkurs (2020), Hygienrutiner och smittskydd (2022). Alla är relevanta för förskola och visar kontinuerlig kompetensutveckling.
+
+Varför detta fungerar: Förskolechefer letar efter sökande som tar säkerhet på allvar. När du visar att din HLR-utbildning är förnyad 2024 och att du har specifik allergikompetens (särskilt viktigt när noll allergiska incidenter på 2 år nämns tidigare), behöver rekryteraren inte oroa sig för att du saknar kritiska kunskaper. Du har redan gjort jobbet åt dem.`
       },
       {
         rubrik: 'Profiltext som fångar förskolechefens uppmärksamhet',
-        text: `"Erfaren och engagerad barnskötare med 6 års erfarenhet från kommunal förskola" – första meningen svarar på tre frågor: Hur länge? Vilken nivå? Vilken typ av verksamhet? Fortsättningen ger två konkreta specialistområden (språkutveckling och Unikum-dokumentation) istället för vaga egenskaper. En förskolechef som läser 50 CV stannar upp vid "specialist på språkutvecklande arbetssätt" eftersom det är en faktisk kompetens, inte bara "driven" eller "positiv". Profiltexten lovar något som resten av CV:t sedan bevisar med siffror. Det skapar trovärdighet redan i första stycket.`
+        text: `Profiltexten nämner direkt de tre saker förskolechefer söker: trygg inskolning (2 veckor snitt), lugnare barngrupper (30% färre konflikter), och systematisk dokumentation i Unikum. Första meningen ger konkret värde istället för vaga påståenden om att vara "engagerad" eller "barnfokuserad".
+
+Varför detta fungerar: Förskolechefer läser 50+ CV där alla säger "jag är bra med barn". Du öppnar med att dina inskolningar tar en vecka kortare tid än kommunsnittet. Det är omedelbart relevant och mätbart – exakt vad en stressad förskolechef behöver höra när de ska täcka föräldraledighet eller höstrushen av nya 3-åringar.`
       },
       {
         rubrik: 'Tydlig progression från vikarie till specialist',
-        text: `CV:t visar inte bara nuvarande tjänst utan en utvecklingskurva: vikariat 2019, tillsvidareanställning 2021, specialistansvar för språkutveckling och nya rutiner. Förskoleledare ser att du inte stannat kvar i samma uppgifter i 6 år utan tagit på dig mer ansvar. TAKK-implementeringen som gav 30% färre konflikter visar initiativförmåga. Att du förbättrat inskolningsprocessen från kommunens mål (3 veckor) till genomsnitt 2 veckor bevisar att du utvecklar arbetssätt. Den här progressionen säger "jag kommer fortsätta växa hos er" snarare än "jag gör minimum". Det är skillnaden mellan en OK kandidat och den som får jobbet.`
+        text: `CV:t visar utveckling: Vikarie 2018-2019 (bred erfarenhet från 12 förskolor), Barnskötare 2019-2021 (TAKK-implementering och inskolningsansvar), Barnskötare 2021-pågående (språkutvecklingsspecialist och Unikum-dokumentation). Varje roll har fler ansvarsområden än den förra.
+
+Varför detta fungerar: Många barnskötare stannar på samma nivå i flera år. Du visar att du aktivt tar på dig nya specialistroller – från grundomsorg till TAKK-specialist till språkutveckling och föräldrakommunikation. Det signalerar att du inte bara "sköter ditt jobb" utan tar ansvar, lär dig nya saker och kan bli en resurs för hela arbetslaget. Förskolechefer letar efter sådana personer.`
       }
     ],
 
