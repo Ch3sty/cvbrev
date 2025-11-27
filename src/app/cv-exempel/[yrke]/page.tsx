@@ -4685,27 +4685,78 @@ Använd detta exempel som inspiration när du skriver ditt eget CV som ekonomias
     tips: [
       {
         rubrik: 'Inkludera rätt nyckelord för din ekonomispecialisering',
-        text: `Ekonomiassistent är ett brett yrke. Specificera din inriktning med rätt nyckelord. Fokuserar du på fakturahantering? Nämn: kontering, attestering, leverantörsreskontra, kundreskontra. Löneadministration? Inkludera: Visma Lön, tidrapportering, semesterlön, traktamenten. Bokföring och bokslut? Lyft: månadsavstämningar, bokslutsjusteringar, K2/K3-redovisning, momsrapporter.\n\nATS-system söker efter dessa specifika termer när rekryterare filtrerar kandidater. Läs jobbannonsen noggrant och matcha dina nyckelord mot deras krav, men var ärlig. Inkludera bara system och uppgifter du verkligen behärskar. Om de söker "Fortnox" och du använt det i 5 år, skriv "Fortnox Expert 5+ år". Om du bara testat det under en praktik, nämn det inte som huvudkompetens.`
+        text: `ATS-system söker efter specifika termer beroende på vilken typ av ekonomiroll du söker. Identifiera vilka termer som återkommer i jobbannonsen och använd dem ordagrant i ditt CV.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av ekonomiadministration och bokföring"
+
+✅ "5 års erfarenhet av leverantörsreskontra och kundreskontra i Fortnox med fokus på kontering enligt K3, attestering och momsrapportering. Hanterar 150+ fakturor månadsvis med 98% punktlighet."
+
+Om arbetsgivaren söker "erfarenhet av löneadministration", använd exakt den formuleringen. ATS-system matchar ofta ordagrant, vilket innebär att felaktig terminologi kan göra att ditt CV sorteras bort trots relevant kompetens.`
       },
       {
-        rubrik: 'Kvantifiera din erfarenhet för ökad trovärdighet',
-        text: `Siffror ger kontext och visar omfattning. Tänk på dessa dimensioner när du kvantifierar: Antal (leverantörer, kunder, verifikationer per dag, anställda i lönesystem), Omsättning (Mkr), Tid (dagar, månader, förbättringstid), Förbättring (procent reduktion, ökad effektivitet). Använd minst 1-2 kvantifierbara fakta per erfarenhetspost för maximal effekt.\n\n❌ Istället för "Ansvarade för fakturahantering", skriv:\n✅ "Hanterade 150+ leverantörsfakturor per månad med 98 procent punktlighet i attestering och betalning"\n\n❌ Istället för "Skötte bokföring", skriv:\n✅ "Utförde daglig bokföring med 50-80 verifikationer per dag i Fortnox enligt K3-regelverket"`
+        rubrik: 'Kvantifiera din erfarenhet med konkreta siffror',
+        text: `Konkreta siffror gör ditt CV mer trovärdigt och jämförbart. Transformera vaga påståenden till mätbara fakta genom att specificera antal leverantörer, omsättning och förbättringar.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för fakturahantering"
+
+✅ "Hanterade leverantörsfakturor för 150+ leverantörer månadsvis (kontering, attestering, betalning) med 98% punktlighet. Reducerade handläggningstid från 5 till 2 dagar genom Excel-automatisering."
+
+Nämn specifika detaljer som stärker din erfarenhet: antal års erfarenhet, antal verifikationer per dag, omsättning du hanterat (Mkr), eller procentuella förbättringar du bidragit till.`
       },
       {
         rubrik: 'Visa konkreta resultat från ditt arbete',
-        text: `Gå bortom att bara lista uppgifter. Visa vad du åstadkommit. Rekryterare letar efter problemlösare som förbättrar processer, inte bara utför rutinuppgifter. Resultat med siffror (procent, tid, kostnad) är särskilt kraftfulla eftersom de visar affärsnytta. Tänk tillbaka på dina tidigare roller: Vad effektiviserade du? Vilka fel hittade du och åtgärdade? Vilka förbättringar föreslog du som implementerades?\n\n❌ Istället för "Ansvarade för leverantörsreskontra", skriv:\n✅ "Minskade felaktigheter i leverantörsreskontra med 30 procent genom ny kontrollrutin"\n\n❌ Istället för "Hanterade fakturaflöde", skriv:\n✅ "Reducerade handläggningstid för leverantörsfakturor från 5 till 2 dagar genom Excel-automatisering med makron"`
+        text: `Rekryterare vill se vad du åstadkommit, inte bara vad du varit ansvarig för. Fokusera på resultat och effekter av ditt arbete istället för att lista rutinuppgifter.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för leverantörsreskontra och kontoavstämningar"
+
+✅ "Minskade felaktigheter i leverantörsreskontra med 30% genom implementering av ny kontrollrutin. Effektiviserade månadsavstämningar för 3 dotterbolag (45 Mkr omsättning) vilket sparade 2 arbetsdagar per månad."
+
+Detta demonstrerar initiativförmåga och förmåga att förbättra processer. Andra resultat att lyfta fram: automatisering som sparade tid, förbättrad kassaflödeshantering, eller reducerade kostnader.`
       },
       {
         rubrik: 'Anpassa profiltext efter jobbannonsen',
-        text: `Din profiltext ska inte vara generisk. Anpassa den efter varje jobb du söker. Söker du en roll med fokus på löneadministration? Börja med: "Erfaren ekonomiassistent med specialisering inom löneadministration och personaladministrativa processer". Fakturahantering? "Specialist på fakturahantering och leverantörsreskontra med gedigen Fortnox-erfarenhet".\n\nBehåll grundstrukturen (erfarenhet + specialisering + system + drivkrafter), men byt ut nyckelorden baserat på jobbannonsen. Detta ökar din ATS-poäng dramatiskt och visar rekryteraren att du läst annonsen noggrant. 30 sekunders anpassning kan göra skillnaden mellan "kanske" och "intervju". Om de nämner "momsredovisning" 3 gånger i annonsen, se till att det ordet finns i din profiltext.`
+        text: `Din profiltext (den inledande sammanfattningen högst upp i CV:t) bör skräddarsys för varje jobb du söker. Om jobbannonsen söker "ekonomiassistent med fokus på löneadministration", börja med den specialiseringen.
+
+**Exempel på före/efter**:
+
+❌ "Erfaren ekonomiassistent som gillar att arbeta med siffror"
+
+✅ "Erfaren ekonomiassistent med 6+ års erfarenhet av fakturahantering, löneadministration och månadsavstämningar. Specialist på Fortnox och Visma med certifiering i Fortnox Bas och Fortnox Lön. Strukturerad problemlösare som effektiviserar rutiner och levererar felfria ekonomiska underlag i tid."
+
+Inkludera alltid antal års erfarenhet, specialisering, tekniska system du behärskar, och 1-2 drivkrafter som matchar jobbannonsen.`
       },
       {
         rubrik: 'Lyft fram certifieringar och kompetensutveckling',
-        text: `Certifieringar som Fortnox Bas, Fortnox Lön, Bokföring A/B eller liknande är starka trovärdighetsmarkörer. Ge dem synlighet. Placera dem i en egen sektion under utbildning med tydliga årtal: "Fortnox Bas-certifiering (2020)". Nämn även i profiltexten om de är relevanta: "Certifierad i Fortnox Bas och Fortnox Lön".\n\nOm du saknar formella certifieringar, visa istället kontinuerlig utveckling: "Genomfört intern utbildning i SAP Business One (2023)", "Deltog i Visma Lön-seminarium (2024)". Kompetensutveckling signalerar att du håller dig uppdaterad, vilket är viktigt inom ekonomi där regelverk (K2/K3, momsregler) och system ständigt förändras. Rekryterare ser detta som en investering i din yrkesroll.`
+        text: `Skapa en dedikerad sektion för certifieringar och utbildningar. Detta visar att du är uppdaterad, tar ditt yrke på allvar och investerar i din egen utveckling.
+
+**Exempel på före/efter**:
+
+❌ "Utbildad i Fortnox och kan bokföring"
+
+✅ "Fortnox Bas-certifiering (2020)
+Fortnox Lön-certifiering (2021)
+Bokföring A och B, Hermods (2019)
+K2/K3-redovisning, intern utbildning (2023)"
+
+Inkludera årtal för alla certifieringar. Om du genomgått intern utbildning på arbetsplatsen, ta med även dessa. De visar arbetsgivarens förtroende och din vilja att utvecklas inom ekonomi där regelverk ständigt uppdateras.`
       },
       {
         rubrik: 'Balansera tekniska och mjuka färdigheter med bevis',
-        text: `Tekniska färdigheter (Fortnox, Visma, Excel) är grundläggande, men mjuka färdigheter (noggrannhet, stresstålighet, samarbetsförmåga) avgör om du lyckas i rollen. Visa mjuka färdigheter genom konkreta exempel istället för att bara lista dem under "Personliga egenskaper".\n\n❌ Istället för att skriva "Noggrann" under kompetenser, visa det i erfarenhet:\n✅ "Uppnådde 99,5 procent korrekthet i kontering enligt intern revision"\n\n❌ Istället för "Stresstålig", skriv:\n✅ "Hanterade bokslutsstress med 200+ extra verifikationer per vecka under mars månad"\n\nBevisade mjuka färdigheter är 10 gånger mer trovärdiga än påståenden och de fastnar i rekryterarens minne.`
+        text: `Lista både tekniska färdigheter (Fortnox, Visma, Excel pivottabeller, SAP) och personliga egenskaper. Men här är nyckeln: backa alltid upp de personliga egenskaperna med konkreta exempel.
+
+**Exempel på före/efter**:
+
+❌ "Noggrann och strukturerad ekonomiassistent"
+
+✅ "Uppnådde 99,5% korrekthet i kontering enligt intern revision. Introducerade och utbildade 2 nya kollegor i företagets ekonomisystem. Hanterade bokslutsstress med 200+ extra verifikationer per vecka under mars månad."
+
+Tekniska färdigheter kan du lista direkt (de är verifierbara), men mjuka egenskaper behöver bevis för att bli trovärdiga. Koppla varje personlig egenskap till en specifik situation.`
       }
     ],
 
