@@ -5074,68 +5074,94 @@ Det första är ett påstående. Det andra bevisar hur du faktiskt jobbar med f�
   },
 
   'personlig-assistent': {
+    yrke: 'Personlig Assistent',
+    sokvolym: 1200,
     metaTitle: 'CV Personlig Assistent: Exempel & Mall 2025 (LSS)',
     metaDescription: 'Se hur ett starkt CV för personlig assistent ska se ut. Exempeltext, LSS-terminologi och ATS-anpassade formuleringar. Gratis mall för assistansyrket.',
-    title: 'CV-exempel Personlig Assistent',
-    subtitle: 'Se exakt hur ett professionellt CV för personlig assistent ska se ut – med LSS-terminologi, kvantifierbara resultat och ATS-optimering som får dig till intervju.',
 
-    introText: `Som personlig assistent konkurrerar du med kandidater som alla skriver "empatisk och flexibel". Det räcker inte. Arbetsgivare inom LSS och assistansbolag vill se konkreta bevis på att du kan möta brukares unika behov – inte generiska adjektiv.
+    seoIntro: `Som personlig assistent konkurrerar du med kandidater som alla skriver "empatisk och flexibel". Det räcker inte. Arbetsgivare inom LSS och assistansbolag vill se konkreta bevis på att du kan möta brukares unika behov – inte generiska adjektiv.
 
 Det här CV-exemplet visar hur Emma Svensson framhäver sina 5 års erfarenhet med LSS-specifik terminologi, mätbara resultat (60% minskad stressnivå, 12 nya fritidskontakter) och branschverktyg som Laps Care. Samma principer fungerar oavsett om du söker till Humana, Frösunda eller kommunal assistans.
 
 De tre sakerna som skiljer ett framgångsrikt personlig assistent-CV från ett mediokert: rätt LSS-terminologi som passerar ATS-filter, kvantifierbara resultat som bevisar din påverkan, och certifieringar med årtal som visar aktualitet.`,
 
+    intro: 'Professionellt CV-exempel för personlig assistent med fokus på LSS-terminologi, brukarstyrd assistans och NPF-kompetens. Visar kvantifierbara resultat och branschspecifika verktyg som Laps Care. ATS-optimerat för assistansbolag.',
+
     exempelCV: {
       namn: 'Emma Svensson',
       titel: 'Personlig Assistent',
+      kontakt: {
+        telefon: '070-234 56 78',
+        epost: 'emma.svensson@email.se',
+        plats: 'Göteborg',
+        linkedin: 'linkedin.com/in/emmasvensson'
+      },
       profil: 'Engagerad personlig assistent med 5 års erfarenhet inom LSS och brukarstyrd assistans. Specialiserad på stöd för brukare med NPF och fysiska funktionsvariationer. Dokumenterad förmåga att bygga långvariga relationer, minska stressnivåer (60%) och utöka brukares sociala nätverk med 12 nya fritidskontakter. Certifierad i HLR, lyftteknik och medicindelning. B-körkort.',
-      erfarenheter: [
+
+      erfarenhet: [
         {
           titel: 'Personlig Assistent',
-          företag: 'Humana Assistans AB',
-          period: '2020 – nu',
-          beskrivning: 'Brukarstyrd assistans för vuxen med ryggmärgsskada och autism (NPF). Ansvar för dagliga rutiner, medicinhantering och samhällsaktiviteter.',
-          punkter: [
+          arbetsgivare: 'Humana Assistans AB',
+          period: '2020 – Pågående',
+          beskrivning: [
             '60% minskad stressnivå genom implementering av visuellt veckoschema och förberedande kommunikation',
             '12 nya fritidskontakter genom strukturerat nätverksbyggande under 2 år',
             '15-20 personförflyttningar dagligen med taklyft och manuella lyfttekniker utan arbetsskador',
-            'Administrerar medicin enligt delegering och dokumenterar i Laps Care'
+            'Administrerar medicin enligt delegering och dokumenterar i Laps Care',
+            'Brukarstyrd assistans för vuxen med ryggmärgsskada och autism (NPF)'
           ]
         },
         {
           titel: 'Vårdbiträde',
-          företag: 'Solängens äldreboende',
+          arbetsgivare: 'Solängens äldreboende',
           period: '2018 – 2020',
-          beskrivning: 'Grundläggande omvårdnad för äldre med demensdiagnos.',
-          punkter: [
+          beskrivning: [
             '25 brukare per vecka med ADL-stöd och medicinpåminnelse',
             'Dokumentation i Procapita och levnadsberättelser',
             'Del av demensteam med validationsmetodik'
           ]
         }
       ],
-      utbildningar: [
+
+      utbildning: [
         {
-          namn: 'Vård- och omsorgsprogrammet',
+          titel: 'Vård- och omsorgsprogrammet',
           skola: 'Praktiska Gymnasiet',
-          period: '2016 – 2018'
+          period: '2016 – 2018',
+          beskrivning: 'APL på LSS-boende och äldreomsorg'
         }
       ],
-      färdigheter: [
-        'LSS & brukarstyrd assistans',
-        'Laps Care dokumentation',
-        'Taklyft & manuell lyftteknik',
-        'NPF-anpassad kommunikation',
-        'Bildstöd & talsyntes',
-        'Medicinhantering (delegering)',
-        'B-körkort'
-      ],
+
+      kompetenser: {
+        tekniska: [
+          'Dokumentationssystem: Laps Care (4+ års daglig användning)',
+          'LSS & brukarstyrd assistans',
+          'Taklyft & manuell lyftteknik',
+          'NPF-anpassad kommunikation',
+          'Bildstöd & talsyntes',
+          'Medicinhantering enligt delegering',
+          'B-körkort'
+        ],
+        personliga: [
+          'Relationsskapande och kontinuitet',
+          'Flexibilitet och anpassningsförmåga',
+          'Lugn och trygg i oväntade situationer',
+          'Lyhördhet för brukarens behov',
+          'Samarbete med anhöriga och vårdteam'
+        ]
+      },
+
       certifieringar: [
         'HLR vuxen + barn (2024)',
         'Första hjälpen (2023)',
         'Lyftteknik & förflyttning (2022)',
         'Medicindelegering (2021)',
         'B-körkort (2019)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Grundläggande' }
       ]
     },
 
