@@ -2250,28 +2250,40 @@ Varför detta fungerar: Medicinsk karriär i Sverige följer en tydlig struktur 
 
     varforDetFungerar: [
       {
-        rubrik: 'ATS-optimerad med branschspecifika nyckelord',
-        text: 'CV:t använder exakta system som svenska detaljhandelsföretag faktiskt söker efter: Extenda, Visma Retail och POS-system. När en rekryterare söker efter "Extenda" i sitt ATS-system kommer detta CV dyka upp direkt – medan konkurrenter som bara skrev "kassavana" sorteras bort. Nyckelorden är strategiskt placerade i både profiltext och arbetslivserfarenhet, vilket ger maximal träffyta utan att kännas påklistrat.'
+        rubrik: 'Branschspecifika nyckelord för ATS-system',
+        text: `CV:t använder exakta branschtermer som "kassahantering med EXTENDA", "merförsäljning och produktrådgivning", "visual merchandising" och "ålderskontroll enligt Alkohollagen". Många butiksbiträden skriver bara "jobbade i butik" eller "hjälpte kunder".
+
+Varför detta fungerar: ATS-system och rekryterare söker efter specifika ord som matchar jobbannonsen. Om de skriver "kassasystem EXTENDA" eller "merförsäljning", måste ditt CV innehålla exakt de orden för att passera första urvalet. Generiska fraser som "bra kundbemötande" sorteras bort direkt – alla skriver så. Konkreta branschtermer visar att du förstår yrket och har relevant erfarenhet.`
       },
       {
-        rubrik: 'Kvantifierbara försäljningsresultat som bevisar påverkan',
-        text: 'Här är skillnaden mellan att få intervju eller inte: Emma visar "22% ökning personlig försäljning (220k kr/månad)" istället för vagt "ansvarade för försäljning". Varför spelar det roll? Eftersom rekryterare ser hundratals CV där alla påstår sig vara "försäljningsdrivna". Siffror är det enda som gör påståenden trovärdiga. När du skriver "15% avdelningsförsäljningsökning via visuell merchandising" visar du inte bara VAD du kan – du visar exakt HUR BRA du är på det.'
+        rubrik: 'Kvantifierbara försäljningsresultat som sticker ut',
+        text: `CV:t använder konkreta siffror som "120% av säljmål (25,000 SEK/dag)", "ökade merförsäljningen med 30%", "hanterade 80-100 kunder dagligen" och "kassaavstämning med noll differens under 18 månader". De flesta butiksbiträden skriver bara "ansvarade för försäljning" eller "jobbade i kassa".
+
+Varför detta fungerar: Rekryterare läser hundratals CV där alla säger samma sak. Siffror visar omfattningen av ditt arbete och kvaliteten på din prestation. "80-100 kunder dagligen" visar att du klarar högtempo. "120% av säljmål" visar att du överträffar förväntningar. Utan siffror är ditt CV ett bland alla andra – med dem blir du minnesvärd.`
       },
       {
-        rubrik: 'Balans mellan försäljning och kundservice – med bevis',
-        text: 'Många butiksbiträden skriver bara "kommunikativ, serviceinriktad, flexibel" i sina CV:n. Det problemet kallas buzzword bingo – tomma ord utan kontext. Emma visar istället balansen genom konkreta exempel: "40-60 kundmöten dagligen med 4.8/5 kundnöjdhet" bevisar servicekompetens, medan "22% ökad försäljning" visar att hon kan sälja. Båda färdigheterna backas upp med siffror.'
+        rubrik: 'Tekniska färdigheter med bevis från verklig erfarenhet',
+        text: `CV:t balanserar tekniska kompetenser som "kassahantering och EXTENDA (Expert, 3+ år)" och "visual merchandising" med mjuka egenskaper som backas upp av konkreta exempel: "stresstålig (hanterade 100+ kunder/dag under julrushen)" och "flexibel (dag, kväll, helg, Black Friday)". Många skriver bara "serviceinriktad, social, positiv" utan sammanhang.
+
+Varför detta fungerar: Butiksbiträden måste kunna både tekniska saker och ha starka personliga egenskaper. Men att bara lista "flexibel, stresstålig" är meningslöst – alla skriver så. När du visar att du hanterade 100+ kunder under julrushen förstår rekryteraren att du faktiskt kan jobba under press. Då blir egenskapen trovärdig istället för ett tomt påstående.`
       },
       {
-        rubrik: 'Stresshantering bevisad genom konkreta volymer',
-        text: 'Istället för att bara skriva "stresstålig" (vilket alla gör), visar Emma konkreta exempel på högt tempo: "300+ kunder under Black Friday" och "40-60 kundmöten dagligen". Detta ger rekryteraren kontext om vad du faktiskt klarar av. Kvantifierade stresstest-situationer är trovärdiga och visar erfarenhet av storköp och kampanjperioder, vilket är meriterande för många butiksroller.'
+        rubrik: 'Certifieringar som bygger förtroende och trovärdighet',
+        text: `CV:t listar 5 relevanta certifieringar med årtal: "Kassautbildning – Handelsakademin (2019)", "Ålderskontroll för alkohol och tobak (2020)", "Butikssäkerhet och stöldprevention (2021)" och "Första hjälpen och HLR (förnyad 2024)". Många glömmer att ta med certifieringar eller utelämnar årtal helt.
+
+Varför detta fungerar: Butiksbiträden hanterar pengar, kunddata och ibland åldersbegränsade varor. Certifieringar visar att du är utbildad, pålitlig och följer lagar. "Ålderskontroll enligt Alkohollagen" är lagkrav för vissa butiker. "Kassautbildning" visar att du inte bara lärt dig på plats utan har formell kompetens. Årtal visar att kunskapen är aktuell – "förnyad 2024" är starkare än bara "HLR-certifierad".`
       },
       {
-        rubrik: 'Profiltext som säljande pitch på 4 rader',
-        text: 'Profiltexten följer den beprövade 4-komponent-strukturen: erfarenhet (6 år inom mode) + specialisering (merförsäljning och kundrelationer) + tekniska nyckelord (Extenda, Visma Retail) + drivkrafter (brinner för kundupplevelse). Rekryterare läser profiltexten FÖRST och beslutar inom 10 sekunder om de ska läsa vidare. En generisk "driven och serviceinriktad" säger ingenting – Emma\'s profiltext svarar direkt på frågorna: Hur länge? Vad kan hon? Vilka system?'
+        rubrik: 'Profiltext som ger snabb överblick',
+        text: `Profiltexten sammanfattar på 4 meningar: "3+ års erfarenhet från detaljhandel inom mode", "Specialist på kassahantering med EXTENDA, merförsäljning och visual merchandising", "120% av säljmål" och "flexibel med arbetstider (dag, kväll, helg)". Den svarar direkt på rekryterarens frågor om erfarenhet, specialisering, resultat och tillgänglighet.
+
+Varför detta fungerar: Rekryterare läser profiltexten först för att avgöra om de ska läsa vidare. En bra profiltext ger svar inom 10 sekunder: Hur lång erfarenhet? Vilken typ av butik? Vad är du bra på? Levererar du resultat? Denna struktur gör att rekryteraren direkt ser att du matchar kravprofilen istället för att behöva gräva efter information i CV:t.`
       },
       {
-        rubrik: 'Tydlig progression från extra till specialist',
-        text: 'CV:t visar karriärutveckling genom konkreta bevis: från "extrapersonal" till "säljare med mentorskap för 3 nya medarbetare" och "15% avdelningsförsäljningsökning via visuell merchandising". Progression är avgörande för erfarna kandidater (5+ år) eftersom det visar att du inte bara gjort samma sak i 6 år – du har utvecklats. Rekryterare letar efter tecken på ansvar och tillväxt.'
+        rubrik: 'Tydlig karriärprogression från extrajobb till butikssäljare',
+        text: `CV:t visar utveckling över 4 år: deltid på H&M (2019) med grundläggande kassaarbete, heltid på MQ (2020) med merförsäljning och varumottagning, och butikssäljare på Lindex (2022) med mentorsansvar, öppnings/stängningsansvar och "Månadens säljare" 3 gånger. Ansvar och komplexitet ökar tydligt för varje steg.
+
+Varför detta fungerar: Progression visar ambition och att du kan ta större ansvar. För rekryterare betyder det att du kan växa i rollen och kanske bli framtida butikschef. Att gå från "kassabiträde på helgerna" till "butikssäljare med mentorsansvar" på 4 år visar att tidigare arbetsgivare litade på dig. "Månadens säljare" 3 gånger visar konsekvent toppresultat, inte en engångsprestation.`
       }
     ],
 
