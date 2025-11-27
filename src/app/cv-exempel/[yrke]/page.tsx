@@ -2602,6 +2602,296 @@ Exempel på certifieringar att nämna:
     ]
   },
 
+  'butikssaljare': {
+    yrke: 'Butikssäljare',
+    sokvolym: 500,
+    metaTitle: 'CV Exempel Butikssäljare 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för butikssäljare. ATS-optimerat med försäljningssiffror, kassasystem och kundfokus. Visar merförsäljning och visuell merchandising.',
+
+    seoIntro: `Söker du jobb som butikssäljare och vill ha ett CV som verkligen sticker ut hos arbetsgivare? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar detaljhandeln i Sverige.
+
+Du får se exakt hur du balanserar hårda sälj-siffror (försäljningsvolym, merförsäljning, konvertering) med de mjuka färdigheter som rekryterare söker (kundservice, flexibilitet, lagarbete). CV:t visar konkreta resultat från både modebutik och elektronikhandel med kvantifierbara exempel och kassasystem som Extenda och iZettle.
+
+Använd det som inspiration för ditt eget CV butikssäljare och anpassa det efter butiksmiljö och produkt. Oavsett om du söker inom mode, sport, elektronik eller dagligvaror – principerna är desamma: visa resultat, kvantifiera och matcha rätt nyckelord mot jobbannonsen.`,
+
+    intro: 'Ett professionellt CV-exempel för butikssäljare som visar din försäljningskompetens, kundfokus och tekniska färdigheter. Detta exempel är optimerat för svenska detaljhandelsföretag och ATS-system.',
+
+    exempelCV: {
+      namn: 'Emma Karlsson',
+      titel: 'Säljare med fokus på kundupplevelse och merförsäljning',
+      kontakt: {
+        telefon: '070-987 65 43',
+        epost: 'emma.karlsson@email.se',
+        plats: 'Göteborg',
+        linkedin: 'linkedin.com/in/emmakarlsson'
+      },
+
+      profil: 'Driven butikssäljare med 4+ års erfarenhet från modehandel och elektronikbutiker. Specialist på merförsäljning och kundupplevelse – ökade snittköpet med 25% genom aktivt lyssnade och produktkunskap. Gedigen erfarenhet av kassasystem (Extenda, iZettle), visuell merchandising och lagerhantering. Flexibel lagspelare som trivs i högt tempo och bygger långsiktiga kundrelationer.',
+
+      erfarenhet: [
+        {
+          titel: 'Butikssäljare & Säljansvarig',
+          arbetsgivare: 'H&M, Nordstan Göteborg',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Ansvarig för försäljning på kvinnoavdelningen med 180 000 kr i genomsnittlig månadsomsättning (topp 3 i butiken Q3 2024)',
+            'Ökade merförsäljning från 18% till 32% genom aktivt erbjudande av kompletterande produkter och styling-tjänster',
+            'Hanterar 80-120 kunder dagligen vid högtrafik (helger, kampanjer) med genomsnittligt snittköp på 650 kr',
+            'Visual merchandising-ansvarig: planerar fönsterexponeringar och butikslayout enligt säsongskampanjer (2-3 omställningar/månad)',
+            'Mentorskap för 3 nyanställda säljare under introduktionsperiod – säkerställer kunskap om kassasystem Extenda och kundservicerutiner',
+            'Använder Extenda dagligen för försäljning, returer, lagerregistrering och rapportering'
+          ]
+        },
+        {
+          titel: 'Butikssäljare',
+          arbetsgivare: 'Media Markt, Bäckebol',
+          period: '2019 – 2021',
+          beskrivning: [
+            'Försäljning av hemelektronik och vitvaror med fokus på konsultativ försäljning (genomsnittligt ordervärde 4 500 kr)',
+            'Byggde produktkunskap inom TV, ljud och vitvaror genom leverantörsutbildningar (Samsung, LG, Bosch)',
+            'Svarade för 220 000 kr i månadsomsättning och rankades topp 5 säljare i butiken (Q4 2020)',
+            'Kassaansvar inkl. daglig avstämning, kontanthantering och iZettle-kortterminaler',
+            'Flexibel schemaläggning: jobbade kvällar, helger och Black Friday-kampanjer (150+ kunder/dag under högtrafik)'
+          ]
+        },
+        {
+          titel: 'Extrajobb – Butiksbiträde',
+          arbetsgivare: 'ICA Supermarket',
+          period: '2017 – 2019',
+          beskrivning: [
+            'Butiksarbete inom dagligvaruhandel: kassaarbete, påfyllning av varor och kundservice',
+            'Hanterade upp till 60 kunder/timme vid rusning (lunchtid, helger)',
+            'Ansvarade för frukt- och grönt-avdelningen: kvalitetskontroll, exponering och svinn-minimering'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Handels- och administrationsprogrammet',
+          skola: 'Katrinelundsgymnasiet, Göteborg',
+          period: '2014 – 2017',
+          beskrivning: 'Inriktning: Handel och service. APL på Stadium Nordstan (6 veckor)'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Kassasystem: Extenda och iZettle (Expert, 4+ år daglig användning)',
+          'Merförsäljning och korsförsäljning (Avancerad, dokumenterad ökning 18% → 32%)',
+          'Visuell merchandising och butikslayout (Avancerad, 3+ år)',
+          'Produktkunskap: Mode, elektronik, dagligvaror',
+          'Lagerhantering och inventory',
+          'Microsoft Office (Excel för rapportering)',
+          'CRM-system och kundklubbshantering'
+        ],
+        personliga: [
+          'Kundfokuserad och serviceinriktad',
+          'Stresstålig under kampanjer och högtrafik',
+          'Flexibel med schemaläggning (kvällar/helger)',
+          'Lagspelare med positiv attityd',
+          'Problemlösning och initiativförmåga'
+        ]
+      },
+
+      certifieringar: [
+        'Extenda Kassasystem – Certifierad användare (2021)',
+        'Säljutbildning "Konsultativ försäljning" – Media Markt Academy (2020)',
+        'Produktkunskap Samsung TV & Audio (2020)',
+        'Alkoholservering och ålderskontroll (2019)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ],
+
+      ovrigt: [
+        'Körkort B',
+        'Flexibel tillgänglighet: kvällar, helger och högtider'
+      ]
+    },
+
+    viktigt: [
+      'Visa konkreta försäljningssiffror (kr/månad, snittköp, merförsäljning i %)',
+      'Nämn kassasystem och tekniska verktyg du använt (Extenda, iZettle, Sitoo, Visma Retail)',
+      'Kvantifiera kundkontakt (antal kunder/dag, högtrafik-situationer)',
+      'Lyfta fram progression: extrajobb → säljare → säljansvarig',
+      'Balansera tekniska färdigheter (kassasystem) med mjuka (kundservice, flexibilitet)',
+      'Inkludera certifieringar och produktkunskapsutbildningar med årtal'
+    ],
+
+    statistik: [
+      { label: 'ATS-optimerat', varde: '95%', beskrivning: 'Branschspecifika nyckelord' },
+      { label: 'Kvantifierade resultat', varde: '8+', beskrivning: 'Konkreta siffror och mått' },
+      { label: 'Läsbarhet', varde: 'A+', beskrivning: 'Tydlig struktur och progression' }
+    ],
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Branschspecifika system som ATS hittar',
+        text: `CV:t nämner specifika kassasystem som **Extenda** och **iZettle** med erfarenhetsnivå och användningstid. Det inkluderar även branschtermer som "merförsäljning", "visuell merchandising", "lagerhantering" och "konsultativ försäljning".
+
+Varför detta fungerar: ATS-system skannar efter nyckelord från jobbannonsen. När en arbetsgivare söker "Extenda" eller "merförsäljning" rankas detta CV högre. Utan branschspecifika termer riskerar ditt CV att filtreras bort innan en mänsklig rekryterare ens ser det. Matcha alltid dina nyckelord mot annonsens krav.`
+      },
+      {
+        rubrik: 'Kvantifierbara resultat som ger konkret kontext',
+        text: `CV:t visar konkreta resultat: "180 000 kr månadsomsättning", "snittköp 650 kr", "merförsäljning från 18% till 32%", och "80-120 kunder dagligen". Det ger kvantifierbar bevisning på prestation.
+
+Varför detta fungerar: Rekryterare läser hundratals CV där kandidater bara skriver "ansvarig för försäljning". Siffror ger omedelbar kontext – en säljare med 180 000 kr/mån visar högre kapacitet än någon utan siffror. Det gör också att du sticker ut och ger rekryteraren konkreta frågor att ställa under intervju. Kvantifiera alltid: antal kunder, försäljning i kr, merförsäljning i procent.`
+      },
+      {
+        rubrik: 'Balans mellan säljkompetens och kundfokus',
+        text: `CV:t kombinerar teknisk säljkompetens (kassasystem, merförsäljning, CRM) med mjuka färdigheter som "kundfokuserad", "stresstålig" och "lagspelare". Viktigt: de mjuka färdigheterna backas upp genom exempel – t.ex. "150+ kunder/dag under Black Friday" som bevis på stresstålighet.
+
+Varför detta fungerar: Arbetsgivare i detaljhandel söker både säljförmåga OCH kundservice. Ett CV som bara listar tekniska verktyg utan att visa personlig lämplighet missar målet. Genom att visa stresstålighet genom konkreta situationer (Black Friday, 150+ kunder/dag) blir egenskapen trovärdig istället för tom buzzword.`
+      },
+      {
+        rubrik: 'Produktkunskap och certifieringar med årtal',
+        text: `CV:t listar certifieringar som "Extenda Kassasystem (2021)", "Säljutbildning konsultativ försäljning (2020)" och "Produktkunskap Samsung (2020)". Produktkunskap från leverantörsutbildningar (Samsung, LG, Bosch) nämns i erfarenhetssektionen.
+
+Varför detta fungerar: Certifieringar med årtal visar att kompetensen är aktuell. Produktkunskap från leverantörer (Samsung, LG) signalerar trovärdighet och dedikation – du har gått djupare än basutbildning. Arbetsgivare värderar säljare som kan rådgiva kunder med expertis, inte bara "sälja". Det ökar förtroendet och visar långsiktig kompetens.`
+      },
+      {
+        rubrik: 'Profiltext som fångar uppmärksamhet direkt',
+        text: `Profiltexten sammanfattar erfarenhet ("4+ års erfarenhet"), specialisering ("merförsäljning, kundupplevelse"), kvantifierbart resultat ("ökade snittköp 25%") och nyckelverktyg ("Extenda, iZettle"). Den avslutas med mjuka egenskaper ("flexibel lagspelare").
+
+Varför detta fungerar: Rekryterare spenderar 6-10 sekunder på ett CV innan de bestämmer om det är intressant. Profiltexten är din "elevator pitch" – den måste fånga uppmärksamhet genom att visa värde direkt. Genom att nämna konkreta resultat (25% ökning) och rätt system (Extenda) blir det omedelbart relevant. Det avgör om rekryteraren läser vidare.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression från extrajobb till säljansvarig',
+        text: `CV:t visar progression: extrajobb på ICA (2017-2019) till butikssäljare Media Markt (2019-2021) till säljare och säljansvarig H&M (2021-nu). Ansvaret ökar: från "butiksbiträde" till "säljansvarig" med mentorskap och visual merchandising.
+
+Varför detta fungerar: Progression visar ambition och förmåga att växa i rollen. Rekryterare ser att du inte "hoppar runt" utan utvecklas systematiskt – från extrajobb till ansvar för säljtal, merchandising och mentorskap. Det signalerar att du kan ta nästa steg (t.ex. butikschef) och investera långsiktigt i företaget. Arbetsgivare söker kandidater som kan utvecklas.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera rätt nyckelord för din butiksmiljö',
+        text: `Detaljhandel spänner över många branscher – mode, elektronik, sport, dagligvaror, inredning. Varje miljö har sina egna nyckelord. För mode: "visuell merchandising", "styling", "trendkänslighet". För elektronik: "konsultativ försäljning", "produktkunskap", "teknisk rådgivning".
+
+**Exempel på före/efter**:
+
+❌ "Arbete med datorprogram"
+
+✅ "Extenda kassasystem med 4+ års daglig användning, inkl. försäljning, returer och lagerregistrering"
+
+Läs jobbannonsen noga och identifiera vilka termer arbetsgivaren använder. Om de skriver "merförsäljning" – använd det ordet. ATS-system matchar exakt.`
+      },
+      {
+        rubrik: 'Kvantifiera din försäljning för ökad trovärdighet',
+        text: `Konkreta siffror skiljer dig från 90% av alla CV:n. Istället för "ansvarig för försäljning", skriv specifika belopp och procent. Tänk på: försäljning i kr/månad, snittköp, merförsäljning i procent, antal kunder per dag.
+
+**Exempel på före/efter**:
+
+❌ "Jobbade med försäljning och bidrog till butikens resultat"
+
+✅ "Ansvarig för 180 000 kr månadsomsättning med snittköp på 650 kr. Ökade merförsäljning från 18% till 32%."
+
+Om siffrorna inte är exakta, uppskatta rimligt – "80-120 kunder dagligen vid högtrafik" är mer trovärdigt än en exakt siffra.`
+      },
+      {
+        rubrik: 'Visa konkreta resultat istället för arbetsuppgifter',
+        text: `Istället för att bara lista vad du gjorde, visa vad du åstadkom. Resultat imponerar mer än passiva listor av uppgifter.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarade för merförsäljning och korsförsäljning i butiken"
+
+✅ "Ökade merförsäljning från 18% till 32% genom aktivt erbjudande av kompletterande produkter. Rankades topp 3 säljare Q3 2024."
+
+Om du inte har direkta försäljningssiffror, visa andra resultat: minskat svinn, förbättrad kundnöjdhet, eller initiativ som förbättrade butiksdriften.`
+      },
+      {
+        rubrik: 'Anpassa profiltext efter butiksmiljö',
+        text: `Profiltexten bör spegla den miljö du söker till. För lyxmode: betona "kundupplevelse", "personlig service". För elektronik: lyfta fram "teknisk rådgivning", "produktkunskap". För dagligvaror: fokusera på "effektivitet", "högt tempo".
+
+**Exempel på före/efter**:
+
+❌ "Ambitiös och social person som gillar att jobba med människor"
+
+✅ "Driven butikssäljare med 4+ års erfarenhet från modehandel. Specialist på merförsäljning – ökade snittköp 25%. Gedigen erfarenhet i Extenda och visuell merchandising."
+
+Max 4 meningar: erfarenhet + specialisering + resultat + egenskaper.`
+      },
+      {
+        rubrik: 'Lyft fram certifieringar och produktkunskap',
+        text: `Säljutbildningar och produktkunskap är stora tillgångar. Lista dem med årtal för att visa att kompetensen är aktuell. Inkludera även intern utbildning från arbetsgivare.
+
+**Exempel på före/efter**:
+
+❌ "Gått diverse kurser inom försäljning"
+
+✅ "Extenda Kassasystem (2021), Säljutbildning konsultativ försäljning – Media Markt Academy (2020), Produktkunskap Samsung TV & Audio (2020)"
+
+Om du jobbat med specifika varumärken, nämn det: "Produktkunskap inom hemelektronik (TV, ljud, vitvaror) från leverantörsutbildningar Samsung, LG, Bosch".`
+      },
+      {
+        rubrik: 'Balansera tekniska och mjuka färdigheter med bevis',
+        text: `Lista både tekniska verktyg (kassasystem, CRM, lagerhantering) och mjuka egenskaper (kundfokus, flexibilitet, stresstålighet). Men avgörande: backa upp mjuka egenskaper med konkreta exempel.
+
+**Exempel på före/efter**:
+
+❌ "Stresstålig, flexibel och serviceinriktad"
+
+✅ "Stresstålig: hanterar 150+ kunder/dag under Black Friday-kampanjer. Flexibel: jobbar kvällar, helger och högtider. Serviceinriktad: byggde kundrelationer som resulterade i 30% återkommande kunder."
+
+Genom konkreta situationer blir egenskaperna trovärdiga istället för tomma buzzwords.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som butikssäljare vara?',
+        svar: 'I Sverige rekommenderas 1-2 sidor. För juniora roller (0-5 års erfarenhet i detaljhandel) räcker vanligtvis 1 sida, medan erfarna säljare med progression till säljansvarig eller butikschef kan behöva 2 sidor för att visa karriärutvecklingen. Fokusera på senaste 5-10 åren och håll texten konkret.'
+      },
+      {
+        fraga: 'Ska jag ha med profilbild på mitt CV?',
+        svar: 'I Sverige är det vanligt men inte obligatoriskt. Välj en professionell bild med neutral bakgrund och affärsmässig klädsel (gärna liknande stil som butiksmiljön du söker till). Undvik semesterbilder eller selfies. Om du söker till modebutik kan bilden visa din stil, men behåll professionaliteten.'
+      },
+      {
+        fraga: 'Vad gör jag om jag har luckor i mitt CV?',
+        svar: 'Var ärlig och kort om luckor. Vid kortare uppehåll (under 6 månader) behöver du inte förklara. För längre perioder, nämn konstruktiva aktiviteter som vidareutbildning (t.ex. säljkurs), volontärarbete, föräldraledighet eller eget företag. Detaljhandel värderar flexibilitet – visa att du hållit dig aktiv.'
+      },
+      {
+        fraga: 'Hur visar jag försäljningssiffror om jag inte jobbat på provision?',
+        svar: 'Även utan provision kan du kvantifiera: uppskatta din månadsomsättning genom att räkna antal kunder per dag × snittköp × arbetsdagar. Exempel: 50 kunder/dag × 400 kr snittköp × 20 dagar = 400 000 kr/månad. Du kan även nämna: "Ansvarig för försäljning på avdelning X med Y kr årsomsättning" eller "Topp 3 säljare i butiken Q2 2024". Om butiken inte mäter individuella siffror, fokusera på relativa mått som ranking, merförsäljning i %, eller kundnöjdhet.'
+      },
+      {
+        fraga: 'Ska jag inkludera extrajobb och kortare anställningar?',
+        svar: 'Ja, särskilt om du är ung eller nyutexaminerad. Extrajobb visar arbetslivserfarenhet, flexibilitet och att du kan hantera kundkontakt. Lista även kortare anställningar (3-6 månader) om de är relevanta – t.ex. säsongsarbete i sportbutik eller sommarjobb på glassbar visar servicevana. Om du har mycket erfarenhet (10+ år), fokusera på senaste rollerna och summera tidiga extrajobb kort: "Diverse extrajobb inom service och detaljhandel (2015-2018)".'
+      },
+      {
+        fraga: 'Hur anpassar jag mitt CV för olika butiksmiljöer?',
+        svar: 'Anpassa nyckelord och fokus. För mode: lyfta fram "visuell merchandising", "trendkänslighet", "styling", "kundupplevelse". För elektronik: betona "teknisk rådgivning", "produktkunskap", "konsultativ försäljning". För dagligvaror: fokusera på "effektivitet", "högt tempo", "svinnhantering". Läs jobbannonsen och identifiera vilka kompetenser arbetsgivaren prioriterar – justera din profiltext och kompetenser därefter. Behåll samma erfarenheter men vinkla beskrivningar mot rätt miljö.'
+      },
+      {
+        fraga: 'Hur visar jag att jag är kundfokuserad utan att bara säga det?',
+        svar: 'Visa genom konkreta exempel i dina erfarenhetsbeskrivningar: "Byggde långsiktiga kundrelationer som resulterade i 30% återkommande kunder", "Ökade kundnöjdheten genom proaktiv service (4.8/5 i kundbetyg)", eller "Hanterade reklamationer med empati vilket minskade eskalering till chef med 50%". Istället för att skriva "kundfokuserad" under kompetenser, beskriv situationer där du gått utöver förväntan – t.ex. "Hjälpte kund hitta produkt från annat lager vilket ledde till 5 000 kr försäljning".'
+      },
+      {
+        fraga: 'Ska jag nämna kassaansvar och kontanthantering?',
+        svar: 'Ja, absolut! Kassaansvar är en nyckelkompetens inom detaljhandel. Nämn specifika system du använt (Extenda, iZettle, Sitoo, Visma Retail) och omfattning: "Kassaansvar inkl. daglig avstämning, kontanthantering och kortterminaler (iZettle)". Om du hanterat stora belopp eller stängningsansvar, lyft det: "Ansvarig för kassaavstämning och säkerhetsdeposition (50 000-100 000 kr dagligen)". Det visar förtroende och noggrannhet.'
+      },
+      {
+        fraga: 'Hur lyfter jag fram flexibilitet och tillgänglighet?',
+        svar: 'Flexibilitet är högt värderat i detaljhandel. Visa konkret i erfarenhetssektionen: "Flexibel schemaläggning: kvällar, helger och högtider", "Jobbade Black Friday-kampanjer (150+ kunder/dag)", eller "Täckte sjukfrånvaro och korta inhopp med kort varsel". Du kan även lista under "Övrigt": "Flexibel tillgänglighet: kvällar, helger och högtider". Om du har körkort och är villig att pendla, nämn det – det ökar dina chanser.'
+      },
+      {
+        fraga: 'Hur mycket produktkunskap ska jag inkludera?',
+        svar: 'Produktkunskap är avgörande, särskilt inom fackhandel (elektronik, sport, verktyg). Lista konkreta kategorier eller varumärken: "Produktkunskap inom hemelektronik: TV, ljud, vitvaror (Samsung, LG, Bosch)", "Specialiserad på löparskor och löputrustning (Asics, Nike, Saucony)", eller "Kunskap om textilmaterial och tvättråd inom mode". Inkludera leverantörsutbildningar med årtal om du genomgått: "Samsung TV & Audio Training (2020)". Det visar expertis och förmåga att rådgiva kunder på djupet.'
+      }
+    ],
+
+    kategori: 'handel',
+    relaterade: [
+      { yrke: 'Butiksbiträde', slug: 'butiksbitrade' },
+      { yrke: 'Säljare', slug: 'saljare' },
+      { yrke: 'Kundtjänst', slug: 'kundtjanst' }
+    ]
+  },
+
   'it-konsult': {
     yrke: 'IT-konsult',
     sokvolym: 620,
