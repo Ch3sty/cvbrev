@@ -132,12 +132,12 @@ Footer:
 | **Viktigt att tänka på** | Bullet checklist | ~40 | ✅ 100% | ❌ | ⭐⭐ Visual hierarchy |
 | **Statistik** | Visual metrics | ~15 | ✅ 100% | ❌ | ⭐⭐⭐ Trust signals |
 | **CV Preview** | Interactive | ~280 | ✅ 100% | ❌ (tabs) | ⭐⭐⭐ Engagement |
-| **Varför det fungerar** | 6 cards | ~230 | ✅ 100% | ❌ | ⭐⭐⭐⭐⭐ Educational, keyword-rik |
+| **Varför det fungerar** | 6 cards | ~500-700 | ✅ 100% | ❌ | ⭐⭐⭐⭐⭐ Educational, keyword-rik |
 | **Tips** | 6 accordion tips | ~408 | ⚠️ Headers | ✅ Content | ⭐⭐⭐⭐ Long-form value |
 | **FAQ** | 10 frågor | ~540 | ⚠️ Frågor | ✅ Svar | ⭐⭐⭐⭐⭐ Rich snippets, long-tail |
 | **Relaterade** | 3 CV-länkar | ~30 | ✅ 100% | ❌ | ⭐⭐⭐ Internal linking |
 | **CTA Final** | Call-to-action | ~25 | ✅ 100% | ❌ | ⭐⭐ Conversion |
-| **TOTAL** | — | **~1,788** | ~50% | ~50% | ⭐⭐⭐⭐⭐ |
+| **TOTAL** | — | **~2,000-2,300** | ~50% | ~50% | ⭐⭐⭐⭐⭐ |
 
 **Content Visibility Strategy:**
 - **Always Visible (50%)**: Hero, SEO Intro, Varför det fungerar cards, FAQ questions, CTA
@@ -177,27 +177,44 @@ Stycke 3 (55 ord):
 #### "Varför det fungerar" – Card Analysis
 
 **Format**: 6 cards, alltid synliga, icke-expanderbara
-**Word Count**: 30-45 ord per card (total ~230 ord)
+**Word Count**: 80-120 ord per card (total ~500-700 ord)
 
-| Card # | Rubrik | Fokus | Ordantal | Keywords Inkluderade |
-|--------|--------|-------|----------|----------------------|
-| 1 | ATS-optimerad struktur med branschspecifika nyckelord | ATS + keywords | 42 | ADL-stöd, personcentrerad vård, demensvård, Cosmic, Procapita |
-| 2 | Kvantifierbara resultat istället för ansvarsområden | Mätbarhet | 35 | Minskade 15%, reducerade 20%, 25-30 patienter |
-| 3 | Balans mellan tekniska och mjuka färdigheter | Holistic view | 38 | Medicindelegering, empati, relationsskapande |
-| 4 | Certifieringar som trovärdighetsmarkör | Credentials | 32 | Akta Ryggen, HLR, nutritionsbedömning |
-| 5 | Profiltext som säljande sammanfattning | Profiltext SEO | 45 | Nyckelord, personliga egenskaper, matchning |
-| 6 | Tydlig progression och ansvar | Karriärutveckling | 30 | Hemtjänst → Äldreboende, mentorskap |
+**Ny Standardstruktur (obligatorisk):**
+```typescript
+{
+  rubrik: 'Kort, beskrivande rubrik (4-8 ord)',
+  text: `[OBSERVATION - 1-2 meningar om vad CV:t visar]
+
+Varför detta fungerar: [2-3 meningar som förklarar varför detta är effektivt ur rekryterarens perspektiv. Konkret, utan intern jargong.]`
+}
+```
+
+**Komponent-stöd:**
+- `VarforDetFungerarCard.tsx` stöder nu:
+  - `**fetstil**` → `<strong>` rendering
+  - "Varför detta fungerar:" → stilad underrubrik med bold text
+  - `\n\n` → paragrafbrytningar
+
+| Card # | Tema (obligatoriskt) | Fokus | Keywords att inkludera |
+|--------|---------------------|-------|------------------------|
+| 1 | ATS-optimering | Branschspecifika nyckelord i CV:t | System, verktyg, termer från SEO-direktiv |
+| 2 | Kvantifiering | Mätbara resultat med siffror | Antal, procent, omfattning |
+| 3 | Balans | Tekniska + mjuka färdigheter | Systemkunskap + egenskaper med bevis |
+| 4 | Certifieringar | Trovärdighetsmarkörer med årtal | Specifika certifikat och förnyelsedatum |
+| 5 | Profiltext | Säljande sammanfattning | Nyckelord, specialisering, värde |
+| 6 | Progression | Karriärutveckling och ansvar | Titlar, ansvar, ledarskap |
 
 **Content Patterns:**
-- Varje card börjar med **action word** eller **benefit** (ATS-optimerad, Kvantifierbara, Balans)
-- Minst 1 card nämner **ATS** (Card 1) ✅
-- Minst 2 cards har **kvantifierbara exempel** (Card 2, 6) ✅
-- Cards backar upp påståenden med **konkreta exempel från CV:t**
+- Varje card börjar med **observation** om vad CV:t visar
+- Följs av "Varför detta fungerar:" som stilad underrubrik
+- Förklarar VARFÖR ur rekryterarens perspektiv
+- **FÖRBJUDET**: Interna referenser (t.ex. "CV_KVALITET_STANDARD.md"), pilar (→), meta-kommentarer
 
 **SEO Impact:**
 - Text är 100% synlig → fullt crawlbar
-- Branschterminologi → semantic relevans
+- Branschterminologi från SEO-direktiv → semantic relevans
 - Educational tone → E-E-A-T (Expertise)
+- Längre text (80-120 ord) → mer keyword-rik content
 
 #### Tips-sektion – Accordion Strategy
 
@@ -297,7 +314,7 @@ Stycke 3 (55 ord):
 
 **Implementation:**
 - **Hero + SEO Intro**: 100% visible (220 ord) → Hook users
-- **Varför det fungerar**: 100% visible (230 ord) → Educational value
+- **Varför det fungerar**: 100% visible (500-700 ord) → Educational value, keyword-rik
 - **Tips**: Headers visible, content accordion (408 ord) → Opt-in learning
 - **FAQ**: Questions visible, answers accordion (540 ord) → Search-friendly
 
@@ -622,52 +639,63 @@ Stycke 3 (40-60 ord):
 
 #### 2. Varför det Fungerar (6 cards, 80-120 ord/card)
 
-⚠️ **REFERENS**: Läs [`CV_KVALITET_STANDARD.md`](/CV_KVALITET_STANDARD.md) för förståelse av VARFÖR vissa CV-element är viktiga enligt branschstandard. Använd detta som grund för att förklara värdet.
+**⚠️ VIKTIGT: Ny standardstruktur (obligatorisk)**
 
-**Themes att täcka (i denna ordning):**
+Varje card MÅSTE följa denna struktur:
 
-1. **ATS-optimering + Branschspecifika Nyckelord**
-   - Nämn 5-7 kritiska keywords för yrket
-   - Förklara varför ATS-system letar efter dessa
-   - Keywords att inkludera: [Lista från LSI]
+```typescript
+{
+  rubrik: 'Kort, beskrivande rubrik (4-8 ord)',
+  text: `[OBSERVATION - 1-2 meningar om vad CV:t visar]
 
-2. **Kvantifierbara Resultat** ⭐ (KÄRNPUNKT från kvalitetsstandarden)
-   - **Referera till kvalitetsstandarden**: Varför är siffror avgörande?
-   - Ge exempel från exempelCV (siffror, procent, antal)
-   - Kontrast med ANTI-PATTERN: "Istället för 'ansvarade för X', visar CV:t 'Y antal X' eller 'minskade Z med 25%'"
-   - **Förklara VARFÖR**: Rekryterare ser mängder av CV:n med vaga påståenden – siffror ger kontext och trovärdighet
-   - Keywords: "mätbar", "konkret", "resultat", "omfattning"
+Varför detta fungerar: [2-3 meningar som förklarar varför detta är effektivt ur rekryterarens perspektiv.]`
+}
+```
 
-3. **Balans Teknisk/Mjuk Kompetens** ⭐ (KÄRNPUNKT från kvalitetsstandarden)
-   - **Referera till anti-pattern**: "Buzzword bingo" (CV_KVALITET_STANDARD.md)
-   - Tekniska: [Lista 3 från exempelCV] – KONKRETA verktyg/system
-   - Mjuka: [Lista 2 från exempelCV] – men BACKAT med bevis i erfarenhetsbeskrivningar
-   - **Förklara VARFÖR**: "Kommunikativ, flexibel" säger inget – visa hur du varit stresstålig genom exempel
-   - Keywords: [Tekniska termer] + [Mjuka färdigheter med kontext]
+**6 Obligatoriska Teman (ett per card, i denna ordning):**
 
-4. **Certifieringar/Trovärdighet med Årtal** ⭐ (Från kvalitetsstandarden)
-   - Nämn 3-4 certifieringar från exempelCV **MED årtal**
-   - **Förklara VARFÖR**: Årtal visar aktualitet (ACLS 2024 vs bara "ACLS-certifierad")
-   - Tidsbegränsade certifieringar: Förnyelsedatum kritiskt (ACLS, truckkort, etc.)
-   - Keywords: "professionalism", "kompetensutveckling", "uppdaterad"
+1. **ATS-optimering**
+   - **Observation**: Vilka branschspecifika nyckelord/system finns i CV:t?
+   - **Varför detta fungerar**: Förklara hur ATS-system filtrerar och varför rätt keywords ökar chansen
+   - **Keywords**: Hämta från SEO-direktiv (LSI-termer)
 
-5. **Profiltext som Säljande Sammanfattning**
-   - **Referera till kvalitetsstandarden**: 3-4 meningar med struktur
-   - Struktur: [Erfarenhet] + [Specialisering] + [3-4 tekniska keywords] + [1-2 drivkrafter]
-   - Varför profiltext är kritisk för ATS + rekryterare (första intrycket!)
-   - Keywords: "sammanfattning", "nyckelord", "matchning"
+2. **Kvantifiering**
+   - **Observation**: Vilka konkreta siffror visar CV:t? (antal, procent, omfattning)
+   - **Varför detta fungerar**: Rekryterare jämför kapacitet – siffror ger kontext
+   - **Keywords**: mätbar, konkret, resultat, omfattning
 
-6. **Progression/Ansvar**
-   - Beskriv karriärprogression från exempelCV (junior → senior)
-   - Nämn mentorskap/ledarskap om relevant
-   - **Konkret omfattning**: Antal teammedlemmar, budget, projektantal
-   - Keywords: "progression", "ansvar", "seniorroll", "ledarskap"
+3. **Balans (Teknisk + Mjuk)**
+   - **Observation**: Hur kombinerar CV:t systemkunskap med mjuka färdigheter?
+   - **Varför detta fungerar**: Arbetsgivare söker båda – bevis på egenskaper väger tyngre än påståenden
+   - **Keywords**: [Tekniska termer från SEO] + egenskaper med konkreta exempel
+
+4. **Certifieringar**
+   - **Observation**: Vilka certifieringar med årtal finns i CV:t?
+   - **Varför detta fungerar**: Årtal visar aktualitet, förnyelsedatum är kritiskt
+   - **Keywords**: professionalism, kompetensutveckling, aktuell
+
+5. **Profiltext**
+   - **Observation**: Hur sammanfattar profiltexten kandidatens värde?
+   - **Varför detta fungerar**: Rekryterare avgör på 10 sekunder – rätt nyckelord fångar uppmärksamhet
+   - **Keywords**: sammanfattning, specialisering, värde
+
+6. **Progression**
+   - **Observation**: Vilken karriärutveckling visar CV:t? (titlar, ansvar, ledarskap)
+   - **Varför detta fungerar**: Progression signalerar ambition och att kandidaten kan växa
+   - **Keywords**: progression, ansvar, utveckling
+
+**FÖRBJUDET innehåll:**
+- ❌ Interna referenser ("CV_KVALITET_STANDARD.md", "enligt riktlinjer")
+- ❌ Pilar (→) i text
+- ❌ Meta-kommentarer om texten själv
+- ❌ Engelska meningar (utom etablerade branschtermer)
+- ❌ Markdown som inte stöds (endast `**fetstil**` och `\n\n` fungerar)
 
 **Format Requirements:**
-- Rubrik: Action word eller benefit ("ATS-optimerad...", "Kvantifierbara...")
-- Text: 2-3 meningar, educational tone
-- **Backa upp med konkreta exempel från exempelCV OCH kvalitetsstandarden**
-- Undvik fluff – varje mening ska tillföra värde och lära användaren något
+- Rubrik: 4-8 ord, beskrivande (inte "ATS-optimering" utan "Branschspecifika system som ATS hittar")
+- Text: 80-120 ord totalt
+- Strukturen "Observation → Varför detta fungerar:" är obligatorisk
+- Använd `\n\n` för att separera observation från förklaring
 
 ---
 
@@ -1375,7 +1403,7 @@ svar: |
 3. Viktigt att tänka på (bullets): ~40 ord
 4. Statistik (visual): ~15 ord
 5. CV Preview (tabs men visible): ~280 ord
-6. Varför det fungerar (6 cards): ~230 ord
+6. Varför det fungerar (6 cards): ~500-700 ord
 7. FAQ questions (headers): ~100 ord
 8. Relaterade CV-exempel: ~30 ord
 9. CTA Final: ~25 ord
