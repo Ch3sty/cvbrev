@@ -2892,6 +2892,290 @@ Genom konkreta situationer blir egenskaperna trovärdiga istället för tomma bu
     ]
   },
 
+  'saljare': {
+    yrke: 'Säljare',
+    sokvolym: 1200,
+    metaTitle: 'CV Exempel Säljare 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för säljare. ATS-optimerat, visar kvotuppfyllelse och CRM-erfarenhet. Inkluderar B2B-försäljning och pipeline management-tips.',
+
+    seoIntro: `Söker du jobb som säljare och behöver ett CV som sticker ut? Det här exemplet visar hur du skapar ett professionellt CV som både passar ATS-system och imponerar på rekryterare inom försäljning. Rätt nyckelord och kvantifierbara resultat är avgörande för att nå intervjustadiet.
+
+CV:t balanserar teknisk CRM-kompetens (Salesforce, HubSpot, pipeline management) med konkreta försäljningsresultat som kvotuppfyllelse, deal size och konverteringsgrader. Du hittar branschspecifika termer som nykundsbearbetning, prospektering och B2B-försäljning – precis de nyckelord som svenska försäljningschefer söker efter. Exemplet inkluderar också kvantifierbara metrics som "118% kvotuppfyllelse" och "25+ leads per kvartal" vilket ger rekryterare konkret bevis på din prestationsförmåga.
+
+Använd detta exempel som inspiration för att strukturera ditt eget CV. Ett välstrukturerat CV ökar dina chanser att nå intervju markant – lägg tid på att få det rätt!`,
+
+    intro: 'Ett professionellt CV-exempel för säljare som visar din försäljningskompetens, CRM-erfarenhet och förmåga att överträffa mål. Detta exempel är optimerat för svenska B2B-företag och ATS-system.',
+
+    exempelCV: {
+      namn: 'Erik Andersson',
+      titel: 'Säljare med specialisering i B2B-försäljning och nykundsbearbetning',
+      kontakt: {
+        telefon: '070-234 56 78',
+        epost: 'erik.andersson@email.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/erikandersson-sales'
+      },
+
+      profil: 'Resultatdriven säljare med 6+ års erfarenhet från B2B-försäljning inom IT- och teknikbranschen. Specialist på nykundsbearbetning och pipeline management med konsekvent kvotuppfyllelse på 110-125%. Gedigen erfarenhet av Salesforce CRM, HubSpot och strategisk prospektering. Strukturerad förhandlare som trivs med att bygga långsiktiga kundrelationer och driva komplexa affärer från first contact till signering.',
+
+      erfarenhet: [
+        {
+          titel: 'Senior Account Executive',
+          arbetsgivare: 'TechSolutions Nordic AB',
+          period: '2021 – Pågående',
+          beskrivning: [
+            'Ansvarig för 45 strategiska B2B-konton med årlig försäljning på 8 MSEK – överträffade kvot med 118% (2023)',
+            'Nykundsbearbetning genom outbound prospektering (cold calling, LinkedIn outreach) – genererade 25+ kvalificerade leads per kvartal',
+            'Pipeline management i Salesforce CRM för 120+ aktiva affärsmöjligheter samtidigt (genomsnittlig deal size 180 000 kr)',
+            'Affärsförhandlingar med C-level beslutsfattare – genomsnittlig säljcykel 3-6 månader för enterprise deals',
+            'Mentorskap för 2 junior säljare under onboarding-period (6 månader vardera)'
+          ]
+        },
+        {
+          titel: 'Fältsäljare',
+          arbetsgivare: 'Nordic Sales Group AB',
+          period: '2019 – 2021',
+          beskrivning: [
+            'B2B-försäljning av IT-tjänster till SME-segment – uppnådde 112% kvotuppfyllelse (2020)',
+            'Prospektering och cold calling med 15% konverteringsgrad (80+ outbound calls per vecka)',
+            'CRM-administration i HubSpot för lead tracking och försäljningsrapportering',
+            'Merförsäljning och korsförsäljning till befintliga kunder vilket ökade genomsnittligt ordervärde med 22%'
+          ]
+        },
+        {
+          titel: 'Junior Säljare',
+          arbetsgivare: 'Telecom Retail AB',
+          period: '2018 – 2019',
+          beskrivning: [
+            'Telefonförsäljning av mobila abonnemang och hårdvara till konsumentmarknaden – 90+ kundkontakter dagligen',
+            'Uppnådde "Rookie of the Year" Q4 2018 (bäst bland 12 nya säljare)',
+            'Inbound och outbound försäljning med 8% konverteringsgrad (över branschsnitt på 5%)'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Kandidatexamen Företagsekonomi, marknadsföring',
+          skola: 'Stockholms Universitet',
+          period: '2015 – 2018',
+          beskrivning: 'Specialisering i B2B-marknadsföring och försäljningsledning. Kandidatuppsats om CRM-implementering i medelstora företag.'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'Salesforce CRM (Expert, 4+ år daglig användning)',
+          'HubSpot Sales Hub (3+ år)',
+          'Pipeline management och prognostisering',
+          'Prospektering (cold calling, LinkedIn Sales Navigator)',
+          'Affärsförhandlingar och closing-tekniker',
+          'Försäljningsrapportering och KPI-analys',
+          'Microsoft Office (Excel för CRM-rapporter, PowerPoint för pitchar)'
+        ],
+        personliga: [
+          'Målinriktad (konsekvent kvotuppfyllelse 110-125%)',
+          'Relationsbyggare (långsiktigt fokus på kundnöjdhet)',
+          'Resilient (hanterar avslag konstruktivt)',
+          'Strukturerad (systematisk i prospektering och uppföljning)',
+          'Kommunikativ (anpassar budskap efter målgrupp)'
+        ]
+      },
+
+      certifieringar: [
+        'Salesforce Certified Sales Professional (2022)',
+        'HubSpot Sales Software Certification (2021)',
+        'SPIN Selling-certifiering – Huthwaite International (2023)',
+        'LinkedIn Sales Navigator Fundamentals (2020)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift (förhandlingsnivå)' },
+        { sprak: 'Tyska', niva: 'Grundläggande affärstyska' }
+      ]
+    },
+
+    viktigt: [
+      'Kvantifiera alltid dina försäljningsresultat – kvotuppfyllelse i procent, omsättning i kronor, antal kunder',
+      'Inkludera branschspecifika CRM-system (Salesforce, HubSpot, Pipedrive, Lime CRM)',
+      'Visa din säljcykel – från prospektering till closing, särskilt för B2B-roller',
+      'Nämn konkret deal size eller genomsnittligt ordervärde för att ge kontext',
+      'Certifieringar är viktiga – Salesforce, HubSpot, SPIN Selling ökar trovärdigheten',
+      'Differentiera mellan B2B och B2C om du har båda erfarenheterna'
+    ],
+
+    statistik: [
+      { label: 'Genomsnittlig kvotuppfyllelse för toppförsäljare', varde: '115-130%', beskrivning: 'Branschstandard för high performers' },
+      { label: 'Andel företag som använder CRM-system', varde: '68%', beskrivning: 'I Sverige enligt Visma-rapport' },
+      { label: 'Konverteringsgrad B2B cold calling', varde: '10-15%', beskrivning: 'Genomsnitt för kvalificerade leads' }
+    ],
+
+    varforDetFungerar: [
+      {
+        rubrik: 'ATS-system känner igen CRM-kompetens direkt',
+        text: `CV:t nämner konkreta system som **Salesforce CRM** och **HubSpot** tillsammans med branschspecifika termer som **pipeline management**, **prospektering** och **B2B-försäljning**.
+
+Varför detta fungerar: De flesta B2B-företag använder Salesforce eller HubSpot för att hantera kundrelationer och säljcykler. ATS-system söker efter exakt dessa termer när de filtrerar kandidater. När du skriver "Salesforce CRM (Expert, 4+ år)" istället för bara "CRM-erfarenhet" matchar du både jobbannonsens kravlista och de nyckelord rekryterare filtrerar på. Du visar omedelbart att du kan komma in och bidra från dag ett utan omfattande systemträning.`
+      },
+      {
+        rubrik: 'Kvantifierbara resultat som imponerar på försäljningschefer',
+        text: `CV:t levererar konkreta siffror: **118% kvotuppfyllelse**, årlig försäljning på **8 MSEK**, genomsnittligt **deal size 180 000 kr**, och **konverteringsgrad på 15%** från prospekt till möte.
+
+Varför detta fungerar: "Duktig säljare med goda resultat" säger ingenting. "118% kvotuppfyllelse över 3 år" visar att du konsekvent överträffar förväntningar. Försäljningschefer älskar siffror eftersom de direkt kan jämföra dig med nuvarande teammedlemmar och se din faktiska påverkan på omsättning. Specifika metrics som konverteringsgrad och deal size bevisar att du inte bara träffar många kunder – du stänger affärer effektivt.`
+      },
+      {
+        rubrik: 'Balans mellan teknisk kompetens och relationsbyggande',
+        text: `CV:t kombinerar tekniska färdigheter som **Salesforce CRM**, **HubSpot Sales Hub** och **LinkedIn Sales Navigator** med konkreta exempel på relationsbyggande: mentorskap för junior-säljare och långsiktiga kundrelationer som genererat merförsäljning på 22%.
+
+Varför detta fungerar: Många säljare listar bara system eller bara "bra på relationer" utan att bevisa det. Du visar teknisk kompetens genom att nämna specifika verktyg med erfarenhetsnivå, och du bevisar relationsbyggande genom metrics: 22% ökad merförsäljning betyder att kunder litar på dig och köper mer. Detta signalerar långsiktig värdeskapande, inte bara snabba engångsaffärer.`
+      },
+      {
+        rubrik: 'Certifieringar som visar seriös kompetensutveckling',
+        text: `CV:t listar **Salesforce Certified Sales Professional (2022)**, **HubSpot Sales Software Certification (2021)** och **SPIN Selling-certifiering (2023)**. Varje certifiering har årtal och koppling till faktiskt arbete där metoderna tillämpas.
+
+Varför detta fungerar: Certifieringar visar att du investerar i din egen utveckling och håller dig uppdaterad med branschens best practices. SPIN Selling är en erkänd säljmetodik för komplexa B2B-affärer, och Salesforce-certifiering bevisar att du inte bara "kan använda systemet" – du har verifierad expertkunskap. Rekryterare ser att du är seriös med ditt yrke och kan komma in som senior-resurs direkt.`
+      },
+      {
+        rubrik: 'Profiltext som fångar uppmärksamhet på 10 sekunder',
+        text: `Profiltexten öppnar med "Resultatdriven säljare med 6+ års erfarenhet från B2B-försäljning" och inkluderar nyckelord som "kvotuppfyllelse 110-125%", "Salesforce CRM", "nykundsbearbetning" och "komplexa affärer". Max 4 meningar, 85 ord totalt.
+
+Varför detta fungerar: Första meningen avgör om rekryterare läser vidare. "Erfaren säljare" är vagt och generiskt. "6+ års B2B, 110-125% kvot, Salesforce CRM" visar omedelbart att du levererar. ATS-system rankar CV:n som har nyckelord tidigt i dokumentet högre, vilket ökar chansen att du kallas till intervju. Specifika siffror i profiltexten gör att du sticker ut bland hundratals andra ansökningar.`
+      },
+      {
+        rubrik: 'Tydlig progression från junior till senior säljare',
+        text: `Erfarenheten visar utveckling: från **Junior Säljare** med fokus på telefonförsäljning och 90+ kundkontakter dagligen, till **Fältsäljare** med eget B2B-ansvar och 112% kvotuppfyllelse, till **Senior Account Executive** med strategiskt ansvar, 8 MSEK årlig försäljning och mentorskap för 2 juniora säljare.
+
+Varför detta fungerar: Många säljare listar jobb utan att visa utveckling. Din progression från telefonförsäljning till strategiskt kundansvar och mentorskap visar att du inte bara stannat kvar – du har växt. Mentorskap för 2 juniorer bevisar att chefer litar på dig och att du kan dela kunskap. Detta signalerar att du är redo för nästa steg i karriären, kanske som säljledare eller Key Account Manager.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera rätt CRM-system och försäljningsterminologi',
+        text: `ATS-system söker efter specifika termer beroende på försäljningsmiljö och bransch. Identifiera vilka CRM-system och försäljningsmetoder som återkommer i jobbannonsen och använd dem ordagrant i ditt CV.
+
+**Exempel på före/efter**:
+
+❌ "Erfarenhet av CRM-system och prospektering"
+
+✅ "5+ års erfarenhet av **Salesforce CRM** och **HubSpot** för pipeline management och lead scoring. Ansvarig för prospektering via LinkedIn Sales Navigator som genererat 200+ kvalificerade leads årligen med 22% konverteringsgrad."
+
+Om arbetsgivaren söker "Salesforce-erfarenhet", använd exakt den termen. ATS-system matchar ofta ordagrant, vilket innebär att vaga termer som "CRM-vana" kan göra att ditt CV sorteras bort trots relevant erfarenhet.`
+      },
+      {
+        rubrik: 'Kvantifiera din försäljning för ökad trovärdighet',
+        text: `Konkreta siffror gör ditt CV mer trovärdigt och jämförbart. Transformera vaga påståenden till mätbara fakta genom att specificera kvotuppfyllelse, omsättning, deal size och konverteringsgrad.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för försäljning och kundkontakt"
+
+✅ "Årlig försäljning på **8 MSEK** med genomsnittlig kvotuppfyllelse på **118%** (2021-2024). Deal size 150-400k kr, konverteringsgrad från demo till avslut **22%** jämfört med teamsnittet på 15%."
+
+Nämn specifika detaljer som stärker din profil: antal års överträffad kvot, genomsnittligt deal size, antal nykundsaffärer per kvartal, eller procent av försäljningen från återköp.`
+      },
+      {
+        rubrik: 'Visa konkreta resultat från prospektering och affärsavslut',
+        text: `Rekryterare vill se vad du åstadkommit, inte bara vad du varit ansvarig för. Fokusera på resultat och effekter av ditt arbete istället för att lista rutinuppgifter.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarig för nykundsbearbetning och uppföljning av leads"
+
+✅ "Identifierade och kvalificerade 200+ prospekt årligen via LinkedIn Sales Navigator och cold outreach. Byggde pipeline värd 5 MSEK genom strategisk prospektering, vilket resulterade i 35 nya företagskunder (2022-2023)."
+
+Detta demonstrerar strategiskt tänkande, initiativförmåga och förmåga att konvertera prospekt till faktiska affärer.`
+      },
+      {
+        rubrik: 'Anpassa profiltext efter B2B eller B2C-fokus',
+        text: `Din profiltext bör skräddarsys för varje jobb du söker. Om jobbannonsen söker "B2B-säljare med SaaS-erfarenhet", börja med exakt det.
+
+**Exempel på före/efter**:
+
+❌ "Erfaren säljare som gillar att möta kunder och stänga affärer"
+
+✅ "Resultatdriven B2B-säljare med 6+ års erfarenhet från SaaS och tech-sektorn. Specialist på komplexa affärsförhandlingar med beslutscykel 3-6 månader, genomsnittlig kvotuppfyllelse 118% och årlig försäljning 8 MSEK."
+
+Inkludera alltid antal års erfarenhet, typ av försäljning (B2B/B2C), konkreta resultat och relevanta system. Håll profiltexten till max 4 meningar.`
+      },
+      {
+        rubrik: 'Lyft fram certifieringar och försäljningsmetodik',
+        text: `Skapa en dedikerad sektion för certifieringar och metoder du behärskar. Detta visar att du är uppdaterad, tar ditt yrke på allvar och kan tillämpa strukturerade säljprocesser.
+
+**Exempel på före/efter**:
+
+❌ "Utbildad i Salesforce och olika säljmetoder"
+
+✅ "**Salesforce Certified Sales Professional** (2022), **HubSpot Sales Software Certification** (2021), **SPIN Selling-certifiering** (2023)"
+
+Inkludera årtal för alla certifieringar och nämn gärna hur du tillämpat metoderna i praktiken. Om du genomgått intern säljträning på arbetsplatsen, ta med även dessa.`
+      },
+      {
+        rubrik: 'Balansera tekniska och mjuka färdigheter med bevis',
+        text: `Lista både tekniska färdigheter (Salesforce, HubSpot, pipeline management) och personliga egenskaper (relationsbyggande, förhandlingsförmåga). Men här är nyckeln: backa alltid upp de mjuka egenskaperna med konkreta exempel.
+
+**Exempel på före/efter**:
+
+❌ "Driven och relationsorienterad säljare med god förhandlingsförmåga"
+
+✅ "Byggde långsiktiga kundrelationer som ökade merförsäljning med **22%**. Förhandlade 25+ komplexa avtal med beslutsfattare på C-level, genomsnittligt deal size 180k kr."
+
+Tekniska färdigheter kan du lista direkt, men mjuka egenskaper behöver bevis för att bli trovärdiga. Koppla varje personlig egenskap till en specifik situation eller metric i din arbetserfarenhet.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som säljare vara?',
+        svar: 'För säljare med 0-5 års erfarenhet räcker vanligtvis 1 sida. Om du har 5+ års erfarenhet och flera roller med kvantifierbara resultat, kan du använda 2 sidor. Prioritera alltid kvalitet över kvantitet – varje rad ska tillföra värde. Rekryterare inom försäljning uppskattar kortfattade, resultatfokuserade CV:n.'
+      },
+      {
+        fraga: 'Ska jag ha med profilbild på mitt CV?',
+        svar: 'I Sverige är det vanligt men inte obligatoriskt. Välj en professionell bild med neutral bakgrund och affärsmässig klädsel – säljroller kräver ofta kundkontakt där professionell framtoning är viktig. Undvik semesterbilder eller selfies. Om du söker internationella företag, kontrollera deras policy kring profilbilder.'
+      },
+      {
+        fraga: 'Vad gör jag om jag har luckor i mitt CV?',
+        svar: 'Var ärlig och kort om luckor. Vid kortare uppehåll (under 6 månader) behöver du inte förklara. För längre perioder, nämn konstruktiva aktiviteter: försäljningskurser, egen verksamhet, volontärarbete som inneburit kontakt med människor. Försäljning handlar om att bygga förtroende – ärlighet värderas högt.'
+      },
+      {
+        fraga: 'Hur visar jag kvotuppfyllelse om jag inte har exakta siffror?',
+        svar: 'Om du inte har exakta procentsiffror, beskriv relativa prestationer: "Överträffade månatliga försäljningsmål konsekvent under 2023", "Top 3 säljare av 15 i teamet Q2-Q4", eller "Sålde för över 5 MSEK årligen". Kvantifiering är kritiskt för säljroller – rekryterare vill se bevis på resultat. Om du är nyutexaminerad, fokusera på konverteringsgrader eller antal kundkontakter.'
+      },
+      {
+        fraga: 'Ska jag inkludera provisionsmodell eller lön i CV:t?',
+        svar: 'Nej, inkludera aldrig löneinformation i CV:t. Provisionsmodell är heller inte relevant – detta diskuteras under intervju eller löneförhandling. Fokusera istället på kvantifierbara resultat som visar din prestationsförmåga: kvotuppfyllelse, omsättning, antal avslutade affärer. Rekryterare kan dra slutsatser om din lönepotential baserat på dina resultat.'
+      },
+      {
+        fraga: 'Hur beskriver jag CRM-erfarenhet om jag använt flera system?',
+        svar: 'Lista de 2-3 mest använda CRM-systemen i kompetensavsnittet med kompetensnivå för ditt huvudsakliga verktyg: "Salesforce CRM (Expert, 4+ år)", "HubSpot Sales Hub", "Pipedrive". I erfarenhetsbeskrivningarna, nämn vilket system du använde för varje roll. Om du har Salesforce-certifiering, lyft fram den i certifieringsavsnittet.'
+      },
+      {
+        fraga: 'Hur anpassar jag mitt CV för B2B vs B2C försäljning?',
+        svar: 'För B2B-roller: Betona nykundsbearbetning, pipeline management, säljcykel-längd, enterprise deals, affärsförhandlingar med beslutsfattare, och Account Management. För B2C-roller: Fokusera på kundvolym (antal kunder/dag), konverteringsgrader, merförsäljning, kundservice, och förmåga att hantera högt tempo. Läs jobbannonsen noga och spegla deras terminologi.'
+      },
+      {
+        fraga: 'Ska jag inkludera försäljningsmetodik (SPIN, Challenger) i mitt CV?',
+        svar: 'Ja, om du är certifierad eller aktivt använder en specifik metodik. Inkludera i certifieringsavsnittet: "SPIN Selling-certifiering – Huthwaite International (2023)". Du kan också nämna metodiken i profiltexten om den är central för din säljstrategi. Detta visar att du har strukturerad approach till försäljning.'
+      },
+      {
+        fraga: 'Hur visar jag att jag är målinriktad utan att bara säga det?',
+        svar: 'Visa genom konkreta exempel: "Överträffade månadsmål 9 av 12 månader under 2023", "Uppnådde 118% kvotuppfyllelse trots tuff marknad", eller "Slutförde 25+ affärer över 100k kr per år". I kompetensavsnittet kan du skriva "Målinriktad (konsekvent kvotuppfyllelse 110-125%)" för att backa upp påståendet med siffror.'
+      },
+      {
+        fraga: 'Hur lyfter jag fram prospektering och nykundsbearbetning?',
+        svar: 'Kvantifiera din prospekteringsaktivitet: "Genomförde 80+ outbound calls per vecka med 15% konverteringsgrad", "Genererade 25+ kvalificerade leads per kvartal via LinkedIn outreach". Nämn vilka kanaler du använder: cold calling, LinkedIn Sales Navigator, email prospektering. För B2B-säljare är detta särskilt viktigt eftersom många roller kräver aktiv jakt.'
+      }
+    ],
+
+    kategori: 'service',
+    relaterade: [
+      { yrke: 'Butikssäljare', slug: 'butikssaljare' },
+      { yrke: 'Kundtjänstmedarbetare', slug: 'kundtjanst' },
+      { yrke: 'Account Manager', slug: 'account-manager' }
+    ]
+  },
+
   'it-konsult': {
     yrke: 'IT-konsult',
     sokvolym: 620,
