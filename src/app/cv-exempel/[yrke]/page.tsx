@@ -1462,49 +1462,88 @@ Varför detta fungerar: Arbetsgivare vill se att du kan växa i rollen och ta st
 
     tips: [
       {
-        rubrik: 'Kvantifiera antal ärenden och leveransprecision',
-        text: `Istället för "Ansvarade för ärendehantering" ska du specificera antal ärenden per månad och din leveransprecision. Detta ger rekryterare konkret bild av din arbetsbelastning och kvalitet.
+        rubrik: 'Inkludera specifika systemnamn för att passera ATS',
+        text: `ATS-system söker efter exakta programvarunamn och verktyg som nämns i jobbannonsen. Generiska termer som "administrativa system" eller "kontorsprogram" ger sällan träff.
 
-**UNDVIK:** "Ansvarade för ärendehantering och administration"
-**BRA:** "Koordinerar 200+ ärenden/månad med 98% leveransprecision inom kommunal ärendehantering (W3D3)"
+Lista konkreta system du behärskar med versionsnummer eller moduler där relevant. Matcha jobbannonsens formuleringar exakt – om de skriver "Microsoft 365" använd inte "Office-paketet".
 
-Siffror visar omfattning, kvalitet och konkret systemkompetens. Rekryterare får omedelbart kontext till din erfarenhet.`
+**Exempel på före/efter**:
+
+❌ "God datorvana och erfarenhet av administrativa system"
+
+✅ "Expert i Microsoft 365 (Word, Excel, Outlook, Teams, SharePoint). Avancerad användare av Visma Administration och W3D3 ärendehantering. Erfarenhet av Fortnox fakturering och Salesforce CRM. Microsoft 365 Certified: Fundamentals (2023)."
+
+Systemnamn ska också finnas under Kompetenser-sektionen för maximal ATS-träff.`
       },
       {
-        rubrik: 'Visa konkreta förbättringar med före/efter',
-        text: `Kvantifierbara resultat sticker ut. Använd procent, tid eller kostnadsbesparingar för att visa hur du förbättrat processer eller skapat värde.
+        rubrik: 'Kvantifiera din arbetsbelastning och leveransprecision',
+        text: `Att skriva "hanterade fakturor" säger ingenting om omfattning eller kvalitet. Rekryterare behöver förstå volymen du klarar av och hur noggrant du arbetar.
 
-**UNDVIK:** "Implementerade nytt system för ärendehantering"
-**BRA:** "Implementerade W3D3 som reducerade genomsnittlig handläggningstid med 30% (från 12 till 8 dagar)"
+Använd konkreta mått: antal ärenden/månad, antal fakturor, antal möten koordinerade, leveransprecision i procent, eller handläggningstid. Visa att du håller hög kvalitet även vid hög belastning.
 
-Skillnaden mellan "förbättrade processer" och "reducerade handläggningstid med 30%" är enorm i rekryterares ögon.`
+**Exempel på före/efter**:
+
+❌ "Ansvarig för fakturahantering och ärendekoordinering"
+
+✅ "Koordinerar 200+ administrativa ärenden/månad med 98% leveransprecision. Hanterar 120+ kundfakturor/månad i Visma med 99% felfri registrering. Bokar och förbereder 30+ styrelsemöten/år med komplett dokumentation."
+
+Siffror gör ditt CV trovärdigt och visar att du kan hantera arbetsbelastningen på den nya tjänsten.`
       },
       {
-        rubrik: 'Lista system med kompetensnivå och användningsområde',
-        text: `Undvik vaga termer som "datorvana" eller "goda Office-kunskaper". Lista istället konkreta system med nivå och specifika verktyg du behärskar.
+        rubrik: 'Visa processförbättringar med tidsbesparingar eller effektivitetsvinster',
+        text: `Administrativa roller handlar inte bara om att utföra rutinuppgifter – arbetsgivare söker någon som kan förbättra arbetssätt och effektivisera processer.
 
-**UNDVIK:** "Goda kunskaper i Office och administrativa system"
-**BRA:** "Microsoft 365 (Expert, 8+ år) – Word, Excel (pivottabeller, LETARAD), Outlook, Teams, SharePoint"
+Beskriv konkreta initiativ du tagit: implementerade nya system, digitaliserade manuella processer, skapade mallar eller rutiner. Kvantifiera resultatet i tidsbesparingar, kostnadsminskning eller ökad kvalitet.
 
-Detta visar exakt vilka verktyg du behärskar, hur länge du använt dem, och vilken nivå du ligger på.`
+**Exempel på före/efter**:
+
+❌ "Förbättrade administrativa rutiner och effektiviserade arbetsprocesser"
+
+✅ "Implementerade W3D3 ärendehanteringssystem som reducerade genomsnittlig handläggningstid från 4 till 2,8 dagar (30% förbättring). Skapade standardmallar för 8 vanliga dokumenttyper vilket sparar teamet 5 timmar/vecka. Digitaliserade arkivering vilket minskade söktider med 60%."
+
+Konkreta förbättringar visar att du tänker strategiskt och tar initiativ.`
       },
       {
-        rubrik: 'Inkludera certifieringar med årtal',
-        text: `Certifieringar visar att du håller dig uppdaterad med system och regelverk. Lista alltid årtal för att visa att kunskapen är aktuell.
+        rubrik: 'Lyft fram regelverkskännedom och certifieringar',
+        text: `Många administrativa roller kräver kännedom om GDPR, offentlighetsprincipen (för offentlig sektor) eller branschspecifika regelverk. Att inte nämna detta kan få dig att sorteras bort.
 
-**UNDVIK:** "Microsoft-certifierad, GDPR-utbildad"
-**BRA:** "Microsoft 365 Certified: Fundamentals (2023), GDPR – Grundkurs personuppgiftshantering (2022)"
+Lista relevanta utbildningar, certifieringar och regelverkskännedom tydligt. Om jobbet är inom offentlig sektor, nämn erfarenhet av OSL (Offentlighetsprincipen och Sekretesslagen). För privat sektor, betona GDPR-kompetens.
 
-Årtal visar att din kunskap är färsk. Särskilt viktigt för GDPR, OSL och systemcertifieringar som uppdateras regelbundet.`
+**Exempel på före/efter**:
+
+❌ "Hanterar känslig information enligt gällande regelverk"
+
+✅ "GDPR-certifierad (2022) med erfarenhet av säker hantering av personuppgifter enligt Dataskyddsförordningen. Arbetat med sekretessklassade ärenden enligt OSL inom kommunal förvaltning. Microsoft 365 Certified: Fundamentals (2023). Utbildad i informationssäkerhet enligt ISO 27001."
+
+Certifieringar och regelverkskännedom ökar din trovärdighet och visar att du kan arbeta korrekt från dag ett.`
       },
       {
-        rubrik: 'Backa upp personliga egenskaper med konkreta bevis',
-        text: `Undvik "buzzword bingo" där du bara listar egenskaper utan kontext. Visa istället dessa genom konkreta exempel från din arbetserfarenhet.
+        rubrik: 'Balansera tekniska färdigheter med kommunikation och samarbete',
+        text: `Ett tekniskt perfekt CV utan mjuka färdigheter kan ge intryck av att du bara sitter vid datorn. Administrativa roller kräver ofta lika mycket kundkontakt, samordning och kommunikation som systemkompetens.
 
-**UNDVIK:** "Serviceinriktad, strukturerad, flexibel och pedagogisk"
-**BRA:** "Pedagogisk (utbildade 15+ kollegor i W3D3, betyg 4.8/5). Strukturerad (98% leveransprecision över 200+ ärenden/månad)"
+Visa att du kombinerar båda: nämn samarbete med chefer, kollegor och externa parter. Inkludera exempel på intern utbildning, kundservice eller projektkoordinering där du var navet mellan olika funktioner.
 
-Konkreta bevis sticker ut. Rekryterare ser tomma listor i varje tredje CV.`
+**Exempel på före/efter**:
+
+❌ "Goda kommunikationsförmågor och serviceinriktad"
+
+✅ "Fungerar som första kontaktpunkt för 50+ externa leverantörer och intern support för 80 medarbetare. Utbildade 15+ kollegor i W3D3 med genomsnittligt betyg 4.8/5. Samordnar kommunikation mellan ledning, ekonomiavdelning och IT-support för smidig verksamhet."
+
+Kombinationen av teknisk kompetens och stark kommunikationsförmåga gör dig till en komplett kandidat.`
+      },
+      {
+        rubrik: 'Anpassa profiltext efter arbetsgivares sektor och storlek',
+        text: `En administratör inom offentlig sektor arbetar annorlunda än en inom startup eller koncern. Profiltext som inte matchar arbetsgivarens kontext signalerar att du inte förstår deras behov.
+
+För offentlig sektor: betona regelverkskännedom, dokumentation, ärendehantering. För privat sektor: lyft effektivitet, flexibilitet, multitasking. För stora organisationer: visa systemvana och struktur. För mindre företag: bred kompetens och initiativförmåga.
+
+**Exempel på före/efter**:
+
+❌ "Driven administratör med bred erfarenhet söker nya utmaningar"
+
+✅ "Senior administratör med 8+ års erfarenhet av offentlig sektor. Specialist på W3D3, sekretessklassade ärenden enligt OSL och GDPR-säker dokumenthantering. Koordinerar 200+ ärenden/månad med 98% leveransprecision."
+
+Anpassad profiltext visar att du förstår arbetsgivarens värld och kan bidra direkt.`
       }
     ],
 
