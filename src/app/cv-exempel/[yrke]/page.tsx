@@ -5312,6 +5312,246 @@ Samma assistent kan ha båda erfarenheterna – men betonar olika saker beroende
       { yrke: 'Vårdbiträde', slug: 'vardbatrade' },
       { yrke: 'Barnskötare', slug: 'barnskotare' }
     ]
+  },
+
+  'kurator': {
+    yrke: 'Kurator',
+    sokvolym: 1200,
+    metaTitle: 'CV Kurator: Exempel & Mall 2025 | Jobbcoach.ai',
+    metaDescription: 'Se ett komplett CV-exempel för kurator. ATS-optimerat med MI-samtal, KBT, psykosocial utredning och journalsystem. Strukturerat för sjukvård, skola och socialtjänst.',
+
+    seoIntro: `Söker du jobb som kurator och behöver ett CV som visar din psykosociala kompetens? Det här exemplet visar hur du strukturerar ett ATS-optimerat CV som passar både sjukvård, skola och socialtjänst.
+
+Du får se exakt hur du balanserar terapeutiska metoder (MI-samtal, KBT, krissamtal) med systemkännedom (Cosmic, TakeCare, Procapita) och dokumentationskompetens. CV:t visar kvantifierbara resultat från både vårdcentralsarbete och elevhälsa med konkreta exempel på samordningsansvar.
+
+Använd det som inspiration för ditt eget CV kurator och anpassa det efter den verksamhet du söker till. Läs också våra tips om hur du lyfter fram rätt nyckelord beroende på om du söker inom sjukvård, psykiatri eller socialtjänst.`,
+
+    intro: 'Ett professionellt CV-exempel för kurator som visar din psykosociala kompetens, terapeutiska färdigheter och samordningsförmåga. Detta exempel är optimerat för svenska vårdgivare, skolor och ATS-system.',
+
+    exempelCV: {
+      namn: 'Maria Bergström',
+      titel: 'Kurator med specialisering i psykosocialt stöd och krisbearbetning',
+      kontakt: {
+        telefon: '070-234 56 78',
+        epost: 'maria.bergstrom@email.se',
+        plats: 'Göteborg',
+        linkedin: 'linkedin.com/in/mariabergstrom'
+      },
+      profil: 'Erfaren kurator med 7+ års erfarenhet från primärvård och elevhälsa. Specialist på MI-samtal, KBT-baserade interventioner och krisbearbetning med gedigen kunskap i TakeCare, Cosmic och Procapita. Strukturerad och empatisk samtalsledare som samordnar tvärprofessionella insatser och dokumenterar enligt socialtjänstlagen och patientdatalagen. Certifierad i MI och utbildad i traumamedveten vård.',
+
+      erfarenhet: [
+        {
+          titel: 'Kurator, Vårdcentral',
+          arbetsgivare: 'Närhälsan Majorna Vårdcentral, Västra Götalandsregionen',
+          period: '2020 – Pågående',
+          beskrivning: [
+            'Ansvarig för psykosocialt stöd till 40-50 patienter månatligen med fokus på stress, oro, depression och livskriser',
+            'Genomför strukturerade MI-samtal och kortare KBT-baserade interventioner – 75% av klienterna uppnår sina behandlingsmål inom 8-12 veckor',
+            'Samordnar insatser med primärvårdsläkare, psykolog, fysioterapeut och hemsjukvård för 20-25 komplexa patienter med multisjukdom',
+            'Utför psykosocial utredning och riskbedömning vid suicidalitet, missbruk och våld i nära relationer',
+            'Dokumenterar i TakeCare och Cosmic dagligen med säker hantering enligt GDPR och patientdatalagen',
+            'Handledare för socionompraktikanter (2 per termin) under VFU-period'
+          ]
+        },
+        {
+          titel: 'Kurator, Elevhälsa',
+          arbetsgivare: 'Göteborgs Stad, Lundby Gymnasium',
+          period: '2017 – 2020',
+          beskrivning: [
+            'Stödsamtal och krissamtal för 80-100 elever årligen med utmaningar kring psykisk ohälsa, studiestress och familjesituation',
+            'Samordnade elevhälsoteam (specialpedagog, skolsköterska, studie- och yrkesvägledare) kring 30-40 elever med omfattande behov',
+            'Initierade samarbete med BUP och socialtjänst för 15 elever vilket minskade skolfrånvaron med 25% i målgruppen',
+            'Implementerade stresshanteringsgrupper för avgångselever (10-12 deltagare) – 40% förbättrad självskattad stresshantering',
+            'Dokumenterade i Procapita och hanterade anmälningsplikt enligt socialtjänstlagen'
+          ]
+        }
+      ],
+
+      utbildning: [
+        {
+          titel: 'Socionomprogrammet',
+          skola: 'Göteborgs universitet',
+          period: '2013 – 2017',
+          beskrivning: 'Inriktning psykosocialt arbete. VFU på psykiatrisk öppenvårdsmottagning (BUP Göteborg) och familjecentral (Göteborgs Stad).'
+        }
+      ],
+
+      kompetenser: {
+        tekniska: [
+          'MI-samtal (Motiverande samtal) (Expert, 7+ år)',
+          'KBT-baserade interventioner (Avancerad, 5+ år)',
+          'Psykosocial utredning och bedömning (Expert, 7+ år)',
+          'Journalsystem: TakeCare och Cosmic (daglig användning)',
+          'Procapita och Treserva (elevhälsa och socialtjänst)',
+          'Krisbearbetning och akut omhändertagande',
+          'Riskbedömning vid suicidalitet (MADRS-S, Columbia-protokollet)'
+        ],
+        personliga: [
+          'Empatisk lyssnare (bygger förtroende i svåra samtal)',
+          'Strukturerad och målinriktad (systematisk uppföljning)',
+          'Tvärprofessionellt samarbete (samordnar vårdteam)',
+          'Stresstålig i krissituationer (akuta bedömningar)',
+          'Pedagogisk och tydlig kommunikation'
+        ]
+      },
+
+      certifieringar: [
+        'MI-certifiering (MINT-godkänd grundutbildning, 2019)',
+        'Traumamedveten vård (TMV) – Steg 1 och 2 (2022)',
+        'Suicidriskbedömning – Columbia-protokollet och MADRS-S (2021)',
+        'Våld i nära relationer – FREDA-metoden (2023)',
+        'GDPR och säker journalhantering (2024)'
+      ],
+
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande' }
+      ]
+    },
+
+    varforDetFungerar: [
+      {
+        rubrik: 'Branschspecifik terminologi ökar ATS-träffsäkerheten',
+        text: `Maria använder exakta termer som "MI-samtal", "KBT-baserade interventioner" och "psykosocial utredning" – samma formuleringar som arbetsgivare söker efter. Hon skriver också ut systemnamn (TakeCare, Cosmic, Procapita) istället för vaga beskrivningar.
+
+Varför detta fungerar: ATS-system i vård och skola söker efter specifika metodnamn och journalsystem. Genom att använda standardiserad terminologi som återfinns i jobbannonser passerar CV:t automatisk filtrering. Rekryterare ser direkt att Maria behärskar de system och metoder som krävs, vilket minskar osäkerheten kring matchning.`
+      },
+      {
+        rubrik: 'Kvantifierade behandlingsresultat ger trovärdighet',
+        text: `CV:t innehåller mätbara resultat: "75% av patienter uppnår behandlingsmål", "25% minskad skolfrånvaro", "40-50 samtal per månad". Varje siffra kopplas till specifik kontext och målgrupp.
+
+Varför detta fungerar: Kuratorsrollen handlar om mätbar förändring, men många kandidater undviker siffror av sekretesskäl. Genom att visa resultat på gruppnivå (utan patientdetaljer) demonstrerar Maria att hon följer upp sitt arbete systematiskt. Rekryterare får konkreta bevis på effektivitet istället för vaga påståenden om "goda resultat".`
+      },
+      {
+        rubrik: 'Tvärprofessionell samordning konkretiseras med roller',
+        text: `Maria beskriver inte bara "samarbete" utan specificerar MED VEM och I VILKET SYFTE: "Samordnar elevhälsoteam (skolsköterska, specialpedagog, rektor) för 30-40 elever". Hon namnger exakta yrkesroller och omfattning.
+
+Varför detta fungerar: Samordningsansvar är centralt i kuratorsrollen men ofta vagt beskrivet. Genom att namnge specifika professioner och visa omfattning bevisar Maria att hon kan leda tvärprofessionella processer – en nyckelkompetens som många arbetsgivare söker men sällan ser tydligt dokumenterad.`
+      },
+      {
+        rubrik: 'Certifieringar med årtal visar systematisk kompetensutveckling',
+        text: `Varje vidareutbildning har årtal: "MI-certifiering (2019)", "Traumamedveten vård (2022)", "Columbia-protokollet (2021)". Certifieringarna täcker både metod och specialområden.
+
+Varför detta fungerar: Arbetsgivare vill se att kuratorn håller sig uppdaterad inom evidensbaserade metoder. Genom att inkludera årtal visar Maria att hon kontinuerligt vidareutbildar sig. Rekryterare kan snabbt se att hon nyligen certifierat sig i traumamedveten vård och FREDA-metoden, vilket signalerar aktuell kompetens.`
+      },
+      {
+        rubrik: 'Profiltext som sammanfattar nyckelkompetens strategiskt',
+        text: `Profiltexten lyfter fram "7+ års erfarenhet från primärvård och elevhälsa" samt "specialist på MI-samtal och krisbearbetning". Detta positionerar Maria direkt inom två sökområden och två huvudmetoder.
+
+Varför detta fungerar: Rekryterare läser profiltexten först och beslutar inom sekunder om kandidaten är relevant. Genom att kombinera erfarenhetstid, arbetskontext (vård + skola) och metoder (MI + kris) får arbetsgivaren omedelbar förståelse för Marias profil, vilket gör att de fortsätter läsa istället för att gå vidare.`
+      },
+      {
+        rubrik: 'Tydlig karriärprogression från behandling till ledning',
+        text: `Tjänsteutvecklingen visar progression: från elevhälsokurator till vårdcentral med samordningsansvar och handledning av praktikanter. Beskrivningarna blir mer komplexa – från individuell behandling till systemansvar.
+
+Varför detta fungerar: Arbetsgivare söker ofta kuratorer som kan växa in i samordnande roller. Genom att visa en naturlig progression från patientnära arbete till systemansvar demonstrerar Maria att hon kan ta ökande ansvar. Rekryterare ser inte bara vad hon gör nu, utan även hennes potential för framtida utveckling.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Inkludera journalsystem och dokumentationsverktyg',
+        text: `Arbetsgivare söker kuratorer som kan starta omedelbart utan systemutbildning. Skriv ut exakta systemnamn under kompetenser eller i tjänstebeskrivningar.
+
+**Exempel på före/efter**:
+
+❌ "Dokumenterar patientsamtal enligt gällande rutiner"
+
+✅ "Dokumenterar i TakeCare och Cosmic enligt GDPR-krav och vårdgivarspecifika riktlinjer"
+
+Genom att namnge specifika system visar du att du behärskar verktyg som används i vård och skola, vilket minskar introduktionstiden.`
+      },
+      {
+        rubrik: 'Visa behandlingsresultat på gruppnivå',
+        text: `Du kan visa effektivitet utan att bryta sekretess genom att presentera aggregerad data. Fokusera på procent, genomsnitt eller antal per period.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarar för samtalsstöd till patienter med ångest och depression"
+
+✅ "Genomför 40-50 MI-samtal/månad där 75% av patienter uppnår uppsatta behandlingsmål inom 6 månader"
+
+Detta bevisar att du följer upp ditt arbete systematiskt och uppnår mätbara resultat.`
+      },
+      {
+        rubrik: 'Anpassa profiltext efter primärvård vs. elevhälsa',
+        text: `Om du söker inom vård, betona patientgrupper och kliniska metoder. Om du söker inom skola, framhåll skolkontext och tvärprofessionell samordning.
+
+**Exempel på före/efter**:
+
+❌ "Erfaren kurator med bred kompetens inom samtalsbehandling"
+
+✅ "Elevhälsokurator med 5 års erfarenhet av MI-samtal med ungdomar 13-18 år och samordning av elevhälsoteam"
+
+Genom att matcha språket i jobbannonsen visar du att du förstår arbetsgivarens specifika behov.`
+      },
+      {
+        rubrik: 'Lista certifieringar med årtal och utfärdare',
+        text: `Certifieringar inom MI, KBT, suicidprevention och trauma är ofta obligatoriska eller meriterande. Strukturera dem tydligt med metod, år och organisation.
+
+**Exempel på före/efter**:
+
+❌ "Utbildning i motiverande samtal"
+
+✅ "MI-certifiering (Motivational Interviewing Network of Trainers, 2019)"
+
+Detta ger trovärdighet och visar att du har formell kompetens från erkända organisationer.`
+      },
+      {
+        rubrik: 'Beskriv tvärprofessionellt samarbete med konkreta roller',
+        text: `Samordningsansvar är centralt men ofta vagt beskrivet. Specificera VILKA professioner du samarbetar med, i VILKET SYFTE och med vilken FREKVENS.
+
+**Exempel på före/efter**:
+
+❌ "Samarbetar med andra professioner inom elevhälsan"
+
+✅ "Samordnar elevhälsoteam (skolsköterska, specialpedagog, rektor) för 12-15 elever/termin med behov av samordnad insats"
+
+Detta visar att du kan leda processer och kommunicera över professionsgränser.`
+      },
+      {
+        rubrik: 'Visa progression från behandling till systemansvar',
+        text: `Arbetsgivare söker kuratorer som kan växa. Strukturera dina tjänster så att du visar utveckling från individuellt behandlingsarbete till bredare ansvar.
+
+**Exempel på före/efter**:
+
+❌ Lista bara arbetsuppgifter kronologiskt utan att visa utveckling
+
+✅ "Kurator (2017-2020): Individuell behandling → Kurator (2020-nu): Behandling + teamsamordning + handledning av socionomer"
+
+Genom att tydliggöra progression visar du ambition och förmåga att ta ökande ansvar.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur visar jag terapeutisk kompetens utan att överdriva?',
+        svar: 'Använd specifika metodnamn (MI, KBT, narrativ terapi) istället för vaga beskrivningar. Inkludera kvantifierbara resultat på gruppnivå: "75% av patienter uppnår behandlingsmål inom 6 månader". Lista certifieringar med årtal för att bevisa formell utbildning. Undvik subjektiva påståenden som "utmärkt samtalsterapeut" – låt resultat och metoder tala för sig.'
+      },
+      {
+        fraga: 'Ska jag inkludera journalsystem i CV:t?',
+        svar: 'Ja, absolut. Arbetsgivare söker ofta kuratorer som kan starta omedelbart. Skriv ut specifika system under Kompetenser eller i tjänstebeskrivningar: "TakeCare, Cosmic, Procapita". Om du arbetat i flera system, gruppera dem efter kontext (primärvård, psykiatri, skola). Detta ökar dina chanser att matcha ATS-filter.'
+      },
+      {
+        fraga: 'Hur hanterar jag att jag bytt mellan sjukvård och skola?',
+        svar: 'Framhåll detta som en styrka – bred erfarenhet av olika patientgrupper och system. I profiltexten, skriv: "Erfaren kurator från både primärvård och elevhälsa". Under varje tjänst, betona överförbar kompetens: MI-samtal, krisbearbetning, tvärprofessionell samordning. Anpassa sedan profiltexten beroende på vad du söker.'
+      },
+      {
+        fraga: 'Vad gör jag om jag saknar formell MI-certifiering?',
+        svar: 'Beskriv din faktiska metodanvändning utan att påstå certifiering: "Tillämpar MI-baserade samtalsmetoder i patientarbete" istället för "MI-certifierad". Om du gått introduktionskurser, skriv: "MI-grundutbildning (40 timmar, 2022)". Kompensera genom att visa konkreta resultat och andra certifieringar.'
+      },
+      {
+        fraga: 'Hur visar jag samordningsansvar konkret?',
+        svar: 'Specificera VEM du samordnar, i VILKET SYFTE och med vilken FREKVENS. Exempel: "Samordnar elevhälsoteam (skolsköterska, specialpedagog, rektor) för 12-15 elever/termin". Inkludera resultat: "Leder månatliga elevhälsomöten som resulterat i 25% minskad skolfrånvaro". Detta konkretiserar ditt systemansvar.'
+      }
+    ],
+
+    kategori: 'vard-omsorg',
+    relaterade: [
+      { yrke: 'Socialsekreterare', slug: 'socialsekreterare' },
+      { yrke: 'Psykolog', slug: 'psykolog' },
+      { yrke: 'Undersköterska', slug: 'underskoterska' }
+    ]
   }
 }
 
