@@ -6419,6 +6419,288 @@ Visa att du FÖRSTÅR tekniken men LEDER arbetet. Fokusera på teamledning, risk
     ]
   },
 
+  'elevassistent': {
+    yrke: 'Elevassistent',
+    sokvolym: 950,
+    metaTitle: 'CV Exempel Elevassistent 2025 - Professionell Mall | Jobbcoach.ai',
+    metaDescription: 'Komplett CV exempel för elevassistent med NPF-erfarenhet. Inkluderar profiltext, kompetenser och tips för autism/ADHD-stöd. Gratis mall 2025.',
+
+    seoIntro: `Ett professionellt CV för elevassistent kräver tydlig fokus på din erfarenhet av att stötta elever i behov av särskilt stöd, särskilt elever med NPF-diagnoser som autism och ADHD. I den här guiden hittar du ett komplett CV-exempel som visar hur du formulerar din erfarenhet av lågaffektivt bemötande, individuella anpassningar och dokumentation i verktyg som IST och Unikum.
+
+Vårt CV-exempel för elevassistent är byggt efter 2025 års rekryteringstrender där skolor söker kandidater med bevisad förmåga att skapa inkluderande lärmiljöer och samverka med elevhälsoteam. Du får se exakt hur du kvantifierar dina resultat – som ökad närvaro, förbättrad måluppfyllelse och minskade konfliktsituationer – vilket gör ditt CV relevant för både ATS-system och rekryterande rektorer.
+
+Oavsett om du söker som elevassistent i grundskola, resurspedagog eller arbetar med elever i förskoleklass, ger det här exemplet dig en proven struktur för att lyfta fram din pedagogiska kompetens, relevanta certifieringar (TAKK, Lågaffektivt bemötande) och förmåga att göra skillnad för elever som behöver extra stöd.`,
+
+    intro: 'Professionellt CV-exempel för elevassistent med fokus på elever med NPF-diagnoser (autism, ADHD). Visar hur du lyfter fram erfarenhet av lågaffektivt bemötande, individuella anpassningar och dokumentation i IST och Unikum. ATS-optimerat för svenska skolor och elevhälsoteam.',
+
+    exempelCV: {
+      namn: 'Emma Lindström',
+      titel: 'Elevassistent med 6+ års erfarenhet av elever med NPF och AST',
+      kontakt: {
+        telefon: '070-234 56 78',
+        epost: 'emma.lindstrom@exempel.se',
+        plats: 'Stockholm',
+        linkedin: 'linkedin.com/in/emmalindstrom'
+      },
+      profil: 'Engagerad elevassistent med 6 års erfarenhet av att stötta elever med NPF, särskilt autism och ADHD, i grundskola och förskoleklass. Certifierad i Lågaffektivt bemötande och TAKK (Tecken som AKK). Specialist på att skapa förutsägbara strukturer och tillgängliga lärmiljöer som främjar inkludering och ökar elevers självkänsla. Driven av att se varje elevs potential och vara en trygg vuxen som gör skillnad i elevers vardag.',
+      erfarenhet: [
+        {
+          titel: 'Senior Elevassistent - NPF-team',
+          arbetsgivare: 'Ängbyskolan, Stockholm Stad',
+          period: '2022 – Nuvarande',
+          beskrivning: [
+            'Stöttar 8 elever med NPF-diagnoser (autism, ADHD, Asperger) i årskurs 4-6, vilket resulterat i 85% närvaro och minskade konfliktsituationer med 60%',
+            'Implementerar individuella anpassningar enligt åtgärdsprogram och dokumenterar elevutveckling i IST och Unikum för 12+ elever',
+            'Samordnar veckovisa elevhälsomöten med specialpedagog, kurator och vårdnadshavare för att säkerställa strukturerat stöd enligt Lgr 22',
+            'Utbildar 6 kollegor i lågaffektivt bemötande och TAKK, vilket ökat teamets kompetens och förbättrat arbetsmiljön',
+            'Skapar visuella scheman och sociala berättelser som ökat elevers självständighet med 40% under läsåret'
+          ]
+        },
+        {
+          titel: 'Elevassistent',
+          arbetsgivare: 'Solbackens Grundskola, Sollentuna',
+          period: '2019 – 2022',
+          beskrivning: [
+            'Gav dagligt stöd till 5 elever med autism och ADHD i årskurs 1-3, vilket möjliggjorde fullständig inkludering i ordinarie klassrum',
+            'Anpassade lärmaterial och skapade strukturer som ökade elevers måluppfyllelse med 35% enligt nationella prov',
+            'Dokumenterade elevobservationer och framsteg i Skolon för samverkan med vårdnadshavare och elevhälsoteam',
+            'Genomförde rastaktiviteter och sociala träningssituationer för 15+ elever, vilket förbättrade kamratrelationer och minskade konflikter med 50%'
+          ]
+        },
+        {
+          titel: 'Vikarie Elevassistent',
+          arbetsgivare: 'Täby Kommun - Olika grundskolor',
+          period: '2018 – 2019',
+          beskrivning: [
+            'Arbetade som vikarie på 8 olika skolor och stöttade elever i behov av extra anpassningar',
+            'Assisterade lärare med praktiska uppgifter och skapade trygghet för 20+ elever under korttidsuppdrag',
+            'Utvecklade förmåga att snabbt etablera relation och anpassa stöd efter olika elevers behov'
+          ]
+        }
+      ],
+      utbildning: [
+        {
+          titel: 'Kompletterande Pedagogisk Utbildning (KPU)',
+          skola: 'Stockholms Universitet',
+          period: '2023 – Pågående',
+          beskrivning: 'Läser mot grundlärarbehörighet med inriktning specialpedagogik, 45 hp avklarade'
+        },
+        {
+          titel: 'Fritidspedagog',
+          skola: 'Stockholms Yrkesgymnasium',
+          period: '2015 – 2018',
+          beskrivning: 'Fördjupning i barn- och ungdomsvetenskap samt NPF-problematik'
+        }
+      ],
+      kompetenser: {
+        tekniska: [
+          'NPF-pedagogik (autism, ADHD, Asperger)',
+          'Lågaffektivt bemötande',
+          'TAKK (Tecken som AKK)',
+          'IST, Unikum, Skolon',
+          'Individuella anpassningar enligt Lgr 22',
+          'Dokumentation åtgärdsprogram',
+          'Visuella pedagogiska verktyg',
+          'Konflikthantering'
+        ],
+        personliga: [
+          'Empatisk (skapar trygghet för elever i utsatta situationer)',
+          'Strukturerad (implementerar tydliga rutiner som minskar stress)',
+          'Samarbetsinriktad (fungerar väl i elevhälsoteam och med vårdnadshavare)',
+          'Problemlösande (anpassar snabbt stöd efter elevers behov)',
+          'Tålamod (behåller lugn i utmanande situationer)'
+        ]
+      },
+      certifieringar: [
+        'Lågaffektivt bemötande - Göteborgs Universitet (2023)',
+        'TAKK Grundkurs - DART (2022)',
+        'Autism och skolmiljö - Autismforum (2021)',
+        'Första hjälpen barn - Röda Korset (2024)',
+        'Kriskunskap för skolan - Skolverket (2020)'
+      ],
+      sprak: [
+        { sprak: 'Svenska', niva: 'Modersmål' },
+        { sprak: 'Engelska', niva: 'Flytande i tal och skrift' }
+      ]
+    },
+
+    viktigt: [
+      'Kvantifiera din påverkan - Ange antal elever du stöttat, förbättring i närvaro eller måluppfyllelse, och minskade konfliktsituationer. Exempel: "Stöttade 8 elever med NPF vilket ökade närvaro till 85%"',
+      'Betona NPF-kompetens - Nämn specifika diagnoser du arbetat med (autism, ADHD), relevanta metoder (lågaffektivt bemötande, TAKK) och certifieringar som visar specialistkompetens',
+      'Visa samverkansförmåga - Elevassistenter arbetar i team. Beskriv hur du samarbetar med specialpedagog, kurator och vårdnadshavare samt dokumenterar i IST/Unikum'
+    ],
+
+    statistik: [
+      {
+        siffra: '18 500',
+        text: 'elevassistenter arbetar i Sverige 2024 – en roll med ökad efterfrågan kopplat till inkluderingsfokus'
+      },
+      {
+        siffra: '12-15%',
+        text: 'av alla elever har särskilt stöd enligt Skolverket, vilket driver behov av kvalificerade elevassistenter'
+      },
+      {
+        siffra: '35 000 kr',
+        text: 'är genomsnittlig månadslön för elevassistent med NPF-specialisering och relevant certifiering'
+      }
+    ],
+
+    varforDetFungerar: [
+      {
+        rubrik: 'NPF-nyckelord och skoltermer',
+        text: `CV:t innehåller specifika termer som ATS-system söker efter: NPF, autism, ADHD, särskilt stöd, elevhälsoteam, IST, Lgr 22, och lågaffektivt bemötande.
+
+Varför detta fungerar: Skolornas rekryteringssystem filtrerar på dessa exakta termer eftersom de visar att du behärskar den pedagogiska terminologin och har relevant kompetens. Utan dessa nyckelord riskerar ditt CV att sorteras bort innan en rektor eller elevhälsochef läser det, oavsett hur erfaren du är.`
+      },
+      {
+        rubrik: 'Mätbara resultat med elever',
+        text: `CV:t visar konkreta siffror: "85% närvaro", "minskade konfliktsituationer med 60%", "ökade elevers måluppfyllelse med 35%", "stöttat 8 elever med NPF-diagnos".
+
+Varför detta fungerar: Rektorer och elevhälsochefer söker bevis på att du faktiskt gör skillnad för eleverna. Vaga påståenden som "hjälpte elever" säger inget om resultat. Siffror visar att du följer upp, dokumenterar och bidrar till skolans uppdrag att alla elever ska nå målen. Det signalerar professionalism och resultatfokus.`
+      },
+      {
+        rubrik: 'Balans mellan pedagogik och omsorg',
+        text: `CV:t kombinerar pedagogiskt arbete ("anpassade lärmaterial", "individuella anpassningar enligt åtgärdsprogram") med omsorgsaspekter ("trygg vuxen", "skapar förutsägbara strukturer").
+
+Varför detta fungerar: Elevassistenter behöver behärska båda delarna. För mycket fokus på bara omsorg kan få dig att framstå som vårdare snarare än pedagogisk medarbetare. Balansen visar att du förstår att trygghet är grunden för lärande, och att ditt mål alltid är elevens utveckling.`
+      },
+      {
+        rubrik: 'Dokumenterad vidareutbildning',
+        text: `CV:t listar specifika kurser med årtal: "Lågaffektivt bemötande (2023)", "TAKK Grundkurs (2022)", "Autism och skolmiljö (2021)".
+
+Varför detta fungerar: Elevassistent är ingen skyddad titel och formell utbildning krävs inte alltid, vilket gör det extra viktigt att visa systematisk kompetensutveckling. Årtal visar att du aktivt håller dig uppdaterad. Detta skiljer dig från sökande som bara skriver "erfarenhet av NPF".`
+      },
+      {
+        rubrik: 'Stark profiltext med specialisering',
+        text: `Profiltexten sammanfattar genast: "6 års erfarenhet av att stötta elever med NPF, särskilt autism och ADHD. Certifierad i Lågaffektivt bemötande och TAKK."
+
+Varför detta fungerar: Rekryterare läser profiltexten först och bestämmer ofta där om de läser vidare. En tydlig specialisering visar att du inte är generalist utan har djup kompetens inom ett eftersökt område. "6 års erfarenhet" etablerar trovärdighet direkt.`
+      },
+      {
+        rubrik: 'Tydlig karriärutveckling',
+        text: `CV:t visar progression: från vikarie på olika skolor (2018) via elevassistent i grundskola (2019) till Senior Elevassistent i NPF-team (2022).
+
+Varför detta fungerar: Progressionen visar att du medvetet utvecklat din kompetens mot ett specialistområde, inte bara bytt jobb. Det signalerar ambition och att du stannar kvar i yrket långsiktigt. Skolor investerar gärna i medarbetare som växer i rollen.`
+      }
+    ],
+
+    tips: [
+      {
+        rubrik: 'Kvantifiera elevernas framsteg',
+        text: `Elevassistentarbete handlar om att göra skillnad för enskilda elever. Visa konkreta resultat istället för vaga beskrivningar.
+
+**Exempel på före/efter**:
+
+❌ "Hjälpte elever med NPF att klara skoldagen"
+
+✅ "Stöttade 8 elever med ADHD/autism – 6 av 8 ökade närvaron från 70% till över 90% under läsåret. 5 elever nådde godkänt i svenska och matte."
+
+Var specifik om antal elever, typ av stöd och mätbara förändringar. Om du inte kan dela exakta siffror av integritetsskäl, använd procent eller intervall.`
+      },
+      {
+        rubrik: 'Visa NPF-kompetens med konkreta metoder',
+        text: `Att skriva "erfarenhet av NPF" säger inget om vad du faktiskt kan göra. Beskriv vilka verktyg och metoder du använder i praktiken.
+
+**Exempel på före/efter**:
+
+❌ "Arbetat med elever med NPF-diagnoser"
+
+✅ "Anpassat lärmiljö för elever med autism: tidsschema med bilder, ljuddämpande hörlurar, tydlig struktur vid övergångar. Använder Time Timer och bildstöd för elever med ADHD."
+
+Nämn specifika verktyg och metoder (lågaffektivt bemötande, TAKK, bildstöd). Detta visar att du aktivt arbetar evidensbaserat.`
+      },
+      {
+        rubrik: 'Lyft fram samverkan med hela teamet',
+        text: `Elevassistenter arbetar aldrig isolerat. Visa hur du samarbetar med lärare, specialpedagog, kurator och vårdnadshavare.
+
+**Exempel på före/efter**:
+
+❌ "Samarbetar med kollegor"
+
+✅ "Deltar i veckovisa elevhälsomöten med lärare, specialpedagog och skolsköterska. Dokumenterar elevens framsteg i Unikum och IST. Håller kontinuerlig kontakt med vårdnadshavare via Skolon."
+
+Nämn konkreta forum och dokumentationssystem. Detta visar att du förstår att elevassistenten är del av ett professionellt team.`
+      },
+      {
+        rubrik: 'Placera utbildningar strategiskt',
+        text: `NPF-kurser och pedagogiska fortbildningar är ofta viktigare än formell grundutbildning för elevassistenter. Lyft fram dem tydligt.
+
+**Exempel på före/efter**:
+
+❌ "Kurser: NPF, lågaffektivt bemötande, tecken"
+
+✅ "Vidareutbildningar inom NPF:
+• Lågaffektivt bemötande, Bo Hejlskov Elvén-metoden (2023)
+• TAKK Grundkurs, DART (2022)
+• Autism och skolmiljö, Autismforum (2021)"
+
+Gruppera utbildningar tematiskt, inkludera årtal och nämn arrangör om det är en välkänd aktör.`
+      },
+      {
+        rubrik: 'Beskriv individuella anpassningar konkret',
+        text: `Att skriva "individuella anpassningar" är för vagt. Ge exempel på VAD du faktiskt gjorde och VARFÖR det fungerade.
+
+**Exempel på före/efter**:
+
+❌ "Ansvarade för individuella anpassningar för elever med särskilda behov"
+
+✅ "Skapade visuellt schema med Boardmaker för elev med autism – minskade övergångsångest och ökade självständighet. Anpassade läsmaterial med färgade överlägg för elev med dyslexi."
+
+Koppla varje anpassning till ett konkret behov och ett mätbart eller observerbart resultat.`
+      },
+      {
+        rubrik: 'Balansera omsorg med pedagogiskt uppdrag',
+        text: `Elevassistenter ger både omvårdnad och pedagogiskt stöd. Se till att CV:t speglar båda aspekterna.
+
+**Exempel på före/efter**:
+
+❌ "Hjälpte elever med på- och avklädning, mat och toalettbesök"
+
+✅ "Stöttade elever med ADL-funktioner för att skapa trygghet och grundförutsättningar för lärande. Arbetade pedagogiskt med läs- och mattestöd enligt åtgärdsprogram. Tränade social samspel på raster."
+
+Visa att omsorgsaspekterna är medel för att eleven ska kunna delta i undervisningen.`
+      }
+    ],
+
+    faq: [
+      {
+        fraga: 'Hur långt ska mitt CV som elevassistent vara?',
+        svar: 'En A4-sida om du har 0-3 års erfarenhet. Två sidor om du har 4+ års erfarenhet eller bred vidareutbildning inom NPF, autism eller specialpedagogik. Fokusera på relevant erfarenhet från skola/förskola – ta bort tidiga jobb som butiksbiträde om du har tillräckligt med skolerfarenhet. Prioritera att visa mångfald i elevgrupper, konkreta anpassningar du gjort, och utbildningar som NPF-kurser eller lågaffektivt bemötande.'
+      },
+      {
+        fraga: 'Behöver jag formell utbildning för att bli elevassistent?',
+        svar: 'Nej, elevassistent är ingen skyddad titel och många skolor anställer utan formell utbildning. Men vidareutbildning gör dig mycket mer konkurrenskraftig. Lägg till kurser i NPF, autism, ADHD, lågaffektivt bemötande eller teckenkommunikation. Många kommuner och organisationer erbjuder dessa som kortkurser. Om du saknar erfarenhet kan du också nämna relevanta egenskaper som tålamod, struktur och intresse för barns utveckling.'
+      },
+      {
+        fraga: 'Hur visar jag NPF-kompetens konkret i CV:t?',
+        svar: 'Skriv inte bara "erfarenhet av NPF". Beskriv istället: vilka diagnoser du arbetat med (autism, ADHD), hur många elever, vilka metoder du använt (lågaffektivt bemötande, Time Timer, bildstöd), och resultat du sett (ökad närvaro, färre konflikter). Nämn även utbildningar med årtal och arrangör. Exempel: "Stöttat 6 elever med autism – skapade visuella scheman som minskade övergångsångest med 70%".'
+      },
+      {
+        fraga: 'Ska jag nämna vilka diagnoser jag arbetat med?',
+        svar: 'Ja, men håll det generellt och professionellt. Skriv "elever med autism", "elever med ADHD" eller "NPF-diagnoser" istället för att beskriva enskilda barns beteenden detaljerat. Du får ALDRIG nämna namn eller detaljer som kan identifiera ett enskilt barn. Fokusera på vad DU gjorde och vilka metoder du använde, inte på barnets problematik.'
+      },
+      {
+        fraga: 'Hur beskriver jag arbete med enskilda elever utan att bryta sekretess?',
+        svar: 'Använd generella formuleringar och aggregerad data. Istället för specifika barn skriver du "stöttade elev i årskurs 4 med dyslexi – anpassade läsmaterial ökade läshastigheten". Använd plural när möjligt: "3 av 4 elever nådde målen i svenska". Ta bort all info om kön, ålder eller unika beteenden som kan identifiera barnet. Fokusera på DIN insats, METODEN och RESULTATET.'
+      },
+      {
+        fraga: 'Hur visar jag samarbetsförmåga i CV:t?',
+        svar: 'Var konkret om vilka yrkesgrupper du samverkar med och i vilka forum. Exempel: "Deltar i veckovisa elevhälsomöten med specialpedagog, kurator och skolsköterska", "Dokumenterar elevframsteg i IST tillsammans med klasslärare", "Kontinuerlig kontakt med vårdnadshavare via Skolon". Nämn även system ni använder och hur ofta ni möts.'
+      },
+      {
+        fraga: 'Vad är skillnaden mellan elevassistent och resurspedagog i CV:t?',
+        svar: 'Elevassistent stöttar enskilda elever med särskilda behov i klassrummet. Resurspedagog är oftast legitimerad lärare som arbetar övergripande med hela elevgrupper. I ditt CV som elevassistent, fokusera på: individanpassat stöd, ADL-funktioner, trygghet och struktur, assisterande pedagogiskt arbete. Undvik att skriva att du "undervisar" om du inte har lärarlegitimation – skriv istället "pedagogiskt stöd enligt lärares planering".'
+      }
+    ],
+
+    kategori: 'utbildning',
+    relaterade: [
+      { yrke: 'Lärare', slug: 'larare' },
+      { yrke: 'Förskollärare', slug: 'forskollarare' },
+      { yrke: 'Fritidsledare', slug: 'fritidsledare' }
+    ]
+  },
+
   'kurator': {
     yrke: 'Kurator',
     sokvolym: 1200,
