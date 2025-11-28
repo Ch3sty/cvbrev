@@ -93,7 +93,7 @@ export default function PremiumNavbar() {
   // Navigation structure matching the existing navbar exactly
   const navigationDropdowns: NavDropdown[] = [
     {
-      name: 'Verktyg',
+      name: 'Vad vi erbjuder',
       icon: Wrench,
       items: [
         {
@@ -160,7 +160,7 @@ export default function PremiumNavbar() {
     { name: 'Hem', href: '/', icon: Home },
     { name: 'Funktioner', href: '/funktioner', icon: LayoutGrid },
     { name: 'Priser', href: '/priser', icon: Tag },
-    { name: 'Exempel', href: '/personligt-brev-exempel', icon: FileText },
+    { name: 'Exempel', href: '/exempel', icon: FileText },
     { name: 'Artiklar', href: '/artiklar', icon: Newspaper },
     { name: 'Om oss', href: '/om-oss', icon: UserIcon }
   ]
