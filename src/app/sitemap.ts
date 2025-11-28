@@ -21,6 +21,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/exempel`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9, // Högt prio - central navigationshub för exempel
+    },
+    {
       url: `${baseUrl}/priser`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
@@ -43,6 +49,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/cv-exempel`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9, // Kategoriöversikt - högt SEO-värde
+    },
+    {
+      url: `${baseUrl}/personligt-brev-exempel`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9, // Kategoriöversikt - högt SEO-värde
     },
     {
       url: `${baseUrl}/skapa-brev`,
@@ -97,8 +115,49 @@ export default function sitemap(): MetadataRoute.Sitemap {
     };
   });
 
-  // 3. Lägg till personligt brev exempel-sidor
-  const YRKES_EXEMPEL = [
+  // 3. Lägg till CV-exempel sidor
+  const CV_EXEMPEL = [
+    'underskoterska',
+    'vardbitrade',
+    'hemtjanst',
+    'forskollarare',
+    'ingenjor',
+    'receptionist',
+    'lagerarbetare',
+    'administrator',
+    'lokalvardare',
+    'handlaggare',
+    'lakare',
+    'butiksbitrade',
+    'it-konsult',
+    'student',
+    'larare',
+    'sjukskoterska',
+    'butikssaljare',
+    'saljare',
+    'sommarjobb',
+    'ekonomiassistent',
+    'barnskotare',
+    'personlig-assistent',
+    'kurator',
+    'servitris-restaurangbitrade',
+    'chef',
+    'projektledare',
+    'elevassistent',
+    'kundtjanst',
+    'kock',
+    // Lägg till fler CV-exempel här när de skapas
+  ];
+
+  const cvExempelPages: MetadataRoute.Sitemap = CV_EXEMPEL.map((yrke) => ({
+    url: `${baseUrl}/cv-exempel/${yrke}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.85, // Högt prio för SEO-viktiga sidor
+  }));
+
+  // 4. Lägg till personligt brev exempel-sidor
+  const PERSONLIGT_BREV_EXEMPEL = [
     'underskoterska',
     'student',
     'larare',
@@ -129,16 +188,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'vardbitrade',
     'hemtjanst',
     'kock',
-    // Lägg till fler yrken här när de skapas
+    // Lägg till fler personligt brev-exempel här när de skapas
   ];
 
-  const yrkesExempelPages: MetadataRoute.Sitemap = YRKES_EXEMPEL.map((yrke) => ({
+  const brevExempelPages: MetadataRoute.Sitemap = PERSONLIGT_BREV_EXEMPEL.map((yrke) => ({
     url: `${baseUrl}/personligt-brev-exempel/${yrke}`,
     lastModified: new Date(),
     changeFrequency: 'weekly',
     priority: 0.85, // Högt prio för SEO-viktiga sidor
   }));
 
-  // 4. Kombinera statiska, artikel- och exempel-sidor
-  return [...staticPages, ...articlePages, ...yrkesExempelPages];
+  // 5. Kombinera statiska, artikel-, CV-exempel- och brev-exempel-sidor
+  return [...staticPages, ...articlePages, ...cvExempelPages, ...brevExempelPages];
 }
